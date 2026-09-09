@@ -41,7 +41,7 @@ Runtime中的无条件UnityEditor引用、IsExternalInit命名空间、缺少包
 
 已核验10份Markdown的UTF-8与62个本地链接（含源码行号），没有失效链接或项目用语问题。阶段加总24–40人日，加入25%余量后为30–50人日；证据规模与文档一致。
 
-采集器使用默认输出路径重跑成功，10组核心报告数据与冻结证据完全相同；原素材551项哈希通过。源仓库HEAD与Git差异不变，21项YYGC关键文件和17项Godot证据文件哈希一致。六个生成器DLL及其六份.meta均已记录。
+采集器对相同行数的文件按路径稳定排序，使用默认输出连续重跑两次，10组核心报告数据均与冻结证据完全相同；原素材551项哈希通过。源仓库HEAD与Git差异不变，21项YYGC关键文件和17项Godot证据文件哈希一致。六个生成器DLL及其六份.meta均已记录。
 
 Git忽略规则覆盖Library、Temp、Obj、Logs、artifacts、本机依赖与UserSettings；README、AGENTS、Unity.meta、Packages锁文件、ProjectSettings与冻结证据未被误忽略。实际Unity开发仍从[执行计划M0](DEVELOPMENT.md)开始。
 

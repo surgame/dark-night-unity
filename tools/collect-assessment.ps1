@@ -72,7 +72,8 @@ function Get-CodeInventory([string]$Root, [string[]]$Folders, [int]$ModuleDepth)
         modules = @($rows | Group-Object module | Sort-Object Name | ForEach-Object {
             [ordered]@{ name = $_.Name; files = $_.Count; lines = [int]($_.Group | Measure-Object lines -Sum).Sum }
         })
-        longest = @($rows | Sort-Object lines -Descending | Select-Object -First 12 path, lines)
+        longest = @($rows | Sort-Object -Property @{ Expression = 'lines'; Descending = $true },
+            @{ Expression = 'path'; Descending = $false } | Select-Object -First 12 path, lines)
     }
 }
 
