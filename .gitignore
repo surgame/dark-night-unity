@@ -1,0 +1,47 @@
+# Unity generated state
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+/[Bb]uild/
+/[Bb]uilds/
+/[Aa]rtifacts/
+/Assets/AddressableAssetsData/*/*.bin*
+/Assets/AddressableAssetsData/*/*.hash*
+/ServerData/
+
+# Machine-local dependencies and IDE files
+/.deps/
+/.vs/
+/.idea/
+/.vscode/
+/*.csproj
+/*.sln
+/*.slnx
+/*.unityproj
+*.user
+*.suo
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+*.local.json
+**/bin/
+**/obj/
+
+# Player data, temporary files and secrets
+/Saves/
+*.log
+*.tmp
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+
+# Assets, .meta, Packages manifests, ProjectSettings and docs/evidence are tracked.

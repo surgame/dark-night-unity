@@ -1,0 +1,463 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-10T00:55:44.0254674+08:00",
+  "scope": "Read-only static assessment. Existing Godot test reports are historical evidence, not tests rerun by this script.",
+  "framework": {
+    "path": "D:\\Developer\\YYGC",
+    "head": "6c3e0ff96221ac4a9fdfe0db85bf8f2cdc8dabc9",
+    "status": [
+      "M  Runtime/UI/UGUI/UGUIManager.cs",
+      "?? Tools/IDRegistry备份数据20260812"
+    ],
+    "staged_numstat": [
+      "71\t37\tRuntime/UI/UGUI/UGUIManager.cs"
+    ]
+  },
+  "framework_package": {
+    "name": "com.tsgame.gamecore",
+    "version": "1.0.0",
+    "displayName": "Game Core",
+    "description": "通用核心框架。",
+    "author": {
+      "name": "Jobscn"
+    },
+    "unity": "6000.2",
+    "unityRelease": "35f1"
+  },
+  "framework_code": {
+    "counting": "Physical .cs lines including comments and blanks; excludes Editor/SourceGenerators~. Folder totals are not Player assembly totals.",
+    "files": 232,
+    "lines": 41260,
+    "over_300": 31,
+    "modules": [
+      {
+        "name": "Editor",
+        "files": 51,
+        "lines": 14496
+      },
+      {
+        "name": "Runtime",
+        "files": 175,
+        "lines": 25495
+      },
+      {
+        "name": "Tests",
+        "files": 6,
+        "lines": 1269
+      }
+    ],
+    "longest": [
+      {
+        "path": "Editor/ObjectDefinitionViewer/ObjectDefinitionViewer.cs",
+        "lines": 2263
+      },
+      {
+        "path": "Runtime/YYPlugins/YYTabs/YYTabsLibs.cs",
+        "lines": 1783
+      },
+      {
+        "path": "Runtime/YYPlugins/YYTabs/YYTabs.cs",
+        "lines": 1616
+      },
+      {
+        "path": "Editor/Objects/Runner/ObjectInstancePreviewHelper.cs",
+        "lines": 1348
+      },
+      {
+        "path": "Runtime/YYPlugins/YYTabs/YYTabsAddTabWindow.cs",
+        "lines": 1218
+      },
+      {
+        "path": "Runtime/YYPlugins/YYToolkits/MapGenerator/Scripts/WorldGenerator.cs",
+        "lines": 1206
+      },
+      {
+        "path": "Editor/AppStartup/AppStartupSettingsEditor.cs",
+        "lines": 1120
+      },
+      {
+        "path": "Runtime/YYPlugins/YYTabs/YYTabsGUI.cs",
+        "lines": 1028
+      },
+      {
+        "path": "Runtime/Objects/Views/ObjectView.cs",
+        "lines": 972
+      },
+      {
+        "path": "Editor/Objects/Definition/ObjectDefinitionEditor.cs",
+        "lines": 928
+      },
+      {
+        "path": "Runtime/Objects/Definition/ObjectDefinitionDatabase.cs",
+        "lines": 644
+      },
+      {
+        "path": "Editor/DI/DIDebugWindow.cs",
+        "lines": 609
+      }
+    ]
+  },
+  "framework_evidence": [
+    {
+      "path": "package.json",
+      "bytes": 228,
+      "sha256": "60a3cdb77e61c61ed8f122464a6fd30ba4e2bf6508313e7126961b28af227264"
+    },
+    {
+      "path": "GameCore.Runtime.asmdef",
+      "bytes": 705,
+      "sha256": "e0e659ef337690263c7a42d1f18dd4150083a8250561730fa8b85564451648ca"
+    },
+    {
+      "path": "Editor/GameCore.Editor.asmdef",
+      "bytes": 671,
+      "sha256": "7748d1810f80a1e1b2b9a13ddb5fa25a6407f70358ae05be677bd97f03efd046"
+    },
+    {
+      "path": "Tests/GameCore.Tests.asmdef",
+      "bytes": 759,
+      "sha256": "9b975d7cee28eed07ae57080d93253856ef87fc0181bf000d53997a8504289f4"
+    },
+    {
+      "path": "Runtime/Objects/NetworkStates/StateSynchronizer.cs",
+      "bytes": 13737,
+      "sha256": "a27095c9aa2340a7015dee1fc4d7a45f657a1ce590fb0a35fece90a807230297"
+    },
+    {
+      "path": "Runtime/Objects/NetworkStates/StatefulBehaviour.cs",
+      "bytes": 13406,
+      "sha256": "3a78e210a31b676f6472b56c7f9e39f1b78297ba4b389ea0ac286dcde93bbda4"
+    },
+    {
+      "path": "Runtime/NetworkCommands/NetworkCommandGateway.cs",
+      "bytes": 4173,
+      "sha256": "e0e8533ab9523ac12f40c1a9deedf6ba5856c177fd501c5cc78987b7b6e9384d"
+    },
+    {
+      "path": "Runtime/NetworkCommands/NetworkCommandProcessor.cs",
+      "bytes": 2598,
+      "sha256": "0452895701cdb9973af0255fd5b79868628abaff76a9e54e411bd9e144da5c7c"
+    },
+    {
+      "path": "Runtime/NetworkCommands/NetworkCommandSender.cs",
+      "bytes": 2253,
+      "sha256": "b41e26d375299bb66e3f9ab5dcc54dc0259120bd8f2a972d1a042a896d772319"
+    },
+    {
+      "path": "Runtime/NetworkCommands/INetworkCommand.cs",
+      "bytes": 1365,
+      "sha256": "cd1020cac952ab6006d42ffac7367cf5594befaf42faf2fbd408bf1c5a7e14fa"
+    },
+    {
+      "path": "Runtime/Objects/Runner/ObjectInstance.cs",
+      "bytes": 18974,
+      "sha256": "2f452ea3c4c151226389bc8dddbaf16e824cc49841c16008c3077d312693e369"
+    },
+    {
+      "path": "Runtime/Objects/Runner/ObjectInstanceFactory.cs",
+      "bytes": 6707,
+      "sha256": "d8814c43d7f2089e9e229fb3d29d5ff1ecdd138ba8955899dbc4e196b017edad"
+    },
+    {
+      "path": "Runtime/Objects/Runner/LocalObjectInstanceInitializer.cs",
+      "bytes": 804,
+      "sha256": "22e0bff5ac10072727104366f781a43c3cd5ae69366d781de2abf1d1df606916"
+    },
+    {
+      "path": "Runtime/Objects/Runner/DI/SessionScope.cs",
+      "bytes": 2288,
+      "sha256": "b6ddc3253e90c75f77cfa42de314be0c7ae0c35faa3bace77ecd0dbf8c3ecfaa"
+    },
+    {
+      "path": "Runtime/Objects/Views/ObjectView.cs",
+      "bytes": 40837,
+      "sha256": "2687eed264134343cb829cc08cb342db3521df98b64916973d0507411cd575ac"
+    },
+    {
+      "path": "Runtime/Objects/Definition/ObjectDefinition.cs",
+      "bytes": 4357,
+      "sha256": "a96b8fb358671641ac241dc30f8fca73bdcbbd8e431bda2400914dde5677401f"
+    },
+    {
+      "path": "Runtime/Middlewares/GenericTypeSerializer/GenericTypeSerializer.cs",
+      "bytes": 2456,
+      "sha256": "d5983cc9d03f8fc93fd3f4fa12af7e509bd3bc7039ec7b130d66b2d952f534fb"
+    },
+    {
+      "path": "Runtime/Utils/IsExternalInit.cs",
+      "bytes": 474,
+      "sha256": "5439671107642a6aa04a2a8e9e7fde4fddf601696145bcd6188d631b2dc720c4"
+    },
+    {
+      "path": "Runtime/AppStartup/AppStartup.cs",
+      "bytes": 10368,
+      "sha256": "825b866b32ccacf0d32dcad185bd458005bcca547a8d9430adeb6bc7897ebada"
+    },
+    {
+      "path": "Runtime/UI/UGUI/UGUIManager.cs",
+      "bytes": 6199,
+      "sha256": "2e9b1fba7ca19cf53b1c9cc83418d88654cc99ae00c9a2ca1914399b924eb7a2"
+    },
+    {
+      "path": "Runtime/YYPlugins/YYArchive/YYArchiveService.cs",
+      "bytes": 25694,
+      "sha256": "60b81a9cd7a72e3e0c89af47dc0b21557980b36fdf46f9bc59427e98d3b51975"
+    }
+  ],
+  "bundled_dlls": [
+    {
+      "path": "Editor/Plugins/YYGC.BehaviourRegistry.Generator.dll",
+      "bytes": 31744,
+      "sha256": "d5a53031d1c0ebaacfacc2e92c963fcb6e39cd6d9865c0d544ca5c4ea8e2be8a"
+    },
+    {
+      "path": "Editor/Plugins/YYGC.DependencyInjection.Generator.dll",
+      "bytes": 24064,
+      "sha256": "53b0ce800fd020e118621943ad24ff49ad7216e24e04dea594eb3f37d1dce1b4"
+    },
+    {
+      "path": "Editor/Plugins/YYGC.ViewBinding.Generator.dll",
+      "bytes": 32768,
+      "sha256": "d49e25fc06baf8e619e5618e401af869d86524b69b12d2b46e844fc97ef9ba06"
+    },
+    {
+      "path": "Runtime/NetworkCommands/SourceGenerators/YYGame.NetworkCommand.Generator.dll",
+      "bytes": 13824,
+      "sha256": "d4f6fafe2ffef0baff783f3350e9a7aaf7c28008e3f3d81e1ed8c4a9170005f6"
+    },
+    {
+      "path": "Runtime/Objects/NetworkStates/SourceGenerators/YYGame.StateDataNoMemPack.Generator.dll",
+      "bytes": 18432,
+      "sha256": "60e6a3902c23d9bb4ccd7fc089a31e9a30feb71019a9250229f59f7ce6463514"
+    },
+    {
+      "path": "Runtime/YYPlugins/YYSingleton/SourceGenerators/GenInstance/YYSingletonInstanceGenerator.dll",
+      "bytes": 9728,
+      "sha256": "38ea296d3c8705e03d66d7cbb6eda89c78560b5507aba48f50e87fc06bd4c4bb"
+    }
+  ],
+  "generator_import_settings": [
+    {
+      "path": "Editor/Plugins/YYGC.BehaviourRegistry.Generator.dll.meta",
+      "bytes": 991,
+      "sha256": "ec3fd9a1281a104be8e75e84e28f2ba5e9360e306a9548f52d478077073bd201"
+    },
+    {
+      "path": "Editor/Plugins/YYGC.DependencyInjection.Generator.dll.meta",
+      "bytes": 991,
+      "sha256": "2defb95bad0047f98827164127a7b05832a1a8f561fff10ba45de183b3d2c757"
+    },
+    {
+      "path": "Editor/Plugins/YYGC.ViewBinding.Generator.dll.meta",
+      "bytes": 988,
+      "sha256": "3586e95e4e4234a491e458dafe00d8d56c2a029f22b16b053d28956bfe4af985"
+    },
+    {
+      "path": "Runtime/NetworkCommands/SourceGenerators/YYGame.NetworkCommand.Generator.dll.meta",
+      "bytes": 1079,
+      "sha256": "c604b367c2824e9e249a7345c7b89280558b50ffcd644af558558e35d09b654c"
+    },
+    {
+      "path": "Runtime/Objects/NetworkStates/SourceGenerators/YYGame.StateDataNoMemPack.Generator.dll.meta",
+      "bytes": 1415,
+      "sha256": "db74978452f1859da7fb522711a0a19b2d1399baa343b673a427c8c2171db845"
+    },
+    {
+      "path": "Runtime/YYPlugins/YYSingleton/SourceGenerators/GenInstance/YYSingletonInstanceGenerator.dll.meta",
+      "bytes": 1079,
+      "sha256": "5760d3c05cf897271c4f434716934acfa4b34b247caf90e0b435d93a1c6710cb"
+    }
+  ],
+  "game": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\projects",
+    "head": "91cb09ff0894f26134f07fd544f1273d9fe7ffaa",
+    "status": [],
+    "staged_numstat": []
+  },
+  "game_code": {
+    "counting": "Physical .cs lines including comments and blanks; excludes Editor/SourceGenerators~. Folder totals are not Player assembly totals.",
+    "files": 115,
+    "lines": 5447,
+    "over_300": 0,
+    "modules": [
+      {
+        "name": "Bootstrap",
+        "files": 5,
+        "lines": 229
+      },
+      {
+        "name": "Content",
+        "files": 14,
+        "lines": 333
+      },
+      {
+        "name": "Persistence",
+        "files": 16,
+        "lines": 692
+      },
+      {
+        "name": "Presentation",
+        "files": 54,
+        "lines": 2814
+      },
+      {
+        "name": "Simulation",
+        "files": 26,
+        "lines": 1379
+      }
+    ],
+    "longest": [
+      {
+        "path": "src/Presentation/Input/GameInput.cs",
+        "lines": 181
+      },
+      {
+        "path": "src/Persistence/SnapshotMapper.cs",
+        "lines": 168
+      },
+      {
+        "path": "src/Simulation/Entities/Actor.cs",
+        "lines": 153
+      },
+      {
+        "path": "src/Presentation/Authoring/ArtReview.cs",
+        "lines": 130
+      },
+      {
+        "path": "src/Simulation/GameSession.cs",
+        "lines": 130
+      },
+      {
+        "path": "src/Simulation/Systems/CombatService.cs",
+        "lines": 120
+      },
+      {
+        "path": "src/Presentation/World/WorldView.cs",
+        "lines": 117
+      },
+      {
+        "path": "src/Presentation/Menus/ModalController.cs",
+        "lines": 115
+      },
+      {
+        "path": "src/Presentation/UI/HudController.cs",
+        "lines": 105
+      },
+      {
+        "path": "src/Presentation/World/EntityViewSynchronizer.cs",
+        "lines": 98
+      },
+      {
+        "path": "src/Presentation/UI/HudSelectionPanel.cs",
+        "lines": 94
+      },
+      {
+        "path": "src/Simulation/Commands/ConstructionService.cs",
+        "lines": 93
+      }
+    ]
+  },
+  "game_evidence": [
+    {
+      "path": "DarkNights.csproj",
+      "bytes": 1593,
+      "sha256": "24c901c72726caf5484c519d613b8e17e236a9ee98a598f833a5a0cdd019e210"
+    },
+    {
+      "path": "data/balance.json",
+      "bytes": 3118,
+      "sha256": "594b39b13d0dd6cc8084a48c23c547c6d04995da0645c5815c55b3fa8ce505dc"
+    },
+    {
+      "path": "data/levels/pinewatch.json",
+      "bytes": 742,
+      "sha256": "d2f7c43b3ffc0c587db12ee47748dece4660630a6d4656de36df18c9c832fa67"
+    },
+    {
+      "path": "assets/manifest.json",
+      "bytes": 212088,
+      "sha256": "bb042696e20a0d49e1b15dbbebfba52d719cd9632639b96db09d3fd04c42c77e"
+    },
+    {
+      "path": "scenes/levels/Pinewatch.tscn",
+      "bytes": 14913,
+      "sha256": "be186c691a843ea279a702a22e5360d60a6b9f8ede322a97f4a3aa1026c3c14b"
+    },
+    {
+      "path": "src/Simulation/GameSession.cs",
+      "bytes": 4400,
+      "sha256": "8de0c2d463a9b0c26c98eb080cad6b1b6e88d3fb7c52cefd7396ed1bd7dbbc69"
+    },
+    {
+      "path": "src/Simulation/State/InteractionState.cs",
+      "bytes": 814,
+      "sha256": "d28e2375f0ed0362048214d016d4f657ff6126f34532e018faefb4b2ffb6a129"
+    },
+    {
+      "path": "src/Simulation/Commands/UnitOrders.cs",
+      "bytes": 3278,
+      "sha256": "b76f6844f2b978174b4dd903a26719c463fc57f4aa7ec2b2aabec5c6dd57b493"
+    },
+    {
+      "path": "src/Simulation/Commands/ConstructionService.cs",
+      "bytes": 4188,
+      "sha256": "572a766da7bb5e3c93fe9334a5d31b265c1893bc46ad027b26ec6fc6c17aff57"
+    },
+    {
+      "path": "src/Simulation/Commands/TrainingService.cs",
+      "bytes": 2716,
+      "sha256": "e27db160906e9cd7ea2b6637fe2ebd3277b0f364240f9b899a2f6778ef2f7c67"
+    },
+    {
+      "path": "src/Content/JsonSettings.cs",
+      "bytes": 584,
+      "sha256": "8b7bdbd91f3cd0f5c7a2e3622df95ee4b0b3434e9e989193a2cdf382897fc742"
+    },
+    {
+      "path": "tests/fixtures/pinewatch-layout-v1.json",
+      "bytes": 1700,
+      "sha256": "76e1c120e2a3410548a5a4bc87faf603ff9bfccde4299fc490ad553b1767b095"
+    },
+    {
+      "path": "tests/fixtures/legacy-v1.json",
+      "bytes": 6683,
+      "sha256": "fe700dd160583786dd7786f87a3940a344899e7991de8c660ad1e1f0a10a240e"
+    },
+    {
+      "path": "tests/fixtures/legacy-v1-after-20s.json",
+      "bytes": 6436,
+      "sha256": "4a297fe16882ea388398d458911714553cf350a8528e77d1dcd5056583f2b8af"
+    },
+    {
+      "path": "artifacts/architecture-validation.json",
+      "bytes": 309,
+      "sha256": "3080f5aa04a4caa98593d611f5e09e8f4cc7fdbd1718e4cc9db2d81cb8020964"
+    },
+    {
+      "path": "artifacts/gameplay-validation.json",
+      "bytes": 5555,
+      "sha256": "d81a6c9845b4e79ff43f1234617bfb98b76590fbdb56d2b7e7aea5d2e06ac984"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "bytes": 9567,
+      "sha256": "f68dabeeab82422ad41cb0773ff6a8bfb3059346858601fb2c505cccc5503dcd"
+    }
+  ],
+  "original_assets": {
+    "files": 551,
+    "bytes": 2010712,
+    "sprite_groups": 75,
+    "sounds": 9,
+    "sha256_verified": true,
+    "failures": []
+  },
+  "unity_observed": {
+    "path": "D:\\Program Files\\Unity\\Unity 6000.2.13f1\\Editor\\Unity.exe",
+    "version": "6000.2.13f1_abdb44fca7f7"
+  },
+  "unity_inventory_is_exhaustive": false,
+  "unity_editor_import_run": false,
+  "unity_player_build_run": false,
+  "multiplayer_runtime_test_run": false
+}
