@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-10T04:20:04.8116889+08:00",
+  "scope": "补齐 Odin Unity.Mathematics 编辑器模块；只验证本机 Unity 导入、编译、程序集重载和 Console。",
+  "issue": {
+    "cause": "Unity.Mathematics 1.3.3 已安装，但 Odin 的模块数据和已激活模块目录缺失；自动激活在 Hierarchy 绘制回调中抛出异常。",
+    "reported_errors": [
+      "Could not load module data for module 'Unity.Mathematics': data could not be found.",
+      "GUI Error: You are pushing more GUIClips than you are popping. Make sure they are balanced."
+    ]
+  },
+  "environment": {
+    "unity_editor": "6000.4.9f1",
+    "project": "Game",
+    "unity_mathematics_package": "1.3.3",
+    "odin_module": "Unity.Mathematics",
+    "odin_module_version": "1.0.1.0",
+    "include_platforms": [
+      "Editor"
+    ]
+  },
+  "provenance": {
+    "checked_reference_project": "D:/Developer/CrazyTD",
+    "reference_project_contains_odin_in_assets_or_manifest": false,
+    "copied_from": "D:/Developer/YYGameTemplate/Assets/Plugins/Sirenix",
+    "source_and_target_odin_editor_sha256": "5390DF14E3DDB1B922FA9AF12B19FDC025C87A043E83C2EDAD7ADF4DBDC4478C",
+    "copy_method": "复制同版本模块的 .data、已激活目录、原始 .meta 和 manifest；导入前检查目标不存在且 GUID 未重复，导入后逐文件复核 SHA-256。",
+    "source_files_modified": false,
+    "copied_files_modified": false,
+    "copied_files": [
+      {
+        "path": "Game/Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics.data",
+        "sha256": "2B4FB136D47A688950C250BA2B26DC2E25A2532CB5E0A514071E41E525483F02",
+        "bytes": 46862,
+        "git_blob_sha256": "2B4FB136D47A688950C250BA2B26DC2E25A2532CB5E0A514071E41E525483F02"
+      },
+      {
+        "path": "Game/Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics.data.meta",
+        "sha256": "3D1629A0DA42D4B7AEAC29B9AF185DD6B1BE3895A74D892E87D425957E13C60F",
+        "bytes": 184,
+        "git_blob_sha256": "AF7371F145C8794E05A99A4C1142ADD63A52C68CAAB4656105F8763E0B554898"
+      },
+      {
+        "path": "Game/Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics.meta",
+        "sha256": "BD1FB3C52F8074C6DFC7412F6F7A0A1AD24E741429F0E8A402696CE8FB0A6067",
+        "bytes": 172,
+        "git_blob_sha256": "BD1FB3C52F8074C6DFC7412F6F7A0A1AD24E741429F0E8A402696CE8FB0A6067"
+      },
+      {
+        "path": "Game/Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics/manifest.txt",
+        "sha256": "876D974DE14F0C5AD0DA460258A3A6080B71FE515F8113D3A780C7C2327235BB",
+        "bytes": 261,
+        "git_blob_sha256": "09E18A063CBEDE978EF4702634126CE4864B1FEADD03CE6054A8DA9AEBD4FCEA"
+      },
+      {
+        "path": "Game/Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics/manifest.txt.meta",
+        "sha256": "14EC733161B5F2D28153D0BA35F5F2DCF38AE215CCE60E8115F0C34FCA2CFE94",
+        "bytes": 158,
+        "git_blob_sha256": "14EC733161B5F2D28153D0BA35F5F2DCF38AE215CCE60E8115F0C34FCA2CFE94"
+      },
+      {
+        "path": "Game/Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics/MathematicsDrawers.cs",
+        "sha256": "E681AE183BCD54FFA75EF736287F7A9C7B37864FF152DD874E6F7B855BE437ED",
+        "bytes": 44388,
+        "git_blob_sha256": "637E9C2E5C2DF978F6248E197C35CDCA121CE4975EE428945F14DFECD08B5C39"
+      },
+      {
+        "path": "Game/Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics/MathematicsDrawers.cs.meta",
+        "sha256": "F6E0496C5715EEEF5B82EC5AB0CA597324A8EC8291058695D765C5A19C7ED960",
+        "bytes": 254,
+        "git_blob_sha256": "8739FCE69EA52A4C471E20EDB4CE3BEDEBE4447D80AAA70F3C3138426900486D"
+      },
+      {
+        "path": "Game/Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics/Sirenix.OdinInspector.Modules.UnityMathematics.asmdef",
+        "sha256": "6226F60E9CE8E88F632CDEB2645CF6CF71C0EB99B55048DB93E397A74A695499",
+        "bytes": 614,
+        "git_blob_sha256": "B9356295D5396FABF9711FAD7B8B6CF887E96642C0378CF325449DC4130A15D3"
+      },
+      {
+        "path": "Game/Assets/Plugins/Sirenix/Odin Inspector/Modules/Unity.Mathematics/Sirenix.OdinInspector.Modules.UnityMathematics.asmdef.meta",
+        "sha256": "C07151C18F656EED0E358B56678A3A5E170850FB3A692E4EDD01118798B637C2",
+        "bytes": 173,
+        "git_blob_sha256": "EC775BAC5450CD61B78992C7324EB9A6C4240598B88C388E3D9B49709AA4465C"
+      }
+    ],
+    "sha256_meaning": "sha256 记录来源及导入后工作区原始字节；git_blob_sha256 记录暂存版本字节。Git 将部分文本 CRLF 规范化为 LF，模块二进制数据保持一致。"
+  },
+  "verification": {
+    "source_hashes_match_after_import": 9,
+    "editor_refresh": "Unity 窗口执行 Refresh，新增程序集由 Unity Csc 编译成功并完成 Domain Reload。",
+    "compilation_evidence": [
+      "[1430/1446  1s] Csc Library/Bee/artifacts/1900b0aE.dag/Sirenix.OdinInspector.Modules.UnityMathematics.dll (+2 others)",
+      "*** Tundra build success (2.87 seconds), 29 items updated, 1446 evaluated",
+      "Mono: successfully reloaded assembly"
+    ],
+    "compiled_module_dll_bytes": 35328,
+    "console_observed_after_refresh": {
+      "errors": 0,
+      "warnings": 0,
+      "informational_logs": 1
+    },
+    "new_log_module_load_errors": 0,
+    "new_log_gui_errors": 0,
+    "new_log_csharp_errors": 0,
+    "original_editor_log_byte_offset": 87649,
+    "local_log_excerpt": "artifacts/odin-mathematics-editor-refresh.log",
+    "log_excerpt_sha256": "4201E84829D959DE24647B362F18CB36691541BBD1EFD8542D380CBF9A05E566",
+    "not_run": [
+      "关闭并重新启动 Unity Editor",
+      "Player 构建与运行",
+      "玩法与联机验收"
+    ],
+    "git_diff_check": {
+      "non_meta_files": "通过",
+      "original_meta_trailing_whitespace_lines": 15,
+      "disposition": "仅原始 Unity .meta 的 userData、assetBundleName、assetBundleVariant 空字段保留行末空格；为保留插件来源字节未重写。"
+    }
+  }
+}
