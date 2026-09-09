@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-09-10T01:52:27.1404021+08:00",
+  "scope": "Read-only YYGC source review, dependency-semantics probes, and actual command-generator execution. No Unity or FishNet runtime validation.",
+  "baseline_compared_groups": [
+    "framework",
+    "framework_package",
+    "framework_code",
+    "framework_evidence",
+    "bundled_dlls",
+    "generator_import_settings",
+    "game",
+    "game_code",
+    "game_evidence",
+    "original_assets"
+  ],
+  "baseline_groups_unchanged": true,
+  "framework": {
+    "path": "D:\\Developer\\YYGC",
+    "head": "6c3e0ff96221ac4a9fdfe0db85bf8f2cdc8dabc9",
+    "status": [
+      "M  Runtime/UI/UGUI/UGUIManager.cs",
+      "?? Tools/IDRegistry备份数据20260812"
+    ],
+    "staged_numstat": [
+      "71\t37\tRuntime/UI/UGUI/UGUIManager.cs"
+    ]
+  },
+  "game": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\projects",
+    "head": "91cb09ff0894f26134f07fd544f1273d9fe7ffaa",
+    "status": [],
+    "staged_numstat": []
+  },
+  "framework_evidence": [
+    {
+      "path": "package.json",
+      "bytes": 228,
+      "sha256": "60a3cdb77e61c61ed8f122464a6fd30ba4e2bf6508313e7126961b28af227264"
+    },
+    {
+      "path": "GameCore.Runtime.asmdef",
+      "bytes": 705,
+      "sha256": "e0e659ef337690263c7a42d1f18dd4150083a8250561730fa8b85564451648ca"
+    },
+    {
+      "path": "Editor/GameCore.Editor.asmdef",
+      "bytes": 671,
+      "sha256": "7748d1810f80a1e1b2b9a13ddb5fa25a6407f70358ae05be677bd97f03efd046"
+    },
+    {
+      "path": "Tests/GameCore.Tests.asmdef",
+      "bytes": 759,
+      "sha256": "9b975d7cee28eed07ae57080d93253856ef87fc0181bf000d53997a8504289f4"
+    },
+    {
+      "path": "Runtime/Objects/NetworkStates/StateSynchronizer.cs",
+      "bytes": 13737,
+      "sha256": "a27095c9aa2340a7015dee1fc4d7a45f657a1ce590fb0a35fece90a807230297"
+    },
+    {
+      "path": "Runtime/Objects/NetworkStates/StatefulBehaviour.cs",
+      "bytes": 13406,
+      "sha256": "3a78e210a31b676f6472b56c7f9e39f1b78297ba4b389ea0ac286dcde93bbda4"
+    },
+    {
+      "path": "Runtime/NetworkCommands/NetworkCommandGateway.cs",
+      "bytes": 4173,
+      "sha256": "e0e8533ab9523ac12f40c1a9deedf6ba5856c177fd501c5cc78987b7b6e9384d"
+    },
+    {
+      "path": "Runtime/NetworkCommands/NetworkCommandProcessor.cs",
+      "bytes": 2598,
+      "sha256": "0452895701cdb9973af0255fd5b79868628abaff76a9e54e411bd9e144da5c7c"
+    },
+    {
+      "path": "Runtime/NetworkCommands/NetworkCommandSender.cs",
+      "bytes": 2253,
+      "sha256": "b41e26d375299bb66e3f9ab5dcc54dc0259120bd8f2a972d1a042a896d772319"
+    },
+    {
+      "path": "Runtime/NetworkCommands/INetworkCommand.cs",
+      "bytes": 1365,
+      "sha256": "cd1020cac952ab6006d42ffac7367cf5594befaf42faf2fbd408bf1c5a7e14fa"
+    },
+    {
+      "path": "Runtime/Objects/Runner/ObjectInstance.cs",
+      "bytes": 18974,
+      "sha256": "2f452ea3c4c151226389bc8dddbaf16e824cc49841c16008c3077d312693e369"
+    },
+    {
+      "path": "Runtime/Objects/Runner/ObjectInstanceFactory.cs",
+      "bytes": 6707,
+      "sha256": "d8814c43d7f2089e9e229fb3d29d5ff1ecdd138ba8955899dbc4e196b017edad"
+    },
+    {
+      "path": "Runtime/Objects/Runner/LocalObjectInstanceInitializer.cs",
+      "bytes": 804,
+      "sha256": "22e0bff5ac10072727104366f781a43c3cd5ae69366d781de2abf1d1df606916"
+    },
+    {
+      "path": "Runtime/Objects/Runner/DI/SessionScope.cs",
+      "bytes": 2288,
+      "sha256": "b6ddc3253e90c75f77cfa42de314be0c7ae0c35faa3bace77ecd0dbf8c3ecfaa"
+    },
+    {
+      "path": "Runtime/Objects/Views/ObjectView.cs",
+      "bytes": 40837,
+      "sha256": "2687eed264134343cb829cc08cb342db3521df98b64916973d0507411cd575ac"
+    },
+    {
+      "path": "Runtime/Objects/Definition/ObjectDefinition.cs",
+      "bytes": 4357,
+      "sha256": "a96b8fb358671641ac241dc30f8fca73bdcbbd8e431bda2400914dde5677401f"
+    },
+    {
+      "path": "Runtime/Middlewares/GenericTypeSerializer/GenericTypeSerializer.cs",
+      "bytes": 2456,
+      "sha256": "d5983cc9d03f8fc93fd3f4fa12af7e509bd3bc7039ec7b130d66b2d952f534fb"
+    },
+    {
+      "path": "Runtime/Utils/IsExternalInit.cs",
+      "bytes": 474,
+      "sha256": "5439671107642a6aa04a2a8e9e7fde4fddf601696145bcd6188d631b2dc720c4"
+    },
+    {
+      "path": "Runtime/AppStartup/AppStartup.cs",
+      "bytes": 10368,
+      "sha256": "825b866b32ccacf0d32dcad185bd458005bcca547a8d9430adeb6bc7897ebada"
+    },
+    {
+      "path": "Runtime/UI/UGUI/UGUIManager.cs",
+      "bytes": 6199,
+      "sha256": "2e9b1fba7ca19cf53b1c9cc83418d88654cc99ae00c9a2ca1914399b924eb7a2"
+    },
+    {
+      "path": "Runtime/YYPlugins/YYArchive/YYArchiveService.cs",
+      "bytes": 25694,
+      "sha256": "60b81a9cd7a72e3e0c89af47dc0b21557980b36fdf46f9bc59427e98d3b51975"
+    }
+  ],
+  "extra_framework_evidence": [
+    {
+      "path": "Runtime/NetworkCommands/NetworkCommandAttribute.cs",
+      "sha256": "33c32d9ad9022c763832d60bcdfb5de6ce43c49dc22f901a1a2cdb51a66721a4"
+    },
+    {
+      "path": "Runtime/NetworkCommands/NetworkCommandStartupModule.cs",
+      "sha256": "c06bb9fb472c7616cab169f87ecc8548f2179249cc9f6591db702f3c7a9fdaa8"
+    },
+    {
+      "path": "Runtime/NetworkCommands/CommandRouters.cs",
+      "sha256": "44da3a162fdc25fd1045755b15e9df0393e19e9022ff01fde8dfa6f55dfc0073"
+    },
+    {
+      "path": "Runtime/Middlewares/GenericTypeSerializer/GenericTypeRegistry.cs",
+      "sha256": "f3c4ce60d530a3a6b4e4368c3bb3d61959face1f109721f1ed66590c476f7abb"
+    },
+    {
+      "path": "Runtime/Middlewares/GenericTypeSerializer/GenericTypePoolDispatcher.cs",
+      "sha256": "b61bd6414881024390bd5017e6ddc2a9fd9a58c1f635de7893e7fcbef4a471f8"
+    },
+    {
+      "path": "Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs",
+      "sha256": "481a8a882797a3516c704fba012c06532500588d448d915ab98856c163d380dd"
+    },
+    {
+      "path": "Editor/Objects/NetworkStates/StateDataInterfaceGenerator.cs",
+      "sha256": "e8dbafe481d68de1d694ae8475f7b0725a28506a81365ca594cce5bfa7a7926b"
+    },
+    {
+      "path": "Runtime/Objects/Singletons/SingletonBehaviours.cs",
+      "sha256": "a1e39f34d02766e02111913de95ae97c8d16c78b55f86f3caefa382aa835568a"
+    },
+    {
+      "path": "Runtime/Interactions/IYYInteractionSessionService.cs",
+      "sha256": "fd1c46d3d3552029695d902ccbfd3a0f3a9b18664f9467c7fbbe92ba07914701"
+    }
+  ],
+  "bundled_dlls": [
+    {
+      "path": "Editor/Plugins/YYGC.BehaviourRegistry.Generator.dll",
+      "bytes": 31744,
+      "sha256": "d5a53031d1c0ebaacfacc2e92c963fcb6e39cd6d9865c0d544ca5c4ea8e2be8a"
+    },
+    {
+      "path": "Editor/Plugins/YYGC.DependencyInjection.Generator.dll",
+      "bytes": 24064,
+      "sha256": "53b0ce800fd020e118621943ad24ff49ad7216e24e04dea594eb3f37d1dce1b4"
+    },
+    {
+      "path": "Editor/Plugins/YYGC.ViewBinding.Generator.dll",
+      "bytes": 32768,
+      "sha256": "d49e25fc06baf8e619e5618e401af869d86524b69b12d2b46e844fc97ef9ba06"
+    },
+    {
+      "path": "Runtime/NetworkCommands/SourceGenerators/YYGame.NetworkCommand.Generator.dll",
+      "bytes": 13824,
+      "sha256": "d4f6fafe2ffef0baff783f3350e9a7aaf7c28008e3f3d81e1ed8c4a9170005f6"
+    },
+    {
+      "path": "Runtime/Objects/NetworkStates/SourceGenerators/YYGame.StateDataNoMemPack.Generator.dll",
+      "bytes": 18432,
+      "sha256": "60e6a3902c23d9bb4ccd7fc089a31e9a30feb71019a9250229f59f7ce6463514"
+    },
+    {
+      "path": "Runtime/YYPlugins/YYSingleton/SourceGenerators/GenInstance/YYSingletonInstanceGenerator.dll",
+      "bytes": 9728,
+      "sha256": "38ea296d3c8705e03d66d7cbb6eda89c78560b5507aba48f50e87fc06bd4c4bb"
+    }
+  ],
+  "original_assets": {
+    "files": 551,
+    "bytes": 2010712,
+    "sprite_groups": 75,
+    "sounds": 9,
+    "sha256_verified": true,
+    "failures": []
+  },
+  "dotnet_sdk": "8.0.409",
+  "probe_sources": [
+    {
+      "path": "tools/NetworkReviewProbe/GeneratorProbe.cs",
+      "sha256": "3c25d1b633bd97b2dec323e39f37c32f55447c1506e6e95a5c0fe840aba52ac9"
+    },
+    {
+      "path": "tools/NetworkReviewProbe/IProbePayload.cs",
+      "sha256": "daafa27775c52f3cc86a837362a9e9ebfe22f4867222a2ff737604e905b984bf"
+    },
+    {
+      "path": "tools/NetworkReviewProbe/NetworkReviewProbe.csproj",
+      "sha256": "b21894e805efb08027d8cd9cb4409e00877eda29a8a192e0f56264e6096d0bbe"
+    },
+    {
+      "path": "tools/NetworkReviewProbe/packages.lock.json",
+      "sha256": "90e630d9eef915e5c16942cae43b599fd56fa7335a3661c09d729396e4df09ab"
+    },
+    {
+      "path": "tools/NetworkReviewProbe/ProbePayload.cs",
+      "sha256": "e42337223f7b9a1aefa18968ddf5574fbe47a53ed7953db2b924ac0051878047"
+    },
+    {
+      "path": "tools/NetworkReviewProbe/Program.cs",
+      "sha256": "55461de45ee1909cfb85121b0b7dfbe8ebbf5afc696cc73dcc25a8e22b990fca"
+    },
+    {
+      "path": "tools/NetworkReviewProbe/README.md",
+      "sha256": "e8a6655edc13dfe11aae4db5cca539285385599d079391ec14a174d969efb29d"
+    }
+  ],
+  "observations": {
+    "observedAt": "2026-09-10T01:51:24.4025069+08:00",
+    "scope": "Dependency semantics and actual YYGC command-generator output only; no Unity/FishNet runtime",
+    "runtime": "8.0.16",
+    "r3Package": "1.3.0",
+    "memoryPackPackage": "1.21.4",
+    "whereThenSkipWithNull": [
+      2
+    ],
+    "whereThenSkipWithSeed": [
+      1,
+      2
+    ],
+    "concreteRoundtrip": 42,
+    "unregisteredInterfaceException": "DarkNights.Tools.NetworkReview.IProbePayload is not registered in this provider.",
+    "commandGenerator": {
+      "attributeNamespace": "GameCore.NetworkCommands",
+      "generatorCount": 1,
+      "outputCount": 0,
+      "diagnostics": [],
+      "outputs": []
+    },
+    "legacyNamespaceControl": {
+      "attributeNamespace": "YYRuntime.NetworkCommands",
+      "generatorCount": 1,
+      "outputCount": 1,
+      "diagnostics": [],
+      "outputs": [
+        {
+          "name": "ExampleCommand.g.cs",
+          "text": "// <auto-generated/>\r\n#nullable enable\r\n#pragma warning disable CS8019 // Unnecessary using directive\r\nusing VitalRouter;\r\nusing YYRuntime.NetworkCommands;\r\n\r\nnamespace Probe\r\n{\r\n    public partial record ExampleCommand : global::YYRuntime.NetworkCommands.IReliableNetworkCommand, global::YYRuntime.NetworkCommands.IServerOnlyCommand, global::YYRuntime.NetworkCommands.IAutoPublishCommand<global::Probe.ExampleCommand>\r\n    {\r\n    }\r\n}\r\n"
+        }
+      ]
+    }
+  },
+  "unity_player_build_run": false,
+  "multiplayer_runtime_test_run": false
+}

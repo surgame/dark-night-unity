@@ -73,6 +73,8 @@ M0 选择 Unity 可用且版本固定的 JSON 库；优先复用宿主已验证�
 
 ## M0 退出条件
 
+复评新增前置项：命令生成器 DLL 的旧命名空间、接口 MemoryPack formatter 闭环和状态初始 null 的首次发布必须逐项核实/修正，见[复评 R01–R03](YYGC_REASSESSMENT.md)。本轮 .NET 8 探针锁定的 R3/MemoryPack 版本仅用于评估，不是 Unity 依赖版本结论。
+
 - Editor 补丁、API profile、依赖版本、框架 commit 和生成器都可重现。
 - 全新目录导入成功，Runtime 没有 Editor 类型泄漏。
 - 生成器样例、网络 DTO 往返与类型注册可用，正式 Player 构建并能启动。

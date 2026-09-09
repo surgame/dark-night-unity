@@ -22,6 +22,7 @@
 - C# 9 使用块级 namespace、普通构造函数和显式集合初始化；不能使用文件级 namespace、required、主构造函数、C# 12 集合表达式。
 - 不复制整个 Godot 数学库或建立通用引擎抽象。只迁移实际使用的坐标、数学和可恢复随机数能力。
 - 沿用 YYGC 现有启动、DI、视图、资源与 UI 接口，不另造并列的 DI 容器或全局事件框架。框架本身的历史长文件不在本次全面拆分范围内。
+- 联机实现先读 [YYGC能力复评](docs/YYGC_REASSESSMENT.md)。优先修正并复用 Gateway/Sender/Processor、类型注册/序列化和会话 StatefulBehaviour/StateSynchronizer；游戏仅补权限、业务去重、投影、Ready、epoch和恢复。先验证可靠完整投影，测量后决定分块/拆流；局部后备网络适配必须有现有路径无法满足需求的具体证据。本地输入互斥复用 Interaction Sessions。
 
 ## 权威状态与联机
 

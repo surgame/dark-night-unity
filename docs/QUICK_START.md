@@ -1,11 +1,11 @@
 # 人工开发 Quick start
 
-当前仓库是评估与开发准备，尚不能从Unity Hub打开运行。实际工程创建始于M0；先按[依赖文档](DEPENDENCIES.md)取得可构建的YYGC版本和依赖，再建立Unity场景。
+当前成果是评估与开发准备，尚未验证Unity游戏运行。复核结束时已有 `DNights/` 宿主，版本为6000.4.9f1，本轮未修改或验收；M0先核对它与原Unity6.2方案的版本和目录差异，再按[依赖文档](DEPENDENCIES.md)取得可构建的YYGC版本，不重复创建宿主。
 
 ## 先读什么
 
 1. 读[README](../README.md)确认当前状态、范围与联机假设。
-2. 读[框架评估](FRAMEWORK_REVIEW.md)的F01–F07，理解编译依赖、身份和状态归属。
+2. 先读最新[YYGC能力复评](YYGC_REASSESSMENT.md)，明确复用边界和生成链路缺口；再读[框架评估](FRAMEWORK_REVIEW.md)的F01–F07。
 3. 读[技术架构](ARCHITECTURE.md)的程序集表，再读[联机设计](MULTIPLAYER.md)的权限和请求流水线。
 4. 按[开发执行计划](DEVELOPMENT.md)从M0推进，每阶段完成出口后再扩展内容。
 

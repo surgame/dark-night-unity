@@ -1,13 +1,13 @@
 # Dark Nights Unity 技术架构
 
-状态：设计基线，尚未实现。目标是在 YYGC 上建立一个可编辑、可验证的合作关卡，同时保留现有规则和单一权威模拟。
+状态：设计基线，尚未实现。目标是在 YYGC 上建立一个可编辑、可验证的合作关卡，同时保留现有规则和单一权威模拟。联机实现路径已按[能力复评](YYGC_REASSESSMENT.md)调整：先修正并复用 YYGC 命令/状态链，再按测量补能力。
 
 ## 设计选择
 
 | 方案 | 成本与适用性 | 结论 |
 |---|---|---|
 | 每个居民／建筑都改为 NetworkObject＋多组 StatefulBehaviour | 深入使用框架同步，但需要重组全部规则、时钟、ID、出生和保存；容易出现两套状态 | 首版不选 |
-| 集中 GameSession＋会话网络桥＋YYGC 本地视图 | 可迁移现有规则，集中处理经济和冲突；网络更新与渲染频率可独立控制 | **首版采用** |
+| 集中 GameSession＋YYGC 会话状态同步＋本地视图 | 可迁移现有规则；用会话 StatefulBehaviour/StateSynchronizer 承载冻结投影，集中处理冲突 | **优先验证并采用** |
 | 确定性锁步或回滚 | 需要跨平台确定性、命令延迟和追帧等额外设施；当前为小规模合作营地 | 需求出现后另评估 |
 
 关键对象为一个会话网络对象、每位玩家一个连接／命令入口对象，以及各客户端的本地实体视图。美术资源仍是原生 Prefab，联机并不要求每个 Sprite 都成为网络对象。
@@ -34,7 +34,7 @@ flowchart LR
     Intent --> Gate["连接身份 + 校验 + 去重 + 队列"]
     Gate --> Sim
     Sim --> Projection["冻结展示快照"]
-    Projection --> Transport["FishNet 会话桥"]
+    Projection --> Transport["YYGC 会话状态同步 / FishNet"]
     Transport --> Replica["各客户端世界展示副本"]
     Projection -->|Host 本地一次投递| Replica
     Replica --> Views["YYGC ObjectView + Unity Prefab / HUD"]
@@ -58,8 +58,8 @@ Assets/DarkNights/
     Persistence/                  纯快照模型与关系校验，无文件访问
   Runtime/                        DarkNights.Runtime.asmdef
     Session/                      权威会话、玩家表、权限、恢复流程
-    Networking/Commands/          FishNet 身份入口、结果确认
-    Networking/Snapshots/         快照发送、分块、合并、版本检查
+    Networking/Commands/          YYGC 可信上下文到游戏权限、结果确认
+    Networking/Snapshots/         会话投影、原子应用、版本检查；按需分块
     Networking/Connections/       加入、Ready、重连、断开
     Networking/Protocol/          版本化 wire DTO、序列化适配
     Framework/                    YYGC 启动、定义、容器与资源适配
@@ -101,7 +101,9 @@ Core 中的只读接口让 Presentation 提交意图和读取副本，Bootstrap 
 - Root DI 保存跨局的不可变内容、资源和应用服务；会话容器保存本局服务；本地对象容器仅保存视图与绑定依赖。一次只运行一场权威对局。
 - 场景、HUD、居民、建筑与工位使用 ObjectDefinition/PrefabRef 映射。普通游戏视图为 Local 对象，使用 ObjectView 和少量 PooledBehaviour；不挂依赖 Network 非空的 StatefulBehaviour。
 - 规则 ID 如 `worker`、`tavern` 显式映射到 YYGC DefinitionId。SharedConfigs 保存映射、视图引用或展示参数；HP、成本与计时只从 Core 规则读取。
-- 首版游戏命令使用专用 CampCommandEndpoint。复用 FishNet 的连接、RPC 和经过验证的序列化能力，避免现有全局 Gateway 的本地优先执行和身份上下文缺口。
+- 命令优先使用经修正验证的 YYGC Gateway/Sender/Processor、INetworkCommand 和统一类型注册；权威路由策略及可信上下文归框架，营地授权/去重归游戏。CampCommandEndpoint 仅可作为薄业务适配名称，不默认新建网络入口栈。
+- 会话对象优先用一个普通 StatefulBehaviour 承载完整冻结投影，复用 StateSynchronizer 首次及后续发送；首个切片采用有界可靠完整投影。分块、差量与运动拆流在测量后决定，始终保留 GameSession 作为唯一业务写入者。
+- 本地建造预览、目标选择和模态菜单的输入互斥复用 YYGC Interaction Sessions；它不保存共享营地或网络连接状态。
 - 会话对象与玩家入口 Prefab 必须注册到 FishNet；世界的本地视图通过 EntityId 与展示副本关联，不需要每实体 NetworkTransform。
 - Addressables 先使用本地打包内容。资源 await 不跨 SessionScope；必要时只扩展框架工厂的显式容器传递与同步装配点。
 - UGUI 在场景中有可见根，面板在 Prefab Mode 可编辑；整个 HUD 使用同一 UI 体系。绑定键和类型有验证，不能靠运行时遍历名称掩盖 Prefab 缺引用。
