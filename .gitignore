@@ -13,6 +13,25 @@
 /Assets/AddressableAssetsData/*/*.hash*
 /ServerData/
 
+# The single Unity project lives below this repository root. Keep generated
+# state ignored there while leaving future sibling folders such as Server
+# available for their own source files.
+/Game/[Ll]ibrary/
+/Game/[Tt]emp/
+/Game/[Oo]bj/
+/Game/[Ll]ogs/
+/Game/[Uu]ser[Ss]ettings/
+/Game/[Bb]uild/
+/Game/[Bb]uilds/
+/Game/[Aa]rtifacts/
+/Game/ServerData/
+/Game/Assets/AddressableAssetsData/*/*.bin*
+/Game/Assets/AddressableAssetsData/*/*.hash*
+/Game/*.csproj
+/Game/*.sln
+/Game/*.slnx
+/Game/*.unityproj
+
 # Machine-local dependencies and IDE files
 /.deps/
 /.vs/
@@ -28,6 +47,7 @@
 *.booproj
 *.svd
 *.pdb
+*.mdb
 *.opendb
 *.VC.db
 *.local.json

@@ -1,6 +1,8 @@
 # Dark Nights Unity 开发执行计划
 
-当前阶段：评估与仓库初始化已完成，下面的 M0–M5 均尚未实施。推荐先验证 YYGC 构建，再迁移 Core 并尽早完成一个真实双进程切片，逐步扩充到完整关卡。
+当前阶段：M0/M1 Unity 宿主、依赖、启动场景和 Addressables 基线已实施，并通过 Editor 编译、Addressables 构建、Windows Player 构建和 Player 启动冒烟；项目专属对象、网络序列化和双进程验收，以及 M2–M5 仍未完成。下一步迁移 Core 并完成真实双进程切片。
+
+这里的 M1 指环境封装与启动基线；表格中的 M1“可移植核心”仍未开始，不能把环境就绪当作玩法或规则迁移完成。
 
 第二轮[YYGC 能力复评](YYGC_REASSESSMENT.md)已完成源码与小型探针检查，但不算 M0 联机验收完成。在现有 M0/M2 预算内优先安排 2–3 人日验证现有生成器、接口序列化、权威命令路由及会话状态链；通用修正归 YYGC。先验证可靠完整投影，测量后再做分块或拆流；不默认另建网络命令和状态框架。联机尚未正式生产使用，原总预算暂不下调，M0 后重估。
 
@@ -24,7 +26,7 @@ Unity 单机适配为中等难度，主要在54个表现文件对应的场景／
 
 ## 阶段顺序与交付物
 
-M0应提交实际 `ProjectSettings/ProjectVersion.txt`、包 manifest/lock、最小启动场景、框架修正清单和构建记录。不能只留下一个能在特定开发机打开的本地包路径。框架当前已暂存UGUI变更独立保留，选择正式依赖commit后同步接口文档。
+M0/M1 已提交到工作区的交付物包括实际 `ProjectSettings/ProjectVersion.txt`、包 manifest/lock、NuGet 配置/包清单、全局 ScriptableObject 空配置、AppStartup/Addressables、GameCore/NetworkManager Prefab、Bootstrap 首场景、空 StateData/NetworkCommand 注册源和构建日志。`com.tsgame.gamecore` 仍是开发机本地路径，正式协作前要选定框架 commit 并同步接口文档。
 
 M1先引入只读内容与Core程序集，建立禁止Unity/Godot/YYGC等跨层引用的守卫；为所有手写类型添加职责注释。保留原夹具与SHA-256，在构造接口变化时仅调整测试适配器，不改固定结果。
 
@@ -38,7 +40,7 @@ M5从干净目录／锁定依赖构建，验证实际Player，不把Editor Play�
 
 ## 验收矩阵
 
-以下是实施要求，**当前全部未执行**。
+以下是 M1 之后的实施要求；其中 Unity 编译、Addressables 和 Windows Player 启动基线已完成，其余项目仍未执行。
 
 | 类别 | 最低场景 | 必须观察到的结果 |
 |---|---|---|
@@ -88,6 +90,6 @@ M5从干净目录／锁定依赖构建，验证实际Player，不把Editor Play�
 - 已确认：2–4人合作、共享一个营地。
 - 已选设计方向：集中权威模拟＋YYGC本地Prefab视图＋FishNet会话桥；保持单关卡内容。
 - 估算默认：Windows、房主主持、局域网／直连；公网入口仍待产品选择。
-- 需要M0实证决定：Editor补丁、全部包版本、框架正式commit、JSON库、生成器/AOT支持。
+- 已由M0/M1实证：Editor=`6000.4.9f1`、UPM/NuGet版本、YYGC本地导入、Bootstrap/AppStartup/Addressables 和 Windows Player 启动；仍需决定框架正式commit、JSON库、生成器/AOT支持。
 - 需要M2实测决定：具体快照频率、插值缓冲、transport分块上限和性能预算。
-- 本轮已经完成评估、目录、Git初始化和文档；没有修改Godot或YYGC实现，也没有开始上述阶段的游戏代码迁移。
+- 本轮已经完成评估、目录、Git初始化、环境基线和文档；仅修改 YYGC 的 Input System 兼容接入，未修改 Godot，也没有开始上述阶段的游戏代码迁移。

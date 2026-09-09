@@ -1,13 +1,13 @@
 # Unity 与 YYGC 依赖准备
 
-本文件记录已知依赖和待锁定项，不是可运行的 Packages manifest。所有“待核实”必须在 M0 写成实际来源、版本／commit、安装方式与构建结果。
+本文件记录 Unity 宿主的实际依赖与剩余核验项；可运行的 manifest、lock、NuGet 配置和包缓存位于 `Game/`。
 
 ## Editor、C# 与运行库
 
 | 项目 | 已查到的事实 | 接入要求 |
 |---|---|---|
 | YYGC UPM | `com.tsgame.gamecore`，`1.0.0`，unity=`6000.2`，unityRelease=`35f1` | 核实该声明与实际受支持补丁；不能擅自改低最低版本来消除提示 |
-| 本机 Editor | `D:\Program Files\Unity\Unity 6000.2.13f1\Editor\Unity.exe`，ProductVersion=`6000.2.13f1_abdb44fca7f7` | 这是实际找到的一套安装，不是全部磁盘安装清单 |
+| 本机 Editor | `D:\Program Files\Unity 6000.4.9f1\Editor\Unity.exe`，ProductVersion=`6000.4.9f1 (f7258d6eebbe)` | 已用于导入、编译和 Windows Player 构建探针 |
 | C# | Unity 6.2 官方文档为 Roslyn / C# 9.0 | 使用块级 namespace、普通构造、显式集合初始化 |
 | API Compatibility | 官方支持 .NET Standard 2.1 或 .NET Framework 4.8；默认前者 | 新代码以 .NET Standard 2.1 为边界；不能加载 net8.0 游戏程序集代替迁移 |
 | Godot 输入工程 | Godot.NET.Sdk/4.7.2，net8.0，LangVersion=12 | 主构造、集合表达式、required、部分 JSON API 需要替换 |
@@ -19,24 +19,24 @@
 
 YYGC 的 package.json 未声明 dependencies。以下是从 asmdef 与源码提取的实际依赖，版本和宿主安装来源目前均未得到完整锁定。
 
-| 依赖 | 证据／用途 | M0 需要核实 |
+| 依赖 | 证据／用途 | M0 接入结果 |
 |---|---|---|
-| FishNet | FishNet.Runtime、NetworkBehaviour、RPC、自定义 serializer | 确切版本／commit、所用 transport、NetworkManager、spawnable prefab 注册 |
-| UniTask | UniTask、UniTask.Addressables、Editor 引用 | Unity 支持版本、Addressables 集成与 Editor 程序集 |
-| Addressables / ResourceManager | PrefabRef、FastInstantiator、定义数据库 | 两端本地 catalog、异步加载与释放、打包引用 |
-| Input System | Runtime asmdef、重绑定与设置存储 | 对应包版本、InputSystemUIInputModule 和事件系统 |
-| URP / Core RP | Runtime asmdef、框架 renderer/shader | 使用匹配的 URP 2D 模板与包版本；小关卡不启用无关 3D 效果 |
-| UGUI / TextMeshPro | Unity.ugui、Unity.TextMeshPro | 当前 Unity 版本下的包归属、程序集名、中文字体与 UI 资源 |
-| R3 | 状态流、UI；测试引用 R3.Unity/Editor | DLL/UPM 来源、Unity 集成与生命周期 |
-| VitalRouter | 命令路由、过滤器、CommandPool | 具体类型路由行为、异步回收、所需生成器 |
-| MemoryPack | 网络与存档 serializer、Tests 的 MemoryPack.Core.dll | runtime＋generator、Unity/AOT 兼容与类型注册 |
-| ZLinq | 对象视图和状态集合 | 来源、版本、目标 API profile |
-| Odin Inspector | 多处属性，Editor asmdef 的 Addressables 模块 | 开发机授权安装、模块实际存在、Editor/Runtime 边界；不要复制无来源 DLL |
-| DOTween | LightBlockControl/LightBlockRenderer 的 `DG.Tweening` | 版本与程序集；即使游戏不用 LightBlock，现有主 asmdef 仍需能编译相关源码 |
+| FishNet | FishNet.Runtime、NetworkBehaviour、RPC、自定义 serializer | UPM Git `4.7.2`，编译通过；已建立空的 `NetworkManager`/`DefaultPrefabObjects` 基线，实际网络 Prefab 注册待 M2 |
+| UniTask | UniTask、UniTask.Addressables、Editor 引用 | UPM Git `2.5.11`，编译通过 |
+| Addressables / ResourceManager | PrefabRef、FastInstantiator、定义数据库 | Unity 包 `2.10.1`，编译和 Player 构建通过 |
+| Input System | Runtime asmdef、重绑定与设置存储 | Unity 包 `1.19.0`，项目 activeInputHandler=1；YYGC UGUI 启动与 Editor 创建器已切换 `InputSystemUIInputModule` |
+| URP / Core RP | Runtime asmdef、框架 renderer/shader | Unity 包 `17.4.0`，Windows Player 构建通过 |
+| UGUI / TextMeshPro | Unity.ugui、Unity.TextMeshPro | Unity 包 `2.0.0` 及宿主内置 TMP，编译通过 |
+| R3 | 状态流、UI；测试引用 R3.Unity/Editor | UPM Git `1.3.1` + NuGet `R3 1.3.1`，编译通过 |
+| VitalRouter | 命令路由、过滤器、CommandPool | NuGet `2.7.1`，已还原到 `Assets/Packages` |
+| MemoryPack | 网络与存档 serializer、Tests 的 MemoryPack.Core.dll | UPM Git `1.21.4` + NuGet `MemoryPack/Core/Generator 1.21.4`，编译通过 |
+| ZLinq | 对象视图和状态集合 | UPM Git `1.5.6` + NuGet `1.5.6`，编译通过 |
+| Odin Inspector | 多处属性，Editor asmdef 的 Addressables 模块 | 使用本机已有插件 payload，YYGC Editor/Runtime 编译通过；提交前需确认插件授权 |
+| DOTween | LightBlockControl/LightBlockRenderer 的 `DG.Tweening` | 使用本机已有 `DOTween.dll`，编译通过 |
 
 `YY.Pools.Collections`、YYSingleton、GenericTypePool 是框架内源码，不列作缺失的外部包。选择不使用某项功能也不会自动解除其在主程序集内的编译依赖；需要时只做有边界的程序集隔离。
 
-本轮不安装这些依赖、不推测包版本，也不启动框架附带工具服务器。应先从一个已构建成功的 YYGC 宿主取得依赖锁定信息，或逐项验证安装源，再建立工程 manifest。
+M0/M1 已按上述来源安装依赖并完成编译、Addressables 内容构建和 Player 探针。`com.tsgame.gamecore` 保留为 `file:D:/Developer/YYGC`，这是当前机器上的开发引用；换机器时需改为对应本地路径。Odin Inspector 与 DOTween 是本机插件，不属于 NuGet，不应从 NuGet 版本替代。
 
 ## 已随框架提供的生成器
 
@@ -56,10 +56,10 @@ ViewBinding 与 DI 工程的 AfterBuild 会复制 DLL 回框架目录；本轮�
 ## 包接入策略
 
 1. 记录框架评估 HEAD 和工作区差异。当前未提交 UGUI API 不应被误写成 HEAD 已提供的接口。
-2. 在本仓库 `.deps/YYGC` 或其他明确隔离目录准备已提交版本，使用 UPM 本地引用验证。不要让 Unity 导入直接写入用户的 YYGC 工作区。
+2. 当前按用户要求直接使用 `file:D:/Developer/YYGC`，因此 YYGC 工作区修改会即时反映到 DNights；提交前仍需明确框架 commit 与工作区差异。
 3. 修正构建必需的 Editor 隔离、兼容类型和依赖声明；保留修正清单和独立提交，避免混进游戏规则变更。
 4. 取得可重现的框架包版本后，锁定包来源／commit；提交 `Packages/manifest.json`、`Packages/packages-lock.json` 和 `ProjectSettings/ProjectVersion.txt`。没有已核实远端地址时不编造 Git URL。
-5. 使用一个空场景＋一个本地 ObjectView＋一个生成器样例＋一个网络 DTO 验证 Editor、Mono Player 和 AOT 路径；同时记录开启／关闭 Domain Reload 的重复启动结果。
+5. 当前已用 Bootstrap 基线验证 Editor 编译、Addressables 内容和 Windows Player 构建；StateData/NetworkCommand 生成器已生成空注册入口，本地 ObjectView、网络 DTO、AOT 与 Domain Reload 重复启动仍属于下一阶段。
 
 ## JSON、存档与素材
 
@@ -71,14 +71,14 @@ M0 选择 Unity 可用且版本固定的 JSON 库；优先复用宿主已验证�
 
 551 项原素材共 2,010,712 字节（约 1.92 MiB），当前规模无需为它们额外引入 LFS。新大文件进入前按实际体积评估。原始素材、帧序、原点与来源清单保留，Unity 额外生成的 .meta 正常纳入 Git。
 
-## M0 退出条件
+## M0/M1 退出条件
 
-复评新增前置项：命令生成器 DLL 的旧命名空间、接口 MemoryPack formatter 闭环和状态初始 null 的首次发布必须逐项核实/修正，见[复评 R01–R03](YYGC_REASSESSMENT.md)。本轮 .NET 8 探针锁定的 R3/MemoryPack 版本仅用于评估，不是 Unity 依赖版本结论。
+M0/M1 基础导入已完成；命令生成器旧命名空间、接口 MemoryPack formatter 闭环和状态初始 null 的首次发布仍必须逐项核实/修正，见[复评 R01–R03](YYGC_REASSESSMENT.md)。
 
 - Editor 补丁、API profile、依赖版本、框架 commit 和生成器都可重现。
 - 全新目录导入成功，Runtime 没有 Editor 类型泄漏。
 - 生成器样例、网络 DTO 往返与类型注册可用，正式 Player 构建并能启动。
-- Addressables 的本地 Prefab 和 UGUI 根正常显示，避免仅在 Editor 中找得到资源。
+- Addressables 的本地基线 Prefab 和 AppStartup 根已可构建并由 Player 启动；具体游戏 Prefab、UGUI 内容和对象定义仍待补齐。
 - 未提交用户代码的差异已明确处理为“仍留在原仓库”或后续已提交的新基线，不暗中混入依赖。
 
 未满足这些条件时继续做独立的 Core/协议设计，但不宣称 Unity 集成或构建已经通过。

@@ -2,13 +2,13 @@
 
 本页保留首轮 F01–F12 的源码盘点；最新结论与处置优先级以[YYGC 能力复评](YYGC_REASSESSMENT.md)为准。第二轮补充实际命令生成器及依赖语义探针，调整为优先修正、验证和复用 YYGC 联机链路。
 
-评估日期：2026-09-10。结论：**可作为 Dark Nights 的 Unity 基础，需先完成构建依赖与生命周期验证；合作玩法仍需要一层明确的服务端命令和世界同步设计。** 优先复用应用、资源、Prefab、UI 和网络基础设施，保留现有集中式模拟。
+评估日期：2026-09-10。结论：**可作为 Dark Nights 的 Unity 基础；M0/M1 已完成依赖导入、脚本编译、Addressables、Bootstrap 和 Windows Player 启动基线，合作玩法仍需要一层明确的服务端命令和世界同步设计。** 优先复用应用、资源、Prefab、UI 和网络基础设施，保留现有集中式模拟。
 
 ## 评估口径
 
-来源为 `D:\Developer\YYGC`，HEAD `6c3e0ff96221ac4a9fdfe0db85bf8f2cdc8dabc9`，加当前工作区。UGUIManager 的已暂存变更和未跟踪 IDRegistry 备份均未修改。精确哈希与状态见[冻结证据](evidence/assessment-2026-09-10.json)。
+来源为 `D:\Developer\YYGC`，HEAD `6c3e0ff96221ac4a9fdfe0db85bf8f2cdc8dabc9`，加当前工作区。UGUIManager 的已暂存变更和未跟踪 IDRegistry 备份均未修改；本轮额外加入 Input System 兼容接入和 Editor asmdef 引用。精确哈希与状态见[冻结证据](evidence/assessment-2026-09-10.json)。
 
-已阅读启动、对象装配、Behaviour、DI、视图、UGUI、命令链、状态同步、序列化、存档和测试入口。以下“已确认”指源码事实；没有运行 Unity 导入、Player 构建、FishNet 多进程测试或性能基准。
+已阅读启动、对象装配、Behaviour、DI、视图、UGUI、命令链、状态同步、序列化、存档和测试入口。以下“已确认”指源码事实；静态评估阶段没有运行 FishNet 多进程测试或性能基准，M0 之后已补做 Unity 导入、脚本编译和 Windows Player 基础构建。
 
 | 目录口径 | C# 文件 | 物理行数 |
 |---|---:|---:|
@@ -41,9 +41,9 @@
 
 **已确认：** [package.json](<D:/Developer/YYGC/package.json>) 未声明 dependencies；[Runtime asmdef](<D:/Developer/YYGC/GameCore.Runtime.asmdef>) 和 [Editor asmdef](<D:/Developer/YYGC/Editor/GameCore.Editor.asmdef>) 直接依赖 FishNet、UniTask、Addressables、Input System、URP、UGUI/TMP 和 Odin 的 Addressables 适配。源码另使用 R3、VitalRouter、MemoryPack、ZLinq、DOTween。
 
-包声明 `6000.2` / `35f1`，本机已找到 `6000.2.13f1`。不能据此确认最低 Editor 补丁，也不能假定只加一个本地 UPM 引用即可编译。
+包声明 `6000.2` / `35f1`；M0 实际使用 `6000.4.9f1` 完成导入、脚本编译和 Windows Player 构建。最低受支持补丁仍需和 YYGC 正式 commit 一起确认，不能只凭一次本地构建扩大兼容性结论。
 
-**处置：M0 阻断项。** 核实声明是否准确，取得匹配的依赖版本与来源，建立锁文件，实际完成干净导入和 Windows Player 构建。详细清单见[依赖文档](DEPENDENCIES.md)。
+**处置：M0 基础已完成，联机和干净机器复现仍待验收。** 依赖版本与来源已写入 manifest/lock 和 NuGet 配置；详细清单见[依赖文档](DEPENDENCIES.md)。
 
 ### F02 · Runtime 与 Editor 隔离存在编译风险
 

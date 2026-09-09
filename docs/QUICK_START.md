@@ -1,6 +1,6 @@
 # 人工开发 Quick start
 
-当前成果是评估与开发准备，尚未验证Unity游戏运行。复核结束时已有 `DNights/` 宿主，版本为6000.4.9f1，本轮未修改或验收；M0先核对它与原Unity6.2方案的版本和目录差异，再按[依赖文档](DEPENDENCIES.md)取得可构建的YYGC版本，不重复创建宿主。
+`Game/` 已完成 M0/M1 基线导入，版本为 `6000.4.9f1`。它通过 `file:D:/Developer/YYGC` 使用可编辑的 YYGC 工作区；R3、MemoryPack、ZLinq 等 NuGet 核心包存放在 `Game/Assets/Packages`，由 NuGetForUnity 的 `Game/Assets/NuGet.config` 与 `Game/Assets/packages.config` 管理。`Bootstrap` 是首场景，包含 GameCore 和 FishNet NetworkManager 基线。
 
 ## 先读什么
 
@@ -8,6 +8,17 @@
 2. 先读最新[YYGC能力复评](YYGC_REASSESSMENT.md)，明确复用边界和生成链路缺口；再读[框架评估](FRAMEWORK_REVIEW.md)的F01–F07。
 3. 读[技术架构](ARCHITECTURE.md)的程序集表，再读[联机设计](MULTIPLAYER.md)的权限和请求流水线。
 4. 按[开发执行计划](DEVELOPMENT.md)从M0推进，每阶段完成出口后再扩展内容。
+
+## M0/M1 已执行
+
+1. 用 Unity 6000.4.9f1 打开 `DNights`，等待 UPM 解析并生成 `Packages/packages-lock.json`。
+2. 通过 NuGetForUnity 配置还原 R3 1.3.1、MemoryPack 1.21.4、VitalRouter 2.7.1、ZLinq 1.5.6 及其 Unity 所需依赖。
+3. 导入 FishNet 4.7.2、UniTask 2.5.11、Addressables 2.10.1；补齐 YYGC 所需本机 Odin Inspector/DOTween。
+4. 验证 Unity 编译无 CS 错误，YYGC 自动创建全局 ScriptableObject 空配置。
+5. 运行 `YY/Dark Nights/Initialize Environment` 等价批处理，创建 AppStartup、Addressables、GameCore、NetworkManager 和 Bootstrap；运行 StateData/NetworkCommand 生成器，生成空注册入口。
+6. 用 `-buildWindows64Player` 完成 Bootstrap 首场景的 Windows Player 构建，并启动 Player 冒烟；日志达到 `[AppStartup] Startup completed. Application is ready.`。
+
+打开工程后，若修改 YYGC 源码，等待 Unity 重新编译即可；如果清空 `Assets/Packages`，在编辑器菜单执行 `NuGet > Restore Packages`。环境重建可使用 `YY/Dark Nights/Initialize Environment`，Addressables 内容可使用 `YY/Dark Nights/Build Addressables Content`。
 
 ## 从现有代码理解规则
 

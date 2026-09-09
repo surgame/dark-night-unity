@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c39b57f0c5140e598b61770b399d1cc, type: 3}
+  m_Name: AppStartupSettings
+  m_EditorClassIdentifier: GameCore.Runtime::Runtime.AppStartup.AppStartupSettings
+  _name: "\u5E94\u7528\u542F\u52A8\u6D41\u7A0B"
+  _description: "\u7EDF\u4E00\u7F16\u6392\u5E94\u7528\u542F\u52A8\u6A21\u5757\u3001\u6846\u67B6\u8FD0\u884C\u65F6\u670D\u52A1\u548C\u9879\u76EE\u7EA7\u6269\u5C55\u6A21\u5757\u3002"
+  _modules:
+  - Enabled: 1
+    Required: 1
+    Module:
+      rid: 6961529505723187200
+  - Enabled: 1
+    Required: 1
+    Module:
+      rid: 6961529505723187201
+  - Enabled: 1
+    Required: 1
+    Module:
+      rid: 6961529505723187202
+  - Enabled: 1
+    Required: 1
+    Module:
+      rid: 6961529505723187203
+  - Enabled: 1
+    Required: 0
+    Module:
+      rid: 6961529505723187204
+  - Enabled: 1
+    Required: 1
+    Module:
+      rid: 6961529505723187205
+  - Enabled: 1
+    Required: 1
+    Module:
+      rid: 6961529505723187206
+  - Enabled: 1
+    Required: 1
+    Module:
+      rid: 6961529505723187207
+  references:
+    version: 2
+    RefIds:
+    - rid: 6961529505723187200
+      type: {class: DIRuntimeStartupModule, ns: Runtime.AppStartup, asm: GameCore.Runtime}
+      data: 
+    - rid: 6961529505723187201
+      type: {class: YYSingletonManagerStartupModule, ns: Runtime.AppStartup, asm: GameCore.Runtime}
+      data:
+        _autoStartSingletons: []
+    - rid: 6961529505723187202
+      type: {class: GlobalScriptableObjectStartupModule, ns: Runtime.AppStartup, asm: GameCore.Runtime}
+      data: 
+    - rid: 6961529505723187203
+      type: {class: ObjectV2RuntimeStartupModule, ns: Runtime.AppStartup, asm: GameCore.Runtime}
+      data: 
+    - rid: 6961529505723187204
+      type: {class: UGUIRuntimeStartupModule, ns: Runtime.AppStartup, asm: GameCore.Runtime}
+      data: 
+    - rid: 6961529505723187205
+      type: {class: StateDataTypeStartupModule, ns: GameCore.Objects.NetworkStates, asm: GameCore.Runtime}
+      data: 
+    - rid: 6961529505723187206
+      type: {class: NetworkCommandStartupModule, ns: GameCore.NetworkCommands, asm: GameCore.Runtime}
+      data: 
+    - rid: 6961529505723187207
+      type: {class: ObjectDefinitionLoaderStartupModule, ns: Runtime.AppStartup, asm: GameCore.Runtime}
+      data: 

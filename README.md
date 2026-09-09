@@ -1,10 +1,10 @@
 # Dark Nights · Unity
 
-《Dark Nights》Unity 工程筹备仓库，基于 YYGC 评估单关卡与合作联机方案。当前交付框架评估、架构设计、工作量估算和开发约束；本轮未完成 Unity 游戏集成、编译或联机验证。
+《Dark Nights》Unity 工程筹备仓库，基于 YYGC 评估单关卡与合作联机方案。本轮已完成 Unity M0/M1 环境导入、依赖锁定、YYGC 本地接入、启动场景、Addressables、编译和 Windows Player 冒烟；联机与完整玩法仍未验证。
 
-复核结束时观测到新增 `DNights/` Unity 宿主，其 [ProjectVersion](DNights/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。该目录属于本轮之外的工作，未修改或纳入本次提交；原方案按 Unity 6.2 评估，宿主目录与版本选择需在 M0 对齐。
+`Game/` 是本轮使用的 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。它使用本地 `D:\Developer\YYGC` 引用，允许直接修改 YYGC 后由 Unity 重新编译；NuGetForUnity、R3、MemoryPack、ZLinq、UniTask、FishNet、Addressables 及 YYGC 所需的 Odin Inspector/DOTween 已完成导入。Unity 内部产品名暂保留为 `DNights`，与目录名解耦。
 
-评估日期：2026-09-10。现有游戏工程和 YYGC 均只读检查。本仓库独立初始化 Git，分支为 `main`。
+评估日期：2026-09-10。Unity 宿主位于本仓库；YYGC 继续以本地开发包引用，已做输入模块兼容补丁，用户原有暂存和未跟踪内容均保留。本仓库独立初始化 Git，分支为 `main`。
 
 ## 核心判断
 
@@ -50,7 +50,7 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 | `D:\Developer\YYGC` | HEAD `6c3e0ff96221ac4a9fdfe0db85bf8f2cdc8dabc9` 加评估时工作区 |
 | `../projects` | HEAD `91cb09ff0894f26134f07fd544f1273d9fe7ffaa`，工作区干净 |
 | YYGC 用户未提交内容 | 已暂存 `Runtime/UI/UGUI/UGUIManager.cs`；未跟踪 `Tools/IDRegistry备份数据20260812` |
-| 本机观测到的 Unity | `6000.2.13f1`；YYGC 包声明 `6000.2` + `35f1`，需先核实这一差异 |
+| 实际 Unity Editor | `D:\Program Files\Unity 6000.4.9f1\Editor\Unity.exe`；YYGC 包声明 `6000.2` + `35f1`，已在 6000.4.9f1 编译通过 |
 
 精确规模、关键源文件 SHA-256、原始素材核验及 Git 状态见[冻结评估证据](docs/evidence/assessment-2026-09-10.json)。YYGC 当前工作区不等于可锁定的发布版本；后续接入必须选定已提交版本并重新验证。
 
@@ -65,4 +65,4 @@ git status --short
 
 采集脚本只读两个输入目录，输出到忽略的 `artifacts/assessment-current.json`；不启动 Unity，不修改框架或游戏。冻结证据保留原评估时点，常规重跑不会覆盖。
 
-原方案中的 `Assets/`、`Packages/`、`ProjectSettings/` 是待落地结构；M0 应结合现有 `DNights/` 确定工程根目录并验证依赖，不重复创建宿主。本轮没有改写其 `manifest.json`。
+`Game/Assets/`、`Game/Packages/`、`Game/ProjectSettings/` 已作为 Unity 工程结构落地。包 manifest/lock、NuGet 配置、NuGet 包缓存、全局 ScriptableObject、Addressables 配置、GameCore/NetworkManager Prefab 和 `Bootstrap` 场景均已生成；`Library/`、构建输出和日志继续由 Git 忽略。项目专属对象定义、StateData、NetworkCommand 和可生成网络 Prefab 仍为空，后续按玩法补齐。
