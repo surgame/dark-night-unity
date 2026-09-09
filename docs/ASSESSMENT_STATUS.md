@@ -2,6 +2,16 @@
 
 日期：2026-09-10。本文件保留 YYGC 静态评估与 Unity／合作联机方案的历史边界；M0/M1 执行结果已追加在下方。
 
+## YYGC ID 重构方案与版本补齐
+
+2026-09-10 已在 `D:\Developer\YYGC` 写入[定义 ID 重构执行方案](<D:/Developer/YYGC/Documentation~/ID_REGISTRY_REFACTOR_PLAN.md>)、[版本核对与发布约定](<D:/Developer/YYGC/Documentation~/VERSIONING.md>)和 CHANGELOG；包内版本由遗留 `1.0.0` 更正为 `0.2.3`，明确为未发布开发版本。历史标签保持原样，未补造缺少独立证据的 `v0.2.1`。
+
+本次方案基线为 `14a8b9a44bc826eb0736b364db21e625bfbcf14b`。检查开始时的 UGUI / Input System 工作区改动在编写期间已由其他操作纳入该提交，本次不重复提交那些改动。原评估中的 `6c3e0ff` 和暂存 / 备份描述继续作为历史记录；本次快照未发现历史备份目录，不创建、清理或恢复它。
+
+方案约定保留旧 int 字段、公开签名、序列化引用及默认 V1 wire；deprecated 常驻显示与可选 `Obsolete` 警告分开，避免破坏 warnings-as-errors 旧构建。GUID-only 内容、池化判等、旧档历史映射和双进程兼容均有独立门槛。
+
+本轮没有实施 GUID、开关、代码 deprecated 标注、迁移或 Unity 测试；完成的是文档、JSON / 版本记录和改动范围核对。源码哈希与检查边界见[本次 audit](<D:/Developer/YYGC/Documentation~/Evidence/id-registry-plan-audit-2026-09-10.json>)。Dark Nights 的定义库仍为空，不能代替真实旧项目的兼容夹具。
+
 ## M0/M1 执行增补
 
 在评估后已对 `DNights` 执行 Unity 6000.4.9f1 导入：

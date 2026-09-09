@@ -6,7 +6,7 @@
 
 | 项目 | 已查到的事实 | 接入要求 |
 |---|---|---|
-| YYGC UPM | `com.tsgame.gamecore`，`1.0.0`，unity=`6000.2`，unityRelease=`35f1` | 核实该声明与实际受支持补丁；不能擅自改低最低版本来消除提示 |
+| YYGC UPM | `com.tsgame.gamecore`；原评估包内为 `1.0.0`，现已更正为开发版本 `0.2.3`（未发布）；unity=`6000.2`，unityRelease=`35f1` | 历史最新标签为 `v0.2.2`；正式锁定前需核对版本约束与宿主兼容；不能擅自改低最低 Unity 版本 |
 | 本机 Editor | `D:\Program Files\Unity 6000.4.9f1\Editor\Unity.exe`，ProductVersion=`6000.4.9f1 (f7258d6eebbe)` | 已用于导入、编译和 Windows Player 构建探针 |
 | C# | Unity 6.2 官方文档为 Roslyn / C# 9.0 | 使用块级 namespace、普通构造、显式集合初始化 |
 | API Compatibility | 官方支持 .NET Standard 2.1 或 .NET Framework 4.8；默认前者 | 新代码以 .NET Standard 2.1 为边界；不能加载 net8.0 游戏程序集代替迁移 |
@@ -14,6 +14,10 @@
 | 发布目标 | 首版按 Windows x64 估算 | 至少完成 Mono Player；尽早补 IL2CPP/MemoryPack 生成注册探针；其他平台另估 |
 
 官方依据于 2026-09-10读取：[C# 编译器与语言版本](https://docs.unity3d.com/6000.2/Documentation/Manual/csharp-compiler.html)、[API 兼容级别](https://docs.unity3d.com/6000.2/Documentation/Manual/dotnet-profile-support.html)。文档也指出 init/record 需要正确的 IsExternalInit 类型，Unity 自身序列化不支持把 record 当作序列化类型。网络 DTO 的 MemoryPack 支持与 Unity Inspector 序列化是不同机制。
+
+2026-09-10 的 [YYGC 版本补齐](<D:/Developer/YYGC/Documentation~/VERSIONING.md>)核对了 17 个本地历史标签：包内版本全部遗留为 `1.0.0`，`v0.2.2` 的提交说明还写着 `v0.2.1`。本次仅更正后续开发包元数据并补文档，历史标签不移动；`0.2.3` 尚未打标签或完成发布验收。数值下调可能影响其他旧宿主的版本约束 / asmdef Version Defines，不能按补丁号推定完全兼容。
+
+当前 manifest / lock 中 YYGC 都是 `file:D:/Developer/YYGC`，因此本轮没有把它改成 registry 版本。GUID / Key、旧 ID deprecated、在线开关及迁移仍按[框架执行方案](<D:/Developer/YYGC/Documentation~/ID_REGISTRY_REFACTOR_PLAN.md>)待实施，不改变本仓库已有 DefinitionId 接入约定，也不代表旧项目回归或网络验收已完成。
 
 ## 第三方依赖清单
 

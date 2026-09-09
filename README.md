@@ -35,6 +35,7 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 | 最新复评：避免重复造轮子、已复现缺口与修正优先级 | [YYGC 能力复评](docs/YYGC_REASSESSMENT.md) |
 | YYGC 哪些可复用、哪些需要修正或验证 | [框架评估](docs/FRAMEWORK_REVIEW.md) |
 | Unity 版本、包依赖、生成器与构建准备 | [依赖与环境](docs/DEPENDENCIES.md) |
+| YYGC 定义 ID 重构（待实施）与版本补齐记录 | [框架重构执行方案](<D:/Developer/YYGC/Documentation~/ID_REGISTRY_REFACTOR_PLAN.md>) |
 | 状态归属、程序集与职责目录 | [技术架构](docs/ARCHITECTURE.md) |
 | 命令权限、同步、晚加入、重连、暂停与存档 | [联机设计](docs/MULTIPLAYER.md) |
 | C#、数值、布局、Prefab、动画与旧档如何迁移 | [适配方案](docs/MIGRATION_PLAN.md) |
