@@ -12,9 +12,12 @@ if (!(Test-Path $checkout)) {
 if ((git -C $checkout rev-parse HEAD) -ne $commit) { throw 'Isolated YYGC commit mismatch' }
 $registryPatch = Join-Path $PSScriptRoot 'lan-framework-patch/ExcludeSampleFromGlobalRegistry.patch'
 $expectedDiff = (Get-Content -LiteralPath $registryPatch -Raw).Replace("`r`n", "`n").TrimEnd()
+$startupPatch = Join-Path $PSScriptRoot 'lan-framework-patch/ExcludeSampleFromStartupValidation.patch'
+$startupDiff = (Get-Content -LiteralPath $startupPatch -Raw).Replace("`r`n", "`n").TrimEnd()
+$combinedDiff = $expectedDiff + "`n" + $startupDiff
 $actualDiff = (git -C $checkout diff HEAD --binary) -join "`n"
 if ($LASTEXITCODE) { throw 'Unable to inspect isolated YYGC changes' }
-if ($actualDiff -and $actualDiff.TrimEnd() -ne $expectedDiff) {
+if ($actualDiff -and $actualDiff.TrimEnd() -ne $expectedDiff -and $actualDiff.TrimEnd() -ne $combinedDiff) {
     throw 'Isolated YYGC has unexpected tracked changes; preserve and inspect them first'
 }
 $allowed = @('Runtime/NetworkCommands/SampleAssemblyAccess.cs', 'Runtime/NetworkCommands/SampleAssemblyAccess.cs.meta')
@@ -26,6 +29,12 @@ if (!$actualDiff) {
     if ($LASTEXITCODE) { throw 'Sample registry exclusion patch does not match locked YYGC' }
     git -C $checkout apply $registryPatch
     if ($LASTEXITCODE) { throw 'Unable to apply sample registry exclusion patch' }
+}
+if (!$actualDiff -or $actualDiff.TrimEnd() -eq $expectedDiff) {
+    git -C $checkout apply --check $startupPatch
+    if ($LASTEXITCODE) { throw 'Startup validation patch does not match locked YYGC' }
+    git -C $checkout apply $startupPatch
+    if ($LASTEXITCODE) { throw 'Unable to apply sample startup validation exclusion patch' }
 }
 foreach ($name in @('SampleAssemblyAccess.cs', 'SampleAssemblyAccess.cs.meta')) {
     $source = Join-Path $PSScriptRoot "lan-framework-patch/$name"

@@ -1,5 +1,9 @@
 # 评估状态与验证边界
 
+## 2026-09-11 开始正式移植
+
+已实施首批配置、AppStartup 接入、资源构建防覆盖与架构守卫，详见[当前执行状态](DEVELOPMENT.md#implementation-progress)及[首批证据](evidence/migration-start-2026-09-11.json)。后续各节保留历史时点。正式模拟、对象绑定、灰松谷表现和正式联机仍未完成。
+
 ## 2026-09-11 正式移植设计更新
 
 本次按当前工作区更新[移植方案](MIGRATION_PLAN.md)、[架构](ARCHITECTURE.md)、[联机合同](MULTIPLAYER.md)和[执行计划](DEVELOPMENT.md)，同步 README、依赖、开发入口及协作约定。工作范围为设计文档，未开始正式游戏代码迁移。

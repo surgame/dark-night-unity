@@ -1,0 +1,26 @@
+diff --git a/Runtime/NetworkCommands/NetworkCommandStartupModule.cs b/Runtime/NetworkCommands/NetworkCommandStartupModule.cs
+index bfee798..bb5849b 100644
+--- a/Runtime/NetworkCommands/NetworkCommandStartupModule.cs
++++ b/Runtime/NetworkCommands/NetworkCommandStartupModule.cs
+@@ -97,6 +97,8 @@ namespace GameCore.NetworkCommands
+ 
+             var registeredTypes = new HashSet<Type>(GenericTypeRegistry<INetworkCommand>.RegisteredTypes);
+             var missingTypes = discoverableTypes
++                // 与宿主生成器保持一致：独立 LAN Sample 使用自己的固定注册。
++                .Where(type => type.Assembly.GetName().Name != "DarkNights.Samples.LanCoop.Runtime")
+                 .Where(type => !registeredTypes.Contains(type))
+                 .Select(type => type.FullName)
+                 .ToArray();
+diff --git a/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs b/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs
+index 043e89a..f36ca77 100644
+--- a/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs
++++ b/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs
+@@ -69,6 +69,8 @@ namespace GameCore.Objects.NetworkStates
+ 
+             var registeredTypes = new HashSet<Type>(GenericTypeRegistry<IStateData>.RegisteredTypes);
+             var missingTypes = discoverableTypes
++                // 与宿主生成器保持一致：独立 LAN Sample 使用自己的固定注册。
++                .Where(type => type.Assembly.GetName().Name != "DarkNights.Samples.LanCoop.Runtime")
+                 .Where(type => !registeredTypes.Contains(type))
+                 .Select(type => type.FullName)
+                 .ToArray();

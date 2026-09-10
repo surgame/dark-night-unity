@@ -1,0 +1,7 @@
+{
+  "name": "DarkNights.Entry",
+  "rootNamespace": "DarkNights.Entry",
+  "references": ["DarkNights.Core", "DarkNights.Runtime", "GameCore.Runtime", "UniTask"],
+  "overrideReferences": true,
+  "precompiledReferences": []
+}

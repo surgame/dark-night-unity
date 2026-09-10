@@ -14,8 +14,8 @@ using UnityEngine.SceneManagement;
 namespace DarkNights.Editor
 {
     /// <summary>
-    /// Creates the small, project-owned bootstrap layer which is required before
-    /// gameplay assets and project-specific YYGC definitions are added.
+    /// 仅在首次准备且目标资产不存在时创建宿主启动资源。
+    /// 日常构建只验证并读取已有资源，不重新保存人工维护的场景、Prefab 或配置。
     /// </summary>
     public static class DarkNightsEnvironmentSetup
     {
@@ -28,6 +28,7 @@ namespace DarkNights.Editor
         [MenuItem("YY/Dark Nights/Initialize Environment")]
         public static void Initialize()
         {
+            EnvironmentValidation.RequireEmptyOutputs();
             EnsureFolder("Assets/Addressables");
             EnsureFolder("Assets/Addressables/Datas");
             EnsureFolder("Assets/Addressables/Datas/AppStartup");
@@ -59,11 +60,19 @@ namespace DarkNights.Editor
         [MenuItem("YY/Dark Nights/Build Addressables Content")]
         public static void BuildAddressablesContent()
         {
-            Initialize();
-            AddressableAssetSettings.BuildPlayerContent(out AddressablesPlayerBuildResult result);
-            if (!string.IsNullOrEmpty(result.Error))
+            EnvironmentValidation.Validate();
+            bool previousLayout = ProjectConfigData.GenerateBuildLayout;
+            try
             {
-                throw new InvalidOperationException($"Addressables content build failed: {result.Error}");
+                // 输出诊断布局，也避免干净环境首次构建弹出可选报告提示，阻塞自动执行。
+                ProjectConfigData.GenerateBuildLayout = true;
+                AddressableAssetSettings.BuildPlayerContent(out AddressablesPlayerBuildResult result);
+                if (!string.IsNullOrEmpty(result.Error))
+                    throw new InvalidOperationException($"Addressables content build failed: {result.Error}");
+            }
+            finally
+            {
+                ProjectConfigData.GenerateBuildLayout = previousLayout;
             }
 
             Debug.Log("[DarkNights] Addressables content build completed.");

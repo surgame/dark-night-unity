@@ -2,7 +2,7 @@
 
 设计更新：2026-09-11。**建议保留普通 C# 规则核心，由 YYGC 会话对象管理权威运行与状态发布，Unity 原生 Prefab / UGUI 负责表现；单人和联机使用同一条命令链。** 首版默认共享营地控制，同时提供仅房主操作模式，后期关闭共享控制只改变权限。
 
-本次交付为设计文档，正式玩法尚未开始迁移。目标保持灰松谷的素材、布局、数值、操作意图、三夜玩法和旧档语义。多人输入的权限、顺序与反馈作为明确的会话差异单独验收。
+方案已开始执行：首批迁入只读规则配置并接通 AppStartup / Addressables，实际状态和证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)。正式模拟、表现和联机尚未迁移。目标保持灰松谷的素材、布局、数值、操作意图、三夜玩法和旧档语义。多人输入的权限、顺序与反馈作为明确的会话差异单独验收。
 
 ## 已有基础与实施范围
 
@@ -56,7 +56,7 @@ flowchart LR
 
 ## 目录、Addressables 与对象装配要求
 
-2026-09-11 经人工可读性复审，正式目录采用 **Scripts / Res 分离，代码按职责分层，资源按游戏对象归组**。本节为实施要求，尚未创建正式目录、移动资源或验证新绑定。完整目录及程序集依赖以[技术架构](ARCHITECTURE.md)为准，不预建空目录、占位类或通用 Manager。
+2026-09-11 经人工可读性复审，正式目录采用 **Scripts / Res 分离，代码按职责分层，资源按游戏对象归组**。本节为实施要求；首批已创建正式配置与启动代码目录并移动环境 Editor 工具，对象资源和新绑定仍待实施。完整目录及程序集依赖以[技术架构](ARCHITECTURE.md)为准，不预建空目录、占位类或通用 Manager。
 
 | 入口，相对于 `Assets/DarkNights` | 归属与维护方式 |
 |---|---|
@@ -268,7 +268,7 @@ Unity 新档应有独立格式标识与版本，并记录规则摘要和随机�
 | M4 会话完整性 | 四人、晚加入、断线重连、暂停／倍速、保存／加载、epoch | 第二夜加入、加载中的旧包和控制策略切换均正确 |
 | M5 交付验收 | 双机器 LAN、完整关卡弱网／性能、干净构建及操作文档 | 可独立运行的 Windows Player 和可复现报告 |
 
-M0 有两个已从源码确认的接入项：[SampleAssemblyAccess.cs](../tools/lan-framework-patch/SampleAssemblyAccess.cs) 只授予样板 Runtime 友元访问，新增正式 Behaviour 程序集必须验证生成器访问边界；[DarkNightsEnvironmentSetup](../Game/Assets/Editor/DarkNightsEnvironmentSetup.cs) 的 `BuildAddressablesContent()` 当前会调用 `Initialize()` 并保存 Bootstrap / Prefab，正式美术制作前要把一次性初始化与日常构建拆开。这两项本轮只记录方案，尚未修改实现。
+M0 有两个已从源码确认的接入项：[SampleAssemblyAccess.cs](../tools/lan-framework-patch/SampleAssemblyAccess.cs) 只授予样板 Runtime 友元访问，新增正式 Behaviour 程序集必须验证生成器访问边界；[DarkNightsEnvironmentSetup](../Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs) 已拆开 `BuildAddressablesContent()` 与 `Initialize()`，并增加初始化输出防覆盖检查。首批实现与证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)；正式 Behaviour 生成访问和对象定义仍待后续批次。
 
 M2 先迁移真实规则下的工人采集与住宅施工，不再做另一个十金币测试营地。使用冻结开局布局和数值；可暂只接必要视图，其余表现由 M3 补齐。实体集合的复制、序列化、在飞箭矢及事件池生命周期是相对标量 Sample 新增的验证重点。
 

@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "economy": {
+    "starting_resources": {"food": 60, "wood": 100, "stone": 80, "iron": 40, "gold": 0},
+    "upkeep_interval": 30.0,
+    "food_per_person": 0.3,
+    "starvation_interval": 15.0,
+    "recruit_cost": {"food": 12},
+    "recruit_seconds": 6.0,
+    "repair_cost": {"wood": 10, "gold": 5},
+    "repair_hp": 80,
+    "training_seconds": 12.483333,
+    "training_queue_limit": 5
+  },
+  "units": {
+    "worker": {"name": "工人", "hp": 10, "armor": 0, "damage": [1, 3], "speed": 30.0, "range": 11.0, "aggro": 13.0, "attack_seconds": 1.5, "windup": 0.35},
+    "spearman": {"name": "长矛兵", "hp": 30, "armor": 2, "damage": [4, 7], "speed": 30.0, "range": 17.0, "aggro": 150.0, "leash": 110.0, "attack_seconds": 1.2, "windup": 0.32, "cost": {"food": 10, "wood": 5, "iron": 5}},
+    "archer": {"name": "弓箭手", "hp": 20, "armor": 1, "damage": [4, 5], "speed": 30.0, "range": 112.0, "aggro": 155.0, "leash": 136.0, "attack_seconds": 1.65, "windup": 0.45, "cost": {"food": 10, "wood": 5, "iron": 5}},
+    "zombie": {"name": "游荡亡者", "hp": 20, "armor": 0, "damage": [1, 5], "speed": 12.0, "range": 10.0, "aggro": 68.0, "attack_seconds": 1.65, "windup": 0.45, "gold": 2},
+    "ghoul": {"name": "食尸鬼", "hp": 20, "armor": 0, "damage": [3, 6], "speed": 21.0, "range": 12.0, "aggro": 78.0, "attack_seconds": 1.3, "windup": 0.36, "gold": 3},
+    "armored": {"name": "披甲亡者", "hp": 40, "armor": 3, "damage": [3, 7], "speed": 10.0, "range": 12.0, "aggro": 70.0, "attack_seconds": 1.8, "windup": 0.5, "gold": 5}
+  },
+  "buildings": {
+    "tavern": {"name": "酒馆", "sprite": "spr_bld_tavern", "hp": 320, "width": 58.0, "build_seconds": 30.0, "capacity": 6, "description": "营地核心 · 招募居民；被摧毁则失守"},
+    "house": {"name": "住宅", "sprite": "spr_bld_house", "hp": 100, "width": 28.0, "build_seconds": 10.0, "capacity": 3, "cost": {"wood": 25}, "description": "人口容量 +3"},
+    "barracks": {"name": "兵营", "sprite": "spr_bld_barracks", "hp": 200, "width": 74.0, "build_seconds": 24.0, "cost": {"wood": 60, "stone": 30}, "description": "将工人训练为长矛兵或弓箭手"},
+    "farm": {"name": "农田", "sprite": "spr_res_farm", "hp": 70, "width": 30.0, "build_seconds": 8.0, "cost": {"wood": 20}, "description": "一名工人耕作 · 每5秒产出3食物"},
+    "tower": {"name": "守望塔", "sprite": "spr_bld_tower", "hp": 200, "width": 28.0, "build_seconds": 20.0, "cost": {"wood": 45, "stone": 35, "iron": 10}, "range": 145.0, "damage": [6, 9], "attack_seconds": 1.7, "description": "自动射击 · 射程145 · 伤害6–9"}
+  },
+  "worksites": {
+    "wood": {"name": "松林", "sprite": "spr_res_trees", "amount": 120, "yield": 3, "interval": 4.0, "width": 22.0},
+    "stone": {"name": "石料", "sprite": "spr_res_stone", "amount": 120, "yield": 2, "interval": 5.0, "width": 18.0},
+    "iron": {"name": "铁矿", "sprite": "spr_res_iron", "amount": 90, "yield": 2, "interval": 6.0, "width": 18.0},
+    "food": {"name": "麦田", "sprite": "spr_res_farm", "amount": -1, "yield": 3, "interval": 5.0, "width": 30.0}
+  }
+}

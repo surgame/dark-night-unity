@@ -1,10 +1,10 @@
 # Dark Nights · Unity
 
-《Dark Nights》Unity 工程筹备仓库。环境基线与独立 [LAN 合作 Sample](docs/LAN_SAMPLE.md) 已完成，Windows Mono 和 IL2CPP Release＋High 裁剪均有四进程及真实 UDP 弱网验证记录。灰松谷正式玩法与正式联机尚未迁移。
+《Dark Nights》Unity 移植工程。环境基线与独立 [LAN 合作 Sample](docs/LAN_SAMPLE.md) 已完成，Windows Mono 和 IL2CPP Release＋High 裁剪均有四进程及真实 UDP 弱网验证记录。灰松谷正式玩法与正式联机尚未迁移。
 
-2026-09-11 更新[完整移植方案](docs/MIGRATION_PLAN.md)：保留 C# 权威规则核心，接入 YYGC 对象、命令和状态链，使用原生 Prefab / UGUI；默认共享控制并保留 HostOnly 开关。本次更新为设计文档，实施从正式接入收口和规则核心开始。
+2026-09-11 更新[完整移植方案](docs/MIGRATION_PLAN.md)：保留 C# 权威规则核心，接入 YYGC 对象、命令和状态链，使用原生 Prefab / UGUI；默认共享控制并保留 HostOnly 开关。已开始正式接入收口与只读规则配置迁移；实际实施及验收边界见[当前进展](docs/DEVELOPMENT.md#implementation-progress)。
 
-目录设计已收口为 `Assets/DarkNights/Scripts` 与 `Res` 分离；代码采用 Core、Runtime、View、Entry，资源按对象／面板集中维护定义、Prefab 和专用资源。Addressables 不要求游戏素材目录采用特殊名称，仍通过 ObjectDefinition 驱动加载与绑定；现有 AddressableAssetsData 配置位置保留。详见[目录及绑定要求](docs/MIGRATION_PLAN.md#directory-and-assets)，尚未实施目录迁移。
+目录设计已收口为 `Assets/DarkNights/Scripts` 与 `Res` 分离；代码采用 Core、Runtime、View、Entry，资源按对象／面板集中维护定义、Prefab 和专用资源。Addressables 不要求游戏素材目录采用特殊名称，仍通过 ObjectDefinition 驱动加载与绑定；现有 AddressableAssetsData 配置位置保留。详见[目录及绑定要求](docs/MIGRATION_PLAN.md#directory-and-assets)。首批已建立 Core、Runtime、Entry、Editor/Tests 和 Res/Config；View 与对象素材目录随实际功能建立。
 
 `Game/` 是 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。先运行 `tools/prepare-lan-sample.ps1` 准备锁定提交的 `.deps/YYGC`，不直接引用用户维护的框架工作区。R3、MemoryPack、UniTask、FishNet 等依赖已导入；VitalRouter 使用 YYGC 要求的完成语义修正版。内部产品名暂保留 `DNights`。
 
@@ -73,4 +73,4 @@ git status --short
 
 采集脚本只读两个输入目录，输出到忽略的 `artifacts/assessment-current.json`；不启动 Unity，不修改框架或游戏。冻结证据保留原评估时点，常规重跑不会覆盖。
 
-正式 Bootstrap、全局定义与注册表仍保持环境基线；Sample 使用自己的定义、StateData、NetworkCommand、Prefab 和场景。`Library/`、构建输出、`.deps/` 和日志不提交，冻结验证摘要在 `docs/evidence/`。
+正式 Bootstrap 场景保留，AppStartup 已接入规则加载模块；全局对象定义与命令／状态注册表仍保持环境基线。Sample 使用自己的定义、StateData、NetworkCommand、Prefab 和场景。`Library/`、构建输出、`.deps/` 和日志不提交，冻结验证摘要在 `docs/evidence/`。

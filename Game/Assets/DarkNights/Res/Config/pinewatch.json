@@ -1,0 +1,10 @@
+{
+  "id": "pinewatch",
+  "name": "灰松谷",
+  "seed": 90127,
+  "waves": [
+    {"day_seconds": 90.0, "spawn_interval": 3.8, "enemies": ["zombie", "zombie", "zombie", "ghoul", "zombie", "zombie", "zombie"], "reward": {"food": 18, "wood": 20, "iron": 8, "gold": 12}},
+    {"day_seconds": 70.0, "spawn_interval": 3.0, "enemies": ["zombie", "ghoul", "zombie", "armored", "zombie", "ghoul", "zombie", "armored", "zombie", "ghoul", "zombie"], "reward": {"food": 24, "wood": 30, "iron": 12, "gold": 18}},
+    {"day_seconds": 70.0, "spawn_interval": 2.7, "enemies": ["zombie", "ghoul", "armored", "zombie", "ghoul", "armored", "zombie", "armored", "ghoul", "zombie", "armored", "ghoul", "armored", "zombie", "ghoul", "armored"], "reward": {}}
+  ]
+}

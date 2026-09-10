@@ -2,7 +2,7 @@
 
 2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已实现自己的四层程序集并验证 YYGC Object、可靠状态链及唯一权威写入。本页描述的正式玩法目录仍属设计；Sample 不反向依赖正式游戏。VitalRouter 仅保留框架命令链的显式适配，业务使用普通方法，R3 负责副本观察及订阅释放。
 
-状态：正式玩法设计基线，尚未实现。2026-09-11 的[移植方案](MIGRATION_PLAN.md)明确复用 YYGC `10b8f0e` 已由 Sample 验证的命令／状态链，补正式营地投影、可切换控制权限与原生资源。Core 继续保持单一权威模拟。
+状态：正式玩法设计基线。已开始 Core/Config、Runtime/Config 与 Entry 启动接入；权威模拟、View 与正式联机尚未实现。2026-09-11 的[移植方案](MIGRATION_PLAN.md)明确复用 YYGC `10b8f0e` 已由 Sample 验证的命令／状态链，补正式营地投影、可切换控制权限与原生资源。Core 继续保持单一权威模拟。
 
 ## 设计选择
 
@@ -48,7 +48,7 @@ flowchart LR
 
 ## 程序集与职责目录
 
-2026-09-11 人工可读性复审后，采用 Scripts / Res 分离：代码按职责分层，资源按游戏对象归组。以下为 M0–M3 的目标结构，尚未创建正式目录或移动资源；只在实现功能时建立所需目录，不预建空类。四个运行程序集为 Core、Runtime、View、Entry；View 和 Entry 分别替代原方案的 Presentation 和 Bootstrap 层名称，职责不变。
+2026-09-11 人工可读性复审后，采用 Scripts / Res 分离：代码按职责分层，资源按游戏对象归组。以下为 M0–M3 的目标结构；首批已建立 Core、Runtime、Entry、Editor/Tests 和 Res/Config，并保留 GUID 移动环境 Editor 工具；其他部分仍待实施。只在实现功能时建立所需目录，不预建空类。四个运行程序集为 Core、Runtime、View、Entry；View 和 Entry 分别替代原方案的 Presentation 和 Bootstrap 层名称，职责不变。
 
 ```text
 Assets/
@@ -105,7 +105,7 @@ Scripts 和 Res 仅用于物理组织，不加入命名空间，例如 `DarkNigh
 | Editor | 按工具需要引用以上层 | includePlatforms=Editor；不能被运行程序集引用 |
 | Tests | 被测程序集 | 不进入 Player；多进程驱动与日志作为独立验证工具 |
 
-Core/ViewData 中的接口让 View 提交意图和读取副本，Entry 注入 Runtime 实现。View 虽引用 Core 程序集，仍需语义检查限制其访问 Logic 的可写类型；Core/Save 与 Runtime/Save 分别负责纯数据和文件读写。程序集隔离、文件长度与 XML 注释检查在 M0 建立，M1 随核心迁移启用完整规则；当前 AGENTS 是约束文档，尚不是已运行的正式守卫。
+Core/ViewData 中的接口让 View 提交意图和读取副本，Entry 注入 Runtime 实现。View 虽引用 Core 程序集，仍需语义检查限制其访问 Logic 的可写类型；Core/Save 与 Runtime/Save 分别负责纯数据和文件读写。程序集隔离、文件长度与 XML 注释检查在 M0 建立，M1 随核心迁移启用完整规则；已建立 tools/ArchitectureGuard（源码、依赖与 asmdef）和 tools/CoreBuild（C#9 / .NET Standard 2.1 实际编译），见[执行状态](DEVELOPMENT.md#implementation-progress)。
 
 ## YYGC 接入方式
 

@@ -2,6 +2,8 @@
 
 `Game/` 使用 `6000.4.9f1`。先运行 `pwsh -File tools/prepare-lan-sample.ps1` 准备锁定的 `.deps/YYGC`；核心 NuGet 包在 `Game/Assets/Packages`。立即验证联机：打开 `Assets/Samples/LanCoop/Content/LanCoop.unity`，按 [LAN Sample](LAN_SAMPLE.md) 启动 Host／Join 或四进程测试。正式 `Bootstrap` 仍为原首场景。
 
+正式移植已开始：配置、AppStartup 接入及构建守卫的入口与验证命令见[当前进展](DEVELOPMENT.md#implementation-progress)。Bootstrap 已能加载灰松谷规则配置，尚无可玩场景。不要重复运行历史环境初始化，已有资产会被保护检查拒绝。
+
 ## 先读什么
 
 1. 读[README](../README.md)确认当前状态、范围与联机假设。

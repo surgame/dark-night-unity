@@ -1,0 +1,392 @@
+{
+  "date": "2026-09-11",
+  "status": "M0 partial; M1 configuration started; gameplay not migrated",
+  "unity": "6000.4.9f1",
+  "godotBaseline": "91cb09ff0894f26134f07fd544f1273d9fe7ffaa",
+  "yygcCommit": "10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4",
+  "newtonsoft": {
+    "upm": "3.2.2",
+    "library": "13.0.2",
+    "change": "promoted existing resolved package to direct dependency; no binary upgrade"
+  },
+  "content": {
+    "originalRuleLeafValuesCompared": 196,
+    "balanceSha256": "594b39b13d0dd6cc8084a48c23c547c6d04995da0645c5815c55b3fa8ce505dc",
+    "levelSha256": "d2f7c43b3ffc0c587db12ee47748dece4660630a6d4656de36df18c9c832fa67",
+    "checks": {
+      "balance_bytes": true,
+      "level_bytes": true,
+      "all_new_metas": true,
+      "sample_sources_and_assets_unchanged": true,
+      "bootstrap_unchanged": true
+    }
+  },
+  "coreBuild": {
+    "targetFramework": "netstandard2.1",
+    "languageVersion": "9.0",
+    "warnings": 0,
+    "errors": 0,
+    "assemblySha256": "5d7f9aad7023ff13f56e97f47ae909fe747326e845ca6b3a49860e8bbc550974"
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 19,
+    "selfTests": 10,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "editorTests": {
+    "summary": {
+      "Total": 22,
+      "Passed": 22,
+      "Failed": 0,
+      "Skipped": 0,
+      "Inconclusive": 0
+    },
+    "cases": [
+      {
+        "FullName": "DarkNights.Tests.ContentTests.CollectionsOwnTheirInputsAndCannotBeWritten",
+        "Status": "Passed",
+        "Duration": 0.0109287,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.EverySourceRuleFieldSurvivesParsing",
+        "Status": "Passed",
+        "Duration": 0.0132743,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"version\")",
+        "Status": "Passed",
+        "Duration": 0.0038862,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"missing\")",
+        "Status": "Passed",
+        "Duration": 0.001744,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"string_number\")",
+        "Status": "Passed",
+        "Duration": 0.0011226,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"infinity\")",
+        "Status": "Passed",
+        "Duration": 0.0010122,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"negative\")",
+        "Status": "Passed",
+        "Duration": 0.0008865,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"fractional_integer\")",
+        "Status": "Passed",
+        "Duration": 0.0008944,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"damage_order\")",
+        "Status": "Passed",
+        "Duration": 0.000953,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"damage_length\")",
+        "Status": "Passed",
+        "Duration": 0.0010186,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"null_cost\")",
+        "Status": "Passed",
+        "Duration": 0.0010923,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"unknown_enemy\")",
+        "Status": "Passed",
+        "Duration": 0.0012294,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"negative_seed\")",
+        "Status": "Passed",
+        "Duration": 0.0011612,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"zero_interval\")",
+        "Status": "Passed",
+        "Duration": 0.0009715,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"empty_waves\")",
+        "Status": "Passed",
+        "Duration": 0.0009155,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"duplicate\")",
+        "Status": "Passed",
+        "Duration": 0.0013106,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"trailing\")",
+        "Status": "Passed",
+        "Duration": 0.0009294,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"oversize\")",
+        "Status": "Passed",
+        "Duration": 0.0038246,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.ResourceArithmeticPreservesOriginalValueAndDoesNotClamp",
+        "Status": "Passed",
+        "Duration": 0.0011546,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.SeedPreservesAllUnsignedBits",
+        "Status": "Passed",
+        "Duration": 0.0044155,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.EnvironmentTests.FormalConfigurationIsRegistered",
+        "Status": "Passed",
+        "Duration": 0.094129,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.EnvironmentTests.InitializationRejectsExistingAssetsWithoutWrites",
+        "Status": "Passed",
+        "Duration": 0.0269334,
+        "Message": null,
+        "StackTrace": null
+      }
+    ],
+    "sourceResult": "artifacts/migration/editor-tests-final.json"
+  },
+  "build": {
+    "jobId": "46d8c83039f44f78b071689e2c5d4477",
+    "state": "completed",
+    "backends": [
+      "Mono Development",
+      "IL2CPP Release High"
+    ],
+    "projectSettingsRestoredByteForByte": true,
+    "editorState": {
+      "failed": false,
+      "backend": "Mono2x",
+      "assemblies": [
+        "DarkNights.Samples.LanCoop.Runtime",
+        "DarkNights.Core",
+        "DarkNights.Entry",
+        "DarkNights.Samples.LanCoop.Core",
+        "DarkNights.Samples.LanCoop.Bootstrap",
+        "DarkNights.Runtime",
+        "DarkNights.Samples.LanCoop.Presentation"
+      ],
+      "scene": "Assets/Scenes/SampleScene.unity"
+    }
+  },
+  "players": [
+    {
+      "passed": true,
+      "backend": "mono",
+      "processId": 34792,
+      "scope": "Bootstrap + YYGC AppStartup + Addressables configuration; no gameplay or multiplayer acceptance",
+      "player": "artifacts/migration/player-mono/DarkNights.exe",
+      "playerSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "log": "artifacts/migration/run-20260911-070709-456-mono/verified.log",
+      "logSha256": "bb6a023a2a86b744b7916ca078a126f4d1afb0ff29f03f48e3ded877943626db",
+      "runtimeLog": "artifacts/migration/run-20260911-070709-456-mono/player.log",
+      "checks": {
+        "independent_player_remains_running": true,
+        "app_startup_ready_once": true,
+        "frozen_content_loaded_once": true,
+        "no_startup_or_runtime_exception": true,
+        "no_formal_editor_or_tests_in_player": true
+      },
+      "resultPath": "artifacts/migration/run-20260911-070709-456-mono/result.json"
+    },
+    {
+      "passed": true,
+      "backend": "il2cpp",
+      "processId": 48552,
+      "scope": "Bootstrap + YYGC AppStartup + Addressables configuration; no gameplay or multiplayer acceptance",
+      "player": "artifacts/migration/player-il2cpp/DarkNights.exe",
+      "playerSha256": "a4b596130f036df4dcca05c56d0626996dab7d3b351d89f03b58a06da8b1ba60",
+      "log": "artifacts/migration/run-20260911-070709-457-il2cpp/verified.log",
+      "logSha256": "8cee3ab40699f2981f742a5c3816ebd2625faf9b0ac6176765ac733e32c822eb",
+      "runtimeLog": "artifacts/migration/run-20260911-070709-457-il2cpp/player.log",
+      "checks": {
+        "independent_player_remains_running": true,
+        "app_startup_ready_once": true,
+        "frozen_content_loaded_once": true,
+        "no_startup_or_runtime_exception": true,
+        "no_formal_editor_or_tests_in_player": true
+      },
+      "resultPath": "artifacts/migration/run-20260911-070709-457-il2cpp/result.json"
+    }
+  ],
+  "protectedAssets": {
+    "checked": 397,
+    "unexpectedChanges": [],
+    "formattingOnlyAfterBuild": [
+      "Game/Assets/Addressables/Datas/AppStartup/AppStartupSettings.asset"
+    ],
+    "formattingNote": "Removed trailing whitespace on the newly serialized startup module data line for git diff --check; no Unity value or reference changed."
+  },
+  "dependencyPatch": {
+    "scope": "Only the isolated checkout; exclude the independent Sample assembly from the two AppStartup completeness validators, matching existing generator filters. No change to formal type validation or network command processing.",
+    "pristinePatchApplyCheck": true,
+    "preparationIdempotence": true
+  },
+  "failuresRetained": [
+    {
+      "path": "artifacts/migration/editor-tests-first.json",
+      "reason": "An incorrectly estimated leaf-count assertion expected >250; independent original JSON count confirmed 196. All actual field comparisons had passed."
+    },
+    {
+      "path": "artifacts/migration/editor-tests.json",
+      "reason": "Validation ran against the previously compiled test assembly before the corrected batch import. Final run confirmed updated compiled sources."
+    },
+    {
+      "path": "artifacts/migration/run-20260911-065635-575-mono/result.json",
+      "reason": "Formal AppStartup detected Sample CampState as unregistered. Corrected isolated startup validators and rebuilt before final successful runs."
+    }
+  ],
+  "limitations": [
+    "No formal ObjectDefinition, Prefab bindings, Behaviour access or new network DTO registration in this batch.",
+    "No gameplay simulation, editable Pinewatch layout, View assembly, RNG sequence equivalence, old-save continuation or formal multiplayer acceptance.",
+    "Sample runtime and assets unchanged; its network pipeline does not call AppStartup. Existing LAN evidence retained, not relabeled as a new run.",
+    "Known Pipeline Immutable/Unsafe duplicate-DLL warnings remain; successful Player startup does not establish final game performance or visual parity."
+  ],
+  "logs": {
+    "editor": "artifacts/migration/editor-verification.log",
+    "sha256": "e544f32ee79349552456f8478bac4d5af173a106f1796f10b7c8f7f1625b6233"
+  },
+  "inputSha256": {
+    "Game/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset": "60f4b3b0bef992cd34fd6f41795aa5c9fafe6ab51cc369f09ed17c316d1fd76e",
+    "Game/Assets/AddressableAssetsData/link.xml": "daa7913668ad53f753b709c8f89298b17d32bde28677486ffa57abfbf14dcfcf",
+    "Game/Assets/AddressableAssetsData/link.xml.meta": "4290c6b9ed186b7781e87c5ddfcda8f2c93b4c6f35b021d8c586c490f5f1c3d4",
+    "Game/Assets/Addressables/Datas/AppStartup/AppStartupSettings.asset": "409bdd6ab448352cd1e900c4361690aa4216940a3960943334c4de21eb382bba",
+    "Game/Assets/DarkNights/Res.meta": "225b15d5e0235905e7879d223379341f941eae71d4a772793cd927de2afd9334",
+    "Game/Assets/DarkNights/Res/Config.meta": "9c2686a5a8007c526843f16baa148a8a437623c6568962d92d3a6a710b165c59",
+    "Game/Assets/DarkNights/Res/Config/balance.json": "594b39b13d0dd6cc8084a48c23c547c6d04995da0645c5815c55b3fa8ce505dc",
+    "Game/Assets/DarkNights/Res/Config/balance.json.meta": "9c6e94ff5e747fd4af0af5717d6cf4f1f7783ef5ba1cc9ef0dffa704b0d156b4",
+    "Game/Assets/DarkNights/Res/Config/pinewatch.json": "d2f7c43b3ffc0c587db12ee47748dece4660630a6d4656de36df18c9c832fa67",
+    "Game/Assets/DarkNights/Res/Config/pinewatch.json.meta": "8b1e5ada82451a5e83b068166ba029678bc17faf0a20508a9707c306fb539560",
+    "Game/Assets/DarkNights/Scripts.meta": "48d173b97a2abbe950ee185687e7b318d75d7014e59ef849ceff5e60522b4676",
+    "Game/Assets/DarkNights/Scripts/Core.meta": "92a57f201df2e0173b6d4d5cebafdabb41e1fc220bcaa1e44e95fe99fa701405",
+    "Game/Assets/DarkNights/Scripts/Core/Config.meta": "a069d5b05598e6b139224c9fb1655932b7008a1556ac08ec7ebd65f9df7bd535",
+    "Game/Assets/DarkNights/Scripts/Core/Config/BalanceDefinition.cs": "2150cc1cbe5b0573c6268aebea5c82dfa32d145db96b8bdb928e0624db781e40",
+    "Game/Assets/DarkNights/Scripts/Core/Config/BalanceDefinition.cs.meta": "d1ae8a4dc7c4339b00d698ed762f7f12fafe3e91090a5c8f7b7aec55101c424a",
+    "Game/Assets/DarkNights/Scripts/Core/Config/BuildingDefinition.cs": "4ca9f803dfc1a5c16ef92fece9941f47cc698f5361cabfe4b1ca25fa8b04ea31",
+    "Game/Assets/DarkNights/Scripts/Core/Config/BuildingDefinition.cs.meta": "55573a75a6c8fe178134f914567778038ca0f5a9e56e01792c495e52a33d4e59",
+    "Game/Assets/DarkNights/Scripts/Core/Config/EconomyDefinition.cs": "b777a592f01e99f1f44088be327e9eff18fd982ba35f0c53558ebfa51ff887ae",
+    "Game/Assets/DarkNights/Scripts/Core/Config/EconomyDefinition.cs.meta": "895aa557ed2abec50e9c30476d02587066566eb5699c20fec3824fed4cbfa2bb",
+    "Game/Assets/DarkNights/Scripts/Core/Config/GameCatalog.cs": "62b7b6b46a96965749769bc9ff949fbf10e790be0722d3b0b06427eafa0d8e0c",
+    "Game/Assets/DarkNights/Scripts/Core/Config/GameCatalog.cs.meta": "3474d1c265fb23090aaf39f27d48861a65027f40a7708da1526518cb60dc8d1e",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LevelDefinition.cs": "3db74ee6300bd1ae9885d4b71b65e73a8675e95a129b226751e72d24f2dc6aa0",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LevelDefinition.cs.meta": "c9441b97adf1a37cbd9ceac3ecaea303199b3b184f9b4048a36e004f9d31c128",
+    "Game/Assets/DarkNights/Scripts/Core/Config/ResourceAmounts.cs": "1c5696fedc039f1327dff608e04ee4bedb649d95b60fea2499c6d4baa78e4895",
+    "Game/Assets/DarkNights/Scripts/Core/Config/ResourceAmounts.cs.meta": "e49b1e5a18d5a0c2998e15e02171aebdbddd8b31594c64ac8d317b1a0cc5a8f0",
+    "Game/Assets/DarkNights/Scripts/Core/Config/UnitDefinition.cs": "745920fc1906d77618f1bc08046144af66bde576aad090b2784b7c611fb8936a",
+    "Game/Assets/DarkNights/Scripts/Core/Config/UnitDefinition.cs.meta": "a48b076d18727b8cd2f3748692476ec064fc465d22dde78103ccabd0b1968301",
+    "Game/Assets/DarkNights/Scripts/Core/Config/WaveDefinition.cs": "0353b1907d39432e80c4cf1194270f6cf6a06fecaf5c25426d6c6cec988db666",
+    "Game/Assets/DarkNights/Scripts/Core/Config/WaveDefinition.cs.meta": "39c8ee31b9540fbea678a6910694f31d5a59177caa6e3f7d2e5be15e1868f13f",
+    "Game/Assets/DarkNights/Scripts/Core/Config/WorksiteDefinition.cs": "5e5dddfa3982187b68a3d205c5a8ad39dd5c5fd79edddafe2e19f72abfbd70de",
+    "Game/Assets/DarkNights/Scripts/Core/Config/WorksiteDefinition.cs.meta": "135e93c17307d69aa16b617850af4d748d213e232b5c096cb3d27aa6e3e11340",
+    "Game/Assets/DarkNights/Scripts/Core/DarkNights.Core.asmdef": "b728edda31cbb5798c57879b827498f36c0a0f105d30f9c08f00c5d5e8ac7645",
+    "Game/Assets/DarkNights/Scripts/Core/DarkNights.Core.asmdef.meta": "ff5007065baa2d5063d3294236c9198bd7e47c44a5c6cfd327ed670dc838f520",
+    "Game/Assets/DarkNights/Scripts/Editor.meta": "72f49a0cd0e7347de1569bbef45ef95839905b55bf6a5a71a1658a419dd0aea9",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNights.Editor.asmdef": "dab5efa762d53e4fdbd9005ffe1bb76db10f2e2fa1aa1064e7c0c748b242868d",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNights.Editor.asmdef.meta": "8f4d1c6a6a699cff6bd8e24326b66a262d444052145b37ceb767c0cc80480f19",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs": "6b152c2ec0e13ae11f0e2d6a68225018eadcd94c1537920e10a9a7a65bca5e0f",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs.meta": "0e97ef2a906040d3dae48d52725283801e5d8916f8b188273acd52cf641e847b",
+    "Game/Assets/DarkNights/Scripts/Editor/EnvironmentValidation.cs": "c03731fc219982e47f6ee46871fcfa87053a9cc9819f64c01df8965cc77f55c1",
+    "Game/Assets/DarkNights/Scripts/Editor/EnvironmentValidation.cs.meta": "0374465b7c0b5a5376d71ec80d25c895c07e6eafa86ffb67d8d66e3cef108736",
+    "Game/Assets/DarkNights/Scripts/Editor/GameContentSetup.cs": "a8478cfe3729e556d47fb711a325b5cbcf1eac97d9a453c35f418e6dba8bab6e",
+    "Game/Assets/DarkNights/Scripts/Editor/GameContentSetup.cs.meta": "5351e004fd43865c5bb81c611e83aca3e0968376930c92a43f36b852a6a1523b",
+    "Game/Assets/DarkNights/Scripts/Editor/GamePlayerBuild.cs": "b9fbea4ad8b9905116a3005c310c88c2a338f50ba0ca04e851be07a51d9e5129",
+    "Game/Assets/DarkNights/Scripts/Editor/GamePlayerBuild.cs.meta": "013e725b3dab7bfc975f4face89c0becf2249024cf25ba5519119f70621e71f0",
+    "Game/Assets/DarkNights/Scripts/Entry.meta": "958ca51c96a130d81d30ac49f85fb300d0bd954082b0026b7021cb706e0da325",
+    "Game/Assets/DarkNights/Scripts/Entry/DarkNights.Entry.asmdef": "a81c1299285222862df284e3b22b341fa85428753f021f391d98cfe963a2ff98",
+    "Game/Assets/DarkNights/Scripts/Entry/DarkNights.Entry.asmdef.meta": "5ceea5e6d3217d72dcbf9a103a6a5e7beec1a182f794ae42af4d4b66a3158d1c",
+    "Game/Assets/DarkNights/Scripts/Entry/GameContentStartupModule.cs": "0fda2dcbf6ee60eec724864be32b3dd2907fef1803a254e2c2ce43ef28455378",
+    "Game/Assets/DarkNights/Scripts/Entry/GameContentStartupModule.cs.meta": "a5cddc58a201eb6ecf577ead7c3980d4d20a050236e0f75d4412ea855ba205b6",
+    "Game/Assets/DarkNights/Scripts/Runtime.meta": "bd0693bc59f00d1656ff32efe6818a61a0c9a8e821e37d027cf66c1c9eaf7b1c",
+    "Game/Assets/DarkNights/Scripts/Runtime/Config.meta": "5dc768379eaee7e84130ba95594b10ca9f86510635b4f095f32382ea883c36ae",
+    "Game/Assets/DarkNights/Scripts/Runtime/Config/ConfigJson.cs": "a6ea6201549a250e727eba686772056030eb571b4cf37ed9bb5c565e1f539707",
+    "Game/Assets/DarkNights/Scripts/Runtime/Config/ConfigJson.cs.meta": "74aa815664183e6a5badb2f47b825562867c4dc8cffc80f716167b36572db26a",
+    "Game/Assets/DarkNights/Scripts/Runtime/Config/GameCatalogJson.cs": "6931cf56ecab17f6193ade7a9a4f4535ca36eaa8e4b6217b5649b9a7922e9468",
+    "Game/Assets/DarkNights/Scripts/Runtime/Config/GameCatalogJson.cs.meta": "63f39d9f6997c52d1ed536ef3b1032a9bac7bd26e716b04ec989d07bec67de8f",
+    "Game/Assets/DarkNights/Scripts/Runtime/Config/GameCatalogLoader.cs": "7a3cc6daca1066bfcd5a8e7d3297ae1fe6694128520c20aebd3eace168e1d80f",
+    "Game/Assets/DarkNights/Scripts/Runtime/Config/GameCatalogLoader.cs.meta": "a022a31e5c1f0d947997f18794b0ed13aedeb10389a8bf7f0a04054d2334afcf",
+    "Game/Assets/DarkNights/Scripts/Runtime/DarkNights.Runtime.asmdef": "3971c1b264d4beec4e8cb5672994e19b6bdf326214901c5d3c4474341f9bbfea",
+    "Game/Assets/DarkNights/Scripts/Runtime/DarkNights.Runtime.asmdef.meta": "197da2c2c55f96fd3c6b5b4cca4a10b51252ab4c45f280cf5b055d74f977415e",
+    "Game/Assets/DarkNights/Scripts/Tests.meta": "08e65611f7e45c2a6ae116409eb8ab0eaae4c3b5b5ff4be7a5a25187a0438185",
+    "Game/Assets/DarkNights/Scripts/Tests/ContentTests.cs": "2f7cc6be93faa247ba67c93444f7f6c170cc38c2860e89cd940abb04a826d610",
+    "Game/Assets/DarkNights/Scripts/Tests/ContentTests.cs.meta": "bb4a5efef9908e1b73f0a4ed3f10e757025cb2bdeed5f0fae5bcae684c4d67bb",
+    "Game/Assets/DarkNights/Scripts/Tests/DarkNights.Tests.asmdef": "ccd7b784862876849d866f643d05d6df88bcff933802dd05e17c2d0c5cc9208e",
+    "Game/Assets/DarkNights/Scripts/Tests/DarkNights.Tests.asmdef.meta": "c4583f5d2bc6f40aa251b2d9f4275393c138d3d25f4bb1620426ce8cf2a1a4c5",
+    "Game/Assets/DarkNights/Scripts/Tests/EnvironmentTests.cs": "a504a060efc0aede8df113416cc3f1759cd74eaab24de09a12b27ebdf16a7d89",
+    "Game/Assets/DarkNights/Scripts/Tests/EnvironmentTests.cs.meta": "16924a21ee4c8d0b545376947ca922043f72ba1fe5f74a28d7e6554037282af2",
+    "Game/Packages/manifest.json": "4789e867361aa9d09588fd7710bd260bedab94cf0fed1da805b6993c7de3b619",
+    "Game/Packages/packages-lock.json": "51e9b872cdc5175f96d22754bc81e2587ff2d1d7dd5c8172a028337018c5cb6c",
+    "Game/ProjectSettings/ScriptableBuildPipeline.json": "9ef5816157356c9b43513e33faf4c1e889d4d36d5acdce1a31a8db629d8db545",
+    "tools/ArchitectureGuard/ArchitectureGuard.csproj": "aae31daafae829cd606d4adc90535a21164c766e80305d6b6aefb6be71fb244c",
+    "tools/ArchitectureGuard/Program.cs": "f9b1d562319a53b0b4d104d8459bd8a5126e72ffd3a44d8d43635a438cc42ba4",
+    "tools/ArchitectureGuard/SelfTests.cs": "e5035d783e01deb17345a743e51a4f16d04c7b4627829d6b9638f88fca9240b9",
+    "tools/ArchitectureGuard/SourceRules.cs": "74732c1986a6a46bad99996e3bf7d42b9cd1c8770486f9c3ec866f35115dad52",
+    "tools/CoreBuild/CoreBuild.csproj": "0aa7ae7d183ddfc800f1dd3fc34d0cb4f5eeb02e32e8d74b75c9d0345231cc9e",
+    "tools/lan-framework-patch/ExcludeSampleFromStartupValidation.patch": "c3432a225cf6fa0ea69d8e748046c6fb32188483d9d6fcfb867058a2071837f6",
+    "tools/prepare-lan-sample.ps1": "8aac2b33460a9ea7b7d80f689eb9567c528cc6987cb8a9461ebd2079194937f5",
+    "tools/test-game-startup.ps1": "30b41e573019c1f61195ab066192514c1f11c13f16cb76d2e6fdf09402bbebf2",
+    ".gitattributes": "53f67c2f0748c5ac792e06ae836d56ac2a9cd72ad0b4421c137969dcd3131d75"
+  },
+  "generatedBuildFiles": {
+    "files": [
+      "Game/Assets/AddressableAssetsData/link.xml",
+      "Game/Assets/AddressableAssetsData/link.xml.meta",
+      "Game/ProjectSettings/ScriptableBuildPipeline.json"
+    ],
+    "source": "Unity Addressables content build and Scriptable Build Pipeline defaults; generated output not hand-edited"
+  }
+}

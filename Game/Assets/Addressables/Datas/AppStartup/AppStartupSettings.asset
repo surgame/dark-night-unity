@@ -46,6 +46,10 @@ MonoBehaviour:
   - Enabled: 1
     Required: 1
     Module:
+      rid: 6961529531413299293
+  - Enabled: 1
+    Required: 1
+    Module:
       rid: 6961529505723187207
   references:
     version: 2
@@ -75,3 +79,6 @@ MonoBehaviour:
     - rid: 6961529505723187207
       type: {class: ObjectDefinitionLoaderStartupModule, ns: Runtime.AppStartup, asm: GameCore.Runtime}
       data: 
+    - rid: 6961529531413299293
+      type: {class: GameContentStartupModule, ns: DarkNights.Entry, asm: DarkNights.Entry}
+      data:

@@ -1,0 +1,7 @@
+{
+  "name": "DarkNights.Runtime",
+  "rootNamespace": "DarkNights.Runtime",
+  "references": ["DarkNights.Core", "UniTask", "UniTask.Addressables", "Unity.Addressables", "Unity.ResourceManager"],
+  "overrideReferences": true,
+  "precompiledReferences": ["Newtonsoft.Json.dll"]
+}

@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发约定
 
-先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。环境与独立 LAN Sample 已完成，正式玩法仍在设计阶段；不能把计划目录、接口和测试写成已完成实现。
+先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。环境与独立 LAN Sample 已完成，正式移植已开始配置与启动接入；模拟、表现和正式联机仍待实施。先核对开发执行计划中的实际状态，不能把计划目录、接口和测试写成已完成实现。
 
 ## 范围与工作区
 

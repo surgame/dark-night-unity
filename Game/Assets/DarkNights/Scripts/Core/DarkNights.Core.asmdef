@@ -1,0 +1,8 @@
+{
+  "name": "DarkNights.Core",
+  "rootNamespace": "DarkNights.Core",
+  "references": [],
+  "overrideReferences": true,
+  "precompiledReferences": [],
+  "noEngineReferences": true
+}

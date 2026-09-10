@@ -21,6 +21,12 @@
 
 当前 manifest 使用 `file:../../.deps/YYGC`，准备脚本校验上述提交。GUID / Key、旧 ID 兼容和显式迁移已在锁定框架中实现，接法见[定义身份指南](<D:/Developer/YYGC/Documentation~/DEFINITION_IDENTITY.md>)。正式新资源用 DefinitionReference 和正式 Key；首个网络切片保留 Sample 的 LegacyV1 wire，网络定义具备有效旧 ID。V2 为单独的协议切换，不在本轮设计中默认开启。
 
+## 正式配置解析依赖
+
+2026-09-11 首批实施将 `com.unity.nuget.newtonsoft-json` **3.2.2** 从间接依赖提升为 manifest 的显式依赖，lock 深度变为 0，实际包版本及 DLL 没有升级。包内 Newtonsoft.Json 为 13.0.2。Runtime 使用 JObject 显式转换为只读 Core 类型，不使用动态类型恢复或依赖反射构造，Core 不引用 Newtonsoft 或 Unity。旧档解析尚未迁移，不能将配置 seed 的 64 位通过等同于旧档／随机序列兼容。
+
+正式 Mono 宿主首次启动发现：`StateDataTypeStartupModule`／`NetworkCommandStartupModule` 的开发版完整性检查仍发现 Sample 类型，与此前生成器排除 Sample 的规则不一致。新增 [启动校验补丁](../tools/lan-framework-patch/ExcludeSampleFromStartupValidation.patch)，只排除 `DarkNights.Samples.LanCoop.Runtime`，所有正式类型仍须注册。补丁仅作用于 `.deps/YYGC`，未修改用户框架仓库；准备脚本接受干净锁定提交、原有精确补丁或完整新补丁，未知修改仍拒绝覆盖。Sample 没有反向接入正式 AppStartup。
+
 ## 官方 Unity MCP 开发工具
 
 2026-09-11 已接入 **Unity CLI 1.0.0-beta.9 + com.unity.pipeline 0.6.0-exp.1**，Editor 保持 `6000.4.9f1`。官方文档与实际包声明最低 Unity `6000.0`。已通过 UPM 导入、脚本编译、MCP stdio 握手、149 项工具发现、场景／Console／运行设置读取与域重载后重连。[验证摘要](evidence/unity-mcp-2026-09-11.json)

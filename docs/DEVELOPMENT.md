@@ -1,16 +1,53 @@
 # Dark Nights Unity 开发执行计划
 
-计划更新：2026-09-11，配合[移植方案](MIGRATION_PLAN.md)。**环境基线与独立 LAN Sample 已完成，正式 Core、灰松谷联机和完整表现均未迁移。** 下文统一使用 M0 表示环境与正式接入收口、M1 表示规则核心；历史记录中的“M0/M1 环境完成”不代表本表 M1 完成。
+计划更新：2026-09-11，配合[移植方案](MIGRATION_PLAN.md)。**环境基线与独立 LAN Sample 已完成；正式配置与启动接入已开始，灰松谷模拟、正式联机和完整表现尚未迁移。** 下文统一使用 M0 表示环境与正式接入收口、M1 表示规则核心；历史记录中的“M0/M1 环境完成”不代表本表 M1 完成。
 
 Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本；YYGC 锁定 `10b8f0e` 加窄范围友元程序集补丁，VitalRouter 修正从固定源构建。Mono 和 Windows x64 IL2CPP Release＋High 裁剪均已实际构建，每种后端的基础与弱网各 30 项多进程断言见 Sample 文档及 `docs/evidence/lan-sample-*.json`。下文正式玩法预算和退出条件保持有效，不能以测试营地代替完整游戏验收。
 
-本次只更新设计，没有运行新的 Unity / Godot 测试。Sample 已覆盖的旧生成器、首状态和命令路由问题不再作为从零研究任务；新的正式程序集、集合投影、AppStartup / Addressables 集成与游戏权限需要独立验收。先可靠完整投影，测量后再做分块或拆流。
+原方案更新时只修改设计，没有运行新的 Unity / Godot 测试；本次实际实施与检查见下方进展。Sample 已覆盖的旧生成器、首状态和命令路由问题不再作为从零研究任务；新的正式程序集、集合投影、AppStartup / Addressables 集成与游戏权限需要独立验收。先可靠完整投影，测量后再做分块或拆流。
 
-2026-09-11 目录复审要求已写入[移植方案](MIGRATION_PLAN.md)与[技术架构](ARCHITECTURE.md)：正式代码位于 Scripts（Core、Runtime、View、Entry），资源位于 Res，按对象／面板归组；Addressables 无游戏素材目录命名要求，保留现有配置目录。此项仅完成设计和官方文档／锁定包源码核对，目录迁移、正式绑定、构建及 Player 验证均待实施。
+2026-09-11 目录复审要求已写入[移植方案](MIGRATION_PLAN.md)与[技术架构](ARCHITECTURE.md)：正式代码位于 Scripts（Core、Runtime、View、Entry），资源位于 Res，按对象／面板归组；Addressables 无游戏素材目录命名要求，保留现有配置目录。目录已按首批功能落地，正式对象绑定和完整目录仍待实施；配置宿主的验证单独记录在当前进展。
+
+<a id="implementation-progress"></a>
+
+## 当前实施进展
+
+2026-09-11 首批：**M0 部分完成，M1 已迁入配置；模拟与正式对象仍待实施。** 本批没有迁移美术，也未把独立 Sample 接入正式游戏。
+
+| 内容 | 当前实现 |
+|---|---|
+| 代码与资源分离 | Scripts/Core、Runtime、Entry、Editor/Tests；Res/Config 保存原始 balance.json、pinewatch.json。View 尚无实际功能，因此不建空程序集 |
+| 只读配置 | Core/Config 为普通 C#9 不可变类，构造时复制集合；Runtime 显式映射 JSON，保留 196 项原始规则值和 64 位 seed |
+| 依赖 | 显式锁定已有 Newtonsoft UPM 3.2.2（DLL 13.0.2），不增加第二份 JSON DLL；Core 不引用解析库 |
+| 启动 | GameContentStartupModule 接入现有 AppStartup，Addressables 并行加载两份文本，各自释放句柄；全部验证成功才注册 GameCatalog |
+| 资源保护 | 环境工具保留 GUID 移入正式 Editor 目录；Initialize 遇已有目标立即拒绝；BuildAddressablesContent 仅验证并构建，不调用初始化。配置注册只保存本批配置与分组 |
+| 守卫 | tools/ArchitectureGuard 检查源码结构、项目依赖、Core 禁用 API 与 Editor/Tests 隔离；tools/CoreBuild 以 C#9 / netstandard2.1 独立编译实际 Core 源码 |
+
+构建会临时开启 Addressables Build Layout 诊断并恢复原设置，避免首次构建的可选报告弹窗阻塞自动任务。构建串行执行，结束时恢复后端、裁剪及预加载选项，并原样还原调用前的 ProjectSettings 文件，避免 Unity 把临时构建配置留在磁盘中。正式 Mono 首次运行暴露 Sample 类型被 AppStartup 完整性检查误认为漏注册，已在隔离依赖补齐与生成器一致的排除规则；失败日志保留，详见[依赖修正](DEPENDENCIES.md#正式配置解析依赖)。
+
+本批已通过 22 项 Editor 检查、Core 独立编译、10 项守卫自测，以及 Mono／IL2CPP 各 5 项独立启动检查。397 个构建前已有资源与 `.meta` 无非预期改写；Unity 新生成 Addressables `link.xml`（随内容构建重建，不手改）及 ScriptableBuildPipeline 默认设置一并提交。
+
+本批验证记录在 [首批移植证据](evidence/migration-start-2026-09-11.json)。配置宿主可用于验证依赖与启动，**尚不能游玩灰松谷**。LevelDefinition 当前只含 JSON 中的身份、seed 和波次；布局将从唯一可编辑场景来源提供，不能把不存在的布局字段当作零坐标生成世界。
+
+复跑入口（仓库根目录，已打开正确的 Game Editor）：
+
+```powershell
+dotnet build tools/CoreBuild/CoreBuild.csproj
+dotnet run --project tools/ArchitectureGuard -- .
+unity command run_tests --mode editor --filter DarkNights.Tests --filter_type assembly --project-path Game --detach
+unity command menu --path 'Dark Nights/Build/Windows Mono' --project-path Game --detach
+pwsh -NoProfile -File tools/test-game-startup.ps1 -Backend mono
+unity command menu --path 'Dark Nights/Build/Windows IL2CPP' --project-path Game --detach
+pwsh -NoProfile -File tools/test-game-startup.ps1 -Backend il2cpp
+```
+
+先完成导入／编译，再注册配置和运行测试；修改源文件后需确认编译产物已更新，不能仅以 `isCompiling=false` 判断最新代码已加载。每个 detached 请求等待其任务 ID 完成后再执行下一步。首次新建本批配置条目使用 `Dark Nights/Content/Register Initial Configuration`；日常构建不会自动注册或重写配置。该命令只读取已导入 JSON，不从 Godot 目录导入。
+
+下一批继续 M0：实际 ObjectDefinition／Prefab 及生成 Behaviour 访问验证、定义身份与 LegacyV1 注册；M1 接着迁移权威规则、布局与随机数，完成冻结夹具对照。完整四程序集、对象绑定、正式联机、旧档继续运行和美术验收均未完成。
 
 ## 工作量与难度
 
-2026-09-11 实施准备补充：官方 Unity CLI／Pipeline MCP 已接入，完成 Editor 编译、协议调用和域重载复查；隔离 YYGC 增加 Sample 全局注册排除补丁。新增依赖后重建 Mono／IL2CPP，两个后端的四进程基础与弱网检查共 120 项通过。此项不代表 M0 正式 AppStartup／Addressables 接入完成。版本、警告与新证据见[依赖说明](DEPENDENCIES.md#官方-unity-mcp-开发工具)。上文“只更新设计”指此前目录方案更新。
+2026-09-11 实施准备补充：官方 Unity CLI／Pipeline MCP 已接入，完成 Editor 编译、协议调用和域重载复查；隔离 YYGC 增加 Sample 全局注册排除补丁。新增依赖后重建 Mono／IL2CPP，两个后端的四进程基础与弱网检查共 120 项通过。此项不代表 M0 正式 AppStartup／Addressables 接入完成。版本、警告与新证据见[依赖说明](DEPENDENCIES.md#官方-unity-mcp-开发工具)。该记录属于此前 MCP 接入批次。
 
 以下为基于现有环境与 Sample 的**剩余工作暂估**，以一名熟悉 C#/Unity、能够调试 FishNet 的开发者为基准；现有规则、素材和测试可使用，无新增美术、地图或经济设计。一个人日包含实现、调试与相应验收；尚未通过实际移植速度验证。
 
@@ -30,7 +67,7 @@ Unity 单机适配为中等难度，主要在54个表现文件对应的场景／
 
 ## 每批实施的执行方式
 
-各阶段遵循 [AGENTS 的执行效率约束](../AGENTS.md#execution-efficiency)：**集中准备 → 一次提交批次 → 等待依赖就绪 → 汇总验证**。优先使用已有 CLI／MCP、Editor 入口及复跑脚本，减少模型与工具之间逐项往返。本节为执行规范，未新增自动化工具，也不表示正式迁移已实施。
+各阶段遵循 [AGENTS 的执行效率约束](../AGENTS.md#execution-efficiency)：**集中准备 → 一次提交批次 → 等待依赖就绪 → 汇总验证**。优先使用已有 CLI／MCP、Editor 入口及复跑脚本，减少模型与工具之间逐项往返。本节为执行规范，实际已实施范围以下方状态和证据为准。
 
 例如新增一批脚本和素材，应先集中写入文件与程序集声明，再统一触发导入，让 Unity 为新增文件／目录补齐 `.meta` 并完成编译；不能每个文件分别刷新。需要引用新组件的 Prefab／ObjectDefinition 在编译就绪后作为下一批集中创建、绑定、注册及保存，最后统一检查 GUID、缺失引用和生成结果。已有工具能够处理整条依赖链时一次提交即可；遇到必须等待的编译或导入结果，按屏障分批，不强行并行。
 
@@ -112,4 +149,4 @@ M5从干净目录／锁定依赖构建，验证实际Player，不把Editor Play�
 - 已有实证：`6000.4.9f1` 环境基线，YYGC `10b8f0e` 的 Sample Mono / IL2CPP 四进程与弱网；正式组合与 DTO 必须重验。
 - M0/M1 锁定：正式生成注册／访问、JSON 库、GUID / Key 映射与 LegacyV1 网络定义、规则及随机兼容。
 - M2 测量决定：完整投影频率、插值缓冲、载荷上限、是否分块或拆流以及性能预算。
-- 本次仅设计与文档核对，未修改 Godot、YYGC、Sample 或 Unity 运行代码；实际实施从 M0 收口与 M1 开始。
+- 已开始 M0 收口与 M1 配置迁移；未修改 Godot 或用户 YYGC 仓库，Sample 保持独立。正式规则模拟与对象接入是后续批次。
