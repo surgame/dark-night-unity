@@ -1,10 +1,10 @@
 # Dark Nights · Unity
 
-《Dark Nights》Unity 工程筹备仓库，基于 YYGC 评估单关卡与合作联机方案。本轮已完成 Unity M0/M1 环境导入、依赖锁定、YYGC 本地接入、启动场景、Addressables、编译和 Windows Player 冒烟；联机与完整玩法仍未验证。
+《Dark Nights》Unity 工程筹备仓库。M0/M1 环境基线已完成；2026-09-11 新增独立 [LAN 合作 Sample](docs/LAN_SAMPLE.md)，通过 Windows Player 四进程及实际 UDP 丢包／乱序验证。灰松谷正式玩法、正式联机和 M2–M5 尚未完成。
 
-`Game/` 是本轮使用的 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。它使用本地 `D:\Developer\YYGC` 引用，允许直接修改 YYGC 后由 Unity 重新编译；NuGetForUnity、R3、MemoryPack、ZLinq、UniTask、FishNet、Addressables 及 YYGC 所需的 Odin Inspector/DOTween 已完成导入。Unity 内部产品名暂保留为 `DNights`，与目录名解耦。
+`Game/` 是 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。先运行 `tools/prepare-lan-sample.ps1` 准备锁定提交的 `.deps/YYGC`，不直接引用用户维护的框架工作区。R3、MemoryPack、UniTask、FishNet 等依赖已导入；VitalRouter 使用 YYGC 要求的完成语义修正版。内部产品名暂保留 `DNights`。
 
-评估日期：2026-09-10。Unity 宿主位于本仓库；YYGC 继续以本地开发包引用，已做输入模块兼容补丁，用户原有暂存和未跟踪内容均保留。本仓库独立初始化 Git，分支为 `main`。
+原评估日期：2026-09-10；Sample 验证日期：2026-09-11。本仓库分支为 `main`。本次未修改 `D:\Developer\YYGC`、Godot 基线或参考素材；下方评估输入表保留历史时点。
 
 ## 核心判断
 
@@ -12,7 +12,7 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 
 建议保留普通 C# 模拟，由房主唯一结算世界；游戏只补营地权限、业务去重、投影、Ready、epoch 和恢复流程。首个切片优先用会话级 StatefulBehaviour/StateSynchronizer 同步可靠完整投影，测量后再决定分块与拆流。角色、建筑和资源点使用 YYGC 本地对象视图与 Unity Prefab。
 
-复评已发现命令生成器 DLL 仍识别旧命名空间；小型探针还确认了初始 null 时首个状态被过滤，以及未注册接口不能仅靠具体类型 ID 完成 MemoryPack 序列化。联机尚未正式生产使用，Unity 构建和真实多进程验收仍待执行，详见复评证据。
+早期复评的生成器、首状态和序列化问题属于当时版本。新 Sample 已在 YYGC `10b8f0e` 上复用完整命令与状态链，通过真实多进程验证；独立程序集补丁、依赖和未验收边界见 [Sample 说明](docs/LAN_SAMPLE.md)。联机尚未正式生产使用。
 
 整体难度为中高。单关卡可验收的合作版本估算 **24–40 人日基础工作量，预留后约 30–50 人日**；按一名熟悉 Unity/C# 的全职开发者约 6–10 工作周。估算含框架适配和验证，不含公网中继、平台接入与房主迁移。详见[执行计划](docs/DEVELOPMENT.md)。
 
@@ -32,6 +32,7 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 
 | 要解决的问题 | 文档 |
 |---|---|
+| 立即试用 LAN 模板、R3/VitalRouter 约束、四进程证据 | [LAN Sample](docs/LAN_SAMPLE.md) |
 | 最新复评：避免重复造轮子、已复现缺口与修正优先级 | [YYGC 能力复评](docs/YYGC_REASSESSMENT.md) |
 | YYGC 哪些可复用、哪些需要修正或验证 | [框架评估](docs/FRAMEWORK_REVIEW.md) |
 | Unity 版本、包依赖、生成器与构建准备 | [依赖与环境](docs/DEPENDENCIES.md) |
@@ -66,4 +67,4 @@ git status --short
 
 采集脚本只读两个输入目录，输出到忽略的 `artifacts/assessment-current.json`；不启动 Unity，不修改框架或游戏。冻结证据保留原评估时点，常规重跑不会覆盖。
 
-`Game/Assets/`、`Game/Packages/`、`Game/ProjectSettings/` 已作为 Unity 工程结构落地。包 manifest/lock、NuGet 配置、NuGet 包缓存、全局 ScriptableObject、Addressables 配置、GameCore/NetworkManager Prefab 和 `Bootstrap` 场景均已生成；`Library/`、构建输出和日志继续由 Git 忽略。项目专属对象定义、StateData、NetworkCommand 和可生成网络 Prefab 仍为空，后续按玩法补齐。
+正式 Bootstrap、全局定义与注册表仍保持环境基线；Sample 使用自己的定义、StateData、NetworkCommand、Prefab 和场景。`Library/`、构建输出、`.deps/` 和日志不提交，冻结验证摘要在 `docs/evidence/`。

@@ -1,0 +1,1 @@
+{"name":"DarkNights.Samples.LanCoop.Runtime","references":["DarkNights.Samples.LanCoop.Core","GameCore.Runtime","FishNet.Runtime","UniTask"],"allowUnsafeCode":true,"autoReferenced":false}

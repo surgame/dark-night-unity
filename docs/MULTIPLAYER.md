@@ -1,5 +1,7 @@
 # Dark Nights 合作联机设计
 
+2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已通过 Windows Host＋3 客户端的共享交易、工位、权限、Ready、epoch、暂停、晚加入／重连和真实 UDP 弱网验证。本页完整游戏协议仍为设计，Steam、双机器和正式玩法未验收。
+
 状态：设计，尚未实现或运行验证。已确认 2–4 人合作、共享一个营地；按 Windows、房主主持、局域网／直连估算。公网房间、邀请、中继与平台身份尚未确认，见[范围与工期](DEVELOPMENT.md)。
 
 实现顺序已按[YYGC 能力复评](YYGC_REASSESSMENT.md)收敛：优先修正并复用 Gateway/Sender/Processor 和 StatefulBehaviour/StateSynchronizer。先以一个会话状态承载有界、可靠的完整营地投影，验证首次状态和在线替换；后文的分块、结构/运动拆流、增量暂存流程是在测量超限后启用的设计。权限、epoch、原子应用、Ready 与恢复合同从首个切片就必须成立。

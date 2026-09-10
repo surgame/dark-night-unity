@@ -1,0 +1,27 @@
+{
+  "date": "2026-09-11",
+  "unity": "6000.4.9f1",
+  "frameworkCommit": "10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4",
+  "frameworkSourceUnmodified": true,
+  "assemblyAccessPatchSha256": "7DC25831DB8A678F3B575CEEE60908CD597A54AE2AE709979718DCA01051EE10",
+  "vitalRouter": {
+    "upstreamRevision": "5c6cd79aad43bb3f128230e89aa282b59cde4a69",
+    "archiveSha256": "034419D3DE9A60C65CBA76DD69F8238734CECA8C71349F872BBA267667E10AF2",
+    "patchSha256": "BD1B58D42B8FB1AD5BFCDAFEAF90F5AA971251682AEA1CF24F8E35CC22CD0FF7",
+    "dllSha256": "FD220CFA56DFCD1C0C4F96EEF3F16DA9F62CD51BF553B5AE30622CD8ECAFB6FC"
+  },
+  "vitalRouterRegressionPassed": 15,
+  "coreAssertionsPassed": 25,
+  "assetRoundtrip": "PASS: scene reopened; ObjectInstance/ObjectView bound; Prefab copy edited, saved and reopened; both network Prefabs valid.",
+  "buildLogSha256": "B9D96089C82D031884487836B0A62797834F8FE06592E3DE3C73A01555037EFA",
+  "playerExeSha256": "93C19F9E7C681845D34407807D33B6438E781DD34C4D8895EBDF2C6FB083711D",
+  "runtimeAssemblySha256": "F848A8DDCAE250F4994AE17AB637CDF467CE24D4203506C57BBE54B0BEF440E5",
+  "visualScreenshotSha256": "9D8E3A826050F099820E6D84403108102B4E466857A29B27F28A5F4146D41126",
+  "notVerified": [
+    "Two physical machines LAN",
+    "Steam platform integration",
+    "IL2CPP/AOT",
+    "Long-running load",
+    "Formal Dark Nights gameplay"
+  ]
+}

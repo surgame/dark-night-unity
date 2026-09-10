@@ -1,0 +1,1 @@
+{"name":"DarkNights.Samples.LanCoop.Bootstrap","references":["DarkNights.Samples.LanCoop.Core","DarkNights.Samples.LanCoop.Runtime","DarkNights.Samples.LanCoop.Presentation","GameCore.Runtime","FishNet.Runtime"],"autoReferenced":false}

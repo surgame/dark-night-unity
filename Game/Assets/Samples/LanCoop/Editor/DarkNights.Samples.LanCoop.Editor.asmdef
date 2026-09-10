@@ -1,0 +1,1 @@
+{"name":"DarkNights.Samples.LanCoop.Editor","references":["DarkNights.Samples.LanCoop.Core","DarkNights.Samples.LanCoop.Runtime","DarkNights.Samples.LanCoop.Presentation","DarkNights.Samples.LanCoop.Bootstrap","GameCore.Runtime","FishNet.Runtime","Unity.Addressables.Editor"],"includePlatforms":["Editor"],"autoReferenced":false}

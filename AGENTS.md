@@ -23,6 +23,7 @@
 - 不复制整个 Godot 数学库或建立通用引擎抽象。只迁移实际使用的坐标、数学和可恢复随机数能力。
 - 沿用 YYGC 现有启动、DI、视图、资源与 UI 接口，不另造并列的 DI 容器或全局事件框架。框架本身的历史长文件不在本次全面拆分范围内。
 - 联机实现先读 [YYGC能力复评](docs/YYGC_REASSESSMENT.md)。优先修正并复用 Gateway/Sender/Processor、类型注册/序列化和会话 StatefulBehaviour/StateSynchronizer；游戏仅补权限、业务去重、投影、Ready、epoch和恢复。先验证可靠完整投影，测量后决定分块/拆流；局部后备网络适配必须有现有路径无法满足需求的具体证据。本地输入互斥复用 Interaction Sessions。
+- 独立联机模板遵循 [LAN Sample 规范](docs/LAN_SAMPLE.md)：样板放 `Assets/Samples/LanCoop`，正式代码不反向引用；构建不覆盖样板原生资产。必要的 R3 用于状态订阅及生命周期；VitalRouter 只保留 YYGC 命令链必需的显式适配，新增业务路由／过滤器必须先说明具体必要性和调试路径。不要为模板预建 Steam、Lobby、多 transport 或房主迁移抽象。
 
 ## 权威状态与联机
 

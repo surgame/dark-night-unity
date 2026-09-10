@@ -1,5 +1,7 @@
 # Unity 与 YYGC 依赖准备
 
+2026-09-11 增补：当前 `Game/Packages` 通过 `tools/prepare-lan-sample.ps1` 使用 YYGC 提交 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` 的 `.deps/YYGC`，原框架仓库只读。另含样板程序集访问补丁和框架要求的 VitalRouter wait-all 修正版。来源、恢复方法和 SHA-256 见 [LAN Sample](LAN_SAMPLE.md) 与 [依赖证据](evidence/lan-sample-dependencies.json)。下文旧工作区与本地路径描述保留原评估／M0 时点，不代替当前 manifest。
+
 本文件记录 Unity 宿主的实际依赖与剩余核验项；可运行的 manifest、lock、NuGet 配置和包缓存位于 `Game/`。
 
 ## Editor、C# 与运行库

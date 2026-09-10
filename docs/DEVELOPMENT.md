@@ -1,6 +1,8 @@
 # Dark Nights Unity 开发执行计划
 
-当前阶段：M0/M1 Unity 宿主、依赖、启动场景和 Addressables 基线已实施，并通过 Editor 编译、Addressables 构建、Windows Player 构建和 Player 启动冒烟；项目专属对象、网络序列化和双进程验收，以及 M2–M5 仍未完成。下一步迁移 Core 并完成真实双进程切片。
+当前阶段：M0/M1 环境基线已实施；2026-09-11 独立 [LAN Sample](LAN_SAMPLE.md) 已通过 Windows Player 四进程、晚加入／重连、Host 重开和真实 UDP 弱网验证。正式玩法 Core、灰松谷联机切片及 M2–M5 仍未完成。
+
+Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本；YYGC 锁定 `10b8f0e` 加窄范围友元程序集补丁，VitalRouter 修正从固定源构建。基础与弱网各 30 项多进程断言见 Sample 文档及 `docs/evidence/lan-sample-*.json`。下文正式玩法预算和退出条件保持有效，不能以测试营地代替完整游戏验收。
 
 这里的 M1 指环境封装与启动基线；表格中的 M1“可移植核心”仍未开始，不能把环境就绪当作玩法或规则迁移完成。
 

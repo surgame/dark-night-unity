@@ -1,6 +1,6 @@
 # 人工开发 Quick start
 
-`Game/` 已完成 M0/M1 基线导入，版本为 `6000.4.9f1`。它通过 `file:D:/Developer/YYGC` 使用可编辑的 YYGC 工作区；R3、MemoryPack、ZLinq 等 NuGet 核心包存放在 `Game/Assets/Packages`，由 NuGetForUnity 的 `Game/Assets/NuGet.config` 与 `Game/Assets/packages.config` 管理。`Bootstrap` 是首场景，包含 GameCore 和 FishNet NetworkManager 基线。
+`Game/` 使用 `6000.4.9f1`。先运行 `pwsh -File tools/prepare-lan-sample.ps1` 准备锁定的 `.deps/YYGC`；核心 NuGet 包在 `Game/Assets/Packages`。立即验证联机：打开 `Assets/Samples/LanCoop/Content/LanCoop.unity`，按 [LAN Sample](LAN_SAMPLE.md) 启动 Host／Join 或四进程测试。正式 `Bootstrap` 仍为原首场景。
 
 ## 先读什么
 
@@ -18,7 +18,7 @@
 5. 运行 `YY/Dark Nights/Initialize Environment` 等价批处理，创建 AppStartup、Addressables、GameCore、NetworkManager 和 Bootstrap；运行 StateData/NetworkCommand 生成器，生成空注册入口。
 6. 用 `-buildWindows64Player` 完成 Bootstrap 首场景的 Windows Player 构建，并启动 Player 冒烟；日志达到 `[AppStartup] Startup completed. Application is ready.`。
 
-打开工程后，若修改 YYGC 源码，等待 Unity 重新编译即可；如果清空 `Assets/Packages`，在编辑器菜单执行 `NuGet > Restore Packages`。环境重建可使用 `YY/Dark Nights/Initialize Environment`，Addressables 内容可使用 `YY/Dark Nights/Build Addressables Content`。
+上面列出的是历史 M0/M1 操作。当前不要直接改用户 YYGC 工作区；隔离补丁与恢复方法见 Sample 文档。NuGet 恢复后需要核对并重新应用 VitalRouter wait-all 修正。普通 Sample 构建不运行环境生成器，不重写正式 Bootstrap 或 Addressables。
 
 ## 从现有代码理解规则
 
