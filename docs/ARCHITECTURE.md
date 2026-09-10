@@ -22,7 +22,7 @@
 | 已验证的请求序列、连接／玩家对应、epoch、CampControlMode／PolicyRevision | Runtime/Session 与命令入口 | 命令处理、网络与只读权限展示 |
 | 世界展示副本 | 快照应用器；按版本／序号更新 | 视图、HUD、选择查询 |
 | 相机、SelectedIds、悬停、建造预览、待确认指令 | 各客户端 LocalInteractionState | 本地输入与 UI |
-| 动画帧、插值位置、选区、声音与一次性特效 | Presentation | Unity Renderer／UGUI／Audio |
+| 动画帧、插值位置、选区、声音与一次性特效 | View | Unity Renderer／UGUI／Audio |
 | 成本、伤害、施工时间、职业属性 | 只读规则定义，源为 balance JSON | 模拟与 HUD 同一数据 |
 | 外观、锚点、原点、绑定引用 | Unity Prefab／资源 | 本地视图与 Editor 预览 |
 
@@ -48,56 +48,64 @@ flowchart LR
 
 ## 程序集与职责目录
 
-以下为 M0–M3 将建立的结构，当前仓库尚无这些游戏文件。采用四个运行程序集，避免为每项规则建立额外框架层。
+2026-09-11 人工可读性复审后，采用 Scripts / Res 分离：代码按职责分层，资源按游戏对象归组。以下为 M0–M3 的目标结构，尚未创建正式目录或移动资源；只在实现功能时建立所需目录，不预建空类。四个运行程序集为 Core、Runtime、View、Entry；View 和 Entry 分别替代原方案的 Presentation 和 Bootstrap 层名称，职责不变。
 
 ```text
-Assets/DarkNights/
-  Core/                           DarkNights.Core.asmdef
-    Content/                      普通 C# 只读规则与关卡定义
-    Simulation/                   会话、实体、经济、生产、战斗、波次
-    Commands/                     明确的操作参数、校验结果
-    ReadModels/                   展示 DTO、只读查询和操作接口
-    Persistence/                  纯快照模型与关系校验，无文件访问
-  Runtime/                        DarkNights.Runtime.asmdef
-    Session/                      权威会话、玩家表、权限、恢复流程
-    Networking/Commands/          YYGC 可信上下文到游戏权限、结果确认
-    Networking/Snapshots/         会话投影、原子应用、版本检查；按需分块
-    Networking/Connections/       加入、Ready、重连、断开
-    Networking/Protocol/          版本化 wire DTO、序列化适配
-    Framework/                    YYGC 启动、定义、容器与资源适配
-    Content/                      JSON 读取、Unity 内容输入到 Core
-    Persistence/                  文件／YYArchive 适配、旧档导入
-    Time/                         唯一模拟调度与网络时钟
-  Presentation/                   DarkNights.Presentation.asmdef
-    World/                        按 EntityId 绑定本地视图、相机
-    Actors/, Buildings/, Worksites/
-    Effects/, Audio/              纯表现生命周期
-    Input/, UI/                   本地交互、HUD、菜单
-    Authoring/                    场景标记、无副作用预览组件
-  Bootstrap/                      DarkNights.Bootstrap.asmdef；仅组合
-  Editor/                         Editor-only 工具和验证
-  Tests/                          按 EditMode/PlayMode 隔离的测试程序集
-  Content/Rules/                  原 balance 与 waves JSON
-  Content/Definitions/            YYGC ObjectDefinition 与映射配置
-  Content/Visuals/                外观目录、动画、材质、字体
-  Art/Original/, Art/Authored/    原始素材与新增／修改版本
-  Prefabs/Entities/, Prefabs/Visuals/
-  Prefabs/UI/, Prefabs/Environment/, Prefabs/Network/
-  Scenes/                        MainMenu、Pinewatch、ArtReview
+Assets/
+  DarkNights/
+    Scripts/
+      Core/                       DarkNights.Core.asmdef
+        Config/                   只读规则与关卡配置类型
+        Logic/                    权威状态、规则、显式业务命令
+        ViewData/                 展示副本、只读查询和操作接口
+        Save/                     存档模型与关系校验，无文件访问
+      Runtime/                    DarkNights.Runtime.asmdef
+        Session/                  对局、权限、恢复协调、唯一模拟调度
+        Network/                  命令、投影、连接、wire DTO 与序列化
+        Framework/                YYGC 定义、容器、资源及内容读取适配
+        Save/                     文件／YYArchive 适配、旧档导入
+      View/                       DarkNights.View.asmdef
+                                  实体表现、UI、输入、场景标记与预览
+      Entry/                      DarkNights.Entry.asmdef；仅启动装配
+      Editor/                     Editor-only 工具和检查
+      Tests/                      EditMode / PlayMode 隔离测试程序集
+    Res/
+      Objects/
+        Worker/
+          Worker.asset            ObjectDefinition
+          Worker.prefab           对象容器与组件绑定
+          WorkerVisual.prefab     可独立编辑的外观
+          Animations/             工人专用动画
+        House/                    其他角色、建筑、工位等按对象归组
+      UI/
+        HUD/                      同面板的定义、Prefab 与专用资源
+        MainMenu/
+      Scenes/                     Pinewatch、ArtReview、MainMenu 场景
+      Config/                     规则 JSON、内容映射等实际配置资产
+      Shared/                     多对象共用的材质、字体等
+      Art/
+        Original/                 原始素材，保留来源清单与 SHA-256
+        Custom/                   新增／修改的源素材
+  AddressableAssetsData/           现有 Addressables 配置，保留位置
+  Samples/LanCoop/                 独立样板，不被正式游戏引用
 ```
 
-现有 `Assets/Scenes/Bootstrap.unity`、AppStartup 资源和 NetworkManager Prefab 继续作为宿主入口；必要的目录迁移保留 `.meta` / GUID。游戏不会再创建第二套 Bootstrap 或同时启用 Sample 的网络管理器。
+图中省略现有框架启动资源和第三方目录。`Assets/Scenes/Bootstrap.unity`、AppStartup 资源和 NetworkManager Prefab 继续作为宿主入口；必要的目录迁移保留 `.meta` / GUID，并检查数据库、Addressable 条目和脚本硬编码路径。游戏不会再创建第二套 Bootstrap 或同时启用 Sample 的网络管理器。
+
+Scripts 和 Res 仅用于物理组织，不加入命名空间，例如 `DarkNights.Core.Logic`。Runtime/Network 初期不再细分 Commands、Snapshots、Connections、Protocol；View 初期按文件命名定位，内容增多后才按 World、UI、Input、SceneSetup 拆目录，不增加程序集。代码不得放入 Res；原始素材只有一份，对象目录内的 Prefab／动画引用 Art 中的源素材。专用资源跟对象走，共用资源才进入 Shared。
+
+`Res` 不是 Addressables 的特殊目录名；通过条目与分组注册资源，不能把物理目录当作 Address 或 Definition Key。`AddressableAssetsData` 是默认配置目录，不是游戏素材根。ObjectDefinition 与 Prefab 同目录维护，按 YYGC 绑定合同检查组件引用和生命周期。官方依据、分组与资源迁移要求见[移植方案的目录与装配要求](MIGRATION_PLAN.md#directory-and-assets)。
 
 | 程序集 | 允许项目依赖 | 限制 |
 |---|---|---|
 | Core | 无其他项目程序集 | noEngineReferences；不访问 Unity/Godot/YYGC/FishNet、资源、磁盘或 UI |
-| Runtime | Core | 引擎、YYGC、网络、存档与调度适配；不依赖 Presentation |
-| Presentation | Core | 可引用 Unity/YYGC 的视图和 UI；只读 ReadModels 与 Content，不访问可写 Simulation 或 Runtime 网络实现 |
-| Bootstrap | Core、Runtime、Presentation | 提供具体实现，装配接口和场景；不包含玩法计算 |
+| Runtime | Core | 引擎、YYGC、网络、存档与调度适配；不依赖 View |
+| View | Core | 可引用 Unity/YYGC 的视图和 UI；只读 ViewData 与 Config，不访问 Logic 的可写状态或 Runtime 网络实现 |
+| Entry | Core、Runtime、View | 提供具体实现，装配接口和场景；不包含玩法计算 |
 | Editor | 按工具需要引用以上层 | includePlatforms=Editor；不能被运行程序集引用 |
 | Tests | 被测程序集 | 不进入 Player；多进程驱动与日志作为独立验证工具 |
 
-Core 中的只读接口让 Presentation 提交意图和读取副本，Bootstrap 注入 Runtime 实现。Presentation 虽引用 Core 程序集，仍需语义检查限制其访问 Simulation 的可写类型。程序集隔离、文件长度与 XML 注释检查在 M0 建立，M1 随核心迁移启用完整规则；当前 AGENTS 是约束文档，尚不是已运行的正式守卫。
+Core/ViewData 中的接口让 View 提交意图和读取副本，Entry 注入 Runtime 实现。View 虽引用 Core 程序集，仍需语义检查限制其访问 Logic 的可写类型；Core/Save 与 Runtime/Save 分别负责纯数据和文件读写。程序集隔离、文件长度与 XML 注释检查在 M0 建立，M1 随核心迁移启用完整规则；当前 AGENTS 是约束文档，尚不是已运行的正式守卫。
 
 ## YYGC 接入方式
 
@@ -132,7 +140,7 @@ Core 中的只读接口让 Presentation 提交意图和读取副本，Bootstrap 
 
 `CampControlMode = SharedCamp | HostOnly` 与递增 `PolicyRevision` 属于 Runtime/Session。每条修改世界的请求在执行点校验当前模式；HostOnly 限制来宾所有营地修改，包括建造自动派工和训练。房主修改模式也进入同一命令顺序，旧策略未执行请求被拒绝，已有订单继续。
 
-Presentation 读取权限投影来控制按钮、快捷键和预览；Core 接受经过授权的显式操作参数，不读取玩家连接或全局选择。加载保留房间控制模式，切世界只增加 epoch；控制模式本身不会重置世界。此设计允许后期关闭共享操作，而不调整模拟、DTO 主体或单位网络所有权。详见[联机权限合同](MULTIPLAYER.md)。
+View 读取权限投影来控制按钮、快捷键和预览；Core 接受经过授权的显式操作参数，不读取玩家连接或全局选择。加载保留房间控制模式，切世界只增加 epoch；控制模式本身不会重置世界。此设计允许后期关闭共享操作，而不调整模拟、DTO 主体或单位网络所有权。详见[联机权限合同](MULTIPLAYER.md)。
 
 ## 时钟与模拟一致性
 

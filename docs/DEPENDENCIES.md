@@ -62,7 +62,7 @@ ViewBinding 与 DI 工程的 AfterBuild 会复制 DLL 回框架目录；本轮�
 ## 包接入策略
 
 1. 保持 YYGC `10b8f0e`、Editor `6000.4.9f1` 与现有包版本；新机器先运行准备脚本，不修改原框架工作区。
-2. 新增正式 Runtime / Presentation Behaviour 后，验证生成器对内部成员的访问；当前 `SampleAssemblyAccess.cs` 只授权 Sample Runtime，不能直接当作正式程序集补丁。必要修正在隔离 checkout 中完成并记录输入。
+2. 新增正式 Runtime / View Behaviour 后，验证生成器对内部成员的访问；当前 `SampleAssemblyAccess.cs` 只授权 Sample Runtime，不能直接当作正式程序集补丁。必要修正在隔离 checkout 中完成并记录输入。
 3. 为正式命令、状态的具体类型保留可用于 IL2CPP 的注册入口，校验集合复制和归池。类型 Tag、Behaviour 顺序和定义目录进入握手摘要，正式表不引用 Sample 的测试 ID。
 4. 保留 VitalRouter 修正的源码版本、补丁和 DLL 哈希；普通 NuGet 恢复可能换回原版，依赖预检应能识别。UPM lock 单独不代表完整输入。
 5. 正式 AppStartup 使用现有资源；把 `DarkNightsEnvironmentSetup.BuildAddressablesContent()` 与会保存场景／Prefab 的 `Initialize()` 分离，再接入日常构建。

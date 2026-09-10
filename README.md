@@ -4,6 +4,8 @@
 
 2026-09-11 更新[完整移植方案](docs/MIGRATION_PLAN.md)：保留 C# 权威规则核心，接入 YYGC 对象、命令和状态链，使用原生 Prefab / UGUI；默认共享控制并保留 HostOnly 开关。本次更新为设计文档，实施从正式接入收口和规则核心开始。
 
+目录设计已收口为 `Assets/DarkNights/Scripts` 与 `Res` 分离；代码采用 Core、Runtime、View、Entry，资源按对象／面板集中维护定义、Prefab 和专用资源。Addressables 不要求游戏素材目录采用特殊名称，仍通过 ObjectDefinition 驱动加载与绑定；现有 AddressableAssetsData 配置位置保留。详见[目录及绑定要求](docs/MIGRATION_PLAN.md#directory-and-assets)，尚未实施目录迁移。
+
 `Game/` 是 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。先运行 `tools/prepare-lan-sample.ps1` 准备锁定提交的 `.deps/YYGC`，不直接引用用户维护的框架工作区。R3、MemoryPack、UniTask、FishNet 等依赖已导入；VitalRouter 使用 YYGC 要求的完成语义修正版。内部产品名暂保留 `DNights`。
 
 原评估日期：2026-09-10；Sample 验证日期：2026-09-11。本仓库分支为 `main`。本次未修改 `D:\Developer\YYGC`、Godot 基线或参考素材；下方评估输入表保留历史时点。

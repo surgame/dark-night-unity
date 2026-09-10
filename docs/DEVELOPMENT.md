@@ -6,6 +6,8 @@ Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本�
 
 本次只更新设计，没有运行新的 Unity / Godot 测试。Sample 已覆盖的旧生成器、首状态和命令路由问题不再作为从零研究任务；新的正式程序集、集合投影、AppStartup / Addressables 集成与游戏权限需要独立验收。先可靠完整投影，测量后再做分块或拆流。
 
+2026-09-11 目录复审要求已写入[移植方案](MIGRATION_PLAN.md)与[技术架构](ARCHITECTURE.md)：正式代码位于 Scripts（Core、Runtime、View、Entry），资源位于 Res，按对象／面板归组；Addressables 无游戏素材目录命名要求，保留现有配置目录。此项仅完成设计和官方文档／锁定包源码核对，目录迁移、正式绑定、构建及 Player 验证均待实施。
+
 ## 工作量与难度
 
 以下为基于现有环境与 Sample 的**剩余工作暂估**，以一名熟悉 C#/Unity、能够调试 FishNet 的开发者为基准；现有规则、素材和测试可使用，无新增美术、地图或经济设计。一个人日包含实现、调试与相应验收；尚未通过实际移植速度验证。
@@ -29,6 +31,8 @@ Unity 单机适配为中等难度，主要在54个表现文件对应的场景／
 已有环境包含 `ProjectSettings/ProjectVersion.txt`、包 manifest/lock、NuGet 依赖、全局空配置、AppStartup/Addressables、GameCore/NetworkManager Prefab、Bootstrap 和空正式注册源。当前 YYGC commit 已锁定为 `10b8f0e`，由准备脚本建立隔离 `.deps/YYGC`，不直接依赖用户工作区的未提交状态。
 
 M0 不重建环境：新增正式程序集后验证 Behaviour 生成器的内部访问（现有友元补丁仅覆盖 Sample）；保留 VitalRouter wait-all 修正和完整恢复输入；验证 GUID / Key 内容映射与 LegacyV1 网络定义；将 `BuildAddressablesContent → Initialize` 的调用拆开，构建只读取已维护资源。实现全局注册与会话启停时确保只有一个活动网络管理器，Sample 不叠加加载。
+
+目录调整按需实施，保留现有资产 GUID，检查定义数据库、Addressable 条目与硬编码路径；不为套目录改名 Bootstrap 场景或 Sample。首批正式对象将 Definition 与 Prefab 同目录维护，验证绑定键／类型／引用、装配顺序及池化释放；同时检查正式生成注册、资源依赖和构建前后资产哈希。M3 继续执行修改 Prefab、保存、重开及运行检查，不能以绑定表存在代替验收。
 
 M1先引入只读内容与Core程序集，建立禁止Unity/Godot/YYGC等跨层引用的守卫；为所有手写类型添加职责注释。保留原夹具与SHA-256，在构造接口变化时仅调整测试适配器，不改固定结果。
 

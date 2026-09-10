@@ -37,19 +37,20 @@
 
 ## 根据任务找到未来Unity目录
 
-下面是设计定位，不是已经生成的文件：
+下面是设计定位，不是已经生成的文件；路径相对于 `Assets/DarkNights`。Scripts 为代码区，Res 为资源区，完整结构见[技术架构](ARCHITECTURE.md)。
 
 | 开发任务 | 归属 |
 |---|---|
-| 改成本、伤害、建造时间 | Content/Rules的JSON；Core只读 |
-| 改采集、训练、攻击规则 | Core/Simulation与规则回归 |
-| 新增一种玩家命令 | Core/Commands、Runtime/Networking/Commands与权限／去重测试 |
-| 关闭共同操作／调整房间控制权限 | Runtime/Session 的 CampControlMode 与 PolicyRevision；同步到 UI；直接命令、自动派工和训练共用校验 |
-| 改同步频率、加入或重连 | Runtime/Networking，不能改客户端HP算法 |
-| 换图、动画、角色锚点 | Prefabs/Visuals、Content/Visuals和ArtReview |
-| 调HUD布局 | Prefabs/UI；动态显示在Presentation/UI |
-| 改初始摆放 | Pinewatch.unity的LevelAuthoring标记；不另写一份坐标JSON |
-| 改保存格式 | Core/Persistence＋Runtime/Persistence，增加显式版本迁移 |
+| 改成本、伤害、建造时间 | Res/Config 的 JSON；Scripts/Core 只读 |
+| 改采集、训练、攻击规则 | Scripts/Core/Logic 与规则回归 |
+| 新增一种玩家命令 | Scripts/Core/Logic、Scripts/Runtime/Network 与权限／去重测试 |
+| 关闭共同操作／调整房间控制权限 | Scripts/Runtime/Session 的 CampControlMode 与 PolicyRevision；同步到 UI；直接命令、自动派工和训练共用校验 |
+| 改同步频率、加入或重连 | Scripts/Runtime/Network，不能改客户端 HP 算法 |
+| 换图、动画、角色锚点 | Res/Objects 下所属对象目录；原图引用 Res/Art/Original，改图放 Res/Art/Custom；在 ArtReview 检查 |
+| 调 HUD 布局 | Res/UI/HUD；动态显示代码在 Scripts/View |
+| 排查资源加载、对象装配与组件绑定 | Scripts/Runtime/Framework、Scripts/View 及 Res 中所属对象的 Definition／Prefab；不靠 GetComponent 兜底缺失绑定 |
+| 改初始摆放 | Res/Scenes/Pinewatch.unity 的布局标记；不另写一份坐标 JSON |
+| 改保存格式 | Scripts/Core/Save＋Scripts/Runtime/Save，增加显式版本迁移 |
 | 改YYGC通用代码 | 独立框架checkout，先确认必要范围与工作区状态 |
 
 ## 当前可以运行的命令

@@ -14,7 +14,8 @@
 
 - Editor 沿用已锁定的 `6000.4.9f1`；游戏代码兼容 C# 9 和 .NET Standard 2.1。不能把 Godot 的 C# 12／.NET 8 配置直接带入。
 - 职责目录与程序集按架构文档执行。Core 不引用 Unity、Godot、GameCore、FishNet、R3、VitalRouter、文件系统或表现资源；引擎、网络与存储适配放 Runtime。
-- 采用四个运行程序集 Core、Runtime、Presentation、Bootstrap，以及隔离的 Editor/Tests。不要为每个小文件再建一层服务接口或一个程序集。
+- 正式代码放 `Assets/DarkNights/Scripts`，资源放 `Assets/DarkNights/Res`；采用 Core、Runtime、View、Entry 四个运行程序集，以及隔离的 Editor/Tests。View、Entry 分别承担原方案 Presentation、Bootstrap 的职责；不改现有 Bootstrap 场景或 Sample 类型名。不要为每个小文件再建一层服务接口或一个程序集。
+- 代码目录使用 Config、Logic、ViewData、Save、Network 等直观名称，具体归属见架构文档；Scripts/Res 不加入命名空间。ViewData 仅为展示副本，可写 WorldState 归 Core/Logic。不预建空目录和占位类型。
 - 文件名与主要类型一致，命名空间与职责目录一致，根命名空间 `DarkNights`。不建立无限扩张的 Manager/Utils 汇总文件。
 - 手写 C# 目标 150–250 行，硬上限 300 行，包含空行与注释；一文件一个主要命名类型。按职责拆分，不压缩语句或用多个 partial 文件绕过上限。
 - YYGC／MemoryPack／绑定生成器要求的类型可以 `partial`，但每个类型仍只有一份手写主体。生成输出放明确目录，记录输入和重建方式；不手改生成结果。
@@ -40,12 +41,15 @@
 
 ## Prefab、美术与内容
 
+- 资源按对象／面板归组：`Res/Objects/Worker` 等目录集中所属 ObjectDefinition、Prefab、专用动画和材质；UI 同理。共用资源才放 Res/Shared，原始素材只保存一份，不因对象归组重复复制。
+- Addressables 不要求游戏资源目录叫 Addressable／Addressables；Res 是项目约定，不自动注册资源。通过 Addressable 条目与分组管理加载，不使用特殊 Resources 目录存放 Addressable 资源。保留现有 AddressableAssetsData 配置位置，物理目录、分组、Address／Label 与 YYGC 定义身份分开。
+- 正式对象通过 DefinitionReference 和 YYGC 定义／创建入口，由 ObjectDefinition.PrefabRef 驱动 Addressables；沿用组件绑定、注入与生成注册。检查绑定键、类型、引用及装配／池化／释放时机，不以 GetComponent、节点名或子节点索引兜底缺失绑定，不手改生成结果。详细合同见移植方案。
 - 角色、建筑、工位、特效和 UI 使用原生 Prefab；Pinewatch 场景在未进入 Play 时能看到布局与外观。正式场景不得回退为一个空节点加全局创建脚本。
 - Prefab、AnimationClip、场景和 Theme 等正式资源由人工维护；迁移脚本只在指定空目录输出首版样板，普通导入／构建不得覆盖美术编辑。
 - 场景初始布局只有一份可编辑来源。派生关卡数据可在构建时生成，但必须能追溯到场景标记且不能反向覆盖它。
 - balance/波次 JSON 保持规则唯一来源。ObjectDefinition 的共享配置保存内容映射和表现设置，不重复维护 HP、成本或实例进度。
 - 角色根对齐脚底，ArtOffset、Facing、StatusAnchor、SelectionAnchor 与玩法占地分离；动画和物理碰撞不能结算游戏伤害。
-- 原始 551 项素材保持来源和 SHA-256，改图放 Authored。最近邻采样、关闭不需要的有损压缩，按适配方案转换坐标、原点和动画帧序。
+- 原始 551 项素材放 Res/Art/Original，保持来源和 SHA-256；改图放 Res/Art/Custom。最近邻采样、关闭不需要的有损压缩，按适配方案转换坐标、原点和动画帧序。
 - Editor 预览只产生表现，不启动网络或会话，不使用游戏随机数，不访问玩家存档。Editor API 和测试代码不得进入 Player 程序集。
 - `.meta`、`Packages/manifest.json`、`Packages/packages-lock.json`、`ProjectSettings/` 提交；Library、用户存档、本机配置、密钥、依赖缓存不提交。Unity 场景启用文本序列化与 Visible Meta Files。
 

@@ -48,6 +48,49 @@ flowchart LR
 
 正式代码不引用 `Assets/Samples/LanCoop`；将其中已验证的接法落实到正式的四个程序集，业务 DTO、注册表、Prefab 与会话服务均由正式工程拥有。Sample 保留为独立回归对照。
 
+<a id="directory-and-assets"></a>
+
+## 目录、Addressables 与对象装配要求
+
+2026-09-11 经人工可读性复审，正式目录采用 **Scripts / Res 分离，代码按职责分层，资源按游戏对象归组**。本节为实施要求，尚未创建正式目录、移动资源或验证新绑定。完整目录及程序集依赖以[技术架构](ARCHITECTURE.md)为准，不预建空目录、占位类或通用 Manager。
+
+| 入口，相对于 `Assets/DarkNights` | 归属与维护方式 |
+|---|---|
+| `Scripts/Core` | Config、Logic、ViewData、Save；纯 C#，可写世界仅归 Logic，ViewData 是展示副本 |
+| `Scripts/Runtime` | Session、Network、Framework、Save；框架、加载、网络与文件系统适配 |
+| `Scripts/View`、`Scripts/Entry` | 表现与本地输入；启动装配；对应 View、Entry 两个运行程序集 |
+| `Scripts/Editor`、`Scripts/Tests` | 编辑器工具与隔离测试，不进入 Player |
+| `Res/Objects/Worker` 等对象目录 | 同对象的 ObjectDefinition、对象 Prefab、Visual Prefab、专用动画及材质放在一起 |
+| `Res/UI/HUD` 等面板目录 | 同面板的定义、Prefab 与专用资源放在一起 |
+| `Res/Scenes`、`Res/Config` | 关卡／预览场景；规则 JSON、内容映射等实际配置资产 |
+| `Res/Shared` | 多个对象共用的材质、字体等资源；专用资源留在所属对象目录 |
+| `Res/Art/Original`、`Res/Art/Custom` | 原始素材与新增／修改素材；原始素材只保存一份，按来源清单保留相对路径和 SHA-256，由 Prefab／动画引用 |
+
+命名采用 Core、Runtime、View、Entry 四个运行程序集；原方案的 Presentation、Bootstrap 层分别改称 View、Entry，既有 Bootstrap 场景和 Sample 类型名不随之改名。代码目录使用 Config、Logic、ViewData、Save、Network 等直观名称。`Scripts` 与 `Res` 不加入代码命名空间，例如 `DarkNights.Core.Logic`。配置类型在 `Scripts/Core/Config`，配置文件在 `Res/Config`；Res 中不放 `.cs` 代码文件，Prefab 仍正常引用 Scripts 中定义的组件。
+
+### Addressables 不要求游戏资源目录采用特殊名称
+
+已核对本工程锁定的 Addressables **2.10.1** 包内文档、设置加载源码，以及 Unity 官方 2.10 文档：
+
+- 游戏资源无需放在名为 `Addressable`、`Addressables` 或 `AddressableAssets` 的目录。`Res` 是本项目的人类可读性约定；命名不会自动注册资源。通过 Inspector、Groups 或 AssetReference 建立 Addressable 条目与组归属。Addressable 资源不能放在特殊的 `Resources` 目录中。[官方资源组织说明](https://docs.unity3d.com/Packages/com.unity.addressables@2.10/manual/organize-addressable-assets.html)
+- `Assets/AddressableAssetsData` 是工具默认创建的**配置目录**，存放设置、分组等管理资产，并非游戏素材必须存放的位置。其受版本控制的配置需提交；构建产物按既有忽略规则处理。本项目保留现有配置位置，不因资源整理改名。[官方安装与配置说明](https://docs.unity3d.com/Packages/com.unity.addressables@2.10/manual/installation-guide.html)
+- 包内 `AddressableAssetSettingsDefaultObject` 以 `kDefaultConfigFolder` 定义默认配置位置，并通过已记录的 GUID 加载 Settings；不能由此推导出任意移动整个配置目录和构建路径都会自动兼容。游戏资源目录自由与工具配置迁移是两个问题。
+- 物理目录用于找文件，Groups 用于打包和加载，Address／Label 用于寻址或分类，DefinitionGuid／Key 用于 YYGC 定义身份。这些概念不互相替代；不从文件夹名推导定义 Key，不要求每个 Worker 目录对应一个组。按共同加载／释放需求组织分组，并检查共享依赖重复打包。
+
+在线 2.10 文档可能展示后续补丁版本，本次同时核对了本机 2.10.1 的 `Documentation~/organize-addressable-assets.md`、`installation-guide.md` 和 `Editor/AddressableAssetSettingsDefaultObject.cs`；不据此升级包版本。此次仅为文档／源码核对，没有运行 Unity 构建或移动资源实验。
+
+### ObjectDefinition 驱动与绑定合同
+
+正式对象遵循 `ContentId → DefinitionReference → YYGC 定义查询／创建 → ObjectDefinition.PrefabRef → Addressables 加载 Prefab 及依赖 → ObjectInstance / ObjectView 装配`。BehaviourTypes 和 SharedConfigs 参与框架装配；业务代码不另造资源管理器、DI 容器或对象创建路径。图片、动画和材质可作为资源依赖，无需为每个素材单建 ObjectDefinition；规则数值仍以 JSON 为唯一来源。
+
+ObjectDefinition 与所属 Prefab 放在同一对象目录，方便一起核对装配配置与视图。YYGC 通过序列化组件引用、绑定表／缓存以及生成绑定与注入减少运行时组件查找；不能将此机制简化成“加载后随意 GetComponent”。正式接入必须：
+
+1. 核对所锁定框架的绑定、Behaviour 注册、初始化与销毁顺序；组件就绪后才能订阅和驱动画面，资源 await 不跨 SessionScope。
+2. 编辑器检查绑定键、目标类型、缺失／失效引用和重复键；Prefab 改层级、替换组件、Visual 替换或池化复用后仍正确。缺失绑定应明确报错，不靠 GetComponent、节点名或子节点索引兜底。
+3. 沿用框架的组件访问和生成入口，不手改生成结果、不新增一套组件查找缓存。磁盘生成文件放所属程序集的 Generated 目录并记录输入／重建方式；编译器内生成源码按生成器机制管理。
+4. 验证定义加载、Prefab 实例化、Behaviour 装配、组件绑定、复用／销毁与资源释放的完整生命周期，并在正式 Mono / IL2CPP Player 中验证生成注册。
+5. 首次导入仅向指定空目录输出样板，随后由人工维护。M0 先拆开初始化与日常构建；移动现有资源时保留 `.meta`／GUID，并核对定义引用、Addressable 条目、框架数据库、场景引用及脚本中的硬编码路径。日常构建不得重新生成或覆盖正式美术资源。
+
 ## 共享控制如何保留开关
 
 拟议 `CampControlMode` 由房主掌握，放在 Runtime 的房间权限服务，作为会话设置同步；不是角色所有权，也不是静态全局开关。所有名称均为设计，当前 Sample 没有此功能。
@@ -86,7 +129,7 @@ flowchart LR
 | 关卡 ID、seed、waves | `projects/data/levels/pinewatch.json` | 保留 JSON；仍为 `pinewatch`、seed 90127 |
 | 初始摆放与边界 | `projects/scenes/levels/Pinewatch.tscn` 的 Layout | 一次迁移为 Pinewatch.unity 布局标记；派生定义不另作手填来源 |
 | 外观、动作、偏移、锚点 | 原生 `.tscn/.tres` | 对应 Prefab、AnimationClip、外观目录资源 |
-| 原图／音频／帧序／来源 | `projects/assets/manifest.json` | 原字节复制到 Art/Original，保留来源和导入映射 |
+| 原图／音频／帧序／来源 | `projects/assets/manifest.json` | 原字节复制到 Res/Art/Original，保留来源和导入映射 |
 | 初始布局／旧档回归 | `projects/tests/Fixtures` | 只读测试夹具；不可成为正式运行时依赖 |
 
 冻结输入的精确哈希见[证据](evidence/assessment-2026-09-10.json)。新仓库运行不能依赖原游戏目录的绝对路径或 Godot 导入缓存。
