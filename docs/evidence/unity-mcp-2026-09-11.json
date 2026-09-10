@@ -1,0 +1,325 @@
+{
+  "date": "2026-09-11",
+  "capturedUtc": "2026-09-10T22:24:34.001054+00:00",
+  "baseCommit": "e951f260458c715a0fb991488848a19acde18166",
+  "scope": "Official Unity MCP integration and existing LAN Sample regression; formal gameplay not migrated.",
+  "unityEditor": "6000.4.9f1",
+  "unityCli": "1.0.0-beta.9",
+  "windowsMsix": "1.0.0.20009",
+  "pipelinePackage": "0.6.0-exp.1",
+  "pipelineMinimumUnity": "6000.0",
+  "pipelineSourceRevision": "27af91a943315a5702ac7679241399b649d6a20d",
+  "pipelinePackageSha1": "9bb4172c603cda2626bacac4d4c64bdb8270a3e0",
+  "frameworkCommit": "10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4",
+  "mcp": {
+    "transport": "stdio",
+    "configuredServer": "unity",
+    "project": "Game",
+    "probe": "independent JSON-RPC subprocess; current Codex task hot reload not verified",
+    "initialize": {
+      "protocolVersion": "2024-11-05",
+      "capabilities": {
+        "tools": {}
+      },
+      "serverInfo": {
+        "name": "unity-mcp",
+        "version": "1.0.0-beta.9"
+      }
+    },
+    "toolCount": 149,
+    "editorStatus": {
+      "status": "ready",
+      "compiling": false,
+      "domainReloadInProgress": false,
+      "playMode": "stopped",
+      "lastHeartbeat": "2026-09-10T22:22:33.2284758Z",
+      "projectPath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game",
+      "unityVersion": "6000.4.9f1"
+    },
+    "openScenes": {
+      "count": 1,
+      "scenes": [
+        {
+          "name": "SampleScene",
+          "path": "Assets/Scenes/SampleScene.unity",
+          "isLoaded": true,
+          "isDirty": false,
+          "isActive": true,
+          "rootCount": 2
+        }
+      ]
+    },
+    "consoleErrorsAfterFixAndReload": {
+      "total": 0,
+      "returned": 0,
+      "logs": []
+    },
+    "runtimePipelineSettings": {
+      "enableInBuilds": false,
+      "port": 0,
+      "requestTimeoutMs": 30000,
+      "enableAuditLogging": true,
+      "autoStart": true,
+      "maxWorkItemsPerFrame": 10
+    }
+  },
+  "registryFix": {
+    "symptom": "YYGC auto-discovery included isolated Sample in host global registries; generated files failed CS0400.",
+    "change": "Exclude DarkNights.Samples.LanCoop.Runtime in isolated Editor discovery only.",
+    "cleanBaselinePatchApplicationPassed": true,
+    "prepareIdempotencePassed": true,
+    "compiledAfterFix": {
+      "status": "completed",
+      "failed": false,
+      "errors": []
+    },
+    "domainReloadRetested": true,
+    "hostRegistryAndGeneratedFilesRestoredToBaseline": true
+  },
+  "playerBuilds": [
+    {
+      "backend": "IL2CPP",
+      "development": false,
+      "stripping": "High",
+      "succeeded": true
+    },
+    {
+      "backend": "Mono",
+      "development": true,
+      "succeeded": true
+    }
+  ],
+  "lanRuns": [
+    {
+      "source": "artifacts/lan-sample/run-20260911-061929/result.json",
+      "sha256": "449c549d4f1cec7bdf9551c2718addab22971f7af7b390cffc28752fd8276738",
+      "utc": "2026-09-10T22:19:39.5925586Z",
+      "backend": "IL2CPP",
+      "weakNetwork": false,
+      "passed": true,
+      "checkCount": 30,
+      "checks": [
+        "Host initial null -> projection -> Ready",
+        "Independent client initial snapshot while paused",
+        "client Buy -> InvalidEntity",
+        "client Buy -> InvalidEntity",
+        "client Pause -> HostOnly",
+        "client Reset -> HostOnly",
+        "client Buy -> ProtocolMismatch",
+        "client Buy -> StaleEpoch",
+        "Concurrent payment exactly once; Host agrees with client",
+        "host Buy -> DuplicateOrExpired",
+        "Shared worksite exclusive and converged",
+        "Four independent Players; late join exact paused snapshot",
+        "Client disconnect clears Ready",
+        "Reconnect new owned endpoint and fresh snapshot",
+        "client Buy -> InsufficientFunds",
+        "host Pause -> Accepted",
+        "60 Hz simulation advances on all clients",
+        "host Pause -> Accepted",
+        "Pause converges without stopping network",
+        "late Buy -> InsufficientFunds",
+        "Epoch reset, fresh Ready and atomic full state on four Players",
+        "client Buy -> StaleEpoch",
+        "host Buy -> Accepted",
+        "host Buy -> DuplicateOrExpired",
+        "Host single execution after reset; all replicas converge",
+        "Host exit disconnects all peers and clears Ready",
+        "Same-process Host restart creates one clean session",
+        "Client rejoins restarted Host without stale state or duplicate sender",
+        "host Buy -> Accepted",
+        "Restart retains exactly-once Host handling"
+      ],
+      "players": [
+        "client",
+        "fourth",
+        "host",
+        "late"
+      ],
+      "netem": null
+    },
+    {
+      "source": "artifacts/lan-sample/run-20260911-061948/result.json",
+      "sha256": "33d6e5d66a6f60025846c40be6762a31f5c357c4d7670bdda4552d2370d98b5f",
+      "utc": "2026-09-10T22:20:03.1832830Z",
+      "backend": "IL2CPP",
+      "weakNetwork": true,
+      "passed": true,
+      "checkCount": 30,
+      "checks": [
+        "Host initial null -> projection -> Ready",
+        "Independent client initial snapshot while paused",
+        "client Buy -> InvalidEntity",
+        "client Buy -> InvalidEntity",
+        "client Pause -> HostOnly",
+        "client Reset -> HostOnly",
+        "client Buy -> ProtocolMismatch",
+        "client Buy -> StaleEpoch",
+        "Concurrent payment exactly once; Host agrees with client",
+        "host Buy -> DuplicateOrExpired",
+        "Shared worksite exclusive and converged",
+        "Four independent Players; late join exact paused snapshot",
+        "Client disconnect clears Ready",
+        "Reconnect new owned endpoint and fresh snapshot",
+        "client Buy -> InsufficientFunds",
+        "host Pause -> Accepted",
+        "60 Hz simulation advances on all clients",
+        "host Pause -> Accepted",
+        "Pause converges without stopping network",
+        "late Buy -> InsufficientFunds",
+        "Epoch reset, fresh Ready and atomic full state on four Players",
+        "client Buy -> StaleEpoch",
+        "host Buy -> Accepted",
+        "host Buy -> DuplicateOrExpired",
+        "Host single execution after reset; all replicas converge",
+        "Host exit disconnects all peers and clears Ready",
+        "Same-process Host restart creates one clean session",
+        "Client rejoins restarted Host without stale state or duplicate sender",
+        "host Buy -> Accepted",
+        "Restart retains exactly-once Host handling"
+      ],
+      "players": [
+        "client",
+        "fourth",
+        "host",
+        "late"
+      ],
+      "netem": {
+        "received": 616,
+        "dropped": 32,
+        "forwarded": 580,
+        "reordered": 46,
+        "peer_resets": 4
+      }
+    },
+    {
+      "source": "artifacts/lan-sample/run-20260911-062133/result.json",
+      "sha256": "8cb389dde3112768d10f3f9627cfdb8a04c7d6727f31c04b6cac80784eeb1507",
+      "utc": "2026-09-10T22:21:44.9671823Z",
+      "backend": "Mono",
+      "weakNetwork": false,
+      "passed": true,
+      "checkCount": 30,
+      "checks": [
+        "Host initial null -> projection -> Ready",
+        "Independent client initial snapshot while paused",
+        "client Buy -> InvalidEntity",
+        "client Buy -> InvalidEntity",
+        "client Pause -> HostOnly",
+        "client Reset -> HostOnly",
+        "client Buy -> ProtocolMismatch",
+        "client Buy -> StaleEpoch",
+        "Concurrent payment exactly once; Host agrees with client",
+        "host Buy -> DuplicateOrExpired",
+        "Shared worksite exclusive and converged",
+        "Four independent Players; late join exact paused snapshot",
+        "Client disconnect clears Ready",
+        "Reconnect new owned endpoint and fresh snapshot",
+        "client Buy -> InsufficientFunds",
+        "host Pause -> Accepted",
+        "60 Hz simulation advances on all clients",
+        "host Pause -> Accepted",
+        "Pause converges without stopping network",
+        "late Buy -> InsufficientFunds",
+        "Epoch reset, fresh Ready and atomic full state on four Players",
+        "client Buy -> StaleEpoch",
+        "host Buy -> Accepted",
+        "host Buy -> DuplicateOrExpired",
+        "Host single execution after reset; all replicas converge",
+        "Host exit disconnects all peers and clears Ready",
+        "Same-process Host restart creates one clean session",
+        "Client rejoins restarted Host without stale state or duplicate sender",
+        "host Buy -> Accepted",
+        "Restart retains exactly-once Host handling"
+      ],
+      "players": [
+        "client",
+        "fourth",
+        "host",
+        "late"
+      ],
+      "netem": null
+    },
+    {
+      "source": "artifacts/lan-sample/run-20260911-062154/result.json",
+      "sha256": "a190c2d4b993be4067b199673836dfab0b5e1b76d56ce88fa4293351c65e7124",
+      "utc": "2026-09-10T22:22:12.6585512Z",
+      "backend": "Mono",
+      "weakNetwork": true,
+      "passed": true,
+      "checkCount": 30,
+      "checks": [
+        "Host initial null -> projection -> Ready",
+        "Independent client initial snapshot while paused",
+        "client Buy -> InvalidEntity",
+        "client Buy -> InvalidEntity",
+        "client Pause -> HostOnly",
+        "client Reset -> HostOnly",
+        "client Buy -> ProtocolMismatch",
+        "client Buy -> StaleEpoch",
+        "Concurrent payment exactly once; Host agrees with client",
+        "host Buy -> DuplicateOrExpired",
+        "Shared worksite exclusive and converged",
+        "Four independent Players; late join exact paused snapshot",
+        "Client disconnect clears Ready",
+        "Reconnect new owned endpoint and fresh snapshot",
+        "client Buy -> InsufficientFunds",
+        "host Pause -> Accepted",
+        "60 Hz simulation advances on all clients",
+        "host Pause -> Accepted",
+        "Pause converges without stopping network",
+        "late Buy -> InsufficientFunds",
+        "Epoch reset, fresh Ready and atomic full state on four Players",
+        "client Buy -> StaleEpoch",
+        "host Buy -> Accepted",
+        "host Buy -> DuplicateOrExpired",
+        "Host single execution after reset; all replicas converge",
+        "Host exit disconnects all peers and clears Ready",
+        "Same-process Host restart creates one clean session",
+        "Client rejoins restarted Host without stale state or duplicate sender",
+        "host Buy -> Accepted",
+        "Restart retains exactly-once Host handling"
+      ],
+      "players": [
+        "client",
+        "fourth",
+        "host",
+        "late"
+      ],
+      "netem": {
+        "received": 643,
+        "dropped": 34,
+        "forwarded": 609,
+        "reordered": 49,
+        "peer_resets": 5
+      }
+    }
+  ],
+  "totalAssertionsPassed": 120,
+  "sha256": {
+    "Game/Packages/manifest.json": "c8edbca933401012f60358d86fab0ce19910cb3203c6aa6b775b4e038afd6bc0",
+    "Game/Packages/packages-lock.json": "74fabae5b9e45aa2ce3d042c14a3ee23ac43c11b0f5750d14fd97f48be16e850",
+    "tools/prepare-lan-sample.ps1": "1b9211ac52ff234330dfefdefe11c70e6c4325dd13a6865ca847bbec9857338a",
+    "tools/lan-framework-patch/ExcludeSampleFromGlobalRegistry.patch": "96d5b57fc1809b71579e685c4b5cd82cff320950b5e5f09ea46d83dc7bbd085a",
+    "artifacts/lan-sample/player-il2cpp/GameAssembly.dll": "ba02c6d4921808661e706e19a6e61206c796435ef019527a0059d6d8d01f09c3",
+    "artifacts/lan-sample/player/LanCoop_Data/Managed/DarkNights.Samples.LanCoop.Runtime.dll": "f52d89fe23bad7057bbb48f5f80ea3df1d97f6c641ccc275a688803417493980",
+    "artifacts/unity-mcp/editor-verification.log": "529964cbb9ed6e8f9f55a60a9d186af3fee6f3085f7221175d10ca6c6b60d68b"
+  },
+  "warnings": [
+    "Duplicate System.Collections.Immutable: Pipeline 8.0 chosen over NuGet 6.0.",
+    "Duplicate System.Runtime.CompilerServices.Unsafe: Collections 6.0 chosen over Pipeline 4.0.4.",
+    "Pipeline contains Runtime/Roslyn assemblies; enableInBuilds=false disables service, not necessarily DLL inclusion."
+  ],
+  "notVerified": [
+    "Formal AppStartup/Addressables integration",
+    "Formal gameplay/visual acceptance",
+    "Editor PlayMode test suite",
+    "Release size budget",
+    "All 149 MCP tools"
+  ],
+  "sources": [
+    "https://docs.unity.com/en-us/unity-cli/replace-mcp-server-unity-cli",
+    "https://docs.unity.com/en-us/unity-production-pipeline/local-tools-cli/unity-pipeline-package",
+    "https://packages.unity.com/com.unity.pipeline"
+  ]
+}

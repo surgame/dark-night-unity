@@ -1,0 +1,28 @@
+diff --git a/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs b/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
+index bc908da..24887de 100644
+--- a/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
++++ b/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
+@@ -57,6 +57,8 @@ namespace GameCore.Editor.NetworkCommands
+ 
+             var commandTypes = TypeCache.GetTypesDerivedFrom<INetworkCommand>()
+                 .Where(IsSupportedNetworkCommandType)
++                // 独立 LAN Sample 使用自己的固定注册，不能进入宿主全局注册表。
++                .Where(type => type.Assembly.GetName().Name != "DarkNights.Samples.LanCoop.Runtime")
+                 .OrderBy(type => type.FullName, StringComparer.Ordinal)
+                 .ToList();
+ 
+diff --git a/Editor/Objects/NetworkStates/StateDataRegistryUpdater.cs b/Editor/Objects/NetworkStates/StateDataRegistryUpdater.cs
+index 6d217d2..41351f5 100644
+--- a/Editor/Objects/NetworkStates/StateDataRegistryUpdater.cs
++++ b/Editor/Objects/NetworkStates/StateDataRegistryUpdater.cs
+@@ -58,7 +58,9 @@ namespace GameCore.Editor.Objects.NetworkStates
+         {
+             var map = new Dictionary<System.Type, MonoScript>();
+             var stateTypes = TypeCache.GetTypesWithAttribute<StateDataAttribute>()
+-                .Where(t => !t.IsInterface && !t.IsAbstract);
++                .Where(t => !t.IsInterface && !t.IsAbstract)
++                // 独立 LAN Sample 使用自己的固定注册，不能进入宿主全局注册表。
++                .Where(t => t.Assembly.GetName().Name != "DarkNights.Samples.LanCoop.Runtime");
+ 
+             foreach (var type in stateTypes)
+             {

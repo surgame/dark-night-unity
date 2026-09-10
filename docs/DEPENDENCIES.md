@@ -21,6 +21,40 @@
 
 当前 manifest 使用 `file:../../.deps/YYGC`，准备脚本校验上述提交。GUID / Key、旧 ID 兼容和显式迁移已在锁定框架中实现，接法见[定义身份指南](<D:/Developer/YYGC/Documentation~/DEFINITION_IDENTITY.md>)。正式新资源用 DefinitionReference 和正式 Key；首个网络切片保留 Sample 的 LegacyV1 wire，网络定义具备有效旧 ID。V2 为单独的协议切换，不在本轮设计中默认开启。
 
+## 官方 Unity MCP 开发工具
+
+2026-09-11 已接入 **Unity CLI 1.0.0-beta.9 + com.unity.pipeline 0.6.0-exp.1**，Editor 保持 `6000.4.9f1`。官方文档与实际包声明最低 Unity `6000.0`。已通过 UPM 导入、脚本编译、MCP stdio 握手、149 项工具发现、场景／Console／运行设置读取与域重载后重连。[验证摘要](evidence/unity-mcp-2026-09-11.json)
+
+官方已弃用 AI Assistant 包内旧 MCP server，当前入口为 `unity mcp`，通过 Pipeline 连接本地 Editor，不要求 Unity AI 订阅。CLI／Pipeline 仍为 beta／experimental。[官方迁移说明](https://docs.unity.com/en-us/unity-cli/replace-mcp-server-unity-cli)、[Pipeline 版本要求](https://docs.unity.com/en-us/unity-production-pipeline/local-tools-cli/unity-pipeline-package)
+
+另一台 Windows 开发机先恢复隔离 YYGC，再配置并打开 Game：
+
+```powershell
+pwsh -NoProfile -File tools/prepare-lan-sample.ps1
+winget install --id Unity.CLI --exact --version 1.0.0.20009 --source winget
+# 重新打开终端；MSIX 1.0.0.20009 对应 CLI 1.0.0-beta.9。
+unity --version
+unity pipeline install --project-path ./Game --package-version 0.6.0-exp.1
+unity mcp configure codex --project-path ./Game
+# 用锁定 Editor 打开 Game，等导入编译完成，再检查：
+unity pipeline list --format json
+unity command editor_status --project-path ./Game --format json
+unity command get_console_logs --severity error --project-path ./Game --format json
+```
+
+Pipeline 由 manifest／lock 固定，不日常执行 `--force` 升级。CLI 是机器级工具，MSIX 后续可能更新，复验时记录实际版本。本机 Codex 用户配置新增 `mcp_servers.unity`，以 stdio 启动 CLI 并固定 Game 路径；个人路径不进入仓库。已有客户端可能需要重新加载配置或重启应用。本次由独立 stdio 探针验证，不等同于当前任务已经热加载新工具。
+
+重载时发现 YYGC 全局扫描误收集独立 LAN Sample，生成文件报 `CS0400`。准备脚本现应用 `tools/lan-framework-patch/ExcludeSampleFromGlobalRegistry.patch`，仅在 `.deps/YYGC` 两个 Editor 扫描器排除 `DarkNights.Samples.LanCoop.Runtime` 程序集，保留 Sample 固定注册。自动改写的四个注册／生成文件已恢复基线，没有手改生成结果；修正后编译 `failed=false`、`errors=[]`，再次域重载后全局注册表无改动。补丁已验证干净基线应用及重复准备，未知差异仍拒绝覆盖。用户维护的 YYGC 仓库未修改。
+
+新增依赖组合还完成 Windows Mono Development 和 IL2CPP Release／High 裁剪构建；两个后端各自的 Host＋3 客户端基础与真实 UDP 弱网检查均为 30/30，总计 120 项通过。通过官方 CLI 的 `menu` 调用现有 SampleBuilder，构建只包含 Sample 场景。构建临时改动的 ProjectSettings 已恢复，正式资源和注册表没有差异；新证据单独记录，不覆盖旧冻结结果。
+
+兼容性边界：
+
+- Pipeline 包含 Runtime 与 Roslyn DLL，不能称为纯 Editor 包。`enableInBuilds=false` 表示 Player 运行服务未启用，不代表所有 DLL 均被排除出 Player。
+- 导入有 `System.Collections.Immutable` 8.0／现有 NuGet 6.0、`System.Runtime.CompilerServices.Unsafe` 4.0.4／Collections 6.0 重复程序集选择警告。Editor、eval 与上述两种 Player 均通过本轮检查；正式 AppStartup／Addressables、新 DTO 组合和发布体积仍待 M0 验收，不能扩大 Sample 证据范围。
+- 测试发现仅返回 Addressables 文档占位测试，未将其执行当作游戏测试。本次未运行正式玩法测试、Editor PlayMode 测试或美术编辑验收。
+- MCP 沿用 YYGC 绑定、生成及资源合同，不绕过 ObjectDefinition 装配，不替代人工美术维护与独立进程验收，不启用 Player 的 Pipeline 服务。
+
 ## 第三方依赖清单
 
 YYGC 的 package.json 未声明 dependencies。以下依赖由 Unity 宿主显式提供；UPM / NuGet 清单和 Sample 的补丁、DLL 证据共同构成当前可重现输入。

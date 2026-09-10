@@ -34,6 +34,8 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 
 ## 阅读入口
 
+2026-09-11 开工准备：已接入官方 Unity MCP（CLI `1.0.0-beta.9`／Pipeline `0.6.0-exp.1`），通过 `6000.4.9f1` Editor 编译、stdio 调用和重载复查；新增依赖后重建 Mono／IL2CPP，四进程基础与弱网检查共 120 项通过。正式玩法仍未迁移，见[接入与兼容性记录](docs/DEPENDENCIES.md#官方-unity-mcp-开发工具)。
+
 | 要解决的问题 | 文档 |
 |---|---|
 | 本次移植总方案、YYGC 对应、可关闭共享控制和第一步 | [移植方案](docs/MIGRATION_PLAN.md) |

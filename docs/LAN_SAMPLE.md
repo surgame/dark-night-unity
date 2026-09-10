@@ -6,6 +6,8 @@
 
 ## 运行与可重现依赖
 
+2026-09-11 官方 MCP 接入补充：准备脚本增加全局注册扫描的 Sample 排除补丁，防止 Editor 重载后将样板类型写入正式注册表。新增 Pipeline 后完成 Editor 编译／重载、Mono／IL2CPP 重建及两个后端各 30 项基础＋30 项弱网四进程检查。[本次新增证据](evidence/unity-mcp-2026-09-11.json)与下方接入前冻结证据分开保留，详情见[依赖说明](DEPENDENCIES.md#官方-unity-mcp-开发工具)。
+
 Editor 锁定 `6000.4.9f1`；样板手写代码兼容 C# 9，Core 不引用引擎，Player 使用 .NET Standard 2.1，已验证 Mono 和 IL2CPP。YYGC 使用提交 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` 的隔离 checkout。UPM manifest/lock 指向仓库 `.deps/YYGC`，先执行：
 
 ```powershell
