@@ -5,9 +5,9 @@
 ## 先读什么
 
 1. 读[README](../README.md)确认当前状态、范围与联机假设。
-2. 先读最新[YYGC能力复评](YYGC_REASSESSMENT.md)，明确复用边界和生成链路缺口；再读[框架评估](FRAMEWORK_REVIEW.md)的F01–F07。
+2. 读最新[移植方案](MIGRATION_PLAN.md)和[LAN Sample](LAN_SAMPLE.md)，区分已验证路径与正式游戏待补内容；早期[YYGC 能力复评](YYGC_REASSESSMENT.md)用于了解历史修正缘由。
 3. 读[技术架构](ARCHITECTURE.md)的程序集表，再读[联机设计](MULTIPLAYER.md)的权限和请求流水线。
-4. 按[开发执行计划](DEVELOPMENT.md)从M0推进，每阶段完成出口后再扩展内容。
+4. 按[开发执行计划](DEVELOPMENT.md)先做 M0 正式接入收口、再做 M1 规则核心；已有环境无需重新创建。
 
 ## M0/M1 已执行
 
@@ -44,6 +44,7 @@
 | 改成本、伤害、建造时间 | Content/Rules的JSON；Core只读 |
 | 改采集、训练、攻击规则 | Core/Simulation与规则回归 |
 | 新增一种玩家命令 | Core/Commands、Runtime/Networking/Commands与权限／去重测试 |
+| 关闭共同操作／调整房间控制权限 | Runtime/Session 的 CampControlMode 与 PolicyRevision；同步到 UI；直接命令、自动派工和训练共用校验 |
 | 改同步频率、加入或重连 | Runtime/Networking，不能改客户端HP算法 |
 | 换图、动画、角色锚点 | Prefabs/Visuals、Content/Visuals和ArtReview |
 | 调HUD布局 | Prefabs/UI；动态显示在Presentation/UI |

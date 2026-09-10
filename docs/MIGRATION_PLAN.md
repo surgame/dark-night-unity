@@ -1,6 +1,67 @@
-# Dark Nights Unity 适配方案
+# Dark Nights Godot → Unity 移植方案
 
-基线为现有工程 `91cb09ff0894f26134f07fd544f1273d9fe7ffaa`。目标保持灰松谷的素材、布局、数值、操作意图和三夜玩法，建立原生 Unity Prefab 与合作会话。这里描述迁移工作，不表示 Unity 内容已经制作完成。
+设计更新：2026-09-11。**建议保留普通 C# 规则核心，由 YYGC 会话对象管理权威运行与状态发布，Unity 原生 Prefab / UGUI 负责表现；单人和联机使用同一条命令链。** 首版默认共享营地控制，同时提供仅房主操作模式，后期关闭共享控制只改变权限。
+
+本次交付为设计文档，正式玩法尚未开始迁移。目标保持灰松谷的素材、布局、数值、操作意图、三夜玩法和旧档语义。多人输入的权限、顺序与反馈作为明确的会话差异单独验收。
+
+## 已有基础与实施范围
+
+| 输入 | 本次核对结果 | 方案含义 |
+|---|---|---|
+| Godot `projects` | HEAD `91cb09ff0894f26134f07fd544f1273d9fe7ffaa`，工作区干净 | 冻结规则、素材、场景和测试夹具，Unity 运行独立于原目录 |
+| Unity `unity-projects` | 设计开始时 HEAD `4432d75`；`Game/` 已有 Bootstrap、Addressables、网络管理器与独立 LAN Sample | 在现有宿主上增量建立正式 `Assets/DarkNights`，不重新建一个 Unity 工程 |
+| Editor / 语言 | `6000.4.9f1`；项目代码目标 C# 9 / .NET Standard 2.1 | 使用现有版本，不为迁移回退 Editor 或直接加载 net8.0 程序集 |
+| YYGC | `10b8f0e` / `0.3.0-preview.1`，通过 `.deps/YYGC` 隔离引用 | 复用已验证提交；补丁、DLL 和生成注册仍需纳入可重现输入 |
+| 联机证据 | LAN Sample 的 Mono / Windows IL2CPP 均有 Host＋3 客户端及真实 UDP 弱网通过记录 | 可复用命令与状态路径；正式实体集合、AppStartup 集成、双机器与完整游戏仍待验证 |
+
+首版沿用仓库的 2–4 人共享营地范围，以 Windows、房主主持、局域网 IP 直连为实施假设。单人使用一人本地主持会话；镜头、框选、悬停、建造预览和菜单各自独立。公网邀请、Steam 与中继可随后接入连接层；首版不包含这些入口、私人营地或房主迁移。
+
+原始检查记录见 [LAN Sample](LAN_SAMPLE.md) 和[冻结依赖证据](evidence/lan-sample-dependencies.json)。本次读取证据并核对代码，没有重新运行这些 Player 测试。早期框架复评中的故障属于旧提交，不再按未修复问题从头安排。
+
+## 架构与 YYGC 的对应关系
+
+以营地会话作为 YYGC 的业务聚合入口，Core 内部继续组合经济、生产、战斗、波次等小模块。YYGC Behaviour 管理生命周期和适配，ObjectView 保存表现引用，SharedConfigs 只保存只读内容映射。这既遵循框架的对象组合设计，也保留现有跨单位规则的单一写入者。
+
+```mermaid
+flowchart LR
+    Input[各玩家独立输入与 UGUI] --> Command[YYGC Gateway / Sender / Processor]
+    Command --> Authority[可信身份 / 控制策略 / 去重]
+    Authority --> Core[房主唯一 GameSession]
+    Core --> Projection[冻结营地投影]
+    Projection --> Sync[YYGC StatefulBehaviour / StateSynchronizer]
+    Sync --> Replica[各端只读副本]
+    Projection -->|Host 本地一次应用| Replica
+    Replica --> View[YYGC ObjectView / Prefab / HUD]
+```
+
+| YYGC 能力 | 正式游戏接法 |
+|---|---|
+| AppStartup、Root / Session / Local DI | 启动加载规则和定义；每局建立独立生命周期；通过接口注入命令入口与只读副本 |
+| ObjectDefinition、ObjectInstance、Behaviour | 一个网络会话对象组合模拟适配和投影 Behaviour；每位玩家一个有所有权的命令入口；单位、建筑、工位为本地对象视图 |
+| SharedConfigs、ObjectView、绑定生成器 | 保存 ContentId、外观、锚点和引用；HP、资源、训练进度来自副本，规则数值仍只来自 JSON |
+| Gateway / Sender / Processor | 使用 `ServerAuthoritative` 和 `NetworkCommandContext`；Host 和远端都进入相同业务处理方法 |
+| StatefulBehaviour / StateSynchronizer / MemoryPack | 先发布 10 Hz 的有界可靠完整投影；游戏补 epoch、revision、Ready、集合冻结和大小限制 |
+| R3 / VitalRouter | R3 观察副本并管理订阅释放；VitalRouter 只做现有命令链的显式适配，规则使用普通 C# 调用 |
+| UGUI / Interaction Sessions / Addressables | 正式 HUD 和菜单使用 UGUI；建造、框选、模态输入由本地交互会话仲裁；内容本地打包 |
+
+新定义遵循当前 YYGC 的 GUID / Key 设计：ContentId 映射到 `DefinitionReference`，运行时使用 `GetDefinitionByKey` / `CreateByKeyAsync` 等正式入口。核心 EntityId、资产 GUID / Key、旧整数定义 ID 和 FishNet ObjectId 分开。首个联机切片保留 Sample 已验证的 LegacyV1 wire，因此会话等网络定义仍需有效旧整数 ID；本地定义可采用 GUID / Key。GUID wire V2 如需启用，双方整体切换并重新验收，不与此轮规则移植捆绑。详见[身份指南](<D:/Developer/YYGC/Documentation~/DEFINITION_IDENTITY.md>)及[架构](ARCHITECTURE.md)。
+
+正式代码不引用 `Assets/Samples/LanCoop`；将其中已验证的接法落实到正式的四个程序集，业务 DTO、注册表、Prefab 与会话服务均由正式工程拥有。Sample 保留为独立回归对照。
+
+## 共享控制如何保留开关
+
+拟议 `CampControlMode` 由房主掌握，放在 Runtime 的房间权限服务，作为会话设置同步；不是角色所有权，也不是静态全局开关。所有名称均为设计，当前 Sample 没有此功能。
+
+| 模式 | 房主 | 普通已 Ready 玩家 |
+|---|---|---|
+| `SharedCamp`，首版默认 | 操作全部友军与营地，管理时间和存档 | 操作全部友军、采集、建造、训练、招募、修缮 |
+| `HostOnly`，可随时关闭共享控制 | 保持完整操作能力 | 观看同步世界、移动镜头、选择查看信息；不能修改营地 |
+
+仅房主操作模式同时限制移动、攻击、采集、施工派工、训练、招募和修缮，避免通过建造的自动选工人路径间接控制居民。暂停、倍速、提前入夜、加载、重开和修改控制模式在两种模式下始终属于房主。
+
+切换在服务端命令顺序中生效，并增加 `PolicyRevision`。尚未执行的旧策略请求被拒绝；已执行的订单、施工和训练继续，不取消任务或退款。客户端据投影更新按钮和预览；即使绕过 UI 发包，服务端仍按当前策略拒绝。单人也走同一入口。完整权限表和切换验收见[联机设计](MULTIPLAYER.md)。
+
+如果首个切片希望先只让房主操作，可把默认值设为 `HostOnly`，保持相同的同步与命令结构；无需为暂缓共同操作重做网络模型。
 
 ## 当前内容与代码量
 
@@ -13,7 +74,7 @@
 | Bootstrap | 5 / 229 | 接入 YYGC 启动与单一会话装配 | 中 |
 | 总计 | 115 / 5,447 | 不能把行数直接折算为可复制代码比例 | — |
 
-现有 44 个 `.tscn`，包括 6 类角色、5 类建筑、4 类工位外观，以及 UI、效果、环境、关卡与预览场景。原始素材清单有 551 个文件、75 个 sprite 组、9 个 sound 条目；字节总量约 1.92 MiB，来源哈希已重新核验。
+现有 44 个 `.tscn`，包括 6 类角色、5 类建筑、4 类工位外观，以及 UI、效果、环境、关卡与预览场景。原始素材清单有 551 个文件、75 个 sprite 组、9 个 sound 条目；字节总量约 1.92 MiB，历史来源哈希核验见冻结证据。
 
 既有 Godot 记录包含 133 项游戏检查和 27 项架构工具自测。这些是迁移的验收输入，本轮没有重新运行，更不是 Unity 测试结果。
 
@@ -26,7 +87,7 @@
 | 初始摆放与边界 | `projects/scenes/levels/Pinewatch.tscn` 的 Layout | 一次迁移为 Pinewatch.unity 布局标记；派生定义不另作手填来源 |
 | 外观、动作、偏移、锚点 | 原生 `.tscn/.tres` | 对应 Prefab、AnimationClip、外观目录资源 |
 | 原图／音频／帧序／来源 | `projects/assets/manifest.json` | 原字节复制到 Art/Original，保留来源和导入映射 |
-| 初始布局／旧档回归 | `projects/tests/fixtures` | 只读测试夹具；不可成为正式运行时依赖 |
+| 初始布局／旧档回归 | `projects/tests/Fixtures` | 只读测试夹具；不可成为正式运行时依赖 |
 
 冻结输入的精确哈希见[证据](evidence/assessment-2026-09-10.json)。新仓库运行不能依赖原游戏目录的绝对路径或 Godot 导入缓存。
 
@@ -42,6 +103,20 @@
 4. 将 InteractionState、SelectGroup、Construction.Begin 等客户端意图移到本地交互层。Issue、Place、StartSelected 改收显式单位列表、职业、建筑种类和位置，返回业务结果而不是修改全局选择。
 5. 保持有序 ActorIds 和 SpawnOrder。原 AI 时钟按 ID 派生、编队偏移、候选工人和训练顺序都不能被无意排序改变。
 6. 保留 Economy.Pay、独占关系释放、施工受伤不回满、训练退款、箭矢延迟命中和波次结算的业务语义。
+
+需要优先拆出的实际调用如下；表中目标接口是拟议参数合同，实施时可按职责命名：
+
+| Godot 当前入口 | Unity 目标边界 |
+|---|---|
+| `GameSession.Interaction`、`SelectedActors`、`UnitOrders.SelectGroup` | 客户端本地选择与副本查询；Core 会话不持有玩家的选区和镜头 |
+| `UnitOrders.Issue(target, x)` | `IssueOrders(orderedActorIds, targetEntityId, x)`；服务器解析实体并校验权限 |
+| `Construction.Begin` / `Place(x)` | Begin 只启动本地预览；`PlaceBuilding(kind, x, candidateActorIds)` 在权威端吸附、选工人、支付和创建 |
+| `Training.StartSelected(kind)` | `TrainActors(orderedActorIds, kind)`；保留逐单位支付和部分成功，不改为全批事务 |
+| `Camp.Recruit` / `RepairSelected` | 招募由服务端继续按原规则选取酒馆；修缮显式传建筑 ID；回执返回新实体，只有发起者自动选中 |
+| `EntityLifecycle.Remove` 中清除选择 | Core 只维护实体与工作关系；客户端收到移除后各自清理选区、悬停和视图 |
+| `SessionFeedback` 混合文本、音效与指令圈 | 无效操作只回发起者；昼夜、死亡等世界反馈按事件 ID 派生；显示反馈不影响结算 |
+
+命令回执可先于下一份投影到达；发起者用回执中的 revision 等待相应副本再读取新对象。客户端可立即显示指令圈和等待提示，不能预扣资源或先改 HP。
 
 原数学行为需要特例检查：建造 `Mathf.Snapped(x, 4)` 的半格舍入、双精度 MoveToward、伤害的 AwayFromZero 舍入。不能仅把 API 名称替换成 Unity Mathf 后假定边界相同。
 
@@ -135,6 +210,19 @@ Unity 新档应有独立格式标识与版本，并记录规则摘要和随机�
 
 ## 迁移执行方式
 
-先迁移规则和少量工人／建筑 Prefab，验证两个独立进程的命令与快照；随后扩充为完整灰松谷。避免先制作全部界面才发现核心身份或同步入口不成立。逐阶段工作量与验收见[执行计划](DEVELOPMENT.md)。
+按以下阶段推进，每一步都形成可独立检查的产物。详细退出条件、剩余工作量与验收矩阵见[执行计划](DEVELOPMENT.md)。
+
+| 阶段 | 交付物 | 通过后再扩展 |
+|---|---|---|
+| M0 接入收口 | 正式四程序集、架构守卫、依赖与生成注册、独立的构建入口 | 正式 AppStartup 与新程序集的 Mono / IL2CPP 小探针可运行 |
+| M1 核心迁移 | Content / Simulation / 纯快照、显式命令、Godot 数学与 RNG 兼容 | 初始布局、规则、完整三夜和旧档继续 20 秒对照通过 |
+| M2 正式联机切片 | 少量工人、工位、建筑 Prefab；单人、Host＋客户端；控制策略与投影 | 两端采集／建造一致、选择独立、切换 HostOnly 后无越权或重复支付 |
+| M3 完整表现 | 15 类外观、环境、完整 HUD／菜单、音效、动画、ArtReview | 正式 Player 可玩完整三夜；资源可编辑、保存重开 |
+| M4 会话完整性 | 四人、晚加入、断线重连、暂停／倍速、保存／加载、epoch | 第二夜加入、加载中的旧包和控制策略切换均正确 |
+| M5 交付验收 | 双机器 LAN、完整关卡弱网／性能、干净构建及操作文档 | 可独立运行的 Windows Player 和可复现报告 |
+
+M0 有两个已从源码确认的接入项：[SampleAssemblyAccess.cs](../tools/lan-framework-patch/SampleAssemblyAccess.cs) 只授予样板 Runtime 友元访问，新增正式 Behaviour 程序集必须验证生成器访问边界；[DarkNightsEnvironmentSetup](../Game/Assets/Editor/DarkNightsEnvironmentSetup.cs) 的 `BuildAddressablesContent()` 当前会调用 `Initialize()` 并保存 Bootstrap / Prefab，正式美术制作前要把一次性初始化与日常构建拆开。这两项本轮只记录方案，尚未修改实现。
+
+M2 先迁移真实规则下的工人采集与住宅施工，不再做另一个十金币测试营地。使用冻结开局布局和数值；可暂只接必要视图，其余表现由 M3 补齐。实体集合的复制、序列化、在飞箭矢及事件池生命周期是相对标量 Sample 新增的验证重点。
 
 一次性资产迁移工具可以读取原 manifest 和场景数据，输出到明确的空目录，并生成路径／GUID／原点／帧序对照；此后正式 Unity 场景归人工维护。原目录和原始素材不清理、不移动。

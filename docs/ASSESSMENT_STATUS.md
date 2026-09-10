@@ -1,5 +1,19 @@
 # 评估状态与验证边界
 
+## 2026-09-11 正式移植设计更新
+
+本次按当前工作区更新[移植方案](MIGRATION_PLAN.md)、[架构](ARCHITECTURE.md)、[联机合同](MULTIPLAYER.md)和[执行计划](DEVELOPMENT.md)，同步 README、依赖、开发入口及协作约定。工作范围为设计文档，未开始正式游戏代码迁移。
+
+实际核对：Godot HEAD 为 `91cb09ff0894f26134f07fd544f1273d9fe7ffaa`；Unity 设计输入为 `4432d75`；YYGC 当前 HEAD 为 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` / `0.3.0-preview.1`。读取了当前项目版本、包引用、真实命令／状态链、定义身份入口、Godot 规则及旧档约束，并检查 Sample 的已提交验证摘要。设计开始时三个仓库均无工作区差异。
+
+本次明确：共享控制默认开启，房主可切 HostOnly；关闭时同时禁止来宾直接下令和建造自动派工等间接操作。策略版本与世界 epoch 分开，已执行任务继续，单人走同一权威入口。正式四程序集不引用 Sample；新定义使用 GUID / Key，首个网络切片保留 LegacyV1。
+
+从源码确认的接入待办：样板友元访问补丁不覆盖正式程序集；当前 Addressables 构建入口会执行环境初始化并保存资源；正式投影需要从标量扩展为有界冻结集合。这些工作尚未实施，列入 M0 / M2。既有 LAN / IL2CPP 结果仍是历史证据，本次未重新运行 Unity、Godot 或游戏测试。
+
+本次文档核验：9 份修改后的 Markdown 均可按 UTF-8 读取，77 个本地链接有效，代码围栏配对；六阶段基础工作量加总为 20–33 人日。`git diff --check` 通过，Game / tools / 冻结证据均无改动；Godot 与 YYGC 的 HEAD 和干净工作区状态保持不变。
+
+下文保留此前环境、框架和 Sample 的执行记录；其中“M0/M1 环境”是历史命名，当前阶段以执行计划为准。
+
 2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已完成。25 项真实 Core 断言、15 项 VitalRouter 修正回归、Unity 编译与 Windows Mono Player 构建通过；四个 Player 的基础和真实 UDP 弱网各 30 项断言通过。另已完成 Windows x64 IL2CPP Release＋High 裁剪构建，IL2CPP 四进程基础／弱网也各通过 30 项；弱网实测 622 包、33 丢弃、49 次重排。原生场景重开、ObjectView 绑定和 Prefab 副本编辑／保存／重开通过，Mono 图形 Player 画面已检查。证据在 `docs/evidence/lan-sample-*.json`。双机器 LAN、Steam、正式玩法 AOT、长期负载未验证；下文保留原评估时点。
 
 日期：2026-09-10。本文件保留 YYGC 静态评估与 Unity／合作联机方案的历史边界；M0/M1 执行结果已追加在下方。

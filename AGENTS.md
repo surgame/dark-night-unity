@@ -1,18 +1,18 @@
 # Dark Nights Unity 开发约定
 
-先读 [README](README.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。当前是评估与筹备仓库，不能把计划目录、接口和测试写成已完成实现。
+先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。环境与独立 LAN Sample 已完成，正式玩法仍在设计阶段；不能把计划目录、接口和测试写成已完成实现。
 
 ## 范围与工作区
 
 - 游戏名称为 Dark Nights，当前内容为灰松谷一个关卡。2–4 人合作、共享营地已确认。联机入口与托管方式的估算假设见 README。
 - `../projects` 是已提交的游戏基线，`../reference projects` 是研究与素材来源。Unity 的日常导入、构建和运行必须独立于这两个目录。
-- `D:\Developer\YYGC` 是用户维护的框架仓库。本轮只读评估；保留其已暂存 UGUIManager 和 IDRegistry 备份，不代为清理、提交或覆盖。
+- `D:\Developer\YYGC` 是用户维护的框架仓库，本次移植设计只读。保留其现有用户改动，不代为清理、提交或覆盖；历史记录中的 UGUIManager 暂存和 IDRegistry 备份不代表当前仍有这些差异。
 - 框架接入通过 UPM 和锁定版本完成。实验性修正使用隔离 checkout；本机 `.deps/` 不提交，取得稳定版本后提交可重现的依赖配置与锁文件。
 - 不擅自改变既有数值、布局、波次、素材字节、文字或攻击时机。联机需要改变的权限和会话语义单独记录并验证。
 
 ## 代码与结构
 
-- 目标兼容 Unity 6.2 的 C# 9 和 .NET Standard 2.1；确切 Editor 补丁版本先在 M0 锁定。不能把 Godot 的 C# 12／.NET 8 配置直接带入。
+- Editor 沿用已锁定的 `6000.4.9f1`；游戏代码兼容 C# 9 和 .NET Standard 2.1。不能把 Godot 的 C# 12／.NET 8 配置直接带入。
 - 职责目录与程序集按架构文档执行。Core 不引用 Unity、Godot、GameCore、FishNet、R3、VitalRouter、文件系统或表现资源；引擎、网络与存储适配放 Runtime。
 - 采用四个运行程序集 Core、Runtime、Presentation、Bootstrap，以及隔离的 Editor/Tests。不要为每个小文件再建一层服务接口或一个程序集。
 - 文件名与主要类型一致，命名空间与职责目录一致，根命名空间 `DarkNights`。不建立无限扩张的 Manager/Utils 汇总文件。
@@ -32,8 +32,9 @@
 - 业务命令带明确 EntityId 和参数，不能读取一个全局 SelectedIds／BuildKind 来代替请求参数。镜头、选择、悬停与建造预览属于各客户端。
 - 身份从服务端连接上下文取得。请求中的 PlayerId、SenderObjectId、资源数量和伤害值都不构成授权；服务端验证共享营地权限、合法目标、范围、版本、序号和支付。
 - Host 使用同一个验证与命令处理入口，保证一次输入只执行一次。客户端可以显示待确认反馈，不先结算支付或伤害。
+- 共享控制使用会话级 SharedCamp / HostOnly 策略，服务端统一校验；关闭时同时限制直接命令、建造自动派工和训练等营地修改。切换增加 PolicyRevision，拒绝旧策略未执行请求，已生效任务继续；不通过转移小人的 FishNet 所有权实现。
 - 模拟默认 60 Hz，倍速只在一个入口生效。暂停时网络、心跳、重连与 UI 继续运行；不用 `Time.timeScale = 0` 停掉整个服务进程。
-- 稳定实体 ID、内容 ID、YYGC DefinitionId、FishNet ObjectId、玩家连接 ID 分开。载入世界增加 epoch，拒绝旧世界的命令和快照。
+- 稳定实体 ID、内容 ID、YYGC Guid / Key／旧整数 DefinitionId、FishNet ObjectId、玩家连接 ID 分开。新资源使用 DefinitionReference，首个切片保留已验证的 LegacyV1 wire 及有效网络定义旧 ID。载入世界增加 epoch，拒绝旧世界命令和快照，保持当前房间控制模式。
 - 快照是冻结数据；异步发送、插值、存档不能持有已归还池的状态引用。不要让 SessionScope 跨 await 或线程。
 - 不默认采用锁步、回滚、ECS、并行模拟、每实体 NetworkTransform、房主迁移或专服集群。增加这些方案前给出具体需求和测量依据。
 
