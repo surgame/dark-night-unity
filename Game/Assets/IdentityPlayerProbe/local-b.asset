@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc8652e55004e79a017907c38b6a1b2, type: 3}
+  m_Name: local-b
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinition
+  Id: 0
+  definitionGuid: 1ed06330994d69e4299c3dd9c8ec731a
+  key: d_3v866c4s
+  keyAliases: []
+  legacyIdAliases: 
+  debugContent: 0
+  legacyAllocationPending: 
+  Type: 100
+  Name: local-b
+  Icon: {fileID: 0}
+  Describe: 
+  MaxStack: 1
+  ItemLevel: 1
+  NetType: 1
+  PrefabRef:
+    m_AssetGUID: 6f82a69798caee9499bc1f3fcc88e739
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  Archetype: {fileID: 0}
+  UseMonolithicPooling: 1
+  BehaviourTypes:
+  - YYGC.IdentityValidation.IdentityLocalBehaviour, Assembly-CSharp, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  SharedConfigs:
+  - rid: 6961529517690847233
+  references:
+    version: 2
+    RefIds:
+    - rid: 6961529517690847233
+      type: {class: IdentityProbeConfig, ns: YYGC.IdentityValidation, asm: Assembly-CSharp}
+      data:
+        Marker: 22
