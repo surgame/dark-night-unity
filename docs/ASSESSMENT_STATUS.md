@@ -1,6 +1,6 @@
 # 评估状态与验证边界
 
-2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已完成。25 项真实 Core 断言、15 项 VitalRouter 修正回归、Unity 编译与 Windows Mono Player 构建通过；四个 Player 的基础和真实 UDP 弱网各 30 项断言通过。弱网实测 627 包、33 丢弃、52 次重排。原生场景重开、ObjectView 绑定和 Prefab 副本编辑／保存／重开通过，图形 Player 画面已检查。证据在 `docs/evidence/lan-sample-*.json`。双机器 LAN、Steam、AOT、正式玩法、长期负载未验证；下文保留原评估时点。
+2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已完成。25 项真实 Core 断言、15 项 VitalRouter 修正回归、Unity 编译与 Windows Mono Player 构建通过；四个 Player 的基础和真实 UDP 弱网各 30 项断言通过。另已完成 Windows x64 IL2CPP Release＋High 裁剪构建，IL2CPP 四进程基础／弱网也各通过 30 项；弱网实测 622 包、33 丢弃、49 次重排。原生场景重开、ObjectView 绑定和 Prefab 副本编辑／保存／重开通过，Mono 图形 Player 画面已检查。证据在 `docs/evidence/lan-sample-*.json`。双机器 LAN、Steam、正式玩法 AOT、长期负载未验证；下文保留原评估时点。
 
 日期：2026-09-10。本文件保留 YYGC 静态评估与 Unity／合作联机方案的历史边界；M0/M1 执行结果已追加在下方。
 

@@ -1,18 +1,29 @@
-param([int]$Port = 17877, [switch]$WeakNetwork, [string]$Python = 'python')
+param([int]$Port = 17877, [switch]$WeakNetwork, [string]$Python = 'python', [switch]$Il2Cpp)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 $run = Join-Path $root ('artifacts/lan-sample/run-' + (Get-Date -Format 'yyyyMMdd-HHmmss'))
 New-Item -ItemType Directory -Path $run | Out-Null
-$player = Join-Path $root 'artifacts/lan-sample/player/LanCoop.exe'
+$playerFolder = if ($Il2Cpp) { 'player-il2cpp' } else { 'player' }
+$player = Join-Path $root "artifacts/lan-sample/$playerFolder/LanCoop.exe"
 $processes = @{}
 $ids = @{}
+$seenReports = @{}
 $checks = [System.Collections.Generic.List[string]]::new()
 $relay = $null
 function Read-State($name) {
     $path = Join-Path $run "$name.json"
-    if (!(Test-Path $path)) { return $null }
-    try { $state = Get-Content -Raw $path | ConvertFrom-Json } catch { return $null }
+    if (!(Test-Path $path) -and !$seenReports.ContainsKey($name)) { return $null }
+    # Windows 文件替换可能短暂占用报告；已出现的报告读失败不能当作断线或最终空证据。
+    $state = $null
+    for ($attempt = 0; $attempt -lt 10; $attempt++) {
+        try { $state = [IO.File]::ReadAllText($path) | ConvertFrom-Json } catch { $state = $null }
+        if ($null -ne $state) { break }
+        Start-Sleep -Milliseconds 50
+    }
+    if ($null -eq $state) { throw "Cannot read $name report: $path" }
+    $seenReports[$name] = $true
     if ($state.error) { throw "$name Player error: $($state.error)" }
+    if ($Il2Cpp -and $state.scriptingBackend -ne 'IL2CPP') { throw "$name is not an IL2CPP Player" }
     return $state
 }
 function Wait-Check($label, [scriptblock]$predicate, [int]$seconds = 35) {
@@ -117,8 +128,13 @@ try {
     Expect-Result host Buy Accepted
     Wait-Check 'Restart retains exactly-once Host handling' { $s=Read-State client; $s.coins -eq 0 -and $s.purchases -eq 1 }
     $evidence = @{passed=$true;checks=$checks;utc=(Get-Date).ToUniversalTime().ToString('o');weakNetwork=[bool]$WeakNetwork;
-        frameworkCommit='10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4';reports=@{}}
-    foreach ($name in $processes.Keys) { $evidence.reports[$name] = Read-State $name }
+        frameworkCommit='10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4';reports=@{};
+        scriptingBackend=(Read-State host).scriptingBackend}
+    foreach ($name in $processes.Keys) {
+        $state = Read-State $name
+        if ($null -eq $state) { throw "Missing final report: $name" }
+        $evidence.reports[$name] = $state
+    }
     if ($WeakNetwork) {
         $netem = Get-Content -Raw "$run/netem.json" | ConvertFrom-Json
         if ($netem.dropped -eq 0 -or $netem.reordered -eq 0) { throw 'Network perturbation was not observed' }

@@ -125,22 +125,37 @@ namespace DarkNights.Samples.LanCoop.Editor
         [MenuItem("Dark Nights/Samples/LAN/Build Windows Player")]
         public static void Build()
         {
+            BuildPlayer(ScriptingImplementation.Mono2x, "player", BuildOptions.Development);
+        }
+
+        [MenuItem("Dark Nights/Samples/LAN/Build Windows IL2CPP Player")]
+        public static void BuildIl2Cpp()
+        {
+            BuildPlayer(ScriptingImplementation.IL2CPP, "player-il2cpp", BuildOptions.None);
+        }
+
+        private static void BuildPlayer(ScriptingImplementation requestedBackend, string folder, BuildOptions options)
+        {
             if (!File.Exists(ScenePath)) throw new FileNotFoundException("Create Sample assets first", ScenePath);
             var target = NamedBuildTarget.Standalone;
             var backend = PlayerSettings.GetScriptingBackend(target);
+            var stripping = PlayerSettings.GetManagedStrippingLevel(target);
             var addressables = AddressableAssetSettingsDefaultObject.Settings;
             var previousContentBuild = addressables.BuildAddressablesWithPlayerBuild;
             try
             {
                 // Sample 的原生资产直接随场景打包，不构建正式游戏 Addressables。
                 addressables.BuildAddressablesWithPlayerBuild = AddressableAssetSettings.PlayerBuildOption.DoNotBuildWithPlayer;
-                PlayerSettings.SetScriptingBackend(target, ScriptingImplementation.Mono2x);
-                string output = Path.GetFullPath("../artifacts/lan-sample/player/LanCoop.exe");
+                PlayerSettings.SetScriptingBackend(target, requestedBackend);
+                // Release + High 同时验证 AOT 和代码裁剪；退出时恢复正式项目设置。
+                if (requestedBackend == ScriptingImplementation.IL2CPP)
+                    PlayerSettings.SetManagedStrippingLevel(target, ManagedStrippingLevel.High);
+                string output = Path.GetFullPath("../artifacts/lan-sample/" + folder + "/LanCoop.exe");
                 Directory.CreateDirectory(Path.GetDirectoryName(output));
                 var result = BuildPipeline.BuildPlayer(new BuildPlayerOptions
                 {
                     scenes = new[] { ScenePath }, locationPathName = output,
-                    target = BuildTarget.StandaloneWindows64, options = BuildOptions.Development
+                    target = BuildTarget.StandaloneWindows64, options = options
                 });
                 if (result.summary.result != BuildResult.Succeeded) throw new InvalidOperationException("Sample build failed");
                 Debug.Log("LAN_SAMPLE_BUILD=" + output);
@@ -148,6 +163,7 @@ namespace DarkNights.Samples.LanCoop.Editor
             finally
             {
                 PlayerSettings.SetScriptingBackend(target, backend);
+                PlayerSettings.SetManagedStrippingLevel(target, stripping);
                 addressables.BuildAddressablesWithPlayerBuild = previousContentBuild;
             }
         }

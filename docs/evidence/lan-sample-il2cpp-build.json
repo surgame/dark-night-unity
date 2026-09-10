@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-11",
+  "unity": "6000.4.9f1",
+  "target": "StandaloneWindows64",
+  "scriptingBackend": "IL2CPP",
+  "development": false,
+  "cppConfiguration": "Release",
+  "managedStrippingLevel": "High",
+  "linkerRuleset": "Experimental",
+  "apiCompatibility": ".NET Standard 2.1",
+  "frameworkCommit": "10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4",
+  "msvc": "14.44.35207",
+  "windowsSdk": "10.0.26100.0",
+  "moduleUrl": "https://download.unity3d.com/download_unity/f7258d6eebbe/TargetSupportInstaller/UnitySetup-Windows-IL2CPP-Support-for-Editor-6000.4.9f1.exe",
+  "moduleAuthenticode": "Valid: Unity Technologies SF",
+  "buildResult": "Success",
+  "baselineAssertions": 30,
+  "weakNetworkAssertions": 30,
+  "sha256": {
+    "module": "BAC7756AD1A16F5B7495C77420AF4475AC875BBA0262275F6F16E2E57C009AFC",
+    "buildLog": "ED76EB82600C9146650554614851634D376D92D8F6E8B377AE8C2B6C9B1E6FE9",
+    "buildInput": "3FEFC3FC5831A6997DCFB671B04BD790A57B5AAA2EA30F4CD4B068B753093EC2",
+    "playerExe": "A4B596130F036DF4DCCA05C56D0626996DAB7D3B351D89F03B58A06DA8B1BA60",
+    "gameAssembly": "DF55C5377C384478ED5944E3458D30B0FDD975182E4D276030650035F150A747",
+    "metadata": "40C1E7D8FB4E93DDC73A003DEF5CA58E05BDF0EE5EBDB4052132686F18D81B26",
+    "baseline": "2EED12C79CB27D742DCFBF928EFC5D29BC70A7C3AB1C44AFA7452AAE10378EC5",
+    "weakNetwork": "A875B1453F0E6469CB569DB70EFDD6C3DD758018E1D7D786A925630362B3F6E2"
+  }
+}

@@ -9,7 +9,7 @@ namespace DarkNights.Samples.LanCoop.Bootstrap
     {
         public int processId, joinCount, epoch, revision, coins, purchases, occupant, ticks, inputId, senderCount;
         public bool ready, paused;
-        public string role, status, error, unityVersion;
+        public string role, status, error, unityVersion, scriptingBackend;
         public List<string> results = new List<string>();
     }
 }

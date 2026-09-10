@@ -25,6 +25,11 @@ namespace DarkNights.Samples.LanCoop.Bootstrap
             report.role = role;
             report.processId = System.Diagnostics.Process.GetCurrentProcess().Id;
             report.unityVersion = Application.unityVersion;
+#if ENABLE_IL2CPP
+            report.scriptingBackend = "IL2CPP";
+#else
+            report.scriptingBackend = "Mono";
+#endif
             Network.Result += OnResult;
             Application.logMessageReceived += OnLog;
             int latency = int.Parse(Argument("-sample-latency", "0"));

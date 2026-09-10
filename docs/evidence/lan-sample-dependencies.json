@@ -20,8 +20,8 @@
   "notVerified": [
     "Two physical machines LAN",
     "Steam platform integration",
-    "IL2CPP/AOT",
     "Long-running load",
     "Formal Dark Nights gameplay"
-  ]
+  ],
+  "il2cppEvidence": "lan-sample-il2cpp-build.json"
 }

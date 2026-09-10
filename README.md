@@ -1,6 +1,6 @@
 # Dark Nights · Unity
 
-《Dark Nights》Unity 工程筹备仓库。M0/M1 环境基线已完成；2026-09-11 新增独立 [LAN 合作 Sample](docs/LAN_SAMPLE.md)，通过 Windows Player 四进程及实际 UDP 丢包／乱序验证。灰松谷正式玩法、正式联机和 M2–M5 尚未完成。
+《Dark Nights》Unity 工程筹备仓库。M0/M1 环境基线已完成；2026-09-11 新增独立 [LAN 合作 Sample](docs/LAN_SAMPLE.md)，Windows Mono 和 IL2CPP Release＋High 裁剪构建通过，两种后端均通过四进程及实际 UDP 丢包／乱序验证。灰松谷正式玩法、正式联机和 M2–M5 尚未完成。
 
 `Game/` 是 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。先运行 `tools/prepare-lan-sample.ps1` 准备锁定提交的 `.deps/YYGC`，不直接引用用户维护的框架工作区。R3、MemoryPack、UniTask、FishNet 等依赖已导入；VitalRouter 使用 YYGC 要求的完成语义修正版。内部产品名暂保留 `DNights`。
 

@@ -2,7 +2,7 @@
 
 当前阶段：M0/M1 环境基线已实施；2026-09-11 独立 [LAN Sample](LAN_SAMPLE.md) 已通过 Windows Player 四进程、晚加入／重连、Host 重开和真实 UDP 弱网验证。正式玩法 Core、灰松谷联机切片及 M2–M5 仍未完成。
 
-Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本；YYGC 锁定 `10b8f0e` 加窄范围友元程序集补丁，VitalRouter 修正从固定源构建。基础与弱网各 30 项多进程断言见 Sample 文档及 `docs/evidence/lan-sample-*.json`。下文正式玩法预算和退出条件保持有效，不能以测试营地代替完整游戏验收。
+Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本；YYGC 锁定 `10b8f0e` 加窄范围友元程序集补丁，VitalRouter 修正从固定源构建。Mono 和 Windows x64 IL2CPP Release＋High 裁剪均已实际构建，每种后端的基础与弱网各 30 项多进程断言见 Sample 文档及 `docs/evidence/lan-sample-*.json`。下文正式玩法预算和退出条件保持有效，不能以测试营地代替完整游戏验收。
 
 这里的 M1 指环境封装与启动基线；表格中的 M1“可移植核心”仍未开始，不能把环境就绪当作玩法或规则迁移完成。
 

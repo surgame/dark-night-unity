@@ -2,11 +2,11 @@
 
 这是独立验证模板，不代表灰松谷玩法或 M2–M5 已完成。代码、原生 Prefab 和场景位于 `Game/Assets/Samples/LanCoop`，正式 Bootstrap 和构建场景列表不接入它。手动打开 `Content/LanCoop.unity`，点击 Host 或输入房主局域网 IP 后 Join。默认 UDP 17877，2–4 人共享一个营地；同机测试输入 `127.0.0.1`。初始暂停，网络、Ready、购买和工位操作继续运行。
 
-本轮状态（2026-09-11）：Unity 编译、原生资产编辑往返、Windows Player 构建、四进程基础和真实 UDP 弱网测试均通过；完整证据见下方。
+本轮状态（2026-09-11）：Unity 编译、原生资产编辑往返、Windows Mono 与 IL2CPP Player 构建、两种后端各自的四进程基础和真实 UDP 弱网测试均通过；完整证据见下方。
 
 ## 运行与可重现依赖
 
-Editor 锁定 `6000.4.9f1`；样板手写代码兼容 C# 9，Core 不引用引擎，Player 使用 .NET Standard 2.1 / Mono。YYGC 使用提交 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` 的隔离 checkout。UPM manifest/lock 指向仓库 `.deps/YYGC`，先执行：
+Editor 锁定 `6000.4.9f1`；样板手写代码兼容 C# 9，Core 不引用引擎，Player 使用 .NET Standard 2.1，已验证 Mono 和 IL2CPP。YYGC 使用提交 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` 的隔离 checkout。UPM manifest/lock 指向仓库 `.deps/YYGC`，先执行：
 
 ```powershell
 pwsh -NoProfile -File tools/prepare-lan-sample.ps1 -FrameworkPath D:/Developer/YYGC
@@ -17,6 +17,18 @@ pwsh -NoProfile -File tools/prepare-lan-sample.ps1 -FrameworkPath D:/Developer/Y
 该 YYGC 提交还要求 VitalRouter 2.7.1 的 wait-all 修正。仓库中的运行 DLL 已按框架自带工具从固定源码构建，15 项完成／取消／异常／池生命周期回归通过；来源与 SHA-256 见 `docs/evidence/lan-sample-dependencies.json`。如果 NuGet 恢复将其替换为原版，应关闭 Unity 后执行 `.deps/YYGC/Tools/NetworkValidation~/Apply-VitalRouterFix.ps1 -ProjectPath Game`；工具校验原版哈希并在 Library 备份原 DLL，遇到未知二进制会拒绝覆盖。保留原有生成器，不能同时导入两个 VitalRouter DLL。
 
 Unity 菜单 `Dark Nights/Samples/LAN/Build Windows Player` 只构建 Sample 场景，产物为 `artifacts/lan-sample/player/LanCoop.exe`。它不修改正式场景列表。已有 Content 可直接构建；`Create Initial Assets` 仅允许首次向空 Content 输出，已有资产时明确拒绝。
+
+IL2CPP 使用菜单 `Dark Nights/Samples/LAN/Build Windows IL2CPP Player`，输出 `artifacts/lan-sample/player-il2cpp/LanCoop.exe`。构建使用非 Development Player 和 High Managed Stripping，完成或失败均恢复原有后端与裁剪级别。机器需安装同版本的 Windows Build Support (IL2CPP)、MSVC x64 和 Windows SDK；模块来自 [Unity 6000.4.9f1 官方发布页](https://unity.com/releases/editor/whats-new/6000.4.9f1)。命令行复跑：
+
+```powershell
+& 'D:/Program Files/Unity 6000.4.9f1/Editor/Unity.exe' -batchmode -nographics -quit `
+  -projectPath "$PWD/Game" -executeMethod DarkNights.Samples.LanCoop.Editor.SampleBuilder.BuildIl2Cpp `
+  -logFile "$PWD/artifacts/lan-sample/build-il2cpp.log"
+pwsh -NoProfile -File tools/test-lan-sample.ps1 -Il2Cpp -Port 18077
+pwsh -NoProfile -File tools/test-lan-sample.ps1 -Il2Cpp -WeakNetwork -Port 18177
+```
+
+`-Il2Cpp` 从独立产物目录启动，并要求每个 Player 报告编译期 `ENABLE_IL2CPP` 后端。后续新增 DTO 必须保留具体泛型注册入口，新增 Behaviour 使用显式工厂；不能仅凭 Editor/Mono 通过宣称 AOT 可用。修改网络 DTO、生成器、反射入口或依赖后，重新跑 IL2CPP 构建和多进程测试；不要用整程序集 `preserve="all"` 掩盖未定位的裁剪问题。
 
 ```powershell
 dotnet run --project tools/LanSampleRules/LanSampleRules.csproj
@@ -75,12 +87,19 @@ VitalRouter **在当前 YYGC 命令链里是必要依赖**：INetworkCommand 继
 | Windows Mono Player | 实际构建成功；图形窗口的面板、工位及 Ready 状态已检查 |
 | Host＋3 客户端基础 | 30 项断言通过；[冻结结果](evidence/lan-sample-baseline.json) |
 | Host＋3 客户端弱网 | 30 项断言通过；实际接收 627 包、丢弃 33 包、重排 52 次；[冻结结果](evidence/lan-sample-weak-network.json) |
+| Windows x64 IL2CPP | 非 Development、C++ Release、High 裁剪构建成功；MSVC 14.44.35207／SDK 10.0.26100.0；[构建及产物哈希](evidence/lan-sample-il2cpp-build.json) |
+| IL2CPP Host＋3 客户端基础 | 30 项断言通过；四进程均报告 ENABLE_IL2CPP 后端；[冻结结果](evidence/lan-sample-il2cpp-baseline.json) |
+| IL2CPP Host＋3 客户端弱网 | 30 项断言通过；622 包、33 丢弃、49 次重排；[冻结结果](evidence/lan-sample-il2cpp-weak-network.json) |
 | 依赖与构建来源 | [提交、DLL、补丁和日志 SHA-256](evidence/lan-sample-dependencies.json) |
 
-两组网络测试均覆盖首次 null 后状态、非法实体／伪造 SenderObjectId、非 Host 权限、协议版本、旧 epoch、并发资源扣款、重复请求、工位独占、四人晚加入、断开／重连、暂停及运行、加载式 epoch 重置、Host 退出和同进程重开。最终报告可能记录重开后的世界；各阶段成功由脚本按当时状态判断，未由最终状态倒推。第一次基础测试因脚本变量作用域错误失败，前两次弱网因 Windows UDP ICMP 导致中继退出失败，均已修正后完整重跑；没有将这些失败记录为成功。
+Mono 和 IL2CPP 的基础／弱网测试均覆盖首次 null 后状态、非法实体／伪造 SenderObjectId、非 Host 权限、协议版本、旧 epoch、并发资源扣款、重复请求、工位独占、四人晚加入、断开／重连、暂停及运行、加载式 epoch 重置、Host 退出和同进程重开。最终报告可能记录重开后的世界；各阶段成功由脚本按当时状态判断，未由最终状态倒推。第一次 Mono 基础测试因脚本变量作用域错误失败，前两次 Mono 弱网因 Windows UDP ICMP 导致中继退出失败，均已修正后完整重跑；没有将这些失败记录为成功。
+
+IL2CPP 本轮只补齐本机官方模块、构建入口和后端证据字段，现有 YYGC Object／StateSynchronizer、R3、MemoryPack 与必要 VitalRouter 适配直接通过；没有为通过测试新增全程序集保留或改写框架。该结论覆盖此 Sample 实际使用的具体类型与路径，不等于 YYGC 全部 API 或正式游戏均已通过 AOT。
+
+首轮 IL2CPP 弱网虽然阶段断言通过，但整理时发现两个最终报告因文件占用被脚本读取为空，因此未采纳为冻结验收。脚本现对已有报告读取失败做有界重试并在最终报告缺失时失败；修正后基础／弱网全部重跑，冻结结果对应 `run-20260911-011131` 与 `run-20260911-011150`，均包含四个进程的完整后端记录。
 
 本轮使用之前曾重命名的 Game 宿主，旧 Bee 缓存仍含 DNights 路径，首次构建失败；缓存被移动到忽略目录备份后重建成功。这是本机缓存处理，不是可重现依赖要求。Sample 构建临时跳过正式 Addressables 内容生成并恢复设置，正式 Bootstrap／Addressables 的当前新依赖组合未额外重新验收。
 
 弱网脚本以独立 UDP 中继在真实 transport 外施加双向约 50ms 单程延迟、±25ms 抖动和 5% 随机丢包，并记录实际丢弃／重排计数。它影响可靠通道底层数据包，不把 FishNet 仅针对不可靠消息的丢包模拟当作可靠性验收。[TransportManager 官方说明](https://fish-networking.gitbook.io/docs/fishnet-building-blocks/components/managers/transportmanager)
 
-尚未验证：两台物理机器 LAN、Steam、IL2CPP/AOT、长时满载、正式玩法迁移、生产存档恢复及同进程多场景热切换。Sample 不作为正式联机全部验收通过的替代证据。
+尚未验证：两台物理机器 LAN、Steam、其他平台的 IL2CPP、长时满载、正式玩法迁移、生产存档恢复及同进程多场景热切换。Sample 不作为正式联机全部验收通过的替代证据。
