@@ -35,6 +35,9 @@ namespace DarkNights.Tools.CoreRegression
                 SessionCommandScenarios.Run(check, catalog, layout);
                 SessionBoundaryScenarios.Run(check, catalog, layout);
                 SessionLifecycleScenarios.Run(check, catalog, layout);
+                SessionProjectionScenarios.Run(check, catalog, layout);
+                SessionReplicaScenarios.Run(check, catalog, layout);
+                SessionClockScenarios.Run(check, catalog, layout);
                 RandomCompatibilityScenarios.Run(check);
             }
             catch (Exception error) { check(false, error.ToString()); }

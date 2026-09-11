@@ -1,0 +1,423 @@
+{
+  "utc": "2026-09-11T15:18:53.0597718Z",
+  "baselineCommit": "3195495efc59929c272ae02ae77f494cbfa04dd8",
+  "milestone": "M2 / M5 route A1",
+  "scope": "Immutable full display projection, stable projectile view identity, client replica ordering and fixed-step real-time accumulator; M2-M5 execution plan consolidation",
+  "environment": {
+    "unity": "6000.4.9f1",
+    "coreLanguage": "C# 9",
+    "coreTarget": "netstandard2.1",
+    "regressionRuntime": "8.0.16",
+    "os": "Microsoft Windows NT 10.0.26100.0"
+  },
+  "core": {
+    "total": 1316,
+    "failures": 0,
+    "newChecks": [
+      {
+        "name": "Projection includes initial actors, buildings and generated farm worksite",
+        "passed": true
+      },
+      {
+        "name": "Projection carries real initial economy and wave HUD data",
+        "passed": true
+      },
+      {
+        "name": "Projection captures session metadata at the same boundary",
+        "passed": true
+      },
+      {
+        "name": "Projection omits RNG, damage and private recovery or local selection state",
+        "passed": true
+      },
+      {
+        "name": "Projection sampling preserves actual gathering, movement and animation values",
+        "passed": true
+      },
+      {
+        "name": "Projection remains frozen after twelve seconds of world mutation",
+        "passed": true
+      },
+      {
+        "name": "Projection preserves paid training order and stable actor IDs",
+        "passed": true
+      },
+      {
+        "name": "Projection nested training queue stays frozen after simulation",
+        "passed": true
+      },
+      {
+        "name": "Projection copies caller arrays and exposes read-only lists",
+        "passed": true
+      },
+      {
+        "name": "Projection copies nested caller queue and prevents mutation",
+        "passed": true
+      },
+      {
+        "name": "Projection rejects cross-category duplicate entity IDs",
+        "passed": true
+      },
+      {
+        "name": "Projection accepts complete documented count limits without truncation",
+        "passed": true
+      },
+      {
+        "name": "Projection rejects excessive total entities before copying",
+        "passed": true
+      },
+      {
+        "name": "Projection rejects excessive projectile count",
+        "passed": true
+      },
+      {
+        "name": "Projection rejects duplicate projectile identity",
+        "passed": true
+      },
+      {
+        "name": "Projection load publishes complete flying arrows while awaiting Ready",
+        "passed": true
+      },
+      {
+        "name": "Projection capture does not advance RNG or mutate the loaded world",
+        "passed": true
+      },
+      {
+        "name": "Projection arrow identity survives earlier list element removal",
+        "passed": true
+      },
+      {
+        "name": "Projection old arrow snapshot survives authoritative impact and removal",
+        "passed": true
+      },
+      {
+        "name": "Projection cannot capture a disposed authority",
+        "passed": true
+      },
+      {
+        "name": "Replica requires an active local connection binding",
+        "passed": true
+      },
+      {
+        "name": "Replica applies initial frame once and filters Host loopback duplicate",
+        "passed": true
+      },
+      {
+        "name": "Replica rejects invalid receipt revision",
+        "passed": true
+      },
+      {
+        "name": "Replica does not treat an early receipt as applied world state",
+        "passed": true
+      },
+      {
+        "name": "Replica unlocks receipt-dependent view only after corresponding world revision",
+        "passed": true
+      },
+      {
+        "name": "Replica late initial frame cannot revert online state",
+        "passed": true
+      },
+      {
+        "name": "Replica same-tick same-revision publication updates connection metadata",
+        "passed": true
+      },
+      {
+        "name": "Replica shows controlled loading state",
+        "passed": true
+      },
+      {
+        "name": "Replica newer publication clears cancelled loading without a simulation tick",
+        "passed": true
+      },
+      {
+        "name": "Replica atomically accepts new epoch with reset revision and invalidates old receipt",
+        "passed": true
+      },
+      {
+        "name": "Replica delayed old epoch cannot restore old entities",
+        "passed": true
+      },
+      {
+        "name": "Replica rejects old epoch even with greater publication",
+        "passed": true
+      },
+      {
+        "name": "Replica rejects server clock regression",
+        "passed": true
+      },
+      {
+        "name": "Replica rejects same-epoch world revision regression",
+        "passed": true
+      },
+      {
+        "name": "Replica displays authoritative room control policy",
+        "passed": true
+      },
+      {
+        "name": "Replica rejects policy version regression",
+        "passed": true
+      },
+      {
+        "name": "Replica replacement clears world and rejects previous connection asynchronous callbacks",
+        "passed": true
+      },
+      {
+        "name": "Replica fresh connection accepts a new room with restarted versions despite old disconnect callback",
+        "passed": true
+      },
+      {
+        "name": "Replica closed connection cannot be revived by a late snapshot",
+        "passed": true
+      },
+      {
+        "name": "Projection rejects invalid publication metadata",
+        "passed": true
+      },
+      {
+        "name": "Clock 30 FPS matches ten seconds of complete 60 Hz Core state",
+        "passed": true
+      },
+      {
+        "name": "Clock 60 FPS matches ten seconds of complete 60 Hz Core state",
+        "passed": true
+      },
+      {
+        "name": "Clock 144 FPS matches ten seconds of complete 60 Hz Core state",
+        "passed": true
+      },
+      {
+        "name": "Clock limits catch-up and returns ordered business receipts without losing backlog",
+        "passed": true
+      },
+      {
+        "name": "Clock drains backlog exactly and applies speed only once",
+        "passed": true
+      },
+      {
+        "name": "Clock keeps session ticks running while paused without advancing simulation",
+        "passed": true
+      },
+      {
+        "name": "Clock keeps service alive while loading freezes world",
+        "passed": true
+      },
+      {
+        "name": "Clock rejects invalid elapsed input -1",
+        "passed": true
+      },
+      {
+        "name": "Clock rejects invalid elapsed input NaN",
+        "passed": true
+      },
+      {
+        "name": "Clock rejects invalid elapsed input ∞",
+        "passed": true
+      },
+      {
+        "name": "Clock rejects invalid elapsed input 1.7976931348623157E+308",
+        "passed": true
+      },
+      {
+        "name": "Clock invalid input preserves world and accumulator",
+        "passed": true
+      },
+      {
+        "name": "Clock excessive stall fails explicitly without silently dropping elapsed time",
+        "passed": true
+      },
+      {
+        "name": "Clock cannot run or bind authority on a foreign thread",
+        "passed": true
+      },
+      {
+        "name": "Clock requires a positive bounded step budget",
+        "passed": true
+      },
+      {
+        "name": "Clock stops and releases backlog after Host session disposal",
+        "passed": true
+      }
+    ]
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 123,
+    "selfTests": 10,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "unity": {
+    "compile": "completed",
+    "errors": [],
+    "activeCompileRequests": 1,
+    "editorSummary": {
+      "total": 40,
+      "passed": 40,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "addedScenarios": [
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"session-projection\")",
+        "Status": "Passed",
+        "Duration": 0.058237,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"session-replica\")",
+        "Status": "Passed",
+        "Duration": 0.005217,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"session-clock\")",
+        "Status": "Passed",
+        "Duration": 0.0113729,
+        "Message": null,
+        "StackTrace": null
+      }
+    ]
+  },
+  "sources": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/ActorViewData.cs",
+      "sha256": "bcf42ebc881d8f9f49147fb72e108c1c834462d3807c86a83c5cfc89b0c660c4",
+      "lines": 52,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/BuildingViewData.cs",
+      "sha256": "61a5d9e2b25a5c0ee63b0b4030a83fe91a2cbcf3051e0c233ff1570f9b4baaf8",
+      "lines": 40,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/CampViewData.cs",
+      "sha256": "a47523a0e77e9b8f7c7b3fe44f8e499b7a0ec4e55eb0222f82b9d758aaf678a3",
+      "lines": 51,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/ProjectileViewData.cs",
+      "sha256": "b6f48467538f7f64b11c5625b5f4bf2312a86eea01fd883a7ffb45e487b015d7",
+      "lines": 34,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/SessionViewData.cs",
+      "sha256": "885e393d85c7abf42a22c50cdc6a63ce3ae7126f722804da2048ba59851eb0bb",
+      "lines": 50,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/TrainingViewData.cs",
+      "sha256": "043bae7d0deca203fbad1309f54cdd58731637aa79130d8ae1de289f9a246ea7",
+      "lines": 22,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/WorksiteViewData.cs",
+      "sha256": "67db384a0125ddc2176c275c172b7de7d0c1677c15de649c38165d1f78a36e3b",
+      "lines": 37,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/WorldReplica.cs",
+      "sha256": "3967be2978c1527650d542b043ec106ee6444900ee1d4b6348c29ff2e7410bd4",
+      "lines": 48,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/WorldViewData.cs",
+      "sha256": "ad431f0fadfc9074c10c4ba9aa6df5d327725cb39d658423fba79a73a891f2d9",
+      "lines": 48,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+      "sha256": "eb634f56c277a203fc7abc88cbd1733e055df50179be7f42bc71d4e73b7245c4",
+      "lines": 239,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionClock.cs",
+      "sha256": "0d238a00ca46afb0b8950d0c6a3369eccb9b6e0c7a2b4d08016f23068551ac3c",
+      "lines": 54,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionProjector.cs",
+      "sha256": "d958426b285a9f5b1b28dddd9fbfcc1d3b5d30c8e6a025215a723e6a023c87fd",
+      "lines": 68,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/CoreRegressionTests.cs",
+      "sha256": "788b3866b279bb5c140e4243be0c75b9e2eea3a5cc1ec25eb6887996aea19057",
+      "lines": 51,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/SessionClockScenarios.cs",
+      "sha256": "8185cc93eed15a9c9b9c4b6b1df3fd3bd99891fb7d2f23ed644fb890b3e294c5",
+      "lines": 73,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/SessionProjectionScenarios.cs",
+      "sha256": "2998f84c416890f33615dedac8c347d76fc687e2d6688ab824087e96d6a05ccc",
+      "lines": 118,
+      "metaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/SessionReplicaScenarios.cs",
+      "sha256": "69b239e548388e5829e9df25fae03f1b36d04222cae192ab617d73f4b30cdaba",
+      "lines": 88,
+      "metaPresent": true
+    }
+  ],
+  "frozenFixtures": [
+    {
+      "path": "tools/CoreRegression/Fixtures/content-hashes-v1.json",
+      "sha256": "d59fe93f74e3b131a8c1a7473c48353d7f0723a9968803afac8146cf81e3310d"
+    },
+    {
+      "path": "tools/CoreRegression/Fixtures/godot-gameplay-validation.json",
+      "sha256": "d81a6c9845b4e79ff43f1234617bfb98b76590fbdb56d2b7e7aea5d2e06ac984"
+    },
+    {
+      "path": "tools/CoreRegression/Fixtures/godot-rng-vectors.json",
+      "sha256": "de2dd5da0e8f0538c6cf0d2357a786ad6759dcda526b9af9637616c33d7d42d8"
+    },
+    {
+      "path": "tools/CoreRegression/Fixtures/legacy-v1-after-20s.json",
+      "sha256": "4a297fe16882ea388398d458911714553cf350a8528e77d1dcd5056583f2b8af"
+    },
+    {
+      "path": "tools/CoreRegression/Fixtures/legacy-v1.json",
+      "sha256": "fe700dd160583786dd7786f87a3940a344899e7991de8c660ad1e1f0a10a240e"
+    },
+    {
+      "path": "tools/CoreRegression/Fixtures/pinewatch-layout-v1.json",
+      "sha256": "76e1c120e2a3410548a5a4bc87faf603ff9bfccde4299fc490ad553b1767b095"
+    }
+  ],
+  "protectedPathChanges": [],
+  "validationLimits": [
+    "No MemoryPack or YYGC pool/transport test for new display types",
+    "No Bootstrap/Entry/Unity Update wiring",
+    "No content handshake or real network Ready",
+    "No Player build, PlayMode, independent network processes, weak network, art or dual-machine acceptance",
+    "Count limits are not measured transport byte limits",
+    "Clock rejects backlog above 86400 seconds without discarding prior accumulator"
+  ],
+  "reports": [
+    "artifacts/migration/core-regression.json",
+    "artifacts/migration/architecture.json",
+    "artifacts/migration/projection-editor-tests.json"
+  ]
+}

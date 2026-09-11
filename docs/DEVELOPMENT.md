@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+后续执行主入口：[从当前实现连续推进到 M5](M5_EXECUTION.md)。现有阶段和历史证据保留；执行收敛为 M2 可玩闭环 → M3 完整关卡 → M4 会话恢复 → M5 交付四批，集中准备、导入和验证，复用已通过结果。
+
 计划更新：2026-09-11，配合[移植方案](MIGRATION_PLAN.md)。**环境基线、独立 LAN Sample 与 M0 正式接入探针已完成；正式配置启动、权威规则／旧档核心、新格式存档与原子文件读写、可编辑布局来源及首批 WorldSession／Worker 对象合同已有实现和验证，可玩会话、正式联机及完整表现尚未完成。** 下文统一使用 M0 表示环境与正式接入收口、M1 表示规则核心；历史记录中的“M0/M1 环境完成”不代表本表 M1 完成。
 
 Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本；YYGC 锁定 `10b8f0e` 加窄范围友元程序集补丁，VitalRouter 修正从固定源构建。Mono 和 Windows x64 IL2CPP Release＋High 裁剪均已实际构建，每种后端的基础与弱网各 30 项多进程断言见 Sample 文档及 `docs/evidence/lan-sample-*.json`。下文正式玩法预算和退出条件保持有效，不能以测试营地代替完整游戏验收。
@@ -12,7 +14,7 @@ Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本�
 
 ## 当前实施进展
 
-2026-09-11 截至第七批：**M0 正式接入退出条件已完成；M1 规则与存储基础已实现；M2 的 Runtime/Session 权威业务层已通过独立及 Editor 回归。** 会话层提供权限、队列／去重、连接代次、Ready 版本门槛、60 Hz 调度与加载 epoch，但尚未接入 Bootstrap、YYGC 网络回调或实体投影；存档文件编排及 UI 也待完成。M0 双后端小探针与本批会话单元回归都不代表已有可玩会话或正式联机。
+2026-09-11 截至第八批：**M0 正式接入退出条件已完成；M1 规则与存储基础已实现；M2 权威业务层、冻结展示副本和真实时间累积已通过独立及 Editor 回归。** 新增 SessionProjector／WorldReplica 覆盖全部实体及 HUD、发布次序和连接／epoch 隔离，SessionClock 以未缩放时间驱动 60 Hz。尚未接入 Bootstrap、Unity Update 或 YYGC 网络回调；wire／内容握手／真实 Ready、存档文件编排及 UI 待完成。M0 双后端探针与本批内存投影回归不代表可玩会话或正式联机。
 
 | 内容 | 当前实现 |
 |---|---|
@@ -21,7 +23,7 @@ Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本�
 | 依赖 | 显式锁定已有 Newtonsoft UPM 3.2.2（DLL 13.0.2），不增加第二份 JSON DLL；Core 不引用解析库 |
 | 启动 | GameContentStartupModule 接入现有 AppStartup，Addressables 并行加载两份文本并释放句柄；同时验证正式定义、内容映射、Behaviour 工厂与命令／状态注册，全部成功才注册 GameCatalog |
 | 正式对象 | Worker 与 WorldSession 均使用 GuidFirst 的 GUID／Key 定义、旧 ID 为 `0`、无旧 ID 别名；分别接入 Addressable Prefab、ObjectInstance／ObjectView／initializer、StateSynchronizer 与生成的 WorldSessionBehaviour |
-| wire 合同 | SetReadyCommand 与 SessionStatusState 已由 MemoryPack／YYGC 生成注册，两个首批 Tag 均冻结为 `0`；尚未把会话业务层接到网络处理器和状态发布器，也无实体集合投影 |
+| wire 合同 | SetReadyCommand 与 SessionStatusState 已由 MemoryPack／YYGC 生成注册，两个首批 Tag 均冻结为 `0`；尚未把会话业务层接到网络处理器和状态发布器；内存实体集合投影已实现，未生成 wire |
 | 权威会话基础 | SessionAuthority 独占 GameSession，可信适配签发连接能力；统一队列执行 SharedCamp／HostOnly、时间与加载权限，保序去重与有界结果窗口；已通过真实规则回归，网络身份认证／握手、恢复凭据及实际投影 Ready 尚未接入 |
 | 资源保护 | 环境工具保留 GUID 移入正式 Editor 目录；Initialize 遇已有目标立即拒绝；BuildAddressablesContent 仅验证并构建，不调用初始化。配置注册只保存本批配置与分组 |
 | 守卫 | tools/ArchitectureGuard 检查源码结构、项目依赖、Core 禁用 API 与 Editor/Tests 隔离；tools/CoreBuild 以 C#9 / netstandard2.1 独立编译实际 Core 源码 |
@@ -73,7 +75,9 @@ pwsh -NoProfile -File tools/test-game-startup.ps1 -Backend il2cpp
 
 验证：独立回归 **1260/1260**（新增会话 96 项），架构守卫 **109 个手写文件、10 项自测**零错误；Unity 两次批量编译无错误，最终完整 Editor 程序集 **37/37**通过。采集 12 秒、住宅施工和训练与直接 Core 的完整快照一致；队列争抢不足资源、工位独占、部分训练支付、策略切换、非法输入、重连旧请求及加载失败／取消均有检查；加载冻结旧档后继续 20 秒对照原结果。没有运行 Player、PlayMode、多进程或弱网检查，没有修改正式资源或冻结夹具。第二次编译的新增输入为显式保序去重及补充队列／部分成功场景；详见[会话业务合同](SESSION_AUTHORITY.md)和[第七批证据](evidence/session-authority-2026-09-11.json)。
 
-下一批继续 M2：将现有权威业务层接入 YYGC Gateway/Sender/Processor 的服务端上下文，完成固定内容握手、连接映射及真实完整投影／Ready，再接工人移动、采集与住宅施工的必要视图和独立进程验收。存档仍需文件任务编排、保存命令及产品 UI。网络晚加入／重连／epoch、完整原生美术、正式关卡可玩性及双机器验收待完成；Worker Prefab 只有容器和锚点，Bootstrap 不会创建正式会话。
+第八批执行 M5 路线的 A1：实现全部实体／HUD 冻结展示、箭矢稳定展示身份、WorldReplica 完整帧替换与连接／发布版本过滤，以及 SessionClock 的有界追帧和余量保留。独立回归 **1316/1316**（新增 56 项），架构守卫 **123 文件／10 自测／0 错误**；一次 Unity 批量编译无错误，完整 Editor **40/40**。没有修改规则、夹具或正式资源，没有构建 Player 或运行联机。实现合同及边界见[展示副本与时钟](SESSION_PROJECTION.md)，实测摘要见[第八批证据](evidence/session-projection-2026-09-11.json)。
+
+下一批按 [M5 路线 A2/A3](M5_EXECUTION.md#连续执行步骤)集中接通 YYGC 可靠 wire、服务端连接身份／内容握手、真实投影 Ready、回执及 Entry 启停，再完成必要视图和正式 Mono 双进程验收。M1 存档产品收尾并入 M4；完整美术和 UI 在 M3 批量实施。当前 Worker Prefab 仍只有容器和锚点，Bootstrap 不会创建正式会话；IL2CPP 和双机器需分别取得对应前置条件并实测。
 
 ## 工作量与难度
 

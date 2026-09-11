@@ -6,6 +6,7 @@ using DarkNights.Core.Config;
 using DarkNights.Core.Logic;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.Save;
+using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Save;
 
 namespace DarkNights.Runtime.Session
@@ -25,6 +26,7 @@ namespace DarkNights.Runtime.Session
         private readonly int[] generations = new int[4];
         private readonly Queue<SessionCommandEntry> pending = new Queue<SessionCommandEntry>();
         private readonly GameSaveJson saveJson;
+        private readonly SessionProjector projector = new SessionProjector();
         private GameSession world;
         private SessionReceipt loadTicket;
         private bool started;
@@ -171,6 +173,13 @@ namespace DarkNights.Runtime.Session
             return SnapshotMapper.Capture(world);
         }
 
+        public SessionViewData CaptureProjection()
+        {
+            CheckThread();
+            if (Closed) throw new ObjectDisposedException(nameof(SessionAuthority));
+            return projector.Capture(this, world);
+        }
+
         // ticket 必须是本实例 BeginLoad 执行得到的同一个回执对象，不能用网络 DTO 重建。
         public void CompleteLoad(SessionReceipt ticket, string json)
         {
@@ -180,6 +189,7 @@ namespace DarkNights.Runtime.Session
                 int nextEpoch = checked(Epoch + 1);
                 GameSession restored = saveJson.Restore(json);
                 world = restored;
+                projector.Clear();
                 Epoch = nextEpoch;
                 Revision = 0;
                 started = false;
@@ -209,7 +219,7 @@ namespace DarkNights.Runtime.Session
             int affected = 0, int entityId = 0) => new SessionReceipt(connection, request, Epoch, Revision,
                 PolicyRevision, ServerTick, code, affected, entityId);
 
-        private void CheckThread()
+        internal void CheckThread()
         {
             if (Thread.CurrentThread.ManagedThreadId != ownerThread)
                 throw new InvalidOperationException("Session operations must run on the owning thread.");
@@ -221,6 +231,7 @@ namespace DarkNights.Runtime.Session
             Closed = true;
             pending.Clear();
             loadTicket = null;
+            projector.Clear();
             foreach (var connection in connections) connection?.ResetWorld();
             Array.Clear(connections, 0, connections.Length);
         }
