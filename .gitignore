@@ -34,9 +34,11 @@
 
 # Machine-local dependencies and IDE files
 /.deps/
-/.vs/
-/.idea/
-/.vscode/
+# Ignore IDE metadata in the repository root and in nested projects (for
+# example, the Unity project under Game/).
+**/.vs/
+**/.idea/
+**/.vscode/
 /*.csproj
 /*.sln
 /*.slnx
