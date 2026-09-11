@@ -6,7 +6,7 @@
 
 - 规则移植来源为 `projects` 提交 `91cb09ff0894f26134f07fd544f1273d9fe7ffaa` 的 `src/Simulation`、纯存档模型及校验。原目录只读；现有 balance／波次 JSON 保持不变。
 - 旧档、旧档继续 20 秒、初始布局和内容摘要复制到 `tools/CoreRegression/Fixtures`，字节与来源一致。正常策略与无人照料结果来自原 `artifacts/gameplay-validation.json`，没有以 Unity 输出重写期望值。
-- `GameSession(catalog, layout)` 要求显式的不可变 `LevelLayout`，不再从仅有波次的 JSON 推断零坐标布局。测试使用冻结布局；正式场景标记及布局导出仍待实现，生产启动不读取测试夹具。
+- `GameSession(catalog, layout)` 要求显式的不可变 `LevelLayout`，不再从仅有波次的 JSON 推断零坐标布局。正式 `Pinewatch.unity` 已保存边界和 16 个有序标记，View 导出器在创建世界前执行结构、内容和占地校验；生产启动仍未装配会话，也不读取测试夹具。
 - Core 不引用引擎、JSON、文件系统或 YYGC。Runtime 的 JSON 映射逐字段调用不可变构造函数，不依赖反射创建存档类型。测试程序集不进入 Player。
 
 ## 规则与操作合同
@@ -48,7 +48,7 @@ unity command run_tests --mode editor --filter DarkNights.Tests --filter_type as
 
 Editor 首次 28 项中 27 项通过、随机向量失败；修正后重跑受 RNG 影响的 6 组核心检查，结果单独保存，之前通过的 22 项环境／配置检查复用。本轮未运行新的 Mono／IL2CPP Player 构建、独立联机进程、美术或双机器验收。详细结果及输入摘要见 [核心迁移证据](evidence/core-migration-2026-09-11.json)。
 
-本批后续依赖：M0 正式定义、Prefab 与生成访问收口；M1 正式场景布局与新存档／文件适配；随后才是 M2 正式网络切片。M3–M5 完整表现、会话恢复、性能及交付仍待实施。
+后续依赖：M0 正式定义、Prefab 与生成访问收口；M1 新存档／文件适配；随后才是 M2 正式网络切片。正式场景布局来源已在后续批次完成并通过 Editor 对照，但 M3–M5 的完整表现、会话恢复、性能及交付仍待实施。
 
 ## 第三方算法来源
 

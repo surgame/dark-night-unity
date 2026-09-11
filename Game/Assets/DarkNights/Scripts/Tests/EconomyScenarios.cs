@@ -19,6 +19,7 @@ namespace DarkNights.Tests
     {
         public static void Run(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
         {
+            CheckLayoutValidation(check, catalog, layout);
             var game = new GameSession(catalog, layout);
             int[] selection = Array.Empty<int>();
             string buildKind = "";
@@ -41,6 +42,29 @@ namespace DarkNights.Tests
             check(game.Construction.Place(buildKind, 184, selection), "House placement in a free village slot");
             Step(game, 30);
             check(game.Economy.Capacity == 12, "Completed house adds three population places");
+        }
+
+        private static void CheckLayoutValidation(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
+        {
+            var overlapping = layout.Buildings.Select((entry, index) => index == 0
+                ? new PlacementDefinition(entry.Kind, 130)
+                : entry).ToArray();
+            check(Rejected(new LevelLayout(layout.WorldWidth, layout.GroundY, layout.BuildMinX, layout.BuildMaxX,
+                layout.SpawnX, layout.CameraX, overlapping, layout.Worksites, layout.Actors), catalog),
+                "Initial building overlap is rejected before world creation");
+            var invalidVariant = layout.Actors.Select((entry, index) => index == 0
+                ? new PlacementDefinition(entry.Kind, entry.X, 1, entry.Name)
+                : entry).ToArray();
+            check(Rejected(new LevelLayout(layout.WorldWidth, layout.GroundY, layout.BuildMinX, layout.BuildMaxX,
+                layout.SpawnX, layout.CameraX, layout.Buildings, layout.Worksites, invalidVariant), catalog),
+                "Initial actor visual variants cannot alter gameplay layout identity");
+        }
+
+        private static bool Rejected(LevelLayout layout, GameCatalog catalog)
+        {
+            try { layout.Validate(catalog); }
+            catch (ArgumentException) { return true; }
+            return false;
         }
     }
 }

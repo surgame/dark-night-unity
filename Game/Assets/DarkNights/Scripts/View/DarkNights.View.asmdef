@@ -1,0 +1,5 @@
+{
+  "name": "DarkNights.View",
+  "rootNamespace": "DarkNights.View",
+  "references": ["DarkNights.Core"]
+}

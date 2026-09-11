@@ -36,6 +36,8 @@ namespace DarkNights.Core.Config
 
         public void Validate(GameCatalog catalog)
         {
+            if (catalog == null)
+                throw new ArgumentNullException(nameof(catalog));
             if (!Finite(WorldWidth) || WorldWidth <= 32 || !Finite(GroundY) ||
                 !Coordinate(BuildMinX) || !Coordinate(BuildMaxX) || BuildMinX >= BuildMaxX ||
                 !Coordinate(SpawnX) || !Coordinate(CameraX))
@@ -46,12 +48,37 @@ namespace DarkNights.Core.Config
                 if (entry == null || !Coordinate(entry.X) || entry.Variant < 0 || entry.Variant > 3 || entry.Name.Length > 80)
                     throw new ArgumentException("Invalid placement.");
             if (Buildings.Count(b => b.Kind == "tavern") != 1 ||
-                Buildings.Any(b => !catalog.Balance.Buildings.ContainsKey(b.Kind)) ||
+                Buildings.Any(b => b.Variant != 0 || !catalog.Balance.Buildings.ContainsKey(b.Kind)) ||
                 Worksites.Any(w => w.Kind == "food" || !catalog.Balance.Worksites.ContainsKey(w.Kind)) ||
-                Actors.Any(a => a.Kind != "worker" && a.Kind != "spearman" && a.Kind != "archer") ||
+                Actors.Any(a => a.Variant != 0 || (a.Kind != "worker" && a.Kind != "spearman" && a.Kind != "archer")) ||
                 Actors.Any(a => !catalog.Balance.Units.ContainsKey(a.Kind)) ||
                 Buildings.Count + Worksites.Count + Actors.Count + Buildings.Count(b => b.Kind == "farm") > 256)
                 throw new ArgumentException("Invalid initial content or farm count.");
+            ValidateOccupancy(catalog);
+        }
+
+        private void ValidateOccupancy(GameCatalog catalog)
+        {
+            for (int index = 0; index < Buildings.Count; index++)
+            {
+                PlacementDefinition building = Buildings[index];
+                float width = catalog.Balance.Buildings[building.Kind].Width;
+                if (building.X - width * 0.5f < BuildMinX || building.X + width * 0.5f > BuildMaxX)
+                    throw new ArgumentException("Initial building is outside build bounds: " + building.Kind);
+                for (int otherIndex = index + 1; otherIndex < Buildings.Count; otherIndex++)
+                {
+                    PlacementDefinition other = Buildings[otherIndex];
+                    float otherWidth = catalog.Balance.Buildings[other.Kind].Width;
+                    if (Math.Abs(building.X - other.X) < (width + otherWidth) * 0.5f + 8)
+                        throw new ArgumentException("Initial buildings overlap: " + building.Kind + "/" + other.Kind);
+                }
+                foreach (PlacementDefinition worksite in Worksites)
+                {
+                    float worksiteWidth = catalog.Balance.Worksites[worksite.Kind].Width;
+                    if (Math.Abs(building.X - worksite.X) < (width + worksiteWidth) * 0.5f + 6)
+                        throw new ArgumentException("Initial building covers a resource point: " + building.Kind);
+                }
+            }
         }
 
         private bool Coordinate(float value) => Finite(value) && value >= 0 && value <= WorldWidth;

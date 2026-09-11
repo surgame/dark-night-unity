@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-计划更新：2026-09-11，配合[移植方案](MIGRATION_PLAN.md)。**环境基线与独立 LAN Sample 已完成；正式配置启动与权威规则／旧档核心已有实现和验证，正式对象接入、可玩场景、联机及完整表现尚未完成。** 下文统一使用 M0 表示环境与正式接入收口、M1 表示规则核心；历史记录中的“M0/M1 环境完成”不代表本表 M1 完成。
+计划更新：2026-09-11，配合[移植方案](MIGRATION_PLAN.md)。**环境基线与独立 LAN Sample 已完成；正式配置启动、权威规则／旧档核心和可编辑布局来源已有实现和验证，正式对象接入、可玩场景、联机及完整表现尚未完成。** 下文统一使用 M0 表示环境与正式接入收口、M1 表示规则核心；历史记录中的“M0/M1 环境完成”不代表本表 M1 完成。
 
 Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本；YYGC 锁定 `10b8f0e` 加窄范围友元程序集补丁，VitalRouter 修正从固定源构建。Mono 和 Windows x64 IL2CPP Release＋High 裁剪均已实际构建，每种后端的基础与弱网各 30 项多进程断言见 Sample 文档及 `docs/evidence/lan-sample-*.json`。下文正式玩法预算和退出条件保持有效，不能以测试营地代替完整游戏验收。
 
@@ -12,11 +12,11 @@ Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本�
 
 ## 当前实施进展
 
-2026-09-11 第二批：**M0 仍待正式对象接入收口；M1 权威规则、显式命令、冻结旧档与随机兼容已实现并验证，场景布局及新存档／文件适配仍待完成。** 目前不能游玩正式 Unity 灰松谷。下表保留首批配置工作的范围，新增核心工作见表后记录。
+2026-09-11 第三批：**M0 仍待正式对象接入收口；M1 权威规则、显式命令、冻结旧档、随机兼容和正式场景布局来源已实现并验证，新存档／文件适配仍待完成。** 目前不能游玩正式 Unity 灰松谷。下表保留首批配置工作的范围，新增核心及布局工作见表后记录。
 
 | 内容 | 当前实现 |
 |---|---|
-| 代码与资源分离 | Scripts/Core、Runtime、Entry、Editor/Tests；Res/Config 保存原始 balance.json、pinewatch.json。View 尚无实际功能，因此不建空程序集 |
+| 代码与资源分离 | Scripts/Core、Runtime、View、Entry、Editor/Tests；Res/Config 保存原始 balance.json、pinewatch.json，Res/Scenes/Pinewatch 保存可编辑布局场景。View 当前只承载实际布局标记，不预建实体表现或 UI 空类型 |
 | 只读配置 | Core/Config 为普通 C#9 不可变类，构造时复制集合；Runtime 显式映射 JSON，保留 196 项原始规则值和 64 位 seed |
 | 依赖 | 显式锁定已有 Newtonsoft UPM 3.2.2（DLL 13.0.2），不增加第二份 JSON DLL；Core 不引用解析库 |
 | 启动 | GameContentStartupModule 接入现有 AppStartup，Addressables 并行加载两份文本，各自释放句柄；全部验证成功才注册 GameCatalog |
@@ -27,7 +27,7 @@ Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本�
 
 本批已通过 22 项 Editor 检查、Core 独立编译、10 项守卫自测，以及 Mono／IL2CPP 各 5 项独立启动检查。397 个构建前已有资源与 `.meta` 无非预期改写；Unity 新生成 Addressables `link.xml`（随内容构建重建，不手改）及 ScriptableBuildPipeline 默认设置一并提交。
 
-本批验证记录在 [首批移植证据](evidence/migration-start-2026-09-11.json)。配置宿主可用于验证依赖与启动，**尚不能游玩灰松谷**。LevelDefinition 当前只含 JSON 中的身份、seed 和波次；布局将从唯一可编辑场景来源提供，不能把不存在的布局字段当作零坐标生成世界。
+本批验证记录在 [首批移植证据](evidence/migration-start-2026-09-11.json)。配置宿主可用于验证依赖与启动，**尚不能游玩灰松谷**。LevelDefinition 仍只含 JSON 中的身份、seed 和波次；后续第三批已将布局保存在独立的唯一可编辑场景来源，启动仍不能从 JSON 缺省出零坐标世界。
 
 复跑入口（仓库根目录，已打开正确的 Game Editor）：
 
@@ -41,7 +41,7 @@ unity command menu --path 'Dark Nights/Build/Windows IL2CPP' --project-path Game
 pwsh -NoProfile -File tools/test-game-startup.ps1 -Backend il2cpp
 ```
 
-先完成导入／编译，再注册配置和运行测试；修改源文件后需确认编译产物已更新，不能仅以 `isCompiling=false` 判断最新代码已加载。每个 detached 请求等待其任务 ID 完成后再执行下一步。首次新建本批配置条目使用 `Dark Nights/Content/Register Initial Configuration`；日常构建不会自动注册或重写配置。该命令只读取已导入 JSON，不从 Godot 目录导入。
+先完成导入／编译，再注册配置和运行测试；修改源文件后需确认编译产物已更新，不能仅以 `isCompiling=false` 判断最新代码已加载。每个 detached 请求等待其任务 ID 完成后再执行下一步。首次新建配置条目使用 `Dark Nights/Content/Register Initial Configuration`；首次新建布局场景使用 `Dark Nights/Content/Create Initial Pinewatch Layout`，且只允许指定输出目录为空。两个入口都不是日常构建步骤，不从 Godot 目录导入或覆盖现有内容。
 
 第二批已落实 `Core/Logic` 的经济、生产、施工、训练、AI、伤害、箭矢、三夜夜袭和胜负；`GameSession` 不持有选择或镜头，业务操作使用显式实体 ID。`Core/Save` 为深度冻结记录，`Runtime/Save` 显式解析旧 v1 JSON，校验成功后只返回新世界，不触碰调用方当前营地。布局通过独立 `LevelLayout` 必需参数注入，测试夹具不进入正式内容加载。
 
@@ -49,7 +49,11 @@ pwsh -NoProfile -File tools/test-game-startup.ps1 -Backend il2cpp
 
 详见[核心迁移记录](CORE_MIGRATION.md)与[冻结证据](evidence/core-migration-2026-09-11.json)。独立复跑新增 `dotnet run --project tools/CoreRegression -- .`；Editor 仍使用上方正式测试程序集入口。Godot 原目录、用户 YYGC 仓库、规则 JSON 和美术未修改。
 
-下一批继续 M0 实际 ObjectDefinition／Prefab、生成 Behaviour 访问和 LegacyV1 注册；M1 补正式场景布局与新存档／文件适配。四运行程序集的完整装配、正式网络与展示投影、SharedCamp／HostOnly、晚加入／重连／epoch、全部原生美术、Mono／IL2CPP 正式关卡及双机器验收仍待完成。旧档核心续跑已通过，但尚无游戏 UI 的保存／加载入口。
+第三批建立实际 `DarkNights.View`，以 `LevelLayoutAuthoring` 和 `LevelPlacementMarker` 保存灰松谷边界及 4 个建筑、5 个资源点、7 个友方单位。一次性 Editor 入口只向指定空目录生成首版 `Pinewatch.unity`；日常验证只读场景，保存重开后按显式 SpawnOrder 导出冻结 `LevelLayout`。Core 布局校验同时补齐建筑边界、建筑重叠、资源点遮盖及类别变体约束，错误不会创建部分世界。
+
+验证：结构守卫 83 个手写文件、10 项自测通过；C#9／netstandard2.1 编译零错误／警告；独立回归 1104 项通过；Unity 重编译无错误，完整 Editor 程序集 29/29 通过，其中布局场景逐项对照冻结夹具并创建出相同初始实体顺序。未运行 Player、PlayMode、对象表现或联机检查；本批场景只有可编辑玩法标记和 Gizmo，不把它写成正式可玩或美术完成。证据见[布局迁移记录](evidence/pinewatch-layout-2026-09-11.json)。
+
+下一批继续 M0 实际 ObjectDefinition／Prefab、生成 Behaviour 访问和 LegacyV1 注册；M1 补新存档／文件适配。四运行程序集的完整装配、正式网络与展示投影、SharedCamp／HostOnly、晚加入／重连／epoch、全部原生美术、Mono／IL2CPP 正式关卡及双机器验收仍待完成。旧档核心续跑已通过，但尚无游戏 UI 的保存／加载入口。
 
 ## 工作量与难度
 
@@ -155,4 +159,4 @@ M5从干净目录／锁定依赖构建，验证实际Player，不把Editor Play�
 - 已有实证：`6000.4.9f1` 环境基线，YYGC `10b8f0e` 的 Sample Mono / IL2CPP 四进程与弱网；正式组合与 DTO 必须重验。
 - M0/M1 锁定：正式生成注册／访问、JSON 库、GUID / Key 映射与 LegacyV1 网络定义、规则及随机兼容。
 - M2 测量决定：完整投影频率、插值缓冲、载荷上限、是否分块或拆流以及性能预算。
-- M0 待正式对象收口；M1 配置、权威规则与旧档核心已实现并验证，布局／新存档适配仍待完成。未修改 Godot 或用户 YYGC 仓库，Sample 保持独立；正式对象、网络与完整表现是后续批次。
+- M0 待正式对象收口；M1 配置、权威规则、旧档核心及正式布局来源已实现并验证，新存档／文件适配仍待完成。未修改 Godot 或用户 YYGC 仓库，Sample 保持独立；布局场景尚无正式对象 Prefab、美术、会话或 Player 入口，不能据此标为可玩。

@@ -1,0 +1,93 @@
+{
+  "date": "2026-09-11",
+  "scope": "Formal Pinewatch editable layout source and validation",
+  "status": "passed_with_unvalidated_boundaries",
+  "sourceBaseline": {
+    "repository": "../projects",
+    "commit": "91cb09ff0894f26134f07fd544f1273d9fe7ffaa",
+    "worktree": "clean",
+    "godotScene": {
+      "path": "../projects/scenes/levels/Pinewatch.tscn",
+      "sha256": "be186c691a843ea279a702a22e5360d60a6b9f8ede322a97f4a3aa1026c3c14b"
+    },
+    "frozenLayout": {
+      "path": "tools/CoreRegression/Fixtures/pinewatch-layout-v1.json",
+      "sha256": "76e1c120e2a3410548a5a4bc87faf603ff9bfccde4299fc490ad553b1767b095"
+    }
+  },
+  "outputs": {
+    "scene": {
+      "path": "Game/Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity",
+      "sha256": "e2a91c9c3bae306230425c08607a6bae20023be68faafc91c0a355e019cb21fd",
+      "bytes": 36011,
+      "placements": {
+        "buildings": 4,
+        "worksites": 5,
+        "actors": 7,
+        "total": 16
+      }
+    },
+    "viewAssembly": "Game/Assets/DarkNights/Scripts/View/DarkNights.View.asmdef",
+    "authoring": {
+      "path": "Game/Assets/DarkNights/Scripts/View/LevelLayoutAuthoring.cs",
+      "sha256": "57a42767c3e70190fce2dd8383b00a84c021b8f2b4eb0f1d0de6f179f45710d0"
+    },
+    "oneTimeSetup": "Game/Assets/DarkNights/Scripts/Editor/PinewatchLayoutSetup.cs"
+  },
+  "validation": {
+    "architectureGuard": {
+      "command": "dotnet run --project tools/ArchitectureGuard -- .",
+      "handwrittenFiles": 83,
+      "selfTests": 10,
+      "errors": 0
+    },
+    "coreBuild": {
+      "command": "dotnet build tools/CoreBuild/CoreBuild.csproj",
+      "target": "C# 9 / netstandard2.1",
+      "warnings": 0,
+      "errors": 0
+    },
+    "coreRegression": {
+      "command": "dotnet run --project tools/CoreRegression -- .",
+      "checks": 1104,
+      "failures": 0
+    },
+    "unityCompile": {
+      "editor": "6000.4.9f1",
+      "status": "completed",
+      "failed": false,
+      "errors": []
+    },
+    "editorTests": {
+      "command": "unity command run_tests --mode editor --filter DarkNights.Tests --filter_type assembly --project-path Game --detach",
+      "total": 29,
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0,
+      "layoutCase": "DarkNights.Tests.LayoutAuthoringTests.PinewatchSceneMatchesFrozenLayout"
+    },
+    "postReviewLayoutTest": {
+      "reason": "Added the explicit world x=0 ground-baseline invariant after final code review.",
+      "compile": "completed, failed=false, errors=[]",
+      "command": "unity command run_tests --mode editor --filter DarkNights.Tests.LayoutAuthoringTests.PinewatchSceneMatchesFrozenLayout --filter_type testName --project-path Game --detach",
+      "total": 1,
+      "passed": 1,
+      "failed": 0
+    }
+  },
+  "executionNotes": [
+    "The first CoreRegression attempt overlapped CoreBuild and failed to open the shared intermediate DLL; the dependent stage was rerun sequentially and passed 1104/1104.",
+    "The Unity recompile job record was pruned by the expected domain reload; recompile_status after reload reported completed, failed=false and no errors.",
+    "A post-review test request used an unsupported class filter and ran zero tests; the same layout case was then selected with the supported testName filter and passed 1/1.",
+    "The one-time scene generator refused non-empty output and restored the previously open saved scene after saving, reopening and validating Pinewatch."
+  ],
+  "notValidated": [
+    "The layout scene has authored gameplay markers and Scene-view Gizmos, but no formal ObjectDefinition, entity Prefab, art, UGUI or session composition.",
+    "No PlayMode, Mono Player, IL2CPP Player, network or visual comparison was run for this slice.",
+    "Formal startup does not yet create GameSession from this scene; that integration remains an M0/M2 dependency."
+  ],
+  "preservedUserChanges": [
+    "Game/Assets/AddressableAssetsData/link.xml deletion",
+    "Game/Assets/AddressableAssetsData/link.xml.meta deletion"
+  ]
+}

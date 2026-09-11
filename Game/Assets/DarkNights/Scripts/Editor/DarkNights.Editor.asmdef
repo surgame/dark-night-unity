@@ -1,6 +1,6 @@
 {
   "name": "DarkNights.Editor",
   "rootNamespace": "DarkNights.Editor",
-  "references": ["DarkNights.Core", "DarkNights.Runtime", "DarkNights.Entry", "GameCore.Runtime", "FishNet.Runtime", "Unity.Addressables.Editor", "Unity.Addressables", "Unity.ResourceManager"],
+  "references": ["DarkNights.Core", "DarkNights.Runtime", "DarkNights.View", "DarkNights.Entry", "GameCore.Runtime", "FishNet.Runtime", "Unity.Addressables.Editor", "Unity.Addressables", "Unity.ResourceManager"],
   "includePlatforms": ["Editor"]
 }

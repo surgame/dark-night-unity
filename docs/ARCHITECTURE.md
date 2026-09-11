@@ -48,7 +48,7 @@ flowchart LR
 
 ## 程序集与职责目录
 
-2026-09-11 人工可读性复审后，采用 Scripts / Res 分离：代码按职责分层，资源按游戏对象归组。以下为 M0–M3 的目标结构；首批已建立 Core、Runtime、Entry、Editor/Tests 和 Res/Config，并保留 GUID 移动环境 Editor 工具；其他部分仍待实施。只在实现功能时建立所需目录，不预建空类。四个运行程序集为 Core、Runtime、View、Entry；View 和 Entry 分别替代原方案的 Presentation 和 Bootstrap 层名称，职责不变。
+2026-09-11 人工可读性复审后，采用 Scripts / Res 分离：代码按职责分层，资源按游戏对象归组。以下为 M0–M3 的目标结构；现已建立 Core、Runtime、Entry、Editor/Tests、Res/Config，以及承载布局标记的 View 和 Res/Scenes/Pinewatch；正式对象、UI 与美术目录仍随功能实施。只在实现功能时建立所需目录，不预建空类。四个运行程序集为 Core、Runtime、View、Entry；View 和 Entry 分别替代原方案的 Presentation 和 Bootstrap 层名称，职责不变。
 
 ```text
 Assets/
