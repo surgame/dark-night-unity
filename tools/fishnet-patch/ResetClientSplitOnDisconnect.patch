@@ -1,0 +1,13 @@
+diff --git a/Assets/FishNet/Runtime/Managing/Client/ClientManager.cs b/Assets/FishNet/Runtime/Managing/Client/ClientManager.cs
+index efab7d2..84341eb 100644
+--- a/Assets/FishNet/Runtime/Managing/Client/ClientManager.cs
++++ b/Assets/FishNet/Runtime/Managing/Client/ClientManager.cs
+@@ -359,6 +359,8 @@ namespace FishNet.Managing.Client
+                 // Clear connection after so objects can update using current Connection value.
+                 if (!Started)
+                 {
++                    // A disconnected stream cannot contribute fragments to the next connection.
++                    ResettableObjectCaches<SplitReader>.StoreAndDefault(ref _splitReader);
+                     Connection = NetworkManager.EmptyConnection;
+                     NetworkManager.ClearClientsCollection(Clients);
+                 }

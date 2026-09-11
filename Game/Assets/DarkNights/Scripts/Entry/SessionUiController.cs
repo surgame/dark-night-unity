@@ -37,6 +37,9 @@ namespace DarkNights.Entry
         private int epoch;
         private long generation;
         private bool initialized;
+        private int saveSlot;
+        private bool continuePending;
+        private string storageStatus = "";
         public CampInput Input => input;
         public string Page => page;
         public void PresentEvent(PresentationEvent value, double age) => hud.PresentEvent(value, age);
@@ -76,9 +79,6 @@ namespace DarkNights.Entry
             result = Behaviour<ResultMenuBehaviour>("Result");
             hud = Behaviour<CampHudBehaviour>("Chrome");
             hud.Configure(catalog);
-            View("MainMenu").Get<Button>("Continue").interactable = false;
-            View("PauseMenu").Get<Button>("Save").interactable = false;
-            View("PauseMenu").Get<Button>("Load").interactable = false;
             network.Client.Feedback += Feedback;
             network.Failed += Failed;
             initialized = true;
@@ -89,6 +89,23 @@ namespace DarkNights.Entry
         {
             if (!initialized) return;
             var frame = network.Client.Replica.Current;
+            string slotPath = System.IO.Path.Combine(network.SaveDirectory, $"slot-{saveSlot:D2}.dnsave.json");
+            bool exists = System.IO.File.Exists(slotPath);
+            string slotLabel = $"存档槽位 {saveSlot + 1} / 10 · {(exists ? "已有存档" : "空槽位")} · 点击切换";
+            View("MainMenu").Get<Text>("SlotLabel").text = slotLabel;
+            View("PauseMenu").Get<Text>("SlotLabel").text = slotLabel;
+            View("MainMenu").Get<Button>("Continue").interactable = exists && !continuePending;
+            bool canStore = network.Client.Ready && network.Client.PlayerSlot == 0 && network.Server?.Storage.Busy == false;
+            View("PauseMenu").Get<Button>("Save").interactable = canStore;
+            View("PauseMenu").Get<Button>("Load").interactable = canStore && exists;
+            View("Result").Get<Button>("NewGame").interactable = canStore;
+            string currentStatus = network.Server?.Storage.Status ?? "";
+            if (currentStatus != storageStatus) { storageStatus = currentStatus; if (storageStatus.Length != 0) hud.ShowMessage(storageStatus); }
+            if (continuePending && network.Client.Ready)
+            {
+                continuePending = false;
+                Execute(new InputIntent("Load", Array.Empty<int>())).Forget();
+            }
             if (generation != network.Client.ConnectionGeneration || epoch != (frame?.Epoch ?? 0))
             {
                 input.ResetLocal();
@@ -110,7 +127,7 @@ namespace DarkNights.Entry
                 network.Client.PlayerSlot, Portrait(frame), page.Length != 0);
             hud.PresentWorld(frame, input, entities, stage, network.Client.Ready && page.Length == 0);
             pause.Present($"玩家 {frame.PlayerCount} / 4 · {(frame.HostOnly ? "仅房主控制" : "共享营地控制")}",
-                network.Client.PlayerSlot == 0 ? "房主拥有时间与营地控制设置权限。" : "来宾可操作共享营地，时间与存档由房主控制。");
+                network.Client.PlayerSlot == 0 ? (storageStatus.Length != 0 ? storageStatus : "房主拥有时间与营地控制设置权限。") : "来宾可操作共享营地，时间与存档由房主控制。");
             View("PauseMenu").Get<Button>("ControlMode").interactable = network.Client.Ready && network.Client.PlayerSlot == 0;
             if (frame.World.Camp.Mode == "Won" || frame.World.Camp.Mode == "Lost")
             {
@@ -137,15 +154,21 @@ namespace DarkNights.Entry
             try
             {
                 string action = intent.Action;
+                if (action == "Slot") { saveSlot = (saveSlot + 1) % 10; return; }
                 if (action == "Quit") { network.Disconnect(); Application.Quit(); return; }
-                if (action == "NewGame" || action == "Join")
+                if (action == "NewGame" && network.Client.Replica.Current != null)
                 {
+                    await network.Client.Send(SessionOperation.Restart); Switch(""); return;
+                }
+                if (action == "NewGame" || action == "Join" || action == "Continue")
+                {
+                    continuePending = action == "Continue";
                     if (network.Client.Replica.Current != null) network.Disconnect();
                     while (network.Hosting) await UniTask.Yield();
-                    await network.Connect(action == "NewGame", action == "Join" ? main.Address.Trim() : "127.0.0.1", 27777);
+                    await network.Connect(action != "Join", action == "Join" ? main.Address.Trim() : "127.0.0.1", 27777);
                     return;
                 }
-                if (action == "MainMenu") { network.Disconnect(); input.ResetLocal(); Switch("MainMenu"); return; }
+                if (action == "MainMenu") { continuePending = false; network.Disconnect(); input.ResetLocal(); Switch("MainMenu"); return; }
                 if (action == "Help") { returnPage = page; Switch("Help"); return; }
                 if (action == "Back") { Switch(returnPage); return; }
                 if (action == "Resume") { Switch(""); return; }
@@ -172,6 +195,8 @@ namespace DarkNights.Entry
                 else if (action == "Speed") await network.Client.Send(SessionOperation.SetSpeed, value: frame.Speed == 1 ? 2 : 1);
                 else if (action == "Night") await network.Client.Send(SessionOperation.StartNight);
                 else if (action == "ControlMode") await network.Client.Send(SessionOperation.SetControlMode, value: frame.HostOnly ? 0 : 1);
+                else if (action == "Save") await network.Client.Send(SessionOperation.Save, value: saveSlot);
+                else if (action == "Load") await network.Client.Send(SessionOperation.BeginLoad, value: saveSlot);
             }
             catch (Exception error) { Failed(error); }
         }
@@ -206,6 +231,7 @@ namespace DarkNights.Entry
 
         private void Failed(Exception error)
         {
+            continuePending = false;
             main?.ShowStatus(error.Message);
             hud?.ShowMessage(error.Message);
             Debug.LogException(error);

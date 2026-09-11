@@ -1,0 +1,52 @@
+diff --git a/Runtime/Objects/Singletons/SingletonBehaviours.cs b/Runtime/Objects/Singletons/SingletonBehaviours.cs
+index d4b5429..c68fcc7 100644
+--- a/Runtime/Objects/Singletons/SingletonBehaviours.cs
++++ b/Runtime/Objects/Singletons/SingletonBehaviours.cs
+@@ -2,6 +2,7 @@ using System;
+ using GameCore.Objects.Behaviours;
+ using GameCore.Objects.Behaviours.Interfaces;
+ using GameCore.Objects.NetworkStates;
++using GameCore.Objects.Runner;
+ using UnityEngine;
+ 
+ namespace GameCore.Objects.Singletons
+@@ -21,7 +22,9 @@ namespace GameCore.Objects.Singletons
+         protected static T _instance;
+         public static T Instance => _instance;
+ 
+-        protected sealed override void Initialize()
++        protected sealed override void Initialize() => OnSingletonInitialize();
++
++        protected override void InitializeCore(BehaviourContext context)
+         {
+             if (_instance != null && _instance != this)
+             {
+@@ -29,7 +32,7 @@ namespace GameCore.Objects.Singletons
+                 return;
+             }
+             _instance = (T)this;
+-            OnSingletonInitialize();
++            base.InitializeCore(context);
+         }
+ 
+         /// <summary> 子类重写此方法进行初始化，替代原有的 Initialize </summary>
+@@ -53,7 +56,9 @@ namespace GameCore.Objects.Singletons
+         protected static TBehaviour _instance;
+         public static TBehaviour Instance => _instance;
+ 
+-        protected override void Initialize()
++        protected override void Initialize() => OnSingletonInitialize();
++
++        protected override void InitializeCore(BehaviourContext context)
+         {
+             if (_instance != null && _instance != this)
+             {
+@@ -61,7 +66,7 @@ namespace GameCore.Objects.Singletons
+                 return;
+             }
+             _instance = (TBehaviour)this;
+-            OnSingletonInitialize();
++            base.InitializeCore(context);
+         }
+ 
+         protected virtual void OnSingletonInitialize() { }

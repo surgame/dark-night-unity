@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9047792625250329078}
   - component: {fileID: 4355711964282172941}
   - component: {fileID: 5378015044175309507}
-  - component: {fileID: 8672575088123525455}
+  - component: {fileID: 4325889587204275208}
   m_Layer: 0
   m_Name: PanelContainer13
   m_TagString: Untagged
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8672575088123525455
+--- !u!114 &4325889587204275208
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,12 +86,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 28475074145922243}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Script: {fileID: 11500000, guid: 518f215db51204c45a06b9d39736f0e8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.3372549, g: 0.39607844, b: 0.34117648, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativePanelTheme
+  button: {fileID: 0}
+  normal:
+    Background: {r: 0.08, g: 0.13, b: 0.16, a: 0.88}
+    Border: {r: 0.3372549, g: 0.39607844, b: 0.34117648, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  hover:
+    Background: {r: 0.08, g: 0.13, b: 0.16, a: 0.88}
+    Border: {r: 0.3372549, g: 0.39607844, b: 0.34117648, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  pressed:
+    Background: {r: 0.08, g: 0.13, b: 0.16, a: 0.88}
+    Border: {r: 0.3372549, g: 0.39607844, b: 0.34117648, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  disabled:
+    Background: {r: 0.08, g: 0.13, b: 0.16, a: 0.88}
+    Border: {r: 0.3372549, g: 0.39607844, b: 0.34117648, a: 1}
+    BorderWidth: 1
+    Radius: 4
 --- !u!1 &52999012886727663
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,8 +121,8 @@ GameObject:
   - component: {fileID: 8588945426002839124}
   - component: {fileID: 4220341103354928465}
   - component: {fileID: 8044612888855257162}
-  - component: {fileID: 7806908263749706941}
   - component: {fileID: 3463459420192597702}
+  - component: {fileID: 2666173299101008058}
   m_Layer: 0
   m_Name: Quit
   m_TagString: Untagged
@@ -170,21 +188,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7806908263749706941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 52999012886727663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
 --- !u!114 &3463459420192597702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +207,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1.5294117, g: 1.38, b: 1.0877193, a: 1}
@@ -229,6 +232,39 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2666173299101008058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52999012886727663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518f215db51204c45a06b9d39736f0e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativePanelTheme
+  button: {fileID: 3463459420192597702}
+  normal:
+    Background: {r: 0.13333334, g: 0.19607843, b: 0.22352941, a: 1}
+    Border: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  hover:
+    Background: {r: 0.20392157, g: 0.27058825, b: 0.24313726, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  pressed:
+    Background: {r: 0.08235294, g: 0.13333334, b: 0.16078432, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  disabled:
+    Background: {r: 0.101960786, g: 0.15686275, b: 0.1764706, a: 1}
+    Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
+    BorderWidth: 1
+    Radius: 4
 --- !u!1 &81925211985558450
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,6 +488,7 @@ RectTransform:
   - {fileID: 3441325812279703459}
   - {fileID: 2623745591182974836}
   - {fileID: 8334543950368719727}
+  - {fileID: 3097891607589353817}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -534,6 +571,12 @@ MonoBehaviour:
   - key: ConnectionStatus
     targetObject: {fileID: 2066877311083135393}
     target: {fileID: 3075327650795788354}
+  - key: Slot
+    targetObject: {fileID: 3660197593982081192}
+    target: {fileID: 7261097639022083800}
+  - key: SlotLabel
+    targetObject: {fileID: 7092220256653581989}
+    target: {fileID: 4969764837118618354}
 --- !u!223 &6747439628143131196
 Canvas:
   m_ObjectHideFlags: 0
@@ -1346,8 +1389,8 @@ GameObject:
   - component: {fileID: 5635554405483532443}
   - component: {fileID: 5875601919655731631}
   - component: {fileID: 3201955840871175105}
-  - component: {fileID: 7112001809004679574}
   - component: {fileID: 763626652496493548}
+  - component: {fileID: 5140163846110325182}
   m_Layer: 0
   m_Name: Continue
   m_TagString: Untagged
@@ -1413,21 +1456,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7112001809004679574
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3395060774334977098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
 --- !u!114 &763626652496493548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1447,7 +1475,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1.5294117, g: 1.38, b: 1.0877193, a: 1}
@@ -1472,6 +1500,39 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5140163846110325182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3395060774334977098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518f215db51204c45a06b9d39736f0e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativePanelTheme
+  button: {fileID: 763626652496493548}
+  normal:
+    Background: {r: 0.13333334, g: 0.19607843, b: 0.22352941, a: 1}
+    Border: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  hover:
+    Background: {r: 0.20392157, g: 0.27058825, b: 0.24313726, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  pressed:
+    Background: {r: 0.08235294, g: 0.13333334, b: 0.16078432, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  disabled:
+    Background: {r: 0.101960786, g: 0.15686275, b: 0.1764706, a: 1}
+    Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
+    BorderWidth: 1
+    Radius: 4
 --- !u!1 &3509090373790247339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,6 +1613,127 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "\u7070\u677E\u8C37 \xB7 \u5355\u4EBA\u5173\u5361     /     \u5EFA\u8BBE 
     \xB7  \u8BAD\u7EC3  \xB7  \u751F\u5B58"
+--- !u!1 &3660197593982081192
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3097891607589353817}
+  - component: {fileID: 1778944678307958948}
+  - component: {fileID: 4379309164318065803}
+  - component: {fileID: 7261097639022083800}
+  m_Layer: 0
+  m_Name: Slot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3097891607589353817
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3660197593982081192}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 783806781000809447}
+  m_Father: {fileID: 5824236492700519083}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 88, y: 62}
+  m_SizeDelta: {x: 380, y: 34}
+  m_Pivot: {x: 0, y: 0}
+--- !u!222 &1778944678307958948
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3660197593982081192}
+  m_CullTransparentMesh: 1
+--- !u!114 &4379309164318065803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3660197593982081192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.133333, g: 0.196078, b: 0.223529, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7261097639022083800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3660197593982081192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 0
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 4379309164318065803}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &3907796353731887865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1751,8 +1933,8 @@ GameObject:
   - component: {fileID: 6603577055443820575}
   - component: {fileID: 332302525209468333}
   - component: {fileID: 3078860195989894297}
-  - component: {fileID: 5185530596768049148}
   - component: {fileID: 8105832794391245968}
+  - component: {fileID: 9025905275298681762}
   m_Layer: 0
   m_Name: Help
   m_TagString: Untagged
@@ -1818,21 +2000,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5185530596768049148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4210951821903589580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
 --- !u!114 &8105832794391245968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1852,7 +2019,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1.5294117, g: 1.38, b: 1.0877193, a: 1}
@@ -1877,6 +2044,39 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &9025905275298681762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4210951821903589580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518f215db51204c45a06b9d39736f0e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativePanelTheme
+  button: {fileID: 8105832794391245968}
+  normal:
+    Background: {r: 0.13333334, g: 0.19607843, b: 0.22352941, a: 1}
+    Border: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  hover:
+    Background: {r: 0.20392157, g: 0.27058825, b: 0.24313726, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  pressed:
+    Background: {r: 0.08235294, g: 0.13333334, b: 0.16078432, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  disabled:
+    Background: {r: 0.101960786, g: 0.15686275, b: 0.1764706, a: 1}
+    Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
+    BorderWidth: 1
+    Radius: 4
 --- !u!1 &4483893557080227005
 GameObject:
   m_ObjectHideFlags: 0
@@ -2559,8 +2759,8 @@ GameObject:
   - component: {fileID: 4553465636953422024}
   - component: {fileID: 4232277500395111978}
   - component: {fileID: 4588165372381501213}
-  - component: {fileID: 1001382119460488379}
   - component: {fileID: 3904151694730954863}
+  - component: {fileID: 1897180260176574612}
   m_Layer: 0
   m_Name: NewGame
   m_TagString: Untagged
@@ -2626,21 +2826,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1001382119460488379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6043348798899743273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.8666667, g: 0.78431374, b: 0.5803922, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
 --- !u!114 &3904151694730954863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2660,7 +2845,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1.136612, g: 1.173913, b: 1.2566372, a: 1}
@@ -2685,6 +2870,39 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1897180260176574612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6043348798899743273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518f215db51204c45a06b9d39736f0e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativePanelTheme
+  button: {fileID: 3904151694730954863}
+  normal:
+    Background: {r: 0.7176471, g: 0.6313726, b: 0.44313726, a: 1}
+    Border: {r: 0.8666667, g: 0.78431374, b: 0.5803922, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  hover:
+    Background: {r: 0.8156863, g: 0.7411765, b: 0.5568628, a: 1}
+    Border: {r: 0.9411765, g: 0.8666667, b: 0.69411767, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  pressed:
+    Background: {r: 0.08235294, g: 0.13333334, b: 0.16078432, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  disabled:
+    Background: {r: 0.101960786, g: 0.15686275, b: 0.1764706, a: 1}
+    Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
+    BorderWidth: 1
+    Radius: 4
 --- !u!1 &6461532683708679007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2881,6 +3099,85 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\u6797 \u95F4 \u8425 \u5730  /  \u50CF \u7D20 \u9632 \u5B88"
+--- !u!1 &7092220256653581989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 783806781000809447}
+  - component: {fileID: 6158180198244656126}
+  - component: {fileID: 4969764837118618354}
+  m_Layer: 0
+  m_Name: Label
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &783806781000809447
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7092220256653581989}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3097891607589353817}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &6158180198244656126
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7092220256653581989}
+  m_CullTransparentMesh: 1
+--- !u!114 &4969764837118618354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7092220256653581989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 696bdecd75030ff4aac6aed429bae7b9, type: 2}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\u5B58\u6863\u69FD\u4F4D 1 / 10 \xB7 \u7A7A\u69FD\u4F4D \xB7 \u70B9\u51FB\u5207\u6362"
 --- !u!1 &7345344820906684779
 GameObject:
   m_ObjectHideFlags: 0

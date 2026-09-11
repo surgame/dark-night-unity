@@ -554,7 +554,7 @@ GameObject:
   - component: {fileID: 7620487243024902139}
   - component: {fileID: 4199429444390780999}
   - component: {fileID: 7376710672548331146}
-  - component: {fileID: 8116101854003900745}
+  - component: {fileID: 4983032337269515434}
   m_Layer: 0
   m_Name: PanelContainer3
   m_TagString: Untagged
@@ -620,7 +620,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8116101854003900745
+--- !u!114 &4983032337269515434
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -629,12 +629,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 6479441375981277889}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Script: {fileID: 11500000, guid: 518f215db51204c45a06b9d39736f0e8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.45490196, g: 0.4627451, b: 0.35686275, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativePanelTheme
+  button: {fileID: 0}
+  normal:
+    Background: {r: 0.09411765, g: 0.14901961, b: 0.17254902, a: 1}
+    Border: {r: 0.45490196, g: 0.4627451, b: 0.35686275, a: 1}
+    BorderWidth: 1
+    Radius: 6
+  hover:
+    Background: {r: 0.09411765, g: 0.14901961, b: 0.17254902, a: 1}
+    Border: {r: 0.45490196, g: 0.4627451, b: 0.35686275, a: 1}
+    BorderWidth: 1
+    Radius: 6
+  pressed:
+    Background: {r: 0.09411765, g: 0.14901961, b: 0.17254902, a: 1}
+    Border: {r: 0.45490196, g: 0.4627451, b: 0.35686275, a: 1}
+    BorderWidth: 1
+    Radius: 6
+  disabled:
+    Background: {r: 0.09411765, g: 0.14901961, b: 0.17254902, a: 1}
+    Border: {r: 0.45490196, g: 0.4627451, b: 0.35686275, a: 1}
+    BorderWidth: 1
+    Radius: 6
 --- !u!1 &6648197599541038734
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,8 +664,8 @@ GameObject:
   - component: {fileID: 774285508727397903}
   - component: {fileID: 1965928340321916785}
   - component: {fileID: 2739506750824223113}
-  - component: {fileID: 5670859955491036909}
   - component: {fileID: 105574985619799965}
+  - component: {fileID: 3261159217234787406}
   m_Layer: 0
   m_Name: NewGame
   m_TagString: Untagged
@@ -713,21 +731,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5670859955491036909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6648197599541038734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.8666667, g: 0.78431374, b: 0.5803922, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
 --- !u!114 &105574985619799965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,7 +750,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1.136612, g: 1.173913, b: 1.2566372, a: 1}
@@ -772,6 +775,39 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3261159217234787406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6648197599541038734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518f215db51204c45a06b9d39736f0e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativePanelTheme
+  button: {fileID: 105574985619799965}
+  normal:
+    Background: {r: 0.7176471, g: 0.6313726, b: 0.44313726, a: 1}
+    Border: {r: 0.8666667, g: 0.78431374, b: 0.5803922, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  hover:
+    Background: {r: 0.8156863, g: 0.7411765, b: 0.5568628, a: 1}
+    Border: {r: 0.9411765, g: 0.8666667, b: 0.69411767, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  pressed:
+    Background: {r: 0.08235294, g: 0.13333334, b: 0.16078432, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  disabled:
+    Background: {r: 0.101960786, g: 0.15686275, b: 0.1764706, a: 1}
+    Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
+    BorderWidth: 1
+    Radius: 4
 --- !u!1 &7375096432145204099
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,8 +860,8 @@ GameObject:
   - component: {fileID: 4094797089617733556}
   - component: {fileID: 6517378100370381226}
   - component: {fileID: 3362180335375504661}
-  - component: {fileID: 6440573410694131755}
   - component: {fileID: 6779855442992459952}
+  - component: {fileID: 7264620649954392953}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -891,21 +927,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6440573410694131755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7734388143779165587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
-  m_EffectColor: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
-  m_EffectDistance: {x: 1, y: -1}
-  m_UseGraphicAlpha: 1
 --- !u!114 &6779855442992459952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -925,7 +946,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1.5294117, g: 1.38, b: 1.0877193, a: 1}
@@ -950,6 +971,39 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7264620649954392953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7734388143779165587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518f215db51204c45a06b9d39736f0e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativePanelTheme
+  button: {fileID: 6779855442992459952}
+  normal:
+    Background: {r: 0.13333334, g: 0.19607843, b: 0.22352941, a: 1}
+    Border: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  hover:
+    Background: {r: 0.20392157, g: 0.27058825, b: 0.24313726, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  pressed:
+    Background: {r: 0.08235294, g: 0.13333334, b: 0.16078432, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  disabled:
+    Background: {r: 0.101960786, g: 0.15686275, b: 0.1764706, a: 1}
+    Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
+    BorderWidth: 1
+    Radius: 4
 --- !u!1 &8736909565541004625
 GameObject:
   m_ObjectHideFlags: 0

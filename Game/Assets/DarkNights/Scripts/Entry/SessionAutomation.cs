@@ -26,6 +26,7 @@ namespace DarkNights.Entry
         private string error;
         private int peakEffects, peakArrows;
         private int reportRetries;
+        private bool pauseOnProjectile;
 
         public static void Install(SessionNetwork network)
         {
@@ -47,6 +48,7 @@ namespace DarkNights.Entry
             Directory.CreateDirectory(Path.GetDirectoryName(driver.reportPath));
             network.Client.Feedback += driver.OnFeedback;
             network.Failed += driver.OnFailure;
+            if (Array.IndexOf(args, "--dn-metrics") >= 0) network.gameObject.AddComponent<PlayerPerformanceCapture>().Initialize(network);
         }
 
         private async void Start()
@@ -64,14 +66,21 @@ namespace DarkNights.Entry
 
         private async void Update()
         {
-            if (network == null || working || Time.realtimeSinceStartupAsDouble < nextPoll) return;
+            if (network == null || working) return;
+            bool freezeProjectile = pauseOnProjectile && network.Client.Ready && network.Client.Replica.Current.World.Projectiles.Count > 0;
+            if (!freezeProjectile && Time.realtimeSinceStartupAsDouble < nextPoll) return;
             working = true;
             nextPoll = Time.realtimeSinceStartupAsDouble + 0.2;
             try
             {
+                if (freezeProjectile)
+                {
+                    pauseOnProjectile = false;
+                    await network.Client.Send(SessionOperation.SetPaused, value: 1);
+                }
                 if (File.Exists(commandPath))
                 {
-                    string[] lines = File.ReadAllLines(commandPath);
+                    string[] lines = ReadCommands();
                     while (consumed < lines.Length)
                     {
                         var command = JObject.Parse(lines[consumed++]);
@@ -79,6 +88,10 @@ namespace DarkNights.Entry
                         if (operation == "disconnect") network.Disconnect();
                         else if (operation == "connect") await network.Connect(role == "host", address, port);
                         else if (operation == "quit") Application.Quit();
+                        else if (operation == "metrics") GetComponent<PlayerPerformanceCapture>().Save(Path.Combine(
+                            Path.GetDirectoryName(reportPath), Path.GetFileName((string)command["file"] ?? "metrics.json")));
+                        else if (operation == "raw") await ExecuteRaw(command);
+                        else if (operation == "pause-on-projectile") pauseOnProjectile = true;
                         else if (operation == "capture")
                         {
                             var stage = UnityEngine.Object.FindAnyObjectByType<DarkNights.View.PinewatchStage>();
@@ -107,6 +120,8 @@ namespace DarkNights.Entry
                     ["feedback"] = JArray.FromObject(feedback),
                     ["frame"] = network.Client.Replica.Current == null ? null : JObject.FromObject(network.Client.Replica.Current),
                     ["serverPayloadBytes"] = network.Server?.LastPayloadBytes ?? 0,
+                    ["storageBusy"] = network.Server?.Storage.Busy ?? false,
+                    ["storageStatus"] = network.Server?.Storage.Status ?? "",
                     ["uiPage"] = network.GetComponent<SessionUiController>().Page,
                     ["selected"] = JArray.FromObject(network.GetComponent<SessionUiController>().Input.Selected),
                     ["entityViews"] = network.GetComponent<SessionEntityViews>().Count,
@@ -135,6 +150,27 @@ namespace DarkNights.Entry
             if (network == null) return;
             network.Client.Feedback -= OnFeedback;
             network.Failed -= OnFailure;
+        }
+
+        private string[] ReadCommands()
+        {
+            using var stream = new FileStream(commandPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
+            using var reader = new StreamReader(stream);
+            string text = reader.ReadToEnd();
+            int complete = text.LastIndexOf('\n');
+            return complete < 0 ? Array.Empty<string>() : text.Substring(0, complete).Split('\n');
+        }
+
+        private System.Threading.Tasks.ValueTask ExecuteRaw(JObject command)
+        {
+            // 仅显式自动化使用，重复／非法业务包仍交给正式 Gateway 和可信服务端权限入口。
+            var frame = network.Client.Replica.Current;
+            return network.Client.SendFrozen(new SessionRequest(
+                (SessionOperation)Enum.Parse(typeof(SessionOperation), (string)command["intent"]),
+                (int?)command["protocol"] ?? SessionAuthority.ProtocolVersion, (int?)command["epoch"] ?? frame.Epoch,
+                (int?)command["policy"] ?? frame.PolicyRevision, (long)command["sequence"],
+                command["actors"]?.Values<int>().ToArray(), (int?)command["target"] ?? 0,
+                (float?)command["x"] ?? 0, (string)command["kind"] ?? "", (int?)command["value"] ?? 0));
         }
     }
 }

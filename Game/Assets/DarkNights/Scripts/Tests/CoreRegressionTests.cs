@@ -23,6 +23,7 @@ namespace DarkNights.Tests
         [TestCase("session-replica")]
         [TestCase("session-clock")]
         [TestCase("session-events")]
+        [TestCase("session-storage")]
         [TestCase("random")]
         public void RulesMatchFrozenBaseline(string scenario)
         {
@@ -46,6 +47,7 @@ namespace DarkNights.Tests
                 case "session-replica": SessionReplicaScenarios.Run(check, catalog, layout); break;
                 case "session-clock": SessionClockScenarios.Run(check, catalog, layout); break;
                 case "session-events": SessionEventScenarios.Run(check, catalog, layout); break;
+                case "session-storage": SessionStorageScenarios.Run(check, catalog, layout); break;
                 case "random": RandomCompatibilityScenarios.Run(check); break;
             }
         }

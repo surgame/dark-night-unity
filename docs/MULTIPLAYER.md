@@ -2,7 +2,7 @@
 
 2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已通过 Windows Host＋3 客户端的共享交易、工位、权限、Ready、epoch、暂停、晚加入／重连和真实 UDP 弱网验证。本页完整游戏协议仍为设计，Steam、双机器和正式玩法未验收。
 
-状态：正式玩法联机尚未接通；M0 已建立 WorldSession 定义与首批 wire 注册，M2 的[权威会话业务层](SESSION_AUTHORITY.md)已实现权限、去重、连接代次、Ready 版本检查、时钟和加载 epoch，并通过单元回归。第八批已实现内存中的完整实体／HUD 冻结投影、版本过滤和真实时间累计，见[展示与时钟](SESSION_PROJECTION.md)。YYGC 网络处理器／wire 接线、连接认证／恢复凭据和真实 Ready 尚未实现。沿用 2–4 人合作、共享一个营地，按 Windows、房主主持、局域网／直连估算；公网房间、邀请、中继与平台身份不作为首版前提，见[移植方案](MIGRATION_PLAN.md)。下文完整网络协议仍含待实施设计。
+2026-09-12 当前状态：正式玩法经 YYGC 命令／状态链接通，Mono 四进程三夜通关 13/13。协议 5 已接入主机授权存档、同房间重开、120 秒恢复凭据及真实新快照 Ready，四进程恢复 22/22；完整弱网矩阵正在修复并复验 FishNet 断线分片残留，M4／M5 尚未整体完成。实现见[正式网络](FORMAL_NETWORK.md)、[恢复接入](NETWORK_RECOVERY.md)。沿用 2–4 人共享营地和 Windows 房主 LAN／直连；公网房间、邀请、中继、平台身份及房主迁移不在首版范围。下文仍含测量后才考虑的拆流设计。
 
 实现沿用 YYGC `10b8f0e` 在 Sample 中已验证的 Gateway/Sender/Processor 和 StatefulBehaviour/StateSynchronizer。现有 WorldSessionBehaviour 只验证正式生成和会话元数据发布边界；M2 再以同一会话对象承载有界、可靠的完整营地投影，验证正式实体集合的首次状态和在线替换。后文的分块、结构/运动拆流、增量暂存流程是在测量超限后启用的设计。权限、epoch、原子应用、Ready 与恢复合同从首个可玩切片就必须成立。
 

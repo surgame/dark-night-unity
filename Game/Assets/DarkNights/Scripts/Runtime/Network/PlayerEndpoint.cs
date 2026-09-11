@@ -35,6 +35,12 @@ namespace DarkNights.Runtime.Network
         }
 
         [TargetRpc]
+        public void GrantRecovery(NetworkConnection connection, string token)
+        {
+            AppStartup.Instance?.Context.Resolve<SessionNetwork>()?.Client.GrantRecovery(this, token);
+        }
+
+        [TargetRpc]
         public void Reply(NetworkConnection connection, long sequence, int epoch, int revision,
             string code, int affected, int entityId, bool ready, int slot, int generation)
         {

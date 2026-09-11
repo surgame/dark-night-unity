@@ -1,0 +1,496 @@
+{
+  "date": "2026-09-12",
+  "baseCommit": "d427fc7",
+  "protocol": 5,
+  "core": {
+    "passed": 1355,
+    "failed": 0
+  },
+  "editor": {
+    "passed": 55,
+    "failed": 0
+  },
+  "networkMatrix": {
+    "passed": true,
+    "scope": "Same Mono artifact; four processes; real UDP loss, jitter and reordering",
+    "results": [
+      {
+        "rttMs": 0,
+        "oneWayJitterMs": 25,
+        "loss": 0.0,
+        "passed": true,
+        "case": {
+          "passed": true,
+          "scope": "Four Mono processes; native save/load/continue, corrupt file, epoch, credential recovery, restart and host exit",
+          "checks": {
+            "native_save_button_commits_isolated_slot": true,
+            "guest_cannot_write_host_files": true,
+            "host_restores_saved_world_and_new_ready_deadline": true,
+            "client1_restores_saved_world_and_new_ready_deadline": true,
+            "client2_restores_saved_world_and_new_ready_deadline": true,
+            "client3_restores_saved_world_and_new_ready_deadline": true,
+            "corrupt_save_preserves_world_and_epoch": true,
+            "reconnect_recovers_original_slot_with_new_generation": true,
+            "reconnect_receives_current_world_and_policy": true,
+            "host_restarts_in_same_room": true,
+            "client1_restarts_in_same_room": true,
+            "client2_restarts_in_same_room": true,
+            "client3_restarts_in_same_room": true,
+            "host_cleans_world_after_host_exit": true,
+            "client1_cleans_world_after_host_exit": true,
+            "client2_cleans_world_after_host_exit": true,
+            "client3_cleans_world_after_host_exit": true,
+            "main_menu_continue_loads_selected_saved_world": true,
+            "client1_no_runtime_exception": true,
+            "client3_no_runtime_exception": true,
+            "host_no_runtime_exception": true,
+            "client2_no_runtime_exception": true
+          },
+          "error": null,
+          "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260912-030253-690",
+          "gameCodeSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9"
+        },
+        "transport": {
+          "received": 1744,
+          "dropped": 0,
+          "forwarded": 1744,
+          "reordered": 245,
+          "peer_resets": 6
+        }
+      },
+      {
+        "rttMs": 0,
+        "oneWayJitterMs": 25,
+        "loss": 0.01,
+        "passed": true,
+        "case": {
+          "passed": true,
+          "scope": "Four Mono processes; native save/load/continue, corrupt file, epoch, credential recovery, restart and host exit",
+          "checks": {
+            "native_save_button_commits_isolated_slot": true,
+            "guest_cannot_write_host_files": true,
+            "host_restores_saved_world_and_new_ready_deadline": true,
+            "client1_restores_saved_world_and_new_ready_deadline": true,
+            "client2_restores_saved_world_and_new_ready_deadline": true,
+            "client3_restores_saved_world_and_new_ready_deadline": true,
+            "corrupt_save_preserves_world_and_epoch": true,
+            "reconnect_recovers_original_slot_with_new_generation": true,
+            "reconnect_receives_current_world_and_policy": true,
+            "host_restarts_in_same_room": true,
+            "client1_restarts_in_same_room": true,
+            "client2_restarts_in_same_room": true,
+            "client3_restarts_in_same_room": true,
+            "host_cleans_world_after_host_exit": true,
+            "client1_cleans_world_after_host_exit": true,
+            "client2_cleans_world_after_host_exit": true,
+            "client3_cleans_world_after_host_exit": true,
+            "main_menu_continue_loads_selected_saved_world": true,
+            "client1_no_runtime_exception": true,
+            "client3_no_runtime_exception": true,
+            "host_no_runtime_exception": true,
+            "client2_no_runtime_exception": true
+          },
+          "error": null,
+          "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260912-030314-646",
+          "gameCodeSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9"
+        },
+        "transport": {
+          "received": 1635,
+          "dropped": 15,
+          "forwarded": 1620,
+          "reordered": 223,
+          "peer_resets": 6
+        }
+      },
+      {
+        "rttMs": 0,
+        "oneWayJitterMs": 25,
+        "loss": 0.05,
+        "passed": true,
+        "case": {
+          "passed": true,
+          "scope": "Four Mono processes; native save/load/continue, corrupt file, epoch, credential recovery, restart and host exit",
+          "checks": {
+            "native_save_button_commits_isolated_slot": true,
+            "guest_cannot_write_host_files": true,
+            "host_restores_saved_world_and_new_ready_deadline": true,
+            "client1_restores_saved_world_and_new_ready_deadline": true,
+            "client2_restores_saved_world_and_new_ready_deadline": true,
+            "client3_restores_saved_world_and_new_ready_deadline": true,
+            "corrupt_save_preserves_world_and_epoch": true,
+            "reconnect_recovers_original_slot_with_new_generation": true,
+            "reconnect_receives_current_world_and_policy": true,
+            "host_restarts_in_same_room": true,
+            "client1_restarts_in_same_room": true,
+            "client2_restarts_in_same_room": true,
+            "client3_restarts_in_same_room": true,
+            "host_cleans_world_after_host_exit": true,
+            "client1_cleans_world_after_host_exit": true,
+            "client2_cleans_world_after_host_exit": true,
+            "client3_cleans_world_after_host_exit": true,
+            "main_menu_continue_loads_selected_saved_world": true,
+            "client1_no_runtime_exception": true,
+            "client3_no_runtime_exception": true,
+            "host_no_runtime_exception": true,
+            "client2_no_runtime_exception": true
+          },
+          "error": null,
+          "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260912-030335-110",
+          "gameCodeSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9"
+        },
+        "transport": {
+          "received": 1795,
+          "dropped": 76,
+          "forwarded": 1719,
+          "reordered": 205,
+          "peer_resets": 8
+        }
+      },
+      {
+        "rttMs": 100,
+        "oneWayJitterMs": 25,
+        "loss": 0.0,
+        "passed": true,
+        "case": {
+          "passed": true,
+          "scope": "Four Mono processes; native save/load/continue, corrupt file, epoch, credential recovery, restart and host exit",
+          "checks": {
+            "native_save_button_commits_isolated_slot": true,
+            "guest_cannot_write_host_files": true,
+            "host_restores_saved_world_and_new_ready_deadline": true,
+            "client1_restores_saved_world_and_new_ready_deadline": true,
+            "client2_restores_saved_world_and_new_ready_deadline": true,
+            "client3_restores_saved_world_and_new_ready_deadline": true,
+            "corrupt_save_preserves_world_and_epoch": true,
+            "reconnect_recovers_original_slot_with_new_generation": true,
+            "reconnect_receives_current_world_and_policy": true,
+            "host_restarts_in_same_room": true,
+            "client1_restarts_in_same_room": true,
+            "client2_restarts_in_same_room": true,
+            "client3_restarts_in_same_room": true,
+            "host_cleans_world_after_host_exit": true,
+            "client1_cleans_world_after_host_exit": true,
+            "client2_cleans_world_after_host_exit": true,
+            "client3_cleans_world_after_host_exit": true,
+            "main_menu_continue_loads_selected_saved_world": true,
+            "client1_no_runtime_exception": true,
+            "client3_no_runtime_exception": true,
+            "host_no_runtime_exception": true,
+            "client2_no_runtime_exception": true
+          },
+          "error": null,
+          "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260912-030356-329",
+          "gameCodeSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9"
+        },
+        "transport": {
+          "received": 2248,
+          "dropped": 0,
+          "forwarded": 2248,
+          "reordered": 560,
+          "peer_resets": 14
+        }
+      },
+      {
+        "rttMs": 100,
+        "oneWayJitterMs": 25,
+        "loss": 0.01,
+        "passed": true,
+        "case": {
+          "passed": true,
+          "scope": "Four Mono processes; native save/load/continue, corrupt file, epoch, credential recovery, restart and host exit",
+          "checks": {
+            "native_save_button_commits_isolated_slot": true,
+            "guest_cannot_write_host_files": true,
+            "host_restores_saved_world_and_new_ready_deadline": true,
+            "client1_restores_saved_world_and_new_ready_deadline": true,
+            "client2_restores_saved_world_and_new_ready_deadline": true,
+            "client3_restores_saved_world_and_new_ready_deadline": true,
+            "corrupt_save_preserves_world_and_epoch": true,
+            "reconnect_recovers_original_slot_with_new_generation": true,
+            "reconnect_receives_current_world_and_policy": true,
+            "host_restarts_in_same_room": true,
+            "client1_restarts_in_same_room": true,
+            "client2_restarts_in_same_room": true,
+            "client3_restarts_in_same_room": true,
+            "host_cleans_world_after_host_exit": true,
+            "client1_cleans_world_after_host_exit": true,
+            "client2_cleans_world_after_host_exit": true,
+            "client3_cleans_world_after_host_exit": true,
+            "main_menu_continue_loads_selected_saved_world": true,
+            "client1_no_runtime_exception": true,
+            "client3_no_runtime_exception": true,
+            "host_no_runtime_exception": true,
+            "client2_no_runtime_exception": true
+          },
+          "error": null,
+          "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260912-030419-559",
+          "gameCodeSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9"
+        },
+        "transport": {
+          "received": 2237,
+          "dropped": 18,
+          "forwarded": 2219,
+          "reordered": 543,
+          "peer_resets": 13
+        }
+      },
+      {
+        "rttMs": 100,
+        "oneWayJitterMs": 25,
+        "loss": 0.05,
+        "passed": true,
+        "case": {
+          "passed": true,
+          "scope": "Four Mono processes; native save/load/continue, corrupt file, epoch, credential recovery, restart and host exit",
+          "checks": {
+            "native_save_button_commits_isolated_slot": true,
+            "guest_cannot_write_host_files": true,
+            "host_restores_saved_world_and_new_ready_deadline": true,
+            "client1_restores_saved_world_and_new_ready_deadline": true,
+            "client2_restores_saved_world_and_new_ready_deadline": true,
+            "client3_restores_saved_world_and_new_ready_deadline": true,
+            "corrupt_save_preserves_world_and_epoch": true,
+            "reconnect_recovers_original_slot_with_new_generation": true,
+            "reconnect_receives_current_world_and_policy": true,
+            "host_restarts_in_same_room": true,
+            "client1_restarts_in_same_room": true,
+            "client2_restarts_in_same_room": true,
+            "client3_restarts_in_same_room": true,
+            "host_cleans_world_after_host_exit": true,
+            "client1_cleans_world_after_host_exit": true,
+            "client2_cleans_world_after_host_exit": true,
+            "client3_cleans_world_after_host_exit": true,
+            "main_menu_continue_loads_selected_saved_world": true,
+            "client1_no_runtime_exception": true,
+            "client3_no_runtime_exception": true,
+            "host_no_runtime_exception": true,
+            "client2_no_runtime_exception": true
+          },
+          "error": null,
+          "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260912-030442-984",
+          "gameCodeSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9"
+        },
+        "transport": {
+          "received": 2579,
+          "dropped": 112,
+          "forwarded": 2467,
+          "reordered": 567,
+          "peer_resets": 14
+        }
+      },
+      {
+        "rttMs": 200,
+        "oneWayJitterMs": 25,
+        "loss": 0.0,
+        "passed": true,
+        "case": {
+          "passed": true,
+          "scope": "Four Mono processes; native save/load/continue, corrupt file, epoch, credential recovery, restart and host exit",
+          "checks": {
+            "native_save_button_commits_isolated_slot": true,
+            "guest_cannot_write_host_files": true,
+            "host_restores_saved_world_and_new_ready_deadline": true,
+            "client1_restores_saved_world_and_new_ready_deadline": true,
+            "client2_restores_saved_world_and_new_ready_deadline": true,
+            "client3_restores_saved_world_and_new_ready_deadline": true,
+            "corrupt_save_preserves_world_and_epoch": true,
+            "reconnect_recovers_original_slot_with_new_generation": true,
+            "reconnect_receives_current_world_and_policy": true,
+            "host_restarts_in_same_room": true,
+            "client1_restarts_in_same_room": true,
+            "client2_restarts_in_same_room": true,
+            "client3_restarts_in_same_room": true,
+            "host_cleans_world_after_host_exit": true,
+            "client1_cleans_world_after_host_exit": true,
+            "client2_cleans_world_after_host_exit": true,
+            "client3_cleans_world_after_host_exit": true,
+            "main_menu_continue_loads_selected_saved_world": true,
+            "client1_no_runtime_exception": true,
+            "client3_no_runtime_exception": true,
+            "host_no_runtime_exception": true,
+            "client2_no_runtime_exception": true
+          },
+          "error": null,
+          "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260912-030508-928",
+          "gameCodeSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9"
+        },
+        "transport": {
+          "received": 2579,
+          "dropped": 0,
+          "forwarded": 2579,
+          "reordered": 669,
+          "peer_resets": 19
+        }
+      },
+      {
+        "rttMs": 200,
+        "oneWayJitterMs": 25,
+        "loss": 0.01,
+        "passed": true,
+        "case": {
+          "passed": true,
+          "scope": "Four Mono processes; native save/load/continue, corrupt file, epoch, credential recovery, restart and host exit",
+          "checks": {
+            "native_save_button_commits_isolated_slot": true,
+            "guest_cannot_write_host_files": true,
+            "host_restores_saved_world_and_new_ready_deadline": true,
+            "client1_restores_saved_world_and_new_ready_deadline": true,
+            "client2_restores_saved_world_and_new_ready_deadline": true,
+            "client3_restores_saved_world_and_new_ready_deadline": true,
+            "corrupt_save_preserves_world_and_epoch": true,
+            "reconnect_recovers_original_slot_with_new_generation": true,
+            "reconnect_receives_current_world_and_policy": true,
+            "host_restarts_in_same_room": true,
+            "client1_restarts_in_same_room": true,
+            "client2_restarts_in_same_room": true,
+            "client3_restarts_in_same_room": true,
+            "host_cleans_world_after_host_exit": true,
+            "client1_cleans_world_after_host_exit": true,
+            "client2_cleans_world_after_host_exit": true,
+            "client3_cleans_world_after_host_exit": true,
+            "main_menu_continue_loads_selected_saved_world": true,
+            "client1_no_runtime_exception": true,
+            "client3_no_runtime_exception": true,
+            "host_no_runtime_exception": true,
+            "client2_no_runtime_exception": true
+          },
+          "error": null,
+          "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260912-030535-073",
+          "gameCodeSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9"
+        },
+        "transport": {
+          "received": 2491,
+          "dropped": 21,
+          "forwarded": 2470,
+          "reordered": 607,
+          "peer_resets": 17
+        }
+      },
+      {
+        "rttMs": 200,
+        "oneWayJitterMs": 25,
+        "loss": 0.05,
+        "passed": true,
+        "case": {
+          "passed": true,
+          "scope": "Four Mono processes; native save/load/continue, corrupt file, epoch, credential recovery, restart and host exit",
+          "checks": {
+            "native_save_button_commits_isolated_slot": true,
+            "guest_cannot_write_host_files": true,
+            "host_restores_saved_world_and_new_ready_deadline": true,
+            "client1_restores_saved_world_and_new_ready_deadline": true,
+            "client2_restores_saved_world_and_new_ready_deadline": true,
+            "client3_restores_saved_world_and_new_ready_deadline": true,
+            "corrupt_save_preserves_world_and_epoch": true,
+            "reconnect_recovers_original_slot_with_new_generation": true,
+            "reconnect_receives_current_world_and_policy": true,
+            "host_restarts_in_same_room": true,
+            "client1_restarts_in_same_room": true,
+            "client2_restarts_in_same_room": true,
+            "client3_restarts_in_same_room": true,
+            "host_cleans_world_after_host_exit": true,
+            "client1_cleans_world_after_host_exit": true,
+            "client2_cleans_world_after_host_exit": true,
+            "client3_cleans_world_after_host_exit": true,
+            "main_menu_continue_loads_selected_saved_world": true,
+            "client1_no_runtime_exception": true,
+            "client3_no_runtime_exception": true,
+            "host_no_runtime_exception": true,
+            "client2_no_runtime_exception": true
+          },
+          "error": null,
+          "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260912-030600-984",
+          "gameCodeSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9"
+        },
+        "transport": {
+          "received": 4958,
+          "dropped": 234,
+          "forwarded": 4724,
+          "reordered": 1058,
+          "peer_resets": 476
+        }
+      }
+    ],
+    "error": null,
+    "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\network-matrix-20260912-030253-074"
+  },
+  "concurrency": {
+    "passed": true,
+    "checks": {
+      "concurrent_three_purchases_only_two_can_pay": true,
+      "concurrent_payment_is_atomic": true,
+      "actual_network_resend_returns_original_entity_without_payment": true,
+      "sequence_reuse_with_changed_intent_rejected": true,
+      "illegal_entity_target_rejected": true,
+      "old_policy_request_rejected_after_switch": true,
+      "host_only_blocks_guest_training": true,
+      "shared_worksite_claim_has_one_winner": true,
+      "old_world_request_cannot_mutate_restarted_camp": true,
+      "host_no_runtime_exception": true,
+      "client2_no_runtime_exception": true,
+      "client1_no_runtime_exception": true,
+      "client3_no_runtime_exception": true
+    },
+    "error": null,
+    "scope": "Four real processes; simultaneous purchases and worksite, replay, illegal target, stale policy/epoch",
+    "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\concurrency-20260912-030533-461",
+    "gameCodeSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9"
+  },
+  "lifecycle": {
+    "domain-reload": {
+      "passed": true,
+      "checks": {
+        "host_ready_0": true,
+        "single_payment_after_restart_0": true,
+        "split_cache_cleared_0": true,
+        "host_ready_1": true,
+        "single_payment_after_restart_1": true,
+        "split_cache_cleared_1": true,
+        "host_ready_2": true,
+        "single_payment_after_restart_2": true,
+        "split_cache_cleared_2": true
+      },
+      "error": null,
+      "domainReloadDisabled": false
+    },
+    "no-reload-first": {
+      "passed": true,
+      "checks": {
+        "interaction_service_present": true,
+        "host_ready_0": true,
+        "single_payment_after_restart_0": true,
+        "split_cache_cleared_0": true,
+        "host_ready_1": true,
+        "single_payment_after_restart_1": true,
+        "split_cache_cleared_1": true,
+        "host_ready_2": true,
+        "single_payment_after_restart_2": true,
+        "split_cache_cleared_2": true
+      },
+      "error": null,
+      "domainReloadDisabled": true
+    },
+    "no-reload-second": {
+      "passed": true,
+      "checks": {
+        "interaction_service_present": true,
+        "host_ready_0": true,
+        "single_payment_after_restart_0": true,
+        "split_cache_cleared_0": true,
+        "host_ready_1": true,
+        "single_payment_after_restart_1": true,
+        "split_cache_cleared_1": true,
+        "host_ready_2": true,
+        "single_payment_after_restart_2": true,
+        "split_cache_cleared_2": true
+      },
+      "error": null,
+      "domainReloadDisabled": true
+    }
+  },
+  "limitations": [
+    "New UI calibration awaits clean Mono build",
+    "IL2CPP requires explicit authorization",
+    "Two physical Windows machines not yet available"
+  ]
+}

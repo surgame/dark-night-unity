@@ -10,17 +10,19 @@ namespace DarkNights.Runtime.Network
     internal sealed class SessionPeer
     {
         public NetworkConnection Network { get; }
-        public SessionConnection Authority { get; }
+        public SessionConnection Authority { get; set; }
+        public bool IsHost { get; }
         public PlayerEndpoint Endpoint { get; }
-        public double JoinedAt { get; }
+        public double ReadyDeadline { get; set; }
+        public int ReadyEpoch { get; set; }
         public int Requests { get; set; }
 
-        public SessionPeer(NetworkConnection network, SessionConnection authority, PlayerEndpoint endpoint, double joinedAt)
+        public SessionPeer(NetworkConnection network, bool host, PlayerEndpoint endpoint, double joinedAt)
         {
             Network = network;
-            Authority = authority;
+            IsHost = host;
             Endpoint = endpoint;
-            JoinedAt = joinedAt;
+            ReadyDeadline = joinedAt + 30;
         }
     }
 }

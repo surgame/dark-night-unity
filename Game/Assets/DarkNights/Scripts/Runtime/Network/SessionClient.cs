@@ -19,9 +19,12 @@ namespace DarkNights.Runtime.Network
         private IDisposable subscription;
         private long connection, sequence, readySequence;
         private double nextReadyAt;
+        private string recoveryToken = "";
         public WorldReplica Replica { get; } = new WorldReplica();
         public long ConnectionGeneration => connection;
         public bool Ready { get; private set; }
+        public bool HadReady { get; private set; }
+        public int LastPayloadBytes { get; private set; }
         public int PlayerSlot { get; private set; } = -1;
         public string Status { get; private set; } = "未连接";
         public event Action<CommandFeedback> Feedback;
@@ -30,12 +33,19 @@ namespace DarkNights.Runtime.Network
 
         public SessionClient(ProjectionCodec codec) { this.codec = codec; }
 
+        public void ClearRecovery() => recoveryToken = "";
+        public void GrantRecovery(PlayerEndpoint source, string token)
+        {
+            if (source == endpoint && token != null && token.Length <= 64) recoveryToken = token;
+        }
+
         public void Begin()
         {
             Dispose();
             connection = Replica.BeginConnection();
             sequence = readySequence = 0;
             nextReadyAt = 0;
+            HadReady = false;
             Status = "等待完整快照";
         }
 
@@ -67,6 +77,7 @@ namespace DarkNights.Runtime.Network
                     var frame = codec.Decode(state.ProjectionPayload);
                     int previousEpoch = Replica.Current?.Epoch ?? 0;
                     if (!Replica.Apply(captured, frame)) return;
+                    LastPayloadBytes = state.ProjectionPayload.Length;
                     if (frame.Epoch != previousEpoch) { Ready = false; nextReadyAt = 0; }
                     Updated?.Invoke(frame);
                 }
@@ -93,7 +104,7 @@ namespace DarkNights.Runtime.Network
             {
                 SenderObjectId = endpoint.ObjectId, Protocol = SessionAuthority.ProtocolVersion,
                 Epoch = frame.Epoch, RequestSequence = readySequence, Ready = true,
-                AppliedRevision = frame.Revision, AppliedPublication = frame.Publication
+                AppliedRevision = frame.Revision, AppliedPublication = frame.Publication, RecoveryToken = recoveryToken
             });
         }
 
@@ -113,6 +124,19 @@ namespace DarkNights.Runtime.Network
             return request;
         }
 
+        public ValueTask SendFrozen(SessionRequest request)
+        {
+            if (!Ready || endpoint == null || request == null) throw new InvalidOperationException("会话尚未就绪或请求为空。");
+            sequence = Math.Max(sequence, request.Sequence);
+            return NetworkCommandGateway.Instance.ProcessLocalCommandAsync(new SessionCommand
+            {
+                SenderObjectId = endpoint.ObjectId, Protocol = request.Protocol, Epoch = request.Epoch,
+                PolicyRevision = request.PolicyRevision, RequestSequence = request.Sequence, Operation = request.Operation,
+                ActorIds = System.Linq.Enumerable.ToArray(request.ActorIds), TargetId = request.TargetId,
+                X = request.X, Kind = request.Kind, Value = request.Value
+            });
+        }
+
         public void Receive(PlayerEndpoint source, CommandFeedback feedback)
         {
             if (source != endpoint || Replica.Current == null || feedback.Epoch != Replica.Current.Epoch) return;
@@ -120,7 +144,7 @@ namespace DarkNights.Runtime.Network
             {
                 if (feedback.Sequence != readySequence) return;
                 Ready = feedback.Code == "Ready";
-                if (Ready) { PlayerSlot = feedback.PlayerSlot; Status = "已就绪"; }
+                if (Ready) { HadReady = true; PlayerSlot = feedback.PlayerSlot; Status = "已就绪"; }
             }
             Feedback?.Invoke(feedback);
         }

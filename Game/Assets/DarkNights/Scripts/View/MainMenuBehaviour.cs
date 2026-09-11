@@ -16,6 +16,7 @@ namespace DarkNights.View
         public void ShowStatus(string value) { status.text = value; }
         [UGUIOnClick("NewGame")] private void OnNewGame() => Raise("NewGame");
         [UGUIOnClick("Continue")] private void OnContinue() => Raise("Continue");
+        [UGUIOnClick("Slot")] private void OnSlot() => Raise("Slot");
         [UGUIOnClick("Help")] private void OnHelp() => Raise("Help");
         [UGUIOnClick("Quit")] private void OnQuit() => Raise("Quit");
         [UGUIOnClick("Join")] private void OnJoin() => Raise("Join");

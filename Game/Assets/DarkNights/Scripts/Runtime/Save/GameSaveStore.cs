@@ -67,6 +67,14 @@ namespace DarkNights.Runtime.Save
 
         public GameSession Load(int slot, CancellationToken cancellationToken = default)
         {
+            string text = Read(slot, cancellationToken);
+            var restored = codec.Restore(text);
+            cancellationToken.ThrowIfCancellationRequested();
+            return restored;
+        }
+
+        public string Read(int slot, CancellationToken cancellationToken = default)
+        {
             string source = SlotPath(slot);
             lock (gate)
             {
@@ -89,9 +97,7 @@ namespace DarkNights.Runtime.Save
                     text = Utf8.GetString(bytes);
                 }
                 cancellationToken.ThrowIfCancellationRequested();
-                GameSession restored = codec.Restore(text);
-                cancellationToken.ThrowIfCancellationRequested();
-                return restored;
+                return text;
             }
         }
 

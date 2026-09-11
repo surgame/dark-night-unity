@@ -16,6 +16,7 @@ namespace DarkNights.View
         [UGUIOnClick("Resume")] private void OnResume() => Raise("Resume");
         [UGUIOnClick("Save")] private void OnSave() => Raise("Save");
         [UGUIOnClick("Load")] private void OnLoad() => Raise("Load");
+        [UGUIOnClick("Slot")] private void OnSlot() => Raise("Slot");
         [UGUIOnClick("Help")] private void OnHelp() => Raise("Help");
         [UGUIOnClick("Mute")] private void OnMute() => Raise("Mute");
         [UGUIOnClick("MainMenu")] private void OnMainMenu() => Raise("MainMenu");

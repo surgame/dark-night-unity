@@ -26,6 +26,10 @@ namespace DarkNights.Editor
             GameContentSetup.Validate();
             const string settingsPath = "ProjectSettings/ProjectSettings.asset";
             byte[] settingsBeforeBuild = File.ReadAllBytes(settingsPath);
+            const string editorSettingsPath = "ProjectSettings/EditorSettings.asset";
+            byte[] editorSettingsBeforeBuild = File.ReadAllBytes(editorSettingsPath);
+            var previousPlayOptions = EditorSettings.enterPlayModeOptions;
+            bool previousPlayOptionsEnabled = EditorSettings.enterPlayModeOptionsEnabled;
             var target = NamedBuildTarget.Standalone;
             var previousBackend = PlayerSettings.GetScriptingBackend(target);
             var previousStripping = PlayerSettings.GetManagedStrippingLevel(target);
@@ -57,10 +61,13 @@ namespace DarkNights.Editor
                 PlayerSettings.SetScriptingBackend(target, previousBackend);
                 PlayerSettings.SetManagedStrippingLevel(target, previousStripping);
                 PlayerSettings.SetPreloadedAssets(previousPreloaded);
+                EditorSettings.enterPlayModeOptions = previousPlayOptions;
+                EditorSettings.enterPlayModeOptionsEnabled = previousPlayOptionsEnabled;
                 addressables.BuildAddressablesWithPlayerBuild = previousContent;
                 // Unity 会在构建中保存临时选项；恢复内存 API 不会同步撤销磁盘序列化。
                 // 同一 Editor 内构建串行执行，结束时原样还原该次调用前的项目设置文件。
                 File.WriteAllBytes(settingsPath, settingsBeforeBuild);
+                File.WriteAllBytes(editorSettingsPath, editorSettingsBeforeBuild);
             }
         }
     }

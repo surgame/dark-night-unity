@@ -31,7 +31,8 @@ namespace DarkNights.Runtime.Session
                 case SessionOperation.SetPaused: return r.Value == 0 || r.Value == 1;
                 case SessionOperation.SetSpeed: return r.Value == 1 || r.Value == 2;
                 case SessionOperation.SetControlMode: return r.Value == (int)CampControlMode.SharedCamp || r.Value == (int)CampControlMode.HostOnly;
-                case SessionOperation.BeginLoad: return r.Value >= 0 && r.Value <= 9;
+                case SessionOperation.BeginLoad:
+                case SessionOperation.Save: return r.Value >= 0 && r.Value <= 9;
                 default: return r.Value == 0;
             }
         }

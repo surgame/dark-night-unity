@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DarkNights.Core.Config;
@@ -29,10 +30,13 @@ namespace DarkNights.Runtime.Network
         private Subscription commands, ready;
         private int attempt;
         private bool connecting, initialized;
+        private string lastAddress;
+        private ushort lastPort;
         public SessionClient Client { get; private set; }
         public SessionServer Server { get; private set; }
         public string Status { get; private set; } = "未连接";
         public bool Hosting => manager != null && manager.IsServerStarted;
+        public string SaveDirectory { get; private set; }
         public event Action<Exception> Failed;
 
         public void Initialize(NetworkManager networkManager, GameCatalog content, LevelLayout level)
@@ -42,6 +46,14 @@ namespace DarkNights.Runtime.Network
             if (manager == null) throw new InvalidOperationException("Existing NetworkManager is required.");
             catalog = content;
             layout = level;
+            manager.ClientManager.SetRemoteServerTimeout(RemoteTimeoutType.Development, 15);
+            manager.ServerManager.SetRemoteClientTimeout(RemoteTimeoutType.Development, 15);
+            manager.TransportManager.Transport.SetTimeout(15, false);
+            manager.TransportManager.Transport.SetTimeout(15, true);
+            string[] args = System.Environment.GetCommandLineArgs();
+            int saveArgument = Array.IndexOf(args, "--dn-save-dir");
+            SaveDirectory = Path.GetFullPath(saveArgument >= 0 && saveArgument + 1 < args.Length
+                ? args[saveArgument + 1] : Path.Combine(Application.persistentDataPath, "Saves"));
             var fingerprint = new SaveContentFingerprint(catalog, layout);
             var auth = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
             auth.Configure(ObjectDefinitionDatabase.Instance, "dark-nights-session-v" + Session.SessionAuthority.ProtocolVersion + ":" + fingerprint.RulesSha256 + ":" + fingerprint.LayoutSha256);
@@ -67,6 +79,9 @@ namespace DarkNights.Runtime.Network
             int current = ++attempt;
             try
             {
+                if (host || address != lastAddress || port != lastPort) Client.ClearRecovery();
+                lastAddress = address;
+                lastPort = port;
                 Client.Begin();
                 manager.TransportManager.Transport.SetPort(port);
                 manager.TransportManager.Transport.SetClientAddress(address);
@@ -83,7 +98,9 @@ namespace DarkNights.Runtime.Network
                     if (this == null || current != attempt) { if (view != null) Destroy(view.gameObject); return; }
                     if (view == null) throw new InvalidOperationException("正式会话对象创建失败。");
                     var behaviour = view.Owner.GetAllBehaviors().OfType<WorldSessionBehaviour>().Single();
-                    Server = new SessionServer(catalog, layout, behaviour);
+                    Server = new SessionServer(catalog, layout, behaviour, new GameSaveStore(SaveDirectory, catalog, layout),
+                        Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-metrics") >= 0,
+                        Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-projection-pressure") >= 0);
                 }
                 Status = "正在连接";
                 if (!manager.ClientManager.StartConnection()) throw new InvalidOperationException("无法启动客户端。");
@@ -124,6 +141,7 @@ namespace DarkNights.Runtime.Network
         {
             if (args.ConnectionState == LocalConnectionState.Stopped)
             {
+                if (!Client.HadReady) Client.ClearRecovery();
                 Client.Dispose();
                 Status = "连接已结束";
             }

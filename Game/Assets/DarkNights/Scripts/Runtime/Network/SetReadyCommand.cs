@@ -17,6 +17,7 @@ namespace DarkNights.Runtime.Network
         public bool Ready { get; set; }
         public int AppliedRevision { get; set; }
         public long AppliedPublication { get; set; }
+        public string RecoveryToken { get; set; } = "";
 
         public void OnReturnToPool()
         {
@@ -27,6 +28,7 @@ namespace DarkNights.Runtime.Network
             Ready = false;
             AppliedRevision = 0;
             AppliedPublication = 0;
+            RecoveryToken = "";
         }
     }
 }

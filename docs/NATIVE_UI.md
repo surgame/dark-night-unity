@@ -1,5 +1,7 @@
 # 原生 UI 与可操作切片
 
+2026-09-12 后续校准：保留五页既有 Image、按钮绑定与 GUID，显式有限编辑补齐原主题圆角、内边框及 hover／pressed／disabled 背景和边框色；新增 `NativePanelTheme` 只改网格，不改布局。两种分辨率各 162 控件重开检查通过，完整 Editor 55/55，真实鼠标 13/13。后台 Editor 的探针输入路由在 finally 恢复；曾因默认 GameView 焦点策略未收到测试鼠标的失败报告不算产品故障。十槽位存档产品已由 M4 接通，后文是首版历史边界。新主题等待干净目录 Mono 画面验收。
+
 2026-09-12，基于 `bfb094a` 的 A3/B 批次。五个正式 UGUI Prefab 已接入 YYGC 定义、Addressables、生成字段／事件绑定和现有 UGUIManager。当前可从主菜单建立 LAN Host，另一客户端通过地址加入；选择、框选、镜头和建造预览均为本地状态，操作通过同一个 SessionClient 请求权威端执行。
 
 ## 来源与资源维护

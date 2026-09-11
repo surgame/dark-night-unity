@@ -1,5 +1,7 @@
 # Unity 与 YYGC 依赖准备
 
+2026-09-12 恢复批次新增：先运行 `tools/prepare-fishnet.ps1`，UPM 从 `.deps/FishNet/Assets/FishNet` 使用原 4.7.2 提交 `de19b5d66459f60400ffd0edc443c4da173a01e7` 和两行分片生命周期修补；源码、补丁与失败证据见[恢复接入](NETWORK_RECOVERY.md)。不改 Library 缓存或用户框架仓库。`tools/prepare-lan-sample.ps1` 仍负责 YYGC 的已有两项正式 UI 修正及此前 Sample 隔离补丁。
+
 2026-09-11 核对：当前 `Game/Packages` 通过 `tools/prepare-lan-sample.ps1` 使用 YYGC 提交 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` 的 `.deps/YYGC`，原框架仓库只读。另含样板程序集访问补丁和框架要求的 VitalRouter wait-all 修正版。来源、恢复方法和 SHA-256 见 [LAN Sample](LAN_SAMPLE.md) 与[依赖证据](evidence/lan-sample-dependencies.json)。正式接入计划见[移植方案](MIGRATION_PLAN.md)，旧环境操作记录保存在[评估状态](ASSESSMENT_STATUS.md)。
 
 本文件记录 Unity 宿主的实际依赖与剩余核验项；可运行的 manifest、lock、NuGet 配置和包缓存位于 `Game/`。

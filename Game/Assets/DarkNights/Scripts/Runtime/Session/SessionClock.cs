@@ -17,6 +17,7 @@ namespace DarkNights.Runtime.Session
         public int MaximumSteps { get; }
         public int LastSteps { get; private set; }
         public double PendingSeconds => pendingTicks / 60;
+        public Action<double, long> MeasureStep { get; set; }
 
         public SessionClock(SessionAuthority session, int maximumSteps = 8)
         {
@@ -44,7 +45,12 @@ namespace DarkNights.Runtime.Session
             // 只容忍 binary64 累加误差，不用帧 delta 改变规则步长。
             while (pendingTicks + 1e-9 >= 1 && LastSteps < MaximumSteps)
             {
-                results.AddRange(session.Tick());
+                long started = MeasureStep == null ? 0 : System.Diagnostics.Stopwatch.GetTimestamp();
+                long allocated = MeasureStep == null ? 0 : GC.GetAllocatedBytesForCurrentThread();
+                var receipts = session.Tick();
+                if (MeasureStep != null) MeasureStep((System.Diagnostics.Stopwatch.GetTimestamp() - started) * 1000.0 /
+                    System.Diagnostics.Stopwatch.Frequency, GC.GetAllocatedBytesForCurrentThread() - allocated);
+                results.AddRange(receipts);
                 pendingTicks = Math.Max(0, pendingTicks - 1);
                 LastSteps++;
             }

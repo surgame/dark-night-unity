@@ -30,8 +30,8 @@ function Wait-Report([string]$Role, [scriptblock]$Condition) {
 }
 function Start-Player([string]$Role) {
     [IO.File]::WriteAllText((Join-Path $run "$Role.commands"), '')
-    $arguments = @('-batchmode', '-screen-width', '1280', '-screen-height', '800', '-screen-fullscreen', '0',
-        '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'), '--dn-role', $Role, '--dn-port', $Port,
+    $arguments = @('-screen-width', '1280', '-screen-height', '800', '-screen-fullscreen', '0',
+        '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'), '--dn-metrics', '--dn-role', $Role, '--dn-port', $Port,
         '--dn-report', ('"' + (Join-Path $run "$Role.json") + '"'), '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
     $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru
 }
@@ -116,8 +116,14 @@ try {
         Check ($role + '_sees_authoritative_victory') ($guest.frame.World.Camp.Kills -eq 34 -and $guest.frame.Elapsed -eq $frame.Elapsed)
     }
     Send @{ operation = 'capture'; file = 'victory.png'; x = 780 }
-    Start-Sleep -Seconds 2
     foreach ($role in $processes.Keys) {
+        [IO.File]::AppendAllText((Join-Path $run "$role.commands"), (@{ operation='metrics'; file="$role-metrics.json" } | ConvertTo-Json -Compress) + "`n")
+    }
+    Start-Sleep -Seconds 2
+    $metrics = [ordered]@{}
+    foreach ($role in $processes.Keys) {
+        $metrics[$role] = Get-Content -LiteralPath (Join-Path $run "$role-metrics.json") -Raw | ConvertFrom-Json
+        Check ($role + '_performance_recorded') ($metrics[$role].frameMilliseconds.samples -gt 100 -and $metrics[$role].gcRecorderValid)
         $log = Get-Content -LiteralPath (Join-Path $run "$role.log") -Raw
         Check ($role + '_no_runtime_exception') ($log -notmatch '(?im)(Exception:|Shader error|\[AppStartup\].*(failed|cancelled))')
     }
@@ -126,9 +132,9 @@ catch { $failure = $_.Exception.ToString() }
 finally {
     foreach ($process in $processes.Values) { $process.Refresh(); if (!$process.HasExited) { Stop-Process -Id $process.Id; $process.WaitForExit() } }
     $result = [ordered]@{ passed = !$failure; scope = 'Four real Mono processes; normal-resource three-night strategy through SessionClient'
-        checks = $checks; error = $failure; elapsed = $frame.Elapsed; artifacts = $run
+        checks = $checks; error = $failure; elapsed = $frame.Elapsed; artifacts = $run; metrics = $metrics
         gameCodeSha256 = (Get-FileHash -LiteralPath (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash }
-    $result | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $run 'result.json') -Encoding utf8
+    $result | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Game campaign: passed=$(!$failure) checks=$($checks.Count); $run/result.json"
 }
 if ($failure) { throw $failure }

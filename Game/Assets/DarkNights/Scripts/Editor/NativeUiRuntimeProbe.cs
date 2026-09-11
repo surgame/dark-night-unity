@@ -33,6 +33,7 @@ namespace DarkNights.Editor
             Mouse[] originals = InputSystem.devices.OfType<Mouse>().Where(m => m.enabled).ToArray();
             Mouse mouse = null;
             var background = InputSystem.settings.backgroundBehavior;
+            var editorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
             var checks = new Dictionary<string, bool>();
             string error = null;
             void Check(string name, bool ok) { checks[name] = ok; if (!ok) throw new InvalidOperationException(name); }
@@ -40,6 +41,7 @@ namespace DarkNights.Editor
             {
                 await Until(() => UnityEngine.Object.FindAnyObjectByType<SessionPlacementView>() != null);
                 InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
+                InputSystem.settings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
                 foreach (Mouse original in originals) InputSystem.DisableDevice(original);
                 mouse = InputSystem.AddDevice<Mouse>("DarkNights UI Probe");
                 var network = AppStartup.Instance.Context.Resolve<SessionNetwork>();
@@ -98,6 +100,7 @@ namespace DarkNights.Editor
             catch (Exception exception) { error = exception.ToString(); }
             finally
             {
+                InputSystem.settings.editorInputBehaviorInPlayMode = editorInput;
                 if (mouse != null) InputSystem.RemoveDevice(mouse);
                 InputSystem.settings.backgroundBehavior = background;
                 foreach (Mouse original in originals) if (original.added) InputSystem.EnableDevice(original);

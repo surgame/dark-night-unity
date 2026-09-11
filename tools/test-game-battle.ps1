@@ -30,7 +30,7 @@ function Wait-Report([string]$Role, [scriptblock]$Condition, [int]$Seconds = 45)
 }
 function Start-Player([string]$Role) {
     [IO.File]::WriteAllText((Join-Path $run "$Role.commands"), '')
-    $arguments = @('-batchmode', '-screen-width', '1280', '-screen-height', '800', '-screen-fullscreen', '0',
+    $arguments = @('-screen-width', '1280', '-screen-height', '800', '-screen-fullscreen', '0',
         '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'), '--dn-role', $Role, '--dn-port', $Port,
         '--dn-report', ('"' + (Join-Path $run "$Role.json") + '"'), '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
     $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru
@@ -82,7 +82,7 @@ finally {
         player = $player; gameCodeSha256 = (Get-FileHash -LiteralPath (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash
         checks = $checks; error = $failure; artifacts = $run
     }
-    $result | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $run 'result.json') -Encoding utf8
+    $result | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Game battle: passed=$(!$failure) checks=$($checks.Count); $run/result.json"
 }
 if ($failure) { throw $failure }

@@ -18,7 +18,7 @@ namespace DarkNights.Runtime.Session
     /// </summary>
     public sealed class SessionAuthority : IDisposable
     {
-        public const int ProtocolVersion = 4;
+        public const int ProtocolVersion = 5;
         public const int MaximumPendingPerPlayer = 16;
         public const int ResultWindow = 64;
         private readonly int ownerThread = Thread.CurrentThread.ManagedThreadId;
@@ -41,6 +41,7 @@ namespace DarkNights.Runtime.Session
         public int PendingCount => pending.Count;
         public int PlayerCount => connections.Count(c => c != null);
         public int ReadyCount => connections.Count(c => c != null && c.Ready);
+        public SessionStorageRequest StorageRequest { get; private set; }
 
         public SessionAuthority(GameCatalog catalog, LevelLayout layout)
         {
@@ -138,6 +139,8 @@ namespace DarkNights.Runtime.Session
                 (ControlMode == CampControlMode.HostOnly || SessionOperations.HostRequired(request.Operation)))
                 gate = SessionResultCode.PermissionDenied;
             if (gate == SessionResultCode.Applied && !SessionOperations.ValidWorld(world, request)) gate = SessionResultCode.InvalidRequest;
+            bool storage = request.Operation == SessionOperation.Save || request.Operation == SessionOperation.BeginLoad || request.Operation == SessionOperation.Restart;
+            if (gate == SessionResultCode.Applied && storage && StorageRequest != null) gate = SessionResultCode.Loading;
             if (gate != SessionResultCode.Applied) return Receipt(connection, request, gate);
             int nextRevision = checked(Revision + 1);
             int affected = 1;
@@ -150,11 +153,16 @@ namespace DarkNights.Runtime.Session
                     ControlMode = (CampControlMode)request.Value;
                 }
             }
-            else if (request.Operation != SessionOperation.BeginLoad)
+            else if (!storage)
                 affected = SessionOperations.Apply(world, request, out entityId);
             Revision = nextRevision;
             var result = Receipt(connection, request, affected > 0 ? SessionResultCode.Applied : SessionResultCode.NoEffect, affected, entityId);
-            if (request.Operation == SessionOperation.BeginLoad) loadTicket = result;
+            if (storage)
+            {
+                if (request.Operation != SessionOperation.Save) loadTicket = result;
+                StorageRequest = new SessionStorageRequest(request.Operation, request.Value, result,
+                    request.Operation == SessionOperation.Save ? CaptureWorld() : null);
+            }
             return result;
         }
 
@@ -201,13 +209,27 @@ namespace DarkNights.Runtime.Session
                 pending.Clear();
                 foreach (var connection in connections) connection?.ResetWorld();
             }
-            finally { loadTicket = null; }
+            finally { loadTicket = null; StorageRequest = null; }
+        }
+
+        public void CompleteRestart(SessionReceipt ticket)
+        {
+            CheckLoadTicket(ticket);
+            CompleteLoad(ticket, saveJson.Serialize(SnapshotMapper.Capture(new GameSession(world.Catalog, world.Layout))));
+        }
+
+        public void ReleaseStorage(SessionStorageRequest request)
+        {
+            CheckThread();
+            if (!ReferenceEquals(StorageRequest, request)) return;
+            StorageRequest = null;
         }
 
         public void CancelLoad(SessionReceipt ticket)
         {
             CheckLoadTicket(ticket);
             loadTicket = null;
+            StorageRequest = null;
         }
 
         private void CheckLoadTicket(SessionReceipt ticket)
@@ -234,6 +256,7 @@ namespace DarkNights.Runtime.Session
         {
             CheckThread();
             Closed = true;
+            StorageRequest = null;
             events.Dispose();
             pending.Clear();
             loadTicket = null;
