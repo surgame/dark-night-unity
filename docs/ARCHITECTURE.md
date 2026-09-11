@@ -2,7 +2,7 @@
 
 2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已实现自己的四层程序集并验证 YYGC Object、可靠状态链及唯一权威写入。本页描述的正式玩法目录仍属设计；Sample 不反向依赖正式游戏。VitalRouter 仅保留框架命令链的显式适配，业务使用普通方法，R3 负责副本观察及订阅释放。
 
-状态：正式玩法设计基线。已实现 Core/Config、Core/Logic、Core/Save、最小反馈 ViewData、Runtime 配置／旧档解析与 Entry 配置启动；规则及旧档已通过[核心回归](CORE_MIGRATION.md)，实际会话调度、View 与正式联机尚未实现。2026-09-11 的[移植方案](MIGRATION_PLAN.md)明确复用 YYGC `10b8f0e` 已由 Sample 验证的命令／状态链，补正式营地投影、可切换控制权限与原生资源。Core 继续保持单一权威模拟。
+状态：正式玩法设计基线。已实现 Core/Config、Core/Logic、Core/Save、最小反馈 ViewData、Runtime 配置／旧档解析与 Entry 配置启动；规则及旧档已通过[核心回归](CORE_MIGRATION.md)。首批 Worker／WorldSession Definition、Prefab、ContentId 映射、状态 Behaviour 与生成 wire 注册已通过双后端启动，但实际会话调度、实体展示与正式联机尚未实现。2026-09-11 的[移植方案](MIGRATION_PLAN.md)明确复用 YYGC `10b8f0e` 已由 Sample 验证的命令／状态链，补正式营地投影、可切换控制权限与原生资源。Core 继续保持单一权威模拟。
 
 ## 设计选择
 
@@ -48,7 +48,7 @@ flowchart LR
 
 ## 程序集与职责目录
 
-2026-09-11 人工可读性复审后，采用 Scripts / Res 分离：代码按职责分层，资源按游戏对象归组。以下为 M0–M3 的目标结构；现已建立 Core、Runtime、Entry、Editor/Tests、Res/Config，以及承载布局标记的 View 和 Res/Scenes/Pinewatch；正式对象、UI 与美术目录仍随功能实施。只在实现功能时建立所需目录，不预建空类。四个运行程序集为 Core、Runtime、View、Entry；View 和 Entry 分别替代原方案的 Presentation 和 Bootstrap 层名称，职责不变。
+2026-09-11 人工可读性复审后，采用 Scripts / Res 分离：代码按职责分层，资源按游戏对象归组。以下为 M0–M3 的目标结构；现已建立 Core、Runtime、Entry、Editor/Tests、承载布局标记的 View、Res/Config、Res/Scenes/Pinewatch，以及首批 Res/Objects/Worker 与 WorldSession；UI、完整对象与美术目录仍随功能实施。只在实现功能时建立所需目录，不预建空类。四个运行程序集为 Core、Runtime、View、Entry；View 和 Entry 分别替代原方案的 Presentation 和 Bootstrap 层名称，职责不变。
 
 ```text
 Assets/
@@ -114,7 +114,7 @@ Core/ViewData 中的接口让 View 提交意图和读取副本，Entry 注入 Ru
 - 场景、HUD、居民、建筑与工位使用 ObjectDefinition/PrefabRef 映射。普通游戏视图为 Local 对象，使用 ObjectView 和少量 PooledBehaviour；不挂依赖 Network 非空的 StatefulBehaviour。
 - 规则 ID 如 `worker`、`tavern` 显式映射到 `DefinitionReference`；新内容使用 YYGC Guid / Key。SharedConfigs 保存映射、视图引用或展示参数；HP、成本与计时只从 Core 规则读取。
 - 命令使用 YYGC Gateway/Sender/Processor、INetworkCommand 和统一类型注册；设置 `NetworkCommandRoutingMode.ServerAuthoritative`，从 `NetworkCommandContext` 取得可信身份，营地授权／去重归游戏。CampCommandEndpoint 仅是薄业务适配，不另建网络入口栈。
-- 会话对象优先用一个普通 StatefulBehaviour 承载完整冻结投影，复用 StateSynchronizer 首次及后续发送；首个切片采用有界可靠完整投影。分块、差量与运动拆流在测量后决定，始终保留 GameSession 作为唯一业务写入者。
+- WorldSession Prefab 已由普通 WorldSessionBehaviour／StateSynchronizer 建立会话元数据合同；M2 在同一会话对象扩展有界可靠完整实体投影。分块、差量与运动拆流在测量后决定，始终保留 GameSession 作为唯一业务写入者。
 - 本地建造预览、目标选择和模态菜单的输入互斥复用 YYGC Interaction Sessions；它不保存共享营地或网络连接状态。
 - 会话对象与玩家入口 Prefab 必须注册到 FishNet；世界的本地视图通过 EntityId 与展示副本关联，不需要每实体 NetworkTransform。
 - Addressables 先使用本地打包内容。资源 await 不跨 SessionScope；必要时只扩展框架工厂的显式容器传递与同步装配点。
@@ -122,7 +122,7 @@ Core/ViewData 中的接口让 View 提交意图和读取副本，Entry 注入 Ru
 
 ### 会话对象如何组合规则
 
-下表类型名是拟议名称，用来限定职责，不表示当前已有实现。
+下表描述目标职责。当前 WorldSessionBehaviour 只发布 epoch、revision、控制模式、Ready 与时间元数据，不创建或推进 GameSession；表中的会话控制器、完整投影与实体表现仍未实现。
 
 | 组合位置 | 拟议对象／行为 | 拥有的状态与边界 |
 |---|---|---|

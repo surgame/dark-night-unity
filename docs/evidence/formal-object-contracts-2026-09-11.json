@@ -1,0 +1,142 @@
+{
+  "date": "2026-09-11",
+  "scope": "M0 formal YYGC ObjectDefinition, Prefab, generated registration and Player startup probe",
+  "status": "passed_with_unvalidated_boundaries",
+  "framework": {
+    "commit": "10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4",
+    "preparation": "pwsh -NoProfile -File tools/prepare-lan-sample.ps1",
+    "generatedAssemblyAccess": [
+      "DarkNights.Samples.LanCoop.Runtime",
+      "DarkNights.Runtime"
+    ]
+  },
+  "definitionIdentity": {
+    "project": "DNights",
+    "mode": "LegacyCompatible",
+    "onlineIdService": false,
+    "wire": "LegacyV1",
+    "database": {
+      "path": "Game/Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset",
+      "sha256": "9ac98821059670a21aa6590caf7aaa55db949f00c2298598204eaa20a3459464"
+    }
+  },
+  "outputs": {
+    "worker": {
+      "contentId": "worker",
+      "definitionKey": "unit.worker",
+      "definitionGuid": "57892829ba5122f4ba088c29da524d62",
+      "legacyId": 0,
+      "networkType": "Local",
+      "definitionPath": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "definitionSha256": "c413969da80b979e94b4b3cdbcf318e22f7b8bee9b9bc21f9856c383a90b6e10",
+      "prefabGuid": "8a10edd57a484854e9911d6242f98a7f",
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.prefab",
+      "prefabSha256": "db4609149668dda5733af7977a44d21bfaee2c46c21b69fdd1fbc36272715228",
+      "address": "dark_nights.object.worker",
+      "bindings": ["art_offset", "facing", "status_anchor", "selection_anchor"]
+    },
+    "worldSession": {
+      "definitionKey": "session.pinewatch",
+      "definitionGuid": "2831308ce23cb1b40b41fceb09dff2e6",
+      "legacyId": 930001,
+      "networkType": "Network",
+      "definitionPath": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+      "definitionSha256": "7020c5935a19b72793dffb02fad6ed7be73969665656ddaa90df89588c7115c1",
+      "prefabGuid": "c7762b3dc0c27f84e90d36643c2206da",
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.prefab",
+      "prefabSha256": "ab4d1d712ca5f5fbbfc73fd0f6f32fc5cf8c811d83be61ee1b26f9f88f0fb60e",
+      "address": "dark_nights.object.world_session",
+      "fishNetSpawnable": true,
+      "behaviour": "DarkNights.Runtime.Network.WorldSessionBehaviour"
+    },
+    "wireContracts": {
+      "command": {
+        "type": "DarkNights.Runtime.Network.SetReadyCommand",
+        "tag": 0,
+        "channel": "Reliable",
+        "scope": "ServerOnly"
+      },
+      "state": {
+        "type": "DarkNights.Runtime.Network.SessionStatusState",
+        "tag": 0
+      }
+    }
+  },
+  "assetIntegrity": {
+    "beforeAndAfterBuildsMatch": true,
+    "checkedAssets": [
+      "Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "Game/Assets/DarkNights/Res/Objects/Worker/Worker.prefab",
+      "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+      "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.prefab",
+      "Game/Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity"
+    ],
+    "pinewatchSceneSha256": "e2a91c9c3bae306230425c08607a6bae20023be68faafc91c0a355e019cb21fd"
+  },
+  "validation": {
+    "architectureGuard": {
+      "command": "dotnet run --project tools/ArchitectureGuard -- .",
+      "handwrittenFiles": 92,
+      "selfTests": 10,
+      "errors": 0
+    },
+    "coreBuild": {
+      "command": "dotnet build tools/CoreBuild/CoreBuild.csproj",
+      "target": "C# 9 / netstandard2.1",
+      "warnings": 0,
+      "errors": 0
+    },
+    "coreRegression": {
+      "command": "dotnet run --project tools/CoreRegression -- .",
+      "checks": 1104,
+      "failures": 0
+    },
+    "unityCompile": {
+      "editor": "6000.4.9f1",
+      "status": "completed",
+      "failed": false,
+      "errors": []
+    },
+    "editorTests": {
+      "command": "unity command run_tests --mode editor --filter DarkNights.Tests --filter_type assembly --project-path Game --detach",
+      "total": 32,
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0
+    },
+    "monoPlayer": {
+      "build": "success",
+      "startupChecks": 6,
+      "passed": 6,
+      "result": "artifacts/migration/run-20260911-211813-216-mono/result.json",
+      "playerSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "verifiedLogSha256": "783ac2d71e954cecec74bf5e8a0933a851a323e1f5731d98f16e5343cea07be1"
+    },
+    "il2cppPlayer": {
+      "build": "success",
+      "startupChecks": 6,
+      "passed": 6,
+      "result": "artifacts/migration/run-20260911-211925-133-il2cpp/result.json",
+      "playerSha256": "a4b596130f036df4dcca05c56d0626996dab7d3b351d89f03b58a06da8b1ba60",
+      "verifiedLogSha256": "4632c9592f91a992820391dfacb8a9ad4c68565e403092176712a8ffce6be0ea"
+    }
+  },
+  "executionNotes": [
+    "The first compile exposed missing explicit MemoryPack.Core and VitalRouter assembly references; the asmdefs were corrected before formal assets were created, and final compilation is clean.",
+    "The first targeted EditMode run reported the expected missing runtime BehaviourUpdateManager log as an unhandled error. The test now explicitly expects that editor-only boundary while still asserting generated behaviour creation; the final full assembly passed 32/32.",
+    "One synchronous test request exceeded its response timeout, but its detached Unity job completed and returned the 2/3 diagnostic result; later runs used retained job IDs and completed normally.",
+    "Final review disabled the placeholder online definition ID service and froze the registry project; all affected Editor tests and both Player builds were rerun afterward.",
+    "Addressables regenerated link.xml during each content build. The pre-existing user deletions of link.xml and link.xml.meta were restored after verification."
+  ],
+  "notValidated": [
+    "SetReadyCommand has no formal processor yet; trusted connection identity, request deduplication, Ready transitions and authorization are not implemented.",
+    "WorldSessionBehaviour currently carries session metadata only. It does not own GameSession and does not publish the frozen entity collection.",
+    "Worker.prefab is a formal container with explicit bindings but has no SpriteRenderer, visual prefab, animation or gameplay presentation behaviour.",
+    "Bootstrap does not create the WorldSession object, and Pinewatch does not instantiate formal objects; the game is not playable.",
+    "No PlayMode, formal Host plus client, late join, reconnect, packet impairment, two-machine, visual comparison, pooled reuse or Addressables release lifecycle was validated in this slice."
+  ],
+  "preservedUserChanges": [
+    "Game/Assets/AddressableAssetsData/link.xml deletion",
+    "Game/Assets/AddressableAssetsData/link.xml.meta deletion"
+  ]
+}

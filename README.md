@@ -1,10 +1,10 @@
 # Dark Nights · Unity
 
-《Dark Nights》Unity 移植工程。环境基线与独立 [LAN 合作 Sample](docs/LAN_SAMPLE.md) 已完成，Windows Mono 和 IL2CPP Release＋High 裁剪均有四进程及真实 UDP 弱网验证记录。灰松谷权威规则、旧档核心及可编辑布局来源已迁移并通过独立进程／Editor 对照；对象 Prefab、美术、正式可玩场景与正式联机尚未完成。
+《Dark Nights》Unity 移植工程。环境基线与独立 [LAN 合作 Sample](docs/LAN_SAMPLE.md) 已完成，Windows Mono 和 IL2CPP Release＋High 裁剪均有四进程及真实 UDP 弱网验证记录。灰松谷权威规则、旧档核心、可编辑布局来源及首批 WorldSession／Worker 正式对象合同已迁移并通过 Editor 与双后端 Player 检查；完整对象、美术、正式可玩场景与正式联机尚未完成。
 
-2026-09-11 更新[完整移植方案](docs/MIGRATION_PLAN.md)：保留 C# 权威规则核心，接入 YYGC 对象、命令和状态链，使用原生 Prefab / UGUI；默认共享控制并保留 HostOnly 开关。已完成配置接入及[核心规则迁移](docs/CORE_MIGRATION.md)，正式对象接入仍待收口；实际实施及验收边界见[当前进展](docs/DEVELOPMENT.md#implementation-progress)。
+2026-09-11 更新[完整移植方案](docs/MIGRATION_PLAN.md)：保留 C# 权威规则核心，接入 YYGC 对象、命令和状态链，使用原生 Prefab / UGUI；默认共享控制并保留 HostOnly 开关。配置、[核心规则迁移](docs/CORE_MIGRATION.md)与 M0 正式接入探针已完成；实际会话处理、展示投影及验收边界见[当前进展](docs/DEVELOPMENT.md#implementation-progress)。
 
-目录设计已收口为 `Assets/DarkNights/Scripts` 与 `Res` 分离；代码采用 Core、Runtime、View、Entry，资源按对象／面板集中维护定义、Prefab 和专用资源。Addressables 不要求游戏素材目录采用特殊名称，仍通过 ObjectDefinition 驱动加载与绑定；现有 AddressableAssetsData 配置位置保留。详见[目录及绑定要求](docs/MIGRATION_PLAN.md#directory-and-assets)。首批已建立 Core、Runtime、Entry、Editor/Tests 和 Res/Config；View 与对象素材目录随实际功能建立。
+目录设计已收口为 `Assets/DarkNights/Scripts` 与 `Res` 分离；代码采用 Core、Runtime、View、Entry，资源按对象／面板集中维护定义、Prefab 和专用资源。Addressables 不要求游戏素材目录采用特殊名称，仍通过 ObjectDefinition 驱动加载与绑定；现有 AddressableAssetsData 配置位置保留。详见[目录及绑定要求](docs/MIGRATION_PLAN.md#directory-and-assets)。目前已建立四个运行程序集、Editor/Tests、配置与 Pinewatch 场景，以及 Worker／WorldSession 对象目录；其余对象、UI 与美术按功能扩展。
 
 `Game/` 是 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。先运行 `tools/prepare-lan-sample.ps1` 准备锁定提交的 `.deps/YYGC`，不直接引用用户维护的框架工作区。R3、MemoryPack、UniTask、FishNet 等依赖已导入；VitalRouter 使用 YYGC 要求的完成语义修正版。内部产品名暂保留 `DNights`。
 
@@ -18,7 +18,7 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 
 早期复评的生成器、首状态和序列化问题属于当时版本。新 Sample 已在 YYGC `10b8f0e` 上复用完整命令与状态链，通过真实多进程验证；独立程序集补丁、依赖和未验收边界见 [Sample 说明](docs/LAN_SAMPLE.md)。联机尚未正式生产使用。
 
-整体难度为中高。基于已有环境和 Sample，剩余工作暂估 **20–33 人日，预留后约 25–42 人日**；按一名熟悉 Unity/C# 的全职开发者约 5–9 工作周。估算含正式集成和验收，不含公网中继、平台接入与房主迁移，需在规则对照和正式联机切片后校正。详见[执行计划](docs/DEVELOPMENT.md)。
+整体难度为中高。扣除已完成的 M0 和大部分 M1 后，剩余工作暂估 **16–26 人日，预留后约 20–33 人日**；按一名熟悉 Unity/C# 的全职开发者约 4–7 工作周。估算含正式集成和验收，不含公网中继、平台接入与房主迁移，需在正式联机切片取得投影测量后校正。详见[执行计划](docs/DEVELOPMENT.md)。
 
 ## 范围与假设
 

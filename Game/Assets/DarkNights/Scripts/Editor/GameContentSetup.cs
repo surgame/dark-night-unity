@@ -50,6 +50,7 @@ namespace DarkNights.Editor
             var startup = AssetDatabase.LoadAssetAtPath<AppStartupSettings>(EnvironmentValidation.StartupPath);
             if (!startup.Modules.Any(entry => entry.Enabled && entry.Required && entry.Module is GameContentStartupModule))
                 throw new InvalidOperationException("Required game content startup module is not registered.");
+            FormalObjectContentSetup.Validate();
         }
 
         private static void ValidateJson()

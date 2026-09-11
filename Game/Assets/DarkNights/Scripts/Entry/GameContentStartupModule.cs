@@ -4,6 +4,9 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Config;
+using DarkNights.Runtime.Framework;
+using GameCore.NetworkCommands;
+using GameCore.Objects.NetworkStates;
 using Runtime.AppStartup;
 using UnityEngine;
 using UnityEngine.Scripting;
@@ -24,15 +27,22 @@ namespace DarkNights.Entry
         public string Category => "游戏内容";
         public int Order => 8500;
         public bool Required => true;
-        public IReadOnlyList<Type> Dependencies => new[] { typeof(ObjectV2RuntimeStartupModule) };
+        public IReadOnlyList<Type> Dependencies => new[]
+        {
+            typeof(ObjectV2RuntimeStartupModule),
+            typeof(StateDataTypeStartupModule),
+            typeof(NetworkCommandStartupModule)
+        };
 
         public async UniTask InitializeAsync(AppStartupContext context, CancellationToken cancellationToken)
         {
             GameCatalog catalog = await GameCatalogLoader.LoadAsync(cancellationToken);
+            FormalObjectCatalog.ValidateRuntime();
             context.Register(catalog);
             Debug.Log($"DARK_NIGHTS_CONTENT_READY level={catalog.Level.Id} seed={catalog.Level.Seed} " +
                 $"units={catalog.Balance.Units.Count} buildings={catalog.Balance.Buildings.Count} " +
                 $"worksites={catalog.Balance.Worksites.Count} waves={catalog.Level.Waves.Count}");
+            Debug.Log("DARK_NIGHTS_FORMAL_CONTENT_READY definitions=2 commands=1 states=1 behaviours=1 wire=LegacyV1");
         }
     }
 }

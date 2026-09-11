@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: StateDataRegistry
   m_EditorClassIdentifier: GameCore.Editor::StateDataRegistry
   GeneratedFilePath: Assets/Scripts/Generated/IStateData.generated.cs
-  nextTag: 0
-  Registrations: []
+  nextTag: 1
+  Registrations:
+  - StateType: {fileID: 11500000, guid: 84557eb8961c29442a375285110ad679, type: 3}
+    Tag: 0

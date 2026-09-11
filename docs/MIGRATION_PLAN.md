@@ -2,7 +2,7 @@
 
 设计更新：2026-09-11。**建议保留普通 C# 规则核心，由 YYGC 会话对象管理权威运行与状态发布，Unity 原生 Prefab / UGUI 负责表现；单人和联机使用同一条命令链。** 首版默认共享营地控制，同时提供仅房主操作模式，后期关闭共享控制只改变权限。
 
-方案已开始执行：配置已接通 AppStartup / Addressables，权威模拟、显式命令、旧档核心和可编辑布局来源已通过冻结夹具对照，实际状态和证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)。正式对象、可玩场景、表现和联机尚未完成。目标保持灰松谷的素材、布局、数值、操作意图、三夜玩法和旧档语义。多人输入的权限、顺序与反馈作为明确的会话差异单独验收。
+方案已开始执行：配置已接通 AppStartup / Addressables，权威模拟、显式命令、旧档核心和可编辑布局来源已通过冻结夹具对照；首批 WorldSession／Worker Definition、Prefab 与生成 wire 合同也已通过双后端启动检查，实际状态和证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)。可玩会话、完整对象表现和正式联机尚未完成。目标保持灰松谷的素材、布局、数值、操作意图、三夜玩法和旧档语义。多人输入的权限、顺序与反馈作为明确的会话差异单独验收。
 
 ## 已有基础与实施范围
 
@@ -56,7 +56,7 @@ flowchart LR
 
 ## 目录、Addressables 与对象装配要求
 
-2026-09-11 经人工可读性复审，正式目录采用 **Scripts / Res 分离，代码按职责分层，资源按游戏对象归组**。本节为实施要求；首批已创建正式配置与启动代码目录并移动环境 Editor 工具，后续已按实际布局功能建立 View 和 Res/Scenes/Pinewatch，对象资源和新绑定仍待实施。完整目录及程序集依赖以[技术架构](ARCHITECTURE.md)为准，不预建空目录、占位类或通用 Manager。
+2026-09-11 经人工可读性复审，正式目录采用 **Scripts / Res 分离，代码按职责分层，资源按游戏对象归组**。本节为实施要求；已创建正式配置、启动、View、Res/Scenes/Pinewatch，并按首批对象建立 Res/Objects/Worker 与 WorldSession。完整对象、UI 和美术仍待按实际功能实施；完整目录及程序集依赖以[技术架构](ARCHITECTURE.md)为准，不预建空目录、占位类或通用 Manager。
 
 | 入口，相对于 `Assets/DarkNights` | 归属与维护方式 |
 |---|---|
@@ -97,7 +97,7 @@ ObjectDefinition 与所属 Prefab 放在同一对象目录，方便一起核对�
 
 ## 共享控制如何保留开关
 
-拟议 `CampControlMode` 由房主掌握，放在 Runtime 的房间权限服务，作为会话设置同步；不是角色所有权，也不是静态全局开关。所有名称均为设计，当前 Sample 没有此功能。
+`CampControlMode` 枚举及 SessionStatusState 中的投影字段已建立，后续由房主掌握的 Runtime 房间权限服务负责执行；它不是角色所有权，也不是静态全局开关。当前仅有 wire 合同，Sample 与正式游戏均尚未实现策略切换和服务端授权。
 
 | 模式 | 房主 | 普通已 Ready 玩家 |
 |---|---|---|
@@ -268,7 +268,7 @@ Unity 新档应有独立格式标识与版本，并记录规则摘要和随机�
 | M4 会话完整性 | 四人、晚加入、断线重连、暂停／倍速、保存／加载、epoch | 第二夜加入、加载中的旧包和控制策略切换均正确 |
 | M5 交付验收 | 双机器 LAN、完整关卡弱网／性能、干净构建及操作文档 | 可独立运行的 Windows Player 和可复现报告 |
 
-M0 有两个已从源码确认的接入项：[SampleAssemblyAccess.cs](../tools/lan-framework-patch/SampleAssemblyAccess.cs) 只授予样板 Runtime 友元访问，新增正式 Behaviour 程序集必须验证生成器访问边界；[DarkNightsEnvironmentSetup](../Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs) 已拆开 `BuildAddressablesContent()` 与 `Initialize()`，并增加初始化输出防覆盖检查。首批实现与证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)；正式 Behaviour 生成访问和对象定义仍待后续批次。
+M0 已完成两个源码确认的接入项：[SampleAssemblyAccess.cs](../tools/lan-framework-patch/SampleAssemblyAccess.cs) 同时向样板 Runtime 与正式 DarkNights.Runtime 授予生成调度器所需的窄范围友元访问；[DarkNightsEnvironmentSetup](../Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs) 已拆开 `BuildAddressablesContent()` 与 `Initialize()` 并保护初始化输出。Worker／WorldSession 定义、Prefab、Addressables、FishNet spawn、ContentId 映射和 LegacyV1／MemoryPack 生成注册已在 Mono 与 IL2CPP Player 启动验证；证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)。M2 仍需实现命令处理、权威会话和真实实体集合投影。
 
 M2 先迁移真实规则下的工人采集与住宅施工，不再做另一个十金币测试营地。使用冻结开局布局和数值；可暂只接必要视图，其余表现由 M3 补齐。实体集合的复制、序列化、在飞箭矢及事件池生命周期是相对标量 Sample 新增的验证重点。
 

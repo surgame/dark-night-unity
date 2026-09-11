@@ -15,6 +15,7 @@ namespace YYGC.Generated
 
         private static void RegisterTypes()
         {
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Network.SessionStatusState>(0);
         }
     }
 }

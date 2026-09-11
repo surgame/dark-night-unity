@@ -12,6 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae3b451a44847508fd22eb7532d60eb, type: 3}
   m_Name: ObjectDefinitionDatabase
   m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinitionDatabase
-  definitions: []
+  definitions:
+  - {fileID: 11400000, guid: 57892829ba5122f4ba088c29da524d62, type: 2}
+  - {fileID: 11400000, guid: 2831308ce23cb1b40b41fceb09dff2e6, type: 2}
   registryServerUrl: https://ID-REGISTRY/id-registry
-  projectName: 
+  projectName: DNights
+  identityMode: 0
+  registryConfigurationVersion: 1
+  enableOnlineIdService: 0
+  reservedLegacyIds: d1300e00
+  reservedKeys: []
+  registryConfigurationRevision: 1
+  legacyIdMap: {fileID: 0}

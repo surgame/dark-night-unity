@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: NetworkCommandInterfaceGenerateRegistry
   m_EditorClassIdentifier: GameCore.Editor::GameCore.Editor.NetworkCommands.NetworkCommandInterfaceGenerateRegistry
   GeneratedFilePath: Assets/Scripts/Generated/INetworkCommand.generated.cs
-  Registrations: []
+  Registrations:
+  - CommandType: {fileID: 11500000, guid: 0abc7ee5fef89cd43bbd0109395557e5, type: 3}
+    Tag: 0

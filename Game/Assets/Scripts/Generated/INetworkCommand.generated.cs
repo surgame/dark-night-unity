@@ -16,6 +16,7 @@ namespace YYGC.Generated
 
         private static void RegisterTypes()
         {
+            GenericTypeRegistry<INetworkCommand>.Register<global::DarkNights.Runtime.Network.SetReadyCommand>(0);
         }
     }
 }

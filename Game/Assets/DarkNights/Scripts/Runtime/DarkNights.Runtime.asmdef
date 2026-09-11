@@ -1,7 +1,8 @@
 {
   "name": "DarkNights.Runtime",
   "rootNamespace": "DarkNights.Runtime",
-  "references": ["DarkNights.Core", "UniTask", "UniTask.Addressables", "Unity.Addressables", "Unity.ResourceManager"],
+  "references": ["DarkNights.Core", "GameCore.Runtime", "FishNet.Runtime", "UniTask", "UniTask.Addressables", "Unity.Addressables", "Unity.ResourceManager"],
+  "allowUnsafeCode": true,
   "overrideReferences": true,
-  "precompiledReferences": ["Newtonsoft.Json.dll"]
+  "precompiledReferences": ["MemoryPack.Core.dll", "VitalRouter.dll", "Newtonsoft.Json.dll"]
 }
