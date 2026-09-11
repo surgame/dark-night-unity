@@ -1,0 +1,1339 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-12",
+  "inspectedBaseCommit": "348b54d25770e80378eb05b7aea2495c9c958f67",
+  "scope": "ObjectDefinition assets under Game/Assets, cross-checked against the formal ObjectDefinitionDatabase; dependency caches and generated Library/build assets are excluded.",
+  "status": "Static assessment complete; no extraction or Unity validation performed.",
+  "method": [
+    "Identify ObjectDefinition by its serialized MonoScript GUID; check for project subclasses.",
+    "Read BehaviourTypes, SharedConfigs, network type, persistent identity and PrefabRef.",
+    "Resolve prefab references through existing .meta files; inspect script types and explicit view bindings.",
+    "Trace effect, entity, placement, remnant, UI, service, sample and network creation paths."
+  ],
+  "counts": {
+    "projectDefinitionAssets": 29,
+    "formalRegistered": 27,
+    "isolatedSampleAssets": 2,
+    "formalBothListsEmpty": 20,
+    "formalLocalBothListsEmpty": 19,
+    "formalNetworkBothListsEmpty": 1,
+    "priorityLocalPresentationCandidates": 4,
+    "conditionalEntityVisualCandidates": 15,
+    "formalNonempty": 7,
+    "isolatedSampleBothListsEmpty": 1
+  },
+  "definitions": [
+    {
+      "key": "audio.camp",
+      "path": "Game/Assets/DarkNights/Res/Effects/Audio/Audio.asset",
+      "assetGuid": "3111c2a2b216eb045a8eee000faf4774",
+      "definitionGuid": "3111c2a2b216eb045a8eee000faf4774",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Effects/Audio/Audio.prefab",
+      "prefabGuid": "5df5d18f11982e3469a7d6fdeb074dd0",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.CampAudio",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "audio"
+      ],
+      "recommendation": "extract_local_presentation_first"
+    },
+    {
+      "key": "building.barracks",
+      "path": "Game/Assets/DarkNights/Res/Objects/Barracks/Barracks.asset",
+      "assetGuid": "6d562b8d5824d2d4682ea725e4cbbd10",
+      "definitionGuid": "6d562b8d5824d2d4682ea725e4cbbd10",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Barracks/Barracks.prefab",
+      "prefabGuid": "84a14c89fd48a9547a8fa3897296e273",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "building.farm",
+      "path": "Game/Assets/DarkNights/Res/Objects/Farm/Farm.asset",
+      "assetGuid": "462f08ac967440f458772620c642e75b",
+      "definitionGuid": "462f08ac967440f458772620c642e75b",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Farm/Farm.prefab",
+      "prefabGuid": "cbc73dcba495255488270c931459090d",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "Farm"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "building.house",
+      "path": "Game/Assets/DarkNights/Res/Objects/House/House.asset",
+      "assetGuid": "de920f6f46b0ee34ab730757b1f164cf",
+      "definitionGuid": "de920f6f46b0ee34ab730757b1f164cf",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/House/House.prefab",
+      "prefabGuid": "dbe037e6ed5a129489ba734ec4226211",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "building.tavern",
+      "path": "Game/Assets/DarkNights/Res/Objects/Tavern/Tavern.asset",
+      "assetGuid": "9b02302c0d6fc394ca25c303d7dc9869",
+      "definitionGuid": "9b02302c0d6fc394ca25c303d7dc9869",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Tavern/Tavern.prefab",
+      "prefabGuid": "a71bbe1dfd1951d4da864e178abe59e7",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "building.tower",
+      "path": "Game/Assets/DarkNights/Res/Objects/Tower/Tower.asset",
+      "assetGuid": "ff2d152b3be9674488f54366b52a8aee",
+      "definitionGuid": "ff2d152b3be9674488f54366b52a8aee",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Tower/Tower.prefab",
+      "prefabGuid": "52aad29e511795e42b76dfaf3838911a",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "connection.pinewatch",
+      "path": "Game/Assets/DarkNights/Res/Objects/PlayerConnection/PlayerConnection.asset",
+      "assetGuid": "d5d2552cf49b2a849b83d527d782f122",
+      "definitionGuid": "d5d2552cf49b2a849b83d527d782f122",
+      "registeredInFormalDatabase": true,
+      "networkType": "Network",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/PlayerConnection/PlayerConnection.prefab",
+      "prefabGuid": "bd681e3323fdcd944bbbc56bcc28f0d1",
+      "prefabScriptTypes": [
+        "DarkNights.Runtime::DarkNights.Runtime.Network.PlayerEndpoint",
+        "FishNet.Runtime::FishNet.Object.NetworkObject",
+        "GameCore.Runtime::GameCore.NetworkCommands.NetworkCommandSender",
+        "GameCore.Runtime::GameCore.Objects.NetworkStates.StateSynchronizer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "endpoint"
+      ],
+      "recommendation": "retain_network_endpoint"
+    },
+    {
+      "key": "effect.arrow",
+      "path": "Game/Assets/DarkNights/Res/Effects/Arrow/Arrow.asset",
+      "assetGuid": "05aa5b917121ca7408c45dc666a0d95e",
+      "definitionGuid": "05aa5b917121ca7408c45dc666a0d95e",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Effects/Arrow/Arrow.prefab",
+      "prefabGuid": "c07f1287655d3ba4bbe4bc2bccf1936f",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeEffect",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "effect"
+      ],
+      "recommendation": "extract_local_presentation_first"
+    },
+    {
+      "key": "effect.command",
+      "path": "Game/Assets/DarkNights/Res/Effects/Command/Command.asset",
+      "assetGuid": "0ea7535fe3e4bcd43adad80ed68bf169",
+      "definitionGuid": "0ea7535fe3e4bcd43adad80ed68bf169",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Effects/Command/Command.prefab",
+      "prefabGuid": "5e4085280505da54786c0409b73e2fcd",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeEffect",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "effect"
+      ],
+      "recommendation": "extract_local_presentation_first"
+    },
+    {
+      "key": "effect.floating",
+      "path": "Game/Assets/DarkNights/Res/Effects/Floating/Floating.asset",
+      "assetGuid": "ca623c3ac36194047bcc2e720dd836de",
+      "definitionGuid": "ca623c3ac36194047bcc2e720dd836de",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Effects/Floating/Floating.prefab",
+      "prefabGuid": "f32054fedcf949b4c81637b7b4e734fd",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeEffect",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView",
+        "UnityEngine.UI::UnityEngine.UI.Image",
+        "UnityEngine.UI::UnityEngine.UI.Text"
+      ],
+      "viewBindingKeys": [
+        "effect"
+      ],
+      "recommendation": "extract_local_presentation_first"
+    },
+    {
+      "key": "lan_sample.session",
+      "path": "Game/Assets/Samples/LanCoop/Content/Session.asset",
+      "assetGuid": "fdad11cd381da9d4999c28b8e3f21c88",
+      "definitionGuid": "f1aee01796e9465d993c64b073f526d1",
+      "registeredInFormalDatabase": false,
+      "networkType": "Network",
+      "objectType": 0,
+      "behaviourTypes": [
+        "DarkNights.Samples.LanCoop.Runtime.CampBehaviour"
+      ],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": false,
+      "prefabPath": null,
+      "prefabGuid": null,
+      "prefabScriptTypes": [],
+      "viewBindingKeys": [],
+      "recommendation": "preserve_isolated_sample"
+    },
+    {
+      "key": "lan_sample.worksite",
+      "path": "Game/Assets/Samples/LanCoop/Content/Worksite.asset",
+      "assetGuid": "f93618c9113922c4c8d7eb7e8ceabb76",
+      "definitionGuid": "c5a7f9a0187944339fe233f509d21a0c",
+      "registeredInFormalDatabase": false,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": null,
+      "prefabGuid": null,
+      "prefabScriptTypes": [],
+      "viewBindingKeys": [],
+      "recommendation": "preserve_isolated_sample"
+    },
+    {
+      "key": "service.interaction_sessions",
+      "path": "Game/Assets/DarkNights/Res/UI/Shared/InteractionSessions.asset",
+      "assetGuid": "5c2c137cfa3bf17479623737fced775b",
+      "definitionGuid": "5c2c137cfa3bf17479623737fced775b",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [
+        "GameCore.Interactions.YYInteractionSessionService"
+      ],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": false,
+      "prefabPath": null,
+      "prefabGuid": null,
+      "prefabScriptTypes": [],
+      "viewBindingKeys": [],
+      "recommendation": "retain_active_framework_composition"
+    },
+    {
+      "key": "session.pinewatch",
+      "path": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+      "assetGuid": "2831308ce23cb1b40b41fceb09dff2e6",
+      "definitionGuid": "2831308ce23cb1b40b41fceb09dff2e6",
+      "registeredInFormalDatabase": true,
+      "networkType": "Network",
+      "objectType": 0,
+      "behaviourTypes": [
+        "DarkNights.Runtime.Network.WorldSessionBehaviour"
+      ],
+      "sharedConfigTypes": [
+        "DarkNights.Runtime.Framework.ContentDefinitionMap"
+      ],
+      "bothListsEmpty": false,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.prefab",
+      "prefabGuid": "c7762b3dc0c27f84e90d36643c2206da",
+      "prefabScriptTypes": [
+        "DarkNights.Runtime::DarkNights.Runtime.Network.SessionObjectLink",
+        "FishNet.Runtime::FishNet.Object.NetworkObject",
+        "GameCore.Runtime::GameCore.Objects.NetworkStates.StateSynchronizer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [],
+      "recommendation": "retain_active_framework_composition"
+    },
+    {
+      "key": "ui.chrome",
+      "path": "Game/Assets/DarkNights/Res/UI/Chrome/Chrome.asset",
+      "assetGuid": "c4ba956c6a6527d4d945bb4909c8ca59",
+      "definitionGuid": "c4ba956c6a6527d4d945bb4909c8ca59",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 20003,
+      "behaviourTypes": [
+        "DarkNights.View.CampHudBehaviour"
+      ],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": false,
+      "prefabPath": "Game/Assets/DarkNights/Res/UI/Chrome/Chrome.prefab",
+      "prefabGuid": "d13bbb658cca1c24b8f5de396a911cdb",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.CampMap",
+        "DarkNights.View::DarkNights.View.CampOverlay",
+        "DarkNights.View::DarkNights.View.FullscreenPanel",
+        "DarkNights.View::DarkNights.View.NativePanelTheme",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::GameCore.UI.UGUI.UGUIAuthoringCanvas",
+        "GameCore.Runtime::GameCore.UI.UGUI.UGUIView",
+        "UnityEngine.UI::UnityEngine.UI.Button",
+        "UnityEngine.UI::UnityEngine.UI.CanvasScaler",
+        "UnityEngine.UI::UnityEngine.UI.GraphicRaycaster",
+        "UnityEngine.UI::UnityEngine.UI.Image",
+        "UnityEngine.UI::UnityEngine.UI.Text"
+      ],
+      "viewBindingKeys": [
+        "FoodValue",
+        "WoodValue",
+        "StoneValue",
+        "IronValue",
+        "GoldValue",
+        "Population",
+        "Phase",
+        "Detail",
+        "Progress",
+        "HelpLabel",
+        "Help",
+        "MenuLabel",
+        "Menu",
+        "Portrait",
+        "Title",
+        "State",
+        "Hp",
+        "Info",
+        "BuildHouseLabel",
+        "BuildHouse",
+        "BuildFarmLabel",
+        "BuildFarm",
+        "BuildBarracksLabel",
+        "BuildBarracks",
+        "BuildTowerLabel",
+        "BuildTower",
+        "TrainSpearmanLabel",
+        "TrainSpearman",
+        "TrainArcherLabel",
+        "TrainArcher",
+        "RecruitLabel",
+        "Recruit",
+        "RepairLabel",
+        "Repair",
+        "PauseLabel",
+        "Pause",
+        "SpeedLabel",
+        "Speed",
+        "NightLabel",
+        "Night",
+        "Objective",
+        "Hint",
+        "ToastPanel",
+        "Toast",
+        "Banner",
+        "BannerTitle",
+        "BannerDetail",
+        "Map",
+        "Overlay",
+        "ToastFade",
+        "BannerFade"
+      ],
+      "recommendation": "retain_active_framework_composition"
+    },
+    {
+      "key": "ui.help",
+      "path": "Game/Assets/DarkNights/Res/UI/Help/Help.asset",
+      "assetGuid": "6a92c7173336c344983def44bd0e19a9",
+      "definitionGuid": "6a92c7173336c344983def44bd0e19a9",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 20000,
+      "behaviourTypes": [
+        "DarkNights.View.HelpMenuBehaviour"
+      ],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": false,
+      "prefabPath": "Game/Assets/DarkNights/Res/UI/Help/Help.prefab",
+      "prefabGuid": "23801b6abb405aa4c9fc53d875870524",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.FullscreenPanel",
+        "DarkNights.View::DarkNights.View.NativePanelTheme",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::GameCore.UI.UGUI.UGUIAuthoringCanvas",
+        "GameCore.Runtime::GameCore.UI.UGUI.UGUIView",
+        "UnityEngine.UI::UnityEngine.UI.Button",
+        "UnityEngine.UI::UnityEngine.UI.CanvasScaler",
+        "UnityEngine.UI::UnityEngine.UI.GraphicRaycaster",
+        "UnityEngine.UI::UnityEngine.UI.Image",
+        "UnityEngine.UI::UnityEngine.UI.Text"
+      ],
+      "viewBindingKeys": [
+        "RecruitGuide",
+        "UpkeepGuide",
+        "BackLabel",
+        "Back"
+      ],
+      "recommendation": "retain_active_framework_composition"
+    },
+    {
+      "key": "ui.mainmenu",
+      "path": "Game/Assets/DarkNights/Res/UI/MainMenu/MainMenu.asset",
+      "assetGuid": "470b2f389177c95489cc6e2012956245",
+      "definitionGuid": "470b2f389177c95489cc6e2012956245",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 20000,
+      "behaviourTypes": [
+        "DarkNights.View.MainMenuBehaviour"
+      ],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": false,
+      "prefabPath": "Game/Assets/DarkNights/Res/UI/MainMenu/MainMenu.prefab",
+      "prefabGuid": "2b072de0dfd2a464d91cdc7a639dec86",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.FullscreenPanel",
+        "DarkNights.View::DarkNights.View.NativePanelTheme",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::GameCore.UI.UGUI.UGUIAuthoringCanvas",
+        "GameCore.Runtime::GameCore.UI.UGUI.UGUIView",
+        "UnityEngine.UI::UnityEngine.UI.Button",
+        "UnityEngine.UI::UnityEngine.UI.CanvasScaler",
+        "UnityEngine.UI::UnityEngine.UI.GraphicRaycaster",
+        "UnityEngine.UI::UnityEngine.UI.Image",
+        "UnityEngine.UI::UnityEngine.UI.InputField",
+        "UnityEngine.UI::UnityEngine.UI.Text"
+      ],
+      "viewBindingKeys": [
+        "NewGameLabel",
+        "NewGame",
+        "ContinueLabel",
+        "Continue",
+        "HelpLabel",
+        "Help",
+        "QuitLabel",
+        "Quit",
+        "Join",
+        "JoinLabel",
+        "Address",
+        "ConnectionStatus",
+        "Slot",
+        "SlotLabel"
+      ],
+      "recommendation": "retain_active_framework_composition"
+    },
+    {
+      "key": "ui.pausemenu",
+      "path": "Game/Assets/DarkNights/Res/UI/PauseMenu/PauseMenu.asset",
+      "assetGuid": "26c45dcff2d0949418ff0e7a973d8481",
+      "definitionGuid": "26c45dcff2d0949418ff0e7a973d8481",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 20000,
+      "behaviourTypes": [
+        "DarkNights.View.PauseMenuBehaviour"
+      ],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": false,
+      "prefabPath": "Game/Assets/DarkNights/Res/UI/PauseMenu/PauseMenu.prefab",
+      "prefabGuid": "7499a075d591a0c45844d43ac28ad1b2",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.FullscreenPanel",
+        "DarkNights.View::DarkNights.View.NativePanelTheme",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::GameCore.UI.UGUI.UGUIAuthoringCanvas",
+        "GameCore.Runtime::GameCore.UI.UGUI.UGUIView",
+        "UnityEngine.UI::UnityEngine.UI.Button",
+        "UnityEngine.UI::UnityEngine.UI.CanvasScaler",
+        "UnityEngine.UI::UnityEngine.UI.GraphicRaycaster",
+        "UnityEngine.UI::UnityEngine.UI.Image",
+        "UnityEngine.UI::UnityEngine.UI.Text"
+      ],
+      "viewBindingKeys": [
+        "SessionDetail",
+        "ResumeLabel",
+        "Resume",
+        "SaveLabel",
+        "Save",
+        "LoadLabel",
+        "Load",
+        "HelpLabel",
+        "Help",
+        "MuteLabel",
+        "Mute",
+        "MainMenuLabel",
+        "MainMenu",
+        "SaveHint",
+        "ControlMode",
+        "ControlModeLabel",
+        "Slot",
+        "SlotLabel"
+      ],
+      "recommendation": "retain_active_framework_composition"
+    },
+    {
+      "key": "ui.result",
+      "path": "Game/Assets/DarkNights/Res/UI/Result/Result.asset",
+      "assetGuid": "f1ec6b78572962c41a401e58dd41e8a3",
+      "definitionGuid": "f1ec6b78572962c41a401e58dd41e8a3",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 20000,
+      "behaviourTypes": [
+        "DarkNights.View.ResultMenuBehaviour"
+      ],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": false,
+      "prefabPath": "Game/Assets/DarkNights/Res/UI/Result/Result.prefab",
+      "prefabGuid": "f6a5863c65d56f44084e03e012a4e6c1",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.FullscreenPanel",
+        "DarkNights.View::DarkNights.View.NativePanelTheme",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::GameCore.UI.UGUI.UGUIAuthoringCanvas",
+        "GameCore.Runtime::GameCore.UI.UGUI.UGUIView",
+        "UnityEngine.UI::UnityEngine.UI.Button",
+        "UnityEngine.UI::UnityEngine.UI.CanvasScaler",
+        "UnityEngine.UI::UnityEngine.UI.GraphicRaycaster",
+        "UnityEngine.UI::UnityEngine.UI.Image",
+        "UnityEngine.UI::UnityEngine.UI.Text"
+      ],
+      "viewBindingKeys": [
+        "ResultTitle",
+        "ResultDetail",
+        "ResultStats",
+        "NewGameLabel",
+        "NewGame",
+        "MainMenuLabel",
+        "MainMenu"
+      ],
+      "recommendation": "retain_active_framework_composition"
+    },
+    {
+      "key": "unit.archer",
+      "path": "Game/Assets/DarkNights/Res/Objects/Archer/Archer.asset",
+      "assetGuid": "f91187dc2d2c99b46be92ec283a00c9c",
+      "definitionGuid": "f91187dc2d2c99b46be92ec283a00c9c",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Archer/Archer.prefab",
+      "prefabGuid": "c3a4a103cafc13a4a99a0e888fdc082a",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "unit.armored",
+      "path": "Game/Assets/DarkNights/Res/Objects/Armored/Armored.asset",
+      "assetGuid": "dab7b83c65706a7428b2bcefedc2d3ab",
+      "definitionGuid": "dab7b83c65706a7428b2bcefedc2d3ab",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Armored/Armored.prefab",
+      "prefabGuid": "41d7ecce9e18e0043abfb36cfea5a417",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "unit.ghoul",
+      "path": "Game/Assets/DarkNights/Res/Objects/Ghoul/Ghoul.asset",
+      "assetGuid": "fc10243d4de9cc84db0f7a3af1a0b50e",
+      "definitionGuid": "fc10243d4de9cc84db0f7a3af1a0b50e",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Ghoul/Ghoul.prefab",
+      "prefabGuid": "2dc8c2129136d8d4f9fa7c633a23c07d",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "unit.spearman",
+      "path": "Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.asset",
+      "assetGuid": "fdab779e054f8c44f8e22f8ea5f9858a",
+      "definitionGuid": "fdab779e054f8c44f8e22f8ea5f9858a",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.prefab",
+      "prefabGuid": "b458e542a0bbc9f46918cc1820d36613",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "unit.worker",
+      "path": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "assetGuid": "57892829ba5122f4ba088c29da524d62",
+      "definitionGuid": "57892829ba5122f4ba088c29da524d62",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.prefab",
+      "prefabGuid": "8a10edd57a484854e9911d6242f98a7f",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "art_offset",
+        "facing",
+        "status_anchor",
+        "selection_anchor",
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "unit.zombie",
+      "path": "Game/Assets/DarkNights/Res/Objects/Zombie/Zombie.asset",
+      "assetGuid": "8af095eb2982cd64f87dcbb2011ee0d9",
+      "definitionGuid": "8af095eb2982cd64f87dcbb2011ee0d9",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Zombie/Zombie.prefab",
+      "prefabGuid": "bc32a585f249c4241aec7723b36e6cb8",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "worksite.food",
+      "path": "Game/Assets/DarkNights/Res/Objects/Farmland/Farmland.asset",
+      "assetGuid": "a240041943d08544d85185a72385da7f",
+      "definitionGuid": "a240041943d08544d85185a72385da7f",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Farmland/Farmland.prefab",
+      "prefabGuid": "73fb78bd929415c4d86afdb83d5b771e",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "worksite.iron",
+      "path": "Game/Assets/DarkNights/Res/Objects/Iron/Iron.asset",
+      "assetGuid": "98858cfbd09fbaa4c9a6fb3bf53020ad",
+      "definitionGuid": "98858cfbd09fbaa4c9a6fb3bf53020ad",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Iron/Iron.prefab",
+      "prefabGuid": "e95960097cc0e0342a3ade438d1c64ce",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "worksite.stone",
+      "path": "Game/Assets/DarkNights/Res/Objects/Stone/Stone.asset",
+      "assetGuid": "68ef7d9c2e17ab44ba435ccff85b756f",
+      "definitionGuid": "68ef7d9c2e17ab44ba435ccff85b756f",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Stone/Stone.prefab",
+      "prefabGuid": "90b02abc990efa5438b5dca5a735068a",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    },
+    {
+      "key": "worksite.wood",
+      "path": "Game/Assets/DarkNights/Res/Objects/Trees/Trees.asset",
+      "assetGuid": "ea428c54b80b9b44ca4ca163704026e8",
+      "definitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+      "registeredInFormalDatabase": true,
+      "networkType": "Local",
+      "objectType": 0,
+      "behaviourTypes": [],
+      "sharedConfigTypes": [],
+      "bothListsEmpty": true,
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Trees/Trees.prefab",
+      "prefabGuid": "6dea9ad83887074408cd854d3962911a",
+      "prefabScriptTypes": [
+        "DarkNights.View::DarkNights.View.NativeVisual",
+        "GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer",
+        "GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance",
+        "GameCore.Runtime::YY.Features.Players.View.ObjectView"
+      ],
+      "viewBindingKeys": [
+        "visual"
+      ],
+      "recommendation": "extract_only_with_shared_visual_catalog_migration"
+    }
+  ],
+  "findings": [
+    {
+      "kind": "priority_candidates",
+      "keys": [
+        "effect.command",
+        "effect.floating",
+        "effect.arrow",
+        "audio.camp"
+      ],
+      "reason": "Only local NativeEffect/CampAudio presentation components use the prefab; definition behavior/config lists are empty."
+    },
+    {
+      "kind": "conditional_candidates",
+      "keys": [
+        "building.barracks",
+        "building.farm",
+        "building.house",
+        "building.tavern",
+        "building.tower",
+        "unit.archer",
+        "unit.armored",
+        "unit.ghoul",
+        "unit.spearman",
+        "unit.worker",
+        "unit.zombie",
+        "worksite.food",
+        "worksite.iron",
+        "worksite.stone",
+        "worksite.wood"
+      ],
+      "reason": "NativeVisual presenters are local and contain no YYGC behaviors; extraction requires replacing ContentDefinitionMap/DefinitionReference loading and updating entity, preview, remnant and authoring paths together."
+    },
+    {
+      "kind": "not_a_presentation_shell",
+      "key": "connection.pinewatch",
+      "reason": "The Network prefab contains PlayerEndpoint, NetworkObject, NetworkCommandSender and StateSynchronizer despite empty definition lists."
+    },
+    {
+      "kind": "render_order",
+      "currentOrder": {
+        "arrow": 150,
+        "command": 160,
+        "floating": 170,
+        "selection": "screen-space CampOverlay"
+      },
+      "reason": "Moving all markers into a screen-space mesh would change the current relationship with floating text."
+    },
+    {
+      "kind": "network_catalog",
+      "reason": "SessionNetwork installs DefinitionNetworkAuthenticator; DefinitionNetworkProfile hashes all definitions, including Local ones. Removing local definitions changes the handshake catalog."
+    },
+    {
+      "kind": "preexisting_binding_mismatch",
+      "path": "Game/Assets/DarkNights/Res/Objects/Farm/Farm.prefab",
+      "observedBinding": "Farm",
+      "requiredByCurrentEntry": "visual",
+      "preexistingUncommittedChange": true,
+      "changedByAudit": false,
+      "validation": "Serialized prefab/source comparison only; no Unity run."
+    }
+  ],
+  "preexistingUserChanges": [
+    "AGENTS.md",
+    "Game/Assets/DarkNights/Res/Objects/Farm/Farm.prefab",
+    "experiments/aseprite-pixel-crew/"
+  ],
+  "verification": {
+    "assetCensus": true,
+    "prefabScriptAndBindingInspection": true,
+    "usageInspection": true,
+    "unityImport": false,
+    "editModeTests": false,
+    "playMode": false,
+    "playerBuild": false,
+    "networkRun": false,
+    "performanceComparison": false
+  },
+  "sourceSnapshots": [
+    {
+      "path": "Game/Assets/Samples/LanCoop/Content/Session.asset",
+      "sha256": "b91f1e2486da12c1c75dfb7cff82f5ac602375ff2c8bacf08cbde05d145147b2"
+    },
+    {
+      "path": "Game/Assets/Samples/LanCoop/Content/Worksite.asset",
+      "sha256": "208de2ac91856fe41be7b1568c1d210409c9a76e0ade30a40a2fb68990ceabee"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Shared/InteractionSessions.asset",
+      "sha256": "1715ddb512088b35df9dc26b23dd7f1c8bc3a3b5f3587981765713b1dd841d74"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Result/Result.asset",
+      "sha256": "f300333389baeeb183076bd1d6402e3bf7a73ec355c1a2c1b63c30c5e6a819b2"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/PauseMenu/PauseMenu.asset",
+      "sha256": "49014f3b29d99552b4c2165913e1c4ef664426bcd2f60aebbdabe16486868b86"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/MainMenu/MainMenu.asset",
+      "sha256": "8e116af6fbccffb5f1add319c54f1e49fb1a8c1c3e9617cc06b163e5e52a5d57"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Help/Help.asset",
+      "sha256": "26f720ddab97862c37978c71f0912ff8de7210a5d7b91b872963c8aae96494ba"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Arrow/Arrow.asset",
+      "sha256": "1dcbf8a15c8a5140927bac0feb3757478af899197526e3485957c65ce3498370"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Archer/Archer.asset",
+      "sha256": "ee9f05c92151b7cf352757eaf897ba5f647423826a1db9385956fc90307edc27"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Chrome/Chrome.asset",
+      "sha256": "dd352f1f310a47c0623964fbc3e2addfcf1680ee8dbca5dd939d70d6ed2e41cf"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Floating/Floating.asset",
+      "sha256": "5c97a4df0edb4a3564bf85b19949a048d77e85f9ed2e2222488da775a3ce7112"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Audio/Audio.asset",
+      "sha256": "b4332edc204487158ba97720f6edd2d0a56382d58791aca4038dacb53a412772"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Armored/Armored.asset",
+      "sha256": "7259af3112bac6663717f43f1e67d609b75dc1b1811d9ab2bc16f89ee103993f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Farm/Farm.asset",
+      "sha256": "1379ce7e31fa37b12110964454dea7ac2e6244bfa9aed38553c1159fdac0d88c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Barracks/Barracks.asset",
+      "sha256": "279ae254655c67d5b876e7a6d745aea129fe6deb08b87e70fe4c240d337190e1"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Command/Command.asset",
+      "sha256": "62a8c4bfe45bf127f200ba0ee932a67643ca2f34f5d09044abe7f2913e45ae37"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Farmland/Farmland.asset",
+      "sha256": "b01ee482deed1840e8f15868de0a2b788d7499aacc695fb29d365dd8bb431c97"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Ghoul/Ghoul.asset",
+      "sha256": "78a9561e1e635a70455c603ce53db7c095db97ff5f0c65df7800494d17cdce97"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/House/House.asset",
+      "sha256": "606d574c0158d6058204e845d308d40da3cd409fe21b523f648590a477cb732f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Iron/Iron.asset",
+      "sha256": "ae52a22108f082a8810d0f094f8835e84496fb69eb92171b39025f6f461e5ebc"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/PlayerConnection/PlayerConnection.asset",
+      "sha256": "1f8cf3fca1c22592ceb68fc42d2d7b0899732662bd045711058de65a55f046e8"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Tavern/Tavern.asset",
+      "sha256": "abae97bb73e9767ea7d755f6add749ca741a39d1c59d49ee185cc6c81dee3ad7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.asset",
+      "sha256": "0bcd37515155fe480495445f470ad0526c58583cba6ed972506ceed7e6df974e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Stone/Stone.asset",
+      "sha256": "79786f4cd4b0151d8e1b70397f88fc7669bfb5dd7b7c43845051950bde217cc3"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Tower/Tower.asset",
+      "sha256": "f153599f80abd84360b6679b24af59e1330459b800a30c467fbedc03d28596b3"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Trees/Trees.asset",
+      "sha256": "9f359b0f5ef321fca33bcb6acaf26b84df8b05e30eaa4abe9536001f86964261"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+      "sha256": "e79baa7a93147a371242851a0814df87c15380696bd969c2aa2480f126fdae22"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Zombie/Zombie.asset",
+      "sha256": "68043a777aad70b9ab3a9e05bed82019ac5550e67f79ae81e6d5b29f81f79f57"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "sha256": "c413969da80b979e94b4b3cdbcf318e22f7b8bee9b9bc21f9856c383a90b6e10"
+    },
+    {
+      "path": "Game/Assets/Samples/LanCoop/Content/Session.asset.meta",
+      "sha256": "e590e7c0d68b0fe6ac57e0301f270083bf9dd3cb6a6fc9f2f2a34fbd6ad67e3a"
+    },
+    {
+      "path": "Game/Assets/Samples/LanCoop/Content/Worksite.asset.meta",
+      "sha256": "e1df7747e6fea8a01d558e0c565ff73faaea6ff36febb648d441184f312e830b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Shared/InteractionSessions.asset.meta",
+      "sha256": "c3ec52d1d26e651da36f442154b826fe49e3041260ef6215040d95a979d1d20d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Result/Result.asset.meta",
+      "sha256": "288d28e77fdce00f7970fe9bf22160b68cf4149aba30ade2be99d24c4bba9ec3"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/PauseMenu/PauseMenu.asset.meta",
+      "sha256": "635daae24c4425c170cf8307563faef25bdee4ab77b4078c1c51890d079dd114"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/MainMenu/MainMenu.asset.meta",
+      "sha256": "82b757cb69db0e4ed98bc5fe7228df0386c13c5fdb6771da204ee1cfe95c5b25"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Help/Help.asset.meta",
+      "sha256": "633d928ab460fb7a620c1e3d2c1b0a427ba3503476932f766a56e07decf91f32"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Arrow/Arrow.asset.meta",
+      "sha256": "9b21a942c5c0c81374b5219d9b1e8d9636bda37b96fb6b017558372e945eb985"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Archer/Archer.asset.meta",
+      "sha256": "4aeea8da984453ad770de4c154c87e1479e00e2f2caf7262fcacd9af62783356"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Chrome/Chrome.asset.meta",
+      "sha256": "0fcc436d138084f801b19fc1ba0a2eaac174a29e7ced65a24cf09c67203dde55"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Floating/Floating.asset.meta",
+      "sha256": "41b2189555732b9834d921768dbeec741f3e0b30d3c5ea93ecf7e96f67c13e36"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Audio/Audio.asset.meta",
+      "sha256": "ab8c42a5a4ceaa17c52702a0d3e5c86d1e14b3943f62c55a236df511c36f259a"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Armored/Armored.asset.meta",
+      "sha256": "bb92e1fa23082024b80afcc22f376299496b8c4ee66d696ef2993cdf80027a44"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Farm/Farm.asset.meta",
+      "sha256": "d079a8c49c4d1f748dfc60ff5f0fe3dbf7513060b5910d8a0f1380bde5cae5e2"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Barracks/Barracks.asset.meta",
+      "sha256": "cdc1c5d3dbe6d0943b116b42d1a165a0a39c72e379d776cb2606cbae6514a8c1"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Command/Command.asset.meta",
+      "sha256": "3d44d39a756419fc249dc724edfb475a7d5930c74fa7d3aa80d175ea1a0bb413"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Farmland/Farmland.asset.meta",
+      "sha256": "3c308c170f756316f9f086d0646a4bc7c3a45cea66b6dab7caef6c1b18e91378"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Ghoul/Ghoul.asset.meta",
+      "sha256": "65d0eaafca85003d171c100e6cad6485c1f52cdf39f1d31fd13c1542f8e1ae6f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/House/House.asset.meta",
+      "sha256": "8c691eda5c13cbbfdffa24fe8f42fcf4d313880ab81ab40105578dac212fa9f5"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Iron/Iron.asset.meta",
+      "sha256": "fc8978992ade91bcbc738347b83a78a9cf5c4d02bace4dc77296642c46f782f2"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/PlayerConnection/PlayerConnection.asset.meta",
+      "sha256": "31aab7626c49d392d06a82086634e0fe5eb6ad5e3e2465c793028d513bc14a5a"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Tavern/Tavern.asset.meta",
+      "sha256": "28118c157f867f05d1a56f2f44f029c0b21b679353e42f6ff7966ad1c7cc3b56"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.asset.meta",
+      "sha256": "8862fe061b41d291fe5951dc19e28fd2e141b60bf47c18797a708217b46dcc94"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Stone/Stone.asset.meta",
+      "sha256": "f46e2e690bd93d250adc0cb0f517446478687454935285f7a49031b2befcb135"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Tower/Tower.asset.meta",
+      "sha256": "8c9b65e813e0a86c6c4d818beef8610953f1bb64fc50c278452b8d1144c8afeb"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Trees/Trees.asset.meta",
+      "sha256": "bf586a1656382492caa4b755f04b7389777b81520a0c2052f21177266d71bd1e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset.meta",
+      "sha256": "f7c25becd916892c774872df3ec012d8d3abbb8c1acaf3376808c278bf90fd13"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Zombie/Zombie.asset.meta",
+      "sha256": "1bb51ded3c25e572d8d035776d439427a8f975044309cbb28977905f9046c410"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset.meta",
+      "sha256": "174f04c3d00eb21b8b8af1259b84f0ce2dcaf65c1a484baf2d72e1408e5dcda1"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Result/Result.prefab",
+      "sha256": "68c53a2629bea2664a95e9e34f5e3bc072d1255c1f9212f76b492a0e8e7b5098"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/PauseMenu/PauseMenu.prefab",
+      "sha256": "c55ed10e3c9162e7cac97aeb59faf33b27b1e31b6e6a4b91d87704584977baa6"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/MainMenu/MainMenu.prefab",
+      "sha256": "f5512b55b302f5d356ec84e8cd175f3c69aa909ef7493df30df6fe9d66072b2c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Help/Help.prefab",
+      "sha256": "7e39d9c6b51b3cd0f2af3ecc2e5b9508058dae05e692efb77c3d780450f0e544"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Arrow/Arrow.prefab",
+      "sha256": "1042ab8b496c87e49ca90bc1f1574283ce6b4d80859ed73a470e7dd88fdd6cfc"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Archer/Archer.prefab",
+      "sha256": "25ab328206a38d286f5bb439d2dcf80a46545bf5f6f3a4f60d5b231e9889ba08"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Chrome/Chrome.prefab",
+      "sha256": "800bbce6faa0a3a2502ef2dc3414073208a3adc5035465a4d64402d9de5f5114"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Floating/Floating.prefab",
+      "sha256": "fcc80459d7eb7e3f2aabd13fa8a8a1cb015408d2e4decc7f578a431b1a01e9a6"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Audio/Audio.prefab",
+      "sha256": "1374b8b371d77b93555e1021814644dd8020a131ea144fb4e189839af52cd0c7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Armored/Armored.prefab",
+      "sha256": "9c482df744fa8345f69c0ee6e9ea60100ca70e1d5594e2737eb8c91ceadc0af4"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Farm/Farm.prefab",
+      "sha256": "0ba40a48558a3d9fdd72759122826d4c1463d6f80ebfd2153bf3581e8d6e51e3"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Barracks/Barracks.prefab",
+      "sha256": "0f8d7c36e81147ffc57af44bcf8b2fae7f2c5a4f05f0ebd3effdb06b6cf3ec19"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Command/Command.prefab",
+      "sha256": "c3afcda19ad479081172c5613169fbb6b716a9c7c08d8bc7ff64308287a54fe7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Farmland/Farmland.prefab",
+      "sha256": "0106271907d919807113ce0cb03dc8252cc9852fb9491ad02d419a5b495f7b09"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Ghoul/Ghoul.prefab",
+      "sha256": "c1f6a652a82717d59543e05a9e9a494a2c668240a6b71df7d7ce92eb075dd40c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/House/House.prefab",
+      "sha256": "588fa14542734bf0c5772fe9c354218da871bd38176b721dd0fc25d30060e579"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Iron/Iron.prefab",
+      "sha256": "0bb2d031b8a616540ae241f49117c2b847796464d055086146843f3b12629d91"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/PlayerConnection/PlayerConnection.prefab",
+      "sha256": "b7d9e0409cb0f47f3b52255d73514e9c445a3189027a3b8c2dee70fc86ec73d4"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Tavern/Tavern.prefab",
+      "sha256": "1feded1e515d9c1e3220128438ed532fb1abf74761fd7bde912f828bea11fb53"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.prefab",
+      "sha256": "1463835a2ed7566465b1904f17277d73ae1beb442aeced7dcaa86389aee7c569"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Stone/Stone.prefab",
+      "sha256": "463de0fa93b6913077293acca8b824b8211eb0091e5b6adbb3f3fdf18b9b6b78"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Tower/Tower.prefab",
+      "sha256": "a167cf9325b25889c0d2fb4c517f433d6318b760c5449e3e0968fe520ec8d9cc"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Trees/Trees.prefab",
+      "sha256": "95a4b2e4f55bd87e671d527d878dab5780ed675995ad843fb1e17788fd0abfed"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.prefab",
+      "sha256": "8d0034c5bf06c2ab7d727025c6e91fc61c6cce9b57b94d36ee5d863d010fcd40"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Zombie/Zombie.prefab",
+      "sha256": "b36cd34871a6858c5010b66bced293b441469df121c460d321bd72e8092c5c42"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.prefab",
+      "sha256": "6e414a14f63e74535c688763b18fd5dc93d4dbe013a05643a5ac468388a32acb"
+    },
+    {
+      "path": "Game/Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset",
+      "sha256": "dbfbf304c1d9f595d55ac2325b0928fbd45fd3e3ee6a32f2cf0635048469a010"
+    },
+    {
+      "path": "Game/Assets/Addressables/Datas/GlobalSO/ObjectSingletonDatabase.asset",
+      "sha256": "b169c669377c17c3cf934e9f3c161fbd7ab382af5723294a8eff47e36e2bebfd"
+    },
+    {
+      "path": "Game/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset",
+      "sha256": "1066e0439c5161360fcae85e8954986d2ef2600404437cc4ab5c370aeb80d8a2"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/SessionEffects.cs",
+      "sha256": "d2df29693d9e655619d7b4ca1e5e9f37fdac69e3ff04c857672a603ae04d4cb0"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/SessionEntityViews.cs",
+      "sha256": "0814805689bfd6eb69945bef9b89072e8a012a49199b92632545b6cd429c6c9b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/SessionPlacementView.cs",
+      "sha256": "b12ed5422d9f3fba42157cafedff50be83dc92fe87c94636a0693902ca820a99"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/SessionUiController.cs",
+      "sha256": "8b5c9dcc0afee794c5f446415211e08a9646601c80272a76b7fa6fc547e30564"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs",
+      "sha256": "a14f23fdffa3a5ffe6cac3e3093dfc1c333e70d6020caa1356651ce94126432a"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Framework/ContentDefinitionMap.cs",
+      "sha256": "2f45b0fd26a3302648996ff8f5961d5f49eda55ccb6187ab98f9430324832d8e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Framework/FormalObjectCatalog.cs",
+      "sha256": "5db18266a51e37984adb933ae5ade9555b4d1102cd95834c41e61ea77c3b770c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/NativeEffect.cs",
+      "sha256": "853fec7034c490b4c57cf75fafd54c1e2af18e2b49d0f42aec4b8057a45b6691"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/NativeVisual.cs",
+      "sha256": "57c85346bcf3741676cbd2d0be006f17e7267a5f87251350bd73781d0931950d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/CampAudio.cs",
+      "sha256": "5d50d859f86b910682ec1afb5d68cf8785f6993e085d3cd3e6cb9385d198ddad"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/CampOverlay.cs",
+      "sha256": "5cc05b05f977a71dea05da0e0a15865212fab9aa5fecb8d55c9700ce1ff0a9dd"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/PresentationCursor.cs",
+      "sha256": "d590f18681c11ffaabaa6f14da6fb71220e53a7e9e9b8ed37fc0649f308aa3bb"
+    }
+  ],
+  "observedChangesDuringAudit": [
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "previousSha256": "83f71cb728b42d10de75295369ebc889e91e4659ed978cd4ff7e7e77b36b8714",
+      "currentSha256": "c413969da80b979e94b4b3cdbcf318e22f7b8bee9b9bc21f9856c383a90b6e10",
+      "observedAtLocal": "2026-09-12T07:27:58.7328190+08:00",
+      "change": "legacyIdAliases empty-list serialization changed from [] to an empty YAML value; classification fields, identity and PrefabRef are unchanged.",
+      "changedByAudit": false
+    }
+  ]
+}
