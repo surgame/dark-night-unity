@@ -1,0 +1,94 @@
+{
+  "date": "2026-09-12",
+  "sourceCommit": "e593a31",
+  "initialCloneCommit": "94ff636",
+  "cleanDirectory": "artifacts/clean-m5-94ff636",
+  "initialDirectories": [
+    "Assets",
+    "Packages",
+    "ProjectSettings"
+  ],
+  "oldLibraryCopied": false,
+  "godotOrReferenceProjectRequired": false,
+  "core": {
+    "passed": 1355,
+    "failed": 0
+  },
+  "architecture": {
+    "files": 214,
+    "selfTests": 10,
+    "errors": 0
+  },
+  "editor": {
+    "result": "Passed",
+    "total": "55",
+    "passed": "55",
+    "failed": "0",
+    "skipped": "0",
+    "duration": "2.2200698"
+  },
+  "newMonoBuild": {
+    "passed": false,
+    "firstFailure": "Parallel CoreCLR compiler processes exhausted memory before a usable Player was produced.",
+    "retryFailure": "After the saved idle primary Editor was closed, newly started task-owned Unity licensing clients received Handshake but timed out before response; build did not reach compilation.",
+    "cleanup": "Failed task-owned Editors and licensing clients stopped; user license files and WMI service untouched.",
+    "environmentObservation": "Win32_OperatingSystem WMI query did not complete and was canceled; non-administrative process; running vmms depends on Winmgmt. Shared cause with licensing is unconfirmed."
+  },
+  "logs": {
+    "clean-editor-tests.log": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/clean-editor-tests.log",
+      "sha256": "e09815df2c718b7efe35c7010743a3340a63b08ea5216a36e4fda951a4045d0c"
+    },
+    "clean-editor-tests-proxy.log": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/clean-editor-tests-proxy.log",
+      "sha256": "77093f051c349ae0e7740c3f028aee1c5084c0ba2d9ac49a92a5c6b6599d0a49"
+    },
+    "clean-editor-tests-git-proxy.log": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/clean-editor-tests-git-proxy.log",
+      "sha256": "ed40dc40594e444337b93faf48584a958af8dbe047ac189f2c4c896b84752199"
+    },
+    "clean-editor-tests-scoped-config.log": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/clean-editor-tests-scoped-config.log",
+      "sha256": "a1d45956460090d9fa541452eecc4b621844945694efc76098113a9d03c5516e"
+    },
+    "clean-mono-build.log": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/clean-mono-build.log",
+      "sha256": "9282efea04320e126fc7e923019a70f8052dfef42b2572d7fdb81f8bbc7282f7"
+    },
+    "clean-mono-build-bounded.log": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/clean-mono-build-bounded.log",
+      "sha256": "a2e9668a9b726bb62c7ddae9e414ca5235804dc3acb6c399db26cdade9e8d5a5"
+    },
+    "clean-mono-build-memory.log": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/clean-mono-build-memory.log",
+      "sha256": "255f9ac04bc88667335eaeaf309f051a6815fb2f256a7c588b2cfb5959474468"
+    }
+  },
+  "pending": [
+    "New theme and calibrated performance recorder in a successful Mono build",
+    "Active construction/training/inflight-arrow save-load Player check",
+    "Ordinary graphical Player three-night and steady-memory capture",
+    "Two-resolution day/night/menu visual review",
+    "IL2CPP explicitly authorized build and process checks",
+    "Physical two-machine LAN (user confirmed unavailable)"
+  ],
+  "existingPlayerCampaign": {
+    "report": "artifacts/migration/campaign-20260912-031526-546/result.json",
+    "passed": true,
+    "checks": 17,
+    "entryDllSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9",
+    "limitation": "Old artifact: graphical batchmode; per-thread allocation zeros are unsupported counter values and not evidence of zero allocation; corrected recorder and ordinary Player rerun pending."
+  },
+  "existingPlayerPressure": {
+    "report": "artifacts/migration/pressure-20260912-031413-968/result.json",
+    "passed": true,
+    "checks": 13,
+    "entryDllSha256": "82C63AD23733E2EA101FFD8EFF7B3F6272E7346450D65572E78B49604FAA8DF9",
+    "limitation": "Old artifact: graphical batchmode; per-thread allocation zeros are unsupported counter values and not evidence of zero allocation; corrected recorder and ordinary Player rerun pending."
+  },
+  "existingVerifiedMono": {
+    "path": "artifacts/migration/player-mono/DarkNights.exe",
+    "entryDllSha256": "82c63ad23733e2ea101ffd8eff7b3f6272e7346450d65572e78b49604faa8df9",
+    "scope": "Protocol 5 M4 network/recovery/concurrency; excludes subsequent UI theme and measurement calibration source changes"
+  }
+}

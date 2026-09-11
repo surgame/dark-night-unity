@@ -1,10 +1,10 @@
 # Dark Nights · Unity
 
-《Dark Nights》Unity 移植工程。环境基线与独立 [LAN 合作 Sample](docs/LAN_SAMPLE.md) 已完成，Windows Mono 和 IL2CPP Release＋High 裁剪均有四进程及真实 UDP 弱网验证记录。灰松谷权威规则、旧档核心、可编辑布局来源及首批 WorldSession／Worker 正式对象合同已迁移并通过 Editor 与双后端 Player 检查；完整对象、美术、正式可玩场景与正式联机尚未完成。
+《Dark Nights》Unity 移植工程。灰松谷规则、15 类原生对象、UGUI、正式四人联机、十槽位存档和重连主体已实现；正式 Mono 已有三夜、并发与九组弱网通过记录。当前进入 M5 收口，干净目录 Core／Editor 通过，新 Mono 构建因本机环境阻塞，画面／普通 Player 性能、IL2CPP 与双机器仍未全部验收。见[后续步骤与检查清单](docs/M5_EXECUTION.md#当前停点与后续检查清单2026-09-12)。
 
-2026-09-11 更新[完整移植方案](docs/MIGRATION_PLAN.md)：保留 C# 权威规则核心，接入 YYGC 对象、命令和状态链，使用原生 Prefab / UGUI；默认共享控制并保留 HostOnly 开关。配置、[核心规则迁移](docs/CORE_MIGRATION.md)、[原子存储](docs/SAVE_FORMAT.md)、M0 探针、[权威会话业务层](docs/SESSION_AUTHORITY.md)及[冻结展示副本／时钟](docs/SESSION_PROJECTION.md)已有实现和验证；网络／Entry 接线、文件编排与 UI 仍待完成。后续按[直达 M5 的连续执行路线](docs/M5_EXECUTION.md)推进，见[当前进展](docs/DEVELOPMENT.md#implementation-progress)。
+2026-09-11 更新[完整移植方案](docs/MIGRATION_PLAN.md)：保留 C# 权威规则核心，接入 YYGC 对象、命令和状态链，使用原生 Prefab / UGUI；默认共享控制并保留 HostOnly 开关。配置、[核心规则迁移](docs/CORE_MIGRATION.md)、[原子存储](docs/SAVE_FORMAT.md)、M0 探针、[权威会话业务层](docs/SESSION_AUTHORITY.md)及[冻结展示副本／时钟](docs/SESSION_PROJECTION.md)已有实现和验证；网络／Entry、文件编排与 UI 已在后续批次接通。后续按[直达 M5 的连续执行路线](docs/M5_EXECUTION.md)推进，见[当前进展](docs/DEVELOPMENT.md#implementation-progress)。
 
-目录设计已收口为 `Assets/DarkNights/Scripts` 与 `Res` 分离；代码采用 Core、Runtime、View、Entry，资源按对象／面板集中维护定义、Prefab 和专用资源。Addressables 不要求游戏素材目录采用特殊名称，仍通过 ObjectDefinition 驱动加载与绑定；现有 AddressableAssetsData 配置位置保留。详见[目录及绑定要求](docs/MIGRATION_PLAN.md#directory-and-assets)。目前已建立四个运行程序集、Editor/Tests、配置与 Pinewatch 场景，以及 Worker／WorldSession 对象目录；其余对象、UI 与美术按功能扩展。
+目录设计已收口为 `Assets/DarkNights/Scripts` 与 `Res` 分离；代码采用 Core、Runtime、View、Entry，资源按对象／面板集中维护定义、Prefab 和专用资源。Addressables 不要求游戏素材目录采用特殊名称，仍通过 ObjectDefinition 驱动加载与绑定；现有 AddressableAssetsData 配置位置保留。详见[目录及绑定要求](docs/MIGRATION_PLAN.md#directory-and-assets)。目前已建立四个运行程序集、Editor/Tests、配置与 Pinewatch 场景、15 类原生对象、效果与五页 UI。
 
 `Game/` 是 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。先运行 `tools/prepare-lan-sample.ps1` 与 `tools/prepare-fishnet.ps1` 准备锁定提交的 `.deps/YYGC`／`.deps/FishNet`，不直接引用用户维护的框架工作区。FishNet 4.7.2 带断线分片清理补丁，见[恢复接入](docs/NETWORK_RECOVERY.md)。R3、MemoryPack、UniTask 等依赖已导入；VitalRouter 使用 YYGC 要求的完成语义修正版。内部产品名暂保留 `DNights`。
 
