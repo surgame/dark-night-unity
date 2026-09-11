@@ -14,6 +14,7 @@ namespace DarkNights.View
         public const float PixelsPerUnit = 100;
         [SerializeField] private Rect pickBounds;
         [SerializeField] private Sprite portrait;
+        [SerializeField] private SpriteRenderer shadow;
         [SerializeField] private Transform facing;
         [SerializeField] private Transform origin;
         [SerializeField] private Transform statusAnchor;
@@ -44,16 +45,17 @@ namespace DarkNights.View
         public bool Contains(Vector2 worldPoint) => pickBounds.Contains(transform.InverseTransformPoint(worldPoint));
         public void PreviewTint(Color tint) { Preview(0, 0); Tint(0, false, false, tint, false); }
 
-        public void Apply(ActorViewData actor, GameCatalog catalog, string workKind)
+        public void Apply(ActorViewData actor, GameCatalog catalog, string workKind, double? displayTime = null)
         {
+            if (shadow != null) shadow.enabled = true;
             string pose = actor.Walking || actor.Activity == "Move" || actor.Activity == "WorkMove" ||
                 actor.Activity == "BuildMove" || actor.Activity == "TrainingMove" ? "move" :
                 actor.Activity == "Attack" ? "attack" : actor.Kind == "worker" && actor.Activity == "Build" ? "build" :
                 actor.Kind == "worker" && actor.Activity == "Work" ?
                     workKind == "wood" ? "work_wood" : workKind == "food" ? "work_farm" : "work_mine" : "idle";
             PoseClip clip = RequiredClip(pose);
-            double seconds = actor.Activity == "Attack" ? actor.ActionTime /
-                catalog.Balance.Units[actor.Kind].AttackSeconds * clip.Duration : actor.ActionTime;
+            double seconds = displayTime ?? actor.ActionTime;
+            if (actor.Activity == "Attack") seconds = seconds / catalog.Balance.Units[actor.Kind].AttackSeconds * clip.Duration;
             clip.Sample(gameObject, seconds);
             facing.localScale = new Vector3(actor.Face, 1, 1);
             origin.localPosition = standingOffset;
@@ -82,6 +84,7 @@ namespace DarkNights.View
 
         public void Preview(int identity, int variant)
         {
+            if (shadow != null) shadow.enabled = true;
             if (facing != null)
             {
                 RequiredClip("idle").Sample(gameObject, 0);
@@ -108,6 +111,25 @@ namespace DarkNights.View
             facing.localScale = new Vector3(face, 1, 1);
             origin.localPosition = deathOffset;
             Tint(identity, false, false, Color.white, true);
+        }
+
+        public void PresentRemnant(VisualCue cue, double age)
+        {
+            if (shadow != null) shadow.enabled = false;
+            Color tint;
+            if (cue.Kind == "corpse")
+            {
+                SampleDeath(age, cue.Face, 0);
+                tint = new Color(0.75f, 0.75f, 0.75f, Mathf.Clamp01(8 - (float)age));
+            }
+            else
+            {
+                complete.enabled = rubble == null;
+                if (foundation != null) foundation.enabled = false;
+                if (rubble != null) rubble.enabled = true;
+                tint = new Color(0.5490196f, 0.572549f, 0.5058824f, 1);
+            }
+            Tint(0, false, false, tint, false);
         }
 
         private PoseClip RequiredClip(string name)

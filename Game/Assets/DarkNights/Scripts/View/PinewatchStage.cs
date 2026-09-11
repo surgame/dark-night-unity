@@ -14,10 +14,14 @@ namespace DarkNights.View
         [SerializeField] private Transform entities;
         [SerializeField] private SpriteRenderer sky;
         [SerializeField] private NativeBackdrop[] backgrounds;
+        [SerializeField] private NativeEnvironment environment;
         [SerializeField] private float cameraX = 255;
         [SerializeField] private float zoom = 2.8f;
         [SerializeField] private float worldWidth = 1100;
         private float night = 0.16f;
+        private double visualTime;
+        private int epoch;
+        private bool observing;
         private static readonly Color DayAmbient = new Color32(233, 235, 222, 255);
         private static readonly Color NightAmbient = new Color32(113, 135, 169, 255);
         public Camera SceneCamera => sceneCamera;
@@ -44,9 +48,17 @@ namespace DarkNights.View
             CampViewData camp = frame?.World.Camp;
             float target = camp == null ? 0.35f : camp.Mode == "Won" ? 0 : camp.WavePhase == "Night" ? 1 :
                 camp.DayRemaining < 22 ? (float)(1 - camp.DayRemaining / 22) * 0.6f : 0.05f;
+            if (frame == null) observing = false;
+            else if (!observing || epoch != frame.Epoch)
+            {
+                night = frame.Elapsed > 0 ? target : 0.16f;
+                observing = true; epoch = frame.Epoch;
+            }
             night = Mathf.MoveTowards(night, target, Time.unscaledDeltaTime * 0.16f);
-            sky.color = Color.Lerp(new Color32(170, 188, 193, 255), new Color32(70, 87, 120, 255), night);
+            sky.color = Color.Lerp(new Color32(170, 188, 193, 255), new Color32(70, 87, 120, 255), night) * Ambient;
             foreach (NativeBackdrop backdrop in backgrounds) backdrop.Apply(cameraX, night, Ambient);
+            visualTime += Time.unscaledDeltaTime;
+            if (environment != null) environment.Present(visualTime, night, cameraX, Ambient);
             UpdateCamera();
         }
 

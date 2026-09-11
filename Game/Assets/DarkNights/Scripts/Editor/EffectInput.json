@@ -1,0 +1,1249 @@
+{
+  "scenes": [
+    {
+      "path": "scenes/audio/Audio.tscn",
+      "sha256": "bf6cf0087724c758c547fab5f0d075e7b820b3658bd9ed5194bf4d4eea746c1d",
+      "resources": {
+        "script": "res://src/Presentation/Audio/AudioPresenter.cs",
+        "music": "res://assets/audio/snd_vindsvept_hollow.ogg"
+      },
+      "nodes": [
+        {
+          "attributes": {
+            "name": "Audio",
+            "type": "Node"
+          },
+          "properties": {
+            "script": "ExtResource(\"script\")",
+            "Music": "NodePath(\"Music\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Music",
+            "type": "AudioStreamPlayer",
+            "parent": "."
+          },
+          "properties": {
+            "stream": "ExtResource(\"music\")",
+            "volume_db": "-23.0"
+          }
+        }
+      ],
+      "sourceText": "[gd_scene format=3]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/Audio/AudioPresenter.cs\" id=\"script\"]\n[ext_resource type=\"AudioStream\" path=\"res://assets/audio/snd_vindsvept_hollow.ogg\" id=\"music\"]\n\n[node name=\"Audio\" type=\"Node\" node_paths=PackedStringArray(\"Music\")]\nscript = ExtResource(\"script\")\nMusic = NodePath(\"Music\")\n\n[node name=\"Music\" type=\"AudioStreamPlayer\" parent=\".\"]\nstream = ExtResource(\"music\")\nvolume_db = -23.0\n"
+    },
+    {
+      "path": "scenes/effects/Arrow.tscn",
+      "sha256": "a38572386e3aac26b6435a7d68738c58f8e9893536f2e85cf1d193f15074f48d",
+      "resources": {
+        "e1": "res://src/Presentation/Effects/ProjectileView.cs",
+        "e2": "res://assets/sprites/spr_archer_arrow/spr_archer_arrow_0.png"
+      },
+      "nodes": [
+        {
+          "attributes": {
+            "name": "Arrow",
+            "type": "Node2D"
+          },
+          "properties": {
+            "script": "ExtResource(\"e1\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "ArtOffset",
+            "type": "Node2D",
+            "parent": "."
+          },
+          "properties": {}
+        },
+        {
+          "attributes": {
+            "name": "Sprite",
+            "type": "Sprite2D",
+            "parent": "ArtOffset"
+          },
+          "properties": {
+            "texture": "ExtResource(\"e2\")",
+            "centered": "false",
+            "offset": "Vector2(-4, -4)"
+          }
+        }
+      ],
+      "sourceText": "[gd_scene format=3]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/Effects/ProjectileView.cs\" id=\"e1\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_archer_arrow/spr_archer_arrow_0.png\" id=\"e2\"]\n\n[node name=\"Arrow\" type=\"Node2D\"]\nscript = ExtResource(\"e1\")\n\n[node name=\"ArtOffset\" type=\"Node2D\" parent=\".\"]\n\n\n[node name=\"Sprite\" type=\"Sprite2D\" parent=\"ArtOffset\"]\ntexture = ExtResource(\"e2\")\ncentered = false\noffset = Vector2(-4, -4)\n"
+    },
+    {
+      "path": "scenes/effects/CommandRing.tscn",
+      "sha256": "759948a0f1669a5a6881e22857a3123a0d032ff373ea23c906520b09a1140b75",
+      "resources": {
+        "e1": "res://src/Presentation/Effects/CommandRing.cs"
+      },
+      "nodes": [
+        {
+          "attributes": {
+            "name": "CommandRing",
+            "type": "Node2D"
+          },
+          "properties": {
+            "script": "ExtResource(\"e1\")",
+            "Lifetime": "0.8"
+          }
+        }
+      ],
+      "sourceText": "[gd_scene format=3]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/Effects/CommandRing.cs\" id=\"e1\"]\n\n[node name=\"CommandRing\" type=\"Node2D\"]\nscript = ExtResource(\"e1\")\nLifetime = 0.8\n"
+    },
+    {
+      "path": "scenes/effects/Corpse.tscn",
+      "sha256": "4ea258b65f5e4eda0626e8deb3d2bd25a787810cfc8f972d5dc16842f5bd2f21",
+      "resources": {
+        "e1": "res://src/Presentation/Effects/RemnantView.cs",
+        "e2": "res://resources/visuals/actors/Worker.tres"
+      },
+      "nodes": [
+        {
+          "attributes": {
+            "name": "Corpse",
+            "type": "Node2D"
+          },
+          "properties": {
+            "script": "ExtResource(\"e1\")",
+            "Corpse": "true",
+            "Sample": "ExtResource(\"e2\")",
+            "Tint": "Color(0.75, 0.75, 0.75, 1)",
+            "Lifetime": "8",
+            "FadeAtEnd": "true",
+            "VisualSlot": "NodePath(\"VisualSlot\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "VisualSlot",
+            "type": "Node2D",
+            "parent": "."
+          },
+          "properties": {}
+        }
+      ],
+      "sourceText": "[gd_scene format=3]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/Effects/RemnantView.cs\" id=\"e1\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/actors/Worker.tres\" id=\"e2\"]\n\n[node name=\"Corpse\" type=\"Node2D\" node_paths=PackedStringArray(\"VisualSlot\")]\nscript = ExtResource(\"e1\")\nCorpse = true\nSample = ExtResource(\"e2\")\nTint = Color(0.75, 0.75, 0.75, 1)\nLifetime = 8\nFadeAtEnd = true\nVisualSlot = NodePath(\"VisualSlot\")\n\n[node name=\"VisualSlot\" type=\"Node2D\" parent=\".\"]\n"
+    },
+    {
+      "path": "scenes/effects/FloatingText.tscn",
+      "sha256": "99bb2f534fcc01abc25157f44af13293b90d1952e3de2ce9907e980e40958fc0",
+      "resources": {
+        "e1": "res://src/Presentation/Effects/FloatingTextView.cs",
+        "e2": "res://resources/themes/UIFont.tres",
+        "e3": "res://assets/sprites/spr_int_resources/spr_int_resources_1.png",
+        "e4": "res://assets/sprites/spr_int_resources/spr_int_resources_2.png",
+        "e5": "res://assets/sprites/spr_int_resources/spr_int_resources_3.png",
+        "e6": "res://assets/sprites/spr_int_resources/spr_int_resources_4.png",
+        "e7": "res://assets/sprites/spr_int_resources/spr_int_resources_5.png"
+      },
+      "nodes": [
+        {
+          "attributes": {
+            "name": "FloatingText",
+            "type": "Node2D"
+          },
+          "properties": {
+            "script": "ExtResource(\"e1\")",
+            "Font": "ExtResource(\"e2\")",
+            "ResourceIcons": "Array[Texture2D]([ExtResource(\"e3\"), ExtResource(\"e4\"), ExtResource(\"e5\"), ExtResource(\"e6\"), ExtResource(\"e7\")])"
+          }
+        }
+      ],
+      "sourceText": "[gd_scene format=3]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/Effects/FloatingTextView.cs\" id=\"e1\"]\n\n[ext_resource type=\"Font\" path=\"res://resources/themes/UIFont.tres\" id=\"e2\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_int_resources/spr_int_resources_1.png\" id=\"e3\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_int_resources/spr_int_resources_2.png\" id=\"e4\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_int_resources/spr_int_resources_3.png\" id=\"e5\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_int_resources/spr_int_resources_4.png\" id=\"e6\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_int_resources/spr_int_resources_5.png\" id=\"e7\"]\n\n[node name=\"FloatingText\" type=\"Node2D\"]\nscript = ExtResource(\"e1\")\nFont = ExtResource(\"e2\")\nResourceIcons = Array[Texture2D]([ExtResource(\"e3\"), ExtResource(\"e4\"), ExtResource(\"e5\"), ExtResource(\"e6\"), ExtResource(\"e7\")])\n"
+    },
+    {
+      "path": "scenes/effects/Rubble.tscn",
+      "sha256": "c31d34ae453ee942553ad09d002882e46cc2e0e17b7468d8475fda41813f069c",
+      "resources": {
+        "e1": "res://src/Presentation/Effects/RemnantView.cs",
+        "e2": "res://resources/visuals/buildings/House.tres"
+      },
+      "nodes": [
+        {
+          "attributes": {
+            "name": "Rubble",
+            "type": "Node2D"
+          },
+          "properties": {
+            "script": "ExtResource(\"e1\")",
+            "Corpse": "false",
+            "Sample": "ExtResource(\"e2\")",
+            "Tint": "Color(0.5490196, 0.572549, 0.5058824, 1)",
+            "Lifetime": "180",
+            "FadeAtEnd": "false",
+            "VisualSlot": "NodePath(\"VisualSlot\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "VisualSlot",
+            "type": "Node2D",
+            "parent": "."
+          },
+          "properties": {}
+        }
+      ],
+      "sourceText": "[gd_scene format=3]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/Effects/RemnantView.cs\" id=\"e1\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/buildings/House.tres\" id=\"e2\"]\n\n[node name=\"Rubble\" type=\"Node2D\" node_paths=PackedStringArray(\"VisualSlot\")]\nscript = ExtResource(\"e1\")\nCorpse = false\nSample = ExtResource(\"e2\")\nTint = Color(0.5490196, 0.572549, 0.5058824, 1)\nLifetime = 180\nFadeAtEnd = false\nVisualSlot = NodePath(\"VisualSlot\")\n\n[node name=\"VisualSlot\" type=\"Node2D\" parent=\".\"]\n"
+    },
+    {
+      "path": "scenes/environment/CampLight.tscn",
+      "sha256": "34b97afdfad20d5206a60d2ddb167f870fc37a3f5edcb1686c7da7105234ff25",
+      "resources": {
+        "e1": "res://src/Presentation/World/CampLight.cs"
+      },
+      "nodes": [
+        {
+          "attributes": {
+            "name": "CampLight",
+            "type": "PointLight2D"
+          },
+          "properties": {
+            "script": "ExtResource(\"e1\")",
+            "texture": "SubResource(\"r2\")",
+            "color": "Color(1.0, 0.8274509803921568, 0.611764705882353, 1)",
+            "energy": "0.5",
+            "texture_scale": "0.9"
+          }
+        }
+      ],
+      "sourceText": "[gd_scene format=3]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/World/CampLight.cs\" id=\"e1\"]\n\n[sub_resource type=\"Gradient\" id=\"r1\"]\noffsets = PackedFloat32Array(0, 0.3, 1)\ncolors = PackedColorArray(1, 1, 1, 0.85, 1, 1, 1, 0.25, 1, 1, 1, 0)\n\n[sub_resource type=\"GradientTexture2D\" id=\"r2\"]\ngradient = SubResource(\"r1\")\nwidth = 128\nheight = 128\nfill = 1\nfill_from = Vector2(0.5, 0.5)\nfill_to = Vector2(0.5, 0)\n\n[node name=\"CampLight\" type=\"PointLight2D\"]\nscript = ExtResource(\"e1\")\ntexture = SubResource(\"r2\")\ncolor = Color(1.0, 0.8274509803921568, 0.611764705882353, 1)\nenergy = 0.5\ntexture_scale = 0.9\n"
+    },
+    {
+      "path": "scenes/environment/Torch.tscn",
+      "sha256": "fff3fdb29008f01f1d975b5cc85e3f3ad404fd4bb26e822f7bee05720667471f",
+      "resources": {
+        "e1": "res://assets/sprites/spr_dec_torch/spr_dec_torch_0.png",
+        "e2": "res://assets/sprites/spr_dec_torch/spr_dec_torch_1.png",
+        "e3": "res://assets/sprites/spr_dec_torch/spr_dec_torch_2.png",
+        "e4": "res://assets/sprites/spr_dec_torch/spr_dec_torch_3.png",
+        "e5": "res://assets/sprites/spr_dec_torch/spr_dec_torch_4.png",
+        "e6": "res://assets/sprites/spr_dec_torch/spr_dec_torch_5.png",
+        "e7": "res://assets/sprites/spr_dec_torch/spr_dec_torch_6.png",
+        "e8": "res://src/Presentation/World/TorchView.cs",
+        "e9": "res://scenes/environment/CampLight.tscn"
+      },
+      "nodes": [
+        {
+          "attributes": {
+            "name": "Torch",
+            "type": "Node2D"
+          },
+          "properties": {
+            "script": "ExtResource(\"e8\")",
+            "Flame": "NodePath(\"Flame\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Pole",
+            "type": "Polygon2D",
+            "parent": "."
+          },
+          "properties": {
+            "color": "Color(0.3254901960784314, 0.2549019607843137, 0.1843137254901961, 1)",
+            "polygon": "PackedVector2Array(-1, -17, 1, -17, 1, 0, -1, 0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Flame",
+            "type": "AnimatedSprite2D",
+            "parent": "."
+          },
+          "properties": {
+            "position": "Vector2(0, -18)",
+            "sprite_frames": "SubResource(\"r1\")",
+            "centered": "false",
+            "offset": "Vector2(-5, -5)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Light",
+            "parent": "."
+          },
+          "properties": {
+            "position": "Vector2(0, -20)"
+          }
+        }
+      ],
+      "sourceText": "[gd_scene format=3]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_dec_torch/spr_dec_torch_0.png\" id=\"e1\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_dec_torch/spr_dec_torch_1.png\" id=\"e2\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_dec_torch/spr_dec_torch_2.png\" id=\"e3\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_dec_torch/spr_dec_torch_3.png\" id=\"e4\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_dec_torch/spr_dec_torch_4.png\" id=\"e5\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_dec_torch/spr_dec_torch_5.png\" id=\"e6\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_dec_torch/spr_dec_torch_6.png\" id=\"e7\"]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/World/TorchView.cs\" id=\"e8\"]\n\n[ext_resource type=\"PackedScene\" path=\"res://scenes/environment/CampLight.tscn\" id=\"e9\"]\n\n[sub_resource type=\"SpriteFrames\" id=\"r1\"]\nanimations = [{\n\"frames\": [{\"duration\": 1.0, \"texture\": ExtResource(\"e1\")}, {\"duration\": 1.0, \"texture\": ExtResource(\"e2\")}, {\"duration\": 1.0, \"texture\": ExtResource(\"e3\")}, {\"duration\": 1.0, \"texture\": ExtResource(\"e4\")}, {\"duration\": 1.0, \"texture\": ExtResource(\"e5\")}, {\"duration\": 1.0, \"texture\": ExtResource(\"e6\")}, {\"duration\": 1.0, \"texture\": ExtResource(\"e7\")}],\n\"loop\": true,\n\"name\": &\"default\",\n\"speed\": 10.0\n}]\n\n[node name=\"Torch\" type=\"Node2D\" node_paths=PackedStringArray(\"Flame\")]\nscript = ExtResource(\"e8\")\nFlame = NodePath(\"Flame\")\n\n[node name=\"Pole\" type=\"Polygon2D\" parent=\".\"]\ncolor = Color(0.3254901960784314, 0.2549019607843137, 0.1843137254901961, 1)\npolygon = PackedVector2Array(-1, -17, 1, -17, 1, 0, -1, 0)\n\n[node name=\"Flame\" type=\"AnimatedSprite2D\" parent=\".\"]\nposition = Vector2(0, -18)\nsprite_frames = SubResource(\"r1\")\ncentered = false\noffset = Vector2(-5, -5)\n\n[node name=\"Light\" parent=\".\" instance=ExtResource(\"e9\")]\nposition = Vector2(0, -20)\n"
+    },
+    {
+      "path": "scenes/levels/Pinewatch.tscn",
+      "sha256": "be186c691a843ea279a702a22e5360d60a6b9f8ede322a97f4a3aa1026c3c14b",
+      "resources": {
+        "e1": "res://src/Presentation/World/WorldView.cs",
+        "e2": "res://assets/sprites/bg_sky_clear/bg_sky_clear_0.png",
+        "e3": "res://src/Presentation/World/BackdropLayer.cs",
+        "e4": "res://assets/sprites/bg_sky_stars/bg_sky_stars_0.png",
+        "e5": "res://src/Presentation/World/MoonView.cs",
+        "e6": "res://assets/sprites/bg_Lforest_middle/bg_Lforest_middle_0.png",
+        "e7": "res://assets/sprites/bg_forest_middle/bg_forest_middle_0.png",
+        "e8": "res://assets/sprites/bg_forest_new_close/bg_forest_new_close_0.png",
+        "e9": "res://assets/sprites/bg_forest_close/bg_forest_close_0.png",
+        "e10": "res://assets/sprites/spr_block_grassy/spr_block_grassy_0.png",
+        "e11": "res://src/Presentation/World/TerrainDetails.cs",
+        "e12": "res://assets/sprites/spr_ubld_tomb/spr_ubld_tomb_0.png",
+        "e13": "res://scenes/environment/Torch.tscn",
+        "e14": "res://scenes/environment/CampLight.tscn",
+        "e15": "res://src/Presentation/World/Fireflies.cs",
+        "e17": "res://src/Presentation/Authoring/LevelLayout.cs",
+        "e18": "res://src/Presentation/Authoring/PlacementMarker.cs",
+        "e19": "res://resources/visuals/buildings/House.tres",
+        "e20": "res://resources/visuals/buildings/Tavern.tres",
+        "e21": "res://resources/visuals/buildings/Barracks.tres",
+        "e22": "res://resources/visuals/buildings/Farm.tres",
+        "e23": "res://resources/visuals/worksites/Wood.tres",
+        "e24": "res://resources/visuals/worksites/Stone.tres",
+        "e25": "res://resources/visuals/worksites/Iron.tres",
+        "e26": "res://resources/visuals/actors/Worker.tres",
+        "e27": "res://resources/visuals/actors/Spearman.tres",
+        "e28": "res://resources/visuals/actors/Archer.tres",
+        "e29": "res://scenes/world/EntityViews.tscn"
+      },
+      "nodes": [
+        {
+          "attributes": {
+            "name": "Pinewatch",
+            "type": "Node2D"
+          },
+          "properties": {
+            "script": "ExtResource(\"e1\")",
+            "Layout": "NodePath(\"Layout\")",
+            "Entities": "NodePath(\"EntityViews\")",
+            "SceneCamera": "NodePath(\"Camera\")",
+            "Ambient": "NodePath(\"DayNightLight\")",
+            "Sky": "NodePath(\"Backgrounds/Sky\")",
+            "Moon": "NodePath(\"Backgrounds/Moon\")",
+            "Fireflies": "NodePath(\"Backgrounds/Fireflies\")",
+            "GroundEffects": "NodePath(\"GroundEffects\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Backgrounds",
+            "type": "Node2D",
+            "parent": "."
+          },
+          "properties": {
+            "z_index": "-50"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Sky",
+            "type": "Sprite2D",
+            "parent": "Backgrounds"
+          },
+          "properties": {
+            "position": "Vector2(-500, -280.0)",
+            "scale": "Vector2(8.203125, 1.0)",
+            "texture": "ExtResource(\"e2\")",
+            "centered": "false",
+            "self_modulate": "Color(0.6666666666666666, 0.7372549019607844, 0.7568627450980392, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Stars",
+            "type": "Parallax2D",
+            "parent": "Backgrounds"
+          },
+          "properties": {
+            "script": "ExtResource(\"e3\")",
+            "scroll_scale": "Vector2(1, 1)",
+            "follow_viewport": "false",
+            "ignore_camera_scroll": "true",
+            "repeat_size": "Vector2(256, 0)",
+            "repeat_times": "7",
+            "Factor": "0.03",
+            "Tint": "Color(1, 1, 1, 0.85)",
+            "FadeWithNight": "true"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Sprite",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/Stars"
+          },
+          "properties": {
+            "position": "Vector2(0, -220.0)",
+            "centered": "false",
+            "texture": "ExtResource(\"e4\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Moon",
+            "type": "Node2D",
+            "parent": "Backgrounds"
+          },
+          "properties": {
+            "script": "ExtResource(\"e5\")",
+            "position": "Vector2(393.0, 165.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "DistantForest",
+            "type": "Parallax2D",
+            "parent": "Backgrounds"
+          },
+          "properties": {
+            "script": "ExtResource(\"e3\")",
+            "scroll_scale": "Vector2(1, 1)",
+            "follow_viewport": "false",
+            "ignore_camera_scroll": "true",
+            "repeat_size": "Vector2(512, 0)",
+            "repeat_times": "7",
+            "Factor": "0.13",
+            "Tint": "Color(0.6274509803921569, 0.6784313725490196, 0.6274509803921569, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Sprite",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/DistantForest"
+          },
+          "properties": {
+            "position": "Vector2(0, 135.0)",
+            "centered": "false",
+            "texture": "ExtResource(\"e6\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "MiddleForest",
+            "type": "Parallax2D",
+            "parent": "Backgrounds"
+          },
+          "properties": {
+            "script": "ExtResource(\"e3\")",
+            "scroll_scale": "Vector2(1, 1)",
+            "follow_viewport": "false",
+            "ignore_camera_scroll": "true",
+            "repeat_size": "Vector2(512, 0)",
+            "repeat_times": "7",
+            "Factor": "0.3",
+            "Tint": "Color(0.45098039215686275, 0.5411764705882353, 0.5019607843137255, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Sprite",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/MiddleForest"
+          },
+          "properties": {
+            "position": "Vector2(0, 210.0)",
+            "centered": "false",
+            "texture": "ExtResource(\"e7\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "NearForest",
+            "type": "Parallax2D",
+            "parent": "Backgrounds"
+          },
+          "properties": {
+            "script": "ExtResource(\"e3\")",
+            "scroll_scale": "Vector2(1, 1)",
+            "follow_viewport": "false",
+            "ignore_camera_scroll": "true",
+            "repeat_size": "Vector2(256, 0)",
+            "repeat_times": "7",
+            "Factor": "0.5",
+            "Tint": "Color(0.47058823529411764, 0.5333333333333333, 0.4745098039215686, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Sprite",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/NearForest"
+          },
+          "properties": {
+            "position": "Vector2(0, 243.0)",
+            "centered": "false",
+            "texture": "ExtResource(\"e8\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "FrontForest",
+            "type": "Parallax2D",
+            "parent": "Backgrounds"
+          },
+          "properties": {
+            "script": "ExtResource(\"e3\")",
+            "scroll_scale": "Vector2(1, 1)",
+            "follow_viewport": "false",
+            "ignore_camera_scroll": "true",
+            "repeat_size": "Vector2(256, 0)",
+            "repeat_times": "7",
+            "Factor": "0.7",
+            "Tint": "Color(0.37254901960784315, 0.4588235294117647, 0.396078431372549, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Sprite",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/FrontForest"
+          },
+          "properties": {
+            "position": "Vector2(0, 266.0)",
+            "centered": "false",
+            "texture": "ExtResource(\"e9\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Ground",
+            "type": "Node2D",
+            "parent": "Backgrounds"
+          },
+          "properties": {
+            "position": "Vector2(0, 320.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Soil",
+            "type": "Polygon2D",
+            "parent": "Backgrounds/Ground"
+          },
+          "properties": {
+            "color": "Color(0.18823529411764706, 0.1803921568627451, 0.1568627450980392, 1)",
+            "polygon": "PackedVector2Array(-100, -1, 1200.0, -1, 1200.0, 599, -100, 599)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Grass0",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/Ground"
+          },
+          "properties": {
+            "position": "Vector2(-256, -1)",
+            "centered": "false",
+            "region_enabled": "true",
+            "region_rect": "Rect2(0, 0, 256, 7)",
+            "texture": "ExtResource(\"e10\")",
+            "self_modulate": "Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Grass1",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/Ground"
+          },
+          "properties": {
+            "position": "Vector2(0, -1)",
+            "centered": "false",
+            "region_enabled": "true",
+            "region_rect": "Rect2(0, 0, 256, 7)",
+            "texture": "ExtResource(\"e10\")",
+            "self_modulate": "Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Grass2",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/Ground"
+          },
+          "properties": {
+            "position": "Vector2(256, -1)",
+            "centered": "false",
+            "region_enabled": "true",
+            "region_rect": "Rect2(0, 0, 256, 7)",
+            "texture": "ExtResource(\"e10\")",
+            "self_modulate": "Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Grass3",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/Ground"
+          },
+          "properties": {
+            "position": "Vector2(512, -1)",
+            "centered": "false",
+            "region_enabled": "true",
+            "region_rect": "Rect2(0, 0, 256, 7)",
+            "texture": "ExtResource(\"e10\")",
+            "self_modulate": "Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Grass4",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/Ground"
+          },
+          "properties": {
+            "position": "Vector2(768, -1)",
+            "centered": "false",
+            "region_enabled": "true",
+            "region_rect": "Rect2(0, 0, 256, 7)",
+            "texture": "ExtResource(\"e10\")",
+            "self_modulate": "Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Grass5",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/Ground"
+          },
+          "properties": {
+            "position": "Vector2(1024, -1)",
+            "centered": "false",
+            "region_enabled": "true",
+            "region_rect": "Rect2(0, 0, 256, 7)",
+            "texture": "ExtResource(\"e10\")",
+            "self_modulate": "Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Grass6",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/Ground"
+          },
+          "properties": {
+            "position": "Vector2(1280, -1)",
+            "centered": "false",
+            "region_enabled": "true",
+            "region_rect": "Rect2(0, 0, 256, 7)",
+            "texture": "ExtResource(\"e10\")",
+            "self_modulate": "Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Details",
+            "type": "Node2D",
+            "parent": "Backgrounds/Ground"
+          },
+          "properties": {
+            "script": "ExtResource(\"e11\")",
+            "DistributionWidth": "1100.0"
+          }
+        },
+        {
+          "attributes": {
+            "name": "CampEdge",
+            "type": "Line2D",
+            "parent": "Backgrounds/Ground"
+          },
+          "properties": {
+            "points": "PackedVector2Array(26, 8, 854, 8)",
+            "width": "1.0",
+            "default_color": "Color(0.57, 0.5, 0.34, 0.12)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Decorations",
+            "type": "Node2D",
+            "parent": "Backgrounds"
+          },
+          "properties": {}
+        },
+        {
+          "attributes": {
+            "name": "Tomb",
+            "type": "Sprite2D",
+            "parent": "Backgrounds/Decorations"
+          },
+          "properties": {
+            "position": "Vector2(1015, 320.0)",
+            "self_modulate": "Color(0.7254901960784313, 0.7254901960784313, 0.6941176470588235, 1)",
+            "texture": "ExtResource(\"e12\")",
+            "centered": "false",
+            "offset": "Vector2(-41, -100)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Torch1",
+            "parent": "Backgrounds/Decorations"
+          },
+          "properties": {
+            "position": "Vector2(186, 320.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Light",
+            "parent": "Backgrounds/Decorations/Torch1",
+            "index": "2"
+          },
+          "properties": {
+            "position": "Vector2(-31, -20)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Torch2",
+            "parent": "Backgrounds/Decorations"
+          },
+          "properties": {
+            "position": "Vector2(365, 320.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Light",
+            "parent": "Backgrounds/Decorations/Torch2",
+            "index": "2"
+          },
+          "properties": {
+            "position": "Vector2(0, -20)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Torch3",
+            "parent": "Backgrounds/Decorations"
+          },
+          "properties": {
+            "position": "Vector2(630, 320.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Light",
+            "parent": "Backgrounds/Decorations/Torch3",
+            "index": "2"
+          },
+          "properties": {
+            "position": "Vector2(0, -20)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Torch4",
+            "parent": "Backgrounds/Decorations"
+          },
+          "properties": {
+            "position": "Vector2(788, 320.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Light",
+            "parent": "Backgrounds/Decorations/Torch4",
+            "index": "2"
+          },
+          "properties": {
+            "position": "Vector2(32, -20)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "CampLight1",
+            "parent": "Backgrounds/Decorations"
+          },
+          "properties": {
+            "position": "Vector2(94, 300)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "CampLight2",
+            "parent": "Backgrounds/Decorations"
+          },
+          "properties": {
+            "position": "Vector2(302, 300)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "CampLight3",
+            "parent": "Backgrounds/Decorations"
+          },
+          "properties": {
+            "position": "Vector2(745, 300)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Fireflies",
+            "type": "Node2D",
+            "parent": "Backgrounds"
+          },
+          "properties": {
+            "position": "Vector2(0, 320.0)",
+            "script": "ExtResource(\"e15\")",
+            "DistributionWidth": "1100.0"
+          }
+        },
+        {
+          "attributes": {
+            "name": "GroundEffects",
+            "type": "Node2D",
+            "parent": "."
+          },
+          "properties": {
+            "z_index": "-50"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Layout",
+            "type": "Node2D",
+            "parent": "."
+          },
+          "properties": {
+            "script": "ExtResource(\"e17\")",
+            "GroundBaseline": "NodePath(\"GroundBaseline\")",
+            "WorldEnd": "NodePath(\"WorldEnd\")",
+            "BuildStart": "NodePath(\"BuildStart\")",
+            "BuildEnd": "NodePath(\"BuildEnd\")",
+            "EnemySpawn": "NodePath(\"EnemySpawn\")",
+            "CameraStart": "NodePath(\"CameraStart\")",
+            "Buildings": "NodePath(\"Buildings\")",
+            "Worksites": "NodePath(\"Worksites\")",
+            "Actors": "NodePath(\"Actors\")"
+          }
+        },
+        {
+          "attributes": {
+            "name": "GroundBaseline",
+            "type": "Marker2D",
+            "parent": "Layout"
+          },
+          "properties": {
+            "position": "Vector2(0, 320.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "WorldEnd",
+            "type": "Marker2D",
+            "parent": "Layout"
+          },
+          "properties": {
+            "position": "Vector2(1100.0, 320.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "BuildStart",
+            "type": "Marker2D",
+            "parent": "Layout"
+          },
+          "properties": {
+            "position": "Vector2(30.0, 320.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "BuildEnd",
+            "type": "Marker2D",
+            "parent": "Layout"
+          },
+          "properties": {
+            "position": "Vector2(850.0, 320.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "EnemySpawn",
+            "type": "Marker2D",
+            "parent": "Layout"
+          },
+          "properties": {
+            "position": "Vector2(1020.0, 320.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "CameraStart",
+            "type": "Marker2D",
+            "parent": "Layout"
+          },
+          "properties": {
+            "position": "Vector2(255.0, 320.0)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Buildings",
+            "type": "Node2D",
+            "parent": "Layout"
+          },
+          "properties": {}
+        },
+        {
+          "attributes": {
+            "name": "House1",
+            "type": "Marker2D",
+            "parent": "Layout/Buildings"
+          },
+          "properties": {
+            "position": "Vector2(55.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e19\")",
+            "SpawnOrder": "0",
+            "Variant": "0",
+            "ActorName": "\"\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Tavern2",
+            "type": "Marker2D",
+            "parent": "Layout/Buildings"
+          },
+          "properties": {
+            "position": "Vector2(130.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e20\")",
+            "SpawnOrder": "1",
+            "Variant": "0",
+            "ActorName": "\"\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Barracks3",
+            "type": "Marker2D",
+            "parent": "Layout/Buildings"
+          },
+          "properties": {
+            "position": "Vector2(245.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e21\")",
+            "SpawnOrder": "2",
+            "Variant": "0",
+            "ActorName": "\"\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Farm4",
+            "type": "Marker2D",
+            "parent": "Layout/Buildings"
+          },
+          "properties": {
+            "position": "Vector2(330.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e22\")",
+            "SpawnOrder": "3",
+            "Variant": "0",
+            "ActorName": "\"\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Worksites",
+            "type": "Node2D",
+            "parent": "Layout"
+          },
+          "properties": {}
+        },
+        {
+          "attributes": {
+            "name": "Wood1",
+            "type": "Marker2D",
+            "parent": "Layout/Worksites"
+          },
+          "properties": {
+            "position": "Vector2(402.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e23\")",
+            "SpawnOrder": "0",
+            "Variant": "1",
+            "ActorName": "\"\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Wood2",
+            "type": "Marker2D",
+            "parent": "Layout/Worksites"
+          },
+          "properties": {
+            "position": "Vector2(449.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e23\")",
+            "SpawnOrder": "1",
+            "Variant": "0",
+            "ActorName": "\"\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Wood3",
+            "type": "Marker2D",
+            "parent": "Layout/Worksites"
+          },
+          "properties": {
+            "position": "Vector2(488.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e23\")",
+            "SpawnOrder": "2",
+            "Variant": "2",
+            "ActorName": "\"\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Stone4",
+            "type": "Marker2D",
+            "parent": "Layout/Worksites"
+          },
+          "properties": {
+            "position": "Vector2(548.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e24\")",
+            "SpawnOrder": "3",
+            "Variant": "0",
+            "ActorName": "\"\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Iron5",
+            "type": "Marker2D",
+            "parent": "Layout/Worksites"
+          },
+          "properties": {
+            "position": "Vector2(592.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e25\")",
+            "SpawnOrder": "4",
+            "Variant": "0",
+            "ActorName": "\"\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Actors",
+            "type": "Node2D",
+            "parent": "Layout"
+          },
+          "properties": {}
+        },
+        {
+          "attributes": {
+            "name": "Worker1",
+            "type": "Marker2D",
+            "parent": "Layout/Actors"
+          },
+          "properties": {
+            "position": "Vector2(170.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e26\")",
+            "SpawnOrder": "0",
+            "Variant": "0",
+            "ActorName": "\"艾达\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Worker2",
+            "type": "Marker2D",
+            "parent": "Layout/Actors"
+          },
+          "properties": {
+            "position": "Vector2(187.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e26\")",
+            "SpawnOrder": "1",
+            "Variant": "0",
+            "ActorName": "\"罗恩\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Worker3",
+            "type": "Marker2D",
+            "parent": "Layout/Actors"
+          },
+          "properties": {
+            "position": "Vector2(293.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e26\")",
+            "SpawnOrder": "2",
+            "Variant": "0",
+            "ActorName": "\"米娅\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Worker4",
+            "type": "Marker2D",
+            "parent": "Layout/Actors"
+          },
+          "properties": {
+            "position": "Vector2(311.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e26\")",
+            "SpawnOrder": "3",
+            "Variant": "0",
+            "ActorName": "\"伊恩\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Worker5",
+            "type": "Marker2D",
+            "parent": "Layout/Actors"
+          },
+          "properties": {
+            "position": "Vector2(357.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e26\")",
+            "SpawnOrder": "4",
+            "Variant": "0",
+            "ActorName": "\"莉娜\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Spearman6",
+            "type": "Marker2D",
+            "parent": "Layout/Actors"
+          },
+          "properties": {
+            "position": "Vector2(660.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e27\")",
+            "SpawnOrder": "5",
+            "Variant": "0",
+            "ActorName": "\"奥斯\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "Archer7",
+            "type": "Marker2D",
+            "parent": "Layout/Actors"
+          },
+          "properties": {
+            "position": "Vector2(625.0, 320.0)",
+            "script": "ExtResource(\"e18\")",
+            "Appearance": "ExtResource(\"e28\")",
+            "SpawnOrder": "6",
+            "Variant": "0",
+            "ActorName": "\"薇拉\""
+          }
+        },
+        {
+          "attributes": {
+            "name": "DayNightLight",
+            "type": "CanvasModulate",
+            "parent": "."
+          },
+          "properties": {
+            "color": "Color(0.83843136, 0.85784316, 0.8373333, 1)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "Camera",
+            "type": "Camera2D",
+            "parent": "."
+          },
+          "properties": {
+            "position": "Vector2(255.0, 258.57142857142856)",
+            "zoom": "Vector2(2.8, 2.8)"
+          }
+        },
+        {
+          "attributes": {
+            "name": "EntityViews",
+            "parent": "."
+          },
+          "properties": {}
+        }
+      ],
+      "sourceText": "[gd_scene format=3]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/World/WorldView.cs\" id=\"e1\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/bg_sky_clear/bg_sky_clear_0.png\" id=\"e2\"]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/World/BackdropLayer.cs\" id=\"e3\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/bg_sky_stars/bg_sky_stars_0.png\" id=\"e4\"]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/World/MoonView.cs\" id=\"e5\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/bg_Lforest_middle/bg_Lforest_middle_0.png\" id=\"e6\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/bg_forest_middle/bg_forest_middle_0.png\" id=\"e7\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/bg_forest_new_close/bg_forest_new_close_0.png\" id=\"e8\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/bg_forest_close/bg_forest_close_0.png\" id=\"e9\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_block_grassy/spr_block_grassy_0.png\" id=\"e10\"]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/World/TerrainDetails.cs\" id=\"e11\"]\n\n[ext_resource type=\"Texture2D\" path=\"res://assets/sprites/spr_ubld_tomb/spr_ubld_tomb_0.png\" id=\"e12\"]\n\n[ext_resource type=\"PackedScene\" path=\"res://scenes/environment/Torch.tscn\" id=\"e13\"]\n\n[ext_resource type=\"PackedScene\" path=\"res://scenes/environment/CampLight.tscn\" id=\"e14\"]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/World/Fireflies.cs\" id=\"e15\"]\n\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/Authoring/LevelLayout.cs\" id=\"e17\"]\n\n[ext_resource type=\"Script\" path=\"res://src/Presentation/Authoring/PlacementMarker.cs\" id=\"e18\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/buildings/House.tres\" id=\"e19\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/buildings/Tavern.tres\" id=\"e20\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/buildings/Barracks.tres\" id=\"e21\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/buildings/Farm.tres\" id=\"e22\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/worksites/Wood.tres\" id=\"e23\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/worksites/Stone.tres\" id=\"e24\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/worksites/Iron.tres\" id=\"e25\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/actors/Worker.tres\" id=\"e26\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/actors/Spearman.tres\" id=\"e27\"]\n\n[ext_resource type=\"Resource\" path=\"res://resources/visuals/actors/Archer.tres\" id=\"e28\"]\n\n[ext_resource type=\"PackedScene\" path=\"res://scenes/world/EntityViews.tscn\" id=\"e29\"]\n\n[node name=\"Pinewatch\" type=\"Node2D\" node_paths=PackedStringArray(\"Layout\", \"Entities\", \"SceneCamera\", \"Ambient\", \"Sky\", \"Moon\", \"Fireflies\", \"GroundEffects\")]\nscript = ExtResource(\"e1\")\nLayout = NodePath(\"Layout\")\nEntities = NodePath(\"EntityViews\")\nSceneCamera = NodePath(\"Camera\")\nAmbient = NodePath(\"DayNightLight\")\nSky = NodePath(\"Backgrounds/Sky\")\nMoon = NodePath(\"Backgrounds/Moon\")\nFireflies = NodePath(\"Backgrounds/Fireflies\")\nGroundEffects = NodePath(\"GroundEffects\")\n\n[node name=\"Backgrounds\" type=\"Node2D\" parent=\".\"]\nz_index = -50\n\n[node name=\"Sky\" type=\"Sprite2D\" parent=\"Backgrounds\"]\nposition = Vector2(-500, -280.0)\nscale = Vector2(8.203125, 1.0)\ntexture = ExtResource(\"e2\")\ncentered = false\nself_modulate = Color(0.6666666666666666, 0.7372549019607844, 0.7568627450980392, 1)\n\n[node name=\"Stars\" type=\"Parallax2D\" parent=\"Backgrounds\"]\nscript = ExtResource(\"e3\")\nscroll_scale = Vector2(1, 1)\nfollow_viewport = false\nignore_camera_scroll = true\nrepeat_size = Vector2(256, 0)\nrepeat_times = 7\nFactor = 0.03\nTint = Color(1, 1, 1, 0.85)\nFadeWithNight = true\n\n[node name=\"Sprite\" type=\"Sprite2D\" parent=\"Backgrounds/Stars\"]\nposition = Vector2(0, -220.0)\ncentered = false\ntexture = ExtResource(\"e4\")\n\n[node name=\"Moon\" type=\"Node2D\" parent=\"Backgrounds\"]\nscript = ExtResource(\"e5\")\nposition = Vector2(393.0, 165.0)\n\n[node name=\"DistantForest\" type=\"Parallax2D\" parent=\"Backgrounds\"]\nscript = ExtResource(\"e3\")\nscroll_scale = Vector2(1, 1)\nfollow_viewport = false\nignore_camera_scroll = true\nrepeat_size = Vector2(512, 0)\nrepeat_times = 7\nFactor = 0.13\nTint = Color(0.6274509803921569, 0.6784313725490196, 0.6274509803921569, 1)\n\n[node name=\"Sprite\" type=\"Sprite2D\" parent=\"Backgrounds/DistantForest\"]\nposition = Vector2(0, 135.0)\ncentered = false\ntexture = ExtResource(\"e6\")\n\n[node name=\"MiddleForest\" type=\"Parallax2D\" parent=\"Backgrounds\"]\nscript = ExtResource(\"e3\")\nscroll_scale = Vector2(1, 1)\nfollow_viewport = false\nignore_camera_scroll = true\nrepeat_size = Vector2(512, 0)\nrepeat_times = 7\nFactor = 0.3\nTint = Color(0.45098039215686275, 0.5411764705882353, 0.5019607843137255, 1)\n\n[node name=\"Sprite\" type=\"Sprite2D\" parent=\"Backgrounds/MiddleForest\"]\nposition = Vector2(0, 210.0)\ncentered = false\ntexture = ExtResource(\"e7\")\n\n[node name=\"NearForest\" type=\"Parallax2D\" parent=\"Backgrounds\"]\nscript = ExtResource(\"e3\")\nscroll_scale = Vector2(1, 1)\nfollow_viewport = false\nignore_camera_scroll = true\nrepeat_size = Vector2(256, 0)\nrepeat_times = 7\nFactor = 0.5\nTint = Color(0.47058823529411764, 0.5333333333333333, 0.4745098039215686, 1)\n\n[node name=\"Sprite\" type=\"Sprite2D\" parent=\"Backgrounds/NearForest\"]\nposition = Vector2(0, 243.0)\ncentered = false\ntexture = ExtResource(\"e8\")\n\n[node name=\"FrontForest\" type=\"Parallax2D\" parent=\"Backgrounds\"]\nscript = ExtResource(\"e3\")\nscroll_scale = Vector2(1, 1)\nfollow_viewport = false\nignore_camera_scroll = true\nrepeat_size = Vector2(256, 0)\nrepeat_times = 7\nFactor = 0.7\nTint = Color(0.37254901960784315, 0.4588235294117647, 0.396078431372549, 1)\n\n[node name=\"Sprite\" type=\"Sprite2D\" parent=\"Backgrounds/FrontForest\"]\nposition = Vector2(0, 266.0)\ncentered = false\ntexture = ExtResource(\"e9\")\n\n[node name=\"Ground\" type=\"Node2D\" parent=\"Backgrounds\"]\nposition = Vector2(0, 320.0)\n\n[node name=\"Soil\" type=\"Polygon2D\" parent=\"Backgrounds/Ground\"]\ncolor = Color(0.18823529411764706, 0.1803921568627451, 0.1568627450980392, 1)\npolygon = PackedVector2Array(-100, -1, 1200.0, -1, 1200.0, 599, -100, 599)\n\n[node name=\"Grass0\" type=\"Sprite2D\" parent=\"Backgrounds/Ground\"]\nposition = Vector2(-256, -1)\ncentered = false\nregion_enabled = true\nregion_rect = Rect2(0, 0, 256, 7)\ntexture = ExtResource(\"e10\")\nself_modulate = Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)\n\n[node name=\"Grass1\" type=\"Sprite2D\" parent=\"Backgrounds/Ground\"]\nposition = Vector2(0, -1)\ncentered = false\nregion_enabled = true\nregion_rect = Rect2(0, 0, 256, 7)\ntexture = ExtResource(\"e10\")\nself_modulate = Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)\n\n[node name=\"Grass2\" type=\"Sprite2D\" parent=\"Backgrounds/Ground\"]\nposition = Vector2(256, -1)\ncentered = false\nregion_enabled = true\nregion_rect = Rect2(0, 0, 256, 7)\ntexture = ExtResource(\"e10\")\nself_modulate = Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)\n\n[node name=\"Grass3\" type=\"Sprite2D\" parent=\"Backgrounds/Ground\"]\nposition = Vector2(512, -1)\ncentered = false\nregion_enabled = true\nregion_rect = Rect2(0, 0, 256, 7)\ntexture = ExtResource(\"e10\")\nself_modulate = Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)\n\n[node name=\"Grass4\" type=\"Sprite2D\" parent=\"Backgrounds/Ground\"]\nposition = Vector2(768, -1)\ncentered = false\nregion_enabled = true\nregion_rect = Rect2(0, 0, 256, 7)\ntexture = ExtResource(\"e10\")\nself_modulate = Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)\n\n[node name=\"Grass5\" type=\"Sprite2D\" parent=\"Backgrounds/Ground\"]\nposition = Vector2(1024, -1)\ncentered = false\nregion_enabled = true\nregion_rect = Rect2(0, 0, 256, 7)\ntexture = ExtResource(\"e10\")\nself_modulate = Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)\n\n[node name=\"Grass6\" type=\"Sprite2D\" parent=\"Backgrounds/Ground\"]\nposition = Vector2(1280, -1)\ncentered = false\nregion_enabled = true\nregion_rect = Rect2(0, 0, 256, 7)\ntexture = ExtResource(\"e10\")\nself_modulate = Color(0.7372549019607844, 0.7607843137254902, 0.6274509803921569, 1)\n\n[node name=\"Details\" type=\"Node2D\" parent=\"Backgrounds/Ground\"]\nscript = ExtResource(\"e11\")\nDistributionWidth = 1100.0\n\n[node name=\"CampEdge\" type=\"Line2D\" parent=\"Backgrounds/Ground\"]\npoints = PackedVector2Array(26, 8, 854, 8)\nwidth = 1.0\ndefault_color = Color(0.57, 0.5, 0.34, 0.12)\n\n[node name=\"Decorations\" type=\"Node2D\" parent=\"Backgrounds\"]\n\n\n[node name=\"Tomb\" type=\"Sprite2D\" parent=\"Backgrounds/Decorations\"]\nposition = Vector2(1015, 320.0)\nself_modulate = Color(0.7254901960784313, 0.7254901960784313, 0.6941176470588235, 1)\ntexture = ExtResource(\"e12\")\ncentered = false\noffset = Vector2(-41, -100)\n\n[node name=\"Torch1\" parent=\"Backgrounds/Decorations\" instance=ExtResource(\"e13\")]\nposition = Vector2(186, 320.0)\n\n[node name=\"Light\" parent=\"Backgrounds/Decorations/Torch1\" index=\"2\"]\nposition = Vector2(-31, -20)\n\n[node name=\"Torch2\" parent=\"Backgrounds/Decorations\" instance=ExtResource(\"e13\")]\nposition = Vector2(365, 320.0)\n\n[node name=\"Light\" parent=\"Backgrounds/Decorations/Torch2\" index=\"2\"]\nposition = Vector2(0, -20)\n\n[node name=\"Torch3\" parent=\"Backgrounds/Decorations\" instance=ExtResource(\"e13\")]\nposition = Vector2(630, 320.0)\n\n[node name=\"Light\" parent=\"Backgrounds/Decorations/Torch3\" index=\"2\"]\nposition = Vector2(0, -20)\n\n[node name=\"Torch4\" parent=\"Backgrounds/Decorations\" instance=ExtResource(\"e13\")]\nposition = Vector2(788, 320.0)\n\n[node name=\"Light\" parent=\"Backgrounds/Decorations/Torch4\" index=\"2\"]\nposition = Vector2(32, -20)\n\n[node name=\"CampLight1\" parent=\"Backgrounds/Decorations\" instance=ExtResource(\"e14\")]\nposition = Vector2(94, 300)\n\n[node name=\"CampLight2\" parent=\"Backgrounds/Decorations\" instance=ExtResource(\"e14\")]\nposition = Vector2(302, 300)\n\n[node name=\"CampLight3\" parent=\"Backgrounds/Decorations\" instance=ExtResource(\"e14\")]\nposition = Vector2(745, 300)\n\n[node name=\"Fireflies\" type=\"Node2D\" parent=\"Backgrounds\"]\nposition = Vector2(0, 320.0)\nscript = ExtResource(\"e15\")\nDistributionWidth = 1100.0\n\n[node name=\"GroundEffects\" type=\"Node2D\" parent=\".\"]\nz_index = -50\n\n[node name=\"Layout\" type=\"Node2D\" parent=\".\" node_paths=PackedStringArray(\"GroundBaseline\", \"WorldEnd\", \"BuildStart\", \"BuildEnd\", \"EnemySpawn\", \"CameraStart\", \"Buildings\", \"Worksites\", \"Actors\")]\nscript = ExtResource(\"e17\")\nGroundBaseline = NodePath(\"GroundBaseline\")\nWorldEnd = NodePath(\"WorldEnd\")\nBuildStart = NodePath(\"BuildStart\")\nBuildEnd = NodePath(\"BuildEnd\")\nEnemySpawn = NodePath(\"EnemySpawn\")\nCameraStart = NodePath(\"CameraStart\")\nBuildings = NodePath(\"Buildings\")\nWorksites = NodePath(\"Worksites\")\nActors = NodePath(\"Actors\")\n\n[node name=\"GroundBaseline\" type=\"Marker2D\" parent=\"Layout\"]\nposition = Vector2(0, 320.0)\n\n[node name=\"WorldEnd\" type=\"Marker2D\" parent=\"Layout\"]\nposition = Vector2(1100.0, 320.0)\n\n[node name=\"BuildStart\" type=\"Marker2D\" parent=\"Layout\"]\nposition = Vector2(30.0, 320.0)\n\n[node name=\"BuildEnd\" type=\"Marker2D\" parent=\"Layout\"]\nposition = Vector2(850.0, 320.0)\n\n[node name=\"EnemySpawn\" type=\"Marker2D\" parent=\"Layout\"]\nposition = Vector2(1020.0, 320.0)\n\n[node name=\"CameraStart\" type=\"Marker2D\" parent=\"Layout\"]\nposition = Vector2(255.0, 320.0)\n\n[node name=\"Buildings\" type=\"Node2D\" parent=\"Layout\"]\n\n\n[node name=\"House1\" type=\"Marker2D\" parent=\"Layout/Buildings\"]\nposition = Vector2(55.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e19\")\nSpawnOrder = 0\nVariant = 0\nActorName = \"\"\n\n[node name=\"Tavern2\" type=\"Marker2D\" parent=\"Layout/Buildings\"]\nposition = Vector2(130.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e20\")\nSpawnOrder = 1\nVariant = 0\nActorName = \"\"\n\n[node name=\"Barracks3\" type=\"Marker2D\" parent=\"Layout/Buildings\"]\nposition = Vector2(245.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e21\")\nSpawnOrder = 2\nVariant = 0\nActorName = \"\"\n\n[node name=\"Farm4\" type=\"Marker2D\" parent=\"Layout/Buildings\"]\nposition = Vector2(330.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e22\")\nSpawnOrder = 3\nVariant = 0\nActorName = \"\"\n\n[node name=\"Worksites\" type=\"Node2D\" parent=\"Layout\"]\n\n\n[node name=\"Wood1\" type=\"Marker2D\" parent=\"Layout/Worksites\"]\nposition = Vector2(402.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e23\")\nSpawnOrder = 0\nVariant = 1\nActorName = \"\"\n\n[node name=\"Wood2\" type=\"Marker2D\" parent=\"Layout/Worksites\"]\nposition = Vector2(449.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e23\")\nSpawnOrder = 1\nVariant = 0\nActorName = \"\"\n\n[node name=\"Wood3\" type=\"Marker2D\" parent=\"Layout/Worksites\"]\nposition = Vector2(488.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e23\")\nSpawnOrder = 2\nVariant = 2\nActorName = \"\"\n\n[node name=\"Stone4\" type=\"Marker2D\" parent=\"Layout/Worksites\"]\nposition = Vector2(548.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e24\")\nSpawnOrder = 3\nVariant = 0\nActorName = \"\"\n\n[node name=\"Iron5\" type=\"Marker2D\" parent=\"Layout/Worksites\"]\nposition = Vector2(592.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e25\")\nSpawnOrder = 4\nVariant = 0\nActorName = \"\"\n\n[node name=\"Actors\" type=\"Node2D\" parent=\"Layout\"]\n\n\n[node name=\"Worker1\" type=\"Marker2D\" parent=\"Layout/Actors\"]\nposition = Vector2(170.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e26\")\nSpawnOrder = 0\nVariant = 0\nActorName = \"艾达\"\n\n[node name=\"Worker2\" type=\"Marker2D\" parent=\"Layout/Actors\"]\nposition = Vector2(187.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e26\")\nSpawnOrder = 1\nVariant = 0\nActorName = \"罗恩\"\n\n[node name=\"Worker3\" type=\"Marker2D\" parent=\"Layout/Actors\"]\nposition = Vector2(293.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e26\")\nSpawnOrder = 2\nVariant = 0\nActorName = \"米娅\"\n\n[node name=\"Worker4\" type=\"Marker2D\" parent=\"Layout/Actors\"]\nposition = Vector2(311.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e26\")\nSpawnOrder = 3\nVariant = 0\nActorName = \"伊恩\"\n\n[node name=\"Worker5\" type=\"Marker2D\" parent=\"Layout/Actors\"]\nposition = Vector2(357.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e26\")\nSpawnOrder = 4\nVariant = 0\nActorName = \"莉娜\"\n\n[node name=\"Spearman6\" type=\"Marker2D\" parent=\"Layout/Actors\"]\nposition = Vector2(660.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e27\")\nSpawnOrder = 5\nVariant = 0\nActorName = \"奥斯\"\n\n[node name=\"Archer7\" type=\"Marker2D\" parent=\"Layout/Actors\"]\nposition = Vector2(625.0, 320.0)\nscript = ExtResource(\"e18\")\nAppearance = ExtResource(\"e28\")\nSpawnOrder = 6\nVariant = 0\nActorName = \"薇拉\"\n\n[node name=\"DayNightLight\" type=\"CanvasModulate\" parent=\".\"]\ncolor = Color(0.83843136, 0.85784316, 0.8373333, 1)\n\n[node name=\"Camera\" type=\"Camera2D\" parent=\".\"]\nposition = Vector2(255.0, 258.57142857142856)\nzoom = Vector2(2.8, 2.8)\n\n[node name=\"EntityViews\" parent=\".\" instance=ExtResource(\"e29\")]\n"
+    }
+  ],
+  "scripts": [
+    {
+      "path": "src/Presentation/Audio/AudioPresenter.cs",
+      "sha256": "74af2dd7dbe2720c9a9334f0efeff5a9d58489c8e7a092fa6eec316c5d5a2d6c",
+      "sourceText": "using DarkNights.Content.Assets;\nusing DarkNights.Simulation;\nusing Godot;\n\nnamespace DarkNights.Presentation.Audio;\n\n/// <summary>\n/// 消费会话音频请求并拥有音乐/音效节点的生命周期。受击音效按表现时间限频，静音只影响声音，不修改模拟速度或随机状态。\n/// </summary>\npublic partial class AudioPresenter : Node\n{\n    private GameSession _session = null!;\n    private AssetCatalog _assets = null!;\n    [Export] public AudioStreamPlayer Music { get; set; } = null!;\n    private double _cooldown;\n    public bool Muted { get; private set; }\n\n    public void Initialize(GameSession session, AssetCatalog assets, bool muted)\n    {\n        _session = session;\n        _assets = assets;\n        Muted = muted;\n        if (!Muted)\n            Music.Play();\n        _session.Feedback.Sound += PlaySound;\n    }\n\n    public override void _Process(double delta) => _cooldown = Math.Max(0, _cooldown - delta);\n\n    public void PlaySound(string name, float volume = -11)\n    {\n        if (Muted || (_cooldown > 0 && name.Contains(\"hit\")))\n            return;\n        var stream = _assets.Sound(name);\n        if (stream == null)\n            return;\n        var player = new AudioStreamPlayer { Stream = stream, VolumeDb = volume };\n        AddChild(player);\n        player.Finished += player.QueueFree;\n        player.Play();\n        _cooldown = 0.06;\n    }\n\n    public void Toggle()\n    {\n        Muted = !Muted;\n        if (Muted)\n            Music.Stop();\n        else\n            Music.Play();\n    }\n\n    public override void _ExitTree()\n    {\n        if (_session != null)\n            _session.Feedback.Sound -= PlaySound;\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/Authoring/LevelLayout.cs",
+      "sha256": "4a2be36893bfd9496222ef953449140a34ec7071f5259f82f28b83594ecb0754",
+      "sourceText": "using Godot;\n\nnamespace DarkNights.Presentation.Authoring;\n\n/// <summary>\n/// 保存关卡的玩法标记集合与边界引用，提供编辑辅助而不创建会话。\n/// SpawnOrder独立于场景树顺序；预览身份复用既有生成顺序以保持初始服装颜色。\n/// </summary>\n[Tool]\npublic partial class LevelLayout : Node2D\n{\n    [Export] public Marker2D GroundBaseline { get; set; } = null!;\n    [Export] public Marker2D WorldEnd { get; set; } = null!;\n    [Export] public Marker2D BuildStart { get; set; } = null!;\n    [Export] public Marker2D BuildEnd { get; set; } = null!;\n    [Export] public Marker2D EnemySpawn { get; set; } = null!;\n    [Export] public Marker2D CameraStart { get; set; } = null!;\n    [Export] public Node2D Buildings { get; set; } = null!;\n    [Export] public Node2D Worksites { get; set; } = null!;\n    [Export] public Node2D Actors { get; set; } = null!;\n    [Export] public bool ShowGuides { get; set; }\n\n    public static IEnumerable<PlacementMarker> Ordered(Node group) => group.GetChildren()\n        .OfType<PlacementMarker>().OrderBy(p => p.SpawnOrder);\n\n    public int PreviewIdentity(PlacementMarker target)\n    {\n        int id = 1;\n        foreach (var marker in Ordered(Buildings).Concat(Ordered(Worksites)).Concat(Ordered(Actors)))\n        {\n            if (marker == target)\n                return id;\n            id++;\n            if (marker.GetParent() == Buildings && marker.Appearance?.Kind == \"farm\")\n                id++;\n        }\n        return 0;\n    }\n\n    public void EnablePreview()\n    {\n        foreach (var marker in Ordered(Buildings).Concat(Ordered(Worksites)).Concat(Ordered(Actors)))\n        {\n            marker.PreviewInGame = true;\n            marker.RebuildPreview();\n        }\n    }\n\n    public override void _Process(double delta)\n    {\n        if (Engine.IsEditorHint())\n        {\n            QueueRedraw();\n            UpdateConfigurationWarnings();\n        }\n    }\n\n    public override void _Draw()\n    {\n        if (!ShowGuides || !Engine.IsEditorHint() || GroundBaseline == null || WorldEnd == null)\n            return;\n        float y = GroundBaseline.Position.Y;\n        DrawLine(new(0, y), new(WorldEnd.Position.X, y), new(\"b5ccb1\"), 0.5f);\n        if (BuildStart != null && BuildEnd != null)\n            DrawLine(new(BuildStart.Position.X, y + 12), new(BuildEnd.Position.X, y + 12), new(\"d9c393\"), 0.5f);\n    }\n\n    public override string[] _GetConfigurationWarnings()\n    {\n        if (new Node?[] { GroundBaseline, WorldEnd, BuildStart, BuildEnd, EnemySpawn, CameraStart, Buildings, Worksites, Actors }.Any(n => n == null))\n            return [\"Assign every layout boundary and placement group.\"];\n        var errors = new List<string>();\n        foreach (var group in new[] { Buildings, Worksites, Actors })\n        {\n            var markers = Ordered(group).ToArray();\n            if (markers.Select(p => p.SpawnOrder).Distinct().Count() != markers.Length)\n                errors.Add($\"{group.Name}: SpawnOrder must be unique.\");\n            if (markers.Any(p => !Mathf.IsEqualApprox(ToLocal(p.GlobalPosition).Y, GroundBaseline.Position.Y)))\n                errors.Add($\"{group.Name}: align gameplay markers with GroundBaseline.\");\n        }\n        return errors.ToArray();\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/Authoring/PlacementMarker.cs",
+      "sha256": "835d3f547d787c19cbd2234afb381eea6540d35cebfeec648fc507312e8b9ca4",
+      "sourceText": "using DarkNights.Presentation.Actors;\nusing DarkNights.Presentation.Buildings;\nusing DarkNights.Presentation.Resources;\nusing DarkNights.Presentation.Worksites;\nusing DarkNights.Presentation.World;\nusing Godot;\n\nnamespace DarkNights.Presentation.Authoring;\n\n/// <summary>\n/// 保存一个初始摆放条目的外观引用、顺序与可用参数；位置以脚底为基准。\n/// 编辑器只实例化无模型的临时外观，预览节点不设置Owner、不进入存档或生成流程。\n/// </summary>\n[Tool]\npublic partial class PlacementMarker : Marker2D\n{\n    [Export] public VisualDefinition? Appearance { get; set; }\n    [Export] public int SpawnOrder { get; set; }\n    [Export] public string ActorName { get; set; } = \"\";\n    [Export(PropertyHint.Range, \"0,3,1\")] public int Variant { get; set; }\n    [ExportToolButton(\"Refresh preview\")] public Callable RefreshPreview => Callable.From(RebuildPreview);\n    public bool PreviewInGame { get; set; }\n    private SceneVisual? _preview;\n    private VisualDefinition? _previous;\n    private PackedScene? _previousScene;\n\n    public override void _Ready()\n    {\n        if (Engine.IsEditorHint())\n            RebuildPreview();\n    }\n\n    public override void _Process(double delta)\n    {\n        if (!Engine.IsEditorHint() && !PreviewInGame)\n            return;\n        if (_previous != Appearance || _previousScene != Appearance?.Scene)\n            RebuildPreview();\n        if (_preview is ActorVisual actor)\n        {\n            var layout = GetParent()?.GetParent() as LevelLayout;\n            actor.SetPose(\"idle\", 0, 1, layout?.PreviewIdentity(this) ?? 0, false, false);\n        }\n        else if (_preview is WorksiteVisual worksite)\n            worksite.SetVariant(Variant, false, false);\n        else if (_preview is BuildingVisual building)\n            building.SetStage(1);\n    }\n\n    public void RebuildPreview()\n    {\n        if (!Engine.IsEditorHint() && !PreviewInGame)\n            return;\n        if (_preview != null && GodotObject.IsInstanceValid(_preview))\n        {\n            RemoveChild(_preview);\n            _preview.QueueFree();\n        }\n        _previous = Appearance;\n        _previousScene = Appearance?.Scene;\n        _preview = Appearance?.Scene?.Instantiate<SceneVisual>();\n        if (_preview != null)\n        {\n            _preview.Name = \"EditorPreview\";\n            AddChild(_preview);\n        }\n        UpdateConfigurationWarnings();\n    }\n\n    public override string[] _GetConfigurationWarnings()\n    {\n        if (Appearance == null || Appearance.Scene == null)\n            return [\"Assign a visual definition. This marker cannot generate a gameplay entity without it.\"];\n        if (Scale != Vector2.One || Rotation != 0)\n            return [\"Gameplay placements use an unscaled, horizontal ground position.\"];\n        return [];\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/Effects/CommandRing.cs",
+      "sha256": "3b496b57692d4ffe375982f5c6c176ee2ff4177b6a125c2a382b7ced9298b201",
+      "sourceText": "using Godot;\n\nnamespace DarkNights.Presentation.Effects;\n\n/// <summary>\n/// 显示右键命令的短暂椭圆反馈，参数来自可复用场景。\n/// 它不执行移动或选取，销毁时不回调模拟，因此丢失效果不影响命令结果。\n/// </summary>\n[Tool]\npublic partial class CommandRing : TimedEffect\n{\n    [Export] public Color RingColor { get; set; } = new(0.9f, 0.84f, 0.56f);\n    [Export] public float InitialRadius { get; set; } = 5;\n    [Export] public float ExpansionSpeed { get; set; } = 10;\n    [Export] public float Flatten { get; set; } = 0.35f;\n    [Export] public float LineWidth { get; set; } = 1;\n\n    public override void _Draw()\n    {\n        DrawSetTransform(Vector2.Zero, 0, new(1, Flatten));\n        DrawArc(Vector2.Zero, InitialRadius + (float)Age * ExpansionSpeed, 0, Mathf.Tau, 20,\n            new Color(RingColor, RingColor.A * (float)Math.Clamp(1 - Age / Lifetime, 0, 1)), LineWidth);\n        DrawSetTransform(Vector2.Zero);\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/Effects/FloatingTextView.cs",
+      "sha256": "76ebc8e3f8246590def9c5a354aaad6b994c3281eb1104a8e0058b857d84b66a",
+      "sourceText": "using DarkNights.Content;\nusing Godot;\n\nnamespace DarkNights.Presentation.Effects;\n\n/// <summary>\n/// 参数化绘制伤害或产出飘字，保留原有小字号基线、漂移与图标排列。\n/// 字体、色彩及图标直接引用场景资源，文本来自一次性通知，不进行结算。\n/// </summary>\n[Tool]\npublic partial class FloatingTextView : TimedEffect\n{\n    [Export] public Font Font { get; set; } = null!;\n    [Export] public int FontSize { get; set; } = 7;\n    [Export] public Color ResourceColor { get; set; } = new(\"c6dba3\");\n    [Export] public Color EnemyColor { get; set; } = new(\"e8dac1\");\n    [Export] public Color FriendlyColor { get; set; } = new(\"ef9582\");\n    [Export] public Texture2D[] ResourceIcons { get; set; } = [];\n    [Export] public string SampleText { get; set; } = \"-5\";\n    [Export] public bool SampleResource { get; set; }\n    [Export] public int SampleIcon { get; set; }\n    [Export] public float RiseSpeed { get; set; } = 10;\n\n    public override void _Draw()\n    {\n        if (Font == null)\n            return;\n        bool resource = Cue?.Kind == \"resource\" || Cue == null && SampleResource;\n        Color color = resource ? ResourceColor : Cue?.Enemy == true ? EnemyColor : FriendlyColor;\n        color.A *= (float)Math.Clamp((Lifetime - Age) * 2, 0, 1);\n        float drift = Mathf.Sin((Cue?.X ?? GlobalPosition.X) * 3.7f + (Cue?.Y ?? GlobalPosition.Y)) * 5;\n        Vector2 at = new(-5 + drift, -(float)Age * RiseSpeed);\n        DrawString(Font, at, Cue?.Text ?? SampleText, HorizontalAlignment.Left, -1, FontSize, color);\n        if (resource && ResourceIcons.Length > 0)\n        {\n            int index = Cue == null ? SampleIcon : GameText.ResourceIds.IndexOf(Cue.ContentId);\n            var icon = ResourceIcons[Math.Clamp(index, 0, ResourceIcons.Length - 1)];\n            DrawTextureRect(icon, new(at + new Vector2(10, -6), new Vector2(8, 8)), false, new(1, 1, 1, color.A));\n        }\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/Effects/ProjectileView.cs",
+      "sha256": "eaa45a4e8570413b1541b1a0dee0396063f2168ea69be6cf7e0ed429133df784",
+      "sourceText": "using DarkNights.Simulation.Entities;\nusing Godot;\n\nnamespace DarkNights.Presentation.Effects;\n\n/// <summary>\n/// 用箭矢场景显示现有投射物轨迹，模型年龄决定位置与朝向。\n/// 图片和原点可编辑，弧线只影响画面；命中时点和伤害始终由ProjectileSystem维护。\n/// </summary>\npublic partial class ProjectileView : Node2D\n{\n    [Export] public float ArcHeight { get; set; } = 10;\n    [Export] public float TangentOffset { get; set; } = 31.4f;\n\n    public void Refresh(Projectile shot)\n    {\n        float ratio = (float)Math.Clamp(shot.Age / shot.Duration, 0, 1);\n        Position = shot.From.Lerp(shot.To, ratio) + new Vector2(0, -Mathf.Sin(ratio * Mathf.Pi) * ArcHeight);\n        Vector2 tangent = shot.To - shot.From + new Vector2(0, -Mathf.Cos(ratio * Mathf.Pi) * TangentOffset);\n        Rotation = tangent.Angle();\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/Effects/RemnantView.cs",
+      "sha256": "e292c0a22221632fb88bc189383248b0b4a8adf58e3fb89956dd25431fda6980",
+      "sourceText": "using DarkNights.Presentation.Actors;\nusing DarkNights.Presentation.Buildings;\nusing DarkNights.Presentation.Resources;\nusing DarkNights.Presentation.World;\nusing Godot;\n\nnamespace DarkNights.Presentation.Effects;\n\n/// <summary>\n/// 从同一外观目录显示尸体或建筑残骸，不保留已死亡模型的引用。\n/// 编辑样本使用无Owner的临时外观；动画、原点与残骸图片继续由原外观场景维护。\n/// </summary>\n[Tool]\npublic partial class RemnantView : TimedEffect\n{\n    [Export] public bool Corpse { get; set; } = true;\n    [Export] public VisualDefinition Sample { get; set; } = null!;\n    [Export] public Color Tint { get; set; } = new(0.75f, 0.75f, 0.75f);\n    [Export] public bool FadeAtEnd { get; set; } = true;\n    [Export] public Node2D VisualSlot { get; set; } = null!;\n    [Export] public bool PreviewLeft { get; set; }\n    private VisualDefinition? _appearance;\n    private SceneVisual? _visual;\n\n    protected override void Refresh()\n    {\n        var appearance = Cue == null ? Sample : Catalog!.Find(Corpse ? VisualCategory.Actor : VisualCategory.Building, Cue.ContentId);\n        if (VisualSlot == null || appearance == null)\n            return;\n        if (_appearance != appearance)\n        {\n            if (_visual != null)\n            {\n                VisualSlot.RemoveChild(_visual);\n                _visual.QueueFree();\n            }\n            _appearance = appearance;\n            _visual = appearance.Scene.Instantiate<SceneVisual>();\n            VisualSlot.AddChild(_visual);\n        }\n        Color tint = Tint;\n        if (FadeAtEnd)\n            tint.A *= (float)Math.Clamp(Lifetime - Age, 0, 1);\n        if (_visual is ActorVisual actor)\n            actor.SetPose(\"die\", Age, Cue?.Face ?? (PreviewLeft ? -1 : 1), 0, false, false, tint);\n        else if (_visual is BuildingVisual building)\n            building.SetStage(1, tint: tint, destroyed: true);\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/World/BackdropLayer.cs",
+      "sha256": "8d377ddba5f9627dd2a5335a01203435040fb05567b98f7fea18b1ae4d1c3f1f",
+      "sourceText": "using Godot;\n\nnamespace DarkNights.Presentation.World;\n\n/// <summary>\n/// 用原生Parallax2D重复纹理，并按既有世界原点计算水平视差。\n/// Factor与Tint是美术设置；ScrollOffset和运行透明度由环境控制器派生。\n/// </summary>\n[Tool]\npublic partial class BackdropLayer : Parallax2D\n{\n    [Export(PropertyHint.Range, \"0,1,0.01\")] public float Factor { get; set; } = 0.3f;\n    [Export] public Color Tint { get; set; } = Colors.White;\n    [Export] public bool FadeWithNight { get; set; }\n\n    public void Apply(float cameraX, float night)\n    {\n        ScrollOffset = new(cameraX * (1 - Factor), 0);\n        Color color = Tint;\n        if (FadeWithNight)\n            color.A *= night;\n        Modulate = color;\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/World/CampLight.cs",
+      "sha256": "06963750d5605906b59583ff757189a027480eba8ceb0325d425591e4cee7423",
+      "sourceText": "using Godot;\n\nnamespace DarkNights.Presentation.World;\n\n/// <summary>\n/// 将场景里的灯光基准与昼夜、闪烁相乘，保持原有亮度和位置相位。\n/// 独立打开时提供安全预览，放入关卡后由环境统一传入表现时间。\n/// </summary>\n[Tool]\npublic partial class CampLight : PointLight2D\n{\n    [Export] public float BaseEnergy { get; set; } = 0.65f;\n    [Export] public float FlickerAmplitude { get; set; } = 0.07f;\n    [Export] public double FlickerFrequency { get; set; } = 3.1;\n    [Export] public float PreviewNight { get; set; } = 0.16f;\n    public bool ManagedByWorld { get; set; }\n\n    public void Apply(double time, float night) =>\n        Energy = night * (BaseEnergy + Mathf.Sin((float)(time * FlickerFrequency + GlobalPosition.X)) * FlickerAmplitude);\n\n    public override void _Process(double delta)\n    {\n        if (Engine.IsEditorHint() && !ManagedByWorld)\n            Apply(0, PreviewNight);\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/World/Fireflies.cs",
+      "sha256": "fbbfad98f9fe4aeaab0f9defb211e7fdfc98f96ffc0f0ce2f7019cf0d9482490",
+      "sourceText": "using Godot;\n\nnamespace DarkNights.Presentation.World;\n\n/// <summary>\n/// 按既有公式绘制少量萤火像素，表现时间由环境统一提供。\n/// 数量与配色可编辑，不参与昼夜判定，也不影响会话随机序列。\n/// </summary>\n[Tool]\npublic partial class Fireflies : Node2D\n{\n    [Export] public int Count { get; set; } = 15;\n    [Export] public float DistributionWidth { get; set; } = 1100;\n    [Export] public Color LightColor { get; set; } = new(0.91f, 0.85f, 0.53f);\n    [Export] public Vector2 DotSize { get; set; } = new(0.8f, 0.8f);\n    private double _time;\n    private float _night = 0.16f;\n\n    public void Apply(double time, float night)\n    {\n        _time = time;\n        _night = night;\n        QueueRedraw();\n    }\n\n    public override void _Draw()\n    {\n        if (DistributionWidth <= 0)\n            return;\n        for (int i = 0; i < Count; i++)\n        {\n            float x = (float)((i * 83.1 + _time * 1.1) % DistributionWidth);\n            float y = -15 - (float)(i * 11.3 % 95) + (float)Math.Sin(_time * 0.4 + i) * 3;\n            float alpha = (0.15f + _night * 0.5f) * (0.5f + (float)Math.Sin(_time + i * 4.1) * 0.5f);\n            DrawRect(new(new(x, y), DotSize), new Color(LightColor, alpha));\n        }\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/World/MoonView.cs",
+      "sha256": "281cfe7e1d0624263367a572f1338c320188094f2ae0730d18bb54d50a5f8735",
+      "sourceText": "using Godot;\n\nnamespace DarkNights.Presentation.World;\n\n/// <summary>\n/// 参数化绘制原有两圆月牙，颜色和半径可在编辑器调整。\n/// 环境传入夜色与镜头位置，本节点不处理游戏时间或关卡状态。\n/// </summary>\n[Tool]\npublic partial class MoonView : Node2D\n{\n    [Export] public Color MoonColor { get; set; } = new(0.89f, 0.88f, 0.72f, 0.65f);\n    [Export] public Color DayCutout { get; set; } = new(\"5e717d\");\n    [Export] public Color NightCutout { get; set; } = new(\"263651\");\n    [Export] public float Radius { get; set; } = 11;\n    [Export] public float CutoutRadius { get; set; } = 10;\n    [Export] public Vector2 CutoutOffset { get; set; } = new(4, -3);\n    [Export] public float CameraOffsetX { get; set; } = 138;\n    private float _night = 0.16f;\n\n    public void Apply(float cameraX, float night)\n    {\n        Position = new(cameraX + CameraOffsetX, Position.Y);\n        _night = night;\n        QueueRedraw();\n    }\n\n    public override void _Draw()\n    {\n        DrawCircle(Vector2.Zero, Radius, MoonColor);\n        DrawCircle(CutoutOffset, CutoutRadius, DayCutout.Lerp(NightCutout, _night));\n    }\n\n    public override void _Process(double delta)\n    {\n        if (Engine.IsEditorHint())\n            QueueRedraw();\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/World/TerrainDetails.cs",
+      "sha256": "7ed2f935c9c92597a5b0ea565066271fab56d9f7c44ee94f216f72af3eae2528",
+      "sourceText": "using Godot;\n\nnamespace DarkNights.Presentation.World;\n\n/// <summary>\n/// 保留地表下方的固定像素纹理分布，参数仅用于美术显示。\n/// 不创建碰撞或地形数据，不使用随机数，因此原有关卡规则与存档保持独立。\n/// </summary>\n[Tool]\npublic partial class TerrainDetails : Node2D\n{\n    [Export] public int Count { get; set; } = 190;\n    [Export] public float DistributionWidth { get; set; } = 1100;\n    [Export] public Color LightColor { get; set; } = new(\"3d3a30\");\n    [Export] public Color DarkColor { get; set; } = new(\"292820\");\n\n    public override void _Draw()\n    {\n        if (DistributionWidth <= 0)\n            return;\n        for (int i = 0; i < Count; i++)\n        {\n            float x = (float)(i * 79.37 % DistributionWidth), y = 14 + (float)(i * 13.81 % 115);\n            DrawRect(new(x, y, 2 + i % 4, 1 + i % 2), i % 2 == 0 ? LightColor : DarkColor);\n        }\n    }\n\n    public override void _Process(double delta)\n    {\n        if (Engine.IsEditorHint())\n            QueueRedraw();\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/World/TorchView.cs",
+      "sha256": "fe51da50ccd3bf7d62094abe12adca2566093adab1267675ff52a73e062a905d",
+      "sourceText": "using Godot;\n\nnamespace DarkNights.Presentation.World;\n\n/// <summary>\n/// 同时容纳灯杆、火焰与灯光的环境组件，移动根节点会带走整个组合。\n/// 火焰继续使用基线帧速和位置相位，不消费玩法随机数。\n/// </summary>\n[Tool]\npublic partial class TorchView : Node2D\n{\n    [Export] public AnimatedSprite2D Flame { get; set; } = null!;\n    [Export] public double FramesPerSecond { get; set; } = 10;\n    public bool ManagedByWorld { get; set; }\n\n    public void Apply(double time)\n    {\n        if (Flame?.SpriteFrames != null)\n            Flame.Frame = (int)(time * FramesPerSecond + GlobalPosition.X) % Flame.SpriteFrames.GetFrameCount(\"default\");\n    }\n\n    public override void _Process(double delta)\n    {\n        if (Engine.IsEditorHint() && !ManagedByWorld)\n            Apply(0);\n    }\n}\n"
+    },
+    {
+      "path": "src/Presentation/World/WorldView.cs",
+      "sha256": "b96e183056359d611690adf7bc3aaa2bfbaa1e978ea53bc7862ff57812c0c439",
+      "sourceText": "using DarkNights.Presentation.Authoring;\nusing DarkNights.Presentation.Resources;\nusing DarkNights.Simulation;\nusing DarkNights.Simulation.State;\nusing Godot;\n\nnamespace DarkNights.Presentation.World;\n\n/// <summary>\n/// 绑定关卡里已经序列化的布景、灯光、镜头和布局，按会话状态驱动昼夜表现。\n/// 编辑器和独立运行只展示无模型预览；正式会话由组合根注入，环境时间不参与玩法结算。\n/// </summary>\n[Tool]\npublic partial class WorldView : Node2D\n{\n    [Export] public LevelLayout Layout { get; set; } = null!;\n    [Export] public EntityViewSynchronizer Entities { get; set; } = null!;\n    [Export] public Camera2D SceneCamera { get; set; } = null!;\n    [Export] public CanvasModulate Ambient { get; set; } = null!;\n    [Export] public Sprite2D Sky { get; set; } = null!;\n    [Export] public MoonView Moon { get; set; } = null!;\n    [Export] public Fireflies Fireflies { get; set; } = null!;\n    [Export] public Node2D GroundEffects { get; set; } = null!;\n    [ExportGroup(\"Day and night\")]\n    [Export] public Color DayAmbient { get; set; } = new(\"e9ebde\");\n    [Export] public Color NightAmbient { get; set; } = new(\"7187a9\");\n    [Export] public Color DaySky { get; set; } = new(\"aabcc1\");\n    [Export] public Color NightSky { get; set; } = new(\"465778\");\n    [Export(PropertyHint.Range, \"0,1,0.01\")] public float PreviewNight { get; set; } = 0.16f;\n    private GameSession? _session;\n    private BackdropLayer[] _backdrops = [];\n    private CampLight[] _lights = [];\n    private TorchView[] _torches = [];\n    private double _visualTime;\n    public CameraRig Rig { get; private set; } = null!;\n    public float NightAmount { get; set; } = 0.16f;\n\n    public override void _Ready()\n    {\n        var descendants = Descendants(this).ToArray();\n        _backdrops = descendants.OfType<BackdropLayer>().ToArray();\n        _lights = descendants.OfType<CampLight>().ToArray();\n        _torches = descendants.OfType<TorchView>().ToArray();\n        foreach (var light in _lights)\n            light.ManagedByWorld = true;\n        foreach (var torch in _torches)\n            torch.ManagedByWorld = true;\n        if (!Engine.IsEditorHint() && GetParent() is Window)\n            Layout.EnablePreview();\n        ApplyEnvironment(SceneCamera?.Position.X ?? 0, PreviewNight);\n    }\n\n    public void Initialize(GameSession session, VisualCatalog visuals)\n    {\n        _session = session;\n        Rig = new(SceneCamera, session);\n        Entities.Initialize(session, visuals);\n        ResetCamera();\n    }\n\n    public void ResetCamera()\n    {\n        NightAmount = 0.16f;\n        Rig.Update();\n    }\n\n    public override void _Process(double delta)\n    {\n        if (_session == null)\n        {\n            if (!Engine.IsEditorHint())\n                _visualTime += delta;\n            ApplyEnvironment(SceneCamera?.Position.X ?? 0, PreviewNight);\n            return;\n        }\n        _visualTime += delta;\n        float target = _session.Waves.Phase == WavePhase.Night ? 1 :\n            _session.Waves.DayRemaining < 22 ? (float)((1 - _session.Waves.DayRemaining / 22) * 0.6) : 0.05f;\n        if (_session.Mode == SessionMode.Menu)\n            target = 0.35f;\n        else if (_session.Mode == SessionMode.Won)\n            target = 0;\n        NightAmount = Mathf.MoveToward(NightAmount, target, (float)(delta * 0.16));\n        Rig.Update();\n        ApplyEnvironment(_session.Interaction.CameraX, NightAmount);\n    }\n\n    public void ApplyEnvironment(float cameraX, float night)\n    {\n        if (Ambient != null)\n            Ambient.Color = DayAmbient.Lerp(NightAmbient, night);\n        if (Sky != null)\n            Sky.SelfModulate = DaySky.Lerp(NightSky, night);\n        foreach (var backdrop in _backdrops)\n            backdrop.Apply(cameraX, night);\n        foreach (var light in _lights)\n            light.Apply(_visualTime, night);\n        foreach (var torch in _torches)\n            torch.Apply(_visualTime);\n        Moon?.Apply(cameraX, night);\n        Fireflies?.Apply(_visualTime, night);\n    }\n\n    private static IEnumerable<Node> Descendants(Node root)\n    {\n        foreach (var child in root.GetChildren())\n        {\n            yield return child;\n            foreach (var descendant in Descendants(child))\n                yield return descendant;\n        }\n    }\n\n    public override string[] _GetConfigurationWarnings() =>\n        new Node?[] { Layout, Entities, SceneCamera, Ambient, Sky, Moon, Fireflies, GroundEffects }.Any(n => n == null)\n            ? [\"Assign the level layout, views, camera and environment references.\"] : [];\n}\n"
+    }
+  ]
+}

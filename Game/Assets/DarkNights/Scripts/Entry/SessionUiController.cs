@@ -39,6 +39,7 @@ namespace DarkNights.Entry
         private bool initialized;
         public CampInput Input => input;
         public string Page => page;
+        public void PresentEvent(PresentationEvent value, double age) => hud.PresentEvent(value, age);
 
         public void ActivateButton(string panel, string key)
         {
@@ -91,6 +92,7 @@ namespace DarkNights.Entry
             if (generation != network.Client.ConnectionGeneration || epoch != (frame?.Epoch ?? 0))
             {
                 input.ResetLocal();
+                hud.ResetMessages();
                 generation = network.Client.ConnectionGeneration;
                 epoch = frame?.Epoch ?? 0;
             }

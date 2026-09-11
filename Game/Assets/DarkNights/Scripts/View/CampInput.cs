@@ -26,6 +26,9 @@ namespace DarkNights.View
         public event Action<InputIntent> Intent;
         public IReadOnlyList<int> Selected => selected.AsReadOnly();
         public string BuildKind { get; private set; } = "";
+        public float PlacementX { get; private set; }
+        public bool PlacementValid { get; private set; }
+        public void PresentPlacement(float x, bool valid) { PlacementX = x; PlacementValid = valid; }
         public int Hover { get; private set; }
         public bool Dragging => dragging;
         public Vector2 DragStart => dragStart;

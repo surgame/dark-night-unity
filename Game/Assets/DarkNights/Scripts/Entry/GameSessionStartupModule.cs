@@ -50,6 +50,7 @@ namespace DarkNights.Entry
             var ui = network.gameObject.AddComponent<SessionUiController>();
             await ui.Initialize(network, catalog, stage, entities);
             network.gameObject.AddComponent<SessionPlacementView>().Initialize(network.Client, entities, ui.Input, stage, catalog, layout);
+            await network.gameObject.AddComponent<SessionEffects>().Initialize(network.Client, entities, ui, stage, layout.GroundY);
             SessionAutomation.Install(network);
             Application.runInBackground = true;
             Application.targetFrameRate = 60;

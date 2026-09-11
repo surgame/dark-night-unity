@@ -60,6 +60,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5df5d18f11982e3469a7d6fdeb074dd0
+    m_Address: dark_nights.effect.audio
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5e4085280505da54786c0409b73e2fcd
+    m_Address: dark_nights.effect.command
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6172818437ccc6f4a95e2726be480feb
     m_Address: GameCore
     m_ReadOnly: 0
@@ -130,6 +140,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c07f1287655d3ba4bbe4bc2bccf1936f
+    m_Address: dark_nights.effect.arrow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c3a4a103cafc13a4a99a0e888fdc082a
     m_Address: dark_nights.object.archer
     m_ReadOnly: 0
@@ -162,6 +177,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e95960097cc0e0342a3ade438d1c64ce
     m_Address: dark_nights.object.iron
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f32054fedcf949b4c81637b7b4e734fd
+    m_Address: dark_nights.effect.floating
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

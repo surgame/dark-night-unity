@@ -19,7 +19,8 @@ namespace DarkNights.Runtime.Session
         private long publication;
         private int epoch;
 
-        public SessionViewData Capture(SessionAuthority session, GameSession game)
+        public SessionViewData Capture(SessionAuthority session, GameSession game, IReadOnlyList<PresentationEvent> events,
+            IReadOnlyList<PresentationEvent> remnants)
         {
             WorldState world = game.World;
             if ((long)world.Actors.Count + world.Buildings.Count + world.Worksites.Count > WorldViewData.MaximumEntities ||
@@ -57,7 +58,7 @@ namespace DarkNights.Runtime.Session
             var view = new WorldViewData(camp, actors, buildings, sites, arrows);
             return new SessionViewData(checked(++publication), session.Epoch, session.Revision, session.ServerTick,
                 session.PolicyRevision, session.ControlMode == CampControlMode.HostOnly, session.PlayerCount,
-                session.ReadyCount, session.Loading, game.Paused, (int)game.Speed, game.Elapsed, view);
+                session.ReadyCount, session.Loading, game.Paused, (int)game.Speed, game.Elapsed, view, events, remnants);
         }
 
         public void Clear()

@@ -75,6 +75,20 @@ namespace DarkNights.View
                 if (site.WorkerId != 0) Bar(mesh, root + new Vector2(0, 5) * zoom, 20, 2,
                     site.Progress / catalog.Balance.Worksites[site.Kind].Interval, new Color32(24, 38, 43, 255), new Color32(163, 198, 139, 255));
             }
+            if (input.BuildKind.Length > 0)
+            {
+                var definition = catalog.Balance.Buildings[input.BuildKind];
+                Vector2 root = Point(new Vector3(input.PlacementX / 100, 0));
+                Color tint = input.PlacementValid ? new Color(.69f, .91f, .65f, .68f) : new Color(1, .35f, .28f, .65f);
+                Line(mesh, root + new Vector2(-definition.Width * .5f, 2) * zoom,
+                    root + new Vector2(definition.Width * .5f, 2) * zoom, tint, 2 * zoom);
+                if (input.BuildKind == "tower")
+                {
+                    tint.a = .3f;
+                    Line(mesh, root + new Vector2(-(float)definition.Range, 6) * zoom,
+                        root + new Vector2((float)definition.Range, 6) * zoom, tint, zoom);
+                }
+            }
             if (input.Dragging && Vector2.Distance(input.DragStart, input.Pointer) > 5)
             {
                 Vector2 a = new Vector2(input.DragStart.x, Screen.height - input.DragStart.y);

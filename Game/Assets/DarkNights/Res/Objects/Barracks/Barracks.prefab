@@ -148,7 +148,7 @@ MonoBehaviour:
   _ownerInstance: {fileID: 7036179953667239574}
   network: {fileID: 0}
   _dimension: 0
-  _animator: {fileID: 0}
+  _animator: {fileID: 3455908068020183593}
   _renderers: []
   _spriteRenderers:
   - {fileID: 8682958394269467677}
@@ -198,6 +198,7 @@ MonoBehaviour:
     width: 1
     height: 0.56
   portrait: {fileID: 21300000, guid: e35a44d0a7c918a479a26a5a75cff329, type: 3}
+  shadow: {fileID: 0}
   facing: {fileID: 0}
   origin: {fileID: 0}
   statusAnchor: {fileID: 1797030851149876154}
@@ -304,7 +305,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f54e8756c6482bd4b9ed7e9c3813cb73, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -426,7 +427,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f54e8756c6482bd4b9ed7e9c3813cb73, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -583,7 +584,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f54e8756c6482bd4b9ed7e9c3813cb73, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

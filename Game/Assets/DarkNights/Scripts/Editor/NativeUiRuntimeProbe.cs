@@ -32,12 +32,14 @@ namespace DarkNights.Editor
             running = true;
             Mouse[] originals = InputSystem.devices.OfType<Mouse>().Where(m => m.enabled).ToArray();
             Mouse mouse = null;
+            var background = InputSystem.settings.backgroundBehavior;
             var checks = new Dictionary<string, bool>();
             string error = null;
             void Check(string name, bool ok) { checks[name] = ok; if (!ok) throw new InvalidOperationException(name); }
             try
             {
                 await Until(() => UnityEngine.Object.FindAnyObjectByType<SessionPlacementView>() != null);
+                InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
                 foreach (Mouse original in originals) InputSystem.DisableDevice(original);
                 mouse = InputSystem.AddDevice<Mouse>("DarkNights UI Probe");
                 var network = AppStartup.Instance.Context.Resolve<SessionNetwork>();
@@ -88,7 +90,7 @@ namespace DarkNights.Editor
                 await Button(mouse, "Chrome", "Menu");
                 await Button(mouse, "PauseMenu", "MainMenu");
                 await Until(() => ui.Page == "MainMenu" && entities.Count == 0 && !network.Hosting);
-                Check("exit_clears_entity_views", stage.Entities.childCount == 0);
+                Check("exit_clears_entity_views", stage.Entities.GetComponentsInChildren<NativeVisual>().Length == 0);
                 await Button(mouse, "MainMenu", "NewGame");
                 await Until(() => network.Client.Ready && entities.Count == 17);
                 Check("second_start_restores_fresh_world", network.Client.Replica.Current.World.Buildings.Count == 4);
@@ -97,6 +99,7 @@ namespace DarkNights.Editor
             finally
             {
                 if (mouse != null) InputSystem.RemoveDevice(mouse);
+                InputSystem.settings.backgroundBehavior = background;
                 foreach (Mouse original in originals) if (original.added) InputSystem.EnableDevice(original);
                 string path = Path.GetFullPath("../artifacts/migration/ui-runtime.json");
                 Directory.CreateDirectory(Path.GetDirectoryName(path));

@@ -20,7 +20,7 @@ namespace DarkNights.Core.Logic
         public LevelLayout Layout { get; }
         public WorldState World { get; } = new();
         public CampaignStats Stats { get; } = new();
-        public SessionFeedback Feedback { get; } = new();
+        public SessionFeedback Feedback { get; }
         public SimulationRandom Random { get; } = new();
         public EconomyService Economy { get; }
         public EntityLifecycle Lifecycle { get; }
@@ -45,8 +45,9 @@ namespace DarkNights.Core.Logic
         public event Action<bool> ResetOccurred;
         public event Action<bool> Finished;
 
-        public GameSession(GameCatalog catalog, LevelLayout layout)
+        public GameSession(GameCatalog catalog, LevelLayout layout, SessionFeedback feedback = null)
         {
+            Feedback = feedback ?? new SessionFeedback();
             Catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             Layout = layout ?? throw new ArgumentNullException(nameof(layout));
             Layout.Validate(catalog);

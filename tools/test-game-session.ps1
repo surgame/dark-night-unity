@@ -11,7 +11,12 @@ $checks = [ordered]@{}
 function Read-Report([string]$Role) {
     $path = Join-Path $run "$Role.json"
     if (Test-Path -LiteralPath $path) {
-        try { return Get-Content -LiteralPath $path -Raw | ConvertFrom-Json } catch { return $null }
+        try {
+            $stream = [IO.FileStream]::new($path, [IO.FileMode]::Open, [IO.FileAccess]::Read,
+                [IO.FileShare]::ReadWrite -bor [IO.FileShare]::Delete)
+            $reader = [IO.StreamReader]::new($stream)
+            try { return $reader.ReadToEnd() | ConvertFrom-Json } finally { $reader.Dispose() }
+        } catch { return $null }
     }
     return $null
 }

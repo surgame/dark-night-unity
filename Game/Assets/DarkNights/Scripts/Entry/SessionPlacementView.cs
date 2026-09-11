@@ -54,6 +54,7 @@ namespace DarkNights.Entry
                 !world.Worksites.Any(w => w.Amount != 0 && w.FarmId == 0 &&
                     PlacementGeometry.WorksiteOverlap(x, definition.Width, w.X, catalog.Balance.Worksites[w.Kind].Width)) &&
                 GameText.ResourceIds.All(id => world.Camp.Stock.Get(id) >= definition.Cost.Get(id));
+            input.PresentPlacement(x, Valid);
             if (visual != null)
             {
                 visual.transform.position = new Vector3(x / 100, 0, 0);

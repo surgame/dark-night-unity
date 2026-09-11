@@ -20,6 +20,32 @@ namespace DarkNights.Tests
     public sealed class ProjectionWireTests
     {
         [Test]
+        public void RealBattleSnapshotsRemainDecodableAfterWindupCrossesZero()
+        {
+            RuleScenario.RepositoryRoot = Path.GetFullPath("..");
+            var catalog = RuleScenario.Catalog();
+            var layout = RuleScenario.Layout();
+            using var authority = SessionScenario.Open(catalog, layout, out var host, out _);
+            var codec = new ProjectionCodec(catalog, layout);
+            SessionScenario.Execute(authority, host, SessionScenario.Request(authority, SessionOperation.StartNight, 1));
+            SessionScenario.Execute(authority, host, SessionScenario.Request(authority, SessionOperation.SetSpeed, 2, value: 2));
+            bool negativeWindup = false, projectile = false, death = false;
+            for (int tick = 0; tick < 7200; tick++)
+            {
+                authority.Tick();
+                if (tick % 6 != 0) continue;
+                var frame = authority.CaptureProjection();
+                var decoded = codec.Decode(codec.Encode(frame));
+                negativeWindup |= decoded.World.Actors.Any(a => a.Windup < 0);
+                projectile |= decoded.World.Projectiles.Count > 0;
+                death |= decoded.Events.Any(e => e.Type == "effect" && e.Cue.Kind == "corpse");
+            }
+            Assert.IsTrue(negativeWindup, "Must exercise the original negative windup remainder.");
+            Assert.IsTrue(projectile, "Must exercise real projectile snapshots.");
+            Assert.IsTrue(death, "Must exercise real death notifications.");
+        }
+
+        [Test]
         public void RealCodecFreezesNestedStateAndRejectsMalformedFrames()
         {
             RuleScenario.RepositoryRoot = Path.GetFullPath("..");
@@ -50,6 +76,15 @@ namespace DarkNights.Tests
             mutable.World.Camp.NextSpawn = catalog.Level.Waves[0].Enemies.Count + 1;
             Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
             mutable.World.Camp.NextSpawn = -1;
+            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            mutable = SessionWire.From(initial);
+            mutable.Events[0].Type = "unknown";
+            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            mutable = SessionWire.From(initial);
+            mutable.Events[0].Tick = initial.ServerTick + 1;
+            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            mutable = SessionWire.From(initial);
+            mutable.Events[0].Text = new string('x', 257);
             Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
             mutable = SessionWire.From(initial);
             mutable.World.Buildings[0].Id = mutable.World.Actors[0].Id;
@@ -104,6 +139,10 @@ namespace DarkNights.Tests
             {
                 ViewId = id, FromX = 1, FromY = 2, ToX = 3, ToY = 4, Age = 0.2, Duration = 1
             }).ToArray();
+            source.Events = Enumerable.Range(1, SessionViewData.MaximumEvents).Select(id => PresentationWire.From(
+                new PresentationEvent(id, 0, "banner", new string('横', 256), new string('幅', 256)))).ToArray();
+            source.Remnants = Enumerable.Range(SessionViewData.MaximumEvents + 1, SessionViewData.MaximumRemnants).Select(id => PresentationWire.From(
+                new PresentationEvent(id, 0, "effect", cue: new VisualCue("rubble", 100, layout.GroundY, ContentId: "barracks")))).ToArray();
             var maximum = source.Freeze();
             byte[] initialBytes = codec.Encode(first);
             byte[] maximumBytes = codec.Encode(maximum);
@@ -114,6 +153,8 @@ namespace DarkNights.Tests
                 ["context"] = "Unity Editor codec only; no transport measurement", ["initialBytes"] = initialBytes.Length,
                 ["maximumBytes"] = maximumBytes.Length, ["maximumEntities"] = 256, ["maximumProjectiles"] = 1024,
                 ["actorNameCharacters"] = 256, ["payloadLimit"] = ProjectionCodec.MaximumBytes,
+                ["maximumPresentationEvents"] = SessionViewData.MaximumEvents,
+                ["maximumActiveRemnants"] = SessionViewData.MaximumRemnants,
                 ["initialPayloadBytesPerSecondAt10HzThreeClients"] = initialBytes.Length * 30,
                 ["maximumPayloadBytesPerSecondAt10HzThreeClients"] = maximumBytes.Length * 30
             };

@@ -31,6 +31,7 @@ namespace DarkNights.Entry
         private int epoch, generation;
         private long connection;
         private SessionViewData applied;
+        private readonly PresentationTimeline timeline = new PresentationTimeline();
         public int Count => views.Count;
         public NativeVisual Visual(int id) => views.TryGetValue(id, out var view) ? view.Visual : null;
         public UniTask<ObjectView> CreateVisual(string kind) =>
@@ -59,6 +60,7 @@ namespace DarkNights.Entry
             if (frame == null) return;
             if (frame != applied)
             {
+                timeline.Push(frame, Time.unscaledTimeAsDouble);
                 wanted.Clear();
                 foreach (ActorViewData actor in frame.World.Actors) wanted.Add(actor.Id, actor.Kind);
                 foreach (BuildingViewData building in frame.World.Buildings) wanted.Add(building.Id, building.Kind);
@@ -104,9 +106,9 @@ namespace DarkNights.Entry
             foreach (ActorViewData actor in frame.World.Actors)
                 if (views.TryGetValue(actor.Id, out var view))
                 {
-                    Position(view.Visual, actor.X);
+                    Position(view.Visual, timeline.X(actor, Time.unscaledTimeAsDouble));
                     string kind = frame.World.Worksites.FirstOrDefault(site => site.Id == actor.TargetId)?.Kind ?? "";
-                    view.Visual.Apply(actor, catalog, kind);
+                    view.Visual.Apply(actor, catalog, kind, timeline.ActionTime(actor, Time.unscaledTimeAsDouble));
                 }
             foreach (BuildingViewData building in frame.World.Buildings)
                 if (views.TryGetValue(building.Id, out var view)) { Position(view.Visual, building.X); view.Visual.Apply(building); }
@@ -133,6 +135,7 @@ namespace DarkNights.Entry
             pending.Clear();
             wanted.Clear();
             applied = null;
+            timeline.Reset();
         }
 
         private void OnDestroy() { Clear(); }

@@ -11,7 +11,7 @@ namespace DarkNights.Runtime.Network
     /// </summary>
     public sealed class ProjectionCodec
     {
-        public const int MaximumBytes = 262144;
+        public const int MaximumBytes = 524288;
         private readonly GameCatalog catalog;
         private readonly LevelLayout layout;
 

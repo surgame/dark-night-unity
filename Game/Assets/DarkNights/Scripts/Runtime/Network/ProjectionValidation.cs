@@ -14,6 +14,17 @@ namespace DarkNights.Runtime.Network
     {
         public static void Validate(SessionWire frame, GameCatalog catalog, LevelLayout layout)
         {
+            Require(frame.Events != null && frame.Events.Length <= SessionViewData.MaximumEvents);
+            Require(frame.Remnants != null && frame.Remnants.Length <= SessionViewData.MaximumRemnants);
+            ValidateEvents(frame.Events, frame.ServerTick, catalog, layout);
+            ValidateEvents(frame.Remnants, frame.ServerTick, catalog, layout);
+            foreach (var item in frame.Remnants)
+            {
+                Require(item.Type == "effect" && (item.Kind == "corpse" || item.Kind == "rubble") && item.Text.Length == 0 && item.Detail.Length == 0);
+                var duplicate = frame.Events.FirstOrDefault(e => e.Sequence == item.Sequence);
+                Require(duplicate == null || (duplicate.Type == item.Type && duplicate.Tick == item.Tick && duplicate.Kind == item.Kind &&
+                    duplicate.X == item.X && duplicate.Y == item.Y && duplicate.ContentId == item.ContentId && duplicate.Face == item.Face));
+            }
             WorldWire world = frame.World;
             Require(world != null && world.Camp != null && world.Actors != null && world.Buildings != null &&
                 world.Worksites != null && world.Projectiles != null);
@@ -33,7 +44,9 @@ namespace DarkNights.Runtime.Network
                 Require(a != null && Text(a.Kind, 64) && Text(a.Name, 256) && catalog.Balance.Units.ContainsKey(a.Kind) &&
                     Enum.TryParse<ActorActivity>(a.Activity, out var activity) && Enum.IsDefined(typeof(ActorActivity), activity));
                 Position(a.X, layout);
-                Nonnegative(a.Hp, a.ActionTime, a.Windup, a.HitFlash);
+                Nonnegative(a.Hp, a.ActionTime, a.HitFlash);
+                // 原版前摇在命中 tick 减过零后保留负余量；只验证有限值，不能改变攻击时机。
+                Require(Finite(a.Windup));
                 Require(a.Face == -1 || a.Face == 0 || a.Face == 1);
             }
             foreach (var b in world.Buildings)
@@ -63,6 +76,31 @@ namespace DarkNights.Runtime.Network
                 Nonnegative(p.Age, p.Duration);
                 Require(p.Duration > 0 && p.Age <= p.Duration);
                 Require(Finite(p.FromX) && Finite(p.FromY) && Finite(p.ToX) && Finite(p.ToY));
+            }
+        }
+
+        private static void ValidateEvents(PresentationWire[] items, long serverTick, GameCatalog catalog, LevelLayout layout)
+        {
+            long sequence = 0;
+            foreach (PresentationWire item in items)
+            {
+                Require(item != null && item.Sequence > sequence && item.Tick >= 0 && item.Tick <= serverTick &&
+                    Text(item.Text, 256) && Text(item.Detail, 256) && Text(item.Kind, 16) && Text(item.ContentId, 64) &&
+                    Finite(item.Volume) && item.Volume >= -80 && item.Volume <= 6);
+                sequence = item.Sequence;
+                Require(item.Type == "message" || item.Type == "banner" || item.Type == "sound" || item.Type == "effect");
+                if (item.Type != "effect")
+                {
+                    Require(item.Kind.Length == 0 && item.ContentId.Length == 0 && item.X == 0 && item.Y == 0 && item.Face == 1 && !item.Enemy);
+                    if (item.Type == "sound") Require(item.Text.StartsWith("snd_", StringComparison.Ordinal) && item.Text.Length <= 64);
+                    continue;
+                }
+                Position(item.X, layout);
+                Require(Finite(item.Y) && Math.Abs(item.Y - layout.GroundY) <= 1000 && (item.Face == -1 || item.Face == 0 || item.Face == 1));
+                Require(item.Kind == "damage" || item.Kind == "resource" || item.Kind == "corpse" || item.Kind == "rubble" || item.Kind == "command");
+                if (item.Kind == "corpse") Require(catalog.Balance.Units.ContainsKey(item.ContentId));
+                if (item.Kind == "rubble") Require(catalog.Balance.Buildings.ContainsKey(item.ContentId));
+                if (item.Kind == "resource") Require(GameText.ResourceIds.Contains(item.ContentId));
             }
         }
 

@@ -24,6 +24,8 @@ namespace DarkNights.Entry
         private double nextPoll;
         private readonly Queue<CommandFeedback> feedback = new Queue<CommandFeedback>();
         private string error;
+        private int peakEffects, peakArrows;
+        private int reportRetries;
 
         public static void Install(SessionNetwork network)
         {
@@ -77,6 +79,13 @@ namespace DarkNights.Entry
                         if (operation == "disconnect") network.Disconnect();
                         else if (operation == "connect") await network.Connect(role == "host", address, port);
                         else if (operation == "quit") Application.Quit();
+                        else if (operation == "capture")
+                        {
+                            var stage = UnityEngine.Object.FindAnyObjectByType<DarkNights.View.PinewatchStage>();
+                            if (command["x"] != null) stage.Focus((float)command["x"]);
+                            SessionRenderCapture.Save(stage, Path.Combine(Path.GetDirectoryName(reportPath),
+                                Path.GetFileName((string)command["file"] ?? "capture.png")));
+                        }
                         else if (operation == "ui") network.GetComponent<SessionUiController>().ActivateButton((string)command["panel"], (string)command["key"]);
                         else
                         {
@@ -87,6 +96,9 @@ namespace DarkNights.Entry
                         }
                     }
                 }
+                var effects = network.GetComponent<SessionEffects>();
+                peakEffects = Math.Max(peakEffects, effects.EffectCount);
+                peakArrows = Math.Max(peakArrows, effects.ArrowCount);
                 var report = new JObject
                 {
                     ["utc"] = DateTime.UtcNow.ToString("O"), ["role"] = role, ["status"] = network.Status,
@@ -97,12 +109,22 @@ namespace DarkNights.Entry
                     ["serverPayloadBytes"] = network.Server?.LastPayloadBytes ?? 0,
                     ["uiPage"] = network.GetComponent<SessionUiController>().Page,
                     ["selected"] = JArray.FromObject(network.GetComponent<SessionUiController>().Input.Selected),
-                    ["entityViews"] = network.GetComponent<SessionEntityViews>().Count
+                    ["entityViews"] = network.GetComponent<SessionEntityViews>().Count,
+                    ["effectViews"] = effects.EffectCount, ["arrowViews"] = effects.ArrowCount,
+                    ["peakEffectViews"] = peakEffects, ["peakArrowViews"] = peakArrows
                 };
                 string temporary = reportPath + ".tmp";
                 File.WriteAllText(temporary, report.ToString());
-                if (File.Exists(reportPath)) File.Replace(temporary, reportPath, null);
-                else File.Move(temporary, reportPath);
+                try
+                {
+                    if (File.Exists(reportPath)) File.Replace(temporary, reportPath, null);
+                    else File.Move(temporary, reportPath);
+                    reportRetries = 0;
+                }
+                catch (IOException) when (++reportRetries < 10)
+                {
+                    // Windows 文件扫描或报告读取可短暂阻止替换；下一次轮询重发最新冻结报告。
+                }
             }
             catch (Exception exception) { error = exception.ToString(); Debug.LogException(exception); }
             finally { working = false; }

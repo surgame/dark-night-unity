@@ -40,7 +40,8 @@ namespace DarkNights.View
         [ViewComponent("Map")] private CampMap map;
         [ViewComponent("Overlay")] private CampOverlay overlay;
         private GameCatalog catalog;
-        private double toastRemaining;
+        private double toastRemaining, bannerRemaining;
+        private CanvasGroup toastFade, bannerFade;
         public void PresentWorld(SessionViewData frame, CampInput input, IEntityVisuals entities, PinewatchStage stage, bool ready)
         {
             map.Present(frame, stage, stage.WorldWidth, ready);
@@ -50,6 +51,8 @@ namespace DarkNights.View
         public void Configure(GameCatalog value)
         {
             catalog = value;
+            toastFade = View.Get<CanvasGroup>("ToastFade");
+            bannerFade = View.Get<CanvasGroup>("BannerFade");
             foreach (string kind in new[] { "house", "farm", "barracks", "tower" })
                 Label("Build" + Capital(kind)).text = catalog.Balance.Buildings[kind].Name + "\n" + GameText.Cost(catalog.Balance.Buildings[kind].Cost);
             foreach (string kind in new[] { "spearman", "archer" })
@@ -59,10 +62,23 @@ namespace DarkNights.View
             toastPanel.gameObject.SetActive(false);
         }
 
-        public void ShowMessage(string value)
+        public void ShowMessage(string value, bool warning = true, double remaining = 5)
         {
             toast.text = value;
-            toastRemaining = 5;
+            toast.color = warning ? new Color32(239, 180, 156, 255) : new Color32(228, 229, 215, 255);
+            toastRemaining = remaining;
+        }
+
+        public void ResetMessages() { toastRemaining = bannerRemaining = 0; }
+        public void PresentEvent(PresentationEvent value, double age)
+        {
+            if (value.Type == "message") ShowMessage(value.Text, value.Warning, Math.Max(0, 5 - age));
+            else if (value.Type == "banner")
+            {
+                bannerTitle.text = value.Text;
+                bannerDetail.text = value.Detail;
+                bannerRemaining = Math.Max(0, 5 - age);
+            }
         }
 
         public void Present(SessionViewData frame, IReadOnlyList<int> selected, string buildKind, int hover,
@@ -91,7 +107,11 @@ namespace DarkNights.View
             hint.text = buildKind.Length > 0 ? $"{catalog.Balance.Buildings[buildKind].Name}放置中 · 左键确认 · 右键取消" : SelectionReadout.Hint(frame.World, hover, catalog);
             Buttons(frame, selected, ready, slot);
             toastRemaining = Math.Max(0, toastRemaining - Time.unscaledDeltaTime);
+            bannerRemaining = Math.Max(0, bannerRemaining - Time.unscaledDeltaTime);
             toastPanel.gameObject.SetActive(toastRemaining > 0 && !modal);
+            banner.gameObject.SetActive(bannerRemaining > 0 && !modal);
+            toastFade.alpha = (float)Math.Min(1, toastRemaining);
+            bannerFade.alpha = (float)Math.Min(1, bannerRemaining);
         }
 
         private void Buttons(SessionViewData frame, IReadOnlyList<int> selected, bool ready, int slot)

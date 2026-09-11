@@ -25,6 +25,8 @@ namespace DarkNights.Runtime.Network
         public int Speed { get; set; }
         public double Elapsed { get; set; }
         public WorldWire World { get; set; }
+        public PresentationWire[] Events { get; set; }
+        public PresentationWire[] Remnants { get; set; }
 
         public static SessionWire From(SessionViewData value) => new SessionWire
         {
@@ -41,6 +43,8 @@ namespace DarkNights.Runtime.Network
             Speed = value.Speed,
             Elapsed = value.Elapsed,
             World = WorldWire.From(value.World),
+            Events = value.Events.Select(PresentationWire.From).ToArray(),
+            Remnants = value.Remnants.Select(PresentationWire.From).ToArray(),
         };
 
         public SessionViewData Freeze() => new SessionViewData(
@@ -56,6 +60,6 @@ namespace DarkNights.Runtime.Network
             Paused,
             Speed,
             Elapsed,
-            World?.Freeze());
+            World?.Freeze(), Events?.Select(item => item.Freeze()).ToArray(), Remnants?.Select(item => item.Freeze()).ToArray());
     }
 }

@@ -1,0 +1,110 @@
+{
+  "date": "2026-09-12",
+  "baseline": "44e61a5",
+  "protocol": 4,
+  "coreChecks": 1338,
+  "editorChecks": 53,
+  "mouseChecks": 13,
+  "editorBattleChecks": 7,
+  "monoStartup": {
+    "passed": true,
+    "backend": "mono",
+    "processId": 27112,
+    "scope": "Bootstrap + YYGC AppStartup + Addressables + formal ObjectDefinition/Prefab/generated registry startup; no gameplay or multiplayer acceptance",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\player-mono\\DarkNights.exe",
+    "playerSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "log": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\run-20260912-020926-641-mono\\verified.log",
+    "logSha256": "3854d6585b7515de0fe2f68e74218e45fadf643c5e81acca3ffc92415526d5f1",
+    "runtimeLog": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\run-20260912-020926-641-mono\\player.log",
+    "checks": {
+      "independent_player_remains_running": true,
+      "app_startup_ready_once": true,
+      "frozen_content_loaded_once": true,
+      "formal_object_content_loaded_once": true,
+      "no_startup_or_runtime_exception": true,
+      "no_formal_editor_or_tests_in_player": true
+    }
+  },
+  "monoSession": {
+    "passed": true,
+    "backend": "mono",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\player-mono\\DarkNights.exe",
+    "playerSha256": "93C19F9E7C681845D34407807D33B6438E781DD34C4D8895EBDF2C6FB083711D",
+    "gameCodeSha256": "38966A2EFE05809823C15B4CC57C51F18DEB8F1F73F04393AB15672B2CF829AF",
+    "scope": "Formal two-process network, instantiated native views and generated UGUI pause/recruit bindings; no pixel or weak-network acceptance",
+    "processes": [
+      41556,
+      24472
+    ],
+    "checks": {
+      "host_ready_with_all_initial_entities": true,
+      "independent_client_receives_full_late_baseline": true,
+      "host_pause_applied": true,
+      "generated_recruit_button_routes_once": true,
+      "guest_build_paid_once": true,
+      "host_and_client_share_single_payment": true,
+      "guest_cannot_change_time": true,
+      "host_only_enabled": true,
+      "host_only_rejects_guest_camp_mutation": true,
+      "guest_explicit_move_accepted": true,
+      "client_observes_authoritative_motion": true,
+      "complete_world_converges_while_paused": true,
+      "no_player_failure": true
+    },
+    "failure": null,
+    "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\session-20260912-020926-650"
+  },
+  "monoBattle": {
+    "passed": true,
+    "scope": "Mono graphical Host and independent late-joining client during real battle",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\player-mono\\DarkNights.exe",
+    "gameCodeSha256": "38966A2EFE05809823C15B4CC57C51F18DEB8F1F73F04393AB15672B2CF829AF",
+    "checks": {
+      "real_host_starts_native_scene": true,
+      "real_night_creates_arrows_and_effects": true,
+      "late_join_gets_running_battle_and_native_entities": true,
+      "late_join_receives_real_projectiles_effects_and_remnants": true,
+      "paused_battle_converges": true,
+      "both_rendered_screenshots_exist": true,
+      "host_exit_clears_guest_world_and_transient_views": true,
+      "host_runtime_has_no_exception_or_shader_error": true,
+      "client_runtime_has_no_exception_or_shader_error": true
+    },
+    "error": null,
+    "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\battle-20260912-020727-467"
+  },
+  "campaign": {
+    "passed": true,
+    "scope": "Four real Mono processes; normal-resource three-night strategy through SessionClient",
+    "checks": {
+      "normal_starting_resources_fund_frozen_strategy": true,
+      "client1_late_join_ready": true,
+      "client2_late_join_ready": true,
+      "client3_late_join_ready": true,
+      "all_three_nights_win_with_34_real_kills": true,
+      "four_process_session_ready_at_victory": true,
+      "client1_sees_authoritative_victory": true,
+      "client2_sees_authoritative_victory": true,
+      "client3_sees_authoritative_victory": true,
+      "client2_no_runtime_exception": true,
+      "client3_no_runtime_exception": true,
+      "host_no_runtime_exception": true,
+      "client1_no_runtime_exception": true
+    },
+    "error": null,
+    "elapsed": 374.4333333334156,
+    "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\campaign-20260912-021814-029",
+    "gameCodeSha256": "FE96DE48CA92FC0E0D1FB29BDE4F4E45A7FF51B2F43C3E9A1EE52388D0630BD2"
+  },
+  "unity": "6000.4.9f1",
+  "backend": "Mono",
+  "graphics": "Direct3D12 NVIDIA RTX 5060 Ti",
+  "initialBytes": 1666,
+  "codecPressureBytes": 488806,
+  "limitations": [
+    "Visual cross-engine calibration pending",
+    "M4 recovery and M5 full network/performance matrix pending",
+    "IL2CPP and two-machine LAN not verified"
+  ],
+  "campaignBuildChange": "Only bounded retry for automation report atomic replacement since startup/session/battle artifact"
+}

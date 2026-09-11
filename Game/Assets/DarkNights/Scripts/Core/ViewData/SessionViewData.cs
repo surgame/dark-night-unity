@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace DarkNights.Core.ViewData
 {
@@ -8,6 +9,8 @@ namespace DarkNights.Core.ViewData
     /// </summary>
     public sealed class SessionViewData
     {
+        public const int MaximumEvents = 128;
+        public const int MaximumRemnants = 256;
         public long Publication { get; }
         public int Epoch { get; }
         public int Revision { get; }
@@ -21,10 +24,13 @@ namespace DarkNights.Core.ViewData
         public int Speed { get; }
         public double Elapsed { get; }
         public WorldViewData World { get; }
+        public IReadOnlyList<PresentationEvent> Events { get; }
+        public IReadOnlyList<PresentationEvent> Remnants { get; }
 
         public SessionViewData(long publication, int epoch, int revision, long serverTick,
             int policyRevision, bool hostOnly, int playerCount, int readyCount, bool loading,
-            bool paused, int speed, double elapsed, WorldViewData world)
+            bool paused, int speed, double elapsed, WorldViewData world, IReadOnlyList<PresentationEvent> events = null,
+            IReadOnlyList<PresentationEvent> remnants = null)
         {
             if (publication <= 0 || epoch <= 0 || revision < 0 || serverTick < 0 || policyRevision < 0)
                 throw new ArgumentOutOfRangeException(nameof(publication));
@@ -45,6 +51,27 @@ namespace DarkNights.Core.ViewData
             Speed = speed;
             Elapsed = elapsed;
             World = world ?? throw new ArgumentNullException(nameof(world));
+            if (events != null && events.Count > MaximumEvents) throw new ArgumentOutOfRangeException(nameof(events));
+            var copied = new List<PresentationEvent>(events ?? Array.Empty<PresentationEvent>());
+            long previous = 0;
+            foreach (PresentationEvent item in copied)
+            {
+                if (item == null || item.Sequence <= previous || item.Tick < 0 || item.Tick > serverTick)
+                    throw new ArgumentException("Invalid presentation event order.", nameof(events));
+                previous = item.Sequence;
+            }
+            Events = copied.AsReadOnly();
+            if (remnants != null && remnants.Count > MaximumRemnants) throw new ArgumentOutOfRangeException(nameof(remnants));
+            var active = new List<PresentationEvent>(remnants ?? Array.Empty<PresentationEvent>());
+            previous = 0;
+            foreach (PresentationEvent item in active)
+            {
+                if (item == null || item.Sequence <= previous || item.Tick < 0 || item.Tick > serverTick || item.Type != "effect" ||
+                    item.Cue == null || (item.Cue.Kind != "corpse" && item.Cue.Kind != "rubble"))
+                    throw new ArgumentException("Invalid active remnant order.", nameof(remnants));
+                previous = item.Sequence;
+            }
+            Remnants = active.AsReadOnly();
         }
     }
 }

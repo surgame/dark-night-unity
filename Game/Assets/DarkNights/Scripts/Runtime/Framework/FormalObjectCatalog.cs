@@ -14,11 +14,19 @@ namespace DarkNights.Runtime.Framework
     /// </summary>
     public static class FormalObjectCatalog
     {
-        public const int Protocol = 3;
+        public const int Protocol = 4;
         public const string RegistryProject = "DNights";
         public const string SessionKey = "session.pinewatch";
         public const string WorkerKey = "unit.worker";
         public const string WorkerContentId = "worker";
+
+        public static string RuntimeSummary()
+        {
+            var definitions = ObjectDefinitionDatabase.Instance.Definitions;
+            return $"DARK_NIGHTS_FORMAL_CONTENT_READY definitions={definitions.Count} " +
+                $"commands={GenericTypeRegistry<INetworkCommand>.RegisteredCount} states={GenericTypeRegistry<IStateData>.RegisteredCount} " +
+                $"behaviours={definitions.SelectMany(d => d.BehaviourTypes).Distinct().Count()} identity=GuidFirst wire=GuidV2";
+        }
 
         public static void ValidateRuntime(ObjectDefinitionDatabase database = null)
         {

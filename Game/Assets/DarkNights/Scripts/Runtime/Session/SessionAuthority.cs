@@ -18,7 +18,7 @@ namespace DarkNights.Runtime.Session
     /// </summary>
     public sealed class SessionAuthority : IDisposable
     {
-        public const int ProtocolVersion = 3;
+        public const int ProtocolVersion = 4;
         public const int MaximumPendingPerPlayer = 16;
         public const int ResultWindow = 64;
         private readonly int ownerThread = Thread.CurrentThread.ManagedThreadId;
@@ -28,6 +28,7 @@ namespace DarkNights.Runtime.Session
         private readonly GameSaveJson saveJson;
         private readonly SessionProjector projector = new SessionProjector();
         private GameSession world;
+        private SessionEventJournal events;
         private SessionReceipt loadTicket;
         private bool started;
         public int Epoch { get; private set; } = 1;
@@ -43,7 +44,9 @@ namespace DarkNights.Runtime.Session
 
         public SessionAuthority(GameCatalog catalog, LevelLayout layout)
         {
-            world = new GameSession(catalog, layout);
+            var feedback = new SessionFeedback();
+            events = new SessionEventJournal(feedback, () => ServerTick);
+            world = new GameSession(catalog, layout, feedback);
             saveJson = new GameSaveJson(catalog, layout);
         }
 
@@ -177,7 +180,7 @@ namespace DarkNights.Runtime.Session
         {
             CheckThread();
             if (Closed) throw new ObjectDisposedException(nameof(SessionAuthority));
-            return projector.Capture(this, world);
+            return projector.Capture(this, world, events.Freeze(), events.FreezeRemnants());
         }
 
         // ticket 必须是本实例 BeginLoad 执行得到的同一个回执对象，不能用网络 DTO 重建。
@@ -188,7 +191,9 @@ namespace DarkNights.Runtime.Session
             {
                 int nextEpoch = checked(Epoch + 1);
                 GameSession restored = saveJson.Restore(json);
+                events.Dispose();
                 world = restored;
+                events = new SessionEventJournal(world.Feedback, () => ServerTick);
                 projector.Clear();
                 Epoch = nextEpoch;
                 Revision = 0;
@@ -229,6 +234,7 @@ namespace DarkNights.Runtime.Session
         {
             CheckThread();
             Closed = true;
+            events.Dispose();
             pending.Clear();
             loadTicket = null;
             projector.Clear();
