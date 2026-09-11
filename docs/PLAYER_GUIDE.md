@@ -2,6 +2,8 @@
 
 正式入口为 `DarkNights.exe`，必须保留同目录的 Data、UnityPlayer 和 Addressables 内容。当前正式联机协议为 5，房间内四端使用同一构建；内容摘要不匹配时拒绝连接。最终构建身份与通过项在交付证据中单独记录，本文不代表所有后端已经验收。
 
+2026-09-12 本机验收产物已更新至 `artifacts/migration/player-mono`，来自干净副本 `e567f8c`，Entry DLL SHA-256 为 `BD451C76…C44872`，完整目录 408 个文件。旧产物已归档至 `artifacts/migration/player-mono-before-m5-20260912-041810`。活跃恢复与正式进程矩阵已通过，画面及性能仍有待收口项，详见 [Mono 验收记录](MONO_ACCEPTANCE.md)。
+
 ## 开始与合作
 
 主菜单“新游戏”建立本机房间，单人使用相同 Host 权威路径。其他玩家填写房主的局域网 IPv4 地址并加入；产品端口固定为 UDP 27777。最多四人，默认共同控制同一营地。房主可切为 HostOnly，来宾仍能观察、选择和移动镜头，但不能修改营地。

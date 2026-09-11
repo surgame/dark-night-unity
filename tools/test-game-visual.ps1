@@ -48,23 +48,39 @@ function Receipt([string]$Role, [hashtable]$Command) {
     return @($after.feedback | Where-Object { !$_.ReadyReply -and $_.Sequence -gt $sequence } | Sort-Object Sequence)[-1]
 }
 function Check([string]$Name, [bool]$Ok) { $checks[$Name] = $Ok; if (!$Ok) { throw "Failed: $Name" } }
+function Capture([string]$Name, [Nullable[float]]$CameraX = $null) {
+    if ($null -ne $CameraX) {
+        $positionFile='framing-'+$Name+'.png'
+        Send 'host' @{operation='capture';file=$positionFile;x=$CameraX}
+        $null=Wait-Report 'host' {param($r) Test-Path -LiteralPath (Join-Path $run $positionFile)}
+        # Focus 立即移动相机；背景视差和环境在下一次 Present 更新后才与镜头一致。
+        Start-Sleep -Milliseconds 300
+    }
+    $file=$Name+'.png'
+    Send 'host' @{operation='capture';file=$file}
+    $null=Wait-Report 'host' {param($r) Test-Path -LiteralPath (Join-Path $run $file)}
+}
 try {
     Start-Player 'host'
     $null=Wait-Report 'host' {param($r) $r.ready -and $r.entityViews -eq 17}
     $null=Receipt 'host' @{operation='SetPaused';value=1}
     Start-Sleep -Seconds 8
-    Send 'host' @{operation='capture';file='day.png';x=255}
+    Capture 'day' 255
     $null=Receipt 'host' @{operation='StartNight'}
     Start-Sleep -Seconds 8
-    Send 'host' @{operation='capture';file='night.png';x=730}
+    Capture 'night' 730
     Send 'host' @{operation='ui';panel='Chrome';key='Menu'}
     $null=Wait-Report 'host' {param($r) $r.uiPage -eq 'PauseMenu'}
-    Send 'host' @{operation='capture';file='pause.png'}
+    Capture 'pause'
+    Send 'host' @{operation='ui';panel='PauseMenu';key='Help'}
+    $null=Wait-Report 'host' {param($r) $r.uiPage -eq 'Help'}
+    Capture 'help'
+    Send 'host' @{operation='ui';panel='Help';key='Back'}
+    $null=Wait-Report 'host' {param($r) $r.uiPage -eq 'PauseMenu'}
     Send 'host' @{operation='ui';panel='PauseMenu';key='MainMenu'}
     $null=Wait-Report 'host' {param($r) $r.uiPage -eq 'MainMenu' -and !$r.ready}
-    Send 'host' @{operation='capture';file='menu.png'}
-    Start-Sleep -Seconds 2
-    foreach($name in @('day','night','pause','menu')) {
+    Capture 'menu'
+    foreach($name in @('day','night','pause','help','menu')) {
         $path=Join-Path $run ($name+'.png')
         $bytes=[IO.File]::ReadAllBytes($path)
         $w=[Net.IPAddress]::NetworkToHostOrder([BitConverter]::ToInt32($bytes,16))

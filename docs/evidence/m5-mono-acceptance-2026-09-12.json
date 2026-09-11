@@ -1,0 +1,518 @@
+{
+  "date": "2026-09-12",
+  "scope": "Partial M5 acceptance: one resumed clean Mono Development build; serial process matrix and corrected screenshot capture. Visual approval and performance sign-off are still pending.",
+  "sourceCommit": "e567f8c50dfaf869539109f0d02ddad05b59cc08",
+  "sourceGameTree": "55b95905f6406e31867f0c6ebafbc930e1cc3da0",
+  "cleanDirectory": "artifacts/clean-m5-94ff636",
+  "unity": "6000.4.9f1",
+  "protocol": 5,
+  "wire": "GuidV2",
+  "environmentRecovered": {
+    "unityBuildExitedZero": true,
+    "wmiReadSucceeded": true,
+    "systemServicesOrLicenseFilesChanged": false,
+    "priorCommonRootCauseConfirmed": false
+  },
+  "build": {
+    "passed": true,
+    "sourceFiles": 2457,
+    "changed": [],
+    "entryDllSha256": "BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872",
+    "logSha256": "25A99E58F3F69224FF07E1A75EA6286275720018394FA09F5963662424E0B74B",
+    "playerDirectory": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\clean-m5-94ff636\\artifacts\\migration\\player-mono",
+    "report": "artifacts/clean-m5-94ff636/artifacts/migration/mono-acceptance-20260912-041810-387/build-result.json",
+    "log": "artifacts/clean-m5-94ff636/artifacts/migration/mono-acceptance-20260912-041810-387/mono-build.log",
+    "sourceBeforeManifest": "artifacts/clean-m5-94ff636/artifacts/migration/mono-acceptance-20260912-041810-387/source-before.json",
+    "sourceFilesRecheckedAfterAcceptance": 2457,
+    "changedAfterAcceptance": [],
+    "coreRegressionReused": 1355,
+    "editorChecksReused": 55,
+    "architectureFilesReused": 214,
+    "architectureSelfTestsReused": 10
+  },
+  "artifact": {
+    "fileCount": 408,
+    "totalBytes": 198739832.0,
+    "copiedAllBytesVerified": true,
+    "canonicalDirectory": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\player-mono",
+    "previousArtifactArchive": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\player-mono-before-m5-20260912-041810",
+    "entryDllSha256": "BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872",
+    "manifestSha256": "F3750BE05872F0D05B1C4E8DADE984BD64725589562FE01353866D396865A272",
+    "manifest": "artifacts/clean-m5-94ff636/artifacts/migration/mono-acceptance-20260912-041810-387/player-files.json"
+  },
+  "dependencies": {
+    "yygc": "10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4",
+    "fishnet": "de19b5d66459f60400ffd0edc443c4da173a01e7",
+    "newYygcChanges": [],
+    "newFishnetChanges": [],
+    "manifestSha256": "9cfc5164e45fa63250b12430ea47f8cfe258664fdd1596ab047c405b152b0d7d",
+    "lockSha256": "40190c6afafb9943d22a9ac8dda643723ee83c804378f0817201aeea155f3b13"
+  },
+  "reports": {
+    "startup": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/run-20260912-042038-200-mono/result.json",
+      "sha256": "e05e8ac5a30291b7d3a8f60321f4d3a0344506691399e8487c66ca14facfda55",
+      "passed": true,
+      "checks": 6,
+      "entryDllSha256": null
+    },
+    "session": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/session-20260912-042042-726/result.json",
+      "sha256": "a530e127f77a6257b0423fc3be27558347024d02df78fcb6d6651c7b3d932b3d",
+      "passed": true,
+      "checks": 13,
+      "entryDllSha256": "BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872"
+    },
+    "concurrency": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/concurrency-20260912-042053-286/result.json",
+      "sha256": "3363069e240211a289a11326f6ec5cfe20c4edd832187b421b0cae5801ce28f4",
+      "passed": true,
+      "checks": 13,
+      "entryDllSha256": "BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872"
+    },
+    "activeLoad": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/active-load-20260912-042930-995/result.json",
+      "sha256": "eab8abebb119076a6c776068f411666d994feee175de1d6b32885237b417368b",
+      "passed": true,
+      "checks": 13,
+      "entryDllSha256": "BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872"
+    },
+    "networkMatrix": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/network-matrix-20260912-043009-625/result.json",
+      "sha256": "9649d527ec84c17d450938a06e6c529174d5b3d55061891d9ffd6f139529d36c",
+      "passed": true,
+      "checks": 198,
+      "entryDllSha256": null,
+      "cases": [
+        {
+          "rttMs": 0,
+          "loss": 0.0,
+          "oneWayJitterMs": 25,
+          "checks": 22,
+          "droppedPackets": 0,
+          "reorderedPackets": 211
+        },
+        {
+          "rttMs": 0,
+          "loss": 0.01,
+          "oneWayJitterMs": 25,
+          "checks": 22,
+          "droppedPackets": 14,
+          "reorderedPackets": 201
+        },
+        {
+          "rttMs": 0,
+          "loss": 0.05,
+          "oneWayJitterMs": 25,
+          "checks": 22,
+          "droppedPackets": 81,
+          "reorderedPackets": 226
+        },
+        {
+          "rttMs": 100,
+          "loss": 0.0,
+          "oneWayJitterMs": 25,
+          "checks": 22,
+          "droppedPackets": 0,
+          "reorderedPackets": 530
+        },
+        {
+          "rttMs": 100,
+          "loss": 0.01,
+          "oneWayJitterMs": 25,
+          "checks": 22,
+          "droppedPackets": 18,
+          "reorderedPackets": 500
+        },
+        {
+          "rttMs": 100,
+          "loss": 0.05,
+          "oneWayJitterMs": 25,
+          "checks": 22,
+          "droppedPackets": 103,
+          "reorderedPackets": 586
+        },
+        {
+          "rttMs": 200,
+          "loss": 0.0,
+          "oneWayJitterMs": 25,
+          "checks": 22,
+          "droppedPackets": 0,
+          "reorderedPackets": 673
+        },
+        {
+          "rttMs": 200,
+          "loss": 0.01,
+          "oneWayJitterMs": 25,
+          "checks": 22,
+          "droppedPackets": 24,
+          "reorderedPackets": 677
+        },
+        {
+          "rttMs": 200,
+          "loss": 0.05,
+          "oneWayJitterMs": 25,
+          "checks": 22,
+          "droppedPackets": 151,
+          "reorderedPackets": 805
+        }
+      ]
+    },
+    "visual1280": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1280x800-20260912-045207-735/result.json",
+      "sha256": "2b8b1f64e36b578e148243489fe22f9643f49ccfc367e983c3e1a49ad5c2868d",
+      "passed": true,
+      "checks": 6,
+      "entryDllSha256": "BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872"
+    },
+    "visual1600": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1600x900-20260912-045233-813/result.json",
+      "sha256": "7e074c6f2437875c8220a03fddee80aef257630c5b14d8422bbc58c1e5073d5b",
+      "passed": true,
+      "checks": 6,
+      "entryDllSha256": "BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872"
+    },
+    "battle": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/battle-20260912-043435-549/result.json",
+      "sha256": "e3395c337e2ab3d1b8bed99dd064df034cd90bd3f50c4e4b74ff7235d1fa72f9",
+      "passed": true,
+      "checks": 9,
+      "entryDllSha256": "BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872"
+    },
+    "campaign": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/campaign-20260912-043502-859/result.json",
+      "sha256": "1a1f7860b70456fba9002be81a837c56f25e7024e0f3dc3bbaf06d69e71b0ac7",
+      "passed": true,
+      "checks": 17,
+      "entryDllSha256": "BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872"
+    },
+    "pressure": {
+      "path": "artifacts/clean-m5-94ff636/artifacts/migration/pressure-20260912-043851-330/result.json",
+      "sha256": "158a385af97b15f63a170c4c4e2da80fbcb203b5da7e8e536763ee693d2015b9",
+      "passed": true,
+      "checks": 13,
+      "entryDllSha256": "BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872"
+    }
+  },
+  "totalAutomaticChecks": 294,
+  "matrixContinuity": {
+    "singleUninterruptedRun": false,
+    "initialStoppedAt": "active-load",
+    "initialReport": "artifacts/clean-m5-94ff636/artifacts/migration/delivery-20260912-042037-907/result.json",
+    "completedSuffix": "artifacts/clean-m5-94ff636/artifacts/migration/delivery-20260912-042930-610/result.json",
+    "visualOnlyRerunReason": "Focus changes Camera immediately, while background parallax updates on the next Present. Capture now waits for framing before recording evidence and adds Help.",
+    "sameBuiltPlayerUsedForAllChecks": true
+  },
+  "activeSave": {
+    "sourceProjection": "artifacts/clean-m5-94ff636/artifacts/migration/active-load-20260912-042930-995/saved-report.json",
+    "restoredHostProjection": "artifacts/clean-m5-94ff636/artifacts/migration/active-load-20260912-042930-995/host-restored-report.json",
+    "epochBefore": 1,
+    "epochAfter": 2,
+    "simulationTime": 27.900000000000233,
+    "completeSaveRoundTripSha256": "18d37fe8cfac726d9191ddb166a76268f4713f45c0495a252d33e20d57471b53",
+    "completeSaveBytesEqual": true,
+    "constructionProgressBefore": 0.4900000000000012,
+    "constructionProgressAfterResume": 0.8333333333333311,
+    "trainingRemainingBefore": 9.716666333333343,
+    "trainingRemainingAfterResume": 6.283333000000022,
+    "presentationContract": "ViewId is epoch-local; Walking and HitFlash are explicitly not persisted by ActorSnapshot/BuildingSnapshot. Tests verify their reset separately and compare every persisted projection field plus the complete save bytes.",
+    "firstFailure": "artifacts/clean-m5-94ff636/artifacts/migration/active-load-20260912-042110-762/result.json",
+    "diagnosticFailure": "artifacts/clean-m5-94ff636/artifacts/migration/active-load-20260912-042539-364/result.json"
+  },
+  "visualReview": {
+    "status": "needs-correction",
+    "automatedCaptureChecks": 12,
+    "fullPixelParityClaimed": false,
+    "images": [
+      {
+        "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1280x800-20260912-045207-735/day.png",
+        "sha256": "1973d133e77a051bb218f6014e55f8c1a71c9ad3d936fc997a0e87ae57db2690",
+        "dimensions": [
+          1280,
+          800
+        ]
+      },
+      {
+        "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1280x800-20260912-045207-735/night.png",
+        "sha256": "0f4cfc8b3cf22d7f94aef692031becfc55f452ad8268facb4a53ceef61fe45bf",
+        "dimensions": [
+          1280,
+          800
+        ]
+      },
+      {
+        "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1280x800-20260912-045207-735/pause.png",
+        "sha256": "3aac1831b0ba7f9d2fc093ff22fad7272fe01d387d3671243b76b59ca86c4b95",
+        "dimensions": [
+          1280,
+          800
+        ]
+      },
+      {
+        "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1280x800-20260912-045207-735/help.png",
+        "sha256": "86d44dedaca0dd418910299ded7dabbb5b05bf16b8a6b6223598be111d4621de",
+        "dimensions": [
+          1280,
+          800
+        ]
+      },
+      {
+        "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1280x800-20260912-045207-735/menu.png",
+        "sha256": "8e3b8fdc2e99725dd119c3187fc658c8e26c2d2e92ce1e748ea60977128064d9",
+        "dimensions": [
+          1280,
+          800
+        ]
+      },
+      {
+        "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1600x900-20260912-045233-813/day.png",
+        "sha256": "d13d9d984fd2bc7985036a6e7e074f16947872d95748ccd5e3511b0cd6c1f71c",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1600x900-20260912-045233-813/night.png",
+        "sha256": "8dc9af64119d7854cfd8395e2c0235a4364fdc2a53674c9c6af2ce56e9dd1b46",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1600x900-20260912-045233-813/pause.png",
+        "sha256": "bd295b40cc57c413012322a67572ed296a907ed3afa1caf042137b20d35a229b",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1600x900-20260912-045233-813/help.png",
+        "sha256": "0bdb808e9ba3b04b42f421d114cd6bed4b0e28f8c609ab8d02013615c5732640",
+        "dimensions": [
+          1600,
+          900
+        ]
+      },
+      {
+        "path": "artifacts/clean-m5-94ff636/artifacts/migration/visual-1600x900-20260912-045233-813/menu.png",
+        "sha256": "cfb8ca5ebbbab14921c42f34563fecaffd7c6a3c67f413b4b12006ea0ca9ba09",
+        "dimensions": [
+          1600,
+          900
+        ]
+      }
+    ],
+    "contactSheet": "artifacts/clean-m5-94ff636/artifacts/migration/mono-acceptance-20260912-041810-387/visual-review.png",
+    "referenceArchive": "artifacts/clean-m5-94ff636/artifacts/migration/mono-acceptance-20260912-041810-387/visual-reference/reference.json",
+    "observations": [
+      "HUD and menu font weight/baselines and title line spacing differ from the frozen Godot reference.",
+      "PauseMenu Slot and ControlMode controls are below the modal panel and overlap the HUD region at both resolutions.",
+      "Disabled train/repair button labels remain bright compared with the reference.",
+      "The after-session menu and frozen fresh-start reference have different world/camera state; background parity requires a matching capture scenario."
+    ]
+  },
+  "performance": {
+    "status": "insufficient-for-signoff",
+    "playerMode": "Ordinary non-batchmode Development Player launched with WindowStyle Hidden; offscreen screenshots use the real scene camera and UGUI.",
+    "presentedFramesOrForegroundSixtyFpsVerified": false,
+    "campaign": {
+      "host": {
+        "campaignReport": "artifacts/clean-m5-94ff636/artifacts/migration/campaign-20260912-043502-859/host-campaign-metrics.json",
+        "steadyReport": "artifacts/clean-m5-94ff636/artifacts/migration/campaign-20260912-043502-859/host-metrics.json",
+        "frameMilliseconds": {
+          "samples": 276077,
+          "mean": 0.6809710982805725,
+          "p95": 1.0835000000213313,
+          "p99": 1.8017999999813128,
+          "maximum": 1090.635600000013
+        },
+        "percentileRetainedSamples": 100000,
+        "percentilesCoverFullCampaign": false,
+        "frameAllocatedBytes": {
+          "samples": 276077,
+          "mean": 14877.98763388475,
+          "p95": 11438.0,
+          "p99": 130334.0,
+          "maximum": 1913176.0
+        },
+        "gcRecorderValid": true,
+        "threadAllocationCounterValid": false,
+        "authorityStepMilliseconds": {
+          "samples": 11425,
+          "mean": 0.01291354048140043,
+          "p95": 0.0186,
+          "p99": 0.0317,
+          "maximum": 4.099
+        },
+        "projectionMilliseconds": {
+          "samples": 1911,
+          "mean": 0.3787659863945574,
+          "p95": 1.1054,
+          "p99": 2.1117,
+          "maximum": 29.7439
+        },
+        "payloadBytesPerSecondToRemotePeers": 247917.52774864994,
+        "maximumBacklogSeconds": 1.874658950532709,
+        "workingSetSamplesAllZero": true,
+        "steadyManagedUsedBytes": {
+          "samples": 6,
+          "minimum": 37462016,
+          "maximum": 39755776,
+          "lastMinusFirst": 188416
+        }
+      },
+      "client1": {
+        "campaignReport": "artifacts/clean-m5-94ff636/artifacts/migration/campaign-20260912-043502-859/client1-campaign-metrics.json",
+        "steadyReport": "artifacts/clean-m5-94ff636/artifacts/migration/campaign-20260912-043502-859/client1-metrics.json",
+        "frameMilliseconds": {
+          "samples": 255546,
+          "mean": 0.6886557821292099,
+          "p95": 1.0642999999959102,
+          "p99": 1.7333000000121501,
+          "maximum": 1417.1082999999953
+        },
+        "percentileRetainedSamples": 100000,
+        "percentilesCoverFullCampaign": false,
+        "frameAllocatedBytes": {
+          "samples": 255546,
+          "mean": 13774.146208510405,
+          "p95": 11094.0,
+          "p99": 77533.0,
+          "maximum": 1385869.0
+        },
+        "gcRecorderValid": true,
+        "threadAllocationCounterValid": false,
+        "authorityStepMilliseconds": null,
+        "projectionMilliseconds": null,
+        "payloadBytesPerSecondToRemotePeers": 0.0,
+        "maximumBacklogSeconds": 0.0,
+        "workingSetSamplesAllZero": true,
+        "steadyManagedUsedBytes": {
+          "samples": 6,
+          "minimum": 28913664,
+          "maximum": 30826496,
+          "lastMinusFirst": -892928
+        }
+      },
+      "client2": {
+        "campaignReport": "artifacts/clean-m5-94ff636/artifacts/migration/campaign-20260912-043502-859/client2-campaign-metrics.json",
+        "steadyReport": "artifacts/clean-m5-94ff636/artifacts/migration/campaign-20260912-043502-859/client2-metrics.json",
+        "frameMilliseconds": {
+          "samples": 156801,
+          "mean": 0.7414210572636712,
+          "p95": 1.068199999991748,
+          "p99": 1.7296000000044387,
+          "maximum": 1409.0084000000047
+        },
+        "percentileRetainedSamples": 100000,
+        "percentilesCoverFullCampaign": false,
+        "frameAllocatedBytes": {
+          "samples": 156801,
+          "mean": 14645.401846926996,
+          "p95": 11094.0,
+          "p99": 77580.0,
+          "maximum": 1428213.0
+        },
+        "gcRecorderValid": true,
+        "threadAllocationCounterValid": false,
+        "authorityStepMilliseconds": null,
+        "projectionMilliseconds": null,
+        "payloadBytesPerSecondToRemotePeers": 0.0,
+        "maximumBacklogSeconds": 0.0,
+        "workingSetSamplesAllZero": true,
+        "steadyManagedUsedBytes": {
+          "samples": 6,
+          "minimum": 27852800,
+          "maximum": 29822976,
+          "lastMinusFirst": -380928
+        }
+      },
+      "client3": {
+        "campaignReport": "artifacts/clean-m5-94ff636/artifacts/migration/campaign-20260912-043502-859/client3-campaign-metrics.json",
+        "steadyReport": "artifacts/clean-m5-94ff636/artifacts/migration/campaign-20260912-043502-859/client3-metrics.json",
+        "frameMilliseconds": {
+          "samples": 97878,
+          "mean": 0.7874669006313952,
+          "p95": 1.06909999999516,
+          "p99": 1.6815000000001135,
+          "maximum": 1351.181099999998
+        },
+        "percentileRetainedSamples": 97878,
+        "percentilesCoverFullCampaign": true,
+        "frameAllocatedBytes": {
+          "samples": 97878,
+          "mean": 14987.37802161875,
+          "p95": 11094.0,
+          "p99": 77564.0,
+          "maximum": 1462930.0
+        },
+        "gcRecorderValid": true,
+        "threadAllocationCounterValid": false,
+        "authorityStepMilliseconds": null,
+        "projectionMilliseconds": null,
+        "payloadBytesPerSecondToRemotePeers": 0.0,
+        "maximumBacklogSeconds": 0.0,
+        "workingSetSamplesAllZero": true,
+        "steadyManagedUsedBytes": {
+          "samples": 6,
+          "minimum": 27664384,
+          "maximum": 29032448,
+          "lastMinusFirst": -258048
+        }
+      }
+    },
+    "pressurePayloadBytes": 487486,
+    "pressureP95FrameMilliseconds": {
+      "client2": 37.20430000000263,
+      "client3": 37.170699999997225,
+      "client1": 36.874300000000915,
+      "host": 36.20130000000188
+    },
+    "pressureUdp": {
+      "received": 512790,
+      "dropped": 0,
+      "forwarded": 512790,
+      "reordered": 0,
+      "peer_resets": 0,
+      "received_bytes": 645978917,
+      "forwarded_bytes": 645978917,
+      "client_to_server_bytes": 112088,
+      "server_to_client_bytes": 645866829,
+      "elapsed_seconds": 65.29259830000001
+    },
+    "limitations": [
+      "WorkingSet64 returned zero for every sample; it is not valid process-memory evidence.",
+      "MeasurementSeries retains the most recent 100000 samples; host/client1/client2 exceeded that during the campaign. Their percentiles do not cover the entire run.",
+      "Frame intervals include automation and process-start overhead; hidden-window update timing does not establish foreground presentation performance.",
+      "The 256-actor/1024-arrow ceiling is synthetic and does not establish normal-game FPS."
+    ]
+  },
+  "modifiedAcceptanceScripts": {
+    "tools/test-game-active-load.ps1": "d81d56a04f0fb8d83784b1ef2abe1c09c7e534d1614efc77365c9881034cfd9b",
+    "tools/test-game-visual.ps1": "980676100b62619bdf2be919893bb1a3758ee4999c4da19a53386eaf1b1fa683"
+  },
+  "protectedUserWorktreeFiles": [
+    "AGENTS.md",
+    "Game/Assets/DarkNights/Res/Objects/Farm/Farm.prefab"
+  ],
+  "pending": [
+    "UI typography, disabled text styles and additional modal-control layout calibration",
+    "Full matching-state visual comparison including foreground display",
+    "Full-duration ordinary foreground Player timing and independent OS working-set measurements",
+    "IL2CPP explicit authorization and separate build/process acceptance",
+    "Physical two-Windows-machine LAN; user previously confirmed no second machine",
+    "Final M5 sign-off after these outstanding checks"
+  ],
+  "documentationValidation": {
+    "acceptanceScriptsParsed": 11,
+    "relativeFileLinksChecked": 126,
+    "reportAndScriptHashesVerified": true,
+    "gitDiffWhitespaceCheckPassed": true
+  },
+  "untrackedDirectoriesLeftUntouched": [
+    "experiments/"
+  ]
+}

@@ -59,10 +59,23 @@ try {
     $workers=@($r.frame.World.Actors | Where-Object Kind -eq 'worker')
     $null=Receipt 'host' @{operation='PlaceBuilding';kind='house';x=184;actors=@($workers[0].Id)}
     $null=Receipt 'host' @{operation='TrainActors';kind='archer';actors=@($workers[1].Id)}
+    $null=Receipt 'host' @{operation='SetPaused';value=0}
+    $null=Wait-Report 'host' {param($r)
+        @($r.frame.World.Buildings | Where-Object { $_.Progress -gt 0 -and $_.Progress -lt 1 }).Count -eq 1 -and
+        @($r.frame.World.Actors | Where-Object Activity -eq 'Training').Count -eq 1
+    }
+    Send 'host' @{operation='pause-on-projectile'}
+    $null=Wait-Report 'host' {param($r) $r.frame.Paused -and $r.frame.World.Projectiles.Count -gt 0}
     Start-Player 'client1'
     $guest=Wait-Report 'client1' {param($r) $r.ready -and $r.frame.Paused -and $r.arrowViews -gt 0}
-    Check 'late_join_sees_construction_training_and_inflight_arrow' ($guest.frame.World.Buildings.Count -eq 5 -and @($guest.frame.World.Actors | Where-Object Activity -eq 'TrainingMove').Count -eq 1)
+    Check 'late_join_sees_construction_training_and_inflight_arrow' (
+        @($guest.frame.World.Buildings | Where-Object { $_.Progress -gt 0 -and $_.Progress -lt 1 }).Count -eq 1 -and
+        @($guest.frame.World.Actors | Where-Object Activity -eq 'Training').Count -eq 1)
     $saved=Read-Report 'host'
+    $saved | ConvertTo-Json -Depth 25 | Set-Content -LiteralPath (Join-Path $run 'saved-report.json') -Encoding utf8
+    Check 'late_join_receives_frozen_world_exactly' (
+        ($guest.frame.World | ConvertTo-Json -Depth 20 -Compress) -eq
+        ($saved.frame.World | ConvertTo-Json -Depth 20 -Compress))
     $null=Receipt 'host' @{operation='Save';value=0}
     $null=Wait-Report 'host' {param($r) !$r.storageBusy -and $r.storageStatus -like '*已保存*'}
     $null=Receipt 'host' @{operation='SetPaused';value=0}
@@ -70,15 +83,37 @@ try {
     Send 'host' @{operation='BeginLoad';value=0}
     foreach($role in @('host','client1')) {
         $restored=Wait-Report $role {param($r) $r.ready -and $r.frame.Epoch -eq 2 -and $r.frame.Paused -and $r.arrowViews -gt 0}
+        $restored | ConvertTo-Json -Depth 25 | Set-Content -LiteralPath (Join-Path $run ($role+'-restored-report.json')) -Encoding utf8
         $expected=$saved.frame.World | ConvertTo-Json -Depth 20 -Compress | ConvertFrom-Json
         $actual=$restored.frame.World | ConvertTo-Json -Depth 20 -Compress | ConvertFrom-Json
-        foreach($world in @($expected,$actual)) {foreach($arrow in $world.Projectiles) {$arrow.PSObject.Properties.Remove('Id')}}
-        Check ($role+'_restores_every_gameplay_field') (($expected | ConvertTo-Json -Depth 20 -Compress) -eq ($actual | ConvertTo-Json -Depth 20 -Compress))
+        # ViewId 属于 epoch；ActorSnapshot 明确不保存 Walking 和 HitFlash，恢复后重新计算。
+        foreach($world in @($expected,$actual)) {
+            foreach($arrow in $world.Projectiles) {$arrow.PSObject.Properties.Remove('ViewId')}
+            foreach($actor in $world.Actors) {
+                $actor.PSObject.Properties.Remove('Walking')
+                $actor.PSObject.Properties.Remove('HitFlash')
+            }
+            foreach($building in $world.Buildings) {$building.PSObject.Properties.Remove('HitFlash')}
+        }
+        Check ($role+'_restores_every_persisted_projection_field') (($expected | ConvertTo-Json -Depth 20 -Compress) -eq ($actual | ConvertTo-Json -Depth 20 -Compress))
+        Check ($role+'_resets_unpersisted_presentation_flags') (
+            @($restored.frame.World.Actors | Where-Object { $_.Walking -or $_.HitFlash -ne 0 }).Count -eq 0 -and
+            @($restored.frame.World.Buildings | Where-Object { $_.HitFlash -ne 0 }).Count -eq 0)
         Check ($role+'_restores_simulation_time_and_speed') ($restored.frame.Elapsed -eq $saved.frame.Elapsed -and $restored.frame.Speed -eq 2)
     }
+    $null=Receipt 'host' @{operation='Save';value=1}
+    $null=Wait-Report 'host' {param($r) !$r.storageBusy -and (Test-Path -LiteralPath (Join-Path $saves 'slot-01.dnsave.json'))}
+    Check 'paused_round_trip_preserves_complete_authority_save' (
+        (Get-FileHash -LiteralPath (Join-Path $saves 'slot-00.dnsave.json')).Hash -eq
+        (Get-FileHash -LiteralPath (Join-Path $saves 'slot-01.dnsave.json')).Hash)
     $null=Receipt 'host' @{operation='SetPaused';value=0}
     $r=Wait-Report 'host' {param($r) $r.frame.Elapsed -gt $saved.frame.Elapsed + 3}
-    Check 'loaded_projectile_and_tasks_resume' ($r.ready -and $r.frame.Epoch -eq 2)
+    $construction=@($saved.frame.World.Buildings | Where-Object { $_.Progress -gt 0 -and $_.Progress -lt 1 })[0]
+    $resumedBuilding=@($r.frame.World.Buildings | Where-Object Id -eq $construction.Id)[0]
+    $loadedArrowIds=@($restored.frame.World.Projectiles | ForEach-Object ViewId)
+    Check 'loaded_projectile_and_tasks_resume' ($r.ready -and $r.frame.Epoch -eq 2 -and
+        $resumedBuilding.Progress -gt $construction.Progress -and
+        @($r.frame.World.Projectiles | Where-Object { $loadedArrowIds -contains $_.ViewId }).Count -eq 0)
     foreach($role in $processes.Keys) {
         $log=Get-Content (Join-Path $run "$role.log") -Raw
         Check ($role+'_no_runtime_exception') ($log -notmatch '(?im)(Exception:|Shader error|\[AppStartup\].*(failed|cancelled))')

@@ -2,7 +2,7 @@
 
 `Game/` 使用 `6000.4.9f1`。依次运行 `pwsh -File tools/prepare-lan-sample.ps1` 与 `pwsh -File tools/prepare-fishnet.ps1` 准备锁定的隔离依赖；核心 NuGet 包在 `Game/Assets/Packages`。正式 `Bootstrap` 仍为原首场景，游戏操作与复跑入口见 [Player 指南](PLAYER_GUIDE.md)。独立模板位于 `Assets/Samples/LanCoop/Content/LanCoop.unity`，只作为 [LAN Sample](LAN_SAMPLE.md) 对照。
 
-正式联机、灰松谷三夜、原生对象／UI 与存档恢复主体已实现，已有 Mono 四进程通过记录；新主题和测量校准尚待新 Player 验证。当前 Unity 许可握手阻塞干净 Mono 构建，接手从 [M5 收尾状态](M5_EXECUTION.md#closeout) 继续。不要重复运行历史环境或资源初始化，已有资产会被保护检查拒绝。
+正式联机、灰松谷三夜、原生对象／UI 与存档恢复主体已实现；干净 Mono、活跃恢复与本机完整进程矩阵已在 2026-09-12 验收续跑通过。当前继续字体／新增菜单控件校准、完整同状态画面对照及性能采样修正，见 [Mono 验收记录](MONO_ACCEPTANCE.md)与[M5 当前清单](M5_EXECUTION.md#mono-acceptance)。不要重复运行历史环境或资源初始化，已有资产会被保护检查拒绝。
 
 ## 先读什么
 
