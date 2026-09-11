@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "protocol": "2025-11-25",
+  "server": {
+    "name": "BlenderMCP",
+    "title": null,
+    "version": "1.30.0",
+    "websiteUrl": null,
+    "icons": null
+  },
+  "tool_count": 28,
+  "checks": [
+    "initialize",
+    "list_tools",
+    "get_scene_info",
+    "execute_code_create_remove",
+    "get_viewport_screenshot"
+  ],
+  "probe_result": "Code executed successfully: {\"mcp_round_trip\": true, \"objects\": 117, \"rig\": \"CrewRig\", \"bones\": 16, \"actions\": [\"Crew.cheer\", \"Crew.hurt\", \"Crew.idle\", \"Crew.interact\", \"Crew.jump\", \"Crew.run\", \"Crew.sit\", \"Crew.sleep\", \"Crew.walk\"], \"model\": \"D:\\\\Developer\\\\MiniGames\\\\Dark Nights\\\\unity-projects\\\\experiments\\\\blender-pixel-crew\\\\model\\\\pixel_crew.blend\", \"telemetry\": false}\n",
+  "screenshot": "blender-viewport.png",
+  "client_catalog": "Config registered; active Codex task may need MCP reload."
+}

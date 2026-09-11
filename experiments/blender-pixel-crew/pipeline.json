@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "blender_version": "4.4.3",
+  "size": 64,
+  "ortho_scale": 3.0,
+  "elevation_degrees": 10,
+  "pivot_bottom_normalized": [0.5, 0.09375],
+  "render_samples": 1,
+  "alpha_threshold": 128,
+  "outline_pixels": 1,
+  "outline_color": "#25252d",
+  "toon_light_direction": [0.5, -0.65, 0.57],
+  "proportions": {"leg_scale": 0.57, "torso_scale": 0.9, "head_scale": 1.22, "body_width": 1.18},
+  "directions": {"right": -35, "left": 35, "front": 0, "back": 180},
+  "default_directions": ["right", "left"],
+  "presets": {
+    "worker": ["hair_cap", "beard", "clothes_blue", "cap_red", "backpack"],
+    "mechanic": ["hair_pink", "clothes_blue", "goggles", "backpack", "wrench"],
+    "ranger": ["hair_brown", "clothes_brown", "hat_brown", "scarf_red", "satchel"],
+    "rabbit": ["hood_rabbit", "clothes_brown", "scarf_red", "backpack"]
+  },
+  "actions": {
+    "idle": {"frames": 8, "fps": 8, "loop": true},
+    "walk": {"frames": 8, "fps": 12, "loop": true},
+    "run": {"frames": 8, "fps": 16, "loop": true},
+    "jump": {"frames": 8, "fps": 12, "loop": false},
+    "interact": {"frames": 8, "fps": 12, "loop": true},
+    "cheer": {"frames": 8, "fps": 10, "loop": true},
+    "sit": {"frames": 8, "fps": 8, "loop": true},
+    "sleep": {"frames": 8, "fps": 8, "loop": true},
+    "hurt": {"frames": 8, "fps": 12, "loop": false}
+  },
+  "colors": {
+    "ink": ["#25252d", "#34333e", "#46434b"],
+    "skin": ["#ac724f", "#d9a174", "#f4c58f"],
+    "hair": ["#302b30", "#493736", "#6a4b3f"],
+    "pink": ["#773e58", "#c76885", "#ed9caf"],
+    "blue": ["#263745", "#405968", "#708590"],
+    "cream": ["#998570", "#d9c9a6", "#fff0c5"],
+    "red": ["#7b2e36", "#b8413b", "#e06550"],
+    "brown": ["#4b3933", "#775440", "#ac8158"],
+    "leather": ["#3e3733", "#655744", "#9b8560"],
+    "metal": ["#394750", "#677f88", "#b3c9c6"],
+    "gold": ["#956537", "#d1a256", "#ffdb83"],
+    "glass": ["#263c50", "#4f879c", "#a0d8d2"]
+  }
+}

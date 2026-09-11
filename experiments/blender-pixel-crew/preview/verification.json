@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "frame_count": 584,
+  "clip_count": 80,
+  "atlas_count": 12,
+  "palette_size": 36,
+  "checks": [
+    "nonempty",
+    "fixed_canvas",
+    "transparent_binary_alpha",
+    "fixed_palette",
+    "one_pixel_margin",
+    "unique_frame_paths"
+  ],
+  "failures": [],
+  "sources": [
+    {
+      "source_blend": "pixel_crew.blend",
+      "source_sha256": "19513fd386482215ba09dc5d0d28b92081c18c45922ed3f01fd19ae488f390cb",
+      "blender_version": "4.4.3",
+      "engine": "BLENDER_EEVEE_NEXT",
+      "frame_count": 584,
+      "elapsed_seconds": 33.046
+    },
+    {
+      "source_blend": "pixel_crew.blend",
+      "source_sha256": "58307eddfaa241495b70d6e5af3fcd7af255bb62cdb5de51a959cad9ab4da5f2",
+      "blender_version": "4.4.3",
+      "engine": "BLENDER_EEVEE_NEXT",
+      "frame_count": 64,
+      "elapsed_seconds": 4.045
+    }
+  ],
+  "replaced_frames": 64
+}

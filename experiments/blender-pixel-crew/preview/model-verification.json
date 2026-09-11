@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "source_sha256": "58307eddfaa241495b70d6e5af3fcd7af255bb62cdb5de51a959cad9ab4da5f2",
+  "blender": "4.4.3",
+  "armatures": 1,
+  "bones": 16,
+  "meshes": 113,
+  "presets": {
+    "worker": 52,
+    "mechanic": 61,
+    "ranger": 52,
+    "rabbit": 49
+  },
+  "unique_pose_samples": {
+    "idle": 5,
+    "walk": 5,
+    "run": 5,
+    "jump": 7,
+    "interact": 5,
+    "cheer": 5,
+    "sit": 5,
+    "sleep": 5,
+    "hurt": 6
+  },
+  "checks": [
+    "one_rig",
+    "all_meshes_bound",
+    "normalized_rigid_weights",
+    "all_parts_resolve",
+    "nine_animated_actions",
+    "loop_pose_closure",
+    "edit_save_reopen",
+    "source_unchanged"
+  ],
+  "art_acceptance": "failed: user judged the style insufficiently close to reference",
+  "limitations": [
+    "rigid limb weights",
+    "no cloth simulation",
+    "no production motion cleanup"
+  ]
+}
