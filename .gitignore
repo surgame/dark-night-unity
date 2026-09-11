@@ -50,6 +50,8 @@
 *.svd
 *.pdb
 *.mdb
+*.pdb.meta
+*.mdb.meta
 *.opendb
 *.VC.db
 *.local.json

@@ -131,3 +131,9 @@ M0 选择 Unity 可用且版本固定的 JSON 库；优先复用宿主已验证�
 - 正式构建不会执行会保存资源的环境初始化；框架补丁来源完整，用户工作区差异不暗中混入依赖。
 
 未满足这些条件时继续做独立的 Core/协议设计，但不宣称 Unity 集成或构建已经通过。
+
+## M5 干净导入补充（2026-09-12）
+
+独立 Git clone 从无 Library／Temp／UserSettings 的目录恢复依赖，Core 1355、Editor 55 全部通过。首次导入删除了 13 个孤立 `.pdb.meta`／`.mdb.meta`：对应可选调试符号本来就未提交。现让符号及其元数据一致忽略，保留本机符号文件，不改变任何正式资源 GUID；NuGet.config 的既有 GUID 保留，并提交 Unity／NuGetForUnity 实际生成的完整导入配置。
+
+本机 GitHub 直连失败；独立 Git 经现有系统代理可拉取，但 UPM 子进程仍遇到 TLS 握手错误。使用仅作用于该次 Editor 的 Git 配置文件（HTTP 代理与 HTTP/1.1）并给 UPM 传入 HTTP_PROXY／HTTPS_PROXY 后，五个 Git 包正常恢复。没有关闭 TLS 校验、修改全局 Git 配置、改锁版本或复制旧 Library。具体代理地址是机器设置，不作为项目依赖；网络受限机器参考[Unity 网络配置](https://docs.unity3d.com/6000.0/Documentation/Manual/upm-config-network.html)。FishNet 首次网络失败后从本机已验证 Git 对象缓存克隆同一提交，再独立应用已提交补丁；未复制脏工作树。

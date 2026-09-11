@@ -1,4 +1,4 @@
-param([int]$Port = 27995)
+param([int]$Port = 27995, [int]$SteadySeconds = 30)
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
 $player = Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe'
@@ -115,6 +115,11 @@ try {
         $guest = Wait-Report $role { param($r) $r.frame.World.Camp.Mode -eq 'Won' -and $r.uiPage -eq 'Result' }
         Check ($role + '_sees_authoritative_victory') ($guest.frame.World.Camp.Kills -eq 34 -and $guest.frame.Elapsed -eq $frame.Elapsed)
     }
+    foreach ($role in $processes.Keys) {
+        [IO.File]::AppendAllText((Join-Path $run "$role.commands"), (@{ operation='metrics'; file="$role-campaign-metrics.json" } | ConvertTo-Json -Compress) + "`n")
+    }
+    Write-Output "Victory reached; measuring $SteadySeconds seconds of unchanged world for memory retention."
+    Start-Sleep -Seconds $SteadySeconds
     Send @{ operation = 'capture'; file = 'victory.png'; x = 780 }
     foreach ($role in $processes.Keys) {
         [IO.File]::AppendAllText((Join-Path $run "$role.commands"), (@{ operation='metrics'; file="$role-metrics.json" } | ConvertTo-Json -Compress) + "`n")
