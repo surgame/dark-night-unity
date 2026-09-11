@@ -8,7 +8,7 @@
 
 `Game/` 是 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。先运行 `tools/prepare-lan-sample.ps1` 与 `tools/prepare-fishnet.ps1` 准备锁定提交的 `.deps/YYGC`／`.deps/FishNet`，不直接引用用户维护的框架工作区。FishNet 4.7.2 带断线分片清理补丁，见[恢复接入](docs/NETWORK_RECOVERY.md)。R3、MemoryPack、UniTask 等依赖已导入；VitalRouter 使用 YYGC 要求的完成语义修正版。内部产品名暂保留 `DNights`。
 
-原评估日期：2026-09-10；Sample 验证日期：2026-09-11。本仓库分支为 `main`。本次未修改 `D:\Developer\YYGC`、Godot 基线或参考素材；下方评估输入表保留历史时点。
+原评估日期：2026-09-10；Sample 验证日期：2026-09-11。本仓库分支为 `main`。早期评估未修改 `D:\Developer\YYGC`、Godot 基线或参考素材；2026-09-12 的 Workshop 展示修复已同步 YYGC，逐文件记录见[改动账本](docs/YYGC_CHANGES.md#workshop-display)。下方评估输入表保留历史时点。
 
 ## 核心判断
 
@@ -60,7 +60,7 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 | YYGC 用户未提交内容 | 已暂存 `Runtime/UI/UGUI/UGUIManager.cs`；未跟踪 `Tools/IDRegistry备份数据20260812` |
 | 实际 Unity Editor | `D:\Program Files\Unity 6000.4.9f1\Editor\Unity.exe`；YYGC 包声明 `6000.2` + `35f1`，已在 6000.4.9f1 编译通过 |
 
-精确规模、关键源文件 SHA-256、原始素材核验及历史 Git 状态见[冻结评估证据](docs/evidence/assessment-2026-09-10.json)。本次已核对 Godot 仍为该提交；当前 YYGC 为 `10b8f0e` / `0.3.0-preview.1`，其隔离依赖与补丁来源见 Sample，不将预览版本写成已发布稳定版本。
+精确规模、关键源文件 SHA-256、原始素材核验及历史 Git 状态见[冻结评估证据](docs/evidence/assessment-2026-09-10.json)。Godot 基线保持该提交；当前 YYGC 锁定 `516f76c` / `0.3.0-preview.1`，在原 `10b8f0e` 上仅修复 Workshop 的名称／Key／文件名三行展示与搜索。隔离依赖、验证边界及原有运行补丁见[依赖说明](docs/DEPENDENCIES.md)，不将预览版本写成已发布稳定版本。
 
 ## 本仓库当前可执行的检查
 

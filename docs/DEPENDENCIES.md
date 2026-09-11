@@ -4,13 +4,15 @@
 
 2026-09-11 核对：当前 `Game/Packages` 通过 `tools/prepare-lan-sample.ps1` 使用 YYGC 提交 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` 的 `.deps/YYGC`，原框架仓库只读。另含样板程序集访问补丁和框架要求的 VitalRouter wait-all 修正版。来源、恢复方法和 SHA-256 见 [LAN Sample](LAN_SAMPLE.md) 与[依赖证据](evidence/lan-sample-dependencies.json)。正式接入计划见[移植方案](MIGRATION_PLAN.md)，旧环境操作记录保存在[评估状态](ASSESSMENT_STATUS.md)。
 
+2026-09-12 Workshop 修复：当前锁定更新为 `516f76c4fe062fa82384f7b91ac46c453abbe80d`，仅增加 Editor 展示／搜索及身份指南说明。先在隔离依赖验证，再将同一提交快进到用户 YYGC 仓库；原运行补丁继续由准备脚本精确校验。UPM manifest／lock 的本地包路径保持不变，完整提交锁定位于准备脚本。逐文件变更与 Editor 验证见[账本](YYGC_CHANGES.md#workshop-display)及[证据](evidence/workshop-display-2026-09-12.json)，本批不新增 Player 或联机验收结论。
+
 本文件记录 Unity 宿主的实际依赖与剩余核验项；可运行的 manifest、lock、NuGet 配置和包缓存位于 `Game/`。
 
 ## Editor、C# 与运行库
 
 | 项目 | 已查到的事实 | 接入要求 |
 |---|---|---|
-| YYGC UPM | `com.tsgame.gamecore`；当前 `0.3.0-preview.1`，提交 `10b8f0e`；unity=`6000.2`，unityRelease=`35f1` | 未发布预览；沿用锁定提交和补丁，不能只按版本号假定兼容 |
+| YYGC UPM | `com.tsgame.gamecore`；当前 `0.3.0-preview.1`，提交 `516f76c`；unity=`6000.2`，unityRelease=`35f1` | 未发布预览；沿用锁定提交和补丁，不能只按版本号假定兼容 |
 | 本机 Editor | `D:\Program Files\Unity 6000.4.9f1\Editor\Unity.exe`，ProductVersion=`6000.4.9f1 (f7258d6eebbe)` | 已用于导入、编译和 Windows Player 构建探针 |
 | C# | Unity 6.2 官方文档为 Roslyn / C# 9.0 | 使用块级 namespace、普通构造、显式集合初始化 |
 | API Compatibility | 官方支持 .NET Standard 2.1 或 .NET Framework 4.8；默认前者 | 新代码以 .NET Standard 2.1 为边界；不能加载 net8.0 游戏程序集代替迁移 |
@@ -103,7 +105,7 @@ ViewBinding 与 DI 工程的 AfterBuild 会复制 DLL 回框架目录；本轮�
 
 ## 包接入策略
 
-1. 保持 YYGC `10b8f0e`、Editor `6000.4.9f1` 与现有包版本；新机器先运行准备脚本，不修改原框架工作区。
+1. 保持准备脚本锁定的 YYGC `516f76c`、Editor `6000.4.9f1` 与现有包版本；新机器先运行准备脚本，日常准备不修改原框架工作区。
 2. 新增正式 Runtime / View Behaviour 后，验证生成器对内部成员的访问；当前 `SampleAssemblyAccess.cs` 只授权 Sample Runtime，不能直接当作正式程序集补丁。必要修正在隔离 checkout 中完成并记录输入。
 3. 为正式命令、状态的具体类型保留可用于 IL2CPP 的注册入口，校验集合复制和归池。类型 Tag、Behaviour 顺序和定义目录进入握手摘要，正式表不引用 Sample 的测试 ID。
 4. 保留 VitalRouter 修正的源码版本、补丁和 DLL 哈希；普通 NuGet 恢复可能换回原版，依赖预检应能识别。UPM lock 单独不代表完整输入。
