@@ -2,9 +2,9 @@
 
 2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已通过 Windows Host＋3 客户端的共享交易、工位、权限、Ready、epoch、暂停、晚加入／重连和真实 UDP 弱网验证。本页完整游戏协议仍为设计，Steam、双机器和正式玩法未验收。
 
-2026-09-12 当前状态：正式玩法经 YYGC 命令／状态链接通，Mono 四进程三夜通关 13/13。协议 5 已接入主机授权存档、同房间重开、120 秒恢复凭据及真实新快照 Ready，四进程恢复 22/22；完整弱网矩阵正在修复并复验 FishNet 断线分片残留，M4／M5 尚未整体完成。实现见[正式网络](FORMAL_NETWORK.md)、[恢复接入](NETWORK_RECOVERY.md)。沿用 2–4 人共享营地和 Windows 房主 LAN／直连；公网房间、邀请、中继、平台身份及房主迁移不在首版范围。下文仍含测量后才考虑的拆流设计。
+2026-09-12 当前状态：正式玩法经 YYGC 命令／状态链接通，协议 5 已接入主机授权存档、同房间重开、120 秒恢复凭据及真实新快照 Ready。FishNet 断线分片修复后，九组四进程弱网恢复各 22/22、并发 13/13、三夜 17/17 通过；活跃施工／训练／箭矢组合恢复及 M5 新产物仍待验收。实现见[正式网络](FORMAL_NETWORK.md)、[恢复接入](NETWORK_RECOVERY.md)。沿用 2–4 人共享营地和 Windows 房主 LAN／直连；公网房间、邀请、中继、平台身份及房主迁移不在首版范围。下文的拆流等内容保留为测量超限后才启用的设计。
 
-实现沿用 YYGC `10b8f0e` 在 Sample 中已验证的 Gateway/Sender/Processor 和 StatefulBehaviour/StateSynchronizer。现有 WorldSessionBehaviour 只验证正式生成和会话元数据发布边界；M2 再以同一会话对象承载有界、可靠的完整营地投影，验证正式实体集合的首次状态和在线替换。后文的分块、结构/运动拆流、增量暂存流程是在测量超限后启用的设计。权限、epoch、原子应用、Ready 与恢复合同从首个可玩切片就必须成立。
+实现沿用 YYGC `10b8f0e` 的 Gateway/Sender/Processor 和 StatefulBehaviour/StateSynchronizer；同一 WorldSessionBehaviour 已承载有界、可靠的完整营地投影，并接入首次状态和在线替换。后文的分块、结构/运动拆流、增量暂存流程是在测量超限后启用的设计。权限、epoch、原子应用、Ready 与恢复合同保持有效。
 
 ## 玩法权限
 
@@ -22,11 +22,11 @@
 | 普通玩家断开 | 营地继续，单位保留已有任务／AI；当前有权限的玩家可接管 |
 | 房主离开 | 会话结束，客户端返回菜单；恢复依赖房主已有成功存档，不做自动房主迁移 |
 
-CampControlMode 枚举和状态字段已经冻结；SessionAuthority 已实现默认 SharedCamp、房主权限、策略切换及拒绝结果，尚未接入网络与 UI。用户允许暂缓全员操作，也允许先开启后关闭；两种模式使用相同模拟与网络结构。相对单人的变化集中于权限、本地菜单、请求延迟与冲突反馈；不隐式改变战斗和经济规则。
+CampControlMode 枚举和状态字段已经冻结；SessionAuthority 已实现默认 SharedCamp、房主权限、策略切换及拒绝结果，并接入网络与 UI。用户允许暂缓全员操作，也允许先开启后关闭；两种模式使用相同模拟与网络结构。相对单人的变化集中于权限、本地菜单、请求延迟与冲突反馈；不隐式改变战斗和经济规则。
 
 ### 控制模式与切换合同
 
-`CampControlMode` 与 `PolicyRevision` 已由 Runtime/Session 的 SessionAuthority 唯一写入，执行时统一检查权限；后续进入房间展示副本，不放进单位的 FishNet Ownership。UI 读取同一策略用于按钮、快捷键、右键和建造预览，尚待投影接线。
+`CampControlMode` 与 `PolicyRevision` 由 Runtime/Session 的 SessionAuthority 唯一写入，执行时统一检查权限；已进入房间展示副本，不放进单位的 FishNet Ownership。UI 读取同一策略用于按钮、快捷键、右键和建造预览。
 
 | 操作 | SharedCamp 普通玩家 | HostOnly 普通玩家 | 房主，两种模式 |
 |---|---|---|---|

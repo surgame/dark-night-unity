@@ -1,15 +1,15 @@
 # 人工开发 Quick start
 
-`Game/` 使用 `6000.4.9f1`。先运行 `pwsh -File tools/prepare-lan-sample.ps1` 准备锁定的 `.deps/YYGC`；核心 NuGet 包在 `Game/Assets/Packages`。立即验证联机：打开 `Assets/Samples/LanCoop/Content/LanCoop.unity`，按 [LAN Sample](LAN_SAMPLE.md) 启动 Host／Join 或四进程测试。正式 `Bootstrap` 仍为原首场景。
+`Game/` 使用 `6000.4.9f1`。依次运行 `pwsh -File tools/prepare-lan-sample.ps1` 与 `pwsh -File tools/prepare-fishnet.ps1` 准备锁定的隔离依赖；核心 NuGet 包在 `Game/Assets/Packages`。正式 `Bootstrap` 仍为原首场景，游戏操作与复跑入口见 [Player 指南](PLAYER_GUIDE.md)。独立模板位于 `Assets/Samples/LanCoop/Content/LanCoop.unity`，只作为 [LAN Sample](LAN_SAMPLE.md) 对照。
 
-正式移植已开始：配置、AppStartup 接入及构建守卫的入口与验证命令见[当前进展](DEVELOPMENT.md#implementation-progress)。Bootstrap 已能加载灰松谷规则配置，尚无可玩场景。不要重复运行历史环境初始化，已有资产会被保护检查拒绝。
+正式联机、灰松谷三夜、原生对象／UI 与存档恢复主体已实现，已有 Mono 四进程通过记录；新主题和测量校准尚待新 Player 验证。当前 Unity 许可握手阻塞干净 Mono 构建，接手从 [M5 收尾状态](M5_EXECUTION.md#closeout) 继续。不要重复运行历史环境或资源初始化，已有资产会被保护检查拒绝。
 
 ## 先读什么
 
 1. 读[README](../README.md)确认当前状态、范围与联机假设。
 2. 读最新[移植方案](MIGRATION_PLAN.md)和[LAN Sample](LAN_SAMPLE.md)，区分已验证路径与正式游戏待补内容；早期[YYGC 能力复评](YYGC_REASSESSMENT.md)用于了解历史修正缘由。
 3. 读[技术架构](ARCHITECTURE.md)的程序集表，再读[联机设计](MULTIPLAYER.md)的权限和请求流水线。
-4. 按[开发执行计划](DEVELOPMENT.md)先做 M0 正式接入收口、再做 M1 规则核心；已有环境无需重新创建。
+4. 按 [M5 当前清单](M5_EXECUTION.md) 继续未验收项；[开发执行计划](DEVELOPMENT.md)保留阶段合同和历史记录，不重新实施已完成的 M0／M1。
 
 ## M0/M1 已执行
 

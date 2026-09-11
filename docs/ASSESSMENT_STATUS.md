@@ -1,5 +1,7 @@
 # 评估状态与验证边界
 
+2026-09-12 收尾：正式联机、灰松谷三夜、原生表现／UI、十槽位存档与重连主体已实现，规则／Editor 与旧 Mono 的分批证据已保存。当前没有发现可独立于 Unity 环境继续实施的明确功能缺口；新 Mono 构建、活跃状态恢复、画面对照、普通 Player 性能和最终交付仍未验收，IL2CPP 授权及第二台 Windows 机器另待外部条件。见 [M5 收尾状态](M5_EXECUTION.md#closeout)。下文按日期保留历史判断，不作为当前待开发清单。
+
 ## 2026-09-11 开始正式移植
 
 已实施配置、AppStartup 接入、资源构建防覆盖、架构守卫以及权威规则／旧档核心，详见[当前执行状态](DEVELOPMENT.md#implementation-progress)、[首批证据](evidence/migration-start-2026-09-11.json)和[核心迁移证据](evidence/core-migration-2026-09-11.json)。后续各节保留历史时点，不代表新一批的状态；正式场景、对象绑定、灰松谷表现和正式联机仍未完成。
