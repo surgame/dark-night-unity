@@ -51,6 +51,7 @@ namespace DarkNights.Editor
             if (!startup.Modules.Any(entry => entry.Enabled && entry.Required && entry.Module is GameContentStartupModule))
                 throw new InvalidOperationException("Required game content startup module is not registered.");
             FormalObjectContentSetup.Validate();
+            SessionNetworkSetup.Validate();
         }
 
         private static void ValidateJson()

@@ -1,5 +1,6 @@
 using System;
 using DarkNights.Core.Logic.State;
+using DarkNights.Core.ViewData;
 using GameCore.Objects.NetworkStates;
 
 namespace DarkNights.Runtime.Network
@@ -12,6 +13,27 @@ namespace DarkNights.Runtime.Network
     {
         protected override void Initialize()
         {
+        }
+
+        public void Publish(SessionViewData frame, byte[] frozenPayload)
+        {
+            if (frozenPayload == null || frozenPayload.Length > ProjectionCodec.MaximumBytes)
+                throw new ArgumentException("Invalid projection payload.", nameof(frozenPayload));
+            using (var mutation = MutateState())
+            {
+                var value = mutation.Value;
+                if (value == null) return;
+                value.Protocol = Session.SessionAuthority.ProtocolVersion;
+                value.Epoch = frame.Epoch;
+                value.Revision = frame.Revision;
+                value.PolicyRevision = frame.PolicyRevision;
+                value.ControlMode = frame.HostOnly ? CampControlMode.HostOnly : CampControlMode.SharedCamp;
+                value.ReadyCount = frame.ReadyCount;
+                value.PlayerCount = frame.PlayerCount;
+                value.Paused = frame.Paused;
+                value.SpeedMultiplier = frame.Speed;
+                value.ProjectionPayload = (byte[])frozenPayload.Clone();
+            }
         }
 
         public void Publish(int protocol, int epoch, int revision, int policyRevision,

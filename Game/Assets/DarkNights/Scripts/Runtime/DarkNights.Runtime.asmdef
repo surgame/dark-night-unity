@@ -4,5 +4,5 @@
   "references": ["DarkNights.Core", "GameCore.Runtime", "FishNet.Runtime", "UniTask", "UniTask.Addressables", "Unity.Addressables", "Unity.ResourceManager"],
   "allowUnsafeCode": true,
   "overrideReferences": true,
-  "precompiledReferences": ["MemoryPack.Core.dll", "VitalRouter.dll", "Newtonsoft.Json.dll"]
+  "precompiledReferences": ["MemoryPack.Core.dll", "VitalRouter.dll", "Newtonsoft.Json.dll", "R3.dll"]
 }

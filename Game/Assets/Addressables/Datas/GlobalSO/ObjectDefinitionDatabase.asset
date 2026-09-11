@@ -15,12 +15,13 @@ MonoBehaviour:
   definitions:
   - {fileID: 11400000, guid: 57892829ba5122f4ba088c29da524d62, type: 2}
   - {fileID: 11400000, guid: 2831308ce23cb1b40b41fceb09dff2e6, type: 2}
+  - {fileID: 11400000, guid: d5d2552cf49b2a849b83d527d782f122, type: 2}
   registryServerUrl: https://ID-REGISTRY/id-registry
   projectName: DNights
   identityMode: 1
   registryConfigurationVersion: 1
   enableOnlineIdService: 0
-  reservedLegacyIds: []
+  reservedLegacyIds: 
   reservedKeys: []
   registryConfigurationRevision: 1
   legacyIdMap: {fileID: 0}

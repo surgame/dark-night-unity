@@ -60,6 +60,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd681e3323fdcd944bbbc56bcc28f0d1
+    m_Address: dark_nights.object.player_connection
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c7762b3dc0c27f84e90d36643c2206da
     m_Address: dark_nights.object.world_session
     m_ReadOnly: 0

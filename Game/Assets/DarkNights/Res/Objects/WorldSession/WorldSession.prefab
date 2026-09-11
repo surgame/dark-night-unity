@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4742796920614153298}
   - component: {fileID: 3252564467697501395}
   - component: {fileID: 4995043571513353773}
+  - component: {fileID: 6623407741801502953}
   m_Layer: 0
   m_Name: WorldSession
   m_TagString: Untagged
@@ -153,3 +154,19 @@ MonoBehaviour:
     BoxHalfSize: {x: 0, y: 0}
   _rb2D: {fileID: 0}
   _colliders2D: []
+--- !u!114 &6623407741801502953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4344590309617650489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2b1f0cb7abe6143891e9f76b29fcdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.Runtime::DarkNights.Runtime.Network.SessionObjectLink
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 8826220968551682496}
+  _networkObjectCache: {fileID: 0}
+  instance: {fileID: 4742796920614153298}

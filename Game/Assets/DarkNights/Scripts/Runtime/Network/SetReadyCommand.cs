@@ -15,6 +15,8 @@ namespace DarkNights.Runtime.Network
         public int Epoch { get; set; }
         public long RequestSequence { get; set; }
         public bool Ready { get; set; }
+        public int AppliedRevision { get; set; }
+        public long AppliedPublication { get; set; }
 
         public void OnReturnToPool()
         {
@@ -23,6 +25,8 @@ namespace DarkNights.Runtime.Network
             Epoch = 0;
             RequestSequence = 0;
             Ready = false;
+            AppliedRevision = 0;
+            AppliedPublication = 0;
         }
     }
 }

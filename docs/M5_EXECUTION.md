@@ -55,4 +55,6 @@ CoreRegression 会引用并实际编译 C#9／netstandard2.1 Core。每个 detac
 
 ## 执行记录
 
+- A2 网络接线：已完成并通过正式 Mono 双进程12项检查；具体 MemoryPack投影、可信上下文、握手、实际发布版本Ready、回执、Entry及owned入口已接通。Editor新增3项通过，规则1316项和守卫146文件通过。A3画面／操作、四人／弱网／恢复及大载荷网络测量仍待完成，见[正式网络接线](FORMAL_NETWORK.md)。后续继续A3/B，不停止在该网络检查点。
+
 - A1：已完成代码及本批验收。冻结全部实体／HUD 展示、箭矢稳定身份、副本发布／epoch／连接过滤、未缩放 60 Hz 累积；独立回归 1316/1316（新增56）、架构守卫123文件／10自测、一次 Unity 编译及 Editor 40/40通过。规则／夹具和正式资源未变；没有 wire、Player、多进程或美术验收。见[实现合同](SESSION_PROJECTION.md)与[证据](evidence/session-projection-2026-09-11.json)。A2–D 尚未实施。

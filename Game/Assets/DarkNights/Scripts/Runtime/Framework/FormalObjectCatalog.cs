@@ -14,7 +14,7 @@ namespace DarkNights.Runtime.Framework
     /// </summary>
     public static class FormalObjectCatalog
     {
-        public const int Protocol = 1;
+        public const int Protocol = 2;
         public const string RegistryProject = "DNights";
         public const string SessionKey = "session.pinewatch";
         public const string WorkerKey = "unit.worker";
@@ -51,6 +51,9 @@ namespace DarkNights.Runtime.Framework
             if (map.GetRequired(WorkerContentId, database) != worker)
                 throw new InvalidOperationException("Worker ContentId resolves to the wrong definition.");
             GenericTypeRegistry<INetworkCommand>.GetId(typeof(SetReadyCommand));
+            GenericTypeRegistry<INetworkCommand>.GetId(typeof(SessionCommand));
+            if (database.GetDefinitionByKey("connection.pinewatch") == null)
+                throw new InvalidOperationException("Formal connection definition missing.");
             GenericTypeRegistry<IStateData>.GetId(typeof(SessionStatusState));
         }
     }

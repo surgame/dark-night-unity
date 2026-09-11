@@ -21,5 +21,6 @@ namespace DarkNights.Runtime.Network
         public int PlayerCount { get; set; }
         public bool Paused { get; set; }
         public int SpeedMultiplier { get; set; }
+        public byte[] ProjectionPayload { get; set; }
     }
 }

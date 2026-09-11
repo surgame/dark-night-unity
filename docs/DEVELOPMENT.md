@@ -14,6 +14,8 @@ Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本�
 
 ## 当前实施进展
 
+第九批最新状态：M2 A2 已接通正式网络与 Entry，Mono Host＋独立客户端12项检查通过；详见[正式网络接线](FORMAL_NETWORK.md)。下述第八批状态为先前实现边界；当前继续A3可操作表现与M3完整资源，M2整体尚未退出。
+
 2026-09-11 截至第八批：**M0 正式接入退出条件已完成；M1 规则与存储基础已实现；M2 权威业务层、冻结展示副本和真实时间累积已通过独立及 Editor 回归。** 新增 SessionProjector／WorldReplica 覆盖全部实体及 HUD、发布次序和连接／epoch 隔离，SessionClock 以未缩放时间驱动 60 Hz。尚未接入 Bootstrap、Unity Update 或 YYGC 网络回调；wire／内容握手／真实 Ready、存档文件编排及 UI 待完成。M0 双后端探针与本批内存投影回归不代表可玩会话或正式联机。
 
 | 内容 | 当前实现 |

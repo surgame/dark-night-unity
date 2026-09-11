@@ -1,0 +1,149 @@
+{
+  "utc": "2026-09-11T15:42:38.0790482Z",
+  "baseline": "9ed6cbebf1ea49cbe9331a93b1ece16d31846474",
+  "phase": "M2 A2 network connection, A3 visual work pending",
+  "independent": {
+    "total": 1316,
+    "failures": 0
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 146,
+    "selfTests": 10,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "editor": {
+    "firstRunTotal": 43,
+    "firstRunPassed": 42,
+    "firstFailure": "Editor-only test incorrectly expected AppStartup-initialized registry; replaced with generated source verification",
+    "affectedRerunPassed": 3,
+    "affectedRerunTotal": 3
+  },
+  "mono": {
+    "passed": true,
+    "backend": "mono",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\player-mono\\DarkNights.exe",
+    "playerSha256": "93C19F9E7C681845D34407807D33B6438E781DD34C4D8895EBDF2C6FB083711D",
+    "scope": "Formal two-process network and real rules; no artwork or weak-network acceptance",
+    "processes": [
+      40836,
+      40500
+    ],
+    "checks": {
+      "host_ready_with_all_initial_entities": true,
+      "independent_client_receives_full_late_baseline": true,
+      "host_pause_applied": true,
+      "guest_build_paid_once": true,
+      "host_and_client_share_single_payment": true,
+      "guest_cannot_change_time": true,
+      "host_only_enabled": true,
+      "host_only_rejects_guest_camp_mutation": true,
+      "guest_explicit_move_accepted": true,
+      "client_observes_authoritative_motion": true,
+      "complete_world_converges_while_paused": true,
+      "no_player_failure": true
+    },
+    "failure": null,
+    "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\session-20260911-233941-229"
+  },
+  "codec": {
+    "context": "Unity Editor codec only; no transport measurement",
+    "initialBytes": 1363,
+    "maximumBytes": 260570,
+    "maximumEntities": 256,
+    "maximumProjectiles": 1024,
+    "actorNameCharacters": 256,
+    "payloadLimit": 262144,
+    "initialPayloadBytesPerSecondAt10HzThreeClients": 40890,
+    "maximumPayloadBytesPerSecondAt10HzThreeClients": 7817100
+  },
+  "limitations": [
+    "No visible gameplay UI/visuals yet",
+    "No four-process, weak-network, large-payload transport or reconnect acceptance in this batch",
+    "No IL2CPP build",
+    "File load orchestration and recovery credentials remain pending"
+  ],
+  "inputs": [
+    {
+      "path": "Game/Assets/AddressableAssetsData/AddressableAssetSettings.asset",
+      "sha256": "85250B7A8384FF276C55A8CF1DCFA053706CA7B21E0D4511DFEEDD6AA06B64A8"
+    },
+    {
+      "path": "Game/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset",
+      "sha256": "5933309A459818361ABB6FF6C334A8B68FAD398005874A6AD4C79C9D31DC9ECA"
+    },
+    {
+      "path": "Game/Assets/Addressables/Datas/AppStartup/AppStartupSettings.asset",
+      "sha256": "AE88430E946389A98F92462CD0BB22794703245F395333E67E9137ED165DF956"
+    },
+    {
+      "path": "Game/Assets/Addressables/Datas/GlobalSO/NetworkCommandInterfaceGenerateRegistry.asset",
+      "sha256": "F79980E12626AF4D30BA13CA289BE4BD6B7FF1EBFC4685FB8EA43C8B0276CD01"
+    },
+    {
+      "path": "Game/Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset",
+      "sha256": "A4EA49A50C866E95C933A7B2F5D015C0869E418B33A4932B706DF3E0AD5D145F"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.prefab",
+      "sha256": "8D0034C5BF06C2AB7D727025C6E91FC61C6CCE9B57B94D36EE5D863D010FCD40"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/GameContentSetup.cs",
+      "sha256": "78BDF4D9F3DE457195E3F5744D99651EA6C1987B11D09F61A9E164057F23FF48"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/GamePlayerBuild.cs",
+      "sha256": "7367BF45050BE310FC6F6CC91E0BCEA5FE3861E28E285FAE8E378C968A35C588"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/DarkNights.Entry.asmdef",
+      "sha256": "1F1FB172AADE221BEBF05038192BDBDBAE85123A8A7B46EA2150C98990B921F1"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/GameContentStartupModule.cs",
+      "sha256": "AFED47A917FC0C0BD9452337E58416C8B39417A8A9E77F9F874488243A1E64EB"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/DarkNights.Runtime.asmdef",
+      "sha256": "073E3E717340A8923041C02930F66C002D7F0FBB0A18A7970B066CB828F7C827"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Framework/FormalObjectCatalog.cs",
+      "sha256": "2380A3B8CD033336FAE51604FBDEF896DE8F8C7E52E8531206BEE291CD13C196"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionStatusState.cs",
+      "sha256": "EB1A6657AD9A0012362DB23367C14A21E9886B55FB7CEEA0F5702A65523DC14C"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SetReadyCommand.cs",
+      "sha256": "50910177FB7637BC3A4429ABBCB40FB71B710FF985B0A305FC3B94BDA1DB73C7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/WorldSessionBehaviour.cs",
+      "sha256": "403254BF1CB9AB7DCEFAC015FC7055A1528FDF1DCBED6CDDD6B0408792ED1F5F"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+      "sha256": "EF67A881358023FCE6CBBC106B1683F8AD3FCD753C527EF6F5761E7FA8FE3CA7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/SessionBoundaryScenarios.cs",
+      "sha256": "81DADBFB8C2340EF5074696634508A694B49407197BC734458794E15EEA247D8"
+    },
+    {
+      "path": "Game/Assets/DefaultPrefabObjects.asset",
+      "sha256": "E183EB7A438BE64120BE07DDF7D985C18711A3391E4CE70791ADD75F8EED888F"
+    },
+    {
+      "path": "Game/Assets/Scripts/Generated/INetworkCommand.generated.cs",
+      "sha256": "05A2BE1FD7EF770D586F85FF0221E0B95ACA9E6B8959F91EC13E5B11FAD14E4C"
+    },
+    {
+      "path": "Game/ProjectSettings/EditorBuildSettings.asset",
+      "sha256": "1F09C1452DD7171F06B4FDEE8FD36485839AF669F7E1E321E89A0EDA33E6DB95"
+    }
+  ]
+}

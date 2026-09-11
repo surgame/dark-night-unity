@@ -16,3 +16,5 @@ MonoBehaviour:
   Registrations:
   - CommandType: {fileID: 11500000, guid: 0abc7ee5fef89cd43bbd0109395557e5, type: 3}
     Tag: 0
+  - CommandType: {fileID: 11500000, guid: 9a15d99d153ce604ca8e97b5e1ed56cb, type: 3}
+    Tag: 1

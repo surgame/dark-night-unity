@@ -61,7 +61,7 @@ namespace DarkNights.Tests
             check(session.Submit(guest, null).Code == SessionResultCode.InvalidRequest, "Session null request rejected");
             check(session.Submit(guest, new SessionRequest(SessionOperation.Recruit, 99, session.Epoch, 0, 20)).Code == SessionResultCode.ProtocolMismatch,
                 "Session mismatched protocol rejected before queuing");
-            check(session.Submit(guest, new SessionRequest(SessionOperation.Recruit, 1, 999, 0, 20)).Code == SessionResultCode.EpochChanged,
+            check(session.Submit(guest, new SessionRequest(SessionOperation.Recruit, SessionAuthority.ProtocolVersion, 999, 0, 20)).Code == SessionResultCode.EpochChanged,
                 "Session mismatched epoch rejected before queuing");
             var ordered = Request(session, SessionOperation.IssueOrders, 20, new[] { frozen.Actors[0].Id, frozen.Actors[1].Id }, x: 220);
             Execute(session, guest, ordered);
