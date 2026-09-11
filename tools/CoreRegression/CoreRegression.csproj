@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../CoreBuild/CoreBuild.csproj" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>../../Game/Library/PackageCache/com.unity.nuget.newtonsoft-json@4dfd81071c64/Runtime/Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Config/ConfigJson.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Config/GameCatalogJson.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Save/*.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/RuleScenario.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/EconomyScenarios.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/WorkTrainingScenarios.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/TimeCombatScenarios.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/CampaignScenario.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/SaveMigrationScenarios.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/RandomCompatibilityScenarios.cs" />
+  </ItemGroup>
+</Project>

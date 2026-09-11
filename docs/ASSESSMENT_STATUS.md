@@ -2,7 +2,7 @@
 
 ## 2026-09-11 开始正式移植
 
-已实施首批配置、AppStartup 接入、资源构建防覆盖与架构守卫，详见[当前执行状态](DEVELOPMENT.md#implementation-progress)及[首批证据](evidence/migration-start-2026-09-11.json)。后续各节保留历史时点。正式模拟、对象绑定、灰松谷表现和正式联机仍未完成。
+已实施配置、AppStartup 接入、资源构建防覆盖、架构守卫以及权威规则／旧档核心，详见[当前执行状态](DEVELOPMENT.md#implementation-progress)、[首批证据](evidence/migration-start-2026-09-11.json)和[核心迁移证据](evidence/core-migration-2026-09-11.json)。后续各节保留历史时点，不代表新一批的状态；正式场景、对象绑定、灰松谷表现和正式联机仍未完成。
 
 ## 2026-09-11 正式移植设计更新
 

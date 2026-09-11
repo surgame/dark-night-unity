@@ -2,7 +2,7 @@
 
 2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已实现自己的四层程序集并验证 YYGC Object、可靠状态链及唯一权威写入。本页描述的正式玩法目录仍属设计；Sample 不反向依赖正式游戏。VitalRouter 仅保留框架命令链的显式适配，业务使用普通方法，R3 负责副本观察及订阅释放。
 
-状态：正式玩法设计基线。已开始 Core/Config、Runtime/Config 与 Entry 启动接入；权威模拟、View 与正式联机尚未实现。2026-09-11 的[移植方案](MIGRATION_PLAN.md)明确复用 YYGC `10b8f0e` 已由 Sample 验证的命令／状态链，补正式营地投影、可切换控制权限与原生资源。Core 继续保持单一权威模拟。
+状态：正式玩法设计基线。已实现 Core/Config、Core/Logic、Core/Save、最小反馈 ViewData、Runtime 配置／旧档解析与 Entry 配置启动；规则及旧档已通过[核心回归](CORE_MIGRATION.md)，实际会话调度、View 与正式联机尚未实现。2026-09-11 的[移植方案](MIGRATION_PLAN.md)明确复用 YYGC `10b8f0e` 已由 Sample 验证的命令／状态链，补正式营地投影、可切换控制权限与原生资源。Core 继续保持单一权威模拟。
 
 ## 设计选择
 

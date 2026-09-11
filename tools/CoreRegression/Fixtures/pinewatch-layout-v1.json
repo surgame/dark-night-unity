@@ -1,0 +1,38 @@
+{
+  "id": "pinewatch",
+  "name": "灰松谷",
+  "world_width": 1100.0,
+  "ground_y": 320.0,
+  "build_min_x": 30.0,
+  "build_max_x": 850.0,
+  "spawn_x": 1020.0,
+  "camera_x": 255.0,
+  "seed": 90127,
+  "buildings": [
+    {"kind": "house", "x": 55.0},
+    {"kind": "tavern", "x": 130.0},
+    {"kind": "barracks", "x": 245.0},
+    {"kind": "farm", "x": 330.0}
+  ],
+  "worksites": [
+    {"kind": "wood", "x": 402.0, "variant": 1},
+    {"kind": "wood", "x": 449.0, "variant": 0},
+    {"kind": "wood", "x": 488.0, "variant": 2},
+    {"kind": "stone", "x": 548.0, "variant": 0},
+    {"kind": "iron", "x": 592.0, "variant": 0}
+  ],
+  "actors": [
+    {"kind": "worker", "x": 170.0, "name": "艾达"},
+    {"kind": "worker", "x": 187.0, "name": "罗恩"},
+    {"kind": "worker", "x": 293.0, "name": "米娅"},
+    {"kind": "worker", "x": 311.0, "name": "伊恩"},
+    {"kind": "worker", "x": 357.0, "name": "莉娜"},
+    {"kind": "spearman", "x": 660.0, "name": "奥斯"},
+    {"kind": "archer", "x": 625.0, "name": "薇拉"}
+  ],
+  "waves": [
+    {"day_seconds": 90.0, "spawn_interval": 3.8, "enemies": ["zombie", "zombie", "zombie", "ghoul", "zombie", "zombie", "zombie"], "reward": {"food": 18, "wood": 20, "iron": 8, "gold": 12}},
+    {"day_seconds": 70.0, "spawn_interval": 3.0, "enemies": ["zombie", "ghoul", "zombie", "armored", "zombie", "ghoul", "zombie", "armored", "zombie", "ghoul", "zombie"], "reward": {"food": 24, "wood": 30, "iron": 12, "gold": 18}},
+    {"day_seconds": 70.0, "spawn_interval": 2.7, "enemies": ["zombie", "ghoul", "armored", "zombie", "ghoul", "armored", "zombie", "armored", "ghoul", "zombie", "armored", "ghoul", "armored", "zombie", "ghoul", "armored"], "reward": {}}
+  ]
+}

@@ -1,0 +1,499 @@
+{
+  "date": "2026-09-11",
+  "recorded_utc": "2026-09-11T10:24:21.735673+00:00",
+  "scope": "Portable authority simulation, explicit commands, frozen legacy v1 snapshots, strict JSON and isolated regressions. Not a playable Unity migration or formal multiplayer acceptance.",
+  "source_game_commit": "91cb09ff0894f26134f07fd544f1273d9fe7ffaa",
+  "unity": "6000.4.9f1",
+  "godot_probe": {
+    "major": 4,
+    "minor": 7,
+    "patch": 2,
+    "hex": 263938,
+    "status": "stable",
+    "build": "official",
+    "hash": "ed1daf0bf001b61586d9930840f2f1394092c079",
+    "timestamp": 0,
+    "string": "4.7.2-stable (official)"
+  },
+  "core_compile": {
+    "target": "netstandard2.1",
+    "language": "C# 9",
+    "warnings": 0,
+    "errors": 0,
+    "tool": "tools/CoreBuild/CoreBuild.csproj"
+  },
+  "independent_regression": {
+    "total": 1102,
+    "passed": true,
+    "failures": 0,
+    "runtime": "8.0.16",
+    "rules_save_inputs": 70,
+    "random": 1032,
+    "report": "artifacts/migration/core-regression.json",
+    "report_sha256": "d60555f4b1c8659a7f6fa58321e9f50526b0fb867ddb47f752dbfef1ec7e02fe"
+  },
+  "unity_editor": {
+    "initial_summary": {
+      "Total": 28,
+      "Passed": 27,
+      "Failed": 1,
+      "Skipped": 0,
+      "Inconclusive": 0
+    },
+    "initial_failure": [
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"random\")",
+        "Status": "Failed",
+        "Duration": 0.0053723,
+        "Message": "  Godot RNG exact integer/float/state: 90127/2\r\n  Expected: True\r\n  But was:  False\r\n",
+        "StackTrace": "at DarkNights.Tests.CoreRegressionTests+<>c.<RulesMatchFrozenBaseline>b__0_0 (System.Boolean ok, System.String name) [0x00000] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\CoreRegressionTests.cs:23\r\nat DarkNights.Tests.RandomCompatibilityScenarios.Run (System.Action`2[T1,T2] check) [0x000fd] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\RandomCompatibilityScenarios.cs:28\r\nat DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline (System.String scenario) [0x000b7] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\CoreRegressionTests.cs:31\r\n"
+      }
+    ],
+    "resolution": "Force binary32 rounding through allocation-free bit conversions at each RandomPCG float operation; no tolerance increase.",
+    "affected_retest_summary": {
+      "Total": 6,
+      "Passed": 6,
+      "Failed": 0,
+      "Skipped": 0,
+      "Inconclusive": 0
+    },
+    "affected_retest_results": [
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"economy\")",
+        "Status": "Passed",
+        "Duration": 0.0276985,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"work-training\")",
+        "Status": "Passed",
+        "Duration": 0.0049089,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"time-combat\")",
+        "Status": "Passed",
+        "Duration": 0.0075932,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"campaign\")",
+        "Status": "Passed",
+        "Duration": 0.0450902,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"save\")",
+        "Status": "Passed",
+        "Duration": 0.0680603,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"random\")",
+        "Status": "Passed",
+        "Duration": 0.0054997,
+        "Message": null,
+        "StackTrace": null
+      }
+    ],
+    "reused_unaffected_environment_and_configuration_tests": 22,
+    "reports": [
+      "artifacts/migration/core-editor-tests.json",
+      "artifacts/migration/core-editor-tests-rng-fixed.json"
+    ]
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 78,
+    "selfTests": 10,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "fixtures": [
+    {
+      "file": "tools/CoreRegression/Fixtures/content-hashes-v1.json",
+      "sha256": "d59fe93f74e3b131a8c1a7473c48353d7f0723a9968803afac8146cf81e3310d",
+      "bytes": 188,
+      "source": "../projects/tests/Fixtures/content-hashes-v1.json",
+      "source_sha256": "d59fe93f74e3b131a8c1a7473c48353d7f0723a9968803afac8146cf81e3310d",
+      "identical": true
+    },
+    {
+      "file": "tools/CoreRegression/Fixtures/godot-gameplay-validation.json",
+      "sha256": "d81a6c9845b4e79ff43f1234617bfb98b76590fbdb56d2b7e7aea5d2e06ac984",
+      "bytes": 5555,
+      "source": "../projects/artifacts/gameplay-validation.json",
+      "source_sha256": "d81a6c9845b4e79ff43f1234617bfb98b76590fbdb56d2b7e7aea5d2e06ac984",
+      "identical": true
+    },
+    {
+      "file": "tools/CoreRegression/Fixtures/godot-rng-vectors.json",
+      "sha256": "de2dd5da0e8f0538c6cf0d2357a786ad6759dcda526b9af9637616c33d7d42d8",
+      "bytes": 65795
+    },
+    {
+      "file": "tools/CoreRegression/Fixtures/legacy-v1-after-20s.json",
+      "sha256": "4a297fe16882ea388398d458911714553cf350a8528e77d1dcd5056583f2b8af",
+      "bytes": 6436,
+      "source": "../projects/tests/Fixtures/legacy-v1-after-20s.json",
+      "source_sha256": "4a297fe16882ea388398d458911714553cf350a8528e77d1dcd5056583f2b8af",
+      "identical": true
+    },
+    {
+      "file": "tools/CoreRegression/Fixtures/legacy-v1.json",
+      "sha256": "fe700dd160583786dd7786f87a3940a344899e7991de8c660ad1e1f0a10a240e",
+      "bytes": 6683,
+      "source": "../projects/tests/Fixtures/legacy-v1.json",
+      "source_sha256": "fe700dd160583786dd7786f87a3940a344899e7991de8c660ad1e1f0a10a240e",
+      "identical": true
+    },
+    {
+      "file": "tools/CoreRegression/Fixtures/pinewatch-layout-v1.json",
+      "sha256": "76e1c120e2a3410548a5a4bc87faf603ff9bfccde4299fc490ad553b1767b095",
+      "bytes": 1700,
+      "source": "../projects/tests/Fixtures/pinewatch-layout-v1.json",
+      "source_sha256": "76e1c120e2a3410548a5a4bc87faf603ff9bfccde4299fc490ad553b1767b095",
+      "identical": true
+    }
+  ],
+  "source_files": [
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/BalanceDefinition.cs",
+      "sha256": "1df1eb09a6b4c410f556f1b0a074f078a578851b82623e67ff421b4e57e34d9f"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/BuildingDefinition.cs",
+      "sha256": "a7faf2ce03f3144ece383c3edb92f866b3b41be8b6298a26b92dac2d12a4687d"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/EconomyDefinition.cs",
+      "sha256": "ca9b143735fa5596ad256d7fb1d6355dc1f5d7c2e3be1c47bc8b8c834584c204"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/GameCatalog.cs",
+      "sha256": "62b7b6b46a96965749769bc9ff949fbf10e790be0722d3b0b06427eafa0d8e0c"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/GameText.cs",
+      "sha256": "13a4ce81847704949dad64ad9b4b604052fc8e48fb03fbb339098e969e2f37d6"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/LevelDefinition.cs",
+      "sha256": "492cb03fd9bf198f2e47a2251eb8350010c26ac67674f7c49d91323ff0e116ba"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/LevelLayout.cs",
+      "sha256": "5f16e99ffbe129392a1b188cfe13962090a5fe88750cf5500b7e292727670a08"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/PlacementDefinition.cs",
+      "sha256": "39d491b0d87a703e3426a10bb2133c628bba8748107f849aabe89f092a543395"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/ResourceAmounts.cs",
+      "sha256": "1c5696fedc039f1327dff608e04ee4bedb649d95b60fea2499c6d4baa78e4895"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/UnitDefinition.cs",
+      "sha256": "f075e1dd20964f989390e6a634b831cc9b532f71fe5c8e32bd09387bd3960db5"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/WaveDefinition.cs",
+      "sha256": "3ad0d7a5599c620d8f4bea105562cf776d93c11878c334b4cd2778711f2561da"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Config/WorksiteDefinition.cs",
+      "sha256": "28ec44b38be3b17043b250dddf8d40b716f0cf24b34aafc129902a04a12402bb"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Commands/CampCommands.cs",
+      "sha256": "81d6504992f1af1a7af48d6e159a81e7925c60026cb4bb1994724b14cb5ba74d"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Commands/CommandActors.cs",
+      "sha256": "55f44d9bebc37fde205e58118533169c973b2063af2c15d0939b55c5bad97ccd"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Commands/ConstructionService.cs",
+      "sha256": "f6c81d2c311d8d77ce9ae248d724353ede11db27e5eb684ac3178538ddab3fea"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Commands/TrainingService.cs",
+      "sha256": "9f94d6ffc948a76334c80e7bc859d943b1002993f88bbab8ed7d051fc70c344b"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Commands/UnitOrders.cs",
+      "sha256": "a9635a5caf6e6f524bb033358bfcdb4ae8382569caf8c8783d78856c40b54ab2"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Commands/WorkOrders.cs",
+      "sha256": "3cec85a457d2497e7df675c3044dee0650c00f0775ca25d053591fc40c5bf268"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Entities/Actor.cs",
+      "sha256": "4eef9f204a42935bc89802fd78fa64ae32c10e7ecb34056f1cbe551e54bfae23"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Entities/Building.cs",
+      "sha256": "824a86b6261308094a0d3eb107c2a5a5219865a3109941d55e2322c96b40d350"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Entities/Combatant.cs",
+      "sha256": "325781958932546a14d37015d93daadf5c7d90960fa27ac5ecdf4c655a579d5f"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Entities/Entity.cs",
+      "sha256": "c96b239a67b244afefb9b8900fc496372f3e4d5d78ac4b17031921195f24c0eb"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Entities/Projectile.cs",
+      "sha256": "09aa1b00f139c88c08e8c5e554607432fc831c087c3bd178f09542457f540076"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Entities/TrainingOrder.cs",
+      "sha256": "7afb5cd3d0313bc9d36f8481fffd82960f2b7b4f78ad329588c308de6a73d2a4"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Entities/Worksite.cs",
+      "sha256": "3883b3fd34dcc282823f04a809aba339482822d82911c4e872f348ca3ea558ce"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/GameSession.cs",
+      "sha256": "6f5ae28f133bbde2b54d3c39636d292bb31046b8b8283177ab5f526bcc786b46"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/SimulationMath.cs",
+      "sha256": "f762dce1952697215b741c0a8ff16928abae9f097d9f8cdff2f1222ef06a1f1d"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/SimulationRandom.cs",
+      "sha256": "d819b68743d7b56ac8d3769c558c1e2f63966172d2b4e16294efe3942c77280b"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/State/ActorActivity.cs",
+      "sha256": "9284423f38b8d79fffc5aa0519d8d6726c278b4344d46e7d077d938bce28499d"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/State/CampaignStats.cs",
+      "sha256": "0a5d07b556ecab2d58e11fd1171cb1c69135001471720f9075260bec622d0e72"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/State/SessionMode.cs",
+      "sha256": "7ea23a608057eb29761cd5521283faea2ee10d407000d086c70f8cc3deca84b0"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/State/WavePhase.cs",
+      "sha256": "6e67e0f576dcead274f652bd17131272239551313b9adb67df7ac35c72520202"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/State/WorldState.cs",
+      "sha256": "2ea1da7897cb4f046d755f83c8dcf89c1ed917652d748e48f41b2ee4caf1625c"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Systems/CombatService.cs",
+      "sha256": "7ae0f84bcf95c84b2a01b4353dbd4d4bcaff30b326660a6c5e13956a41b672ff"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Systems/EconomyService.cs",
+      "sha256": "c4ac40078fc02c9f774ead3d00d7e24dbd86a68250dfdbb4f26e54beb3604087"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Systems/EntityLifecycle.cs",
+      "sha256": "b3f76cb9a9bb7f1c7606c3250aceedf26d6e7de083159301874807e70e2ec362"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Systems/ProjectileSystem.cs",
+      "sha256": "1e0ba31f33a8f10e28cfb9950ecedf2dd7e10f0f039f9c77143ea76c5e33e9e8"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Systems/WaveDirector.cs",
+      "sha256": "4d26ee0d7267f8e721eb2ab0b20190e46e84e7e6de1783098c9d59140fc488b8"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/WorldPoint.cs",
+      "sha256": "0e12004b6628ead7d85d053826c912b0f5fbdb148df78be3a26c15774c2d7dbf"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/ActorSnapshot.cs",
+      "sha256": "676ce7b0027ce36e70d026b69e7d71ec6e8c15a74ad3ef6c655f249341f93a07"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/BuildingSnapshot.cs",
+      "sha256": "3194e42e11d3373563b1980c02342525a50e3c6176de65cad86473124f28028f"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/EconomySnapshot.cs",
+      "sha256": "ebe7279c170d1c02ccb3eee389071bc09b913ba1694e7e3d90d8ef703c109292"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/EntitySnapshotValidator.cs",
+      "sha256": "1f28d474bbe7f5e5e2ff2b12daa9b12b446beb7189dca6dfa7721250f5d35359"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/LegacyDisplayState.cs",
+      "sha256": "8adec73beee78f83281cf342cc253fc8d47115e5105d763861c59fa69c94aabd"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/ProjectileSnapshot.cs",
+      "sha256": "e4b2359fa7a1e8e8e9f703f1102bb87e163aab25c16b807b162e42c13c4851e9"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/RelationshipValidator.cs",
+      "sha256": "7ca119a55e6f84e05e62be4e80f34345554975e7d8f0fec7851983b074c227f9"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/SessionSnapshot.cs",
+      "sha256": "ed77ad135185f8d4d9c8c01a0f0fa01825e2eb1ff180b9184921c45c0fac1750"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/SnapshotMapper.cs",
+      "sha256": "d2f26bfdeb142156599683822f5b35d17f7fa57d0d18e655b6c30dfd03c8cbf8"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/SnapshotValidator.cs",
+      "sha256": "506a0537aac9ea6b276908e0d19c46395ddcadad24289252a272bae83a845d61"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/StatisticsSnapshot.cs",
+      "sha256": "fc96274d57cb7eb181d163a4751bf173140a565c90331507f5605ed0b2c92317"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/TrainingSnapshot.cs",
+      "sha256": "f9dc71b98a3f685cfb04b2b22eb674791e41409d0a8149628243026c71be0c1e"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/ValidationContext.cs",
+      "sha256": "9051cdeb9473c224664220962fe9fefb201340f150a5f93479123725686c1048"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/WaveSnapshot.cs",
+      "sha256": "ffb9363e50793d5b8df42c83db600be5760ae713960b03710172175f412f0de3"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/Save/WorksiteSnapshot.cs",
+      "sha256": "4155150e57c6439b231bbb468ced480405e33e82652163ae31badc796c82ecf7"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/ViewData/SessionFeedback.cs",
+      "sha256": "377d27ecfecfc2f05856daabe17f152b7b0c4a2871aa262cb96b0fa560ee804d"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Core/ViewData/VisualCue.cs",
+      "sha256": "92836c4ca65777f61fa3119a625c9357aada6b6b53c265f1968f93116d17f79b"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs",
+      "sha256": "6b152c2ec0e13ae11f0e2d6a68225018eadcd94c1537920e10a9a7a65bca5e0f"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Editor/EnvironmentValidation.cs",
+      "sha256": "c03731fc219982e47f6ee46871fcfa87053a9cc9819f64c01df8965cc77f55c1"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Editor/GameContentSetup.cs",
+      "sha256": "a8478cfe3729e556d47fb711a325b5cbcf1eac97d9a453c35f418e6dba8bab6e"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Editor/GamePlayerBuild.cs",
+      "sha256": "b9fbea4ad8b9905116a3005c310c88c2a338f50ba0ca04e851be07a51d9e5129"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Entry/GameContentStartupModule.cs",
+      "sha256": "0fda2dcbf6ee60eec724864be32b3dd2907fef1803a254e2c2ce43ef28455378"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Runtime/Config/ConfigJson.cs",
+      "sha256": "a6ea6201549a250e727eba686772056030eb571b4cf37ed9bb5c565e1f539707"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Runtime/Config/GameCatalogJson.cs",
+      "sha256": "6931cf56ecab17f6193ade7a9a4f4535ca36eaa8e4b6217b5649b9a7922e9468"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Runtime/Config/GameCatalogLoader.cs",
+      "sha256": "7a3cc6daca1066bfcd5a8e7d3297ae1fe6694128520c20aebd3eace168e1d80f"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Runtime/Save/LegacySnapshotJson.cs",
+      "sha256": "d4b9410b9add5f14a142c41ac883c42e23fdb36f712f293f256c1b1c818a9d3e"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Runtime/Save/SaveJsonFields.cs",
+      "sha256": "a4874c18d01a81f912dfbf4635dcb941dbbe7385989d8e71e5fe34764cb23b94"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Runtime/Save/SnapshotDocumentJson.cs",
+      "sha256": "ad613aa064a596064ec18570ed89f0a62d77da8f1404128f62b2421d30aecf17"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Runtime/Save/SnapshotEntityJson.cs",
+      "sha256": "86378428a4c33c04e9b4823e251820ddb3c836dbac926acc99115ea15fff6b6d"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/CampaignScenario.cs",
+      "sha256": "80ba0480181db26ea6577a34139f5ae7beece82cb271c791796bb66b77f50a34"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/ContentTests.cs",
+      "sha256": "2f7cc6be93faa247ba67c93444f7f6c170cc38c2860e89cd940abb04a826d610"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/CoreRegressionTests.cs",
+      "sha256": "e78cdc009ca77a7de8a20a1a448bacc2f03b3459594cc1a6f6ec953418fa93c0"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/EconomyScenarios.cs",
+      "sha256": "4c9031e9686d51c8f6d64a2c05f7065b7feb087e0269f3d24b868e3e6b6dd59f"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/EnvironmentTests.cs",
+      "sha256": "a504a060efc0aede8df113416cc3f1759cd74eaab24de09a12b27ebdf16a7d89"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/RandomCompatibilityScenarios.cs",
+      "sha256": "cc0e36f4fd8c80e7b75209c82735a63173d30dcb7cc959fe30c4b2d9a40adef0"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/RuleScenario.cs",
+      "sha256": "1c39b6ef38b61e67863298806c62ad37a0297294eec78dfc39dc19879db448f7"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/SaveMigrationScenarios.cs",
+      "sha256": "56078ba2695c78738295e105132d23a2368cb00a42b983612dfd41cd81e8554b"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/TimeCombatScenarios.cs",
+      "sha256": "b173b32124b2b1e34a15f1e42de843be54d85a252836425240b6d2529624b66e"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/WorkTrainingScenarios.cs",
+      "sha256": "aebeda6e1e06a20a595b2daf79e697731bf3cbd406784ed84750a1d108cb7650"
+    }
+  ],
+  "asset_protection": {
+    "preexisting_tracked_assets_settings_packages_checked": 625,
+    "unexpected_changes": [],
+    "missing_meta": [],
+    "note": "Editor startup removed generated Addressables link.xml and meta; restored exact tracked baseline without rebuilding or changing GUIDs. All new script and directory meta files were created by Unity."
+  },
+  "not_validated": [
+    "Production scene layout authoring",
+    "YYGC formal object definitions, binding and generated access",
+    "Unity new save format and atomic file persistence",
+    "Unity Player simulation (Mono/IL2CPP)",
+    "Formal network policy, deduplication, projection and recovery",
+    "Art editing/reopen and visual parity",
+    "Two-machine LAN and final delivery"
+  ],
+  "regression_commands": [
+    "dotnet run --project tools/CoreRegression -- .",
+    "dotnet run --project tools/ArchitectureGuard -- .",
+    "unity command run_tests --mode editor --filter DarkNights.Tests --filter_type assembly --project-path Game --detach"
+  ],
+  "source_hash_format": "SHA-256 of UTF-8 source bytes with LF line endings (Git canonical form); fixture hashes preserve exact original bytes."
+}

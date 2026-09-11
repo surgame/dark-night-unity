@@ -1,0 +1,212 @@
+{
+  "playthrough": {
+    "result": "won",
+    "simulation_seconds": 377.66666666665185,
+    "kills": 34,
+    "survivors": 9,
+    "losses": 3,
+    "resources": {
+      "food": 165.20000000000005,
+      "wood": 385,
+      "stone": 10,
+      "iron": 5,
+      "gold": 131
+    },
+    "tavern_hp": 320
+  },
+  "idle_playthrough": {
+    "result": "lost",
+    "simulation_seconds": 452.0999999999175,
+    "kills": 6
+  },
+  "engine": "4.7.2-stable (official)",
+  "implementation": "C# / .NET 8",
+  "total": 46,
+  "passed": true,
+  "checks": [
+    {
+      "name": "Initial population 7/9 and five resource types",
+      "passed": true
+    },
+    {
+      "name": "Multi-resource payment fails atomically",
+      "passed": true
+    },
+    {
+      "name": "Negative costs cannot create resources",
+      "passed": true
+    },
+    {
+      "name": "Overlapping construction does not deduct resources",
+      "passed": true
+    },
+    {
+      "name": "Valid tower placement creates an assigned construction site",
+      "passed": true
+    },
+    {
+      "name": "Construction deducts the configured cost once",
+      "passed": true
+    },
+    {
+      "name": "Construction progress is independent from building HP",
+      "passed": true
+    },
+    {
+      "name": "Worker travel, construction, completion and ownership release",
+      "passed": true
+    },
+    {
+      "name": "Entity updates do not mutate shared definitions",
+      "passed": true
+    },
+    {
+      "name": "House placement in a free village slot",
+      "passed": true
+    },
+    {
+      "name": "Completed house adds three population places",
+      "passed": true
+    },
+    {
+      "name": "Worker can claim a resource site",
+      "passed": true
+    },
+    {
+      "name": "A second worker cannot steal an occupied site",
+      "passed": true
+    },
+    {
+      "name": "Gathering produces one configured batch after travel and work",
+      "passed": true
+    },
+    {
+      "name": "Changing orders releases work and partial progress",
+      "passed": true
+    },
+    {
+      "name": "Death releases work and population",
+      "passed": true
+    },
+    {
+      "name": "Training claims two workers and releases their previous work",
+      "passed": true
+    },
+    {
+      "name": "A training worker cannot gather or construct",
+      "passed": true
+    },
+    {
+      "name": "Barracks completes training sequentially",
+      "passed": true
+    },
+    {
+      "name": "Promotion applies combat stats without adding population",
+      "passed": true
+    },
+    {
+      "name": "Destroyed barracks releases queued trainees and refunds uncompleted training",
+      "passed": true
+    },
+    {
+      "name": "Pause freezes movement, economy, construction, training, combat and waves",
+      "passed": true
+    },
+    {
+      "name": "2x applies time scaling once to movement and phase timers",
+      "passed": true
+    },
+    {
+      "name": "Armor reduction retains a minimum of one damage",
+      "passed": true
+    },
+    {
+      "name": "Ranged attacks wait for visible projectile flight",
+      "passed": true
+    },
+    {
+      "name": "A projectile applies its damage exactly once",
+      "passed": true
+    },
+    {
+      "name": "Enemy death removes entity and grants the configured bounty",
+      "passed": true
+    },
+    {
+      "name": "Tavern destruction ends the session in defeat",
+      "passed": true
+    },
+    {
+      "name": "Live snapshot validates construction, work, training, projectile and RNG state: ",
+      "passed": true
+    },
+    {
+      "name": "Atomic save writes a complete versioned file",
+      "passed": true
+    },
+    {
+      "name": "Valid save restores through the public load path",
+      "passed": true
+    },
+    {
+      "name": "Save/load preserves the complete simulation snapshot",
+      "passed": true
+    },
+    {
+      "name": "Restored simulation replays deterministically including pending damage",
+      "passed": true
+    },
+    {
+      "name": "Save rejects mismatched work ownership",
+      "passed": true
+    },
+    {
+      "name": "Save rejects invalid entity health",
+      "passed": true
+    },
+    {
+      "name": "Save rejects wrong field types",
+      "passed": true
+    },
+    {
+      "name": "Malformed save does not replace or clear the current game",
+      "passed": true
+    },
+    {
+      "name": "Campaign: tower 1 placed using starting resources",
+      "passed": true
+    },
+    {
+      "name": "Campaign: tower 2 placed using starting resources",
+      "passed": true
+    },
+    {
+      "name": "Campaign: two archers funded from starting resources",
+      "passed": true
+    },
+    {
+      "name": "Campaign: normal-resource strategy defeats all 34 enemies across three nights",
+      "passed": true
+    },
+    {
+      "name": "Campaign: leaving the camp undefended naturally reaches defeat",
+      "passed": true
+    },
+    {
+      "name": "Migration: legacy schema v1 save loads through the public repository",
+      "passed": true
+    },
+    {
+      "name": "Migration: legacy save retains all state and stable identities: ",
+      "passed": true
+    },
+    {
+      "name": "Migration: 20 seconds after legacy load matches the previous implementation: ",
+      "passed": true
+    },
+    {
+      "name": "Migration: pending damage and queued training continue after legacy load",
+      "passed": true
+    }
+  ]
+}

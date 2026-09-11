@@ -1,6 +1,8 @@
 * text=auto eol=lf
 *.md text eol=lf
 *.json text eol=lf
+# Frozen cross-engine evidence retains the exact original bytes, including line endings.
+tools/CoreRegression/Fixtures/*.json -text whitespace=cr-at-eol
 *.cs text eol=lf
 *.ps1 text eol=lf
 # Unified patches preserve a leading space on blank context lines.

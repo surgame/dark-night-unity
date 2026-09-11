@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using DarkNights.Core.Logic.State;
+using static DarkNights.Core.Save.ValidationContext;
+
+namespace DarkNights.Core.Save
+{
+    /// <summary>
+    /// 验证各类实体的局部属性以及训练队列的基本成员身份。
+    /// 这里确认HP、计时和内容ID范围，双向工作与目标关系由RelationshipValidator继续检查。
+    /// </summary>
+    internal static class EntitySnapshotValidator
+    {
+
+        public static string Validate(ValidationContext c)
+        {
+            if (c.Buildings.Values.Count(b => b.Kind == "tavern") != 1)
+                return "营地必须拥有一座酒馆";
+            foreach (var b in c.Buildings.Values)
+            {
+                if (!c.Catalog.Balance.Buildings.TryGetValue(b.Kind, out var d))
+                    return "未知建筑";
+                if (!Number(b.Hp, 0.001, d.Hp + 0.001) || !Number(b.Progress, 0, 1) ||
+                    !Id(b.WorkerId) || !Number(b.AttackClock, 0, 10))
+                    return "建筑生命或施工进度无效";
+                if (b.TrainingQueue == null || b.TrainingQueue.Count > c.Catalog.Balance.Economy.TrainingQueueLimit ||
+                    b.TrainingQueue.Any(t => t == null))
+                    return "训练队列无效";
+                if (b.Progress >= 1 && b.WorkerId != 0)
+                    return "已完成建筑仍占用工人";
+                if (b.TrainingQueue.Count > 0 && (b.Kind != "barracks" || b.Progress < 1))
+                    return "训练必须归属已完成兵营";
+                foreach (var t in b.TrainingQueue)
+                {
+                    if (!Id(t.ActorId, 1) || t.Kind is not ("spearman" or "archer") ||
+                        !Number(t.Remaining, 0, c.Catalog.Balance.Economy.TrainingSeconds) || !c.Actors.ContainsKey(t.ActorId) ||
+                        !c.TrainingOwners.TryAdd(t.ActorId, b.Id))
+                        return "训练记录无效或人员重复";
+                }
+            }
+            foreach (var w in c.Sites.Values)
+            {
+                if (!c.Catalog.Balance.Worksites.TryGetValue(w.Kind, out var d))
+                    return "未知工作点";
+                if (w.Amount is < -1 or > 1000000 || !Number(w.Progress, 0, d.Interval) || w.Variant is < 0 or > 3 ||
+                    !Id(w.WorkerId) || !Id(w.FarmId) || (w.Amount == 0 && w.WorkerId != 0))
+                    return "工作点状态无效";
+            }
+            foreach (var a in c.Actors.Values)
+            {
+                if (!c.Catalog.Balance.Units.TryGetValue(a.Kind, out var d) || a.Name == null || a.Name.Length > 80 ||
+                    a.Enemy != (a.Kind is "zombie" or "ghoul" or "armored"))
+                    return "单位阵营或姓名无效";
+                if (!Number(a.Hp, 0.001, d.Hp) || !Enum.IsDefined(typeof(ActorActivity), a.State) || !Id(a.TargetId) ||
+                    !Number(a.MoveX, 0, c.Layout.WorldWidth) || !Number(a.RallyX, 0, c.Layout.WorldWidth) ||
+                    a.Face is not (-1 or 1))
+                    return "单位生命、状态或目标无效";
+                if (!Number(a.ActionTime, 0, 1000000) || !Number(a.AttackClock, 0, 10) ||
+                    !Number(a.Windup, -1, 10) || !Number(a.AiClock, -1, 1))
+                    return "单位攻击计时无效";
+            }
+            return "";
+        }
+    }
+}
