@@ -42,7 +42,7 @@ namespace DarkNights.Entry
             Debug.Log($"DARK_NIGHTS_CONTENT_READY level={catalog.Level.Id} seed={catalog.Level.Seed} " +
                 $"units={catalog.Balance.Units.Count} buildings={catalog.Balance.Buildings.Count} " +
                 $"worksites={catalog.Balance.Worksites.Count} waves={catalog.Level.Waves.Count}");
-            Debug.Log("DARK_NIGHTS_FORMAL_CONTENT_READY definitions=17 commands=2 states=1 behaviours=1 identity=GuidFirst wire=GuidV2");
+            Debug.Log("DARK_NIGHTS_FORMAL_CONTENT_READY definitions=23 commands=2 states=1 behaviours=7 identity=GuidFirst wire=GuidV2");
         }
     }
 }

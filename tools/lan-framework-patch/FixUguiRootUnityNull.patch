@@ -1,0 +1,29 @@
+diff --git a/Runtime/UI/UGUI/UGUIRuntimeStartupModule.cs b/Runtime/UI/UGUI/UGUIRuntimeStartupModule.cs
+index 04767d2..b27320e 100644
+--- a/Runtime/UI/UGUI/UGUIRuntimeStartupModule.cs
++++ b/Runtime/UI/UGUI/UGUIRuntimeStartupModule.cs
+@@ -88,7 +88,8 @@ namespace Runtime.AppStartup
+             var root = FindOrCreateRoot(context);
+             EnsureRootComponents(root);
+             EnsureEventSystem();
+-            var manager = root.GetComponent<UGUIManager>() ?? root.AddComponent<UGUIManager>();
++            var manager = root.GetComponent<UGUIManager>();
++            if (manager == null) manager = root.AddComponent<UGUIManager>();
+             manager.RegisterInstance();
+             return manager;
+         }
+@@ -125,10 +126,12 @@ namespace Runtime.AppStartup
+                 root.AddComponent<RectTransform>();
+             }
+ 
+-            var canvas = root.GetComponent<Canvas>() ?? root.AddComponent<Canvas>();
++            var canvas = root.GetComponent<Canvas>();
++            if (canvas == null) canvas = root.AddComponent<Canvas>();
+             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+ 
+-            var scaler = root.GetComponent<CanvasScaler>() ?? root.AddComponent<CanvasScaler>();
++            var scaler = root.GetComponent<CanvasScaler>();
++            if (scaler == null) scaler = root.AddComponent<CanvasScaler>();
+             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+             scaler.referenceResolution = new Vector2(1920f, 1080f);
+             scaler.matchWidthOrHeight = 0.5f;

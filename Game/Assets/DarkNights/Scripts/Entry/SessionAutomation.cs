@@ -77,6 +77,7 @@ namespace DarkNights.Entry
                         if (operation == "disconnect") network.Disconnect();
                         else if (operation == "connect") await network.Connect(role == "host", address, port);
                         else if (operation == "quit") Application.Quit();
+                        else if (operation == "ui") network.GetComponent<SessionUiController>().ActivateButton((string)command["panel"], (string)command["key"]);
                         else
                         {
                             var actors = command["actors"]?.Values<int>().ToArray();
@@ -93,7 +94,10 @@ namespace DarkNights.Entry
                     ["slot"] = network.Client.PlayerSlot, ["commandsConsumed"] = consumed, ["error"] = error,
                     ["feedback"] = JArray.FromObject(feedback),
                     ["frame"] = network.Client.Replica.Current == null ? null : JObject.FromObject(network.Client.Replica.Current),
-                    ["serverPayloadBytes"] = network.Server?.LastPayloadBytes ?? 0
+                    ["serverPayloadBytes"] = network.Server?.LastPayloadBytes ?? 0,
+                    ["uiPage"] = network.GetComponent<SessionUiController>().Page,
+                    ["selected"] = JArray.FromObject(network.GetComponent<SessionUiController>().Input.Selected),
+                    ["entityViews"] = network.GetComponent<SessionEntityViews>().Count
                 };
                 string temporary = reportPath + ".tmp";
                 File.WriteAllText(temporary, report.ToString());

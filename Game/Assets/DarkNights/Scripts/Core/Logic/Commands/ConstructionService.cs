@@ -25,13 +25,13 @@ namespace DarkNights.Core.Logic.Commands
                 return "无法建造此建筑";
             if (float.IsNaN(x) || float.IsInfinity(x)) return "建造坐标无效";
             float width = definition.Width;
-            if (x - width * 0.5 < session.Layout.BuildMinX || x + width * 0.5 > session.Layout.BuildMaxX)
+            if (!PlacementGeometry.Within(x, width, session.Layout.BuildMinX, session.Layout.BuildMaxX))
                 return "请在营地范围内建造";
             foreach (var building in session.World.Buildings)
-                if (Math.Abs(x - building.X) < (width + building.Definition.Width) * 0.5 + 8)
+                if (PlacementGeometry.BuildingOverlap(x, width, building.X, building.Definition.Width))
                     return "与已有建筑过近";
             foreach (var site in session.World.Worksites)
-                if (site.Amount != 0 && site.FarmId == 0 && Math.Abs(x - site.X) < (width + site.Definition.Width) * 0.5 + 6)
+                if (site.Amount != 0 && site.FarmId == 0 && PlacementGeometry.WorksiteOverlap(x, width, site.X, site.Definition.Width))
                     return "不能覆盖资源工作点";
             return "";
         }
@@ -40,7 +40,7 @@ namespace DarkNights.Core.Logic.Commands
         {
             if (session.Mode != SessionMode.Playing || string.IsNullOrEmpty(kind) || !CommandActors.TryResolve(session, actorIds, out var candidates))
                 return false;
-            x = (float)SimulationMath.Snapped((double)x, 4);
+            x = PlacementGeometry.Snap(x);
             string error = PlacementError(kind, x);
             if (error.Length != 0)
             {

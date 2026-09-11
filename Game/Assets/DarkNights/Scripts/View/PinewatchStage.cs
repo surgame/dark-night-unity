@@ -1,4 +1,5 @@
 using DarkNights.Core.ViewData;
+using DarkNights.Core.Config;
 using UnityEngine;
 
 namespace DarkNights.View
@@ -24,6 +25,15 @@ namespace DarkNights.View
         public Color Ambient => Color.Lerp(DayAmbient, NightAmbient, night);
         public float CameraX => cameraX;
         public float Zoom => zoom;
+        public float WorldWidth => worldWidth;
+        public float InitialCameraX { get; private set; }
+
+        public void Initialize(LevelLayout layout)
+        {
+            worldWidth = layout.WorldWidth;
+            InitialCameraX = layout.CameraX;
+            Focus(InitialCameraX);
+        }
 
         public void Move(float pixels) { cameraX += pixels; UpdateCamera(); }
         public void Focus(float pixels) { cameraX = pixels; UpdateCamera(); }

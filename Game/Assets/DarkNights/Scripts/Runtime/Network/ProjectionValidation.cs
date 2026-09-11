@@ -26,6 +26,7 @@ namespace DarkNights.Runtime.Network
                 Enum.TryParse<WavePhase>(camp.WavePhase, out var phase) && Enum.IsDefined(typeof(WavePhase), phase) &&
                 Enum.TryParse<SessionMode>(camp.Mode, out var mode) && Enum.IsDefined(typeof(SessionMode), mode));
             Nonnegative(camp.RecruitCooldown, camp.DayRemaining);
+            Require(camp.NextSpawn >= 0 && camp.NextSpawn <= catalog.Level.Waves[camp.WaveIndex].Enemies.Count);
             int trainingCount = 0;
             foreach (var a in world.Actors)
             {

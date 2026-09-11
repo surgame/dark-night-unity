@@ -1,0 +1,62 @@
+[
+  {
+    "path": "scenes/ui/HUD.tscn",
+    "sha256": "c2d865de66edcd05fe2ba9bf3d0f81668cb87326bfc5a955586f1ab0f855a551"
+  },
+  {
+    "path": "scenes/ui/HudChrome.tscn",
+    "sha256": "991fef01b61e4a2669b28822ec2f92cf982052d34b08e0b72ac91b4754b6e1af"
+  },
+  {
+    "path": "scenes/ui/components/BottomBar.tscn",
+    "sha256": "82e9ff0159e0c587d796cda22f7c7c0a1728049186152a7aeecf23d25a37bfdc"
+  },
+  {
+    "path": "scenes/ui/components/CommandPanel.tscn",
+    "sha256": "9b16bdae56a08f327535f9fbcf49cac867784340a00a72f2a4e4cec346a01c5c"
+  },
+  {
+    "path": "scenes/ui/components/MapPanel.tscn",
+    "sha256": "5bf95593ebbe4dd060f390d5b8771e7bbd4dd058cf8d3028c7754b6dba81d9cb"
+  },
+  {
+    "path": "scenes/ui/components/Messages.tscn",
+    "sha256": "7c89b3488468c486793af4f1d71729d6a0c5a7890428bc55c5557848cf6bc53d"
+  },
+  {
+    "path": "scenes/ui/components/SelectionPanel.tscn",
+    "sha256": "f679c382484a87d59d9c56b01c97a6536dffc530a202807606fc4bf56c0b0ee6"
+  },
+  {
+    "path": "scenes/ui/components/TopBar.tscn",
+    "sha256": "49e47496e9f4b22e70583e4d9b591867f87182e116af0feef140564c73d9221f"
+  },
+  {
+    "path": "scenes/ui/menus/Help.tscn",
+    "sha256": "57baee972a436c767862e2fdf31f1146ffc6a59614f357ab666837f890106fb7"
+  },
+  {
+    "path": "scenes/ui/menus/MainMenu.tscn",
+    "sha256": "da45dd51c0eb452f233521b07a3579e892a45ccc6b7584933d6881f4400caf91"
+  },
+  {
+    "path": "scenes/ui/menus/PauseMenu.tscn",
+    "sha256": "97712ad1d5a966163de717db590794831fedcf571ef49e966862a8f17bc63580"
+  },
+  {
+    "path": "scenes/ui/menus/Result.tscn",
+    "sha256": "306c7107435594384369563d614caf7825a4b6093f727e00984a981fce512893"
+  },
+  {
+    "path": "resources/themes/DarkNights.tres",
+    "sha256": "6d2cf7b525b20abaee99877fa072e5abe08ebea1ea320467c7c149e84a75e16d"
+  },
+  {
+    "path": "resources/themes/TitleFont.tres",
+    "sha256": "37b24ea1d9503980cf5b9997ffa9d686307a22a1da95bccf4998e73a2e1291f8"
+  },
+  {
+    "path": "resources/themes/UIFont.tres",
+    "sha256": "1df32d41f4a63f94684fd23d397c43fbf4ca8235ffc43df7e457d38b50f086f5"
+  }
+]

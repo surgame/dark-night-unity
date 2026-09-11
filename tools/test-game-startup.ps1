@@ -28,7 +28,7 @@ try {
     $checks['independent_player_remains_running'] = !$process.HasExited
     $checks['app_startup_ready_once'] = [regex]::Matches($text, '\[AppStartup\] Startup completed\. Application is ready\.').Count -eq 1
     $checks['frozen_content_loaded_once'] = [regex]::Matches($text, 'DARK_NIGHTS_CONTENT_READY level=pinewatch seed=90127 units=6 buildings=5 worksites=4 waves=3').Count -eq 1
-    $checks['formal_object_content_loaded_once'] = [regex]::Matches($text, 'DARK_NIGHTS_FORMAL_CONTENT_READY definitions=17 commands=2 states=1 behaviours=1 identity=GuidFirst wire=GuidV2').Count -eq 1
+    $checks['formal_object_content_loaded_once'] = [regex]::Matches($text, 'DARK_NIGHTS_FORMAL_CONTENT_READY definitions=23 commands=2 states=1 behaviours=7 identity=GuidFirst wire=GuidV2').Count -eq 1
     $checks['no_startup_or_runtime_exception'] = $text -notmatch '(?im)(Exception:|\[AppStartup\].*(failed|cancelled)|Unable to load|InvalidKeyException|Could not load|MissingMethodException|TypeLoadException)'
     $managed = Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed'
     $checks['no_formal_editor_or_tests_in_player'] = !(Test-Path (Join-Path $managed 'DarkNights.Editor.dll')) -and !(Test-Path (Join-Path $managed 'DarkNights.Tests.dll'))

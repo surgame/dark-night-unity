@@ -113,6 +113,11 @@ def main():
         for path in sorted((source / 'scenes' / category / 'visuals').glob('*.tscn')):
             spec = visual(path, source)
             spec['category'] = category
+            definitions = list((source / 'resources/visuals' / category).glob('*.tres'))
+            definition = next(p for p in definitions if 'res://' + spec['source'] in p.read_text(encoding='utf-8-sig'))
+            body = definition.read_text(encoding='utf-8-sig')
+            spec['portrait'] = resource_path(properties(body)['Portrait'], resources(body))
+            spec['definitionSource'] = {'path': definition.relative_to(source).as_posix(), 'sha256': digest(definition)}
             visuals.append(spec)
     assert len(visuals) == 15
     output.mkdir(parents=True, exist_ok=True)

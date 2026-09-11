@@ -15,9 +15,12 @@ $expectedDiff = (Get-Content -LiteralPath $registryPatch -Raw).Replace("`r`n", "
 $startupPatch = Join-Path $PSScriptRoot 'lan-framework-patch/ExcludeSampleFromStartupValidation.patch'
 $startupDiff = (Get-Content -LiteralPath $startupPatch -Raw).Replace("`r`n", "`n").TrimEnd()
 $combinedDiff = $expectedDiff + "`n" + $startupDiff
+$uiPatch = Join-Path $PSScriptRoot 'lan-framework-patch/FixUguiRootUnityNull.patch'
+$uiDiff = (Get-Content -LiteralPath $uiPatch -Raw).Replace("`r`n", "`n").TrimEnd()
+$completeDiff = $combinedDiff + "`n" + $uiDiff
 $actualDiff = (git -C $checkout diff HEAD --binary) -join "`n"
 if ($LASTEXITCODE) { throw 'Unable to inspect isolated YYGC changes' }
-if ($actualDiff -and $actualDiff.TrimEnd() -ne $expectedDiff -and $actualDiff.TrimEnd() -ne $combinedDiff) {
+if ($actualDiff -and $actualDiff.TrimEnd() -ne $expectedDiff -and $actualDiff.TrimEnd() -ne $combinedDiff -and $actualDiff.TrimEnd() -ne $completeDiff) {
     throw 'Isolated YYGC has unexpected tracked changes; preserve and inspect them first'
 }
 $allowed = @('Runtime/NetworkCommands/SampleAssemblyAccess.cs', 'Runtime/NetworkCommands/SampleAssemblyAccess.cs.meta')
@@ -35,6 +38,12 @@ if (!$actualDiff -or $actualDiff.TrimEnd() -eq $expectedDiff) {
     if ($LASTEXITCODE) { throw 'Startup validation patch does not match locked YYGC' }
     git -C $checkout apply $startupPatch
     if ($LASTEXITCODE) { throw 'Unable to apply sample startup validation exclusion patch' }
+}
+if (!$actualDiff -or $actualDiff.TrimEnd() -ne $completeDiff) {
+    git -C $checkout apply --check $uiPatch
+    if ($LASTEXITCODE) { throw 'UGUI root null patch does not match locked YYGC' }
+    git -C $checkout apply $uiPatch
+    if ($LASTEXITCODE) { throw 'Unable to apply UGUI root null patch' }
 }
 foreach ($name in @('SampleAssemblyAccess.cs', 'SampleAssemblyAccess.cs.meta')) {
     $source = Join-Path $PSScriptRoot "lan-framework-patch/$name"

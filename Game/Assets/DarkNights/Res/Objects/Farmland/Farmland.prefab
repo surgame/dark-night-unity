@@ -601,6 +601,7 @@ MonoBehaviour:
     y: -0.05
     width: 0.3
     height: 0.28
+  portrait: {fileID: 21300000, guid: 07a66e9c2055d574fb3c5bedd2997710, type: 3}
   facing: {fileID: 0}
   origin: {fileID: 0}
   statusAnchor: {fileID: 6020588794500713695}

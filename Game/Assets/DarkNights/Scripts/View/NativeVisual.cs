@@ -13,6 +13,7 @@ namespace DarkNights.View
     {
         public const float PixelsPerUnit = 100;
         [SerializeField] private Rect pickBounds;
+        [SerializeField] private Sprite portrait;
         [SerializeField] private Transform facing;
         [SerializeField] private Transform origin;
         [SerializeField] private Transform statusAnchor;
@@ -36,10 +37,12 @@ namespace DarkNights.View
         };
 
         public Transform StatusAnchor => statusAnchor;
+        public Sprite Portrait => portrait;
         public Transform SelectionAnchor => selectionAnchor;
         public PoseClip[] Clips => (PoseClip[])clips.Clone();
         public Color Ambient { get; set; } = Color.white;
         public bool Contains(Vector2 worldPoint) => pickBounds.Contains(transform.InverseTransformPoint(worldPoint));
+        public void PreviewTint(Color tint) { Preview(0, 0); Tint(0, false, false, tint, false); }
 
         public void Apply(ActorViewData actor, GameCatalog catalog, string workKind)
         {

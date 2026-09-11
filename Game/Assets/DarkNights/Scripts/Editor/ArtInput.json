@@ -712,7 +712,12 @@
           "sha256": "e4901161f3c89e8dd8fb1a8ae25ac806237cf60e75d7c4c717937e0d3b3a96e8"
         }
       ],
-      "category": "actors"
+      "category": "actors",
+      "portrait": "res://assets/sprites/spr_archer_backarm_idle/spr_archer_backarm_idle_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/actors/Archer.tres",
+        "sha256": "8cab2a1d1048f1167b0792bd5f401df9b6cd7187e45a1614c86dfc451c70c090"
+      }
     },
     {
       "name": "Armored",
@@ -1085,7 +1090,12 @@
           "sha256": "466709dda9c58363267e36d6e78c0886d57d029a7f164a99c2c9038b89d96e9a"
         }
       ],
-      "category": "actors"
+      "category": "actors",
+      "portrait": "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/actors/Armored.tres",
+        "sha256": "aa93d74c24779eaf324a51e060485c476cb30fe1fb3dca8bfaa94766da45a74f"
+      }
     },
     {
       "name": "Ghoul",
@@ -1470,7 +1480,12 @@
           "sha256": "e82cea22dacd76adc7992dc3a16b8379dee69308b97c1dc4fb2506b72af20f33"
         }
       ],
-      "category": "actors"
+      "category": "actors",
+      "portrait": "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/actors/Ghoul.tres",
+        "sha256": "2f20a523f2ceb21ecb27602607681ef7bcf561ecb5dca8339f46d3c7dc3be9e7"
+      }
     },
     {
       "name": "Spearman",
@@ -1994,7 +2009,12 @@
           "sha256": "efc267339b1616621dd6105e88dd37751b172201ff1c9791b4ad525fc4e101b8"
         }
       ],
-      "category": "actors"
+      "category": "actors",
+      "portrait": "res://assets/sprites/spr_spearman_idle/spr_spearman_idle_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/actors/Spearman.tres",
+        "sha256": "2fc49ac4e62ecb90be2a13402533890e335994f73a4edccca0efab2cde9a2a7f"
+      }
     },
     {
       "name": "Worker",
@@ -3014,7 +3034,12 @@
           "sha256": "3add537fec71de0d666119b94e14b844943ffd355805a98b08df3b034f0708ae"
         }
       ],
-      "category": "actors"
+      "category": "actors",
+      "portrait": "res://assets/sprites/spr_worker_idle/spr_worker_idle_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/actors/Worker.tres",
+        "sha256": "ca0a4576d1fe2f24e21298c5610817bfe6e97fa8116790698c0db45a021dc0e7"
+      }
     },
     {
       "name": "Zombie",
@@ -3361,7 +3386,12 @@
           "sha256": "4c7a096c3d70466c0a01d8e696d11a20acaa287fe43445351c859407cafccd01"
         }
       ],
-      "category": "actors"
+      "category": "actors",
+      "portrait": "res://assets/sprites/spr_zombie_idle/spr_zombie_idle_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/actors/Zombie.tres",
+        "sha256": "1aa0b0eb0511b29da5a88beee2e7fdb1f1bfd4dcb1b3216a41dc075f871b9adf"
+      }
     },
     {
       "name": "Barracks",
@@ -3548,7 +3578,12 @@
           "sha256": "0a8b3cffca07514f5da91cbe64c0d281ab730563499538c4405817eda665bf85"
         }
       ],
-      "category": "buildings"
+      "category": "buildings",
+      "portrait": "res://assets/sprites/spr_bld_barracks/spr_bld_barracks_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/buildings/Barracks.tres",
+        "sha256": "b13e4bf7028256debf7658d3ad4c3d0bc039c8f46666f9642495e348eb073ef9"
+      }
     },
     {
       "name": "Farm",
@@ -3638,7 +3673,12 @@
         -6.0
       ],
       "fade": true,
-      "category": "buildings"
+      "category": "buildings",
+      "portrait": "res://assets/sprites/spr_res_farm/spr_res_farm_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/buildings/Farm.tres",
+        "sha256": "e50da04be5683c2857b5a4ca2179681705dc630cbd3888e89304024b41e14814"
+      }
     },
     {
       "name": "House",
@@ -3825,7 +3865,12 @@
           "sha256": "d737453ecc87578c0ded6029ad999bb1ac0317c3f6bb7f14e2bb8bd2b9f7f555"
         }
       ],
-      "category": "buildings"
+      "category": "buildings",
+      "portrait": "res://assets/sprites/spr_bld_house/spr_bld_house_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/buildings/House.tres",
+        "sha256": "df47793e3d572d4acd4bab4a75562c15a0c97cf22433ecd8a5b27ace3d54245e"
+      }
     },
     {
       "name": "Tavern",
@@ -4012,7 +4057,12 @@
           "sha256": "73de5db810e8af86de889de723898038cc0d52d08d0503a552df518dcfb57a22"
         }
       ],
-      "category": "buildings"
+      "category": "buildings",
+      "portrait": "res://assets/sprites/spr_bld_tavern/spr_bld_tavern_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/buildings/Tavern.tres",
+        "sha256": "4a01b467972bb7e0aa03763dcd700f0dcee340f636e4ee541cce5a9ea50415c9"
+      }
     },
     {
       "name": "Tower",
@@ -4199,7 +4249,12 @@
           "sha256": "178deb31fd2dd57bb9fd3b5f4e279222557dcba47af3988f8c3874add076e720"
         }
       ],
-      "category": "buildings"
+      "category": "buildings",
+      "portrait": "res://assets/sprites/spr_bld_tower/spr_bld_tower_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/buildings/Tower.tres",
+        "sha256": "c4b2753227d5a8741309819af385d077351df47fcacb28ccab2f1aff27bf9877"
+      }
     },
     {
       "name": "Farmland",
@@ -4389,7 +4444,12 @@
         -6.0
       ],
       "fade": false,
-      "category": "worksites"
+      "category": "worksites",
+      "portrait": "res://assets/sprites/spr_res_farm/spr_res_farm_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/worksites/Food.tres",
+        "sha256": "33664cb9dbe6e0411e080f75228b51fa24ae971a3713d8aa525dfbc03184d62f"
+      }
     },
     {
       "name": "Iron",
@@ -4579,7 +4639,12 @@
         -6.0
       ],
       "fade": false,
-      "category": "worksites"
+      "category": "worksites",
+      "portrait": "res://assets/sprites/spr_res_iron/spr_res_iron_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/worksites/Iron.tres",
+        "sha256": "7c87c6ad6b6b3e6d218468a77d7855940bdfaedde191e1cf37fdacf0abcf5862"
+      }
     },
     {
       "name": "Stone",
@@ -4769,7 +4834,12 @@
         -6.0
       ],
       "fade": false,
-      "category": "worksites"
+      "category": "worksites",
+      "portrait": "res://assets/sprites/spr_res_stone/spr_res_stone_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/worksites/Stone.tres",
+        "sha256": "ced4c38ac33e3a7524036cb47b1d04665f8291862bf2caf55a06c00b7c6f6e13"
+      }
     },
     {
       "name": "Trees",
@@ -4959,7 +5029,12 @@
         -6.0
       ],
       "fade": false,
-      "category": "worksites"
+      "category": "worksites",
+      "portrait": "res://assets/sprites/spr_res_trees/spr_res_trees_0.png",
+      "definitionSource": {
+        "path": "resources/visuals/worksites/Wood.tres",
+        "sha256": "a0663b72ab96729cd15d149dc56d9643bee70429e374eddfbe9d2ed8d8dfde48"
+      }
     }
   ]
 }

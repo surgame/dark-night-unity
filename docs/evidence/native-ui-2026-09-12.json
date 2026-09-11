@@ -1,0 +1,136 @@
+{
+  "date": "2026-09-12",
+  "baseCommit": "bfb094a",
+  "scope": "Native UGUI, local input and formal Mono two-process slice; M2-M5 exit matrices incomplete",
+  "core": {
+    "passed": 1316,
+    "failed": 0
+  },
+  "architecture": {
+    "files": 181,
+    "selfTests": 10,
+    "errors": 0
+  },
+  "editor": {
+    "fullFirstRun": {
+      "total": 48,
+      "passed": 46,
+      "failed": 2
+    },
+    "initialFailures": "Only CRLF/LF comparison of original UI line endings; native geometry and text unchanged",
+    "uiRerun": {
+      "total": 3,
+      "passed": 3
+    },
+    "nativeAfterPortraitAndCanvasChecks": {
+      "total": 5,
+      "passed": 5
+    },
+    "geometry": {
+      "profiles": [
+        [
+          1280,
+          800
+        ],
+        [
+          1600,
+          900
+        ]
+      ],
+      "controlsPerProfile": 162
+    }
+  },
+  "mouse": {
+    "passed": true,
+    "checks": {
+      "mouse_main_menu_starts_ready_host": true,
+      "mouse_selects_explicit_actor": true,
+      "right_click_assigns_work_while_paused": true,
+      "definition_preview_valid_without_payment": true,
+      "mouse_build_pays_once": true,
+      "cancel_releases_placement_session": true,
+      "minimap_mouse_focuses_local_camera": true,
+      "menu_owns_one_modal_session": true,
+      "modal_blocks_world_selection": true,
+      "resume_releases_modal_without_unpausing_world": true,
+      "hud_shapes_have_meshes": true,
+      "exit_clears_entity_views": true,
+      "second_start_restores_fresh_world": true
+    },
+    "error": null
+  },
+  "startup": {
+    "passed": true,
+    "backend": "mono",
+    "processId": 4316,
+    "scope": "Bootstrap + YYGC AppStartup + Addressables + formal ObjectDefinition/Prefab/generated registry startup; no gameplay or multiplayer acceptance",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\player-mono\\DarkNights.exe",
+    "playerSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "log": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\run-20260912-010708-579-mono\\verified.log",
+    "logSha256": "a0ac729436249297d7d84fe4ebbca01c1fb36477d84b463f3584263dcc4e9082",
+    "runtimeLog": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\run-20260912-010708-579-mono\\player.log",
+    "checks": {
+      "independent_player_remains_running": true,
+      "app_startup_ready_once": true,
+      "frozen_content_loaded_once": true,
+      "formal_object_content_loaded_once": true,
+      "no_startup_or_runtime_exception": true,
+      "no_formal_editor_or_tests_in_player": true
+    }
+  },
+  "network": {
+    "passed": true,
+    "backend": "mono",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\player-mono\\DarkNights.exe",
+    "playerSha256": "93C19F9E7C681845D34407807D33B6438E781DD34C4D8895EBDF2C6FB083711D",
+    "scope": "Formal two-process network, instantiated native views and generated UGUI pause/recruit bindings; no pixel or weak-network acceptance",
+    "processes": [
+      15144,
+      37456
+    ],
+    "checks": {
+      "host_ready_with_all_initial_entities": true,
+      "independent_client_receives_full_late_baseline": true,
+      "host_pause_applied": true,
+      "generated_recruit_button_routes_once": true,
+      "guest_build_paid_once": true,
+      "host_and_client_share_single_payment": true,
+      "guest_cannot_change_time": true,
+      "host_only_enabled": true,
+      "host_only_rejects_guest_camp_mutation": true,
+      "guest_explicit_move_accepted": true,
+      "client_observes_authoritative_motion": true,
+      "complete_world_converges_while_paused": true,
+      "no_player_failure": true
+    },
+    "failure": null,
+    "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\session-20260912-010837-332",
+    "runtimeLogExceptions": 0,
+    "initialHarnessFailure": "Atomic report replacement race selected old reply before the new command was consumed; wait now requires a valid baseline and consumed count. Same Player reused."
+  },
+  "payload": {
+    "context": "Unity Editor codec only; no transport measurement",
+    "initialBytes": 1367,
+    "maximumBytes": 260574,
+    "maximumEntities": 256,
+    "maximumProjectiles": 1024,
+    "actorNameCharacters": 256,
+    "payloadLimit": 262144,
+    "initialPayloadBytesPerSecondAt10HzThreeClients": 41010,
+    "maximumPayloadBytesPerSecondAt10HzThreeClients": 7817220
+  },
+  "managedAssemblySha256": {
+    "DarkNights.Core.dll": "2cbd8194d1731e4f3af81c4cd512010a374d04f09e1b3d002d1a58c4e12f53c1",
+    "DarkNights.Entry.dll": "6e7a6438bd36a58b15890150c64b4f43b988fef5432a8207f1f922c27abe826b",
+    "DarkNights.Runtime.dll": "dfd050742b8cbcdf2a2ce7b78f907e383fdbedebdfa5f1cfe0e87c1de588a2bc",
+    "DarkNights.Samples.LanCoop.Bootstrap.dll": "73da851889a1c347ad7e7a6b5d4a9534a44f9c8da49c4d96e3d237ba01e1ed00",
+    "DarkNights.Samples.LanCoop.Core.dll": "804c01052702be43fa412ae7305731fcf504a2e1e5120621e51e0ed1430e1434",
+    "DarkNights.Samples.LanCoop.Presentation.dll": "d78679d3b5deb6673ad0e6fab52308ef6fd3166f1864eed3430a2d9fbdef8e91",
+    "DarkNights.Samples.LanCoop.Runtime.dll": "0d984c5d40ded78ddc4e30fdcdcf3a6ae14054fe15a4acd293437a2f2f861713",
+    "DarkNights.View.dll": "b23d2b8ce636a71f39ae24da96dde675773805fce8d86249ada57d8e6457b770"
+  },
+  "yygcPatches": {
+    "FixUguiRootUnityNull.patch": "c8a6b388d33fa5458c64587688a4c12c11ffed70ade87f4b2aa399c24db2bf3c",
+    "SampleAssemblyAccess.cs": "f5d86e763d45643dfa831b294ba6b4bf7d2373cc82c77b7e7c1d53a45f28c7a9"
+  }
+}

@@ -1,5 +1,5 @@
 {
   "name": "DarkNights.View",
   "rootNamespace": "DarkNights.View",
-  "references": ["DarkNights.Core"]
+  "references": ["DarkNights.Core", "GameCore.Runtime", "Unity.ugui", "Unity.InputSystem"]
 }

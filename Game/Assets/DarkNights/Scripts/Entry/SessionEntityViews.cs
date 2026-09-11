@@ -18,7 +18,7 @@ namespace DarkNights.Entry
     /// 将正式客户端冻结副本接到 YYGC 定义工厂和 View 绑定；每实体只持有本地外观，无第二份经济或生命状态。
     /// 所有异步创建检查连接代次、epoch、实体种类和当前需求；退出或换世界时释放旧对象及未完成结果。
     /// </summary>
-    public sealed class SessionEntityViews : MonoBehaviour
+    public sealed class SessionEntityViews : MonoBehaviour, IEntityVisuals
     {
         private SessionClient client;
         private GameCatalog catalog;
@@ -33,6 +33,8 @@ namespace DarkNights.Entry
         private SessionViewData applied;
         public int Count => views.Count;
         public NativeVisual Visual(int id) => views.TryGetValue(id, out var view) ? view.Visual : null;
+        public UniTask<ObjectView> CreateVisual(string kind) =>
+            ObjectInstanceFactory.CreateObjectInstanceAsync(map.GetRequired(kind), Vector3.zero, Quaternion.identity, stage.Entities);
 
         public void Initialize(SessionClient value, GameCatalog rules, PinewatchStage scene)
         {
@@ -75,7 +77,7 @@ namespace DarkNights.Entry
             ObjectView owner = null;
             try
             {
-                owner = await ObjectInstanceFactory.CreateObjectInstanceAsync(map.GetRequired(kind), Vector3.zero, Quaternion.identity, stage.Entities);
+                owner = await CreateVisual(kind);
                 if (this == null || captured != generation || client.ConnectionGeneration != connection ||
                     client.Replica.Current?.Epoch != epoch || !wanted.TryGetValue(id, out string current) || current != kind)
                 {
@@ -120,7 +122,7 @@ namespace DarkNights.Entry
 
         private void Remove(int id)
         {
-            Destroy(views[id].Owner.gameObject);
+            if (views[id].Owner != null) Destroy(views[id].Owner.gameObject);
             views.Remove(id);
         }
 

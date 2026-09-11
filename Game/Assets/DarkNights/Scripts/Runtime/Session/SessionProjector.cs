@@ -53,7 +53,7 @@ namespace DarkNights.Runtime.Session
                 w.WorkerId, w.Amount, w.Progress, w.Variant, w.FarmId)).ToArray();
             var camp = new CampViewData(game.Economy.Stock, game.Economy.Population, game.Economy.Capacity,
                 game.Economy.RecruitCooldown, game.Waves.Index, game.Waves.Phase.ToString(), game.Waves.DayRemaining,
-                world.EnemyCount, game.Mode.ToString(), game.Stats.Kills, game.Stats.Lost, game.Stats.Gathered);
+                world.EnemyCount, game.Mode.ToString(), game.Stats.Kills, game.Stats.Lost, game.Stats.Gathered, game.Waves.NextSpawn);
             var view = new WorldViewData(camp, actors, buildings, sites, arrows);
             return new SessionViewData(checked(++publication), session.Epoch, session.Revision, session.ServerTick,
                 session.PolicyRevision, session.ControlMode == CampControlMode.HostOnly, session.PlayerCount,

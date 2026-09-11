@@ -26,7 +26,7 @@ namespace DarkNights.Entry
         public string Category => "游戏内容";
         public int Order => 8600;
         public bool Required => true;
-        public IReadOnlyList<Type> Dependencies => new[] { typeof(GameContentStartupModule) };
+        public IReadOnlyList<Type> Dependencies => new[] { typeof(GameContentStartupModule), typeof(UGUIRuntimeStartupModule) };
 
         public async UniTask InitializeAsync(AppStartupContext context, CancellationToken cancellationToken)
         {
@@ -44,11 +44,16 @@ namespace DarkNights.Entry
             context.Register(layout);
             network.Initialize(InstanceFinder.NetworkManager, catalog, layout);
             PinewatchStage stage = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<PinewatchStage>(true)).Single();
-            network.gameObject.AddComponent<SessionEntityViews>().Initialize(network.Client, catalog, stage);
+            stage.Initialize(layout);
+            var entities = network.gameObject.AddComponent<SessionEntityViews>();
+            entities.Initialize(network.Client, catalog, stage);
+            var ui = network.gameObject.AddComponent<SessionUiController>();
+            await ui.Initialize(network, catalog, stage, entities);
+            network.gameObject.AddComponent<SessionPlacementView>().Initialize(network.Client, entities, ui.Input, stage, catalog, layout);
             SessionAutomation.Install(network);
             Application.runInBackground = true;
             Application.targetFrameRate = 60;
-            Debug.Log("DARK_NIGHTS_SESSION_AVAILABLE protocol=2 level=" + catalog.Level.Id);
+            Debug.Log("DARK_NIGHTS_SESSION_AVAILABLE protocol=" + DarkNights.Runtime.Session.SessionAuthority.ProtocolVersion + " level=" + catalog.Level.Id);
         }
     }
 }

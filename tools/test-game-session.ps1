@@ -2,6 +2,7 @@ param([ValidateSet('mono', 'il2cpp')][string]$Backend = 'mono', [int]$Port = 279
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
 $player = Join-Path $repo "artifacts/migration/player-$Backend/DarkNights.exe"
+$gameCode = Join-Path (Split-Path $player -Parent) $(if ($Backend -eq 'mono') { 'DarkNights_Data/Managed/DarkNights.Entry.dll' } else { 'GameAssembly.dll' })
 if (!(Test-Path -LiteralPath $player)) { throw "Build the formal $Backend Player first." }
 $run = Join-Path $repo ('artifacts/migration/session-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 New-Item -ItemType Directory -Path $run | Out-Null
@@ -35,11 +36,12 @@ function Start-Player([string]$Role) {
     $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -PassThru -WindowStyle Hidden
 }
 function Send-Operation([string]$Role, [hashtable]$Command) {
-    $before = Read-Report $Role
+    $before = Wait-Report $Role { param($r) $true } 'Stable pre-command report'
     $last = @($before.feedback | Where-Object { !$_.ReadyReply } | Sort-Object Sequence | Select-Object -Last 1)
     $lastSequence = if ($last.Count) { $last[0].Sequence } else { 0 }
+    $requiredConsumed = $before.commandsConsumed + 1
     [IO.File]::AppendAllText((Join-Path $run "$Role.commands"), ($Command | ConvertTo-Json -Compress) + "`n")
-    $report = Wait-Report $Role { param($r) @($r.feedback | Where-Object { !$_.ReadyReply -and $_.Sequence -gt $lastSequence }).Count -gt 0 } $Command.operation
+    $report = Wait-Report $Role { param($r) $r.commandsConsumed -ge $requiredConsumed -and @($r.feedback | Where-Object { !$_.ReadyReply -and $_.Sequence -gt $lastSequence }).Count -gt 0 } $Command.operation
     return @($report.feedback | Where-Object { !$_.ReadyReply -and $_.Sequence -gt $lastSequence } | Sort-Object Sequence)[-1]
 }
 function Check([string]$Name, [bool]$Passed) {
@@ -53,8 +55,13 @@ try {
     Start-Player 'client'
     $clientReport = Wait-Report 'client' { param($r) $r.ready } 'Client Ready'
     Check 'independent_client_receives_full_late_baseline' ($clientReport.slot -eq 1 -and $clientReport.frame.World.Buildings.Count -eq 4 -and $clientReport.frame.World.Worksites.Count -eq 6)
-    $receipt = Send-Operation 'host' @{ operation = 'SetPaused'; value = 1 }
+    $null = Wait-Report 'host' { param($r) $r.uiPage -eq '' -and $r.entityViews -eq 17 } 'Formal HUD and views'
+    $null = Wait-Report 'client' { param($r) $r.uiPage -eq '' -and $r.entityViews -eq 17 } 'Client HUD and views'
+    $receipt = Send-Operation 'host' @{ operation = 'ui'; panel = 'Chrome'; key = 'Pause' }
     Check 'host_pause_applied' ($receipt.Code -eq 'Applied')
+    $receipt = Send-Operation 'host' @{ operation = 'ui'; panel = 'Chrome'; key = 'Recruit' }
+    Check 'generated_recruit_button_routes_once' ($receipt.Code -eq 'Applied')
+    $null = Wait-Report 'client' { param($r) $r.frame.World.Camp.Population -eq 8 -and $r.frame.World.Camp.Stock.Food -eq 48 } 'One authoritative recruit payment'
     $clientReport = Wait-Report 'client' { param($r) $r.frame.Paused } 'Shared pause'
     $wood = $clientReport.frame.World.Camp.Stock.Wood
     $receipt = Send-Operation 'client' @{ operation = 'PlaceBuilding'; kind = 'house'; x = 184 }
@@ -83,7 +90,10 @@ try {
     $hostReport = Read-Report 'host'
     $clientReport = Read-Report 'client'
     Check 'complete_world_converges_while_paused' (($hostReport.frame.World | ConvertTo-Json -Depth 15 -Compress) -eq ($clientReport.frame.World | ConvertTo-Json -Depth 15 -Compress))
-    $checks['no_player_failure'] = !$hostReport.error -and !$clientReport.error
+    $runtimeErrors = '(?im)^(?:[A-Za-z_][\w]*\.)*[A-Za-z_][\w]*Exception:|^Font texture|\[AppStartup\].*(failed|cancelled)'
+    $checks['no_player_failure'] = !$hostReport.error -and !$clientReport.error -and
+        (Get-Content (Join-Path $run 'host.log') -Raw) -notmatch $runtimeErrors -and
+        (Get-Content (Join-Path $run 'client.log') -Raw) -notmatch $runtimeErrors
 }
 catch {
     $checks['completed_without_error'] = $false
@@ -93,7 +103,8 @@ catch {
 finally {
     $result = [ordered]@{ passed = @($checks.Values | Where-Object { !$_ }).Count -eq 0; backend = $Backend;
         player = $player; playerSha256 = (Get-FileHash -LiteralPath $player -Algorithm SHA256).Hash;
-        scope = 'Formal two-process network and real rules; no artwork or weak-network acceptance';
+        gameCodeSha256 = (Get-FileHash -LiteralPath $gameCode -Algorithm SHA256).Hash;
+        scope = 'Formal two-process network, instantiated native views and generated UGUI pause/recruit bindings; no pixel or weak-network acceptance';
         processes = @($processes.Values | ForEach-Object Id); checks = $checks; failure = $failure; artifacts = $run }
     $result | ConvertTo-Json -Depth 7 | Set-Content -LiteralPath (Join-Path $run 'result.json') -Encoding utf8
     foreach ($process in $processes.Values) {

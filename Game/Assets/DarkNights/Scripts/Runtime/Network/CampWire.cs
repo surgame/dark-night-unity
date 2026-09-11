@@ -24,6 +24,7 @@ namespace DarkNights.Runtime.Network
         public int Kills { get; set; }
         public int Lost { get; set; }
         public ResourcesWire Gathered { get; set; }
+        public int NextSpawn { get; set; }
 
         public static CampWire From(CampViewData value) => new CampWire
         {
@@ -39,6 +40,7 @@ namespace DarkNights.Runtime.Network
             Kills = value.Kills,
             Lost = value.Lost,
             Gathered = ResourcesWire.From(value.Gathered),
+            NextSpawn = value.NextSpawn,
         };
 
         public CampViewData Freeze() => new CampViewData(
@@ -53,6 +55,6 @@ namespace DarkNights.Runtime.Network
             Mode,
             Kills,
             Lost,
-            Gathered?.Freeze());
+            Gathered?.Freeze(), NextSpawn);
     }
 }

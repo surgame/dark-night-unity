@@ -1,7 +1,7 @@
 {
   "name": "DarkNights.Entry",
   "rootNamespace": "DarkNights.Entry",
-  "references": ["DarkNights.Core", "DarkNights.Runtime", "DarkNights.View", "GameCore.Runtime", "FishNet.Runtime", "UniTask"],
+  "references": ["DarkNights.Core", "DarkNights.Runtime", "DarkNights.View", "GameCore.Runtime", "FishNet.Runtime", "UniTask", "Unity.ugui"],
   "overrideReferences": true,
   "precompiledReferences": ["Newtonsoft.Json.dll"]
 }

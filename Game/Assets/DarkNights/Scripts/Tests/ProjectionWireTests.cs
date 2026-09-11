@@ -47,6 +47,11 @@ namespace DarkNights.Tests
             mutable.World.Actors[0].Kind = "unknown";
             Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
             mutable = SessionWire.From(initial);
+            mutable.World.Camp.NextSpawn = catalog.Level.Waves[0].Enemies.Count + 1;
+            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            mutable.World.Camp.NextSpawn = -1;
+            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            mutable = SessionWire.From(initial);
             mutable.World.Buildings[0].Id = mutable.World.Actors[0].Id;
             Assert.Throws<ArgumentException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
         }

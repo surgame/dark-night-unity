@@ -15,6 +15,16 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 558f45b4f4dabc840aad0f13233c0fcb
   m_SerializeEntries:
+  - m_GUID: 23801b6abb405aa4c9fc53d875870524
+    m_Address: dark_nights.ui.help
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2b072de0dfd2a464d91cdc7a639dec86
+    m_Address: dark_nights.ui.mainmenu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2dc8c2129136d8d4f9fa7c633a23c07d
     m_Address: dark_nights.object.ghoul
     m_ReadOnly: 0
@@ -62,6 +72,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 73fb78bd929415c4d86afdb83d5b771e
     m_Address: dark_nights.object.farmland
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7499a075d591a0c45844d43ac28ad1b2
+    m_Address: dark_nights.ui.pausemenu
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -130,6 +145,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d13bbb658cca1c24b8f5de396a911cdb
+    m_Address: dark_nights.ui.chrome
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d54580f6965e6754d8a69884072bf2f0
     m_Address: dark_nights.config.pinewatch
     m_ReadOnly: 0
@@ -142,6 +162,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e95960097cc0e0342a3ade438d1c64ce
     m_Address: dark_nights.object.iron
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6a5863c65d56f44084e03e012a4e6c1
+    m_Address: dark_nights.ui.result
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

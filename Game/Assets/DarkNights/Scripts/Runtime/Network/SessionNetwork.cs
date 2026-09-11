@@ -44,7 +44,7 @@ namespace DarkNights.Runtime.Network
             layout = level;
             var fingerprint = new SaveContentFingerprint(catalog, layout);
             var auth = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
-            auth.Configure(ObjectDefinitionDatabase.Instance, "dark-nights-session-v2:" + fingerprint.RulesSha256 + ":" + fingerprint.LayoutSha256);
+            auth.Configure(ObjectDefinitionDatabase.Instance, "dark-nights-session-v" + Session.SessionAuthority.ProtocolVersion + ":" + fingerprint.RulesSha256 + ":" + fingerprint.LayoutSha256);
             manager.ServerManager.SetAuthenticator(auth);
             GenericTypeSerializer<GameCore.Objects.NetworkStates.IStateData>.MaximumPayloadBytes = ProjectionCodec.MaximumBytes + 1024;
             GenericTypeSerializer<INetworkCommand>.MaximumPayloadBytes = 8192;

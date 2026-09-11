@@ -1,6 +1,6 @@
 {
   "name": "DarkNights.Tests",
-  "references": ["DarkNights.Core", "DarkNights.Runtime", "DarkNights.View", "DarkNights.Entry", "DarkNights.Editor", "GameCore.Runtime", "GameCore.Editor", "FishNet.Runtime", "Unity.Addressables", "Unity.ResourceManager", "UniTask"],
+  "references": ["DarkNights.Core", "DarkNights.Runtime", "DarkNights.View", "DarkNights.Entry", "DarkNights.Editor", "GameCore.Runtime", "GameCore.Editor", "FishNet.Runtime", "Unity.Addressables", "Unity.ResourceManager", "Unity.ugui", "UniTask"],
   "includePlatforms": ["Editor"],
   "optionalUnityReferences": ["TestAssemblies"],
   "overrideReferences": true,

@@ -34,7 +34,9 @@ namespace DarkNights.Tests
                 ObjectDefinition definition = map.GetRequired(NativeArtSetup.ContentId(name), database);
                 Assert.That(definition.isLocal && definition.Id == 0 && !definition.Guid.IsEmpty);
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(definition.PrefabRef.AssetGUID));
-                Assert.That(prefab.GetComponent<ObjectView>().Get<NativeVisual>("visual"), Is.Not.Null);
+                var visual = prefab.GetComponent<ObjectView>().Get<NativeVisual>("visual");
+                Assert.That(visual, Is.Not.Null);
+                Assert.That(visual.Portrait, Is.SameAs(NativeAnimationBuilder.Sprite((string)spec["portrait"])));
             }
         }
 

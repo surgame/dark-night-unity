@@ -1,0 +1,172 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using DarkNights.Core.ViewData;
+using GameCore.Interactions;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+
+namespace DarkNights.View
+{
+    /// <summary>
+    /// 每客户端独立的选择、框选、建造模式及镜头输入；复用 Interaction Sessions 协调跨帧输入占用。
+    /// 输出显式实体参数的单次意图，暂停仍可选择和安排工作；菜单或未 Ready 时拦截游戏输入。
+    /// </summary>
+    public sealed class CampInput : MonoBehaviour
+    {
+        private readonly List<int> selected = new List<int>();
+        private IYYInteractionSessionService sessions;
+        private YYInteractionSessionHandle placement, drag;
+        private IEntityVisuals visuals;
+        private PinewatchStage stage;
+        private SessionViewData frame;
+        private bool ready, dragging, append;
+        private Vector2 dragStart, dragWorld;
+        public event Action<InputIntent> Intent;
+        public IReadOnlyList<int> Selected => selected.AsReadOnly();
+        public string BuildKind { get; private set; } = "";
+        public int Hover { get; private set; }
+        public bool Dragging => dragging;
+        public Vector2 DragStart => dragStart;
+        public Vector2 Pointer => Mouse.current?.position.ReadValue() ?? Vector2.zero;
+
+        public void Initialize(PinewatchStage scene, IEntityVisuals entities, IYYInteractionSessionService service)
+        {
+            stage = scene;
+            visuals = entities;
+            sessions = service ?? throw new ArgumentNullException(nameof(service));
+        }
+
+        public void Present(SessionViewData value, bool canSend)
+        {
+            frame = value;
+            ready = canSend;
+            if (frame == null) { ResetLocal(); return; }
+            selected.RemoveAll(id => !frame.World.Actors.Any(a => a.Id == id) && !frame.World.Buildings.Any(b => b.Id == id) && !frame.World.Worksites.Any(w => w.Id == id));
+        }
+
+        public void BeginBuild(string kind)
+        {
+            CancelBuild();
+            if (!ready || !sessions.TryBegin(new YYInteractionSessionDescriptor
+            {
+                Kind = "dark_nights.placement", Owner = "CampInput", Priority = 20,
+                Blocks = YYInteractionBlockFlags.World | YYInteractionBlockFlags.LowerPriorityPreview
+            }, out placement)) return;
+            BuildKind = kind;
+        }
+
+        public void CancelBuild() { placement?.Dispose(); placement = null; BuildKind = ""; }
+        public void ResetLocal()
+        {
+            CancelBuild();
+            drag?.Dispose(); drag = null;
+            dragging = false;
+            selected.Clear();
+            Hover = 0;
+        }
+
+        private void Update()
+        {
+            if (sessions == null || frame == null || !ready) return;
+            Keyboard keyboard = Keyboard.current;
+            if (keyboard != null && keyboard.escapeKey.wasPressedThisFrame)
+            {
+                if (BuildKind.Length > 0) CancelBuild();
+                else Emit("Menu");
+                return;
+            }
+            bool blocked = sessions.IsBlocked(YYInteractionBlockFlags.GameplayActions);
+            if (blocked) { Hover = 0; EndDrag(); return; }
+            CameraInput(keyboard);
+            if (keyboard != null)
+            {
+                if (keyboard.spaceKey.wasPressedThisFrame) Emit("Pause");
+                if (keyboard.hKey.wasPressedThisFrame) Emit("Help");
+                if (keyboard.f5Key.wasPressedThisFrame) Emit("Save");
+                if (keyboard.f9Key.wasPressedThisFrame) Emit("Load");
+                if (keyboard.homeKey.wasPressedThisFrame) stage.Focus(stage.InitialCameraX);
+                if (keyboard.gKey.wasPressedThisFrame) SelectGroup(true);
+                if (keyboard.iKey.wasPressedThisFrame) SelectGroup(false);
+            }
+            Mouse mouse = Mouse.current;
+            if (mouse == null) return;
+            Vector2 pointer = mouse.position.ReadValue();
+            bool ui = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+            Vector2 point = stage.SceneCamera.ScreenToWorldPoint(pointer);
+            Hover = ui ? 0 : Pick(point);
+            if (mouse.rightButton.wasPressedThisFrame && !ui)
+            {
+                if (BuildKind.Length > 0) CancelBuild();
+                else if (!sessions.IsBlocked(YYInteractionBlockFlags.WorldConfirm))
+                    Intent?.Invoke(new InputIntent("Orders", ActorIds(), Hover, point.x * 100));
+            }
+            if (mouse.leftButton.wasPressedThisFrame && !ui)
+            {
+                if (BuildKind.Length > 0 && sessions.IsTopOrUnblocked(placement.SessionId, YYInteractionBlockFlags.WorldConfirm))
+                    Intent?.Invoke(new InputIntent("Build", ActorIds(), 0, point.x * 100, BuildKind));
+                else if (sessions.TryBegin(new YYInteractionSessionDescriptor
+                {
+                    Kind = "dark_nights.selection", Owner = "CampInput", Priority = 10, Blocks = YYInteractionBlockFlags.World
+                }, out drag))
+                {
+                    dragging = true; dragStart = pointer; dragWorld = point;
+                    append = keyboard != null && (keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed);
+                }
+            }
+            if (dragging && !mouse.leftButton.isPressed) FinishSelection(pointer, point);
+        }
+
+        private void CameraInput(Keyboard keyboard)
+        {
+            if (sessions.IsBlocked(YYInteractionBlockFlags.CameraInput)) return;
+            int direction = keyboard == null ? 0 : (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed ? 1 : 0) -
+                (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed ? 1 : 0);
+            stage.Move(direction * Time.unscaledDeltaTime * 240);
+            if (Mouse.current == null) return;
+            float scroll = Mouse.current.scroll.ReadValue().y;
+            if (scroll != 0) stage.ChangeZoom(scroll > 0 ? 1.12f : 1 / 1.12f);
+            if (Mouse.current.middleButton.isPressed) stage.Move(-Mouse.current.delta.ReadValue().x / stage.Zoom);
+        }
+
+        private void FinishSelection(Vector2 screen, Vector2 point)
+        {
+            if (!append) selected.Clear();
+            if (Vector2.Distance(dragStart, screen) > 5)
+            {
+                Rect bounds = Rect.MinMaxRect(Mathf.Min(dragWorld.x, point.x), Mathf.Min(dragWorld.y, point.y), Mathf.Max(dragWorld.x, point.x), Mathf.Max(dragWorld.y, point.y));
+                foreach (ActorViewData actor in frame.World.Actors)
+                {
+                    NativeVisual view = visuals.Visual(actor.Id);
+                    if (!actor.Enemy && view != null && bounds.Contains(view.SelectionAnchor.position) && !selected.Contains(actor.Id)) selected.Add(actor.Id);
+                }
+            }
+            else
+            {
+                int id = Pick(point);
+                if (id > 0 && selected.Contains(id) && append) selected.Remove(id);
+                else if (id > 0 && !selected.Contains(id)) selected.Add(id);
+            }
+            EndDrag();
+        }
+
+        private int Pick(Vector2 point)
+        {
+            foreach (ActorViewData actor in frame.World.Actors.Reverse()) if (visuals.Visual(actor.Id)?.Contains(point) == true) return actor.Id;
+            foreach (BuildingViewData building in frame.World.Buildings.Reverse()) if (visuals.Visual(building.Id)?.Contains(point) == true) return building.Id;
+            foreach (WorksiteViewData site in frame.World.Worksites.Reverse()) if (site.Amount != 0 && site.FarmId == 0 && visuals.Visual(site.Id)?.Contains(point) == true) return site.Id;
+            return 0;
+        }
+
+        public int[] ActorIds() => frame == null ? Array.Empty<int>() : frame.World.Actors.Where(a => !a.Enemy && selected.Contains(a.Id)).Select(a => a.Id).ToArray();
+        private void Emit(string action) { Intent?.Invoke(new InputIntent(action, ActorIds())); }
+        private void SelectGroup(bool guards)
+        {
+            selected.Clear();
+            selected.AddRange(frame.World.Actors.Where(a => !a.Enemy && (guards ? a.Kind != "worker" : a.Kind == "worker" && a.Activity == "Idle")).Select(a => a.Id));
+        }
+        private void EndDrag() { dragging = false; drag?.Dispose(); drag = null; }
+        private void OnDestroy() { ResetLocal(); Intent = null; }
+    }
+}

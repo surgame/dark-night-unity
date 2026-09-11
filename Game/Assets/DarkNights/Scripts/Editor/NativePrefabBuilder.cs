@@ -28,9 +28,12 @@ namespace DarkNights.Editor
             {
                 if (root.GetComponentInChildren<SpriteRenderer>(true) != null || root.GetComponent<NativeVisual>() != null)
                     throw new InvalidOperationException("Visual output must be empty: " + path);
-                ObjectInstance instance = root.GetComponent<ObjectInstance>() ?? root.AddComponent<ObjectInstance>();
-                LocalObjectInstanceInitializer initializer = root.GetComponent<LocalObjectInstanceInitializer>() ?? root.AddComponent<LocalObjectInstanceInitializer>();
-                ObjectView view = root.GetComponent<ObjectView>() ?? root.AddComponent<ObjectView>();
+                ObjectInstance instance = root.GetComponent<ObjectInstance>();
+                if (instance == null) instance = root.AddComponent<ObjectInstance>();
+                LocalObjectInstanceInitializer initializer = root.GetComponent<LocalObjectInstanceInitializer>();
+                if (initializer == null) initializer = root.AddComponent<LocalObjectInstanceInitializer>();
+                ObjectView view = root.GetComponent<ObjectView>();
+                if (view == null) view = root.AddComponent<ObjectView>();
                 SetReference(instance, "_view", view);
                 SetReference(initializer, "_objectInstance", instance);
                 root.AddComponent<SortingGroup>().sortingOrder = (string)spec["category"] == "actors" ? 100 : 0;
@@ -96,6 +99,7 @@ namespace DarkNights.Editor
             Dictionary<string, SpriteRenderer> renderers, List<SpriteRenderer> sprites, PoseClip[] clips)
         {
             var serialized = new SerializedObject(visual);
+            serialized.FindProperty("portrait").objectReferenceValue = NativeAnimationBuilder.Sprite((string)spec["portrait"]);
             JToken bounds = spec["pickBounds"];
             serialized.FindProperty("pickBounds").rectValue = new Rect((float)bounds[0] / 100,
                 -((float)bounds[1] + (float)bounds[3]) / 100, (float)bounds[2] / 100, (float)bounds[3] / 100);
