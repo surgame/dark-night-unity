@@ -9,6 +9,18 @@
     "ProjectSettings"
   ],
   "oldLibraryCopied": false,
+  "failedBuildGeneratedCleanup": {
+    "archivedFiles": 7,
+    "path": "artifacts/clean-m5-94ff636/artifacts/migration/failed-build-generated",
+    "cleanCheckoutGitStatusEmpty": true,
+    "scope": "Only verified generated Addressables link.xml and performance-test Resources files with their meta files; bytes preserved."
+  },
+  "deliveryDriverSelfTest": {
+    "passed": true,
+    "checks": 5,
+    "report": "artifacts/migration/delivery-driver-20260912-040012-121/result.json",
+    "scope": "Inert fixtures verify nonzero child exit, completed-step reporting, suffix resume, partial-matrix labeling and changed Entry DLL rejection; not Player acceptance."
+  },
   "godotOrReferenceProjectRequired": false,
   "core": {
     "passed": 1355,

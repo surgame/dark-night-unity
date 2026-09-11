@@ -24,7 +24,9 @@
 
 1. CoreRegression、ArchitectureGuard 与 `DarkNights.Tests` 通过后，在同一 Editor 串行执行 `Dark Nights/Build/Windows Mono` 一次。
 2. 运行 `pwsh -NoProfile -File tools/test-game-delivery.ps1`，复用该 Mono 产物完成串行检查。入口不构建，不修改数值，不因等待重启正在运行的任务；失败即停，各阶段日志和报告保留在 artifacts/migration。
-3. 修正后只重跑失败或受影响的单项脚本。图形检查默认使用普通 Player；基础／弱网使用独立无图形进程。画面文件必须另行查看，截图尺寸检查不等于视觉通过。
+3. 修正后只重跑失败或受影响的单项脚本；需要继续后续阶段时使用 `-StartAt active-load` 等阶段名称，报告会标记本次并非完整矩阵。入口检查独立子进程退出码和每阶段前后 Entry DLL 哈希；跨次续跑仍需核对既有报告与产物身份，Entry 哈希不能替代完整内容归档。图形检查默认使用普通 Player；基础／弱网使用独立无图形进程。画面文件必须另行查看，截图尺寸检查不等于视觉通过。
+
+`pwsh -NoProfile -File tools/verify-delivery-driver.ps1` 使用惰性文本夹具检查退出失败、续跑范围与 Entry DLL 变化检测；不启动 Unity 或 Player，也不计入玩法验收。
 
 三夜性能同时保留通关时摘要和通关后 30 秒不变世界的内存采样。Unity Mono 的线程分配计数器经探针确认不受支持时显示 null；帧级 GC 记录仍有效。压力脚本的 256 实体／1024 箭矢是明确启用的合成投影，只证明完整传输和渲染边界，不冒充正常关卡的帧率。
 
