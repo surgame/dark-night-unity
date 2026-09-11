@@ -97,7 +97,7 @@ ObjectDefinition 与所属 Prefab 放在同一对象目录，方便一起核对�
 
 ## 共享控制如何保留开关
 
-`CampControlMode` 枚举及 SessionStatusState 中的投影字段已建立，后续由房主掌握的 Runtime 房间权限服务负责执行；它不是角色所有权，也不是静态全局开关。当前仅有 wire 合同，Sample 与正式游戏均尚未实现策略切换和服务端授权。
+`CampControlMode` 与 SessionStatusState 字段已建立；正式 Runtime/Session 的 SessionAuthority 已实现房主权限、策略切换和执行点复查，并通过单元回归，见[会话业务合同](SESSION_AUTHORITY.md)。它不是角色所有权或静态全局开关；正式网络／UI 与策略投影尚未接线。
 
 | 模式 | 房主 | 普通已 Ready 玩家 |
 |---|---|---|
@@ -249,7 +249,7 @@ HUD 使用1280×800作为对照尺寸，同时验1600×900；建立独立的菜�
 
 ## 存档接入
 
-Unity 新档已在 M1 第六批实现独立格式 `dark-nights.world` v1，记录规则／布局摘要并引用 Core 随机算法标识；字段、原子文件流程与实际验证见[存档合同](SAVE_FORMAT.md)。旧 v1 用独立导入入口，保留其严格字段和关系校验，不让两种格式被自动猜测混用。产品 UI、房主权限与加载 epoch 仍待会话层接入。
+Unity 新档已在 M1 第六批实现独立格式 `dark-nights.world` v1，记录规则／布局摘要并引用 Core 随机算法标识；字段、原子文件流程与实际验证见[存档合同](SAVE_FORMAT.md)。旧 v1 用独立导入入口，保留严格字段和关系校验。第七批会话层已实现房主 BeginLoad 票据及加载 epoch；产品 UI、实际文件任务与网络通知仍待装配。
 
 世界快照与玩家显示设置分离。旧档的相机／选择可供房主本地恢复，其余客户端使用各自设置。epoch、连接ID和网络对象ID是本次会话状态，不把它们当作持久实体身份。
 
@@ -268,7 +268,7 @@ Unity 新档已在 M1 第六批实现独立格式 `dark-nights.world` v1，记�
 | M4 会话完整性 | 四人、晚加入、断线重连、暂停／倍速、保存／加载、epoch | 第二夜加入、加载中的旧包和控制策略切换均正确 |
 | M5 交付验收 | 双机器 LAN、完整关卡弱网／性能、干净构建及操作文档 | 可独立运行的 Windows Player 和可复现报告 |
 
-M0 已完成两个源码确认的接入项：[SampleAssemblyAccess.cs](../tools/lan-framework-patch/SampleAssemblyAccess.cs) 同时向样板 Runtime 与正式 DarkNights.Runtime 授予生成调度器所需的窄范围友元访问；[DarkNightsEnvironmentSetup](../Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs) 已拆开 `BuildAddressablesContent()` 与 `Initialize()` 并保护初始化输出。Worker／WorldSession 定义、Prefab、Addressables、FishNet spawn、ContentId 映射和 GuidV2／MemoryPack 生成注册已在 Mono 与 IL2CPP Player 启动验证；旧的 LegacyCompatible／LegacyV1 记录保留为历史基线，当前切换证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)及[正式身份切换记录](evidence/formal-object-contracts-guid-v2-2026-09-11.json)。M2 仍需实现命令处理、权威会话和真实实体集合投影。
+M0 已完成两个源码确认的接入项：[SampleAssemblyAccess.cs](../tools/lan-framework-patch/SampleAssemblyAccess.cs) 同时向样板 Runtime 与正式 DarkNights.Runtime 授予生成调度器所需的窄范围友元访问；[DarkNightsEnvironmentSetup](../Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs) 已拆开 `BuildAddressablesContent()` 与 `Initialize()` 并保护初始化输出。Worker／WorldSession 定义、Prefab、Addressables、FishNet spawn、ContentId 映射和 GuidV2／MemoryPack 生成注册已在 Mono 与 IL2CPP Player 启动验证；旧的 LegacyCompatible／LegacyV1 记录保留为历史基线，当前切换证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)及[正式身份切换记录](evidence/formal-object-contracts-guid-v2-2026-09-11.json)。M2 已实现独立的权威会话业务层；仍需接入网络命令处理器、实际会话装配和真实实体集合投影。
 
 M2 先迁移真实规则下的工人采集与住宅施工，不再做另一个十金币测试营地。使用冻结开局布局和数值；可暂只接必要视图，其余表现由 M3 补齐。实体集合的复制、序列化、在飞箭矢及事件池生命周期是相对标量 Sample 新增的验证重点。
 

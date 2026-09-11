@@ -2,7 +2,7 @@
 
 2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已实现自己的四层程序集并验证 YYGC Object、可靠状态链及唯一权威写入。本页描述的正式玩法目录仍属设计；Sample 不反向依赖正式游戏。VitalRouter 仅保留框架命令链的显式适配，业务使用普通方法，R3 负责副本观察及订阅释放。
 
-状态：正式玩法设计基线。已实现 Core/Config、Core/Logic、Core/Save、最小反馈 ViewData、Runtime 配置／旧档解析／新格式原子存储与 Entry 配置启动；规则及存档已通过[核心回归](CORE_MIGRATION.md)，存储边界见[存档合同](SAVE_FORMAT.md)。首批 Worker／WorldSession Definition、Prefab、ContentId 映射、状态 Behaviour 与生成 wire 注册已通过双后端启动；正式对象身份已切换为 GuidFirst／GuidV2，但实际会话调度、实体展示与正式联机尚未实现。2026-09-11 的[移植方案](MIGRATION_PLAN.md)明确复用 YYGC `10b8f0e` 已由 Sample 验证的命令／状态链，补正式营地投影、可切换控制权限与原生资源。Core 继续保持单一权威模拟。
+状态：正式玩法设计基线。已实现 Core 规则／保存、Runtime 配置／原子存储及 Entry 配置启动，见[核心回归](CORE_MIGRATION.md)与[存档合同](SAVE_FORMAT.md)。新增 Runtime/Session 已实现唯一世界、命令队列／权限／去重、连接代次、Ready 版本检查、60 Hz 单步与加载票据／epoch，见[会话业务合同](SESSION_AUTHORITY.md)；尚未装配进 Bootstrap、Unity 时钟或 YYGC 网络回调，也无实体投影。首批 Worker／WorldSession 定义与 GuidFirst／GuidV2 wire 注册已有双后端探针，本批会话服务仅有独立及 Editor 回归。网络接入仍复用 YYGC `10b8f0e` 已由 Sample 验证的命令／状态链，Core 保持单一权威模拟。
 
 ## 设计选择
 
@@ -122,7 +122,7 @@ Core/ViewData 中的接口让 View 提交意图和读取副本，Entry 注入 Ru
 
 ### 会话对象如何组合规则
 
-下表描述目标职责。当前 WorldSessionBehaviour 只发布 epoch、revision、控制模式、Ready 与时间元数据，不创建或推进 GameSession；表中的会话控制器、完整投影与实体表现仍未实现。
+下表描述目标装配职责。当前 WorldSessionBehaviour 只发布会话元数据，不创建或推进 GameSession；SessionAuthority 已单独实现权威业务层，但二者尚未接线。完整投影、真实时钟驱动与实体表现仍待实施。
 
 | 组合位置 | 拟议对象／行为 | 拥有的状态与边界 |
 |---|---|---|

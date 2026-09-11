@@ -32,6 +32,9 @@ namespace DarkNights.Tools.CoreRegression
                 SaveMigrationScenarios.Run(check, catalog, layout);
                 GameSaveScenarios.Run(check, catalog, layout);
                 GameSaveFileScenarios.Run(check, catalog, layout);
+                SessionCommandScenarios.Run(check, catalog, layout);
+                SessionBoundaryScenarios.Run(check, catalog, layout);
+                SessionLifecycleScenarios.Run(check, catalog, layout);
                 RandomCompatibilityScenarios.Run(check);
             }
             catch (Exception error) { check(false, error.ToString()); }

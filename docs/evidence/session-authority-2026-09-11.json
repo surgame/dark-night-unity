@@ -1,0 +1,585 @@
+{
+  "date": "2026-09-11",
+  "utc": "2026-09-11T15:00:28.5058639Z",
+  "batch": 7,
+  "scope": "Runtime/Session authority business service; no production network or Player validation",
+  "baselineCommit": "95ec633fba82fc413bc6bdd6d6d3afc2c1331e81",
+  "unity": [
+    "m_EditorVersion: 6000.4.9f1",
+    "m_EditorVersionWithRevision: 6000.4.9f1 (f7258d6eebbe)"
+  ],
+  "implementation": [
+    "Authority-owned GameSession; immutable explicit requests and frozen receipts",
+    "Four server-issued connection slots, replacement generation, Ready revision gate, host-exit cleanup",
+    "Single-thread FIFO; 16 pending per connection, 64 globally, last 64 completed results per connection",
+    "SharedCamp/HostOnly execution gate, policy revision, duplicate/changed/expired request handling",
+    "Preserved Core gathering, construction, training, recruitment and repair; host-only time and BeginLoad",
+    "60 Hz single step; service ticks continue while paused/loading; speed multiplied only by Core",
+    "Load ticket capability, complete validation before world replacement, cancellation/failure retention, epoch/Ready reset with policy preserved"
+  ],
+  "validation": {
+    "independent": {
+      "runtime": "8.0.16",
+      "total": 1260,
+      "failures": 0,
+      "sessionCheckCount": 96,
+      "sessionChecks": [
+        {
+          "name": "Session freezes and deduplicates actors in first occurrence order",
+          "passed": true
+        },
+        {
+          "name": "Session retransmission while pending queues one operation",
+          "passed": true
+        },
+        {
+          "name": "Session receipt identifies origin, tick and resulting revision",
+          "passed": true
+        },
+        {
+          "name": "Session retransmission returns original completed receipt",
+          "passed": true
+        },
+        {
+          "name": "Session 60 Hz gathering matches complete Core world after 12 seconds",
+          "passed": true
+        },
+        {
+          "name": "Session capture remains frozen after later simulation",
+          "passed": true
+        },
+        {
+          "name": "Session Host builds through the same entry and receives created entity ID",
+          "passed": true
+        },
+        {
+          "name": "Session worker travel and completed house preserve full Core world",
+          "passed": true
+        },
+        {
+          "name": "Session paused training preserves ordered unique payment and queue semantics",
+          "passed": true
+        },
+        {
+          "name": "Session policy switch rejects queued old intent without changing epoch",
+          "passed": true
+        },
+        {
+          "name": "Session policy switch preserves existing work and rejects old auto-construction payment",
+          "passed": true
+        },
+        {
+          "name": "Session HostOnly rejects guest IssueOrders",
+          "passed": true
+        },
+        {
+          "name": "Session HostOnly rejects guest PlaceBuilding",
+          "passed": true
+        },
+        {
+          "name": "Session HostOnly rejects guest TrainActors",
+          "passed": true
+        },
+        {
+          "name": "Session HostOnly rejects guest Recruit",
+          "passed": true
+        },
+        {
+          "name": "Session HostOnly rejects guest Repair",
+          "passed": true
+        },
+        {
+          "name": "Session denied operations cannot alter any resource",
+          "passed": true
+        },
+        {
+          "name": "Session HostOnly still permits Host recruitment",
+          "passed": true
+        },
+        {
+          "name": "Session SharedCamp retains Host privilege for SetPaused",
+          "passed": true
+        },
+        {
+          "name": "Session SharedCamp retains Host privilege for SetSpeed",
+          "passed": true
+        },
+        {
+          "name": "Session SharedCamp retains Host privilege for StartNight",
+          "passed": true
+        },
+        {
+          "name": "Session SharedCamp retains Host privilege for SetControlMode",
+          "passed": true
+        },
+        {
+          "name": "Session SharedCamp retains Host privilege for BeginLoad",
+          "passed": true
+        },
+        {
+          "name": "Session last accepted legal command wins for shared resident",
+          "passed": true
+        },
+        {
+          "name": "Session unpause resumes existing accepted orders",
+          "passed": true
+        },
+        {
+          "name": "Session three concurrent constructions only spend available resources in accepted order",
+          "passed": true
+        },
+        {
+          "name": "Session insufficient third purchase leaves resources and entity count intact",
+          "passed": true
+        },
+        {
+          "name": "Session Host resend cannot pay a second time",
+          "passed": true
+        },
+        {
+          "name": "Session training with insufficient resources preserves ordered partial success",
+          "passed": true
+        },
+        {
+          "name": "Session simultaneous requests cannot steal the only stone worksite",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 1/999",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 0/Recruit",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 2/IssueOrders",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 3/IssueOrders",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 4/IssueOrders",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 5/IssueOrders",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 6/IssueOrders",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 7/IssueOrders",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 8/IssueOrders",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 9/PlaceBuilding",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 10/PlaceBuilding",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 11/TrainActors",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 12/Repair",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 13/Recruit",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 14/Recruit",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 15/SetSpeed",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 16/SetPaused",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 17/SetControlMode",
+          "passed": true
+        },
+        {
+          "name": "Session rejects invalid parameter set 18/BeginLoad",
+          "passed": true
+        },
+        {
+          "name": "Session malformed requests never partially modify paused world",
+          "passed": true
+        },
+        {
+          "name": "Session rejects oversized arrays and strings before copying them into queue",
+          "passed": true
+        },
+        {
+          "name": "Session null request rejected",
+          "passed": true
+        },
+        {
+          "name": "Session mismatched protocol rejected before queuing",
+          "passed": true
+        },
+        {
+          "name": "Session mismatched epoch rejected before queuing",
+          "passed": true
+        },
+        {
+          "name": "Session same sequence with changed ordered actors is rejected",
+          "passed": true
+        },
+        {
+          "name": "Session same sequence with changed coordinate is rejected",
+          "passed": true
+        },
+        {
+          "name": "Session foreign-thread mutation is rejected before work begins",
+          "passed": true
+        },
+        {
+          "name": "Session mixed friendly and enemy actor list is rejected as a whole",
+          "passed": true
+        },
+        {
+          "name": "Session per-connection backlog is bounded and overflow is explicit",
+          "passed": true
+        },
+        {
+          "name": "Session queued recruitment observes latest cooldown and only pays once",
+          "passed": true
+        },
+        {
+          "name": "Session old cached request retains original result after later failures",
+          "passed": true
+        },
+        {
+          "name": "Session evicted sequence never executes again",
+          "passed": true
+        },
+        {
+          "name": "Session recent cached sequence retains failed business result",
+          "passed": true
+        },
+        {
+          "name": "Session unseen out-of-order old sequence is explicitly expired",
+          "passed": true
+        },
+        {
+          "name": "Session reconnect rotates capability and Ready without inheriting pending intent",
+          "passed": true
+        },
+        {
+          "name": "Session queued old connection cannot pay after reconnect",
+          "passed": true
+        },
+        {
+          "name": "Session old capability cannot submit or acknowledge Ready",
+          "passed": true
+        },
+        {
+          "name": "Session new connection must apply a current baseline first",
+          "passed": true
+        },
+        {
+          "name": "Session Ready rejects stale and future baseline revisions",
+          "passed": true
+        },
+        {
+          "name": "Session reconnected player starts a fresh sequence namespace after Ready",
+          "passed": true
+        },
+        {
+          "name": "Session rejects capability issued by another authority",
+          "passed": true
+        },
+        {
+          "name": "Session guest disconnect retains accepted construction and residents",
+          "passed": true
+        },
+        {
+          "name": "Session Host disconnect closes authority and clears pending work",
+          "passed": true
+        },
+        {
+          "name": "Session reconnect cannot bypass the global four-player backlog bound",
+          "passed": true
+        },
+        {
+          "name": "Session drains stale connection backlog once with explicit rejection receipts",
+          "passed": true
+        },
+        {
+          "name": "Session clock waits for initial Host Ready while service ticks continue",
+          "passed": true
+        },
+        {
+          "name": "Session 60 ticks at 2x advance exactly two simulation seconds",
+          "passed": true
+        },
+        {
+          "name": "Session paused ticks process authorized payment without advancing construction or simulation",
+          "passed": true
+        },
+        {
+          "name": "Session resume applies the current speed once",
+          "passed": true
+        },
+        {
+          "name": "Session BeginLoad locks out later queued business in the same tick",
+          "passed": true
+        },
+        {
+          "name": "Session BeginLoad resend returns same ticket without starting another load",
+          "passed": true
+        },
+        {
+          "name": "Session loading blocks new business and Ready",
+          "passed": true
+        },
+        {
+          "name": "Session loading keeps service ticks alive and world frozen",
+          "passed": true
+        },
+        {
+          "name": "Session failed parsing preserves whole world, epoch, Ready, pause and speed",
+          "passed": true
+        },
+        {
+          "name": "Session failed load cannot be restarted by retransmitting the same request",
+          "passed": true
+        },
+        {
+          "name": "Session cancellation releases loading once without changing world",
+          "passed": true
+        },
+        {
+          "name": "Session stale completion ticket cannot complete or cancel a newer load",
+          "passed": true
+        },
+        {
+          "name": "Session successful load rotates epoch and Ready while preserving current room policy",
+          "passed": true
+        },
+        {
+          "name": "Session successful load replaces entire world including RNG, projectiles and stored time controls",
+          "passed": true
+        },
+        {
+          "name": "Session rejects old epoch business and Ready after load",
+          "passed": true
+        },
+        {
+          "name": "Session successful load ticket cannot be replayed",
+          "passed": true
+        },
+        {
+          "name": "Session restored simulation waits for new Host baseline Ready",
+          "passed": true
+        },
+        {
+          "name": "Session active connections can acknowledge the new world",
+          "passed": true
+        },
+        {
+          "name": "Session restored save cannot expand guest permissions",
+          "passed": true
+        },
+        {
+          "name": "Session loaded legacy world continues twenty seconds against frozen Godot state",
+          "passed": true
+        },
+        {
+          "name": "Session Host exit invalidates an outstanding asynchronous load ticket",
+          "passed": true
+        }
+      ]
+    },
+    "architecture": {
+      "passed": true,
+      "handwrittenFiles": 109,
+      "selfTests": 10,
+      "errors": [],
+      "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+    },
+    "editor": {
+      "status": "completed",
+      "durationSeconds": 0.86,
+      "total": 37,
+      "passed": 37,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0,
+      "newScenarios": [
+        {
+          "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"session-commands\")",
+          "Status": "Passed",
+          "Duration": 0.0156995,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"session-boundary\")",
+          "Status": "Passed",
+          "Duration": 0.0053599,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"session-lifecycle\")",
+          "Status": "Passed",
+          "Duration": 0.0080071,
+          "Message": null,
+          "StackTrace": null
+        }
+      ],
+      "fullReport": "artifacts/migration/session-editor-tests.json"
+    },
+    "compilation": {
+      "requests": 2,
+      "errors": 0,
+      "reasonForSecond": "Explicit stable actor de-duplication and additional partial-training/worksite/global-backlog scenarios before final Editor suite."
+    },
+    "source": [
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+        "lines": 228,
+        "sha256": "3c55943b40701571ab65cc2e286dd97eddbb84080f7b91d4f93f0e1f16fad1d8",
+        "metaExists": true
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionCommandEntry.cs",
+        "lines": 20,
+        "sha256": "2039de2a16b5ace5132cb5d671b1267dd41234926f9ce10ca32a02c755814091",
+        "metaExists": true
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionConnection.cs",
+        "lines": 44,
+        "sha256": "5580f99893d9292a7fe062e95cee93f7dc1a00a5a0c3bb9ccbfca8e50244142f",
+        "metaExists": true
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperation.cs",
+        "lines": 12,
+        "sha256": "fb97dafd2257f5b8d2e0a2a1b14d6e624a2434f1ff94659cc9e860a29dd267ad",
+        "metaExists": true
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperations.cs",
+        "lines": 91,
+        "sha256": "cf2d126a91d2240f86114e11c2a77feac166f45d953c5bb22b6981846c6fff4f",
+        "metaExists": true
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionReceipt.cs",
+        "lines": 37,
+        "sha256": "cb8a312b890ee54e94ee743b4355697a2954328a810292b95da4917a6a99cf5c",
+        "metaExists": true
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionRequest.cs",
+        "lines": 53,
+        "sha256": "59b6ad4295cf50eb89645969edfb9220fe761cb102ff4387eeac0d34dbdb419d",
+        "metaExists": true
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionResultCode.cs",
+        "lines": 13,
+        "sha256": "613bdca53da43cf267c9a1cf9fcd60ae767ad62a91a7b81fbd002fce2ae12083",
+        "metaExists": true
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Tests/SessionBoundaryScenarios.cs",
+        "lines": 149,
+        "sha256": "b7aca6a6ae82b6bafa3936fbf0f1fdf5be89bfa577c7656487453db92727f1eb",
+        "metaExists": true
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Tests/SessionCommandScenarios.cs",
+        "lines": 155,
+        "sha256": "bffa9b8edbfd559d88c4a38d59bf2449937bd4784c979defb413bf20d400edd1",
+        "metaExists": true
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Tests/SessionLifecycleScenarios.cs",
+        "lines": 115,
+        "sha256": "f9e3c740ab944ad3fcbc492f183374dde85038f7fecadf1b10ee77e40f3f9e24",
+        "metaExists": true
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Tests/SessionScenario.cs",
+        "lines": 45,
+        "sha256": "65091a01bcf56e6451fe16a68ce9acc407fc71b40cb634afb945062237b80671",
+        "metaExists": true
+      }
+    ],
+    "frozenInputs": [
+      {
+        "name": "content-hashes-v1.json",
+        "sha256": "d59fe93f74e3b131a8c1a7473c48353d7f0723a9968803afac8146cf81e3310d"
+      },
+      {
+        "name": "godot-gameplay-validation.json",
+        "sha256": "d81a6c9845b4e79ff43f1234617bfb98b76590fbdb56d2b7e7aea5d2e06ac984"
+      },
+      {
+        "name": "godot-rng-vectors.json",
+        "sha256": "de2dd5da0e8f0538c6cf0d2357a786ad6759dcda526b9af9637616c33d7d42d8"
+      },
+      {
+        "name": "legacy-v1-after-20s.json",
+        "sha256": "4a297fe16882ea388398d458911714553cf350a8528e77d1dcd5056583f2b8af"
+      },
+      {
+        "name": "legacy-v1.json",
+        "sha256": "fe700dd160583786dd7786f87a3940a344899e7991de8c660ad1e1f0a10a240e"
+      },
+      {
+        "name": "pinewatch-layout-v1.json",
+        "sha256": "76e1c120e2a3410548a5a4bc87faf603ff9bfccde4299fc490ad553b1767b095"
+      }
+    ],
+    "protectedDiffPaths": [],
+    "protectedDiffScope": [
+      "Game/Assets/DarkNights/Res",
+      "Game/Assets/AddressableAssetsData",
+      "Game/Assets/Samples",
+      "Game/ProjectSettings",
+      "Game/Packages",
+      "tools/CoreRegression/Fixtures"
+    ],
+    "newMetaFiles": "12 source .meta plus Runtime/Session.meta generated by Unity; no GUIDs assigned manually"
+  },
+  "limitations": [
+    "Bootstrap, Unity real-time accumulator and WorldSessionBehaviour are not wired to SessionAuthority.",
+    "SessionRequest/SessionReceipt are plain business values, not registered wire DTOs. Existing wire/definitions/generation untouched.",
+    "Connect and Ready are privileged server-adapter APIs. Tests do not implement FishNet authentication, content handshake, recovery credentials or actual snapshot application.",
+    "Frozen world capture is for authority saves/tests, includes RNG, and is not a client presentation projection.",
+    "BeginLoad Applied means loading started, not file load success. Production slot IO orchestration, saving/restart commands, completion notifications and UI remain pending.",
+    "Transport size/rate limits, Ready/loading timeouts, initial/late-join projection, event feedback and per-actor failure details remain pending.",
+    "No Mono/IL2CPP Player build/run, PlayMode, independent network processes, weak network, art or scene changes in this batch.",
+    "IL2CPP requires explicit user approval; none requested or performed.",
+    "No external Godot or user YYGC repository writes. Existing user AGENTS.md change remains uncommitted."
+  ],
+  "reports": [
+    "artifacts/migration/core-regression.json",
+    "artifacts/migration/architecture.json",
+    "artifacts/migration/session-editor-tests.json"
+  ]
+}

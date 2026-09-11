@@ -1,0 +1,44 @@
+using System.Collections.Generic;
+
+namespace DarkNights.Runtime.Session
+{
+    /// <summary>
+    /// 由服务端会话签发的连接能力，不可由请求中的槽位或 PlayerId 重新构造。
+    /// 每槽只有一个有效引用；重连替换引用并增加代次。Ready 与结果窗口归会话线程唯一管理。
+    /// </summary>
+    public sealed class SessionConnection
+    {
+        public int PlayerSlot { get; }
+        public int Generation { get; }
+        public bool IsHost => PlayerSlot == 0;
+        public bool Ready { get; internal set; }
+        internal int BaselineRevision { get; set; }
+        internal long HighestSequence { get; set; }
+        internal int PendingCount { get; set; }
+        internal Dictionary<long, SessionCommandEntry> History { get; } = new Dictionary<long, SessionCommandEntry>();
+        internal Queue<long> Completed { get; } = new Queue<long>();
+
+        internal SessionConnection(int slot, int generation, int revision)
+        {
+            PlayerSlot = slot;
+            Generation = generation;
+            BaselineRevision = revision;
+        }
+
+        internal void ResetWorld()
+        {
+            Ready = false;
+            BaselineRevision = 0;
+            HighestSequence = 0;
+            PendingCount = 0;
+            History.Clear();
+            Completed.Clear();
+        }
+
+        internal void RememberCompleted(long sequence)
+        {
+            Completed.Enqueue(sequence);
+            while (Completed.Count > SessionAuthority.ResultWindow) History.Remove(Completed.Dequeue());
+        }
+    }
+}

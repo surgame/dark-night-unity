@@ -16,6 +16,9 @@ namespace DarkNights.Tests
         [TestCase("save")]
         [TestCase("new-save")]
         [TestCase("save-files")]
+        [TestCase("session-commands")]
+        [TestCase("session-boundary")]
+        [TestCase("session-lifecycle")]
         [TestCase("random")]
         public void RulesMatchFrozenBaseline(string scenario)
         {
@@ -32,6 +35,9 @@ namespace DarkNights.Tests
                 case "save": SaveMigrationScenarios.Run(check, catalog, layout); break;
                 case "new-save": GameSaveScenarios.Run(check, catalog, layout); break;
                 case "save-files": GameSaveFileScenarios.Run(check, catalog, layout); break;
+                case "session-commands": SessionCommandScenarios.Run(check, catalog, layout); break;
+                case "session-boundary": SessionBoundaryScenarios.Run(check, catalog, layout); break;
+                case "session-lifecycle": SessionLifecycleScenarios.Run(check, catalog, layout); break;
                 case "random": RandomCompatibilityScenarios.Run(check); break;
             }
         }

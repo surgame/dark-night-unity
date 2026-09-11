@@ -1,6 +1,6 @@
 # Unity 世界存档 v1
 
-2026-09-11。M1 已提供 `GameSaveJson` 与 `GameSaveStore`：从冻结快照保存、按内容兼容性校验并恢复一个新世界。独立 .NET 回归与 Unity Editor 检查已通过，证据见[本批记录](evidence/world-save-2026-09-11.json)。正式 UI、房主权限、会话切换与加载 epoch 尚未接入，不能据此认定已能在游戏中存取档。
+2026-09-11。M1 已提供 `GameSaveJson` 与 `GameSaveStore`：从冻结快照保存、按内容兼容性校验并恢复一个新世界。独立 .NET 回归与 Unity Editor 检查已通过，证据见[第六批记录](evidence/world-save-2026-09-11.json)。第七批[会话业务层](SESSION_AUTHORITY.md)已补房主加载权限、票据与 epoch；正式 UI、文件任务和网络通知尚未装配，不能据此认定已能在游戏中存取档。
 
 ## 文件合同
 
@@ -41,7 +41,7 @@
 
 同实例的存取操作通过锁串行，方法为同步 API，可在冻结数据就绪后由会话层选择后台执行。异常和取消直接交给调用方，不静默返回成功。`Load` 不扫描或回收其他操作的 `.tmp`，不自动从中恢复；未完成的临时文件不会替代成功存档。
 
-实际会话协调器仍须实现：房主授权、Loading 状态、停止推进、失败保留暂停／倍速、成功切换世界并增加 epoch、保持房间控制策略、重新 Ready。存储层只返回临时世界，不承担这些联网语义。默认 JSON／文件路线遵循移植方案；YYArchive 如需接入，应将整个营地封装为一个模块，当前未建立另一套模块恢复流程。
+SessionAuthority 已实现房主 BeginLoad 授权、Loading 停止推进、失败保留暂停／倍速、成功切世界增加 epoch、保持策略并清空 Ready。当前 CompleteLoad 使用严格 JSON 恢复，不接收外部可写 GameSession；与 GameSaveStore 的文件任务编排和真实网络 Ready 仍待集成。存储层本身不承担联网语义。默认 JSON／文件路线遵循移植方案；YYArchive 如需接入，应将整个营地封装为一个模块，当前未建立另一套模块恢复流程。
 
 ## 验证与边界
 

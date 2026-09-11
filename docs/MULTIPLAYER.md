@@ -2,7 +2,7 @@
 
 2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已通过 Windows Host＋3 客户端的共享交易、工位、权限、Ready、epoch、暂停、晚加入／重连和真实 UDP 弱网验证。本页完整游戏协议仍为设计，Steam、双机器和正式玩法未验收。
 
-状态：正式玩法联机设计，尚未实现；已有 Sample 的验证范围见上文。M0 已建立正式 WorldSession 网络定义、SetReadyCommand、SessionStatusState 与生成注册，但没有命令处理器、连接身份、权威会话或实体集合同步。沿用 2–4 人合作、共享一个营地，按 Windows、房主主持、局域网／直连估算；公网房间、邀请、中继与平台身份不作为首版前提，见[移植方案](MIGRATION_PLAN.md)。
+状态：正式玩法联机尚未接通；M0 已建立 WorldSession 定义与首批 wire 注册，M2 的[权威会话业务层](SESSION_AUTHORITY.md)已实现权限、去重、连接代次、Ready 版本检查、时钟和加载 epoch，并通过单元回归。YYGC 网络处理器接线、连接认证／恢复凭据、实体投影和真实 Ready 尚未实现。沿用 2–4 人合作、共享一个营地，按 Windows、房主主持、局域网／直连估算；公网房间、邀请、中继与平台身份不作为首版前提，见[移植方案](MIGRATION_PLAN.md)。下文完整网络协议仍含待实施设计。
 
 实现沿用 YYGC `10b8f0e` 在 Sample 中已验证的 Gateway/Sender/Processor 和 StatefulBehaviour/StateSynchronizer。现有 WorldSessionBehaviour 只验证正式生成和会话元数据发布边界；M2 再以同一会话对象承载有界、可靠的完整营地投影，验证正式实体集合的首次状态和在线替换。后文的分块、结构/运动拆流、增量暂存流程是在测量超限后启用的设计。权限、epoch、原子应用、Ready 与恢复合同从首个可玩切片就必须成立。
 
@@ -22,11 +22,11 @@
 | 普通玩家断开 | 营地继续，单位保留已有任务／AI；当前有权限的玩家可接管 |
 | 房主离开 | 会话结束，客户端返回菜单；恢复依赖房主已有成功存档，不做自动房主迁移 |
 
-CampControlMode 枚举和状态字段已经冻结，默认值、房主权限、策略切换与拒绝结果仍是尚未实现的设计。用户允许暂缓全员操作，也允许先开启后关闭；两种模式使用相同模拟与网络结构。相对单人的变化集中于权限、本地菜单、请求延迟与冲突反馈；不隐式改变战斗和经济规则。
+CampControlMode 枚举和状态字段已经冻结；SessionAuthority 已实现默认 SharedCamp、房主权限、策略切换及拒绝结果，尚未接入网络与 UI。用户允许暂缓全员操作，也允许先开启后关闭；两种模式使用相同模拟与网络结构。相对单人的变化集中于权限、本地菜单、请求延迟与冲突反馈；不隐式改变战斗和经济规则。
 
 ### 控制模式与切换合同
 
-拟议 `CampControlMode` 与 `PolicyRevision` 由 Runtime/Session 的权限服务唯一写入，进入房间展示副本；不放进单位的 FishNet Ownership。服务端在业务入口统一调用权限判断，UI 读取同一策略用于按钮、快捷键、右键和建造预览。
+`CampControlMode` 与 `PolicyRevision` 已由 Runtime/Session 的 SessionAuthority 唯一写入，执行时统一检查权限；后续进入房间展示副本，不放进单位的 FishNet Ownership。UI 读取同一策略用于按钮、快捷键、右键和建造预览，尚待投影接线。
 
 | 操作 | SharedCamp 普通玩家 | HostOnly 普通玩家 | 房主，两种模式 |
 |---|---|---|---|

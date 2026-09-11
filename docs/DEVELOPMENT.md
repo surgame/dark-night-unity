@@ -12,7 +12,7 @@ Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本�
 
 ## 当前实施进展
 
-2026-09-11 截至第六批：**M0 正式接入退出条件已完成；M1 权威规则、显式命令、冻结旧档、随机兼容、正式场景布局来源及新存档／原子文件适配已实现并验证，存档 UI 与权威会话接入仍待完成。** M0 只证明正式程序集、少量定义和 wire 合同可在双后端运行，不代表已有可玩会话或正式联机。下表与后续批次记录共同描述当前范围。
+2026-09-11 截至第七批：**M0 正式接入退出条件已完成；M1 规则与存储基础已实现；M2 的 Runtime/Session 权威业务层已通过独立及 Editor 回归。** 会话层提供权限、队列／去重、连接代次、Ready 版本门槛、60 Hz 调度与加载 epoch，但尚未接入 Bootstrap、YYGC 网络回调或实体投影；存档文件编排及 UI 也待完成。M0 双后端小探针与本批会话单元回归都不代表已有可玩会话或正式联机。
 
 | 内容 | 当前实现 |
 |---|---|
@@ -21,10 +21,11 @@ Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本�
 | 依赖 | 显式锁定已有 Newtonsoft UPM 3.2.2（DLL 13.0.2），不增加第二份 JSON DLL；Core 不引用解析库 |
 | 启动 | GameContentStartupModule 接入现有 AppStartup，Addressables 并行加载两份文本并释放句柄；同时验证正式定义、内容映射、Behaviour 工厂与命令／状态注册，全部成功才注册 GameCatalog |
 | 正式对象 | Worker 与 WorldSession 均使用 GuidFirst 的 GUID／Key 定义、旧 ID 为 `0`、无旧 ID 别名；分别接入 Addressable Prefab、ObjectInstance／ObjectView／initializer、StateSynchronizer 与生成的 WorldSessionBehaviour |
-| wire 合同 | SetReadyCommand 与 SessionStatusState 已由 MemoryPack／YYGC 生成注册，两个首批 Tag 均冻结为 `0`；CampControlMode、epoch、revision、PolicyRevision、Ready 和时间状态目前仅是合同，尚无正式命令处理器或实体集合投影 |
+| wire 合同 | SetReadyCommand 与 SessionStatusState 已由 MemoryPack／YYGC 生成注册，两个首批 Tag 均冻结为 `0`；尚未把会话业务层接到网络处理器和状态发布器，也无实体集合投影 |
+| 权威会话基础 | SessionAuthority 独占 GameSession，可信适配签发连接能力；统一队列执行 SharedCamp／HostOnly、时间与加载权限，保序去重与有界结果窗口；已通过真实规则回归，网络身份认证／握手、恢复凭据及实际投影 Ready 尚未接入 |
 | 资源保护 | 环境工具保留 GUID 移入正式 Editor 目录；Initialize 遇已有目标立即拒绝；BuildAddressablesContent 仅验证并构建，不调用初始化。配置注册只保存本批配置与分组 |
 | 守卫 | tools/ArchitectureGuard 检查源码结构、项目依赖、Core 禁用 API 与 Editor/Tests 隔离；tools/CoreBuild 以 C#9 / netstandard2.1 独立编译实际 Core 源码 |
-| 新存档与文件 | GameSaveJson 独立格式 v1，校验实际规则／布局摘要与 Core 随机算法；GameSaveStore 固定槽位、同目录临时文件落盘后原子替换，加载仅返回完整临时世界。已通过独立与 Editor 检查，未接 UI、权限或加载 epoch |
+| 新存档与文件 | GameSaveJson 独立格式 v1；GameSaveStore 固定槽位与原子替换。SessionAuthority 已验证房主 BeginLoad 票据、失败保留世界、成功切 epoch／Ready 并保持策略；文件任务编排、保存命令与 UI 尚未接入 |
 
 构建会临时开启 Addressables Build Layout 诊断并恢复原设置，避免首次构建的可选报告弹窗阻塞自动任务。构建串行执行，结束时恢复后端、裁剪及预加载选项，并原样还原调用前的 ProjectSettings 文件，避免 Unity 把临时构建配置留在磁盘中。正式 Mono 首次运行暴露 Sample 类型被 AppStartup 完整性检查误认为漏注册，已在隔离依赖补齐与生成器一致的排除规则；失败日志保留，详见[依赖修正](DEPENDENCIES.md#正式配置解析依赖)。
 
@@ -68,7 +69,11 @@ pwsh -NoProfile -File tools/test-game-startup.ps1 -Backend il2cpp
 
 验证：独立回归 **1164/1164**（新增存档 60 项），架构守卫 **97 个手写文件、10 项自测**通过；Unity 本批导入及修正算法常量后的编译均无错误，完整 Editor 程序集 **34/34**通过。覆盖真实文件锁导致提交失败、损坏／超大输入、取消、并发保存、新旧格式隔离及新格式恢复后继续 20 秒的冻结结果。实际 .NET 存档在 Unity 加载后 JSON 字段值精确一致，两个摘要一致；浮点文本位数不同不作为字节一致保证。本批未构建或运行 Mono／IL2CPP Player、联机或美术验收。正式资产、配置和旧夹具未改写；详见[存档合同](SAVE_FORMAT.md)及[第六批证据](evidence/world-save-2026-09-11.json)。
 
-下一批进入 M2 首个真实规则切片：建立权威会话控制器、可信连接身份与 Ready／去重处理，把冻结 Pinewatch 布局投影为客户端只读实体集合，并接工人移动、采集和住宅施工的必要视图。已有存储适配后续由会话层接入房主授权、Loading／epoch、成功替换与 UI。SharedCamp／HostOnly 执行、晚加入／重连／epoch、完整原生美术、正式关卡可玩性及双机器验收仍待完成；当前 Worker Prefab 只有容器和锚点，没有可见外观，Bootstrap 也不会创建正式会话。
+第七批实现 `Runtime/Session`：权威实例自行创建并独占 GameSession；Host 和来宾均提交冻结的显式参数，在创建线程按接受顺序处理。每连接最多 16 条待处理、全局最多 64 条，保留最近 64 条完成结果；重复请求返回原回执，改参重发／窗口外旧序号不能再次支付。连接替换增加代次并清除 Ready，执行点复查当前连接、epoch、策略与权限。SharedCamp／HostOnly 限制所有营地修改及自动派工；房主控制时间与 BeginLoad。加载票据由服务端持有，取消／失败保留旧世界，成功恢复完整世界后增加 epoch、清空 Ready／去重并保持房间策略。
+
+验证：独立回归 **1260/1260**（新增会话 96 项），架构守卫 **109 个手写文件、10 项自测**零错误；Unity 两次批量编译无错误，最终完整 Editor 程序集 **37/37**通过。采集 12 秒、住宅施工和训练与直接 Core 的完整快照一致；队列争抢不足资源、工位独占、部分训练支付、策略切换、非法输入、重连旧请求及加载失败／取消均有检查；加载冻结旧档后继续 20 秒对照原结果。没有运行 Player、PlayMode、多进程或弱网检查，没有修改正式资源或冻结夹具。第二次编译的新增输入为显式保序去重及补充队列／部分成功场景；详见[会话业务合同](SESSION_AUTHORITY.md)和[第七批证据](evidence/session-authority-2026-09-11.json)。
+
+下一批继续 M2：将现有权威业务层接入 YYGC Gateway/Sender/Processor 的服务端上下文，完成固定内容握手、连接映射及真实完整投影／Ready，再接工人移动、采集与住宅施工的必要视图和独立进程验收。存档仍需文件任务编排、保存命令及产品 UI。网络晚加入／重连／epoch、完整原生美术、正式关卡可玩性及双机器验收待完成；Worker Prefab 只有容器和锚点，Bootstrap 不会创建正式会话。
 
 ## 工作量与难度
 
@@ -174,4 +179,4 @@ M5从干净目录／锁定依赖构建，验证实际Player，不把Editor Play�
 - 已有实证：`6000.4.9f1` 环境基线，YYGC `10b8f0e` 的 Sample Mono / IL2CPP 四进程与弱网；正式少量定义、DTO 与生成注册已通过双后端启动，正式玩法联机仍必须重验。
 - M0/M1 锁定：正式生成注册／访问、JSON 库、GUID / Key 映射与 GuidFirst／GuidV2 网络定义、规则及随机兼容；旧 v1 存档导入单独保留。
 - M2 测量决定：完整投影频率、插值缓冲、载荷上限、是否分块或拆流以及性能预算。
-- M0 已以 Worker／WorldSession 少量正式定义和双后端 Player 收口；M1 配置、权威规则、旧档核心、正式布局来源、新格式及原子文件适配已实现并验证，存档 UI／会话接入仍待完成。未修改 Godot 或用户 YYGC 仓库，Sample 保持独立；正式对象尚无可见美术、权威会话处理或实体集合投影，不能据此标为可玩或联机完成。
+- M0 已以少量正式定义和双后端 Player 收口；M1 规则／存储已验证；M2 权威会话业务层已通过单元回归，网络接线、文件编排、UI 与实体集合投影仍待完成。未修改 Godot 或用户 YYGC 仓库，Sample 保持独立；正式对象尚无可见美术，不能据此标为可玩或联机完成。

@@ -1,0 +1,228 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using DarkNights.Core.Config;
+using DarkNights.Core.Logic;
+using DarkNights.Core.Logic.State;
+using DarkNights.Core.Save;
+using DarkNights.Runtime.Save;
+
+namespace DarkNights.Runtime.Session
+{
+    /// <summary>
+    /// 服务端独占一局 GameSession，串行处理有界请求、权限、去重及固定 60 Hz 调度。
+    /// 连接签发和 Ready 由可信服务端适配调用，不能直接暴露为 RPC；Host 业务也只走 Submit。
+    /// 所有操作限创建线程，异步存储只能携带冻结快照或加载票据，完成后回到该线程提交。
+    /// </summary>
+    public sealed class SessionAuthority : IDisposable
+    {
+        public const int ProtocolVersion = 1;
+        public const int MaximumPendingPerPlayer = 16;
+        public const int ResultWindow = 64;
+        private readonly int ownerThread = Thread.CurrentThread.ManagedThreadId;
+        private readonly SessionConnection[] connections = new SessionConnection[4];
+        private readonly int[] generations = new int[4];
+        private readonly Queue<SessionCommandEntry> pending = new Queue<SessionCommandEntry>();
+        private readonly GameSaveJson saveJson;
+        private GameSession world;
+        private SessionReceipt loadTicket;
+        private bool started;
+        public int Epoch { get; private set; } = 1;
+        public int Revision { get; private set; }
+        public int PolicyRevision { get; private set; }
+        public long ServerTick { get; private set; }
+        public CampControlMode ControlMode { get; private set; } = CampControlMode.SharedCamp;
+        public bool Loading => loadTicket != null;
+        public bool Closed { get; private set; }
+        public int PendingCount => pending.Count;
+        public int PlayerCount => connections.Count(c => c != null);
+        public int ReadyCount => connections.Count(c => c != null && c.Ready);
+
+        public SessionAuthority(GameCatalog catalog, LevelLayout layout)
+        {
+            world = new GameSession(catalog, layout);
+            saveJson = new GameSaveJson(catalog, layout);
+        }
+
+        // 服务端握手/恢复凭据验证完成后才调用；slot 0 是服务端配置的房主，不来自请求字段。
+        public SessionConnection Connect(int slot)
+        {
+            CheckThread();
+            if (Closed) throw new ObjectDisposedException(nameof(SessionAuthority));
+            if (slot < 0 || slot >= connections.Length) throw new ArgumentOutOfRangeException(nameof(slot));
+            if (Loading) throw new InvalidOperationException("Cannot replace connections while loading.");
+            var connection = new SessionConnection(slot, checked(generations[slot] + 1), Revision);
+            generations[slot] = connection.Generation;
+            connections[slot]?.ResetWorld();
+            connections[slot] = connection;
+            return connection;
+        }
+
+        public void Disconnect(SessionConnection connection)
+        {
+            CheckThread();
+            if (!Active(connection)) return;
+            if (connection.IsHost) { Dispose(); return; }
+            connection.ResetWorld();
+            connections[connection.PlayerSlot] = null;
+        }
+
+        // 适配层须先验证内容握手与实际应用的完整投影；此处只守护 epoch/revision 和当前连接。
+        public bool AcknowledgeReady(SessionConnection connection, int epoch, int appliedRevision)
+        {
+            CheckThread();
+            if (!Active(connection) || Loading || epoch != Epoch ||
+                appliedRevision < connection.BaselineRevision || appliedRevision > Revision) return false;
+            connection.Ready = true;
+            if (connection.IsHost) started = true;
+            return true;
+        }
+
+        public SessionReceipt Submit(SessionConnection connection, SessionRequest request)
+        {
+            CheckThread();
+            SessionResultCode gate = ValidateEnvelope(connection, request);
+            if (gate != SessionResultCode.Applied) return Receipt(connection, request, gate);
+            if (connection.History.TryGetValue(request.Sequence, out var cached))
+                return cached.Request.SameIntent(request) ? cached.Receipt : Receipt(connection, request, SessionResultCode.SequenceConflict);
+            if (request.Sequence <= connection.HighestSequence) return Receipt(connection, request, SessionResultCode.SequenceExpired);
+            if (Loading) return Receipt(connection, request, SessionResultCode.Loading);
+            if (!connection.Ready) return Receipt(connection, request, SessionResultCode.NotReady);
+            if (connection.PendingCount >= MaximumPendingPerPlayer || pending.Count >= MaximumPendingPerPlayer * connections.Length)
+                return Receipt(connection, request, SessionResultCode.QueueFull);
+            var entry = new SessionCommandEntry(connection, request, Receipt(connection, request, SessionResultCode.Pending));
+            connection.HighestSequence = request.Sequence;
+            connection.PendingCount++;
+            connection.History.Add(request.Sequence, entry);
+            pending.Enqueue(entry);
+            return entry.Receipt;
+        }
+
+        // 每个服务端调度点调用一次；外层累积真实时间并保留积压，不传入任意网络 delta。
+        public IReadOnlyList<SessionReceipt> Tick()
+        {
+            CheckThread();
+            if (Closed) return Array.Empty<SessionReceipt>();
+            ServerTick = checked(ServerTick + 1);
+            var results = new List<SessionReceipt>(pending.Count);
+            while (pending.Count != 0)
+            {
+                var entry = pending.Dequeue();
+                if (entry.Connection.PendingCount > 0) entry.Connection.PendingCount--;
+                entry.Receipt = Execute(entry.Connection, entry.Request);
+                if (Active(entry.Connection)) entry.Connection.RememberCompleted(entry.Request.Sequence);
+                results.Add(entry.Receipt);
+            }
+            if (started && !Loading)
+            {
+                int nextRevision = checked(Revision + 1);
+                world.Advance(1.0 / 60);
+                Revision = nextRevision;
+            }
+            return results.AsReadOnly();
+        }
+
+        private SessionReceipt Execute(SessionConnection connection, SessionRequest request)
+        {
+            SessionResultCode gate = ValidateEnvelope(connection, request);
+            if (gate == SessionResultCode.Applied && Loading) gate = SessionResultCode.Loading;
+            if (gate == SessionResultCode.Applied && !connection.Ready) gate = SessionResultCode.NotReady;
+            if (gate == SessionResultCode.Applied && request.PolicyRevision != PolicyRevision) gate = SessionResultCode.PolicyChanged;
+            if (gate == SessionResultCode.Applied && !connection.IsHost &&
+                (ControlMode == CampControlMode.HostOnly || SessionOperations.HostRequired(request.Operation)))
+                gate = SessionResultCode.PermissionDenied;
+            if (gate == SessionResultCode.Applied && !SessionOperations.ValidWorld(world, request)) gate = SessionResultCode.InvalidRequest;
+            if (gate != SessionResultCode.Applied) return Receipt(connection, request, gate);
+            int nextRevision = checked(Revision + 1);
+            int affected = 1;
+            int entityId = 0;
+            if (request.Operation == SessionOperation.SetControlMode)
+            {
+                if (ControlMode != (CampControlMode)request.Value)
+                {
+                    PolicyRevision = checked(PolicyRevision + 1);
+                    ControlMode = (CampControlMode)request.Value;
+                }
+            }
+            else if (request.Operation != SessionOperation.BeginLoad)
+                affected = SessionOperations.Apply(world, request, out entityId);
+            Revision = nextRevision;
+            var result = Receipt(connection, request, affected > 0 ? SessionResultCode.Applied : SessionResultCode.NoEffect, affected, entityId);
+            if (request.Operation == SessionOperation.BeginLoad) loadTicket = result;
+            return result;
+        }
+
+        private SessionResultCode ValidateEnvelope(SessionConnection connection, SessionRequest request)
+        {
+            if (Closed) return SessionResultCode.SessionClosed;
+            if (!Active(connection)) return SessionResultCode.InvalidConnection;
+            if (!SessionOperations.ValidShape(request)) return SessionResultCode.InvalidRequest;
+            if (request.Protocol != ProtocolVersion) return SessionResultCode.ProtocolMismatch;
+            if (request.Epoch != Epoch) return SessionResultCode.EpochChanged;
+            return SessionResultCode.Applied;
+        }
+
+        // 仅供权威存储和验证读取；包含 RNG 的恢复快照禁止发送到客户端或交给 View。
+        public SessionSnapshot CaptureWorld()
+        {
+            CheckThread();
+            if (Closed) throw new ObjectDisposedException(nameof(SessionAuthority));
+            return SnapshotMapper.Capture(world);
+        }
+
+        // ticket 必须是本实例 BeginLoad 执行得到的同一个回执对象，不能用网络 DTO 重建。
+        public void CompleteLoad(SessionReceipt ticket, string json)
+        {
+            CheckLoadTicket(ticket);
+            try
+            {
+                int nextEpoch = checked(Epoch + 1);
+                GameSession restored = saveJson.Restore(json);
+                world = restored;
+                Epoch = nextEpoch;
+                Revision = 0;
+                started = false;
+                pending.Clear();
+                foreach (var connection in connections) connection?.ResetWorld();
+            }
+            finally { loadTicket = null; }
+        }
+
+        public void CancelLoad(SessionReceipt ticket)
+        {
+            CheckLoadTicket(ticket);
+            loadTicket = null;
+        }
+
+        private void CheckLoadTicket(SessionReceipt ticket)
+        {
+            CheckThread();
+            if (Closed || ticket == null || !ReferenceEquals(ticket, loadTicket))
+                throw new InvalidOperationException("Load ticket is no longer active.");
+        }
+
+        private bool Active(SessionConnection connection) => !Closed && connection != null &&
+            ReferenceEquals(connections[connection.PlayerSlot], connection);
+
+        private SessionReceipt Receipt(SessionConnection connection, SessionRequest request, SessionResultCode code,
+            int affected = 0, int entityId = 0) => new SessionReceipt(connection, request, Epoch, Revision,
+                PolicyRevision, ServerTick, code, affected, entityId);
+
+        private void CheckThread()
+        {
+            if (Thread.CurrentThread.ManagedThreadId != ownerThread)
+                throw new InvalidOperationException("Session operations must run on the owning thread.");
+        }
+
+        public void Dispose()
+        {
+            CheckThread();
+            Closed = true;
+            pending.Clear();
+            loadTicket = null;
+            foreach (var connection in connections) connection?.ResetWorld();
+            Array.Clear(connections, 0, connections.Length);
+        }
+    }
+}

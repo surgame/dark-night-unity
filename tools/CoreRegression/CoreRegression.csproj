@@ -14,6 +14,7 @@
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Config/ConfigJson.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Config/GameCatalogJson.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Save/*.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Session/*.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/RuleScenario.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/EconomyScenarios.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/WorkTrainingScenarios.cs" />
@@ -22,6 +23,7 @@
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/SaveMigrationScenarios.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/GameSaveScenarios.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/GameSaveFileScenarios.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/Session*Scenario*.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/RandomCompatibilityScenarios.cs" />
   </ItemGroup>
 </Project>
