@@ -16,6 +16,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 57892829ba5122f4ba088c29da524d62, type: 2}
   - {fileID: 11400000, guid: 2831308ce23cb1b40b41fceb09dff2e6, type: 2}
   - {fileID: 11400000, guid: d5d2552cf49b2a849b83d527d782f122, type: 2}
+  - {fileID: 11400000, guid: f91187dc2d2c99b46be92ec283a00c9c, type: 2}
+  - {fileID: 11400000, guid: dab7b83c65706a7428b2bcefedc2d3ab, type: 2}
+  - {fileID: 11400000, guid: fc10243d4de9cc84db0f7a3af1a0b50e, type: 2}
+  - {fileID: 11400000, guid: fdab779e054f8c44f8e22f8ea5f9858a, type: 2}
+  - {fileID: 11400000, guid: 8af095eb2982cd64f87dcbb2011ee0d9, type: 2}
+  - {fileID: 11400000, guid: 6d562b8d5824d2d4682ea725e4cbbd10, type: 2}
+  - {fileID: 11400000, guid: 462f08ac967440f458772620c642e75b, type: 2}
+  - {fileID: 11400000, guid: de920f6f46b0ee34ab730757b1f164cf, type: 2}
+  - {fileID: 11400000, guid: 9b02302c0d6fc394ca25c303d7dc9869, type: 2}
+  - {fileID: 11400000, guid: ff2d152b3be9674488f54366b52a8aee, type: 2}
+  - {fileID: 11400000, guid: a240041943d08544d85185a72385da7f, type: 2}
+  - {fileID: 11400000, guid: 98858cfbd09fbaa4c9a6fb3bf53020ad, type: 2}
+  - {fileID: 11400000, guid: 68ef7d9c2e17ab44ba435ccff85b756f, type: 2}
+  - {fileID: 11400000, guid: ea428c54b80b9b44ca4ca163704026e8, type: 2}
   registryServerUrl: https://ID-REGISTRY/id-registry
   projectName: DNights
   identityMode: 1

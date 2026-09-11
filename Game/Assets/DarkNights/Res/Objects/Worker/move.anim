@@ -1,0 +1,315 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: move
+  serializedVersion: 7
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: -0.06, y: 0.06, z: 0}
+        inSlope: {x: Infinity, y: 0, z: 0}
+        outSlope: {x: Infinity, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: ArtOffset/Facing/Origin/Body/Sprite
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: -0.06, y: 0.06, z: 0}
+        inSlope: {x: Infinity, y: 0, z: 0}
+        outSlope: {x: Infinity, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: ArtOffset/Facing/Origin/Clothing/Sprite
+  m_ScaleCurves: []
+  m_FloatCurves:
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Enabled
+    path: ArtOffset/Facing/Origin/Body/Sprite
+    classID: 212
+    script: {fileID: 0}
+    flags: 16
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Enabled
+    path: ArtOffset/Facing/Origin/Clothing/Sprite
+    classID: 212
+    script: {fileID: 0}
+    flags: 16
+  m_PPtrCurves:
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 661bb7571fb454c409ee2179e256ff0c, type: 3}
+    - time: 0.083333336
+      value: {fileID: 21300000, guid: 66935829a85d1f54fa380c1bc3d41aa9, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: 38db5fd8149bf2c49a7913dbaae13780, type: 3}
+    - time: 0.25
+      value: {fileID: 21300000, guid: 58195c7717cc06b4ca09573226554b7b, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: a992f83a3556a5142baa31a835e47aad, type: 3}
+    - time: 0.41666666
+      value: {fileID: 21300000, guid: 0d043080d89949d4b87afaf707e7d199, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: a904c89deeba30a49bfd5b2f5c136f7d, type: 3}
+    - time: 0.5833333
+      value: {fileID: 21300000, guid: 591fe9d362245054ab1efc0c31b1f997, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: ebfcdfee11ef0fa49ada2004edd7c3f4, type: 3}
+    - time: 0.75
+      value: {fileID: 21300000, guid: 60e8d3addbd18084194ce55faab8ec47, type: 3}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: 24d95eec82357944bae5ecd3f8fbea0b, type: 3}
+    - time: 0.9166667
+      value: {fileID: 21300000, guid: 02afd74113dcd044a9c77841eb722944, type: 3}
+    attribute: m_Sprite
+    path: ArtOffset/Facing/Origin/Body/Sprite
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: bcdf242c6deb7e74cbf58a5a62cb068f, type: 3}
+    - time: 0.083333336
+      value: {fileID: 21300000, guid: 065f16b897a4573478ef547024004f99, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: bb569a0680d9a4242b7c40171712841a, type: 3}
+    - time: 0.25
+      value: {fileID: 21300000, guid: 59a4ff8d5102cbb46973a8a07cb00a40, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: 11a7bc278ac8e904ca94d3615f3b0fd6, type: 3}
+    - time: 0.41666666
+      value: {fileID: 21300000, guid: 8cd4bd4e9f738c54aa2a3415ffc4a3f6, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: c6329975555c40e44bbf37f4b9a49aa3, type: 3}
+    - time: 0.5833333
+      value: {fileID: 21300000, guid: 3381b9fa1fc6f9e4b882c4e43e21f645, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: 549966b089ad89e4c924f2190f31e258, type: 3}
+    - time: 0.75
+      value: {fileID: 21300000, guid: 166d89c1a63f7834fad7096e6dd55fef, type: 3}
+    - time: 0.8333333
+      value: {fileID: 21300000, guid: 329cbe809bd884e43a3b4a16fceab0c5, type: 3}
+    - time: 0.9166667
+      value: {fileID: 21300000, guid: 20b4cd823b660ac4faec0f5e2f7e21fc, type: 3}
+    attribute: m_Sprite
+    path: ArtOffset/Facing/Origin/Clothing/Sprite
+    classID: 212
+    script: {fileID: 0}
+    flags: 2
+  m_SampleRate: 60
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings: []
+    pptrCurveMapping: []
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 1
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 1
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves:
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Enabled
+    path: ArtOffset/Facing/Origin/Body/Sprite
+    classID: 212
+    script: {fileID: 0}
+    flags: 16
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -0.06
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: ArtOffset/Facing/Origin/Body/Sprite
+    classID: 4
+    script: {fileID: 0}
+    flags: 16
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.06
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: ArtOffset/Facing/Origin/Body/Sprite
+    classID: 4
+    script: {fileID: 0}
+    flags: 16
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_Enabled
+    path: ArtOffset/Facing/Origin/Clothing/Sprite
+    classID: 212
+    script: {fileID: 0}
+    flags: 16
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: -0.06
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.x
+    path: ArtOffset/Facing/Origin/Clothing/Sprite
+    classID: 4
+    script: {fileID: 0}
+    flags: 16
+  - serializedVersion: 2
+    curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.06
+        inSlope: Infinity
+        outSlope: Infinity
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    attribute: m_LocalPosition.y
+    path: ArtOffset/Facing/Origin/Clothing/Sprite
+    classID: 4
+    script: {fileID: 0}
+    flags: 16
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_Events: []

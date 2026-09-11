@@ -1,0 +1,4965 @@
+{
+  "manifestSha256": "bb042696e20a0d49e1b15dbbebfba52d719cd9632639b96db09d3fd04c42c77e",
+  "visuals": [
+    {
+      "name": "Archer",
+      "source": "scenes/actors/visuals/Archer.tscn",
+      "sha256": "5e20906d6b18b08b4f6d4faf440d58ad578017ead6d47371ad63f5de059b0f1b",
+      "nodes": [
+        {
+          "name": "ArcherVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Facing",
+          "type": "Node2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Origin",
+          "type": "Node2D",
+          "parent": "ArtOffset/Facing",
+          "position": [
+            0.0,
+            -6.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "BackArm",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Facing/Origin",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_archer_backarm_idle/spr_archer_backarm_idle_0.png",
+          "offset": [
+            -8.0,
+            -10.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Body",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Facing/Origin",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_archer_body_idle/spr_archer_body_idle_0.png",
+          "offset": [
+            -8.0,
+            -10.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "FrontArm",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Facing/Origin",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_archer_frontarm_idle/spr_archer_frontarm_idle_0.png",
+          "offset": [
+            -8.0,
+            -10.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "AnimationPlayer",
+          "type": "AnimationPlayer",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -20.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 0.08333333333333333,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/BackArm",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/BackArm",
+              "property": "texture",
+              "times": [
+                0.0
+              ],
+              "values": [
+                "res://assets/sprites/spr_archer_backarm_idle/spr_archer_backarm_idle_0.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/BackArm",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0
+              ],
+              "values": [
+                "res://assets/sprites/spr_archer_body_idle/spr_archer_body_idle_0.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/FrontArm",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/FrontArm",
+              "property": "texture",
+              "times": [
+                0.0
+              ],
+              "values": [
+                "res://assets/sprites/spr_archer_frontarm_idle/spr_archer_frontarm_idle_0.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/FrontArm",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "move",
+          "duration": 0.9166666666666666,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/BackArm",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/BackArm",
+              "property": "texture",
+              "times": [
+                0.0
+              ],
+              "values": [
+                "res://assets/sprites/spr_archer_backarm_move/spr_archer_backarm_move_0.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/BackArm",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -10.0,
+                  -14.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334
+              ],
+              "values": [
+                "res://assets/sprites/spr_archer_body_move/spr_archer_body_move_0.png",
+                "res://assets/sprites/spr_archer_body_move/spr_archer_body_move_1.png",
+                "res://assets/sprites/spr_archer_body_move/spr_archer_body_move_2.png",
+                "res://assets/sprites/spr_archer_body_move/spr_archer_body_move_3.png",
+                "res://assets/sprites/spr_archer_body_move/spr_archer_body_move_4.png",
+                "res://assets/sprites/spr_archer_body_move/spr_archer_body_move_5.png",
+                "res://assets/sprites/spr_archer_body_move/spr_archer_body_move_6.png",
+                "res://assets/sprites/spr_archer_body_move/spr_archer_body_move_7.png",
+                "res://assets/sprites/spr_archer_body_move/spr_archer_body_move_8.png",
+                "res://assets/sprites/spr_archer_body_move/spr_archer_body_move_9.png",
+                "res://assets/sprites/spr_archer_body_move/spr_archer_body_move_10.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -10.0,
+                  -14.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/FrontArm",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/FrontArm",
+              "property": "texture",
+              "times": [
+                0.0
+              ],
+              "values": [
+                "res://assets/sprites/spr_archer_frontarm_move/spr_archer_frontarm_move_0.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/FrontArm",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -10.0,
+                  -14.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "attack",
+          "duration": 1.75,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/BackArm",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/BackArm",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333,
+                1.1666666666666667,
+                1.25,
+                1.3333333333333333,
+                1.4166666666666667,
+                1.5,
+                1.5833333333333333,
+                1.6666666666666667
+              ],
+              "values": [
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_0.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_1.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_2.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_3.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_4.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_5.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_6.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_7.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_8.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_9.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_10.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_11.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_12.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_13.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_14.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_15.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_16.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_17.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_18.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_19.png",
+                "res://assets/sprites/spr_archer_backarm_loadshoot/spr_archer_backarm_loadshoot_20.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/BackArm",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -11.0,
+                  -10.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333,
+                1.1666666666666667,
+                1.25,
+                1.3333333333333333,
+                1.4166666666666667,
+                1.5,
+                1.5833333333333333,
+                1.6666666666666667
+              ],
+              "values": [
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_0.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_1.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_2.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_3.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_4.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_5.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_6.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_7.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_8.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_9.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_10.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_11.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_12.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_13.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_14.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_15.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_16.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_17.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_18.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_19.png",
+                "res://assets/sprites/spr_archer_body_loadshoot/spr_archer_body_loadshoot_20.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -10.0,
+                  -14.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/FrontArm",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/FrontArm",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333,
+                1.1666666666666667,
+                1.25,
+                1.3333333333333333,
+                1.4166666666666667,
+                1.5,
+                1.5833333333333333,
+                1.6666666666666667
+              ],
+              "values": [
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_0.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_1.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_2.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_3.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_4.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_5.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_6.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_7.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_8.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_9.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_10.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_11.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_12.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_13.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_14.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_15.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_16.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_17.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_18.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_19.png",
+                "res://assets/sprites/spr_archer_frontarm_loadshoot/spr_archer_frontarm_loadshoot_20.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/FrontArm",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "die",
+          "duration": 1.0833333333333333,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/BackArm",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                false
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0
+              ],
+              "values": [
+                "res://assets/sprites/spr_archer_die/spr_archer_die_0.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_1.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_2.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_3.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_4.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_5.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_6.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_7.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_8.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_9.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_10.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_11.png",
+                "res://assets/sprites/spr_archer_die/spr_archer_die_12.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/FrontArm",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                false
+              ]
+            }
+          ]
+        }
+      ],
+      "pickBounds": [
+        -11.0,
+        -22.0,
+        22.0,
+        28.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Animator": "AnimationPlayer",
+        "Facing": "ArtOffset/Facing",
+        "Origin": "ArtOffset/Facing/Origin"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "animationSources": [
+        {
+          "path": "res://resources/animations/Archer.tres",
+          "sha256": "e4901161f3c89e8dd8fb1a8ae25ac806237cf60e75d7c4c717937e0d3b3a96e8"
+        }
+      ],
+      "category": "actors"
+    },
+    {
+      "name": "Armored",
+      "source": "scenes/actors/visuals/Armored.tscn",
+      "sha256": "d37e9692b1402b934bc703c940e92edcea9c367c215c033bdf0f19d5346e28c7",
+      "nodes": [
+        {
+          "name": "ArmoredVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Facing",
+          "type": "Node2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Origin",
+          "type": "Node2D",
+          "parent": "ArtOffset/Facing",
+          "position": [
+            0.0,
+            -6.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Body",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Facing/Origin",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_0.png",
+          "offset": [
+            -6.0,
+            -6.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "AnimationPlayer",
+          "type": "AnimationPlayer",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -20.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 1.1666666666666667,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333
+              ],
+              "values": [
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_0.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_1.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_2.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_3.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_4.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_5.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_6.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_7.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_8.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_9.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_10.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_11.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_12.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_13.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "move",
+          "duration": 1.1666666666666667,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333
+              ],
+              "values": [
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_0.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_1.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_2.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_3.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_4.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_5.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_6.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_7.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_8.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_9.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_10.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_11.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_12.png",
+                "res://assets/sprites/spr_zombie_armored_move/spr_zombie_armored_move_13.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "attack",
+          "duration": 0.6666666666666666,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334
+              ],
+              "values": [
+                "res://assets/sprites/spr_zombie_armored_strike/spr_zombie_armored_strike_0.png",
+                "res://assets/sprites/spr_zombie_armored_strike/spr_zombie_armored_strike_1.png",
+                "res://assets/sprites/spr_zombie_armored_strike/spr_zombie_armored_strike_2.png",
+                "res://assets/sprites/spr_zombie_armored_strike/spr_zombie_armored_strike_3.png",
+                "res://assets/sprites/spr_zombie_armored_strike/spr_zombie_armored_strike_4.png",
+                "res://assets/sprites/spr_zombie_armored_strike/spr_zombie_armored_strike_5.png",
+                "res://assets/sprites/spr_zombie_armored_strike/spr_zombie_armored_strike_6.png",
+                "res://assets/sprites/spr_zombie_armored_strike/spr_zombie_armored_strike_7.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "die",
+          "duration": 0.8333333333333334,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75
+              ],
+              "values": [
+                "res://assets/sprites/spr_zombie_armored_die1/spr_zombie_armored_die1_0.png",
+                "res://assets/sprites/spr_zombie_armored_die1/spr_zombie_armored_die1_1.png",
+                "res://assets/sprites/spr_zombie_armored_die1/spr_zombie_armored_die1_2.png",
+                "res://assets/sprites/spr_zombie_armored_die1/spr_zombie_armored_die1_3.png",
+                "res://assets/sprites/spr_zombie_armored_die1/spr_zombie_armored_die1_4.png",
+                "res://assets/sprites/spr_zombie_armored_die1/spr_zombie_armored_die1_5.png",
+                "res://assets/sprites/spr_zombie_armored_die1/spr_zombie_armored_die1_6.png",
+                "res://assets/sprites/spr_zombie_armored_die1/spr_zombie_armored_die1_7.png",
+                "res://assets/sprites/spr_zombie_armored_die1/spr_zombie_armored_die1_8.png",
+                "res://assets/sprites/spr_zombie_armored_die1/spr_zombie_armored_die1_9.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "pickBounds": [
+        -11.0,
+        -22.0,
+        22.0,
+        28.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Animator": "AnimationPlayer",
+        "Facing": "ArtOffset/Facing",
+        "Origin": "ArtOffset/Facing/Origin"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "animationSources": [
+        {
+          "path": "res://resources/animations/Armored.tres",
+          "sha256": "466709dda9c58363267e36d6e78c0886d57d029a7f164a99c2c9038b89d96e9a"
+        }
+      ],
+      "category": "actors"
+    },
+    {
+      "name": "Ghoul",
+      "source": "scenes/actors/visuals/Ghoul.tscn",
+      "sha256": "dfa41393cf3eb08061fc938afb0cdc8531d09ecce7aa3738c59a6a6fac254076",
+      "nodes": [
+        {
+          "name": "GhoulVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Facing",
+          "type": "Node2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Origin",
+          "type": "Node2D",
+          "parent": "ArtOffset/Facing",
+          "position": [
+            0.0,
+            -4.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Body",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Facing/Origin",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_0.png",
+          "offset": [
+            -9.0,
+            -8.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "AnimationPlayer",
+          "type": "AnimationPlayer",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -20.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 1.3333333333333333,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333,
+                1.1666666666666667,
+                1.25
+              ],
+              "values": [
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_0.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_1.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_2.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_3.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_4.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_5.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_6.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_7.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_8.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_9.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_10.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_11.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_12.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_13.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_14.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_15.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -9.0,
+                  -8.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "move",
+          "duration": 1.3333333333333333,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333,
+                1.1666666666666667,
+                1.25
+              ],
+              "values": [
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_0.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_1.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_2.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_3.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_4.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_5.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_6.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_7.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_8.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_9.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_10.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_11.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_12.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_13.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_14.png",
+                "res://assets/sprites/spr_ghoul_move/spr_ghoul_move_15.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -9.0,
+                  -8.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "attack",
+          "duration": 0.6666666666666666,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334
+              ],
+              "values": [
+                "res://assets/sprites/spr_ghoul_strike/spr_ghoul_strike_0.png",
+                "res://assets/sprites/spr_ghoul_strike/spr_ghoul_strike_1.png",
+                "res://assets/sprites/spr_ghoul_strike/spr_ghoul_strike_2.png",
+                "res://assets/sprites/spr_ghoul_strike/spr_ghoul_strike_3.png",
+                "res://assets/sprites/spr_ghoul_strike/spr_ghoul_strike_4.png",
+                "res://assets/sprites/spr_ghoul_strike/spr_ghoul_strike_5.png",
+                "res://assets/sprites/spr_ghoul_strike/spr_ghoul_strike_6.png",
+                "res://assets/sprites/spr_ghoul_strike/spr_ghoul_strike_7.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -9.0,
+                  -8.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "die",
+          "duration": 1.0,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666
+              ],
+              "values": [
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_0.png",
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_1.png",
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_2.png",
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_3.png",
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_4.png",
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_5.png",
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_6.png",
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_7.png",
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_8.png",
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_9.png",
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_10.png",
+                "res://assets/sprites/spr_ghoul_die1/spr_ghoul_die1_11.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -9.0,
+                  -8.0
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "pickBounds": [
+        -11.0,
+        -22.0,
+        22.0,
+        28.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Animator": "AnimationPlayer",
+        "Facing": "ArtOffset/Facing",
+        "Origin": "ArtOffset/Facing/Origin"
+      },
+      "standing": [
+        0.0,
+        -4.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "animationSources": [
+        {
+          "path": "res://resources/animations/Ghoul.tres",
+          "sha256": "e82cea22dacd76adc7992dc3a16b8379dee69308b97c1dc4fb2506b72af20f33"
+        }
+      ],
+      "category": "actors"
+    },
+    {
+      "name": "Spearman",
+      "source": "scenes/actors/visuals/Spearman.tscn",
+      "sha256": "2c76287fd01e8f27b952551cffe9b0a3a3d40ec411f4f17a894fb3458077e782",
+      "nodes": [
+        {
+          "name": "SpearmanVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Facing",
+          "type": "Node2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Origin",
+          "type": "Node2D",
+          "parent": "ArtOffset/Facing",
+          "position": [
+            0.0,
+            -6.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Body",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Facing/Origin",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_spearman_idle/spr_spearman_idle_0.png",
+          "offset": [
+            -14.0,
+            -22.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Clothing",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Facing/Origin",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_spearman_idle_shirt/spr_spearman_idle_shirt_0.png",
+          "offset": [
+            -14.0,
+            -22.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "AnimationPlayer",
+          "type": "AnimationPlayer",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -20.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 0.08333333333333333,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0
+              ],
+              "values": [
+                "res://assets/sprites/spr_spearman_idle/spr_spearman_idle_0.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -14.0,
+                  -22.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "texture",
+              "times": [
+                0.0
+              ],
+              "values": [
+                "res://assets/sprites/spr_spearman_idle_shirt/spr_spearman_idle_shirt_0.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -14.0,
+                  -22.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "move",
+          "duration": 1.0,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666
+              ],
+              "values": [
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_0.png",
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_1.png",
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_2.png",
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_3.png",
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_4.png",
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_5.png",
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_6.png",
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_7.png",
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_8.png",
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_9.png",
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_10.png",
+                "res://assets/sprites/spr_spearman_walk_fight/spr_spearman_walk_fight_11.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -14.0,
+                  -22.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666
+              ],
+              "values": [
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_0.png",
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_1.png",
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_2.png",
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_3.png",
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_4.png",
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_5.png",
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_6.png",
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_7.png",
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_8.png",
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_9.png",
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_10.png",
+                "res://assets/sprites/spr_spearman_walk_fight_shirt/spr_spearman_walk_fight_shirt_11.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -14.0,
+                  -22.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "attack",
+          "duration": 1.0,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666
+              ],
+              "values": [
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_0.png",
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_1.png",
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_2.png",
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_3.png",
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_4.png",
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_5.png",
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_6.png",
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_7.png",
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_8.png",
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_9.png",
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_10.png",
+                "res://assets/sprites/spr_spearman_strike/spr_spearman_strike_11.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -14.0,
+                  -22.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666
+              ],
+              "values": [
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_0.png",
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_1.png",
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_2.png",
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_3.png",
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_4.png",
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_5.png",
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_6.png",
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_7.png",
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_8.png",
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_9.png",
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_10.png",
+                "res://assets/sprites/spr_spearman_strike_shirt/spr_spearman_strike_shirt_11.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -14.0,
+                  -22.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "die",
+          "duration": 0.75,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666
+              ],
+              "values": [
+                "res://assets/sprites/spr_spearman_die/spr_spearman_die_0.png",
+                "res://assets/sprites/spr_spearman_die/spr_spearman_die_1.png",
+                "res://assets/sprites/spr_spearman_die/spr_spearman_die_2.png",
+                "res://assets/sprites/spr_spearman_die/spr_spearman_die_3.png",
+                "res://assets/sprites/spr_spearman_die/spr_spearman_die_4.png",
+                "res://assets/sprites/spr_spearman_die/spr_spearman_die_5.png",
+                "res://assets/sprites/spr_spearman_die/spr_spearman_die_6.png",
+                "res://assets/sprites/spr_spearman_die/spr_spearman_die_7.png",
+                "res://assets/sprites/spr_spearman_die/spr_spearman_die_8.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -14.0,
+                  -22.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                false
+              ]
+            }
+          ]
+        }
+      ],
+      "pickBounds": [
+        -11.0,
+        -22.0,
+        22.0,
+        28.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Animator": "AnimationPlayer",
+        "Facing": "ArtOffset/Facing",
+        "Origin": "ArtOffset/Facing/Origin",
+        "Clothing": "ArtOffset/Facing/Origin/Clothing"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "animationSources": [
+        {
+          "path": "res://resources/animations/Spearman.tres",
+          "sha256": "efc267339b1616621dd6105e88dd37751b172201ff1c9791b4ad525fc4e101b8"
+        }
+      ],
+      "category": "actors"
+    },
+    {
+      "name": "Worker",
+      "source": "scenes/actors/visuals/Worker.tscn",
+      "sha256": "64bbf71c8409bb24cc4fdb9faef3a97b86b64761da446e205bae730943a97305",
+      "nodes": [
+        {
+          "name": "WorkerVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Facing",
+          "type": "Node2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Origin",
+          "type": "Node2D",
+          "parent": "ArtOffset/Facing",
+          "position": [
+            0.0,
+            -6.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Body",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Facing/Origin",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_worker_idle/spr_worker_idle_0.png",
+          "offset": [
+            -6.0,
+            -6.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Clothing",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Facing/Origin",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_worker_shirt_idle/spr_worker_shirt_idle_0.png",
+          "offset": [
+            -6.0,
+            -6.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "AnimationPlayer",
+          "type": "AnimationPlayer",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -20.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 0.08333333333333333,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_idle/spr_worker_idle_0.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "texture",
+              "times": [
+                0.0
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_shirt_idle/spr_worker_shirt_idle_0.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "move",
+          "duration": 1.0,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_0.png",
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_1.png",
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_2.png",
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_3.png",
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_4.png",
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_5.png",
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_6.png",
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_7.png",
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_8.png",
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_9.png",
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_10.png",
+                "res://assets/sprites/spr_worker_walking/spr_worker_walking_11.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_0.png",
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_1.png",
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_2.png",
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_3.png",
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_4.png",
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_5.png",
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_6.png",
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_7.png",
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_8.png",
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_9.png",
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_10.png",
+                "res://assets/sprites/spr_worker_shirt_walking/spr_worker_shirt_walking_11.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "attack",
+          "duration": 0.5,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_build/spr_worker_build_0.png",
+                "res://assets/sprites/spr_worker_build/spr_worker_build_1.png",
+                "res://assets/sprites/spr_worker_build/spr_worker_build_2.png",
+                "res://assets/sprites/spr_worker_build/spr_worker_build_3.png",
+                "res://assets/sprites/spr_worker_build/spr_worker_build_4.png",
+                "res://assets/sprites/spr_worker_build/spr_worker_build_5.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_0.png",
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_1.png",
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_2.png",
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_3.png",
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_4.png",
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_5.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "build",
+          "duration": 0.5,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_build/spr_worker_build_0.png",
+                "res://assets/sprites/spr_worker_build/spr_worker_build_1.png",
+                "res://assets/sprites/spr_worker_build/spr_worker_build_2.png",
+                "res://assets/sprites/spr_worker_build/spr_worker_build_3.png",
+                "res://assets/sprites/spr_worker_build/spr_worker_build_4.png",
+                "res://assets/sprites/spr_worker_build/spr_worker_build_5.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_0.png",
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_1.png",
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_2.png",
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_3.png",
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_4.png",
+                "res://assets/sprites/spr_worker_shirt_build/spr_worker_shirt_build_5.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "work_wood",
+          "duration": 0.9166666666666666,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_wood/spr_worker_wood_0.png",
+                "res://assets/sprites/spr_worker_wood/spr_worker_wood_1.png",
+                "res://assets/sprites/spr_worker_wood/spr_worker_wood_2.png",
+                "res://assets/sprites/spr_worker_wood/spr_worker_wood_3.png",
+                "res://assets/sprites/spr_worker_wood/spr_worker_wood_4.png",
+                "res://assets/sprites/spr_worker_wood/spr_worker_wood_5.png",
+                "res://assets/sprites/spr_worker_wood/spr_worker_wood_6.png",
+                "res://assets/sprites/spr_worker_wood/spr_worker_wood_7.png",
+                "res://assets/sprites/spr_worker_wood/spr_worker_wood_8.png",
+                "res://assets/sprites/spr_worker_wood/spr_worker_wood_9.png",
+                "res://assets/sprites/spr_worker_wood/spr_worker_wood_10.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_shirt_wood/spr_worker_shirt_wood_0.png",
+                "res://assets/sprites/spr_worker_shirt_wood/spr_worker_shirt_wood_1.png",
+                "res://assets/sprites/spr_worker_shirt_wood/spr_worker_shirt_wood_2.png",
+                "res://assets/sprites/spr_worker_shirt_wood/spr_worker_shirt_wood_3.png",
+                "res://assets/sprites/spr_worker_shirt_wood/spr_worker_shirt_wood_4.png",
+                "res://assets/sprites/spr_worker_shirt_wood/spr_worker_shirt_wood_5.png",
+                "res://assets/sprites/spr_worker_shirt_wood/spr_worker_shirt_wood_6.png",
+                "res://assets/sprites/spr_worker_shirt_wood/spr_worker_shirt_wood_7.png",
+                "res://assets/sprites/spr_worker_shirt_wood/spr_worker_shirt_wood_8.png",
+                "res://assets/sprites/spr_worker_shirt_wood/spr_worker_shirt_wood_9.png",
+                "res://assets/sprites/spr_worker_shirt_wood/spr_worker_shirt_wood_10.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "work_mine",
+          "duration": 1.5,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333,
+                1.1666666666666667,
+                1.25,
+                1.3333333333333333,
+                1.4166666666666667
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_0.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_1.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_2.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_3.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_4.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_5.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_6.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_7.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_8.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_9.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_10.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_11.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_12.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_13.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_14.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_15.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_16.png",
+                "res://assets/sprites/spr_worker_mine/spr_worker_mine_17.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333,
+                1.1666666666666667,
+                1.25,
+                1.3333333333333333,
+                1.4166666666666667
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_0.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_1.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_2.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_3.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_4.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_5.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_6.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_7.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_8.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_9.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_10.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_11.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_12.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_13.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_14.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_15.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_16.png",
+                "res://assets/sprites/spr_worker_shirt_mine/spr_worker_shirt_mine_17.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "work_farm",
+          "duration": 2.1666666666666665,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333,
+                1.1666666666666667,
+                1.25,
+                1.3333333333333333,
+                1.4166666666666667,
+                1.5,
+                1.5833333333333333,
+                1.6666666666666667,
+                1.75,
+                1.8333333333333333,
+                1.9166666666666667,
+                2.0,
+                2.0833333333333335
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_0.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_1.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_2.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_3.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_4.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_5.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_6.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_7.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_8.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_9.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_10.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_11.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_12.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_13.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_14.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_15.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_16.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_17.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_18.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_19.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_20.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_21.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_22.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_23.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_24.png",
+                "res://assets/sprites/spr_worker_farm/spr_worker_farm_25.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -10.0,
+                  -10.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333,
+                1.1666666666666667,
+                1.25,
+                1.3333333333333333,
+                1.4166666666666667,
+                1.5,
+                1.5833333333333333,
+                1.6666666666666667,
+                1.75,
+                1.8333333333333333,
+                1.9166666666666667,
+                2.0,
+                2.0833333333333335
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_0.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_1.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_2.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_3.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_4.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_5.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_6.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_7.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_8.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_9.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_10.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_11.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_12.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_13.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_14.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_15.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_16.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_17.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_18.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_19.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_20.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_21.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_22.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_23.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_24.png",
+                "res://assets/sprites/spr_worker_shirt_farm/spr_worker_shirt_farm_25.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -10.0,
+                  -10.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "die",
+          "duration": 0.75,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666
+              ],
+              "values": [
+                "res://assets/sprites/spr_worker_dying/spr_worker_dying_0.png",
+                "res://assets/sprites/spr_worker_dying/spr_worker_dying_1.png",
+                "res://assets/sprites/spr_worker_dying/spr_worker_dying_2.png",
+                "res://assets/sprites/spr_worker_dying/spr_worker_dying_3.png",
+                "res://assets/sprites/spr_worker_dying/spr_worker_dying_4.png",
+                "res://assets/sprites/spr_worker_dying/spr_worker_dying_5.png",
+                "res://assets/sprites/spr_worker_dying/spr_worker_dying_6.png",
+                "res://assets/sprites/spr_worker_dying/spr_worker_dying_7.png",
+                "res://assets/sprites/spr_worker_dying/spr_worker_dying_8.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Clothing",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                false
+              ]
+            }
+          ]
+        }
+      ],
+      "pickBounds": [
+        -11.0,
+        -22.0,
+        22.0,
+        28.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Animator": "AnimationPlayer",
+        "Facing": "ArtOffset/Facing",
+        "Origin": "ArtOffset/Facing/Origin",
+        "Clothing": "ArtOffset/Facing/Origin/Clothing"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "animationSources": [
+        {
+          "path": "res://resources/animations/Worker.tres",
+          "sha256": "3add537fec71de0d666119b94e14b844943ffd355805a98b08df3b034f0708ae"
+        }
+      ],
+      "category": "actors"
+    },
+    {
+      "name": "Zombie",
+      "source": "scenes/actors/visuals/Zombie.tscn",
+      "sha256": "05ad919696ddb45264b80a0a2a548cf2d57e9befc141dd590f34f28da532b7bd",
+      "nodes": [
+        {
+          "name": "ZombieVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Facing",
+          "type": "Node2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Origin",
+          "type": "Node2D",
+          "parent": "ArtOffset/Facing",
+          "position": [
+            0.0,
+            -6.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Body",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Facing/Origin",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_zombie_idle/spr_zombie_idle_0.png",
+          "offset": [
+            -6.0,
+            -6.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "AnimationPlayer",
+          "type": "AnimationPlayer",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -20.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [
+        {
+          "name": "idle",
+          "duration": 0.08333333333333333,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0
+              ],
+              "values": [
+                "res://assets/sprites/spr_zombie_idle/spr_zombie_idle_0.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "move",
+          "duration": 1.1666666666666667,
+          "loop": true,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75,
+                0.8333333333333334,
+                0.9166666666666666,
+                1.0,
+                1.0833333333333333
+              ],
+              "values": [
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_0.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_1.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_2.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_3.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_4.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_5.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_6.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_7.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_8.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_9.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_10.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_11.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_12.png",
+                "res://assets/sprites/spr_zombie_move/spr_zombie_move_13.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -6.0,
+                  -6.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "attack",
+          "duration": 0.6666666666666666,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334
+              ],
+              "values": [
+                "res://assets/sprites/spr_zombie_strike/spr_zombie_strike_0.png",
+                "res://assets/sprites/spr_zombie_strike/spr_zombie_strike_1.png",
+                "res://assets/sprites/spr_zombie_strike/spr_zombie_strike_2.png",
+                "res://assets/sprites/spr_zombie_strike/spr_zombie_strike_3.png",
+                "res://assets/sprites/spr_zombie_strike/spr_zombie_strike_4.png",
+                "res://assets/sprites/spr_zombie_strike/spr_zombie_strike_5.png",
+                "res://assets/sprites/spr_zombie_strike/spr_zombie_strike_6.png",
+                "res://assets/sprites/spr_zombie_strike/spr_zombie_strike_7.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "name": "die",
+          "duration": 0.8333333333333334,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "visible",
+              "times": [
+                0.0
+              ],
+              "values": [
+                true
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.08333333333333333,
+                0.16666666666666666,
+                0.25,
+                0.3333333333333333,
+                0.4166666666666667,
+                0.5,
+                0.5833333333333334,
+                0.6666666666666666,
+                0.75
+              ],
+              "values": [
+                "res://assets/sprites/spr_zombie_die1/spr_zombie_die1_0.png",
+                "res://assets/sprites/spr_zombie_die1/spr_zombie_die1_1.png",
+                "res://assets/sprites/spr_zombie_die1/spr_zombie_die1_2.png",
+                "res://assets/sprites/spr_zombie_die1/spr_zombie_die1_3.png",
+                "res://assets/sprites/spr_zombie_die1/spr_zombie_die1_4.png",
+                "res://assets/sprites/spr_zombie_die1/spr_zombie_die1_5.png",
+                "res://assets/sprites/spr_zombie_die1/spr_zombie_die1_6.png",
+                "res://assets/sprites/spr_zombie_die1/spr_zombie_die1_7.png",
+                "res://assets/sprites/spr_zombie_die1/spr_zombie_die1_8.png",
+                "res://assets/sprites/spr_zombie_die1/spr_zombie_die1_9.png"
+              ]
+            },
+            {
+              "path": "ArtOffset/Facing/Origin/Body",
+              "property": "offset",
+              "times": [
+                0.0
+              ],
+              "values": [
+                [
+                  -8.0,
+                  -10.0
+                ]
+              ]
+            }
+          ]
+        }
+      ],
+      "pickBounds": [
+        -11.0,
+        -22.0,
+        22.0,
+        28.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Animator": "AnimationPlayer",
+        "Facing": "ArtOffset/Facing",
+        "Origin": "ArtOffset/Facing/Origin"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "animationSources": [
+        {
+          "path": "res://resources/animations/Zombie.tres",
+          "sha256": "4c7a096c3d70466c0a01d8e696d11a20acaa287fe43445351c859407cafccd01"
+        }
+      ],
+      "category": "actors"
+    },
+    {
+      "name": "Barracks",
+      "source": "scenes/buildings/visuals/Barracks.tscn",
+      "sha256": "59734cde5ef8143f79960968c562d546bd953cc4d7b563b52183f6d4d26fa9de",
+      "nodes": [
+        {
+          "name": "BarracksVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Complete",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_bld_barracks/spr_bld_barracks_0.png",
+          "offset": [
+            -48.0,
+            -96.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Foundation",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_bld_barracks_fnd/spr_bld_barracks_fnd_0.png",
+          "offset": [
+            -48.0,
+            -96.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Rubble",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_bld_barracks_rubble/spr_bld_barracks_rubble_0.png",
+          "offset": [
+            -48.0,
+            -96.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "AnimationPlayer",
+          "type": "AnimationPlayer",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -56.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [
+        {
+          "name": "construction",
+          "duration": 1.0,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Foundation",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.4,
+                0.5,
+                0.6,
+                0.7,
+                0.8,
+                0.9
+              ],
+              "values": [
+                "res://assets/sprites/spr_bld_barracks_fnd/spr_bld_barracks_fnd_0.png",
+                "res://assets/sprites/spr_bld_barracks_fnd/spr_bld_barracks_fnd_1.png",
+                "res://assets/sprites/spr_bld_barracks_fnd/spr_bld_barracks_fnd_2.png",
+                "res://assets/sprites/spr_bld_barracks_fnd/spr_bld_barracks_fnd_3.png",
+                "res://assets/sprites/spr_bld_barracks_fnd/spr_bld_barracks_fnd_4.png",
+                "res://assets/sprites/spr_bld_barracks_fnd/spr_bld_barracks_fnd_5.png",
+                "res://assets/sprites/spr_bld_barracks_fnd/spr_bld_barracks_fnd_6.png",
+                "res://assets/sprites/spr_bld_barracks_fnd/spr_bld_barracks_fnd_7.png",
+                "res://assets/sprites/spr_bld_barracks_fnd/spr_bld_barracks_fnd_8.png",
+                "res://assets/sprites/spr_bld_barracks_fnd/spr_bld_barracks_fnd_9.png"
+              ]
+            }
+          ]
+        }
+      ],
+      "pickBounds": [
+        -49.0,
+        -53.0,
+        100.0,
+        56.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Complete": "ArtOffset/Complete",
+        "Foundation": "ArtOffset/Foundation",
+        "Rubble": "ArtOffset/Rubble",
+        "Animator": "AnimationPlayer"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "animationSources": [
+        {
+          "path": "res://resources/animations/BarracksConstruction.tres",
+          "sha256": "0a8b3cffca07514f5da91cbe64c0d281ab730563499538c4405817eda665bf85"
+        }
+      ],
+      "category": "buildings"
+    },
+    {
+      "name": "Farm",
+      "source": "scenes/buildings/visuals/Farm.tscn",
+      "sha256": "b151c5bd15f48fbf56d000c19d3527ece588d942e1976910904c295b86b6ba75",
+      "nodes": [
+        {
+          "name": "FarmVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Complete",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_res_farm/spr_res_farm_0.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -13.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [],
+      "pickBounds": [
+        -19.0,
+        -10.0,
+        38.0,
+        13.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Complete": "ArtOffset/Complete"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": true,
+      "category": "buildings"
+    },
+    {
+      "name": "House",
+      "source": "scenes/buildings/visuals/House.tscn",
+      "sha256": "ecc999c47feedbd1200514383e3ce04b7d21f23e1abddaa3fa32d024feacd86b",
+      "nodes": [
+        {
+          "name": "HouseVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Complete",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_bld_house/spr_bld_house_0.png",
+          "offset": [
+            -16.0,
+            -64.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Foundation",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_bld_house_fnd/spr_bld_house_fnd_0.png",
+          "offset": [
+            -16.0,
+            -64.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Rubble",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_bld_house_rubble/spr_bld_house_rubble_0.png",
+          "offset": [
+            -16.0,
+            -64.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "AnimationPlayer",
+          "type": "AnimationPlayer",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -37.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [
+        {
+          "name": "construction",
+          "duration": 1.0,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Foundation",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.4,
+                0.5,
+                0.6,
+                0.7,
+                0.8,
+                0.9
+              ],
+              "values": [
+                "res://assets/sprites/spr_bld_house_fnd/spr_bld_house_fnd_0.png",
+                "res://assets/sprites/spr_bld_house_fnd/spr_bld_house_fnd_1.png",
+                "res://assets/sprites/spr_bld_house_fnd/spr_bld_house_fnd_2.png",
+                "res://assets/sprites/spr_bld_house_fnd/spr_bld_house_fnd_3.png",
+                "res://assets/sprites/spr_bld_house_fnd/spr_bld_house_fnd_4.png",
+                "res://assets/sprites/spr_bld_house_fnd/spr_bld_house_fnd_5.png",
+                "res://assets/sprites/spr_bld_house_fnd/spr_bld_house_fnd_6.png",
+                "res://assets/sprites/spr_bld_house_fnd/spr_bld_house_fnd_7.png",
+                "res://assets/sprites/spr_bld_house_fnd/spr_bld_house_fnd_8.png",
+                "res://assets/sprites/spr_bld_house_fnd/spr_bld_house_fnd_9.png"
+              ]
+            }
+          ]
+        }
+      ],
+      "pickBounds": [
+        -19.0,
+        -34.0,
+        38.0,
+        37.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Complete": "ArtOffset/Complete",
+        "Foundation": "ArtOffset/Foundation",
+        "Rubble": "ArtOffset/Rubble",
+        "Animator": "AnimationPlayer"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "animationSources": [
+        {
+          "path": "res://resources/animations/HouseConstruction.tres",
+          "sha256": "d737453ecc87578c0ded6029ad999bb1ac0317c3f6bb7f14e2bb8bd2b9f7f555"
+        }
+      ],
+      "category": "buildings"
+    },
+    {
+      "name": "Tavern",
+      "source": "scenes/buildings/visuals/Tavern.tscn",
+      "sha256": "19bb18b8062d6cbd22d940fd85984cb9dc43df324c9c0a648ab05456f027d557",
+      "nodes": [
+        {
+          "name": "TavernVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Complete",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_bld_tavern/spr_bld_tavern_0.png",
+          "offset": [
+            -32.0,
+            -64.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Foundation",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_bld_tavern_fnd/spr_bld_tavern_fnd_0.png",
+          "offset": [
+            -32.0,
+            -64.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Rubble",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_bld_tavern_rubble/spr_bld_tavern_rubble_0.png",
+          "offset": [
+            -32.0,
+            -64.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "AnimationPlayer",
+          "type": "AnimationPlayer",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -46.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [
+        {
+          "name": "construction",
+          "duration": 1.0,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Foundation",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.4,
+                0.5,
+                0.6,
+                0.7,
+                0.8,
+                0.9
+              ],
+              "values": [
+                "res://assets/sprites/spr_bld_tavern_fnd/spr_bld_tavern_fnd_0.png",
+                "res://assets/sprites/spr_bld_tavern_fnd/spr_bld_tavern_fnd_1.png",
+                "res://assets/sprites/spr_bld_tavern_fnd/spr_bld_tavern_fnd_2.png",
+                "res://assets/sprites/spr_bld_tavern_fnd/spr_bld_tavern_fnd_3.png",
+                "res://assets/sprites/spr_bld_tavern_fnd/spr_bld_tavern_fnd_4.png",
+                "res://assets/sprites/spr_bld_tavern_fnd/spr_bld_tavern_fnd_5.png",
+                "res://assets/sprites/spr_bld_tavern_fnd/spr_bld_tavern_fnd_6.png",
+                "res://assets/sprites/spr_bld_tavern_fnd/spr_bld_tavern_fnd_7.png",
+                "res://assets/sprites/spr_bld_tavern_fnd/spr_bld_tavern_fnd_8.png",
+                "res://assets/sprites/spr_bld_tavern_fnd/spr_bld_tavern_fnd_9.png"
+              ]
+            }
+          ]
+        }
+      ],
+      "pickBounds": [
+        -35.0,
+        -43.0,
+        69.0,
+        46.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Complete": "ArtOffset/Complete",
+        "Foundation": "ArtOffset/Foundation",
+        "Rubble": "ArtOffset/Rubble",
+        "Animator": "AnimationPlayer"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "animationSources": [
+        {
+          "path": "res://resources/animations/TavernConstruction.tres",
+          "sha256": "73de5db810e8af86de889de723898038cc0d52d08d0503a552df518dcfb57a22"
+        }
+      ],
+      "category": "buildings"
+    },
+    {
+      "name": "Tower",
+      "source": "scenes/buildings/visuals/Tower.tscn",
+      "sha256": "de0037403a5b790119eb88f851eda9ceb506c1bcb437800152767aed8f6db8a5",
+      "nodes": [
+        {
+          "name": "TowerVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Complete",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_bld_tower/spr_bld_tower_0.png",
+          "offset": [
+            -16.0,
+            -48.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Foundation",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_bld_tower_fnd/spr_bld_tower_fnd_0.png",
+          "offset": [
+            -16.0,
+            -48.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Rubble",
+          "type": "Sprite2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_bld_tower_rubble/spr_bld_tower_rubble_0.png",
+          "offset": [
+            -16.0,
+            -48.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "AnimationPlayer",
+          "type": "AnimationPlayer",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -53.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [
+        {
+          "name": "construction",
+          "duration": 1.0,
+          "loop": false,
+          "tracks": [
+            {
+              "path": "ArtOffset/Foundation",
+              "property": "texture",
+              "times": [
+                0.0,
+                0.1,
+                0.2,
+                0.3,
+                0.4,
+                0.5,
+                0.6,
+                0.7,
+                0.8,
+                0.9
+              ],
+              "values": [
+                "res://assets/sprites/spr_bld_tower_fnd/spr_bld_tower_fnd_0.png",
+                "res://assets/sprites/spr_bld_tower_fnd/spr_bld_tower_fnd_1.png",
+                "res://assets/sprites/spr_bld_tower_fnd/spr_bld_tower_fnd_2.png",
+                "res://assets/sprites/spr_bld_tower_fnd/spr_bld_tower_fnd_3.png",
+                "res://assets/sprites/spr_bld_tower_fnd/spr_bld_tower_fnd_4.png",
+                "res://assets/sprites/spr_bld_tower_fnd/spr_bld_tower_fnd_5.png",
+                "res://assets/sprites/spr_bld_tower_fnd/spr_bld_tower_fnd_6.png",
+                "res://assets/sprites/spr_bld_tower_fnd/spr_bld_tower_fnd_7.png",
+                "res://assets/sprites/spr_bld_tower_fnd/spr_bld_tower_fnd_8.png",
+                "res://assets/sprites/spr_bld_tower_fnd/spr_bld_tower_fnd_9.png"
+              ]
+            }
+          ]
+        }
+      ],
+      "pickBounds": [
+        -19.0,
+        -50.0,
+        38.0,
+        53.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Complete": "ArtOffset/Complete",
+        "Foundation": "ArtOffset/Foundation",
+        "Rubble": "ArtOffset/Rubble",
+        "Animator": "AnimationPlayer"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "animationSources": [
+        {
+          "path": "res://resources/animations/TowerConstruction.tres",
+          "sha256": "178deb31fd2dd57bb9fd3b5f4e279222557dcba47af3988f8c3874add076e720"
+        }
+      ],
+      "category": "buildings"
+    },
+    {
+      "name": "Farmland",
+      "source": "scenes/worksites/visuals/Farmland.tscn",
+      "sha256": "0cc339b0bf73488af81c1e4d7fa014147d37ccf4d86a976eab0a29c6ca947297",
+      "nodes": [
+        {
+          "name": "FarmlandVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Variants",
+          "type": "Node2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Variant0",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_res_farm/spr_res_farm_0.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant1",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_farm/spr_res_farm_1.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant2",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_farm/spr_res_farm_2.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant3",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_farm/spr_res_farm_0.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Depleted",
+          "type": "Polygon2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "polygon": [
+            -5.0,
+            -2.0,
+            5.0,
+            -2.0,
+            5.0,
+            0.0,
+            -5.0,
+            0.0
+          ],
+          "color": [
+            0.34509803921568627,
+            0.3411764705882353,
+            0.2784313725490196,
+            1.0
+          ]
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            5.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [],
+      "pickBounds": [
+        -15.0,
+        -23.0,
+        30.0,
+        28.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Variants": "ArtOffset/Variants",
+        "Depleted": "Depleted"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "category": "worksites"
+    },
+    {
+      "name": "Iron",
+      "source": "scenes/worksites/visuals/Iron.tscn",
+      "sha256": "48ee482e09357d4ae51701d10e9eec91f9cdf72bc766db2f0518f468a80fc69f",
+      "nodes": [
+        {
+          "name": "IronVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Variants",
+          "type": "Node2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Variant0",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_res_iron/spr_res_iron_0.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant1",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_iron/spr_res_iron_1.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant2",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_iron/spr_res_iron_2.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant3",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_iron/spr_res_iron_3.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Depleted",
+          "type": "Polygon2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "polygon": [
+            -5.0,
+            -2.0,
+            5.0,
+            -2.0,
+            5.0,
+            0.0,
+            -5.0,
+            0.0
+          ],
+          "color": [
+            0.34509803921568627,
+            0.3411764705882353,
+            0.2784313725490196,
+            1.0
+          ]
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            5.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [],
+      "pickBounds": [
+        -15.0,
+        -23.0,
+        30.0,
+        28.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Variants": "ArtOffset/Variants",
+        "Depleted": "Depleted"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "category": "worksites"
+    },
+    {
+      "name": "Stone",
+      "source": "scenes/worksites/visuals/Stone.tscn",
+      "sha256": "2e3483668e79bc02757d2109c2a4c6325bee8b94c77c8a75420e442f3173d542",
+      "nodes": [
+        {
+          "name": "StoneVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Variants",
+          "type": "Node2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Variant0",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_res_stone/spr_res_stone_0.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant1",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_stone/spr_res_stone_1.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant2",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_stone/spr_res_stone_2.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant3",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_stone/spr_res_stone_3.png",
+          "offset": [
+            -16.0,
+            -32.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Depleted",
+          "type": "Polygon2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "polygon": [
+            -5.0,
+            -2.0,
+            5.0,
+            -2.0,
+            5.0,
+            0.0,
+            -5.0,
+            0.0
+          ],
+          "color": [
+            0.34509803921568627,
+            0.3411764705882353,
+            0.2784313725490196,
+            1.0
+          ]
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            5.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [],
+      "pickBounds": [
+        -15.0,
+        -23.0,
+        30.0,
+        28.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Variants": "ArtOffset/Variants",
+        "Depleted": "Depleted"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "category": "worksites"
+    },
+    {
+      "name": "Trees",
+      "source": "scenes/worksites/visuals/Trees.tscn",
+      "sha256": "6784f45bf4d0acbf11c56cf04c8315a77ab675699ba2dfb2a04d735005f1a6bc",
+      "nodes": [
+        {
+          "name": "TreesVisual",
+          "type": "Node2D",
+          "parent": "",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "ArtOffset",
+          "type": "Node2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Variants",
+          "type": "Node2D",
+          "parent": "ArtOffset",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "Variant0",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": true,
+          "texture": "res://assets/sprites/spr_res_trees/spr_res_trees_0.png",
+          "offset": [
+            -16.0,
+            -64.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant1",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_trees_leaf/spr_res_trees_leaf_1.png",
+          "offset": [
+            -20.0,
+            -64.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant2",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_trees/spr_res_trees_2.png",
+          "offset": [
+            -16.0,
+            -64.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Variant3",
+          "type": "Sprite2D",
+          "parent": "ArtOffset/Variants",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "texture": "res://assets/sprites/spr_res_trees/spr_res_trees_0.png",
+          "offset": [
+            -16.0,
+            -64.0
+          ],
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "name": "Depleted",
+          "type": "Polygon2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            0.0
+          ],
+          "visible": false,
+          "polygon": [
+            -5.0,
+            -2.0,
+            5.0,
+            -2.0,
+            5.0,
+            0.0,
+            -5.0,
+            0.0
+          ],
+          "color": [
+            0.34509803921568627,
+            0.3411764705882353,
+            0.2784313725490196,
+            1.0
+          ]
+        },
+        {
+          "name": "StatusAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            5.0
+          ],
+          "visible": true
+        },
+        {
+          "name": "SelectionAnchor",
+          "type": "Marker2D",
+          "parent": ".",
+          "position": [
+            0.0,
+            -7.0
+          ],
+          "visible": true
+        }
+      ],
+      "clips": [],
+      "pickBounds": [
+        -15.0,
+        -66.0,
+        30.0,
+        71.0
+      ],
+      "bindings": {
+        "StatusAnchor": "StatusAnchor",
+        "SelectionAnchor": "SelectionAnchor",
+        "Variants": "ArtOffset/Variants",
+        "Depleted": "Depleted"
+      },
+      "standing": [
+        0.0,
+        -6.0
+      ],
+      "death": [
+        0.0,
+        -6.0
+      ],
+      "fade": false,
+      "category": "worksites"
+    }
+  ]
+}

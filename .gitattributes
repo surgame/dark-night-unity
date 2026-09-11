@@ -14,6 +14,10 @@ tools/CoreRegression/Fixtures/*.json -text whitespace=cr-at-eol
 *.unity text eol=lf whitespace=-blank-at-eol
 *.prefab text eol=lf whitespace=-blank-at-eol
 *.asset text eol=lf whitespace=-blank-at-eol
+*.anim text eol=lf whitespace=-blank-at-eol
+*.mat text eol=lf whitespace=-blank-at-eol
+# The original art manifest and media retain their frozen source bytes.
+Game/Assets/DarkNights/Res/Art/Original/manifest.json -text whitespace=cr-at-eol
 *.shader text eol=lf
 *.hlsl text eol=lf
 *.png binary

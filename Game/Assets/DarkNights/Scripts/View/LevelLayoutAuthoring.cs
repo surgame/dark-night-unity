@@ -76,7 +76,14 @@ namespace DarkNights.View
 
         private Vector3 Local(Transform value)
         {
-            return transform.InverseTransformPoint(value.position);
+            Vector3 point = Vector3.zero;
+            while (value != transform)
+            {
+                if (value == null) throw new InvalidOperationException("Layout reference must belong to the authoring root.");
+                point = value.localPosition + value.localRotation * Vector3.Scale(point, value.localScale);
+                value = value.parent;
+            }
+            return point;
         }
 
         private void OnDrawGizmos()

@@ -33,7 +33,7 @@ namespace DarkNights.View
                 : category == LevelPlacementCategory.Worksite
                     ? new Color(0.35f, 0.7f, 0.45f, 0.9f)
                     : new Color(0.45f, 0.7f, 0.9f, 0.9f);
-            Gizmos.DrawSphere(transform.position, category == LevelPlacementCategory.Actor ? 3f : 5f);
+            Gizmos.DrawSphere(transform.position, (category == LevelPlacementCategory.Actor ? 3f : 5f) * transform.lossyScale.x);
         }
     }
 }

@@ -43,6 +43,8 @@ namespace DarkNights.Entry
             context.Register(network);
             context.Register(layout);
             network.Initialize(InstanceFinder.NetworkManager, catalog, layout);
+            PinewatchStage stage = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<PinewatchStage>(true)).Single();
+            network.gameObject.AddComponent<SessionEntityViews>().Initialize(network.Client, catalog, stage);
             SessionAutomation.Install(network);
             Application.runInBackground = true;
             Application.targetFrameRate = 60;

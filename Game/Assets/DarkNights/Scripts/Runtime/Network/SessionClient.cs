@@ -20,6 +20,7 @@ namespace DarkNights.Runtime.Network
         private long connection, sequence, readySequence;
         private double nextReadyAt;
         public WorldReplica Replica { get; } = new WorldReplica();
+        public long ConnectionGeneration => connection;
         public bool Ready { get; private set; }
         public int PlayerSlot { get; private set; } = -1;
         public string Status { get; private set; } = "未连接";

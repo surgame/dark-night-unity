@@ -201,7 +201,8 @@ namespace DarkNights.Editor
                 initializer.ObjectInstance != instance || view.Initializer != initializer)
                 throw new InvalidOperationException("Worker ObjectInstance/ObjectView/initializer binding is invalid.");
             string[] keys = { "art_offset", "facing", "status_anchor", "selection_anchor" };
-            if (view.Bindings.Count != keys.Length || keys.Any(key => view.Get<Transform>(key) == null))
+            if (view.Bindings.Count != keys.Length + 1 || keys.Any(key => view.Get<Transform>(key) == null) ||
+                view.Get<DarkNights.View.NativeVisual>("visual") == null)
                 throw new InvalidOperationException("Worker generated component binding table is incomplete.");
         }
 

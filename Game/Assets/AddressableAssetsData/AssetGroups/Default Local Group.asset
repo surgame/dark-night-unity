@@ -15,13 +15,28 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 558f45b4f4dabc840aad0f13233c0fcb
   m_SerializeEntries:
+  - m_GUID: 2dc8c2129136d8d4f9fa7c633a23c07d
+    m_Address: dark_nights.object.ghoul
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3e6d7493f1deefb46b405c27d83da56d
     m_Address: ObjectDefinitionDatabase
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41d7ecce9e18e0043abfb36cfea5a417
+    m_Address: dark_nights.object.armored
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 4c1fd1a3720c9ad4ca66e8577ba36044
     m_Address: NetworkManager
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 52aad29e511795e42b76dfaf3838911a
+    m_Address: dark_nights.object.tower
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -40,6 +55,21 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6dea9ad83887074408cd854d3962911a
+    m_Address: dark_nights.object.trees
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 73fb78bd929415c4d86afdb83d5b771e
+    m_Address: dark_nights.object.farmland
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 84a14c89fd48a9547a8fa3897296e273
+    m_Address: dark_nights.object.barracks
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 887f7dd8067191b469ededa0a55ed0ab
     m_Address: dark_nights.config.balance
     m_ReadOnly: 0
@@ -50,8 +80,28 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90b02abc990efa5438b5dca5a735068a
+    m_Address: dark_nights.object.stone
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a07da539b43195449b547e0b3a93c7e2
     m_Address: AppStartupSettings
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a71bbe1dfd1951d4da864e178abe59e7
+    m_Address: dark_nights.object.tavern
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b458e542a0bbc9f46918cc1820d36613
+    m_Address: dark_nights.object.spearman
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bc32a585f249c4241aec7723b36e6cb8
+    m_Address: dark_nights.object.zombie
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -65,13 +115,33 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c3a4a103cafc13a4a99a0e888fdc082a
+    m_Address: dark_nights.object.archer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c7762b3dc0c27f84e90d36643c2206da
     m_Address: dark_nights.object.world_session
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cbc73dcba495255488270c931459090d
+    m_Address: dark_nights.object.farm
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d54580f6965e6754d8a69884072bf2f0
     m_Address: dark_nights.config.pinewatch
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dbe037e6ed5a129489ba734ec4226211
+    m_Address: dark_nights.object.house
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e95960097cc0e0342a3ade438d1c64ce
+    m_Address: dark_nights.object.iron
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
