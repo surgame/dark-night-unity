@@ -2,7 +2,7 @@
 
 2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已实现自己的四层程序集并验证 YYGC Object、可靠状态链及唯一权威写入。本页描述的正式玩法目录仍属设计；Sample 不反向依赖正式游戏。VitalRouter 仅保留框架命令链的显式适配，业务使用普通方法，R3 负责副本观察及订阅释放。
 
-状态：正式玩法设计基线。已实现 Core/Config、Core/Logic、Core/Save、最小反馈 ViewData、Runtime 配置／旧档解析与 Entry 配置启动；规则及旧档已通过[核心回归](CORE_MIGRATION.md)。首批 Worker／WorldSession Definition、Prefab、ContentId 映射、状态 Behaviour 与生成 wire 注册已通过双后端启动，但实际会话调度、实体展示与正式联机尚未实现。2026-09-11 的[移植方案](MIGRATION_PLAN.md)明确复用 YYGC `10b8f0e` 已由 Sample 验证的命令／状态链，补正式营地投影、可切换控制权限与原生资源。Core 继续保持单一权威模拟。
+状态：正式玩法设计基线。已实现 Core/Config、Core/Logic、Core/Save、最小反馈 ViewData、Runtime 配置／旧档解析与 Entry 配置启动；规则及旧档已通过[核心回归](CORE_MIGRATION.md)。首批 Worker／WorldSession Definition、Prefab、ContentId 映射、状态 Behaviour 与生成 wire 注册已通过双后端启动；正式对象身份已切换为 GuidFirst／GuidV2，但实际会话调度、实体展示与正式联机尚未实现。2026-09-11 的[移植方案](MIGRATION_PLAN.md)明确复用 YYGC `10b8f0e` 已由 Sample 验证的命令／状态链，补正式营地投影、可切换控制权限与原生资源。Core 继续保持单一权威模拟。
 
 ## 设计选择
 
@@ -158,7 +158,7 @@ View 读取权限投影来控制按钮、快捷键和预览；Core 接受经过�
 |---|---|---|
 | ContentId | `worker` 等规则身份 | 随内容版本稳定 |
 | YYGC DefinitionGuid / Key | 定义资产身份与正式配置／查询入口；ContentId 经映射关联 | `.meta` / GUID 稳定；Key 改名保留别名；锁定内容目录版本 |
-| YYGC 旧整数 DefinitionId | LegacyV1 网络定义与既有资产兼容 | 首个切片保留有效 ID，不作为游戏实体 ID |
+| YYGC 旧整数 DefinitionId | YYGC 框架保留的废弃序列化兼容字段 | 正式定义固定 `Id=0` 且无旧 ID 别名；独立 Sample 与旧档迁移另行保留 |
 | EntityId | 单位、建筑、工位身份及保存关系 | 世界内稳定；读取原存档保留 |
 | FishNet ObjectId | 会话／连接网络对象 | 本次 spawn；不能保存为实体 ID |
 | PlayerSlotId | 合作会话中的玩家身份 | 可跨一次断线重连 |
@@ -168,7 +168,7 @@ View 读取权限投影来控制按钮、快捷键和预览；Core 接受经过�
 
 展示绑定键为 `(Epoch, EntityId)`。转职只替换外观，身份和人口不变；死亡／删除时释放视图、选择与绑定。加载先验证新世界，再切 epoch 并清除旧视图、旧请求和插值缓存。
 
-首个正式联机切片保持当前 Sample 的 LegacyV1 wire；本地定义可使用 GUID / Key，网络会话定义仍保留有效旧 ID。新资源用 `DefinitionReference`，查找用 `GetDefinitionByKey`，不能把旧 `GetDefinition(string)` 的资产名语义当成正式 Key。GUID wire V2 是后续明确切换的构建合同，不能单边打开后继续认为与 V1 兼容。
+正式 Dark Nights 已整体切换到 GuidFirst／GuidV2：数据库关闭在线 ID 服务，正式 Definition 只使用 GUID／Key，网络定义不再依赖旧整数 ID；Windows 构建启用 `YYGC_GUID_DEFINITION_WIRE_V2`，双方必须使用同一 V2 合同。YYGC 的 `ObjectDefinition.Id` 和旧 ID 别名仍因框架序列化兼容而存在，但正式 Editor／Runtime 守卫会拒绝非零旧 ID、别名和旧 ID 映射。独立 LAN Sample 继续使用已验证的 LegacyV1；旧 v1 存档导入是玩法迁移边界，不等同于定义身份兼容。新资源用 `DefinitionReference`，查找用 `GetDefinitionByKey`，不能把旧 `GetDefinition(string)` 的资产名语义当成正式 Key。
 
 池和事件的订阅归属必须明确：同一会话结束不留下活动 Update 或订阅。快照发送和插值缓冲拥有自己的数据，不持有已归池 State。初期优先正确性；游戏只有实际测得分配／帧时问题后才增加专用池。
 

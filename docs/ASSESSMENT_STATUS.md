@@ -4,13 +4,19 @@
 
 已实施配置、AppStartup 接入、资源构建防覆盖、架构守卫以及权威规则／旧档核心，详见[当前执行状态](DEVELOPMENT.md#implementation-progress)、[首批证据](evidence/migration-start-2026-09-11.json)和[核心迁移证据](evidence/core-migration-2026-09-11.json)。后续各节保留历史时点，不代表新一批的状态；正式场景、对象绑定、灰松谷表现和正式联机仍未完成。
 
+## 2026-09-11 ObjectDefinition 身份模式切换
+
+当前正式 Dark Nights 项目已切换到 `GuidFirst`／`GuidV2`：数据库关闭在线 ID 服务，正式 Definition 的 `Id` 全为 `0`、旧 ID 别名与旧 ID 映射为空；Windows 构建启用 `YYGC_GUID_DEFINITION_WIRE_V2`。Editor／Runtime 均有硬失败守卫，不再给旧 ID 赋值、通过旧 ID 查询或接受 LegacyV1 正式定义。YYGC 框架中的 deprecated `ObjectDefinition.Id` 字段仍保留给其他旧项目的序列化兼容，用户维护的 YYGC 仓库未修改；独立 LAN Sample 继续作为 LegacyV1 对照。旧 v1 存档导入是玩法迁移，不属于本次切断的定义身份兼容。
+
+本次切换的 32/32 Editor 测试、Core 编译与回归、Mono／IL2CPP 各 6/6 独立启动检查记录在[正式 GuidV2 身份切换证据](evidence/formal-object-contracts-guid-v2-2026-09-11.json)。此前的[正式对象接入证据](evidence/formal-object-contracts-2026-09-11.json)保留为 LegacyCompatible／LegacyV1 历史基线，不覆盖或重生成。
+
 ## 2026-09-11 正式移植设计更新
 
 本次按当前工作区更新[移植方案](MIGRATION_PLAN.md)、[架构](ARCHITECTURE.md)、[联机合同](MULTIPLAYER.md)和[执行计划](DEVELOPMENT.md)，同步 README、依赖、开发入口及协作约定。工作范围为设计文档，未开始正式游戏代码迁移。
 
 实际核对：Godot HEAD 为 `91cb09ff0894f26134f07fd544f1273d9fe7ffaa`；Unity 设计输入为 `4432d75`；YYGC 当前 HEAD 为 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` / `0.3.0-preview.1`。读取了当前项目版本、包引用、真实命令／状态链、定义身份入口、Godot 规则及旧档约束，并检查 Sample 的已提交验证摘要。设计开始时三个仓库均无工作区差异。
 
-本次明确：共享控制默认开启，房主可切 HostOnly；关闭时同时禁止来宾直接下令和建造自动派工等间接操作。策略版本与世界 epoch 分开，已执行任务继续，单人走同一权威入口。正式四程序集不引用 Sample；新定义使用 GUID / Key，首个网络切片保留 LegacyV1。
+原设计阶段曾明确：共享控制默认开启，房主可切 HostOnly；关闭时同时禁止来宾直接下令和建造自动派工等间接操作。策略版本与世界 epoch 分开，已执行任务继续，单人走同一权威入口。正式四程序集不引用 Sample；新定义使用 GUID / Key，首个网络切片暂保留 LegacyV1。该身份方案已由上方正式 GuidFirst／GuidV2 切换取代。
 
 从源码确认的接入待办：样板友元访问补丁不覆盖正式程序集；当前 Addressables 构建入口会执行环境初始化并保存资源；正式投影需要从标量扩展为有界冻结集合。这些工作尚未实施，列入 M0 / M2。既有 LAN / IL2CPP 结果仍是历史证据，本次未重新运行 Unity、Godot 或游戏测试。
 

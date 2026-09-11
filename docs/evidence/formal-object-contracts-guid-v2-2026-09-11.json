@@ -1,0 +1,149 @@
+{
+  "date": "2026-09-11",
+  "scope": "正式项目 ObjectDefinition 身份模式切换、GuidV2 wire、生成注册与双后端 Player 启动探针",
+  "status": "passed_with_unvalidated_boundaries",
+  "supersedes": "formal-object-contracts-2026-09-11.json",
+  "framework": {
+    "commit": "10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4",
+    "preparation": "pwsh -NoProfile -File tools/prepare-lan-sample.ps1",
+    "generatedAssemblyAccess": [
+      "DarkNights.Samples.LanCoop.Runtime",
+      "DarkNights.Runtime"
+    ]
+  },
+  "definitionIdentity": {
+    "project": "DNights",
+    "mode": "GuidFirst",
+    "onlineIdService": false,
+    "legacyIdMap": null,
+    "wire": "GuidV2",
+    "compilerSymbol": "YYGC_GUID_DEFINITION_WIRE_V2",
+    "database": {
+      "path": "Game/Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset",
+      "sha256": "0ec20eded0912c30852db60a99b03c3ab77a27a7057da30e08a085cd1282d10b"
+    }
+  },
+  "outputs": {
+    "worker": {
+      "contentId": "worker",
+      "definitionKey": "unit.worker",
+      "definitionGuid": "57892829ba5122f4ba088c29da524d62",
+      "legacyId": 0,
+      "legacyIdAliases": [],
+      "networkType": "Local",
+      "definitionPath": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "definitionSha256": "83f71cb728b42d10de75295369ebc889e91e4659ed978cd4ff7e7e77b36b8714",
+      "prefabGuid": "8a10edd57a484854e9911d6242f98a7f",
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.prefab",
+      "prefabSha256": "db4609149668dda5733af7977a44d21bfaee2c46c21b69fdd1fbc36272715228",
+      "address": "dark_nights.object.worker",
+      "bindings": ["art_offset", "facing", "status_anchor", "selection_anchor"]
+    },
+    "worldSession": {
+      "definitionKey": "session.pinewatch",
+      "definitionGuid": "2831308ce23cb1b40b41fceb09dff2e6",
+      "legacyId": 0,
+      "legacyIdAliases": [],
+      "networkType": "Network",
+      "definitionPath": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+      "definitionSha256": "c24b46a54049efd47a6b7f161fc84b05d1238f56ba8fdc7b5db392dee71278e5",
+      "prefabGuid": "c7762b3dc0c27f84e90d36643c2206da",
+      "prefabPath": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.prefab",
+      "prefabSha256": "ab4d1d712ca5f5fbbfc73fd0f6f32fc5cf8c811d83be61ee1b26f9f88f0fb60e",
+      "address": "dark_nights.object.world_session",
+      "fishNetSpawnable": true,
+      "behaviour": "DarkNights.Runtime.Network.WorldSessionBehaviour"
+    },
+    "wireContracts": {
+      "command": {
+        "type": "DarkNights.Runtime.Network.SetReadyCommand",
+        "tag": 0,
+        "channel": "Reliable",
+        "scope": "ServerOnly"
+      },
+      "state": {
+        "type": "DarkNights.Runtime.Network.SessionStatusState",
+        "tag": 0
+      }
+    }
+  },
+  "assetIntegrity": {
+    "unchangedVisualAssetsAfterBuild": true,
+    "checkedAssets": [
+      {
+        "path": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.prefab",
+        "sha256": "db4609149668dda5733af7977a44d21bfaee2c46c21b69fdd1fbc36272715228"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.prefab",
+        "sha256": "ab4d1d712ca5f5fbbfc73fd0f6f32fc5cf8c811d83be61ee1b26f9f88f0fb60e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity",
+        "sha256": "e2a91c9c3bae306230425c08607a6bae20023be68faafc91c0a355e019cb21fd"
+      }
+    ],
+    "generatedAddressablesLinkerCleaned": true
+  },
+  "validation": {
+    "architectureGuard": {
+      "command": "dotnet run --project tools/ArchitectureGuard -- .",
+      "handwrittenFiles": 92,
+      "selfTests": 10,
+      "errors": 0
+    },
+    "coreBuild": {
+      "command": "dotnet build tools/CoreBuild/CoreBuild.csproj",
+      "target": "C# 9 / netstandard2.1",
+      "warnings": 0,
+      "errors": 0
+    },
+    "coreRegression": {
+      "command": "dotnet run --project tools/CoreRegression -- .",
+      "checks": 1104,
+      "failures": 0
+    },
+    "unityCompile": {
+      "editor": "6000.4.9f1",
+      "status": "completed",
+      "failed": false,
+      "errors": []
+    },
+    "editorTests": {
+      "command": "unity command run_tests --mode editor --filter DarkNights.Tests --filter_type assembly --project-path Game --detach",
+      "total": 32,
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0
+    },
+    "monoPlayer": {
+      "build": "success",
+      "startupChecks": 6,
+      "passed": 6,
+      "result": "artifacts/migration/run-20260911-215906-383-mono/result.json",
+      "playerSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "verifiedLogSha256": "face3b0fe705b32fe857b8fda2c630a7ece570e6e20b9f33ecb70148f6f62eb0"
+    },
+    "il2cppPlayer": {
+      "build": "success",
+      "startupChecks": 6,
+      "passed": 6,
+      "result": "artifacts/migration/run-20260911-220117-209-il2cpp/result.json",
+      "playerSha256": "a4b596130f036df4dcca05c56d0626996dab7d3b351d89f03b58a06da8b1ba60",
+      "verifiedLogSha256": "7f743328170ffda80c48efd3e9959a352c59138d8b7b2f113e0faffc5338904c"
+    }
+  },
+  "executionNotes": [
+    "正式 Editor／Runtime 创建路径不再接收旧整数 ID，也不再调用 EditorRetainLegacyId；身份验证对旧模式、旧 ID、旧别名和旧映射硬失败。",
+    "前一份正式对象证据中的 LegacyCompatible／LegacyV1 配置未被改写，作为本次切换前的历史基线保留。",
+    "独立 LAN Sample 仍保持 LegacyV1；用户维护的 YYGC 仓库未修改。",
+    "Addressables 构建产生的 link.xml 与 meta 已在验证后清理，保留既有用户删除状态。"
+  ],
+  "notValidated": [
+    "YYGC 框架仍保留 deprecated ObjectDefinition.Id 字段；本项目只保证正式资源不写入、不查询，未修改框架或验证其他旧项目。",
+    "SetReadyCommand 尚无正式 processor；可信连接身份、请求去重、Ready 转换和授权尚未实现。",
+    "WorldSessionBehaviour 当前只携带会话元数据，尚未拥有 GameSession 或发布冻结实体集合。",
+    "Bootstrap 不创建 WorldSession，Pinewatch 不实例化正式对象；游戏尚不可玩。",
+    "未验证正式 Host＋客户端、晚加入、重连、丢包乱序、暂停、双机、视觉对照、池化复用或 Addressables 释放生命周期。"
+  ]
+}

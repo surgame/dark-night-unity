@@ -54,12 +54,12 @@ namespace DarkNights.Editor
             GameObject workerPrefab = CreateWorkerPrefab();
             GameObject sessionPrefab = CreateSessionPrefab();
             ObjectDefinitionDatabase database = AssetDatabase.LoadAssetAtPath<ObjectDefinitionDatabase>(DatabasePath);
-            database.EditorConfigure(DefinitionIdentityMode.LegacyCompatible, false);
+            database.EditorConfigure(DefinitionIdentityMode.GuidFirst, false);
             database.EditorFreezeProjectName();
-            ObjectDefinition worker = CreateDefinition(WorkerDefinitionPath, "工人", 0,
+            ObjectDefinition worker = CreateDefinition(WorkerDefinitionPath, "工人",
                 FormalObjectCatalog.WorkerKey, NetworkType.Local, workerPrefab);
             ObjectDefinition session = CreateDefinition(SessionDefinitionPath, "灰松谷会话",
-                FormalObjectCatalog.SessionLegacyId, FormalObjectCatalog.SessionKey, NetworkType.Network, sessionPrefab);
+                FormalObjectCatalog.SessionKey, NetworkType.Network, sessionPrefab);
             session.BehaviourTypes.Add(typeof(WorldSessionBehaviour).FullName);
             session.SharedConfigs.Add(new ContentDefinitionMap(new[]
             {
@@ -91,19 +91,23 @@ namespace DarkNights.Editor
         {
             ObjectDefinitionDatabase database = Required<ObjectDefinitionDatabase>(DatabasePath);
             database.RebuildLookup();
-            if (database.IdentityMode != DefinitionIdentityMode.LegacyCompatible || database.EnableOnlineIdService ||
+            if (database.IdentityMode != DefinitionIdentityMode.GuidFirst || database.EnableOnlineIdService ||
+                database.LegacyIdMap != null || DefinitionNetworkProfile.WireVersion != 2 ||
                 !string.Equals(database.ProjectName, FormalObjectCatalog.RegistryProject, StringComparison.Ordinal))
-                throw new InvalidOperationException("Definition identity settings must be frozen to offline LegacyV1.");
+                throw new InvalidOperationException("Definition identity settings must be frozen to GuidFirst/GuidV2.");
             ObjectDefinition worker = Required<ObjectDefinition>(WorkerDefinitionPath);
             ObjectDefinition session = Required<ObjectDefinition>(SessionDefinitionPath);
             GameObject workerPrefab = Required<GameObject>(WorkerPrefabPath);
             GameObject sessionPrefab = Required<GameObject>(SessionPrefabPath);
 
-            ValidateIdentity(worker, FormalObjectCatalog.WorkerKey, 0, NetworkType.Local, WorkerPrefabPath);
-            ValidateIdentity(session, FormalObjectCatalog.SessionKey, FormalObjectCatalog.SessionLegacyId,
-                NetworkType.Network, SessionPrefabPath);
-            if (database.GetDefinitionByKey(worker.Key) != worker || database.GetDefinitionByKey(session.Key) != session ||
-                database.GetDefinition(FormalObjectCatalog.SessionLegacyId) != session)
+            foreach (ObjectDefinition definition in database.Definitions)
+            {
+                if (definition == null || definition.Id != 0 || definition.LegacyIdAliases.Count != 0)
+                    throw new InvalidOperationException("Formal definitions must not contain legacy integer identities.");
+            }
+            ValidateIdentity(worker, FormalObjectCatalog.WorkerKey, NetworkType.Local, WorkerPrefabPath);
+            ValidateIdentity(session, FormalObjectCatalog.SessionKey, NetworkType.Network, SessionPrefabPath);
+            if (database.GetDefinitionByKey(worker.Key) != worker || database.GetDefinitionByKey(session.Key) != session)
                 throw new InvalidOperationException("Formal definitions are not indexed by the ObjectDefinitionDatabase.");
             if (session.BehaviourTypes.Count(value => value == typeof(WorldSessionBehaviour).FullName) != 1 ||
                 BehaviourTypeResolver.GetFactoryFor(typeof(WorldSessionBehaviour)) == null)
@@ -163,29 +167,28 @@ namespace DarkNights.Editor
             finally { UnityEngine.Object.DestroyImmediate(root); }
         }
 
-        private static ObjectDefinition CreateDefinition(string path, string displayName, int legacyId,
+        private static ObjectDefinition CreateDefinition(string path, string displayName,
             string key, NetworkType networkType, GameObject prefab)
         {
             var definition = ScriptableObject.CreateInstance<ObjectDefinition>();
-            definition.Id = legacyId;
             definition.Name = displayName;
             definition.NetType = networkType;
             definition.PrefabRef = new AssetReferenceGameObject(AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefab)));
             AssetDatabase.CreateAsset(definition, path);
             string assetGuid = DefinitionIdentityAuthoring.ReadAssetGuid(definition);
             definition.EditorSetIdentity(assetGuid, key, false);
-            definition.EditorRetainLegacyId(legacyId);
             EditorUtility.SetDirty(definition);
             return definition;
         }
 
-        private static void ValidateIdentity(ObjectDefinition definition, string key, int id,
+        private static void ValidateIdentity(ObjectDefinition definition, string key,
             NetworkType networkType, string prefabPath)
         {
             string assetGuid = AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(definition));
             string prefabGuid = AssetDatabase.AssetPathToGUID(prefabPath);
-            if (definition.GuidString != assetGuid || definition.Key != key || definition.Id != id ||
-                definition.NetType != networkType || definition.PrefabRef.AssetGUID != prefabGuid)
+            if (definition.GuidString != assetGuid || definition.Key != key || definition.Id != 0 ||
+                definition.LegacyIdAliases.Count != 0 || definition.NetType != networkType ||
+                definition.PrefabRef.AssetGUID != prefabGuid)
                 throw new InvalidOperationException("Definition identity or PrefabRef is incorrect: " + definition.name);
         }
 

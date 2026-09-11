@@ -17,10 +17,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2831308ce23cb1b40b41fceb09dff2e6, type: 2}
   registryServerUrl: https://ID-REGISTRY/id-registry
   projectName: DNights
-  identityMode: 0
+  identityMode: 1
   registryConfigurationVersion: 1
   enableOnlineIdService: 0
-  reservedLegacyIds: d1300e00
+  reservedLegacyIds: []
   reservedKeys: []
   registryConfigurationRevision: 1
   legacyIdMap: {fileID: 0}

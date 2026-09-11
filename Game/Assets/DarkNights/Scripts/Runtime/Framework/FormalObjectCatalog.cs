@@ -15,7 +15,6 @@ namespace DarkNights.Runtime.Framework
     public static class FormalObjectCatalog
     {
         public const int Protocol = 1;
-        public const int SessionLegacyId = 930001;
         public const string RegistryProject = "DNights";
         public const string SessionKey = "session.pinewatch";
         public const string WorkerKey = "unit.worker";
@@ -25,15 +24,22 @@ namespace DarkNights.Runtime.Framework
         {
             database = database ?? ObjectDefinitionDatabase.Instance;
             if (database == null) throw new InvalidOperationException("ObjectDefinitionDatabase is not loaded.");
-            if (database.IdentityMode != DefinitionIdentityMode.LegacyCompatible || database.EnableOnlineIdService ||
+            if (database.IdentityMode != DefinitionIdentityMode.GuidFirst || database.EnableOnlineIdService ||
+                database.LegacyIdMap != null || DefinitionNetworkProfile.WireVersion != 2 ||
                 !string.Equals(database.ProjectName, RegistryProject, StringComparison.Ordinal))
-                throw new InvalidOperationException("Formal definition identity settings are not frozen for offline LegacyV1.");
+                throw new InvalidOperationException("Formal definition identity settings are not frozen for GuidFirst/GuidV2.");
+            foreach (ObjectDefinition definition in database.Definitions)
+            {
+                if (definition == null || definition.Id != 0 || definition.LegacyIdAliases.Count != 0)
+                    throw new InvalidOperationException("Formal definitions must not contain legacy integer identities.");
+            }
             ObjectDefinition session = database.GetDefinitionByKey(SessionKey);
             ObjectDefinition worker = database.GetDefinitionByKey(WorkerKey);
-            if (session == null || worker == null || database.GetDefinition(SessionLegacyId) != session)
+            if (session == null || worker == null)
                 throw new InvalidOperationException("Formal object definitions are missing from the runtime catalog.");
-            if (!session.isNetwork || session.Id != SessionLegacyId || session.PrefabRef == null || !session.PrefabRef.RuntimeKeyIsValid())
-                throw new InvalidOperationException("Pinewatch session definition is not a valid LegacyV1 network definition.");
+            if (!session.isNetwork || session.Id != 0 || session.Guid.IsEmpty || session.PrefabRef == null ||
+                !session.PrefabRef.RuntimeKeyIsValid())
+                throw new InvalidOperationException("Pinewatch session definition is not a valid GuidV2 network definition.");
             if (!worker.isLocal || worker.Id != 0 || worker.PrefabRef == null || !worker.PrefabRef.RuntimeKeyIsValid())
                 throw new InvalidOperationException("Worker definition is not a valid GUID-first local definition.");
             if (session.BehaviourTypes.Count(value => value == typeof(WorldSessionBehaviour).FullName) != 1 ||

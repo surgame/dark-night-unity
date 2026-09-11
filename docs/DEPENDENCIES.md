@@ -19,7 +19,7 @@
 
 早期包内遗留 `1.0.0`，后经 `0.2.3` 调整到当前预览版本；历史与发布约定见 [YYGC 版本管理](<D:/Developer/YYGC/Documentation~/VERSIONING.md>)。不能根据旧评估中的包版本推断当前接口状态。
 
-当前 manifest 使用 `file:../../.deps/YYGC`，准备脚本校验上述提交。GUID / Key、旧 ID 兼容和显式迁移已在锁定框架中实现，接法见[定义身份指南](<D:/Developer/YYGC/Documentation~/DEFINITION_IDENTITY.md>)。正式新资源用 DefinitionReference 和正式 Key；首个网络切片保留 Sample 的 LegacyV1 wire，网络定义具备有效旧 ID。V2 为单独的协议切换，不在本轮设计中默认开启。
+当前 manifest 使用 `file:../../.deps/YYGC`，准备脚本校验上述提交。GUID / Key、旧 ID 兼容和显式迁移已在锁定框架中实现，接法见[定义身份指南](<D:/Developer/YYGC/Documentation~/DEFINITION_IDENTITY.md>)。正式新资源用 DefinitionReference 和正式 Key；Dark Nights 当前正式 Windows 构建采用 GuidFirst／GuidV2，网络定义不再分配或读取旧 ID。YYGC 的废弃旧 ID 字段仅由框架为其他项目保留，正式项目通过 Editor／Runtime 守卫拒绝；独立 LAN Sample 仍是 LegacyV1 对照样板。
 
 ## 正式配置解析依赖
 

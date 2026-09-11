@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bc8652e55004e79a017907c38b6a1b2, type: 3}
   m_Name: WorldSession
   m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinition
-  Id: 930001
+  Id: 0
   definitionGuid: 2831308ce23cb1b40b41fceb09dff2e6
   key: session.pinewatch
   keyAliases: []
-  legacyIdAliases: d1300e00
+  legacyIdAliases: []
   debugContent: 0
   legacyAllocationPending: 
   Type: 0

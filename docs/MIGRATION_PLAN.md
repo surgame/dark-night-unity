@@ -48,7 +48,7 @@ flowchart LR
 | R3 / VitalRouter | R3 观察副本并管理订阅释放；VitalRouter 只做现有命令链的显式适配，规则使用普通 C# 调用 |
 | UGUI / Interaction Sessions / Addressables | 正式 HUD 和菜单使用 UGUI；建造、框选、模态输入由本地交互会话仲裁；内容本地打包 |
 
-新定义遵循当前 YYGC 的 GUID / Key 设计：ContentId 映射到 `DefinitionReference`，运行时使用 `GetDefinitionByKey` / `CreateByKeyAsync` 等正式入口。核心 EntityId、资产 GUID / Key、旧整数定义 ID 和 FishNet ObjectId 分开。首个联机切片保留 Sample 已验证的 LegacyV1 wire，因此会话等网络定义仍需有效旧整数 ID；本地定义可采用 GUID / Key。GUID wire V2 如需启用，双方整体切换并重新验收，不与此轮规则移植捆绑。详见[身份指南](<D:/Developer/YYGC/Documentation~/DEFINITION_IDENTITY.md>)及[架构](ARCHITECTURE.md)。
+新定义遵循当前 YYGC 的 GUID / Key 设计：ContentId 映射到 `DefinitionReference`，运行时使用 `GetDefinitionByKey` / `CreateByKeyAsync` 等正式入口。核心 EntityId、资产 GUID / Key、旧整数定义 ID 和 FishNet ObjectId 分开。正式 Dark Nights 已整体采用 GuidFirst／GuidV2：数据库关闭在线 ID 服务，所有正式 Definition 的旧整数 ID 和别名均为空，Windows 构建启用 `YYGC_GUID_DEFINITION_WIRE_V2`，网络定义不再依赖旧 ID。YYGC 框架仍保留废弃字段以支持其他旧项目，但正式 Editor／Runtime 守卫会拒绝旧身份。独立 LAN Sample 继续使用已验证的 LegacyV1；旧 v1 存档导入属于玩法迁移，不与定义身份兼容混用。详见[身份指南](<D:/Developer/YYGC/Documentation~/DEFINITION_IDENTITY.md>)及[架构](ARCHITECTURE.md)。
 
 正式代码不引用 `Assets/Samples/LanCoop`；将其中已验证的接法落实到正式的四个程序集，业务 DTO、注册表、Prefab 与会话服务均由正式工程拥有。Sample 保留为独立回归对照。
 
@@ -268,7 +268,7 @@ Unity 新档应有独立格式标识与版本，并记录规则摘要和随机�
 | M4 会话完整性 | 四人、晚加入、断线重连、暂停／倍速、保存／加载、epoch | 第二夜加入、加载中的旧包和控制策略切换均正确 |
 | M5 交付验收 | 双机器 LAN、完整关卡弱网／性能、干净构建及操作文档 | 可独立运行的 Windows Player 和可复现报告 |
 
-M0 已完成两个源码确认的接入项：[SampleAssemblyAccess.cs](../tools/lan-framework-patch/SampleAssemblyAccess.cs) 同时向样板 Runtime 与正式 DarkNights.Runtime 授予生成调度器所需的窄范围友元访问；[DarkNightsEnvironmentSetup](../Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs) 已拆开 `BuildAddressablesContent()` 与 `Initialize()` 并保护初始化输出。Worker／WorldSession 定义、Prefab、Addressables、FishNet spawn、ContentId 映射和 LegacyV1／MemoryPack 生成注册已在 Mono 与 IL2CPP Player 启动验证；证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)。M2 仍需实现命令处理、权威会话和真实实体集合投影。
+M0 已完成两个源码确认的接入项：[SampleAssemblyAccess.cs](../tools/lan-framework-patch/SampleAssemblyAccess.cs) 同时向样板 Runtime 与正式 DarkNights.Runtime 授予生成调度器所需的窄范围友元访问；[DarkNightsEnvironmentSetup](../Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs) 已拆开 `BuildAddressablesContent()` 与 `Initialize()` 并保护初始化输出。Worker／WorldSession 定义、Prefab、Addressables、FishNet spawn、ContentId 映射和 GuidV2／MemoryPack 生成注册已在 Mono 与 IL2CPP Player 启动验证；旧的 LegacyCompatible／LegacyV1 记录保留为历史基线，当前切换证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)及[正式身份切换记录](evidence/formal-object-contracts-guid-v2-2026-09-11.json)。M2 仍需实现命令处理、权威会话和真实实体集合投影。
 
 M2 先迁移真实规则下的工人采集与住宅施工，不再做另一个十金币测试营地。使用冻结开局布局和数值；可暂只接必要视图，其余表现由 M3 补齐。实体集合的复制、序列化、在飞箭矢及事件池生命周期是相对标量 Sample 新增的验证重点。
 

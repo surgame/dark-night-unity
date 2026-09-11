@@ -20,14 +20,14 @@ Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本�
 | 只读配置 | Core/Config 为普通 C#9 不可变类，构造时复制集合；Runtime 显式映射 JSON，保留 196 项原始规则值和 64 位 seed |
 | 依赖 | 显式锁定已有 Newtonsoft UPM 3.2.2（DLL 13.0.2），不增加第二份 JSON DLL；Core 不引用解析库 |
 | 启动 | GameContentStartupModule 接入现有 AppStartup，Addressables 并行加载两份文本并释放句柄；同时验证正式定义、内容映射、Behaviour 工厂与命令／状态注册，全部成功才注册 GameCatalog |
-| 正式对象 | Worker 使用 GUID／Key 本地定义、Addressable Prefab、ObjectInstance／ObjectView／initializer 和 4 个显式锚点绑定；WorldSession 使用 LegacyV1 ID `930001`、NetworkObject、StateSynchronizer 与生成的 WorldSessionBehaviour |
+| 正式对象 | Worker 与 WorldSession 均使用 GuidFirst 的 GUID／Key 定义、旧 ID 为 `0`、无旧 ID 别名；分别接入 Addressable Prefab、ObjectInstance／ObjectView／initializer、StateSynchronizer 与生成的 WorldSessionBehaviour |
 | wire 合同 | SetReadyCommand 与 SessionStatusState 已由 MemoryPack／YYGC 生成注册，两个首批 Tag 均冻结为 `0`；CampControlMode、epoch、revision、PolicyRevision、Ready 和时间状态目前仅是合同，尚无正式命令处理器或实体集合投影 |
 | 资源保护 | 环境工具保留 GUID 移入正式 Editor 目录；Initialize 遇已有目标立即拒绝；BuildAddressablesContent 仅验证并构建，不调用初始化。配置注册只保存本批配置与分组 |
 | 守卫 | tools/ArchitectureGuard 检查源码结构、项目依赖、Core 禁用 API 与 Editor/Tests 隔离；tools/CoreBuild 以 C#9 / netstandard2.1 独立编译实际 Core 源码 |
 
 构建会临时开启 Addressables Build Layout 诊断并恢复原设置，避免首次构建的可选报告弹窗阻塞自动任务。构建串行执行，结束时恢复后端、裁剪及预加载选项，并原样还原调用前的 ProjectSettings 文件，避免 Unity 把临时构建配置留在磁盘中。正式 Mono 首次运行暴露 Sample 类型被 AppStartup 完整性检查误认为漏注册，已在隔离依赖补齐与生成器一致的排除规则；失败日志保留，详见[依赖修正](DEPENDENCIES.md#正式配置解析依赖)。
 
-本批已通过 22 项 Editor 检查、Core 独立编译、10 项守卫自测，以及 Mono／IL2CPP 各 5 项独立启动检查。397 个构建前已有资源与 `.meta` 无非预期改写；Unity 新生成 Addressables `link.xml`（随内容构建重建，不手改）及 ScriptableBuildPipeline 默认设置一并提交。
+本批已通过 22 项 Editor 检查、Core 独立编译、10 项守卫自测，以及 Mono／IL2CPP 各 5 项独立启动检查。397 个构建前已有资源与 `.meta` 无非预期改写；Unity 构建期间可能生成 Addressables `link.xml`，验证后按既有工作区约定清理，不将该生成物作为正式内容源。
 
 本批验证记录在 [首批移植证据](evidence/migration-start-2026-09-11.json)。配置宿主可用于验证依赖与启动，**尚不能游玩灰松谷**。LevelDefinition 仍只含 JSON 中的身份、seed 和波次；后续第三批已将布局保存在独立的唯一可编辑场景来源，启动仍不能从 JSON 缺省出零坐标世界。
 
@@ -55,9 +55,13 @@ pwsh -NoProfile -File tools/test-game-startup.ps1 -Backend il2cpp
 
 验证：结构守卫 83 个手写文件、10 项自测通过；C#9／netstandard2.1 编译零错误／警告；独立回归 1104 项通过；Unity 重编译无错误，完整 Editor 程序集 29/29 通过，其中布局场景逐项对照冻结夹具并创建出相同初始实体顺序。未运行 Player、PlayMode、对象表现或联机检查；本批场景只有可编辑玩法标记和 Gizmo，不把它写成正式可玩或美术完成。证据见[布局迁移记录](evidence/pinewatch-layout-2026-09-11.json)。
 
-第四批完成 M0 正式接入探针：离线定义目录冻结为 `DNights`／LegacyCompatible，Worker ContentId 经 DefinitionReference 指向本地定义，WorldSession 网络定义固定 LegacyV1 ID `930001` 并进入 FishNet spawn 列表；两个 Prefab 均注册 Addressables。正式 Runtime 获得窄范围生成器友元访问，SetReadyCommand、SessionStatusState 和 WorldSessionBehaviour 的具体注册已生成并由 AppStartup 强校验。一次性工具只创建空目录首版，日常构建只验证，不重写正式对象。
+第四批（历史基线，已被后续身份切换取代）完成 M0 正式接入探针：离线定义目录冻结为 `DNights`／LegacyCompatible，Worker ContentId 经 DefinitionReference 指向本地定义，WorldSession 网络定义固定 LegacyV1 ID `930001` 并进入 FishNet spawn 列表；两个 Prefab 均注册 Addressables。正式 Runtime 获得窄范围生成器友元访问，SetReadyCommand、SessionStatusState 和 WorldSessionBehaviour 的具体注册已生成并由 AppStartup 强校验。一次性工具只创建空目录首版，日常构建只验证，不重写正式对象。
 
-验证：隔离 YYGC `10b8f0e` 准备可重现；结构守卫 92 个手写文件、10 项自测通过；C#9／netstandard2.1 编译零错误／警告；独立核心回归 1104 项通过；Unity 重编译无错误，完整 Editor 程序集 32/32 通过。Windows Mono 与 IL2CPP Player 各构建一次并在独立进程完成 6/6 启动检查，正式对象／命令／状态／Behaviour 注册只出现一次且 Editor／Tests 程序集未进入 Player。Worker、WorldSession 四个资产及 Pinewatch 场景的构建前后 SHA-256 一致。证据见[正式对象接入记录](evidence/formal-object-contracts-2026-09-11.json)。
+上述第四批验证：隔离 YYGC `10b8f0e` 准备可重现；结构守卫 92 个手写文件、10 项自测通过；C#9／netstandard2.1 编译零错误／警告；独立核心回归 1104 项通过；Unity 重编译无错误，完整 Editor 程序集 32/32 通过。Windows Mono 与 IL2CPP Player 各构建一次并在独立进程完成 6/6 启动检查，正式对象／命令／状态／Behaviour 注册只出现一次且 Editor／Tests 程序集未进入 Player。Worker、WorldSession 四个资产及 Pinewatch 场景的构建前后 SHA-256 一致。该记录中的身份设置是历史 LegacyV1 基线，见[历史正式对象接入记录](evidence/formal-object-contracts-2026-09-11.json)。
+
+第五批切断正式 ObjectDefinition 的旧整数兼容：数据库固定为 `GuidFirst`、在线 ID 服务关闭且无 `LegacyIdMap`；Worker／WorldSession 的 `Id` 均为 `0`、旧 ID 别名为空；正式 Windows 构建开启 `YYGC_GUID_DEFINITION_WIRE_V2`。正式 Editor／Runtime 校验会拒绝 `LegacyCompatible`、旧 ID、旧 ID 别名、旧映射或 LegacyV1；独立 LAN Sample 与 YYGC 用户仓库保持不变，旧 v1 存档导入仍作为独立的玩法迁移边界保留。
+
+验证：结构守卫 92 个手写文件、Core 编译零错误／警告、独立核心回归 1104 项通过；Unity Editor 测试 32/32 通过；Windows Mono 与 IL2CPP Player 均在独立进程完成 6/6 启动检查，正式日志均包含 `identity=GuidFirst wire=GuidV2`，Editor／Tests 程序集未进入 Player。切换后的数据库与两个 Definition 资产哈希分别为 `0ec20eded0912c30852db60a99b03c3ab77a27a7057da30e08a085cd1282d10b`、`83f71cb728b42d10de75295369ebc889e91e4659ed978cd4ff7e7e77b36b8714`、`c24b46a54049efd47a6b7f161fc84b05d1238f56ba8fdc7b5db392dee71278e5`；证据见[正式 GuidV2 身份切换记录](evidence/formal-object-contracts-guid-v2-2026-09-11.json)。
 
 下一批进入 M2 首个真实规则切片：建立权威会话控制器、可信连接身份与 Ready／去重处理，把冻结 Pinewatch 布局投影为客户端只读实体集合，并接工人移动、采集和住宅施工的必要视图。M1 的新存档／文件适配可作为独立切片补齐。SharedCamp／HostOnly 执行、晚加入／重连／epoch、完整原生美术、正式关卡可玩性及双机器验收仍待完成；当前 Worker Prefab 只有容器和锚点，没有可见外观，Bootstrap 也不会创建正式会话。
 
@@ -93,7 +97,7 @@ Unity 单机适配为中等难度，主要在54个表现文件对应的场景／
 
 已有环境包含 `ProjectSettings/ProjectVersion.txt`、包 manifest/lock、NuGet 依赖、全局空配置、AppStartup/Addressables、GameCore/NetworkManager Prefab、Bootstrap 和空正式注册源。当前 YYGC commit 已锁定为 `10b8f0e`，由准备脚本建立隔离 `.deps/YYGC`，不直接依赖用户工作区的未提交状态。
 
-M0 不重建环境：新增正式程序集后验证 Behaviour 生成器的内部访问（现有友元补丁仅覆盖 Sample）；保留 VitalRouter wait-all 修正和完整恢复输入；验证 GUID / Key 内容映射与 LegacyV1 网络定义；将 `BuildAddressablesContent → Initialize` 的调用拆开，构建只读取已维护资源。实现全局注册与会话启停时确保只有一个活动网络管理器，Sample 不叠加加载。
+M0 不重建环境：新增正式程序集后验证 Behaviour 生成器的内部访问（现有友元补丁仅覆盖 Sample）；保留 VitalRouter wait-all 修正和完整恢复输入；验证 GUID / Key 内容映射与 GuidV2 网络定义；将 `BuildAddressablesContent → Initialize` 的调用拆开，构建只读取已维护资源。实现全局注册与会话启停时确保只有一个活动网络管理器，Sample 不叠加加载。
 
 目录调整按需实施，保留现有资产 GUID，检查定义数据库、Addressable 条目与硬编码路径；不为套目录改名 Bootstrap 场景或 Sample。首批正式对象将 Definition 与 Prefab 同目录维护，验证绑定键／类型／引用、装配顺序及池化释放；同时检查正式生成注册、资源依赖和构建前后资产哈希。M3 继续执行修改 Prefab、保存、重开及运行检查，不能以绑定表存在代替验收。
 
@@ -163,6 +167,6 @@ M5从干净目录／锁定依赖构建，验证实际Player，不把Editor Play�
 - 采用：普通 C# 权威核心＋YYGC 会话对象／命令／状态链＋本地 Prefab / UGUI；单人走同一入口。
 - 默认建议：SharedCamp；保留 HostOnly 开关，房主控制时间／存档；不提前分配私人单位。
 - 已有实证：`6000.4.9f1` 环境基线，YYGC `10b8f0e` 的 Sample Mono / IL2CPP 四进程与弱网；正式少量定义、DTO 与生成注册已通过双后端启动，正式玩法联机仍必须重验。
-- M0/M1 锁定：正式生成注册／访问、JSON 库、GUID / Key 映射与 LegacyV1 网络定义、规则及随机兼容。
+- M0/M1 锁定：正式生成注册／访问、JSON 库、GUID / Key 映射与 GuidFirst／GuidV2 网络定义、规则及随机兼容；旧 v1 存档导入单独保留。
 - M2 测量决定：完整投影频率、插值缓冲、载荷上限、是否分块或拆流以及性能预算。
 - M0 已以 Worker／WorldSession 少量正式定义和双后端 Player 收口；M1 配置、权威规则、旧档核心及正式布局来源已实现并验证，新存档／文件适配仍待完成。未修改 Godot 或用户 YYGC 仓库，Sample 保持独立；正式对象尚无可见美术、权威会话处理或实体集合投影，不能据此标为可玩或联机完成。
