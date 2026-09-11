@@ -2,7 +2,7 @@
 
 《Dark Nights》Unity 移植工程。环境基线与独立 [LAN 合作 Sample](docs/LAN_SAMPLE.md) 已完成，Windows Mono 和 IL2CPP Release＋High 裁剪均有四进程及真实 UDP 弱网验证记录。灰松谷权威规则、旧档核心、可编辑布局来源及首批 WorldSession／Worker 正式对象合同已迁移并通过 Editor 与双后端 Player 检查；完整对象、美术、正式可玩场景与正式联机尚未完成。
 
-2026-09-11 更新[完整移植方案](docs/MIGRATION_PLAN.md)：保留 C# 权威规则核心，接入 YYGC 对象、命令和状态链，使用原生 Prefab / UGUI；默认共享控制并保留 HostOnly 开关。配置、[核心规则迁移](docs/CORE_MIGRATION.md)与 M0 正式接入探针已完成；实际会话处理、展示投影及验收边界见[当前进展](docs/DEVELOPMENT.md#implementation-progress)。
+2026-09-11 更新[完整移植方案](docs/MIGRATION_PLAN.md)：保留 C# 权威规则核心，接入 YYGC 对象、命令和状态链，使用原生 Prefab / UGUI；默认共享控制并保留 HostOnly 开关。配置、[核心规则迁移](docs/CORE_MIGRATION.md)、[新格式存档／原子文件适配](docs/SAVE_FORMAT.md)与 M0 正式接入探针已有实现及验证；存档 UI／会话接入、实际会话处理、展示投影及验收边界见[当前进展](docs/DEVELOPMENT.md#implementation-progress)。
 
 目录设计已收口为 `Assets/DarkNights/Scripts` 与 `Res` 分离；代码采用 Core、Runtime、View、Entry，资源按对象／面板集中维护定义、Prefab 和专用资源。Addressables 不要求游戏素材目录采用特殊名称，仍通过 ObjectDefinition 驱动加载与绑定；现有 AddressableAssetsData 配置位置保留。详见[目录及绑定要求](docs/MIGRATION_PLAN.md#directory-and-assets)。目前已建立四个运行程序集、Editor/Tests、配置与 Pinewatch 场景，以及 Worker／WorldSession 对象目录；其余对象、UI 与美术按功能扩展。
 

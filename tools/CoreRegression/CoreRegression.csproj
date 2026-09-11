@@ -20,6 +20,8 @@
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/TimeCombatScenarios.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/CampaignScenario.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/SaveMigrationScenarios.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/GameSaveScenarios.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/GameSaveFileScenarios.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/RandomCompatibilityScenarios.cs" />
   </ItemGroup>
 </Project>

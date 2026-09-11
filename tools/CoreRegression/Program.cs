@@ -30,6 +30,8 @@ namespace DarkNights.Tools.CoreRegression
                 TimeCombatScenarios.Run(check, catalog, layout);
                 CampaignScenario.Run(check, catalog, layout);
                 SaveMigrationScenarios.Run(check, catalog, layout);
+                GameSaveScenarios.Run(check, catalog, layout);
+                GameSaveFileScenarios.Run(check, catalog, layout);
                 RandomCompatibilityScenarios.Run(check);
             }
             catch (Exception error) { check(false, error.ToString()); }

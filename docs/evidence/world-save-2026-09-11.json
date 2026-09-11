@@ -1,0 +1,397 @@
+{
+  "date": "2026-09-11",
+  "recorded_utc": "2026-09-11T14:40:00.0821285Z",
+  "base_commit": "e9a521aff1291d3d8987e17aa4045e6d6fda556e",
+  "unity": "6000.4.9f1",
+  "platform": "Windows",
+  "scope": "M1 new world-save format and atomic file adapter. No playable session, UI, authority permissions or epoch integration.",
+  "implementation": {
+    "format": "dark-nights.world",
+    "format_version": 1,
+    "random_algorithm": "godot-pcg32-clz-f32-v1",
+    "maximum_utf8_bytes": 4000000,
+    "maximum_json_depth": 32,
+    "slots": "0-9",
+    "commit": "Same-directory CreateNew temporary file, Flush(true), File.Replace or initial File.Move; no delete/overwrite fallback",
+    "ownership": "Frozen input only; Load returns a separately validated GameSession",
+    "storage_choice": "JSON/file route from MIGRATION_PLAN; YYArchive not integrated"
+  },
+  "independent_regression": {
+    "total": 1164,
+    "failures": 0,
+    "passed": true,
+    "new_save_checks": 60,
+    "runtime": "8.0.16",
+    "core_target": "C#9/netstandard2.1 referenced and compiled by CoreRegression",
+    "report": "artifacts/migration/core-regression.json",
+    "report_sha256": "ff745419256520765ed59f5bb8da49cfc3786911d3cda1b54a6d6f3e4c5738d0"
+  },
+  "unity_editor": {
+    "summary": {
+      "total": 34,
+      "passed": 34,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "results": [
+      {
+        "FullName": "DarkNights.Tests.ContentTests.CollectionsOwnTheirInputsAndCannotBeWritten",
+        "Status": "Passed",
+        "Duration": 0.0190311,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.EverySourceRuleFieldSurvivesParsing",
+        "Status": "Passed",
+        "Duration": 0.0137694,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"version\")",
+        "Status": "Passed",
+        "Duration": 0.0037417,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"missing\")",
+        "Status": "Passed",
+        "Duration": 0.0017909,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"string_number\")",
+        "Status": "Passed",
+        "Duration": 0.0013724,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"infinity\")",
+        "Status": "Passed",
+        "Duration": 0.0009231,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"negative\")",
+        "Status": "Passed",
+        "Duration": 0.0008032,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"fractional_integer\")",
+        "Status": "Passed",
+        "Duration": 0.0009022,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"damage_order\")",
+        "Status": "Passed",
+        "Duration": 0.0010553,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"damage_length\")",
+        "Status": "Passed",
+        "Duration": 0.0008181,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"null_cost\")",
+        "Status": "Passed",
+        "Duration": 0.0013715,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"unknown_enemy\")",
+        "Status": "Passed",
+        "Duration": 0.0011516,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"negative_seed\")",
+        "Status": "Passed",
+        "Duration": 0.001044,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"zero_interval\")",
+        "Status": "Passed",
+        "Duration": 0.0009334,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"empty_waves\")",
+        "Status": "Passed",
+        "Duration": 0.0008678,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"duplicate\")",
+        "Status": "Passed",
+        "Duration": 0.0014595,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"trailing\")",
+        "Status": "Passed",
+        "Duration": 0.0008465,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"oversize\")",
+        "Status": "Passed",
+        "Duration": 0.0042473,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.ResourceArithmeticPreservesOriginalValueAndDoesNotClamp",
+        "Status": "Passed",
+        "Duration": 0.0011317,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.ContentTests.SeedPreservesAllUnsignedBits",
+        "Status": "Passed",
+        "Duration": 0.0048829,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"economy\")",
+        "Status": "Passed",
+        "Duration": 0.0169383,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"work-training\")",
+        "Status": "Passed",
+        "Duration": 0.0052944,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"time-combat\")",
+        "Status": "Passed",
+        "Duration": 0.0075257,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"campaign\")",
+        "Status": "Passed",
+        "Duration": 0.0483136,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"save\")",
+        "Status": "Passed",
+        "Duration": 0.0642489,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"new-save\")",
+        "Status": "Passed",
+        "Duration": 0.0863056,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"save-files\")",
+        "Status": "Passed",
+        "Duration": 0.0483331,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.CoreRegressionTests.RulesMatchFrozenBaseline(\"random\")",
+        "Status": "Passed",
+        "Duration": 0.0037882,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.EnvironmentTests.FormalConfigurationIsRegistered",
+        "Status": "Passed",
+        "Duration": 0.1854518,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.EnvironmentTests.InitializationRejectsExistingAssetsWithoutWrites",
+        "Status": "Passed",
+        "Duration": 0.0215256,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.FormalObjectContentTests.FormalDefinitionsAndGeneratedRegistriesAreComplete",
+        "Status": "Passed",
+        "Duration": 0.0006594,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.FormalObjectContentTests.SessionDefinitionCreatesItsGeneratedBehaviour",
+        "Status": "Passed",
+        "Duration": 0.0150416,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.FormalObjectContentTests.WorkerDefinitionRoundTripsThroughFormalInitializerAndBindings",
+        "Status": "Passed",
+        "Duration": 0.0038224,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.LayoutAuthoringTests.PinewatchSceneMatchesFrozenLayout",
+        "Status": "Passed",
+        "Duration": 0.0112498,
+        "Message": null,
+        "StackTrace": null
+      }
+    ],
+    "report": "artifacts/migration/new-save-editor-tests.json",
+    "report_sha256": "7bf76402ca24311bea0784664fd9b624136fc07b0996d27264d047123f9f6453",
+    "active_code_verified": "Runtime constant equals Core SimulationRandom.Algorithm after reload",
+    "imports": "One batch import, then one additional recompile after replacing provisional RNG label with existing Core constant; no errors"
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 97,
+    "selfTests": 10,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "cross_runtime": {
+    "load": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "dotnetFileLoadedInUnity": true,
+        "jsonValuesIdentical": true,
+        "textIdentical": false,
+        "firstTextDifference": 524,
+        "sourceExcerpt": "y\",\"day_remaining\":77.00000000000074,\"spawn_elapsed\":0.0,\"next_spawn\":0},\"elapsed\":13.00000000000022",
+        "unityExcerpt": "y\",\"day_remaining\":77.000000000000739,\"spawn_elapsed\":0.0,\"next_spawn\":0},\"elapsed\":13.0000000000002",
+        "rulesSha256": "7501b61fbd645a3d78c7ea521dc20943960583ed91a20cb3e91bfa2c01f1866f",
+        "layoutSha256": "f97e08708c2db49e7091ac4560c863f985ceb3dc56b2269260ccd63a4e1d481a"
+      }
+    },
+    "numericVerification": {
+      "output": null,
+      "diagnostics": [],
+      "success": true,
+      "result": {
+        "numericFields": 185,
+        "bitExactNumericFields": 185,
+        "exactStringsAndStructure": true
+      }
+    }
+  },
+  "file_runs": {
+    "dotnet": "artifacts/migration/save-store/10ae94d7de2b4f969b25e7d14b4c88a7",
+    "unity_editor": "artifacts/migration/save-store/e5f09735f3a844f48f9503c5f2761180"
+  },
+  "development_corrections": [
+    "Initial test compile attempted a read-only EconomyService.Stock assignment; corrected test to construct invalid frozen JSON snapshot.",
+    "New format references existing precise SimulationRandom.Algorithm constant.",
+    "Cross-runtime text is not byte-identical due to double formatting; all 185 numeric fields match binary64 bits and all JSON values/structure match."
+  ],
+  "source_files": [
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Runtime/Save/GameSaveJson.cs",
+      "sha256": "5f6d932125203f9897cb2283c0dfccd76113fbd51cd28e0371375ffcc92d8ced",
+      "meta_sha256": "4c8fa45bd2185d527abf808ddd394b460ca634788cc86da4f5452c5d4ae428d6"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Runtime/Save/GameSaveStore.cs",
+      "sha256": "7940dc5fb45de6249295510a662e5ea1e2d12970c6e27932564651b21d0c3177",
+      "meta_sha256": "2ba68636b39a3487861cd6d66c93001984463920abd6383a5473ad9b1e1ef407"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Runtime/Save/SaveContentFingerprint.cs",
+      "sha256": "63d8116fce0d9f868f1e0e10931f478efafede146151ac2b22987bd59473a793",
+      "meta_sha256": "e533635b45b8de4ffb09555372f282d9c5ca9266157c681ce6435756f5d90ed7"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/GameSaveScenarios.cs",
+      "sha256": "ce50b407c22558a3c25557cd8a7005d6e02a1600a97c741de80dfb3e07591572",
+      "meta_sha256": "6720e778071b03ba9fff70eb27b095d690e6dbe15ed09c211561bc4daeb4043e"
+    },
+    {
+      "file": "Game/Assets/DarkNights/Scripts/Tests/GameSaveFileScenarios.cs",
+      "sha256": "f867e8d29276544a600dd8e91b2d3651ecbb2ae913da81fd49a340695a8a2940",
+      "meta_sha256": "276eef16eddffbdd5c2de2b7c912e760ecafdf277e431204cf9d848201036f5f"
+    }
+  ],
+  "frozen_fixtures": [
+    {
+      "file": "tools/CoreRegression/Fixtures/content-hashes-v1.json",
+      "sha256": "d59fe93f74e3b131a8c1a7473c48353d7f0723a9968803afac8146cf81e3310d",
+      "matches_frozen_evidence": true
+    },
+    {
+      "file": "tools/CoreRegression/Fixtures/godot-gameplay-validation.json",
+      "sha256": "d81a6c9845b4e79ff43f1234617bfb98b76590fbdb56d2b7e7aea5d2e06ac984",
+      "matches_frozen_evidence": true
+    },
+    {
+      "file": "tools/CoreRegression/Fixtures/godot-rng-vectors.json",
+      "sha256": "de2dd5da0e8f0538c6cf0d2357a786ad6759dcda526b9af9637616c33d7d42d8",
+      "matches_frozen_evidence": true
+    },
+    {
+      "file": "tools/CoreRegression/Fixtures/legacy-v1-after-20s.json",
+      "sha256": "4a297fe16882ea388398d458911714553cf350a8528e77d1dcd5056583f2b8af",
+      "matches_frozen_evidence": true
+    },
+    {
+      "file": "tools/CoreRegression/Fixtures/legacy-v1.json",
+      "sha256": "fe700dd160583786dd7786f87a3940a344899e7991de8c660ad1e1f0a10a240e",
+      "matches_frozen_evidence": true
+    },
+    {
+      "file": "tools/CoreRegression/Fixtures/pinewatch-layout-v1.json",
+      "sha256": "76e1c120e2a3410548a5a4bc87faf603ff9bfccde4299fc490ad553b1767b095",
+      "matches_frozen_evidence": true
+    }
+  ],
+  "protected_asset_configuration_changes": [],
+  "not_run": [
+    "Mono Player build/run",
+    "IL2CPP Player build/run",
+    "UI and playable session",
+    "Formal multiplayer and epoch load",
+    "Art/Prefab editing acceptance",
+    "Power-loss, process-kill or disk-exhaustion fault injection",
+    "Other operating systems"
+  ],
+  "user_changes_preserved": [
+    "AGENTS.md pre-existing user edit left outside this commit"
+  ]
+}

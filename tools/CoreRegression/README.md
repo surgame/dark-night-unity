@@ -12,4 +12,6 @@ The .NET 8 executable references the actual C#9 / netstandard2.1 Core assembly, 
 
 `godot-rng-vectors.json` was captured independently with the actual Godot 4.7.2 binary. To review that experiment, copy `GodotProbe` to a new empty artifact directory and run the original engine with `--headless --path <copied-directory> --script probe.gd`. Its output stays in that copied directory. Ordinary regression never runs the probe or replaces frozen vectors.
 
-This tool validates the portable rules and JSON boundary; it does not validate production scene authoring, YYGC registration, Player builds, network sessions or art. See `docs/CORE_MIGRATION.md` for those outstanding boundaries.
+The suite also exercises the actual new-format save codec and atomic file store: content/RNG compatibility, frozen continuation, commit sharing violations, cancellation, corrupt/oversized input and concurrent saves. Each file run uses a unique directory under `artifacts/migration/save-store`; diagnostic files remain there and player saves are never accessed. Current total: 1164 checks, including 60 new save checks.
+
+This tool validates the portable rules, JSON boundary and local file adapter; it does not validate production scene authoring, YYGC registration, Player builds, network sessions or art. See `docs/CORE_MIGRATION.md` and `docs/SAVE_FORMAT.md` for those outstanding boundaries.

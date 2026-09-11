@@ -14,6 +14,8 @@ namespace DarkNights.Tests
         [TestCase("time-combat")]
         [TestCase("campaign")]
         [TestCase("save")]
+        [TestCase("new-save")]
+        [TestCase("save-files")]
         [TestCase("random")]
         public void RulesMatchFrozenBaseline(string scenario)
         {
@@ -28,6 +30,8 @@ namespace DarkNights.Tests
                 case "time-combat": TimeCombatScenarios.Run(check, catalog, layout); break;
                 case "campaign": CampaignScenario.Run(check, catalog, layout); break;
                 case "save": SaveMigrationScenarios.Run(check, catalog, layout); break;
+                case "new-save": GameSaveScenarios.Run(check, catalog, layout); break;
+                case "save-files": GameSaveFileScenarios.Run(check, catalog, layout); break;
                 case "random": RandomCompatibilityScenarios.Run(check); break;
             }
         }
