@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-12 后续重构规划：[C 方案执行计划](C_REFACTOR_PLAN.md)已完成源码核对、分批安排、具体文件清单与影响评估，**尚未实施**。目标为 ObjectsV2 会话对象拥有权威生命周期、Core 保留个体状态和规则、Local 个体 Behaviour 接管表现职责；本批不包含装备/Buff 新玩法。没有新增 Unity/Core/Player 验证结果，不改变下述已实现功能与 M5 未完成状态。
+
 2026-09-12 编辑器维护：YYGC Workshop 已改为名称／Key／原资产文件名三行，平铺与树形统一 60 像素行高；有效旧 ID 仅作辅助标记，搜索和排序适配 GUID／Key。Unity `6000.4.9f1` 编译与 47 项 UI 检查通过，实际窗口关闭重开后 29 个定义行均保留文件名。框架锁定更新至 `516f76c`，逐文件修改及边界见[YYGC 账本](YYGC_CHANGES.md#workshop-display)和[本批证据](evidence/workshop-display-2026-09-12.json)。本批不改变下述 M5 游戏验收状态。
 
 2026-09-12 独立美术流程试验：[Blender 像素角色脚手架](../experiments/blender-pixel-crew/README.md)完成共用骨架、模块切换、序列帧及 MCP 接入的技术验证；用户认为外观与参考图仍有明显差距，**美术风格验证未通过**。该试验独立于 Game，不计入 M3/M5 完成状态。

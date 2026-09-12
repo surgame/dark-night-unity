@@ -1,0 +1,127 @@
+{
+  "kind": "refactor_plan_not_execution_evidence",
+  "date": "2026-09-12",
+  "baselineHead": "3cde9bc4dea4aea2afd96a8797b8e814bda87bff",
+  "status": "planned_not_implemented",
+  "scheme": "C: Core authority; ObjectsV2 session lifecycle; Local entity presentation behaviours",
+  "modify": [
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionNetwork.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionObjectLink.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionServer.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Framework/FormalObjectCatalog.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Save/SessionStorage.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/SessionEntityViews.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/SessionUiController.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/SessionPlacementView.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/SessionEffects.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/PlayerPerformanceCapture.cs",
+    "Game/Assets/DarkNights/Scripts/View/NativeVisual.cs",
+    "Game/Assets/DarkNights/Scripts/Editor/FormalObjectContentSetup.cs",
+    "Game/Assets/DarkNights/Scripts/Editor/NativeArtSetup.cs",
+    "Game/Assets/DarkNights/Scripts/Editor/SessionNetworkSetup.cs",
+    "Game/Assets/DarkNights/Scripts/Editor/SessionLifecycleProbe.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/FormalObjectContentTests.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/NativeArtTests.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/NativeEffectTests.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/SessionEventScenarios.cs",
+    "tools/CoreRegression/CoreRegression.csproj"
+  ],
+  "add": [
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/CampSessionBehaviour.cs",
+    "Game/Assets/DarkNights/Scripts/View/EntityPresentationBehaviour.cs",
+    "Game/Assets/DarkNights/Scripts/View/ActorPresentationBehaviour.cs",
+    "Game/Assets/DarkNights/Scripts/View/BuildingPresentationBehaviour.cs",
+    "Game/Assets/DarkNights/Scripts/View/WorksitePresentationBehaviour.cs",
+    "Game/Assets/DarkNights/Scripts/Editor/CRefactorContentUpgrade.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/WorldSessionLifecycleTests.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/EntityPresentationTests.cs"
+  ],
+  "moves": [
+    {
+      "from": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionProjector.cs",
+      "to": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionProjector.cs",
+      "preserveMetaGuid": true
+    },
+    {
+      "from": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionEventJournal.cs",
+      "to": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionEventJournal.cs",
+      "preserveMetaGuid": true
+    },
+    {
+      "from": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionStorageRequest.cs",
+      "to": "Game/Assets/DarkNights/Scripts/Runtime/Save/SessionStorageRequest.cs",
+      "preserveMetaGuid": true
+    },
+    {
+      "from": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionMeasurements.cs",
+      "to": "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/SessionMeasurements.cs",
+      "preserveMetaGuid": true
+    },
+    {
+      "from": "Game/Assets/DarkNights/Scripts/Runtime/Session/MeasurementSeries.cs",
+      "to": "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/MeasurementSeries.cs",
+      "preserveMetaGuid": true
+    }
+  ],
+  "assetModify": [
+    "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+    "Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+    "Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.asset",
+    "Game/Assets/DarkNights/Res/Objects/Archer/Archer.asset",
+    "Game/Assets/DarkNights/Res/Objects/Zombie/Zombie.asset",
+    "Game/Assets/DarkNights/Res/Objects/Ghoul/Ghoul.asset",
+    "Game/Assets/DarkNights/Res/Objects/Armored/Armored.asset",
+    "Game/Assets/DarkNights/Res/Objects/House/House.asset",
+    "Game/Assets/DarkNights/Res/Objects/Tavern/Tavern.asset",
+    "Game/Assets/DarkNights/Res/Objects/Barracks/Barracks.asset",
+    "Game/Assets/DarkNights/Res/Objects/Farm/Farm.asset",
+    "Game/Assets/DarkNights/Res/Objects/Tower/Tower.asset",
+    "Game/Assets/DarkNights/Res/Objects/Trees/Trees.asset",
+    "Game/Assets/DarkNights/Res/Objects/Stone/Stone.asset",
+    "Game/Assets/DarkNights/Res/Objects/Iron/Iron.asset",
+    "Game/Assets/DarkNights/Res/Objects/Farmland/Farmland.asset",
+    "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.prefab"
+  ],
+  "assetVerifyOnly": [
+    "Game/Assets/DarkNights/Res/Objects/Worker/Worker.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Archer/Archer.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Zombie/Zombie.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Ghoul/Ghoul.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Armored/Armored.prefab",
+    "Game/Assets/DarkNights/Res/Objects/House/House.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Tavern/Tavern.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Barracks/Barracks.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Farm/Farm.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Tower/Tower.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Trees/Trees.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Stone/Stone.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Iron/Iron.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Farmland/Farmland.prefab"
+  ],
+  "protectedPaths": [
+    "AGENTS.md",
+    "Game/Assets/DarkNights/Res/Objects/Farm/Farm.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset"
+  ],
+  "planningValidation": {
+    "existingPathChecks": 59,
+    "missingExistingPaths": [],
+    "newPathCollisions": [],
+    "missingMoveMetaFiles": [],
+    "missingDocumentLinks": [],
+    "inventoryPathsMissingFromDocument": [],
+    "unityExecuted": false,
+    "playerBuilt": false,
+    "gameTestsRun": false
+  },
+  "notes": [
+    "No game code or assets changed while preparing this plan.",
+    "Existing uncommitted changes must be preserved during implementation.",
+    "All new C# files require Unity-generated meta; moved scripts preserve existing meta and GUID.",
+    "Buff/equipment extension is a separate future feature, not included in mandatory modifications.",
+    "Generated files are not manually edited; generated registration and binding outputs are compiler verification targets."
+  ]
+}
