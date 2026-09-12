@@ -16,7 +16,7 @@ MonoBehaviour:
   definitionGuid: 57892829ba5122f4ba088c29da524d62
   key: unit.worker
   keyAliases: []
-  legacyIdAliases: []
+  legacyIdAliases: 
   debugContent: 0
   legacyAllocationPending: 
   Type: 0
