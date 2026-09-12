@@ -1,6 +1,6 @@
 # Dark Nights Unity 技术架构
 
-2026-09-12 后续方案：[C 重构执行计划](C_REFACTOR_PLAN.md)明确会话对象生命周期、个体表现 Behaviour 和 Core 状态/规则的职责及实施文件，**仅完成规划，尚未改造**。正式玩法当前实际状态见 [DEVELOPMENT](DEVELOPMENT.md)；下文早期“尚未接线”等段落保留其历史时点，不能覆盖最新执行记录。
+2026-09-12 [C 重构执行计划](C_REFACTOR_PLAN.md)的 R1–R4 已完成：会话对象接管权威生命周期，个体表现 Behaviour 接管本地绑定与展示，Core 继续独占真实状态和规则。最终 Ready 修复后的 Mono 并发、活跃加载、九组四进程弱网、战斗晚加入、三夜及容量上限均通过；性能 A/C 对比仍待后续。正式结果见[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)；下文早期“尚未接线”等段落保留其历史时点，不能覆盖最新执行记录。
 
 2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已实现自己的四层程序集并验证 YYGC Object、可靠状态链及唯一权威写入。本页描述的正式玩法目录仍属设计；Sample 不反向依赖正式游戏。VitalRouter 仅保留框架命令链的显式适配，业务使用普通方法，R3 负责副本观察及订阅释放。
 

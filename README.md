@@ -2,6 +2,8 @@
 
 《Dark Nights》Unity 移植工程。灰松谷规则、15 类原生对象、UGUI、正式四人联机、十槽位存档和重连主体已实现。2026-09-12 验收续跑已完成干净 Mono 构建、活跃存档恢复、并发、九组四进程弱网、三夜及容量上限检查。画面复核发现字体与新增菜单控件需要校准，性能采样仍有证据缺口；IL2CPP 和双机器 LAN 分别待验收，M5 尚未完成。见[本批验收与产物](docs/MONO_ACCEPTANCE.md)和[后续清单](docs/M5_EXECUTION.md#mono-acceptance)。
 
+2026-09-12 C 重构最终 Ready 修复后的同一 Mono 产物已完成复验：并发 13/13、活跃加载 13/13、九组四进程弱网各 22/22、战斗晚加入 9/9、三夜 17/17、容量上限 13/13 均通过。容量窗口在 30.56 秒内发布增加 298，超过要求的 150；本批没有重新构建，也不改变 M5 的性能、IL2CPP 与双机器待验收边界。见[C 重构实施记录](docs/C_REFACTOR_IMPLEMENTATION.md)和[复验证据](docs/evidence/c-refactor-final-matrix-2026-09-12.json)。
+
 2026-09-11 更新[完整移植方案](docs/MIGRATION_PLAN.md)：保留 C# 权威规则核心，接入 YYGC 对象、命令和状态链，使用原生 Prefab / UGUI；默认共享控制并保留 HostOnly 开关。配置、[核心规则迁移](docs/CORE_MIGRATION.md)、[原子存储](docs/SAVE_FORMAT.md)、M0 探针、[权威会话业务层](docs/SESSION_AUTHORITY.md)及[冻结展示副本／时钟](docs/SESSION_PROJECTION.md)已有实现和验证；网络／Entry、文件编排与 UI 已在后续批次接通。后续按[直达 M5 的连续执行路线](docs/M5_EXECUTION.md)推进，见[当前进展](docs/DEVELOPMENT.md#implementation-progress)。
 
 目录设计已收口为 `Assets/DarkNights/Scripts` 与 `Res` 分离；代码采用 Core、Runtime、View、Entry，资源按对象／面板集中维护定义、Prefab 和专用资源。Addressables 不要求游戏素材目录采用特殊名称，仍通过 ObjectDefinition 驱动加载与绑定；现有 AddressableAssetsData 配置位置保留。详见[目录及绑定要求](docs/MIGRATION_PLAN.md#directory-and-assets)。目前已建立四个运行程序集、Editor/Tests、配置与 Pinewatch 场景、15 类原生对象、效果与五页 UI。

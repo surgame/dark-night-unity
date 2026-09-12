@@ -1,0 +1,106 @@
+{
+  "utc": "2026-09-12T09:29:50Z",
+  "scope": "Final Ready-fix local Windows Mono revalidation using independent Host and client processes; no rebuild, IL2CPP, two-machine LAN, manual visual approval, or A/C performance conclusion.",
+  "sourceCommit": "63e031f9787eb87aee0bb6da176f57ddf1bf9219",
+  "player": {
+    "backend": "Mono",
+    "path": "artifacts/migration/player-mono/DarkNights.exe",
+    "entryDllSha256": "AAAB680AE74929F12749582C13A5A2E9DF36B05C67FBBF8B166219618C603517",
+    "reusedExistingBuild": true
+  },
+  "driver": {
+    "command": "pwsh -NoProfile -File tools/test-game-delivery.ps1 -StartAt concurrency",
+    "result": "artifacts/migration/delivery-20260912-171847-577/result.json",
+    "resultSha256": "FC91CF790C9A68ECDB592300904BFB39CDCCD5A7F0C7DA1852EEFAADA358E733",
+    "passed": true,
+    "steps": [
+      "concurrency",
+      "active-load",
+      "network-matrix",
+      "visual-1280",
+      "visual-1600",
+      "battle",
+      "campaign",
+      "pressure"
+    ]
+  },
+  "results": {
+    "concurrency": {
+      "passed": true,
+      "checks": 13,
+      "result": "artifacts/migration/concurrency-20260912-171847-854/result.json",
+      "resultSha256": "17D0CA8E1C41710E2661103FD39FAE9B88CEB30DFAD5DD6395E62A843794E2D0"
+    },
+    "activeLoad": {
+      "passed": true,
+      "checks": 13,
+      "result": "artifacts/migration/active-load-20260912-171905-714/result.json",
+      "resultSha256": "BC30A02F225B14B56124EBCF79936A78DCE255555737411ACC03D75BF55697FB"
+    },
+    "networkMatrix": {
+      "passed": true,
+      "cases": 9,
+      "checks": 198,
+      "rttMs": [0, 100, 200],
+      "lossRates": [0.0, 0.01, 0.05],
+      "oneWayJitterMs": 25,
+      "droppedPackets": 375,
+      "reorderedPackets": 4475,
+      "result": "artifacts/migration/network-matrix-20260912-171944-087/result.json",
+      "resultSha256": "CFE41DCBCCA0A6D970BDC8185DDE120CD46E0BF3FC1977540F016E763C752952"
+    },
+    "visualAutomation": {
+      "passed": true,
+      "checksPerResolution": 6,
+      "resolutions": ["1280x800", "1600x900"],
+      "results": [
+        {
+          "path": "artifacts/migration/visual-1280x800-20260912-172330-097/result.json",
+          "sha256": "44A300B7659C6BEB97D74CF58BD528356AB12E9AFBDF29E683EE28515D6DF5CF"
+        },
+        {
+          "path": "artifacts/migration/visual-1600x900-20260912-172356-310/result.json",
+          "sha256": "2BBB9DB5E96619DA2685A6BBE74C28F477D706545EB6E1D8718F44C7B4C3A772"
+        }
+      ],
+      "manualApprovalClaimed": false
+    },
+    "battleLateJoin": {
+      "passed": true,
+      "checks": 9,
+      "result": "artifacts/migration/battle-20260912-172422-306/result.json",
+      "resultSha256": "E18E00C92744A4F99619C7EDBB3954361C17710ADA2D42FD718D8D98E6B41CAC"
+    },
+    "campaign": {
+      "passed": true,
+      "checks": 17,
+      "simulationElapsedSeconds": 385.116666666757,
+      "kills": 34,
+      "result": "artifacts/migration/campaign-20260912-172450-101/result.json",
+      "resultSha256": "69E570F730E8F22B281E2E6852A046A41C04AA881A455D8C65F414788A0AAE76"
+    },
+    "projectionCeiling": {
+      "passed": true,
+      "checks": 13,
+      "actors": 256,
+      "projectiles": 1024,
+      "payloadBytes": 487486,
+      "readyPeers": 4,
+      "publicationFirst": 272,
+      "publicationLast": 570,
+      "publicationDelta": 298,
+      "requiredDelta": 150,
+      "measurementSeconds": 30.5603153,
+      "serverToClientUdpBytes": 648495677,
+      "result": "artifacts/migration/pressure-20260912-172842-631/result.json",
+      "resultSha256": "7ABC2D7DB6155A47BB09F797662EFC5A8ECF1CA7BA2D635C55035D01F55C595C"
+    }
+  },
+  "postconditions": {
+    "darkNightsProcessesRemaining": 0,
+    "preExistingWorkspaceChangesPreserved": [
+      "AGENTS.md",
+      "Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset"
+    ]
+  }
+}
