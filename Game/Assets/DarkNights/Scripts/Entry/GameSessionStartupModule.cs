@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Network;
+using DarkNights.Runtime.Framework;
 using DarkNights.View;
 using FishNet;
 using Runtime.AppStartup;
@@ -24,21 +25,31 @@ namespace DarkNights.Entry
         public string Name => "Dark Nights 会话装配";
         public string Description => "加载灰松谷与正式会话入口。";
         public string Category => "游戏内容";
-        public int Order => 8600;
+        public int Order => 9100;
         public bool Required => true;
-        public IReadOnlyList<Type> Dependencies => new[] { typeof(GameContentStartupModule), typeof(UGUIRuntimeStartupModule) };
+        public IReadOnlyList<Type> Dependencies => new[] { typeof(GameContentStartupModule), typeof(UGUIRuntimeStartupModule), typeof(ObjectDefinitionLoaderStartupModule) };
 
         public async UniTask InitializeAsync(AppStartupContext context, CancellationToken cancellationToken)
         {
-            Scene scene = SceneManager.GetSceneByName("Pinewatch");
+            const string defaultScene = "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity";
+            string scenePath = defaultScene;
+#if UNITY_EDITOR
+            scenePath = UnityEditor.SessionState.GetString("DarkNights.PlayScene", defaultScene);
+#endif
+            Scene scene = SceneManager.GetSceneByPath(scenePath);
             if (!scene.isLoaded)
             {
-                await SceneManager.LoadSceneAsync("Pinewatch", LoadSceneMode.Additive).ToUniTask(cancellationToken: cancellationToken);
-                scene = SceneManager.GetSceneByName("Pinewatch");
+#if UNITY_EDITOR
+                await UnityEditor.SceneManagement.EditorSceneManager.LoadSceneAsyncInPlayMode(scenePath,
+                    new LoadSceneParameters(LoadSceneMode.Additive)).ToUniTask(cancellationToken: cancellationToken);
+#else
+                await SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive).ToUniTask(cancellationToken: cancellationToken);
+#endif
+                scene = SceneManager.GetSceneByPath(scenePath);
             }
             GameCatalog catalog = context.Resolve<GameCatalog>();
             var authoring = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
-            LevelLayout layout = authoring.CreateLayout(catalog);
+            LevelLayout layout = authoring.CreateLayout(catalog, DefinitionRuleIndex.Kind);
             var network = context.GetOrCreateChild("Dark Nights Session").gameObject.AddComponent<SessionNetwork>();
             context.Register(network);
             context.Register(layout);
@@ -46,7 +57,7 @@ namespace DarkNights.Entry
             PinewatchStage stage = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<PinewatchStage>(true)).Single();
             stage.Initialize(layout);
             var entities = network.gameObject.AddComponent<SessionEntityViews>();
-            entities.Initialize(network.Client, catalog, stage);
+            entities.Initialize(network.Client, catalog, stage, authoring);
             var ui = network.gameObject.AddComponent<SessionUiController>();
             await ui.Initialize(network, catalog, stage, entities);
             network.gameObject.AddComponent<SessionPlacementView>().Initialize(network.Client, entities, ui.Input, stage, catalog, layout);

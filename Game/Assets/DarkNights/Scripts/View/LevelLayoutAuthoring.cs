@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DarkNights.Core.Config;
+using GameCore.Objects.Definition;
+using GameCore.Objects.Types;
 using UnityEngine;
 
 namespace DarkNights.View
@@ -24,16 +26,27 @@ namespace DarkNights.View
         [SerializeField] private Transform worksites;
         [SerializeField] private Transform actors;
 
-        public LevelLayout CreateLayout(GameCatalog catalog)
+        public Transform PlacementGroup(ObjectType type)
+        {
+            if (type == ObjectType.Unit) return actors;
+            if (type == ObjectType.Placeable_CompositeStructure) return buildings;
+            if (type == ObjectType.Scenery_ResourceNode) return worksites;
+            throw new ArgumentException("Definition is not a level entity.", nameof(type));
+        }
+
+        public Vector3 GroundPoint => groundBaseline.position;
+
+        public LevelLayout CreateLayout(GameCatalog catalog, Func<ObjectDefinition, string> ruleKind)
         {
             RequireReferences();
             Vector3 ground = Local(groundBaseline);
             if (Math.Abs(ground.x) > AlignmentTolerance)
                 throw new InvalidOperationException("The gameplay ground baseline must start at world x=0.");
             RequireAligned(ground.y, worldEnd, buildStart, buildEnd, enemySpawn, cameraStart);
-            IReadOnlyList<PlacementDefinition> buildingEntries = Read(buildings, LevelPlacementCategory.Building, ground.y);
-            IReadOnlyList<PlacementDefinition> worksiteEntries = Read(worksites, LevelPlacementCategory.Worksite, ground.y);
-            IReadOnlyList<PlacementDefinition> actorEntries = Read(actors, LevelPlacementCategory.Actor, ground.y);
+            if (ruleKind == null) throw new ArgumentNullException(nameof(ruleKind));
+            IReadOnlyList<PlacementDefinition> buildingEntries = Read(buildings, ObjectType.Placeable_CompositeStructure, ground.y, ruleKind);
+            IReadOnlyList<PlacementDefinition> worksiteEntries = Read(worksites, ObjectType.Scenery_ResourceNode, ground.y, ruleKind);
+            IReadOnlyList<PlacementDefinition> actorEntries = Read(actors, ObjectType.Unit, ground.y, ruleKind);
             var layout = new LevelLayout(Local(worldEnd).x, ground.y, Local(buildStart).x, Local(buildEnd).x,
                 Local(enemySpawn).x, Local(cameraStart).x, buildingEntries, worksiteEntries, actorEntries);
             layout.Validate(catalog);
@@ -42,8 +55,8 @@ namespace DarkNights.View
 
         private IReadOnlyList<PlacementDefinition> Read(
             Transform group,
-            LevelPlacementCategory expected,
-            float groundY)
+            ObjectType expected,
+            float groundY, Func<ObjectDefinition, string> ruleKind)
         {
             LevelPlacementMarker[] markers = group.GetComponentsInChildren<LevelPlacementMarker>(true)
                 .OrderBy(marker => marker.SpawnOrder).ToArray();
@@ -52,10 +65,14 @@ namespace DarkNights.View
             var entries = new List<PlacementDefinition>(markers.Length);
             foreach (LevelPlacementMarker marker in markers)
             {
-                Vector3 point = Local(marker.transform);
-                if (marker.Category != expected || Math.Abs(point.y - groundY) > AlignmentTolerance)
+                if (marker.Loader == null || marker.View == null || marker.Loader.gameObject != marker.gameObject ||
+                    marker.View.gameObject != marker.gameObject || marker.SpawnOrder < 0)
+                    throw new InvalidOperationException(marker.name + " requires explicit Loader and ObjectView on the same instance.");
+                ObjectDefinition definition = marker.Loader.ResolveDefinition();
+                Vector3 point = Local(marker.Loader.transform);
+                if (definition == null || definition.Type != expected || Math.Abs(point.y - groundY) > AlignmentTolerance)
                     throw new InvalidOperationException(marker.name + " has the wrong category or ground alignment.");
-                entries.Add(marker.CreatePlacement(point.x));
+                entries.Add(new PlacementDefinition(ruleKind(definition), point.x, marker.Variant, marker.ActorName));
             }
             return entries.AsReadOnly();
         }

@@ -62,11 +62,8 @@ namespace DarkNights.Editor
                 FormalObjectCatalog.SessionKey, NetworkType.Network, sessionPrefab);
             session.BehaviourTypes.Add(typeof(WorldSessionBehaviour).FullName);
             session.BehaviourTypes.Add(typeof(CampSessionBehaviour).FullName);
-            session.SharedConfigs.Add(new ContentDefinitionMap(new[]
-            {
-                new ContentDefinitionEntry(FormalObjectCatalog.WorkerContentId,
-                    new DefinitionReference(worker.Guid))
-            }));
+            worker.Type = GameCore.Objects.Types.ObjectType.Unit;
+            session.Type = GameCore.Objects.Types.ObjectType.World_Session;
             EditorUtility.SetDirty(session);
             database.AddDefinition(worker);
             database.AddDefinition(session);
@@ -113,8 +110,8 @@ namespace DarkNights.Editor
             if (database.GetDefinitionByKey(worker.Key) != worker || database.GetDefinitionByKey(session.Key) != session)
                 throw new InvalidOperationException("Formal definitions are not indexed by the ObjectDefinitionDatabase.");
             CRefactorContentUpgrade.ValidateSession(session);
-            ContentDefinitionMap map = session.SharedConfigs.OfType<ContentDefinitionMap>().SingleOrDefault();
-            if (map == null || map.GetRequired(FormalObjectCatalog.WorkerContentId, database) != worker)
+            var definitions = new DefinitionRuleIndex(database);
+            if (definitions.GetRequired(FormalObjectCatalog.WorkerContentId) != worker)
                 throw new InvalidOperationException("Worker ContentId mapping is missing or incorrect.");
 
             ValidateWorkerPrefab(workerPrefab, requireNativeArt);

@@ -56,10 +56,8 @@ namespace DarkNights.Runtime.Framework
             if (session.BehaviourTypes.Count(value => value == typeof(CampSessionBehaviour).FullName) != 1 ||
                 BehaviourTypeResolver.GetFactoryFor(typeof(CampSessionBehaviour)) == null)
                 throw new InvalidOperationException("CampSessionBehaviour generated registration is missing.");
-            ContentDefinitionMap map = session.SharedConfigs.OfType<ContentDefinitionMap>().SingleOrDefault();
-            if (map == null) throw new InvalidOperationException("Session definition content map is missing.");
-            map.Validate(database);
-            if (map.GetRequired(WorkerContentId, database) != worker)
+            var definitions = new DefinitionRuleIndex(database);
+            if (definitions.GetRequired(WorkerContentId) != worker)
                 throw new InvalidOperationException("Worker ContentId resolves to the wrong definition.");
             GenericTypeRegistry<INetworkCommand>.GetId(typeof(SetReadyCommand));
             GenericTypeRegistry<INetworkCommand>.GetId(typeof(SessionCommand));

@@ -38,6 +38,7 @@ namespace DarkNights.Entry
         {
             GameCatalog catalog = await GameCatalogLoader.LoadAsync(cancellationToken);
             FormalObjectCatalog.ValidateRuntime();
+            new DefinitionRuleIndex(GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance).Validate(catalog);
             context.Register(catalog);
             Debug.Log($"DARK_NIGHTS_CONTENT_READY level={catalog.Level.Id} seed={catalog.Level.Seed} " +
                 $"units={catalog.Balance.Units.Count} buildings={catalog.Balance.Buildings.Count} " +

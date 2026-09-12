@@ -27,13 +27,12 @@ namespace DarkNights.Tests
             NativeArtSetup.Validate();
             var database = ObjectDefinitionDatabase.Instance;
             database.RebuildLookup();
-            var map = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(FormalObjectContentSetup.SessionDefinitionPath)
-                .SharedConfigs.OfType<ContentDefinitionMap>().Single();
-            Assert.That(map.Entries.Count, Is.EqualTo(15));
+            var map = new DefinitionRuleIndex(database);
+            Assert.That(map.Count, Is.EqualTo(15));
             foreach (JObject spec in Input()["visuals"])
             {
                 string name = (string)spec["name"];
-                ObjectDefinition definition = map.GetRequired(NativeArtSetup.ContentId(name), database);
+                ObjectDefinition definition = map.GetRequired(NativeArtSetup.ContentId(name));
                 Assert.That(definition.isLocal && definition.Id == 0 && !definition.Guid.IsEmpty);
                 Assert.That(definition.BehaviourTypes.Count(value => value == CRefactorContentUpgrade.PresentationType(name).FullName), Is.EqualTo(1));
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(definition.PrefabRef.AssetGUID));

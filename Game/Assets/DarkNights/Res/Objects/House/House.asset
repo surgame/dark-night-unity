@@ -19,7 +19,7 @@ MonoBehaviour:
   legacyIdAliases: 
   debugContent: 0
   legacyAllocationPending: 
-  Type: 0
+  Type: 400
   Name: House
   Icon: {fileID: 0}
   Describe: 

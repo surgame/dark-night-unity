@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-13 Definition 场景入口修复已实施：删除手填 ContentDefinitionMap／独立分类，补齐 17 个 Definition.Type，迁移 16 个现有场景实例至 Loader 静态初始化，并接入场景视图借还与当前关卡试玩。Unity 编译和静态差异核对完成；**按用户要求，测试回归等待确认，未运行 Play、Player 或联机验收**。见[实现与待回归范围](SCENE_DEFINITIONS.md)。
+
 2026-09-12 C 重构已实施并完成最终 Ready 修复后的 Mono 复验。Core 1361、最终 Editor 95、Play 生命周期 20、Mono 启动 6 和双进程 13 项通过；同一最终产物的并发 13/13、活跃加载 13/13、九组四进程弱网各 22/22、战斗晚加入 9/9、三夜 17/17、容量上限 13/13 均通过。容量发布在 30.56 秒内增加 298，超过门槛 150。性能 A/C 对比仍待后续；M5 既有待验收项保持。实际合同和复验证据见[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)。下文历史批次的当时边界保留。
 
 2026-09-12 C 重构执行记录：[C 方案执行计划](C_REFACTOR_PLAN.md)的 R1–R4 已完成。ObjectsV2 会话对象拥有权威生命周期、Core 保留个体状态和规则、Local 个体 Behaviour 接管表现职责；本批不包含装备/Buff 新玩法，也不改变 M5 未完成状态。

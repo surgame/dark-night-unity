@@ -1,0 +1,11 @@
+{
+  "status": "implementation_complete_regression_pending",
+  "scenePlacements": 16,
+  "loaders": 16,
+  "unchangedAuthoredComponents": 144,
+  "prefabOverridesUnchanged": true,
+  "yygcCommit": "ccd61e01f15332b1197cfa5ee72af8777c4a0b49",
+  "compilation": "Unity 6000.4.9f1 completed; failed=false; errors=[]",
+  "regression": "not run; user confirmation required",
+  "playerBuild": "not run"
+}

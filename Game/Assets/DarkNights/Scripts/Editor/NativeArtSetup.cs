@@ -71,7 +71,6 @@ namespace DarkNights.Editor
             AssetDatabase.CreateAsset(material, "Assets/DarkNights/Res/Shared/NativeArt/Depleted.mat");
             var database = AssetDatabase.LoadAssetAtPath<ObjectDefinitionDatabase>("Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset");
             ObjectDefinition session = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(FormalObjectContentSetup.SessionDefinitionPath);
-            var entries = session.SharedConfigs.OfType<ContentDefinitionMap>().Single().Entries.ToList();
             AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
             foreach (JObject spec in input["visuals"])
             {
@@ -97,14 +96,11 @@ namespace DarkNights.Editor
                 definition.EditorSetIdentity(DefinitionIdentityAuthoring.ReadAssetGuid(definition), prefix + id, false);
                 EditorUtility.SetDirty(definition);
                 database.AddDefinition(definition);
-                entries.Add(new ContentDefinitionEntry(id, new DefinitionReference(definition.Guid)));
+                definition.Type = DefinitionRuleIndex.TypeForKey(definition.Key);
                 AddressableAssetEntry entry = settings.CreateOrMoveEntry(definition.PrefabRef.AssetGUID, settings.DefaultGroup);
                 entry.address = "dark_nights.object." + name.ToLowerInvariant();
                 settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryModified, entry, true, true);
             }
-            session.SharedConfigs.RemoveAll(value => value is ContentDefinitionMap);
-            session.SharedConfigs.Add(new ContentDefinitionMap(entries));
-            EditorUtility.SetDirty(session);
             EditorUtility.SetDirty(database);
             AssetDatabase.SaveAssets();
         }

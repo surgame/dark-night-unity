@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-13 已完成 [Definition 场景入口修复](docs/SCENE_DEFINITIONS.md)：统一 Loader 引用、定义分类和静态视图接管，删除手填映射表。编译完成，测试回归按用户要求待确认；当前 YYGC 锁定 `ccd61e0`，不沿用旧批次通过记录宣称本次已验收。
+
 《Dark Nights》Unity 移植工程。灰松谷规则、15 类原生对象、UGUI、正式四人联机、十槽位存档和重连主体已实现。2026-09-12 验收续跑已完成干净 Mono 构建、活跃存档恢复、并发、九组四进程弱网、三夜及容量上限检查。画面复核发现字体与新增菜单控件需要校准，性能采样仍有证据缺口；IL2CPP 和双机器 LAN 分别待验收，M5 尚未完成。见[本批验收与产物](docs/MONO_ACCEPTANCE.md)和[后续清单](docs/M5_EXECUTION.md#mono-acceptance)。
 
 2026-09-12 C 重构最终 Ready 修复后的同一 Mono 产物已完成复验：并发 13/13、活跃加载 13/13、九组四进程弱网各 22/22、战斗晚加入 9/9、三夜 17/17、容量上限 13/13 均通过。容量窗口在 30.56 秒内发布增加 298，超过要求的 150；本批没有重新构建，也不改变 M5 的性能、IL2CPP 与双机器待验收边界。见[C 重构实施记录](docs/C_REFACTOR_IMPLEMENTATION.md)和[复验证据](docs/evidence/c-refactor-final-matrix-2026-09-12.json)。
@@ -62,7 +64,7 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 | YYGC 用户未提交内容 | 已暂存 `Runtime/UI/UGUI/UGUIManager.cs`；未跟踪 `Tools/IDRegistry备份数据20260812` |
 | 实际 Unity Editor | `D:\Program Files\Unity 6000.4.9f1\Editor\Unity.exe`；YYGC 包声明 `6000.2` + `35f1`，已在 6000.4.9f1 编译通过 |
 
-精确规模、关键源文件 SHA-256、原始素材核验及历史 Git 状态见[冻结评估证据](docs/evidence/assessment-2026-09-10.json)。Godot 基线保持该提交；当前 YYGC 锁定 `516f76c` / `0.3.0-preview.1`，在原 `10b8f0e` 上仅修复 Workshop 的名称／Key／文件名三行展示与搜索。隔离依赖、验证边界及原有运行补丁见[依赖说明](docs/DEPENDENCIES.md)，不将预览版本写成已发布稳定版本。
+精确规模、关键源文件 SHA-256、原始素材核验及历史 Git 状态见[冻结评估证据](docs/evidence/assessment-2026-09-10.json)。Godot 基线保持该提交；当前 YYGC 锁定 `ccd61e0` / `0.3.0-preview.1`，包含 Workshop 展示修复与本次 Definition 场景入口修复；后者测试回归待确认。隔离依赖、验证边界及原有运行补丁见[依赖说明](docs/DEPENDENCIES.md)，不将预览版本写成已发布稳定版本。
 
 ## 本仓库当前可执行的检查
 

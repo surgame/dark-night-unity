@@ -474,7 +474,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8466181717363297592, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 94634088}
+      addedObject: {fileID: 94634091}
+    - targetCorrespondingSourceObject: {fileID: 8466181717363297592, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 94634090}
   m_SourcePrefab: {fileID: 100100000, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
 --- !u!4 &94634086 stripped
 Transform:
@@ -486,7 +489,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8466181717363297592, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
   m_PrefabInstance: {fileID: 94634085}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &94634088
+--- !u!114 &94634088 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5449436162096305184, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
+  m_PrefabInstance: {fileID: 94634085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94634087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &94634089 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3836007892153061729, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
+  m_PrefabInstance: {fileID: 94634085}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94634087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &94634090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -495,9 +520,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 94634087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 94634091}
+  view: {fileID: 94634088}
+  spawnOrder: 0
+  variant: 1
+  actorName: 
+--- !u!114 &94634091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94634087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: ea428c54b80b9b44ca4ca163704026e8
+  _definitionDisplayInfo: "\u540D\u79F0: Trees\nKey: worksite.wood | \u65E7 ID (deprecated):
+    0\n\u7C7B\u578B: Scenery_ResourceNode\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 94634089}
 --- !u!1001 &104232885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -580,7 +627,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8466181717363297592, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 104232888}
+      addedObject: {fileID: 104232891}
+    - targetCorrespondingSourceObject: {fileID: 8466181717363297592, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 104232890}
   m_SourcePrefab: {fileID: 100100000, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
 --- !u!4 &104232886 stripped
 Transform:
@@ -592,7 +642,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8466181717363297592, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
   m_PrefabInstance: {fileID: 104232885}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &104232888
+--- !u!114 &104232888 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5449436162096305184, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
+  m_PrefabInstance: {fileID: 104232885}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104232887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &104232889 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3836007892153061729, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
+  m_PrefabInstance: {fileID: 104232885}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104232887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &104232890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -601,9 +673,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 104232887}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 104232891}
+  view: {fileID: 104232888}
+  spawnOrder: 2
+  variant: 2
+  actorName: 
+--- !u!114 &104232891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104232887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: ea428c54b80b9b44ca4ca163704026e8
+  _definitionDisplayInfo: "\u540D\u79F0: Trees\nKey: worksite.wood | \u65E7 ID (deprecated):
+    0\n\u7C7B\u578B: Scenery_ResourceNode\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 104232889}
 --- !u!1 &119903255
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,7 +798,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 120750148}
-  - component: {fileID: 120750149}
   m_Layer: 0
   m_Name: Wood1
   m_TagString: Untagged
@@ -728,23 +821,6 @@ Transform:
   - {fileID: 94634086}
   m_Father: {fileID: 1975037558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &120750149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120750147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 1
-  contentId: wood
-  spawnOrder: 0
-  variant: 1
-  actorName: 
 --- !u!1001 &180321805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -827,7 +903,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 180321808}
+      addedObject: {fileID: 180321811}
+    - targetCorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 180321810}
   m_SourcePrefab: {fileID: 100100000, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
 --- !u!4 &180321806 stripped
 Transform:
@@ -839,7 +918,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
   m_PrefabInstance: {fileID: 180321805}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &180321808
+--- !u!114 &180321808 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1096383821247736953, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+  m_PrefabInstance: {fileID: 180321805}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180321807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &180321809 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4984099722765559428, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+  m_PrefabInstance: {fileID: 180321805}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180321807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &180321810
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -848,9 +949,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 180321807}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 180321811}
+  view: {fileID: 180321808}
+  spawnOrder: 3
+  variant: 0
+  actorName: "\u4F0A\u6069"
+--- !u!114 &180321811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180321807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: 57892829ba5122f4ba088c29da524d62
+  _definitionDisplayInfo: "\u540D\u79F0: \u5DE5\u4EBA\nKey: unit.worker | \u65E7
+    ID (deprecated): 0\n\u7C7B\u578B: Unit\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 180321809}
 --- !u!1 &210766972
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,7 +1440,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 376875125}
-  - component: {fileID: 376875126}
   m_Layer: 0
   m_Name: Worker5
   m_TagString: Untagged
@@ -1341,23 +1463,6 @@ Transform:
   - {fileID: 1865764843}
   m_Father: {fileID: 1604053257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &376875126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376875124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 2
-  contentId: worker
-  spawnOrder: 4
-  variant: 0
-  actorName: "\u8389\u5A1C"
 --- !u!1001 &381773901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1432,7 +1537,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1984497649028875949, guid: e95960097cc0e0342a3ade438d1c64ce, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 381773904}
+      addedObject: {fileID: 381773907}
+    - targetCorrespondingSourceObject: {fileID: 1984497649028875949, guid: e95960097cc0e0342a3ade438d1c64ce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 381773906}
   m_SourcePrefab: {fileID: 100100000, guid: e95960097cc0e0342a3ade438d1c64ce, type: 3}
 --- !u!4 &381773902 stripped
 Transform:
@@ -1444,7 +1552,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1984497649028875949, guid: e95960097cc0e0342a3ade438d1c64ce, type: 3}
   m_PrefabInstance: {fileID: 381773901}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &381773904
+--- !u!114 &381773904 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7882452338501591971, guid: e95960097cc0e0342a3ade438d1c64ce, type: 3}
+  m_PrefabInstance: {fileID: 381773901}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381773903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &381773905 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4226309241541423291, guid: e95960097cc0e0342a3ade438d1c64ce, type: 3}
+  m_PrefabInstance: {fileID: 381773901}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381773903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &381773906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1453,9 +1583,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 381773903}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 381773907}
+  view: {fileID: 381773904}
+  spawnOrder: 4
+  variant: 0
+  actorName: 
+--- !u!114 &381773907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381773903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: 98858cfbd09fbaa4c9a6fb3bf53020ad
+  _definitionDisplayInfo: "\u540D\u79F0: Iron\nKey: worksite.iron | \u65E7 ID (deprecated):
+    0\n\u7C7B\u578B: Scenery_ResourceNode\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 381773905}
 --- !u!1 &391444020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,7 +1773,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8466181717363297592, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 406491186}
+      addedObject: {fileID: 406491189}
+    - targetCorrespondingSourceObject: {fileID: 8466181717363297592, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 406491188}
   m_SourcePrefab: {fileID: 100100000, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
 --- !u!4 &406491184 stripped
 Transform:
@@ -1633,7 +1788,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8466181717363297592, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
   m_PrefabInstance: {fileID: 406491183}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &406491186
+--- !u!114 &406491186 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5449436162096305184, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
+  m_PrefabInstance: {fileID: 406491183}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406491185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &406491187 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3836007892153061729, guid: 6dea9ad83887074408cd854d3962911a, type: 3}
+  m_PrefabInstance: {fileID: 406491183}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406491185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &406491188
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1642,9 +1819,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 406491185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 406491189}
+  view: {fileID: 406491186}
+  spawnOrder: 1
+  variant: 0
+  actorName: 
+--- !u!114 &406491189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406491185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: ea428c54b80b9b44ca4ca163704026e8
+  _definitionDisplayInfo: "\u540D\u79F0: Trees\nKey: worksite.wood | \u65E7 ID (deprecated):
+    0\n\u7C7B\u578B: Scenery_ResourceNode\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 406491187}
 --- !u!1 &420451208
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,7 +2005,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3958628119876448310, guid: cbc73dcba495255488270c931459090d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 507886912}
+      addedObject: {fileID: 507886915}
+    - targetCorrespondingSourceObject: {fileID: 3958628119876448310, guid: cbc73dcba495255488270c931459090d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 507886914}
   m_SourcePrefab: {fileID: 100100000, guid: cbc73dcba495255488270c931459090d, type: 3}
 --- !u!4 &507886910 stripped
 Transform:
@@ -1818,7 +2020,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3958628119876448310, guid: cbc73dcba495255488270c931459090d, type: 3}
   m_PrefabInstance: {fileID: 507886909}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &507886912
+--- !u!114 &507886912 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4580890458834792466, guid: cbc73dcba495255488270c931459090d, type: 3}
+  m_PrefabInstance: {fileID: 507886909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507886911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &507886913 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1933980144362204511, guid: cbc73dcba495255488270c931459090d, type: 3}
+  m_PrefabInstance: {fileID: 507886909}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507886911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &507886914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1827,9 +2051,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 507886911}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 507886915}
+  view: {fileID: 507886912}
+  spawnOrder: 3
+  variant: 0
+  actorName: 
+--- !u!114 &507886915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507886911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: 462f08ac967440f458772620c642e75b
+  _definitionDisplayInfo: "\u540D\u79F0: Farm\nKey: building.farm | \u65E7 ID (deprecated):
+    0\n\u7C7B\u578B: Placeable_CompositeStructure\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 507886913}
 --- !u!1 &543215433
 GameObject:
   m_ObjectHideFlags: 0
@@ -2094,7 +2340,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 585265855}
+      addedObject: {fileID: 585265858}
+    - targetCorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 585265857}
   m_SourcePrefab: {fileID: 100100000, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
 --- !u!4 &585265853 stripped
 Transform:
@@ -2106,7 +2355,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
   m_PrefabInstance: {fileID: 585265852}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &585265855
+--- !u!114 &585265855 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1096383821247736953, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+  m_PrefabInstance: {fileID: 585265852}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585265854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &585265856 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4984099722765559428, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+  m_PrefabInstance: {fileID: 585265852}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585265854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &585265857
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2115,9 +2386,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 585265854}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 585265858}
+  view: {fileID: 585265855}
+  spawnOrder: 2
+  variant: 0
+  actorName: "\u7C73\u5A05"
+--- !u!114 &585265858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 585265854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: 57892829ba5122f4ba088c29da524d62
+  _definitionDisplayInfo: "\u540D\u79F0: \u5DE5\u4EBA\nKey: unit.worker | \u65E7
+    ID (deprecated): 0\n\u7C7B\u578B: Unit\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 585265856}
 --- !u!1001 &586185746
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2200,7 +2493,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 586185749}
+      addedObject: {fileID: 586185752}
+    - targetCorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 586185751}
   m_SourcePrefab: {fileID: 100100000, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
 --- !u!4 &586185747 stripped
 Transform:
@@ -2212,7 +2508,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
   m_PrefabInstance: {fileID: 586185746}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &586185749
+--- !u!114 &586185749 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1096383821247736953, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+  m_PrefabInstance: {fileID: 586185746}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586185748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &586185750 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4984099722765559428, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+  m_PrefabInstance: {fileID: 586185746}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586185748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &586185751
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2221,9 +2539,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 586185748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 586185752}
+  view: {fileID: 586185749}
+  spawnOrder: 1
+  variant: 0
+  actorName: "\u7F57\u6069"
+--- !u!114 &586185752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586185748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: 57892829ba5122f4ba088c29da524d62
+  _definitionDisplayInfo: "\u540D\u79F0: \u5DE5\u4EBA\nKey: unit.worker | \u65E7
+    ID (deprecated): 0\n\u7C7B\u578B: Unit\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 586185750}
 --- !u!1001 &607226014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2294,7 +2634,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3429309558117056897, guid: c3a4a103cafc13a4a99a0e888fdc082a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 607226017}
+      addedObject: {fileID: 607226020}
+    - targetCorrespondingSourceObject: {fileID: 3429309558117056897, guid: c3a4a103cafc13a4a99a0e888fdc082a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 607226019}
   m_SourcePrefab: {fileID: 100100000, guid: c3a4a103cafc13a4a99a0e888fdc082a, type: 3}
 --- !u!4 &607226015 stripped
 Transform:
@@ -2306,7 +2649,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3429309558117056897, guid: c3a4a103cafc13a4a99a0e888fdc082a, type: 3}
   m_PrefabInstance: {fileID: 607226014}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &607226017
+--- !u!114 &607226017 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6344420717054326577, guid: c3a4a103cafc13a4a99a0e888fdc082a, type: 3}
+  m_PrefabInstance: {fileID: 607226014}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607226016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &607226018 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7666807519598666242, guid: c3a4a103cafc13a4a99a0e888fdc082a, type: 3}
+  m_PrefabInstance: {fileID: 607226014}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607226016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &607226019
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2315,9 +2680,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 607226016}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 607226020}
+  view: {fileID: 607226017}
+  spawnOrder: 6
+  variant: 0
+  actorName: "\u8587\u62C9"
+--- !u!114 &607226020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 607226016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: f91187dc2d2c99b46be92ec283a00c9c
+  _definitionDisplayInfo: "\u540D\u79F0: Archer\nKey: unit.archer | \u65E7 ID (deprecated):
+    0\n\u7C7B\u578B: Unit\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 607226018}
 --- !u!1 &625004824
 GameObject:
   m_ObjectHideFlags: 0
@@ -2389,7 +2776,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 639928496}
-  - component: {fileID: 639928497}
   m_Layer: 0
   m_Name: Archer7
   m_TagString: Untagged
@@ -2413,23 +2799,6 @@ Transform:
   - {fileID: 607226015}
   m_Father: {fileID: 1604053257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &639928497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 639928495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 2
-  contentId: archer
-  spawnOrder: 6
-  variant: 0
-  actorName: "\u8587\u62C9"
 --- !u!1001 &663195579
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2504,7 +2873,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3789418319103098158, guid: 90b02abc990efa5438b5dca5a735068a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 663195582}
+      addedObject: {fileID: 663195585}
+    - targetCorrespondingSourceObject: {fileID: 3789418319103098158, guid: 90b02abc990efa5438b5dca5a735068a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 663195584}
   m_SourcePrefab: {fileID: 100100000, guid: 90b02abc990efa5438b5dca5a735068a, type: 3}
 --- !u!4 &663195580 stripped
 Transform:
@@ -2516,7 +2888,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3789418319103098158, guid: 90b02abc990efa5438b5dca5a735068a, type: 3}
   m_PrefabInstance: {fileID: 663195579}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &663195582
+--- !u!114 &663195582 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6068778672251934696, guid: 90b02abc990efa5438b5dca5a735068a, type: 3}
+  m_PrefabInstance: {fileID: 663195579}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663195581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &663195583 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1233074295222751879, guid: 90b02abc990efa5438b5dca5a735068a, type: 3}
+  m_PrefabInstance: {fileID: 663195579}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663195581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &663195584
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2525,9 +2919,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 663195581}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 663195585}
+  view: {fileID: 663195582}
+  spawnOrder: 3
+  variant: 0
+  actorName: 
+--- !u!114 &663195585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 663195581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: 68ef7d9c2e17ab44ba435ccff85b756f
+  _definitionDisplayInfo: "\u540D\u79F0: Stone\nKey: worksite.stone | \u65E7 ID (deprecated):
+    0\n\u7C7B\u578B: Scenery_ResourceNode\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 663195583}
 --- !u!1001 &710232298
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2610,7 +3026,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5431494929854171101, guid: b458e542a0bbc9f46918cc1820d36613, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 710232301}
+      addedObject: {fileID: 710232304}
+    - targetCorrespondingSourceObject: {fileID: 5431494929854171101, guid: b458e542a0bbc9f46918cc1820d36613, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 710232303}
   m_SourcePrefab: {fileID: 100100000, guid: b458e542a0bbc9f46918cc1820d36613, type: 3}
 --- !u!4 &710232299 stripped
 Transform:
@@ -2622,7 +3041,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5431494929854171101, guid: b458e542a0bbc9f46918cc1820d36613, type: 3}
   m_PrefabInstance: {fileID: 710232298}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &710232301
+--- !u!114 &710232301 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7864254134022631740, guid: b458e542a0bbc9f46918cc1820d36613, type: 3}
+  m_PrefabInstance: {fileID: 710232298}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710232300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &710232302 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2953486708965443718, guid: b458e542a0bbc9f46918cc1820d36613, type: 3}
+  m_PrefabInstance: {fileID: 710232298}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710232300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &710232303
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2631,9 +3072,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 710232300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 710232304}
+  view: {fileID: 710232301}
+  spawnOrder: 5
+  variant: 0
+  actorName: "\u5965\u65AF"
+--- !u!114 &710232304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710232300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: fdab779e054f8c44f8e22f8ea5f9858a
+  _definitionDisplayInfo: "\u540D\u79F0: Spearman\nKey: unit.spearman | \u65E7 ID
+    (deprecated): 0\n\u7C7B\u578B: Unit\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 710232302}
 --- !u!1 &715155186
 GameObject:
   m_ObjectHideFlags: 0
@@ -2795,7 +3258,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3659507035230014362, guid: 84a14c89fd48a9547a8fa3897296e273, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 737933986}
+      addedObject: {fileID: 737933989}
+    - targetCorrespondingSourceObject: {fileID: 3659507035230014362, guid: 84a14c89fd48a9547a8fa3897296e273, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 737933988}
   m_SourcePrefab: {fileID: 100100000, guid: 84a14c89fd48a9547a8fa3897296e273, type: 3}
 --- !u!4 &737933984 stripped
 Transform:
@@ -2807,7 +3273,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3659507035230014362, guid: 84a14c89fd48a9547a8fa3897296e273, type: 3}
   m_PrefabInstance: {fileID: 737933983}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &737933986
+--- !u!114 &737933986 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6463457557519826457, guid: 84a14c89fd48a9547a8fa3897296e273, type: 3}
+  m_PrefabInstance: {fileID: 737933983}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737933985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &737933987 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2791283462002811927, guid: 84a14c89fd48a9547a8fa3897296e273, type: 3}
+  m_PrefabInstance: {fileID: 737933983}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737933985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &737933988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2816,9 +3304,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 737933985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 737933989}
+  view: {fileID: 737933986}
+  spawnOrder: 2
+  variant: 0
+  actorName: 
+--- !u!114 &737933989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737933985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: 6d562b8d5824d2d4682ea725e4cbbd10
+  _definitionDisplayInfo: "\u540D\u79F0: Barracks\nKey: building.barracks | \u65E7
+    ID (deprecated): 0\n\u7C7B\u578B: Placeable_CompositeStructure\n\u7F51\u7EDC\u7C7B\u578B:
+    Local"
+  _initializerComponent: {fileID: 737933987}
 --- !u!1 &769395684
 GameObject:
   m_ObjectHideFlags: 0
@@ -2919,7 +3430,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 826832407}
-  - component: {fileID: 826832408}
   m_Layer: 0
   m_Name: Stone4
   m_TagString: Untagged
@@ -2943,23 +3453,6 @@ Transform:
   - {fileID: 663195580}
   m_Father: {fileID: 1975037558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &826832408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 826832406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 1
-  contentId: stone
-  spawnOrder: 3
-  variant: 0
-  actorName: 
 --- !u!1001 &837362491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4124,7 +4617,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1077717521}
-  - component: {fileID: 1077717522}
   m_Layer: 0
   m_Name: Worker3
   m_TagString: Untagged
@@ -4148,23 +4640,6 @@ Transform:
   - {fileID: 585265853}
   m_Father: {fileID: 1604053257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1077717522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1077717520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 2
-  contentId: worker
-  spawnOrder: 2
-  variant: 0
-  actorName: "\u7C73\u5A05"
 --- !u!1001 &1108225931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4235,7 +4710,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3151086739593428412, guid: dbe037e6ed5a129489ba734ec4226211, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1108225934}
+      addedObject: {fileID: 1108225937}
+    - targetCorrespondingSourceObject: {fileID: 3151086739593428412, guid: dbe037e6ed5a129489ba734ec4226211, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1108225936}
   m_SourcePrefab: {fileID: 100100000, guid: dbe037e6ed5a129489ba734ec4226211, type: 3}
 --- !u!4 &1108225932 stripped
 Transform:
@@ -4247,7 +4725,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3151086739593428412, guid: dbe037e6ed5a129489ba734ec4226211, type: 3}
   m_PrefabInstance: {fileID: 1108225931}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1108225934
+--- !u!114 &1108225934 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5472450891275463838, guid: dbe037e6ed5a129489ba734ec4226211, type: 3}
+  m_PrefabInstance: {fileID: 1108225931}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108225933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &1108225935 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3115774948393147958, guid: dbe037e6ed5a129489ba734ec4226211, type: 3}
+  m_PrefabInstance: {fileID: 1108225931}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108225933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &1108225936
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4256,9 +4756,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1108225933}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 1108225937}
+  view: {fileID: 1108225934}
+  spawnOrder: 0
+  variant: 0
+  actorName: 
+--- !u!114 &1108225937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108225933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: de920f6f46b0ee34ab730757b1f164cf
+  _definitionDisplayInfo: "\u540D\u79F0: House\nKey: building.house | \u65E7 ID (deprecated):
+    0\n\u7C7B\u578B: Placeable_CompositeStructure\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 1108225935}
 --- !u!1 &1113531140
 GameObject:
   m_ObjectHideFlags: 0
@@ -4268,7 +4790,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1113531141}
-  - component: {fileID: 1113531142}
   m_Layer: 0
   m_Name: Worker4
   m_TagString: Untagged
@@ -4292,23 +4813,6 @@ Transform:
   - {fileID: 180321806}
   m_Father: {fileID: 1604053257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1113531142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1113531140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 2
-  contentId: worker
-  spawnOrder: 3
-  variant: 0
-  actorName: "\u4F0A\u6069"
 --- !u!1 &1140396372
 GameObject:
   m_ObjectHideFlags: 0
@@ -4471,7 +4975,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1198621698}
-  - component: {fileID: 1198621699}
   m_Layer: 0
   m_Name: Worker2
   m_TagString: Untagged
@@ -4495,23 +4998,6 @@ Transform:
   - {fileID: 586185747}
   m_Father: {fileID: 1604053257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1198621699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1198621697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 2
-  contentId: worker
-  spawnOrder: 1
-  variant: 0
-  actorName: "\u7F57\u6069"
 --- !u!1 &1255928735
 GameObject:
   m_ObjectHideFlags: 0
@@ -4947,7 +5433,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1290781790}
-  - component: {fileID: 1290781791}
   m_Layer: 0
   m_Name: Farm4
   m_TagString: Untagged
@@ -4971,23 +5456,6 @@ Transform:
   - {fileID: 507886910}
   m_Father: {fileID: 2137677674}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1290781791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1290781789}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 0
-  contentId: farm
-  spawnOrder: 3
-  variant: 0
-  actorName: 
 --- !u!1 &1293012374
 GameObject:
   m_ObjectHideFlags: 0
@@ -5059,7 +5527,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1293268923}
-  - component: {fileID: 1293268924}
   m_Layer: 0
   m_Name: House1
   m_TagString: Untagged
@@ -5083,23 +5550,6 @@ Transform:
   - {fileID: 1108225932}
   m_Father: {fileID: 2137677674}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1293268924
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1293268922}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 0
-  contentId: house
-  spawnOrder: 0
-  variant: 0
-  actorName: 
 --- !u!1 &1312728357
 GameObject:
   m_ObjectHideFlags: 0
@@ -6150,7 +6600,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1692905876}
-  - component: {fileID: 1692905877}
   m_Layer: 0
   m_Name: Worker1
   m_TagString: Untagged
@@ -6174,23 +6623,6 @@ Transform:
   - {fileID: 1736388026}
   m_Father: {fileID: 1604053257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1692905877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1692905875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 2
-  contentId: worker
-  spawnOrder: 0
-  variant: 0
-  actorName: "\u827E\u8FBE"
 --- !u!1001 &1728887847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6261,7 +6693,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5170144908541547494, guid: a71bbe1dfd1951d4da864e178abe59e7, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1728887850}
+      addedObject: {fileID: 1728887853}
+    - targetCorrespondingSourceObject: {fileID: 5170144908541547494, guid: a71bbe1dfd1951d4da864e178abe59e7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1728887852}
   m_SourcePrefab: {fileID: 100100000, guid: a71bbe1dfd1951d4da864e178abe59e7, type: 3}
 --- !u!4 &1728887848 stripped
 Transform:
@@ -6273,7 +6708,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5170144908541547494, guid: a71bbe1dfd1951d4da864e178abe59e7, type: 3}
   m_PrefabInstance: {fileID: 1728887847}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1728887850
+--- !u!114 &1728887850 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1306705723020254508, guid: a71bbe1dfd1951d4da864e178abe59e7, type: 3}
+  m_PrefabInstance: {fileID: 1728887847}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728887849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &1728887851 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3470196502931748688, guid: a71bbe1dfd1951d4da864e178abe59e7, type: 3}
+  m_PrefabInstance: {fileID: 1728887847}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728887849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &1728887852
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6282,9 +6739,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 1728887849}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 1728887853}
+  view: {fileID: 1728887850}
+  spawnOrder: 1
+  variant: 0
+  actorName: 
+--- !u!114 &1728887853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728887849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: 9b02302c0d6fc394ca25c303d7dc9869
+  _definitionDisplayInfo: "\u540D\u79F0: Tavern\nKey: building.tavern | \u65E7 ID
+    (deprecated): 0\n\u7C7B\u578B: Placeable_CompositeStructure\n\u7F51\u7EDC\u7C7B\u578B:
+    Local"
+  _initializerComponent: {fileID: 1728887851}
 --- !u!1001 &1736388025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6367,7 +6847,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1736388028}
+      addedObject: {fileID: 1736388031}
+    - targetCorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1736388030}
   m_SourcePrefab: {fileID: 100100000, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
 --- !u!4 &1736388026 stripped
 Transform:
@@ -6379,7 +6862,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
   m_PrefabInstance: {fileID: 1736388025}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1736388028
+--- !u!114 &1736388028 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1096383821247736953, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+  m_PrefabInstance: {fileID: 1736388025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736388027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &1736388029 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4984099722765559428, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+  m_PrefabInstance: {fileID: 1736388025}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736388027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &1736388030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6388,9 +6893,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1736388027}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 1736388031}
+  view: {fileID: 1736388028}
+  spawnOrder: 0
+  variant: 0
+  actorName: "\u827E\u8FBE"
+--- !u!114 &1736388031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736388027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: 57892829ba5122f4ba088c29da524d62
+  _definitionDisplayInfo: "\u540D\u79F0: \u5DE5\u4EBA\nKey: unit.worker | \u65E7
+    ID (deprecated): 0\n\u7C7B\u578B: Unit\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 1736388029}
 --- !u!1 &1743771372
 GameObject:
   m_ObjectHideFlags: 0
@@ -6470,7 +6997,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1747539260}
-  - component: {fileID: 1747539261}
   m_Layer: 0
   m_Name: Wood2
   m_TagString: Untagged
@@ -6494,23 +7020,6 @@ Transform:
   - {fileID: 406491184}
   m_Father: {fileID: 1975037558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1747539261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1747539259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 1
-  contentId: wood
-  spawnOrder: 1
-  variant: 0
-  actorName: 
 --- !u!1 &1761227397
 GameObject:
   m_ObjectHideFlags: 0
@@ -6520,7 +7029,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1761227398}
-  - component: {fileID: 1761227399}
   m_Layer: 0
   m_Name: Wood3
   m_TagString: Untagged
@@ -6544,23 +7052,6 @@ Transform:
   - {fileID: 104232886}
   m_Father: {fileID: 1975037558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1761227399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761227397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 1
-  contentId: wood
-  spawnOrder: 2
-  variant: 2
-  actorName: 
 --- !u!1 &1789766890
 GameObject:
   m_ObjectHideFlags: 0
@@ -6570,7 +7061,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1789766891}
-  - component: {fileID: 1789766892}
   m_Layer: 0
   m_Name: Spearman6
   m_TagString: Untagged
@@ -6594,23 +7084,6 @@ Transform:
   - {fileID: 710232299}
   m_Father: {fileID: 1604053257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1789766892
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1789766890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 2
-  contentId: spearman
-  spawnOrder: 5
-  variant: 0
-  actorName: "\u5965\u65AF"
 --- !u!1 &1809580423
 GameObject:
   m_ObjectHideFlags: 0
@@ -6796,7 +7269,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1858982007}
-  - component: {fileID: 1858982008}
   m_Layer: 0
   m_Name: Barracks3
   m_TagString: Untagged
@@ -6820,23 +7292,6 @@ Transform:
   - {fileID: 737933984}
   m_Father: {fileID: 2137677674}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1858982008
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858982006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 0
-  contentId: barracks
-  spawnOrder: 2
-  variant: 0
-  actorName: 
 --- !u!1001 &1865764842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6919,7 +7374,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1865764845}
+      addedObject: {fileID: 1865764848}
+    - targetCorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1865764847}
   m_SourcePrefab: {fileID: 100100000, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
 --- !u!4 &1865764843 stripped
 Transform:
@@ -6931,7 +7389,29 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4882365957094860254, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
   m_PrefabInstance: {fileID: 1865764842}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1865764845
+--- !u!114 &1865764845 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1096383821247736953, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+  m_PrefabInstance: {fileID: 1865764842}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865764844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
+--- !u!114 &1865764846 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4984099722765559428, guid: 8a10edd57a484854e9911d6242f98a7f, type: 3}
+  m_PrefabInstance: {fileID: 1865764842}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865764844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+--- !u!114 &1865764847
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6940,9 +7420,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1865764844}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d71ba20c67d3a7640bee211b3d0652c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LayoutVisualPreview
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
+  loader: {fileID: 1865764848}
+  view: {fileID: 1865764845}
+  spawnOrder: 4
+  variant: 0
+  actorName: "\u8389\u5A1C"
+--- !u!114 &1865764848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1865764844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a613a4bb610e44fa88112a39edc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectDefinitionLoader
+  _definitionId: 0
+  _definitionGuid: 57892829ba5122f4ba088c29da524d62
+  _definitionDisplayInfo: "\u540D\u79F0: \u5DE5\u4EBA\nKey: unit.worker | \u65E7
+    ID (deprecated): 0\n\u7C7B\u578B: Unit\n\u7F51\u7EDC\u7C7B\u578B: Local"
+  _initializerComponent: {fileID: 1865764846}
 --- !u!1 &1880851276
 GameObject:
   m_ObjectHideFlags: 0
@@ -7662,7 +8164,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2060629186}
-  - component: {fileID: 2060629187}
   m_Layer: 0
   m_Name: Iron5
   m_TagString: Untagged
@@ -7686,23 +8187,6 @@ Transform:
   - {fileID: 381773902}
   m_Father: {fileID: 1975037558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2060629187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2060629185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 1
-  contentId: iron
-  spawnOrder: 4
-  variant: 0
-  actorName: 
 --- !u!1 &2075678883
 GameObject:
   m_ObjectHideFlags: 0
@@ -7803,7 +8287,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2112779637}
-  - component: {fileID: 2112779638}
   m_Layer: 0
   m_Name: Tavern2
   m_TagString: Untagged
@@ -7827,23 +8310,6 @@ Transform:
   - {fileID: 1728887848}
   m_Father: {fileID: 2137677674}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2112779638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2112779636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b0c6f4add1d3954b84f6f0d5909c600, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.LevelPlacementMarker
-  category: 0
-  contentId: tavern
-  spawnOrder: 1
-  variant: 0
-  actorName: 
 --- !u!1 &2116014461
 GameObject:
   m_ObjectHideFlags: 0

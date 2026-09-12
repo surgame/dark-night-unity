@@ -19,7 +19,7 @@ MonoBehaviour:
   legacyIdAliases: 
   debugContent: 0
   legacyAllocationPending: 
-  Type: 0
+  Type: 602
   Name: "\u7070\u677E\u8C37\u4F1A\u8BDD"
   Icon: {fileID: 0}
   Describe: 
@@ -37,72 +37,7 @@ MonoBehaviour:
   BehaviourTypes:
   - DarkNights.Runtime.Network.WorldSessionBehaviour
   - DarkNights.Runtime.Network.CampSessionBehaviour
-  SharedConfigs:
-  - rid: 6961529542813679889
+  SharedConfigs: []
   references:
     version: 2
-    RefIds:
-    - rid: 6961529542813679889
-      type: {class: ContentDefinitionMap, ns: DarkNights.Runtime.Framework, asm: DarkNights.Runtime}
-      data:
-        entries:
-        - contentId: worker
-          definition:
-            guid: 57892829ba5122f4ba088c29da524d62
-            legacyId: 0
-        - contentId: archer
-          definition:
-            guid: f91187dc2d2c99b46be92ec283a00c9c
-            legacyId: 0
-        - contentId: armored
-          definition:
-            guid: dab7b83c65706a7428b2bcefedc2d3ab
-            legacyId: 0
-        - contentId: ghoul
-          definition:
-            guid: fc10243d4de9cc84db0f7a3af1a0b50e
-            legacyId: 0
-        - contentId: spearman
-          definition:
-            guid: fdab779e054f8c44f8e22f8ea5f9858a
-            legacyId: 0
-        - contentId: zombie
-          definition:
-            guid: 8af095eb2982cd64f87dcbb2011ee0d9
-            legacyId: 0
-        - contentId: barracks
-          definition:
-            guid: 6d562b8d5824d2d4682ea725e4cbbd10
-            legacyId: 0
-        - contentId: farm
-          definition:
-            guid: 462f08ac967440f458772620c642e75b
-            legacyId: 0
-        - contentId: house
-          definition:
-            guid: de920f6f46b0ee34ab730757b1f164cf
-            legacyId: 0
-        - contentId: tavern
-          definition:
-            guid: 9b02302c0d6fc394ca25c303d7dc9869
-            legacyId: 0
-        - contentId: tower
-          definition:
-            guid: ff2d152b3be9674488f54366b52a8aee
-            legacyId: 0
-        - contentId: food
-          definition:
-            guid: a240041943d08544d85185a72385da7f
-            legacyId: 0
-        - contentId: iron
-          definition:
-            guid: 98858cfbd09fbaa4c9a6fb3bf53020ad
-            legacyId: 0
-        - contentId: stone
-          definition:
-            guid: 68ef7d9c2e17ab44ba435ccff85b756f
-            legacyId: 0
-        - contentId: wood
-          definition:
-            guid: ea428c54b80b9b44ca4ca163704026e8
-            legacyId: 0
+    RefIds: []

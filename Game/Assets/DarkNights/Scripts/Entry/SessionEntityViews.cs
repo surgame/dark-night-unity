@@ -23,7 +23,8 @@ namespace DarkNights.Entry
         private SessionClient client;
         private GameCatalog catalog;
         private PinewatchStage stage;
-        private ContentDefinitionMap map;
+        private DefinitionRuleIndex definitions;
+        private SceneEntityViews sceneViews;
         private Action<InputIntent> intentHandler;
         private readonly Dictionary<int, (ObjectView Owner, EntityPresentationBehaviour Presentation, string Kind)> views =
             new Dictionary<int, (ObjectView, EntityPresentationBehaviour, string)>();
@@ -42,7 +43,7 @@ namespace DarkNights.Entry
         public async UniTask<ObjectView> CreateVisual(string kind)
         {
             ObjectView owner = await ObjectInstanceFactory.CreateObjectInstanceAsync(
-                map.GetRequired(kind), Vector3.zero, Quaternion.identity, stage.Entities);
+                definitions.GetRequired(kind), Vector3.zero, Quaternion.identity, stage.Entities);
             try
             {
                 EntityPresentationBehaviour presentation = RequiredPresentation(owner);
@@ -68,13 +69,14 @@ namespace DarkNights.Entry
             Destroy(owner.gameObject);
         }
 
-        public void Initialize(SessionClient value, GameCatalog rules, PinewatchStage scene)
+        public void Initialize(SessionClient value, GameCatalog rules, PinewatchStage scene, LevelLayoutAuthoring authoring)
         {
             client = value;
             catalog = rules;
             stage = scene;
-            map = ObjectDefinitionDatabase.Instance.GetDefinitionByKey(FormalObjectCatalog.SessionKey)
-                .SharedConfigs.OfType<ContentDefinitionMap>().Single();
+            definitions = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance);
+            definitions.Validate(rules);
+            sceneViews = new SceneEntityViews(authoring, stage.Entities);
         }
 
         private void Update()
@@ -124,8 +126,9 @@ namespace DarkNights.Entry
             ObjectView owner = null;
             try
             {
-                owner = await CreateVisual(kind);
-                if (!Current(id, kind, captured, ticket)) { Release(owner); return; }
+                owner = sceneViews.Borrow(kind);
+                if (owner == null) owner = await CreateVisual(kind);
+                if (!Current(id, kind, captured, ticket)) { ReleaseEntity(owner); return; }
                 EntityPresentationBehaviour presentation = RequiredPresentation(owner);
                 Action<InputIntent> submit = intent => Submit(presentation, captured, intent);
                 if (catalog.Balance.Units.TryGetValue(kind, out UnitDefinition rules) && presentation is ActorPresentationBehaviour actor)
@@ -142,7 +145,7 @@ namespace DarkNights.Entry
             catch (Exception error)
             {
                 if (views.TryGetValue(id, out var registered) && registered.Owner == owner) views.Remove(id);
-                Release(owner);
+                ReleaseEntity(owner);
                 Debug.LogException(error);
             }
             finally
@@ -189,7 +192,7 @@ namespace DarkNights.Entry
         private void Remove(int id)
         {
             views[id].Presentation.Unbind();
-            Release(views[id].Owner);
+            ReleaseEntity(views[id].Owner);
             views.Remove(id);
         }
 
@@ -202,6 +205,11 @@ namespace DarkNights.Entry
             workKinds.Clear();
             applied = null;
             timeline.Reset();
+        }
+
+        private void ReleaseEntity(ObjectView owner)
+        {
+            if (owner != null && (sceneViews == null || !sceneViews.Return(owner))) Release(owner);
         }
 
         private void OnDestroy() { intentHandler = null; Clear(); }

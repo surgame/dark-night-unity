@@ -1,5 +1,22 @@
 # YYGC 修改授权与改动账本
 
+<a id="scene-definitions"></a>
+
+## 2026-09-13：Definition 场景入口
+
+实际缺口：Loader 缺少统一公开定义引用，拖拽工具只写旧整数 ID、单例判重也使用旧 ID；现有分类不能表达单位和自然资源点。先修改隔离 `.deps/YYGC`，Unity `6000.4.9f1` 编译完成；确认用户 YYGC 工作区干净且 HEAD 为 `516f76c` 后，快进到 `ccd61e01f15332b1197cfa5ee72af8777c4a0b49`。没有推送远端。游戏准备脚本锁定此完整提交，manifest／packages-lock 的隔离路径不变；既有六文件运行补丁完整保留，准备脚本精确校验通过。
+
+以下是本次 YYGC 的全部修改，路径相对于 `D:\Developer\YYGC`，隔离依赖具有相同提交。**仅编译完成，测试回归按用户要求待确认。**
+
+| 文件 | 原因与实际修改 | 验证状态 |
+|---|---|---|
+| `Runtime/Objects/Runner/ObjectDefinitionLoader.cs` | 公开 DefinitionReference／ResolveDefinition；EditorConfigure 统一写 GUID 与初始化器，检测 PrefabRef 一致性；激活时拒绝未解析定义 | 编译完成；运行生命周期待回归 |
+| `Editor/Objects/Runner/ObjectDefinitionDragHandler.cs` | 拖拽改用 GUID 配置入口，单例按解析后的 Definition 判重；公开 SceneObjectCreated 编辑器扩展事件 | 编译完成；实际拖拽和单例冲突待回归 |
+| `Runtime/Objects/Types/ObjectType.cs` | 追加 Unit、Scenery_ResourceNode、World_Session、World_Connection，保留所有旧枚举值 | 编译完成；17 个游戏定义已配置 |
+| `Runtime/Objects/Types/TypeCategory.cs` | 末尾追加 Unit 分类并补充职责注释，不重排旧值 | 编译完成；序列化回归待确认 |
+
+本批没有新增 YYGC 文件或重建 `.meta`。游戏侧 16 个场景放置引用迁移和静态差异核对见 [实施记录](SCENE_DEFINITIONS.md)。
+
 2026-09-12 用户授权：必要时可以更新 YYGC，并将这项约定加入项目知识；完成后必须一一列出 YYGC 改动。此授权允许为实际接入缺口修正框架，保留用户已有修改、隔离验证和锁定依赖的要求仍有效。`AGENTS.md` 已同步该约定。
 
 | 本次变更 | 具体证据与原因 | 修改落点 | 当前验证 |

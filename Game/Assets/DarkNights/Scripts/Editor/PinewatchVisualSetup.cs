@@ -77,21 +77,10 @@ namespace DarkNights.Editor
 
         private static void AddPreviews(LevelLayoutAuthoring layout)
         {
-            var database = AssetDatabase.LoadAssetAtPath<ObjectDefinitionDatabase>("Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset");
-            var map = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(FormalObjectContentSetup.SessionDefinitionPath)
-                .SharedConfigs.OfType<ContentDefinitionMap>().Single();
             foreach (LevelPlacementMarker marker in layout.GetComponentsInChildren<LevelPlacementMarker>())
             {
-                ObjectDefinition definition = map.GetRequired(marker.ContentId, database);
-                var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(definition.PrefabRef.AssetGUID));
-                var preview = (GameObject)PrefabUtility.InstantiatePrefab(prefab, marker.transform);
-                preview.transform.localScale = Vector3.one * 100;
-                preview.name = "VisualPreview";
-                preview.AddComponent<LayoutVisualPreview>();
-                preview.GetComponent<NativeVisual>().Preview(marker.SpawnOrder, marker.Variant);
-                PrefabUtility.RecordPrefabInstancePropertyModifications(preview.transform);
-                foreach (SpriteRenderer sprite in preview.GetComponentsInChildren<SpriteRenderer>(true))
-                    PrefabUtility.RecordPrefabInstancePropertyModifications(sprite);
+                SceneDefinitionAuthoring.ValidatePlacement(marker);
+                marker.View.Get<NativeVisual>("visual").Preview(marker.SpawnOrder, marker.Variant);
             }
         }
 

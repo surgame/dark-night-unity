@@ -38,9 +38,8 @@ namespace DarkNights.Tests
                 Editor.FormalObjectContentSetup.WorkerDefinitionPath);
             ObjectDefinitionDatabase database = ObjectDefinitionDatabase.Instance;
             database.RebuildLookup();
-            var map = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(
-                Editor.FormalObjectContentSetup.SessionDefinitionPath).SharedConfigs.OfType<ContentDefinitionMap>().Single();
-            Assert.That(map.GetRequired(FormalObjectCatalog.WorkerContentId, database), Is.SameAs(worker));
+            var map = new DefinitionRuleIndex(database);
+            Assert.That(map.GetRequired(FormalObjectCatalog.WorkerContentId), Is.SameAs(worker));
 
             GameObject root = PrefabUtility.LoadPrefabContents(Editor.FormalObjectContentSetup.WorkerPrefabPath);
             try

@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Config;
+using DarkNights.Runtime.Framework;
+using GameCore.Objects.Definition;
 using DarkNights.View;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -57,7 +59,9 @@ namespace DarkNights.Editor
             {
                 LevelLayoutAuthoring authoring = scene.GetRootGameObjects()
                     .SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
-                return authoring.CreateLayout(LoadCatalog());
+                foreach (LevelPlacementMarker placement in authoring.GetComponentsInChildren<LevelPlacementMarker>(true))
+                    SceneDefinitionAuthoring.ValidatePlacement(placement);
+                return authoring.CreateLayout(LoadCatalog(), DefinitionRuleIndex.Kind);
             }
             finally
             {
@@ -82,22 +86,22 @@ namespace DarkNights.Editor
             Transform actors = Child(layoutObject, "Actors");
             Configure(authoring, ground, worldEnd, buildStart, buildEnd, enemySpawn, cameraStart, buildings, worksites, actors);
 
-            Marker(buildings, "House1", LevelPlacementCategory.Building, "house", 55, 0);
-            Marker(buildings, "Tavern2", LevelPlacementCategory.Building, "tavern", 130, 1);
-            Marker(buildings, "Barracks3", LevelPlacementCategory.Building, "barracks", 245, 2);
-            Marker(buildings, "Farm4", LevelPlacementCategory.Building, "farm", 330, 3);
-            Marker(worksites, "Wood1", LevelPlacementCategory.Worksite, "wood", 402, 0, 1);
-            Marker(worksites, "Wood2", LevelPlacementCategory.Worksite, "wood", 449, 1);
-            Marker(worksites, "Wood3", LevelPlacementCategory.Worksite, "wood", 488, 2, 2);
-            Marker(worksites, "Stone4", LevelPlacementCategory.Worksite, "stone", 548, 3);
-            Marker(worksites, "Iron5", LevelPlacementCategory.Worksite, "iron", 592, 4);
-            Marker(actors, "Worker1", LevelPlacementCategory.Actor, "worker", 170, 0, 0, "艾达");
-            Marker(actors, "Worker2", LevelPlacementCategory.Actor, "worker", 187, 1, 0, "罗恩");
-            Marker(actors, "Worker3", LevelPlacementCategory.Actor, "worker", 293, 2, 0, "米娅");
-            Marker(actors, "Worker4", LevelPlacementCategory.Actor, "worker", 311, 3, 0, "伊恩");
-            Marker(actors, "Worker5", LevelPlacementCategory.Actor, "worker", 357, 4, 0, "莉娜");
-            Marker(actors, "Spearman6", LevelPlacementCategory.Actor, "spearman", 660, 5, 0, "奥斯");
-            Marker(actors, "Archer7", LevelPlacementCategory.Actor, "archer", 625, 6, 0, "薇拉");
+            Marker(buildings, "House1", "house", 55, 0);
+            Marker(buildings, "Tavern2", "tavern", 130, 1);
+            Marker(buildings, "Barracks3", "barracks", 245, 2);
+            Marker(buildings, "Farm4", "farm", 330, 3);
+            Marker(worksites, "Wood1", "wood", 402, 0, 1);
+            Marker(worksites, "Wood2", "wood", 449, 1);
+            Marker(worksites, "Wood3", "wood", 488, 2, 2);
+            Marker(worksites, "Stone4", "stone", 548, 3);
+            Marker(worksites, "Iron5", "iron", 592, 4);
+            Marker(actors, "Worker1", "worker", 170, 0, 0, "艾达");
+            Marker(actors, "Worker2", "worker", 187, 1, 0, "罗恩");
+            Marker(actors, "Worker3", "worker", 293, 2, 0, "米娅");
+            Marker(actors, "Worker4", "worker", 311, 3, 0, "伊恩");
+            Marker(actors, "Worker5", "worker", 357, 4, 0, "莉娜");
+            Marker(actors, "Spearman6", "spearman", 660, 5, 0, "奥斯");
+            Marker(actors, "Archer7", "archer", 625, 6, 0, "薇拉");
         }
 
         private static GameCatalog LoadCatalog()
@@ -123,18 +127,12 @@ namespace DarkNights.Editor
             return anchor;
         }
 
-        private static void Marker(Transform parent, string name, LevelPlacementCategory category,
+        private static void Marker(Transform parent, string name,
             string contentId, float x, int order, int variant = 0, string actorName = "")
         {
-            Transform markerTransform = Anchor(parent, name, x);
-            var marker = markerTransform.gameObject.AddComponent<LevelPlacementMarker>();
-            var serialized = new SerializedObject(marker);
-            serialized.FindProperty("category").enumValueIndex = (int)category;
-            serialized.FindProperty("contentId").stringValue = contentId;
-            serialized.FindProperty("spawnOrder").intValue = order;
-            serialized.FindProperty("variant").intValue = variant;
-            serialized.FindProperty("actorName").stringValue = actorName;
-            serialized.ApplyModifiedPropertiesWithoutUndo();
+            var definitions = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance);
+            SceneDefinitionAuthoring.Create(definitions.GetRequired(contentId), parent,
+                new Vector3(x, 320, 0), name, order, variant, actorName);
         }
 
         private static void Configure(LevelLayoutAuthoring authoring, params Transform[] references)
