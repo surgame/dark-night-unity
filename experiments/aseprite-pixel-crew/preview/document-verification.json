@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "source_sha256": "2ef67a6b3e45c9b9576f456003aea50a2916103868e6fbf744687c33c1a30295",
+  "aseprite_version": "1.3.18.5-x64",
+  "frames": 24,
+  "layers": 13,
+  "tags": [
+    "idle",
+    "walk",
+    "jump"
+  ],
+  "checks": [
+    "native_open",
+    "frame_tag_ranges",
+    "feet_origin_32_58",
+    "isolated_pixel_edit",
+    "alternative_visibility_edit",
+    "save_and_reopen",
+    "role_metadata_persisted",
+    "source_unchanged"
+  ],
+  "probe": "artifacts/aseprite-pixel-crew/document-check-v1/edited-copy.aseprite",
+  "result": "ASEPRITE_DOCUMENT_CHECK passed frames=24 layers=13 tags=3 origin=32,58 edit_save_reopen=true alternative_visibility_persisted=true",
+  "ordinary_reexport": {
+    "status": "passed",
+    "initialize_used": false,
+    "source_sha256": "e81d23ae2734d1574cea60f76abb94e0cf9f4cd378e115a4d0f456b3044f903d",
+    "default_headwear": "hard_hat",
+    "frames": 24,
+    "verification": "artifacts/aseprite-pixel-crew/reexport-edited-v1/verification.json"
+  }
+}

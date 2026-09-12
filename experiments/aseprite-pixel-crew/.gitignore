@@ -1,0 +1,5 @@
+local/
+exports/
+__pycache__/
+*.aseprite-bak
+*.log

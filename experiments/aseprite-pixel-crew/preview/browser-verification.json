@@ -1,0 +1,82 @@
+{
+  "status": "passed",
+  "date": "2026-09-12",
+  "browser": "Codex in-app browser",
+  "url": "http://127.0.0.1:8768/",
+  "source_sha256": "2ef67a6b3e45c9b9576f456003aea50a2916103868e6fbf744687c33c1a30295",
+  "checks": [
+    {
+      "name": "native_layer_images_loaded",
+      "ready": true
+    },
+    {
+      "name": "all_clothing_selections_preserve_clip_frame_and_pause",
+      "combinations": 18,
+      "clip": "walk",
+      "frame_zero_based": 0
+    },
+    {
+      "name": "next_previous_and_frame_selection",
+      "next_readout": "05 / 08 · 100 ms",
+      "previous_frame_zero_based": 3
+    },
+    {
+      "name": "grid_origin_checker_and_integer_scale",
+      "grid": true,
+      "origin": true,
+      "canvas_width": 64,
+      "display_width": 256
+    },
+    {
+      "name": "jump_one_shot_finishes",
+      "last_frame_zero_based": 9,
+      "playing": false,
+      "button": "重播"
+    },
+    {
+      "name": "half_speed_jump",
+      "expected_duration_ms": 1860,
+      "observed_wall_ms_including_automation_overhead": 1960
+    },
+    {
+      "name": "keyboard_A_moves_left_and_mirrors",
+      "start_x": 192,
+      "observed_x": 191.28,
+      "facing": -1
+    },
+    {
+      "name": "keyboard_D_moves_right",
+      "start_x": 192,
+      "observed_x": 192.24,
+      "facing": 1
+    },
+    {
+      "name": "space_starts_jump_and_returns_to_idle",
+      "started_clip": "jump",
+      "completed_clip": "idle",
+      "left_held": false,
+      "right_held": false
+    },
+    {
+      "name": "focus_release",
+      "focused_after_click": "play",
+      "scene_status": "点击场景以使用键盘",
+      "left_held": false,
+      "right_held": false
+    },
+    {
+      "name": "browser_console",
+      "warnings": 0,
+      "errors": 0
+    }
+  ],
+  "visual_review": "Observed default worker, hard-hat/vest/canvas-bag combination, timeline and playable scene in the actual browser.",
+  "scope": "DOM and interaction observations plus visual inspection. Pixel equality is independently checked against native Aseprite exports in verification.json.",
+  "limitations": [
+    "Browser security policy blocked file:// navigation; offline file opening was not browser-tested. Localhost preview was tested.",
+    "Only the current desktop viewport was inspected; no mobile-device compatibility claim.",
+    "Left-facing animation is a horizontal mirror.",
+    "Art acceptance remains pending user review."
+  ],
+  "h5_sha256_lf": "d75a3a068f7ca9761a772e74169129c081139a80159ca18a09fc6028b3da70d2"
+}
