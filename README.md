@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-13 已确定后续采用 YYGC 统一对象架构：业务 Behaviour／State 接管运行实体，Core 收缩为纯算法与数据合同；允许针对 YYGC 能力限制或 BUG 升级适配，不做旧数据兼容。已从 `7072b26` 创建分支 `codex/yygc-unified-object-migration`，见[分阶段重构执行计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)。**当前仅完成规划，U1–U6 未实施；下文为现有实现和历史验收状态。**
+
 2026-09-13 已完成 [Definition 场景入口修复](docs/SCENE_DEFINITIONS.md)：统一 Loader 引用、定义分类和静态视图接管，删除手填映射表。编译完成，测试回归按用户要求待确认；当前 YYGC 锁定 `ccd61e0`，不沿用旧批次通过记录宣称本次已验收。
 
 《Dark Nights》Unity 移植工程。灰松谷规则、15 类原生对象、UGUI、正式四人联机、十槽位存档和重连主体已实现。2026-09-12 验收续跑已完成干净 Mono 构建、活跃存档恢复、并发、九组四进程弱网、三夜及容量上限检查。画面复核发现字体与新增菜单控件需要校准，性能采样仍有证据缺口；IL2CPP 和双机器 LAN 分别待验收，M5 尚未完成。见[本批验收与产物](docs/MONO_ACCEPTANCE.md)和[后续清单](docs/M5_EXECUTION.md#mono-acceptance)。
@@ -12,7 +14,7 @@
 
 `Game/` 是 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。先运行 `tools/prepare-lan-sample.ps1` 与 `tools/prepare-fishnet.ps1` 准备锁定提交的 `.deps/YYGC`／`.deps/FishNet`，不直接引用用户维护的框架工作区。FishNet 4.7.2 带断线分片清理补丁，见[恢复接入](docs/NETWORK_RECOVERY.md)。R3、MemoryPack、UniTask 等依赖已导入；VitalRouter 使用 YYGC 要求的完成语义修正版。内部产品名暂保留 `DNights`。
 
-原评估日期：2026-09-10；Sample 验证日期：2026-09-11。本仓库分支为 `main`。早期评估未修改 `D:\Developer\YYGC`、Godot 基线或参考素材；2026-09-12 的 Workshop 展示修复已同步 YYGC，逐文件记录见[改动账本](docs/YYGC_CHANGES.md#workshop-display)。下方评估输入表保留历史时点。
+原评估日期：2026-09-10；Sample 验证日期：2026-09-11。当时分支为 `main`，当前迁移分支见上方。早期评估未修改 `D:\Developer\YYGC`、Godot 基线或参考素材；2026-09-12 的 Workshop 展示修复已同步 YYGC，逐文件记录见[改动账本](docs/YYGC_CHANGES.md#workshop-display)。下方评估输入表保留历史时点。
 
 ## 核心判断
 
@@ -42,6 +44,7 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 
 | 要解决的问题 | 文档 |
 |---|---|
+| YYGC 统一对象路线、框架升级、旧模型退出与分阶段验收 | [统一重构执行计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md) |
 | 本次移植总方案、YYGC 对应、可关闭共享控制和第一步 | [移植方案](docs/MIGRATION_PLAN.md) |
 | 立即试用 LAN 模板、R3/VitalRouter 约束、四进程证据 | [LAN Sample](docs/LAN_SAMPLE.md) |
 | 早期框架缺口、修正缘由及复用边界 | [YYGC 能力复评](docs/YYGC_REASSESSMENT.md) |

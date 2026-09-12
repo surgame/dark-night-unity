@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-09-13 决策更新：后续按 [YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)迁移。目标为 ObjectInstance／业务 Behaviour 唯一拥有运行实体及实例 State，Core 只保留纯算法、只读配置和数据合同；保留会话权威调度、可靠完整投影、命令链及只读表现。为此允许升级 YYGC 的状态权限和装配能力，不做旧数据兼容。**方案尚未实施**；下文的 GameSession／WorldState 状态归属描述当前代码，不再是迁移完成后的目标。新旧模型不得同时驱动一个活动会话。
+
 2026-09-13 场景入口已统一到 ObjectDefinitionLoader：Marker 仅保存实例参数，Definition 持有类型／Key，旧 Kind 由只读适配索引导出；静态视图接入副本绑定和借还。编译完成、回归待用户确认；此项替代下文历史版本中的手填 ContentId 映射与“隐藏预览后全量动态创建”描述，见[当前合同](SCENE_DEFINITIONS.md)。
 
 2026-09-12 [C 重构执行计划](C_REFACTOR_PLAN.md)的 R1–R4 已完成：会话对象接管权威生命周期，个体表现 Behaviour 接管本地绑定与展示，Core 继续独占真实状态和规则。最终 Ready 修复后的 Mono 并发、活跃加载、九组四进程弱网、战斗晚加入、三夜及容量上限均通过；性能 A/C 对比仍待后续。正式结果见[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)；下文早期“尚未接线”等段落保留其历史时点，不能覆盖最新执行记录。

@@ -1,5 +1,7 @@
 # Unity 世界存档 v1
 
+2026-09-13 后续决策：本页记录现有 v1 格式；[YYGC 统一对象重构](YYGC_UNIFIED_REFACTOR_PLAN.md)计划使用 `dark-nights.world` v2，不再提供 Godot 旧档或 Unity v1 导入／迁移。新格式自身的完整恢复、关系校验、冻结和原子文件语义继续验收；旧文件保留且不自动改写。**v2 尚未实施，当前代码仍使用本页合同。**
+
 2026-09-11。M1 已提供 `GameSaveJson` 与 `GameSaveStore`：从冻结快照保存、按内容兼容性校验并恢复一个新世界。独立 .NET 回归与 Unity Editor 检查已通过，证据见[第六批记录](evidence/world-save-2026-09-11.json)。第七批[会话业务层](SESSION_AUTHORITY.md)已补房主加载权限、票据与 epoch；正式 UI、文件任务和网络通知尚未装配，不能据此认定已能在游戏中存取档。
 
 ## 文件合同

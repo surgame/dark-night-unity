@@ -1,12 +1,14 @@
 # Dark Nights Unity 开发约定
 
-先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。环境与独立 LAN Sample 已完成，配置启动、权威规则与旧档核心已有实现和回归；正式场景、对象接入、表现和正式联机仍待实施。先核对开发执行计划中的实际状态，不能把计划目录、接口和测试写成已完成实现。
+先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现及分批验证，M5 尚未完成；2026-09-13 场景入口修复仅完成编译与静态检查。后续按 [YYGC 统一对象重构计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)推进，该方案尚未实施。先核对实际状态，不能把计划目录、接口和测试写成已完成实现。
 
 ## 范围与工作区
 
 - 游戏名称为 Dark Nights，当前内容为灰松谷一个关卡。2–4 人合作、共享营地已确认。联机入口与托管方式的估算假设见 README。
 - `../projects` 是已提交的游戏基线，`../reference projects` 是研究与素材来源。Unity 的日常导入、构建和运行必须独立于这两个目录。
-- `D:\Developer\YYGC` 是用户维护的框架仓库。用户于 2026-09-12 授权必要时更新 YYGC：先核实具体接入缺口，优先在隔离 checkout 中验证，保留用户已有改动，不代为清理或覆盖。游戏继续使用可重现的锁定依赖；完成后必须逐项列出 YYGC 的修改文件、原因、落点与验证结果，维护 [YYGC 改动账本](docs/YYGC_CHANGES.md)。历史记录中的 UGUIManager 暂存和 IDRegistry 备份不代表当前仍有这些差异。
+- `D:\Developer\YYGC` 是用户维护的框架仓库。用户于 2026-09-12 授权必要时更新 YYGC，并于 2026-09-13 明确允许针对能力限制或 BUG 升级适配：先核实具体缺口，优先在隔离 checkout 中验证，保留用户已有改动，不代为清理或覆盖。不因当前框架限制长期保留两套游戏对象／状态系统。游戏继续使用可重现的锁定依赖；完成后必须逐项列出 YYGC 的修改文件、原因、落点与验证结果，维护 [YYGC 改动账本](docs/YYGC_CHANGES.md)。历史记录中的 UGUIManager 暂存和 IDRegistry 备份不代表当前仍有这些差异。
+- 2026-09-13 已选定 YYGC 统一对象路线，在 `codex/yygc-unified-object-migration` 分支分阶段实施：运行实体与实例状态最终归 YYGC ObjectInstance／业务 Behaviour，Core 只保留纯算法、只读配置和数据合同；迁移期间同一活动会话不得同时运行新旧模型，旧实体必须按计划退出。当前代码仍是原模型，不能提前宣称迁移完成。
+- 本次无需旧数据适配：正式游戏不再要求 Godot 旧档、Unity v1 存档、协议 5 客户端或旧 Kind／整数身份兼容；按阶段移除旧入口。新格式自身的保存恢复、严格校验和原子性仍必须验收。保留当前人工资产、资源 GUID 和冻结玩法证据，不自动删除用户旧存档；独立 Sample 和 YYGC 其他使用者的兼容边界另行保留。
 - 框架接入通过 UPM 和锁定版本完成。实验性修正使用隔离 checkout；本机 `.deps/` 不提交，取得稳定版本后提交可重现的依赖配置与锁文件。
 - 不擅自改变既有数值、布局、波次、素材字节、文字或攻击时机。联机需要改变的权限和会话语义单独记录并验证。
 
@@ -30,7 +32,7 @@
 - Editor 沿用已锁定的 `6000.4.9f1`；游戏代码兼容 C# 9 和 .NET Standard 2.1。不能把 Godot 的 C# 12／.NET 8 配置直接带入。
 - 职责目录与程序集按架构文档执行。Core 不引用 Unity、Godot、GameCore、FishNet、R3、VitalRouter、文件系统或表现资源；引擎、网络与存储适配放 Runtime。
 - 正式代码放 `Assets/DarkNights/Scripts`，资源放 `Assets/DarkNights/Res`；采用 Core、Runtime、View、Entry 四个运行程序集，以及隔离的 Editor/Tests。View、Entry 分别承担原方案 Presentation、Bootstrap 的职责；不改现有 Bootstrap 场景或 Sample 类型名。不要为每个小文件再建一层服务接口或一个程序集。
-- 代码目录使用 Config、Logic、ViewData、Save、Network 等直观名称，具体归属见架构文档；Scripts/Res 不加入命名空间。ViewData 仅为展示副本，可写 WorldState 归 Core/Logic。不预建空目录和占位类型。
+- 代码目录使用 Config、Logic、ViewData、Save、Network 等直观名称，具体归属见架构文档；Scripts/Res 不加入命名空间。ViewData 仅为展示副本；现有 Core/Logic 世界按统一重构阶段退出，目标业务 Behaviour／State 放 Runtime/Objects，Core/Logic 仅留纯计算。不预建空目录和占位类型。
 - 文件名与主要类型一致，命名空间与职责目录一致，根命名空间 `DarkNights`。不建立无限扩张的 Manager/Utils 汇总文件。
 - 手写 C# 目标 150–250 行，硬上限 300 行，包含空行与注释；一文件一个主要命名类型。按职责拆分，不压缩语句或用多个 partial 文件绕过上限。
 - YYGC／MemoryPack／绑定生成器要求的类型可以 `partial`，但每个类型仍只有一份手写主体。生成输出放明确目录，记录输入和重建方式；不手改生成结果。
@@ -43,14 +45,14 @@
 
 ## 权威状态与联机
 
-- `GameSession/WorldState` 的可写实例只存在于权威端。经济、生产、单位 AI、伤害、箭矢、波次、胜负和随机数都只有一个写入者。
-- 客户端及 Host 的表现只读取展示副本。不得将网络 DTO、ScriptableObject 或 `StatefulBehaviour` 再变成另一套经济／HP 状态。
+- 经济、生产、单位 AI、伤害、箭矢、波次、胜负和随机数都只有一个权威写入者。当前状态在 GameSession/WorldState；统一重构后由所属 YYGC 业务 Behaviour／实例 State 拥有，索引只引用对象，不另存一份状态。
+- 客户端及 Host 的表现只读取冻结展示副本。StatefulBehaviour 接管权威状态时必须撤除旧状态所有者；网络 DTO、ScriptableObject 和展示副本不能再自行结算经济／HP。
 - 业务命令带明确 EntityId 和参数，不能读取一个全局 SelectedIds／BuildKind 来代替请求参数。镜头、选择、悬停与建造预览属于各客户端。
 - 身份从服务端连接上下文取得。请求中的 PlayerId、SenderObjectId、资源数量和伤害值都不构成授权；服务端验证共享营地权限、合法目标、范围、版本、序号和支付。
 - Host 使用同一个验证与命令处理入口，保证一次输入只执行一次。客户端可以显示待确认反馈，不先结算支付或伤害。
 - 共享控制使用会话级 SharedCamp / HostOnly 策略，服务端统一校验；关闭时同时限制直接命令、建造自动派工和训练等营地修改。切换增加 PolicyRevision，拒绝旧策略未执行请求，已生效任务继续；不通过转移小人的 FishNet 所有权实现。
 - 模拟默认 60 Hz，倍速只在一个入口生效。暂停时网络、心跳、重连与 UI 继续运行；不用 `Time.timeScale = 0` 停掉整个服务进程。
-- 稳定实体 ID、内容 ID、YYGC Guid / Key／旧整数 DefinitionId、FishNet ObjectId、玩家连接 ID 分开。新资源使用 DefinitionReference，首个切片保留已验证的 LegacyV1 wire 及有效网络定义旧 ID。载入世界增加 epoch，拒绝旧世界命令和快照，保持当前房间控制模式。
+- 稳定实体 ID、规则引用、场景放置键、YYGC Guid / Key、FishNet ObjectId、玩家连接 ID 分开。正式游戏已使用 DefinitionReference 与 GuidFirst／GuidV2；新重构不恢复旧整数兼容，独立 Sample 的 LegacyV1 单独保留。载入世界增加 epoch，拒绝旧世界命令和快照，保持当前房间控制模式。
 - 快照是冻结数据；异步发送、插值、存档不能持有已归还池的状态引用。不要让 SessionScope 跨 await 或线程。
 - 不默认采用锁步、回滚、ECS、并行模拟、每实体 NetworkTransform、房主迁移或专服集群。增加这些方案前给出具体需求和测量依据。
 
@@ -73,6 +75,6 @@
 - 运行与改动相匹配的规则、场景或联机检查；不为文档修改伪造 Unity 构建通过记录。
 - 联机验证包含独立进程中的 Host＋客户端。Host 单窗口、单个状态序列化测试不能替代联机验收。
 - 核验并发扣款、共享工位、重发去重、非法目标、初始快照、晚加入、重连、丢包乱序、暂停、加载 epoch 和 Host 单次执行。
-- 原玩法和旧档夹具是冻结证据，不用当前结果重生成来掩盖差异。跨引擎规则一致性与跨 GPU 画面近似分别验收。
+- 原玩法和旧档夹具是冻结证据，不用当前结果重生成来掩盖差异。旧档读取成功不再是统一重构的验收要求；仍有效的布局、规则、RNG 和时序断言迁到新对象入口，新格式完整恢复单独验收。跨引擎规则一致性与跨 GPU 画面近似分别验收。
 - 美术相关变更完成 Prefab 编辑、保存、重开和运行检查；发布相关变更完成实际 Player 构建并在独立进程运行。
 - 保持文档的“已完成／计划／待验证”清晰，更新执行状态、依赖和验证证据。提交前查看差异，提交当前仓库内的本次成果，不推送远端。

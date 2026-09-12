@@ -1,5 +1,7 @@
 # Definition 驱动的场景放置
 
+后续方向（2026-09-13）：[YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)将以稳定放置键登记场景 ObjectInstance，迁入真实业务能力，退出下述按 Kind 借还视图及独立 Core 实体的流程。Loader 保留通用装配职责，Marker 保留实例参数，CreateLayout 只负责冻结布局描述和校验。**此方向尚未实施；以下仍是当前场景代码及其验证边界。**
+
 2026-09-13：实现完成，测试回归待用户确认。Unity `6000.4.9f1` 编译已通过；没有运行 Editor/Play 测试、Player 构建、联机或弱网回归。历史 C 重构通过记录不能视为本次改动已验收。
 
 ## 当前职责
