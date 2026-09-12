@@ -5,6 +5,8 @@ using DarkNights.Editor;
 using DarkNights.Runtime.Framework;
 using DarkNights.View;
 using GameCore.Objects.Definition;
+using GameCore.Objects.Runner;
+using GameCore.Objects.Views;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using UnityEditor;
@@ -33,11 +35,50 @@ namespace DarkNights.Tests
                 string name = (string)spec["name"];
                 ObjectDefinition definition = map.GetRequired(NativeArtSetup.ContentId(name), database);
                 Assert.That(definition.isLocal && definition.Id == 0 && !definition.Guid.IsEmpty);
+                Assert.That(definition.BehaviourTypes.Count(value => value == CRefactorContentUpgrade.PresentationType(name).FullName), Is.EqualTo(1));
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(definition.PrefabRef.AssetGUID));
                 var visual = prefab.GetComponent<ObjectView>().Get<NativeVisual>("visual");
                 Assert.That(visual, Is.Not.Null);
                 Assert.That(visual.Portrait, Is.SameAs(NativeAnimationBuilder.Sprite((string)spec["portrait"])));
             }
+        }
+
+        [Test]
+        public void FifteenPrefabCopiesSaveReopenAndAssemblePassivePresentations()
+        {
+            string temporary = "Assets/DarkNightsContentRoundTrip";
+            Assert.That(Directory.Exists(temporary), Is.False, "Refuse to overwrite an existing round-trip output.");
+            AssetDatabase.CreateFolder("Assets", "DarkNightsContentRoundTrip");
+            try
+            {
+                foreach (JObject spec in Input()["visuals"])
+                {
+                    string name = (string)spec["name"];
+                    string source = "Assets/DarkNights/Res/Objects/" + name + "/" + name;
+                    string copy = temporary + "/" + name + ".prefab";
+                    GameObject root = PrefabUtility.LoadPrefabContents(source + ".prefab");
+                    try { Assert.That(PrefabUtility.SaveAsPrefabAsset(root, copy), Is.Not.Null); }
+                    finally { PrefabUtility.UnloadPrefabContents(root); }
+                    root = PrefabUtility.LoadPrefabContents(copy);
+                    try
+                    {
+                        var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(source + ".asset");
+                        var view = root.GetComponent<ObjectView>();
+                        FormalObjectContentTests.ExpectRegistrationWithoutRuntime(definition.BehaviourTypes.Count);
+                        ObjectDefinitionInitialization.Initialize(view.Initializer, definition);
+                        var instance = root.GetComponent<ObjectInstance>();
+                        var presentation = instance.GetAllBehaviors().OfType<EntityPresentationBehaviour>().Single();
+                        Assert.That(presentation.GetType(), Is.EqualTo(CRefactorContentUpgrade.PresentationType(name)), name);
+                        Assert.That(presentation.Visual, Is.SameAs(view.Get<NativeVisual>("visual")), name);
+                        Assert.That(presentation.IsBound || presentation.IsAvailable, Is.False, name);
+                        presentation.Visual.Preview(0, 0);
+                        Assert.That(presentation.Id, Is.Zero, name);
+                        Assert.That(presentation.Epoch, Is.Zero, name);
+                    }
+                    finally { PrefabUtility.UnloadPrefabContents(root); }
+                }
+            }
+            finally { AssetDatabase.DeleteAsset(temporary); }
         }
 
         [Test]

@@ -89,9 +89,11 @@ namespace DarkNights.Editor
             var root = PrefabUtility.LoadPrefabContents(FormalObjectContentSetup.SessionPrefabPath);
             try
             {
-                if (root.GetComponent<SessionObjectLink>() != null) throw new InvalidOperationException("Session link already installed.");
-                var link = root.AddComponent<SessionObjectLink>();
+                var link = root.GetComponent<SessionObjectLink>();
+                if (link != null) CRefactorContentUpgrade.ValidateSessionLink(root, false);
+                if (link == null) link = root.AddComponent<SessionObjectLink>();
                 Reference(link, "instance", root.GetComponent<ObjectInstance>());
+                Reference(link, "synchronizer", root.GetComponent<StateSynchronizer>());
                 PrefabUtility.SaveAsPrefabAsset(root, FormalObjectContentSetup.SessionPrefabPath);
             }
             finally { PrefabUtility.UnloadPrefabContents(root); }
@@ -106,7 +108,7 @@ namespace DarkNights.Editor
             if (endpoint == null || endpoint.Sender == null || view.Get<PlayerEndpoint>("endpoint") != endpoint)
                 throw new InvalidOperationException("Connection bindings are incomplete.");
             var session = AssetDatabase.LoadAssetAtPath<GameObject>(FormalObjectContentSetup.SessionPrefabPath);
-            if (session.GetComponent<SessionObjectLink>() == null) throw new InvalidOperationException("Session lifecycle link missing.");
+            CRefactorContentUpgrade.ValidateSessionLink(session);
             var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(DefinitionPath);
             if (definition == null || definition.Key != "connection.pinewatch" || definition.Id != 0 || !definition.isNetwork ||
                 definition.GuidString != AssetDatabase.AssetPathToGUID(DefinitionPath)) throw new InvalidOperationException("Invalid connection definition.");

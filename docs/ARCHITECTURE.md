@@ -124,14 +124,14 @@ Core/ViewData 中的接口让 View 提交意图和读取副本，Entry 注入 Ru
 
 ### 会话对象如何组合规则
 
-下表描述目标装配职责。当前 WorldSessionBehaviour 只发布会话元数据，不创建或推进 GameSession；SessionAuthority 已单独实现权威业务层，但二者尚未接线。完整投影、真实时钟驱动与实体表现仍待实施。
+2026-09-12 C 重构已落实下表装配；功能验收状态见[实施记录](C_REFACTOR_IMPLEMENTATION.md)。Core 仍拥有唯一真实状态，框架行为承担会话生命周期及个体表现。
 
-| 组合位置 | 拟议对象／行为 | 拥有的状态与边界 |
+| 组合位置 | 已实现对象／行为 | 拥有的状态与边界 |
 |---|---|---|
-| 营地 Network ObjectInstance | CampSessionBehaviour 与会话控制器 | 生命周期内拥有唯一 GameSession；协调命令队列和一个模拟时钟；Core 经济、战斗、生产仍是普通 C# 模块 |
-| 同一营地 ObjectInstance | CampProjectionBehaviour : StatefulBehaviour | 从 Core 冻结投影并经 MutateState 发布；不在 StateData 再结算库存或 HP |
+| 营地 Network ObjectInstance | CampSessionBehaviour → SessionServer → SessionAuthority | 配置与服务端角色就绪后创建唯一服务；未缩放时钟统一推进，停止先撤销引用再释放 |
+| 同一营地 ObjectInstance | WorldSessionBehaviour : StatefulBehaviour | SessionServer 从 Core 冻结投影，经 MutateState 发布；不在 StateData 再结算库存或 HP |
 | 每位玩家的网络入口 | 既有 NetworkCommandSender＋薄业务结果适配 | FishNet 所有权只授予自己的发送入口；不据此将小人所有权交给玩家 |
-| 各端实体 Local ObjectInstance | EntityPresentationBehaviour＋ObjectView | 按 `(Epoch, EntityId)` 订阅副本，驱动位置、姿态、选区、状态条；无写回模拟路径 |
+| 各端实体 Local ObjectInstance | Actor／Building／WorksitePresentationBehaviour＋ObjectView | 按 `(Epoch, EntityId)` 显式绑定副本，由公共时间线统一分发；个体解释姿态／阶段，未绑定预览保持被动 |
 | UI Local ObjectInstance | UGUIBehaviour／面板控制器 | 注入只读世界和命令接口；负责本地预览与待确认反馈 |
 
 跨 Behaviour 协作使用 YYGC 注入接口；副本持续变化按需用 R3 观察，订阅随对象／会话结束释放。Core 不实现废弃的 `ILocalData`，也不通过共享黑板让视图修改规则。Behaviour 是营地规则的框架适配入口，普通 Core 类型无需为接入框架改成 MonoBehaviour 或另写一套 HP Behaviour。

@@ -1,6 +1,6 @@
 using System;
 
-namespace DarkNights.Runtime.Session
+namespace DarkNights.Runtime.Diagnostics
 {
     /// <summary>
     /// 显式验收模式的有界数值采样，保留最近十万个样本；只有导出时排序副本。

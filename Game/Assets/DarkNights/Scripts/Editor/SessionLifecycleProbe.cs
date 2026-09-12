@@ -44,6 +44,10 @@ namespace DarkNights.Editor
                 {
                     await network.Connect(true, "127.0.0.1", 28210);
                     await Until(() => network.Client.Ready && entities.Count == 17);
+                    var session = network.ActiveSession;
+                    var server = network.Server;
+                    Check("one_authority_" + run, session != null && session.StartCount == 1 &&
+                        ReferenceEquals(session.Server, server));
                     Check("host_ready_" + run, network.Client.PlayerSlot == 0);
                     await network.Client.Send(SessionOperation.SetPaused, value: 1);
                     await network.Client.Send(SessionOperation.Recruit);
@@ -56,10 +60,38 @@ namespace DarkNights.Editor
                         object split = arguments[1];
                         split.GetType().GetField("_receivedMessages", flags).SetValue(split, (ushort)1);
                     }
+                    if (run == 1)
+                    {
+                        InstanceFinder.ClientManager.StopConnection();
+                        await Until(() => !InstanceFinder.ClientManager.Started && server.Authority.PlayerCount == 0);
+                        long tick = server.Authority.ServerTick;
+                        await Until(() => server.Authority.ServerTick > tick);
+                        Check("client_stop_preserves_server", network.Hosting && ReferenceEquals(network.Server, server) &&
+                            !server.Authority.Closed && session.StartCount == 1);
+                        Check("client_stop_clears_replica", network.Client.Replica.Current == null);
+                    }
+                    if (run == 2)
+                    {
+                        InstanceFinder.ServerManager.StopConnection(true);
+                        await Until(() => server.Authority.Closed && network.Server == null);
+                        long tick = server.Authority.ServerTick;
+                        await Task.Delay(200);
+                        Check("server_stop_stops_authority", tick == server.Authority.ServerTick && session.Server == null);
+                    }
                     network.Disconnect();
                     await Until(() => !network.Hosting && !InstanceFinder.ClientManager.Started && network.Client.Replica.Current == null && entities.Count == 0 && effects.EffectCount == 0);
                     Check("split_cache_cleared_" + run, field.GetValue(InstanceFinder.ClientManager) == null);
+                    Check("authority_disposed_" + run, server.Authority.Closed && network.ActiveSession == null);
                 }
+                await network.Connect(true, "127.0.0.1", 28210);
+                await Until(() => network.Client.Ready && entities.Count == 17);
+                var despawned = network.Server;
+                InstanceFinder.ServerManager.Despawn(network.ActiveSession.Owner.gameObject);
+                await Until(() => network.Server == null && network.Client.Replica.Current == null &&
+                    entities.Count == 0 && effects.EffectCount == 0);
+                Check("object_despawn_clears_world_without_disconnect", network.Hosting &&
+                    InstanceFinder.ClientManager.Started && despawned.Authority.Closed);
+                network.Disconnect();
             }
             catch (Exception exception) { failure = exception.ToString(); Debug.LogException(exception); }
             finally

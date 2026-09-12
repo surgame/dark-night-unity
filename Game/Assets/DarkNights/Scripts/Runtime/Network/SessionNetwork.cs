@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.IO;
-using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Framework;
@@ -15,12 +14,14 @@ using GameCore.Objects.NetworkStates;
 using GameCore.Objects.Runner;
 using UnityEngine;
 using VitalRouter;
+using Runtime.Utils;
+using YY.Features.Players.View;
 
 namespace DarkNights.Runtime.Network
 {
     /// <summary>
     /// 应用启动上下文拥有的正式 LAN 生命周期，复用已有 NetworkManager、定义工厂和 YYGC 命令／状态链。
-    /// 每次连接创建独立业务服务，所有异步创建检查尝试代次；退出停止权威、网络及订阅，单人也使用同一 Host 路径。
+    /// 网络入口只装配当前会话行为，权威服务由该行为拥有；异步创建检查尝试代次，单人也使用同一 Host 路径。
     /// </summary>
     public sealed class SessionNetwork : MonoBehaviour
     {
@@ -32,8 +33,11 @@ namespace DarkNights.Runtime.Network
         private bool connecting, initialized;
         private string lastAddress;
         private ushort lastPort;
+        private CampSessionBehaviour activeSession;
         public SessionClient Client { get; private set; }
-        public SessionServer Server { get; private set; }
+        public SessionServer Server => activeSession?.Server;
+        public CampSessionBehaviour ActiveSession => activeSession;
+        internal int ConnectionAttempt => attempt;
         public string Status { get; private set; } = "未连接";
         public bool Hosting => manager != null && manager.IsServerStarted;
         public string SaveDirectory { get; private set; }
@@ -69,6 +73,7 @@ namespace DarkNights.Runtime.Network
             manager.SceneManager.OnClientLoadedStartScenes += Loaded;
             manager.ServerManager.OnRemoteConnectionState += Remote;
             manager.ClientManager.OnClientConnectionState += ClientState;
+            manager.ServerManager.OnServerConnectionState += ServerState;
             initialized = true;
         }
 
@@ -94,18 +99,23 @@ namespace DarkNights.Runtime.Network
                         await UniTask.Yield();
                     if (this == null || current != attempt) return;
                     if (!manager.IsServerStarted) throw new TimeoutException("房间启动超时。");
-                    var view = await ObjectInstanceFactory.CreateByKeyAsync(FormalObjectCatalog.SessionKey, Vector3.zero, Quaternion.identity);
+                    var view = await CreateCurrent(FormalObjectCatalog.SessionKey, current);
                     if (this == null || current != attempt) { if (view != null) Destroy(view.gameObject); return; }
                     if (view == null) throw new InvalidOperationException("正式会话对象创建失败。");
                     var behaviour = view.Owner.GetAllBehaviors().OfType<WorldSessionBehaviour>().Single();
-                    Server = new SessionServer(catalog, layout, behaviour, new GameSaveStore(SaveDirectory, catalog, layout),
+                    var session = view.Owner.GetAllBehaviors().OfType<CampSessionBehaviour>().Single();
+                    if (activeSession != null) throw new InvalidOperationException("A session object is already active.");
+                    activeSession = session;
+                    session.Configure(catalog, layout, behaviour, SaveDirectory,
+                        source => { if (current == attempt && ReferenceEquals(activeSession, source)) activeSession = null; },
+                        error => { if (current == attempt) Fail(error); },
                         Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-metrics") >= 0,
                         Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-projection-pressure") >= 0);
                 }
                 Status = "正在连接";
                 if (!manager.ClientManager.StartConnection()) throw new InvalidOperationException("无法启动客户端。");
             }
-            catch (Exception error) { Fail(error); }
+            catch (Exception error) { if (current == attempt) Fail(error); }
             finally { if (current == attempt) connecting = false; }
         }
 
@@ -113,18 +123,21 @@ namespace DarkNights.Runtime.Network
         {
             if (!asServer || Server == null) return;
             int current = attempt;
+            var owner = activeSession;
+            var server = owner.Server;
             try
             {
                 if (manager.ServerManager.Clients.Count > 4) { connection.Disconnect(true); return; }
-                var view = await ObjectInstanceFactory.CreateByKeyAsync("connection.pinewatch", Vector3.zero, Quaternion.identity);
-                if (this == null || current != attempt || !connection.IsActive)
+                var view = await CreateCurrent("connection.pinewatch", current);
+                if (this == null || current != attempt || !ReferenceEquals(activeSession, owner) ||
+                    !ReferenceEquals(owner.Server, server) || !connection.IsActive)
                 {
                     if (view != null) Destroy(view.gameObject);
                     return;
                 }
                 if (view == null) throw new InvalidOperationException("正式命令入口创建失败。");
                 var endpoint = view.Get<PlayerEndpoint>("endpoint");
-                Server.Add(connection, endpoint, connection.ClientId == manager.ClientManager.Connection.ClientId);
+                server.Add(connection, endpoint, connection.ClientId == manager.ClientManager.Connection.ClientId);
                 endpoint.NetworkObject.GiveOwnership(connection);
             }
             catch (Exception error) { Debug.LogException(error); connection.Disconnect(true); }
@@ -137,6 +150,17 @@ namespace DarkNights.Runtime.Network
             if (Server?.Authority.Closed == true) Disconnect();
         }
 
+        private async UniTask<ObjectView> CreateCurrent(string key, int current)
+        {
+            var definition = ObjectDefinitionDatabase.Instance.GetDefinitionByKey(key);
+            // 锁定的 YYGC 工厂唯一 await 是该缓存加载。先完成它，再检查代次；命中缓存后的
+            // 实例化、定义装配和 Spawn 在同一主线程片段完成，旧尝试不会先广播对象再被销毁。
+            var prefab = await FastInstantiator.GetOrLoadComponentAsync<ObjectView>(definition.PrefabRef);
+            if (this == null || current != attempt || !manager.IsServerStarted) return null;
+            if (prefab == null) throw new InvalidOperationException("正式对象资源加载失败：" + key);
+            return await ObjectInstanceFactory.CreateObjectInstanceAsync(definition, Vector3.zero, Quaternion.identity);
+        }
+
         private void ClientState(ClientConnectionStateArgs args)
         {
             if (args.ConnectionState == LocalConnectionState.Stopped)
@@ -147,23 +171,34 @@ namespace DarkNights.Runtime.Network
             }
         }
 
+        private void ServerState(ServerConnectionStateArgs args)
+        {
+            if (args.ConnectionState != LocalConnectionState.Stopped) return;
+            activeSession?.StopServer();
+        }
+
         private async void Update()
         {
             if (!initialized) return;
+            int current = attempt;
+            long generation = Client.ConnectionGeneration;
             try
             {
-                Server?.Advance(Time.unscaledDeltaTime);
                 if (manager.IsClientStarted) await Client.Advance(Time.realtimeSinceStartupAsDouble);
             }
-            catch (Exception error) { Fail(error); }
+            catch (Exception error)
+            {
+                if (this != null && current == attempt && generation == Client.ConnectionGeneration) Fail(error);
+            }
         }
 
         public void Disconnect()
         {
             attempt++;
             connecting = false;
-            Server?.Dispose();
-            Server = null;
+            var previous = activeSession;
+            activeSession = null;
+            previous?.StopServer();
             Client?.Dispose();
             if (manager != null)
             {
@@ -173,7 +208,7 @@ namespace DarkNights.Runtime.Network
             Status = "未连接";
         }
 
-        private void Fail(Exception error)
+        internal void Fail(Exception error)
         {
             Disconnect();
             Status = error.Message;
@@ -190,6 +225,7 @@ namespace DarkNights.Runtime.Network
             manager.SceneManager.OnClientLoadedStartScenes -= Loaded;
             manager.ServerManager.OnRemoteConnectionState -= Remote;
             manager.ClientManager.OnClientConnectionState -= ClientState;
+            manager.ServerManager.OnServerConnectionState -= ServerState;
             Client.Failed -= Fail;
         }
     }

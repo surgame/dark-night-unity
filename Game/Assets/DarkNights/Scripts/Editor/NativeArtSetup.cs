@@ -27,6 +27,8 @@ namespace DarkNights.Editor
         [MenuItem("Dark Nights/Content/Install Initial Native Art")]
         public static void Install()
         {
+            foreach (string name in new[] { "Worker", "House", "Trees" })
+                CRefactorContentUpgrade.RequireGenerated(CRefactorContentUpgrade.PresentationType(name));
             string staging = Path.GetFullPath("../artifacts/art-staging/Original");
             JObject manifest = JObject.Parse(File.ReadAllText(staging + "/manifest.json"));
             JObject input = JObject.Parse(File.ReadAllText(InputPath));
@@ -77,11 +79,18 @@ namespace DarkNights.Editor
                 string folder = ObjectsRoot + "/" + name;
                 EnsureFolder(folder);
                 GameObject prefab = NativePrefabBuilder.Create(spec, folder, material);
-                if (name == "Worker") continue;
+                if (name == "Worker")
+                {
+                    var worker = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(FormalObjectContentSetup.WorkerDefinitionPath);
+                    worker.BehaviourTypes.Add(CRefactorContentUpgrade.PresentationType(name).FullName);
+                    EditorUtility.SetDirty(worker);
+                    continue;
+                }
                 string id = ContentId(name);
                 var definition = ScriptableObject.CreateInstance<ObjectDefinition>();
                 definition.Name = name;
                 definition.NetType = NetworkType.Local;
+                definition.BehaviourTypes.Add(CRefactorContentUpgrade.PresentationType(name).FullName);
                 definition.PrefabRef = new AssetReferenceGameObject(AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefab)));
                 AssetDatabase.CreateAsset(definition, folder + "/" + name + ".asset");
                 string prefix = (string)spec["category"] == "actors" ? "unit." : (string)spec["category"] == "buildings" ? "building." : "worksite.";
@@ -125,6 +134,8 @@ namespace DarkNights.Editor
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(ObjectsRoot + "/" + name + "/" + name + ".prefab");
                 if (prefab == null || prefab.GetComponent<DarkNights.View.NativeVisual>() == null)
                     throw new InvalidOperationException("Native visual missing: " + name);
+                var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(ObjectsRoot + "/" + name + "/" + name + ".asset");
+                CRefactorContentUpgrade.ValidateLocal(name, definition, prefab);
             }
         }
 

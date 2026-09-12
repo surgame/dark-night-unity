@@ -1,6 +1,7 @@
 using DarkNights.Core.Save;
+using DarkNights.Runtime.Session;
 
-namespace DarkNights.Runtime.Session
+namespace DarkNights.Runtime.Save
 {
     /// <summary>
     /// 唯一权威线程签发的一次存储工作，快照在命令执行边界冻结，票据不能由网络字段重建。

@@ -1,12 +1,11 @@
 using System;
-using DarkNights.Core.Config;
 using DarkNights.Core.ViewData;
 using UnityEngine;
 
 namespace DarkNights.View
 {
     /// <summary>
-    /// 原生角色、建筑或工位 Prefab 的显式表现绑定，只消费冻结副本并采样原始动画。
+    /// 原生角色、建筑或工位 Prefab 的资源和绘制操作，提供动画采样、颜色及显式可见性控制。
     /// 选择边界、脚底、朝向和锚点使用像素到米的统一转换；生命周期由对象创建入口管理。
     /// </summary>
     public sealed class NativeVisual : MonoBehaviour
@@ -41,45 +40,37 @@ namespace DarkNights.View
         public Sprite Portrait => portrait;
         public Transform SelectionAnchor => selectionAnchor;
         public PoseClip[] Clips => (PoseClip[])clips.Clone();
+        public bool HasPoseClips => clips.Length != 0;
+        public bool FadeConstruction => fadeConstruction;
         public Color Ambient { get; set; } = Color.white;
         public bool Contains(Vector2 worldPoint) => pickBounds.Contains(transform.InverseTransformPoint(worldPoint));
         public void PreviewTint(Color tint) { Preview(0, 0); Tint(0, false, false, tint, false); }
 
-        public void Apply(ActorViewData actor, GameCatalog catalog, string workKind, double? displayTime = null)
+        public double PoseDuration(string pose) => RequiredClip(pose).Duration;
+        public void SamplePose(string pose, double seconds) => RequiredClip(pose).Sample(gameObject, seconds);
+
+        public void SetStanding(float face)
         {
             if (shadow != null) shadow.enabled = true;
-            string pose = actor.Walking || actor.Activity == "Move" || actor.Activity == "WorkMove" ||
-                actor.Activity == "BuildMove" || actor.Activity == "TrainingMove" ? "move" :
-                actor.Activity == "Attack" ? "attack" : actor.Kind == "worker" && actor.Activity == "Build" ? "build" :
-                actor.Kind == "worker" && actor.Activity == "Work" ?
-                    workKind == "wood" ? "work_wood" : workKind == "food" ? "work_farm" : "work_mine" : "idle";
-            PoseClip clip = RequiredClip(pose);
-            double seconds = displayTime ?? actor.ActionTime;
-            if (actor.Activity == "Attack") seconds = seconds / catalog.Balance.Units[actor.Kind].AttackSeconds * clip.Duration;
-            clip.Sample(gameObject, seconds);
-            facing.localScale = new Vector3(actor.Face, 1, 1);
+            facing.localScale = new Vector3(face, 1, 1);
             origin.localPosition = standingOffset;
-            Tint(actor.Id, actor.HitFlash > 0, actor.Activity == "Training", Color.white, true);
         }
 
-        public void Apply(BuildingViewData building)
+        public void TintActor(int identity, bool hit, bool training) => Tint(identity, hit, training, Color.white, true);
+        public void TintSurface(Color tint) => Tint(0, false, false, tint, false);
+
+        public void SetBuildingVisibility(bool showComplete, bool showFoundation, bool showRubble)
         {
-            if (clips.Length != 0) RequiredClip("construction").Sample(gameObject, Math.Min(building.Progress, 0.999999));
-            complete.enabled = building.Progress >= 1 || fadeConstruction;
-            if (foundation != null) foundation.enabled = building.Progress < 1 && !fadeConstruction;
-            if (rubble != null) rubble.enabled = false;
-            Color tint = building.HitFlash > 0 ? new Color(1.4f, 1.15f, 1.1f) : Color.white;
-            if (fadeConstruction && building.Progress < 1) tint.a = 0.4f + (float)building.Progress * 0.6f;
-            Tint(0, false, false, tint, false);
+            complete.enabled = showComplete;
+            if (foundation != null) foundation.enabled = showFoundation;
+            if (rubble != null) rubble.enabled = showRubble;
         }
 
-        public void Apply(WorksiteViewData site)
+        public void SetWorksiteVisibility(bool showVariant, int variant, bool showDepleted)
         {
-            bool empty = site.Amount == 0;
             for (int i = 0; i < variants.Length; i++)
-                variants[i].enabled = site.FarmId == 0 && !empty && i == site.Variant % variants.Length;
-            depleted.SetActive(site.FarmId == 0 && empty);
-            Tint(0, false, false, Color.white, false);
+                variants[i].enabled = showVariant && i == variant % variants.Length;
+            depleted.SetActive(showDepleted);
         }
 
         public void Preview(int identity, int variant)

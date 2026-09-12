@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DarkNights.Core.Config;
 using DarkNights.Core.ViewData;
+using DarkNights.Runtime.Network;
 using DarkNights.Runtime.Save;
 using DarkNights.Runtime.Session;
 using Newtonsoft.Json;

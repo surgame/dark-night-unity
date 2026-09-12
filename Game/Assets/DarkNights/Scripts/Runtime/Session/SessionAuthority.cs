@@ -8,6 +8,7 @@ using DarkNights.Core.Logic.State;
 using DarkNights.Core.Save;
 using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Save;
+using DarkNights.Runtime.Network;
 
 namespace DarkNights.Runtime.Session
 {
@@ -65,11 +66,12 @@ namespace DarkNights.Runtime.Session
             return connection;
         }
 
-        public void Disconnect(SessionConnection connection)
+        // Host 的网络观察端可单独停止；正式离房仍由会话所有者释放整个 Authority。
+        public void Disconnect(SessionConnection connection, bool closeHostedSession = true)
         {
             CheckThread();
             if (!Active(connection)) return;
-            if (connection.IsHost) { Dispose(); return; }
+            if (connection.IsHost && closeHostedSession) { Dispose(); return; }
             connection.ResetWorld();
             connections[connection.PlayerSlot] = null;
         }

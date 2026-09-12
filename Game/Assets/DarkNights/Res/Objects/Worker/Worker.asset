@@ -34,7 +34,8 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   Archetype: {fileID: 0}
   UseMonolithicPooling: 0
-  BehaviourTypes: []
+  BehaviourTypes:
+  - DarkNights.View.ActorPresentationBehaviour
   SharedConfigs: []
   references:
     version: 2

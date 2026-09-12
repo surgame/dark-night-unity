@@ -19,6 +19,31 @@ namespace DarkNights.Tests
             InvalidInputs(check, catalog, layout);
             WindowAndConnections(check, catalog, layout);
             GlobalBound(check, catalog, layout);
+            HostObservation(check, catalog, layout);
+        }
+
+        private static void HostObservation(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
+        {
+            using var session = Open(catalog, layout, out var host, out var guest);
+            var pending = Request(session, SessionOperation.Recruit, 1);
+            session.Submit(host, pending);
+            long tick = session.ServerTick;
+            session.Disconnect(host, closeHostedSession: false);
+            check(!session.Closed && !host.Ready && session.PlayerCount == 1,
+                "Session Host observation can detach without closing the hosted world");
+            check(session.Tick().Single().Code == SessionResultCode.InvalidConnection && session.ServerTick > tick,
+                "Session detached Host intent is rejected while authoritative ticks continue");
+            check(session.Submit(host, pending).Code == SessionResultCode.InvalidConnection &&
+                !session.AcknowledgeReady(host, session.Epoch, session.Revision),
+                "Session detached Host capability cannot submit or become Ready");
+            check(Execute(session, guest, Request(session, SessionOperation.Recruit, 1)).Code == SessionResultCode.Applied,
+                "Session remaining guest can operate the shared camp after local observation stops");
+            var replacement = session.Connect(0);
+            check(replacement.Generation > host.Generation &&
+                session.AcknowledgeReady(replacement, session.Epoch, session.Revision),
+                "Session local Host observation can obtain a fresh capability and snapshot");
+            session.Disconnect(replacement);
+            check(session.Closed, "Session explicit Host departure still closes authority");
         }
 
         private static void InvalidInputs(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)

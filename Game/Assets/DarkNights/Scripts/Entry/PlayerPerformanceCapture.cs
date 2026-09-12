@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using DarkNights.Runtime.Network;
-using DarkNights.Runtime.Session;
+using DarkNights.Runtime.Diagnostics;
 using Newtonsoft.Json;
 using Unity.Profiling;
 using UnityEngine;

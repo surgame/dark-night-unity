@@ -103,7 +103,8 @@ namespace DarkNights.Entry
                 owner = remnant ? await entities.CreateVisual(item.Cue.ContentId) :
                     await Create(item.Cue.Kind == "command" ? "effect.command" : "effect.floating");
                 if (!Current(captured) || Time.unscaledTimeAsDouble - born >= PresentationCursor.Lifetime(item)) { Release(owner); return; }
-                NativeVisual visual = remnant ? Required<NativeVisual>(owner, "visual") : null;
+                // 残骸复用同一定义外观，但从不绑定已消失的活实体。
+                NativeVisual visual = remnant ? SessionEntityViews.RequiredPresentation(owner).Visual : null;
                 NativeEffect effect = remnant ? null : Required<NativeEffect>(owner, "effect");
                 owner.transform.position = new Vector3(item.Cue.X / 100, (ground - item.Cue.Y) / 100, 0);
                 effects.Add((owner, effect, visual, item, born));
@@ -134,7 +135,7 @@ namespace DarkNights.Entry
             owner != null && owner.Get<T>(key) != null ? owner.Get<T>(key) : throw new InvalidOperationException("Missing native effect binding: " + key);
         private bool Current(int captured) => this != null && generation == captured &&
             client.ConnectionGeneration == connection && client.Replica.Current?.Epoch == epoch;
-        private static void Release(ObjectView owner) { if (owner != null) Destroy(owner.gameObject); }
+        private static void Release(ObjectView owner) => SessionEntityViews.Release(owner);
         private void Clear()
         {
             generation++; cursor.Reset(); applied = null;

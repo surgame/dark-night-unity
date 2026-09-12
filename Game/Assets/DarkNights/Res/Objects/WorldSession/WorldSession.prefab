@@ -170,3 +170,4 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 8826220968551682496}
   _networkObjectCache: {fileID: 0}
   instance: {fileID: 4742796920614153298}
+  synchronizer: {fileID: 3252564467697501395}

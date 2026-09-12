@@ -1,5 +1,7 @@
 # 权威会话业务层
 
+2026-09-12 C 重构已实施，按用户要求收尾并先交付架构验收。Core 1361、最终 Editor 95、Play 生命周期 20、Mono 启动 6 和双进程 13 项通过；容量检查未签署通过，Ready 修复后的完整弱网矩阵及性能对比留待下次。实际合同、此前通过记录和待办见[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)。M5 既有待验收项保持，下文历史批次的当时边界保留。
+
 2026-09-11，第七批。`Runtime/Session/SessionAuthority` 已实现普通 C# 会话服务，并通过独立回归与 Unity Editor 测试。这是 M2 的业务基础，尚未装配进 Bootstrap、WorldSessionBehaviour 或网络命令处理器；本页不构成正式联网／Player 验收。证据见[本批记录](evidence/session-authority-2026-09-11.json)。
 
 ## 状态归属与调用顺序

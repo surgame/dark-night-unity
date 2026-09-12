@@ -15,6 +15,10 @@
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Config/GameCatalogJson.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Save/*.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Session/*.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Network/SessionProjector.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Network/SessionEventJournal.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/MeasurementSeries.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/SessionMeasurements.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/RuleScenario.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/EconomyScenarios.cs" />
     <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/WorkTrainingScenarios.cs" />

@@ -36,6 +36,7 @@ MonoBehaviour:
   UseMonolithicPooling: 0
   BehaviourTypes:
   - DarkNights.Runtime.Network.WorldSessionBehaviour
+  - DarkNights.Runtime.Network.CampSessionBehaviour
   SharedConfigs:
   - rid: 6961529542813679889
   references:

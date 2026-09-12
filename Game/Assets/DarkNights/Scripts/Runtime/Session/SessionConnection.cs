@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace DarkNights.Runtime.Session
 {
     /// <summary>
-    /// 由服务端会话签发的连接能力，不可由请求中的槽位或 PlayerId 重新构造。
+    /// 由服务端会话签发的游戏参与者能力，不是 FishNet 连接；不可由请求中的槽位或 PlayerId 重新构造。
     /// 每槽只有一个有效引用；重连替换引用并增加代次。Ready 与结果窗口归会话线程唯一管理。
     /// </summary>
     public sealed class SessionConnection

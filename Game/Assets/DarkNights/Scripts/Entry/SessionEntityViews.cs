@@ -15,8 +15,8 @@ using YY.Features.Players.View;
 namespace DarkNights.Entry
 {
     /// <summary>
-    /// 将正式客户端冻结副本接到 YYGC 定义工厂和 View 绑定；每实体只持有本地外观，无第二份经济或生命状态。
-    /// 所有异步创建检查连接代次、epoch、实体种类和当前需求；退出或换世界时释放旧对象及未完成结果。
+    /// 登记定义工厂创建的本地个体，管理公共展示时间线并把冻结副本分发给各自的表现 Behaviour。
+    /// 异步创建按连接、epoch 和每次外观请求验票；退出、转职和旧结果释放前立即解绑，不持有权威状态。
     /// </summary>
     public sealed class SessionEntityViews : MonoBehaviour, IEntityVisuals
     {
@@ -24,18 +24,49 @@ namespace DarkNights.Entry
         private GameCatalog catalog;
         private PinewatchStage stage;
         private ContentDefinitionMap map;
-        private readonly Dictionary<int, (ObjectView Owner, NativeVisual Visual, string Kind)> views =
-            new Dictionary<int, (ObjectView, NativeVisual, string)>();
-        private readonly HashSet<int> pending = new HashSet<int>();
+        private Action<InputIntent> intentHandler;
+        private readonly Dictionary<int, (ObjectView Owner, EntityPresentationBehaviour Presentation, string Kind)> views =
+            new Dictionary<int, (ObjectView, EntityPresentationBehaviour, string)>();
+        private readonly Dictionary<int, (string Kind, long Ticket)> pending = new Dictionary<int, (string, long)>();
         private readonly Dictionary<int, string> wanted = new Dictionary<int, string>();
+        private readonly Dictionary<int, string> workKinds = new Dictionary<int, string>();
         private int epoch, generation;
-        private long connection;
+        private long connection, nextTicket;
         private SessionViewData applied;
         private readonly PresentationTimeline timeline = new PresentationTimeline();
         public int Count => views.Count;
-        public NativeVisual Visual(int id) => views.TryGetValue(id, out var view) ? view.Visual : null;
-        public UniTask<ObjectView> CreateVisual(string kind) =>
-            ObjectInstanceFactory.CreateObjectInstanceAsync(map.GetRequired(kind), Vector3.zero, Quaternion.identity, stage.Entities);
+        public NativeVisual Visual(int id) => Presentation(id)?.Visual;
+        public EntityPresentationBehaviour Presentation(int id) => views.TryGetValue(id, out var view) ? view.Presentation : null;
+        public void SetIntentHandler(Action<InputIntent> handler) { intentHandler = handler; }
+
+        public async UniTask<ObjectView> CreateVisual(string kind)
+        {
+            ObjectView owner = await ObjectInstanceFactory.CreateObjectInstanceAsync(
+                map.GetRequired(kind), Vector3.zero, Quaternion.identity, stage.Entities);
+            try
+            {
+                EntityPresentationBehaviour presentation = RequiredPresentation(owner);
+                if (presentation.IsBound) throw new InvalidOperationException("New visual already has a live entity: " + kind);
+                return owner;
+            }
+            catch { Release(owner); throw; }
+        }
+
+        public static EntityPresentationBehaviour RequiredPresentation(ObjectView owner)
+        {
+            if (owner == null || owner.Owner == null) throw new InvalidOperationException("Native visual owner is not assembled.");
+            EntityPresentationBehaviour value = owner.Owner.GetAllBehaviors().OfType<EntityPresentationBehaviour>().Single();
+            if (value.Visual == null) throw new InvalidOperationException("Missing generated native visual binding.");
+            return value;
+        }
+
+        public static void Release(ObjectView owner)
+        {
+            if (owner == null) return;
+            if (owner.Owner != null)
+                foreach (EntityPresentationBehaviour value in owner.Owner.GetAllBehaviors().OfType<EntityPresentationBehaviour>()) value.Unbind();
+            Destroy(owner.gameObject);
+        }
 
         public void Initialize(SessionClient value, GameCatalog rules, PinewatchStage scene)
         {
@@ -58,73 +89,107 @@ namespace DarkNights.Entry
             }
             stage.Present(frame);
             if (frame == null) return;
-            if (frame != applied)
-            {
-                timeline.Push(frame, Time.unscaledTimeAsDouble);
-                wanted.Clear();
-                foreach (ActorViewData actor in frame.World.Actors) wanted.Add(actor.Id, actor.Kind);
-                foreach (BuildingViewData building in frame.World.Buildings) wanted.Add(building.Id, building.Kind);
-                foreach (WorksiteViewData site in frame.World.Worksites) wanted.Add(site.Id, site.Kind);
-                foreach (int id in views.Keys.ToArray())
-                    if (!wanted.TryGetValue(id, out string kind) || kind != views[id].Kind) Remove(id);
-                foreach (var pair in wanted)
-                    if (!views.ContainsKey(pair.Key) && pending.Add(pair.Key)) Create(pair.Key, pair.Value, generation).Forget();
-                applied = frame;
-            }
+            if (frame != applied) ApplyFrame(frame);
             Present(frame);
         }
 
-        private async UniTask Create(int id, string kind, int captured)
+        private void ApplyFrame(SessionViewData frame)
+        {
+            timeline.Push(frame, Time.unscaledTimeAsDouble);
+            wanted.Clear();
+            workKinds.Clear();
+            foreach (ActorViewData actor in frame.World.Actors) wanted.Add(actor.Id, actor.Kind);
+            foreach (BuildingViewData building in frame.World.Buildings) wanted.Add(building.Id, building.Kind);
+            foreach (WorksiteViewData site in frame.World.Worksites)
+            {
+                wanted.Add(site.Id, site.Kind);
+                workKinds.Add(site.Id, site.Kind);
+            }
+            foreach (int id in views.Keys.ToArray())
+                if (!wanted.TryGetValue(id, out string kind) || kind != views[id].Kind) Remove(id);
+            foreach (int id in pending.Keys.ToArray())
+                if (!wanted.TryGetValue(id, out string kind) || kind != pending[id].Kind) pending.Remove(id);
+            applied = frame;
+            foreach (var pair in wanted)
+                if (!views.ContainsKey(pair.Key) && !pending.ContainsKey(pair.Key))
+                {
+                    long ticket = ++nextTicket;
+                    pending.Add(pair.Key, (pair.Value, ticket));
+                    Create(pair.Key, pair.Value, generation, ticket).Forget();
+                }
+        }
+
+        private async UniTask Create(int id, string kind, int captured, long ticket)
         {
             ObjectView owner = null;
             try
             {
                 owner = await CreateVisual(kind);
-                if (this == null || captured != generation || client.ConnectionGeneration != connection ||
-                    client.Replica.Current?.Epoch != epoch || !wanted.TryGetValue(id, out string current) || current != kind)
-                {
-                    if (owner != null) Destroy(owner.gameObject);
-                    return;
-                }
-                if (owner == null) throw new InvalidOperationException("Cannot create native visual: " + kind);
-                NativeVisual visual = owner.Get<NativeVisual>("visual");
-                if (visual == null) throw new InvalidOperationException("Missing visual binding: " + kind);
-                views.Add(id, (owner, visual, kind));
+                if (!Current(id, kind, captured, ticket)) { Release(owner); return; }
+                EntityPresentationBehaviour presentation = RequiredPresentation(owner);
+                Action<InputIntent> submit = intent => Submit(presentation, captured, intent);
+                if (catalog.Balance.Units.TryGetValue(kind, out UnitDefinition rules) && presentation is ActorPresentationBehaviour actor)
+                    actor.Bind(id, epoch, kind, rules, submit);
+                else if (catalog.Balance.Buildings.ContainsKey(kind) && presentation is BuildingPresentationBehaviour building)
+                    building.Bind(id, epoch, kind, submit);
+                else if (catalog.Balance.Worksites.ContainsKey(kind) && presentation is WorksitePresentationBehaviour site)
+                    site.Bind(id, epoch, kind, submit);
+                else throw new InvalidOperationException("Unsupported entity presentation: " + kind);
+                views.Add(id, (owner, presentation, kind));
                 owner.gameObject.name = kind + " #" + id;
-                Present(client.Replica.Current);
+                if (client.Replica.Current == applied) Present(applied);
             }
             catch (Exception error)
             {
-                if (owner != null) Destroy(owner.gameObject);
+                if (views.TryGetValue(id, out var registered) && registered.Owner == owner) views.Remove(id);
+                Release(owner);
                 Debug.LogException(error);
             }
-            finally { if (captured == generation) pending.Remove(id); }
+            finally
+            {
+                if (captured == generation && pending.TryGetValue(id, out var request) && request.Ticket == ticket) pending.Remove(id);
+            }
+        }
+
+        private bool Current(int id, string kind, int captured, long ticket) => this != null && captured == generation &&
+            client.ConnectionGeneration == connection && client.Replica.Current?.Epoch == epoch &&
+            pending.TryGetValue(id, out var request) && request.Ticket == ticket &&
+            wanted.TryGetValue(id, out string current) && current == kind && CurrentKind(id) == kind;
+
+        private string CurrentKind(int id)
+        {
+            var world = client.Replica.Current.World;
+            return world.Actors.FirstOrDefault(value => value.Id == id)?.Kind ??
+                world.Buildings.FirstOrDefault(value => value.Id == id)?.Kind ?? world.Worksites.FirstOrDefault(value => value.Id == id)?.Kind;
+        }
+
+        private void Submit(EntityPresentationBehaviour presentation, int captured, InputIntent intent)
+        {
+            if (this == null || captured != generation || connection != client.ConnectionGeneration ||
+                presentation.Epoch != client.Replica.Current?.Epoch || !client.Ready ||
+                Presentation(presentation.Id) != presentation || CurrentKind(presentation.Id) != presentation.Kind) return;
+            intentHandler?.Invoke(intent);
         }
 
         private void Present(SessionViewData frame)
         {
+            double now = Time.unscaledTimeAsDouble;
             foreach (ActorViewData actor in frame.World.Actors)
-                if (views.TryGetValue(actor.Id, out var view))
+                if (Presentation(actor.Id) is ActorPresentationBehaviour view)
                 {
-                    Position(view.Visual, timeline.X(actor, Time.unscaledTimeAsDouble));
-                    string kind = frame.World.Worksites.FirstOrDefault(site => site.Id == actor.TargetId)?.Kind ?? "";
-                    view.Visual.Apply(actor, catalog, kind, timeline.ActionTime(actor, Time.unscaledTimeAsDouble));
+                    workKinds.TryGetValue(actor.TargetId, out string kind);
+                    view.Present(actor, frame.Epoch, kind ?? "", timeline.X(actor, now), timeline.ActionTime(actor, now), stage.Ambient);
                 }
             foreach (BuildingViewData building in frame.World.Buildings)
-                if (views.TryGetValue(building.Id, out var view)) { Position(view.Visual, building.X); view.Visual.Apply(building); }
+                if (Presentation(building.Id) is BuildingPresentationBehaviour view) view.Present(building, frame.Epoch, stage.Ambient);
             foreach (WorksiteViewData site in frame.World.Worksites)
-                if (views.TryGetValue(site.Id, out var view)) { Position(view.Visual, site.X); view.Visual.Apply(site); }
-        }
-
-        private void Position(NativeVisual visual, float x)
-        {
-            visual.transform.position = new Vector3(x / 100, 0, 0);
-            visual.Ambient = stage.Ambient;
+                if (Presentation(site.Id) is WorksitePresentationBehaviour view) view.Present(site, frame.Epoch, stage.Ambient);
         }
 
         private void Remove(int id)
         {
-            if (views[id].Owner != null) Destroy(views[id].Owner.gameObject);
+            views[id].Presentation.Unbind();
+            Release(views[id].Owner);
             views.Remove(id);
         }
 
@@ -134,10 +199,11 @@ namespace DarkNights.Entry
             foreach (int id in views.Keys.ToArray()) Remove(id);
             pending.Clear();
             wanted.Clear();
+            workKinds.Clear();
             applied = null;
             timeline.Reset();
         }
 
-        private void OnDestroy() { Clear(); }
+        private void OnDestroy() { intentHandler = null; Clear(); }
     }
 }

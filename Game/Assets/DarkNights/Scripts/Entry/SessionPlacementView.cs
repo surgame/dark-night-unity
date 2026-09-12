@@ -72,17 +72,17 @@ namespace DarkNights.Entry
                 if (this == null || captured != generation || kind != input.BuildKind ||
                     client.ConnectionGeneration != connection || client.Replica.Current?.Epoch != epoch)
                 {
-                    if (created != null) Destroy(created.gameObject);
+                    SessionEntityViews.Release(created);
                     return;
                 }
                 if (created == null) throw new InvalidOperationException("Cannot create placement visual: " + requested);
                 owner = created;
-                visual = owner.Get<NativeVisual>("visual");
-                if (visual == null) throw new InvalidOperationException("Missing placement visual binding: " + requested);
+                // 工厂只装配被动表现；建造幽灵始终没有活实体身份或输入回调。
+                visual = SessionEntityViews.RequiredPresentation(owner).Visual;
             }
             catch (Exception error)
             {
-                if (created != null) Destroy(created.gameObject);
+                SessionEntityViews.Release(created);
                 Debug.LogException(error);
             }
         }
@@ -90,7 +90,7 @@ namespace DarkNights.Entry
         private void Clear()
         {
             generation++;
-            if (owner != null) Destroy(owner.gameObject);
+            SessionEntityViews.Release(owner);
             owner = null; visual = null; Valid = false;
         }
         private void OnDestroy() { Clear(); }

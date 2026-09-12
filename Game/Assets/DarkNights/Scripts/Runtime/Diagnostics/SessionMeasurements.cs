@@ -1,4 +1,4 @@
-namespace DarkNights.Runtime.Session
+namespace DarkNights.Runtime.Diagnostics
 {
     /// <summary>
     /// 单次权威会话的可选性能证据，记录包含命令处理的实际 60 Hz 步时、线程分配及发布载荷。

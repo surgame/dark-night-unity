@@ -61,6 +61,7 @@ namespace DarkNights.Entry
             input = gameObject.AddComponent<CampInput>();
             input.Initialize(stage, entities, YYInteractionSessionService.Instance);
             input.Intent += intent => Execute(intent).Forget();
+            entities.SetIntentHandler(intent => Execute(intent).Forget());
             // Existing framework root owns the scaler; formal UI preserves source pixel sizes at each viewport.
             UGUIManager.Instance.GetComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
             foreach (string name in new[] { "Chrome", "MainMenu", "PauseMenu", "Help", "Result" })
@@ -71,7 +72,8 @@ namespace DarkNights.Entry
                 if (panel == null) throw new InvalidOperationException("Cannot create native UI: " + name);
                 panels.Add(name, panel);
                 MenuBehaviour behaviour = panel.GetAllBehaviors().OfType<MenuBehaviour>().Single();
-                behaviour.Action += action => Execute(new InputIntent(action, input.ActorIds())).Forget();
+                behaviour.Action += action => Execute(new InputIntent(action, input.ActorIds(),
+                    action == "Repair" && input.Selected.Count == 1 ? input.Selected[0] : 0)).Forget();
                 panel.gameObject.SetActive(false);
             }
             main = Behaviour<MainMenuBehaviour>("MainMenu");
@@ -190,7 +192,7 @@ namespace DarkNights.Entry
                 else if (action.StartsWith("Train", StringComparison.Ordinal))
                     await network.Client.Send(SessionOperation.TrainActors, intent.Actors, kind: action.Substring(5).ToLowerInvariant());
                 else if (action == "Recruit") await network.Client.Send(SessionOperation.Recruit);
-                else if (action == "Repair") await network.Client.Send(SessionOperation.Repair, target: input.Selected.Count == 1 ? input.Selected[0] : 0);
+                else if (action == "Repair") await network.Client.Send(SessionOperation.Repair, target: intent.Target);
                 else if (action == "Pause") await network.Client.Send(SessionOperation.SetPaused, value: frame.Paused ? 0 : 1);
                 else if (action == "Speed") await network.Client.Send(SessionOperation.SetSpeed, value: frame.Speed == 1 ? 2 : 1);
                 else if (action == "Night") await network.Client.Send(SessionOperation.StartNight);
@@ -241,6 +243,7 @@ namespace DarkNights.Entry
         private UGUIView View(string key) => panels[key].GetView<UGUIView>();
         private void OnDestroy()
         {
+            if (entities != null) entities.SetIntentHandler(null);
             modal?.Dispose();
             if (network != null) { network.Client.Feedback -= Feedback; network.Failed -= Failed; }
             foreach (ObjectInstance panel in panels.Values) if (panel != null) Destroy(panel.gameObject);

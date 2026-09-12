@@ -8,6 +8,7 @@ New-Item -ItemType Directory -Path $run | Out-Null
 $processes = @{}
 $checks = [ordered]@{}
 $failure = $null
+$publicationWindow = $null
 if ($ClientPort -eq 0) { $ClientPort = $Port }
 function Read-Report([string]$Role) {
     try {
@@ -66,14 +67,20 @@ try {
         Check ($role+'_full_limit_received_and_rendered') ($r.frame.World.Actors.Count -eq 256 -and $r.frame.World.Projectiles.Count -eq 1024)
     }
     $first = Wait-Report 'host' {param($r) $r.frame.ReadyCount -eq 4}
-    $deadline=[DateTime]::UtcNow.AddSeconds($DurationSeconds)
+    $started=[DateTime]::UtcNow
+    $deadline=$started.AddSeconds($DurationSeconds)
     Write-Output "Measuring four-process limit for $DurationSeconds seconds; payload=$($first.serverPayloadBytes) bytes."
     do {
         foreach($role in $processes.Keys) { $null=Wait-Report $role {param($r) $r.ready} }
         Start-Sleep -Seconds 1
     } while([DateTime]::UtcNow -lt $deadline)
-    $last=Read-Report 'host'
-    Check 'full_projection_keeps_publishing_with_four_ready_peers' ($last.frame.ReadyCount -eq 4 -and $last.frame.Publication -gt $first.frame.Publication + $DurationSeconds * 5)
+    # 报告由 Player 原子替换，重试瞬时文件访问失败，避免把空读当作发布停止。
+    $last=Wait-Report 'host' {param($r) $null -ne $r.frame}
+    $publicationWindow=[ordered]@{first=$first.frame.Publication;last=$last.frame.Publication;
+        firstTick=$first.frame.ServerTick;lastTick=$last.frame.ServerTick;
+        readyCount=$last.frame.ReadyCount;requiredDelta=$DurationSeconds * 5;
+        elapsedSeconds=([DateTime]::UtcNow-$started).TotalSeconds}
+    $publishing=($last.frame.ReadyCount -eq 4 -and $last.frame.Publication -gt $first.frame.Publication + $DurationSeconds * 5)
     foreach($role in $processes.Keys) { Send $role @{operation='metrics';file="$role-metrics.json"} }
     Start-Sleep -Seconds 3
     $metrics=[ordered]@{}
@@ -88,13 +95,14 @@ try {
     $null=$relay.WaitForExit(5000)
     $udp=Get-Content $relayReport -Raw | ConvertFrom-Json
     Check 'actual_udp_payload_measured' ($udp.server_to_client_bytes -gt 1000000)
+    Check 'full_projection_keeps_publishing_with_four_ready_peers' $publishing
 }
 catch { $failure=$_.Exception.ToString() }
 finally {
     foreach($p in $processes.Values) { $p.Refresh(); if(!$p.HasExited) {Stop-Process -Id $p.Id; $p.WaitForExit()} }
     if($relay) { $relay.Refresh(); if(!$relay.HasExited) {Stop-Process -Id $relay.Id; $relay.WaitForExit()} }
     [ordered]@{passed=(!$failure);checks=$checks;error=$failure;scope='Synthetic supported projection ceiling, four rendered Mono processes, real UDP relay';
-      metrics=$metrics;udp=$udp;artifacts=$run;gameCodeSha256=(Get-FileHash (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash} |
+      publicationWindow=$publicationWindow;metrics=$metrics;udp=$udp;artifacts=$run;gameCodeSha256=(Get-FileHash (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash} |
       ConvertTo-Json -Depth 12 | Set-Content (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Pressure: passed=$(!$failure) checks=$($checks.Count); $run/result.json"
 }

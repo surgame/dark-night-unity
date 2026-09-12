@@ -3,6 +3,8 @@ using DarkNights.Core.ViewData;
 using DarkNights.Editor;
 using DarkNights.View;
 using GameCore.Objects.Definition;
+using GameCore.Objects.Runner;
+using GameCore.Objects.Views;
 using GameCore.UI.UGUI;
 using NUnit.Framework;
 using UnityEditor;
@@ -87,6 +89,32 @@ namespace DarkNights.Tests
                 Assert.NotNull(view.Get<CanvasGroup>(key));
                 Assert.IsFalse(view.Get<CanvasGroup>(key).blocksRaycasts);
             }
+        }
+
+        [TestCase("Worker", "corpse")]
+        [TestCase("House", "rubble")]
+        public void RemnantsRemainPassiveWithGeneratedIndividualBehaviour(string name, string cueKind)
+        {
+            string path = "Assets/DarkNights/Res/Objects/" + name + "/" + name;
+            var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(path + ".asset");
+            var root = PrefabUtility.LoadPrefabContents(path + ".prefab");
+            try
+            {
+                var view = root.GetComponent<ObjectView>();
+                FormalObjectContentTests.ExpectRegistrationWithoutRuntime(definition.BehaviourTypes.Count);
+                ObjectDefinitionInitialization.Initialize(view.Initializer, definition);
+                var presentation = root.GetComponent<ObjectInstance>().GetAllBehaviors().OfType<EntityPresentationBehaviour>().Single();
+                var visual = view.Get<NativeVisual>("visual");
+                visual.PresentRemnant(new VisualCue(cueKind, 200, 320, ContentId: name.ToLowerInvariant()), 0.5);
+                Assert.That(presentation.Visual, Is.SameAs(visual));
+                Assert.That(presentation.IsBound || presentation.IsAvailable, Is.False);
+                Assert.That(presentation.Id, Is.Zero);
+                Assert.That(presentation.Epoch, Is.Zero);
+                presentation.Unbind();
+                visual.PresentRemnant(new VisualCue(cueKind, 200, 320, ContentId: name.ToLowerInvariant()), 1);
+                Assert.That(presentation.IsBound, Is.False);
+            }
+            finally { PrefabUtility.UnloadPrefabContents(root); }
         }
     }
 }

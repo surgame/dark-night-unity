@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Session;
 using DarkNights.Runtime.Save;
+using DarkNights.Runtime.Diagnostics;
 using FishNet.Connection;
 using GameCore.NetworkCommands;
 using VitalRouter;
@@ -25,6 +26,7 @@ namespace DarkNights.Runtime.Network
         private readonly SessionRecoverySlots recovery = new SessionRecoverySlots();
         private readonly bool pressure;
         private double uptime, budgetAt;
+        private bool disposed;
         private long lastPublishTick;
         public SessionAuthority Authority { get; }
         public int LastPayloadBytes { get; private set; }
@@ -41,7 +43,8 @@ namespace DarkNights.Runtime.Network
             clock = new SessionClock(Authority);
             Storage = new SessionStorage(Authority, saves);
             if (measure) { Measurements = new SessionMeasurements(); clock.MeasureStep = Measurements.Step; }
-            Publish();
+            try { Publish(); }
+            catch { Dispose(); throw; }
         }
 
         public void Add(NetworkConnection connection, PlayerEndpoint endpoint, bool isLocalHost)
@@ -58,7 +61,7 @@ namespace DarkNights.Runtime.Network
             if (peer.Authority != null)
             {
                 recovery.Release(peer.Authority.PlayerSlot, uptime);
-                Authority.Disconnect(peer.Authority);
+                Authority.Disconnect(peer.Authority, closeHostedSession: !peer.IsHost);
             }
             peers.Remove(connection);
             if (!Authority.Closed) Publish();
@@ -162,6 +165,8 @@ namespace DarkNights.Runtime.Network
 
         public void Dispose()
         {
+            if (disposed) return;
+            disposed = true;
             Storage.Dispose();
             Authority.Dispose();
             peers.Clear();

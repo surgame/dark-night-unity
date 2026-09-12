@@ -1,5 +1,7 @@
 # 正式会话网络接线
 
+2026-09-12 C 重构已实施，按用户要求收尾并先交付架构验收。Core 1361、最终 Editor 95、Play 生命周期 20、Mono 启动 6 和双进程 13 项通过；容量检查未签署通过，Ready 修复后的完整弱网矩阵及性能对比留待下次。实际合同、此前通过记录和待办见[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)。M5 既有待验收项保持，下文历史批次的当时边界保留。
+
 2026-09-11，M5 执行路线 A2 已接通，A3 可操作画面仍待完成。正式 Mono Host＋独立客户端通过 12 项实际规则／权限／完整投影检查，不能据此标为 M2 全部完成。
 
 GameSessionStartupModule 在既有 AppStartup 中加载正式 Pinewatch 场景并从布局标记导出 LevelLayout，登记 SessionNetwork。单人也使用同一 Host 连接。WorldSession 和新增 PlayerConnection 均通过 GuidFirst／GuidV2 定义工厂与 Addressables 创建，正式代码不引用 Sample。已有 WorldSession Prefab 仅定向添加生命周期链接；Bootstrap 没有改写。

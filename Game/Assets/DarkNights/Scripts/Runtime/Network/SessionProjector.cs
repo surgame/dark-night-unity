@@ -5,8 +5,9 @@ using DarkNights.Core.Logic;
 using DarkNights.Core.Logic.Entities;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.ViewData;
+using DarkNights.Runtime.Session;
 
-namespace DarkNights.Runtime.Session
+namespace DarkNights.Runtime.Network
 {
     /// <summary>
     /// 在权威线程将真实世界映射成冻结展示帧，不绕经完整存档，不修改规则或随机数。

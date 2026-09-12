@@ -1,10 +1,12 @@
 # 会话展示副本与时钟
 
+2026-09-12 C 重构已实施，按用户要求收尾并先交付架构验收。Core 1361、最终 Editor 95、Play 生命周期 20、Mono 启动 6 和双进程 13 项通过；容量检查未签署通过，Ready 修复后的完整弱网矩阵及性能对比留待下次。实际合同、此前通过记录和待办见[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)。M5 既有待验收项保持，下文历史批次的当时边界保留。
+
 2026-09-11，属于 [M5 连续执行路线](M5_EXECUTION.md)的 A1。代码已实现并通过独立及 Unity Editor 回归；没有新增网络 wire、Entry／Update 装配或可操作视图。当前正式网络仍只有 M0 元数据探针，不能将本页的内存投影写成网络已接通。
 
 ## 数据与状态归属
 
-`SessionAuthority.CaptureProjection()` 限创建线程，在同一调用内读取唯一 GameSession 并通过 Runtime/Session 的 SessionProjector 建立 Core/ViewData 的不可变 SessionViewData。不通过 CaptureWorld，不生成完整存档，不读取或推进 RNG。Core 的经济、伤害、攻击时机与实体生命周期没有修改。
+`SessionAuthority.CaptureProjection()` 限创建线程，在同一调用内读取唯一 GameSession 并通过 Runtime/Network 的 SessionProjector 建立 Core/ViewData 的不可变 SessionViewData。不通过 CaptureWorld，不生成完整存档，不读取或推进 RNG。Core 的经济、伤害、攻击时机与实体生命周期没有修改。
 
 | 展示数据 | 内容 |
 |---|---|

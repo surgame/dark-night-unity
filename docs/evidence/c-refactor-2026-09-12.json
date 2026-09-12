@@ -1,0 +1,853 @@
+{
+  "date": "2026-09-12",
+  "utc": "2026-09-12T08:48:41.883244+00:00",
+  "status": "scheme_c_implemented_for_architecture_acceptance_with_explicit_deferred_validation",
+  "baselineHead": "e34f2a28b65e36e4919aec08c4a5d20f6f9feb14",
+  "referenceTask": "01a09470-118e-7fe1-a0ff-ccb5c6d62524",
+  "scope": {
+    "performanceComparison": "deferred_by_user",
+    "m5VisualFixes": "out_of_scope_by_user",
+    "il2cpp": "not_run",
+    "twoMachineLan": "not_run",
+    "newBuffOrEquipmentGameplay": false,
+    "yygcModified": false
+  },
+  "core": {
+    "utc": "2026-09-12T08:07:31.3710701Z",
+    "runtime": "8.0.16",
+    "passed": true,
+    "total": 1361,
+    "failures": 0
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 223,
+    "selfTests": 10,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "editor": {
+    "summary": {
+      "Total": 95,
+      "Passed": 95,
+      "Failed": 0,
+      "Skipped": 0,
+      "Inconclusive": 0
+    },
+    "durationSeconds": 8.86,
+    "report": "Artifacts/c-refactor/editor-tests-ready-fix.json",
+    "reportSha256": "73209e944191db0d3a394f54ee1220169737c223937bd5ee3669dd6581f3449f"
+  },
+  "playLifecycle": {
+    "passed": true,
+    "checks": {
+      "interaction_service_present": true,
+      "one_authority_0": true,
+      "host_ready_0": true,
+      "single_payment_after_restart_0": true,
+      "split_cache_cleared_0": true,
+      "authority_disposed_0": true,
+      "one_authority_1": true,
+      "host_ready_1": true,
+      "single_payment_after_restart_1": true,
+      "client_stop_preserves_server": true,
+      "client_stop_clears_replica": true,
+      "split_cache_cleared_1": true,
+      "authority_disposed_1": true,
+      "one_authority_2": true,
+      "host_ready_2": true,
+      "single_payment_after_restart_2": true,
+      "server_stop_stops_authority": true,
+      "split_cache_cleared_2": true,
+      "authority_disposed_2": true,
+      "object_despawn_clears_world_without_disconnect": true
+    },
+    "error": null,
+    "domainReloadDisabled": false
+  },
+  "assets": {
+    "success": true,
+    "stage": "revalidated-after-binding-cache-rebuild",
+    "utc": "2026-09-12T08:12:17.3770147Z",
+    "expectedDefinitions": 16,
+    "expectedLocalObjects": 15,
+    "expectedPrefabs": 2,
+    "authorizedRepair": "Farm Prefab binding key Farm -> visual; component references and art unchanged",
+    "completed": [
+      "Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "Assets/DarkNights/Res/Objects/Spearman/Spearman.asset",
+      "Assets/DarkNights/Res/Objects/Archer/Archer.asset",
+      "Assets/DarkNights/Res/Objects/Zombie/Zombie.asset",
+      "Assets/DarkNights/Res/Objects/Ghoul/Ghoul.asset",
+      "Assets/DarkNights/Res/Objects/Armored/Armored.asset",
+      "Assets/DarkNights/Res/Objects/House/House.asset",
+      "Assets/DarkNights/Res/Objects/Tavern/Tavern.asset",
+      "Assets/DarkNights/Res/Objects/Barracks/Barracks.asset",
+      "Assets/DarkNights/Res/Objects/Farm/Farm.asset",
+      "Assets/DarkNights/Res/Objects/Tower/Tower.asset",
+      "Assets/DarkNights/Res/Objects/Trees/Trees.asset",
+      "Assets/DarkNights/Res/Objects/Stone/Stone.asset",
+      "Assets/DarkNights/Res/Objects/Iron/Iron.asset",
+      "Assets/DarkNights/Res/Objects/Farmland/Farmland.asset",
+      "Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+      "Assets/DarkNights/Res/Objects/WorldSession/WorldSession.prefab",
+      "Assets/DarkNights/Res/Objects/Farm/Farm.prefab"
+    ],
+    "changed": [
+      "Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "Assets/DarkNights/Res/Objects/Spearman/Spearman.asset",
+      "Assets/DarkNights/Res/Objects/Archer/Archer.asset",
+      "Assets/DarkNights/Res/Objects/Zombie/Zombie.asset",
+      "Assets/DarkNights/Res/Objects/Ghoul/Ghoul.asset",
+      "Assets/DarkNights/Res/Objects/Armored/Armored.asset",
+      "Assets/DarkNights/Res/Objects/House/House.asset",
+      "Assets/DarkNights/Res/Objects/Tavern/Tavern.asset",
+      "Assets/DarkNights/Res/Objects/Barracks/Barracks.asset",
+      "Assets/DarkNights/Res/Objects/Farm/Farm.asset",
+      "Assets/DarkNights/Res/Objects/Tower/Tower.asset",
+      "Assets/DarkNights/Res/Objects/Trees/Trees.asset",
+      "Assets/DarkNights/Res/Objects/Stone/Stone.asset",
+      "Assets/DarkNights/Res/Objects/Iron/Iron.asset",
+      "Assets/DarkNights/Res/Objects/Farmland/Farmland.asset",
+      "Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+      "Assets/DarkNights/Res/Objects/WorldSession/WorldSession.prefab",
+      "Assets/DarkNights/Res/Objects/Farm/Farm.prefab"
+    ],
+    "failed": [],
+    "verification": "Compiled CRefactorContentUpgrade.Validate() passed after rebuilding explicit serialized binding cache; first failure retained separately."
+  },
+  "moves": [
+    {
+      "from": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Session\\SessionProjector.cs",
+      "to": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Network\\SessionProjector.cs",
+      "metaSha256": "2C93D7B9C5D57AFCA44A23027E0593F037FFD6F2260290DA564F7AD15FA5EE7F"
+    },
+    {
+      "from": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Session\\SessionEventJournal.cs",
+      "to": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Network\\SessionEventJournal.cs",
+      "metaSha256": "BDDFDF22F1EE30956CB769417E5ABBF4078C820620CEEA5ACD0D0AE280A1F18F"
+    },
+    {
+      "from": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Session\\SessionStorageRequest.cs",
+      "to": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Save\\SessionStorageRequest.cs",
+      "metaSha256": "2D0C060F9AC483995213BE0A82557CFA1BC13F1C3760DD079357C3D49423378B"
+    },
+    {
+      "from": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Session\\SessionMeasurements.cs",
+      "to": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Diagnostics\\SessionMeasurements.cs",
+      "metaSha256": "1149ADF6AE142CD5B0894EFAB81FDAC59EF42A0A89752D0EA05318D3DA08247C"
+    },
+    {
+      "from": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Session\\MeasurementSeries.cs",
+      "to": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Diagnostics\\MeasurementSeries.cs",
+      "metaSha256": "533A5A1E5BFAC793B5289F68DFF384E28B412C61D19B3A3633CBC829A01C712D"
+    }
+  ],
+  "protectedInputs": {
+    "Game/Assets/DarkNights/Scripts/Core/": {
+      "files": 152,
+      "unchanged": true,
+      "changed": []
+    },
+    "Game/Assets/DarkNights/Res/Art/Original/": {
+      "files": 1181,
+      "unchanged": true,
+      "changed": []
+    },
+    "Game/Assets/DarkNights/Res/Scenes/": {
+      "files": 9,
+      "unchanged": true,
+      "changed": []
+    },
+    "Game/Packages/": {
+      "files": 2,
+      "unchanged": true,
+      "changed": []
+    },
+    "Game/ProjectSettings/": {
+      "files": 27,
+      "unchanged": true,
+      "changed": []
+    },
+    "Game/Assets/Scripts/Generated/": {
+      "files": 4,
+      "unchanged": true,
+      "changed": []
+    },
+    "userAgentsPreserved": true,
+    "workerUserDiffPreserved": true,
+    "farmRepairMatchesCommittedPrefab": true
+  },
+  "monoBuild": {
+    "result": "Succeeded",
+    "outputPath": "D:/Developer/MiniGames/Dark Nights/unity-projects/artifacts/migration/player-mono/DarkNights.exe",
+    "totalErrors": 0,
+    "totalWarnings": 21,
+    "buildStartedAt": "2026-09-12T08:45:40.9549916",
+    "buildEndedAt": "2026-09-12T08:45:53.5984225",
+    "bytes": 198758756
+  },
+  "firstMonoBuild": {
+    "result": "Succeeded",
+    "outputPath": "D:/Developer/MiniGames/Dark Nights/unity-projects/artifacts/migration/player-mono/DarkNights.exe",
+    "totalErrors": 0,
+    "totalWarnings": 23,
+    "buildStartedAt": "2026-09-12T08:18:27.380035",
+    "buildEndedAt": "2026-09-12T08:18:46.3011836",
+    "bytes": 198758736
+  },
+  "buildInputs": {
+    "count": 2465,
+    "changed": [],
+    "manifest": "Artifacts/c-refactor/final-build-inputs.json",
+    "manifestSha256": "5a8550d5c7f26167b49ccc4fbb79b94df652241b00a5ac4376849b12eb9e77de"
+  },
+  "playerFiles": {
+    "count": 414,
+    "manifest": "Artifacts/c-refactor/player-files.json",
+    "manifestSha256": "cc5f0e65a448dcf58a1f9fda45c8098ea75d68abba7f9a6e68f766aa432073be"
+  },
+  "beforeReadyFixDelivery": {
+    "passed": false,
+    "report": "artifacts/migration/delivery-20260912-161958-852/result.json",
+    "entryDllSha256": "AAAB680AE74929F12749582C13A5A2E9DF36B05C67FBBF8B166219618C603517",
+    "stepsPassed": {
+      "startup": {
+        "passed": true,
+        "report": "artifacts/migration/run-20260912-161959-131-mono/result.json",
+        "reportSha256": "58342bbfb1d1f023bf0f75fd256cc4ae99c6137f26d58379a642caf8b920b190",
+        "checkCount": 6,
+        "checks": {
+          "independent_player_remains_running": true,
+          "app_startup_ready_once": true,
+          "frozen_content_loaded_once": true,
+          "formal_object_content_loaded_once": true,
+          "no_startup_or_runtime_exception": true,
+          "no_formal_editor_or_tests_in_player": true
+        }
+      },
+      "session": {
+        "passed": true,
+        "report": "artifacts/migration/session-20260912-162003-635/result.json",
+        "reportSha256": "7b8db8b346be916bc910b61d441f41fe9d1727fd7d461a93620f978f0b4779d6",
+        "checkCount": 13,
+        "checks": {
+          "host_ready_with_all_initial_entities": true,
+          "independent_client_receives_full_late_baseline": true,
+          "host_pause_applied": true,
+          "generated_recruit_button_routes_once": true,
+          "guest_build_paid_once": true,
+          "host_and_client_share_single_payment": true,
+          "guest_cannot_change_time": true,
+          "host_only_enabled": true,
+          "host_only_rejects_guest_camp_mutation": true,
+          "guest_explicit_move_accepted": true,
+          "client_observes_authoritative_motion": true,
+          "complete_world_converges_while_paused": true,
+          "no_player_failure": true
+        }
+      },
+      "concurrency": {
+        "passed": true,
+        "report": "artifacts/migration/concurrency-20260912-162014-339/result.json",
+        "reportSha256": "56a93b498d7f3bb97678bf991e1a53671f3fa79813e8aadd9de750f6f3ec334a",
+        "checkCount": 13,
+        "checks": {
+          "concurrent_three_purchases_only_two_can_pay": true,
+          "concurrent_payment_is_atomic": true,
+          "actual_network_resend_returns_original_entity_without_payment": true,
+          "sequence_reuse_with_changed_intent_rejected": true,
+          "illegal_entity_target_rejected": true,
+          "old_policy_request_rejected_after_switch": true,
+          "host_only_blocks_guest_training": true,
+          "shared_worksite_claim_has_one_winner": true,
+          "old_world_request_cannot_mutate_restarted_camp": true,
+          "client3_no_runtime_exception": true,
+          "host_no_runtime_exception": true,
+          "client2_no_runtime_exception": true,
+          "client1_no_runtime_exception": true
+        }
+      },
+      "active-load": {
+        "passed": true,
+        "report": "artifacts/migration/active-load-20260912-162032-768/result.json",
+        "reportSha256": "dbd8e67790b1b2bc457d2325afce7df4b9ec70e55613cee287ea0fc3341dbbd7",
+        "checkCount": 13,
+        "checks": {
+          "real_inflight_arrow_frozen": true,
+          "late_join_sees_construction_training_and_inflight_arrow": true,
+          "late_join_receives_frozen_world_exactly": true,
+          "host_restores_every_persisted_projection_field": true,
+          "host_resets_unpersisted_presentation_flags": true,
+          "host_restores_simulation_time_and_speed": true,
+          "client1_restores_every_persisted_projection_field": true,
+          "client1_resets_unpersisted_presentation_flags": true,
+          "client1_restores_simulation_time_and_speed": true,
+          "paused_round_trip_preserves_complete_authority_save": true,
+          "loaded_projectile_and_tasks_resume": true,
+          "client1_no_runtime_exception": true,
+          "host_no_runtime_exception": true
+        }
+      },
+      "network-matrix": {
+        "passed": true,
+        "report": "artifacts/migration/network-matrix-20260912-162110-748/result.json",
+        "reportSha256": "9f4d105f5f9ad716657012a4e5edd8a5ed333d48cf4c09b45321df44978738df",
+        "cases": [
+          {
+            "rttMs": 0,
+            "oneWayJitterMs": 25,
+            "loss": 0.0,
+            "checkCount": 22,
+            "checks": {
+              "native_save_button_commits_isolated_slot": true,
+              "guest_cannot_write_host_files": true,
+              "host_restores_saved_world_and_new_ready_deadline": true,
+              "client1_restores_saved_world_and_new_ready_deadline": true,
+              "client2_restores_saved_world_and_new_ready_deadline": true,
+              "client3_restores_saved_world_and_new_ready_deadline": true,
+              "corrupt_save_preserves_world_and_epoch": true,
+              "reconnect_recovers_original_slot_with_new_generation": true,
+              "reconnect_receives_current_world_and_policy": true,
+              "host_restarts_in_same_room": true,
+              "client1_restarts_in_same_room": true,
+              "client2_restarts_in_same_room": true,
+              "client3_restarts_in_same_room": true,
+              "host_cleans_world_after_host_exit": true,
+              "client1_cleans_world_after_host_exit": true,
+              "client2_cleans_world_after_host_exit": true,
+              "client3_cleans_world_after_host_exit": true,
+              "main_menu_continue_loads_selected_saved_world": true,
+              "client2_no_runtime_exception": true,
+              "client1_no_runtime_exception": true,
+              "client3_no_runtime_exception": true,
+              "host_no_runtime_exception": true
+            },
+            "dropped": 0,
+            "reordered": 239
+          },
+          {
+            "rttMs": 0,
+            "oneWayJitterMs": 25,
+            "loss": 0.01,
+            "checkCount": 22,
+            "checks": {
+              "native_save_button_commits_isolated_slot": true,
+              "guest_cannot_write_host_files": true,
+              "host_restores_saved_world_and_new_ready_deadline": true,
+              "client1_restores_saved_world_and_new_ready_deadline": true,
+              "client2_restores_saved_world_and_new_ready_deadline": true,
+              "client3_restores_saved_world_and_new_ready_deadline": true,
+              "corrupt_save_preserves_world_and_epoch": true,
+              "reconnect_recovers_original_slot_with_new_generation": true,
+              "reconnect_receives_current_world_and_policy": true,
+              "host_restarts_in_same_room": true,
+              "client1_restarts_in_same_room": true,
+              "client2_restarts_in_same_room": true,
+              "client3_restarts_in_same_room": true,
+              "host_cleans_world_after_host_exit": true,
+              "client1_cleans_world_after_host_exit": true,
+              "client2_cleans_world_after_host_exit": true,
+              "client3_cleans_world_after_host_exit": true,
+              "main_menu_continue_loads_selected_saved_world": true,
+              "client2_no_runtime_exception": true,
+              "client1_no_runtime_exception": true,
+              "client3_no_runtime_exception": true,
+              "host_no_runtime_exception": true
+            },
+            "dropped": 15,
+            "reordered": 224
+          },
+          {
+            "rttMs": 0,
+            "oneWayJitterMs": 25,
+            "loss": 0.05,
+            "checkCount": 22,
+            "checks": {
+              "native_save_button_commits_isolated_slot": true,
+              "guest_cannot_write_host_files": true,
+              "host_restores_saved_world_and_new_ready_deadline": true,
+              "client1_restores_saved_world_and_new_ready_deadline": true,
+              "client2_restores_saved_world_and_new_ready_deadline": true,
+              "client3_restores_saved_world_and_new_ready_deadline": true,
+              "corrupt_save_preserves_world_and_epoch": true,
+              "reconnect_recovers_original_slot_with_new_generation": true,
+              "reconnect_receives_current_world_and_policy": true,
+              "host_restarts_in_same_room": true,
+              "client1_restarts_in_same_room": true,
+              "client2_restarts_in_same_room": true,
+              "client3_restarts_in_same_room": true,
+              "host_cleans_world_after_host_exit": true,
+              "client1_cleans_world_after_host_exit": true,
+              "client2_cleans_world_after_host_exit": true,
+              "client3_cleans_world_after_host_exit": true,
+              "main_menu_continue_loads_selected_saved_world": true,
+              "client2_no_runtime_exception": true,
+              "client1_no_runtime_exception": true,
+              "client3_no_runtime_exception": true,
+              "host_no_runtime_exception": true
+            },
+            "dropped": 83,
+            "reordered": 231
+          },
+          {
+            "rttMs": 100,
+            "oneWayJitterMs": 25,
+            "loss": 0.0,
+            "checkCount": 22,
+            "checks": {
+              "native_save_button_commits_isolated_slot": true,
+              "guest_cannot_write_host_files": true,
+              "host_restores_saved_world_and_new_ready_deadline": true,
+              "client1_restores_saved_world_and_new_ready_deadline": true,
+              "client2_restores_saved_world_and_new_ready_deadline": true,
+              "client3_restores_saved_world_and_new_ready_deadline": true,
+              "corrupt_save_preserves_world_and_epoch": true,
+              "reconnect_recovers_original_slot_with_new_generation": true,
+              "reconnect_receives_current_world_and_policy": true,
+              "host_restarts_in_same_room": true,
+              "client1_restarts_in_same_room": true,
+              "client2_restarts_in_same_room": true,
+              "client3_restarts_in_same_room": true,
+              "host_cleans_world_after_host_exit": true,
+              "client1_cleans_world_after_host_exit": true,
+              "client2_cleans_world_after_host_exit": true,
+              "client3_cleans_world_after_host_exit": true,
+              "main_menu_continue_loads_selected_saved_world": true,
+              "client2_no_runtime_exception": true,
+              "client1_no_runtime_exception": true,
+              "client3_no_runtime_exception": true,
+              "host_no_runtime_exception": true
+            },
+            "dropped": 0,
+            "reordered": 536
+          },
+          {
+            "rttMs": 100,
+            "oneWayJitterMs": 25,
+            "loss": 0.01,
+            "checkCount": 22,
+            "checks": {
+              "native_save_button_commits_isolated_slot": true,
+              "guest_cannot_write_host_files": true,
+              "host_restores_saved_world_and_new_ready_deadline": true,
+              "client1_restores_saved_world_and_new_ready_deadline": true,
+              "client2_restores_saved_world_and_new_ready_deadline": true,
+              "client3_restores_saved_world_and_new_ready_deadline": true,
+              "corrupt_save_preserves_world_and_epoch": true,
+              "reconnect_recovers_original_slot_with_new_generation": true,
+              "reconnect_receives_current_world_and_policy": true,
+              "host_restarts_in_same_room": true,
+              "client1_restarts_in_same_room": true,
+              "client2_restarts_in_same_room": true,
+              "client3_restarts_in_same_room": true,
+              "host_cleans_world_after_host_exit": true,
+              "client1_cleans_world_after_host_exit": true,
+              "client2_cleans_world_after_host_exit": true,
+              "client3_cleans_world_after_host_exit": true,
+              "main_menu_continue_loads_selected_saved_world": true,
+              "client2_no_runtime_exception": true,
+              "client1_no_runtime_exception": true,
+              "client3_no_runtime_exception": true,
+              "host_no_runtime_exception": true
+            },
+            "dropped": 18,
+            "reordered": 522
+          },
+          {
+            "rttMs": 100,
+            "oneWayJitterMs": 25,
+            "loss": 0.05,
+            "checkCount": 22,
+            "checks": {
+              "native_save_button_commits_isolated_slot": true,
+              "guest_cannot_write_host_files": true,
+              "host_restores_saved_world_and_new_ready_deadline": true,
+              "client1_restores_saved_world_and_new_ready_deadline": true,
+              "client2_restores_saved_world_and_new_ready_deadline": true,
+              "client3_restores_saved_world_and_new_ready_deadline": true,
+              "corrupt_save_preserves_world_and_epoch": true,
+              "reconnect_recovers_original_slot_with_new_generation": true,
+              "reconnect_receives_current_world_and_policy": true,
+              "host_restarts_in_same_room": true,
+              "client1_restarts_in_same_room": true,
+              "client2_restarts_in_same_room": true,
+              "client3_restarts_in_same_room": true,
+              "host_cleans_world_after_host_exit": true,
+              "client1_cleans_world_after_host_exit": true,
+              "client2_cleans_world_after_host_exit": true,
+              "client3_cleans_world_after_host_exit": true,
+              "main_menu_continue_loads_selected_saved_world": true,
+              "client2_no_runtime_exception": true,
+              "client1_no_runtime_exception": true,
+              "client3_no_runtime_exception": true,
+              "host_no_runtime_exception": true
+            },
+            "dropped": 113,
+            "reordered": 590
+          },
+          {
+            "rttMs": 200,
+            "oneWayJitterMs": 25,
+            "loss": 0.0,
+            "checkCount": 22,
+            "checks": {
+              "native_save_button_commits_isolated_slot": true,
+              "guest_cannot_write_host_files": true,
+              "host_restores_saved_world_and_new_ready_deadline": true,
+              "client1_restores_saved_world_and_new_ready_deadline": true,
+              "client2_restores_saved_world_and_new_ready_deadline": true,
+              "client3_restores_saved_world_and_new_ready_deadline": true,
+              "corrupt_save_preserves_world_and_epoch": true,
+              "reconnect_recovers_original_slot_with_new_generation": true,
+              "reconnect_receives_current_world_and_policy": true,
+              "host_restarts_in_same_room": true,
+              "client1_restarts_in_same_room": true,
+              "client2_restarts_in_same_room": true,
+              "client3_restarts_in_same_room": true,
+              "host_cleans_world_after_host_exit": true,
+              "client1_cleans_world_after_host_exit": true,
+              "client2_cleans_world_after_host_exit": true,
+              "client3_cleans_world_after_host_exit": true,
+              "main_menu_continue_loads_selected_saved_world": true,
+              "client2_no_runtime_exception": true,
+              "client1_no_runtime_exception": true,
+              "client3_no_runtime_exception": true,
+              "host_no_runtime_exception": true
+            },
+            "dropped": 0,
+            "reordered": 614
+          },
+          {
+            "rttMs": 200,
+            "oneWayJitterMs": 25,
+            "loss": 0.01,
+            "checkCount": 22,
+            "checks": {
+              "native_save_button_commits_isolated_slot": true,
+              "guest_cannot_write_host_files": true,
+              "host_restores_saved_world_and_new_ready_deadline": true,
+              "client1_restores_saved_world_and_new_ready_deadline": true,
+              "client2_restores_saved_world_and_new_ready_deadline": true,
+              "client3_restores_saved_world_and_new_ready_deadline": true,
+              "corrupt_save_preserves_world_and_epoch": true,
+              "reconnect_recovers_original_slot_with_new_generation": true,
+              "reconnect_receives_current_world_and_policy": true,
+              "host_restarts_in_same_room": true,
+              "client1_restarts_in_same_room": true,
+              "client2_restarts_in_same_room": true,
+              "client3_restarts_in_same_room": true,
+              "host_cleans_world_after_host_exit": true,
+              "client1_cleans_world_after_host_exit": true,
+              "client2_cleans_world_after_host_exit": true,
+              "client3_cleans_world_after_host_exit": true,
+              "main_menu_continue_loads_selected_saved_world": true,
+              "client2_no_runtime_exception": true,
+              "client1_no_runtime_exception": true,
+              "client3_no_runtime_exception": true,
+              "host_no_runtime_exception": true
+            },
+            "dropped": 23,
+            "reordered": 682
+          },
+          {
+            "rttMs": 200,
+            "oneWayJitterMs": 25,
+            "loss": 0.05,
+            "checkCount": 22,
+            "checks": {
+              "native_save_button_commits_isolated_slot": true,
+              "guest_cannot_write_host_files": true,
+              "host_restores_saved_world_and_new_ready_deadline": true,
+              "client1_restores_saved_world_and_new_ready_deadline": true,
+              "client2_restores_saved_world_and_new_ready_deadline": true,
+              "client3_restores_saved_world_and_new_ready_deadline": true,
+              "corrupt_save_preserves_world_and_epoch": true,
+              "reconnect_recovers_original_slot_with_new_generation": true,
+              "reconnect_receives_current_world_and_policy": true,
+              "host_restarts_in_same_room": true,
+              "client1_restarts_in_same_room": true,
+              "client2_restarts_in_same_room": true,
+              "client3_restarts_in_same_room": true,
+              "host_cleans_world_after_host_exit": true,
+              "client1_cleans_world_after_host_exit": true,
+              "client2_cleans_world_after_host_exit": true,
+              "client3_cleans_world_after_host_exit": true,
+              "main_menu_continue_loads_selected_saved_world": true,
+              "client2_no_runtime_exception": true,
+              "client1_no_runtime_exception": true,
+              "client3_no_runtime_exception": true,
+              "host_no_runtime_exception": true
+            },
+            "dropped": 144,
+            "reordered": 783
+          }
+        ]
+      },
+      "visual-1280": {
+        "passed": true,
+        "report": "artifacts/migration/visual-1280x800-20260912-162512-889/result.json",
+        "reportSha256": "2de9a2a5223da7ba63c25432a3502db333cbcb440d2d624a04521aa75db37498",
+        "checkCount": 6,
+        "checks": {
+          "day_has_requested_dimensions": true,
+          "night_has_requested_dimensions": true,
+          "pause_has_requested_dimensions": true,
+          "help_has_requested_dimensions": true,
+          "menu_has_requested_dimensions": true,
+          "no_runtime_exception": true
+        }
+      },
+      "visual-1600": {
+        "passed": true,
+        "report": "artifacts/migration/visual-1600x900-20260912-162538-990/result.json",
+        "reportSha256": "517a581be88e067a0c1bff7ab706f9b8d283b45ec16a26a24a18430448543227",
+        "checkCount": 6,
+        "checks": {
+          "day_has_requested_dimensions": true,
+          "night_has_requested_dimensions": true,
+          "pause_has_requested_dimensions": true,
+          "help_has_requested_dimensions": true,
+          "menu_has_requested_dimensions": true,
+          "no_runtime_exception": true
+        }
+      },
+      "battle": {
+        "passed": true,
+        "report": "artifacts/migration/battle-20260912-162605-181/result.json",
+        "reportSha256": "64ebd2e40528505212b808b962573a1ea2a77da87ad55dd0c6c9ab926c88ed29",
+        "checkCount": 9,
+        "checks": {
+          "real_host_starts_native_scene": true,
+          "real_night_creates_arrows_and_effects": true,
+          "late_join_gets_running_battle_and_native_entities": true,
+          "late_join_receives_real_projectiles_effects_and_remnants": true,
+          "paused_battle_converges": true,
+          "both_rendered_screenshots_exist": true,
+          "host_exit_clears_guest_world_and_transient_views": true,
+          "host_runtime_has_no_exception_or_shader_error": true,
+          "client_runtime_has_no_exception_or_shader_error": true
+        }
+      },
+      "campaign": {
+        "passed": true,
+        "report": "artifacts/migration/campaign-20260912-162633-329/result.json",
+        "reportSha256": "5f9d063815dae83eb43806e2540c16cba7957e1f7fbe5a784aae678ae6dc06c5",
+        "checkCount": 17,
+        "checks": {
+          "normal_starting_resources_fund_frozen_strategy": true,
+          "client1_late_join_ready": true,
+          "client2_late_join_ready": true,
+          "client3_late_join_ready": true,
+          "all_three_nights_win_with_34_real_kills": true,
+          "four_process_session_ready_at_victory": true,
+          "client1_sees_authoritative_victory": true,
+          "client2_sees_authoritative_victory": true,
+          "client3_sees_authoritative_victory": true,
+          "client3_performance_recorded": true,
+          "client3_no_runtime_exception": true,
+          "client1_performance_recorded": true,
+          "client1_no_runtime_exception": true,
+          "client2_performance_recorded": true,
+          "client2_no_runtime_exception": true,
+          "host_performance_recorded": true,
+          "host_no_runtime_exception": true
+        }
+      }
+    },
+    "failedStep": "pressure"
+  },
+  "finalMonoChecks": {
+    "startup": {
+      "passed": true,
+      "report": "artifacts/migration/run-20260912-164634-316-mono/result.json",
+      "reportSha256": "0d90fc26f242e97e2e4586860f5c8f855f9a4290e35354d4718ac36874e3354c",
+      "checkCount": 6,
+      "checks": {
+        "independent_player_remains_running": true,
+        "app_startup_ready_once": true,
+        "frozen_content_loaded_once": true,
+        "formal_object_content_loaded_once": true,
+        "no_startup_or_runtime_exception": true,
+        "no_formal_editor_or_tests_in_player": true
+      }
+    },
+    "session": {
+      "passed": true,
+      "report": "artifacts/migration/session-20260912-164638-801/result.json",
+      "reportSha256": "eb47dd09ea7025c6b48a770a62131be5ac6d89e8796d4581ff5d1d66990658cf",
+      "checkCount": 13,
+      "checks": {
+        "host_ready_with_all_initial_entities": true,
+        "independent_client_receives_full_late_baseline": true,
+        "host_pause_applied": true,
+        "generated_recruit_button_routes_once": true,
+        "guest_build_paid_once": true,
+        "host_and_client_share_single_payment": true,
+        "guest_cannot_change_time": true,
+        "host_only_enabled": true,
+        "host_only_rejects_guest_camp_mutation": true,
+        "guest_explicit_move_accepted": true,
+        "client_observes_authoritative_motion": true,
+        "complete_world_converges_while_paused": true,
+        "no_player_failure": true
+      }
+    }
+  },
+  "deferredValidationByUser": [
+    "Repeat 256 actors / 1024 arrows pressure after Ready fix, preserving the original publication threshold.",
+    "Repeat concurrency, active-load, nine-case weak-network, battle and three-night regression for final Ready-fix runtime input; earlier C runtime passed these.",
+    "Foreground A/C performance comparison; no performance improvement or no-regression conclusion."
+  ],
+  "visualReview": {
+    "resolutions": [
+      [
+        1280,
+        800
+      ],
+      [
+        1600,
+        900
+      ]
+    ],
+    "screens": [
+      "day",
+      "night",
+      "menu",
+      "pause",
+      "help"
+    ],
+    "contactSheet": "Artifacts/c-refactor/visual-review.jpg",
+    "result": "Characters, buildings, worksites and UI render; existing M5 font/menu-layout issues remain outside this refactor; no complete pixel-equivalence claim."
+  },
+  "preservedFailures": [
+    {
+      "phase": "initial_compile",
+      "reason": "Missing BehaviourContext namespace in new test; corrected, compile succeeded."
+    },
+    {
+      "phase": "asset_verify",
+      "report": "Artifacts/c-refactor/content-upgrade-first-pass.json",
+      "reason": "Farm serialized key repaired successfully; old binding cache failed verification. Cache rebuilt and Validate-only rerun passed."
+    },
+    {
+      "phase": "startup",
+      "report": "Artifacts/migration/run-20260912-161924-299-mono/result.json",
+      "reason": "Expected Behaviour count still 7. Explicitly updated for four new generated types to 11; same Player reused."
+    },
+    {
+      "phase": "pressure_publication",
+      "report": "Artifacts/migration/pressure-20260912-163024-051/result.json",
+      "reason": "All clients rendered capacity, final publication assertion failed without saved operands. Sampling now retries transient file access and records first/last publication and ticks; threshold unchanged. Cause unconfirmed; final capacity rerun deferred."
+    },
+    {
+      "phase": "pressure_ready",
+      "report": "Artifacts/migration/pressure-20260912-163555-850/result.json",
+      "reason": "Client2 had complete views and server ReadyCount=3 but local Ready=false. Existing Ready retry replaced request sequence each second. Fixed by reusing logical handshake sequence and ignoring rejection after success. Editor and real Play pass; independent capacity rerun deferred."
+    }
+  ],
+  "additionalLifecycleFixes": [
+    "Preload the locked framework cache then validate attempt before synchronous factory spawn.",
+    "Only current observed object can clear its replica and local generation.",
+    "Late Ready errors cannot stop a later attempt.",
+    "Host local observation disconnect revokes capability without closing hosted authority; explicit departure still stops both roles."
+  ],
+  "workingFiles": [
+    "Game/Assets/DarkNights/Res/Objects/Archer/Archer.asset",
+    "Game/Assets/DarkNights/Res/Objects/Armored/Armored.asset",
+    "Game/Assets/DarkNights/Res/Objects/Barracks/Barracks.asset",
+    "Game/Assets/DarkNights/Res/Objects/Farm/Farm.asset",
+    "Game/Assets/DarkNights/Res/Objects/Farmland/Farmland.asset",
+    "Game/Assets/DarkNights/Res/Objects/Ghoul/Ghoul.asset",
+    "Game/Assets/DarkNights/Res/Objects/House/House.asset",
+    "Game/Assets/DarkNights/Res/Objects/Iron/Iron.asset",
+    "Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.asset",
+    "Game/Assets/DarkNights/Res/Objects/Stone/Stone.asset",
+    "Game/Assets/DarkNights/Res/Objects/Tavern/Tavern.asset",
+    "Game/Assets/DarkNights/Res/Objects/Tower/Tower.asset",
+    "Game/Assets/DarkNights/Res/Objects/Trees/Trees.asset",
+    "Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+    "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+    "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.prefab",
+    "Game/Assets/DarkNights/Res/Objects/Zombie/Zombie.asset",
+    "Game/Assets/DarkNights/Scripts/Editor/CRefactorContentUpgrade.cs",
+    "Game/Assets/DarkNights/Scripts/Editor/CRefactorContentUpgrade.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Editor/FormalObjectContentSetup.cs",
+    "Game/Assets/DarkNights/Scripts/Editor/NativeArtSetup.cs",
+    "Game/Assets/DarkNights/Scripts/Editor/SessionLifecycleProbe.cs",
+    "Game/Assets/DarkNights/Scripts/Editor/SessionNetworkSetup.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/PlayerPerformanceCapture.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/SessionEffects.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/SessionEntityViews.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/SessionPlacementView.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/SessionUiController.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics.meta",
+    "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/MeasurementSeries.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/MeasurementSeries.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/SessionMeasurements.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/SessionMeasurements.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Runtime/Framework/FormalObjectCatalog.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/CampSessionBehaviour.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/CampSessionBehaviour.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionClient.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionEventJournal.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionEventJournal.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionNetwork.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionObjectLink.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionProjector.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionProjector.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionServer.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Save/SessionStorageRequest.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Save/SessionStorageRequest.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/MeasurementSeries.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/MeasurementSeries.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionConnection.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionEventJournal.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionEventJournal.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionMeasurements.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionMeasurements.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionProjector.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionProjector.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionStorageRequest.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionStorageRequest.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Tests/EntityPresentationTests.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/EntityPresentationTests.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Tests/FormalObjectContentTests.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/NativeArtTests.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/NativeEffectTests.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/SessionBoundaryScenarios.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/SessionClientReadyTests.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/SessionClientReadyTests.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Tests/SessionEventScenarios.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/WorldSessionLifecycleTests.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/WorldSessionLifecycleTests.cs.meta",
+    "Game/Assets/DarkNights/Scripts/View/ActorPresentationBehaviour.cs",
+    "Game/Assets/DarkNights/Scripts/View/ActorPresentationBehaviour.cs.meta",
+    "Game/Assets/DarkNights/Scripts/View/BuildingPresentationBehaviour.cs",
+    "Game/Assets/DarkNights/Scripts/View/BuildingPresentationBehaviour.cs.meta",
+    "Game/Assets/DarkNights/Scripts/View/EntityPresentationBehaviour.cs",
+    "Game/Assets/DarkNights/Scripts/View/EntityPresentationBehaviour.cs.meta",
+    "Game/Assets/DarkNights/Scripts/View/NativeVisual.cs",
+    "Game/Assets/DarkNights/Scripts/View/WorksitePresentationBehaviour.cs",
+    "Game/Assets/DarkNights/Scripts/View/WorksitePresentationBehaviour.cs.meta",
+    "docs/ARCHITECTURE.md",
+    "docs/C_REFACTOR_IMPLEMENTATION.md",
+    "docs/C_REFACTOR_PLAN.md",
+    "docs/DEVELOPMENT.md",
+    "docs/FORMAL_NETWORK.md",
+    "docs/MIGRATION_PLAN.md",
+    "docs/NATIVE_ART.md",
+    "docs/SESSION_AUTHORITY.md",
+    "docs/SESSION_PROJECTION.md",
+    "tools/CoreRegression/CoreRegression.csproj",
+    "tools/test-game-pressure.ps1",
+    "tools/test-game-startup.ps1"
+  ],
+  "finalRuntimeDlls": {
+    "DarkNights.Core.dll": "3d9d224ccc41d28a80373ba792bf02d5e54c8b80960a54324a482d7c0a7983bd",
+    "DarkNights.Runtime.dll": "8d35de049227143c1ef2b8307e8a1ed1ad31760507075906d020302a3b53efdf",
+    "DarkNights.View.dll": "c5f9d0532aaff21fced096561c1d1cf12403d78f8af023913bd89cf8592de943",
+    "DarkNights.Entry.dll": "aaab680ae74929f12749582c13a5a2e9df36b05c67fbbf8b166219618c603517"
+  }
+}

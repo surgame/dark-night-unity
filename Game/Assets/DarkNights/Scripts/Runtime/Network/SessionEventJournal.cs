@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DarkNights.Core.ViewData;
+using DarkNights.Runtime.Session;
 
-namespace DarkNights.Runtime.Session
+namespace DarkNights.Runtime.Network
 {
     /// <summary>
     /// 在权威线程订阅现有反馈出口，保存有界事件窗口，使相邻完整投影之间的短暂通知可被客户端去重消费。

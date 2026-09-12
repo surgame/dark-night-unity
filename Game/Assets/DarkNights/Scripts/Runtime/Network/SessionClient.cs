@@ -78,7 +78,7 @@ namespace DarkNights.Runtime.Network
                     int previousEpoch = Replica.Current?.Epoch ?? 0;
                     if (!Replica.Apply(captured, frame)) return;
                     LastPayloadBytes = state.ProjectionPayload.Length;
-                    if (frame.Epoch != previousEpoch) { Ready = false; nextReadyAt = 0; }
+                    if (frame.Epoch != previousEpoch) { Ready = false; readySequence = 0; nextReadyAt = 0; }
                     Updated?.Invoke(frame);
                 }
                 catch (Exception error) { Status = error.Message; Failed?.Invoke(error); }
@@ -92,6 +92,10 @@ namespace DarkNights.Runtime.Network
             subscription = null;
             observed = null;
             Ready = false;
+            // 当前世界对象已消失，旧副本和迟到资源结果立即失效；旧对象的 Detach 由上方引用比较拒绝。
+            connection = Replica.BeginConnection();
+            readySequence = 0;
+            nextReadyAt = 0;
         }
 
         public async ValueTask Advance(double now)
@@ -99,7 +103,8 @@ namespace DarkNights.Runtime.Network
             var frame = Replica.Current;
             if (Ready || endpoint == null || frame == null || frame.Loading || now < nextReadyAt) return;
             nextReadyAt = now + 1;
-            readySequence = ++sequence;
+            // 同一 epoch 的握手重试复用序号，避免持续重试使较早的成功回执永远失效。
+            if (readySequence == 0) readySequence = ++sequence;
             await NetworkCommandGateway.Instance.ProcessLocalCommandAsync(new SetReadyCommand
             {
                 SenderObjectId = endpoint.ObjectId, Protocol = SessionAuthority.ProtocolVersion,
@@ -142,7 +147,7 @@ namespace DarkNights.Runtime.Network
             if (source != endpoint || Replica.Current == null || feedback.Epoch != Replica.Current.Epoch) return;
             if (feedback.ReadyReply)
             {
-                if (feedback.Sequence != readySequence) return;
+                if (feedback.Sequence != readySequence || Ready) return;
                 Ready = feedback.Code == "Ready";
                 if (Ready) { HadReady = true; PlayerSlot = feedback.PlayerSlot; Status = "已就绪"; }
             }

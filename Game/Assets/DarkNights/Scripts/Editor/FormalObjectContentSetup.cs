@@ -7,7 +7,6 @@ using FishNet.Managing.Object;
 using FishNet.Object;
 using GameCore.Editor.NetworkCommands;
 using GameCore.Editor.Objects.Definition;
-using GameCore.Objects.Behaviours;
 using GameCore.Objects.Definition;
 using GameCore.Objects.NetworkStates;
 using GameCore.Objects.Runner;
@@ -23,7 +22,8 @@ namespace DarkNights.Editor
 {
     /// <summary>
     /// 在两个指定空目录中一次性创建首批正式 YYGC 定义和原生 Prefab。
-    /// 日常调用仅验证身份、绑定、Addressables、FishNet 生成列表及代码生成注册，不覆盖人工维护的资产。
+    /// 会话立即配置完整生命周期；Worker 骨架等待原生素材安装后追加表现行为与 visual 绑定。
+    /// 日常调用仅验证身份、绑定与生成注册，不覆盖人工维护的资产。
     /// </summary>
     public static class FormalObjectContentSetup
     {
@@ -61,6 +61,7 @@ namespace DarkNights.Editor
             ObjectDefinition session = CreateDefinition(SessionDefinitionPath, "灰松谷会话",
                 FormalObjectCatalog.SessionKey, NetworkType.Network, sessionPrefab);
             session.BehaviourTypes.Add(typeof(WorldSessionBehaviour).FullName);
+            session.BehaviourTypes.Add(typeof(CampSessionBehaviour).FullName);
             session.SharedConfigs.Add(new ContentDefinitionMap(new[]
             {
                 new ContentDefinitionEntry(FormalObjectCatalog.WorkerContentId,
@@ -83,11 +84,13 @@ namespace DarkNights.Editor
             AssetDatabase.SaveAssetIfDirty(spawnables);
             AssetDatabase.SaveAssetIfDirty(settings);
             AssetDatabase.SaveAssetIfDirty(settings.DefaultGroup);
-            Validate();
+            ValidateContent(false);
             Debug.Log("DARK_NIGHTS_FORMAL_OBJECTS_CREATED definitions=2 prefabs=2 bindings=4");
         }
 
-        public static void Validate()
+        public static void Validate() => ValidateContent(true);
+
+        private static void ValidateContent(bool requireNativeArt)
         {
             ObjectDefinitionDatabase database = Required<ObjectDefinitionDatabase>(DatabasePath);
             database.RebuildLookup();
@@ -109,14 +112,13 @@ namespace DarkNights.Editor
             ValidateIdentity(session, FormalObjectCatalog.SessionKey, NetworkType.Network, SessionPrefabPath);
             if (database.GetDefinitionByKey(worker.Key) != worker || database.GetDefinitionByKey(session.Key) != session)
                 throw new InvalidOperationException("Formal definitions are not indexed by the ObjectDefinitionDatabase.");
-            if (session.BehaviourTypes.Count(value => value == typeof(WorldSessionBehaviour).FullName) != 1 ||
-                BehaviourTypeResolver.GetFactoryFor(typeof(WorldSessionBehaviour)) == null)
-                throw new InvalidOperationException("WorldSessionBehaviour generated registration is missing.");
+            CRefactorContentUpgrade.ValidateSession(session);
             ContentDefinitionMap map = session.SharedConfigs.OfType<ContentDefinitionMap>().SingleOrDefault();
             if (map == null || map.GetRequired(FormalObjectCatalog.WorkerContentId, database) != worker)
                 throw new InvalidOperationException("Worker ContentId mapping is missing or incorrect.");
 
-            ValidateWorkerPrefab(workerPrefab);
+            ValidateWorkerPrefab(workerPrefab, requireNativeArt);
+            if (requireNativeArt) CRefactorContentUpgrade.ValidateLocal("Worker", worker, workerPrefab);
             ValidateSessionPrefab(sessionPrefab);
             EnvironmentValidation.RequireAddress(WorkerPrefabPath, WorkerPrefabAddress);
             EnvironmentValidation.RequireAddress(SessionPrefabPath, SessionPrefabAddress);
@@ -159,8 +161,11 @@ namespace DarkNights.Editor
                 ObjectInstance instance = root.AddComponent<ObjectInstance>();
                 StateSynchronizer synchronizer = root.AddComponent<StateSynchronizer>();
                 ObjectView view = root.AddComponent<ObjectView>();
+                SessionObjectLink link = root.AddComponent<SessionObjectLink>();
                 SetReference(instance, "_view", view);
                 SetReference(synchronizer, "_objectInstance", instance);
+                SetReference(link, "instance", instance);
+                SetReference(link, "synchronizer", synchronizer);
                 view.ForceRefreshAllReferences();
                 return PrefabUtility.SaveAsPrefabAsset(root, SessionPrefabPath);
             }
@@ -192,7 +197,7 @@ namespace DarkNights.Editor
                 throw new InvalidOperationException("Definition identity or PrefabRef is incorrect: " + definition.name);
         }
 
-        private static void ValidateWorkerPrefab(GameObject prefab)
+        private static void ValidateWorkerPrefab(GameObject prefab, bool requireNativeArt)
         {
             ObjectInstance instance = prefab.GetComponent<ObjectInstance>();
             ObjectView view = prefab.GetComponent<ObjectView>();
@@ -201,13 +206,15 @@ namespace DarkNights.Editor
                 initializer.ObjectInstance != instance || view.Initializer != initializer)
                 throw new InvalidOperationException("Worker ObjectInstance/ObjectView/initializer binding is invalid.");
             string[] keys = { "art_offset", "facing", "status_anchor", "selection_anchor" };
-            if (view.Bindings.Count != keys.Length + 1 || keys.Any(key => view.Get<Transform>(key) == null) ||
-                view.Get<DarkNights.View.NativeVisual>("visual") == null)
+            int expectedCount = keys.Length + (requireNativeArt ? 1 : 0);
+            if (view.Bindings.Count != expectedCount || keys.Any(key => view.Get<Transform>(key) == null) ||
+                (requireNativeArt && view.Get<DarkNights.View.NativeVisual>("visual") == null))
                 throw new InvalidOperationException("Worker generated component binding table is incomplete.");
         }
 
         private static void ValidateSessionPrefab(GameObject prefab)
         {
+            CRefactorContentUpgrade.ValidateSessionLink(prefab);
             NetworkObject network = prefab.GetComponent<NetworkObject>();
             ObjectInstance instance = prefab.GetComponent<ObjectInstance>();
             ObjectView view = prefab.GetComponent<ObjectView>();
