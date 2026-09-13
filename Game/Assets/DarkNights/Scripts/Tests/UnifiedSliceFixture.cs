@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Cysharp.Threading.Tasks;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Framework;
@@ -8,6 +9,7 @@ using DarkNights.Runtime.Objects;
 using DarkNights.Runtime.Session;
 using GameCore.Objects.Definition;
 using GameCore.Objects.Runner;
+using GameCore.Objects.Behaviours;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,6 +24,8 @@ namespace DarkNights.Tests
         private GameObject root;
         private GameObject sceneWorker;
         private ObjectDefinition house;
+        private ObjectDefinition archer;
+        private GameObject updateRoot;
         public ObjectSessionResources Resources { get; private set; }
         public ObjectSession World { get; private set; }
         public SessionAuthority Authority { get; private set; }
@@ -30,7 +34,7 @@ namespace DarkNights.Tests
         public ObjectPlacement[] Placements { get; private set; }
         public ObjectInstance SceneWorker => sceneWorker == null ? null : sceneWorker.GetComponent<ObjectInstance>();
 
-        public static async UniTask<UnifiedSliceFixture> Create(bool withSceneWorker = false)
+        public static async UniTask<UnifiedSliceFixture> Create(bool withSceneWorker = false, bool full = false)
         {
             var result = new UnifiedSliceFixture();
             try
@@ -40,10 +44,20 @@ namespace DarkNights.Tests
                 LevelLayout layout = RuleScenario.Layout();
                 var directory = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance);
                 result.house = UnityEngine.Object.Instantiate(directory.GetRequired("house"));
-                result.Resources = await ObjectSessionResources.Prepare(new[]
+                if (full)
                 {
-                    directory.GetRequired("tavern"), result.house, directory.GetRequired("wood"), directory.GetRequired("worker")
-                }, default);
+                    result.archer = UnityEngine.Object.Instantiate(directory.GetRequired("archer"));
+                    if (BehaviourUpdateManager.Instance == null)
+                    {
+                        result.updateRoot = new GameObject("U3 real YYGC update lifecycle");
+                        var updates = result.updateRoot.AddComponent<BehaviourUpdateManager>();
+                        typeof(BehaviourUpdateManager).GetMethod("Awake", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(updates, null);
+                    }
+                }
+                string[] keys = full ? catalog.Balance.Buildings.Keys.Concat(catalog.Balance.Worksites.Keys)
+                    .Concat(catalog.Balance.Units.Keys).ToArray() : new[] { "tavern", "house", "wood", "worker" };
+                result.Resources = await ObjectSessionResources.Prepare(keys.Select(key =>
+                    key == "house" ? result.house : key == "archer" && full ? result.archer : directory.GetRequired(key)).ToArray(), default);
                 result.World = new ObjectSession(catalog, layout, result.Resources, () => true);
                 result.root = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
                     Editor.FormalObjectContentSetup.SessionPrefabPath));
@@ -59,7 +73,7 @@ namespace DarkNights.Tests
                     loader.EditorConfigure(directory.GetRequired("worker"));
                 }
                 var records = layout.Buildings.Concat(layout.Worksites).Concat(layout.Actors)
-                    .Where(p => p.Kind == "house" || p.Kind == "tavern" || p.Kind == "wood" || p.Kind == "worker").ToArray();
+                    .Where(p => full || p.Kind == "house" || p.Kind == "tavern" || p.Kind == "wood" || p.Kind == "worker").ToArray();
                 bool assignedScene = false;
                 var placements = records.Select((p, index) =>
                 {
@@ -88,7 +102,7 @@ namespace DarkNights.Tests
 
         public static void ExpectActivation(ObjectSession session)
         {
-            int count = session.Index.FreezeOrder().Sum(e => e.Object.GetBehaviourCount()) + 4;
+            int count = session.Index.FreezeOrder().Sum(e => e.Object.GetBehaviourCount()) + session.Camp.Object.GetBehaviourCount();
             FormalObjectContentTests.ExpectRegistrationWithoutRuntime(count);
         }
 
@@ -109,6 +123,8 @@ namespace DarkNights.Tests
 
         public void BreakHouse() => house.BehaviourTypes.Add("Missing.U2.Capability");
         public void RepairHouse() => house.BehaviourTypes.Remove("Missing.U2.Capability");
+        public void BreakArcher() => archer.BehaviourTypes.Add("Missing.U3.Capability");
+        public void RepairArcher() => archer.BehaviourTypes.Remove("Missing.U3.Capability");
 
         public void Dispose()
         {
@@ -118,6 +134,13 @@ namespace DarkNights.Tests
             if (sceneWorker != null) UnityEngine.Object.DestroyImmediate(sceneWorker);
             Resources?.Dispose();
             if (house != null) UnityEngine.Object.DestroyImmediate(house);
+            if (archer != null) UnityEngine.Object.DestroyImmediate(archer);
+            if (updateRoot != null)
+            {
+                typeof(BehaviourUpdateManager).GetMethod("OnDestroy", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .Invoke(updateRoot.GetComponent<BehaviourUpdateManager>(), null);
+                UnityEngine.Object.DestroyImmediate(updateRoot);
+            }
         }
     }
 }

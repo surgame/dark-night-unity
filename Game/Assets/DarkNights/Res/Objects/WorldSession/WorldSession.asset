@@ -39,6 +39,8 @@ MonoBehaviour:
   - DarkNights.Runtime.Network.CampSessionBehaviour
   - DarkNights.Runtime.Objects.CampSimulationBehaviour
   - DarkNights.Runtime.Objects.EconomyBehaviour
+  - DarkNights.Runtime.Objects.WaveBehaviour
+  - DarkNights.Runtime.Objects.ProjectileBehaviour
   SharedConfigs: []
   references:
     version: 2

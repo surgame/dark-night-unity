@@ -1,6 +1,6 @@
 # YYGC 统一对象重构实施记录
 
-本记录接续 [分阶段计划](YYGC_UNIFIED_REFACTOR_PLAN.md)，只记录实际实施和取得的证据。游戏分支为 `codex/yygc-unified-object-migration`；不推送远端。U0–U2 已完成，U3–U6 继续实施；新版切片通过临时入口启用，正式完整玩法入口尚未切换。
+本记录接续 [分阶段计划](YYGC_UNIFIED_REFACTOR_PLAN.md)，只记录实际实施和取得的证据。游戏分支为 `codex/yygc-unified-object-migration`；不推送远端。U0–U3 已完成，U4–U6 继续实施；全部业务已通过新对象集成回归，正式完整玩法入口尚未切换。
 
 ## U0：功能基线与输入归档
 
@@ -73,9 +73,34 @@ Mono 正式 Player 和 Sample 均已实际构建成功。正式 Player 显式装
 
 U2 的范围只有 Worker、Trees、House 和基础 Tavern。波次投影暂为第一日，箭矢／训练为空；敌人、战斗、农田、招募、训练、三夜和正式入口均属于 U3–U4 的未完成工作。没有据此宣称完整玩法、性能、弱网、IL2CPP 或双机器 LAN 通过。
 
+## U3：全部玩法能力（完成）
+
+输入为游戏 `482156a`、框架 `0305eb7`。六类单位、五类建筑及四类工位已全部装配 YYGC 业务能力。单位家族拥有 ActorState，移动、索敌与近战／箭矢命中组合使用同一个状态；建筑家族拥有施工与训练队列，兵营／塔装配对应完工活动。会话对象拥有经济、时间／RNG／统计、波次和在飞箭矢，各阶段顺序保持命令 → 经济 → 建筑 → 单位 → 工位 → 箭矢 → 波次。
+
+农田的派生工位即时分配下一 EntityId，完工工人转入耕作；训练、死亡、占用解除、退款、招募、修缮及三夜奖励均已迁入。转职先按新 Definition 的 Prefab 完成真实装配，保留 EntityId、放置键、名称及原规则保留的计时，再替换索引中的原位置；事务成功后退休旧对象。原场景对象在职业变化后保持未激活，恢复到其原定义时才能按精确放置键重新接管，避免把工人外观当作弓箭手。客户端和恢复候选采用同一规则。
+
+BuildingState 的训练队列和 ProjectileState 的飞行数组显式按值克隆，避免捕获／草稿／池归还共享可变集合。v2 已覆盖完整玩法的恢复字段；败局允许不存在酒馆，旧 v1 验证边界在 U5 删除前保持不变。状态与恢复落点见[覆盖表](YYGC_UNIFIED_STATE_MAP.md)。本阶段没有新增 YYGC 修改，沿用锁定提交；没有改变 Prefab、动画、场景布局或原图字节。
+
+| 检查 | 结果 | 证据 |
+|---|---|---|
+| 源码／生成／定义 | Unity 编译成功；15 类正式定义；新增 WaveState、ProjectileState 自动注册 | `content-upgrade.txt`、生成注册源码与定义差异 |
+| 原规则回归 | 1361/1361 | `core-regression.json` |
+| 架构守卫 | 306 文件、10 自检、0 错误 | `architecture.json` |
+| 新增完整玩法 | 10/10，含农田、训练／退款、攻击前摇、2×单步、失败整步回滚、冻结集合和活跃恢复 | `gameplay-10-passed.json` |
+| 全部 Editor／Play | 单批 136/136；完整 NUnit XML 再核对 136 个用例 | `editor-136-passed.json`、`editor-136-passed.xml` |
+| 一倍速三夜 | 377.6666667 秒、34 击杀、9 存活、3 损失；五种资源及酒馆 HP 与冻结 Godot 记录一致 | `campaign-1x.json` |
+| 一倍速无人照料 | 452.1 秒失败、6 击杀，与冻结记录一致 | `idle-1x.json` |
+| 二倍速 | 373.1 秒胜利、34 击杀；无人照料 365.6333333 秒失败；胜利后不再模拟、保存恢复稳定 | `campaign-2x.json`、`idle-2x.json` |
+
+短文件名均位于 `artifacts/yygc-unified/u3/`。二倍速报告是本次实际结果，不作为原 Godot 二倍速基线；单入口 `2/60` 和前摇起始值另有明确断言。新玩法测试使用真实 YYGC 更新管理器与工厂，仅通过反射调用内部战斗入口施加测试条件，没有替代框架的假对象。机器摘要见 [U3 证据](evidence/yygc-unified-u3.json)。
+
+U3 未新增 Player 构建。U2 Player 不能代表这些新源码，正式入口、完整多人生命周期、旧模型删除及最终 Mono 矩阵仍属于 U4–U6。
+
 ## 空间管理
 
 每阶段开始和构建前检查 C／D 盘；不复制整个 Unity Library。阶段收尾保留后续复用的 Player、人工资源、保护副本及报告，清理可重建中间产物。记录落在 `artifacts/yygc-unified/<stage>/cleanup.json`。
+
+U3 以 `dotnet clean` 清理 CoreRegression／CoreBuild／ArchitectureGuard 中间产物，释放 37,646,128 字节；收尾 C 盘剩 14,930,231,296 字节，D 盘剩 28,598,804,480 字节。保留当前 Editor 导入缓存及 U2 Player，没有复制 Library 或额外构建 Player。
 
 U0 已识别闲置 `Game/Library/Bee/artifacts/WinPlayerBuildProgram`，约 3.39 GiB。确认没有 Bee 构建进程、目标及子项没有重解析链接后，递归清理仍两次被自动审批以 `blocked by policy` 拒绝，未执行删除。该限制单独记录；继续复用当前缓存，不再建立整套验证副本，也不把该空间记为已释放。
 

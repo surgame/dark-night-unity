@@ -32,10 +32,11 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  Archetype: {fileID: 0}
+  Archetype: {fileID: 11400000, guid: b0664514001fbc044a80a456489cbc90, type: 2}
   UseMonolithicPooling: 0
   BehaviourTypes:
   - DarkNights.View.WorksitePresentationBehaviour
+  - DarkNights.Runtime.Objects.WorksiteBehaviour
   SharedConfigs:
   - rid: 6961529563483734164
   references:

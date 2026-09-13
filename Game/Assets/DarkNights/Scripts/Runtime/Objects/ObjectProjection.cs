@@ -24,19 +24,23 @@ namespace DarkNights.Runtime.Objects
             {
                 BuildingState b = building.Read();
                 return new BuildingViewData(b.Id, building.RuleKey, b.X, b.Hp, b.Progress,
-                    b.WorkerId, b.FarmSiteId, b.HitFlash, Array.Empty<TrainingViewData>());
+                    b.WorkerId, b.FarmSiteId, b.HitFlash,
+                    b.TrainingQueue.Select(t => new TrainingViewData(t.ActorId, t.Kind, t.Remaining)).ToArray());
             }).ToArray();
             var sites = session.Index.Worksites.Select(site =>
             {
                 WorksiteState w = site.Read();
                 return new WorksiteViewData(w.Id, site.RuleKey, w.X, w.WorkerId, w.Amount, w.Progress, w.Variant, w.FarmId);
             }).ToArray();
+            WaveState wave = session.Waves.Read();
             var summary = new CampViewData(session.Economy.Stock, session.Economy.Population, session.Economy.Capacity,
-                economy.RecruitCooldown, 0, "Day", session.Catalog.Level.Waves[0].DaySeconds,
+                economy.RecruitCooldown, wave.Index, wave.Phase.ToString(), wave.DayRemaining,
                 session.Index.EnemyCount, camp.Mode.ToString(), camp.Kills, camp.Lost, session.Economy.Gathered);
             var identities = session.Index.FreezeOrder().Select(entity =>
                 new EntityIdentityData(entity.Id, entity.DefinitionGuid, entity.PlacementKey)).ToArray();
-            return new WorldViewData(summary, actors, buildings, sites, Array.Empty<ProjectileViewData>(), identities);
+            var shots = session.Projectiles.Read().Shots.Select(p => new ProjectileViewData(
+                p.ViewId, p.FromX, p.FromY, p.ToX, p.ToY, p.Age, p.Duration)).ToArray();
+            return new WorldViewData(summary, actors, buildings, sites, shots, identities);
         }
     }
 }

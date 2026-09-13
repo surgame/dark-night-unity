@@ -16,12 +16,12 @@ using UnityEngine.SceneManagement;
 namespace DarkNights.Editor
 {
     /// <summary>
-    /// U2 的显式一次性内容接入，保留所有现有 Prefab、资源 GUID 与场景布局。
-    /// 只补规则配置、实际切片能力和缺失放置键；普通导入与构建不调用此入口。
+    /// U3 的显式正式能力接入，保留现有 Prefab、资源 GUID 与场景布局。
+    /// RuleKey 来自已有家族配置，补齐全部业务能力；普通导入与构建不调用此入口。
     /// </summary>
     public static class UnifiedObjectContentUpgrade
     {
-        [MenuItem("Dark Nights/Content/Apply Unified Object Slice")]
+        [MenuItem("Dark Nights/Content/Apply Unified Object Capabilities")]
         public static void Apply()
         {
             if (EditorApplication.isPlaying || EditorUtility.scriptCompilationFailed)
@@ -32,7 +32,7 @@ namespace DarkNights.Editor
             var definitions = database.Definitions.Where(d => DefinitionRuleIndex.IsEntityType(d.Type)).ToArray();
             var input = definitions.Select(d => new
             {
-                Definition = d, Rule = d.Key.Substring(d.Key.IndexOf('.') + 1), Family = d.Type
+                Definition = d, Rule = ObjectSessionResources.Rule(d), Family = d.Type
             }).ToArray();
             foreach (var entry in input)
             {
@@ -41,7 +41,8 @@ namespace DarkNights.Editor
                     catalog.Balance.Worksites.ContainsKey(entry.Rule);
                 if (!known) throw new InvalidOperationException("Cannot resolve the current authored rule: " + entry.Definition.Key);
             }
-            var actor = Archetype("Actor", typeof(IActorCapability), typeof(IMovementCapability));
+            var actor = Archetype("Actor", typeof(IActorCapability), typeof(IMovementCapability),
+                typeof(IActorCombatCapability), typeof(IAttackCapability));
             var building = Archetype("Building", typeof(IBuildingCapability));
             var worksite = Archetype("Worksite", typeof(IWorksiteCapability));
             foreach (var entry in input)
@@ -51,19 +52,24 @@ namespace DarkNights.Editor
                     entry.Family == ObjectType.Placeable_CompositeStructure ? new BuildingRuleConfig { RuleKey = entry.Rule } :
                     new WorksiteRuleConfig { RuleKey = entry.Rule };
                 if (!definition.SharedConfigs.Any(c => c != null && c.GetType() == config.GetType())) definition.SharedConfigs.Add(config);
-                if (entry.Rule == "worker")
+                if (entry.Family == ObjectType.Unit)
                 {
                     Add<ActorBehaviour>(definition);
                     Add<MovementBehaviour>(definition);
+                    Add<ActorCombatBehaviour>(definition);
+                    if (entry.Rule == "archer") Add<ArrowAttackBehaviour>(definition);
+                    else Add<MeleeAttackBehaviour>(definition);
                     if (!definition.SharedConfigs.Any(c => c is MovementConfig)) definition.SharedConfigs.Add(new MovementConfig());
                     definition.Archetype = actor;
                 }
-                else if (entry.Rule == "house" || entry.Rule == "tavern")
+                else if (entry.Family == ObjectType.Placeable_CompositeStructure)
                 {
                     Add<BuildingBehaviour>(definition);
+                    if (entry.Rule == "barracks") Add<TrainingBehaviour>(definition);
+                    if (entry.Rule == "tower") Add<TowerAttackBehaviour>(definition);
                     definition.Archetype = building;
                 }
-                else if (entry.Rule == "wood")
+                else
                 {
                     Add<WorksiteBehaviour>(definition);
                     definition.Archetype = worksite;
@@ -73,13 +79,14 @@ namespace DarkNights.Editor
             ObjectDefinition session = database.GetDefinitionByKey(FormalObjectCatalog.SessionKey);
             Add<CampSimulationBehaviour>(session);
             Add<EconomyBehaviour>(session);
+            Add<WaveBehaviour>(session);
+            Add<ProjectileBehaviour>(session);
             EditorUtility.SetDirty(session);
             AssetDatabase.SaveAssets();
-            UpgradePlacements();
             new DefinitionRuleIndex(database).Validate(catalog);
-            Directory.CreateDirectory("../artifacts/yygc-unified/u2");
-            File.WriteAllText("../artifacts/yygc-unified/u2/content-upgrade.txt",
-                "success=true\nrule_configs=" + definitions.Length + "\nslice_definitions=4\n");
+            Directory.CreateDirectory("../artifacts/yygc-unified/u3");
+            File.WriteAllText("../artifacts/yygc-unified/u3/content-upgrade.txt",
+                "success=true\nrule_configs=" + definitions.Length + "\nfull_definitions=" + definitions.Length + "\n");
         }
 
         private static ObjectArchetype Archetype(string family, params Type[] capabilities)
@@ -88,7 +95,13 @@ namespace DarkNights.Editor
             if (!AssetDatabase.IsValidFolder(folder)) AssetDatabase.CreateFolder("Assets/DarkNights/Res/Shared", "Archetypes");
             string path = folder + "/" + family + ".asset";
             var value = AssetDatabase.LoadAssetAtPath<ObjectArchetype>(path);
-            if (value != null) return value;
+            if (value != null)
+            {
+                value.RequiredCapabilityInterfaces.Clear();
+                value.RequiredCapabilityInterfaces.AddRange(capabilities.Select(t => t.AssemblyQualifiedName));
+                EditorUtility.SetDirty(value);
+                return value;
+            }
             value = ScriptableObject.CreateInstance<ObjectArchetype>();
             value.ArchetypeName = family;
             value.RequiredCapabilityInterfaces.AddRange(capabilities.Select(t => t.AssemblyQualifiedName));

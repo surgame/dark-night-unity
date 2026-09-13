@@ -29,7 +29,7 @@ namespace DarkNights.Runtime.Objects
             {
                 BuildingState b = building.Read();
                 return new BuildingSnapshot(b.Id, building.RuleKey, b.X, b.Hp, b.Progress,
-                    b.WorkerId, b.AttackClock, Array.Empty<TrainingSnapshot>());
+                    b.WorkerId, b.AttackClock, b.TrainingQueue.Select(t => new TrainingSnapshot(t.ActorId, t.Kind, t.Remaining)).ToArray());
             }).ToArray();
             var sites = session.Index.Worksites.Select(site =>
             {
@@ -37,13 +37,16 @@ namespace DarkNights.Runtime.Objects
                 return new WorksiteSnapshot(w.Id, site.RuleKey, w.X, w.WorkerId, w.Amount, w.Progress, w.Variant, w.FarmId);
             }).ToArray();
             var identities = session.Index.FreezeOrder().Select(e => new EntityIdentityData(e.Id, e.DefinitionGuid, e.PlacementKey)).ToArray();
+            WaveState wave = session.Waves.Read();
+            var shots = session.Projectiles.Read().Shots.Select(p => new ProjectileSnapshot(
+                new double[] { p.FromX, p.FromY }, new double[] { p.ToX, p.ToY }, p.TargetId, p.Damage, p.Age, p.Duration)).ToArray();
             return new SessionSnapshot(2, session.Catalog.Level.Id,
                 new EconomySnapshot(session.Economy.Stock, economy.UpkeepElapsed, economy.StarvationElapsed, economy.RecruitCooldown),
-                new WaveSnapshot(0, WavePhase.Day, session.Catalog.Level.Waves[0].DaySeconds, 0, 0),
+                new WaveSnapshot(wave.Index, wave.Phase, wave.DayRemaining, wave.SpawnElapsed, wave.NextSpawn),
                 camp.Elapsed, camp.Speed, camp.Paused, camp.NextEntityId,
                 unchecked((long)camp.RandomSeed).ToString(CultureInfo.InvariantCulture),
                 unchecked((long)camp.RandomState).ToString(CultureInfo.InvariantCulture),
-                actors, buildings, sites, Array.Empty<ProjectileSnapshot>(),
+                actors, buildings, sites, shots,
                 new StatisticsSnapshot(camp.Kills, camp.Lost, session.Economy.Gathered),
                 0, 0, Array.Empty<int>(), camp.Mode, identities);
         }
@@ -64,6 +67,23 @@ namespace DarkNights.Runtime.Objects
             RecruitCooldown = s.Economy.RecruitCooldown,
             GatheredFood = s.Stats.Gathered.Food, GatheredWood = s.Stats.Gathered.Wood,
             GatheredStone = s.Stats.Gathered.Stone, GatheredIron = s.Stats.Gathered.Iron, GatheredGold = s.Stats.Gathered.Gold
+        };
+
+        internal static WaveState Wave(SessionSnapshot s) => new WaveState
+        {
+            Index = s.Wave.Index, Phase = s.Wave.Phase, DayRemaining = s.Wave.DayRemaining,
+            SpawnElapsed = s.Wave.SpawnElapsed, NextSpawn = s.Wave.NextSpawn
+        };
+
+        internal static ProjectileState Projectiles(SessionSnapshot s) => new ProjectileState
+        {
+            NextViewId = s.Projectiles.Count + 1,
+            Shots = s.Projectiles.Select((p, index) => new ProjectileFlight
+            {
+                ViewId = index + 1, FromX = (float)p.From[0], FromY = (float)p.From[1],
+                ToX = (float)p.To[0], ToY = (float)p.To[1], TargetId = p.TargetId,
+                Damage = p.Damage, Age = p.Age, Duration = p.Duration
+            }).ToArray()
         };
 
         internal static void Initialize(ObjectInstance owner, int id, SessionSnapshot snapshot)
@@ -88,7 +108,8 @@ namespace DarkNights.Runtime.Objects
                 {
                     Id = id, PlacementKey = placement, X = (float)b.X, Hp = b.Hp, Progress = b.Progress,
                     WorkerId = b.WorkerId, AttackClock = b.AttackClock,
-                    FarmSiteId = snapshot.Worksites.FirstOrDefault(w => w.FarmId == id)?.Id ?? 0
+                    FarmSiteId = snapshot.Worksites.FirstOrDefault(w => w.FarmId == id)?.Id ?? 0,
+                    TrainingQueue = b.TrainingQueue.Select(t => new TrainingStateEntry(t.ActorId, t.Kind, t.Remaining)).ToArray()
                 });
             }
             else if (owner.GetBehaviour<WorksiteBehaviour>() is WorksiteBehaviour site)

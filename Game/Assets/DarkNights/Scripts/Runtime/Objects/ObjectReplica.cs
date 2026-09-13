@@ -5,6 +5,7 @@ using DarkNights.Core.ViewData;
 using GameCore.Objects.Runner;
 using GameCore.Objects.Runner.DI;
 using GameCore.Objects.NetworkStates;
+using GameCore.Objects.Types;
 using UnityEngine;
 using YY.Features.Players.View;
 
@@ -56,7 +57,8 @@ namespace DarkNights.Runtime.Objects
                 var definition = resources.Find(kinds[identity.Id]);
                 if (definition.Guid.ToString() != identity.DefinitionGuid ||
                     (identity.PlacementKey.Length != 0 && (!placementKeys.Add(identity.PlacementKey) ||
-                    !placements.TryGetValue(identity.PlacementKey, out var source) || source.Definition != definition)))
+                    !placements.TryGetValue(identity.PlacementKey, out var source) ||
+                    (source.Definition != definition && (source.Definition.Type != ObjectType.Unit || definition.Type != ObjectType.Unit)))))
                     throw new InvalidOperationException("Unknown or conflicting object identity in projection.");
             }
         }
@@ -94,7 +96,8 @@ namespace DarkNights.Runtime.Objects
                     candidate.Activate();
                     candidate.gameObject.SetActive(false);
                     next.Add(id, candidate);
-                    if (row.Identity.PlacementKey.Length != 0 && placements[row.Identity.PlacementKey].Loader != null)
+                    if (row.Identity.PlacementKey.Length != 0 && placements[row.Identity.PlacementKey].Loader != null &&
+                        placements[row.Identity.PlacementKey].Definition == definition)
                     {
                         var original = placements[row.Identity.PlacementKey].Loader.ObjectInstance;
                         if (original == null) throw new InvalidOperationException("Scene Loader has no bound ObjectInstance.");
@@ -105,7 +108,7 @@ namespace DarkNights.Runtime.Objects
                 {
                     ObjectInstance target = next[row.Identity.Id];
                     if (owned.Contains(target) && row.Identity.PlacementKey.Length != 0 &&
-                        placements[row.Identity.PlacementKey].Loader != null)
+                        placements[row.Identity.PlacementKey].Loader != null && placements[row.Identity.PlacementKey].Definition == target.Definition)
                     {
                         ObjectPlacement placement = placements[row.Identity.PlacementKey];
                         ObjectInstance original = placement.Loader.ObjectInstance;

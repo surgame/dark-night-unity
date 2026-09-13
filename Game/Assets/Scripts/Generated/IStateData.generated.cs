@@ -21,6 +21,8 @@ namespace YYGC.Generated
             GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.CampSimulationState>(3);
             GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.ActorState>(4);
             GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.BuildingState>(5);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.WaveState>(6);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.ProjectileState>(7);
         }
     }
 }

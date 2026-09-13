@@ -1,3 +1,4 @@
+using System;
 using GameCore.Objects.NetworkStates;
 using MemoryPack;
 
@@ -20,5 +21,23 @@ namespace DarkNights.Runtime.Objects
         public int FarmSiteId { get; internal set; }
         public double AttackClock { get; internal set; }
         public double HitFlash { get; internal set; }
+        public TrainingStateEntry[] TrainingQueue { get; internal set; } = Array.Empty<TrainingStateEntry>();
+
+        public void CopyFrom(IStateData source)
+        {
+            if (!(source is BuildingState value)) throw new ArgumentException("Expected building state.", nameof(source));
+            Sequence = value.Sequence;
+            Id = value.Id;
+            PlacementKey = value.PlacementKey;
+            X = value.X;
+            Hp = value.Hp;
+            Progress = value.Progress;
+            WorkerId = value.WorkerId;
+            FarmSiteId = value.FarmSiteId;
+            AttackClock = value.AttackClock;
+            HitFlash = value.HitFlash;
+            TrainingQueue = value.TrainingQueue == null ? Array.Empty<TrainingStateEntry>() :
+                (TrainingStateEntry[])value.TrainingQueue.Clone();
+        }
     }
 }

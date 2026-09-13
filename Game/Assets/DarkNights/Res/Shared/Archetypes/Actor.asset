@@ -18,3 +18,7 @@ MonoBehaviour:
     Culture=neutral, PublicKeyToken=null
   - DarkNights.Runtime.Objects.IMovementCapability, DarkNights.Runtime, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
+  - DarkNights.Runtime.Objects.IActorCombatCapability, DarkNights.Runtime, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null
+  - DarkNights.Runtime.Objects.IAttackCapability, DarkNights.Runtime, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null

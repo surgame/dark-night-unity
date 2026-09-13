@@ -38,7 +38,7 @@ namespace DarkNights.Runtime.Objects
                     ObjectSnapshotMapper.Initialize(instance, record.Id, snapshot);
                     var entity = instance.GetAllBehaviors().OfType<IEntityBehaviour>().Single();
                     staged.Add(entity);
-                    ObjectInstance original = session.SceneOwner(entity.PlacementKey);
+                    ObjectInstance original = session.SceneOwner(entity.PlacementKey, definition);
                     if (original != null) ObjectAssemblyValidation.Validate(definition, original.ObjectView);
                 }
             }
@@ -61,7 +61,7 @@ namespace DarkNights.Runtime.Objects
                 foreach (IEntityBehaviour prepared in staged)
                 {
                     int id = prepared.Id;
-                    ObjectInstance next = session.SceneOwner(prepared.PlacementKey);
+                    ObjectInstance next = session.SceneOwner(prepared.PlacementKey, prepared.Object.Definition);
                     if (next != null)
                     {
                         var oldDefinition = next.Definition;
@@ -95,6 +95,8 @@ namespace DarkNights.Runtime.Objects
                 }
                 session.Camp.Edit().CopyFrom(ObjectSnapshotMapper.Camp(snapshot));
                 session.Economy.Edit().CopyFrom(ObjectSnapshotMapper.Economy(snapshot));
+                session.Waves.Edit().CopyFrom(ObjectSnapshotMapper.Wave(snapshot));
+                session.Projectiles.Edit().CopyFrom(ObjectSnapshotMapper.Projectiles(snapshot));
                 session.ReplaceEntities(replacement, context);
                 return true;
             });

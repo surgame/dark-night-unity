@@ -38,5 +38,30 @@ namespace DarkNights.Runtime.Objects
             Edit().Elapsed += delta;
             return delta;
         }
+
+        internal int RandomInt(int from, int to)
+        {
+            CampSimulationState state = Edit();
+            var sampler = new SimulationRandom { State = state.RandomState };
+            int value = sampler.RandiRange(from, to);
+            state.RandomState = sampler.State;
+            return value;
+        }
+
+        internal float RandomFloat(float from, float to)
+        {
+            CampSimulationState state = Edit();
+            var sampler = new SimulationRandom { State = state.RandomState };
+            float value = sampler.RandfRange(from, to);
+            state.RandomState = sampler.State;
+            return value;
+        }
+
+        internal void Finish(bool won)
+        {
+            if (Current.Mode != SessionMode.Playing) return;
+            Edit().Mode = won ? SessionMode.Won : SessionMode.Lost;
+            Edit().Paused = false;
+        }
     }
 }

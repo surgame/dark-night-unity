@@ -14,6 +14,7 @@ namespace DarkNights.Runtime.Objects
         private TState draft;
         private SessionStateChange prepared;
         protected ObjectSession Session { get; private set; }
+        internal ObjectSession World => Session;
         protected TState Current => draft ?? State;
         public ObjectInstance Object => _context.Owner;
         public override SyncMode NetworkMode => SyncMode.Session;

@@ -15,7 +15,9 @@ namespace DarkNights.Core.Save
 
         public static string Validate(ValidationContext c)
         {
-            if (c.Buildings.Values.Count(b => b.Kind == "tavern") != 1)
+            int taverns = c.Buildings.Values.Count(b => b.Kind == "tavern");
+            int expectedTaverns = c.Saved.SchemaVersion == 2 && c.Saved.Mode == SessionMode.Lost ? 0 : 1;
+            if (taverns != expectedTaverns)
                 return "营地必须拥有一座酒馆";
             foreach (var b in c.Buildings.Values)
             {

@@ -13,6 +13,7 @@ namespace DarkNights.Runtime.Objects
     public sealed partial class BuildingBehaviour : SessionStateBehaviour<BuildingState>, IBuildingCapability
     {
         [Inject] private BuildingRuleConfig config;
+        [Inject(Optional = true)] private IBuildingActivity activity;
         public int Id => Current?.Id ?? 0;
         public string RuleKey => config.RuleKey;
         public string DefinitionGuid => Object.Definition.Guid.ToString();
@@ -20,6 +21,7 @@ namespace DarkNights.Runtime.Objects
         public BuildingDefinition Definition => Session.Catalog.Balance.Buildings[RuleKey];
         public float X => Current.X;
         public double Hp => Current.Hp;
+        public double MaximumHp => Definition.Hp;
         public double Progress => Current.Progress;
         public int WorkerId => Current.WorkerId;
         public int FarmSiteId => Current.FarmSiteId;
@@ -31,6 +33,9 @@ namespace DarkNights.Runtime.Objects
             if (config == null || string.IsNullOrWhiteSpace(config.RuleKey) ||
                 (Session != null && !Session.Catalog.Balance.Buildings.ContainsKey(config.RuleKey)))
                 throw new InvalidOperationException("Unknown building RuleKey.");
+            if ((RuleKey == "barracks" && !(activity is TrainingBehaviour)) ||
+                (RuleKey == "tower" && !(activity is TowerAttackBehaviour)))
+                throw new InvalidOperationException("Building is missing its required completed activity: " + RuleKey);
         }
 
         internal void Prepare(int id, float x, string placement, bool complete)
@@ -48,7 +53,7 @@ namespace DarkNights.Runtime.Objects
             BuildingState state = Edit();
             state.HitFlash = Math.Max(0, state.HitFlash - delta);
             state.AttackClock = Math.Max(0, state.AttackClock - delta);
-            if (IsComplete) return;
+            if (IsComplete) { activity?.Tick(delta); return; }
             var worker = Session.Index.Find<ActorBehaviour>(WorkerId);
             if (worker == null || worker.Activity != ActorActivity.Build || worker.TargetId != Id) return;
             double increment = Math.Min(1 - Progress, delta / Definition.BuildSeconds);
@@ -56,6 +61,12 @@ namespace DarkNights.Runtime.Objects
             state.Hp = Math.Min(Definition.Hp, state.Hp + increment * Definition.Hp * 0.8);
             if (!IsComplete) return;
             Session.Work.Clear(worker);
+            if (RuleKey == "farm")
+            {
+                WorksiteBehaviour site = Session.Lifecycle.SpawnSite("food", X, farmId: Id);
+                state.FarmSiteId = site.Id;
+                Session.Work.Assign(worker, site);
+            }
             Session.Notify(Definition.Name + "已建成。");
             Session.Mutations.AfterCommit(() => Session.Feedback.PlaySound("snd_upgrade_bld"));
         }

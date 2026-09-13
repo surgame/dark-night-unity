@@ -53,7 +53,8 @@ namespace DarkNights.Runtime.Objects
                 var state = new BuildingState
                 {
                     Id = value.Id, PlacementKey = identity.PlacementKey, X = value.X, Hp = value.Hp,
-                    Progress = value.Progress, WorkerId = value.WorkerId, FarmSiteId = value.FarmSiteId, HitFlash = value.HitFlash
+                    Progress = value.Progress, WorkerId = value.WorkerId, FarmSiteId = value.FarmSiteId, HitFlash = value.HitFlash,
+                    TrainingQueue = value.Training.Select(t => new TrainingStateEntry(t.ActorId, t.Kind, t.Remaining)).ToArray()
                 };
                 result.Add(new ReplicaEntityState(identity, value.Kind,
                     (instance, context) => instance.GetBehaviour<BuildingBehaviour>().PrepareSessionState(context, state)));

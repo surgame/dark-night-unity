@@ -46,6 +46,8 @@ namespace DarkNights.Runtime.Objects
             state.Gold = value.Gold;
         }
 
+        internal void Credit(ResourceAmounts value) => SetStock(Stock.Add(value));
+
         internal void AddResource(string kind, int amount)
         {
             SetStock(Stock.With(kind, Stock.Get(kind) + amount));
@@ -78,7 +80,7 @@ namespace DarkNights.Runtime.Objects
             state.StarvationElapsed = 0;
             Session.Notify("食物耗尽！安排工人耕作，居民正在挨饿。", true);
             foreach (ActorBehaviour actor in Session.Index.Actors.ToArray())
-                if (!actor.Enemy) Session.Starve(actor);
+                if (!actor.Enemy) Session.Combat.Damage(actor, 1, true);
         }
     }
 }

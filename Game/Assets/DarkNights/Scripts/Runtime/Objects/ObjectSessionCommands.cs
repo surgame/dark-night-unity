@@ -7,7 +7,7 @@ namespace DarkNights.Runtime.Objects
 {
     /// <summary>
     /// 将经过权限与去重门禁的命令传给本局 YYGC 能力；明确使用请求参数，不读取全局选择。
-    /// U2 切片只开放已经迁移的操作，未迁移业务明确拒绝，不调用旧世界。
+    /// 覆盖完整营地操作；生命周期、策略和存储由上层处理，不调用旧世界。
     /// </summary>
     internal static class ObjectSessionCommands
     {
@@ -24,7 +24,13 @@ namespace DarkNights.Runtime.Objects
                     return request.ActorIds.Count > 0 && request.X >= 0 && request.X <= session.Layout.WorldWidth &&
                         (request.TargetId == 0 || session.Index.Find(request.TargetId) != null);
                 case SessionOperation.PlaceBuilding:
-                    return request.Kind == "house" && request.X >= 0 && request.X <= session.Layout.WorldWidth;
+                    return request.Kind != "tavern" && session.Catalog.Balance.Buildings.ContainsKey(request.Kind) &&
+                        request.X >= 0 && request.X <= session.Layout.WorldWidth;
+                case SessionOperation.TrainActors:
+                    return request.ActorIds.Count > 0 && (request.Kind == "spearman" || request.Kind == "archer");
+                case SessionOperation.Repair: return session.Index.Find<BuildingBehaviour>(request.TargetId) != null;
+                case SessionOperation.Recruit:
+                case SessionOperation.StartNight:
                 case SessionOperation.SetPaused:
                 case SessionOperation.SetSpeed:
                 case SessionOperation.SetControlMode:
@@ -45,13 +51,23 @@ namespace DarkNights.Runtime.Objects
                 case SessionOperation.PlaceBuilding:
                     id = session.PlaceBuilding(request.Kind, request.X, request.ActorIds);
                     return id == 0 ? 0 : 1;
+                case SessionOperation.TrainActors:
+                    return session.TrainActors(request.Kind, request.ActorIds);
+                case SessionOperation.Recruit:
+                    id = session.Recruit();
+                    return id == 0 ? 0 : 1;
+                case SessionOperation.Repair:
+                    if (!session.Repair(request.TargetId)) return 0;
+                    id = request.TargetId;
+                    return 1;
+                case SessionOperation.StartNight: return session.StartNight() ? 1 : 0;
                 case SessionOperation.SetPaused:
                     session.SetTime(request.Value == 1, session.Speed);
                     return 1;
                 case SessionOperation.SetSpeed:
                     session.SetTime(session.Paused, request.Value);
                     return 1;
-                default: throw new InvalidOperationException("Operation is outside the migrated slice.");
+                default: throw new InvalidOperationException("Operation belongs to session lifecycle.");
             }
         }
     }

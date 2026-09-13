@@ -38,6 +38,8 @@ MonoBehaviour:
   - DarkNights.View.ActorPresentationBehaviour
   - DarkNights.Runtime.Objects.ActorBehaviour
   - DarkNights.Runtime.Objects.MovementBehaviour
+  - DarkNights.Runtime.Objects.ActorCombatBehaviour
+  - DarkNights.Runtime.Objects.MeleeAttackBehaviour
   SharedConfigs:
   - rid: 6961529563483734170
   - rid: 6961529563483734171

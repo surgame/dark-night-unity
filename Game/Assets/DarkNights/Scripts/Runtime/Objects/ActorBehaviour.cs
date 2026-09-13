@@ -14,6 +14,7 @@ namespace DarkNights.Runtime.Objects
     {
         [Inject] private ActorRuleConfig config;
         [Inject] private IMovementCapability movement;
+        [Inject] private IActorCombatCapability combat;
         public int Id => Current?.Id ?? 0;
         public string RuleKey => config.RuleKey;
         public string DefinitionGuid => Object.Definition.Guid.ToString();
@@ -21,6 +22,7 @@ namespace DarkNights.Runtime.Objects
         public UnitDefinition Definition => Session.Catalog.Balance.Units[RuleKey];
         public float X => Current.X;
         public double Hp => Current.Hp;
+        public double MaximumHp => Definition.Hp;
         public bool Enemy => Current.Enemy;
         public string Name => Current.Name;
         public ActorActivity Activity => Current.Activity;
@@ -30,8 +32,8 @@ namespace DarkNights.Runtime.Objects
         protected override void OnReset()
         {
             base.OnReset();
-            if (config == null || string.IsNullOrWhiteSpace(config.RuleKey) || movement == null)
-                throw new InvalidOperationException("Actor requires a RuleKey and movement capability.");
+            if (config == null || string.IsNullOrWhiteSpace(config.RuleKey) || movement == null || combat == null)
+                throw new InvalidOperationException("Actor requires a RuleKey, movement and combat capabilities.");
             if (Session != null && !Session.Catalog.Balance.Units.ContainsKey(config.RuleKey))
                 throw new InvalidOperationException("Unknown actor RuleKey: " + config.RuleKey);
         }
@@ -66,6 +68,14 @@ namespace DarkNights.Runtime.Objects
             state.HitFlash = Math.Max(0, state.HitFlash - delta);
             state.AiClock = Math.Max(0, state.AiClock - delta);
             state.Walking = false;
+            if (IsTraining)
+            {
+                BuildingBehaviour barracks = Session.Index.Find<BuildingBehaviour>(state.TargetId);
+                if (barracks == null) Session.Work.Clear(this);
+                else if (state.Activity == ActorActivity.TrainingMove && movement.MoveTo(barracks.X + 10, delta))
+                    state.Activity = ActorActivity.Training;
+                return;
+            }
             if (state.Activity == ActorActivity.WorkMove || state.Activity == ActorActivity.Work ||
                 state.Activity == ActorActivity.BuildMove || state.Activity == ActorActivity.Build)
             {
@@ -87,7 +97,12 @@ namespace DarkNights.Runtime.Objects
             {
                 if (movement.MoveTo(state.MoveX, delta)) state.Activity = ActorActivity.Idle;
             }
-            else if (state.AiClock <= 0) state.AiClock = 0.25;
+            else if (state.AiClock <= 0)
+            {
+                state.AiClock = 0.25;
+                combat.FindTarget();
+            }
+            if (state.Activity == ActorActivity.Attack) combat.TickAttack(delta);
         }
     }
 }

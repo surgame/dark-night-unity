@@ -16,17 +16,22 @@ namespace DarkNights.Runtime.Objects
         private readonly ObjectSession session;
         internal ObjectWorkOrders(ObjectSession session) { this.session = session; }
 
-        internal void Clear(ActorBehaviour actor)
+        internal void Release(int actorId)
         {
             foreach (WorksiteBehaviour site in session.Index.Worksites)
-                if (site.WorkerId == actor.Id)
+                if (site.WorkerId == actorId)
                 {
                     WorksiteState state = site.Edit();
                     state.WorkerId = 0;
                     state.Progress = 0;
                 }
             foreach (BuildingBehaviour building in session.Index.Buildings)
-                if (building.WorkerId == actor.Id) building.Edit().WorkerId = 0;
+                if (building.WorkerId == actorId) building.Edit().WorkerId = 0;
+        }
+
+        internal void Clear(ActorBehaviour actor)
+        {
+            Release(actor.Id);
             ActorState value = actor.Edit();
             value.Activity = ActorActivity.Idle;
             value.TargetId = 0;
@@ -69,9 +74,12 @@ namespace DarkNights.Runtime.Objects
         internal int Issue(IReadOnlyList<int> ids, int targetId, float x)
         {
             ActorBehaviour[] selected = Resolve(ids);
+            if (session.Camp.Read().Mode != SessionMode.Playing || float.IsNaN(x) || float.IsInfinity(x)) return 0;
             if (selected == null || selected.Length == 0) return 0;
             IEntityBehaviour target = session.Index.Find(targetId);
             if (targetId != 0 && target == null) return 0;
+            if (target is BuildingBehaviour farm && farm.RuleKey == "farm" && farm.IsComplete)
+                target = session.Index.Find(farm.FarmSiteId);
             int assigned = 0;
             foreach (ActorBehaviour actor in selected)
             {
@@ -90,7 +98,17 @@ namespace DarkNights.Runtime.Objects
                 }
                 else
                 {
+                    if (target is ActorBehaviour enemy && enemy.Enemy)
+                    {
+                        Clear(actor);
+                        actor.Edit().TargetId = enemy.Id;
+                        actor.Edit().Activity = ActorActivity.Attack;
+                        actor.Edit().ForcedAttack = true;
+                        assigned++;
+                        continue;
+                    }
                     float offset = (assigned - (selected.Length - 1) * 0.5f) * 8;
+                    if (actor.RuleKey == "archer" && selected.Length > 1) offset -= 32;
                     actor.OrderMove(x + offset);
                     assigned++;
                 }

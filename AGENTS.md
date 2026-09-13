@@ -1,13 +1,13 @@
 # Dark Nights Unity 开发约定
 
-先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现及分批验证，M5 尚未完成；2026-09-13 场景入口修复仅完成编译与静态检查。后续按 [YYGC 统一对象重构计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)推进，U0–U2 已完成，工人／采集／住宅切片已验证；完整业务迁移 U3–U6 继续推进。先核对实际状态，不能把计划目录、接口和测试写成已完成实现。
+先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现及分批验证，M5 尚未完成；2026-09-13 场景入口修复仅完成编译与静态检查。后续按 [YYGC 统一对象重构计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)推进，U0–U3 已完成，工人／采集／住宅切片已验证；完整业务已通过回归，正式入口与收尾 U4–U6 继续推进。先核对实际状态，不能把计划目录、接口和测试写成已完成实现。
 
 ## 范围与工作区
 
 - 游戏名称为 Dark Nights，当前内容为灰松谷一个关卡。2–4 人合作、共享营地已确认。联机入口与托管方式的估算假设见 README。
 - `../projects` 是已提交的游戏基线，`../reference projects` 是研究与素材来源。Unity 的日常导入、构建和运行必须独立于这两个目录。
 - `D:\Developer\YYGC` 是用户维护的框架仓库。用户于 2026-09-12 授权必要时更新 YYGC，并于 2026-09-13 明确允许针对能力限制或 BUG 升级适配：先核实具体缺口，优先在隔离 checkout 中验证，保留用户已有改动，不代为清理或覆盖。不因当前框架限制长期保留两套游戏对象／状态系统。游戏继续使用可重现的锁定依赖；完成后必须逐项列出 YYGC 的修改文件、原因、落点与验证结果，维护 [YYGC 改动账本](docs/YYGC_CHANGES.md)。历史记录中的 UGUIManager 暂存和 IDRegistry 备份不代表当前仍有这些差异。
-- 2026-09-13 已选定 YYGC 统一对象路线，在 `codex/yygc-unified-object-migration` 分支分阶段实施：运行实体与实例状态最终归 YYGC ObjectInstance／业务 Behaviour，Core 只保留纯算法、只读配置和数据合同；迁移期间同一活动会话不得同时运行新旧模型，旧实体必须按计划退出。当前代码仍是原模型，不能提前宣称迁移完成。
+- 2026-09-13 已选定 YYGC 统一对象路线，在 `codex/yygc-unified-object-migration` 分支分阶段实施：运行实体与实例状态最终归 YYGC ObjectInstance／业务 Behaviour，Core 只保留纯算法、只读配置和数据合同；迁移期间同一活动会话不得同时运行新旧模型，旧实体必须按计划退出。U3 全部玩法已迁入并通过回归，正式入口与旧模型退出仍待 U4–U5，不能提前宣称整个迁移完成。
 - 本次无需旧数据适配：正式游戏不再要求 Godot 旧档、Unity v1 存档、协议 5 客户端或旧 Kind／整数身份兼容；按阶段移除旧入口。新格式自身的保存恢复、严格校验和原子性仍必须验收。保留当前人工资产、资源 GUID 和冻结玩法证据，不自动删除用户旧存档；独立 Sample 和 YYGC 其他使用者的兼容边界另行保留。
 - 框架接入通过 UPM 和锁定版本完成。实验性修正使用隔离 checkout；本机 `.deps/` 不提交，取得稳定版本后提交可重现的依赖配置与锁文件。
 - 不擅自改变既有数值、布局、波次、素材字节、文字或攻击时机。联机需要改变的权限和会话语义单独记录并验证。

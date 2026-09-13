@@ -23,6 +23,7 @@ namespace DarkNights.Runtime.Objects
         private readonly DIContainer container = new DIContainer();
         private readonly HashSet<ObjectInstance> sceneObjects = new HashSet<ObjectInstance>();
         private readonly Dictionary<string, ObjectInstance> sceneOwners = new Dictionary<string, ObjectInstance>();
+        private readonly Dictionary<string, ObjectDefinition> sceneDefinitions = new Dictionary<string, ObjectDefinition>();
         private SessionSnapshot initial;
         public ObjectWorldSaveJson SaveCodec { get; private set; }
         private readonly Func<bool> authority;
@@ -38,8 +39,13 @@ namespace DarkNights.Runtime.Objects
         public ObjectMutationBatch Mutations { get; }
         public CampSimulationBehaviour Camp { get; private set; }
         public EconomyBehaviour Economy { get; private set; }
+        public WaveBehaviour Waves { get; private set; }
+        public ProjectileBehaviour Projectiles { get; private set; }
         public ObjectWorkOrders Work { get; }
         public ObjectConstruction Construction { get; }
+        public ObjectEntityLifecycle Lifecycle { get; }
+        public ObjectCombat Combat { get; }
+        public ObjectCampCommands Commands { get; }
         public override SessionFeedback Feedback { get; } = new SessionFeedback();
         public override bool Paused => Camp.Read().Paused;
         public override int Speed => Camp.Read().Speed;
@@ -60,6 +66,9 @@ namespace DarkNights.Runtime.Objects
             Mutations = new ObjectMutationBatch(Context);
             Work = new ObjectWorkOrders(this);
             Construction = new ObjectConstruction(this);
+            Lifecycle = new ObjectEntityLifecycle(this);
+            Combat = new ObjectCombat(this);
+            Commands = new ObjectCampCommands(this);
         }
 
         public void Prepare(ObjectInstance sessionOwner, IReadOnlyList<ObjectPlacement> placements)
@@ -71,8 +80,12 @@ namespace DarkNights.Runtime.Objects
             owner = sessionOwner;
             Camp = owner.GetBehaviour<CampSimulationBehaviour>() ?? throw new InvalidOperationException("Missing camp simulation capability.");
             Economy = owner.GetBehaviour<EconomyBehaviour>() ?? throw new InvalidOperationException("Missing economy capability.");
+            Waves = owner.GetBehaviour<WaveBehaviour>() ?? throw new InvalidOperationException("Missing wave capability.");
+            Projectiles = owner.GetBehaviour<ProjectileBehaviour>() ?? throw new InvalidOperationException("Missing projectile capability.");
             Camp.Prepare();
             Economy.Prepare();
+            Waves.Prepare();
+            Projectiles.Prepare();
             SaveCodec = new ObjectWorldSaveJson(Catalog, Layout,
                 Resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
                 placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition)));
@@ -96,13 +109,16 @@ namespace DarkNights.Runtime.Objects
                 entity.Object.Activate();
                 entity.Object.gameObject.SetActive(true);
             }
+            Feedback.ShowBanner("灰松谷 · 第一天", "安排生产，训练守卫。守住三次夜袭。");
+            Feedback.Notify("先安排一名工人耕作，再采集木材。东侧已有两名守卫。");
         }
 
         internal IEntityBehaviour Create(ObjectDefinition definition, float x, string placement, bool complete,
-            int variant, string actorName, ObjectDefinitionLoader loader)
+            int variant, string actorName, ObjectDefinitionLoader loader, bool enemy = false, int farmId = 0)
         {
             Mutations.RequireWriting();
             ObjectInstance instance = null;
+            bool registered = false;
             try
             {
                 if (loader != null)
@@ -111,24 +127,28 @@ namespace DarkNights.Runtime.Objects
                     instance = loader.BindSession(EntityContext);
                     sceneObjects.Add(instance);
                     sceneOwners.Add(placement, instance);
+                    sceneDefinitions.Add(placement, definition);
                 }
                 else instance = Resources.Create(definition, EntityContext, Parent).Owner;
                 ObjectInstance created = instance;
                 int id = Camp.Allocate();
                 IEntityBehaviour entity = instance.GetAllBehaviors().OfType<IEntityBehaviour>().Single();
-                if (entity is ActorBehaviour actor) actor.Prepare(id, x, placement, false, actorName);
+                if (entity is ActorBehaviour actor) actor.Prepare(id, x, placement, enemy, actorName);
                 else if (entity is BuildingBehaviour building) building.Prepare(id, x, placement, complete);
-                else if (entity is WorksiteBehaviour site) site.Prepare(id, x, placement, variant, 0);
+                else if (entity is WorksiteBehaviour site) site.Prepare(id, x, placement, variant, farmId);
                 else throw new InvalidOperationException("Unknown object family.");
                 if (EntityContext.IsActive) instance.Activate();
                 Index.Add(entity);
                 Mutations.OnRollback(() => { Index.Remove(entity); Release(created); });
+                registered = true;
                 Mutations.AfterCommit(() => { if (EntityContext.IsActive) created.gameObject.SetActive(true); });
+                if (entity is BuildingBehaviour farm && complete && farm.RuleKey == "farm")
+                    farm.Edit().FarmSiteId = Lifecycle.SpawnSite("food", x, farmId: id).Id;
                 return entity;
             }
             catch
             {
-                if (instance != null) Release(instance);
+                if (instance != null && !registered) Release(instance);
                 throw;
             }
         }
@@ -139,6 +159,11 @@ namespace DarkNights.Runtime.Objects
         public int PlaceBuilding(string ruleKey, float x, IReadOnlyList<int> ids) =>
             Mutations.Run(() => Construction.Place(ruleKey, x, ids));
 
+        public int TrainActors(string ruleKey, IReadOnlyList<int> ids) => Mutations.Run(() => Commands.Train(ruleKey, ids));
+        public int Recruit() => Mutations.Run(Commands.Recruit);
+        public bool Repair(int id) => Mutations.Run(() => Commands.Repair(id));
+        public bool StartNight() => Mutations.Run(Waves.StartNight);
+
         public void SetTime(bool paused, int speed)
         {
             if (speed != 1 && speed != 2) throw new ArgumentOutOfRangeException(nameof(speed));
@@ -148,36 +173,26 @@ namespace DarkNights.Runtime.Objects
         public override void Advance(double seconds)
         {
             if (!Context.IsActive) throw new InvalidOperationException("Prepared sessions cannot tick.");
+            if (Camp.Read().Mode != SessionMode.Playing || Paused) return;
             Mutations.Run(() =>
             {
                 double delta = Camp.BeginStep(seconds);
-                if (delta == 0) return false;
                 Economy.Tick(delta);
                 foreach (BuildingBehaviour building in Index.Buildings.ToArray()) building.Tick(delta);
-                foreach (ActorBehaviour actor in Index.Actors.ToArray()) actor.Tick(delta);
+                foreach (ActorBehaviour actor in Index.Actors.ToArray())
+                {
+                    if (Camp.Read().Mode != SessionMode.Playing) return true;
+                    actor.Tick(delta);
+                }
                 foreach (WorksiteBehaviour site in Index.Worksites.ToArray()) site.Tick(delta);
+                Projectiles.Tick(delta);
+                if (Camp.Read().Mode == SessionMode.Playing) Waves.Tick(delta);
                 return true;
             });
         }
 
         internal void Notify(string text, bool error = false) => Mutations.AfterCommit(() => Feedback.Notify(text, error));
         internal void Emit(VisualCue cue) => Mutations.AfterCommit(() => Feedback.Emit(cue));
-
-        internal void Starve(ActorBehaviour actor)
-        {
-            ActorState state = actor.Edit();
-            state.Hp = Math.Max(0, state.Hp - 1);
-            state.HitFlash = 0.15;
-            Emit(new VisualCue("damage", actor.X, Layout.GroundY - 19, "1"));
-            if (state.Hp > 0) return;
-            Work.Clear(actor);
-            Camp.Edit().Lost++;
-            Notify(actor.Name + "倒下了。", true);
-            Emit(new VisualCue("corpse", actor.X, Layout.GroundY, ContentId: actor.RuleKey, Face: state.Face));
-            Mutations.AfterCommit(() => Feedback.PlaySound("snd_worker_die1", -14));
-            Index.Remove(actor, Mutations);
-            Mutations.AfterCommit(() => Release(actor.Object));
-        }
 
         private void Release(ObjectInstance instance) => ReleaseEntity(instance);
 
@@ -220,8 +235,8 @@ namespace DarkNights.Runtime.Objects
         internal ObjectSessionContext NewEntityContext() =>
             ObjectSessionContext.CreateAuthority(container, () => !disposed && authority());
 
-        internal ObjectInstance SceneOwner(string placement) =>
-            sceneOwners.TryGetValue(placement, out ObjectInstance instance) ? instance : null;
+        internal ObjectInstance SceneOwner(string placement, ObjectDefinition definition) =>
+            sceneDefinitions.TryGetValue(placement, out ObjectDefinition original) && original == definition ? sceneOwners[placement] : null;
 
         internal void ReplaceEntities(SessionEntityIndex index, ObjectSessionContext context)
         {

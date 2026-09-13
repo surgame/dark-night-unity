@@ -1,0 +1,121 @@
+{
+  "stage": "U3",
+  "date": "2026-09-13",
+  "inputGameCommit": "482156a",
+  "frameworkCommit": "0305eb74bbc2677a3d9025f684d8ded16481be4a",
+  "frameworkChanges": 0,
+  "definitions": 15,
+  "sourceCompilation": "passed",
+  "coreRegression": {
+    "total": 1361,
+    "passed": true,
+    "failures": 0
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 306,
+    "selfTests": 10,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "gameplay": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "editor": {
+    "total": 136,
+    "passed": 136,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "campaigns": [
+    {
+      "name": "campaign-1x",
+      "mode": "Won",
+      "elapsed": 377.66666666665185,
+      "kills": 34,
+      "lost": 3,
+      "population": 9,
+      "resources": {
+        "Food": 165.20000000000005,
+        "Wood": 385.0,
+        "Stone": 10.0,
+        "Iron": 5.0,
+        "Gold": 131.0
+      }
+    },
+    {
+      "name": "campaign-2x",
+      "mode": "Won",
+      "elapsed": 373.1000000000812,
+      "kills": 34,
+      "lost": 1,
+      "population": 9,
+      "resources": {
+        "Food": 206.20000000000005,
+        "Wood": 395.0,
+        "Stone": 10.0,
+        "Iron": 15.0,
+        "Gold": 131.0
+      }
+    },
+    {
+      "name": "idle-1x",
+      "mode": "Lost",
+      "elapsed": 452.0999999999175,
+      "kills": 6,
+      "lost": 7,
+      "population": 0,
+      "resources": {
+        "Food": 47.699999999999996,
+        "Wood": 100.0,
+        "Stone": 80.0,
+        "Iron": 40.0,
+        "Gold": 13.0
+      }
+    },
+    {
+      "name": "idle-2x",
+      "mode": "Lost",
+      "elapsed": 365.6333333334086,
+      "kills": 5,
+      "lost": 7,
+      "population": 0,
+      "resources": {
+        "Food": 47.39999999999999,
+        "Wood": 100.0,
+        "Stone": 80.0,
+        "Iron": 40.0,
+        "Gold": 11.0
+      }
+    }
+  ],
+  "cleanup": {
+    "Phase": "U3",
+    "Method": "dotnet clean",
+    "Paths": [
+      "tools/CoreRegression/bin",
+      "tools/CoreRegression/obj",
+      "tools/CoreBuild/bin",
+      "tools/CoreBuild/obj",
+      "tools/ArchitectureGuard/bin",
+      "tools/ArchitectureGuard/obj"
+    ],
+    "BeforeBytes": 37946609.0,
+    "AfterBytes": 300481.0,
+    "ReleasedBytes": 37646128.0,
+    "FreeC": 14930231296,
+    "FreeD": 28598804480,
+    "Retained": "Active Editor import cache and U2 Players; no new Player built in U3; prior deletion rejection respected"
+  },
+  "limitations": [
+    "Formal entry not yet switched; U4-U6 pending",
+    "No U3 Player build; U2 binary does not contain U3 changes",
+    "2x reports are measured outcomes, not a frozen Godot 2x baseline",
+    "IL2CPP and two-machine LAN not validated"
+  ]
+}
