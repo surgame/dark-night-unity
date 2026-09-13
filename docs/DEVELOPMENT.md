@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-2026-09-13 后续方向改为 [YYGC 统一对象架构 U0–U6](YYGC_UNIFIED_REFACTOR_PLAN.md)：以 YYGC 业务 Behaviour／State 取代独立 Core 运行实体，允许修正和升级框架，无需旧数据适配。已从 `7072b26` 创建 `codex/yygc-unified-object-migration` 分支；**本次只完成文档、分支和源码核对，U0 的运行基线／输入归档及 U1–U6 均待执行**。后续按新计划推进；下述 C 方案、场景修复和 M0–M5 为既有实现及历史记录，M5 未完成状态保持。
+2026-09-13 后续方向改为 [YYGC 统一对象架构 U0–U6](YYGC_UNIFIED_REFACTOR_PLAN.md)：以 YYGC 业务 Behaviour／State 取代独立 Core 运行实体，允许修正和升级框架，无需旧数据适配。已从 `7072b26` 创建 `codex/yygc-unified-object-migration` 分支；**U0／U1 已完成，框架锁定 ddce2ff，分批 Editor／Play、Mono 装配和四进程 Sample 已通过；U2–U6 尚未完成，见 [实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)**。后续按新计划推进；下述 C 方案、场景修复和 M0–M5 为既有实现及历史记录，M5 未完成状态保持。
 
 2026-09-13 Definition 场景入口修复已实施：删除手填 ContentDefinitionMap／独立分类，补齐 17 个 Definition.Type，迁移 16 个现有场景实例至 Loader 静态初始化，并接入场景视图借还与当前关卡试玩。Unity 编译和静态差异核对完成；**按用户要求，测试回归等待确认，未运行 Play、Player 或联机验收**。见[实现与待回归范围](SCENE_DEFINITIONS.md)。
 

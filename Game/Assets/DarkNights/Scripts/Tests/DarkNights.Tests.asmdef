@@ -1,9 +1,32 @@
 {
   "name": "DarkNights.Tests",
-  "references": ["DarkNights.Core", "DarkNights.Runtime", "DarkNights.View", "DarkNights.Entry", "DarkNights.Editor", "GameCore.Runtime", "GameCore.Editor", "FishNet.Runtime", "Unity.Addressables", "Unity.ResourceManager", "Unity.ugui", "UniTask"],
-  "includePlatforms": ["Editor"],
-  "optionalUnityReferences": ["TestAssemblies"],
+  "references": [
+    "DarkNights.Core",
+    "DarkNights.Runtime",
+    "DarkNights.View",
+    "DarkNights.Entry",
+    "DarkNights.Editor",
+    "GameCore.Runtime",
+    "GameCore.Editor",
+    "FishNet.Runtime",
+    "Unity.Addressables",
+    "Unity.ResourceManager",
+    "Unity.ugui",
+    "UniTask"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ],
   "overrideReferences": true,
-  "precompiledReferences": ["MemoryPack.Core.dll", "VitalRouter.dll", "Newtonsoft.Json.dll", "nunit.framework.dll"],
+  "precompiledReferences": [
+    "MemoryPack.Core.dll",
+    "VitalRouter.dll",
+    "Newtonsoft.Json.dll",
+    "nunit.framework.dll",
+    "R3.dll"
+  ],
   "autoReferenced": false
 }

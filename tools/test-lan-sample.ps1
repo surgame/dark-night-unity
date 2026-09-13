@@ -128,7 +128,7 @@ try {
     Expect-Result host Buy Accepted
     Wait-Check 'Restart retains exactly-once Host handling' { $s=Read-State client; $s.coins -eq 0 -and $s.purchases -eq 1 }
     $evidence = @{passed=$true;checks=$checks;utc=(Get-Date).ToUniversalTime().ToString('o');weakNetwork=[bool]$WeakNetwork;
-        frameworkCommit='10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4';reports=@{};
+        frameworkRuntimeSha256=$(if (!$Il2Cpp) { (Get-FileHash -LiteralPath (Join-Path (Split-Path $player -Parent) 'LanCoop_Data/Managed/GameCore.Runtime.dll')).Hash });reports=@{};
         scriptingBackend=(Read-State host).scriptingBackend}
     foreach ($name in $processes.Keys) {
         $state = Read-State $name

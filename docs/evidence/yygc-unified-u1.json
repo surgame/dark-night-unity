@@ -1,0 +1,87 @@
+{
+  "phase": "U1",
+  "passed": true,
+  "unity": "6000.4.9f1",
+  "frameworkCommit": "ddce2ffdf422c8c9cb8e872fb5f20053cdedcda6",
+  "gameBranch": "codex/yygc-unified-object-migration",
+  "editorPlay": {
+    "uniqueTests": 111,
+    "passed": 111,
+    "note": "111 distinct cases across staged runs. The 109-case run had only the Play-driver timeout; Pipeline resets its detailed list during domain reload, so earlier complete case names are retained. Later 14 non-Play and 2 Play cases passed. This is not a single 111-case run.",
+    "unresolvedFailures": 0,
+    "sources": [
+      "artifacts/yygc-unified/u1/editor-104-passed.json",
+      "artifacts/yygc-unified/u1/editor-109-before-play-fix.json",
+      "artifacts/yygc-unified/u1/objects-before-scene-save-fix.json",
+      "artifacts/yygc-unified/u1/play-final.json"
+    ]
+  },
+  "monoAssembly": {
+    "report": "artifacts/yygc-unified/u1/player-assembly.json",
+    "checks": {
+      "cancel_inflight_load": true,
+      "missing_config": true,
+      "missing_config_not_assembled": true,
+      "duplicate_config": true,
+      "missing_capability": true,
+      "generated_injection": true,
+      "prepared_not_active": true,
+      "activation_before_session": true,
+      "valid_activation": true,
+      "missing_worker_binding": true,
+      "real_prefab_prepared": true,
+      "real_prefab_activated": true,
+      "retired_immediately": true,
+      "retired_creation": true
+    },
+    "coldLoadPending": true
+  },
+  "sample": {
+    "report": "artifacts/lan-sample/run-20260913-091454/result.json",
+    "checks": 30,
+    "note": "The old report writer has a stale hardcoded frameworkCommit. That field is excluded from this evidence; the test tool now records the actual Mono binary hash.",
+    "runtimeSha256": "10F9739E88FDDF7EB9FA2E63518ED9917A83845CF3F9D254D50E41E4FC2C950A"
+  },
+  "frameworkFiles": [
+    "Documentation~/OBJECT_SESSION_LIFECYCLE.md",
+    "Runtime/Objects/Behaviours/BehaviourContext.cs",
+    "Runtime/Objects/NetworkStates/IStatefulBehaviour.cs",
+    "Runtime/Objects/NetworkStates/StateSynchronizer.cs",
+    "Runtime/Objects/NetworkStates/StatefulBehaviour.cs",
+    "Runtime/Objects/Runner/IObjectSessionInitializer.cs",
+    "Runtime/Objects/Runner/IObjectSessionInitializer.cs.meta",
+    "Runtime/Objects/Runner/LocalObjectInstanceInitializer.cs",
+    "Runtime/Objects/Runner/ObjectAssemblyValidation.cs",
+    "Runtime/Objects/Runner/ObjectAssemblyValidation.cs.meta",
+    "Runtime/Objects/Runner/ObjectDefinitionLoader.cs",
+    "Runtime/Objects/Runner/ObjectInstance.cs",
+    "Runtime/Objects/Runner/ObjectInstanceFactory.cs",
+    "Runtime/Objects/Runner/ObjectSessionContext.cs",
+    "Runtime/Objects/Runner/ObjectSessionContext.cs.meta",
+    "Runtime/Objects/Runner/PreparedObjectDefinition.cs",
+    "Runtime/Objects/Runner/PreparedObjectDefinition.cs.meta",
+    "Runtime/Utils/ComponentAssetLease.cs",
+    "Runtime/Utils/ComponentAssetLease.cs.meta",
+    "Runtime/Utils/FastInstantiator.cs"
+  ],
+  "cleanup": {
+    "Phase": "U1",
+    "Method": "dotnet clean",
+    "Paths": [
+      "tools/ArchitectureGuard/bin",
+      "tools/ArchitectureGuard/obj"
+    ],
+    "BeforeBytes": 33134853.0,
+    "AfterBytes": 145565.0,
+    "ReleasedBytes": 32989288.0,
+    "FreeBytesC": 15013322752,
+    "FreeBytesD": 28549591040,
+    "Retained": "Active Editor cache and two Players for validation; WinPlayerBuildProgram deletion previously rejected"
+  },
+  "notValidated": [
+    "IL2CPP",
+    "two-machine LAN",
+    "U2-U6 game migration",
+    "performance comparison"
+  ]
+}

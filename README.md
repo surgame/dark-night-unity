@@ -1,6 +1,6 @@
 # Dark Nights · Unity
 
-2026-09-13 已确定后续采用 YYGC 统一对象架构：业务 Behaviour／State 接管运行实体，Core 收缩为纯算法与数据合同；允许针对 YYGC 能力限制或 BUG 升级适配，不做旧数据兼容。已从 `7072b26` 创建分支 `codex/yygc-unified-object-migration`，见[分阶段重构执行计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)。**当前仅完成规划，U1–U6 未实施；下文为现有实现和历史验收状态。**
+2026-09-13 已确定后续采用 YYGC 统一对象架构：业务 Behaviour／State 接管运行实体，Core 收缩为纯算法与数据合同；允许针对 YYGC 能力限制或 BUG 升级适配，不做旧数据兼容。已从 `7072b26` 创建分支 `codex/yygc-unified-object-migration`，见[分阶段重构执行计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)。**U0／U1 已完成，框架锁定 ddce2ff；游戏业务 U2–U6 尚未完成，见实施记录。下文为现有实现和历史验收状态。**
 
 2026-09-13 已完成 [Definition 场景入口修复](docs/SCENE_DEFINITIONS.md)：统一 Loader 引用、定义分类和静态视图接管，删除手填映射表。编译完成，测试回归按用户要求待确认；当前 YYGC 锁定 `ccd61e0`，不沿用旧批次通过记录宣称本次已验收。
 

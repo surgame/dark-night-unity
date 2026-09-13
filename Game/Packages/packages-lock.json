@@ -53,7 +53,7 @@
       "hash": "a7c6b49a0141a5bff9b1983e38137522ef61977d"
     },
     "com.tsgame.gamecore": {
-      "version": "file:../../.deps/YYGC",
+      "version": "file:../../.deps/YYGC-unified",
       "depth": 0,
       "source": "local",
       "dependencies": {}

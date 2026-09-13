@@ -1,5 +1,38 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-13：U1 显式会话状态与对象装配
+
+已提交 `ddce2ffdf422c8c9cb8e872fb5f20053cdedcda6`。先在 `.deps/YYGC-unified`／`codex/dark-nights-unified-objects` 验证；再次确认 `D:\Developer\YYGC` 工作区干净且仍在 `ccd61e0` 后，将用户仓库快进到该提交。没有推送。原 `.deps/YYGC` 的修改和缓存保留；游戏依赖改用 `.deps/YYGC-unified`，准备脚本锁定完整提交并精确校验既有四份补丁及友元文件。
+
+下面 20 个文件均落在该框架提交，用户仓库具有相同路径。新 `.meta` 由 Unity 生成，没有重新分配已有资产 GUID。
+
+| 文件 | 修改原因与结果 | 验证 |
+|---|---|---|
+| `Runtime/Objects/Behaviours/BehaviourContext.cs` | 携带显式会话，不靠跨 await 的 SessionScope 找依赖 | 换会话注入、真实工厂通过 |
+| `Runtime/Objects/NetworkStates/IStatefulBehaviour.cs` | 增加 Session 同步模式，区分状态权限和发送粒度 | 本地权威／只读副本通过 |
+| `Runtime/Objects/NetworkStates/StateSynchronizer.cs` | 会话托管的个体 State 不占网络索引、不逐个发包 | 既有状态回归、Sample 四进程通过 |
+| `Runtime/Objects/NetworkStates/StatefulBehaviour.cs` | 动态状态权限、深复制入口、失效 scope、异常回滚和退休中的回调清理 | Editor 状态用例及真实 Play 通过 |
+| `Runtime/Objects/Runner/IObjectSessionInitializer.cs` | 显式会话装配合同，返回实际 ObjectInstance | Loader 原实例与工厂通过 |
+| `Runtime/Objects/Runner/IObjectSessionInitializer.cs.meta` | 新接口的 Unity 元数据 | 导入及 Mono 构建通过 |
+| `Runtime/Objects/Runner/LocalObjectInstanceInitializer.cs` | 接入显式会话与延迟激活 | 场景、动态实例通过 |
+| `Runtime/Objects/Runner/ObjectAssemblyValidation.cs` | Editor／Player 共用能力、配置、生成工厂和绑定检查 | 真实 Mono 负例全部被拒绝 |
+| `Runtime/Objects/Runner/ObjectAssemblyValidation.cs.meta` | 新校验器元数据 | 导入及 Mono 构建通过 |
+| `Runtime/Objects/Runner/ObjectDefinitionLoader.cs` | BindSession 接管同一个场景实例 | Prefab 连接、位置和实例引用保持 |
+| `Runtime/Objects/Runner/ObjectInstance.cs` | 准备／激活／退休／释放；换会话注入；拒绝清理失败的 Behaviour 复用 | 重入、换定义、失败清理、两种重载 Play 通过 |
+| `Runtime/Objects/Runner/ObjectInstanceFactory.cs` | 预加载返回同步装配租约 | Addressables、冷加载取消、Mono 通过 |
+| `Runtime/Objects/Runner/ObjectSessionContext.cs` | 可信动态权限、主线程会话及取消／退休 | 撤权、未激活、退出加载用例通过 |
+| `Runtime/Objects/Runner/ObjectSessionContext.cs.meta` | 新上下文元数据 | 导入及 Mono 构建通过 |
+| `Runtime/Objects/Runner/PreparedObjectDefinition.cs` | 预加载后同步创建，错误回收未激活对象，拒绝加载后修改 Prefab 引用 | 真实 Worker Prefab 通过 |
+| `Runtime/Objects/Runner/PreparedObjectDefinition.cs.meta` | 新工厂租约元数据 | 导入及 Mono 构建通过 |
+| `Runtime/Utils/ComponentAssetLease.cs` | 每次加载拥有独立 Addressables 引用 | 冷加载取消、释放后创建拒绝通过 |
+| `Runtime/Utils/ComponentAssetLease.cs.meta` | 新资源租约元数据 | 导入及 Mono 构建通过 |
+| `Runtime/Utils/FastInstantiator.cs` | AcquireComponentAsync 的取消／失败释放，不清理其他租约 | Editor 与独立 Mono 通过 |
+| `Documentation~/OBJECT_SESSION_LIFECYCLE.md` | 记录 API 时序、权限、租约和状态快照边界 | 与实际实现核对 |
+
+宿主额外修改 `tools/lan-framework-patch/SampleAssemblyAccess.cs`，为真实 `DarkNights.Tests` 生成调度器增加友元访问。该文件继续作为游戏的锁定补丁，不混入通用框架提交。旧六文件补丁没有被清理或重复计为本轮框架修改。
+
+分批验证覆盖原 95 项及新增 16 项 Editor／Play 用例，失败的测试驱动已修复并复测；独立 Mono 装配 14/14，Sample 四进程基础 30/30。详情见[U1 证据](evidence/yygc-unified-u1.json)与[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)。没有进行 IL2CPP 或双机器 LAN；U2–U6 尚未完成。
+
 ## 2026-09-13：统一对象架构的升级适配授权（仅规划）
 
 用户明确允许在 YYGC 存在能力限制或 BUG 时升级适配；正式游戏后续采用一套 YYGC 对象／状态模型，不要求旧数据兼容。具体前置能力、阶段门槛和交付要求见 [YYGC 统一重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。先在隔离 checkout 核实和验证，保留用户已有改动，游戏仍锁定可重现依赖；该授权不要求每项必要修正重复确认。

@@ -6,7 +6,7 @@
     "com.cysharp.zlinq": "https://github.com/Cysharp/ZLinq.git?path=src/ZLinq.Unity/Assets/ZLinq.Unity#1.5.6",
     "com.firstgeargames.fishnet": "file:../../.deps/FishNet/Assets/FishNet",
     "com.github-glitchenzo.nugetforunity": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity#v4.5.0",
-    "com.tsgame.gamecore": "file:../../.deps/YYGC",
+    "com.tsgame.gamecore": "file:../../.deps/YYGC-unified",
     "com.unity.2d.animation": "14.0.4",
     "com.unity.2d.aseprite": "4.0.2",
     "com.unity.2d.psdimporter": "13.0.3",

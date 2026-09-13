@@ -44,6 +44,7 @@ namespace DarkNights.Entry
                 $"units={catalog.Balance.Units.Count} buildings={catalog.Balance.Buildings.Count} " +
                 $"worksites={catalog.Balance.Worksites.Count} waves={catalog.Level.Waves.Count}");
             Debug.Log(FormalObjectCatalog.RuntimeSummary());
+            await DarkNights.Runtime.Diagnostics.AssemblyPlayerProbe.RunIfRequested(cancellationToken);
         }
     }
 }
