@@ -1,21 +1,17 @@
 # Core regression
 
-Run from the repository root after preparing locked dependencies and importing `Game` in Unity:
+从仓库根目录运行：
 
 ```powershell
 dotnet run --project tools/CoreRegression -- .
 ```
 
-The .NET 8 executable references the actual C#9 / netstandard2.1 Core assembly, actual Runtime configuration/save/session source, and Newtonsoft from the locked Unity package cache. It executes the same scenario source as `DarkNights.Tests.CoreRegressionTests`; no game source, assets or assemblies are loaded from `../projects` at runtime. Output is `artifacts/migration/core-regression.json`; failures return exit code 1.
+U5 起，此 .NET 8 工具只引用真实 C# 9／netstandard2.1 Core、只读配置解析和纯计算／冻结 RNG 断言，不再编入 Runtime/Session 或旧世界。当前 1,043 项通过，报告为 `artifacts/migration/core-regression.json`。Unity 中的 `CoreRegressionTests` 复用相同场景源码。
 
-`Fixtures` contains byte-for-byte frozen inputs from the Godot baseline. `legacy-v1.json` and `legacy-v1-after-20s.json` originated from its earlier `ad5f0da` implementation, and the layout/content fixtures from `bd040e1`. `godot-gameplay-validation.json` records the baseline's complete defended and unattended campaigns. Input hashes and the read-only source commit are in `docs/evidence/core-migration-2026-09-11.json`. Never regenerate these inputs from the migrated implementation.
+命令、权限、工位、施工、训练、时钟、投影、v2 存档和文件原子性已迁到 `SessionRegressionTests`，由 `UnifiedSessionScope` 预加载真实正式 Prefab、装配 YYGC 上下文并统一释放。完整三夜由 `UnifiedCampaignTests` 对照冻结 Godot 报告，装配／池化及真实 Play 分别由对应 Unity 测试和独立 Player 验收。这些检查必须在 Unity 执行；本工具通过不等于对象、联机或 Player 通过。
 
-`godot-rng-vectors.json` was captured independently with the actual Godot 4.7.2 binary. To review that experiment, copy `GodotProbe` to a new empty artifact directory and run the original engine with `--headless --path <copied-directory> --script probe.gd`. Its output stays in that copied directory. Ordinary regression never runs the probe or replaces frozen vectors.
+`Fixtures` 保留原 Godot 的只读证据：布局／内容、完整防守和无人照料三夜、RNG 向量以及旧档。旧档导入成功不再是产品要求；旧格式用于明确拒绝测试，不能恢复旧读取分支。不得从当前实现重生成任何旧期望。来源提交和哈希见 `docs/evidence/core-migration-2026-09-11.json`。
 
-The suite also exercises the actual new-format save codec and atomic file store: content/RNG compatibility, frozen continuation, commit sharing violations, cancellation, corrupt/oversized input and concurrent saves. Each file run uses a unique directory under `artifacts/migration/save-store`; diagnostic files remain there and player saves are never accessed. Current total: 1316 checks, including 60 save checks, 96 authority checks and 56 projection/replica/clock checks.
+`godot-rng-vectors.json` 来自独立 Godot 4.7.2 进程。复查研究时可将 `GodotProbe` 复制到指定空产物目录运行，普通回归不启动原引擎，不改写冻结向量。实际运行也不依赖 `../projects` 或参考工程。
 
-Session scenarios cover real gathering/construction/training, ordered payment, policy changes, bounded queues and deduplication, connection replacement, malformed inputs, single-thread ownership, fixed ticks, pause/speed and atomic loading/epoch transitions. These run against the actual SessionAuthority with server-issued test capabilities; they do not exercise FishNet authentication or real snapshot Ready.
-
-This tool validates the portable rules, JSON/file boundary and session business service; it does not validate production scene authoring, YYGC registration, Player builds, network sessions or art. See `docs/CORE_MIGRATION.md`, `docs/SAVE_FORMAT.md` and `docs/SESSION_AUTHORITY.md` for those outstanding boundaries.
-
-Projection scenarios exercise immutable full display data, nested training copies, stable flying-arrow IDs, snapshot ordering across loads and connection callbacks, and 30/60/144 FPS accumulation against complete fixed-step Core state. They use the actual Core/ViewData and Runtime/Session sources, not wire DTOs or a mocked transport. See `docs/SESSION_PROJECTION.md` and the remaining execution route in `docs/M5_EXECUTION.md`.
+完整迁移、覆盖映射和证据见 `docs/YYGC_UNIFIED_TEST_COVERAGE.md` 与 `docs/YYGC_UNIFIED_IMPLEMENTATION.md`。

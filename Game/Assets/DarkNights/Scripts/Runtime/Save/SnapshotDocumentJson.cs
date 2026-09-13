@@ -9,37 +9,12 @@ using static DarkNights.Runtime.Save.SnapshotEntityJson;
 namespace DarkNights.Runtime.Save
 {
     /// <summary>
-    /// 显式映射存档根与经济波次字段，不依赖反射或类型名；构造不可变快照并保留全部旧档必需字段，供 IL2CPP 使用。
+    /// 显式映射存档根与经济波次字段，不依赖反射或类型名；构造冻结的 v2 数据，不包含旧档或本地展示字段。
     /// </summary>
     internal static class SnapshotDocumentJson
     {
-        public static SessionSnapshot SessionSnapshot(JToken value)
-        {
-            JObject v = Object(value);
-            return new SessionSnapshot(
-                Integer(v["schema_version"]),
-                Text(v["level_id"]),
-                EconomySnapshot(v["economy"]),
-                WaveSnapshot(v["wave"]),
-                Number(v["elapsed"]),
-                Number(v["speed"]),
-                Boolean(v["paused"]),
-                Integer(v["next_entity_id"]),
-                Text(v["rng_seed"]),
-                Text(v["rng_state"]),
-                Array(v["actors"], ActorSnapshot, 256),
-                Array(v["buildings"], BuildingSnapshot, 256),
-                Array(v["worksites"], WorksiteSnapshot, 256),
-                Array(v["projectiles"], ProjectileSnapshot, 1024),
-                StatisticsSnapshot(v["stats"]),
-                Number(v["camera_x"]),
-                Number(v["camera_zoom"]),
-                Array(v["selected_ids"], Integer, 256));
-        }
-
         public static JObject Write(SessionSnapshot v) => new JObject
         {
-            ["schema_version"] = v.SchemaVersion,
             ["level_id"] = v.LevelId,
             ["economy"] = Write(v.Economy),
             ["wave"] = Write(v.Wave),
@@ -53,10 +28,7 @@ namespace DarkNights.Runtime.Save
             ["buildings"] = new JArray(v.Buildings.Select(SnapshotEntityJson.Write)),
             ["worksites"] = new JArray(v.Worksites.Select(SnapshotEntityJson.Write)),
             ["projectiles"] = new JArray(v.Projectiles.Select(SnapshotEntityJson.Write)),
-            ["stats"] = Write(v.Stats),
-            ["camera_x"] = v.CameraX,
-            ["camera_zoom"] = v.CameraZoom,
-            ["selected_ids"] = new JArray(v.SelectedIds)
+            ["stats"] = Write(v.Stats)
         };
 
         public static EconomySnapshot EconomySnapshot(JToken value)

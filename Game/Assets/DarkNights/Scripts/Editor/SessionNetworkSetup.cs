@@ -90,7 +90,7 @@ namespace DarkNights.Editor
             try
             {
                 var link = root.GetComponent<SessionObjectLink>();
-                if (link != null) CRefactorContentUpgrade.ValidateSessionLink(root, false);
+                if (link != null) NativeObjectContracts.ValidateSessionLink(root, false);
                 if (link == null) link = root.AddComponent<SessionObjectLink>();
                 Reference(link, "instance", root.GetComponent<ObjectInstance>());
                 Reference(link, "synchronizer", root.GetComponent<StateSynchronizer>());
@@ -108,7 +108,7 @@ namespace DarkNights.Editor
             if (endpoint == null || endpoint.Sender == null || view.Get<PlayerEndpoint>("endpoint") != endpoint)
                 throw new InvalidOperationException("Connection bindings are incomplete.");
             var session = AssetDatabase.LoadAssetAtPath<GameObject>(FormalObjectContentSetup.SessionPrefabPath);
-            CRefactorContentUpgrade.ValidateSessionLink(session);
+            NativeObjectContracts.ValidateSessionLink(session);
             var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(DefinitionPath);
             if (definition == null || definition.Key != "connection.pinewatch" || definition.Id != 0 || !definition.isNetwork ||
                 definition.GuidString != AssetDatabase.AssetPathToGUID(DefinitionPath)) throw new InvalidOperationException("Invalid connection definition.");

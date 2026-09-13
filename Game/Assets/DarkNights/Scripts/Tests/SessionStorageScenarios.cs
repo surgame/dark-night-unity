@@ -22,9 +22,9 @@ namespace DarkNights.Tests
             try
             {
                 using var authority = Open(catalog, layout, out var host, out var guest);
-                var files = new GameSaveStore(directory, catalog, layout);
+                var files = new GameSaveStore(directory, Codec(catalog, layout));
                 using var storage = new SessionStorage(authority, files);
-                var codec = new GameSaveJson(catalog, layout);
+                var codec = Codec(catalog, layout);
                 check(Execute(authority, guest, Request(authority, SessionOperation.Save, 1)).Code == SessionResultCode.PermissionDenied,
                     "Guest cannot trigger host filesystem save");
                 Execute(authority, host, Request(authority, SessionOperation.SetPaused, 1, value: 1));
@@ -46,7 +46,7 @@ namespace DarkNights.Tests
                     "Background load advances epoch, resets Ready and preserves room policy");
                 check(codec.Serialize(authority.CaptureWorld()) == initial, "Background file load restores exact frozen world");
                 authority.AcknowledgeReady(host, authority.Epoch, authority.Revision);
-                File.WriteAllText(Path.Combine(directory, "slot-04.dnsave.json"), "{}");
+                File.WriteAllText(Path.Combine(directory, "slot-04.dnsave.json"), "{\"format\":");
                 Execute(authority, host, Request(authority, SessionOperation.BeginLoad, 1, value: 4));
                 Finish(storage);
                 check(authority.Epoch == 2 && !authority.Loading && codec.Serialize(authority.CaptureWorld()) == initial && storage.Status.Contains("失败"),

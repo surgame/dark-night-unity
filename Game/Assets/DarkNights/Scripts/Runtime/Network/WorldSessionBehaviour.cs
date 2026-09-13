@@ -7,7 +7,7 @@ namespace DarkNights.Runtime.Network
 {
     /// <summary>
     /// 由正式会话 ObjectDefinition 装配的 YYGC 状态行为。
-    /// 仅在服务端把已结算的会话元数据复制到可靠投影，不创建或推进 GameSession，也不接受客户端直接写状态。
+    /// 仅在服务端把已结算的会话元数据复制到可靠投影，不创建或推进业务模拟，也不接受客户端直接写状态。
     /// </summary>
     public sealed class WorldSessionBehaviour : StatefulBehaviour<SessionStatusState>
     {

@@ -54,16 +54,18 @@ namespace DarkNights.Tests
         [UnityTest]
         public IEnumerator PreparedWorkerCreatesSynchronouslyAndCancellationCannotActivate()
         {
-            return UniTask.ToCoroutine(async () =>
+            yield return UniTask.ToCoroutine(async () =>
             {
+                using var loading = new EditorAssetLoading();
                 var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>("Assets/DarkNights/Res/Objects/Worker/Worker.asset");
                 var container = new DIContainer();
                 container.Initialize();
                 using var session = ObjectSessionContext.CreateReplica(container);
+                using var preparation = CancellationTokenSource.CreateLinkedTokenSource(session.Lifetime, loading.CancellationToken);
                 ObjectView view = null;
                 try
                 {
-                    using var prepared = await ObjectInstanceFactory.PrepareAsync(definition, session.Lifetime);
+                    using var prepared = await ObjectInstanceFactory.PrepareAsync(definition, preparation.Token);
                     view = prepared.Create(new Vector3(1, 2, 0), Quaternion.identity, session);
                     Assert.That(view.Owner.Definition, Is.SameAs(definition));
                     Assert.That(view.Owner.IsAssembled, Is.True);

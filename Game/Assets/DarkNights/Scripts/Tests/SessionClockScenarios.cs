@@ -17,17 +17,17 @@ namespace DarkNights.Tests
     {
         public static void Run(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
         {
-            var codec = new GameSaveJson(catalog, layout);
+            var codec = Codec(catalog, layout);
             foreach (int fps in new[] { 30, 60, 144 })
             {
                 using var session = Open(catalog, layout, out _, out _);
                 var clock = new SessionClock(session);
-                var direct = new GameSession(catalog, layout);
+                var direct = World(catalog, layout);
                 for (int i = 0; i < fps * 10; i++) clock.Advance(1.0 / fps);
                 for (int i = 0; i < 600; i++) direct.Advance(1.0 / 60);
                 check(session.ServerTick == 600 && clock.PendingSeconds < 1e-8 &&
-                    codec.Serialize(session.CaptureWorld()) == codec.Serialize(SnapshotMapper.Capture(direct)),
-                    "Clock " + fps + " FPS matches ten seconds of complete 60 Hz Core state");
+                    codec.Serialize(session.CaptureWorld()) == codec.Serialize(direct.CaptureWorld()),
+                    "Clock " + fps + " FPS matches ten seconds of complete 60 Hz object state");
             }
             using var game = Open(catalog, layout, out var host, out _);
             var driver = new SessionClock(game, 8);

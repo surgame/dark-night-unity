@@ -1,7 +1,7 @@
-param([int]$Port = 28220, [int]$ClientPort = 0, [int]$MinimumUptimeSeconds = 35)
+param([int]$Port = 28220, [int]$ClientPort = 0, [int]$MinimumUptimeSeconds = 35, [string]$PlayerPath = '')
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
-$player = Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe'
+$player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe' }
 $run = Join-Path $repo ('artifacts/migration/concurrency-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 $saves = Join-Path $run 'saves'
 New-Item -ItemType Directory -Path $run | Out-Null

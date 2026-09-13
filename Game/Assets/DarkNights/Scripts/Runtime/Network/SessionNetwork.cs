@@ -135,11 +135,11 @@ namespace DarkNights.Runtime.Network
                     if (activeSession != null) throw new InvalidOperationException("A session object is already active.");
                     activeSession = session;
                     ObjectWorld = preparing;
-                    session.Configure(catalog, layout, behaviour, SaveDirectory,
+                    session.Configure(catalog, layout, behaviour, SaveDirectory, preparing,
                         source => { if (current == attempt && ReferenceEquals(activeSession, source)) { activeSession = null; ObjectWorld = null; } },
                         error => { if (current == attempt) Fail(error); },
                         Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-metrics") >= 0,
-                        Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-projection-pressure") >= 0, preparing);
+                        Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-projection-pressure") >= 0);
                     preparing = null;
                 }
                 Status = "正在连接";

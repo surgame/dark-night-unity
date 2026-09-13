@@ -4,52 +4,18 @@ using NUnit.Framework;
 namespace DarkNights.Tests
 {
     /// <summary>
-    /// 在 Unity Editor 中复跑与独立进程相同的真实规则和冻结旧档检查。
-    /// 不创建场景或更改美术资源；测试失败直接保留具体断言，不把独立 Core 成功当作引擎验证。
+    /// 在 Unity 与独立 .NET 进程复跑同一纯计算及冻结 RNG 合同。
+    /// 不创建游戏世界；对象、会话和存储的集成断言另由真实 YYGC 测试范围执行。
     /// </summary>
     public sealed class CoreRegressionTests
     {
-        [TestCase("economy")]
-        [TestCase("work-training")]
-        [TestCase("time-combat")]
-        [TestCase("campaign")]
-        [TestCase("save")]
-        [TestCase("new-save")]
-        [TestCase("save-files")]
-        [TestCase("session-commands")]
-        [TestCase("session-boundary")]
-        [TestCase("session-lifecycle")]
-        [TestCase("session-projection")]
-        [TestCase("session-replica")]
-        [TestCase("session-clock")]
-        [TestCase("session-events")]
-        [TestCase("session-storage")]
-        [TestCase("random")]
-        public void RulesMatchFrozenBaseline(string scenario)
+        [Test]
+        public void FrozenRandomAndPureRules()
         {
             RuleScenario.RepositoryRoot = Path.GetFullPath("..");
-            var catalog = RuleScenario.Catalog();
-            var layout = RuleScenario.Layout();
             System.Action<bool, string> check = (ok, name) => Assert.That(ok, Is.True, name);
-            switch (scenario)
-            {
-                case "economy": EconomyScenarios.Run(check, catalog, layout); break;
-                case "work-training": WorkTrainingScenarios.Run(check, catalog, layout); break;
-                case "time-combat": TimeCombatScenarios.Run(check, catalog, layout); break;
-                case "campaign": CampaignScenario.Run(check, catalog, layout); break;
-                case "save": SaveMigrationScenarios.Run(check, catalog, layout); break;
-                case "new-save": GameSaveScenarios.Run(check, catalog, layout); break;
-                case "save-files": GameSaveFileScenarios.Run(check, catalog, layout); break;
-                case "session-commands": SessionCommandScenarios.Run(check, catalog, layout); break;
-                case "session-boundary": SessionBoundaryScenarios.Run(check, catalog, layout); break;
-                case "session-lifecycle": SessionLifecycleScenarios.Run(check, catalog, layout); break;
-                case "session-projection": SessionProjectionScenarios.Run(check, catalog, layout); break;
-                case "session-replica": SessionReplicaScenarios.Run(check, catalog, layout); break;
-                case "session-clock": SessionClockScenarios.Run(check, catalog, layout); break;
-                case "session-events": SessionEventScenarios.Run(check, catalog, layout); break;
-                case "session-storage": SessionStorageScenarios.Run(check, catalog, layout); break;
-                case "random": RandomCompatibilityScenarios.Run(check); break;
-            }
+            RandomCompatibilityScenarios.Run(check);
+            PureRuleScenarios.Run(check, RuleScenario.Catalog(), RuleScenario.Layout());
         }
     }
 }

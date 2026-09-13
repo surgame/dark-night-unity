@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Session;
+using DarkNights.Runtime.Objects;
+using DarkNights.Runtime.Save;
 
 namespace DarkNights.Tests
 {
@@ -14,13 +16,22 @@ namespace DarkNights.Tests
         public static SessionAuthority Open(GameCatalog catalog, LevelLayout layout,
             out SessionConnection host, out SessionConnection guest)
         {
-            var session = new SessionAuthority(catalog, layout);
+            var session = Create(catalog, layout);
             host = session.Connect(0);
             guest = session.Connect(1);
             session.AcknowledgeReady(host, session.Epoch, session.Revision);
             session.AcknowledgeReady(guest, session.Epoch, session.Revision);
             return session;
         }
+
+        public static SessionAuthority Create(GameCatalog catalog, LevelLayout layout) =>
+            UnifiedSessionScope.Current.NewAuthority(catalog, layout);
+
+        public static ObjectSession World(GameCatalog catalog, LevelLayout layout) =>
+            UnifiedSessionScope.Current.NewWorld(catalog, layout);
+
+        public static ObjectWorldSaveJson Codec(GameCatalog catalog, LevelLayout layout) =>
+            UnifiedSessionScope.Current.Codec(catalog, layout);
 
         public static SessionRequest Request(SessionAuthority session, SessionOperation operation, long sequence,
             IReadOnlyList<int> actors = null, int target = 0, float x = 0, string kind = "", int value = 0) =>

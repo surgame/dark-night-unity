@@ -10,49 +10,53 @@ using DarkNights.Runtime.Config;
 using DarkNights.Runtime.Save;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using static DarkNights.Tests.SessionScenario;
 
 namespace DarkNights.Tests
 {
     /// <summary>
-    /// 新档格式、内容兼容和完整恢复的共同回归，用冻结旧档及其二十秒结果验证跨格式迁移。
+    /// v2 格式、内容身份和完整恢复回归，使用真实 YYGC 对象及二十秒继续模拟。
     /// 所有破坏性输入只作用于测试持有的 JSON；不更改冻结夹具、正式布局或活动世界。
     /// </summary>
     public static class GameSaveScenarios
     {
         public static void Run(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
         {
-            var codec = new GameSaveJson(catalog, layout);
-            JObject legacy = RuleScenario.Fixture("legacy-v1.json");
-            GameSession active = codec.ImportLegacy(legacy.ToString());
-            string before = codec.Serialize(SnapshotMapper.Capture(active));
+            var codec = Codec(catalog, layout);
+            using var active = World(catalog, layout);
+            active.IssueOrders(new[] { 11 }, 6, 402);
+            active.PlaceBuilding("house", 184, new[] { 12 });
+            active.TrainActors("archer", new[] { 13 });
+            for (int i = 0; i < 360; i++) active.Advance(1.0 / 60);
+            SessionSnapshot snapshot = active.CaptureWorld();
+            string before = codec.Serialize(snapshot);
             var root = JObject.Parse(before);
-            check((string)root["format"] == GameSaveJson.Format && (int)root["format_version"] == 1 &&
-                (string)root["random_algorithm"] == GameSaveJson.RandomAlgorithm, "New save has explicit format and RNG identity");
-            var display = new LegacyDisplayState(200, 2, new[] { active.World.Actors[0].Id });
-            check(codec.Serialize(SnapshotMapper.Capture(active, display)) == before &&
-                root["world"]["camera_x"] == null && root["world"]["selected_ids"] == null &&
+            check((string)root["format"] == ObjectWorldSaveJson.Format && (int)root["format_version"] == 2 &&
+                (string)root["random_algorithm"] == SimulationRandom.Algorithm, "Save has explicit v2 format and RNG identity");
+            check(root["world"]["camera_x"] == null && root["world"]["selected_ids"] == null &&
                 root["world"]["epoch"] == null && root["world"]["control_mode"] == null,
-                "New save excludes local display and room state");
-            var restored = codec.Restore(before);
-            check(!ReferenceEquals(active, restored) && codec.Serialize(SnapshotMapper.Capture(restored)) == before,
-                "New save restores a separate complete world without changing its fields");
-            RuleScenario.Step(restored, 20);
-            JObject continued = JObject.Parse(LegacySnapshotJson.Serialize(SnapshotMapper.Capture(restored)));
-            JObject expected = RuleScenario.Fixture("legacy-v1-after-20s.json");
-            foreach (string field in new[] { "camera_x", "camera_zoom", "selected_ids" })
-            {
-                continued.Remove(field);
-                expected.Remove(field);
-            }
-            string difference = RuleScenario.Difference(continued, expected);
-            check(difference.Length == 0, "New save continuation matches frozen 20s result: " + difference);
-            check(codec.Serialize(SnapshotMapper.Capture(active)) == before, "Restored world does not alias original world");
+                "Save excludes local display and room state");
+            using var restored = World(catalog, layout);
+            restored.Restore(before);
+            check(codec.Serialize(restored.CaptureWorld()) == before, "V2 restores every persisted field");
+            using var continued = World(catalog, layout);
+            continued.Restore(before);
+            for (int i = 0; i < 1200; i++) { restored.Advance(1.0 / 60); continued.Advance(1.0 / 60); }
+            check(codec.Serialize(restored.CaptureWorld()) == codec.Serialize(continued.CaptureWorld()),
+                "Independent restored worlds continue twenty seconds deterministically");
+            check(codec.Serialize(active.CaptureWorld()) == before && codec.Serialize(snapshot) == before,
+                "Restored state and background capture never alias the original");
             CheckTime(check, codec, catalog, layout);
             var changes = new Dictionary<string, Action<JObject>>
             {
                 ["format"] = j => j["format"] = "other-game",
-                ["version"] = j => j["format_version"] = 2,
+                ["old version"] = j => j["format_version"] = 1,
+                ["future version"] = j => j["format_version"] = 3,
                 ["version type"] = j => j["format_version"] = "1",
+                ["definition digest"] = j => j["identity_sha256"] = new string('0', 64),
+                ["missing identities"] = j => ((JObject)j["world"]).Remove("identities"),
+                ["unknown definition"] = j => j["world"]["identities"][0]["definition_guid"] = new string('0', 32),
+                ["duplicate placement"] = j => j["world"]["identities"][1]["placement_key"] = j["world"]["identities"][0]["placement_key"].DeepClone(),
                 ["RNG algorithm"] = j => j["random_algorithm"] = "system-random",
                 ["rules digest"] = j => j["rules_sha256"] = new string('0', 64),
                 ["layout digest"] = j => j["layout_sha256"] = new string('0', 64),
@@ -75,28 +79,29 @@ namespace DarkNights.Tests
             {
                 var invalid = (JObject)root.DeepClone();
                 change.Value(invalid);
-                check(Rejected(() => codec.Restore(invalid.ToString())) && codec.Serialize(SnapshotMapper.Capture(active)) == before,
+                check(Rejected(() => active.Restore(invalid.ToString())) && codec.Serialize(active.CaptureWorld()) == before,
                     "Invalid new save preserves active world: " + change.Key);
             }
             foreach (string text in new[]
             {
-                legacy.ToString(), before + "{}", before.Replace("\"world\":", "\"format\":\"duplicate\",\"world\":"),
-                new string(' ', GameSaveJson.MaximumBytes + 1), "{\"padding\":\"" + new string('谷', 1400000) + "\"}",
+                RuleScenario.Fixture("legacy-v1.json").ToString(), before + "{}", before.Replace("\"world\":", "\"format\":\"duplicate\",\"world\":"),
+                new string(' ', ObjectWorldSaveJson.MaximumBytes + 1), "{\"padding\":\"" + new string('谷', 1400000) + "\"}",
                 new string('[', 40) + new string(']', 40)
             })
-                check(Rejected(() => codec.Restore(text)), "New format rejects legacy, trailing, duplicate, oversized or deep input");
-            check(Rejected(() => codec.ImportLegacy(before)), "Legacy import does not guess the new format");
+                check(Rejected(() => active.Restore(text)), "New format rejects legacy, trailing, duplicate, oversized or deep input");
             CheckFingerprint(check, catalog, layout, before);
         }
 
-        private static void CheckTime(Action<bool, string> check, GameSaveJson codec, GameCatalog catalog, LevelLayout layout)
+        private static void CheckTime(Action<bool, string> check, ObjectWorldSaveJson codec, GameCatalog catalog, LevelLayout layout)
         {
-            var game = new GameSession(catalog, layout) { Speed = 2, Paused = true };
-            var restored = codec.Restore(codec.Serialize(SnapshotMapper.Capture(game)));
-            RuleScenario.Step(restored, 1);
+            using var game = World(catalog, layout);
+            game.SetTime(true, 2);
+            using var restored = World(catalog, layout);
+            restored.Restore(codec.Serialize(game.CaptureWorld()));
+            for (int i = 0; i < 60; i++) restored.Advance(1.0 / 60);
             check(restored.Paused && restored.Speed == 2 && restored.Elapsed == 0, "New save retains pause and speed");
-            restored.Paused = false;
-            RuleScenario.Step(restored, 1);
+            restored.SetTime(false, 2);
+            for (int i = 0; i < 60; i++) restored.Advance(1.0 / 60);
             check(RuleScenario.Approx(restored.Elapsed, 2), "Restored speed applies once when simulation resumes");
         }
 
@@ -123,19 +128,19 @@ namespace DarkNights.Tests
             check(new SaveContentFingerprint(catalog, cameraOnly).LayoutSha256 == baseline.LayoutSha256,
                 "Local camera default does not change world compatibility");
             var changedOrder = CopyLayout(layout, layout.Actors.Reverse().ToArray(), layout.CameraX);
-            check(Rejected(() => new GameSaveJson(catalog, changedOrder).Restore(saved)), "Changed spawn order rejects old save");
+            check(Rejected(() => Codec(catalog, changedOrder).Parse(saved)), "Changed spawn order rejects old save");
             var moved = layout.Actors.Select((p, i) => i == 0 ? new PlacementDefinition(p.Kind, p.X + 1, p.Variant, p.Name) : p).ToArray();
-            check(Rejected(() => new GameSaveJson(catalog, CopyLayout(layout, moved, layout.CameraX)).Restore(saved)),
+            check(Rejected(() => Codec(catalog, CopyLayout(layout, moved, layout.CameraX)).Parse(saved)),
                 "Changed scene layout rejects old save");
             string configRoot = Path.Combine(RuleScenario.RepositoryRoot, "Game/Assets/DarkNights/Res/Config");
             JObject rules = JObject.Parse(File.ReadAllText(Path.Combine(configRoot, "balance.json")));
             string level = File.ReadAllText(Path.Combine(configRoot, "pinewatch.json"));
             rules["units"]["worker"]["hp"] = (double)rules["units"]["worker"]["hp"] + 1;
-            check(Rejected(() => new GameSaveJson(GameCatalogJson.Parse(rules.ToString(), level), layout).Restore(saved)),
+            check(Rejected(() => Codec(GameCatalogJson.Parse(rules.ToString(), level), layout).Parse(saved)),
                 "Changed actual rule values reject old save");
             var seedChanged = new GameCatalog(balance, new LevelDefinition(catalog.Level.Id, catalog.Level.Name,
                 catalog.Level.Seed + 1, catalog.Level.Waves));
-            check(Rejected(() => new GameSaveJson(seedChanged, layout).Restore(saved)), "Changed 64-bit level seed rejects old save");
+            check(Rejected(() => Codec(seedChanged, layout).Parse(saved)), "Changed 64-bit level seed rejects old save");
         }
 
         private static LevelLayout CopyLayout(LevelLayout layout, IReadOnlyList<PlacementDefinition> actors, float cameraX) =>

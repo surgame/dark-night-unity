@@ -8,9 +8,9 @@ using GameCore.Objects.Types;
 namespace DarkNights.Runtime.Framework
 {
     /// <summary>
-    /// 从 YYGC 定义目录建立只读的旧规则 Kind 查询，不保存另一张可编辑注册表。
-    /// unit/building/worksite Key 前缀与 Type 必须一致；后缀是冻结 JSON 和存档的兼容标识。
-    /// 索引只持有定义，不拥有实例、数值或世界状态；正式 Key 改名必须显式迁移规则合同。
+    /// 从 YYGC 定义目录建立只读的规则查询，不保存另一张可编辑注册表。
+    /// 实体家族和 RuleKey 来自显式 IConfigData，不解析定义 Key 的前缀或后缀。
+    /// 索引只持有定义，不拥有实例、数值或世界状态；显示名或 Key 改名不改变规则身份。
     /// </summary>
     public sealed class DefinitionRuleIndex
     {
@@ -26,7 +26,7 @@ namespace DarkNights.Runtime.Framework
             {
                 if (definition == null) throw new InvalidOperationException("Null object definition.");
                 if (!IsEntityType(definition.Type)) continue;
-                string kind = Kind(definition);
+                string kind = RuleKey(definition);
                 if (!definition.isLocal || definition.Guid.IsEmpty || definition.PrefabRef == null ||
                     !definition.PrefabRef.RuntimeKeyIsValid() || !definitions.TryAdd(kind, definition))
                     throw new InvalidOperationException("Invalid or duplicate rule definition: " + definition.Key);
@@ -50,7 +50,7 @@ namespace DarkNights.Runtime.Framework
                 throw new InvalidOperationException("Definition directory contains unknown rule content.");
         }
 
-        public static string Kind(ObjectDefinition definition)
+        public static string RuleKey(ObjectDefinition definition)
         {
             if (definition == null) throw new InvalidOperationException("Placement definition is missing.");
             if (!IsEntityType(definition.Type)) throw new InvalidOperationException("Definition is not an entity.");
@@ -64,15 +64,6 @@ namespace DarkNights.Runtime.Framework
 
         public static bool IsEntityType(ObjectType type) => type == ObjectType.Unit ||
             type == ObjectType.Placeable_CompositeStructure || type == ObjectType.Scenery_ResourceNode;
-
-        public static ObjectType TypeForKey(string key)
-        {
-            if (key == null) return ObjectType.None;
-            if (key.StartsWith("unit.", StringComparison.Ordinal)) return ObjectType.Unit;
-            if (key.StartsWith("building.", StringComparison.Ordinal)) return ObjectType.Placeable_CompositeStructure;
-            if (key.StartsWith("worksite.", StringComparison.Ordinal)) return ObjectType.Scenery_ResourceNode;
-            return ObjectType.None;
-        }
 
         private void Require(string kind, ObjectType type)
         {

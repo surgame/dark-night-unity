@@ -1,6 +1,7 @@
 param(
-    [ValidateSet('startup','session','concurrency','active-load','network-matrix','visual-1280','visual-1600','battle','campaign','pressure')]
-    [string]$StartAt = 'startup'
+    [ValidateSet('startup','session','concurrency','active-load','recovery','network-matrix','visual-1280','visual-1600','battle','campaign','pressure')]
+    [string]$StartAt = 'startup',
+    [string]$PlayerPath = ''
 )
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
@@ -11,6 +12,7 @@ $steps = @(
     @{name='session'; script='test-game-session.ps1'; args=@{}},
     @{name='concurrency'; script='test-game-concurrency.ps1'; args=@{}},
     @{name='active-load'; script='test-game-active-load.ps1'; args=@{}},
+    @{name='recovery'; script='test-game-recovery.ps1'; args=@{}},
     @{name='network-matrix'; script='test-game-network-matrix.ps1'; args=@{}},
     @{name='visual-1280'; script='test-game-visual.ps1'; args=@{Width=1280;Height=800}},
     @{name='visual-1600'; script='test-game-visual.ps1'; args=@{Width=1600;Height=900}},
@@ -21,7 +23,8 @@ $steps = @(
 $results = [ordered]@{}
 $failure = $null
 $reached = $false
-$entryDll = Join-Path $repo 'artifacts/migration/player-mono/DarkNights_Data/Managed/DarkNights.Entry.dll'
+$player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe' }
+$entryDll = Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll'
 $artifactHash = $null
 try {
     $artifactHash = (Get-FileHash -LiteralPath $entryDll).Hash
@@ -29,7 +32,7 @@ try {
         if ($step.name -eq $StartAt) {$reached = $true}
         if (!$reached) {continue}
         Write-Output "Delivery step: $($step.name)"
-        $arguments = @()
+        $arguments = @('-PlayerPath', $player)
         foreach ($entry in $step.args.GetEnumerator()) {$arguments += @("-$($entry.Key)", [string]$entry.Value)}
         & pwsh -NoProfile -File (Join-Path $PSScriptRoot $step.script) @arguments 2>&1 | Tee-Object -FilePath (Join-Path $run ($step.name+'.log'))
         if ($LASTEXITCODE -ne 0) {throw "Step $($step.name) exited with code $LASTEXITCODE."}
@@ -40,7 +43,7 @@ try {
 catch {$failure=$_.Exception.ToString()}
 finally {
     [ordered]@{passed=(!$failure);steps=$results;error=$failure;startAt=$StartAt;fullMatrixRun=($StartAt -eq 'startup');
-      entryDllSha256=$artifactHash;
+      player=$player; entryDllSha256=$artifactHash;
       scope='Serial local Mono acceptance; visual review, IL2CPP and two-machine LAN are separate';artifacts=$run} |
       ConvertTo-Json -Depth 6 | Set-Content (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Delivery: passed=$(!$failure); $run/result.json"

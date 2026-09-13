@@ -1,5 +1,8 @@
 using System;
 using System.IO;
+using System.Collections;
+using Cysharp.Threading.Tasks;
+using UnityEngine.TestTools;
 using System.Linq;
 using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Network;
@@ -17,8 +20,20 @@ namespace DarkNights.Tests
     /// 使用实际 MemoryPack 与 YYGC 状态池验证完整投影往返、归池隔离、非法输入和支持上限的字节数。
     /// 测量属于 Editor 编码器探针，不能代替独立进程可靠传输、Player 性能或画面验收。
     /// </summary>
+    [Category("UnifiedSession")]
     public sealed class ProjectionWireTests
     {
+        private UnifiedSessionScope scope;
+
+        [UnitySetUp]
+        public IEnumerator Prepare()
+        {
+            yield return UniTask.ToCoroutine(async () => scope = await UnifiedSessionScope.Create());
+        }
+
+        [TearDown]
+        public void Cleanup() => scope?.Dispose();
+
         [Test]
         public void RealBattleSnapshotsRemainDecodableAfterWindupCrossesZero()
         {
@@ -67,6 +82,12 @@ namespace DarkNights.Tests
             Assert.Throws<FormatException>(() => codec.Decode(new byte[ProjectionCodec.MaximumBytes + 1]));
             Assert.Catch(() => codec.Decode(encoded.Take(encoded.Length / 2).ToArray()));
             mutable = SessionWire.From(initial);
+            mutable.World.Identities = Array.Empty<EntityIdentityWire>();
+            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            mutable = SessionWire.From(initial);
+            mutable.World.Identities[0].DefinitionGuid = "";
+            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            mutable = SessionWire.From(initial);
             mutable.World.Actors[0].X = float.NaN;
             Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
             mutable = SessionWire.From(initial);
@@ -97,7 +118,7 @@ namespace DarkNights.Tests
             RuleScenario.RepositoryRoot = Path.GetFullPath("..");
             var catalog = RuleScenario.Catalog();
             var layout = RuleScenario.Layout();
-            using var authority = new SessionAuthority(catalog, layout);
+            using var authority = SessionScenario.Create(catalog, layout);
             var codec = new ProjectionCodec(catalog, layout);
             var first = GenericTypePool<SessionStatusState>.Get();
             first.ProjectionPayload = codec.Encode(authority.CaptureProjection());
@@ -122,7 +143,7 @@ namespace DarkNights.Tests
             RuleScenario.RepositoryRoot = Path.GetFullPath("..");
             var catalog = RuleScenario.Catalog();
             var layout = RuleScenario.Layout();
-            using var authority = new SessionAuthority(catalog, layout);
+            using var authority = SessionScenario.Create(catalog, layout);
             var codec = new ProjectionCodec(catalog, layout);
             var first = authority.CaptureProjection();
             var source = SessionWire.From(first);
@@ -133,6 +154,9 @@ namespace DarkNights.Tests
                 actor.Name = new string('工', 256);
                 return actor;
             }).ToArray();
+            string actorGuid = first.World.Identities.Single(i => i.Id == first.World.Actors[0].Id).DefinitionGuid;
+            source.World.Identities = source.World.Actors.Select(a => new EntityIdentityWire
+                { Id = a.Id, DefinitionGuid = actorGuid, PlacementKey = "" }).ToArray();
             source.World.Buildings = Array.Empty<BuildingWire>();
             source.World.Worksites = Array.Empty<WorksiteWire>();
             source.World.Projectiles = Enumerable.Range(1, 1024).Select(id => new ProjectileWire

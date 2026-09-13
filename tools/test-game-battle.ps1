@@ -1,7 +1,7 @@
-param([int]$Port = 27993)
+param([int]$Port = 27993, [string]$PlayerPath = '')
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
-$player = Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe'
+$player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe' }
 $run = Join-Path $repo ('artifacts/migration/battle-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 New-Item -ItemType Directory -Path $run | Out-Null
 $processes = @{}

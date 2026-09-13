@@ -69,3 +69,7 @@
 Thumbs.db
 
 # Assets, .meta, Packages manifests, ProjectSettings and docs/evidence are tracked.
+
+# Addressables build-generated linker data (not authored content)
+/Game/Assets/AddressableAssetsData/link.xml
+/Game/Assets/AddressableAssetsData/link.xml.meta

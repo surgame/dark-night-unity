@@ -1,193 +1,115 @@
 # Dark Nights Unity 技术架构
 
-2026-09-13 决策更新：后续按 [YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)迁移。目标为 ObjectInstance／业务 Behaviour 唯一拥有运行实体及实例 State，Core 只保留纯算法、只读配置和数据合同；保留会话权威调度、可靠完整投影、命令链及只读表现。为此允许升级 YYGC 的状态权限和装配能力，不做旧数据兼容。**U0–U4 已完成，工人／采集／住宅已采用新版并通过三进程验证，正式入口已切换，旧模型退出及最终验收 U5–U6 继续推进**；下文的 GameSession／WorldState 状态归属描述当前代码，不再是迁移完成后的目标。新旧模型不得同时驱动一个活动会话。
+2026-09-13，采用 [YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。U0–U5 已完成，正式入口使用全部 YYGC 业务能力；旧运行模型已删除，134 项 Editor／Play 回归通过。U6 最终干净源码 Mono 验收继续执行。实际完成状态与证据见[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)，不以类型或目录存在代替验收。
 
-2026-09-13 场景入口已统一到 ObjectDefinitionLoader：Marker 仅保存实例参数，Definition 持有类型／Key，旧 Kind 由只读适配索引导出；静态视图接入副本绑定和借还。编译完成、回归待用户确认；此项替代下文历史版本中的手填 ContentId 映射与“隐藏预览后全量动态创建”描述，见[当前合同](SCENE_DEFINITIONS.md)。
-
-2026-09-12 [C 重构执行计划](C_REFACTOR_PLAN.md)的 R1–R4 已完成：会话对象接管权威生命周期，个体表现 Behaviour 接管本地绑定与展示，Core 继续独占真实状态和规则。最终 Ready 修复后的 Mono 并发、活跃加载、九组四进程弱网、战斗晚加入、三夜及容量上限均通过；性能 A/C 对比仍待后续。正式结果见[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)；下文早期“尚未接线”等段落保留其历史时点，不能覆盖最新执行记录。
-
-2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已实现自己的四层程序集并验证 YYGC Object、可靠状态链及唯一权威写入。本页描述的正式玩法目录仍属设计；Sample 不反向依赖正式游戏。VitalRouter 仅保留框架命令链的显式适配，业务使用普通方法，R3 负责副本观察及订阅释放。
-
-状态：正式玩法设计基线。已实现 Core 规则／保存、Runtime 配置／原子存储及 Entry 配置启动，见[核心回归](CORE_MIGRATION.md)与[存档合同](SAVE_FORMAT.md)。新增 Runtime/Session 已实现唯一世界、命令队列／权限／去重、连接代次、Ready 版本检查、60 Hz 单步与加载票据／epoch，见[会话业务合同](SESSION_AUTHORITY.md)；第八批已增加冻结实体／HUD 展示、WorldReplica 和未缩放 SessionClock，见[展示与时钟](SESSION_PROJECTION.md)；尚未装配进 Bootstrap、Unity Update 或 YYGC 网络回调。首批 Worker／WorldSession 定义与 GuidFirst／GuidV2 wire 注册已有双后端探针，本批会话服务仅有独立及 Editor 回归。网络接入仍复用 YYGC `10b8f0e` 已由 Sample 验证的命令／状态链，Core 保持单一权威模拟。
-
-## 设计选择
-
-| 方案 | 成本与适用性 | 结论 |
-|---|---|---|
-| 每个居民／建筑都改为 NetworkObject＋多组 StatefulBehaviour | 深入使用框架同步，但需要重组全部规则、时钟、ID、出生和保存；容易出现两套状态 | 首版不选 |
-| 集中 GameSession＋YYGC 会话状态同步＋本地视图 | 可迁移现有规则；用会话 StatefulBehaviour/StateSynchronizer 承载冻结投影，集中处理冲突 | **采用；正式实体集合仍需验证** |
-| 确定性锁步或回滚 | 需要跨平台确定性、命令延迟和追帧等额外设施；当前为小规模合作营地 | 需求出现后另评估 |
-
-关键对象为一个会话网络对象、每位玩家一个连接／命令入口对象，以及各客户端的本地实体视图。美术资源仍是原生 Prefab，联机并不要求每个 Sprite 都成为网络对象。
+本页描述统一后的源码。原集中 Core 世界及按 Kind 借还视图的方案保留在 Git 历史和 [C 重构记录](C_REFACTOR_IMPLEMENTATION.md)，不再作为当前状态归属合同。游戏不兼容 Godot 旧档、Unity v1 或协议 5；独立 LAN Sample 的兼容边界单独保留。
 
 ## 唯一状态归属
 
-| 状态 | 唯一写入者 | 消费者 |
-|---|---|---|
-| 资源、人口、HP、任务、施工、训练、命中、波次、随机数 | 服务端 GameSession / WorldState | 投影器、快照、存档 |
-| 已验证的请求序列、连接／玩家对应、epoch、CampControlMode／PolicyRevision | Runtime/Session 与命令入口 | 命令处理、网络与只读权限展示 |
-| 世界展示副本 | 快照应用器；按版本／序号更新 | 视图、HUD、选择查询 |
-| 相机、SelectedIds、悬停、建造预览、待确认指令 | 各客户端 LocalInteractionState | 本地输入与 UI |
-| 动画帧、插值位置、选区、声音与一次性特效 | View | Unity Renderer／UGUI／Audio |
-| 成本、伤害、施工时间、职业属性 | 只读规则定义，源为 balance JSON | 模拟与 HUD 同一数据 |
-| 外观、锚点、原点、绑定引用 | Unity Prefab／资源 | 本地视图与 Editor 预览 |
+正式游戏有一个会话网络对象、每位玩家一个网络入口，以及由 YYGC 管理的本地实体对象。个体不增加 NetworkObject／NetworkTransform；权威状态由其业务 Behaviour 拥有，以会话级可靠完整投影传输。
 
-`StatefulBehaviour.State`、ScriptableObject 和客户端展示 DTO 都不能成为第二份可写的经济／战斗模型。Host 也通过展示副本驱动画面；只有一个服务端模拟实例。
+| 状态 | 唯一所有者 | 边界 |
+|---|---|---|
+| 时间、胜负、实体 ID 分配、RNG、营地统计 | CampSimulationBehaviour／CampSimulationState | 一场营地一个权威会话 |
+| 库存、人口、容量、招募与食物结算 | EconomyBehaviour／EconomyState | 成本及规则来自只读 balance JSON |
+| 波次和待出生敌人 | WaveBehaviour／WaveState | 只有会话调度推进 |
+| 在飞箭矢及命中数据 | ProjectileBehaviour／ProjectileState | 视觉箭矢不结算伤害 |
+| 单位位置、HP、任务、攻击与工作进度 | ActorBehaviour／ActorState | 移动和攻击能力操作所属单位状态 |
+| 建筑 HP、施工与训练队列 | BuildingBehaviour／BuildingState | 训练和塔攻击能力由会话按固定顺序调用 |
+| 工位库存、占用和生产进度 | WorksiteBehaviour／WorksiteState | 占用关系与单位任务在同一事务更新 |
+| 请求队列、连接代次、Ready、epoch、共享策略 | SessionAuthority 与可信网络适配 | 不把连接／权限写入存档 |
+| 冻结展示帧与客户端副本 | SessionProjector、WorldReplica、ObjectReplica | 无业务写权限，不自行计算资源或伤害 |
+| 选择、镜头、悬停、预览、待确认反馈 | 各客户端交互状态 | Host 也只从展示副本驱动画面 |
+
+ObjectSession 只组合能力、上下文、资源租约和对象索引，不保存第二套经济／实体状态。SessionEntityIndex 只引用 YYGC 对象。旧 GameSession、WorldState、Entity、Commands／Systems 运行链及过渡 SessionWorld 已删除。
+
+所有可写 State 使用 YYGC 会话权限。网络 DTO、ScriptableObject、展示副本和客户端 Behaviour 不成为另一份权威模型。单对象 State 的变化不自行发送个体 RPC。
 
 ```mermaid
 flowchart LR
-    Authoring["Pinewatch 布局标记 + 规则 JSON"] --> Content["只读关卡定义"]
-    Content --> Sim["房主 GameSession / WorldState"]
-    Input["各客户端输入 / UGUI"] --> Intent["带单位 ID 的请求"]
-    Intent --> Gate["连接身份 + 校验 + 去重 + 队列"]
-    Gate --> Sim
-    Sim --> Projection["冻结展示快照"]
-    Projection --> Transport["YYGC 会话状态同步 / FishNet"]
-    Transport --> Replica["各客户端世界展示副本"]
-    Projection -->|Host 本地一次投递| Replica
-    Replica --> Views["YYGC ObjectView + Unity Prefab / HUD"]
-    Prefabs["美术编辑 Prefab / 动画 / 材质"] --> Views
-    Sim --> Save["完整世界快照 / 校验 / 原子存储"]
+    Scene["场景原生对象 + 放置键"] --> Objects["YYGC ObjectInstance / 业务 Behaviour"]
+    Config["只读规则 + Definition 能力配置"] --> Objects
+    Input["各客户端输入"] --> Gate["YYGC 命令链 / 可信连接"]
+    Gate --> Authority["SessionAuthority：权限、去重、队列"]
+    Authority --> Objects
+    Objects --> Projection["冻结完整展示帧"]
+    Projection --> Network["WorldSessionBehaviour / StateSynchronizer"]
+    Network --> Replica["客户端 WorldReplica / ObjectReplica"]
+    Projection --> Host["Host 展示副本"]
+    Replica --> View["绑定外观 / UI / 插值"]
+    Host --> View
+    Objects --> Save["v2 冻结快照 / 校验 / 原子存储"]
 ```
 
-箭头表示数据流，程序集依赖以下表为准。网络不会传递 ObjectInstance、Transform、Unity 资源或 GameSession 引用。
+## 程序集与目录
 
-## 程序集与职责目录
+正式代码位于 Assets/DarkNights/Scripts，资源位于 Assets/DarkNights/Res。Scripts／Res 不加入命名空间；文件名、主要类型与职责目录对应。四个运行程序集为 Core、Runtime、View、Entry。
 
-2026-09-11 人工可读性复审后，采用 Scripts / Res 分离：代码按职责分层，资源按游戏对象归组。以下为 M0–M3 的目标结构；现已建立 Core、Runtime、Entry、Editor/Tests、承载布局标记的 View、Res/Config、Res/Scenes/Pinewatch，以及首批 Res/Objects/Worker 与 WorldSession；UI、完整对象与美术目录仍随功能实施。只在实现功能时建立所需目录，不预建空类。四个运行程序集为 Core、Runtime、View、Entry；View 和 Entry 分别替代原方案的 Presentation 和 Bootstrap 层名称，职责不变。
-
-```text
-Assets/
-  DarkNights/
-    Scripts/
-      Core/                       DarkNights.Core.asmdef
-        Config/                   只读规则与关卡配置类型
-        Logic/                    权威状态、规则、显式业务命令
-        ViewData/                 展示副本、只读查询和操作接口
-        Save/                     存档模型与关系校验，无文件访问
-      Runtime/                    DarkNights.Runtime.asmdef
-        Session/                  对局、权限、恢复协调、唯一模拟调度
-        Network/                  命令、投影、连接、wire DTO 与序列化
-        Framework/                YYGC 定义、容器、资源及内容读取适配
-        Save/                     文件／YYArchive 适配、旧档导入
-      View/                       DarkNights.View.asmdef
-                                  实体表现、UI、输入、场景标记与预览
-      Entry/                      DarkNights.Entry.asmdef；仅启动装配
-      Editor/                     Editor-only 工具和检查
-      Tests/                      EditMode / PlayMode 隔离测试程序集
-    Res/
-      Objects/
-        Worker/
-          Worker.asset            ObjectDefinition
-          Worker.prefab           对象容器与组件绑定
-          WorkerVisual.prefab     可独立编辑的外观
-          Animations/             工人专用动画
-        House/                    其他角色、建筑、工位等按对象归组
-      UI/
-        HUD/                      同面板的定义、Prefab 与专用资源
-        MainMenu/
-      Scenes/                     Pinewatch、ArtReview、MainMenu 场景
-      Config/                     规则 JSON、内容映射等实际配置资产
-      Shared/                     多对象共用的材质、字体等
-      Art/
-        Original/                 原始素材，保留来源清单与 SHA-256
-        Custom/                   新增／修改的源素材
-  AddressableAssetsData/           现有 Addressables 配置，保留位置
-  Samples/LanCoop/                 独立样板，不被正式游戏引用
-```
-
-图中省略现有框架启动资源和第三方目录。`Assets/Scenes/Bootstrap.unity`、AppStartup 资源和 NetworkManager Prefab 继续作为宿主入口；必要的目录迁移保留 `.meta` / GUID，并检查数据库、Addressable 条目和脚本硬编码路径。游戏不会再创建第二套 Bootstrap 或同时启用 Sample 的网络管理器。
-
-Scripts 和 Res 仅用于物理组织，不加入命名空间，例如 `DarkNights.Core.Logic`。Runtime/Network 初期不再细分 Commands、Snapshots、Connections、Protocol；View 初期按文件命名定位，内容增多后才按 World、UI、Input、SceneSetup 拆目录，不增加程序集。代码不得放入 Res；原始素材只有一份，对象目录内的 Prefab／动画引用 Art 中的源素材。专用资源跟对象走，共用资源才进入 Shared。
-
-`Res` 不是 Addressables 的特殊目录名；通过条目与分组注册资源，不能把物理目录当作 Address 或 Definition Key。`AddressableAssetsData` 是默认配置目录，不是游戏素材根。ObjectDefinition 与 Prefab 同目录维护，按 YYGC 绑定合同检查组件引用和生命周期。官方依据、分组与资源迁移要求见[移植方案的目录与装配要求](MIGRATION_PLAN.md#directory-and-assets)。
-
-| 程序集 | 允许项目依赖 | 限制 |
+| 程序集 | 职责 | 允许项目依赖 |
 |---|---|---|
-| Core | 无其他项目程序集 | noEngineReferences；不访问 Unity/Godot/YYGC/FishNet、资源、磁盘或 UI |
-| Runtime | Core | 引擎、YYGC、网络、存档与调度适配；不依赖 View |
-| View | Core | 可引用 Unity/YYGC 的视图和 UI；只读 ViewData 与 Config，不访问 Logic 的可写状态或 Runtime 网络实现 |
-| Entry | Core、Runtime、View | 提供具体实现，装配接口和场景；不包含玩法计算 |
-| Editor | 按工具需要引用以上层 | includePlatforms=Editor；不能被运行程序集引用 |
-| Tests | 被测程序集 | 不进入 Player；多进程驱动与日志作为独立验证工具 |
+| Core | Config 只读规则；Logic 纯计算／随机数／枚举；Save 冻结合同与关系校验；ViewData 冻结展示合同 | 无引擎、框架、网络、磁盘依赖 |
+| Runtime | Objects 的业务 Behaviour／State、对象生命周期；Session 的权限／队列／时钟；Network 的传输；Framework 的内容／绑定；Save 文件边界 | Core |
+| View | 原生对象外观、动画采样、UGUI、输入与场景制作参数 | Core，以及 Unity／YYGC 的表现接口 |
+| Entry | Bootstrap 启动装配、网络与表现接线、场景副本分发、显式验收入口 | Core、Runtime、View；不计算玩法 |
+| Editor | 制作、初建、生成和只读合同检查 | 按工具需要引用，限 Editor |
+| Tests | 真实装配、规则、文件、制作及 Play 回归 | 被测程序集，限 Editor；不进入 Player |
 
-Core/ViewData 中的接口让 View 提交意图和读取副本，Entry 注入 Runtime 实现。View 虽引用 Core 程序集，仍需语义检查限制其访问 Logic 的可写类型；Core/Save 与 Runtime/Save 分别负责纯数据和文件读写。程序集隔离、文件长度与 XML 注释检查在 M0 建立，M1 随核心迁移启用完整规则；已建立 tools/ArchitectureGuard（源码、依赖与 asmdef）和 tools/CoreBuild（C#9 / .NET Standard 2.1 实际编译），见[执行状态](DEVELOPMENT.md#implementation-progress)。
+Core/Logic 不再包含可运行实体、命令服务或世界生命周期。View 不读 Runtime 的权威 State。Core/Save 仅保存冻结数据，恢复对象的装配在 Runtime/Objects，JSON 和文件访问在 Runtime/Save。
 
-## YYGC 接入方式
+手写 C# 使用 C# 9／.NET Standard 2.1，单文件硬上限 300 行；生成代码单独维护输入与重建入口。源码和程序集边界由 tools/ArchitectureGuard 检查；纯计算工具与 Unity 测试的分工见[覆盖映射](YYGC_UNIFIED_TEST_COVERAGE.md)。
 
-- AppStartup 管理基础服务准备；游戏以 Ready 为开局条件，不在任意 Awake 中抢先生成世界。
-- Root DI 保存跨局的不可变内容、资源和应用服务；会话容器保存本局服务；本地对象容器仅保存视图与绑定依赖。一次只运行一场权威对局。
-- 场景、HUD、居民、建筑与工位使用 ObjectDefinition/PrefabRef 映射。普通游戏视图为 Local 对象，使用 ObjectView 和少量 PooledBehaviour；不挂依赖 Network 非空的 StatefulBehaviour。
-- 规则 ID 如 `worker`、`tavern` 显式映射到 `DefinitionReference`；新内容使用 YYGC Guid / Key。SharedConfigs 保存映射、视图引用或展示参数；HP、成本与计时只从 Core 规则读取。
-- 命令使用 YYGC Gateway/Sender/Processor、INetworkCommand 和统一类型注册；设置 `NetworkCommandRoutingMode.ServerAuthoritative`，从 `NetworkCommandContext` 取得可信身份，营地授权／去重归游戏。CampCommandEndpoint 仅是薄业务适配，不另建网络入口栈。
-- WorldSession Prefab 已由普通 WorldSessionBehaviour／StateSynchronizer 建立会话元数据合同；M2 在同一会话对象扩展有界可靠完整实体投影。分块、差量与运动拆流在测量后决定，始终保留 GameSession 作为唯一业务写入者。
-- 本地建造预览、目标选择和模态菜单的输入互斥复用 YYGC Interaction Sessions；它不保存共享营地或网络连接状态。
-- 会话对象与玩家入口 Prefab 必须注册到 FishNet；世界的本地视图通过 EntityId 与展示副本关联，不需要每实体 NetworkTransform。
-- Addressables 先使用本地打包内容。资源 await 不跨 SessionScope；必要时只扩展框架工厂的显式容器传递与同步装配点。
-- UGUI 在场景中有可见根，面板在 Prefab Mode 可编辑；整个 HUD 使用同一 UI 体系。绑定键和类型有验证，不能靠运行时遍历名称掩盖 Prefab 缺引用。
+## 装配、能力和事务
 
-### 会话对象如何组合规则
+AppStartup、YYGC DI、ObjectDefinition、PrefabRef、组件绑定和生成注册继续使用既有入口。定义的 SharedConfigs 提供显式 RuleKey 和能力参数，不重复维护 HP、成本、波次或实例进度。DefinitionRuleIndex 从配置读取 RuleKey，不按 Key 前后缀猜测职业。
 
-2026-09-12 C 重构已落实下表装配；功能验收状态见[实施记录](C_REFACTOR_IMPLEMENTATION.md)。Core 仍拥有唯一真实状态，框架行为承担会话生命周期及个体表现。
+完整内容包含 6 类单位、5 类建筑、4 类工位。单位按职业组合移动、战斗、近战或箭矢能力；建筑按类型组合训练或塔攻击。缺失能力／配置／绑定、重复配置和非法定义身份在激活前失败。
 
-| 组合位置 | 已实现对象／行为 | 拥有的状态与边界 |
-|---|---|---|
-| 营地 Network ObjectInstance | CampSessionBehaviour → SessionServer → SessionAuthority | 配置与服务端角色就绪后创建唯一服务；未缩放时钟统一推进，停止先撤销引用再释放 |
-| 同一营地 ObjectInstance | WorldSessionBehaviour : StatefulBehaviour | SessionServer 从 Core 冻结投影，经 MutateState 发布；不在 StateData 再结算库存或 HP |
-| 每位玩家的网络入口 | 既有 NetworkCommandSender＋薄业务结果适配 | FishNet 所有权只授予自己的发送入口；不据此将小人所有权交给玩家 |
-| 各端实体 Local ObjectInstance | Actor／Building／WorksitePresentationBehaviour＋ObjectView | 按 `(Epoch, EntityId)` 显式绑定副本，由公共时间线统一分发；个体解释姿态／阶段，未绑定预览保持被动 |
-| UI Local ObjectInstance | UGUIBehaviour／面板控制器 | 注入只读世界和命令接口；负责本地预览与待确认反馈 |
+Addressables 预加载得到 PreparedObjectDefinition 租约；资源 await 在事务之外完成。对象以显式 ObjectSessionContext 同步准备，依赖和初始状态就绪后统一激活。不让 SessionScope 跨 await／线程，不使用全局临时容器寻找本局状态。
 
-跨 Behaviour 协作使用 YYGC 注入接口；副本持续变化按需用 R3 观察，订阅随对象／会话结束释放。Core 不实现废弃的 `ILocalData`，也不通过共享黑板让视图修改规则。Behaviour 是营地规则的框架适配入口，普通 Core 类型无需为接入框架改成 MonoBehaviour 或另写一套 HP Behaviour。
+ObjectMutationBatch 为支付、工位占用、建造和转职提供短事务：先完成全部验证，保存可恢复状态和对象清理动作，提交完成后才通知订阅者。通知中禁止重入业务、退休同批对象或再次加载世界。失败释放本次准备资源，不留下半扣款／半占用。
 
-四个正式程序集不引用 Sample。现有样板的注册表、IMGUI、文件控制和调试对象发现不直接进入正式流程；正式类型在 AppStartup 就绪前完成具体泛型注册和 Behaviour 工厂准备，按实际生成器入口验证 IL2CPP。
+## 调度、权限和网络
 
-### 控制权限的位置
+CampSessionBehaviour 在配置与服务端角色均就绪后创建 SessionServer；重复角色回调不再创建服务，退出先撤销外部引用，再关闭权威会话与对象上下文。真正服务推进来自 YYGC 生成的更新调度器。
 
-`CampControlMode = SharedCamp | HostOnly` 与递增 `PolicyRevision` 属于 Runtime/Session。每条修改世界的请求在执行点校验当前模式；HostOnly 限制来宾所有营地修改，包括建造自动派工和训练。房主修改模式也进入同一命令顺序，旧策略未执行请求被拒绝，已有订单继续。
+SessionClock 累积未缩放时间，以 60 Hz 调用 SessionAuthority。命令先按接受顺序处理，再以经济→建筑→单位→工位→箭矢→波次的顺序推进业务。倍速只在 ObjectSession.Advance 乘一次：2× 保留原来的 2/60 步长语义，不改成另一套模拟算法。暂停停止业务时间，网络、请求、心跳、UI 和存储仍工作。
 
-View 读取权限投影来控制按钮、快捷键和预览；Core 接受经过授权的显式操作参数，不读取玩家连接或全局选择。加载保留房间控制模式，切世界只增加 epoch；控制模式本身不会重置世界。此设计允许后期关闭共享操作，而不调整模拟、DTO 主体或单位网络所有权。详见[联机权限合同](MULTIPLAYER.md)。
+Host 与客户端使用同一验证入口；服务器从 NetworkCommandContext 取得连接身份。请求中的玩家 ID、资源和伤害不能构成授权。SharedCamp／HostOnly 与 PolicyRevision 在执行点检查，包含建造自动派工和训练；已生效任务继续。加载保持房间策略。
 
-## 时钟与模拟一致性
+正式游戏为协议 6，YYGC 定义 wire 为 GuidV2，两者是不同版本概念。握手在业务载荷解析前拒绝旧协议，并校验规则、布局、定义和生成注册摘要。完整投影携带 EntityId、DefinitionGuid、放置关系、epoch／revision、实体与在飞箭矢；真实副本应用完成后才 Ready。首版仍复用 Gateway／Sender／Processor、StatefulBehaviour／StateSynchronizer，不新建并行传输栈。
 
-服务端调度为 60 Hz，未加速时调用 `Advance(1/60)`。原规则由 GameSession 内部乘一次 Speed，2×仍先保留原来的 `2/60` 步长语义，不擅自改成 120 次 `1/60` 或同时叠乘 Unity timeScale。
+## 场景对象与展示生命周期
 
-权威处理顺序保持经济→建筑→单位→工作点→箭矢→夜袭。服务器在每个调度点先处理已接受命令，再推进规则并产生投影。命令处理顺序由服务端排序确定；网络抵达时间不直接成为任意 delta。
+LevelPlacementMarker 保存稳定放置键、顺序及实例参数；ObjectDefinitionLoader 保存定义并接入 YYGC 对象生命周期。二者职责分开。LevelLayoutAuthoring 导出只读布局供规则和摘要校验，不再从这些记录创建另一套 Core 实体。
 
-暂停只停止模拟进度，命令队列、连接、快照、UI 仍工作。服务端单独维护递增 serverTick 与 simulationElapsed；它们在暂停／倍速时含义不同。若负载导致跟不上，记录积压和整体减速，不静默跳过经济／命中步骤。
+Host 按放置键精确接管场景中的原 ObjectInstance。动态招募、建造和敌人创建使用同一工厂与上下文。客户端由 ObjectReplica 原子应用完整帧，构造无业务写权限的对象；它不根据场景标记自行模拟。
 
-表现动画采样模型的动作时间和阶段；客户端插值只改变显示位置。Unity Rigidbody、Animation Event、协程和 DOTween 不结算游戏伤害或生产。
+SessionEntityViews 只按当前 epoch／EntityId 分发展示：Host 查询权威对象索引，客户端查询副本对象，不再按 Kind 借一个视图。NativeVisualFactory 仅创建建造预览、残骸等被动外观。动画、碰撞和 UI 不结算玩法。
 
-## 身份与生命周期
+转职保留 EntityId、位置和原规则要求的状态，按新 Definition 重新装配并退休旧职业。重开／加载保留可复用的原场景对象，清除过期绑定与插值；退出后没有活动更新、残留会话订阅或幽灵对象。
 
-| 标识 | 用途 | 生命周期 |
-|---|---|---|
-| ContentId | `worker` 等规则身份 | 随内容版本稳定 |
-| YYGC DefinitionGuid / Key | 定义资产身份与正式配置／查询入口；ContentId 经映射关联 | `.meta` / GUID 稳定；Key 改名保留别名；锁定内容目录版本 |
-| YYGC 旧整数 DefinitionId | YYGC 框架保留的废弃序列化兼容字段 | 正式定义固定 `Id=0` 且无旧 ID 别名；独立 Sample 与旧档迁移另行保留 |
-| EntityId | 单位、建筑、工位身份及保存关系 | 世界内稳定；读取原存档保留 |
-| FishNet ObjectId | 会话／连接网络对象 | 本次 spawn；不能保存为实体 ID |
-| PlayerSlotId | 合作会话中的玩家身份 | 可跨一次断线重连 |
-| ConnectionGeneration | 当前玩家的有效连接代次 | 重连增加，拒绝旧连接请求 |
-| Epoch | 当前被装载的世界实例版本 | 开新局／加载世界增加 |
-| PolicyRevision | 当前控制模式版本 | 房主切模式增加；命令执行时检查，和世界 epoch 分离 |
+## 身份与 v2 恢复
 
-展示绑定键为 `(Epoch, EntityId)`。转职只替换外观，身份和人口不变；死亡／删除时释放视图、选择与绑定。加载先验证新世界，再切 epoch 并清除旧视图、旧请求和插值缓存。
+| 标识 | 用途 |
+|---|---|
+| RuleKey | 只读规则键，如 worker、tavern；来自 Definition 的配置 |
+| DefinitionGuid／Key | YYGC 定义身份与可编辑查找键；不等于资源路径 |
+| PlacementKey | 场景人工放置身份；动态对象为空；复制项必须重新分配唯一键 |
+| EntityId | 世界内稳定实体和保存关系；转职保持 |
+| FishNet ObjectId | 本次网络 spawn 的传输身份 |
+| PlayerSlotId／ConnectionGeneration | 房间玩家与本次可信连接，重连增加代次 |
+| Epoch／PolicyRevision | 当前世界版本／当前共享控制策略版本，分别验证 |
 
-正式 Dark Nights 已整体切换到 GuidFirst／GuidV2：数据库关闭在线 ID 服务，正式 Definition 只使用 GUID／Key，网络定义不再依赖旧整数 ID；Windows 构建启用 `YYGC_GUID_DEFINITION_WIRE_V2`，双方必须使用同一 V2 合同。YYGC 的 `ObjectDefinition.Id` 和旧 ID 别名仍因框架序列化兼容而存在，但正式 Editor／Runtime 守卫会拒绝非零旧 ID、别名和旧 ID 映射。独立 LAN Sample 继续使用已验证的 LegacyV1；旧 v1 存档导入是玩法迁移边界，不等同于定义身份兼容。新资源用 `DefinitionReference`，查找用 `GetDefinitionByKey`，不能把旧 `GetDefinition(string)` 的资产名语义当成正式 Key。
+正式定义旧整数 Id 固定为 0，无旧别名；不恢复 Kind 后缀或整数兼容。独立 LAN Sample 的 LegacyV1 和 YYGC 面向其他使用者的兼容 API 不在游戏清理范围。
 
-池和事件的订阅归属必须明确：同一会话结束不留下活动 Update 或订阅。快照发送和插值缓冲拥有自己的数据，不持有已归池 State。初期优先正确性；游戏只有实际测得分配／帧时问题后才增加专用池。
+v2 保存全部权威状态、实体定义／放置身份、训练／施工／在飞箭矢与 RNG。捕获在模拟边界深度冻结，后台仅编码和写文件。恢复先验证完整 DTO，再准备未激活对象；提交时切换对象索引、增加 epoch、退休旧对象并重新 Ready。准备或提交失败保留当前世界；保存失败保留原文件。详细字段及原子文件边界见[存档合同](SAVE_FORMAT.md)。
 
-## 美术与内容边界
+## 资源与验证边界
 
-Pinewatch 场景包含背景、地面、环境、布局标记与可见 Prefab 样本。布局标记有 ContentId 和 SpawnOrder，宿主从它们生成初始只读定义；客户端不会各自依据标记生成权威世界。
+保留 Bootstrap、Pinewatch、原 Prefab、动画、人工覆盖及资产 GUID。场景是初始布局唯一可编辑来源，派生数据不能反向覆盖制作内容。对象专用资源归组于 Res/Objects，共用资源进入 Res/Shared；原始 551 项素材在 Res/Art/Original 保留单份与 SHA-256。
 
-编辑器预览子树只展示同一份正式 Visual Prefab，运行时由视图绑定器统一接管显示，预览样本被隐藏／移除，避免两份居民同时出现。动画和外观资源可以独立打开编辑；预览不启动 DI 会话、网络或存档操作。
+Addressables 通过条目／分组管理，不要求资源目录叫 Addressables，不把 Res 当成 Resources。现有 AddressableAssetsData 配置位置保留。ObjectCapabilitySetup 只服务指定空目录的首版初始化；NativeObjectContracts 和普通构建执行只读校验，不自动升级人工资源。
 
-场景标记是 Unity 版本布局的唯一人工来源。若构建需要离线读取数据，可生成派生 LevelDefinition，但不能让 JSON 和场景坐标变成两份可编辑来源。规则配置、布局、外观分开计算版本摘要。
+U4 已有真实正式 Play、v2 活跃加载和四人恢复的 Mono 证据。U5 负责旧模型退出与回归迁移；U6 对冻结最终源码进行干净目录构建、多进程矩阵、画面和性能检查。Mono、IL2CPP、双机器 LAN 分别记录，不把历史 Player 或当前 Editor 通过写成最终全平台验收。
 
-## 受控优化范围
-
-本次有针对性的优化为：移除 Godot API 边界、拆分本地交互状态、建立有身份的服务端入口、统一世界同步生命周期、保留可编辑 Prefab，以及自动检查职责边界。
-
-首版保持一场营地、单线程、全地图可见性；不提前加入分区兴趣管理、技能图、通用 ECS、插件式规则系统或自建网络传输。框架历史长文件只在触及必要修正时处理，不把游戏适配扩大为 YYGC 全面重构。
+允许针对实证缺口更新 YYGC，先在隔离 checkout 验证，锁定可复现输入并维护[逐文件账本](YYGC_CHANGES.md)。框架历史长文件不在本次全面拆分范围。暂不增加锁步、回滚、ECS、房主迁移、专服集群或未经测量的拆流。

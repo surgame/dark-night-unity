@@ -8,7 +8,8 @@ using DarkNights.Core.ViewData;
 namespace DarkNights.Core.Save
 {
     /// <summary>
-    /// 一局完整的schema v1传输对象，仅描述可保存状态。它与实体分离，读取时先验证整个快照，再替换当前会话。
+    /// 一局完整的 v2 冻结恢复合同，复制集合并保持明确的定义与放置身份。
+    /// 仅保存玩法状态，不保存本地镜头、选择或房间权限；完整验证后才允许替换活动对象。
     /// </summary>
     public sealed class SessionSnapshot
     {
@@ -27,9 +28,6 @@ namespace DarkNights.Core.Save
         public IReadOnlyList<WorksiteSnapshot> Worksites { get; }
         public IReadOnlyList<ProjectileSnapshot> Projectiles { get; }
         public StatisticsSnapshot Stats { get; }
-        public double CameraX { get; }
-        public double CameraZoom { get; }
-        public IReadOnlyList<int> SelectedIds { get; }
         public SessionMode Mode { get; }
         public IReadOnlyList<EntityIdentityData> Identities { get; }
 
@@ -49,9 +47,6 @@ namespace DarkNights.Core.Save
             IReadOnlyList<WorksiteSnapshot> worksites,
             IReadOnlyList<ProjectileSnapshot> projectiles,
             StatisticsSnapshot stats,
-            double cameraX,
-            double cameraZoom,
-            IReadOnlyList<int> selectedIds,
             SessionMode mode = SessionMode.Playing,
             IReadOnlyList<EntityIdentityData> identities = null)
         {
@@ -72,9 +67,6 @@ namespace DarkNights.Core.Save
             Worksites = worksites == null ? null : new List<WorksiteSnapshot>(worksites).AsReadOnly();
             Projectiles = projectiles == null ? null : new List<ProjectileSnapshot>(projectiles).AsReadOnly();
             Stats = stats;
-            CameraX = cameraX;
-            CameraZoom = cameraZoom;
-            SelectedIds = selectedIds == null ? null : new List<int>(selectedIds).AsReadOnly();
         }
     }
 }

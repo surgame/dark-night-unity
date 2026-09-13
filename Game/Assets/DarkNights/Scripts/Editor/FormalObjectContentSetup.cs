@@ -62,6 +62,7 @@ namespace DarkNights.Editor
                 FormalObjectCatalog.SessionKey, NetworkType.Network, sessionPrefab);
             session.BehaviourTypes.Add(typeof(WorldSessionBehaviour).FullName);
             session.BehaviourTypes.Add(typeof(CampSessionBehaviour).FullName);
+            ObjectCapabilitySetup.ConfigureSession(session);
             worker.Type = GameCore.Objects.Types.ObjectType.Unit;
             session.Type = GameCore.Objects.Types.ObjectType.World_Session;
             EditorUtility.SetDirty(session);
@@ -109,13 +110,13 @@ namespace DarkNights.Editor
             ValidateIdentity(session, FormalObjectCatalog.SessionKey, NetworkType.Network, SessionPrefabPath);
             if (database.GetDefinitionByKey(worker.Key) != worker || database.GetDefinitionByKey(session.Key) != session)
                 throw new InvalidOperationException("Formal definitions are not indexed by the ObjectDefinitionDatabase.");
-            CRefactorContentUpgrade.ValidateSession(session);
+            NativeObjectContracts.ValidateSession(session);
             var definitions = new DefinitionRuleIndex(database);
             if (definitions.GetRequired(FormalObjectCatalog.WorkerContentId) != worker)
                 throw new InvalidOperationException("Worker ContentId mapping is missing or incorrect.");
 
             ValidateWorkerPrefab(workerPrefab, requireNativeArt);
-            if (requireNativeArt) CRefactorContentUpgrade.ValidateLocal("Worker", worker, workerPrefab);
+            if (requireNativeArt) NativeObjectContracts.ValidateLocal("Worker", worker, workerPrefab);
             ValidateSessionPrefab(sessionPrefab);
             EnvironmentValidation.RequireAddress(WorkerPrefabPath, WorkerPrefabAddress);
             EnvironmentValidation.RequireAddress(SessionPrefabPath, SessionPrefabAddress);
@@ -211,7 +212,7 @@ namespace DarkNights.Editor
 
         private static void ValidateSessionPrefab(GameObject prefab)
         {
-            CRefactorContentUpgrade.ValidateSessionLink(prefab);
+            NativeObjectContracts.ValidateSessionLink(prefab);
             NetworkObject network = prefab.GetComponent<NetworkObject>();
             ObjectInstance instance = prefab.GetComponent<ObjectInstance>();
             ObjectView view = prefab.GetComponent<ObjectView>();

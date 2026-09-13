@@ -30,6 +30,10 @@ namespace DarkNights.Runtime.Network
                 world.Worksites != null && world.Projectiles != null);
             Require((long)world.Actors.Length + world.Buildings.Length + world.Worksites.Length <= WorldViewData.MaximumEntities &&
                 world.Projectiles.Length <= WorldViewData.MaximumProjectiles);
+            Require(world.Identities != null && world.Identities.Length == world.Actors.Length + world.Buildings.Length + world.Worksites.Length);
+            foreach (var identity in world.Identities)
+                Require(identity != null && identity.Id > 0 && Text(identity.DefinitionGuid, 36) &&
+                    Guid.TryParse(identity.DefinitionGuid, out var guid) && guid != Guid.Empty && Text(identity.PlacementKey, 80));
             var camp = world.Camp;
             Require(camp.Stock != null && camp.Gathered != null && camp.Stock.Freeze().IsValid() && camp.Gathered.Freeze().IsValid());
             Require(camp.Population >= 0 && camp.Capacity >= 0 && camp.EnemyCount >= 0 && camp.Kills >= 0 && camp.Lost >= 0 &&

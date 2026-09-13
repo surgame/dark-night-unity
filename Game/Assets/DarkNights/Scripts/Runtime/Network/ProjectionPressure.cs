@@ -13,7 +13,10 @@ namespace DarkNights.Runtime.Network
         public static SessionViewData Expand(SessionViewData frame)
         {
             var wire = SessionWire.From(frame);
-            wire.World.Actors = Enumerable.Range(1, 256).Select(id =>
+            int count = frame.World.Identities.Count;
+            int nextId = frame.World.Identities.Max(i => i.Id) + 1;
+            string actorGuid = frame.World.Identities.Single(i => i.Id == frame.World.Actors[0].Id).DefinitionGuid;
+            var additional = Enumerable.Range(nextId, WorldViewData.MaximumEntities - count).Select(id =>
             {
                 var actor = ActorWire.From(frame.World.Actors[0]);
                 actor.Id = id;
@@ -21,8 +24,9 @@ namespace DarkNights.Runtime.Network
                 actor.X = 30 + id * 3;
                 return actor;
             }).ToArray();
-            wire.World.Buildings = Array.Empty<BuildingWire>();
-            wire.World.Worksites = Array.Empty<WorksiteWire>();
+            wire.World.Actors = wire.World.Actors.Concat(additional).ToArray();
+            wire.World.Identities = wire.World.Identities.Concat(additional.Select(a => new EntityIdentityWire
+                { Id = a.Id, DefinitionGuid = actorGuid, PlacementKey = "" })).ToArray();
             wire.World.Projectiles = Enumerable.Range(1, 1024).Select(id => new ProjectileWire
             {
                 ViewId = id, FromX = 50, FromY = 290, ToX = 500, ToY = 290, Age = .2, Duration = 1

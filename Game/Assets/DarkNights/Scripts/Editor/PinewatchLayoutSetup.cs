@@ -61,7 +61,7 @@ namespace DarkNights.Editor
                     .SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
                 foreach (LevelPlacementMarker placement in authoring.GetComponentsInChildren<LevelPlacementMarker>(true))
                     SceneDefinitionAuthoring.ValidatePlacement(placement);
-                return authoring.CreateLayout(LoadCatalog(), DefinitionRuleIndex.Kind);
+                return authoring.CreateLayout(LoadCatalog(), DefinitionRuleIndex.RuleKey);
             }
             finally
             {

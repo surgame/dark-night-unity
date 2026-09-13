@@ -50,7 +50,7 @@ namespace DarkNights.Tests
         {
             using var session = Open(catalog, layout, out var host, out var guest);
             Execute(session, host, Request(session, SessionOperation.SetPaused, 1, value: 1));
-            var codec = new GameSaveJson(catalog, layout);
+            var codec = Codec(catalog, layout);
             var frozen = session.CaptureWorld();
             string before = codec.Serialize(frozen);
             int worker = frozen.Actors[0].Id;
@@ -153,7 +153,7 @@ namespace DarkNights.Tests
 
         private static void GlobalBound(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
         {
-            using var session = new SessionAuthority(catalog, layout);
+            using var session = Create(catalog, layout);
             for (int slot = 0; slot < 4; slot++)
             {
                 var connection = session.Connect(slot);

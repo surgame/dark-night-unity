@@ -22,15 +22,15 @@ namespace DarkNights.Runtime.Network
         private Action<CampSessionBehaviour> detached;
         private Action<Exception> failed;
         private bool measure, pressure, stopped;
-        private SessionWorld simulation;
+        private ObjectSession simulation;
         public SessionServer Server { get; private set; }
         public bool Configured { get; private set; }
         public bool ServerRoleReady { get; private set; }
         public int StartCount { get; private set; }
 
         public void Configure(GameCatalog content, LevelLayout level, WorldSessionBehaviour state,
-            string saves, Action<CampSessionBehaviour> onDetached, Action<Exception> onFailed,
-            bool metrics = false, bool projectionPressure = false, SessionWorld objectSimulation = null)
+            string saves, ObjectSession objectSimulation, Action<CampSessionBehaviour> onDetached, Action<Exception> onFailed,
+            bool metrics = false, bool projectionPressure = false)
         {
             if (Configured || stopped) throw new InvalidOperationException("Session instance cannot be configured twice or after stop.");
             catalog = content ?? throw new ArgumentNullException(nameof(content));
@@ -41,7 +41,7 @@ namespace DarkNights.Runtime.Network
             failed = onFailed;
             measure = metrics;
             pressure = projectionPressure;
-            simulation = objectSimulation;
+            simulation = objectSimulation ?? throw new ArgumentNullException(nameof(objectSimulation));
             Configured = true;
             TryStart();
         }
@@ -59,8 +59,7 @@ namespace DarkNights.Runtime.Network
             try
             {
                 Server = new SessionServer(catalog, layout, projection,
-                    new GameSaveStore(saveDirectory, catalog, layout,
-                        simulation is ObjectSession objects ? objects.SaveCodec.Serialize : null), measure, pressure, simulation);
+                    new GameSaveStore(saveDirectory, simulation.SaveCodec), simulation, measure, pressure);
                 StartCount++;
             }
             catch
@@ -92,7 +91,11 @@ namespace DarkNights.Runtime.Network
             var notify = detached;
             detached = null;
             try { notify?.Invoke(this); }
-            finally { previous?.Dispose(); }
+            finally
+            {
+                if (previous != null) previous.Dispose();
+                else simulation?.Dispose();
+            }
         }
 
         protected override void OnSpawn()

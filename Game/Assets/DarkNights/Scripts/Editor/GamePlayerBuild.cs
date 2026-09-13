@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
@@ -18,10 +19,25 @@ namespace DarkNights.Editor
         [MenuItem("Dark Nights/Build/Windows Mono")]
         public static void Mono() => Build(ScriptingImplementation.Mono2x, "mono", BuildOptions.Development);
 
+        /// <summary>供干净源码验收使用；调用方通过 -darkNightsOutput 指定空目录中的 DarkNights.exe。</summary>
+        public static void MonoToEmptyDirectory()
+        {
+            string[] arguments = System.Environment.GetCommandLineArgs();
+            int index = Array.IndexOf(arguments, "-darkNightsOutput");
+            if (index < 0 || index + 1 >= arguments.Length || !Path.IsPathRooted(arguments[index + 1]))
+                throw new ArgumentException("必须通过 -darkNightsOutput 指定绝对 Player 路径。");
+            string output = Path.GetFullPath(arguments[index + 1]);
+            string directory = Path.GetDirectoryName(output);
+            if (Path.GetFileName(output) != "DarkNights.exe" ||
+                (Directory.Exists(directory) && Directory.EnumerateFileSystemEntries(directory).Any()))
+                throw new InvalidOperationException("验收输出必须是空目录中的 DarkNights.exe。");
+            Build(ScriptingImplementation.Mono2x, "mono", BuildOptions.Development, output);
+        }
+
         [MenuItem("Dark Nights/Build/Windows IL2CPP")]
         public static void Il2Cpp() => Build(ScriptingImplementation.IL2CPP, "il2cpp", BuildOptions.None);
 
-        private static void Build(ScriptingImplementation backend, string folder, BuildOptions options)
+        private static void Build(ScriptingImplementation backend, string folder, BuildOptions options, string explicitOutput = null)
         {
             GameContentSetup.Validate();
             const string settingsPath = "ProjectSettings/ProjectSettings.asset";
@@ -43,7 +59,7 @@ namespace DarkNights.Editor
                     PlayerSettings.SetManagedStrippingLevel(target, ManagedStrippingLevel.High);
                 DarkNightsEnvironmentSetup.BuildAddressablesContent();
                 addressables.BuildAddressablesWithPlayerBuild = AddressableAssetSettings.PlayerBuildOption.DoNotBuildWithPlayer;
-                string output = Path.GetFullPath("../artifacts/migration/player-" + folder + "/DarkNights.exe");
+                string output = explicitOutput ?? Path.GetFullPath("../artifacts/migration/player-" + folder + "/DarkNights.exe");
                 Directory.CreateDirectory(Path.GetDirectoryName(output));
                 var result = BuildPipeline.BuildPlayer(new BuildPlayerOptions
                 {

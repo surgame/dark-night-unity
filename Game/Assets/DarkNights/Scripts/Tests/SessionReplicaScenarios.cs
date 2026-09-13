@@ -43,7 +43,7 @@ namespace DarkNights.Tests
             check(loading.ServerTick == cancelled.ServerTick && loading.Revision == cancelled.Revision &&
                 replica.Apply(connection, cancelled) && !replica.Current.Loading,
                 "Replica newer publication clears cancelled loading without a simulation tick");
-            var codec = new GameSaveJson(catalog, layout);
+            var codec = Codec(catalog, layout);
             string saved = codec.Serialize(session.CaptureWorld());
             ticket = Execute(session, host, Request(session, SessionOperation.BeginLoad, 3));
             session.CompleteLoad(ticket, saved);
@@ -71,7 +71,7 @@ namespace DarkNights.Tests
             check(replica.Current == null && !replica.Apply(connection, policy),
                 "Replica replacement clears world and rejects previous connection asynchronous callbacks");
             replica.EndConnection(connection);
-            using var other = new SessionAuthority(catalog, layout);
+            using var other = Create(catalog, layout);
             check(replica.Apply(replacement, other.CaptureProjection()) && replica.Current.Epoch == 1,
                 "Replica fresh connection accepts a new room with restarted versions despite old disconnect callback");
             replica.EndConnection(replacement);

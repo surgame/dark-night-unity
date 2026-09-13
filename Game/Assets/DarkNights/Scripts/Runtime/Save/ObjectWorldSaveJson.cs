@@ -22,6 +22,8 @@ namespace DarkNights.Runtime.Save
     public sealed class ObjectWorldSaveJson
     {
         public const int FormatVersion = 2;
+        public const int MaximumBytes = 4000000;
+        public const string Format = "dark-nights.world";
         private readonly GameCatalog catalog;
         private readonly LevelLayout layout;
         private readonly SaveContentFingerprint fingerprint;
@@ -54,7 +56,7 @@ namespace DarkNights.Runtime.Save
             Validate(snapshot);
             string text = new JObject
             {
-                ["format"] = GameSaveJson.Format, ["format_version"] = FormatVersion,
+                ["format"] = Format, ["format_version"] = FormatVersion,
                 ["random_algorithm"] = SimulationRandom.Algorithm,
                 ["rules_sha256"] = fingerprint.RulesSha256, ["layout_sha256"] = fingerprint.LayoutSha256,
                 ["identity_sha256"] = IdentitySha256, ["world"] = World(snapshot)
@@ -73,7 +75,7 @@ namespace DarkNights.Runtime.Save
                 root = JObject.Load(reader, new JsonLoadSettings { DuplicatePropertyNameHandling = DuplicatePropertyNameHandling.Error });
                 if (reader.Read()) throw new FormatException("Trailing save content.");
             }
-            if (root["format"]?.Type != JTokenType.String || (string)root["format"] != GameSaveJson.Format ||
+            if (root["format"]?.Type != JTokenType.String || (string)root["format"] != Format ||
                 root["format_version"]?.Type != JTokenType.Integer || (long)root["format_version"] != FormatVersion)
                 throw new FormatException("不支持的存档版本。");
             if (root.Count != 7 || Text(root["random_algorithm"]) != SimulationRandom.Algorithm ||
@@ -97,7 +99,7 @@ namespace DarkNights.Runtime.Save
                 Array(world["buildings"], SnapshotEntityJson.BuildingSnapshot, 256),
                 Array(world["worksites"], SnapshotEntityJson.WorksiteSnapshot, 256),
                 Array(world["projectiles"], SnapshotEntityJson.ProjectileSnapshot, 1024),
-                SnapshotDocumentJson.StatisticsSnapshot(world["stats"]), 0, 0, System.Array.Empty<int>(), mode, identities);
+                SnapshotDocumentJson.StatisticsSnapshot(world["stats"]), mode, identities);
             Validate(snapshot);
             RequireFields(world, World(snapshot));
             return snapshot;
@@ -125,10 +127,6 @@ namespace DarkNights.Runtime.Save
         private static JObject World(SessionSnapshot snapshot)
         {
             JObject world = SnapshotDocumentJson.Write(snapshot);
-            world.Remove("schema_version");
-            world.Remove("camera_x");
-            world.Remove("camera_zoom");
-            world.Remove("selected_ids");
             world["mode"] = snapshot.Mode.ToString();
             world["identities"] = new JArray(snapshot.Identities.Select(i => new JObject
             {
@@ -154,8 +152,8 @@ namespace DarkNights.Runtime.Save
 
         private static void CheckSize(string text)
         {
-            if (string.IsNullOrWhiteSpace(text) || text.Length > GameSaveJson.MaximumBytes ||
-                Encoding.UTF8.GetByteCount(text) > GameSaveJson.MaximumBytes)
+            if (string.IsNullOrWhiteSpace(text) || text.Length > MaximumBytes ||
+                Encoding.UTF8.GetByteCount(text) > MaximumBytes)
                 throw new FormatException("Save is empty or too large.");
         }
     }

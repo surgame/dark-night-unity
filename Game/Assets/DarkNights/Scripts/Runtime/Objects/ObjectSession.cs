@@ -18,7 +18,7 @@ namespace DarkNights.Runtime.Objects
     /// 单局 YYGC 对象的组合与调度上下文，只保存能力和对象引用，不拥有另一份运行世界。
     /// State 分别归会话及个体 Behaviour；所有玩法入口在主线程短事务内执行。
     /// </summary>
-    public sealed class ObjectSession : SessionWorld
+    public sealed class ObjectSession : IDisposable
     {
         private readonly DIContainer container = new DIContainer();
         private readonly HashSet<ObjectInstance> sceneObjects = new HashSet<ObjectInstance>();
@@ -29,8 +29,8 @@ namespace DarkNights.Runtime.Objects
         private readonly Func<bool> authority;
         private ObjectInstance owner;
         private bool disposed;
-        public override GameCatalog Catalog { get; }
-        public override LevelLayout Layout { get; }
+        public GameCatalog Catalog { get; }
+        public LevelLayout Layout { get; }
         public ObjectSessionResources Resources { get; }
         public Transform Parent { get; }
         public SessionEntityIndex Index { get; private set; } = new SessionEntityIndex();
@@ -46,16 +46,17 @@ namespace DarkNights.Runtime.Objects
         public ObjectEntityLifecycle Lifecycle { get; }
         public ObjectCombat Combat { get; }
         public ObjectCampCommands Commands { get; }
-        public override SessionFeedback Feedback { get; } = new SessionFeedback();
-        public override bool Paused => Camp.Read().Paused;
-        public override int Speed => Camp.Read().Speed;
-        public override double Elapsed => Camp.Read().Elapsed;
+        public SessionFeedback Feedback { get; } = new SessionFeedback();
+        public bool Paused => Camp.Read().Paused;
+        public int Speed => Camp.Read().Speed;
+        public double Elapsed => Camp.Read().Elapsed;
 
         public ObjectSession(GameCatalog catalog, LevelLayout layout, ObjectSessionResources resources,
             Func<bool> isAuthority, Transform parent = null)
         {
             Catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             Layout = layout ?? throw new ArgumentNullException(nameof(layout));
+            Layout.Validate(Catalog);
             Resources = resources ?? throw new ArgumentNullException(nameof(resources));
             authority = isAuthority ?? throw new ArgumentNullException(nameof(isAuthority));
             Parent = parent;
@@ -99,7 +100,7 @@ namespace DarkNights.Runtime.Objects
             initial = CaptureWorld();
         }
 
-        public override void Activate()
+        public void Activate()
         {
             Context.Activate();
             EntityContext.Activate();
@@ -112,7 +113,7 @@ namespace DarkNights.Runtime.Objects
             Loaded(true);
         }
 
-        public override void Loaded(bool restarted)
+        public void Loaded(bool restarted)
         {
             if (!restarted) return;
             Feedback.ShowBanner("灰松谷 · 第一天", "安排生产，训练守卫。守住三次夜袭。");
@@ -176,7 +177,7 @@ namespace DarkNights.Runtime.Objects
             Mutations.Run(() => { Camp.Edit().Paused = paused; Camp.Edit().Speed = speed; return true; });
         }
 
-        public override void Advance(double seconds)
+        public void Advance(double seconds)
         {
             if (!Context.IsActive) throw new InvalidOperationException("Prepared sessions cannot tick.");
             if (Camp.Read().Mode != SessionMode.Playing || Paused) return;
@@ -211,7 +212,7 @@ namespace DarkNights.Runtime.Objects
             else UnityEngine.Object.DestroyImmediate(instance.gameObject);
         }
 
-        public override void Dispose()
+        public void Dispose()
         {
             if (disposed) return;
             if (Mutations.IsOpen) throw new InvalidOperationException("Cannot retire a session inside a state notification.");
@@ -224,18 +225,17 @@ namespace DarkNights.Runtime.Objects
             container.OnReturnToPool();
         }
 
-        public override bool ValidRequest(SessionRequest request) => ObjectSessionCommands.Valid(this, request);
-        public override int Apply(SessionRequest request, out int entityId) => ObjectSessionCommands.Apply(this, request, out entityId);
-        public override SessionSnapshot CaptureWorld() => ObjectSnapshotMapper.Capture(this);
-        public override WorldViewData CaptureView() => ObjectProjection.Capture(this);
-        public override SessionWorld Restore(string json) => RestoreSnapshot(SaveCodec.Parse(json));
-        public override SessionWorld Restart() => RestoreSnapshot(initial);
+        public bool ValidRequest(SessionRequest request) => ObjectSessionCommands.Valid(this, request);
+        public int Apply(SessionRequest request, out int entityId) => ObjectSessionCommands.Apply(this, request, out entityId);
+        public SessionSnapshot CaptureWorld() => ObjectSnapshotMapper.Capture(this);
+        public WorldViewData CaptureView() => ObjectProjection.Capture(this);
+        public void Restore(string json) => RestoreSnapshot(SaveCodec.Parse(json));
+        public void Restart() => RestoreSnapshot(initial);
 
-        private SessionWorld RestoreSnapshot(SessionSnapshot snapshot)
+        private void RestoreSnapshot(SessionSnapshot snapshot)
         {
             using var candidate = new ObjectWorldRestore(this, snapshot);
             candidate.Commit();
-            return this;
         }
 
         internal ObjectSessionContext NewEntityContext() =>

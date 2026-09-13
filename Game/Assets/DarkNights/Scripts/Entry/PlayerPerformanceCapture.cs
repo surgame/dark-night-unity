@@ -80,7 +80,7 @@ namespace DarkNights.Entry
                 maximumBacklogSeconds = authority?.MaximumBacklogSeconds ?? 0,
                 receivedFrames, receivedBytes, receivedBytesPerSecond = receivedBytes / seconds,
                 publication = frame?.Publication, serverTick = frame?.ServerTick, epoch = frame?.Epoch,
-                actorCount = frame?.World.Actors.Count, projectileCount = frame?.World.Projectiles.Count,
+                actorCount = frame?.World.Actors.Count, entityCount = frame?.World.Identities.Count, projectileCount = frame?.World.Projectiles.Count,
                 unity = Application.unityVersion, graphics = SystemInfo.graphicsDeviceName,
                 graphicsApi = SystemInfo.graphicsDeviceType.ToString(), processor = SystemInfo.processorType,
                 memoryMb = SystemInfo.systemMemorySize,

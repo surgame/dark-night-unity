@@ -12,7 +12,7 @@ namespace DarkNights.Tests
 {
     /// <summary>
     /// 在冻结开局规则下验证统一入口、多人接受次序、一次支付与权限切换。
-    /// 直接 Core 对照仅存在于测试中，用完整世界快照检查会话包装没有改变采集、施工和训练规则。
+    /// 比较直接业务入口与会话队列的两局真实 YYGC 对象，检查采集、施工和训练的调用次数及完整状态。
     /// </summary>
     public static class SessionCommandScenarios
     {
@@ -26,7 +26,7 @@ namespace DarkNights.Tests
         private static void Gameplay(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
         {
             using var session = Open(catalog, layout, out var host, out var guest);
-            var direct = new GameSession(catalog, layout);
+            var direct = World(catalog, layout);
             var before = session.CaptureWorld();
             int[] workers = before.Actors.Where(a => a.Kind == "worker").Select(a => a.Id).ToArray();
             int wood = before.Worksites.First(s => s.Kind == "wood").Id;
@@ -41,28 +41,28 @@ namespace DarkNights.Tests
             check(receipt.Code == SessionResultCode.Applied && receipt.AffectedCount == 1 && receipt.PlayerSlot == 1 &&
                 receipt.ServerTick == 1 && receipt.Revision > 0, "Session receipt identifies origin, tick and resulting revision");
             check(ReferenceEquals(session.Submit(guest, gather), receipt), "Session retransmission returns original completed receipt");
-            direct.Orders.Issue(new[] { workers[0] }, wood, 402);
+            direct.IssueOrders(new[] { workers[0] }, wood, 402);
             direct.Advance(1.0 / 60);
             for (int tick = 1; tick < 720; tick++) { session.Tick(); direct.Advance(1.0 / 60); }
-            var codec = new GameSaveJson(catalog, layout);
-            check(codec.Serialize(session.CaptureWorld()) == codec.Serialize(SnapshotMapper.Capture(direct)) &&
-                session.CaptureWorld().Economy.Resources.Wood == 103, "Session 60 Hz gathering matches complete Core world after 12 seconds");
+            var codec = Codec(catalog, layout);
+            check(codec.Serialize(session.CaptureWorld()) == codec.Serialize(direct.CaptureWorld()) &&
+                session.CaptureWorld().Economy.Resources.Wood == 103, "Session 60 Hz gathering matches complete object world after 12 seconds");
             check(before.Economy.Resources.Wood == 100 && before.Actors[0].State == ActorActivity.Idle,
                 "Session capture remains frozen after later simulation");
             var build = Request(session, SessionOperation.PlaceBuilding, 1, new[] { workers[1] }, x: 184, kind: "house");
             check(Execute(session, host, build).EntityId == before.NextEntityId, "Session Host builds through the same entry and receives created entity ID");
-            direct.Construction.Place("house", 184, new[] { workers[1] });
+            direct.PlaceBuilding("house", 184, new[] { workers[1] });
             direct.Advance(1.0 / 60);
             for (int tick = 0; tick < 1800; tick++) { session.Tick(); direct.Advance(1.0 / 60); }
-            check(codec.Serialize(session.CaptureWorld()) == codec.Serialize(SnapshotMapper.Capture(direct)),
-                "Session worker travel and completed house preserve full Core world");
+            check(codec.Serialize(session.CaptureWorld()) == codec.Serialize(direct.CaptureWorld()),
+                "Session worker travel and completed house preserve full object world");
             var pause = Request(session, SessionOperation.SetPaused, 2, value: 1);
             Execute(session, host, pause);
-            direct.Paused = true;
+            direct.SetTime(true, direct.Speed);
             var train = Request(session, SessionOperation.TrainActors, 2, new[] { workers[4], workers[2], workers[4] }, kind: "archer");
             var training = Execute(session, guest, train);
-            direct.Training.Start("archer", new[] { workers[4], workers[2] });
-            check(training.AffectedCount == 2 && codec.Serialize(session.CaptureWorld()) == codec.Serialize(SnapshotMapper.Capture(direct)),
+            direct.TrainActors("archer", new[] { workers[4], workers[2] });
+            check(training.AffectedCount == 2 && codec.Serialize(session.CaptureWorld()) == codec.Serialize(direct.CaptureWorld()),
                 "Session paused training preserves ordered unique payment and queue semantics");
         }
 
@@ -93,7 +93,9 @@ namespace DarkNights.Tests
             };
             foreach (var request in denied)
                 check(Execute(session, guest, request).Code == SessionResultCode.PermissionDenied, "Session HostOnly rejects guest " + request.Operation);
-            check(session.CaptureWorld().Economy.Resources == initial.Economy.Resources, "Session denied operations cannot alter any resource");
+            var afterDenied = session.CaptureWorld();
+            check(GameText.ResourceIds.All(id => afterDenied.Economy.Resources.Get(id) == initial.Economy.Resources.Get(id)),
+                "Session denied operations cannot alter any resource");
             check(Execute(session, host, Request(session, SessionOperation.Recruit, 3)).Code == SessionResultCode.Applied,
                 "Session HostOnly still permits Host recruitment");
             Execute(session, host, Request(session, SessionOperation.SetControlMode, 4, value: (int)CampControlMode.SharedCamp));

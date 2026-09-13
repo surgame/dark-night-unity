@@ -25,21 +25,7 @@ namespace DarkNights.Tools.CoreRegression
             {
                 var catalog = RuleScenario.Catalog();
                 var layout = RuleScenario.Layout();
-                EconomyScenarios.Run(check, catalog, layout);
-                WorkTrainingScenarios.Run(check, catalog, layout);
-                TimeCombatScenarios.Run(check, catalog, layout);
-                CampaignScenario.Run(check, catalog, layout);
-                SaveMigrationScenarios.Run(check, catalog, layout);
-                GameSaveScenarios.Run(check, catalog, layout);
-                GameSaveFileScenarios.Run(check, catalog, layout);
-                SessionCommandScenarios.Run(check, catalog, layout);
-                SessionBoundaryScenarios.Run(check, catalog, layout);
-                SessionLifecycleScenarios.Run(check, catalog, layout);
-                SessionProjectionScenarios.Run(check, catalog, layout);
-                SessionReplicaScenarios.Run(check, catalog, layout);
-                SessionClockScenarios.Run(check, catalog, layout);
-                SessionEventScenarios.Run(check, catalog, layout);
-                SessionStorageScenarios.Run(check, catalog, layout);
+                PureRuleScenarios.Run(check, catalog, layout);
                 RandomCompatibilityScenarios.Run(check);
             }
             catch (Exception error) { check(false, error.ToString()); }

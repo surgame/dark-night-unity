@@ -51,7 +51,7 @@ namespace DarkNights.Entry
             }
             GameCatalog catalog = context.Resolve<GameCatalog>();
             var authoring = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
-            LevelLayout layout = authoring.CreateLayout(catalog, DefinitionRuleIndex.Kind);
+            LevelLayout layout = authoring.CreateLayout(catalog, DefinitionRuleIndex.RuleKey);
             var network = context.GetOrCreateChild("Dark Nights Session").gameObject.AddComponent<SessionNetwork>();
             context.Register(network);
             context.Register(layout);

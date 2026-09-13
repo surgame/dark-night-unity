@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using DarkNights.Core.Logic;
 using DarkNights.Runtime.Objects;
+using DarkNights.Core.Config;
 
 namespace DarkNights.Tests
 {
@@ -11,6 +12,12 @@ namespace DarkNights.Tests
     /// </summary>
     internal static class UnifiedGameplayProbe
     {
+        internal static bool Pay(ObjectSession world, ResourceAmounts cost) => world.Mutations.Run(() =>
+            (bool)Invoke(world.Economy, "Pay", cost));
+
+        internal static bool Assign(ObjectSession world, ActorBehaviour actor, IEntityBehaviour target) => world.Mutations.Run(() =>
+            (bool)Invoke(world.Work, "Assign", actor, target));
+
         internal static ActorBehaviour Spawn(ObjectSession world, string kind, float x) => world.Mutations.Run(() =>
             (ActorBehaviour)Invoke(world.Lifecycle, "SpawnActor", kind, x, true, ""));
 

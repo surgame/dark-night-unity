@@ -24,10 +24,10 @@ namespace DarkNights.Tests
         public void FormalDefinitionsAndGeneratedRegistriesAreComplete()
         {
             Editor.FormalObjectContentSetup.Validate();
-            Editor.CRefactorContentUpgrade.Validate();
+            Editor.NativeObjectContracts.Validate();
             foreach (var type in new[] { typeof(WorldSessionBehaviour), typeof(CampSessionBehaviour),
                 typeof(ActorPresentationBehaviour), typeof(BuildingPresentationBehaviour), typeof(WorksitePresentationBehaviour) })
-                Editor.CRefactorContentUpgrade.RequireGenerated(type);
+                Editor.NativeObjectContracts.RequireGenerated(type);
             Assert.That(BehaviourTypeResolver.Factories.ContainsKey(typeof(EntityPresentationBehaviour)), Is.False);
         }
 

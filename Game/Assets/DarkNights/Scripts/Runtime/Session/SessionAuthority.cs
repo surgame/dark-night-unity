@@ -2,18 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using DarkNights.Core.Config;
-using DarkNights.Core.Logic;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.Save;
 using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Save;
 using DarkNights.Runtime.Network;
+using DarkNights.Runtime.Objects;
 
 namespace DarkNights.Runtime.Session
 {
     /// <summary>
-    /// 服务端独占一局 GameSession，串行处理有界请求、权限、去重及固定 60 Hz 调度。
+    /// 服务端串行访问本局 YYGC 对象能力，处理有界请求、权限、去重及固定 60 Hz 调度。
     /// 连接签发和 Ready 由可信服务端适配调用，不能直接暴露为 RPC；Host 业务也只走 Submit。
     /// 所有操作限创建线程，异步存储只能携带冻结快照或加载票据，完成后回到该线程提交。
     /// </summary>
@@ -27,7 +26,7 @@ namespace DarkNights.Runtime.Session
         private readonly int[] generations = new int[4];
         private readonly Queue<SessionCommandEntry> pending = new Queue<SessionCommandEntry>();
         private readonly SessionProjector projector = new SessionProjector();
-        private SessionWorld world;
+        private readonly ObjectSession world;
         private SessionEventJournal events;
         private SessionReceipt loadTicket;
         private bool started;
@@ -43,9 +42,7 @@ namespace DarkNights.Runtime.Session
         public int ReadyCount => connections.Count(c => c != null && c.Ready);
         public SessionStorageRequest StorageRequest { get; private set; }
 
-        public SessionAuthority(GameCatalog catalog, LevelLayout layout) : this(new LegacySessionWorld(catalog, layout)) { }
-
-        public SessionAuthority(SessionWorld simulation)
+        public SessionAuthority(ObjectSession simulation)
         {
             world = simulation ?? throw new ArgumentNullException(nameof(simulation));
             events = new SessionEventJournal(world.Feedback, () => ServerTick);
@@ -203,11 +200,9 @@ namespace DarkNights.Runtime.Session
             try
             {
                 int nextEpoch = checked(Epoch + 1);
-                SessionWorld previous = world;
-                SessionWorld restored = json == null ? world.Restart() : world.Restore(json);
+                if (json == null) world.Restart();
+                else world.Restore(json);
                 events.Dispose();
-                world = restored;
-                if (!ReferenceEquals(previous, restored)) previous.Dispose();
                 events = new SessionEventJournal(world.Feedback, () => ServerTick);
                 projector.Clear();
                 Epoch = nextEpoch;

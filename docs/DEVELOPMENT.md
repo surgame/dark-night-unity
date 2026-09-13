@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-2026-09-13 后续方向改为 [YYGC 统一对象架构 U0–U6](YYGC_UNIFIED_REFACTOR_PLAN.md)：以 YYGC 业务 Behaviour／State 取代独立 Core 运行实体，允许修正和升级框架，无需旧数据适配。已从 `7072b26` 创建 `codex/yygc-unified-object-migration` 分支；**U0–U4 已完成，框架锁定 0305eb7；U2 分批覆盖 126 个 Editor／Play 用例、Mono 装配 14/14、三进程切片 26/26、四进程 Sample 30/30。U5–U6 继续实施，见 [实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)**。下述 C 方案、场景修复和 M0–M5 为既有实现及历史记录，M5 未完成状态保持。
+2026-09-13 按 [YYGC 统一对象架构 U0–U6](YYGC_UNIFIED_REFACTOR_PLAN.md)实施：YYGC 业务 Behaviour／State 已取代独立 Core 运行实体，无需旧数据适配。分支为 `codex/yygc-unified-object-migration`；**U0–U5 已完成，框架锁定 8faf74f；U5 的 134 项 Editor／Play、13 组共 291 项业务断言、1,043 项纯计算与 C# 9／netstandard2.1 编译通过。U6 干净源码 Mono 构建及完整多进程矩阵继续执行，见[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)**。下述 C 方案、场景修复和 M0–M5 按日期保留历史记录，M5 未完成状态保持。
 
 2026-09-13 Definition 场景入口修复已实施：删除手填 ContentDefinitionMap／独立分类，补齐 17 个 Definition.Type，迁移 16 个现有场景实例至 Loader 静态初始化，并接入场景视图借还与当前关卡试玩。Unity 编译和静态差异核对完成；**按用户要求，测试回归等待确认，未运行 Play、Player 或联机验收**。见[实现与待回归范围](SCENE_DEFINITIONS.md)。
 

@@ -17,12 +17,10 @@ namespace DarkNights.Core.Save
     {
         public static string Validate(SessionSnapshot s, GameCatalog catalog, LevelLayout layout)
         {
-            if (s == null || (s.SchemaVersion != 1 && s.SchemaVersion != 2) || s.LevelId != catalog.Level.Id)
+            if (s == null || s.SchemaVersion != 2 || s.LevelId != catalog.Level.Id)
                 return "存档版本或关卡不匹配";
             if (!Number(s.Elapsed, 0, 1000000) || s.Speed is not (1 or 2))
                 return "时钟状态无效";
-            if (s.SchemaVersion == 1 && (!Number(s.CameraX, 0, layout.WorldWidth) || !Number(s.CameraZoom, 1.8, 4.5)))
-                return "镜头状态无效";
             foreach (string text in new[] { s.RngSeed, s.RngState })
                 if (!long.TryParse(text, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out long value) ||
                     value.ToString(CultureInfo.InvariantCulture) != text)
@@ -41,9 +39,8 @@ namespace DarkNights.Core.Save
                 s.Wave.NextSpawn < 0 || s.Wave.NextSpawn > wave.Enemies.Count ||
                 (s.Wave.Phase == WavePhase.Day && s.Wave.NextSpawn != 0))
                 return "夜袭计时无效";
-            if (s.Actors == null || s.Buildings == null || s.Worksites == null || s.Projectiles == null || s.SelectedIds == null ||
-                s.Actors.Count + s.Buildings.Count + s.Worksites.Count > 256 || s.Projectiles.Count > 1024 ||
-                s.SelectedIds.Count > 256)
+            if (s.Actors == null || s.Buildings == null || s.Worksites == null || s.Projectiles == null ||
+                s.Actors.Count + s.Buildings.Count + s.Worksites.Count > 256 || s.Projectiles.Count > 1024)
                 return "实体列表无效或过大";
             if (s.Actors.Any(a => a == null) || s.Buildings.Any(b => b == null) ||
                 s.Worksites.Any(w => w == null) || s.Projectiles.Any(p => p == null))
@@ -56,10 +53,10 @@ namespace DarkNights.Core.Save
                     return "实体身份或坐标无效";
             if (s.NextEntityId <= ids.DefaultIfEmpty(0).Max() || s.NextEntityId > 1000001)
                 return "实体ID序列无效";
-            if (s.SchemaVersion == 2 && (!Enum.IsDefined(typeof(SessionMode), s.Mode) || s.Mode == SessionMode.Menu ||
+            if (!Enum.IsDefined(typeof(SessionMode), s.Mode) || s.Mode == SessionMode.Menu ||
                 s.Identities.Count != ids.Count || s.Identities.Any(i => i == null || !ids.Contains(i.Id)) ||
                 s.Identities.Select(i => i.Id).Distinct().Count() != ids.Count ||
-                s.Identities.Where(i => i.PlacementKey.Length != 0).GroupBy(i => i.PlacementKey).Any(g => g.Count() != 1)))
+                s.Identities.Where(i => i.PlacementKey.Length != 0).GroupBy(i => i.PlacementKey).Any(g => g.Count() != 1))
                 return "定义或场景身份关系无效";
             var context = new ValidationContext(s, catalog, layout);
             string error = EntitySnapshotValidator.Validate(context);
@@ -73,8 +70,7 @@ namespace DarkNights.Core.Save
                     shot.Damage is < 1 or > 1000 || !Number(shot.Duration, 0.01, 10) || !Number(shot.Age, 0, shot.Duration))
                     return "箭矢数据或计时无效";
             }
-            return s.SelectedIds.Any(id => !ids.Contains(id)) || s.SelectedIds.Distinct().Count() != s.SelectedIds.Count
-                ? "选择集引用不存在或重复的实体" : "";
+            return "";
         }
 
         private static bool Point(IReadOnlyList<double> point, GameCatalog catalog, LevelLayout layout) => point is { Count: 2 } &&

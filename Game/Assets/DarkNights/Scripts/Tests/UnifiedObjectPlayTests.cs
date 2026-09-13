@@ -87,8 +87,10 @@ namespace DarkNights.Tests
             definition.BehaviourTypes.Add(typeof(UnifiedObjectProbeBehaviour).AssemblyQualifiedName);
             definition.SharedConfigs.Add(new UnifiedObjectProbeConfig());
             var instance = new GameObject("UnifiedObjectPlayTest").AddComponent<ObjectInstance>();
+            bool background = Application.runInBackground;
             try
             {
+                Application.runInBackground = true;
                 instance.Initialize("one", definition, session: session, activate: false);
                 var behaviour = instance.GetBehaviour<UnifiedObjectProbeBehaviour>();
                 yield return null;
@@ -126,6 +128,7 @@ namespace DarkNights.Tests
                 if (manager != null) UnityEngine.Object.Destroy(manager);
                 session.Dispose();
                 container.OnReturnToPool();
+                Application.runInBackground = background;
             }
         }
     }

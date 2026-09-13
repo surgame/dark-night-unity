@@ -34,7 +34,7 @@ namespace DarkNights.Tests
                 string name = (string)spec["name"];
                 ObjectDefinition definition = map.GetRequired(NativeArtSetup.ContentId(name));
                 Assert.That(definition.isLocal && definition.Id == 0 && !definition.Guid.IsEmpty);
-                Assert.That(definition.BehaviourTypes.Count(value => value == CRefactorContentUpgrade.PresentationType(name).FullName), Is.EqualTo(1));
+                Assert.That(definition.BehaviourTypes.Count(value => value == NativeObjectContracts.PresentationType(name).FullName), Is.EqualTo(1));
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(definition.PrefabRef.AssetGUID));
                 var visual = prefab.GetComponent<ObjectView>().Get<NativeVisual>("visual");
                 Assert.That(visual, Is.Not.Null);
@@ -68,7 +68,7 @@ namespace DarkNights.Tests
                         ObjectDefinitionInitialization.Initialize(view.Initializer, definition);
                         var instance = root.GetComponent<ObjectInstance>();
                         var presentation = instance.GetAllBehaviors().OfType<EntityPresentationBehaviour>().Single();
-                        Assert.That(presentation.GetType(), Is.EqualTo(CRefactorContentUpgrade.PresentationType(name)), name);
+                        Assert.That(presentation.GetType(), Is.EqualTo(NativeObjectContracts.PresentationType(name)), name);
                         Assert.That(presentation.Visual, Is.SameAs(view.Get<NativeVisual>("visual")), name);
                         Assert.That(presentation.IsBound || presentation.IsAvailable, Is.False, name);
                         presentation.Visual.Preview(0, 0);

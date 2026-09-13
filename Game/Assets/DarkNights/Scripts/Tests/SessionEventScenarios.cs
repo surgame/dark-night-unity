@@ -43,7 +43,7 @@ namespace DarkNights.Tests
             session.Submit(guest, last);
             session.Tick();
             check(session.CaptureProjection().Events.Last().Sequence == sequence, "Duplicate business request cannot emit another command ring");
-            var codec = new GameSaveJson(catalog, layout);
+            var codec = Codec(catalog, layout);
             string saved = codec.Serialize(session.CaptureWorld());
             var ticket = Execute(session, host, Request(session, SessionOperation.BeginLoad, 2));
             session.CompleteLoad(ticket, saved);

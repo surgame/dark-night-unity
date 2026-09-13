@@ -36,6 +36,7 @@ namespace DarkNights.Tests
 
         public static async UniTask<UnifiedSliceFixture> Create(bool withSceneWorker = false, bool full = false)
         {
+            using var loading = new EditorAssetLoading();
             var result = new UnifiedSliceFixture();
             try
             {
@@ -57,7 +58,7 @@ namespace DarkNights.Tests
                 string[] keys = full ? catalog.Balance.Buildings.Keys.Concat(catalog.Balance.Worksites.Keys)
                     .Concat(catalog.Balance.Units.Keys).ToArray() : new[] { "tavern", "house", "wood", "worker" };
                 result.Resources = await ObjectSessionResources.Prepare(keys.Select(key =>
-                    key == "house" ? result.house : key == "archer" && full ? result.archer : directory.GetRequired(key)).ToArray(), default);
+                    key == "house" ? result.house : key == "archer" && full ? result.archer : directory.GetRequired(key)).ToArray(), loading.CancellationToken);
                 result.World = new ObjectSession(catalog, layout, result.Resources, () => true);
                 result.root = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(
                     Editor.FormalObjectContentSetup.SessionPrefabPath));

@@ -6,6 +6,7 @@ using DarkNights.Core.Config;
 using DarkNights.Runtime.Session;
 using DarkNights.Runtime.Save;
 using DarkNights.Runtime.Diagnostics;
+using DarkNights.Runtime.Objects;
 using FishNet.Connection;
 using GameCore.NetworkCommands;
 using VitalRouter;
@@ -34,12 +35,12 @@ namespace DarkNights.Runtime.Network
         public SessionMeasurements Measurements { get; }
 
         public SessionServer(GameCatalog catalog, LevelLayout layout, WorldSessionBehaviour behaviour, GameSaveStore saves,
-            bool measure = false, bool pressure = false, SessionWorld simulation = null)
+            ObjectSession simulation, bool measure = false, bool pressure = false)
         {
             this.pressure = pressure;
             this.behaviour = behaviour;
             codec = new ProjectionCodec(catalog, layout);
-            Authority = simulation == null ? new SessionAuthority(catalog, layout) : new SessionAuthority(simulation);
+            Authority = new SessionAuthority(simulation);
             clock = new SessionClock(Authority);
             Storage = new SessionStorage(Authority, saves);
             if (measure) { Measurements = new SessionMeasurements(); clock.MeasureStep = Measurements.Step; }

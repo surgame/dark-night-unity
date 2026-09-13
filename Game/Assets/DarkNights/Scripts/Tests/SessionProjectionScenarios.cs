@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DarkNights.Core.Config;
 using DarkNights.Core.Logic;
-using DarkNights.Core.Logic.Entities;
+using DarkNights.Runtime.Objects;
 using DarkNights.Core.Save;
 using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Save;
@@ -24,7 +24,7 @@ namespace DarkNights.Tests
             using var session = Open(catalog, layout, out var host, out var guest);
             var first = session.CaptureProjection();
             var initial = first.World;
-            var direct = new GameSession(catalog, layout);
+            var direct = World(catalog, layout);
             check(initial.Actors.Count == 7 && initial.Buildings.Count == 4 && initial.Worksites.Count == 6 &&
                 initial.Projectiles.Count == 0, "Projection includes initial actors, buildings and generated farm worksite");
             check(initial.Camp.Stock.Wood == 100 && initial.Camp.Population == 7 && initial.Camp.Capacity == 9 &&
@@ -38,14 +38,14 @@ namespace DarkNights.Tests
             var workers = initial.Actors.Where(a => a.Kind == "worker").Select(a => a.Id).ToArray();
             var wood = initial.Worksites.First(w => w.Kind == "wood");
             Execute(session, guest, Request(session, SessionOperation.IssueOrders, 1, new[] { workers[0] }, wood.Id, wood.X));
-            direct.Orders.Issue(new[] { workers[0] }, wood.Id, wood.X);
+            direct.IssueOrders(new[] { workers[0] }, wood.Id, wood.X);
             for (int i = 1; i < 720; i++) session.Tick();
             for (int i = 0; i < 720; i++) direct.Advance(1.0 / 60);
             var gathered = session.CaptureProjection();
             var actor = gathered.World.Actors.First(a => a.Id == workers[0]);
-            var actual = direct.World.Find<Actor>(workers[0]);
+            var actual = direct.Index.Find<ActorBehaviour>(workers[0]).CaptureState();
             check(gathered.World.Camp.Stock.Wood == 103 && actor.X == actual.X && actor.Hp == actual.Hp &&
-                actor.Activity == actual.State.ToString() && actor.ActionTime == actual.ActionTime && actor.Walking == actual.Walking,
+                actor.Activity == actual.Activity.ToString() && actor.ActionTime == actual.ActionTime && actor.Walking == actual.Walking,
                 "Projection sampling preserves actual gathering, movement and animation values");
             check(JsonConvert.SerializeObject(first) == frozen, "Projection remains frozen after twelve seconds of world mutation");
             Execute(session, host, Request(session, SessionOperation.SetPaused, 1, value: 1));
@@ -92,12 +92,17 @@ namespace DarkNights.Tests
         private static void Arrows(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
         {
             using var session = Open(catalog, layout, out var host, out _);
-            var source = new GameSession(catalog, layout);
-            int target = source.World.Actors[0].Id;
-            source.World.Projectiles.Add(new Projectile(new WorldPoint(10, 20), new WorldPoint(30, 40), target, 1, 0.01));
-            source.World.Projectiles.Add(new Projectile(new WorldPoint(50, 60), new WorldPoint(70, 80), target, 1, 10));
-            var codec = new GameSaveJson(catalog, layout);
-            string saved = codec.Serialize(SnapshotMapper.Capture(source));
+            var source = World(catalog, layout);
+            var snapshot = source.CaptureWorld();
+            int target = snapshot.Actors[0].Id;
+            var codec = Codec(catalog, layout);
+            var document = Newtonsoft.Json.Linq.JObject.Parse(codec.Serialize(snapshot));
+            document["world"]["projectiles"] = new Newtonsoft.Json.Linq.JArray(
+                new Newtonsoft.Json.Linq.JObject { ["from"] = new Newtonsoft.Json.Linq.JArray(10, 20), ["to"] = new Newtonsoft.Json.Linq.JArray(30, 40),
+                    ["target_id"] = target, ["damage"] = 1, ["age"] = 0, ["duration"] = 0.01 },
+                new Newtonsoft.Json.Linq.JObject { ["from"] = new Newtonsoft.Json.Linq.JArray(50, 60), ["to"] = new Newtonsoft.Json.Linq.JArray(70, 80),
+                    ["target_id"] = target, ["damage"] = 1, ["age"] = 0, ["duration"] = 10 });
+            string saved = codec.Serialize(codec.Parse(document.ToString()));
             var ticket = Execute(session, host, Request(session, SessionOperation.BeginLoad, 1));
             session.CompleteLoad(ticket, saved);
             var before = session.CaptureProjection();

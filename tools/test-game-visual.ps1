@@ -1,7 +1,7 @@
-param([int]$Port = 28270, [int]$Width = 1280, [int]$Height = 800)
+param([int]$Port = 28270, [int]$Width = 1280, [int]$Height = 800, [string]$PlayerPath = '')
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
-$player = Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe'
+$player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe' }
 $run = Join-Path $repo ('artifacts/migration/visual-' + $Width + 'x' + $Height + '-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 $saves = Join-Path $run 'saves'
 New-Item -ItemType Directory -Path $run | Out-Null

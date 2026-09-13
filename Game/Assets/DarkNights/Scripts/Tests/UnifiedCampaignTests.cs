@@ -124,8 +124,9 @@ namespace DarkNights.Tests
 
         private static void Report(ObjectSession world, string name)
         {
-            Directory.CreateDirectory("../artifacts/yygc-unified/u3");
-            File.WriteAllText("../artifacts/yygc-unified/u3/" + name + ".json", new JObject
+            const string folder = "../artifacts/yygc-unified/rule-runs";
+            Directory.CreateDirectory(folder);
+            File.WriteAllText(folder + "/" + name + ".json", new JObject
             {
                 ["mode"] = world.Camp.CaptureState().Mode.ToString(), ["elapsed"] = world.Elapsed,
                 ["kills"] = world.Camp.CaptureState().Kills, ["lost"] = world.Camp.CaptureState().Lost,

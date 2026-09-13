@@ -12,7 +12,7 @@ using static DarkNights.Tests.SessionScenario;
 namespace DarkNights.Tests
 {
     /// <summary>
-    /// 验证唯一时钟、暂停时业务以及受控加载的完整生命周期；加载使用真实存档解析与冻结旧档。
+    /// 验证唯一时钟、暂停时业务以及受控加载的完整生命周期；加载使用真实 v2 存档解析与对象替换。
     /// 失败或取消不得替换世界，成功必须保留房间策略、轮换 epoch、清除 Ready 并拒绝旧票据。
     /// </summary>
     public static class SessionLifecycleScenarios
@@ -25,7 +25,7 @@ namespace DarkNights.Tests
 
         private static void Clock(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
         {
-            using var session = new SessionAuthority(catalog, layout);
+            using var session = Create(catalog, layout);
             var host = session.Connect(0);
             var guest = session.Connect(1);
             session.Tick();
@@ -55,7 +55,7 @@ namespace DarkNights.Tests
             Execute(session, host, Request(session, SessionOperation.SetPaused, 1, value: 1));
             Execute(session, host, Request(session, SessionOperation.SetSpeed, 2, value: 2));
             Execute(session, host, Request(session, SessionOperation.SetControlMode, 3, value: (int)CampControlMode.HostOnly));
-            var codec = new GameSaveJson(catalog, layout);
+            var codec = Codec(catalog, layout);
             string before = codec.Serialize(session.CaptureWorld());
             var begin = Request(session, SessionOperation.BeginLoad, 4, value: 2);
             session.Submit(host, begin);
@@ -80,8 +80,10 @@ namespace DarkNights.Tests
             session.CancelLoad(cancelTicket);
             check(!session.Loading && codec.Serialize(session.CaptureWorld()) == before &&
                 Throws<InvalidOperationException>(() => session.CancelLoad(cancelTicket)), "Session cancellation releases loading once without changing world");
-            GameSession legacy = codec.ImportLegacy(RuleScenario.Fixture("legacy-v1.json").ToString());
-            string saved = codec.Serialize(SnapshotMapper.Capture(legacy));
+            using var source = World(catalog, layout);
+            source.IssueOrders(new[] { 11 }, 6, 402);
+            for (int i = 0; i < 360; i++) source.Advance(1.0 / 60);
+            string saved = codec.Serialize(source.CaptureWorld());
             var load = Request(session, SessionOperation.BeginLoad, 7);
             var success = Execute(session, host, load);
             check(Throws<InvalidOperationException>(() => session.CompleteLoad(ticket, saved)) && session.Loading,
@@ -100,13 +102,11 @@ namespace DarkNights.Tests
                 "Session active connections can acknowledge the new world");
             check(Execute(session, guest, Request(session, SessionOperation.Recruit, 1)).Code == SessionResultCode.PermissionDenied,
                 "Session restored save cannot expand guest permissions");
-            // 上面的拒绝也经过一个 tick；与冻结旧档二十秒对照时总共只推进 1200 步。
+            // 上面的拒绝已推进一次；两局分别运行同样的 1200 个固定步检查恢复确定性。
             for (int i = 1; i < 1200; i++) session.Tick();
-            var actual = JObject.Parse(LegacySnapshotJson.Serialize(session.CaptureWorld()));
-            var expected = RuleScenario.Fixture("legacy-v1-after-20s.json");
-            actual.Remove("camera_x"); actual.Remove("camera_zoom"); actual.Remove("selected_ids");
-            expected.Remove("camera_x"); expected.Remove("camera_zoom"); expected.Remove("selected_ids");
-            check(RuleScenario.Difference(actual, expected) == "", "Session loaded legacy world continues twenty seconds against frozen Godot state");
+            for (int i = 0; i < 1200; i++) source.Advance(1.0 / 60);
+            check(codec.Serialize(session.CaptureWorld()) == codec.Serialize(source.CaptureWorld()),
+                "Loaded object world continues twenty seconds deterministically");
             var closing = Execute(session, host, Request(session, SessionOperation.BeginLoad, 1));
             session.Disconnect(host);
             check(Throws<InvalidOperationException>(() => session.CompleteLoad(closing, saved)), "Session Host exit invalidates an outstanding asynchronous load ticket");

@@ -5,7 +5,7 @@ namespace DarkNights.Core.ViewData
 {
     /// <summary>
     /// 一次模拟切点的完整、不可变展示集合，复制列表并验证总量及跨类别身份唯一性。
-    /// 不持有 WorldState、恢复快照或池对象。上限超出时明确失败，不能截掉实体；内容字段须由权威映射或接收适配验证。
+    /// 不持有运行状态、恢复快照或池对象。上限超出时明确失败，不能截掉实体；内容字段须由权威映射或接收适配验证。
     /// </summary>
     public sealed class WorldViewData
     {

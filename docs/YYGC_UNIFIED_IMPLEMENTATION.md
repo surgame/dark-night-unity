@@ -115,9 +115,34 @@ SessionNetwork 始终创建新版 ObjectSession，固定使用 v2 子目录和�
 
 本阶段无新增 YYGC 修改、无美术或布局改动。旧运行模型的源码与历史测试仍待 U5 删除／迁移；U6 最终完整矩阵尚未执行，U4 通过不代表 IL2CPP、双机器 LAN 或性能改善。
 
+## U5：旧模型退出与工具收口（完成）
+
+输入为游戏 `efd5bb8`。删除 Core 的 GameSession、WorldState、Entity 家族、旧 Commands／Systems／SnapshotMapper，以及 Runtime 的 LegacySessionWorld、SessionWorld、GameSaveJson、LegacySnapshotJson。ObjectSession 直接组合真实 YYGC 能力并承担 IDisposable；SessionAuthority、网络与存储仅接新版会话。v2 数据合同删除旧相机和选择字段，DefinitionRuleIndex 仅按显式 RuleKey 验证配置，不再从 Key 后缀推导。
+
+Editor 旧升级入口退出：NativeObjectContracts 只读检查，ObjectCapabilitySetup 仅允许空目录初建；两个改名脚本的原 meta 保留。构建生成的 Addressables link.xml 精确忽略；人工 Res 无改动。容量投影保留原 17 个实体并补齐合法合成身份，总计 256 实体／1024 箭矢。验收脚本统一支持显式 PlayerPath，串行入口补齐 recovery，并检查全程产物代码哈希不变；干净构建入口只接受空输出目录。
+
+| 检查 | 结果 | 证据 |
+|---|---|---|
+| Core 纯计算 | 1043/1043；不编入 Runtime 或 YYGC 替身 | `core-regression.json` |
+| C# 9／netstandard2.1 | 0 警告、0 错误 | `core-build.log` |
+| 架构与源码 | 278 个手写文件、12 自检、0 错误；Unity 编译通过 | `architecture.json` |
+| 真实 YYGC 会话 | 26/26，3.07 秒 | `session-26-passed.json`／`.xml` |
+| 整批 Editor／Play | 134/134，54.02 秒；含真实调度器、开关 Domain Reload、正式场景、三夜与无人照料 | `editor-134-passed.json`／`.xml` |
+| 有效业务覆盖 | 13 组共 291 项断言全部通过；兼容读取测试按要求删除 | `scenarios/*.json`、[覆盖迁移表](YYGC_UNIFIED_TEST_COVERAGE.md) |
+| 资源／冻结证据 | 551 项原素材及 manifest、779 个原有资源 meta 与 U0 一致；6 份夹具的 Git 内容与 U0 一致；U5 Res 差异为 0 | `asset-preservation.json` |
+| 验收编排 | PowerShell 语法通过；现有失败即停／后缀续跑／产物变更守卫 5/5 | `artifacts/migration/delivery-driver-20260913-174100-973/result.json` |
+
+短文件名均位于 `artifacts/yygc-unified/u5/`，机器摘要见[U5 证据](evidence/yygc-unified-u5.json)。整批测试后仅新增空目录构建入口，已单独编译检查；它将在 U6 实际执行。原始 552 文件包含 551 项素材及 manifest，不能写成 552 项素材。U0 输入表未包含 Fixtures，因此夹具另按 U0 Git blob 与当前 blob 核对，并记录当前 SHA-256，不冒称有未保存的旧物理哈希。
+
+首次失败来自 UnitySetUp 恢复点、后台 AssetDatabase 模拟延迟、已完成资源的延迟 Task 回调，以及两个断言对引用／释放后对象的使用。已修复测试装配环境与 YYGC 资源等待，没有放宽业务期望或增加超时掩盖阻塞；失败及取消报告保留。YYGC 仅修改 FastInstantiator.cs，提交并锁定 `8faf74f`，逐文件原因和落点见[账本](YYGC_CHANGES.md#unified-u5)。
+
+U5 没有生成 Player；U4 二进制不包含此次删除与框架修正。U6 必须使用干净来源、锁定依赖和新 Library 构建一次，再完成最终 Mono 矩阵。IL2CPP、双机器 LAN 和缺少可靠旧性能基线分别记录，不提前签署 M5 完成。
+
 ## 空间管理
 
 每阶段开始和构建前检查 C／D 盘；不复制整个 Unity Library。阶段收尾保留后续复用的 Player、人工资源、保护副本及报告，清理可重建中间产物。记录落在 `artifacts/yygc-unified/<stage>/cleanup.json`。
+
+U5 使用 `dotnet clean` 清理 CoreRegression、CoreBuild、ArchitectureGuard 的本阶段中间产物，释放 37,102,200 字节；清理后 C 盘剩 14,783,684,608 字节、D 盘剩 27,824,340,992 字节。保留当前 Editor 缓存与历史证据，未重新尝试此前被拒绝的两个清理路径；本阶段未新增 Player。
 
 U4 使用 `dotnet clean` 释放 ArchitectureGuard 中间产物 32,989,280 字节；清理后 C 盘约 13.8 GiB、D 盘约 27.6 GiB 可用。已核验路径和无活动 Player／Bee 后，Player 的 `DNights_BurstDebugInformation_DoNotShip` 目录清理仍被自动审批以 `blocked by policy` 拒绝；该目录未删除、未重试，也未计入释放量。保留本阶段 Mono 及现有 Editor 导入缓存。
 

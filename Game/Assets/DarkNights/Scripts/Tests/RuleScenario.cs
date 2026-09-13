@@ -2,8 +2,6 @@ using System;
 using System.IO;
 using System.Linq;
 using DarkNights.Core.Config;
-using DarkNights.Core.Logic;
-using DarkNights.Core.Logic.Entities;
 using DarkNights.Runtime.Config;
 using Newtonsoft.Json.Linq;
 
@@ -34,25 +32,7 @@ namespace DarkNights.Tests
                 placements("buildings"), placements("worksites"), placements("actors"));
         }
 
-        public static void Step(GameSession game, double seconds)
-        {
-            for (int tick = 0; tick < (int)Math.Round(seconds * 60); tick++) game.Advance(1.0 / 60);
-        }
-
         public static bool Approx(double a, double b) => Math.Abs(a - b) <= 0.0001;
-        public static Actor[] Workers(GameSession game) => game.World.Actors.Where(a => !a.Enemy && a.Kind == "worker").ToArray();
-        public static Worksite Site(GameSession game, string kind) => game.World.Worksites.First(s => s.Kind == kind);
-        public static Building Building(GameSession game, string kind) => game.World.Buildings.First(b => b.Kind == kind);
-
-        public static void CompareCampaign(Action<bool, string> check, GameSession game, JToken expected)
-        {
-            check(Approx(game.Elapsed, (double)expected["simulation_seconds"]) &&
-                game.Economy.Population == (int)expected["survivors"] && game.Stats.Lost == (int)expected["losses"] &&
-                Approx(Building(game, "tavern").Hp, (double)expected["tavern_hp"]),
-                "Campaign elapsed time, survivors, losses and tavern HP match frozen Godot report");
-            foreach (string id in GameText.ResourceIds)
-                check(Approx(game.Economy.Stock.Get(id), (double)expected["resources"][id]), "Campaign frozen final resource: " + id);
-        }
 
         public static string Difference(JToken actual, JToken expected, string path = "$")
         {

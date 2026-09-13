@@ -1,0 +1,179 @@
+{
+  "stage": "U5",
+  "date": "2026-09-13",
+  "inputGameCommit": "efd5bb8",
+  "frameworkCommit": "8faf74f03d9eac4e025d6fe0f81f0c26a9eac9d4",
+  "frameworkModifiedFiles": [
+    "Runtime/Utils/FastInstantiator.cs"
+  ],
+  "sourceCompilation": "passed",
+  "coreBuild": "C# 9 / netstandard2.1: 0 warnings, 0 errors",
+  "pureRuleChecks": 1043,
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 278,
+    "selfTests": 12,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "editor": {
+    "total": 134,
+    "passed": 134,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "editorDurationSeconds": 54.02,
+  "sessionScenarios": [
+    {
+      "scenario": "boundary",
+      "passed": true,
+      "total": 51
+    },
+    {
+      "scenario": "clock",
+      "passed": true,
+      "total": 16
+    },
+    {
+      "scenario": "commands",
+      "passed": true,
+      "total": 30
+    },
+    {
+      "scenario": "economy",
+      "passed": true,
+      "total": 13
+    },
+    {
+      "scenario": "events",
+      "passed": true,
+      "total": 22
+    },
+    {
+      "scenario": "lifecycle",
+      "passed": true,
+      "total": 21
+    },
+    {
+      "scenario": "new-save",
+      "passed": true,
+      "total": 44
+    },
+    {
+      "scenario": "projection",
+      "passed": true,
+      "total": 20
+    },
+    {
+      "scenario": "replica",
+      "passed": true,
+      "total": 20
+    },
+    {
+      "scenario": "save-files",
+      "passed": true,
+      "total": 20
+    },
+    {
+      "scenario": "storage",
+      "passed": true,
+      "total": 17
+    },
+    {
+      "scenario": "time-combat",
+      "passed": true,
+      "total": 7
+    },
+    {
+      "scenario": "work-training",
+      "passed": true,
+      "total": 10
+    }
+  ],
+  "assetPreservation": {
+    "originalFiles": 552,
+    "resourceMetaFiles": 779,
+    "frozenFixtureFiles": 6,
+    "mismatches": [],
+    "u5ResourceChanges": [],
+    "editorRenames": [
+      {
+        "before": "CRefactorContentUpgrade",
+        "after": "NativeObjectContracts",
+        "metaPreserved": true
+      },
+      {
+        "before": "UnifiedObjectContentUpgrade",
+        "after": "ObjectCapabilitySetup",
+        "metaPreserved": true
+      }
+    ],
+    "frozenFixtureEvidence": [
+      {
+        "path": "tools/CoreRegression/Fixtures/content-hashes-v1.json",
+        "baselineBlob": "be09b8762ac05b208afaec39180a6991c3a77477",
+        "currentBlob": "be09b8762ac05b208afaec39180a6991c3a77477",
+        "sha256": "d59fe93f74e3b131a8c1a7473c48353d7f0723a9968803afac8146cf81e3310d"
+      },
+      {
+        "path": "tools/CoreRegression/Fixtures/godot-gameplay-validation.json",
+        "baselineBlob": "75d7da051348b4bde55b53a0dd7580ddc626c03d",
+        "currentBlob": "75d7da051348b4bde55b53a0dd7580ddc626c03d",
+        "sha256": "d81a6c9845b4e79ff43f1234617bfb98b76590fbdb56d2b7e7aea5d2e06ac984"
+      },
+      {
+        "path": "tools/CoreRegression/Fixtures/godot-rng-vectors.json",
+        "baselineBlob": "5ee39b228e5e46be74640892b2d6a26b40a3d313",
+        "currentBlob": "5ee39b228e5e46be74640892b2d6a26b40a3d313",
+        "sha256": "de2dd5da0e8f0538c6cf0d2357a786ad6759dcda526b9af9637616c33d7d42d8"
+      },
+      {
+        "path": "tools/CoreRegression/Fixtures/legacy-v1-after-20s.json",
+        "baselineBlob": "92f0a113e6f75b5ab9ccc5df77ff07417ed074f0",
+        "currentBlob": "92f0a113e6f75b5ab9ccc5df77ff07417ed074f0",
+        "sha256": "4a297fe16882ea388398d458911714553cf350a8528e77d1dcd5056583f2b8af"
+      },
+      {
+        "path": "tools/CoreRegression/Fixtures/legacy-v1.json",
+        "baselineBlob": "a82ced556bc81b9808612c13521e6500a2130686",
+        "currentBlob": "a82ced556bc81b9808612c13521e6500a2130686",
+        "sha256": "fe700dd160583786dd7786f87a3940a344899e7991de8c660ad1e1f0a10a240e"
+      },
+      {
+        "path": "tools/CoreRegression/Fixtures/pinewatch-layout-v1.json",
+        "baselineBlob": "6628ce16c9d64db1ebbe60170f9bb29f92f264b1",
+        "currentBlob": "6628ce16c9d64db1ebbe60170f9bb29f92f264b1",
+        "sha256": "76e1c120e2a3410548a5a4bc87faf603ff9bfccde4299fc490ad553b1767b095"
+      }
+    ],
+    "fixtureMethod": "U0 Git blob equals current filtered Git blob; independent current SHA-256 also recorded. Fixtures were not present in U0 input-hashes.json."
+  },
+  "cleanup": {
+    "stage": "U5",
+    "method": "dotnet clean",
+    "paths": [
+      "tools/CoreRegression/bin",
+      "tools/CoreRegression/obj",
+      "tools/CoreBuild/bin",
+      "tools/CoreBuild/obj",
+      "tools/ArchitectureGuard/bin",
+      "tools/ArchitectureGuard/obj"
+    ],
+    "releasedBytes": 37102200.0,
+    "freeC": 14783684608,
+    "freeD": 27824340992,
+    "retained": "Active Editor import cache, U4 Player, human assets, frozen fixtures, logs and reports",
+    "priorRejectedPathsUntouched": [
+      "Game/Library/Bee/artifacts/WinPlayerBuildProgram",
+      "artifacts/migration/player-mono/DNights_BurstDebugInformation_DoNotShip"
+    ]
+  },
+  "reports": "artifacts/yygc-unified/u5",
+  "limits": [
+    "No U5 Player build; U6 final Mono matrix remains",
+    "IL2CPP not authorized",
+    "Two-machine LAN not verified",
+    "No reliable pre-migration performance baseline"
+  ]
+}

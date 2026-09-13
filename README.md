@@ -1,6 +1,6 @@
 # Dark Nights · Unity
 
-2026-09-13 已确定后续采用 YYGC 统一对象架构：业务 Behaviour／State 接管运行实体，Core 收缩为纯算法与数据合同；允许针对 YYGC 能力限制或 BUG 升级适配，不做旧数据兼容。已从 `7072b26` 创建分支 `codex/yygc-unified-object-migration`，见[分阶段重构执行计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)。**U0–U4 已完成，框架锁定 0305eb7；工人／采集／住宅切片通过 Mono 三进程 26/26，完整玩法能力已通过回归，U5–U6 继续实施，见实施记录。下文为现有实现和历史验收状态。**
+2026-09-13 已采用 YYGC 统一对象架构：业务 Behaviour／State 接管运行实体，Core 只保留纯算法与数据合同；允许针对 YYGC 能力限制或 BUG 升级适配，不做旧数据兼容。实施分支为 `codex/yygc-unified-object-migration`，见[分阶段重构执行计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)。**U0–U5 已完成，框架锁定 8faf74f；旧运行模型和旧档入口已删除，134 项 Editor／Play 与 1,043 项纯计算回归通过。U6 最终干净源码 Mono 构建与完整矩阵继续执行，见[实施记录](docs/YYGC_UNIFIED_IMPLEMENTATION.md)。下文按日期保留历史验收状态。**
 
 2026-09-13 已完成 [Definition 场景入口修复](docs/SCENE_DEFINITIONS.md)：统一 Loader 引用、定义分类和静态视图接管，删除手填映射表。编译完成，测试回归按用户要求待确认；当前 YYGC 锁定 `ccd61e0`，不沿用旧批次通过记录宣称本次已验收。
 
@@ -12,7 +12,7 @@
 
 目录设计已收口为 `Assets/DarkNights/Scripts` 与 `Res` 分离；代码采用 Core、Runtime、View、Entry，资源按对象／面板集中维护定义、Prefab 和专用资源。Addressables 不要求游戏素材目录采用特殊名称，仍通过 ObjectDefinition 驱动加载与绑定；现有 AddressableAssetsData 配置位置保留。详见[目录及绑定要求](docs/MIGRATION_PLAN.md#directory-and-assets)。目前已建立四个运行程序集、Editor/Tests、配置与 Pinewatch 场景、15 类原生对象、效果与五页 UI。
 
-`Game/` 是 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。先运行 `tools/prepare-lan-sample.ps1` 与 `tools/prepare-fishnet.ps1` 准备锁定提交的 `.deps/YYGC`／`.deps/FishNet`，不直接引用用户维护的框架工作区。FishNet 4.7.2 带断线分片清理补丁，见[恢复接入](docs/NETWORK_RECOVERY.md)。R3、MemoryPack、UniTask 等依赖已导入；VitalRouter 使用 YYGC 要求的完成语义修正版。内部产品名暂保留 `DNights`。
+`Game/` 是 Unity 宿主，[ProjectVersion](Game/ProjectSettings/ProjectVersion.txt) 为 `6000.4.9f1`。先运行 `tools/prepare-lan-sample.ps1` 与 `tools/prepare-fishnet.ps1` 准备锁定提交的 `.deps/YYGC-unified`／`.deps/FishNet`，不直接引用用户维护的框架工作区。FishNet 4.7.2 带断线分片清理补丁，见[恢复接入](docs/NETWORK_RECOVERY.md)。R3、MemoryPack、UniTask 等依赖已导入；VitalRouter 使用 YYGC 要求的完成语义修正版。内部产品名暂保留 `DNights`。
 
 原评估日期：2026-09-10；Sample 验证日期：2026-09-11。当时分支为 `main`，当前迁移分支见上方。早期评估未修改 `D:\Developer\YYGC`、Godot 基线或参考素材；2026-09-12 的 Workshop 展示修复已同步 YYGC，逐文件记录见[改动账本](docs/YYGC_CHANGES.md#workshop-display)。下方评估输入表保留历史时点。
 

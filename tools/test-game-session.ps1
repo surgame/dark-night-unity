@@ -1,7 +1,7 @@
-param([ValidateSet('mono', 'il2cpp')][string]$Backend = 'mono', [int]$Port = 27991)
+param([ValidateSet('mono', 'il2cpp')][string]$Backend = 'mono', [int]$Port = 27991, [string]$PlayerPath = '')
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
-$player = Join-Path $repo "artifacts/migration/player-$Backend/DarkNights.exe"
+$player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo "artifacts/migration/player-$Backend/DarkNights.exe" }
 $gameCode = Join-Path (Split-Path $player -Parent) $(if ($Backend -eq 'mono') { 'DarkNights_Data/Managed/DarkNights.Entry.dll' } else { 'GameAssembly.dll' })
 if (!(Test-Path -LiteralPath $player)) { throw "Build the formal $Backend Player first." }
 $run = Join-Path $repo ('artifacts/migration/session-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))

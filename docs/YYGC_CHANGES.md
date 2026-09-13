@@ -1,5 +1,17 @@
 # YYGC 修改授权与改动账本
 
+<a id="unified-u5"></a>
+
+## 2026-09-13：U5 已完成资源的异步等待修正
+
+框架提交为 `8faf74f03d9eac4e025d6fe0f81f0c26a9eac9d4`。先在 `.deps/YYGC-unified` 验证；确认用户仓库干净、仍在 `master` 且 HEAD 为 `0305eb7` 后，本地 fetch 并快进 `D:\Developer\YYGC` 至同一提交，没有推送。游戏准备脚本锁定完整提交；UPM manifest／lock 的隔离路径不变，六文件 Sample／UI／单例补丁及友元文件通过精确校验并保留。
+
+| 文件 | 具体缺口与修正 | 落点与验证 |
+|---|---|---|
+| `Runtime/Utils/FastInstantiator.cs` | 后台 Editor 中，Addressables 句柄已完成，但 `handle.Task` 仍等待 ResourceManager 的延迟完成回调，导致会话预加载停滞。AcquireComponentAsync 改为现有 UniTask.Addressables 的 `handle.ToUniTask`，已完成句柄直接返回；取消时不由适配器自动释放，继续由原租约异常路径唯一释放，组件访问回主线程 | 隔离与用户仓库同一路径；26/26 会话测试 3.07 秒、整批 134/134 Editor／Play 54.02 秒，含真实 Worker 工厂、取消、两种域重载和三夜。最终 Player 验证归 U6 |
+
+本次没有新增 YYGC 文件、程序集引用或 `.meta`。Sample 未调用本次修改的 AcquireComponentAsync／PrepareAsync 路径，其既有 API 未改；不重复构建未受影响的 Sample。先前尝试仅更改 Task 续接上下文仍会阻塞，失败与取消记录保留，不作为修正通过证据。
+
 <a id="unified-u2"></a>
 
 ## 2026-09-13：U2 网络会话装配与跨对象提交

@@ -64,7 +64,7 @@ namespace DarkNights.Editor
             if (placement.Loader == null || placement.View == null ||
                 placement.Loader.gameObject != placement.gameObject || placement.View.gameObject != placement.gameObject)
                 throw new InvalidOperationException("Placement must reference its own Loader and ObjectView: " + placement.name);
-            DefinitionRuleIndex.Kind(placement.Loader.ResolveDefinition());
+            DefinitionRuleIndex.RuleKey(placement.Loader.ResolveDefinition());
             if (!placement.Loader.EditorPrefabMatchesDefinition())
                 throw new InvalidOperationException("Definition PrefabRef changed; explicitly update the scene instance: " + placement.name);
             if (placement.View.Get<NativeVisual>("visual") == null)

@@ -3,8 +3,6 @@ using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading;
-using DarkNights.Core.Config;
-using DarkNights.Core.Logic;
 using DarkNights.Core.Save;
 
 namespace DarkNights.Runtime.Save
@@ -17,18 +15,15 @@ namespace DarkNights.Runtime.Save
     {
         public const int SlotCount = 10;
         private readonly string directory;
-        private readonly GameSaveJson codec;
-        private readonly Func<SessionSnapshot, string> serialize;
+        private readonly ObjectWorldSaveJson codec;
         private readonly object gate = new object();
         private static readonly UTF8Encoding Utf8 = new UTF8Encoding(false, true);
 
-        public GameSaveStore(string directory, GameCatalog catalog, LevelLayout layout,
-            Func<SessionSnapshot, string> serialize = null)
+        public GameSaveStore(string directory, ObjectWorldSaveJson codec)
         {
             if (string.IsNullOrWhiteSpace(directory)) throw new ArgumentException("Save directory is required.", nameof(directory));
             this.directory = Path.GetFullPath(directory);
-            codec = new GameSaveJson(catalog, layout);
-            this.serialize = serialize ?? codec.Serialize;
+            this.codec = codec ?? throw new ArgumentNullException(nameof(codec));
         }
 
         public void Save(int slot, SessionSnapshot snapshot, CancellationToken cancellationToken = default)
@@ -37,7 +32,7 @@ namespace DarkNights.Runtime.Save
             lock (gate)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                byte[] bytes = Utf8.GetBytes(serialize(snapshot));
+                byte[] bytes = Utf8.GetBytes(codec.Serialize(snapshot));
                 cancellationToken.ThrowIfCancellationRequested();
                 Directory.CreateDirectory(directory);
                 string temporary = destination + "." + Guid.NewGuid().ToString("N") + ".tmp";
@@ -68,14 +63,6 @@ namespace DarkNights.Runtime.Save
             }
         }
 
-        public GameSession Load(int slot, CancellationToken cancellationToken = default)
-        {
-            string text = Read(slot, cancellationToken);
-            var restored = codec.Restore(text);
-            cancellationToken.ThrowIfCancellationRequested();
-            return restored;
-        }
-
         public string Read(int slot, CancellationToken cancellationToken = default)
         {
             string source = SlotPath(slot);
@@ -85,7 +72,7 @@ namespace DarkNights.Runtime.Save
                 string text;
                 using (var input = new FileStream(source, FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
-                    if (input.Length == 0 || input.Length > GameSaveJson.MaximumBytes)
+                    if (input.Length == 0 || input.Length > ObjectWorldSaveJson.MaximumBytes)
                         throw new FormatException("Save is empty or too large.");
                     var bytes = new byte[(int)input.Length];
                     int offset = 0;

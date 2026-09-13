@@ -42,6 +42,12 @@ namespace DarkNights.Tools.ArchitectureGuard
                 var model = compilation.GetSemanticModel(tree);
                 Action<string> fail = message => errors.Add(path + ": " + message);
                 if (!Allowed.ContainsKey(layer)) { fail("Unknown layer"); continue; }
+                string[] retired = { "GameSession", "WorldState", "SessionWorld", "LegacySessionWorld", "LegacySnapshotJson", "LegacyDisplayState", "GameSaveJson" };
+                if (root.DescendantNodes().OfType<IdentifierNameSyntax>().Any(n => retired.Contains(n.Identifier.Text)) ||
+                    root.DescendantNodes().OfType<BaseTypeDeclarationSyntax>().Any(n => retired.Contains(n.Identifier.Text)))
+                    fail("Retired runtime model or legacy save entry is forbidden");
+                if (layer == "Core" && (path.StartsWith("Core/Logic/Entities/") || path.StartsWith("Core/Logic/Commands/") ||
+                    path.StartsWith("Core/Logic/Systems/"))) fail("Core cannot own runtime entities, command execution or system lifecycles");
                 int lines = tree.GetText().Lines.Count - (sources[tree.FilePath].EndsWith("\n") ? 1 : 0);
                 if (lines > 300) fail("Handwritten source exceeds 300 lines");
                 var types = root.DescendantNodes().OfType<BaseTypeDeclarationSyntax>().ToArray();

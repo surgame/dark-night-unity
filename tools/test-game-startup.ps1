@@ -1,7 +1,7 @@
-param([ValidateSet('mono', 'il2cpp')][string]$Backend = 'mono')
+param([ValidateSet('mono', 'il2cpp')][string]$Backend = 'mono', [string]$PlayerPath = '')
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
-$player = Join-Path $root "artifacts/migration/player-$Backend/DarkNights.exe"
+$player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $root "artifacts/migration/player-$Backend/DarkNights.exe" }
 if (!(Test-Path -LiteralPath $player)) { throw "Build the $Backend game host first: $player" }
 $run = Join-Path $root ("artifacts/migration/run-{0}-{1}" -f (Get-Date -Format 'yyyyMMdd-HHmmss-fff'), $Backend)
 New-Item -ItemType Directory -Path $run | Out-Null

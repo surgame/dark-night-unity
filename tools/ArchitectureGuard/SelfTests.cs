@@ -23,7 +23,9 @@ namespace DarkNights.Tools.ArchitectureGuard
                 valid.Replace("public class Good", "public class Wrong"),
                 valid.Replace("/// <summary>", "// <summary>"),
                 valid.Replace("DarkNights.Core.Config", "DarkNights.Core.Other"),
-                valid + new string('\n', 301)
+                valid + new string('\n', 301),
+                valid.Replace("public class Good { }", "public class Good { public DarkNights.Core.Logic.GameSession Value; }"),
+                valid.Replace("public class Good { }", "public class Good { public DarkNights.Runtime.Save.LegacySnapshotJson Value; }")
             };
             foreach (string content in invalid)
             {
@@ -32,8 +34,8 @@ namespace DarkNights.Tools.ArchitectureGuard
             }
             var view = new Dictionary<string, string>
             {
-                ["Core/Logic/WorldState.cs"] = "namespace DarkNights.Core.Logic {\n/// <summary>权威世界测试夹具，代表不能被表现层读取的可写实例。</summary>\npublic class WorldState { } }",
-                ["View/BadView.cs"] = "namespace DarkNights.View {\n/// <summary>表现层测试夹具，故意访问了禁止的可写世界状态类型。</summary>\npublic class BadView { public DarkNights.Core.Logic.WorldState State; } }"
+                ["Core/Logic/InternalRule.cs"] = "namespace DarkNights.Core.Logic {\n/// <summary>规则测试夹具，代表表现层不能直接引用的内部计算。</summary>\npublic class InternalRule { } }",
+                ["View/BadView.cs"] = "namespace DarkNights.View {\n/// <summary>表现层测试夹具，故意访问了禁止的内部规则类型。</summary>\npublic class BadView { public DarkNights.Core.Logic.InternalRule Rule; } }"
             };
             if (SourceRules.Check(view).Count == 0) throw new Exception("Guard accepted mutable world access from View");
             return invalid.Length + 2;

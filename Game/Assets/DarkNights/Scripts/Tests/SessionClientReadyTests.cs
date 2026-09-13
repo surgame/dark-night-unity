@@ -1,4 +1,7 @@
 using System.IO;
+using System.Collections;
+using Cysharp.Threading.Tasks;
+using UnityEngine.TestTools;
 using System.Reflection;
 using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Network;
@@ -12,18 +15,21 @@ namespace DarkNights.Tests
     /// 验证客户端 Ready 回执在重试、迟到和断开边界的处理，不模拟可信服务端授权。
     /// 测试仅设置已发送握手序号；实际重试发送及四端容量由独立 Player 回归覆盖。
     /// </summary>
+    [Category("UnifiedSession")]
     public sealed class SessionClientReadyTests
     {
         private GameObject owner;
         private PlayerEndpoint endpoint;
         private SessionClient client;
         private SessionAuthority authority;
+        private UnifiedSessionScope scope;
 
-        [SetUp]
-        public void Setup()
+        [UnitySetUp]
+        public IEnumerator Setup()
         {
+            yield return UniTask.ToCoroutine(async () => scope = await UnifiedSessionScope.Create());
             RuleScenario.RepositoryRoot = Path.GetFullPath("..");
-            authority = new SessionAuthority(RuleScenario.Catalog(), RuleScenario.Layout());
+            authority = SessionScenario.Create(RuleScenario.Catalog(), RuleScenario.Layout());
             owner = new GameObject("Ready reply test");
             endpoint = owner.AddComponent<PlayerEndpoint>();
             client = new SessionClient(null);
@@ -37,9 +43,10 @@ namespace DarkNights.Tests
         [TearDown]
         public void Cleanup()
         {
-            client.Dispose();
-            authority.Dispose();
+            client?.Dispose();
+            authority?.Dispose();
             Object.DestroyImmediate(owner);
+            scope?.Dispose();
         }
 
         [Test]

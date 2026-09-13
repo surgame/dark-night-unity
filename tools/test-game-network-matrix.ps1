@@ -1,4 +1,4 @@
-param([int]$BasePort = 28100)
+param([int]$BasePort = 28100, [string]$PlayerPath = '')
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
 $run = Join-Path $repo ('artifacts/migration/network-matrix-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
@@ -20,7 +20,7 @@ try {
                 Start-Sleep -Milliseconds 500
                 if ($relay.HasExited) { throw 'UDP relay failed to start.' }
                 Write-Output "Network matrix: nominal RTT=$rtt ms, jitter=25 ms each direction, loss=$($loss * 100)%"
-                & (Join-Path $PSScriptRoot 'test-game-recovery.ps1') -Port $port -ClientPort ($port + 1) -MinimumUptimeSeconds 5
+                & (Join-Path $PSScriptRoot 'test-game-recovery.ps1') -Port $port -ClientPort ($port + 1) -MinimumUptimeSeconds 5 -PlayerPath $PlayerPath
                 $latest = Get-ChildItem (Join-Path $repo 'artifacts/migration') -Directory -Filter 'recovery-*' | Sort-Object Name -Descending | Select-Object -First 1
                 $case = Get-Content -LiteralPath (Join-Path $latest.FullName 'result.json') -Raw | ConvertFrom-Json
                 if (!$case.passed) { throw "Recovery matrix case failed: $($latest.FullName)" }

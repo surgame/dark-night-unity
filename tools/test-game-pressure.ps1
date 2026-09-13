@@ -1,7 +1,7 @@
-param([int]$Port = 28240, [int]$ClientPort = 0, [int]$DurationSeconds = 30)
+param([int]$Port = 28240, [int]$ClientPort = 0, [int]$DurationSeconds = 30, [string]$PlayerPath = '')
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
-$player = Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe'
+$player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe' }
 $run = Join-Path $repo ('artifacts/migration/pressure-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 $saves = Join-Path $run 'saves'
 New-Item -ItemType Directory -Path $run | Out-Null
@@ -59,12 +59,13 @@ try {
         '--loss', '0', '--delay', '0', '--jitter', '0', '--report', ('"' + $relayReport + '"'))
     $relay = Start-Process -FilePath 'python' -ArgumentList $arguments -WindowStyle Hidden -PassThru
     Start-Player 'host'
-    $null = Wait-Report 'host' { param($r) $r.ready -and $r.entityViews -eq 256 -and $r.arrowViews -eq 1024 }
+    $hostBaseline = Wait-Report 'host' { param($r) $r.ready -and $r.entityViews -eq 17 -and $r.arrowViews -eq 1024 }
+    Check 'host_retains_one_authoritative_object_per_real_entity' ($hostBaseline.frame.World.Identities.Count -eq 256)
     $null = Receipt 'host' @{operation='SetPaused';value=1}
     foreach($role in @('client1','client2','client3')) {
         Start-Player $role
         $r = Wait-Report $role { param($r) $r.ready -and $r.entityViews -eq 256 -and $r.arrowViews -eq 1024 }
-        Check ($role+'_full_limit_received_and_rendered') ($r.frame.World.Actors.Count -eq 256 -and $r.frame.World.Projectiles.Count -eq 1024)
+        Check ($role+'_full_limit_received_and_rendered') ($r.frame.World.Identities.Count -eq 256 -and $r.frame.World.Projectiles.Count -eq 1024)
     }
     $first = Wait-Report 'host' {param($r) $r.frame.ReadyCount -eq 4}
     $started=[DateTime]::UtcNow
@@ -87,7 +88,7 @@ try {
     foreach($role in $processes.Keys) {
         $m=Get-Content (Join-Path $run "$role-metrics.json") -Raw | ConvertFrom-Json
         $metrics[$role]=$m
-        Check ($role+'_metrics_captured') ($m.frameMilliseconds.samples -gt 30 -and $m.actorCount -eq 256 -and $m.projectileCount -eq 1024)
+        Check ($role+'_metrics_captured') ($m.frameMilliseconds.samples -gt 30 -and $m.entityCount -eq 256 -and $m.projectileCount -eq 1024)
         $log=Get-Content -LiteralPath (Join-Path $run "$role.log") -Raw
         Check ($role+'_no_runtime_exception') ($log -notmatch '(?im)(Exception:|Shader error|\[AppStartup\].*(failed|cancelled))')
     }

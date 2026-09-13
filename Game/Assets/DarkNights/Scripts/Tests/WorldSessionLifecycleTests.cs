@@ -1,65 +1,69 @@
 using System;
-using System.IO;
+using System.Collections;
+using Cysharp.Threading.Tasks;
 using DarkNights.Runtime.Network;
-using DarkNights.Runtime.Session;
-using GameCore.Objects.Behaviours;
+using DarkNights.Runtime.Objects;
 using NUnit.Framework;
-using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace DarkNights.Tests
 {
     /// <summary>
-    /// 验证实际会话行为的配置／角色门槛、幂等清理与重新装配；使用真实 Core 和服务组合。
-    /// 不伪造 FishNet 传输，角色分发的端到端检查由 Play 生命周期探针和独立 Player 承担。
+    /// 用正式会话 Prefab 和真实 YYGC 上下文验证角色、配置、失败清理与重新装配。
+    /// 服务端时钟仍由显式回调推进；真实 transport 和重连由独立 Player 验收。
     /// </summary>
+    [Category("UnifiedSession")]
     public sealed class WorldSessionLifecycleTests
     {
-        [SetUp]
-        public void Setup() => RuleScenario.RepositoryRoot = Path.GetFullPath("..");
+        private UnifiedSessionScope scope;
+
+        [UnitySetUp]
+        public IEnumerator Setup()
+        {
+            yield return UniTask.ToCoroutine(async () => scope = await UnifiedSessionScope.Create());
+        }
+
+        [TearDown]
+        public void Cleanup() => scope?.Dispose();
+
+        private ObjectSession Prepare() => scope.NewWorld(RuleScenario.Catalog(), RuleScenario.Layout(), false);
+        private static CampSessionBehaviour Behaviour(ObjectSession world) => world.Camp.Object.GetBehaviour<CampSessionBehaviour>();
 
         [TestCase(true)]
         [TestCase(false)]
         public void ConfigurationAndRoleStartOnceInEitherOrder(bool roleFirst)
         {
-            var behaviour = new CampSessionBehaviour();
-            behaviour.Initialize(default(BehaviourContext));
-            try
+            var world = Prepare();
+            var behaviour = Behaviour(world);
+            if (roleFirst) behaviour.OnStartServer();
+            Assert.That(behaviour.Server, Is.Null);
+            Configure(world);
+            if (!roleFirst)
             {
-                if (roleFirst) behaviour.OnStartServer();
                 Assert.That(behaviour.Server, Is.Null);
-                if (roleFirst) ExpectTransportGuard();
-                Configure(behaviour);
-                if (!roleFirst)
-                {
-                    Assert.That(behaviour.Server, Is.Null);
-                    ExpectTransportGuard();
-                    behaviour.OnStartServer();
-                }
-                var server = behaviour.Server;
-                Assert.That(server, Is.Not.Null);
                 behaviour.OnStartServer();
-                Assert.That(behaviour.Server, Is.SameAs(server));
-                Assert.That(behaviour.StartCount, Is.EqualTo(1));
-                Assert.Throws<InvalidOperationException>(() => Configure(behaviour));
             }
-            finally { behaviour.Dispose(); }
+            var server = behaviour.Server;
+            Assert.That(server, Is.Not.Null);
+            behaviour.OnStartServer();
+            Assert.That(behaviour.Server, Is.SameAs(server));
+            Assert.That(behaviour.StartCount, Is.EqualTo(1));
+            Assert.Throws<InvalidOperationException>(() => Configure(world));
         }
 
         [Test]
         public void StopRevokesBeforeDisposalAndLateStartCannotResurrect()
         {
-            var behaviour = new CampSessionBehaviour();
-            behaviour.Initialize(default(BehaviourContext));
+            var world = Prepare();
+            var behaviour = Behaviour(world);
             SessionServer previous = null;
             int detached = 0;
-            Configure(behaviour, value =>
+            Configure(world, value =>
             {
                 detached++;
                 Assert.That(value.Server, Is.Null);
                 Assert.That(previous.Authority.Closed, Is.False);
             });
-            ExpectTransportGuard();
             behaviour.OnStartServer();
             previous = behaviour.Server;
             behaviour.StopServer();
@@ -68,58 +72,53 @@ namespace DarkNights.Tests
             previous.Advance(10);
             behaviour.OnStartServer();
             behaviour.StopServer();
-            behaviour.Dispose();
             Assert.That(detached, Is.EqualTo(1));
             Assert.That(previous.Authority.Closed, Is.True);
             Assert.That(previous.Authority.ServerTick, Is.EqualTo(tick));
+            Assert.That(world.Context.IsAlive, Is.False);
             Assert.That(behaviour.Server, Is.Null);
         }
 
         [Test]
         public void ClientConfigurationAndDespawnNeverCreateAuthority()
         {
-            var behaviour = new CampSessionBehaviour();
-            behaviour.Initialize(default(BehaviourContext));
-            Configure(behaviour);
+            var world = Prepare();
+            var behaviour = Behaviour(world);
+            Configure(world);
             behaviour.Update(10);
             Assert.That(behaviour.Server, Is.Null);
+            Assert.That(world.Elapsed, Is.Zero);
             behaviour.OnDespawn();
             behaviour.OnStartServer();
             Assert.That(behaviour.Server, Is.Null);
             Assert.That(behaviour.Configured, Is.False);
-            behaviour.Dispose();
+            Assert.That(world.Context.IsAlive, Is.False);
         }
 
         [Test]
-        public void FailedCreationDetachesAndReassemblyGetsFreshService()
+        public void FailedCreationReleasesContextAndFreshAssemblyStarts()
         {
-            var behaviour = new CampSessionBehaviour();
-            behaviour.Initialize(default(BehaviourContext));
+            var failed = Prepare();
+            var failedBehaviour = Behaviour(failed);
             int detached = 0;
-            Configure(behaviour, value => detached++, "");
-            Assert.Throws<ArgumentException>(() => behaviour.OnStartServer());
+            Configure(failed, value => detached++, "");
+            Assert.Throws<ArgumentException>(() => failedBehaviour.OnStartServer());
             Assert.That(detached, Is.EqualTo(1));
-            Assert.That(behaviour.Server, Is.Null);
-            Assert.That(behaviour.StartCount, Is.Zero);
-            behaviour.OnDespawn();
-            behaviour.Initialize(default(BehaviourContext));
-            Configure(behaviour);
-            ExpectTransportGuard();
-            behaviour.OnStartServer();
-            Assert.That(behaviour.Server.Authority.Closed, Is.False);
-            Assert.That(behaviour.StartCount, Is.EqualTo(1));
-            behaviour.Dispose();
+            Assert.That(failedBehaviour.Server, Is.Null);
+            Assert.That(failedBehaviour.StartCount, Is.Zero);
+            Assert.That(failed.Context.IsAlive, Is.False);
+            var fresh = Prepare();
+            Configure(fresh);
+            Behaviour(fresh).OnStartServer();
+            Assert.That(Behaviour(fresh).Server.Authority.Closed, Is.False);
+            Assert.That(Behaviour(fresh).StartCount, Is.EqualTo(1));
         }
 
-        // EditMode 未启动真实 transport；明确验收投影拒绝越过服务端门槛，不屏蔽其余日志。
-        private static void ExpectTransportGuard() => LogAssert.Expect(LogType.Error,
-            "MutateState can only be called on the server. Clients must send commands.");
-
-        private static void Configure(CampSessionBehaviour behaviour, Action<CampSessionBehaviour> detached = null,
-            string directory = "../artifacts/c-refactor/lifecycle-saves")
+        private static void Configure(ObjectSession world, Action<CampSessionBehaviour> detached = null,
+            string directory = "../artifacts/yygc-unified/u5/lifecycle-saves/v2")
         {
-            behaviour.Configure(RuleScenario.Catalog(), RuleScenario.Layout(), new WorldSessionBehaviour(),
-                directory, detached, error => Assert.Fail(error.ToString()));
+            Behaviour(world).Configure(world.Catalog, world.Layout, world.Camp.Object.GetBehaviour<WorldSessionBehaviour>(),
+                directory, world, detached, error => Assert.Fail(error.ToString()));
         }
     }
 }

@@ -28,10 +28,6 @@ namespace DarkNights.Tests
             Compare(expected, "worksites", layout.Worksites.Select(value => (value.Kind, value.X, value.Variant, value.Name)).ToArray());
             Compare(expected, "actors", layout.Actors.Select(value => (value.Kind, value.X, value.Variant, value.Name)).ToArray());
 
-            var session = new GameSession(RuleScenario.Catalog(), layout);
-            Assert.That(session.World.Buildings.Select(value => value.Kind), Is.EqualTo(layout.Buildings.Select(value => value.Kind)));
-            Assert.That(session.World.Actors.Select(value => value.Name), Is.EqualTo(layout.Actors.Select(value => value.Name)));
-            Assert.That(session.World.NextId, Is.EqualTo(18), "The completed farm reserves its generated worksite identity.");
         }
 
         private static void Compare(JObject expected, string group, (string Kind, float X, int Variant, string Name)[] actual)

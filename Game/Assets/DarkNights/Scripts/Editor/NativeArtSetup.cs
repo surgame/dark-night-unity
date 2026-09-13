@@ -28,7 +28,7 @@ namespace DarkNights.Editor
         public static void Install()
         {
             foreach (string name in new[] { "Worker", "House", "Trees" })
-                CRefactorContentUpgrade.RequireGenerated(CRefactorContentUpgrade.PresentationType(name));
+                NativeObjectContracts.RequireGenerated(NativeObjectContracts.PresentationType(name));
             string staging = Path.GetFullPath("../artifacts/art-staging/Original");
             JObject manifest = JObject.Parse(File.ReadAllText(staging + "/manifest.json"));
             JObject input = JObject.Parse(File.ReadAllText(InputPath));
@@ -81,7 +81,8 @@ namespace DarkNights.Editor
                 if (name == "Worker")
                 {
                     var worker = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(FormalObjectContentSetup.WorkerDefinitionPath);
-                    worker.BehaviourTypes.Add(CRefactorContentUpgrade.PresentationType(name).FullName);
+                    worker.BehaviourTypes.Add(NativeObjectContracts.PresentationType(name).FullName);
+                    ObjectCapabilitySetup.ConfigureLocal(worker, "worker");
                     EditorUtility.SetDirty(worker);
                     continue;
                 }
@@ -89,14 +90,17 @@ namespace DarkNights.Editor
                 var definition = ScriptableObject.CreateInstance<ObjectDefinition>();
                 definition.Name = name;
                 definition.NetType = NetworkType.Local;
-                definition.BehaviourTypes.Add(CRefactorContentUpgrade.PresentationType(name).FullName);
+                definition.BehaviourTypes.Add(NativeObjectContracts.PresentationType(name).FullName);
                 definition.PrefabRef = new AssetReferenceGameObject(AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(prefab)));
                 AssetDatabase.CreateAsset(definition, folder + "/" + name + ".asset");
                 string prefix = (string)spec["category"] == "actors" ? "unit." : (string)spec["category"] == "buildings" ? "building." : "worksite.";
                 definition.EditorSetIdentity(DefinitionIdentityAuthoring.ReadAssetGuid(definition), prefix + id, false);
                 EditorUtility.SetDirty(definition);
                 database.AddDefinition(definition);
-                definition.Type = DefinitionRuleIndex.TypeForKey(definition.Key);
+                definition.Type = (string)spec["category"] == "actors" ? GameCore.Objects.Types.ObjectType.Unit :
+                    (string)spec["category"] == "buildings" ? GameCore.Objects.Types.ObjectType.Placeable_CompositeStructure :
+                    GameCore.Objects.Types.ObjectType.Scenery_ResourceNode;
+                ObjectCapabilitySetup.ConfigureLocal(definition, id);
                 AddressableAssetEntry entry = settings.CreateOrMoveEntry(definition.PrefabRef.AssetGUID, settings.DefaultGroup);
                 entry.address = "dark_nights.object." + name.ToLowerInvariant();
                 settings.SetDirty(AddressableAssetSettings.ModificationEvent.EntryModified, entry, true, true);
@@ -131,7 +135,7 @@ namespace DarkNights.Editor
                 if (prefab == null || prefab.GetComponent<DarkNights.View.NativeVisual>() == null)
                     throw new InvalidOperationException("Native visual missing: " + name);
                 var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(ObjectsRoot + "/" + name + "/" + name + ".asset");
-                CRefactorContentUpgrade.ValidateLocal(name, definition, prefab);
+                NativeObjectContracts.ValidateLocal(name, definition, prefab);
             }
         }
 
