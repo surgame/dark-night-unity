@@ -55,9 +55,28 @@ namespace DarkNights.View
                 observing = true; epoch = frame.Epoch;
             }
             night = Mathf.MoveTowards(night, target, Time.unscaledDeltaTime * 0.16f);
+            visualTime += Time.unscaledDeltaTime;
+            Render();
+        }
+
+        /// <summary>
+        /// 在指定的本地表现时刻采样场景，用于编辑预览与固定状态画面对照；不推进世界或网络。
+        /// 参数只控制本场景的光照、环境动画和镜头，下一次常规 Present 从该表现时刻继续。
+        /// </summary>
+        public void SamplePresentation(double time, float nightAmount)
+        {
+            if (double.IsNaN(time) || double.IsInfinity(time) || time < 0 ||
+                float.IsNaN(nightAmount) || nightAmount < 0 || nightAmount > 1)
+                throw new System.ArgumentOutOfRangeException(nameof(time), "Invalid presentation sample.");
+            visualTime = time;
+            night = nightAmount;
+            Render();
+        }
+
+        private void Render()
+        {
             sky.color = Color.Lerp(new Color32(170, 188, 193, 255), new Color32(70, 87, 120, 255), night) * Ambient;
             foreach (NativeBackdrop backdrop in backgrounds) backdrop.Apply(cameraX, night, Ambient);
-            visualTime += Time.unscaledDeltaTime;
             if (environment != null) environment.Present(visualTime, night, cameraX, Ambient);
             UpdateCamera();
         }
