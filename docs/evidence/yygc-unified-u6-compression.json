@@ -1,6 +1,6 @@
 {
   "stage": "U6 reliable projection capacity correction",
-  "status": "editor_verified_player_pending",
+  "status": "mono_functional_and_background_capacity_verified_foreground_deferred",
   "protocol": 7,
   "frameworkCommit": "745f3d2c844a66389e39bb84cd878d5d80f77962",
   "baseGameCommit": "a7bb92655443effc4c697474149e33d3806b54b1",
@@ -76,13 +76,26 @@
     "measurementStartUtc": "2026-09-13T13:05:11.7108307Z",
     "error": "System.Management.Automation.RuntimeException: Timeout waiting for client2",
     "gameCodeChanged": false,
-    "fix": "Add configurable relay lifetime, pass observation plus 240 seconds for setup and teardown, fail immediately on relay exit, record publication lag samples."
+    "fix": "Add configurable relay lifetime, pass observation plus 240 seconds for setup and teardown, fail immediately on relay exit, record publication lag samples.",
+    "correctionVerifiedBy": {
+      "path": "artifacts/migration/pressure-20260913-222439-382/result.json",
+      "sha256": "40aa4d797d9be5a93e565e77488762c494bc16c5692a278bade4d89cc044b277"
+    },
+    "correctedRelayElapsedSeconds": 275.2374600000039
   },
   "freshnessBudget": {
     "context": "Zero-loss, zero-delay local capacity relay",
     "maximumServerTickLag": 60,
     "ticksPerSecond": 60,
-    "introducedAfterBaseline": true
+    "introducedAfterBaseline": true,
+    "observationIntervalSeconds": 5,
+    "observations": 48,
+    "perPacketLatencyGuarantee": false,
+    "maximumObservedServerTickLag": {
+      "client1": 12,
+      "client2": 12,
+      "client3": 18
+    }
   },
   "previousPlayer": {
     "gameCommit": "a7bb92655443effc4c697474149e33d3806b54b1",
@@ -97,7 +110,29 @@
   "foreground": {
     "status": "deferred_by_user",
     "instruction": "暂不显示，保留前台验收待办",
-    "visibleWindowsLaunched": false
+    "visibleWindowsLaunched": false,
+    "observedSamples": {
+      "campaign": {
+        "host": 0,
+        "client1": 0,
+        "client2": 0,
+        "client3": 0
+      },
+      "pressure": {
+        "host": 0,
+        "client1": 0,
+        "client2": 0,
+        "client3": 0
+      },
+      "pressure-compact": {
+        "host": 0,
+        "client1": 0,
+        "client2": 0,
+        "client3": 0
+      }
+    },
+    "sixtyFpsSignedOff": false,
+    "latestVerifiedPlayerRetained": true
   },
   "frameworkChangedInCompressionSlice": false,
   "savedGameVersion": 2,
@@ -115,7 +150,27 @@
     "releasedBytes": 32992560.0,
     "freeC": 14572232704,
     "freeD": 23647346688,
-    "blockedSourceCleanupRetried": false
+    "blockedSourceCleanupRetried": false,
+    "debugAttempt": {
+      "utc": "2026-09-13T14:35:57.4721306Z",
+      "status": "blocked_by_automatic_approval",
+      "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\player-mono-compressed\\DNights_BurstDebugInformation_DoNotShip",
+      "reason": "blocked by policy",
+      "commandExecuted": false,
+      "removed": false,
+      "remainingBytes": 245875.0,
+      "releasedBytes": 0,
+      "freeC": 14568321024,
+      "freeD": 23306227712,
+      "retried": false,
+      "previouslyRejectedPathsRetried": false
+    },
+    "priorRejectedPathsNotRetried": [
+      "Game/Library/Bee/artifacts/WinPlayerBuildProgram",
+      "artifacts/migration/player-mono/DNights_BurstDebugInformation_DoNotShip",
+      "artifacts/yygc-unified/u6/source",
+      "artifacts/yygc-unified/u6/locked-archives"
+    ]
   },
   "references": [
     {
@@ -141,6 +196,636 @@
     {
       "path": "artifacts/yygc-unified/u6/compression/tools-cleanup.json",
       "sha256": "b7b4ed7c4e29debf3243520d55c9c56ccf4039abdc4f55ad40a0560a9e3e3e28"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/compression/player-validation.json",
+      "sha256": "f539951aa05c66dea5cbbbd8588b218e5c2274cbe04bb61ba84fdf74b07f786d"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/compression/retention-assessment.json",
+      "sha256": "37506483061f6e56064dcfe28c4a440b72bba413d8016fd7d9a16776b2ed0c7b"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/compression/player-integrity-final.json",
+      "sha256": "b888ca46116509a1d228936feb870900139bfd8b6d80218c74fef0ff02d7cef4"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/compression/debug-cleanup-preflight.json",
+      "sha256": "2a7eb94e8ca72175018e7310993e6d85974624f0e114b2d2f35359d85d3a245b"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/compression/debug-cleanup.json",
+      "sha256": "47501da6ec3cdf18f1ae5104c1e8ff2756313e22578967585338faab01c46a3e"
     }
+  ],
+  "date": "2026-09-13",
+  "gameCommit": "4e3798fd4813eeb3c83fde092d51b96f5b74acfc",
+  "player": {
+    "path": "artifacts/yygc-unified/u6/player-mono-compressed/DarkNights.exe",
+    "backend": "Mono",
+    "buildCountForThisInput": 1,
+    "files": 408,
+    "bytes": 199003190,
+    "entrySha256": "EAF2D63504DB826284CED9178E24E0CF7EE1D39E1C58A1C1E66B4FDEDBB2CD9C",
+    "allFileHashesVerifiedAfterRuns": true,
+    "hashManifest": {
+      "path": "artifacts/yygc-unified/u6/compression/player-hashes.json",
+      "sha256": "87e2e319126e6e8656c5b11633e3b74a3051b40421e64bfc35f2011a4e4d10d0"
+    },
+    "buildProvenance": {
+      "path": "artifacts/yygc-unified/u6/compression/cli-build-mono-provenance.json",
+      "sha256": "84aeab6c5bfea4315a1a031bf0cfbd5d9448f9bb632ab5efd1f809fc5aaa8bb9"
+    },
+    "input": {
+      "path": "artifacts/yygc-unified/u6/compression/build-input.json",
+      "sha256": "f2e226d1f83143a578cc97131f662fec8f8173cbeaec0e8f918ca837a4aee4a9"
+    },
+    "sourceIntegrity": {
+      "path": "artifacts/yygc-unified/u6/compression/source-integrity.json",
+      "sha256": "6333db6fb3a6a0622f5a9fe54e865aafc1b62e6afce688d7762d44568fa041d6"
+    },
+    "importCache": "Reused the existing U6 isolated source cache; no Library copy and no claim of a second cold import."
+  },
+  "monoValidation": {
+    "completeMatrixChecks": 350,
+    "fullMatrixRun": true,
+    "matrix": {
+      "startup": {
+        "passed": true,
+        "checks": 6,
+        "report": {
+          "path": "artifacts/migration/run-20260913-220232-191-mono/result.json",
+          "sha256": "f29b9002275be8cfc5b78aabf97f708c7b65d0d2b6bbc6a3e4e5cd23051be896"
+        }
+      },
+      "session": {
+        "passed": true,
+        "checks": 13,
+        "report": {
+          "path": "artifacts/migration/session-20260913-220237-393/result.json",
+          "sha256": "19854e3b2e882a0c4ed438d10b74be4b36ad6e3b27480e84bc6171d5753d3bbd"
+        }
+      },
+      "concurrency": {
+        "passed": true,
+        "checks": 13,
+        "report": {
+          "path": "artifacts/migration/concurrency-20260913-220249-264/result.json",
+          "sha256": "0e5544948632edd39d1cb9f9b0a78096cb6f2cf0b6ac9d6d6926b932fc929484"
+        }
+      },
+      "active-load": {
+        "passed": true,
+        "checks": 14,
+        "report": {
+          "path": "artifacts/migration/active-load-20260913-220308-481/result.json",
+          "sha256": "35c3aba538c05ff790ee3c071dfe827fc094b63aef8b5b01b5d56d7add121c5d"
+        }
+      },
+      "recovery": {
+        "passed": true,
+        "checks": 24,
+        "report": {
+          "path": "artifacts/migration/recovery-20260913-220347-544/result.json",
+          "sha256": "8852c4e7ba5a040a83010844267d92e3e261e7dbedc5fdecd312934a637c5a19"
+        }
+      },
+      "network-matrix": {
+        "passed": true,
+        "checks": 216,
+        "report": {
+          "path": "artifacts/migration/network-matrix-20260913-220430-799/result.json",
+          "sha256": "66d11a94055c8288cd4a2fbd5d00f3e9497a9cd6c989cc3e785f8ed1dd9bfe76"
+        },
+        "profiles": [
+          {
+            "rttMs": 0,
+            "loss": 0.0,
+            "checks": 24,
+            "report": {
+              "path": "artifacts/migration/recovery-20260913-220431-418/result.json",
+              "sha256": "4938eb1e27e69a65b4c83772562b5a4fd5063bbae515e883a6f66c2c820a57c4"
+            }
+          },
+          {
+            "rttMs": 0,
+            "loss": 0.01,
+            "checks": 24,
+            "report": {
+              "path": "artifacts/migration/recovery-20260913-220453-795/result.json",
+              "sha256": "38034269164709dfb46c282362ece1b4e62b4dfe52897f8764bafe0be1bbe3a9"
+            }
+          },
+          {
+            "rttMs": 0,
+            "loss": 0.05,
+            "checks": 24,
+            "report": {
+              "path": "artifacts/migration/recovery-20260913-220515-875/result.json",
+              "sha256": "bea3fae5b103ea5816aa701ec362cbff9cf2256c2539e199dcf2a23a0ff555ae"
+            }
+          },
+          {
+            "rttMs": 100,
+            "loss": 0.0,
+            "checks": 24,
+            "report": {
+              "path": "artifacts/migration/recovery-20260913-220552-711/result.json",
+              "sha256": "56bc7e66d28403347ebe5cf9cb58b38a1d5eee5e334cb319fc780d01ca59cc48"
+            }
+          },
+          {
+            "rttMs": 100,
+            "loss": 0.01,
+            "checks": 24,
+            "report": {
+              "path": "artifacts/migration/recovery-20260913-220616-908/result.json",
+              "sha256": "1a026f36fd08744e7522451b388fd1415640ed0f7c51a4fc30e63b2ba8bb8a7b"
+            }
+          },
+          {
+            "rttMs": 100,
+            "loss": 0.05,
+            "checks": 24,
+            "report": {
+              "path": "artifacts/migration/recovery-20260913-220642-735/result.json",
+              "sha256": "98ae010fc416945d32edf7e8214e0ead2bcc548e804416fda0bb6dbdb7f24a57"
+            }
+          },
+          {
+            "rttMs": 200,
+            "loss": 0.0,
+            "checks": 24,
+            "report": {
+              "path": "artifacts/migration/recovery-20260913-220722-823/result.json",
+              "sha256": "af3999ffaded9cb1448ab94d3408b0bb1375b48b76cc82a2582bbf57b8e178bf"
+            }
+          },
+          {
+            "rttMs": 200,
+            "loss": 0.01,
+            "checks": 24,
+            "report": {
+              "path": "artifacts/migration/recovery-20260913-220749-697/result.json",
+              "sha256": "7c09c42820200ac18aef79f558bfc14805ffa73df97e92fbcee13e86aea37b17"
+            }
+          },
+          {
+            "rttMs": 200,
+            "loss": 0.05,
+            "checks": 24,
+            "report": {
+              "path": "artifacts/migration/recovery-20260913-220816-461/result.json",
+              "sha256": "60c3af9e52e928cc427ee4f340599ceac2520c735aad8571b6c482b60f93a20f"
+            }
+          }
+        ]
+      },
+      "visual-1280": {
+        "passed": true,
+        "checks": 6,
+        "report": {
+          "path": "artifacts/migration/visual-1280x800-20260913-220845-959/result.json",
+          "sha256": "6b819c14e21767599b646d0858341cbadce521e2db0f65efe584e4e8ee8e67c1"
+        }
+      },
+      "visual-1600": {
+        "passed": true,
+        "checks": 6,
+        "report": {
+          "path": "artifacts/migration/visual-1600x900-20260913-220912-757/result.json",
+          "sha256": "7c6298f0b6e1a567bf1d796186cc943e32efa57a790e9d8582f7900b4c817124"
+        }
+      },
+      "battle": {
+        "passed": true,
+        "checks": 9,
+        "report": {
+          "path": "artifacts/migration/battle-20260913-220939-752/result.json",
+          "sha256": "abdf3ee97059088bc3128b9f2d95d52c4eefebd7d3a3df06dc0128cac9e0de66"
+        }
+      },
+      "campaign": {
+        "passed": true,
+        "checks": 22,
+        "report": {
+          "path": "artifacts/migration/campaign-20260913-221008-445/result.json",
+          "sha256": "9df44c74f9aaae1ee8f8f8a4ecdde97aa89ba210e5e83fa7ee743a1a071d1671"
+        }
+      },
+      "pressure": {
+        "passed": true,
+        "checks": 21,
+        "report": {
+          "path": "artifacts/migration/pressure-20260913-221359-924/result.json",
+          "sha256": "376a8cbd173e57624bb14777d00ad3fe408ea5cb3da27fa78cff061c403ab57a"
+        }
+      }
+    },
+    "delivery": {
+      "path": "artifacts/migration/delivery-20260913-220231-851/result.json",
+      "sha256": "6b914c1237753e228304be4e60c39d3399946e05ac5a3eb31217ceda28de1bf8"
+    },
+    "extendedCapacity": {
+      "passed": true,
+      "checks": 21,
+      "sameChecksAsShortCapacityWithLongerWindow": true,
+      "requestedSeconds": 240,
+      "elapsedSeconds": 240.8546488,
+      "compactReports": true,
+      "report": {
+        "path": "artifacts/migration/pressure-20260913-222439-382/result.json",
+        "sha256": "40aa4d797d9be5a93e565e77488762c494bc16c5692a278bade4d89cc044b277"
+      }
+    }
+  },
+  "sample": {
+    "gameCommit": "a7bb92655443effc4c697474149e33d3806b54b1",
+    "frameworkCommit": "745f3d2c844a66389e39bb84cd878d5d80f77962",
+    "player": "artifacts/yygc-unified/u6/sample-mono-performance/LanCoop.exe",
+    "files": 404,
+    "bytes": 194957516.0,
+    "copyHashesMatch": true,
+    "runs": [
+      {
+        "path": "artifacts/yygc-unified/u6/performance/sample/run-20260913-204213/result.json",
+        "passed": true,
+        "weakNetwork": false,
+        "checks": 30
+      },
+      {
+        "path": "artifacts/yygc-unified/u6/performance/sample/run-20260913-204225/result.json",
+        "passed": true,
+        "weakNetwork": true,
+        "checks": 30
+      }
+    ],
+    "sourceRetained": "U6 source deletion was previously rejected; not retried",
+    "reusedWithoutRebuild": true,
+    "reason": "Compression changed only formal game code and its verification scripts; Sample source, package inputs and shared YYGC commit are unchanged from a7bb926."
+  },
+  "capacityObservation": {
+    "scope": "Synthetic projection: 256 entities / 1024 projectiles; 17 actual authoritative objects",
+    "authoritativeSimulationPaused": true,
+    "finalPacketBytes": 10604,
+    "publicationWindow": {
+      "first": 261,
+      "last": 2668,
+      "firstTick": 1532,
+      "lastTick": 15981,
+      "readyCount": 4,
+      "requiredDelta": 1200,
+      "elapsedSeconds": 240.8546488
+    },
+    "udpIncludingSetupAndTeardown": {
+      "received": 80705,
+      "dropped": 0,
+      "forwarded": 80705,
+      "reordered": 0,
+      "peer_resets": 0,
+      "received_bytes": 82380579,
+      "forwarded_bytes": 82380579,
+      "client_to_server_bytes": 119297,
+      "server_to_client_bytes": 82261282,
+      "elapsed_seconds": 275.2374600000039
+    },
+    "memoryScope": "OS samples after measurement start plus 10 seconds; managed samples after each role metrics-reset plus 10 seconds. These are different clocks.",
+    "limitation": "A four-minute hidden-window observation is not foreground FPS acceptance or proof of long-term leak freedom.",
+    "roles": {
+      "host": {
+        "seconds": 241.49439109999997,
+        "workingSet": {
+          "samples": 46,
+          "observedSeconds": 229.651865,
+          "firstBytes": 782979072,
+          "lastBytes": 783179776,
+          "minimumBytes": 782180352,
+          "maximumBytes": 783204352,
+          "changeBytes": 200704,
+          "linearSlopeMiBPerMinute": 0.013319061398515065
+        },
+        "privateMemory": {
+          "samples": 46,
+          "observedSeconds": 229.651865,
+          "firstBytes": 1113489408,
+          "lastBytes": 1113534464,
+          "minimumBytes": 1112989696,
+          "maximumBytes": 1113534464,
+          "changeBytes": 45056,
+          "linearSlopeMiBPerMinute": 0.003995929075961855
+        },
+        "last60SecondsWorkingSet": {
+          "samples": 12,
+          "observedSeconds": 56.754102,
+          "firstBytes": 782680064,
+          "lastBytes": 783179776,
+          "minimumBytes": 782680064,
+          "maximumBytes": 783179776,
+          "changeBytes": 499712,
+          "linearSlopeMiBPerMinute": 0.24205772196240596
+        },
+        "last60SecondsPrivateMemory": {
+          "samples": 12,
+          "observedSeconds": 56.754102,
+          "firstBytes": 1113059328,
+          "lastBytes": 1113534464,
+          "minimumBytes": 1113022464,
+          "maximumBytes": 1113534464,
+          "changeBytes": 475136,
+          "linearSlopeMiBPerMinute": 0.19697754565475034
+        },
+        "publicationLag": {
+          "samples": 48,
+          "first": 0,
+          "last": 0,
+          "maximum": 0
+        },
+        "maximumServerTickLag": 0,
+        "maximumBacklogSeconds": 0.06271699592762162,
+        "osForegroundFraction": 0.0,
+        "frameSamples": 51721,
+        "frameP95Ms": 10.421039043083445,
+        "meanFrameAllocatedBytes": 151979.07981284198,
+        "meanReportMs": 4.728803381234152,
+        "meanDecodeMs": 5.254093825113954,
+        "meanObjectMs": 0.000927641939494388,
+        "meanApplyMs": 0.00016639038541234487,
+        "managedWindow": "Per-role metric reset plus 10 seconds; not identical to OS observation start",
+        "managedUsedBytes": {
+          "samples": 47,
+          "observedSeconds": 230.10500000000002,
+          "firstBytes": 32911360,
+          "lastBytes": 37572608,
+          "minimumBytes": 32911360,
+          "maximumBytes": 43921408,
+          "changeBytes": 4661248,
+          "linearSlopeMiBPerMinute": 0.8385647397354956
+        },
+        "last60SecondsManagedUsedBytes": {
+          "samples": 12,
+          "observedSeconds": 55.03,
+          "firstBytes": 39837696,
+          "lastBytes": 37572608,
+          "minimumBytes": 34537472,
+          "maximumBytes": 43921408,
+          "changeBytes": -2265088,
+          "linearSlopeMiBPerMinute": 1.2400326679477376
+        }
+      },
+      "client1": {
+        "seconds": 241.80317219999998,
+        "workingSet": {
+          "samples": 46,
+          "observedSeconds": 229.6557,
+          "firstBytes": 799420416,
+          "lastBytes": 799358976,
+          "minimumBytes": 798752768,
+          "maximumBytes": 799617024,
+          "changeBytes": -61440,
+          "linearSlopeMiBPerMinute": -0.018523079651233072
+        },
+        "privateMemory": {
+          "samples": 46,
+          "observedSeconds": 229.6557,
+          "firstBytes": 1103142912,
+          "lastBytes": 1103106048,
+          "minimumBytes": 1103040512,
+          "maximumBytes": 1103142912,
+          "changeBytes": -36864,
+          "linearSlopeMiBPerMinute": 0.007613712274656496
+        },
+        "last60SecondsWorkingSet": {
+          "samples": 12,
+          "observedSeconds": 56.756887,
+          "firstBytes": 799252480,
+          "lastBytes": 799358976,
+          "minimumBytes": 799252480,
+          "maximumBytes": 799358976,
+          "changeBytes": 106496,
+          "linearSlopeMiBPerMinute": 0.07665345389816829
+        },
+        "last60SecondsPrivateMemory": {
+          "samples": 12,
+          "observedSeconds": 56.756887,
+          "firstBytes": 1103106048,
+          "lastBytes": 1103106048,
+          "minimumBytes": 1103106048,
+          "maximumBytes": 1103106048,
+          "changeBytes": 0,
+          "linearSlopeMiBPerMinute": 0.0
+        },
+        "publicationLag": {
+          "samples": 48,
+          "first": 2,
+          "last": 1,
+          "maximum": 2
+        },
+        "maximumServerTickLag": 12,
+        "maximumBacklogSeconds": 0.0,
+        "osForegroundFraction": 0.0,
+        "frameSamples": 19561,
+        "frameP95Ms": 29.33147455356494,
+        "meanFrameAllocatedBytes": 392394.35795715963,
+        "meanReportMs": 4.9338097246127335,
+        "meanDecodeMs": 4.4756738105089,
+        "meanObjectMs": 14.580893462970625,
+        "meanApplyMs": 0.00039751758378153473,
+        "managedWindow": "Per-role metric reset plus 10 seconds; not identical to OS observation start",
+        "managedUsedBytes": {
+          "samples": 47,
+          "observedSeconds": 230.35,
+          "firstBytes": 38252544,
+          "lastBytes": 38060032,
+          "minimumBytes": 32296960,
+          "maximumBytes": 44023808,
+          "changeBytes": -192512,
+          "linearSlopeMiBPerMinute": -0.5384711122022198
+        },
+        "last60SecondsManagedUsedBytes": {
+          "samples": 12,
+          "observedSeconds": 55.09099999999998,
+          "firstBytes": 36179968,
+          "lastBytes": 38060032,
+          "minimumBytes": 32296960,
+          "maximumBytes": 44023808,
+          "changeBytes": 1880064,
+          "linearSlopeMiBPerMinute": -2.7506908167112845
+        }
+      },
+      "client2": {
+        "seconds": 241.086912,
+        "workingSet": {
+          "samples": 46,
+          "observedSeconds": 229.65038,
+          "firstBytes": 789032960,
+          "lastBytes": 790290432,
+          "minimumBytes": 789032960,
+          "maximumBytes": 790290432,
+          "changeBytes": 1257472,
+          "linearSlopeMiBPerMinute": 0.2244316434168574
+        },
+        "privateMemory": {
+          "samples": 46,
+          "observedSeconds": 229.65038,
+          "firstBytes": 1105612800,
+          "lastBytes": 1106161664,
+          "minimumBytes": 1105510400,
+          "maximumBytes": 1106161664,
+          "changeBytes": 548864,
+          "linearSlopeMiBPerMinute": 0.1941783082769374
+        },
+        "last60SecondsWorkingSet": {
+          "samples": 12,
+          "observedSeconds": 56.752652,
+          "firstBytes": 790151168,
+          "lastBytes": 790290432,
+          "minimumBytes": 790151168,
+          "maximumBytes": 790290432,
+          "changeBytes": 139264,
+          "linearSlopeMiBPerMinute": 0.11362733695024649
+        },
+        "last60SecondsPrivateMemory": {
+          "samples": 12,
+          "observedSeconds": 56.752652,
+          "firstBytes": 1106161664,
+          "lastBytes": 1106161664,
+          "minimumBytes": 1106161664,
+          "maximumBytes": 1106161664,
+          "changeBytes": 0,
+          "linearSlopeMiBPerMinute": 0.0
+        },
+        "publicationLag": {
+          "samples": 48,
+          "first": 0,
+          "last": 1,
+          "maximum": 2
+        },
+        "maximumServerTickLag": 12,
+        "maximumBacklogSeconds": 0.0,
+        "osForegroundFraction": 0.0,
+        "frameSamples": 19379,
+        "frameP95Ms": 29.62478929910059,
+        "meanFrameAllocatedBytes": 394789.1628050983,
+        "meanReportMs": 5.027733707865175,
+        "meanDecodeMs": 4.718007887090071,
+        "meanObjectMs": 14.34499937733501,
+        "meanApplyMs": 0.00043802407638022497,
+        "managedWindow": "Per-role metric reset plus 10 seconds; not identical to OS observation start",
+        "managedUsedBytes": {
+          "samples": 47,
+          "observedSeconds": 230.32600000000002,
+          "firstBytes": 40849408,
+          "lastBytes": 33193984,
+          "minimumBytes": 33193984,
+          "maximumBytes": 44314624,
+          "changeBytes": -7655424,
+          "linearSlopeMiBPerMinute": -0.793246390820174
+        },
+        "last60SecondsManagedUsedBytes": {
+          "samples": 12,
+          "observedSeconds": 55.09400000000002,
+          "firstBytes": 37007360,
+          "lastBytes": 33193984,
+          "minimumBytes": 33193984,
+          "maximumBytes": 41320448,
+          "changeBytes": -3813376,
+          "linearSlopeMiBPerMinute": -3.229525468693549
+        }
+      },
+      "client3": {
+        "seconds": 241.62010089999998,
+        "workingSet": {
+          "samples": 46,
+          "observedSeconds": 229.654273,
+          "firstBytes": 770351104,
+          "lastBytes": 771452928,
+          "minimumBytes": 770351104,
+          "maximumBytes": 771452928,
+          "changeBytes": 1101824,
+          "linearSlopeMiBPerMinute": 0.09365255657857767
+        },
+        "privateMemory": {
+          "samples": 46,
+          "observedSeconds": 229.654273,
+          "firstBytes": 1081643008,
+          "lastBytes": 1081626624,
+          "minimumBytes": 1081499648,
+          "maximumBytes": 1081643008,
+          "changeBytes": -16384,
+          "linearSlopeMiBPerMinute": 0.018010570846851107
+        },
+        "last60SecondsWorkingSet": {
+          "samples": 12,
+          "observedSeconds": 56.756193,
+          "firstBytes": 771330048,
+          "lastBytes": 771452928,
+          "minimumBytes": 771330048,
+          "maximumBytes": 771452928,
+          "changeBytes": 122880,
+          "linearSlopeMiBPerMinute": 0.09469456535484522
+        },
+        "last60SecondsPrivateMemory": {
+          "samples": 12,
+          "observedSeconds": 56.756193,
+          "firstBytes": 1081626624,
+          "lastBytes": 1081626624,
+          "minimumBytes": 1081626624,
+          "maximumBytes": 1081626624,
+          "changeBytes": 0,
+          "linearSlopeMiBPerMinute": 0.0
+        },
+        "publicationLag": {
+          "samples": 48,
+          "first": 1,
+          "last": 0,
+          "maximum": 3
+        },
+        "maximumServerTickLag": 18,
+        "maximumBacklogSeconds": 0.0,
+        "osForegroundFraction": 0.0,
+        "frameSamples": 19308,
+        "frameP95Ms": 29.62478929910059,
+        "meanFrameAllocatedBytes": 396876.66469857056,
+        "meanReportMs": 5.052861982758615,
+        "meanDecodeMs": 4.55983084886127,
+        "meanObjectMs": 14.322608488612847,
+        "meanApplyMs": 0.00042865424430640393,
+        "managedWindow": "Per-role metric reset plus 10 seconds; not identical to OS observation start",
+        "managedUsedBytes": {
+          "samples": 47,
+          "observedSeconds": 230.338,
+          "firstBytes": 46682112,
+          "lastBytes": 43380736,
+          "minimumBytes": 39395328,
+          "maximumBytes": 55599104,
+          "changeBytes": -3301376,
+          "linearSlopeMiBPerMinute": -0.6083340257212033
+        },
+        "last60SecondsManagedUsedBytes": {
+          "samples": 12,
+          "observedSeconds": 55.09200000000001,
+          "firstBytes": 39395328,
+          "lastBytes": 43380736,
+          "minimumBytes": 39395328,
+          "maximumBytes": 52928512,
+          "changeBytes": 3985408,
+          "linearSlopeMiBPerMinute": 1.796164494315873
+        }
+      }
+    }
+  },
+  "frameworkRepositoryRecheck": {
+    "path": "D:/Developer/YYGC",
+    "commit": "745f3d2c844a66389e39bb84cd878d5d80f77962",
+    "clean": true,
+    "newFrameworkChangesInCompressionSlice": false,
+    "pushed": false
+  },
+  "pending": [
+    "Ordinary foreground campaign and capacity performance, deferred by user",
+    "M5 existing font and menu visual acceptance",
+    "IL2CPP not authorized or run",
+    "Two physical Windows machines for LAN acceptance",
+    "Cleanup rejected by automatic approval; no retry"
   ]
 }

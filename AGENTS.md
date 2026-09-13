@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发约定
 
-先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现，M5 尚未完成。按 [YYGC 统一对象重构计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)推进，U0–U5 已完成：旧模型和旧档入口已删除，134 项 Editor／Play 回归通过；U6 最终干净源码 Mono 的 347 项自动检查已通过，性能签署和被自动审批拦截的临时目录清理仍未完成。先核对[实施记录](docs/YYGC_UNIFIED_IMPLEMENTATION.md)，不能把计划目录、接口和测试写成已完成实现，也不能把容量功能通过写成性能达标。
+先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现，M5 尚未完成。按 [YYGC 统一对象重构计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)推进，U0–U5 已完成：旧模型和旧档入口已删除；U6 最新协议 7／YYGC `745f3d2` 通过 144 项 Editor／Play、同一 Mono 的 350 项自动检查及 240 秒容量检查 21 项。前台验收由用户明确暂缓，性能签署和被自动审批拦截的清理仍未完成。先核对[实施记录](docs/YYGC_UNIFIED_IMPLEMENTATION.md)与[性能验收](docs/YYGC_UNIFIED_PERFORMANCE.md)，不能把计划目录、接口和测试写成已完成实现，也不能把后台容量功能通过写成前台性能达标。
 
 ## 范围与工作区
 
@@ -8,7 +8,7 @@
 - `../projects` 是已提交的游戏基线，`../reference projects` 是研究与素材来源。Unity 的日常导入、构建和运行必须独立于这两个目录。
 - `D:\Developer\YYGC` 是用户维护的框架仓库。用户于 2026-09-12 授权必要时更新 YYGC，并于 2026-09-13 明确允许针对能力限制或 BUG 升级适配：先核实具体缺口，优先在隔离 checkout 中验证，保留用户已有改动，不代为清理或覆盖。不因当前框架限制长期保留两套游戏对象／状态系统。游戏继续使用可重现的锁定依赖；完成后必须逐项列出 YYGC 的修改文件、原因、落点与验证结果，维护 [YYGC 改动账本](docs/YYGC_CHANGES.md)。历史记录中的 UGUIManager 暂存和 IDRegistry 备份不代表当前仍有这些差异。
 - 2026-09-13 已实施 YYGC 统一对象路线，分支为 `codex/yygc-unified-object-migration`：运行实体与实例状态归 YYGC ObjectInstance／业务 Behaviour，Core 只保留纯算法、只读配置和数据合同。U5 已删除旧实体、旧世界及过渡入口，不重新引入并行运行模型；U6 最终验收完成前不宣称整个迁移已交付。
-- 本次无需旧数据适配：正式游戏不再要求 Godot 旧档、Unity v1 存档、协议 5 客户端或旧 Kind／整数身份兼容；按阶段移除旧入口。新格式自身的保存恢复、严格校验和原子性仍必须验收。保留当前人工资产、资源 GUID 和冻结玩法证据，不自动删除用户旧存档；独立 Sample 和 YYGC 其他使用者的兼容边界另行保留。
+- 本次无需旧数据适配：正式游戏不再要求 Godot 旧档、Unity v1 存档、协议 6／5 客户端或旧 Kind／整数身份兼容；旧入口已退出。新格式自身的保存恢复、严格校验和原子性仍必须验收。保留当前人工资产、资源 GUID 和冻结玩法证据，不自动删除用户旧存档；独立 Sample 和 YYGC 其他使用者的兼容边界另行保留。
 - 框架接入通过 UPM 和锁定版本完成。实验性修正使用隔离 checkout；本机 `.deps/` 不提交，取得稳定版本后提交可重现的依赖配置与锁文件。
 - 不擅自改变既有数值、布局、波次、素材字节、文字或攻击时机。联机需要改变的权限和会话语义单独记录并验证。
 

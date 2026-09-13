@@ -1,8 +1,8 @@
 # YYGC 统一对象重构实施记录
 
-本记录接续 [分阶段计划](YYGC_UNIFIED_REFACTOR_PLAN.md)，只记录实际实施和取得的证据。游戏分支为 `codex/yygc-unified-object-migration`；不推送远端。U0–U5 已完成；U6 已取得最终干净源码 Mono 构建和同产物 11 步、347 项自动检查的通过证据。性能签署、既有 M5 画面问题及受自动审批拦截的临时目录清理仍未完成，不能据此宣称整个 M5 已交付。机器汇总见 [U6 报告](evidence/yygc-unified-u6.json)。
+本记录接续 [分阶段计划](YYGC_UNIFIED_REFACTOR_PLAN.md)，只记录实际实施和取得的证据。游戏分支为 `codex/yygc-unified-object-migration`；不推送远端。U0–U5 已完成；U6 已取得分批 Mono 构建、完整本机功能矩阵和容量观察证据。前台性能由用户明确暂缓，既有 M5 画面问题及受自动审批拦截的清理仍未完成，不能据此宣称整个 M5 已交付。下方原 11 步、347 项记录及 [U6 报告](evidence/yygc-unified-u6.json)对应首轮输入。
 
-后续[性能修正切片](YYGC_UNIFIED_PERFORMANCE.md)已锁定 YYGC `745f3d2`；`a7bb926` 的正式 Mono 347 项与 Sample 60 项通过。长测发现完整投影逐渐积压，现已接入协议 7 有界压缩，最终 144/144 Editor／Play 通过，新 Player 待验。前台验收按用户选择暂缓。下方 347 项记录对应原 `9e69a76`／`8faf74f` 输入，各轮证据不混用。
+最新[性能修正切片](YYGC_UNIFIED_PERFORMANCE.md)锁定 YYGC `745f3d2`：游戏 `4e3798f` 的协议 7 有界压缩通过最终 144/144 Editor／Play、同一 Mono 完整矩阵 **350 项**及 240 秒摘要容量检查 **21/21**；48 组抽样最大落后 0.3 秒，Host 预热后约 230 秒工作集变化 +0.191 MiB，本次未复现旧窗口的持续积压。完整 408 文件哈希复核一致，见[协议 7 证据](evidence/yygc-unified-u6-compression.json)。Sample 复用未受此游戏切片影响的 `a7bb926`／同框架 60 项证据；下方原 `9e69a76`／`8faf74f` 的 347 项历史记录不改写。
 
 ## U0：功能基线与输入归档
 
@@ -212,6 +212,8 @@ U5 没有生成 Player；U4 二进制不包含此次删除与框架修正。U6 �
 ## 空间管理
 
 每阶段开始和构建前检查 C／D 盘；不复制整个 Unity Library。阶段收尾保留后续复用的 Player、人工资源、保护副本及报告，清理可重建中间产物。记录落在 `artifacts/yygc-unified/<stage>/cleanup.json`。
+
+U6 协议 7 压缩切片再次用 `dotnet clean` 释放工具中间产物 32,992,560 字节；新 Player 的调试目录在路径、链接、活动进程和清单核验后仍被自动审批以 `blocked by policy` 拒绝清理，245,875 字节未释放。此前被拒绝的 Bee、旧 Player 调试目录、source／locked-archives 均未重试。最新 C／D 可用约 14.57／23.31 GB，详情见[性能切片空间记录](YYGC_UNIFIED_PERFORMANCE.md#空间与证据)。该记录不覆盖或累加改写下方各阶段的历史释放量。
 
 U6 已用 `dotnet clean` 清理三个工具的中间产物，实际释放 **32,992,560 字节（31.5 MiB）**；记录时 C 盘剩 14,674,489,344 字节、D 盘剩 26,547,003,392 字节。临时源码目录及依赖下载／解压缓存已核对绝对路径、无重解析链接、无活动构建／Player、只有预期依赖差异，最终 408 文件哈希也已核验；清理命令仍被自动审批以 `blocked by policy` 拒绝，未执行、未换方式重试。约 **3,029,738,039 字节（2.82 GiB）** 仍保留在 U6 的 `source` 和 `locked-archives`，不计入释放量。删除后的独立启动复查因此未执行，既有完整矩阵保持有效；前两次被拒绝的旧清理路径仍未触碰。
 

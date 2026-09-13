@@ -1,8 +1,8 @@
 # Dark Nights · Unity
 
-当前接续：[U6 性能修正](docs/YYGC_UNIFIED_PERFORMANCE.md)锁定 YYGC `745f3d2`；`a7bb926` 的正式 Mono 347 项、Sample 60 项通过。长测发现容量投影积压，已接入协议 7 有界压缩并通过最终 144 项 Editor／Play，新正式 Player 待验。用户选择暂缓前台验收。下文按输入保留历史证据，不表示性能已签署。
+当前接续：[U6 性能修正](docs/YYGC_UNIFIED_PERFORMANCE.md)锁定 YYGC `745f3d2`；协议 7／游戏 `4e3798f` 已通过 144 项 Editor／Play、正式 Mono 完整矩阵 350 项及同产物 240 秒摘要容量检查 21 项。48 组容量抽样最大落后 0.3 秒，未再复现此前持续积压；Sample 复用 `a7bb926`／同框架的 60 项证据。用户选择暂缓前台验收，性能仍未签署。
 
-2026-09-13 已采用 YYGC 统一对象架构：业务 Behaviour／State 接管运行实体，Core 只保留纯算法与数据合同；允许针对 YYGC 能力限制或 BUG 升级适配，不做旧数据兼容。实施分支为 `codex/yygc-unified-object-migration`，见[分阶段重构执行计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)。**U0–U5 已完成，框架锁定 8faf74f；134 项 Editor／Play 与 1,043 项纯计算回归通过。U6 最终 Mono 已从干净源码构建，同一产物通过 347 项自动检查；容量性能和被自动审批拦截的临时目录清理仍未完成，M5 不签署完成。** Player 在 `artifacts/yygc-unified/u6/player-mono`，详见[实施记录](docs/YYGC_UNIFIED_IMPLEMENTATION.md)和[U6 证据](docs/evidence/yygc-unified-u6.json)。下文按日期保留历史验收状态。
+2026-09-13 已采用 YYGC 统一对象架构：业务 Behaviour／State 接管运行实体，Core 只保留纯算法与数据合同；允许针对 YYGC 能力限制或 BUG 升级适配，不做旧数据兼容。实施分支为 `codex/yygc-unified-object-migration`，见[分阶段重构执行计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)。**U0–U5 已完成；U6 的本机功能矩阵和后台容量观察通过，前台性能及受自动审批拦截的清理仍有待办，M5 不签署完成。** 当前 Player 在 `artifacts/yygc-unified/u6/player-mono-compressed`，详见[协议 7 证据](docs/evidence/yygc-unified-u6-compression.json)。[实施记录](docs/YYGC_UNIFIED_IMPLEMENTATION.md)和下文按输入、日期保留历史验收状态，不混用旧构建结果。
 
 2026-09-13 已完成 [Definition 场景入口修复](docs/SCENE_DEFINITIONS.md)：统一 Loader 引用、定义分类和静态视图接管，删除手填映射表。编译完成，测试回归按用户要求待确认；当前 YYGC 锁定 `ccd61e0`，不沿用旧批次通过记录宣称本次已验收。
 
