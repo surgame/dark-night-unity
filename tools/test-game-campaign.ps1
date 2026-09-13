@@ -5,6 +5,7 @@ $player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-P
 $run = Join-Path $repo ('artifacts/migration/campaign-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 New-Item -ItemType Directory -Path $run | Out-Null
 $processes = @{}
+. (Join-Path $PSScriptRoot 'player-memory-sampling.ps1')
 $checks = [ordered]@{}
 $failure = $null
 $balance = Get-Content -LiteralPath (Join-Path $repo 'Game/Assets/DarkNights/Res/Config/balance.json') -Raw | ConvertFrom-Json
@@ -17,6 +18,7 @@ function Read-Report([string]$Role) {
     } catch { return $null }
 }
 function Wait-Report([string]$Role, [scriptblock]$Condition) {
+    Sample-PlayerMemory $processes
     $end = [DateTime]::UtcNow.AddSeconds(45)
     do {
         $value = Read-Report $Role
@@ -56,17 +58,24 @@ try {
     Send @{ operation = 'IssueOrders'; actors = @($workers[4].Id); target = $food.Id; x = $food.X }
     $prepared = Wait-Report 'host' { param($r) $r.frame.World.Buildings.Count -eq 6 -and @($r.frame.World.Actors | Where-Object Activity -eq 'TrainingMove').Count -eq 2 }
     Check 'normal_starting_resources_fund_frozen_strategy' ($prepared.frame.World.Camp.Stock.Wood -eq 0 -and $prepared.frame.World.Camp.Stock.Stone -eq 10)
+    Send @{ operation = 'capture'; file = 'construction.png'; x = 710 }
+    $null = Wait-Report 'host' { param($r) Test-Path -LiteralPath (Join-Path $run 'construction.png') }
     Send @{ operation = 'SetSpeed'; value = 2 }
     Send @{ operation = 'SetPaused'; value = 0 }
     $end = [DateTime]::UtcNow.AddSeconds(440)
     $next = 0.0
     $joined = 0
     $lastPhase = ''
+    $capturedPromotion = $false
     do {
         $hostReport = Wait-Report 'host' { param($r) $r.ready }
         $frame = $hostReport.frame
         $world = $frame.World
         $camp = $world.Camp
+        if (!$capturedPromotion -and $frame.Elapsed -ge 40 -and @($world.Actors | Where-Object Kind -eq 'archer').Count -ge 2) {
+            Send @{ operation = 'capture'; file = 'promoted-workers.png'; x = 710 }
+            $capturedPromotion = $true
+        }
         if ($camp.Mode -ne 'Playing') { break }
         if ($frame.Elapsed -ge $next) {
             $next = $frame.Elapsed + 1
@@ -111,6 +120,7 @@ try {
     } while ([DateTime]::UtcNow -lt $end)
     Check 'all_three_nights_win_with_34_real_kills' ($camp.Mode -eq 'Won' -and $camp.WaveIndex -eq 2 -and $camp.Kills -eq 34 -and $camp.EnemyCount -eq 0)
     Check 'four_process_session_ready_at_victory' ($joined -eq 3 -and $frame.PlayerCount -eq 4 -and $frame.ReadyCount -eq 4)
+    Check 'construction_and_promoted_actor_captures_exist' ((Test-Path -LiteralPath (Join-Path $run 'construction.png')) -and (Test-Path -LiteralPath (Join-Path $run 'promoted-workers.png')))
     foreach ($role in @('client1', 'client2', 'client3')) {
         $guest = Wait-Report $role { param($r) $r.frame.World.Camp.Mode -eq 'Won' -and $r.uiPage -eq 'Result' }
         Check ($role + '_sees_authoritative_victory') ($guest.frame.World.Camp.Kills -eq 34 -and $guest.frame.Elapsed -eq $frame.Elapsed)
@@ -119,7 +129,10 @@ try {
         [IO.File]::AppendAllText((Join-Path $run "$role.commands"), (@{ operation='metrics'; file="$role-campaign-metrics.json" } | ConvertTo-Json -Compress) + "`n")
     }
     Write-Output "Victory reached; measuring $SteadySeconds seconds of unchanged world for memory retention."
-    Start-Sleep -Seconds $SteadySeconds
+    $steadyMemoryStart = [DateTime]::UtcNow.ToString('O')
+    $steadyEnd = [DateTime]::UtcNow.AddSeconds($SteadySeconds)
+    do { Sample-PlayerMemory $processes; Start-Sleep -Seconds 1 } while ([DateTime]::UtcNow -lt $steadyEnd)
+    Sample-PlayerMemory $processes -Force
     Send @{ operation = 'capture'; file = 'victory.png'; x = 780 }
     foreach ($role in $processes.Keys) {
         [IO.File]::AppendAllText((Join-Path $run "$role.commands"), (@{ operation='metrics'; file="$role-metrics.json" } | ConvertTo-Json -Compress) + "`n")
@@ -129,6 +142,7 @@ try {
     foreach ($role in $processes.Keys) {
         $metrics[$role] = Get-Content -LiteralPath (Join-Path $run "$role-metrics.json") -Raw | ConvertFrom-Json
         Check ($role + '_performance_recorded') ($metrics[$role].frameMilliseconds.samples -gt 100 -and $metrics[$role].gcRecorderValid)
+        Check ($role + '_windows_working_set_recorded') (@(Get-PlayerMemorySamples $role).Count -ge 3)
         $log = Get-Content -LiteralPath (Join-Path $run "$role.log") -Raw
         Check ($role + '_no_runtime_exception') ($log -notmatch '(?im)(Exception:|Shader error|\[AppStartup\].*(failed|cancelled))')
     }
@@ -138,6 +152,7 @@ finally {
     foreach ($process in $processes.Values) { $process.Refresh(); if (!$process.HasExited) { Stop-Process -Id $process.Id; $process.WaitForExit() } }
     $result = [ordered]@{ passed = !$failure; scope = 'Four real Mono processes; normal-resource three-night strategy through SessionClient'
         checks = $checks; error = $failure; elapsed = $frame.Elapsed; artifacts = $run; metrics = $metrics
+        osMemorySamples = $script:playerMemorySamples.ToArray(); steadyMemoryStart = $steadyMemoryStart
         gameCodeSha256 = (Get-FileHash -LiteralPath (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash }
     $result | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Game campaign: passed=$(!$failure) checks=$($checks.Count); $run/result.json"

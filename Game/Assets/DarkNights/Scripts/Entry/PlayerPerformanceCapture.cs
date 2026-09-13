@@ -21,6 +21,7 @@ namespace DarkNights.Entry
         private ProfilerRecorder gc;
         private double started = -1, last;
         private long receivedBytes, receivedFrames;
+        private long focusedFrames;
         private double nextMemoryAt;
         private readonly List<long[]> memory = new List<long[]>();
 
@@ -45,14 +46,14 @@ namespace DarkNights.Entry
             if (now - started > 2)
             {
                 frames.Add((now - last) * 1000);
+                if (Application.isFocused) focusedFrames++;
                 if (gc.Valid) allocations.Add(gc.LastValue);
             }
             last = now;
             if (now >= nextMemoryAt && memory.Count < 1024)
             {
                 nextMemoryAt = now + 5;
-                using (var process = System.Diagnostics.Process.GetCurrentProcess())
-                    memory.Add(new[] { (long)((now - started) * 1000), GC.GetTotalMemory(false), process.WorkingSet64 });
+                memory.Add(new[] { (long)((now - started) * 1000), GC.GetTotalMemory(false) });
             }
         }
 
@@ -63,7 +64,8 @@ namespace DarkNights.Entry
             double seconds = Math.Max(.001, Time.realtimeSinceStartupAsDouble - started);
             object Summary(MeasurementSeries value) => value == null ? null : new
             {
-                samples = value.Count, mean = value.Count == 0 ? 0 : value.Total / value.Count,
+                samples = value.Count, retainedSamples = value.RetainedCount,
+                mean = value.Count == 0 ? 0 : value.Total / value.Count,
                 p95 = value.Percentile(.95), p99 = value.Percentile(.99), maximum = value.Maximum
             };
             File.WriteAllText(path, JsonConvert.SerializeObject(new
@@ -84,8 +86,11 @@ namespace DarkNights.Entry
                 unity = Application.unityVersion, graphics = SystemInfo.graphicsDeviceName,
                 graphicsApi = SystemInfo.graphicsDeviceType.ToString(), processor = SystemInfo.processorType,
                 memoryMb = SystemInfo.systemMemorySize,
-                memorySamples = memory, memorySampleColumns = new[] { "elapsedMilliseconds", "managedUsedBytes", "workingSetBytes" },
-                caveat = "Frame metrics include automation overhead; UDP bytes measured separately. Unsupported per-thread counters are null, not zero allocation."
+                screenWidth = Screen.width, screenHeight = Screen.height, Application.runInBackground,
+                Application.isBatchMode, focusedFrames,
+                memorySamples = memory, memorySampleColumns = new[] { "elapsedMilliseconds", "managedUsedBytes" },
+                workingSetSource = "External Windows process sampling in acceptance script; Mono Process.WorkingSet64 is not used.",
+                caveat = "Rendered automation workload, including background frames. Quantiles use retainedSamples; means use all samples. UDP and OS working set are measured separately. Unsupported per-thread counters are null."
             }, Formatting.Indented));
         }
 

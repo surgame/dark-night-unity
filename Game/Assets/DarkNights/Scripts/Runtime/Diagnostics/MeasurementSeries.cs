@@ -10,6 +10,7 @@ namespace DarkNights.Runtime.Diagnostics
     {
         private readonly double[] values = new double[100000];
         public long Count { get; private set; }
+        public int RetainedCount => (int)Math.Min(Count, values.Length);
         public double Total { get; private set; }
         public double Maximum { get; private set; }
 
@@ -24,7 +25,7 @@ namespace DarkNights.Runtime.Diagnostics
         public double Percentile(double quantile)
         {
             if (quantile <= 0 || quantile > 1 || double.IsNaN(quantile)) throw new ArgumentOutOfRangeException(nameof(quantile));
-            int length = (int)Math.Min(Count, values.Length);
+            int length = RetainedCount;
             if (length == 0) return 0;
             var sorted = new double[length];
             Array.Copy(values, sorted, length);

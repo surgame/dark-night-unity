@@ -6,6 +6,7 @@ $run = Join-Path $repo ('artifacts/migration/pressure-' + (Get-Date -Format 'yyy
 $saves = Join-Path $run 'saves'
 New-Item -ItemType Directory -Path $run | Out-Null
 $processes = @{}
+. (Join-Path $PSScriptRoot 'player-memory-sampling.ps1')
 $checks = [ordered]@{}
 $failure = $null
 $publicationWindow = $null
@@ -19,6 +20,7 @@ function Read-Report([string]$Role) {
     } catch { return $null }
 }
 function Wait-Report([string]$Role, [scriptblock]$Condition) {
+    Sample-PlayerMemory $processes
     $end = [DateTime]::UtcNow.AddSeconds(45)
     do {
         $value = Read-Report $Role
@@ -85,10 +87,12 @@ try {
     foreach($role in $processes.Keys) { Send $role @{operation='metrics';file="$role-metrics.json"} }
     Start-Sleep -Seconds 3
     $metrics=[ordered]@{}
+    Sample-PlayerMemory $processes -Force
     foreach($role in $processes.Keys) {
         $m=Get-Content (Join-Path $run "$role-metrics.json") -Raw | ConvertFrom-Json
         $metrics[$role]=$m
         Check ($role+'_metrics_captured') ($m.frameMilliseconds.samples -gt 30 -and $m.entityCount -eq 256 -and $m.projectileCount -eq 1024)
+        Check ($role+'_windows_working_set_recorded') (@(Get-PlayerMemorySamples $role).Count -ge 3)
         $log=Get-Content -LiteralPath (Join-Path $run "$role.log") -Raw
         Check ($role+'_no_runtime_exception') ($log -notmatch '(?im)(Exception:|Shader error|\[AppStartup\].*(failed|cancelled))')
     }
@@ -103,7 +107,7 @@ finally {
     foreach($p in $processes.Values) { $p.Refresh(); if(!$p.HasExited) {Stop-Process -Id $p.Id; $p.WaitForExit()} }
     if($relay) { $relay.Refresh(); if(!$relay.HasExited) {Stop-Process -Id $relay.Id; $relay.WaitForExit()} }
     [ordered]@{passed=(!$failure);checks=$checks;error=$failure;scope='Synthetic supported projection ceiling, four rendered Mono processes, real UDP relay';
-      publicationWindow=$publicationWindow;metrics=$metrics;udp=$udp;artifacts=$run;gameCodeSha256=(Get-FileHash (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash} |
+      publicationWindow=$publicationWindow;metrics=$metrics;osMemorySamples=$script:playerMemorySamples.ToArray();udp=$udp;artifacts=$run;gameCodeSha256=(Get-FileHash (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash} |
       ConvertTo-Json -Depth 12 | Set-Content (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Pressure: passed=$(!$failure) checks=$($checks.Count); $run/result.json"
 }

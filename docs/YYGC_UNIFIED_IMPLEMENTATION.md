@@ -138,6 +138,12 @@ Editor 旧升级入口退出：NativeObjectContracts 只读检查，ObjectCapabi
 
 U5 没有生成 Player；U4 二进制不包含此次删除与框架修正。U6 必须使用干净来源、锁定依赖和新 Library 构建一次，再完成最终 Mono 矩阵。IL2CPP、双机器 LAN 和缺少可靠旧性能基线分别记录，不提前签署 M5 完成。
 
+## U6：最终 Mono 验收（执行中）
+
+U5 已提交为 `7bdac78`。最终构建前补齐诊断来源：Player 标记样本保留数量、分辨率、后台运行及获焦帧数；OS 工作集由 PowerShell 在外部采集，避免 Unity Mono 的零值。三夜验收同时记录施工和转职画面，胜利后继续采样 30 秒。以上是本阶段的验收准备，不是 Player 通过记录。
+
+使用新的 Git 源码工作目录，依照准备脚本取得锁定 YYGC／FishNet 并核对补丁；从不存在 Library 的状态开始导入。通过 `GamePlayerBuild.MonoToEmptyDirectory` 写入独立空 Player 目录，再用 `test-game-delivery.ps1 -PlayerPath <本次产物>` 串行执行完整矩阵。构建输入冻结后不混用 U4 产物。
+
 ## 空间管理
 
 每阶段开始和构建前检查 C／D 盘；不复制整个 Unity Library。阶段收尾保留后续复用的 Player、人工资源、保护副本及报告，清理可重建中间产物。记录落在 `artifacts/yygc-unified/<stage>/cleanup.json`。
