@@ -87,6 +87,13 @@ try {
     foreach ($case in @(@{slot=1;mode='Won'}, @{slot=2;mode='Lost'})) {
         $fixture = $initial | ConvertTo-Json -Depth 24 | ConvertFrom-Json
         $fixture.world.mode = $case.mode
+        if ($case.mode -eq 'Lost') {
+            # Lost 的存档合同要求酒馆已被摧毁，同时移除对应身份，保留其余初始状态。
+            $tavern = @($fixture.world.buildings | Where-Object kind -eq 'tavern')
+            if ($tavern.Count -ne 1) { throw 'Initial fixture must contain exactly one tavern.' }
+            $fixture.world.buildings = @($fixture.world.buildings | Where-Object id -ne $tavern[0].id)
+            $fixture.world.identities = @($fixture.world.identities | Where-Object id -ne $tavern[0].id)
+        }
         $fixture | ConvertTo-Json -Depth 24 -Compress | Set-Content -LiteralPath (Join-Path $saves ('v2/slot-{0:D2}.dnsave.json' -f $case.slot)) -Encoding utf8
     }
     Send 'host' @{operation='BeginLoad';value=1}
@@ -110,12 +117,15 @@ try {
     Send 'host' @{operation='BeginLoad';value=1}
     $null = Wait-Report 'client1' { param($r) $r.ready -and $r.frame.Epoch -eq 6 -and $r.uiPage -eq 'Result' }
     Send 'client1' @{operation='ui';panel='Result';key='MainMenu'}
-    $guest = Wait-Report 'client1' { param($r) !$r.ready -and $r.uiPage -eq 'MainMenu' }
+    # 菜单在命令执行帧立即切换；展示缓存由下一个 Update 清空，等待完整退出状态。
+    $guest = Wait-Report 'client1' { param($r) !$r.ready -and $r.uiPage -eq 'MainMenu' -and $r.entityViews -eq 0 }
+    $guest | ConvertTo-Json -Depth 24 | Set-Content -LiteralPath (Join-Path $run 'client1-result-exit.json') -Encoding utf8
     Check 'guest_result_exit_clears_live_views' ($guest.entityViews -eq 0)
     $hostAfterGuest = Wait-Report 'host' { param($r) $r.ready -and $r.frame.PlayerCount -eq 1 }
     Check 'guest_exit_preserves_host_result' ($hostAfterGuest.uiPage -eq 'Result' -and $hostAfterGuest.frame.Epoch -eq 6)
     Send 'host' @{operation='ui';panel='Result';key='MainMenu'}
-    $hostMenu = Wait-Report 'host' { param($r) !$r.ready -and $r.uiPage -eq 'MainMenu' }
+    $hostMenu = Wait-Report 'host' { param($r) !$r.ready -and $r.uiPage -eq 'MainMenu' -and $r.entityViews -eq 0 }
+    $hostMenu | ConvertTo-Json -Depth 24 | Set-Content -LiteralPath (Join-Path $run 'host-result-exit.json') -Encoding utf8
     Check 'host_result_exit_clears_live_views' ($hostMenu.entityViews -eq 0)
     foreach ($role in $processes.Keys) {
         $log = Get-Content -LiteralPath (Join-Path $run "$role.log") -Raw

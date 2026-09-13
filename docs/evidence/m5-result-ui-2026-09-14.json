@@ -1,0 +1,402 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-14",
+  "branch": "codex/yygc-unified-object-migration",
+  "gameCommit": "af29950be41f13abe69c4c36a6b42650ffdd9cb9",
+  "scope": "Result modal restart and exit fix with real Mono rendering and Host/client lifecycle checks. Synthetic terminal fixtures are not gameplay-win evidence.",
+  "implementationAndVerificationComplete": true,
+  "m5Complete": false,
+  "dependencies": {
+    "framework": "745f3d2c844a66389e39bb84cd878d5d80f77962",
+    "fishnet": "de19b5d66459f60400ffd0edc443c4da173a01e7",
+    "changedThisSlice": []
+  },
+  "source": {
+    "input": {
+      "path": "artifacts/m5-results/input.json",
+      "bytes": 566653,
+      "sha256": "07FB894D14C75EA8D6B53AC1CECCD19E259DE620F3F3C013981DDAEE16C18B6A"
+    },
+    "sourceStatus": [
+      " M Game/Packages/packages-lock.json",
+      "?? Game/Packages/com.cysharp.memorypack/",
+      "?? Game/Packages/com.cysharp.r3/",
+      "?? Game/Packages/com.cysharp.unitask/",
+      "?? Game/Packages/com.cysharp.zlinq/",
+      "?? Game/Packages/com.github-glitchenzo.nugetforunity/"
+    ],
+    "protectedFiles": 2603,
+    "finalIntegrity": {
+      "path": "artifacts/m5-results/source-after-diagnostic.json",
+      "bytes": 941,
+      "sha256": "7FDE6FA3EDD2081900B34A891E5D88C51C2C6E1F9DE5940342C78486335AB3AC"
+    },
+    "sourceRawChanges": [],
+    "libraryCopied": false,
+    "crossCheckoutNote": "161 CRLF/LF-only text differences plus pre-existing derived packages-lock.json; main Game Git content unchanged."
+  },
+  "fix": {
+    "file": "Game/Assets/DarkNights/Scripts/Entry/SessionUiController.cs",
+    "codeCommit": "af29950be41f13abe69c4c36a6b42650ffdd9cb9",
+    "behavior": "Close the old Result modal on epoch/connection change; wait for the replacement world before closing on Restart.",
+    "failingPreviousPlayer": {
+      "report": {
+        "path": "artifacts/migration/result-ui-20260914-023018-527/result.json",
+        "bytes": 930,
+        "sha256": "020B9B94530158481440614A55724A1278CA4762BD952B7A427DA2E5EDD64E36"
+      },
+      "passed": false,
+      "count": 6,
+      "passedCount": 5,
+      "checks": {
+        "host_loaded_won_fixture": true,
+        "late_guest_sees_same_won_fixture": true,
+        "host_won_capture_dimensions": true,
+        "client1_won_capture_dimensions": true,
+        "host_won_restart_once": true,
+        "host_won_restart_closes_result": false
+      },
+      "scope": "Two real Mono processes; synthetic v2 terminal fixtures test Result UI rendering, restart and exit only; no gameplay-win or foreground-performance claim"
+    }
+  },
+  "editor": {
+    "report": {
+      "path": "artifacts/m5-results/editor-tests.xml",
+      "bytes": 328365,
+      "sha256": "807171E6A754D48ABD55D9D013D14E7B4B1A197A32E63922D29932143851393C"
+    },
+    "log": {
+      "path": "artifacts/m5-results/editor-tests.log",
+      "bytes": 14739857,
+      "sha256": "F4B2C55C40ADB7F42E4342BE515E4519BCB8966444F01CC7DE3989440D036D11"
+    },
+    "process": {
+      "path": "artifacts/m5-results/editor-process.json",
+      "bytes": 767,
+      "sha256": "81F7038339468444FEE1D38CBA5D60C343A9E048B7BECCD2657AA67F383EACFB"
+    },
+    "exit": {
+      "path": "artifacts/m5-results/editor-exit.json",
+      "bytes": 93,
+      "sha256": "8DBA931FC3D0DADEA760021C040FDE1D2E7B690B7BA59BC6BFA1FAAFB8BD1E4A"
+    },
+    "result": "Passed",
+    "total": 155,
+    "passed": 155,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 52.4076767,
+    "completeRuns": 1,
+    "mergedResults": false
+  },
+  "build": {
+    "backend": "Mono",
+    "unity": "6000.4.9f1",
+    "gameCommit": "af29950be41f13abe69c4c36a6b42650ffdd9cb9",
+    "invocations": 1,
+    "outcome": "success",
+    "exitCode": 0,
+    "durationSeconds": 41.9509001,
+    "provenance": {
+      "path": "artifacts/m5-results/build-provenance.json",
+      "bytes": 1185,
+      "sha256": "BBCFF3C0FF84EE682602CC8D96FEAB5AAA19AE8C720312D22C0C244F994E726D"
+    },
+    "log": {
+      "path": "artifacts/m5-results/build-mono.log",
+      "bytes": 853382,
+      "sha256": "788AA8C67BE57BED0BF99990E38F98F4AADFC6674CB9002F2A359716D2AEF093"
+    },
+    "output": "artifacts/m5-results/player-mono/DarkNights.exe",
+    "libraryCopied": false,
+    "licenseNote": "Startup license handshake/token errors recovered in the same build invocation; final exit 0."
+  },
+  "player": {
+    "files": 408,
+    "bytes": 199006273,
+    "manifest": {
+      "path": "docs/evidence/m5-result-ui-player-mono-files-2026-09-14.json",
+      "bytes": 77184,
+      "sha256": "68D7462CF111DB96C44E5957240AD84623648FEF7A1BFD431EB0054D2C14E325"
+    },
+    "integrity": {
+      "path": "artifacts/m5-results/player-integrity.json",
+      "bytes": 142,
+      "sha256": "92125B8C2021630B23EC9555CDF6885D54D7020D0B65736BFF8465173068CD4E"
+    },
+    "entry": {
+      "path": "artifacts/m5-results/player-mono/DarkNights_Data/Managed/DarkNights.Entry.dll",
+      "bytes": 87040,
+      "sha256": "3042846E74463BD523517B1158B85EBBDC1F8DF7DC84B7A7DFFCEC1C4EBC0776"
+    },
+    "matrix": [
+      {
+        "report": {
+          "path": "artifacts/migration/result-ui-20260914-032139-601/result.json",
+          "bytes": 1508,
+          "sha256": "54929C88C199F45AB4831975137F52627BC3A4F8B7834F7D752DCF1C0CB7B94C"
+        },
+        "passed": true,
+        "count": 21,
+        "passedCount": 21,
+        "checks": {
+          "host_loaded_won_fixture": true,
+          "late_guest_sees_same_won_fixture": true,
+          "host_won_capture_dimensions": true,
+          "client1_won_capture_dimensions": true,
+          "host_won_restart_once": true,
+          "host_won_restart_closes_result": true,
+          "client1_won_restart_once": true,
+          "client1_won_restart_closes_result": true,
+          "host_loaded_lost_fixture": true,
+          "host_lost_capture_dimensions": true,
+          "client1_loaded_lost_fixture": true,
+          "client1_lost_capture_dimensions": true,
+          "host_lost_restart_once": true,
+          "host_lost_restart_closes_result": true,
+          "client1_lost_restart_once": true,
+          "client1_lost_restart_closes_result": true,
+          "guest_result_exit_clears_live_views": true,
+          "guest_exit_preserves_host_result": true,
+          "host_result_exit_clears_live_views": true,
+          "host_no_runtime_exception": true,
+          "client1_no_runtime_exception": true
+        },
+        "scope": "Two real Mono processes; synthetic v2 terminal fixtures test Result UI rendering, restart and exit only; no gameplay-win or foreground-performance claim"
+      },
+      {
+        "report": {
+          "path": "artifacts/migration/run-20260914-032154-744-mono/result.json",
+          "bytes": 1081,
+          "sha256": "63D8AA11B9245505F36A6394FD339B2415242DF538A0665C3768D6311A299DAD"
+        },
+        "passed": true,
+        "count": 6,
+        "passedCount": 6,
+        "checks": {
+          "independent_player_remains_running": true,
+          "app_startup_ready_once": true,
+          "frozen_content_loaded_once": true,
+          "formal_object_content_loaded_once": true,
+          "no_startup_or_runtime_exception": true,
+          "no_formal_editor_or_tests_in_player": true
+        },
+        "scope": "Bootstrap + YYGC AppStartup + Addressables + formal ObjectDefinition/Prefab/generated registry startup; no gameplay or multiplayer acceptance"
+      },
+      {
+        "report": {
+          "path": "artifacts/migration/session-20260914-032158-906/result.json",
+          "bytes": 1287,
+          "sha256": "4A2E6D899F04F6E488F996436E55B2270B96AE02F528C70B8A91CFDD1824D00F"
+        },
+        "passed": true,
+        "count": 13,
+        "passedCount": 13,
+        "checks": {
+          "host_ready_with_all_initial_entities": true,
+          "independent_client_receives_full_late_baseline": true,
+          "host_pause_applied": true,
+          "generated_recruit_button_routes_once": true,
+          "guest_build_paid_once": true,
+          "host_and_client_share_single_payment": true,
+          "guest_cannot_change_time": true,
+          "host_only_enabled": true,
+          "host_only_rejects_guest_camp_mutation": true,
+          "guest_explicit_move_accepted": true,
+          "client_observes_authoritative_motion": true,
+          "complete_world_converges_while_paused": true,
+          "no_player_failure": true
+        },
+        "scope": "Formal two-process network, instantiated native views and generated UGUI pause/recruit bindings; no pixel or weak-network acceptance"
+      }
+    ],
+    "totalChecks": 40,
+    "allPassed": true,
+    "foregroundAcceptance": false
+  },
+  "visuals": {
+    "batchMode": true,
+    "noGraphics": false,
+    "reviewedImages": [
+      {
+        "image": {
+          "path": "artifacts/migration/result-ui-20260914-032139-601/host-won.png",
+          "bytes": 129080,
+          "sha256": "50E136956A9243D90D382A25BDB78F102C6BE26D349F5EFF2E42114D3117418A"
+        },
+        "width": 1280,
+        "height": 800,
+        "reviewed": true,
+        "review": "Result title, description, statistics and buttons are fully visible. Host restart enabled; guest restart disabled and MainMenu available."
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/result-ui-20260914-032139-601/client1-won.png",
+          "bytes": 147777,
+          "sha256": "EF1770468EF2A39501C79398ED8451D7DDBD24B1B5187AECC871E9DD11C5C905"
+        },
+        "width": 1600,
+        "height": 900,
+        "reviewed": true,
+        "review": "Result title, description, statistics and buttons are fully visible. Host restart enabled; guest restart disabled and MainMenu available."
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/result-ui-20260914-032139-601/host-lost.png",
+          "bytes": 124679,
+          "sha256": "7092F8AF1AACAE80B10F498D7ADEFFCCC77DD278E2065DC8FBCA8EC588DA67C6"
+        },
+        "width": 1280,
+        "height": 800,
+        "reviewed": true,
+        "review": "Result title, description, statistics and buttons are fully visible. Host restart enabled; guest restart disabled and MainMenu available."
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/result-ui-20260914-032139-601/client1-lost.png",
+          "bytes": 143036,
+          "sha256": "416E282659E827159D8900D29F289C92D32FADB4CC7A2C644822FDD1B3255291"
+        },
+        "width": 1600,
+        "height": 900,
+        "reviewed": true,
+        "review": "Result title, description, statistics and buttons are fully visible. Host restart enabled; guest restart disabled and MainMenu available."
+      }
+    ],
+    "sameStateWorldComparison": "pending"
+  },
+  "exitReports": [
+    {
+      "path": "artifacts/migration/result-ui-20260914-032139-601/client1-result-exit.json",
+      "bytes": 2049,
+      "sha256": "7FFA9A7D9B04C2C81C976D1A293F247F03275E780CF11693FD742E71777DF148"
+    },
+    {
+      "path": "artifacts/migration/result-ui-20260914-032139-601/host-result-exit.json",
+      "bytes": 2520,
+      "sha256": "2FB5EE639C79EAC42DD7AE427CAB4F51C7582038FA431239B962E118F69971F7"
+    }
+  ],
+  "driver": {
+    "file": {
+      "path": "tools/test-game-result-ui.ps1",
+      "bytes": 9401,
+      "sha256": "A005424B850DED583F58A11A576366170730929730779D1D0C0A8248AE1AFCB2"
+    },
+    "fixtures": "New isolated v2 slots: Won changes mode; Lost also removes tavern and its identity.",
+    "waitContract": "Wait for disconnected MainMenu and zero live entity views, allowing the next Update to clear cached presentation references."
+  },
+  "diagnostics": [
+    {
+      "event": "Invalid synthetic Lost fixture",
+      "report": {
+        "path": "artifacts/migration/result-ui-20260914-025022-726/result.json",
+        "bytes": 1007,
+        "sha256": "9A4457C71B76362FAFBBA6EC128E7807A3230DD310F2D41E45C194D2F812F397"
+      },
+      "detail": {
+        "path": "artifacts/m5-results/terminal-load-diagnostic.json",
+        "bytes": 830,
+        "sha256": "2FC18B649521472146403E32D2025903BFD8ABF14FB1577D11D92DE45AB8F1FA"
+      },
+      "phase": "parse-lost",
+      "resolution": "Removed tavern and matching identity from the test fixture; production validation unchanged."
+    },
+    {
+      "event": "Exit observation in command frame",
+      "report": {
+        "path": "artifacts/migration/result-ui-20260914-031908-776/result.json",
+        "bytes": 1419,
+        "sha256": "6F23AB372CDF3C3D64C8BB32C5E72B8F25E36038A0FDC4B6B54A939FB1BA2D1F"
+      },
+      "resolution": "Wait for the complete asynchronous exit state; same Player passed the final 21 checks."
+    }
+  ],
+  "diagnosticEditor": {
+    "process": {
+      "path": "artifacts/m5-results/diagnostic-editor-process.json",
+      "bytes": 301,
+      "sha256": "CBA2F1B34EC6F1BDE4956326CC3D4C9F8CCD41C6F30951E207839F035C196A8A"
+    },
+    "restore": {
+      "path": "artifacts/m5-results/diagnostic-restore-command.json",
+      "bytes": 845,
+      "sha256": "5B83FC7B24444DFC77208B513EF75A0D7F85C4D7C4159B9E8E40DED76D74E50D"
+    },
+    "close": {
+      "path": "artifacts/m5-results/diagnostic-close-command.json",
+      "bytes": 841,
+      "sha256": "CC0A1C04BF127FA4AB95E2E382B4F4442C9E193F2336B90FB161727B7E045A43"
+    },
+    "exited": true,
+    "sceneRestored": true
+  },
+  "cleanup": {
+    "complete": false,
+    "releasedBytesThisSlice": 0,
+    "preflight": {
+      "path": "artifacts/m5-results/debug-cleanup-preflight.json",
+      "bytes": 1723,
+      "sha256": "EA09C05E1411ED5169D85896E2A1186A2BD2F3592697C1A5638630EFBE2FE4CC"
+    },
+    "attempt": {
+      "path": "artifacts/m5-results/debug-cleanup.json",
+      "bytes": 553,
+      "sha256": "5491824D0FF84245FA17C7BCCE32126921C14128923979588E847BA10FF6CDC2"
+    },
+    "result": {
+      "utc": "2026-09-13T19:29:12.2774608Z",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-results\\player-mono\\DNights_BurstDebugInformation_DoNotShip",
+      "status": "blocked by policy",
+      "attempts": 1,
+      "releasedBytes": 0,
+      "remainingBytes": 245875,
+      "actionExecuted": false,
+      "reason": "Automatic approval review rejected the removal command before execution; no more specific reason was provided.",
+      "retried": false,
+      "targetStillPresent": true,
+      "CFree": 14273396736,
+      "DFree": 34912038912
+    },
+    "space": {
+      "utc": "2026-09-13T19:35:03.8305096Z",
+      "CFree": 14283767808,
+      "DFree": 34911698944,
+      "note": "Free-space deltas also include unrelated activity and are not cleanup release counts."
+    },
+    "previouslyBlockedTargetsNotRetried": [
+      "Game/Library/Bee/artifacts/WinPlayerBuildProgram",
+      "artifacts/migration/player-mono/DNights_BurstDebugInformation_DoNotShip",
+      "artifacts/yygc-unified/u6/source",
+      "artifacts/yygc-unified/u6/locked-archives",
+      "artifacts/yygc-unified/u6/player-mono-compressed/DNights_BurstDebugInformation_DoNotShip",
+      "artifacts/m5-ui/player-mono/DNights_BurstDebugInformation_DoNotShip"
+    ]
+  },
+  "pending": [
+    "Full same-state world comparison",
+    "Foreground three-night and capacity performance: user deferred visible windows",
+    "IL2CPP: explicit confirmation required",
+    "LAN on a second physical Windows machine",
+    "Policy-blocked compilation artifact cleanup"
+  ],
+  "documentationValidation": {
+    "utc": "2026-09-13T19:38:33.1993786Z",
+    "passed": true,
+    "documents": [
+      "README.md",
+      "docs/DEVELOPMENT.md",
+      "docs/M5_EXECUTION.md",
+      "docs/M5_UI_CALIBRATION.md",
+      "docs/YYGC_UNIFIED_REFACTOR_PLAN.md",
+      "docs/M5_RESULT_UI.md"
+    ],
+    "linksChecked": 131,
+    "evidenceReferencesChecked": 30,
+    "manifestFiles": 408,
+    "manifestBytes": 199006273,
+    "powershellSyntaxErrors": 0,
+    "gameChangesAfterBuild": [],
+    "errors": []
+  }
+}

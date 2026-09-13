@@ -1,5 +1,7 @@
 # M5 原生 UI 校准
 
+后续接续：[终局页面与重开修复](M5_RESULT_UI.md)已完成新源码 `af29950` 的 155 项 Editor／Play 与 40 项 Mono 检查，修复版 Player 位于 `artifacts/m5-results/player-mono`。本页以下保留字体／菜单校准批次自身的输入、产物和结果。
+
 日期：2026-09-14。分支：`codex/yygc-unified-object-migration`。源码提交：`2fff198cb220d3be055a1389dbdceb49de3e1a01`。本切片已完成五页原生 UGUI 校准及相关 Editor／Mono 验收，保留原文、字号、原控件几何、Prefab GUID、生成绑定与原素材。YYGC 继续锁定 `745f3d2`，FishNet 锁定 `de19b5d`；本切片没有框架修改。**UI 切片通过不代表 M5 整体完成；前台性能按用户选择继续暂缓，部分产物清理受自动审批限制。**
 
 [总重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)记录 U0–U6 的状态归属、框架升级和旧模型退出；本页记录后续 UI 切片。完整结果见[本批机器证据](evidence/m5-ui-calibration-2026-09-14.json)及[408 个 Player 文件与 SHA-256](evidence/m5-ui-player-mono-files-2026-09-14.json)。

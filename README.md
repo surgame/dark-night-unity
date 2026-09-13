@@ -1,6 +1,8 @@
 # Dark Nights · Unity
 
-2026-09-14 已完成 [M5 原生 UI 校准](docs/M5_UI_CALIBRATION.md)，源码提交 `2fff198`：155 项 Editor／Play 按影响合并通过（首轮 154/155，相关 22/22 复验），真实鼠标 19/19，新 Mono 启动／双进程／两分辨率捕获共 31 项通过。当前 UI Player 为 `artifacts/m5-ui/player-mono`，十张截图、408 个文件及完整哈希已归档。前台性能、完整同状态世界画面对照、IL2CPP、双机器 LAN 和受审批限制的清理仍保留待办；**M5 尚未完成**。
+2026-09-14 后续完成[终局页面重开修复](docs/M5_RESULT_UI.md)，源码 `af29950`：完整 Editor／Play 155/155、新 Mono 终局／启动／双进程会话 40/40 通过，四张胜负页截图已复核。当前修复版 Player 为 `artifacts/m5-results/player-mono`，408 个文件哈希一致；本批调试目录清理也被自动审批拒绝，未重试。前台性能按用户选择继续暂缓，完整同状态世界画面对照、IL2CPP、双机器 LAN 和受限清理仍待完成；**M5 尚未完成**。
+
+此前同日完成 [M5 原生 UI 校准](docs/M5_UI_CALIBRATION.md)，源码提交 `2fff198`：155 项 Editor／Play 按影响合并通过（首轮 154/155，相关 22/22 复验），真实鼠标 19/19，Mono 相关 31 项通过。该批 Player 为 `artifacts/m5-ui/player-mono`，十张截图、408 个文件及哈希按历史输入保留，不与后续构建混计。
 
 协议 7 性能批次：[U6 性能修正](docs/YYGC_UNIFIED_PERFORMANCE.md)锁定 YYGC `745f3d2`；游戏 `4e3798f` 已通过 144 项 Editor／Play、正式 Mono 完整矩阵 350 项及同产物 240 秒摘要容量检查 21 项。48 组容量抽样最大落后 0.3 秒，未再复现此前持续积压；Sample 复用 `a7bb926`／同框架的 60 项证据。用户选择暂缓前台验收，性能仍未签署。
 
