@@ -1,4 +1,5 @@
-param([int]$Port = 28240, [int]$ClientPort = 0, [int]$DurationSeconds = 30, [string]$PlayerPath = '')
+param([int]$Port = 28240, [int]$ClientPort = 0, [int]$DurationSeconds = 30, [string]$PlayerPath = '',
+    [switch]$CompactReports, [ValidateSet('none','host','client1','client2','client3')][string]$ForegroundRole = 'none')
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
 $player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe' }
@@ -10,6 +11,7 @@ $processes = @{}
 $checks = [ordered]@{}
 $failure = $null
 $publicationWindow = $null
+$measurementStartUtc = $null
 if ($ClientPort -eq 0) { $ClientPort = $Port }
 function Read-Report([string]$Role) {
     try {
@@ -39,7 +41,8 @@ function Start-Player([string]$Role) {
         '--dn-report', ('"' + (Join-Path $run "$Role.json") + '"'), '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
     $arguments += '--dn-metrics'
     if ($Role -eq 'host') { $arguments += '--dn-projection-pressure' }
-    $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru
+    $style = if ($Role -eq $ForegroundRole) { 'Normal' } else { 'Hidden' }
+    $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle $style -PassThru
 }
 function Send([string]$Role, [hashtable]$Command) {
     [IO.File]::AppendAllText((Join-Path $run "$Role.commands"), ($Command | ConvertTo-Json -Compress) + "`n")
@@ -69,8 +72,17 @@ try {
         $r = Wait-Report $role { param($r) $r.ready -and $r.entityViews -eq 256 -and $r.arrowViews -eq 1024 }
         Check ($role+'_full_limit_received_and_rendered') ($r.frame.World.Identities.Count -eq 256 -and $r.frame.World.Projectiles.Count -eq 1024)
     }
-    $first = Wait-Report 'host' {param($r) $r.frame.ReadyCount -eq 4}
+    foreach($role in $processes.Keys) {
+        $before = Wait-Report $role {param($r) $r.ready}
+        $expectedCommands = $before.commandsConsumed + $(if ($CompactReports) { 2 } else { 1 })
+        if ($CompactReports) { Send $role @{operation='report-detail';value=0} }
+        Send $role @{operation='metrics-reset'}
+        $null = Wait-Report $role {param($r) $r.commandsConsumed -ge $expectedCommands -and
+            (!$CompactReports -or $r.reportDetail -eq 'summary')}
+    }
+    $first = Wait-Report 'host' {param($r) $r.readyCount -eq 4}
     $started=[DateTime]::UtcNow
+    $measurementStartUtc=$started.ToString('O')
     $deadline=$started.AddSeconds($DurationSeconds)
     Write-Output "Measuring four-process limit for $DurationSeconds seconds; payload=$($first.serverPayloadBytes) bytes."
     do {
@@ -78,12 +90,12 @@ try {
         Start-Sleep -Seconds 1
     } while([DateTime]::UtcNow -lt $deadline)
     # 报告由 Player 原子替换，重试瞬时文件访问失败，避免把空读当作发布停止。
-    $last=Wait-Report 'host' {param($r) $null -ne $r.frame}
-    $publicationWindow=[ordered]@{first=$first.frame.Publication;last=$last.frame.Publication;
-        firstTick=$first.frame.ServerTick;lastTick=$last.frame.ServerTick;
-        readyCount=$last.frame.ReadyCount;requiredDelta=$DurationSeconds * 5;
+    $last=Wait-Report 'host' {param($r) $r.publication -gt $first.publication}
+    $publicationWindow=[ordered]@{first=$first.publication;last=$last.publication;
+        firstTick=$first.serverTick;lastTick=$last.serverTick;
+        readyCount=$last.readyCount;requiredDelta=$DurationSeconds * 5;
         elapsedSeconds=([DateTime]::UtcNow-$started).TotalSeconds}
-    $publishing=($last.frame.ReadyCount -eq 4 -and $last.frame.Publication -gt $first.frame.Publication + $DurationSeconds * 5)
+    $publishing=($last.readyCount -eq 4 -and $last.publication -gt $first.publication + $DurationSeconds * 5)
     foreach($role in $processes.Keys) { Send $role @{operation='metrics';file="$role-metrics.json"} }
     Start-Sleep -Seconds 3
     $metrics=[ordered]@{}
@@ -92,6 +104,9 @@ try {
         $m=Get-Content (Join-Path $run "$role-metrics.json") -Raw | ConvertFrom-Json
         $metrics[$role]=$m
         Check ($role+'_metrics_captured') ($m.frameMilliseconds.samples -gt 30 -and $m.entityCount -eq 256 -and $m.projectileCount -eq 1024)
+        if ($role -eq $ForegroundRole) {
+            Check ($role+'_os_foreground_observation_covers_window') ($m.foregroundFrameMilliseconds.samples -ge $m.frameMilliseconds.samples * .95)
+        }
         Check ($role+'_windows_working_set_recorded') (@(Get-PlayerMemorySamples $role).Count -ge 3)
         $log=Get-Content -LiteralPath (Join-Path $run "$role.log") -Raw
         Check ($role+'_no_runtime_exception') ($log -notmatch '(?im)(Exception:|Shader error|\[AppStartup\].*(failed|cancelled))')
@@ -107,7 +122,8 @@ finally {
     foreach($p in $processes.Values) { $p.Refresh(); if(!$p.HasExited) {Stop-Process -Id $p.Id; $p.WaitForExit()} }
     if($relay) { $relay.Refresh(); if(!$relay.HasExited) {Stop-Process -Id $relay.Id; $relay.WaitForExit()} }
     [ordered]@{passed=(!$failure);checks=$checks;error=$failure;scope='Synthetic supported projection ceiling, four rendered Mono processes, real UDP relay';
-      publicationWindow=$publicationWindow;metrics=$metrics;osMemorySamples=$script:playerMemorySamples.ToArray();udp=$udp;artifacts=$run;gameCodeSha256=(Get-FileHash (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash} |
+      publicationWindow=$publicationWindow;measurementStartUtc=$measurementStartUtc;compactReports=[bool]$CompactReports;foregroundRole=$ForegroundRole;
+      metrics=$metrics;osMemorySamples=$script:playerMemorySamples.ToArray();udp=$udp;artifacts=$run;gameCodeSha256=(Get-FileHash (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash} |
       ConvertTo-Json -Depth 12 | Set-Content (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Pressure: passed=$(!$failure) checks=$($checks.Count); $run/result.json"
 }

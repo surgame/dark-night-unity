@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using DarkNights.Runtime.Network;
 using DarkNights.Runtime.Diagnostics;
 using Newtonsoft.Json;
@@ -18,16 +19,21 @@ namespace DarkNights.Entry
         private SessionNetwork network;
         private readonly MeasurementSeries frames = new MeasurementSeries();
         private readonly MeasurementSeries allocations = new MeasurementSeries();
+        private readonly MeasurementSeries reports = new MeasurementSeries();
+        private readonly MeasurementSeries foregroundFrames = new MeasurementSeries();
+        private readonly MeasurementSeries foregroundAllocations = new MeasurementSeries();
         private ProfilerRecorder gc;
         private double started = -1, last;
         private long receivedBytes, receivedFrames;
         private long focusedFrames;
         private double nextMemoryAt;
+        private bool wasForeground;
         private readonly List<long[]> memory = new List<long[]>();
 
         public void Initialize(SessionNetwork value)
         {
             network = value;
+            network.Client.EnableMeasurements();
             gc = ProfilerRecorder.StartNew(ProfilerCategory.Memory, "GC Allocated In Frame");
             network.Client.Updated += Updated;
         }
@@ -38,18 +44,41 @@ namespace DarkNights.Entry
             receivedBytes += network.Client.LastPayloadBytes;
         }
 
+        public void ResetWindow()
+        {
+            frames.Clear(); allocations.Clear(); reports.Clear(); memory.Clear();
+            foregroundFrames.Clear(); foregroundAllocations.Clear(); wasForeground = false;
+            network.Client.Measurements.Clear();
+            network.Server?.Measurements?.Clear();
+            receivedBytes = receivedFrames = focusedFrames = 0;
+            nextMemoryAt = last = 0;
+            started = -1;
+        }
+
+        public void RecordReport(double milliseconds)
+        {
+            if (started >= 0 && Time.realtimeSinceStartupAsDouble - started > 2) reports.Add(milliseconds);
+        }
+
         private void Update()
         {
             if (!network.Client.Ready) return;
             double now = Time.realtimeSinceStartupAsDouble;
+            bool foreground = IsOsForeground();
             if (started < 0) { started = last = now; return; }
             if (now - started > 2)
             {
                 frames.Add((now - last) * 1000);
                 if (Application.isFocused) focusedFrames++;
                 if (gc.Valid) allocations.Add(gc.LastValue);
+                if (foreground && wasForeground)
+                {
+                    foregroundFrames.Add((now - last) * 1000);
+                    if (gc.Valid) foregroundAllocations.Add(gc.LastValue);
+                }
             }
             last = now;
+            wasForeground = foreground;
             if (now >= nextMemoryAt && memory.Count < 1024)
             {
                 nextMemoryAt = now + 5;
@@ -71,7 +100,15 @@ namespace DarkNights.Entry
             File.WriteAllText(path, JsonConvert.SerializeObject(new
             {
                 utc = DateTime.UtcNow.ToString("O"), seconds, frameMilliseconds = Summary(frames),
+                quantileMethod = MeasurementSeries.QuantileMethod,
+                foregroundFrameMilliseconds = Summary(foregroundFrames),
+                foregroundFrameAllocatedBytes = Summary(foregroundAllocations),
+                foregroundSource = "Windows GetForegroundWindow / GetWindowThreadProcessId; both interval endpoints must belong to this process",
                 frameAllocatedBytes = Summary(allocations), gcRecorderValid = gc.Valid,
+                automationReportMilliseconds = Summary(reports),
+                clientDecodeMilliseconds = Summary(network.Client.Measurements.DecodeMilliseconds),
+                clientObjectsMilliseconds = Summary(network.Client.Measurements.ObjectsMilliseconds),
+                clientApplyMilliseconds = Summary(network.Client.Measurements.ApplyMilliseconds),
                 authorityStepMilliseconds = Summary(authority?.StepMilliseconds),
                 threadAllocationCounterValid = authority?.ThreadAllocationCounterValid ?? false,
                 authorityStepAllocatedBytes = Summary(authority?.ThreadAllocationCounterValid == true ? authority.StepAllocatedBytes : null),
@@ -90,7 +127,7 @@ namespace DarkNights.Entry
                 Application.isBatchMode, focusedFrames,
                 memorySamples = memory, memorySampleColumns = new[] { "elapsedMilliseconds", "managedUsedBytes" },
                 workingSetSource = "External Windows process sampling in acceptance script; Mono Process.WorkingSet64 is not used.",
-                caveat = "Rendered automation workload, including background frames. Quantiles use retainedSamples; means use all samples. UDP and OS working set are measured separately. Unsupported per-thread counters are null."
+                caveat = "Rendered automation workload, including background frames. Full-history quantiles are histogram upper bounds within 1%; means use all samples. UDP and OS working set are measured separately. Unsupported per-thread counters are null."
             }, Formatting.Indented));
         }
 
@@ -99,5 +136,22 @@ namespace DarkNights.Entry
             gc.Dispose();
             if (network != null) network.Client.Updated -= Updated;
         }
+
+        private static bool IsOsForeground()
+        {
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+            IntPtr window = GetForegroundWindow();
+            GetWindowThreadProcessId(window, out uint process);
+            return window != IntPtr.Zero && process == GetCurrentProcessId();
+#else
+            return false;
+#endif
+        }
+
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+        [DllImport("user32.dll")] private static extern IntPtr GetForegroundWindow();
+        [DllImport("user32.dll")] private static extern uint GetWindowThreadProcessId(IntPtr window, out uint process);
+        [DllImport("kernel32.dll")] private static extern uint GetCurrentProcessId();
+#endif
     }
 }

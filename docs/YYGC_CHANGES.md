@@ -1,5 +1,17 @@
 # YYGC 修改授权与改动账本
 
+<a id="unified-u6-performance"></a>
+
+## 2026-09-13：U6 装配校验热点修正
+
+框架提交 `745f3d2c844a66389e39bb84cd878d5d80f77962`，先在 `.deps/YYGC-unified` 验证；确认用户仓库干净、master 仍为 `8faf74f` 后本地 fetch 并快进 `D:\Developer\YYGC`，未推送。游戏准备脚本锁定新完整提交，六份既有补丁及友元文件保留。
+
+| 文件 | 原因与实际修改 | 落点与验证 |
+|---|---|---|
+| `Runtime/Objects/Runner/ObjectAssemblyValidation.cs` | 每次客户端完整投影都重新反射 Behaviour 的配置及组件绑定声明，256 次校验微测量均值 101.64 ms。按类型缓存不变声明，不保存 Definition、配置／组件实例或成功结果；实际配置、工厂、能力和绑定仍逐次验证 | 隔离 checkout 与用户仓库同路径；最终 138/138 Editor／Play，56.68 秒，包括预热后删除配置、清空／重复绑定的拒绝回归。缓存声明后的两次微测量为 16.66／9.76 ms；不据此宣称 Player 帧率通过 |
+
+类型解析缓存候选没有显示明确收益，已撤回，`BehaviourTypeResolver.cs` 无最终差异；该候选的 139 项回归不增加当前通过数。本次无新增 YYGC 文件或 `.meta`。正式／Sample Mono 受共同装配入口影响，正在按本次输入构建验证。详情见[性能切片](YYGC_UNIFIED_PERFORMANCE.md)。
+
 <a id="unified-u5"></a>
 
 ## 2026-09-13：U5 已完成资源的异步等待修正

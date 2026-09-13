@@ -1,0 +1,411 @@
+{
+  "stage": "U6 performance correction",
+  "date": "2026-09-13",
+  "status": "editor_verified_player_validation_pending",
+  "framework": {
+    "frameworkCommit": "745f3d2c844a66389e39bb84cd878d5d80f77962",
+    "oldCommit": "8faf74f03d9eac4e025d6fe0f81f0c26a9eac9d4",
+    "modifiedFiles": [
+      "Runtime/Objects/Runner/ObjectAssemblyValidation.cs"
+    ],
+    "userRepository": "D:\\Developer\\YYGC",
+    "userRepositoryClean": true,
+    "pushed": false,
+    "editorTests": 138,
+    "editorSeconds": 56.68
+  },
+  "editor": {
+    "total": 138,
+    "passed": 138,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "editorSeconds": 56.68,
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 280,
+    "selfTests": 12,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "retainedFrameworkFiles": [
+    "Runtime/Objects/Runner/ObjectAssemblyValidation.cs"
+  ],
+  "withdrawnCandidate": "BehaviourTypeResolver reflection cache and its extra test were removed; the 139-test candidate is not the final scope",
+  "diagnostics": {
+    "quantiles": "All samples in bounded histogram, upper bounds within 1% above 0.000001",
+    "clientStages": [
+      "decode",
+      "objects",
+      "apply"
+    ],
+    "automationReportTiming": true,
+    "osForeground": "GetForegroundWindow and owning process at both interval endpoints",
+    "compactReportOption": true,
+    "defaultLaunch": "Hidden"
+  },
+  "probes": {
+    "before": {
+      "label": "before",
+      "scope": "Editor synchronous microprobe; not Player/foreground acceptance",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts/migration/pressure-20260913-185015-528/host.json",
+      "payloadBytes": 487304,
+      "entityCount": 256,
+      "projectileCount": 1024,
+      "unity": "6000.4.9f1",
+      "processor": "Intel(R) Core(TM) i5-14600KF",
+      "results": {
+        "workerAssemblyValidation256": {
+          "batches": 12,
+          "meanMs": 101.63854166666668,
+          "medianMs": 101.2591,
+          "maximumMs": 111.0208,
+          "gen0Collections": 0,
+          "samplesMs": [
+            101.2591,
+            98.9683,
+            111.0208,
+            107.3649,
+            107.8753,
+            101.4619,
+            100.0361,
+            94.6183,
+            97.7244,
+            102.4342,
+            97.0216,
+            99.8776
+          ]
+        },
+        "completeFrameJson": {
+          "batches": 12,
+          "meanMs": 39.928716666666666,
+          "medianMs": 31.5066,
+          "maximumMs": 110.9376,
+          "gen0Collections": 1,
+          "samplesMs": [
+            31.7216,
+            31.5066,
+            40.3382,
+            43.1555,
+            44.4069,
+            110.9376,
+            30.7467,
+            29.318,
+            29.8665,
+            28.6033,
+            28.7415,
+            29.8022
+          ]
+        },
+        "projectionEncode": {
+          "batches": 12,
+          "meanMs": 1.6209999999999998,
+          "medianMs": 1.6932,
+          "maximumMs": 1.8759,
+          "gen0Collections": 0,
+          "samplesMs": [
+            1.5193,
+            1.6932,
+            1.7934,
+            1.7865,
+            1.5783,
+            1.7122,
+            1.7442,
+            1.2505,
+            1.8759,
+            1.4892,
+            1.3687,
+            1.6406
+          ]
+        },
+        "projectionDecode": {
+          "batches": 12,
+          "meanMs": 3.694958333333334,
+          "medianMs": 3.5475,
+          "maximumMs": 4.3241,
+          "gen0Collections": 0,
+          "samplesMs": [
+            3.5475,
+            3.4712,
+            3.6015,
+            3.7426,
+            4.2218,
+            4.3241,
+            4.2198,
+            3.4986,
+            3.3274,
+            3.5268,
+            3.5031,
+            3.3551
+          ]
+        }
+      }
+    },
+    "after": {
+      "label": "after",
+      "scope": "Editor synchronous microprobe; not Player/foreground acceptance",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts/migration/pressure-20260913-185015-528/host.json",
+      "payloadBytes": 487304,
+      "entityCount": 256,
+      "projectileCount": 1024,
+      "unity": "6000.4.9f1",
+      "processor": "Intel(R) Core(TM) i5-14600KF",
+      "results": {
+        "workerAssemblyValidation256": {
+          "batches": 12,
+          "meanMs": 16.65575833333333,
+          "medianMs": 16.4811,
+          "maximumMs": 17.6901,
+          "gen0Collections": 0,
+          "samplesMs": [
+            16.1965,
+            16.9413,
+            16.193,
+            16.4353,
+            16.6737,
+            17.6901,
+            16.4781,
+            16.1215,
+            16.4269,
+            16.9311,
+            17.3005,
+            16.4811
+          ]
+        },
+        "completeFrameJson": {
+          "batches": 12,
+          "meanMs": 31.09570833333333,
+          "medianMs": 30.2167,
+          "maximumMs": 37.0752,
+          "gen0Collections": 0,
+          "samplesMs": [
+            30.2167,
+            29.8011,
+            29.6288,
+            29.0667,
+            29.7419,
+            28.9531,
+            29.2628,
+            31.1997,
+            31.1313,
+            36.5467,
+            30.5245,
+            37.0752
+          ]
+        },
+        "projectionEncode": {
+          "batches": 12,
+          "meanMs": 1.3972749999999998,
+          "medianMs": 1.1606,
+          "maximumMs": 2.9271,
+          "gen0Collections": 0,
+          "samplesMs": [
+            1.508,
+            1.1209,
+            1.5968,
+            1.1606,
+            1.1238,
+            1.0475,
+            1.5566,
+            1.059,
+            1.0845,
+            1.1082,
+            1.4743,
+            2.9271
+          ]
+        },
+        "projectionDecode": {
+          "batches": 12,
+          "meanMs": 3.684725,
+          "medianMs": 3.6841,
+          "maximumMs": 4.1932,
+          "gen0Collections": 0,
+          "samplesMs": [
+            3.4418,
+            3.3646,
+            3.6841,
+            3.5573,
+            3.8382,
+            3.4896,
+            3.8372,
+            3.4998,
+            3.4809,
+            3.7025,
+            4.1275,
+            4.1932
+          ]
+        }
+      }
+    },
+    "resolver-before": {
+      "label": "resolver-before",
+      "scope": "Editor synchronous microprobe; not Player/foreground acceptance",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts/migration/pressure-20260913-185015-528/host.json",
+      "payloadBytes": 487304,
+      "entityCount": 256,
+      "projectileCount": 1024,
+      "unity": "6000.4.9f1",
+      "processor": "Intel(R) Core(TM) i5-14600KF",
+      "results": {
+        "workerAssemblyValidation256": {
+          "batches": 12,
+          "meanMs": 9.76255,
+          "medianMs": 9.5313,
+          "maximumMs": 11.5775,
+          "gen0Collections": 0,
+          "samplesMs": [
+            9.2662,
+            9.0465,
+            9.8559,
+            9.1695,
+            9.5313,
+            9.213,
+            11.3539,
+            9.8333,
+            11.5775,
+            9.4614,
+            9.2436,
+            9.5985
+          ]
+        },
+        "workerTypeResolution256": {
+          "batches": 12,
+          "meanMs": 3.9389666666666674,
+          "medianMs": 3.9673,
+          "maximumMs": 4.577,
+          "gen0Collections": 0,
+          "samplesMs": [
+            3.7432,
+            3.7807,
+            4.241,
+            3.7199,
+            3.7315,
+            3.8818,
+            3.9756,
+            3.9673,
+            4.0709,
+            3.5992,
+            4.577,
+            3.9795
+          ]
+        },
+        "completeFrameJson": {
+          "batches": 12,
+          "meanMs": 19.90438333333333,
+          "medianMs": 18.5563,
+          "maximumMs": 29.7976,
+          "gen0Collections": 0,
+          "samplesMs": [
+            17.8891,
+            18.6163,
+            17.4046,
+            17.1099,
+            18.5563,
+            18.1717,
+            19.2895,
+            21.0137,
+            17.3431,
+            26.0746,
+            29.7976,
+            17.5862
+          ]
+        },
+        "projectionEncode": {
+          "batches": 12,
+          "meanMs": 0.6673749999999999,
+          "medianMs": 0.6355,
+          "maximumMs": 0.9171,
+          "gen0Collections": 0,
+          "samplesMs": [
+            0.9171,
+            0.6355,
+            0.6665,
+            0.5671,
+            0.5599,
+            0.8205,
+            0.7453,
+            0.5662,
+            0.5455,
+            0.5611,
+            0.6208,
+            0.803
+          ]
+        },
+        "projectionDecode": {
+          "batches": 12,
+          "meanMs": 2.433941666666667,
+          "medianMs": 2.3478,
+          "maximumMs": 3.6767,
+          "gen0Collections": 0,
+          "samplesMs": [
+            2.3478,
+            2.2222,
+            2.1079,
+            2.4084,
+            2.4878,
+            2.2563,
+            1.9102,
+            2.3024,
+            1.928,
+            3.0757,
+            3.6767,
+            2.4839
+          ]
+        }
+      }
+    }
+  },
+  "cleanup": {
+    "method": "dotnet clean",
+    "paths": [
+      "tools/ArchitectureGuard/bin",
+      "tools/ArchitectureGuard/obj"
+    ],
+    "releasedBytes": 32992560.0,
+    "freeC": 14614552576,
+    "freeD": 24375218176,
+    "blockedSourceCleanupRetried": false
+  },
+  "playerValidation": "pending",
+  "il2cpp": "not authorized or run",
+  "twoMachineLan": "not run",
+  "references": [
+    {
+      "path": "artifacts/yygc-unified/u6/performance/editor-final-138.json",
+      "sha256": "0bcc9b733b5b62b1d2707cc73ffea7e51efdc5bb4914212f7e0c87c9b8461bd3"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/performance/editor-138-passed.json",
+      "sha256": "3ffd417c993c0adf22d4a8b8f37e6f386667c065fd1b15c02fd0960e99a1bbac"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/performance/editor-139-candidate.json",
+      "sha256": "1d2f577b5b0a9122e248430dd326d7668a5e76ea4c459475ffb3a3e13de31e60"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/performance/architecture.json",
+      "sha256": "7de1962130008f83d0d37abf13d735317dd4156acbe868a3861f7659d713c7f8"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/performance/framework-input.json",
+      "sha256": "3f4bb8a12f739c10839fef0036de8ba09a5059fd066ae96df87537f9afef64e9"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/performance/tools-cleanup.json",
+      "sha256": "e95966b77d85f2d58c5e13392e25272ae2f427bac42cdf5a16bf4bbcf32b9931"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/performance/hotspot-before.json",
+      "sha256": "30934804d61bf66086165e0a10e93f0db5c6266bce3bda22987229dea9d2b499"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/performance/hotspot-after.json",
+      "sha256": "03fb068af7a87d530cdb9cb2a590a91e3d22a4eaa3168d2050ecda621566931f"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/performance/hotspot-resolver-before.json",
+      "sha256": "274ad319f0b85b9d3ec45528ec8ff3b1bb755303ee64e8fd87c1ef603362ae65"
+    }
+  ]
+}

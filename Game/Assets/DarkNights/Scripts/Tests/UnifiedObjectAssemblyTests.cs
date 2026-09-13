@@ -196,6 +196,33 @@ namespace DarkNights.Tests
             finally { PrefabUtility.UnloadPrefabContents(root); }
         }
 
+        [Test]
+        public void CachedRequirementsStillRejectChangedConfigsAndBindings()
+        {
+            var definition = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ObjectDefinition>(
+                "Assets/DarkNights/Res/Objects/Worker/Worker.asset"));
+            var root = PrefabUtility.LoadPrefabContents("Assets/DarkNights/Res/Objects/Worker/Worker.prefab");
+            try
+            {
+                var view = root.GetComponent<ObjectView>();
+                ObjectAssemblyValidation.Validate(definition, view);
+                ObjectAssemblyValidation.Validate(definition, view);
+                var movement = definition.SharedConfigs.OfType<DarkNights.Runtime.Objects.MovementConfig>().Single();
+                definition.SharedConfigs.Remove(movement);
+                Assert.Throws<InvalidOperationException>(() => ObjectAssemblyValidation.Validate(definition, view));
+                definition.SharedConfigs.Add(movement);
+                ObjectAssemblyValidation.Validate(definition, view);
+                var bindings = view.Bindings.ToArray();
+                view.EditorSetBindings(Array.Empty<ViewComponentBinding>(), false);
+                Assert.Throws<InvalidOperationException>(() => ObjectAssemblyValidation.Validate(definition, view));
+                view.EditorSetBindings(bindings.Concat(bindings).ToArray(), false);
+                Assert.Throws<InvalidOperationException>(() => ObjectAssemblyValidation.Validate(definition, view));
+                view.EditorSetBindings(bindings, false);
+                ObjectAssemblyValidation.Validate(definition, view);
+            }
+            finally { PrefabUtility.UnloadPrefabContents(root); UnityEngine.Object.DestroyImmediate(definition); }
+        }
+
         private static ObjectSessionContext Context(int number, bool authority = true)
         {
             var container = new DIContainer();

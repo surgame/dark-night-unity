@@ -3,20 +3,30 @@ using System;
 namespace DarkNights.Runtime.Diagnostics
 {
     /// <summary>
-    /// 显式验收模式的有界数值采样，保留最近十万个样本；只有导出时排序副本。
-    /// 不参与规则、时钟或网络决策，采样过程不分配数组，完整计数与总和不受保留窗口影响。
+    /// 显式验收模式的有界全程直方图，保留每个样本的计数、总和和最大值，不丢弃早期观测。
+    /// 正分位数返回桶上界，相对误差不超过 1%；零值精确计数，极小值桶宽为 0.000001。
+    /// 不参与玩法或网络决策；固定内存与观测时长无关，重置仅由显式验收入口触发。
     /// </summary>
     public sealed class MeasurementSeries
     {
-        private readonly double[] values = new double[100000];
+        private const double Minimum = 0.000001;
+        private const double Ratio = 1.01;
+        private static readonly double LogRatio = Math.Log(Ratio);
+        private static readonly double LogMinimum = Math.Log(Minimum);
+        private readonly long[] buckets = new long[8194];
         public long Count { get; private set; }
-        public int RetainedCount => (int)Math.Min(Count, values.Length);
+        public long RetainedCount => Count;
         public double Total { get; private set; }
         public double Maximum { get; private set; }
+        public const string QuantileMethod = "Full-history histogram; upper-bound quantiles, <=1% relative error above 0.000001";
 
         public void Add(double value)
         {
-            values[(int)(Count % values.Length)] = value;
+            if (value < 0 || double.IsNaN(value) || double.IsInfinity(value))
+                throw new ArgumentOutOfRangeException(nameof(value));
+            int index = value == 0 ? 0 : value <= Minimum ? 1 : 1 + (int)Math.Ceiling((Math.Log(value) - LogMinimum) / LogRatio);
+            if (index >= buckets.Length) throw new ArgumentOutOfRangeException(nameof(value), "Measurement exceeds histogram range.");
+            buckets[index]++;
             Count++;
             Total += value;
             Maximum = Math.Max(Maximum, value);
@@ -25,12 +35,21 @@ namespace DarkNights.Runtime.Diagnostics
         public double Percentile(double quantile)
         {
             if (quantile <= 0 || quantile > 1 || double.IsNaN(quantile)) throw new ArgumentOutOfRangeException(nameof(quantile));
-            int length = RetainedCount;
-            if (length == 0) return 0;
-            var sorted = new double[length];
-            Array.Copy(values, sorted, length);
-            Array.Sort(sorted);
-            return sorted[Math.Min(length - 1, (int)Math.Ceiling(length * quantile) - 1)];
+            if (Count == 0) return 0;
+            long required = (long)Math.Ceiling(Count * quantile), seen = 0;
+            for (int i = 0; i < buckets.Length; i++)
+            {
+                seen += buckets[i];
+                if (seen >= required) return i == 0 ? 0 : Math.Min(Maximum, Minimum * Math.Pow(Ratio, i - 1));
+            }
+            return Maximum;
+        }
+
+        public void Clear()
+        {
+            Array.Clear(buckets, 0, buckets.Length);
+            Count = 0;
+            Total = Maximum = 0;
         }
     }
 }

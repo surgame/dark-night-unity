@@ -1,4 +1,5 @@
-param([int]$Port = 27995, [int]$SteadySeconds = 30, [string]$PlayerPath = '')
+param([int]$Port = 27995, [int]$SteadySeconds = 30, [string]$PlayerPath = '',
+    [ValidateSet('none','host','client1','client2','client3')][string]$ForegroundRole = 'none')
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
 $player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe' }
@@ -35,7 +36,8 @@ function Start-Player([string]$Role) {
     $arguments = @('-screen-width', '1280', '-screen-height', '800', '-screen-fullscreen', '0',
         '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'), '--dn-metrics', '--dn-role', $Role, '--dn-port', $Port,
         '--dn-report', ('"' + (Join-Path $run "$Role.json") + '"'), '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
-    $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru
+    $style = if ($Role -eq $ForegroundRole) { 'Normal' } else { 'Hidden' }
+    $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle $style -PassThru
 }
 function Send([hashtable]$Command) {
     [IO.File]::AppendAllText((Join-Path $run 'host.commands'), ($Command | ConvertTo-Json -Compress) + "`n")
@@ -142,6 +144,9 @@ try {
     foreach ($role in $processes.Keys) {
         $metrics[$role] = Get-Content -LiteralPath (Join-Path $run "$role-metrics.json") -Raw | ConvertFrom-Json
         Check ($role + '_performance_recorded') ($metrics[$role].frameMilliseconds.samples -gt 100 -and $metrics[$role].gcRecorderValid)
+        if ($role -eq $ForegroundRole) {
+            Check ($role + '_os_foreground_observation_covers_window') ($metrics[$role].foregroundFrameMilliseconds.samples -ge $metrics[$role].frameMilliseconds.samples * .95)
+        }
         Check ($role + '_windows_working_set_recorded') (@(Get-PlayerMemorySamples $role).Count -ge 3)
         $log = Get-Content -LiteralPath (Join-Path $run "$role.log") -Raw
         Check ($role + '_no_runtime_exception') ($log -notmatch '(?im)(Exception:|Shader error|\[AppStartup\].*(failed|cancelled))')
@@ -151,7 +156,7 @@ catch { $failure = $_.Exception.ToString() }
 finally {
     foreach ($process in $processes.Values) { $process.Refresh(); if (!$process.HasExited) { Stop-Process -Id $process.Id; $process.WaitForExit() } }
     $result = [ordered]@{ passed = !$failure; scope = 'Four real Mono processes; normal-resource three-night strategy through SessionClient'
-        checks = $checks; error = $failure; elapsed = $frame.Elapsed; artifacts = $run; metrics = $metrics
+        checks = $checks; error = $failure; elapsed = $frame.Elapsed; artifacts = $run; metrics = $metrics; foregroundRole = $ForegroundRole
         osMemorySamples = $script:playerMemorySamples.ToArray(); steadyMemoryStart = $steadyMemoryStart
         gameCodeSha256 = (Get-FileHash -LiteralPath (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash }
     $result | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath (Join-Path $run 'result.json') -Encoding utf8

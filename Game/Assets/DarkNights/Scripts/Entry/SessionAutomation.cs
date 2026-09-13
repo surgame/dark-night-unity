@@ -27,6 +27,8 @@ namespace DarkNights.Entry
         private int peakEffects, peakArrows;
         private int reportRetries;
         private bool pauseOnProjectile;
+        private bool fullReport = true;
+        private PlayerPerformanceCapture capture;
 
         public static void Install(SessionNetwork network)
         {
@@ -48,7 +50,11 @@ namespace DarkNights.Entry
             Directory.CreateDirectory(Path.GetDirectoryName(driver.reportPath));
             network.Client.Feedback += driver.OnFeedback;
             network.Failed += driver.OnFailure;
-            if (Array.IndexOf(args, "--dn-metrics") >= 0) network.gameObject.AddComponent<PlayerPerformanceCapture>().Initialize(network);
+            if (Array.IndexOf(args, "--dn-metrics") >= 0)
+            {
+                driver.capture = network.gameObject.AddComponent<PlayerPerformanceCapture>();
+                driver.capture.Initialize(network);
+            }
         }
 
         private async void Start()
@@ -88,7 +94,9 @@ namespace DarkNights.Entry
                         if (operation == "disconnect") network.Disconnect();
                         else if (operation == "connect") await network.Connect(role == "host", address, port);
                         else if (operation == "quit") Application.Quit();
-                        else if (operation == "metrics") GetComponent<PlayerPerformanceCapture>().Save(Path.Combine(
+                        else if (operation == "metrics-reset") capture.ResetWindow();
+                        else if (operation == "report-detail") fullReport = (int?)command["value"] != 0;
+                        else if (operation == "metrics") capture.Save(Path.Combine(
                             Path.GetDirectoryName(reportPath), Path.GetFileName((string)command["file"] ?? "metrics.json")));
                         else if (operation == "raw") await ExecuteRaw(command);
                         else if (operation == "pause-on-projectile") pauseOnProjectile = true;
@@ -112,13 +120,19 @@ namespace DarkNights.Entry
                 var effects = network.GetComponent<SessionEffects>();
                 peakEffects = Math.Max(peakEffects, effects.EffectCount);
                 peakArrows = Math.Max(peakArrows, effects.ArrowCount);
+                long reportStart = capture == null ? 0 : System.Diagnostics.Stopwatch.GetTimestamp();
+                var frame = network.Client.Replica.Current;
                 var report = new JObject
                 {
                     ["utc"] = DateTime.UtcNow.ToString("O"), ["role"] = role, ["status"] = network.Status,
                     ["clientStatus"] = network.Client.Status, ["ready"] = network.Client.Ready,
                     ["slot"] = network.Client.PlayerSlot, ["commandsConsumed"] = consumed, ["error"] = error,
                     ["feedback"] = JArray.FromObject(feedback),
-                    ["frame"] = network.Client.Replica.Current == null ? null : JObject.FromObject(network.Client.Replica.Current),
+                    ["frame"] = frame == null || !fullReport ? null : JObject.FromObject(frame),
+                    ["reportDetail"] = fullReport ? "full" : "summary", ["publication"] = frame?.Publication ?? 0,
+                    ["serverTick"] = frame?.ServerTick ?? 0, ["epoch"] = frame?.Epoch ?? 0,
+                    ["readyCount"] = frame?.ReadyCount ?? 0, ["entityCount"] = frame?.World.Identities.Count ?? 0,
+                    ["projectileCount"] = frame?.World.Projectiles.Count ?? 0,
                     ["serverPayloadBytes"] = network.Server?.LastPayloadBytes ?? 0,
                     ["storageBusy"] = network.Server?.Storage.Busy ?? false,
                     ["storageStatus"] = network.Server?.Storage.Status ?? "",
@@ -140,6 +154,7 @@ namespace DarkNights.Entry
                 {
                     // Windows 文件扫描或报告读取可短暂阻止替换；下一次轮询重发最新冻结报告。
                 }
+                capture?.RecordReport((System.Diagnostics.Stopwatch.GetTimestamp() - reportStart) * 1000.0 / System.Diagnostics.Stopwatch.Frequency);
             }
             catch (Exception exception) { error = exception.ToString(); Debug.LogException(exception); }
             finally { working = false; }

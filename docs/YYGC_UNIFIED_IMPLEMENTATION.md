@@ -2,6 +2,8 @@
 
 本记录接续 [分阶段计划](YYGC_UNIFIED_REFACTOR_PLAN.md)，只记录实际实施和取得的证据。游戏分支为 `codex/yygc-unified-object-migration`；不推送远端。U0–U5 已完成；U6 已取得最终干净源码 Mono 构建和同产物 11 步、347 项自动检查的通过证据。性能签署、既有 M5 画面问题及受自动审批拦截的临时目录清理仍未完成，不能据此宣称整个 M5 已交付。机器汇总见 [U6 报告](evidence/yygc-unified-u6.json)。
 
+后续[性能修正切片](YYGC_UNIFIED_PERFORMANCE.md)已定位并缓存装配反射声明，YYGC 更新为 `745f3d2`，补齐全程采样、客户端分段耗时及 OS 前台识别；138/138 Editor／Play 通过。新的正式／Sample Mono 验证继续进行；下方 347 项记录对应原 `9e69a76`／`8faf74f` 输入，不混用于修正后产物。
+
 ## U0：功能基线与输入归档
 
 游戏输入提交为 `5c83614`（规划提交，游戏实现与 `7072b26` 相同）。框架输入为 `ccd61e01f15332b1197cfa5ee72af8777c4a0b49`，沿用并逐字节核验仓库中的四份补丁及 `SampleAssemblyAccess.cs`／`.meta`；`tools/prepare-lan-sample.ps1` 成功。用户框架工作区检查时干净，未对其执行重置或清理。

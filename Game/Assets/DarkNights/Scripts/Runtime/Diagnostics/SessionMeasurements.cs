@@ -36,5 +36,15 @@ namespace DarkNights.Runtime.Diagnostics
             PayloadBytes += (long)payloadBytes * remoteObservers;
         }
         public void Backlog(double seconds) => MaximumBacklogSeconds = System.Math.Max(MaximumBacklogSeconds, seconds);
+
+        public void Clear()
+        {
+            StepMilliseconds.Clear();
+            StepAllocatedBytes.Clear();
+            ProjectionMilliseconds.Clear();
+            ProjectionAllocatedBytes.Clear();
+            Publications = PayloadBytes = 0;
+            MaximumBacklogSeconds = 0;
+        }
     }
 }

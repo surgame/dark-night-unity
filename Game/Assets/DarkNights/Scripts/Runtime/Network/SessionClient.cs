@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using DarkNights.Core.ViewData;
+using DarkNights.Runtime.Diagnostics;
 using DarkNights.Runtime.Session;
 using GameCore.NetworkCommands;
 using R3;
@@ -31,8 +33,11 @@ namespace DarkNights.Runtime.Network
         public event Action<SessionViewData> Updated;
         public event Action<Exception> Failed;
         public Action<SessionViewData> PrepareProjection { get; set; }
+        public ClientMeasurements Measurements { get; private set; }
 
         public SessionClient(ProjectionCodec codec) { this.codec = codec; }
+
+        public void EnableMeasurements() => Measurements = Measurements ?? new ClientMeasurements();
 
         public void ClearRecovery() => recoveryToken = "";
         public void GrantRecovery(PlayerEndpoint source, string token)
@@ -75,11 +80,18 @@ namespace DarkNights.Runtime.Network
                 try
                 {
                     if (state.Protocol != SessionAuthority.ProtocolVersion) throw new FormatException("Session protocol mismatch.");
+                    long started = Measurements == null ? 0 : Stopwatch.GetTimestamp();
                     var frame = codec.Decode(state.ProjectionPayload);
+                    Measurements?.DecodeMilliseconds.Add((Stopwatch.GetTimestamp() - started) * 1000.0 / Stopwatch.Frequency);
                     int previousEpoch = Replica.Current?.Epoch ?? 0;
                     if (!Replica.CanApply(captured, frame)) return;
+                    if (Measurements != null) started = Stopwatch.GetTimestamp();
                     PrepareProjection?.Invoke(frame);
-                    if (!Replica.Apply(captured, frame)) return;
+                    Measurements?.ObjectsMilliseconds.Add((Stopwatch.GetTimestamp() - started) * 1000.0 / Stopwatch.Frequency);
+                    if (Measurements != null) started = Stopwatch.GetTimestamp();
+                    bool applied = Replica.Apply(captured, frame);
+                    Measurements?.ApplyMilliseconds.Add((Stopwatch.GetTimestamp() - started) * 1000.0 / Stopwatch.Frequency);
+                    if (!applied) return;
                     LastPayloadBytes = state.ProjectionPayload.Length;
                     if (frame.Epoch != previousEpoch) { Ready = false; readySequence = 0; nextReadyAt = 0; }
                     Updated?.Invoke(frame);
