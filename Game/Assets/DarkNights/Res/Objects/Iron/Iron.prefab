@@ -315,7 +315,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8386026d372129943a3d3497b42aa321, type: 2}
+  - {fileID: 2100000, guid: 24b49c40e7bc0c242921c395818c3000, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -484,7 +484,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
 --- !u!114 &50898940817188703
@@ -507,6 +507,7 @@ MonoBehaviour:
     height: 0.28
   portrait: {fileID: 21300000, guid: c779dd58bcf6e22498c17f13363e81f1, type: 3}
   shadow: {fileID: 0}
+  sorting: {fileID: 545436007954672713}
   facing: {fileID: 0}
   origin: {fileID: 0}
   statusAnchor: {fileID: 4132026147126612536}

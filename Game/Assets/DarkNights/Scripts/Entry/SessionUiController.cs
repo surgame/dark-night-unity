@@ -88,6 +88,13 @@ namespace DarkNights.Entry
             Switch("MainMenu");
         }
 
+        internal void SamplePresentation()
+        {
+            Update();
+            hud.ResetMessages();
+            Update();
+        }
+
         private void Update()
         {
             if (!initialized) return;

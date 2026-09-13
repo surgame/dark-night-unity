@@ -29,8 +29,11 @@ namespace DarkNights.View
         public Color Ambient => Color.Lerp(DayAmbient, NightAmbient, night);
         public float CameraX => cameraX;
         public float Zoom => zoom;
+        public double PresentationTime => visualTime;
+        public float NightAmount => night;
         public float WorldWidth => worldWidth;
         public float InitialCameraX { get; private set; }
+        public Color IlluminationAt(Vector3 position) => environment != null ? environment.IlluminationAt(position) : Ambient.linear;
 
         public void Initialize(LevelLayout layout)
         {

@@ -125,6 +125,12 @@ namespace DarkNights.Entry
                 if (Presentation(site.Id) is WorksitePresentationBehaviour view) view.Present(site, frame.Epoch, stage.Ambient);
         }
 
+        internal void SamplePresentation()
+        {
+            SessionViewData frame = client.Replica.Current;
+            if (frame != null) Present(frame);
+        }
+
         private void Remove(int id)
         {
             EntityPresentationBehaviour presentation = Presentation(id);

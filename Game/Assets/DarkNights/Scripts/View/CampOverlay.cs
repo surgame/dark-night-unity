@@ -105,6 +105,14 @@ namespace DarkNights.View
             return new Vector2(screen.x, Screen.height - screen.y);
         }
 
+        protected override Color VertexTint(Vector2 point, Color tint)
+        {
+            Vector3 world = stage.SceneCamera.ScreenToWorldPoint(new Vector3(point.x, Screen.height - point.y,
+                -stage.SceneCamera.transform.position.z));
+            // UGUI 接收 sRGB 颜色编码；在编码前按场景的 Linear 光照合成。
+            return (tint.linear * stage.IlluminationAt(world)).gamma;
+        }
+
         private void Bar(VertexHelper mesh, Vector2 center, float width, float height, double value, Color background, Color fill)
         {
             Rect bar = new Rect(center.x - width * stage.Zoom * .5f, center.y, width * stage.Zoom, height * stage.Zoom);

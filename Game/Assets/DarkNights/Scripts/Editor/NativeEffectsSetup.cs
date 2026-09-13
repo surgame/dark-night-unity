@@ -32,7 +32,8 @@ namespace DarkNights.Editor
             if (hudAsset.GetComponent<UGUIView>().Bindings.Any(b => b.Key == "ToastFade" || b.Key == "BannerFade"))
                 throw new InvalidOperationException("HUD effect bindings already exist.");
             Folder(Root);
-            var lineMaterial = new Material(Shader.Find("Sprites/Default")) { name = "Command Ring" };
+            var lineMaterial = new Material(Shader.Find("Dark Nights/Camp Sprite")) { name = "Command Ring" };
+            lineMaterial.SetFloat("_UseGlobalAmbient", 1); lineMaterial.SetFloat("_VertexColorIsGamma", 1);
             AssetDatabase.CreateAsset(lineMaterial, Root + "/CommandRing.mat");
             foreach (string name in new[] { "Arrow", "Floating", "Command", "Audio" }) Create(name, lineMaterial);
             AddHudFade();
@@ -66,11 +67,14 @@ namespace DarkNights.Editor
                     }
                     else if (name == "Command")
                     {
-                        var ring = Child(root.transform, "Ring").AddComponent<LineRenderer>();
-                        ring.sharedMaterial = lineMaterial; ring.useWorldSpace = false; ring.loop = true;
-                        ring.positionCount = 20; ring.startWidth = ring.endWidth = 0.01f; ring.sortingOrder = 160;
+                        var ring = Child(root.transform, "Ring").AddComponent<MeshFilter>();
+                        var renderer = ring.gameObject.AddComponent<MeshRenderer>();
+                        renderer.sharedMaterial = lineMaterial; renderer.sortingOrder = 160;
                         NativePrefabBuilder.SetReference(effect, "ring", ring);
                         effect.Present(new DarkNights.Core.ViewData.VisualCue("command", 0, 320), 0, 320);
+                        var mesh = UnityEngine.Object.Instantiate(ring.sharedMesh);
+                        mesh.name = "Command Ring"; mesh.hideFlags = HideFlags.None;
+                        AssetDatabase.CreateAsset(mesh, Root + "/Command/CommandRing.asset"); ring.sharedMesh = mesh;
                     }
                     else Floating(root, effect);
                 }
@@ -103,7 +107,7 @@ namespace DarkNights.Editor
             var canvasRect = (RectTransform)canvas.transform;
             canvasRect.pivot = Vector2.zero; canvasRect.sizeDelta = Vector2.zero;
             var label = Child(canvas.transform, "Text", true).AddComponent<Text>();
-            label.font = AssetDatabase.LoadAssetAtPath<Font>(NativeUiSetup.Root + "/Shared/UIFont.fontsettings");
+            label.font = CreateFloatingFont();
             label.fontSize = 7; label.alignment = TextAnchor.LowerLeft; label.raycastTarget = false;
             label.horizontalOverflow = HorizontalWrapMode.Overflow; label.verticalOverflow = VerticalWrapMode.Overflow;
             label.rectTransform.anchorMin = label.rectTransform.anchorMax = Vector2.zero;
@@ -120,6 +124,25 @@ namespace DarkNights.Editor
                 "res://assets/sprites/spr_int_resources/spr_int_resources_" + (i + 1) + ".png");
             serialized.ApplyModifiedPropertiesWithoutUndo();
             effect.Present(new DarkNights.Core.ViewData.VisualCue("damage", 0, 320, "12"), 0, 320);
+        }
+
+        /// <summary>在专用空路径创建七像素世界字体，持久化独立材质和点采样图集，避免影响菜单字体。</summary>
+        public static Font CreateFloatingFont()
+        {
+            string path = Root + "/Floating/FloatingFont.fontsettings";
+            if (File.Exists(path)) throw new InvalidOperationException("Floating font output must be empty.");
+            Font font = Font.CreateDynamicFontFromOSFont(new[] { "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans CJK SC", "Arial" }, 7);
+            var material = UnityEngine.Object.Instantiate(font.material);
+            var texture = UnityEngine.Object.Instantiate(font.material.mainTexture);
+            material.name = "Floating Font Material"; texture.name = "Floating Font Atlas";
+            texture.filterMode = FilterMode.Point; material.mainTexture = texture;
+            AssetDatabase.CreateAsset(font, path);
+            AssetDatabase.AddObjectToAsset(material, font); AssetDatabase.AddObjectToAsset(texture, font);
+            var data = new SerializedObject(font);
+            data.FindProperty("m_DefaultMaterial").objectReferenceValue = material;
+            data.FindProperty("m_Texture").objectReferenceValue = texture;
+            data.ApplyModifiedPropertiesWithoutUndo(); EditorUtility.SetDirty(font);
+            return font;
         }
 
         private static CampAudio Audio(GameObject root)

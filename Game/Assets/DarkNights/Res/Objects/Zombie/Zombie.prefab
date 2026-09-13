@@ -168,6 +168,7 @@ MonoBehaviour:
     height: 0.28
   portrait: {fileID: 21300000, guid: 945adf969722f8b4181bba1bd65ae083, type: 3}
   shadow: {fileID: 2730510101745401463}
+  sorting: {fileID: 5892765335274754672}
   facing: {fileID: 3151936630643671857}
   origin: {fileID: 6179327556632196974}
   statusAnchor: {fileID: 2448908490827195164}

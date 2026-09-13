@@ -107,6 +107,8 @@ namespace DarkNights.Entry
                             SessionRenderCapture.Save(stage, Path.Combine(Path.GetDirectoryName(reportPath),
                                 Path.GetFileName((string)command["file"] ?? "capture.png")));
                         }
+                        else if (operation == "capture-sample")
+                            await SessionPresentationCapture.Save(network, command, Path.GetDirectoryName(reportPath));
                         else if (operation == "ui") network.GetComponent<SessionUiController>().ActivateButton((string)command["panel"], (string)command["key"]);
                         else
                         {

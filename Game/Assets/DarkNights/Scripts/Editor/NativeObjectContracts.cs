@@ -75,6 +75,11 @@ namespace DarkNights.Editor
                 view.Bindings.Count(binding => binding.Key == key) != 1 ||
                 view.Get<NativeVisual>(key) == null || view.Get<NativeVisual>(key).gameObject != prefab)
                 throw new InvalidOperationException("Explicit local instance/initializer/visual binding is incomplete: " + name);
+            var visualData = new SerializedObject(view.Get<NativeVisual>(key));
+            var sorting = visualData.FindProperty("sorting").objectReferenceValue as UnityEngine.Rendering.SortingGroup;
+            int order = expected == typeof(ActorPresentationBehaviour) ? 100 : expected == typeof(WorksitePresentationBehaviour) ? 10 : 0;
+            if (sorting == null || sorting.gameObject != prefab || sorting.sortingOrder != order)
+                throw new InvalidOperationException("Explicit native sorting binding is incomplete: " + name);
             foreach (string value in definition.BehaviourTypes)
             {
                 Type other = BehaviourTypeResolver.GetTypeFromName(value);

@@ -36,7 +36,8 @@ namespace DarkNights.Editor
                 if (view == null) view = root.AddComponent<ObjectView>();
                 SetReference(instance, "_view", view);
                 SetReference(initializer, "_objectInstance", instance);
-                root.AddComponent<SortingGroup>().sortingOrder = (string)spec["category"] == "actors" ? 100 : 0;
+                var sorting = root.AddComponent<SortingGroup>();
+                sorting.sortingOrder = (string)spec["category"] == "actors" ? 100 : (string)spec["category"] == "worksites" ? 10 : 0;
                 var nodes = new Dictionary<string, Transform> { [""] = root.transform };
                 var sprites = new List<SpriteRenderer>();
                 var renderers = new Dictionary<string, SpriteRenderer>();
@@ -79,6 +80,7 @@ namespace DarkNights.Editor
                     }
                 }
                 NativeVisual visual = root.AddComponent<NativeVisual>();
+                SetReference(visual, "sorting", sorting);
                 if (((JArray)spec["clips"]).Count > 0)
                     root.AddComponent<Animator>().cullingMode = AnimatorCullingMode.AlwaysAnimate;
                 Configure(visual, spec, nodes, renderers, sprites, NativeAnimationBuilder.Create((JArray)spec["clips"], folder));

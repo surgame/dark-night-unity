@@ -30,6 +30,8 @@ namespace DarkNights.Editor
         {
             if (!Application.isPlaying || !Application.isBatchMode)
                 throw new InvalidOperationException("This probe requires a background Play Editor.");
+            if (QualitySettings.activeColorSpace != ColorSpace.Linear)
+                throw new InvalidOperationException("World presentation must remain in Linear space.");
             string directory = Path.GetFullPath(outputDirectory);
             if (Directory.Exists(directory) && Directory.EnumerateFileSystemEntries(directory).Any())
                 throw new InvalidOperationException("Capture output must be empty.");
@@ -42,6 +44,9 @@ namespace DarkNights.Editor
         {
             SessionNetwork network = null;
             var result = new JObject { ["passed"] = false, ["scope"] = "Frozen Editor image comparison; no Player or foreground performance claim" };
+            result["colorSpace"] = "Linear";
+            result["referenceColorSpace"] = "Godot OpenGL Compatibility / Gamma";
+            result["identicalColorRequired"] = false;
             var captures = new JArray();
             result["captures"] = captures;
             string phase = "startup";
@@ -169,7 +174,7 @@ namespace DarkNights.Editor
                 var remnant = (NativeVisual)type.GetField("Item3").GetValue(item);
                 var value = (PresentationEvent)type.GetField("Item4").GetValue(item);
                 if (remnant != null) { remnant.Ambient = stage.Ambient; remnant.PresentRemnant(value.Cue, age); }
-                else effect.Present(value.Cue, age, ground);
+                else effect.Present(value.Cue, age, ground, stage.IlluminationAt(effect.transform.position));
             }
         }
 

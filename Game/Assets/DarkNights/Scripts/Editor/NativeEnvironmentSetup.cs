@@ -38,9 +38,12 @@ namespace DarkNights.Editor
                 var meshMaterial = new Material(material) { name = "Camp Static Mesh" };
                 meshMaterial.SetFloat("_UseGlobalAmbient", 1);
                 AssetDatabase.CreateAsset(meshMaterial, Root + "/CampMesh.mat");
+                var vertexMaterial = new Material(meshMaterial) { name = "CampVertexMesh" };
+                vertexMaterial.SetFloat("_VertexColorIsGamma", 1);
+                AssetDatabase.CreateAsset(vertexMaterial, Root + "/CampVertexMesh.mat");
                 Sprite white = EnvironmentGeometry.White(Root), circle = EnvironmentGeometry.Circle(Root);
                 GameObject torch = Torch(white, material);
-                GameObject prefab = Environment(torch, white, circle, material, meshMaterial);
+                GameObject prefab = Environment(torch, white, circle, material, vertexMaterial);
                 var instance = (GameObject)PrefabUtility.InstantiatePrefab(prefab, root.transform);
                 var environment = instance.GetComponent<NativeEnvironment>();
                 var stage = root.GetComponent<PinewatchStage>();
@@ -162,6 +165,7 @@ namespace DarkNights.Editor
                 if (mesh.sharedMaterial == meshMaterial) continue;
                 Material original = mesh.sharedMaterial;
                 var replacement = new Material(meshMaterial) { name = original.name, color = original.color };
+                replacement.SetFloat("_VertexColorIsGamma", 1);
                 string path = Root + "/" + original.name + ".mat";
                 var existing = AssetDatabase.LoadAssetAtPath<Material>(path);
                 if (existing == null) { AssetDatabase.CreateAsset(replacement, path); existing = replacement; }

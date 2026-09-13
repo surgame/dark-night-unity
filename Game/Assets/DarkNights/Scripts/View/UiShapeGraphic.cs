@@ -41,13 +41,22 @@ namespace DarkNights.View
 
         protected void Ellipse(VertexHelper mesh, Vector2 center, Vector2 radius, Color tint, float stroke = 0)
         {
-            const int segments = 20;
+            int segments = stroke > 0 ? 19 : 20;
             for (int i = 0; i < segments; i++)
             {
                 float a = i * Mathf.PI * 2 / segments, b = (i + 1) * Mathf.PI * 2 / segments;
                 Vector2 p = center + new Vector2(Mathf.Cos(a) * radius.x, Mathf.Sin(a) * radius.y);
                 Vector2 q = center + new Vector2(Mathf.Cos(b) * radius.x, Mathf.Sin(b) * radius.y);
-                if (stroke > 0) Line(mesh, p, q, tint, stroke);
+                if (stroke > 0)
+                {
+                    Vector2 edge = new Vector2(Mathf.Cos(b) - Mathf.Cos(a), Mathf.Sin(b) - Mathf.Sin(a));
+                    Vector2 normal = new Vector2(-edge.y, edge.x).normalized * stroke * .5f;
+                    normal.y *= radius.y / radius.x;
+                    int start = mesh.currentVertCount;
+                    Vertex(mesh, p + normal, tint); Vertex(mesh, q + normal, tint);
+                    Vertex(mesh, q - normal, tint); Vertex(mesh, p - normal, tint);
+                    mesh.AddTriangle(start, start + 1, start + 2); mesh.AddTriangle(start, start + 2, start + 3);
+                }
                 else
                 {
                     int start = mesh.currentVertCount;
@@ -60,7 +69,9 @@ namespace DarkNights.View
         private void Vertex(VertexHelper mesh, Vector2 point, Color tint)
         {
             Rect bounds = rectTransform.rect;
-            mesh.AddVert(new Vector3(bounds.xMin + point.x, bounds.yMax - point.y), tint, Vector2.zero);
+            mesh.AddVert(new Vector3(bounds.xMin + point.x, bounds.yMax - point.y), VertexTint(point, tint), Vector2.zero);
         }
+
+        protected virtual Color VertexTint(Vector2 point, Color tint) => tint;
     }
 }

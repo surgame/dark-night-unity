@@ -56,10 +56,10 @@ namespace DarkNights.Tests
                     else if (name == "Command")
                     {
                         effect.Present(new VisualCue("command", 200, 320), 0.4, 320);
-                        var ring = root.GetComponentInChildren<LineRenderer>();
-                        Assert.That(ring.GetPosition(0).x, Is.EqualTo(0.09).Within(0.00001));
-                        Assert.That(ring.startColor.a, Is.EqualTo(0.5).Within(1.0 / 255));
-                        Assert.AreEqual(20, ring.positionCount);
+                        var ring = root.GetComponentInChildren<MeshFilter>().sharedMesh;
+                        Assert.That(ring.bounds.size.x, Is.InRange(.187f, .191f));
+                        Assert.That(ring.bounds.size.y / ring.bounds.size.x, Is.InRange(.34f, .36f));
+                        Assert.That(ring.colors[0].a, Is.EqualTo(.5f).Within(1.0 / 255));
                     }
                     else
                     {
@@ -72,6 +72,7 @@ namespace DarkNights.Tests
                         Assert.That(point.x, Is.EqualTo(2 + (-5 + Mathf.Sin(200 * 3.7f + 298) * 5) / 100).Within(0.0001));
                         Assert.That(point.y, Is.EqualTo(0.22 + 0.135).Within(0.0001));
                         Assert.AreEqual("spr_int_resources_2", root.GetComponentInChildren<Image>().sprite.name);
+                        Assert.That(root.GetComponentInChildren<Image>().color.r, Is.EqualTo(1).Within(.001));
                     }
                 }
                 finally { PrefabUtility.UnloadPrefabContents(root); }

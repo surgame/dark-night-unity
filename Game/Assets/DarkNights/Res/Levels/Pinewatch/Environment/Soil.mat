@@ -30,6 +30,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _UseGlobalAmbient: 1
+    - _VertexColorIsGamma: 0
     m_Colors:
     - _Color: {r: 0.18823525, g: 0.18039212, b: 0.1568627, a: 1}
   m_BuildTextureStacks: []

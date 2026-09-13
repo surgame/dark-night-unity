@@ -17,7 +17,8 @@ namespace DarkNights.View
         public Vector4 ColorAt(double time, float night)
         {
             float power = night * (energy + Mathf.Sin((float)(time * frequency + transform.position.x * 100)) * flicker);
-            return new Vector4(tint.r * power, tint.g * power, tint.b * power, 0);
+            Color linear = tint.linear;
+            return new Vector4(linear.r * power, linear.g * power, linear.b * power, 0);
         }
     }
 }

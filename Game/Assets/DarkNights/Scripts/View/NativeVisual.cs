@@ -1,6 +1,7 @@
 using System;
 using DarkNights.Core.ViewData;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 namespace DarkNights.View
 {
@@ -14,6 +15,7 @@ namespace DarkNights.View
         [SerializeField] private Rect pickBounds;
         [SerializeField] private Sprite portrait;
         [SerializeField] private SpriteRenderer shadow;
+        [SerializeField] private SortingGroup sorting;
         [SerializeField] private Transform facing;
         [SerializeField] private Transform origin;
         [SerializeField] private Transform statusAnchor;
@@ -106,6 +108,7 @@ namespace DarkNights.View
 
         public void PresentRemnant(VisualCue cue, double age)
         {
+            sorting.sortingOrder = -50;
             if (shadow != null) shadow.enabled = false;
             Color tint;
             if (cue.Kind == "corpse")

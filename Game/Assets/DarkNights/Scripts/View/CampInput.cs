@@ -70,6 +70,15 @@ namespace DarkNights.View
             Hover = 0;
         }
 
+        /// <summary>显式选择当前副本中的一个实体；只改变本地选择，不产生业务命令。</summary>
+        public void SelectEntity(int id)
+        {
+            if (id != 0 && (!ready || frame == null || visuals.Visual(id) == null))
+                throw new InvalidOperationException("Selection requires an available current entity.");
+            ResetLocal();
+            if (id != 0) selected.Add(id);
+        }
+
         private void Update()
         {
             if (sessions == null || frame == null || !ready) return;

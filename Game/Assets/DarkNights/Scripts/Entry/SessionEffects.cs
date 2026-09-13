@@ -83,7 +83,7 @@ namespace DarkNights.Entry
                     effect.Remnant.Ambient = stage.Ambient;
                     effect.Remnant.PresentRemnant(effect.Event.Cue, age);
                 }
-                else effect.Effect.Present(effect.Event.Cue, age, ground);
+                else effect.Effect.Present(effect.Event.Cue, age, ground, stage.IlluminationAt(effect.Owner.transform.position));
             }
             foreach (ProjectileViewData arrow in frame.World.Projectiles)
                 if (arrows.TryGetValue(arrow.ViewId, out var view))
@@ -109,6 +109,19 @@ namespace DarkNights.Entry
                 effects.Add((owner, effect, visual, item, born));
             }
             catch (Exception error) { Release(owner); Debug.LogException(error); }
+        }
+
+        internal void SamplePresentation(double age)
+        {
+            foreach (var item in effects)
+            {
+                if (item.Remnant != null)
+                {
+                    item.Remnant.Ambient = stage.Ambient;
+                    item.Remnant.PresentRemnant(item.Event.Cue, age);
+                }
+                else item.Effect.Present(item.Event.Cue, age, ground, stage.IlluminationAt(item.Owner.transform.position));
+            }
         }
 
         private async UniTask SpawnArrow(long id, int captured)

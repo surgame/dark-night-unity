@@ -5,6 +5,7 @@ Shader "Dark Nights/Camp Sprite"
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
         _UseGlobalAmbient ("Apply Ambient To Static Mesh", Float) = 0
+        _VertexColorIsGamma ("Mesh Vertex Colors Are Authored In sRGB", Float) = 0
     }
     SubShader
     {
@@ -35,6 +36,7 @@ Shader "Dark Nights/Camp Sprite"
             sampler2D _MainTex;
             fixed4 _Color;
             float _UseGlobalAmbient;
+            float _VertexColorIsGamma;
             float4 _DNCampAmbient;
             float4 _DNCampLights[7];
             float4 _DNCampLightColors[7];
@@ -42,7 +44,9 @@ Shader "Dark Nights/Camp Sprite"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.color = v.color * _Color;
+                // SpriteRenderer already converts its tint; authored Mesh colors need explicit decoding.
+                float3 tint = lerp(v.color.rgb, GammaToLinearSpace(v.color.rgb), _VertexColorIsGamma);
+                o.color = float4(tint, v.color.a) * _Color;
                 o.uv = v.uv;
                 o.world = mul(unity_ObjectToWorld, v.vertex).xy;
                 return o;
@@ -60,7 +64,7 @@ Shader "Dark Nights/Camp Sprite"
                         lerp(0.25, 0, saturate((distance - 0.3) / 0.7));
                     light += weight * _DNCampLightColors[n].rgb;
                 }
-                // CPU tint already includes ambient; add the original radial illumination once.
+                // Texture, tint, ambient and light are linear; illumination is added exactly once.
                 c.rgb *= 1 + light / max(_DNCampAmbient.rgb, 0.001);
                 c.rgb *= c.a;
                 return c;

@@ -27,6 +27,7 @@ namespace DarkNights.View
         [SerializeField] private float previewCameraX = 255;
         private readonly Vector4[] lightPositions = new Vector4[7];
         private readonly Vector4[] lightColors = new Vector4[7];
+        private Color linearAmbient = Color.white;
         private static readonly int Positions = Shader.PropertyToID("_DNCampLights");
         private static readonly int Colors = Shader.PropertyToID("_DNCampLightColors");
         private static readonly int Ambient = Shader.PropertyToID("_DNCampAmbient");
@@ -55,7 +56,27 @@ namespace DarkNights.View
             }
             Shader.SetGlobalVectorArray(Positions, lightPositions);
             Shader.SetGlobalVectorArray(Colors, lightColors);
-            Shader.SetGlobalColor(Ambient, ambient);
+            // 全局 Color 不像材质 Color 属性那样自动解码；着色器始终接收线性值。
+            linearAmbient = ambient.linear;
+            Shader.SetGlobalColor(Ambient, linearAmbient);
+        }
+
+        /// <summary>为世界中的 UGUI 指示采样同一线性环境光和径向光，不影响普通菜单的颜色。</summary>
+        public Color IlluminationAt(Vector3 position)
+        {
+            Color result = linearAmbient;
+            for (int i = 0; i < lightPositions.Length; i++)
+            {
+                Vector4 shape = lightPositions[i];
+                float distance = Vector2.Distance(position, new Vector2(shape.x, shape.y)) / Mathf.Max(shape.z, .0001f);
+                float weight = distance < .3f ? Mathf.Lerp(.85f, .25f, distance / .3f) :
+                    Mathf.Lerp(.25f, 0, Mathf.Clamp01((distance - .3f) / .7f));
+                result.r += weight * lightColors[i].x;
+                result.g += weight * lightColors[i].y;
+                result.b += weight * lightColors[i].z;
+            }
+            result.a = 1;
+            return result;
         }
 
         private void Update()
