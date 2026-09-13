@@ -16,8 +16,11 @@ parser.add_argument('--target', type=int, required=True)
 parser.add_argument('--loss', type=float, default=0.05)
 parser.add_argument('--delay', type=float, default=0.05)
 parser.add_argument('--jitter', type=float, default=0.025)
+parser.add_argument('--duration', type=float, default=240)
 parser.add_argument('--report', required=True)
 args = parser.parse_args()
+if args.duration <= 0:
+    parser.error('--duration must be positive')
 rng = random.Random(29101)
 listener = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 if hasattr(socket, 'SIO_UDP_CONNRESET'):
@@ -32,7 +35,7 @@ started = time.monotonic()
 next_report = started
 last_forwarded = {}
 serial = 0
-deadline = time.monotonic() + 240
+deadline = started + args.duration
 while time.monotonic() < deadline and not Path(args.report + '.stop').exists():
     readable, _, _ = select.select([listener] + list(reverse), [], [], 0.002)
     for sock in readable:

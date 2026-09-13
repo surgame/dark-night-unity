@@ -1,7 +1,7 @@
 {
   "stage": "U6 performance correction",
   "date": "2026-09-13",
-  "status": "editor_verified_player_validation_pending",
+  "status": "mono_functional_verified_capacity_backlog_identified",
   "framework": {
     "frameworkCommit": "745f3d2c844a66389e39bb84cd878d5d80f77962",
     "oldCommit": "8faf74f03d9eac4e025d6fe0f81f0c26a9eac9d4",
@@ -367,7 +367,20 @@
     "freeD": 24375218176,
     "blockedSourceCleanupRetried": false
   },
-  "playerValidation": "pending",
+  "playerValidation": {
+    "gameCommit": "a7bb92655443effc4c697474149e33d3806b54b1",
+    "entrySha256": "94ECDC51399A6E8F97C6008D6FDEF5547AE2F8FFFD0FFD46E9EE26F8D8031535",
+    "formalAutomaticChecks": 347,
+    "sampleAutomaticChecks": 60,
+    "report": {
+      "path": "artifacts/yygc-unified/u6/performance/player-validation.json",
+      "sha256": "13f04ffec943c70f3d3d620062b0d83b8fb43ade516fddfe40178286a1e93cee"
+    },
+    "capacityBacklog": {
+      "path": "artifacts/yygc-unified/u6/compression/backlog-baseline.json",
+      "sha256": "8d628d35e1f3b9c56f182bbd5f7e52f2f5633fd42b49b8a1e594c76c4e7d7228"
+    }
+  },
   "il2cpp": "not authorized or run",
   "twoMachineLan": "not run",
   "references": [
@@ -407,5 +420,7 @@
       "path": "artifacts/yygc-unified/u6/performance/hotspot-resolver-before.json",
       "sha256": "274ad319f0b85b9d3ec45528ec8ff3b1bb755303ee64e8fd87c1ef603362ae65"
     }
-  ]
+  ],
+  "foreground": "Deferred by user; no visible test windows launched",
+  "continuation": "docs/evidence/yygc-unified-u6-compression.json"
 }

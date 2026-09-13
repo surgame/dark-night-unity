@@ -12,6 +12,7 @@ $checks = [ordered]@{}
 $failure = $null
 $publicationWindow = $null
 $measurementStartUtc = $null
+$projectionSamples = [Collections.Generic.List[object]]::new()
 if ($ClientPort -eq 0) { $ClientPort = $Port }
 function Read-Report([string]$Role) {
     try {
@@ -25,6 +26,7 @@ function Wait-Report([string]$Role, [scriptblock]$Condition) {
     Sample-PlayerMemory $processes
     $end = [DateTime]::UtcNow.AddSeconds(45)
     do {
+        if ($relay -and $relay.HasExited) { throw 'UDP relay exited before capacity measurement completed.' }
         $value = Read-Report $Role
         if ($value -and $value.error) { throw "$Role reported: $($value.error)" }
         if ($value -and (& $Condition $value)) { return $value }
@@ -61,7 +63,7 @@ $ClientPort = $Port + 1
 try {
     $relayReport = Join-Path $run 'udp.json'
     $arguments = @(('"' + (Join-Path $PSScriptRoot 'lan-netem.py') + '"'), '--listen', $ClientPort, '--target', $Port,
-        '--loss', '0', '--delay', '0', '--jitter', '0', '--report', ('"' + $relayReport + '"'))
+        '--loss', '0', '--delay', '0', '--jitter', '0', '--duration', ($DurationSeconds + 240), '--report', ('"' + $relayReport + '"'))
     $relay = Start-Process -FilePath 'python' -ArgumentList $arguments -WindowStyle Hidden -PassThru
     Start-Player 'host'
     $hostBaseline = Wait-Report 'host' { param($r) $r.ready -and $r.entityViews -eq 17 -and $r.arrowViews -eq 1024 }
@@ -84,9 +86,19 @@ try {
     $started=[DateTime]::UtcNow
     $measurementStartUtc=$started.ToString('O')
     $deadline=$started.AddSeconds($DurationSeconds)
+    $nextProjectionSample=$started
     Write-Output "Measuring four-process limit for $DurationSeconds seconds; payload=$($first.serverPayloadBytes) bytes."
     do {
-        foreach($role in $processes.Keys) { $null=Wait-Report $role {param($r) $r.ready} }
+        $sampleProjection=[DateTime]::UtcNow -ge $nextProjectionSample
+        $reports=[ordered]@{}
+        foreach($role in @('host','client1','client2','client3')) {
+            $state=Wait-Report $role {param($r) $r.ready}
+            if ($sampleProjection) { $reports[$role]=[ordered]@{publication=$state.publication;serverTick=$state.serverTick;ready=$state.ready} }
+        }
+        if ($sampleProjection) {
+            $projectionSamples.Add([ordered]@{utc=[DateTime]::UtcNow.ToString('O');roles=$reports})
+            $nextProjectionSample=[DateTime]::UtcNow.AddSeconds(5)
+        }
         Start-Sleep -Seconds 1
     } while([DateTime]::UtcNow -lt $deadline)
     # 报告由 Player 原子替换，重试瞬时文件访问失败，避免把空读当作发布停止。
@@ -116,14 +128,18 @@ try {
     $udp=Get-Content $relayReport -Raw | ConvertFrom-Json
     Check 'actual_udp_payload_measured' ($udp.server_to_client_bytes -gt 1000000)
     Check 'full_projection_keeps_publishing_with_four_ready_peers' $publishing
+    foreach ($role in @('client1','client2','client3')) {
+        $stale=@($projectionSamples | Where-Object { $_.roles.host.serverTick - $_.roles[$role].serverTick -gt 60 })
+        Check ($role+'_projection_stays_within_one_second_on_zero_loss_lan') ($projectionSamples.Count -gt 1 -and $stale.Count -eq 0)
+    }
 }
 catch { $failure=$_.Exception.ToString() }
 finally {
     foreach($p in $processes.Values) { $p.Refresh(); if(!$p.HasExited) {Stop-Process -Id $p.Id; $p.WaitForExit()} }
     if($relay) { $relay.Refresh(); if(!$relay.HasExited) {Stop-Process -Id $relay.Id; $relay.WaitForExit()} }
     [ordered]@{passed=(!$failure);checks=$checks;error=$failure;scope='Synthetic supported projection ceiling, four rendered Mono processes, real UDP relay';
-      publicationWindow=$publicationWindow;measurementStartUtc=$measurementStartUtc;compactReports=[bool]$CompactReports;foregroundRole=$ForegroundRole;
-      metrics=$metrics;osMemorySamples=$script:playerMemorySamples.ToArray();udp=$udp;artifacts=$run;gameCodeSha256=(Get-FileHash (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash} |
+      publicationWindow=$publicationWindow;measurementStartUtc=$measurementStartUtc;compactReports=[bool]$CompactReports;foregroundRole=$ForegroundRole;freshnessBudgetServerTicks=60;
+      metrics=$metrics;osMemorySamples=$script:playerMemorySamples.ToArray();projectionSamples=$projectionSamples.ToArray();udp=$udp;artifacts=$run;gameCodeSha256=(Get-FileHash (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash} |
       ConvertTo-Json -Depth 12 | Set-Content (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Pressure: passed=$(!$failure) checks=$($checks.Count); $run/result.json"
 }

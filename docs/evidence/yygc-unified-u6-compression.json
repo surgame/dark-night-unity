@@ -1,0 +1,146 @@
+{
+  "stage": "U6 reliable projection capacity correction",
+  "status": "editor_verified_player_pending",
+  "protocol": 7,
+  "frameworkCommit": "745f3d2c844a66389e39bb84cd878d5d80f77962",
+  "baseGameCommit": "a7bb92655443effc4c697474149e33d3806b54b1",
+  "format": {
+    "headerBytes": 9,
+    "maximumPacketBytes": 524288,
+    "maximumRawBytes": 524279,
+    "modes": [
+      "raw",
+      "GZip Fastest"
+    ],
+    "strictEndOfCompressedMember": true
+  },
+  "editor": {
+    "total": 144,
+    "passed": 144,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "editorSeconds": 57.63,
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 283,
+    "selfTests": 12,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "reason": {
+    "report": "artifacts/migration/pressure-20260913-211501-495/result.json",
+    "existingFunctionalChecks": 18,
+    "newFreshnessCriterion": "At most 60 server ticks behind during zero-loss LAN capacity observation",
+    "criterionAddedAfterBaseline": true,
+    "clients": [
+      {
+        "role": "client1",
+        "firstSeconds": 1.6,
+        "lastSeconds": 9.4,
+        "maximumSeconds": 9.4,
+        "wouldPassOneSecondGate": false
+      },
+      {
+        "role": "client2",
+        "firstSeconds": 0.8,
+        "lastSeconds": 4.6,
+        "maximumSeconds": 4.6,
+        "wouldPassOneSecondGate": false
+      },
+      {
+        "role": "client3",
+        "firstSeconds": 1.0,
+        "lastSeconds": 6.1,
+        "maximumSeconds": 6.1,
+        "wouldPassOneSecondGate": false
+      }
+    ]
+  },
+  "probe": {
+    "scope": "Editor synchronous probe, not Player performance acceptance",
+    "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts/migration/pressure-20260913-205436-227/host.json",
+    "rawBytes": 487304,
+    "compressedBytes": 10594,
+    "compressMs": 3.064916666666667,
+    "restoreMs": 2.441625,
+    "roundTrip": true,
+    "brotliType": null
+  },
+  "testDriverCorrection": {
+    "status": "failed",
+    "cause": "The relay had a fixed 240-second lifetime including startup, shorter than the requested 240-second observation plus setup.",
+    "report": "artifacts/migration/pressure-20260913-210439-061/result.json",
+    "relaySeconds": 240.0016528999986,
+    "measurementStartUtc": "2026-09-13T13:05:11.7108307Z",
+    "error": "System.Management.Automation.RuntimeException: Timeout waiting for client2",
+    "gameCodeChanged": false,
+    "fix": "Add configurable relay lifetime, pass observation plus 240 seconds for setup and teardown, fail immediately on relay exit, record publication lag samples."
+  },
+  "freshnessBudget": {
+    "context": "Zero-loss, zero-delay local capacity relay",
+    "maximumServerTickLag": 60,
+    "ticksPerSecond": 60,
+    "introducedAfterBaseline": true
+  },
+  "previousPlayer": {
+    "gameCommit": "a7bb92655443effc4c697474149e33d3806b54b1",
+    "entrySha256": "94ECDC51399A6E8F97C6008D6FDEF5547AE2F8FFFD0FFD46E9EE26F8D8031535",
+    "formalAutomaticChecks": 347,
+    "sampleAutomaticChecks": 60,
+    "report": {
+      "path": "artifacts/yygc-unified/u6/performance/player-validation.json",
+      "sha256": "13f04ffec943c70f3d3d620062b0d83b8fb43ade516fddfe40178286a1e93cee"
+    }
+  },
+  "foreground": {
+    "status": "deferred_by_user",
+    "instruction": "暂不显示，保留前台验收待办",
+    "visibleWindowsLaunched": false
+  },
+  "frameworkChangedInCompressionSlice": false,
+  "savedGameVersion": 2,
+  "definitionWire": "GuidV2",
+  "il2cpp": "not authorized or run",
+  "twoMachineLan": "not run",
+  "cleanup": {
+    "method": "dotnet clean",
+    "paths": [
+      "tools/ArchitectureGuard/bin",
+      "tools/ArchitectureGuard/obj"
+    ],
+    "beforeBytes": 33138125.0,
+    "remainingBytes": 145565.0,
+    "releasedBytes": 32992560.0,
+    "freeC": 14572232704,
+    "freeD": 23647346688,
+    "blockedSourceCleanupRetried": false
+  },
+  "references": [
+    {
+      "path": "artifacts/yygc-unified/u6/compression/editor-initial-status.json",
+      "sha256": "04e1d6a7a8ea2879d84bcb0ddbdba15c2e045e2c41530068efeec2736c2e521c"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/compression/editor-final-144.json",
+      "sha256": "8f73e6f95d881aacc70c4391e08099cf2ae466b528b874cb7fdd959196b185c9"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/compression/architecture-first-failure.json",
+      "sha256": "7d94df068ad53a39d504214a203b9118b14d0c8f79e5d85c3fb17237857e3c0d"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/compression/architecture.json",
+      "sha256": "03761a13b337d4f55df30d57446b24e5b07471578453a6e34cf0443742c29fb5"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/compression/backlog-baseline.json",
+      "sha256": "8d628d35e1f3b9c56f182bbd5f7e52f2f5633fd42b49b8a1e594c76c4e7d7228"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/compression/tools-cleanup.json",
+      "sha256": "b7b4ed7c4e29debf3243520d55c9c56ccf4039abdc4f55ad40a0560a9e3e3e28"
+    }
+  ]
+}

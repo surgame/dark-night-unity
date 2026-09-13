@@ -76,7 +76,7 @@ SessionClock 累积未缩放时间，以 60 Hz 调用 SessionAuthority。命令�
 
 Host 与客户端使用同一验证入口；服务器从 NetworkCommandContext 取得连接身份。请求中的玩家 ID、资源和伤害不能构成授权。SharedCamp／HostOnly 与 PolicyRevision 在执行点检查，包含建造自动派工和训练；已生效任务继续。加载保持房间策略。
 
-正式游戏为协议 6，YYGC 定义 wire 为 GuidV2，两者是不同版本概念。握手在业务载荷解析前拒绝旧协议，并校验规则、布局、定义和生成注册摘要。完整投影携带 EntityId、DefinitionGuid、放置关系、epoch／revision、实体与在飞箭矢；真实副本应用完成后才 Ready。首版仍复用 Gateway／Sender／Processor、StatefulBehaviour／StateSynchronizer，不新建并行传输栈。
+正式游戏为协议 7，YYGC 定义 wire 为 GuidV2，两者是不同版本概念。握手在业务载荷解析前拒绝旧协议 6／5，并校验规则、布局、定义和生成注册摘要。完整投影携带 EntityId、DefinitionGuid、放置关系、epoch／revision、实体与在飞箭矢；真实副本应用完成后才 Ready。投影使用有界原始／GZip 封套，解封后仍执行完整 MemoryPack 和规则校验，见[性能修正](YYGC_UNIFIED_PERFORMANCE.md)。继续复用 Gateway／Sender／Processor、StatefulBehaviour／StateSynchronizer，不新建并行传输栈。
 
 ## 场景对象与展示生命周期
 

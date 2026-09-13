@@ -3,7 +3,7 @@ using MemoryPack;
 
 namespace DarkNights.Runtime.Network
 {
-    /// <summary>协议 6 的具体身份载荷；接收立即冻结，不能把定义或放置键当成客户端授权依据。</summary>
+    /// <summary>正式协议的具体身份载荷；接收立即冻结，不能把定义或放置键当成客户端授权依据。</summary>
     [MemoryPackable]
     public partial class EntityIdentityWire
     {

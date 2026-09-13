@@ -10,7 +10,7 @@
 |---|---|---|
 | `Runtime/Objects/Runner/ObjectAssemblyValidation.cs` | 每次客户端完整投影都重新反射 Behaviour 的配置及组件绑定声明，256 次校验微测量均值 101.64 ms。按类型缓存不变声明，不保存 Definition、配置／组件实例或成功结果；实际配置、工厂、能力和绑定仍逐次验证 | 隔离 checkout 与用户仓库同路径；最终 138/138 Editor／Play，56.68 秒，包括预热后删除配置、清空／重复绑定的拒绝回归。缓存声明后的两次微测量为 16.66／9.76 ms；不据此宣称 Player 帧率通过 |
 
-类型解析缓存候选没有显示明确收益，已撤回，`BehaviourTypeResolver.cs` 无最终差异；该候选的 139 项回归不增加当前通过数。本次无新增 YYGC 文件或 `.meta`。正式／Sample Mono 受共同装配入口影响，正在按本次输入构建验证。详情见[性能切片](YYGC_UNIFIED_PERFORMANCE.md)。
+类型解析缓存候选没有显示明确收益，已撤回，`BehaviourTypeResolver.cs` 无最终差异；该候选的 139 项回归不增加当前通过数。本次无新增 YYGC 文件或 `.meta`。游戏 `a7bb926`／本框架提交的正式 Mono 完整矩阵 347 项通过，Sample 基础／弱网各 30 项通过。后续容量积压修正落在游戏投影编码及验收工具中，框架仍为 `745f3d2`，用户仓库复核干净。详情见[性能切片](YYGC_UNIFIED_PERFORMANCE.md)。
 
 <a id="unified-u5"></a>
 

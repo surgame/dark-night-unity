@@ -83,33 +83,33 @@ namespace DarkNights.Tests
             Assert.Catch(() => codec.Decode(encoded.Take(encoded.Length / 2).ToArray()));
             mutable = SessionWire.From(initial);
             mutable.World.Identities = Array.Empty<EntityIdentityWire>();
-            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            Assert.Throws<FormatException>(() => codec.Decode(ProjectionPacket.Pack(MemoryPackSerializer.Serialize(mutable))));
             mutable = SessionWire.From(initial);
             mutable.World.Identities[0].DefinitionGuid = "";
-            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            Assert.Throws<FormatException>(() => codec.Decode(ProjectionPacket.Pack(MemoryPackSerializer.Serialize(mutable))));
             mutable = SessionWire.From(initial);
             mutable.World.Actors[0].X = float.NaN;
-            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            Assert.Throws<FormatException>(() => codec.Decode(ProjectionPacket.Pack(MemoryPackSerializer.Serialize(mutable))));
             mutable = SessionWire.From(initial);
             mutable.World.Actors[0].Kind = "unknown";
-            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            Assert.Throws<FormatException>(() => codec.Decode(ProjectionPacket.Pack(MemoryPackSerializer.Serialize(mutable))));
             mutable = SessionWire.From(initial);
             mutable.World.Camp.NextSpawn = catalog.Level.Waves[0].Enemies.Count + 1;
-            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            Assert.Throws<FormatException>(() => codec.Decode(ProjectionPacket.Pack(MemoryPackSerializer.Serialize(mutable))));
             mutable.World.Camp.NextSpawn = -1;
-            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            Assert.Throws<FormatException>(() => codec.Decode(ProjectionPacket.Pack(MemoryPackSerializer.Serialize(mutable))));
             mutable = SessionWire.From(initial);
             mutable.Events[0].Type = "unknown";
-            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            Assert.Throws<FormatException>(() => codec.Decode(ProjectionPacket.Pack(MemoryPackSerializer.Serialize(mutable))));
             mutable = SessionWire.From(initial);
             mutable.Events[0].Tick = initial.ServerTick + 1;
-            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            Assert.Throws<FormatException>(() => codec.Decode(ProjectionPacket.Pack(MemoryPackSerializer.Serialize(mutable))));
             mutable = SessionWire.From(initial);
             mutable.Events[0].Text = new string('x', 257);
-            Assert.Throws<FormatException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            Assert.Throws<FormatException>(() => codec.Decode(ProjectionPacket.Pack(MemoryPackSerializer.Serialize(mutable))));
             mutable = SessionWire.From(initial);
             mutable.World.Buildings[0].Id = mutable.World.Actors[0].Id;
-            Assert.Throws<ArgumentException>(() => codec.Decode(MemoryPackSerializer.Serialize(mutable)));
+            Assert.Throws<ArgumentException>(() => codec.Decode(ProjectionPacket.Pack(MemoryPackSerializer.Serialize(mutable))));
         }
 
         [Test]
