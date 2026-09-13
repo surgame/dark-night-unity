@@ -7,6 +7,7 @@ using DarkNights.Entry;
 using DarkNights.Runtime.Network;
 using DarkNights.View;
 using GameCore.Interactions;
+using GameCore.Objects.Runner;
 using GameCore.UI.UGUI;
 using Newtonsoft.Json.Linq;
 using Runtime.AppStartup;
@@ -39,6 +40,8 @@ namespace DarkNights.Editor
             void Check(string name, bool ok) { checks[name] = ok; if (!ok) throw new InvalidOperationException(name); }
             try
             {
+                if (Screen.width < 1280 || Screen.height < 800)
+                    throw new InvalidOperationException("UI probe requires at least 1280 x 800.");
                 await Until(() => UnityEngine.Object.FindAnyObjectByType<SessionPlacementView>() != null);
                 InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
                 InputSystem.settings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
@@ -49,7 +52,13 @@ namespace DarkNights.Editor
                 var entities = network.GetComponent<SessionEntityViews>();
                 var placement = network.GetComponent<SessionPlacementView>();
                 var stage = UnityEngine.Object.FindAnyObjectByType<PinewatchStage>();
+                NativeVisual[] sceneVisuals = UnityEngine.Object.FindObjectsByType<NativeVisual>();
                 if (network.Client.Replica.Current != null) throw new InvalidOperationException("Probe needs fresh MainMenu.");
+                await Button(mouse, "MainMenu", "Slot");
+                Check("main_menu_slot_changes_once", Page("MainMenu").Get<Text>("SlotLabel").text.StartsWith("存档槽位 2 / 10"));
+                var address = Page("MainMenu").Get<InputField>("Address");
+                await Click(mouse, RectTransformUtility.WorldToScreenPoint(null, address.transform.position), 1);
+                Check("address_is_reachable_by_mouse", address.isFocused);
                 await Button(mouse, "MainMenu", "NewGame");
                 await Until(() => network.Client.Ready && ui.Page == "" && entities.Count == 17);
                 Check("mouse_main_menu_starts_ready_host", network.Client.PlayerSlot == 0);
@@ -64,13 +73,13 @@ namespace DarkNights.Editor
                 Check("right_click_assigns_work_while_paused", network.Client.Replica.Current.Paused);
                 await Button(mouse, "Chrome", "BuildHouse");
                 await Pointer(mouse, World(stage, 184), 0);
-                await Until(() => placement.Valid && stage.Entities.GetComponentsInChildren<NativeVisual>().Length == 18);
+                await Until(() => placement.Valid && UnityEngine.Object.FindObjectsByType<NativeVisual>().Length == entities.Count + 1);
                 Check("definition_preview_valid_without_payment", network.Client.Replica.Current.World.Camp.Stock.Wood == 100);
                 await Click(mouse, World(stage, 184), 1);
                 await Until(() => network.Client.Replica.Current.World.Buildings.Count == 5);
                 Check("mouse_build_pays_once", network.Client.Replica.Current.World.Camp.Stock.Wood == 75);
                 await Click(mouse, World(stage, 184), 2);
-                await Until(() => ui.Input.BuildKind == "" && stage.Entities.GetComponentsInChildren<NativeVisual>().Length == 18);
+                await Until(() => ui.Input.BuildKind == "" && UnityEngine.Object.FindObjectsByType<NativeVisual>().Length == entities.Count);
                 Check("cancel_releases_placement_session", YYInteractionSessionService.Instance.ActiveSessions.Count == 0);
                 var map = Page("Chrome").Get<CampMap>("Map");
                 float before = stage.CameraX;
@@ -79,20 +88,36 @@ namespace DarkNights.Editor
                 Check("minimap_mouse_focuses_local_camera", stage.CameraX > before + 100);
                 await Button(mouse, "Chrome", "Menu");
                 Check("menu_owns_one_modal_session", ui.Page == "PauseMenu" && YYInteractionSessionService.Instance.ActiveSessions.Count == 1);
+                await Button(mouse, "PauseMenu", "Slot");
+                Check("pause_slot_updates_both_panels", Page("PauseMenu").Get<Text>("SlotLabel").text.StartsWith("存档槽位 3 / 10") &&
+                    Page("PauseMenu").Get<Text>("SlotLabel").text == Page("MainMenu").Get<Text>("SlotLabel").text);
+                await Button(mouse, "PauseMenu", "ControlMode");
+                await Until(() => network.Client.Replica.Current.HostOnly);
+                Check("mouse_control_mode_reaches_authority_once", network.Client.Replica.Current.PolicyRevision == 1);
+                await Button(mouse, "PauseMenu", "ControlMode");
+                await Until(() => !network.Client.Replica.Current.HostOnly);
+                Check("mouse_control_mode_restores_shared_camp", network.Client.Replica.Current.PolicyRevision == 2);
                 int[] selection = ui.Input.Selected.ToArray();
                 await Click(mouse, World(stage, actor.X), 1);
                 Check("modal_blocks_world_selection", ui.Input.Selected.SequenceEqual(selection));
                 await Button(mouse, "PauseMenu", "Resume");
                 Check("resume_releases_modal_without_unpausing_world", ui.Page == "" && network.Client.Replica.Current.Paused && YYInteractionSessionService.Instance.ActiveSessions.Count == 0);
+                await Button(mouse, "Chrome", "Menu");
+                Check("reopened_pause_preserves_slot_and_resets_pressed_text",
+                    Page("PauseMenu").Get<Text>("SlotLabel").text == Page("MainMenu").Get<Text>("SlotLabel").text &&
+                    ((Color32)Page("PauseMenu").Get<Text>("ControlModeLabel").color).Equals(new Color32(228, 229, 215, 255)));
+                await Button(mouse, "PauseMenu", "Resume");
                 stage.Focus(stage.InitialCameraX);
                 await Task.Delay(200);
                 string imagePath = Path.GetFullPath("../artifacts/migration/native-ui-host-1280.png");
-                ScreenCapture.CaptureScreenshot(imagePath);
+                SessionRenderCapture.Save(stage, imagePath);
                 Check("hud_shapes_have_meshes", map.canvasRenderer.GetMesh().vertexCount > 100);
                 await Button(mouse, "Chrome", "Menu");
                 await Button(mouse, "PauseMenu", "MainMenu");
                 await Until(() => ui.Page == "MainMenu" && entities.Count == 0 && !network.Hosting);
-                Check("exit_clears_entity_views", stage.Entities.GetComponentsInChildren<NativeVisual>().Length == 0);
+                Check("exit_preserves_scene_views_without_live_bindings", sceneVisuals.All(visual => visual != null) &&
+                    UnityEngine.Object.FindObjectsByType<ObjectInstance>().SelectMany(instance => instance.GetAllBehaviors())
+                        .OfType<EntityPresentationBehaviour>().All(presentation => !presentation.IsBound));
                 await Button(mouse, "MainMenu", "NewGame");
                 await Until(() => network.Client.Ready && entities.Count == 17);
                 Check("second_start_restores_fresh_world", network.Client.Replica.Current.World.Buildings.Count == 4);

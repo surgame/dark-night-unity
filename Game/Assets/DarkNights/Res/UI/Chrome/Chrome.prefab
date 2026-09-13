@@ -110,6 +110,11 @@ MonoBehaviour:
     Border: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
     BorderWidth: 1
     Radius: 0
+  label: {fileID: 0}
+  normalText: {r: 1, g: 1, b: 1, a: 1}
+  hoverText: {r: 1, g: 1, b: 1, a: 1}
+  pressedText: {r: 1, g: 1, b: 1, a: 1}
+  disabledText: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &358860052004901414
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +225,11 @@ MonoBehaviour:
     Border: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     BorderWidth: 0
     Radius: 0
+  label: {fileID: 0}
+  normalText: {r: 1, g: 1, b: 1, a: 1}
+  hoverText: {r: 1, g: 1, b: 1, a: 1}
+  pressedText: {r: 1, g: 1, b: 1, a: 1}
+  disabledText: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &478863205529911541
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,6 +459,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 2291512887086004495}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &602008256315515216
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,7 +522,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  m_Color: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -615,6 +630,7 @@ GameObject:
   - component: {fileID: 3647440825924062144}
   - component: {fileID: 7178311786980314596}
   - component: {fileID: 8442153400052785319}
+  - component: {fileID: 1833672240531757488}
   m_Layer: 0
   m_Name: Hint
   m_TagString: Untagged
@@ -676,7 +692,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -684,6 +700,21 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "\u5DE6\u952E\u9009\u62E9 \xB7 \u53F3\u952E\u6267\u884C \xB7 A/D\u79FB\u52A8\u955C\u5934
     \xB7 \u6EDA\u8F6E\u7F29\u653E \xB7 \u70B9\u51FB\u5C0F\u5730\u56FE\u5B9A\u4F4D"
+--- !u!114 &1833672240531757488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 732716805619202893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.08235294, g: 0.12941177, b: 0.15294118, a: 1}
+  m_EffectDistance: {x: 0, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &820137550319575885
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,7 +773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  m_Color: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -948,7 +979,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -1102,6 +1133,11 @@ MonoBehaviour:
     Border: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     BorderWidth: 0
     Radius: 0
+  label: {fileID: 0}
+  normalText: {r: 1, g: 1, b: 1, a: 1}
+  hoverText: {r: 1, g: 1, b: 1, a: 1}
+  pressedText: {r: 1, g: 1, b: 1, a: 1}
+  disabledText: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &1435549090834065157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1174,7 +1210,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -1561,6 +1597,11 @@ MonoBehaviour:
     Border: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
     BorderWidth: 1
     Radius: 0
+  label: {fileID: 0}
+  normalText: {r: 1, g: 1, b: 1, a: 1}
+  hoverText: {r: 1, g: 1, b: 1, a: 1}
+  pressedText: {r: 1, g: 1, b: 1, a: 1}
+  disabledText: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &2014885776612334356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,7 +1674,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -1712,7 +1753,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -1791,7 +1832,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -1907,7 +1948,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -2069,6 +2110,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 7064797134817985259}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &2359424132373303970
 GameObject:
   m_ObjectHideFlags: 0
@@ -2141,7 +2187,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -2557,6 +2603,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 43870792626365083}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &3103803958396550533
 GameObject:
   m_ObjectHideFlags: 0
@@ -2629,7 +2680,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -2791,6 +2842,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 3620165324726678911}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &3207622678167123954
 GameObject:
   m_ObjectHideFlags: 0
@@ -2946,6 +3002,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 3886978200917992404}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &3284111937631406093
 GameObject:
   m_ObjectHideFlags: 0
@@ -3056,7 +3117,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -3755,6 +3816,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 6464209353793520203}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &4648046739560277805
 GameObject:
   m_ObjectHideFlags: 0
@@ -3910,6 +3976,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 2511530278144114319}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &4903168638434651142
 GameObject:
   m_ObjectHideFlags: 0
@@ -3958,6 +4029,7 @@ GameObject:
   - component: {fileID: 6365573661840002503}
   - component: {fileID: 8722756648418132543}
   - component: {fileID: 281715703597453119}
+  - component: {fileID: 2765241483433866279}
   m_Layer: 0
   m_Name: Objective
   m_TagString: Untagged
@@ -4019,7 +4091,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -4027,6 +4099,21 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "\u51C6\u5907\u8425\u5730  \xB7  \u751F\u4EA7\u4E2D\u7684\u5DE5\u4EBA 0 
     \xB7  \u5B88\u536B 2  \xB7  \u5EFA\u9020\u5B88\u671B\u5854\u52A0\u56FA\u4E1C\u4FA7"
+--- !u!114 &2765241483433866279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4965956590237332967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.08627451, g: 0.12941177, b: 0.16470589, a: 1}
+  m_EffectDistance: {x: 0, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &5072168110882889813
 GameObject:
   m_ObjectHideFlags: 0
@@ -4182,6 +4269,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 881807277365171989}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &5078401787348675299
 GameObject:
   m_ObjectHideFlags: 0
@@ -4435,7 +4527,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -4781,7 +4873,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -4846,7 +4938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  m_Color: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4939,7 +5031,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -5004,7 +5096,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
-  m_Color: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  m_Color: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -5097,7 +5189,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -5473,10 +5565,10 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
+  m_OverridePixelPerfect: 1
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_UseReflectionProbes: 0
@@ -5622,7 +5714,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -5701,7 +5793,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -5780,7 +5872,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -5859,12 +5951,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
-    m_LineSpacing: 1
+    m_LineSpacing: 2.4705882
   m_Text: "\u5DE6\u952E\u9009\u62E9 \xB7 \u53F3\u952E\u5B89\u6392\u5DE5\u4F5C\r\nG\u9009\u62E9\u5B88\u536B
     \xB7 I\u9009\u62E9\u7A7A\u95F2\u5DE5\u4EBA"
 --- !u!1 &7286997886767522596
@@ -6022,6 +6114,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 3661389705146156839}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &7343946759081973982
 GameObject:
   m_ObjectHideFlags: 0
@@ -6145,6 +6242,11 @@ MonoBehaviour:
     Border: {r: 0.41568628, g: 0.44705883, b: 0.34509805, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 0}
+  normalText: {r: 1, g: 1, b: 1, a: 1}
+  hoverText: {r: 1, g: 1, b: 1, a: 1}
+  pressedText: {r: 1, g: 1, b: 1, a: 1}
+  disabledText: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &7378706663516215526
 GameObject:
   m_ObjectHideFlags: 0
@@ -6217,7 +6319,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -6296,7 +6398,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -6454,7 +6556,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -6547,6 +6649,7 @@ GameObject:
   - component: {fileID: 2080331490141183097}
   - component: {fileID: 3530720794357252510}
   - component: {fileID: 8509803371298791674}
+  - component: {fileID: 2716722879738699343}
   m_Layer: 0
   m_Name: BannerDetail
   m_TagString: Untagged
@@ -6608,13 +6711,28 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\u5B89\u6392\u751F\u4EA7\uFF0C\u8BAD\u7EC3\u5B88\u536B\u3002\u5B88\u4F4F\u4E09\u6B21\u591C\u88AD\u3002"
+--- !u!114 &2716722879738699343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7719446719471982674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.06666667, g: 0.10980392, b: 0.13725491, a: 1}
+  m_EffectDistance: {x: 0, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &7913556651694988702
 GameObject:
   m_ObjectHideFlags: 0
@@ -6807,6 +6925,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 5273233054030545031}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &8001729611637876421
 GameObject:
   m_ObjectHideFlags: 0
@@ -6929,7 +7052,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -7091,6 +7214,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 1379973379101213925}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &8255857184041316999
 GameObject:
   m_ObjectHideFlags: 0
@@ -7102,6 +7230,7 @@ GameObject:
   - component: {fileID: 8745530115263281260}
   - component: {fileID: 3735983176823196561}
   - component: {fileID: 3953700076488748842}
+  - component: {fileID: 2722028409635323961}
   m_Layer: 0
   m_Name: BannerTitle
   m_TagString: Untagged
@@ -7163,13 +7292,28 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 4
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\u7070\u677E\u8C37 \xB7 \u7B2C\u4E00\u5929"
+--- !u!114 &2722028409635323961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8255857184041316999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.06666667, g: 0.10980392, b: 0.13725491, a: 1}
+  m_EffectDistance: {x: 0, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &8510154248482327747
 GameObject:
   m_ObjectHideFlags: 0
@@ -7278,7 +7422,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -7440,6 +7584,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 337835183176053875}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &8613297217448095879
 GameObject:
   m_ObjectHideFlags: 0
@@ -7587,7 +7736,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -7666,7 +7815,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -7907,6 +8056,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 4926130356320269502}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &8936436067066854596
 GameObject:
   m_ObjectHideFlags: 0

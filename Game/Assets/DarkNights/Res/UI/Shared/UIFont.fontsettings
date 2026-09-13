@@ -25,12 +25,12 @@ Font:
   m_Descent: 0
   m_DefaultStyle: 0
   m_FontNames:
-  - Microsoft YaHei UI
   - Microsoft YaHei
+  - Microsoft YaHei UI
   - Noto Sans CJK SC
   - Arial
   m_FallbackFonts: []
-  m_FontRenderingMode: 0
+  m_FontRenderingMode: 1
   m_UseLegacyBoundsCalculation: 0
   m_ShouldRoundAdvanceValue: 1
 --- !u!21 &2010886880350939097

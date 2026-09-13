@@ -1,5 +1,121 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &16127050443222898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8470104044423003534}
+  - component: {fileID: 3478506550909161666}
+  - component: {fileID: 1745656822547910117}
+  - component: {fileID: 1651088575978652432}
+  m_Layer: 0
+  m_Name: SessionOptions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8470104044423003534
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16127050443222898}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4421452642838338971}
+  - {fileID: 2349082299482142622}
+  m_Father: {fileID: 5943218145618511653}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: -12}
+  m_SizeDelta: {x: 480, y: 106}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!222 &3478506550909161666
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16127050443222898}
+  m_CullTransparentMesh: 1
+--- !u!114 &1745656822547910117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16127050443222898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1651088575978652432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16127050443222898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518f215db51204c45a06b9d39736f0e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativePanelTheme
+  button: {fileID: 0}
+  normal:
+    Background: {r: 0.09411765, g: 0.14901961, b: 0.17254902, a: 1}
+    Border: {r: 0.45490196, g: 0.4627451, b: 0.35686275, a: 1}
+    BorderWidth: 1
+    Radius: 6
+  hover:
+    Background: {r: 0.09411765, g: 0.14901961, b: 0.17254902, a: 1}
+    Border: {r: 0.45490196, g: 0.4627451, b: 0.35686275, a: 1}
+    BorderWidth: 1
+    Radius: 6
+  pressed:
+    Background: {r: 0.09411765, g: 0.14901961, b: 0.17254902, a: 1}
+    Border: {r: 0.45490196, g: 0.4627451, b: 0.35686275, a: 1}
+    BorderWidth: 1
+    Radius: 6
+  disabled:
+    Background: {r: 0.09411765, g: 0.14901961, b: 0.17254902, a: 1}
+    Border: {r: 0.45490196, g: 0.4627451, b: 0.35686275, a: 1}
+    BorderWidth: 1
+    Radius: 6
+  label: {fileID: 0}
+  normalText: {r: 1, g: 1, b: 1, a: 1}
+  hoverText: {r: 1, g: 1, b: 1, a: 1}
+  pressedText: {r: 1, g: 1, b: 1, a: 1}
+  disabledText: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &89416286768680426
 GameObject:
   m_ObjectHideFlags: 0
@@ -12,6 +128,7 @@ GameObject:
   - component: {fileID: 6565008527697124077}
   - component: {fileID: 4932105781970778755}
   - component: {fileID: 5646154430454189022}
+  - component: {fileID: 651814225775418100}
   m_Layer: 0
   m_Name: Slot
   m_TagString: Untagged
@@ -32,12 +149,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1968082494406448790}
-  m_Father: {fileID: 5178805800207322206}
+  m_Father: {fileID: 8470104044423003534}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -190, y: 70}
-  m_SizeDelta: {x: 380, y: 34}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 36, y: 60}
+  m_SizeDelta: {x: 408, y: 34}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &6565008527697124077
 CanvasRenderer:
@@ -96,7 +213,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -121,6 +238,44 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &651814225775418100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89416286768680426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518f215db51204c45a06b9d39736f0e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativePanelTheme
+  button: {fileID: 5646154430454189022}
+  normal:
+    Background: {r: 0.13333334, g: 0.19607843, b: 0.22352941, a: 1}
+    Border: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  hover:
+    Background: {r: 0.20392157, g: 0.27058825, b: 0.24313726, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  pressed:
+    Background: {r: 0.08235294, g: 0.13333334, b: 0.16078432, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  disabled:
+    Background: {r: 0.101960786, g: 0.15686275, b: 0.1764706, a: 1}
+    Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  label: {fileID: 8903420112472658666}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &1561235190175419568
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +541,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7920735952976136852}
+  - {fileID: 8470104044423003534}
   m_Father: {fileID: 4842100293326903279}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -464,6 +620,11 @@ MonoBehaviour:
     Border: {r: 0.45490196, g: 0.4627451, b: 0.35686275, a: 1}
     BorderWidth: 1
     Radius: 6
+  label: {fileID: 0}
+  normalText: {r: 1, g: 1, b: 1, a: 1}
+  hoverText: {r: 1, g: 1, b: 1, a: 1}
+  pressedText: {r: 1, g: 1, b: 1, a: 1}
+  disabledText: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &2821324215330545058
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,6 +859,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 1708416054492334857}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &3313852905243885459
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,7 +936,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -929,7 +1095,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -1087,7 +1253,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -1249,6 +1415,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 817825746219719501}
+  normalText: {r: 0.09019608, g: 0.1254902, b: 0.14901961, a: 1}
+  hoverText: {r: 0.06666667, g: 0.105882354, b: 0.1254902, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &4397444499606350737
 GameObject:
   m_ObjectHideFlags: 0
@@ -1404,6 +1575,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 2158115677213181357}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &4749027835832606588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1495,6 +1671,7 @@ GameObject:
   - component: {fileID: 8839918399531624070}
   - component: {fileID: 2566889284165601630}
   - component: {fileID: 3413612522510267515}
+  - component: {fileID: 7066225090185197654}
   m_Layer: 0
   m_Name: ControlMode
   m_TagString: Untagged
@@ -1515,12 +1692,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7639994484155050198}
-  m_Father: {fileID: 5178805800207322206}
+  m_Father: {fileID: 8470104044423003534}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -150, y: 28}
-  m_SizeDelta: {x: 300, y: 34}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 36, y: 14}
+  m_SizeDelta: {x: 408, y: 34}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &8839918399531624070
 CanvasRenderer:
@@ -1579,7 +1756,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1604,6 +1781,44 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7066225090185197654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5016703757755924135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518f215db51204c45a06b9d39736f0e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativePanelTheme
+  button: {fileID: 3413612522510267515}
+  normal:
+    Background: {r: 0.13333334, g: 0.19607843, b: 0.22352941, a: 1}
+    Border: {r: 0.23137255, g: 0.28627452, b: 0.27450982, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  hover:
+    Background: {r: 0.20392157, g: 0.27058825, b: 0.24313726, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  pressed:
+    Background: {r: 0.08235294, g: 0.13333334, b: 0.16078432, a: 1}
+    Border: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  disabled:
+    Background: {r: 0.101960786, g: 0.15686275, b: 0.1764706, a: 1}
+    Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
+    BorderWidth: 1
+    Radius: 4
+  label: {fileID: 1399139588074910569}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &6075045361162412518
 GameObject:
   m_ObjectHideFlags: 0
@@ -2033,6 +2248,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 5255172548411491535}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &7602989313873718755
 GameObject:
   m_ObjectHideFlags: 0
@@ -2188,6 +2408,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 49496849590614132}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &8065289549274025565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2226,8 +2451,6 @@ RectTransform:
   m_Children:
   - {fileID: 8354196206166979194}
   - {fileID: 4842100293326903279}
-  - {fileID: 2349082299482142622}
-  - {fileID: 4421452642838338971}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2340,10 +2563,10 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
+  m_OverridePixelPerfect: 1
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_UseReflectionProbes: 0
@@ -2572,6 +2795,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 8806406672647200042}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &8968684097030597840
 GameObject:
   m_ObjectHideFlags: 0

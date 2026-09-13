@@ -64,6 +64,7 @@ namespace DarkNights.Entry
             entities.SetIntentHandler(intent => Execute(intent).Forget());
             // Existing framework root owns the scaler; formal UI preserves source pixel sizes at each viewport.
             UGUIManager.Instance.GetComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
+            UGUIManager.Instance.GetComponent<Canvas>().pixelPerfect = true;
             foreach (string name in new[] { "Chrome", "MainMenu", "PauseMenu", "Help", "Result" })
             {
                 var definition = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("ui." + name.ToLowerInvariant());

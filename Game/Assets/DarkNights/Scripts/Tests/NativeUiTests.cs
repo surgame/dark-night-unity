@@ -94,5 +94,91 @@ namespace DarkNights.Tests
                 Assert.That(AssetDatabase.Contains(font.material), Is.True);
             }
         }
+
+        [TestCase("MainMenu", 1280, 800)]
+        [TestCase("MainMenu", 1600, 900)]
+        [TestCase("PauseMenu", 1280, 800)]
+        [TestCase("PauseMenu", 1600, 900)]
+        public void AddedControlsFitTheirPanelWithoutCoveringOriginalContent(string page, int width, int height)
+        {
+            var viewport = new GameObject("Layout viewport", typeof(RectTransform));
+            var parent = (RectTransform)viewport.transform;
+            parent.sizeDelta = new Vector2(width, height);
+            GameObject root = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(
+                NativeUiSetup.Root + "/" + page + "/" + page + ".prefab"));
+            try
+            {
+                Assert.That(root.GetComponent<Canvas>().pixelPerfect, Is.True);
+                UnityEngine.Object.DestroyImmediate(root.GetComponent<GraphicRaycaster>());
+                UnityEngine.Object.DestroyImmediate(root.GetComponent<CanvasScaler>());
+                UnityEngine.Object.DestroyImmediate(root.GetComponent<Canvas>());
+                root.transform.SetParent(parent, false);
+                NativeUiBuilder.Stretch((RectTransform)root.transform);
+                Transform panel = page == "MainMenu" ? root.transform.Find("SessionOptions") :
+                    root.transform.Find("CenterContainer2/PanelContainer3/SessionOptions");
+                Assert.That(panel, Is.Not.Null);
+                Rect bounds = Bounds((RectTransform)panel, parent);
+                Assert.That(parent.rect.Contains(bounds.min) && parent.rect.Contains(bounds.max));
+                UGUIView view = root.GetComponent<UGUIView>();
+                string[] keys = page == "MainMenu" ? new[] { "Slot", "Join", "Address", "ConnectionStatus" } :
+                    new[] { "Slot", "ControlMode" };
+                Rect[] controls = keys.Select(key => Bounds((RectTransform)view.Bindings.Single(b => b.Key == key).Target.transform, parent)).ToArray();
+                for (int i = 0; i < controls.Length; i++)
+                {
+                    Assert.That(bounds.Contains(controls[i].min) && bounds.Contains(controls[i].max), Is.True, keys[i]);
+                    for (int j = i + 1; j < controls.Length; j++)
+                        Assert.That(controls[i].Overlaps(controls[j]), Is.False, keys[i] + "/" + keys[j]);
+                }
+                string original = page == "MainMenu" ? "MarginContainer2/HBoxContainer3/VBoxContainer4/Label11" :
+                    "CenterContainer2/PanelContainer3";
+                Assert.That(bounds.Overlaps(Bounds((RectTransform)root.transform.Find(original), parent)), Is.False);
+                foreach (string key in keys.Where(key => key != "Address" && key != "ConnectionStatus"))
+                {
+                    Text label = view.Get<Text>(key + "Label");
+                    Assert.That(label.preferredWidth, Is.LessThanOrEqualTo(label.rectTransform.rect.width));
+                    Assert.That(label.preferredHeight, Is.LessThanOrEqualTo(label.rectTransform.rect.height));
+                }
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(root);
+                UnityEngine.Object.DestroyImmediate(viewport);
+            }
+        }
+
+        [Test]
+        public void OriginalMultilineLabelsKeepTheirMeasuredBaselineSpacing()
+        {
+            string[] pages = { "MainMenu", "Chrome", "Help", "Result" };
+            string[] paths = { "MarginContainer2/HBoxContainer3/VBoxContainer4/Label6",
+                "BottomBar/MarginContainer1/HBoxContainer2/Selection/Info",
+                "CenterContainer2/PanelContainer3/MarginContainer4/VBoxContainer5/Label15",
+                "CenterContainer2/PanelContainer3/MarginContainer4/VBoxContainer5/ResultStats" };
+            float[] spacing = { 170, 42, 42, 56 };
+            for (int i = 0; i < pages.Length; i++)
+            {
+                GameObject root = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(
+                    NativeUiSetup.Root + "/" + pages[i] + "/" + pages[i] + ".prefab"));
+                try
+                {
+                    Text text = root.transform.Find(paths[i]).GetComponent<Text>();
+                    var settings = text.GetGenerationSettings(text.rectTransform.rect.size);
+                    settings.scaleFactor = 1;
+                    text.cachedTextGenerator.Populate(text.text, settings);
+                    var lines = text.cachedTextGenerator.lines;
+                    Assert.That(lines.Count, Is.GreaterThan(1), pages[i]);
+                    Assert.That(lines[0].topY - lines[1].topY, Is.EqualTo(spacing[i]).Within(.1), pages[i]);
+                    Assert.That(text.alignment, Is.EqualTo(TextAnchor.UpperLeft));
+                }
+                finally { UnityEngine.Object.DestroyImmediate(root); }
+            }
+        }
+
+        private static Rect Bounds(RectTransform rect, RectTransform parent)
+        {
+            Vector2 min = parent.InverseTransformPoint(rect.TransformPoint(rect.rect.min));
+            Vector2 max = parent.InverseTransformPoint(rect.TransformPoint(rect.rect.max));
+            return Rect.MinMaxRect(min.x, min.y, max.x, max.y);
+        }
     }
 }

@@ -5,8 +5,8 @@ using UnityEngine.UI;
 namespace DarkNights.View
 {
     /// <summary>
-    /// 在已有 Image 上绘制原主题圆角和内边框，保留 Graphic、Button 以及生成绑定的对象身份。
-    /// 状态仅属于本地指针／可交互性；不改变 RectTransform，编辑器预览与运行共用同一网格。
+    /// 在已有 Image 上绘制原主题圆角和内边框，并同步显式绑定的按钮文字状态色。
+    /// 状态仅属于本地指针／可交互性；重入清除按压状态，不改变布局或生成绑定的对象身份。
     /// </summary>
     [ExecuteAlways]
     public sealed class NativePanelTheme : BaseMeshEffect, IPointerEnterHandler, IPointerExitHandler,
@@ -14,8 +14,14 @@ namespace DarkNights.View
     {
         [SerializeField] private Button button;
         [SerializeField] private NativePanelStyle normal, hover, pressed, disabled;
+        [SerializeField] private Text label;
+        [SerializeField] private Color normalText = Color.white, hoverText = Color.white,
+            pressedText = Color.white, disabledText = Color.gray;
         private bool inside, down;
         private bool interactable = true;
+
+        private int State => button == null ? 0 : !button.IsInteractable() ? 3 :
+            inside && down ? 2 : inside ? 1 : 0;
 
         public void Configure(Button target, NativePanelStyle normalStyle, NativePanelStyle hoverStyle,
             NativePanelStyle pressedStyle, NativePanelStyle disabledStyle)
@@ -26,45 +32,75 @@ namespace DarkNights.View
             pressed = pressedStyle;
             disabled = disabledStyle;
             if (button != null) button.transition = Selectable.Transition.None;
-            graphic.SetVerticesDirty();
+            Refresh();
+        }
+
+        public void ConfigureText(Text target, Color normalColor, Color hoverColor,
+            Color pressedColor, Color disabledColor)
+        {
+            label = target;
+            normalText = normalColor;
+            hoverText = hoverColor;
+            pressedText = pressedColor;
+            disabledText = disabledColor;
+            Refresh();
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
             inside = down = false;
-            interactable = button == null || button.IsInteractable();
+            Refresh();
         }
+
+#if UNITY_EDITOR
+        protected override void OnValidate()
+        {
+            base.OnValidate();
+            Refresh();
+        }
+#endif
 
         private void Update()
         {
             bool next = button == null || button.IsInteractable();
             if (next == interactable) return;
-            interactable = next;
-            if (!next) down = false;
-            graphic.SetVerticesDirty();
+            Refresh();
         }
 
-        public void OnPointerEnter(PointerEventData data) { inside = true; graphic.SetVerticesDirty(); }
-        public void OnPointerExit(PointerEventData data) { inside = false; graphic.SetVerticesDirty(); }
+        public void OnPointerEnter(PointerEventData data) { inside = true; Refresh(); }
+        public void OnPointerExit(PointerEventData data) { inside = false; Refresh(); }
         public void OnPointerDown(PointerEventData data)
         {
-            if (data.button != PointerEventData.InputButton.Left) return;
+            if (data.button != PointerEventData.InputButton.Left || button == null || !button.IsInteractable()) return;
             down = true;
-            graphic.SetVerticesDirty();
+            Refresh();
         }
         public void OnPointerUp(PointerEventData data)
         {
             if (data.button != PointerEventData.InputButton.Left) return;
             down = false;
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            interactable = button == null || button.IsInteractable();
+            if (!interactable) down = false;
+            if (label != null) label.color = State switch
+            {
+                3 => disabledText, 2 => pressedText, 1 => hoverText, _ => normalText
+            };
             graphic.SetVerticesDirty();
         }
 
         public override void ModifyMesh(VertexHelper mesh)
         {
             if (!IsActive()) return;
-            NativePanelStyle style = button == null ? normal : !button.IsInteractable() ? disabled :
-                inside && down ? pressed : inside ? hover : normal;
+            NativePanelStyle style = State switch
+            {
+                3 => disabled, 2 => pressed, 1 => hover, _ => normal
+            };
             Rect bounds = graphic.rectTransform.rect;
             float width = Mathf.Clamp(style.BorderWidth, 0, Mathf.Min(bounds.width, bounds.height) * .5f);
             float radius = Mathf.Clamp(style.Radius, 0, Mathf.Min(bounds.width, bounds.height) * .5f);

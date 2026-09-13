@@ -226,7 +226,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -341,7 +341,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -420,12 +420,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
-    m_LineSpacing: 1
+    m_LineSpacing: 2.4347825
   m_Text: "\u5B88\u5019\u65F6\u95F4  00:00\r\n\u51FB\u9000\u654C\u4EBA  0\r\n\u5E78\u5B58\u5C45\u6C11 
     7    \xB7    \u727A\u7272\u5C45\u6C11  0"
 --- !u!1 &4357483844909047919
@@ -500,7 +500,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -653,6 +653,11 @@ MonoBehaviour:
     Border: {r: 0.45490196, g: 0.4627451, b: 0.35686275, a: 1}
     BorderWidth: 1
     Radius: 6
+  label: {fileID: 0}
+  normalText: {r: 1, g: 1, b: 1, a: 1}
+  hoverText: {r: 1, g: 1, b: 1, a: 1}
+  pressedText: {r: 1, g: 1, b: 1, a: 1}
+  disabledText: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &6648197599541038734
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,6 +813,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 8309246964912152869}
+  normalText: {r: 0.09019608, g: 0.1254902, b: 0.14901961, a: 1}
+  hoverText: {r: 0.06666667, g: 0.105882354, b: 0.1254902, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &7375096432145204099
 GameObject:
   m_ObjectHideFlags: 0
@@ -1004,6 +1014,11 @@ MonoBehaviour:
     Border: {r: 0.16078432, g: 0.22745098, b: 0.23921569, a: 1}
     BorderWidth: 1
     Radius: 4
+  label: {fileID: 4804163345641370007}
+  normalText: {r: 0.89411765, g: 0.8980392, b: 0.84313726, a: 1}
+  hoverText: {r: 1, g: 0.94509804, b: 0.80784315, a: 1}
+  pressedText: {r: 0.8509804, g: 0.7647059, b: 0.5764706, a: 1}
+  disabledText: {r: 0.40784314, g: 0.48235294, b: 0.48235294, a: 1}
 --- !u!1 &8736909565541004625
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,10 +1215,10 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
+  m_OverridePixelPerfect: 1
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
   m_UseReflectionProbes: 0
