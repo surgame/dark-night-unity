@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DarkNights.Core.Config;
 using DarkNights.Core.Logic.State;
+using DarkNights.Core.ViewData;
 
 namespace DarkNights.Core.Save
 {
@@ -29,6 +30,8 @@ namespace DarkNights.Core.Save
         public double CameraX { get; }
         public double CameraZoom { get; }
         public IReadOnlyList<int> SelectedIds { get; }
+        public SessionMode Mode { get; }
+        public IReadOnlyList<EntityIdentityData> Identities { get; }
 
         public SessionSnapshot(
             int schemaVersion,
@@ -48,9 +51,13 @@ namespace DarkNights.Core.Save
             StatisticsSnapshot stats,
             double cameraX,
             double cameraZoom,
-            IReadOnlyList<int> selectedIds)
+            IReadOnlyList<int> selectedIds,
+            SessionMode mode = SessionMode.Playing,
+            IReadOnlyList<EntityIdentityData> identities = null)
         {
             SchemaVersion = schemaVersion;
+            Mode = mode;
+            Identities = new List<EntityIdentityData>(identities ?? Array.Empty<EntityIdentityData>()).AsReadOnly();
             LevelId = levelId;
             Economy = economy;
             Wave = wave;

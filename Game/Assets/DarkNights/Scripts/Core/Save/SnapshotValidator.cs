@@ -17,11 +17,11 @@ namespace DarkNights.Core.Save
     {
         public static string Validate(SessionSnapshot s, GameCatalog catalog, LevelLayout layout)
         {
-            if (s == null || s.SchemaVersion != 1 || s.LevelId != catalog.Level.Id)
+            if (s == null || (s.SchemaVersion != 1 && s.SchemaVersion != 2) || s.LevelId != catalog.Level.Id)
                 return "存档版本或关卡不匹配";
             if (!Number(s.Elapsed, 0, 1000000) || s.Speed is not (1 or 2))
                 return "时钟状态无效";
-            if (!Number(s.CameraX, 0, layout.WorldWidth) || !Number(s.CameraZoom, 1.8, 4.5))
+            if (s.SchemaVersion == 1 && (!Number(s.CameraX, 0, layout.WorldWidth) || !Number(s.CameraZoom, 1.8, 4.5)))
                 return "镜头状态无效";
             foreach (string text in new[] { s.RngSeed, s.RngState })
                 if (!long.TryParse(text, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out long value) ||
@@ -56,6 +56,11 @@ namespace DarkNights.Core.Save
                     return "实体身份或坐标无效";
             if (s.NextEntityId <= ids.DefaultIfEmpty(0).Max() || s.NextEntityId > 1000001)
                 return "实体ID序列无效";
+            if (s.SchemaVersion == 2 && (!Enum.IsDefined(typeof(SessionMode), s.Mode) || s.Mode == SessionMode.Menu ||
+                s.Identities.Count != ids.Count || s.Identities.Any(i => i == null || !ids.Contains(i.Id)) ||
+                s.Identities.Select(i => i.Id).Distinct().Count() != ids.Count ||
+                s.Identities.Where(i => i.PlacementKey.Length != 0).GroupBy(i => i.PlacementKey).Any(g => g.Count() != 1)))
+                return "定义或场景身份关系无效";
             var context = new ValidationContext(s, catalog, layout);
             string error = EntitySnapshotValidator.Validate(context);
             if (error.Length == 0)

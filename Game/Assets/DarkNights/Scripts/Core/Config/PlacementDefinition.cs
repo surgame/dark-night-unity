@@ -11,10 +11,12 @@ namespace DarkNights.Core.Config
         public float X { get; }
         public int Variant { get; }
         public string Name { get; }
+        public string PlacementKey { get; }
 
-        public PlacementDefinition(string kind, float x, int variant = 0, string name = "")
+        public PlacementDefinition(string kind, float x, int variant = 0, string name = "", string placementKey = "")
         {
             Kind = kind ?? throw new ArgumentNullException(nameof(kind));
+            PlacementKey = placementKey ?? throw new ArgumentNullException(nameof(placementKey));
             X = x;
             Variant = variant;
             Name = name ?? throw new ArgumentNullException(nameof(name));

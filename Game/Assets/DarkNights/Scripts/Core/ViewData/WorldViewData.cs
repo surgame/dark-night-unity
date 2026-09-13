@@ -16,10 +16,11 @@ namespace DarkNights.Core.ViewData
         public IReadOnlyList<BuildingViewData> Buildings { get; }
         public IReadOnlyList<WorksiteViewData> Worksites { get; }
         public IReadOnlyList<ProjectileViewData> Projectiles { get; }
+        public IReadOnlyList<EntityIdentityData> Identities { get; }
 
         public WorldViewData(CampViewData camp, IReadOnlyList<ActorViewData> actors,
             IReadOnlyList<BuildingViewData> buildings, IReadOnlyList<WorksiteViewData> worksites,
-            IReadOnlyList<ProjectileViewData> projectiles)
+            IReadOnlyList<ProjectileViewData> projectiles, IReadOnlyList<EntityIdentityData> identities = null)
         {
             Camp = camp ?? throw new ArgumentNullException(nameof(camp));
             if (actors == null || buildings == null || worksites == null || projectiles == null)
@@ -31,6 +32,10 @@ namespace DarkNights.Core.ViewData
             Buildings = Copy(buildings, b => b.Id, ids);
             Worksites = Copy(worksites, w => w.Id, ids);
             Projectiles = Copy(projectiles, p => p.ViewId, new HashSet<long>());
+            Identities = Copy(identities ?? Array.Empty<EntityIdentityData>(), i => i.Id, new HashSet<long>());
+            if (Identities.Count != 0 && (Identities.Count != ids.Count ||
+                System.Linq.Enumerable.Any(Identities, i => !ids.Contains(i.Id))))
+                throw new ArgumentException("Projection identity map must cover the whole world.");
         }
 
         private static IReadOnlyList<T> Copy<T>(IReadOnlyList<T> source, Func<T, long> identity, HashSet<long> ids) where T : class

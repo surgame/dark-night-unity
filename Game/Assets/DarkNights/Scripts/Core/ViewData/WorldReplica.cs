@@ -30,6 +30,13 @@ namespace DarkNights.Core.ViewData
 
         public bool Apply(long connectionGeneration, SessionViewData frame)
         {
+            if (!CanApply(connectionGeneration, frame)) return false;
+            Current = frame;
+            return true;
+        }
+
+        public bool CanApply(long connectionGeneration, SessionViewData frame)
+        {
             if (!connected || connectionGeneration != generation || frame == null) return false;
             if (Current != null)
             {
@@ -37,7 +44,6 @@ namespace DarkNights.Core.ViewData
                     frame.ServerTick < Current.ServerTick || frame.PolicyRevision < Current.PolicyRevision) return false;
                 if (frame.Epoch == Current.Epoch && (frame.Revision < Current.Revision || frame.Elapsed < Current.Elapsed)) return false;
             }
-            Current = frame;
             return true;
         }
 

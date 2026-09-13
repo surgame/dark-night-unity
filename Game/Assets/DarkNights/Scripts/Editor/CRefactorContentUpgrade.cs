@@ -183,9 +183,9 @@ namespace DarkNights.Editor
                 FormalObjectCatalog.SessionKey, NetworkType.Network);
             Type[] types = definition.BehaviourTypes.Select(BehaviourTypeResolver.GetTypeFromName).ToArray();
             int campIndex = Array.IndexOf(types, typeof(CampSessionBehaviour));
-            if (types.Any(type => type == null) || types.Count(type => typeof(IStatefulBehaviour).IsAssignableFrom(type)) != 1 ||
+            if (types.Any(type => type == null) || types.Count(type => type == typeof(WorldSessionBehaviour)) != 1 ||
                 (campIndex >= 0 && campIndex < Array.IndexOf(types, typeof(WorldSessionBehaviour))))
-                throw new InvalidOperationException("WorldSession must retain its sole Stateful Behaviour before CampSessionBehaviour.");
+                throw new InvalidOperationException("WorldSession must retain its projection Behaviour before CampSessionBehaviour.");
         }
 
         public static void ValidateSessionLink(GameObject prefab, bool requireReferences = true)

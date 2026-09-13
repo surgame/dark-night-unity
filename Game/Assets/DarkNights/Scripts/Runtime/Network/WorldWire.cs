@@ -17,6 +17,7 @@ namespace DarkNights.Runtime.Network
         public BuildingWire[] Buildings { get; set; }
         public WorksiteWire[] Worksites { get; set; }
         public ProjectileWire[] Projectiles { get; set; }
+        public EntityIdentityWire[] Identities { get; set; }
 
         public static WorldWire From(WorldViewData value) => new WorldWire
         {
@@ -25,6 +26,7 @@ namespace DarkNights.Runtime.Network
             Buildings = value.Buildings.Select(BuildingWire.From).ToArray(),
             Worksites = value.Worksites.Select(WorksiteWire.From).ToArray(),
             Projectiles = value.Projectiles.Select(ProjectileWire.From).ToArray(),
+            Identities = value.Identities.Select(EntityIdentityWire.From).ToArray(),
         };
 
         public WorldViewData Freeze() => new WorldViewData(
@@ -32,6 +34,7 @@ namespace DarkNights.Runtime.Network
             Actors?.Select(item => item?.Freeze()).ToArray(),
             Buildings?.Select(item => item?.Freeze()).ToArray(),
             Worksites?.Select(item => item?.Freeze()).ToArray(),
-            Projectiles?.Select(item => item?.Freeze()).ToArray());
+            Projectiles?.Select(item => item?.Freeze()).ToArray(),
+            Identities?.Select(item => item?.Freeze()).ToArray());
     }
 }

@@ -32,11 +32,17 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  Archetype: {fileID: 0}
+  Archetype: {fileID: 11400000, guid: df29002f86da9cb46b2b8a7133c28005, type: 2}
   UseMonolithicPooling: 0
   BehaviourTypes:
   - DarkNights.View.BuildingPresentationBehaviour
-  SharedConfigs: []
+  - DarkNights.Runtime.Objects.BuildingBehaviour
+  SharedConfigs:
+  - rid: 6961529563483734158
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6961529563483734158
+      type: {class: BuildingRuleConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        RuleKey: house

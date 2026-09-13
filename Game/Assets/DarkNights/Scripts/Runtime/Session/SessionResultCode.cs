@@ -8,6 +8,6 @@ namespace DarkNights.Runtime.Session
     {
         Pending, Applied, NoEffect, InvalidRequest, InvalidConnection, ProtocolMismatch,
         EpochChanged, NotReady, PolicyChanged, PermissionDenied, SequenceExpired,
-        SequenceConflict, QueueFull, Loading, SessionClosed
+        SequenceConflict, QueueFull, Loading, SessionClosed, ObjectUnavailable
     }
 }

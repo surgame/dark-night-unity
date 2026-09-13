@@ -1,6 +1,8 @@
 using System;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Save;
+using DarkNights.Runtime.Objects;
+using DarkNights.Runtime.Session;
 using GameCore.Objects.Behaviours;
 using GameCore.Objects.Behaviours.Interfaces;
 using UnityEngine;
@@ -20,6 +22,7 @@ namespace DarkNights.Runtime.Network
         private Action<CampSessionBehaviour> detached;
         private Action<Exception> failed;
         private bool measure, pressure, stopped;
+        private SessionWorld simulation;
         public SessionServer Server { get; private set; }
         public bool Configured { get; private set; }
         public bool ServerRoleReady { get; private set; }
@@ -27,7 +30,7 @@ namespace DarkNights.Runtime.Network
 
         public void Configure(GameCatalog content, LevelLayout level, WorldSessionBehaviour state,
             string saves, Action<CampSessionBehaviour> onDetached, Action<Exception> onFailed,
-            bool metrics = false, bool projectionPressure = false)
+            bool metrics = false, bool projectionPressure = false, SessionWorld objectSimulation = null)
         {
             if (Configured || stopped) throw new InvalidOperationException("Session instance cannot be configured twice or after stop.");
             catalog = content ?? throw new ArgumentNullException(nameof(content));
@@ -38,6 +41,7 @@ namespace DarkNights.Runtime.Network
             failed = onFailed;
             measure = metrics;
             pressure = projectionPressure;
+            simulation = objectSimulation;
             Configured = true;
             TryStart();
         }
@@ -55,7 +59,8 @@ namespace DarkNights.Runtime.Network
             try
             {
                 Server = new SessionServer(catalog, layout, projection,
-                    new GameSaveStore(saveDirectory, catalog, layout), measure, pressure);
+                    new GameSaveStore(saveDirectory, catalog, layout,
+                        simulation is ObjectSession objects ? objects.SaveCodec.Serialize : null), measure, pressure, simulation);
                 StartCount++;
             }
             catch
@@ -106,6 +111,7 @@ namespace DarkNights.Runtime.Network
             projection = null;
             saveDirectory = null;
             failed = null;
+            simulation = null;
             base.OnDespawn();
         }
     }

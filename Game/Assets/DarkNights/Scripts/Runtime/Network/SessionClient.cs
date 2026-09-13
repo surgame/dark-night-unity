@@ -30,6 +30,7 @@ namespace DarkNights.Runtime.Network
         public event Action<CommandFeedback> Feedback;
         public event Action<SessionViewData> Updated;
         public event Action<Exception> Failed;
+        public Action<SessionViewData> PrepareProjection { get; set; }
 
         public SessionClient(ProjectionCodec codec) { this.codec = codec; }
 
@@ -76,6 +77,8 @@ namespace DarkNights.Runtime.Network
                     if (state.Protocol != SessionAuthority.ProtocolVersion) throw new FormatException("Session protocol mismatch.");
                     var frame = codec.Decode(state.ProjectionPayload);
                     int previousEpoch = Replica.Current?.Epoch ?? 0;
+                    if (!Replica.CanApply(captured, frame)) return;
+                    PrepareProjection?.Invoke(frame);
                     if (!Replica.Apply(captured, frame)) return;
                     LastPayloadBytes = state.ProjectionPayload.Length;
                     if (frame.Epoch != previousEpoch) { Ready = false; readySequence = 0; nextReadyAt = 0; }

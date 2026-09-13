@@ -1,5 +1,26 @@
 # YYGC 修改授权与改动账本
 
+<a id="unified-u2"></a>
+
+## 2026-09-13：U2 网络会话装配与跨对象提交
+
+框架提交为 `0305eb74bbc2677a3d9025f684d8ded16481be4a`，在 `.deps/YYGC-unified` 验证。用户仓库 `D:\Developer\YYGC` 在同步前及 fetch 后均检查为干净、HEAD 为 `ddce2ff`，随后仅执行本地快进；当前具有相同提交，没有推送。下表每个文件均落在隔离和用户仓库的同一路径。
+
+| 文件 | 原因与修改 | 实际验证 |
+|---|---|---|
+| `Runtime/Objects/NetworkStates/SessionStateChange.cs` | 新增复制／验证／安装／通知／释放的同步批量状态提交；异常通知继续处理其余状态 | 真实支付、同一通知读取多个最终 State、异常订阅和撤权重入用例通过 |
+| `Runtime/Objects/NetworkStates/SessionStateChange.cs.meta` | Unity 自动生成的新脚本元数据 | Editor 导入、Mono 两配置通过 |
+| `Runtime/Objects/NetworkStates/StatefulBehaviour.cs` | 状态引用与通知时点分开；权威和只读副本均可准备批量候选，保留池的所有权 | 原状态／池回归、新事务及副本失败重试、Mono 装配与 Sample 通过 |
+| `Runtime/Objects/NetworkStates/StateSynchronizer.cs` | Spawn 前绑定显式可信会话，可延迟激活；停止后释放上下文引用 | 真实 Play、正式 Host＋两客户端、原 Sample 四进程通过 |
+| `Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs` | 运行校验仅收集生成器支持的 StateDataAttribute 类型，修复本地测试状态误阻断启动 | 先复现 Bootstrap 失败，修正后两种域重载重复 Play 通过；带标记状态仍严格检查 |
+| `Runtime/Objects/Runner/ObjectInstanceFactory.cs` | 显式会话参数贯通网络／本地初始化器；await 后验证生命周期 | 正式网络会话首次创建及复用原 Sample 通过 |
+| `Runtime/Objects/Runner/ObjectDefinitionLoader.cs` | 公开持久初始化器所持有的原实例用于准备阶段预检 | 精确场景原实例接管、重开及保存恢复通过 |
+| `Runtime/Objects/Runner/ObjectInstance.cs` | 批量通知期间拒绝装配、激活、退休及释放 | 同步通知退休兄弟对象被拒绝，所有 State 和支付仍完整提交 |
+| `Runtime/Objects/Runner/ObjectSessionContext.cs` | 批量通知期间拒绝激活／退休上下文 | 撤权重入用例、退出和换 epoch 通过 |
+| `Documentation~/OBJECT_SESSION_LIFECYCLE.md` | 记录批量提交、网络上下文、瞬时池引用和注册范围 | 与实际 API 及验收边界核对 |
+
+U2 分批覆盖 126 个不同 Editor／Play 用例，无未解决失败；Mono 装配 14/14，正式三进程切片 26/26，独立四进程 Sample 30/30。只构建正式 Mono 和 Sample Mono 各一次，复验复用产物。游戏准备脚本锁定完整提交；manifest／packages-lock 保持同一隔离路径。既有六文件 Sample／UI／单例补丁完整保留，启动排除 patch 仅更新新基线的上下文和 blob 哈希。详见 [U2 证据](evidence/yygc-unified-u2.json)。完整玩法、最终弱网／性能、IL2CPP 及双机器 LAN 不属于本阶段通过范围。
+
 ## 2026-09-13：U1 显式会话状态与对象装配
 
 已提交 `ddce2ffdf422c8c9cb8e872fb5f20053cdedcda6`。先在 `.deps/YYGC-unified`／`codex/dark-nights-unified-objects` 验证；再次确认 `D:\Developer\YYGC` 工作区干净且仍在 `ccd61e0` 后，将用户仓库快进到该提交。没有推送。原 `.deps/YYGC` 的修改和缓存保留；游戏依赖改用 `.deps/YYGC-unified`，准备脚本锁定完整提交并精确校验既有四份补丁及友元文件。

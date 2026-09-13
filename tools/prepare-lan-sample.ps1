@@ -1,7 +1,7 @@
 param([string]$FrameworkPath = 'D:\Developer\YYGC')
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
-$commit = 'ddce2ffdf422c8c9cb8e872fb5f20053cdedcda6'
+$commit = '0305eb74bbc2677a3d9025f684d8ded16481be4a'
 $checkout = Join-Path $root '.deps/YYGC-unified'
 if (!(Test-Path $checkout)) {
     git clone --no-hardlinks --no-checkout $FrameworkPath $checkout

@@ -37,6 +37,8 @@ MonoBehaviour:
   BehaviourTypes:
   - DarkNights.Runtime.Network.WorldSessionBehaviour
   - DarkNights.Runtime.Network.CampSessionBehaviour
+  - DarkNights.Runtime.Objects.CampSimulationBehaviour
+  - DarkNights.Runtime.Objects.EconomyBehaviour
   SharedConfigs: []
   references:
     version: 2

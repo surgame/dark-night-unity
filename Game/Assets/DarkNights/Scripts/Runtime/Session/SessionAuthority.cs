@@ -19,16 +19,15 @@ namespace DarkNights.Runtime.Session
     /// </summary>
     public sealed class SessionAuthority : IDisposable
     {
-        public const int ProtocolVersion = 5;
+        public const int ProtocolVersion = 6;
         public const int MaximumPendingPerPlayer = 16;
         public const int ResultWindow = 64;
         private readonly int ownerThread = Thread.CurrentThread.ManagedThreadId;
         private readonly SessionConnection[] connections = new SessionConnection[4];
         private readonly int[] generations = new int[4];
         private readonly Queue<SessionCommandEntry> pending = new Queue<SessionCommandEntry>();
-        private readonly GameSaveJson saveJson;
         private readonly SessionProjector projector = new SessionProjector();
-        private GameSession world;
+        private SessionWorld world;
         private SessionEventJournal events;
         private SessionReceipt loadTicket;
         private bool started;
@@ -44,12 +43,13 @@ namespace DarkNights.Runtime.Session
         public int ReadyCount => connections.Count(c => c != null && c.Ready);
         public SessionStorageRequest StorageRequest { get; private set; }
 
-        public SessionAuthority(GameCatalog catalog, LevelLayout layout)
+        public SessionAuthority(GameCatalog catalog, LevelLayout layout) : this(new LegacySessionWorld(catalog, layout)) { }
+
+        public SessionAuthority(SessionWorld simulation)
         {
-            var feedback = new SessionFeedback();
-            events = new SessionEventJournal(feedback, () => ServerTick);
-            world = new GameSession(catalog, layout, feedback);
-            saveJson = new GameSaveJson(catalog, layout);
+            world = simulation ?? throw new ArgumentNullException(nameof(simulation));
+            events = new SessionEventJournal(world.Feedback, () => ServerTick);
+            world.Activate();
         }
 
         // 服务端握手/恢复凭据验证完成后才调用；slot 0 是服务端配置的房主，不来自请求字段。
@@ -140,7 +140,7 @@ namespace DarkNights.Runtime.Session
             if (gate == SessionResultCode.Applied && !connection.IsHost &&
                 (ControlMode == CampControlMode.HostOnly || SessionOperations.HostRequired(request.Operation)))
                 gate = SessionResultCode.PermissionDenied;
-            if (gate == SessionResultCode.Applied && !SessionOperations.ValidWorld(world, request)) gate = SessionResultCode.InvalidRequest;
+            if (gate == SessionResultCode.Applied && !world.ValidRequest(request)) gate = SessionResultCode.InvalidRequest;
             bool storage = request.Operation == SessionOperation.Save || request.Operation == SessionOperation.BeginLoad || request.Operation == SessionOperation.Restart;
             if (gate == SessionResultCode.Applied && storage && StorageRequest != null) gate = SessionResultCode.Loading;
             if (gate != SessionResultCode.Applied) return Receipt(connection, request, gate);
@@ -156,7 +156,10 @@ namespace DarkNights.Runtime.Session
                 }
             }
             else if (!storage)
-                affected = SessionOperations.Apply(world, request, out entityId);
+            {
+                try { affected = world.Apply(request, out entityId); }
+                catch (SessionOperationException error) { return Receipt(connection, request, error.Code); }
+            }
             Revision = nextRevision;
             var result = Receipt(connection, request, affected > 0 ? SessionResultCode.Applied : SessionResultCode.NoEffect, affected, entityId);
             if (storage)
@@ -183,7 +186,7 @@ namespace DarkNights.Runtime.Session
         {
             CheckThread();
             if (Closed) throw new ObjectDisposedException(nameof(SessionAuthority));
-            return SnapshotMapper.Capture(world);
+            return world.CaptureWorld();
         }
 
         public SessionViewData CaptureProjection()
@@ -200,9 +203,11 @@ namespace DarkNights.Runtime.Session
             try
             {
                 int nextEpoch = checked(Epoch + 1);
-                GameSession restored = saveJson.Restore(json);
+                SessionWorld previous = world;
+                SessionWorld restored = json == null ? world.Restart() : world.Restore(json);
                 events.Dispose();
                 world = restored;
+                if (!ReferenceEquals(previous, restored)) previous.Dispose();
                 events = new SessionEventJournal(world.Feedback, () => ServerTick);
                 projector.Clear();
                 Epoch = nextEpoch;
@@ -217,7 +222,7 @@ namespace DarkNights.Runtime.Session
         public void CompleteRestart(SessionReceipt ticket)
         {
             CheckLoadTicket(ticket);
-            CompleteLoad(ticket, saveJson.Serialize(SnapshotMapper.Capture(new GameSession(world.Catalog, world.Layout))));
+            CompleteLoad(ticket, null);
         }
 
         public void ReleaseStorage(SessionStorageRequest request)
@@ -260,6 +265,7 @@ namespace DarkNights.Runtime.Session
             Closed = true;
             StorageRequest = null;
             events.Dispose();
+            world.Dispose();
             pending.Clear();
             loadTicket = null;
             projector.Clear();

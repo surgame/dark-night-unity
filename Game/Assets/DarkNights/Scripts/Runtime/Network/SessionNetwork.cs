@@ -1,10 +1,12 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using System.IO;
 using Cysharp.Threading.Tasks;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Framework;
 using DarkNights.Runtime.Save;
+using DarkNights.Runtime.Objects;
 using FishNet.Connection;
 using FishNet.Managing;
 using FishNet.Transporting;
@@ -34,6 +36,12 @@ namespace DarkNights.Runtime.Network
         private string lastAddress;
         private ushort lastPort;
         private CampSessionBehaviour activeSession;
+        public ObjectSessionResources ObjectResources { get; private set; }
+        public IReadOnlyList<ObjectPlacement> ObjectPlacements { get; private set; }
+        public ObjectSession ObjectWorld { get; private set; }
+        public ObjectReplica ReplicaObjects { get; private set; }
+        private Transform objectParent;
+        public bool UnifiedObjects => ObjectResources != null;
         public SessionClient Client { get; private set; }
         public SessionServer Server => activeSession?.Server;
         public CampSessionBehaviour ActiveSession => activeSession;
@@ -43,13 +51,17 @@ namespace DarkNights.Runtime.Network
         public string SaveDirectory { get; private set; }
         public event Action<Exception> Failed;
 
-        public void Initialize(NetworkManager networkManager, GameCatalog content, LevelLayout level)
+        public void Initialize(NetworkManager networkManager, GameCatalog content, LevelLayout level,
+            ObjectSessionResources resources = null, IReadOnlyList<ObjectPlacement> placements = null, Transform objectParent = null)
         {
             if (initialized) throw new InvalidOperationException("SessionNetwork already initialized.");
             manager = networkManager;
             if (manager == null) throw new InvalidOperationException("Existing NetworkManager is required.");
             catalog = content;
             layout = level;
+            ObjectResources = resources;
+            ObjectPlacements = placements;
+            this.objectParent = objectParent;
             manager.ClientManager.SetRemoteServerTimeout(RemoteTimeoutType.Development, 15);
             manager.ServerManager.SetRemoteClientTimeout(RemoteTimeoutType.Development, 15);
             manager.TransportManager.Transport.SetTimeout(15, false);
@@ -58,15 +70,29 @@ namespace DarkNights.Runtime.Network
             int saveArgument = Array.IndexOf(args, "--dn-save-dir");
             SaveDirectory = Path.GetFullPath(saveArgument >= 0 && saveArgument + 1 < args.Length
                 ? args[saveArgument + 1] : Path.Combine(Application.persistentDataPath, "Saves"));
+            if (UnifiedObjects) SaveDirectory = Path.Combine(SaveDirectory, "v2");
             var fingerprint = new SaveContentFingerprint(catalog, layout);
             var auth = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
-            auth.Configure(ObjectDefinitionDatabase.Instance, "dark-nights-session-v" + Session.SessionAuthority.ProtocolVersion + ":" + fingerprint.RulesSha256 + ":" + fingerprint.LayoutSha256);
+            string identity = UnifiedObjects ? new ObjectWorldSaveJson(catalog, layout,
+                resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
+                placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition))).IdentitySha256 : "legacy";
+            auth.Configure(ObjectDefinitionDatabase.Instance, "dark-nights-session-v" + Session.SessionAuthority.ProtocolVersion +
+                ":" + fingerprint.RulesSha256 + ":" + fingerprint.LayoutSha256 + ":" + identity);
             manager.ServerManager.SetAuthenticator(auth);
             GenericTypeSerializer<GameCore.Objects.NetworkStates.IStateData>.MaximumPayloadBytes = ProjectionCodec.MaximumBytes + 1024;
             GenericTypeSerializer<INetworkCommand>.MaximumPayloadBytes = 8192;
             NetworkCommandGateway.Instance.RoutingMode = NetworkCommandRoutingMode.ServerAuthoritative;
             NetworkCommandGateway.Instance.Initialize();
             Client = new SessionClient(new ProjectionCodec(catalog, layout));
+            if (UnifiedObjects)
+            {
+                ReplicaObjects = new ObjectReplica(ObjectResources, ObjectPlacements, objectParent);
+                Client.PrepareProjection = frame =>
+                {
+                    if (Hosting) return;
+                    ReplicaObjects.Apply(frame.World, frame.Epoch);
+                };
+            }
             Client.Failed += Fail;
             commands = CommandRouters.LocalInput.SubscribeAwait<SessionCommand>((command, context) => Server?.Handle(command, context) ?? default);
             ready = CommandRouters.LocalInput.SubscribeAwait<SetReadyCommand>((command, context) => Server?.Ready(command, context) ?? default);
@@ -82,6 +108,7 @@ namespace DarkNights.Runtime.Network
             if (!initialized || connecting || manager.IsClientStarted || manager.IsServerStarted) return;
             connecting = true;
             int current = ++attempt;
+            ObjectSession preparing = null;
             try
             {
                 if (host || address != lastAddress || port != lastPort) Client.ClearRecovery();
@@ -99,24 +126,29 @@ namespace DarkNights.Runtime.Network
                         await UniTask.Yield();
                     if (this == null || current != attempt) return;
                     if (!manager.IsServerStarted) throw new TimeoutException("房间启动超时。");
-                    var view = await CreateCurrent(FormalObjectCatalog.SessionKey, current);
+                    if (UnifiedObjects) preparing = new ObjectSession(catalog, layout, ObjectResources,
+                        () => this != null && current == attempt && manager.IsServerStarted, objectParent);
+                    var view = await CreateCurrent(FormalObjectCatalog.SessionKey, current, preparing?.Context);
                     if (this == null || current != attempt) { if (view != null) Destroy(view.gameObject); return; }
                     if (view == null) throw new InvalidOperationException("正式会话对象创建失败。");
+                    preparing?.Prepare(view.Owner, ObjectPlacements);
                     var behaviour = view.Owner.GetAllBehaviors().OfType<WorldSessionBehaviour>().Single();
                     var session = view.Owner.GetAllBehaviors().OfType<CampSessionBehaviour>().Single();
                     if (activeSession != null) throw new InvalidOperationException("A session object is already active.");
                     activeSession = session;
+                    ObjectWorld = preparing;
                     session.Configure(catalog, layout, behaviour, SaveDirectory,
-                        source => { if (current == attempt && ReferenceEquals(activeSession, source)) activeSession = null; },
+                        source => { if (current == attempt && ReferenceEquals(activeSession, source)) { activeSession = null; ObjectWorld = null; } },
                         error => { if (current == attempt) Fail(error); },
                         Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-metrics") >= 0,
-                        Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-projection-pressure") >= 0);
+                        Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-projection-pressure") >= 0, preparing);
+                    preparing = null;
                 }
                 Status = "正在连接";
                 if (!manager.ClientManager.StartConnection()) throw new InvalidOperationException("无法启动客户端。");
             }
             catch (Exception error) { if (current == attempt) Fail(error); }
-            finally { if (current == attempt) connecting = false; }
+            finally { preparing?.Dispose(); if (current == attempt) connecting = false; }
         }
 
         private async void Loaded(NetworkConnection connection, bool asServer)
@@ -150,7 +182,7 @@ namespace DarkNights.Runtime.Network
             if (Server?.Authority.Closed == true) Disconnect();
         }
 
-        private async UniTask<ObjectView> CreateCurrent(string key, int current)
+        private async UniTask<ObjectView> CreateCurrent(string key, int current, ObjectSessionContext objectSession = null)
         {
             var definition = ObjectDefinitionDatabase.Instance.GetDefinitionByKey(key);
             // 锁定的 YYGC 工厂唯一 await 是该缓存加载。先完成它，再检查代次；命中缓存后的
@@ -158,7 +190,8 @@ namespace DarkNights.Runtime.Network
             var prefab = await FastInstantiator.GetOrLoadComponentAsync<ObjectView>(definition.PrefabRef);
             if (this == null || current != attempt || !manager.IsServerStarted) return null;
             if (prefab == null) throw new InvalidOperationException("正式对象资源加载失败：" + key);
-            return await ObjectInstanceFactory.CreateObjectInstanceAsync(definition, Vector3.zero, Quaternion.identity);
+            return await ObjectInstanceFactory.CreateObjectInstanceAsync(definition, Vector3.zero, Quaternion.identity,
+                session: objectSession, activate: objectSession == null);
         }
 
         private void ClientState(ClientConnectionStateArgs args)
@@ -199,6 +232,8 @@ namespace DarkNights.Runtime.Network
             var previous = activeSession;
             activeSession = null;
             previous?.StopServer();
+            ObjectWorld = null;
+            ReplicaObjects?.Clear();
             Client?.Dispose();
             if (manager != null)
             {
@@ -227,6 +262,8 @@ namespace DarkNights.Runtime.Network
             manager.ClientManager.OnClientConnectionState -= ClientState;
             manager.ServerManager.OnServerConnectionState -= ServerState;
             Client.Failed -= Fail;
+            ReplicaObjects?.Dispose();
+            ObjectResources?.Dispose();
         }
     }
 }

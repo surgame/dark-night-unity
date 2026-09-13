@@ -528,6 +528,7 @@ MonoBehaviour:
   spawnOrder: 0
   variant: 1
   actorName: 
+  placementKey: e86e285c1e3e4a73bde48b8c353142bf
 --- !u!114 &94634091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -681,6 +682,7 @@ MonoBehaviour:
   spawnOrder: 2
   variant: 2
   actorName: 
+  placementKey: 45e159c7fa204f0bac5b16de9cd076d9
 --- !u!114 &104232891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -957,6 +959,7 @@ MonoBehaviour:
   spawnOrder: 3
   variant: 0
   actorName: "\u4F0A\u6069"
+  placementKey: 7ab1d353c82b4271963166f383860636
 --- !u!114 &180321811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1591,6 +1594,7 @@ MonoBehaviour:
   spawnOrder: 4
   variant: 0
   actorName: 
+  placementKey: 2e2bdf486d3c4a0ebd958763fd9a464b
 --- !u!114 &381773907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1827,6 +1831,7 @@ MonoBehaviour:
   spawnOrder: 1
   variant: 0
   actorName: 
+  placementKey: b886bdf9c9fc4755a38446ae90ccb1e3
 --- !u!114 &406491189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2059,6 +2064,7 @@ MonoBehaviour:
   spawnOrder: 3
   variant: 0
   actorName: 
+  placementKey: bd71ac292b144914ba509421391594dd
 --- !u!114 &507886915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2394,6 +2400,7 @@ MonoBehaviour:
   spawnOrder: 2
   variant: 0
   actorName: "\u7C73\u5A05"
+  placementKey: ae3f78208632474fbea91e04bc884c28
 --- !u!114 &585265858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2547,6 +2554,7 @@ MonoBehaviour:
   spawnOrder: 1
   variant: 0
   actorName: "\u7F57\u6069"
+  placementKey: 9ea4d7b771454f7f9c1f732d1123ade2
 --- !u!114 &586185752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2688,6 +2696,7 @@ MonoBehaviour:
   spawnOrder: 6
   variant: 0
   actorName: "\u8587\u62C9"
+  placementKey: 46bd476b318f4dc3acee088d42f247bd
 --- !u!114 &607226020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2927,6 +2936,7 @@ MonoBehaviour:
   spawnOrder: 3
   variant: 0
   actorName: 
+  placementKey: 8c7c43469284476d8e5b60e997016bb6
 --- !u!114 &663195585
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3080,6 +3090,7 @@ MonoBehaviour:
   spawnOrder: 5
   variant: 0
   actorName: "\u5965\u65AF"
+  placementKey: c1dde3ec72744c4cb7270747ad872847
 --- !u!114 &710232304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3312,6 +3323,7 @@ MonoBehaviour:
   spawnOrder: 2
   variant: 0
   actorName: 
+  placementKey: ee472c3b25214e3bb473b69f95872a60
 --- !u!114 &737933989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4764,6 +4776,7 @@ MonoBehaviour:
   spawnOrder: 0
   variant: 0
   actorName: 
+  placementKey: a8746b56d4374852beb65290c567d95d
 --- !u!114 &1108225937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6747,6 +6760,7 @@ MonoBehaviour:
   spawnOrder: 1
   variant: 0
   actorName: 
+  placementKey: 5590223991bf4753ac72bccd470baa15
 --- !u!114 &1728887853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6901,6 +6915,7 @@ MonoBehaviour:
   spawnOrder: 0
   variant: 0
   actorName: "\u827E\u8FBE"
+  placementKey: a2bf7726357147529a173368622325c4
 --- !u!114 &1736388031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7428,6 +7443,7 @@ MonoBehaviour:
   spawnOrder: 4
   variant: 0
   actorName: "\u8389\u5A1C"
+  placementKey: e5ca074660bf4beab22d9058bb2e2e38
 --- !u!114 &1865764848
 MonoBehaviour:
   m_ObjectHideFlags: 0

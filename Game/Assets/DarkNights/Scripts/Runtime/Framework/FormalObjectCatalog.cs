@@ -14,7 +14,7 @@ namespace DarkNights.Runtime.Framework
     /// </summary>
     public static class FormalObjectCatalog
     {
-        public const int Protocol = 5;
+        public const int Protocol = 6;
         public const string RegistryProject = "DNights";
         public const string SessionKey = "session.pinewatch";
         public const string WorkerKey = "unit.worker";

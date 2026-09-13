@@ -12,10 +12,10 @@ index bfee798..bb5849b 100644
                  .Select(type => type.FullName)
                  .ToArray();
 diff --git a/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs b/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs
-index 043e89a..f36ca77 100644
+index 7f7f23f..9409b29 100644
 --- a/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs
 +++ b/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs
-@@ -69,6 +69,8 @@ namespace GameCore.Objects.NetworkStates
+@@ -70,6 +70,8 @@ namespace GameCore.Objects.NetworkStates
  
              var registeredTypes = new HashSet<Type>(GenericTypeRegistry<IStateData>.RegisteredTypes);
              var missingTypes = discoverableTypes

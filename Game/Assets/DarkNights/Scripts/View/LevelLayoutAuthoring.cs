@@ -39,6 +39,9 @@ namespace DarkNights.View
         public LevelLayout CreateLayout(GameCatalog catalog, Func<ObjectDefinition, string> ruleKind)
         {
             RequireReferences();
+            var placementKeys = GetComponentsInChildren<LevelPlacementMarker>(true).Select(m => m.PlacementKey).ToArray();
+            if (placementKeys.Any(string.IsNullOrWhiteSpace) || placementKeys.Distinct().Count() != placementKeys.Length)
+                throw new InvalidOperationException("Scene placement keys must be present and unique.");
             Vector3 ground = Local(groundBaseline);
             if (Math.Abs(ground.x) > AlignmentTolerance)
                 throw new InvalidOperationException("The gameplay ground baseline must start at world x=0.");
@@ -72,7 +75,7 @@ namespace DarkNights.View
                 Vector3 point = Local(marker.Loader.transform);
                 if (definition == null || definition.Type != expected || Math.Abs(point.y - groundY) > AlignmentTolerance)
                     throw new InvalidOperationException(marker.name + " has the wrong category or ground alignment.");
-                entries.Add(new PlacementDefinition(ruleKind(definition), point.x, marker.Variant, marker.ActorName));
+                entries.Add(new PlacementDefinition(ruleKind(definition), point.x, marker.Variant, marker.ActorName, marker.PlacementKey));
             }
             return entries.AsReadOnly();
         }

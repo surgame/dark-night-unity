@@ -6,6 +6,8 @@ using Cysharp.Threading.Tasks;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Network;
 using DarkNights.Runtime.Framework;
+using DarkNights.Runtime.Objects;
+using GameCore.Objects.Definition;
 using DarkNights.View;
 using FishNet;
 using Runtime.AppStartup;
@@ -53,11 +55,29 @@ namespace DarkNights.Entry
             var network = context.GetOrCreateChild("Dark Nights Session").gameObject.AddComponent<SessionNetwork>();
             context.Register(network);
             context.Register(layout);
-            network.Initialize(InstanceFinder.NetworkManager, catalog, layout);
             PinewatchStage stage = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<PinewatchStage>(true)).Single();
+            bool unified = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-unified-slice") >= 0;
+#if UNITY_EDITOR
+            unified |= UnityEditor.SessionState.GetBool("DarkNights.UnifiedSlice", false);
+#endif
+            ObjectSessionResources resources = null;
+            ObjectPlacement[] placements = null;
+            if (unified)
+            {
+                var entries = layout.Buildings.Concat(layout.Worksites).Concat(layout.Actors)
+                    .Where(p => p.Kind == "tavern" || p.Kind == "house" || p.Kind == "wood" || p.Kind == "worker").ToArray();
+                var markers = authoring.GetComponentsInChildren<LevelPlacementMarker>(true).ToDictionary(m => m.PlacementKey);
+                var definitions = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance);
+                placements = entries.Select(p => new ObjectPlacement(p.PlacementKey, definitions.GetRequired(p.Kind),
+                    p.X, p.Variant, p.Name, markers[p.PlacementKey].Loader)).ToArray();
+                foreach (LevelPlacementMarker marker in markers.Values) marker.gameObject.SetActive(false);
+                resources = await ObjectSessionResources.Prepare(new[] { "tavern", "house", "wood", "worker" }
+                    .Select(definitions.GetRequired).ToArray(), cancellationToken);
+            }
+            network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements, stage.Entities);
             stage.Initialize(layout);
             var entities = network.gameObject.AddComponent<SessionEntityViews>();
-            entities.Initialize(network.Client, catalog, stage, authoring);
+            entities.Initialize(network.Client, catalog, stage, authoring, network);
             var ui = network.gameObject.AddComponent<SessionUiController>();
             await ui.Initialize(network, catalog, stage, entities);
             network.gameObject.AddComponent<SessionPlacementView>().Initialize(network.Client, entities, ui.Input, stage, catalog, layout);

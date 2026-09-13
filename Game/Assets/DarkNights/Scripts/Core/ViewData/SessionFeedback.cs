@@ -26,6 +26,6 @@ namespace DarkNights.Core.ViewData
 
         public void Emit(VisualCue cue) => Effect?.Invoke(cue);
 
-        internal void Reset() => LastMessage = "";
+        public void Reset() => LastMessage = "";
     }
 }

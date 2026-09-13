@@ -26,7 +26,8 @@
     "VitalRouter.dll",
     "Newtonsoft.Json.dll",
     "nunit.framework.dll",
-    "R3.dll"
+    "R3.dll",
+    "Sirenix.OdinInspector.Editor.dll"
   ],
   "autoReferenced": false
 }

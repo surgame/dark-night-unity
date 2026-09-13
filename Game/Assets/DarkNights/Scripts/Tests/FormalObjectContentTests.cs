@@ -75,7 +75,8 @@ namespace DarkNights.Tests
                 instance.Initialize("editor-session-contract", session, root.GetComponent<StateSynchronizer>());
                 Assert.That(instance.GetBehaviour<WorldSessionBehaviour>(), Is.Not.Null);
                 Assert.That(instance.GetBehaviour<CampSessionBehaviour>(), Is.Not.Null);
-                Assert.That(instance.GetAllBehaviors().OfType<IStatefulBehaviour>().Count(), Is.EqualTo(1));
+                Assert.That(instance.GetAllBehaviors().OfType<IStatefulBehaviour>()
+                    .Count(b => b.NetworkMode != SyncMode.Session), Is.EqualTo(1));
                 var link = root.GetComponent<SessionObjectLink>();
                 Assert.That(link.Instance, Is.SameAs(instance));
                 Assert.That(link.Synchronizer, Is.SameAs(root.GetComponent<StateSynchronizer>()));

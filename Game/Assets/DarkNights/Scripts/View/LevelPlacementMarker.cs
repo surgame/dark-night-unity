@@ -16,12 +16,14 @@ namespace DarkNights.View
         [SerializeField] private int spawnOrder;
         [SerializeField] private int variant;
         [SerializeField] private string actorName = "";
+        [SerializeField] private string placementKey = "";
 
         public ObjectDefinitionLoader Loader => loader;
         public ObjectView View => view;
         public int SpawnOrder => spawnOrder;
         public int Variant => variant;
         public string ActorName => actorName;
+        public string PlacementKey => placementKey;
 
 #if UNITY_EDITOR
         public void EditorConfigure(ObjectDefinitionLoader source, ObjectView owner, int order, int appearance, string initialName)
@@ -31,6 +33,12 @@ namespace DarkNights.View
             spawnOrder = order;
             variant = appearance;
             actorName = initialName;
+            EditorEnsurePlacementKey();
+        }
+
+        public void EditorEnsurePlacementKey()
+        {
+            if (string.IsNullOrEmpty(placementKey)) placementKey = System.Guid.NewGuid().ToString("N");
         }
 #endif
 

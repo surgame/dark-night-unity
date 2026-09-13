@@ -1,0 +1,120 @@
+{
+  "stage": "U2",
+  "status": "complete",
+  "gameBranch": "codex/yygc-unified-object-migration",
+  "gameInputCommit": "5a91245",
+  "frameworkCommit": "0305eb74bbc2677a3d9025f684d8ded16481be4a",
+  "frameworkUserCheckout": "D:/Developer/YYGC",
+  "frameworkFiles": [
+    "Documentation~/OBJECT_SESSION_LIFECYCLE.md",
+    "Runtime/Objects/NetworkStates/SessionStateChange.cs",
+    "Runtime/Objects/NetworkStates/SessionStateChange.cs.meta",
+    "Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs",
+    "Runtime/Objects/NetworkStates/StateSynchronizer.cs",
+    "Runtime/Objects/NetworkStates/StatefulBehaviour.cs",
+    "Runtime/Objects/Runner/ObjectDefinitionLoader.cs",
+    "Runtime/Objects/Runner/ObjectInstance.cs",
+    "Runtime/Objects/Runner/ObjectInstanceFactory.cs",
+    "Runtime/Objects/Runner/ObjectSessionContext.cs"
+  ],
+  "validation": {
+    "core": {
+      "failed": 0,
+      "checks": 1361
+    },
+    "architecture": {
+      "selfTests": 10,
+      "errors": 0,
+      "files": 285
+    },
+    "editor": {
+      "unresolvedFailures": 0,
+      "singleRunAllPassed": false,
+      "initialRunPassed": 125,
+      "followup": "artifacts/yygc-unified/u2/native-art-3-passed.json",
+      "distinctCovered": 126,
+      "initialRunFailed": 1,
+      "initialXml": "artifacts/yygc-unified/u2/editor-126-first.xml",
+      "followupNativeArtPassed": 3
+    },
+    "formalPlay": {
+      "tests": 2,
+      "domainReload": [
+        "on",
+        "off"
+      ],
+      "passed": 2,
+      "repeatedEntries": 4
+    },
+    "playerAssembly": {
+      "passed": 14,
+      "report": "artifacts/yygc-unified/u2/player-assembly.json"
+    },
+    "slice": {
+      "processes": 3,
+      "passed": 26,
+      "report": "artifacts/yygc-unified/u2/player-20260913-112038-927/result.json",
+      "driverFailureThenSameBinaryRetest": true
+    },
+    "sample": {
+      "processes": 4,
+      "passed": 30,
+      "report": "artifacts/lan-sample/run-20260913-111924/result.json"
+    }
+  },
+  "builds": {
+    "sampleMono": 1,
+    "formalMono": 1,
+    "il2cpp": 0
+  },
+  "binaries": [
+    {
+      "path": "artifacts/migration/player-mono/DarkNights.exe",
+      "sha256": "93C19F9E7C681845D34407807D33B6438E781DD34C4D8895EBDF2C6FB083711D"
+    },
+    {
+      "path": "artifacts/migration/player-mono/DarkNights_Data/Managed/DarkNights.Runtime.dll",
+      "sha256": "8BD3CB7D2A2CFCC8D6F264D6D0FD212043051D449A4B8DEA5FE688EE0FCA8723"
+    },
+    {
+      "path": "artifacts/migration/player-mono/DarkNights_Data/Managed/DarkNights.Entry.dll",
+      "sha256": "2A9EB6968BD4EC5B56DBC2977C5D316BC6D1DB8BD6482A31CD0383EC4C87091A"
+    },
+    {
+      "path": "artifacts/migration/player-mono/DarkNights_Data/Managed/GameCore.Runtime.dll",
+      "sha256": "06EBDBFA69E3FAAEABBFBC3646859373A39504CAE3B2E778CFE881E0408C66D3"
+    },
+    {
+      "path": "artifacts/lan-sample/player/LanCoop_Data/Managed/GameCore.Runtime.dll",
+      "sha256": "06EBDBFA69E3FAAEABBFBC3646859373A39504CAE3B2E778CFE881E0408C66D3"
+    }
+  ],
+  "cleanup": {
+    "Phase": "U2",
+    "Method": "dotnet clean",
+    "Paths": [
+      "tools/CoreRegression/bin",
+      "tools/CoreRegression/obj",
+      "tools/CoreBuild/bin",
+      "tools/CoreBuild/obj",
+      "tools/ArchitectureGuard/bin",
+      "tools/ArchitectureGuard/obj"
+    ],
+    "BeforeBytes": 37946441,
+    "AfterBytes": 300481,
+    "ReleasedBytes": 37645960,
+    "FreeC": 14960672768,
+    "FreeD": 28612423680,
+    "Retained": "Active Editor import cache and two Players for reuse; prior WinPlayerBuildProgram removal rejection respected"
+  },
+  "limits": [
+    "Only Worker/Trees/House/base Tavern; U3-U6 pending",
+    "No U2 performance or weak-network claim",
+    "IL2CPP and two-machine LAN not validated"
+  ],
+  "content": {
+    "prefabAnimationOriginalPixelChanges": 0,
+    "sceneChange": "16 placement keys only"
+  },
+  "dependencyPreparation": "Exact locked commit plus six existing overlay files and SampleAssemblyAccess verified"
+}

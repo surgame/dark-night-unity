@@ -36,7 +36,12 @@ MonoBehaviour:
   UseMonolithicPooling: 0
   BehaviourTypes:
   - DarkNights.View.ActorPresentationBehaviour
-  SharedConfigs: []
+  SharedConfigs:
+  - rid: 6961529563483734173
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6961529563483734173
+      type: {class: ActorRuleConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        RuleKey: zombie

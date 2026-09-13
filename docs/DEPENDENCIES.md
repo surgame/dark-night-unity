@@ -1,5 +1,7 @@
 # Unity 与 YYGC 依赖准备
 
+2026-09-13 U2 当前锁定 `0305eb74bbc2677a3d9025f684d8ded16481be4a`；准备脚本精确核验 `.deps/YYGC-unified` 与既有补丁通过，UPM manifest／lock 路径不变。网络会话上下文、批量状态提交和注册校验修正已通过真实 Play、正式 Mono 三进程 26/26、Mono 装配 14/14 及独立四进程 Sample 30/30，见 [U2 账本](YYGC_CHANGES.md#unified-u2)。下文保留历史版本记录。
+
 2026-09-13 场景入口修复：当前锁定 `ccd61e01f15332b1197cfa5ee72af8777c4a0b49`。Loader、GUID 拖拽与分类增补已编译，回归等待用户确认；完整文件清单见[账本](YYGC_CHANGES.md#scene-definitions)。既有隔离路径与补丁保留，下方 2026-09-12 记录为历史版本。
 
 2026-09-12 恢复批次新增：先运行 `tools/prepare-fishnet.ps1`，UPM 从 `.deps/FishNet/Assets/FishNet` 使用原 4.7.2 提交 `de19b5d66459f60400ffd0edc443c4da173a01e7` 和两行分片生命周期修补；源码、补丁与失败证据见[恢复接入](NETWORK_RECOVERY.md)。不改 Library 缓存或用户框架仓库。`tools/prepare-lan-sample.ps1` 仍负责 YYGC 的已有两项正式 UI 修正及此前 Sample 隔离补丁。

@@ -1,0 +1,93 @@
+using System;
+using DarkNights.Core.Config;
+using DarkNights.Core.Logic.State;
+using GameCore.Objects.Runner.DI;
+
+namespace DarkNights.Runtime.Objects
+{
+    /// <summary>
+    /// YYGC 单位家族的状态所有者；订单、行动时钟和工位关系只写 ActorState。
+    /// 移动能力复用同一状态，会话按照固定顺序调用 Tick；不创建或引用旧 Core Actor。
+    /// </summary>
+    [RequireConfig(typeof(ActorRuleConfig))]
+    public sealed partial class ActorBehaviour : SessionStateBehaviour<ActorState>, IActorCapability
+    {
+        [Inject] private ActorRuleConfig config;
+        [Inject] private IMovementCapability movement;
+        public int Id => Current?.Id ?? 0;
+        public string RuleKey => config.RuleKey;
+        public string DefinitionGuid => Object.Definition.Guid.ToString();
+        public string PlacementKey => Current?.PlacementKey ?? "";
+        public UnitDefinition Definition => Session.Catalog.Balance.Units[RuleKey];
+        public float X => Current.X;
+        public double Hp => Current.Hp;
+        public bool Enemy => Current.Enemy;
+        public string Name => Current.Name;
+        public ActorActivity Activity => Current.Activity;
+        public int TargetId => Current.TargetId;
+        public bool IsTraining => Activity == ActorActivity.Training || Activity == ActorActivity.TrainingMove;
+
+        protected override void OnReset()
+        {
+            base.OnReset();
+            if (config == null || string.IsNullOrWhiteSpace(config.RuleKey) || movement == null)
+                throw new InvalidOperationException("Actor requires a RuleKey and movement capability.");
+            if (Session != null && !Session.Catalog.Balance.Units.ContainsKey(config.RuleKey))
+                throw new InvalidOperationException("Unknown actor RuleKey: " + config.RuleKey);
+        }
+
+        internal void Prepare(int id, float x, string placement, bool enemy, string name)
+        {
+            PrepareState(new ActorState
+            {
+                Id = id, PlacementKey = placement, X = x, Hp = Definition.Hp,
+                Enemy = enemy, Name = string.IsNullOrEmpty(name) ? Definition.Name : name,
+                Activity = ActorActivity.Idle, MoveX = x, RallyX = x,
+                Face = enemy ? -1 : 1, AiClock = id * 0.07 % 0.25
+            });
+        }
+
+        internal void OrderMove(float x)
+        {
+            if (IsTraining) return;
+            Session.Work.Clear(this);
+            ActorState state = Edit();
+            state.MoveX = Math.Clamp(x, 16, Session.Layout.WorldWidth - 16);
+            state.RallyX = state.MoveX;
+            state.Activity = ActorActivity.Move;
+        }
+
+        internal void Tick(double delta)
+        {
+            if (Hp <= 0) return;
+            ActorState state = Edit();
+            state.ActionTime += delta;
+            state.AttackClock = Math.Max(0, state.AttackClock - delta);
+            state.HitFlash = Math.Max(0, state.HitFlash - delta);
+            state.AiClock = Math.Max(0, state.AiClock - delta);
+            state.Walking = false;
+            if (state.Activity == ActorActivity.WorkMove || state.Activity == ActorActivity.Work ||
+                state.Activity == ActorActivity.BuildMove || state.Activity == ActorActivity.Build)
+            {
+                IEntityBehaviour workplace = Session.Index.Find(state.TargetId);
+                int owner = workplace is WorksiteBehaviour site ? site.WorkerId :
+                    workplace is BuildingBehaviour building ? building.WorkerId : 0;
+                if (workplace == null || owner != Id) Session.Work.Clear(this);
+                else if (state.Activity == ActorActivity.WorkMove || state.Activity == ActorActivity.BuildMove)
+                {
+                    if (movement.MoveTo(workplace.X - 10, delta))
+                    {
+                        state.Activity = state.Activity == ActorActivity.WorkMove ? ActorActivity.Work : ActorActivity.Build;
+                        state.ActionTime = 0;
+                    }
+                }
+                else state.Face = 1;
+            }
+            if (state.Activity == ActorActivity.Move)
+            {
+                if (movement.MoveTo(state.MoveX, delta)) state.Activity = ActorActivity.Idle;
+            }
+            else if (state.AiClock <= 0) state.AiClock = 0.25;
+        }
+    }
+}

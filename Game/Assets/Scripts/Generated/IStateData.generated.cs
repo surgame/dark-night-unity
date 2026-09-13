@@ -16,6 +16,11 @@ namespace YYGC.Generated
         private static void RegisterTypes()
         {
             GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Network.SessionStatusState>(0);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.EconomyState>(1);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.WorksiteState>(2);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.CampSimulationState>(3);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.ActorState>(4);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.BuildingState>(5);
         }
     }
 }

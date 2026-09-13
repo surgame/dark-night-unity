@@ -36,7 +36,12 @@ MonoBehaviour:
   UseMonolithicPooling: 0
   BehaviourTypes:
   - DarkNights.View.BuildingPresentationBehaviour
-  SharedConfigs: []
+  SharedConfigs:
+  - rid: 6961529563483734169
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6961529563483734169
+      type: {class: BuildingRuleConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        RuleKey: barracks

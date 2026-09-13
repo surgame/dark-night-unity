@@ -32,11 +32,23 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 0
-  Archetype: {fileID: 0}
+  Archetype: {fileID: 11400000, guid: a8889a7057cea1044a96bb9b701cbbcd, type: 2}
   UseMonolithicPooling: 0
   BehaviourTypes:
   - DarkNights.View.ActorPresentationBehaviour
-  SharedConfigs: []
+  - DarkNights.Runtime.Objects.ActorBehaviour
+  - DarkNights.Runtime.Objects.MovementBehaviour
+  SharedConfigs:
+  - rid: 6961529563483734170
+  - rid: 6961529563483734171
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6961529563483734170
+      type: {class: ActorRuleConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        RuleKey: worker
+    - rid: 6961529563483734171
+      type: {class: MovementConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        ArrivalDistance: 0.8

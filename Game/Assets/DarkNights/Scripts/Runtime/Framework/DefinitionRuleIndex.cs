@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DarkNights.Core.Config;
+using DarkNights.Runtime.Objects;
 using GameCore.Objects.Definition;
 using GameCore.Objects.Types;
 
@@ -24,7 +25,7 @@ namespace DarkNights.Runtime.Framework
             foreach (ObjectDefinition definition in database.Definitions)
             {
                 if (definition == null) throw new InvalidOperationException("Null object definition.");
-                if (TypeForKey(definition.Key) == ObjectType.None) continue;
+                if (!IsEntityType(definition.Type)) continue;
                 string kind = Kind(definition);
                 if (!definition.isLocal || definition.Guid.IsEmpty || definition.PrefabRef == null ||
                     !definition.PrefabRef.RuntimeKeyIsValid() || !definitions.TryAdd(kind, definition))
@@ -52,14 +53,17 @@ namespace DarkNights.Runtime.Framework
         public static string Kind(ObjectDefinition definition)
         {
             if (definition == null) throw new InvalidOperationException("Placement definition is missing.");
-            ObjectType expected = TypeForKey(definition.Key);
-            if (expected == ObjectType.None || definition.Type != expected)
-                throw new InvalidOperationException("Definition Type and rule Key disagree: " + definition.Key);
-            string kind = definition.Key.Substring(definition.Key.IndexOf('.') + 1);
-            if (string.IsNullOrWhiteSpace(kind) || kind.Contains("."))
-                throw new InvalidOperationException("Invalid legacy rule suffix: " + definition.Key);
-            return kind;
+            if (!IsEntityType(definition.Type)) throw new InvalidOperationException("Definition is not an entity.");
+            string ruleKey = ObjectSessionResources.Rule(definition);
+            bool family = definition.Type == ObjectType.Unit && definition.SharedConfigs.Exists(c => c is ActorRuleConfig) ||
+                definition.Type == ObjectType.Placeable_CompositeStructure && definition.SharedConfigs.Exists(c => c is BuildingRuleConfig) ||
+                definition.Type == ObjectType.Scenery_ResourceNode && definition.SharedConfigs.Exists(c => c is WorksiteRuleConfig);
+            if (!family || string.IsNullOrWhiteSpace(ruleKey)) throw new InvalidOperationException("RuleKey family does not match definition.");
+            return ruleKey;
         }
+
+        public static bool IsEntityType(ObjectType type) => type == ObjectType.Unit ||
+            type == ObjectType.Placeable_CompositeStructure || type == ObjectType.Scenery_ResourceNode;
 
         public static ObjectType TypeForKey(string key)
         {

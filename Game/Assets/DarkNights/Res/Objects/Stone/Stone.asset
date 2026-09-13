@@ -36,7 +36,12 @@ MonoBehaviour:
   UseMonolithicPooling: 0
   BehaviourTypes:
   - DarkNights.View.WorksitePresentationBehaviour
-  SharedConfigs: []
+  SharedConfigs:
+  - rid: 6961529563483734168
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6961529563483734168
+      type: {class: WorksiteRuleConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        RuleKey: stone

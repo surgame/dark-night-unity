@@ -38,7 +38,8 @@ namespace DarkNights.Tests
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(definition.PrefabRef.AssetGUID));
                 var visual = prefab.GetComponent<ObjectView>().Get<NativeVisual>("visual");
                 Assert.That(visual, Is.Not.Null);
-                Assert.That(visual.Portrait, Is.SameAs(NativeAnimationBuilder.Sprite((string)spec["portrait"])));
+                // Play／资源重载可以产生不同托管包装；Unity 原生身份仍须指向完全相同的 Sprite。
+                Assert.That(visual.Portrait == NativeAnimationBuilder.Sprite((string)spec["portrait"]), Is.True, name);
             }
         }
 
@@ -109,7 +110,7 @@ namespace DarkNights.Tests
                                 string property = (string)track["property"];
                                 string context = name + "/" + clip.Name + "/" + track["path"] + "/" + i;
                                 if (property == "texture")
-                                    Assert.That(art.GetComponent<SpriteRenderer>().sprite, Is.SameAs(NativeAnimationBuilder.Sprite((string)values[i])), context);
+                                    Assert.That(art.GetComponent<SpriteRenderer>().sprite == NativeAnimationBuilder.Sprite((string)values[i]), Is.True, context);
                                 else if (property == "visible")
                                     Assert.That(art.GetComponent<SpriteRenderer>().enabled, Is.EqualTo((bool)values[i]), context);
                                 else

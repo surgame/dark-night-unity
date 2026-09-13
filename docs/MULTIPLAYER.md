@@ -1,6 +1,6 @@
 # Dark Nights 合作联机设计
 
-2026-09-13 新重构目标见 [YYGC 统一对象执行计划](YYGC_UNIFIED_REFACTOR_PLAN.md)：权威状态从 Core 实体迁入 YYGC 业务 Behaviour，继续复用可信命令链、会话完整投影、Ready、epoch、恢复凭据和共享控制语义。计划使用游戏协议 6／新档 v2，拒绝协议 5 及旧档，不新增旧版适配；不强制逐实体 NetworkObject。**这些尚未实施，当前实现仍为下述协议 5**，已有通过记录不覆盖新架构。
+2026-09-13 新重构目标见 [YYGC 统一对象执行计划](YYGC_UNIFIED_REFACTOR_PLAN.md)：权威状态从 Core 实体迁入 YYGC 业务 Behaviour，继续复用可信命令链、会话完整投影、Ready、epoch、恢复凭据和共享控制语义。计划使用游戏协议 6／新档 v2，拒绝协议 5 及旧档，不新增旧版适配；不强制逐实体 NetworkObject。**U2 已接入协议 6／v2 切片并通过三进程 26/26；完整业务及正式入口仍待 U3–U4**。下文协议 5 的记录保留历史时点，不作为新架构通过证据。
 
 2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已通过 Windows Host＋3 客户端的共享交易、工位、权限、Ready、epoch、暂停、晚加入／重连和真实 UDP 弱网验证。本页完整游戏协议仍为设计，Steam、双机器和正式玩法未验收。
 

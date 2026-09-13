@@ -57,6 +57,10 @@ namespace DarkNights.Editor
 
         public static void ValidatePlacement(LevelPlacementMarker placement)
         {
+            if (string.IsNullOrWhiteSpace(placement.PlacementKey) || placement.gameObject.scene.GetRootGameObjects()
+                .SelectMany(root => root.GetComponentsInChildren<LevelPlacementMarker>(true))
+                .Count(other => other.PlacementKey == placement.PlacementKey) != 1)
+                throw new InvalidOperationException("Placement key is missing or duplicated: " + placement.name);
             if (placement.Loader == null || placement.View == null ||
                 placement.Loader.gameObject != placement.gameObject || placement.View.gameObject != placement.gameObject)
                 throw new InvalidOperationException("Placement must reference its own Loader and ObjectView: " + placement.name);
@@ -70,7 +74,7 @@ namespace DarkNights.Editor
         private static void OnCreated(ObjectDefinitionLoader loader)
         {
             ObjectDefinition definition = loader.ResolveDefinition();
-            if (definition == null || DefinitionRuleIndex.TypeForKey(definition.Key) == GameCore.Objects.Types.ObjectType.None) return;
+            if (definition == null || !DefinitionRuleIndex.IsEntityType(definition.Type)) return;
             LevelLayoutAuthoring[] layouts = loader.gameObject.scene.GetRootGameObjects()
                 .SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).ToArray();
             if (layouts.Length != 1) throw new InvalidOperationException("Place a game definition in a scene with exactly one level authoring root.");

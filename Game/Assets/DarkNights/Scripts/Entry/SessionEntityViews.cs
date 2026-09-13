@@ -21,6 +21,7 @@ namespace DarkNights.Entry
     public sealed class SessionEntityViews : MonoBehaviour, IEntityVisuals
     {
         private SessionClient client;
+        private SessionNetwork network;
         private GameCatalog catalog;
         private PinewatchStage stage;
         private DefinitionRuleIndex definitions;
@@ -69,14 +70,16 @@ namespace DarkNights.Entry
             Destroy(owner.gameObject);
         }
 
-        public void Initialize(SessionClient value, GameCatalog rules, PinewatchStage scene, LevelLayoutAuthoring authoring)
+        public void Initialize(SessionClient value, GameCatalog rules, PinewatchStage scene, LevelLayoutAuthoring authoring,
+            SessionNetwork network = null)
         {
+            this.network = network;
             client = value;
             catalog = rules;
             stage = scene;
             definitions = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance);
             definitions.Validate(rules);
-            sceneViews = new SceneEntityViews(authoring, stage.Entities);
+            if (network?.UnifiedObjects != true) sceneViews = new SceneEntityViews(authoring, stage.Entities);
         }
 
         private void Update()
@@ -126,7 +129,11 @@ namespace DarkNights.Entry
             ObjectView owner = null;
             try
             {
-                owner = sceneViews.Borrow(kind);
+                if (network?.UnifiedObjects == true)
+                    owner = network.Hosting ? network.ObjectWorld?.Index.Find(id)?.Object.ObjectView : network.ReplicaObjects.View(id);
+                else owner = sceneViews.Borrow(kind);
+                if (network?.UnifiedObjects == true && owner == null)
+                    throw new InvalidOperationException("World object was not prepared before presentation: " + id);
                 if (owner == null) owner = await CreateVisual(kind);
                 if (!Current(id, kind, captured, ticket)) { ReleaseEntity(owner); return; }
                 EntityPresentationBehaviour presentation = RequiredPresentation(owner);
@@ -209,6 +216,7 @@ namespace DarkNights.Entry
 
         private void ReleaseEntity(ObjectView owner)
         {
+            if (network?.UnifiedObjects == true) return;
             if (owner != null && (sceneViews == null || !sceneViews.Return(owner))) Release(owner);
         }
 

@@ -18,14 +18,17 @@ namespace DarkNights.Runtime.Save
         public const int SlotCount = 10;
         private readonly string directory;
         private readonly GameSaveJson codec;
+        private readonly Func<SessionSnapshot, string> serialize;
         private readonly object gate = new object();
         private static readonly UTF8Encoding Utf8 = new UTF8Encoding(false, true);
 
-        public GameSaveStore(string directory, GameCatalog catalog, LevelLayout layout)
+        public GameSaveStore(string directory, GameCatalog catalog, LevelLayout layout,
+            Func<SessionSnapshot, string> serialize = null)
         {
             if (string.IsNullOrWhiteSpace(directory)) throw new ArgumentException("Save directory is required.", nameof(directory));
             this.directory = Path.GetFullPath(directory);
             codec = new GameSaveJson(catalog, layout);
+            this.serialize = serialize ?? codec.Serialize;
         }
 
         public void Save(int slot, SessionSnapshot snapshot, CancellationToken cancellationToken = default)
@@ -34,7 +37,7 @@ namespace DarkNights.Runtime.Save
             lock (gate)
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                byte[] bytes = Utf8.GetBytes(codec.Serialize(snapshot));
+                byte[] bytes = Utf8.GetBytes(serialize(snapshot));
                 cancellationToken.ThrowIfCancellationRequested();
                 Directory.CreateDirectory(directory);
                 string temporary = destination + "." + Guid.NewGuid().ToString("N") + ".tmp";

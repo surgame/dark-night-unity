@@ -34,12 +34,12 @@ namespace DarkNights.Runtime.Network
         public SessionMeasurements Measurements { get; }
 
         public SessionServer(GameCatalog catalog, LevelLayout layout, WorldSessionBehaviour behaviour, GameSaveStore saves,
-            bool measure = false, bool pressure = false)
+            bool measure = false, bool pressure = false, SessionWorld simulation = null)
         {
             this.pressure = pressure;
             this.behaviour = behaviour;
             codec = new ProjectionCodec(catalog, layout);
-            Authority = new SessionAuthority(catalog, layout);
+            Authority = simulation == null ? new SessionAuthority(catalog, layout) : new SessionAuthority(simulation);
             clock = new SessionClock(Authority);
             Storage = new SessionStorage(Authority, saves);
             if (measure) { Measurements = new SessionMeasurements(); clock.MeasureStep = Measurements.Step; }
