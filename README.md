@@ -1,6 +1,8 @@
 # Dark Nights · Unity
 
-2026-09-14 后续完成[终局页面重开修复](docs/M5_RESULT_UI.md)，源码 `af29950`：完整 Editor／Play 155/155、新 Mono 终局／启动／双进程会话 40/40 通过，四张胜负页截图已复核。当前修复版 Player 为 `artifacts/m5-results/player-mono`，408 个文件哈希一致；本批调试目录清理也被自动审批拒绝，未重试。前台性能按用户选择继续暂缓，完整同状态世界画面对照、IL2CPP、双机器 LAN 和受限清理仍待完成；**M5 尚未完成**。
+2026-09-14 最新完成 [Linear 世界表现与固定场景验收](docs/M5_WORLD_PRESENTATION.md)，源码 `a4a5450`：完整 Editor／Play 155/155、同一新 Mono 77/77 通过，六种局面及来宾截图已复核。当前 Player 为 `artifacts/m5-world/player-mono`，2,611 个输入和 408 个产物文件最终哈希一致。本阶段实际清理约 63.9 MiB；[255 条清理盘点](docs/STAGE_CLEANUP_INVENTORY.md)包含 8 个仍受审批限制的目标，合计约 6.49 GiB，按用户要求列账交接。**主体迁移 U0–U5 已完成；前台性能由用户暂缓，IL2CPP 和双机器 LAN 仍待条件，M5 尚未完成。**
+
+此前同日完成[终局页面重开修复](docs/M5_RESULT_UI.md)，源码 `af29950`：完整 Editor／Play 155/155、新 Mono 终局／启动／双进程会话 40/40 通过，四张胜负页截图已复核。该批 Player 为 `artifacts/m5-results/player-mono`，408 个文件哈希一致；调试目录清理被自动审批拒绝，未重试。该批未覆盖的固定世界画面对照已由上方最新切片补齐；历史产物和计数不与新批次混用。
 
 此前同日完成 [M5 原生 UI 校准](docs/M5_UI_CALIBRATION.md)，源码提交 `2fff198`：155 项 Editor／Play 按影响合并通过（首轮 154/155，相关 22/22 复验），真实鼠标 19/19，Mono 相关 31 项通过。该批 Player 为 `artifacts/m5-ui/player-mono`，十张截图、408 个文件及哈希按历史输入保留，不与后续构建混计。
 
@@ -51,6 +53,8 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 | 要解决的问题 | 文档 |
 |---|---|
 | YYGC 统一对象路线、框架升级、旧模型退出与分阶段验收 | [统一重构执行计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md) |
+| Linear 世界表现修正、固定场景与最新 Mono 证据 | [世界表现验收](docs/M5_WORLD_PRESENTATION.md) |
+| 编译缓存、旧构建、依赖解包和受限清理清单 | [阶段清理交接](docs/STAGE_CLEANUP_INVENTORY.md) |
 | 本次移植总方案、YYGC 对应、可关闭共享控制和第一步 | [移植方案](docs/MIGRATION_PLAN.md) |
 | 立即试用 LAN 模板、R3/VitalRouter 约束、四进程证据 | [LAN Sample](docs/LAN_SAMPLE.md) |
 | 早期框架缺口、修正缘由及复用边界 | [YYGC 能力复评](docs/YYGC_REASSESSMENT.md) |

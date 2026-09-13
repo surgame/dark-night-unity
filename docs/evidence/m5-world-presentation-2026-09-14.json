@@ -1,0 +1,2877 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-14",
+  "branch": "codex/yygc-unified-object-migration",
+  "gameCommit": "a4a545017476cee87aa66b3ed2bb1674c26512cf",
+  "implementationAndLocalVerificationComplete": true,
+  "m5Complete": false,
+  "scope": "Linear world presentation, native overlay/selection/text/icon/sorting fixes and fixed-state Mono Host/client verification.",
+  "colorSpace": "Linear",
+  "dependencies": {
+    "framework": "745f3d2c844a66389e39bb84cd878d5d80f77962",
+    "fishnet": "de19b5d66459f60400ffd0edc443c4da173a01e7",
+    "changedThisSlice": [],
+    "state": {
+      "path": "artifacts/m5-world/dependency-state.json",
+      "bytes": 2221,
+      "sha256": "C99159A5C128A992C05202A1CF611CE0E2D1D9410DA725D9F9BA98D12CCE2621"
+    }
+  },
+  "source": {
+    "input": {
+      "path": "artifacts/m5-world/input.json",
+      "bytes": 568233,
+      "sha256": "FBAC97880DADF9CEFD1A9E3B1BC2A4733BED499568E136CBF93BE4486F451369"
+    },
+    "protectedFiles": 2611,
+    "afterEditor": {
+      "path": "artifacts/m5-world/editor-source-integrity.json",
+      "bytes": 60,
+      "sha256": "14A606DFAF579749F5A95C67831BD0B1D271AF40234CDD186083EBCFD80C9B85"
+    },
+    "afterBuild": {
+      "path": "artifacts/m5-world/build-source-integrity.json",
+      "bytes": 60,
+      "sha256": "14A606DFAF579749F5A95C67831BD0B1D271AF40234CDD186083EBCFD80C9B85"
+    },
+    "finalIntegrity": {
+      "path": "artifacts/m5-world/final-source-integrity.json",
+      "bytes": 479,
+      "sha256": "31A435CAA383BB207CE2500C1FF7761C1D9A0B6489B67A3D37719BC4BBB79BA7"
+    },
+    "sync": {
+      "path": "artifacts/m5-world/source-sync.json",
+      "bytes": 479,
+      "sha256": "CA5697B2F85A81241542DA5FDCC49198B51D315305E504D325B4EE074F35FDE4"
+    },
+    "status": [
+      " M Game/Packages/packages-lock.json",
+      "?? Game/Packages/com.cysharp.memorypack/",
+      "?? Game/Packages/com.cysharp.r3/",
+      "?? Game/Packages/com.cysharp.unitask/",
+      "?? Game/Packages/com.cysharp.zlinq/",
+      "?? Game/Packages/com.github-glitchenzo.nugetforunity/"
+    ],
+    "libraryCopied": false,
+    "freshImport": false,
+    "crossCheckoutNote": "161 historical CRLF/LF-only differences are separate from in-place source protection; derived package lock and five embedded packages retained."
+  },
+  "editor": {
+    "report": {
+      "path": "artifacts/m5-world/editor-tests.xml",
+      "bytes": 356938,
+      "sha256": "ECD8AA279C13BA22BB9AF9810BB4DA5A314A0DBD3649301D699B06B2757708CE"
+    },
+    "log": {
+      "path": "artifacts/m5-world/editor-tests.log",
+      "bytes": 15657746,
+      "sha256": "F158FAEA063353E962E39FCD4D01A4632418A74FB5A71B56FC70E22B564441D0"
+    },
+    "process": {
+      "path": "artifacts/m5-world/editor-process.json",
+      "bytes": 790,
+      "sha256": "EAF803CAEABBA1EFB712CBE127090A506A7EA2222C307E6B0B3714F37C95B4B0"
+    },
+    "result": "Passed",
+    "total": 155,
+    "passed": 155,
+    "failed": 0,
+    "durationSeconds": 52.1548075,
+    "completeRuns": 1,
+    "mergedResults": false,
+    "processExited": true,
+    "exitCode": null,
+    "exitCodeNote": "Exit code was not captured; success comes from the Passed XML, not an inferred process exit code.",
+    "architecture": {
+      "passed": true,
+      "handwrittenFiles": 285,
+      "selfTests": 12,
+      "errors": [],
+      "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+    },
+    "architectureReport": {
+      "path": "artifacts/m5-world/architecture.json",
+      "bytes": 191,
+      "sha256": "E1044DE7B2C7549FFDA1BBC2AE64B1220ED3D927DD1DEA6CBF46CF12ECC282DE"
+    }
+  },
+  "build": {
+    "backend": "Mono",
+    "unity": "6000.4.9f1",
+    "invocations": 1,
+    "outcome": "success",
+    "exitCode": 0,
+    "durationSeconds": 54.133669,
+    "provenance": {
+      "path": "artifacts/m5-world/build-provenance.json",
+      "bytes": 1179,
+      "sha256": "78CAC094F3AEF72FABBD210FC9095A8952E8F42FB86CDDDA126A234336CB897A"
+    },
+    "log": {
+      "path": "artifacts/m5-world/build-mono.log",
+      "bytes": 862584,
+      "sha256": "9CF088F7A2F9A839B3084B0074603C13B70A7238B31ACE7443302150F491A12F"
+    },
+    "output": "artifacts/m5-world/player-mono/DarkNights.exe",
+    "libraryCopied": false
+  },
+  "player": {
+    "passed": true,
+    "files": 408,
+    "bytes": 198999138,
+    "changed": [],
+    "added": [],
+    "removed": [],
+    "utc": "2026-09-13T21:55:54.331587+00:00",
+    "manifest": {
+      "path": "docs/evidence/m5-world-player-mono-files-2026-09-14.json",
+      "bytes": 77284,
+      "sha256": "465DF5A1E23DFDBDD3387A341657959D17FE1057CCCFF98E67EA8DBC74EB940E"
+    },
+    "entry": {
+      "path": "artifacts/m5-world/player-mono/DarkNights_Data/Managed/DarkNights.Entry.dll",
+      "bytes": 91648,
+      "sha256": "3EDBC8AD0BCDD12ECF4848086D3B0326E50C2BB86B25614CE25F2D5C98C1552B"
+    },
+    "testIntegrity": {
+      "path": "artifacts/m5-world/player-integrity.json",
+      "bytes": 112,
+      "sha256": "D4EB34593AF185021E1A22CFDB88C449C7B0CB602C888F27616B14069573737F"
+    },
+    "finalIntegrity": {
+      "path": "artifacts/m5-world/player-final-integrity.json",
+      "bytes": 162,
+      "sha256": "A51C9B13FEC9EAFD943F94893F648062234EFB74A126E6B146D3B316C1C0FC7A"
+    },
+    "matrix": [
+      {
+        "report": {
+          "path": "artifacts/m5-world/player-parity-20260914-052236-126/result.json",
+          "bytes": 2465,
+          "sha256": "AF81451500E32C4F655A81AC2351558D27F275CF38D485402FA5C107DE664748"
+        },
+        "passed": true,
+        "count": 49,
+        "checks": {
+          "host_epoch_2_frozen": true,
+          "client1_epoch_2_frozen": true,
+          "camp_dimensions": true,
+          "camp_linear_background": true,
+          "camp_entities_and_effects": true,
+          "camp_fixed_clock_and_camera": true,
+          "camp_selection": true,
+          "camp_same_frozen_world": true,
+          "host_epoch_3_frozen": true,
+          "client1_epoch_3_frozen": true,
+          "night_dimensions": true,
+          "night_linear_background": true,
+          "night_entities_and_effects": true,
+          "night_fixed_clock_and_camera": true,
+          "night_selection": true,
+          "night_same_frozen_world": true,
+          "remnants_dimensions": true,
+          "remnants_linear_background": true,
+          "remnants_entities_and_effects": true,
+          "remnants_fixed_clock_and_camera": true,
+          "remnants_selection": true,
+          "remnants_same_frozen_world": true,
+          "client-remnants_dimensions": true,
+          "client-remnants_linear_background": true,
+          "client-remnants_entities_and_effects": true,
+          "client-remnants_fixed_clock_and_camera": true,
+          "client-remnants_selection": true,
+          "client-remnants_same_frozen_world": true,
+          "host_epoch_4_frozen": true,
+          "client1_epoch_4_frozen": true,
+          "zoom_out_dimensions": true,
+          "zoom_out_linear_background": true,
+          "zoom_out_entities_and_effects": true,
+          "zoom_out_fixed_clock_and_camera": true,
+          "zoom_out_selection": true,
+          "zoom_out_same_frozen_world": true,
+          "wide_dimensions": true,
+          "wide_linear_background": true,
+          "wide_entities_and_effects": true,
+          "wide_fixed_clock_and_camera": true,
+          "wide_selection": true,
+          "wide_same_frozen_world": true,
+          "menu_dimensions": true,
+          "menu_linear_background": true,
+          "menu_entities_and_effects": true,
+          "menu_fixed_clock_and_camera": true,
+          "menu_selection": true,
+          "host_no_runtime_exception": true,
+          "client1_no_runtime_exception": true
+        },
+        "scope": "Two real Mono processes, seven fixed-time captures; visual review is separate from command/metadata checks",
+        "gameCodeSha256": "3EDBC8AD0BCDD12ECF4848086D3B0326E50C2BB86B25614CE25F2D5C98C1552B"
+      },
+      {
+        "report": {
+          "path": "artifacts/migration/run-20260914-052247-286-mono/result.json",
+          "bytes": 1079,
+          "sha256": "4D5A05ABB3704D7FCCC63ED4646D691A4E7B57BDF6996E7E4B0EDDA13EB491F2"
+        },
+        "passed": true,
+        "count": 6,
+        "checks": {
+          "independent_player_remains_running": true,
+          "app_startup_ready_once": true,
+          "frozen_content_loaded_once": true,
+          "formal_object_content_loaded_once": true,
+          "no_startup_or_runtime_exception": true,
+          "no_formal_editor_or_tests_in_player": true
+        },
+        "scope": "Bootstrap + YYGC AppStartup + Addressables + formal ObjectDefinition/Prefab/generated registry startup; no gameplay or multiplayer acceptance",
+        "gameCodeSha256": null
+      },
+      {
+        "report": {
+          "path": "artifacts/migration/session-20260914-052251-464/result.json",
+          "bytes": 1285,
+          "sha256": "5AE4FA46B74ED411EA275D8DFDF5836011C8324B2D009BC95EC60418CD94E4C2"
+        },
+        "passed": true,
+        "count": 13,
+        "checks": {
+          "host_ready_with_all_initial_entities": true,
+          "independent_client_receives_full_late_baseline": true,
+          "host_pause_applied": true,
+          "generated_recruit_button_routes_once": true,
+          "guest_build_paid_once": true,
+          "host_and_client_share_single_payment": true,
+          "guest_cannot_change_time": true,
+          "host_only_enabled": true,
+          "host_only_rejects_guest_camp_mutation": true,
+          "guest_explicit_move_accepted": true,
+          "client_observes_authoritative_motion": true,
+          "complete_world_converges_while_paused": true,
+          "no_player_failure": true
+        },
+        "scope": "Formal two-process network, instantiated native views and generated UGUI pause/recruit bindings; no pixel or weak-network acceptance",
+        "gameCodeSha256": "3EDBC8AD0BCDD12ECF4848086D3B0326E50C2BB86B25614CE25F2D5C98C1552B"
+      },
+      {
+        "report": {
+          "path": "artifacts/migration/battle-20260914-052302-283/result.json",
+          "bytes": 984,
+          "sha256": "7A7E292AB33F0ED03EAAFFF604BFFF1BB5763B8CCB596910866E538F156746B8"
+        },
+        "passed": true,
+        "count": 9,
+        "checks": {
+          "real_host_starts_native_scene": true,
+          "real_night_creates_arrows_and_effects": true,
+          "late_join_gets_running_battle_and_native_entities": true,
+          "late_join_receives_real_projectiles_effects_and_remnants": true,
+          "paused_battle_converges": true,
+          "both_rendered_screenshots_exist": true,
+          "host_exit_clears_guest_world_and_transient_views": true,
+          "host_runtime_has_no_exception_or_shader_error": true,
+          "client_runtime_has_no_exception_or_shader_error": true
+        },
+        "scope": "Mono graphical Host and independent late-joining client during real battle",
+        "gameCodeSha256": "3EDBC8AD0BCDD12ECF4848086D3B0326E50C2BB86B25614CE25F2D5C98C1552B"
+      }
+    ],
+    "totalChecks": 77,
+    "allPassed": true,
+    "foregroundAcceptance": false,
+    "batchMode": true,
+    "allProcessesExited": true
+  },
+  "visuals": {
+    "reviewComplete": true,
+    "reviewMethod": "Prior per-image review plus final candidate SHA-256 equality; numerical differences alone never sign visual acceptance.",
+    "reference": {
+      "commit": "91cb09ff0894f26134f07fd544f1273d9fe7ffaa",
+      "status": [],
+      "engine": "Godot 4.7.2 / OpenGL Compatibility / Gamma"
+    },
+    "device": "NVIDIA GeForce RTX 5060 Ti / Direct3D 12",
+    "differentPhysicalGpuAcceptance": false,
+    "captureReport": {
+      "path": "artifacts/m5-world/candidate-03/result.json",
+      "bytes": 67327,
+      "sha256": "E34D0B7E5213C7971F17BB43B50E337D07206427E9DDDADDAEEFCCC9B503ADA3"
+    },
+    "capturedStates": [
+      {
+        "name": "menu",
+        "width": 1280,
+        "height": 800,
+        "cameraX": 255.0,
+        "zoom": 2.8,
+        "visualTime": 2.0,
+        "night": 0.16,
+        "selected": [],
+        "uiPage": "MainMenu",
+        "effects": 0,
+        "entities": 0,
+        "image": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-world\\candidate-03\\menu.png",
+        "elapsed": null,
+        "paused": null
+      },
+      {
+        "name": "camp",
+        "width": 1280,
+        "height": 800,
+        "cameraX": 255.0,
+        "zoom": 2.8,
+        "visualTime": 2.0,
+        "night": 0.16,
+        "selected": [],
+        "uiPage": "",
+        "effects": 0,
+        "entities": 17,
+        "image": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-world\\candidate-03\\camp.png",
+        "elapsed": 0.0,
+        "paused": true,
+        "snapshot": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-world\\candidate-03\\camp.v2.json",
+        "frame": {
+          "Publication": 8,
+          "Epoch": 1,
+          "Revision": 6,
+          "ServerTick": 35,
+          "PolicyRevision": 0,
+          "HostOnly": false,
+          "PlayerCount": 1,
+          "ReadyCount": 1,
+          "Loading": false,
+          "Paused": true,
+          "Speed": 1,
+          "Elapsed": 0.0,
+          "World": {
+            "Camp": {
+              "Stock": {
+                "Food": 60.0,
+                "Wood": 100.0,
+                "Stone": 80.0,
+                "Iron": 40.0,
+                "Gold": 0.0
+              },
+              "Population": 7,
+              "Capacity": 9,
+              "RecruitCooldown": 0.0,
+              "WaveIndex": 0,
+              "WavePhase": "Day",
+              "DayRemaining": 90.0,
+              "EnemyCount": 0,
+              "Mode": "Playing",
+              "Kills": 0,
+              "Lost": 0,
+              "Gathered": {
+                "Food": 0.0,
+                "Wood": 0.0,
+                "Stone": 0.0,
+                "Iron": 0.0,
+                "Gold": 0.0
+              },
+              "NextSpawn": 0
+            },
+            "Actors": [
+              {
+                "Id": 11,
+                "Kind": "worker",
+                "Name": "艾达",
+                "Enemy": false,
+                "X": 170.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 12,
+                "Kind": "worker",
+                "Name": "罗恩",
+                "Enemy": false,
+                "X": 187.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 13,
+                "Kind": "worker",
+                "Name": "米娅",
+                "Enemy": false,
+                "X": 293.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 14,
+                "Kind": "worker",
+                "Name": "伊恩",
+                "Enemy": false,
+                "X": 311.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 15,
+                "Kind": "worker",
+                "Name": "莉娜",
+                "Enemy": false,
+                "X": 357.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 16,
+                "Kind": "spearman",
+                "Name": "奥斯",
+                "Enemy": false,
+                "X": 660.0,
+                "Hp": 30.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 17,
+                "Kind": "archer",
+                "Name": "薇拉",
+                "Enemy": false,
+                "X": 625.0,
+                "Hp": 20.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              }
+            ],
+            "Buildings": [
+              {
+                "Id": 1,
+                "Kind": "house",
+                "X": 55.0,
+                "Hp": 100.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 2,
+                "Kind": "tavern",
+                "X": 130.0,
+                "Hp": 320.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 3,
+                "Kind": "barracks",
+                "X": 245.0,
+                "Hp": 200.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 4,
+                "Kind": "farm",
+                "X": 330.0,
+                "Hp": 70.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 5,
+                "HitFlash": 0.0,
+                "Training": []
+              }
+            ],
+            "Worksites": [
+              {
+                "Id": 5,
+                "Kind": "food",
+                "X": 330.0,
+                "WorkerId": 0,
+                "Amount": -1,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 4
+              },
+              {
+                "Id": 6,
+                "Kind": "wood",
+                "X": 402.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 1,
+                "FarmId": 0
+              },
+              {
+                "Id": 7,
+                "Kind": "wood",
+                "X": 449.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              },
+              {
+                "Id": 8,
+                "Kind": "wood",
+                "X": 488.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 2,
+                "FarmId": 0
+              },
+              {
+                "Id": 9,
+                "Kind": "stone",
+                "X": 548.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              },
+              {
+                "Id": 10,
+                "Kind": "iron",
+                "X": 592.0,
+                "WorkerId": 0,
+                "Amount": 90,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              }
+            ],
+            "Projectiles": [],
+            "Identities": [
+              {
+                "Id": 1,
+                "DefinitionGuid": "de920f6f46b0ee34ab730757b1f164cf",
+                "PlacementKey": "a8746b56d4374852beb65290c567d95d"
+              },
+              {
+                "Id": 2,
+                "DefinitionGuid": "9b02302c0d6fc394ca25c303d7dc9869",
+                "PlacementKey": "5590223991bf4753ac72bccd470baa15"
+              },
+              {
+                "Id": 3,
+                "DefinitionGuid": "6d562b8d5824d2d4682ea725e4cbbd10",
+                "PlacementKey": "ee472c3b25214e3bb473b69f95872a60"
+              },
+              {
+                "Id": 4,
+                "DefinitionGuid": "462f08ac967440f458772620c642e75b",
+                "PlacementKey": "bd71ac292b144914ba509421391594dd"
+              },
+              {
+                "Id": 11,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "a2bf7726357147529a173368622325c4"
+              },
+              {
+                "Id": 12,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "9ea4d7b771454f7f9c1f732d1123ade2"
+              },
+              {
+                "Id": 13,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "ae3f78208632474fbea91e04bc884c28"
+              },
+              {
+                "Id": 14,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "7ab1d353c82b4271963166f383860636"
+              },
+              {
+                "Id": 15,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "e5ca074660bf4beab22d9058bb2e2e38"
+              },
+              {
+                "Id": 16,
+                "DefinitionGuid": "fdab779e054f8c44f8e22f8ea5f9858a",
+                "PlacementKey": "c1dde3ec72744c4cb7270747ad872847"
+              },
+              {
+                "Id": 17,
+                "DefinitionGuid": "f91187dc2d2c99b46be92ec283a00c9c",
+                "PlacementKey": "46bd476b318f4dc3acee088d42f247bd"
+              },
+              {
+                "Id": 5,
+                "DefinitionGuid": "a240041943d08544d85185a72385da7f",
+                "PlacementKey": ""
+              },
+              {
+                "Id": 6,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "e86e285c1e3e4a73bde48b8c353142bf"
+              },
+              {
+                "Id": 7,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "b886bdf9c9fc4755a38446ae90ccb1e3"
+              },
+              {
+                "Id": 8,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "45e159c7fa204f0bac5b16de9cd076d9"
+              },
+              {
+                "Id": 9,
+                "DefinitionGuid": "68ef7d9c2e17ab44ba435ccff85b756f",
+                "PlacementKey": "8c7c43469284476d8e5b60e997016bb6"
+              },
+              {
+                "Id": 10,
+                "DefinitionGuid": "98858cfbd09fbaa4c9a6fb3bf53020ad",
+                "PlacementKey": "2e2bdf486d3c4a0ebd958763fd9a464b"
+              }
+            ]
+          },
+          "Events": [
+            {
+              "Sequence": 1,
+              "Tick": 0,
+              "Type": "banner",
+              "Text": "灰松谷 · 第一天",
+              "Detail": "安排生产，训练守卫。守住三次夜袭。",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            },
+            {
+              "Sequence": 2,
+              "Tick": 0,
+              "Type": "message",
+              "Text": "先安排一名工人耕作，再采集木材。东侧已有两名守卫。",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            }
+          ],
+          "Remnants": []
+        }
+      },
+      {
+        "name": "night",
+        "width": 1280,
+        "height": 800,
+        "cameraX": 730.0,
+        "zoom": 2.8,
+        "visualTime": 2.0,
+        "night": 1.0,
+        "selected": [
+          17
+        ],
+        "uiPage": "",
+        "effects": 0,
+        "entities": 20,
+        "image": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-world\\candidate-03\\night.png",
+        "elapsed": 0.0,
+        "paused": true,
+        "snapshot": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-world\\candidate-03\\night.v2.json",
+        "frame": {
+          "Publication": 5,
+          "Epoch": 1,
+          "Revision": 6,
+          "ServerTick": 19,
+          "PolicyRevision": 0,
+          "HostOnly": false,
+          "PlayerCount": 1,
+          "ReadyCount": 1,
+          "Loading": false,
+          "Paused": true,
+          "Speed": 1,
+          "Elapsed": 0.0,
+          "World": {
+            "Camp": {
+              "Stock": {
+                "Food": 60.0,
+                "Wood": 100.0,
+                "Stone": 80.0,
+                "Iron": 40.0,
+                "Gold": 0.0
+              },
+              "Population": 7,
+              "Capacity": 9,
+              "RecruitCooldown": 0.0,
+              "WaveIndex": 0,
+              "WavePhase": "Night",
+              "DayRemaining": 0.0,
+              "EnemyCount": 3,
+              "Mode": "Playing",
+              "Kills": 0,
+              "Lost": 0,
+              "Gathered": {
+                "Food": 0.0,
+                "Wood": 0.0,
+                "Stone": 0.0,
+                "Iron": 0.0,
+                "Gold": 0.0
+              },
+              "NextSpawn": 0
+            },
+            "Actors": [
+              {
+                "Id": 11,
+                "Kind": "worker",
+                "Name": "艾达",
+                "Enemy": false,
+                "X": 170.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 12,
+                "Kind": "worker",
+                "Name": "罗恩",
+                "Enemy": false,
+                "X": 187.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 13,
+                "Kind": "worker",
+                "Name": "米娅",
+                "Enemy": false,
+                "X": 293.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 14,
+                "Kind": "worker",
+                "Name": "伊恩",
+                "Enemy": false,
+                "X": 311.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 15,
+                "Kind": "worker",
+                "Name": "莉娜",
+                "Enemy": false,
+                "X": 357.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 16,
+                "Kind": "spearman",
+                "Name": "奥斯",
+                "Enemy": false,
+                "X": 660.0,
+                "Hp": 30.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 17,
+                "Kind": "archer",
+                "Name": "薇拉",
+                "Enemy": false,
+                "X": 625.0,
+                "Hp": 20.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 18,
+                "Kind": "zombie",
+                "Name": "游荡亡者",
+                "Enemy": true,
+                "X": 794.0,
+                "Hp": 20.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": -1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 19,
+                "Kind": "ghoul",
+                "Name": "食尸鬼",
+                "Enemy": true,
+                "X": 838.0,
+                "Hp": 20.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": -1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 20,
+                "Kind": "armored",
+                "Name": "披甲亡者",
+                "Enemy": true,
+                "X": 872.0,
+                "Hp": 40.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": -1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              }
+            ],
+            "Buildings": [
+              {
+                "Id": 1,
+                "Kind": "house",
+                "X": 55.0,
+                "Hp": 100.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 2,
+                "Kind": "tavern",
+                "X": 130.0,
+                "Hp": 320.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 3,
+                "Kind": "barracks",
+                "X": 245.0,
+                "Hp": 200.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 4,
+                "Kind": "farm",
+                "X": 330.0,
+                "Hp": 70.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 5,
+                "HitFlash": 0.0,
+                "Training": []
+              }
+            ],
+            "Worksites": [
+              {
+                "Id": 5,
+                "Kind": "food",
+                "X": 330.0,
+                "WorkerId": 0,
+                "Amount": -1,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 4
+              },
+              {
+                "Id": 6,
+                "Kind": "wood",
+                "X": 402.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 1,
+                "FarmId": 0
+              },
+              {
+                "Id": 7,
+                "Kind": "wood",
+                "X": 449.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              },
+              {
+                "Id": 8,
+                "Kind": "wood",
+                "X": 488.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 2,
+                "FarmId": 0
+              },
+              {
+                "Id": 9,
+                "Kind": "stone",
+                "X": 548.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              },
+              {
+                "Id": 10,
+                "Kind": "iron",
+                "X": 592.0,
+                "WorkerId": 0,
+                "Amount": 90,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              }
+            ],
+            "Projectiles": [],
+            "Identities": [
+              {
+                "Id": 1,
+                "DefinitionGuid": "de920f6f46b0ee34ab730757b1f164cf",
+                "PlacementKey": "a8746b56d4374852beb65290c567d95d"
+              },
+              {
+                "Id": 2,
+                "DefinitionGuid": "9b02302c0d6fc394ca25c303d7dc9869",
+                "PlacementKey": "5590223991bf4753ac72bccd470baa15"
+              },
+              {
+                "Id": 3,
+                "DefinitionGuid": "6d562b8d5824d2d4682ea725e4cbbd10",
+                "PlacementKey": "ee472c3b25214e3bb473b69f95872a60"
+              },
+              {
+                "Id": 4,
+                "DefinitionGuid": "462f08ac967440f458772620c642e75b",
+                "PlacementKey": "bd71ac292b144914ba509421391594dd"
+              },
+              {
+                "Id": 11,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "a2bf7726357147529a173368622325c4"
+              },
+              {
+                "Id": 12,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "9ea4d7b771454f7f9c1f732d1123ade2"
+              },
+              {
+                "Id": 13,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "ae3f78208632474fbea91e04bc884c28"
+              },
+              {
+                "Id": 14,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "7ab1d353c82b4271963166f383860636"
+              },
+              {
+                "Id": 15,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "e5ca074660bf4beab22d9058bb2e2e38"
+              },
+              {
+                "Id": 16,
+                "DefinitionGuid": "fdab779e054f8c44f8e22f8ea5f9858a",
+                "PlacementKey": "c1dde3ec72744c4cb7270747ad872847"
+              },
+              {
+                "Id": 17,
+                "DefinitionGuid": "f91187dc2d2c99b46be92ec283a00c9c",
+                "PlacementKey": "46bd476b318f4dc3acee088d42f247bd"
+              },
+              {
+                "Id": 18,
+                "DefinitionGuid": "8af095eb2982cd64f87dcbb2011ee0d9",
+                "PlacementKey": ""
+              },
+              {
+                "Id": 19,
+                "DefinitionGuid": "fc10243d4de9cc84db0f7a3af1a0b50e",
+                "PlacementKey": ""
+              },
+              {
+                "Id": 20,
+                "DefinitionGuid": "dab7b83c65706a7428b2bcefedc2d3ab",
+                "PlacementKey": ""
+              },
+              {
+                "Id": 5,
+                "DefinitionGuid": "a240041943d08544d85185a72385da7f",
+                "PlacementKey": ""
+              },
+              {
+                "Id": 6,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "e86e285c1e3e4a73bde48b8c353142bf"
+              },
+              {
+                "Id": 7,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "b886bdf9c9fc4755a38446ae90ccb1e3"
+              },
+              {
+                "Id": 8,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "45e159c7fa204f0bac5b16de9cd076d9"
+              },
+              {
+                "Id": 9,
+                "DefinitionGuid": "68ef7d9c2e17ab44ba435ccff85b756f",
+                "PlacementKey": "8c7c43469284476d8e5b60e997016bb6"
+              },
+              {
+                "Id": 10,
+                "DefinitionGuid": "98858cfbd09fbaa4c9a6fb3bf53020ad",
+                "PlacementKey": "2e2bdf486d3c4a0ebd958763fd9a464b"
+              }
+            ]
+          },
+          "Events": [
+            {
+              "Sequence": 1,
+              "Tick": 0,
+              "Type": "banner",
+              "Text": "灰松谷 · 第一天",
+              "Detail": "安排生产，训练守卫。守住三次夜袭。",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            },
+            {
+              "Sequence": 2,
+              "Tick": 0,
+              "Type": "message",
+              "Text": "先安排一名工人耕作，再采集木材。东侧已有两名守卫。",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            },
+            {
+              "Sequence": 3,
+              "Tick": 18,
+              "Type": "banner",
+              "Text": "第 1 夜 · 墓地苏醒",
+              "Detail": "敌人从东侧来袭，守住酒馆。",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            },
+            {
+              "Sequence": 4,
+              "Tick": 18,
+              "Type": "message",
+              "Text": "夜袭开始。G选择守卫，右键部署到东侧防线。",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": true,
+              "Cue": null
+            }
+          ],
+          "Remnants": []
+        }
+      },
+      {
+        "name": "remnants",
+        "width": 1280,
+        "height": 800,
+        "cameraX": 730.0,
+        "zoom": 2.8,
+        "visualTime": 2.0,
+        "night": 1.0,
+        "selected": [
+          17
+        ],
+        "uiPage": "",
+        "effects": 6,
+        "entities": 20,
+        "image": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-world\\candidate-03\\remnants.png",
+        "elapsed": 0.0,
+        "paused": true,
+        "snapshot": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-world\\candidate-03\\remnants.v2.json",
+        "frame": {
+          "Publication": 6,
+          "Epoch": 1,
+          "Revision": 12,
+          "ServerTick": 26,
+          "PolicyRevision": 0,
+          "HostOnly": false,
+          "PlayerCount": 1,
+          "ReadyCount": 1,
+          "Loading": false,
+          "Paused": true,
+          "Speed": 1,
+          "Elapsed": 0.0,
+          "World": {
+            "Camp": {
+              "Stock": {
+                "Food": 60.0,
+                "Wood": 100.0,
+                "Stone": 80.0,
+                "Iron": 40.0,
+                "Gold": 0.0
+              },
+              "Population": 7,
+              "Capacity": 9,
+              "RecruitCooldown": 0.0,
+              "WaveIndex": 0,
+              "WavePhase": "Night",
+              "DayRemaining": 0.0,
+              "EnemyCount": 3,
+              "Mode": "Playing",
+              "Kills": 0,
+              "Lost": 0,
+              "Gathered": {
+                "Food": 0.0,
+                "Wood": 0.0,
+                "Stone": 0.0,
+                "Iron": 0.0,
+                "Gold": 0.0
+              },
+              "NextSpawn": 0
+            },
+            "Actors": [
+              {
+                "Id": 11,
+                "Kind": "worker",
+                "Name": "艾达",
+                "Enemy": false,
+                "X": 170.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 12,
+                "Kind": "worker",
+                "Name": "罗恩",
+                "Enemy": false,
+                "X": 187.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 13,
+                "Kind": "worker",
+                "Name": "米娅",
+                "Enemy": false,
+                "X": 293.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 14,
+                "Kind": "worker",
+                "Name": "伊恩",
+                "Enemy": false,
+                "X": 311.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 15,
+                "Kind": "worker",
+                "Name": "莉娜",
+                "Enemy": false,
+                "X": 357.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 16,
+                "Kind": "spearman",
+                "Name": "奥斯",
+                "Enemy": false,
+                "X": 660.0,
+                "Hp": 30.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 17,
+                "Kind": "archer",
+                "Name": "薇拉",
+                "Enemy": false,
+                "X": 625.0,
+                "Hp": 20.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 18,
+                "Kind": "zombie",
+                "Name": "游荡亡者",
+                "Enemy": true,
+                "X": 794.0,
+                "Hp": 20.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": -1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 19,
+                "Kind": "ghoul",
+                "Name": "食尸鬼",
+                "Enemy": true,
+                "X": 838.0,
+                "Hp": 20.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": -1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 20,
+                "Kind": "armored",
+                "Name": "披甲亡者",
+                "Enemy": true,
+                "X": 872.0,
+                "Hp": 40.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": -1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              }
+            ],
+            "Buildings": [
+              {
+                "Id": 1,
+                "Kind": "house",
+                "X": 55.0,
+                "Hp": 100.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 2,
+                "Kind": "tavern",
+                "X": 130.0,
+                "Hp": 320.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 3,
+                "Kind": "barracks",
+                "X": 245.0,
+                "Hp": 200.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 4,
+                "Kind": "farm",
+                "X": 330.0,
+                "Hp": 70.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 5,
+                "HitFlash": 0.0,
+                "Training": []
+              }
+            ],
+            "Worksites": [
+              {
+                "Id": 5,
+                "Kind": "food",
+                "X": 330.0,
+                "WorkerId": 0,
+                "Amount": -1,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 4
+              },
+              {
+                "Id": 6,
+                "Kind": "wood",
+                "X": 402.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 1,
+                "FarmId": 0
+              },
+              {
+                "Id": 7,
+                "Kind": "wood",
+                "X": 449.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              },
+              {
+                "Id": 8,
+                "Kind": "wood",
+                "X": 488.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 2,
+                "FarmId": 0
+              },
+              {
+                "Id": 9,
+                "Kind": "stone",
+                "X": 548.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              },
+              {
+                "Id": 10,
+                "Kind": "iron",
+                "X": 592.0,
+                "WorkerId": 0,
+                "Amount": 90,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              }
+            ],
+            "Projectiles": [],
+            "Identities": [
+              {
+                "Id": 1,
+                "DefinitionGuid": "de920f6f46b0ee34ab730757b1f164cf",
+                "PlacementKey": "a8746b56d4374852beb65290c567d95d"
+              },
+              {
+                "Id": 2,
+                "DefinitionGuid": "9b02302c0d6fc394ca25c303d7dc9869",
+                "PlacementKey": "5590223991bf4753ac72bccd470baa15"
+              },
+              {
+                "Id": 3,
+                "DefinitionGuid": "6d562b8d5824d2d4682ea725e4cbbd10",
+                "PlacementKey": "ee472c3b25214e3bb473b69f95872a60"
+              },
+              {
+                "Id": 4,
+                "DefinitionGuid": "462f08ac967440f458772620c642e75b",
+                "PlacementKey": "bd71ac292b144914ba509421391594dd"
+              },
+              {
+                "Id": 11,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "a2bf7726357147529a173368622325c4"
+              },
+              {
+                "Id": 12,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "9ea4d7b771454f7f9c1f732d1123ade2"
+              },
+              {
+                "Id": 13,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "ae3f78208632474fbea91e04bc884c28"
+              },
+              {
+                "Id": 14,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "7ab1d353c82b4271963166f383860636"
+              },
+              {
+                "Id": 15,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "e5ca074660bf4beab22d9058bb2e2e38"
+              },
+              {
+                "Id": 16,
+                "DefinitionGuid": "fdab779e054f8c44f8e22f8ea5f9858a",
+                "PlacementKey": "c1dde3ec72744c4cb7270747ad872847"
+              },
+              {
+                "Id": 17,
+                "DefinitionGuid": "f91187dc2d2c99b46be92ec283a00c9c",
+                "PlacementKey": "46bd476b318f4dc3acee088d42f247bd"
+              },
+              {
+                "Id": 18,
+                "DefinitionGuid": "8af095eb2982cd64f87dcbb2011ee0d9",
+                "PlacementKey": ""
+              },
+              {
+                "Id": 19,
+                "DefinitionGuid": "fc10243d4de9cc84db0f7a3af1a0b50e",
+                "PlacementKey": ""
+              },
+              {
+                "Id": 20,
+                "DefinitionGuid": "dab7b83c65706a7428b2bcefedc2d3ab",
+                "PlacementKey": ""
+              },
+              {
+                "Id": 5,
+                "DefinitionGuid": "a240041943d08544d85185a72385da7f",
+                "PlacementKey": ""
+              },
+              {
+                "Id": 6,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "e86e285c1e3e4a73bde48b8c353142bf"
+              },
+              {
+                "Id": 7,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "b886bdf9c9fc4755a38446ae90ccb1e3"
+              },
+              {
+                "Id": 8,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "45e159c7fa204f0bac5b16de9cd076d9"
+              },
+              {
+                "Id": 9,
+                "DefinitionGuid": "68ef7d9c2e17ab44ba435ccff85b756f",
+                "PlacementKey": "8c7c43469284476d8e5b60e997016bb6"
+              },
+              {
+                "Id": 10,
+                "DefinitionGuid": "98858cfbd09fbaa4c9a6fb3bf53020ad",
+                "PlacementKey": "2e2bdf486d3c4a0ebd958763fd9a464b"
+              }
+            ]
+          },
+          "Events": [
+            {
+              "Sequence": 1,
+              "Tick": 0,
+              "Type": "banner",
+              "Text": "灰松谷 · 第一天",
+              "Detail": "安排生产，训练守卫。守住三次夜袭。",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            },
+            {
+              "Sequence": 2,
+              "Tick": 0,
+              "Type": "message",
+              "Text": "先安排一名工人耕作，再采集木材。东侧已有两名守卫。",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            },
+            {
+              "Sequence": 3,
+              "Tick": 18,
+              "Type": "banner",
+              "Text": "第 1 夜 · 墓地苏醒",
+              "Detail": "敌人从东侧来袭，守住酒馆。",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            },
+            {
+              "Sequence": 4,
+              "Tick": 18,
+              "Type": "message",
+              "Text": "夜袭开始。G选择守卫，右键部署到东侧防线。",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": true,
+              "Cue": null
+            },
+            {
+              "Sequence": 5,
+              "Tick": 18,
+              "Type": "effect",
+              "Text": "",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": {
+                "Kind": "corpse",
+                "X": 744.0,
+                "Y": 320.0,
+                "Text": "",
+                "ContentId": "archer",
+                "Face": -1.0,
+                "Enemy": false
+              }
+            },
+            {
+              "Sequence": 6,
+              "Tick": 18,
+              "Type": "effect",
+              "Text": "",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": {
+                "Kind": "corpse",
+                "X": 720.0,
+                "Y": 320.0,
+                "Text": "",
+                "ContentId": "ghoul",
+                "Face": 1.0,
+                "Enemy": false
+              }
+            },
+            {
+              "Sequence": 7,
+              "Tick": 18,
+              "Type": "effect",
+              "Text": "",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": {
+                "Kind": "rubble",
+                "X": 590.0,
+                "Y": 320.0,
+                "Text": "",
+                "ContentId": "house",
+                "Face": 1.0,
+                "Enemy": false
+              }
+            },
+            {
+              "Sequence": 8,
+              "Tick": 18,
+              "Type": "effect",
+              "Text": "",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": {
+                "Kind": "resource",
+                "X": 640.0,
+                "Y": 297.0,
+                "Text": "+3",
+                "ContentId": "wood",
+                "Face": 1.0,
+                "Enemy": false
+              }
+            },
+            {
+              "Sequence": 9,
+              "Tick": 18,
+              "Type": "effect",
+              "Text": "",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": {
+                "Kind": "damage",
+                "X": 680.0,
+                "Y": 297.0,
+                "Text": "5",
+                "ContentId": "",
+                "Face": 1.0,
+                "Enemy": true
+              }
+            },
+            {
+              "Sequence": 10,
+              "Tick": 18,
+              "Type": "effect",
+              "Text": "",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": {
+                "Kind": "command",
+                "X": 760.0,
+                "Y": 320.0,
+                "Text": "",
+                "ContentId": "",
+                "Face": 1.0,
+                "Enemy": false
+              }
+            }
+          ],
+          "Remnants": [
+            {
+              "Sequence": 5,
+              "Tick": 18,
+              "Type": "effect",
+              "Text": "",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": {
+                "Kind": "corpse",
+                "X": 744.0,
+                "Y": 320.0,
+                "Text": "",
+                "ContentId": "archer",
+                "Face": -1.0,
+                "Enemy": false
+              }
+            },
+            {
+              "Sequence": 6,
+              "Tick": 18,
+              "Type": "effect",
+              "Text": "",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": {
+                "Kind": "corpse",
+                "X": 720.0,
+                "Y": 320.0,
+                "Text": "",
+                "ContentId": "ghoul",
+                "Face": 1.0,
+                "Enemy": false
+              }
+            },
+            {
+              "Sequence": 7,
+              "Tick": 18,
+              "Type": "effect",
+              "Text": "",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": {
+                "Kind": "rubble",
+                "X": 590.0,
+                "Y": 320.0,
+                "Text": "",
+                "ContentId": "house",
+                "Face": 1.0,
+                "Enemy": false
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "zoom_out",
+        "width": 1280,
+        "height": 800,
+        "cameraX": 550.0,
+        "zoom": 1.8,
+        "visualTime": 2.0,
+        "night": 0.16,
+        "selected": [],
+        "uiPage": "",
+        "effects": 0,
+        "entities": 17,
+        "image": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-world\\candidate-03\\zoom_out.png",
+        "elapsed": 0.0,
+        "paused": true,
+        "snapshot": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-world\\candidate-03\\zoom_out.v2.json",
+        "frame": {
+          "Publication": 5,
+          "Epoch": 1,
+          "Revision": 6,
+          "ServerTick": 19,
+          "PolicyRevision": 0,
+          "HostOnly": false,
+          "PlayerCount": 1,
+          "ReadyCount": 1,
+          "Loading": false,
+          "Paused": true,
+          "Speed": 1,
+          "Elapsed": 0.0,
+          "World": {
+            "Camp": {
+              "Stock": {
+                "Food": 60.0,
+                "Wood": 100.0,
+                "Stone": 80.0,
+                "Iron": 40.0,
+                "Gold": 0.0
+              },
+              "Population": 7,
+              "Capacity": 9,
+              "RecruitCooldown": 0.0,
+              "WaveIndex": 0,
+              "WavePhase": "Day",
+              "DayRemaining": 90.0,
+              "EnemyCount": 0,
+              "Mode": "Playing",
+              "Kills": 0,
+              "Lost": 0,
+              "Gathered": {
+                "Food": 0.0,
+                "Wood": 0.0,
+                "Stone": 0.0,
+                "Iron": 0.0,
+                "Gold": 0.0
+              },
+              "NextSpawn": 0
+            },
+            "Actors": [
+              {
+                "Id": 11,
+                "Kind": "worker",
+                "Name": "艾达",
+                "Enemy": false,
+                "X": 170.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 12,
+                "Kind": "worker",
+                "Name": "罗恩",
+                "Enemy": false,
+                "X": 187.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 13,
+                "Kind": "worker",
+                "Name": "米娅",
+                "Enemy": false,
+                "X": 293.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 14,
+                "Kind": "worker",
+                "Name": "伊恩",
+                "Enemy": false,
+                "X": 311.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 15,
+                "Kind": "worker",
+                "Name": "莉娜",
+                "Enemy": false,
+                "X": 357.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 16,
+                "Kind": "spearman",
+                "Name": "奥斯",
+                "Enemy": false,
+                "X": 660.0,
+                "Hp": 30.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 17,
+                "Kind": "archer",
+                "Name": "薇拉",
+                "Enemy": false,
+                "X": 625.0,
+                "Hp": 20.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              }
+            ],
+            "Buildings": [
+              {
+                "Id": 1,
+                "Kind": "house",
+                "X": 55.0,
+                "Hp": 100.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 2,
+                "Kind": "tavern",
+                "X": 130.0,
+                "Hp": 320.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 3,
+                "Kind": "barracks",
+                "X": 245.0,
+                "Hp": 200.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 4,
+                "Kind": "farm",
+                "X": 330.0,
+                "Hp": 70.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 5,
+                "HitFlash": 0.0,
+                "Training": []
+              }
+            ],
+            "Worksites": [
+              {
+                "Id": 5,
+                "Kind": "food",
+                "X": 330.0,
+                "WorkerId": 0,
+                "Amount": -1,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 4
+              },
+              {
+                "Id": 6,
+                "Kind": "wood",
+                "X": 402.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 1,
+                "FarmId": 0
+              },
+              {
+                "Id": 7,
+                "Kind": "wood",
+                "X": 449.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              },
+              {
+                "Id": 8,
+                "Kind": "wood",
+                "X": 488.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 2,
+                "FarmId": 0
+              },
+              {
+                "Id": 9,
+                "Kind": "stone",
+                "X": 548.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              },
+              {
+                "Id": 10,
+                "Kind": "iron",
+                "X": 592.0,
+                "WorkerId": 0,
+                "Amount": 90,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              }
+            ],
+            "Projectiles": [],
+            "Identities": [
+              {
+                "Id": 1,
+                "DefinitionGuid": "de920f6f46b0ee34ab730757b1f164cf",
+                "PlacementKey": "a8746b56d4374852beb65290c567d95d"
+              },
+              {
+                "Id": 2,
+                "DefinitionGuid": "9b02302c0d6fc394ca25c303d7dc9869",
+                "PlacementKey": "5590223991bf4753ac72bccd470baa15"
+              },
+              {
+                "Id": 3,
+                "DefinitionGuid": "6d562b8d5824d2d4682ea725e4cbbd10",
+                "PlacementKey": "ee472c3b25214e3bb473b69f95872a60"
+              },
+              {
+                "Id": 4,
+                "DefinitionGuid": "462f08ac967440f458772620c642e75b",
+                "PlacementKey": "bd71ac292b144914ba509421391594dd"
+              },
+              {
+                "Id": 11,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "a2bf7726357147529a173368622325c4"
+              },
+              {
+                "Id": 12,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "9ea4d7b771454f7f9c1f732d1123ade2"
+              },
+              {
+                "Id": 13,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "ae3f78208632474fbea91e04bc884c28"
+              },
+              {
+                "Id": 14,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "7ab1d353c82b4271963166f383860636"
+              },
+              {
+                "Id": 15,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "e5ca074660bf4beab22d9058bb2e2e38"
+              },
+              {
+                "Id": 16,
+                "DefinitionGuid": "fdab779e054f8c44f8e22f8ea5f9858a",
+                "PlacementKey": "c1dde3ec72744c4cb7270747ad872847"
+              },
+              {
+                "Id": 17,
+                "DefinitionGuid": "f91187dc2d2c99b46be92ec283a00c9c",
+                "PlacementKey": "46bd476b318f4dc3acee088d42f247bd"
+              },
+              {
+                "Id": 5,
+                "DefinitionGuid": "a240041943d08544d85185a72385da7f",
+                "PlacementKey": ""
+              },
+              {
+                "Id": 6,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "e86e285c1e3e4a73bde48b8c353142bf"
+              },
+              {
+                "Id": 7,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "b886bdf9c9fc4755a38446ae90ccb1e3"
+              },
+              {
+                "Id": 8,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "45e159c7fa204f0bac5b16de9cd076d9"
+              },
+              {
+                "Id": 9,
+                "DefinitionGuid": "68ef7d9c2e17ab44ba435ccff85b756f",
+                "PlacementKey": "8c7c43469284476d8e5b60e997016bb6"
+              },
+              {
+                "Id": 10,
+                "DefinitionGuid": "98858cfbd09fbaa4c9a6fb3bf53020ad",
+                "PlacementKey": "2e2bdf486d3c4a0ebd958763fd9a464b"
+              }
+            ]
+          },
+          "Events": [
+            {
+              "Sequence": 1,
+              "Tick": 0,
+              "Type": "banner",
+              "Text": "灰松谷 · 第一天",
+              "Detail": "安排生产，训练守卫。守住三次夜袭。",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            },
+            {
+              "Sequence": 2,
+              "Tick": 0,
+              "Type": "message",
+              "Text": "先安排一名工人耕作，再采集木材。东侧已有两名守卫。",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            }
+          ],
+          "Remnants": []
+        }
+      },
+      {
+        "name": "wide",
+        "width": 1600,
+        "height": 900,
+        "cameraX": 550.0,
+        "zoom": 1.8,
+        "visualTime": 2.0,
+        "night": 0.16,
+        "selected": [],
+        "uiPage": "",
+        "effects": 0,
+        "entities": 17,
+        "image": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-world\\candidate-03\\wide.png",
+        "elapsed": 0.0,
+        "paused": true,
+        "snapshot": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-world\\candidate-03\\wide.v2.json",
+        "frame": {
+          "Publication": 5,
+          "Epoch": 1,
+          "Revision": 6,
+          "ServerTick": 19,
+          "PolicyRevision": 0,
+          "HostOnly": false,
+          "PlayerCount": 1,
+          "ReadyCount": 1,
+          "Loading": false,
+          "Paused": true,
+          "Speed": 1,
+          "Elapsed": 0.0,
+          "World": {
+            "Camp": {
+              "Stock": {
+                "Food": 60.0,
+                "Wood": 100.0,
+                "Stone": 80.0,
+                "Iron": 40.0,
+                "Gold": 0.0
+              },
+              "Population": 7,
+              "Capacity": 9,
+              "RecruitCooldown": 0.0,
+              "WaveIndex": 0,
+              "WavePhase": "Day",
+              "DayRemaining": 90.0,
+              "EnemyCount": 0,
+              "Mode": "Playing",
+              "Kills": 0,
+              "Lost": 0,
+              "Gathered": {
+                "Food": 0.0,
+                "Wood": 0.0,
+                "Stone": 0.0,
+                "Iron": 0.0,
+                "Gold": 0.0
+              },
+              "NextSpawn": 0
+            },
+            "Actors": [
+              {
+                "Id": 11,
+                "Kind": "worker",
+                "Name": "艾达",
+                "Enemy": false,
+                "X": 170.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 12,
+                "Kind": "worker",
+                "Name": "罗恩",
+                "Enemy": false,
+                "X": 187.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 13,
+                "Kind": "worker",
+                "Name": "米娅",
+                "Enemy": false,
+                "X": 293.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 14,
+                "Kind": "worker",
+                "Name": "伊恩",
+                "Enemy": false,
+                "X": 311.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 15,
+                "Kind": "worker",
+                "Name": "莉娜",
+                "Enemy": false,
+                "X": 357.0,
+                "Hp": 10.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 16,
+                "Kind": "spearman",
+                "Name": "奥斯",
+                "Enemy": false,
+                "X": 660.0,
+                "Hp": 30.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              },
+              {
+                "Id": 17,
+                "Kind": "archer",
+                "Name": "薇拉",
+                "Enemy": false,
+                "X": 625.0,
+                "Hp": 20.0,
+                "Activity": "Idle",
+                "TargetId": 0,
+                "Face": 1.0,
+                "Walking": false,
+                "ActionTime": 0.0,
+                "Windup": 0.0,
+                "HitFlash": 0.0
+              }
+            ],
+            "Buildings": [
+              {
+                "Id": 1,
+                "Kind": "house",
+                "X": 55.0,
+                "Hp": 100.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 2,
+                "Kind": "tavern",
+                "X": 130.0,
+                "Hp": 320.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 3,
+                "Kind": "barracks",
+                "X": 245.0,
+                "Hp": 200.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 0,
+                "HitFlash": 0.0,
+                "Training": []
+              },
+              {
+                "Id": 4,
+                "Kind": "farm",
+                "X": 330.0,
+                "Hp": 70.0,
+                "Progress": 1.0,
+                "WorkerId": 0,
+                "FarmSiteId": 5,
+                "HitFlash": 0.0,
+                "Training": []
+              }
+            ],
+            "Worksites": [
+              {
+                "Id": 5,
+                "Kind": "food",
+                "X": 330.0,
+                "WorkerId": 0,
+                "Amount": -1,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 4
+              },
+              {
+                "Id": 6,
+                "Kind": "wood",
+                "X": 402.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 1,
+                "FarmId": 0
+              },
+              {
+                "Id": 7,
+                "Kind": "wood",
+                "X": 449.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              },
+              {
+                "Id": 8,
+                "Kind": "wood",
+                "X": 488.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 2,
+                "FarmId": 0
+              },
+              {
+                "Id": 9,
+                "Kind": "stone",
+                "X": 548.0,
+                "WorkerId": 0,
+                "Amount": 120,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              },
+              {
+                "Id": 10,
+                "Kind": "iron",
+                "X": 592.0,
+                "WorkerId": 0,
+                "Amount": 90,
+                "Progress": 0.0,
+                "Variant": 0,
+                "FarmId": 0
+              }
+            ],
+            "Projectiles": [],
+            "Identities": [
+              {
+                "Id": 1,
+                "DefinitionGuid": "de920f6f46b0ee34ab730757b1f164cf",
+                "PlacementKey": "a8746b56d4374852beb65290c567d95d"
+              },
+              {
+                "Id": 2,
+                "DefinitionGuid": "9b02302c0d6fc394ca25c303d7dc9869",
+                "PlacementKey": "5590223991bf4753ac72bccd470baa15"
+              },
+              {
+                "Id": 3,
+                "DefinitionGuid": "6d562b8d5824d2d4682ea725e4cbbd10",
+                "PlacementKey": "ee472c3b25214e3bb473b69f95872a60"
+              },
+              {
+                "Id": 4,
+                "DefinitionGuid": "462f08ac967440f458772620c642e75b",
+                "PlacementKey": "bd71ac292b144914ba509421391594dd"
+              },
+              {
+                "Id": 11,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "a2bf7726357147529a173368622325c4"
+              },
+              {
+                "Id": 12,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "9ea4d7b771454f7f9c1f732d1123ade2"
+              },
+              {
+                "Id": 13,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "ae3f78208632474fbea91e04bc884c28"
+              },
+              {
+                "Id": 14,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "7ab1d353c82b4271963166f383860636"
+              },
+              {
+                "Id": 15,
+                "DefinitionGuid": "57892829ba5122f4ba088c29da524d62",
+                "PlacementKey": "e5ca074660bf4beab22d9058bb2e2e38"
+              },
+              {
+                "Id": 16,
+                "DefinitionGuid": "fdab779e054f8c44f8e22f8ea5f9858a",
+                "PlacementKey": "c1dde3ec72744c4cb7270747ad872847"
+              },
+              {
+                "Id": 17,
+                "DefinitionGuid": "f91187dc2d2c99b46be92ec283a00c9c",
+                "PlacementKey": "46bd476b318f4dc3acee088d42f247bd"
+              },
+              {
+                "Id": 5,
+                "DefinitionGuid": "a240041943d08544d85185a72385da7f",
+                "PlacementKey": ""
+              },
+              {
+                "Id": 6,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "e86e285c1e3e4a73bde48b8c353142bf"
+              },
+              {
+                "Id": 7,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "b886bdf9c9fc4755a38446ae90ccb1e3"
+              },
+              {
+                "Id": 8,
+                "DefinitionGuid": "ea428c54b80b9b44ca4ca163704026e8",
+                "PlacementKey": "45e159c7fa204f0bac5b16de9cd076d9"
+              },
+              {
+                "Id": 9,
+                "DefinitionGuid": "68ef7d9c2e17ab44ba435ccff85b756f",
+                "PlacementKey": "8c7c43469284476d8e5b60e997016bb6"
+              },
+              {
+                "Id": 10,
+                "DefinitionGuid": "98858cfbd09fbaa4c9a6fb3bf53020ad",
+                "PlacementKey": "2e2bdf486d3c4a0ebd958763fd9a464b"
+              }
+            ]
+          },
+          "Events": [
+            {
+              "Sequence": 1,
+              "Tick": 0,
+              "Type": "banner",
+              "Text": "灰松谷 · 第一天",
+              "Detail": "安排生产，训练守卫。守住三次夜袭。",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            },
+            {
+              "Sequence": 2,
+              "Tick": 0,
+              "Type": "message",
+              "Text": "先安排一名工人耕作，再采集木材。东侧已有两名守卫。",
+              "Detail": "",
+              "Volume": -11.0,
+              "Warning": false,
+              "Cue": null
+            }
+          ],
+          "Remnants": []
+        }
+      }
+    ],
+    "fixtures": [
+      {
+        "path": "artifacts/m5-world/candidate-03/camp.v2.json",
+        "bytes": 5758,
+        "sha256": "973518A7B4573A9F328155FF9C72A0337CECE7E423410A22053F87666814D0C9"
+      },
+      {
+        "path": "artifacts/m5-world/candidate-03/night.v2.json",
+        "bytes": 6832,
+        "sha256": "763EC10B6578690AE594E56678186E4D51E93441D48DE9C65381912A12472C4A"
+      },
+      {
+        "path": "artifacts/m5-world/candidate-03/remnants.v2.json",
+        "bytes": 6832,
+        "sha256": "763EC10B6578690AE594E56678186E4D51E93441D48DE9C65381912A12472C4A"
+      },
+      {
+        "path": "artifacts/m5-world/candidate-03/zoom_out.v2.json",
+        "bytes": 5758,
+        "sha256": "973518A7B4573A9F328155FF9C72A0337CECE7E423410A22053F87666814D0C9"
+      },
+      {
+        "path": "artifacts/m5-world/candidate-03/wide.v2.json",
+        "bytes": 5758,
+        "sha256": "973518A7B4573A9F328155FF9C72A0337CECE7E423410A22053F87666814D0C9"
+      }
+    ],
+    "finalEditorImages": [
+      {
+        "file": {
+          "path": "artifacts/m5-world/candidate-03/menu.png",
+          "bytes": 133815,
+          "sha256": "8A891F0BCEAE0011A6AB79076E0CC85ABA3EB5EC5863C8A61A27512D4B093C29"
+        },
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "file": {
+          "path": "artifacts/m5-world/candidate-03/camp.png",
+          "bytes": 133069,
+          "sha256": "745D6219D31CD911576F111408EF377C2AD09D7FEF4633B8BDD58F359A9E687C"
+        },
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "file": {
+          "path": "artifacts/m5-world/candidate-03/night.png",
+          "bytes": 152246,
+          "sha256": "79F598B32675A4207276B8077B6BBC1B8CC19416E04D6F286B92DC6D7A8B0F37"
+        },
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "file": {
+          "path": "artifacts/m5-world/candidate-03/remnants.png",
+          "bytes": 154990,
+          "sha256": "02F9AA8C3033B8D9E3AE44D61333F2AFE2F14F57858ABC2721AE32812B99970E"
+        },
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "file": {
+          "path": "artifacts/m5-world/candidate-03/zoom_out.png",
+          "bytes": 135747,
+          "sha256": "4E580711408CACB5A54E0A491E1364B354045ABAFC1B22148824DB2098A3D3C5"
+        },
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "file": {
+          "path": "artifacts/m5-world/candidate-03/wide.png",
+          "bytes": 157678,
+          "sha256": "8127D82B1D93D22C2895604F25DF7F52CDED8EBBCF5E63CD872B88C7746A613E"
+        },
+        "width": 1600,
+        "height": 900
+      }
+    ],
+    "playerImages": [
+      {
+        "file": {
+          "path": "artifacts/m5-world/player-parity-20260914-052236-126/menu.png",
+          "bytes": 130672,
+          "sha256": "EB4730CFD779DDA823A9A3FA552EAB18099BF832A6B12B1E5C0F509D86AB3F64"
+        },
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "file": {
+          "path": "artifacts/m5-world/player-parity-20260914-052236-126/camp.png",
+          "bytes": 133165,
+          "sha256": "23BD6EA38484160BC542900AE4D4DE8D3496B5F493B59005C7157665C69A2B4C"
+        },
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "file": {
+          "path": "artifacts/m5-world/player-parity-20260914-052236-126/night.png",
+          "bytes": 152246,
+          "sha256": "79F598B32675A4207276B8077B6BBC1B8CC19416E04D6F286B92DC6D7A8B0F37"
+        },
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "file": {
+          "path": "artifacts/m5-world/player-parity-20260914-052236-126/remnants.png",
+          "bytes": 154990,
+          "sha256": "02F9AA8C3033B8D9E3AE44D61333F2AFE2F14F57858ABC2721AE32812B99970E"
+        },
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "file": {
+          "path": "artifacts/m5-world/player-parity-20260914-052236-126/zoom_out.png",
+          "bytes": 135837,
+          "sha256": "F7F2E1D6F433A255F41A0D0965463B5F703DE4C2C0ABC2AD3102B5541A050270"
+        },
+        "width": 1280,
+        "height": 800
+      },
+      {
+        "file": {
+          "path": "artifacts/m5-world/player-parity-20260914-052236-126/wide.png",
+          "bytes": 157463,
+          "sha256": "3D59003AEB3D823EB3444FD33072312B52C415AFCBFD8EF5679F81DF0C2E3522"
+        },
+        "width": 1600,
+        "height": 900
+      },
+      {
+        "file": {
+          "path": "artifacts/m5-world/player-parity-20260914-052236-126/client-remnants.png",
+          "bytes": 177278,
+          "sha256": "DF08639858C25C6E509E9DB1AFB697EBDA6559DF76614C72F16D14CD444B3B32"
+        },
+        "width": 1600,
+        "height": 900
+      }
+    ],
+    "candidate02Equals03": {
+      "menu": true,
+      "camp": true,
+      "night": true,
+      "remnants": true,
+      "zoom_out": true,
+      "wide": true
+    },
+    "playerWorldBandEqualsEditor": {
+      "camp": true,
+      "night": true,
+      "remnants": true,
+      "zoom_out": true,
+      "wide": true
+    },
+    "entireFrameIdentical": [
+      "night",
+      "remnants"
+    ],
+    "menuDifference": {
+      "changedPixels": 17398,
+      "changedBounds": [
+        88,
+        586,
+        963,
+        765
+      ],
+      "expectedUiRegions": [
+        [
+          88,
+          586,
+          396,
+          630
+        ],
+        [
+          88,
+          724,
+          1192,
+          788
+        ]
+      ],
+      "changedPixelsOutsideUi": 0,
+      "reason": "Player has fixture slot files and has left the room; Editor menu was captured before joining."
+    },
+    "godotComparison": {
+      "path": "artifacts/m5-world/comparison-03/comparison.json",
+      "bytes": 10687,
+      "sha256": "AE53AB13AACB1A2010FCCBA2FDDF311210563B2C8C64230110BA21B67DEE04DE"
+    },
+    "playerComparison": {
+      "path": "artifacts/m5-world/player-editor-comparison/comparison.json",
+      "bytes": 10829,
+      "sha256": "E79B7CE3F9DB01F4C0AC8101AF6891BA0DB5CEFA85BF1332A01BACE6D1534CD5"
+    },
+    "comparisonFileReferencesVerified": 48,
+    "identicalGammaColorsRequired": false,
+    "colorProbe": {
+      "path": "artifacts/m5-world/color-inputs.json",
+      "bytes": 152,
+      "sha256": "36E140905537284180E7F9D2B50A7273B948B74FE9799A99B5CEF9AAAEE213C9"
+    },
+    "colorProbeNote": "Early temporary diagnostic errors were corrected; this is not a claim that the entire diagnostic log contains no errors.",
+    "animation": {
+      "report": {
+        "path": "artifacts/yygc-unified/u6/source/artifacts/migration/native-animation-measurement.json",
+        "bytes": 43,
+        "sha256": "1E4F913CC622A191D061BC38BF1C5226B9F1934564590F97DCD33EDB094A722F"
+      },
+      "counts": {
+        "visuals": 15,
+        "clips": 32,
+        "sampledKeys": 583
+      }
+    },
+    "contactSheet": {
+      "path": "artifacts/m5-world/player-contact.png",
+      "bytes": 257339,
+      "sha256": "9C724FEB03B2EA0347FC6F3877CBAB7AE924A7F0C0EFEEF6A69C8C8E10943AA2"
+    }
+  },
+  "drivers": [
+    {
+      "path": "tools/test-game-world-parity.ps1",
+      "bytes": 8330,
+      "sha256": "1231AA717A7549CAE694DF76E5708FA021BF25C17EBF6641E3B474DDF9003038"
+    },
+    {
+      "path": "tools/test-game-battle.ps1",
+      "bytes": 5514,
+      "sha256": "E8300D0DD238F70C10D4292235CBCAFDA98C62F78B35C6002C47F2BDC79DAE11"
+    }
+  ],
+  "cleanup": {
+    "releasedBytesThisSlice": 67000747,
+    "complete": false,
+    "handoffComplete": true,
+    "deniedRoots": 8,
+    "deniedDistinctBytes": 6971097434,
+    "inventory": {
+      "path": "docs/evidence/stage-cleanup-inventory-2026-09-14.json",
+      "bytes": 177596,
+      "sha256": "83C29EFEFFB11D86DEEDAB54A9CEE7015CD2BB7FC4F8CDE77A5324B53E32A59D"
+    },
+    "csv": {
+      "path": "docs/evidence/stage-cleanup-inventory-2026-09-14.csv",
+      "bytes": 77778,
+      "sha256": "36271B9D9AD94B6E54897EF764D9CFDD9FC3812A056EF1C2DE7A5212CDEA536A"
+    },
+    "debugAttempt": {
+      "path": "artifacts/m5-world/debug-cleanup.json",
+      "bytes": 403,
+      "sha256": "DE210DE9787117760574D86D8E1256FB38107B4DC861A5B8F99FFBFD80885F20"
+    },
+    "architecture": {
+      "path": "artifacts/m5-world/architecture-cleanup.json",
+      "bytes": 310,
+      "sha256": "3C4D53501A323A4E95CDC8332A40D92B749811803F073A164B693EC5010350BD"
+    },
+    "otherTools": {
+      "path": "artifacts/m5-world/storage/extra-tools-cleanup.json",
+      "bytes": 1459,
+      "sha256": "84CEB3F44B3ADD5B711D4C5A21F5464D2F14783B3B55392EF475FA8AD2CE5F68"
+    },
+    "deniedTargetsRetried": false,
+    "sharedCachesRemoved": false
+  },
+  "environment": {
+    "path": "artifacts/m5-world/final-environment.json",
+    "bytes": 758,
+    "sha256": "8004137AF9713706DB96803BE0A9BB115121F6A227F16AD39E7D7E54BBCB3AD9"
+  },
+  "space": {
+    "utc": "2026-09-13T21:55:54.911520+00:00",
+    "drives": {
+      "C": {
+        "total": 160201437184,
+        "used": 145975209984,
+        "free": 14226227200
+      },
+      "D": {
+        "total": 838806999040,
+        "used": 803962212352,
+        "free": 34844786688
+      }
+    },
+    "note": "Free-space deltas include unrelated processes; released byte count is measured per cleanup target."
+  },
+  "pending": [
+    "Foreground three-night and capacity performance: user deferred visible windows",
+    "IL2CPP: explicit confirmation required before building or validating",
+    "LAN on a second physical Windows machine"
+  ],
+  "retainedLimitations": [
+    "Policy-denied cleanup: handed off as an inventory per user instruction; not removed",
+    "The same GPU model comparison does not establish different-physical-GPU compatibility"
+  ]
+}

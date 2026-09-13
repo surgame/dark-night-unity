@@ -1,4 +1,4 @@
-param([int]$Port = 27993, [string]$PlayerPath = '')
+param([int]$Port = 27993, [string]$PlayerPath = '', [switch]$BatchMode)
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
 $player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe' }
@@ -33,6 +33,7 @@ function Start-Player([string]$Role) {
     $arguments = @('-screen-width', '1280', '-screen-height', '800', '-screen-fullscreen', '0',
         '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'), '--dn-role', $Role, '--dn-port', $Port,
         '--dn-report', ('"' + (Join-Path $run "$Role.json") + '"'), '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
+    if ($BatchMode) { $arguments = @('-batchmode') + $arguments }
     $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru
 }
 function Send([string]$Role, [hashtable]$Command) {

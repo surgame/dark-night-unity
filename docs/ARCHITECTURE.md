@@ -1,6 +1,6 @@
 # Dark Nights Unity 技术架构
 
-2026-09-13，采用 [YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。U0–U5 已完成，正式入口使用全部 YYGC 业务能力，旧运行模型已删除。U6 最新协议 7／YYGC `745f3d2` 通过 144 项 Editor／Play、Mono 完整矩阵 350 项及 240 秒容量检查 21 项；前台验收由用户暂缓，性能签署及清理仍有未完成项。实际状态与证据见[性能验收](YYGC_UNIFIED_PERFORMANCE.md)和[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)，不以类型或目录存在代替验收。
+2026-09-14，采用 [YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。U0–U5 已完成，正式入口使用全部 YYGC 业务能力，旧运行模型已删除。U6 协议 7／YYGC `745f3d2` 通过 144 项 Editor／Play、Mono 完整矩阵 350 项及 240 秒容量检查 21 项；后续 [Linear 世界表现](M5_WORLD_PRESENTATION.md)在 `a4a5450` 完成 155 项 Editor／Play 和新 Mono 77 项检查。前台验收由用户暂缓，IL2CPP／双机器仍未验收；受限清理已完成[列账交接](STAGE_CLEANUP_INVENTORY.md)，目录未删除。实际状态与证据见[性能验收](YYGC_UNIFIED_PERFORMANCE.md)和[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)，不以类型或目录存在代替验收。
 
 本页描述统一后的源码。原集中 Core 世界及按 Kind 借还视图的方案保留在 Git 历史和 [C 重构记录](C_REFACTOR_IMPLEMENTATION.md)，不再作为当前状态归属合同。游戏不兼容 Godot 旧档、Unity v1 或协议 6／5；独立 LAN Sample 的兼容边界单独保留。
 
@@ -110,6 +110,6 @@ v2 保存全部权威状态、实体定义／放置身份、训练／施工／�
 
 Addressables 通过条目／分组管理，不要求资源目录叫 Addressables，不把 Res 当成 Resources。现有 AddressableAssetsData 配置位置保留。ObjectCapabilitySetup 只服务指定空目录的首版初始化；NativeObjectContracts 和普通构建执行只读校验，不自动升级人工资源。
 
-U4 完成正式接线，U5 完成旧模型退出与回归迁移；U6 最新 `4e3798f` 的同一 Mono 已通过多人、活跃恢复、九组弱网、三夜、容量时效及 240 秒后台观察。首轮无旧 Library 的构建和本轮复用缓存的构建分别保留来源。普通前台性能按用户选择暂缓，M5 画面仍未签署；Mono、IL2CPP、双机器 LAN 分别记录，不把本机功能结果写成最终全平台验收。
+U4 完成正式接线，U5 完成旧模型退出与回归迁移；U6 `4e3798f` 的同一 Mono 已通过多人、活跃恢复、九组弱网、三夜、容量时效及 240 秒后台观察。首轮无旧 Library 的构建和后续复用缓存的构建分别保留来源。`a4a5450` 已完成本机 Linear 固定世界画面对照，普通前台性能按用户选择暂缓；Mono、IL2CPP、双机器 LAN 分别记录，不把同型号 GPU 的本机结果写成最终全平台或跨物理 GPU 验收。
 
 允许针对实证缺口更新 YYGC，先在隔离 checkout 验证，锁定可复现输入并维护[逐文件账本](YYGC_CHANGES.md)。框架历史长文件不在本次全面拆分范围。暂不增加锁步、回滚、ECS、房主迁移、专服集群或未经测量的拆流。
