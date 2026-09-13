@@ -1,0 +1,2044 @@
+{
+  "files": [
+    {
+      "path": "D3D12/D3D12Core.dll",
+      "bytes": 4725304,
+      "sha256": "625BD40005B1C3708695D5256ECF230D278E6B8EDBA5A88AF70F3D91324F3052"
+    },
+    {
+      "path": "D3D12/d3d12SDKLayers.dll",
+      "bytes": 4930104,
+      "sha256": "C0730CC70D3250D3DE19C04C17845BA9E70EECAF502D684D1409195EBC5B5959"
+    },
+    {
+      "path": "DarkNights_Data/app.info",
+      "bytes": 22,
+      "sha256": "43455F0799ECA40BE5EC7760EDBF8CE7E88C085765A3AFE12C89FCF2E0AFF2EC"
+    },
+    {
+      "path": "DarkNights_Data/boot.config",
+      "bytes": 352,
+      "sha256": "E4AC5F05F0AFC93FFC73F31002B7647912A148546B5D9F3C3EB4B4D5C87A46D6"
+    },
+    {
+      "path": "DarkNights_Data/globalgamemanagers",
+      "bytes": 271140,
+      "sha256": "2F1771CD075F94F82F377E9AD79E311ADD5B41B5FB153AD06B9566A47C4C3338"
+    },
+    {
+      "path": "DarkNights_Data/globalgamemanagers.assets",
+      "bytes": 1366564,
+      "sha256": "5F3BA32ADDD2A8817CE21B79F1E41CD9635388DE300497B85F2F304EA92F6C39"
+    },
+    {
+      "path": "DarkNights_Data/globalgamemanagers.assets.resS",
+      "bytes": 5718240,
+      "sha256": "9D5CD592A38D46BD823A36366B1F5B84CF0A2B3ACE58DEC6A6374CA0D50FE6EC"
+    },
+    {
+      "path": "DarkNights_Data/level0",
+      "bytes": 2012,
+      "sha256": "25C185F962144CD9A12CC63BCB42905D91E378C969517B6885B93DB6BA532FDC"
+    },
+    {
+      "path": "DarkNights_Data/level1",
+      "bytes": 115204,
+      "sha256": "E4AEB0985C1497E966CF69B22D56D9A2F3B9C3F6E87EAB205ED134E46D3A3814"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Assembly-CSharp-firstpass.dll",
+      "bytes": 48640,
+      "sha256": "04BCE0A9C1095A5360E671EDC0C30A80CC87F6E2E1038F59B148D3268C2CA454"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Assembly-CSharp-firstpass.pdb",
+      "bytes": 38780,
+      "sha256": "ADB9FA2A32B217A6F369D2CAB262C24AE87B951AD7F4F813C1C934D1C1C3FF30"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Assembly-CSharp.dll",
+      "bytes": 6144,
+      "sha256": "B1E69F567D4F924FF3A8EB1AA611D39B1B5D9EA97A903A4E51B351048CE36FF3"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Assembly-CSharp.pdb",
+      "bytes": 22156,
+      "sha256": "7463E21F7085F048FBF1AA09B435BF1481316530AD02C283D73C05B3D68D1A97"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Core.dll",
+      "bytes": 69632,
+      "sha256": "77FF5BDF9B1FB3E2CB9F78AD13BF9A0F600CB1C51DCF042D5535547A0CFD201C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Core.pdb",
+      "bytes": 35756,
+      "sha256": "D0D7001110A0CDF330436966721BE5FDC9EE47BDF55861A60BE2C02DA3808D69"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Entry.dll",
+      "bytes": 87040,
+      "sha256": "2A66107EDB8E649EE084B671AA3CEABE0C796EFA8E136293421DDA635D0F8081"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Entry.pdb",
+      "bytes": 33592,
+      "sha256": "D4C291189D894AE4BCCA00A8676995AE8875715AC3D0FD65BD39C090B47A5B95"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Runtime.dll",
+      "bytes": 318464,
+      "sha256": "D1F833DC58F9DBFE22B7863610993EEC63703AA45FDCE3C139252A6D96E190C8"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Runtime.pdb",
+      "bytes": 200960,
+      "sha256": "EF1A3E35C063A2C943EF7C20FF356BC07AE893B86EDC3D3DBFA5223AFD7617EB"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Bootstrap.dll",
+      "bytes": 10752,
+      "sha256": "7353FF8F8732E9EB77BAA4DB1B2FE36E5A6CD085EFC67ACDE55C0D5996A973F8"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Bootstrap.pdb",
+      "bytes": 20364,
+      "sha256": "5F6465516DCD703D86DA80487DFB681FFE50BB1F822907B15182FF85C8ABE511"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Core.dll",
+      "bytes": 8192,
+      "sha256": "963FF0BA8C9A61B994862FEBBCF251789F810B2D7F88A8A47E50C7097F80D2A6"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Core.pdb",
+      "bytes": 14532,
+      "sha256": "9BC1D6078D9E9A654427BD20A396FA8E05264B401ABFD8E2DF5D119B7A59183C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Presentation.dll",
+      "bytes": 8704,
+      "sha256": "A900985B5C60236A1CF26F3187E338AD5E49602A6A85E6817093DAAAADBDF10B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Presentation.pdb",
+      "bytes": 18780,
+      "sha256": "452A733701EBDCCE393A7772B23F1C7CC5EAA89203FDF95B7479C437E71F1220"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Runtime.dll",
+      "bytes": 36864,
+      "sha256": "A361731F60B7A7B2EDB5E64A00C4C1C355F7C16FE3AECA51C9D51A4C157E765E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Runtime.pdb",
+      "bytes": 34168,
+      "sha256": "EE2541E7BA8C8E311BDE7BCAEF8004F919D857026449CDC5DA938FBD1D4C3FE0"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.View.dll",
+      "bytes": 94720,
+      "sha256": "D4806FDE0D8B951F01216BF42F831D507082E3523BD0B18F2C7E214C230558FA"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DarkNights.View.pdb",
+      "bytes": 54636,
+      "sha256": "0332B43D22440A9E440E2B520E966E2FEA14A7F424039E7DAE06A877560DED0F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/DOTween.dll",
+      "bytes": 177664,
+      "sha256": "D74BFC3F37CD97D90F7F08A9A73E204C5EAE66E77BE24B12378A4E99F1690843"
+    },
+    {
+      "path": "DarkNights_Data/Managed/FishNet.CodeAnalysis.dll",
+      "bytes": 5120,
+      "sha256": "E56A24A6FE023C324D65DFC4C79B19492F052D011E8BBD45051846BE6E05092F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/FishNet.Demos.dll",
+      "bytes": 79360,
+      "sha256": "F9DBF9BC674FF481589CCD3FED0B27986F8CCDCE8709A372B97F79FFDA7D231B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/FishNet.Demos.pdb",
+      "bytes": 43768,
+      "sha256": "1E395649E650C19CCCA07B23DC5676E2861720718A137F28149794826731D6C7"
+    },
+    {
+      "path": "DarkNights_Data/Managed/FishNet.Runtime.dll",
+      "bytes": 935424,
+      "sha256": "3674CD98FD49F63F11B23296AAE95EE9E2C10ECAC6A7329FB39DE63BB7EB4743"
+    },
+    {
+      "path": "DarkNights_Data/Managed/FishNet.Runtime.pdb",
+      "bytes": 460416,
+      "sha256": "9EE2D5D91CD826E4D69F8464B415AF86DEBEF8457A8EF96D0899D64B1225AF10"
+    },
+    {
+      "path": "DarkNights_Data/Managed/GameCore.Runtime.dll",
+      "bytes": 474624,
+      "sha256": "D062F5ADA4284C19C915A5E492CA11BE934A3820A74B74E6D730E4A2F913AE1E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/GameCore.Runtime.pdb",
+      "bytes": 208336,
+      "sha256": "09DAE1EE91B9018ACAC2F9DC38DA77767E0ABA3FB74A21F33341873132285F54"
+    },
+    {
+      "path": "DarkNights_Data/Managed/GameKit.Dependencies.dll",
+      "bytes": 93696,
+      "sha256": "DC6D2B8FF3ED0EE2EE4BC768923E16145DCC1BC7765428BD1033E554804ABCD5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/GameKit.Dependencies.pdb",
+      "bytes": 66136,
+      "sha256": "A9ECC8C0E64FE220AE11788B29F472F0429BCE4AFA2D11FAAE9E3982D667F422"
+    },
+    {
+      "path": "DarkNights_Data/Managed/MemoryPack.Core.dll",
+      "bytes": 197632,
+      "sha256": "CA033BC0ECF997A7DB8D976850458E218D9816A962E46AF89B62EBC3236CC0E4"
+    },
+    {
+      "path": "DarkNights_Data/Managed/MemoryPack.Unity.dll",
+      "bytes": 10240,
+      "sha256": "4AA156553492F73D98C742BA8B54608E05BCF1DFC3F1675349EEDBCB05CB434B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/MemoryPack.Unity.pdb",
+      "bytes": 18276,
+      "sha256": "3722644C4A4998B5AB9854ECABECB311C9B251EF79CC0C4AF71C6D6277C17548"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Microsoft.Bcl.AsyncInterfaces.dll",
+      "bytes": 16000,
+      "sha256": "5705D245072D3EB78400547B32147DBB6E2C8B02BA8BDA76729798F5EFDEAECB"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Microsoft.Bcl.TimeProvider.dll",
+      "bytes": 32416,
+      "sha256": "D9941B9603506C46E2AAF8B44166C93646B55EBEA0D365792B405C2562753442"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Microsoft.CodeAnalysis.CSharp.dll",
+      "bytes": 6098320,
+      "sha256": "E822156145E1ADD437B1D893C0315257C12E3D5B1B89D83494DB6D88D37FE20A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Microsoft.CodeAnalysis.dll",
+      "bytes": 2903440,
+      "sha256": "159F595E313F8CC09BAC14588E2466C312F512A4778D9FA2352FCCCF2A53AA3D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Mono.Security.dll",
+      "bytes": 241152,
+      "sha256": "9838776992DC44EBE2AFF2E9EC52C292024F5464542897AA5D29429A921437B9"
+    },
+    {
+      "path": "DarkNights_Data/Managed/mscorlib.dll",
+      "bytes": 4632064,
+      "sha256": "EAF6B07FD716403E8FEDC054BDD1650142D1DC95D34C01D9485DE97B5A0DD84B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/netstandard.dll",
+      "bytes": 90112,
+      "sha256": "6AE62E082DC494A2433984177F60CA4DB5FAE69B1F360A8B33754172B310B8C5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Newtonsoft.Json.dll",
+      "bytes": 691712,
+      "sha256": "A56146202232958F46BD6A28B5A7DA166AEA123EE0D646735A46E5C341DFBF1F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Newtonsoft.Json.pdb",
+      "bytes": 2174464,
+      "sha256": "17CBAB4D4207187ED94173C0D59D7A39FABED7C9035B73634C1F02188DD60168"
+    },
+    {
+      "path": "DarkNights_Data/Managed/R3.dll",
+      "bytes": 601600,
+      "sha256": "4AC9EC66B56F4CBD139E4C7F99A6E0DF6E4BB4C2707635880DF8DD04ACE291EB"
+    },
+    {
+      "path": "DarkNights_Data/Managed/R3.Unity.dll",
+      "bytes": 66560,
+      "sha256": "AC65D987724E94FA9B2C6A68AC14CC04EFD82F9A4A8B025AAAAC61117F669D54"
+    },
+    {
+      "path": "DarkNights_Data/Managed/R3.Unity.pdb",
+      "bytes": 46020,
+      "sha256": "2E0D9306CD6D7913B44A6B403DD1201626D14B8D0D1AF1E0425D6A7D5BE66F39"
+    },
+    {
+      "path": "DarkNights_Data/Managed/R3.Unity.TextMeshPro.dll",
+      "bytes": 8192,
+      "sha256": "608BC9025CBE27BA4766F60E534D983C72EDB504158EFF0068742443417CB760"
+    },
+    {
+      "path": "DarkNights_Data/Managed/R3.Unity.TextMeshPro.pdb",
+      "bytes": 18708,
+      "sha256": "76F9CFFAC645235F7555048988F55BC849C7F927BADDCC9E682E6C61C6E9642C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/R3.Unity.XRInteractionToolkit.dll",
+      "bytes": 4096,
+      "sha256": "172B8736E3941781C346626B26B1DE607F61C936F1C0F9403C63F9C13438E498"
+    },
+    {
+      "path": "DarkNights_Data/Managed/R3.Unity.XRInteractionToolkit.pdb",
+      "bytes": 17808,
+      "sha256": "156F8309352AF448984D00DAA4228D6857C7B14DFD0A21557C1B77EF7DE8E68B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Sirenix.OdinInspector.Attributes.dll",
+      "bytes": 108544,
+      "sha256": "DA19C70EDF2CB9EEA792C7F0F85088D33DCDFE9F23E1B2794864269B2D3D700E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Sirenix.OdinInspector.Modules.Unity.Addressables.dll",
+      "bytes": 5632,
+      "sha256": "3D5EE950D58C56E980409C43B139F182589A5BD9FE97C08BC1EF91A55F75352C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Sirenix.OdinInspector.Modules.Unity.Addressables.pdb",
+      "bytes": 19348,
+      "sha256": "3493E018EA8306D5011AEBEC689E88C959B07C38286A1F1C1BC83658EC06D2E9"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Sirenix.Serialization.Config.dll",
+      "bytes": 17920,
+      "sha256": "153D3D73AE3CB667DE9446E708B33258362DE3C23D2E46DFFBD40957998464DD"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Sirenix.Serialization.dll",
+      "bytes": 347136,
+      "sha256": "BDB272522D13732ACBE2CC1A36EE3AEBEB30F256666309A03E1C2F07B417B38B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Sirenix.Utilities.dll",
+      "bytes": 150528,
+      "sha256": "2A1FCF8FF085F6F6662E387071A314E2C8DC615B9A1648E5DAC9EAEF8009E711"
+    },
+    {
+      "path": "DarkNights_Data/Managed/SynapseSocket.dll",
+      "bytes": 152064,
+      "sha256": "DEC2AE57D0AA519F86CD10543A6EED5C3DF02A1DE925CDE3502A8E903E2AB461"
+    },
+    {
+      "path": "DarkNights_Data/Managed/SynapseSocket.pdb",
+      "bytes": 84040,
+      "sha256": "8994E70FECD4E4CB2488C6FD7E9B58847A68C2D661B1173C2F8C5F212E714B07"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Buffers.dll",
+      "bytes": 4608,
+      "sha256": "762F8FDBE975E05B76BE5FE996C53CE7C75E4A2830F2F50B02A5948EF6BA0AEB"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Collections.Immutable.dll",
+      "bytes": 252680,
+      "sha256": "5B1B1C83BA3D135C2FDFE425842FBE9C7432878B7E468623ACB554C69B4C130F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.ComponentModel.Annotations.dll",
+      "bytes": 89992,
+      "sha256": "C46069E29AD23FEE7F5D2CED736FFEA27B0177F82341296D9AF6325ACF821C69"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.ComponentModel.Composition.dll",
+      "bytes": 257024,
+      "sha256": "A30FDDE214493B540A5A169AA1729FF494D46F519D9C9A036746967C0845E764"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Configuration.dll",
+      "bytes": 124928,
+      "sha256": "223A6629BB9DEBB0327082DA3E525860E734F231274D0F6BB83A164DF778B779"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Core.dll",
+      "bytes": 1113088,
+      "sha256": "DB725196B862D96BEEFB95BBB6693F892A12DC401B5C044660D13789E45C255D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Data.DataSetExtensions.dll",
+      "bytes": 29696,
+      "sha256": "1D6F66F38CABD57B3D099804593CE5144E22921871DFDF0D6487A4BC725B9C8B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Data.dll",
+      "bytes": 2125312,
+      "sha256": "F1E0909723A04B1B8BA3630593893E1A4683B391349B79697B8958D7E897A68F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.dll",
+      "bytes": 2641920,
+      "sha256": "C3C900393EFFD00A0D36F1DFD317FFE0F19744AAD0C3D9C0B10E5F4D5A00BDD7"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Drawing.dll",
+      "bytes": 489984,
+      "sha256": "630AEBA7B15DE154E6FAF86270EAAF6921AB2B5E9DD2273382E3A0DF8ED918AD"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.EnterpriseServices.dll",
+      "bytes": 44544,
+      "sha256": "E0BD4C9AA95B3264E2BC5C43404637447DE098829BE95D5364A50C286651EDE1"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.IO.Compression.dll",
+      "bytes": 114688,
+      "sha256": "11877B20D2C14BB0EB208F3E20F102DDD3C78B8C5D18EDCEA935DD5960E48449"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.IO.Compression.FileSystem.dll",
+      "bytes": 18432,
+      "sha256": "738C6EA02BB89C69473F8E128F077CB6F7D62B04E7928E0E244EA7A991E65853"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.IO.Hashing.dll",
+      "bytes": 50488,
+      "sha256": "AC7AC3E83805B0B621C48B90543DC733C9A89106835278618357D6187E3DA74E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Memory.dll",
+      "bytes": 4608,
+      "sha256": "C4F030A2CBA7DA7CDCF493257C24560E203D355904AEE490D645A935842F834A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Net.Http.dll",
+      "bytes": 122880,
+      "sha256": "31DD2EC15094027CB78457421633E24F8272A5D83792BD02F5C483339FDC948A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Numerics.dll",
+      "bytes": 119296,
+      "sha256": "5AC2ED1D8235E6E27A7527FC159A852B1391854E35589746276377847228EB62"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Reflection.Metadata.dll",
+      "bytes": 487696,
+      "sha256": "55EF768FFA305DE58E38E15420669258B16F420618EB1F702BDDB30E5C797961"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Runtime.CompilerServices.Unsafe.dll",
+      "bytes": 18024,
+      "sha256": "01748200F2400C742AA689F1F5101BD6298EFDFD92C00C18F4FA473847235BA9"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Runtime.dll",
+      "bytes": 12288,
+      "sha256": "E0A7334B7BA419AAAB6BD3BB6992D693E689341A9178172C9BF99C2AA6A085BD"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Runtime.Serialization.dll",
+      "bytes": 934400,
+      "sha256": "5B7219B02B2724941F532F6806CC6402B7B413BE0161F8994364EBB80B045330"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Security.dll",
+      "bytes": 320000,
+      "sha256": "A51236ACA52E7F43A5D236667AEEE4C29B74F05E70ED4E66F23BD01F1219471D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.ServiceModel.Internals.dll",
+      "bytes": 215040,
+      "sha256": "10362190426D7F2FEB552223EBCEC5DEA0FB33C2EC2E4B512832DDBAD2D3FBEA"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Text.Encoding.CodePages.dll",
+      "bytes": 5120,
+      "sha256": "3CA4CE55E8EE4A98B7FC8E15775B05EB1579ECA009EE297871D3C7B6C0999BD8"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Threading.Channels.dll",
+      "bytes": 75952,
+      "sha256": "31C7E3704C0477C53D9306362DC6ABE741088EFB7A7B4E46CDED0169CF7BB0B2"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Threading.Tasks.Extensions.dll",
+      "bytes": 5120,
+      "sha256": "96150ABDCA5DF4446B376560E069D59B3550212DEDA8CBDD316272F6B834F597"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Transactions.dll",
+      "bytes": 35328,
+      "sha256": "8A962B8B8A99A111BD765D090CF27605F0E84911354D7B272CD2EF484BD117C7"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Xml.dll",
+      "bytes": 3160064,
+      "sha256": "22362D813E444A18592EC32A56731DD4265362BC8B2C2AAB76A1816F2D7D679E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/System.Xml.Linq.dll",
+      "bytes": 136704,
+      "sha256": "EEE68BC1879F7A5007752AA31DB5640A6EC8F5F18AECD40C92D38989758F795B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UniTask.Addressables.dll",
+      "bytes": 13312,
+      "sha256": "14DA4FB36B3FB142809D604148D8753533C0425484EBEA31C2178B16C4AEB88E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UniTask.Addressables.pdb",
+      "bytes": 21612,
+      "sha256": "D620B9C41801251BA2B311E5CD5C9F065C203018303DCA6BDFAEC49F292E2051"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UniTask.dll",
+      "bytes": 621056,
+      "sha256": "56D10C5B54B906729D84A35104C7232E33015DDDEDA5FD0E2BB5A64ED0262FD8"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UniTask.DOTween.dll",
+      "bytes": 4096,
+      "sha256": "BAA82BE02E954614F91B114DA861E698FB1A94AC26B0338AE26B36FE7BC50FC4"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UniTask.DOTween.pdb",
+      "bytes": 17788,
+      "sha256": "A6E6C41FC60487E213F735EC2EFBA03FDE03CFE5AA344C9753FB1ABD8B58AD24"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UniTask.Linq.dll",
+      "bytes": 795648,
+      "sha256": "341F18E0DB612E372EA93BB26B8D9C9C5A88330A5F3BF2D34402739DFC25302D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UniTask.Linq.pdb",
+      "bytes": 287360,
+      "sha256": "C8BF2A3141D5E5DB51F92212F468ABE10D48838484DFF588F70E53B498F5F33C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UniTask.pdb",
+      "bytes": 293280,
+      "sha256": "F5F83DAD39A1C484040CC720DF47972643D55E2DC97AF04814F85B4603A149B3"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UniTask.TextMeshPro.dll",
+      "bytes": 14336,
+      "sha256": "493D11001D17F57007439313790056BC183DE26977AA0D140B7C111965B15104"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UniTask.TextMeshPro.pdb",
+      "bytes": 21408,
+      "sha256": "E01CA1D6E0BAC64CC45EA5BADA2C10AE62B778CD162FB3C6EEC22460A58BF2DA"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.2D.Animation.Runtime.dll",
+      "bytes": 102400,
+      "sha256": "4C53644C67CB611E130C422C3B9264FAAD9984D4FFFAC4DBB14BD7C592CA341E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.2D.Animation.Runtime.pdb",
+      "bytes": 65260,
+      "sha256": "0E060FEB1EEA25593AB03335C2ABE80E6E24F4A5A5A538CB56AA213C653AC0F3"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.2D.Common.Runtime.dll",
+      "bytes": 64512,
+      "sha256": "6567E0B785885E0150B7C69E39A5F2DBCDDF6704B30189A86EB293B90B6F1D85"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.2D.Common.Runtime.pdb",
+      "bytes": 55424,
+      "sha256": "CC3262F9E18FBAE3B4EFE65B09A125E5C92FB0944F21634C8423247C636BBED3"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.2D.IK.Runtime.dll",
+      "bytes": 43520,
+      "sha256": "1F74370977D9F6584D219740DA509CABF8CFEA6EB56166B66099B6FAC2ED5B54"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.2D.IK.Runtime.pdb",
+      "bytes": 37932,
+      "sha256": "7B6B7E4635B5CF6413353BCC02A2F7BBF311AA5259BD935B6DCAA219707F2AA5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.2D.SpriteShape.Runtime.dll",
+      "bytes": 126464,
+      "sha256": "AE134215E36E5ADCEE0916B6AFB6652D322E5FE1A45891B9BB0FD8E3CDADC0C8"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.2D.SpriteShape.Runtime.pdb",
+      "bytes": 88348,
+      "sha256": "4325C12E6BDD0DC2C735D9C607115644593A27D1BDC27A0B050D56790BAFCD4F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.2D.Tilemap.Extras.dll",
+      "bytes": 43008,
+      "sha256": "21EA1F874BE0082072D1E360D2DC50CFBA6851C065E170804ED2D8113BC4BE72"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.2D.Tilemap.Extras.pdb",
+      "bytes": 35268,
+      "sha256": "C8B0942CBCBD4A11D92367C44E53B0005E8A8F40711C3853065EDF2BBAFC2A72"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Addressables.dll",
+      "bytes": 126976,
+      "sha256": "0B0D0AA8351D6A4A924E422C3BA4AB31AF9A097490CB4EE0C1DA33504829C8ED"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Addressables.pdb",
+      "bytes": 71604,
+      "sha256": "AC26517969A97C098A5B60C15C68C82E149DFD1BF15D375979EA092A5E52BA12"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Burst.dll",
+      "bytes": 335360,
+      "sha256": "5B22C5366C6B8502F4CF511EB20D96E62D99326CDEA0F073C9C80B7C80E45075"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Burst.pdb",
+      "bytes": 222104,
+      "sha256": "B5B81AC56437578D60BA76F9703DBF8C088F4EE25DEF15CB7B56E392E64FEE13"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Burst.Unsafe.dll",
+      "bytes": 5632,
+      "sha256": "9D9C1FF52411DECBEE5D9F0D1CD61EBEAA222077AA77A52101EA3DEBAFAE98E2"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Collections.dll",
+      "bytes": 501248,
+      "sha256": "8650F7ED18351140C205EDA740C5C2E31793F62A678269120BFFCC0B47B2D32F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Collections.LowLevel.ILSupport.dll",
+      "bytes": 5120,
+      "sha256": "FF50383F807F9692E4913B97E47D86FEFCB8FAA33D6D48CD3E3FD6FC7FFB448D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Collections.pdb",
+      "bytes": 317032,
+      "sha256": "A2927CA305F8AE1C2E59AE0447764A458E7FC3D1DE5B1729010F5D11145D535E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.InputSystem.dll",
+      "bytes": 1268736,
+      "sha256": "B4A6598220E4560AD84487C891BA5033DAFA3138757DF55069EF2FAD47B1162A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.InputSystem.ForUI.dll",
+      "bytes": 16896,
+      "sha256": "59109DE2E73F16F5957DDBBB9B003EC61599EFD3CC2524FECE7478F6E14E8CA5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.InputSystem.ForUI.pdb",
+      "bytes": 22724,
+      "sha256": "ECA94324BCC30F7453EDEC203A1A012D425324B39151EB7EFDDFCB37B4FBF94A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.InputSystem.pdb",
+      "bytes": 577740,
+      "sha256": "BD97A247CAE4FCB86366360028FD6E92846B4C70B0443E40184211D49FEE4AAE"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.001.dll",
+      "bytes": 7168,
+      "sha256": "2BDD793A16E1135EB52D34CE097D02E7A9E980D6C056C340F11686D6A08212DB"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.001.pdb",
+      "bytes": 19048,
+      "sha256": "D7651CEABF3E6CB3988094444ABDB86024078A51354ABC045845D56E1AE5B7AB"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.004.dll",
+      "bytes": 5120,
+      "sha256": "AC1A38BCE9B2B2544178545216293F96E55BA8A2DB2AD8B5E623CEB406296C38"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.004.pdb",
+      "bytes": 18408,
+      "sha256": "BF36E3048AB7AEAEADD6E44CA60855C034EE4CF63412E5410EE5F4A83238F484"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.dll",
+      "bytes": 4096,
+      "sha256": "FFFA3129AEB51476085F96E8DD1F4406565B0D034DF965E0F53FC1276B1F3868"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.pdb",
+      "bytes": 17876,
+      "sha256": "88DFF4FCDD1300AA03F35382A5B84AAED69466807AEBFDC36555743FC47987B2"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Mathematics.dll",
+      "bytes": 886784,
+      "sha256": "EAB301694BF1B88BCBF62909ADBE76710645AF161BF921737E5306A7AE0C047F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Mathematics.pdb",
+      "bytes": 517448,
+      "sha256": "D0F7193B7A17C7E86953F0F16FD56D741F50B1AFBF8F48E6EA17E19FBA7132FC"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Multiplayer.Center.Common.dll",
+      "bytes": 10752,
+      "sha256": "9FB2C81E0EDD7F51934393DE59BDBABDC4009E9E39E877287D0EC88622592876"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Multiplayer.Center.Common.pdb",
+      "bytes": 19820,
+      "sha256": "FAD24E333054D416B583625EA3A6C22518FAEAB271A80250D1F6AB8C2C069939"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.PathTracing.Runtime.dll",
+      "bytes": 165888,
+      "sha256": "3B8C1BA61F3E0092E44D77CFF7501BD636CCB4287F1351C4F9B4D7A177659817"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.PathTracing.Runtime.pdb",
+      "bytes": 80304,
+      "sha256": "138E8B841F8526FAA6311C08484C094B544752428EC09F716AF9EE1DC9C78A81"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Pipeline.dll",
+      "bytes": 364544,
+      "sha256": "B16CC8797E5D0D3F140148162B6934CF4CF03E2D70BFE8155340B82FB6FEB361"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Pipeline.IlInterpreter.dll",
+      "bytes": 368128,
+      "sha256": "D37544840C19BAF423C2162FCD49780AAB9BEC9F3BE0E728403B16B9E77D1A9B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Pipeline.IlInterpreter.pdb",
+      "bytes": 194164,
+      "sha256": "68262BBA5ED4D0F90C13BA59D57EEDF8A317D8472209C50DCAC0528523DA2ADD"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Pipeline.pdb",
+      "bytes": 144844,
+      "sha256": "C6C6CD8716876BB2E956C40164EC5EFCE0DDFB640B011DAB01E6E674847C3450"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Profiling.Core.dll",
+      "bytes": 12288,
+      "sha256": "63E219AFB5173121B79233CE2A3B6A04ECEF321C24350AAE7691E585E0FD28B4"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Profiling.Core.pdb",
+      "bytes": 21720,
+      "sha256": "C1B715F8373F229A808DC4B1A7508004C4C2F827200440558A30C540B6A2E53E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.dll",
+      "bytes": 9216,
+      "sha256": "B657DB3A663AA1E1ABD044929FB38421209551C348DD44F708A825A519F72AA4"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.pdb",
+      "bytes": 18568,
+      "sha256": "3EC865BB165C0082888BD785BB2456E4F1AF9880E66F45A3A1051CCBA4582AA7"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Core.Runtime.dll",
+      "bytes": 1298944,
+      "sha256": "5E7EE1AF4FE41F784421FAA54A98BF8AF8152BD6C021E438D065FBD3C1731209"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Core.Runtime.pdb",
+      "bytes": 483408,
+      "sha256": "C1B19CEB23CE43353DCDA01F936ADB2C92BE3BBA13C2D90D619C30AC1BE4DAC5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.dll",
+      "bytes": 5632,
+      "sha256": "A207D34EBE1B0AE353D170150E7DE6B204D2BE53FAA7FB7AF339FE301A25028D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.pdb",
+      "bytes": 18532,
+      "sha256": "9BF5628E67E2D69E91A2C509D216B27AB833B26C2440E02A73E523E309ECE001"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.dll",
+      "bytes": 4608,
+      "sha256": "ABB130D8DADA87E579A3D6C1BED5172A7392756BE6D3CDB92BEC6F81B551317C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.pdb",
+      "bytes": 18076,
+      "sha256": "BAF5ADEF519B03C1126AD2E820C8918E60C76556D322C5A3A80FE3D1CA63291A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.dll",
+      "bytes": 259584,
+      "sha256": "196D2DFCE6ADCD337E8DD0F1FFAA83E39EB6DCF6EBF802CC8F52EA6C4CDCE8E9"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.pdb",
+      "bytes": 131496,
+      "sha256": "6A177C1487912A8D8EDAC905953F71BB3FF2E612887AC7FC0B547C3761B4B868"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll",
+      "bytes": 4608,
+      "sha256": "5E2AFB6D8C721523DDCDE7C4DDB49896CEF24DA8FAB0707E3D7C31759B0C17A6"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.pdb",
+      "bytes": 18060,
+      "sha256": "B81521F477E7C565DA16AEBAA18BBF81FE63CE0C4E6C29DC1377786BF2E2B1E4"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.dll",
+      "bytes": 261632,
+      "sha256": "20898F4D7FE043895EED5C8E496DA85E7B762062312BD35F5FB2C6DED3C3E155"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.pdb",
+      "bytes": 162588,
+      "sha256": "A39BD5C1AD63C5BA3E830A2B81BD69F7C4D8D8FE19F3A42906BF72B5D3CD33A3"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.dll",
+      "bytes": 5632,
+      "sha256": "8AE8EFEE9A3E2E787EDB99694C7A87CE142A30E85D8C7F1CD45CFA7E6C224045"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.pdb",
+      "bytes": 18232,
+      "sha256": "1FA285F45FDC69804052AADC34BDDE034DD7A542B12874C66705A5069B7F36A3"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Runtime.dll",
+      "bytes": 805888,
+      "sha256": "CDFED4B66059B864B1CA7579FBEE5863EC7686C8D2CF6A23E08502133833BEEA"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Runtime.pdb",
+      "bytes": 327192,
+      "sha256": "9E17C5C4A268E9980737508A5FADF8FC9F894F9B4837F265CC1C7465078FAE21"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Shaders.dll",
+      "bytes": 4608,
+      "sha256": "1FEAF0D1F53F89FD32FE268F76B80B9EB02828D49630AF62AA3EC27A6FD9E16F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Shaders.pdb",
+      "bytes": 18068,
+      "sha256": "F5C62FDAB228A09F9C08A2E448515847DF411FFC9FB10FE9D848141B29AD3B09"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.ResourceManager.dll",
+      "bytes": 165888,
+      "sha256": "D74C431CB8D2D7EAD50C1BB931CF2BCCF563916FE8516158ED4ED4EB45349BF5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.ResourceManager.pdb",
+      "bytes": 95676,
+      "sha256": "4DBEC43E5D3E1650BEFB0F7C004B8A5D1A134A0A6C18D7581B881983F34B0B01"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.ScriptableBuildPipeline.dll",
+      "bytes": 9728,
+      "sha256": "011D579E15D4B1415C4107423EACD35618E32A198038B1B1AB6ADA5BE8B1CA53"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.ScriptableBuildPipeline.pdb",
+      "bytes": 20348,
+      "sha256": "924675D9D4420B1C9E83881BF43635450D81D6F5BBB73FD4BA19D70E2523A52B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Scripting.dll",
+      "bytes": 74664,
+      "sha256": "FD3EB31A0D34F1F926375870BEB4A5593D7C99F22A8E8115218A0F5CAE2C8401"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Scripting.pdb",
+      "bytes": 28760,
+      "sha256": "DB015BE024F141A722D255A2969A11EAB662200756001A887931C3B2B417F1C1"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.SurfaceCache.Runtime.dll",
+      "bytes": 4096,
+      "sha256": "76939627A0B76140AFAC231FBA634F52A99DDA87DE13E22A13D745266EF38DC5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.SurfaceCache.Runtime.pdb",
+      "bytes": 18260,
+      "sha256": "D89C83A14B81B3D7F550243A71B3EDE588C4035216781D7DF998B46430252937"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.TextMeshPro.dll",
+      "bytes": 508928,
+      "sha256": "93FE22E112118B4047FE340BB500BA18E881BD7ED0B10172FCCAC372C6F41EDF"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.TextMeshPro.pdb",
+      "bytes": 259256,
+      "sha256": "B7B63E19B7D7B0ECD93FC2485147E36B4118ACFC63BE51D2A6B6D360DE2EF386"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Timeline.dll",
+      "bytes": 148992,
+      "sha256": "AF43550CE1B48F39F7A381B16D1D8942F49A8D1A7D6D8134B6E53EB893220C38"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.Timeline.pdb",
+      "bytes": 92436,
+      "sha256": "C98C522EB068CF632A345264DBE31349D068E132208A76D7B2E989AC7E14F184"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.UnifiedRayTracing.Runtime.dll",
+      "bytes": 111104,
+      "sha256": "FC654D3FF239E75F3B7F2FFC65A39B8FF934BABDF015E66AF8D29A3C46E4F52A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.UnifiedRayTracing.Runtime.pdb",
+      "bytes": 61308,
+      "sha256": "741B5C7EB7A2FF048169D6A93C4382C88C50E7303998A7EF6179FAD92261423F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.VisualScripting.Antlr3.Runtime.dll",
+      "bytes": 86016,
+      "sha256": "ED7CE205F66EAFE39BBB5D084D42E7FE11CB4B386FF208E5D5110891BE0B7B37"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.VisualScripting.Core.dll",
+      "bytes": 673280,
+      "sha256": "5505B6EBEB4D4FEBC6B5191803CBFCCADA08CA4EBB67FC113956465EF30BFE15"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.VisualScripting.Core.pdb",
+      "bytes": 337624,
+      "sha256": "D7D448FD25597CA197DFD34D987D2631F85C5239299DD549961ADBC8C2AEC7F1"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.VisualScripting.DocCodeExamples.dll",
+      "bytes": 7168,
+      "sha256": "0C0E98E38F00A9C453191AE9E7987DAE9DB2A5762BF264616CEF6D8EE4E5E820"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.VisualScripting.DocCodeExamples.pdb",
+      "bytes": 17824,
+      "sha256": "2788BB8122AA01CAD9ECBE202CDEF201D65E4EF2ECFD0756FCCB7B67C2040E76"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.VisualScripting.Flow.dll",
+      "bytes": 433152,
+      "sha256": "CE9A838070F589E982E936FB0C01C6E4B46C0FFBB0C7CCEEDCFD60971D0013EE"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.VisualScripting.Flow.pdb",
+      "bytes": 222456,
+      "sha256": "B8373863A775B3EE43C82C152142DFC4EFD22CD73177AD65B122023BCC02DDC7"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.VisualScripting.State.dll",
+      "bytes": 33792,
+      "sha256": "8CFFC9EB652ABF9ECED3427E42F46DBE81FC36FC28E3A9004AD2DBC53CE492C9"
+    },
+    {
+      "path": "DarkNights_Data/Managed/Unity.VisualScripting.State.pdb",
+      "bytes": 31160,
+      "sha256": "C7D50C1888F74EA140BDFFBA15091D34F493AC241F67093961EB36288C8C7E00"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AccessibilityModule.dll",
+      "bytes": 48552,
+      "sha256": "71DD4D2B74F910D7DF08774B685AB205765AA647AA3F2A19563306F1CE5D1CA1"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AccessibilityModule.pdb",
+      "bytes": 19656,
+      "sha256": "24700B6EB5315DC5A541EC443440B97E10C2530CE51B73BBB2203D09D863EC13"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AdaptivePerformanceModule.dll",
+      "bytes": 116648,
+      "sha256": "D9789A1756D028571CF693F88DD48DC43F4D8A64EAA0716AA14C06FDF7133DEB"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AdaptivePerformanceModule.pdb",
+      "bytes": 43980,
+      "sha256": "6E19BEA15ECAF3825EC99BFD658687BB015EB467A191253719BEECD8E69F7C70"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AIModule.dll",
+      "bytes": 75688,
+      "sha256": "E7AF91D98C9754F470A6846E7AF3B4F5DDD1C435CD13602BF89CF72A8A0398C9"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AIModule.pdb",
+      "bytes": 18764,
+      "sha256": "EF1A46048E61121E904EDB4765828FF69EA12BD0B70D0B9BF22BABF42398F366"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AMDModule.dll",
+      "bytes": 21936,
+      "sha256": "0C4A6EDA368A259E1FB6D7CF3655075417619A30730C9935F46468329D0524EA"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AMDModule.pdb",
+      "bytes": 11612,
+      "sha256": "5D1CAEB97A7E8E4204A6B53BA29177710DA165A3C3BE8A403C8D947143B9CDE5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AndroidJNIModule.dll",
+      "bytes": 114608,
+      "sha256": "E82FD81193718CD4CBDDC50645A65E20C2A1C9CC06BD7296016FF2821FE8845B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AndroidJNIModule.pdb",
+      "bytes": 38592,
+      "sha256": "100020B5A8178DE2277FCFD7069A22EBF13D55524F894CC05330DB4BE882A62F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AnimationModule.dll",
+      "bytes": 216496,
+      "sha256": "9C327A1B18F8E292F693BBA75626778744F57B68B4FEB9D1BC16688E058C4818"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AnimationModule.pdb",
+      "bytes": 49156,
+      "sha256": "309CA58DC0728ED43C097509C99D0B5073AE6497445B023989B5CAF6A9AE27F1"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ARModule.dll",
+      "bytes": 26024,
+      "sha256": "EE3DD1936E1BE03A96C55CDA4438757E9488EE25678ED1C279D945B1FFCDD2EC"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ARModule.pdb",
+      "bytes": 10036,
+      "sha256": "A094A680B047FBC014247693EEDBED8E0CB390A25D83DBDD7A858ADB2F05DEBF"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AssetBundleModule.dll",
+      "bytes": 41392,
+      "sha256": "9913652F9D0F165175AE184F1C3768C559A17F113B78FB8D681B352AB1206182"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AssetBundleModule.pdb",
+      "bytes": 13180,
+      "sha256": "12E1E4B76237F816E6D91CE7732FDCC60EBAB172E1E58B2FFFA130123FB635E7"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AudioModule.dll",
+      "bytes": 139176,
+      "sha256": "B8EC07FEA6A77E2C687030E03751DDC0A5A66AE03FC89B1E1830B5AA323B71AA"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.AudioModule.pdb",
+      "bytes": 30184,
+      "sha256": "523B32434A6C4C288CD0C2466ABD74FC585024B37532302A844506150B5B9A0B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ClothModule.dll",
+      "bytes": 36784,
+      "sha256": "520653D5E76783DC8006A355A2DBF5D16BEE4B212B37250746237DE84F56717C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ClothModule.pdb",
+      "bytes": 10624,
+      "sha256": "D921C427D3E5A9A26A78F292AD8E79AF589B757862C6A2E2313A807AFCDE8DB3"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ClusterInputModule.dll",
+      "bytes": 28592,
+      "sha256": "0660679D31702FC1781A358611903948C0B89CD6EE3EA2C2CF41DAEA8738203B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ClusterInputModule.pdb",
+      "bytes": 9496,
+      "sha256": "D0FF7FC0CF43D0DEDAC67ED609EC210D883B2195F2F35638C4BB62C19EF594C4"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ClusterRendererModule.dll",
+      "bytes": 27056,
+      "sha256": "E3B08413150A41988FA76A4ED4B673D4E92FBF8DC8A9561E954212B84F5D7AD4"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ClusterRendererModule.pdb",
+      "bytes": 9960,
+      "sha256": "8B36E50068924585352AE7CF843BEBBC8EA26F73C18AA417ED9972FC03F98DE1"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ContentLoadModule.dll",
+      "bytes": 33712,
+      "sha256": "05ECF64CFB172BB3243EC5036F5CE9A0A379C860F34DBE0E408869AD4E2637AB"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ContentLoadModule.pdb",
+      "bytes": 11052,
+      "sha256": "31DC77A18A5F1C8395697BD8461DC7F371A1196D6DBA84152B52E93EE7EE72B3"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.CoreModule.dll",
+      "bytes": 1997224,
+      "sha256": "B9F1E6B821610C198B7A5E11BDF43AA88DB3CB60CD760850EEC415D31B59B6B2"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.CoreModule.pdb",
+      "bytes": 487188,
+      "sha256": "4581A7326A7ED16C9FCA115FFB019CA62ACD66E2BD91251E7EB066F0C12B219A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.CrashReportingModule.dll",
+      "bytes": 27048,
+      "sha256": "E47F39775945E4DD5436B86A361C4E33C56A5CDB9CAF60D42BB1C141DD121257"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.CrashReportingModule.pdb",
+      "bytes": 10108,
+      "sha256": "D394AD8D1444FB560B73DDD87ABA75F975A0535576A52EDB347E50981A66F562"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.DirectorModule.dll",
+      "bytes": 41392,
+      "sha256": "E3364F7DCBD10C85DC74FC8C3EB8CC9118B39FE90406EBC5A0B5C5A54CF4F5D8"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.DirectorModule.pdb",
+      "bytes": 13036,
+      "sha256": "8562AF7633FA34B1D79F63BFB9D50408E418B5437013E91B9AC44FF197D23B06"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.dll",
+      "bytes": 201640,
+      "sha256": "A8E7AA817EFC60C610C10938EC027CA878F7E671A7D1568A412EE20C9901A803"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.DSPGraphModule.dll",
+      "bytes": 32176,
+      "sha256": "E57CAFC1CB08C771A79AE801F70C476DBCA860D4A5809BEF85647F54E85A7001"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.DSPGraphModule.pdb",
+      "bytes": 9704,
+      "sha256": "A8586ECD486B5FBD3409B7F70AE45240B75752CF30DEF521A7CFBA56A7723AED"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.GameCenterModule.dll",
+      "bytes": 44968,
+      "sha256": "698DA142AE80291A234FF020AB6FF8C4AF4AF02EDA61191A7C4F059D7A818DF9"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.GameCenterModule.pdb",
+      "bytes": 15804,
+      "sha256": "6C8A1F1549F1A52B5B2C97E1C45E286AD750656901A8A04533EA819213A80FF6"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.GIModule.dll",
+      "bytes": 24488,
+      "sha256": "1E589C595872BB30E668B3EC9E4CCF067DED3A39019F861061F4F972367FD043"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.GIModule.pdb",
+      "bytes": 9368,
+      "sha256": "7C40F344F85E0FDC9ACD1B87B26A607614CDDA222AAD862742F4C2A8143C67F1"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.dll",
+      "bytes": 14248,
+      "sha256": "11CBE2F6F54F6B6195215A4F7BB66D0AEB1F381CA64914EF2120132916E25302"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.pdb",
+      "bytes": 9396,
+      "sha256": "0DF2E86437BE36D900EB23307B634D2F6099A849FE02360CB5ECF332E3C3E15E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.GridModule.dll",
+      "bytes": 31144,
+      "sha256": "E387C824F00E46FEE06212D8B78C929DC7171F4531F02A2A6F36AC561FA29FB7"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.GridModule.pdb",
+      "bytes": 10148,
+      "sha256": "765B6370A00702118677DAA131BE92BDE42A6FF42F9FB7775CA14851F0121F2C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.HierarchyCoreModule.dll",
+      "bytes": 106416,
+      "sha256": "3BCD6DAD89DB4666EE0265D0FDECA2AAE8E4A3F704F05966C5A56EF0B1B916D8"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.HierarchyCoreModule.pdb",
+      "bytes": 32548,
+      "sha256": "B41ADBBB9395850BEA5467ABD6BBE46D3D9AF1B1F81B1D2490AB86963E10126B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.HierarchyModule.dll",
+      "bytes": 97704,
+      "sha256": "1DF8E15AA6FD50DB69AB8B04A576FB13E6EADAAC0EDCBBD67C4336B90F4F6D0C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.HierarchyModule.pdb",
+      "bytes": 38392,
+      "sha256": "F90776926143B6ACCA400F202DA938FD887461CE8C8030EACD6242A53459B578"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.HotReloadModule.dll",
+      "bytes": 24488,
+      "sha256": "B561F5E76D3638388624B48E835C192A389D1B219C2FE0EEA4C6FCD6645F563D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.HotReloadModule.pdb",
+      "bytes": 9368,
+      "sha256": "FA08C5A72FD850702646AEDADEDCD77BE0D01CBA9A69E827850413F38CD2D80A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.IdentifiersModule.dll",
+      "bytes": 15272,
+      "sha256": "2FFD96124242FBC8DAD045A2C7D5BA6BD26B9771B9429C82E2EA9531F506989D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.IdentifiersModule.pdb",
+      "bytes": 9644,
+      "sha256": "37294F7C4DCC822DCB01E0C0D7AEE355CB7F43F9AF83C18635A846F1861EA515"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ImageConversionModule.dll",
+      "bytes": 31656,
+      "sha256": "2B16AE50EB3DC71ADBDD9048180D20B4413CD09165BBD6F788AD0C28DD3BA260"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ImageConversionModule.pdb",
+      "bytes": 10364,
+      "sha256": "D79482E620EDABA3768BA3C1F79F3EAF9FFB8A5CF8BFF9AD6B19075B427D8F9C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.IMGUIModule.dll",
+      "bytes": 180144,
+      "sha256": "DDF7C81144BD693DAFD6FF4D0D3A544D666180A6FE87B82B995CD934014195F1"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.IMGUIModule.pdb",
+      "bytes": 60524,
+      "sha256": "93FEB0FEDC4DB5C6A7B78DF02B9B524685AE40473514E06BA8AF70EDDA25917C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.InputForUIModule.dll",
+      "bytes": 55720,
+      "sha256": "6D62C9F144D83D6EE3F2184D295F879873BDE39A54929E11C3641B66CC269BE5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.InputForUIModule.pdb",
+      "bytes": 22516,
+      "sha256": "9C4B4732DBDFB42AF822D5DFD595445F569E021083CC8425FD7F2A65AE89A814"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.InputLegacyModule.dll",
+      "bytes": 40880,
+      "sha256": "04B4F282B6BE3272F5E3A97241FF4B7D72BDA25E470551633CC541B39463F11F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.InputLegacyModule.pdb",
+      "bytes": 12724,
+      "sha256": "F4E526601484773052004F8B329D05ACCC9F1A6A7CB8DD6A553B084558A81BA9"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.InputModule.dll",
+      "bytes": 29104,
+      "sha256": "0F5174F4AF5476C476CE4FB400D33E6D062F61B125D41F04733495C3A0470AF0"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.InputModule.pdb",
+      "bytes": 10644,
+      "sha256": "94C9AC67237039C643AD327926EC5C345B8C72BCE69C407E207DE41F7E67269F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.InsightsModule.dll",
+      "bytes": 14256,
+      "sha256": "A7D3D58A9205AE39493A7E958298B2BB5BD33C4FAA3E2404D5F1D7929A7B3766"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.InsightsModule.pdb",
+      "bytes": 9696,
+      "sha256": "DBA3E18FAC0256E7A429CE73E375408386A15007D84C39AAA42B80E300562395"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.JSONSerializeModule.dll",
+      "bytes": 27568,
+      "sha256": "C046F125157E8756442DC2EE810CEAF7E267D1F2980EC703791DC2E1F621D21A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.JSONSerializeModule.pdb",
+      "bytes": 9860,
+      "sha256": "C495F45E4C687712D9EC2C04FBE9F9EE9E80C734508A9441BD21F7147C4791CA"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.LocalizationModule.dll",
+      "bytes": 27568,
+      "sha256": "72F40949B8155CFE2A1484233FCE57887F449CD8795F34C9F9CED44D964D4C27"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.LocalizationModule.pdb",
+      "bytes": 9796,
+      "sha256": "55FA75907EDA50193DF9807CA913BD776D553365EB80167A91E083FDF0C4FE87"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.MarshallingModule.dll",
+      "bytes": 83376,
+      "sha256": "7040BF43009722EC7FF1B73B832522FF8C4C189A371BE891BEB17EE741DB2688"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.MarshallingModule.pdb",
+      "bytes": 13840,
+      "sha256": "8CF5F2ECBDA13FFB6CD0AC866CEEFBFFA28269F9775F7A5A3096AD3AEB7FEC4A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.MultiplayerModule.dll",
+      "bytes": 18344,
+      "sha256": "0F6483B3EE86B3E2934F512DF9FD797536A819CA50AD509825BD50C9F66C7E41"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.MultiplayerModule.pdb",
+      "bytes": 10320,
+      "sha256": "0D811DC14ADF5C082F6A5E848A017A162132150438ADAF55054FE6D11FCC2565"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.NVIDIAModule.dll",
+      "bytes": 39856,
+      "sha256": "ACDF07202BEE5794C7F0630760419450DF1A137224B4FA76C47DAE78D057F56C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.NVIDIAModule.pdb",
+      "bytes": 14788,
+      "sha256": "7DF74B2517BD926C6E1A4D626C5BA39419DB3B1D8F6B87240A61E2BF2AB48956"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ParticleSystemModule.dll",
+      "bytes": 167856,
+      "sha256": "F1BCD2401B10FBE0771F09BB496C6D37B553F53AE815E75B8A93BD856022A50D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ParticleSystemModule.pdb",
+      "bytes": 35244,
+      "sha256": "04E0D995FB696A22F7AD08BF809991ACFCF1287F5D21E567ECE1B372B4AD16C8"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.pdb",
+      "bytes": 12700,
+      "sha256": "3539244D45A95239B15644E340EF0B915FA08EEEB8D4AD8B4F1237DF5A5B1401"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.PerformanceReportingModule.dll",
+      "bytes": 25512,
+      "sha256": "9E6FBF7E1632B6B634742E62BBA97F87154E225EDE068B6D1CF9DACBABB034FA"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.PerformanceReportingModule.pdb",
+      "bytes": 9604,
+      "sha256": "D19632606E3A29338FD75CD21B398EEA623FDF5599D033316727FD66974DBCC6"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.Physics2DModule.dll",
+      "bytes": 590768,
+      "sha256": "44FF84AB9733FF7ACDCDFD64E296FEC4EA9CD34F81877B5213B7475D537F8192"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.Physics2DModule.pdb",
+      "bytes": 120952,
+      "sha256": "08FF6F7876E47E8C579BDC03DADBFAB561410BEDF2231B40F54EAFA4B3485F21"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.PhysicsBackendPhysXModule.dll",
+      "bytes": 14248,
+      "sha256": "38BF742B49BA4EF74C1A229ECF1CDB9750D5F517974902DFBCA8A5FC9975C2D7"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.PhysicsBackendPhysXModule.pdb",
+      "bytes": 9392,
+      "sha256": "8BDC37138108F58A21902AD4AF5511277EC1E66F3DCE8502DAFD020D46DB8C98"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.PhysicsModule.dll",
+      "bytes": 178088,
+      "sha256": "F5AD35B4111F5FFBC1BECAB8217AB8C49E8C8CE8C19183289E70ACFAED37165C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.PhysicsModule.pdb",
+      "bytes": 38736,
+      "sha256": "B048CB71C563D70679B64CE82BCBE2B20DE2BD69B79FB9DC7245DC88E03E911E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.PropertiesModule.dll",
+      "bytes": 124848,
+      "sha256": "D49AFCFF55DBC72349218CA303C5CC6498FF1C2C80C289740CBBDECEDF51B128"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.PropertiesModule.pdb",
+      "bytes": 50888,
+      "sha256": "4B32863473B58F08A8F2E79BE966269C7DDFE04FD973BAB8AE5AD091D25D276D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.RenderAs2DModule.dll",
+      "bytes": 26032,
+      "sha256": "E983322F9786CC472996601CEAD67A479988F537CCAA636AF10BD14A5594FD4F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.RenderAs2DModule.pdb",
+      "bytes": 9428,
+      "sha256": "9443D302E2323119967D2F50F8A36B7F7C1E9936086247556C5A81C63CB5FADE"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll",
+      "bytes": 24496,
+      "sha256": "110984BF39F72BC7887C47C60CD862DAFFFF02248A39A5C1E313B143DD79E203"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.pdb",
+      "bytes": 9432,
+      "sha256": "EBFD6AAC993607EA2155E0BB4E1DB7A87FAD17AEC28CEF265970F4FA7F7B7DEE"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ScreenCaptureModule.dll",
+      "bytes": 26536,
+      "sha256": "381DBAB0EA8BFF015346A8C16534043D7A78BD8E7E262C0920D2D6A8B16802FE"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ScreenCaptureModule.pdb",
+      "bytes": 9896,
+      "sha256": "60DA6497031C6DBB6EEDD2B2175394A8851E198E3EFFE4245AD75FD56035D69A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ScriptingModule.dll",
+      "bytes": 26536,
+      "sha256": "A9E2C7813D438768F19E2B40E1A0C74F01F7A06A2A8535892A289D1D686FC00C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ScriptingModule.pdb",
+      "bytes": 9916,
+      "sha256": "326F59E5C1BEA9F43F0812695BB8D4FF3705562E6AEA3AAE4901602B2274F16D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.dll",
+      "bytes": 24496,
+      "sha256": "15D2A92D9E2C04BF077CE6768815366604744B1815B5D6450F6AD75D476445D6"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.pdb",
+      "bytes": 9496,
+      "sha256": "F8681FF291490C787B9F65336EBFD4BFD54B2F538B5BBA69942B99B68544096F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.SharedInternalsModule.dll",
+      "bytes": 36776,
+      "sha256": "64658243E596FB343D8BC013E8623C22B17EB68C6AA3C805E0D04C77DFFB7736"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.SharedInternalsModule.pdb",
+      "bytes": 13436,
+      "sha256": "979A4632BF3FDCE28B7E10C273EB1A2CC44844A2E8B6B9F02EB26A418078C0FC"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.SpriteMaskModule.dll",
+      "bytes": 29096,
+      "sha256": "52A8960379076BD9B7958ECFC5D46534EE100B4CA768FC9A7F132958E50CA7C6"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.SpriteMaskModule.pdb",
+      "bytes": 9708,
+      "sha256": "E8F827F39F45B5C6A5ED569C31DC4577D1E0F7A77CDAD95A06BD0B1A91AC7F18"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.SpriteShapeModule.dll",
+      "bytes": 32680,
+      "sha256": "7D7488190F6F672E942F61DEAA6665DD318303CD9B283DB71A2ECF06EA67A09C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.SpriteShapeModule.pdb",
+      "bytes": 10764,
+      "sha256": "7EFD2475C9C510934D0A46ADF28438A272E6A31E603298AC0D873FB1EC80EEDD"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.StreamingModule.dll",
+      "bytes": 26544,
+      "sha256": "2EB443829D6A7AB2D2285094250BFC8379C2CD7DA8472C53692F1B8BB3AF82F8"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.StreamingModule.pdb",
+      "bytes": 9456,
+      "sha256": "B1424B3F605F450B5907E2AB5B8B294C381104CCF10B5D2587CA7B7F1A058CAB"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.SubstanceModule.dll",
+      "bytes": 29616,
+      "sha256": "C1C376D32B417D7BF32C1CAFCD285908D9EABB011940E13BA799C8A3665AD6CA"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.SubstanceModule.pdb",
+      "bytes": 11324,
+      "sha256": "E7444EB970EA5FDF86C2DC9FD8910F3F44B12E6915844C3236895931AABFE2AF"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.SubsystemsModule.dll",
+      "bytes": 41392,
+      "sha256": "85C8A193844D2F34BB465D76291EA7EB13DA48B95CF22C5BDA1F2578F90E5365"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.SubsystemsModule.pdb",
+      "bytes": 15332,
+      "sha256": "54E6D0E1A7FF65BAE4560F718995321D33701905DED8DC55DF272254F62977E6"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TerrainModule.dll",
+      "bytes": 129448,
+      "sha256": "A87239ABD4CE149A1B10B19E1C0FBE3A3FCC8C728D87CDDB3EFC89EAB4E801A0"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TerrainModule.pdb",
+      "bytes": 28168,
+      "sha256": "E8DC0BAC66734E2D6016C56DFAB9AAFD12CFF23F0AC7D1F54D87DA9D4F8CBB8C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TerrainPhysicsModule.dll",
+      "bytes": 26032,
+      "sha256": "CEC9A8F91715BF4B848294635C97D93D31778E742A4582357E13747CD06945DF"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TerrainPhysicsModule.pdb",
+      "bytes": 9812,
+      "sha256": "16F3B551A4CE19143E3B74980D818E5D211D8C5C2D87BC1E997764C5F38726AA"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll",
+      "bytes": 77736,
+      "sha256": "373D1EC3D9EB898EBD0EE78EC139A443212CF3CB15D091B31FC9721E4FFFE262"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TextCoreFontEngineModule.pdb",
+      "bytes": 24144,
+      "sha256": "844467A0897719FA6FBB147A7E0A4F10EC88ADD3B46B1908E6A804D1A19B9F21"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll",
+      "bytes": 324016,
+      "sha256": "513DC26544A3EF32A74A5515B9DFF944B77C0A0A558A0175FC85E649BDE1263C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TextCoreTextEngineModule.pdb",
+      "bytes": 120048,
+      "sha256": "6F4F658EC7987E85B2F49241B4DFAE2D6E9171001A46D0F4D8B8EED234B4D091"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TextRenderingModule.dll",
+      "bytes": 38320,
+      "sha256": "DEFBBD8FA4B7882C8D7ADEC7CC8C77A6064850D1CB71BFBE26E3564C33CDF1BE"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TextRenderingModule.pdb",
+      "bytes": 13880,
+      "sha256": "76793E0575B72DFA0774C3D370E1EC0972759EF5E78A89FA9D2F18EC34C81962"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TilemapModule.dll",
+      "bytes": 70064,
+      "sha256": "9013097BA8E7B3409DF3957953BC09041B62CD3A6D503744CA585F06FB3D36F5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TilemapModule.pdb",
+      "bytes": 21220,
+      "sha256": "36A36FB6F80405D1604324D41005242A5DCD21B964D759C863F7DD3BF77AF6D8"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TLSModule.dll",
+      "bytes": 32680,
+      "sha256": "96C9531A5AD1E1A3D4F8D47B9DE5438671331CA9E59A53FD01AB457B73CA212A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.TLSModule.pdb",
+      "bytes": 9556,
+      "sha256": "3B68650970CD1A7BE7B2D2499F7875100FCEC727291F8E1A69D782FDE909CB5A"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UI.dll",
+      "bytes": 310272,
+      "sha256": "C8F96AEB51DEFC37682851BF626053F17919B81EEED2504797663D5500B3A6B5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UI.pdb",
+      "bytes": 189232,
+      "sha256": "17938998416247A8EC3CACB1E09B59E52C04DE0EA2E28723CA251FE735E2033F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UIElementsModule.dll",
+      "bytes": 2263984,
+      "sha256": "373E0928FACAB0C2DFE4C14891AF53A2A9AE792093C19CD5D557DB4470E00CFD"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UIElementsModule.pdb",
+      "bytes": 826592,
+      "sha256": "0B547E709D9E4401B83A2270ED3C89C130CD64AF9DBE57BAFDFA26FEC5750B54"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UIModule.dll",
+      "bytes": 50096,
+      "sha256": "7AFC2ED6286A9D3D36A4FE282FF76E2B92CA6DF2B717B720E6160853AE4C6367"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UIModule.pdb",
+      "bytes": 13400,
+      "sha256": "06F1243DC4445A31FF597C27D6300AEB0FB88DEBD8F854F97EBBE51BEF3EC1BD"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UmbraModule.dll",
+      "bytes": 24496,
+      "sha256": "928F50D34AE7F3421B4521FAA47E5237C0CBFB879633023215D7C1424711DBBB"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UmbraModule.pdb",
+      "bytes": 9368,
+      "sha256": "4F68CD944B6C748F514AD143C782C10779814335EBA69BF0991865672308D882"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll",
+      "bytes": 35240,
+      "sha256": "E4E8CEDDB6D44BC632A778164265F168218B796F73DCBADD3C6E2EF02BC846B9"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.pdb",
+      "bytes": 13148,
+      "sha256": "A1137200BEE214E342D206DBB6B6252C78D01EB7BF995B450E3FC9C6C8209573"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityAnalyticsModule.dll",
+      "bytes": 59304,
+      "sha256": "8D36D19659FB92517140B8ABDC1403036D5B31F91FCCEB6777C463EBE5DEF40D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityAnalyticsModule.pdb",
+      "bytes": 16084,
+      "sha256": "338C89A1238F96B82B07B90EC35CCF9C1F024806657A2B16BEF35B618163E131"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityConnectModule.dll",
+      "bytes": 28072,
+      "sha256": "9D695582D5BED4FCBD01B0E77B5659A559D38BDF656EB6C1C7E31182BD5ACB2E"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityConnectModule.pdb",
+      "bytes": 9936,
+      "sha256": "803FB3B251F581243078EF0A79C491E58206FD5B4E3E146455136598656D6DBF"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityConsentModule.dll",
+      "bytes": 16296,
+      "sha256": "7F30D0A42C8D4A7AC6BFB897A36877D1A471FD02FFEBDEBD4669D573690CB43C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityConsentModule.pdb",
+      "bytes": 9940,
+      "sha256": "05E95AA21BC0C905452113E06BE78C3EED6175CC64A2FEB677AA750201C452C6"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityCurlModule.dll",
+      "bytes": 26544,
+      "sha256": "5E496FA6DE17AE17D0C2B98E217E4A8CD9401DD005F711F55877BAD89F14FD71"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityCurlModule.pdb",
+      "bytes": 9764,
+      "sha256": "10F87B6F546B0BF9D218D08AF0BD7BBC2822F1F0DCE226A811B3BFBDCFC9D9EF"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll",
+      "bytes": 29104,
+      "sha256": "BB515C8D7B24CC69C55DD66E7CC1F7EE8CD01A3D252FBEBBE1B41149C8A9CD08"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.pdb",
+      "bytes": 10648,
+      "sha256": "CAA23002C83C7E6FEE0FDCA97EB93D9C975A21645E1AEE25627E4D7F33D20773"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll",
+      "bytes": 28592,
+      "sha256": "38A27305B1F2040E654DA2AB116277360EA4E41696D24CFB0543FD812BED7671"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityWebRequestAudioModule.pdb",
+      "bytes": 10548,
+      "sha256": "250D56E075ED4AE051F0D86FBB8CE29B3F0BB6DCA7D04C47920E4325C017A124"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityWebRequestModule.dll",
+      "bytes": 66984,
+      "sha256": "E76B88E1A6C6A8C85F04B532B2C445A05015C8FADB3F3301855875AB7468799B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityWebRequestModule.pdb",
+      "bytes": 23528,
+      "sha256": "D5A78EFCBC0E315DC712F18C74D3E90575CDFD90F5AC6603719B7CA47FF5999C"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll",
+      "bytes": 28072,
+      "sha256": "748B249EFBA1C05315DC4C369EED32E639D671F5F10DE5995C8A2CC2A6A77CFF"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityWebRequestTextureModule.pdb",
+      "bytes": 10704,
+      "sha256": "B919266396BC1B10E9C7E5A5026A5B6B44FE74D7C1AEFACF6A82C1C5749EACAC"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll",
+      "bytes": 35760,
+      "sha256": "F652CC35999531575A6543C27CED7FECC8767749EC16044C14A3F5531F67EA45"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.UnityWebRequestWWWModule.pdb",
+      "bytes": 12656,
+      "sha256": "FBAED57D45ED7C2906B87395913A45198CEB89A841D21BC5972487DFA4AC3EA9"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VectorGraphicsModule.dll",
+      "bytes": 228264,
+      "sha256": "8164F3EF8D4325B737B08752EF50BD4A3F2FC2FB175B13B5FE6B7D7709E6C035"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VectorGraphicsModule.pdb",
+      "bytes": 102952,
+      "sha256": "6212869BB1877264C0EB65C298496AD7DD4083CC7AC6388E703107C00072E958"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VehiclesModule.dll",
+      "bytes": 31664,
+      "sha256": "E2353CE4F6990FC54E47CB6C16921FE655AF527EBC43301B9E369A6ADC2EB3CF"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VehiclesModule.pdb",
+      "bytes": 10432,
+      "sha256": "47ED7324C071837E67B44DCE1785407BAD0627132001D63E587FFA0DEDE3AD79"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VFXModule.dll",
+      "bytes": 80304,
+      "sha256": "BB4AA4CFDE500292AF011828681FB1DD6F14AA5F87916B12FBF63855BD002A53"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VFXModule.pdb",
+      "bytes": 17800,
+      "sha256": "943254F1A5CD534DF5C12246E985925E578B4605B6A83EC390F2DCF56DE9DC9D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VideoModule.dll",
+      "bytes": 48560,
+      "sha256": "264C3C3957C3881D467618374D999A9223E51D82F7A3E781817080D6653B24F0"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VideoModule.pdb",
+      "bytes": 13596,
+      "sha256": "5E8FA10E9556FDECDA477EA4946E46A0DF989FB6D0604569F25B4C262F034446"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VirtualTexturingModule.dll",
+      "bytes": 42408,
+      "sha256": "86FF62B1A6389BA3AB3C33B5819E0DA4F891270BC7AA1C62B63321EAEEAE0679"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VirtualTexturingModule.pdb",
+      "bytes": 12528,
+      "sha256": "9EA176A2841444E8BC6CC4E224A0EE0689CE2AA74A50E746B34DF788BA1926E5"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VRModule.dll",
+      "bytes": 32168,
+      "sha256": "0CADDC774482AFDD6050AD7D43C26642AFD9AA6400E5EE9ED5BB0A9FE9D1640F"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.VRModule.pdb",
+      "bytes": 10404,
+      "sha256": "25C644D5501F644BBAB40C2C856B07D99F8E22D7560CAE883C4DC8A2303C303D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.WindModule.dll",
+      "bytes": 27056,
+      "sha256": "F07283E8292B74095371CE7029F9FECDA1289A2F4F759C5DA6636727B8A8A57D"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.WindModule.pdb",
+      "bytes": 9512,
+      "sha256": "3EC574C48459C35E439CB5786A72273227691F0476832745C248798456F83A0B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.XRModule.dll",
+      "bytes": 86440,
+      "sha256": "6A66B219C0448DA5948832AC93F12E460E5D0EE933609EE1F214D8F7A50E373B"
+    },
+    {
+      "path": "DarkNights_Data/Managed/UnityEngine.XRModule.pdb",
+      "bytes": 21188,
+      "sha256": "FE8C115B951171EF53EB91BDDB86EE654D47F9E1CA632F489AF4F0D92E34A208"
+    },
+    {
+      "path": "DarkNights_Data/Managed/VitalRouter.dll",
+      "bytes": 43520,
+      "sha256": "FD220CFA56DFCD1C0C4F96EEF3F16DA9F62CD51BF553B5AE30622CD8ECAFB6FC"
+    },
+    {
+      "path": "DarkNights_Data/Managed/ZLinq.dll",
+      "bytes": 246272,
+      "sha256": "C330D9BE64BE19CF58F2F4B21136638D869AC8BFD0BFFD69AF8133D9261DF1DA"
+    },
+    {
+      "path": "DarkNights_Data/Managed/ZLinq.Unity.dll",
+      "bytes": 20992,
+      "sha256": "920AD6028749869CE5A6D3FC110945B7614FE6931D2C6C0C1B525CE5BA7BF647"
+    },
+    {
+      "path": "DarkNights_Data/Managed/ZLinq.Unity.pdb",
+      "bytes": 24924,
+      "sha256": "179E773065D29E0EF2F9AFC6227033ED82481880A40DB49E07B09EAA999437D4"
+    },
+    {
+      "path": "DarkNights_Data/Managed/ZLinq.Unity.UnityCollectoins.dll",
+      "bytes": 15872,
+      "sha256": "9B649AA099ADC67532A30036D97B77848F6E91692CD5ACF20BF85FD236F105B2"
+    },
+    {
+      "path": "DarkNights_Data/Managed/ZLinq.Unity.UnityCollectoins.pdb",
+      "bytes": 22400,
+      "sha256": "EA93039DCFFD4BB062DBACCB827B00B48E56588504631A6A20A7A2E49E4D5DC3"
+    },
+    {
+      "path": "DarkNights_Data/Plugins/x86_64/lib_burst_generated.dll",
+      "bytes": 692224,
+      "sha256": "877FBF730B7B0A8B9DC1B1F66BCB24D6044A920AFF4A55412AE120AC99491B60"
+    },
+    {
+      "path": "DarkNights_Data/Plugins/x86_64/lib_burst_generated.pdb",
+      "bytes": 4136960,
+      "sha256": "90D57C4D2E19611C3E32B4AFB39432760A0707F5D271AD4A7ACD209355FAEF68"
+    },
+    {
+      "path": "DarkNights_Data/Plugins/x86_64/libonigwrap.dll",
+      "bytes": 551336,
+      "sha256": "6D539F2AD6E1B58D3C8836B9C3A1D50C97CBD7A6CA0C5DE25D994A7C4B1ECF42"
+    },
+    {
+      "path": "DarkNights_Data/resources.assets",
+      "bytes": 349784,
+      "sha256": "CC5843A7141251C8BCA56C8A4C082AAA423604C4B08AD21366660E048705D6D0"
+    },
+    {
+      "path": "DarkNights_Data/resources.assets.resS",
+      "bytes": 7232,
+      "sha256": "F12F30B4C1648273E460DAB9F8EC974E616980F7A3027D54AC4CA0F19BA89CD3"
+    },
+    {
+      "path": "DarkNights_Data/Resources/unity default resources",
+      "bytes": 5922288,
+      "sha256": "96C07875F9764CEAA248EB5715503DE54E55FE87166B909330A4AE209A644F70"
+    },
+    {
+      "path": "DarkNights_Data/Resources/unity_builtin_extra",
+      "bytes": 397752,
+      "sha256": "41198A5322C8ED7F90EDAB94852ED6E662F10E016CB90ADD8FFECFE9FABCB1FA"
+    },
+    {
+      "path": "DarkNights_Data/RuntimeInitializeOnLoads.json",
+      "bytes": 15187,
+      "sha256": "0ADF7E34C08FBDC156D249A02E9DA38C1BF46DFC08BEB0F259B5990B88304484"
+    },
+    {
+      "path": "DarkNights_Data/ScriptingAssemblies.json",
+      "bytes": 6313,
+      "sha256": "996553579185DCC4D3767DC1B712EF67A22CD6EF0BC0AEE3D9E3996E06163B87"
+    },
+    {
+      "path": "DarkNights_Data/sharedassets0.assets",
+      "bytes": 5040,
+      "sha256": "D5EE1991F94F66E47D2AA4995105A3848A3259B75A7BB4AAB30D883E8C1B72B2"
+    },
+    {
+      "path": "DarkNights_Data/sharedassets0.assets.resS",
+      "bytes": 524288,
+      "sha256": "393EFE6399536384AA91BDFC4E64F244B4D3E1FBB6A4FF145C483FFEE64CCB36"
+    },
+    {
+      "path": "DarkNights_Data/sharedassets1.assets",
+      "bytes": 391740,
+      "sha256": "F875C681E16B15082BF5FA654189AC7FD9902025A4852A5B8D10F24FD3BBAA0F"
+    },
+    {
+      "path": "DarkNights_Data/sharedassets1.assets.resS",
+      "bytes": 3303344,
+      "sha256": "2B5A236D40F447B19C53D3BE6E192FD7EE473AE20C80E4AC523DE8019EF4C0BE"
+    },
+    {
+      "path": "DarkNights_Data/StreamingAssets/aa/AddressablesLink/link.xml",
+      "bytes": 9678,
+      "sha256": "CF5015F389B3DA719FDB514984DD7E1A17A68E14B1B9A747CA691F94A981546E"
+    },
+    {
+      "path": "DarkNights_Data/StreamingAssets/aa/catalog.bin",
+      "bytes": 10644,
+      "sha256": "4A9128B87DE2F7AABF2B5562F652542DFD1DE654B6435A99596B7C4B725FBC40"
+    },
+    {
+      "path": "DarkNights_Data/StreamingAssets/aa/catalog.hash",
+      "bytes": 32,
+      "sha256": "98B3AD776A833850B5EF87AC50FF386A2AF126BA1C9F031C517741E9258C06AD"
+    },
+    {
+      "path": "DarkNights_Data/StreamingAssets/aa/settings.json",
+      "bytes": 865,
+      "sha256": "899DB8EB56C843EB3B372E41F755A9F0C9762BD08A0343EF5A54F4A96AF309F1"
+    },
+    {
+      "path": "DarkNights_Data/StreamingAssets/aa/StandaloneWindows64/21a94cc7e125e407c7df13a6f5103077_monoscripts_a86fc57e56af81d0b8b26fd94ba694b0.bundle",
+      "bytes": 3555,
+      "sha256": "1F06034D4124F6F573B1E8942DA8C308E392D9F4EB10231AD690D58681A6D630"
+    },
+    {
+      "path": "DarkNights_Data/StreamingAssets/aa/StandaloneWindows64/21a94cc7e125e407c7df13a6f5103077_unitybuiltinassets_ef95f86264cd492898f3c2de2f8b2f3b.bundle",
+      "bytes": 23026,
+      "sha256": "0EDFDDD3E5A16545519F83927099ABA2CA70DF370C456EB075DB41D71AB667F7"
+    },
+    {
+      "path": "DarkNights_Data/StreamingAssets/aa/StandaloneWindows64/defaultlocalgroup_assets_all_a466d1cc065883734bac3cfd8160bbcd.bundle",
+      "bytes": 1433641,
+      "sha256": "B2D0D1EC710C7370E090550D601EEA949512DD842FAB62AC4155EDD1AC05B286"
+    },
+    {
+      "path": "DarkNights.exe",
+      "bytes": 667648,
+      "sha256": "93C19F9E7C681845D34407807D33B6438E781DD34C4D8895EBDF2C6FB083711D"
+    },
+    {
+      "path": "DNights_BurstDebugInformation_DoNotShip/Data/Plugins/x86_64/lib_burst_generated.txt",
+      "bytes": 245875,
+      "sha256": "05EEA892C7CE1073D6699A8349745EA6E54CFC37A1D64A5F598416F6F8861A6E"
+    },
+    {
+      "path": "dstorage.dll",
+      "bytes": 206904,
+      "sha256": "CAE65787F61514BEC6F012F44546E68B19E39D8854A9AB52AF813370D44B272A"
+    },
+    {
+      "path": "dstoragecore.dll",
+      "bytes": 1482784,
+      "sha256": "CF85B19A92A8276F8BACA0DB9BBCD60735BAD50768DEB303D310E84D5F4FDD11"
+    },
+    {
+      "path": "FishNet.SDK.Id",
+      "bytes": 0,
+      "sha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855"
+    },
+    {
+      "path": "MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll",
+      "bytes": 7828904,
+      "sha256": "C150A7A694AF771989D4708C043CCA0A79105FB9B84BAA57447264960A3AB4B4"
+    },
+    {
+      "path": "MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll",
+      "bytes": 611248,
+      "sha256": "A7CDD27B624DAA6632269DD26A4A26E40A077F7DA52B3204078F558F2DF986E9"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser",
+      "bytes": 1605,
+      "sha256": "8A1082057AC5681DCD4E9C227ED7FB8EB42AC1618963B5DE3B65739DD77E2741"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx",
+      "bytes": 60575,
+      "sha256": "751861040B69EA63A3827507B7C8DA9C7F549DC181C1C8AF4B7CA78CC97D710A"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/machine.config",
+      "bytes": 29066,
+      "sha256": "E91782A27FA39FC6C1D6EE8B08529F5D35052310D0006034B878EB04B8F2AF30"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/settings.map",
+      "bytes": 2622,
+      "sha256": "49C6160F9D54AF4270A3B4E997FC4A8301F79B9E2070118FA46DDBCBBC44F9A2"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/2.0/web.config",
+      "bytes": 11635,
+      "sha256": "CF2B54339E069B9E42F7D6795EECBF562C50C1011F4CA8F65F578FE52D97FF92"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser",
+      "bytes": 1605,
+      "sha256": "8A1082057AC5681DCD4E9C227ED7FB8EB42AC1618963B5DE3B65739DD77E2741"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx",
+      "bytes": 60575,
+      "sha256": "751861040B69EA63A3827507B7C8DA9C7F549DC181C1C8AF4B7CA78CC97D710A"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/machine.config",
+      "bytes": 33598,
+      "sha256": "E60AEC2C5115D65B3ACB3C55EA21576DBD770F579166C017125571E46AE560ED"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/settings.map",
+      "bytes": 2622,
+      "sha256": "CE1DB1AD8A9512073164E3ECCDC193F7EDA036E1A9733CAEC4635DE21B2865C8"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.0/web.config",
+      "bytes": 18802,
+      "sha256": "E38BB8CC68FE5B4EDECDFD288D094B9E8CED7629039B2A347682ABA0D8BD7492"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser",
+      "bytes": 1605,
+      "sha256": "8A1082057AC5681DCD4E9C227ED7FB8EB42AC1618963B5DE3B65739DD77E2741"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx",
+      "bytes": 60575,
+      "sha256": "751861040B69EA63A3827507B7C8DA9C7F549DC181C1C8AF4B7CA78CC97D710A"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/machine.config",
+      "bytes": 34056,
+      "sha256": "EE950004B576FB28DC85F4B0435ED04BF96612DE2E8B53BE84D07AFE85A0DE6C"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/settings.map",
+      "bytes": 2622,
+      "sha256": "CE1DB1AD8A9512073164E3ECCDC193F7EDA036E1A9733CAEC4635DE21B2865C8"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/4.5/web.config",
+      "bytes": 18811,
+      "sha256": "C4CBDDD4FD9347B58CC5A72B36DC4BA1AD2BB699E65869D05CD3FB9865F0D824"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/browscap.ini",
+      "bytes": 311984,
+      "sha256": "4DDD50F31FB968F30BEDEFC253A46DC3F2890192D05CDAA9E0A64A056EEE807E"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/config",
+      "bytes": 3815,
+      "sha256": "5776169973A26A387B8B3E5C0F2301A7AB9A6DD7C7D3EFA22A96ABC47FBF8662"
+    },
+    {
+      "path": "MonoBleedingEdge/etc/mono/mconfig/config.xml",
+      "bytes": 25817,
+      "sha256": "0C56E34C69124510FA8C19E7B4C2CA6C1C4FF460AE19F798DD0CA035809E396D"
+    },
+    {
+      "path": "UnityCrashHandler64.exe",
+      "bytes": 1665960,
+      "sha256": "AC12C0ED0C0CD73AC4762EEBE709116BF823BBB6399CEED6FFB5F24D927F284E"
+    },
+    {
+      "path": "UnityPlayer.dll",
+      "bytes": 85459888,
+      "sha256": "1BE7B350857E46C33B07EE75DE3176586064B2367494709D5B4CBA1787CF12BF"
+    },
+    {
+      "path": "WinPixEventRuntime.dll",
+      "bytes": 58368,
+      "sha256": "81ADCFD8253C3489BE720DA7E30F16004DC9A1F02A8B418C6C3AEF4993032E6D"
+    }
+  ]
+}

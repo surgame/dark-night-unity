@@ -1,0 +1,646 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-14",
+  "stage": "M5 native UI calibration",
+  "status": "ui_slice_verified; overall_M5_not_signed; foreground_deferred; cleanup_partially_blocked",
+  "branch": "codex/yygc-unified-object-migration",
+  "sourceCommit": "2fff198cb220d3be055a1389dbdceb49de3e1a01",
+  "sourceGameTree": "be54f8e046110b631db65a53f9abc2a9d58a7742",
+  "unity": "6000.4.9f1",
+  "protocol": 7,
+  "dependencies": {
+    "yygcCommit": "745f3d2c844a66389e39bb84cd878d5d80f77962",
+    "fishnetCommit": "de19b5d66459f60400ffd0edc443c4da173a01e7",
+    "yygcFilesChangedInThisSlice": [],
+    "fishnetFilesChangedInThisSlice": [],
+    "ledger": "docs/YYGC_CHANGES.md"
+  },
+  "implementation": {
+    "pages": 5,
+    "originalLabelsTopAligned": 61,
+    "buttonsWithExplicitTextStates": 30,
+    "restoredTextShadows": 5,
+    "originalControlsCheckedPerResolution": 162,
+    "multilineBaselineSpansPixels": [
+      170,
+      42,
+      42,
+      56
+    ],
+    "runtimeRootCanvasPixelPerfect": true,
+    "bodyFont": "Microsoft YaHei / HintedSmooth",
+    "titleFont": "Georgia Bold (unchanged)",
+    "assetEdit": {
+      "path": "artifacts/m5-ui/asset-edit.json",
+      "bytes": 268,
+      "sha256": "78FA9F70E5A8CD3F1F7A5B7499AEA8E2382D5D5D9A4B118CD5A3200183F7074C"
+    },
+    "textCalibration": {
+      "path": "artifacts/m5-ui/text-calibration.json",
+      "bytes": 472,
+      "sha256": "5FEAEFA352B7221E9081BA59BFD66187CBF52B4E75D14EF1755483858DB9A483"
+    }
+  },
+  "sourceIntegrity": {
+    "buildInputs": 2603,
+    "buildInputChanges": [],
+    "buildReport": {
+      "path": "artifacts/m5-ui/build-source-integrity.json",
+      "bytes": 355,
+      "sha256": "07B2FA597719A04D108AFAA5058F6DE2B29E1E0D7B375EA63D3FE7D73E0A10A5"
+    },
+    "godotUiAndThemeFiles": 15,
+    "godotMismatches": [],
+    "godotReport": {
+      "path": "artifacts/m5-ui/source-integrity.json",
+      "bytes": 86,
+      "sha256": "8BB7BBC7C7D447B31E03AA005BB4801F585970383ABE19EE7D2B0DBE91F3B391"
+    },
+    "inputManifest": {
+      "path": "artifacts/m5-ui/build-input.json",
+      "bytes": 566611,
+      "sha256": "5114E44B7010B0004C8A614FD7DE5757A4B5A88331137FA9DFDF15E45F21EFAE"
+    }
+  },
+  "editor": {
+    "initial": {
+      "total": 155,
+      "passed": 154,
+      "failed": 1,
+      "report": {
+        "path": "artifacts/m5-ui/editor-tests-initial.xml",
+        "bytes": 357743,
+        "sha256": "F1E20B818BF77A12BB114437268D913580D0987C23065E5C20A11A251128AE84"
+      },
+      "failedCase": "DarkNights.Tests.NativeUiTests.OriginalMultilineLabelsKeepTheirMeasuredBaselineSpacing"
+    },
+    "affectedRetest": {
+      "summary": {
+        "total": 22,
+        "passed": 22,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "report": {
+        "path": "artifacts/m5-ui/editor-ui-tests-final.json",
+        "bytes": 5454,
+        "sha256": "8C7999CDFAB7270C9E952473EE5EDFDC42A6D9B308A4ACBB10F02AF734074D06"
+      }
+    },
+    "combined": {
+      "summary": {
+        "total": 155,
+        "passed": 155,
+        "notPassed": 0,
+        "reusedFromInitial": 133,
+        "affectedRetest": 22,
+        "newNamesNotInInitial": [],
+        "method": "Combined by exact full test name, replacing only the 22 affected Native test results; this is not a second full 155-test execution."
+      },
+      "report": {
+        "path": "artifacts/m5-ui/editor-merged-results.json",
+        "bytes": 30847,
+        "sha256": "D371BBF998FFCD58B38FA025F6618406F8A0617C7FE883E8C0D8FB2CCEF55875"
+      },
+      "fullSuiteWasNotRerun": true
+    },
+    "failureResolution": "Use scaleFactor=1 when checking source pixel baselines; calibrate 13pt multiline stride from 43px to reference 42px. Reuse 133 unaffected passes and replace 22 affected results by exact test name.",
+    "realMouse": {
+      "passed": true,
+      "count": 19,
+      "checks": {
+        "main_menu_slot_changes_once": true,
+        "address_is_reachable_by_mouse": true,
+        "mouse_main_menu_starts_ready_host": true,
+        "mouse_selects_explicit_actor": true,
+        "right_click_assigns_work_while_paused": true,
+        "definition_preview_valid_without_payment": true,
+        "mouse_build_pays_once": true,
+        "cancel_releases_placement_session": true,
+        "minimap_mouse_focuses_local_camera": true,
+        "menu_owns_one_modal_session": true,
+        "pause_slot_updates_both_panels": true,
+        "mouse_control_mode_reaches_authority_once": true,
+        "mouse_control_mode_restores_shared_camp": true,
+        "modal_blocks_world_selection": true,
+        "resume_releases_modal_without_unpausing_world": true,
+        "reopened_pause_preserves_slot_and_resets_pressed_text": true,
+        "hud_shapes_have_meshes": true,
+        "exit_preserves_scene_views_without_live_bindings": true,
+        "second_start_restores_fresh_world": true
+      },
+      "report": {
+        "path": "artifacts/m5-ui/runtime-final.json",
+        "bytes": 993,
+        "sha256": "A66D77986CACD8F38A60E6A61BED80A4FAD64B541DD224EDBCD6255AC9D81186"
+      }
+    },
+    "architecture": {
+      "result": {
+        "passed": true,
+        "handwrittenFiles": 284,
+        "selfTests": 12,
+        "errors": [],
+        "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+      },
+      "report": {
+        "path": "artifacts/m5-ui/architecture-final.json",
+        "bytes": 191,
+        "sha256": "9809249E7C64E893BF5EE8ED714A344FC1DA0CFDE5B442177C43702CE599C75E"
+      }
+    },
+    "viewportRestore": {
+      "path": "artifacts/m5-ui/viewport-restored.json",
+      "bytes": 835,
+      "sha256": "8E0DFD8830D78BF9CE02B8328FB191596073612E754E1D383B8BD76951377474"
+    },
+    "close": {
+      "path": "artifacts/m5-ui/editor-close.json",
+      "bytes": 750,
+      "sha256": "525D8C3022C1CE1C3CCADF7CC9FAC630CDE955EDC02C0A76B655D1D78B50CE3C"
+    }
+  },
+  "build": {
+    "backend": "Mono",
+    "buildInvocations": 1,
+    "outcome": "success",
+    "exitCode": 0,
+    "startedAt": "2026-09-13T17:32:43.999Z",
+    "endedAt": "2026-09-13T17:33:34.346Z",
+    "generator": {
+      "name": "unity-cli",
+      "version": "1.0.0-beta.6"
+    },
+    "source": "artifacts/yygc-unified/u6/source",
+    "sourceRevision": "2fff198cb220d3be055a1389dbdceb49de3e1a01",
+    "sourceDirty": true,
+    "expectedSourceDifferences": [
+      " M Game/Packages/packages-lock.json",
+      "?? Game/Packages/com.cysharp.memorypack/",
+      "?? Game/Packages/com.cysharp.r3/",
+      "?? Game/Packages/com.cysharp.unitask/",
+      "?? Game/Packages/com.cysharp.zlinq/",
+      "?? Game/Packages/com.github-glitchenzo.nugetforunity/"
+    ],
+    "libraryCopied": false,
+    "existingImportCacheReused": true,
+    "cleanImport": false,
+    "provenance": {
+      "path": "artifacts/m5-ui/build-provenance.json",
+      "bytes": 4183,
+      "sha256": "061BC3C1D81F019AA284D80C1BBC2404372D992E376846A121738852F393FA0D"
+    },
+    "log": {
+      "path": "artifacts/m5-ui/build-mono.log",
+      "bytes": 985245,
+      "sha256": "0FE7E903F0C8B6595D922A13313D8AA85296C23D96DCB9ED987F425D76453470"
+    }
+  },
+  "player": {
+    "path": "artifacts/m5-ui/player-mono/DarkNights.exe",
+    "fileCount": 408,
+    "totalBytes": 199006260,
+    "includesBlockedBurstDebugBytes": 245875,
+    "manifest": {
+      "path": "docs/evidence/m5-ui-player-mono-files-2026-09-14.json",
+      "bytes": 77184,
+      "sha256": "ACAB29E804DA1BBA709477CB3A1B7D7186184C1874B9DFA254EDC4A8844DEE24"
+    },
+    "entry": {
+      "path": "DarkNights_Data/Managed/DarkNights.Entry.dll",
+      "bytes": 87040,
+      "sha256": "2A66107EDB8E649EE084B671AA3CEABE0C796EFA8E136293421DDA635D0F8081"
+    },
+    "view": {
+      "path": "DarkNights_Data/Managed/DarkNights.View.dll",
+      "bytes": 94720,
+      "sha256": "D4806FDE0D8B951F01216BF42F831D507082E3523BD0B18F2C7E214C230558FA"
+    },
+    "addressableFiles": [
+      {
+        "path": "DarkNights_Data/StreamingAssets/aa/AddressablesLink/link.xml",
+        "bytes": 9678,
+        "sha256": "CF5015F389B3DA719FDB514984DD7E1A17A68E14B1B9A747CA691F94A981546E"
+      },
+      {
+        "path": "DarkNights_Data/StreamingAssets/aa/catalog.bin",
+        "bytes": 10644,
+        "sha256": "4A9128B87DE2F7AABF2B5562F652542DFD1DE654B6435A99596B7C4B725FBC40"
+      },
+      {
+        "path": "DarkNights_Data/StreamingAssets/aa/catalog.hash",
+        "bytes": 32,
+        "sha256": "98B3AD776A833850B5EF87AC50FF386A2AF126BA1C9F031C517741E9258C06AD"
+      },
+      {
+        "path": "DarkNights_Data/StreamingAssets/aa/settings.json",
+        "bytes": 865,
+        "sha256": "899DB8EB56C843EB3B372E41F755A9F0C9762BD08A0343EF5A54F4A96AF309F1"
+      },
+      {
+        "path": "DarkNights_Data/StreamingAssets/aa/StandaloneWindows64/21a94cc7e125e407c7df13a6f5103077_monoscripts_a86fc57e56af81d0b8b26fd94ba694b0.bundle",
+        "bytes": 3555,
+        "sha256": "1F06034D4124F6F573B1E8942DA8C308E392D9F4EB10231AD690D58681A6D630"
+      },
+      {
+        "path": "DarkNights_Data/StreamingAssets/aa/StandaloneWindows64/21a94cc7e125e407c7df13a6f5103077_unitybuiltinassets_ef95f86264cd492898f3c2de2f8b2f3b.bundle",
+        "bytes": 23026,
+        "sha256": "0EDFDDD3E5A16545519F83927099ABA2CA70DF370C456EB075DB41D71AB667F7"
+      },
+      {
+        "path": "DarkNights_Data/StreamingAssets/aa/StandaloneWindows64/defaultlocalgroup_assets_all_a466d1cc065883734bac3cfd8160bbcd.bundle",
+        "bytes": 1433641,
+        "sha256": "B2D0D1EC710C7370E090550D601EEA949512DD842FAB62AC4155EDD1AC05B286"
+      }
+    ],
+    "beforeTests": {
+      "path": "artifacts/m5-ui/player-hashes-before-tests.json",
+      "bytes": 80066,
+      "sha256": "00E258EF4395E21C1F9D127F5ECE607119FDE51787B7F184F73037F50B186C59"
+    },
+    "afterTests": {
+      "path": "artifacts/m5-ui/player-hashes-after-tests.json",
+      "bytes": 79228,
+      "sha256": "368094C8A9D9647323F7D07FA4EC6909AB9EFA0846B70CAA275E46E1370722A3"
+    },
+    "integrity": {
+      "utc": "2026-09-13T17:51:58.8513125Z",
+      "root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-ui\\player-mono",
+      "expectedCount": 408,
+      "actualCount": 408,
+      "totalBytes": 199006260,
+      "changed": [],
+      "missing": [],
+      "passed": true
+    },
+    "integrityReport": {
+      "path": "artifacts/m5-ui/player-integrity-after-tests.json",
+      "bytes": 277,
+      "sha256": "3D779219DBB4FC9867FC0C358F1CB1D1E70A24A3A9375F2CD8D2D6E508D59C8C"
+    },
+    "automaticChecks": 31,
+    "runs": [
+      {
+        "report": {
+          "path": "artifacts/migration/run-20260914-013908-663-mono/result.json",
+          "bytes": 1076,
+          "sha256": "6EE5CDE5058CF6E8C357DC4314F93367DED256C161C4C62F30C727115EA08F98"
+        },
+        "passed": true,
+        "count": 6,
+        "checks": {
+          "independent_player_remains_running": true,
+          "app_startup_ready_once": true,
+          "frozen_content_loaded_once": true,
+          "formal_object_content_loaded_once": true,
+          "no_startup_or_runtime_exception": true,
+          "no_formal_editor_or_tests_in_player": true
+        },
+        "scope": "Bootstrap + YYGC AppStartup + Addressables + formal ObjectDefinition/Prefab/generated registry startup; no gameplay or multiplayer acceptance",
+        "renderedBatchMode": null
+      },
+      {
+        "report": {
+          "path": "artifacts/migration/session-20260914-014020-890/result.json",
+          "bytes": 1282,
+          "sha256": "6E6F34EFEC1239226C08CE70DB4F0E506A2B4DCC93DD054196D0C3610DEE5110"
+        },
+        "passed": true,
+        "count": 13,
+        "checks": {
+          "host_ready_with_all_initial_entities": true,
+          "independent_client_receives_full_late_baseline": true,
+          "host_pause_applied": true,
+          "generated_recruit_button_routes_once": true,
+          "guest_build_paid_once": true,
+          "host_and_client_share_single_payment": true,
+          "guest_cannot_change_time": true,
+          "host_only_enabled": true,
+          "host_only_rejects_guest_camp_mutation": true,
+          "guest_explicit_move_accepted": true,
+          "client_observes_authoritative_motion": true,
+          "complete_world_converges_while_paused": true,
+          "no_player_failure": true
+        },
+        "scope": "Formal two-process network, instantiated native views and generated UGUI pause/recruit bindings; no pixel or weak-network acceptance",
+        "renderedBatchMode": null
+      },
+      {
+        "report": {
+          "path": "artifacts/migration/visual-1280x800-20260914-014032-569/result.json",
+          "bytes": 699,
+          "sha256": "09A9EFC8927D94DB1F6B83895F714222611044394ED5E84F5BFEB9DCB0DC5B47"
+        },
+        "passed": true,
+        "count": 6,
+        "checks": {
+          "day_has_requested_dimensions": true,
+          "night_has_requested_dimensions": true,
+          "pause_has_requested_dimensions": true,
+          "help_has_requested_dimensions": true,
+          "menu_has_requested_dimensions": true,
+          "no_runtime_exception": true
+        },
+        "scope": "Real Mono offscreen screenshots; image content requires separate visual review",
+        "renderedBatchMode": true
+      },
+      {
+        "report": {
+          "path": "artifacts/migration/visual-1600x900-20260914-014056-023/result.json",
+          "bytes": 699,
+          "sha256": "AC094FE29C331FEB74C8E69E60BA7521BA3C0B1162CB78F7C75F8B5C5212F6FE"
+        },
+        "passed": true,
+        "count": 6,
+        "checks": {
+          "day_has_requested_dimensions": true,
+          "night_has_requested_dimensions": true,
+          "pause_has_requested_dimensions": true,
+          "help_has_requested_dimensions": true,
+          "menu_has_requested_dimensions": true,
+          "no_runtime_exception": true
+        },
+        "scope": "Real Mono offscreen screenshots; image content requires separate visual review",
+        "renderedBatchMode": true
+      }
+    ]
+  },
+  "visualReview": {
+    "reviewedPlayerImages": 10,
+    "images": [
+      {
+        "image": {
+          "path": "artifacts/migration/visual-1280x800-20260914-014032-569/day.png",
+          "bytes": 130533,
+          "sha256": "AC5C377AB2027D77833C9D014C41AC80FB9C44C957C56B939FC19C0CB042C421"
+        },
+        "state": "day",
+        "width": 1280,
+        "height": 800,
+        "visualReview": "reviewed for this UI slice"
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/visual-1280x800-20260914-014032-569/night.png",
+          "bytes": 142670,
+          "sha256": "F3610504327C6DC7A0FBB1A5F8FEDE66088F8F01FD88E89C3D04D939640F92E7"
+        },
+        "state": "night",
+        "width": 1280,
+        "height": 800,
+        "visualReview": "reviewed for this UI slice"
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/visual-1280x800-20260914-014032-569/pause.png",
+          "bytes": 130271,
+          "sha256": "1BF93DC5BBC0AA498B4958FD3AE25790A70E89C5586BCA3AFC1A9DACCB85A91A"
+        },
+        "state": "pause",
+        "width": 1280,
+        "height": 800,
+        "visualReview": "reviewed for this UI slice"
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/visual-1280x800-20260914-014032-569/help.png",
+          "bytes": 170673,
+          "sha256": "EA7E33484C0F7EBA1EF54AC72DF45CB4E9C90DD30318483C7D6A9B625A936397"
+        },
+        "state": "help",
+        "width": 1280,
+        "height": 800,
+        "visualReview": "reviewed for this UI slice"
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/visual-1280x800-20260914-014032-569/menu.png",
+          "bytes": 133549,
+          "sha256": "51AC3109EBB2E2B14E208024ED9C661644ADA9ED9A70A12A0500900682D10DB4"
+        },
+        "state": "menu",
+        "width": 1280,
+        "height": 800,
+        "visualReview": "reviewed for this UI slice"
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/visual-1600x900-20260914-014056-023/day.png",
+          "bytes": 148906,
+          "sha256": "B5B2FADAAD0E7E9DB7FDD3A5827C51720C38DE21CFE3F4392F802C0AFDCAC49D"
+        },
+        "state": "day",
+        "width": 1600,
+        "height": 900,
+        "visualReview": "reviewed for this UI slice"
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/visual-1600x900-20260914-014056-023/night.png",
+          "bytes": 164520,
+          "sha256": "28CDD38DF86D6C5E4C27119760BD2F78498401E81B9F8761120F37F62256FAFC"
+        },
+        "state": "night",
+        "width": 1600,
+        "height": 900,
+        "visualReview": "reviewed for this UI slice"
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/visual-1600x900-20260914-014056-023/pause.png",
+          "bytes": 150429,
+          "sha256": "D413F3DDA48D8BC093A2E3E91F18A8E6E28587568EEBCA148B2C8ECF19E630D1"
+        },
+        "state": "pause",
+        "width": 1600,
+        "height": 900,
+        "visualReview": "reviewed for this UI slice"
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/visual-1600x900-20260914-014056-023/help.png",
+          "bytes": 199744,
+          "sha256": "F21E277FDEADD09F02B26E2941A67BB1E9F7880FC46367D533D84EAEDF81CBF6"
+        },
+        "state": "help",
+        "width": 1600,
+        "height": 900,
+        "visualReview": "reviewed for this UI slice"
+      },
+      {
+        "image": {
+          "path": "artifacts/migration/visual-1600x900-20260914-014056-023/menu.png",
+          "bytes": 153459,
+          "sha256": "7E84BD61F49C8C1AC081D517D5DF8CAB5CD0FF34C74F966388B086B9C6BE0E4E"
+        },
+        "state": "menu",
+        "width": 1600,
+        "height": 900,
+        "visualReview": "reviewed for this UI slice"
+      }
+    ],
+    "resultPage": "Editor checks at both resolutions; not included among this batch of Player screenshot states",
+    "scope": "UI placement, typography, original descriptions and disabled text reviewed. Screenshot dimensions and no-exception checks are separate from manual image review.",
+    "fontRasterization": "Cross-engine visual approximation, not pixel equality",
+    "sameStateFullWorldComparison": "pending",
+    "batchMode": true,
+    "noGraphics": false,
+    "godotReferenceProcessRestarted": false,
+    "godotReferenceCaveat": "Earlier reference process log did not prove that its window stayed hidden; process exited and was not restarted."
+  },
+  "historicalRegression": {
+    "gameCommit": "4e3798f",
+    "evidence": "docs/evidence/yygc-unified-u6-compression.json",
+    "editorTests": 144,
+    "fullMonoMatrix": 350,
+    "summaryCapacityChecks": 21,
+    "summaryCapacitySeconds": 240,
+    "repeatedForThisUiSlice": false,
+    "reason": "No rule or network change in this UI slice; new Mono has its own 31 relevant checks. Historical foreground performance was not signed."
+  },
+  "diagnostics": [
+    {
+      "event": "Temporary preview native crash",
+      "report": {
+        "path": "artifacts/m5-ui/preview-mesh-crash.log",
+        "bytes": 151587975,
+        "sha256": "9E882C634975DE63889F812AB27049FF7E7AF11A5A756EF0625D7ECD8BC70741"
+      },
+      "resolution": "Removed CanvasRenderer mesh writeback from the temporary probe; no official prefab was written and no scene had unsaved edits."
+    },
+    {
+      "event": "First compilation after recovery",
+      "report": {
+        "path": "artifacts/m5-ui/editor-compile-first-failure.log",
+        "bytes": 81112,
+        "sha256": "9A6ED9EB8A2A765A86005849EDC7AE5488EFEBB42D171E8679E0E86A1C34C24B"
+      },
+      "resolution": "Changed unsupported Color32 equality to Equals; subsequent compilation and checks succeeded."
+    },
+    {
+      "event": "Unsupported default mouse probe resolution",
+      "report": {
+        "path": "artifacts/m5-ui/runtime-unsupported-resolution.json",
+        "bytes": 624,
+        "sha256": "50A6187E869E3A3EED8CFC6D807F5E7772408C4C1CAD5CA17D7A36670C2BFD3F"
+      },
+      "resolution": "Used 1280x800, then removed the temporary GameView size and restored the original selection."
+    },
+    {
+      "event": "Obsolete hierarchy assumption in mouse probe",
+      "report": {
+        "path": "artifacts/m5-ui/runtime-old-hierarchy-failure.json",
+        "bytes": 767,
+        "sha256": "69F91F9270A0F6F61CB66D4E146C52309BF709E1F18FB6AE6A42F047F4C783A1"
+      },
+      "resolution": "Checked unified entity, preview and unbinding contracts; final real mouse probe passed 19 checks."
+    },
+    {
+      "event": "License errors during Mono startup",
+      "report": {
+        "path": "artifacts/m5-ui/build-mono.log",
+        "bytes": 985245,
+        "sha256": "0FE7E903F0C8B6595D922A13313D8AA85296C23D96DCB9ED987F425D76453470"
+      },
+      "resolution": "License handshake recovered within the same build invocation; provenance reports success and exit code 0. No rebuild was performed."
+    }
+  ],
+  "cleanup": {
+    "toolCleanup": {
+      "action": "dotnet clean tools/ArchitectureGuard",
+      "bytesBefore": 33138117,
+      "bytesAfter": 145565,
+      "releasedBytes": 32992552,
+      "utc": "2026-09-13T17:42:21.4716131Z",
+      "CFree": 14362673152,
+      "DFree": 35066056704,
+      "blockedPathsRetried": false
+    },
+    "toolCleanupEvidence": {
+      "path": "artifacts/m5-ui/tools-cleanup.json",
+      "bytes": 266,
+      "sha256": "1EDA1E7584E1B856CD29C1B42C2CFB293C48675E48213E1B6DF886992D8AFBF3"
+    },
+    "newBurstDebugCleanup": {
+      "utc": "2026-09-13T17:54:04.1901736Z",
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\m5-ui\\player-mono\\DNights_BurstDebugInformation_DoNotShip",
+      "status": "blocked by policy",
+      "attempts": 1,
+      "remainingBytes": 245875,
+      "releasedBytes": 0,
+      "actionExecuted": false,
+      "reason": "Automatic approval review rejected the removal command before execution; no more specific reason was provided.",
+      "retried": false,
+      "preflight": "artifacts/m5-ui/debug-cleanup-preflight.json",
+      "targetStillPresent": true,
+      "CFree": 14289887232,
+      "DFree": 35361787904
+    },
+    "debugCleanupEvidence": {
+      "path": "artifacts/m5-ui/debug-cleanup.json",
+      "bytes": 612,
+      "sha256": "8AE0CE505C09F10B27CA60062FB0FA2F4CE697A22B0C8E68111493A37B896AF1"
+    },
+    "debugPreflight": {
+      "path": "artifacts/m5-ui/debug-cleanup-preflight.json",
+      "bytes": 2874,
+      "sha256": "D7898D28770BCD6325D46D3283E9A3C0E5065D7909FAFF7C2599C50A015E25CA"
+    },
+    "previouslyBlockedPathsNotRetried": [
+      "Game/Library/Bee/artifacts/WinPlayerBuildProgram",
+      "artifacts/migration/player-mono/DNights_BurstDebugInformation_DoNotShip",
+      "artifacts/yygc-unified/u6/source",
+      "artifacts/yygc-unified/u6/locked-archives",
+      "artifacts/yygc-unified/u6/player-mono-compressed/DNights_BurstDebugInformation_DoNotShip"
+    ],
+    "releasedBytesThisSlice": 32992552,
+    "spaceBeforeBuild": {
+      "utc": "2026-09-13T17:32:43.5960653Z",
+      "CFree": 14335315968,
+      "DFree": 34294796288,
+      "activeVerificationEditor": false,
+      "backend": "Mono",
+      "builds": 1
+    },
+    "spaceSnapshot": {
+      "utc": "2026-09-13T17:54:04.3339353Z",
+      "CFree": 14289866752,
+      "DFree": 35361787904,
+      "note": "Disk free deltas include unrelated process activity and are not used as cleanup release counts."
+    },
+    "retained": "Current UI Player, historical performance Player, active import caches, source, protected assets and evidence",
+    "complete": false
+  },
+  "pending": [
+    "Foreground three-night and capacity performance: user explicitly deferred visible windows",
+    "Full same-state world image comparison",
+    "IL2CPP: explicit authorization still required",
+    "LAN on a second physical Windows machine: unavailable",
+    "Policy-blocked artifact cleanup and post-cleanup startup independence"
+  ],
+  "documentationValidation": {
+    "utc": "2026-09-13T18:13:45.4373787Z",
+    "passed": true,
+    "documents": [
+      "README.md",
+      "docs/DEVELOPMENT.md",
+      "docs/M5_EXECUTION.md",
+      "docs/M5_UI_CALIBRATION.md",
+      "docs/MIGRATION_PLAN.md",
+      "docs/MONO_ACCEPTANCE.md",
+      "docs/NATIVE_UI.md",
+      "docs/YYGC_UNIFIED_REFACTOR_PLAN.md"
+    ],
+    "linksChecked": 154,
+    "evidenceReferencesChecked": 39,
+    "manifestFiles": 408,
+    "manifestBytes": 199006260,
+    "manifestSha256": "ACAB29E804DA1BBA709477CB3A1B7D7186184C1874B9DFA254EDC4A8844DEE24",
+    "manifestEntriesMatchOriginal": true,
+    "powershellSyntaxErrors": 0,
+    "gameChangesAfterBuild": [],
+    "untrackedGameFiles": [],
+    "errors": []
+  }
+}

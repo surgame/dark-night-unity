@@ -1,4 +1,4 @@
-param([int]$Port = 28270, [int]$Width = 1280, [int]$Height = 800, [string]$PlayerPath = '')
+param([int]$Port = 28270, [int]$Width = 1280, [int]$Height = 800, [string]$PlayerPath = '', [switch]$BatchMode)
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
 $player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe' }
@@ -34,6 +34,7 @@ function Start-Player([string]$Role) {
     $arguments = @('-screen-width', $Width, '-screen-height', $Height, '-screen-fullscreen', '0', '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'),
         '--dn-role', $Role, '--dn-port', $(if ($Role -eq 'host') { $Port } else { $ClientPort }), '--dn-save-dir', ('"' + $saves + '"'),
         '--dn-report', ('"' + (Join-Path $run "$Role.json") + '"'), '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
+    if ($BatchMode) { $arguments = @('-batchmode') + $arguments }
     $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru
 }
 function Send([string]$Role, [hashtable]$Command) {
@@ -94,7 +95,7 @@ catch {$failure=$_.Exception.ToString()}
 finally {
     foreach($p in $processes.Values) {$p.Refresh();if(!$p.HasExited){Stop-Process -Id $p.Id;$p.WaitForExit()}}
     [ordered]@{passed=(!$failure);checks=$checks;error=$failure;width=$Width;height=$Height;artifacts=$run;
-      scope='Real Mono screenshots; image content requires separate visual review';
+      scope='Real Mono offscreen screenshots; image content requires separate visual review';renderedBatchMode=[bool]$BatchMode;
       gameCodeSha256=(Get-FileHash (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash} |
       ConvertTo-Json -Depth 8 | Set-Content (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Visual: passed=$(!$failure) checks=$($checks.Count); $run/result.json"

@@ -1,6 +1,6 @@
 # Dark Nights Mono 验收续跑
 
-当前 YYGC 统一对象架构的最终 Mono 验收已转到 [U6 实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)与[机器证据](evidence/yygc-unified-u6.json)：同一产物 347 项自动检查通过，性能与临时目录清理仍有未完成项。本页保留 2026-09-12 旧输入的证据，不代替新架构验收。
+当前 YYGC 统一对象架构的 Mono 完整矩阵见[协议 7 性能与验收](YYGC_UNIFIED_PERFORMANCE.md)及[机器证据](evidence/yygc-unified-u6-compression.json)：游戏 `4e3798f`／YYGC `745f3d2` 的同一产物 350 项通过，另完成 240 秒摘要容量 21 项。2026-09-14 后续的字体与菜单修正、新 Mono 输入及相关复验单独见 [M5 UI 校准](M5_UI_CALIBRATION.md)。用户暂缓前台验收，部分清理受自动审批限制。本页以下保留 2026-09-12 旧输入的证据，不代替新构建验收。
 
 2026-09-12。本批完成干净副本的 Mono 构建、活跃存档恢复和本机进程矩阵，**M5 尚未完成**。画面复核发现需要校准的内容，性能记录也存在明确的证据缺口。本轮只修改两个验收脚本及记录，没有修改游戏规则、正式资源、YYGC 或 FishNet。
 

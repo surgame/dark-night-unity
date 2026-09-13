@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-14 已完成[原生 UI 校准切片](M5_UI_CALIBRATION.md)，源码提交 `2fff198`：155 项 Editor／Play 按影响合并通过（首轮 154/155，相关 22/22 复验），真实鼠标 19/19。新 Mono 仅构建一次，启动 6/6、独立双进程 13/13、两分辨率捕获各 6/6，共 31 项通过；十张截图已复核。当前 UI Player 在 `artifacts/m5-ui/player-mono`，408 个文件测试前后哈希一致，见[本批证据](evidence/m5-ui-calibration-2026-09-14.json)。本批 `dotnet clean` 释放 32,992,552 字节，新调试目录清理受自动审批阻断。前台性能、完整同状态世界画面对照、IL2CPP 与双机器 LAN 的边界保持，M5 不签署完成。
+
 2026-09-13 按 [YYGC 统一对象架构 U0–U6](YYGC_UNIFIED_REFACTOR_PLAN.md)实施：YYGC 业务 Behaviour／State 已取代独立 Core 运行实体，无需旧数据适配。分支为 `codex/yygc-unified-object-migration`；**U0–U5 已完成；U6 最新游戏 `4e3798f`／YYGC `745f3d2` 已通过 144 项 Editor／Play、协议 7 Mono 完整矩阵 350 项和同产物 240 秒容量检查 21 项。前台验收按用户选择暂缓，性能签署及受审批限制的清理仍未完成，见[性能验收](YYGC_UNIFIED_PERFORMANCE.md)与[机器证据](evidence/yygc-unified-u6-compression.json)**。长测 48 组抽样最大落后 0.3 秒；摘要报告下客户端后台帧时 p95 为 29.33–29.62 ms，不能据此签署前台 60 FPS。下述 U5、早期 U6、C 方案、场景修复和 M0–M5 的结果按输入、日期保留在[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)及历史段落，M5 未完成状态保持。
 
 2026-09-13 Definition 场景入口修复已实施：删除手填 ContentDefinitionMap／独立分类，补齐 17 个 Definition.Type，迁移 16 个现有场景实例至 Loader 静态初始化，并接入场景视图借还与当前关卡试玩。Unity 编译和静态差异核对完成；**按用户要求，测试回归等待确认，未运行 Play、Player 或联机验收**。见[实现与待回归范围](SCENE_DEFINITIONS.md)。
