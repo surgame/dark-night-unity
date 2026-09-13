@@ -115,6 +115,8 @@ namespace DarkNights.Entry
                 hud.ResetMessages();
                 generation = network.Client.ConnectionGeneration;
                 epoch = frame?.Epoch ?? 0;
+                // 终局菜单属于旧世界，新 epoch 到达时同时释放 Host 和来宾的旧模态。
+                if (page == "Result") Switch("");
             }
             input.Present(frame, network.Client.Ready);
             if (frame == null)
@@ -161,7 +163,8 @@ namespace DarkNights.Entry
                 if (action == "Quit") { network.Disconnect(); Application.Quit(); return; }
                 if (action == "NewGame" && network.Client.Replica.Current != null)
                 {
-                    await network.Client.Send(SessionOperation.Restart); Switch(""); return;
+                    // 等待新世界发布后关闭终局页，避免请求回执先到时被旧 Won／Lost 帧重新打开。
+                    await network.Client.Send(SessionOperation.Restart); return;
                 }
                 if (action == "NewGame" || action == "Join" || action == "Continue")
                 {
