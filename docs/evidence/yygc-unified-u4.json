@@ -1,0 +1,127 @@
+{
+  "stage": "U4",
+  "date": "2026-09-13",
+  "inputGameCommit": "beb03d2",
+  "frameworkCommit": "0305eb74bbc2677a3d9025f684d8ded16481be4a",
+  "frameworkChanges": 0,
+  "sourceCompilation": "passed",
+  "play": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "sessionRegression": {
+    "total": 19,
+    "passed": 19,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 306,
+    "selfTests": 10,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "monoBuild": {
+    "passed": true
+  },
+  "playerFiles": 414,
+  "startup": {
+    "passed": true,
+    "backend": "mono",
+    "processId": 51004,
+    "scope": "Bootstrap + YYGC AppStartup + Addressables + formal ObjectDefinition/Prefab/generated registry startup; no gameplay or multiplayer acceptance",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\player-mono\\DarkNights.exe",
+    "playerSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "log": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\run-20260913-145812-943-mono\\verified.log",
+    "logSha256": "723f3caeb12b7ec6115942f8057a223ff026a57cf20310dbfe46cdc2aecda49b",
+    "runtimeLog": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\run-20260913-145812-943-mono\\player.log",
+    "checks": {
+      "independent_player_remains_running": true,
+      "app_startup_ready_once": true,
+      "frozen_content_loaded_once": true,
+      "formal_object_content_loaded_once": true,
+      "no_startup_or_runtime_exception": true,
+      "no_formal_editor_or_tests_in_player": true
+    }
+  },
+  "activeLoad": {
+    "passed": true,
+    "checks": {
+      "real_inflight_arrow_frozen": true,
+      "late_join_sees_construction_training_and_inflight_arrow": true,
+      "late_join_receives_frozen_world_exactly": true,
+      "host_restores_every_persisted_projection_field": true,
+      "host_resets_unpersisted_presentation_flags": true,
+      "host_restores_simulation_time_and_speed": true,
+      "client1_restores_every_persisted_projection_field": true,
+      "client1_resets_unpersisted_presentation_flags": true,
+      "client1_restores_simulation_time_and_speed": true,
+      "isolated_v2_save_has_complete_definition_identities": true,
+      "paused_round_trip_preserves_complete_authority_save": true,
+      "loaded_projectile_and_tasks_resume": true,
+      "host_no_runtime_exception": true,
+      "client1_no_runtime_exception": true
+    },
+    "error": null,
+    "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\active-load-20260913-145817-184",
+    "gameCodeSha256": "4ADC21C9EA6E2E419A56B6B2D3181F33B524BD34A62C9F1E13577C544337AF62"
+  },
+  "recovery": {
+    "passed": true,
+    "scope": "Four Mono processes; native save/load/continue, corrupt file, epoch, credential recovery, restart and host exit",
+    "checks": {
+      "native_save_button_commits_isolated_slot": true,
+      "new_save_is_v2_with_complete_identities": true,
+      "guest_cannot_write_host_files": true,
+      "host_restores_saved_world_and_new_ready_deadline": true,
+      "client1_restores_saved_world_and_new_ready_deadline": true,
+      "client2_restores_saved_world_and_new_ready_deadline": true,
+      "client3_restores_saved_world_and_new_ready_deadline": true,
+      "corrupt_save_preserves_world_and_epoch": true,
+      "old_version_has_explicit_refusal_and_keeps_world": true,
+      "reconnect_recovers_original_slot_with_new_generation": true,
+      "reconnect_receives_current_world_and_policy": true,
+      "host_restarts_in_same_room": true,
+      "client1_restarts_in_same_room": true,
+      "client2_restarts_in_same_room": true,
+      "client3_restarts_in_same_room": true,
+      "host_cleans_world_after_host_exit": true,
+      "client1_cleans_world_after_host_exit": true,
+      "client2_cleans_world_after_host_exit": true,
+      "client3_cleans_world_after_host_exit": true,
+      "main_menu_continue_loads_selected_saved_world": true,
+      "client3_no_runtime_exception": true,
+      "client1_no_runtime_exception": true,
+      "host_no_runtime_exception": true,
+      "client2_no_runtime_exception": true
+    },
+    "error": null,
+    "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260913-145855-309",
+    "gameCodeSha256": "4ADC21C9EA6E2E419A56B6B2D3181F33B524BD34A62C9F1E13577C544337AF62"
+  },
+  "cleanup": {
+    "Phase": "U4",
+    "Method": "dotnet clean",
+    "Paths": [
+      "tools/ArchitectureGuard/bin",
+      "tools/ArchitectureGuard/obj"
+    ],
+    "ReleasedBytes": 32989280.0,
+    "FreeC": 14818476032,
+    "FreeD": 29621723136,
+    "Retained": "Active Editor import cache and U4 Mono Player needed for follow-up; prior Bee cleanup rejection respected",
+    "RejectedCleanup": "artifacts/migration/player-mono/DNights_BurstDebugInformation_DoNotShip: automatic approval rejected, blocked by policy; not deleted and not retried"
+  },
+  "limits": [
+    "U5 legacy-model removal pending",
+    "U6 final Mono matrix pending",
+    "IL2CPP not authorized",
+    "Two-machine LAN not verified",
+    "No measured pre-migration performance baseline"
+  ]
+}

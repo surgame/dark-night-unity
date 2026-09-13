@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发约定
 
-先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现及分批验证，M5 尚未完成；2026-09-13 场景入口修复仅完成编译与静态检查。后续按 [YYGC 统一对象重构计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)推进，U0–U3 已完成，工人／采集／住宅切片已验证；完整业务已通过回归，正式入口与收尾 U4–U6 继续推进。先核对实际状态，不能把计划目录、接口和测试写成已完成实现。
+先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现及分批验证，M5 尚未完成；2026-09-13 场景入口修复仅完成编译与静态检查。后续按 [YYGC 统一对象重构计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)推进，U0–U4 已完成，工人／采集／住宅切片已验证；完整业务已通过回归，正式入口已切换，旧模型退出及最终验收 U5–U6 继续推进。先核对实际状态，不能把计划目录、接口和测试写成已完成实现。
 
 ## 范围与工作区
 

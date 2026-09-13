@@ -4,6 +4,7 @@ $repo = Split-Path $PSScriptRoot -Parent
 $player = Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe'
 $run = Join-Path $repo ('artifacts/migration/active-load-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 $saves = Join-Path $run 'saves'
+$versionedSaves = Join-Path $saves 'v2'
 New-Item -ItemType Directory -Path $run | Out-Null
 $processes = @{}
 $checks = [ordered]@{}
@@ -102,10 +103,13 @@ try {
         Check ($role+'_restores_simulation_time_and_speed') ($restored.frame.Elapsed -eq $saved.frame.Elapsed -and $restored.frame.Speed -eq 2)
     }
     $null=Receipt 'host' @{operation='Save';value=1}
-    $null=Wait-Report 'host' {param($r) !$r.storageBusy -and (Test-Path -LiteralPath (Join-Path $saves 'slot-01.dnsave.json'))}
+    $null=Wait-Report 'host' {param($r) !$r.storageBusy -and (Test-Path -LiteralPath (Join-Path $versionedSaves 'slot-01.dnsave.json'))}
+    $saveDocument = Get-Content (Join-Path $versionedSaves 'slot-00.dnsave.json') -Raw | ConvertFrom-Json
+    Check 'isolated_v2_save_has_complete_definition_identities' ($saveDocument.format_version -eq 2 -and
+        $saveDocument.world.identities.Count -eq $saved.frame.World.Identities.Count)
     Check 'paused_round_trip_preserves_complete_authority_save' (
-        (Get-FileHash -LiteralPath (Join-Path $saves 'slot-00.dnsave.json')).Hash -eq
-        (Get-FileHash -LiteralPath (Join-Path $saves 'slot-01.dnsave.json')).Hash)
+        (Get-FileHash -LiteralPath (Join-Path $versionedSaves 'slot-00.dnsave.json')).Hash -eq
+        (Get-FileHash -LiteralPath (Join-Path $versionedSaves 'slot-01.dnsave.json')).Hash)
     $null=Receipt 'host' @{operation='SetPaused';value=0}
     $r=Wait-Report 'host' {param($r) $r.frame.Elapsed -gt $saved.frame.Elapsed + 3}
     $construction=@($saved.frame.World.Buildings | Where-Object { $_.Progress -gt 0 -and $_.Progress -lt 1 })[0]

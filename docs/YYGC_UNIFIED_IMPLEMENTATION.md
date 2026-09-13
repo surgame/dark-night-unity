@@ -1,6 +1,6 @@
 # YYGC 统一对象重构实施记录
 
-本记录接续 [分阶段计划](YYGC_UNIFIED_REFACTOR_PLAN.md)，只记录实际实施和取得的证据。游戏分支为 `codex/yygc-unified-object-migration`；不推送远端。U0–U3 已完成，U4–U6 继续实施；全部业务已通过新对象集成回归，正式完整玩法入口尚未切换。
+本记录接续 [分阶段计划](YYGC_UNIFIED_REFACTOR_PLAN.md)，只记录实际实施和取得的证据。游戏分支为 `codex/yygc-unified-object-migration`；不推送远端。U0–U4 已完成，U5–U6 继续实施；全部业务已通过新对象集成回归，正式入口已切换，U4 Mono 活跃恢复 14/14、四人恢复 24/24 通过。
 
 ## U0：功能基线与输入归档
 
@@ -96,9 +96,30 @@ BuildingState 的训练队列和 ProjectileState 的飞行数组显式按值克�
 
 U3 未新增 Player 构建。U2 Player 不能代表这些新源码，正式入口、完整多人生命周期、旧模型删除及最终 Mono 矩阵仍属于 U4–U6。
 
+## U4：正式场景、网络与 v2 存储接线（完成）
+
+输入为游戏 `beb03d2`、框架 `0305eb7`。正式启动已移除切片开关，预加载全部 15 类定义，接管 16 个场景放置实例并按原规则生成农田工位。SessionEntityViews 只分发冻结展示副本，Host 查权威对象、客户端查实际副本；同类借还工具 SceneEntityViews 已删除。建造预览和残骸使用独立被动外观入口，不成为游戏实体或第二个状态所有者。
+
+SessionNetwork 始终创建新版 ObjectSession，固定使用 v2 子目录和协议 6 内容摘要；失败初始化释放资源，突然断线清理客户端对象。握手拒绝文字保留 YYGC 的具体原因。重开在事件窗口重建后补发原开局提示；波次投影补齐 NextSpawn；显式选择旧格式显示“不支持的存档版本。”并保留现世界。
+
+| 检查 | 实际结果 | 证据 |
+|---|---|---|
+| Unity 编译与架构 | 编译成功；306 文件、10 自检、0 错误 | `artifacts/yygc-unified/u4/architecture.json` |
+| 真正场景 Play | 2/2；开关 Domain Reload 各两次，覆盖转职、原实例重接、重开提示、v2 保存／恢复及旧版本拒绝 | `play-2-passed.json`、`play-2-passed.xml` |
+| 会话相关 Editor 回归 | 19/19 | `session-19-passed.json`、`session-19-passed.xml` |
+| 正式 Windows Mono | 一次成功构建；独立启动 6/6 | `build-mono.json`、`artifacts/migration/run-20260913-145812-943-mono/result.json` |
+| 活跃世界双进程恢复 | 14/14；施工、训练、在飞箭矢、冻结存档逐字节往返和继续模拟 | `artifacts/migration/active-load-20260913-145817-184/result.json` |
+| 四人会话恢复 | 24/24；原生保存／加载、晚加入、坏档和旧版本拒绝、恢复凭据、重开、Host 退出与继续游戏 | `artifacts/migration/recovery-20260913-145855-309/result.json` |
+
+短文件名位于 `artifacts/yygc-unified/u4/`。首次启动探针仍期待旧 C 架构的 1 个 State／11 个 Behaviour；核对 U3 的注册及定义后更新为 8／24，复用同一 Player 通过，没有重新构建。后台 Editor 未触发 delayCall 时，读取并移除唯一已排队回调后执行它；没有追加第二次构建。机器摘要见 [U4 证据](evidence/yygc-unified-u4.json)，完整产物哈希见 `player-hashes.json`。
+
+本阶段无新增 YYGC 修改、无美术或布局改动。旧运行模型的源码与历史测试仍待 U5 删除／迁移；U6 最终完整矩阵尚未执行，U4 通过不代表 IL2CPP、双机器 LAN 或性能改善。
+
 ## 空间管理
 
 每阶段开始和构建前检查 C／D 盘；不复制整个 Unity Library。阶段收尾保留后续复用的 Player、人工资源、保护副本及报告，清理可重建中间产物。记录落在 `artifacts/yygc-unified/<stage>/cleanup.json`。
+
+U4 使用 `dotnet clean` 释放 ArchitectureGuard 中间产物 32,989,280 字节；清理后 C 盘约 13.8 GiB、D 盘约 27.6 GiB 可用。已核验路径和无活动 Player／Bee 后，Player 的 `DNights_BurstDebugInformation_DoNotShip` 目录清理仍被自动审批以 `blocked by policy` 拒绝；该目录未删除、未重试，也未计入释放量。保留本阶段 Mono 及现有 Editor 导入缓存。
 
 U3 以 `dotnet clean` 清理 CoreRegression／CoreBuild／ArchitectureGuard 中间产物，释放 37,646,128 字节；收尾 C 盘剩 14,930,231,296 字节，D 盘剩 28,598,804,480 字节。保留当前 Editor 导入缓存及 U2 Player，没有复制 Library 或额外构建 Player。
 

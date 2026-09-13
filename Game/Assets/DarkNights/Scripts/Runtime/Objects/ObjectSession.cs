@@ -109,6 +109,12 @@ namespace DarkNights.Runtime.Objects
                 entity.Object.Activate();
                 entity.Object.gameObject.SetActive(true);
             }
+            Loaded(true);
+        }
+
+        public override void Loaded(bool restarted)
+        {
+            if (!restarted) return;
             Feedback.ShowBanner("灰松谷 · 第一天", "安排生产，训练守卫。守住三次夜袭。");
             Feedback.Notify("先安排一名工人耕作，再采集木材。东侧已有两名守卫。");
         }

@@ -215,6 +215,7 @@ namespace DarkNights.Runtime.Session
                 started = false;
                 pending.Clear();
                 foreach (var connection in connections) connection?.ResetWorld();
+                world.Loaded(json == null);
             }
             finally { loadTicket = null; StorageRequest = null; }
         }

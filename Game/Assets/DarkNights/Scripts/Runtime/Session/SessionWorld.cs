@@ -25,6 +25,7 @@ namespace DarkNights.Runtime.Session
         public abstract SessionWorld Restore(string json);
         public abstract SessionWorld Restart();
         public virtual void Activate() { }
+        public virtual void Loaded(bool restarted) { }
         public abstract void Dispose();
     }
 }

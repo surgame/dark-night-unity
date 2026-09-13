@@ -57,6 +57,7 @@ namespace DarkNights.Runtime.Save
             {
                 if (authority.Loading) authority.CancelLoad(current.Ticket);
                 Status = exception is System.IO.FileNotFoundException ? "该槽位没有存档，请选择其他槽位。"
+                    : exception is FormatException && exception.Message == "不支持的存档版本。" ? exception.Message
                     : "存档操作失败，请检查文件完整性及存储权限。";
             }
             finally

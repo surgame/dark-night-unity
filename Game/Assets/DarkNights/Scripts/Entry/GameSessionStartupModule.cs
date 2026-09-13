@@ -56,32 +56,22 @@ namespace DarkNights.Entry
             context.Register(network);
             context.Register(layout);
             PinewatchStage stage = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<PinewatchStage>(true)).Single();
-            bool unified = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-unified-slice") >= 0;
-#if UNITY_EDITOR
-            unified |= UnityEditor.SessionState.GetBool("DarkNights.UnifiedSlice", false);
-#endif
-            ObjectSessionResources resources = null;
-            ObjectPlacement[] placements = null;
-            if (unified)
-            {
-                var entries = layout.Buildings.Concat(layout.Worksites).Concat(layout.Actors)
-                    .Where(p => p.Kind == "tavern" || p.Kind == "house" || p.Kind == "wood" || p.Kind == "worker").ToArray();
-                var markers = authoring.GetComponentsInChildren<LevelPlacementMarker>(true).ToDictionary(m => m.PlacementKey);
-                var definitions = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance);
-                placements = entries.Select(p => new ObjectPlacement(p.PlacementKey, definitions.GetRequired(p.Kind),
-                    p.X, p.Variant, p.Name, markers[p.PlacementKey].Loader)).ToArray();
-                foreach (LevelPlacementMarker marker in markers.Values) marker.gameObject.SetActive(false);
-                resources = await ObjectSessionResources.Prepare(new[] { "tavern", "house", "wood", "worker" }
-                    .Select(definitions.GetRequired).ToArray(), cancellationToken);
-            }
+            var entries = layout.Buildings.Concat(layout.Worksites).Concat(layout.Actors).ToArray();
+            var markers = authoring.GetComponentsInChildren<LevelPlacementMarker>(true).ToDictionary(m => m.PlacementKey);
+            var definitions = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance);
+            ObjectPlacement[] placements = entries.Select(p => new ObjectPlacement(p.PlacementKey, definitions.GetRequired(p.Kind),
+                p.X, p.Variant, p.Name, markers[p.PlacementKey].Loader)).ToArray();
+            foreach (LevelPlacementMarker marker in markers.Values) marker.gameObject.SetActive(false);
+            var required = catalog.Balance.Buildings.Keys.Concat(catalog.Balance.Worksites.Keys).Concat(catalog.Balance.Units.Keys);
+            ObjectSessionResources resources = await ObjectSessionResources.Prepare(required.Select(definitions.GetRequired).ToArray(), cancellationToken);
             network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements, stage.Entities);
             stage.Initialize(layout);
             var entities = network.gameObject.AddComponent<SessionEntityViews>();
-            entities.Initialize(network.Client, catalog, stage, authoring, network);
+            entities.Initialize(network.Client, catalog, stage, network);
             var ui = network.gameObject.AddComponent<SessionUiController>();
             await ui.Initialize(network, catalog, stage, entities);
-            network.gameObject.AddComponent<SessionPlacementView>().Initialize(network.Client, entities, ui.Input, stage, catalog, layout);
-            await network.gameObject.AddComponent<SessionEffects>().Initialize(network.Client, entities, ui, stage, layout.GroundY);
+            network.gameObject.AddComponent<SessionPlacementView>().Initialize(network.Client, ui.Input, stage, catalog, layout);
+            await network.gameObject.AddComponent<SessionEffects>().Initialize(network.Client, ui, stage, layout.GroundY);
             SessionAutomation.Install(network);
             Application.runInBackground = true;
             Application.targetFrameRate = 60;

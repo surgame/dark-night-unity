@@ -4,6 +4,7 @@ $repo = Split-Path $PSScriptRoot -Parent
 $player = Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe'
 $run = Join-Path $repo ('artifacts/migration/recovery-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 $saves = Join-Path $run 'saves'
+$versionedSaves = Join-Path $saves 'v2'
 New-Item -ItemType Directory -Path $run | Out-Null
 $processes = @{}
 $checks = [ordered]@{}
@@ -62,9 +63,12 @@ try {
     $null = Wait-Report 'host' { param($r) $r.uiPage -eq 'PauseMenu' }
     $receipt = Receipt 'host' @{ operation='ui'; panel='PauseMenu'; key='Save' }
     $null = Wait-Report 'host' { param($r) !$r.storageBusy -and $r.storageStatus -like '*已保存*' }
-    Check 'native_save_button_commits_isolated_slot' ($receipt.Code -eq 'Applied' -and (Test-Path (Join-Path $saves 'slot-00.dnsave.json')))
+    Check 'native_save_button_commits_isolated_slot' ($receipt.Code -eq 'Applied' -and (Test-Path (Join-Path $versionedSaves 'slot-00.dnsave.json')))
+    $savedText = Get-Content (Join-Path $versionedSaves 'slot-00.dnsave.json') -Raw
+    Check 'new_save_is_v2_with_complete_identities' (($savedText | ConvertFrom-Json).format_version -eq 2 -and
+        ($savedText | ConvertFrom-Json).world.identities.Count -eq 17)
     $receipt = Receipt 'client1' @{ operation='Save'; value=1 }
-    Check 'guest_cannot_write_host_files' ($receipt.Code -eq 'PermissionDenied' -and !(Test-Path (Join-Path $saves 'slot-01.dnsave.json')))
+    Check 'guest_cannot_write_host_files' ($receipt.Code -eq 'PermissionDenied' -and !(Test-Path (Join-Path $versionedSaves 'slot-01.dnsave.json')))
     $null = Receipt 'client1' @{ operation='Recruit' }
     $null = Receipt 'host' @{ operation='SetControlMode'; value=1 }
     Write-Output 'Four players saved; testing load after original 30-second Ready timeout.'
@@ -74,10 +78,16 @@ try {
         $restored = Wait-Report $role { param($r) $r.ready -and $r.frame.Epoch -eq 2 -and $r.frame.ReadyCount -eq 4 }
         Check ($role + '_restores_saved_world_and_new_ready_deadline') (($restored.frame.World | ConvertTo-Json -Depth 20 -Compress) -eq $world -and $restored.frame.HostOnly -and $restored.frame.Paused)
     }
-    [IO.File]::WriteAllText((Join-Path $saves 'slot-01.dnsave.json'), '{}')
+    [IO.File]::WriteAllText((Join-Path $versionedSaves 'slot-01.dnsave.json'),
+        ($savedText -replace '"identity_sha256":"[0-9a-f]{64}"', '"identity_sha256":"invalid"'))
     $null = Receipt 'host' @{ operation='BeginLoad'; value=1 }
     $bad = Wait-Report 'host' { param($r) !$r.storageBusy -and $r.storageStatus -like '*失败*' }
     Check 'corrupt_save_preserves_world_and_epoch' ($bad.frame.Epoch -eq 2 -and ($bad.frame.World | ConvertTo-Json -Depth 20 -Compress) -eq $world)
+    [IO.File]::WriteAllText((Join-Path $versionedSaves 'slot-01.dnsave.json'), ($savedText -replace '"format_version":2', '"format_version":1'))
+    $null = Receipt 'host' @{ operation='BeginLoad'; value=1 }
+    $oldVersion = Wait-Report 'host' { param($r) !$r.storageBusy -and $r.storageStatus -eq '不支持的存档版本。' }
+    Check 'old_version_has_explicit_refusal_and_keeps_world' ($oldVersion.frame.Epoch -eq 2 -and
+        ($oldVersion.frame.World | ConvertTo-Json -Depth 20 -Compress) -eq $world)
     $old = Wait-Report 'client2' { param($r) $r.ready }
     $generation = @($old.feedback | Where-Object ReadyReply | Select-Object -Last 1)[0].ConnectionGeneration
     Send 'client2' @{ operation='disconnect' }

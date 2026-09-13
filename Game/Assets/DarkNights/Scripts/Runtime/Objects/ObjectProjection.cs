@@ -35,7 +35,7 @@ namespace DarkNights.Runtime.Objects
             WaveState wave = session.Waves.Read();
             var summary = new CampViewData(session.Economy.Stock, session.Economy.Population, session.Economy.Capacity,
                 economy.RecruitCooldown, wave.Index, wave.Phase.ToString(), wave.DayRemaining,
-                session.Index.EnemyCount, camp.Mode.ToString(), camp.Kills, camp.Lost, session.Economy.Gathered);
+                session.Index.EnemyCount, camp.Mode.ToString(), camp.Kills, camp.Lost, session.Economy.Gathered, wave.NextSpawn);
             var identities = session.Index.FreezeOrder().Select(entity =>
                 new EntityIdentityData(entity.Id, entity.DefinitionGuid, entity.PlacementKey)).ToArray();
             var shots = session.Projectiles.Read().Shots.Select(p => new ProjectileViewData(

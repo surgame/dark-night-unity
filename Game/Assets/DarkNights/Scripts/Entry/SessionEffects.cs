@@ -25,7 +25,6 @@ namespace DarkNights.Entry
         private readonly List<(ObjectView Owner, NativeEffect Effect, NativeVisual Remnant, PresentationEvent Event, double Born)> effects =
             new List<(ObjectView, NativeEffect, NativeVisual, PresentationEvent, double)>();
         private SessionClient client;
-        private SessionEntityViews entities;
         private SessionUiController ui;
         private PinewatchStage stage;
         private ObjectView audioOwner;
@@ -38,9 +37,9 @@ namespace DarkNights.Entry
         public int EffectCount => effects.Count;
         public int ArrowCount => arrows.Count;
 
-        public async UniTask Initialize(SessionClient value, SessionEntityViews views, SessionUiController panels, PinewatchStage scene, float groundY)
+        public async UniTask Initialize(SessionClient value, SessionUiController panels, PinewatchStage scene, float groundY)
         {
-            client = value; entities = views; ui = panels; stage = scene; ground = groundY;
+            client = value; ui = panels; stage = scene; ground = groundY;
             audioOwner = await Create("audio.camp");
             if (this == null) { if (audioOwner != null) Destroy(audioOwner.gameObject); return; }
             audioView = Required<CampAudio>(audioOwner, "audio");
@@ -100,11 +99,11 @@ namespace DarkNights.Entry
             try
             {
                 bool remnant = item.Cue.Kind == "corpse" || item.Cue.Kind == "rubble";
-                owner = remnant ? await entities.CreateVisual(item.Cue.ContentId) :
+                owner = remnant ? await NativeVisualFactory.Create(item.Cue.ContentId, stage.Entities) :
                     await Create(item.Cue.Kind == "command" ? "effect.command" : "effect.floating");
                 if (!Current(captured) || Time.unscaledTimeAsDouble - born >= PresentationCursor.Lifetime(item)) { Release(owner); return; }
                 // 残骸复用同一定义外观，但从不绑定已消失的活实体。
-                NativeVisual visual = remnant ? SessionEntityViews.RequiredPresentation(owner).Visual : null;
+                NativeVisual visual = remnant ? NativeVisualFactory.RequiredPresentation(owner).Visual : null;
                 NativeEffect effect = remnant ? null : Required<NativeEffect>(owner, "effect");
                 owner.transform.position = new Vector3(item.Cue.X / 100, (ground - item.Cue.Y) / 100, 0);
                 effects.Add((owner, effect, visual, item, born));
@@ -135,7 +134,7 @@ namespace DarkNights.Entry
             owner != null && owner.Get<T>(key) != null ? owner.Get<T>(key) : throw new InvalidOperationException("Missing native effect binding: " + key);
         private bool Current(int captured) => this != null && generation == captured &&
             client.ConnectionGeneration == connection && client.Replica.Current?.Epoch == epoch;
-        private static void Release(ObjectView owner) => SessionEntityViews.Release(owner);
+        private static void Release(ObjectView owner) => NativeVisualFactory.Release(owner);
         private void Clear()
         {
             generation++; cursor.Reset(); applied = null;

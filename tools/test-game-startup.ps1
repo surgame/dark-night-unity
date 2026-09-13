@@ -28,8 +28,8 @@ try {
     $checks['independent_player_remains_running'] = !$process.HasExited
     $checks['app_startup_ready_once'] = [regex]::Matches($text, '\[AppStartup\] Startup completed\. Application is ready\.').Count -eq 1
     $checks['frozen_content_loaded_once'] = [regex]::Matches($text, 'DARK_NIGHTS_CONTENT_READY level=pinewatch seed=90127 units=6 buildings=5 worksites=4 waves=3').Count -eq 1
-    # C 重构增加一个会话生命周期及三类个体表现 Behaviour；命令／状态注册仍保持 2／1。
-    $checks['formal_object_content_loaded_once'] = [regex]::Matches($text, 'DARK_NIGHTS_FORMAL_CONTENT_READY definitions=27 commands=2 states=1 behaviours=11 identity=GuidFirst wire=GuidV2').Count -eq 1
+    # U3 完整能力：会话投影及七类业务状态，共 8 个 State；正式目录注册 24 个 Behaviour。
+    $checks['formal_object_content_loaded_once'] = [regex]::Matches($text, 'DARK_NIGHTS_FORMAL_CONTENT_READY definitions=27 commands=2 states=8 behaviours=24 identity=GuidFirst wire=GuidV2').Count -eq 1
     $checks['no_startup_or_runtime_exception'] = $text -notmatch '(?im)(Exception:|\[AppStartup\].*(failed|cancelled)|Unable to load|InvalidKeyException|Could not load|MissingMethodException|TypeLoadException)'
     $managed = Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed'
     $checks['no_formal_editor_or_tests_in_player'] = !(Test-Path (Join-Path $managed 'DarkNights.Editor.dll')) -and !(Test-Path (Join-Path $managed 'DarkNights.Tests.dll'))

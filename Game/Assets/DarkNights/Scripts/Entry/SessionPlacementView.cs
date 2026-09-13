@@ -16,7 +16,6 @@ namespace DarkNights.Entry
     public sealed class SessionPlacementView : MonoBehaviour
     {
         private SessionClient client;
-        private SessionEntityViews entities;
         private CampInput input;
         private PinewatchStage stage;
         private GameCatalog catalog;
@@ -28,10 +27,10 @@ namespace DarkNights.Entry
         private long connection;
         public bool Valid { get; private set; }
 
-        public void Initialize(SessionClient value, SessionEntityViews views, CampInput controls,
+        public void Initialize(SessionClient value, CampInput controls,
             PinewatchStage scene, GameCatalog rules, LevelLayout level)
         {
-            client = value; entities = views; input = controls; stage = scene; catalog = rules; layout = level;
+            client = value; input = controls; stage = scene; catalog = rules; layout = level;
         }
 
         private void Update()
@@ -68,21 +67,21 @@ namespace DarkNights.Entry
             ObjectView created = null;
             try
             {
-                created = await entities.CreateVisual(requested);
+                created = await NativeVisualFactory.Create(requested, stage.Entities);
                 if (this == null || captured != generation || kind != input.BuildKind ||
                     client.ConnectionGeneration != connection || client.Replica.Current?.Epoch != epoch)
                 {
-                    SessionEntityViews.Release(created);
+                    NativeVisualFactory.Release(created);
                     return;
                 }
                 if (created == null) throw new InvalidOperationException("Cannot create placement visual: " + requested);
                 owner = created;
                 // 工厂只装配被动表现；建造幽灵始终没有活实体身份或输入回调。
-                visual = SessionEntityViews.RequiredPresentation(owner).Visual;
+                visual = NativeVisualFactory.RequiredPresentation(owner).Visual;
             }
             catch (Exception error)
             {
-                SessionEntityViews.Release(created);
+                NativeVisualFactory.Release(created);
                 Debug.LogException(error);
             }
         }
@@ -90,7 +89,7 @@ namespace DarkNights.Entry
         private void Clear()
         {
             generation++;
-            SessionEntityViews.Release(owner);
+            NativeVisualFactory.Release(owner);
             owner = null; visual = null; Valid = false;
         }
         private void OnDestroy() { Clear(); }
