@@ -71,7 +71,7 @@ namespace DarkNights.Editor
             view?.BuildRuntimeCache();
             const string key = "visual";
             if (instance == null || view == null || initializer == null || instance.ObjectView != view ||
-                initializer.ObjectInstance != instance || view.Initializer != initializer ||
+                initializer.ObjectInstance != instance || (UnityEngine.Object)view.Initializer != initializer ||
                 view.Bindings.Count(binding => binding.Key == key) != 1 ||
                 view.Get<NativeVisual>(key) == null || view.Get<NativeVisual>(key).gameObject != prefab)
                 throw new InvalidOperationException("Explicit local instance/initializer/visual binding is incomplete: " + name);
@@ -110,7 +110,7 @@ namespace DarkNights.Editor
             var view = prefab.GetComponent<ObjectView>();
             var link = prefab.GetComponent<SessionObjectLink>();
             if (instance == null || synchronizer == null || view == null || link == null || instance.ObjectView != view ||
-                view.Initializer != synchronizer || (link.Instance != null && link.Instance != instance) ||
+                (UnityEngine.Object)view.Initializer != synchronizer || (link.Instance != null && link.Instance != instance) ||
                 (link.Synchronizer != null && link.Synchronizer != synchronizer) ||
                 (requireReferences && (link.Instance != instance || link.Synchronizer != synchronizer)))
                 throw new InvalidOperationException("WorldSession instance/synchronizer/link references are incomplete or conflict.");

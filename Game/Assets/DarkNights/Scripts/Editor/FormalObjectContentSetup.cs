@@ -201,7 +201,7 @@ namespace DarkNights.Editor
             ObjectView view = prefab.GetComponent<ObjectView>();
             LocalObjectInstanceInitializer initializer = prefab.GetComponent<LocalObjectInstanceInitializer>();
             if (instance == null || view == null || initializer == null || instance.ObjectView != view ||
-                initializer.ObjectInstance != instance || view.Initializer != initializer)
+                initializer.ObjectInstance != instance || (UnityEngine.Object)view.Initializer != initializer)
                 throw new InvalidOperationException("Worker ObjectInstance/ObjectView/initializer binding is invalid.");
             string[] keys = { "art_offset", "facing", "status_anchor", "selection_anchor" };
             int expectedCount = keys.Length + (requireNativeArt ? 1 : 0);
@@ -219,7 +219,7 @@ namespace DarkNights.Editor
             StateSynchronizer synchronizer = prefab.GetComponent<StateSynchronizer>();
             DefaultPrefabObjects spawnables = Required<DefaultPrefabObjects>(SpawnablePrefabsPath);
             if (network == null || instance == null || view == null || synchronizer == null ||
-                instance.ObjectView != view || view.Initializer != synchronizer || network.AssetPathHash == 0 ||
+                instance.ObjectView != view || (UnityEngine.Object)view.Initializer != synchronizer || network.AssetPathHash == 0 ||
                 spawnables.Prefabs.Count(item => item == network) != 1)
                 throw new InvalidOperationException("WorldSession Prefab assembly or FishNet registration is invalid.");
         }

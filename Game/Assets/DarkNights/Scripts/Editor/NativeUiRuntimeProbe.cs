@@ -137,8 +137,8 @@ namespace DarkNights.Editor
             }
         }
 
-        private static UGUIView Page(string name) => UnityEngine.Object.FindObjectsByType<UGUIView>(FindObjectsInactive.Include,
-            FindObjectsSortMode.None).Single(view => view.name == name + "(Clone)");
+        private static UGUIView Page(string name) => UnityEngine.Object.FindObjectsByType<UGUIView>(FindObjectsInactive.Include)
+            .Single(view => view.name == name + "(Clone)");
         private static Vector2 World(PinewatchStage stage, float x) => stage.SceneCamera.WorldToScreenPoint(new Vector3(x / 100, .06f));
         private static Task Button(Mouse mouse, string page, string key)
         {

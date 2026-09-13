@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-14 编译警告维护：修正 5 个脚本中的 7 处调用／比较，消除本次报告的 10 条 CS0618／CS0252。对象查找改用 Unity 6000.4 的无排序参数重载，保留非活动对象范围；初始化器接口显式转换为 UnityEngine.Object 后比较。复用当前 Editor 完成一次增量编译，Entry／Editor／Tests 程序集均更新，本轮 C# 警告和错误为 0；现有 FormalObjectContentSetup.Validate、NativeObjectContracts.Validate 两项只读校验通过。按用户要求仅做快速验证，未运行完整 Play／Player／联机矩阵，M5 验收边界不变。见[本次验证记录](evidence/unity-warnings-2026-09-14.json)。
+
 2026-09-14 最新已完成 [Linear 世界表现切片](M5_WORLD_PRESENTATION.md)的五个阶段，游戏源码 `a4a5450`。完整 Editor／Play 155/155、架构 285 文件／12 自测、同一新 Mono 固定世界／启动／双进程会话／真实战斗共 77/77 通过；六种局面和来宾画面已复核，2,611 个输入和 408 个产物文件哈希一致。当前 Player 为 `artifacts/m5-world/player-mono`，没有新增 YYGC／FishNet 修改。本阶段累计清理 67,000,747 字节，按用户要求完成[255 条产物盘点和受限清理交接](STAGE_CLEANUP_INVENTORY.md)，8 个拒绝目标仍在且未重试。**U0–U5 主体完成；前台性能暂缓、IL2CPP 未获授权、双机器 LAN 缺条件，M5 尚未完成。** 下方保留各历史批次的当时状态和计数。
 
 2026-09-14 后续已修复[终局页面重开残留](M5_RESULT_UI.md)，游戏提交 `af29950`。完整 Editor／Play 155/155、同一新 Mono 的终局 21/21、启动 6/6、双进程会话 13/13 通过；四张胜负页截图、2,603 个输入与 408 个产物文件哈希已归档。修复版 Player 位于 `artifacts/m5-results/player-mono`，本切片没有 YYGC／FishNet 或美术资源修改。新调试目录清理被自动审批拒绝，未重试；前台验收继续暂缓，其余 M5 边界保持，见[机器证据](evidence/m5-result-ui-2026-09-14.json)。

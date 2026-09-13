@@ -1,0 +1,103 @@
+{
+  "date": "2026-09-14",
+  "sourceBaseline": "a206c9f5f6adc0b8338479b89d4b624ec01607f3",
+  "unityVersion": "6000.4.9f1",
+  "scope": "修复用户报告的 10 条 CS0618 / CS0252；仅快速编译和既有只读资源合同校验。",
+  "sourceFiles": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/FormalObjectContentSetup.cs",
+      "sha256": "1EBE9F87AE9112CB21789188FC3A421826918CCCF451C2E9B6E85DA1071306C2",
+      "lines": 286
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/NativeObjectContracts.cs",
+      "sha256": "D8D36FA00C0DE34F06993614562B49F4D630C2C03A03C7ABE649C4C9A1EE2026",
+      "lines": 145
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/NativeUiRuntimeProbe.cs",
+      "sha256": "5E16327FE4BF63788712673A6E53C6BF4A2F4CC53FF5B1680468B94C761B7B81",
+      "lines": 171
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/SessionRenderCapture.cs",
+      "sha256": "13C319A8C1BDC174F26ED6263E29850E0946739760A5609DB5196E98EF1499D7",
+      "lines": 60
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/UnifiedSlicePlayTests.cs",
+      "sha256": "414B7F4CDC454EAA6C492FC1C3C15DD74102F1548856F5293BBFC4362CC7E3D6",
+      "lines": 186
+    }
+  ],
+  "compilation": {
+    "requestedCount": 1,
+    "jobId": "897484a3c0c4499cbfe00197cff465bc",
+    "status": {
+      "status": "completed",
+      "failed": false,
+      "errors": []
+    },
+    "csharpWarningCount": 0,
+    "csharpErrorCount": 0,
+    "assemblies": [
+      {
+        "Name": "DarkNights.Entry.dll",
+        "LastWriteTimeUtc": "2026-09-13T23:13:07.7080502Z"
+      },
+      {
+        "Name": "DarkNights.Editor.dll",
+        "LastWriteTimeUtc": "2026-09-13T23:13:08.2220594Z"
+      },
+      {
+        "Name": "DarkNights.Tests.dll",
+        "LastWriteTimeUtc": "2026-09-13T23:13:08.8829369Z"
+      }
+    ],
+    "evidence": "artifacts/warning-fix-20260914/recompile-status.json",
+    "log": "artifacts/warning-fix-20260914/Editor-compile.log",
+    "jobWaitNote": "域重载清除了短期任务 ID；未重新提交编译，使用 recompile_status、三个程序集时间戳及新增日志确认本次完成。"
+  },
+  "checks": {
+    "formalObjectContentSetup": "passed",
+    "nativeObjectContracts": "passed",
+    "obsoleteSortModeReferences": 0,
+    "evidence": "artifacts/warning-fix-20260914/contracts-result.json",
+    "assetsPackagesSettingsChanged": false
+  },
+  "notRun": [
+    "完整 Editor/Play 测试矩阵",
+    "Player 构建与运行",
+    "联机矩阵",
+    "前台性能",
+    "IL2CPP"
+  ],
+  "storage": {
+    "beforeFreeBytes": [
+      {
+        "Name": "C",
+        "Free": 15140536320
+      },
+      {
+        "Name": "D",
+        "Free": 36152098816
+      }
+    ],
+    "afterFreeBytes": [
+      {
+        "Name": "C",
+        "Free": 15123062784
+      },
+      {
+        "Name": "D",
+        "Free": 36151582720
+      }
+    ],
+    "cleanupReleasedBytes": 0,
+    "retainedArtifactPath": "artifacts/warning-fix-20260914",
+    "retainedArtifactFiles": 6,
+    "retainedArtifactBytes": 42447.0,
+    "retainedReason": "保留本次编译、任务和合同校验原始证据；没有新增 Player、临时源码、依赖解包或独立构建目录。当前活动 Editor 的导入和增量编译缓存继续复用，不清理。"
+  },
+  "completedUtc": "2026-09-13T23:16:36.3511689Z"
+}

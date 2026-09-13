@@ -15,7 +15,7 @@ namespace DarkNights.Entry
         public static void Save(PinewatchStage stage, string path)
         {
             Camera camera = stage.SceneCamera;
-            var canvases = UnityEngine.Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None)
+            var canvases = UnityEngine.Object.FindObjectsByType<Canvas>()
                 .Where(c => c.renderMode == RenderMode.ScreenSpaceOverlay).ToArray();
             var modes = canvases.Select(c => (c.worldCamera, c.planeDistance, c.sortingOrder)).ToArray();
             var previousTarget = camera.targetTexture;

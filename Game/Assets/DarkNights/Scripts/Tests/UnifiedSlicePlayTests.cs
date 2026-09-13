@@ -104,7 +104,7 @@ namespace DarkNights.Tests
                 var placement = network.ObjectPlacements.Single(p => p.PlacementKey == entity.PlacementKey);
                 Assert.That(entity.Object, Is.SameAs(placement.Loader.ObjectInstance));
             }
-            var active = UnityEngine.Object.FindObjectsByType<ObjectInstance>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+            var active = UnityEngine.Object.FindObjectsByType<ObjectInstance>(FindObjectsInactive.Include)
                 .SelectMany(i => i.GetAllBehaviors().OfType<IEntityBehaviour>()).Where(e => e.Id != 0).ToArray();
             Assert.That(active.Length, Is.EqualTo(world.Index.Count));
             await network.Client.Send(SessionOperation.SetPaused, value: 1);
