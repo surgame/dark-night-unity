@@ -1,6 +1,6 @@
 # Dark Nights Unity 技术架构
 
-2026-09-13，采用 [YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。U0–U5 已完成，正式入口使用全部 YYGC 业务能力；旧运行模型已删除，134 项 Editor／Play 回归通过。U6 最终干净源码 Mono 验收继续执行。实际完成状态与证据见[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)，不以类型或目录存在代替验收。
+2026-09-13，采用 [YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。U0–U5 已完成，正式入口使用全部 YYGC 业务能力；旧运行模型已删除，134 项 Editor／Play 回归通过。U6 最终干净源码 Mono 的 347 项自动检查通过，性能签署及临时目录清理仍有未完成项。实际状态与证据见[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)，不以类型或目录存在代替验收。
 
 本页描述统一后的源码。原集中 Core 世界及按 Kind 借还视图的方案保留在 Git 历史和 [C 重构记录](C_REFACTOR_IMPLEMENTATION.md)，不再作为当前状态归属合同。游戏不兼容 Godot 旧档、Unity v1 或协议 5；独立 LAN Sample 的兼容边界单独保留。
 
@@ -110,6 +110,6 @@ v2 保存全部权威状态、实体定义／放置身份、训练／施工／�
 
 Addressables 通过条目／分组管理，不要求资源目录叫 Addressables，不把 Res 当成 Resources。现有 AddressableAssetsData 配置位置保留。ObjectCapabilitySetup 只服务指定空目录的首版初始化；NativeObjectContracts 和普通构建执行只读校验，不自动升级人工资源。
 
-U4 已有真实正式 Play、v2 活跃加载和四人恢复的 Mono 证据。U5 负责旧模型退出与回归迁移；U6 对冻结最终源码进行干净目录构建、多进程矩阵、画面和性能检查。Mono、IL2CPP、双机器 LAN 分别记录，不把历史 Player 或当前 Editor 通过写成最终全平台验收。
+U4 完成正式接线，U5 完成旧模型退出与回归迁移；U6 从冻结源码 `9e69a76` 构建最终 Mono，并通过同产物多人、活跃恢复、九组弱网、三夜和容量功能矩阵。容量性能、普通前台测量及 M5 画面仍未签署；Mono、IL2CPP、双机器 LAN 分别记录，不把本机功能结果写成最终全平台验收。
 
 允许针对实证缺口更新 YYGC，先在隔离 checkout 验证，锁定可复现输入并维护[逐文件账本](YYGC_CHANGES.md)。框架历史长文件不在本次全面拆分范围。暂不增加锁步、回滚、ECS、房主迁移、专服集群或未经测量的拆流。

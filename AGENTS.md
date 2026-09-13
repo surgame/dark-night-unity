@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发约定
 
-先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现及分批验证，M5 尚未完成。按 [YYGC 统一对象重构计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)推进，U0–U5 已完成：正式入口已切换，旧模型和旧档入口已删除，134 项 Editor／Play 回归通过；U6 最终干净源码 Mono 验收继续推进。先核对实际状态，不能把计划目录、接口和测试写成已完成实现。
+先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现，M5 尚未完成。按 [YYGC 统一对象重构计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)推进，U0–U5 已完成：旧模型和旧档入口已删除，134 项 Editor／Play 回归通过；U6 最终干净源码 Mono 的 347 项自动检查已通过，性能签署和被自动审批拦截的临时目录清理仍未完成。先核对[实施记录](docs/YYGC_UNIFIED_IMPLEMENTATION.md)，不能把计划目录、接口和测试写成已完成实现，也不能把容量功能通过写成性能达标。
 
 ## 范围与工作区
 

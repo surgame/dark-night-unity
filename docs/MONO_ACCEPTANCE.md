@@ -1,5 +1,7 @@
 # Dark Nights Mono 验收续跑
 
+当前 YYGC 统一对象架构的最终 Mono 验收已转到 [U6 实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)与[机器证据](evidence/yygc-unified-u6.json)：同一产物 347 项自动检查通过，性能与临时目录清理仍有未完成项。本页保留 2026-09-12 旧输入的证据，不代替新架构验收。
+
 2026-09-12。本批完成干净副本的 Mono 构建、活跃存档恢复和本机进程矩阵，**M5 尚未完成**。画面复核发现需要校准的内容，性能记录也存在明确的证据缺口。本轮只修改两个验收脚本及记录，没有修改游戏规则、正式资源、YYGC 或 FishNet。
 
 ## 构建与产物
@@ -14,7 +16,7 @@ Unity `6000.4.9f1` 的许可握手与 WMI 查询已恢复。本轮没有修改�
 BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872
 ```
 
-旧产物完整保留在 `artifacts/migration/player-mono-before-m5-20260912-041810`，其 Entry DLL 哈希仍为 `82C63AD2…FAA8DF9`。本批日志、完整文件哈希清单和截图位于 [本批归档](../artifacts/clean-m5-94ff636/artifacts/migration/mono-acceptance-20260912-041810-387/)。这是本机验收产物，尚未签署最终发行。
+当时的旧产物归档为 `artifacts/migration/player-mono-before-m5-20260912-041810`，Entry DLL 哈希为 `82C63AD2…FAA8DF9`。日志、文件清单和截图原记录路径为 `artifacts/clean-m5-94ff636/artifacts/migration/mono-acceptance-20260912-041810-387/`；2026-09-13 收尾核对时该路径已不存在，保留[已提交机器摘要](evidence/m5-mono-acceptance-2026-09-12.json)与原路径作为历史索引，不提供失效下载链接。本批未签署最终发行。
 
 ## 通过项
 
@@ -42,7 +44,7 @@ BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872
 
 ## 画面待校准
 
-[两分辨率截图总览](../artifacts/clean-m5-94ff636/artifacts/migration/mono-acceptance-20260912-041810-387/visual-review.png)及单张原图已复核。冻结 Godot 参考图只读归档，没有覆盖旧证据。
+当时已复核上述原归档中的 `visual-review.png` 两分辨率总览及单张原图；原路径当前不可用，本段仅记录当时结论。冻结 Godot 参考图只读归档，没有以当前截图覆盖旧证据。
 
 - HUD 与菜单文字的粗细、基线和主标题行距偏离参考，需要校准实际字体排版；矩形几何通过不能替代这项检查。
 - 暂停页的 Slot 与 ControlMode 控件位于主面板下方，两种分辨率都压在 HUD 区域，需要整理新增控件布局及遮挡关系。

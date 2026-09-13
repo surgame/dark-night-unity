@@ -1,5 +1,7 @@
 # 会话展示副本与时钟
 
+2026-09-13 当前实现：SessionProjector 从 ObjectSession／YYGC 业务 State 冻结展示副本，Host 与远端复用同一应用路径；不再读取旧 GameSession。U5 的冻结、乱序、epoch、插值、时钟与真实序列化检查通过，见[当前架构](ARCHITECTURE.md)和[回归迁移](YYGC_UNIFIED_TEST_COVERAGE.md)。下文为早期批次的实现与验收记录。
+
 2026-09-12 C 重构已实施，按用户要求收尾并先交付架构验收。Core 1361、最终 Editor 95、Play 生命周期 20、Mono 启动 6 和双进程 13 项通过；容量检查未签署通过，Ready 修复后的完整弱网矩阵及性能对比留待下次。实际合同、此前通过记录和待办见[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)。M5 既有待验收项保持，下文历史批次的当时边界保留。
 
 2026-09-11，属于 [M5 连续执行路线](M5_EXECUTION.md)的 A1。代码已实现并通过独立及 Unity Editor 回归；没有新增网络 wire、Entry／Update 装配或可操作视图。当前正式网络仍只有 M0 元数据探针，不能将本页的内存投影写成网络已接通。

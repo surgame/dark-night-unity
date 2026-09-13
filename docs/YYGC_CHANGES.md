@@ -8,9 +8,11 @@
 
 | 文件 | 具体缺口与修正 | 落点与验证 |
 |---|---|---|
-| `Runtime/Utils/FastInstantiator.cs` | 后台 Editor 中，Addressables 句柄已完成，但 `handle.Task` 仍等待 ResourceManager 的延迟完成回调，导致会话预加载停滞。AcquireComponentAsync 改为现有 UniTask.Addressables 的 `handle.ToUniTask`，已完成句柄直接返回；取消时不由适配器自动释放，继续由原租约异常路径唯一释放，组件访问回主线程 | 隔离与用户仓库同一路径；26/26 会话测试 3.07 秒、整批 134/134 Editor／Play 54.02 秒，含真实 Worker 工厂、取消、两种域重载和三夜。最终 Player 验证归 U6 |
+| `Runtime/Utils/FastInstantiator.cs` | 后台 Editor 中，Addressables 句柄已完成，但 `handle.Task` 仍等待 ResourceManager 的延迟完成回调，导致会话预加载停滞。AcquireComponentAsync 改为现有 UniTask.Addressables 的 `handle.ToUniTask`，已完成句柄直接返回；取消时不由适配器自动释放，继续由原租约异常路径唯一释放，组件访问回主线程 | 隔离与用户仓库同一路径；26/26 会话测试 3.07 秒、整批 134/134 Editor／Play 54.02 秒，含真实 Worker 工厂、取消、两种域重载和三夜。U6 已从无旧 Library 的源码目录构建 Mono，同产物 347 项自动检查通过 |
 
 本次没有新增 YYGC 文件、程序集引用或 `.meta`。Sample 未调用本次修改的 AcquireComponentAsync／PrepareAsync 路径，其既有 API 未改；不重复构建未受影响的 Sample。先前尝试仅更改 Task 续接上下文仍会阻塞，失败与取消记录保留，不作为修正通过证据。
+
+U6 未新增框架修改；2026-09-13 收尾再次核对用户 YYGC 工作区干净且 HEAD 为上述完整提交。最终 Mono 使用游戏 `9e69a76`，通过活跃恢复、四人重开、九组弱网、三夜及容量功能；报告见 [U6 证据](evidence/yygc-unified-u6.json)。容量性能尚未签署，IL2CPP／双机器未验收，不将功能结果扩展为框架全平台或性能保证。
 
 <a id="unified-u2"></a>
 

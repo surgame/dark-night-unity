@@ -1,6 +1,6 @@
 # Dark Nights Godot → Unity 移植方案
 
-2026-09-13 重构入口：[YYGC 统一对象架构分阶段执行计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。运行实体与状态所有权已迁入 YYGC，Core 只保留纯算法／数据合同；可针对框架能力限制和 BUG 升级适配。此次无需 Godot 旧档、Unity v1 存档或旧协议兼容；仍保留冻结玩法、人工资源及新格式完整恢复。**U0–U5 已完成，框架锁定 8faf74f；正式入口与旧模型退出已完成，134 项 Editor／Play 回归通过，U6 最终 Mono 验收继续推进**。下文保留原移植方案的历史设计，旧档兼容和 Core 世界长期保留要求不再适用；当前合同以[技术架构](ARCHITECTURE.md)和[存档格式](SAVE_FORMAT.md)为准。
+2026-09-13 重构入口：[YYGC 统一对象架构分阶段执行计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。运行实体与状态所有权已迁入 YYGC，Core 只保留纯算法／数据合同；可针对框架能力限制和 BUG 升级适配。此次无需 Godot 旧档、Unity v1 存档或旧协议兼容；仍保留冻结玩法、人工资源及新格式完整恢复。**U0–U5 已完成，框架锁定 8faf74f；134 项 Editor／Play 回归及 U6 最终 Mono 的 347 项自动检查通过。U6 性能签署和受自动审批限制的临时目录清理尚未完成**，见[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)。下文保留原移植方案的历史设计，旧档兼容和 Core 世界长期保留要求不再适用；当前合同以[技术架构](ARCHITECTURE.md)和[存档格式](SAVE_FORMAT.md)为准。
 
 2026-09-13 Definition 场景入口修复已实施，具体职责与替代关系见[当前合同](SCENE_DEFINITIONS.md)。场景身份和分类由 Loader 的 Definition 提供，Marker 仅保留实例参数；静态视图沿用 YYGC 初始化并绑定权威副本。编译完成，回归按用户要求待确认；下文早期手工 ContentId 映射表和预览替换描述保留历史时点。
 

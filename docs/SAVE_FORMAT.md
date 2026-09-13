@@ -1,6 +1,6 @@
 # Unity 世界存档 v2
 
-2026-09-13，正式入口使用 ObjectWorldSaveJson 与 GameSaveStore 保存统一 YYGC 世界。U4 已通过真实 Play、双进程活跃状态恢复及四人恢复；U5 已删除旧档入口，134 项 Editor／Play 回归通过，包含新格式 44 项与文件存储 20 项断言。U6 将用最终 Mono 产物复验，见[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)。
+2026-09-13，正式入口使用 ObjectWorldSaveJson 与 GameSaveStore 保存统一 YYGC 世界。U5 已删除旧档入口，134 项 Editor／Play 回归通过，包含新格式 44 项与文件存储 20 项断言。U6 最终同一 Mono 产物已通过活跃恢复 14/14、四人恢复 24/24 与九组弱网各 24/24，见[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)。
 
 本页替代原 v1 当前合同。Godot 旧档和 Unity v1 不再读取或自动迁移；旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前营地。历史 v1 证据见[原存储记录](evidence/world-save-2026-09-11.json)。
 
@@ -50,6 +50,6 @@ GameSaveStore 注入专用目录与本局 ObjectWorldSaveJson，构造无磁盘�
 
 U5 的 GameSaveScenarios 检查 v2 活跃状态恢复、两局确定性继续模拟、坏字段／关系／身份／内容摘要，以及旧版本明确拒绝。GameSaveFileScenarios 覆盖首次保存、原子替换、真实文件锁冲突、取消、坏 UTF-8、超限、并发保存和孤立临时文件；均通过真实 YYGC 测试装配入口执行，见[覆盖迁移](YYGC_UNIFIED_TEST_COVERAGE.md)。
 
-U4 的实际 Player 证据包含施工、训练、在飞箭矢组合恢复及继续模拟，也包含四人保存／加载、晚加入、凭据恢复和重开。U6 对最终源码重做相应 Mono 验收。历史 v1／独立纯计算通过数不计作新版存档通过。
+U6 的最终 Player 已复验施工、训练、在飞箭矢组合恢复及继续模拟，以及四人保存／加载、晚加入、凭据恢复和重开；同一产物下坏档与旧版本明确拒绝并保留世界。具体报告见 [U6 证据](evidence/yygc-unified-u6.json)。历史 v1／独立纯计算通过数不计作新版存档通过。
 
 测试只写本任务产物目录，不访问玩家旧存档。正常 Windows 原子替换和锁冲突检查不等于实际断电、磁盘耗尽或跨操作系统持久性验证；IL2CPP 和双机器 LAN 的状态另列。

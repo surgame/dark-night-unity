@@ -1,0 +1,1025 @@
+{
+  "stage": "U6",
+  "date": "2026-09-13",
+  "status": "mono_functional_acceptance_complete_with_open_items",
+  "branch": "codex/yygc-unified-object-migration",
+  "input": {
+    "gameCommit": "9e69a7682fd95d071ca734273054a905e81c384f",
+    "gameSource": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\source",
+    "frameworkCommit": "8faf74f03d9eac4e025d6fe0f81f0c26a9eac9d4",
+    "fishnetCommit": "de19b5d66459f60400ffd0edc443c4da173a01e7",
+    "libraryAbsent": true,
+    "unity": "6000.4.9f1",
+    "freeC": 14820450304,
+    "freeD": 27709100032,
+    "utc": "2026-09-13T09:55:07.8811181Z"
+  },
+  "build": {
+    "passed": true,
+    "backend": "Mono",
+    "editor": "6000.4.9f1",
+    "inputGameCommit": "9e69a7682fd95d071ca734273054a905e81c384f",
+    "frameworkCommit": "8faf74f03d9eac4e025d6fe0f81f0c26a9eac9d4",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\player-mono\\DarkNights.exe",
+    "entrySha256": "833CD94C91117017CEAE67D84D212A6FF419278079AC121A9F22115F4A28EC92",
+    "files": 408,
+    "bytes": 198988046.0,
+    "exitCode": 0,
+    "playerBuildInvocations": 1,
+    "prerequisiteFailures": [
+      "Git dependency network resolution",
+      "Completed Csc process with stalled cmd/Bee wrapper"
+    ],
+    "log": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\build-mono.log",
+    "provenance": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\cli-build-provenance.json"
+  },
+  "sourceIntegrity": {
+    "gameCommit": "9e69a7682fd95d071ca734273054a905e81c384f",
+    "authoredAndGeneratedGameDiff": [],
+    "temporaryPackageLockChanges": [
+      "com.cysharp.memorypack",
+      "com.cysharp.r3",
+      "com.cysharp.unitask",
+      "com.cysharp.zlinq",
+      "com.github-glitchenzo.nugetforunity"
+    ],
+    "lockedArchiveComparison": "locked-package-comparison.json",
+    "mainPackageFilesUnchanged": true,
+    "sourceLibraryWasInitiallyAbsent": true
+  },
+  "packagePreparation": {
+    "project": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\source\\Game",
+    "originalLockSha256": "4B20BD3D8B6C4546CBD359D29CABF9BB68290DE56F99AEC3704093A54660F7E7",
+    "source": "Public GitHub archives at exact packages-lock commits; temporary embedded packages",
+    "packages": [
+      {
+        "name": "com.cysharp.memorypack",
+        "commit": "0f2fe0827907940768293b7bb81b9605a7d8cba8",
+        "version": "1.21.4",
+        "archiveSha256": "02BF7E578A06A27D3EB85D0540B5907AED7CEE4707B72A7F7A7C3C518E94E404",
+        "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\source\\Game\\Packages\\com.cysharp.memorypack",
+        "files": 9
+      },
+      {
+        "name": "com.cysharp.r3",
+        "commit": "f6eed2dd4208dc4ae171c601e799e85f82aca25e",
+        "version": "1.3.1",
+        "archiveSha256": "107B6AF8EC1C3A0531214253E660A1CA5EBE3CFC13E49F22B431FD13FC4BAA6F",
+        "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\source\\Game\\Packages\\com.cysharp.r3",
+        "files": 126
+      },
+      {
+        "name": "com.cysharp.unitask",
+        "commit": "2e993ff18f28c931602a07292df0b0804eebef99",
+        "version": "2.5.11",
+        "archiveSha256": "1C466436C74184EA40AEC39AEF73F662EF60B6151290EA4E547EEF47D4136B4E",
+        "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\source\\Game\\Packages\\com.cysharp.unitask",
+        "files": 357
+      },
+      {
+        "name": "com.cysharp.zlinq",
+        "commit": "b84f0f936476e5debdbe7b76b73180ef9e490ed4",
+        "version": "1.5.6",
+        "archiveSha256": "3420D929A157EF09AE2B0AD38AFACE1E609BF4E5F0974A568D524B4AF8A7F716",
+        "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\source\\Game\\Packages\\com.cysharp.zlinq",
+        "files": 21
+      },
+      {
+        "name": "com.github-glitchenzo.nugetforunity",
+        "commit": "a7c6b49a0141a5bff9b1983e38137522ef61977d",
+        "version": "4.5.0",
+        "archiveSha256": "6C01EFFCAF7F33F33A4E4D94362418124F90C5047788CB8A87C179A355F0ACB3",
+        "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\source\\Game\\Packages\\com.github-glitchenzo.nugetforunity",
+        "files": 161
+      }
+    ]
+  },
+  "packageComparison": [
+    {
+      "package": "com.cysharp.memorypack",
+      "commit": "0f2fe0827907940768293b7bb81b9605a7d8cba8",
+      "files": 9,
+      "cachedFiles": 9,
+      "byteMatches": 0,
+      "lineEndingOnlyDifferences": 8,
+      "packageManagerFingerprintOnlyDifferences": 1,
+      "mismatches": []
+    },
+    {
+      "package": "com.cysharp.r3",
+      "commit": "f6eed2dd4208dc4ae171c601e799e85f82aca25e",
+      "files": 126,
+      "cachedFiles": 126,
+      "byteMatches": 0,
+      "lineEndingOnlyDifferences": 125,
+      "packageManagerFingerprintOnlyDifferences": 1,
+      "mismatches": []
+    },
+    {
+      "package": "com.cysharp.unitask",
+      "commit": "2e993ff18f28c931602a07292df0b0804eebef99",
+      "files": 357,
+      "cachedFiles": 357,
+      "byteMatches": 0,
+      "lineEndingOnlyDifferences": 356,
+      "packageManagerFingerprintOnlyDifferences": 1,
+      "mismatches": []
+    },
+    {
+      "package": "com.cysharp.zlinq",
+      "commit": "b84f0f936476e5debdbe7b76b73180ef9e490ed4",
+      "files": 21,
+      "cachedFiles": 21,
+      "byteMatches": 0,
+      "lineEndingOnlyDifferences": 20,
+      "packageManagerFingerprintOnlyDifferences": 1,
+      "mismatches": []
+    },
+    {
+      "package": "com.github-glitchenzo.nugetforunity",
+      "commit": "a7c6b49a0141a5bff9b1983e38137522ef61977d",
+      "files": 161,
+      "cachedFiles": 161,
+      "byteMatches": 3,
+      "lineEndingOnlyDifferences": 157,
+      "packageManagerFingerprintOnlyDifferences": 1,
+      "mismatches": []
+    }
+  ],
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 278,
+    "selfTests": 12,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "delivery": {
+    "path": "artifacts/migration/delivery-20260913-183859-205/result.json",
+    "sha256": "ced76e7e959ca3c5e4b0e7e5f776fd76e08b3f312212a94e61f831682c06d4df"
+  },
+  "automaticChecks": 347,
+  "matrix": {
+    "startup": {
+      "passed": true,
+      "checks": 6,
+      "report": {
+        "path": "artifacts/migration/run-20260913-183859-494-mono/result.json",
+        "sha256": "2ffc1acfe8b130d57585d6cfcfcce7fa97b1c747891576a07440f43fc8cdbf64"
+      }
+    },
+    "session": {
+      "passed": true,
+      "checks": 13,
+      "report": {
+        "path": "artifacts/migration/session-20260913-183904-509/result.json",
+        "sha256": "bbf93f770ba91348d114501a9df4f2c4da1db9ddc80cbb91c8562d9ec18a7c78"
+      }
+    },
+    "concurrency": {
+      "passed": true,
+      "checks": 13,
+      "report": {
+        "path": "artifacts/migration/concurrency-20260913-183915-615/result.json",
+        "sha256": "d44620a88d5dc7d5d5d8a97353f29ecdaea79d36562eb0ac0ad9fdcdfbe5b66c"
+      }
+    },
+    "active-load": {
+      "passed": true,
+      "checks": 14,
+      "report": {
+        "path": "artifacts/migration/active-load-20260913-183933-775/result.json",
+        "sha256": "ccf5c74bc22bbce7297c7da42d773cb2389c268725ba0447ffff7e94e72bc049"
+      }
+    },
+    "recovery": {
+      "passed": true,
+      "checks": 24,
+      "report": {
+        "path": "artifacts/migration/recovery-20260913-184012-557/result.json",
+        "sha256": "4e3ae4496423ddaafe06f41cf0bde3ab96f72b9eab7179f6aa8e2c48655e7b1c"
+      }
+    },
+    "network-matrix": {
+      "passed": true,
+      "checks": 216,
+      "profiles": [
+        {
+          "rttMs": 0,
+          "oneWayJitterMs": 25,
+          "loss": 0.0,
+          "checks": 24,
+          "report": {
+            "path": "artifacts/migration/recovery-20260913-184055-233/result.json",
+            "sha256": "fd024e2b1d1a721366253e18635a9b1988f027be8df52e4a8fe7b34b2c142fa9"
+          },
+          "udp": {
+            "received": 2335,
+            "dropped": 0,
+            "forwarded": 2335,
+            "reordered": 465,
+            "peer_resets": 6,
+            "received_bytes": 1366420,
+            "forwarded_bytes": 1366420,
+            "client_to_server_bytes": 13160,
+            "server_to_client_bytes": 1353260,
+            "elapsed_seconds": 21.1204035999981
+          }
+        },
+        {
+          "rttMs": 0,
+          "oneWayJitterMs": 25,
+          "loss": 0.01,
+          "checks": 24,
+          "report": {
+            "path": "artifacts/migration/recovery-20260913-184116-566/result.json",
+            "sha256": "23b35a94efb44251f96335d8c0cb7a525f0a6e39b5830a77eec71447040d86a7"
+          },
+          "udp": {
+            "received": 2314,
+            "dropped": 18,
+            "forwarded": 2296,
+            "reordered": 441,
+            "peer_resets": 4,
+            "received_bytes": 1369179,
+            "forwarded_bytes": 1359953,
+            "client_to_server_bytes": 12723,
+            "server_to_client_bytes": 1356456,
+            "elapsed_seconds": 21.23178819999157
+          }
+        },
+        {
+          "rttMs": 0,
+          "oneWayJitterMs": 25,
+          "loss": 0.05,
+          "checks": 24,
+          "report": {
+            "path": "artifacts/migration/recovery-20260913-184137-888/result.json",
+            "sha256": "e2110a0e63c98a34f000cab8533a5c8bf698e5216c6228feded2868bc6de2446"
+          },
+          "udp": {
+            "received": 2534,
+            "dropped": 109,
+            "forwarded": 2425,
+            "reordered": 443,
+            "peer_resets": 6,
+            "received_bytes": 1488984,
+            "forwarded_bytes": 1424076,
+            "client_to_server_bytes": 14288,
+            "server_to_client_bytes": 1474696,
+            "elapsed_seconds": 22.148705400002655
+          }
+        },
+        {
+          "rttMs": 100,
+          "oneWayJitterMs": 25,
+          "loss": 0.0,
+          "checks": 24,
+          "report": {
+            "path": "artifacts/migration/recovery-20260913-184200-144/result.json",
+            "sha256": "5f4afd9d25ca132816770d5ab6eaaad513342baa6f34147766cc3aabd5ef1051"
+          },
+          "udp": {
+            "received": 2979,
+            "dropped": 0,
+            "forwarded": 2979,
+            "reordered": 1028,
+            "peer_resets": 14,
+            "received_bytes": 1684230,
+            "forwarded_bytes": 1684230,
+            "client_to_server_bytes": 18934,
+            "server_to_client_bytes": 1665296,
+            "elapsed_seconds": 23.454532199990354
+          }
+        },
+        {
+          "rttMs": 100,
+          "oneWayJitterMs": 25,
+          "loss": 0.01,
+          "checks": 24,
+          "report": {
+            "path": "artifacts/migration/recovery-20260913-184223-692/result.json",
+            "sha256": "ab4a892a63360d9ea3a5faf888b4766ed04b772c963e17abb4c22ce00dce76d3"
+          },
+          "udp": {
+            "received": 3181,
+            "dropped": 26,
+            "forwarded": 3155,
+            "reordered": 1053,
+            "peer_resets": 21,
+            "received_bytes": 1807376,
+            "forwarded_bytes": 1789693,
+            "client_to_server_bytes": 19574,
+            "server_to_client_bytes": 1787802,
+            "elapsed_seconds": 24.445351699992898
+          }
+        },
+        {
+          "rttMs": 100,
+          "oneWayJitterMs": 25,
+          "loss": 0.05,
+          "checks": 24,
+          "report": {
+            "path": "artifacts/migration/recovery-20260913-184248-235/result.json",
+            "sha256": "a8240dd7d39fc02ae9f4775126a4094411853c8839bcb37090d206a32c872beb"
+          },
+          "udp": {
+            "received": 5640,
+            "dropped": 273,
+            "forwarded": 5367,
+            "reordered": 1618,
+            "peer_resets": 505,
+            "received_bytes": 3282063,
+            "forwarded_bytes": 3149164,
+            "client_to_server_bytes": 30734,
+            "server_to_client_bytes": 3251329,
+            "elapsed_seconds": 40.842399800007115
+          }
+        },
+        {
+          "rttMs": 200,
+          "oneWayJitterMs": 25,
+          "loss": 0.0,
+          "checks": 24,
+          "report": {
+            "path": "artifacts/migration/recovery-20260913-184329-169/result.json",
+            "sha256": "646a459be4019ee26abafb4e570b2866aaecc3ab2f337de6c729abed07406407"
+          },
+          "udp": {
+            "received": 3455,
+            "dropped": 0,
+            "forwarded": 3455,
+            "reordered": 1245,
+            "peer_resets": 26,
+            "received_bytes": 1976538,
+            "forwarded_bytes": 1976538,
+            "client_to_server_bytes": 22912,
+            "server_to_client_bytes": 1953626,
+            "elapsed_seconds": 26.43490940000629
+          }
+        },
+        {
+          "rttMs": 200,
+          "oneWayJitterMs": 25,
+          "loss": 0.01,
+          "checks": 24,
+          "report": {
+            "path": "artifacts/migration/recovery-20260913-184355-700/result.json",
+            "sha256": "9f1b12454524db94213c546e19ff1d3e839ee0d1141090c42c4d6cff9bcb4ad0"
+          },
+          "udp": {
+            "received": 3634,
+            "dropped": 29,
+            "forwarded": 3605,
+            "reordered": 1245,
+            "peer_resets": 30,
+            "received_bytes": 2020280,
+            "forwarded_bytes": 2003443,
+            "client_to_server_bytes": 24198,
+            "server_to_client_bytes": 1996082,
+            "elapsed_seconds": 26.75377070000104
+          }
+        },
+        {
+          "rttMs": 200,
+          "oneWayJitterMs": 25,
+          "loss": 0.05,
+          "checks": 24,
+          "report": {
+            "path": "artifacts/migration/recovery-20260913-184422-555/result.json",
+            "sha256": "0ee92efddf6d9b92a3407c5dd9614156fd6c1a38eac53be59284a3051ba06c66"
+          },
+          "udp": {
+            "received": 3744,
+            "dropped": 174,
+            "forwarded": 3570,
+            "reordered": 1148,
+            "peer_resets": 51,
+            "received_bytes": 2088245,
+            "forwarded_bytes": 1998662,
+            "client_to_server_bytes": 24796,
+            "server_to_client_bytes": 2063449,
+            "elapsed_seconds": 42.03740539999853
+          }
+        }
+      ],
+      "report": {
+        "path": "artifacts/migration/network-matrix-20260913-184054-630/result.json",
+        "sha256": "635f15f7cc53f5e06c6e7b7c7fede381f3fccf5341f4e7569e9a30ce9b0ee2a6"
+      }
+    },
+    "visual-1280": {
+      "passed": true,
+      "checks": 6,
+      "report": {
+        "path": "artifacts/migration/visual-1280x800-20260913-184504-438/result.json",
+        "sha256": "961a3641788c482d8c278ead240cc2e0113a3ce890e2dac91149054d30e43657"
+      }
+    },
+    "visual-1600": {
+      "passed": true,
+      "checks": 6,
+      "report": {
+        "path": "artifacts/migration/visual-1600x900-20260913-184530-656/result.json",
+        "sha256": "2a622dda51128851f64ec4f46175f0e1636cbd2288bd4818d14c0184e9e6ffa8"
+      }
+    },
+    "battle": {
+      "passed": true,
+      "checks": 9,
+      "report": {
+        "path": "artifacts/migration/battle-20260913-184556-987/result.json",
+        "sha256": "f492e4ac4441391c17f5a048bc247531b8f575bfb963dfedd3cb0b7710bc309c"
+      }
+    },
+    "campaign": {
+      "passed": true,
+      "checks": 22,
+      "report": {
+        "path": "artifacts/migration/campaign-20260913-184625-175/result.json",
+        "sha256": "247924ee89dd535ba23e959706fdd6af914aacb774d35d0fe62204ffc623dcf5"
+      }
+    },
+    "pressure": {
+      "passed": true,
+      "checks": 18,
+      "report": {
+        "path": "artifacts/migration/pressure-20260913-185015-528/result.json",
+        "sha256": "52b1b0f3a515a11c2fbd3d4757b8cac2e18d6128038f290d642d050a97e4d64e"
+      }
+    }
+  },
+  "performance": {
+    "signoff": "not_signed_off",
+    "comparableOldBaseline": false,
+    "frozenNumericBudget": null,
+    "launchCondition": "Four processes on one Windows host; rendered, WindowStyle Hidden; no batchmode/nographics for campaign or pressure",
+    "foregroundVerified": false,
+    "quantileScope": "Last retainedSamples (maximum 100000); means use all samples",
+    "automationOverhead": "SessionAutomation writes the complete JSON frame every 0.2 seconds; its cost is included and has not been separated",
+    "threadAllocationCounterSupported": false,
+    "workloads": {
+      "campaign": {
+        "roles": {
+          "host": {
+            "report": {
+              "path": "artifacts/migration/campaign-20260913-184625-175/host-metrics.json",
+              "sha256": "fdfe3232774887f66ea7a164b2a1cc5166ff4c37f656d1cd1c26d6d0074793e3"
+            },
+            "seconds": 222.0237119,
+            "framesMs": {
+              "samples": 252918,
+              "retainedSamples": 100000,
+              "mean": 0.8698004424358939,
+              "p95": 1.3275000000021464,
+              "p99": 2.155399999992369,
+              "maximum": 335.0558999999862
+            },
+            "gcAllocatedBytesPerFrame": {
+              "samples": 252918,
+              "retainedSamples": 100000,
+              "mean": 15085.35757834555,
+              "p95": 9542.0,
+              "p99": 156436.0,
+              "maximum": 5538994.0
+            },
+            "authorityStepMs": {
+              "samples": 13344,
+              "retainedSamples": 13344,
+              "mean": 0.10207161270983375,
+              "p95": 0.2021,
+              "p99": 0.283,
+              "maximum": 7.7574
+            },
+            "projectionMs": {
+              "samples": 2235,
+              "retainedSamples": 2235,
+              "mean": 0.5472618344519022,
+              "p95": 0.9328,
+              "p99": 3.0102,
+              "maximum": 31.099
+            },
+            "applicationSentMiBPerSecond": 0.2889374524082659,
+            "maximumBacklogSeconds": 0.20924656926460253,
+            "isBatchMode": false,
+            "unityFocusedFrames": 252918,
+            "workingSet": {
+              "selection": "Samples after recorded victory observation start; 30 seconds requested",
+              "samples": 7,
+              "observedSeconds": 27.380613400000016,
+              "firstBytes": 746459136,
+              "lastBytes": 746471424,
+              "minBytes": 746459136,
+              "maxBytes": 746471424,
+              "changeBytes": 12288
+            }
+          },
+          "client1": {
+            "report": {
+              "path": "artifacts/migration/campaign-20260913-184625-175/client1-metrics.json",
+              "sha256": "c1808f9d6dd12313454f5c3f1b14ca34e9dfa1441e646a902c909acf5ae124e8"
+            },
+            "seconds": 209.83938920000003,
+            "framesMs": {
+              "samples": 227851,
+              "retainedSamples": 100000,
+              "mean": 0.9121650214394555,
+              "p95": 1.3088000000038846,
+              "p99": 6.251100000014276,
+              "maximum": 370.1041999999859
+            },
+            "gcAllocatedBytesPerFrame": {
+              "samples": 227851,
+              "retainedSamples": 100000,
+              "mean": 21373.195311848533,
+              "p95": 8306.0,
+              "p99": 910068.0,
+              "maximum": 4971594.0
+            },
+            "authorityStepMs": null,
+            "projectionMs": null,
+            "applicationSentMiBPerSecond": 0.0,
+            "maximumBacklogSeconds": 0.0,
+            "isBatchMode": false,
+            "unityFocusedFrames": 227851,
+            "workingSet": {
+              "selection": "Samples after recorded victory observation start; 30 seconds requested",
+              "samples": 7,
+              "observedSeconds": 27.380613400000016,
+              "firstBytes": 705122304,
+              "lastBytes": 705187840,
+              "minBytes": 705122304,
+              "maxBytes": 705187840,
+              "changeBytes": 65536
+            }
+          },
+          "client2": {
+            "report": {
+              "path": "artifacts/migration/campaign-20260913-184625-175/client2-metrics.json",
+              "sha256": "4b3aca647a27ec732395a160da408e3357253b573b667402df1d7535f211dd3d"
+            },
+            "seconds": 149.7994858,
+            "framesMs": {
+              "samples": 150314,
+              "retainedSamples": 100000,
+              "mean": 0.9832644730364385,
+              "p95": 1.3099999999894862,
+              "p99": 6.116899999994985,
+              "maximum": 426.05079999999873
+            },
+            "gcAllocatedBytesPerFrame": {
+              "samples": 150314,
+              "retainedSamples": 100000,
+              "mean": 23071.47275037588,
+              "p95": 8306.0,
+              "p99": 909997.0,
+              "maximum": 4969590.0
+            },
+            "authorityStepMs": null,
+            "projectionMs": null,
+            "applicationSentMiBPerSecond": 0.0,
+            "maximumBacklogSeconds": 0.0,
+            "isBatchMode": false,
+            "unityFocusedFrames": 150314,
+            "workingSet": {
+              "selection": "Samples after recorded victory observation start; 30 seconds requested",
+              "samples": 7,
+              "observedSeconds": 27.380613400000016,
+              "firstBytes": 704958464,
+              "lastBytes": 705155072,
+              "minBytes": 704958464,
+              "maxBytes": 705155072,
+              "changeBytes": 196608
+            }
+          },
+          "client3": {
+            "report": {
+              "path": "artifacts/migration/campaign-20260913-184625-175/client3-metrics.json",
+              "sha256": "1a1e4099458cbb51037a60da0a12d269574c8a04648bfb6880a5ec06b94e341c"
+            },
+            "seconds": 110.3703371,
+            "framesMs": {
+              "samples": 107760,
+              "retainedSamples": 100000,
+              "mean": 1.00566186340016,
+              "p95": 1.3147999999958415,
+              "p99": 6.243099999998947,
+              "maximum": 325.9439999999998
+            },
+            "gcAllocatedBytesPerFrame": {
+              "samples": 107760,
+              "retainedSamples": 100000,
+              "mean": 23403.913854862658,
+              "p95": 8306.0,
+              "p99": 910114.0,
+              "maximum": 4142970.0
+            },
+            "authorityStepMs": null,
+            "projectionMs": null,
+            "applicationSentMiBPerSecond": 0.0,
+            "maximumBacklogSeconds": 0.0,
+            "isBatchMode": false,
+            "unityFocusedFrames": 107760,
+            "workingSet": {
+              "selection": "Samples after recorded victory observation start; 30 seconds requested",
+              "samples": 7,
+              "observedSeconds": 27.380613400000016,
+              "firstBytes": 701329408,
+              "lastBytes": 701337600,
+              "minBytes": 701329408,
+              "maxBytes": 701337600,
+              "changeBytes": 8192
+            }
+          }
+        },
+        "result": {
+          "path": "artifacts/migration/campaign-20260913-184625-175/result.json",
+          "sha256": "247924ee89dd535ba23e959706fdd6af914aacb774d35d0fe62204ffc623dcf5"
+        }
+      },
+      "pressure": {
+        "roles": {
+          "host": {
+            "report": {
+              "path": "artifacts/migration/pressure-20260913-185015-528/host-metrics.json",
+              "sha256": "9d7f8f1bf10b517c667bac6e3668023a6a7d650991273799d4f39bf89278ec2d"
+            },
+            "seconds": 54.992597,
+            "framesMs": {
+              "samples": 8561,
+              "retainedSamples": 8561,
+              "mean": 6.191986531947191,
+              "p95": 12.976299999998275,
+              "p99": 49.929599999998686,
+              "maximum": 112.85600000000073
+            },
+            "gcAllocatedBytesPerFrame": {
+              "samples": 8561,
+              "retainedSamples": 8561,
+              "mean": 611947.6071720594,
+              "p95": 3402144.0,
+              "p99": 8663002.0,
+              "maximum": 18188185.0
+            },
+            "authorityStepMs": {
+              "samples": 3337,
+              "retainedSamples": 3337,
+              "mean": 0.0049676955349115814,
+              "p95": 0.0049,
+              "p99": 0.0267,
+              "maximum": 3.9715
+            },
+            "projectionMs": {
+              "samples": 557,
+              "retainedSamples": 557,
+              "mean": 6.742436265709161,
+              "p95": 11.9476,
+              "p99": 14.8966,
+              "maximum": 42.6319
+            },
+            "applicationSentMiBPerSecond": 10.385985605695552,
+            "maximumBacklogSeconds": 0.029786939656090302,
+            "isBatchMode": false,
+            "unityFocusedFrames": 8561,
+            "workingSet": {
+              "selection": "Samples in last 20 seconds of the OS sampling clock; excludes process startup, does not establish steady state",
+              "samples": 4,
+              "observedSeconds": 17.319436100000004,
+              "firstBytes": 857690112,
+              "lastBytes": 857370624,
+              "minBytes": 857370624,
+              "maxBytes": 857952256,
+              "changeBytes": -319488
+            }
+          },
+          "client1": {
+            "report": {
+              "path": "artifacts/migration/pressure-20260913-185015-528/client1-metrics.json",
+              "sha256": "860cfc2a5c9275c90241c0d18362ab5c9bc099c42016e0c7d96a9318d64ad6e3"
+            },
+            "seconds": 46.706805499999994,
+            "framesMs": {
+              "samples": 599,
+              "retainedSamples": 599,
+              "mean": 74.51684574290493,
+              "p95": 202.78559999999857,
+              "p99": 224.42410000000024,
+              "maximum": 275.4024000000044
+            },
+            "gcAllocatedBytesPerFrame": {
+              "samples": 599,
+              "retainedSamples": 599,
+              "mean": 12456685.462437395,
+              "p95": 36065374.0,
+              "p99": 36934128.0,
+              "maximum": 50804586.0
+            },
+            "authorityStepMs": null,
+            "projectionMs": null,
+            "applicationSentMiBPerSecond": 0.0,
+            "maximumBacklogSeconds": 0.0,
+            "isBatchMode": false,
+            "unityFocusedFrames": 599,
+            "workingSet": {
+              "selection": "Samples in last 20 seconds of the OS sampling clock; excludes process startup, does not establish steady state",
+              "samples": 4,
+              "observedSeconds": 17.319436100000004,
+              "firstBytes": 773386240,
+              "lastBytes": 773586944,
+              "minBytes": 773386240,
+              "maxBytes": 773586944,
+              "changeBytes": 200704
+            }
+          },
+          "client2": {
+            "report": {
+              "path": "artifacts/migration/pressure-20260913-185015-528/client2-metrics.json",
+              "sha256": "575e2824a79a8e80b26df0e32b3742c8bf321c79b7d027fcc2e6a50f5b0825d3"
+            },
+            "seconds": 38.8106226,
+            "framesMs": {
+              "samples": 603,
+              "retainedSamples": 603,
+              "mean": 61.03431923714768,
+              "p95": 135.43669999999963,
+              "p99": 192.00819999999652,
+              "maximum": 221.04649999999992
+            },
+            "gcAllocatedBytesPerFrame": {
+              "samples": 603,
+              "retainedSamples": 603,
+              "mean": 10232826.573797679,
+              "p95": 22829314.0,
+              "p99": 35899750.0,
+              "maximum": 36796468.0
+            },
+            "authorityStepMs": null,
+            "projectionMs": null,
+            "applicationSentMiBPerSecond": 0.0,
+            "maximumBacklogSeconds": 0.0,
+            "isBatchMode": false,
+            "unityFocusedFrames": 603,
+            "workingSet": {
+              "selection": "Samples in last 20 seconds of the OS sampling clock; excludes process startup, does not establish steady state",
+              "samples": 4,
+              "observedSeconds": 17.319436100000004,
+              "firstBytes": 774303744,
+              "lastBytes": 775168000,
+              "minBytes": 774303744,
+              "maxBytes": 775168000,
+              "changeBytes": 864256
+            }
+          },
+          "client3": {
+            "report": {
+              "path": "artifacts/migration/pressure-20260913-185015-528/client3-metrics.json",
+              "sha256": "34c24945a75eb6ff96a511f6363af1528edd2011cb5a70099f2e66f38aae626f"
+            },
+            "seconds": 31.0085888,
+            "framesMs": {
+              "samples": 500,
+              "retainedSamples": 500,
+              "mean": 57.8657756,
+              "p95": 131.7998999999972,
+              "p99": 143.68400000000037,
+              "maximum": 200.8870999999992
+            },
+            "gcAllocatedBytesPerFrame": {
+              "samples": 500,
+              "retainedSamples": 500,
+              "mean": 9759346.372,
+              "p95": 22352230.0,
+              "p99": 27348920.0,
+              "maximum": 36131680.0
+            },
+            "authorityStepMs": null,
+            "projectionMs": null,
+            "applicationSentMiBPerSecond": 0.0,
+            "maximumBacklogSeconds": 0.0,
+            "isBatchMode": false,
+            "unityFocusedFrames": 500,
+            "workingSet": {
+              "selection": "Samples in last 20 seconds of the OS sampling clock; excludes process startup, does not establish steady state",
+              "samples": 4,
+              "observedSeconds": 17.319436100000004,
+              "firstBytes": 788512768,
+              "lastBytes": 798244864,
+              "minBytes": 788512768,
+              "maxBytes": 798244864,
+              "changeBytes": 9732096
+            }
+          }
+        },
+        "result": {
+          "path": "artifacts/migration/pressure-20260913-185015-528/result.json",
+          "sha256": "52b1b0f3a515a11c2fbd3d4757b8cac2e18d6128038f290d642d050a97e4d64e"
+        },
+        "scope": "Synthetic complete projection of 256 entities and 1024 projectiles; host retains 17 real authoritative entities, not a 256-AI simulation benchmark",
+        "payloadBytes": 487304,
+        "publicationWindow": {
+          "first": 252,
+          "last": 553,
+          "firstTick": 1479,
+          "lastTick": 3310,
+          "readyCount": 4,
+          "requiredDelta": 150,
+          "elapsedSeconds": 30.6174463
+        },
+        "udp": {
+          "received": 492371,
+          "dropped": 0,
+          "forwarded": 492371,
+          "reordered": 0,
+          "peer_resets": 0,
+          "received_bytes": 620045764,
+          "forwarded_bytes": 620045764,
+          "client_to_server_bytes": 106533,
+          "server_to_client_bytes": 619939231,
+          "elapsed_seconds": 63.743164700004854
+        }
+      }
+    },
+    "hardware": {
+      "unity": "6000.4.9f1",
+      "graphics": "NVIDIA GeForce RTX 5060 Ti",
+      "graphicsApi": "Direct3D12",
+      "processor": "Intel(R) Core(TM) i5-14600KF",
+      "memoryMb": 32547,
+      "screenWidth": 1280,
+      "screenHeight": 800
+    },
+    "conclusion": "Functional capacity passed. Client frame p95 131.80-202.79 ms and high frame allocations require profiling; client3 working set rose 9.28125 MiB in the final sampled 17.32-second interval. No foreground performance pass or long-term leak-free claim."
+  },
+  "visualReview": {
+    "date": "2026-09-13",
+    "reviewMethod": "Image inspection, separate from automated dimensions and runtime-error checks",
+    "reviewedFrames": [
+      {
+        "path": "artifacts/migration/visual-1280x800-20260913-184504-438/day.png",
+        "sha256": "a13a3e2bc7a1c6ff33556a20724d92c13e2ff7c72d5cac88e60c16e7989a21be"
+      },
+      {
+        "path": "artifacts/migration/visual-1280x800-20260913-184504-438/night.png",
+        "sha256": "5e040184a1b1d4fafbb5f45b02d2d8488d4016df2c6f637d315501322a74471c"
+      },
+      {
+        "path": "artifacts/migration/visual-1280x800-20260913-184504-438/pause.png",
+        "sha256": "bdff951670086a016619e71e0a21d18c94c2b67a103aab11da01ef4ca6837ee2"
+      },
+      {
+        "path": "artifacts/migration/visual-1280x800-20260913-184504-438/help.png",
+        "sha256": "fe28999aed0560c1a3ef828b07bbd08f656ec30d7b663e420a67f6b49a43d37f"
+      },
+      {
+        "path": "artifacts/migration/visual-1280x800-20260913-184504-438/menu.png",
+        "sha256": "d019863354d40fb0a7db9e7ade1233899d174be246b35726f9f3ef0723fed8ae"
+      },
+      {
+        "path": "artifacts/migration/visual-1600x900-20260913-184530-656/day.png",
+        "sha256": "687b6ab99755383b208b3e4a75b55984cfad6c0d3b26fa889f81c94d032cd025"
+      },
+      {
+        "path": "artifacts/migration/visual-1600x900-20260913-184530-656/night.png",
+        "sha256": "e1f23f349c1769e5aeba05c9d1363eb8a56f4b4f4ab9ddb056a4d1ab222f384b"
+      },
+      {
+        "path": "artifacts/migration/visual-1600x900-20260913-184530-656/pause.png",
+        "sha256": "80b18e5083cc496b8af3711f0375870062779fa0468ce10f89d9e3343b81d83e"
+      },
+      {
+        "path": "artifacts/migration/visual-1600x900-20260913-184530-656/help.png",
+        "sha256": "f6f756a012928558f6093ba3317115a9caf32252c33411aca744400dd9ac154f"
+      },
+      {
+        "path": "artifacts/migration/visual-1600x900-20260913-184530-656/menu.png",
+        "sha256": "90b0f07cd782ca0ab8f67f4555358d6c683b9a0177c0f892c9405f07423794b7"
+      },
+      {
+        "path": "artifacts/migration/campaign-20260913-184625-175/construction.png",
+        "sha256": "66f08302b96533508d96670dc35335fd6c7bce4848be6e3a4fface527169f545"
+      },
+      {
+        "path": "artifacts/migration/campaign-20260913-184625-175/promoted-workers.png",
+        "sha256": "2e3f677e9076c3819c7113c0c0a9388ffc5fe37c65eba9cef31ad333f2f82f47"
+      },
+      {
+        "path": "artifacts/migration/campaign-20260913-184625-175/victory.png",
+        "sha256": "dcdb564bf08722489e43b7566a14986388a7cca8b4166f762fb01fabe47e43c8"
+      },
+      {
+        "path": "artifacts/migration/battle-20260913-184556-987/host-battle.png",
+        "sha256": "6716cfc8512d0bc2a32c2cb56bbd1e154295b56a9b9602ae50b55c1aa2891eb8"
+      }
+    ],
+    "observations": [
+      "Day/night, help, pause and menu frames preserve the observed native art and overall layout at both resolutions.",
+      "Construction beams/progress bars, promoted guards, completed towers and victory panel render in the campaign frames.",
+      "Battle frame shows grounded actors, damage numbers and remains; still images alone do not verify attack timing.",
+      "Pause save/control controls outside the card and main-menu network control layout predate this migration and remain M5 work."
+    ],
+    "regressionAssessment": "No new static visual regression observed in the inspected frames; full visual signoff remains open",
+    "baselineComparison": {
+      "path": "artifacts/migration/visual-1280x800-20260912-172330-097/pause.png",
+      "sha256": "3cc5a9aee8075e8ea7d7a1937cd39d3290ff5e83012718009b507748bc63e622"
+    }
+  },
+  "cleanup": {
+    "stage": "U6",
+    "utc": "2026-09-13T11:13:42.3223603Z",
+    "method": "dotnet clean",
+    "paths": [
+      "tools/CoreRegression/bin",
+      "tools/CoreRegression/obj",
+      "tools/CoreBuild/bin",
+      "tools/CoreBuild/obj",
+      "tools/ArchitectureGuard/bin",
+      "tools/ArchitectureGuard/obj"
+    ],
+    "tools": [
+      {
+        "project": "tools/CoreRegression/CoreRegression.csproj",
+        "exitCode": 0
+      },
+      {
+        "project": "tools/CoreBuild/CoreBuild.csproj",
+        "exitCode": 0
+      },
+      {
+        "project": "tools/ArchitectureGuard/ArchitectureGuard.csproj",
+        "exitCode": 0
+      }
+    ],
+    "releasedBytes": 32992560.0,
+    "freeC": 14674489344,
+    "freeD": 26547003392,
+    "sourceAndArchivesCleanup": "blocked by automatic approval review; recursive deletion and worktree removal did not execute",
+    "automaticReviewReason": "blocked by policy",
+    "blockedPaths": [
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\source",
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\yygc-unified\\u6\\locked-archives"
+    ],
+    "blockedRetainedBytes": 3029738039,
+    "preflight": "cleanup-preflight.json",
+    "sourceStillExists": true,
+    "retained": "Final Mono Player, current Editor Library, authored assets, YYGC worktrees, logs, screenshots and frozen evidence",
+    "priorRejectedPathsUntouched": [
+      "Game/Library/Bee/artifacts/WinPlayerBuildProgram",
+      "artifacts/migration/player-mono/DNights_BurstDebugInformation_DoNotShip"
+    ],
+    "postCleanupIndependenceRerun": "not run: isolated source directory was not removed; existing complete matrix remains valid"
+  },
+  "artifactReferences": [
+    {
+      "path": "artifacts/yygc-unified/u6/build-result.json",
+      "sha256": "e9fc04520f240a4b5d1b2547226a86ce25380134c29eba5ec5736ad8b9745605"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/cli-build-provenance.json",
+      "sha256": "4eaeb2da530d50d68f7594415e9e90ef6a41025c7daa0d492f1fc25b72e50955"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/build-mono.log",
+      "sha256": "e7eb780998b3d1dd59799dec38c31573a3f9809feff5813aebc20b35fb158c83"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/player-hashes.json",
+      "sha256": "0199c0599be6d1c77acf6e06cab8e9a8802f9cfa1db5f192c067eb84154f4a6c"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/source-integrity.json",
+      "sha256": "2454c7e40c19c1cc2df08937ca27be313d650b445d73697785f09eb66c48e774"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/locked-package-comparison.json",
+      "sha256": "4524a90ae109eefa04b9fa44934d6e8faec86f34bdca88b5d62c30dd8cef7345"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/compiler-wrapper-stall.json",
+      "sha256": "a44b5c4d919e326c7289367d07112c8155f213de4e106ce09d2c7e001bcc7abb"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/performance-assessment.json",
+      "sha256": "ba17e495603fcbe227c3432800cce6c11d7b9e2a5fe8884f5203cb38ccbf8980"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/visual-review.json",
+      "sha256": "d1194a815387370b14feae5e4f4a9ec1d95868ad34d74eea2efe388b99971588"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/cleanup-preflight.json",
+      "sha256": "05f8d124a281952ffa30f5d3973234098401fa2ef00f3084e977fb8458f2dc81"
+    },
+    {
+      "path": "artifacts/yygc-unified/u6/cleanup.json",
+      "sha256": "670755be696759e643929cb304922120854334fa9e6a9715acfd7d12c05d8c27"
+    }
+  ],
+  "openItems": [
+    "Ordinary foreground performance, full observation-window percentiles and capacity allocation/latency profiling remain unsigned.",
+    "No reliable same-input old performance baseline or frozen numeric budget; no performance improvement claim.",
+    "M5 font/menu calibration remains; captured-image dimensions are not visual signoff.",
+    "IL2CPP not authorized or run; two-machine LAN lacks a second physical Windows host.",
+    "Isolated source and dependency archive cleanup was rejected by automatic approval review (blocked by policy), not retried.",
+    "Post-removal startup independence check not run because isolated source removal did not occur."
+  ],
+  "completionBoundary": "Migration code and local Mono functional matrix are delivered. U6 cleanup and performance signoff remain open; M5 is not complete."
+}
