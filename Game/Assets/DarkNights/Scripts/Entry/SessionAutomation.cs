@@ -24,7 +24,7 @@ namespace DarkNights.Entry
         private double nextPoll;
         private readonly Queue<CommandFeedback> feedback = new Queue<CommandFeedback>();
         private string error;
-        private int peakEffects, peakArrows;
+        private int peakEffects, peakArrows, peakCommandRings;
         private int reportRetries;
         private bool pauseOnProjectile;
         private bool fullReport = true;
@@ -110,6 +110,12 @@ namespace DarkNights.Entry
                         else if (operation == "capture-sample")
                             await SessionPresentationCapture.Save(network, command, Path.GetDirectoryName(reportPath));
                         else if (operation == "ui") network.GetComponent<SessionUiController>().ActivateButton((string)command["panel"], (string)command["key"]);
+                        else if (operation == "input-orders")
+                        {
+                            var input = network.GetComponent<SessionUiController>().Input;
+                            input.SelectEntity((int)command["actor"]);
+                            input.IssueOrders((float)command["x"], (int?)command["target"] ?? 0);
+                        }
                         else
                         {
                             var actors = command["actors"]?.Values<int>().ToArray();
@@ -122,6 +128,7 @@ namespace DarkNights.Entry
                 var effects = network.GetComponent<SessionEffects>();
                 peakEffects = Math.Max(peakEffects, effects.EffectCount);
                 peakArrows = Math.Max(peakArrows, effects.ArrowCount);
+                peakCommandRings = Math.Max(peakCommandRings, effects.CommandRingCount);
                 long reportStart = capture == null ? 0 : System.Diagnostics.Stopwatch.GetTimestamp();
                 var frame = network.Client.Replica.Current;
                 var report = new JObject
@@ -142,7 +149,10 @@ namespace DarkNights.Entry
                     ["selected"] = JArray.FromObject(network.GetComponent<SessionUiController>().Input.Selected),
                     ["entityViews"] = network.GetComponent<SessionEntityViews>().Count,
                     ["effectViews"] = effects.EffectCount, ["arrowViews"] = effects.ArrowCount,
-                    ["peakEffectViews"] = peakEffects, ["peakArrowViews"] = peakArrows
+                    ["peakEffectViews"] = peakEffects, ["peakArrowViews"] = peakArrows,
+                    ["commandRings"] = effects.CommandRingCount, ["commandRingInstances"] = effects.CommandRingInstanceCount,
+                    ["commandRingShows"] = effects.CommandRingPresentationCount,
+                    ["peakCommandRings"] = peakCommandRings
                 };
                 string temporary = reportPath + ".tmp";
                 File.WriteAllText(temporary, report.ToString());

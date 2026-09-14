@@ -44,11 +44,14 @@ namespace DarkNights.Editor
                 ui.ActivateButton("Chrome", "Pause");
                 await Until(() => network.Client.Replica.Current.Paused, 5);
                 int worker = network.Client.Replica.Current.World.Actors.First(a => a.Kind == "worker").Id;
-                await network.Client.Send(SessionOperation.IssueOrders, new[] { worker }, x: 510);
-                await Until(() => effects.EffectCount > 0, 5);
-                Check("paused_command_creates_one_ring", effects.EffectCount == 1);
+                ui.Input.SelectEntity(worker);
+                ui.Input.IssueOrders(510);
+                Check("paused_local_input_immediately_creates_one_ring", effects.CommandRingCount == 1);
                 await Task.Delay(1000);
-                Check("paused_ring_expires_without_snapshot_replay", effects.EffectCount == 0 && network.Client.Replica.Current.Paused);
+                Check("paused_ring_expires_without_snapshot_replay", effects.CommandRingCount == 0 && network.Client.Replica.Current.Paused);
+                Check("command_ring_is_absent_from_projection", network.Client.Replica.Current.Events.All(e => e.Cue?.Kind != "command"));
+                ui.Input.IssueOrders(530);
+                Check("subsequent_input_reuses_prewarmed_pool", effects.CommandRingCount == 1 && effects.CommandRingInstanceCount == LocalCommandRings.Capacity);
                 ui.ActivateButton("Chrome", "Pause");
                 await Until(() => !network.Client.Replica.Current.Paused, 5);
                 ui.ActivateButton("Chrome", "Speed");

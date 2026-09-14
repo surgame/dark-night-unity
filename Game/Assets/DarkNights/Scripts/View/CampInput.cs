@@ -79,6 +79,14 @@ namespace DarkNights.View
             if (id != 0) selected.Add(id);
         }
 
+        /// <summary>从当前本地选区发出一次右键指令；输入互斥与实际鼠标共用，反馈不表示服务端已执行。</summary>
+        public void IssueOrders(float x, int target = 0)
+        {
+            if (!ready || frame == null || BuildKind.Length > 0 ||
+                sessions.IsBlocked(YYInteractionBlockFlags.GameplayActions | YYInteractionBlockFlags.WorldConfirm)) return;
+            Intent?.Invoke(new InputIntent("Orders", ActorIds(), target, x));
+        }
+
         private void Update()
         {
             if (sessions == null || frame == null || !ready) return;
@@ -111,8 +119,7 @@ namespace DarkNights.View
             if (mouse.rightButton.wasPressedThisFrame && !ui)
             {
                 if (BuildKind.Length > 0) CancelBuild();
-                else if (!sessions.IsBlocked(YYInteractionBlockFlags.WorldConfirm))
-                    Intent?.Invoke(new InputIntent("Orders", ActorIds(), Hover, point.x * 100));
+                else IssueOrders(point.x * 100, Hover);
             }
             if (mouse.leftButton.wasPressedThisFrame && !ui)
             {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DarkNights.Core.Config;
 using DarkNights.Core.Logic.State;
-using DarkNights.Core.ViewData;
 
 namespace DarkNights.Runtime.Objects
 {
@@ -115,7 +114,6 @@ namespace DarkNights.Runtime.Objects
             }
             if (assigned > 0)
             {
-                session.Emit(new VisualCue("command", x, session.Layout.GroundY));
                 if (target is WorksiteBehaviour site)
                     session.Notify("已安排" + assigned + "名工人采集" + GameText.ResourceName(site.RuleKey) + "。");
             }

@@ -113,6 +113,19 @@ namespace DarkNights.Tests
         }
 
         [Test]
+        public void ProjectionRejectsLocalCommandRings()
+        {
+            var catalog = RuleScenario.Catalog();
+            var layout = RuleScenario.Layout();
+            using var authority = SessionScenario.Create(catalog, layout);
+            var codec = new ProjectionCodec(catalog, layout);
+            var wire = SessionWire.From(authority.CaptureProjection());
+            wire.Events = new[] { PresentationWire.From(new PresentationEvent(1, 0, "effect",
+                cue: new VisualCue("command", 200, layout.GroundY))) };
+            Assert.Throws<FormatException>(() => codec.Decode(ProjectionPacket.Pack(MemoryPackSerializer.Serialize(wire))));
+        }
+
+        [Test]
         public void PooledStateReturnCannotRewriteOwnedReplica()
         {
             RuleScenario.RepositoryRoot = Path.GetFullPath("..");

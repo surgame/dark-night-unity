@@ -29,13 +29,18 @@ namespace DarkNights.Entry
             var effects = network.GetComponent<SessionEffects>();
             if (command["cues"] is JArray cues)
             {
-                if (!network.Hosting || cues.Count > 6) throw new InvalidOperationException("Only the fixture host can emit at most six cues.");
+                if (cues.Count > 6) throw new InvalidOperationException("A fixture can emit at most six cues.");
                 foreach (JToken row in cues)
                 {
                     VisualCue cue = row.ToObject<VisualCue>();
                     if (cue.Kind != "corpse" && cue.Kind != "rubble" && cue.Kind != "resource" && cue.Kind != "damage" && cue.Kind != "command")
                         throw new InvalidOperationException("Unsupported presentation cue.");
-                    network.ObjectWorld.Feedback.Emit(cue);
+                    if (cue.Kind == "command") effects.PresentLocalCommand(cue.X);
+                    else
+                    {
+                        if (!network.Hosting) throw new InvalidOperationException("Only the fixture host can emit world effects.");
+                        network.ObjectWorld.Feedback.Emit(cue);
+                    }
                 }
             }
             if (command["effects"] != null)

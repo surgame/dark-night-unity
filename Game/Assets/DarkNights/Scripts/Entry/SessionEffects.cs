@@ -13,12 +13,13 @@ using YY.Features.Players.View;
 namespace DarkNights.Entry
 {
     /// <summary>
-    /// 将冻结表现事件和箭矢轨迹接入本地原生 Prefab；仅事件序号和显示年龄可写，不接触权威世界。
+    /// 将世界表现事件、箭矢和本地输入反馈接入原生 Prefab；指令圈独立池化，不进入事件游标或网络。
     /// 工厂创建跨 await 检查连接代次和 epoch，旧世界结果立即释放，重复快照不重复播放。
     /// </summary>
     public sealed class SessionEffects : MonoBehaviour
     {
         private readonly PresentationCursor cursor = new PresentationCursor();
+        private readonly LocalCommandRings commandRings = new LocalCommandRings();
         private readonly Dictionary<long, (ObjectView Owner, NativeEffect Effect)> arrows =
             new Dictionary<long, (ObjectView, NativeEffect)>();
         private readonly HashSet<long> pendingArrows = new HashSet<long>();
@@ -34,27 +35,30 @@ namespace DarkNights.Entry
         private int epoch, generation;
         private long connection;
         private float ground;
-        public int EffectCount => effects.Count;
+        public int EffectCount => effects.Count + commandRings.Count;
         public int ArrowCount => arrows.Count;
+        public int CommandRingCount => commandRings.Count;
+        public int CommandRingInstanceCount => commandRings.InstanceCount;
+        public long CommandRingPresentationCount => commandRings.PresentationCount;
 
         public async UniTask Initialize(SessionClient value, SessionUiController panels, PinewatchStage scene, float groundY)
         {
             client = value; ui = panels; stage = scene; ground = groundY;
             audioOwner = await Create("audio.camp");
-            if (this == null) { if (audioOwner != null) Destroy(audioOwner.gameObject); return; }
+            if (this == null) { Release(audioOwner); return; }
             audioView = Required<CampAudio>(audioOwner, "audio");
+            await commandRings.Initialize(ObjectDefinitionDatabase.Instance.GetDefinitionByKey("effect.command"), stage.Entities, ground);
+            if (this != null) ui.Input.Intent += LocalIntent;
         }
 
         private void Update()
         {
             if (client == null || audioView == null) return;
             SessionViewData frame = client.Replica.Current;
-            if (connection != client.ConnectionGeneration || epoch != (frame?.Epoch ?? 0))
-            {
-                Clear(); connection = client.ConnectionGeneration; epoch = frame?.Epoch ?? 0;
-            }
+            SynchronizeWorld();
             if (frame == null) return;
             double now = Time.unscaledTimeAsDouble;
+            commandRings.Tick(now);
             if (applied != frame)
             {
                 applied = frame; received = now;
@@ -100,7 +104,7 @@ namespace DarkNights.Entry
             {
                 bool remnant = item.Cue.Kind == "corpse" || item.Cue.Kind == "rubble";
                 owner = remnant ? await EntityViewFactory.Create(item.Cue.ContentId, stage.Entities) :
-                    await Create(item.Cue.Kind == "command" ? "effect.command" : "effect.floating");
+                    await Create("effect.floating");
                 if (!Current(captured) || Time.unscaledTimeAsDouble - born >= PresentationCursor.Lifetime(item)) { Release(owner); return; }
                 // 残骸复用同一定义外观，但从不绑定已消失的活实体。
                 EntityView visual = remnant ? EntityViewFactory.RequiredPresentation((EntityView)owner).Visual : null;
@@ -114,6 +118,7 @@ namespace DarkNights.Entry
 
         internal void SamplePresentation(double age)
         {
+            commandRings.SamplePresentation(age);
             foreach (var item in effects)
             {
                 if (item.Remnant != null)
@@ -151,13 +156,42 @@ namespace DarkNights.Entry
         private bool Current(int captured) => this != null && generation == captured &&
             client.ConnectionGeneration == connection && client.Replica.Current?.Epoch == epoch;
         private static void Release(ObjectView owner) => EntityViewFactory.Release(owner);
+
+        private void LocalIntent(InputIntent intent)
+        {
+            SessionViewData frame = client.Replica.Current;
+            if (intent.Action != "Orders" || intent.Actors.Length == 0 || !client.Ready || frame == null ||
+                frame.Loading || frame.World.Camp.Mode != "Playing" || (frame.HostOnly && client.PlayerSlot != 0)) return;
+            PresentLocalCommand(intent.X);
+        }
+
+        internal void PresentLocalCommand(float x)
+        {
+            SynchronizeWorld();
+            commandRings.Show(x, Time.unscaledTimeAsDouble);
+        }
+
+        private void SynchronizeWorld()
+        {
+            int currentEpoch = client.Replica.Current?.Epoch ?? 0;
+            if (connection == client.ConnectionGeneration && epoch == currentEpoch) return;
+            Clear();
+            connection = client.ConnectionGeneration;
+            epoch = currentEpoch;
+        }
+
         private void Clear()
         {
             generation++; cursor.Reset(); applied = null;
+            commandRings.Clear();
             foreach (var value in arrows.Values) Release(value.Owner);
             foreach (var value in effects) Release(value.Owner);
             arrows.Clear(); pendingArrows.Clear(); effects.Clear();
         }
-        private void OnDestroy() { Clear(); Release(audioOwner); }
+        private void OnDestroy()
+        {
+            if (ui != null && ui.Input != null) ui.Input.Intent -= LocalIntent;
+            Clear(); commandRings.Dispose(); Release(audioOwner);
+        }
     }
 }

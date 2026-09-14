@@ -1,0 +1,306 @@
+{
+  "date": "2026-09-15",
+  "scope": "右键指令圈仅在发起端显示，原生实例和网格复用，退出清理；本次新增中文提交规范",
+  "sourceBaseline": "ec9d904080f299390178f64afb7335cc35517439",
+  "sourceManifestSha256": "889C801471B5D3423F9D46ACE547A44E6ECEB4F12F572BF9AD81172CCB462386",
+  "yygc": {
+    "commit": "745f3d2c844a66389e39bb84cd878d5d80f77962",
+    "newChanges": false,
+    "existingHostPatchesRetained": true
+  },
+  "editor": {
+    "passed": true,
+    "total": 24,
+    "failures": 0,
+    "seconds": 61.7056891,
+    "cases": [
+      {
+        "name": "DarkNights.Tests.LocalCommandRingsTests.BurstsReuseNativeObjectsAndMeshesAndResetLifetime",
+        "result": "Passed",
+        "duration": 59.505463
+      },
+      {
+        "name": "DarkNights.Tests.LocalCommandRingsTests.NeverShownPoolReleasesEveryPrewarmedMesh",
+        "result": "Passed",
+        "duration": 0.006324
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.EffectsReopenWithExplicitBindingsAndSourceGeometry",
+        "result": "Passed",
+        "duration": 0.032078
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.HudFadesRemainBoundAfterReopening",
+        "result": "Passed",
+        "duration": 0.004571
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.RemnantsRemainPassiveWithGeneratedIndividualBehaviour(\"Worker\",\"corpse\")",
+        "result": "Passed",
+        "duration": 0.020175
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.RemnantsRemainPassiveWithGeneratedIndividualBehaviour(\"House\",\"rubble\")",
+        "result": "Passed",
+        "duration": 0.005047
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.MeasureCompleteProjectionAtSupportedLimits",
+        "result": "Passed",
+        "duration": 0.173714
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.PooledStateReturnCannotRewriteOwnedReplica",
+        "result": "Passed",
+        "duration": 0.046047
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.ProjectionRejectsLocalCommandRings",
+        "result": "Passed",
+        "duration": 0.011948
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.RealBattleSnapshotsRemainDecodableAfterWindupCrossesZero",
+        "result": "Passed",
+        "duration": 0.781189
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.RealCodecFreezesNestedStateAndRejectsMalformedFrames",
+        "result": "Passed",
+        "duration": 0.017615
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"economy\")",
+        "result": "Passed",
+        "duration": 0.089414
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"work-training\")",
+        "result": "Passed",
+        "duration": 0.061148
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"time-combat\")",
+        "result": "Passed",
+        "duration": 0.056909
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"new-save\")",
+        "result": "Passed",
+        "duration": 0.171673
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"save-files\")",
+        "result": "Passed",
+        "duration": 0.066289
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"commands\")",
+        "result": "Passed",
+        "duration": 0.127313
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"boundary\")",
+        "result": "Passed",
+        "duration": 0.05274
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"lifecycle\")",
+        "result": "Passed",
+        "duration": 0.080471
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"projection\")",
+        "result": "Passed",
+        "duration": 0.078388
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"replica\")",
+        "result": "Passed",
+        "duration": 0.029077
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"clock\")",
+        "result": "Passed",
+        "duration": 0.122137
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"events\")",
+        "result": "Passed",
+        "duration": 0.02943
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"storage\")",
+        "result": "Passed",
+        "duration": 0.097717
+      }
+    ],
+    "report": "artifacts/local-command-rings/editor-tests.xml"
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 294,
+    "selfTests": 12,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "build": {
+    "passed": true,
+    "backend": "Mono",
+    "editor": "6000.4.9f1",
+    "output": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\player-mono\\DarkNights.exe",
+    "inputFiles": 2629,
+    "changedInputs": 0,
+    "files": 412,
+    "bytes": 199189636.0,
+    "started": "2026-09-14T21:47:11.3100065Z",
+    "log": "artifacts/local-command-rings/build-mono.log"
+  },
+  "playerValidation": {
+    "passed": true,
+    "steps": [
+      {
+        "name": "startup",
+        "passed": true,
+        "checks": 6,
+        "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\run-20260915-054950-028-mono/result.json"
+      },
+      {
+        "name": "local-rings-rendered",
+        "passed": true,
+        "checks": 22,
+        "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\session-20260915-054954-297/result.json"
+      },
+      {
+        "name": "session",
+        "passed": true,
+        "checks": 13,
+        "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\session-20260915-055008-179/result.json"
+      },
+      {
+        "name": "battle",
+        "passed": true,
+        "checks": 9,
+        "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\battle-20260915-055018-760/result.json"
+      },
+      {
+        "name": "local-rings-weak-network",
+        "passed": true,
+        "checks": 22,
+        "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\session-20260915-055040-667/result.json"
+      }
+    ],
+    "error": null,
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\player-mono\\DarkNights.exe",
+    "weakNetwork": {
+      "rttMs": 200,
+      "jitterMs": 25,
+      "loss": 0.05,
+      "transport": {
+        "received": 829,
+        "dropped": 36,
+        "forwarded": 793,
+        "reordered": 217,
+        "peer_resets": 5,
+        "received_bytes": 300336,
+        "forwarded_bytes": 289227,
+        "client_to_server_bytes": 8658,
+        "server_to_client_bytes": 291678,
+        "elapsed_seconds": 18.220044900001085
+      },
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\weak-relay-20260915-054950.json"
+    }
+  },
+  "playerChecks": 72.0,
+  "entrySha256": "FFE4AA62CA8B131EE0A39F01DCBC1E24D5BFFE7DC505AE94E0D4306C3FCBAC88",
+  "integrity": {
+    "sourceFiles": 2629,
+    "sourceChanges": 0,
+    "playerFiles": 412,
+    "playerChanges": 0,
+    "checkedAt": "2026-09-14T21:53:35.551209Z"
+  },
+  "protectedAssetCount": 1507,
+  "protectedAssetChanges": 0,
+  "screenshots": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\session-20260915-054954-297\\guest-own-click.png",
+      "sha256": "348E77357385F6F299010CCB32778A3784291E236075CDCC4DA765752103BC79",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\session-20260915-054954-297\\host-after-guest-click.png",
+      "sha256": "F2DE9F2604D0FC910AD50990904308341605724A129E892A22134878E66782CE",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\session-20260915-054954-297\\host-own-click.png",
+      "sha256": "C326F69BBCB4B9A7923D6B03F0B2BE1A7D6B40686C2862F5B5907A8FFFF8FBAE",
+      "visuallyReviewed": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\session-20260915-054954-297\\guest-after-host-click.png",
+      "sha256": "24A32C74ACF568F72F464B4B8B1D93503FD2C9FD2577BC8B0CDFE92379C6D354",
+      "visuallyReviewed": true
+    }
+  ],
+  "cleanup": {
+    "status": "blocked_by_automatic_approval",
+    "reason": "blocked by policy",
+    "commandExecuted": false,
+    "retried": false,
+    "releasedBytes": 0,
+    "retainedBytes": 35842798.0,
+    "targets": [
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\build-temp",
+        "files": 31,
+        "bytes": 2459425.0,
+        "status": "保留",
+        "reason": "整批清理命令被自动审批以 blocked by policy 拒绝；命令未执行且不重试",
+        "condition": "留待后续获准的清理操作"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\player-mono\\DNights_BurstDebugInformation_DoNotShip",
+        "files": 1,
+        "bytes": 245248.0,
+        "status": "保留",
+        "reason": "整批清理命令被自动审批以 blocked by policy 拒绝；命令未执行且不重试",
+        "condition": "留待后续获准的清理操作"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\ArchitectureGuard\\bin",
+        "files": 33,
+        "bytes": 32927744.0,
+        "status": "保留",
+        "reason": "整批清理命令被自动审批以 blocked by policy 拒绝；命令未执行且不重试",
+        "condition": "留待后续获准的清理操作"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\ArchitectureGuard\\obj",
+        "files": 21,
+        "bytes": 210381.0,
+        "status": "保留",
+        "reason": "整批清理命令被自动审批以 blocked by policy 拒绝；命令未执行且不重试",
+        "condition": "留待后续获准的清理操作"
+      }
+    ],
+    "disks": [
+      {
+        "Name": "C",
+        "Free": 5059026944
+      },
+      {
+        "Name": "D",
+        "Free": 29339082752
+      }
+    ],
+    "checkedAt": "2026-09-14T21:58:33.0479833Z"
+  },
+  "remaining": [
+    "前台性能验收继续暂缓",
+    "IL2CPP 未构建或验证",
+    "双机器 LAN 待条件",
+    "完整游戏矩阵与固定世界对照未在本切片重跑，M5 尚未完成"
+  ]
+}

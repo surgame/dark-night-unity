@@ -19,9 +19,11 @@
 | 工位库存、占用和生产进度 | WorksiteBehaviour／WorksiteState | 占用关系与单位任务在同一事务更新 |
 | 请求队列、连接代次、Ready、epoch、共享策略 | SessionAuthority 与可信网络适配 | 不把连接／权限写入存档 |
 | 冻结展示帧与客户端副本 | SessionProjector、WorldReplica、ObjectReplica | 无业务写权限，不自行计算资源或伤害 |
-| 选择、镜头、悬停、预览、待确认反馈 | 各客户端交互状态 | Host 也只从展示副本驱动画面 |
+| 选择、镜头、悬停、预览、待确认反馈 | 各客户端交互状态 | Host 也只从展示副本驱动画面；右键指令圈由本地输入驱动 |
 
 ObjectSession 只组合能力、上下文、资源租约和对象索引，不保存第二套经济／实体状态。SessionEntityIndex 只引用 YYGC 对象。旧 GameSession、WorldState、Entity、Commands／Systems 运行链及过渡 SessionWorld 已删除。
+
+右键指令圈不属于会话状态、表现事件或网络投影。`LocalCommandRings` 通过正式效果定义预热八个本地实例并复用网格，0.8 秒未缩放时间后隐藏；连接代次或 epoch 变化时清空显示，宿主释放时显式清理网格和对象。具体输入权限及验证见[本地指令圈](LOCAL_COMMAND_RINGS.md)。
 
 所有可写 State 使用 YYGC 会话权限。网络 DTO、ScriptableObject、展示副本和客户端 Behaviour 不成为另一份权威模型。单对象 State 的变化不自行发送个体 RPC。
 

@@ -110,7 +110,8 @@ try {
         @{ Kind = 'command'; X = 760; Y = 320 }
     )
     Sample 'host' 'remnants' 730 2.8 1 17 6 $cues
-    Sample 'client1' 'client-remnants' 730 2.8 1 17 6
+    # 指令圈属于各端输入；来宾画面对照显式触发自己的本地圈，不从 Host 投影取得。
+    Sample 'client1' 'client-remnants' 730 2.8 1 17 6 @(@{ Kind = 'command'; X = 760; Y = 320 })
     Verify-Capture 'host' 'remnants' 'remnants' 20 6
     Verify-Capture 'client1' 'client-remnants' 'remnants' 20 6
     Load-Fixture 0 17

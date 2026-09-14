@@ -26,13 +26,18 @@ namespace DarkNights.Tests
             string frozen = JsonConvert.SerializeObject(first.Events);
             Execute(session, host, Request(session, SessionOperation.SetPaused, 1, value: 1));
             int actor = first.World.Actors.First(a => a.Kind == "worker").Id;
+            var site = first.World.Worksites.First(w => w.Kind == "wood");
+            Execute(session, host, Request(session, SessionOperation.IssueOrders, 2, new[] { actor }, x: 510));
+            check(session.CaptureProjection().Events.Count == first.Events.Count,
+                "Host movement does not publish a local command ring");
             SessionRequest last = null;
             for (int i = 1; i <= 150; i++)
             {
-                last = Request(session, SessionOperation.IssueOrders, i, new[] { actor }, x: 600 + i % 4);
+                last = Request(session, SessionOperation.IssueOrders, i, new[] { actor }, site.Id, site.X);
                 Execute(session, guest, last);
             }
             var current = session.CaptureProjection();
+            check(current.Events.All(e => e.Cue?.Kind != "command"), "Guest orders never publish local command rings");
             check(current.Events.Count == SessionViewData.MaximumEvents && current.Events[0].Sequence > 1,
                 "Presentation window is bounded and discards only old event records");
             check(current.Events.All(e => e.Tick <= current.ServerTick) && current.Elapsed == 0,
@@ -42,10 +47,10 @@ namespace DarkNights.Tests
             long sequence = current.Events.Last().Sequence;
             session.Submit(guest, last);
             session.Tick();
-            check(session.CaptureProjection().Events.Last().Sequence == sequence, "Duplicate business request cannot emit another command ring");
+            check(session.CaptureProjection().Events.Last().Sequence == sequence, "Duplicate business request cannot emit another gathering notification");
             var codec = Codec(catalog, layout);
             string saved = codec.Serialize(session.CaptureWorld());
-            var ticket = Execute(session, host, Request(session, SessionOperation.BeginLoad, 2));
+            var ticket = Execute(session, host, Request(session, SessionOperation.BeginLoad, 3));
             session.CompleteLoad(ticket, saved);
             var restored = session.CaptureProjection();
             check(restored.Epoch == first.Epoch + 1 && restored.Events.Count == 0, "Loading clears old-world transient events");

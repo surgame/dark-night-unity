@@ -10,6 +10,7 @@ namespace DarkNights.View
     /// </summary>
     public sealed class NativeEffect : MonoBehaviour
     {
+        public const double CommandLifetime = 0.8;
         [SerializeField] private Text label;
         [SerializeField] private Image icon;
         [SerializeField] private Sprite[] resources;
@@ -65,7 +66,7 @@ namespace DarkNights.View
                 ring.sharedMesh = ringMesh;
             }
             float radius = (5 + (float)age * 10) / 100;
-            var tint = new Color(.9f, .84f, .56f, Mathf.Clamp01(1 - (float)age / .8f));
+            var tint = new Color(.9f, .84f, .56f, Mathf.Clamp01(1 - (float)(age / CommandLifetime)));
             for (int i = 0; i < segments; i++)
             {
                 float a = i * Mathf.PI * 2 / segments, b = (i + 1) * Mathf.PI * 2 / segments;
@@ -88,12 +89,19 @@ namespace DarkNights.View
             if (label != null && font == label.font && font.material.mainTexture != null)
                 font.material.mainTexture.filterMode = FilterMode.Point;
         }
-        private void OnDestroy()
+        /// <summary>由池所有者显式释放运行网格；覆盖尚未显示及 EditMode 中没有销毁回调的实例，可重复调用。</summary>
+        public void ReleaseRuntimeResources()
         {
             if (ringMesh == null) return;
+            if (ring != null && ring.sharedMesh == ringMesh) ring.sharedMesh = null;
             if (Application.isPlaying) Destroy(ringMesh);
             else DestroyImmediate(ringMesh);
+            ringMesh = null;
+            ringVertices = null;
+            ringColors = null;
         }
+
+        private void OnDestroy() => ReleaseRuntimeResources();
 
         public void Present(ProjectileViewData arrow, double age, float ground)
         {

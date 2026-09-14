@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-15 完成[右键指令圈本地化切片](LOCAL_COMMAND_RINGS.md)：服务端不再发布指令圈，网络投影拒绝该本地效果；输入立即驱动八槽原生对象／网格池，断线与新 epoch 清空显示，退出显式释放运行网格。相关 Editor 24/24、架构 294 文件／12 自测／0 错误、同一新 Mono 72/72 通过，覆盖双方隔离、密集点击、暂停、权限、重连、实际战斗及真实 UDP 弱网；四张隔离截图已复核。2,629 个输入和 412 个产物哈希一致，本切片没有新增 YYGC 修改。清理批次被自动审批拒绝，约 34.18 MiB 保留并列账，释放量 0；不改变前台性能、IL2CPP、双机器 LAN 和 M5 边界。按用户要求，AGENTS 已加入中文提交标题和正文规范。
+
 2026-09-15 完成 Pinewatch 场景放置收口：16 个正式 Prefab 根已直接挂在 Buildings／Worksites／Actors 分组，旧辅助父节点和 `VisualPreview` 退出。薄组件改名为 `ScenePlacement`，只保存 Editor 自动维护的稳定放置身份和实例初值；Inspector 不暴露完整键值，复制实例会自动换新。创建顺序改为分组内 sibling 顺序，删除并行 `SpawnOrder`。冻结布局与直接场景实例检查通过，架构守卫 292 文件／12 自测／0 错误；未修改 YYGC、规则、美术或 Prefab，未构建 Player，其余验收边界不变。
 
 2026-09-14 完成[原生对象主视图统一](NATIVE_OBJECT_VIEWS.md)：`ActorView`、`BuildingView`、`WorksiteView` 直接继承 YYGC `ObjectView`，15 个正式 Prefab 不再并列挂载泛型 `ObjectView` 与 `NativeVisual`，也不再以 `"visual"` 把对象绑定回自身。Pinewatch 16 个放置引用、被动预览／残骸工厂、Editor 制作入口及测试合同已同步。Unity 编译、相关测试与 291 文件／12 自测架构守卫通过；最终完整批次 155/156，唯一失败为未修改的 `NativeButtonThemeTests.InteractableChangesUpdateWithoutPointerMovement`，隔离复跑 5/6。本切片未构建 Player、未修改 YYGC；前台性能、IL2CPP、双机器 LAN 和 M5 状态不变。

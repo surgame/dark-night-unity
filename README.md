@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-15 完成[右键指令圈本地化与复用](docs/LOCAL_COMMAND_RINGS.md)：移除服务端圆圈事件，发起端立即显示并复用八个原生实例，暂停、换局和重连按本地生命周期处理。相关 Editor 24/24、架构守卫 294 文件／12 自测／0 错误、同一新 Mono 的启动／会话／战斗／双端隔离及弱网共 72/72 通过；四张隔离截图已复核。当前切片 Player 位于 `artifacts/local-command-rings/player-mono`。本批清理被自动审批拒绝，约 34.18 MiB 已列账保留；前台性能、IL2CPP、双机器 LAN 和 M5 状态不变。
+
 2026-09-15 已完成 Pinewatch 场景放置收口：16 个正式对象 Prefab 根直接位于 Buildings／Worksites／Actors 分组，不再保留辅助父节点或 `VisualPreview`。`LevelPlacementMarker` 已收窄并更名为 `ScenePlacement`；内部放置身份由 Editor 自动生成、复制时自动换新且在 Inspector 只读，创建顺序唯一取自分组内 sibling 顺序，不再维护 `SpawnOrder`。实例名称与外观变体仍作为场景初值保留。冻结布局与场景结构相关用例通过，架构守卫 292 文件／12 自测／0 错误；本切片未修改 YYGC、规则、美术或 Prefab，未构建 Player，不改变性能、IL2CPP、双机器 LAN 与 M5 边界。
 
 2026-09-14 最新完成[原生对象主视图统一](docs/NATIVE_OBJECT_VIEWS.md)：15 个正式实体 Prefab 现在各自只保留一个 `ActorView`／`BuildingView`／`WorksiteView` 主视图，删除并行 `NativeVisual` 和 `"visual"` 自绑定，Pinewatch 的 16 个放置标记已同步。Unity 编译、相关装配／资源／表现测试和架构守卫通过；最终完整批次为 155/156，唯一失败是未修改的按钮主题 EditMode 帧调度测试，单独复跑仍为 5/6。本切片没有修改 YYGC、没有生成新 Player，也不改变前台性能、IL2CPP、双机器 LAN 与 M5 未完成边界。

@@ -29,6 +29,7 @@ namespace DarkNights.Tests
                 var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(folder + ".asset");
                 Assert.AreEqual(AssetDatabase.AssetPathToGUID(folder + ".prefab"), definition.PrefabRef.AssetGUID);
                 var root = PrefabUtility.LoadPrefabContents(folder + ".prefab");
+                NativeEffect effect = null;
                 try
                 {
                     var view = root.GetComponent<ObjectView>();
@@ -44,7 +45,7 @@ namespace DarkNights.Tests
                         Assert.IsTrue(music.loop);
                         continue;
                     }
-                    NativeEffect effect = view.Get<NativeEffect>("effect"); Assert.NotNull(effect);
+                    effect = view.Get<NativeEffect>("effect"); Assert.NotNull(effect);
                     if (name == "Arrow")
                     {
                         effect.Present(new ProjectileViewData(1, 100, 300, 200, 300, 0.5, 1), 0.5, 320);
@@ -75,7 +76,11 @@ namespace DarkNights.Tests
                         Assert.That(root.GetComponentInChildren<Image>().color.r, Is.EqualTo(1).Within(.001));
                     }
                 }
-                finally { PrefabUtility.UnloadPrefabContents(root); }
+                finally
+                {
+                    effect?.ReleaseRuntimeResources();
+                    PrefabUtility.UnloadPrefabContents(root);
+                }
             }
         }
 

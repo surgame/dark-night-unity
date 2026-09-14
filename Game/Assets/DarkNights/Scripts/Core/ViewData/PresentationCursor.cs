@@ -37,7 +37,6 @@ namespace DarkNights.Core.ViewData
         public void Reset() { epoch = 0; sequence = 0; remnants.Clear(); }
         public static double Age(SessionViewData frame, PresentationEvent item) => (frame.ServerTick - item.Tick) / 60.0;
         public static double Lifetime(PresentationEvent item) => item.Type == "sound" ? 0.5 :
-            item.Type != "effect" ? 5 : item.Cue.Kind == "corpse" ? 8 : item.Cue.Kind == "rubble" ? 180 :
-            item.Cue.Kind == "command" ? 0.8 : 1.6;
+            item.Type != "effect" ? 5 : item.Cue.Kind == "corpse" ? 8 : item.Cue.Kind == "rubble" ? 180 : 1.6;
     }
 }

@@ -101,7 +101,7 @@ namespace DarkNights.Runtime.Network
                 }
                 Position(item.X, layout);
                 Require(Finite(item.Y) && Math.Abs(item.Y - layout.GroundY) <= 1000 && (item.Face == -1 || item.Face == 0 || item.Face == 1));
-                Require(item.Kind == "damage" || item.Kind == "resource" || item.Kind == "corpse" || item.Kind == "rubble" || item.Kind == "command");
+                Require(item.Kind == "damage" || item.Kind == "resource" || item.Kind == "corpse" || item.Kind == "rubble");
                 if (item.Kind == "corpse") Require(catalog.Balance.Units.ContainsKey(item.ContentId));
                 if (item.Kind == "rubble") Require(catalog.Balance.Buildings.ContainsKey(item.ContentId));
                 if (item.Kind == "resource") Require(GameText.ResourceIds.Contains(item.ContentId));
