@@ -44,7 +44,7 @@ namespace DarkNights.Tests
                 foreach (string name in new[] { "Worker", "Spearman", "Archer", "Zombie", "Ghoul", "Armored" })
                 {
                     var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/DarkNights/Res/Objects/" + name + "/" + name + ".prefab");
-                    var visual = new SerializedObject(prefab.GetComponent<NativeVisual>());
+                    var visual = new SerializedObject(prefab.GetComponent<ActorView>());
                     Assert.NotNull(visual.FindProperty("shadow").objectReferenceValue);
                 }
             }

@@ -132,8 +132,8 @@ namespace DarkNights.Editor
             {
                 string name = (string)spec["name"];
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(ObjectsRoot + "/" + name + "/" + name + ".prefab");
-                if (prefab == null || prefab.GetComponent<DarkNights.View.NativeVisual>() == null)
-                    throw new InvalidOperationException("Native visual missing: " + name);
+                if (prefab == null || prefab.GetComponent<DarkNights.View.EntityView>() == null)
+                    throw new InvalidOperationException("Entity primary view missing: " + name);
                 var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(ObjectsRoot + "/" + name + "/" + name + ".asset");
                 NativeObjectContracts.ValidateLocal(name, definition, prefab);
             }

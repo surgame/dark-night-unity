@@ -7,7 +7,6 @@ using GameCore.Objects.Behaviours;
 using GameCore.Objects.Definition;
 using GameCore.Objects.NetworkStates;
 using GameCore.Objects.Runner;
-using GameCore.Objects.Views;
 using UnityEditor;
 using UnityEngine;
 using YY.Features.Players.View;
@@ -46,6 +45,13 @@ namespace DarkNights.Editor
                 typeof(BuildingPresentationBehaviour) : typeof(WorksitePresentationBehaviour);
         }
 
+        public static Type ViewType(string name)
+        {
+            int index = Array.IndexOf(Names, name);
+            if (index < 0) throw new ArgumentException("Unknown formal local object: " + name, nameof(name));
+            return index < 6 ? typeof(ActorView) : index < 11 ? typeof(BuildingView) : typeof(WorksiteView);
+        }
+
         public static void RequireGenerated(Type type)
         {
             if (!BehaviourTypeResolver.Factories.TryGetValue(type, out var factory) || factory == null ||
@@ -66,16 +72,18 @@ namespace DarkNights.Editor
             if (DefinitionRuleIndex.RuleKey(definition) != NativeArtSetup.ContentId(name))
                 throw new InvalidOperationException("Authored rule does not match its native object: " + name);
             var instance = prefab.GetComponent<ObjectInstance>();
-            var view = prefab.GetComponent<ObjectView>();
+            var view = prefab.GetComponent<EntityView>();
             var initializer = prefab.GetComponent<LocalObjectInstanceInitializer>();
             view?.BuildRuntimeCache();
-            const string key = "visual";
             if (instance == null || view == null || initializer == null || instance.ObjectView != view ||
                 initializer.ObjectInstance != instance || (UnityEngine.Object)view.Initializer != initializer ||
-                view.Bindings.Count(binding => binding.Key == key) != 1 ||
-                view.Get<NativeVisual>(key) == null || view.Get<NativeVisual>(key).gameObject != prefab)
-                throw new InvalidOperationException("Explicit local instance/initializer/visual binding is incomplete: " + name);
-            var visualData = new SerializedObject(view.Get<NativeVisual>(key));
+                view.GetType() != ViewType(name) || view.gameObject != prefab ||
+                view.Bindings.Any(binding => binding.Key == "visual" || binding.Key == "art_offset" ||
+                    binding.Key == "facing" || binding.Key == "status_anchor" || binding.Key == "selection_anchor"))
+                throw new InvalidOperationException("Local instance does not use its dedicated EntityView as the sole primary view: " + name);
+            if (view.StatusAnchor == null || view.SelectionAnchor == null || view.Portrait == null || view.TintTargetCount == 0)
+                throw new InvalidOperationException("EntityView common authoring references are incomplete: " + name);
+            var visualData = new SerializedObject(view);
             var sorting = visualData.FindProperty("sorting").objectReferenceValue as UnityEngine.Rendering.SortingGroup;
             int order = expected == typeof(ActorPresentationBehaviour) ? 100 : expected == typeof(WorksitePresentationBehaviour) ? 10 : 0;
             if (sorting == null || sorting.gameObject != prefab || sorting.sortingOrder != order)

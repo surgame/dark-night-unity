@@ -7,7 +7,6 @@ using GameCore.Objects.Definition;
 using GameCore.Objects.Runner;
 using UnityEditor;
 using UnityEngine;
-using YY.Features.Players.View;
 
 namespace DarkNights.Editor
 {
@@ -32,7 +31,7 @@ namespace DarkNights.Editor
             Undo.RegisterCreatedObjectUndo(instance, "Create definition placement");
             instance.name = name;
             instance.transform.localPosition = position;
-            instance.transform.localScale = Vector3.one * NativeVisual.PixelsPerUnit;
+            instance.transform.localScale = Vector3.one * EntityView.PixelsPerUnit;
             ObjectDefinitionLoader loader = Undo.AddComponent<ObjectDefinitionLoader>(instance);
             loader.EditorConfigure(definition);
             return Configure(loader, order, variant, actorName);
@@ -40,14 +39,14 @@ namespace DarkNights.Editor
 
         public static LevelPlacementMarker Configure(ObjectDefinitionLoader loader, int order, int variant, string actorName, bool refreshPreview = true)
         {
-            ObjectView view = loader.GetComponent<ObjectView>();
-            if (view == null) throw new InvalidOperationException("Scene prefab is missing ObjectView.");
+            EntityView view = loader.GetComponent<EntityView>();
+            if (view == null) throw new InvalidOperationException("Scene prefab is missing its EntityView primary view.");
             var placement = loader.GetComponent<LevelPlacementMarker>();
             if (placement == null) placement = Undo.AddComponent<LevelPlacementMarker>(loader.gameObject);
             Undo.RecordObject(placement, "Configure scene placement");
             placement.EditorConfigure(loader, view, order, variant, actorName);
             ValidatePlacement(placement);
-            if (refreshPreview) view.Get<NativeVisual>("visual").Preview(order, variant);
+            if (refreshPreview) view.Preview(order, variant);
             EditorUtility.SetDirty(placement);
             PrefabUtility.RecordPrefabInstancePropertyModifications(loader.transform);
             foreach (SpriteRenderer sprite in loader.GetComponentsInChildren<SpriteRenderer>(true))
@@ -67,8 +66,8 @@ namespace DarkNights.Editor
             DefinitionRuleIndex.RuleKey(placement.Loader.ResolveDefinition());
             if (!placement.Loader.EditorPrefabMatchesDefinition())
                 throw new InvalidOperationException("Definition PrefabRef changed; explicitly update the scene instance: " + placement.name);
-            if (placement.View.Get<NativeVisual>("visual") == null)
-                throw new InvalidOperationException("Scene instance is missing its explicit visual binding: " + placement.name);
+            if (placement.Loader.GetComponent<EntityView>() != placement.View)
+                throw new InvalidOperationException("Scene instance does not use its EntityView as the primary view: " + placement.name);
         }
 
         private static void OnCreated(ObjectDefinitionLoader loader)
@@ -85,7 +84,7 @@ namespace DarkNights.Editor
             Vector3 point = loader.transform.position;
             point.y = layout.GroundPoint.y;
             loader.transform.position = point;
-            loader.transform.localScale = Vector3.one * NativeVisual.PixelsPerUnit;
+            loader.transform.localScale = Vector3.one * EntityView.PixelsPerUnit;
             Configure(loader, order, 0, "");
         }
     }

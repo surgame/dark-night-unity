@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DarkNights.View;
 using GameCore.Objects.Behaviours;
 using GameCore.Objects.Definition;
 using GameCore.Objects.Runner;
@@ -183,28 +184,34 @@ namespace DarkNights.Tests
         }
 
         [Test]
-        public void MissingGeneratedViewBindingRejectsRealWorkerPrefab()
+        public void RealWorkerUsesSpecializedPrimaryViewWithoutSelfBinding()
         {
             var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>("Assets/DarkNights/Res/Objects/Worker/Worker.asset");
             var root = PrefabUtility.LoadPrefabContents("Assets/DarkNights/Res/Objects/Worker/Worker.prefab");
             try
             {
-                root.GetComponent<ObjectView>().EditorSetBindings(Array.Empty<ViewComponentBinding>(), false);
-                Assert.Throws<InvalidOperationException>(() => root.GetComponent<ObjectInstance>().Initialize("bad-binding", definition));
-                Assert.That(root.GetComponent<ObjectInstance>().GetBehaviourCount(), Is.Zero);
+                var view = root.GetComponent<ActorView>();
+                Assert.That(view, Is.Not.Null);
+                Assert.That(root.GetComponents<ObjectView>(), Has.Length.EqualTo(1));
+                Assert.That(view.Bindings, Is.Empty);
+                FormalObjectContentTests.ExpectRegistrationWithoutRuntime(definition.BehaviourTypes.Count);
+                ObjectDefinitionInitialization.Initialize(view.Initializer, definition);
+                var presentation = root.GetComponent<ObjectInstance>().GetBehaviour<ActorPresentationBehaviour>();
+                Assert.That(presentation, Is.Not.Null);
+                Assert.That(presentation.Visual, Is.SameAs(view));
             }
             finally { PrefabUtility.UnloadPrefabContents(root); }
         }
 
         [Test]
-        public void CachedRequirementsStillRejectChangedConfigsAndBindings()
+        public void CachedRequirementsStillRejectChangedConfigsForBindingFreeView()
         {
             var definition = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ObjectDefinition>(
                 "Assets/DarkNights/Res/Objects/Worker/Worker.asset"));
             var root = PrefabUtility.LoadPrefabContents("Assets/DarkNights/Res/Objects/Worker/Worker.prefab");
             try
             {
-                var view = root.GetComponent<ObjectView>();
+                var view = root.GetComponent<ActorView>();
                 ObjectAssemblyValidation.Validate(definition, view);
                 ObjectAssemblyValidation.Validate(definition, view);
                 var movement = definition.SharedConfigs.OfType<DarkNights.Runtime.Objects.MovementConfig>().Single();
@@ -212,12 +219,7 @@ namespace DarkNights.Tests
                 Assert.Throws<InvalidOperationException>(() => ObjectAssemblyValidation.Validate(definition, view));
                 definition.SharedConfigs.Add(movement);
                 ObjectAssemblyValidation.Validate(definition, view);
-                var bindings = view.Bindings.ToArray();
-                view.EditorSetBindings(Array.Empty<ViewComponentBinding>(), false);
-                Assert.Throws<InvalidOperationException>(() => ObjectAssemblyValidation.Validate(definition, view));
-                view.EditorSetBindings(bindings.Concat(bindings).ToArray(), false);
-                Assert.Throws<InvalidOperationException>(() => ObjectAssemblyValidation.Validate(definition, view));
-                view.EditorSetBindings(bindings, false);
+                Assert.That(view.Bindings, Is.Empty);
                 ObjectAssemblyValidation.Validate(definition, view);
             }
             finally { PrefabUtility.UnloadPrefabContents(root); UnityEngine.Object.DestroyImmediate(definition); }

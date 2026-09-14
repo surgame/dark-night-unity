@@ -22,8 +22,8 @@ namespace DarkNights.Entry
         private readonly Dictionary<long, (ObjectView Owner, NativeEffect Effect)> arrows =
             new Dictionary<long, (ObjectView, NativeEffect)>();
         private readonly HashSet<long> pendingArrows = new HashSet<long>();
-        private readonly List<(ObjectView Owner, NativeEffect Effect, NativeVisual Remnant, PresentationEvent Event, double Born)> effects =
-            new List<(ObjectView, NativeEffect, NativeVisual, PresentationEvent, double)>();
+        private readonly List<(ObjectView Owner, NativeEffect Effect, EntityView Remnant, PresentationEvent Event, double Born)> effects =
+            new List<(ObjectView, NativeEffect, EntityView, PresentationEvent, double)>();
         private SessionClient client;
         private SessionUiController ui;
         private PinewatchStage stage;
@@ -81,7 +81,7 @@ namespace DarkNights.Entry
                 if (effect.Remnant != null)
                 {
                     effect.Remnant.Ambient = stage.Ambient;
-                    effect.Remnant.PresentRemnant(effect.Event.Cue, age);
+                    RequiredRemnant(effect.Remnant).PresentRemnant(effect.Event.Cue, age);
                 }
                 else effect.Effect.Present(effect.Event.Cue, age, ground, stage.IlluminationAt(effect.Owner.transform.position));
             }
@@ -99,11 +99,12 @@ namespace DarkNights.Entry
             try
             {
                 bool remnant = item.Cue.Kind == "corpse" || item.Cue.Kind == "rubble";
-                owner = remnant ? await NativeVisualFactory.Create(item.Cue.ContentId, stage.Entities) :
+                owner = remnant ? await EntityViewFactory.Create(item.Cue.ContentId, stage.Entities) :
                     await Create(item.Cue.Kind == "command" ? "effect.command" : "effect.floating");
                 if (!Current(captured) || Time.unscaledTimeAsDouble - born >= PresentationCursor.Lifetime(item)) { Release(owner); return; }
                 // 残骸复用同一定义外观，但从不绑定已消失的活实体。
-                NativeVisual visual = remnant ? NativeVisualFactory.RequiredPresentation(owner).Visual : null;
+                EntityView visual = remnant ? EntityViewFactory.RequiredPresentation((EntityView)owner).Visual : null;
+                if (visual != null) RequiredRemnant(visual);
                 NativeEffect effect = remnant ? null : Required<NativeEffect>(owner, "effect");
                 owner.transform.position = new Vector3(item.Cue.X / 100, (ground - item.Cue.Y) / 100, 0);
                 effects.Add((owner, effect, visual, item, born));
@@ -118,7 +119,7 @@ namespace DarkNights.Entry
                 if (item.Remnant != null)
                 {
                     item.Remnant.Ambient = stage.Ambient;
-                    item.Remnant.PresentRemnant(item.Event.Cue, age);
+                    RequiredRemnant(item.Remnant).PresentRemnant(item.Event.Cue, age);
                 }
                 else item.Effect.Present(item.Event.Cue, age, ground, stage.IlluminationAt(item.Owner.transform.position));
             }
@@ -145,9 +146,11 @@ namespace DarkNights.Entry
         }
         private static T Required<T>(ObjectView owner, string key) where T : Component =>
             owner != null && owner.Get<T>(key) != null ? owner.Get<T>(key) : throw new InvalidOperationException("Missing native effect binding: " + key);
+        private static IRemnantView RequiredRemnant(EntityView view) => view is IRemnantView remnant ? remnant :
+            throw new InvalidOperationException("Entity view cannot present a remnant: " + view.GetType().Name);
         private bool Current(int captured) => this != null && generation == captured &&
             client.ConnectionGeneration == connection && client.Replica.Current?.Epoch == epoch;
-        private static void Release(ObjectView owner) => NativeVisualFactory.Release(owner);
+        private static void Release(ObjectView owner) => EntityViewFactory.Release(owner);
         private void Clear()
         {
             generation++; cursor.Reset(); applied = null;

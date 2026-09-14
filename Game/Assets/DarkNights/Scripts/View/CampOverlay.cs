@@ -32,7 +32,7 @@ namespace DarkNights.View
             float zoom = stage.Zoom;
             foreach (ActorViewData actor in frame.World.Actors)
             {
-                NativeVisual visual = visuals.Visual(actor.Id);
+                EntityView visual = visuals.Visual(actor.Id);
                 if (visual == null) continue;
                 bool selected = input.Selected.Contains(actor.Id), hover = input.Hover == actor.Id;
                 Vector2 root = Point(visual.transform.position);
@@ -48,7 +48,7 @@ namespace DarkNights.View
             }
             foreach (BuildingViewData building in frame.World.Buildings)
             {
-                NativeVisual visual = visuals.Visual(building.Id);
+                EntityView visual = visuals.Visual(building.Id);
                 if (visual == null) continue;
                 BuildingDefinition definition = catalog.Balance.Buildings[building.Kind];
                 Vector2 root = Point(visual.transform.position), status = Point(visual.StatusAnchor.position);
@@ -67,7 +67,7 @@ namespace DarkNights.View
             }
             foreach (WorksiteViewData site in frame.World.Worksites)
             {
-                NativeVisual visual = visuals.Visual(site.Id);
+                EntityView visual = visuals.Visual(site.Id);
                 if (visual == null) continue;
                 Vector2 root = Point(visual.transform.position);
                 if (input.Selected.Contains(site.Id) || input.Hover == site.Id)

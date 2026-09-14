@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using DarkNights.Runtime.Framework;
 using DarkNights.Runtime.Network;
+using DarkNights.View;
 using FishNet.Managing.Object;
 using FishNet.Object;
 using GameCore.Editor.NetworkCommands;
@@ -10,7 +11,6 @@ using GameCore.Editor.Objects.Definition;
 using GameCore.Objects.Definition;
 using GameCore.Objects.NetworkStates;
 using GameCore.Objects.Runner;
-using GameCore.Objects.Views;
 using UnityEditor;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
@@ -22,7 +22,7 @@ namespace DarkNights.Editor
 {
     /// <summary>
     /// 在两个指定空目录中一次性创建首批正式 YYGC 定义和原生 Prefab。
-    /// 会话立即配置完整生命周期；Worker 骨架等待原生素材安装后追加表现行为与 visual 绑定。
+    /// 会话立即配置完整生命周期；Worker 骨架预置 ActorView，等待原生素材安装后补齐专用表现引用。
     /// 日常调用仅验证身份、绑定与生成注册，不覆盖人工维护的资产。
     /// </summary>
     public static class FormalObjectContentSetup
@@ -130,18 +130,14 @@ namespace DarkNights.Editor
             {
                 ObjectInstance instance = root.AddComponent<ObjectInstance>();
                 LocalObjectInstanceInitializer initializer = root.AddComponent<LocalObjectInstanceInitializer>();
-                ObjectView view = root.AddComponent<ObjectView>();
+                ActorView view = root.AddComponent<ActorView>();
                 Transform art = Child(root.transform, "ArtOffset");
                 Transform facing = Child(art, "Facing");
                 Transform status = Child(root.transform, "StatusAnchor");
                 Transform selection = Child(root.transform, "SelectionAnchor");
-                view.EditorSetBindings(new[]
-                {
-                    new ViewComponentBinding("art_offset", art),
-                    new ViewComponentBinding("facing", facing),
-                    new ViewComponentBinding("status_anchor", status),
-                    new ViewComponentBinding("selection_anchor", selection)
-                }, false);
+                SetReference(view, "statusAnchor", status);
+                SetReference(view, "selectionAnchor", selection);
+                SetReference(view, "facing", facing);
                 SetReference(instance, "_view", view);
                 SetReference(initializer, "_objectInstance", instance);
                 view.ForceRefreshAllReferences();
@@ -198,16 +194,14 @@ namespace DarkNights.Editor
         private static void ValidateWorkerPrefab(GameObject prefab, bool requireNativeArt)
         {
             ObjectInstance instance = prefab.GetComponent<ObjectInstance>();
-            ObjectView view = prefab.GetComponent<ObjectView>();
+            ActorView view = prefab.GetComponent<ActorView>();
             LocalObjectInstanceInitializer initializer = prefab.GetComponent<LocalObjectInstanceInitializer>();
             if (instance == null || view == null || initializer == null || instance.ObjectView != view ||
                 initializer.ObjectInstance != instance || (UnityEngine.Object)view.Initializer != initializer)
                 throw new InvalidOperationException("Worker ObjectInstance/ObjectView/initializer binding is invalid.");
-            string[] keys = { "art_offset", "facing", "status_anchor", "selection_anchor" };
-            int expectedCount = keys.Length + (requireNativeArt ? 1 : 0);
-            if (view.Bindings.Count != expectedCount || keys.Any(key => view.Get<Transform>(key) == null) ||
-                (requireNativeArt && view.Get<DarkNights.View.NativeVisual>("visual") == null))
-                throw new InvalidOperationException("Worker generated component binding table is incomplete.");
+            if (view.Bindings.Count != 0 || (requireNativeArt &&
+                (view.StatusAnchor == null || view.SelectionAnchor == null || view.Portrait == null)))
+                throw new InvalidOperationException("Worker ActorView authoring references are incomplete.");
         }
 
         private static void ValidateSessionPrefab(GameObject prefab)

@@ -52,7 +52,7 @@ namespace DarkNights.Editor
                 var entities = network.GetComponent<SessionEntityViews>();
                 var placement = network.GetComponent<SessionPlacementView>();
                 var stage = UnityEngine.Object.FindAnyObjectByType<PinewatchStage>();
-                NativeVisual[] sceneVisuals = UnityEngine.Object.FindObjectsByType<NativeVisual>();
+                EntityView[] sceneVisuals = UnityEngine.Object.FindObjectsByType<EntityView>();
                 if (network.Client.Replica.Current != null) throw new InvalidOperationException("Probe needs fresh MainMenu.");
                 await Button(mouse, "MainMenu", "Slot");
                 Check("main_menu_slot_changes_once", Page("MainMenu").Get<Text>("SlotLabel").text.StartsWith("存档槽位 2 / 10"));
@@ -73,13 +73,13 @@ namespace DarkNights.Editor
                 Check("right_click_assigns_work_while_paused", network.Client.Replica.Current.Paused);
                 await Button(mouse, "Chrome", "BuildHouse");
                 await Pointer(mouse, World(stage, 184), 0);
-                await Until(() => placement.Valid && UnityEngine.Object.FindObjectsByType<NativeVisual>().Length == entities.Count + 1);
+                await Until(() => placement.Valid && UnityEngine.Object.FindObjectsByType<EntityView>().Length == entities.Count + 1);
                 Check("definition_preview_valid_without_payment", network.Client.Replica.Current.World.Camp.Stock.Wood == 100);
                 await Click(mouse, World(stage, 184), 1);
                 await Until(() => network.Client.Replica.Current.World.Buildings.Count == 5);
                 Check("mouse_build_pays_once", network.Client.Replica.Current.World.Camp.Stock.Wood == 75);
                 await Click(mouse, World(stage, 184), 2);
-                await Until(() => ui.Input.BuildKind == "" && UnityEngine.Object.FindObjectsByType<NativeVisual>().Length == entities.Count);
+                await Until(() => ui.Input.BuildKind == "" && UnityEngine.Object.FindObjectsByType<EntityView>().Length == entities.Count);
                 Check("cancel_releases_placement_session", YYInteractionSessionService.Instance.ActiveSessions.Count == 0);
                 var map = Page("Chrome").Get<CampMap>("Map");
                 float before = stage.CameraX;

@@ -74,10 +74,9 @@ GameObject:
   - component: {fileID: 6796010992253083203}
   - component: {fileID: 7036179953667239574}
   - component: {fileID: 2791283462002811927}
-  - component: {fileID: 6463457557519826457}
   - component: {fileID: 1962245680342461024}
-  - component: {fileID: 947352086583321791}
   - component: {fileID: 3455908068020183593}
+  - component: {fileID: 3891645201895485658}
   m_Layer: 0
   m_Name: Barracks
   m_TagString: Untagged
@@ -115,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ffc6f7f952480fbb7591459a59ba18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance
-  _view: {fileID: 6463457557519826457}
+  _view: {fileID: 3891645201895485658}
 --- !u!114 &2791283462002811927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,43 +128,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
   _objectInstance: {fileID: 7036179953667239574}
---- !u!114 &6463457557519826457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3659507035230014362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
-  bindings:
-  - key: visual
-    targetObject: {fileID: 3659507035230014362}
-    target: {fileID: 947352086583321791}
-  _ownerInstance: {fileID: 7036179953667239574}
-  network: {fileID: 0}
-  _dimension: 0
-  _animator: {fileID: 3455908068020183593}
-  _renderers: []
-  _spriteRenderers:
-  - {fileID: 8682958394269467677}
-  - {fileID: 3904428633473485918}
-  - {fileID: 1531053777536905042}
-  _meshRenderers: []
-  _healthBarWidth: 0.96
-  _initializer: {fileID: 2791283462002811927}
-  _rb: {fileID: 0}
-  _colliders: []
-  _centerOffset: {x: 0, y: 0}
-  _hitVolume:
-    Shape: 0
-    Radius: 0
-    BoxHalfSize: {x: 0, y: 0}
-  _rb2D: {fileID: 0}
-  _colliders2D: []
 --- !u!210 &1962245680342461024
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -179,53 +141,6 @@ SortingGroup:
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
---- !u!114 &947352086583321791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3659507035230014362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcd26075a79ffb145853c9e265aa6bf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativeVisual
-  pickBounds:
-    serializedVersion: 2
-    x: -0.49
-    y: -0.03
-    width: 1
-    height: 0.56
-  portrait: {fileID: 21300000, guid: e35a44d0a7c918a479a26a5a75cff329, type: 3}
-  shadow: {fileID: 0}
-  sorting: {fileID: 1962245680342461024}
-  facing: {fileID: 0}
-  origin: {fileID: 0}
-  statusAnchor: {fileID: 1797030851149876154}
-  selectionAnchor: {fileID: 647010355734169539}
-  clothing: {fileID: 0}
-  complete: {fileID: 8682958394269467677}
-  foundation: {fileID: 3904428633473485918}
-  rubble: {fileID: 1531053777536905042}
-  variants: []
-  depleted: {fileID: 0}
-  sprites:
-  - {fileID: 8682958394269467677}
-  - {fileID: 3904428633473485918}
-  - {fileID: 1531053777536905042}
-  baseColors:
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  clips:
-  - Name: construction
-    Clip: {fileID: 7400000, guid: b0d9d9edb059bea44adb41af80f97053, type: 2}
-    Duration: 1
-    Loop: 0
-  standingOffset: {x: 0, y: 0.06}
-  deathOffset: {x: 0, y: 0.06}
-  fadeConstruction: 0
 --- !u!95 &3455908068020183593
 Animator:
   serializedVersion: 7
@@ -248,6 +163,67 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3891645201895485658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659507035230014362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1611fbf30fcd7a4d94fda5ab54599d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.BuildingView
+  bindings: []
+  _ownerInstance: {fileID: 7036179953667239574}
+  network: {fileID: 0}
+  _dimension: 0
+  _animator: {fileID: 3455908068020183593}
+  _renderers: []
+  _spriteRenderers:
+  - {fileID: 8682958394269467677}
+  - {fileID: 3904428633473485918}
+  - {fileID: 1531053777536905042}
+  _meshRenderers: []
+  _healthBarWidth: 0.96
+  _initializer: {fileID: 2791283462002811927}
+  _rb: {fileID: 0}
+  _colliders: []
+  _centerOffset: {x: 0, y: 0}
+  _hitVolume:
+    Shape: 0
+    Radius: 0
+    BoxHalfSize: {x: 0, y: 0}
+  _rb2D: {fileID: 0}
+  _colliders2D: []
+  pickBounds:
+    serializedVersion: 2
+    x: -0.49
+    y: -0.03
+    width: 1
+    height: 0.56
+  portrait: {fileID: 21300000, guid: e35a44d0a7c918a479a26a5a75cff329, type: 3}
+  sorting: {fileID: 1962245680342461024}
+  statusAnchor: {fileID: 1797030851149876154}
+  selectionAnchor: {fileID: 647010355734169539}
+  tintTargets:
+    targets:
+    - renderer: {fileID: 8682958394269467677}
+      baseColor: {r: 1, g: 1, b: 1, a: 1}
+    - renderer: {fileID: 3904428633473485918}
+      baseColor: {r: 1, g: 1, b: 1, a: 1}
+    - renderer: {fileID: 1531053777536905042}
+      baseColor: {r: 1, g: 1, b: 1, a: 1}
+  complete: {fileID: 8682958394269467677}
+  foundation: {fileID: 3904428633473485918}
+  rubble: {fileID: 1531053777536905042}
+  clips:
+  - Name: construction
+    Clip: {fileID: 7400000, guid: b0d9d9edb059bea44adb41af80f97053, type: 2}
+    Duration: 1
+    Loop: 0
+  fadeConstruction: 0
 --- !u!1 &4010272592273041381
 GameObject:
   m_ObjectHideFlags: 0

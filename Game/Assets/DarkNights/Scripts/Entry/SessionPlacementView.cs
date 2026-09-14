@@ -5,7 +5,6 @@ using DarkNights.Core.Config;
 using DarkNights.Runtime.Network;
 using DarkNights.View;
 using UnityEngine;
-using YY.Features.Players.View;
 
 namespace DarkNights.Entry
 {
@@ -20,8 +19,8 @@ namespace DarkNights.Entry
         private PinewatchStage stage;
         private GameCatalog catalog;
         private LevelLayout layout;
-        private ObjectView owner;
-        private NativeVisual visual;
+        private EntityView owner;
+        private BuildingView visual;
         private string kind = "";
         private int generation, epoch;
         private long connection;
@@ -64,24 +63,25 @@ namespace DarkNights.Entry
 
         private async UniTask Create(string requested, int captured)
         {
-            ObjectView created = null;
+            EntityView created = null;
             try
             {
-                created = await NativeVisualFactory.Create(requested, stage.Entities);
+                created = await EntityViewFactory.Create(requested, stage.Entities);
                 if (this == null || captured != generation || kind != input.BuildKind ||
                     client.ConnectionGeneration != connection || client.Replica.Current?.Epoch != epoch)
                 {
-                    NativeVisualFactory.Release(created);
+                    EntityViewFactory.Release(created);
                     return;
                 }
                 if (created == null) throw new InvalidOperationException("Cannot create placement visual: " + requested);
                 owner = created;
                 // 工厂只装配被动表现；建造幽灵始终没有活实体身份或输入回调。
-                visual = NativeVisualFactory.RequiredPresentation(owner).Visual;
+                visual = EntityViewFactory.RequiredPresentation(owner).Visual as BuildingView;
+                if (visual == null) throw new InvalidOperationException("Placement definition does not use BuildingView: " + requested);
             }
             catch (Exception error)
             {
-                NativeVisualFactory.Release(created);
+                EntityViewFactory.Release(created);
                 Debug.LogException(error);
             }
         }
@@ -89,7 +89,7 @@ namespace DarkNights.Entry
         private void Clear()
         {
             generation++;
-            NativeVisualFactory.Release(owner);
+            EntityViewFactory.Release(owner);
             owner = null; visual = null; Valid = false;
         }
         private void OnDestroy() { Clear(); }

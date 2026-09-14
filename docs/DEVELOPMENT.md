@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-14 完成[原生对象主视图统一](NATIVE_OBJECT_VIEWS.md)：`ActorView`、`BuildingView`、`WorksiteView` 直接继承 YYGC `ObjectView`，15 个正式 Prefab 不再并列挂载泛型 `ObjectView` 与 `NativeVisual`，也不再以 `"visual"` 把对象绑定回自身。Pinewatch 16 个放置引用、被动预览／残骸工厂、Editor 制作入口及测试合同已同步。Unity 编译、相关测试与 291 文件／12 自测架构守卫通过；最终完整批次 155/156，唯一失败为未修改的 `NativeButtonThemeTests.InteractableChangesUpdateWithoutPointerMovement`，隔离复跑 5/6。本切片未构建 Player、未修改 YYGC；前台性能、IL2CPP、双机器 LAN 和 M5 状态不变。
+
 2026-09-14 编译警告维护：修正 5 个脚本中的 7 处调用／比较，消除本次报告的 10 条 CS0618／CS0252。对象查找改用 Unity 6000.4 的无排序参数重载，保留非活动对象范围；初始化器接口显式转换为 UnityEngine.Object 后比较。复用当前 Editor 完成一次增量编译，Entry／Editor／Tests 程序集均更新，本轮 C# 警告和错误为 0；现有 FormalObjectContentSetup.Validate、NativeObjectContracts.Validate 两项只读校验通过。按用户要求仅做快速验证，未运行完整 Play／Player／联机矩阵，M5 验收边界不变。见[本次验证记录](evidence/unity-warnings-2026-09-14.json)。
 
 2026-09-14 最新已完成 [Linear 世界表现切片](M5_WORLD_PRESENTATION.md)的五个阶段，游戏源码 `a4a5450`。完整 Editor／Play 155/155、架构 285 文件／12 自测、同一新 Mono 固定世界／启动／双进程会话／真实战斗共 77/77 通过；六种局面和来宾画面已复核，2,611 个输入和 408 个产物文件哈希一致。当前 Player 为 `artifacts/m5-world/player-mono`，没有新增 YYGC／FishNet 修改。本阶段累计清理 67,000,747 字节，按用户要求完成[255 条产物盘点和受限清理交接](STAGE_CLEANUP_INVENTORY.md)，8 个拒绝目标仍在且未重试。**U0–U5 主体完成；前台性能暂缓、IL2CPP 未获授权、双机器 LAN 缺条件，M5 尚未完成。** 下方保留各历史批次的当时状态和计数。

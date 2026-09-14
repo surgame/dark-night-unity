@@ -44,19 +44,19 @@ namespace DarkNights.Tests
             GameObject root = PrefabUtility.LoadPrefabContents(Editor.FormalObjectContentSetup.WorkerPrefabPath);
             try
             {
-                ObjectView view = root.GetComponent<ObjectView>();
+                ActorView view = root.GetComponent<ActorView>();
                 ExpectRegistrationWithoutRuntime(worker.BehaviourTypes.Count);
                 ObjectDefinitionInitialization.Initialize(view.Initializer, worker);
                 ObjectInstance instance = root.GetComponent<ObjectInstance>();
                 Assert.That(instance.Definition, Is.SameAs(worker));
                 Assert.That(instance.InstanceId, Is.EqualTo("LocalInstance_" + FormalObjectCatalog.WorkerKey));
-                Assert.That(view.Get<Transform>("art_offset").name, Is.EqualTo("ArtOffset"));
-                Assert.That(view.Get<Transform>("facing").name, Is.EqualTo("Facing"));
-                Assert.That(view.Get<Transform>("status_anchor").name, Is.EqualTo("StatusAnchor"));
-                Assert.That(view.Get<Transform>("selection_anchor").name, Is.EqualTo("SelectionAnchor"));
+                Assert.That(instance.GetView<ActorView>(), Is.SameAs(view));
+                Assert.That(view.StatusAnchor.name, Is.EqualTo("StatusAnchor"));
+                Assert.That(view.SelectionAnchor.name, Is.EqualTo("SelectionAnchor"));
+                Assert.That(view.Bindings, Is.Empty);
                 var presentation = instance.GetBehaviour<ActorPresentationBehaviour>();
                 Assert.That(presentation, Is.Not.Null);
-                Assert.That(presentation.Visual, Is.SameAs(view.Get<NativeVisual>("visual")));
+                Assert.That(presentation.Visual, Is.SameAs(view));
                 Assert.That(presentation.IsBound, Is.False);
             }
             finally { PrefabUtility.UnloadPrefabContents(root); }

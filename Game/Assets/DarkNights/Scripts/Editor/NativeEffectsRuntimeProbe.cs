@@ -61,7 +61,7 @@ namespace DarkNights.Editor
                     arrows |= effects.ArrowCount > 0;
                     floating |= stage.Entities.GetComponentsInChildren<UnityEngine.UI.Text>().Length > 0;
                     corpse |= network.Client.Replica.Current.Events.Any(e => e.Type == "effect" && e.Cue.Kind == "corpse") &&
-                        stage.Entities.GetComponentsInChildren<NativeVisual>().Length > entities.Count;
+                        stage.Entities.GetComponentsInChildren<EntityView>().Length > entities.Count;
                     await Task.Delay(50);
                 }
                 Check("real_battle_creates_projectile_views", arrows);

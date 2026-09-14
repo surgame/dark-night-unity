@@ -12,6 +12,8 @@ namespace DarkNights.View
     public sealed class ActorPresentationBehaviour : EntityPresentationBehaviour
     {
         private UnitDefinition rules;
+        private ActorView ActorVisual => Visual as ActorView ??
+            throw new InvalidOperationException("Actor presentation is missing ActorView.");
         public ActorViewData Current { get; private set; }
         public string Pose { get; private set; } = "";
         public double MaxHp => rules?.Hp ?? 0;
@@ -35,10 +37,10 @@ namespace DarkNights.View
                     workKind == "wood" ? "work_wood" : workKind == "food" ? "work_farm" : "work_mine" : "idle";
             Position(x, ambient);
             double seconds = actor.Activity == "Attack"
-                ? actionTime / rules.AttackSeconds * Visual.PoseDuration(Pose) : actionTime;
-            Visual.SamplePose(Pose, seconds);
-            Visual.SetStanding(actor.Face);
-            Visual.TintActor(actor.Id, actor.HitFlash > 0, actor.Activity == "Training");
+                ? actionTime / rules.AttackSeconds * ActorVisual.PoseDuration(Pose) : actionTime;
+            ActorVisual.SamplePose(Pose, seconds);
+            ActorVisual.SetStanding(actor.Face);
+            ActorVisual.TintActor(actor.Id, actor.HitFlash > 0, actor.Activity == "Training");
             return true;
         }
 
@@ -47,6 +49,8 @@ namespace DarkNights.View
 
         public bool Train(string kind) => IsAvailable && !Current.Enemy &&
             Submit(new InputIntent("Train" + kind, new[] { Id }));
+
+        protected override bool SupportsView(EntityView value) => value is ActorView;
 
         protected override void ClearState()
         {

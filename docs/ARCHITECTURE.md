@@ -62,7 +62,9 @@ Core/Logic 不再包含可运行实体、命令服务或世界生命周期。Vie
 
 AppStartup、YYGC DI、ObjectDefinition、PrefabRef、组件绑定和生成注册继续使用既有入口。定义的 SharedConfigs 提供显式 RuleKey 和能力参数，不重复维护 HP、成本、波次或实例进度。DefinitionRuleIndex 从配置读取 RuleKey，不按 Key 前后缀猜测职业。
 
-完整内容包含 6 类单位、5 类建筑、4 类工位。单位按职业组合移动、战斗、近战或箭矢能力；建筑按类型组合训练或塔攻击。缺失能力／配置／绑定、重复配置和非法定义身份在激活前失败。
+正式实体 Prefab 恰有一个 `EntityView` 主视图：6 类单位使用 `ActorView`，5 类建筑使用 `BuildingView`，4 类工位使用 `WorksiteView`，三者均直接继承 YYGC `ObjectView`。类别特有的动画、锚点、阶段和残骸引用归对应主视图；表现 Behaviour 从所属 `ObjectInstance` 取得该视图，不用 `"visual"` 把对象绑定回自身。`ObjectView.Bindings` 只留给主视图之外的真实依赖。
+
+完整内容包含 6 类单位、5 类建筑、4 类工位。单位按职业组合移动、战斗、近战或箭矢能力；建筑按类型组合训练或塔攻击。缺失能力／配置／必要外部绑定、重复配置和非法定义身份在激活前失败。
 
 Addressables 预加载得到 PreparedObjectDefinition 租约；资源 await 在事务之外完成。对象以显式 ObjectSessionContext 同步准备，依赖和初始状态就绪后统一激活。不让 SessionScope 跨 await／线程，不使用全局临时容器寻找本局状态。
 
@@ -84,7 +86,7 @@ LevelPlacementMarker 保存稳定放置键、顺序及实例参数；ObjectDefin
 
 Host 按放置键精确接管场景中的原 ObjectInstance。动态招募、建造和敌人创建使用同一工厂与上下文。客户端由 ObjectReplica 原子应用完整帧，构造无业务写权限的对象；它不根据场景标记自行模拟。
 
-SessionEntityViews 只按当前 epoch／EntityId 分发展示：Host 查询权威对象索引，客户端查询副本对象，不再按 Kind 借一个视图。NativeVisualFactory 仅创建建造预览、残骸等被动外观。动画、碰撞和 UI 不结算玩法。
+SessionEntityViews 只按当前 epoch／EntityId 分发展示：Host 查询权威对象索引，客户端查询副本对象，不再按 Kind 借一个视图。`EntityViewFactory` 通过正式定义创建建造预览、尸体和废墟等被动对象；残骸能力仅由 `ActorView`／`BuildingView` 实现。动画、碰撞和 UI 不结算玩法。
 
 转职保留 EntityId、位置和原规则要求的状态，按新 Definition 重新装配并退休旧职业。重开／加载保留可复用的原场景对象，清除过期绑定与插值；退出后没有活动更新、残留会话订阅或幽灵对象。
 

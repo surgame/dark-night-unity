@@ -150,7 +150,7 @@ namespace DarkNights.View
                 Rect bounds = Rect.MinMaxRect(Mathf.Min(dragWorld.x, point.x), Mathf.Min(dragWorld.y, point.y), Mathf.Max(dragWorld.x, point.x), Mathf.Max(dragWorld.y, point.y));
                 foreach (ActorViewData actor in frame.World.Actors)
                 {
-                    NativeVisual view = visuals.Visual(actor.Id);
+                    EntityView view = visuals.Visual(actor.Id);
                     if (!actor.Enemy && view != null && bounds.Contains(view.SelectionAnchor.position) && !selected.Contains(actor.Id)) selected.Add(actor.Id);
                 }
             }

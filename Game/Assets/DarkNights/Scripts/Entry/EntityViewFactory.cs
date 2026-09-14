@@ -11,30 +11,32 @@ using YY.Features.Players.View;
 namespace DarkNights.Entry
 {
     /// <summary>
-    /// 创建建造预览和残骸所需的被动原生外观，复用正式 Definition、PrefabRef 与生成绑定。
-    /// 被动外观没有会话身份或写权限，调用者拥有其取消及释放；游戏实体不经此处创建。
+    /// 创建建造预览和残骸所需的被动实体主视图，复用正式 Definition、PrefabRef 与对象装配入口。
+    /// 被动视图没有会话身份或写权限，调用者拥有其取消及释放；活实体仍由对象世界创建。
     /// </summary>
-    public static class NativeVisualFactory
+    public static class EntityViewFactory
     {
-        public static async UniTask<ObjectView> Create(string ruleKey, Transform parent)
+        public static async UniTask<EntityView> Create(string ruleKey, Transform parent)
         {
             var definition = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance).GetRequired(ruleKey);
             ObjectView owner = await ObjectInstanceFactory.CreateObjectInstanceAsync(
                 definition, Vector3.zero, Quaternion.identity, parent);
             try
             {
-                if (RequiredPresentation(owner).IsBound)
-                    throw new InvalidOperationException("Passive visual already has a live entity: " + ruleKey);
-                return owner;
+                EntityView view = owner as EntityView;
+                if (view == null) throw new InvalidOperationException("Definition does not use an EntityView: " + ruleKey);
+                if (RequiredPresentation(view).IsBound)
+                    throw new InvalidOperationException("Passive entity view already has a live identity: " + ruleKey);
+                return view;
             }
             catch { Release(owner); throw; }
         }
 
-        public static EntityPresentationBehaviour RequiredPresentation(ObjectView owner)
+        public static EntityPresentationBehaviour RequiredPresentation(EntityView owner)
         {
-            if (owner == null || owner.Owner == null) throw new InvalidOperationException("Native visual owner is not assembled.");
+            if (owner == null || owner.Owner == null) throw new InvalidOperationException("Entity view owner is not assembled.");
             EntityPresentationBehaviour value = owner.Owner.GetAllBehaviors().OfType<EntityPresentationBehaviour>().Single();
-            if (value.Visual == null) throw new InvalidOperationException("Missing generated native visual binding.");
+            if (value.Visual != owner) throw new InvalidOperationException("Presentation does not reference its primary EntityView.");
             return value;
         }
 

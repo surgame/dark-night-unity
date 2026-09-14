@@ -80,7 +80,7 @@ namespace DarkNights.Editor
             foreach (LevelPlacementMarker marker in layout.GetComponentsInChildren<LevelPlacementMarker>())
             {
                 SceneDefinitionAuthoring.ValidatePlacement(marker);
-                marker.View.Get<NativeVisual>("visual").Preview(marker.SpawnOrder, marker.Variant);
+                marker.View.Preview(marker.SpawnOrder, marker.Variant);
             }
         }
 

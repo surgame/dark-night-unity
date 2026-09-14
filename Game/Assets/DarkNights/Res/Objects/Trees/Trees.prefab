@@ -631,9 +631,8 @@ GameObject:
   - component: {fileID: 6620708964664495513}
   - component: {fileID: 3039584823498813306}
   - component: {fileID: 3836007892153061729}
-  - component: {fileID: 5449436162096305184}
   - component: {fileID: 9179786759974623807}
-  - component: {fileID: 2863212309034395311}
+  - component: {fileID: 1105896950498211181}
   m_Layer: 0
   m_Name: Trees
   m_TagString: Untagged
@@ -672,7 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ffc6f7f952480fbb7591459a59ba18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance
-  _view: {fileID: 5449436162096305184}
+  _view: {fileID: 1105896950498211181}
 --- !u!114 &3836007892153061729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,7 +685,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
   _objectInstance: {fileID: 3039584823498813306}
---- !u!114 &5449436162096305184
+--- !u!210 &9179786759974623807
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8466181717363297592}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
+--- !u!114 &1105896950498211181
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -695,13 +707,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8466181717363297592}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Script: {fileID: 11500000, guid: bad9b7e1a9789ab429d23933a09d0abf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
-  bindings:
-  - key: visual
-    targetObject: {fileID: 8466181717363297592}
-    target: {fileID: 2863212309034395311}
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.WorksiteView
+  bindings: []
   _ownerInstance: {fileID: 3039584823498813306}
   network: {fileID: 0}
   _dimension: 0
@@ -724,31 +733,6 @@ MonoBehaviour:
     BoxHalfSize: {x: 0, y: 0}
   _rb2D: {fileID: 0}
   _colliders2D: []
---- !u!210 &9179786759974623807
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8466181717363297592}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 10
-  m_SortAtRoot: 0
-  m_Sort3DAs2D: 0
---- !u!114 &2863212309034395311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8466181717363297592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcd26075a79ffb145853c9e265aa6bf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativeVisual
   pickBounds:
     serializedVersion: 2
     x: -0.15
@@ -756,36 +740,25 @@ MonoBehaviour:
     width: 0.3
     height: 0.71
   portrait: {fileID: 21300000, guid: 3eed721126e480245ab83c3b724bbd83, type: 3}
-  shadow: {fileID: 0}
   sorting: {fileID: 9179786759974623807}
-  facing: {fileID: 0}
-  origin: {fileID: 0}
   statusAnchor: {fileID: 4124021268352173257}
   selectionAnchor: {fileID: 815345448669217330}
-  clothing: {fileID: 0}
-  complete: {fileID: 0}
-  foundation: {fileID: 0}
-  rubble: {fileID: 0}
+  tintTargets:
+    targets:
+    - renderer: {fileID: 2495263895411155792}
+      baseColor: {r: 1, g: 1, b: 1, a: 1}
+    - renderer: {fileID: 329474779011750232}
+      baseColor: {r: 1, g: 1, b: 1, a: 1}
+    - renderer: {fileID: 6254938238039483215}
+      baseColor: {r: 1, g: 1, b: 1, a: 1}
+    - renderer: {fileID: 5215710441484099460}
+      baseColor: {r: 1, g: 1, b: 1, a: 1}
   variants:
   - {fileID: 2495263895411155792}
   - {fileID: 329474779011750232}
   - {fileID: 6254938238039483215}
   - {fileID: 5215710441484099460}
   depleted: {fileID: 2690117672460676255}
-  sprites:
-  - {fileID: 2495263895411155792}
-  - {fileID: 329474779011750232}
-  - {fileID: 6254938238039483215}
-  - {fileID: 5215710441484099460}
-  baseColors:
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
-  clips: []
-  standingOffset: {x: 0, y: 0.06}
-  deathOffset: {x: 0, y: 0.06}
-  fadeConstruction: 0
 --- !u!1 &8721270908182107130
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,6 @@ namespace DarkNights.View
     /// </summary>
     public interface IEntityVisuals
     {
-        NativeVisual Visual(int id);
+        EntityView Visual(int id);
     }
 }

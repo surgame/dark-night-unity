@@ -51,7 +51,7 @@ namespace DarkNights.Editor
                 BindMaterials(root, material, meshMaterial);
                 var data = new SerializedObject(environment);
                 var statics = root.GetComponentsInChildren<SpriteRenderer>(true).Where(s => s.gameObject.name == "CampEdge" || (
-                    !s.transform.IsChildOf(instance.transform) && s.GetComponentInParent<NativeVisual>() == null &&
+                    !s.transform.IsChildOf(instance.transform) && s.GetComponentInParent<EntityView>() == null &&
                     s.GetComponentInParent<NativeBackdrop>() == null && s.gameObject.name != "Sky")).ToArray();
                 EnvironmentGeometry.Array(data, "staticSprites", statics);
                 var colors = data.FindProperty("staticColors"); colors.arraySize = statics.Length;
@@ -142,14 +142,14 @@ namespace DarkNights.Editor
                 var root = PrefabUtility.LoadPrefabContents(path);
                 try
                 {
-                    var visual = root.GetComponent<NativeVisual>(); if (visual == null) continue;
+                    var visual = root.GetComponent<EntityView>(); if (visual == null) continue;
                     foreach (var sprite in root.GetComponentsInChildren<SpriteRenderer>(true)) sprite.sharedMaterial = spriteMaterial;
-                    if (visual.Clips.Any(c => c.Name == "idle"))
+                    if (visual is ActorView actor && actor.Clips.Any(c => c.Name == "idle"))
                     {
                         var circle = AssetDatabase.LoadAllAssetsAtPath(Root + "/Circle.asset").OfType<Sprite>().Single();
                         var shadow = EnvironmentGeometry.Sprite(root.transform, "Shadow", circle, new Vector2(0, .005f), new Vector2(10f / 64, 3f / 64), -1, meshMaterial);
                         shadow.color = new Color(.06f, .08f, .08f, .5f);
-                        NativePrefabBuilder.SetReference(visual, "shadow", shadow);
+                        NativePrefabBuilder.SetReference(actor, "shadow", shadow);
                     }
                     PrefabUtility.SaveAsPrefabAsset(root, path);
                 }

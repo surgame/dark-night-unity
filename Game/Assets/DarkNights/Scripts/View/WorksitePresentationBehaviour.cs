@@ -10,6 +10,8 @@ namespace DarkNights.View
     /// </summary>
     public sealed class WorksitePresentationBehaviour : EntityPresentationBehaviour
     {
+        private WorksiteView WorksiteVisual => Visual as WorksiteView ??
+            throw new InvalidOperationException("Worksite presentation is missing WorksiteView.");
         public WorksiteViewData Current { get; private set; }
         public bool IsDepleted => IsAvailable && Current.Amount == 0;
         public override bool IsAvailable => IsBound && Current != null;
@@ -22,12 +24,13 @@ namespace DarkNights.View
             Current = site;
             Position(site.X, ambient);
             bool natural = site.FarmId == 0;
-            Visual.SetWorksiteVisibility(natural && !IsDepleted, site.Variant, natural && IsDepleted);
-            Visual.TintSurface(Color.white);
+            WorksiteVisual.SetVisibility(natural && !IsDepleted, site.Variant, natural && IsDepleted);
+            WorksiteVisual.TintSurface(Color.white);
             return true;
         }
 
         public bool AssignWorkers(int[] actors) => Submit(new InputIntent("Orders", actors, Id, Current?.X ?? 0));
+        protected override bool SupportsView(EntityView value) => value is WorksiteView;
         protected override void ClearState() { Current = null; }
     }
 }

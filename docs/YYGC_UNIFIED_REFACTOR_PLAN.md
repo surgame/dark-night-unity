@@ -303,7 +303,7 @@ F1–F4 是 U1 必须解决的合同。具体 API 名称在 U1 锁定，本文�
 | `Entry/SceneEntityViews.cs` | 删除按 Kind 借还视图流程 | 场景实例用放置键精确登记，Host 不再任意借一个同类对象 |
 | `Entry/SessionEntityViews.cs` | 移出创建／释放职责，保留必要展示时间线与分发 | 权威对象／副本对象的生命周期没有第二个所有者 |
 | `View/LevelPlacementMarker.cs`、`LevelLayoutAuthoring.cs` | 保留实例参数和布局校验，接入稳定放置键 | 不从描述再创建 Core 世界；预览无权威副作用 |
-| `View/*PresentationBehaviour.cs`、`NativeVisual.cs` | 复用外观解释／采样，绑定新只读副本 | 不直接读可写 State、不由动画结算伤害 |
+| `View/*PresentationBehaviour.cs`、`EntityView` 及三个类别主视图 | 复用外观解释／采样，绑定新只读副本 | 不直接读可写 State、不由动画结算伤害；正式实体不保留并行外观组件 |
 | `Core/Save/SnapshotMapper.cs`、`Runtime/Save/LegacySnapshotJson.cs`、`Core/Save/LegacyDisplayState.cs` | 替换旧实体映射，删除旧格式和旧显示状态导入 | 新 v2 捕获／恢复直接面对新状态；产品无旧档 fallback |
 | `Runtime/Save/GameSaveJson.cs`、`GameSaveStore.cs`、`SessionStorage.cs` | 保留有界解析、槽位、冻结与原子文件边界，适配 v2 | 原文件／当前世界在失败、取消、锁冲突时保留 |
 | `Editor/SceneDefinitionUpgrade.cs`、`CRefactorContentUpgrade.cs` 等旧升级入口 | 核对引用后退出仅服务旧架构的入口，保留当前制作／只读验证工具 | 普通导入／构建不触发资产迁移或覆盖美术 |

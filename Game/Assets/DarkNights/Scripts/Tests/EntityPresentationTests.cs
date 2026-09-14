@@ -40,7 +40,7 @@ namespace DarkNights.Tests
         public void BindDespawnAndReentryClearStateIdentityAndCallbacks()
         {
             ActorPresentationBehaviour actor = Load<ActorPresentationBehaviour>("Worker");
-            NativeVisual visual = actor.Visual;
+            ActorView visual = (ActorView)actor.Visual;
             ActorViewData state = Actor("worker", "Idle");
             Assert.That(actor.IsBound || actor.IsAvailable, Is.False);
             Assert.That(actor.Present(state, 2, "", 100, 0, Color.white), Is.False);
@@ -121,7 +121,7 @@ namespace DarkNights.Tests
             Assert.That(actor.Pose, Is.EqualTo(pose));
             Assert.That(actor.Current.Hp, Is.EqualTo(25));
             Assert.That(actor.Visual.transform.position.x, Is.EqualTo(2.5));
-            Assert.That(actor.Visual.Clips.Any(value => value.Name == pose), Is.True);
+            Assert.That(((ActorView)actor.Visual).Clips.Any(value => value.Name == pose), Is.True);
             actor.IssueOrder(31, 450);
             actor.Train("archer");
             Assert.That(intents[0].Actors, Is.EqualTo(new[] { 7 }));
@@ -146,7 +146,8 @@ namespace DarkNights.Tests
             actor.Bind(7, 2, kind, catalog.Balance.Units[kind], null);
             double time = catalog.Balance.Units[kind].AttackSeconds * 0.6;
             actor.Present(Actor(kind, "Attack"), 2, "", 300, time, Color.white);
-            expected.Visual.SamplePose("attack", expected.Visual.PoseDuration("attack") * 0.6);
+            var expectedView = (ActorView)expected.Visual;
+            expectedView.SamplePose("attack", expectedView.PoseDuration("attack") * 0.6);
             var actualSprites = actor.Visual.GetComponentsInChildren<SpriteRenderer>(true);
             var expectedSprites = expected.Visual.GetComponentsInChildren<SpriteRenderer>(true);
             Assert.That(actualSprites.Length, Is.EqualTo(expectedSprites.Length));
@@ -175,10 +176,11 @@ namespace DarkNights.Tests
             Assert.That(building.IsConstructing, Is.True);
             Assert.That(building.TrainingCount, Is.EqualTo(1));
             Assert.That(building.Current.Training[0].Remaining, Is.EqualTo(3));
-            var fields = new SerializedObject(building.Visual);
+            var buildingView = (BuildingView)building.Visual;
+            var fields = new SerializedObject(buildingView);
             var complete = (SpriteRenderer)fields.FindProperty("complete").objectReferenceValue;
-            Assert.That(complete.enabled, Is.EqualTo(building.Visual.FadeConstruction));
-            if (building.Visual.FadeConstruction) Assert.That(complete.color.a, Is.EqualTo(0.7).Within(0.00001));
+            Assert.That(complete.enabled, Is.EqualTo(buildingView.FadeConstruction));
+            if (buildingView.FadeConstruction) Assert.That(complete.color.a, Is.EqualTo(0.7).Within(0.00001));
             var finished = new BuildingViewData(11, kind, 400, 80, 1, 0, 0, 0, training);
             building.Present(finished, 2, Color.white);
             Assert.That(building.IsConstructing, Is.False);

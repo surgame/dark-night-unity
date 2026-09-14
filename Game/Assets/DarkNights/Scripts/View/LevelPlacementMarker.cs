@@ -1,6 +1,5 @@
 using GameCore.Objects.Runner;
 using UnityEngine;
-using YY.Features.Players.View;
 
 namespace DarkNights.View
 {
@@ -12,21 +11,21 @@ namespace DarkNights.View
     public sealed class LevelPlacementMarker : MonoBehaviour
     {
         [SerializeField] private ObjectDefinitionLoader loader;
-        [SerializeField] private ObjectView view;
+        [SerializeField] private EntityView view;
         [SerializeField] private int spawnOrder;
         [SerializeField] private int variant;
         [SerializeField] private string actorName = "";
         [SerializeField] private string placementKey = "";
 
         public ObjectDefinitionLoader Loader => loader;
-        public ObjectView View => view;
+        public EntityView View => view;
         public int SpawnOrder => spawnOrder;
         public int Variant => variant;
         public string ActorName => actorName;
         public string PlacementKey => placementKey;
 
 #if UNITY_EDITOR
-        public void EditorConfigure(ObjectDefinitionLoader source, ObjectView owner, int order, int appearance, string initialName)
+        public void EditorConfigure(ObjectDefinitionLoader source, EntityView owner, int order, int appearance, string initialName)
         {
             loader = source;
             view = owner;

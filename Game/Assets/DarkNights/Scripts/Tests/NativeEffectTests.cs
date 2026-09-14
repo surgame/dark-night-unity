@@ -101,18 +101,20 @@ namespace DarkNights.Tests
             var root = PrefabUtility.LoadPrefabContents(path + ".prefab");
             try
             {
-                var view = root.GetComponent<ObjectView>();
+                var view = root.GetComponent<EntityView>();
                 FormalObjectContentTests.ExpectRegistrationWithoutRuntime(definition.BehaviourTypes.Count);
                 ObjectDefinitionInitialization.Initialize(view.Initializer, definition);
                 var presentation = root.GetComponent<ObjectInstance>().GetAllBehaviors().OfType<EntityPresentationBehaviour>().Single();
-                var visual = view.Get<NativeVisual>("visual");
-                visual.PresentRemnant(new VisualCue(cueKind, 200, 320, ContentId: name.ToLowerInvariant()), 0.5);
+                var visual = view;
+                var remnant = visual as IRemnantView;
+                Assert.That(remnant, Is.Not.Null);
+                remnant.PresentRemnant(new VisualCue(cueKind, 200, 320, ContentId: name.ToLowerInvariant()), 0.5);
                 Assert.That(presentation.Visual, Is.SameAs(visual));
                 Assert.That(presentation.IsBound || presentation.IsAvailable, Is.False);
                 Assert.That(presentation.Id, Is.Zero);
                 Assert.That(presentation.Epoch, Is.Zero);
                 presentation.Unbind();
-                visual.PresentRemnant(new VisualCue(cueKind, 200, 320, ContentId: name.ToLowerInvariant()), 1);
+                remnant.PresentRemnant(new VisualCue(cueKind, 200, 320, ContentId: name.ToLowerInvariant()), 1);
                 Assert.That(presentation.IsBound, Is.False);
             }
             finally { PrefabUtility.UnloadPrefabContents(root); }

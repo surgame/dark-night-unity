@@ -10,6 +10,8 @@ namespace DarkNights.View
     /// </summary>
     public sealed class BuildingPresentationBehaviour : EntityPresentationBehaviour
     {
+        private BuildingView BuildingVisual => Visual as BuildingView ??
+            throw new InvalidOperationException("Building presentation is missing BuildingView.");
         public BuildingViewData Current { get; private set; }
         public bool IsConstructing => IsAvailable && Current.Progress < 1;
         public int TrainingCount => Current?.Training.Count ?? 0;
@@ -22,17 +24,18 @@ namespace DarkNights.View
             if (building == null || !Accept(building.Id, epoch, building.Kind)) return false;
             Current = building;
             Position(building.X, ambient);
-            if (Visual.HasPoseClips) Visual.SamplePose("construction", Math.Min(building.Progress, 0.999999));
-            Visual.SetBuildingVisibility(building.Progress >= 1 || Visual.FadeConstruction,
-                building.Progress < 1 && !Visual.FadeConstruction, false);
+            if (BuildingVisual.HasPoseClips) BuildingVisual.SamplePose("construction", Math.Min(building.Progress, 0.999999));
+            BuildingVisual.SetVisibility(building.Progress >= 1 || BuildingVisual.FadeConstruction,
+                building.Progress < 1 && !BuildingVisual.FadeConstruction, false);
             Color tint = building.HitFlash > 0 ? new Color(1.4f, 1.15f, 1.1f) : Color.white;
-            if (Visual.FadeConstruction && building.Progress < 1) tint.a = 0.4f + (float)building.Progress * 0.6f;
-            Visual.TintSurface(tint);
+            if (BuildingVisual.FadeConstruction && building.Progress < 1) tint.a = 0.4f + (float)building.Progress * 0.6f;
+            BuildingVisual.TintSurface(tint);
             return true;
         }
 
         public bool Repair() => Submit(new InputIntent("Repair", Array.Empty<int>(), Id));
         public bool AssignWorkers(int[] actors) => Submit(new InputIntent("Orders", actors, Id, Current?.X ?? 0));
+        protected override bool SupportsView(EntityView value) => value is BuildingView;
         protected override void ClearState() { Current = null; }
     }
 }

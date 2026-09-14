@@ -261,10 +261,9 @@ GameObject:
   - component: {fileID: 3094385634993057689}
   - component: {fileID: 9076919576446242087}
   - component: {fileID: 4734556051782747116}
-  - component: {fileID: 3677772320684742147}
   - component: {fileID: 5067040408772322786}
-  - component: {fileID: 2924726688543977970}
   - component: {fileID: 2358959441088872081}
+  - component: {fileID: 2826684761959645914}
   m_Layer: 0
   m_Name: Armored
   m_TagString: Untagged
@@ -303,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ffc6f7f952480fbb7591459a59ba18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance
-  _view: {fileID: 3677772320684742147}
+  _view: {fileID: 2826684761959645914}
 --- !u!114 &4734556051782747116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,42 +316,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
   _objectInstance: {fileID: 9076919576446242087}
---- !u!114 &3677772320684742147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6779899286060954718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
-  bindings:
-  - key: visual
-    targetObject: {fileID: 6779899286060954718}
-    target: {fileID: 2924726688543977970}
-  _ownerInstance: {fileID: 9076919576446242087}
-  network: {fileID: 0}
-  _dimension: 0
-  _animator: {fileID: 2358959441088872081}
-  _renderers: []
-  _spriteRenderers:
-  - {fileID: 5493876868158611121}
-  - {fileID: 4933814565100953469}
-  _meshRenderers: []
-  _healthBarWidth: 0.12
-  _initializer: {fileID: 4734556051782747116}
-  _rb: {fileID: 0}
-  _colliders: []
-  _centerOffset: {x: 0, y: 0}
-  _hitVolume:
-    Shape: 0
-    Radius: 0
-    BoxHalfSize: {x: 0, y: 0}
-  _rb2D: {fileID: 0}
-  _colliders2D: []
 --- !u!210 &5067040408772322786
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -366,61 +329,6 @@ SortingGroup:
   m_SortingOrder: 100
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
---- !u!114 &2924726688543977970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6779899286060954718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcd26075a79ffb145853c9e265aa6bf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativeVisual
-  pickBounds:
-    serializedVersion: 2
-    x: -0.11
-    y: -0.06
-    width: 0.22
-    height: 0.28
-  portrait: {fileID: 21300000, guid: 209af9e94f4e4f943a491914a027fb94, type: 3}
-  shadow: {fileID: 4933814565100953469}
-  sorting: {fileID: 5067040408772322786}
-  facing: {fileID: 569367259831741186}
-  origin: {fileID: 2315064199392176034}
-  statusAnchor: {fileID: 5789178924299331298}
-  selectionAnchor: {fileID: 3297091079882510514}
-  clothing: {fileID: 0}
-  complete: {fileID: 0}
-  foundation: {fileID: 0}
-  rubble: {fileID: 0}
-  variants: []
-  depleted: {fileID: 0}
-  sprites:
-  - {fileID: 5493876868158611121}
-  baseColors:
-  - {r: 1, g: 1, b: 1, a: 1}
-  clips:
-  - Name: idle
-    Clip: {fileID: 7400000, guid: 10f6c53ed4263394392db44445b5becf, type: 2}
-    Duration: 1.1666666666666667
-    Loop: 1
-  - Name: move
-    Clip: {fileID: 7400000, guid: 5c8c43f299a239c4dac673f121e69ffe, type: 2}
-    Duration: 1.1666666666666667
-    Loop: 1
-  - Name: attack
-    Clip: {fileID: 7400000, guid: ed8c6b26057448745b95ed3afea28719, type: 2}
-    Duration: 0.6666666666666666
-    Loop: 0
-  - Name: die
-    Clip: {fileID: 7400000, guid: 3eef344dcf009a046b2affc3a1343bcb, type: 2}
-    Duration: 0.8333333333333334
-    Loop: 0
-  standingOffset: {x: 0, y: 0.06}
-  deathOffset: {x: 0, y: 0.06}
-  fadeConstruction: 0
 --- !u!95 &2358959441088872081
 Animator:
   serializedVersion: 7
@@ -443,6 +351,76 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2826684761959645914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6779899286060954718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dde921624126ca45999f321eef3e187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.ActorView
+  bindings: []
+  _ownerInstance: {fileID: 9076919576446242087}
+  network: {fileID: 0}
+  _dimension: 0
+  _animator: {fileID: 2358959441088872081}
+  _renderers: []
+  _spriteRenderers:
+  - {fileID: 5493876868158611121}
+  - {fileID: 4933814565100953469}
+  _meshRenderers: []
+  _healthBarWidth: 0.12
+  _initializer: {fileID: 4734556051782747116}
+  _rb: {fileID: 0}
+  _colliders: []
+  _centerOffset: {x: 0, y: 0}
+  _hitVolume:
+    Shape: 0
+    Radius: 0
+    BoxHalfSize: {x: 0, y: 0}
+  _rb2D: {fileID: 0}
+  _colliders2D: []
+  pickBounds:
+    serializedVersion: 2
+    x: -0.11
+    y: -0.06
+    width: 0.22
+    height: 0.28
+  portrait: {fileID: 21300000, guid: 209af9e94f4e4f943a491914a027fb94, type: 3}
+  sorting: {fileID: 5067040408772322786}
+  statusAnchor: {fileID: 5789178924299331298}
+  selectionAnchor: {fileID: 3297091079882510514}
+  tintTargets:
+    targets:
+    - renderer: {fileID: 5493876868158611121}
+      baseColor: {r: 1, g: 1, b: 1, a: 1}
+  shadow: {fileID: 4933814565100953469}
+  facing: {fileID: 569367259831741186}
+  poseRoot: {fileID: 2315064199392176034}
+  clothing: {fileID: 0}
+  clips:
+  - Name: idle
+    Clip: {fileID: 7400000, guid: 10f6c53ed4263394392db44445b5becf, type: 2}
+    Duration: 1.1666666666666667
+    Loop: 1
+  - Name: move
+    Clip: {fileID: 7400000, guid: 5c8c43f299a239c4dac673f121e69ffe, type: 2}
+    Duration: 1.1666666666666667
+    Loop: 1
+  - Name: attack
+    Clip: {fileID: 7400000, guid: ed8c6b26057448745b95ed3afea28719, type: 2}
+    Duration: 0.6666666666666666
+    Loop: 0
+  - Name: die
+    Clip: {fileID: 7400000, guid: 3eef344dcf009a046b2affc3a1343bcb, type: 2}
+    Duration: 0.8333333333333334
+    Loop: 0
+  standingOffset: {x: 0, y: 0.06}
+  deathOffset: {x: 0, y: 0.06}
 --- !u!1 &7791435411739290837
 GameObject:
   m_ObjectHideFlags: 0

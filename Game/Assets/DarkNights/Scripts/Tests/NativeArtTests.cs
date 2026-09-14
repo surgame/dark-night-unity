@@ -36,8 +36,11 @@ namespace DarkNights.Tests
                 Assert.That(definition.isLocal && definition.Id == 0 && !definition.Guid.IsEmpty);
                 Assert.That(definition.BehaviourTypes.Count(value => value == NativeObjectContracts.PresentationType(name).FullName), Is.EqualTo(1));
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(definition.PrefabRef.AssetGUID));
-                var visual = prefab.GetComponent<ObjectView>().Get<NativeVisual>("visual");
+                var visual = prefab.GetComponent<EntityView>();
                 Assert.That(visual, Is.Not.Null);
+                Assert.That(visual.GetType(), Is.EqualTo(NativeObjectContracts.ViewType(name)), name);
+                Assert.That(prefab.GetComponents<ObjectView>().Length, Is.EqualTo(1), name);
+                Assert.That(visual.Bindings, Is.Empty, name);
                 // Play／资源重载可以产生不同托管包装；Unity 原生身份仍须指向完全相同的 Sprite。
                 Assert.That(visual.Portrait == NativeAnimationBuilder.Sprite((string)spec["portrait"]), Is.True, name);
             }
@@ -63,13 +66,13 @@ namespace DarkNights.Tests
                     try
                     {
                         var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(source + ".asset");
-                        var view = root.GetComponent<ObjectView>();
+                        var view = root.GetComponent<EntityView>();
                         FormalObjectContentTests.ExpectRegistrationWithoutRuntime(definition.BehaviourTypes.Count);
                         ObjectDefinitionInitialization.Initialize(view.Initializer, definition);
                         var instance = root.GetComponent<ObjectInstance>();
                         var presentation = instance.GetAllBehaviors().OfType<EntityPresentationBehaviour>().Single();
                         Assert.That(presentation.GetType(), Is.EqualTo(NativeObjectContracts.PresentationType(name)), name);
-                        Assert.That(presentation.Visual, Is.SameAs(view.Get<NativeVisual>("visual")), name);
+                        Assert.That(presentation.Visual, Is.SameAs(view), name);
                         Assert.That(presentation.IsBound || presentation.IsAvailable, Is.False, name);
                         presentation.Visual.Preview(0, 0);
                         Assert.That(presentation.Id, Is.Zero, name);
@@ -91,10 +94,10 @@ namespace DarkNights.Tests
                 GameObject root = PrefabUtility.LoadPrefabContents("Assets/DarkNights/Res/Objects/" + name + "/" + name + ".prefab");
                 try
                 {
-                    NativeVisual visual = root.GetComponent<ObjectView>().Get<NativeVisual>("visual");
+                    EntityView visual = root.GetComponent<EntityView>();
                     foreach (JObject source in spec["clips"])
                     {
-                        PoseClip clip = visual.Clips.Single(item => item.Name == (string)source["name"]);
+                        PoseClip clip = Clips(visual).Single(item => item.Name == (string)source["name"]);
                         Assert.That(clip.Duration, Is.EqualTo((double)source["duration"]));
                         Assert.That(AnimationUtility.GetAnimationEvents(clip.Clip), Is.Empty);
                         foreach (JObject track in source["tracks"])
@@ -131,5 +134,12 @@ namespace DarkNights.Tests
         }
 
         private static JObject Input() => JObject.Parse(File.ReadAllText(NativeArtSetup.InputPath));
+
+        private static PoseClip[] Clips(EntityView view)
+        {
+            if (view is ActorView actor) return actor.Clips;
+            if (view is BuildingView building) return building.Clips;
+            return Array.Empty<PoseClip>();
+        }
     }
 }

@@ -229,10 +229,9 @@ GameObject:
   - component: {fileID: 3688489801809555459}
   - component: {fileID: 7251620922694975505}
   - component: {fileID: 4984099722765559428}
-  - component: {fileID: 1096383821247736953}
   - component: {fileID: 309560625717371023}
-  - component: {fileID: 5534937636679794395}
   - component: {fileID: 2644776546325194765}
+  - component: {fileID: 7358347820708291523}
   m_Layer: 0
   m_Name: Worker
   m_TagString: Untagged
@@ -271,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ffc6f7f952480fbb7591459a59ba18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.ObjectInstance
-  _view: {fileID: 1096383821247736953}
+  _view: {fileID: 7358347820708291523}
 --- !u!114 &4984099722765559428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +284,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
   _objectInstance: {fileID: 7251620922694975505}
---- !u!114 &1096383821247736953
+--- !u!210 &309560625717371023
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4882365957094860254}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 100
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
+--- !u!95 &2644776546325194765
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4882365957094860254}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7358347820708291523
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -294,25 +328,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4882365957094860254}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c1def91971249229bb55bda681c996b, type: 3}
+  m_Script: {fileID: 11500000, guid: 5dde921624126ca45999f321eef3e187, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: GameCore.Runtime::YY.Features.Players.View.ObjectView
-  bindings:
-  - key: art_offset
-    targetObject: {fileID: 6332122827658612759}
-    target: {fileID: 2171011364827057100}
-  - key: facing
-    targetObject: {fileID: 2714849164216255268}
-    target: {fileID: 5333353082013501177}
-  - key: status_anchor
-    targetObject: {fileID: 2765550023239908252}
-    target: {fileID: 2494347867478900495}
-  - key: selection_anchor
-    targetObject: {fileID: 6067321763419398334}
-    target: {fileID: 2445452033358042079}
-  - key: visual
-    targetObject: {fileID: 4882365957094860254}
-    target: {fileID: 5534937636679794395}
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.ActorView
+  bindings: []
   _ownerInstance: {fileID: 7251620922694975505}
   network: {fileID: 0}
   _dimension: 0
@@ -334,31 +353,6 @@ MonoBehaviour:
     BoxHalfSize: {x: 0, y: 0}
   _rb2D: {fileID: 0}
   _colliders2D: []
---- !u!210 &309560625717371023
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4882365957094860254}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 100
-  m_SortAtRoot: 0
-  m_Sort3DAs2D: 0
---- !u!114 &5534937636679794395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4882365957094860254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcd26075a79ffb145853c9e265aa6bf3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.NativeVisual
   pickBounds:
     serializedVersion: 2
     x: -0.11
@@ -366,24 +360,19 @@ MonoBehaviour:
     width: 0.22
     height: 0.28
   portrait: {fileID: 21300000, guid: d79777d6ea983f041a4bf192c7aca9af, type: 3}
-  shadow: {fileID: 6124602756023478297}
   sorting: {fileID: 309560625717371023}
-  facing: {fileID: 5333353082013501177}
-  origin: {fileID: 406928131984691059}
   statusAnchor: {fileID: 2494347867478900495}
   selectionAnchor: {fileID: 2445452033358042079}
+  tintTargets:
+    targets:
+    - renderer: {fileID: 7976571665351173102}
+      baseColor: {r: 1, g: 1, b: 1, a: 1}
+    - renderer: {fileID: 5400268002992893807}
+      baseColor: {r: 1, g: 1, b: 1, a: 1}
+  shadow: {fileID: 6124602756023478297}
+  facing: {fileID: 5333353082013501177}
+  poseRoot: {fileID: 406928131984691059}
   clothing: {fileID: 5400268002992893807}
-  complete: {fileID: 0}
-  foundation: {fileID: 0}
-  rubble: {fileID: 0}
-  variants: []
-  depleted: {fileID: 0}
-  sprites:
-  - {fileID: 7976571665351173102}
-  - {fileID: 5400268002992893807}
-  baseColors:
-  - {r: 1, g: 1, b: 1, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
   clips:
   - Name: idle
     Clip: {fileID: 7400000, guid: 4af8e0c339a02024c92305cb7c149bb4, type: 2}
@@ -419,29 +408,6 @@ MonoBehaviour:
     Loop: 0
   standingOffset: {x: 0, y: 0.06}
   deathOffset: {x: 0, y: 0.06}
-  fadeConstruction: 0
---- !u!95 &2644776546325194765
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4882365957094860254}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5913620334415361033
 GameObject:
   m_ObjectHideFlags: 0

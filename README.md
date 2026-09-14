@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-14 最新完成[原生对象主视图统一](docs/NATIVE_OBJECT_VIEWS.md)：15 个正式实体 Prefab 现在各自只保留一个 `ActorView`／`BuildingView`／`WorksiteView` 主视图，删除并行 `NativeVisual` 和 `"visual"` 自绑定，Pinewatch 的 16 个放置标记已同步。Unity 编译、相关装配／资源／表现测试和架构守卫通过；最终完整批次为 155/156，唯一失败是未修改的按钮主题 EditMode 帧调度测试，单独复跑仍为 5/6。本切片没有修改 YYGC、没有生成新 Player，也不改变前台性能、IL2CPP、双机器 LAN 与 M5 未完成边界。
+
 2026-09-14 最新完成 [Linear 世界表现与固定场景验收](docs/M5_WORLD_PRESENTATION.md)，源码 `a4a5450`：完整 Editor／Play 155/155、同一新 Mono 77/77 通过，六种局面及来宾截图已复核。当前 Player 为 `artifacts/m5-world/player-mono`，2,611 个输入和 408 个产物文件最终哈希一致。本阶段实际清理约 63.9 MiB；[255 条清理盘点](docs/STAGE_CLEANUP_INVENTORY.md)包含 8 个仍受审批限制的目标，合计约 6.49 GiB，按用户要求列账交接。**主体迁移 U0–U5 已完成；前台性能由用户暂缓，IL2CPP 和双机器 LAN 仍待条件，M5 尚未完成。**
 
 此前同日完成[终局页面重开修复](docs/M5_RESULT_UI.md)，源码 `af29950`：完整 Editor／Play 155/155、新 Mono 终局／启动／双进程会话 40/40 通过，四张胜负页截图已复核。该批 Player 为 `artifacts/m5-results/player-mono`，408 个文件哈希一致；调试目录清理被自动审批拒绝，未重试。该批未覆盖的固定世界画面对照已由上方最新切片补齐；历史产物和计数不与新批次混用。

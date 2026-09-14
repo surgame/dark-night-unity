@@ -22,15 +22,15 @@ namespace DarkNights.Entry
         private GameCatalog catalog;
         private PinewatchStage stage;
         private Action<InputIntent> intentHandler;
-        private readonly Dictionary<int, (ObjectView Owner, EntityPresentationBehaviour Presentation, string Kind)> views =
-            new Dictionary<int, (ObjectView, EntityPresentationBehaviour, string)>();
+        private readonly Dictionary<int, (EntityView Owner, EntityPresentationBehaviour Presentation, string Kind)> views =
+            new Dictionary<int, (EntityView, EntityPresentationBehaviour, string)>();
         private readonly Dictionary<int, string> workKinds = new Dictionary<int, string>();
         private int epoch, generation;
         private long connection;
         private SessionViewData applied;
         private readonly PresentationTimeline timeline = new PresentationTimeline();
         public int Count => views.Count;
-        public NativeVisual Visual(int id) => Presentation(id)?.Visual;
+        public EntityView Visual(int id) => Presentation(id)?.Visual;
         public EntityPresentationBehaviour Presentation(int id) => views.TryGetValue(id, out var view) &&
             view.Owner != null && view.Presentation.Owner == view.Owner.Owner && view.Presentation.Id == id &&
             view.Presentation.Epoch == epoch ? view.Presentation : null;
@@ -72,7 +72,7 @@ namespace DarkNights.Entry
                 if (!wanted.ContainsKey(id)) Remove(id);
             foreach (var pair in wanted)
             {
-                ObjectView owner = FindOwner(pair.Key, pair.Value);
+                EntityView owner = FindOwner(pair.Key, pair.Value);
                 if (views.TryGetValue(pair.Key, out var previous))
                 {
                     if (previous.Owner == owner && previous.Kind == pair.Value && Presentation(pair.Key) != null) continue;
@@ -80,7 +80,7 @@ namespace DarkNights.Entry
                 }
                 // Host 的实时对象可能比最近的 10 Hz 投影先退休；等待下一帧的相应身份。
                 if (owner == null) continue;
-                EntityPresentationBehaviour presentation = NativeVisualFactory.RequiredPresentation(owner);
+                EntityPresentationBehaviour presentation = EntityViewFactory.RequiredPresentation(owner);
                 int captured = generation;
                 Action<InputIntent> submit = intent => Submit(presentation, captured, intent);
                 if (catalog.Balance.Units.TryGetValue(pair.Value, out UnitDefinition rules) && presentation is ActorPresentationBehaviour actor)
@@ -96,11 +96,11 @@ namespace DarkNights.Entry
             applied = frame;
         }
 
-        private ObjectView FindOwner(int id, string kind)
+        private EntityView FindOwner(int id, string kind)
         {
-            if (!network.Hosting) return network.ReplicaObjects.View(id);
+            if (!network.Hosting) return network.ReplicaObjects.View(id) as EntityView;
             IEntityBehaviour entity = network.ObjectWorld?.Index.Find(id);
-            return entity?.RuleKey == kind ? entity.Object.ObjectView : null;
+            return entity?.RuleKey == kind ? entity.Object.GetView<EntityView>() : null;
         }
 
         private void Submit(EntityPresentationBehaviour presentation, int captured, InputIntent intent)
