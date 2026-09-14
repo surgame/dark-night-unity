@@ -58,6 +58,10 @@
 **/bin/
 **/obj/
 
+# Python helper caches
+__pycache__/
+*.py[cod]
+
 # Player data, temporary files and secrets
 /Saves/
 *.log
