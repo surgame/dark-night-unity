@@ -39,7 +39,15 @@ namespace DarkNights.Tests
                 Assert.That(moon.position.x, Is.EqualTo(6.38).Within(0.00001));
                 Assert.That(moon.position.y, Is.EqualTo(1.55).Within(0.00001));
                 Assert.That(lights[0].ColorAt(1, 0), Is.EqualTo(Vector4.zero));
-                Assert.IsFalse(ShaderUtil.ShaderHasError(Shader.Find("Dark Nights/Camp Sprite")));
+                Shader campSprite = Shader.Find("Dark Nights/Camp Sprite");
+                Assert.IsFalse(ShaderUtil.ShaderHasError(campSprite));
+                var material = new Material(campSprite);
+                try { Assert.That(material.FindPass("CampSpriteUniversal2D"), Is.GreaterThanOrEqualTo(0)); }
+                finally { Object.DestroyImmediate(material); }
+                int mainTexture = campSprite.FindPropertyIndex("_MainTex");
+                Assert.That(campSprite.GetPropertyFlags(mainTexture) &
+                    UnityEngine.Rendering.ShaderPropertyFlags.PerRendererData,
+                    Is.EqualTo(UnityEngine.Rendering.ShaderPropertyFlags.None));
                 Assert.IsNull(root.GetComponentInChildren<DarkNights.Runtime.Network.SessionNetwork>());
                 foreach (string name in new[] { "Worker", "Spearman", "Archer", "Zombie", "Ghoul", "Armored" })
                 {

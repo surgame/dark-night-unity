@@ -2,58 +2,83 @@ Shader "Dark Nights/Camp Sprite"
 {
     Properties
     {
-        [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
+        _MainTex ("Diffuse", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
+        [HideInInspector] _RendererColor ("Renderer Color", Color) = (1,1,1,1)
+        [HideInInspector] _AlphaTex ("External Alpha", 2D) = "white" {}
+        [HideInInspector] _EnableExternalAlpha ("Enable External Alpha", Float) = 0
         _UseGlobalAmbient ("Apply Ambient To Static Mesh", Float) = 0
         _VertexColorIsGamma ("Mesh Vertex Colors Are Authored In sRGB", Float) = 0
     }
     SubShader
     {
-        Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" "CanUseSpriteAtlas"="True" }
+        Tags { "Queue"="Transparent" "RenderType"="Transparent" "RenderPipeline"="UniversalPipeline" }
         Cull Off
-        Lighting Off
         ZWrite Off
         Blend One OneMinusSrcAlpha
         Pass
         {
-            CGPROGRAM
+            Name "CampSpriteUniversal2D"
+            Tags { "LightMode"="Universal2D" }
+
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
-            struct appdata
+            #pragma multi_compile_instancing
+            #pragma multi_compile _ SKINNED_SPRITE
+
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Core2D.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+
+            struct Attributes
             {
-                float4 vertex : POSITION;
-                float4 color : COLOR;
-                float2 uv : TEXCOORD0;
+                COMMON_2D_INPUTS
+                half4 color : COLOR;
+                UNITY_SKINNED_VERTEX_INPUTS
             };
-            struct v2f
+
+            struct Varyings
             {
-                float4 vertex : SV_POSITION;
-                float4 color : COLOR;
+                float4 positionCS : SV_POSITION;
                 float2 uv : TEXCOORD0;
                 float2 world : TEXCOORD1;
+                half4 color : COLOR;
+                UNITY_VERTEX_OUTPUT_STEREO
             };
-            sampler2D _MainTex;
-            fixed4 _Color;
-            float _UseGlobalAmbient;
-            float _VertexColorIsGamma;
+
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/2DCommon.hlsl"
+
+            CBUFFER_START(UnityPerMaterial)
+                half4 _Color;
+                float _UseGlobalAmbient;
+                float _VertexColorIsGamma;
+            CBUFFER_END
+
             float4 _DNCampAmbient;
             float4 _DNCampLights[7];
             float4 _DNCampLightColors[7];
-            v2f vert(appdata v)
+
+            Varyings vert(Attributes input)
             {
-                v2f o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
+                UNITY_SKINNED_VERTEX_COMPUTE(input);
+                UNITY_SETUP_INSTANCE_ID(input);
+                SetUpSpriteInstanceProperties();
+                input.positionOS = UnityFlipSprite(input.positionOS, unity_SpriteProps.xy);
+
+                Varyings o = (Varyings)0;
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(o);
+                o.positionCS = TransformObjectToHClip(input.positionOS);
+                o.world = TransformObjectToWorld(input.positionOS).xy;
+                o.uv = input.uv;
                 // SpriteRenderer already converts its tint; authored Mesh colors need explicit decoding.
-                float3 tint = lerp(v.color.rgb, GammaToLinearSpace(v.color.rgb), _VertexColorIsGamma);
-                o.color = float4(tint, v.color.a) * _Color;
-                o.uv = v.uv;
-                o.world = mul(unity_ObjectToWorld, v.vertex).xy;
+                half3 tint = lerp(input.color.rgb, SRGBToLinear(input.color.rgb), _VertexColorIsGamma);
+                o.color = half4(tint, input.color.a) * _Color * unity_SpriteColor;
                 return o;
             }
-            fixed4 frag(v2f i) : SV_Target
+
+            half4 frag(Varyings i) : SV_Target
             {
-                fixed4 c = tex2D(_MainTex, i.uv) * i.color;
+                half4 c = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv) * i.color;
                 c.rgb *= lerp(float3(1,1,1), _DNCampAmbient.rgb, _UseGlobalAmbient);
                 float3 light = 0;
                 for (int n = 0; n < 7; n++)
@@ -69,7 +94,7 @@ Shader "Dark Nights/Camp Sprite"
                 c.rgb *= c.a;
                 return c;
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }
