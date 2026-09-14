@@ -82,7 +82,7 @@ Host 与客户端使用同一验证入口；服务器从 NetworkCommandContext �
 
 ## 场景对象与展示生命周期
 
-LevelPlacementMarker 保存稳定放置键、顺序及实例参数；ObjectDefinitionLoader 保存定义并接入 YYGC 对象生命周期。二者职责分开。LevelLayoutAuthoring 导出只读布局供规则和摘要校验，不再从这些记录创建另一套 Core 实体。
+ScenePlacement 保存由 Editor 自动维护的稳定放置身份，以及名称／外观等实例初值；ObjectDefinitionLoader 保存定义并接入 YYGC 对象生命周期。二者职责分开。三个放置分组的直接子对象 sibling 顺序是唯一初始创建顺序，不再额外维护 SpawnOrder。LevelLayoutAuthoring 导出只读布局供规则和摘要校验，不再从这些记录创建另一套 Core 实体。
 
 Host 按放置键精确接管场景中的原 ObjectInstance。动态招募、建造和敌人创建使用同一工厂与上下文。客户端由 ObjectReplica 原子应用完整帧，构造无业务写权限的对象；它不根据场景标记自行模拟。
 

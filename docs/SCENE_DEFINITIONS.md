@@ -1,6 +1,8 @@
 # Definition 驱动的场景放置
 
-后续方向（2026-09-13）：[YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)将以稳定放置键登记场景 ObjectInstance，迁入真实业务能力，退出下述按 Kind 借还视图及独立 Core 实体的流程。Loader 保留通用装配职责，Marker 保留实例参数，CreateLayout 只负责冻结布局描述和校验。**此方向尚未实施；以下仍是当前场景代码及其验证边界。**
+2026-09-15：统一对象方向已经实施。Pinewatch 的 16 个正式 Prefab 已从旧辅助父节点中扁平化，直接位于 Buildings／Worksites／Actors 分组；`ScenePlacement` 只保存自动放置身份和实例初值，分组内 sibling 顺序是唯一创建顺序。下文 2026-09-13 的迁移过程作为历史保留。
+
+本轮保留原有 16 个放置身份、坐标、名称、外观变体、Prefab 连接和既有材质覆盖。新增结构检查确认三个分组的直接对象数为 4／5／7、均为实际 Prefab 实例根且不存在 `VisualPreview`；Unity 原生 Duplicate 检查确认副本会自动取得新身份。冻结布局和新结构测试各 1/1 通过，架构守卫 292 文件／12 自测／0 错误。没有据此重跑或宣称 Player、联机、性能、IL2CPP 与双机器验收。
 
 2026-09-13：实现完成，测试回归待用户确认。Unity `6000.4.9f1` 编译已通过；没有运行 Editor/Play 测试、Player 构建、联机或弱网回归。历史 C 重构通过记录不能视为本次改动已验收。
 
@@ -10,7 +12,8 @@
 |---|---|
 | 对象身份、分类、Prefab | ObjectDefinition 的 GUID／Key、Type 与 PrefabRef |
 | 场景静态初始化 | ObjectDefinitionLoader，沿用启动 Gate 和显式 Initializer |
-| 顺序、名字、变体 | 同一 Prefab 实例上的薄 LevelPlacementMarker |
+| 顺序 | Buildings／Worksites／Actors 分组内正式 Prefab 的 sibling 顺序 |
+| 名字、变体、稳定放置身份 | 同一 Prefab 实例上的薄 ScenePlacement；身份由 Editor 自动维护 |
 | 布局坐标 | Loader 的场景 Transform，由 LevelLayoutAuthoring 导出纯数据 |
 | 旧规则与存档 Kind | DefinitionRuleIndex 从既有 `unit.*`／`building.*`／`worksite.*` Key 后缀导出 |
 | 游戏状态与 EntityId | 房主 Core；表现只绑定权威投影给出的 `(epoch, EntityId)` |
@@ -29,7 +32,7 @@ SceneEntityViews 接管已装配的本地视图，并作为按定义复用的场
 
 ## 现有场景迁移
 
-显式菜单 `Dark Nights/Content/Upgrade Scene Definition Loaders` 只改已有实例的组件及引用，不重建 Prefab。Pinewatch 的 16 个放置项已迁移：保留现有 Prefab 连接，把薄参数组件移到 Prefab 实例根，添加 Loader，移除旧 LayoutVisualPreview。原场景辅助父节点和全部变换保留。
+2026-09-13 的显式菜单 `Dark Nights/Content/Upgrade Scene Definition Loaders` 只改已有实例的组件及引用，不重建 Prefab。当时 Pinewatch 的 16 个放置项保留了旧辅助父节点，以限制迁移差异；该过渡层级和旧 LayoutVisualPreview 已在 2026-09-15 清理，Prefab 连接、世界变换、放置身份和实例初值保持。
 
 导入新字段后，已打开场景曾被 Unity 标为 dirty。先保存副本到忽略目录 `Game/Temp/SceneDefinitionDrafts/Pinewatch.unity`；确认全部差异只有旧 category/contentId 替换为新的空组件引用后，才保存并迁移。没有丢弃用户未保存编辑。迁移明确跳过预览姿态重采样。
 

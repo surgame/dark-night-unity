@@ -154,7 +154,7 @@ ObjectDefinition 与所属 Prefab 放在同一对象目录，方便一起核对�
 2. 替换 Godot.Vector2 等基础类型为实际需要的小型值类型，例如 WorldPoint；移动、吸附与舍入保留原 double/float 边界，不引入完整数学框架。
 3. 原 GameCatalog.Read 的 FileAccess、SaveRepository 的 user:// 和文件操作留在 Runtime 适配层；Core 接收已经验证的定义／快照。
 4. 将 InteractionState、SelectGroup、Construction.Begin 等客户端意图移到本地交互层。Issue、Place、StartSelected 改收显式单位列表、职业、建筑种类和位置，返回业务结果而不是修改全局选择。
-5. 保持有序 ActorIds 和 SpawnOrder。原 AI 时钟按 ID 派生、编队偏移、候选工人和训练顺序都不能被无意排序改变。
+5. 保持有序 ActorIds 和显式初始顺序。最终场景以三个放置分组的 sibling 顺序表达，不再维护独立 SpawnOrder；原 AI 时钟按 ID 派生、编队偏移、候选工人和训练顺序都不能被无意排序改变。
 6. 保留 Economy.Pay、独占关系释放、施工受伤不回满、训练退款、箭矢延迟命中和波次结算的业务语义。
 
 需要优先拆出的实际调用如下；表中目标接口是拟议参数合同，实施时可按职责命名：
@@ -192,7 +192,7 @@ M1 需要实现并验证该 Godot 版本的算法、播种、整数／浮点范�
 | Arrow、尸体／废墟、飘字、指令圈 | 纯效果 Prefab | 显示与寿命；不结算命中 |
 | Torch、CampLight、Backdrop | 环境 Prefab／SpriteRenderer／适量 URP 2D 灯光 | 布局、颜色、视差 |
 | HUD、菜单、组件、Theme | UGUI Prefab、RectTransform、TMP 与主题资源 | 原静态布局、间距、字体、按钮状态 |
-| Pinewatch/Layout | LevelAuthoring＋Placement 标记 | X、ContentId、SpawnOrder、边界 |
+| Pinewatch/Layout | LevelAuthoring＋ScenePlacement | X、Definition、自动放置身份、实例初值、sibling 顺序和边界 |
 | ArtReview | ArtReview.unity | 一屏检查15类外观与 HUD 样本，无正式会话 |
 
 建议的实体层次：

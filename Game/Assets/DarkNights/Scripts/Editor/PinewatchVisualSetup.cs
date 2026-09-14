@@ -77,10 +77,10 @@ namespace DarkNights.Editor
 
         private static void AddPreviews(LevelLayoutAuthoring layout)
         {
-            foreach (LevelPlacementMarker marker in layout.GetComponentsInChildren<LevelPlacementMarker>())
+            foreach (ScenePlacement placement in layout.GetComponentsInChildren<ScenePlacement>())
             {
-                SceneDefinitionAuthoring.ValidatePlacement(marker);
-                marker.View.Preview(marker.SpawnOrder, marker.Variant);
+                SceneDefinitionAuthoring.ValidatePlacement(placement);
+                placement.View.Preview(placement.transform.GetSiblingIndex(), placement.InitialVariant);
             }
         }
 

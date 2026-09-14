@@ -9,7 +9,7 @@ using UnityEngine;
 namespace DarkNights.View
 {
     /// <summary>
-    /// 持有灰松谷的边界和三组初始摆放标记，是布局的唯一可编辑来源。导出时按显式顺序冻结数据并执行结构及核心占地校验。
+    /// 持有灰松谷的边界和三组初始摆放实例，是布局的唯一可编辑来源。导出时按直接子对象顺序冻结数据并执行结构及核心占地校验。
     /// </summary>
     [ExecuteAlways]
     public sealed class LevelLayoutAuthoring : MonoBehaviour
@@ -39,9 +39,6 @@ namespace DarkNights.View
         public LevelLayout CreateLayout(GameCatalog catalog, Func<ObjectDefinition, string> ruleKind)
         {
             RequireReferences();
-            var placementKeys = GetComponentsInChildren<LevelPlacementMarker>(true).Select(m => m.PlacementKey).ToArray();
-            if (placementKeys.Any(string.IsNullOrWhiteSpace) || placementKeys.Distinct().Count() != placementKeys.Length)
-                throw new InvalidOperationException("Scene placement keys must be present and unique.");
             Vector3 ground = Local(groundBaseline);
             if (Math.Abs(ground.x) > AlignmentTolerance)
                 throw new InvalidOperationException("The gameplay ground baseline must start at world x=0.");
@@ -50,6 +47,10 @@ namespace DarkNights.View
             IReadOnlyList<PlacementDefinition> buildingEntries = Read(buildings, ObjectType.Placeable_CompositeStructure, ground.y, ruleKind);
             IReadOnlyList<PlacementDefinition> worksiteEntries = Read(worksites, ObjectType.Scenery_ResourceNode, ground.y, ruleKind);
             IReadOnlyList<PlacementDefinition> actorEntries = Read(actors, ObjectType.Unit, ground.y, ruleKind);
+            string[] placementKeys = buildingEntries.Concat(worksiteEntries).Concat(actorEntries)
+                .Select(entry => entry.PlacementKey).ToArray();
+            if (placementKeys.Any(string.IsNullOrWhiteSpace) || placementKeys.Distinct().Count() != placementKeys.Length)
+                throw new InvalidOperationException("Scene placement identities must be present and unique.");
             var layout = new LevelLayout(Local(worldEnd).x, ground.y, Local(buildStart).x, Local(buildEnd).x,
                 Local(enemySpawn).x, Local(cameraStart).x, buildingEntries, worksiteEntries, actorEntries);
             layout.Validate(catalog);
@@ -61,21 +62,22 @@ namespace DarkNights.View
             ObjectType expected,
             float groundY, Func<ObjectDefinition, string> ruleKind)
         {
-            LevelPlacementMarker[] markers = group.GetComponentsInChildren<LevelPlacementMarker>(true)
-                .OrderBy(marker => marker.SpawnOrder).ToArray();
-            if (markers.Length == 0 || markers.Select(marker => marker.SpawnOrder).Distinct().Count() != markers.Length)
-                throw new InvalidOperationException(group.name + " must contain uniquely ordered placement markers.");
-            var entries = new List<PlacementDefinition>(markers.Length);
-            foreach (LevelPlacementMarker marker in markers)
+            ScenePlacement[] placements = Enumerable.Range(0, group.childCount)
+                .Select(index => group.GetChild(index).GetComponent<ScenePlacement>()).ToArray();
+            if (placements.Length == 0 || placements.Any(placement => placement == null))
+                throw new InvalidOperationException(group.name + " must contain only direct scene placement instances.");
+            var entries = new List<PlacementDefinition>(placements.Length);
+            foreach (ScenePlacement placement in placements)
             {
-                if (marker.Loader == null || marker.View == null || marker.Loader.gameObject != marker.gameObject ||
-                    marker.View.gameObject != marker.gameObject || marker.SpawnOrder < 0)
-                    throw new InvalidOperationException(marker.name + " requires explicit Loader and ObjectView on the same instance.");
-                ObjectDefinition definition = marker.Loader.ResolveDefinition();
-                Vector3 point = Local(marker.Loader.transform);
+                if (placement.Loader == null || placement.View == null || placement.Loader.gameObject != placement.gameObject ||
+                    placement.View.gameObject != placement.gameObject)
+                    throw new InvalidOperationException(placement.name + " requires explicit Loader and ObjectView on the same instance.");
+                ObjectDefinition definition = placement.Loader.ResolveDefinition();
+                Vector3 point = Local(placement.Loader.transform);
                 if (definition == null || definition.Type != expected || Math.Abs(point.y - groundY) > AlignmentTolerance)
-                    throw new InvalidOperationException(marker.name + " has the wrong category or ground alignment.");
-                entries.Add(new PlacementDefinition(ruleKind(definition), point.x, marker.Variant, marker.ActorName, marker.PlacementKey));
+                    throw new InvalidOperationException(placement.name + " has the wrong category or ground alignment.");
+                entries.Add(new PlacementDefinition(ruleKind(definition), point.x, placement.InitialVariant,
+                    placement.InitialName, placement.PlacementKey));
             }
             return entries.AsReadOnly();
         }

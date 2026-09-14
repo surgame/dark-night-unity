@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-15 完成 Pinewatch 场景放置收口：16 个正式 Prefab 根已直接挂在 Buildings／Worksites／Actors 分组，旧辅助父节点和 `VisualPreview` 退出。薄组件改名为 `ScenePlacement`，只保存 Editor 自动维护的稳定放置身份和实例初值；Inspector 不暴露完整键值，复制实例会自动换新。创建顺序改为分组内 sibling 顺序，删除并行 `SpawnOrder`。冻结布局与直接场景实例检查通过，架构守卫 292 文件／12 自测／0 错误；未修改 YYGC、规则、美术或 Prefab，未构建 Player，其余验收边界不变。
+
 2026-09-14 完成[原生对象主视图统一](NATIVE_OBJECT_VIEWS.md)：`ActorView`、`BuildingView`、`WorksiteView` 直接继承 YYGC `ObjectView`，15 个正式 Prefab 不再并列挂载泛型 `ObjectView` 与 `NativeVisual`，也不再以 `"visual"` 把对象绑定回自身。Pinewatch 16 个放置引用、被动预览／残骸工厂、Editor 制作入口及测试合同已同步。Unity 编译、相关测试与 291 文件／12 自测架构守卫通过；最终完整批次 155/156，唯一失败为未修改的 `NativeButtonThemeTests.InteractableChangesUpdateWithoutPointerMovement`，隔离复跑 5/6。本切片未构建 Player、未修改 YYGC；前台性能、IL2CPP、双机器 LAN 和 M5 状态不变。
 
 2026-09-14 编译警告维护：修正 5 个脚本中的 7 处调用／比较，消除本次报告的 10 条 CS0618／CS0252。对象查找改用 Unity 6000.4 的无排序参数重载，保留非活动对象范围；初始化器接口显式转换为 UnityEngine.Object 后比较。复用当前 Editor 完成一次增量编译，Entry／Editor／Tests 程序集均更新，本轮 C# 警告和错误为 0；现有 FormalObjectContentSetup.Validate、NativeObjectContracts.Validate 两项只读校验通过。按用户要求仅做快速验证，未运行完整 Play／Player／联机矩阵，M5 验收边界不变。见[本次验证记录](evidence/unity-warnings-2026-09-14.json)。
@@ -97,7 +99,7 @@ pwsh -NoProfile -File tools/test-game-startup.ps1 -Backend il2cpp
 
 详见[核心迁移记录](CORE_MIGRATION.md)与[冻结证据](evidence/core-migration-2026-09-11.json)。独立复跑新增 `dotnet run --project tools/CoreRegression -- .`；Editor 仍使用上方正式测试程序集入口。Godot 原目录、用户 YYGC 仓库、规则 JSON 和美术未修改。
 
-第三批建立实际 `DarkNights.View`，以 `LevelLayoutAuthoring` 和 `LevelPlacementMarker` 保存灰松谷边界及 4 个建筑、5 个资源点、7 个友方单位。一次性 Editor 入口只向指定空目录生成首版 `Pinewatch.unity`；日常验证只读场景，保存重开后按显式 SpawnOrder 导出冻结 `LevelLayout`。Core 布局校验同时补齐建筑边界、建筑重叠、资源点遮盖及类别变体约束，错误不会创建部分世界。
+第三批建立实际 `DarkNights.View`，以 `LevelLayoutAuthoring` 和场景放置组件保存灰松谷边界及 4 个建筑、5 个资源点、7 个友方单位。一次性 Editor 入口只向指定空目录生成首版 `Pinewatch.unity`；日常验证只读场景。2026-09-15 放置组件已收缩为 `ScenePlacement`：正式 Prefab 直接位于三个分组，按 sibling 顺序导出冻结 `LevelLayout`，稳定放置身份自动生成且不要求人工录入。Core 布局校验同时覆盖建筑边界、建筑重叠、资源点遮盖及类别变体约束，错误不会创建部分世界。
 
 验证：结构守卫 83 个手写文件、10 项自测通过；C#9／netstandard2.1 编译零错误／警告；独立回归 1104 项通过；Unity 重编译无错误，完整 Editor 程序集 29/29 通过，其中布局场景逐项对照冻结夹具并创建出相同初始实体顺序。未运行 Player、PlayMode、对象表现或联机检查；本批场景只有可编辑玩法标记和 Gizmo，不把它写成正式可玩或美术完成。证据见[布局迁移记录](evidence/pinewatch-layout-2026-09-11.json)。
 

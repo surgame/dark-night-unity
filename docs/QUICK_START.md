@@ -49,7 +49,7 @@
 | 换图、动画、角色锚点 | Res/Objects 下所属对象目录；原图引用 Res/Art/Original，改图放 Res/Art/Custom；在 ArtReview 检查 |
 | 调 HUD 布局 | Res/UI/HUD；动态显示代码在 Scripts/View |
 | 排查资源加载、对象装配与组件绑定 | Scripts/Runtime/Framework、Scripts/View 及 Res 中所属对象的 Definition／Prefab；不靠 GetComponent 兜底缺失绑定 |
-| 改初始摆放 | Res/Scenes/Pinewatch/Pinewatch.unity；LevelPlacementMarker 保留实例参数，Loader 提供 Definition 并接管原对象，不另写一份坐标 JSON |
+| 改初始摆放 | Res/Scenes/Pinewatch/Pinewatch.unity；正式 Prefab 直接放在 Buildings／Worksites／Actors 分组，Hierarchy 顺序就是创建顺序；ScenePlacement 只保存自动身份和实例初值，Loader 提供 Definition 并接管原对象 |
 | 改保存格式 | Core/Save 冻结合同＋Runtime/Save 文件边界＋Runtime/Objects 捕获／恢复；当前仅 v2，不要求旧档迁移 |
 | 改YYGC通用代码 | 独立框架checkout，先确认必要范围与工作区状态 |
 

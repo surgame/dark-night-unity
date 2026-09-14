@@ -59,7 +59,7 @@ namespace DarkNights.Editor
             {
                 LevelLayoutAuthoring authoring = scene.GetRootGameObjects()
                     .SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
-                foreach (LevelPlacementMarker placement in authoring.GetComponentsInChildren<LevelPlacementMarker>(true))
+                foreach (ScenePlacement placement in authoring.GetComponentsInChildren<ScenePlacement>(true))
                     SceneDefinitionAuthoring.ValidatePlacement(placement);
                 return authoring.CreateLayout(LoadCatalog(), DefinitionRuleIndex.RuleKey);
             }
@@ -86,22 +86,22 @@ namespace DarkNights.Editor
             Transform actors = Child(layoutObject, "Actors");
             Configure(authoring, ground, worldEnd, buildStart, buildEnd, enemySpawn, cameraStart, buildings, worksites, actors);
 
-            Marker(buildings, "House1", "house", 55, 0);
-            Marker(buildings, "Tavern2", "tavern", 130, 1);
-            Marker(buildings, "Barracks3", "barracks", 245, 2);
-            Marker(buildings, "Farm4", "farm", 330, 3);
-            Marker(worksites, "Wood1", "wood", 402, 0, 1);
-            Marker(worksites, "Wood2", "wood", 449, 1);
-            Marker(worksites, "Wood3", "wood", 488, 2, 2);
-            Marker(worksites, "Stone4", "stone", 548, 3);
-            Marker(worksites, "Iron5", "iron", 592, 4);
-            Marker(actors, "Worker1", "worker", 170, 0, 0, "艾达");
-            Marker(actors, "Worker2", "worker", 187, 1, 0, "罗恩");
-            Marker(actors, "Worker3", "worker", 293, 2, 0, "米娅");
-            Marker(actors, "Worker4", "worker", 311, 3, 0, "伊恩");
-            Marker(actors, "Worker5", "worker", 357, 4, 0, "莉娜");
-            Marker(actors, "Spearman6", "spearman", 660, 5, 0, "奥斯");
-            Marker(actors, "Archer7", "archer", 625, 6, 0, "薇拉");
+            Marker(buildings, "House1", "house", 55);
+            Marker(buildings, "Tavern2", "tavern", 130);
+            Marker(buildings, "Barracks3", "barracks", 245);
+            Marker(buildings, "Farm4", "farm", 330);
+            Marker(worksites, "Wood1", "wood", 402, 1);
+            Marker(worksites, "Wood2", "wood", 449);
+            Marker(worksites, "Wood3", "wood", 488, 2);
+            Marker(worksites, "Stone4", "stone", 548);
+            Marker(worksites, "Iron5", "iron", 592);
+            Marker(actors, "Worker1", "worker", 170, 0, "艾达");
+            Marker(actors, "Worker2", "worker", 187, 0, "罗恩");
+            Marker(actors, "Worker3", "worker", 293, 0, "米娅");
+            Marker(actors, "Worker4", "worker", 311, 0, "伊恩");
+            Marker(actors, "Worker5", "worker", 357, 0, "莉娜");
+            Marker(actors, "Spearman6", "spearman", 660, 0, "奥斯");
+            Marker(actors, "Archer7", "archer", 625, 0, "薇拉");
         }
 
         private static GameCatalog LoadCatalog()
@@ -128,11 +128,11 @@ namespace DarkNights.Editor
         }
 
         private static void Marker(Transform parent, string name,
-            string contentId, float x, int order, int variant = 0, string actorName = "")
+            string contentId, float x, int variant = 0, string initialName = "")
         {
             var definitions = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance);
             SceneDefinitionAuthoring.Create(definitions.GetRequired(contentId), parent,
-                new Vector3(x, 320, 0), name, order, variant, actorName);
+                new Vector3(x, 320, 0), name, variant, initialName);
         }
 
         private static void Configure(LevelLayoutAuthoring authoring, params Transform[] references)

@@ -57,11 +57,11 @@ namespace DarkNights.Entry
             context.Register(layout);
             PinewatchStage stage = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<PinewatchStage>(true)).Single();
             var entries = layout.Buildings.Concat(layout.Worksites).Concat(layout.Actors).ToArray();
-            var markers = authoring.GetComponentsInChildren<LevelPlacementMarker>(true).ToDictionary(m => m.PlacementKey);
+            var placementsByKey = authoring.GetComponentsInChildren<ScenePlacement>(true).ToDictionary(p => p.PlacementKey);
             var definitions = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance);
             ObjectPlacement[] placements = entries.Select(p => new ObjectPlacement(p.PlacementKey, definitions.GetRequired(p.Kind),
-                p.X, p.Variant, p.Name, markers[p.PlacementKey].Loader)).ToArray();
-            foreach (LevelPlacementMarker marker in markers.Values) marker.gameObject.SetActive(false);
+                p.X, p.Variant, p.Name, placementsByKey[p.PlacementKey].Loader)).ToArray();
+            foreach (ScenePlacement placement in placementsByKey.Values) placement.gameObject.SetActive(false);
             var required = catalog.Balance.Buildings.Keys.Concat(catalog.Balance.Worksites.Keys).Concat(catalog.Balance.Units.Keys);
             ObjectSessionResources resources = await ObjectSessionResources.Prepare(required.Select(definitions.GetRequired).ToArray(), cancellationToken);
             network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements, stage.Entities);

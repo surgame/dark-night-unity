@@ -106,9 +106,9 @@ flowchart TD
 
 ### 3.4 场景对象直接进入同一生命周期
 
-`ObjectDefinitionLoader` 保留通用定义装配职责；`LevelPlacementMarker` 保留场景实例参数。二者不需要合并成包含游戏规则的框架组件。
+`ObjectDefinitionLoader` 保留通用定义装配职责；游戏侧场景放置组件保留实例参数。二者不需要合并成包含游戏规则的框架组件。最终组件已收缩为 `ScenePlacement`，稳定身份由 Editor 自动维护，初始顺序由三个分组的 sibling 顺序表达。
 
-1. Marker 增加稳定的场景放置键，保留 SpawnOrder、名字和变体。放置键由 Editor 创建、复制时校验唯一性；它不是 EntityId，也不是资源 `.meta` GUID。
+1. ScenePlacement 增加稳定的场景放置身份，保留名字和变体。身份由 Editor 创建、复制时自动生成并校验唯一性；它不是 EntityId，也不是资源 `.meta` GUID。最终实现不再序列化 SpawnOrder。
 2. Loader 装配当前 Prefab 的 ObjectInstance，但未绑定当前会话前保持被动。场景预置与动态工厂对象随后进入同一套准备、激活、调度、退休流程。
 3. `LevelLayoutAuthoring.CreateLayout` 收缩为边界／放置描述的冻结、校验及摘要输入；不再把描述交给另一个 GameSession 生成一套 Core 实体。
 4. 服务端按既有初始化顺序分配 EntityId，并产生明确的“放置键 → EntityId”关系。保留农田派生工位及其 ID 顺序；16 个手工放置项不等于全部逻辑实体数量。
@@ -302,7 +302,7 @@ F1–F4 是 U1 必须解决的合同。具体 API 名称在 U1 锁定，本文�
 | `Runtime/Framework/DefinitionRuleIndex.cs` | 删除 Key 前后缀兼容推导，规则绑定来自 Definition 的 IConfigData | 可修改定义显示名／Key 而不误换规则；GUID、类型及 RuleKey 均明确验证 |
 | `Entry/SceneEntityViews.cs` | 删除按 Kind 借还视图流程 | 场景实例用放置键精确登记，Host 不再任意借一个同类对象 |
 | `Entry/SessionEntityViews.cs` | 移出创建／释放职责，保留必要展示时间线与分发 | 权威对象／副本对象的生命周期没有第二个所有者 |
-| `View/LevelPlacementMarker.cs`、`LevelLayoutAuthoring.cs` | 保留实例参数和布局校验，接入稳定放置键 | 不从描述再创建 Core 世界；预览无权威副作用 |
+| `View/ScenePlacement.cs`、`LevelLayoutAuthoring.cs` | 保留自动放置身份、实例初值和布局校验 | 不从描述再创建 Core 世界；预览无权威副作用 |
 | `View/*PresentationBehaviour.cs`、`EntityView` 及三个类别主视图 | 复用外观解释／采样，绑定新只读副本 | 不直接读可写 State、不由动画结算伤害；正式实体不保留并行外观组件 |
 | `Core/Save/SnapshotMapper.cs`、`Runtime/Save/LegacySnapshotJson.cs`、`Core/Save/LegacyDisplayState.cs` | 替换旧实体映射，删除旧格式和旧显示状态导入 | 新 v2 捕获／恢复直接面对新状态；产品无旧档 fallback |
 | `Runtime/Save/GameSaveJson.cs`、`GameSaveStore.cs`、`SessionStorage.cs` | 保留有界解析、槽位、冻结与原子文件边界，适配 v2 | 原文件／当前世界在失败、取消、锁冲突时保留 |

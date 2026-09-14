@@ -22,8 +22,8 @@ namespace DarkNights.Editor
             ObjectDefinitionDragHandler.SceneObjectCreated += OnCreated;
         }
 
-        public static LevelPlacementMarker Create(ObjectDefinition definition, Transform parent, Vector3 position,
-            string name, int order, int variant, string actorName)
+        public static ScenePlacement Create(ObjectDefinition definition, Transform parent, Vector3 position,
+            string name, int variant, string initialName)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(AssetDatabase.GUIDToAssetPath(definition.PrefabRef.AssetGUID));
             if (prefab == null) throw new InvalidOperationException("Definition PrefabRef is missing: " + definition.Key);
@@ -34,19 +34,19 @@ namespace DarkNights.Editor
             instance.transform.localScale = Vector3.one * EntityView.PixelsPerUnit;
             ObjectDefinitionLoader loader = Undo.AddComponent<ObjectDefinitionLoader>(instance);
             loader.EditorConfigure(definition);
-            return Configure(loader, order, variant, actorName);
+            return Configure(loader, variant, initialName);
         }
 
-        public static LevelPlacementMarker Configure(ObjectDefinitionLoader loader, int order, int variant, string actorName, bool refreshPreview = true)
+        public static ScenePlacement Configure(ObjectDefinitionLoader loader, int variant, string initialName, bool refreshPreview = true)
         {
             EntityView view = loader.GetComponent<EntityView>();
             if (view == null) throw new InvalidOperationException("Scene prefab is missing its EntityView primary view.");
-            var placement = loader.GetComponent<LevelPlacementMarker>();
-            if (placement == null) placement = Undo.AddComponent<LevelPlacementMarker>(loader.gameObject);
+            var placement = loader.GetComponent<ScenePlacement>();
+            if (placement == null) placement = Undo.AddComponent<ScenePlacement>(loader.gameObject);
             Undo.RecordObject(placement, "Configure scene placement");
-            placement.EditorConfigure(loader, view, order, variant, actorName);
+            placement.EditorConfigure(loader, view, variant, initialName);
             ValidatePlacement(placement);
-            if (refreshPreview) view.Preview(order, variant);
+            if (refreshPreview) view.Preview(loader.transform.GetSiblingIndex(), variant);
             EditorUtility.SetDirty(placement);
             PrefabUtility.RecordPrefabInstancePropertyModifications(loader.transform);
             foreach (SpriteRenderer sprite in loader.GetComponentsInChildren<SpriteRenderer>(true))
@@ -54,10 +54,10 @@ namespace DarkNights.Editor
             return placement;
         }
 
-        public static void ValidatePlacement(LevelPlacementMarker placement)
+        public static void ValidatePlacement(ScenePlacement placement)
         {
-            if (string.IsNullOrWhiteSpace(placement.PlacementKey) || placement.gameObject.scene.GetRootGameObjects()
-                .SelectMany(root => root.GetComponentsInChildren<LevelPlacementMarker>(true))
+            if (!Guid.TryParseExact(placement.PlacementKey, "N", out _) || placement.gameObject.scene.GetRootGameObjects()
+                .SelectMany(root => root.GetComponentsInChildren<ScenePlacement>(true))
                 .Count(other => other.PlacementKey == placement.PlacementKey) != 1)
                 throw new InvalidOperationException("Placement key is missing or duplicated: " + placement.name);
             if (placement.Loader == null || placement.View == null ||
@@ -79,13 +79,12 @@ namespace DarkNights.Editor
             if (layouts.Length != 1) throw new InvalidOperationException("Place a game definition in a scene with exactly one level authoring root.");
             LevelLayoutAuthoring layout = layouts[0];
             Transform group = layout.PlacementGroup(definition.Type);
-            int order = group.GetComponentsInChildren<LevelPlacementMarker>(true).Select(value => value.SpawnOrder).DefaultIfEmpty(-1).Max() + 1;
             Undo.SetTransformParent(loader.transform, group, "Group definition placement");
             Vector3 point = loader.transform.position;
             point.y = layout.GroundPoint.y;
             loader.transform.position = point;
             loader.transform.localScale = Vector3.one * EntityView.PixelsPerUnit;
-            Configure(loader, order, 0, "");
+            Configure(loader, 0, "");
         }
     }
 }
