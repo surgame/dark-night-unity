@@ -1,0 +1,1773 @@
+{
+  "commit": "aa450a7168d5800b0899e216ed484892e44fb40a",
+  "files": [
+    {
+      "path": "com.tsgame.anyrules/Compiler.meta",
+      "sha256": "fa698fee45b5156639584d5084f1f9d023f75ac34d13d40b923e23ddb767d14e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Presentation/FacadeQuickStart.cs",
+      "sha256": "e0e3e69a43620195bc3c0622230d57a42ed64a56bc1bb1ddb0d711a382de1788"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Presentation/AnyRules.Fixture.Unity.asmdef",
+      "sha256": "295ea380f7c6b69ba82c16ed26d2dcdddcb2f2cbd45a33d77e970d1a650ffd79"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Editor/SortedFixtureBuilder.cs",
+      "sha256": "301a922b58b1b9e6ee1a9d5c02b0020c45b352af4cc75c4dc5edbb8e266626b2"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Editor/LiveFixtureAcceptance.cs",
+      "sha256": "9e8895ec637dd0f7155ed38f4b365910e124b625c9ff8ed682d9113418bfe752"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Editor/FixtureDebugMenu.cs",
+      "sha256": "b2134d257dc886d4cb17f8aa0bb7e77d3a2d98eaec1feb6c435d4c8770c8da8c"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Editor/FixtureAssetBuilder.cs",
+      "sha256": "363314500d945674737d59f35f74d8fc28b9c5af480204a9b39e62b3a1dba3e1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Editor/AnyRules.Fixture.Editor.asmdef",
+      "sha256": "63dbda0ab543d6e0fea27b080f410d8258d2ce58747d684f6f570edf3bc4da1c"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/README.md",
+      "sha256": "5ed0ef0bbf72ac3f3372e499a6b8bc87aa4674c028146ad6493baf042ed7feaa"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/benchmark-profile.json",
+      "sha256": "2bd1e492fb37086b90636c5c9eb62318f28c1ad03d96e30345a1134f27dbbf93"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Scheduling/PageScheduler.cs.meta",
+      "sha256": "a9d81d93163a9aa981a1cb4ced59448ae2ab82f01f1ac78faaa698edcb91d35d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Scheduling/PageScheduler.cs",
+      "sha256": "d2a23b20b21990788e9938fe5efe866cd34abe8ebcbb4836404185996ba990b0"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Scheduling/PageBuildPipeline.cs.meta",
+      "sha256": "16b7fe5d12e37c9c5735f11b0f10563256d510962e7495ac8aee6e27f2a5a775"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Scheduling/PageBuildPipeline.cs",
+      "sha256": "41783cdd3f9d4707754256edfd9fc5f7857b245a99956704f5d8aa3fc0dc33ae"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Scheduling/MapLifetime.cs.meta",
+      "sha256": "0172cdb405897bf8073365daba840d1127726421890bc801e053e653f3a27fa9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Scheduling/MapLifetime.cs",
+      "sha256": "ed67384151e0a3a4ed2a21c33375ba0171998185d56051baee5dbe8d425961f2"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Scheduling/BuildTicket.cs.meta",
+      "sha256": "cc4692ff152c2a5e198b654b4e57953650ac438582f5dc1147cfe05e79651360"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Scheduling/BuildTicket.cs",
+      "sha256": "f7c06f2b3e941210ceb5e1e7625b49b9442c8e87db5ebc1f9af48d28360599bb"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Scheduling/ARDRenderController.cs.meta",
+      "sha256": "4a912c4d08f1e7a3701fa9b4bf5074e1d6ef46aee59425234ff12914529f6d14"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Scheduling/ARDRenderController.cs",
+      "sha256": "62b4ed132c7f177d0019b5882a3e59a242b74d93cb39c506f786258286afada0"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/Sorted/VisualAnimationClock.cs.meta",
+      "sha256": "bd3462a05862491020d585757f2a696ad9b9687081acc7cc2f64333d27ec1651"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/Sorted/VisualAnimationClock.cs",
+      "sha256": "792fa14f875510e62cb9c1af64f9b6210a5bf5fac327d9b11e34e0b502f60b71"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/Sorted/SortedSpriteBackend.cs.meta",
+      "sha256": "121f105b8933dfb1b1ee5b73b534460ba486f8df780ca021e1e1c306c3e50a48"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/Sorted/SortedSpriteBackend.cs",
+      "sha256": "9615feb1f488d1ffb80848abe2302a58583d4cbc5e0a211502c34b5052952dc3"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Presentation/GoldCopperLiveView.cs",
+      "sha256": "ed0398af4ddea01b9260021ac3c73519a900ea4d53a1b80bcedd99e66aa09675"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Runtime/AnyRules.Fixtures.asmdef",
+      "sha256": "fd022cfac974a022a388919b1e5831951d5f5ddd33b8ee3dcd67c90009f4854e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Runtime/GoldCopperFixture.cs",
+      "sha256": "4b338ce642ce1a4bbee959ecdf60db3f33d96882ffd4413ede2c909d98e8ef43"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Tests/AnyRules.Fixture.Tests.asmdef",
+      "sha256": "af47f689958df4f2d46e01a2842076caef04078aefd7aebd3e15ffba717a3e89"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Business/GameplayAuthoringTests.cs.meta",
+      "sha256": "76b0985ba6051658ddce7c576060b45bb004e327b9319fdc863ed34b60408df6"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Business/GameplayAuthoringTests.cs",
+      "sha256": "48daa22f17304a09c95fac69b6c29336e9ad668e908fc6931eac14cc0f3f6c7d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Business/BusinessTests.cs.meta",
+      "sha256": "e932c33e75106fbbbb5ec2e45bc6865d29cdab38734081d8a34e2308e4d9dfa4"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Business/BusinessTests.cs",
+      "sha256": "5d150c3fc80be7ca0ddb16f1835b2caef19c6eeaf282bc02b0eaee0eba01c252"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Workbench.meta",
+      "sha256": "3afaeeac5340ff5f42ba25fd6b2f1019b90af1cfa3b4bbbcf165af236a7b9f53"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rules.meta",
+      "sha256": "4ef8037ed33f98bcc58c81c1207167c13c7a5257c72442e496dacc324d5c3239"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rendering.meta",
+      "sha256": "242d24f46f49bcde15a10a4e42d4ceab5dc58bc4973519e2ece64023120759ed"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Persistence.meta",
+      "sha256": "65547bdfa9a00c9ead4f0e0480a6cc93e560f44ab07353b5c2656988b73450a1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Layers.meta",
+      "sha256": "9352f6a6e692d70e54fae7299a50d53efc9f3fb4cfa944c8e13c425f1ab01b06"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Invalidation.meta",
+      "sha256": "20a27fd661427061a8811762119cf91178f86683a9a3cdcb163d99a44b370d7d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Import.meta",
+      "sha256": "8d6e0c3c86b4a884fe3d9f1a1abdaa45a839a0c156aa8c2b2e5401841237c7ad"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/Sorted/FootpointSortGroup.cs.meta",
+      "sha256": "573aef7a69ecdf1c9ae8806c734f832b97bfd36931562f57b911cd0e3f3d329c"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Grid.meta",
+      "sha256": "eded112d54342b143b741929d02ee9964be2984ce10a189a6dd5c63e353f6b87"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Contracts.meta",
+      "sha256": "fc9c32259593a99663cba0da792728672fae6a2fee9d5ecb60ad6ddb9cb5108c"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Collision.meta",
+      "sha256": "44c608e0240bf67ab2eb07d793b34ee777e6ec5f05f14572cb2d02712ec54023"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Business.meta",
+      "sha256": "00035249da11bc8e357eaae115d08d6da404b149cb732a8864744847ef5f47d1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/AnyRules.Core.EditMode.Tests.asmdef.meta",
+      "sha256": "98b59f4486299e6f7dcfb925e030b221e0ddbe80af64b63d0107ec089a5c5b6a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/AnyRules.Core.EditMode.Tests.asmdef",
+      "sha256": "1743bcc8430fb809fce7a29b2049f375bbf839f1220b557cc7835a73369ab459"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode.meta",
+      "sha256": "e771615e60c74f1997cdc14462211465bd567383eb729ceae4031ef78753af4d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode.meta",
+      "sha256": "df627d4e28f9a67ba3fa0a169f1525cce4c9e31676351ee6f0427d22feeb09e5"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Tests/PlayMode/LiveFixtureTests.cs",
+      "sha256": "0bb65288830c54832305b5aaf6f10bf459c4a02984e2d2dab4db6b6fdcee9819"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Tests/PlayMode/AnyRules.Fixture.PlayMode.Tests.asmdef",
+      "sha256": "af593e7e4b3ed626eb77bb023c35a8f7be41833fc8de628b51ab2ddd5fb8eca7"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Tests/FixtureAssetTests.cs",
+      "sha256": "6b7a328f6959a549d5b5a0d5bfe79841fa55769ed1a53607539ecd9ec2f9ae80"
+    },
+    {
+      "path": "com.tsgame.anyrules/Samples~/Standalone2D/Tests/BenchmarkFixtureTests.cs",
+      "sha256": "f12b85c0b16f74095249b88d8f79742e9a0d7a5db72d2c9eec070304b34144c5"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Debug.meta",
+      "sha256": "73449702e1a070e582ac7d27d9269ef9694bbcd80946017004bf857516263e74"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Collision/CollisionQueryTests.cs",
+      "sha256": "878ca4445e460d0f140f3e2ba0640540b029a3acdb6bb6ed6cfdbe8f304e21aa"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/Sorted/FootpointSortGroup.cs",
+      "sha256": "8d3fe6dd5acd81c52ab3c8a0190bbfd1f0fa079ca193b12e86724b7cd45cc0b8"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/Sorted/ARDRenderTile.cs",
+      "sha256": "076e71d08d8989d1e94eb452c261d20b1952676ef1a3c9344248f1c4f25326c9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Facade/ARDMapController.cs",
+      "sha256": "cba9ab330af6a7e9ef6752c68e70c5b7fbcadf8ca310d1cb068f6028a6371ba0"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Debug/GridEventRing.cs.meta",
+      "sha256": "e701b5424ceebe1ae00a9e2f0135c9ea6257b08a96b3c4f725a87938938e66aa"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Debug/GridEventRing.cs",
+      "sha256": "2370d714f46d40d129e31801fab7968ffa8c9047e71e7f3a165764933ea3170f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Debug/GridDebugView.cs.meta",
+      "sha256": "86d8f2348fa146427869aceceeb107d763c75a2468e2db9dd6412684fbc57f2b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Debug/GridDebugView.cs",
+      "sha256": "f924caa970b3bff28088de814aae5c5885ad1d53271c6234b3bea6b988d0d05a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Debug/GridDebugSnapshot.cs.meta",
+      "sha256": "cec80d757cb6a76d72cd20d117f808bfbc6614cf66d4a918dfc2ea3d8c728f1f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Debug/GridDebugSnapshot.cs",
+      "sha256": "099f20f96c5ab8bfa9cf6514c722c7eceecb6be5121c25d608c28948f0ab4aa1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Debug/GridDebugController.cs.meta",
+      "sha256": "063287b04f69b117a80b930a2978587cf2a08ee29ed468992dba78e82aa83c2d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Debug/GridDebugController.cs",
+      "sha256": "f18dbb7bd9dffebddbf28a6920a8dfa4b057b8c39acf88f04d5b673fa68b60a7"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Collision/GridCollisionProjection.cs.meta",
+      "sha256": "1d4d5bf8d24d6115b707a899eca5a952babba4d3d5cc9d0d833028ee5a66ed6f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Collision/GridCollisionProjection.cs",
+      "sha256": "423f7f98a00edf7c47fead214ca6b10d56dafba3a4fc976a1187a1265f059bbf"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Collision/CollisionUpdateReceipt.cs.meta",
+      "sha256": "af3e0f8d1bdf050a1e36edf0902d31b024ceb70c439782c8a7c1f7c7405cf77f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Collision/CollisionUpdateReceipt.cs",
+      "sha256": "02556bd9faf98d21e70564de54910a3fd9796d7ec9d480153cf0909864e860a0"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Baking/BakedGridView.cs.meta",
+      "sha256": "c36043014850d5a9e9cabfb5344a3598e4d5d36038ec6aabbd1e2ff1cdb6933f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Baking/BakedGridView.cs",
+      "sha256": "78d262cdef9f3611f81e88cc10e13ba057df928ee0039bfd6bbcfce0d61884af"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Baking/BakedGridDriver.cs.meta",
+      "sha256": "0585e22c8f1e79eacb4789b333f288a01f13dc9165fbe0e9e55b1133cb107a56"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Baking/BakedGridDriver.cs",
+      "sha256": "2235d1ad91a6223f7476db0b7b40deabcd6de92a0c74b1c63dfcbb990c581e9e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Baking/BakedGridBuilder.cs.meta",
+      "sha256": "3749a6bab4061fd0c7a3fd58ce3afa43d64739b5d3fa7a5534e4f9aed1d05644"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Baking/BakedGridBuilder.cs",
+      "sha256": "105c3daf95dd7545b971a7583d26a1f34951857df523ce26f89ae085fe42ddee"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Baking/BakedGridAsset.cs.meta",
+      "sha256": "eea860f534ff636ef0600a507b632cc5ed1cd688502906a9ff130831488244fc"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Baking/BakedGridAsset.cs",
+      "sha256": "2026a152611166157cc11abf10e05244e4b27519f4609c3ceba841fa4a5cd27b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Assets/SharedVisualAssetService.cs.meta",
+      "sha256": "736eb5a358d2a02247dbfce1a6f380e74aadb3c4b58e97f7f0a3735cbd582204"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Assets/SharedVisualAssetService.cs",
+      "sha256": "5890de2e888fe234d39cf0d76fb6176d522f4fdbe63ead043ea1fa27c4e0dffd"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Facade/ARDMapController.cs.meta",
+      "sha256": "5230099de1897cc0f1773a6a41b20dda69c004d28ceb4dfb9d43f7ee071dde4e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Facade/ARDMapDriver.cs",
+      "sha256": "6c0239bf9028f0a1dbbd2e3507393385575255822eb14d0cb21065e9fd7bdcf2"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Facade/ARDMapDriver.cs.meta",
+      "sha256": "d3089952e09bb4d12c5ffeca923b2fcb9e04b01fe4bb7467ebf9c3f502d6cf62"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Facade/MapOptions.cs",
+      "sha256": "2b1de7e503eb060583c2806e03b5f79dd59f64ae562276067ce7deb8cf3bf349"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/TilemapReferenceBackend.cs.meta",
+      "sha256": "d32e69a3426dc5c7067d24d671b2e07ccb8fd2ed3001d18c3bab7c037876a290"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/TilemapReferenceBackend.cs",
+      "sha256": "2647d99dfdf77830583bd1f12ff2fa3517e34cbf4cb9ccd776b92f5eb7f189f6"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/SpriteResourceTable.cs.meta",
+      "sha256": "aa5d91ab66cec8255078842d16643778e24ccdf846db1c4170861d44520333a2"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/SpriteResourceTable.cs",
+      "sha256": "88c139c75383c6ec05b94ff87d42de0d2cd418f64d80faf767d8fc3f0947612b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/SpritePageBackend.cs.meta",
+      "sha256": "f3352d48c1ab60f003a32b52414b141468b4f1d835a1ba1c2d8557a84a46f57a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/SpritePageBackend.cs",
+      "sha256": "1a7997f1bad40a9df0abf77f9cdac616606d5b0fd8662560858abea2f8e075c9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/SpriteGeometryCache.cs.meta",
+      "sha256": "b21402447e0c21cb988f64a232cecf0f18544216b781111bc74914f740a75e84"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/SpriteGeometryCache.cs",
+      "sha256": "69b4587f1700dde849546b38cedfad8bd84d368b233de93a2c5bf15d33e9570a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/Sorted.meta",
+      "sha256": "4d6ecee91926e6bfd7eb39e1725d914e8687ba3cad65117e2bc9b75fb8149a1f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/RenderProfile.cs.meta",
+      "sha256": "393441e1e5540915f910b99dfef1779c9bdc817c1793a7f4ecd623a4dded48aa"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/RenderProfile.cs",
+      "sha256": "8118cd633da224af43e78779fb147198862efe38f2aea353616cfe0cbef891cd"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/Sorted/ARDRenderTile.cs.meta",
+      "sha256": "bced41c90f005b63ed2f56134f30fd4b72cb5f76e0f8e1f183a4c29144c4815d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/PreparedPage.cs.meta",
+      "sha256": "b33a460af5b3c1774882fefea55faae3e1c34a4baf47706d3989b0625342f5ec"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/GroundPageGeometry.cs.meta",
+      "sha256": "3bce4319822135f50e05a4f191981d96bd3e3769573e68be287efe95bf711d99"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/GroundPageGeometry.cs",
+      "sha256": "725868769a91a27da0eeaf24c36d3f356e813008d2c69f5b29fb622013841ce2"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Pages/RenderPageStore.cs.meta",
+      "sha256": "edd1e9435b75fc270a6cce5d838409b84705822fe1613ef5481a5dc67e74d3ba"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Pages/RenderPageStore.cs",
+      "sha256": "6ab92a7ce14d7b2c6e31d0922ff4bdcdaa257f4b8094412155e57d967e0e826b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Pages/PageSnapshotBuilder.cs.meta",
+      "sha256": "035f5d327bf7276cb19fe942f9d8f4c75dd023f2d4e17f395fceeec9d94b17df"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Pages/PageSnapshotBuilder.cs",
+      "sha256": "d8f09914900639922e354639ad44e054bf4e05a63af14667437f515c2305e119"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Pages/PageDirtyTracker.cs.meta",
+      "sha256": "744565da08630f12b97a2133eab581c8316bb5a8d192d0b59839083229cd7f9d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Pages/PageDirtyTracker.cs",
+      "sha256": "a412d702a7a61b5568d8925098b1c9e38b67b6c13f7064ab434d7b2f7111379f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Facade/PresentationWaiter.cs.meta",
+      "sha256": "227a0c9e56bbc78494a27f778c54a1ac4a0c9b293b3323ba557b1720b72daef5"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Facade/PresentationWaiter.cs",
+      "sha256": "be3b142a2ba004d2f1b97c228382ce9b669fa7940e61c4083e5cdcdd402ef27f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Facade/MapOptions.cs.meta",
+      "sha256": "d7170fc31da77d368294eaf53ce3b100ccebad391beda5feaba284f7bced179d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering/PreparedPage.cs",
+      "sha256": "70daae7a671feb11986990a4d6b7e1043d52b19ebc9d3373cb29c483d82cb6f0"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Collision/CollisionQueryTests.cs.meta",
+      "sha256": "11a194d2ba87245273ecc46015b6d2346575d09b2bda622fe0ad196893127992"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Contracts/ContractTests.cs",
+      "sha256": "1ce2e83fc747f291b128df9887a622c32b4e4620b824a6ca0784b125b90f97e7"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Contracts/ContractTests.cs.meta",
+      "sha256": "e0dd419b8f495282106e35c418039c97a7039648667a4f817d1ec4ee81913b81"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/package.json.meta",
+      "sha256": "823a481fe594e25371acaf88b26492dfff56ea7fb85fc67e10f290789069c5a7"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/package.json",
+      "sha256": "e30b7ac51466710362f94cbbdd1d8e992cde4a612ca9dcb836da2437ad063dae"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Tests/YYGCSessionTests.cs.meta",
+      "sha256": "47415d29c25fc0326655a3db88a7f8a61a296364c883625d18a2e3ed80c2034b"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Tests/YYGCSessionTests.cs",
+      "sha256": "333b26139db525f58cfca844106eb92168a113602ee2ee45a395885d96760a41"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Tests/AnyRules.YYGC.Tests.asmdef.meta",
+      "sha256": "6792fc12dd58953c539a87b88456e2906e975931ae74e3844c05b50c5d9cb7eb"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Tests/AnyRules.YYGC.Tests.asmdef",
+      "sha256": "a8d23e99c88afcaf6eaf7885fd28977d64651bc8cd36ffcd1a18a0d707d24337"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Runtime/YYGCMapSessionAdapter.cs.meta",
+      "sha256": "cf5e2a6a4af14320fc88fadd29b1a4a7e25db8f6ceb65e5c5fd199588457e65a"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Runtime/YYGCMapSessionAdapter.cs",
+      "sha256": "deb0e156baf043d7060a5b9c91b5632bba7ea8039a1cfd3f8eb337ddceeeb031"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Runtime/TerrainEditBusinessHandler.cs.meta",
+      "sha256": "b12cc25b3304b24444d7e04688d61948097e7d40401f7e2e13989817b2f61d79"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Runtime/TerrainEditBusinessHandler.cs",
+      "sha256": "6630cd47272955745b598a5e16065032ef536af5caee41f96a81cf47e50d15c8"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Runtime/MapHostConfig.cs.meta",
+      "sha256": "827ddef62d72a40c7d0dd516dae4820f189c43486576c6bdc2e0f932395fb3d0"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Runtime/MapHostConfig.cs",
+      "sha256": "95ce339ca6af78bcf3c45b486f77eb2e4e1b812db5a960c30205bef3eff83903"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Runtime/FileTerrainRewardLedger.cs.meta",
+      "sha256": "f3ccef40427e8da1925871a9532ca2404c623a26367d30ede3365903005d0df3"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Runtime/FileTerrainRewardLedger.cs",
+      "sha256": "d33ccba1177a2e47cc56fbeaf5b05b12aefaa0de2f881bf69a3c54cc0021d248"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Runtime/AnyRules.YYGC.asmdef.meta",
+      "sha256": "8f5e47686aa15e9501a352c5d926e5dce0b83dacfadfbdf0b22ba12e9204e344"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Runtime/AnyRules.YYGC.asmdef",
+      "sha256": "a91cd6f3977689b5be6b43e963fd23c9142616b9bd8fe0e09a05c23391592898"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Documentation~/business-consistency-adr.md",
+      "sha256": "532db9d8afe9081f4adb67d134200617afe2d9e901bbc287771d9828b17a02a0"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Tests.meta",
+      "sha256": "3b8a41129da8ff38dba038c9856e4c2c840b581d3a2ec712d23249851d3a15e7"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/Runtime.meta",
+      "sha256": "e3997b5478c3e7efe41808cbbe9332a55fee71764406837a90624b036d1facfc"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/README.md.meta",
+      "sha256": "b6e54470058c6484a4ecb804312665cf1efc131bd0448ef808d239778f080f52"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/README.md",
+      "sha256": "994ef5b0153b4310fe5f6ac87cbef95935fbdaa9c44d754fdfddcdb933912ea6"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/package.json.meta",
+      "sha256": "e4ece689e48b66ab1e100e63d893aaf4adea339ac63b2de7d710b4d4ed1afb2b"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc/package.json",
+      "sha256": "ba025ee750860be7cd6ff962c0da1990e6eb69c0da0c0a56ebbe596f422e0657"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol.meta",
+      "sha256": "8ffe36d721e591ebd52c98b921b8ac654bf715977f8855715ae6ff158b959c19"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/README.md",
+      "sha256": "55cd398ba9009e6a8cc3ed6e78ee3d2344a88d2a94bf34510683d61aac76dbb5"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/README.md.meta",
+      "sha256": "bc08a982ca7853674d90a5d9633882e23afe86dc31b41ba2a4de46b226dccdf5"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Runtime.meta",
+      "sha256": "45953687eb62a0a04a0515b2ef8b78ccfaa5273007ef3cee88188bc245e3c352"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Tests/Protocol/NetworkTests.cs.meta",
+      "sha256": "8308ed5f990d30279c469f89386f95d12ac10c94ccea692066edca433bf641d5"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Tests/Protocol/NetworkTests.cs",
+      "sha256": "ae32b8653fdb4b0a405492c8bf261ddaeb8eae4df279c0ef03eebabd325efeb3"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Tests/Protocol/AnyRules.MapProtocol.Tests.asmdef.meta",
+      "sha256": "1316893efaaa28d836a9aabe7369ec930378018d0a2d7cfbf0605d06d795c664"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Tests/Protocol/AnyRules.MapProtocol.Tests.asmdef",
+      "sha256": "8b1edff01368e9c582c050dce49174146d9941a1ebf6729b14f06050d9e867ae"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Tests/Protocol.meta",
+      "sha256": "b04ef9a406231bd1923422158112271c0c12a50a497b74118177f8e1ac3480d1"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Runtime/TerrainEditCommand.cs.meta",
+      "sha256": "efec3bc910534849dfaf859d7646b87cfb482b7c60aba43e273dbbe24077a8dd"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Runtime/TerrainEditCommand.cs",
+      "sha256": "24d5fb0e9fc0ebe1d92abb95b7a29e390de1ce9cf8a0732bfb7e0e0ebaa63050"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Runtime/FishNetMapTransport.cs.meta",
+      "sha256": "dda5c2220269493cf74511fe7599463fc8107978a3557720e00031a8182c53fd"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Runtime/FishNetMapTransport.cs",
+      "sha256": "09f218bef762e63af11dedcd1be13f37c0d0b6c3a210a08617fd6e71a361ecc7"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Runtime/AnyRules.FishNet.asmdef.meta",
+      "sha256": "965995b371fc21ae18bc9e488f01fe8d0c2feea27121c5f49fdce16e83fd1d53"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Runtime/AnyRules.FishNet.asmdef",
+      "sha256": "91563fa205a02ab94917d7f373d4bc3baee8b4b30ea6abc50641c82d54537d72"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Static/StaticTests.cs.meta",
+      "sha256": "a9412447fee018c743c70c4f61f4a762e6a1a0910f83e86e1399b604c453e503"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/ProtocolLimits.cs.meta",
+      "sha256": "8c91156559ffea709dd18eab0632b9eed6812e5cd8922d56582e5e0aedfd63d8"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/MapProtocol.cs.meta",
+      "sha256": "679babc46267cf1ac5445b99ca83539041b9823320aded569e5e918080a7e43c"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/MapProtocol.cs",
+      "sha256": "ac953466f96704e54e0a0bd7712c856e1ac110f88b899ffeff7d0468a589ad70"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/MapInterestService.cs.meta",
+      "sha256": "8ee9775c2f23e9584cdc5315e36aff11e60e46f53a1da2a05cc9c12ae22507dd"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/MapInterestService.cs",
+      "sha256": "b631038a20209981cdc580a2dfea13aa1dcc9858adab50765ceaef99cb9d0cc4"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/MapHandshake.cs.meta",
+      "sha256": "513fa0fe481a6d8ec5706618ad9ed2e32134ba8bfe2c85671b43bd9b77e6138a"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/MapHandshake.cs",
+      "sha256": "3ada8e924a724a182cb710c5b21322ac5a8e370e0cf9ee1b23197903cdd45757"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/ChunkReplicaStateMachine.cs.meta",
+      "sha256": "ab8cbe593e4655575b74d08f0cfac88cab7afc1cf524ba72f1999226bf4684e4"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/ChunkReplicaStateMachine.cs",
+      "sha256": "0b92a8d550f25dbe64d75e1758c32eb0e8eeb1efb283907bd4d274fdd1c47b3a"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/AnyRules.MapProtocol.asmdef.meta",
+      "sha256": "2565258bdcc0095397d41207bc0fb9cdaf718233c645a2afef30e537d06ede3e"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/AnyRules.MapProtocol.asmdef",
+      "sha256": "f19194d993a8f03fe119a4e8987eacb924bb60057cb5661410fff26a28c161b3"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Tests.meta",
+      "sha256": "926f27002b2d73a3d5a4c09a63d6b004ce93f147961463552372558802735095"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/ProtocolLimits.cs",
+      "sha256": "5e399561f36c0eec7421aa72b5b98da544a2a95d35907fefd8e6262e60625ef5"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Static/StaticTests.cs",
+      "sha256": "249b1d5fc75ff80fb2761a2859a7604712e38ebfa070b5665ddc39881846e625"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Scheduling/SchedulerTests.cs.meta",
+      "sha256": "0876224a0387fd6bb60bca611b903e9177028bdcf1959a9e76727d0dc60faaf0"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Scheduling/SchedulerTests.cs",
+      "sha256": "7552984e5b97d4737384ae0cb77dfe35a42fa920db2a0e8b4381f40ec1a614bc"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rules/TopologyTests.cs.meta",
+      "sha256": "39f585dc104c7208a626e65b3daeb2482f2f766030aa34940f596deeb0e6799f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rules/TopologyTests.cs",
+      "sha256": "9c16d2f70548947d15e00fd25afba8dad2b439a86b8d7e58b2d0880273d4c72a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rules/RuleCompilerTests.cs.meta",
+      "sha256": "09a352df674545794ae5572485f0117ba611bcb4c59ef17802c8fc05ad070947"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rules/RuleCompilerTests.cs",
+      "sha256": "31df540e51e61c1111c6e83443aa6a6d287933eda53cd736aac9d69565ceefa1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rules/AuthoringCatalogTests.cs.meta",
+      "sha256": "90e8d95ef5c9fe3c8c7798f4c3a8f839d6ff01cd28226d1d122032384823d73a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rules/AuthoringCatalogTests.cs",
+      "sha256": "11fdd01ad86904d465fd04cbec36e7db9c9f73814208f30fdac17450283a0387"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rendering/AtlasRenderingTests.cs.meta",
+      "sha256": "48218a055cd3aba2fa9ade15e258191b1a1f07bef2106eb2984d124b7754a59f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rendering/AtlasRenderingTests.cs",
+      "sha256": "e6505ca1cf31724fbaf0bac51fab31bf62331ba46decec0fe068d04e9e635edd"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Persistence/PersistenceTests.cs.meta",
+      "sha256": "c1e3159e430d1477218cb426a6b841718e3d773bb797a4eb1f855a3f4e3e6f42"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Persistence/PersistenceTests.cs",
+      "sha256": "550bc110fd1e37a65941eb1060cd955ef3a2a3283d5b70b8121dc31009d764b9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Layers/OverlayTests.cs.meta",
+      "sha256": "dc649f71ac613bc4d5b4c418fd51643ebc23f578b2616b745580906bdd80499f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rules/TransitionCoverageTests.cs",
+      "sha256": "45915d9c1796c7e87723886bec92eff84986260bf1f70a8d9ec760bb22883521"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Layers/OverlayTests.cs",
+      "sha256": "8f1c27a14fdb40bb3f9200d4ce84739e1b034146f0561d4e6ec83a47a786d32d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Layers/BakedAssetTests.cs",
+      "sha256": "689d5747d6c14428814cf1a868f6be837fdcced37171939b27c4e0735fe682d6"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Invalidation/InvalidationTests.cs.meta",
+      "sha256": "755125f64c6dda37901e720bb0711088120533ea2106aff54363199b729bcf02"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Invalidation/InvalidationTests.cs",
+      "sha256": "5c2fd860e4443b25b03adee4c2625943398c6125521872a2e6acc0bf2f63056c"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Invalidation/GridDependencyTests.cs.meta",
+      "sha256": "c29768a0578d142d020469e23ff89cc870deb92e8b320d0afd4c2d657c96fdf9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Invalidation/GridDependencyTests.cs",
+      "sha256": "738dc361ba0ae9f3d39a5d18338d9fd9cacafe84e8132813698f17e318fbbac6"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Import/EditorImportTests.cs.meta",
+      "sha256": "51c90cca1e3bfd530d04e1f1857c3c05aee853bb9ff553b1d65e648e3f5b0c0e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Import/EditorImportTests.cs",
+      "sha256": "ab348a1559eb0ddc0ffa023668ceb5865cd36722ffd19a235a4addab7e8a8b57"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Grid/GridTransactionTests.cs.meta",
+      "sha256": "92ccd8dfb6c1efdac60f3615f3e86aab327ac2fcd7b8a7a53137701917d01c0e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Grid/GridTransactionTests.cs",
+      "sha256": "c6f3645007790c073eed1d6ecac365ed1de20457bb0ad97218080017117c0d89"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Debug/DebugTests.cs.meta",
+      "sha256": "882e8beb7050c5a77e36cc97618f5a26bc8b58c22c597bf498fc521afff9d639"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Debug/DebugTests.cs",
+      "sha256": "5e5a4cc63f9cd96ec2db849253da325b1da218c0733b2dae5fc3155f0632692c"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Layers/BakedAssetTests.cs.meta",
+      "sha256": "e9d9dd83b57833e616645f73347d2ad8d4ad7a5c4a146d3c63b2d6cadde85e2d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Assets/LeasedSpritePagePipeline.cs.meta",
+      "sha256": "de390da486afda9db86a348db1472d9765e60bfc842c0c4b1c89e0c89ce50ae4"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Rules/TransitionCoverageTests.cs.meta",
+      "sha256": "23e932e8faabecf63428226517fae684c7becaa622100821c49c2706780af6c4"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Workbench/WorkbenchTests.cs.meta",
+      "sha256": "8486ee32e4fea85168bcc6e49d61ab983ec7b9bbe5820937fd98c03ac7133b23"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Rendering/SortedTests.cs.meta",
+      "sha256": "9bd835410d4837ece7bf8e01613bc6e84bb526bcab39290b91b9e2285ee2ffcd"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Rendering/SortedTests.cs",
+      "sha256": "a78b14e9d95753904249c6c286d75f92df443c90d05d2dbcd7ac1c76b04cb5c3"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Rendering/RenderingTests.cs.meta",
+      "sha256": "09ad1150999973128b4147f019550dfa78b19a226ae57446c3f73f1fd640025b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Rendering/RenderingTests.cs",
+      "sha256": "0fba280978dbd8ec4445062ef50ad70a78b9d68ba4593e47b52ddab945b72ad1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Performance/PerformanceTests.cs.meta",
+      "sha256": "41fb70039b68b3f94ffe14daf35d11529d3103026e142582fedd5ff6fc383ea2"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Performance/PerformanceTests.cs",
+      "sha256": "32b76955aa6d1c666ec87b11a8244e2954943ae4f07d296dd039048feff9d515"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Facade/FacadeTests.cs.meta",
+      "sha256": "343496de6bb707ce33e26aacd6cd0d7305f4929f7a278881426b02e07781e6a9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Facade/FacadeTests.cs",
+      "sha256": "d22fce9818751246b4cee8b9df516bbbf22fbf9427ea17b39b511c2484597615"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Collision/CollisionTests.cs.meta",
+      "sha256": "485ba8871517d445c8b8ff1bca648455506ab05743a7c6d3cb92af3f148884e4"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Collision/CollisionTests.cs",
+      "sha256": "ca1c8ac2c745db9f9a91f8d7a0f49a2ff7b3c9f6d860880ee40410fcb8139061"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Business/BusinessPresentationTests.cs.meta",
+      "sha256": "a2049f2698ac7e69e9964ae25dd82197028ef37fce67c647878f58f124dd3c0a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/EditMode/Workbench/WorkbenchTests.cs",
+      "sha256": "8d36174a2c39629c230fa3685f794b5c558fcdbaf2863b0e458aea9f4ae5b4ba"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Business/BusinessPresentationTests.cs",
+      "sha256": "8ec072e783a9c1f140d324f27e4e0511eb71a1385c53ac1ab9d5369bf813a2b8"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Assets/AssetTests.cs",
+      "sha256": "3c7da8b262780e46347d768e9d5e7227c88c24c561e7d5a40467bae01782b813"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Static.meta",
+      "sha256": "195a86a353dd430689a08127a5aeb0f6e807cf88aed7cb275962a1e26c440181"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Scheduling.meta",
+      "sha256": "13ab1341d6f0aff6cd31fb89e38dd8ac654f8a8e18d05c340daf594c5b11937a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Rendering.meta",
+      "sha256": "0681c9192d422dc9138b842dfc1dbe4ee35ac368849fe8cb1bf533777b623f04"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Performance.meta",
+      "sha256": "a174de2a9cc77ea5bd217c1a9339fbdf7ba216d430dd218ead01b1b19ab4bf99"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Facade.meta",
+      "sha256": "bc8dfe38c553e6a99cb8cee5bc6cc4773803f436600b4e603777a36bee573546"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Collision.meta",
+      "sha256": "f5541cfc75b744ee4dc133e20d8570ed9eb336521074ff3a8628fcb0b3a169d6"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Business.meta",
+      "sha256": "7cec0d6b12c90e6a7bb1f9f9d017cbac3fc1a33daf9207bd3ba5150a722fa514"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Assets.meta",
+      "sha256": "7b13a2653a04d9b25e5ed67afa1fad94393ed59af70e8d64aea674f53cf581b0"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/AnyRules.PlayMode.Tests.asmdef.meta",
+      "sha256": "731e2f686e8335c4a56f9d89dda125e8356c0b4bae29eaaf0f602ba97f645c1d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/AnyRules.PlayMode.Tests.asmdef",
+      "sha256": "9b12c48d5e6ddff8c72243cec48c2d29a49652270455c67b9ae5602f354cbd4a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests/PlayMode/Assets/AssetTests.cs.meta",
+      "sha256": "be98324a4604070facd0a33a6d747768cf8a6bd55d58722a091ed195c8402163"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Assets/LeasedSpritePagePipeline.cs",
+      "sha256": "8c63800176135eba31a463c1d98b62e6ccd98aa5d577fa9bc9ec71225423da88"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Assets/IVisualAssetService.cs.meta",
+      "sha256": "7ec727d637ed774e5765df3d4c3d3404cfc76edc83f78aa84eb1839b52545058"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Assets/IVisualAssetService.cs",
+      "sha256": "1fc465ee1dabeb513fd8a675038da0e185e92887310ccee6acf53279db3380c4"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs.meta",
+      "sha256": "c4d3a3391e90309cad431ac922b04bbac93095c56824698d454ee5d5058eb193"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs",
+      "sha256": "d4d9cba62d6968738212aa18a808a39848d6ff810669866e037ef3a9de1fe820"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Preview/GridPreviewSession.cs.meta",
+      "sha256": "40c0a8bd470011fd79b123e6d269123dce8842e19c1176b32a3cd4fa1f8481b1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Preview/GridPreviewSession.cs",
+      "sha256": "aeafdc778c834d90ee845c84dc4fe480c99f6a426e3c01a38e1b3c81838dae95"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Import/TileImportWizard.cs.meta",
+      "sha256": "6b879cefbf9614d1668f8a1ad814caaf9ba3fc038047a1cac2b47c2d42926a91"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Import/TileImportWizard.cs",
+      "sha256": "b433726aecbfdfd40835806aa4d44cdc0a15181990fa2f43d4e2c054f24d029f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Import/TileImportPipeline.cs.meta",
+      "sha256": "7d6336d35dd2db62db9c70bf8f716884b419378067662003a001ce45a4c9c6b4"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Import/TileImportPipeline.cs",
+      "sha256": "56c2f4247a7d462a530a59c10d15d1907d2b3c8551cdbc53cdb5012b1b5edad9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Import/SpriteMappingManifest.cs.meta",
+      "sha256": "bd6ea43cc576a44f85c4c490e63f8688e82d296d80749238c173feed9b4ca68d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Import/SpriteMappingManifest.cs",
+      "sha256": "ed0ebf82c8f75a2c8ee16b874641c5751e70cfb7263a65abd8429c48d739edb8"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Debug/GridDebugWindow.cs.meta",
+      "sha256": "ce507ef0a3dcbc27cdbb0a9287ddac5efa9f52b6dade64d330877bea5ab5d8d0"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Debug/GridDebugWindow.cs",
+      "sha256": "61f96dedd44b1c4f46156a7cbeca0f789f5a728b40749e4e3b5c486c277eb143"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Baking/BakedGridExporter.cs.meta",
+      "sha256": "97d3caf97811dcea68eed2220c930e5ddb04d3e0def0015eeee9618ce60dc92a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Baking/BakedGridExporter.cs",
+      "sha256": "e70332ffa185d766c85867793a9b0adcc9b226ee095dd55c465d50593c20a50d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench.meta",
+      "sha256": "9453c2fbb724235c7b3e440fe6cc2b72f7483e676c4e057a564c3062b3d90ce6"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/RuleCatalogBuild.cs.meta",
+      "sha256": "f633ef14ed8a376a3dd7318c67c62a75cf1a6f7c9f07ec6da418b1bfecf02776"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/RuleCatalogBuild.cs",
+      "sha256": "b2b3e49eb4a42174988d4bf691a838d930fd6afe663d7b22d76d5a6df47f4d45"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Preview.meta",
+      "sha256": "4502dd46096e56643476a6cd5f8458dbfacdc1ad4d10e5fab6bebe80be6fa831"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Import.meta",
+      "sha256": "0e5bf5e3614471e71174079b3de6e2f20e2fa1df083717c05dce5cf529090122"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/EditorAnyRuleDDatabase.cs.meta",
+      "sha256": "53b30552d017bc4f66a9366fc8e284b950de8846c17277ca029d801416809bb7"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/EditorAnyRuleDDatabase.cs",
+      "sha256": "61909e55369c49590e2b2dad8736522663ad244b65e8e76d2932e6da0570087e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Debug.meta",
+      "sha256": "501625f0521dabd4c01da1b89c00d71665be1699083dba3dda5c085243c9f104"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Baking.meta",
+      "sha256": "945c93c8c0739ce6678ca3eea808e33926dbb662d3224ac8062e19d3d00b2abc"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/CatalogBuildValidation.cs",
+      "sha256": "7232af6d598335829ae73091eee1ea4e5338f4dd8e3de4a645065a5cad98c6d1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/CatalogBuildValidation.cs.meta",
+      "sha256": "47f5d526663c2580649ce421b24b08615b6e2d31741943ad859822376eba7ff3"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/GridBrush.cs",
+      "sha256": "f73aeeb6931a5a689389d5790ae75ec8ce87036e29506fa912f436b4857d5534"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/GridBrush.cs.meta",
+      "sha256": "e4bcd6f238ad40327313253610afbb7ac769244ea5d0d2dd414d2b024933d7e3"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/Gameplay.meta",
+      "sha256": "116e3113df3c9282ab0e730a561c159df71b5c304ea8facf0e9048e6940a9251"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/ARuleD.cs.meta",
+      "sha256": "4381f26d2ca59e7700ccdd1e94bc3e39a7a8cb26c5d85e5d168e5ce417dfab00"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/ARuleD.cs",
+      "sha256": "f2abb8bd44e61a7227f781b5f6804f523f8913c0088b7def4d4b230e1a8a012b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/ARDMapDefinition.cs.meta",
+      "sha256": "2e89b6849e4a9e2e83f78b814a7e6ea4a275179427430866853d468b4e61a588"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/ARDMapDefinition.cs",
+      "sha256": "02c80796051325b2c4b8cfe98f1c2a27596c9102b02c9b892855998e1da43db9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/AnyRules.Authoring.asmdef.meta",
+      "sha256": "213c2eb0a245460a926a66c6b95c6cc9f1962b837e000f23798325da163fb104"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/AnyRules.Authoring.asmdef",
+      "sha256": "7137eba82550a784863cc5b7f8bc28777ecbe5367711335fc2d4e4964bc5b090"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/AnyRuleD.cs.meta",
+      "sha256": "6cd7c384a1149e09003f0405eb6998818e3921d053c7db8cee5b6a9ae8e834fb"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/AnyRuleD.cs",
+      "sha256": "5146b46610baad35c4aacc3b91eb992337821050b43d5b63367da132c60b4f59"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity.meta",
+      "sha256": "b599aa9a40ed8d75331a751c8c4dcb086c5281cc0d6eeea14db222b9004299df"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core.meta",
+      "sha256": "7724179eef9de46661abed59fc4b88ac62f79a132b9d9bd25416eb672239809e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/AnyRules.Editor.asmdef.meta",
+      "sha256": "95b647b472de19ddc399136a5f074a3ee2757d97f8f85f7c09d4937c70632372"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring.meta",
+      "sha256": "b3138adedbabe75c011179b04fa7420b3ec82e32b812ab147b2a0d37a2b5c803"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/WorkbenchSession.cs",
+      "sha256": "15766faec3006e09141c402c6fc1970943a98a23cd2dcd2be3e39de5ef602731"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/WorkbenchExport.cs.meta",
+      "sha256": "55cef44d593dfc8f45313dfb312b8665d242b5cdee96161c50710df1ca57735c"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/WorkbenchExport.cs",
+      "sha256": "35aeeb28f6fdfd0f43045b75643d34b1ad167a712d62e44129ce7c490ff94ae9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/RuleAuthoringCommands.cs.meta",
+      "sha256": "469379478300f78ae1ab89d9e2d9bb11b6ee4749c47ce22998f85bd5e00b900a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/RuleAuthoringCommands.cs",
+      "sha256": "9f7fd63fc16a509748fe22cd5c4733e2a1e0881fab742f5c4a5c52f6038e4f04"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/ReproPackageExporter.cs.meta",
+      "sha256": "80b2e77d56a01a27dc5c9bb7e081ea4111d4b7ab3f9d288cb2a7a8a95f9fa950"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/ReproPackageExporter.cs",
+      "sha256": "e363737ce6e11fb3a57409797845c9da1795a3f71e1bd681db1d7802c337287a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/RecipeInspector.cs.meta",
+      "sha256": "9326fef51e66f54a7d6431ee28d55d0e358889b1c55aabc56218ca2c21e95b5d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/RecipeInspector.cs",
+      "sha256": "5af8ef407a00c4b5a2584e2d83f2e459be99f020d5daace2e49eb321f76111d8"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/GridCanvasDocument.cs.meta",
+      "sha256": "735227d1882d9f2e91f0d82faf66d75c156235bf6006072318bb14a035b63e47"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/GridCanvasDocument.cs",
+      "sha256": "6ed5aa1958bf9da28109bc647949979f0406d49e5e814e37d6df31dbdde5d112"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/Workbench/WorkbenchSession.cs.meta",
+      "sha256": "d2ad208f50e1c54f3ce4a5de90133508fdba8d182ba9cdc2ff3fde00185e59f1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor/AnyRules.Editor.asmdef",
+      "sha256": "103b76d295d8f3d616733418745ab8185055c04ce59638f8f430e3490f557433"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Release/quickstart.md",
+      "sha256": "69940586f6ce53226cec960f2ba3e810728fa1b55c2fd481f2f08d265927bc46"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Release/migration-guide.md",
+      "sha256": "6e676e732b8bb00205c954b2d1756266d329fc302936691ef9ea8b0c13343f5f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/SortedRendering.md",
+      "sha256": "f90447f40bbda19a7e37f97287a2c700d9a6ac1eeca7cea38872fe51e640fb0f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Scheduling.md",
+      "sha256": "3309c65cacc609783ba6bd93c535c90736443252168b9804af8d39ca97b986a1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Rules.md",
+      "sha256": "4160e079d03823c3d9c9d25c2fa605ba65ec9da0116870dbae4aed4a80fde6a2"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Rendering.md",
+      "sha256": "899e39798735a3f5a72b6a8a994317567cde325bc5c2bab2ef5054d0bcf5a946"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Quickstart.md",
+      "sha256": "1bee179ac6305b82c36bb392a3ec7919f46f972774683295d0dc44f2507dba57"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Persistence.md",
+      "sha256": "2e1794c53ef2c4bc7d6bf2a79788574c5c9eb4a338fbddae6185ff39fba0769d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Pages.md",
+      "sha256": "45598ccfa4b367ebcfe31a7c5c38b2c4b0fe2b7ef8371a2245d148ce2d88cb38"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Debug.md",
+      "sha256": "800517c889cb7fe0235f60b85066eaf1e1e720fe91507a13edf96e35c0f0afda"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Collision.md",
+      "sha256": "ff046143ae9dfb4f5c86b33659ee23c749a6658415c1c26777c5ab0255885091"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Business.md",
+      "sha256": "568c1156e643db6ba03d151660cc7d9ca2bdc5997479a221aec846dc5a65acea"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Assets.md",
+      "sha256": "89822796e574eaf7b3f01da9ca87b71aa31b63d01f24ebf886ba3aaf14638d08"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/StaticAndBaked.md",
+      "sha256": "74530d8ac497ce0325ef26b084d71364036c6e0cd43f6e629358c0617cda3dcc"
+    },
+    {
+      "path": "com.tsgame.anyrules/Compiler/RuleDiagnostics.cs.meta",
+      "sha256": "354cce90a63b21d1e5bb4babba81810d7e7e5cffb0e2ac2f28a9ab2348b37566"
+    },
+    {
+      "path": "com.tsgame.anyrules/Compiler/RuleCompiler.cs.meta",
+      "sha256": "d7f2598a8220052b7955301fc4c77e9c6fd2bfa001bea5a57e4f90093f21faa5"
+    },
+    {
+      "path": "com.tsgame.anyrules/Compiler/RuleCompiler.cs",
+      "sha256": "161496526771e17f18a8829e0dea13de4b51b7933e8a700f07c1691dd7a19196"
+    },
+    {
+      "path": "com.tsgame.anyrules/Compiler/AnyRules.Compiler.asmdef.meta",
+      "sha256": "4ce378c2de4a36811214c1f8d6376eb60ee37bde1f2ec519206c7f1515a7f2ac"
+    },
+    {
+      "path": "com.tsgame.anyrules/Compiler/AnyRules.Compiler.asmdef",
+      "sha256": "78bcefe28a9427422a1cced98a77c62f40de9fe5674ff92ad1b2a957464202ba"
+    },
+    {
+      "path": "com.tsgame.anyrules/Tests.meta",
+      "sha256": "3996fbd3854260a71aff07f1ad6e17f268bc80bd8aa2dbde8160fe79466d49ca"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime.meta",
+      "sha256": "f2f761b2aeaf825e452ad4684d9392f6df7e7251758acdf6e2ed452548122a61"
+    },
+    {
+      "path": "com.tsgame.anyrules/README.md.meta",
+      "sha256": "35036414349cbada139c538b74550a9303dfea07585a6320b20de4dc4268ec03"
+    },
+    {
+      "path": "com.tsgame.anyrules/README.md",
+      "sha256": "7c4a7ea8428eb6140b64c04dbc239a2a3914d98155328b405f9c51d1ded36d33"
+    },
+    {
+      "path": "com.tsgame.anyrules/package.json.meta",
+      "sha256": "9f1475a08740039caf987401faa8a4673c5489b19d384a0ed2fd4895f2079663"
+    },
+    {
+      "path": "com.tsgame.anyrules/package.json",
+      "sha256": "22571dac5fff279bea9267a21091b3edc12caea422f467245b9bc923a1c35a7b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Editor.meta",
+      "sha256": "e2fe369985a95ff8e4e2588a2a3592af810e00b34d871f88bd231c3b81fedcab"
+    },
+    {
+      "path": "com.tsgame.anyrules/Compiler/RuleDiagnostics.cs",
+      "sha256": "f4ab0fdf0a19bfc6840a24b17182da63318fa80390197c28de4ef5c74362621a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/Import.meta",
+      "sha256": "8697c985785c8d2c9dbca512ecdd2459af8ab217a488a82bd0084c23fbd92edc"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/TileImport.md",
+      "sha256": "8ba0980a9defca89fc6b2c46ed18fe03c5b35e2ceaa8606e71626bc2db6dbe73"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Workbench.md",
+      "sha256": "5db3961c9db9aab70c90d83bbb53f7e1620e374e6913de67ceb5eb5e6d79675f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Release/known-limits.md",
+      "sha256": "223cc53cbc7597b7b3075dbcb7b277a396458ccef5458ae003efe050a5097c24"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Release/debug-guide.md",
+      "sha256": "0b63519b1822eb7a58d15c0c741285d9ef39fc2fb5252b60ee022ee7cff4e292"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/variant-hash-vectors.json",
+      "sha256": "ff24698ab1b331228cf99f18a91a363b5119f024ea36fd085f4bc35666f8373b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/README.md",
+      "sha256": "e669a12bd0ad6b7e144eb0e5faad408bbbd92fda799aa2be9a07ae3af8dc171e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/PublicApi.md",
+      "sha256": "d5856aff9e46d74195bc981c1c631c7ff95bc7607303e09677a438d91afce94e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/IdentityContract.md",
+      "sha256": "604ea6305c7578ee4a427029ef6a94745c5ca259aaf1d56966a37178bf746989"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/CoordinateContract.md",
+      "sha256": "4afbd845ec5a72d27d9987abf97b9f7a3a52d1419394e7a81ddd1a27109ddd74"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-16.md",
+      "sha256": "8eb6057e5d0241d17ddb8508a029f222977f6a3657b234e4f3b302349b11b63a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-15.md",
+      "sha256": "d02ea950c28f40c3a20751f31d81a7fb85cecea4e2624a7a2a0f42d6de29bf14"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-14.md",
+      "sha256": "7e521149969d82ac0e0eea7dc8d8ee36828e5015c7ac8ba6f402efde42adc341"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-13.md",
+      "sha256": "d8c6f8069675063353abdae71c64595e63bda93e2c643b8151a31f17d16f97c8"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/Topology.md",
+      "sha256": "412eeda0b096b855074d934884aa93a1f6fbcf31980abd4119bb11c2e75744cd"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-12.md",
+      "sha256": "26ce8c7f8dd8d2c8bb1ae4219d415357a3fe75d8e92933ec13cff490d7d1c821"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-10.md",
+      "sha256": "9b9b85fa8abb1d3053997bcbf47e0efcb7aeaed90125ee9acc1629acdee04a86"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-09.md",
+      "sha256": "d9a2f969d4291d7ca7992f0dc26fd90a48cb5cc62476c340aa7663c10c599bb7"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-08.md",
+      "sha256": "e2875c38f5c3794a571e95a508d18ca0e6e1350dd8e200fa069c142d88a36d7f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-07.md",
+      "sha256": "ec53e07e87eec699c3baf4b558a2fc82b502d616bf33041934f7132b19b80556"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-06.md",
+      "sha256": "cbda474a0ae7bcd7fd58ff021309ddd459ccd67d63bac0ad2b4e72c01c770637"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-06-backend-decision.md",
+      "sha256": "824fc3622b9056825a2933b81f3e6fb33e3b01de159eedab30fa9bc54bd7d3da"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-05.md",
+      "sha256": "16f8cb46fadb9dabdb97b1fdd799a7349946d58bfa6d3bd70056961760fa1255"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-04.md",
+      "sha256": "a239a77f3428b3aa0751de0167a070dc0a0291b5df2ad0821e30fba92c17c108"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-03.md",
+      "sha256": "7cec0933bc875bf5ed2fcb3b5ffa4710fc025a7432a9ca20fdf8cf82b11c52cd"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-02.md",
+      "sha256": "9c0c408a1bdeeb660150cf55185b083137de25c503fde1fded6f5fed70db1237"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-01.md",
+      "sha256": "da84cc7ed4d020cef61186562f49b146886b4f4fbbb8a331996653070e3b3761"
+    },
+    {
+      "path": "com.tsgame.anyrules/Documentation~/ADR/ADR-11.md",
+      "sha256": "c74b320913a704e9a80003655e429ad300508d2f4dea442d57501c68e1828a11"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Tests/Protocol/ProtocolTests.cs",
+      "sha256": "290653946e0adf83e1e06e0552b6ba494be9685d7e48154d6079758f80341c3f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/SortedSpriteSettings.cs",
+      "sha256": "e329a9c23616459cddc32a2ec4b059effb00154f6c0e4005931cace33838cd93"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/TerrainDefinition.cs",
+      "sha256": "ad8c3125f85010e7f1a48c135a7eb57ebd891bc512628cd6d30f94318dcba2c1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/MultiTerrainSolver.cs.meta",
+      "sha256": "3e353da52b9c007a280b5a753a8ec7771461e300f06e283adbf84b246ebeb1c5"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/MultiTerrainSolver.cs",
+      "sha256": "b4c0333b66d2bfca9ac7715e4bcd7ed8b3e991f9fa0747e9b4458fd9b6300f0a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/FillProfile.cs.meta",
+      "sha256": "4be2f0c4a6ce3e083ef9edcb2ae11b51ac29b252f7c736472b42bfe6f0ac7ff9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/FillProfile.cs",
+      "sha256": "3a41953f033fabfe13815b9ced57ff19b510950d560aad62dc58191d623dbd14"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Persistence/TerrainPalette.cs.meta",
+      "sha256": "2e8d85a52bad90cfb832d237189bf098b8c8495a753167c1f0c7927d054d93db"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Persistence/TerrainPalette.cs",
+      "sha256": "27000c51c15ef77486d3103b0353ba27fef8f2e6cb0d3b741f6dbbb618a6c899"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Persistence/GridSaveCodec.cs.meta",
+      "sha256": "592ad6ac2a737662cc40514043ea1199b75697d58243643141318ce51a0365c7"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Persistence/GridSaveCodec.cs",
+      "sha256": "f7df4d98b45c04d032e5f935e5bbd3a54bf19518fe97a6e6d7087ecf38a452f3"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Persistence/GridJournal.cs.meta",
+      "sha256": "2ba6d8bd7c7ba59d9b06048f1c5fe97e09c7bb0d9c43eb9e59be8a16afe19f64"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Persistence/GridJournal.cs",
+      "sha256": "b4c2f3320bdbc97d4e945044d86c395590c64f4d13355d6a67238ea734db2329"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Persistence/ARDMapPersistence.cs.meta",
+      "sha256": "25d8b6937d8d3030bb21cd97e331ae28cd409e6fe2c0594d74ca96de76e32bac"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Persistence/ARDMapPersistence.cs",
+      "sha256": "44e98b3ced90fcd9f7f4ec6b615785f9385309e1cbfee025c19ae03bf9d32ee6"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Layers/OverlayGridSource.cs.meta",
+      "sha256": "d9115116a1bfc80d3a1a6090db35939561b55955eebcec5cdb3a297e0ef1f084"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Layers/OverlayGridSource.cs",
+      "sha256": "25f218401ca55540878e35264bb3837fd06768fd0c55c711bf47747d647e1ced"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Layers/OverlayGridCodec.cs.meta",
+      "sha256": "7f1330f410e294fc1c889c639d25d376935376f6ecb7dd08a489fd4216c87b57"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Layers/OverlayGridCodec.cs",
+      "sha256": "52bc6db1705b87eda7027e5da4e3f432bd7fb253d69e16b297f90de530f20c68"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Layers/GridCapabilities.cs.meta",
+      "sha256": "9906ddbe7f4b01356fbd896e4db75b78ba061dc6896e779d3e05e3f8c9bd4182"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Layers/GridCapabilities.cs",
+      "sha256": "81786c99a48d044000e1cb895044c66de91caf8bb2f13a3c544e284307ed45f7"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Layers/BoundaryBand.cs.meta",
+      "sha256": "79d43b1f51db5827519e78354b237e7b8ef73b0daef7ca42a65944d4e217e1e5"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Layers/BoundaryBand.cs",
+      "sha256": "f3b7a7be0d32eb30c0509d36681ef9a6c96e7c9f3ba51e632aa54be48e6f065c"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Invalidation/GridDependency.cs.meta",
+      "sha256": "293fe8a6059b9599a658e5f01f526902ed11fbe7418fb83f47525033bb657bfb"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Invalidation/GridDependency.cs",
+      "sha256": "9a06b74d793572c27c4129fb67f280a1329e99e073d9f3f74275882aa70b38d3"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Grid/MapEditBatch.cs.meta",
+      "sha256": "6254a65d0ade7fe21bbad83b8a753d9fa3d651d7190d460df5523864357a5c4f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/RenderRecipe.cs",
+      "sha256": "5a56561eb1b524843b7f2412d26abbadc02de142a5ac6dd82ba15350140357e7"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/RenderRecipe.cs.meta",
+      "sha256": "108c71c7696a9f71cad8b0772e3a4157b6a1ad985f082183c370fa9c2184d607"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/RuleCatalogCodec.cs",
+      "sha256": "3bb3b6ef616c9640a149da83aa16e5f8cea9405dee9f52d85fa9c8b689885683"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/RuleCatalogCodec.cs.meta",
+      "sha256": "fb55f2fbed63613d6a2d006d9f0f3084466923eac3473a671227a27e34a66921"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Assets/FaultInjectingAssetService.cs.meta",
+      "sha256": "47688186a4d36adf8c88d09feaae3b624e0dad362db17afe9fcdb45355f83f26"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Assets/FaultInjectingAssetService.cs",
+      "sha256": "95504cf1f3b82aa8b8317f1ac10727260eced91c670aa4acecda67fe0c3f4d77"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Assets/DirectAssetService.cs.meta",
+      "sha256": "958417befe8f921cd00969ba26f7bad1acb305b39200c705965f547e8cb8a864"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Assets/DirectAssetService.cs",
+      "sha256": "ff1a2e38e2629140f6092c7fa4210ad77f0d44dff93c8a86fc51df55a18ffa67"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Scheduling.meta",
+      "sha256": "6e0f8e89da1d1d04690e0c64896c7c50ae3a933bb02c74ae23fc03406e4d887f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Rendering.meta",
+      "sha256": "c61635da101ffcd48df5e1a4847ac7dd68e5d5130d30ecd70ee0b7b2075adaf2"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Pages.meta",
+      "sha256": "2a75e249c8da9f640deed210f0f281e2834f47ccba4bd44a8684363126b37849"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Facade.meta",
+      "sha256": "fa191d2d3268a37b2b8a75c3fd1abf4e02681bb64906df31ffc0dc2f6c4434aa"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Debug.meta",
+      "sha256": "4f6943f38d3d4e56a947d4ebe6163d6b44274132f0383aa9a7e997dc00a3eeb1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Collision.meta",
+      "sha256": "65e032ed4b359b1ec5c17919e69db68f3142440d1d4a194bea0c3c79f51123c6"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Baking.meta",
+      "sha256": "1cfed16841c0efec824bfab8ffb07e6ebcca2cc97f6c285ccdbdd497b3004d26"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Grid/MapEditBatch.cs",
+      "sha256": "043de93ef702f5d109af246478b2ded95b9cf9e5db0d3ed6af54597f1f764910"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/Assets.meta",
+      "sha256": "40c2d779a0fcaeefbe588af37ca44f636a6aed4cddde9c387c1d5df6f6e9408e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/AnyRules.Unity.asmdef",
+      "sha256": "c75e01a2a24f848b51b6574462f55803831636ae4d9bcb97e94fb204bdc9a2d2"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/TopologyTemplates.Data.cs.meta",
+      "sha256": "c1fdda617bf9af6081c1b6120c5f88b07a72e020de9f1dd9d84855d582986fc9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/TopologyTemplates.Data.cs",
+      "sha256": "10bcf55abbd9950426f2951b89110eea52a62aed2bf7627e3611a14f789d8c2a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/TopologyTemplates.cs.meta",
+      "sha256": "45d6d7bb4f29edfb011a6c45f88ffe5904ef115d4c5a815ca2aa21868f8aa029"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/TopologyTemplates.cs",
+      "sha256": "5e7fc460b8782383cf67089ec2b2af0504a518fc2cb7348ba21b7aaeeaf5a084"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/RuntimeAnyRuleDDatabase.cs.meta",
+      "sha256": "3ed77a1397aa6954d201a3df1346d72942e5a5d1c79840639290201ada35746d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/RuntimeAnyRuleDDatabase.cs",
+      "sha256": "a64cfda44732d4bd356668bea1e48fd6f36e781d91301da7b2681fd5320512ee"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/RuleSources.cs.meta",
+      "sha256": "ce0e963564f99ab0a67ac019689b5f6390f3a66d4c00a6989b4b4f16b9bb7e90"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/RuleSources.cs",
+      "sha256": "d86fd7627567690412819083fc1c662b14c5022d7c512a7164777c9a39b151b6"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/RulePrimitives.cs.meta",
+      "sha256": "56338732f0401a773f94f916b7643af1d890ade73a8f746441c347b41296cfe1"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules/RulePrimitives.cs",
+      "sha256": "1bbe59dc9aab0d5cc4a546a6e0da1f11de22f424e1c62483190d4b5f4e96e696"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Unity/AnyRules.Unity.asmdef.meta",
+      "sha256": "ae10d2ab940c587a9c538c77c25324e29b040ba297ab9f514d9e8a255ef0f4f9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Grid/GridSnapshot.cs.meta",
+      "sha256": "6b1b5ec9a64728be931085e677376171acf1242ee3998491a6133f7dfea935ea"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Grid/GridSnapshot.cs",
+      "sha256": "dc20b46a9693dbf1991ab67d92f50817266b1414e98a81aad0249ba420d6b4ab"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Grid/GridChangeSet.cs.meta",
+      "sha256": "84500cff612105181bbb1419e80b30fc1e6829c44f077f0cae4c87c27463fbdb"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Business/GridBusinessCatalog.cs",
+      "sha256": "2dbe53a9c95e37dc45b98fc97b2faae347d986c4895140f84bce8114de9b2c66"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Rules.meta",
+      "sha256": "f0e2c4e528d3ab94947fd86ed2ca6ecaea2eed259f2f00b91b610caf272bd09a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Persistence.meta",
+      "sha256": "65e165f0db67b6a15236106c1a54de8d3cf62afd9b665c669822235c5cede14d"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Layers.meta",
+      "sha256": "3df214f9eeeadf00783e91305beb54e9b2e5f6b03c7c8c126cbe117221b53028"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Invalidation.meta",
+      "sha256": "37b5548748d33df8dca6b30f248d81d0ec50448af5d9412730ea079e042464cb"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Grid.meta",
+      "sha256": "7c5d68881dd5f8df762ea13bb62f49801db2a417b123c79beec69f8c8e99985f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts.meta",
+      "sha256": "2320dce2b713014206d59a51d54f130ccbfdc24e743cc8952dd6d9e9bfe190c9"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Collision.meta",
+      "sha256": "72f7606c837552a39dabbed5e3ae96258eca7898a00fb645f3e6617ba6c27d6a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Business.meta",
+      "sha256": "a949116b347a6d2ed7ebbd92d751fb4c2efc83150c3d1cba2b1411f7efc0e62f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/AssemblyInfo.cs.meta",
+      "sha256": "395fc273b10d29d40521e6cc994091abae3c61db056a277c3eae9534ad360d66"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/AssemblyInfo.cs",
+      "sha256": "a43ef6fb8883bcd78f05bf4ea59d56109ffb773f4376fc886c0dc6cc05408f00"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Business/GridBusinessCatalog.cs.meta",
+      "sha256": "49c4c8d8d09c88ef5536e69f975d6ec8f9325027c9f915d4d29bfc494873b63b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/AnyRules.Core.asmdef.meta",
+      "sha256": "33ec5c63a16456660d81b69b00b920d692398adaa853d7b88619e24909c669db"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/Import/TileSpriteSource.cs.meta",
+      "sha256": "f8e29ee20eae8acc455a24e614d074a28c5cb128c8afd36d6a75701934c3be4e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/Import/TileSpriteSource.cs",
+      "sha256": "fad468ec18eb40df1825182b32ca78f1d90f83492346c99ea472d00873f72a26"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/Import/TileLayoutTemplate.cs.meta",
+      "sha256": "731feef395845f79d467e842f6030a25817198957ff4a8780bea3d659a05ef75"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/Import/TileLayoutTemplate.cs",
+      "sha256": "8269e4c99ce5a0cacc20a2c2784d8db5cc80e5f5fc402ea9cfc9560e1a091e12"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/Gameplay/GameplayDefinition.cs.meta",
+      "sha256": "d539de5c18d84e90b610c793a044fd75f72e146b5ebfece743cfa006e3d8c2ae"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/Gameplay/GameplayDefinition.cs",
+      "sha256": "2cfc01c6af1a845ee400a9bdafaf108ab7ca04a50c9d7b5d2629cc7a98ffe270"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/VisualAssetBinding.cs.meta",
+      "sha256": "b6f290c45e71a9a7a054aa37742e7f9cd1bd6ef2b7ae0701d93f9088c9b4cddf"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/VisualAssetBinding.cs",
+      "sha256": "ee4cb284fa7a75192f54d8e98926924af5f8ac2a0fdc5c060842a19a471307ad"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/TileVisualSet.cs.meta",
+      "sha256": "a3aeb190c90590614a717c58ab5d60532c4f267fd37208cdc42ae2d7a088807f"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/TileVisualSet.cs",
+      "sha256": "c71afbe7c687526c6725f6525038f6f7a38a668ed8291bb184fca6a7ee15db0c"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/TerrainDefinition.cs.meta",
+      "sha256": "d4c46d6ec099734dedc87ccc1dfb5a08a3ea1af435d7b261b471d4f8607b478b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/AnyRules.Core.asmdef",
+      "sha256": "ca2493953e368713ec39fbb37953b0e5f696523ae2b3ab4f2ba6664960a9f492"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Authoring/SortedSpriteSettings.cs.meta",
+      "sha256": "f728f5cfab6dae7960e3a543553f45565e0d74b62872829581447f94417c89bf"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Business/GridBusinessStateStore.cs",
+      "sha256": "886f87583f5be8f83a5190dc237ac1ba786558766d6b98126d67ef810a78f6ff"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Business/GridChangeImpact.cs",
+      "sha256": "07d2189ab8656f3d99241abd7c85f6398e95bd477d909d19b26f34b7b5691041"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Grid/GridChangeSet.cs",
+      "sha256": "bbd375ba24b7924e85d1e6152848494ce3a797ec70080411f08e8208c12d9293"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Grid/DynamicGrid.cs.meta",
+      "sha256": "9eba6530e65539002a8e3e4a2d8acb60a4ea1cfe6eb32b569797a615f5ba5910"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Grid/DynamicGrid.cs",
+      "sha256": "cfb1f5b8375f3ccfb1ab49c71303b4fcd95f43ebc5db44330e0e4f8f2067234a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Grid/ARDMap.cs.meta",
+      "sha256": "68af7f6d192fc6e031ac3202fc1c08d47d7543e54865c3c2f21a68082f40e1f4"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Grid/ARDMap.cs",
+      "sha256": "88af53ede9fcefb7b4a3850fa42bf2dfb1ef5bfdec1725f4713074faac5bf3c3"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/WorldDescriptor.cs.meta",
+      "sha256": "85756d79c0f447f83e4aeeb374e9970a1c6f56c16cf27b6946c7361345214c1b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/WorldDescriptor.cs",
+      "sha256": "8841dc6b65fce57f7a01b896152a99ed173d96fbbd10df312166c6c218097be4"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/TileCatalog.cs.meta",
+      "sha256": "4c2c23192602e30c5393961412d12a77ffb5f0ab5ab04940b0cc102617c2205e"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/TileCatalog.cs",
+      "sha256": "146cb992879314997edb185e0ebe13058cc8c6dbe9d9d90634b4b4b38a92222a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/StableVariantHash.cs.meta",
+      "sha256": "a6e3824f5d51ecf79d733a559c59f68915792992e41101a826965b7bfc6f340a"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/StableVariantHash.cs",
+      "sha256": "8b59ee966072bf2357b5860afa982ff2e179ed7d9f2d3ec2a1df0cedac7d8277"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Business/GridBusinessStateStore.cs.meta",
+      "sha256": "89ce421eb237941549f8df0be1de0658075bc44a8ac444139561586bce863988"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/StableGuid.cs.meta",
+      "sha256": "93646ab66024eb18628d6c3c0ddb5e7186e62d97cf669d88a9f6cc46dd6acd27"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/GridCell.cs.meta",
+      "sha256": "211882501e33c0d2f5c0bf07fb6011382282d410073a264cd5b6f4a082ecc408"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/GridCell.cs",
+      "sha256": "ea18e4f74dbdeb81124ca64e6d58ab55919511e1c3cde466dbe940f8d7188419"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/Coordinates.cs.meta",
+      "sha256": "a0b1e08d0f1d74aeef9aa2fa0bbc60fec1fd930f05fa909048c6ae396196f5f5"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/Coordinates.cs",
+      "sha256": "6989505670763d8a9c940ea94f6dd3fc8841d9cf99fb69748b12e88eca422148"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Collision/IGridCollisionQuery.cs.meta",
+      "sha256": "b1b119a27da7e073f58382eecc7bfa2812ab685dc76d61130268a55ae864bef0"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Collision/IGridCollisionQuery.cs",
+      "sha256": "5743e1e16dab8e40c7652baaf14f494ee786a46c16dfd0c17b083a29b531dabc"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Collision/GridCollisionGeometry.cs.meta",
+      "sha256": "9ec52418a3263cf47b9dc370069157accc1900f08cad392744900007599d515b"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Collision/GridCollisionGeometry.cs",
+      "sha256": "73ba5eaf6ebae9d5841aa25b16b4c7b8ff8b0046d5617b45b161ab595496d154"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Business/VisualStateKey.cs.meta",
+      "sha256": "8af0538c98f1b38531f322746f7398837f110e7c1918d8844b6408880ae7e88c"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Business/VisualStateKey.cs",
+      "sha256": "f62bdef047a2ece92a957fed9449e9df647d21d356f4db32799cdd717e5b2467"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Business/GridChangeImpact.cs.meta",
+      "sha256": "74fd049fb340d062f5bb8e9f3637fbde9048714e7a47956cac22e00b1b165f76"
+    },
+    {
+      "path": "com.tsgame.anyrules/Runtime/Core/Contracts/StableGuid.cs",
+      "sha256": "60c6f27409347e009b9142398e6c0421e0c763b468076e1b7f0d026c29cd8181"
+    },
+    {
+      "path": "com.tsgame.anyrules.yygc.fishnet/Tests/Protocol/ProtocolTests.cs.meta",
+      "sha256": "fe2f468dbd29e42eb2f8ce8ed8479d8b97641c2c67b83c6260a3fc4ce88fc420"
+    }
+  ]
+}

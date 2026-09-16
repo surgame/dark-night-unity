@@ -1,0 +1,36 @@
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Runtime/FishNetMapTransport.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Runtime/FishNetMapTransport.cs
+@@ -27,6 +27,9 @@
+         private readonly NetworkManager manager;
+         private readonly Func<NetworkConnection, ulong, MapInterestService> open;
+         private readonly Dictionary<int, Peer> peers = new Dictionary<int, Peer>();
++        private readonly List<int> removed = new List<int>();
++        private readonly System.Diagnostics.Stopwatch retryClock = System.Diagnostics.Stopwatch.StartNew();
++        private long nextReplicaTick;
+         private readonly GridBounds requested;
+         private ulong nextSession;
+         private bool disposed;
+@@ -46,7 +49,7 @@
+             if (disposed) throw new ObjectDisposedException(nameof(FishNetMapTransport));
+             if (manager.ServerManager.Started && open != null)
+             {
+-                var removed = new List<int>(); foreach (var pair in peers) if (!pair.Value.Connection.IsActive || !pair.Value.Connection.IsAuthenticated) removed.Add(pair.Key); foreach (int id in removed) peers.Remove(id);
++                removed.Clear(); foreach (var pair in peers) if (!pair.Value.Connection.IsActive || !pair.Value.Connection.IsAuthenticated) removed.Add(pair.Key); foreach (int id in removed) peers.Remove(id);
+                 foreach (var c in manager.ServerManager.Clients.Values) if (c.IsActive && c.IsAuthenticated && !peers.ContainsKey(c.ClientId))
+                 { if (peers.Count >= 32) break; peers.Add(c.ClientId, new Peer { Connection = c, Stream = open(c, checked(++nextSession)) }); }
+                 foreach (var peer in peers.Values)
+@@ -55,7 +58,13 @@
+                     for (int n = 0; n < 8 && budget > 0; n++) { var b = peer.Stream.Dequeue(); if (b == null) break; manager.ServerManager.Broadcast(peer.Connection, new MapWireMessage { Bytes = b }, true, Channel.Reliable); budget -= b.Length; SentBytes += b.Length; }
+                 }
+             }
+-            if (manager.ClientManager.Started && Replica != null && Replica.Descriptor != null && Replica.Tick()) SendControl(MapMessage.Resync);
++            // RetryTicks is advanced at 10 Hz, independent of render FPS: a bounded 12-second retry window.
++            // Never catch up several timeout ticks after a suspended frame.
++            if (manager.ClientManager.Started && Replica != null && Replica.Descriptor != null && retryClock.ElapsedMilliseconds >= nextReplicaTick)
++            {
++                nextReplicaTick = retryClock.ElapsedMilliseconds + 100;
++                if (Replica.Tick()) SendControl(MapMessage.Resync);
++            }
+         }
+         private void OnServer(NetworkConnection connection, MapWireMessage message, Channel channel)
+         {

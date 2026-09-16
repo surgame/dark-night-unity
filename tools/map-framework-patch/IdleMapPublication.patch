@@ -1,0 +1,72 @@
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Protocol/MapInterestService.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Protocol/MapInterestService.cs
+@@ -14,6 +14,10 @@
+         private readonly Queue<byte[]> outgoing = new Queue<byte[]>();
+         private readonly List<(ulong commit, int bytes)> log = new List<(ulong, int)>();
+         private int bytes;
++        private readonly Func<ulong> contentRevision, permissionRevision;
++        private ulong observedContent, observedPermission;
++        private bool observed;
++        public long PublicationScanCount { get; private set; }
+         public ulong Session { get; }
+         public WorldIdentity World => source.World;
+         public ulong Generation { get; private set; } = 1;
+@@ -22,10 +26,12 @@
+         public int QueuedPackets => outgoing.Count;
+         public int RetainedPackets => log.Count;
+         public bool Backpressured { get; private set; }
+-        public MapInterestService(IReadOnlyGrid source, TileCatalog tiles, MapHandshake hello, ulong session, Func<CellCoord, bool> authorize)
++        public MapInterestService(IReadOnlyGrid source, TileCatalog tiles, MapHandshake hello, ulong session, Func<CellCoord, bool> authorize, Func<ulong> contentRevision = null, Func<ulong> permissionRevision = null)
+         {
+             if (session == 0 || !source.World.Equals(hello.Descriptor.World)) throw new ArgumentException();
+             this.source = source; this.tiles = tiles; this.hello = hello; Session = session; this.authorize = authorize ?? throw new ArgumentNullException(nameof(authorize));
++            if ((contentRevision == null) != (permissionRevision == null)) throw new ArgumentException("Provide both revision providers or neither.");
++            this.contentRevision = contentRevision; this.permissionRevision = permissionRevision;
+             palette.Add(0, 0); for (int i = 0; i < hello.Palette.Count; i++) palette.Add(tiles.ByGuid(hello.Palette[i]), (uint)i + 1);
+             QueueHello();
+         }
+@@ -34,17 +40,21 @@
+         public void Subscribe(GridBounds requested)
+         {
+             if (!requested.IsValid || requested.Width > hello.Descriptor.ChunkSize * 6 || requested.Height > hello.Descriptor.ChunkSize * 6) throw new ArgumentOutOfRangeException(nameof(requested), "Bounded interest region required.");
+-            Region = requested; Generation = checked(Generation + 1); Commit = 0; previous.Clear(); revisions.Clear(); outgoing.Clear(); log.Clear(); bytes = 0; Backpressured = false;
++            observed = false; Region = requested; Generation = checked(Generation + 1); Commit = 0; previous.Clear(); revisions.Clear(); outgoing.Clear(); log.Clear(); bytes = 0; Backpressured = false;
+             QueueHello(); Publish();
+         }
+         public void Revoke()
+         {
+-            var p = Packet(MapMessage.Revoke); outgoing.Clear(); outgoing.Enqueue(MapProtocol.Encode(p)); Generation = checked(Generation + 1);
++            observed = false; var p = Packet(MapMessage.Revoke); outgoing.Clear(); outgoing.Enqueue(MapProtocol.Encode(p)); Generation = checked(Generation + 1);
+             previous.Clear(); revisions.Clear(); log.Clear(); bytes = 0; Region = default; Backpressured = false;
+         }
+         public bool Publish()
+         {
+             if (!Region.IsValid) return false;
++            ulong content = contentRevision?.Invoke() ?? 0, permission = permissionRevision?.Invoke() ?? 0;
++            if (contentRevision != null && observed && content == observedContent && permission == observedPermission) return false;
++            PublicationScanCount++;
++            // Providers must change before Publish when logic or authorization changes; defaults retain polling semantics.
+             // Permission removal takes priority over the normal send window, including a stalled client.
+             foreach (var pair in previous)
+                 foreach (var cell in pair.Value)
+@@ -77,7 +87,7 @@
+                     var packet = Packet(existed ? MapMessage.Delta : MapMessage.Snapshot); packet.Chunk = c; packet.BaseRevision = existed ? revisions[c] : 0; packet.Revision = checked(packet.BaseRevision + 1); packet.Cells = cells;
+                     packets.Add(packet); targets.Add(new ChunkTarget(c, packet.Revision)); changes.Add(c, cells);
+                 }
+-            if (packets.Count == 0) return false;
++            if (packets.Count == 0) { Remember(content, permission); return false; }
+             if (previous.Count + changes.Count > ProtocolLimits.MaximumChunks * 2 || targets.Count > ProtocolLimits.MaximumChunks) throw new InvalidOperationException("Interest budget exceeded.");
+             ulong commit = checked(Commit + 1); var manifest = Packet(MapMessage.Manifest); manifest.Commit = commit; manifest.Targets = targets.ToArray();
+             var encoded = new List<byte[]> { MapProtocol.Encode(manifest) }; int total = encoded[0].Length;
+@@ -85,8 +95,10 @@
+             if (log.Count + encoded.Count > ProtocolLimits.MaximumLogPackets || bytes + total > ProtocolLimits.MaximumBufferedBytes) { Backpressured = true; return false; }
+             foreach (var pair in changes) previous[pair.Key] = pair.Value;
+             foreach (var t in targets) revisions[t.Chunk] = t.Revision;
+-            Commit = commit; foreach (var b in encoded) { outgoing.Enqueue(b); log.Add((commit, b.Length)); } bytes += total; return true;
++            Remember(content, permission); Commit = commit; foreach (var b in encoded) { outgoing.Enqueue(b); log.Add((commit, b.Length)); } bytes += total; return true;
+         }
++        private void Remember(ulong content, ulong permission)
++        { observed = true; observedContent = content; observedPermission = permission; }
+         public byte[] Dequeue() => outgoing.Count == 0 ? null : outgoing.Dequeue();
+         public void Acknowledge(ulong commit)
+         {

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533a05f34ee90c441b1fd0edfa5a9d4c, type: 3}
+  m_Name: Terrain
+  m_EditorClassIdentifier: AnyRules.Authoring::AnyRules.Next.Authoring.TerrainDefinition
+  PersistentGuid: ae10df81ad10ddeeac10dc5bab10dac8
+  Key: iron
+  DisplayName: iron
+  ConnectionGroups: []
+  GameplayDefinitionGuid: 
+  Gameplay: {fileID: 0}
+  Solid: 1
+  MaximumDurability: 65
+  FillVisualSet: {fileID: 11400000, guid: 7131c7437a3f5f748bc21502ed2c21be, type: 2}

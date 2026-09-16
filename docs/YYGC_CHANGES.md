@@ -210,3 +210,15 @@ U2 分批覆盖 126 个不同 Editor／Play 用例，无未解决失败；Mono �
 验证：Unity `6000.4.9f1` 导入／编译通过，UI 检查 **47/47**；实际窗口搜索、名称排序与重开检查通过；2,457 个游戏资源、meta、Packages 和 ProjectSettings 输入哈希不变。当前依赖准备与全新隔离 clone 准备均通过。首次导入生成两份新 meta；用户提出三行要求后，仅对新增输入涉及的三份源码／样式统一再导入一次。未新增 Player、PlayMode 或联机验证，不改变 M5 状态。详见[本批证据](evidence/workshop-display-2026-09-12.json)。
 
 已有的 Sample 注册排除、启动验证排除及 Sample／Runtime 友元声明是此前已提交补丁，本次没有改变这些行为。每次后续修复在本表新增独立行；最终交付逐项列出真实改动及各自通过／待验证状态，不把用户原有修改算作本次成果。
+## 2026-09-16／17 地图包接入（独立切片）
+
+地图生成与可破坏地形合同见 [地图切片](TERRAIN_GENERATION.md)。主 YYGC 仍锁定 0c7cec0；新增三个独立包从 aa450a7168d5800b0899e216ed484892e44fb40a 提取到 .deps/AnyRules，不修改或切换用户 D:/Developer/YYGC master 工作区。
+
+| 修改文件 | 原因与落点 | 验证 |
+|---|---|---|
+| AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Protocol/MapInterestService.cs | 现有 Publish 每次扫描兴趣格；追加可选内容／权限版本提供者及扫描计数，两版本不变时直接返回。Subscribe/Revoke 清除缓存，默认不传参数保留原轮询语义。游戏用 tools/map-framework-patch/IdleMapPublication.patch 锁定，准备脚本重复运行只校验／应用一次。 | 新地图 Editor 回归已通过静止 1,000 次不扫描、实际修改、晚加入与权限撤回；双进程结果见地图完成记录。 |
+| AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Runtime/FishNetMapTransport.cs | 弱网实际暴露每帧计数的 120 次 Pump 超时过早触发重同步；改为实时时钟 10 Hz 推进，12 秒窗口、最多三次。复用断线清理清单以去除逐帧列表分配。落点为 tools/map-framework-patch/RealtimeMapRetry.patch。 | 同一 Mono 真实 200 ms RTT／5% 丢包／25 ms 抖动，破坏、去重、重连及静态发布检查通过；不视为双机器或前台性能验收。 |
+
+两份补丁只存在于宿主隔离解包目录，未写入用户框架仓库。准备脚本规范化这两个修改文件的换行、校验全部 442 项源文件；全新归档解包、应用补丁和哈希对比已通过。三个包的源码身份均来自 aa450a7，现有 YYGC 0c7cec0 的对象／输入补丁不变。
+
+未修改 AnyRuleD 核心地图、规则编译器或渲染后端。游戏直接使用 ARDMap 局部事务，以 ObjectSessionContext 控制写权限；不把 TerrainEditBusinessHandler 的整图检查点事务当作高频采矿实现。当前补丁是宿主锁定适配，不宣称已合并 YYGC 主分支或发布新版框架。

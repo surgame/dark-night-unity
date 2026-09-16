@@ -1,0 +1,87 @@
+{
+  "date": "2026-09-17",
+  "releasedBytes": 0,
+  "blocked": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain\\player-mono",
+      "bytes": 197402508.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain\\player-mono-r2",
+      "bytes": 197403096.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain\\player-mono-r3",
+      "bytes": 197403144.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain\\package-reproduction",
+      "bytes": 2121167.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\anyrules-source.zip",
+      "bytes": 537811.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\TerrainRegression\\bin",
+      "bytes": 272292.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\TerrainRegression\\obj",
+      "bytes": 182332.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\TerrainAssetProbe.cs",
+      "bytes": 1183.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\TerrainCancelProbe.cs",
+      "bytes": 933.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\TerrainPlayProbe.cs",
+      "bytes": 732.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\TerrainEditorProbe.cs",
+      "bytes": 1975.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\TerrainPanSetup.cs",
+      "bytes": 479.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\TerrainPanMove.cs",
+      "bytes": 357.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\patch-map-packages.py",
+      "bytes": 3119.0,
+      "reason": "Automatic approval rejected cleanup: blocked by policy; retained without retry"
+    }
+  ],
+  "blockedBytes": 595331128.0,
+  "retained": [
+    "artifacts/terrain/player-mono-r4: final verified Player",
+    "artifacts/terrain reports, screenshots and build manifest: evidence",
+    ".deps/AnyRules: active locked packages",
+    "Earlier denied cleanup targets and shared CoreBuild/ArchitectureGuard/Unity caches: untouched"
+  ],
+  "remainingBytes": {
+    "D": 34098106368,
+    "C": 7985520640
+  }
+}

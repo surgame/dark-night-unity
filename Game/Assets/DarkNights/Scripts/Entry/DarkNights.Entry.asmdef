@@ -1,7 +1,24 @@
 {
   "name": "DarkNights.Entry",
   "rootNamespace": "DarkNights.Entry",
-  "references": ["DarkNights.Core", "DarkNights.Runtime", "DarkNights.View", "GameCore.Runtime", "FishNet.Runtime", "UniTask", "Unity.ugui", "Unity.InputSystem"],
+  "references": [
+    "DarkNights.Core",
+    "DarkNights.Runtime",
+    "DarkNights.View",
+    "GameCore.Runtime",
+    "FishNet.Runtime",
+    "UniTask",
+    "Unity.ugui",
+    "Unity.InputSystem",
+    "AnyRules.Core",
+    "AnyRules.Authoring",
+    "AnyRules.MapProtocol",
+    "AnyRules.FishNet"
+  ],
   "overrideReferences": true,
-  "precompiledReferences": ["Newtonsoft.Json.dll"]
+  "precompiledReferences": [
+    "Newtonsoft.Json.dll",
+    "VitalRouter.dll",
+    "MemoryPack.Core.dll"
+  ]
 }

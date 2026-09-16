@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+新增[地图模块](TERRAIN_GENERATION.md)：Core/Terrain 只生成冻结初始蓝图；Runtime/Terrain 独占 YYGC 会话约束下的 ARDMap 权威状态，提供局部事务与只读流；View/Terrain 负责本地预览。地图格不是逐格业务实体，初始资产、网络副本和视觉网格均不能结算破坏。正式实体生命周期和下方协议保持原样，未来采矿由现有可信会话入口接入。
+
 2026-09-16 当前切片见[主角与输入联合执行](HERO_INPUT_EXECUTION.md)：YYGC `0c7cec0`、协议 8、存档 v3；ActorState 仍是唯一状态，自动控制与主角控制以能力切换。Ready 携带默认主角偏好，SessionAuthority 通过同一 YYGC 对象生命周期为每个首次上线且有权限的连接新建专属 `worker`，不从现有闲置 Actor 中选择；连接保存人物 ID 用于重复 Ready 和策略恢复，加载后还必须验证对象仍带手动主角标记。默认 UI 隐藏顶部主角工具栏和旧营地入口。下段日期较早的版本与计数保留历史时点。
 
 2026-09-14，采用 [YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。U0–U5 已完成，正式入口使用全部 YYGC 业务能力，旧运行模型已删除。U6 协议 7／YYGC `745f3d2` 通过 144 项 Editor／Play、Mono 完整矩阵 350 项及 240 秒容量检查 21 项；后续 [Linear 世界表现](M5_WORLD_PRESENTATION.md)在 `a4a5450` 完成 155 项 Editor／Play 和新 Mono 77 项检查。前台验收由用户暂缓，IL2CPP／双机器仍未验收；受限清理已完成[列账交接](STAGE_CLEANUP_INVENTORY.md)，目录未删除。实际状态与证据见[性能验收](YYGC_UNIFIED_PERFORMANCE.md)和[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)，不以类型或目录存在代替验收。

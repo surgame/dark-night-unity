@@ -1,0 +1,9901 @@
+{
+  "format": "dark-nights.dualgrid-art",
+  "version": 1,
+  "engineNative": false,
+  "source": {
+    "game": "38d1f9503f660e7eba920ab8e27e9eaeef500ecb",
+    "yygc": "aa450a7168d5800b0899e216ed484892e44fb40a"
+  },
+  "contract": "AnyRules.Next four corners / rasterized canonical NW-SE topology",
+  "tileSize": 8,
+  "cornerOrder": [
+    "NW",
+    "NE",
+    "SW",
+    "SE"
+  ],
+  "cornerBits": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "emptyMask": 0,
+  "fullMask": 15,
+  "diagonal": {
+    "connected": 9,
+    "separate": 6
+  },
+  "coordinateMapping": {
+    "cell": "Unity (u,v) = H5 (x,-y)",
+    "visual": "Unity (u,v) = H5 (x,-y-1)",
+    "renderOriginPixels": "[(x+0.5)*8, (y+0.5)*8]"
+  },
+  "textureSeed": 1616,
+  "detail": 0.22,
+  "palette": [
+    {
+      "id": 0,
+      "key": "empty",
+      "name": "空",
+      "base": "#000000",
+      "light": "#000000",
+      "dark": "#000000",
+      "edge": "#000000",
+      "solid": false,
+      "guid": "ca82740c-cb82-759f-cc82-7732cd8278c5"
+    },
+    {
+      "id": 1,
+      "key": "loam",
+      "name": "松林土",
+      "base": "#484538",
+      "light": "#57533f",
+      "dark": "#35362e",
+      "edge": "#869065",
+      "solid": true,
+      "hardness": 0.2,
+      "drop": "stone",
+      "guid": "514bb76c-524b-b8ff-534b-ba92544bbc25"
+    },
+    {
+      "id": 2,
+      "key": "slate",
+      "name": "灰页岩",
+      "base": "#505951",
+      "light": "#646d60",
+      "dark": "#39423d",
+      "edge": "#89947e",
+      "solid": true,
+      "hardness": 0.4,
+      "drop": "stone",
+      "guid": "f006b3fc-f106-b58f-f206-b722f306b8b5"
+    },
+    {
+      "id": 3,
+      "key": "basalt",
+      "name": "深层岩",
+      "base": "#3b4542",
+      "light": "#505d55",
+      "dark": "#2d3735",
+      "edge": "#72816d",
+      "solid": true,
+      "hardness": 0.55,
+      "drop": "stone",
+      "guid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253"
+    },
+    {
+      "id": 4,
+      "key": "copper",
+      "name": "铜矿",
+      "base": "#4c5349",
+      "light": "#bc9160",
+      "dark": "#39433b",
+      "edge": "#858b70",
+      "solid": true,
+      "hardness": 0.55,
+      "drop": "copper",
+      "value": 3,
+      "guid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143"
+    },
+    {
+      "id": 5,
+      "key": "iron",
+      "name": "铁矿",
+      "base": "#4d5650",
+      "light": "#aab5a7",
+      "dark": "#35413e",
+      "edge": "#808e79",
+      "solid": true,
+      "hardness": 0.65,
+      "drop": "iron",
+      "value": 3,
+      "guid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8"
+    },
+    {
+      "id": 6,
+      "key": "gold",
+      "name": "金矿",
+      "base": "#424c41",
+      "light": "#d7ba6c",
+      "dark": "#333b32",
+      "edge": "#8d916e",
+      "solid": true,
+      "hardness": 0.75,
+      "drop": "gold",
+      "value": 2,
+      "guid": "3b70ac59-3a70-aac6-3970-a9333870a7a0"
+    },
+    {
+      "id": 7,
+      "key": "moss",
+      "name": "苔岩",
+      "base": "#495a41",
+      "light": "#778759",
+      "dark": "#344531",
+      "edge": "#a0aa70",
+      "solid": true,
+      "hardness": 0.3,
+      "drop": "stone",
+      "guid": "fb805af9-fa80-5966-f980-57d3f8805640"
+    },
+    {
+      "id": 8,
+      "key": "bedrock",
+      "name": "基岩",
+      "base": "#2d3734",
+      "light": "#454e44",
+      "dark": "#242e2c",
+      "edge": "#5c6958",
+      "solid": true,
+      "hardness": null,
+      "drop": null,
+      "guid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a"
+    }
+  ],
+  "sampling": {
+    "filter": "Point",
+    "mipmaps": false,
+    "compression": "None",
+    "suggestedPixelsPerUnit": 8,
+    "colorSpace": "sRGB texture; Unity lighting remains Linear"
+  },
+  "variantAlgorithm": "H5 32-bit deterministic hash; NOT official StableVariantHash",
+  "atlas": {
+    "name": "terrain-8x8-all.png",
+    "width": 128,
+    "height": 256,
+    "origin": "top-left"
+  },
+  "tiles": [
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 0,
+      "rect": [
+        0,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 1,
+      "rect": [
+        8,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 2,
+      "rect": [
+        16,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 3,
+      "rect": [
+        24,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 4,
+      "rect": [
+        0,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 5,
+      "rect": [
+        8,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 6,
+      "rect": [
+        16,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 7,
+      "rect": [
+        24,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 8,
+      "rect": [
+        0,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 9,
+      "rect": [
+        8,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 10,
+      "rect": [
+        16,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 11,
+      "rect": [
+        24,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 12,
+      "rect": [
+        0,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 13,
+      "rect": [
+        8,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 14,
+      "rect": [
+        16,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 0,
+      "mask": 15,
+      "rect": [
+        24,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 0,
+      "rect": [
+        32,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 1,
+      "rect": [
+        40,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 2,
+      "rect": [
+        48,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 3,
+      "rect": [
+        56,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 4,
+      "rect": [
+        32,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 5,
+      "rect": [
+        40,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 6,
+      "rect": [
+        48,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 7,
+      "rect": [
+        56,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 8,
+      "rect": [
+        32,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 9,
+      "rect": [
+        40,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 10,
+      "rect": [
+        48,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 11,
+      "rect": [
+        56,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 12,
+      "rect": [
+        32,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 13,
+      "rect": [
+        40,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 14,
+      "rect": [
+        48,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 1,
+      "mask": 15,
+      "rect": [
+        56,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 0,
+      "rect": [
+        64,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 1,
+      "rect": [
+        72,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 2,
+      "rect": [
+        80,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 3,
+      "rect": [
+        88,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 4,
+      "rect": [
+        64,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 5,
+      "rect": [
+        72,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 6,
+      "rect": [
+        80,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 7,
+      "rect": [
+        88,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 8,
+      "rect": [
+        64,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 9,
+      "rect": [
+        72,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 10,
+      "rect": [
+        80,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 11,
+      "rect": [
+        88,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 12,
+      "rect": [
+        64,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 13,
+      "rect": [
+        72,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 14,
+      "rect": [
+        80,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 2,
+      "mask": 15,
+      "rect": [
+        88,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 0,
+      "rect": [
+        96,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 1,
+      "rect": [
+        104,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 2,
+      "rect": [
+        112,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 3,
+      "rect": [
+        120,
+        0,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 4,
+      "rect": [
+        96,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 5,
+      "rect": [
+        104,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 6,
+      "rect": [
+        112,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 7,
+      "rect": [
+        120,
+        8,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 8,
+      "rect": [
+        96,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 9,
+      "rect": [
+        104,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 10,
+      "rect": [
+        112,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 11,
+      "rect": [
+        120,
+        16,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 12,
+      "rect": [
+        96,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 13,
+      "rect": [
+        104,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 14,
+      "rect": [
+        112,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "514bb76c-524b-b8ff-534b-ba92544bbc25",
+      "terrainKey": "loam",
+      "variant": 3,
+      "mask": 15,
+      "rect": [
+        120,
+        24,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 0,
+      "rect": [
+        0,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 1,
+      "rect": [
+        8,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 2,
+      "rect": [
+        16,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 3,
+      "rect": [
+        24,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 4,
+      "rect": [
+        0,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 5,
+      "rect": [
+        8,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 6,
+      "rect": [
+        16,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 7,
+      "rect": [
+        24,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 8,
+      "rect": [
+        0,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 9,
+      "rect": [
+        8,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 10,
+      "rect": [
+        16,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 11,
+      "rect": [
+        24,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 12,
+      "rect": [
+        0,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 13,
+      "rect": [
+        8,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 14,
+      "rect": [
+        16,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 0,
+      "mask": 15,
+      "rect": [
+        24,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 0,
+      "rect": [
+        32,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 1,
+      "rect": [
+        40,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 2,
+      "rect": [
+        48,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 3,
+      "rect": [
+        56,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 4,
+      "rect": [
+        32,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 5,
+      "rect": [
+        40,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 6,
+      "rect": [
+        48,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 7,
+      "rect": [
+        56,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 8,
+      "rect": [
+        32,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 9,
+      "rect": [
+        40,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 10,
+      "rect": [
+        48,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 11,
+      "rect": [
+        56,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 12,
+      "rect": [
+        32,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 13,
+      "rect": [
+        40,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 14,
+      "rect": [
+        48,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 1,
+      "mask": 15,
+      "rect": [
+        56,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 0,
+      "rect": [
+        64,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 1,
+      "rect": [
+        72,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 2,
+      "rect": [
+        80,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 3,
+      "rect": [
+        88,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 4,
+      "rect": [
+        64,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 5,
+      "rect": [
+        72,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 6,
+      "rect": [
+        80,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 7,
+      "rect": [
+        88,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 8,
+      "rect": [
+        64,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 9,
+      "rect": [
+        72,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 10,
+      "rect": [
+        80,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 11,
+      "rect": [
+        88,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 12,
+      "rect": [
+        64,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 13,
+      "rect": [
+        72,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 14,
+      "rect": [
+        80,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 2,
+      "mask": 15,
+      "rect": [
+        88,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 0,
+      "rect": [
+        96,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 1,
+      "rect": [
+        104,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 2,
+      "rect": [
+        112,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 3,
+      "rect": [
+        120,
+        32,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 4,
+      "rect": [
+        96,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 5,
+      "rect": [
+        104,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 6,
+      "rect": [
+        112,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 7,
+      "rect": [
+        120,
+        40,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 8,
+      "rect": [
+        96,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 9,
+      "rect": [
+        104,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 10,
+      "rect": [
+        112,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 11,
+      "rect": [
+        120,
+        48,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 12,
+      "rect": [
+        96,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 13,
+      "rect": [
+        104,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 14,
+      "rect": [
+        112,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "f006b3fc-f106-b58f-f206-b722f306b8b5",
+      "terrainKey": "slate",
+      "variant": 3,
+      "mask": 15,
+      "rect": [
+        120,
+        56,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 0,
+      "rect": [
+        0,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 1,
+      "rect": [
+        8,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 2,
+      "rect": [
+        16,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 3,
+      "rect": [
+        24,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 4,
+      "rect": [
+        0,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 5,
+      "rect": [
+        8,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 6,
+      "rect": [
+        16,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 7,
+      "rect": [
+        24,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 8,
+      "rect": [
+        0,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 9,
+      "rect": [
+        8,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 10,
+      "rect": [
+        16,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 11,
+      "rect": [
+        24,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 12,
+      "rect": [
+        0,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 13,
+      "rect": [
+        8,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 14,
+      "rect": [
+        16,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 0,
+      "mask": 15,
+      "rect": [
+        24,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 0,
+      "rect": [
+        32,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 1,
+      "rect": [
+        40,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 2,
+      "rect": [
+        48,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 3,
+      "rect": [
+        56,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 4,
+      "rect": [
+        32,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 5,
+      "rect": [
+        40,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 6,
+      "rect": [
+        48,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 7,
+      "rect": [
+        56,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 8,
+      "rect": [
+        32,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 9,
+      "rect": [
+        40,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 10,
+      "rect": [
+        48,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 11,
+      "rect": [
+        56,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 12,
+      "rect": [
+        32,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 13,
+      "rect": [
+        40,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 14,
+      "rect": [
+        48,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 1,
+      "mask": 15,
+      "rect": [
+        56,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 0,
+      "rect": [
+        64,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 1,
+      "rect": [
+        72,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 2,
+      "rect": [
+        80,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 3,
+      "rect": [
+        88,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 4,
+      "rect": [
+        64,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 5,
+      "rect": [
+        72,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 6,
+      "rect": [
+        80,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 7,
+      "rect": [
+        88,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 8,
+      "rect": [
+        64,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 9,
+      "rect": [
+        72,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 10,
+      "rect": [
+        80,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 11,
+      "rect": [
+        88,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 12,
+      "rect": [
+        64,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 13,
+      "rect": [
+        72,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 14,
+      "rect": [
+        80,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 2,
+      "mask": 15,
+      "rect": [
+        88,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 0,
+      "rect": [
+        96,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 1,
+      "rect": [
+        104,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 2,
+      "rect": [
+        112,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 3,
+      "rect": [
+        120,
+        64,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 4,
+      "rect": [
+        96,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 5,
+      "rect": [
+        104,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 6,
+      "rect": [
+        112,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 7,
+      "rect": [
+        120,
+        72,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 8,
+      "rect": [
+        96,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 9,
+      "rect": [
+        104,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 10,
+      "rect": [
+        112,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 11,
+      "rect": [
+        120,
+        80,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 12,
+      "rect": [
+        96,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 13,
+      "rect": [
+        104,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 14,
+      "rect": [
+        112,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "8b9b53e6-8c9b-5579-899b-50c08a9b5253",
+      "terrainKey": "basalt",
+      "variant": 3,
+      "mask": 15,
+      "rect": [
+        120,
+        88,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 0,
+      "rect": [
+        0,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 1,
+      "rect": [
+        8,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 2,
+      "rect": [
+        16,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 3,
+      "rect": [
+        24,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 4,
+      "rect": [
+        0,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 5,
+      "rect": [
+        8,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 6,
+      "rect": [
+        16,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 7,
+      "rect": [
+        24,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 8,
+      "rect": [
+        0,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 9,
+      "rect": [
+        8,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 10,
+      "rect": [
+        16,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 11,
+      "rect": [
+        24,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 12,
+      "rect": [
+        0,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 13,
+      "rect": [
+        8,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 14,
+      "rect": [
+        16,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 0,
+      "mask": 15,
+      "rect": [
+        24,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 0,
+      "rect": [
+        32,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 1,
+      "rect": [
+        40,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 2,
+      "rect": [
+        48,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 3,
+      "rect": [
+        56,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 4,
+      "rect": [
+        32,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 5,
+      "rect": [
+        40,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 6,
+      "rect": [
+        48,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 7,
+      "rect": [
+        56,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 8,
+      "rect": [
+        32,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 9,
+      "rect": [
+        40,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 10,
+      "rect": [
+        48,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 11,
+      "rect": [
+        56,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 12,
+      "rect": [
+        32,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 13,
+      "rect": [
+        40,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 14,
+      "rect": [
+        48,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 1,
+      "mask": 15,
+      "rect": [
+        56,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 0,
+      "rect": [
+        64,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 1,
+      "rect": [
+        72,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 2,
+      "rect": [
+        80,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 3,
+      "rect": [
+        88,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 4,
+      "rect": [
+        64,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 5,
+      "rect": [
+        72,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 6,
+      "rect": [
+        80,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 7,
+      "rect": [
+        88,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 8,
+      "rect": [
+        64,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 9,
+      "rect": [
+        72,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 10,
+      "rect": [
+        80,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 11,
+      "rect": [
+        88,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 12,
+      "rect": [
+        64,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 13,
+      "rect": [
+        72,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 14,
+      "rect": [
+        80,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 2,
+      "mask": 15,
+      "rect": [
+        88,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 0,
+      "rect": [
+        96,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 1,
+      "rect": [
+        104,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 2,
+      "rect": [
+        112,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 3,
+      "rect": [
+        120,
+        96,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 4,
+      "rect": [
+        96,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 5,
+      "rect": [
+        104,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 6,
+      "rect": [
+        112,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 7,
+      "rect": [
+        120,
+        104,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 8,
+      "rect": [
+        96,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 9,
+      "rect": [
+        104,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 10,
+      "rect": [
+        112,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 11,
+      "rect": [
+        120,
+        112,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 12,
+      "rect": [
+        96,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 13,
+      "rect": [
+        104,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 14,
+      "rect": [
+        112,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "a5e002d6-a6e0-0469-a3df-ffb0a4e00143",
+      "terrainKey": "copper",
+      "variant": 3,
+      "mask": 15,
+      "rect": [
+        120,
+        120,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 0,
+      "rect": [
+        0,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 1,
+      "rect": [
+        8,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 2,
+      "rect": [
+        16,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 3,
+      "rect": [
+        24,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 4,
+      "rect": [
+        0,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 5,
+      "rect": [
+        8,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 6,
+      "rect": [
+        16,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 7,
+      "rect": [
+        24,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 8,
+      "rect": [
+        0,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 9,
+      "rect": [
+        8,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 10,
+      "rect": [
+        16,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 11,
+      "rect": [
+        24,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 12,
+      "rect": [
+        0,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 13,
+      "rect": [
+        8,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 14,
+      "rect": [
+        16,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 0,
+      "mask": 15,
+      "rect": [
+        24,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 0,
+      "rect": [
+        32,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 1,
+      "rect": [
+        40,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 2,
+      "rect": [
+        48,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 3,
+      "rect": [
+        56,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 4,
+      "rect": [
+        32,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 5,
+      "rect": [
+        40,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 6,
+      "rect": [
+        48,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 7,
+      "rect": [
+        56,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 8,
+      "rect": [
+        32,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 9,
+      "rect": [
+        40,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 10,
+      "rect": [
+        48,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 11,
+      "rect": [
+        56,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 12,
+      "rect": [
+        32,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 13,
+      "rect": [
+        40,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 14,
+      "rect": [
+        48,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 1,
+      "mask": 15,
+      "rect": [
+        56,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 0,
+      "rect": [
+        64,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 1,
+      "rect": [
+        72,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 2,
+      "rect": [
+        80,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 3,
+      "rect": [
+        88,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 4,
+      "rect": [
+        64,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 5,
+      "rect": [
+        72,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 6,
+      "rect": [
+        80,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 7,
+      "rect": [
+        88,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 8,
+      "rect": [
+        64,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 9,
+      "rect": [
+        72,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 10,
+      "rect": [
+        80,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 11,
+      "rect": [
+        88,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 12,
+      "rect": [
+        64,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 13,
+      "rect": [
+        72,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 14,
+      "rect": [
+        80,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 2,
+      "mask": 15,
+      "rect": [
+        88,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 0,
+      "rect": [
+        96,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 1,
+      "rect": [
+        104,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 2,
+      "rect": [
+        112,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 3,
+      "rect": [
+        120,
+        128,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 4,
+      "rect": [
+        96,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 5,
+      "rect": [
+        104,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 6,
+      "rect": [
+        112,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 7,
+      "rect": [
+        120,
+        136,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 8,
+      "rect": [
+        96,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 9,
+      "rect": [
+        104,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 10,
+      "rect": [
+        112,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 11,
+      "rect": [
+        120,
+        144,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 12,
+      "rect": [
+        96,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 13,
+      "rect": [
+        104,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 14,
+      "rect": [
+        112,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "ae10df81-ad10-ddee-ac10-dc5bab10dac8",
+      "terrainKey": "iron",
+      "variant": 3,
+      "mask": 15,
+      "rect": [
+        120,
+        152,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 0,
+      "rect": [
+        0,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 1,
+      "rect": [
+        8,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 2,
+      "rect": [
+        16,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 3,
+      "rect": [
+        24,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 4,
+      "rect": [
+        0,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 5,
+      "rect": [
+        8,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 6,
+      "rect": [
+        16,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 7,
+      "rect": [
+        24,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 8,
+      "rect": [
+        0,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 9,
+      "rect": [
+        8,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 10,
+      "rect": [
+        16,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 11,
+      "rect": [
+        24,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 12,
+      "rect": [
+        0,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 13,
+      "rect": [
+        8,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 14,
+      "rect": [
+        16,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 0,
+      "mask": 15,
+      "rect": [
+        24,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 0,
+      "rect": [
+        32,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 1,
+      "rect": [
+        40,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 2,
+      "rect": [
+        48,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 3,
+      "rect": [
+        56,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 4,
+      "rect": [
+        32,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 5,
+      "rect": [
+        40,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 6,
+      "rect": [
+        48,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 7,
+      "rect": [
+        56,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 8,
+      "rect": [
+        32,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 9,
+      "rect": [
+        40,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 10,
+      "rect": [
+        48,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 11,
+      "rect": [
+        56,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 12,
+      "rect": [
+        32,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 13,
+      "rect": [
+        40,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 14,
+      "rect": [
+        48,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 1,
+      "mask": 15,
+      "rect": [
+        56,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 0,
+      "rect": [
+        64,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 1,
+      "rect": [
+        72,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 2,
+      "rect": [
+        80,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 3,
+      "rect": [
+        88,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 4,
+      "rect": [
+        64,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 5,
+      "rect": [
+        72,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 6,
+      "rect": [
+        80,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 7,
+      "rect": [
+        88,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 8,
+      "rect": [
+        64,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 9,
+      "rect": [
+        72,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 10,
+      "rect": [
+        80,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 11,
+      "rect": [
+        88,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 12,
+      "rect": [
+        64,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 13,
+      "rect": [
+        72,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 14,
+      "rect": [
+        80,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 2,
+      "mask": 15,
+      "rect": [
+        88,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 0,
+      "rect": [
+        96,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 1,
+      "rect": [
+        104,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 2,
+      "rect": [
+        112,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 3,
+      "rect": [
+        120,
+        160,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 4,
+      "rect": [
+        96,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 5,
+      "rect": [
+        104,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 6,
+      "rect": [
+        112,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 7,
+      "rect": [
+        120,
+        168,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 8,
+      "rect": [
+        96,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 9,
+      "rect": [
+        104,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 10,
+      "rect": [
+        112,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 11,
+      "rect": [
+        120,
+        176,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 12,
+      "rect": [
+        96,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 13,
+      "rect": [
+        104,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 14,
+      "rect": [
+        112,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "3b70ac59-3a70-aac6-3970-a9333870a7a0",
+      "terrainKey": "gold",
+      "variant": 3,
+      "mask": 15,
+      "rect": [
+        120,
+        184,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 0,
+      "rect": [
+        0,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 1,
+      "rect": [
+        8,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 2,
+      "rect": [
+        16,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 3,
+      "rect": [
+        24,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 4,
+      "rect": [
+        0,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 5,
+      "rect": [
+        8,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 6,
+      "rect": [
+        16,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 7,
+      "rect": [
+        24,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 8,
+      "rect": [
+        0,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 9,
+      "rect": [
+        8,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 10,
+      "rect": [
+        16,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 11,
+      "rect": [
+        24,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 12,
+      "rect": [
+        0,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 13,
+      "rect": [
+        8,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 14,
+      "rect": [
+        16,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 0,
+      "mask": 15,
+      "rect": [
+        24,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 0,
+      "rect": [
+        32,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 1,
+      "rect": [
+        40,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 2,
+      "rect": [
+        48,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 3,
+      "rect": [
+        56,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 4,
+      "rect": [
+        32,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 5,
+      "rect": [
+        40,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 6,
+      "rect": [
+        48,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 7,
+      "rect": [
+        56,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 8,
+      "rect": [
+        32,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 9,
+      "rect": [
+        40,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 10,
+      "rect": [
+        48,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 11,
+      "rect": [
+        56,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 12,
+      "rect": [
+        32,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 13,
+      "rect": [
+        40,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 14,
+      "rect": [
+        48,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 1,
+      "mask": 15,
+      "rect": [
+        56,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 0,
+      "rect": [
+        64,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 1,
+      "rect": [
+        72,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 2,
+      "rect": [
+        80,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 3,
+      "rect": [
+        88,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 4,
+      "rect": [
+        64,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 5,
+      "rect": [
+        72,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 6,
+      "rect": [
+        80,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 7,
+      "rect": [
+        88,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 8,
+      "rect": [
+        64,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 9,
+      "rect": [
+        72,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 10,
+      "rect": [
+        80,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 11,
+      "rect": [
+        88,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 12,
+      "rect": [
+        64,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 13,
+      "rect": [
+        72,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 14,
+      "rect": [
+        80,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 2,
+      "mask": 15,
+      "rect": [
+        88,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 0,
+      "rect": [
+        96,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 1,
+      "rect": [
+        104,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 2,
+      "rect": [
+        112,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 3,
+      "rect": [
+        120,
+        192,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 4,
+      "rect": [
+        96,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 5,
+      "rect": [
+        104,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 6,
+      "rect": [
+        112,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 7,
+      "rect": [
+        120,
+        200,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 8,
+      "rect": [
+        96,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 9,
+      "rect": [
+        104,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 10,
+      "rect": [
+        112,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 11,
+      "rect": [
+        120,
+        208,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 12,
+      "rect": [
+        96,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 13,
+      "rect": [
+        104,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 14,
+      "rect": [
+        112,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "fb805af9-fa80-5966-f980-57d3f8805640",
+      "terrainKey": "moss",
+      "variant": 3,
+      "mask": 15,
+      "rect": [
+        120,
+        216,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 0,
+      "rect": [
+        0,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 1,
+      "rect": [
+        8,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 2,
+      "rect": [
+        16,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 3,
+      "rect": [
+        24,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 4,
+      "rect": [
+        0,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 5,
+      "rect": [
+        8,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 6,
+      "rect": [
+        16,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 7,
+      "rect": [
+        24,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 8,
+      "rect": [
+        0,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 9,
+      "rect": [
+        8,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 10,
+      "rect": [
+        16,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 11,
+      "rect": [
+        24,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 12,
+      "rect": [
+        0,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 13,
+      "rect": [
+        8,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 14,
+      "rect": [
+        16,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 0,
+      "mask": 15,
+      "rect": [
+        24,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 0,
+      "rect": [
+        32,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 1,
+      "rect": [
+        40,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 2,
+      "rect": [
+        48,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 3,
+      "rect": [
+        56,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 4,
+      "rect": [
+        32,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 5,
+      "rect": [
+        40,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 6,
+      "rect": [
+        48,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 7,
+      "rect": [
+        56,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 8,
+      "rect": [
+        32,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 9,
+      "rect": [
+        40,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 10,
+      "rect": [
+        48,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 11,
+      "rect": [
+        56,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 12,
+      "rect": [
+        32,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 13,
+      "rect": [
+        40,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 14,
+      "rect": [
+        48,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 1,
+      "mask": 15,
+      "rect": [
+        56,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 0,
+      "rect": [
+        64,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 1,
+      "rect": [
+        72,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 2,
+      "rect": [
+        80,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 3,
+      "rect": [
+        88,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 4,
+      "rect": [
+        64,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 5,
+      "rect": [
+        72,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 6,
+      "rect": [
+        80,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 7,
+      "rect": [
+        88,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 8,
+      "rect": [
+        64,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 9,
+      "rect": [
+        72,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 10,
+      "rect": [
+        80,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 11,
+      "rect": [
+        88,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 12,
+      "rect": [
+        64,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 13,
+      "rect": [
+        72,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 14,
+      "rect": [
+        80,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 2,
+      "mask": 15,
+      "rect": [
+        88,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 0,
+      "rect": [
+        96,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 1,
+      "rect": [
+        104,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 2,
+      "rect": [
+        112,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 3,
+      "rect": [
+        120,
+        224,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 4,
+      "rect": [
+        96,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 5,
+      "rect": [
+        104,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 6,
+      "rect": [
+        112,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 7,
+      "rect": [
+        120,
+        232,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "Empty"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 8,
+      "rect": [
+        96,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 9,
+      "rect": [
+        104,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 10,
+      "rect": [
+        112,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 11,
+      "rect": [
+        120,
+        240,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "Empty",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 12,
+      "rect": [
+        96,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 13,
+      "rect": [
+        104,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "Empty",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 14,
+      "rect": [
+        112,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "Empty",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    },
+    {
+      "terrainGuid": "c75fdf77-c65f-dde4-c95f-e29dc85fe10a",
+      "terrainKey": "bedrock",
+      "variant": 3,
+      "mask": 15,
+      "rect": [
+        120,
+        248,
+        8,
+        8
+      ],
+      "predicates": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "transform": "Identity"
+    }
+  ],
+  "importNote": "Interchange descriptor only. Not an AnyRuleD binary catalog, native save, or Unity .asset."
+}

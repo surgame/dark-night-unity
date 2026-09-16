@@ -1,0 +1,173 @@
+{
+  "generatorVersion": 3,
+  "vectors": [
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "needles",
+      "caves": "modules",
+      "signature": 2941493417,
+      "sha256": "431dba0e343ddeab728f58d59b05b5316366b11a5325ea08c7b97e3775229f96"
+    },
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "needles",
+      "caves": "organic",
+      "signature": 466651542,
+      "sha256": "600fe03fc3a5b1a3bcbc9498f38336055b96767c66b8f64bcae56f2f24643f84"
+    },
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "terraces",
+      "caves": "modules",
+      "signature": 1637135629,
+      "sha256": "b49983fdc86c660f1873cb977ef4c8eaca6a9d1975d74ce6ca281ba50cdc4a66"
+    },
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "terraces",
+      "caves": "organic",
+      "signature": 2338956153,
+      "sha256": "a0bedce843325965fa4f44e8ba8411128b6ca1cdd13ea9467b8b50a834bce85a"
+    },
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "karst",
+      "caves": "modules",
+      "signature": 1218108461,
+      "sha256": "fac53660489853e2685758e8a72d4da167f6dfdfd6bfb8c710bd0254da26af98"
+    },
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "karst",
+      "caves": "organic",
+      "signature": 3796258520,
+      "sha256": "0854a21b74c64ef288685647478d747caab088f4c93d6407e116717220da8b4a"
+    },
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "basin",
+      "caves": "modules",
+      "signature": 2893506623,
+      "sha256": "e2010f1e6f9de65cfa934ddbea87001aabeb8d0b269b8dfca2723bddfa950048"
+    },
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "basin",
+      "caves": "organic",
+      "signature": 1364299251,
+      "sha256": "b0648763455ab0989078dd40be3127e71b25d3194a358be47e002bc92711954e"
+    },
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "rolling",
+      "caves": "modules",
+      "signature": 2726146240,
+      "sha256": "c3bc61bbde4afbd98c765bc628fd5529aeb84cbbc16c490044c83e3891ffe4e6"
+    },
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "rolling",
+      "caves": "organic",
+      "signature": 3264298855,
+      "sha256": "7d70c8d6627c577d4c7f71ed58ca7b7c4a274b5708b46574e4aee8ed239a4a2a"
+    },
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "broken",
+      "caves": "modules",
+      "signature": 923768740,
+      "sha256": "b18ab854f92408f510951a612d8bd66941e3c139875c5b7857e82041d9c4ffbe"
+    },
+    {
+      "seed": "GREYPINE-1616",
+      "surface": "broken",
+      "caves": "organic",
+      "signature": 2652056766,
+      "sha256": "e03d9ff875b41d79ac6fac1e3f9d4a202effd10d61f0ce66ab57d4a326e445c7"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "needles",
+      "caves": "modules",
+      "signature": 1892140283,
+      "sha256": "0488c031146f70f7806913e06fbd63c2aa96df0213fb0c564630ce71398d2fc6"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "needles",
+      "caves": "organic",
+      "signature": 3832399662,
+      "sha256": "7f2cb5348b003aa0e3a69a5ac424521a109ef8e67fef01004fc6d6c2cc1ee1eb"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "terraces",
+      "caves": "modules",
+      "signature": 3633929500,
+      "sha256": "2130ad28d8d568833c4a7a88fc2263ded168f5de1a60c329776b97a979bcebec"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "terraces",
+      "caves": "organic",
+      "signature": 2001705345,
+      "sha256": "0ca297346d9baec442d4d3e098081e95ee1b49168346a2cd1ae542f70b00706b"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "karst",
+      "caves": "modules",
+      "signature": 2827949544,
+      "sha256": "81938c33a816a52003a2dfde24c7022f96490bed66609d6a892d4c51ee496e16"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "karst",
+      "caves": "organic",
+      "signature": 2875701630,
+      "sha256": "bd0f6172ddf5d2b8c2e1f9b21d31a9da0b8f6e5aab4482e17db58a410df8511c"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "basin",
+      "caves": "modules",
+      "signature": 2569526721,
+      "sha256": "0d9ce53a04fac5b99369bf331b0f4bfa75fe6b9089be383818484878b4cae0a6"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "basin",
+      "caves": "organic",
+      "signature": 3224425533,
+      "sha256": "a56c6fd3c8c450756fee08990cdf0b473e137796704ba7c272e15fbb775a2297"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "rolling",
+      "caves": "modules",
+      "signature": 1214641754,
+      "sha256": "7c633c51b321e5cbf82e5c150313d1c84b32528da9a5008b4e09053ce8476e59"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "rolling",
+      "caves": "organic",
+      "signature": 2578442297,
+      "sha256": "85225484c1a56136fa243091d375903deba9edd6790ef70bf7438a22c61102ec"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "broken",
+      "caves": "modules",
+      "signature": 1168764933,
+      "sha256": "b6320ffd8c51a0ed5674a5ea8d467bb8c502be83003a9b1331a30d6cd312a30b"
+    },
+    {
+      "seed": "MAP-2026",
+      "surface": "broken",
+      "caves": "organic",
+      "signature": 3636654535,
+      "sha256": "bdfce6cb608d1e1ff19bf84828b6f7253ba7e06cec7b006697dbe1dbd09f0b46"
+    }
+  ]
+}

@@ -14,7 +14,12 @@
     "Unity.ResourceManager",
     "Unity.ugui",
     "Unity.InputSystem",
-    "UniTask"
+    "UniTask",
+    "AnyRules.Core",
+    "AnyRules.Compiler",
+    "AnyRules.Authoring",
+    "AnyRules.Editor",
+    "AnyRules.Unity"
   ],
   "includePlatforms": [
     "Editor"

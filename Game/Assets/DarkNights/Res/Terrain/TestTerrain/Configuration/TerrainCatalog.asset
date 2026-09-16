@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5640718796bb94d4d9b90a2a08d21f18, type: 3}
+  m_Name: TerrainCatalog
+  m_EditorClassIdentifier: AnyRules.Editor::AnyRules.Next.Editor.EditorAnyRuleDDatabase
+  CatalogGuid: 5572832f710aed73fdf845d047275d57
+  Revision: 1
+  Terrains:
+  - {fileID: 11400000, guid: 50431007f1f8ea24ca702350366f8b6c, type: 2}
+  - {fileID: 11400000, guid: 07419a45606d1ac4ca4f91cdd7fd4bf0, type: 2}
+  - {fileID: 11400000, guid: 6634fe42be815e84c82f44f5b8c8ed65, type: 2}
+  - {fileID: 11400000, guid: 10925d8060eab0a48b2ccb05bc135d31, type: 2}
+  - {fileID: 11400000, guid: 4fc272519ba48bc4180de54d190f8a07, type: 2}
+  - {fileID: 11400000, guid: 91744e07dd0cfbc43b75ee85f161fb8c, type: 2}
+  - {fileID: 11400000, guid: 7c7d2e9a3d2659148a3b79e023c81496, type: 2}
+  - {fileID: 11400000, guid: a56a4a61f6482a54cb987550f829a4ad, type: 2}
+  RuleSets:
+  - {fileID: 11400000, guid: 601161016e6495949a641916cbbd25d3, type: 2}
+  - {fileID: 11400000, guid: c3c32464a3d19554aa942fc699ceac79, type: 2}
+  - {fileID: 11400000, guid: ab5f3f1be12925442b853231e05e7090, type: 2}
+  - {fileID: 11400000, guid: eb700ed3d909e5d49b6c58e048ada67b, type: 2}
+  - {fileID: 11400000, guid: afb4f4847e02b0549adc21ddc3f46f6a, type: 2}
+  - {fileID: 11400000, guid: d7c4ed7236f120f47aa2331a65c20b7a, type: 2}
+  - {fileID: 11400000, guid: 18ffbf3e24ad28449a9caa06ff49cc8a, type: 2}
+  - {fileID: 11400000, guid: 544ce64b765167f4bb8bc9e96839dec0, type: 2}
+  RequireCompleteSpecializedCoverage: 0
