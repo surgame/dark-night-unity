@@ -1,6 +1,8 @@
 # 阶段产物清理清单
 
-2026-09-16 顶部工具栏跟进：当前交付改为 `artifacts/hero-input/player-mono-default-hero-r3`、`default-hero-build-r3.log` 与 `network-20260916-194418-492`；`toolbar-editor-*` 3/3 和 `toolbar-unified-*` 2/2 保留为最终资源／Play 检查证据。被替代的 r2 Player、构建日志、双进程目录，以及误用 PlayMode 平台筛选得到 0 项后已由正确 EditMode 驱动替代的 `toolbar-play-*` 两个文件，共 5 个目标、429 个文件／202049771 字节（192.690 MiB）。由于同阶段清理命令此前已被 `blocked by policy` 拒绝，按约定未重试或换工具绕过；本次释放仍为 0 字节。与下段原 17 个目标合并为 22 个不重叠目标、888 个文件／415875849 字节（396.610 MiB）。
+2026-09-16 默认村民生成跟进：当前交付为 `artifacts/hero-input/player-mono-generated-villager-r2`、`generated-villager-build-r2.log`、`generated-villager-affected.*` 与 `network-20260916-202640-009`。被替代的 r3 Player／构建日志／双进程捕获、已由最终 20/20 替代的首轮 13/13 测试 XML／日志，以及加载 ID 校验前的首个生成村民 Player／构建日志／双进程捕获，共 8 个目标、856 个文件／404616700 字节（385.873 MiB）。同阶段较早的删除已被 `blocked by policy`，本次按约定不重试、不换工具或删除父目录绕过，释放仍为 0 字节；这些目标继续保留。当前 Player、最终 Editor 结果和 39/39 双进程证据不列为可清理项。
+
+2026-09-16 顶部工具栏跟进：该轮交付改为 `artifacts/hero-input/player-mono-default-hero-r3`、`default-hero-build-r3.log` 与 `network-20260916-194418-492`，现已由上方默认村民生成产物替代；`toolbar-editor-*` 3/3 和 `toolbar-unified-*` 2/2 仍是有效的资源／Play 历史证据。被替代的 r2 Player、构建日志、双进程目录，以及误用 PlayMode 平台筛选得到 0 项后已由正确 EditMode 驱动替代的 `toolbar-play-*` 两个文件，共 5 个目标、429 个文件／202049771 字节（192.690 MiB）。由于同阶段清理命令此前已被 `blocked by policy` 拒绝，按约定未重试或换工具绕过；本次释放仍为 0 字节。与下段原 17 个目标合并为 22 个不重叠目标、888 个文件／415875849 字节（396.610 MiB）。
 
 2026-09-16 默认人物收尾：当时保留 `artifacts/hero-input/player-mono-default-hero-r2`、`default-hero-build-r2.log` 与 `network-20260916-192150-825`，现已由上方 r3 替代。准备删除的 17 个目标合计 459 个文件／213826078 字节（203.920 MiB），整条原生 PowerShell 删除命令在执行前被自动审批以 `blocked by policy` 拒绝；释放 0 字节，未重试、未删父目录绕过。明细如下，11 个 Play 存档子目录均为本轮 18:50 后由 `UnifiedSlicePlayTests` 新建的隔离槽位：
 

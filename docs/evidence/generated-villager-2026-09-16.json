@@ -1,0 +1,96 @@
+{
+  "date": "2026-09-16",
+  "branch": "codex/hero-input",
+  "base_commit": "574d6368312eed35ee4931e65c52e4cde0a40daf",
+  "scope": "默认主角改为玩家上线时生成专属村民，不再占用现有闲置村民",
+  "contracts": {
+    "protocol": 8,
+    "save_format": 3,
+    "yygc_commit": "0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143",
+    "first_ready": "每个有权限且 RequestHero 的新连接通过 ObjectSession 新建一个 worker 并立即接管",
+    "repeat_ready": "复用当前控制，不重复生成",
+    "reconnect": "释放旧村民并为新的连接代次生成新人，不重新占用已释放村民",
+    "policy_recovery": "HostOnly 回到 SharedCamp 后按连接记录的专属 EntityId 恢复，不增员",
+    "load_recovery": "只恢复仍带手动主角标记的保存对象；记录 EntityId 碰撞到普通闲置村民时必须新建",
+    "ordinary_idle_actor_claimed": false
+  },
+  "verification": {
+    "architecture_guard": {
+      "files": 316,
+      "self_tests": 12,
+      "errors": 0
+    },
+    "affected_editor_play": {
+      "passed": 20,
+      "total": 20,
+      "results": "artifacts/hero-input/generated-villager-affected.xml",
+      "results_sha256": "40323a517f2ecff5042754ed8d22460d7639973d6bac10256835319930713043",
+      "log": "artifacts/hero-input/generated-villager-affected.log",
+      "log_sha256": "758510929ef72e4b91989b1f9519d0698b7d393d84fdb0ecb63217fd70a65a0c",
+      "groups": {
+        "HeroControlTests": "9/9",
+        "HeroRecoveryTests": "5/5",
+        "SessionClientReadyTests": "4/4",
+        "UnifiedSlicePlayTests": "2/2"
+      },
+      "explicit_load_id_collision_test": "LoadDoesNotTreatRememberedIdsAsExistingIdleHeroes",
+      "distinct_game_tests_after_new_cases": 178,
+      "combined_not_single_run": true
+    },
+    "mono_player": {
+      "backend": "Mono Development",
+      "result": "Build Finished, Result: Success",
+      "path": "artifacts/hero-input/player-mono-generated-villager-r2/DarkNights.exe",
+      "file_count": 414,
+      "bytes": 199383292,
+      "build_log": "artifacts/hero-input/generated-villager-build-r2.log",
+      "build_log_sha256": "74c481956e53eed97f793db454b543c7371e8e567857c8b91143e6118797a839",
+      "exe_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "entry_sha256": "760af3e3708ceac9c1cd9002dbc192035c0cbc38083df6105a4d538269955e69",
+      "runtime_sha256": "c3c0abfc963a718d512cf1f453d64f72e82439c0b99bf07c93a6b2f1bd9d5d4c"
+    },
+    "two_process_capture": {
+      "passed": 39,
+      "total": 39,
+      "result": "artifacts/hero-input/network-20260916-202640-009/result.json",
+      "result_sha256": "5b26ae978bb4ea0af36aaee3babd589b7531d5bbe4ec0ada9f815bd30436c617",
+      "default_ui": "artifacts/hero-input/network-20260916-202640-009/hero-default.png",
+      "default_ui_sha256": "0521266745cb4327c2d2988601d42a04f60b5f2d67dbb6af1ed2980df5c7fe8c",
+      "default_ui_review": "顶部主角工具栏未显示；新增村民进入人口统计，底部主角信息可见",
+      "help_ui": "artifacts/hero-input/network-20260916-202640-009/hero-help.png",
+      "help_ui_sha256": "e54f8cb0ef08ecc339c933b3715859d464c99aa31325bdac99ea2b4f2021eede",
+      "explicit_new_checks": [
+        "guest_ready_spawns_a_new_villager",
+        "reconnected_player_receives_new_default_villager",
+        "reconnect_does_not_reclaim_released_villager"
+      ]
+    },
+    "cleanup": {
+      "attempted": false,
+      "reason": "同阶段较早删除已被 blocked by policy，按约定不重试或换工具绕过",
+      "released_bytes": 0,
+      "superseded_target_count": 8,
+      "superseded_file_count": 856,
+      "superseded_bytes": 404616700,
+      "targets": [
+        "artifacts/hero-input/player-mono-default-hero-r3",
+        "artifacts/hero-input/default-hero-build-r3.log",
+        "artifacts/hero-input/network-20260916-194418-492",
+        "artifacts/hero-input/generated-villager-tests.xml",
+        "artifacts/hero-input/generated-villager-tests.log",
+        "artifacts/hero-input/player-mono-generated-villager",
+        "artifacts/hero-input/generated-villager-build.log",
+        "artifacts/hero-input/network-20260916-201116-513"
+      ]
+    }
+  },
+  "not_revalidated": [
+    "YYGC InputActions Sample 34 项",
+    "历史 Mono 350／155／43 项矩阵",
+    "完整弱网、三夜与容量矩阵",
+    "前台手感与性能签署",
+    "IL2CPP Player",
+    "双机器 LAN",
+    "M5 整体完成"
+  ]
+}

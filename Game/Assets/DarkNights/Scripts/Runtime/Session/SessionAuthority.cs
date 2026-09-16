@@ -237,7 +237,7 @@ namespace DarkNights.Runtime.Session
                 Revision = 0;
                 started = false;
                 pending.Clear();
-                foreach (var connection in connections) connection?.ResetWorld();
+                foreach (var connection in connections) connection?.ResetWorld(true);
                 world.Loaded(json == null);
             }
             finally { loadTicket = null; StorageRequest = null; }

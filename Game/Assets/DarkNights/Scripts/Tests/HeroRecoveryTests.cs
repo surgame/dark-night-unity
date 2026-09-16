@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DarkNights.Runtime.Network;
+using DarkNights.Runtime.Objects;
 using DarkNights.Runtime.Session;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -33,6 +34,23 @@ namespace DarkNights.Tests
             Assert.That(f.State.LastInputSequence, Is.Zero); Assert.That(f.State.JumpHeld, Is.False);
             Assert.That(f.Authority.SubmitInput(f.Host, stale), Is.False);
             f.Ready(); Assert.That(f.Command(SessionOperation.ClaimHero).Code, Is.EqualTo(SessionResultCode.Applied));
+        });
+
+        [UnityTest]
+        public IEnumerator LoadDoesNotTreatRememberedIdsAsExistingIdleHeroes() => UniTask.ToCoroutine(async () =>
+        {
+            using var f = await HeroTestSession.Create(true);
+            int[] previous = f.World.Index.Actors.Where(actor => actor.CaptureState().ControllerSlot >= 0)
+                .Select(actor => actor.Id).ToArray();
+            var save = JObject.Parse(f.World.SaveCodec.Serialize(f.Authority.CaptureWorld()));
+            foreach (var actor in save["world"]["actors"]) actor["manual_control"] = false;
+            var ticket = f.Command(SessionOperation.BeginLoad);
+            f.Authority.CompleteLoad(ticket, save.ToString());
+            int before = f.World.Index.Actors.Count;
+            f.Ready();
+            Assert.That(f.World.Index.Actors.Count, Is.EqualTo(before + 2));
+            Assert.That(previous.All(id => f.World.Index.Find<ActorBehaviour>(id)
+                .CaptureState().ControllerSlot < 0), Is.True);
         });
 
         [UnityTest]

@@ -2,7 +2,7 @@
 
 `Game/` 使用 Unity `6000.4.9f1` 和 **Linear** 色彩空间。正式入口继续使用 Bootstrap；游戏操作、当前 Player 和复跑条件见 [Player 指南](PLAYER_GUIDE.md)。独立模板位于 `Assets/Samples/LanCoop/Content/LanCoop.unity`，只作为 [LAN Sample](LAN_SAMPLE.md) 对照。
 
-2026-09-16 当前状态：YYGC 统一对象迁移 U0–U5 已完成，Core 只保留纯算法、只读配置和数据合同。产品默认固定为主角操控，每个 Ready 玩家由服务端直接分配一名可用友军；顶部主角工具栏与旧营地操作入口暂时隐藏，快捷键继续生效，仅显式 `--dn-camp-mode` 开发回归保留旧 UI／后端。输入改键及 Sample 已实现；游戏协议 8，新档格式 v3，YYGC 锁定隔离输入提交 `0c7cec0`。本批验收和当前 Player `artifacts/hero-input/player-mono-default-hero-r3` 以[联合执行文档](HERO_INPUT_EXECUTION.md)为准。前台性能暂缓，IL2CPP 和双机器 LAN 仍待条件，M5 尚未全部完成；历史世界表现证据见 [Linear 世界表现验收](M5_WORLD_PRESENTATION.md)。
+2026-09-16 当前状态：YYGC 统一对象迁移 U0–U5 已完成，Core 只保留纯算法、只读配置和数据合同。产品默认固定为主角操控，每个有权限的玩家首次 Ready 由服务端新建一名专属村民，不占用场景现有闲置村民；顶部主角工具栏与旧营地操作入口暂时隐藏，快捷键继续生效，仅显式 `--dn-camp-mode` 开发回归保留旧 UI／后端。游戏协议 8，新档格式 v3，YYGC 锁定隔离输入提交 `0c7cec0`。当前 Player 为 `artifacts/hero-input/player-mono-generated-villager-r2`，本批验收以[联合执行文档](HERO_INPUT_EXECUTION.md)为准。前台性能暂缓，IL2CPP 和双机器 LAN 仍待条件，M5 尚未全部完成。
 
 ## 先读什么
 

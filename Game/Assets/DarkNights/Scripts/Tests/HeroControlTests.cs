@@ -3,6 +3,7 @@ using System.Collections;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using DarkNights.Core.Logic.State;
+using DarkNights.Runtime.Objects;
 using DarkNights.Runtime.Session;
 using NUnit.Framework;
 using UnityEngine.TestTools;
@@ -16,14 +17,55 @@ namespace DarkNights.Tests
     public sealed class HeroControlTests
     {
         [UnityTest]
-        public IEnumerator ReadyAssignsDistinctDefaultHeroes() => UniTask.ToCoroutine(async () =>
+        public IEnumerator ReadyCreatesDistinctVillagersForAllFourSlotsWithoutClaimingSceneActors() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create(true);
+            SessionConnection third = f.Authority.Connect(2);
+            SessionConnection fourth = f.Authority.Connect(3);
+            Assert.That(f.Authority.AcknowledgeReady(third, f.Authority.Epoch, f.Authority.Revision, true), Is.True);
+            Assert.That(f.Authority.AcknowledgeReady(fourth, f.Authority.Epoch, f.Authority.Revision, true), Is.True);
             var assigned = f.Authority.CaptureProjection().World.Actors.Where(actor => actor.ControllerSlot >= 0).ToArray();
-            Assert.That(assigned.Length, Is.EqualTo(2));
-            Assert.That(assigned.Select(actor => actor.ControllerSlot), Is.EquivalentTo(new[] { 0, 1 }));
-            Assert.That(assigned.Select(actor => actor.Id).Distinct().Count(), Is.EqualTo(2));
+            Assert.That(assigned.Length, Is.EqualTo(4));
+            Assert.That(assigned.Select(actor => actor.ControllerSlot), Is.EquivalentTo(new[] { 0, 1, 2, 3 }));
+            Assert.That(assigned.Select(actor => actor.Id).Distinct().Count(), Is.EqualTo(4));
+            Assert.That(assigned.All(actor => f.World.Index.Find<ActorBehaviour>(actor.Id).PlacementKey.Length == 0), Is.True);
+            Assert.That(f.World.Index.Actors.Where(actor => actor.PlacementKey.Length != 0)
+                .All(actor => actor.CaptureState().ControllerSlot < 0), Is.True);
+            int count = f.World.Index.Actors.Count;
+            int[] ids = assigned.Select(actor => actor.Id).OrderBy(id => id).ToArray();
+            f.Ready();
+            Assert.That(f.World.Index.Actors.Count, Is.EqualTo(count));
+            Assert.That(f.Authority.CaptureProjection().World.Actors.Where(actor => actor.ControllerSlot >= 0)
+                .Select(actor => actor.Id).OrderBy(id => id), Is.EqualTo(ids));
             Assert.That(f.State.ControllerSlot, Is.Zero);
+        });
+
+        [UnityTest]
+        public IEnumerator ReconnectCreatesANewVillagerInsteadOfTakingReleasedOne() => UniTask.ToCoroutine(async () =>
+        {
+            using var f = await HeroTestSession.Create(true);
+            int oldId = f.World.Index.Actors.Single(actor => actor.CaptureState().ControllerSlot == 1).Id;
+            int count = f.World.Index.Actors.Count;
+            f.Authority.Disconnect(f.Guest, false);
+            SessionConnection replacement = f.Authority.Connect(1);
+            Assert.That(f.Authority.AcknowledgeReady(replacement, f.Authority.Epoch, f.Authority.Revision, true), Is.True);
+            int newId = f.World.Index.Actors.Single(actor => actor.CaptureState().ControllerSlot == 1).Id;
+            Assert.That(newId, Is.Not.EqualTo(oldId));
+            Assert.That(f.World.Index.Find<ActorBehaviour>(oldId).CaptureState().ControllerSlot, Is.EqualTo(-1));
+            Assert.That(f.World.Index.Actors.Count, Is.EqualTo(count + 1));
+        });
+
+        [UnityTest]
+        public IEnumerator SharedCampRestoresTheSameGeneratedVillager() => UniTask.ToCoroutine(async () =>
+        {
+            using var f = await HeroTestSession.Create(true);
+            int guestId = f.World.Index.Actors.Single(actor => actor.CaptureState().ControllerSlot == 1).Id;
+            int count = f.World.Index.Actors.Count;
+            Assert.That(f.Command(SessionOperation.SetControlMode, value: 1).Code, Is.EqualTo(SessionResultCode.Applied));
+            Assert.That(f.World.Index.Find<ActorBehaviour>(guestId).CaptureState().ControllerSlot, Is.EqualTo(-1));
+            Assert.That(f.Command(SessionOperation.SetControlMode, value: 0).Code, Is.EqualTo(SessionResultCode.Applied));
+            Assert.That(f.World.Index.Actors.Single(actor => actor.CaptureState().ControllerSlot == 1).Id, Is.EqualTo(guestId));
+            Assert.That(f.World.Index.Actors.Count, Is.EqualTo(count));
         });
 
         [UnityTest]

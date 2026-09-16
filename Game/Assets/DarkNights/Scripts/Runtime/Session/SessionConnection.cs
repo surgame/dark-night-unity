@@ -13,6 +13,8 @@ namespace DarkNights.Runtime.Session
         public bool IsHost => PlayerSlot == 0;
         public bool Ready { get; internal set; }
         internal bool DefaultHeroRequested { get; set; }
+        internal int DefaultHeroId { get; set; }
+        internal bool DefaultHeroRecoveryPending { get; set; }
         internal int BaselineRevision { get; set; }
         internal long HighestSequence { get; set; }
         internal int PendingCount { get; set; }
@@ -26,10 +28,12 @@ namespace DarkNights.Runtime.Session
             BaselineRevision = revision;
         }
 
-        internal void ResetWorld()
+        internal void ResetWorld(bool preserveDefaultHero = false)
         {
             Ready = false;
             DefaultHeroRequested = false;
+            DefaultHeroRecoveryPending = preserveDefaultHero && DefaultHeroId > 0;
+            if (!preserveDefaultHero) DefaultHeroId = 0;
             BaselineRevision = 0;
             HighestSequence = 0;
             PendingCount = 0;

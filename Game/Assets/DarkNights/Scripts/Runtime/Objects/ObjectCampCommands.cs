@@ -38,7 +38,7 @@ namespace DarkNights.Runtime.Objects
                 return 0;
             }
             ActorBehaviour actor;
-            try { actor = session.Lifecycle.SpawnActor("worker", tavern.X + 35, false, Names[session.Camp.Read().NextEntityId % Names.Length]); }
+            try { actor = SpawnResident(tavern); }
             catch (InvalidOperationException error)
             {
                 throw new SessionOperationException(SessionResultCode.ObjectUnavailable, "居民装配未就绪，未扣除资源。", error);
@@ -48,6 +48,16 @@ namespace DarkNights.Runtime.Objects
             session.Notify(actor.Name + "加入营地。");
             return actor.Id;
         }
+
+        internal ActorBehaviour SpawnDefaultResident()
+        {
+            if (session.Camp.Read().Mode != SessionMode.Playing) return null;
+            BuildingBehaviour tavern = session.Index.Buildings.LastOrDefault(b => b.RuleKey == "tavern" && b.IsComplete);
+            return tavern == null ? null : SpawnResident(tavern);
+        }
+
+        private ActorBehaviour SpawnResident(BuildingBehaviour tavern) => session.Lifecycle.SpawnActor(
+            "worker", tavern.X + 35, false, Names[session.Camp.Read().NextEntityId % Names.Length]);
 
         internal bool Repair(int id)
         {

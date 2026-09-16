@@ -37,7 +37,10 @@ namespace DarkNights.Tests
                 f.assignDefaultHeroes = assignDefaultHeroes;
                 f.Authority = new SessionAuthority(f.World);
                 f.Host = f.Authority.Connect(0); f.Guest = f.Authority.Connect(1);
-                f.Ready(); f.ActorId = f.World.Index.Actors[0].Id;
+                f.Ready();
+                f.ActorId = assignDefaultHeroes
+                    ? f.World.Index.Actors.Single(actor => actor.CaptureState().ControllerSlot == 0).Id
+                    : f.World.Index.Actors[0].Id;
                 return f;
             }
             catch { f.Dispose(); throw; }

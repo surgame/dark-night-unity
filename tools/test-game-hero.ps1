@@ -68,11 +68,13 @@ function Check([string]$Name, [bool]$Ok) { $checks[$Name] = $Ok; if (!$Ok) { thr
 try {
     Start-Player 'host'
     $h = Wait-Report 'host' { param($r) $r.ready -and @($r.frame.World.Actors | Where-Object ControllerSlot -eq 0).Count -eq 1 } 'default hero'
+    $hostReadyActorIds = @($h.frame.World.Actors | ForEach-Object Id)
     Start-Player 'client'
     $c = Wait-Report 'client' { param($r) $r.ready -and @($r.frame.World.Actors | Where-Object ControllerSlot -eq 1).Count -eq 1 } 'guest hero'
     $hostActor = @($h.frame.World.Actors | Where-Object ControllerSlot -eq 0)[0].Id
     $guestActor = @($c.frame.World.Actors | Where-Object ControllerSlot -eq 1)[0].Id
     Check 'default_mode_claims_distinct_heroes' ($hostActor -ne $guestActor)
+    Check 'guest_ready_spawns_a_new_villager' ($guestActor -notin $hostReadyActorIds -and $c.frame.World.Actors.Count -eq $hostReadyActorIds.Count + 1)
     if ($Capture) {
         $null = Consume 'host' @{operation='capture';file='hero-default.png'}
         $null = Consume 'host' @{operation='ui';panel='Chrome';key='Help'}
@@ -181,11 +183,14 @@ try {
     $null = Consume 'client' @{operation='disconnect'}
     $h = Wait-Report 'host' { param($r) $r.frame.PlayerCount -eq 1 }
     Check 'disconnect_releases_hero_to_automatic_control' ((Actor $h $guestActor).ControllerSlot -eq -1 -and !(Actor $h $guestActor).ManualControl)
+    $releasedGuestActor = $guestActor; $actorCountBeforeReconnect = $h.frame.World.Actors.Count
     $null = Consume 'client' @{operation='connect'}
     $c = Wait-Report 'client' { param($r) $r.ready -and $r.frame.ReadyCount -eq 2 -and
         @($r.frame.World.Actors | Where-Object ControllerSlot -eq 1).Count -eq 1 }
+    $guestActor = @($c.frame.World.Actors | Where-Object ControllerSlot -eq 1)[0].Id
     Check 'reconnect_recovers_slot_with_fresh_connection' ($c.slot -eq 1 -and @($c.feedback | Where-Object ReadyReply | Select-Object -Last 1)[0].ConnectionGeneration -gt $generation)
-    Check 'reconnected_player_receives_default_hero' ((Actor $c $guestActor).ControllerSlot -eq 1)
+    Check 'reconnected_player_receives_new_default_villager' ($guestActor -ne $releasedGuestActor -and $c.frame.World.Actors.Count -eq $actorCountBeforeReconnect + 1)
+    Check 'reconnect_does_not_reclaim_released_villager' ((Actor $c $releasedGuestActor).ControllerSlot -eq -1 -and !(Actor $c $releasedGuestActor).ManualControl)
     $null = Receipt 'host' @{operation='SetControlMode';value=1}
     $h = Wait-Report 'host' { param($r) $r.frame.HostOnly }
     Check 'host_only_revokes_guest_possession' ((Actor $h $guestActor).ControllerSlot -eq -1)

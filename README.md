@@ -1,6 +1,6 @@
 # Dark Nights · Unity
 
-2026-09-16 已完成[默认主角入口收尾](docs/HERO_INPUT_EXECUTION.md)：协议仍为 8、存档仍为 v3，YYGC 锁定提交仍为 `0c7cec0`。每个玩家完成完整投影 Ready 时由服务端直接分配一名不同的可用友军；加载、重连以及 HostOnly 回到 SharedCamp 后按偏好重新分配。产品默认移除会遮挡画面的顶部主角工具栏，并隐藏营地建造、训练、招募、修缮入口；1／2／3、滚轮及主角移动／使用快捷键继续直接生效，旧营地后端和工具栏仅由显式开发开关 `--dn-camp-mode` 保留。受影响 Editor／Play 按组 22/22、架构守卫 316 文件／12 自测／0 错误，新 Mono 独立 Host＋客户端和实际 UI 捕获 37/37；累计 175 个不同游戏用例按影响合并通过。当前 Player 为 `artifacts/hero-input/player-mono-default-hero-r3`（414 文件／199381196 字节）。输入 Sample 34 项及历史 350／155 项保持原构建身份，未重跑；前台性能、IL2CPP、双机器 LAN 与 M5 状态不变。
+2026-09-16 已完成[默认主角入口收尾](docs/HERO_INPUT_EXECUTION.md)：协议仍为 8、存档仍为 v3，YYGC 锁定提交仍为 `0c7cec0`。每个有权限的玩家首次完成完整投影 Ready 时，服务端直接新建一名专属默认村民并接管，不再从场景现有闲置村民中选择；重复 Ready 不重复生成，重连上线生成新人，HostOnly 回到 SharedCamp 则恢复原专属人物。产品默认移除会遮挡画面的顶部主角工具栏，并隐藏营地建造、训练、招募、修缮入口；快捷键继续直接生效。新增跟进受影响 Editor／Play 20/20、架构守卫 316 文件／12 自测／0 错误，新 Mono 独立 Host＋客户端和实际 UI 捕获 39/39；累计 178 个不同游戏用例按影响合并通过。当前 Player 为 `artifacts/hero-input/player-mono-generated-villager-r2`（414 文件／199383292 字节）。输入 Sample 34 项及历史 350／155 项保持原构建身份，未重跑；前台性能、IL2CPP、双机器 LAN 与 M5 状态不变。
 
 2026-09-15 完成[右键指令圈本地化与复用](docs/LOCAL_COMMAND_RINGS.md)：移除服务端圆圈事件，发起端立即显示并复用八个原生实例，暂停、换局和重连按本地生命周期处理。相关 Editor 24/24、架构守卫 294 文件／12 自测／0 错误、同一新 Mono 的启动／会话／战斗／双端隔离及弱网共 72/72 通过；四张隔离截图已复核。当前切片 Player 位于 `artifacts/local-command-rings/player-mono`。本批清理被自动审批拒绝，约 34.18 MiB 已列账保留；前台性能、IL2CPP、双机器 LAN 和 M5 状态不变。
 
