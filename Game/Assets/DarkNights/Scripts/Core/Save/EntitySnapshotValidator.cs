@@ -62,11 +62,11 @@ namespace DarkNights.Core.Save
                     !Number(a.Windup, -1, 10) || !Number(a.AiClock, -1, 1))
                     return "单位攻击计时无效";
                 var hero = c.Catalog.Balance.HeroControl;
-                if (!Number(a.Height, 0, hero?.MaximumHeight ?? 0) || !Number(a.VerticalSpeed, -1000, 1000) ||
+                if (!Number(a.Height, c.Saved.Terrain == null ? 0 : Config.Terrain.PlayableTerrain.MinimumHeight, hero?.MaximumHeight ?? 0) || !Number(a.VerticalSpeed, -1000, 1000) ||
                     !Number(a.DropRemaining, 0, hero?.DropSeconds ?? 0) || !Number(a.JetpackFuel, 0, hero?.FuelSeconds ?? 0) ||
                     a.SelectedItem < 0 || a.SelectedItem > 2 || a.SelectionRevision < 0 || a.SupportPlatform < -1 || a.IgnoredPlatform < 0 ||
                     (a.Enemy && (a.ManualControl || a.Height != 0 || a.JetpackEquipped)) ||
-                    (a.SupportPlatform == 0 && (a.Height != 0 || a.VerticalSpeed != 0)) ||
+                    (a.SupportPlatform == 0 && ((c.Saved.Terrain == null && a.Height != 0) || a.VerticalSpeed != 0)) ||
                     (a.SupportPlatform > 0 && !c.Layout.Platforms.Any(p => p.Id == a.SupportPlatform && p.Contains((float)a.X) &&
                         Math.Abs(p.Height - a.Height) < 0.001 && a.VerticalSpeed == 0)) ||
                     (a.IgnoredPlatform > 0 && !c.Layout.Platforms.Any(p => p.Id == a.IgnoredPlatform)))

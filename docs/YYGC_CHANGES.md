@@ -1,5 +1,19 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-17：正式随机地图有界区块预算
+
+本批不修改 `D:/Developer/YYGC` master，YYGC 主包仍锁定 `12b253c`。AnyRules 仍基于 `aa450a7`，只在游戏隔离 `.deps/AnyRules` 应用三份受版本管理的补丁。原 64 块、每轴六块上限不足以发送 320×192 的正式地图（负坐标对齐后 70 块），具体缺口已由 Editor 回归复现。
+
+| 文件／落点 | 原因与内容 | 验证 |
+|---|---|---|
+| `com.tsgame.anyrules.yygc.fishnet/Protocol/ProtocolLimits.cs` | 最大块数 64→128；其余单包与缓存边界保持 | 全图 61,440 格流回归与正式 Player 联机 |
+| `com.tsgame.anyrules.yygc.fishnet/Protocol/MapInterestService.cs` | 每轴最大十块，分配前检查相交范围加 halo 后实际块数不得超过预算 | 全图订阅、静态门闩、晚加入与加载 |
+| `tools/map-framework-patch/PlayableMapChunkBudget.patch` | 固化以上两个框架文件差异 | 从源提交全新解包、三份补丁应用通过 |
+| `tools/map-framework-patch/source-lock.json` | 更新受影响两个文件哈希，其余保持 | 442 个包文件一致 |
+| `tools/prepare-map-packages.ps1` | 纳入第三份补丁、换行规范化；完整哈希已匹配时幂等返回，避免补丁重叠上下文误判 | 准备脚本与干净复现通过 |
+
+详见[正式随机灰松谷](RANDOM_PINEWATCH.md)及[本批证据](evidence/random-pinewatch-2026-09-17.json)。未将独立生成器或旧游戏历史大矩阵计入新构建验收。
+
 ## 2026-09-17：Bootstrap 地形命令漏注册修复
 
 AnyRuleD 的 `TerrainEditCommand.cs` 同时包含命令 record 和结果结构体，Unity `MonoScript.GetClass()` 实际返回 `TerrainEditResult`。旧生成器把任意非空类型直接当作脚本类型，导致发现菜单也跳过真实命令；Bootstrap 的必需 Network Commands 模块校验失败，中止后续场景与 UI 启动。

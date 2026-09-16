@@ -9,6 +9,7 @@ namespace DarkNights.Core.Config
     /// </summary>
     public sealed class LevelLayout
     {
+        public bool RandomTerrain { get; }
         public float WorldWidth { get; }
         public float GroundY { get; }
         public float BuildMinX { get; }
@@ -23,10 +24,11 @@ namespace DarkNights.Core.Config
         public LevelLayout(float worldWidth, float groundY, float buildMinX, float buildMaxX,
             float spawnX, float cameraX, IReadOnlyList<PlacementDefinition> buildings,
             IReadOnlyList<PlacementDefinition> worksites, IReadOnlyList<PlacementDefinition> actors,
-            IReadOnlyList<PlatformDefinition> platforms = null)
+            IReadOnlyList<PlatformDefinition> platforms = null, bool randomTerrain = false)
         {
             Platforms = new List<PlatformDefinition>(platforms ?? Array.Empty<PlatformDefinition>()).AsReadOnly();
             WorldWidth = worldWidth;
+            RandomTerrain = randomTerrain;
             GroundY = groundY;
             BuildMinX = buildMinX;
             BuildMaxX = buildMaxX;

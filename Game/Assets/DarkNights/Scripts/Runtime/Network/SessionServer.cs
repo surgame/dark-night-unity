@@ -26,6 +26,7 @@ namespace DarkNights.Runtime.Network
         private readonly SessionClock clock;
         private readonly SessionRecoverySlots recovery = new SessionRecoverySlots();
         private readonly bool pressure;
+        private readonly ObjectSession simulation;
         private double uptime, budgetAt;
         private bool disposed;
         private long lastPublishTick;
@@ -38,6 +39,7 @@ namespace DarkNights.Runtime.Network
             ObjectSession simulation, bool measure = false, bool pressure = false)
         {
             this.pressure = pressure;
+            this.simulation = simulation;
             this.behaviour = behaviour;
             codec = new ProjectionCodec(catalog, layout);
             Authority = new SessionAuthority(simulation);
@@ -106,6 +108,7 @@ namespace DarkNights.Runtime.Network
         {
             var peer = Sender(publication);
             if (peer == null) return default;
+            if (simulation.Terrain != null && command.MapIdentity != simulation.Terrain.Map.World.WorldId + ":" + simulation.Terrain.Map.World.Epoch) return default;
             bool sent = publications.Any(p => p.publication == command.AppliedPublication && p.epoch == command.Epoch && p.revision == command.AppliedRevision);
             if (peer.Authority == null && command.Protocol == SessionAuthority.ProtocolVersion && command.Ready && sent && !Authority.Loading)
             {

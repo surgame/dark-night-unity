@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DarkNights.View.Terrain
 {
-    /// <summary>独立地图测试场景的离线预览；只在启用时加载，静止后停止地图 Tick，退出释放页和资源。</summary>
+    /// <summary>独立预览与正式会话共用的只读地形表现；加载蓝图或网络副本，静止后停止地图 Tick，退出释放页和资源。</summary>
     public sealed class TerrainPreview : MonoBehaviour
     {
         public TerrainMapAsset Map;
@@ -14,8 +14,26 @@ namespace DarkNights.View.Terrain
         private ARDMapController controller;
         private CancellationTokenSource lifetime;
         private GridBounds visible;
+        private bool localCoordinates;
         public long BuiltPages => controller?.Renderer.CommittedBuilds ?? 0;
         public Exception LastError { get; private set; }
+        public bool Ready => controller != null && controller.Renderer.CommittedBuilds > 0 && controller.Renderer.QueueCount == 0 && controller.Renderer.InFlightCount == 0;
+        public async void ShowReplica(AnyRules.Next.Authoring.ARDMapDefinition definition, IMapChunkSource source, WorldIdentity world)
+        {
+            localCoordinates = true;
+            var own = lifetime = new CancellationTokenSource();
+            try
+            {
+                var result = await ARDMapController.CreateAsync(definition, new MapOptions(initialize: false, showOnCreate: false,
+                    autoUpdate: false, maximumInitializationCells: 131072, chunkSource: source, parent: transform, world: world), own.Token);
+                if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
+                controller = result;
+                await controller.LoadRegionAsync(controller.Descriptor.Bounds, own.Token);
+                UpdateVisible();
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception error) { LastError = error; Debug.LogException(error, this); }
+        }
 
         private async void OnEnable()
         {
@@ -49,8 +67,8 @@ namespace DarkNights.View.Terrain
         private void UpdateVisible()
         {
             var bounds = controller.Descriptor.Bounds;
-            float halfH = ViewCamera.orthographicSize, halfW = halfH * ViewCamera.aspect;
-            Vector3 p = ViewCamera.transform.position;
+            float halfH = ViewCamera.orthographicSize / (localCoordinates ? transform.lossyScale.y : 1), halfW = halfH * ViewCamera.aspect;
+            Vector3 p = localCoordinates ? transform.InverseTransformPoint(ViewCamera.transform.position) : ViewCamera.transform.position;
             int page = controller.Descriptor.PageSize;
             int minU = Math.Max(bounds.MinU, Mathf.FloorToInt((p.x - halfW - 2) / page) * page);
             int minV = Math.Max(bounds.MinV, Mathf.FloorToInt((p.y - halfH - 2) / page) * page);

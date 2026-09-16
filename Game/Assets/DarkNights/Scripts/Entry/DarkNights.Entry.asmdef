@@ -13,7 +13,8 @@
     "AnyRules.Core",
     "AnyRules.Authoring",
     "AnyRules.MapProtocol",
-    "AnyRules.FishNet"
+    "AnyRules.FishNet",
+    "AnyRules.Unity"
   ],
   "overrideReferences": true,
   "precompiledReferences": [

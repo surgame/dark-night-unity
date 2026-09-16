@@ -19,6 +19,7 @@ namespace DarkNights.Runtime.Network
         public int AppliedRevision { get; set; }
         public long AppliedPublication { get; set; }
         public string RecoveryToken { get; set; } = "";
+        public string MapIdentity { get; set; } = "";
 
         public void OnReturnToPool()
         {
@@ -31,6 +32,7 @@ namespace DarkNights.Runtime.Network
             AppliedRevision = 0;
             AppliedPublication = 0;
             RecoveryToken = "";
+            MapIdentity = "";
         }
     }
 }

@@ -92,6 +92,8 @@ namespace DarkNights.Entry
             hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"), entities);
             network.Client.Feedback += Feedback;
             network.Failed += Failed;
+            if (network.Terrain != null) View("MainMenu").Get<Button>("Map").onClick.AddListener(() => Execute(new InputIntent("SelectMap", Array.Empty<int>())).Forget());
+            View("MainMenu").Get<Button>("Map").gameObject.SetActive(network.Terrain != null);
             initialized = true;
             Switch("MainMenu");
         }
@@ -140,7 +142,8 @@ namespace DarkNights.Entry
             if (frame == null)
             {
                 if (page != "MainMenu" && page != "Help") Switch("MainMenu");
-                main.ShowStatus(network.Status == "未连接" ? "创建房间后，可供同一局域网的玩家加入。" : network.Status);
+                main.ShowStatus(network.Status == "未连接" || network.Status == "连接已结束"
+                    ? (network.Terrain?.SelectionStatus ?? "创建房间后，可供同一局域网的玩家加入。") : network.Status);
                 panels["Chrome"].gameObject.SetActive(false);
                 return;
             }
@@ -181,6 +184,7 @@ namespace DarkNights.Entry
                 if (actions.HeroMode && (action.StartsWith("Build", StringComparison.Ordinal) ||
                     action.StartsWith("Train", StringComparison.Ordinal) || action == "Orders"))
                 { hud.ShowMessage("当前默认主角操控，旧营地操控入口暂时隐藏。"); return; }
+                if (action == "SelectMap") { await network.Terrain.SelectNew(); return; }
                 if (action == "Slot") { saveSlot = (saveSlot + 1) % 10; return; }
                 if (action == "Quit") { network.Disconnect(); Application.Quit(); return; }
                 if (action == "NewGame" && network.Client.Replica.Current != null)
@@ -191,6 +195,7 @@ namespace DarkNights.Entry
                 if (action == "NewGame" || action == "Join" || action == "Continue")
                 {
                     continuePending = action == "Continue";
+                    if (action != "Join" && network.Terrain != null) await network.Terrain.EnsureSelected();
                     if (network.Client.Replica.Current != null) network.Disconnect();
                     while (network.Hosting) await UniTask.Yield();
                     await network.Connect(action != "Join", action == "Join" ? main.Address.Trim() : "127.0.0.1", 27777);

@@ -9,13 +9,14 @@ using static DarkNights.Runtime.Save.SnapshotEntityJson;
 namespace DarkNights.Runtime.Save
 {
     /// <summary>
-    /// 显式映射存档根与经济波次字段，不依赖反射或类型名；构造冻结的 v3 数据，不包含旧档或本地展示字段。
+    /// 显式映射存档根与经济波次字段，不依赖反射或类型名；构造冻结的 v4 数据，不包含旧档或本地展示字段。
     /// </summary>
     internal static class SnapshotDocumentJson
     {
         public static JObject Write(SessionSnapshot v) => new JObject
         {
             ["level_id"] = v.LevelId,
+            ["terrain"] = TerrainSaveJson.Write(v.Terrain),
             ["economy"] = Write(v.Economy),
             ["wave"] = Write(v.Wave),
             ["elapsed"] = v.Elapsed,

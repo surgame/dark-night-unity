@@ -29,6 +29,7 @@ namespace DarkNights.Runtime.Objects
         private readonly Func<bool> authority;
         private ObjectInstance owner;
         private bool disposed;
+        public Terrain.SessionTerrain Terrain { get; set; }
         public GameCatalog Catalog { get; }
         public LevelLayout Layout { get; }
         public ObjectSessionResources Resources { get; }
@@ -104,6 +105,7 @@ namespace DarkNights.Runtime.Objects
         {
             Context.Activate();
             EntityContext.Activate();
+            Terrain?.Activate();
             owner.Activate();
             foreach (IEntityBehaviour entity in Index.FreezeOrder())
             {
@@ -221,6 +223,7 @@ namespace DarkNights.Runtime.Objects
             Index.Clear();
             EntityContext.Dispose();
             foreach (ObjectInstance entity in entities) Release(entity);
+            Terrain?.Dispose();
             Context.Dispose();
             container.OnReturnToPool();
         }
@@ -234,8 +237,15 @@ namespace DarkNights.Runtime.Objects
 
         private void RestoreSnapshot(SessionSnapshot snapshot)
         {
-            using var candidate = new ObjectWorldRestore(this, snapshot);
-            candidate.Commit();
+            if ((Terrain == null) != (snapshot.Terrain == null)) throw new FormatException("存档地图类型不匹配。");
+            DarkNights.Runtime.Terrain.TerrainMapAuthority map = Terrain?.Prepare(snapshot.Terrain);
+            try
+            {
+                using var candidate = new ObjectWorldRestore(this, snapshot);
+                candidate.Commit();
+                if (map != null) { Terrain.Replace(map, snapshot.Terrain.Seed); map = null; }
+            }
+            finally { map?.Dispose(); }
         }
 
         internal ObjectSessionContext NewEntityContext() =>

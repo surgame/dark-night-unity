@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发约定
 
+2026-09-17 最新切片为[正式随机灰松谷](docs/RANDOM_PINEWATCH.md)，分支 `codex/feature-dualgrid-game-start`：默认随机模板为 `Res/Scenes/RandomPinewatch/Pinewatch.unity`，原 Pinewatch 场景保持；选择地图后台生成，正式协议 9／存档 v4，YYGC 仍锁定 `12b253c`。地图权威状态随 ObjectSession 生命周期，完整地图与表现共同门控 Ready；主角按权威格子碰撞，存档保存最终格子。AnyRules 隔离包增加有界 128 块预算补丁及哈希锁；不修改用户 YYGC master。本批结果见[证据](docs/evidence/random-pinewatch-2026-09-17.json)，不把下方旧构建计数当作新批验收。
+
 2026-09-17 Bootstrap 修复后的当前 YYGC 锁定为 `12b253c`（基于下方输入提交 `0c7cec0`），隔离修复位于 `D:/Developer/YYGC-worktrees/network-command-script-resolution`。全局命令注册表包含地形命令 Tag 3，旧三个游戏 Tag 不变；当前修复 Mono 为 `artifacts/bootstrap-registry/player-mono`，新增 Editor 2/2、启动 6/6、双进程会话 13/13 和实际菜单／开局画面通过。详见[改动账本](docs/YYGC_CHANGES.md)及[验证证据](docs/evidence/bootstrap-registry-2026-09-17.json)，历史大矩阵不计入本批。
 
 先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现，M5 尚未完成。按 [YYGC 统一对象重构计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)推进，U0–U5 已完成：旧模型和旧档入口已删除；U6 协议 7／YYGC `745f3d2` 的完整 Mono 矩阵和后台容量检查已通过，后续 [Linear 世界表现](docs/M5_WORLD_PRESENTATION.md)完成完整 Editor／Play 155/155、新 Mono 77/77。前台验收由用户明确暂缓，IL2CPP／双机器仍待条件；受限清理按用户要求完成[列账交接](docs/STAGE_CLEANUP_INVENTORY.md)，目录仍保留。先核对当前切片及[性能验收](docs/YYGC_UNIFIED_PERFORMANCE.md)，不能把计划目录、接口和测试写成已完成实现，也不能把后台容量功能通过写成前台性能达标。

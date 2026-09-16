@@ -21,7 +21,7 @@ namespace DarkNights.Runtime.Save
     /// </summary>
     public sealed class ObjectWorldSaveJson
     {
-        public const int FormatVersion = 3;
+        public const int FormatVersion = 4;
         public const int MaximumBytes = 4000000;
         public const string Format = "dark-nights.world";
         private readonly GameCatalog catalog;
@@ -99,7 +99,7 @@ namespace DarkNights.Runtime.Save
                 Array(world["buildings"], SnapshotEntityJson.BuildingSnapshot, 256),
                 Array(world["worksites"], SnapshotEntityJson.WorksiteSnapshot, 256),
                 Array(world["projectiles"], SnapshotEntityJson.ProjectileSnapshot, 1024),
-                SnapshotDocumentJson.StatisticsSnapshot(world["stats"]), mode, identities);
+                SnapshotDocumentJson.StatisticsSnapshot(world["stats"]), mode, identities, TerrainSaveJson.Read(world["terrain"]));
             Validate(snapshot);
             RequireFields(world, World(snapshot));
             return snapshot;

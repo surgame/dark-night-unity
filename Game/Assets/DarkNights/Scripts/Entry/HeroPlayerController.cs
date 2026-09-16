@@ -149,7 +149,7 @@ namespace DarkNights.Entry
                 YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.CameraInput)) return;
             // 等待所有 Update 完成，跟随本帧插值后的显示位置，避免与低频快照产生相对抖动。
             EntityView visual = entities.Visual(Current.Id);
-            if (visual != null) stage.Focus(visual.transform.position.x * 100);
+            if (visual != null) stage.FocusHero(visual.transform.position);
         }
 
         public async UniTask<bool> HandleAction(string action)

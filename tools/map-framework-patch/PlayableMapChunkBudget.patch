@@ -1,0 +1,28 @@
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Protocol/ProtocolLimits.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Protocol/ProtocolLimits.cs
+@@ -6,7 +6,7 @@
+         public const int MaximumPacketBytes = 256 * 1024;
+         public const int MaximumChunkSize = 32;
+         public const int MaximumChunkCells = 1024;
+-        public const int MaximumChunks = 64;
++        public const int MaximumChunks = 128;
+         public const int MaximumPalette = 4096;
+         public const int MaximumPendingCommits = 16;
+         public const int MaximumBufferedBytes = 2 * 1024 * 1024;
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Protocol/MapInterestService.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Protocol/MapInterestService.cs
+@@ -39,7 +39,13 @@
+         private void QueueHello() { var p = Packet(MapMessage.Hello); p.Hello = hello; outgoing.Enqueue(MapProtocol.Encode(p)); }
+         public void Subscribe(GridBounds requested)
+         {
+-            if (!requested.IsValid || requested.Width > hello.Descriptor.ChunkSize * 6 || requested.Height > hello.Descriptor.ChunkSize * 6) throw new ArgumentOutOfRangeException(nameof(requested), "Bounded interest region required.");
++            if (!requested.IsValid || requested.Width > hello.Descriptor.ChunkSize * 10 || requested.Height > hello.Descriptor.ChunkSize * 10) throw new ArgumentOutOfRangeException(nameof(requested), "Bounded interest region required.");
++            var d = hello.Descriptor; int size = d.ChunkSize;
++            long minU = Math.Max((long)requested.MinU - 1, d.Bounds.MinU), minV = Math.Max((long)requested.MinV - 1, d.Bounds.MinV);
++            long maxU = Math.Min(requested.MaxUExclusive + 1, d.Bounds.MaxUExclusive), maxV = Math.Min(requested.MaxVExclusive + 1, d.Bounds.MaxVExclusive);
++            if (maxU > minU && maxV > minV && (long)(GridMath.FloorDiv((int)(maxU - 1), size) - GridMath.FloorDiv((int)minU, size) + 1) *
++                (GridMath.FloorDiv((int)(maxV - 1), size) - GridMath.FloorDiv((int)minV, size) + 1) > ProtocolLimits.MaximumChunks)
++                throw new ArgumentOutOfRangeException(nameof(requested), "Interest chunk budget exceeded.");
+             observed = false; Region = requested; Generation = checked(Generation + 1); Commit = 0; previous.Clear(); revisions.Clear(); outgoing.Clear(); log.Clear(); bytes = 0; Backpressured = false;
+             QueueHello(); Publish();
+         }

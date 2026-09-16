@@ -25,6 +25,8 @@ namespace DarkNights.Runtime.Network
         public WorldReplica Replica { get; } = new WorldReplica();
         public long ConnectionGeneration => connection;
         public bool Ready { get; private set; }
+        public Func<int, bool> MapReady { get; set; }
+        public Func<string> MapIdentity { get; set; }
         public bool HadReady { get; private set; }
         public bool RequestDefaultHero { get; set; } = true;
         public int LastPayloadBytes { get; private set; }
@@ -117,7 +119,7 @@ namespace DarkNights.Runtime.Network
         public async ValueTask Advance(double now)
         {
             var frame = Replica.Current;
-            if (Ready || endpoint == null || frame == null || frame.Loading || now < nextReadyAt) return;
+            if (Ready || endpoint == null || frame == null || frame.Loading || now < nextReadyAt || MapReady?.Invoke(frame.Epoch) == false) return;
             nextReadyAt = now + 1;
             // 同一 epoch 的握手重试复用序号，避免持续重试使较早的成功回执永远失效。
             if (readySequence == 0) readySequence = ++sequence;
@@ -126,7 +128,7 @@ namespace DarkNights.Runtime.Network
                 SenderObjectId = endpoint.ObjectId, Protocol = SessionAuthority.ProtocolVersion,
                 Epoch = frame.Epoch, RequestSequence = readySequence, Ready = true,
                 RequestHero = RequestDefaultHero, AppliedRevision = frame.Revision,
-                AppliedPublication = frame.Publication, RecoveryToken = recoveryToken
+                AppliedPublication = frame.Publication, RecoveryToken = recoveryToken, MapIdentity = MapIdentity?.Invoke() ?? ""
             });
         }
 

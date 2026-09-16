@@ -21,6 +21,9 @@ namespace DarkNights.View
         [SerializeField] private float zoom = 2.8f;
         [SerializeField] private float worldWidth = 1100;
         private float night = 0.16f;
+        private float cameraHeight;
+        public bool RandomTerrain { get; set; }
+        public void FocusHero(Vector3 position) { cameraHeight = RandomTerrain ? position.y * 100 : 0; Focus(position.x * 100); }
         private double visualTime;
         private int epoch;
         private bool observing;
@@ -91,7 +94,7 @@ namespace DarkNights.View
             float half = Screen.width * 0.5f / zoom;
             cameraX = Mathf.Clamp(cameraX, half, Mathf.Max(half, worldWidth - half));
             sceneCamera.orthographicSize = Screen.height * 0.5f / zoom / 100;
-            sceneCamera.transform.position = new Vector3(cameraX / 100, Screen.height * 0.215f / zoom / 100, -10);
+            sceneCamera.transform.position = new Vector3(cameraX / 100, (cameraHeight + Screen.height * 0.215f / zoom) / 100, -10);
         }
     }
 }

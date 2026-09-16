@@ -1,17 +1,19 @@
-# Unity 世界存档 v3
+# Unity 世界存档 v4
+
+2026-09-17 [随机灰松谷](RANDOM_PINEWATCH.md)将格式升级为 **v4**，文件位置使用 `v4` 子目录。`world.terrain` 为随机模板必需的对象，固定 Pinewatch 为 null；对象严格包含 `world_id`（32 位十六进制 GUID）、`seed`（1–80 字符）、`materials` 与 `protection`（各 61,440 字节的 Base64，材料 0–8、保护位 0/1）。记录最终格子，不按 seed 重新生成。严格校验材料、底部基岩、营地保护区域和随机布局是否匹配；实体与地图候选一起恢复，地图运行代次不沿用存档。原 v3 文件不迁移或删除。
 
 2026-09-16，[主角与输入联合切片](HERO_INPUT_EXECUTION.md)将正式格式升级为 v3：增加高度、纵向速度、平台支撑、下穿计时及道具状态。正式入口仍为 ObjectWorldSaveJson 与 GameSaveStore，状态仍来自所属 YYGC Behaviour。当前验收记录见联合执行文档；U5／U6 的 v2 计数按历史输入保留在[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)。
 
-本页为当前合同。Godot 旧档和 Unity v1／v2 不读取或自动迁移；旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前营地。历史 v1 证据见[原存储记录](evidence/world-save-2026-09-11.json)。
+本页为当前合同。Godot 旧档和 Unity v1／v2／v3 不读取或自动迁移；旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前营地。历史 v1 证据见[原存储记录](evidence/world-save-2026-09-11.json)。
 
 ## 文件合同
 
 无 BOM 的 UTF-8 JSON，上限 **4,000,000 字节**，解析深度 32。根对象严格只有 7 个字段：
 
-| 字段 | v3 合同 |
+| 字段 | v4 合同 |
 |---|---|
 | format | dark-nights.world |
-| format_version | 整数 3 |
+| format_version | 整数 4 |
 | random_algorithm | SimulationRandom.Algorithm，当前为 godot-pcg32-clz-f32-v1 |
 | rules_sha256 | 实际只读 GameCatalog 的规范化 SHA-256 |
 | layout_sha256 | 实际场景导出 LevelLayout 的规范化 SHA-256 |
@@ -22,7 +24,7 @@ world 包含 level_id、economy、wave、elapsed、speed、paused、next_entity_
 
 每个 identity 严格包含 id、definition_guid、placement_key；实体与身份一一对应，GUID 必须匹配该实体 RuleKey。非空放置键必须来自当前场景，职业替换仅允许合法单位定义间沿用原放置身份。重复键、未知／缺失字段、重复 JSON 属性、尾随内容和不兼容摘要均拒绝。
 
-actors 新增 height、vertical_speed、support_platform、ignored_platform、drop_remaining、manual_control、selected_item、selection_revision、jetpack_equipped、jetpack_fuel。高度以原地面为零、向上为正；支撑 0 为地面、-1 为空中、正数为场景平台 ID。支撑关系、范围和燃料必须合法。
+actors 包含 height、vertical_speed、support_platform、ignored_platform、drop_remaining、manual_control、selected_item、selection_revision、jetpack_equipped、jetpack_fuel。高度以原地面为零、向上为正；随机模板允许负高度至底部基岩顶面 -2416，支撑 0 表示权威地图支撑，-1 为空中；固定模板的正数表示场景平台 ID。支撑关系、范围和燃料必须合法。
 
 文件不包含相机、选区、epoch、连接代次、FishNet 身份或房间共享策略；也不保存 ControllerSlot、ControllerGeneration、ControlLease、默认人物偏好、输入序号和按钮意图。恢复后的手动角色保留姿态、手动标记与装备；新 epoch 完整投影 Ready 后，服务端只接回这些已保存主角。连接仍记录的专属 ID 若指向不带手动标记的普通闲置村民，必须视为不可恢复并新建默认村民；旧连接所有权和输入不会恢复或重放。
 

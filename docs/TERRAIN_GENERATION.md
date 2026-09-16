@@ -39,6 +39,10 @@ TerrainMapNetworking.OpenStream 可供 FishNetMapTransport 的 serverFactory 使
 
 实际入口：打开 Res/Terrain/TestTerrain/Maps/TerrainTest.unity 后 Play 查看原生 DualGrid；地图生成窗口导出地图根资产，TerrainMapExporter.CreateTestScene 可建立独立场景。网络验收使用另一个 NetworkTest 场景，默认直接启动 Player 则进入地图预览。网络场景只验证逻辑同步，当前 TerrainPreview 是离线表现；把网络只读副本接入生产渲染页仍属于后续接线，不能把图中的完整产品链路视作全部已完成。
 
+## 正式游戏接线（2026-09-17 后续）
+
+[随机灰松谷](RANDOM_PINEWATCH.md)已将生成、网络只读副本渲染、地图与实体 Ready、主角逻辑格碰撞以及跨模块存档接入正式游戏，原 Pinewatch 保留。本页其余验收计数和“后续接线”说明描述独立生成器原批次，不能混入新构建。采矿、工具耐久及奖励结算仍未接入。
+
 ## 联机破坏架构
 
 地图渲染没有权威写权限。不为每格创建 YYGC ObjectInstance、NetworkObject 或 NetworkTransform；一个地图宿主持有 YYGC 会话生命周期，真正的单位和掉落实体继续走已有对象系统。

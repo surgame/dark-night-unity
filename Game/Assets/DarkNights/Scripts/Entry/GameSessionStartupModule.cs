@@ -34,9 +34,9 @@ namespace DarkNights.Entry
         public async UniTask InitializeAsync(AppStartupContext context, CancellationToken cancellationToken)
         {
             const string defaultScene = "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity";
-            string scenePath = defaultScene;
+            string scenePath = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-camp-mode") >= 0 ? defaultScene : Terrain.RandomLevelEntry.ScenePath;
 #if UNITY_EDITOR
-            scenePath = UnityEditor.SessionState.GetString("DarkNights.PlayScene", defaultScene);
+            scenePath = UnityEditor.SessionState.GetString("DarkNights.PlayScene", scenePath);
 #endif
             Scene scene = SceneManager.GetSceneByPath(scenePath);
             if (!scene.isLoaded)
@@ -52,6 +52,8 @@ namespace DarkNights.Entry
             GameCatalog catalog = context.Resolve<GameCatalog>();
             var authoring = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
             LevelLayout layout = authoring.CreateLayout(catalog, DefinitionRuleIndex.RuleKey);
+            var randomLevel = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<DarkNights.View.Terrain.RandomLevelTemplate>(true)).SingleOrDefault();
+            if (randomLevel != null) layout = DarkNights.Core.Logic.Terrain.PlayableTerrainGenerator.Layout(layout);
             var network = context.GetOrCreateChild("Dark Nights Session").gameObject.AddComponent<SessionNetwork>();
             context.Register(network);
             context.Register(layout);
@@ -66,6 +68,7 @@ namespace DarkNights.Entry
             ObjectSessionResources resources = await ObjectSessionResources.Prepare(required.Select(definitions.GetRequired).ToArray(), cancellationToken);
             network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements, stage.Entities);
             stage.Initialize(layout);
+            if (randomLevel != null) Terrain.RandomLevelEntry.Install(network, randomLevel, stage);
             var entities = network.gameObject.AddComponent<SessionEntityViews>();
             entities.Initialize(network.Client, catalog, stage, network);
             var ui = network.gameObject.AddComponent<SessionUiController>();

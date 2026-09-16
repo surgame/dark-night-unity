@@ -10,7 +10,9 @@
     "Unity.Addressables",
     "Unity.ResourceManager",
     "AnyRules.Core",
-    "AnyRules.MapProtocol"
+    "AnyRules.MapProtocol",
+    "AnyRules.Authoring",
+    "AnyRules.FishNet"
   ],
   "allowUnsafeCode": true,
   "overrideReferences": true,

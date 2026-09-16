@@ -18,9 +18,23 @@ if (Test-Path $destination) {
     Set-Content -LiteralPath $marker -Value $commit -Encoding utf8
     Write-Output "AnyRules prepared: $commit; archive retained for stage cleanup: $archive"
 }
+$lock = Get-Content (Join-Path $PSScriptRoot 'map-framework-patch/source-lock.json') -Raw | ConvertFrom-Json
+$packageRoot = Join-Path $destination 'AnyRuleD~/Packages'
+$locked = $true
+foreach ($entry in $lock.files) {
+    $file = Join-Path $packageRoot $entry.path
+    if (!(Test-Path -LiteralPath $file) -or (Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() -ne $entry.sha256) {
+        $locked = $false
+        break
+    }
+}
+if ($locked) {
+    Write-Output "AnyRules locked source and map network patches ready: $commit; $($lock.files.Count) files verified"
+    return
+}
 Push-Location $root
 try {
-    foreach ($name in @('IdleMapPublication','RealtimeMapRetry')) {
+    foreach ($name in @('IdleMapPublication','RealtimeMapRetry','PlayableMapChunkBudget')) {
         $patch = Join-Path $PSScriptRoot "map-framework-patch/$name.patch"
         git apply --directory=.deps/AnyRules --reverse --check --ignore-space-change $patch 2>$null
         if ($LASTEXITCODE -ne 0) {
@@ -32,7 +46,7 @@ try {
     }
 } finally { Pop-Location }
 $encoding = [Text.UTF8Encoding]::new($false)
-foreach ($relative in @('Protocol/MapInterestService.cs','Runtime/FishNetMapTransport.cs')) {
+foreach ($relative in @('Protocol/MapInterestService.cs','Runtime/FishNetMapTransport.cs','Protocol/ProtocolLimits.cs')) {
     $patched = Join-Path $destination "AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/$relative"
     $original = [IO.File]::ReadAllText($patched)
     $contents = $original.Replace("`r`n", "`n")

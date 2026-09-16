@@ -19,6 +19,7 @@ namespace DarkNights.Runtime.Objects
             HeroControlDefinition rules = actor.World.Catalog.Balance.HeroControl;
             if (rules == null) return;
             ActorState state = actor.Edit();
+            if (actor.World.Terrain != null) { Terrain.TerrainHeroMotion.Tick(actor.World.Terrain.Map, state, rules, delta, jump, thrust); return; }
             state.DropRemaining = Math.Max(0, state.DropRemaining - delta);
             if (state.SupportPlatform > 0)
             {

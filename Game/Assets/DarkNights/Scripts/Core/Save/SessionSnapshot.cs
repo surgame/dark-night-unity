@@ -14,6 +14,7 @@ namespace DarkNights.Core.Save
     public sealed class SessionSnapshot
     {
         public int SchemaVersion { get; }
+        public Config.Terrain.PlayableTerrain Terrain { get; }
         public string LevelId { get; }
         public EconomySnapshot Economy { get; }
         public WaveSnapshot Wave { get; }
@@ -48,9 +49,10 @@ namespace DarkNights.Core.Save
             IReadOnlyList<ProjectileSnapshot> projectiles,
             StatisticsSnapshot stats,
             SessionMode mode = SessionMode.Playing,
-            IReadOnlyList<EntityIdentityData> identities = null)
+            IReadOnlyList<EntityIdentityData> identities = null, Config.Terrain.PlayableTerrain terrain = null)
         {
             SchemaVersion = schemaVersion;
+            Terrain = terrain;
             Mode = mode;
             Identities = new List<EntityIdentityData>(identities ?? Array.Empty<EntityIdentityData>()).AsReadOnly();
             LevelId = levelId;

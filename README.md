@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-17 默认正式入口已接入[随机灰松谷](docs/RANDOM_PINEWATCH.md)：保留原 Pinewatch，新增独立随机关卡模板，菜单选择地图时后台生成并在开局复用。正式协议 9／存档 v4，主角查询权威地形，地图完整同步后才 Ready；保存恢复最终格子。新 Mono 位于 `artifacts/random-map/player-mono/DarkNights.exe`，操作和本批验收见切片文档；以下记录保留各历史构建身份。
+
 2026-09-17 修复 Bootstrap 因 `TerrainEditCommand` 漏注册而中断、界面空白的问题：YYGC 独立修复锁定 `12b253c`，通过真实生成器补齐 Tag 3，原游戏编号保持。新增 Editor 2/2、实际主菜单／开局画面、新 Mono 启动 6/6 与双进程会话 13/13 通过；产物 `artifacts/bootstrap-registry/player-mono`。详见[改动账本](docs/YYGC_CHANGES.md)及[证据](docs/evidence/bootstrap-registry-2026-09-17.json)。其余历史验收与 M5 边界不变。
 
 2026-09-16 新增独立的[地图生成与可破坏地形基座](docs/TERRAIN_GENERATION.md)，分支 codex/dualgrid-map-generator：八类测试材料、AnyRuleD DualGrid 配置、六类地表／洞穴生成和 Editor 导出工具。地图使用单一权威状态、区块同步和本地页面渲染，静态地图不持续重建或发布。正式采矿、人物地形碰撞与地图存档接线仍待后续；不替换 Pinewatch 或改变下方正式玩法验收结论。

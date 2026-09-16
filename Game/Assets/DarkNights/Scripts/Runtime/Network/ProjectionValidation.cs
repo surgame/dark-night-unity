@@ -52,7 +52,7 @@ namespace DarkNights.Runtime.Network
                 // 原版前摇在命中 tick 减过零后保留负余量；只验证有限值，不能改变攻击时机。
                 Require(Finite(a.Windup));
                 Require(a.Face == -1 || a.Face == 0 || a.Face == 1);
-                Require(Finite(a.Height) && a.Height >= 0 && a.Height <= (catalog.Balance.HeroControl?.MaximumHeight ?? 0) &&
+                Require(Finite(a.Height) && a.Height >= (layout.RandomTerrain ? Core.Config.Terrain.PlayableTerrain.MinimumHeight : 0) && a.Height <= (catalog.Balance.HeroControl?.MaximumHeight ?? 0) &&
                     Finite(a.VerticalSpeed) && Math.Abs(a.VerticalSpeed) <= 1000 && a.SupportPlatform >= -1 &&
                     a.SelectedItem >= 0 && a.SelectedItem <= 2 && a.SelectionRevision >= 0 && a.ControlLease >= 0 &&
                     a.ControllerSlot >= -1 && a.ControllerSlot <= 3 && (a.ControllerSlot < 0 || (a.ManualControl && !a.Enemy)) &&

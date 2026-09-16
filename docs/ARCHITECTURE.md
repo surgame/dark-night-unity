@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-09-17 [随机灰松谷](RANDOM_PINEWATCH.md)已接入正式会话：Core 生成冻结候选，ObjectSession 中的 SessionTerrain 管理唯一 TerrainMapAuthority，主角仍写 ActorState；网络 AMP1 全图初始订阅与现有对象投影分别传输，共同门控 Ready。View 从只读副本绘制 DualGrid。加载验证地图及实体候选后一起切换，重新同步地图代次。当前协议 9、存档 v4；下方协议 8 和独立预览描述属于历史切片。
+
 新增[地图模块](TERRAIN_GENERATION.md)：Core/Terrain 只生成冻结初始蓝图；Runtime/Terrain 独占 YYGC 会话约束下的 ARDMap 权威状态，提供局部事务与只读流；View/Terrain 负责本地预览。地图格不是逐格业务实体，初始资产、网络副本和视觉网格均不能结算破坏。正式实体生命周期和下方协议保持原样，未来采矿由现有可信会话入口接入。
 
 2026-09-16 当前切片见[主角与输入联合执行](HERO_INPUT_EXECUTION.md)：YYGC `0c7cec0`、协议 8、存档 v3；ActorState 仍是唯一状态，自动控制与主角控制以能力切换。Ready 携带默认主角偏好，SessionAuthority 通过同一 YYGC 对象生命周期为每个首次上线且有权限的连接新建专属 `worker`，不从现有闲置 Actor 中选择；连接保存人物 ID 用于重复 Ready 和策略恢复，加载后还必须验证对象仍带手动主角标记。默认 UI 隐藏顶部主角工具栏和旧营地入口。下段日期较早的版本与计数保留历史时点。

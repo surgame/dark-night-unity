@@ -619,7 +619,7 @@
     },
     {
       "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/MapInterestService.cs",
-      "sha256": "b631038a20209981cdc580a2dfea13aa1dcc9858adab50765ceaef99cb9d0cc4"
+      "sha256": "92736f9dcb077547699d6930e921bcce55061c796801da68b32ff13054b71125"
     },
     {
       "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/MapHandshake.cs.meta",
@@ -651,7 +651,7 @@
     },
     {
       "path": "com.tsgame.anyrules.yygc.fishnet/Protocol/ProtocolLimits.cs",
-      "sha256": "5e399561f36c0eec7421aa72b5b98da544a2a95d35907fefd8e6262e60625ef5"
+      "sha256": "5ad74609602a7a8a04f5037768171eaee24eaa3f08c0eec77b4f6a112132d9f8"
     },
     {
       "path": "com.tsgame.anyrules/Tests/PlayMode/Static/StaticTests.cs",

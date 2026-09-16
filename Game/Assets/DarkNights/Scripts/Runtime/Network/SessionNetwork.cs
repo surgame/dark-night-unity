@@ -40,6 +40,7 @@ namespace DarkNights.Runtime.Network
         public ObjectSessionResources ObjectResources { get; private set; }
         public IReadOnlyList<ObjectPlacement> ObjectPlacements { get; private set; }
         public ObjectSession ObjectWorld { get; private set; }
+        public Terrain.SessionTerrainNetwork Terrain { get; set; }
         public ObjectReplica ReplicaObjects { get; private set; }
         private Transform objectParent;
         public SessionClient Client { get; private set; }
@@ -70,7 +71,7 @@ namespace DarkNights.Runtime.Network
             int saveArgument = Array.IndexOf(args, "--dn-save-dir");
             SaveDirectory = Path.GetFullPath(saveArgument >= 0 && saveArgument + 1 < args.Length
                 ? args[saveArgument + 1] : Path.Combine(Application.persistentDataPath, "Saves"));
-            SaveDirectory = Path.Combine(SaveDirectory, "v3");
+            SaveDirectory = Path.Combine(SaveDirectory, "v4");
             var fingerprint = new SaveContentFingerprint(catalog, layout);
             authenticator = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
             string identity = new ObjectWorldSaveJson(catalog, layout,
@@ -111,6 +112,8 @@ namespace DarkNights.Runtime.Network
             ObjectSession preparing = null;
             try
             {
+                if (host && Terrain != null) await Terrain.EnsureSelected();
+                if (this == null || current != attempt) return;
                 if (host || address != lastAddress || port != lastPort) Client.ClearRecovery();
                 lastAddress = address;
                 lastPort = port;
@@ -131,6 +134,7 @@ namespace DarkNights.Runtime.Network
                     var view = await CreateCurrent(FormalObjectCatalog.SessionKey, current, preparing.Context);
                     if (this == null || current != attempt) { if (view != null) Destroy(view.gameObject); return; }
                     if (view == null) throw new InvalidOperationException("正式会话对象创建失败。");
+                    if (Terrain != null) preparing.Terrain = Terrain.CreateAuthority(preparing.Context);
                     preparing.Prepare(view.Owner, ObjectPlacements);
                     var behaviour = view.Owner.GetAllBehaviors().OfType<WorldSessionBehaviour>().Single();
                     var session = view.Owner.GetAllBehaviors().OfType<CampSessionBehaviour>().Single();
@@ -144,6 +148,7 @@ namespace DarkNights.Runtime.Network
                         Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-projection-pressure") >= 0);
                     preparing = null;
                 }
+                Terrain?.BeginConnection();
                 Status = "正在连接";
                 if (!manager.ClientManager.StartConnection()) throw new InvalidOperationException("无法启动客户端。");
             }
@@ -230,6 +235,7 @@ namespace DarkNights.Runtime.Network
         public void Disconnect()
         {
             attempt++;
+            Terrain?.Disconnect();
             connecting = false;
             var previous = activeSession;
             activeSession = null;
@@ -245,7 +251,7 @@ namespace DarkNights.Runtime.Network
             Status = "未连接";
         }
 
-        internal void Fail(Exception error)
+        public void Fail(Exception error)
         {
             Disconnect();
             Status = error.Message;
