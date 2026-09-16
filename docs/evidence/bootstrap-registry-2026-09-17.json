@@ -1,0 +1,151 @@
+{
+  "date": "2026-09-17",
+  "sourceBase": "be164db",
+  "frameworkCommit": "12b253c6bdd262feb860ab905b9e56e940ec9c40",
+  "frameworkWorktree": "D:/Developer/YYGC-worktrees/network-command-script-resolution",
+  "frameworkFiles": [
+    "Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs"
+  ],
+  "cause": "MonoScript.GetClass returned TerrainEditResult for TerrainEditCommand.cs; registry generator skipped command, and required startup validation aborted Bootstrap.",
+  "editor": {
+    "Summary": {
+      "Total": 2,
+      "Passed": 2,
+      "Failed": 0,
+      "Skipped": 0,
+      "Inconclusive": 0
+    },
+    "Results": [
+      {
+        "FullName": "DarkNights.Tests.NetworkCommandRegistryTests.GeneratedRegistryCoversInstalledCommandsAndPreservesGameTags",
+        "Status": "Passed",
+        "Duration": 0.1902537,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.NetworkCommandRegistryTests.TerrainCommandScriptResolvesCommandInsteadOfSiblingResult",
+        "Status": "Passed",
+        "Duration": 0.0033192,
+        "Message": null,
+        "StackTrace": null
+      }
+    ],
+    "Duration": 5.91,
+    "StatusPath": null,
+    "Mode": "EditMode",
+    "FilterApplied": "testname: NetworkCommandRegistryTests",
+    "success": true,
+    "command": "run_tests",
+    "result": null,
+    "executionTimeMs": 5914,
+    "message": null,
+    "error": null,
+    "errorDetails": null,
+    "executedAt": "2026-09-16T18:36:23.9395233Z"
+  },
+  "play": {
+    "hosting": true,
+    "ready": true,
+    "entities": 8,
+    "page": ""
+  },
+  "playErrorCount": 0,
+  "screenshots": [
+    "artifacts/bootstrap-registry/menu-full.png",
+    "artifacts/bootstrap-registry/game-full.png"
+  ],
+  "architecture": {
+    "files": 341,
+    "selfTests": 12,
+    "errors": 0
+  },
+  "player": "artifacts/bootstrap-registry/player-mono/DarkNights.exe",
+  "build": "artifacts/bootstrap-registry/build.json",
+  "startup": {
+    "passed": true,
+    "backend": "mono",
+    "processId": 42568,
+    "scope": "Bootstrap + YYGC AppStartup + Addressables + formal ObjectDefinition/Prefab/generated registry startup; no gameplay or multiplayer acceptance",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\bootstrap-registry\\player-mono\\DarkNights.exe",
+    "playerSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "log": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\run-20260917-024006-163-mono\\verified.log",
+    "logSha256": "7d78e53520e7cc1452b2e5d8430e970ef59d42a8b578cc367173286f62492ac3",
+    "runtimeLog": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\run-20260917-024006-163-mono\\player.log",
+    "checks": {
+      "independent_player_remains_running": true,
+      "app_startup_ready_once": true,
+      "frozen_content_loaded_once": true,
+      "formal_object_content_loaded_once": true,
+      "no_startup_or_runtime_exception": true,
+      "no_formal_editor_or_tests_in_player": true
+    }
+  },
+  "session": {
+    "passed": true,
+    "backend": "mono",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\bootstrap-registry\\player-mono\\DarkNights.exe",
+    "playerSha256": "93C19F9E7C681845D34407807D33B6438E781DD34C4D8895EBDF2C6FB083711D",
+    "gameCodeSha256": "89077620ADC9F8587F34D3F963D79652BA0AB1573975DB32D98735A05DDEC4B7",
+    "scope": "Formal two-process network, instantiated native views and generated UGUI pause/recruit bindings; no pixel or weak-network acceptance",
+    "processes": [
+      21108,
+      46856
+    ],
+    "checks": {
+      "host_ready_with_all_initial_entities": true,
+      "independent_client_receives_full_late_baseline": true,
+      "host_pause_applied": true,
+      "generated_recruit_button_routes_once": true,
+      "guest_build_paid_once": true,
+      "host_and_client_share_single_payment": true,
+      "guest_cannot_change_time": true,
+      "host_only_enabled": true,
+      "host_only_rejects_guest_camp_mutation": true,
+      "guest_explicit_move_accepted": true,
+      "client_observes_authoritative_motion": true,
+      "complete_world_converges_while_paused": true,
+      "no_player_failure": true
+    },
+    "failure": null,
+    "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\session-20260917-024010-844"
+  },
+  "scope": "Targeted registry regression, real Bootstrap Play and new Mono startup / independent Host+client session only. No IL2CPP, two-machine LAN, full historical matrix or foreground performance acceptance.",
+  "cleanup": {
+    "releasedBytes": 0,
+    "blocked": [
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\bootstrap-registry\\previous-host.patch",
+        "bytes": 6947,
+        "reason": "Automatic approval rejected cleanup: blocked by policy. Retained without retry."
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\bootstrap-registry\\menu.png",
+        "bytes": 74041,
+        "reason": "Automatic approval rejected cleanup: blocked by policy. Retained without retry."
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\bootstrap-registry\\game.png",
+        "bytes": 75703,
+        "reason": "Automatic approval rejected cleanup: blocked by policy. Retained without retry."
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\bootstrap-registry\\player-mono\\DNights_BurstDebugInformation_DoNotShip",
+        "bytes": 245248.0,
+        "reason": "Automatic approval rejected cleanup: blocked by policy. Retained without retry."
+      }
+    ],
+    "blockedBytes": 401939,
+    "remaining": [
+      {
+        "Name": "C",
+        "Free": 7923130368
+      },
+      {
+        "Name": "D",
+        "Free": 37473378304
+      }
+    ],
+    "retention": "Keep current Player and evidence for follow-up; keep live Editor cache and isolated framework worktree. Existing restricted artifacts untouched."
+  }
+}

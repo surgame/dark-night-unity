@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-17 修复 Bootstrap 因 `TerrainEditCommand` 漏注册而中断、界面空白的问题：YYGC 独立修复锁定 `12b253c`，通过真实生成器补齐 Tag 3，原游戏编号保持。新增 Editor 2/2、实际主菜单／开局画面、新 Mono 启动 6/6 与双进程会话 13/13 通过；产物 `artifacts/bootstrap-registry/player-mono`。详见[改动账本](docs/YYGC_CHANGES.md)及[证据](docs/evidence/bootstrap-registry-2026-09-17.json)。其余历史验收与 M5 边界不变。
+
 2026-09-16 新增独立的[地图生成与可破坏地形基座](docs/TERRAIN_GENERATION.md)，分支 codex/dualgrid-map-generator：八类测试材料、AnyRuleD DualGrid 配置、六类地表／洞穴生成和 Editor 导出工具。地图使用单一权威状态、区块同步和本地页面渲染，静态地图不持续重建或发布。正式采矿、人物地形碰撞与地图存档接线仍待后续；不替换 Pinewatch 或改变下方正式玩法验收结论。
 
 2026-09-16 已完成[默认主角入口收尾](docs/HERO_INPUT_EXECUTION.md)：协议仍为 8、存档仍为 v3，YYGC 锁定提交仍为 `0c7cec0`。每个有权限的玩家首次完成完整投影 Ready 时，服务端直接新建一名专属默认村民并接管，不再从场景现有闲置村民中选择；重复 Ready 不重复生成，重连上线生成新人，HostOnly 回到 SharedCamp 则恢复原专属人物。产品默认移除会遮挡画面的顶部主角工具栏，并隐藏营地建造、训练、招募、修缮入口；快捷键继续直接生效。新增跟进受影响 Editor／Play 20/20、架构守卫 316 文件／12 自测／0 错误，新 Mono 独立 Host＋客户端和实际 UI 捕获 39/39；累计 178 个不同游戏用例按影响合并通过。当前 Player 为 `artifacts/hero-input/player-mono-generated-villager-r2`（414 文件／199383292 字节）。输入 Sample 34 项及历史 350／155 项保持原构建身份，未重跑；前台性能、IL2CPP、双机器 LAN 与 M5 状态不变。

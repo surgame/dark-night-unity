@@ -1,5 +1,7 @@
 # 阶段产物清理清单
 
+2026-09-17 Bootstrap 注册修复：自动审批拒绝删除 `artifacts/bootstrap-registry/previous-host.patch`、`menu.png`、`game.png` 与 `player-mono/DNights_BurstDebugInformation_DoNotShip`，理由为 `blocked by policy`。四项合计 **401,939 字节**，实际释放 0，未重试。临时文件在清理限制解除后可移除；当前 Player、`menu-full.png`／`game-full.png`、Editor／独立进程报告保留供复验，当前 Editor 缓存与隔离框架源码继续复用。逐项体积及磁盘余量见[机器记录](evidence/bootstrap-registry-2026-09-17.json)。此前受限目录未触碰。
+
 2026-09-16 默认村民生成跟进：当前交付为 `artifacts/hero-input/player-mono-generated-villager-r2`、`generated-villager-build-r2.log`、`generated-villager-affected.*` 与 `network-20260916-202640-009`。被替代的 r3 Player／构建日志／双进程捕获、已由最终 20/20 替代的首轮 13/13 测试 XML／日志，以及加载 ID 校验前的首个生成村民 Player／构建日志／双进程捕获，共 8 个目标、856 个文件／404616700 字节（385.873 MiB）。同阶段较早的删除已被 `blocked by policy`，本次按约定不重试、不换工具或删除父目录绕过，释放仍为 0 字节；这些目标继续保留。当前 Player、最终 Editor 结果和 39/39 双进程证据不列为可清理项。
 
 2026-09-16 顶部工具栏跟进：该轮交付改为 `artifacts/hero-input/player-mono-default-hero-r3`、`default-hero-build-r3.log` 与 `network-20260916-194418-492`，现已由上方默认村民生成产物替代；`toolbar-editor-*` 3/3 和 `toolbar-unified-*` 2/2 仍是有效的资源／Play 历史证据。被替代的 r2 Player、构建日志、双进程目录，以及误用 PlayMode 平台筛选得到 0 项后已由正确 EditMode 驱动替代的 `toolbar-play-*` 两个文件，共 5 个目标、429 个文件／202049771 字节（192.690 MiB）。由于同阶段清理命令此前已被 `blocked by policy` 拒绝，按约定未重试或换工具绕过；本次释放仍为 0 字节。与下段原 17 个目标合并为 22 个不重叠目标、888 个文件／415875849 字节（396.610 MiB）。

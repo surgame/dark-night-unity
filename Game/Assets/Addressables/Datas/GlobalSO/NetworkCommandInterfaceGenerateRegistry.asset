@@ -20,3 +20,5 @@ MonoBehaviour:
     Tag: 1
   - CommandType: {fileID: 11500000, guid: cdbb06f7ad6029148a86ad7b8d198701, type: 3}
     Tag: 2
+  - CommandType: {fileID: 11500000, guid: 73d55367a80a4aa69624d3c42f6880f0, type: 3}
+    Tag: 3

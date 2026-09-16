@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-17 完成 Bootstrap 地形命令漏注册修复：框架生成器正确识别包含 record 与结果结构体的脚本，游戏锁定 YYGC `12b253c`，重新生成全局命令注册表。Editor 新增 2/2，实际 Play 主菜单、开局与主角显示通过；新 Mono 启动 6/6、独立 Host＋客户端 13/13。见[证据](evidence/bootstrap-registry-2026-09-17.json)与[逐文件账本](YYGC_CHANGES.md)。未重跑完整历史矩阵，未验收 IL2CPP、双机器或前台性能。
+
 2026-09-16 新增[地图生成切片](TERRAIN_GENERATION.md)：测试素材与规则、生成器编辑工具、YYGC 会话约束的地图权威 API、AnyRuleD 区块网络接线及静态缓存验证。它是后续可破坏地图的独立基础，不将正式采矿、掉落、碰撞或跨模块保存标为已完成。具体测试与清理证据随切片文档列出。
 
 2026-09-16 已完成[默认主角入口收尾](HERO_INPUT_EXECUTION.md)：协议 8／存档 v3 和 YYGC `0c7cec0` 不变。Ready 命令携带本地默认主角偏好，服务端为每个首次上线且有权限的玩家新建不同的专属村民，不再占用场景现有闲置村民；重复 Ready 不增员，重连生成新人，SharedCamp 恢复原人物。默认 UI 继续隐藏顶部主角工具栏和旧建造、训练、招募、修缮入口。新增跟进 Editor／Play 20/20，累计 178 个不同游戏用例按影响合并通过；架构守卫 316 文件／12 自测／0 错误。当前 Mono `artifacts/hero-input/player-mono-generated-villager-r2` 构建成功，本机独立 Host＋客户端和实际 UI 捕获 39/39。输入 Sample 34 项及历史 350／155 项未重跑；前台性能、IL2CPP、双机器 LAN 与 M5 状态不变。

@@ -1,5 +1,20 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-17：Bootstrap 地形命令漏注册修复
+
+AnyRuleD 的 `TerrainEditCommand.cs` 同时包含命令 record 和结果结构体，Unity `MonoScript.GetClass()` 实际返回 `TerrainEditResult`。旧生成器把任意非空类型直接当作脚本类型，导致发现菜单也跳过真实命令；Bootstrap 的必需 Network Commands 模块校验失败，中止后续场景与 UI 启动。
+
+框架修复位于隔离工作区 `D:/Developer/YYGC-worktrees/network-command-script-resolution`，分支 `codex/network-command-script-resolution`，提交 **`12b253c6bdd262feb860ab905b9e56e940ec9c40`**，仅基于原输入提交 `0c7cec0`，没有合入用户 master 的其他改动。
+
+| 修改文件／落点 | 原因与内容 | 验证 |
+|---|---|---|
+| YYGC `Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs` | 仅接受有效命令类型的 `GetClass()` 结果，否则从受支持命令中按脚本名查找唯一匹配；避免结果结构体遮蔽命令 | 实际包脚本解析回归通过 |
+| 游戏 `tools/prepare-lan-sample.ps1` | 将可重现依赖锁到 `12b253c` | 隔离依赖完整补丁检查通过 |
+| 游戏 `tools/lan-framework-patch/ExcludeSampleFromGlobalRegistry.patch` | 随新基线更新补丁 blob 身份，原 Sample 排除语义不变 | 准备脚本精确差异验证通过 |
+| 游戏全局 `NetworkCommandInterfaceGenerateRegistry.asset` 和 `INetworkCommand.generated.cs` | 使用框架发现／生成菜单加入地形命令 Tag 3；原 Tag 0/1/2 不变，不手改生成源码 | 已安装命令完整性与稳定编号回归通过 |
+
+本批不修改 AnyRuleD 包、场景、Prefab、人工资源、玩法协议 8 或存档 v3。新的注册表摘要会区分包含地形命令的构建，不将旧 Player 混作本批联机客户端。详细验收与产物见 [Bootstrap 修复证据](evidence/bootstrap-registry-2026-09-17.json)。未验证 IL2CPP、双机器 LAN 或前台性能，M5 状态不变。
+
 <a id="hero-input"></a>
 
 ## 2026-09-16：输入封装、主角接线与 Input Actions Sample
