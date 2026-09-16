@@ -1,0 +1,38 @@
+{
+  "date": "2026-09-16T17:11:41.1783923+08:00",
+  "deletedBytes": 0,
+  "attempt": "旧 Player 清理整条命令在执行前被自动审批拒绝，理由 blocked by policy",
+  "historicalRejectedTargetsRetried": false,
+  "retained": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\player-mono",
+      "files": 413,
+      "bytes": 199130911.0,
+      "reason": "被替代的旧 Player；自动审批 blocked by policy 拒绝清理，未执行且不重试"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\player-mono-platform",
+      "files": 414,
+      "bytes": 199376158.0,
+      "reason": "当前验收 Player 及调试副本；后续运行需要，替代后清理"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\__pycache__",
+      "files": 2,
+      "bytes": 20352.0,
+      "reason": "本轮证据工具的 Python 缓存；列账保留，后续获准清理时删除"
+    }
+  ],
+  "sharedCache": "Game/Library 复用；ArchitectureGuard 中间产物属于历史拒绝目录，不重试",
+  "reports": "本轮 XML、构建日志、原始截图、隔离存档和 JSON 均为证据保留；父子体积不重复相加",
+  "freeBytes": [
+    {
+      "Name": "C",
+      "Free": 9512865792
+    },
+    {
+      "Name": "D",
+      "Free": 37836578816
+    }
+  ]
+}

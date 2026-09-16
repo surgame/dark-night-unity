@@ -15,6 +15,8 @@ namespace DarkNights.Runtime.Objects
         [Inject] private ActorRuleConfig config;
         [Inject] private IMovementCapability movement;
         [Inject] private IActorCombatCapability combat;
+        [Inject] private IAutomaticActorControl automatic;
+        [Inject(Optional = true)] private HeroControlBehaviour hero;
         public int Id => Current?.Id ?? 0;
         public string RuleKey => config.RuleKey;
         public string DefinitionGuid => Object.Definition.Guid.ToString();
@@ -32,7 +34,7 @@ namespace DarkNights.Runtime.Objects
         protected override void OnReset()
         {
             base.OnReset();
-            if (config == null || string.IsNullOrWhiteSpace(config.RuleKey) || movement == null || combat == null)
+            if (config == null || string.IsNullOrWhiteSpace(config.RuleKey) || movement == null || combat == null || automatic == null)
                 throw new InvalidOperationException("Actor requires a RuleKey, movement and combat capabilities.");
             if (Session != null && !Session.Catalog.Balance.Units.ContainsKey(config.RuleKey))
                 throw new InvalidOperationException("Unknown actor RuleKey: " + config.RuleKey);
@@ -45,7 +47,8 @@ namespace DarkNights.Runtime.Objects
                 Id = id, PlacementKey = placement, X = x, Hp = Definition.Hp,
                 Enemy = enemy, Name = string.IsNullOrEmpty(name) ? Definition.Name : name,
                 Activity = ActorActivity.Idle, MoveX = x, RallyX = x,
-                Face = enemy ? -1 : 1, AiClock = id * 0.07 % 0.25
+                Face = enemy ? -1 : 1, AiClock = id * 0.07 % 0.25,
+                JetpackFuel = Session.Catalog.Balance.HeroControl?.FuelSeconds ?? 0
             });
         }
 
@@ -68,41 +71,7 @@ namespace DarkNights.Runtime.Objects
             state.HitFlash = Math.Max(0, state.HitFlash - delta);
             state.AiClock = Math.Max(0, state.AiClock - delta);
             state.Walking = false;
-            if (IsTraining)
-            {
-                BuildingBehaviour barracks = Session.Index.Find<BuildingBehaviour>(state.TargetId);
-                if (barracks == null) Session.Work.Clear(this);
-                else if (state.Activity == ActorActivity.TrainingMove && movement.MoveTo(barracks.X + 10, delta))
-                    state.Activity = ActorActivity.Training;
-                return;
-            }
-            if (state.Activity == ActorActivity.WorkMove || state.Activity == ActorActivity.Work ||
-                state.Activity == ActorActivity.BuildMove || state.Activity == ActorActivity.Build)
-            {
-                IEntityBehaviour workplace = Session.Index.Find(state.TargetId);
-                int owner = workplace is WorksiteBehaviour site ? site.WorkerId :
-                    workplace is BuildingBehaviour building ? building.WorkerId : 0;
-                if (workplace == null || owner != Id) Session.Work.Clear(this);
-                else if (state.Activity == ActorActivity.WorkMove || state.Activity == ActorActivity.BuildMove)
-                {
-                    if (movement.MoveTo(workplace.X - 10, delta))
-                    {
-                        state.Activity = state.Activity == ActorActivity.WorkMove ? ActorActivity.Work : ActorActivity.Build;
-                        state.ActionTime = 0;
-                    }
-                }
-                else state.Face = 1;
-            }
-            if (state.Activity == ActorActivity.Move)
-            {
-                if (movement.MoveTo(state.MoveX, delta)) state.Activity = ActorActivity.Idle;
-            }
-            else if (state.AiClock <= 0)
-            {
-                state.AiClock = 0.25;
-                combat.FindTarget();
-            }
-            if (state.Activity == ActorActivity.Attack) combat.TickAttack(delta);
+            if (hero == null || !hero.Tick(delta)) automatic.Tick(delta);
         }
     }
 }

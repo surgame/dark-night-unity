@@ -33,7 +33,17 @@ namespace DarkNights.Runtime.Save
                 Number(v["windup"]),
                 Boolean(v["hit_pending"]),
                 Boolean(v["forced_attack"]),
-                Number(v["ai_clock"]));
+                Number(v["ai_clock"]),
+                (float)Number(v["height"]),
+                (float)Number(v["vertical_speed"]),
+                Integer(v["support_platform"]),
+                Integer(v["ignored_platform"]),
+                Number(v["drop_remaining"]),
+                Boolean(v["manual_control"]),
+                Integer(v["selected_item"]),
+                Integer(v["selection_revision"]),
+                Boolean(v["jetpack_equipped"]),
+                Number(v["jetpack_fuel"]));
         }
 
         public static JObject Write(ActorSnapshot v) => new JObject
@@ -54,7 +64,17 @@ namespace DarkNights.Runtime.Save
             ["windup"] = v.Windup,
             ["hit_pending"] = v.HitPending,
             ["forced_attack"] = v.ForcedAttack,
-            ["ai_clock"] = v.AiClock
+            ["ai_clock"] = v.AiClock,
+            ["height"] = v.Height,
+            ["vertical_speed"] = v.VerticalSpeed,
+            ["support_platform"] = v.SupportPlatform,
+            ["ignored_platform"] = v.IgnoredPlatform,
+            ["drop_remaining"] = v.DropRemaining,
+            ["manual_control"] = v.ManualControl,
+            ["selected_item"] = v.SelectedItem,
+            ["selection_revision"] = v.SelectionRevision,
+            ["jetpack_equipped"] = v.JetpackEquipped,
+            ["jetpack_fuel"] = v.JetpackFuel
         };
 
         public static BuildingSnapshot BuildingSnapshot(JToken value)

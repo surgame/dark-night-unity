@@ -1,5 +1,7 @@
 # Unity 与 YYGC 依赖准备
 
+2026-09-16 当前 YYGC 锁定 **`0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143`**，由 `tools/prepare-lan-sample.ps1` 准备并精确验证。输入补丁及 Sample 在独立 `codex/input-actions` 分支提交，用户框架 master 的 AnyRule 插件工作区不变。原有七份 tracked 补丁和两个友元文件按字节保留，manifest／packages-lock 的 `.deps/YYGC-unified` 路径不变；并未把插件实验顺带引入游戏。详见[逐文件账本](YYGC_CHANGES.md#hero-input)。下文日期较早的版本为历史记录。
+
 2026-09-13 U2 当前锁定 `0305eb74bbc2677a3d9025f684d8ded16481be4a`；准备脚本精确核验 `.deps/YYGC-unified` 与既有补丁通过，UPM manifest／lock 路径不变。网络会话上下文、批量状态提交和注册校验修正已通过真实 Play、正式 Mono 三进程 26/26、Mono 装配 14/14 及独立四进程 Sample 30/30，见 [U2 账本](YYGC_CHANGES.md#unified-u2)。下文保留历史版本记录。
 
 2026-09-13 场景入口修复：当前锁定 `ccd61e01f15332b1197cfa5ee72af8777c4a0b49`。Loader、GUID 拖拽与分类增补已编译，回归等待用户确认；完整文件清单见[账本](YYGC_CHANGES.md#scene-definitions)。既有隔离路径与补丁保留，下方 2026-09-12 记录为历史版本。
@@ -16,7 +18,7 @@
 
 | 项目 | 已查到的事实 | 接入要求 |
 |---|---|---|
-| YYGC UPM | `com.tsgame.gamecore`；当前 `0.3.0-preview.1`，提交 `ccd61e0`；unity=`6000.2`，unityRelease=`35f1` | 未发布预览；沿用锁定提交和补丁，不能只按版本号假定兼容 |
+| YYGC UPM | `com.tsgame.gamecore`；当前 `0.3.0-preview.1`，提交 `0c7cec0`；unity=`6000.2`，unityRelease=`35f1` | 未发布预览；沿用锁定提交和补丁，不能只按版本号假定兼容 |
 | 本机 Editor | `D:\Program Files\Unity 6000.4.9f1\Editor\Unity.exe`，ProductVersion=`6000.4.9f1 (f7258d6eebbe)` | 已用于导入、编译和 Windows Player 构建探针 |
 | C# | Unity 6.2 官方文档为 Roslyn / C# 9.0 | 使用块级 namespace、普通构造、显式集合初始化 |
 | API Compatibility | 官方支持 .NET Standard 2.1 或 .NET Framework 4.8；默认前者 | 新代码以 .NET Standard 2.1 为边界；不能加载 net8.0 游戏程序集代替迁移 |

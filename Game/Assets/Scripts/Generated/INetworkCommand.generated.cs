@@ -18,6 +18,7 @@ namespace YYGC.Generated
         {
             GenericTypeRegistry<INetworkCommand>.Register<global::DarkNights.Runtime.Network.SetReadyCommand>(0);
             GenericTypeRegistry<INetworkCommand>.Register<global::DarkNights.Runtime.Network.SessionCommand>(1);
+            GenericTypeRegistry<INetworkCommand>.Register<global::DarkNights.Runtime.Network.HeroInputCommand>(2);
         }
     }
 }

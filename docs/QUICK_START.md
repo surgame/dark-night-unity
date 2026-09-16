@@ -2,7 +2,7 @@
 
 `Game/` 使用 Unity `6000.4.9f1` 和 **Linear** 色彩空间。正式入口继续使用 Bootstrap；游戏操作、当前 Player 和复跑条件见 [Player 指南](PLAYER_GUIDE.md)。独立模板位于 `Assets/Samples/LanCoop/Content/LanCoop.unity`，只作为 [LAN Sample](LAN_SAMPLE.md) 对照。
 
-2026-09-14 当前状态：YYGC 统一对象迁移 U0–U5 已完成，Core 只保留纯算法、只读配置和数据合同。游戏协议为 7，新档格式为 v2。最新源码 `a4a5450` 已通过完整 Editor／Play 155/155、同一 Mono 77/77 及本机固定世界画面对照，见 [Linear 世界表现验收](M5_WORLD_PRESENTATION.md)。当前 Player 位于 `artifacts/m5-world/player-mono`；前台性能暂缓，IL2CPP 和双机器 LAN 仍待条件，M5 尚未全部完成。
+2026-09-16 当前状态：YYGC 统一对象迁移 U0–U5 已完成，Core 只保留纯算法、只读配置和数据合同。默认主角操控与营地切换、输入改键及 Sample 已实现；游戏协议 8，新档格式 v3，YYGC 锁定隔离输入提交 `0c7cec0`。本批验收和 Player 位置以[联合执行文档](HERO_INPUT_EXECUTION.md)为准。前台性能暂缓，IL2CPP 和双机器 LAN 仍待条件，M5 尚未全部完成；历史世界表现证据见 [Linear 世界表现验收](M5_WORLD_PRESENTATION.md)。
 
 ## 先读什么
 
@@ -13,7 +13,7 @@
 
 ## 准备已有工程
 
-1. 在分支 `codex/yygc-unified-object-migration` 核对 Git 状态与 C／D 可用空间，确认已有编辑和产物保留范围，见[清理清单](STAGE_CLEANUP_INVENTORY.md)。
+1. 在当前工作分支核对 Git 状态与 C／D 可用空间；本批分支为 `codex/hero-input`。确认已有编辑和产物保留范围，见[清理清单](STAGE_CLEANUP_INVENTORY.md)。
 2. 需要建立或核对依赖时，依次运行 `pwsh -File tools/prepare-lan-sample.ps1` 与 `pwsh -File tools/prepare-fishnet.ps1`。它们准备 `.deps/YYGC-unified`／`.deps/FishNet` 的锁定输入和补丁；发现未知改动时应保留并检查，不重置用户维护的 `D:\Developer\YYGC`。
 3. 用 `6000.4.9f1` 打开 `Game/`，复用已有导入缓存；依赖以提交的 `Packages/manifest.json`、`packages-lock.json` 和 [依赖说明](DEPENDENCIES.md)为准。不要另复制整个 Library。
 4. 等本批脚本编译就绪后，再执行依赖它们的资源操作或测试。正式 Prefab、场景、注册源和 Addressables 配置已经存在；普通导入／构建不运行资源初始化脚本。
@@ -50,7 +50,9 @@
 | 调 HUD 布局 | Res/UI/HUD；动态显示代码在 Scripts/View |
 | 排查资源加载、对象装配与组件绑定 | Scripts/Runtime/Framework、Scripts/View 及 Res 中所属对象的 Definition／Prefab；不靠 GetComponent 兜底缺失绑定 |
 | 改初始摆放 | Res/Scenes/Pinewatch/Pinewatch.unity；正式 Prefab 直接放在 Buildings／Worksites／Actors 分组，Hierarchy 顺序就是创建顺序；ScenePlacement 只保存自动身份和实例初值，Loader 提供 Definition 并接管原对象 |
-| 改保存格式 | Core/Save 冻结合同＋Runtime/Save 文件边界＋Runtime/Objects 捕获／恢复；当前仅 v2，不要求旧档迁移 |
+| 改保存格式 | Core/Save 冻结合同＋Runtime/Save 文件边界＋Runtime/Objects 捕获／恢复；当前仅 v3，不要求旧档迁移 |
+| 改主角操控 | Entry/HeroPlayerController、View/GameInputActions、Runtime/Objects/Hero*Behaviour；保持原生 Player 动作名称 |
+| 学习 YYGC 输入 | `Assets/Samples/YYGCInputActions/Content/InputActions.unity` 与同目录上层 README；框架源在 `Samples~/InputActions` |
 | 改YYGC通用代码 | 独立框架checkout，先确认必要范围与工作区状态 |
 
 ## 当前可以运行的命令
@@ -65,4 +67,4 @@ python tools/measure-stage-storage.py --output artifacts/storage-review
 
 这些命令读取状态和盘点空间，不启动 Unity／Player 或执行删除。原始评估与冻结夹具保留；不重生成旧期望来掩盖差异。
 
-实际规则／Editor 覆盖见[回归映射](YYGC_UNIFIED_TEST_COVERAGE.md)，最新 Player 复跑参数见[世界表现验收](M5_WORLD_PRESENTATION.md)。只验证受本批改动影响的范围；输入未变时复用已通过证据。新构建输出到新的空目录，后续脚本显式传入 `-PlayerPath`，避免使用历史默认产物。手写 C# 遵守 C# 9／.NET Standard 2.1、中文 XML summary 和 300 行上限。
+实际规则／Editor 覆盖见[回归映射](YYGC_UNIFIED_TEST_COVERAGE.md)，当前 Player 复跑参数见[主角与输入联合执行](HERO_INPUT_EXECUTION.md#复验与示例入口)。只验证受本批改动影响的范围；输入未变时复用已通过证据。新构建输出到新的空目录，后续脚本显式传入 `-PlayerPath`，避免使用历史默认产物。手写 C# 遵守 C# 9／.NET Standard 2.1、中文 XML summary 和 300 行上限。

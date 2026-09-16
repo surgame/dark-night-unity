@@ -34,7 +34,7 @@ function Start-Player([string]$Role) {
     [IO.File]::WriteAllText((Join-Path $run "$Role.commands"), '')
     $connectPort = if ($Role -eq 'host') { $Port } else { $ClientPort }
     $arguments = @('-batchmode', '-screen-width', '1280', '-screen-height', '800', '-screen-fullscreen', '0',
-        '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'), '--dn-role', $Role, '--dn-port', $connectPort,
+        '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'), '--dn-camp-mode', '--dn-role', $Role, '--dn-port', $connectPort,
         '--dn-save-dir', ('"' + $saves + '"'),
         '--dn-report', ('"' + (Join-Path $run "$Role.json") + '"'), '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
     if (!$Capture) { $arguments += '-nographics' }

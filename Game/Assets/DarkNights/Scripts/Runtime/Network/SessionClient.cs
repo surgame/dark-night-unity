@@ -19,7 +19,7 @@ namespace DarkNights.Runtime.Network
         private PlayerEndpoint endpoint;
         private WorldSessionBehaviour observed;
         private IDisposable subscription;
-        private long connection, sequence, readySequence;
+        private long connection, sequence, readySequence, inputSequence;
         private double nextReadyAt;
         private string recoveryToken = "";
         public WorldReplica Replica { get; } = new WorldReplica();
@@ -49,7 +49,7 @@ namespace DarkNights.Runtime.Network
         {
             Dispose();
             connection = Replica.BeginConnection();
-            sequence = readySequence = 0;
+            sequence = readySequence = inputSequence = 0;
             nextReadyAt = 0;
             HadReady = false;
             Status = "等待完整快照";
@@ -129,7 +129,7 @@ namespace DarkNights.Runtime.Network
         }
 
         public async ValueTask<long> Send(SessionOperation operation, int[] actors = null, int target = 0,
-            float x = 0, string kind = "", int value = 0)
+            float x = 0, string kind = "", int value = 0, int controlLease = 0)
         {
             var frame = Replica.Current;
             if (!Ready || endpoint == null || frame == null) throw new InvalidOperationException("会话尚未就绪。");
@@ -139,9 +139,23 @@ namespace DarkNights.Runtime.Network
                 SenderObjectId = endpoint.ObjectId, Protocol = SessionAuthority.ProtocolVersion,
                 Epoch = frame.Epoch, PolicyRevision = frame.PolicyRevision, RequestSequence = request,
                 Operation = operation, ActorIds = actors == null ? Array.Empty<int>() : (int[])actors.Clone(),
-                TargetId = target, X = x, Kind = kind, Value = value
+                TargetId = target, X = x, Kind = kind, Value = value, ControlLease = controlLease
             });
             return request;
+        }
+
+        public ValueTask SendInput(int actor, int lease, int horizontal, bool jumpHeld, bool useHeld,
+            bool jumpPressed = false, bool dropPressed = false)
+        {
+            var frame = Replica.Current;
+            if (!Ready || endpoint == null || frame == null) return default;
+            return NetworkCommandGateway.Instance.ProcessLocalCommandAsync(new HeroInputCommand
+            {
+                SenderObjectId = endpoint.ObjectId, Protocol = SessionAuthority.ProtocolVersion,
+                Epoch = frame.Epoch, PolicyRevision = frame.PolicyRevision, ActorId = actor, ControlLease = lease,
+                InputSequence = ++inputSequence, ObservedTick = frame.ServerTick, Horizontal = horizontal,
+                JumpHeld = jumpHeld, UseHeld = useHeld, JumpPressed = jumpPressed, DropPressed = dropPressed
+            });
         }
 
         public ValueTask SendFrozen(SessionRequest request)
@@ -153,7 +167,21 @@ namespace DarkNights.Runtime.Network
                 SenderObjectId = endpoint.ObjectId, Protocol = request.Protocol, Epoch = request.Epoch,
                 PolicyRevision = request.PolicyRevision, RequestSequence = request.Sequence, Operation = request.Operation,
                 ActorIds = System.Linq.Enumerable.ToArray(request.ActorIds), TargetId = request.TargetId,
-                X = request.X, Kind = request.Kind, Value = request.Value
+                X = request.X, Kind = request.Kind, Value = request.Value, ControlLease = request.ControlLease
+            });
+        }
+
+        /// <summary>提交已经冻结的输入包；重发与协议探针仍经过正式 Gateway 和可信连接验证。</summary>
+        public ValueTask SendInputFrozen(HeroInputRequest request)
+        {
+            if (!Ready || endpoint == null) throw new InvalidOperationException("会话尚未就绪。");
+            inputSequence = Math.Max(inputSequence, request.Sequence);
+            return NetworkCommandGateway.Instance.ProcessLocalCommandAsync(new HeroInputCommand
+            {
+                SenderObjectId = endpoint.ObjectId, Protocol = request.Protocol, Epoch = request.Epoch,
+                PolicyRevision = request.PolicyRevision, ActorId = request.ActorId, ControlLease = request.ControlLease,
+                InputSequence = request.Sequence, ObservedTick = request.ObservedTick, Horizontal = request.Horizontal,
+                JumpHeld = request.JumpHeld, UseHeld = request.UseHeld, JumpPressed = request.JumpPressed, DropPressed = request.DropPressed
             });
         }
 

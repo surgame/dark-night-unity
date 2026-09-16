@@ -28,6 +28,16 @@ namespace DarkNights.Core.Save
         public bool HitPending { get; }
         public bool ForcedAttack { get; }
         public double AiClock { get; }
+        public float Height { get; }
+        public float VerticalSpeed { get; }
+        public int SupportPlatform { get; }
+        public int IgnoredPlatform { get; }
+        public double DropRemaining { get; }
+        public bool ManualControl { get; }
+        public int SelectedItem { get; }
+        public int SelectionRevision { get; }
+        public bool JetpackEquipped { get; }
+        public double JetpackFuel { get; }
 
         public ActorSnapshot(
             int id,
@@ -46,7 +56,17 @@ namespace DarkNights.Core.Save
             double windup,
             bool hitPending,
             bool forcedAttack,
-            double aiClock)
+            double aiClock,
+            float height = 0,
+            float verticalSpeed = 0,
+            int supportPlatform = 0,
+            int ignoredPlatform = 0,
+            double dropRemaining = 0,
+            bool manualControl = false,
+            int selectedItem = 0,
+            int selectionRevision = 0,
+            bool jetpackEquipped = false,
+            double jetpackFuel = 0)
         {
             Id = id;
             Kind = kind;
@@ -65,6 +85,16 @@ namespace DarkNights.Core.Save
             HitPending = hitPending;
             ForcedAttack = forcedAttack;
             AiClock = aiClock;
+            Height = height;
+            VerticalSpeed = verticalSpeed;
+            SupportPlatform = supportPlatform;
+            IgnoredPlatform = ignoredPlatform;
+            DropRemaining = dropRemaining;
+            ManualControl = manualControl;
+            SelectedItem = selectedItem;
+            SelectionRevision = selectionRevision;
+            JetpackEquipped = jetpackEquipped;
+            JetpackFuel = jetpackFuel;
         }
     }
 }

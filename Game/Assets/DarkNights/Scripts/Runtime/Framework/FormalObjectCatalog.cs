@@ -61,6 +61,7 @@ namespace DarkNights.Runtime.Framework
                 throw new InvalidOperationException("Worker ContentId resolves to the wrong definition.");
             GenericTypeRegistry<INetworkCommand>.GetId(typeof(SetReadyCommand));
             GenericTypeRegistry<INetworkCommand>.GetId(typeof(SessionCommand));
+            GenericTypeRegistry<INetworkCommand>.GetId(typeof(HeroInputCommand));
             if (database.GetDefinitionByKey("connection.pinewatch") == null)
                 throw new InvalidOperationException("Formal connection definition missing.");
             GenericTypeRegistry<IStateData>.GetId(typeof(SessionStatusState));

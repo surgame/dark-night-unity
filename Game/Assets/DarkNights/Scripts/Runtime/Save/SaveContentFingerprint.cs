@@ -39,9 +39,17 @@ namespace DarkNights.Runtime.Save
 
         private static void WriteRules(BinaryWriter writer, GameCatalog catalog)
         {
-            writer.Write("dark-nights.rules.v1");
+            writer.Write("dark-nights.rules.v2");
             BalanceDefinition balance = catalog.Balance;
             writer.Write(balance.SchemaVersion);
+            HeroControlDefinition hero = balance.HeroControl;
+            writer.Write(hero != null);
+            if (hero != null)
+            {
+                writer.Write(hero.JumpSpeed); writer.Write(hero.Gravity); writer.Write(hero.MaximumHeight);
+                writer.Write(hero.JetpackSpeed); writer.Write(hero.FuelSeconds); writer.Write(hero.FuelRecovery);
+                writer.Write(hero.DropSeconds); writer.Write(hero.WorkReach);
+            }
             EconomyDefinition economy = balance.Economy;
             WriteResources(writer, economy.StartingResources);
             writer.Write(economy.UpkeepInterval);
@@ -127,7 +135,7 @@ namespace DarkNights.Runtime.Save
 
         private static void WriteLayout(BinaryWriter writer, LevelLayout layout)
         {
-            writer.Write("dark-nights.layout.v1");
+            writer.Write("dark-nights.layout.v2");
             writer.Write(layout.WorldWidth);
             writer.Write(layout.GroundY);
             writer.Write(layout.BuildMinX);
@@ -137,6 +145,11 @@ namespace DarkNights.Runtime.Save
             WritePlacements(writer, layout.Buildings);
             WritePlacements(writer, layout.Worksites);
             WritePlacements(writer, layout.Actors);
+            writer.Write(layout.Platforms.Count);
+            foreach (var platform in layout.Platforms)
+            {
+                writer.Write(platform.Id); writer.Write(platform.MinX); writer.Write(platform.MaxX); writer.Write(platform.Height);
+            }
         }
 
         private static void WritePlacements(BinaryWriter writer, IReadOnlyList<PlacementDefinition> entries)

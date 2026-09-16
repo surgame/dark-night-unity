@@ -37,7 +37,7 @@ function Start-Player([string]$Role) {
     $commands = Join-Path $run "$Role.commands"
     [IO.File]::WriteAllText($commands, '')
     $arguments = @('-batchmode', '-nographics', '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'),
-        '--dn-role', $Role, '--dn-port', $Port, '--dn-report', ('"' + $report + '"'), '--dn-commands', ('"' + $commands + '"'))
+        '--dn-camp-mode', '--dn-role', $Role, '--dn-port', $Port, '--dn-report', ('"' + $report + '"'), '--dn-commands', ('"' + $commands + '"'))
     $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -PassThru -WindowStyle Hidden
 }
 function Send-Operation([string]$Role, [hashtable]$Command) {

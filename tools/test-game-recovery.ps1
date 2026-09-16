@@ -4,7 +4,7 @@ $repo = Split-Path $PSScriptRoot -Parent
 $player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe' }
 $run = Join-Path $repo ('artifacts/migration/recovery-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 $saves = Join-Path $run 'saves'
-$versionedSaves = Join-Path $saves 'v2'
+$versionedSaves = Join-Path $saves 'v3'
 New-Item -ItemType Directory -Path $run | Out-Null
 $processes = @{}
 $checks = [ordered]@{}
@@ -33,7 +33,7 @@ function Wait-Report([string]$Role, [scriptblock]$Condition) {
 function Start-Player([string]$Role) {
     [IO.File]::WriteAllText((Join-Path $run "$Role.commands"), '')
     $arguments = @('-batchmode', '-nographics', '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'),
-        '--dn-role', $Role, '--dn-port', $(if ($Role -eq 'host') { $Port } else { $ClientPort }), '--dn-save-dir', ('"' + $saves + '"'),
+        '--dn-camp-mode', '--dn-role', $Role, '--dn-port', $(if ($Role -eq 'host') { $Port } else { $ClientPort }), '--dn-save-dir', ('"' + $saves + '"'),
         '--dn-report', ('"' + (Join-Path $run "$Role.json") + '"'), '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
     $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru
 }
@@ -65,7 +65,7 @@ try {
     $null = Wait-Report 'host' { param($r) !$r.storageBusy -and $r.storageStatus -like '*已保存*' }
     Check 'native_save_button_commits_isolated_slot' ($receipt.Code -eq 'Applied' -and (Test-Path (Join-Path $versionedSaves 'slot-00.dnsave.json')))
     $savedText = Get-Content (Join-Path $versionedSaves 'slot-00.dnsave.json') -Raw
-    Check 'new_save_is_v2_with_complete_identities' (($savedText | ConvertFrom-Json).format_version -eq 2 -and
+    Check 'new_save_is_v3_with_complete_identities' (($savedText | ConvertFrom-Json).format_version -eq 3 -and
         ($savedText | ConvertFrom-Json).world.identities.Count -eq 17)
     $receipt = Receipt 'client1' @{ operation='Save'; value=1 }
     Check 'guest_cannot_write_host_files' ($receipt.Code -eq 'PermissionDenied' -and !(Test-Path (Join-Path $versionedSaves 'slot-01.dnsave.json')))
@@ -83,7 +83,7 @@ try {
     $null = Receipt 'host' @{ operation='BeginLoad'; value=1 }
     $bad = Wait-Report 'host' { param($r) !$r.storageBusy -and $r.storageStatus -like '*失败*' }
     Check 'corrupt_save_preserves_world_and_epoch' ($bad.frame.Epoch -eq 2 -and ($bad.frame.World | ConvertTo-Json -Depth 20 -Compress) -eq $world)
-    [IO.File]::WriteAllText((Join-Path $versionedSaves 'slot-01.dnsave.json'), ($savedText -replace '"format_version":2', '"format_version":1'))
+    [IO.File]::WriteAllText((Join-Path $versionedSaves 'slot-01.dnsave.json'), ($savedText -replace '"format_version":3', '"format_version":1'))
     $null = Receipt 'host' @{ operation='BeginLoad'; value=1 }
     $oldVersion = Wait-Report 'host' { param($r) !$r.storageBusy -and $r.storageStatus -eq '不支持的存档版本。' }
     Check 'old_version_has_explicit_refusal_and_keeps_world' ($oldVersion.frame.Epoch -eq 2 -and

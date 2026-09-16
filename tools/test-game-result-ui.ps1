@@ -34,7 +34,7 @@ function Start-Player([string]$Role) {
     $height = if ($Role -eq 'host') { 800 } else { 900 }
     [IO.File]::WriteAllText((Join-Path $run "$Role.commands"), '')
     $arguments = @('-batchmode', '-screen-width', $width, '-screen-height', $height, '-screen-fullscreen', '0',
-        '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'), '--dn-role', $Role, '--dn-port', $Port,
+        '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'), '--dn-camp-mode', '--dn-role', $Role, '--dn-port', $Port,
         '--dn-save-dir', ('"' + $saves + '"'), '--dn-report', ('"' + (Join-Path $run "$Role.json") + '"'),
         '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
     $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru
@@ -80,7 +80,7 @@ try {
     $null = Wait-Report 'host' { param($r) $r.ready -and $r.entityViews -eq 17 }
     $null = Receipt 'host' @{operation='SetPaused';value=1}
     $null = Receipt 'host' @{operation='Save';value=0}
-    $initialPath = Join-Path $saves 'v2/slot-00.dnsave.json'
+    $initialPath = Join-Path $saves 'v3/slot-00.dnsave.json'
     $null = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $initialPath) }
     $initial = Get-Content -LiteralPath $initialPath -Raw | ConvertFrom-Json
     # 合成终局只用于 UI／会话生命周期；不改规则夹具，不作为三夜或胜负计算证据。
@@ -94,7 +94,7 @@ try {
             $fixture.world.buildings = @($fixture.world.buildings | Where-Object id -ne $tavern[0].id)
             $fixture.world.identities = @($fixture.world.identities | Where-Object id -ne $tavern[0].id)
         }
-        $fixture | ConvertTo-Json -Depth 24 -Compress | Set-Content -LiteralPath (Join-Path $saves ('v2/slot-{0:D2}.dnsave.json' -f $case.slot)) -Encoding utf8
+        $fixture | ConvertTo-Json -Depth 24 -Compress | Set-Content -LiteralPath (Join-Path $saves ('v3/slot-{0:D2}.dnsave.json' -f $case.slot)) -Encoding utf8
     }
     Send 'host' @{operation='BeginLoad';value=1}
     $won = Wait-Report 'host' { param($r) $r.ready -and $r.frame.Epoch -eq 2 -and $r.uiPage -eq 'Result' }
@@ -136,7 +136,7 @@ catch { $failure = $_.Exception.ToString() }
 finally {
     foreach ($process in $processes.Values) { $process.Refresh(); if (!$process.HasExited) { Stop-Process -Id $process.Id; $process.WaitForExit() } }
     [ordered]@{passed=(!$failure);checks=$checks;error=$failure;artifacts=$run;renderedBatchMode=$true;
-        scope='Two real Mono processes; synthetic v2 terminal fixtures test Result UI rendering, restart and exit only; no gameplay-win or foreground-performance claim';
+        scope='Two real Mono processes; synthetic v3 terminal fixtures test Result UI rendering, restart and exit only; no gameplay-win or foreground-performance claim';
         player=$player;gameCodeSha256=(Get-FileHash -LiteralPath (Join-Path (Split-Path $player -Parent) 'DarkNights_Data/Managed/DarkNights.Entry.dll')).Hash} |
         ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Result UI: passed=$(!$failure) checks=$($checks.Count); $run/result.json"

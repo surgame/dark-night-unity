@@ -15,7 +15,7 @@ using static DarkNights.Tests.SessionScenario;
 namespace DarkNights.Tests
 {
     /// <summary>
-    /// v2 格式、内容身份和完整恢复回归，使用真实 YYGC 对象及二十秒继续模拟。
+    /// v3 格式、内容身份和完整恢复回归，使用真实 YYGC 对象及二十秒继续模拟。
     /// 所有破坏性输入只作用于测试持有的 JSON；不更改冻结夹具、正式布局或活动世界。
     /// </summary>
     public static class GameSaveScenarios
@@ -31,8 +31,8 @@ namespace DarkNights.Tests
             SessionSnapshot snapshot = active.CaptureWorld();
             string before = codec.Serialize(snapshot);
             var root = JObject.Parse(before);
-            check((string)root["format"] == ObjectWorldSaveJson.Format && (int)root["format_version"] == 2 &&
-                (string)root["random_algorithm"] == SimulationRandom.Algorithm, "Save has explicit v2 format and RNG identity");
+            check((string)root["format"] == ObjectWorldSaveJson.Format && (int)root["format_version"] == ObjectWorldSaveJson.FormatVersion &&
+                (string)root["random_algorithm"] == SimulationRandom.Algorithm, "Save has explicit v3 format and RNG identity");
             check(root["world"]["camera_x"] == null && root["world"]["selected_ids"] == null &&
                 root["world"]["epoch"] == null && root["world"]["control_mode"] == null,
                 "Save excludes local display and room state");
@@ -51,7 +51,7 @@ namespace DarkNights.Tests
             {
                 ["format"] = j => j["format"] = "other-game",
                 ["old version"] = j => j["format_version"] = 1,
-                ["future version"] = j => j["format_version"] = 3,
+                ["future version"] = j => j["format_version"] = ObjectWorldSaveJson.FormatVersion + 1,
                 ["version type"] = j => j["format_version"] = "1",
                 ["definition digest"] = j => j["identity_sha256"] = new string('0', 64),
                 ["missing identities"] = j => ((JObject)j["world"]).Remove("identities"),
@@ -121,7 +121,7 @@ namespace DarkNights.Tests
             var reordered = new GameCatalog(new BalanceDefinition(balance.SchemaVersion, balance.Economy,
                 balance.Units.Reverse().ToDictionary(p => p.Key, p => p.Value),
                 balance.Buildings.Reverse().ToDictionary(p => p.Key, p => p.Value),
-                balance.Worksites.Reverse().ToDictionary(p => p.Key, p => p.Value)), catalog.Level);
+                balance.Worksites.Reverse().ToDictionary(p => p.Key, p => p.Value), balance.HeroControl), catalog.Level);
             check(new SaveContentFingerprint(reordered, layout).RulesSha256 == baseline.RulesSha256,
                 "Dictionary insertion order does not change rules digest");
             var cameraOnly = CopyLayout(layout, layout.Actors, layout.CameraX + 1);
@@ -145,7 +145,7 @@ namespace DarkNights.Tests
 
         private static LevelLayout CopyLayout(LevelLayout layout, IReadOnlyList<PlacementDefinition> actors, float cameraX) =>
             new LevelLayout(layout.WorldWidth, layout.GroundY, layout.BuildMinX, layout.BuildMaxX,
-                layout.SpawnX, cameraX, layout.Buildings, layout.Worksites, actors);
+                layout.SpawnX, cameraX, layout.Buildings, layout.Worksites, actors, layout.Platforms);
 
         public static bool Rejected(Action action)
         {

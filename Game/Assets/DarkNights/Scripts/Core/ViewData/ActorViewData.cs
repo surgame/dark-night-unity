@@ -18,6 +18,16 @@ namespace DarkNights.Core.ViewData
         public double ActionTime { get; }
         public double Windup { get; }
         public double HitFlash { get; }
+        public float Height { get; }
+        public float VerticalSpeed { get; }
+        public int SupportPlatform { get; }
+        public bool ManualControl { get; }
+        public int SelectedItem { get; }
+        public int SelectionRevision { get; }
+        public bool JetpackEquipped { get; }
+        public double JetpackFuel { get; }
+        public int ControllerSlot { get; }
+        public int ControlLease { get; }
 
         public ActorViewData(
             int id,
@@ -32,7 +42,17 @@ namespace DarkNights.Core.ViewData
             bool walking,
             double actionTime,
             double windup,
-            double hitFlash)
+            double hitFlash,
+            float height = 0,
+            float verticalSpeed = 0,
+            int supportPlatform = 0,
+            bool manualControl = false,
+            int selectedItem = 0,
+            int selectionRevision = 0,
+            bool jetpackEquipped = false,
+            double jetpackFuel = 0,
+            int controllerSlot = -1,
+            int controlLease = 0)
         {
             Id = id;
             Kind = kind;
@@ -47,6 +67,16 @@ namespace DarkNights.Core.ViewData
             ActionTime = actionTime;
             Windup = windup;
             HitFlash = hitFlash;
+            Height = height;
+            VerticalSpeed = verticalSpeed;
+            SupportPlatform = supportPlatform;
+            ManualControl = manualControl;
+            SelectedItem = selectedItem;
+            SelectionRevision = selectionRevision;
+            JetpackEquipped = jetpackEquipped;
+            JetpackFuel = jetpackFuel;
+            ControllerSlot = controllerSlot;
+            ControlLease = controlLease;
         }
     }
 }

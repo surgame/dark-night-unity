@@ -17,7 +17,7 @@ namespace DarkNights.Core.Save
     {
         public static string Validate(SessionSnapshot s, GameCatalog catalog, LevelLayout layout)
         {
-            if (s == null || s.SchemaVersion != 2 || s.LevelId != catalog.Level.Id)
+            if (s == null || s.SchemaVersion != 3 || s.LevelId != catalog.Level.Id)
                 return "存档版本或关卡不匹配";
             if (!Number(s.Elapsed, 0, 1000000) || s.Speed is not (1 or 2))
                 return "时钟状态无效";

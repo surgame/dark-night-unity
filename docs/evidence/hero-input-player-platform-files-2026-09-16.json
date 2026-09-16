@@ -1,0 +1,2072 @@
+[
+  {
+    "path": "artifacts/hero-input/player-mono-platform/D3D12/D3D12Core.dll",
+    "bytes": 4725304,
+    "sha256": "625bd40005b1c3708695d5256ecf230d278e6b8edba5a88af70f3d91324f3052"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/D3D12/d3d12SDKLayers.dll",
+    "bytes": 4930104,
+    "sha256": "c0730cc70d3250d3de19c04c17845ba9e70eecaf502d684d1409195ebc5b5959"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights.exe",
+    "bytes": 667648,
+    "sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/app.info",
+    "bytes": 22,
+    "sha256": "43455f0799eca40be5ec7760edbf8ce7e88c085765a3afe12c89fcf2e0aff2ec"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/boot.config",
+    "bytes": 354,
+    "sha256": "ff580f97e68a726addc171083888423cb719c2e6637453cb4e76c2ba1edabd31"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/globalgamemanagers",
+    "bytes": 272388,
+    "sha256": "f38ff6da024c4a8dced90b1698426151d3e9fa32988d95c222f91904e3457f95"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/globalgamemanagers.assets",
+    "bytes": 1370020,
+    "sha256": "861131c5149f7dfe6dc603714c9269df004d4623c04834c89e83db14e0450682"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/globalgamemanagers.assets.resS",
+    "bytes": 5718240,
+    "sha256": "9d5cd592a38d46bd823a36366b1f5b84cf0a2b3ace58dec6a6374ca0d50fe6ec"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/level0",
+    "bytes": 2012,
+    "sha256": "65240193710ca9087e7a2d97191f2a3c00a51f74b88da96de596e9e9261efe8a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/level1",
+    "bytes": 111944,
+    "sha256": "6ee32fb18ef1112cd7407def92a8da25d0fec8f0cfab30e2a6afbef122f4557e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Assembly-CSharp-firstpass.dll",
+    "bytes": 48640,
+    "sha256": "04fd0d6e58db3cd3eb29b04295594e7094fa4b936f9389aa963d46fbddc12ab1"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Assembly-CSharp-firstpass.pdb",
+    "bytes": 38668,
+    "sha256": "fdc696bc2491aabf7dbc5e4ba2cf6335bac0c49929fab8144ae7bfa64bf01599"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Assembly-CSharp.dll",
+    "bytes": 6144,
+    "sha256": "f5418fff94df01b1782b4e7e855d38d8bcfb1425757ee7f222e3617f13b1813a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Assembly-CSharp.pdb",
+    "bytes": 22132,
+    "sha256": "2c706ff44c42694c60b2f335581865cc2025225589c90b28957cd4cbacba68bd"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Core.dll",
+    "bytes": 75776,
+    "sha256": "8d3705fbb5155a8627f72225d2cf0c70fe3749251c9abbab1d6c37ac493e52f1"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Core.pdb",
+    "bytes": 37236,
+    "sha256": "a3d50fcc6eeadf9f973ee20a8b510e51e624e5d28e5edf6208b6b321fedfe221"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Entry.dll",
+    "bytes": 115712,
+    "sha256": "16e08f4296435dafce4fcf14e000e3fdd778f8be02821c13679a83b417ace71d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Entry.pdb",
+    "bytes": 41820,
+    "sha256": "e5bbd15376dfa17983f73ecfd7e1cff4acd6883433ff90640afebec6433bd94f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Runtime.dll",
+    "bytes": 351232,
+    "sha256": "bc8581eab4dcd23786421f7f89d0b9572664e332eca5e153ccbd4accedd6ed16"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Runtime.pdb",
+    "bytes": 218852,
+    "sha256": "23f867c784ba3c9487304b2a8931cc71ccbdd2dfde182aa816e465ca08d4b68d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Bootstrap.dll",
+    "bytes": 10752,
+    "sha256": "51a526f4d843d80508200c6186cfb0bae46d949e0ad4093a223cefa3c6171bbe"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Bootstrap.pdb",
+    "bytes": 20252,
+    "sha256": "647e5c4cff6e46e62ea7a9ae3e367923f0ba778fdc7eff1709bbb114488e79f7"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Core.dll",
+    "bytes": 8192,
+    "sha256": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Core.pdb",
+    "bytes": 14480,
+    "sha256": "686d0d26c32bf8025951ba1d588fb3883febdfcb2c178308bd40b41f35f21edd"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Presentation.dll",
+    "bytes": 8704,
+    "sha256": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Presentation.pdb",
+    "bytes": 18740,
+    "sha256": "bec02ec3100e9346ac01a46848cf5803bbe3fb5a4950b9095cd3fbc54fdd04e9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Runtime.dll",
+    "bytes": 36864,
+    "sha256": "f2c534d80ba6e5d950170e691a230891de3002def79ce00be6bc4baa0cebe434"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.Samples.LanCoop.Runtime.pdb",
+    "bytes": 33928,
+    "sha256": "7abd942dc573a8373431d087625aa645d21b936ac47230b1b4fcbb2a7e91d398"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.View.dll",
+    "bytes": 114176,
+    "sha256": "8888995de9f466b0317735b54b4406886539984859b20269a8b403961d58c3da"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DarkNights.View.pdb",
+    "bytes": 61388,
+    "sha256": "d13f40618a7bc5e5b579fab333b96420242255d20967686d5fbf335e6385a066"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/DOTween.dll",
+    "bytes": 177664,
+    "sha256": "d74bfc3f37cd97d90f7f08a9a73e204c5eae66e77be24b12378a4e99f1690843"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/FishNet.CodeAnalysis.dll",
+    "bytes": 5120,
+    "sha256": "e56a24a6fe023c324d65dfc4c79b19492f052d011e8bbd45051846be6e05092f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/FishNet.Demos.dll",
+    "bytes": 78336,
+    "sha256": "206320f191995d58f1be5163035ca5cd521b3ca1444b23cbdd8131d48ee12364"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/FishNet.Demos.pdb",
+    "bytes": 43112,
+    "sha256": "d88591b796e2c4519f73ffacb34c853545330c5d019d1709b9e827971e182926"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/FishNet.Runtime.dll",
+    "bytes": 926720,
+    "sha256": "97623ed36b991d2d5cfa90e4b408353115cc3f60432a98f32bc8acc84022cf67"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/FishNet.Runtime.pdb",
+    "bytes": 455872,
+    "sha256": "f2c7e2bd7eb39f6a89bc2392b7ab8a75c2c97025a291fbaf2fa7f40848bc5951"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/GameCore.Runtime.dll",
+    "bytes": 475136,
+    "sha256": "3c21c099ad7941f17a567bdd71bf52ef81bd7d940cd593c86aaa3a8c02d6b6df"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/GameCore.Runtime.pdb",
+    "bytes": 208888,
+    "sha256": "9d27315b83dbfa13179e85f65ae3f52bf4dc52fa09bccf393b6ba9c98c3043c5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/GameKit.Dependencies.dll",
+    "bytes": 91648,
+    "sha256": "f9be78bf6e51e8d5ed5f654a7bfe013ebce0dc2409275191dfc6114eb40f035f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/GameKit.Dependencies.pdb",
+    "bytes": 65500,
+    "sha256": "15bf10620c31128cf63376f53184f6d2ceb544b776f80d8bb51bc2656ba2c21f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/MemoryPack.Core.dll",
+    "bytes": 197632,
+    "sha256": "ca033bc0ecf997a7db8d976850458e218d9816a962e46af89b62ebc3236cc0e4"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/MemoryPack.Unity.dll",
+    "bytes": 10240,
+    "sha256": "d396029bf23e31568a85c12c61ea6a957a74ecc456afdd3078e23d696746a0fa"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/MemoryPack.Unity.pdb",
+    "bytes": 18372,
+    "sha256": "c228b799b811777c81d8bef7d94823a6f629c11461b61c04108e15c66a92d7a8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Microsoft.Bcl.AsyncInterfaces.dll",
+    "bytes": 16000,
+    "sha256": "5705d245072d3eb78400547b32147dbb6e2c8b02ba8bda76729798f5efdeaecb"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Microsoft.Bcl.TimeProvider.dll",
+    "bytes": 32416,
+    "sha256": "d9941b9603506c46e2aaf8b44166c93646b55ebea0d365792b405c2562753442"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Microsoft.CodeAnalysis.CSharp.dll",
+    "bytes": 6098320,
+    "sha256": "e822156145e1add437b1d893c0315257c12e3d5b1b89d83494db6d88d37fe20a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Microsoft.CodeAnalysis.dll",
+    "bytes": 2903440,
+    "sha256": "159f595e313f8cc09bac14588e2466c312f512a4778d9fa2352fcccf2a53aa3d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Mono.Security.dll",
+    "bytes": 241152,
+    "sha256": "9838776992dc44ebe2aff2e9ec52c292024f5464542897aa5d29429a921437b9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/mscorlib.dll",
+    "bytes": 4632064,
+    "sha256": "eaf6b07fd716403e8fedc054bdd1650142d1dc95d34c01d9485de97b5a0dd84b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/netstandard.dll",
+    "bytes": 90112,
+    "sha256": "6ae62e082dc494a2433984177f60ca4db5fae69b1f360a8b33754172b310b8c5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Newtonsoft.Json.dll",
+    "bytes": 691712,
+    "sha256": "a56146202232958f46bd6a28b5a7da166aea123ee0d646735a46e5c341dfbf1f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Newtonsoft.Json.pdb",
+    "bytes": 2174464,
+    "sha256": "17cbab4d4207187ed94173c0d59d7a39fabed7c9035b73634c1f02188dd60168"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/R3.dll",
+    "bytes": 601600,
+    "sha256": "4ac9ec66b56f4cbd139e4c7f99a6e0df6e4bb4c2707635880df8dd04ace291eb"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/R3.Unity.dll",
+    "bytes": 67584,
+    "sha256": "6b9aded7537bb29278073e8b9d9a230d48949b3691207b5962dc2eddaefbe345"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/R3.Unity.pdb",
+    "bytes": 46240,
+    "sha256": "18eb3894deb2a7b424ae8a4486250f2e569136b4d03a8ddf43f73e93b320a03a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/R3.Unity.TextMeshPro.dll",
+    "bytes": 8192,
+    "sha256": "25ac7a98d7002fb85479c435785db12794c6a7a11329aeacf356cb8e3ddc70b9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/R3.Unity.TextMeshPro.pdb",
+    "bytes": 18792,
+    "sha256": "4fe9de51ee6ad931535890a19b51a86446d3400bafacd869aa9a893ce8d5ce07"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/R3.Unity.XRInteractionToolkit.dll",
+    "bytes": 4096,
+    "sha256": "c3e2e1adc1832191e75a7c741c670b4c60b25fade63df6ea520b2b97f4ea81a3"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/R3.Unity.XRInteractionToolkit.pdb",
+    "bytes": 17836,
+    "sha256": "ef4a070f3c14701c98edad42a65ea35242f622ed8e11b65dadc539715c1f7ded"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Sirenix.OdinInspector.Attributes.dll",
+    "bytes": 108544,
+    "sha256": "da19c70edf2cb9eea792c7f0f85088d33dcdfe9f23e1b2794864269b2d3d700e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Sirenix.OdinInspector.Attributes.pdb",
+    "bytes": 31360,
+    "sha256": "fd8de5f7e8431b42c5b3143ca7fff38347d5f211ce7ef1af6e5581b0bdd93316"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Sirenix.OdinInspector.Modules.Unity.Addressables.dll",
+    "bytes": 5632,
+    "sha256": "9930401df21fdc19ba85926203295eb1fe2d076b1cb118d715eb035e2dab9b95"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Sirenix.OdinInspector.Modules.Unity.Addressables.pdb",
+    "bytes": 19264,
+    "sha256": "6c84a16d869d27d8a80e4ace44e4b88cb245424de0c87ce8f10fe21e4e0eaee7"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Sirenix.Serialization.Config.dll",
+    "bytes": 17920,
+    "sha256": "153d3d73ae3cb667de9446e708b33258362de3c23d2e46dffbd40957998464dd"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Sirenix.Serialization.Config.pdb",
+    "bytes": 2856,
+    "sha256": "c11c846032ed607cf143bbd2adb3659bbae16d0ae51ffe3b668814d25a34755a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Sirenix.Serialization.dll",
+    "bytes": 347136,
+    "sha256": "bdb272522d13732acbe2cc1a36ee3aebeb30f256666309a03e1c2f07b417b38b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Sirenix.Serialization.pdb",
+    "bytes": 150676,
+    "sha256": "5662bfb7e963e21bbcaab478b45df46a49513242c14ea6335715e555c510429e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Sirenix.Utilities.dll",
+    "bytes": 150528,
+    "sha256": "2a1fcf8ff085f6f6662e387071a314e2c8dc615b9a1648e5dac9eaef8009e711"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Sirenix.Utilities.pdb",
+    "bytes": 51396,
+    "sha256": "bd25dd273899299f310f314c7969a3af7d0c6beb60279f2bb1b288d63872c10f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/SynapseSocket.dll",
+    "bytes": 149504,
+    "sha256": "3e9a2d16e8c8cc6d07aa0901d34d3825210e7468063afc389d0a8efdbdf27cb8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/SynapseSocket.pdb",
+    "bytes": 82612,
+    "sha256": "0877ddda63e6b12885139f694d269af284fa50161f209d27a1c63556362b88af"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Buffers.dll",
+    "bytes": 4608,
+    "sha256": "762f8fdbe975e05b76be5fe996c53ce7c75e4a2830f2f50b02a5948ef6ba0aeb"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Collections.Immutable.dll",
+    "bytes": 252680,
+    "sha256": "5b1b1c83ba3d135c2fdfe425842fbe9c7432878b7e468623acb554c69b4c130f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.ComponentModel.Annotations.dll",
+    "bytes": 89992,
+    "sha256": "c46069e29ad23fee7f5d2ced736ffea27b0177f82341296d9af6325acf821c69"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.ComponentModel.Composition.dll",
+    "bytes": 257024,
+    "sha256": "a30fdde214493b540a5a169aa1729ff494d46f519d9c9a036746967c0845e764"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Configuration.dll",
+    "bytes": 124928,
+    "sha256": "223a6629bb9debb0327082da3e525860e734f231274d0f6bb83a164df778b779"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Core.dll",
+    "bytes": 1113088,
+    "sha256": "db725196b862d96beefb95bbb6693f892a12dc401b5c044660d13789e45c255d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Data.DataSetExtensions.dll",
+    "bytes": 29696,
+    "sha256": "1d6f66f38cabd57b3d099804593ce5144e22921871dfdf0d6487a4bc725b9c8b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Data.dll",
+    "bytes": 2125312,
+    "sha256": "f1e0909723a04b1b8ba3630593893e1a4683b391349b79697b8958d7e897a68f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.dll",
+    "bytes": 2641920,
+    "sha256": "c3c900393effd00a0d36f1dfd317ffe0f19744aad0c3d9c0b10e5f4d5a00bdd7"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Drawing.dll",
+    "bytes": 489984,
+    "sha256": "630aeba7b15de154e6faf86270eaaf6921ab2b5e9dd2273382e3a0df8ed918ad"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.EnterpriseServices.dll",
+    "bytes": 44544,
+    "sha256": "e0bd4c9aa95b3264e2bc5c43404637447de098829be95d5364a50c286651ede1"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.IO.Compression.dll",
+    "bytes": 114688,
+    "sha256": "11877b20d2c14bb0eb208f3e20f102ddd3c78b8c5d18edcea935dd5960e48449"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.IO.Compression.FileSystem.dll",
+    "bytes": 18432,
+    "sha256": "738c6ea02bb89c69473f8e128f077cb6f7d62b04e7928e0e244ea7a991e65853"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.IO.Hashing.dll",
+    "bytes": 50488,
+    "sha256": "ac7ac3e83805b0b621c48b90543dc733c9a89106835278618357d6187e3da74e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Memory.dll",
+    "bytes": 4608,
+    "sha256": "c4f030a2cba7da7cdcf493257c24560e203d355904aee490d645a935842f834a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Net.Http.dll",
+    "bytes": 122880,
+    "sha256": "31dd2ec15094027cb78457421633e24f8272a5d83792bd02f5c483339fdc948a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Numerics.dll",
+    "bytes": 119296,
+    "sha256": "5ac2ed1d8235e6e27a7527fc159a852b1391854e35589746276377847228eb62"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Reflection.Metadata.dll",
+    "bytes": 487696,
+    "sha256": "55ef768ffa305de58e38e15420669258b16f420618eb1f702bddb30e5c797961"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Runtime.CompilerServices.Unsafe.dll",
+    "bytes": 18024,
+    "sha256": "01748200f2400c742aa689f1f5101bd6298efdfd92c00c18f4fa473847235ba9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Runtime.dll",
+    "bytes": 12288,
+    "sha256": "e0a7334b7ba419aaab6bd3bb6992d693e689341a9178172c9bf99c2aa6a085bd"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Runtime.Serialization.dll",
+    "bytes": 934400,
+    "sha256": "5b7219b02b2724941f532f6806cc6402b7b413be0161f8994364ebb80b045330"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Security.dll",
+    "bytes": 320000,
+    "sha256": "a51236aca52e7f43a5d236667aeee4c29b74f05e70ed4e66f23bd01f1219471d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.ServiceModel.Internals.dll",
+    "bytes": 215040,
+    "sha256": "10362190426d7f2feb552223ebcec5dea0fb33c2ec2e4b512832ddbad2d3fbea"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Text.Encoding.CodePages.dll",
+    "bytes": 5120,
+    "sha256": "3ca4ce55e8ee4a98b7fc8e15775b05eb1579eca009ee297871d3c7b6c0999bd8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Threading.Channels.dll",
+    "bytes": 75952,
+    "sha256": "31c7e3704c0477c53d9306362dc6abe741088efb7a7b4e46cded0169cf7bb0b2"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Threading.Tasks.Extensions.dll",
+    "bytes": 5120,
+    "sha256": "96150abdca5df4446b376560e069d59b3550212deda8cbdd316272f6b834f597"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Transactions.dll",
+    "bytes": 35328,
+    "sha256": "8a962b8b8a99a111bd765d090cf27605f0e84911354d7b272cd2ef484bd117c7"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Xml.dll",
+    "bytes": 3160064,
+    "sha256": "22362d813e444a18592ec32a56731dd4265362bc8b2c2aab76a1816f2d7d679e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/System.Xml.Linq.dll",
+    "bytes": 136704,
+    "sha256": "eee68bc1879f7a5007752aa31db5640a6ec8f5f18aecd40c92d38989758f795b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UniTask.Addressables.dll",
+    "bytes": 13312,
+    "sha256": "2544bb220c163bc96f3fff10eeef41ff01a92be48bd23ff0b35acd008cfb7dee"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UniTask.Addressables.pdb",
+    "bytes": 21704,
+    "sha256": "f35851c2f0e6c8a1fdd1accceef6f5a90d3fc5fa6e6ef76687073513339094a6"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UniTask.dll",
+    "bytes": 623104,
+    "sha256": "e9e91a0fabcc28a1b169beb300fbb4b49b33e0af480e159908419774b7160d7a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UniTask.DOTween.dll",
+    "bytes": 4096,
+    "sha256": "c4da717612058a94ba472b9cc13461a26e3f0fe3e58d78b5c445509b6e40d6c6"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UniTask.DOTween.pdb",
+    "bytes": 17816,
+    "sha256": "8515f134d360c71a9feace6ae8c106b6d280c038133cbaa82cb6789762fedb13"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UniTask.Linq.dll",
+    "bytes": 797184,
+    "sha256": "22c4e48eeaacd6c71ddb7c86b724f20a49b4534d438dadf61999bacf753e1662"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UniTask.Linq.pdb",
+    "bytes": 287652,
+    "sha256": "b7ef82bd6facc34099e6a9e324c6068bdaffe1aa25cbf1396b6bd9e8a164dc1c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UniTask.pdb",
+    "bytes": 293500,
+    "sha256": "6a1790827fbc2725cc91f33c0b760bb80ebeff0541d3223f9c1a729dadded35e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UniTask.TextMeshPro.dll",
+    "bytes": 14336,
+    "sha256": "eb4a720f9c5db8aad1c23d643c28373c0474551d766c64f5ba3118a8b2d1d62b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UniTask.TextMeshPro.pdb",
+    "bytes": 21496,
+    "sha256": "1b3c5344a3d7ee3a545a16e429420eba807b48457220eb9773331866caac6742"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.2D.Animation.Runtime.dll",
+    "bytes": 102400,
+    "sha256": "4c53644c67cb611e130c422c3b9264faad9984d4fffac4dbb14bd7c592ca341e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.2D.Animation.Runtime.pdb",
+    "bytes": 65260,
+    "sha256": "0e060feb1eea25593ab03335c2abe80e6e24f4a5a5a538cb56aa213c653ac0f3"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.2D.Common.Runtime.dll",
+    "bytes": 64512,
+    "sha256": "6567e0b785885e0150b7c69e39a5f2dbcddf6704b30189a86eb293b90b6f1d85"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.2D.Common.Runtime.pdb",
+    "bytes": 55424,
+    "sha256": "cc3262f9e18fbae3b4efe65b09a125e5c92fb0944f21634c8423247c636bbed3"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.2D.IK.Runtime.dll",
+    "bytes": 43520,
+    "sha256": "1f74370977d9f6584d219740da509cabf8cfea6eb56166b66099b6fac2ed5b54"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.2D.IK.Runtime.pdb",
+    "bytes": 37932,
+    "sha256": "7b6b7e4635b5cf6413353bcc02a2f7bbf311aa5259bd935b6dcaa219707f2aa5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.2D.SpriteShape.Runtime.dll",
+    "bytes": 126464,
+    "sha256": "ae134215e36e5adcee0916b6afb6652d322e5fe1a45891b9bb0fd8e3cdadc0c8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.2D.SpriteShape.Runtime.pdb",
+    "bytes": 88348,
+    "sha256": "4325c12e6bdd0dc2c735d9c607115644593a27d1bdc27a0b050d56790bafcd4f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.2D.Tilemap.Extras.dll",
+    "bytes": 43008,
+    "sha256": "21ea1f874be0082072d1e360d2dc50cfba6851c065e170804ed2d8113bc4be72"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.2D.Tilemap.Extras.pdb",
+    "bytes": 35268,
+    "sha256": "c8b0942cbcbd4a11d92367c44e53b0005e8a8f40711c3853065edf2bbafc2a72"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Addressables.dll",
+    "bytes": 126976,
+    "sha256": "0b0d0aa8351d6a4a924e422c3ba4ab31af9a097490cb4ee0c1da33504829c8ed"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Addressables.pdb",
+    "bytes": 71604,
+    "sha256": "ac26517969a97c098a5b60c15c68c82e149dfd1bf15d375979ea092a5e52ba12"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Burst.dll",
+    "bytes": 335360,
+    "sha256": "5b22c5366c6b8502f4cf511eb20d96e62d99326cdea0f073c9c80b7c80e45075"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Burst.pdb",
+    "bytes": 222104,
+    "sha256": "b5b81ac56437578d60ba76f9703dbf8c088f4ee25def15cb7b56e392e64fee13"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Burst.Unsafe.dll",
+    "bytes": 5632,
+    "sha256": "9d9c1ff52411decbee5d9f0d1cd61ebeaa222077aa77a52101ea3debafae98e2"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Collections.dll",
+    "bytes": 501248,
+    "sha256": "8650f7ed18351140c205eda740c5c2e31793f62a678269120bffcc0b47b2d32f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Collections.LowLevel.ILSupport.dll",
+    "bytes": 5120,
+    "sha256": "ff50383f807f9692e4913b97e47d86fefcb8faa33d6d48cd3e3fd6fc7ffb448d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Collections.pdb",
+    "bytes": 317032,
+    "sha256": "a2927ca305f8ae1c2e59ae0447764a458e7fc3d1de5b1729010f5d11145d535e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.InputSystem.dll",
+    "bytes": 1268736,
+    "sha256": "b4a6598220e4560ad84487c891ba5033dafa3138757df55069ef2fad47b1162a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.InputSystem.ForUI.dll",
+    "bytes": 16896,
+    "sha256": "59109de2e73f16f5957ddbbb9b003ec61599efd3cc2524fece7478f6e14e8ca5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.InputSystem.ForUI.pdb",
+    "bytes": 22724,
+    "sha256": "eca94324bcc30f7453edec203a1a012d425324b39151eb7efddfcb37b4fbf94a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.InputSystem.pdb",
+    "bytes": 577740,
+    "sha256": "bd97a247cae4fcb86366360028fd6e92846b4c70b0443e40184211d49fee4aae"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.001.dll",
+    "bytes": 7168,
+    "sha256": "2bdd793a16e1135eb52d34ce097d02e7a9e980d6c056c340f11686d6a08212db"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.001.pdb",
+    "bytes": 19048,
+    "sha256": "d7651ceabf3e6cb3988094444abdb86024078a51354abc045845d56e1ae5b7ab"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.004.dll",
+    "bytes": 5120,
+    "sha256": "ac1a38bce9b2b2544178545216293f96e55ba8a2db2ad8b5e623ceb406296c38"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.004.pdb",
+    "bytes": 18408,
+    "sha256": "bf36e3048ab7aeaeadd6e44ca60855c034ee4cf63412e5410ee5f4a83238f484"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.dll",
+    "bytes": 4096,
+    "sha256": "fffa3129aeb51476085f96e8dd1f4406565b0d034df965e0f53fc1276b1f3868"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.InternalAPIEngineBridge.RenderPipelines.Core.Runtime.Shared.pdb",
+    "bytes": 17876,
+    "sha256": "88dff4fcdd1300aa03f35382a5b84aaed69466807aebfdc36555743fc47987b2"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Mathematics.dll",
+    "bytes": 886784,
+    "sha256": "eab301694bf1b88bcbf62909adbe76710645af161bf921737e5306a7ae0c047f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Mathematics.pdb",
+    "bytes": 517448,
+    "sha256": "d0f7193b7a17c7e86953f0f16fd56d741f50b1afbf8f48e6ea17e19fba7132fc"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Multiplayer.Center.Common.dll",
+    "bytes": 10752,
+    "sha256": "9fb2c81e0edd7f51934393de59bdbabdc4009e9e39e877287d0ec88622592876"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Multiplayer.Center.Common.pdb",
+    "bytes": 19820,
+    "sha256": "fad24e333054d416b583625ea3a6c22518faeab271a80250d1f6ab8c2c069939"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.PathTracing.Runtime.dll",
+    "bytes": 165888,
+    "sha256": "3b8c1ba61f3e0092e44d77cff7501bd636ccb4287f1351c4f9b4d7a177659817"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.PathTracing.Runtime.pdb",
+    "bytes": 80304,
+    "sha256": "138e8b841f8526faa6311c08484c094b544752428ec09f716af9ee1dc9c78a81"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Pipeline.dll",
+    "bytes": 364544,
+    "sha256": "b16cc8797e5d0d3f140148162b6934cf4cf03e2d70bfe8155340b82fb6feb361"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Pipeline.IlInterpreter.dll",
+    "bytes": 368128,
+    "sha256": "d37544840c19baf423c2162fcd49780aab9bec9f3be0e728403b16b9e77d1a9b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Pipeline.IlInterpreter.pdb",
+    "bytes": 194164,
+    "sha256": "68262bba5ed4d0f90c13ba59d57eedf8a317d8472209c50dcac0528523da2add"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Pipeline.pdb",
+    "bytes": 144844,
+    "sha256": "c6c6cd8716876bb2e956c40164ec5efce0ddfb640b011dab01e6e674847c3450"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Profiling.Core.dll",
+    "bytes": 12288,
+    "sha256": "63e219afb5173121b79233ce2a3b6a04ecef321c24350aae7691e585e0fd28b4"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Profiling.Core.pdb",
+    "bytes": 21720,
+    "sha256": "c1b715f8373f229a808dc4b1a7508004c4c2f827200440558a30c540b6a2e53e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.dll",
+    "bytes": 9216,
+    "sha256": "b657db3a663aa1e1abd044929fb38421209551c348dd44f708a825a519f72aa4"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.pdb",
+    "bytes": 18568,
+    "sha256": "3ec865bb165c0082888bd785bb2456e4f1af9880e66f45a3a1051ccba4582aa7"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Core.Runtime.dll",
+    "bytes": 1298944,
+    "sha256": "5e7ee1af4fe41f784421faa54a98bf8af8152bd6c021e438d065fbd3c1731209"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Core.Runtime.pdb",
+    "bytes": 483408,
+    "sha256": "c1b19ceb23ce43353dcda01f936adb2c92be3bba13c2d90d619c30ac1be4dac5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.dll",
+    "bytes": 5632,
+    "sha256": "a207d34ebe1b0ae353d170150e7de6b204d2be53faa7fb7af339fe301a25028d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Core.Runtime.Shared.pdb",
+    "bytes": 18532,
+    "sha256": "9bf5628e67e2d69e91a2c509d216b27ab833b26c2440e02a73e523e309ece001"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.dll",
+    "bytes": 4608,
+    "sha256": "abb130d8dada87e579a3d6c1bed5172a7392756be6d3cdb92bec6f81b551317c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.pdb",
+    "bytes": 18076,
+    "sha256": "baf5adef519b03c1126ad2e820c8918e60c76556d322c5a3a80fe3d1ca63291a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.dll",
+    "bytes": 259584,
+    "sha256": "196d2dfce6adcd337e8dd0f1ffaa83e39eb6dcf6ebf802cc8f52ea6c4cdce8e9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.GPUDriven.Runtime.pdb",
+    "bytes": 131496,
+    "sha256": "6a177c1487912a8d8edac905953f71bb3ff2e612887ac7fc0b547c3761b4b868"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll",
+    "bytes": 4608,
+    "sha256": "5e2afb6d8c721523ddcde7c4ddb49896cef24da8fab0707e3d7c31759b0c17a6"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.pdb",
+    "bytes": 18060,
+    "sha256": "b81521f477e7c565da16aebaa18bbf81fe63ce0c4e6c29dc1377786bf2e2b1e4"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.dll",
+    "bytes": 261632,
+    "sha256": "20898f4d7fe043895eed5c8e496da85e7b762062312bd35f5fb2c6ded3c3e155"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Universal.2D.Runtime.pdb",
+    "bytes": 162588,
+    "sha256": "a39bd5c1ad63c5ba3e830a2b81bd69f7c4d8d8fe19f3a42906bf72b5d3cd33a3"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.dll",
+    "bytes": 5632,
+    "sha256": "8ae8efee9a3e2e787edb99694c7a87ce142a30e85d8c7f1cd45cfa7e6c224045"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.pdb",
+    "bytes": 18232,
+    "sha256": "1fa285f45fdc69804052aadc34bdde034dd7a542b12874c66705a5069b7f36a3"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Runtime.dll",
+    "bytes": 805888,
+    "sha256": "cdfed4b66059b864b1ca7579fbee5863ec7686c8d2cf6a23e08502133833beea"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Runtime.pdb",
+    "bytes": 327192,
+    "sha256": "9e17c5c4a268e9980737508a5fadf8fc9f894f9b4837f265cc1c7465078fae21"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Shaders.dll",
+    "bytes": 4608,
+    "sha256": "1feaf0d1f53f89fd32fe268f76b80b9eb02828d49630af62aa3ec27a6fd9e16f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.RenderPipelines.Universal.Shaders.pdb",
+    "bytes": 18068,
+    "sha256": "f5c62fdab228a09f9c08a2e448515847df411ffc9fb10fe9d848141b29ad3b09"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.ResourceManager.dll",
+    "bytes": 165888,
+    "sha256": "d74c431cb8d2d7ead50c1bb931cf2bccf563916fe8516158ed4ed4eb45349bf5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.ResourceManager.pdb",
+    "bytes": 95676,
+    "sha256": "4dbec43e5d3e1650befb0f7c004b8a5d1a134a0a6c18d7581b881983f34b0b01"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.ScriptableBuildPipeline.dll",
+    "bytes": 9728,
+    "sha256": "011d579e15d4b1415c4107423eacd35618e32a198038b1b1ab6ada5be8b1ca53"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.ScriptableBuildPipeline.pdb",
+    "bytes": 20348,
+    "sha256": "924675d9d4420b1c9e83881bf43635450d81d6f5bbb73fd4ba19d70e2523a52b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Scripting.dll",
+    "bytes": 74664,
+    "sha256": "fd3eb31a0d34f1f926375870beb4a5593d7c99f22a8e8115218a0f5cae2c8401"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Scripting.pdb",
+    "bytes": 28760,
+    "sha256": "db015be024f141a722d255a2969a11eab662200756001a887931c3b2b417f1c1"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.SurfaceCache.Runtime.dll",
+    "bytes": 4096,
+    "sha256": "76939627a0b76140afac231fba634f52a99dda87de13e22a13d745266ef38dc5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.SurfaceCache.Runtime.pdb",
+    "bytes": 18260,
+    "sha256": "d89c83a14b81b3d7f550243a71b3ede588c4035216781d7df998b46430252937"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.TextMeshPro.dll",
+    "bytes": 508928,
+    "sha256": "93fe22e112118b4047fe340bb500ba18e881bd7ed0b10172fccac372c6f41edf"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.TextMeshPro.pdb",
+    "bytes": 259256,
+    "sha256": "b7b63e19b7d7b0ecd93fc2485147e36b4118acfc63be51d2a6b6d360de2ef386"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Timeline.dll",
+    "bytes": 148992,
+    "sha256": "af43550ce1b48f39f7a381b16d1d8942f49a8d1a7d6d8134b6e53eb893220c38"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.Timeline.pdb",
+    "bytes": 92436,
+    "sha256": "c98c522eb068cf632a345264dbe31349d068e132208a76d7b2e989ac7e14f184"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.UnifiedRayTracing.Runtime.dll",
+    "bytes": 111104,
+    "sha256": "fc654d3ff239e75f3b7f2ffc65a39b8ff934babdf015e66af8d29a3c46e4f52a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.UnifiedRayTracing.Runtime.pdb",
+    "bytes": 61308,
+    "sha256": "741b5c7eb7a2ff048169d6a93c4382c88c50e7303998a7ef6179fad92261423f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.VisualScripting.Antlr3.Runtime.dll",
+    "bytes": 86016,
+    "sha256": "ed7ce205f66eafe39bbb5d084d42e7fe11cb4b386ff208e5d5110891be0b7b37"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.VisualScripting.Core.dll",
+    "bytes": 673280,
+    "sha256": "5505b6ebeb4d4febc6b5191803cbfccada08ca4ebb67fc113956465ef30bfe15"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.VisualScripting.Core.pdb",
+    "bytes": 337624,
+    "sha256": "d7d448fd25597ca197dfd34d987d2631f85c5239299dd549961adbc8c2aec7f1"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.VisualScripting.DocCodeExamples.dll",
+    "bytes": 7168,
+    "sha256": "0c0e98e38f00a9c453191ae9e7987dae9db2a5762bf264616cef6d8ee4e5e820"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.VisualScripting.DocCodeExamples.pdb",
+    "bytes": 17824,
+    "sha256": "2788bb8122aa01cad9ecbe202cdef201d65e4ef2ecfd0756fccb7b67c2040e76"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.VisualScripting.Flow.dll",
+    "bytes": 433152,
+    "sha256": "ce9a838070f589e982e936fb0c01c6e4b46c0ffbb0c7cceedcfd60971d0013ee"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.VisualScripting.Flow.pdb",
+    "bytes": 222456,
+    "sha256": "b8373863a775b3ee43c82c152142dfc4efd22cd73177ad65b122023bcc02ddc7"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.VisualScripting.State.dll",
+    "bytes": 33792,
+    "sha256": "8cffc9eb652abf9eced3427e42f46dbe81fc36fc28e3a9004ad2dbc53ce492c9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/Unity.VisualScripting.State.pdb",
+    "bytes": 31160,
+    "sha256": "c7d50c1888f74ea140bdffba15091d34f493ac241f67093961eb36288c8c7e00"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AccessibilityModule.dll",
+    "bytes": 48552,
+    "sha256": "71dd4d2b74f910d7df08774b685ab205765aa647aa3f2a19563306f1ce5d1ca1"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AccessibilityModule.pdb",
+    "bytes": 19656,
+    "sha256": "24700b6eb5315dc5a541ec443440b97e10c2530ce51b73bbb2203d09d863ec13"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AdaptivePerformanceModule.dll",
+    "bytes": 116648,
+    "sha256": "d9789a1756d028571cf693f88dd48dc43f4d8a64eaa0716aa14c06fdf7133deb"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AdaptivePerformanceModule.pdb",
+    "bytes": 43980,
+    "sha256": "6e19bea15ecaf3825ec99bfd658687bb015eb467a191253719beecd8e69f7c70"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AIModule.dll",
+    "bytes": 75688,
+    "sha256": "e7af91d98c9754f470a6846e7af3b4f5ddd1c435cd13602bf89cf72a8a0398c9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AIModule.pdb",
+    "bytes": 18764,
+    "sha256": "ef1a46048e61121e904edb4765828ff69ea12bd0b70d0b9bf22babf42398f366"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AMDModule.dll",
+    "bytes": 21936,
+    "sha256": "0c4a6eda368a259e1fb6d7cf3655075417619a30730c9935f46468329d0524ea"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AMDModule.pdb",
+    "bytes": 11612,
+    "sha256": "5d1caeb97a7e8e4204a6b53ba29177710da165a3c3be8a403c8d947143b9cde5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AndroidJNIModule.dll",
+    "bytes": 114608,
+    "sha256": "e82fd81193718cd4cbddc50645a65e20c2a1c9cc06bd7296016ff2821fe8845b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AndroidJNIModule.pdb",
+    "bytes": 38592,
+    "sha256": "100020b5a8178de2277fcfd7069a22ebf13d55524f894cc05330db4be882a62f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AnimationModule.dll",
+    "bytes": 216496,
+    "sha256": "9c327a1b18f8e292f693bba75626778744f57b68b4feb9d1bc16688e058c4818"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AnimationModule.pdb",
+    "bytes": 49156,
+    "sha256": "309ca58dc0728ed43c097509c99d0b5073ae6497445b023989b5caf6a9ae27f1"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ARModule.dll",
+    "bytes": 26024,
+    "sha256": "ee3dd1936e1be03a96c55cda4438757e9488ee25678ed1c279d945b1ffcdd2ec"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ARModule.pdb",
+    "bytes": 10036,
+    "sha256": "a094a680b047fbc014247693eedbed8e0cb390a25d83dbdd7a858adb2f05debf"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AssetBundleModule.dll",
+    "bytes": 41392,
+    "sha256": "9913652f9d0f165175ae184f1c3768c559a17f113b78fb8d681b352ab1206182"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AssetBundleModule.pdb",
+    "bytes": 13180,
+    "sha256": "12e1e4b76237f816e6d91ce7732fdcc60ebab172e1e58b2fffa130123fb635e7"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AudioModule.dll",
+    "bytes": 139176,
+    "sha256": "b8ec07fea6a77e2c687030e03751ddc0a5a66ae03fc89b1e1830b5aa323b71aa"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.AudioModule.pdb",
+    "bytes": 30184,
+    "sha256": "523b32434a6c4c288cd0c2466abd74fc585024b37532302a844506150b5b9a0b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ClothModule.dll",
+    "bytes": 36784,
+    "sha256": "520653d5e76783dc8006a355a2dbf5d16bee4b212b37250746237de84f56717c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ClothModule.pdb",
+    "bytes": 10624,
+    "sha256": "d921c427d3e5a9a26a78f292ad8e79af589b757862c6a2e2313a807afcde8db3"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ClusterInputModule.dll",
+    "bytes": 28592,
+    "sha256": "0660679d31702fc1781a358611903948c0b89cd6ee3ea2c2cf41daea8738203b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ClusterInputModule.pdb",
+    "bytes": 9496,
+    "sha256": "d0ff7fc0cf43d0dedac67ed609ec210d883b2195f2f35638c4bb62c19ef594c4"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ClusterRendererModule.dll",
+    "bytes": 27056,
+    "sha256": "e3b08413150a41988fa76a4ed4b673d4e92fbf8dc8a9561e954212b84f5d7ad4"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ClusterRendererModule.pdb",
+    "bytes": 9960,
+    "sha256": "8b36e50068924585352ae7cf843bebbc8ea26f73c18aa417ed9972fc03f98de1"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ContentLoadModule.dll",
+    "bytes": 33712,
+    "sha256": "05ecf64cfb172bb3243ec5036f5ce9a0a379c860f34dbe0e408869ad4e2637ab"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ContentLoadModule.pdb",
+    "bytes": 11052,
+    "sha256": "31dc77a18a5f1c8395697bd8461dc7f371a1196d6dba84152b52e93ee7ee72b3"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.CoreModule.dll",
+    "bytes": 1997224,
+    "sha256": "b9f1e6b821610c198b7a5e11bdf43aa88db3cb60cd760850eec415d31b59b6b2"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.CoreModule.pdb",
+    "bytes": 487188,
+    "sha256": "4581a7326a7ed16c9fca115ffb019ca62acd66e2bd91251e7eb066f0c12b219a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.CrashReportingModule.dll",
+    "bytes": 27048,
+    "sha256": "e47f39775945e4dd5436b86a361c4e33c56a5cdb9caf60d42bb1c141dd121257"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.CrashReportingModule.pdb",
+    "bytes": 10108,
+    "sha256": "d394ad8d1444fb560b73ddd87aba75f975a0535576a52edb347e50981a66f562"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.DirectorModule.dll",
+    "bytes": 41392,
+    "sha256": "e3364f7dcbd10c85dc74fc8c3eb8cc9118b39fe90406ebc5a0b5c5a54cf4f5d8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.DirectorModule.pdb",
+    "bytes": 13036,
+    "sha256": "8562af7633fa34b1d79f63bfb9d50408e418b5437013e91b9ac44ff197d23b06"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.dll",
+    "bytes": 201640,
+    "sha256": "a8e7aa817efc60c610c10938ec027ca878f7e671a7d1568a412ee20c9901a803"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.DSPGraphModule.dll",
+    "bytes": 32176,
+    "sha256": "e57cafc1cb08c771a79ae801f70c476dbca860d4a5809bef85647f54e85a7001"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.DSPGraphModule.pdb",
+    "bytes": 9704,
+    "sha256": "a8586ecd486b5fbd3409b7f70ae45240b75752cf30def521a7cfba56a7723aed"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.GameCenterModule.dll",
+    "bytes": 44968,
+    "sha256": "698da142ae80291a234ff020ab6ff8c4af4af02eda61191a7c4f059d7a818df9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.GameCenterModule.pdb",
+    "bytes": 15804,
+    "sha256": "6c8a1f1549f1a52b5b2c97e1c45e286ad750656901a8a04533ea819213a80ff6"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.GIModule.dll",
+    "bytes": 24488,
+    "sha256": "1e589c595872bb30e668b3ec9e4ccf067ded3a39019f861061f4f972367fd043"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.GIModule.pdb",
+    "bytes": 9368,
+    "sha256": "7c40f344f85e0fdc9acd1b87b26a607614cdda222aad862742f4c2a8143c67f1"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.dll",
+    "bytes": 14248,
+    "sha256": "11cbe2f6f54f6b6195215a4f7bb66d0aeb1f381ca64914ef2120132916e25302"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.GraphicsStateCollectionSerializerModule.pdb",
+    "bytes": 9396,
+    "sha256": "0df2e86437be36d900eb23307b634d2f6099a849fe02360cb5ecf332e3c3e15e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.GridModule.dll",
+    "bytes": 31144,
+    "sha256": "e387c824f00e46fee06212d8b78c929dc7171f4531f02a2a6f36ac561fa29fb7"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.GridModule.pdb",
+    "bytes": 10148,
+    "sha256": "765b6370a00702118677daa131be92bde42a6ff42f9fb7775ca14851f0121f2c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.HierarchyCoreModule.dll",
+    "bytes": 106416,
+    "sha256": "3bcd6dad89db4666ee0265d0fdeca2aae8e4a3f704f05966c5a56ef0b1b916d8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.HierarchyCoreModule.pdb",
+    "bytes": 32548,
+    "sha256": "b41adbbb9395850bea5467abd6bbe46d3d9af1b1f81b1d2490ab86963e10126b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.HierarchyModule.dll",
+    "bytes": 97704,
+    "sha256": "1df8e15aa6fd50db69ab8b04a576fb13e6eadaac0edcbbd67c4336b90f4f6d0c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.HierarchyModule.pdb",
+    "bytes": 38392,
+    "sha256": "f90776926143b6acca400f202da938fd887461ce8c8030eacd6242a53459b578"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.HotReloadModule.dll",
+    "bytes": 24488,
+    "sha256": "b561f5e76d3638388624b48e835c192a389d1b219c2fe0eea4c6fcd6645f563d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.HotReloadModule.pdb",
+    "bytes": 9368,
+    "sha256": "fa08c5a72fd850702646aedadedcd77be0d01cba9a69e827850413f38cd2d80a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.IdentifiersModule.dll",
+    "bytes": 15272,
+    "sha256": "2ffd96124242fbc8dad045a2c7d5ba6bd26b9771b9429c82e2ea9531f506989d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.IdentifiersModule.pdb",
+    "bytes": 9644,
+    "sha256": "37294f7c4dcc822dcb01e0c0d7aee355cb7f43f9af83c18635a846f1861ea515"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ImageConversionModule.dll",
+    "bytes": 31656,
+    "sha256": "2b16ae50eb3dc71adbdd9048180d20b4413cd09165bbd6f788ad0c28dd3ba260"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ImageConversionModule.pdb",
+    "bytes": 10364,
+    "sha256": "d79482e620edaba3768ba3c1f79f3eaf9ffb8a5cf8bff9ad6b19075b427d8f9c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.IMGUIModule.dll",
+    "bytes": 180144,
+    "sha256": "ddf7c81144bd693dafd6ff4d0d3a544d666180a6fe87b82b995cd934014195f1"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.IMGUIModule.pdb",
+    "bytes": 60524,
+    "sha256": "93feb0fedc4db5c6a7b78df02b9b524685ae40473514e06ba8af70edda25917c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.InputForUIModule.dll",
+    "bytes": 55720,
+    "sha256": "6d62c9f144d83d6ee3f2184d295f879873bde39a54929e11c3641b66cc269be5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.InputForUIModule.pdb",
+    "bytes": 22516,
+    "sha256": "9c4b4732dbdfb42af822d5dfd595445f569e021083cc8425fd7f2a65ae89a814"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.InputLegacyModule.dll",
+    "bytes": 40880,
+    "sha256": "04b4f282b6be3272f5e3a97241ff4b7d72bda25e470551633cc541b39463f11f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.InputLegacyModule.pdb",
+    "bytes": 12724,
+    "sha256": "f4e526601484773052004f8b329d05accc9f1a6a7cb8dd6a553b084558a81ba9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.InputModule.dll",
+    "bytes": 29104,
+    "sha256": "0f5174f4af5476c476ce4fb400d33e6d062f61b125d41f04733495c3a0470af0"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.InputModule.pdb",
+    "bytes": 10644,
+    "sha256": "94c9ac67237039c643ad327926ec5c345b8c72bce69c407e207de41f7e67269f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.InsightsModule.dll",
+    "bytes": 14256,
+    "sha256": "a7d3d58a9205ae39493a7e958298b2bb5bd33c4faa3e2404d5f1d7929a7b3766"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.InsightsModule.pdb",
+    "bytes": 9696,
+    "sha256": "dba3e18fac0256e7a429ce73e375408386a15007d84c39aaa42b80e300562395"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.JSONSerializeModule.dll",
+    "bytes": 27568,
+    "sha256": "c046f125157e8756442dc2ee810ceaf7e267d1f2980ec703791dc2e1f621d21a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.JSONSerializeModule.pdb",
+    "bytes": 9860,
+    "sha256": "c495f45e4c687712d9ec2c04fbe9f9ee9e80c734508a9441bd21f7147c4791ca"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.LocalizationModule.dll",
+    "bytes": 27568,
+    "sha256": "72f40949b8155cfe2a1484233fce57887f449cd8795f34c9f9ced44d964d4c27"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.LocalizationModule.pdb",
+    "bytes": 9796,
+    "sha256": "55fa75907eda50193df9807ca913bd776d553365eb80167a91e083fdf0c4fe87"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.MarshallingModule.dll",
+    "bytes": 83376,
+    "sha256": "7040bf43009722ec7ff1b73b832522ff8c4c189a371be891beb17ee741db2688"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.MarshallingModule.pdb",
+    "bytes": 13840,
+    "sha256": "8cf5f2ecbda13ffb6cd0ac866ceefbffa28269f9775f7a5a3096ad3aeb7fec4a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.MultiplayerModule.dll",
+    "bytes": 18344,
+    "sha256": "0f6483b3ee86b3e2934f512df9fd797536a819ca50ad509825bd50c9f66c7e41"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.MultiplayerModule.pdb",
+    "bytes": 10320,
+    "sha256": "0d811dc14adf5c082f6a5e848a017a162132150438adaf55054fe6d11fcc2565"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.NVIDIAModule.dll",
+    "bytes": 39856,
+    "sha256": "acdf07202bee5794c7f0630760419450df1a137224b4fa76c47dae78d057f56c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.NVIDIAModule.pdb",
+    "bytes": 14788,
+    "sha256": "7df74b2517bd926c6e1a4d626c5ba39419db3b1d8f6b87240a61e2bf2ab48956"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ParticleSystemModule.dll",
+    "bytes": 167856,
+    "sha256": "f1bcd2401b10fbe0771f09bb496c6d37b553f53ae815e75b8a93bd856022a50d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ParticleSystemModule.pdb",
+    "bytes": 35244,
+    "sha256": "04e0d995fb696a22f7ad08bf809991acfcf1287f5d21e567ece1b372b4ad16c8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.pdb",
+    "bytes": 12700,
+    "sha256": "3539244d45a95239b15644e340ef0b915fa08eeeb8d4ad8b4f1237df5a5b1401"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.PerformanceReportingModule.dll",
+    "bytes": 25512,
+    "sha256": "9e6fbf7e1632b6b634742e62bba97f87154e225ede068b6d1cf9dacbabb034fa"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.PerformanceReportingModule.pdb",
+    "bytes": 9604,
+    "sha256": "d19632606e3a29338fd75cd21b398eea623fdf5599d033316727fd66974dbcc6"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.Physics2DModule.dll",
+    "bytes": 590768,
+    "sha256": "44ff84ab9733ff7acdcdfd64e296fec4ea9cd34f81877b5213b7475d537f8192"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.Physics2DModule.pdb",
+    "bytes": 120952,
+    "sha256": "08ff6f7876e47e8c579bdc03dadbfab561410bedf2231b40f54eafa4b3485f21"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.PhysicsBackendPhysXModule.dll",
+    "bytes": 14248,
+    "sha256": "38bf742b49ba4ef74c1a229ecf1cdb9750d5f517974902dfbca8a5fc9975c2d7"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.PhysicsBackendPhysXModule.pdb",
+    "bytes": 9392,
+    "sha256": "8bdc37138108f58a21902ad4af5511277ec1e66f3dce8502dafd020d46db8c98"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.PhysicsModule.dll",
+    "bytes": 178088,
+    "sha256": "f5ad35b4111f5ffbc1becab8217ab8c49e8c8ce8c19183289e70acfaed37165c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.PhysicsModule.pdb",
+    "bytes": 38736,
+    "sha256": "b048cb71c563d70679b64ce82bcbe2b20de2bd69b79fb9dc7245dc88e03e911e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.PropertiesModule.dll",
+    "bytes": 124848,
+    "sha256": "d49afcff55dbc72349218ca303c5cc6498ff1c2c80c289740cbbdecedf51b128"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.PropertiesModule.pdb",
+    "bytes": 50888,
+    "sha256": "4b32863473b58f08a8f2e79be966269c7ddfe04fd973bab8ae5ad091d25d276d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.RenderAs2DModule.dll",
+    "bytes": 26032,
+    "sha256": "e983322f9786cc472996601cead67a479988f537ccaa636af10bd14a5594fd4f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.RenderAs2DModule.pdb",
+    "bytes": 9428,
+    "sha256": "9443d302e2323119967d2f50f8a36b7f7c1e9936086247556c5a81c63cb5fade"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll",
+    "bytes": 24496,
+    "sha256": "110984bf39f72bc7887c47c60cd862daffff02248a39a5c1e313b143dd79e203"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.pdb",
+    "bytes": 9432,
+    "sha256": "ebfd6aac993607ea2155e0bb4e1db7a87fad17aec28cef265970f4fa7f7b7dee"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ScreenCaptureModule.dll",
+    "bytes": 26536,
+    "sha256": "381dbab0ea8bff015346a8c16534043d7a78bd8e7e262c0920d2d6a8b16802fe"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ScreenCaptureModule.pdb",
+    "bytes": 9896,
+    "sha256": "60da6497031c6dbb6eedd2b2175394a8851e198e3effe4245ad75fd56035d69a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ScriptingModule.dll",
+    "bytes": 26536,
+    "sha256": "a9e2c7813d438768f19e2b40e1a0c74f01f7a06a2a8535892a289d1d686fc00c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ScriptingModule.pdb",
+    "bytes": 9916,
+    "sha256": "326f59e5c1bea9f43f0812695bb8d4ff3705562e6aea3aae4901602b2274f16d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.dll",
+    "bytes": 24496,
+    "sha256": "15d2a92d9e2c04bf077ce6768815366604744b1815b5d6450f6ad75d476445d6"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.ShaderVariantAnalyticsModule.pdb",
+    "bytes": 9496,
+    "sha256": "f8681ff291490c787b9f65336ebfd4bfd54b2f538b5bba69942b99b68544096f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.SharedInternalsModule.dll",
+    "bytes": 36776,
+    "sha256": "64658243e596fb343d8bc013e8623c22b17eb68c6aa3c805e0d04c77dffb7736"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.SharedInternalsModule.pdb",
+    "bytes": 13436,
+    "sha256": "979a4632bf3fdce28b7e10c273eb1a2cc44844a2e8b6b9f02eb26a418078c0fc"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.SpriteMaskModule.dll",
+    "bytes": 29096,
+    "sha256": "52a8960379076bd9b7958ecfc5d46534ee100b4ca768fc9a7f132958e50ca7c6"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.SpriteMaskModule.pdb",
+    "bytes": 9708,
+    "sha256": "e8f827f39f45b5c6a5ed569c31dc4577d1e0f7a77cdad95a06bd0b1a91ac7f18"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.SpriteShapeModule.dll",
+    "bytes": 32680,
+    "sha256": "7d7488190f6f672e942f61deaa6665dd318303cd9b283db71a2ecf06ea67a09c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.SpriteShapeModule.pdb",
+    "bytes": 10764,
+    "sha256": "7efd2475c9c510934d0a46adf28438a272e6a31e603298ac0d873fb1ec80eedd"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.StreamingModule.dll",
+    "bytes": 26544,
+    "sha256": "2eb443829d6a7ab2d2285094250bfc8379c2cd7da8472c53692f1b8bb3af82f8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.StreamingModule.pdb",
+    "bytes": 9456,
+    "sha256": "b1424b3f605f450b5907e2ab5b8b294c381104ccf10b5d2587ca7b7f1a058cab"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.SubstanceModule.dll",
+    "bytes": 29616,
+    "sha256": "c1c376d32b417d7bf32c1cafcd285908d9eabb011940e13ba799c8a3665ad6ca"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.SubstanceModule.pdb",
+    "bytes": 11324,
+    "sha256": "e7444eb970ea5fdf86c2dc9fd8910f3f44b12e6915844c3236895931aabfe2af"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.SubsystemsModule.dll",
+    "bytes": 41392,
+    "sha256": "85c8a193844d2f34bb465d76291ea7eb13da48b95cf22c5bda1f2578f90e5365"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.SubsystemsModule.pdb",
+    "bytes": 15332,
+    "sha256": "54e6d0e1a7ff65bae4560f718995321d33701905ded8dc55df272254f62977e6"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TerrainModule.dll",
+    "bytes": 129448,
+    "sha256": "a87239abd4ce149a1b10b19e1c0fbe3a3fcc8c728d87cddb3efc89eab4e801a0"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TerrainModule.pdb",
+    "bytes": 28168,
+    "sha256": "e8dc0bac66734e2d6016c56dfab9aafd12cff23f0ac7d1f54d87da9d4f8cbb8c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TerrainPhysicsModule.dll",
+    "bytes": 26032,
+    "sha256": "cec9a8f91715bf4b848294635c97d93d31778e742a4582357e13747cd06945df"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TerrainPhysicsModule.pdb",
+    "bytes": 9812,
+    "sha256": "16f3b551a4ce19143e3b74980d818e5d211d8c5c2d87bc1e997764c5f38726aa"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll",
+    "bytes": 77736,
+    "sha256": "373d1ec3d9eb898ebd0ee78ec139a443212cf3cb15d091b31fc9721e4fffe262"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TextCoreFontEngineModule.pdb",
+    "bytes": 24144,
+    "sha256": "844467a0897719fa6fbb147a7e0a4f10ec88add3b46b1908e6a804d1a19b9f21"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll",
+    "bytes": 324016,
+    "sha256": "513dc26544a3ef32a74a5515b9dff944b77c0a0a558a0175fc85e649bde1263c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TextCoreTextEngineModule.pdb",
+    "bytes": 120048,
+    "sha256": "6f4f658ec7987e85b2f49241b4dfae2d6e9171001a46d0f4d8b8eed234b4d091"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TextRenderingModule.dll",
+    "bytes": 38320,
+    "sha256": "defbbd8fa4b7882c8d7adec7cc8c77a6064850d1cb71bfbe26e3564c33cdf1be"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TextRenderingModule.pdb",
+    "bytes": 13880,
+    "sha256": "76793e0575b72dfa0774c3d370e1ec0972759ef5e78a89fa9d2f18ec34c81962"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TilemapModule.dll",
+    "bytes": 70064,
+    "sha256": "9013097ba8e7b3409df3957953bc09041b62cd3a6d503744ca585f06fb3d36f5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TilemapModule.pdb",
+    "bytes": 21220,
+    "sha256": "36a36fb6f80405d1604324d41005242a5dcd21b964d759c863f7dd3bf77af6d8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TLSModule.dll",
+    "bytes": 32680,
+    "sha256": "96c9531a5ad1e1a3d4f8d47b9de5438671331ca9e59a53fd01ab457b73ca212a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.TLSModule.pdb",
+    "bytes": 9556,
+    "sha256": "3b68650970cd1a7be7b2d2499f7875100fcec727291f8e1a69d782fde909cb5a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UI.dll",
+    "bytes": 310272,
+    "sha256": "c8f96aeb51defc37682851bf626053f17919b81eeed2504797663d5500b3a6b5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UI.pdb",
+    "bytes": 189232,
+    "sha256": "17938998416247a8ec3cacb1e09b59e52c04de0ea2e28723ca251fe735e2033f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UIElementsModule.dll",
+    "bytes": 2263984,
+    "sha256": "373e0928facab0c2dfe4c14891af53a2a9ae792093c19cd5d557db4470e00cfd"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UIElementsModule.pdb",
+    "bytes": 826592,
+    "sha256": "0b547e709d9e4401b83a2270ed3c89c130cd64af9dbe57bafdfa26fec5750b54"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UIModule.dll",
+    "bytes": 50096,
+    "sha256": "7afc2ed6286a9d3d36a4fe282ff76e2b92ca6df2b717b720e6160853ae4c6367"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UIModule.pdb",
+    "bytes": 13400,
+    "sha256": "06f1243dc4445a31ff597c27d6300aeb0fb88debd8f854f97ebbe51bef3ec1bd"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UmbraModule.dll",
+    "bytes": 24496,
+    "sha256": "928f50d34ae7f3421b4521faa47e5237c0cbfb879633023215d7c1424711dbbb"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UmbraModule.pdb",
+    "bytes": 9368,
+    "sha256": "4f68cd944b6c748f514ad143c782c10779814335eba69bf0991865672308d882"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll",
+    "bytes": 35240,
+    "sha256": "e4e8ceddb6d44bc632a778164265f168218b796f73dcbadd3c6e2ef02bc846b9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.pdb",
+    "bytes": 13148,
+    "sha256": "a1137200bee214e342d206dbb6b6252c78d01eb7bf995b450e3fc9c6c8209573"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityAnalyticsModule.dll",
+    "bytes": 59304,
+    "sha256": "8d36d19659fb92517140b8abdc1403036d5b31f91fcceb6777c463ebe5def40d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityAnalyticsModule.pdb",
+    "bytes": 16084,
+    "sha256": "338c89a1238f96b82b07b90ec35ccf9c1f024806657a2b16bef35b618163e131"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityConnectModule.dll",
+    "bytes": 28072,
+    "sha256": "9d695582d5bed4fcbd01b0e77b5659a559d38bdf656eb6c1c7e31182bd5acb2e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityConnectModule.pdb",
+    "bytes": 9936,
+    "sha256": "803fb3b251f581243078ef0a79c491e58206fd5b4e3e146455136598656d6dbf"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityConsentModule.dll",
+    "bytes": 16296,
+    "sha256": "7f30d0a42c8d4a7ac6bfb897a36877d1a471fd02ffebdebd4669d573690cb43c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityConsentModule.pdb",
+    "bytes": 9940,
+    "sha256": "05e95aa21bc0c905452113e06be78c3eed6175cc64a2feb677aa750201c452c6"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityCurlModule.dll",
+    "bytes": 26544,
+    "sha256": "5e496fa6de17ae17d0c2b98e217e4a8cd9401dd005f711f55877bad89f14fd71"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityCurlModule.pdb",
+    "bytes": 9764,
+    "sha256": "10f87b6f546b0bf9d218d08af0bd7bbc2822f1f0dce226a811b3bfbdcfc9d9ef"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll",
+    "bytes": 29104,
+    "sha256": "bb515c8d7b24cc69c55dd66e7cc1f7ee8cd01a3d252fbebbe1b41149c8a9cd08"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.pdb",
+    "bytes": 10648,
+    "sha256": "caa23002c83c7e6fee0fdca97eb93d9c975a21645e1aee25627e4d7f33d20773"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll",
+    "bytes": 28592,
+    "sha256": "38a27305b1f2040e654da2ab116277360ea4e41696d24cfb0543fd812bed7671"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityWebRequestAudioModule.pdb",
+    "bytes": 10548,
+    "sha256": "250d56e075ed4ae051f0d86fbb8ce29b3f0bb6dca7d04c47920e4325c017a124"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityWebRequestModule.dll",
+    "bytes": 66984,
+    "sha256": "e76b88e1a6c6a8c85f04b532b2c445a05015c8fadb3f3301855875ab7468799b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityWebRequestModule.pdb",
+    "bytes": 23528,
+    "sha256": "d5a78efcbc0e315dc712f18c74d3e90575cdfd90f5ac6603719b7ca47ff5999c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll",
+    "bytes": 28072,
+    "sha256": "748b249efba1c05315dc4c369eed32e639d671f5f10de5995c8a2cc2a6a77cff"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityWebRequestTextureModule.pdb",
+    "bytes": 10704,
+    "sha256": "b919266396bc1b10e9c7e5a5026a5b6b44fe74d7c1aefacf6a82c1c5749eacac"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll",
+    "bytes": 35760,
+    "sha256": "f652cc35999531575a6543c27ced7fecc8767749ec16044c14a3f5531f67ea45"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.UnityWebRequestWWWModule.pdb",
+    "bytes": 12656,
+    "sha256": "fbaed57d45ed7c2906b87395913a45198ceb89a841d21bc5972487dfa4ac3ea9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VectorGraphicsModule.dll",
+    "bytes": 228264,
+    "sha256": "8164f3ef8d4325b737b08752ef50bd4a3f2fc2fb175b13b5fe6b7d7709e6c035"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VectorGraphicsModule.pdb",
+    "bytes": 102952,
+    "sha256": "6212869bb1877264c0eb65c298496ad7dd4083cc7ac6388e703107c00072e958"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VehiclesModule.dll",
+    "bytes": 31664,
+    "sha256": "e2353ce4f6990fc54e47cb6c16921fe655af527ebc43301b9e369a6adc2eb3cf"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VehiclesModule.pdb",
+    "bytes": 10432,
+    "sha256": "47ed7324c071837e67b44dce1785407bad0627132001d63e587ffa0dede3ad79"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VFXModule.dll",
+    "bytes": 80304,
+    "sha256": "bb4aa4cfde500292af011828681fb1dd6f14aa5f87916b12fbf63855bd002a53"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VFXModule.pdb",
+    "bytes": 17800,
+    "sha256": "943254f1a5cd534df5c12246e985925e578b4605b6a83ec390f2dcf56de9dc9d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VideoModule.dll",
+    "bytes": 48560,
+    "sha256": "264c3c3957c3881d467618374d999a9223e51d82f7a3e781817080d6653b24f0"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VideoModule.pdb",
+    "bytes": 13596,
+    "sha256": "5e8fa10e9556fdecda477ea4946e46a0df989fb6d0604569f25b4c262f034446"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VirtualTexturingModule.dll",
+    "bytes": 42408,
+    "sha256": "86ff62b1a6389ba3ab3c33b5819e0da4f891270bc7aa1c62b63321eaeeae0679"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VirtualTexturingModule.pdb",
+    "bytes": 12528,
+    "sha256": "9ea176a2841444e8bc6cc4e224a0ee0689ce2aa74a50e746b34df788ba1926e5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VRModule.dll",
+    "bytes": 32168,
+    "sha256": "0caddc774482afdd6050ad7d43c26642afd9aa6400e5ee9ed5bb0a9fe9d1640f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.VRModule.pdb",
+    "bytes": 10404,
+    "sha256": "25c644d5501f644bbab40c2c856b07d99f8e22d7560cae883c4dc8a2303c303d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.WindModule.dll",
+    "bytes": 27056,
+    "sha256": "f07283e8292b74095371ce7029f9fecda1289a2f4f759c5da6636727b8a8a57d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.WindModule.pdb",
+    "bytes": 9512,
+    "sha256": "3ec574c48459c35e439cb5786a72273227691f0476832745c248798456f83a0b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.XRModule.dll",
+    "bytes": 86440,
+    "sha256": "6a66b219c0448da5948832ac93f12e460e5d0ee933609ee1f214d8f7a50e373b"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/UnityEngine.XRModule.pdb",
+    "bytes": 21188,
+    "sha256": "fe8c115b951171ef53eb91bddb86ee654d47f9e1ca632f489af4f0d92e34a208"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/VitalRouter.dll",
+    "bytes": 43520,
+    "sha256": "fd220cfa56dfcd1c0c4f96eef3f16da9f62cd51bf553b5ae30622cd8ecafb6fc"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/YYGC.InputActions.dll",
+    "bytes": 12288,
+    "sha256": "f7d17d8b8d061cc7fc8cfc2850715a9472a4b63e8a071fa40083bce11f7a534f"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/YYGC.InputActions.pdb",
+    "bytes": 19876,
+    "sha256": "531d0f7e0d172b8281ebec7f4fc2d0b67f161729042defeef3ed1517ddcb829e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/ZLinq.dll",
+    "bytes": 246272,
+    "sha256": "c330d9be64be19cf58f2f4b21136638d869ac8bfd0bffd69af8133d9261df1da"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/ZLinq.Unity.dll",
+    "bytes": 20992,
+    "sha256": "4db2015b9319f08535c52a401fe648c1419516dd0bc2ca4228768b885fb81eea"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/ZLinq.Unity.pdb",
+    "bytes": 25016,
+    "sha256": "e3dfc43ef8e6a54bf3796793c34f52a60ed59e52425bbc6dcde8fa5481cd8b27"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/ZLinq.Unity.UnityCollectoins.dll",
+    "bytes": 15872,
+    "sha256": "2b72756f338be70270639c484a55d28ae55e030300255cb16cd535514bc17f3d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Managed/ZLinq.Unity.UnityCollectoins.pdb",
+    "bytes": 22484,
+    "sha256": "400deaa5d41acdb47d274c9a04c03820021bfdfef7746459a504786e4bfbd061"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Plugins/x86_64/lib_burst_generated.dll",
+    "bytes": 692224,
+    "sha256": "76bb8b363aef9d53b73ee20335eb405e945f0b13e6dd67a9da807508ea097cdf"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Plugins/x86_64/lib_burst_generated.pdb",
+    "bytes": 4112384,
+    "sha256": "e60cb4b38e3cc4c678c8dc784c8c2355b84f4de11f86ebd9fe835d91b0ccf357"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Plugins/x86_64/libonigwrap.dll",
+    "bytes": 551336,
+    "sha256": "6d539f2ad6e1b58d3c8836b9c3a1d50c97cbd7a6ca0c5de25d994a7c4b1ecf42"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Resources/unity default resources",
+    "bytes": 5922288,
+    "sha256": "96c07875f9764ceaa248eb5715503de54e55fe87166b909330a4ae209a644f70"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/Resources/unity_builtin_extra",
+    "bytes": 397752,
+    "sha256": "41198a5322c8ed7f90edab94852ed6e662f10e016cb90add8ffecfe9fabcb1fa"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/resources.assets",
+    "bytes": 349784,
+    "sha256": "b27f4cc330d657fbb10c3abd72ba34da8f341737645e1f3528fecc2a5d36cb82"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/resources.assets.resS",
+    "bytes": 7232,
+    "sha256": "f12f30b4c1648273e460dab9f8ec974e616980f7a3027d54ac4ca0f19ba89cd3"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/RuntimeInitializeOnLoads.json",
+    "bytes": 15187,
+    "sha256": "0adf7e34c08fbdc156d249a02e9da38c1bf46dfc08beb0f259b5990b88304484"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/ScriptingAssemblies.json",
+    "bytes": 6340,
+    "sha256": "60abb38b7f58ded8fbc6b7d4c165c1acdf0dc9939046671c4c98e6342847e155"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/sharedassets0.assets",
+    "bytes": 5040,
+    "sha256": "05c0fed528e54ea18992157643a272f17b645c7a0bb4c6bc4d6b3f0649aef5e8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/sharedassets0.assets.resS",
+    "bytes": 524288,
+    "sha256": "393efe6399536384aa91bdfc4e64f244b4d3e1fbb6a4ff145c483ffee64ccb36"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/sharedassets1.assets",
+    "bytes": 425540,
+    "sha256": "18283459dd8ea623a25844556d6f90c5ac6b435cdc3269964228578d768aa98d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/sharedassets1.assets.resS",
+    "bytes": 3303360,
+    "sha256": "9736fa7084f95bead0150d521a821aa005c2f81c5ccc942a0b75adf11040eef5"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/StreamingAssets/aa/AddressablesLink/link.xml",
+    "bytes": 9937,
+    "sha256": "155ecbe1f2cbb1530438dba9948a49606e8fabd6cd0db07ed524bce1bf94eae2"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/StreamingAssets/aa/catalog.bin",
+    "bytes": 10833,
+    "sha256": "ddc4ffebe4ba92f1f0dfc8ab5f1bc5b298fe9a9955be9031c04a1e42490c7941"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/StreamingAssets/aa/catalog.hash",
+    "bytes": 32,
+    "sha256": "b0dae93af30144ed3327b08733a5459208bf1770d9a3ffba0fb8dea2a5430a08"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/StreamingAssets/aa/settings.json",
+    "bytes": 865,
+    "sha256": "b6c859f095b089873accb2c8380ad22058a429b254d6330e3a9326f06cb83250"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/StreamingAssets/aa/StandaloneWindows64/21a94cc7e125e407c7df13a6f5103077_monoscripts_1fb04f78d093330afb85e30cfa2a4a19.bundle",
+    "bytes": 3652,
+    "sha256": "92a11aff71b1b9abb6cb6403cfd72da1325d70fab7ac991311dd9d27aba6ee32"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/StreamingAssets/aa/StandaloneWindows64/21a94cc7e125e407c7df13a6f5103077_unitybuiltinassets_89b982bf8cf6c8c05bf84ef232a3d080.bundle",
+    "bytes": 5187,
+    "sha256": "acedc7e98ae9c53dd87c271803b61ca1abda4e048fa3001587096f2ce6459ec9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DarkNights_Data/StreamingAssets/aa/StandaloneWindows64/defaultlocalgroup_assets_all_b978b31b3a64f910c54fb2e285225305.bundle",
+    "bytes": 1436171,
+    "sha256": "66b641dbbb623cab8a90e3b299aca751a7e320001c7519b96347bb7e5eda7a25"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/DNights_BurstDebugInformation_DoNotShip/Data/Plugins/x86_64/lib_burst_generated.txt",
+    "bytes": 245248,
+    "sha256": "8db62534ddee8378610a417c852ae9f4e7dba5e60097808259ae7268d6e5bf19"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/dstorage.dll",
+    "bytes": 206904,
+    "sha256": "cae65787f61514bec6f012f44546e68b19e39d8854a9ab52af813370d44b272a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/dstoragecore.dll",
+    "bytes": 1482784,
+    "sha256": "cf85b19a92a8276f8baca0db9bbcd60735bad50768deb303d310e84d5f4fdd11"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/FishNet.SDK.Id",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/EmbedRuntime/mono-2.0-bdwgc.dll",
+    "bytes": 7828904,
+    "sha256": "c150a7a694af771989d4708c043cca0a79105fb9b84baa57447264960a3ab4b4"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/EmbedRuntime/MonoPosixHelper.dll",
+    "bytes": 611248,
+    "sha256": "a7cdd27b624daa6632269dd26a4a26e40a077f7da52b3204078f558f2df986e9"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser",
+    "bytes": 1605,
+    "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx",
+    "bytes": 60575,
+    "sha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/2.0/machine.config",
+    "bytes": 29066,
+    "sha256": "e91782a27fa39fc6c1d6ee8b08529f5d35052310d0006034b878eb04b8f2af30"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/2.0/settings.map",
+    "bytes": 2622,
+    "sha256": "49c6160f9d54af4270a3b4e997fc4a8301f79b9e2070118fa46ddbcbbc44f9a2"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/2.0/web.config",
+    "bytes": 11635,
+    "sha256": "cf2b54339e069b9e42f7d6795eecbf562c50c1011f4ca8f65f578fe52d97ff92"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser",
+    "bytes": 1605,
+    "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx",
+    "bytes": 60575,
+    "sha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/4.0/machine.config",
+    "bytes": 33598,
+    "sha256": "e60aec2c5115d65b3acb3c55ea21576dbd770f579166c017125571e46ae560ed"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/4.0/settings.map",
+    "bytes": 2622,
+    "sha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/4.0/web.config",
+    "bytes": 18802,
+    "sha256": "e38bb8cc68fe5b4edecdfd288d094b9e8ced7629039b2a347682aba0d8bd7492"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser",
+    "bytes": 1605,
+    "sha256": "8a1082057ac5681dcd4e9c227ed7fb8eb42ac1618963b5de3b65739dd77e2741"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx",
+    "bytes": 60575,
+    "sha256": "751861040b69ea63a3827507b7c8da9c7f549dc181c1c8af4b7ca78cc97d710a"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/4.5/machine.config",
+    "bytes": 34056,
+    "sha256": "ee950004b576fb28dc85f4b0435ed04bf96612de2e8b53be84d07afe85a0de6c"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/4.5/settings.map",
+    "bytes": 2622,
+    "sha256": "ce1db1ad8a9512073164e3eccdc193f7eda036e1a9733caec4635de21b2865c8"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/4.5/web.config",
+    "bytes": 18811,
+    "sha256": "c4cbddd4fd9347b58cc5a72b36dc4ba1ad2bb699e65869d05cd3fb9865f0d824"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/browscap.ini",
+    "bytes": 311984,
+    "sha256": "4ddd50f31fb968f30bedefc253a46dc3f2890192d05cdaa9e0a64a056eee807e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/config",
+    "bytes": 3815,
+    "sha256": "5776169973a26a387b8b3e5c0f2301a7ab9a6dd7c7d3efa22a96abc47fbf8662"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/MonoBleedingEdge/etc/mono/mconfig/config.xml",
+    "bytes": 25817,
+    "sha256": "0c56e34c69124510fa8c19e7b4c2ca6c1c4ff460ae19f798dd0ca035809e396d"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/UnityCrashHandler64.exe",
+    "bytes": 1665960,
+    "sha256": "ac12c0ed0c0cd73ac4762eebe709116bf823bbb6399ceed6ffb5f24d927f284e"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/UnityPlayer.dll",
+    "bytes": 85459888,
+    "sha256": "1be7b350857e46c33b07ee75de3176586064b2367494709d5b4cba1787cf12bf"
+  },
+  {
+    "path": "artifacts/hero-input/player-mono-platform/WinPixEventRuntime.dll",
+    "bytes": 58368,
+    "sha256": "81adcfd8253c3489be720da7e30f16004dc9a1f02a8b418c6c3aef4993032e6d"
+  }
+]

@@ -10,6 +10,8 @@ namespace DarkNights.View
     /// </summary>
     public sealed class PinewatchStage : MonoBehaviour
     {
+        [SerializeField] private UnityEngine.InputSystem.PlayerInput inputPlayer;
+        public UnityEngine.InputSystem.PlayerInput InputPlayer => inputPlayer;
         [SerializeField] private Camera sceneCamera;
         [SerializeField] private Transform entities;
         [SerializeField] private SpriteRenderer sky;

@@ -1,0 +1,2002 @@
+{
+  "date": "2026-09-16",
+  "passed": true,
+  "sourceBaseline": "38d1f9503f660e7eba920ab8e27e9eaeef500ecb",
+  "scope": "Combined hero control and YYGC input slice; game protocol 8, save v3, Mono on one Windows machine.",
+  "frameworkCommit": "0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143",
+  "editor": {
+    "passed": true,
+    "distinctTests": 172,
+    "runs": [
+      {
+        "file": "artifacts/hero-input/unity-final.xml",
+        "sha256": "f175ce92b17e206b741558ed83e6e45048020cdf40476cf63bedccb44781b07d",
+        "total": 172,
+        "passed": 170,
+        "failed": 2,
+        "result": "Failed(Child)"
+      },
+      {
+        "file": "artifacts/hero-input/unity-affected.xml",
+        "sha256": "4122151219859bb4da70d8968f1c13ed797e40e1dd73eeb43564fcf94001c4dc",
+        "total": 3,
+        "passed": 3,
+        "failed": 0,
+        "result": "Passed"
+      },
+      {
+        "file": "artifacts/hero-input/unity-hints.xml",
+        "sha256": "85421cad19773ac822750eb415e10804b0c1ecf5df82b5ff5854dcbeee479c33",
+        "total": 10,
+        "passed": 10,
+        "failed": 0,
+        "result": "Passed"
+      }
+    ],
+    "scope": "Full 172-case Editor run plus affected combat/domain and UI/Play reruns; 172 distinct cases passed by impact merge. One windup boundary assertion corrected without gameplay timing changes; domain-reload rerun used -noaudio to isolate external FMOD output-device initialization failure.",
+    "tests": [
+      {
+        "name": "DarkNights.Tests.ContentTests.CollectionsOwnTheirInputsAndCannotBeWritten",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.EverySourceRuleFieldSurvivesParsing",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"version\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"missing\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"string_number\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"infinity\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"negative\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"fractional_integer\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"damage_order\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"damage_length\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"null_cost\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"unknown_enemy\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"negative_seed\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"zero_interval\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"empty_waves\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"duplicate\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"trailing\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"oversize\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.ResourceArithmeticPreservesOriginalValueAndDoesNotClamp",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.SeedPreservesAllUnsignedBits",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.CoreRegressionTests.FrozenRandomAndPureRules",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Worker\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Spearman\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Archer\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Zombie\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Ghoul\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Armored\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BindDespawnAndReentryClearStateIdentityAndCallbacks",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"House\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Tavern\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Barracks\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Farm\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Tower\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.ProfessionReplacementKeepsIdentityButRejectsOldVisualUpdates",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.TimelinePauseAndSpeedStillDriveTheSameIndividual",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Move\",\"\",\"move\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"WorkMove\",\"wood\",\"move\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"BuildMove\",\"\",\"move\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"TrainingMove\",\"\",\"move\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"wood\",\"work_wood\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"food\",\"work_farm\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"stone\",\"work_mine\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"iron\",\"work_mine\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Build\",\"\",\"build\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Training\",\"\",\"idle\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Trees\",\"wood\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Stone\",\"stone\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Iron\",\"iron\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Farmland\",\"food\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EnvironmentTests.FormalConfigurationIsRegistered",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.EnvironmentTests.InitializationRejectsExistingAssetsWithoutWrites",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.FormalObjectContentTests.FormalDefinitionsAndGeneratedRegistriesAreComplete",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.FormalObjectContentTests.SessionDefinitionCreatesItsGeneratedBehaviour",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.FormalObjectContentTests.WorkerDefinitionRoundTripsThroughFormalInitializerAndBindings",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroCombatTests.AirborneMeleeCannotHitGroundTargetOutsideVerticalReach",
+        "result": "Passed",
+        "source": "unity-affected.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroCombatTests.ClickUsesOriginalWindupAndDoesNotRepeatAfterRelease",
+        "result": "Passed",
+        "source": "unity-affected.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.HeldWorkToolUsesExistingProductionAndStopsOnRelease",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.InputExpiryPauseAndDisconnectInvalidateOldControl",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.PolicyChangeReleasesGuestAndRejectsQueuedLease",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.PossessionCancelsOrdersAndRejectsOtherConnection",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.SelectionVersionAndFuelRemainAuthoritative",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.ShortJumpIsConsumedOnceAndSOnlyDropsCurrentPlatform",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroRecoveryTests.AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroRecoveryTests.DeathRemovesPossessionWithoutAnOrphanedPlayerIndex",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroRecoveryTests.InvalidMotionOrFuelCannotReplaceCurrentWorld",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.HeroRecoveryTests.NativeProjectionCarriesFrozenVerticalAndInventoryState",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.LayoutAuthoringTests.PinewatchSceneMatchesFrozenLayout",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.LocalCommandRingsTests.BurstsReuseNativeObjectsAndMeshesAndResetLifetime",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.LocalCommandRingsTests.NeverShownPoolReleasesEveryPrewarmedMesh",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.MeasurementSeriesTests.LongObservationKeepsEarlyLoadInQuantiles",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.MeasurementSeriesTests.QuantilesHaveBoundedErrorAcrossTimeAndByteScales",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.MeasurementSeriesTests.ResetAndZeroSamplesDoNotCarryEarlierMeasurements",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeArtTests.EveryNativeClipSamplesFrozenFramesOffsetsAndVisibility",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeArtTests.FifteenPrefabCopiesSaveReopenAndAssemblePassivePresentations",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeArtTests.FrozenPixelsAndFifteenDefinitionsRemainComplete",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Chrome\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"MainMenu\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"PauseMenu\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Help\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Result\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.InteractableChangesUpdateWithoutPointerMovement",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.EffectsReopenWithExplicitBindingsAndSourceGeometry",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.HudFadesRemainBoundAfterReopening",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.RemnantsRemainPassiveWithGeneratedIndividualBehaviour(\"Worker\",\"corpse\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.RemnantsRemainPassiveWithGeneratedIndividualBehaviour(\"House\",\"rubble\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeEnvironmentTests.NativeEnvironmentReopensWithFrozenLightsAndGeometry",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"MainMenu\",1280,800)",
+        "result": "Passed",
+        "source": "unity-hints.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"MainMenu\",1600,900)",
+        "result": "Passed",
+        "source": "unity-hints.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"PauseMenu\",1280,800)",
+        "result": "Passed",
+        "source": "unity-hints.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"PauseMenu\",1600,900)",
+        "result": "Passed",
+        "source": "unity-hints.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.OriginalMultilineLabelsKeepTheirMeasuredBaselineSpacing",
+        "result": "Passed",
+        "source": "unity-hints.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.ReopenedPanelsMatchFrozenGeometryAndBindings(0)",
+        "result": "Passed",
+        "source": "unity-hints.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.ReopenedPanelsMatchFrozenGeometryAndBindings(1)",
+        "result": "Passed",
+        "source": "unity-hints.xml"
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.SavedDynamicFontsContainMaterialsAndCanRenderOriginalLanguages",
+        "result": "Passed",
+        "source": "unity-hints.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.DeclaredExpansionMustMatchExactlyAndCannotHideExtraOutput",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.HeaderAndAllocationBoundsAreCheckedBeforeExpansion",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.IncompressibleAndSmallPayloadsUseExactRawFrames",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.RepetitivePayloadCompressesAndReturnsIndependentBytes",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.TrailingBytesAndConcatenatedGzipMembersAreRejected",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.TruncatedAndCorruptedGzipCannotBecomeAValidProjection",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.MeasureCompleteProjectionAtSupportedLimits",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.PooledStateReturnCannotRewriteOwnedReplica",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.ProjectionRejectsLocalCommandRings",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.RealBattleSnapshotsRemainDecodableAfterWindupCrossesZero",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.RealCodecFreezesNestedStateAndRejectsMalformedFrames",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.ScenePlacementTests.PinewatchUsesDirectFormalInstancesAndAutomaticIdentities",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.DetachedEndpointAndDisposedReplicaCannotConfirm",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.OldHandshakeOrEpochCannotConfirm(6,1)",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.OldHandshakeOrEpochCannotConfirm(7,0)",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.SuccessfulRetryCannotBeRevokedByLateRejection",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"economy\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"work-training\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"time-combat\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"new-save\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"save-files\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"commands\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"boundary\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"lifecycle\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"projection\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"replica\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"clock\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"events\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"storage\")",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.SingletonLifecycleTests.InteractionSingletonRegistersAgainAfterPooledDespawn",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedAuthoringTests.RuleChoiceAndPrefabEditsSurviveSaveAndReopen",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedCampaignTests.DoubleSpeedCampaignCompletesWithStableSaveAndNoFurtherSimulation",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedCampaignTests.NormalCampaignMatchesFrozenGodotResults",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedCampaignTests.UnattendedCampLosesAtFrozenTimeAndAlsoStopsAtDoubleSpeed",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.ActiveWorldSaveRestoresTrainingConstructionFlightAndRandomContinuation",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.ArmorFlightAndBountyUseOneDamageOwner",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.AttackWindupAndDoubleSpeedKeepSingleStepSemantics",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.DestructionRefundsTrainingAndReleasesFarmWork",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.InitialOrderAndFarmCompletionPreserveRelationships",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.TrainingFailureRollsBackWholeTickAndPartialPaymentRemainsOrdered",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.TrainingReplacesProfessionOnceAndPreservesSceneIdentity",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.CachedRequirementsStillRejectChangedConfigsForBindingFreeView",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.FailedMutationRollsBackAndFrozenListsSurvivePooling",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.MissingConfigDuplicateConfigAndCapabilityFailBeforeActivation",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.MissingDependenciesReleaseFailedAssemblyContainer",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.MutationOpenedBeforeReassemblyCannotCommitIntoNewLifecycle",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.PreparedObjectsOwnIndependentStateAndActivateExactlyOnce",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.RealWorkerUsesSpecializedPrimaryViewWithoutSelfBinding",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.ReentryRefreshesDependenciesAndDropsOldSubscriptions",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.ReplicaCannotWriteAndCopiesIncomingSnapshot",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectFactoryTests.PreparedWorkerCreatesSynchronouslyAndCancellationCannotActivate",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectFactoryTests.SceneLoaderBindsTheOriginalPrefabInstanceAcrossSessions",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectPlayTests.RepeatedPlayWithDomainReload",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectPlayTests.RepeatedPlayWithoutDomainReload",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectRetirementTests.DefinitionChangeReassemblesCapabilitiesWithoutKeepingOldState",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectRetirementTests.FailedRetirementCannotReuseTheDamagedBehaviour",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectRetirementTests.RetirementDuringStateNotificationClearsAfterDelivery",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectRetirementTests.RevokedAuthorityCannotWriteEvenBeforeContextDisposal",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSlicePlayTests.FormalPlayWithDomainReload",
+        "result": "Passed",
+        "source": "unity-hints.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSlicePlayTests.FormalPlayWithoutDomainReload",
+        "result": "Passed",
+        "source": "unity-hints.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.ConcurrentSpendingAndResendsUseOneAuthorityQueue",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.FailedAssemblyPreservesPaymentIdsAndExistingWork",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.HouseCreationPaysOnceAndCompletesWithOriginalCapacity",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.IndependentMovementAndGatheringPreserveOriginalTiming",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.NewProjectionCopiesIdentityAndStateNotificationsCannotReenter",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.PolicyPauseAndMalformedTargetsCannotMutateObjects",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.SaveRestoreKeepsOriginalSceneObjectAndRejectsBadCandidates",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedTransactionTests.FailedReplicaEpochKeepsCurrentObjectsAndAllowsRetry",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedTransactionTests.NotificationsObserveAllStatesAndCannotRetireSibling",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedTransactionTests.RollbackExceptionsStillRunRemainingCleanupAndUnlockBatch",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedTransactionTests.ThrowingNotificationDoesNotUndoOnlyPartOfPayment",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedTransactionTests.UnsupportedSaveVersionsHaveExplicitErrors",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.ClientConfigurationAndDespawnNeverCreateAuthority",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.ConfigurationAndRoleStartOnceInEitherOrder(True)",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.ConfigurationAndRoleStartOnceInEitherOrder(False)",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.FailedCreationReleasesContextAndFreshAssemblyStarts",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.StopRevokesBeforeDisposalAndLateStartCannotResurrect",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      },
+      {
+        "name": "AddressableAssets.DocExampleCode.TestStub.RequiredTest",
+        "result": "Passed",
+        "source": "unity-final.xml"
+      }
+    ]
+  },
+  "frameworkEvidence": "docs/evidence/hero-input-framework.json",
+  "frameworkDistinctTests": 34,
+  "core": {
+    "passed": true,
+    "checks": 1043,
+    "report": "artifacts/hero-input/core-regression.json",
+    "sha256": "6f8a4511f535c6004c92834f56896dcb3f747803c5e83e9be7ff118524d55a96"
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 316,
+    "selfTests": 12,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "builds": [
+    {
+      "id": "before-hints",
+      "reason": "Initial implementation; superseded after real screenshot exposed obsolete controls text.",
+      "files": 414,
+      "bytes": 199374976,
+      "manifest": "artifacts/hero-input/player-files-before-hints.json",
+      "manifestSha256": "10f525e4ab07ab7e5a38ccc6005b4ef1797b4710f248f8094e786b21b287e2f1",
+      "entryDllSha256": "7d6a828955bebd28722ae20759a006cc27cb0982a3fc898950784d8356b272b7",
+      "retained": false
+    },
+    {
+      "id": "matrix",
+      "reason": "Updated mode hints and current jump binding help; full 350-check matrix used this one artifact.",
+      "files": 414,
+      "bytes": 199376158,
+      "manifest": "artifacts/hero-input/player-files-matrix.json",
+      "manifestSha256": "2e389c3a76e887ac6bc8f5ce1fd72841906929631fc4ac2f0a7f08b0453b83f3",
+      "entryDllSha256": "16e08f4296435dafce4fcf14e000e3fdd778f8be02821c13679a83b417ace71d",
+      "retained": false
+    },
+    {
+      "id": "current",
+      "reason": "Only new Hero toolbar offset and its initial builder changed; four game assemblies byte-identical to matrix. 155 affected checks used this final artifact.",
+      "files": 413,
+      "bytes": 199130911,
+      "manifest": "artifacts/hero-input/player-files.json",
+      "manifestSha256": "679b24e67a4c58ffecd1820b2d59ae2e27aeaae31f6cd412397d861665108f26",
+      "entryDllSha256": "16e08f4296435dafce4fcf14e000e3fdd778f8be02821c13679a83b417ace71d",
+      "retained": true
+    }
+  ],
+  "matrix": {
+    "build": "matrix",
+    "checks": 350,
+    "cases": {
+      "startup": {
+        "report": "artifacts/migration/run-20260916-084620-991-mono/result.json",
+        "sha256": "f82c144b759b5ae3e161658d5915328da61ff56d6f6688a931a3e25d080d11ff",
+        "passed": true,
+        "count": 6,
+        "scope": "Bootstrap + YYGC AppStartup + Addressables + formal ObjectDefinition/Prefab/generated registry startup; no gameplay or multiplayer acceptance",
+        "checks": {
+          "independent_player_remains_running": true,
+          "app_startup_ready_once": true,
+          "frozen_content_loaded_once": true,
+          "formal_object_content_loaded_once": true,
+          "no_startup_or_runtime_exception": true,
+          "no_formal_editor_or_tests_in_player": true
+        }
+      },
+      "session": {
+        "report": "artifacts/migration/session-20260916-084625-519/result.json",
+        "sha256": "dea4b608720c1c76b7f76d87eec4a6efcb7792435fea7f070583969a6ece2e50",
+        "passed": true,
+        "count": 13,
+        "scope": "Formal two-process network, instantiated native views and generated UGUI pause/recruit bindings; no pixel or weak-network acceptance",
+        "checks": {
+          "host_ready_with_all_initial_entities": true,
+          "independent_client_receives_full_late_baseline": true,
+          "host_pause_applied": true,
+          "generated_recruit_button_routes_once": true,
+          "guest_build_paid_once": true,
+          "host_and_client_share_single_payment": true,
+          "guest_cannot_change_time": true,
+          "host_only_enabled": true,
+          "host_only_rejects_guest_camp_mutation": true,
+          "guest_explicit_move_accepted": true,
+          "client_observes_authoritative_motion": true,
+          "complete_world_converges_while_paused": true,
+          "no_player_failure": true
+        }
+      },
+      "concurrency": {
+        "report": "artifacts/migration/concurrency-20260916-084636-703/result.json",
+        "sha256": "6fbb884b4bc27687e0d38872c0ed7fc48f4cb0c5b0fdf604908591f3589a6777",
+        "passed": true,
+        "count": 13,
+        "scope": "Four real processes; simultaneous purchases and worksite, replay, illegal target, stale policy/epoch",
+        "checks": {
+          "concurrent_three_purchases_only_two_can_pay": true,
+          "concurrent_payment_is_atomic": true,
+          "actual_network_resend_returns_original_entity_without_payment": true,
+          "sequence_reuse_with_changed_intent_rejected": true,
+          "illegal_entity_target_rejected": true,
+          "old_policy_request_rejected_after_switch": true,
+          "host_only_blocks_guest_training": true,
+          "shared_worksite_claim_has_one_winner": true,
+          "old_world_request_cannot_mutate_restarted_camp": true,
+          "client3_no_runtime_exception": true,
+          "client2_no_runtime_exception": true,
+          "host_no_runtime_exception": true,
+          "client1_no_runtime_exception": true
+        }
+      },
+      "active-load": {
+        "report": "artifacts/migration/active-load-20260916-084654-934/result.json",
+        "sha256": "4a3f03f8d0a1abde098cfd6e3fa29685847598d9332004c57e4bcda772d72258",
+        "passed": true,
+        "count": 14,
+        "scope": "",
+        "checks": {
+          "real_inflight_arrow_frozen": true,
+          "late_join_sees_construction_training_and_inflight_arrow": true,
+          "late_join_receives_frozen_world_exactly": true,
+          "host_restores_every_persisted_projection_field": true,
+          "host_resets_unpersisted_presentation_flags": true,
+          "host_restores_simulation_time_and_speed": true,
+          "client1_restores_every_persisted_projection_field": true,
+          "client1_resets_unpersisted_presentation_flags": true,
+          "client1_restores_simulation_time_and_speed": true,
+          "isolated_v3_save_has_complete_definition_identities": true,
+          "paused_round_trip_preserves_complete_authority_save": true,
+          "loaded_projectile_and_tasks_resume": true,
+          "host_no_runtime_exception": true,
+          "client1_no_runtime_exception": true
+        }
+      },
+      "recovery": {
+        "report": "artifacts/migration/recovery-20260916-084733-919/result.json",
+        "sha256": "e2c27dea0371246c0d74ae4a67f1d7c0e95e1d3280b6402342c1d39c3ad070eb",
+        "passed": true,
+        "count": 24,
+        "scope": "Four Mono processes; native save/load/continue, corrupt file, epoch, credential recovery, restart and host exit",
+        "checks": {
+          "native_save_button_commits_isolated_slot": true,
+          "new_save_is_v3_with_complete_identities": true,
+          "guest_cannot_write_host_files": true,
+          "host_restores_saved_world_and_new_ready_deadline": true,
+          "client1_restores_saved_world_and_new_ready_deadline": true,
+          "client2_restores_saved_world_and_new_ready_deadline": true,
+          "client3_restores_saved_world_and_new_ready_deadline": true,
+          "corrupt_save_preserves_world_and_epoch": true,
+          "old_version_has_explicit_refusal_and_keeps_world": true,
+          "reconnect_recovers_original_slot_with_new_generation": true,
+          "reconnect_receives_current_world_and_policy": true,
+          "host_restarts_in_same_room": true,
+          "client1_restarts_in_same_room": true,
+          "client2_restarts_in_same_room": true,
+          "client3_restarts_in_same_room": true,
+          "host_cleans_world_after_host_exit": true,
+          "client1_cleans_world_after_host_exit": true,
+          "client2_cleans_world_after_host_exit": true,
+          "client3_cleans_world_after_host_exit": true,
+          "main_menu_continue_loads_selected_saved_world": true,
+          "client1_no_runtime_exception": true,
+          "client2_no_runtime_exception": true,
+          "client3_no_runtime_exception": true,
+          "host_no_runtime_exception": true
+        }
+      },
+      "network-matrix": {
+        "report": "artifacts/migration/network-matrix-20260916-084816-827/result.json",
+        "sha256": "48d34d3c217de587d9ff64dd97d6d0da3f673c2aa20ecca246d85cc13a1632b6",
+        "passed": true,
+        "count": 216,
+        "scope": "Same Mono artifact; four processes; real UDP loss, jitter and reordering",
+        "checks": {
+          "rtt0-loss0.0/native_save_button_commits_isolated_slot": true,
+          "rtt0-loss0.0/new_save_is_v3_with_complete_identities": true,
+          "rtt0-loss0.0/guest_cannot_write_host_files": true,
+          "rtt0-loss0.0/host_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.0/client1_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.0/client2_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.0/client3_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.0/corrupt_save_preserves_world_and_epoch": true,
+          "rtt0-loss0.0/old_version_has_explicit_refusal_and_keeps_world": true,
+          "rtt0-loss0.0/reconnect_recovers_original_slot_with_new_generation": true,
+          "rtt0-loss0.0/reconnect_receives_current_world_and_policy": true,
+          "rtt0-loss0.0/host_restarts_in_same_room": true,
+          "rtt0-loss0.0/client1_restarts_in_same_room": true,
+          "rtt0-loss0.0/client2_restarts_in_same_room": true,
+          "rtt0-loss0.0/client3_restarts_in_same_room": true,
+          "rtt0-loss0.0/host_cleans_world_after_host_exit": true,
+          "rtt0-loss0.0/client1_cleans_world_after_host_exit": true,
+          "rtt0-loss0.0/client2_cleans_world_after_host_exit": true,
+          "rtt0-loss0.0/client3_cleans_world_after_host_exit": true,
+          "rtt0-loss0.0/main_menu_continue_loads_selected_saved_world": true,
+          "rtt0-loss0.0/client1_no_runtime_exception": true,
+          "rtt0-loss0.0/client3_no_runtime_exception": true,
+          "rtt0-loss0.0/client2_no_runtime_exception": true,
+          "rtt0-loss0.0/host_no_runtime_exception": true,
+          "rtt0-loss0.01/native_save_button_commits_isolated_slot": true,
+          "rtt0-loss0.01/new_save_is_v3_with_complete_identities": true,
+          "rtt0-loss0.01/guest_cannot_write_host_files": true,
+          "rtt0-loss0.01/host_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.01/client1_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.01/client2_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.01/client3_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.01/corrupt_save_preserves_world_and_epoch": true,
+          "rtt0-loss0.01/old_version_has_explicit_refusal_and_keeps_world": true,
+          "rtt0-loss0.01/reconnect_recovers_original_slot_with_new_generation": true,
+          "rtt0-loss0.01/reconnect_receives_current_world_and_policy": true,
+          "rtt0-loss0.01/host_restarts_in_same_room": true,
+          "rtt0-loss0.01/client1_restarts_in_same_room": true,
+          "rtt0-loss0.01/client2_restarts_in_same_room": true,
+          "rtt0-loss0.01/client3_restarts_in_same_room": true,
+          "rtt0-loss0.01/host_cleans_world_after_host_exit": true,
+          "rtt0-loss0.01/client1_cleans_world_after_host_exit": true,
+          "rtt0-loss0.01/client2_cleans_world_after_host_exit": true,
+          "rtt0-loss0.01/client3_cleans_world_after_host_exit": true,
+          "rtt0-loss0.01/main_menu_continue_loads_selected_saved_world": true,
+          "rtt0-loss0.01/client1_no_runtime_exception": true,
+          "rtt0-loss0.01/client3_no_runtime_exception": true,
+          "rtt0-loss0.01/client2_no_runtime_exception": true,
+          "rtt0-loss0.01/host_no_runtime_exception": true,
+          "rtt0-loss0.05/native_save_button_commits_isolated_slot": true,
+          "rtt0-loss0.05/new_save_is_v3_with_complete_identities": true,
+          "rtt0-loss0.05/guest_cannot_write_host_files": true,
+          "rtt0-loss0.05/host_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.05/client1_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.05/client2_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.05/client3_restores_saved_world_and_new_ready_deadline": true,
+          "rtt0-loss0.05/corrupt_save_preserves_world_and_epoch": true,
+          "rtt0-loss0.05/old_version_has_explicit_refusal_and_keeps_world": true,
+          "rtt0-loss0.05/reconnect_recovers_original_slot_with_new_generation": true,
+          "rtt0-loss0.05/reconnect_receives_current_world_and_policy": true,
+          "rtt0-loss0.05/host_restarts_in_same_room": true,
+          "rtt0-loss0.05/client1_restarts_in_same_room": true,
+          "rtt0-loss0.05/client2_restarts_in_same_room": true,
+          "rtt0-loss0.05/client3_restarts_in_same_room": true,
+          "rtt0-loss0.05/host_cleans_world_after_host_exit": true,
+          "rtt0-loss0.05/client1_cleans_world_after_host_exit": true,
+          "rtt0-loss0.05/client2_cleans_world_after_host_exit": true,
+          "rtt0-loss0.05/client3_cleans_world_after_host_exit": true,
+          "rtt0-loss0.05/main_menu_continue_loads_selected_saved_world": true,
+          "rtt0-loss0.05/client1_no_runtime_exception": true,
+          "rtt0-loss0.05/client3_no_runtime_exception": true,
+          "rtt0-loss0.05/client2_no_runtime_exception": true,
+          "rtt0-loss0.05/host_no_runtime_exception": true,
+          "rtt100-loss0.0/native_save_button_commits_isolated_slot": true,
+          "rtt100-loss0.0/new_save_is_v3_with_complete_identities": true,
+          "rtt100-loss0.0/guest_cannot_write_host_files": true,
+          "rtt100-loss0.0/host_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.0/client1_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.0/client2_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.0/client3_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.0/corrupt_save_preserves_world_and_epoch": true,
+          "rtt100-loss0.0/old_version_has_explicit_refusal_and_keeps_world": true,
+          "rtt100-loss0.0/reconnect_recovers_original_slot_with_new_generation": true,
+          "rtt100-loss0.0/reconnect_receives_current_world_and_policy": true,
+          "rtt100-loss0.0/host_restarts_in_same_room": true,
+          "rtt100-loss0.0/client1_restarts_in_same_room": true,
+          "rtt100-loss0.0/client2_restarts_in_same_room": true,
+          "rtt100-loss0.0/client3_restarts_in_same_room": true,
+          "rtt100-loss0.0/host_cleans_world_after_host_exit": true,
+          "rtt100-loss0.0/client1_cleans_world_after_host_exit": true,
+          "rtt100-loss0.0/client2_cleans_world_after_host_exit": true,
+          "rtt100-loss0.0/client3_cleans_world_after_host_exit": true,
+          "rtt100-loss0.0/main_menu_continue_loads_selected_saved_world": true,
+          "rtt100-loss0.0/client1_no_runtime_exception": true,
+          "rtt100-loss0.0/client3_no_runtime_exception": true,
+          "rtt100-loss0.0/client2_no_runtime_exception": true,
+          "rtt100-loss0.0/host_no_runtime_exception": true,
+          "rtt100-loss0.01/native_save_button_commits_isolated_slot": true,
+          "rtt100-loss0.01/new_save_is_v3_with_complete_identities": true,
+          "rtt100-loss0.01/guest_cannot_write_host_files": true,
+          "rtt100-loss0.01/host_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.01/client1_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.01/client2_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.01/client3_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.01/corrupt_save_preserves_world_and_epoch": true,
+          "rtt100-loss0.01/old_version_has_explicit_refusal_and_keeps_world": true,
+          "rtt100-loss0.01/reconnect_recovers_original_slot_with_new_generation": true,
+          "rtt100-loss0.01/reconnect_receives_current_world_and_policy": true,
+          "rtt100-loss0.01/host_restarts_in_same_room": true,
+          "rtt100-loss0.01/client1_restarts_in_same_room": true,
+          "rtt100-loss0.01/client2_restarts_in_same_room": true,
+          "rtt100-loss0.01/client3_restarts_in_same_room": true,
+          "rtt100-loss0.01/host_cleans_world_after_host_exit": true,
+          "rtt100-loss0.01/client1_cleans_world_after_host_exit": true,
+          "rtt100-loss0.01/client2_cleans_world_after_host_exit": true,
+          "rtt100-loss0.01/client3_cleans_world_after_host_exit": true,
+          "rtt100-loss0.01/main_menu_continue_loads_selected_saved_world": true,
+          "rtt100-loss0.01/client1_no_runtime_exception": true,
+          "rtt100-loss0.01/client3_no_runtime_exception": true,
+          "rtt100-loss0.01/client2_no_runtime_exception": true,
+          "rtt100-loss0.01/host_no_runtime_exception": true,
+          "rtt100-loss0.05/native_save_button_commits_isolated_slot": true,
+          "rtt100-loss0.05/new_save_is_v3_with_complete_identities": true,
+          "rtt100-loss0.05/guest_cannot_write_host_files": true,
+          "rtt100-loss0.05/host_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.05/client1_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.05/client2_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.05/client3_restores_saved_world_and_new_ready_deadline": true,
+          "rtt100-loss0.05/corrupt_save_preserves_world_and_epoch": true,
+          "rtt100-loss0.05/old_version_has_explicit_refusal_and_keeps_world": true,
+          "rtt100-loss0.05/reconnect_recovers_original_slot_with_new_generation": true,
+          "rtt100-loss0.05/reconnect_receives_current_world_and_policy": true,
+          "rtt100-loss0.05/host_restarts_in_same_room": true,
+          "rtt100-loss0.05/client1_restarts_in_same_room": true,
+          "rtt100-loss0.05/client2_restarts_in_same_room": true,
+          "rtt100-loss0.05/client3_restarts_in_same_room": true,
+          "rtt100-loss0.05/host_cleans_world_after_host_exit": true,
+          "rtt100-loss0.05/client1_cleans_world_after_host_exit": true,
+          "rtt100-loss0.05/client2_cleans_world_after_host_exit": true,
+          "rtt100-loss0.05/client3_cleans_world_after_host_exit": true,
+          "rtt100-loss0.05/main_menu_continue_loads_selected_saved_world": true,
+          "rtt100-loss0.05/client1_no_runtime_exception": true,
+          "rtt100-loss0.05/client3_no_runtime_exception": true,
+          "rtt100-loss0.05/client2_no_runtime_exception": true,
+          "rtt100-loss0.05/host_no_runtime_exception": true,
+          "rtt200-loss0.0/native_save_button_commits_isolated_slot": true,
+          "rtt200-loss0.0/new_save_is_v3_with_complete_identities": true,
+          "rtt200-loss0.0/guest_cannot_write_host_files": true,
+          "rtt200-loss0.0/host_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.0/client1_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.0/client2_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.0/client3_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.0/corrupt_save_preserves_world_and_epoch": true,
+          "rtt200-loss0.0/old_version_has_explicit_refusal_and_keeps_world": true,
+          "rtt200-loss0.0/reconnect_recovers_original_slot_with_new_generation": true,
+          "rtt200-loss0.0/reconnect_receives_current_world_and_policy": true,
+          "rtt200-loss0.0/host_restarts_in_same_room": true,
+          "rtt200-loss0.0/client1_restarts_in_same_room": true,
+          "rtt200-loss0.0/client2_restarts_in_same_room": true,
+          "rtt200-loss0.0/client3_restarts_in_same_room": true,
+          "rtt200-loss0.0/host_cleans_world_after_host_exit": true,
+          "rtt200-loss0.0/client1_cleans_world_after_host_exit": true,
+          "rtt200-loss0.0/client2_cleans_world_after_host_exit": true,
+          "rtt200-loss0.0/client3_cleans_world_after_host_exit": true,
+          "rtt200-loss0.0/main_menu_continue_loads_selected_saved_world": true,
+          "rtt200-loss0.0/client1_no_runtime_exception": true,
+          "rtt200-loss0.0/client3_no_runtime_exception": true,
+          "rtt200-loss0.0/client2_no_runtime_exception": true,
+          "rtt200-loss0.0/host_no_runtime_exception": true,
+          "rtt200-loss0.01/native_save_button_commits_isolated_slot": true,
+          "rtt200-loss0.01/new_save_is_v3_with_complete_identities": true,
+          "rtt200-loss0.01/guest_cannot_write_host_files": true,
+          "rtt200-loss0.01/host_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.01/client1_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.01/client2_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.01/client3_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.01/corrupt_save_preserves_world_and_epoch": true,
+          "rtt200-loss0.01/old_version_has_explicit_refusal_and_keeps_world": true,
+          "rtt200-loss0.01/reconnect_recovers_original_slot_with_new_generation": true,
+          "rtt200-loss0.01/reconnect_receives_current_world_and_policy": true,
+          "rtt200-loss0.01/host_restarts_in_same_room": true,
+          "rtt200-loss0.01/client1_restarts_in_same_room": true,
+          "rtt200-loss0.01/client2_restarts_in_same_room": true,
+          "rtt200-loss0.01/client3_restarts_in_same_room": true,
+          "rtt200-loss0.01/host_cleans_world_after_host_exit": true,
+          "rtt200-loss0.01/client1_cleans_world_after_host_exit": true,
+          "rtt200-loss0.01/client2_cleans_world_after_host_exit": true,
+          "rtt200-loss0.01/client3_cleans_world_after_host_exit": true,
+          "rtt200-loss0.01/main_menu_continue_loads_selected_saved_world": true,
+          "rtt200-loss0.01/client1_no_runtime_exception": true,
+          "rtt200-loss0.01/client3_no_runtime_exception": true,
+          "rtt200-loss0.01/client2_no_runtime_exception": true,
+          "rtt200-loss0.01/host_no_runtime_exception": true,
+          "rtt200-loss0.05/native_save_button_commits_isolated_slot": true,
+          "rtt200-loss0.05/new_save_is_v3_with_complete_identities": true,
+          "rtt200-loss0.05/guest_cannot_write_host_files": true,
+          "rtt200-loss0.05/host_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.05/client1_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.05/client2_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.05/client3_restores_saved_world_and_new_ready_deadline": true,
+          "rtt200-loss0.05/corrupt_save_preserves_world_and_epoch": true,
+          "rtt200-loss0.05/old_version_has_explicit_refusal_and_keeps_world": true,
+          "rtt200-loss0.05/reconnect_recovers_original_slot_with_new_generation": true,
+          "rtt200-loss0.05/reconnect_receives_current_world_and_policy": true,
+          "rtt200-loss0.05/host_restarts_in_same_room": true,
+          "rtt200-loss0.05/client1_restarts_in_same_room": true,
+          "rtt200-loss0.05/client2_restarts_in_same_room": true,
+          "rtt200-loss0.05/client3_restarts_in_same_room": true,
+          "rtt200-loss0.05/host_cleans_world_after_host_exit": true,
+          "rtt200-loss0.05/client1_cleans_world_after_host_exit": true,
+          "rtt200-loss0.05/client2_cleans_world_after_host_exit": true,
+          "rtt200-loss0.05/client3_cleans_world_after_host_exit": true,
+          "rtt200-loss0.05/main_menu_continue_loads_selected_saved_world": true,
+          "rtt200-loss0.05/client1_no_runtime_exception": true,
+          "rtt200-loss0.05/client3_no_runtime_exception": true,
+          "rtt200-loss0.05/client2_no_runtime_exception": true,
+          "rtt200-loss0.05/host_no_runtime_exception": true
+        }
+      },
+      "visual-1280": {
+        "report": "artifacts/migration/visual-1280x800-20260916-085153-773/result.json",
+        "sha256": "45ddb80b9524aca2167af6ae2da5ef34e132ca7a541727e5c100d94eb652fab8",
+        "passed": true,
+        "count": 6,
+        "scope": "Real Mono offscreen screenshots; image content requires separate visual review",
+        "checks": {
+          "day_has_requested_dimensions": true,
+          "night_has_requested_dimensions": true,
+          "pause_has_requested_dimensions": true,
+          "help_has_requested_dimensions": true,
+          "menu_has_requested_dimensions": true,
+          "no_runtime_exception": true
+        }
+      },
+      "visual-1600": {
+        "report": "artifacts/migration/visual-1600x900-20260916-085220-022/result.json",
+        "sha256": "18ebc7f2f65934d4e6e075338157722c262498cf5eb914c360de026936ea3c62",
+        "passed": true,
+        "count": 6,
+        "scope": "Real Mono offscreen screenshots; image content requires separate visual review",
+        "checks": {
+          "day_has_requested_dimensions": true,
+          "night_has_requested_dimensions": true,
+          "pause_has_requested_dimensions": true,
+          "help_has_requested_dimensions": true,
+          "menu_has_requested_dimensions": true,
+          "no_runtime_exception": true
+        }
+      },
+      "battle": {
+        "report": "artifacts/migration/battle-20260916-085246-258/result.json",
+        "sha256": "35f3805d464cf4a3e48e34d2908c8fb21b00c54e1fa0922fd42bfb46a64bc606",
+        "passed": true,
+        "count": 9,
+        "scope": "Mono graphical Host and independent late-joining client during real battle",
+        "checks": {
+          "real_host_starts_native_scene": true,
+          "real_night_creates_arrows_and_effects": true,
+          "late_join_gets_running_battle_and_native_entities": true,
+          "late_join_receives_real_projectiles_effects_and_remnants": true,
+          "paused_battle_converges": true,
+          "both_rendered_screenshots_exist": true,
+          "host_exit_clears_guest_world_and_transient_views": true,
+          "host_runtime_has_no_exception_or_shader_error": true,
+          "client_runtime_has_no_exception_or_shader_error": true
+        }
+      },
+      "campaign": {
+        "report": "artifacts/migration/campaign-20260916-085313-665/result.json",
+        "sha256": "940d4790f6f26476b9c94917a083cf2be9c4e7aa7de3b44ef1968226a9164551",
+        "passed": true,
+        "count": 22,
+        "scope": "Four real Mono processes; normal-resource three-night strategy through SessionClient",
+        "checks": {
+          "normal_starting_resources_fund_frozen_strategy": true,
+          "client1_late_join_ready": true,
+          "client2_late_join_ready": true,
+          "client3_late_join_ready": true,
+          "all_three_nights_win_with_34_real_kills": true,
+          "four_process_session_ready_at_victory": true,
+          "construction_and_promoted_actor_captures_exist": true,
+          "client1_sees_authoritative_victory": true,
+          "client2_sees_authoritative_victory": true,
+          "client3_sees_authoritative_victory": true,
+          "client3_performance_recorded": true,
+          "client3_windows_working_set_recorded": true,
+          "client3_no_runtime_exception": true,
+          "client2_performance_recorded": true,
+          "client2_windows_working_set_recorded": true,
+          "client2_no_runtime_exception": true,
+          "host_performance_recorded": true,
+          "host_windows_working_set_recorded": true,
+          "host_no_runtime_exception": true,
+          "client1_performance_recorded": true,
+          "client1_windows_working_set_recorded": true,
+          "client1_no_runtime_exception": true
+        }
+      },
+      "pressure": {
+        "report": "artifacts/migration/pressure-20260916-085704-971/result.json",
+        "sha256": "e90d9206cbb950b700d49a74bce228fedad9bbda0b4fe826ecce40a9e8290353",
+        "passed": true,
+        "count": 21,
+        "scope": "Synthetic supported projection ceiling, four rendered Mono processes, real UDP relay",
+        "checks": {
+          "host_retains_one_authoritative_object_per_real_entity": true,
+          "client1_full_limit_received_and_rendered": true,
+          "client2_full_limit_received_and_rendered": true,
+          "client3_full_limit_received_and_rendered": true,
+          "client1_metrics_captured": true,
+          "client1_windows_working_set_recorded": true,
+          "client1_no_runtime_exception": true,
+          "client2_metrics_captured": true,
+          "client2_windows_working_set_recorded": true,
+          "client2_no_runtime_exception": true,
+          "host_metrics_captured": true,
+          "host_windows_working_set_recorded": true,
+          "host_no_runtime_exception": true,
+          "client3_metrics_captured": true,
+          "client3_windows_working_set_recorded": true,
+          "client3_no_runtime_exception": true,
+          "actual_udp_payload_measured": true,
+          "full_projection_keeps_publishing_with_four_ready_peers": true,
+          "client1_projection_stays_within_one_second_on_zero_loss_lan": true,
+          "client2_projection_stays_within_one_second_on_zero_loss_lan": true,
+          "client3_projection_stays_within_one_second_on_zero_loss_lan": true
+        }
+      }
+    }
+  },
+  "finalArtifact": {
+    "build": "current",
+    "checks": 155,
+    "cases": {
+      "startup": {
+        "report": "artifacts/migration/run-20260916-090110-459-mono/result.json",
+        "sha256": "215fbcc60112529937228c76c5d24b8e6152e22b0aa09b698e779056d571108c",
+        "passed": true,
+        "count": 6,
+        "scope": "Bootstrap + YYGC AppStartup + Addressables + formal ObjectDefinition/Prefab/generated registry startup; no gameplay or multiplayer acceptance",
+        "checks": {
+          "independent_player_remains_running": true,
+          "app_startup_ready_once": true,
+          "frozen_content_loaded_once": true,
+          "formal_object_content_loaded_once": true,
+          "no_startup_or_runtime_exception": true,
+          "no_formal_editor_or_tests_in_player": true
+        }
+      },
+      "hero-baseline": {
+        "report": "artifacts/hero-input/network-20260916-090114-971/result.json",
+        "sha256": "fafb7852aa63e2781dc6024abf40fb5c2018e5605e4b975e7a7cbb2e050e2605",
+        "passed": true,
+        "count": 37,
+        "scope": "Two independent Mono processes; native hero mode, authoritative input, possession, platform, jetpack, recovery and policy. No foreground performance claim.",
+        "checks": {
+          "default_mode_claims_distinct_heroes": true,
+          "native_hero_and_current_controls_guide_captured": true,
+          "host_native_toggle_releases_to_camp": true,
+          "client_native_toggle_releases_to_camp": true,
+          "camp_mode_has_no_orphaned_owner": true,
+          "host_claims_one_actor": true,
+          "contested_actor_rejected": true,
+          "guest_claims_another_actor": true,
+          "one_actor_per_connection": true,
+          "foreign_connection_input_rejected": true,
+          "camp_orders_cannot_override_hero": true,
+          "continuous_input_advances_original_movement": true,
+          "missing_input_times_out_without_a_neutral_packet": true,
+          "remote_short_jump_survives_released_held_state": true,
+          "jump_lands_on_authored_platform": true,
+          "drop_through_returns_to_ground": true,
+          "stale_item_selection_rejected": true,
+          "selected_jetpack_equips": true,
+          "duplicate_item_request_does_not_toggle_twice": true,
+          "fuel_and_vertical_motion_are_authoritative": true,
+          "pause_invalidates_input_lease": true,
+          "actual_player_render_captured": true,
+          "new_format_saves_airborne_state": true,
+          "airborne_recovery_preserves_motion_equipment_and_fuel": true,
+          "load_releases_all_ownership": true,
+          "previous_epoch_input_rejected_after_load": true,
+          "invalid_direction_stale_tick_and_old_protocol_rejected": true,
+          "pre_pause_lease_cannot_move_after_resume": true,
+          "disconnect_releases_hero_to_automatic_control": true,
+          "reconnect_recovers_slot_with_fresh_connection": true,
+          "reconnected_player_can_reclaim": true,
+          "host_only_revokes_guest_possession": true,
+          "host_only_rejects_guest_claim": true,
+          "shared_policy_restores_claim_permission": true,
+          "complete_projection_converges_while_paused": true,
+          "host_no_runtime_exception": true,
+          "client_no_runtime_exception": true
+        }
+      },
+      "hero-weak": {
+        "report": "artifacts/hero-input/weak-20260916-091748-065/result.json",
+        "sha256": "a96c4f78b30a14896899d2b061a217546f3cddf2cfaa67aa7551f8526746abba",
+        "passed": true,
+        "count": 35,
+        "scope": "Same Mono code; independent Host/client; nominal RTT 200 ms, loss 5%, one-way jitter 25 ms",
+        "checks": {
+          "default_mode_claims_distinct_heroes": true,
+          "host_native_toggle_releases_to_camp": true,
+          "client_native_toggle_releases_to_camp": true,
+          "camp_mode_has_no_orphaned_owner": true,
+          "host_claims_one_actor": true,
+          "contested_actor_rejected": true,
+          "guest_claims_another_actor": true,
+          "one_actor_per_connection": true,
+          "foreign_connection_input_rejected": true,
+          "camp_orders_cannot_override_hero": true,
+          "continuous_input_advances_original_movement": true,
+          "missing_input_times_out_without_a_neutral_packet": true,
+          "remote_short_jump_survives_released_held_state": true,
+          "jump_lands_on_authored_platform": true,
+          "drop_through_returns_to_ground": true,
+          "stale_item_selection_rejected": true,
+          "selected_jetpack_equips": true,
+          "duplicate_item_request_does_not_toggle_twice": true,
+          "fuel_and_vertical_motion_are_authoritative": true,
+          "pause_invalidates_input_lease": true,
+          "new_format_saves_airborne_state": true,
+          "airborne_recovery_preserves_motion_equipment_and_fuel": true,
+          "load_releases_all_ownership": true,
+          "previous_epoch_input_rejected_after_load": true,
+          "invalid_direction_stale_tick_and_old_protocol_rejected": true,
+          "pre_pause_lease_cannot_move_after_resume": true,
+          "disconnect_releases_hero_to_automatic_control": true,
+          "reconnect_recovers_slot_with_fresh_connection": true,
+          "reconnected_player_can_reclaim": true,
+          "host_only_revokes_guest_possession": true,
+          "host_only_rejects_guest_claim": true,
+          "shared_policy_restores_claim_permission": true,
+          "complete_projection_converges_while_paused": true,
+          "host_no_runtime_exception": true,
+          "client_no_runtime_exception": true
+        }
+      },
+      "command-rings": {
+        "report": "artifacts/local-command-rings/session-20260916-091923-381/result.json",
+        "sha256": "95209f1b1722825f9c1a4b8c0f935323163260db32ca3f04d981b267a29ee8aa",
+        "passed": true,
+        "count": 22,
+        "scope": "Independent Mono Host/client, local input route, pooled native circles, permissions, epoch and reconnect; no foreground performance acceptance",
+        "checks": {
+          "host_prewarmed_local_pool_is_idle": true,
+          "host_pause_applies": true,
+          "client_prewarmed_local_pool_is_idle": true,
+          "business_order_still_applies": true,
+          "business_path_does_not_create_circles_on_either_peer": true,
+          "guest_input_immediately_shows_one_local_circle": true,
+          "host_never_presents_guest_circle": true,
+          "guest_circle_expires_while_paused_without_replay": true,
+          "projection_contains_no_command_circle": true,
+          "host_input_immediately_shows_one_local_circle": true,
+          "guest_never_presents_host_circle": true,
+          "burst_is_bounded_and_reuses_eight_instances": true,
+          "host_only_policy_applies": true,
+          "known_permission_denial_does_not_show_circle": true,
+          "new_epoch_clears_circles_and_retains_pool": true,
+          "disconnect_clears_active_circle": true,
+          "reconnect_does_not_replay_or_recreate_circles": true,
+          "host_does_not_replay_after_epoch_or_guest_reconnect": true,
+          "host_creates_only_eight_native_command_objects": true,
+          "host_no_runtime_exception": true,
+          "client_creates_only_eight_native_command_objects": true,
+          "client_no_runtime_exception": true
+        }
+      },
+      "weak-command-rings": {
+        "report": "artifacts/hero-input/weak-20260916-091936-741/result.json",
+        "sha256": "3ededfad9a885f45095d9fbc83ec9b5cf18f88301de49d8eaab7de4463bd2d29",
+        "passed": true,
+        "count": 22,
+        "scope": "Same Mono code; independent Host/client; nominal RTT 200 ms, loss 5%, one-way jitter 25 ms",
+        "checks": {
+          "host_prewarmed_local_pool_is_idle": true,
+          "host_pause_applies": true,
+          "client_prewarmed_local_pool_is_idle": true,
+          "business_order_still_applies": true,
+          "business_path_does_not_create_circles_on_either_peer": true,
+          "guest_input_immediately_shows_one_local_circle": true,
+          "host_never_presents_guest_circle": true,
+          "guest_circle_expires_while_paused_without_replay": true,
+          "projection_contains_no_command_circle": true,
+          "host_input_immediately_shows_one_local_circle": true,
+          "guest_never_presents_host_circle": true,
+          "burst_is_bounded_and_reuses_eight_instances": true,
+          "host_only_policy_applies": true,
+          "known_permission_denial_does_not_show_circle": true,
+          "new_epoch_clears_circles_and_retains_pool": true,
+          "disconnect_clears_active_circle": true,
+          "reconnect_does_not_replay_or_recreate_circles": true,
+          "host_does_not_replay_after_epoch_or_guest_reconnect": true,
+          "host_creates_only_eight_native_command_objects": true,
+          "host_no_runtime_exception": true,
+          "client_creates_only_eight_native_command_objects": true,
+          "client_no_runtime_exception": true
+        }
+      },
+      "result-ui": {
+        "report": "artifacts/migration/result-ui-20260916-091954-586/result.json",
+        "sha256": "31099d58e703f3c237fde7be30b8a7734f414383a9ae6cb190c60d7b057e1ebc",
+        "passed": true,
+        "count": 21,
+        "scope": "Two real Mono processes; synthetic v3 terminal fixtures test Result UI rendering, restart and exit only; no gameplay-win or foreground-performance claim",
+        "checks": {
+          "host_loaded_won_fixture": true,
+          "late_guest_sees_same_won_fixture": true,
+          "host_won_capture_dimensions": true,
+          "client1_won_capture_dimensions": true,
+          "host_won_restart_once": true,
+          "host_won_restart_closes_result": true,
+          "client1_won_restart_once": true,
+          "client1_won_restart_closes_result": true,
+          "host_loaded_lost_fixture": true,
+          "host_lost_capture_dimensions": true,
+          "client1_loaded_lost_fixture": true,
+          "client1_lost_capture_dimensions": true,
+          "host_lost_restart_once": true,
+          "host_lost_restart_closes_result": true,
+          "client1_lost_restart_once": true,
+          "client1_lost_restart_closes_result": true,
+          "guest_result_exit_clears_live_views": true,
+          "guest_exit_preserves_host_result": true,
+          "host_result_exit_clears_live_views": true,
+          "client1_no_runtime_exception": true,
+          "host_no_runtime_exception": true
+        }
+      },
+      "visual-1280": {
+        "report": "artifacts/migration/visual-1280x800-20260916-092009-033/result.json",
+        "sha256": "4247dc8b54e1f83c84c6ba87cbe66348a4f6ae8e45f94cfa5301896a97e095d2",
+        "passed": true,
+        "count": 6,
+        "scope": "Real Mono offscreen screenshots; image content requires separate visual review",
+        "checks": {
+          "day_has_requested_dimensions": true,
+          "night_has_requested_dimensions": true,
+          "pause_has_requested_dimensions": true,
+          "help_has_requested_dimensions": true,
+          "menu_has_requested_dimensions": true,
+          "no_runtime_exception": true
+        }
+      },
+      "visual-1600": {
+        "report": "artifacts/migration/visual-1600x900-20260916-092032-468/result.json",
+        "sha256": "eedd5e50fbf7b23bba54cff0a1d5ea69a1c0f9f63254595a0702430dcef5df61",
+        "passed": true,
+        "count": 6,
+        "scope": "Real Mono offscreen screenshots; image content requires separate visual review",
+        "checks": {
+          "day_has_requested_dimensions": true,
+          "night_has_requested_dimensions": true,
+          "pause_has_requested_dimensions": true,
+          "help_has_requested_dimensions": true,
+          "menu_has_requested_dimensions": true,
+          "no_runtime_exception": true
+        }
+      }
+    },
+    "counting": "18 startup/visual checks repeat matrix coverage; 137 hero/local-input/result checks extend it. Do not add repeated reruns as new coverage."
+  },
+  "weakHeroTransport": {
+    "received": 1637,
+    "dropped": 73,
+    "forwarded": 1564,
+    "reordered": 273,
+    "peer_resets": 7,
+    "received_bytes": 626746,
+    "forwarded_bytes": 593478,
+    "client_to_server_bytes": 15600,
+    "server_to_client_bytes": 611146,
+    "elapsed_seconds": 42.128281099998276
+  },
+  "weakCommandRingsTransport": {
+    "received": 795,
+    "dropped": 36,
+    "forwarded": 759,
+    "reordered": 220,
+    "peer_resets": 8,
+    "received_bytes": 281010,
+    "forwarded_bytes": 268688,
+    "client_to_server_bytes": 8749,
+    "server_to_client_bytes": 272261,
+    "elapsed_seconds": 17.431113200000254
+  },
+  "integrity": {
+    "passed": true,
+    "sourceBaseline": "38d1f9503f660e7eba920ab8e27e9eaeef500ecb",
+    "originalRules": 196,
+    "additionalHeroRules": 8,
+    "originalArtFilesUnchanged": 551,
+    "existingAssetGuidsPreserved": 1415,
+    "originalPlacementKeysUnchanged": 16,
+    "frozenEditorInputsUnchanged": [
+      "Game/Assets/DarkNights/Scripts/Editor/UiLayoutInput.json",
+      "Game/Assets/DarkNights/Scripts/Editor/UiSourceHashes.json",
+      "Game/Assets/DarkNights/Scripts/Editor/ArtInput.json",
+      "Game/Assets/DarkNights/Scripts/Editor/EffectInput.json"
+    ],
+    "sampleFilesIdentical": 44,
+    "preservedDependencyPatches": 9,
+    "inputCommit": "0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143",
+    "sampleWorktreeClean": true,
+    "runtimeAssembliesIdenticalToMatrix": {
+      "DarkNights.Core.dll": "8d3705fbb5155a8627f72225d2cf0c70fe3749251c9abbab1d6c37ac493e52f1",
+      "DarkNights.Runtime.dll": "bc8581eab4dcd23786421f7f89d0b9572664e332eca5e153ccbd4accedd6ed16",
+      "DarkNights.View.dll": "76908db7b1a0eed63537578d997c328d76c6b60c36033dd6a80a6609e003b9a1",
+      "DarkNights.Entry.dll": "16e08f4296435dafce4fcf14e000e3fdd778f8be02821c13679a83b417ace71d"
+    },
+    "sourceFiles": 6174,
+    "playerFiles": 413,
+    "playerBytes": 199130911,
+    "manifests": {
+      "source-files.json": "a1e290bf96d9a65e0a0488ae6f7be767233e5a537d1f8bcbfacb63dc46566b49",
+      "player-files.json": "679b24e67a4c58ffecd1820b2d59ae2e27aeaae31f6cd412397d861665108f26",
+      "source-files-matrix.json": "53d075ead64807a5483150f239002c50b0dbf241e7db3e291e9d46f182b08dda",
+      "player-files-matrix.json": "2e389c3a76e887ac6bc8f5ce1fd72841906929631fc4ac2f0a7f08b0453b83f3",
+      "toolbar-scope.json": "bf94668d671b54aa324ce503b45561cfe5388413d9c761ecbc51973bea1fe5c4"
+    },
+    "mainYygcHead": "56afcad775ad41bc996f99a078985211d3e6c553",
+    "mainYygcStatus": [
+      " M README.md",
+      "?? Documentation~/AnyRule-Production-Assessment-2026-09-15.md",
+      "?? Documentation~/AnyRuleD-Next-RD-Design-2026-09-15.md",
+      "?? Documentation~/AnyRuleD-Next/",
+      "?? Documentation~/Evidence/anyrule-assessment-2026-09-15/",
+      "?? Tools~/AnyRuleAssessment/"
+    ]
+  },
+  "visualReview": [
+    {
+      "path": "artifacts/hero-input/network-20260916-090114-971/hero-airborne.png",
+      "sha256": "e7a6d9e3bd092f4327aebdb7ef3c00fdb6a0f82090c3b3426efd03f074e1c7c5",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/hero-input/network-20260916-090114-971/hero-default.png",
+      "sha256": "f3d4369fd2872ce4be40110a1e91e491f16e6bfb1b91bdb03548ebc3509b4aef",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/hero-input/network-20260916-090114-971/hero-help.png",
+      "sha256": "d771bf7ed9ffd63813f3053cec18270b8d77ae8b3b27f4443ba14c51167ad314",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/hero-input/sample/sample-modal.png",
+      "sha256": "bac97739ac070669f5b55e9aa03c062186d5dc496814853e7543a7dfb1da7971",
+      "width": 1100,
+      "height": 700,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/hero-input/sample/sample-play.png",
+      "sha256": "4ab46cc675a0b87669fa4eefcb702afb18fec23d6ef6ee0bba830e9c88b13ad9",
+      "width": 1100,
+      "height": 700,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/result-ui-20260916-091954-586/client1-lost.png",
+      "sha256": "09aec93b87570ed49de17e9ce292d3cce36b4796d47b852c60ba1e258c940988",
+      "width": 1600,
+      "height": 900,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/result-ui-20260916-091954-586/client1-won.png",
+      "sha256": "6d72fd78dea486a0f6c419e801d1a2ac41966d8cc54abbf8e7aeccfd44b58de6",
+      "width": 1600,
+      "height": 900,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/result-ui-20260916-091954-586/host-lost.png",
+      "sha256": "16acb8f34e7e3add46ffcfec1324963b0781cdcbfa81f9fbd52740e5da9ca58e",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/result-ui-20260916-091954-586/host-won.png",
+      "sha256": "5c0e3ffe76f45ba1deed7b16db93c31e9d66d762bfc95ae7ce05ec55e636c295",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1280x800-20260916-092009-033/day.png",
+      "sha256": "b78b5f94db81100e1309c083078f86ecfdc7910c91d114184ca78e85ad41fbd3",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1280x800-20260916-092009-033/framing-day.png",
+      "sha256": "f4e38e7389b3e2a2c0970c147af67c0e1323117c6c14dc51e31399fb287f1706",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1280x800-20260916-092009-033/framing-night.png",
+      "sha256": "3347a3b3d9d0add70768f6368e1d97b562823c1f42e6e740508fe324df24e73e",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1280x800-20260916-092009-033/help.png",
+      "sha256": "59d284ba3df3f10c1d14472eebf5fa0c21b523badb395f20fe20fd43f00bdada",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1280x800-20260916-092009-033/menu.png",
+      "sha256": "df02242880482e3b5d94a2baeb7cddb7c2276f9d5878069576f3634b9b4cbfd5",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1280x800-20260916-092009-033/night.png",
+      "sha256": "3047dad0426fb09dfe67071afbd5fc914ab420d6241c007d80b00f4ab03d4b7c",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1280x800-20260916-092009-033/pause.png",
+      "sha256": "a87f99bd6edc9b1abadb78c212ad67ec6174b6061aa68857c2b74cc239df23ea",
+      "width": 1280,
+      "height": 800,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1600x900-20260916-092032-468/day.png",
+      "sha256": "fda09a794e788aeabba9177ee38313863e00850d672ec99e47cda3bc17f995dc",
+      "width": 1600,
+      "height": 900,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1600x900-20260916-092032-468/framing-day.png",
+      "sha256": "2d6e1a18f4072e19f0cfd0c22854c1e831776d31e921f019944cfb282a2a9f4f",
+      "width": 1600,
+      "height": 900,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1600x900-20260916-092032-468/framing-night.png",
+      "sha256": "c6affb0b9873db44e16de5539716d7d7cef119860e4e2e90a2fb2c897f210588",
+      "width": 1600,
+      "height": 900,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1600x900-20260916-092032-468/help.png",
+      "sha256": "69e30062e099dc4bf14df0c298278ae6afaf40b812b24e0ca3e928e92a06c5b5",
+      "width": 1600,
+      "height": 900,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1600x900-20260916-092032-468/menu.png",
+      "sha256": "fc578713d1d9aeda1659632d5082461ca00fcb7babace8cec3b0dc22f96a11e8",
+      "width": 1600,
+      "height": 900,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1600x900-20260916-092032-468/night.png",
+      "sha256": "815c0dc69cc4c165402f7cfe3a32595ba9fd6b87cb4d7714ca05536cb96707f0",
+      "width": 1600,
+      "height": 900,
+      "reviewed": true
+    },
+    {
+      "path": "artifacts/migration/visual-1600x900-20260916-092032-468/pause.png",
+      "sha256": "a83a7ade73debaea3da4d0cff672ca87e2302cae83be1808afeb852db0cf2265",
+      "width": 1600,
+      "height": 900,
+      "reviewed": true
+    }
+  ],
+  "cleanup": {
+    "status": "complete",
+    "processCheckPassed": true,
+    "pathChecksPassed": true,
+    "targets": [
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\player-mono-before-hints",
+        "files": 414,
+        "bytes": 199374976,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\player-mono-matrix",
+        "files": 414,
+        "bytes": 199376158,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\ImportBatch.cs",
+        "files": 1,
+        "bytes": 284,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\InstallHero.cs",
+        "files": 1,
+        "bytes": 427,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\PrepareTests.cs",
+        "files": 1,
+        "bytes": 462,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\write_hero_data.py",
+        "files": 1,
+        "bytes": 9137,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\write_hero_network.py",
+        "files": 1,
+        "bytes": 10333,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\write_hero_slice.py",
+        "files": 1,
+        "bytes": 10912,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\write_hero_ui.py",
+        "files": 1,
+        "bytes": 9083,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\build-pid.txt",
+        "files": 1,
+        "bytes": 7,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\editor-pid.txt",
+        "files": 1,
+        "bytes": 7,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\review-visual-1280.png",
+        "files": 1,
+        "bytes": 396917,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\review-visual-1600.png",
+        "files": 1,
+        "bytes": 345756,
+        "status": "removed"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\review-result-ui.png",
+        "files": 1,
+        "bytes": 234620,
+        "status": "removed"
+      }
+    ],
+    "releasedLogicalBytes": 399769079,
+    "before": [
+      {
+        "Name": "C",
+        "Free": 6380134400
+      },
+      {
+        "Name": "D",
+        "Free": 39543947264
+      }
+    ],
+    "after": [
+      {
+        "Name": "C",
+        "Free": 6380134400
+      },
+      {
+        "Name": "D",
+        "Free": 39945474048
+      }
+    ],
+    "retained": "Current Player, input/Player manifests, test XML, logs, original screenshots, successful/failed reports and isolated saves. Historical denied targets, shared caches and modified dependency are untouched."
+  },
+  "retainedInventory": "docs/evidence/hero-input-retained-2026-09-16.json",
+  "observations": [
+    {
+      "report": "artifacts/hero-input/network-20260916-090727-698/result.json",
+      "status": "not reproduced; original failure preserved",
+      "detail": "First weak flight wait timed out without a trajectory. Cause was not established. Game code and the >90 pixel threshold were unchanged; both later instrumented weak flights exceeded 90. The final full weak case passed 35 checks. This is not recorded as a proven code defect or a proven fix."
+    },
+    {
+      "report": "artifacts/hero-input/network-20260916-091601-369/result.json",
+      "status": "harness corrected and affected case passed",
+      "detail": "Guest sent old PolicyRevision before receiving HostOnly; server correctly returned PolicyChanged. PermissionDenied check now waits for guest to observe new policy. The flight itself reached 99.75551 pixels."
+    }
+  ],
+  "boundaries": [
+    "No foreground performance acceptance; user deferred it.",
+    "No IL2CPP build or validation.",
+    "No two-machine LAN acceptance.",
+    "Sample verified in real Editor PlayMode, not a standalone Sample Player.",
+    "Minimal three-slot inventory; no pickup, crafting or trading. No new jump animation.",
+    "Inputs older than 60 server ticks are rejected; held input expires after 30 ticks. No client prediction or rollback.",
+    "M5 and final U6 performance sign-off remain incomplete."
+  ]
+}

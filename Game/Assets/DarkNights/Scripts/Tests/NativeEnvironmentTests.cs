@@ -16,13 +16,39 @@ namespace DarkNights.Tests
     public sealed class NativeEnvironmentTests
     {
         [Test]
+        public void PlatformVisibleTopMatchesAuthoritativeHeightAfterReopen()
+        {
+            Scene scene = EditorSceneManager.OpenScene(PinewatchLayoutSetup.ScenePath, OpenSceneMode.Additive);
+            try
+            {
+                var authoring = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<LevelLayoutAuthoring>()).Single();
+                var layout = PinewatchLayoutSetup.Validate();
+                var platforms = authoring.GetComponentsInChildren<HeroPlatform>();
+                Assert.That(platforms.Length, Is.EqualTo(3));
+                foreach (var platform in platforms)
+                {
+                    var definition = layout.Platforms.Single(p => p.Id == platform.Id);
+                    var bounds = platform.GetComponentsInChildren<SpriteRenderer>().Single().bounds;
+                    // 验证实际可见顶面与运行中角色采用的 Unity 世界坐标，避免数据自洽但图形反向。
+                    Assert.That((bounds.max.y - authoring.GroundPoint.y) * EntityView.PixelsPerUnit,
+                        Is.EqualTo(definition.Height).Within(0.001), "visible top of platform " + platform.Id);
+                    Assert.That(bounds.min.x * EntityView.PixelsPerUnit, Is.EqualTo(definition.MinX).Within(0.001));
+                    Assert.That(bounds.max.x * EntityView.PixelsPerUnit, Is.EqualTo(definition.MaxX).Within(0.001));
+                    Assert.That(definition.Height, Is.EqualTo(platform.Id * 12).Within(0.001));
+                    Assert.That(PrefabUtility.GetCorrespondingObjectFromSource(platform), Is.Not.Null);
+                }
+            }
+            finally { EditorSceneManager.CloseScene(scene, true); }
+        }
+
+        [Test]
         public void NativeEnvironmentReopensWithFrozenLightsAndGeometry()
         {
             Scene scene = EditorSceneManager.OpenScene(PinewatchLayoutSetup.ScenePath, OpenSceneMode.Additive);
             try
             {
-                var root = scene.GetRootGameObjects().Single();
-                var environment = root.GetComponentInChildren<NativeEnvironment>();
+                var environment = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<NativeEnvironment>()).Single();
+                var root = environment.transform.root.gameObject;
                 Assert.NotNull(environment);
                 Assert.AreEqual(4, environment.GetComponentsInChildren<CampTorch>().Length);
                 var lights = environment.GetComponentsInChildren<CampLight>();

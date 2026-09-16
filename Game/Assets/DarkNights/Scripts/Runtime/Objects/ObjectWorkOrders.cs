@@ -39,11 +39,11 @@ namespace DarkNights.Runtime.Objects
             value.ActionTime = 0;
         }
 
-        internal bool Assign(ActorBehaviour worker, IEntityBehaviour workplace)
+        internal bool Assign(ActorBehaviour worker, IEntityBehaviour workplace, bool allowManual = false)
         {
             if (worker == null || workplace == null || session.Index.Find(worker.Id) != worker ||
                 session.Index.Find(workplace.Id) != workplace || worker.RuleKey != "worker" ||
-                worker.Enemy || worker.Hp <= 0 || worker.IsTraining) return false;
+                worker.Enemy || worker.Hp <= 0 || worker.IsTraining || (worker.Read().ManualControl && !allowManual)) return false;
             if (workplace is WorksiteBehaviour site && site.Amount != 0 &&
                 (site.WorkerId == 0 || site.WorkerId == worker.Id))
             {
@@ -67,7 +67,7 @@ namespace DarkNights.Runtime.Objects
         {
             if (ids == null || ids.Count > 256 || ids.Distinct().Count() != ids.Count) return null;
             var actors = ids.Select(id => session.Index.Find<ActorBehaviour>(id)).ToArray();
-            return actors.Any(a => a == null || a.Enemy || a.Hp <= 0) ? null : actors;
+            return actors.Any(a => a == null || a.Enemy || a.Hp <= 0 || a.Read().ManualControl) ? null : actors;
         }
 
         internal int Issue(IReadOnlyList<int> ids, int targetId, float x)

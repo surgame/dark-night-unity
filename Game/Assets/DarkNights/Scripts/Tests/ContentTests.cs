@@ -32,8 +32,12 @@ namespace DarkNights.Tests
         public void EverySourceRuleFieldSurvivesParsing()
         {
             GameCatalog catalog = GameCatalogJson.Parse(balance, level);
-            int fields = Compare(JObject.Parse(balance), catalog.Balance) + Compare(JObject.Parse(level), catalog.Level);
+            var source = JObject.Parse(balance);
+            var hero = (JObject)source["hero_control"];
+            source.Remove("hero_control");
+            int fields = Compare(source, catalog.Balance) + Compare(JObject.Parse(level), catalog.Level);
             Assert.That(fields, Is.EqualTo(196));
+            Assert.That(Compare(hero, catalog.Balance.HeroControl), Is.EqualTo(8));
             Assert.That(catalog.Level.Seed, Is.EqualTo(90127UL));
             Assert.That(catalog.Level.Waves.Select(wave => wave.Enemies.Count), Is.EqualTo(new[] { 7, 11, 16 }));
             Assert.That(catalog.Balance.Worksites["food"].Amount, Is.EqualTo(-1));

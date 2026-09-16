@@ -40,6 +40,10 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.MovementBehaviour
   - DarkNights.Runtime.Objects.ActorCombatBehaviour
   - DarkNights.Runtime.Objects.ArrowAttackBehaviour
+  - DarkNights.Runtime.Objects.AutomaticActorControlBehaviour
+  - DarkNights.Runtime.Objects.HeroControlBehaviour
+  - DarkNights.Runtime.Objects.HeroMotionBehaviour
+  - DarkNights.Runtime.Objects.HeroInventoryBehaviour
   SharedConfigs:
   - rid: 6961529563483734165
   - rid: 6961529563483734805

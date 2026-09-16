@@ -22,3 +22,5 @@ MonoBehaviour:
     Culture=neutral, PublicKeyToken=null
   - DarkNights.Runtime.Objects.IAttackCapability, DarkNights.Runtime, Version=0.0.0.0,
     Culture=neutral, PublicKeyToken=null
+  - DarkNights.Runtime.Objects.IAutomaticActorControl, DarkNights.Runtime, Version=0.0.0.0,
+    Culture=neutral, PublicKeyToken=null

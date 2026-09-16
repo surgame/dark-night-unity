@@ -1,0 +1,5 @@
+{
+  "name": "YYGC.InputActions",
+  "rootNamespace": "GameCore.Samples.InputActions",
+  "references": ["GameCore.Runtime", "Unity.InputSystem", "Unity.ugui"]
+}

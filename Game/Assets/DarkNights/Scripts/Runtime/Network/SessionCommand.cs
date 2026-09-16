@@ -23,13 +23,14 @@ namespace DarkNights.Runtime.Network
         public float X { get; set; }
         public string Kind { get; set; }
         public int Value { get; set; }
+        public int ControlLease { get; set; }
 
         public SessionRequest Freeze() => new SessionRequest(Operation, Protocol, Epoch, PolicyRevision,
-            RequestSequence, ActorIds, TargetId, X, Kind, Value);
+            RequestSequence, ActorIds, TargetId, X, Kind, Value, ControlLease);
 
         public void OnReturnToPool()
         {
-            SenderObjectId = Protocol = Epoch = PolicyRevision = TargetId = Value = 0;
+            SenderObjectId = Protocol = Epoch = PolicyRevision = TargetId = Value = ControlLease = 0;
             RequestSequence = 0;
             Operation = default;
             ActorIds = null;

@@ -1,5 +1,76 @@
 # YYGC 修改授权与改动账本
 
+<a id="hero-input"></a>
+
+## 2026-09-16：输入封装、主角接线与 Input Actions Sample
+
+用户要求保持原命名、对比缺陷后合并实施，并指出 YYGC 另一个会话正在引入插件。本批只在 `D:/Developer/YYGC-worktrees/input-actions` 的 `codex/input-actions` 修改，输入基线 `745f3d2`，提交 **`0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143`**。用户 `D:/Developer/YYGC` 的 master `56afcad` 及 AnyRule 未提交文件保持原状；不切换或合并那个工作区，也未推送。
+
+下表逐项列出本提交的 **54 个文件**，路径相对隔离框架根目录。所有文件同时存在于游戏锁定的 `.deps/YYGC-unified`；44 个 Sample 文件另导入到游戏 `Assets/Samples/YYGCInputActions`，与隔离框架源逐文件核对。原有七份 tracked 补丁及两个友元文件在依赖更新前后字节一致，准备脚本精确校验通过。UPM manifest／lock 的本地路径保持不变，完整提交由 `tools/prepare-lan-sample.ps1` 锁定。
+
+| 文件 | 修改原因与内容 | 验证 |
+|---|---|---|
+| `Documentation~/INPUT_ACTIONS.md` | 接入、旧新方案对比、API 与生命周期、限制和测量说明 | 按实际实现及证据核对 |
+| `Documentation~/INPUT_ACTIONS_VALIDATION.json` | 归档 34 个不同用例的来源与校准后路由测量 | 输入 XML 按影响合并生成 |
+| `Runtime/PlayerInputs/YYInputActionService.cs` | 新增动作到 Interaction Sessions 的薄接线、即时取消及同帧 Button 隔离 | 模式／模态／失效／重入取消与路由微测量 |
+| `Runtime/PlayerInputs/YYInputActionService.cs.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Runtime/PlayerInputs/YYInputRebindingHandle.cs` | 新增界面拥有的改键句柄，Dispose 取消，拒绝同动作重复拥有 | 取消／释放／重复启动／模式许可回归 |
+| `Runtime/PlayerInputs/YYInputRebindingHandle.cs.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Runtime/PlayerInputs/YYInputRebindingService.cs` | 保留原签名；修改前校验、异常恢复、托管入口及可选查重范围 | 原 API、组合绑定、异常、查重回归 |
+| `Runtime/PlayerInputs/YYInputSettingsData.cs` | 保留 v1 字段与默认值，补职责注释 | 既有字段与保存恢复回归 |
+| `Runtime/PlayerInputs/YYInputSettingsStore.cs` | 保留路径与 API；严格信封、候选验证、失败回滚、原子刷盘替换 | 坏 JSON／未知版本／真实文件锁／清除失败回归 |
+| `Samples~/InputActions/Content.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Content/Demo.mat` | 示例矩形的独立材质 | 实际渲染截图 |
+| `Samples~/InputActions/Content/Demo.mat.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Content/InputActions.inputactions` | 原生 Player／Camp／UI 动作资产 | 移动跳跃、模式、UGUI 与改键回归 |
+| `Samples~/InputActions/Content/InputActions.inputactions.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Content/InputActions.unity` | 实际序列化场景，包含角色、PlayerInput、UGUI 和模态页 | 保存重开、实际场景 1/1 |
+| `Samples~/InputActions/Content/InputActions.unity.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Content/Pixel.png` | 75 字节白色像素，独立示例图形来源 | 实际渲染截图 |
+| `Samples~/InputActions/Content/Pixel.png.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Content/UI_Cancel.asset` | 原生 InputActionReference，连接 UGUI 的对应动作 | UGUI 点击、模态和改键场景回归 |
+| `Samples~/InputActions/Content/UI_Cancel.asset.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Content/UI_Click.asset` | 原生 InputActionReference，连接 UGUI 的对应动作 | UGUI 点击、模态和改键场景回归 |
+| `Samples~/InputActions/Content/UI_Click.asset.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Content/UI_Navigate.asset` | 原生 InputActionReference，连接 UGUI 的对应动作 | UGUI 点击、模态和改键场景回归 |
+| `Samples~/InputActions/Content/UI_Navigate.asset.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Content/UI_Point.asset` | 原生 InputActionReference，连接 UGUI 的对应动作 | UGUI 点击、模态和改键场景回归 |
+| `Samples~/InputActions/Content/UI_Point.asset.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Content/UI_ScrollWheel.asset` | 原生 InputActionReference，连接 UGUI 的对应动作 | UGUI 点击、模态和改键场景回归 |
+| `Samples~/InputActions/Content/UI_ScrollWheel.asset.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Content/UI_Submit.asset` | 原生 InputActionReference，连接 UGUI 的对应动作 | UGUI 点击、模态和改键场景回归 |
+| `Samples~/InputActions/Content/UI_Submit.asset.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Editor.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Editor/InputActionsSampleBuilder.cs` | 仅空目录初建场景与原生 UI 引用，普通导入不执行 | 初建、保存、重开与运行 |
+| `Samples~/InputActions/Editor/InputActionsSampleBuilder.cs.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Editor/YYGC.InputActions.Editor.asmdef` | 隔离 Sample 的运行、Editor 或测试程序集，不引用 Dark Nights | Unity 编译和相应场景／测试 |
+| `Samples~/InputActions/Editor/YYGC.InputActions.Editor.asmdef.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/README.md` | 用户操作、导入、维护入口与真实验收范围 | 按已交付场景核对 |
+| `Samples~/InputActions/README.md.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Runtime.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Runtime/InputActionsSample.cs` | 独立本地移动／跳跃／使用、模式／模态、改键与保存演示 | 实际场景 1/1、两张渲染截图 |
+| `Samples~/InputActions/Runtime/InputActionsSample.cs.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Runtime/YYGC.InputActions.asmdef` | 隔离 Sample 的运行、Editor 或测试程序集，不引用 Dark Nights | Unity 编译和相应场景／测试 |
+| `Samples~/InputActions/Runtime/YYGC.InputActions.asmdef.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Tests.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Tests/InputRebindingTests.cs` | 旧 API、错误索引、托管取消、回调和查重边界 | 对应 PlayMode 用例通过 |
+| `Samples~/InputActions/Tests/InputRebindingTests.cs.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Tests/InputRoutingTests.cs` | 模式、通道、同帧泄漏、重入与校准分配测量 | 对应 PlayMode 用例通过 |
+| `Samples~/InputActions/Tests/InputRoutingTests.cs.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Tests/InputSampleSceneTests.cs` | 官方 InputTestFixture 驱动实际场景、鼠标 UI、焦点、改键重载 | 最终场景 1/1，通过截图复核 |
+| `Samples~/InputActions/Tests/InputSampleSceneTests.cs.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Tests/InputSettingsTests.cs` | 真实文件和原生资产上的原子设置／坏输入边界 | 对应 PlayMode 用例通过 |
+| `Samples~/InputActions/Tests/InputSettingsTests.cs.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `Samples~/InputActions/Tests/YYGC.InputActions.Tests.asmdef` | 隔离 Sample 的运行、Editor 或测试程序集，不引用 Dark Nights | Unity 编译和相应场景／测试 |
+| `Samples~/InputActions/Tests/YYGC.InputActions.Tests.asmdef.meta` | Unity 自动生成的新资源／目录元数据，保留 GUID | 导入、引用与源／导入副本逐文件校验 |
+| `package.json` | 注册 Input Actions Sample 导入入口 | UPM 导入及实际场景检查 |
+
+Unity 6000.4.9f1／Input System 1.19.0 下 **34 个不同 PlayMode 用例按影响合并通过**（服务／文件 33 项、最终真实场景 1 项），并非一次全绿 34 项运行。末次场景复跑禁用音频；虚拟键鼠驱动原生 UGUI，两张真实截图已检查。路由内核 10,000 次 Refresh＋全部 CanRead：2 动作 2.4844 ms、32 动作 75.8918 ms；校准后 GC.Alloc 未检测到分配。该数字不覆盖 UI、网络或前台帧率。Sample 未单独构建 Player，游戏 Mono 不能替代其独立发布验收。
+
+游戏侧切片与验收见[联合执行文档](HERO_INPUT_EXECUTION.md)，输入详细结果见[机器证据](evidence/hero-input-framework.json)。保留原 `StartInteractiveRebind` 原生返回类型；旧调用者提前结束仍须先 Cancel 再 Dispose。新增管理入口用于界面生命周期，不重写 Unity 的设备或按钮状态机。
+
+
+
 <a id="unified-u6-performance"></a>
 
 ## 2026-09-13：U6 装配校验热点修正

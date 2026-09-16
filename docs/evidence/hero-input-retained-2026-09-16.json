@@ -1,0 +1,285 @@
+{
+  "scope": "Logical file bytes; parent and child rows overlap and must not be summed.",
+  "entries": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input",
+      "files": 577,
+      "bytes": 262390872,
+      "status": "retained",
+      "reason": "Task evidence, current Player and reproduction helpers; child rows are included in this total.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\session-20260916-091923-381",
+      "files": 7,
+      "bytes": 1117424,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\local-command-rings\\session-20260916-091937-570",
+      "files": 7,
+      "bytes": 1116956,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\active-load-20260916-084654-934",
+      "files": 12,
+      "bytes": 1334202,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\battle-20260916-085246-258",
+      "files": 9,
+      "bytes": 1551840,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\campaign-20260916-085313-665",
+      "files": 24,
+      "bytes": 7986477,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\concurrency-20260916-084636-703",
+      "files": 14,
+      "bytes": 2145607,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\delivery-20260916-084620-700",
+      "files": 12,
+      "bytes": 5673,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\network-matrix-20260916-084816-827",
+      "files": 19,
+      "bytes": 23596,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\pressure-20260916-085704-971",
+      "files": 20,
+      "bytes": 24887328,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260916-084733-919",
+      "files": 15,
+      "bytes": 2256811,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260916-084817-444",
+      "files": 15,
+      "bytes": 2256904,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260916-084838-528",
+      "files": 15,
+      "bytes": 2256425,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260916-084859-635",
+      "files": 15,
+      "bytes": 2256733,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260916-084921-219",
+      "files": 16,
+      "bytes": 2259018,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260916-084944-142",
+      "files": 15,
+      "bytes": 2256541,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260916-085007-098",
+      "files": 15,
+      "bytes": 2257387,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260916-085032-073",
+      "files": 15,
+      "bytes": 2256637,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260916-085058-761",
+      "files": 16,
+      "bytes": 2258993,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\recovery-20260916-085125-212",
+      "files": 15,
+      "bytes": 2256632,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\result-ui-20260916-091954-586",
+      "files": 20,
+      "bytes": 1718695,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\run-20260916-084620-991-mono",
+      "files": 3,
+      "bytes": 986209,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\run-20260916-090110-459-mono",
+      "files": 3,
+      "bytes": 986961,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\session-20260916-084625-519",
+      "files": 7,
+      "bytes": 1076076,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\visual-1280x800-20260916-085153-773",
+      "files": 11,
+      "bytes": 1568925,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\visual-1280x800-20260916-092009-033",
+      "files": 11,
+      "bytes": 1583977,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\visual-1600x900-20260916-085220-022",
+      "files": 11,
+      "bytes": 1739909,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\migration\\visual-1600x900-20260916-092032-468",
+      "files": 11,
+      "bytes": 1740892,
+      "status": "retained",
+      "reason": "Original successful acceptance report, diagnostic logs, screenshots and isolated save fixtures.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\player-mono",
+      "files": 413,
+      "bytes": 199130911,
+      "status": "retained",
+      "reason": "Current 413-file Mono acceptance Player; retain for use and later acceptance.",
+      "parent": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\play-saves",
+      "files": 20,
+      "bytes": 196620,
+      "status": "retained",
+      "reason": "Isolated PlayMode save/recovery fixtures; preserve alongside tests.",
+      "parent": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input\\sample",
+      "files": 2,
+      "bytes": 124662,
+      "status": "retained",
+      "reason": "Two verified original Sample screenshots.",
+      "parent": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-input"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-unified",
+      "files": 1387,
+      "bytes": 11934424,
+      "status": "retained",
+      "reason": "Active locked dependency with preserved host patches; do not clean.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\FishNet",
+      "files": 2057,
+      "bytes": 10215798,
+      "status": "retained",
+      "reason": "Active shared network dependency; do not clean.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\ArchitectureGuard\\bin",
+      "files": 33,
+      "bytes": 32927740,
+      "status": "retained",
+      "reason": "Historical cleanup rejection; no retry in this task.",
+      "parent": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\ArchitectureGuard\\obj",
+      "files": 21,
+      "bytes": 210377,
+      "status": "retained",
+      "reason": "Historical cleanup rejection; no retry in this task.",
+      "parent": null
+    }
+  ]
+}

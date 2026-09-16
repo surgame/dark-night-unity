@@ -25,6 +25,7 @@ namespace DarkNights.View
         [SerializeField] private Transform buildings;
         [SerializeField] private Transform worksites;
         [SerializeField] private Transform actors;
+        [SerializeField] private HeroPlatform[] platforms = Array.Empty<HeroPlatform>();
 
         public Transform PlacementGroup(ObjectType type)
         {
@@ -52,7 +53,7 @@ namespace DarkNights.View
             if (placementKeys.Any(string.IsNullOrWhiteSpace) || placementKeys.Distinct().Count() != placementKeys.Length)
                 throw new InvalidOperationException("Scene placement identities must be present and unique.");
             var layout = new LevelLayout(Local(worldEnd).x, ground.y, Local(buildStart).x, Local(buildEnd).x,
-                Local(enemySpawn).x, Local(cameraStart).x, buildingEntries, worksiteEntries, actorEntries);
+                Local(enemySpawn).x, Local(cameraStart).x, buildingEntries, worksiteEntries, actorEntries, ReadPlatforms(ground.y));
             layout.Validate(catalog);
             return layout;
         }
@@ -80,6 +81,19 @@ namespace DarkNights.View
                     placement.InitialName, placement.PlacementKey));
             }
             return entries.AsReadOnly();
+        }
+
+        private IReadOnlyList<PlatformDefinition> ReadPlatforms(float groundY)
+        {
+            var result = new List<PlatformDefinition>();
+            foreach (var platform in platforms)
+            {
+                if (platform == null) throw new InvalidOperationException("Missing platform reference.");
+                Vector3 point = Local(platform.transform);
+                result.Add(new PlatformDefinition(platform.Id, point.x - platform.Width * 0.5f,
+                    point.x + platform.Width * 0.5f, point.y - groundY));
+            }
+            return result;
         }
 
         private void RequireReferences()

@@ -7,6 +7,7 @@ namespace DarkNights.Runtime.Session
     public enum SessionOperation
     {
         IssueOrders, PlaceBuilding, TrainActors, Recruit, Repair,
-        SetPaused, SetSpeed, StartNight, SetControlMode, BeginLoad, Save, Restart
+        SetPaused, SetSpeed, StartNight, SetControlMode, BeginLoad, Save, Restart,
+        ClaimHero, ReleaseHero, SelectHeroItem, UseHeroItem
     }
 }

@@ -1,0 +1,178 @@
+{
+  "date": "2026-09-16",
+  "platform": "Windows / Unity Editor PlayMode",
+  "unity": "6000.4.9f1",
+  "inputSystem": "1.19.0",
+  "distinctPassed": 34,
+  "reports": [
+    {
+      "file": "input-final.xml",
+      "sha256": "aa251160e993a628f42cfb6587b6493da3632b65023a6aa3389cc2beb59326d9",
+      "total": 34,
+      "passed": 33,
+      "endUtc": "2026-09-15 23:56:46Z"
+    },
+    {
+      "file": "input-scene.xml",
+      "sha256": "87e58a96b80fb4412b72c04271960304007d56fe7dec6d2762cb6ef1fbfbb88f",
+      "total": 1,
+      "passed": 1,
+      "endUtc": "2026-09-16 00:07:35Z"
+    }
+  ],
+  "scope": "Native InputAction, real files, imported serialized Sample scene; virtual devices and focus messages via official InputTestFixture. Last scene run used -noaudio. No standalone Sample Player or foreground performance acceptance.",
+  "benchmarks": [
+    {
+      "iterations": 10000,
+      "registered": 2,
+      "gcAllocations": 0,
+      "elapsedMs": 2.4844,
+      "calibrationAllocations": 1
+    },
+    {
+      "iterations": 10000,
+      "registered": 32,
+      "gcAllocations": 0,
+      "elapsedMs": 75.8918,
+      "calibrationAllocations": 1
+    }
+  ],
+  "tests": [
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.ActionRoutingUsesExistingChannelsAndDisposesCleanly",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.CompositePartsCanStillBeRebound",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.ConcurrentOwnedRebindIsRejectedAndCanRestartAfterRelease",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.GlobalDuplicateQueryIsPreservedAndFilteredQueryExcludesOtherMode",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.InvalidCompositeRootLeavesEnabledActionUntouched",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.InvalidIndexLeavesEnabledActionUntouched",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.KeyboardCompletesOwnedRebindOnce",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.LegacyCancelRestoresActionAndCallsOnce",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.OwnedDisposeRespectsCurrentPermission(True)",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.OwnedDisposeRespectsCurrentPermission(False)",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.RoutingDoesNotEnableActionDuringManagedRebind",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRebindingTests.StartupExceptionRestoresEnabledActionAndReleasesOwnership",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRoutingTests.DisposeInsideCanceledCallbackIsSafe",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRoutingTests.HeldButtonDoesNotBecomeASecondPressWhenSwitchingMaps",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRoutingTests.LossOfPermissionCancelsAndClearsHeldState",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRoutingTests.ShortPressAndReleaseAreVisibleOnce",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRoutingTests.StableRoutingDoesNotAllocate(2)",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRoutingTests.StableRoutingDoesNotAllocate(32)",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputRoutingTests.UiCloseInTheSameUpdateCannotLeakAButton",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSampleSceneTests.NativeSceneInputUiRebindingAndLifecycle",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.ClearSavesAndRestoresDefaultBinding",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.ExistingFormatRoundTripsByBindingIdentity",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.FailedAtomicReplacementKeepsPreviousBytesAndTimestamp",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.FailedClearKeepsCurrentBindings",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.InvalidNestedJsonKeepsCurrentOverrides(\"{\")",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.InvalidNestedJsonKeepsCurrentOverrides(\"{}\")",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.MissingEnvelopeFieldsCannotClearLiveBindings(\"{}\")",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.MissingEnvelopeFieldsCannotClearLiveBindings(\"{\\\"Version\\\":1}\")",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.MissingEnvelopeFieldsCannotClearLiveBindings(\"[]\")",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.MissingEnvelopeFieldsCannotClearLiveBindings(\"null\")",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.MissingFileKeepsCurrentBindings",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.OversizeFileDoesNotClearCurrentBindings",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.SavedClearResetsOverridesWhenLoaded",
+      "result": "Passed"
+    },
+    {
+      "name": "GameCore.Samples.InputActions.Tests.InputSettingsTests.UnsupportedVersionDoesNotApplyOrRewriteFile",
+      "result": "Passed"
+    }
+  ]
+}

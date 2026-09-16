@@ -915,6 +915,9 @@ MonoBehaviour:
   - key: Back
     targetObject: {fileID: 6593581588836793183}
     target: {fileID: 4992219909630537702}
+  - key: ControlsGuide
+    targetObject: {fileID: 659466279166841453}
+    target: {fileID: 1698711566865458025}
 --- !u!223 &1271504051004237179
 Canvas:
   m_ObjectHideFlags: 0

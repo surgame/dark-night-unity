@@ -4,12 +4,13 @@ using System.Linq;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.Save;
 using DarkNights.Core.ViewData;
+using DarkNights.Runtime.Save;
 using GameCore.Objects.Runner;
 
 namespace DarkNights.Runtime.Objects
 {
     /// <summary>
-    /// 直接在 YYGC 业务状态与冻结 v2 DTO 之间转换，不构造或调用旧实体。
+    /// 直接在 YYGC 业务状态与冻结 v3 DTO 之间转换，不构造或调用旧实体。
     /// 捕获脱离对象池，恢复只初始化尚未激活的候选实例。
     /// </summary>
     internal static class ObjectSnapshotMapper
@@ -23,7 +24,8 @@ namespace DarkNights.Runtime.Objects
                 ActorState a = actor.Read();
                 return new ActorSnapshot(a.Id, actor.RuleKey, a.Enemy, a.Name, a.X, a.Hp, a.Activity,
                     a.TargetId, a.MoveX, a.RallyX, a.Face, a.ActionTime, a.AttackClock, a.Windup,
-                    a.HitPending, a.ForcedAttack, a.AiClock);
+                    a.HitPending, a.ForcedAttack, a.AiClock,
+                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.IgnoredPlatform, a.DropRemaining, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel);
             }).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {
@@ -40,7 +42,7 @@ namespace DarkNights.Runtime.Objects
             WaveState wave = session.Waves.Read();
             var shots = session.Projectiles.Read().Shots.Select(p => new ProjectileSnapshot(
                 new double[] { p.FromX, p.FromY }, new double[] { p.ToX, p.ToY }, p.TargetId, p.Damage, p.Age, p.Duration)).ToArray();
-            return new SessionSnapshot(2, session.Catalog.Level.Id,
+            return new SessionSnapshot(ObjectWorldSaveJson.FormatVersion, session.Catalog.Level.Id,
                 new EconomySnapshot(session.Economy.Stock, economy.UpkeepElapsed, economy.StarvationElapsed, economy.RecruitCooldown),
                 new WaveSnapshot(wave.Index, wave.Phase, wave.DayRemaining, wave.SpawnElapsed, wave.NextSpawn),
                 camp.Elapsed, camp.Speed, camp.Paused, camp.NextEntityId,
@@ -98,7 +100,8 @@ namespace DarkNights.Runtime.Objects
                     X = (float)a.X, Hp = a.Hp, Activity = a.State, TargetId = a.TargetId,
                     MoveX = (float)a.MoveX, RallyX = (float)a.RallyX, Face = (float)a.Face,
                     ActionTime = a.ActionTime, AttackClock = a.AttackClock, Windup = a.Windup,
-                    HitPending = a.HitPending, ForcedAttack = a.ForcedAttack, AiClock = a.AiClock
+                    HitPending = a.HitPending, ForcedAttack = a.ForcedAttack, AiClock = a.AiClock,
+                    Height = a.Height, VerticalSpeed = a.VerticalSpeed, SupportPlatform = a.SupportPlatform, IgnoredPlatform = a.IgnoredPlatform, DropRemaining = a.DropRemaining, ManualControl = a.ManualControl, SelectedItem = a.SelectedItem, SelectionRevision = a.SelectionRevision, JetpackEquipped = a.JetpackEquipped, JetpackFuel = a.JetpackFuel
                 });
             }
             else if (owner.GetBehaviour<BuildingBehaviour>() is BuildingBehaviour building)

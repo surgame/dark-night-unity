@@ -1,17 +1,17 @@
-# Unity 世界存档 v2
+# Unity 世界存档 v3
 
-2026-09-13，正式入口使用 ObjectWorldSaveJson 与 GameSaveStore 保存统一 YYGC 世界。U5 已删除旧档入口，134 项 Editor／Play 回归通过，包含新格式 44 项与文件存储 20 项断言。U6 最终同一 Mono 产物已通过活跃恢复 14/14、四人恢复 24/24 与九组弱网各 24/24，见[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)。
+2026-09-16，[主角与输入联合切片](HERO_INPUT_EXECUTION.md)将正式格式升级为 v3：增加高度、纵向速度、平台支撑、下穿计时及道具状态。正式入口仍为 ObjectWorldSaveJson 与 GameSaveStore，状态仍来自所属 YYGC Behaviour。当前验收记录见联合执行文档；U5／U6 的 v2 计数按历史输入保留在[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)。
 
-本页替代原 v1 当前合同。Godot 旧档和 Unity v1 不再读取或自动迁移；旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前营地。历史 v1 证据见[原存储记录](evidence/world-save-2026-09-11.json)。
+本页为当前合同。Godot 旧档和 Unity v1／v2 不读取或自动迁移；旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前营地。历史 v1 证据见[原存储记录](evidence/world-save-2026-09-11.json)。
 
 ## 文件合同
 
 无 BOM 的 UTF-8 JSON，上限 **4,000,000 字节**，解析深度 32。根对象严格只有 7 个字段：
 
-| 字段 | v2 合同 |
+| 字段 | v3 合同 |
 |---|---|
 | format | dark-nights.world |
-| format_version | 整数 2 |
+| format_version | 整数 3 |
 | random_algorithm | SimulationRandom.Algorithm，当前为 godot-pcg32-clz-f32-v1 |
 | rules_sha256 | 实际只读 GameCatalog 的规范化 SHA-256 |
 | layout_sha256 | 实际场景导出 LevelLayout 的规范化 SHA-256 |
@@ -22,19 +22,21 @@ world 包含 level_id、economy、wave、elapsed、speed、paused、next_entity_
 
 每个 identity 严格包含 id、definition_guid、placement_key；实体与身份一一对应，GUID 必须匹配该实体 RuleKey。非空放置键必须来自当前场景，职业替换仅允许合法单位定义间沿用原放置身份。重复键、未知／缺失字段、重复 JSON 属性、尾随内容和不兼容摘要均拒绝。
 
-文件不包含相机、选择、epoch、连接代次、FishNet 身份或房间共享策略。Core 的 SessionSnapshot 只承载 v2 冻结合同，不再补入旧显示字段；旧 GameSaveJson、LegacySnapshotJson、LegacyDisplayState 及旧世界映射器已退出。
+actors 新增 height、vertical_speed、support_platform、ignored_platform、drop_remaining、manual_control、selected_item、selection_revision、jetpack_equipped、jetpack_fuel。高度以原地面为零、向上为正；支撑 0 为地面、-1 为空中、正数为场景平台 ID。支撑关系、范围和燃料必须合法。
+
+文件不包含相机、选区、epoch、连接代次、FishNet 身份或房间共享策略；也不保存 ControllerSlot、ControllerGeneration、ControlLease、输入序号和按钮意图。恢复后的手动角色保留姿态与装备，等待重新接管；不会重放跳跃、攻击或已断开的玩家输入。Core 的 SessionSnapshot 只承载 v3 冻结合同；旧 GameSaveJson、LegacySnapshotJson、LegacyDisplayState 及旧世界映射器保持退出。
 
 ## 内容摘要
 
 SaveContentFingerprint 直接使用本次会话的 GameCatalog 与经过校验的 LevelLayout。规则覆盖配置名称、说明、资源、单位／建筑／工位参数、关卡 seed 和有序波次；布局覆盖边界、地面、出生点与按出生顺序排列的放置记录，排除本地 CameraX。
 
-规则与布局继续使用已冻结的二进制编码域 dark-nights.rules.v1／dark-nights.layout.v1：小端整数、IEEE 754 float/double、UTF-8 字符串及显式集合长度。字典按 Ordinal Key 排序，布局和敌人序列保留顺序。这两个域标记描述摘要编码，并不表示存档仍支持 v1。
+规则与布局使用二进制编码域 dark-nights.rules.v2／dark-nights.layout.v2，纳入 hero_control 和有序平台定义：小端整数、IEEE 754 float/double、UTF-8 字符串及显式集合长度。字典按 Ordinal Key 排序，布局和敌人序列保留顺序。这两个域标记描述摘要编码，不表示接受 v2 存档。
 
-identity_sha256 对按 Ordinal 排序的 definitions／placements 对象做紧凑 JSON UTF-8 SHA-256，值来自实际加载定义和场景放置关系。新增格式字段或修改规范编码须明确升级合同。摘要用于内容一致性，不是文件签名，也不能替代协议 6 的完整握手摘要。
+identity_sha256 对按 Ordinal 排序的 definitions／placements 对象做紧凑 JSON UTF-8 SHA-256，值来自实际加载定义和场景放置关系。新增格式字段或修改规范编码须明确升级合同。摘要用于内容一致性，不是文件签名，也不能替代协议 8 的完整握手摘要。
 
 ## 保存与恢复顺序
 
-GameSaveStore 注入专用目录与本局 ObjectWorldSaveJson，构造无磁盘写入。正式入口使用独立 v2 子目录，提供槽位 0–9，文件名为 slot-00.dnsave.json 至 slot-09.dnsave.json；客户端不能提交任意文件路径。
+GameSaveStore 注入专用目录与本局 ObjectWorldSaveJson，构造无磁盘写入。正式入口使用独立 v3 子目录，提供槽位 0–9，文件名为 slot-00.dnsave.json 至 slot-09.dnsave.json；客户端不能提交任意文件路径。
 
 1. 权威端在模拟边界通过 ObjectSnapshotMapper 捕获全部 Behaviour State 的冻结副本。
 2. 后台 Save 校验并编码，写同目录唯一临时文件，Flush(true) 后关闭句柄。

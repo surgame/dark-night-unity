@@ -18,7 +18,7 @@ namespace DarkNights.Runtime.Config
             var rules = new BalanceDefinition(ConfigJson.Integer(balance, "schema_version"),
                 Economy(ConfigJson.Object(balance, "economy")),
                 Dictionary(balance, "units", Unit), Dictionary(balance, "buildings", Building),
-                Dictionary(balance, "worksites", Worksite));
+                Dictionary(balance, "worksites", Worksite), HeroControl(ConfigJson.Object(balance, "hero_control")));
             var waves = new List<WaveDefinition>();
             foreach (JToken wave in ConfigJson.Array(level, "waves"))
             {
@@ -48,6 +48,12 @@ namespace DarkNights.Runtime.Config
             }
             return result;
         }
+
+        private static HeroControlDefinition HeroControl(JToken value) => new HeroControlDefinition(
+            ConfigJson.Positive(value, "jump_speed"), ConfigJson.Positive(value, "gravity"),
+            ConfigJson.Positive(value, "maximum_height"), ConfigJson.Positive(value, "jetpack_speed"),
+            ConfigJson.Positive(value, "fuel_seconds"), ConfigJson.Positive(value, "fuel_recovery"),
+            ConfigJson.Positive(value, "drop_seconds"), ConfigJson.Positive(value, "work_reach"));
 
         private static EconomyDefinition Economy(JToken value) => new EconomyDefinition(
             Resources(value, "starting_resources"), ConfigJson.Positive(value, "upkeep_interval"),

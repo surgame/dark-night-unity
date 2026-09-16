@@ -1217,6 +1217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9e3a3165aac61439c58ebb4d1ed4d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DarkNights.View::DarkNights.View.PinewatchStage
+  inputPlayer: {fileID: 238113023}
   sceneCamera: {fileID: 1809580424}
   entities: {fileID: 1745776000}
   sky: {fileID: 391444022}
@@ -1230,6 +1231,68 @@ MonoBehaviour:
   cameraX: 255
   zoom: 2.8
   worldWidth: 1100
+--- !u!1 &238113022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 238113024}
+  - component: {fileID: 238113023}
+  m_Layer: 0
+  m_Name: Gameplay Input
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &238113023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238113022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 434b8dcd3bbc1594aa5088860acb731c, type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Camp
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!4 &238113024
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238113022}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &254624300
 GameObject:
   m_ObjectHideFlags: 0
@@ -4923,6 +4986,7 @@ Transform:
   - {fileID: 2137677674}
   - {fileID: 1975037558}
   - {fileID: 1604053257}
+  - {fileID: 1974372273}
   m_Father: {fileID: 232465611}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1190562544
@@ -4946,6 +5010,10 @@ MonoBehaviour:
   buildings: {fileID: 2137677674}
   worksites: {fileID: 1975037558}
   actors: {fileID: 1604053257}
+  platforms:
+  - {fileID: 1396073865}
+  - {fileID: 1334880798}
+  - {fileID: 1962009276}
 --- !u!1 &1255928735
 GameObject:
   m_ObjectHideFlags: 0
@@ -5707,6 +5775,83 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1001 &1334880796
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1974372273}
+    m_Modifications:
+    - target: {fileID: 3600884150985268135, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: Id
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 210
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 343.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864784370159651452, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_Name
+      value: HeroPlatform
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+--- !u!4 &1334880797 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+  m_PrefabInstance: {fileID: 1334880796}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1334880798 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3600884150985268135, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+  m_PrefabInstance: {fileID: 1334880796}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a82fb75794e0cd45a01fac0bb305bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.HeroPlatform
 --- !u!1 &1384500821
 GameObject:
   m_ObjectHideFlags: 0
@@ -5769,6 +5914,79 @@ MonoBehaviour:
   - {fileID: 1257676369}
   - {fileID: 18631904}
   - {fileID: 1255928737}
+--- !u!1001 &1396073863
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1974372273}
+    m_Modifications:
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 182
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 331.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864784370159651452, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_Name
+      value: HeroPlatform
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+--- !u!4 &1396073864 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+  m_PrefabInstance: {fileID: 1396073863}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1396073865 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3600884150985268135, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+  m_PrefabInstance: {fileID: 1396073863}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a82fb75794e0cd45a01fac0bb305bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.HeroPlatform
 --- !u!1 &1445680901
 GameObject:
   m_ObjectHideFlags: 0
@@ -7606,6 +7824,117 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1001 &1962009274
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1974372273}
+    m_Modifications:
+    - target: {fileID: 3600884150985268135, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: Id
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 238
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 355.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864784370159651452, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+      propertyPath: m_Name
+      value: HeroPlatform
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+--- !u!4 &1962009275 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7064267092021148018, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+  m_PrefabInstance: {fileID: 1962009274}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1962009276 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3600884150985268135, guid: 69a781bd90332d9478a08e17813f574a, type: 3}
+  m_PrefabInstance: {fileID: 1962009274}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a82fb75794e0cd45a01fac0bb305bdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.HeroPlatform
+--- !u!1 &1974372272
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1974372273}
+  m_Layer: 0
+  m_Name: One Way Platforms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1974372273
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974372272}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1396073864}
+  - {fileID: 1334880797}
+  - {fileID: 1962009275}
+  m_Father: {fileID: 1190562543}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1975037557
 GameObject:
   m_ObjectHideFlags: 0
@@ -8259,3 +8588,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 232465611}
+  - {fileID: 238113024}

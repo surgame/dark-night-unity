@@ -10,13 +10,21 @@ namespace DarkNights.Runtime.Session
     /// </summary>
     internal static class SessionOperations
     {
-        internal static bool HostRequired(SessionOperation operation) => operation >= SessionOperation.SetPaused;
+        internal static bool HostRequired(SessionOperation operation) => operation >= SessionOperation.SetPaused && operation <= SessionOperation.Restart;
 
         internal static bool ValidShape(SessionRequest r)
         {
             if (r == null || r.Sequence <= 0 || r.PolicyRevision < 0 ||
                 !Enum.IsDefined(typeof(SessionOperation), r.Operation) || float.IsNaN(r.X) || float.IsInfinity(r.X) ||
                 r.TargetId < 0 || r.ActorIds.Any(id => id <= 0)) return false;
+            if (SessionHeroControl.IsOperation(r.Operation))
+                return r.ActorIds.Count == 1 && r.X == 0 &&
+                    (r.Operation == SessionOperation.ClaimHero ? r.ControlLease == 0 : r.ControlLease > 0) &&
+                    (r.Operation == SessionOperation.UseHeroItem ? r.Value >= 0 &&
+                        (r.Kind == "weapon" || r.Kind == "tool" || r.Kind == "jetpack") :
+                        r.TargetId == 0 && r.Kind.Length == 0 &&
+                        (r.Operation == SessionOperation.SelectHeroItem ? r.Value >= 0 && r.Value <= 2 : r.Value == 0));
+            if (r.ControlLease != 0) return false;
             bool actors = r.Operation == SessionOperation.IssueOrders || r.Operation == SessionOperation.PlaceBuilding ||
                 r.Operation == SessionOperation.TrainActors;
             bool position = r.Operation == SessionOperation.IssueOrders || r.Operation == SessionOperation.PlaceBuilding;

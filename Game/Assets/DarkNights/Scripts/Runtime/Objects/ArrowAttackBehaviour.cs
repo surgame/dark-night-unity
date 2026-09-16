@@ -13,6 +13,6 @@ namespace DarkNights.Runtime.Objects
         [Inject] private ActorBehaviour actor;
 
         public void Hit(ICombatantCapability target, int damage) => actor.World.Projectiles.Launch(
-            new WorldPoint(actor.X, actor.World.Layout.GroundY - 10), target, damage);
+            new WorldPoint(actor.X, actor.World.Layout.GroundY - actor.Read().Height - 10), target, damage);
     }
 }

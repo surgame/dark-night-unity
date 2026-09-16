@@ -8,7 +8,7 @@ using DarkNights.Core.ViewData;
 namespace DarkNights.Core.Save
 {
     /// <summary>
-    /// 一局完整的 v2 冻结恢复合同，复制集合并保持明确的定义与放置身份。
+    /// 一局完整的 v3 冻结恢复合同，复制集合并保持明确的定义与放置身份。
     /// 仅保存玩法状态，不保存本地镜头、选择或房间权限；完整验证后才允许替换活动对象。
     /// </summary>
     public sealed class SessionSnapshot

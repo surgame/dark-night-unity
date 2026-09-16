@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc8652e55004e79a017907c38b6a1b2, type: 3}
+  m_Name: Hero
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinition
+  Id: 0
+  definitionGuid: c89f78d0a70da0844b25be8716d9fa7c
+  key: ui.hero
+  keyAliases: []
+  legacyIdAliases: 
+  debugContent: 0
+  legacyAllocationPending: 
+  Type: 20003
+  Name: "\u4E3B\u89D2\u9053\u5177\u680F"
+  Icon: {fileID: 0}
+  Describe: 
+  MaxStack: 1
+  ItemLevel: 1
+  NetType: 1
+  PrefabRef:
+    m_AssetGUID: 181276b5f026ec7488abe075c10aacc9
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  Archetype: {fileID: 0}
+  UseMonolithicPooling: 0
+  BehaviourTypes:
+  - DarkNights.View.HeroHudBehaviour
+  SharedConfigs: []
+  references:
+    version: 2
+    RefIds: []

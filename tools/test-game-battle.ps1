@@ -31,7 +31,7 @@ function Wait-Report([string]$Role, [scriptblock]$Condition, [int]$Seconds = 45)
 function Start-Player([string]$Role) {
     [IO.File]::WriteAllText((Join-Path $run "$Role.commands"), '')
     $arguments = @('-screen-width', '1280', '-screen-height', '800', '-screen-fullscreen', '0',
-        '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'), '--dn-role', $Role, '--dn-port', $Port,
+        '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'), '--dn-camp-mode', '--dn-role', $Role, '--dn-port', $Port,
         '--dn-report', ('"' + (Join-Path $run "$Role.json") + '"'), '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
     if ($BatchMode) { $arguments = @('-batchmode') + $arguments }
     $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru

@@ -1,8 +1,10 @@
 # Dark Nights Unity 技术架构
 
+2026-09-16 当前切片见[主角与输入联合执行](HERO_INPUT_EXECUTION.md)：YYGC `0c7cec0`、协议 8、存档 v3；ActorState 仍是唯一状态，自动控制与主角控制以能力切换。原输入 API 保留，新增动作到 Interaction Sessions 的薄接线；实际 Sample、输入与游戏验证均已归档。下段日期较早的版本与计数保留历史时点。
+
 2026-09-14，采用 [YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。U0–U5 已完成，正式入口使用全部 YYGC 业务能力，旧运行模型已删除。U6 协议 7／YYGC `745f3d2` 通过 144 项 Editor／Play、Mono 完整矩阵 350 项及 240 秒容量检查 21 项；后续 [Linear 世界表现](M5_WORLD_PRESENTATION.md)在 `a4a5450` 完成 155 项 Editor／Play 和新 Mono 77 项检查。前台验收由用户暂缓，IL2CPP／双机器仍未验收；受限清理已完成[列账交接](STAGE_CLEANUP_INVENTORY.md)，目录未删除。实际状态与证据见[性能验收](YYGC_UNIFIED_PERFORMANCE.md)和[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)，不以类型或目录存在代替验收。
 
-本页描述统一后的源码。原集中 Core 世界及按 Kind 借还视图的方案保留在 Git 历史和 [C 重构记录](C_REFACTOR_IMPLEMENTATION.md)，不再作为当前状态归属合同。游戏不兼容 Godot 旧档、Unity v1 或协议 6／5；独立 LAN Sample 的兼容边界单独保留。
+本页描述统一后的源码。原集中 Core 世界及按 Kind 借还视图的方案保留在 Git 历史和 [C 重构记录](C_REFACTOR_IMPLEMENTATION.md)，不再作为当前状态归属合同。游戏不兼容 Godot 旧档、Unity v1／v2 或协议 7／6／5；独立 LAN Sample 的兼容边界单独保留。
 
 ## 唯一状态归属
 
@@ -40,7 +42,7 @@ flowchart LR
     Projection --> Host["Host 展示副本"]
     Replica --> View["绑定外观 / UI / 插值"]
     Host --> View
-    Objects --> Save["v2 冻结快照 / 校验 / 原子存储"]
+    Objects --> Save["v3 冻结快照 / 校验 / 原子存储"]
 ```
 
 ## 程序集与目录
@@ -80,7 +82,7 @@ SessionClock 累积未缩放时间，以 60 Hz 调用 SessionAuthority。命令�
 
 Host 与客户端使用同一验证入口；服务器从 NetworkCommandContext 取得连接身份。请求中的玩家 ID、资源和伤害不能构成授权。SharedCamp／HostOnly 与 PolicyRevision 在执行点检查，包含建造自动派工和训练；已生效任务继续。加载保持房间策略。
 
-正式游戏为协议 7，YYGC 定义 wire 为 GuidV2，两者是不同版本概念。握手在业务载荷解析前拒绝旧协议 6／5，并校验规则、布局、定义和生成注册摘要。完整投影携带 EntityId、DefinitionGuid、放置关系、epoch／revision、实体与在飞箭矢；真实副本应用完成后才 Ready。投影使用有界原始／GZip 封套，解封后仍执行完整 MemoryPack 和规则校验，见[性能修正](YYGC_UNIFIED_PERFORMANCE.md)。继续复用 Gateway／Sender／Processor、StatefulBehaviour／StateSynchronizer，不新建并行传输栈。
+正式游戏为协议 8，YYGC 定义 wire 为 GuidV2，两者是不同版本概念。握手在业务载荷解析前拒绝旧协议 7／6／5，并校验规则、布局、定义和生成注册摘要。完整投影携带 EntityId、DefinitionGuid、放置关系、epoch／revision、实体与在飞箭矢；真实副本应用完成后才 Ready。投影使用有界原始／GZip 封套，解封后仍执行完整 MemoryPack 和规则校验，见[性能修正](YYGC_UNIFIED_PERFORMANCE.md)。继续复用 Gateway／Sender／Processor、StatefulBehaviour／StateSynchronizer，不新建并行传输栈。
 
 ## 场景对象与展示生命周期
 
@@ -92,7 +94,13 @@ SessionEntityViews 只按当前 epoch／EntityId 分发展示：Host 查询权�
 
 转职保留 EntityId、位置和原规则要求的状态，按新 Definition 重新装配并退休旧职业。重开／加载保留可复用的原场景对象，清除过期绑定与插值；退出后没有活动更新、残留会话订阅或幽灵对象。
 
-## 身份与 v2 恢复
+## 主角与输入
+
+2026-09-16 的[联合切片](HERO_INPUT_EXECUTION.md)将旧决策原序提取为 AutomaticActorControlBehaviour，通过 IAutomaticActorControl 装配；HeroControlBehaviour、HeroMotionBehaviour、HeroInventoryBehaviour 共用 ActorState。ActorBehaviour 每步只选择一种决策入口，共享行动时钟、移动数值、工作与战斗结算。
+
+GameInputActions 缓存原生 PlayerInput.actions；YYInputActionService 只接线动作组与 Interaction Sessions。HeroPlayerController 保存渲染输入边沿并发送意图；SessionHeroControl 从可信连接验证占用、租约、epoch、策略和输入序号。变化输入上限 30 Hz，无变化 10 Hz 保活，30 个服务端 tick 无输入归零；输入不会逐包触发完整世界发布。主角控制与营地模式互斥，UI、失焦和设备丢失撤销读取许可。
+
+## 身份与 v3 恢复
 
 | 标识 | 用途 |
 |---|---|
@@ -106,7 +114,7 @@ SessionEntityViews 只按当前 epoch／EntityId 分发展示：Host 查询权�
 
 正式定义旧整数 Id 固定为 0，无旧别名；不恢复 Kind 后缀或整数兼容。独立 LAN Sample 的 LegacyV1 和 YYGC 面向其他使用者的兼容 API 不在游戏清理范围。
 
-v2 保存全部权威状态、实体定义／放置身份、训练／施工／在飞箭矢与 RNG。捕获在模拟边界深度冻结，后台仅编码和写文件。恢复先验证完整 DTO，再准备未激活对象；提交时切换对象索引、增加 epoch、退休旧对象并重新 Ready。准备或提交失败保留当前世界；保存失败保留原文件。详细字段及原子文件边界见[存档合同](SAVE_FORMAT.md)。
+v3 保存全部持久权威状态、实体定义／放置身份、训练／施工／在飞箭矢、主角运动与道具及 RNG；连接占用和待处理输入不进入存档。捕获在模拟边界深度冻结，后台仅编码和写文件。恢复先验证完整 DTO，再准备未激活对象；提交时切换对象索引、增加 epoch、退休旧对象并重新 Ready。准备或提交失败保留当前世界；保存失败保留原文件。详细字段及原子文件边界见[存档合同](SAVE_FORMAT.md)。
 
 ## 资源与验证边界
 

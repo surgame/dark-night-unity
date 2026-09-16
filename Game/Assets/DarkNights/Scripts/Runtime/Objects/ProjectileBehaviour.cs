@@ -19,7 +19,7 @@ namespace DarkNights.Runtime.Objects
             var shot = new ProjectileFlight
             {
                 ViewId = state.NextViewId++, FromX = from.X, FromY = from.Y,
-                ToX = target.X, ToY = Session.Layout.GroundY - 9,
+                ToX = target.X, ToY = Session.Layout.GroundY - ObjectCombat.Height(target) - 9,
                 TargetId = target.Id, Damage = damage,
                 Duration = Math.Max(0.15, Math.Abs(target.X - from.X) / 180.0)
             };
@@ -39,7 +39,7 @@ namespace DarkNights.Runtime.Objects
                 if (target != null)
                 {
                     shot.ToX = target.X;
-                    shot.ToY = Session.Layout.GroundY - 9;
+                    shot.ToY = Session.Layout.GroundY - ObjectCombat.Height(target) - 9;
                 }
                 if (shot.Age < shot.Duration) { state.Shots[index++] = shot; continue; }
                 state.Shots = state.Shots.Where((value, position) => position != index).ToArray();

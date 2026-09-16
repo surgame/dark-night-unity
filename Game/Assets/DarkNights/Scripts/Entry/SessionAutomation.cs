@@ -29,6 +29,7 @@ namespace DarkNights.Entry
         private bool pauseOnProjectile;
         private bool fullReport = true;
         private PlayerPerformanceCapture capture;
+        private HeroInputPlayback heroInput;
 
         public static void Install(SessionNetwork network)
         {
@@ -47,6 +48,8 @@ namespace DarkNights.Entry
             driver.port = ushort.Parse(Read("--dn-port", "27991"));
             driver.reportPath = Path.GetFullPath(Read("--dn-report"));
             driver.commandPath = Path.GetFullPath(Read("--dn-commands"));
+            driver.heroInput = network.gameObject.AddComponent<HeroInputPlayback>();
+            driver.heroInput.Initialize(network.Client);
             Directory.CreateDirectory(Path.GetDirectoryName(driver.reportPath));
             network.Client.Feedback += driver.OnFeedback;
             network.Failed += driver.OnFailure;
@@ -99,6 +102,8 @@ namespace DarkNights.Entry
                         else if (operation == "metrics") capture.Save(Path.Combine(
                             Path.GetDirectoryName(reportPath), Path.GetFileName((string)command["file"] ?? "metrics.json")));
                         else if (operation == "raw") await ExecuteRaw(command);
+                        else if (operation == "input" || operation == "input-raw" || operation == "input-hold" || operation == "input-stop")
+                            await heroInput.Execute(command);
                         else if (operation == "pause-on-projectile") pauseOnProjectile = true;
                         else if (operation == "capture")
                         {
@@ -121,7 +126,7 @@ namespace DarkNights.Entry
                             var actors = command["actors"]?.Values<int>().ToArray();
                             await network.Client.Send((SessionOperation)Enum.Parse(typeof(SessionOperation), operation),
                                 actors, (int?)command["target"] ?? 0, (float?)command["x"] ?? 0,
-                                (string)command["kind"] ?? "", (int?)command["value"] ?? 0);
+                                (string)command["kind"] ?? "", (int?)command["value"] ?? 0, (int?)command["lease"] ?? 0);
                         }
                     }
                 }
@@ -135,7 +140,8 @@ namespace DarkNights.Entry
                 {
                     ["utc"] = DateTime.UtcNow.ToString("O"), ["role"] = role, ["status"] = network.Status,
                     ["clientStatus"] = network.Client.Status, ["ready"] = network.Client.Ready,
-                    ["slot"] = network.Client.PlayerSlot, ["commandsConsumed"] = consumed, ["error"] = error,
+                    ["slot"] = network.Client.PlayerSlot, ["commandsConsumed"] = consumed, ["error"] = error ?? heroInput.Error,
+                    ["inputPacketsSent"] = heroInput.PacketsSent,
                     ["feedback"] = JArray.FromObject(feedback),
                     ["frame"] = frame == null || !fullReport ? null : JObject.FromObject(frame),
                     ["reportDetail"] = fullReport ? "full" : "summary", ["publication"] = frame?.Publication ?? 0,
@@ -197,7 +203,8 @@ namespace DarkNights.Entry
                 (int?)command["protocol"] ?? SessionAuthority.ProtocolVersion, (int?)command["epoch"] ?? frame.Epoch,
                 (int?)command["policy"] ?? frame.PolicyRevision, (long)command["sequence"],
                 command["actors"]?.Values<int>().ToArray(), (int?)command["target"] ?? 0,
-                (float?)command["x"] ?? 0, (string)command["kind"] ?? "", (int?)command["value"] ?? 0));
+                (float?)command["x"] ?? 0, (string)command["kind"] ?? "", (int?)command["value"] ?? 0,
+                (int?)command["lease"] ?? 0));
         }
     }
 }

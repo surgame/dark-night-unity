@@ -24,10 +24,17 @@ namespace DarkNights.Editor
                 Add<ActorBehaviour>(definition);
                 Add<MovementBehaviour>(definition);
                 Add<ActorCombatBehaviour>(definition);
+                Add<AutomaticActorControlBehaviour>(definition);
+                if (ruleKey == "worker" || ruleKey == "spearman" || ruleKey == "archer")
+                {
+                    Add<HeroControlBehaviour>(definition);
+                    Add<HeroMotionBehaviour>(definition);
+                    Add<HeroInventoryBehaviour>(definition);
+                }
                 if (ruleKey == "archer") Add<ArrowAttackBehaviour>(definition);
                 else Add<MeleeAttackBehaviour>(definition);
                 definition.Archetype = Archetype("Actor", typeof(IActorCapability), typeof(IMovementCapability),
-                    typeof(IActorCombatCapability), typeof(IAttackCapability));
+                    typeof(IActorCombatCapability), typeof(IAttackCapability), typeof(IAutomaticActorControl));
             }
             else if (definition.Type == ObjectType.Placeable_CompositeStructure)
             {

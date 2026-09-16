@@ -95,6 +95,13 @@ namespace DarkNights.Runtime.Network
             return default;
         }
 
+        public ValueTask Input(HeroInputCommand command, PublishContext publication)
+        {
+            var peer = Sender(publication);
+            if (peer?.Authority != null) Authority.SubmitInput(peer.Authority, command.Freeze());
+            return default;
+        }
+
         public ValueTask Ready(SetReadyCommand command, PublishContext publication)
         {
             var peer = Sender(publication);

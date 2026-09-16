@@ -83,11 +83,13 @@ namespace DarkNights.Tests
             await Until(() =>
             {
                 network = UnityEngine.Object.FindAnyObjectByType<SessionNetwork>();
-                return network != null && network.Client != null && network.ObjectResources != null;
+                return network != null && network.Client != null && network.ObjectResources != null &&
+                    network.GetComponent<HeroPlayerController>() != null;
             }, "Unified startup");
             string directory = Path.GetFullPath(Path.Combine(Application.dataPath,
-                "../../artifacts/yygc-unified/u4/play-saves", Guid.NewGuid().ToString("N"), "v2"));
+                "../../artifacts/hero-input/play-saves", Guid.NewGuid().ToString("N"), "v3"));
             typeof(SessionNetwork).GetProperty(nameof(SessionNetwork.SaveDirectory)).SetValue(network, directory);
+            await network.GetComponent<HeroPlayerController>().SetHeroMode(false);
             await network.Connect(true, "127.0.0.1", 27981);
             await Until(() => network.Client.Ready, "Host Ready");
             var world = network.ObjectWorld;
@@ -145,9 +147,9 @@ namespace DarkNights.Tests
 
             await network.Client.Send(SessionOperation.Save, value: 0);
             string path = Path.Combine(network.SaveDirectory, "slot-00.dnsave.json");
-            await Until(() => File.Exists(path) && !network.Server.Storage.Busy, "Save v2");
+            await Until(() => File.Exists(path) && !network.Server.Storage.Busy, "Save v3");
             string saved = File.ReadAllText(path);
-            Assert.That((int)JObject.Parse(saved)["format_version"], Is.EqualTo(2));
+            Assert.That((int)JObject.Parse(saved)["format_version"], Is.EqualTo(Runtime.Save.ObjectWorldSaveJson.FormatVersion));
             int epoch = network.Server.Authority.Epoch;
             var previous = world.EntityContext;
             await network.Client.Send(SessionOperation.Restart);

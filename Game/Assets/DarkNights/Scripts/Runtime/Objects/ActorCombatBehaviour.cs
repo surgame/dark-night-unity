@@ -46,7 +46,10 @@ namespace DarkNights.Runtime.Objects
             }
         }
 
-        public void TickAttack(double delta)
+        public void TickAttack(double delta) => AdvanceAttack(delta, true, true);
+        internal void TickManualAttack(double delta, bool repeat) => AdvanceAttack(delta, false, repeat);
+
+        private void AdvanceAttack(double delta, bool pursue, bool repeat)
         {
             ObjectSession session = actor.World;
             ICombatantCapability target = session.Index.Find<ICombatantCapability>(actor.TargetId);
@@ -54,10 +57,11 @@ namespace DarkNights.Runtime.Objects
             double reach = actor.Definition.Range + (target is BuildingBehaviour b ? b.Definition.Width * 0.5 : 0);
             ActorState state = actor.Edit();
             state.Face = target.X < actor.X ? -1 : 1;
-            if (Math.Abs(target.X - actor.X) > reach)
+            if (!session.Combat.InRange(actor, target))
             {
                 state.HitPending = false;
-                movement.MoveTo((float)(target.X - state.Face * (reach - 1)), delta);
+                if (pursue) movement.MoveTo((float)(target.X - state.Face * (reach - 1)), delta);
+                else session.Work.Clear(actor);
                 return;
             }
             if (state.HitPending)
@@ -68,13 +72,14 @@ namespace DarkNights.Runtime.Objects
                 int damage = session.Camp.RandomInt(actor.Definition.Damage[0], actor.Definition.Damage[1]);
                 attack.Hit(target, damage);
             }
-            else if (state.AttackClock <= 0)
+            else if (repeat && state.AttackClock <= 0)
             {
                 state.AttackClock = actor.Definition.AttackSeconds;
                 state.Windup = actor.Definition.Windup;
                 state.HitPending = true;
                 state.ActionTime = 0;
             }
+            else if (!repeat) session.Work.Clear(actor);
         }
     }
 }

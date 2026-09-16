@@ -42,7 +42,8 @@ namespace DarkNights.Runtime.Objects
                     Id = value.Id, PlacementKey = identity.PlacementKey, X = value.X, Hp = value.Hp,
                     Name = value.Name, Enemy = value.Enemy, Activity = activity, TargetId = value.TargetId,
                     Face = value.Face, ActionTime = value.ActionTime, Windup = value.Windup,
-                    HitFlash = value.HitFlash, Walking = value.Walking
+                    HitFlash = value.HitFlash, Walking = value.Walking,
+                    Height = value.Height, VerticalSpeed = value.VerticalSpeed, SupportPlatform = value.SupportPlatform, ManualControl = value.ManualControl, SelectedItem = value.SelectedItem, SelectionRevision = value.SelectionRevision, JetpackEquipped = value.JetpackEquipped, JetpackFuel = value.JetpackFuel, ControllerSlot = value.ControllerSlot, ControlLease = value.ControlLease
                 };
                 result.Add(new ReplicaEntityState(identity, value.Kind,
                     (instance, context) => instance.GetBehaviour<ActorBehaviour>().PrepareSessionState(context, state)));

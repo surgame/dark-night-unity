@@ -49,9 +49,9 @@ namespace DarkNights.View
             return true;
         }
 
-        protected void Position(float x, Color ambient)
+        protected void Position(float x, Color ambient, float height = 0)
         {
-            visual.transform.position = new Vector3(x / EntityView.PixelsPerUnit, 0, 0);
+            visual.transform.position = new Vector3(x / EntityView.PixelsPerUnit, height / EntityView.PixelsPerUnit, 0);
             visual.Ambient = ambient;
         }
 

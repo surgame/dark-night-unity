@@ -16,7 +16,7 @@ namespace DarkNights.Tests
             (bool)Invoke(world.Economy, "Pay", cost));
 
         internal static bool Assign(ObjectSession world, ActorBehaviour actor, IEntityBehaviour target) => world.Mutations.Run(() =>
-            (bool)Invoke(world.Work, "Assign", actor, target));
+            (bool)Invoke(world.Work, "Assign", actor, target, false));
 
         internal static ActorBehaviour Spawn(ObjectSession world, string kind, float x) => world.Mutations.Run(() =>
             (ActorBehaviour)Invoke(world.Lifecycle, "SpawnActor", kind, x, true, ""));

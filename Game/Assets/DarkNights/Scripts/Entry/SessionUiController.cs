@@ -25,11 +25,14 @@ namespace DarkNights.Entry
         private readonly Dictionary<string, ObjectInstance> panels = new Dictionary<string, ObjectInstance>();
         private SessionNetwork network;
         private CampInput input;
+        private GameInputActions actions;
+        private HeroPlayerController hero;
         private SessionEntityViews entities;
         private PinewatchStage stage;
         private MainMenuBehaviour main;
         private PauseMenuBehaviour pause;
         private ResultMenuBehaviour result;
+        private HelpMenuBehaviour help;
         private CampHudBehaviour hud;
         private YYInteractionSessionHandle modal;
         private GameCatalog catalog;
@@ -58,14 +61,16 @@ namespace DarkNights.Entry
             this.entities = entities;
             this.stage = stage;
             catalog = rules;
+            actions = gameObject.AddComponent<GameInputActions>();
+            actions.Initialize(stage.InputPlayer, YYInteractionSessionService.Instance);
             input = gameObject.AddComponent<CampInput>();
-            input.Initialize(stage, entities, YYInteractionSessionService.Instance);
+            input.Initialize(stage, entities, YYInteractionSessionService.Instance, actions);
             input.Intent += intent => Execute(intent).Forget();
             entities.SetIntentHandler(intent => Execute(intent).Forget());
             // Existing framework root owns the scaler; formal UI preserves source pixel sizes at each viewport.
             UGUIManager.Instance.GetComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
             UGUIManager.Instance.GetComponent<Canvas>().pixelPerfect = true;
-            foreach (string name in new[] { "Chrome", "MainMenu", "PauseMenu", "Help", "Result" })
+            foreach (string name in new[] { "Chrome", "MainMenu", "PauseMenu", "Help", "Result", "Hero" })
             {
                 var definition = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("ui." + name.ToLowerInvariant());
                 ObjectInstance panel = await UGUIManager.Instance.CreatePanelInstanceAsync(definition);
@@ -80,8 +85,11 @@ namespace DarkNights.Entry
             main = Behaviour<MainMenuBehaviour>("MainMenu");
             pause = Behaviour<PauseMenuBehaviour>("PauseMenu");
             result = Behaviour<ResultMenuBehaviour>("Result");
+            help = Behaviour<HelpMenuBehaviour>("Help");
             hud = Behaviour<CampHudBehaviour>("Chrome");
             hud.Configure(catalog);
+            hero = gameObject.AddComponent<HeroPlayerController>();
+            hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"));
             network.Client.Feedback += Feedback;
             network.Failed += Failed;
             initialized = true;
@@ -126,6 +134,9 @@ namespace DarkNights.Entry
                 if (page == "Result") Switch("");
             }
             input.Present(frame, network.Client.Ready);
+            actions.Present(network.Client.Ready);
+            hero.Present(frame, page.Length != 0);
+            panels["Hero"].gameObject.SetActive(frame != null && page.Length == 0);
             if (frame == null)
             {
                 if (page != "MainMenu" && page != "Help") Switch("MainMenu");
@@ -136,7 +147,7 @@ namespace DarkNights.Entry
             if (network.Client.Ready && page == "MainMenu") Switch("");
             panels["Chrome"].gameObject.SetActive(true);
             hud.Present(frame, input.Selected, input.BuildKind, input.Hover, network.Client.Ready,
-                network.Client.PlayerSlot, Portrait(frame), page.Length != 0);
+                network.Client.PlayerSlot, Portrait(frame), page.Length != 0, actions.HeroMode);
             hud.PresentWorld(frame, input, entities, stage, network.Client.Ready && page.Length == 0);
             pause.Present($"玩家 {frame.PlayerCount} / 4 · {(frame.HostOnly ? "仅房主控制" : "共享营地控制")}",
                 network.Client.PlayerSlot == 0 ? (storageStatus.Length != 0 ? storageStatus : "房主拥有时间与营地控制设置权限。") : "来宾可操作共享营地，时间与存档由房主控制。");
@@ -166,6 +177,10 @@ namespace DarkNights.Entry
             try
             {
                 string action = intent.Action;
+                if (await hero.HandleAction(action)) return;
+                if (actions.HeroMode && (action.StartsWith("Build", StringComparison.Ordinal) ||
+                    action.StartsWith("Train", StringComparison.Ordinal) || action == "Orders"))
+                { hud.ShowMessage("按 Tab 切到营地模式后安排单位和建造。"); return; }
                 if (action == "Slot") { saveSlot = (saveSlot + 1) % 10; return; }
                 if (action == "Quit") { network.Disconnect(); Application.Quit(); return; }
                 if (action == "NewGame" && network.Client.Replica.Current != null)
@@ -218,13 +233,14 @@ namespace DarkNights.Entry
         {
             modal?.Dispose(); modal = null;
             page = value;
+            if (page == "Help") help.Present(hero.JumpBindingLabel);
             input.CancelBuild();
             if (page.Length != 0) modal = YYInteractionSessionService.Instance.Begin(new YYInteractionSessionDescriptor
             {
                 Kind = "dark_nights.modal", Owner = "SessionUiController", Priority = 100,
                 Blocks = YYInteractionBlockFlags.All, ConflictPolicy = YYInteractionConflictPolicy.CancelLowerPriority
             });
-            foreach (var pair in panels) if (pair.Key != "Chrome") pair.Value.gameObject.SetActive(pair.Key == page);
+            foreach (var pair in panels) if (pair.Key != "Chrome" && pair.Key != "Hero") pair.Value.gameObject.SetActive(pair.Key == page);
         }
 
         private void Feedback(CommandFeedback value)

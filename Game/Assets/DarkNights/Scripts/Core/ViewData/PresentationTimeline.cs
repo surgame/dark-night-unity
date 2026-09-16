@@ -31,6 +31,9 @@ namespace DarkNights.Core.ViewData
         public float X(ActorViewData actor, double now) => Previous(actor, out var old)
             ? old.X + (actor.X - old.X) * (float)Ratio(now) : actor.X;
 
+        public float Height(ActorViewData actor, double now) => Previous(actor, out var old)
+            ? old.Height + (actor.Height - old.Height) * (float)Ratio(now) : actor.Height;
+
         public double ActionTime(ActorViewData actor, double now)
         {
             if (!Previous(actor, out var old) || old.Activity != actor.Activity || actor.ActionTime < old.ActionTime)

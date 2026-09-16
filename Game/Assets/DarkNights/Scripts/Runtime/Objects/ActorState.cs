@@ -31,5 +31,26 @@ namespace DarkNights.Runtime.Objects
         public double AiClock { get; internal set; }
         public bool Walking { get; internal set; }
         public double HitFlash { get; internal set; }
+        public float Height { get; internal set; }
+        public float VerticalSpeed { get; internal set; }
+        public int SupportPlatform { get; internal set; }
+        public int IgnoredPlatform { get; internal set; }
+        public double DropRemaining { get; internal set; }
+        public bool ManualControl { get; internal set; }
+        public int SelectedItem { get; internal set; }
+        public int SelectionRevision { get; internal set; }
+        public bool JetpackEquipped { get; internal set; }
+        public double JetpackFuel { get; internal set; }
+        // 占用及输入只属于本次连接和 epoch，不写入存档。
+        public int ControllerSlot { get; internal set; } = -1;
+        public int ControllerGeneration { get; internal set; }
+        public int ControlLease { get; internal set; }
+        public long LastInputSequence { get; internal set; }
+        public long LastInputTick { get; internal set; }
+        public int Horizontal { get; internal set; }
+        public bool JumpHeld { get; internal set; }
+        public bool UseHeld { get; internal set; }
+        public bool JumpPending { get; internal set; }
+        public bool DropPending { get; internal set; }
     }
 }

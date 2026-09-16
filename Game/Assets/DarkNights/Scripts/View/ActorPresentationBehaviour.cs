@@ -26,16 +26,17 @@ namespace DarkNights.View
             rules = definition;
         }
 
-        public bool Present(ActorViewData actor, int epoch, string workKind, float x, double actionTime, Color ambient)
+        public bool Present(ActorViewData actor, int epoch, string workKind, float x, double actionTime, Color ambient, float? height = null)
         {
             if (actor == null || !Accept(actor.Id, epoch, actor.Kind)) return false;
             Current = actor;
-            Pose = actor.Walking || actor.Activity == "Move" || actor.Activity == "WorkMove" ||
+            Pose = actor.ManualControl && actor.Activity == "Attack" ? "attack" :
+                actor.Walking || actor.Activity == "Move" || actor.Activity == "WorkMove" ||
                 actor.Activity == "BuildMove" || actor.Activity == "TrainingMove" ? "move" :
                 actor.Activity == "Attack" ? "attack" : actor.Kind == "worker" && actor.Activity == "Build" ? "build" :
                 actor.Kind == "worker" && actor.Activity == "Work" ?
                     workKind == "wood" ? "work_wood" : workKind == "food" ? "work_farm" : "work_mine" : "idle";
-            Position(x, ambient);
+            Position(x, ambient, height ?? actor.Height);
             double seconds = actor.Activity == "Attack"
                 ? actionTime / rules.AttackSeconds * ActorVisual.PoseDuration(Pose) : actionTime;
             ActorVisual.SamplePose(Pose, seconds);

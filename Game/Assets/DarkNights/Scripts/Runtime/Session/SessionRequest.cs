@@ -21,10 +21,11 @@ namespace DarkNights.Runtime.Session
         public float X { get; }
         public string Kind { get; }
         public int Value { get; }
+        public int ControlLease { get; }
 
         public SessionRequest(SessionOperation operation, int protocol, int epoch, int policyRevision,
             long sequence, IReadOnlyList<int> actorIds = null, int targetId = 0, float x = 0,
-            string kind = "", int value = 0)
+            string kind = "", int value = 0, int controlLease = 0)
         {
             if (actorIds != null && actorIds.Count > MaximumActors)
                 throw new ArgumentException("Too many actors.", nameof(actorIds));
@@ -43,11 +44,12 @@ namespace DarkNights.Runtime.Session
             X = x;
             Kind = kind;
             Value = value;
+            ControlLease = controlLease;
         }
 
         internal bool SameIntent(SessionRequest other) => Operation == other.Operation && Protocol == other.Protocol &&
             Epoch == other.Epoch && PolicyRevision == other.PolicyRevision && Sequence == other.Sequence &&
             ActorIds.SequenceEqual(other.ActorIds) && TargetId == other.TargetId && X.Equals(other.X) &&
-            Kind == other.Kind && Value == other.Value;
+            Kind == other.Kind && Value == other.Value && ControlLease == other.ControlLease;
     }
 }

@@ -11,6 +11,7 @@ namespace DarkNights.Core.Config
     {
         public int SchemaVersion { get; }
         public EconomyDefinition Economy { get; }
+        public HeroControlDefinition HeroControl { get; }
         public IReadOnlyDictionary<string, UnitDefinition> Units { get; }
         public IReadOnlyDictionary<string, BuildingDefinition> Buildings { get; }
         public IReadOnlyDictionary<string, WorksiteDefinition> Worksites { get; }
@@ -20,9 +21,10 @@ namespace DarkNights.Core.Config
             EconomyDefinition economy,
             IReadOnlyDictionary<string, UnitDefinition> units,
             IReadOnlyDictionary<string, BuildingDefinition> buildings,
-            IReadOnlyDictionary<string, WorksiteDefinition> worksites)
+            IReadOnlyDictionary<string, WorksiteDefinition> worksites, HeroControlDefinition heroControl = null)
         {
             SchemaVersion = schemaVersion;
+            HeroControl = heroControl;
             Economy = economy ?? throw new ArgumentNullException(nameof(economy));
             Units = new ReadOnlyDictionary<string, UnitDefinition>(new Dictionary<string, UnitDefinition>(units ?? throw new ArgumentNullException(nameof(units)), StringComparer.Ordinal));
             Buildings = new ReadOnlyDictionary<string, BuildingDefinition>(new Dictionary<string, BuildingDefinition>(buildings ?? throw new ArgumentNullException(nameof(buildings)), StringComparer.Ordinal));

@@ -20,6 +20,8 @@ namespace DarkNights.View
         private YYInteractionSessionHandle placement, drag;
         private IEntityVisuals visuals;
         private PinewatchStage stage;
+        private GameInputActions controls;
+        private InputAction cameraMove, select, orders, appendKey, pan, panDelta, pauseKey, helpKey, saveKey, loadKey, homeKey, guardsKey, idleKey;
         private SessionViewData frame;
         private bool ready, dragging, append;
         private Vector2 dragStart, dragWorld;
@@ -32,11 +34,17 @@ namespace DarkNights.View
         public int Hover { get; private set; }
         public bool Dragging => dragging;
         public Vector2 DragStart => dragStart;
-        public Vector2 Pointer => Mouse.current?.position.ReadValue() ?? Vector2.zero;
+        public Vector2 Pointer => controls?.Pointer ?? Vector2.zero;
 
-        public void Initialize(PinewatchStage scene, IEntityVisuals entities, IYYInteractionSessionService service)
+        public void Initialize(PinewatchStage scene, IEntityVisuals entities, IYYInteractionSessionService service, GameInputActions actions)
         {
             stage = scene;
+            controls = actions;
+            cameraMove = controls.CampAction("Move"); select = controls.CampAction("Select"); orders = controls.CampAction("Orders");
+            appendKey = controls.CampAction("Append"); pan = controls.CampAction("Pan"); panDelta = controls.CampAction("PanDelta");
+            pauseKey = controls.CampAction("Pause"); helpKey = controls.CampAction("Help"); saveKey = controls.CampAction("Save");
+            loadKey = controls.CampAction("Load"); homeKey = controls.CampAction("Home");
+            guardsKey = controls.CampAction("Guards"); idleKey = controls.CampAction("IdleWorkers");
             visuals = entities;
             sessions = service ?? throw new ArgumentNullException(nameof(service));
         }
@@ -87,41 +95,38 @@ namespace DarkNights.View
             Intent?.Invoke(new InputIntent("Orders", ActorIds(), target, x));
         }
 
+        private bool Pressed(InputAction action) => controls.CanRead(action) && action.WasPressedThisFrame();
+
         private void Update()
         {
             if (sessions == null || frame == null || !ready) return;
-            Keyboard keyboard = Keyboard.current;
-            if (keyboard != null && keyboard.escapeKey.wasPressedThisFrame)
+            if (controls.CanReadMenu && controls.Menu.WasPressedThisFrame())
             {
                 if (BuildKind.Length > 0) CancelBuild();
                 else Emit("Menu");
                 return;
             }
-            bool blocked = sessions.IsBlocked(YYInteractionBlockFlags.GameplayActions);
+            if (controls.HeroMode) return;
+            bool blocked = !controls.CanRead(cameraMove);
             if (blocked) { Hover = 0; EndDrag(); return; }
-            CameraInput(keyboard);
-            if (keyboard != null)
-            {
-                if (keyboard.spaceKey.wasPressedThisFrame) Emit("Pause");
-                if (keyboard.hKey.wasPressedThisFrame) Emit("Help");
-                if (keyboard.f5Key.wasPressedThisFrame) Emit("Save");
-                if (keyboard.f9Key.wasPressedThisFrame) Emit("Load");
-                if (keyboard.homeKey.wasPressedThisFrame) stage.Focus(stage.InitialCameraX);
-                if (keyboard.gKey.wasPressedThisFrame) SelectGroup(true);
-                if (keyboard.iKey.wasPressedThisFrame) SelectGroup(false);
-            }
-            Mouse mouse = Mouse.current;
-            if (mouse == null) return;
-            Vector2 pointer = mouse.position.ReadValue();
-            bool ui = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+            CameraInput();
+            if (Pressed(pauseKey)) Emit("Pause");
+            if (Pressed(helpKey)) Emit("Help");
+            if (Pressed(saveKey)) Emit("Save");
+            if (Pressed(loadKey)) Emit("Load");
+            if (Pressed(homeKey)) stage.Focus(stage.InitialCameraX);
+            if (Pressed(guardsKey)) SelectGroup(true);
+            if (Pressed(idleKey)) SelectGroup(false);
+            Vector2 pointer = controls.Pointer;
+            bool ui = controls.PointerOverUi;
             Vector2 point = stage.SceneCamera.ScreenToWorldPoint(pointer);
             Hover = ui ? 0 : Pick(point);
-            if (mouse.rightButton.wasPressedThisFrame && !ui)
+            if (Pressed(orders) && !ui)
             {
                 if (BuildKind.Length > 0) CancelBuild();
                 else IssueOrders(point.x * 100, Hover);
             }
-            if (mouse.leftButton.wasPressedThisFrame && !ui)
+            if (Pressed(select) && !ui)
             {
                 if (BuildKind.Length > 0 && sessions.IsTopOrUnblocked(placement.SessionId, YYInteractionBlockFlags.WorldConfirm))
                     Intent?.Invoke(new InputIntent("Build", ActorIds(), 0, point.x * 100, BuildKind));
@@ -131,22 +136,19 @@ namespace DarkNights.View
                 }, out drag))
                 {
                     dragging = true; dragStart = pointer; dragWorld = point;
-                    append = keyboard != null && (keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed);
+                    append = appendKey.IsPressed();
                 }
             }
-            if (dragging && !mouse.leftButton.isPressed) FinishSelection(pointer, point);
+            if (dragging && !select.IsPressed()) FinishSelection(pointer, point);
         }
 
-        private void CameraInput(Keyboard keyboard)
+        private void CameraInput()
         {
             if (sessions.IsBlocked(YYInteractionBlockFlags.CameraInput)) return;
-            int direction = keyboard == null ? 0 : (keyboard.dKey.isPressed || keyboard.rightArrowKey.isPressed ? 1 : 0) -
-                (keyboard.aKey.isPressed || keyboard.leftArrowKey.isPressed ? 1 : 0);
-            stage.Move(direction * Time.unscaledDeltaTime * 240);
-            if (Mouse.current == null) return;
-            float scroll = Mouse.current.scroll.ReadValue().y;
+            stage.Move(cameraMove.ReadValue<float>() * Time.unscaledDeltaTime * 240);
+            float scroll = controls.PointerOverUi ? 0 : controls.Scroll.ReadValue<Vector2>().y;
             if (scroll != 0) stage.ChangeZoom(scroll > 0 ? 1.12f : 1 / 1.12f);
-            if (Mouse.current.middleButton.isPressed) stage.Move(-Mouse.current.delta.ReadValue().x / stage.Zoom);
+            if (pan.IsPressed()) stage.Move(-panDelta.ReadValue<Vector2>().x / stage.Zoom);
         }
 
         private void FinishSelection(Vector2 screen, Vector2 point)
@@ -170,7 +172,7 @@ namespace DarkNights.View
             EndDrag();
         }
 
-        private int Pick(Vector2 point)
+        public int Pick(Vector2 point)
         {
             foreach (ActorViewData actor in frame.World.Actors.Reverse()) if (visuals.Visual(actor.Id)?.Contains(point) == true) return actor.Id;
             foreach (BuildingViewData building in frame.World.Buildings.Reverse()) if (visuals.Visual(building.Id)?.Contains(point) == true) return building.Id;

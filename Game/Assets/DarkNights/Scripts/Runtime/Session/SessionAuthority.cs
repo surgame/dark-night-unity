@@ -18,7 +18,7 @@ namespace DarkNights.Runtime.Session
     /// </summary>
     public sealed class SessionAuthority : IDisposable
     {
-        public const int ProtocolVersion = 7;
+        public const int ProtocolVersion = 8;
         public const int MaximumPendingPerPlayer = 16;
         public const int ResultWindow = 64;
         private readonly int ownerThread = Thread.CurrentThread.ManagedThreadId;
@@ -27,6 +27,7 @@ namespace DarkNights.Runtime.Session
         private readonly Queue<SessionCommandEntry> pending = new Queue<SessionCommandEntry>();
         private readonly SessionProjector projector = new SessionProjector();
         private readonly ObjectSession world;
+        private readonly SessionHeroControl heroes;
         private SessionEventJournal events;
         private SessionReceipt loadTicket;
         private bool started;
@@ -45,6 +46,7 @@ namespace DarkNights.Runtime.Session
         public SessionAuthority(ObjectSession simulation)
         {
             world = simulation ?? throw new ArgumentNullException(nameof(simulation));
+            heroes = new SessionHeroControl(world);
             events = new SessionEventJournal(world.Feedback, () => ServerTick);
             world.Activate();
         }
@@ -58,6 +60,7 @@ namespace DarkNights.Runtime.Session
             if (Loading) throw new InvalidOperationException("Cannot replace connections while loading.");
             var connection = new SessionConnection(slot, checked(generations[slot] + 1), Revision);
             generations[slot] = connection.Generation;
+            heroes.Release(slot);
             connections[slot]?.ResetWorld();
             connections[slot] = connection;
             return connection;
@@ -69,6 +72,7 @@ namespace DarkNights.Runtime.Session
             CheckThread();
             if (!Active(connection)) return;
             if (connection.IsHost && closeHostedSession) { Dispose(); return; }
+            heroes.Release(connection.PlayerSlot);
             connection.ResetWorld();
             connections[connection.PlayerSlot] = null;
         }
@@ -104,6 +108,14 @@ namespace DarkNights.Runtime.Session
             return entry.Receipt;
         }
 
+        public bool SubmitInput(SessionConnection connection, HeroInputRequest input)
+        {
+            CheckThread();
+            return Active(connection) && connection.Ready && !Loading &&
+                input.Protocol == ProtocolVersion && input.Epoch == Epoch && input.PolicyRevision == PolicyRevision &&
+                (connection.IsHost || ControlMode == CampControlMode.SharedCamp) && heroes.Receive(connection, input, ServerTick);
+        }
+
         // 每个服务端调度点调用一次；外层累积真实时间并保留积压，不传入任意网络 delta。
         public IReadOnlyList<SessionReceipt> Tick()
         {
@@ -119,6 +131,7 @@ namespace DarkNights.Runtime.Session
                 if (Active(entry.Connection)) entry.Connection.RememberCompleted(entry.Request.Sequence);
                 results.Add(entry.Receipt);
             }
+            heroes.Expire(ServerTick);
             if (started && !Loading)
             {
                 int nextRevision = checked(Revision + 1);
@@ -150,11 +163,23 @@ namespace DarkNights.Runtime.Session
                 {
                     PolicyRevision = checked(PolicyRevision + 1);
                     ControlMode = (CampControlMode)request.Value;
+                    heroes.InvalidateInputs();
+                    if (ControlMode == CampControlMode.HostOnly)
+                        for (int slot = 1; slot < connections.Length; slot++) heroes.Release(slot);
                 }
+            }
+            else if (SessionHeroControl.IsOperation(request.Operation))
+            {
+                affected = heroes.Apply(connection, request);
+                if (affected > 0) entityId = request.ActorIds[0];
             }
             else if (!storage)
             {
-                try { affected = world.Apply(request, out entityId); }
+                try
+                {
+                    affected = world.Apply(request, out entityId);
+                    if (request.Operation == SessionOperation.SetPaused) heroes.InvalidateInputs();
+                }
                 catch (SessionOperationException error) { return Receipt(connection, request, error.Code); }
             }
             Revision = nextRevision;

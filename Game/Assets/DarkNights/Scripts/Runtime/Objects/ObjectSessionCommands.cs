@@ -16,7 +16,8 @@ namespace DarkNights.Runtime.Objects
             foreach (int id in request.ActorIds)
             {
                 ActorBehaviour actor = session.Index.Find<ActorBehaviour>(id);
-                if (actor == null || actor.Enemy || actor.Hp <= 0) return false;
+                if (actor == null || actor.Enemy || actor.Hp <= 0 ||
+                    (actor.Read().ManualControl && !SessionHeroControl.IsOperation(request.Operation))) return false;
             }
             switch (request.Operation)
             {
@@ -29,6 +30,10 @@ namespace DarkNights.Runtime.Objects
                 case SessionOperation.TrainActors:
                     return request.ActorIds.Count > 0 && (request.Kind == "spearman" || request.Kind == "archer");
                 case SessionOperation.Repair: return session.Index.Find<BuildingBehaviour>(request.TargetId) != null;
+                case SessionOperation.ClaimHero:
+                case SessionOperation.ReleaseHero:
+                case SessionOperation.SelectHeroItem:
+                case SessionOperation.UseHeroItem:
                 case SessionOperation.Recruit:
                 case SessionOperation.StartNight:
                 case SessionOperation.SetPaused:

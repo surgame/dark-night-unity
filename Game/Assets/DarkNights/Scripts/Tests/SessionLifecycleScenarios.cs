@@ -12,7 +12,7 @@ using static DarkNights.Tests.SessionScenario;
 namespace DarkNights.Tests
 {
     /// <summary>
-    /// 验证唯一时钟、暂停时业务以及受控加载的完整生命周期；加载使用真实 v2 存档解析与对象替换。
+    /// 验证唯一时钟、暂停时业务以及受控加载的完整生命周期；加载使用真实 v3 存档解析与对象替换。
     /// 失败或取消不得替换世界，成功必须保留房间策略、轮换 epoch、清除 Ready 并拒绝旧票据。
     /// </summary>
     public static class SessionLifecycleScenarios

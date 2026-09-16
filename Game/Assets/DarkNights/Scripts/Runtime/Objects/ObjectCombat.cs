@@ -12,6 +12,15 @@ namespace DarkNights.Runtime.Objects
         private readonly ObjectSession session;
         internal ObjectCombat(ObjectSession session) { this.session = session; }
 
+        internal static float Height(ICombatantCapability target) => target is ActorBehaviour actor ? actor.Read().Height : 0;
+        internal bool InRange(ActorBehaviour actor, ICombatantCapability target)
+        {
+            double width = target is BuildingBehaviour b ? b.Definition.Width * 0.5 : 0;
+            double x = Math.Max(0, Math.Abs(target.X - actor.X) - width);
+            double y = Height(target) - actor.Read().Height;
+            return x * x + y * y <= actor.Definition.Range * actor.Definition.Range;
+        }
+
         internal ActorBehaviour NearestEnemy(float x, double reach)
         {
             ActorBehaviour nearest = null;
@@ -41,7 +50,7 @@ namespace DarkNights.Runtime.Objects
             foreach (ActorBehaviour citizen in session.Index.Actors)
             {
                 if (citizen.Enemy || citizen.Hp <= 0 || citizen.IsTraining) continue;
-                double gap = Math.Abs(citizen.X - actor.X);
+                double gap = Math.Sqrt(Math.Pow(citizen.X - actor.X, 2) + Math.Pow(citizen.Read().Height - state.Height, 2));
                 if (gap < distance) { distance = gap; target = citizen; }
             }
             if (target != null) return target;
@@ -70,7 +79,7 @@ namespace DarkNights.Runtime.Objects
                 building.Edit().Hp = Math.Max(0, building.Hp - damage);
                 building.Edit().HitFlash = 0.15;
             }
-            session.Emit(new VisualCue("damage", target.X, session.Layout.GroundY - (target is BuildingBehaviour ? 40 : 19),
+            session.Emit(new VisualCue("damage", target.X, session.Layout.GroundY - Height(target) - (target is BuildingBehaviour ? 40 : 19),
                 ((int)damage).ToString(), Enemy: target is ActorBehaviour enemy && enemy.Enemy));
             if (target.Hp > 0) return;
             if (target is ActorBehaviour victim) session.Lifecycle.ActorDied(victim);

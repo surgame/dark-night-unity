@@ -68,7 +68,7 @@ namespace DarkNights.Runtime.Objects
                 session.Camp.Edit().Lost++;
                 session.Notify(actor.Name + "倒下了。", true);
             }
-            session.Emit(new VisualCue("corpse", actor.X, session.Layout.GroundY, ContentId: actor.RuleKey, Face: actor.Read().Face));
+            session.Emit(new VisualCue("corpse", actor.X, session.Layout.GroundY - actor.Read().Height, ContentId: actor.RuleKey, Face: actor.Read().Face));
             string sound = actor.Enemy ? "snd_zombie_die1" : "snd_worker_die1";
             session.Mutations.AfterCommit(() => session.Feedback.PlaySound(sound, -14));
             Remove(actor);

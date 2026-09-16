@@ -4,7 +4,7 @@ $repo = Split-Path $PSScriptRoot -Parent
 $player = if ($PlayerPath) { [IO.Path]::GetFullPath($PlayerPath) } else { Join-Path $repo 'artifacts/migration/player-mono/DarkNights.exe' }
 $run = Join-Path $repo ('artifacts/migration/active-load-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 $saves = Join-Path $run 'saves'
-$versionedSaves = Join-Path $saves 'v2'
+$versionedSaves = Join-Path $saves 'v3'
 New-Item -ItemType Directory -Path $run | Out-Null
 $processes = @{}
 $checks = [ordered]@{}
@@ -33,7 +33,7 @@ function Wait-Report([string]$Role, [scriptblock]$Condition) {
 function Start-Player([string]$Role) {
     [IO.File]::WriteAllText((Join-Path $run "$Role.commands"), '')
     $arguments = @('-batchmode', '-nographics', '-logFile', ('"' + (Join-Path $run "$Role.log") + '"'),
-        '--dn-role', $Role, '--dn-port', $(if ($Role -eq 'host') { $Port } else { $ClientPort }), '--dn-save-dir', ('"' + $saves + '"'),
+        '--dn-camp-mode', '--dn-role', $Role, '--dn-port', $(if ($Role -eq 'host') { $Port } else { $ClientPort }), '--dn-save-dir', ('"' + $saves + '"'),
         '--dn-report', ('"' + (Join-Path $run "$Role.json") + '"'), '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
     $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru
 }
@@ -105,7 +105,7 @@ try {
     $null=Receipt 'host' @{operation='Save';value=1}
     $null=Wait-Report 'host' {param($r) !$r.storageBusy -and (Test-Path -LiteralPath (Join-Path $versionedSaves 'slot-01.dnsave.json'))}
     $saveDocument = Get-Content (Join-Path $versionedSaves 'slot-00.dnsave.json') -Raw | ConvertFrom-Json
-    Check 'isolated_v2_save_has_complete_definition_identities' ($saveDocument.format_version -eq 2 -and
+    Check 'isolated_v3_save_has_complete_definition_identities' ($saveDocument.format_version -eq 3 -and
         $saveDocument.world.identities.Count -eq $saved.frame.World.Identities.Count)
     Check 'paused_round_trip_preserves_complete_authority_save' (
         (Get-FileHash -LiteralPath (Join-Path $versionedSaves 'slot-00.dnsave.json')).Hash -eq

@@ -12,6 +12,11 @@
     "training_seconds": 12.483333,
     "training_queue_limit": 5
   },
+  "hero_control": {
+    "jump_speed": 110.0, "gravity": 280.0, "maximum_height": 128.0,
+    "jetpack_speed": 70.0, "fuel_seconds": 2.0, "fuel_recovery": 2.0,
+    "drop_seconds": 0.3, "work_reach": 16.0
+  },
   "units": {
     "worker": {"name": "工人", "hp": 10, "armor": 0, "damage": [1, 3], "speed": 30.0, "range": 11.0, "aggro": 13.0, "attack_seconds": 1.5, "windup": 0.35},
     "spearman": {"name": "长矛兵", "hp": 30, "armor": 2, "damage": [4, 7], "speed": 30.0, "range": 17.0, "aggro": 150.0, "leash": 110.0, "attack_seconds": 1.2, "windup": 0.32, "cost": {"food": 10, "wood": 5, "iron": 5}},

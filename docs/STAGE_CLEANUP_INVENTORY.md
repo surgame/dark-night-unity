@@ -1,5 +1,9 @@
 # 阶段产物清理清单
 
+2026-09-16 续接：平台修正后的当前 Player 为 `artifacts/hero-input/player-mono-platform`。被替代的 `artifacts/hero-input/player-mono`（413 文件／199130911 字节）清理整条命令在执行前被自动审批以 `blocked by policy` 拒绝，本轮释放 0 字节，未重试。新 Player／调试副本、证据、Python 缓存和共享缓存保留条件见[续接清理记录](evidence/hero-input-platform-cleanup-2026-09-16.json)，此前 381.25 MiB 的释放量不变。
+
+2026-09-16 追加：[主角与输入切片](HERO_INPUT_EXECUTION.md#清理与保留边界)已清理本次两个被替代的 Mono、一次性写入器、过期 PID 和已查看的拼图，共 399769079 字节（381.25 MiB）。当前 Player、原始证据、隔离存档和补丁依赖保留，详见[本批清单](evidence/hero-input-retained-2026-09-16.json)。没有重试下文历史拒绝目标，历史数值不与本批父子目录重复相加。
+
 2026-09-15 追加：[本地指令圈切片](LOCAL_COMMAND_RINGS.md#产物与受限清理)的清理命令被自动审批以 `blocked by policy` 整批拒绝。新临时编译文件、原生调试副本及 ArchitectureGuard 中间产物合计 35,842,798 字节，约 34.18 MiB，释放量 0，未重试；路径与保留条件已逐项列账。下文仍为 2026-09-14 的历史盘点，两批体积不直接相加。
 
 盘点时间：2026-09-14 05:52:18 +08:00。工作区：`D:\Developer\MiniGames\Dark Nights\unity-projects`。用户要求无权限清理的内容列账，并尽量覆盖中间过程产生的产物；本清单按此交接，不重复尝试已被拒绝的删除。

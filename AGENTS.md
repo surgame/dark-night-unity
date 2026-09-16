@@ -2,6 +2,8 @@
 
 先读 [README](README.md)、[移植方案](docs/MIGRATION_PLAN.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现，M5 尚未完成。按 [YYGC 统一对象重构计划](docs/YYGC_UNIFIED_REFACTOR_PLAN.md)推进，U0–U5 已完成：旧模型和旧档入口已删除；U6 协议 7／YYGC `745f3d2` 的完整 Mono 矩阵和后台容量检查已通过，后续 [Linear 世界表现](docs/M5_WORLD_PRESENTATION.md)完成完整 Editor／Play 155/155、新 Mono 77/77。前台验收由用户明确暂缓，IL2CPP／双机器仍待条件；受限清理按用户要求完成[列账交接](docs/STAGE_CLEANUP_INVENTORY.md)，目录仍保留。先核对当前切片及[性能验收](docs/YYGC_UNIFIED_PERFORMANCE.md)，不能把计划目录、接口和测试写成已完成实现，也不能把后台容量功能通过写成前台性能达标。
 
+2026-09-16 当前切片为[主角操控与 YYGC 输入联合执行](docs/HERO_INPUT_EXECUTION.md)：默认主角／营地切换已实现，协议 8／存档 v3；YYGC 输入提交 `0c7cec0` 位于隔离 `D:/Developer/YYGC-worktrees/input-actions`，准备脚本已锁定。另一个会话的 `D:/Developer/YYGC` master／AnyRule 工作区不能代为切换、清理或合并。游戏原 172 个不同 Editor／Play、输入 Sample 34 个不同 PlayMode 用例按影响合并通过；第二次 Mono 主矩阵 350 项，最后仅调整新道具栏后的产物相关 155 项通过，具体构建身份见联合文档。续接已修正平台坐标，相关 Editor／Play 17/17、新 Mono 本机 43/43，通过项按影响合并为 173 个不同用例。当前 Player 为 `artifacts/hero-input/player-mono-platform`；旧 Player 清理被自动审批拒绝并列账，本轮释放 0 字节；不把这些结果写成前台性能、IL2CPP、双机器或 M5 全部完成。
+
 ## 范围与工作区
 
 - 游戏名称为 Dark Nights，当前内容为灰松谷一个关卡。2–4 人合作、共享营地已确认。联机入口与托管方式的估算假设见 README。

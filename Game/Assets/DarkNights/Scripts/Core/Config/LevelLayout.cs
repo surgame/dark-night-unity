@@ -18,11 +18,14 @@ namespace DarkNights.Core.Config
         public IReadOnlyList<PlacementDefinition> Buildings { get; }
         public IReadOnlyList<PlacementDefinition> Worksites { get; }
         public IReadOnlyList<PlacementDefinition> Actors { get; }
+        public IReadOnlyList<PlatformDefinition> Platforms { get; }
 
         public LevelLayout(float worldWidth, float groundY, float buildMinX, float buildMaxX,
             float spawnX, float cameraX, IReadOnlyList<PlacementDefinition> buildings,
-            IReadOnlyList<PlacementDefinition> worksites, IReadOnlyList<PlacementDefinition> actors)
+            IReadOnlyList<PlacementDefinition> worksites, IReadOnlyList<PlacementDefinition> actors,
+            IReadOnlyList<PlatformDefinition> platforms = null)
         {
+            Platforms = new List<PlatformDefinition>(platforms ?? Array.Empty<PlatformDefinition>()).AsReadOnly();
             WorldWidth = worldWidth;
             GroundY = groundY;
             BuildMinX = buildMinX;
@@ -54,6 +57,11 @@ namespace DarkNights.Core.Config
                 Actors.Any(a => !catalog.Balance.Units.ContainsKey(a.Kind)) ||
                 Buildings.Count + Worksites.Count + Actors.Count + Buildings.Count(b => b.Kind == "farm") > 256)
                 throw new ArgumentException("Invalid initial content or farm count.");
+            if (Platforms.Count > 128 || Platforms.Select(p => p?.Id).Distinct().Count() != Platforms.Count ||
+                Platforms.Any(p => p == null || p.Id <= 0 || !Coordinate(p.MinX) || !Coordinate(p.MaxX) ||
+                    p.MinX >= p.MaxX || !Finite(p.Height) || p.Height <= 0 ||
+                    p.Height > (catalog.Balance.HeroControl?.MaximumHeight ?? 0)))
+                throw new ArgumentException("Invalid one-way platform geometry.");
             ValidateOccupancy(catalog);
         }
 

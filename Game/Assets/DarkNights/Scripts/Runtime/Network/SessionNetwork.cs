@@ -30,10 +30,10 @@ namespace DarkNights.Runtime.Network
         private NetworkManager manager;
         private GameCatalog catalog;
         private LevelLayout layout;
-        private Subscription commands, ready;
+        private Subscription commands, ready, heroInput;
         private DefinitionNetworkAuthenticator authenticator;
         private int attempt;
-        private bool connecting, initialized, commandsBound, readyBound;
+        private bool connecting, initialized, commandsBound, readyBound, heroInputBound;
         private string lastAddress;
         private ushort lastPort;
         private CampSessionBehaviour activeSession;
@@ -70,7 +70,7 @@ namespace DarkNights.Runtime.Network
             int saveArgument = Array.IndexOf(args, "--dn-save-dir");
             SaveDirectory = Path.GetFullPath(saveArgument >= 0 && saveArgument + 1 < args.Length
                 ? args[saveArgument + 1] : Path.Combine(Application.persistentDataPath, "Saves"));
-            SaveDirectory = Path.Combine(SaveDirectory, "v2");
+            SaveDirectory = Path.Combine(SaveDirectory, "v3");
             var fingerprint = new SaveContentFingerprint(catalog, layout);
             authenticator = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
             string identity = new ObjectWorldSaveJson(catalog, layout,
@@ -92,6 +92,8 @@ namespace DarkNights.Runtime.Network
             Client.Failed += Fail;
             commands = CommandRouters.LocalInput.SubscribeAwait<SessionCommand>((command, context) => Server?.Handle(command, context) ?? default);
             commandsBound = true;
+            heroInput = CommandRouters.LocalInput.SubscribeAwait<HeroInputCommand>((command, context) => Server?.Input(command, context) ?? default);
+            heroInputBound = true;
             ready = CommandRouters.LocalInput.SubscribeAwait<SetReadyCommand>((command, context) => Server?.Ready(command, context) ?? default);
             readyBound = true;
             manager.SceneManager.OnClientLoadedStartScenes += Loaded;
@@ -256,6 +258,7 @@ namespace DarkNights.Runtime.Network
             Disconnect();
             if (commandsBound) commands.Dispose();
             if (readyBound) ready.Dispose();
+            if (heroInputBound) heroInput.Dispose();
             if (manager != null)
             {
                 manager.SceneManager.OnClientLoadedStartScenes -= Loaded;

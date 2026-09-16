@@ -1,0 +1,137 @@
+{
+  "date": "2026-09-16",
+  "passed": true,
+  "scope": "Platform correction and basic local tests requested in continuation; no full matrix rerun.",
+  "previousEvidence": "docs/evidence/hero-input-2026-09-16.json",
+  "reason": "Platform authored Y and exported height were opposite to visible actor motion; visible top also had a one-pixel offset.",
+  "changedInputs": [
+    "Game/Assets/DarkNights/Res/Objects/HeroPlatform/HeroPlatform.prefab",
+    "Game/Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity",
+    "Game/Assets/DarkNights/Scripts/Editor/HeroContentSetup.cs",
+    "Game/Assets/DarkNights/Scripts/Tests/NativeEnvironmentTests.cs",
+    "Game/Assets/DarkNights/Scripts/View/HeroPlatform.cs",
+    "Game/Assets/DarkNights/Scripts/View/LevelLayoutAuthoring.cs"
+  ],
+  "sourceFiles": 6174,
+  "playerFiles": 414,
+  "playerBytes": 199376158,
+  "player": "artifacts/hero-input/player-mono-platform",
+  "sourceManifestSha256": "63140168e2bdb381f742d302fd754c60e9d22934a88280e0739be6dab38b5b17",
+  "playerManifestSha256": "52d8143d227740fd08b580629969a2cb41ceb2c0de3580c16306486101a02036",
+  "existingSourceAndPlayerUnchangedAfterTests": true,
+  "existingMetaFilesUnchanged": true,
+  "baselineRulesUnchanged": true,
+  "generatedBuildFiles": [
+    {
+      "path": "Game/Assets/AddressableAssetsData/link.xml",
+      "bytes": 9937,
+      "sha256": "155ecbe1f2cbb1530438dba9948a49606e8fabd6cd0db07ed524bce1bf94eae2"
+    },
+    {
+      "path": "Game/Assets/AddressableAssetsData/link.xml.meta",
+      "bytes": 158,
+      "sha256": "e484005b1dacefeef99a1854c6019818c78e0fe86333de46945775c21f4afb0f"
+    }
+  ],
+  "baselinePlacementKeysUnchanged": 16,
+  "frameworkCommit": "0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143",
+  "dependencyPatchesPreserved": 9,
+  "importedSampleFilesUnchanged": 44,
+  "editor": {
+    "passed": 17,
+    "failed": 0,
+    "report": "artifacts/hero-input/platform-final.xml",
+    "sha256": "e88370df91ab259a4bd77a2574b0a74f3fe5a126bf6ae697628841bc2587cb46",
+    "distinctTestsPassedByImpactMerge": 173,
+    "regressionDemonstratedBeforeFix": "artifacts/hero-input/platform-before.xml"
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 316,
+    "selfTests": 12,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "playerChecks": [
+    {
+      "path": "artifacts/migration/run-20260916-170741-742-mono/result.json",
+      "sha256": "e9a150e3cd36a0e2f5c5ad35fafd12c6f52f6c25283a8eebd623a040ea07c816",
+      "passed": true,
+      "count": 6,
+      "checks": {
+        "independent_player_remains_running": true,
+        "app_startup_ready_once": true,
+        "frozen_content_loaded_once": true,
+        "formal_object_content_loaded_once": true,
+        "no_startup_or_runtime_exception": true,
+        "no_formal_editor_or_tests_in_player": true
+      }
+    },
+    {
+      "path": "artifacts/hero-input/network-20260916-170746-015/result.json",
+      "sha256": "a6cd16f31b558e52922061ed37ff1a30cb14c769a645e774693dfe5d603e6f32",
+      "passed": true,
+      "count": 37,
+      "checks": {
+        "default_mode_claims_distinct_heroes": true,
+        "native_hero_and_current_controls_guide_captured": true,
+        "host_native_toggle_releases_to_camp": true,
+        "client_native_toggle_releases_to_camp": true,
+        "camp_mode_has_no_orphaned_owner": true,
+        "host_claims_one_actor": true,
+        "contested_actor_rejected": true,
+        "guest_claims_another_actor": true,
+        "one_actor_per_connection": true,
+        "foreign_connection_input_rejected": true,
+        "camp_orders_cannot_override_hero": true,
+        "continuous_input_advances_original_movement": true,
+        "missing_input_times_out_without_a_neutral_packet": true,
+        "remote_short_jump_survives_released_held_state": true,
+        "jump_lands_on_authored_platform": true,
+        "drop_through_returns_to_ground": true,
+        "stale_item_selection_rejected": true,
+        "selected_jetpack_equips": true,
+        "duplicate_item_request_does_not_toggle_twice": true,
+        "fuel_and_vertical_motion_are_authoritative": true,
+        "pause_invalidates_input_lease": true,
+        "actual_player_render_captured": true,
+        "new_format_saves_airborne_state": true,
+        "airborne_recovery_preserves_motion_equipment_and_fuel": true,
+        "load_releases_all_ownership": true,
+        "previous_epoch_input_rejected_after_load": true,
+        "invalid_direction_stale_tick_and_old_protocol_rejected": true,
+        "pre_pause_lease_cannot_move_after_resume": true,
+        "disconnect_releases_hero_to_automatic_control": true,
+        "reconnect_recovers_slot_with_fresh_connection": true,
+        "reconnected_player_can_reclaim": true,
+        "host_only_revokes_guest_possession": true,
+        "host_only_rejects_guest_claim": true,
+        "shared_policy_restores_claim_permission": true,
+        "complete_projection_converges_while_paused": true,
+        "host_no_runtime_exception": true,
+        "client_no_runtime_exception": true
+      }
+    }
+  ],
+  "playerCheckCount": 43,
+  "screenshots": [
+    {
+      "path": "artifacts/hero-input/network-20260916-170746-015/hero-airborne.png",
+      "sha256": "200ca733f04395cf741dbd1550ae6472535f6d7cd81b0a24a42466766072cdd7"
+    },
+    {
+      "path": "artifacts/hero-input/network-20260916-170746-015/hero-default.png",
+      "sha256": "9cefbae3bcda2cfd418065b8b3b2a98a0a227e8b85f4af9cf7116ddfd94931b3"
+    },
+    {
+      "path": "artifacts/hero-input/network-20260916-170746-015/hero-help.png",
+      "sha256": "21b9010365d14f7d4c1e0dbad8ad75a3d4e994790fbd50dd46897951d2b3fe82"
+    }
+  ],
+  "excluded": [
+    "foreground performance",
+    "IL2CPP",
+    "two-machine LAN",
+    "full M5 acceptance"
+  ]
+}

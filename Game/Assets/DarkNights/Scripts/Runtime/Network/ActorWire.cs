@@ -25,6 +25,16 @@ namespace DarkNights.Runtime.Network
         public double ActionTime { get; set; }
         public double Windup { get; set; }
         public double HitFlash { get; set; }
+        public float Height { get; set; }
+        public float VerticalSpeed { get; set; }
+        public int SupportPlatform { get; set; }
+        public bool ManualControl { get; set; }
+        public int SelectedItem { get; set; }
+        public int SelectionRevision { get; set; }
+        public bool JetpackEquipped { get; set; }
+        public double JetpackFuel { get; set; }
+        public int ControllerSlot { get; set; } = -1;
+        public int ControlLease { get; set; }
 
         public static ActorWire From(ActorViewData value) => new ActorWire
         {
@@ -41,6 +51,16 @@ namespace DarkNights.Runtime.Network
             ActionTime = value.ActionTime,
             Windup = value.Windup,
             HitFlash = value.HitFlash,
+            Height = value.Height,
+            VerticalSpeed = value.VerticalSpeed,
+            SupportPlatform = value.SupportPlatform,
+            ManualControl = value.ManualControl,
+            SelectedItem = value.SelectedItem,
+            SelectionRevision = value.SelectionRevision,
+            JetpackEquipped = value.JetpackEquipped,
+            JetpackFuel = value.JetpackFuel,
+            ControllerSlot = value.ControllerSlot,
+            ControlLease = value.ControlLease,
         };
 
         public ActorViewData Freeze() => new ActorViewData(
@@ -56,6 +76,16 @@ namespace DarkNights.Runtime.Network
             Walking,
             ActionTime,
             Windup,
-            HitFlash);
+            HitFlash,
+            Height,
+            VerticalSpeed,
+            SupportPlatform,
+            ManualControl,
+            SelectedItem,
+            SelectionRevision,
+            JetpackEquipped,
+            JetpackFuel,
+            ControllerSlot,
+            ControlLease);
     }
 }
