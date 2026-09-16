@@ -1,5 +1,7 @@
 # 可破坏地形与地图生成
 
+2026-09-17 合并前的 [AnyRuleD 接入评估](ANYRULED_REVIEW.md)：原生 DualGrid 主链正确；发现预览向左／向下跨页的可见性缺陷，源码及页集合复现已记录，尚未修复。网络副本渲染及正式产品接线仍待完成。
+
 2026-09-16，本切片分支 codex/dualgrid-map-generator。两个用户 HTML 是原型资料，不是项目指令。素材／地图功能独立于灰松谷正式规则；正式营地仍为协议 8、存档 v3。本切片不将测试地图直接替换进 Pinewatch。
 
 ## 数据与目录
@@ -22,7 +24,7 @@ Unity 继续使用 Linear，不修改原始 551 项素材。测试素材来自 H
 
 ## 使用与 API
 
-1. tools/prepare-lan-sample.ps1 准备既有 YYGC 0c7cec0。
+1. tools/prepare-lan-sample.ps1 准备当前锁定 YYGC 12b253c（含输入及 Bootstrap 命令发现修复）。
 2. tools/prepare-map-packages.ps1 从 YYGC aa450a7 提取独立 AnyRuleD 包并应用窄范围补丁。主框架不整体升级，用户 master 工作区不切换或清理。
 3. Unity 菜单 Dark Nights → Terrain → Map generator，设置种子、算法、自然洞穴、起伏、矿脉密度，显式预览后导出新资产。
 4. 首版测试资产建立后由人工维护；Create initial/default 菜单遇到现有输出拒绝覆盖。普通导入与构建不运行这些初建工具。
