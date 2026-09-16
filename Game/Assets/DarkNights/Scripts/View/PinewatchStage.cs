@@ -45,7 +45,7 @@ namespace DarkNights.View
         }
 
         public void Move(float pixels) { cameraX += pixels; UpdateCamera(); }
-        public void Focus(float pixels) { cameraX = pixels; UpdateCamera(); }
+        public void Focus(float pixels) { cameraX = pixels; Render(); }
         public void ChangeZoom(float factor) { zoom = Mathf.Clamp(zoom * factor, 1.8f, 4.5f); UpdateCamera(); }
 
         public void Present(SessionViewData frame)
@@ -80,10 +80,10 @@ namespace DarkNights.View
 
         private void Render()
         {
+            UpdateCamera();
             sky.color = Color.Lerp(new Color32(170, 188, 193, 255), new Color32(70, 87, 120, 255), night) * Ambient;
             foreach (NativeBackdrop backdrop in backgrounds) backdrop.Apply(cameraX, night, Ambient);
             if (environment != null) environment.Present(visualTime, night, cameraX, Ambient);
-            UpdateCamera();
         }
 
         private void UpdateCamera()

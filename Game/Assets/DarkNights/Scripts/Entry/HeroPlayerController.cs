@@ -22,6 +22,7 @@ namespace DarkNights.Entry
         private CampInput camp;
         private GameInputActions input;
         private PinewatchStage stage;
+        private SessionEntityViews entities;
         private HeroHudBehaviour hud;
         private YYInputRebindingHandle rebind;
         private YYInteractionSessionHandle rebindModal;
@@ -49,9 +50,10 @@ namespace DarkNights.Entry
         }
 
         public void Initialize(SessionNetwork session, CampInput campInput, GameInputActions actions,
-            PinewatchStage scene, HeroHudBehaviour panel)
+            PinewatchStage scene, HeroHudBehaviour panel, SessionEntityViews visuals)
         {
             network = session; camp = campInput; input = actions; stage = scene; hud = panel;
+            entities = visuals;
             campControlEnabled = System.Environment.GetCommandLineArgs().Contains("--dn-camp-mode");
             preferHero = !campControlEnabled;
             network.Client.RequestDefaultHero = preferHero;
@@ -137,8 +139,17 @@ namespace DarkNights.Entry
                 if (selected >= 0) SelectItem(selected).Forget();
                 if (pendingItem < 0 && input.CanRead(input.UseItem) && input.UseItem.WasPressedThisFrame()) Use().Forget();
             }
-            if (!YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.CameraInput))
-                stage.Focus(Current.X);
+        }
+
+        private void LateUpdate()
+        {
+            if (input == null || !input.HeroMode || Current == null || !network.Client.Ready ||
+                network.Client.Replica.Current?.Epoch != epoch ||
+                network.Client.ConnectionGeneration != connection ||
+                YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.CameraInput)) return;
+            // 等待所有 Update 完成，跟随本帧插值后的显示位置，避免与低频快照产生相对抖动。
+            EntityView visual = entities.Visual(Current.Id);
+            if (visual != null) stage.Focus(visual.transform.position.x * 100);
         }
 
         public async UniTask<bool> HandleAction(string action)

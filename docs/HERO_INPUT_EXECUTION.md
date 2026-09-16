@@ -1,5 +1,15 @@
 # 主角操控与 YYGC 输入改进联合执行
 
+## 2026-09-16 镜头跟随抖动快速修复
+
+主角镜头此前在 Update 直接使用低频冻结快照的 X，而角色由展示时间线插值，两者位置不同步。现在通过已有 SessionEntityViews 引用，在 LateUpdate 跟随角色本帧显示位置；Ready、连接代次、epoch 和镜头输入阻塞检查继续生效。Focus 同步刷新视差背景与环境，先限制镜头边界再计算背景位置，避免背景沿用上一帧镜头。
+
+Unity 6000.4.9f1 批处理编译及 EntityPresentationTests **28/28** 通过；架构守卫 **316 文件／12 自测／0 错误**，git diff --check 通过。日志与测试报告保留在 `artifacts/camera-follow/editor.log`、`artifacts/camera-follow/tests.xml`。本批仅修改三个表现／接线脚本，未更改 YYGC、协议、资源或玩法；没有重建 Player，未进行实际前台画面复核，不更新既有 Mono 或前台性能验收结论。
+
+阶段开始与完成 C／D 可用空间均约 7.58／31.94 GiB；复用现有 Unity 导入缓存，保留本批日志与测试报告供追溯，未生成 Player 或独立构建副本，清理释放量为 0，不清理此前列账的保留目录。
+
+## 原主角输入批次记录
+
 2026-09-16，本批主角操控与 YYGC 输入改进已合并落地。游戏在 `codex/hero-input`；框架在隔离 `codex/input-actions` 提交 `0c7cec0`。默认人物现修正为玩家上线时新建专属村民，旧入口及遮挡画面的顶部工具栏保持隐藏；当前 Mono 为 `artifacts/hero-input/player-mono-generated-villager-r2`。本文不签署仍待条件的前台性能、IL2CPP、双机器 LAN 或整个 M5。
 
 ## 默认村民生成跟进

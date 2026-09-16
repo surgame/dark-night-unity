@@ -89,7 +89,7 @@ namespace DarkNights.Entry
             hud = Behaviour<CampHudBehaviour>("Chrome");
             hud.Configure(catalog);
             hero = gameObject.AddComponent<HeroPlayerController>();
-            hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"));
+            hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"), entities);
             network.Client.Feedback += Feedback;
             network.Failed += Failed;
             initialized = true;
