@@ -1,6 +1,7 @@
 using System.Collections;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using AnyRules.Next;
 using AnyRules.Next.Authoring;
 using AnyRules.Next.Unity;
@@ -67,6 +68,69 @@ namespace DarkNights.Tests
                 Capture(map.Root);
             }
             finally { map.Dispose(); }
+        }
+
+        [UnityTest]
+        public IEnumerator PreviewKeepsCameraPagesVisibleAcrossDirectionChanges()
+        {
+            var asset = AssetDatabase.LoadAssetAtPath<TerrainMapAsset>(TerrainTestAssets.Root + "/Maps/GreypineTest.asset");
+            var source = new TerrainBlueprintSource(asset.ReadBlueprint(), asset.Definition.LoadGameplayCatalog().Tiles);
+            var creation = ARDMapController.CreateAsync(asset.Definition,
+                new MapOptions(initialize: false, showOnCreate: false, autoUpdate: false, maximumInitializationCells: 131072, chunkSource: source));
+            while (!creation.IsCompleted) yield return null;
+            Assert.That(creation.Exception, Is.Null);
+            var map = creation.Result;
+            var cameraObject = new GameObject("Terrain pan regression");
+            cameraObject.SetActive(false);
+            var camera = cameraObject.AddComponent<Camera>();
+            camera.orthographic = true; camera.orthographicSize = 8; camera.aspect = 1;
+            var preview = cameraObject.AddComponent<TerrainPreview>();
+            preview.ViewCamera = camera;
+            var flags = BindingFlags.NonPublic | BindingFlags.Instance;
+            var controllerField = typeof(TerrainPreview).GetField("controller", flags);
+            var update = typeof(TerrainPreview).GetMethod("Update", flags);
+            controllerField.SetValue(preview, map);
+            try
+            {
+                var loading = map.LoadRegionAsync(map.Descriptor.Bounds);
+                while (!loading.IsCompleted) yield return null;
+                Assert.That(loading.Exception, Is.Null);
+                // Left/down exposed the missing shared page. Include reverse, diagonal and map edges.
+                var positions = new[] { new Vector2(120, -104), new Vector2(104, -104),
+                    new Vector2(120, -104), new Vector2(136, -104), new Vector2(120, -104),
+                    new Vector2(120, -120), new Vector2(120, -104), new Vector2(120, -88),
+                    new Vector2(104, -120), new Vector2(0, 0), new Vector2(319, -191), new Vector2(120, -104) };
+                foreach (var position in positions)
+                {
+                    camera.transform.position = new Vector3(position.x, position.y, -10);
+                    update.Invoke(preview, null);
+                    for (int i = 0; i < 1500 && (map.Renderer.QueueCount > 0 || map.Renderer.InFlightCount > 0); i++)
+                    { update.Invoke(preview, null); yield return null; }
+                    Assert.That(map.Renderer.QueueCount + map.Renderer.InFlightCount, Is.Zero);
+                    Assert.That(preview.LastError, Is.Null);
+                    // Check the real frustum, independently of the preview's padded logical strips.
+                    int size = map.Descriptor.PageSize;
+                    var bounds = map.Descriptor.Bounds;
+                    int left = Mathf.FloorToInt(Mathf.Max(bounds.MinU - 1, position.x - 8) / size);
+                    int right = Mathf.FloorToInt(Mathf.Min((float)bounds.MaxUExclusive - .01f, position.x + 7.99f) / size);
+                    int bottom = Mathf.FloorToInt(Mathf.Max(bounds.MinV - 1, position.y - 8) / size);
+                    int top = Mathf.FloorToInt(Mathf.Min((float)bounds.MaxVExclusive - .01f, position.y + 7.99f) / size);
+                    for (int v = bottom; v <= top; v++) for (int u = left; u <= right; u++)
+                    {
+                        var page = new PageCoord(u, v);
+                        Assert.That(map.Renderer.TryGetPageInfo(page, out var info), Is.True, position + " missing " + page);
+                        Assert.That(info.HasVisibleOutput, Is.True, position + " hidden " + page);
+                    }
+                    long built = preview.BuiltPages;
+                    for (int i = 0; i < 120; i++) update.Invoke(preview, null);
+                    Assert.That(preview.BuiltPages, Is.EqualTo(built), "Static preview rebuilt after " + position);
+                }
+            }
+            finally
+            {
+                controllerField.SetValue(preview, null);
+                Object.DestroyImmediate(cameraObject); map.Dispose();
+            }
         }
 
         private static void Capture(GameObject root)

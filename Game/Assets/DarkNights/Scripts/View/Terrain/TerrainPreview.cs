@@ -51,7 +51,7 @@ namespace DarkNights.View.Terrain
             var bounds = controller.Descriptor.Bounds;
             float halfH = ViewCamera.orthographicSize, halfW = halfH * ViewCamera.aspect;
             Vector3 p = ViewCamera.transform.position;
-            const int page = 16;
+            int page = controller.Descriptor.PageSize;
             int minU = Math.Max(bounds.MinU, Mathf.FloorToInt((p.x - halfW - 2) / page) * page);
             int minV = Math.Max(bounds.MinV, Mathf.FloorToInt((p.y - halfH - 2) / page) * page);
             int maxU = Math.Min((int)bounds.MaxUExclusive, Mathf.CeilToInt((p.x + halfW + 2) / page) * page);
@@ -59,31 +59,28 @@ namespace DarkNights.View.Terrain
             if (maxU <= minU || maxV <= minV) return;
             var next = new GridBounds(minU, minV, maxU - minU, maxV - minV);
             if (visible.Equals(next)) return;
-            if (visible.IsValid) ChangeDifference(visible, next, false);
-            ChangeDifference(next, visible, true); visible = next;
+            if (visible.IsValid) HideDifference(visible, next);
+            // HideRegion expands logical strips by the DualGrid halo. Restore the complete
+            // target so shared boundary pages cannot stay hidden; unchanged shown pages stay cached.
+            controller.ShowRegion(next); visible = next;
         }
 
-        // Only entering/leaving strips change visibility; overlapping cached pages stay presented.
-        private void ChangeDifference(GridBounds area, GridBounds overlap, bool show)
+        // Only departing logical strips are hidden; ShowRegion restores any shared halo pages.
+        private void HideDifference(GridBounds area, GridBounds overlap)
         {
             int left = Math.Max(area.MinU, overlap.MinU), bottom = Math.Max(area.MinV, overlap.MinV);
             int right = (int)Math.Min(area.MaxUExclusive, overlap.MaxUExclusive);
             int top = (int)Math.Min(area.MaxVExclusive, overlap.MaxVExclusive);
-            if (!overlap.IsValid || left >= right || bottom >= top) { Change(area, show); return; }
-            Strip(area.MinU, area.MinV, left - area.MinU, area.Height, show);
-            Strip(right, area.MinV, (int)area.MaxUExclusive - right, area.Height, show);
-            Strip(left, area.MinV, right - left, bottom - area.MinV, show);
-            Strip(left, top, right - left, (int)area.MaxVExclusive - top, show);
+            if (!overlap.IsValid || left >= right || bottom >= top) { controller.HideRegion(area); return; }
+            HideStrip(area.MinU, area.MinV, left - area.MinU, area.Height);
+            HideStrip(right, area.MinV, (int)area.MaxUExclusive - right, area.Height);
+            HideStrip(left, area.MinV, right - left, bottom - area.MinV);
+            HideStrip(left, top, right - left, (int)area.MaxVExclusive - top);
         }
 
-        private void Strip(int u, int v, int width, int height, bool show)
+        private void HideStrip(int u, int v, int width, int height)
         {
-            if (width > 0 && height > 0) Change(new GridBounds(u, v, width, height), show);
-        }
-
-        private void Change(GridBounds region, bool show)
-        {
-            if (show) controller.ShowRegion(region); else controller.HideRegion(region);
+            if (width > 0 && height > 0) controller.HideRegion(new GridBounds(u, v, width, height));
         }
 
         private async void OnDisable()

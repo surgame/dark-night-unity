@@ -1,0 +1,113 @@
+{
+  "date": "2026-09-17",
+  "baseline": "c59c848",
+  "scope": "TerrainPreview visibility fix; actual Editor rendering and camera page coverage",
+  "editor": "6000.4.9f1",
+  "tests": {
+    "status": "completed",
+    "duration": 3.61,
+    "summary": {
+      "total": 11,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "results": [
+      {
+        "FullName": "DarkNights.Tests.TerrainAuthorityTests.IdleStreamDoesNotScanAndChangedMapReachesLateReplica",
+        "Status": "Passed",
+        "Duration": 0.0864137,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.TerrainAuthorityTests.InvalidBatchAndProtectedSupportAreAtomic",
+        "Status": "Passed",
+        "Duration": 0.0071782,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.TerrainAuthorityTests.LocalDestructionTouchesAtMostFourPagesAndIsFrozen",
+        "Status": "Passed",
+        "Duration": 0.0073347,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.TerrainGenerationTests.GenerationIsFrozenAndProtectsSupport",
+        "Status": "Passed",
+        "Duration": 0.0038117,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.TerrainGenerationTests.HtmlVectorsMatchAllTwentyFourMaps",
+        "Status": "Passed",
+        "Duration": 0.1198541,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(double.NaN,1)",
+        "Status": "Passed",
+        "Duration": 0.0003539,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(double.PositiveInfinity,1)",
+        "Status": "Passed",
+        "Duration": 3.75E-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(1,0)",
+        "Status": "Passed",
+        "Duration": 2.47E-05,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.TerrainPresentationTests.ActualPagesStayStaticAndDestructionIsLocal",
+        "Status": "Passed",
+        "Duration": 2.4916938,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.TerrainPresentationTests.AuthoredAtlasAndNativeCatalogReload",
+        "Status": "Passed",
+        "Duration": 0.0054329,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.TerrainPresentationTests.PreviewKeepsCameraPagesVisibleAcrossDirectionChanges",
+        "Status": "Passed",
+        "Duration": 0.5706662,
+        "Message": null,
+        "StackTrace": null
+      }
+    ]
+  },
+  "cameraPositions": 12,
+  "staticUpdatesPerPosition": 120,
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 341,
+    "selfTests": 12,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "playerRebuilt": false,
+  "yygcModified": false,
+  "cleanup": {
+    "releasedBytes": 0,
+    "reason": "Reused existing Unity import cache and ArchitectureGuard build outputs; no isolated temporary build or new Player created. Historical retained cleanup targets untouched.",
+    "freeBytesC": 8217899008,
+    "freeBytesD": 33804734464
+  }
+}
