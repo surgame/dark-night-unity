@@ -42,6 +42,7 @@ namespace DarkNights.Editor
                 panel.anchorMin = panel.anchorMax = new Vector2(.5f, 0); panel.pivot = new Vector2(.5f, 0);
                 panel.anchoredPosition = new Vector2(0, 300); panel.sizeDelta = new Vector2(730, 82);
                 panel.GetComponent<Image>().color = new Color(.045f, .08f, .10f, .95f);
+                panel.gameObject.SetActive(false);
                 Font font = AssetDatabase.LoadAssetAtPath<Font>("Assets/DarkNights/Res/UI/Shared/UIFont.fontsettings");
                 var bindings = new Dictionary<string, Component>();
                 NativeUiExtras.AddButton(panel, "Toggle", "操控居民 [Tab]", 8, 8, 144, 34, font, bindings);

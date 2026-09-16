@@ -92,6 +92,8 @@ namespace DarkNights.Tests
             await network.GetComponent<HeroPlayerController>().SetHeroMode(false);
             await network.Connect(true, "127.0.0.1", 27981);
             await Until(() => network.Client.Ready, "Host Ready");
+            await Until(() => network.Client.Replica.Current.World.Actors.All(actor => actor.ControllerSlot != 0),
+                "Explicit legacy camp mode releases the default hero");
             var world = network.ObjectWorld;
             Assert.That(world, Is.Not.Null);
             Assert.That(world.Index.Count, Is.EqualTo(17));

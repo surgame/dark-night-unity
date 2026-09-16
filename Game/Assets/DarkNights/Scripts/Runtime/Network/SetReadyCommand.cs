@@ -15,6 +15,7 @@ namespace DarkNights.Runtime.Network
         public int Epoch { get; set; }
         public long RequestSequence { get; set; }
         public bool Ready { get; set; }
+        public bool RequestHero { get; set; }
         public int AppliedRevision { get; set; }
         public long AppliedPublication { get; set; }
         public string RecoveryToken { get; set; } = "";
@@ -26,6 +27,7 @@ namespace DarkNights.Runtime.Network
             Epoch = 0;
             RequestSequence = 0;
             Ready = false;
+            RequestHero = false;
             AppliedRevision = 0;
             AppliedPublication = 0;
             RecoveryToken = "";

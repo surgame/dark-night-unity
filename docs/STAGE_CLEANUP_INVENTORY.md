@@ -1,8 +1,24 @@
 # 阶段产物清理清单
 
-2026-09-16 续接：平台修正后的当前 Player 为 `artifacts/hero-input/player-mono-platform`。被替代的 `artifacts/hero-input/player-mono`（413 文件／199130911 字节）清理整条命令在执行前被自动审批以 `blocked by policy` 拒绝，本轮释放 0 字节，未重试。新 Player／调试副本、证据、Python 缓存和共享缓存保留条件见[续接清理记录](evidence/hero-input-platform-cleanup-2026-09-16.json)，此前 381.25 MiB 的释放量不变。
+2026-09-16 顶部工具栏跟进：当前交付改为 `artifacts/hero-input/player-mono-default-hero-r3`、`default-hero-build-r3.log` 与 `network-20260916-194418-492`；`toolbar-editor-*` 3/3 和 `toolbar-unified-*` 2/2 保留为最终资源／Play 检查证据。被替代的 r2 Player、构建日志、双进程目录，以及误用 PlayMode 平台筛选得到 0 项后已由正确 EditMode 驱动替代的 `toolbar-play-*` 两个文件，共 5 个目标、429 个文件／202049771 字节（192.690 MiB）。由于同阶段清理命令此前已被 `blocked by policy` 拒绝，按约定未重试或换工具绕过；本次释放仍为 0 字节。与下段原 17 个目标合并为 22 个不重叠目标、888 个文件／415875849 字节（396.610 MiB）。
 
-2026-09-16 追加：[主角与输入切片](HERO_INPUT_EXECUTION.md#清理与保留边界)已清理本次两个被替代的 Mono、一次性写入器、过期 PID 和已查看的拼图，共 399769079 字节（381.25 MiB）。当前 Player、原始证据、隔离存档和补丁依赖保留，详见[本批清单](evidence/hero-input-retained-2026-09-16.json)。没有重试下文历史拒绝目标，历史数值不与本批父子目录重复相加。
+2026-09-16 默认人物收尾：当时保留 `artifacts/hero-input/player-mono-default-hero-r2`、`default-hero-build-r2.log` 与 `network-20260916-192150-825`，现已由上方 r3 替代。准备删除的 17 个目标合计 459 个文件／213826078 字节（203.920 MiB），整条原生 PowerShell 删除命令在执行前被自动审批以 `blocked by policy` 拒绝；释放 0 字节，未重试、未删父目录绕过。明细如下，11 个 Play 存档子目录均为本轮 18:50 后由 `UnifiedSlicePlayTests` 新建的隔离槽位：
+
+| 路径 | 文件数 | 逻辑字节 | 保留原因 |
+|---|---:|---:|---|
+| `artifacts/hero-input/player-mono-default-hero` | 414 | 199381102 | 被 `r2` 替代；清理审批拒绝 |
+| `artifacts/hero-input/default-hero-build.log` | 1 | 964136 | 第一份 Player 构建日志；清理审批拒绝 |
+| `artifacts/hero-input/default-hero-editor.log` | 1 | 10033551 | 本轮 Editor 诊断日志；清理审批拒绝 |
+| `artifacts/hero-input/network-20260916-191646-792` | 7 | 1072068 | 验收驱动冲突的首个失败运行；清理审批拒绝 |
+| `artifacts/hero-input/network-20260916-191935-305` | 9 | 1082547 | 默认偏好未恢复的中间运行；清理审批拒绝 |
+| `artifacts/hero-input/network-20260916-192052-070` | 9 | 1124979 | 无截图的重复 35/35 运行；清理审批拒绝 |
+| `artifacts/hero-input/play-saves/{105e12a9…,25c039d9…,27293700…,35e6902b…,614ed395…,71aea483…,87be0007…,ba88b303…,d16ceca3…,d31a2e12…,ea2af5e1…}` | 18 | 167695 | 本轮隔离 Play 存档；清理审批拒绝 |
+
+本次清理尝试、最终 Player 身份与验证边界见[默认人物证据](evidence/default-hero-2026-09-16.json)。下方平台修正及更早批次继续保留各自历史口径，父子目录不可重复计数。
+
+2026-09-16 续接：平台修正阶段 Player 为 `artifacts/hero-input/player-mono-platform`，现已由默认人物 Player 替代。被替代的 `artifacts/hero-input/player-mono`（413 文件／199130911 字节）清理整条命令在执行前被自动审批以 `blocked by policy` 拒绝，本轮释放 0 字节，未重试。该阶段 Player／调试副本、证据、Python 缓存和共享缓存保留条件见[续接清理记录](evidence/hero-input-platform-cleanup-2026-09-16.json)，此前 381.25 MiB 的释放量不变。
+
+2026-09-16 追加：[主角与输入切片](HERO_INPUT_EXECUTION.md#清理与保留边界)已清理本次两个被替代的 Mono、一次性写入器、过期 PID 和已查看的拼图，共 399769079 字节（381.25 MiB）。该阶段 Player、原始证据、隔离存档和补丁依赖保留，详见[本批清单](evidence/hero-input-retained-2026-09-16.json)。没有重试下文历史拒绝目标，历史数值不与本批父子目录重复相加。
 
 2026-09-15 追加：[本地指令圈切片](LOCAL_COMMAND_RINGS.md#产物与受限清理)的清理命令被自动审批以 `blocked by policy` 整批拒绝。新临时编译文件、原生调试副本及 ArchitectureGuard 中间产物合计 35,842,798 字节，约 34.18 MiB，释放量 0，未重试；路径与保留条件已逐项列账。下文仍为 2026-09-14 的历史盘点，两批体积不直接相加。
 

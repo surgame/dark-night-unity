@@ -15,6 +15,7 @@ namespace DarkNights.Tests
     {
         private UnifiedSessionScope scope;
         private long sequence, inputSequence;
+        private bool assignDefaultHeroes;
         public ObjectSession World { get; private set; }
         public SessionAuthority Authority { get; private set; }
         public SessionConnection Host { get; private set; }
@@ -23,7 +24,7 @@ namespace DarkNights.Tests
         public ActorBehaviour Actor => World.Index.Find<ActorBehaviour>(ActorId);
         public ActorState State => Actor.CaptureState();
 
-        public static async UniTask<HeroTestSession> Create()
+        public static async UniTask<HeroTestSession> Create(bool assignDefaultHeroes = false)
         {
             var f = new HeroTestSession();
             try
@@ -33,7 +34,9 @@ namespace DarkNights.Tests
                 var layout = new LevelLayout(old.WorldWidth, old.GroundY, old.BuildMinX, old.BuildMaxX, old.SpawnX,
                     old.CameraX, old.Buildings, old.Worksites, old.Actors, new[] { new PlatformDefinition(1, 150, 198, 12) });
                 f.World = f.scope.NewWorld(catalog, layout, false);
-                f.Authority = new SessionAuthority(f.World); f.Host = f.Authority.Connect(0); f.Guest = f.Authority.Connect(1);
+                f.assignDefaultHeroes = assignDefaultHeroes;
+                f.Authority = new SessionAuthority(f.World);
+                f.Host = f.Authority.Connect(0); f.Guest = f.Authority.Connect(1);
                 f.Ready(); f.ActorId = f.World.Index.Actors[0].Id;
                 return f;
             }
@@ -41,8 +44,8 @@ namespace DarkNights.Tests
         }
         public void Ready()
         {
-            Authority.AcknowledgeReady(Host, Authority.Epoch, Authority.Revision);
-            Authority.AcknowledgeReady(Guest, Authority.Epoch, Authority.Revision);
+            Authority.AcknowledgeReady(Host, Authority.Epoch, Authority.Revision, assignDefaultHeroes);
+            Authority.AcknowledgeReady(Guest, Authority.Epoch, Authority.Revision, assignDefaultHeroes);
         }
         public SessionReceipt Command(SessionOperation operation, SessionConnection sender = null,
             int target = 0, string kind = "", int value = 0, int? lease = null)

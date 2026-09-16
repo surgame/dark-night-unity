@@ -16,6 +16,15 @@ namespace DarkNights.Tests
     public sealed class NativeEnvironmentTests
     {
         [Test]
+        public void HeroToolbarStartsHiddenInProductPrefab()
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/DarkNights/Res/UI/Hero/Hero.prefab");
+            var toolbar = prefab.transform.Find("Toolbar");
+            Assert.That(toolbar, Is.Not.Null);
+            Assert.That(toolbar.gameObject.activeSelf, Is.False);
+        }
+
+        [Test]
         public void PlatformVisibleTopMatchesAuthoritativeHeightAfterReopen()
         {
             Scene scene = EditorSceneManager.OpenScene(PinewatchLayoutSetup.ScenePath, OpenSceneMode.Additive);

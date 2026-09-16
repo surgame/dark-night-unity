@@ -116,7 +116,7 @@ namespace DarkNights.Runtime.Network
             }
             if (peer.Authority == null) return default;
             bool accepted = command.Protocol == SessionAuthority.ProtocolVersion && command.Ready && sent &&
-                Authority.AcknowledgeReady(peer.Authority, command.Epoch, command.AppliedRevision);
+                Authority.AcknowledgeReady(peer.Authority, command.Epoch, command.AppliedRevision, command.RequestHero);
             peer.Endpoint.Reply(peer.Network, command.RequestSequence, Authority.Epoch, Authority.Revision,
                 accepted ? "Ready" : "NotReady", 0, 0, true, peer.Authority.PlayerSlot, peer.Authority.Generation);
             Publish();

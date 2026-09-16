@@ -1,6 +1,6 @@
 # Dark Nights · Unity
 
-2026-09-16 已完成[主角操控与 YYGC 输入联合执行](docs/HERO_INPUT_EXECUTION.md)：默认主角操控、营地切换、跳跃／平台／喷气背包及可装配的旧自动控制已实现，YYGC 隔离输入提交 `0c7cec0` 已锁定，协议 8／存档 v3。续接任务修正平台画面与碰撞高度不一致，按用户要求完成基本本地验证：Editor／Play 17/17、新 Mono 启动与双进程主角 43/43；游戏共 173 个不同用例按影响合并通过。输入 Sample 34 项及前三次构建的 350／155 项保留各自身份，不计作新产物重跑。当前 Player 为 `artifacts/hero-input/player-mono-platform`（414 文件），前台性能、IL2CPP、双机器 LAN 与 M5 状态不变。旧 Player 清理被自动审批拒绝并列账，本轮释放 0 字节。
+2026-09-16 已完成[默认主角入口收尾](docs/HERO_INPUT_EXECUTION.md)：协议仍为 8、存档仍为 v3，YYGC 锁定提交仍为 `0c7cec0`。每个玩家完成完整投影 Ready 时由服务端直接分配一名不同的可用友军；加载、重连以及 HostOnly 回到 SharedCamp 后按偏好重新分配。产品默认移除会遮挡画面的顶部主角工具栏，并隐藏营地建造、训练、招募、修缮入口；1／2／3、滚轮及主角移动／使用快捷键继续直接生效，旧营地后端和工具栏仅由显式开发开关 `--dn-camp-mode` 保留。受影响 Editor／Play 按组 22/22、架构守卫 316 文件／12 自测／0 错误，新 Mono 独立 Host＋客户端和实际 UI 捕获 37/37；累计 175 个不同游戏用例按影响合并通过。当前 Player 为 `artifacts/hero-input/player-mono-default-hero-r3`（414 文件／199381196 字节）。输入 Sample 34 项及历史 350／155 项保持原构建身份，未重跑；前台性能、IL2CPP、双机器 LAN 与 M5 状态不变。
 
 2026-09-15 完成[右键指令圈本地化与复用](docs/LOCAL_COMMAND_RINGS.md)：移除服务端圆圈事件，发起端立即显示并复用八个原生实例，暂停、换局和重连按本地生命周期处理。相关 Editor 24/24、架构守卫 294 文件／12 自测／0 错误、同一新 Mono 的启动／会话／战斗／双端隔离及弱网共 72/72 通过；四张隔离截图已复核。当前切片 Player 位于 `artifacts/local-command-rings/player-mono`。本批清理被自动审批拒绝，约 34.18 MiB 已列账保留；前台性能、IL2CPP、双机器 LAN 和 M5 状态不变。
 

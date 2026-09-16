@@ -83,11 +83,11 @@ try {
         Check 'native_hero_and_current_controls_guide_captured' ((Test-Path -LiteralPath (Join-Path $run 'hero-default.png')) -and
             (Test-Path -LiteralPath (Join-Path $run 'hero-help.png')))
     }
-    foreach ($role in @('host','client')) {
-        $r = Receipt $role @{operation='ui';panel='Hero';key='Toggle'}
-        Check ($role + '_native_toggle_releases_to_camp') ($r.Code -eq 'Applied')
-    }
+    $null = Consume 'host' @{operation='hero-mode';value=0}
+    $null = Consume 'client' @{operation='hero-mode';value=0}
     $h = Wait-Report 'host' { param($r) @($r.frame.World.Actors | Where-Object { $_.ControllerSlot -ge 0 }).Count -eq 0 }
+    Check 'host_can_release_preserved_camp_backend' ((Actor $h $hostActor).ControllerSlot -eq -1)
+    Check 'guest_can_release_preserved_camp_backend' ((Actor $h $guestActor).ControllerSlot -eq -1)
     Check 'camp_mode_has_no_orphaned_owner' $true
     Check 'host_claims_one_actor' ((Receipt 'host' @{operation='ClaimHero';actors=@($hostActor)}).Code -eq 'Applied')
     Check 'contested_actor_rejected' ((Receipt 'client' @{operation='ClaimHero';actors=@($hostActor)}).Code -eq 'NoEffect')
@@ -146,15 +146,20 @@ try {
     $null = Wait-Report 'host' { param($r) !$r.storageBusy -and $r.storageStatus -like '*已保存*' }
     $saved = Get-Content -LiteralPath (Join-Path $saves 'v3/slot-00.dnsave.json') -Raw | ConvertFrom-Json
     Check 'new_format_saves_airborne_state' ($saved.format_version -eq 3 -and @($saved.world.actors | Where-Object { $_.id -eq $guestActor })[0].height -eq $air.Height)
+    # 恢复产品默认偏好；当前人物不变，新 epoch Ready 时由服务端重新分配。
+    $null = Consume 'host' @{operation='hero-mode';value=1}
+    $null = Consume 'client' @{operation='hero-mode';value=1}
     $oldEpoch = $h.frame.Epoch
     # 加载可先发布新 epoch，旧 epoch 的完成回执会按产品合同丢弃；以新世界 Ready 验证完成。
     $null = Consume 'host' @{operation='BeginLoad';value=0}
     $h = Wait-Report 'host' { param($r) $r.ready -and $r.frame.Epoch -gt $oldEpoch -and $r.frame.ReadyCount -eq 2 }
     $c = Wait-Report 'client' { param($r) $r.ready -and $r.frame.Epoch -eq $h.frame.Epoch }
-    $restored = Actor $c $guestActor
+    $airborneActor = $guestActor
+    $restored = Actor $c $airborneActor
     Check 'airborne_recovery_preserves_motion_equipment_and_fuel' ($restored.Height -eq $air.Height -and $restored.VerticalSpeed -eq $air.VerticalSpeed -and $restored.JetpackFuel -eq $air.JetpackFuel -and $restored.JetpackEquipped)
-    Check 'load_releases_all_ownership' (@($h.frame.World.Actors | Where-Object { $_.ControllerSlot -ge 0 }).Count -eq 0)
-    $null = Receipt 'client' @{operation='ClaimHero';actors=@($guestActor)}
+    $hostActor = @($h.frame.World.Actors | Where-Object ControllerSlot -eq 0)[0].Id
+    $guestActor = @($h.frame.World.Actors | Where-Object ControllerSlot -eq 1)[0].Id
+    Check 'load_reassigns_each_ready_player' ($hostActor -gt 0 -and $guestActor -gt 0 -and $hostActor -ne $guestActor)
     $null = Receipt 'host' @{operation='SetPaused';value=0}
     $c = Wait-Report 'client' { param($r) !$r.frame.Paused -and (Actor $r $guestActor).ControllerSlot -eq 1 }
     $guestLease = (Actor $c $guestActor).ControlLease; $position = (Actor $c $guestActor).X
@@ -177,9 +182,10 @@ try {
     $h = Wait-Report 'host' { param($r) $r.frame.PlayerCount -eq 1 }
     Check 'disconnect_releases_hero_to_automatic_control' ((Actor $h $guestActor).ControllerSlot -eq -1 -and !(Actor $h $guestActor).ManualControl)
     $null = Consume 'client' @{operation='connect'}
-    $c = Wait-Report 'client' { param($r) $r.ready -and $r.frame.ReadyCount -eq 2 }
+    $c = Wait-Report 'client' { param($r) $r.ready -and $r.frame.ReadyCount -eq 2 -and
+        @($r.frame.World.Actors | Where-Object ControllerSlot -eq 1).Count -eq 1 }
     Check 'reconnect_recovers_slot_with_fresh_connection' ($c.slot -eq 1 -and @($c.feedback | Where-Object ReadyReply | Select-Object -Last 1)[0].ConnectionGeneration -gt $generation)
-    Check 'reconnected_player_can_reclaim' ((Receipt 'client' @{operation='ClaimHero';actors=@($guestActor)}).Code -eq 'Applied')
+    Check 'reconnected_player_receives_default_hero' ((Actor $c $guestActor).ControllerSlot -eq 1)
     $null = Receipt 'host' @{operation='SetControlMode';value=1}
     $h = Wait-Report 'host' { param($r) $r.frame.HostOnly }
     Check 'host_only_revokes_guest_possession' ((Actor $h $guestActor).ControllerSlot -eq -1)
@@ -187,8 +193,8 @@ try {
     $null = Wait-Report 'client' { param($r) $r.frame.HostOnly -and $r.frame.PolicyRevision -eq $h.frame.PolicyRevision }
     Check 'host_only_rejects_guest_claim' ((Receipt 'client' @{operation='ClaimHero';actors=@($guestActor)}).Code -eq 'PermissionDenied')
     $null = Receipt 'host' @{operation='SetControlMode';value=0}
-    $null = Wait-Report 'client' { param($r) !$r.frame.HostOnly }
-    Check 'shared_policy_restores_claim_permission' ((Receipt 'client' @{operation='ClaimHero';actors=@($guestActor)}).Code -eq 'Applied')
+    $c = Wait-Report 'client' { param($r) !$r.frame.HostOnly -and (Actor $r $guestActor).ControllerSlot -eq 1 }
+    Check 'shared_policy_restores_default_hero' $true
     $null = Receipt 'host' @{operation='SetPaused';value=1}
     $h = Ticks 90; $c = Wait-Report 'client' { param($r) $r.frame.Paused -and $r.frame.Publication -ge $h.frame.Publication }
     $h = Read-Report 'host'

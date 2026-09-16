@@ -115,6 +115,8 @@ namespace DarkNights.Entry
                         else if (operation == "capture-sample")
                             await SessionPresentationCapture.Save(network, command, Path.GetDirectoryName(reportPath));
                         else if (operation == "ui") network.GetComponent<SessionUiController>().ActivateButton((string)command["panel"], (string)command["key"]);
+                        else if (operation == "hero-mode")
+                            await network.GetComponent<HeroPlayerController>().SetHeroMode((int?)command["value"] != 0);
                         else if (operation == "input-orders")
                         {
                             var input = network.GetComponent<SessionUiController>().Input;

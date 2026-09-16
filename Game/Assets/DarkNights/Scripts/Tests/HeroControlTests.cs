@@ -16,6 +16,17 @@ namespace DarkNights.Tests
     public sealed class HeroControlTests
     {
         [UnityTest]
+        public IEnumerator ReadyAssignsDistinctDefaultHeroes() => UniTask.ToCoroutine(async () =>
+        {
+            using var f = await HeroTestSession.Create(true);
+            var assigned = f.Authority.CaptureProjection().World.Actors.Where(actor => actor.ControllerSlot >= 0).ToArray();
+            Assert.That(assigned.Length, Is.EqualTo(2));
+            Assert.That(assigned.Select(actor => actor.ControllerSlot), Is.EquivalentTo(new[] { 0, 1 }));
+            Assert.That(assigned.Select(actor => actor.Id).Distinct().Count(), Is.EqualTo(2));
+            Assert.That(f.State.ControllerSlot, Is.Zero);
+        });
+
+        [UnityTest]
         public IEnumerator PossessionCancelsOrdersAndRejectsOtherConnection() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();

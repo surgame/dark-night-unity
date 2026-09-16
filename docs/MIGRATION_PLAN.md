@@ -1,6 +1,6 @@
 # Dark Nights Godot → Unity 移植方案
 
-2026-09-14 当前入口：[YYGC 统一对象架构分阶段执行计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。运行实体与状态所有权已迁入 YYGC，Core 只保留纯算法／数据合同；可针对框架能力限制和 BUG 升级适配。此次无需 Godot 旧档、Unity v1 存档或旧协议兼容；仍保留冻结玩法、人工资源及新格式完整恢复。**U0–U5 已完成，框架锁定 `745f3d2`；协议 7 基础完成 144 项 Editor／Play、同一 Mono 的 350 项完整矩阵及 240 秒容量 21 项。后续 UI／结果页及 [Linear 固定世界表现](M5_WORLD_PRESENTATION.md)已分别验收，最新 `a4a5450` 完成 155 项 Editor／Play 和新 Mono 77 项检查。前台验收由用户暂缓，IL2CPP／双机器 LAN 仍待条件；受限清理按用户要求完成[清单交接](STAGE_CLEANUP_INVENTORY.md)。** 下文保留原移植方案的历史设计，旧档兼容和 Core 世界长期保留要求不再适用；当前合同以[技术架构](ARCHITECTURE.md)和[存档格式](SAVE_FORMAT.md)为准。
+2026-09-16 当前入口：[YYGC 统一对象架构分阶段执行计划](YYGC_UNIFIED_REFACTOR_PLAN.md)与[主角输入联合执行](HERO_INPUT_EXECUTION.md)。运行实体与状态所有权已迁入 YYGC，Core 只保留纯算法／数据合同；游戏现为协议 8／存档 v3，默认产品入口由服务端为每个 Ready 玩家分配一名可用友军，顶部主角工具栏和旧营地操作入口暂时隐藏，快捷键继续生效。**U0–U5 已完成，框架输入锁定 `0c7cec0`；历史协议 7 Mono 的 350 项完整矩阵、Linear 155/155 与 Mono 77/77 均按原输入保留。本次默认人物收尾按组复跑受影响 Editor／Play 22/22 和新 Mono 双进程／UI 37/37，不将其写成历史完整矩阵重跑。前台验收由用户暂缓，IL2CPP／双机器 LAN 仍待条件；受限清理按用户要求完成[清单交接](STAGE_CLEANUP_INVENTORY.md)。** 下文保留原移植方案的历史设计，旧档兼容和 Core 世界长期保留要求不再适用；当前合同以[技术架构](ARCHITECTURE.md)和[存档格式](SAVE_FORMAT.md)为准。
 
 2026-09-13 Definition 场景入口修复已实施，具体职责与替代关系见[当前合同](SCENE_DEFINITIONS.md)。场景身份和分类由 Loader 的 Definition 提供，Marker 仅保留实例参数；静态视图沿用 YYGC 初始化并绑定权威副本。编译完成，回归按用户要求待确认；下文早期手工 ContentId 映射表和预览替换描述保留历史时点。
 

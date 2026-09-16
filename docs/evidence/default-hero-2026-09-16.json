@@ -1,0 +1,110 @@
+{
+  "date": "2026-09-16",
+  "branch": "codex/hero-input",
+  "base_commit": "7024aef92019d94d827cb8f1e655233bee0a8f8b",
+  "scope": "默认主角分配、旧营地入口与遮挡画面的顶部工具栏隐藏、相应文档收尾",
+  "contracts": {
+    "protocol": 8,
+    "save_format": 3,
+    "yygc_commit": "0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143",
+    "default_entry": "每个有权限且 RequestHero 的 Ready 连接由服务端分配一个不同的可用友军",
+    "hidden_entry": "默认隐藏整块顶部主角工具栏以及建造、训练、招募和修缮按钮；主角快捷键继续生效",
+    "legacy_development_switch": "--dn-camp-mode"
+  },
+  "verification": {
+    "architecture_guard": {
+      "files": 316,
+      "self_tests": 12,
+      "errors": 0
+    },
+    "affected_editor_play": {
+      "passed": 22,
+      "total": 22,
+      "combined_not_single_run": true,
+      "groups": {
+        "HeroControlTests": "7/7",
+        "HeroRecoveryTests": "4/4",
+        "HeroCombatTests": "2/2",
+        "SessionClientReadyTests": "4/4",
+        "UnifiedSlicePlayTests": "2/2",
+        "NativeEnvironmentTests（顶部工具栏跟进）": "3/3"
+      },
+      "distinct_game_tests_after_new_cases": 175,
+      "toolbar_followup_results": "artifacts/hero-input/toolbar-editor-results.xml",
+      "toolbar_followup_results_sha256": "d56480dfa50305049385e47ce4ec405d91d2d445a3fd4042c92fa0149e52ccc3",
+      "toolbar_followup_log": "artifacts/hero-input/toolbar-editor.log",
+      "toolbar_followup_log_sha256": "11ead06e85c07cd1b5dd757204362bcac031590426f3ce2e4588d2355fed826b",
+      "final_unified_play_results": "artifacts/hero-input/toolbar-unified-results.xml",
+      "final_unified_play_results_sha256": "b64e509081d48c0a9f6abd84efd487e66d053752ed737a266eba278aee622378",
+      "final_unified_play_log": "artifacts/hero-input/toolbar-unified.log",
+      "final_unified_play_log_sha256": "e2d04ca6a0f50f79a94f13b67b1f4b3e4e325c691ada463571c65bc3e44ac488"
+    },
+    "mono_player": {
+      "backend": "Mono Development",
+      "result": "Build Finished, Result: Success",
+      "path": "artifacts/hero-input/player-mono-default-hero-r3/DarkNights.exe",
+      "file_count": 414,
+      "bytes": 199381196,
+      "build_log": "artifacts/hero-input/default-hero-build-r3.log",
+      "build_log_sha256": "01cfa065b6c7a33988252e1fb782c6655cce62ef4ad00a9ffe250c3962169bc0",
+      "exe_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "entry_sha256": "39d438a032510853d45d1e46f69ea2367689c771d556f0dd8f657386889406f8",
+      "view_sha256": "f3acfdc10e2cf41c7bbc63226ac9ad93b9d15648c84fc4fd69669f5adf8adc00"
+    },
+    "two_process_capture": {
+      "passed": 37,
+      "total": 37,
+      "result": "artifacts/hero-input/network-20260916-194418-492/result.json",
+      "result_sha256": "92b839045647231334cea1c2332bad59d52e8b7d0d3dae064e28009acb50dba1",
+      "default_ui": "artifacts/hero-input/network-20260916-194418-492/hero-default.png",
+      "default_ui_sha256": "82d59eeb6c4bc12b6cdee913266e40b13f0c5c294881429c053c4da8cd3a0d12",
+      "default_ui_review": "顶部主角工具栏未显示；游戏世界、底部角色信息和 Chrome 保持可见",
+      "help_ui": "artifacts/hero-input/network-20260916-194418-492/hero-help.png",
+      "help_ui_sha256": "b78ef2d0951fe5cbf55f9701e6579effa138b7836ea97bbf256d8a0d4d1f31fd"
+    },
+    "cleanup": {
+      "attempted": true,
+      "result": "blocked by policy",
+      "retried": false,
+      "released_bytes": 0,
+      "target_count": 17,
+      "file_count": 459,
+      "candidate_bytes": 213826078,
+      "kept_final_player_and_capture": true,
+      "targets": [
+        "artifacts/hero-input/player-mono-default-hero",
+        "artifacts/hero-input/default-hero-build.log",
+        "artifacts/hero-input/default-hero-editor.log",
+        "artifacts/hero-input/network-20260916-191646-792",
+        "artifacts/hero-input/network-20260916-191935-305",
+        "artifacts/hero-input/network-20260916-192052-070",
+        "artifacts/hero-input/play-saves 下本轮 18:50 后的 11 个隔离目录"
+      ],
+      "later_superseded_not_retried_after_policy_block": {
+        "target_count": 5,
+        "file_count": 429,
+        "candidate_bytes": 202049771,
+        "targets": [
+          "artifacts/hero-input/player-mono-default-hero-r2",
+          "artifacts/hero-input/default-hero-build-r2.log",
+          "artifacts/hero-input/network-20260916-192150-825",
+          "artifacts/hero-input/toolbar-play-results.xml（PlayMode 平台筛选为 0 项，已由 EditMode 驱动 2/2 替代）",
+          "artifacts/hero-input/toolbar-play.log（同上）"
+        ]
+      },
+      "combined_candidate_target_count": 22,
+      "combined_candidate_file_count": 888,
+      "combined_candidate_bytes": 415875849,
+      "kept_current_r3_player_capture_and_final_toolbar_editor_play_evidence": true
+    }
+  },
+  "not_revalidated": [
+    "YYGC InputActions Sample 34 项",
+    "历史 Mono 350／155／43 项矩阵",
+    "完整弱网、三夜与容量矩阵",
+    "前台手感与性能签署",
+    "IL2CPP Player",
+    "双机器 LAN",
+    "M5 整体完成"
+  ]
+}

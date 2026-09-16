@@ -1,6 +1,6 @@
 # Dark Nights Unity 技术架构
 
-2026-09-16 当前切片见[主角与输入联合执行](HERO_INPUT_EXECUTION.md)：YYGC `0c7cec0`、协议 8、存档 v3；ActorState 仍是唯一状态，自动控制与主角控制以能力切换。原输入 API 保留，新增动作到 Interaction Sessions 的薄接线；实际 Sample、输入与游戏验证均已归档。下段日期较早的版本与计数保留历史时点。
+2026-09-16 当前切片见[主角与输入联合执行](HERO_INPUT_EXECUTION.md)：YYGC `0c7cec0`、协议 8、存档 v3；ActorState 仍是唯一状态，自动控制与主角控制以能力切换。Ready 现在携带默认主角偏好，SessionAuthority 为每个有权限连接唯一分配人物；默认 UI 隐藏顶部主角工具栏和旧营地入口，主角快捷键仍直接生效，旧 UI／后端只为显式开发回归保留。原输入 API 保留，新增动作到 Interaction Sessions 的薄接线；实际 Sample、输入与游戏验证均已归档。下段日期较早的版本与计数保留历史时点。
 
 2026-09-14，采用 [YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。U0–U5 已完成，正式入口使用全部 YYGC 业务能力，旧运行模型已删除。U6 协议 7／YYGC `745f3d2` 通过 144 项 Editor／Play、Mono 完整矩阵 350 项及 240 秒容量检查 21 项；后续 [Linear 世界表现](M5_WORLD_PRESENTATION.md)在 `a4a5450` 完成 155 项 Editor／Play 和新 Mono 77 项检查。前台验收由用户暂缓，IL2CPP／双机器仍未验收；受限清理已完成[列账交接](STAGE_CLEANUP_INVENTORY.md)，目录未删除。实际状态与证据见[性能验收](YYGC_UNIFIED_PERFORMANCE.md)和[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)，不以类型或目录存在代替验收。
 
@@ -98,7 +98,7 @@ SessionEntityViews 只按当前 epoch／EntityId 分发展示：Host 查询权�
 
 2026-09-16 的[联合切片](HERO_INPUT_EXECUTION.md)将旧决策原序提取为 AutomaticActorControlBehaviour，通过 IAutomaticActorControl 装配；HeroControlBehaviour、HeroMotionBehaviour、HeroInventoryBehaviour 共用 ActorState。ActorBehaviour 每步只选择一种决策入口，共享行动时钟、移动数值、工作与战斗结算。
 
-GameInputActions 缓存原生 PlayerInput.actions；YYInputActionService 只接线动作组与 Interaction Sessions。HeroPlayerController 保存渲染输入边沿并发送意图；SessionHeroControl 从可信连接验证占用、租约、epoch、策略和输入序号。变化输入上限 30 Hz，无变化 10 Hz 保活，30 个服务端 tick 无输入归零；输入不会逐包触发完整世界发布。主角控制与营地模式互斥，UI、失焦和设备丢失撤销读取许可。
+GameInputActions 缓存原生 PlayerInput.actions；YYInputActionService 只接线动作组与 Interaction Sessions。HeroPlayerController 保存渲染输入边沿并发送意图；SetReadyCommand 传递本地默认主角偏好，SessionHeroControl 从可信连接按稳定对象顺序分配未占用友军，并验证占用、租约、epoch、策略和输入序号。变化输入上限 30 Hz，无变化 10 Hz 保活，30 个服务端 tick 无输入归零；输入不会逐包触发完整世界发布。默认产品路径固定主角动作组，隐藏顶部工具栏及旧营地入口但继续读取快捷键；显式开发旧模式仍与主角互斥，UI、失焦和设备丢失撤销读取许可。
 
 ## 身份与 v3 恢复
 
@@ -114,7 +114,7 @@ GameInputActions 缓存原生 PlayerInput.actions；YYInputActionService 只接�
 
 正式定义旧整数 Id 固定为 0，无旧别名；不恢复 Kind 后缀或整数兼容。独立 LAN Sample 的 LegacyV1 和 YYGC 面向其他使用者的兼容 API 不在游戏清理范围。
 
-v3 保存全部持久权威状态、实体定义／放置身份、训练／施工／在飞箭矢、主角运动与道具及 RNG；连接占用和待处理输入不进入存档。捕获在模拟边界深度冻结，后台仅编码和写文件。恢复先验证完整 DTO，再准备未激活对象；提交时切换对象索引、增加 epoch、退休旧对象并重新 Ready。准备或提交失败保留当前世界；保存失败保留原文件。详细字段及原子文件边界见[存档合同](SAVE_FORMAT.md)。
+v3 保存全部持久权威状态、实体定义／放置身份、训练／施工／在飞箭矢、主角运动与道具及 RNG；连接占用和待处理输入不进入存档。捕获在模拟边界深度冻结，后台仅编码和写文件。恢复先验证完整 DTO，再准备未激活对象；提交时切换对象索引、增加 epoch、退休旧对象并重新 Ready，服务端依据当前连接偏好分配新的控制者。准备或提交失败保留当前世界；保存失败保留原文件。详细字段及原子文件边界见[存档合同](SAVE_FORMAT.md)。
 
 ## 资源与验证边界
 

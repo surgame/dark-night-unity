@@ -2,7 +2,7 @@
 
 `Game/` 使用 Unity `6000.4.9f1` 和 **Linear** 色彩空间。正式入口继续使用 Bootstrap；游戏操作、当前 Player 和复跑条件见 [Player 指南](PLAYER_GUIDE.md)。独立模板位于 `Assets/Samples/LanCoop/Content/LanCoop.unity`，只作为 [LAN Sample](LAN_SAMPLE.md) 对照。
 
-2026-09-16 当前状态：YYGC 统一对象迁移 U0–U5 已完成，Core 只保留纯算法、只读配置和数据合同。默认主角操控与营地切换、输入改键及 Sample 已实现；游戏协议 8，新档格式 v3，YYGC 锁定隔离输入提交 `0c7cec0`。本批验收和 Player 位置以[联合执行文档](HERO_INPUT_EXECUTION.md)为准。前台性能暂缓，IL2CPP 和双机器 LAN 仍待条件，M5 尚未全部完成；历史世界表现证据见 [Linear 世界表现验收](M5_WORLD_PRESENTATION.md)。
+2026-09-16 当前状态：YYGC 统一对象迁移 U0–U5 已完成，Core 只保留纯算法、只读配置和数据合同。产品默认固定为主角操控，每个 Ready 玩家由服务端直接分配一名可用友军；顶部主角工具栏与旧营地操作入口暂时隐藏，快捷键继续生效，仅显式 `--dn-camp-mode` 开发回归保留旧 UI／后端。输入改键及 Sample 已实现；游戏协议 8，新档格式 v3，YYGC 锁定隔离输入提交 `0c7cec0`。本批验收和当前 Player `artifacts/hero-input/player-mono-default-hero-r3` 以[联合执行文档](HERO_INPUT_EXECUTION.md)为准。前台性能暂缓，IL2CPP 和双机器 LAN 仍待条件，M5 尚未全部完成；历史世界表现证据见 [Linear 世界表现验收](M5_WORLD_PRESENTATION.md)。
 
 ## 先读什么
 
@@ -51,7 +51,7 @@
 | 排查资源加载、对象装配与组件绑定 | Scripts/Runtime/Framework、Scripts/View 及 Res 中所属对象的 Definition／Prefab；不靠 GetComponent 兜底缺失绑定 |
 | 改初始摆放 | Res/Scenes/Pinewatch/Pinewatch.unity；正式 Prefab 直接放在 Buildings／Worksites／Actors 分组，Hierarchy 顺序就是创建顺序；ScenePlacement 只保存自动身份和实例初值，Loader 提供 Definition 并接管原对象 |
 | 改保存格式 | Core/Save 冻结合同＋Runtime/Save 文件边界＋Runtime/Objects 捕获／恢复；当前仅 v3，不要求旧档迁移 |
-| 改主角操控 | Entry/HeroPlayerController、View/GameInputActions、Runtime/Objects/Hero*Behaviour；保持原生 Player 动作名称 |
+| 改主角操控／默认人物 | Entry/HeroPlayerController、Runtime/Session/SessionHeroControl、Runtime/Network/SetReadyCommand、View/GameInputActions 与 Runtime/Objects/Hero*Behaviour；保持原生 Player 动作名称和服务端唯一分配 |
 | 学习 YYGC 输入 | `Assets/Samples/YYGCInputActions/Content/InputActions.unity` 与同目录上层 README；框架源在 `Samples~/InputActions` |
 | 改YYGC通用代码 | 独立框架checkout，先确认必要范围与工作区状态 |
 

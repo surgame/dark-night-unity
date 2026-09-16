@@ -25,7 +25,7 @@ namespace DarkNights.Entry
         private HeroHudBehaviour hud;
         private YYInputRebindingHandle rebind;
         private YYInteractionSessionHandle rebindModal;
-        private bool preferHero = true, attempted, jumpPending, dropPending, sentJump, sentUse;
+        private bool preferHero = true, campControlEnabled, attempted, jumpPending, dropPending, sentJump, sentUse;
         private int epoch, actorId, lease, sentDirection, pendingItem = -1;
         private long connection, selectionRequest, claimRequest;
         private double nextSend, heartbeat, nextToggle;
@@ -37,12 +37,14 @@ namespace DarkNights.Entry
         public async UniTask SetHeroMode(bool value)
         {
             preferHero = value; attempted = false;
+            network.Client.RequestDefaultHero = value;
             if (!network.Client.Ready) return;
             if (value && Current == null) { attempted = true; await Claim(); }
             else if (!value && Current != null)
             {
+                attempted = true;
                 StopInput();
-                await network.Client.Send(SessionOperation.ReleaseHero, new[] { Current.Id }, controlLease: Current.ControlLease);
+                await Release();
             }
         }
 
@@ -50,7 +52,9 @@ namespace DarkNights.Entry
             PinewatchStage scene, HeroHudBehaviour panel)
         {
             network = session; camp = campInput; input = actions; stage = scene; hud = panel;
-            preferHero = !System.Environment.GetCommandLineArgs().Contains("--dn-camp-mode");
+            campControlEnabled = System.Environment.GetCommandLineArgs().Contains("--dn-camp-mode");
+            preferHero = !campControlEnabled;
+            network.Client.RequestDefaultHero = preferHero;
             input.Unavailable += StopInput;
             network.Client.Feedback += Feedback;
             jumpLabel = YYInputRebindingService.GetBindingDisplayString(input.Jump, 0);
@@ -75,23 +79,34 @@ namespace DarkNights.Entry
                 pendingItem = -1;
                 if (Current != null) camp.SelectEntity(Current.Id);
             }
-            bool controlling = Current != null && preferHero;
+            bool controlling = preferHero && (Current != null || !campControlEnabled);
             if (input.HeroMode != controlling)
             { camp.ResetLocal(); input.SetHero(controlling); if (Current != null) camp.SelectEntity(Current.Id); }
             if (Current != null && pendingItem == Current.SelectedItem) pendingItem = -1;
             if (ready && !attempted && !menu && Time.unscaledTimeAsDouble >= nextToggle)
             {
-                attempted = true;
-                if (preferHero && Current == null && (!frame.HostOnly || network.Client.PlayerSlot == 0)) Claim().Forget();
+                if (!preferHero && Current != null)
+                {
+                    attempted = true;
+                    Release().Forget();
+                }
+                else if (campControlEnabled && preferHero && Current == null && (!frame.HostOnly || network.Client.PlayerSlot == 0))
+                {
+                    attempted = true;
+                    Claim().Forget();
+                }
             }
-            hud.Present(Current, ready && !menu && !frame.Paused, jumpLabel, notice);
+            hud.Present(Current, ready && !menu && !frame.Paused, jumpLabel, notice, campControlEnabled);
         }
 
         private void Update()
         {
             if (input == null || network.Client.Replica.Current == null || !network.Client.Ready) return;
-            var toggle = input.HeroMode ? input.HeroToggle : input.CampToggle;
-            if (input.CanRead(toggle) && toggle.WasPressedThisFrame()) HandleAction("HeroToggle").Forget();
+            if (campControlEnabled)
+            {
+                var toggle = input.HeroMode ? input.HeroToggle : input.CampToggle;
+                if (input.CanRead(toggle) && toggle.WasPressedThisFrame()) HandleAction("HeroToggle").Forget();
+            }
             if (!input.HeroMode || Current == null) return;
             bool allowed = input.CanRead(input.Move) && !network.Client.Replica.Current.Paused;
             int direction = allowed ? Math.Sign(input.Move.ReadValue<float>()) : 0;
@@ -132,6 +147,7 @@ namespace DarkNights.Entry
             if (rebind != null || !network.Client.Ready) return true;
             if (action == "HeroToggle")
             {
+                if (!campControlEnabled) return true;
                 if (Time.unscaledTimeAsDouble < nextToggle) return true;
                 nextToggle = Time.unscaledTimeAsDouble + 0.5;
                 await SetHeroMode(Current == null);
@@ -154,6 +170,14 @@ namespace DarkNights.Entry
             if (target == null) { notice = "没有可接管的居民。"; return; }
             notice = "";
             try { claimRequest = await network.Client.Send(SessionOperation.ClaimHero, new[] { target.Id }); }
+            catch (Exception error) { notice = error.Message; }
+        }
+
+        private async UniTask Release()
+        {
+            ActorViewData current = Current;
+            if (current == null) return;
+            try { await network.Client.Send(SessionOperation.ReleaseHero, new[] { current.Id }, controlLease: current.ControlLease); }
             catch (Exception error) { notice = error.Message; }
         }
 

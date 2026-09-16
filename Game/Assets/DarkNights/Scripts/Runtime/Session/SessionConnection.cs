@@ -12,6 +12,7 @@ namespace DarkNights.Runtime.Session
         public int Generation { get; }
         public bool IsHost => PlayerSlot == 0;
         public bool Ready { get; internal set; }
+        internal bool DefaultHeroRequested { get; set; }
         internal int BaselineRevision { get; set; }
         internal long HighestSequence { get; set; }
         internal int PendingCount { get; set; }
@@ -28,6 +29,7 @@ namespace DarkNights.Runtime.Session
         internal void ResetWorld()
         {
             Ready = false;
+            DefaultHeroRequested = false;
             BaselineRevision = 0;
             HighestSequence = 0;
             PendingCount = 0;

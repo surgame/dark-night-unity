@@ -1,6 +1,21 @@
 # 主角操控与 YYGC 输入改进联合执行
 
-2026-09-16，本批主角操控与 YYGC 输入改进已合并落地。游戏在 `codex/hero-input`；框架在隔离 `codex/input-actions` 提交 `0c7cec0`。续接任务已修正平台坐标并按用户要求完成基本本地测试，当前 Mono 为 `artifacts/hero-input/player-mono-platform`。本文是本批执行与验收入口，不签署仍待条件的前台性能、IL2CPP、双机器 LAN 或整个 M5。
+2026-09-16，本批主角操控与 YYGC 输入改进已合并落地。游戏在 `codex/hero-input`；框架在隔离 `codex/input-actions` 提交 `0c7cec0`。平台坐标修正后又完成默认人物、旧入口及遮挡画面的顶部工具栏隐藏收尾，当前 Mono 为 `artifacts/hero-input/player-mono-default-hero-r3`。本文是本批执行与验收入口，不签署仍待条件的前台性能、IL2CPP、双机器 LAN 或整个 M5。
+
+## 默认人物与旧营地入口隐藏收尾
+
+产品默认入口不再依赖客户端看到投影后补发 `ClaimHero`。`SetReadyCommand` 携带 `RequestHero`，服务端在接受本连接的完整投影 Ready 后按稳定对象顺序分配第一名未被占用、存活、未训练且具备主角能力的友军；一个连接最多一人、同一人物最多一个控制者。加载与重连重新 Ready 时再次分配；HostOnly 下来宾不分配并被撤权，房主恢复 SharedCamp 后按仍保留的偏好补分配。显式释放会关闭该连接的自动分配偏好，显式接管会恢复偏好。
+
+默认 UI 已隐藏截图中会遮挡画面的整块顶部主角工具栏（状态文字、三格按钮与改键按钮），并隐藏营地建造、训练、招募和修缮按钮；1／2／3、滚轮及移动／使用快捷键保持在主角动作组，等待分配期间也不会短暂开放旧营地操作。旧 `CampInput`、工具栏、营地命令和服务端权限合同没有删除，只通过 `--dn-camp-mode` 和显式验收驱动保留，方便现有回归与后续决定是否重新开放；这不是并行状态模型。
+
+- 受影响 Editor／Play 按组复跑 **22/22**：HeroControl 7、HeroRecovery 4、HeroCombat 2、SessionClientReady 4、开关域重载的 UnifiedSlicePlay 2，以及顶部工具栏跟进的 NativeEnvironment 3。新增默认分配和工具栏资源用例，因此游戏累计为 **175 个不同用例按影响合并通过**；不是一次完整 175 项运行。
+- 架构守卫 **316 文件／12 自测／0 错误**；PowerShell 验收脚本语法、C# 300 行上限和差异空白检查通过。YYGC、输入 Sample、规则、原始美术与协议／存档版本均未改变；只把正式 Hero Prefab 的 Toolbar 初始状态改为关闭，并同步其首建工具和运行展示。
+- 最终 Mono `artifacts/hero-input/player-mono-default-hero-r3/DarkNights.exe` 构建成功，**414 文件／199381196 字节**；独立 Host＋客户端与实际 UI 捕获 **37/37**，默认两名玩家获得不同人物，加载、重连和 SharedCamp 恢复后重新分配，HostOnly 撤权。结果在 `artifacts/hero-input/network-20260916-194418-492/result.json`，两张原图同目录；`hero-default.png` 已复核顶部框不再出现。
+- 默认人物阶段实际生成两份新的空目录 Mono。第一份已证明默认分配，但旧回归阶段因本地空闲输入与自动化连续回放竞争而止于 11 项；修正只增加显式验收用 `hero-mode` 驱动，不修改玩法结算。随后 `r2` 通过；本次顶部工具栏跟进以 `r3` 替代它，失败项不计入通过。
+- 默认人物阶段准备清理第一份 Player、三次中间网络运行、旧构建／Editor 日志及 11 个 Play 存档目录，共 17 个目标、459 个文件、213826078 字节；删除命令被自动审批以 `blocked by policy` 拒绝，未执行、未重试。工具栏跟进另使 r2 Player、日志、捕获及一次 0 项平台筛选日志成为 5 个被替代目标；按约定没有重试或换工具绕过。两批候选合计 22 个目标、888 个文件、415875849 字节，本轮释放 **0 字节**；当前 r3 Player、最终 37/37、3/3 与 2/2 证据保留。
+- 机器摘要见[默认人物证据](evidence/default-hero-2026-09-16.json)。历史 350／155／43 项继续绑定各自旧产物，本次没有重跑输入 Sample、完整弱网、三夜或容量矩阵。
+
+前台手感／性能和整体 UI 视觉签署仍不在本次自动捕获范围；未构建 IL2CPP，不替代双机器 LAN 或整个 M5 验收。
 
 ## 续接收尾：平台坐标与基本本地验证
 
@@ -9,9 +24,9 @@
 - 本轮 Editor／Play **17/17**：平台顶面对齐、冻结布局、主角运动／战斗／恢复及开关域重载的实际 Play。加上此前按影响保留的结果，共 **173 个不同用例按影响合并通过**，不称为本轮完整 173 项运行。
 - 架构 **316 文件／12 自测／0 错误**。YYGC、导入 Sample 和九份宿主补丁未修改，复用其既有证据。
 - 由于 View、场景和 Prefab 输入变化，新增一次 Mono 构建到空目录；同一产物启动 **6/6**、本机独立 Host＋客户端主角检查 **37/37**，合计 **43/43**。三张实际截图已复核。按用户要求未重跑完整弱网、三夜或容量矩阵。
-- 当前 Player：`artifacts/hero-input/player-mono-platform/DarkNights.exe`，**414 文件／199376158 字节**，包含当前调试副本。构建前 6172 个已有输入和测试前后的 Player 字节不变；构建新增的两份 Addressables `link.xml`／meta 单列为生成输出，合计清单 6174 项，不冒充构建前输入。
-- 本轮六个源码／资源差异及证据见[平台修正验收](evidence/hero-input-platform-2026-09-16.json)，完整产物清单见[新 Player 文件](evidence/hero-input-player-platform-files-2026-09-16.json)。下方 350／155 项矩阵属于前三次构建，不能算作当前第四次构建重新通过。
-- 旧 `player-mono` 清理整条命令被自动审批以 `blocked by policy` 拒绝，未执行、未重试，本轮释放 **0 字节**；当前 Player、旧产物及本轮证据的保留条件见[续接清理记录](evidence/hero-input-platform-cleanup-2026-09-16.json)。此前实际释放 381.25 MiB 的记录保留。
+- 平台阶段 Player：`artifacts/hero-input/player-mono-platform/DarkNights.exe`，**414 文件／199376158 字节**，包含当时调试副本；现已由本文开头的默认人物 Player 替代。构建前 6172 个已有输入和测试前后的 Player 字节不变；构建新增的两份 Addressables `link.xml`／meta 单列为生成输出，合计清单 6174 项，不冒充构建前输入。
+- 该阶段六个源码／资源差异及证据见[平台修正验收](evidence/hero-input-platform-2026-09-16.json)，完整产物清单见[新 Player 文件](evidence/hero-input-player-platform-files-2026-09-16.json)。下方 350／155 项矩阵属于前三次构建，不能算作当时第四次构建重新通过。
+- 旧 `player-mono` 清理整条命令被自动审批以 `blocked by policy` 拒绝，未执行、未重试，该阶段释放 **0 字节**；平台阶段 Player、旧产物及证据的保留条件见[续接清理记录](evidence/hero-input-platform-cleanup-2026-09-16.json)。此前实际释放 381.25 MiB 的记录保留。
 
 前台手感／性能和整体 UI 视觉签署仍不在本次基本本地验证内；未构建 IL2CPP，不替代双机器 LAN 或整个 M5 验收。
 
@@ -19,8 +34,8 @@
 
 - 输入：保留 `GameCore.PlayerInputs`、`YYInputRebindingService`、`YYInputSettingsStore`、`YYInputSettingsData` 与现有公开调用；复用 Unity InputAction 以及 YYGC Interaction Sessions，不建立同义的 Profile／玩家输入运行模型。
 - 操控：保留 `CampInput` 和旧营地指令，将单位旧自动决策提取为可装配能力；新增主角输入／控制能力，共用 ActorState、移动、战斗与工作，不出现第二套实体。
-- 键位：A/D 左右，空格跳跃，S 下穿单向平台，左键使用背包当前道具，数字键／滚轮切换道具；W 预留向上，不用于跳跃。主角模式与营地模式互斥，菜单、背包和改键由交互通道协调。
-- 主角由服务端独占分配；每位 Ready 玩家最多控制一名存活友军，同一角色最多一个控制者。现有 SharedCamp／HostOnly 权限仍适用，控制权不依赖 FishNet 单位所有权。退出模式、断线、失去权限或角色死亡释放控制。
+- 键位：A/D 左右，空格跳跃，S 下穿单向平台，左键使用背包当前道具，数字键／滚轮切换道具；W 预留向上，不用于跳跃。产品入口固定为主角动作组；显式开发旧模式仍与主角互斥，菜单、背包和改键由交互通道协调。
+- 主角由服务端独占分配；每位完成 Ready 且有权限的玩家默认直接获得一名存活友军，同一角色最多一个控制者。现有 SharedCamp／HostOnly 权限仍适用，控制权不依赖 FishNet 单位所有权。显式退出旧模式、断线、失去权限或角色死亡释放控制。
 - 连续输入与一次性按钮变化分开处理；服务端验证连接、epoch、策略、角色控制权、输入序号和范围，过期输入归零。Host 使用相同入口。
 - 使用道具时固定角色、选择版本／道具、目标和序号；背包状态、冷却与消耗由服务端所属能力维护。首版提供可以实际使用的基础道具栏，不把拾取、掉落、制作、交易等未要求玩法写成已有功能。
 - 新增纵向运动、着地和单向平台合同；旧地面单位保持原有运动、数值和攻击时序。空中战斗、箭矢目标、表现锚点、快照和保存一起调整。未提供的跳跃专用素材不伪造为现有动画。
@@ -57,8 +72,8 @@
 | E1 | 修复 YYGC 输入缺陷，补生命周期和动作接线 | 输入代码、针对失败路径的回归、保留 API 的说明 | 完成；33 项服务／文件回归通过 |
 | E2 | 与输入代码一起准备 Sample 脚本，编译后批量生成场景 | 可导入 Input Actions Sample、原生场景、操作／接入文档 | 完成；实际场景回归与截图通过 |
 | E3 | 提取旧控制能力，新增主角运动、角色占用和道具意图 | 同一 ActorState 的两种控制模式、服务器验证 | 完成；基础主角 37 项、真实弱网 35 项通过 |
-| E4 | 接入原生 UI、输入动作、表现、平台、网络和完整恢复 | 可玩主角模式与营地切换，匹配的数据版本和内容摘要 | 实现及原生资源导入完成；协议 8／存档 v3 |
-| E5 | 完整 Editor／Play；按新增输入分批构建 Mono 并复用 | 下方验证矩阵、日志、截图和构建产物 | 完成；173 个不同用例按影响合并通过；前三次产物 350／155 项，第四次平台修正本地 43 项通过 |
+| E4 | 接入原生 UI、输入动作、表现、平台、网络和完整恢复 | 默认主角模式、开发旧模式及匹配的数据版本和内容摘要 | 实现及原生资源导入完成；协议 8／存档 v3；产品旧营地入口暂时隐藏 |
+| E5 | 完整 Editor／Play；按新增输入分批构建 Mono 并复用 | 下方验证矩阵、日志、截图和构建产物 | 完成；175 个不同用例按影响合并通过；历史产物 350／155／43 项，本次最终 Mono 37/37 |
 | E6 | 复核差异、资源引用、并发目录和清理 | YYGC 改动账本、依赖锁定、中文提交及交付记录 | 复核、归档及本批清理完成；两仓库中文提交、不推送 |
 
 脚本与程序集批量准备后只触发一次相应导入；需要脚本编译结果的场景生成随后串行执行。Sample 场景只向指定空目录初建，普通导入／构建不覆盖人工资源。
@@ -90,13 +105,13 @@
 
 `ActorBehaviour` 仍拥有唯一 `ActorState`，共用行动时钟后只选择一个控制分支。`AutomaticActorControlBehaviour : IAutomaticActorControl` 按原顺序承接自动工作、训练、寻路和战斗；`HeroControlBehaviour`、`HeroMotionBehaviour`、`HeroInventoryBehaviour` 分别处理玩家意图、纵向运动和三格道具。能力通过原 ObjectDefinition 装配，三个友军职业可接管，敌军只装配自动控制。
 
-`Gameplay.inputactions` 保留 `Player/Move`、`Jump`、`Attack`、`Crouch` 等 Unity 原生名称；Attack 表示使用当前道具。`GameInputActions` 接 YYGC Interaction Sessions，`HeroPlayerController` 只采样及提交。默认主角模式，Tab／原生道具栏切营地；自动验收旧营地模式显式传入 `--dn-camp-mode`。
+`Gameplay.inputactions` 保留 `Player/Move`、`Jump`、`Attack`、`Crouch` 等 Unity 原生名称；Attack 表示使用当前道具。`GameInputActions` 接 YYGC Interaction Sessions，`HeroPlayerController` 只采样及提交。默认主角模式不显示顶部工具栏，也没有 Tab／道具栏营地切换入口，按键仍直接驱动动作；自动验收旧营地模式显式传入 `--dn-camp-mode`，或由 `SessionAutomation` 的 `hero-mode` 操作调用同一模式切换入口。
 
 主角连续输入使用新增 `HeroInputCommand`，仍走 Gateway/Sender/Processor。变化最多 30 Hz、静止 10 Hz 保活，500 ms 无新输入归零；连接代次、控制租约、epoch、策略版本、单调序号及时间窗同时验证。离散道具请求带选择版本和目标，不用客户端伤害值。Host 与客户端使用相同权威入口；不为每个输入包发送回执或强制发布完整世界。
 
 Pinewatch 保留原 16 个摆放及人工 GUID，另加三个原生单向平台；主角 UI、动作资产与平台均已保存重开。高度进入命中距离、箭矢目标和展示。新规则只增加 `hero_control` 八个字段，原 196 项规则不变。无跳跃专用动画；三格提供职业武器、工作工具、可装备喷气背包，尚无拾取／制作／交易系统。
 
-协议升级为 8，保存格式为 v3。位置高度、垂直速度、平台支撑／下穿计时、手动状态、道具选择及喷气装备／燃料完整持久化；玩家连接、占用、租约和按钮不保存，加载后重新接管。旧 v1／v2 文件保留并明确拒绝，不加兼容运行模型。规则及布局摘要域升级为 v2，与存档版本独立。
+协议升级为 8，保存格式为 v3。位置高度、垂直速度、平台支撑／下穿计时、手动状态、道具选择及喷气装备／燃料完整持久化；玩家连接、占用、租约和按钮不保存，加载后由新 epoch Ready 按当前连接偏好重新分配。旧 v1／v2 文件保留并明确拒绝，不加兼容运行模型。规则及布局摘要域升级为 v2，与存档版本独立。
 
 ## YYGC 与 Sample 当前证据
 
@@ -140,13 +155,13 @@ Pinewatch 保留原 16 个摆放及人工 GUID，另加三个原生单向平台�
 2. 提示修正，414 文件／199376158 字节；完整 350 项主矩阵使用此产物。
 3. 新道具栏位置修正，**413 文件／199130911 字节**；当时交付使用此产物，相关 155 项通过。续接任务的第四次构建已替代它，见本文开头。
 
-第三次构建路径：`artifacts/hero-input/player-mono/DarkNights.exe`。其 6174 个输入（含游戏 Assets／Packages／ProjectSettings 和有效 YYGC／FishNet 依赖）及 413 个 Player 文件哈希在当时验收后保持不变，完整清单见[Player 文件证据](evidence/hero-input-player-files-2026-09-16.json)。第二、三次构建的 Core／Runtime／View／Entry 四个游戏 DLL 字节一致；6174 个输入仅新道具栏 Prefab 与初建工具两处不同。Entry SHA-256 为 `16e08f4296435dafce4fcf14e000e3fdd778f8be02821c13679a83b417ace71d`。当前第四次构建身份以上方平台修正证据为准。
+第三次构建路径：`artifacts/hero-input/player-mono/DarkNights.exe`。其 6174 个输入（含游戏 Assets／Packages／ProjectSettings 和有效 YYGC／FishNet 依赖）及 413 个 Player 文件哈希在当时验收后保持不变，完整清单见[Player 文件证据](evidence/hero-input-player-files-2026-09-16.json)。第二、三次构建的 Core／Runtime／View／Entry 四个游戏 DLL 字节一致；6174 个输入仅新道具栏 Prefab 与初建工具两处不同。Entry SHA-256 为 `16e08f4296435dafce4fcf14e000e3fdd778f8be02821c13679a83b417ace71d`。平台阶段第四次构建身份以平台修正证据为准；当前默认人物 Player 身份见本文开头和默认人物证据。
 
 第二次构建的全部玩法／网络证据按影响复用；**没有宣称第三次产物重新执行过全部 350 项**。旧报告保留运行时的 `player-mono` 路径，具体身份以对应完整文件清单为准。被替代的两个 Player 已在归档和逐文件核验后清理，三个构建日志、清单、成功／失败报告继续保留。
 
 ## 复验与示例入口
 
-- 游戏：Unity 打开 `Game`，进入 Pinewatch 或运行当前完整 Player。主角／营地操作详见[玩家说明](PLAYER_GUIDE.md)。三格道具栏中选喷气背包后左键装备，空中按住空格喷气。
+- 游戏：Unity 打开 `Game`，进入 Pinewatch 或运行当前完整 Player。当前玩家入口直接进入主角操作且不显示顶部工具栏，详见[玩家说明](PLAYER_GUIDE.md)。按 3 选择喷气背包后左键装备，空中按住空格喷气。
 - 输入示例：Package Manager → Game Core → Samples → Input Actions → Import，打开 `Content/InputActions.unity`。游戏已导入副本为 `Game/Assets/Samples/YYGCInputActions/Content/InputActions.unity`；同级上层 README 提供完整操作与维护说明。
 - 框架源码与 API：`D:/Developer/YYGC-worktrees/input-actions/Documentation~/INPUT_ACTIONS.md`。保留原方法名与原生返回类型；新增 `YYInputActionService` 及 `YYInputRebindingHandle` 的用途、迁移成本和限制已对比列出，全部 54 文件见[YYGC 改动账本](YYGC_CHANGES.md#hero-input)。
 
@@ -154,7 +169,7 @@ Pinewatch 保留原 16 个摆放及人工 GUID，另加三个原生单向平台�
 
 ```powershell
 pwsh -NoProfile -File tools/prepare-lan-sample.ps1
-$player = (Resolve-Path 'artifacts/hero-input/player-mono-platform/DarkNights.exe').Path
+$player = (Resolve-Path 'artifacts/hero-input/player-mono-default-hero-r3/DarkNights.exe').Path
 pwsh -NoProfile -File tools/test-game-hero.ps1 -PlayerPath $player -Port 28600 -Capture
 pwsh -NoProfile -File tools/test-game-hero-network.ps1 -PlayerPath $player -Port 28610
 pwsh -NoProfile -File tools/test-game-hero-network.ps1 -PlayerPath $player -Port 28630 -CommandRings
@@ -166,6 +181,6 @@ pwsh -NoProfile -File tools/test-game-hero-network.ps1 -PlayerPath $player -Port
 
 本批清理前核验绝对路径、父子重解析链接和活动进程；仅删除两个已被替代的 Player、一次性资源写入器／CLI 包装、过期 PID 及已查看的合成拼图，实际移除 **399769079 字节，约 381.25 MiB** 的文件内容。清理后 C／D 剩余约 5.94／37.20 GiB；盘符变化包含其他进程活动，不当作本任务释放量。
 
-当前 Player、三个构建的完整清单、原始截图、XML、日志、成功／失败报告与隔离存档保留；本批目录、相关矩阵目录和共享依赖已列入[保留清单](evidence/hero-input-retained-2026-09-16.json)，父子目录体积不可重复相加。`.deps/YYGC-unified` 的宿主补丁与 `D:/Developer/YYGC` 插件工作区未清理。历史已拒绝的 `ArchitectureGuard/bin/obj`、`WinPlayerBuildProgram`、U6 source／archives 和旧调试目录没有重试，继续按[历史交接](STAGE_CLEANUP_INVENTORY.md)保留。
+平台阶段 Player、前三次构建的完整清单、原始截图、XML、日志、成功／失败报告与隔离存档保留；本批目录、相关矩阵目录和共享依赖已列入[保留清单](evidence/hero-input-retained-2026-09-16.json)，父子目录体积不可重复相加。`.deps/YYGC-unified` 的宿主补丁与 `D:/Developer/YYGC` 插件工作区未清理。历史已拒绝的 `ArchitectureGuard/bin/obj`、`WinPlayerBuildProgram`、U6 source／archives 和旧调试目录没有重试，继续按[历史交接](STAGE_CLEANUP_INVENTORY.md)保留。
 
 当前三格道具是最小可用能力示例，没有拾取／制作／交易和新跳跃动画。高延迟操控仍受权威往返影响，未做客户端预测；超过 60 服务端 tick 的旧输入拒绝，30 tick 无新输入归零。前台手感／性能、IL2CPP、双机器 LAN 与 M5 最终验收仍在各自边界内，没有以本批自动化通过替代。

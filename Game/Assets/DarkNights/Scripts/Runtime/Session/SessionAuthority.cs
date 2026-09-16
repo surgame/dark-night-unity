@@ -42,7 +42,6 @@ namespace DarkNights.Runtime.Session
         public int PlayerCount => connections.Count(c => c != null);
         public int ReadyCount => connections.Count(c => c != null && c.Ready);
         public SessionStorageRequest StorageRequest { get; private set; }
-
         public SessionAuthority(ObjectSession simulation)
         {
             world = simulation ?? throw new ArgumentNullException(nameof(simulation));
@@ -50,7 +49,6 @@ namespace DarkNights.Runtime.Session
             events = new SessionEventJournal(world.Feedback, () => ServerTick);
             world.Activate();
         }
-
         // 服务端握手/恢复凭据验证完成后才调用；slot 0 是服务端配置的房主，不来自请求字段。
         public SessionConnection Connect(int slot)
         {
@@ -65,7 +63,6 @@ namespace DarkNights.Runtime.Session
             connections[slot] = connection;
             return connection;
         }
-
         // Host 的网络观察端可单独停止；正式离房仍由会话所有者释放整个 Authority。
         public void Disconnect(SessionConnection connection, bool closeHostedSession = true)
         {
@@ -76,18 +73,19 @@ namespace DarkNights.Runtime.Session
             connection.ResetWorld();
             connections[connection.PlayerSlot] = null;
         }
-
         // 适配层须先验证内容握手与实际应用的完整投影；此处只守护 epoch/revision 和当前连接。
-        public bool AcknowledgeReady(SessionConnection connection, int epoch, int appliedRevision)
+        public bool AcknowledgeReady(SessionConnection connection, int epoch, int appliedRevision, bool assignDefaultHero = false)
         {
             CheckThread();
             if (!Active(connection) || Loading || epoch != Epoch ||
                 appliedRevision < connection.BaselineRevision || appliedRevision > Revision) return false;
             connection.Ready = true;
+            connection.DefaultHeroRequested = assignDefaultHero;
             if (connection.IsHost) started = true;
+            if (assignDefaultHero && CanControlHero(connection) && heroes.AssignDefault(connection) > 0)
+                Revision = checked(Revision + 1);
             return true;
         }
-
         public SessionReceipt Submit(SessionConnection connection, SessionRequest request)
         {
             CheckThread();
@@ -166,10 +164,15 @@ namespace DarkNights.Runtime.Session
                     heroes.InvalidateInputs();
                     if (ControlMode == CampControlMode.HostOnly)
                         for (int slot = 1; slot < connections.Length; slot++) heroes.Release(slot);
+                    else
+                        foreach (var current in connections)
+                            if (current?.Ready == true && current.DefaultHeroRequested) heroes.AssignDefault(current);
                 }
             }
             else if (SessionHeroControl.IsOperation(request.Operation))
             {
+                if (request.Operation == SessionOperation.ClaimHero) connection.DefaultHeroRequested = true;
+                else if (request.Operation == SessionOperation.ReleaseHero) connection.DefaultHeroRequested = false;
                 affected = heroes.Apply(connection, request);
                 if (affected > 0) entityId = request.ActorIds[0];
             }
@@ -269,7 +272,7 @@ namespace DarkNights.Runtime.Session
 
         private bool Active(SessionConnection connection) => !Closed && connection != null &&
             ReferenceEquals(connections[connection.PlayerSlot], connection);
-
+        private bool CanControlHero(SessionConnection connection) => connection.IsHost || ControlMode == CampControlMode.SharedCamp;
         private SessionReceipt Receipt(SessionConnection connection, SessionRequest request, SessionResultCode code,
             int affected = 0, int entityId = 0) => new SessionReceipt(connection, request, Epoch, Revision,
                 PolicyRevision, ServerTick, code, affected, entityId);

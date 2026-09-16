@@ -16,20 +16,43 @@ namespace DarkNights.Runtime.Session
         internal static bool IsOperation(SessionOperation operation) => operation == SessionOperation.ClaimHero ||
             operation == SessionOperation.ReleaseHero || operation == SessionOperation.SelectHeroItem || operation == SessionOperation.UseHeroItem;
 
+        internal int AssignDefault(SessionConnection connection)
+        {
+            if (connection == null || world.Camp.Read().Mode != SessionMode.Playing ||
+                world.Catalog.Balance.HeroControl == null) return 0;
+            foreach (var current in world.Index.Actors)
+                if (current.Read().ControllerSlot == connection.PlayerSlot &&
+                    current.Read().ControllerGeneration == connection.Generation) return 0;
+            foreach (var actor in world.Index.Actors)
+            {
+                if (!CanClaim(actor)) continue;
+                return world.Mutations.Run(() =>
+                {
+                    actor.Object.GetBehaviour<HeroControlBehaviour>().Claim(connection.PlayerSlot, connection.Generation);
+                    return actor.Id;
+                });
+            }
+            return 0;
+        }
+
         internal int Apply(SessionConnection connection, SessionRequest request)
         {
             ActorBehaviour actor = world.Index.Find<ActorBehaviour>(request.ActorIds[0]);
+            if (request.Operation == SessionOperation.ClaimHero)
+            {
+                if (!CanClaim(actor)) return 0;
+                foreach (var current in world.Index.Actors)
+                    if (current.Read().ControllerSlot == connection.PlayerSlot) return 0;
+                return world.Mutations.Run(() =>
+                {
+                    actor.Object.GetBehaviour<HeroControlBehaviour>().Claim(connection.PlayerSlot, connection.Generation);
+                    return 1;
+                });
+            }
             if (actor == null || actor.Enemy || actor.Hp <= 0 || actor.IsTraining ||
                 world.Camp.Read().Mode != SessionMode.Playing || world.Catalog.Balance.HeroControl == null) return 0;
             var control = actor.Object.GetBehaviour<HeroControlBehaviour>();
             if (control == null) return 0;
-            if (request.Operation == SessionOperation.ClaimHero)
-            {
-                if (actor.Read().ControllerSlot >= 0) return 0;
-                foreach (var current in world.Index.Actors)
-                    if (current.Read().ControllerSlot == connection.PlayerSlot) return 0;
-                return world.Mutations.Run(() => { control.Claim(connection.PlayerSlot, connection.Generation); return 1; });
-            }
             if (!Owns(actor, connection, request.ControlLease)) return 0;
             return world.Mutations.Run(() =>
             {
@@ -93,6 +116,9 @@ namespace DarkNights.Runtime.Session
         {
             state.Horizontal = 0; state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
         }
+        private bool CanClaim(ActorBehaviour actor) => actor != null && !actor.Enemy && actor.Hp > 0 && !actor.IsTraining &&
+            actor.Read().ControllerSlot < 0 && actor.Object.GetBehaviour<HeroControlBehaviour>() != null &&
+            world.Camp.Read().Mode == SessionMode.Playing && world.Catalog.Balance.HeroControl != null;
         private static bool Owns(ActorBehaviour actor, SessionConnection connection, int lease) =>
             actor != null && connection != null && actor.Hp > 0 && !actor.Enemy && actor.Read().ManualControl &&
             actor.Read().ControllerSlot == connection.PlayerSlot && actor.Read().ControllerGeneration == connection.Generation &&

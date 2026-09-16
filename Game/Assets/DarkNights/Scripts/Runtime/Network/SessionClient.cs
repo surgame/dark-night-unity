@@ -26,6 +26,7 @@ namespace DarkNights.Runtime.Network
         public long ConnectionGeneration => connection;
         public bool Ready { get; private set; }
         public bool HadReady { get; private set; }
+        public bool RequestDefaultHero { get; set; } = true;
         public int LastPayloadBytes { get; private set; }
         public int PlayerSlot { get; private set; } = -1;
         public string Status { get; private set; } = "未连接";
@@ -124,7 +125,8 @@ namespace DarkNights.Runtime.Network
             {
                 SenderObjectId = endpoint.ObjectId, Protocol = SessionAuthority.ProtocolVersion,
                 Epoch = frame.Epoch, RequestSequence = readySequence, Ready = true,
-                AppliedRevision = frame.Revision, AppliedPublication = frame.Publication, RecoveryToken = recoveryToken
+                RequestHero = RequestDefaultHero, AppliedRevision = frame.Revision,
+                AppliedPublication = frame.Publication, RecoveryToken = recoveryToken
             });
         }
 

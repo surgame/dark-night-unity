@@ -16,6 +16,8 @@ namespace DarkNights.View
     /// </summary>
     public sealed partial class CampHudBehaviour : MenuBehaviour
     {
+        private static readonly string[] CampActionKeys =
+            { "BuildHouse", "BuildFarm", "BuildBarracks", "BuildTower", "TrainSpearman", "TrainArcher", "Recruit", "Repair" };
         [ViewComponent("FoodValue")] private Text foodValue;
         [ViewComponent("WoodValue")] private Text woodValue;
         [ViewComponent("StoneValue")] private Text stoneValue;
@@ -42,6 +44,7 @@ namespace DarkNights.View
         private GameCatalog catalog;
         private double toastRemaining, bannerRemaining;
         private CanvasGroup toastFade, bannerFade;
+        private bool? campControlsVisible;
         public void PresentWorld(SessionViewData frame, CampInput input, IEntityVisuals entities, PinewatchStage stage, bool ready)
         {
             map.Present(frame, stage, stage.WorldWidth, ready);
@@ -104,8 +107,9 @@ namespace DarkNights.View
             portrait.color = selectedPortrait == null ? Color.clear : Color.white;
             objective.text = day ? $"准备营地  ·  生产中的工人 {frame.World.Actors.Count(a => a.Activity == "Work" || a.Activity == "WorkMove")}  ·  守卫 {frame.World.Actors.Count(a => !a.Enemy && a.Kind != "worker")}  ·  建造守望塔加固东侧" :
                 $"守住酒馆  ·  第 {camp.WaveIndex + 1} / {catalog.Level.Waves.Count} 次夜袭  ·  东侧来敌 →";
-            hint.text = heroMode ? "主角模式 · A/D移动 · S下穿 · 左键使用道具 · Tab切换营地" : buildKind.Length > 0 ?
+            hint.text = heroMode ? "主角模式 · A/D移动 · 空格跳跃 · S下穿 · 左键使用道具" : buildKind.Length > 0 ?
                 $"{catalog.Balance.Buildings[buildKind].Name}放置中 · 左键确认 · 右键取消" : SelectionReadout.Hint(frame.World, hover, catalog);
+            SetCampControlsVisible(!heroMode);
             Buttons(frame, selected, ready, slot);
             toastRemaining = Math.Max(0, toastRemaining - Time.unscaledDeltaTime);
             bannerRemaining = Math.Max(0, bannerRemaining - Time.unscaledDeltaTime);
@@ -138,6 +142,12 @@ namespace DarkNights.View
 
         private Button Button(string key) => View.Get<Button>(key);
         private Text Label(string key) => View.Get<Text>(key + "Label");
+        private void SetCampControlsVisible(bool visible)
+        {
+            if (campControlsVisible == visible) return;
+            campControlsVisible = visible;
+            foreach (string key in CampActionKeys) Button(key).gameObject.SetActive(visible);
+        }
         private static string Capital(string value) => char.ToUpperInvariant(value[0]) + value.Substring(1);
         private static bool CanPay(ResourceAmounts stock, ResourceAmounts cost) => GameText.ResourceIds.All(id => stock.Get(id) >= cost.Get(id));
         [UGUIOnClick("BuildHouse")] private void OnBuildHouse() => Raise("BuildHouse");

@@ -62,6 +62,9 @@ namespace DarkNights.Editor
                 await Button(mouse, "MainMenu", "NewGame");
                 await Until(() => network.Client.Ready && ui.Page == "" && entities.Count == 17);
                 Check("mouse_main_menu_starts_ready_host", network.Client.PlayerSlot == 0);
+                Check("default_hero_toolbar_stays_hidden", !Page("Hero").transform.Find("Toolbar").gameObject.activeInHierarchy);
+                await network.GetComponent<HeroPlayerController>().SetHeroMode(false);
+                await Until(() => network.Client.Replica.Current.World.Actors.All(actor => actor.ControllerSlot != 0));
                 await Button(mouse, "Chrome", "Pause");
                 await Until(() => network.Client.Replica.Current.Paused);
                 var actor = network.Client.Replica.Current.World.Actors.First(a => a.Kind == "worker");

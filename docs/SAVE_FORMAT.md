@@ -24,7 +24,7 @@ world 包含 level_id、economy、wave、elapsed、speed、paused、next_entity_
 
 actors 新增 height、vertical_speed、support_platform、ignored_platform、drop_remaining、manual_control、selected_item、selection_revision、jetpack_equipped、jetpack_fuel。高度以原地面为零、向上为正；支撑 0 为地面、-1 为空中、正数为场景平台 ID。支撑关系、范围和燃料必须合法。
 
-文件不包含相机、选区、epoch、连接代次、FishNet 身份或房间共享策略；也不保存 ControllerSlot、ControllerGeneration、ControlLease、输入序号和按钮意图。恢复后的手动角色保留姿态与装备，等待重新接管；不会重放跳跃、攻击或已断开的玩家输入。Core 的 SessionSnapshot 只承载 v3 冻结合同；旧 GameSaveJson、LegacySnapshotJson、LegacyDisplayState 及旧世界映射器保持退出。
+文件不包含相机、选区、epoch、连接代次、FishNet 身份或房间共享策略；也不保存 ControllerSlot、ControllerGeneration、ControlLease、默认人物偏好、输入序号和按钮意图。恢复后的手动角色保留姿态与装备；新 epoch 完整投影 Ready 后，服务端依据当前连接偏好与权限重新分配，不恢复旧连接所有权，也不会重放跳跃、攻击或已断开的玩家输入。Core 的 SessionSnapshot 只承载 v3 冻结合同；旧 GameSaveJson、LegacySnapshotJson、LegacyDisplayState 及旧世界映射器保持退出。
 
 ## 内容摘要
 
@@ -44,7 +44,7 @@ GameSaveStore 注入专用目录与本局 ObjectWorldSaveJson，构造无磁盘�
 4. 失败仅清理本次临时文件，清理错误不掩盖保存错误；成功提交后不再报告取消。其他孤立临时文件不自动成为存档。
 5. Read 在分配缓冲区前检查长度，以严格 UTF-8 读取；它不构造世界。ObjectWorldSaveJson.Parse 完整验证后返回冻结 DTO。
 6. 房主加载取得票据并停止模拟推进，ObjectWorldRestore 在未激活上下文准备真实 YYGC 对象；准备期间不改变原场景对象。
-7. 同步提交完整状态与索引，精确重接可复用场景对象，退休旧对象；成功增加 epoch、清空旧 Ready／去重窗口并重新发完整投影。房间共享策略保持，失败保留当前世界和暂停／倍速。
+7. 同步提交完整状态与索引，精确重接可复用场景对象，退休旧对象；成功增加 epoch、清空旧 Ready／去重窗口并重新发完整投影。房间共享策略保持，连接重新 Ready 时按当前请求分配默认人物；失败保留当前世界和暂停／倍速。
 
 后台任务不持有可写 State、ObjectInstance 或跨线程 SessionScope。同实例文件操作串行；加载票据、连接身份和取消在 SessionAuthority／SessionStorage 处理，文件层不自行决定联网权限。
 
