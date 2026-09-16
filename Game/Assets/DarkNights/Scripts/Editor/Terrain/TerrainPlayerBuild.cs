@@ -51,7 +51,12 @@ namespace DarkNights.Editor.Terrain
         [MenuItem("Dark Nights/Terrain/Build test Mono")]
         public static void Mono()
         {
-            string output = Path.GetFullPath("../artifacts/terrain/player-mono-r4/TerrainTest.exe");
+            BuildMono(Path.GetFullPath("../artifacts/terrain/player-mono-" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + "/TerrainTest.exe"));
+        }
+
+        public static void BuildMono(string output)
+        {
+            output = Path.GetFullPath(output);
             if (Directory.Exists(Path.GetDirectoryName(output)) && Directory.EnumerateFileSystemEntries(Path.GetDirectoryName(output)).Any())
                 throw new IOException("使用新的空 Player 输出目录。");
             byte[] settings = File.ReadAllBytes("ProjectSettings/ProjectSettings.asset");
@@ -65,7 +70,7 @@ namespace DarkNights.Editor.Terrain
                 var result = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
                     scenes = new[] { ScenePath, TerrainTestAssets.Root + "/Maps/TerrainTest.unity" },
                     locationPathName = output, target = BuildTarget.StandaloneWindows64, options = BuildOptions.Development });
-                File.WriteAllText("../artifacts/terrain/build-result.json", "{\"result\":\"" + result.summary.result +
+                File.WriteAllText(Path.Combine(Path.GetDirectoryName(output), "build-result.json"), "{\"result\":\"" + result.summary.result +
                     "\",\"bytes\":" + result.summary.totalSize + ",\"errors\":" + result.summary.totalErrors + "}");
                 if (result.summary.result != BuildResult.Succeeded) throw new InvalidOperationException("地图 Mono 构建失败。");
             }

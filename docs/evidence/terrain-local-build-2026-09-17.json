@@ -1,0 +1,43 @@
+{
+  "date": "2026-09-17",
+  "runtimeSourceCommit": "f1e786fa1ca40fe0818188acc34344ef4f3af8e6",
+  "buildHelperSha256": "c40799969deb7f6320ab43f81503948b478001b32b95b3b664b94c64a715dc77",
+  "editor": "6000.4.9f1",
+  "backend": "Mono",
+  "development": true,
+  "output": "artifacts/terrain/player-mono-local-20260917/TerrainTest.exe",
+  "build": {
+    "result": "Succeeded",
+    "bytes": 197158640,
+    "errors": 0
+  },
+  "startup": {
+    "processStarted": true,
+    "responding": true,
+    "exceptionErrorLogMatches": 0,
+    "deviceWarnings": [
+      "d3d12: failed to query info queue interface (0x80004002).",
+      "FMOD failed to initialize any audio devices, running on emulated software output with no sound. Please check your audio drivers and/or hardware for malfunction."
+    ],
+    "log": "artifacts/terrain/player-mono-local-20260917/startup.log",
+    "processStoppedAfterSmoke": true,
+    "visualAcceptance": false
+  },
+  "settingsRestored": true,
+  "executableSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+  "outputBytes": 197415613.0,
+  "fileCount": 430,
+  "generator": "Editor only: Dark Nights > Terrain > Map generator",
+  "cleanup": {
+    "releasedBytes": 0,
+    "retained": "Current local test Player, development symbols and build logs retained for user testing; existing Editor cache reused; no obsolete Player overwritten or historic cleanup retried.",
+    "freeBytesC": 8174403584,
+    "freeBytesD": 33602686976
+  },
+  "notValidated": [
+    "new network matrix",
+    "foreground visual acceptance",
+    "IL2CPP",
+    "two physical machines"
+  ]
+}

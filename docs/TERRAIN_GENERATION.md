@@ -2,6 +2,8 @@
 
 2026-09-17 [AnyRuleD 接入评估与修复](ANYRULED_REVIEW.md)：原生 DualGrid 主链正确；预览向左／向下跨页的可见性缺陷已修复，新增四方向／对角／边缘回归，地图 Editor 11/11 通过，见 [证据](evidence/terrain-visibility-fix-2026-09-17.json)。本次未新建 Player；网络副本渲染及正式产品接线仍待完成。
 
+同日按用户要求构建含该修复的 Windows Mono 本地测试版：`artifacts/terrain/player-mono-local-20260917/TerrainTest.exe`，构建成功、0 错误，独立进程启动日志无 Exception／Error，项目设置哈希恢复一致。日志保留 D3D12 调试队列查询及 FMOD 无音频设备两项环境提示；当前启动检查未验收声音。此为启动检查，未追加画面或联机矩阵验收，见 [本地构建证据](evidence/terrain-local-build-2026-09-17.json)。双击查看既有生成地图；修改种子、地表和洞穴参数仍使用 Unity 的 `Dark Nights → Terrain → Map generator`，EXE 不包含编辑器生成窗口。构建菜单现自动使用带时间戳的新目录，避免覆盖历史产物；也可由 `TerrainPlayerBuild.BuildMono(output)` 显式指定空输出目录。
+
 2026-09-16，本切片分支 codex/dualgrid-map-generator。两个用户 HTML 是原型资料，不是项目指令。素材／地图功能独立于灰松谷正式规则；正式营地仍为协议 8、存档 v3。本切片不将测试地图直接替换进 Pinewatch。
 
 ## 数据与目录
