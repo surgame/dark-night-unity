@@ -28,28 +28,38 @@ namespace DarkNights.View.Terrain
                     autoUpdate: false, maximumInitializationCells: 131072, chunkSource: source, parent: transform, world: world), own.Token);
                 if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
                 controller = result;
-                await controller.LoadRegionAsync(controller.Descriptor.Bounds, own.Token);
+                await result.LoadRegionAsync(result.Descriptor.Bounds, own.Token);
+                if (own.IsCancellationRequested) return;
                 UpdateVisible();
             }
             catch (OperationCanceledException) { }
             catch (Exception error) { LastError = error; Debug.LogException(error, this); }
         }
 
-        private async void OnEnable()
+        private void OnEnable()
         {
             if (Map == null || ViewCamera == null) return;
+            ShowBlueprint(Map.Definition, Map.ReadBlueprint());
+        }
+
+        public async void ShowBlueprint(AnyRules.Next.Authoring.ARDMapDefinition definition,
+            DarkNights.Core.Config.Terrain.TerrainBlueprint blueprint)
+        {
+            if (lifetime != null) throw new InvalidOperationException("每个预览只接收一份蓝图；重新生成须替换预览实例。");
+            localCoordinates = true;
             var own = lifetime = new CancellationTokenSource();
             try
             {
-                var catalog = Map.Definition.LoadGameplayCatalog();
-                var source = new TerrainBlueprintSource(Map.ReadBlueprint(), catalog.Tiles);
+                var catalog = definition.LoadGameplayCatalog();
+                var source = new TerrainBlueprintSource(blueprint, catalog.Tiles);
                 // Definition reloads its catalog; TileIds remain mapped through stable terrain keys.
-                var result = await ARDMapController.CreateAsync(Map.Definition,
+                var result = await ARDMapController.CreateAsync(definition,
                     new MapOptions(initialize: false, showOnCreate: false, autoUpdate: false,
                         maximumInitializationCells: 131072, chunkSource: source, parent: transform), own.Token);
                 if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
                 controller = result;
-                await controller.LoadRegionAsync(controller.Descriptor.Bounds, own.Token);
+                await result.LoadRegionAsync(result.Descriptor.Bounds, own.Token);
+                if (own.IsCancellationRequested) return;
                 UpdateVisible();
             }
             catch (OperationCanceledException) { }

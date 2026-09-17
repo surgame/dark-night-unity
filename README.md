@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-17 新增独立[随机地图 Debug Bootstrap](docs/TERRAIN_DEBUG_BOOTSTRAP.md)：菜单 `Dark Nights/Debug/打开随机地图 Bootstrap` 后直接 Play，角色出生于随机入口洞室，WASD 穿墙飞行，镜头近距离跟随且可调；参数实时重建、换种子与 8 房间定位。调试地图没有正式营地的 72 列平地覆盖，原 Pinewatch 场景保留。
+
 2026-09-17 默认正式入口已接入[随机灰松谷](docs/RANDOM_PINEWATCH.md)：保留原 Pinewatch，新增独立随机关卡模板，菜单选择地图时后台生成并在开局复用。正式协议 9／存档 v4，主角查询权威地形，地图完整同步后才 Ready；保存恢复最终格子。新 Mono 位于 `artifacts/random-map/player-mono/DarkNights.exe`，操作和本批验收见切片文档；以下记录保留各历史构建身份。
 
 2026-09-17 修复 Bootstrap 因 `TerrainEditCommand` 漏注册而中断、界面空白的问题：YYGC 独立修复锁定 `12b253c`，通过真实生成器补齐 Tag 3，原游戏编号保持。新增 Editor 2/2、实际主菜单／开局画面、新 Mono 启动 6/6 与双进程会话 13/13 通过；产物 `artifacts/bootstrap-registry/player-mono`。详见[改动账本](docs/YYGC_CHANGES.md)及[证据](docs/evidence/bootstrap-registry-2026-09-17.json)。其余历史验收与 M5 边界不变。

@@ -1,0 +1,109 @@
+{
+  "date": "2026-09-17",
+  "scope": "独立随机地图 Debug Bootstrap；保留正式平地和正式游戏模式",
+  "baseCommit": "d2346fe0ed177ec2daa5757859c95443835ebc1b",
+  "originalPinewatchUnchangedFrom": "a1cd509",
+  "unity": "6000.4.9f1",
+  "colorSpace": "Linear",
+  "generator": {
+    "camp72ColumnOverlay": false,
+    "connections": 7,
+    "referenceLandingPadsRetained": true,
+    "rooms": 8,
+    "fixedTopology": true,
+    "reference": "tools/terrain-reference/terrain_generator.html"
+  },
+  "editor": {
+    "report": "artifacts/terrain-debug/editor-validation-job-final.json",
+    "screenshot": "artifacts/terrain-debug/editor-ready.png",
+    "playChecksPassed": 22,
+    "terrainTestsPassed": 11,
+    "presentationTestsRepeatedAfterCancellationFix": 3,
+    "nativePrefabAndSceneReopened": true,
+    "frozenHtmlVectors": 24
+  },
+  "mono": {
+    "visualAcceptance": false,
+    "startup": "独立进程启动12秒，窗口存在，日志无异常",
+    "entrySha256": "D2B6A1EEB573346C5459D3F29EF12E053BED0301324BE1A82BE4FF2F65894FF6",
+    "report": "artifacts/terrain-debug/player-smoke-hidden-window/result.json",
+    "buildResult": "Succeeded",
+    "visualLimitation": "隐藏窗口PrintWindow返回成功但像素全黑，不计为Player视觉通过；有效画面来自Editor Play。",
+    "files": 426,
+    "path": "artifacts/terrain-debug/player-mono/TerrainDebug.exe",
+    "buildErrors": 0,
+    "firstSmokeFailure": "MainWindowHandle排除了隐藏窗口；改为按进程枚举窗口后启动检查通过，未重建Player。",
+    "bytes": 197355341.0,
+    "viewSha256": "644E6C999403DB0FC22C41357C0DC4CD0B0A43710A5E81B4ED61FB95C6D88993"
+  },
+  "architecture": {
+    "errors": 0,
+    "selfTests": 12,
+    "files": 357
+  },
+  "inputs": [
+    {
+      "sha256": "9690288D7F48C259C81B9E776D587E6828B2BBC201C91DC7DE47FD73C95DC509",
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainPlayerBuild.cs"
+    },
+    {
+      "sha256": "BECAA5C5BBC83595F6891CBB125C8D562FF67D50806F82D12D4E94896516616D",
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainDebugSetup.cs"
+    },
+    {
+      "sha256": "6EA3A486FFCCA88BAE597AA2E02E923DCA47B6ECDA4EED8A025DE15454A647DE",
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainDebugBootstrap.cs"
+    },
+    {
+      "sha256": "2096C302E7F04DEA13F7525D935020E5C0EF6EA3DF2D82B4B28C20F2F7AD7D44",
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainDebugPanel.cs"
+    },
+    {
+      "sha256": "750BDBBDB925C92806164C55F0201BEDE034DA2727ED8322D7CEE7AF1A07C492",
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPreview.cs"
+    },
+    {
+      "sha256": "50ACA613089A67456F49FA8197A4764ED76434A11C5C623A72F168B05BA5D430",
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainDebugFlyer.cs"
+    },
+    {
+      "sha256": "E5CB907DF82D96A739071F0D78505AAC121E4F508E448363776774937320999B",
+      "path": "Game/Assets/DarkNights/Res/Terrain/DebugBootstrap/TerrainDebugBootstrap.unity"
+    },
+    {
+      "sha256": "2C83A0337615B82954DEDBD627034742366F2942FD15DC2D1889A5E64BCAFCE7",
+      "path": "Game/Assets/DarkNights/Res/Terrain/DebugBootstrap/DebugFlyer.prefab"
+    }
+  ],
+  "cleanup": {
+    "releasedBytes": 33891562,
+    "freeBytes": {
+      "D": 29904166912,
+      "C": 7006576640
+    },
+    "details": "artifacts/terrain-debug/cleanup.json",
+    "retained": [
+      {
+        "bytes": 197355341.0,
+        "reason": "交付用户调试及后续验收，含原生调试符号",
+        "path": "artifacts/terrain-debug/player-mono"
+      },
+      {
+        "bytes": 1401199869,
+        "reason": "活动Editor共享日志，包含已修复字体警告；关闭Editor后方可轮转清理",
+        "path": "C:\\Users\\Jobscn\\AppData\\Local/Unity/Editor/Editor.log"
+      },
+      {
+        "path": "Game/Library",
+        "reason": "活动Editor导入与构建缓存，本批复用，未复制；不在运行时清理",
+        "bytes": 6960541461.0
+      }
+    ]
+  },
+  "unchanged": [
+    "YYGC与AnyRules依赖",
+    "协议9与存档v4",
+    "正式营地规则与Bootstrap",
+    "IL2CPP/双机器/前台性能/M5验收状态"
+  ]
+}

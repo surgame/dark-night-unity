@@ -4,6 +4,8 @@
 
 ## 测试入口
 
+专门观察随机地形、无需营地平地和守夜波次时，使用[独立 Debug Bootstrap](TERRAIN_DEBUG_BOOTSTRAP.md)：直接出生入口洞室，WASD 穿墙飞行、近距离镜头与实时参数重建。下列正式入口仍保留营地规则与 72 列保护区。
+
 - Mono：运行 `artifacts/random-map/player-mono/DarkNights.exe`，主菜单点击“选择地图：灰松谷 · 生成新地图”，等待种子状态更新，再点击“开始守夜”。再次选择地图产生新种子；已选地图在开局时复用。
 - Editor：从 Bootstrap 进入默认正式菜单，或使用既有关卡试玩入口运行 `RandomPinewatch/Pinewatch.unity`。原 Pinewatch 仍可单独试玩；Player 的 `--dn-camp-mode` 保留原固定场景回归入口。
 - 随机地图就绪后，小地图从网络只读格子绘制完整 320 列地表轮廓，竖线标出前 72 列营地保护区；镜头框、角色和建筑使用同一地图比例。

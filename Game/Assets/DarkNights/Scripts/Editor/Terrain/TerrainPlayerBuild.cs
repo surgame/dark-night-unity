@@ -54,7 +54,7 @@ namespace DarkNights.Editor.Terrain
             BuildMono(Path.GetFullPath("../artifacts/terrain/player-mono-" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + "/TerrainTest.exe"));
         }
 
-        public static void BuildMono(string output)
+        public static void BuildMono(string output, string[] scenes = null)
         {
             output = Path.GetFullPath(output);
             if (Directory.Exists(Path.GetDirectoryName(output)) && Directory.EnumerateFileSystemEntries(Path.GetDirectoryName(output)).Any())
@@ -68,7 +68,7 @@ namespace DarkNights.Editor.Terrain
                 PlayerSettings.SetPreloadedAssets(Array.Empty<UnityEngine.Object>());
                 Directory.CreateDirectory(Path.GetDirectoryName(output));
                 var result = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
-                    scenes = new[] { ScenePath, TerrainTestAssets.Root + "/Maps/TerrainTest.unity" },
+                    scenes = scenes ?? new[] { ScenePath, TerrainTestAssets.Root + "/Maps/TerrainTest.unity" },
                     locationPathName = output, target = BuildTarget.StandaloneWindows64, options = BuildOptions.Development });
                 File.WriteAllText(Path.Combine(Path.GetDirectoryName(output), "build-result.json"), "{\"result\":\"" + result.summary.result +
                     "\",\"bytes\":" + result.summary.totalSize + ",\"errors\":" + result.summary.totalErrors + "}");

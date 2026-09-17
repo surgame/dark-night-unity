@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-17 新增[独立随机地图 Debug Bootstrap](TERRAIN_DEBUG_BOOTSTRAP.md)：原平地场景未被覆盖，调试入口直接使用 HTML 对应的 8 房间／7 通道蓝图，无营地 72 列覆盖或波次；默认近距离跟随、WASD 二维穿墙、可调镜头与实时重建。Editor 地图 11/11、表现修正后 3/3 复验、真实 Play 22/22。独立 Mono 与本批清理见专属证据；正式网络、IL2CPP、前台性能和 M5 边界不变。
+
 2026-09-17 完成[正式随机灰松谷接线](RANDOM_PINEWATCH.md)：保留原场景，增加每关卡一个随机模板的入口；菜单按需后台生成、开局复用，主角碰撞、完整地图 Ready、暂停晚加入及最终格子存档恢复接入现有会话。协议 9／存档 v4，Mono `artifacts/random-map/player-mono`；本批相关测试、独立进程联机及清理记录见[证据](evidence/random-pinewatch-2026-09-17.json)。采矿、NPC 跨随机区域寻路、IL2CPP、双机器和前台性能不在本批完成范围。
 
 2026-09-17 完成 Bootstrap 地形命令漏注册修复：框架生成器正确识别包含 record 与结果结构体的脚本，游戏锁定 YYGC `12b253c`，重新生成全局命令注册表。Editor 新增 2/2，实际 Play 主菜单、开局与主角显示通过；新 Mono 启动 6/6、独立 Host＋客户端 13/13。见[证据](evidence/bootstrap-registry-2026-09-17.json)与[逐文件账本](YYGC_CHANGES.md)。未重跑完整历史矩阵，未验收 IL2CPP、双机器或前台性能。
