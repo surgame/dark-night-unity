@@ -34,6 +34,11 @@
 
 # Machine-local dependencies and IDE files
 /.deps/
+
+# WorkBuddy AI local workspace state (memory, session logs, tool caches).
+# Keep the folder on disk, but never commit it as source.
+/.workbuddy-ai/
+
 # Ignore IDE metadata in the repository root and in nested projects (for
 # example, the Unity project under Game/).
 **/.vs/
