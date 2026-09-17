@@ -87,6 +87,17 @@ namespace DarkNights.Tests
         });
 
         [UnityTest]
+        public IEnumerator DebugSpeedMultipliesOnlyAuthoritativeHeroMovement() => UniTask.ToCoroutine(async () =>
+        {
+            using var f = await HeroTestSession.Create(debugHeroSpeedMultiplier: 8);
+            Assert.That(f.Command(SessionOperation.ClaimHero).Code, Is.EqualTo(SessionResultCode.Applied));
+            float start = f.Actor.X;
+            Assert.That(f.Input(horizontal: 1), Is.True); f.Step(6);
+            Assert.That(f.Actor.X, Is.EqualTo(start + 24).Within(.001));
+            Assert.That(f.World.Speed, Is.EqualTo(1));
+        });
+
+        [UnityTest]
         public IEnumerator ShortJumpIsConsumedOnceAndSOnlyDropsCurrentPlatform() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();

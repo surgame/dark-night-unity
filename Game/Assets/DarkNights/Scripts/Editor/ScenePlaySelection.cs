@@ -14,6 +14,7 @@ namespace DarkNights.Editor
     [InitializeOnLoad]
     public static class ScenePlaySelection
     {
+        private const string DebugSpeedPath = "Dark Nights/Debug/主角移动 8×";
         static ScenePlaySelection()
         {
             EditorSceneManager.activeSceneChangedInEditMode += (_, __) => Configure();
@@ -48,6 +49,22 @@ namespace DarkNights.Editor
                 return;
             }
             SessionState.SetString("DarkNights.PlayScene", scene.path);
+        }
+
+        [MenuItem(DebugSpeedPath)]
+        private static void ToggleDebugSpeed()
+        {
+            bool enabled = !EditorPrefs.GetBool(DarkNights.Entry.GameSessionStartupModule.HeroSpeedPreference, false);
+            EditorPrefs.SetBool(DarkNights.Entry.GameSessionStartupModule.HeroSpeedPreference, enabled);
+            Menu.SetChecked(DebugSpeedPath, enabled);
+        }
+
+        [MenuItem(DebugSpeedPath, true)]
+        private static bool ValidateDebugSpeed()
+        {
+            Menu.SetChecked(DebugSpeedPath,
+                EditorPrefs.GetBool(DarkNights.Entry.GameSessionStartupModule.HeroSpeedPreference, false));
+            return !EditorApplication.isPlayingOrWillChangePlaymode;
         }
     }
 }

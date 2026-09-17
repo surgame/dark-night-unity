@@ -6,6 +6,8 @@
 
 - Mono：运行 `artifacts/random-map/player-mono/DarkNights.exe`，主菜单点击“选择地图：灰松谷 · 生成新地图”，等待种子状态更新，再点击“开始守夜”。再次选择地图产生新种子；已选地图在开局时复用。
 - Editor：从 Bootstrap 进入默认正式菜单，或使用既有关卡试玩入口运行 `RandomPinewatch/Pinewatch.unity`。原 Pinewatch 仍可单独试玩；Player 的 `--dn-camp-mode` 保留原固定场景回归入口。
+- 随机地图就绪后，小地图从网络只读格子绘制完整 320 列地表轮廓，竖线标出前 72 列营地保护区；镜头框、角色和建筑使用同一地图比例。
+- Editor 可在 `Dark Nights/Debug/主角移动 8×` 勾选本机试玩加速，停止 Play 后切换；Development Player 可传 `--dn-debug-hero-speed 8`（范围 1–16）。倍率只由房主用于权威主角横向移动，不改变敌人、时间倍率或存档，正式默认仍为 1×。
 - 联机：第二个同版本 Player 从菜单加入房主；也可执行 `powershell -File tools/test-game-random-map.ps1 -PlayerPath <DarkNights.exe绝对路径>`，自动启动独立 Host、客户端及晚加入进程。
 
 ## 生命周期和边界

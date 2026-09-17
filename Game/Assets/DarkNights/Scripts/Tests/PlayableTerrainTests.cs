@@ -10,6 +10,7 @@ using DarkNights.Core.Logic.Terrain;
 using DarkNights.Runtime.Objects;
 using DarkNights.Runtime.Session;
 using DarkNights.Runtime.Terrain;
+using DarkNights.View;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine.TestTools;
@@ -53,6 +54,9 @@ namespace DarkNights.Tests
             stream.Subscribe(map.Descriptor.Bounds);
             while (stream.QueuedPackets > 0) replica.Receive(stream.Dequeue());
             Assert.That(replica.CommitId, Is.GreaterThan(0)); Assert.That(replica.PendingCount, Is.Zero);
+            int[] miniMap = CampMap.CaptureTerrainProfile(replica);
+            Assert.That(miniMap.Take(PlayableTerrain.CampColumns).All(row => row == PlayableTerrain.CampRow), Is.True);
+            Assert.That(miniMap.Skip(PlayableTerrain.CampColumns).Distinct().Count(), Is.GreaterThan(3));
             for (int y = 0; y < 192; y++) for (int x = 0; x < 320; x++)
                 Assert.That(replica.Read(new CellCoord(x, -y)).Cell, Is.EqualTo(map.Read(new CellCoord(x, -y)).Cell));
             long scans = stream.PublicationScanCount;

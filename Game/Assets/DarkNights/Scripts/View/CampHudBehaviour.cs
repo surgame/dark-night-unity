@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AnyRules.Next;
 using DarkNights.Core.Config;
 using DarkNights.Core.ViewData;
 using GameCore.Objects.Views;
@@ -45,9 +46,10 @@ namespace DarkNights.View
         private double toastRemaining, bannerRemaining;
         private CanvasGroup toastFade, bannerFade;
         private bool? campControlsVisible;
-        public void PresentWorld(SessionViewData frame, CampInput input, IEntityVisuals entities, PinewatchStage stage, bool ready)
+        public void PresentWorld(SessionViewData frame, CampInput input, IEntityVisuals entities, PinewatchStage stage,
+            bool ready, IReadOnlyGrid terrain = null)
         {
-            map.Present(frame, stage, stage.WorldWidth, ready);
+            map.Present(frame, stage, stage.WorldWidth, ready, terrain);
             overlay.Present(frame, input, entities, stage, catalog);
         }
 

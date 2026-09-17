@@ -51,16 +51,20 @@ namespace DarkNights.Runtime.Objects
         public bool Paused => Camp.Read().Paused;
         public int Speed => Camp.Read().Speed;
         public double Elapsed => Camp.Read().Elapsed;
+        public float DebugHeroSpeedMultiplier { get; }
 
         public ObjectSession(GameCatalog catalog, LevelLayout layout, ObjectSessionResources resources,
-            Func<bool> isAuthority, Transform parent = null)
+            Func<bool> isAuthority, Transform parent = null, float debugHeroSpeedMultiplier = 1)
         {
+            if (debugHeroSpeedMultiplier < 1 || debugHeroSpeedMultiplier > 16 || float.IsNaN(debugHeroSpeedMultiplier))
+                throw new ArgumentOutOfRangeException(nameof(debugHeroSpeedMultiplier));
             Catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             Layout = layout ?? throw new ArgumentNullException(nameof(layout));
             Layout.Validate(Catalog);
             Resources = resources ?? throw new ArgumentNullException(nameof(resources));
             authority = isAuthority ?? throw new ArgumentNullException(nameof(isAuthority));
             Parent = parent;
+            DebugHeroSpeedMultiplier = debugHeroSpeedMultiplier;
             container.Initialize();
             container.Register(this);
             Context = ObjectSessionContext.CreateAuthority(container, () => !disposed && authority());

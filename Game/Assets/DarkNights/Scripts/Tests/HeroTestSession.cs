@@ -24,7 +24,8 @@ namespace DarkNights.Tests
         public ActorBehaviour Actor => World.Index.Find<ActorBehaviour>(ActorId);
         public ActorState State => Actor.CaptureState();
 
-        public static async UniTask<HeroTestSession> Create(bool assignDefaultHeroes = false)
+        public static async UniTask<HeroTestSession> Create(bool assignDefaultHeroes = false,
+            float debugHeroSpeedMultiplier = 1)
         {
             var f = new HeroTestSession();
             try
@@ -33,7 +34,7 @@ namespace DarkNights.Tests
                 var catalog = RuleScenario.Catalog(); var old = RuleScenario.Layout();
                 var layout = new LevelLayout(old.WorldWidth, old.GroundY, old.BuildMinX, old.BuildMaxX, old.SpawnX,
                     old.CameraX, old.Buildings, old.Worksites, old.Actors, new[] { new PlatformDefinition(1, 150, 198, 12) });
-                f.World = f.scope.NewWorld(catalog, layout, false);
+                f.World = f.scope.NewWorld(catalog, layout, false, debugHeroSpeedMultiplier);
                 f.assignDefaultHeroes = assignDefaultHeroes;
                 f.Authority = new SessionAuthority(f.World);
                 f.Host = f.Authority.Connect(0); f.Guest = f.Authority.Connect(1);

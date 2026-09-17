@@ -43,6 +43,7 @@ namespace DarkNights.Runtime.Network
         public Terrain.SessionTerrainNetwork Terrain { get; set; }
         public ObjectReplica ReplicaObjects { get; private set; }
         private Transform objectParent;
+        private float debugHeroSpeedMultiplier = 1;
         public SessionClient Client { get; private set; }
         public SessionServer Server => activeSession?.Server;
         public CampSessionBehaviour ActiveSession => activeSession;
@@ -53,7 +54,8 @@ namespace DarkNights.Runtime.Network
         public event Action<Exception> Failed;
 
         public void Initialize(NetworkManager networkManager, GameCatalog content, LevelLayout level,
-            ObjectSessionResources resources, IReadOnlyList<ObjectPlacement> placements, Transform objectParent = null)
+            ObjectSessionResources resources, IReadOnlyList<ObjectPlacement> placements, Transform objectParent = null,
+            float heroSpeedMultiplier = 1)
         {
             if (initialized) throw new InvalidOperationException("SessionNetwork already initialized.");
             ObjectResources = resources ?? throw new ArgumentNullException(nameof(resources));
@@ -63,6 +65,7 @@ namespace DarkNights.Runtime.Network
             catalog = content;
             layout = level;
             this.objectParent = objectParent;
+            debugHeroSpeedMultiplier = heroSpeedMultiplier;
             manager.ClientManager.SetRemoteServerTimeout(RemoteTimeoutType.Development, 15);
             manager.ServerManager.SetRemoteClientTimeout(RemoteTimeoutType.Development, 15);
             manager.TransportManager.Transport.SetTimeout(15, false);
@@ -130,7 +133,8 @@ namespace DarkNights.Runtime.Network
                     if (this == null || current != attempt) return;
                     if (!manager.IsServerStarted) throw new TimeoutException("房间启动超时。");
                     preparing = new ObjectSession(catalog, layout, ObjectResources,
-                        () => this != null && current == attempt && manager.IsServerStarted, objectParent);
+                        () => this != null && current == attempt && manager.IsServerStarted, objectParent,
+                        debugHeroSpeedMultiplier);
                     var view = await CreateCurrent(FormalObjectCatalog.SessionKey, current, preparing.Context);
                     if (this == null || current != attempt) { if (view != null) Destroy(view.gameObject); return; }
                     if (view == null) throw new InvalidOperationException("正式会话对象创建失败。");

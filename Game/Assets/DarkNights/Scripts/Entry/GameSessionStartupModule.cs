@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace DarkNights.Entry
     [Serializable, Preserve, AppStartupModule]
     public sealed class GameSessionStartupModule : IAppStartupModule
     {
+        public const string HeroSpeedPreference = "DarkNights.Debug.HeroSpeed8x";
+        public const float FastHeroMultiplier = 8;
         public string Name => "Dark Nights 会话装配";
         public string Description => "加载灰松谷与正式会话入口。";
         public string Category => "游戏内容";
@@ -66,7 +69,9 @@ namespace DarkNights.Entry
             foreach (ScenePlacement placement in placementsByKey.Values) placement.gameObject.SetActive(false);
             var required = catalog.Balance.Buildings.Keys.Concat(catalog.Balance.Worksites.Keys).Concat(catalog.Balance.Units.Keys);
             ObjectSessionResources resources = await ObjectSessionResources.Prepare(required.Select(definitions.GetRequired).ToArray(), cancellationToken);
-            network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements, stage.Entities);
+            float debugHeroSpeed = DebugHeroSpeedMultiplier();
+            network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements, stage.Entities, debugHeroSpeed);
+            if (debugHeroSpeed > 1) Debug.Log("DARK_NIGHTS_DEBUG_HERO_SPEED multiplier=" + debugHeroSpeed);
             stage.Initialize(layout);
             if (randomLevel != null) Terrain.RandomLevelEntry.Install(network, randomLevel, stage);
             var entities = network.gameObject.AddComponent<SessionEntityViews>();
@@ -79,6 +84,24 @@ namespace DarkNights.Entry
             Application.runInBackground = true;
             Application.targetFrameRate = 60;
             Debug.Log("DARK_NIGHTS_SESSION_AVAILABLE protocol=" + DarkNights.Runtime.Session.SessionAuthority.ProtocolVersion + " level=" + catalog.Level.Id);
+        }
+
+        public static float DebugHeroSpeedMultiplier()
+        {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            float result = 1;
+#if UNITY_EDITOR
+            if (UnityEditor.EditorPrefs.GetBool(HeroSpeedPreference, false)) result = FastHeroMultiplier;
+#endif
+            string[] arguments = System.Environment.GetCommandLineArgs();
+            int index = Array.IndexOf(arguments, "--dn-debug-hero-speed");
+            if (index >= 0 && (index + 1 >= arguments.Length || !float.TryParse(arguments[index + 1],
+                NumberStyles.Float, CultureInfo.InvariantCulture, out result) || result < 1 || result > 16))
+                throw new ArgumentException("--dn-debug-hero-speed 必须指定 1–16 的倍率。");
+            return result;
+#else
+            return 1;
+#endif
         }
     }
 }

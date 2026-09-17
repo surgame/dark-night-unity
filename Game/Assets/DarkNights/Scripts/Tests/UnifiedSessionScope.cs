@@ -59,9 +59,11 @@ namespace DarkNights.Tests
             resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
             Placements(layout).ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition)));
 
-        public ObjectSession NewWorld(GameCatalog catalog, LevelLayout layout, bool activate = true)
+        public ObjectSession NewWorld(GameCatalog catalog, LevelLayout layout, bool activate = true,
+            float debugHeroSpeedMultiplier = 1)
         {
-            var world = new ObjectSession(catalog, layout, resources, () => true);
+            var world = new ObjectSession(catalog, layout, resources, () => true,
+                debugHeroSpeedMultiplier: debugHeroSpeedMultiplier);
             GameObject root = null;
             try
             {
