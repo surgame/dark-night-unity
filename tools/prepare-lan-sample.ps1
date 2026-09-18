@@ -1,10 +1,15 @@
-param([string]$FrameworkPath = 'D:\Developer\YYGC')
+param(
+    [string]$FrameworkPath = 'D:\Developer\YYGC',
+    [string]$Repository = 'git@github.com:surgame/YYGC.git'
+)
 $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 $commit = '12b253c6bdd262feb860ab905b9e56e940ec9c40'
 $checkout = Join-Path $root '.deps/YYGC-unified'
 if (!(Test-Path $checkout)) {
-    git clone --no-hardlinks --no-checkout $FrameworkPath $checkout
+    $source = if (Test-Path -LiteralPath $FrameworkPath) { $FrameworkPath } else { $Repository }
+    if ([string]::IsNullOrWhiteSpace($source)) { throw 'YYGC source is unavailable; provide -FrameworkPath or -Repository.' }
+    git clone --no-hardlinks --no-checkout $source $checkout
     if ($LASTEXITCODE) { throw 'YYGC clone failed' }
     git -C $checkout checkout --detach $commit
     if ($LASTEXITCODE) { throw 'YYGC checkout failed' }

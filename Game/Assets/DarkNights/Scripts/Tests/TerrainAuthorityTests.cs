@@ -46,6 +46,15 @@ namespace DarkNights.Tests
             }
             throw new Exception("Missing destructible fixture.");
         }
+        private CellCoord SoftTarget()
+        {
+            for (int v = -115; v <= -100; v++) for (int u = 115; u < 140; u++)
+            {
+                var p = new CellCoord(u, v);
+                if (map.IsSoftRock(p) && map.Read(p).TryGetCell(out var c) && !c.IsEmpty && c.Flags == 0) return p;
+            }
+            throw new Exception("Missing soft-rock fixture.");
+        }
         [Test]
         public void LocalDestructionTouchesAtMostFourPagesAndIsFrozen()
         {
@@ -67,6 +76,23 @@ namespace DarkNights.Tests
             Assert.Throws<InvalidOperationException>(() => map.DestroyTrusted(1, 1, map.World, before, new[] { p }, _ => false));
             current = false;
             Assert.Throws<InvalidOperationException>(() => map.DestroyTrusted(1, 1, map.World, before, new[] { p }, _ => true));
+        }
+        [Test]
+        public void ActionPolicyAndRequestIdAreAuthoritativeAndIdempotent()
+        {
+            var soft = SoftTarget(); var normal = Target();
+            Assert.That(map.BuildTargets(TerrainEditAction.HandMine, soft).Count, Is.EqualTo(1));
+            Assert.Throws<InvalidOperationException>(() => map.BuildTargets(TerrainEditAction.HandMine, normal));
+            var targets = map.BuildTargets(TerrainEditAction.HandMine, soft);
+            var first = map.DestroyTrusted(2, "mine-1", TerrainEditAction.HandMine, map.World, map.CommitId,
+                soft, targets, _ => true);
+            ulong after = map.CommitId;
+            var retry = map.DestroyTrusted(2, "mine-1", TerrainEditAction.HandMine, map.World, 0, soft, targets, _ => false);
+            Assert.That(retry, Is.SameAs(first)); Assert.That(map.CommitId, Is.EqualTo(after));
+            Assert.Throws<InvalidOperationException>(() => map.DestroyTrusted(2, "mine-1", TerrainEditAction.HandMine,
+                map.World, after, normal, new[] { normal }, _ => true));
+            var blast = map.BuildTargets(TerrainEditAction.Explosive, normal);
+            Assert.That(blast.Count, Is.InRange(1, 13));
         }
         [Test]
         public void IdleStreamDoesNotScanAndChangedMapReachesLateReplica()

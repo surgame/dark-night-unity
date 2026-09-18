@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DarkNights.Core.Config;
+using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.ViewData;
 using DarkNights.Core.Save;
@@ -100,6 +101,11 @@ namespace DarkNights.Runtime.Objects
                 foreach (ObjectPlacement placement in placements)
                     Create(placement.Definition, placement.X, placement.PlacementKey, true,
                         placement.Variant, placement.ActorName, placement.Loader);
+                ObjectDefinition mineralDefinition = Resources.FindOptional(MineralDepositRuleConfig.Rule);
+                if (Terrain != null && mineralDefinition != null)
+                    foreach (TerrainDepositBlueprint deposit in Terrain.Deposits)
+                        Create(mineralDefinition, (deposit.X + .5f) * PlayableTerrain.CellPixels,
+                            "terrain.deposit." + deposit.Id, true, 0, "", null, false, 0, deposit);
                 return true;
             });
             initial = CaptureWorld();
@@ -127,7 +133,8 @@ namespace DarkNights.Runtime.Objects
         }
 
         internal IEntityBehaviour Create(ObjectDefinition definition, float x, string placement, bool complete,
-            int variant, string actorName, ObjectDefinitionLoader loader, bool enemy = false, int farmId = 0)
+            int variant, string actorName, ObjectDefinitionLoader loader, bool enemy = false, int farmId = 0,
+            TerrainDepositBlueprint deposit = null)
         {
             Mutations.RequireWriting();
             ObjectInstance instance = null;
@@ -149,6 +156,7 @@ namespace DarkNights.Runtime.Objects
                 if (entity is ActorBehaviour actor) actor.Prepare(id, x, placement, enemy, actorName);
                 else if (entity is BuildingBehaviour building) building.Prepare(id, x, placement, complete);
                 else if (entity is WorksiteBehaviour site) site.Prepare(id, x, placement, variant, farmId);
+                else if (entity is MineralDepositBehaviour mineral) mineral.Prepare(id, x, placement, deposit);
                 else throw new InvalidOperationException("Unknown object family.");
                 if (EntityContext.IsActive) instance.Activate();
                 Index.Add(entity);
@@ -175,6 +183,16 @@ namespace DarkNights.Runtime.Objects
         public int TrainActors(string ruleKey, IReadOnlyList<int> ids) => Mutations.Run(() => Commands.Train(ruleKey, ids));
         public int Recruit() => Mutations.Run(Commands.Recruit);
         public bool Repair(int id) => Mutations.Run(() => Commands.Repair(id));
+        public bool StartMineralDrill(int depositId, int drillId) => Mutations.Run(() =>
+        {
+            MineralDepositBehaviour deposit = Index.Find<MineralDepositBehaviour>(depositId);
+            return MineralDrillBusiness.Start(deposit, drillId);
+        });
+        public bool StopMineralDrill(int depositId, int drillId) => Mutations.Run(() =>
+        {
+            MineralDepositBehaviour deposit = Index.Find<MineralDepositBehaviour>(depositId);
+            return MineralDrillBusiness.Stop(deposit, drillId);
+        });
         public bool StartNight() => Mutations.Run(Waves.StartNight);
 
         public void SetTime(bool paused, int speed)
@@ -198,6 +216,11 @@ namespace DarkNights.Runtime.Objects
                     actor.Tick(delta);
                 }
                 foreach (WorksiteBehaviour site in Index.Worksites.ToArray()) site.Tick(delta);
+                foreach (MineralDepositBehaviour deposit in Index.MineralDeposits.ToArray())
+                {
+                    int extracted = MineralDrillBusiness.Tick(deposit, delta);
+                    if (extracted > 0) Economy.AddResource(deposit.ResourceId, extracted);
+                }
                 Projectiles.Tick(delta);
                 if (Camp.Read().Mode == SessionMode.Playing) Waves.Tick(delta);
                 return true;
@@ -247,7 +270,7 @@ namespace DarkNights.Runtime.Objects
             {
                 using var candidate = new ObjectWorldRestore(this, snapshot);
                 candidate.Commit();
-                if (map != null) { Terrain.Replace(map, snapshot.Terrain.Seed); map = null; }
+                if (map != null) { Terrain.Replace(map, snapshot.Terrain); map = null; }
             }
             finally { map?.Dispose(); }
         }

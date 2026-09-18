@@ -16,7 +16,12 @@ namespace DarkNights.Core.Save
             var farms = new HashSet<int>();
             foreach (var site in c.Sites.Values)
             {
-                if (site.Kind == "food")
+                if (site.IsMineralDeposit || site.Kind == "mineral-deposit")
+                {
+                    if (!site.IsMineralDeposit || site.WorkerId != 0 || site.FarmId != 0 || site.Amount < 0 || site.Amount > site.Capacity)
+                        return "矿床关系无效";
+                }
+                else if (site.Kind == "food")
                 {
                     if (!c.Buildings.TryGetValue(site.FarmId, out var farm) || farm.Kind != "farm" || farm.Progress < 1 ||
                         !farms.Add(farm.Id) || site.Amount != -1 || Math.Abs(site.X - farm.X) > 0.01)

@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using DarkNights.Core.Config;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.Save;
 using DarkNights.Core.ViewData;
@@ -37,7 +38,9 @@ namespace DarkNights.Runtime.Objects
             {
                 WorksiteState w = site.Read();
                 return new WorksiteSnapshot(w.Id, site.RuleKey, w.X, w.WorkerId, w.Amount, w.Progress, w.Variant, w.FarmId);
-            }).ToArray();
+            }).Concat(session.Index.MineralDeposits.Select(deposit =>
+                new WorksiteSnapshot(deposit.Id, "mineral-deposit", deposit.X, deposit.Y, 0, deposit.Remaining, deposit.DrillProgress, 0, 0,
+                    true, deposit.RoomKind, deposit.Rarity, deposit.Capacity, deposit.Stage.ToString(), deposit.DrillId))).ToArray();
             var identities = session.Index.FreezeOrder().Select(e => new EntityIdentityData(e.Id, e.DefinitionGuid, e.PlacementKey)).ToArray();
             WaveState wave = session.Waves.Read();
             var shots = session.Projectiles.Read().Shots.Select(p => new ProjectileSnapshot(
@@ -115,6 +118,16 @@ namespace DarkNights.Runtime.Objects
                     TrainingQueue = b.TrainingQueue.Select(t => new TrainingStateEntry(t.ActorId, t.Kind, t.Remaining)).ToArray()
                 });
             }
+            else if (owner.GetBehaviour<MineralDepositBehaviour>() is MineralDepositBehaviour deposit)
+            {
+                WorksiteSnapshot w = snapshot.Worksites.Single(value => value.Id == id);
+                deposit.PrepareState(new MineralDepositState
+                {
+                    Id = id, PlacementKey = placement, X = (float)w.X, Y = (int)w.Y, RoomKind = w.RoomKind, Rarity = w.Rarity,
+                    Capacity = w.Capacity, Remaining = w.Amount, Stage = Enum.Parse<MineralDepositStage>(w.Stage),
+                    DrillId = w.DrillId, DrillProgress = w.Progress
+                });
+            }
             else if (owner.GetBehaviour<WorksiteBehaviour>() is WorksiteBehaviour site)
             {
                 WorksiteSnapshot w = snapshot.Worksites.Single(value => value.Id == id);
@@ -138,6 +151,11 @@ namespace DarkNights.Runtime.Objects
             {
                 BuildingState frozen = building.CaptureState();
                 return owner => owner.GetBehaviour<BuildingBehaviour>().PrepareState(frozen);
+            }
+            if (entity is MineralDepositBehaviour deposit)
+            {
+                MineralDepositState frozen = deposit.CaptureState();
+                return owner => owner.GetBehaviour<MineralDepositBehaviour>().PrepareState(frozen);
             }
             WorksiteState site = ((WorksiteBehaviour)entity).CaptureState();
             return owner => owner.GetBehaviour<WorksiteBehaviour>().PrepareState(site);

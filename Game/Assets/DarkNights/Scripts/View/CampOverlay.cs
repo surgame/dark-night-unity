@@ -72,6 +72,7 @@ namespace DarkNights.View
                 Vector2 root = Point(visual.transform.position);
                 if (input.Selected.Contains(site.Id) || input.Hover == site.Id)
                     Line(mesh, root + new Vector2(-12, 1) * zoom, root + new Vector2(12, 1) * zoom, new Color32(217, 196, 132, 255), zoom);
+                if (site.IsMineralDeposit || site.Kind == "mineral-deposit") continue;
                 if (site.WorkerId != 0) Bar(mesh, root + new Vector2(0, 5) * zoom, 20, 2,
                     site.Progress / catalog.Balance.Worksites[site.Kind].Interval, new Color32(24, 38, 43, 255), new Color32(163, 198, 139, 255));
             }

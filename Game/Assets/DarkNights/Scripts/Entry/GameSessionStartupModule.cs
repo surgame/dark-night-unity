@@ -68,6 +68,8 @@ namespace DarkNights.Entry
                 p.X, p.Variant, p.Name, placementsByKey[p.PlacementKey].Loader)).ToArray();
             foreach (ScenePlacement placement in placementsByKey.Values) placement.gameObject.SetActive(false);
             var required = catalog.Balance.Buildings.Keys.Concat(catalog.Balance.Worksites.Keys).Concat(catalog.Balance.Units.Keys);
+            if (definitions.FindOptional(MineralDepositRuleConfig.Rule) != null)
+                required = required.Concat(new[] { MineralDepositRuleConfig.Rule });
             ObjectSessionResources resources = await ObjectSessionResources.Prepare(required.Select(definitions.GetRequired).ToArray(), cancellationToken);
             float debugHeroSpeed = DebugHeroSpeedMultiplier();
             network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements, stage.Entities, debugHeroSpeed);

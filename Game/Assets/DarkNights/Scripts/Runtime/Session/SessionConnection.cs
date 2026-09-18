@@ -18,6 +18,8 @@ namespace DarkNights.Runtime.Session
         internal int BaselineRevision { get; set; }
         internal long HighestSequence { get; set; }
         internal int PendingCount { get; set; }
+        internal int ExplosiveCharges { get; set; } = 3;
+        internal long LastTerrainActionTick { get; set; } = -1000;
         internal Dictionary<long, SessionCommandEntry> History { get; } = new Dictionary<long, SessionCommandEntry>();
         internal Queue<long> Completed { get; } = new Queue<long>();
 
@@ -37,6 +39,8 @@ namespace DarkNights.Runtime.Session
             BaselineRevision = 0;
             HighestSequence = 0;
             PendingCount = 0;
+            ExplosiveCharges = 3;
+            LastTerrainActionTick = -1000;
             History.Clear();
             Completed.Clear();
         }

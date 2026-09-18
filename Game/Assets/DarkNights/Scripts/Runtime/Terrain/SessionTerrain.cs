@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using AnyRules.Next;
 using DarkNights.Core.Config.Terrain;
 using GameCore.Objects.Runner;
@@ -11,11 +12,18 @@ namespace DarkNights.Runtime.Terrain
         private readonly ObjectSessionContext context;
         private readonly ServerGameplayCatalog catalog;
         private PlayableTerrain initial;
+        private bool[] softRock;
+        private TerrainRoom[] rooms;
+        private TerrainDepositBlueprint[] deposits;
         private uint generation;
         public TerrainMapAuthority Map { get; private set; }
         public string Seed { get; private set; }
+        public IReadOnlyList<TerrainDepositBlueprint> Deposits => new List<TerrainDepositBlueprint>(deposits).AsReadOnly();
         public SessionTerrain(ObjectSessionContext context, ServerGameplayCatalog catalog, PlayableTerrain initial)
-        { this.context = context; this.catalog = catalog; this.initial = initial; Seed = initial.Seed; }
+        {
+            this.context = context; this.catalog = catalog; this.initial = initial ?? throw new ArgumentNullException(nameof(initial));
+            Seed = initial.Seed; SetStatic(initial);
+        }
         public void Activate() { Map = Prepare(initial); initial = null; }
         public TerrainMapAuthority Prepare(PlayableTerrain data)
         {
@@ -23,8 +31,11 @@ namespace DarkNights.Runtime.Terrain
             return new TerrainMapAuthority(context, data.Blueprint(), catalog,
                 new WorldIdentity(StableGuid.Parse(data.WorldId), checked(++generation)));
         }
-        public void Replace(TerrainMapAuthority candidate, string seed)
-        { var previous = Map; Map = candidate; Seed = seed; previous?.Dispose(); }
+        public void Replace(TerrainMapAuthority candidate, PlayableTerrain data)
+        {
+            if (candidate == null || data == null) throw new ArgumentNullException(nameof(candidate));
+            var previous = Map; Map = candidate; Seed = data.Seed; SetStatic(data); previous?.Dispose();
+        }
         public PlayableTerrain Capture()
         {
             if (Map == null) return initial;
@@ -39,7 +50,13 @@ namespace DarkNights.Runtime.Terrain
                 int index = y * TerrainGenerationSettings.Width + x;
                 cells[index] = cell.IsEmpty ? (byte)0 : palette[cell.TileId]; flags[index] = (cell.Flags & 1) != 0;
             }
-            return new PlayableTerrain(Map.World.WorldId.ToString().Replace("-", ""), Seed, cells, flags);
+            return new PlayableTerrain(Map.World.WorldId.ToString().Replace("-", ""), Seed, cells, flags,
+                (bool[])softRock.Clone(), (TerrainRoom[])rooms.Clone(), (TerrainDepositBlueprint[])deposits.Clone());
+        }
+        private void SetStatic(PlayableTerrain data)
+        {
+            softRock = data.CopySoftRock(); rooms = new List<TerrainRoom>(data.Rooms).ToArray();
+            deposits = new List<TerrainDepositBlueprint>(data.Deposits).ToArray();
         }
         public void Dispose() { Map?.Dispose(); Map = null; initial = null; }
     }

@@ -87,6 +87,8 @@ namespace DarkNights.Entry
                     actor.Bind(pair.Key, epoch, pair.Value, rules, submit);
                 else if (catalog.Balance.Buildings.ContainsKey(pair.Value) && presentation is BuildingPresentationBehaviour building)
                     building.Bind(pair.Key, epoch, pair.Value, submit);
+                else if (pair.Value == "mineral-deposit" && presentation is MineralDepositPresentationBehaviour deposit)
+                    deposit.Bind(pair.Key, epoch, pair.Value, submit);
                 else if (catalog.Balance.Worksites.ContainsKey(pair.Value) && presentation is WorksitePresentationBehaviour site)
                     site.Bind(pair.Key, epoch, pair.Value, submit);
                 else throw new InvalidOperationException("Unsupported entity presentation: " + pair.Value);
@@ -122,7 +124,14 @@ namespace DarkNights.Entry
             foreach (BuildingViewData building in frame.World.Buildings)
                 if (Presentation(building.Id) is BuildingPresentationBehaviour view) view.Present(building, frame.Epoch, stage.Ambient);
             foreach (WorksiteViewData site in frame.World.Worksites)
-                if (Presentation(site.Id) is WorksitePresentationBehaviour view) view.Present(site, frame.Epoch, stage.Ambient);
+            {
+                if (site.IsMineralDeposit || site.Kind == "mineral-deposit")
+                {
+                    if (Presentation(site.Id) is MineralDepositPresentationBehaviour deposit)
+                        deposit.Present(site, frame.Epoch, stage.Ambient);
+                }
+                else if (Presentation(site.Id) is WorksitePresentationBehaviour view) view.Present(site, frame.Epoch, stage.Ambient);
+            }
         }
 
         internal void SamplePresentation()

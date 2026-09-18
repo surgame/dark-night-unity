@@ -19,6 +19,7 @@ namespace DarkNights.Entry.Terrain
         private PinewatchStage stage;
         private TerrainPreview view;
         private WorldIdentity world;
+        private ulong presentedCommit;
         private bool presenting;
         public static void Install(SessionNetwork network, RandomLevelTemplate template, PinewatchStage stage)
         {
@@ -35,13 +36,18 @@ namespace DarkNights.Entry.Terrain
                 if (!network.Terrain.DataReady) { Clear(); return; }
                 if (!presenting || !world.Equals(replica.World))
                 {
-                    Clear(); world = replica.World; presenting = true;
+                    Clear(); world = replica.World; presentedCommit = replica.CommitId; presenting = true;
                     var root = new GameObject("Pinewatch random terrain");
                     root.transform.SetParent(transform, false);
                     root.transform.localPosition = new Vector3(0, PlayableTerrain.OriginY / 100, 0);
                     root.transform.localScale = Vector3.one * (PlayableTerrain.CellPixels / 100f);
                     view = root.AddComponent<TerrainPreview>(); view.ViewCamera = stage.SceneCamera;
                     view.ShowReplica(template.Definition, new TerrainReplicaSource(replica), replica.World);
+                }
+                else if (replica.CommitId != presentedCommit)
+                {
+                    presentedCommit = replica.CommitId;
+                    view?.NotifyReplicaChanged();
                 }
                 if (view.LastError != null) throw view.LastError;
                 network.Terrain.PresentationReady = view.Ready;
@@ -52,6 +58,7 @@ namespace DarkNights.Entry.Terrain
         {
             if (view != null) Destroy(view.gameObject);
             view = null; presenting = false; network.Terrain.PresentationReady = false;
+            presentedCommit = 0;
         }
         private void OnDestroy() { Clear(); network.Terrain?.Dispose(); }
     }

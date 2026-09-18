@@ -67,8 +67,12 @@ namespace DarkNights.Tests
             world.Restore(save);
             Assert.That(world.Terrain.Map.World.Equals(previous), Is.False);
             CollectionAssert.AreEqual(selected.CopyMaterials(), world.Terrain.Capture().CopyMaterials());
+            CollectionAssert.AreEqual(selected.CopyProtection(), world.Terrain.Capture().CopyProtection());
+            CollectionAssert.AreEqual(selected.CopySoftRock(), world.Terrain.Capture().CopySoftRock());
+            Assert.That(world.Terrain.Capture().Deposits.Count, Is.EqualTo(selected.Deposits.Count));
+            Assert.That(world.Terrain.Capture().Rooms.Count, Is.EqualTo(selected.Rooms.Count));
             var valid = world.Terrain.Map;
-            Assert.Throws<FormatException>(() => world.Restore(save.Replace("\"format_version\":4", "\"format_version\":3")));
+            Assert.Throws<FormatException>(() => world.Restore(save.Replace("\"format_version\":5", "\"format_version\":4")));
             Assert.That(world.Terrain.Map, Is.SameAs(valid));
             var state = world.Index.Actors.First(a => !a.Enemy).CaptureState();
             TerrainHeroMotion.Tick(valid, state, catalog.Balance.HeroControl, 1.0 / 60, true, false);

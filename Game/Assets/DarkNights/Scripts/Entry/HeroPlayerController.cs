@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Network;
 using DarkNights.Runtime.Objects;
@@ -133,9 +134,10 @@ namespace DarkNights.Entry
             {
                 int selected = input.CanRead(input.Item1) && input.Item1.WasPressedThisFrame() ? 0 :
                     input.CanRead(input.Item2) && input.Item2.WasPressedThisFrame() ? 1 :
-                    input.CanRead(input.Item3) && input.Item3.WasPressedThisFrame() ? 2 : -1;
+                    input.CanRead(input.Item3) && input.Item3.WasPressedThisFrame() ? 2 :
+                    input.Item4 != null && input.CanRead(input.Item4) && input.Item4.WasPressedThisFrame() ? 3 : -1;
                 float scroll = input.PointerOverUi ? 0 : input.Scroll.ReadValue<Vector2>().y;
-                if (selected < 0 && scroll != 0) selected = (Current.SelectedItem + (scroll > 0 ? 2 : 1)) % 3;
+                if (selected < 0 && scroll != 0) selected = (Current.SelectedItem + (scroll > 0 ? 3 : 1)) % 4;
                 if (selected >= 0) SelectItem(selected).Forget();
                 if (pendingItem < 0 && input.CanRead(input.UseItem) && input.UseItem.WasPressedThisFrame()) Use().Forget();
             }
@@ -167,6 +169,7 @@ namespace DarkNights.Entry
             else if (action == "HeroItem0") await SelectItem(0);
             else if (action == "HeroItem1") await SelectItem(1);
             else if (action == "HeroItem2") await SelectItem(2);
+            else if (action == "HeroItem3") await SelectItem(3);
             return true;
         }
 
@@ -203,6 +206,13 @@ namespace DarkNights.Entry
         private async UniTask Use()
         {
             int target = Current.SelectedItem == 2 ? 0 : camp.Pick(stage.SceneCamera.ScreenToWorldPoint(input.Pointer));
+            if (Current.SelectedItem == 3 || Current.SelectedItem == 1 && target == 0)
+            {
+                if (!TryTerrainCell(stage.SceneCamera.ScreenToWorldPoint(input.Pointer), out int u, out int v)) return;
+                try { await network.SendTerrain(u, v); }
+                catch (Exception error) { notice = error.Message; }
+                return;
+            }
             if (Current.SelectedItem != 2 && target == 0) return;
             try
             {
@@ -210,6 +220,15 @@ namespace DarkNights.Entry
                     kind: HeroInventoryBehaviour.ItemKey(Current.SelectedItem), value: Current.SelectionRevision, controlLease: Current.ControlLease);
             }
             catch (Exception error) { notice = error.Message; }
+        }
+
+        private bool TryTerrainCell(Vector3 point, out int u, out int v)
+        {
+            u = Mathf.FloorToInt(point.x * 100f / PlayableTerrain.CellPixels);
+            v = Mathf.FloorToInt((point.y * 100f - PlayableTerrain.OriginY) / PlayableTerrain.CellPixels);
+            return network.Terrain != null && network.Terrain.DataReady &&
+                u >= 0 && u < TerrainGenerationSettings.Width &&
+                v >= -TerrainGenerationSettings.Height + 1 && v <= 0;
         }
 
         private async UniTask Send(int direction, bool jump, bool use, bool pressed = false, bool drop = false)

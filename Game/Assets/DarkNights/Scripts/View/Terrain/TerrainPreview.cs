@@ -13,13 +13,19 @@ namespace DarkNights.View.Terrain
         public Camera ViewCamera;
         private ARDMapController controller;
         private CancellationTokenSource lifetime;
+        private TerrainReplicaSource replicaSource;
         private GridBounds visible;
         private bool localCoordinates;
+        private bool refreshingReplica;
+        private bool refreshRequested;
         public long BuiltPages => controller?.Renderer.CommittedBuilds ?? 0;
         public Exception LastError { get; private set; }
         public bool Ready => controller != null && controller.Renderer.CommittedBuilds > 0 && controller.Renderer.QueueCount == 0 && controller.Renderer.InFlightCount == 0;
+        public void NotifyReplicaChanged() => replicaSource?.NotifyChanged();
         public async void ShowReplica(AnyRules.Next.Authoring.ARDMapDefinition definition, IMapChunkSource source, WorldIdentity world)
         {
+            replicaSource = source as TerrainReplicaSource;
+            if (replicaSource != null) replicaSource.Changed += OnReplicaChanged;
             localCoordinates = true;
             var own = lifetime = new CancellationTokenSource();
             try
@@ -68,7 +74,7 @@ namespace DarkNights.View.Terrain
 
         private void Update()
         {
-            if (controller == null || LastError != null) return;
+            if (controller == null || LastError != null || refreshingReplica) return;
             UpdateVisible();
             var renderer = controller.Renderer;
             if (renderer.QueueCount != 0 || renderer.InFlightCount != 0 || renderer.CommittedBuilds == 0) controller.Tick();
@@ -111,9 +117,35 @@ namespace DarkNights.View.Terrain
             if (width > 0 && height > 0) controller.HideRegion(new GridBounds(u, v, width, height));
         }
 
+        private async void OnReplicaChanged()
+        {
+            if (controller == null || !visible.IsValid || lifetime == null) return;
+            if (refreshingReplica) { refreshRequested = true; return; }
+            refreshingReplica = true;
+            var own = lifetime;
+            try
+            {
+                GridBounds region = visible;
+                controller.HideRegion(region);
+                await controller.UnloadRegionAsync(region, MapUnloadPolicy.DiscardUnsaved, own.Token);
+                await controller.LoadRegionAsync(region, own.Token);
+                if (!own.IsCancellationRequested) controller.ShowRegion(region);
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception error) { LastError = error; Debug.LogException(error, this); }
+            finally
+            {
+                bool again = refreshRequested;
+                refreshRequested = false;
+                refreshingReplica = false;
+                if (again && lifetime == own && !own.IsCancellationRequested) OnReplicaChanged();
+            }
+        }
+
         private async void OnDisable()
         {
-            lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null;
+            if (replicaSource != null) { replicaSource.Changed -= OnReplicaChanged; replicaSource = null; }
+            lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null; refreshingReplica = false; refreshRequested = false;
             var old = controller; controller = null; visible = default;
             if (old != null) await old.DisposeAsync();
         }

@@ -53,6 +53,15 @@ namespace DarkNights.Editor
             else throw new InvalidOperationException("Explicit entity family is required.");
         }
 
+        public static void ConfigureMineralDeposit(ObjectDefinition definition)
+        {
+            if (definition.Type != ObjectType.Scenery_ResourceNode)
+                throw new InvalidOperationException("Mineral deposits must be scenery definitions.");
+            definition.SharedConfigs.Add(new MineralDepositRuleConfig { RuleKey = MineralDepositRuleConfig.Rule });
+            Add<MineralDepositBehaviour>(definition);
+            definition.Archetype = Archetype("MineralDeposit", typeof(IMineralDepositCapability));
+        }
+
         public static void ConfigureSession(ObjectDefinition definition)
         {
             Add<CampSimulationBehaviour>(definition);

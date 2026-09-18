@@ -54,7 +54,7 @@ namespace DarkNights.Runtime.Network
                 Require(a.Face == -1 || a.Face == 0 || a.Face == 1);
                 Require(Finite(a.Height) && a.Height >= (layout.RandomTerrain ? Core.Config.Terrain.PlayableTerrain.MinimumHeight : 0) && a.Height <= (catalog.Balance.HeroControl?.MaximumHeight ?? 0) &&
                     Finite(a.VerticalSpeed) && Math.Abs(a.VerticalSpeed) <= 1000 && a.SupportPlatform >= -1 &&
-                    a.SelectedItem >= 0 && a.SelectedItem <= 2 && a.SelectionRevision >= 0 && a.ControlLease >= 0 &&
+                    a.SelectedItem >= 0 && a.SelectedItem <= 3 && a.SelectionRevision >= 0 && a.ControlLease >= 0 &&
                     a.ControllerSlot >= -1 && a.ControllerSlot <= 3 && (a.ControllerSlot < 0 || (a.ManualControl && !a.Enemy)) &&
                     Finite(a.JetpackFuel) && a.JetpackFuel >= 0 && a.JetpackFuel <= (catalog.Balance.HeroControl?.FuelSeconds ?? 0));
                 Require(a.SupportPlatform <= 0 || layout.Platforms.Any(p => p.Id == a.SupportPlatform));
@@ -77,6 +77,18 @@ namespace DarkNights.Runtime.Network
             }
             foreach (var w in world.Worksites)
             {
+                if (w != null && (w.IsMineralDeposit || w.Kind == "mineral-deposit"))
+                {
+                    Require(w.IsMineralDeposit && w.Kind == "mineral-deposit" && Text(w.RoomKind, 32) && Text(w.Rarity, 16) &&
+                        w.Capacity > 0 && w.Capacity <= 1000000 && w.Amount >= 0 && w.Amount <= w.Capacity &&
+                        Finite(w.Y) && w.Y >= 0 && w.Y < Core.Config.Terrain.TerrainGenerationSettings.Height &&
+                        w.WorkerId == 0 && w.FarmId == 0 && w.DrillId >= 0 &&
+                        Finite(w.Progress) && w.Progress >= 0 && w.Progress < 1 &&
+                        Enum.TryParse<DarkNights.Core.Config.MineralDepositStage>(w.Stage, out var stage) &&
+                        Enum.IsDefined(typeof(DarkNights.Core.Config.MineralDepositStage), stage));
+                    Position(w.X, layout);
+                    continue;
+                }
                 Require(w != null && Text(w.Kind, 64) && catalog.Balance.Worksites.ContainsKey(w.Kind) && w.Amount >= -1 && w.Variant >= 0);
                 Position(w.X, layout);
                 Nonnegative(w.Progress);

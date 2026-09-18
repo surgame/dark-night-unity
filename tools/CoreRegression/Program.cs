@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using DarkNights.Core.Config.Terrain;
+using DarkNights.Core.Logic.Terrain;
 using DarkNights.Tests;
 using Newtonsoft.Json.Linq;
 
@@ -27,6 +29,7 @@ namespace DarkNights.Tools.CoreRegression
                 var layout = RuleScenario.Layout();
                 PureRuleScenarios.Run(check, catalog, layout);
                 RandomCompatibilityScenarios.Run(check);
+                RunMapPlanChecks(check);
             }
             catch (Exception error) { check(false, error.ToString()); }
             string output = Path.Combine(RuleScenario.RepositoryRoot, "artifacts/migration/core-regression.json");
@@ -38,6 +41,32 @@ namespace DarkNights.Tools.CoreRegression
             }.ToString());
             Console.WriteLine("Core regression: " + checks.Count + " checks, " + failures + " failures; " + output);
             return failures == 0 ? 0 : 1;
+        }
+
+        /// <summary>执行地图方案中不依赖 Unity 或网络的生成与破坏策略断言。</summary>
+        private static void RunMapPlanChecks(Action<bool, string> check)
+        {
+            var settings = new TerrainGenerationSettings
+            {
+                Seed = "MAP-PLAN-CORE",
+                Surface = "rolling",
+                OrganicCaves = true
+            };
+            var first = TerrainGenerator.Generate(settings);
+            var second = TerrainGenerator.Generate(settings);
+            check(first.CopyMaterials().AsSpan().SequenceEqual(second.CopyMaterials().AsSpan()),
+                "Map plan generation remains deterministic for the same seed");
+            check(first.Rooms.Count == 8 && first.Deposits.Count == 11 && first.SoftRockCount > 0,
+                "Map plan keeps eight rooms and gameplay resource markers");
+            check(TerrainDestructionPolicy.Offsets(TerrainEditAction.HandMine).Count == 1 &&
+                TerrainDestructionPolicy.Offsets(TerrainEditAction.Explosive).Count == 13,
+                "Hand mining and explosive target sets stay bounded");
+            check(TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 1, false, true) &&
+                !TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 1, false, false),
+                "Hand mining is limited to soft rock");
+            check(!TerrainDestructionPolicy.CanDestroy(TerrainEditAction.Explosive, 8, false, true) &&
+                !TerrainDestructionPolicy.CanDestroy(TerrainEditAction.Explosive, 1, true, true),
+                "Explosives cannot clear bedrock or protected cells");
         }
     }
 }

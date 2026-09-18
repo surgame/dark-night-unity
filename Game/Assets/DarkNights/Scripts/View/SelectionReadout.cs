@@ -42,6 +42,9 @@ namespace DarkNights.View
             WorksiteViewData worksite = world.Worksites.FirstOrDefault(w => w.Id == id);
             if (worksite != null)
             {
+                if (worksite.IsMineralDeposit || worksite.Kind == "mineral-deposit")
+                    return ($"矿床 · {worksite.Rarity}", worksite.Stage == "Depleted" ? "已枯竭" : "可采掘",
+                        $"剩余 {worksite.Amount}/{worksite.Capacity}\n房间 {worksite.RoomKind}", -1);
                 WorksiteDefinition definition = catalog.Balance.Worksites[worksite.Kind];
                 return (definition.Name, worksite.WorkerId == 0 ? "空闲工作点" : "一名工人已占用",
                     $"剩余 {worksite.Amount}\n每{GameText.Number(definition.Interval)}秒产出{definition.Yield}{GameText.ResourceName(worksite.Kind)}", -1);
@@ -61,7 +64,12 @@ namespace DarkNights.View
         public static string Hint(WorldViewData world, int id, GameCatalog catalog)
         {
             var site = world.Worksites.FirstOrDefault(w => w.Id == id);
-            if (site != null) return $"{catalog.Balance.Worksites[site.Kind].Name} · 剩余{site.Amount} · {(site.WorkerId == 0 ? "右键安排工人" : "工作点已有工人")}";
+            if (site != null)
+            {
+                if (site.IsMineralDeposit || site.Kind == "mineral-deposit")
+                    return $"矿床 · {site.Rarity} · 剩余{site.Amount}/{site.Capacity}";
+                return $"{catalog.Balance.Worksites[site.Kind].Name} · 剩余{site.Amount} · {(site.WorkerId == 0 ? "右键安排工人" : "工作点已有工人")}";
+            }
             var building = world.Buildings.FirstOrDefault(b => b.Id == id);
             if (building != null) return $"{catalog.Balance.Buildings[building.Kind].Name} · 生命{Math.Ceiling(building.Hp)}/{catalog.Balance.Buildings[building.Kind].Hp} · {GameText.Building(catalog, building.Kind)}";
             var actor = world.Actors.FirstOrDefault(a => a.Id == id);

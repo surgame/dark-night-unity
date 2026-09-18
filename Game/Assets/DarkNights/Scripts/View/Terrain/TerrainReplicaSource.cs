@@ -10,7 +10,11 @@ namespace DarkNights.View.Terrain
     public sealed class TerrainReplicaSource : IMapChunkSource
     {
         private readonly IReadOnlyGrid source;
-        public TerrainReplicaSource(IReadOnlyGrid source) { this.source = source; }
+        public event Action Changed;
+        public TerrainReplicaSource(IReadOnlyGrid source)
+        {
+            this.source = source ?? throw new ArgumentNullException(nameof(source));
+        }
         public Task<MapChunkData> LoadAsync(WorldDescriptor descriptor, ChunkCoord coordinate, CancellationToken cancellation)
         {
             cancellation.ThrowIfCancellationRequested();
@@ -24,5 +28,7 @@ namespace DarkNights.View.Terrain
             }
             return Task.FromResult(new MapChunkData(coordinate, cells, readOnly: true));
         }
+
+        public void NotifyChanged() => Changed?.Invoke();
     }
 }

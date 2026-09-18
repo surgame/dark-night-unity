@@ -29,7 +29,7 @@ namespace DarkNights.Editor
                 Set(player.FindAction("Attack", true), "<Mouse>/leftButton");
                 Set(player.FindAction("Crouch", true), "<Keyboard>/s");
                 Set(player.FindAction("Interact", true), "<Keyboard>/w");
-                for (int i = 1; i <= 3; i++) player.AddAction("Item" + i, InputActionType.Button, "<Keyboard>/" + i);
+                for (int i = 1; i <= 4; i++) player.AddAction("Item" + i, InputActionType.Button, "<Keyboard>/" + i);
                 player.AddAction("ToggleMode", InputActionType.Button, "<Keyboard>/tab");
                 var camp = asset.AddActionMap("Camp");
                 camp.AddAction("Move", InputActionType.Value, expectedControlLayout: "Axis")

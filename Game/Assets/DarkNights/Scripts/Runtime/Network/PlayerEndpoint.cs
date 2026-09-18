@@ -1,4 +1,5 @@
 using DarkNights.Core.ViewData;
+using DarkNights.Runtime.Terrain;
 using FishNet.Connection;
 using FishNet.Object;
 using GameCore.NetworkCommands;
@@ -46,6 +47,15 @@ namespace DarkNights.Runtime.Network
         {
             AppStartup.Instance?.Context.Resolve<SessionNetwork>()?.Client.Receive(this,
                 new CommandFeedback(sequence, epoch, revision, code, affected, entityId, ready, slot, generation));
+        }
+
+        [TargetRpc]
+        public void TerrainReply(NetworkConnection connection, string requestId, int action, ulong commitId,
+            bool accepted, string reason)
+        {
+            AppStartup.Instance?.Context.Resolve<SessionNetwork>()?.Client.ReceiveTerrain(this,
+                new TerrainActionResult(requestId, (DarkNights.Core.Config.Terrain.TerrainEditAction)action,
+                    commitId, accepted, reason));
         }
     }
 }

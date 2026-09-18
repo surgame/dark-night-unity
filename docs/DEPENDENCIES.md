@@ -1,5 +1,7 @@
 # Unity 与 YYGC 依赖准备
 
+本开发分支的 M0 复现入口固定到 YYGC `12b253c6bdd262feb860ab905b9e56e940ec9c40`。`tools/prepare-lan-sample.ps1` 优先使用本机 `D:\Developer\YYGC`，该路径不存在时回退到远端 `git@github.com:surgame/YYGC.git`；也可显式传入 `-FrameworkPath` 或 `-Repository`。脚本不会覆盖已有 `.deps/YYGC-unified`，发现未知差异会停止并要求保留检查。
+
 2026-09-17 当前 YYGC 锁定更新为 **`12b253c6bdd262feb860ab905b9e56e940ec9c40`**：修复 Unity 将同文件结果结构体识别成命令脚本主类型、导致 Bootstrap 漏注册地形命令的问题。原输入功能与宿主补丁保持，包路径不变；修复在隔离分支验证，用户 master 未切换。见[改动账本](YYGC_CHANGES.md)。下段 `0c7cec0` 为上一批输入身份。
 
 2026-09-16 当前 YYGC 锁定 **`0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143`**，由 `tools/prepare-lan-sample.ps1` 准备并精确验证。输入补丁及 Sample 在独立 `codex/input-actions` 分支提交，用户框架 master 的 AnyRule 插件工作区不变。原有七份 tracked 补丁和两个友元文件按字节保留，manifest／packages-lock 的 `.deps/YYGC-unified` 路径不变；并未把插件实验顺带引入游戏。详见[逐文件账本](YYGC_CHANGES.md#hero-input)。下文日期较早的版本为历史记录。

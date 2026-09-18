@@ -14,9 +14,11 @@ namespace DarkNights.Runtime.Objects
         private readonly List<ActorBehaviour> actors = new List<ActorBehaviour>();
         private readonly List<BuildingBehaviour> buildings = new List<BuildingBehaviour>();
         private readonly List<WorksiteBehaviour> worksites = new List<WorksiteBehaviour>();
+        private readonly List<MineralDepositBehaviour> mineralDeposits = new List<MineralDepositBehaviour>();
         public IReadOnlyList<ActorBehaviour> Actors { get; }
         public IReadOnlyList<BuildingBehaviour> Buildings { get; }
         public IReadOnlyList<WorksiteBehaviour> Worksites { get; }
+        public IReadOnlyList<MineralDepositBehaviour> MineralDeposits { get; }
         public int Count => entities.Count;
         public int EnemyCount => actors.Count(a => a.Enemy && a.Hp > 0);
 
@@ -25,11 +27,13 @@ namespace DarkNights.Runtime.Objects
             Actors = actors.AsReadOnly();
             Buildings = buildings.AsReadOnly();
             Worksites = worksites.AsReadOnly();
+            MineralDeposits = mineralDeposits.AsReadOnly();
         }
 
         public IEntityBehaviour Find(int id) => entities.TryGetValue(id, out var entity) ? entity : null;
         public T Find<T>(int id) where T : class, IEntityBehaviour => Find(id) as T;
-        public IEntityBehaviour[] FreezeOrder() => buildings.Cast<IEntityBehaviour>().Concat(actors).Concat(worksites).ToArray();
+        public IEntityBehaviour[] FreezeOrder() => buildings.Cast<IEntityBehaviour>().Concat(actors).Concat(worksites)
+            .Concat(mineralDeposits).ToArray();
 
         internal void Add(IEntityBehaviour entity)
         {
@@ -41,6 +45,7 @@ namespace DarkNights.Runtime.Objects
             if (entity is ActorBehaviour actor) actors.Add(actor);
             else if (entity is BuildingBehaviour building) buildings.Add(building);
             else if (entity is WorksiteBehaviour site) worksites.Add(site);
+            else if (entity is MineralDepositBehaviour deposit) mineralDeposits.Add(deposit);
             else throw new InvalidOperationException("Unknown YYGC entity family.");
         }
 
@@ -51,20 +56,23 @@ namespace DarkNights.Runtime.Objects
             if (entity is ActorBehaviour actor) actors.Remove(actor);
             else if (entity is BuildingBehaviour building) buildings.Remove(building);
             else if (entity is WorksiteBehaviour site) worksites.Remove(site);
+            else if (entity is MineralDepositBehaviour deposit) mineralDeposits.Remove(deposit);
         }
 
         internal void Remove(IEntityBehaviour entity, ObjectMutationBatch mutations)
         {
             if (!ReferenceEquals(Find(entity.Id), entity)) return;
             int position = entity is ActorBehaviour actor ? actors.IndexOf(actor) :
-                entity is BuildingBehaviour building ? buildings.IndexOf(building) : worksites.IndexOf((WorksiteBehaviour)entity);
+                entity is BuildingBehaviour building ? buildings.IndexOf(building) :
+                entity is WorksiteBehaviour site ? worksites.IndexOf(site) : mineralDeposits.IndexOf((MineralDepositBehaviour)entity);
             int id = entity.Id;
             mutations.OnRollback(() =>
             {
                 entities.Add(id, entity);
                 if (entity is ActorBehaviour a) actors.Insert(position, a);
                 else if (entity is BuildingBehaviour b) buildings.Insert(position, b);
-                else worksites.Insert(position, (WorksiteBehaviour)entity);
+                else if (entity is WorksiteBehaviour s) worksites.Insert(position, s);
+                else mineralDeposits.Insert(position, (MineralDepositBehaviour)entity);
             });
             Remove(entity);
         }
@@ -75,6 +83,7 @@ namespace DarkNights.Runtime.Objects
             actors.Clear();
             buildings.Clear();
             worksites.Clear();
+            mineralDeposits.Clear();
         }
 
         internal void Replace(int id, IEntityBehaviour replacement)
@@ -84,6 +93,7 @@ namespace DarkNights.Runtime.Objects
             if (previous is ActorBehaviour actor) actors[actors.IndexOf(actor)] = (ActorBehaviour)replacement;
             else if (previous is BuildingBehaviour building) buildings[buildings.IndexOf(building)] = (BuildingBehaviour)replacement;
             else if (previous is WorksiteBehaviour site) worksites[worksites.IndexOf(site)] = (WorksiteBehaviour)replacement;
+            else if (previous is MineralDepositBehaviour deposit) mineralDeposits[mineralDeposits.IndexOf(deposit)] = (MineralDepositBehaviour)replacement;
         }
     }
 }

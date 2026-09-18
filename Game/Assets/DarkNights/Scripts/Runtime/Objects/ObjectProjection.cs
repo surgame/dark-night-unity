@@ -32,7 +32,11 @@ namespace DarkNights.Runtime.Objects
             {
                 WorksiteState w = site.Read();
                 return new WorksiteViewData(w.Id, site.RuleKey, w.X, w.WorkerId, w.Amount, w.Progress, w.Variant, w.FarmId);
-            }).ToArray();
+            }).Concat(session.Index.MineralDeposits.Select(deposit =>
+            {
+                return new WorksiteViewData(deposit.Id, "mineral-deposit", deposit.X, deposit.Y, 0, deposit.Remaining, deposit.DrillProgress, 0, 0,
+                    true, deposit.RoomKind, deposit.Rarity, deposit.Capacity, deposit.Stage.ToString(), deposit.DrillId);
+            })).ToArray();
             WaveState wave = session.Waves.Read();
             var summary = new CampViewData(session.Economy.Stock, session.Economy.Population, session.Economy.Capacity,
                 economy.RecruitCooldown, wave.Index, wave.Phase.ToString(), wave.DayRemaining,

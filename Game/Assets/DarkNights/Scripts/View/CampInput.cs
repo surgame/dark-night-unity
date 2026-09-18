@@ -54,7 +54,8 @@ namespace DarkNights.View
             frame = value;
             ready = canSend;
             if (frame == null) { ResetLocal(); return; }
-            selected.RemoveAll(id => !frame.World.Actors.Any(a => a.Id == id) && !frame.World.Buildings.Any(b => b.Id == id) && !frame.World.Worksites.Any(w => w.Id == id));
+            selected.RemoveAll(id => !frame.World.Actors.Any(a => a.Id == id) && !frame.World.Buildings.Any(b => b.Id == id) &&
+                !frame.World.Worksites.Any(w => w.Id == id));
         }
 
         public void BeginBuild(string kind)
@@ -176,7 +177,8 @@ namespace DarkNights.View
         {
             foreach (ActorViewData actor in frame.World.Actors.Reverse()) if (visuals.Visual(actor.Id)?.Contains(point) == true) return actor.Id;
             foreach (BuildingViewData building in frame.World.Buildings.Reverse()) if (visuals.Visual(building.Id)?.Contains(point) == true) return building.Id;
-            foreach (WorksiteViewData site in frame.World.Worksites.Reverse()) if (site.Amount != 0 && site.FarmId == 0 && visuals.Visual(site.Id)?.Contains(point) == true) return site.Id;
+            foreach (WorksiteViewData site in frame.World.Worksites.Reverse())
+                if (site.Amount != 0 && site.FarmId == 0 && visuals.Visual(site.Id)?.Contains(point) == true) return site.Id;
             return 0;
         }
 

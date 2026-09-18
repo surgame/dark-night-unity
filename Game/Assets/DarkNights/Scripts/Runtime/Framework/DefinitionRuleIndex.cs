@@ -40,14 +40,21 @@ namespace DarkNights.Runtime.Framework
             return definition;
         }
 
+        public ObjectDefinition FindOptional(string kind) => kind != null && definitions.TryGetValue(kind, out ObjectDefinition definition)
+            ? definition : null;
+
         public void Validate(GameCatalog catalog)
         {
             if (catalog == null) throw new ArgumentNullException(nameof(catalog));
             foreach (string kind in catalog.Balance.Units.Keys) Require(kind, ObjectType.Unit);
             foreach (string kind in catalog.Balance.Buildings.Keys) Require(kind, ObjectType.Placeable_CompositeStructure);
             foreach (string kind in catalog.Balance.Worksites.Keys) Require(kind, ObjectType.Scenery_ResourceNode);
-            if (Count != catalog.Balance.Units.Count + catalog.Balance.Buildings.Count + catalog.Balance.Worksites.Count)
+            int expected = catalog.Balance.Units.Count + catalog.Balance.Buildings.Count + catalog.Balance.Worksites.Count;
+            bool hasDeposits = definitions.ContainsKey(MineralDepositRuleConfig.Rule);
+            if (Count != expected + (hasDeposits ? 1 : 0))
                 throw new InvalidOperationException("Definition directory contains unknown rule content.");
+            if (hasDeposits && GetRequired(MineralDepositRuleConfig.Rule).Type != ObjectType.Scenery_ResourceNode)
+                throw new InvalidOperationException("Mineral deposit definition must be scenery.");
         }
 
         public static string RuleKey(ObjectDefinition definition)
@@ -57,7 +64,7 @@ namespace DarkNights.Runtime.Framework
             string ruleKey = ObjectSessionResources.Rule(definition);
             bool family = definition.Type == ObjectType.Unit && definition.SharedConfigs.Exists(c => c is ActorRuleConfig) ||
                 definition.Type == ObjectType.Placeable_CompositeStructure && definition.SharedConfigs.Exists(c => c is BuildingRuleConfig) ||
-                definition.Type == ObjectType.Scenery_ResourceNode && definition.SharedConfigs.Exists(c => c is WorksiteRuleConfig);
+                definition.Type == ObjectType.Scenery_ResourceNode && definition.SharedConfigs.Exists(c => c is WorksiteRuleConfig || c is MineralDepositRuleConfig);
             if (!family || string.IsNullOrWhiteSpace(ruleKey)) throw new InvalidOperationException("RuleKey family does not match definition.");
             return ruleKey;
         }

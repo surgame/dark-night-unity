@@ -9,7 +9,7 @@ using static DarkNights.Runtime.Save.SnapshotEntityJson;
 namespace DarkNights.Runtime.Save
 {
     /// <summary>
-    /// 显式映射存档根与经济波次字段，不依赖反射或类型名；构造冻结的 v4 数据，不包含旧档或本地展示字段。
+    /// 显式映射存档根与经济波次字段，不依赖反射或类型名；构造冻结的 v5 数据，不包含旧档或本地展示字段。
     /// </summary>
     internal static class SnapshotDocumentJson
     {

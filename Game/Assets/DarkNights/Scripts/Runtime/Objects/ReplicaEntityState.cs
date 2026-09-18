@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DarkNights.Core.Config;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.ViewData;
 using GameCore.Objects.NetworkStates;
@@ -63,6 +64,22 @@ namespace DarkNights.Runtime.Objects
             foreach (WorksiteViewData value in world.Worksites)
             {
                 EntityIdentityData identity = identities[value.Id];
+                if (value.IsMineralDeposit || value.Kind == "mineral-deposit")
+                {
+                    if (!Enum.TryParse(value.Stage, out MineralDepositStage stage) ||
+                        !Enum.IsDefined(typeof(MineralDepositStage), stage))
+                        throw new InvalidOperationException("Invalid projected mineral deposit stage.");
+                    var depositState = new MineralDepositState
+                    {
+                        Id = value.Id, PlacementKey = identity.PlacementKey, X = value.X, Y = (int)value.Y,
+                        RoomKind = value.RoomKind, Rarity = value.Rarity, Capacity = value.Capacity,
+                        Remaining = value.Amount, Stage = stage, DrillId = value.DrillId, DrillProgress = value.Progress
+                    };
+                    result.Add(new ReplicaEntityState(identity, value.Kind,
+                        (instance, context) => instance.GetBehaviour<MineralDepositBehaviour>()
+                            .PrepareSessionState(context, depositState)));
+                    continue;
+                }
                 var state = new WorksiteState
                 {
                     Id = value.Id, PlacementKey = identity.PlacementKey, X = value.X, WorkerId = value.WorkerId,
@@ -79,11 +96,13 @@ namespace DarkNights.Runtime.Objects
             ActorState actor = instance.GetBehaviour<ActorBehaviour>()?.CaptureState();
             BuildingState building = instance.GetBehaviour<BuildingBehaviour>()?.CaptureState();
             WorksiteState site = instance.GetBehaviour<WorksiteBehaviour>()?.CaptureState();
+            MineralDepositState deposit = instance.GetBehaviour<MineralDepositBehaviour>()?.CaptureState();
             return (owner, context) =>
             {
                 if (actor != null) owner.GetBehaviour<ActorBehaviour>().ApplySessionState(context, actor);
                 if (building != null) owner.GetBehaviour<BuildingBehaviour>().ApplySessionState(context, building);
                 if (site != null) owner.GetBehaviour<WorksiteBehaviour>().ApplySessionState(context, site);
+                if (deposit != null) owner.GetBehaviour<MineralDepositBehaviour>().ApplySessionState(context, deposit);
             };
         }
     }

@@ -35,6 +35,7 @@ namespace DarkNights.View
         public InputAction Item1 { get; private set; }
         public InputAction Item2 { get; private set; }
         public InputAction Item3 { get; private set; }
+        public InputAction Item4 { get; private set; }
         public InputAction HeroToggle { get; private set; }
         public InputAction CampToggle { get; private set; }
         public InputAction Menu { get; private set; }
@@ -62,6 +63,7 @@ namespace DarkNights.View
             Move = hero.FindAction("Move", true); Jump = hero.FindAction("Jump", true);
             Drop = hero.FindAction("Crouch", true); UseItem = hero.FindAction("Attack", true);
             Item1 = hero.FindAction("Item1", true); Item2 = hero.FindAction("Item2", true); Item3 = hero.FindAction("Item3", true);
+            Item4 = hero.FindAction("Item4", false);
             HeroToggle = hero.FindAction("ToggleMode", true); CampToggle = camp.FindAction("ToggleMode", true);
             routing = new YYInputActionService(sessions);
             foreach (var action in camp.actions) routing.Register(action, YYInteractionBlockFlags.GameplayActions);

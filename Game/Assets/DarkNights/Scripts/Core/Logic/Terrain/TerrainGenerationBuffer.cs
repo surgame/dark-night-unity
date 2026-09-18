@@ -11,8 +11,10 @@ namespace DarkNights.Core.Logic.Terrain
         internal const int H = TerrainGenerationSettings.Height;
         internal readonly byte[] Cells = new byte[W * H];
         internal readonly bool[] Protected = new bool[W * H];
+        internal readonly bool[] SoftRock = new bool[W * H];
         internal readonly int[] Surface = new int[W];
         internal readonly List<TerrainRoom> Rooms = new List<TerrainRoom>();
+        internal readonly List<TerrainDepositBlueprint> Deposits = new List<TerrainDepositBlueprint>();
         internal readonly int[] PadX = { 62, 179, 272 };
         internal readonly int[] PadY = new int[3];
         internal readonly int[] PadRadius = { 26, 22, 22 };
@@ -20,6 +22,12 @@ namespace DarkNights.Core.Logic.Terrain
         internal void Set(int x, int y, byte t)
         {
             if (x >= 1 && x < W - 1 && y >= 2 && y < H - 3) Cells[y * W + x] = t;
+        }
+        internal void MarkSoftRock(int x, int y)
+        {
+            if (x < 1 || x >= W - 1 || y < 2 || y >= H - 3) return;
+            int index = y * W + x;
+            if (Cells[index] != 0 && Cells[index] != 8 && !Protected[index]) SoftRock[index] = true;
         }
         internal void Disk(double cx, double cy, double rx, double ry)
         {

@@ -16,7 +16,8 @@ namespace DarkNights.Core.Logic.Terrain
                 int x = centers[id, 0] + (int)(random.Next() * 7) - 3;
                 int y = centers[id, 1] + (int)(random.Next() * 5) - 2;
                 string[] template = TerrainRoomTemplates.Get(id);
-                var room = new TerrainRoom(kinds[id], x, y, template[0].Length * 2, template.Length * 2);
+                var room = new TerrainRoom(kinds[id], x, y, template[0].Length * 2, template.Length * 2,
+                    Features(kinds[id]), DepositBudget(kinds[id]), SoftRockRadius(kinds[id]));
                 b.Rooms.Add(room);
                 if (room.Kind == "boss")
                 {
@@ -52,6 +53,58 @@ namespace DarkNights.Core.Logic.Terrain
             var secret = b.Rooms[6];
             for (int y = secret.Top - 2; y <= secret.Top + 2; y++)
                 for (int x = secret.X - 4; x <= secret.X + 4; x++) if (b.At(x, y) == 0) b.Set(x, y, 2);
+            PlaceGameplayMarkers(b, settings.Seed);
+        }
+
+        private static TerrainRoomFeature Features(string kind)
+        {
+            switch (kind)
+            {
+                case "entry": return TerrainRoomFeature.Entry;
+                case "mine": return TerrainRoomFeature.MineralDeposit | TerrainRoomFeature.SoftRock;
+                case "boss": return TerrainRoomFeature.MineralDeposit | TerrainRoomFeature.Boss;
+                case "secret": return TerrainRoomFeature.MineralDeposit | TerrainRoomFeature.Secret | TerrainRoomFeature.SoftRock;
+                case "relic": return TerrainRoomFeature.Relic;
+                default: return TerrainRoomFeature.None;
+            }
+        }
+
+        private static int DepositBudget(string kind)
+        {
+            switch (kind) { case "mine": return 6; case "boss": return 3; case "secret": return 2; default: return 0; }
+        }
+
+        private static int SoftRockRadius(string kind) => kind == "mine" ? 4 : kind == "secret" ? 3 : 0;
+
+        private static void PlaceGameplayMarkers(TerrainGenerationBuffer b, string seed)
+        {
+            var random = new TerrainRandom(seed + ":room-resources");
+            foreach (TerrainRoom room in b.Rooms)
+            {
+                if ((room.Features & TerrainRoomFeature.SoftRock) != 0) MarkSoftRockBand(b, room, seed);
+                if ((room.Features & TerrainRoomFeature.MineralDeposit) == 0) continue;
+                for (int i = 0; i < room.DepositBudget; i++)
+                {
+                    int x = room.Left + 5 + (int)(random.Next() * Math.Max(1, room.Width - 10));
+                    int y = room.Top + 4 + (int)(random.Next() * Math.Max(1, room.Height - 8));
+                    string rarity = room.Kind == "boss" ? "rare" : i % 3 == 0 ? "uncommon" : "common";
+                    int capacity = room.Kind == "boss" ? 180 : room.Kind == "secret" ? 120 : 100;
+                    b.Deposits.Add(new TerrainDepositBlueprint(room.Kind + "-deposit-" + i, room.Kind,
+                        Math.Clamp(x, 0, TerrainGenerationBuffer.W - 1), Math.Clamp(y, 0, TerrainGenerationBuffer.H - 1), rarity, capacity));
+                }
+            }
+        }
+
+        private static void MarkSoftRockBand(TerrainGenerationBuffer b, TerrainRoom room, string seed)
+        {
+            uint hash = TerrainRandom.Hash(seed + ":soft-rock:" + room.Kind);
+            int radius = room.SoftRockRadius;
+            for (int y = room.Top - radius; y < room.Top + room.Height + radius; y++)
+                for (int x = room.Left - radius; x < room.Left + room.Width + radius; x++)
+                {
+                    bool inside = x >= room.Left && x < room.Left + room.Width && y >= room.Top && y < room.Top + room.Height;
+                    if (!inside && TerrainRandom.Noise(hash, x, y) > .45) b.MarkSoftRock(x, y);
+                }
         }
 
         private static void CarveOrganic(TerrainGenerationBuffer b, string seed)

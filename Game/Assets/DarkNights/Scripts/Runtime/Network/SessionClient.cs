@@ -1,9 +1,11 @@
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using AnyRules.Next.FishNet;
 using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Diagnostics;
 using DarkNights.Runtime.Session;
+using DarkNights.Runtime.Terrain;
 using GameCore.NetworkCommands;
 using R3;
 
@@ -33,6 +35,7 @@ namespace DarkNights.Runtime.Network
         public int PlayerSlot { get; private set; } = -1;
         public string Status { get; private set; } = "未连接";
         public event Action<CommandFeedback> Feedback;
+        public event Action<TerrainActionResult> TerrainFeedback;
         public event Action<SessionViewData> Updated;
         public event Action<Exception> Failed;
         public Action<SessionViewData> PrepareProjection { get; set; }
@@ -162,6 +165,16 @@ namespace DarkNights.Runtime.Network
             });
         }
 
+        public ValueTask SendTerrain(int u, int v, ulong expectedRevision, string requestId = null)
+        {
+            if (!Ready || endpoint == null) throw new InvalidOperationException("会话尚未就绪。");
+            string request = string.IsNullOrWhiteSpace(requestId) ? "terrain-" + (++sequence) : requestId;
+            return NetworkCommandGateway.Instance.ProcessLocalCommandAsync(new TerrainEditCommand
+            {
+                SenderObjectId = endpoint.ObjectId, RequestId = request, ExpectedRevision = expectedRevision, U = u, V = v
+            });
+        }
+
         public ValueTask SendFrozen(SessionRequest request)
         {
             if (!Ready || endpoint == null || request == null) throw new InvalidOperationException("会话尚未就绪或请求为空。");
@@ -199,6 +212,12 @@ namespace DarkNights.Runtime.Network
                 if (Ready) { HadReady = true; PlayerSlot = feedback.PlayerSlot; Status = "已就绪"; }
             }
             Feedback?.Invoke(feedback);
+        }
+
+        internal void ReceiveTerrain(PlayerEndpoint source, TerrainActionResult result)
+        {
+            if (source != endpoint || result.RequestId == null) return;
+            TerrainFeedback?.Invoke(result);
         }
 
         public void Dispose()

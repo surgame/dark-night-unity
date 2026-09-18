@@ -115,6 +115,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Item4",
+                    "type": "Button",
+                    "id": "6e2eec4e-1db5-4e0b-8d80-1b27f5d1431d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ToggleMode",
                     "type": "Button",
                     "id": "986e60e2-2db6-4d4a-8a2e-1f03291178b0",
@@ -342,6 +351,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Item3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9b4d69de-0c49-4b98-bd19-d44ca4b5a132",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Item4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DarkNights.Core.Config;
 using DarkNights.Core.Logic.State;
 using static DarkNights.Core.Save.ValidationContext;
 
@@ -43,6 +44,18 @@ namespace DarkNights.Core.Save
             }
             foreach (var w in c.Sites.Values)
             {
+                if (w.IsMineralDeposit || w.Kind == "mineral-deposit")
+                {
+                    if (!w.IsMineralDeposit || w.Kind != "mineral-deposit" || w.RoomKind == null || w.RoomKind.Length > 32 ||
+                        w.Rarity == null || w.Rarity.Length > 16 || w.Capacity < 1 || w.Capacity > 1000000 ||
+                        w.Amount < 0 || w.Amount > w.Capacity || !Number(w.Y, 0, Config.Terrain.TerrainGenerationSettings.Height - 1) ||
+                        Math.Abs(w.Y - Math.Round(w.Y)) > 0.001 ||
+                        !Id(w.WorkerId) || w.WorkerId != 0 ||
+                        !Id(w.FarmId) || w.FarmId != 0 || w.DrillId < 0 || !Number(w.Progress, 0, 1) ||
+                        !Enum.IsDefined(typeof(MineralDepositStage), ParseStage(w.Stage)))
+                        return "矿床状态无效";
+                    continue;
+                }
                 if (!c.Catalog.Balance.Worksites.TryGetValue(w.Kind, out var d))
                     return "未知工作点";
                 if (w.Amount is < -1 or > 1000000 || !Number(w.Progress, 0, d.Interval) || w.Variant is < 0 or > 3 ||
@@ -64,7 +77,7 @@ namespace DarkNights.Core.Save
                 var hero = c.Catalog.Balance.HeroControl;
                 if (!Number(a.Height, c.Saved.Terrain == null ? 0 : Config.Terrain.PlayableTerrain.MinimumHeight, hero?.MaximumHeight ?? 0) || !Number(a.VerticalSpeed, -1000, 1000) ||
                     !Number(a.DropRemaining, 0, hero?.DropSeconds ?? 0) || !Number(a.JetpackFuel, 0, hero?.FuelSeconds ?? 0) ||
-                    a.SelectedItem < 0 || a.SelectedItem > 2 || a.SelectionRevision < 0 || a.SupportPlatform < -1 || a.IgnoredPlatform < 0 ||
+                    a.SelectedItem < 0 || a.SelectedItem > 3 || a.SelectionRevision < 0 || a.SupportPlatform < -1 || a.IgnoredPlatform < 0 ||
                     (a.Enemy && (a.ManualControl || a.Height != 0 || a.JetpackEquipped)) ||
                     (a.SupportPlatform == 0 && ((c.Saved.Terrain == null && a.Height != 0) || a.VerticalSpeed != 0)) ||
                     (a.SupportPlatform > 0 && !c.Layout.Platforms.Any(p => p.Id == a.SupportPlatform && p.Contains((float)a.X) &&
@@ -74,5 +87,8 @@ namespace DarkNights.Core.Save
             }
             return "";
         }
+
+        private static MineralDepositStage ParseStage(string value) =>
+            Enum.TryParse(value, out MineralDepositStage stage) ? stage : (MineralDepositStage)(-1);
     }
 }

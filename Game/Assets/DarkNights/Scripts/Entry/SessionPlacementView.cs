@@ -49,7 +49,7 @@ namespace DarkNights.Entry
             Valid = (!frame.HostOnly || client.PlayerSlot == 0) && world.Camp.Mode == "Playing" &&
                 PlacementGeometry.Within(x, definition.Width, layout.BuildMinX, layout.BuildMaxX) &&
                 !world.Buildings.Any(b => PlacementGeometry.BuildingOverlap(x, definition.Width, b.X, catalog.Balance.Buildings[b.Kind].Width)) &&
-                !world.Worksites.Any(w => w.Amount != 0 && w.FarmId == 0 &&
+                !world.Worksites.Any(w => !w.IsMineralDeposit && w.Kind != "mineral-deposit" && w.Amount != 0 && w.FarmId == 0 &&
                     PlacementGeometry.WorksiteOverlap(x, definition.Width, w.X, catalog.Balance.Worksites[w.Kind].Width)) &&
                 GameText.ResourceIds.All(id => world.Camp.Stock.Get(id) >= definition.Cost.Get(id));
             input.PresentPlacement(x, Valid);

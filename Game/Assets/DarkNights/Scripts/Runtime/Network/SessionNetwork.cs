@@ -2,11 +2,14 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+using AnyRules.Next.FishNet;
 using Cysharp.Threading.Tasks;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Framework;
 using DarkNights.Runtime.Save;
 using DarkNights.Runtime.Objects;
+using DarkNights.Runtime.Terrain;
 using FishNet.Connection;
 using FishNet.Managing;
 using FishNet.Transporting;
@@ -31,6 +34,7 @@ namespace DarkNights.Runtime.Network
         private GameCatalog catalog;
         private LevelLayout layout;
         private Subscription commands, ready, heroInput;
+        private TerrainActionRoute terrainRoute;
         private DefinitionNetworkAuthenticator authenticator;
         private int attempt;
         private bool connecting, initialized, commandsBound, readyBound, heroInputBound;
@@ -74,7 +78,7 @@ namespace DarkNights.Runtime.Network
             int saveArgument = Array.IndexOf(args, "--dn-save-dir");
             SaveDirectory = Path.GetFullPath(saveArgument >= 0 && saveArgument + 1 < args.Length
                 ? args[saveArgument + 1] : Path.Combine(Application.persistentDataPath, "Saves"));
-            SaveDirectory = Path.Combine(SaveDirectory, "v4");
+            SaveDirectory = Path.Combine(SaveDirectory, "v5");
             var fingerprint = new SaveContentFingerprint(catalog, layout);
             authenticator = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
             string identity = new ObjectWorldSaveJson(catalog, layout,
@@ -100,6 +104,9 @@ namespace DarkNights.Runtime.Network
             heroInputBound = true;
             ready = CommandRouters.LocalInput.SubscribeAwait<SetReadyCommand>((command, context) => Server?.Ready(command, context) ?? default);
             readyBound = true;
+            terrainRoute = new TerrainActionRoute(() => ObjectWorld?.Terrain?.Map,
+                (context, command) => Server?.AuthorizeTerrain(context, command),
+                (context, result) => Server?.ReplyTerrain(context, result));
             manager.SceneManager.OnClientLoadedStartScenes += Loaded;
             manager.ServerManager.OnRemoteConnectionState += Remote;
             manager.ClientManager.OnClientConnectionState += ClientState;
@@ -255,6 +262,12 @@ namespace DarkNights.Runtime.Network
             Status = "未连接";
         }
 
+        public ValueTask SendTerrain(int u, int v, string requestId = null)
+        {
+            if (Client == null || Terrain?.Replica == null) throw new InvalidOperationException("地图尚未连接。");
+            return Client.SendTerrain(u, v, Terrain.Replica.CommitId, requestId);
+        }
+
         public void Fail(Exception error)
         {
             Disconnect();
@@ -269,6 +282,7 @@ namespace DarkNights.Runtime.Network
             if (commandsBound) commands.Dispose();
             if (readyBound) ready.Dispose();
             if (heroInputBound) heroInput.Dispose();
+            terrainRoute?.Dispose();
             if (manager != null)
             {
                 manager.SceneManager.OnClientLoadedStartScenes -= Loaded;

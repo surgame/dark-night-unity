@@ -1,0 +1,50 @@
+{
+  "date": "2026-09-19",
+  "branch": "codex/map-plan-execution",
+  "base": "b96d8dc",
+  "sourcePlan": "D:/Downloads/地图方案.html",
+  "scope": "8 rooms / 7 connections random terrain, authoritative terrain editing, mineral deposits and drills, local replica refresh, save v5",
+  "dependencies": {
+    "yygc": "12b253c6bdd262feb860ab905b9e56e940ec9c40",
+    "anyRules": "aa450a7168d5800b0899e216ed484892e44fb40a",
+    "fishNet": "de19b5d66459f60400ffd0edc443c4da173a01e7",
+    "prepareScript": "passed"
+  },
+  "staticChecks": {
+    "architecture": { "passed": true, "files": 373, "selfTests": 12, "errors": 0 },
+    "coreBuild": { "passed": true, "warnings": 0, "errors": 0 },
+    "terrainRegression": { "passed": true, "h5Vectors": 24, "scattered": 24, "deposits": 11, "softRock": 352 },
+    "coreRegression": { "passed": true, "checks": 1048, "failures": 0 }
+  },
+  "unityRoslyn": {
+    "passed": true,
+    "editorVersion": "6000.4.9f1",
+    "assemblies": ["DarkNights.Core", "DarkNights.Runtime", "DarkNights.View", "DarkNights.Entry", "DarkNights.Editor", "DarkNights.Tests"],
+    "method": "Unity Bee response files and the installed Unity Roslyn csc were used in an isolated output directory.",
+    "notEquivalentTo": ["Unity EditMode execution", "Unity PlayMode execution", "Mono Player execution"]
+  },
+  "stageStatus": {
+    "M0": "passed_static_pending_editor_registry_recheck",
+    "M1": "passed_core",
+    "M2": "passed_static_pending_live_network",
+    "M3": "code_ready_pending_prefab_definition_and_state_registry_install",
+    "M4": "code_ready_pending_play_visual_and_collision_evidence",
+    "M5": "code_ready_pending_real_restart_reconnect",
+    "M6": "pending_balance_and_release_validation"
+  },
+  "notExecuted": [
+    "YYGC StateData discovery/generation for MineralDepositState",
+    "Dark Nights/Content/Install Mineral Deposit Object",
+    "Unity EditMode and PlayMode test runner",
+    "independent Host + Client + LateJoin and reconnect",
+    "200ms RTT / 5% loss / 25ms jitter",
+    "Mono Player runtime capture for this branch",
+    "IL2CPP and second-machine validation",
+    "foreground performance sign-off"
+  ],
+  "reports": [
+    "artifacts/migration/architecture.json",
+    "artifacts/migration/core-regression.json",
+    "docs/MAP_PLAN_EXECUTION.md"
+  ]
+}

@@ -110,11 +110,18 @@ namespace DarkNights.Runtime.Save
                 Integer(v["id"]),
                 Text(v["kind"]),
                 Number(v["x"]),
+                Number(v["y"]),
                 Integer(v["worker_id"]),
                 Integer(v["amount"]),
                 Number(v["progress"]),
                 Integer(v["variant"]),
-                Integer(v["farm_id"]));
+                Integer(v["farm_id"]),
+                Boolean(v["is_mineral_deposit"]),
+                Text(v["room_kind"]),
+                Text(v["rarity"]),
+                Integer(v["capacity"]),
+                Text(v["stage"]),
+                Integer(v["drill_id"]));
         }
 
         public static JObject Write(WorksiteSnapshot v) => new JObject
@@ -122,11 +129,18 @@ namespace DarkNights.Runtime.Save
             ["id"] = v.Id,
             ["kind"] = v.Kind,
             ["x"] = v.X,
+            ["y"] = v.Y,
             ["worker_id"] = v.WorkerId,
             ["amount"] = v.Amount,
             ["progress"] = v.Progress,
             ["variant"] = v.Variant,
-            ["farm_id"] = v.FarmId
+            ["farm_id"] = v.FarmId,
+            ["is_mineral_deposit"] = v.IsMineralDeposit,
+            ["room_kind"] = v.RoomKind,
+            ["rarity"] = v.Rarity,
+            ["capacity"] = v.Capacity,
+            ["stage"] = v.Stage,
+            ["drill_id"] = v.DrillId
         };
 
         public static ProjectileSnapshot ProjectileSnapshot(JToken value)

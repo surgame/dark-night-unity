@@ -2,11 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AnyRules.Next;
+using AnyRules.Next.FishNet;
+using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Config;
+using DarkNights.Core.Logic.State;
 using DarkNights.Runtime.Session;
 using DarkNights.Runtime.Save;
 using DarkNights.Runtime.Diagnostics;
 using DarkNights.Runtime.Objects;
+using DarkNights.Runtime.Terrain;
 using FishNet.Connection;
 using GameCore.NetworkCommands;
 using VitalRouter;
@@ -73,11 +78,64 @@ namespace DarkNights.Runtime.Network
         private SessionPeer Sender(PublishContext publication)
         {
             if (!NetworkCommandContext.TryGet(publication, out var context) || !context.IsServerExecution ||
-                !peers.TryGetValue(context.SenderConnection, out var peer) || !peer.Network.IsActive ||
-                peer.Endpoint == null || peer.Endpoint.Owner != peer.Network || peer.Endpoint.Sender.ObjectId != context.SenderObjectId)
-                return null;
+                context.SenderConnection == null) return null;
+            return Sender(context);
+        }
+
+        private SessionPeer Sender(NetworkCommandContext context)
+        {
+            if (context == null || !context.IsServerExecution || !peers.TryGetValue(context.SenderConnection, out var peer) ||
+                !peer.Network.IsActive || peer.Endpoint == null || peer.Endpoint.Owner != peer.Network ||
+                peer.Endpoint.Sender.ObjectId != context.SenderObjectId) return null;
             if (++peer.Requests > 60) { peer.Network.Disconnect(true); return null; }
             return peer;
+        }
+
+        /// <summary>为 TerrainActionRoute 解析当前连接的主角租约和装备；请求字段不参与身份、动作或距离授权。</summary>
+        internal TerrainActionAuthorization AuthorizeTerrain(NetworkCommandContext context, TerrainEditCommand command)
+        {
+            var peer = Sender(context);
+            var map = simulation.Terrain?.Map;
+            if (peer?.Authority == null || !peer.Authority.Ready || Authority.Loading || command == null || map == null ||
+                (!peer.IsHost && Authority.ControlMode == CampControlMode.HostOnly)) return null;
+            var actor = simulation.Index.Find<ActorBehaviour>(peer.Authority.DefaultHeroId);
+            var state = actor?.Read();
+            if (state == null || state.Enemy || state.Hp <= 0 || !state.ManualControl ||
+                state.ControllerSlot != peer.Authority.PlayerSlot || state.ControllerGeneration != peer.Authority.Generation ||
+                state.ControlLease <= 0 || state.SelectedItem < 1 || state.SelectedItem > 3 ||
+                Authority.ServerTick - peer.Authority.LastTerrainActionTick < 3) return null;
+            var action = state.SelectedItem == 3 ? TerrainEditAction.Explosive : TerrainEditAction.HandMine;
+            if (action == TerrainEditAction.Explosive && peer.Authority.ExplosiveCharges <= 0) return null;
+            return new TerrainActionAuthorization(peer.Authority.Generation, map.World, action,
+                position => WithinTerrainReach(state, position),
+                resources =>
+                {
+                    peer.Authority.LastTerrainActionTick = Authority.ServerTick;
+                    if (action == TerrainEditAction.Explosive) peer.Authority.ExplosiveCharges--;
+                    if (resources == null || resources.Count == 0) return;
+                    simulation.Mutations.Run(() =>
+                    {
+                        foreach (string resource in resources) simulation.Economy.AddResource(resource, 1);
+                        return true;
+                    });
+                });
+        }
+
+        internal void ReplyTerrain(NetworkCommandContext context, TerrainActionResult result)
+        {
+            if (context == null || context.SenderConnection == null || result.RequestId == null ||
+                !peers.TryGetValue(context.SenderConnection, out var peer) || peer.Endpoint == null ||
+                peer.Endpoint.Owner != peer.Network || peer.Endpoint.Sender.ObjectId != context.SenderObjectId) return;
+            peer.Endpoint.TerrainReply(peer.Network, result.RequestId, (int)result.Action, result.CommitId,
+                result.Accepted, result.Reason);
+        }
+
+        private static bool WithinTerrainReach(ActorState state, CellCoord position)
+        {
+            float targetX = (position.U + .5f) * PlayableTerrain.CellPixels;
+            float targetHeight = PlayableTerrain.OriginY - (-position.V - .5f) * PlayableTerrain.CellPixels;
+            float dx = state.X - targetX, dy = state.Height - targetHeight;
+            return dx * dx + dy * dy <= 72 * 72;
         }
 
         public ValueTask Handle(SessionCommand command, PublishContext publication)

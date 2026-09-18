@@ -15,32 +15,53 @@ namespace DarkNights.Runtime.Network
         public int Id { get; set; }
         public string Kind { get; set; }
         public float X { get; set; }
+        public float Y { get; set; }
         public int WorkerId { get; set; }
         public int Amount { get; set; }
         public double Progress { get; set; }
         public int Variant { get; set; }
         public int FarmId { get; set; }
+        public bool IsMineralDeposit { get; set; }
+        public string RoomKind { get; set; }
+        public string Rarity { get; set; }
+        public int Capacity { get; set; }
+        public string Stage { get; set; }
+        public int DrillId { get; set; }
 
         public static WorksiteWire From(WorksiteViewData value) => new WorksiteWire
         {
             Id = value.Id,
             Kind = value.Kind,
             X = value.X,
+            Y = value.Y,
             WorkerId = value.WorkerId,
             Amount = value.Amount,
             Progress = value.Progress,
             Variant = value.Variant,
             FarmId = value.FarmId,
+            IsMineralDeposit = value.IsMineralDeposit,
+            RoomKind = value.RoomKind,
+            Rarity = value.Rarity,
+            Capacity = value.Capacity,
+            Stage = value.Stage,
+            DrillId = value.DrillId,
         };
 
         public WorksiteViewData Freeze() => new WorksiteViewData(
             Id,
             Kind,
             X,
+            Y,
             WorkerId,
             Amount,
             Progress,
             Variant,
-            FarmId);
+            FarmId,
+            IsMineralDeposit,
+            RoomKind,
+            Rarity,
+            Capacity,
+            Stage,
+            DrillId);
     }
 }

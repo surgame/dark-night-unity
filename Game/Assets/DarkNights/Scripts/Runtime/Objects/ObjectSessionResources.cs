@@ -60,11 +60,18 @@ namespace DarkNights.Runtime.Objects
         public static string Rule(ObjectDefinition definition)
         {
             var configs = definition.SharedConfigs.Where(value => value is ActorRuleConfig ||
-                value is BuildingRuleConfig || value is WorksiteRuleConfig).ToArray();
+                value is BuildingRuleConfig || value is WorksiteRuleConfig || value is MineralDepositRuleConfig).ToArray();
             if (configs.Length != 1) throw new InvalidOperationException("Definition requires exactly one family RuleKey: " + definition.Key);
             if (configs[0] is ActorRuleConfig actor) return actor.RuleKey;
             if (configs[0] is BuildingRuleConfig building) return building.RuleKey;
+            if (configs[0] is MineralDepositRuleConfig deposit) return deposit.RuleKey;
             return ((WorksiteRuleConfig)configs[0]).RuleKey;
+        }
+
+        public ObjectDefinition FindOptional(string ruleKey)
+        {
+            if (disposed) throw new ObjectDisposedException(nameof(ObjectSessionResources));
+            return Definitions.SingleOrDefault(d => Rule(d) == ruleKey);
         }
 
         public void Dispose()
