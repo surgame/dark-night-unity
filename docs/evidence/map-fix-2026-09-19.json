@@ -1,0 +1,56 @@
+{
+  "date": "2026-09-19",
+  "branch": "codex/map-plan-execution",
+  "unity": "6000.4.9f1",
+  "protocol": 10,
+  "save_format": 6,
+  "regressions": {
+    "core": "1048 checks, 0 failures",
+    "terrain": "24 H5 vectors; gameplay scattered=24, deposits=11, softRock=352; 100 seed candidate batch passed",
+    "architecture": "375 files, 12 self-tests, 0 errors",
+    "core_build": "0 warnings, 0 errors",
+    "map_package_prepare": "442 files verified; TerrainEditCommandPayload patch applied"
+  },
+  "isolated_unity_content_install": {
+    "mineral_deposit_prefab": 1,
+    "mineral_deposit_definition": 1,
+    "mineral_drill_prefab": 1,
+    "mineral_drill_definition": 1,
+    "archetypes": ["MineralDeposit", "Worksite"],
+    "state_data_tag": 8,
+    "asset_database_reload": true,
+    "reopen_validation": {
+      "mineral_deposit": "passed; DarkNights.Editor.MineralDepositContentSetup.Validate; artifacts/map-fix-editor-p2-final-reopen-deposit.log",
+      "mineral_drill": "passed; DarkNights.Editor.MineralDrillContentSetup.Validate; artifacts/map-fix-editor-p2-final-reopen-drill.log"
+    },
+    "log": "artifacts/map-fix-editor-install2.log"
+  },
+  "isolated_unity_source_compile": {
+    "passed": true,
+    "result": "Final isolated Unity batchmode using locally cached package copies exited with return code 0; Tundra build success and no error CS diagnostics. Existing YYGC ShaderGraph plus one cached-package asset import error remain in the isolated log and are unrelated to this batch's C# source changes.",
+    "log": "artifacts/map-fix-editor-p2-finalcompile2.log"
+  },
+  "yygc_remote_base_reproduction": {
+    "recovery_script_ready": true,
+    "local_empty_checkout_simulation": true,
+    "actual_remote_network_probe": "not_verified: GitHub ls-remote did not return within the bounded wait",
+    "base_commit": "0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143",
+    "equivalent_target": "12b253c6bdd262feb860ab905b9e56e940ec9c40",
+    "patch": "tools/lan-framework-patch/NetworkCommandInterfaceGenerator.patch",
+    "result": "temporary empty checkout cloned from a local repository source as a remote-path simulation, all locked LAN patches applied, expected tracked file set verified"
+  },
+  "assets": {
+    "mineral_deposit_definition_guid": "e6c460b98178a9c4eb9ec2e702828e4a",
+    "mineral_deposit_prefab_guid": "fab77cf0d58e1f742887cd94c5ec9ddf",
+    "mineral_deposit_archetype_guid": "9c3e56581045d5a469208b34ca4f7fa7",
+    "mineral_drill_definition_guid": "51b03733d825c324480ff5113a464c4e",
+    "mineral_drill_prefab_guid": "f545fff7c28c2a44f932ce1e335c36c6"
+  },
+  "not_run": [
+    "main Unity Editor reimport/reopen after the final source refactor",
+    "formal EditMode and PlayMode acceptance",
+    "Host+Client+LateJoin, reconnect, save/restart/load and weak-network acceptance",
+    "Mono Player build and runtime acceptance",
+    "IL2CPP, dual-machine LAN, foreground performance and M6 balance"
+  ]
+}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using AnyRules.Next;
 using AnyRules.Next.Unity;
@@ -17,7 +18,7 @@ namespace DarkNights.View.Terrain
         private GridBounds visible;
         private bool localCoordinates;
         private bool refreshingReplica;
-        private bool refreshRequested;
+        private readonly HashSet<ChunkCoord> pendingReplicaChunks = new HashSet<ChunkCoord>();
         public long BuiltPages => controller?.Renderer.CommittedBuilds ?? 0;
         public Exception LastError { get; private set; }
         public bool Ready => controller != null && controller.Renderer.CommittedBuilds > 0 && controller.Renderer.QueueCount == 0 && controller.Renderer.InFlightCount == 0;
@@ -25,7 +26,6 @@ namespace DarkNights.View.Terrain
         public async void ShowReplica(AnyRules.Next.Authoring.ARDMapDefinition definition, IMapChunkSource source, WorldIdentity world)
         {
             replicaSource = source as TerrainReplicaSource;
-            if (replicaSource != null) replicaSource.Changed += OnReplicaChanged;
             localCoordinates = true;
             var own = lifetime = new CancellationTokenSource();
             try
@@ -36,6 +36,7 @@ namespace DarkNights.View.Terrain
                 controller = result;
                 await result.LoadRegionAsync(result.Descriptor.Bounds, own.Token);
                 if (own.IsCancellationRequested) return;
+                if (replicaSource != null) replicaSource.Changed += OnReplicaChanged;
                 UpdateVisible();
             }
             catch (OperationCanceledException) { }
@@ -76,6 +77,7 @@ namespace DarkNights.View.Terrain
         {
             if (controller == null || LastError != null || refreshingReplica) return;
             UpdateVisible();
+            if (pendingReplicaChunks.Count != 0) StartReplicaRefresh();
             var renderer = controller.Renderer;
             if (renderer.QueueCount != 0 || renderer.InFlightCount != 0 || renderer.CommittedBuilds == 0) controller.Tick();
         }
@@ -117,35 +119,73 @@ namespace DarkNights.View.Terrain
             if (width > 0 && height > 0) controller.HideRegion(new GridBounds(u, v, width, height));
         }
 
-        private async void OnReplicaChanged()
+        private void OnReplicaChanged(IReadOnlyList<ChunkCoord> changedChunks)
         {
-            if (controller == null || !visible.IsValid || lifetime == null) return;
-            if (refreshingReplica) { refreshRequested = true; return; }
+            if (changedChunks == null || changedChunks.Count == 0) return;
+            foreach (var chunk in changedChunks) pendingReplicaChunks.Add(chunk);
+            StartReplicaRefresh();
+        }
+
+        private async void StartReplicaRefresh()
+        {
+            if (controller == null || !visible.IsValid || lifetime == null || refreshingReplica) return;
             refreshingReplica = true;
             var own = lifetime;
             try
             {
-                GridBounds region = visible;
-                controller.HideRegion(region);
-                await controller.UnloadRegionAsync(region, MapUnloadPolicy.DiscardUnsaved, own.Token);
-                await controller.LoadRegionAsync(region, own.Token);
-                if (!own.IsCancellationRequested) controller.ShowRegion(region);
+                while (pendingReplicaChunks.Count != 0 && !own.IsCancellationRequested)
+                {
+                    ChunkCoord[] batch = new ChunkCoord[pendingReplicaChunks.Count];
+                    pendingReplicaChunks.CopyTo(batch); pendingReplicaChunks.Clear();
+                    foreach (GridBounds region in MergeChunkRegions(batch, controller.Descriptor.ChunkSize))
+                    {
+                        await controller.UnloadRegionAsync(region, MapUnloadPolicy.DiscardUnsaved, own.Token);
+                        await controller.LoadRegionAsync(region, own.Token);
+                    }
+                    if (!own.IsCancellationRequested) controller.ShowRegion(visible);
+                }
             }
             catch (OperationCanceledException) { }
             catch (Exception error) { LastError = error; Debug.LogException(error, this); }
             finally
             {
-                bool again = refreshRequested;
-                refreshRequested = false;
                 refreshingReplica = false;
-                if (again && lifetime == own && !own.IsCancellationRequested) OnReplicaChanged();
+                if (pendingReplicaChunks.Count != 0 && lifetime == own && !own.IsCancellationRequested)
+                    StartReplicaRefresh();
             }
+        }
+
+        private static IReadOnlyList<GridBounds> MergeChunkRegions(IReadOnlyList<ChunkCoord> chunks, int size)
+        {
+            var remaining = new HashSet<ChunkCoord>(chunks);
+            var regions = new List<GridBounds>();
+            while (remaining.Count != 0)
+            {
+                ChunkCoord start = default;
+                foreach (var candidate in remaining) { start = candidate; break; }
+                var queue = new Queue<ChunkCoord>(); queue.Enqueue(start); remaining.Remove(start);
+                int minU = start.U, maxU = start.U, minV = start.V, maxV = start.V;
+                while (queue.Count != 0)
+                {
+                    ChunkCoord current = queue.Dequeue();
+                    minU = Math.Min(minU, current.U); maxU = Math.Max(maxU, current.U);
+                    minV = Math.Min(minV, current.V); maxV = Math.Max(maxV, current.V);
+                    foreach (var neighbor in new[]
+                    {
+                        new ChunkCoord(current.U - 1, current.V), new ChunkCoord(current.U + 1, current.V),
+                        new ChunkCoord(current.U, current.V - 1), new ChunkCoord(current.U, current.V + 1)
+                    }) if (remaining.Remove(neighbor)) queue.Enqueue(neighbor);
+                }
+                regions.Add(new GridBounds(checked(minU * size), checked(minV * size),
+                    checked((maxU - minU + 1) * size), checked((maxV - minV + 1) * size)));
+            }
+            return regions;
         }
 
         private async void OnDisable()
         {
             if (replicaSource != null) { replicaSource.Changed -= OnReplicaChanged; replicaSource = null; }
-            lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null; refreshingReplica = false; refreshRequested = false;
+            lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null; refreshingReplica = false; pendingReplicaChunks.Clear();
             var old = controller; controller = null; visible = default;
             if (old != null) await old.DisposeAsync();
         }

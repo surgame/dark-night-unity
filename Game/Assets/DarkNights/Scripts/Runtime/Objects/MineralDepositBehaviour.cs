@@ -58,7 +58,7 @@ namespace DarkNights.Runtime.Objects
 
         internal bool AttachDrill(int drillId)
         {
-            if (drillId <= 0 || Remaining <= 0) return false;
+            if (drillId <= 0 || Remaining <= 0 || (DrillId != 0 && DrillId != drillId)) return false;
             MineralDepositState state = Edit(); state.DrillId = drillId; state.Stage = MineralDepositStage.Drilling; return true;
         }
 

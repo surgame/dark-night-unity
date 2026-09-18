@@ -1,0 +1,22 @@
+diff --git a/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs b/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
+index bc908da..be7c556 100644
+--- a/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
++++ b/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
+@@ -181,13 +181,15 @@ namespace GameCore.Editor.NetworkCommands
+             }
+ 
+             var type = script.GetClass();
+-            if (type != null)
++            if (IsSupportedNetworkCommandType(type))
+             {
+                 return type;
+             }
+ 
++            // Unity 可能把 record 所在脚本识别为同文件的结果结构体，不能据此跳过命令。
+             return TypeCache.GetTypesDerivedFrom<INetworkCommand>()
+-                .FirstOrDefault(candidate => candidate.Name == script.name);
++                .Where(IsSupportedNetworkCommandType)
++                .SingleOrDefault(candidate => candidate.Name == script.name);
+         }
+
+         private static string FindMonoScriptPathForType(Type type)

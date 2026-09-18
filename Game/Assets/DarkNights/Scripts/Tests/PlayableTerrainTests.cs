@@ -72,13 +72,48 @@ namespace DarkNights.Tests
             Assert.That(world.Terrain.Capture().Deposits.Count, Is.EqualTo(selected.Deposits.Count));
             Assert.That(world.Terrain.Capture().Rooms.Count, Is.EqualTo(selected.Rooms.Count));
             var valid = world.Terrain.Map;
-            Assert.Throws<FormatException>(() => world.Restore(save.Replace("\"format_version\":5", "\"format_version\":4")));
+            Assert.Throws<FormatException>(() => world.Restore(save.Replace("\"format_version\":6", "\"format_version\":4")));
             Assert.That(world.Terrain.Map, Is.SameAs(valid));
             var state = world.Index.Actors.First(a => !a.Enemy).CaptureState();
             TerrainHeroMotion.Tick(valid, state, catalog.Balance.HeroControl, 1.0 / 60, true, false);
             Assert.That(state.Height, Is.GreaterThan(0));
             for (int i = 0; i < 300; i++) TerrainHeroMotion.Tick(valid, state, catalog.Balance.HeroControl, 1.0 / 60, false, false);
             Assert.That(state.Height, Is.EqualTo(0).Within(.001)); Assert.That(state.SupportPlatform, Is.Zero);
+        });
+
+        [UnityTest]
+        public IEnumerator SoftRockMiningPersistsEmptyCellAcrossSaveRestore() => UniTask.ToCoroutine(async () =>
+        {
+            using var scope = await UnifiedSessionScope.Create();
+            var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(Editor.Terrain.TerrainTestAssets.DefinitionPath);
+            var catalog = RuleScenario.Catalog(); var layout = PlayableTerrainGenerator.Layout(RuleScenario.Layout());
+            var world = scope.NewWorld(catalog, layout, false);
+            var selected = PlayableTerrainGenerator.Generate("soft-rock-save", Id);
+            world.Terrain = new SessionTerrain(world.Context, definition.LoadGameplayCatalog(), selected);
+            using var authority = new SessionAuthority(world);
+            var host = authority.Connect(0); authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true);
+
+            CellCoord target = default;
+            bool found = false;
+            var map = world.Terrain.Map;
+            for (int y = -map.Descriptor.Bounds.Height; y < 0 && !found; y++)
+                for (int x = 0; x < map.Descriptor.Bounds.Width; x++)
+                {
+                    var position = new CellCoord(x, y);
+                    if (map.IsSoftRock(position) && map.Read(position).TryGetCell(out var cell) &&
+                        !cell.IsEmpty && cell.Flags == 0) { target = position; found = true; break; }
+                }
+            Assert.That(found, Is.True, "A destructible soft-rock fixture is required.");
+            var targets = map.BuildTargets(TerrainEditAction.HandMine, target);
+            var receipt = map.DestroyTrusted(1, "soft-rock-save", TerrainEditAction.HandMine, map.World,
+                target, targets, _ => true, out bool applied);
+            Assert.That(applied, Is.True); Assert.That(receipt.ChangedChunks.Count, Is.EqualTo(1));
+            Assert.That(map.Read(target).Cell.IsEmpty, Is.True);
+
+            string save = world.SaveCodec.Serialize(world.CaptureWorld());
+            world.Restore(save);
+            Assert.That(world.Terrain.Map.Read(target).Cell.IsEmpty, Is.True);
+            Assert.That(world.Terrain.Map.IsSoftRock(target), Is.True);
         });
     }
 }

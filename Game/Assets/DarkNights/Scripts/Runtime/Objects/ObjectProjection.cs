@@ -19,7 +19,8 @@ namespace DarkNights.Runtime.Objects
                 ActorState a = actor.Read();
                 return new ActorViewData(a.Id, actor.RuleKey, a.Name, a.Enemy, a.X, a.Hp,
                     a.Activity.ToString(), a.TargetId, a.Face, a.Walking, a.ActionTime, a.Windup, a.HitFlash,
-                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ControllerSlot, a.ControlLease);
+                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ControllerSlot, a.ControlLease,
+                    a.ExplosiveCharges, a.DrillCharges);
             }).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {

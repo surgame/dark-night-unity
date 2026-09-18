@@ -1,0 +1,24 @@
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Runtime/TerrainEditCommand.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/Runtime/TerrainEditCommand.cs
+@@ -15,6 +15,5 @@
+        public int SenderObjectId { get; set; }
+        public string RequestId { get; set; }
+-        public ulong ExpectedRevision { get; set; }
+         public int U { get; set; }
+         public int V { get; set; }
+-        public void OnReturnToPool() { SenderObjectId = U = V = 0; RequestId = null; ExpectedRevision = 0; }
++        public void OnReturnToPool() { SenderObjectId = U = V = 0; RequestId = null; }
+     }
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.yygc/Runtime/TerrainEditBusinessHandler.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.yygc/Runtime/TerrainEditBusinessHandler.cs
+@@ -22,6 +22,7 @@
+         private bool busy;
+         public int PendingRewards { get { int n = 0; foreach (var e in entries) if (!e.Delivered) n++; return n; } }
++        public ulong CommitId { get { return map.CommitId; } }
+         public TerrainEditBusinessHandler(YYGCMapSessionAdapter map, string path)
+@@ -36,7 +37,7 @@
+                 if (!NetworkCommandContext.TryGet(command, out var context) || !context.IsServerExecution) return default;
+                 ulong commit = 0; bool accepted = false;
+-                try { commit = handler.ExecuteNetwork(command, command.RequestId, new[] { new CellCoord(command.U, command.V) }, command.ExpectedRevision, resolveAccount, authorize); accepted = true; }
++                try { commit = handler.ExecuteNetwork(command, command.RequestId, new[] { new CellCoord(command.U, command.V) }, handler.CommitId, resolveAccount, authorize); accepted = true; }
+                 catch (Exception e) when (e is InvalidOperationException || e is UnauthorizedAccessException || e is ArgumentException) { }

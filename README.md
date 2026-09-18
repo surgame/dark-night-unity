@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-19 执行[地图改造修复文档 v1.1](<D:/Downloads/Dark Nights 地图改造修复执行文档 v1.1.md>)的遗漏项：地形命令改为服务端 `CommitId` 权威提交，`RequestId` 在完整玩法授权前幂等缓存；手采、软岩空格保存、主角炸药／钻机库存、矿床候选和真实钻机对象链已补齐。矿床与钻机的 Definition／Prefab／Archetype／Addressable 资产已由 Unity `6000.4.9f1` 隔离安装并回填，当前协议 10、存档 v6。Core 1048 checks、Terrain 24 向量及 100 seed 候选回归、ArchitectureGuard 375/12 通过；正式 Editor／Play、Host＋Client／LateJoin／重连、弱网、Mono Player 和 M6 平衡仍待执行，不能把本批写成 M5 完成。
+
 2026-09-17 新增独立[随机地图 Debug Bootstrap](docs/TERRAIN_DEBUG_BOOTSTRAP.md)：菜单 `Dark Nights/Debug/打开随机地图 Bootstrap` 后直接 Play，角色出生于随机入口洞室，WASD 穿墙飞行，镜头近距离跟随且可调；参数实时重建、换种子与 8 房间定位。调试地图没有正式营地的 72 列平地覆盖，原 Pinewatch 场景保留。
 
 2026-09-17 默认正式入口已接入[随机灰松谷](docs/RANDOM_PINEWATCH.md)：保留原 Pinewatch，新增独立随机关卡模板，菜单选择地图时后台生成并在开局复用。正式协议 9／存档 v4，主角查询权威地形，地图完整同步后才 Ready；保存恢复最终格子。新 Mono 位于 `artifacts/random-map/player-mono/DarkNights.exe`，操作和本批验收见切片文档；以下记录保留各历史构建身份。

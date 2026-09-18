@@ -82,19 +82,24 @@ namespace DarkNights.Runtime.Network
             return Sender(context);
         }
 
-        private SessionPeer Sender(NetworkCommandContext context)
+        private SessionPeer Sender(NetworkCommandContext context, bool countRequest = true)
         {
             if (context == null || !context.IsServerExecution || !peers.TryGetValue(context.SenderConnection, out var peer) ||
                 !peer.Network.IsActive || peer.Endpoint == null || peer.Endpoint.Owner != peer.Network ||
                 peer.Endpoint.Sender.ObjectId != context.SenderObjectId) return null;
-            if (++peer.Requests > 60) { peer.Network.Disconnect(true); return null; }
+            if (countRequest && ++peer.Requests > 60) { peer.Network.Disconnect(true); return null; }
             return peer;
+        }
+
+        internal int? TerrainConnectionGeneration(NetworkCommandContext context, TerrainEditCommand command)
+        {
+            return Sender(context)?.Authority?.Generation;
         }
 
         /// <summary>为 TerrainActionRoute 解析当前连接的主角租约和装备；请求字段不参与身份、动作或距离授权。</summary>
         internal TerrainActionAuthorization AuthorizeTerrain(NetworkCommandContext context, TerrainEditCommand command)
         {
-            var peer = Sender(context);
+            var peer = Sender(context, false);
             var map = simulation.Terrain?.Map;
             if (peer?.Authority == null || !peer.Authority.Ready || Authority.Loading || command == null || map == null ||
                 (!peer.IsHost && Authority.ControlMode == CampControlMode.HostOnly)) return null;
@@ -102,19 +107,20 @@ namespace DarkNights.Runtime.Network
             var state = actor?.Read();
             if (state == null || state.Enemy || state.Hp <= 0 || !state.ManualControl ||
                 state.ControllerSlot != peer.Authority.PlayerSlot || state.ControllerGeneration != peer.Authority.Generation ||
-                state.ControlLease <= 0 || state.SelectedItem < 1 || state.SelectedItem > 3 ||
-                Authority.ServerTick - peer.Authority.LastTerrainActionTick < 3) return null;
+                state.ControlLease <= 0 || (state.SelectedItem != 1 && state.SelectedItem != 3) ||
+                Authority.ServerTick - state.LastTerrainActionTick < 3) return null;
             var action = state.SelectedItem == 3 ? TerrainEditAction.Explosive : TerrainEditAction.HandMine;
-            if (action == TerrainEditAction.Explosive && peer.Authority.ExplosiveCharges <= 0) return null;
+            if (action == TerrainEditAction.Explosive && state.ExplosiveCharges <= 0) return null;
             return new TerrainActionAuthorization(peer.Authority.Generation, map.World, action,
                 position => WithinTerrainReach(state, position),
                 resources =>
                 {
-                    peer.Authority.LastTerrainActionTick = Authority.ServerTick;
-                    if (action == TerrainEditAction.Explosive) peer.Authority.ExplosiveCharges--;
-                    if (resources == null || resources.Count == 0) return;
                     simulation.Mutations.Run(() =>
                     {
+                        ActorState current = actor.Edit();
+                        current.LastTerrainActionTick = Authority.ServerTick;
+                        if (action == TerrainEditAction.Explosive) current.ExplosiveCharges--;
+                        if (resources == null || resources.Count == 0) return true;
                         foreach (string resource in resources) simulation.Economy.AddResource(resource, 1);
                         return true;
                     });

@@ -34,6 +34,7 @@ namespace DarkNights.Runtime.Objects
                 case SessionOperation.ReleaseHero:
                 case SessionOperation.SelectHeroItem:
                 case SessionOperation.UseHeroItem:
+                case SessionOperation.DeployMineralDrill:
                 case SessionOperation.Recruit:
                 case SessionOperation.StartNight:
                 case SessionOperation.SetPaused:

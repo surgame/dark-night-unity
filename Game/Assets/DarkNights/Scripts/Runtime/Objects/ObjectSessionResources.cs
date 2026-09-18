@@ -62,6 +62,7 @@ namespace DarkNights.Runtime.Objects
             var configs = definition.SharedConfigs.Where(value => value is ActorRuleConfig ||
                 value is BuildingRuleConfig || value is WorksiteRuleConfig || value is MineralDepositRuleConfig).ToArray();
             if (configs.Length != 1) throw new InvalidOperationException("Definition requires exactly one family RuleKey: " + definition.Key);
+            if (definition.Key == WorksiteBehaviour.MineralDrillRule) return WorksiteBehaviour.MineralDrillRule;
             if (configs[0] is ActorRuleConfig actor) return actor.RuleKey;
             if (configs[0] is BuildingRuleConfig building) return building.RuleKey;
             if (configs[0] is MineralDepositRuleConfig deposit) return deposit.RuleKey;

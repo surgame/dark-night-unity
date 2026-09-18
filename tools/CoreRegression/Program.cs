@@ -62,8 +62,10 @@ namespace DarkNights.Tools.CoreRegression
                 TerrainDestructionPolicy.Offsets(TerrainEditAction.Explosive).Count == 13,
                 "Hand mining and explosive target sets stay bounded");
             check(TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 1, false, true) &&
-                !TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 1, false, false),
-                "Hand mining is limited to soft rock");
+                TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 4, false, false) &&
+                !TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 1, false, false) &&
+                !TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 8, false, true),
+                "Hand mining is limited to soft rock and scattered ore");
             check(!TerrainDestructionPolicy.CanDestroy(TerrainEditAction.Explosive, 8, false, true) &&
                 !TerrainDestructionPolicy.CanDestroy(TerrainEditAction.Explosive, 1, true, true),
                 "Explosives cannot clear bedrock or protected cells");

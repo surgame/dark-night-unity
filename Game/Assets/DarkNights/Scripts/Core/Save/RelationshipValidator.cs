@@ -14,12 +14,16 @@ namespace DarkNights.Core.Save
         public static string Validate(ValidationContext c)
         {
             var farms = new HashSet<int>();
+            var drills = new HashSet<int>();
             foreach (var site in c.Sites.Values)
             {
                 if (site.IsMineralDeposit || site.Kind == "mineral-deposit")
                 {
                     if (!site.IsMineralDeposit || site.WorkerId != 0 || site.FarmId != 0 || site.Amount < 0 || site.Amount > site.Capacity)
                         return "矿床关系无效";
+                    if (site.DrillId != 0 && (!c.Sites.TryGetValue(site.DrillId, out var drill) ||
+                        drill.IsMineralDeposit || drill.Kind != "worksite.mineral-drill" || !drills.Add(site.DrillId)))
+                        return "矿床钻机关系无效";
                 }
                 else if (site.Kind == "food")
                 {

@@ -22,6 +22,7 @@ namespace DarkNights.Runtime.Session
                     (r.Operation == SessionOperation.ClaimHero ? r.ControlLease == 0 : r.ControlLease > 0) &&
                     (r.Operation == SessionOperation.UseHeroItem ? r.Value >= 0 &&
                         (r.Kind == "weapon" || r.Kind == "tool" || r.Kind == "jetpack" || r.Kind == "explosive") :
+                        r.Operation == SessionOperation.DeployMineralDrill ? r.TargetId > 0 && r.Kind.Length == 0 && r.Value == 0 :
                         r.TargetId == 0 && r.Kind.Length == 0 &&
                         (r.Operation == SessionOperation.SelectHeroItem ? r.Value >= 0 && r.Value <= 3 : r.Value == 0));
             if (r.ControlLease != 0) return false;

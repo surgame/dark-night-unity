@@ -165,13 +165,13 @@ namespace DarkNights.Runtime.Network
             });
         }
 
-        public ValueTask SendTerrain(int u, int v, ulong expectedRevision, string requestId = null)
+        public ValueTask SendTerrain(int u, int v, string requestId = null)
         {
             if (!Ready || endpoint == null) throw new InvalidOperationException("会话尚未就绪。");
             string request = string.IsNullOrWhiteSpace(requestId) ? "terrain-" + (++sequence) : requestId;
             return NetworkCommandGateway.Instance.ProcessLocalCommandAsync(new TerrainEditCommand
             {
-                SenderObjectId = endpoint.ObjectId, RequestId = request, ExpectedRevision = expectedRevision, U = u, V = v
+                SenderObjectId = endpoint.ObjectId, RequestId = request, U = u, V = v
             });
         }
 

@@ -9,6 +9,7 @@ using DarkNights.Core.Logic;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.Save;
 using DarkNights.Core.ViewData;
+using DarkNights.Runtime.Objects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using static DarkNights.Runtime.Save.SaveJsonFields;
@@ -16,12 +17,12 @@ using static DarkNights.Runtime.Save.SaveJsonFields;
 namespace DarkNights.Runtime.Save
 {
     /// <summary>
-    /// 统一 YYGC 世界的 v5 冻结存档边界；只解析 DTO，不创建对象或修改当前会话。
+    /// 统一 YYGC 世界的 v6 冻结存档边界；只解析 DTO，不创建对象或修改当前会话。
     /// 拒绝旧版本、未知字段、内容摘要和身份关系不符；保存不包含权限、相机或连接身份。
     /// </summary>
     public sealed class ObjectWorldSaveJson
     {
-        public const int FormatVersion = 5;
+        public const int FormatVersion = 6;
         public const int MaximumBytes = 4000000;
         public const string Format = "dark-nights.world";
         private readonly GameCatalog catalog;
@@ -118,6 +119,16 @@ namespace DarkNights.Runtime.Save
                 if (!definitions.TryGetValue(kind, out string guid) || guid != identity.DefinitionGuid)
                     throw new FormatException("Entity definition does not match its RuleKey.");
                 if (identity.PlacementKey.Length == 0) continue;
+                if (identity.PlacementKey.StartsWith("terrain.deposit.", StringComparison.Ordinal))
+                {
+                    if (kind != "mineral-deposit") throw new FormatException("Terrain deposit identity has the wrong RuleKey.");
+                    continue;
+                }
+                if (identity.PlacementKey.StartsWith("mineral-drill.", StringComparison.Ordinal))
+                {
+                    if (kind != WorksiteBehaviour.MineralDrillRule) throw new FormatException("Mineral drill identity has the wrong RuleKey.");
+                    continue;
+                }
                 if (!placements.TryGetValue(identity.PlacementKey, out string original) ||
                     (original != kind && !(catalog.Balance.Units.ContainsKey(original) && catalog.Balance.Units.ContainsKey(kind))))
                     throw new FormatException("Unknown or incompatible scene placement identity.");

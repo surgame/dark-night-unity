@@ -33,6 +33,8 @@ namespace DarkNights.Runtime.Network
         public int SelectionRevision { get; set; }
         public bool JetpackEquipped { get; set; }
         public double JetpackFuel { get; set; }
+        public int ExplosiveCharges { get; set; }
+        public int DrillCharges { get; set; }
         public int ControllerSlot { get; set; } = -1;
         public int ControlLease { get; set; }
 
@@ -59,6 +61,8 @@ namespace DarkNights.Runtime.Network
             SelectionRevision = value.SelectionRevision,
             JetpackEquipped = value.JetpackEquipped,
             JetpackFuel = value.JetpackFuel,
+            ExplosiveCharges = value.ExplosiveCharges,
+            DrillCharges = value.DrillCharges,
             ControllerSlot = value.ControllerSlot,
             ControlLease = value.ControlLease,
         };
@@ -86,6 +90,8 @@ namespace DarkNights.Runtime.Network
             JetpackEquipped,
             JetpackFuel,
             ControllerSlot,
-            ControlLease);
+            ControlLease,
+            ExplosiveCharges,
+            DrillCharges);
     }
 }

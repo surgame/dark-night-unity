@@ -87,8 +87,12 @@ namespace DarkNights.Tests
             var first = map.DestroyTrusted(2, "mine-1", TerrainEditAction.HandMine, map.World, map.CommitId,
                 soft, targets, _ => true);
             ulong after = map.CommitId;
-            var retry = map.DestroyTrusted(2, "mine-1", TerrainEditAction.HandMine, map.World, 0, soft, targets, _ => false);
-            Assert.That(retry, Is.SameAs(first)); Assert.That(map.CommitId, Is.EqualTo(after));
+            for (int i = 0; i < 10; i++)
+            {
+                var retry = map.DestroyTrusted(2, "mine-1", TerrainEditAction.HandMine, map.World, 0, soft, targets, _ => false);
+                Assert.That(retry, Is.SameAs(first));
+            }
+            Assert.That(map.CommitId, Is.EqualTo(after));
             Assert.Throws<InvalidOperationException>(() => map.DestroyTrusted(2, "mine-1", TerrainEditAction.HandMine,
                 map.World, after, normal, new[] { normal }, _ => true));
             var blast = map.BuildTargets(TerrainEditAction.Explosive, normal);

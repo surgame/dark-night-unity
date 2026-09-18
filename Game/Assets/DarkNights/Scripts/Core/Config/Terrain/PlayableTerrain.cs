@@ -36,7 +36,7 @@ namespace DarkNights.Core.Config.Terrain
                 throw new ArgumentException("随机地图身份或尺寸无效。");
             for (int i = 0; i < cells.Length; i++)
                 if (cells[i] > 8 || (protectedCells[i] && cells[i] == 0) ||
-                    (softRock[i] && (cells[i] == 0 || cells[i] == 8 || protectedCells[i])))
+                    (softRock[i] && (cells[i] == 8 || protectedCells[i])))
                     throw new ArgumentException("随机地图材料、保护位或软岩标记无效。");
             var ids = new HashSet<string>(StringComparer.Ordinal);
             foreach (TerrainDepositBlueprint deposit in deposits)

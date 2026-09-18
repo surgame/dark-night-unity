@@ -34,7 +34,7 @@ namespace DarkNights.Core.Config.Terrain
                 softRock == null || softRock.Length != cells.Length || deposits == null)
                 throw new ArgumentException("蓝图尺寸不完整。");
             for (int i = 0; i < cells.Length; i++)
-                if (cells[i] > 8 || (softRock[i] && (cells[i] == 0 || cells[i] == 8 || protectedCells[i])))
+                if (cells[i] > 8 || (softRock[i] && (cells[i] == 8 || protectedCells[i])))
                     throw new ArgumentException("未知地形编号或软岩标记。");
             var ids = new HashSet<string>(StringComparer.Ordinal);
             foreach (TerrainDepositBlueprint deposit in deposits)

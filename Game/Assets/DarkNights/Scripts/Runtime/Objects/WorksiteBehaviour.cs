@@ -13,16 +13,20 @@ namespace DarkNights.Runtime.Objects
     [RequireConfig(typeof(WorksiteRuleConfig))]
     public sealed partial class WorksiteBehaviour : SessionStateBehaviour<WorksiteState>, IWorksiteCapability
     {
+        public const string MineralDrillRule = "worksite.mineral-drill";
         [Inject] private WorksiteRuleConfig config;
         public int Id => Current?.Id ?? 0;
-        public string RuleKey => config.RuleKey;
+        public string RuleKey => IsMineralDrill ? MineralDrillRule : config.RuleKey;
         public string DefinitionGuid => Object.Definition.Guid.ToString();
         public string PlacementKey => Current?.PlacementKey ?? "";
-        public WorksiteDefinition Definition => Session.Catalog.Balance.Worksites[RuleKey];
+        public WorksiteDefinition Definition => Session.Catalog.Balance.Worksites[config.RuleKey];
         public float X => Current.X;
         public int WorkerId => Current.WorkerId;
         public int Amount => Current.Amount;
         public int FarmId => Current.FarmId;
+        public bool IsMineralDrill => (Current?.PlacementKey ?? "").StartsWith("mineral-drill.", StringComparison.Ordinal);
+        public string DrillResourceId => Current?.Variant == 2 ? "gold" : "iron";
+        public int OutputBuffer => IsMineralDrill ? Amount : 0;
 
         protected override void OnReset()
         {
@@ -37,12 +41,13 @@ namespace DarkNights.Runtime.Objects
             PrepareState(new WorksiteState
             {
                 Id = id, PlacementKey = placement, X = x, Variant = variant,
-                FarmId = farmId, Amount = Definition.Amount
+                FarmId = farmId, Amount = placement.StartsWith("mineral-drill.", StringComparison.Ordinal) ? 0 : Definition.Amount
             });
         }
 
         internal void Tick(double delta)
         {
+            if (IsMineralDrill) return;
             if (WorkerId == 0 || Amount == 0) return;
             var worker = Session.Index.Find<ActorBehaviour>(WorkerId);
             WorksiteState state = Edit();
@@ -66,6 +71,12 @@ namespace DarkNights.Runtime.Objects
                 Session.Notify(Definition.Name + "已采尽，工人等待新安排。");
                 break;
             }
+        }
+
+        internal void BufferOutput(int quantity)
+        {
+            if (!IsMineralDrill || quantity <= 0) return;
+            Edit().Amount = checked(Amount + quantity);
         }
     }
 }

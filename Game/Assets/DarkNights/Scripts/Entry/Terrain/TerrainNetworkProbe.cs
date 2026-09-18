@@ -42,7 +42,6 @@ namespace DarkNights.Entry.Terrain
         private double nextReport;
         private bool sentFirst, sentSecond, reconnecting;
         private ulong epoch;
-        private ulong initialRevision;
         private static string Arg(string name, string fallback)
         {
             string[] args = System.Environment.GetCommandLineArgs(); int i = Array.IndexOf(args, name);
@@ -64,8 +63,6 @@ namespace DarkNights.Entry.Terrain
                 Application.runInBackground = true; Application.targetFrameRate = 60;
                 deadline = Time.realtimeSinceStartupAsDouble + 90;
                 var initial = Map.ReadBlueprint(); var gameplay = Map.Definition.LoadGameplayCatalog();
-                // Fixture knows the initialization load count. Product commands need authoritative revision in their response contract.
-                initialRevision = (ulong)(((initial.Width - 1) / 32 + 1) * (1 - GridMath.FloorDiv(1 - initial.Height, 32)));
                 var targets = new List<CellCoord>();
                 for (int y = 115; y >= 100 && targets.Count < 2; y--) for (int x = 115; x < 140 && targets.Count < 2; x++)
                     if (initial.MaterialAt(x, y) != 0 && !initial.IsProtected(x, y)) targets.Add(new CellCoord(x, -y));
@@ -105,7 +102,7 @@ namespace DarkNights.Entry.Terrain
                         {
                             if (!ulong.TryParse(command.RequestId, out ulong sequence)) throw new ArgumentException();
                             authority.DestroyTrusted(context.SenderConnection.ClientId, sequence, authority.World,
-                                command.ExpectedRevision, new[] { new CellCoord(command.U, command.V) },
+                                new[] { new CellCoord(command.U, command.V) },
                                 p => p.Equals(first) || p.Equals(second));
                             report.Accepted++;
                         }
@@ -128,9 +125,9 @@ namespace DarkNights.Entry.Terrain
         {
             if (asServer) Manager.ServerManager.Spawn(Instantiate(SenderPrefab), connection);
         }
-        private async void Send(CellCoord p, ulong revision, string sequence)
+        private async void Send(CellCoord p, string sequence)
         {
-            try { await NetworkCommandGateway.Instance.ProcessLocalCommandAsync(new TerrainEditCommand { U = p.U, V = p.V, ExpectedRevision = revision, RequestId = sequence }); }
+            try { await NetworkCommandGateway.Instance.ProcessLocalCommandAsync(new TerrainEditCommand { U = p.U, V = p.V, RequestId = sequence }); }
             catch (Exception e) { Fail(e); }
         }
         private void Update()
@@ -149,13 +146,13 @@ namespace DarkNights.Entry.Terrain
                     {
                         if (!sentFirst)
                         {
-                            sentFirst = true; Send(first, initialRevision, "1"); Send(first, initialRevision, "1"); Send(new CellCoord(0, -100), initialRevision, "3");
+                            sentFirst = true; Send(first, "1"); Send(first, "1"); Send(new CellCoord(0, -100), "3");
                         }
                         else if (a.IsEmpty && !reconnecting && !report.Reconnected)
                         {
                             reconnecting = true; Manager.ClientManager.StopConnection(); reconnectAt = Time.realtimeSinceStartupAsDouble + 1;
                         }
-                        else if (report.Reconnected && !sentSecond) { sentSecond = true; Send(second, initialRevision + 1, "2"); }
+                        else if (report.Reconnected && !sentSecond) { sentSecond = true; Send(second, "2"); }
                     }
                     if (a.IsEmpty && b.IsEmpty && (report.Role != "client" || report.Reconnected))
                     {

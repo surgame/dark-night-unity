@@ -251,3 +251,21 @@ U2 分批覆盖 126 个不同 Editor／Play 用例，无未解决失败；Mono �
 两份补丁只存在于宿主隔离解包目录，未写入用户框架仓库。准备脚本规范化这两个修改文件的换行、校验全部 442 项源文件；全新归档解包、应用补丁和哈希对比已通过。三个包的源码身份均来自 aa450a7，现有 YYGC 0c7cec0 的对象／输入补丁不变。
 
 未修改 AnyRuleD 核心地图、规则编译器或渲染后端。游戏直接使用 ARDMap 局部事务，以 ObjectSessionContext 控制写权限；不把 TerrainEditBusinessHandler 的整图检查点事务当作高频采矿实现。当前补丁是宿主锁定适配，不宣称已合并 YYGC 主分支或发布新版框架。
+
+## 2026-09-19：地图遗漏修复的隔离 AnyRules 宿主补丁
+
+本批没有修改 `D:\Developer\YYGC` 用户仓库，也没有创建或推送 YYGC 提交。为满足地图方案 v1.1 的权威幂等合同，补丁只落在本仓库 `tools/map-framework-patch` 和解包后的 `.deps/AnyRules`，由 `tools/prepare-map-packages.ps1` 应用并锁定。
+
+| 文件 | 原因与落点 | 验证 |
+|---|---|---|
+| `tools/map-framework-patch/TerrainEditCommandPayload.patch` | 移除客户端 `ExpectedRevision` 字段及其重置／序列化输入；旧兼容处理改为读取宿主 `CommitId`，并为 TerrainEditBusinessHandler 暴露提交代次，使游戏服务端只按当前权威地图提交 | 隔离 Unity 编译前源码检查；`prepare-map-packages.ps1` 通过，442 项源文件校验 |
+| `.deps/AnyRules/.../TerrainEditCommand.cs` | 应用上述 payload 合同，客户端不再提交地图 revision | 与 patch 内容和 source-lock SHA-256 一致 |
+| `.deps/AnyRules/.../TerrainEditBusinessHandler.cs` | 提供宿主读取的 `CommitId`，保留既有 Tag 3 注册与处理入口 | 与 patch 内容和 source-lock SHA-256 一致 |
+| `tools/map-framework-patch/source-lock.json` | 更新两个隔离文件的 SHA-256，保持解包可重现 | `prepare-map-packages.ps1` 442/442 通过 |
+| `tools/prepare-map-packages.ps1` | 把补丁纳入一次性解包／校验流程，避免依赖本机用户框架工作区 | 既有用户工作区未写入；远端 clone 可用性仍是 P2 待核查 |
+
+这不是 YYGC master 的上游合并，也不代表远端框架已发布新版本；游戏仍通过隔离包和锁文件使用该适配。游戏侧地形路由、ActorState 库存、矿床／钻机对象和正式资产改动均记录在当前分支，不计入 YYGC 文件变更。
+
+`prepare-lan-sample.ps1` 的远端恢复路径已补齐：新环境从基线 `0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143` 克隆，再应用 `tools/lan-framework-patch/NetworkCommandInterfaceGenerator.patch` 及既有 LAN 补丁，得到与 `12b253c6bdd262feb860ab905b9e56e940ec9c40` 等价的源码。使用临时空 checkout 的本地克隆模拟已通过并回收；当前环境的 GitHub `ls-remote` 未在限时内返回，所以公网可达性仍待新机器确认。未修改 `D:\Developer\YYGC` master，也未推送新提交。
+
+该 NetworkCommand 补丁另外锁定 SHA-256 `2D86D92A3EBE1B4DD37650C206B00D969F93850C3648D56293E4DC01927AB17E`；准备脚本在应用前拒绝带有未预期 tracked 修改的基线 checkout，避免覆盖用户已有改动。

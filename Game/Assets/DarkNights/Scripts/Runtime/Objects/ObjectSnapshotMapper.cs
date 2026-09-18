@@ -26,7 +26,8 @@ namespace DarkNights.Runtime.Objects
                 return new ActorSnapshot(a.Id, actor.RuleKey, a.Enemy, a.Name, a.X, a.Hp, a.Activity,
                     a.TargetId, a.MoveX, a.RallyX, a.Face, a.ActionTime, a.AttackClock, a.Windup,
                     a.HitPending, a.ForcedAttack, a.AiClock,
-                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.IgnoredPlatform, a.DropRemaining, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel);
+                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.IgnoredPlatform, a.DropRemaining, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel,
+                    a.ExplosiveCharges, a.DrillCharges);
             }).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {
@@ -104,7 +105,8 @@ namespace DarkNights.Runtime.Objects
                     MoveX = (float)a.MoveX, RallyX = (float)a.RallyX, Face = (float)a.Face,
                     ActionTime = a.ActionTime, AttackClock = a.AttackClock, Windup = a.Windup,
                     HitPending = a.HitPending, ForcedAttack = a.ForcedAttack, AiClock = a.AiClock,
-                    Height = a.Height, VerticalSpeed = a.VerticalSpeed, SupportPlatform = a.SupportPlatform, IgnoredPlatform = a.IgnoredPlatform, DropRemaining = a.DropRemaining, ManualControl = a.ManualControl, SelectedItem = a.SelectedItem, SelectionRevision = a.SelectionRevision, JetpackEquipped = a.JetpackEquipped, JetpackFuel = a.JetpackFuel
+                    Height = a.Height, VerticalSpeed = a.VerticalSpeed, SupportPlatform = a.SupportPlatform, IgnoredPlatform = a.IgnoredPlatform, DropRemaining = a.DropRemaining, ManualControl = a.ManualControl, SelectedItem = a.SelectedItem, SelectionRevision = a.SelectionRevision, JetpackEquipped = a.JetpackEquipped, JetpackFuel = a.JetpackFuel,
+                    ExplosiveCharges = a.ExplosiveCharges, DrillCharges = a.DrillCharges, LastTerrainActionTick = -1000
                 });
             }
             else if (owner.GetBehaviour<BuildingBehaviour>() is BuildingBehaviour building)

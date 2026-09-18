@@ -51,7 +51,8 @@ namespace DarkNights.Runtime.Framework
             foreach (string kind in catalog.Balance.Worksites.Keys) Require(kind, ObjectType.Scenery_ResourceNode);
             int expected = catalog.Balance.Units.Count + catalog.Balance.Buildings.Count + catalog.Balance.Worksites.Count;
             bool hasDeposits = definitions.ContainsKey(MineralDepositRuleConfig.Rule);
-            if (Count != expected + (hasDeposits ? 1 : 0))
+            bool hasMineralDrill = definitions.ContainsKey(WorksiteBehaviour.MineralDrillRule);
+            if (Count != expected + (hasDeposits ? 1 : 0) + (hasMineralDrill ? 1 : 0))
                 throw new InvalidOperationException("Definition directory contains unknown rule content.");
             if (hasDeposits && GetRequired(MineralDepositRuleConfig.Rule).Type != ObjectType.Scenery_ResourceNode)
                 throw new InvalidOperationException("Mineral deposit definition must be scenery.");

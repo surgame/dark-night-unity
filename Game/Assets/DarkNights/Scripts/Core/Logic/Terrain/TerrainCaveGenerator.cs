@@ -79,21 +79,69 @@ namespace DarkNights.Core.Logic.Terrain
         private static void PlaceGameplayMarkers(TerrainGenerationBuffer b, string seed)
         {
             var random = new TerrainRandom(seed + ":room-resources");
+            var placed = new System.Collections.Generic.List<(int X, int Y)>();
             foreach (TerrainRoom room in b.Rooms)
             {
                 if ((room.Features & TerrainRoomFeature.SoftRock) != 0) MarkSoftRockBand(b, room, seed);
-                if ((room.Features & TerrainRoomFeature.MineralDeposit) == 0) continue;
+                if ((room.Features & TerrainRoomFeature.MineralDeposit) == 0 ||
+                    (room.Features & TerrainRoomFeature.Entry) != 0) continue;
                 for (int i = 0; i < room.DepositBudget; i++)
                 {
-                    int x = room.Left + 5 + (int)(random.Next() * Math.Max(1, room.Width - 10));
-                    int y = room.Top + 4 + (int)(random.Next() * Math.Max(1, room.Height - 8));
+                    if (!TryFindDepositCell(b, room, random, placed, out int x, out int y))
+                        throw new InvalidOperationException("矿床生成找不到满足支撑、入口和间距约束的候选格：" + room.Kind);
+                    placed.Add((x, y));
                     string rarity = room.Kind == "boss" ? "rare" : i % 3 == 0 ? "uncommon" : "common";
                     int capacity = room.Kind == "boss" ? 180 : room.Kind == "secret" ? 120 : 100;
-                    b.Deposits.Add(new TerrainDepositBlueprint(room.Kind + "-deposit-" + i, room.Kind,
-                        Math.Clamp(x, 0, TerrainGenerationBuffer.W - 1), Math.Clamp(y, 0, TerrainGenerationBuffer.H - 1), rarity, capacity));
+                    b.Deposits.Add(new TerrainDepositBlueprint(room.Kind + "-deposit-" + i, room.Kind, x, y, rarity, capacity));
                 }
             }
         }
+
+        private static bool TryFindDepositCell(TerrainGenerationBuffer b, TerrainRoom room, TerrainRandom random,
+            System.Collections.Generic.IReadOnlyList<(int X, int Y)> placed, out int x, out int y)
+        {
+            int left = Math.Max(1, room.Left + 3), right = Math.Min(TerrainGenerationBuffer.W - 2, room.Left + room.Width - 3);
+            int top = Math.Max(1, room.Top + 3), bottom = Math.Min(TerrainGenerationBuffer.H - 2, room.Top + room.Height - 3);
+            int attempts = Math.Max(128, room.Width * room.Height * 2);
+            for (int attempt = 0; attempt < attempts; attempt++)
+            {
+                int candidateX = left + (int)(random.Next() * Math.Max(1, right - left + 1));
+                int candidateY = top + (int)(random.Next() * Math.Max(1, bottom - top + 1));
+                if (ValidDepositCell(b, candidateX, candidateY, placed))
+                {
+                    x = candidateX; y = candidateY; return true;
+                }
+            }
+            for (int candidateY = top; candidateY <= bottom; candidateY++)
+                for (int candidateX = left; candidateX <= right; candidateX++)
+                    if (ValidDepositCell(b, candidateX, candidateY, placed))
+                    {
+                        x = candidateX; y = candidateY; return true;
+                    }
+            x = y = 0;
+            return false;
+        }
+
+        private static bool ValidDepositCell(TerrainGenerationBuffer b, int x, int y,
+            System.Collections.Generic.IReadOnlyList<(int X, int Y)> placed)
+        {
+            if (b.At(x, y) != 0 || (Math.Abs(x - 94) <= 7 && y < b.Surface[x] + 18) ||
+                (Math.Abs(x - 291) <= 7 && y < b.Surface[x] + 18) || !HasSupport(b, x, y)) return false;
+            foreach (var other in placed)
+            {
+                int dx = x - other.X, dy = y - other.Y;
+                if (dx * dx + dy * dy < 25) return false;
+            }
+            return true;
+        }
+
+        private static bool HasSupport(TerrainGenerationBuffer b, int x, int y)
+        {
+            return SolidNonBedrock(b.At(x, y + 1)) || SolidNonBedrock(b.At(x - 1, y)) ||
+                SolidNonBedrock(b.At(x + 1, y));
+        }
+
+        private static bool SolidNonBedrock(int value) => value > 0 && value != 8;
 
         private static void MarkSoftRockBand(TerrainGenerationBuffer b, TerrainRoom room, string seed)
         {

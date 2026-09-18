@@ -56,6 +56,12 @@ namespace DarkNights.Core.Save
                         return "矿床状态无效";
                     continue;
                 }
+                if (w.Kind == "worksite.mineral-drill")
+                {
+                    if (w.Amount < 0 || w.Amount > 1000000 || w.WorkerId != 0 || w.FarmId != 0 ||
+                        (w.Variant != 1 && w.Variant != 2) || !Number(w.Progress, 0, 1)) return "钻机状态无效";
+                    continue;
+                }
                 if (!c.Catalog.Balance.Worksites.TryGetValue(w.Kind, out var d))
                     return "未知工作点";
                 if (w.Amount is < -1 or > 1000000 || !Number(w.Progress, 0, d.Interval) || w.Variant is < 0 or > 3 ||
@@ -77,6 +83,7 @@ namespace DarkNights.Core.Save
                 var hero = c.Catalog.Balance.HeroControl;
                 if (!Number(a.Height, c.Saved.Terrain == null ? 0 : Config.Terrain.PlayableTerrain.MinimumHeight, hero?.MaximumHeight ?? 0) || !Number(a.VerticalSpeed, -1000, 1000) ||
                     !Number(a.DropRemaining, 0, hero?.DropSeconds ?? 0) || !Number(a.JetpackFuel, 0, hero?.FuelSeconds ?? 0) ||
+                    a.ExplosiveCharges < 0 || a.ExplosiveCharges > 1000 || a.DrillCharges < 0 || a.DrillCharges > 1000 ||
                     a.SelectedItem < 0 || a.SelectedItem > 3 || a.SelectionRevision < 0 || a.SupportPlatform < -1 || a.IgnoredPlatform < 0 ||
                     (a.Enemy && (a.ManualControl || a.Height != 0 || a.JetpackEquipped)) ||
                     (a.SupportPlatform == 0 && ((c.Saved.Terrain == null && a.Height != 0) || a.VerticalSpeed != 0)) ||

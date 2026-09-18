@@ -34,7 +34,7 @@ namespace DarkNights.Core.Logic.Terrain
             if (protectedCell || material == 0 || material == 8) return false;
             switch (action)
             {
-                case TerrainEditAction.HandMine: return softRock;
+                case TerrainEditAction.HandMine: return softRock || material == 4 || material == 5 || material == 6;
                 case TerrainEditAction.Explosive: return true;
                 default: return false;
             }

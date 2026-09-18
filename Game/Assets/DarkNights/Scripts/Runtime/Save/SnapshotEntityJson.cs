@@ -43,7 +43,9 @@ namespace DarkNights.Runtime.Save
                 Integer(v["selected_item"]),
                 Integer(v["selection_revision"]),
                 Boolean(v["jetpack_equipped"]),
-                Number(v["jetpack_fuel"]));
+                Number(v["jetpack_fuel"]),
+                Integer(v["explosive_charges"]),
+                Integer(v["drill_charges"]));
         }
 
         public static JObject Write(ActorSnapshot v) => new JObject
@@ -74,7 +76,9 @@ namespace DarkNights.Runtime.Save
             ["selected_item"] = v.SelectedItem,
             ["selection_revision"] = v.SelectionRevision,
             ["jetpack_equipped"] = v.JetpackEquipped,
-            ["jetpack_fuel"] = v.JetpackFuel
+            ["jetpack_fuel"] = v.JetpackFuel,
+            ["explosive_charges"] = v.ExplosiveCharges,
+            ["drill_charges"] = v.DrillCharges
         };
 
         public static BuildingSnapshot BuildingSnapshot(JToken value)

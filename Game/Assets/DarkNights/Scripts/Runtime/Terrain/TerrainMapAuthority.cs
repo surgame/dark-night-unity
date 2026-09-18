@@ -15,8 +15,8 @@ namespace DarkNights.Runtime.Terrain
         private readonly ARDMap map;
         private readonly bool[] softRock;
         private readonly Dictionary<int, ulong> sequences = new Dictionary<int, ulong>();
-        private readonly Dictionary<int, Dictionary<string, (string Fingerprint, GridCommitReceipt Receipt)>> results =
-            new Dictionary<int, Dictionary<string, (string, GridCommitReceipt)>>();
+        private readonly Dictionary<int, Dictionary<string, (string Fingerprint, TerrainEditAction Action, GridCommitReceipt Receipt)>> results =
+            new Dictionary<int, Dictionary<string, (string, TerrainEditAction, GridCommitReceipt)>>();
         private readonly Dictionary<int, Queue<string>> resultOrder = new Dictionary<int, Queue<string>>();
         private bool disposed;
         public WorldIdentity World => map.World;
@@ -84,29 +84,40 @@ namespace DarkNights.Runtime.Terrain
             if (connectionGeneration < 0 || sequences.TryGetValue(connectionGeneration, out ulong previous) && sequence <= previous)
                 throw new InvalidOperationException("地图身份或请求序号已过期。");
             var receipt = DestroyTrusted(connectionGeneration, "legacy:" + sequence, TerrainEditAction.Explosive,
-                world, expectedRevision, targets[0], targets, authorize, out _, false);
+                world, targets[0], targets, authorize, out _, false);
             sequences[connectionGeneration] = sequence;
             return receipt;
         }
 
+        public GridCommitReceipt DestroyTrusted(int connectionGeneration, ulong sequence, WorldIdentity world,
+            IReadOnlyList<CellCoord> targets, Func<CellCoord, bool> authorize) =>
+            DestroyTrusted(connectionGeneration, sequence, world, CommitId, targets, authorize);
+
         /// <summary>执行正式地形动作并缓存首次回执；重复 RequestId 返回同一回执而不再次提交地图事务。</summary>
         public GridCommitReceipt DestroyTrusted(int connectionGeneration, string requestId, TerrainEditAction action,
-            WorldIdentity world, ulong expectedRevision, CellCoord center, IReadOnlyList<CellCoord> targets,
+            WorldIdentity world, CellCoord center, IReadOnlyList<CellCoord> targets,
             Func<CellCoord, bool> authorize)
         {
-            return DestroyTrusted(connectionGeneration, requestId, action, world, expectedRevision, center, targets, authorize, out _);
+            return DestroyTrusted(connectionGeneration, requestId, action, world, center, targets, authorize, out _);
+        }
+
+        /// <summary>兼容既有内部测试调用；客户端不再携带该参数，权威事务始终读取当前 CommitId。</summary>
+        public GridCommitReceipt DestroyTrusted(int connectionGeneration, string requestId, TerrainEditAction action,
+            WorldIdentity world, ulong ignoredExpectedRevision, CellCoord center, IReadOnlyList<CellCoord> targets,
+            Func<CellCoord, bool> authorize)
+        {
+            return DestroyTrusted(connectionGeneration, requestId, action, world, center, targets, authorize, out _);
         }
 
         public GridCommitReceipt DestroyTrusted(int connectionGeneration, string requestId, TerrainEditAction action,
-            WorldIdentity world, ulong expectedRevision, CellCoord center, IReadOnlyList<CellCoord> targets,
+            WorldIdentity world, CellCoord center, IReadOnlyList<CellCoord> targets,
             Func<CellCoord, bool> authorize, out bool applied)
         {
-            return DestroyTrusted(connectionGeneration, requestId, action, world, expectedRevision, center,
-                targets, authorize, out applied, true);
+            return DestroyTrusted(connectionGeneration, requestId, action, world, center, targets, authorize, out applied, true);
         }
 
         private GridCommitReceipt DestroyTrusted(int connectionGeneration, string requestId, TerrainEditAction action,
-            WorldIdentity world, ulong expectedRevision, CellCoord center, IReadOnlyList<CellCoord> targets,
+            WorldIdentity world, CellCoord center, IReadOnlyList<CellCoord> targets,
             Func<CellCoord, bool> authorize, out bool applied, bool requireCanonical)
         {
             applied = false;
@@ -114,7 +125,7 @@ namespace DarkNights.Runtime.Terrain
             if (!World.Equals(world) || connectionGeneration < 0) throw new InvalidOperationException("地图身份已过期。");
             if (string.IsNullOrWhiteSpace(requestId) || requestId.Length > 96)
                 throw new ArgumentException("RequestId 必须为 1–96 个非空字符。", nameof(requestId));
-            string fingerprint = Fingerprint(action, expectedRevision, center, targets);
+            string fingerprint = Fingerprint(action, center, targets);
             if (results.TryGetValue(connectionGeneration, out var cached) && cached.TryGetValue(requestId, out var previous))
             {
                 if (previous.Fingerprint != fingerprint) throw new InvalidOperationException("RequestId 与首次请求不一致。");
@@ -127,10 +138,10 @@ namespace DarkNights.Runtime.Terrain
                 if (canonical.Count != targets.Count || canonical.Any(position => !targets.Contains(position)))
                     throw new InvalidOperationException("破坏目标必须由服务端动作规则生成。");
             }
-            using var edit = map.BeginEdit(expectedRevision);
+            using var edit = map.BeginEdit(CommitId);
             foreach (CellCoord position in targets) edit.ClearTile(position);
             var receipt = edit.Commit();
-            Remember(connectionGeneration, requestId, (fingerprint, receipt));
+            Remember(connectionGeneration, requestId, (fingerprint, action, receipt));
             applied = true;
             return receipt;
         }
@@ -146,9 +157,22 @@ namespace DarkNights.Runtime.Terrain
             receipt = null;
             if (!results.TryGetValue(connectionGeneration, out var cached) ||
                 !cached.TryGetValue(requestId, out var previous)) return false;
-            string prefix = action + ":" + center.U + ":" + center.V + ":";
-            if (!previous.Fingerprint.StartsWith(prefix, StringComparison.Ordinal))
+            if (previous.Action != action || !CenterMatches(previous.Fingerprint, center))
                 throw new InvalidOperationException("RequestId 与首次请求不一致。");
+            receipt = previous.Receipt;
+            return true;
+        }
+
+        public bool TryGetCached(int connectionGeneration, string requestId, CellCoord center,
+            out TerrainEditAction action, out GridCommitReceipt receipt)
+        {
+            action = default;
+            receipt = null;
+            if (!results.TryGetValue(connectionGeneration, out var cached) ||
+                !cached.TryGetValue(requestId, out var previous)) return false;
+            if (!CenterMatches(previous.Fingerprint, center))
+                throw new InvalidOperationException("RequestId 与首次请求不一致。");
+            action = previous.Action;
             receipt = previous.Receipt;
             return true;
         }
@@ -187,23 +211,33 @@ namespace DarkNights.Runtime.Terrain
             }
         }
 
-        private void Remember(int connectionGeneration, string requestId, (string Fingerprint, GridCommitReceipt Receipt) result)
+        private void Remember(int connectionGeneration, string requestId,
+            (string Fingerprint, TerrainEditAction Action, GridCommitReceipt Receipt) result)
         {
             if (!results.TryGetValue(connectionGeneration, out var cache))
             {
-                cache = new Dictionary<string, (string, GridCommitReceipt)>(); results.Add(connectionGeneration, cache);
+                cache = new Dictionary<string, (string, TerrainEditAction, GridCommitReceipt)>(); results.Add(connectionGeneration, cache);
                 resultOrder.Add(connectionGeneration, new Queue<string>());
             }
             cache.Add(requestId, result); resultOrder[connectionGeneration].Enqueue(requestId);
             while (resultOrder[connectionGeneration].Count > 64) cache.Remove(resultOrder[connectionGeneration].Dequeue());
         }
 
-        private static string Fingerprint(TerrainEditAction action, ulong expectedRevision, CellCoord center,
+        private static string Fingerprint(TerrainEditAction action, CellCoord center,
             IReadOnlyList<CellCoord> targets)
         {
             var text = action + ":" + center.U + ":" + center.V + ":" + (targets == null ? -1 : targets.Count);
             if (targets != null) foreach (CellCoord target in targets) text += ":" + target.U + "," + target.V;
             return text;
+        }
+
+        private static bool CenterMatches(string fingerprint, CellCoord center)
+        {
+            int first = fingerprint.IndexOf(':');
+            int second = first < 0 ? -1 : fingerprint.IndexOf(':', first + 1);
+            int third = second < 0 ? -1 : fingerprint.IndexOf(':', second + 1);
+            return first >= 0 && second > first && third > second &&
+                fingerprint.Substring(first, third - first) == ":" + center.U + ":" + center.V;
         }
 
         private void Notify(GridChangeSet change) => Changed?.Invoke(change);

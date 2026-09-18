@@ -30,7 +30,8 @@ namespace DarkNights.View
             toggleButton.gameObject.SetActive(allowCampControl);
             toggleLabel.text = actor == null ? "操控居民 [Tab]" : "营地模式 [Tab]";
             status.text = notice.Length != 0 ? notice : actor == null ? "正在等待服务器分配可用居民。" :
-                actor.Name + " · A/D 移动 · " + jump + " 跳跃 · S 下穿 · 左键使用 · 燃料 " + actor.JetpackFuel.ToString("F1") + "s";
+                actor.Name + " · A/D 移动 · " + jump + " 跳跃 · S 下穿 · 左键使用 · 燃料 " + actor.JetpackFuel.ToString("F1") +
+                "s · 炸药 " + actor.ExplosiveCharges + " · 钻机 " + actor.DrillCharges;
             item1.text = (actor?.SelectedItem == 0 ? "▶ " : "") + "1 职业武器";
             item2.text = (actor?.SelectedItem == 1 ? "▶ " : "") + "2 工作工具";
             item3.text = (actor?.SelectedItem == 2 ? "▶ " : "") + "3 喷气背包" + (actor?.JetpackEquipped == true ? " · 已装备" : "");

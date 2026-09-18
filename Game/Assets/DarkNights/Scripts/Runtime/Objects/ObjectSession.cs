@@ -49,6 +49,7 @@ namespace DarkNights.Runtime.Objects
         public ObjectCombat Combat { get; }
         public ObjectCampCommands Commands { get; }
         public SessionFeedback Feedback { get; } = new SessionFeedback();
+        private readonly ObjectSessionMineralDrill mineralDrills;
         public bool Paused => Camp.Read().Paused;
         public int Speed => Camp.Read().Speed;
         public double Elapsed => Camp.Read().Elapsed;
@@ -76,6 +77,7 @@ namespace DarkNights.Runtime.Objects
             Lifecycle = new ObjectEntityLifecycle(this);
             Combat = new ObjectCombat(this);
             Commands = new ObjectCampCommands(this);
+            mineralDrills = new ObjectSessionMineralDrill(this);
         }
 
         public void Prepare(ObjectInstance sessionOwner, IReadOnlyList<ObjectPlacement> placements)
@@ -183,16 +185,9 @@ namespace DarkNights.Runtime.Objects
         public int TrainActors(string ruleKey, IReadOnlyList<int> ids) => Mutations.Run(() => Commands.Train(ruleKey, ids));
         public int Recruit() => Mutations.Run(Commands.Recruit);
         public bool Repair(int id) => Mutations.Run(() => Commands.Repair(id));
-        public bool StartMineralDrill(int depositId, int drillId) => Mutations.Run(() =>
-        {
-            MineralDepositBehaviour deposit = Index.Find<MineralDepositBehaviour>(depositId);
-            return MineralDrillBusiness.Start(deposit, drillId);
-        });
-        public bool StopMineralDrill(int depositId, int drillId) => Mutations.Run(() =>
-        {
-            MineralDepositBehaviour deposit = Index.Find<MineralDepositBehaviour>(depositId);
-            return MineralDrillBusiness.Stop(deposit, drillId);
-        });
+        public bool StartMineralDrill(int depositId, int drillId) => mineralDrills.Start(depositId, drillId);
+        public bool StopMineralDrill(int depositId, int drillId) => mineralDrills.Stop(depositId, drillId);
+        public int DeployMineralDrill(int actorId, int depositId) => mineralDrills.Deploy(actorId, depositId);
         public bool StartNight() => Mutations.Run(Waves.StartNight);
 
         public void SetTime(bool paused, int speed)
@@ -218,8 +213,7 @@ namespace DarkNights.Runtime.Objects
                 foreach (WorksiteBehaviour site in Index.Worksites.ToArray()) site.Tick(delta);
                 foreach (MineralDepositBehaviour deposit in Index.MineralDeposits.ToArray())
                 {
-                    int extracted = MineralDrillBusiness.Tick(deposit, delta);
-                    if (extracted > 0) Economy.AddResource(deposit.ResourceId, extracted);
+                    mineralDrills.Tick(deposit, delta);
                 }
                 Projectiles.Tick(delta);
                 if (Camp.Read().Mode == SessionMode.Playing) Waves.Tick(delta);

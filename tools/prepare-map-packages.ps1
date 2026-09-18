@@ -34,7 +34,7 @@ if ($locked) {
 }
 Push-Location $root
 try {
-    foreach ($name in @('IdleMapPublication','RealtimeMapRetry','PlayableMapChunkBudget')) {
+    foreach ($name in @('IdleMapPublication','RealtimeMapRetry','PlayableMapChunkBudget','TerrainEditCommandPayload')) {
         $patch = Join-Path $PSScriptRoot "map-framework-patch/$name.patch"
         git apply --directory=.deps/AnyRules --reverse --check --ignore-space-change $patch 2>$null
         if ($LASTEXITCODE -ne 0) {

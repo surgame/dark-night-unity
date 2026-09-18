@@ -78,7 +78,7 @@ namespace DarkNights.Runtime.Network
             int saveArgument = Array.IndexOf(args, "--dn-save-dir");
             SaveDirectory = Path.GetFullPath(saveArgument >= 0 && saveArgument + 1 < args.Length
                 ? args[saveArgument + 1] : Path.Combine(Application.persistentDataPath, "Saves"));
-            SaveDirectory = Path.Combine(SaveDirectory, "v5");
+            SaveDirectory = Path.Combine(SaveDirectory, "v6");
             var fingerprint = new SaveContentFingerprint(catalog, layout);
             authenticator = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
             string identity = new ObjectWorldSaveJson(catalog, layout,
@@ -105,6 +105,7 @@ namespace DarkNights.Runtime.Network
             ready = CommandRouters.LocalInput.SubscribeAwait<SetReadyCommand>((command, context) => Server?.Ready(command, context) ?? default);
             readyBound = true;
             terrainRoute = new TerrainActionRoute(() => ObjectWorld?.Terrain?.Map,
+                (context, command) => Server?.TerrainConnectionGeneration(context, command),
                 (context, command) => Server?.AuthorizeTerrain(context, command),
                 (context, result) => Server?.ReplyTerrain(context, result));
             manager.SceneManager.OnClientLoadedStartScenes += Loaded;
@@ -262,11 +263,8 @@ namespace DarkNights.Runtime.Network
             Status = "未连接";
         }
 
-        public ValueTask SendTerrain(int u, int v, string requestId = null)
-        {
-            if (Client == null || Terrain?.Replica == null) throw new InvalidOperationException("地图尚未连接。");
-            return Client.SendTerrain(u, v, Terrain.Replica.CommitId, requestId);
-        }
+        public ValueTask SendTerrain(int u, int v, string requestId = null) =>
+            Client == null || Terrain?.Replica == null ? throw new InvalidOperationException("地图尚未连接。") : Client.SendTerrain(u, v, requestId);
 
         public void Fail(Exception error)
         {
