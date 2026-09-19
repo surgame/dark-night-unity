@@ -44,8 +44,7 @@ namespace DarkNights.Runtime.Save
                 Integer(v["selection_revision"]),
                 Boolean(v["jetpack_equipped"]),
                 Number(v["jetpack_fuel"]),
-                Integer(v["explosive_charges"]),
-                Integer(v["drill_charges"]));
+                Integer(v["explosive_charges"]));
         }
 
         public static JObject Write(ActorSnapshot v) => new JObject
@@ -77,8 +76,7 @@ namespace DarkNights.Runtime.Save
             ["selection_revision"] = v.SelectionRevision,
             ["jetpack_equipped"] = v.JetpackEquipped,
             ["jetpack_fuel"] = v.JetpackFuel,
-            ["explosive_charges"] = v.ExplosiveCharges,
-            ["drill_charges"] = v.DrillCharges
+            ["explosive_charges"] = v.ExplosiveCharges
         };
 
         public static BuildingSnapshot BuildingSnapshot(JToken value)
@@ -124,8 +122,7 @@ namespace DarkNights.Runtime.Save
                 Text(v["room_kind"]),
                 Text(v["rarity"]),
                 Integer(v["capacity"]),
-                Text(v["stage"]),
-                Integer(v["drill_id"]));
+                Text(v["stage"]));
         }
 
         public static JObject Write(WorksiteSnapshot v) => new JObject
@@ -143,8 +140,7 @@ namespace DarkNights.Runtime.Save
             ["room_kind"] = v.RoomKind,
             ["rarity"] = v.Rarity,
             ["capacity"] = v.Capacity,
-            ["stage"] = v.Stage,
-            ["drill_id"] = v.DrillId
+            ["stage"] = v.Stage
         };
 
         public static ProjectileSnapshot ProjectileSnapshot(JToken value)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using AnyRules.Next;
 using AnyRules.Next.Authoring;
@@ -11,6 +12,7 @@ using DarkNights.Runtime.Objects;
 using DarkNights.Runtime.Session;
 using DarkNights.Runtime.Terrain;
 using DarkNights.View;
+using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine.TestTools;
@@ -41,11 +43,23 @@ namespace DarkNights.Tests
             using var scope = await UnifiedSessionScope.Create();
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(Editor.Terrain.TerrainTestAssets.DefinitionPath);
             var catalog = RuleScenario.Catalog(); var layout = PlayableTerrainGenerator.Layout(RuleScenario.Layout());
-            var world = scope.NewWorld(catalog, layout, false);
             var selected = PlayableTerrainGenerator.Generate("save-restore", Id);
-            world.Terrain = new SessionTerrain(world.Context, definition.LoadGameplayCatalog(), selected);
+            var world = scope.NewWorld(catalog, layout, false, terrain: value =>
+                new SessionTerrain(value.Context, definition.LoadGameplayCatalog(), selected));
             using var authority = new SessionAuthority(world);
             var host = authority.Connect(0); authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true);
+            Assert.That(world.Index.MineralDeposits.Count, Is.EqualTo(selected.Deposits.Count));
+            int scattered = selected.CopyMaterials().Count(value => value >= 4 && value <= 6);
+            int mineCapacity = selected.Deposits.Where(value => value.RoomKind == "mine").Sum(value => value.Capacity);
+            Assert.That(mineCapacity, Is.GreaterThan(scattered), "矿室总容量必须明显高于沿途散矿格数。");
+            using (var objectReplica = new ObjectReplica(scope.Resources, scope.Placements(layout), null))
+            {
+                objectReplica.Apply(world.CaptureView());
+                Assert.That(objectReplica.Count, Is.EqualTo(world.Index.Count), "客户端必须接受动态地形矿床身份。");
+            }
+            var mined = world.Index.MineralDeposits.First(value => value.RoomKind == "mine");
+            string minedPlacement = mined.PlacementKey;
+            int minedRemaining = mined.Remaining;
             var map = world.Terrain.Map; var gameplay = definition.LoadGameplayCatalog();
             string visual = new string('a', 64);
             var stream = TerrainMapNetworking.OpenStream(map, TerrainMapNetworking.Handshake(map, gameplay, visual), 1, _ => true, () => 1);
@@ -71,6 +85,8 @@ namespace DarkNights.Tests
             CollectionAssert.AreEqual(selected.CopySoftRock(), world.Terrain.Capture().CopySoftRock());
             Assert.That(world.Terrain.Capture().Deposits.Count, Is.EqualTo(selected.Deposits.Count));
             Assert.That(world.Terrain.Capture().Rooms.Count, Is.EqualTo(selected.Rooms.Count));
+            Assert.That(world.Index.MineralDeposits.Single(value => value.PlacementKey == minedPlacement).Remaining,
+                Is.EqualTo(minedRemaining));
             var valid = world.Terrain.Map;
             Assert.Throws<FormatException>(() => world.Restore(save.Replace("\"format_version\":6", "\"format_version\":4")));
             Assert.That(world.Terrain.Map, Is.SameAs(valid));
@@ -87,9 +103,9 @@ namespace DarkNights.Tests
             using var scope = await UnifiedSessionScope.Create();
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(Editor.Terrain.TerrainTestAssets.DefinitionPath);
             var catalog = RuleScenario.Catalog(); var layout = PlayableTerrainGenerator.Layout(RuleScenario.Layout());
-            var world = scope.NewWorld(catalog, layout, false);
             var selected = PlayableTerrainGenerator.Generate("soft-rock-save", Id);
-            world.Terrain = new SessionTerrain(world.Context, definition.LoadGameplayCatalog(), selected);
+            var world = scope.NewWorld(catalog, layout, false, terrain: value =>
+                new SessionTerrain(value.Context, definition.LoadGameplayCatalog(), selected));
             using var authority = new SessionAuthority(world);
             var host = authority.Connect(0); authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true);
 
@@ -114,6 +130,50 @@ namespace DarkNights.Tests
             world.Restore(save);
             Assert.That(world.Terrain.Map.Read(target).Cell.IsEmpty, Is.True);
             Assert.That(world.Terrain.Map.IsSoftRock(target), Is.True);
+
+            map = world.Terrain.Map;
+            CellCoord blast = default;
+            IReadOnlyList<CellCoord> blastTargets = null;
+            found = false;
+            for (int v = -map.Descriptor.Bounds.Height + 2; v < -2 && !found; v++)
+                for (int u = 2; u < map.Descriptor.Bounds.Width - 2; u++)
+                {
+                    var candidate = new CellCoord(u, v);
+                    var right = new CellCoord(u + 1, v);
+                    var above = new CellCoord(u, v + 1);
+                    var aboveRight = new CellCoord(u + 1, v + 1);
+                    if (!map.Read(candidate).TryGetCell(out var centerCell) || centerCell.IsEmpty ||
+                        (centerCell.Flags & 1) != 0 || selected.Material(u, -v) == 8 ||
+                        !map.Read(right).TryGetCell(out var rightCell) || rightCell.IsEmpty ||
+                        (rightCell.Flags & 1) != 0 || selected.Material(u + 1, -v) == 8)
+                        continue;
+                    var candidateTargets = map.BuildTargets(TerrainEditAction.Explosive, candidate);
+                    if (candidateTargets.Contains(candidate) && candidateTargets.Contains(right) && map.Read(above).Cell.IsEmpty &&
+                        map.Read(aboveRight).Cell.IsEmpty)
+                    { blast = candidate; blastTargets = candidateTargets; found = true; break; }
+                }
+            Assert.That(found, Is.True, "A blastable two-cell support edge is required.");
+
+            var document = JObject.Parse(world.SaveCodec.Serialize(world.CaptureWorld()));
+            var actor = ((JArray)document["world"]["actors"]).OfType<JObject>()
+                .First(value => !(bool)value["enemy"]);
+            actor["x"] = (blast.U + .5f) * PlayableTerrain.CellPixels;
+            actor["height"] = PlayableTerrain.OriginY - (-blast.V - .5f) * PlayableTerrain.CellPixels;
+            actor["vertical_speed"] = 0;
+            actor["support_platform"] = 0;
+            world.Restore(document.ToString(Newtonsoft.Json.Formatting.None));
+
+            map = world.Terrain.Map;
+            var state = world.Index.Actors.First(value => !value.Enemy).CaptureState();
+            TerrainHeroMotion.Tick(map, state, catalog.Balance.HeroControl, 1.0 / 60, false, false);
+            float supportedHeight = state.Height;
+            Assert.That(state.SupportPlatform, Is.Zero);
+            map.DestroyTrusted(1, "collision-blast", TerrainEditAction.Explosive, map.World,
+                blast, blastTargets, _ => true, out applied);
+            Assert.That(applied, Is.True);
+            TerrainHeroMotion.Tick(map, state, catalog.Balance.HeroControl, 1.0 / 60, false, false);
+            Assert.That(state.SupportPlatform, Is.EqualTo(-1));
+            Assert.That(state.Height, Is.LessThan(supportedHeight), "Authoritative collision must observe the blasted cells immediately.");
         });
     }
 }

@@ -39,7 +39,6 @@ namespace DarkNights.Core.Save
         public bool JetpackEquipped { get; }
         public double JetpackFuel { get; }
         public int ExplosiveCharges { get; }
-        public int DrillCharges { get; }
 
         public ActorSnapshot(
             int id,
@@ -69,8 +68,7 @@ namespace DarkNights.Core.Save
             int selectionRevision = 0,
             bool jetpackEquipped = false,
             double jetpackFuel = 0,
-            int explosiveCharges = 3,
-            int drillCharges = 1)
+            int explosiveCharges = 3)
         {
             Id = id;
             Kind = kind;
@@ -100,7 +98,6 @@ namespace DarkNights.Core.Save
             JetpackEquipped = jetpackEquipped;
             JetpackFuel = jetpackFuel;
             ExplosiveCharges = explosiveCharges;
-            DrillCharges = drillCharges;
         }
     }
 }

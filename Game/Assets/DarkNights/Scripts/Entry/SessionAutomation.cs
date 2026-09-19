@@ -23,6 +23,8 @@ namespace DarkNights.Entry
         private bool working;
         private double nextPoll;
         private readonly Queue<CommandFeedback> feedback = new Queue<CommandFeedback>();
+        private readonly Queue<DarkNights.Runtime.Terrain.TerrainActionResult> terrainFeedback =
+            new Queue<DarkNights.Runtime.Terrain.TerrainActionResult>();
         private string error;
         private int peakEffects, peakArrows, peakCommandRings;
         private int reportRetries;
@@ -52,6 +54,7 @@ namespace DarkNights.Entry
             driver.heroInput.Initialize(network.Client);
             Directory.CreateDirectory(Path.GetDirectoryName(driver.reportPath));
             network.Client.Feedback += driver.OnFeedback;
+            network.Client.TerrainFeedback += driver.OnTerrainFeedback;
             network.Failed += driver.OnFailure;
             if (Array.IndexOf(args, "--dn-metrics") >= 0)
             {
@@ -70,6 +73,11 @@ namespace DarkNights.Entry
         {
             feedback.Enqueue(value);
             while (feedback.Count > 64) feedback.Dequeue();
+        }
+        private void OnTerrainFeedback(DarkNights.Runtime.Terrain.TerrainActionResult value)
+        {
+            terrainFeedback.Enqueue(value);
+            while (terrainFeedback.Count > 64) terrainFeedback.Dequeue();
         }
         private void OnFailure(Exception exception) { error = exception.ToString(); }
 
@@ -102,6 +110,8 @@ namespace DarkNights.Entry
                         else if (operation == "metrics") capture.Save(Path.Combine(
                             Path.GetDirectoryName(reportPath), Path.GetFileName((string)command["file"] ?? "metrics.json")));
                         else if (operation == "raw") await ExecuteRaw(command);
+                        else if (operation == "terrain")
+                            await network.Client.SendTerrain((int)command["u"], (int)command["v"], (string)command["requestId"]);
                         else if (operation == "input" || operation == "input-raw" || operation == "input-hold" || operation == "input-stop")
                             await heroInput.Execute(command);
                         else if (operation == "pause-on-projectile") pauseOnProjectile = true;
@@ -138,6 +148,7 @@ namespace DarkNights.Entry
                 peakCommandRings = Math.Max(peakCommandRings, effects.CommandRingCount);
                 long reportStart = capture == null ? 0 : System.Diagnostics.Stopwatch.GetTimestamp();
                 var frame = network.Client.Replica.Current;
+                var terrainPreview = UnityEngine.Object.FindAnyObjectByType<DarkNights.View.Terrain.TerrainPreview>();
                 var report = new JObject
                 {
                     ["utc"] = DateTime.UtcNow.ToString("O"), ["role"] = role, ["status"] = network.Status,
@@ -152,6 +163,15 @@ namespace DarkNights.Entry
                         ["sentBytes"] = network.Terrain.SentBytes
                     },
                     ["feedback"] = JArray.FromObject(feedback),
+                    ["terrainFeedback"] = JArray.FromObject(terrainFeedback),
+                    ["terrainPresentation"] = terrainPreview == null ? null : new JObject
+                    {
+                        ["builtPages"] = terrainPreview.BuiltPages,
+                        ["changedChunks"] = terrainPreview.LastChangedChunkCount,
+                        ["refreshRegions"] = terrainPreview.LastRefreshRegionCount,
+                        ["refreshBatches"] = terrainPreview.RefreshBatchCount,
+                        ["refreshing"] = terrainPreview.RefreshingReplica
+                    },
                     ["frame"] = frame == null || !fullReport ? null : JObject.FromObject(frame),
                     ["reportDetail"] = fullReport ? "full" : "summary", ["publication"] = frame?.Publication ?? 0,
                     ["serverTick"] = frame?.ServerTick ?? 0, ["epoch"] = frame?.Epoch ?? 0,
@@ -191,6 +211,7 @@ namespace DarkNights.Entry
         {
             if (network == null) return;
             network.Client.Feedback -= OnFeedback;
+            network.Client.TerrainFeedback -= OnTerrainFeedback;
             network.Failed -= OnFailure;
         }
 

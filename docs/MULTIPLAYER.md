@@ -1,6 +1,6 @@
 # Dark Nights 合作联机设计
 
-2026-09-19 地图修复当前合同：协议 **10**／存档 **v6**。地形请求的客户端玩法字段仅为 `RequestId/U/V`，服务端按“可信连接身份 → RequestId 缓存 → 完整玩法授权”处理，并以 `TerrainMapAuthority.CommitId` 提交；重复请求不重复改格、扣炸药或发放资源。炸药与钻机次数属于 ActorState，随完整投影和存档恢复；矿床、真实 `WorksiteBehaviour` 钻机及输出缓冲属于 YYGC 对象状态。当前只完成代码、隔离 Unity 内容安装和静态回归，Host＋Client＋LateJoin／重连／存档重启／弱网仍待主 Editor／Mono 实测。
+2026-09-19 地图修复当前合同：协议 **10**／存档 **v6**。地形请求的客户端玩法字段仅为 `RequestId/U/V`，服务端按“可信连接身份 → RequestId 缓存 → 完整玩法授权”处理，并以 `TerrainMapAuthority.CommitId` 提交；重复请求不重复改格、扣炸药或发放资源。炸药次数属于 ActorState，矿床剩余量属于对应 YYGC `MineralDepositBehaviour`；钻机、无人机、自动采矿和自动物流不进入本轮协议、投影或验收。动态矿床只允许唯一的 `terrain.deposit.*` 身份；61,440 格完整地图的 Ready 窗口为 90 秒。主 Editor、完整 Editor **196/196** 与 Mono 启动 **6/6** 通过；同一 Mono 的正常网络和实际 UDP 弱网各 **18/18**，已覆盖 Host＋Client、LateJoin、重连、最终地图一致、幂等和写盘重启。
 
 2026-09-17 [随机灰松谷](RANDOM_PINEWATCH.md)接入正式游戏，当前协议 **9**／存档 **v4**。AMP1 可靠同步 61,440 格最终地图，完整副本、正确世界代次和初始可见页共同门控实体 Ready；服务端核验 Ready 中的地图身份。Host 与客户端均从只读副本渲染。主角逻辑格碰撞及实体／地图共同恢复已接入；暂停保持网络工作，晚加入、重连、加载和重开重新取得当前地图。采矿输入、工具耐久与奖励仍未接入。后续带日期的协议 8 说明为历史批次。
 

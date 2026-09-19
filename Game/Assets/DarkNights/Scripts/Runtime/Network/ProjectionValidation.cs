@@ -57,7 +57,7 @@ namespace DarkNights.Runtime.Network
                     a.SelectedItem >= 0 && a.SelectedItem <= 3 && a.SelectionRevision >= 0 && a.ControlLease >= 0 &&
                     a.ControllerSlot >= -1 && a.ControllerSlot <= 3 && (a.ControllerSlot < 0 || (a.ManualControl && !a.Enemy)) &&
                     Finite(a.JetpackFuel) && a.JetpackFuel >= 0 && a.JetpackFuel <= (catalog.Balance.HeroControl?.FuelSeconds ?? 0) &&
-                    a.ExplosiveCharges >= 0 && a.ExplosiveCharges <= 1000 && a.DrillCharges >= 0 && a.DrillCharges <= 1000);
+                    a.ExplosiveCharges >= 0 && a.ExplosiveCharges <= 1000);
                 Require(a.SupportPlatform <= 0 || layout.Platforms.Any(p => p.Id == a.SupportPlatform));
             }
             Require(!world.Actors.Where(a => a.ControllerSlot >= 0).GroupBy(a => a.ControllerSlot).Any(g => g.Count() > 1));
@@ -83,17 +83,14 @@ namespace DarkNights.Runtime.Network
                     Require(w.IsMineralDeposit && w.Kind == "mineral-deposit" && Text(w.RoomKind, 32) && Text(w.Rarity, 16) &&
                         w.Capacity > 0 && w.Capacity <= 1000000 && w.Amount >= 0 && w.Amount <= w.Capacity &&
                         Finite(w.Y) && w.Y >= 0 && w.Y < Core.Config.Terrain.TerrainGenerationSettings.Height &&
-                        w.WorkerId == 0 && w.FarmId == 0 && w.DrillId >= 0 &&
-                        Finite(w.Progress) && w.Progress >= 0 && w.Progress < 1 &&
+                        w.WorkerId == 0 && w.FarmId == 0 && w.Progress == 0 &&
                         Enum.TryParse<DarkNights.Core.Config.MineralDepositStage>(w.Stage, out var stage) &&
                         Enum.IsDefined(typeof(DarkNights.Core.Config.MineralDepositStage), stage));
                     Position(w.X, layout);
                     continue;
                 }
-                Require(w != null && Text(w.Kind, 64) &&
-                    (w.Kind == "worksite.mineral-drill" || catalog.Balance.Worksites.ContainsKey(w.Kind)) &&
-                    (w.Kind != "worksite.mineral-drill" || (w.Amount >= 0 && (w.Variant == 1 || w.Variant == 2))) &&
-                    (w.Kind == "worksite.mineral-drill" || (w.Amount >= -1 && w.Variant >= 0)));
+                Require(w != null && Text(w.Kind, 64) && catalog.Balance.Worksites.ContainsKey(w.Kind) &&
+                    w.Amount >= -1 && w.Variant >= 0);
                 Position(w.X, layout);
                 Nonnegative(w.Progress);
             }

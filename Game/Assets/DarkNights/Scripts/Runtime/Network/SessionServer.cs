@@ -200,7 +200,7 @@ namespace DarkNights.Runtime.Network
                 if (peer.ReadyEpoch != Authority.Epoch)
                 {
                     peer.ReadyEpoch = Authority.Epoch;
-                    peer.ReadyDeadline = uptime + 30;
+                    peer.ReadyDeadline = uptime + SessionPeer.ReadyTimeoutSeconds;
                 }
                 if (peer.Authority?.Ready != true && uptime > peer.ReadyDeadline) peer.Network.Disconnect(true);
             }

@@ -45,7 +45,7 @@ namespace DarkNights.Runtime.Objects
                     Face = value.Face, ActionTime = value.ActionTime, Windup = value.Windup,
                     HitFlash = value.HitFlash, Walking = value.Walking,
                     Height = value.Height, VerticalSpeed = value.VerticalSpeed, SupportPlatform = value.SupportPlatform, ManualControl = value.ManualControl, SelectedItem = value.SelectedItem, SelectionRevision = value.SelectionRevision, JetpackEquipped = value.JetpackEquipped, JetpackFuel = value.JetpackFuel, ControllerSlot = value.ControllerSlot, ControlLease = value.ControlLease,
-                    ExplosiveCharges = value.ExplosiveCharges, DrillCharges = value.DrillCharges
+                    ExplosiveCharges = value.ExplosiveCharges
                 };
                 result.Add(new ReplicaEntityState(identity, value.Kind,
                     (instance, context) => instance.GetBehaviour<ActorBehaviour>().PrepareSessionState(context, state)));
@@ -74,7 +74,7 @@ namespace DarkNights.Runtime.Objects
                     {
                         Id = value.Id, PlacementKey = identity.PlacementKey, X = value.X, Y = (int)value.Y,
                         RoomKind = value.RoomKind, Rarity = value.Rarity, Capacity = value.Capacity,
-                        Remaining = value.Amount, Stage = stage, DrillId = value.DrillId, DrillProgress = value.Progress
+                        Remaining = value.Amount, Stage = stage
                     };
                     result.Add(new ReplicaEntityState(identity, value.Kind,
                         (instance, context) => instance.GetBehaviour<MineralDepositBehaviour>()

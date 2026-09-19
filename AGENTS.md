@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发约定
 
+2026-09-19 当前切片为[手采地图验收收口](docs/MAP_PLAN_EXECUTION.md)，分支 `codex/map-plan-execution`：协议 10／存档 v6；钻机、无人机、自动采矿和自动物流整链已从产品代码、资源与本轮门槛删除。主 Editor 完整 196/196、Core 1048/1048、Terrain 24 向量／100 seed、ArchitectureGuard 372/12/0、Mono 启动 6/6；同一 Mono 正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 18/18，覆盖 Host、Client、LateJoin、Reconnect、幂等、局部刷新与真实写盘重启恢复。M6 比例、前台性能、IL2CPP、双机器和真正新机器依赖恢复仍待后续；不把这些边界写成已完成。
+
 2026-09-17 新增[独立随机地图 Debug Bootstrap](docs/TERRAIN_DEBUG_BOOTSTRAP.md)：通过 `Dark Nights/Debug/打开随机地图 Bootstrap` 直接 Play，原始 8 房间／7 通道蓝图没有正式营地的 72 列平地覆盖；本地观察角色 WASD 穿墙飞行、近距离可调镜头、参数实时重建。原 Pinewatch 及正式 Bootstrap 保留。本批 Editor 地图 11/11、实际 Play 22/22，独立 Mono 已构建与启动；隐藏 Player 黑图不计视觉通过，画面证据来自 Editor Play。正式协议、存档、YYGC 与 M5 边界不变。
 
 2026-09-17 最新切片为[正式随机灰松谷](docs/RANDOM_PINEWATCH.md)，分支 `codex/feature-dualgrid-game-start`：默认随机模板为 `Res/Scenes/RandomPinewatch/Pinewatch.unity`，原 Pinewatch 场景保持；选择地图后台生成，正式协议 9／存档 v4，YYGC 仍锁定 `12b253c`。地图权威状态随 ObjectSession 生命周期，完整地图与表现共同门控 Ready；主角按权威格子碰撞，存档保存最终格子。AnyRules 隔离包增加有界 128 块预算补丁及哈希锁；不修改用户 YYGC master。本批结果见[证据](docs/evidence/random-pinewatch-2026-09-17.json)，不把下方旧构建计数当作新批验收。

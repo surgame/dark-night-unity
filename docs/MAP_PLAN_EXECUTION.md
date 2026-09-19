@@ -6,13 +6,13 @@
 
 ## M0：依赖与边界冻结
 
-状态：**代码、隔离依赖准备、远端基线复现和 Unity 资源安装通过；主 Editor 的导入／注册复核待执行。**
+状态：**代码、隔离依赖准备、远端基线模拟、主 Editor 导入与注册复核通过；真正新机器的公网恢复仍待执行。**
 
 - `tools/prepare-lan-sample.ps1` 已实际执行，输出 YYGC `12b253c6bdd262feb860ab905b9e56e940ec9c40`。
 - 地图包准备脚本应用了隔离 AnyRules 宿主补丁，442 项源文件校验通过；Tag 3 仍为既有 `TerrainEditCommand`，YYGC 用户仓库未修改。
 - `prepare-lan-sample.ps1` 不再要求远端解析不可达的 `12b253c`：新环境从可达基线 `0c7cec0` 克隆，再应用 `NetworkCommandInterfaceGenerator.patch` 与锁定的 LAN 补丁；空 checkout 的本地克隆模拟已通过，结果等价于 `12b253c`。当前环境对 GitHub 的 `ls-remote` 未在限时内返回，因此实际公网可达性仍待新机器确认。
-- 协议不新增地形消息类型：破坏仍使用稳定 Tag 3 的 `TerrainEditCommand`；矿脉、钻机和掉落属于 YYGC 对象／业务投影。
-- Unity `6000.4.9f1` 隔离工程已实际安装矿床和钻机各 1 个 Definition／Prefab，补齐 Archetype、数据库和 Default Local Group Addressable 条目；记录见 [`artifacts/map-fix-editor-install2.log`](../artifacts/map-fix-editor-install2.log)。主 Editor 尚未对本批源码完成刷新，因此不把资源安装日志扩展成主工程运行时通过。
+- 协议不新增地形消息类型：破坏仍使用稳定 Tag 3 的 `TerrainEditCommand`；矿床属于 YYGC 对象／业务投影。
+- Unity `6000.4.9f1` 主工程已重开并完成刷新，矿床 Definition／Prefab／Archetype／Addressable 注册正常；钻机 Definition、Prefab、数据库和 Addressable 条目已删除。本批没有修改用户 YYGC master。
 
 ## M1：随机地图生成
 
@@ -26,14 +26,14 @@
 
 本阶段证据：
 
-- `ArchitectureGuard`：375 个 C# 文件、12 项自测、0 错误。
+- `ArchitectureGuard`：372 个 C# 文件、12 项自测、0 错误。
 - `TerrainRegression`：24 个 H5 生成向量通过；Gameplay `scattered=24`、`deposits=11`、`softRock=352`。
 - `CoreRegression`：1048 checks、0 failures，新增同 seed 确定性、8 房间／矿脉标记和工具／爆破保护策略断言。
 - CoreBuild：0 warning、0 error。
 
 ## M2：破坏策略、权威路由与幂等
 
-状态：**源码编译和 Core／Runtime 回归通过；真实 Unity EditMode、双进程联机和弱网验收待执行。**
+状态：**主 Unity、真实双进程与实际 UDP 弱网通过。**
 
 已实现：
 
@@ -43,40 +43,40 @@
 - 软岩允许在最终空格上保留地质标记；挖空、保存、重启、加载后仍为空格且保留标记。
 - 权威提交后通过 `TerrainAuthority` 的副本提交路径推进 `AMP1`；客户端只读副本不参与结算。
 
-本阶段还没有把“代码编译通过”扩展成真实网络结论。下列项目必须在 Unity 正常刷新并能启动正式场景后验收：伪造工具／范围／目标、乱序弱重试、Host 重入、Host＋Client＋LateJoin 最终地图 SHA、200 ms RTT／5% loss／25 ms jitter。
+完整 Editor 196/196 已覆盖破坏策略、v6 恢复、随机矿床对象和图形局部更新。Mono 启动 6/6 通过；同一 Mono 的正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 18/18。弱网实际丢弃 585 包、发生 7,190 次延后重排，覆盖 Client 手挖、保护格／基岩拒绝、重复 RequestId 同一回执且只扣一次炸药，以及 Host／Client／LateJoin／Reconnect 最终地图一致。
 
-## M3：矿脉对象与钻机
+## M3：矿室矿床与手动采集
 
-状态：**业务代码、状态、投影、恢复映射和 Unity 资源安装已完成；主 Editor 的 StateData／Definition 加载及运行时对象复核待执行。**
+状态：**业务状态、投影、恢复映射、Unity 资源注册及真实客户端验收通过；钻机整链已排除，只保留玩家手动采集。**
 
 已实现：
 
-- `MineralDepositBehaviour`／`MineralDepositState` 拥有矿脉剩余量、阶段、钻机身份和钻进进度；矿脉不作为地形格上的 NetworkObject。
-- 矿床候选采用空格、支撑、入口避让、不重叠和最小间距约束；100 个 seed 回归通过。钻机从主角背包部署，创建真实 `WorksiteBehaviour`，服务端附着矿床并按 Tick 将产出写入钻机对象缓冲，不直接调用全局 Economy。
-- 对象快照、展示副本、JSON 保存和关系校验已增加矿脉字段；钻进进度复用现有 Worksite `Progress` 字段，避免新增并行网络协议。
-- `Dark Nights/Content/Install Mineral Deposit Object` 与 `Dark Nights/Content/Install Mineral Drill Object` 已在隔离 Unity 中实际执行，从现有 Stone Prefab 创建正式 Prefab、Definition、Archetype、Addressable 条目和能力绑定；`StateDataRegistry` 已包含 `MineralDepositState`。
+- `MineralDepositBehaviour`／`MineralDepositState` 只拥有矿床房间、稀有度、容量、剩余量和 Available／Depleted 阶段；矿床不作为每格 NetworkObject。
+- 矿床候选采用空格、支撑、入口避让、不重叠和最小间距约束；100 个 seed 回归通过。玩家必须近距离使用手持工具，服务端从对应矿床剩余量扣减并发放单次资源。
+- 对象快照、展示副本、JSON 保存和关系校验只保留上述矿床字段。`DrillCharges`、`DeployMineralDrill`、钻机 Prefab／Definition、输出缓冲、钻进和自动结算均已删除。
+- 正式矿床 Prefab、Definition、Archetype、Addressable 条目和能力绑定已在主 Editor 载入；`StateDataRegistry` 包含 `MineralDepositState`。
 
-仍需在主 Unity Editor 导入完成后复核 `MineralDepositState` 的注册 Tag、11 个蓝图到 11 个运行时矿床对象的映射、Prefab 绑定、Address／Label 和重开持久性；不得把隔离工程的安装日志写成正式 Play 通过。
+主 Unity 对象测试已验证 11 个蓝图创建 11 个运行时矿床，随存档恢复最终剩余量；真实客户端首轮暴露其动态 `terrain.deposit.*` 键未被副本接受，现已改为只对 `mineral-deposit` 开放的唯一动态身份并由正常／弱网 Player 复验。验收 seed 的矿室容量为 600，沿途散矿为 28 格，满足本轮“矿室明显更值得寻找”的结构性门槛；M6 的最终贡献比例仍未签署。
 
 ## M4：地图表现与局部刷新
 
-状态：**变更 Chunk 合并刷新代码路径和源码编译通过；真实 Play 画面和页面计数验收待执行。**
+状态：**变更 Chunk 合并刷新、真实双端最终地图与权威碰撞同步通过。**
 
 - `TerrainReplicaSource` 为副本 Chunk 建立指纹，只把发生变化的 Chunk 交给 `TerrainPreview`；不新增每格 GameObject／NetworkObject，也不把表现副本变成权威状态。
 - `TerrainPreview` 将连续提交的相邻 Chunk 合并为有限重载区域，卸载／加载只覆盖变更 Chunk；随后只重新展示已存在的可见页，让 ARDMap 的 `PageTargets`／脏页管线处理受影响 DualGrid Page，不再卸载整块可见区域。
 - `MineralDepositPresentationBehaviour` 只读取 WorksiteView，按稀有度切换变体，枯竭时隐藏表现。
 
-M4 的代码路径已切换为“变更 Chunk → 合并区域 → ARDMap 脏页”；尚未把它扩展成正式 Play 的逐页计数证据。通过条件仍包括：正式地图运行画面、主角权威碰撞、破坏后可见区域与碰撞同步，以及提交期间连续刷新不丢最后一次状态。
+M4 的“变更 Chunk → 合并区域 → ARDMap 脏页”路径已由实际页面构建测试确认静态地图不重建、单次破坏只提交 1–4 页。正式 Player 正常／弱网均确认 Host 与 Client 最终地图 SHA 一致；附加碰撞用例确认角色站在两格支撑边缘时，爆破清除支撑后的同一权威物理 Tick 立即进入下落。
 
 ## M5：保存、加载与恢复
 
-状态：**序列化代码与静态回归通过；真实进程重启、重连和加载后 Play 验收待执行。**
+状态：**主 Unity 序列化／恢复、真实进程写盘重启、后加入、重连及弱网加载通过。**
 
 - Object world save 版本从 5 提升到 6；地形保存最终材料、保护格、软岩、房间元数据、矿脉蓝图及其身份／容量。
-- 动态矿脉快照保存剩余量、阶段、钻机身份和进度；读取后由 ObjectSession 恢复，不能仅按初始随机种子重建最终状态。
+- 动态矿床快照保存剩余量与 Available／Depleted 阶段；读取后由 ObjectSession 恢复，不能仅按初始随机种子重建最终状态。
 - 旧 v4 入口按当前无旧档适配约定拒绝；新格式保留严格校验和原子写入路径。
 
-代码层面的旧版本拒绝与恢复映射已由 CoreRegression／Unity 编译覆盖；真实文件写入、崩溃中断、重启、重连、epoch 拒绝旧命令必须在正式 Player／Editor 场景中补验。
+旧版本拒绝、恢复映射和原子应用已由 CoreRegression／完整 Editor 覆盖；正式 Player 实际挖墙、爆破和采矿后写入 v6 文件，退出进程、重新启动并加载，最终地图 SHA 和矿床剩余量完全一致。LateJoin、断线重连和加载后的新 epoch 也已在正常／弱网双进程通过。突然断电／进程崩溃中断写入没有在本批模拟，不与正常退出重启混写。
 
 ## M6：平衡与发布验收
 
@@ -88,23 +88,21 @@ M4 的代码路径已切换为“变更 Chunk → 合并区域 → ARDMap 脏页
 
 | 闸门 | 当前结果 | 还缺什么 |
 |---|---|---|
-| 分支与依赖可重现 | 通过 | 无 |
-| 生成确定性、8 房间／7 通道、受保护房间 | Core 通过 | Unity 生成资产与场景重开 |
-| 破坏策略、保护格、幂等 | 静态／Core 通过 | Unity EditMode 与真实 Host＋Client |
-| 矿脉／钻机对象注册与 Prefab | 隔离 Unity 安装通过 | 主 Editor 刷新、StateData／11 个运行时对象重开检查 |
-| 表现局部刷新与碰撞 | 源码通过 | 正式 Play 视觉和交互证据 |
-| v6 最终地形／对象恢复 | 代码路径通过 | 真实写盘、重启、重连、epoch |
-| 弱网、LateJoin、最终地图 SHA | 未执行 | 独立进程与网络条件 |
+| 分支与锁定依赖 | 本机及空 checkout 模拟通过 | 真正新机器的公网准备仍待执行 |
+| 生成确定性、8 房间／7 通道、受保护房间 | Core、主 Editor 通过 | 无 |
+| 有意义入口、破坏策略、保护格、幂等 | Editor 与真实 Host＋Client 通过 | 无 |
+| 矿床对象注册、Prefab 与手采 | 主 Editor、11 个运行时对象、独立 Client 通过 | M6 最终比例另行调优 |
+| 表现局部刷新与碰撞 | 1–4 页局部刷新、双端 SHA、权威碰撞通过 | 前台画面体验不在本批签署 |
+| v6 最终地形／对象恢复 | 真实写盘、退出、重启、LateJoin、Reconnect 通过 | 突然断电中断写入未模拟 |
+| 弱网、LateJoin、最终地图 SHA | `200 ms RTT + 5% loss + 25 ms jitter` 18/18 | 无 |
 | 前台性能、IL2CPP、双机器 | 未执行 | 按仓库约束需另行授权／条件 |
 
-## 下一次 Unity 验收顺序
+## 本次验收结果
 
-主编辑器目前未对新增脚本自动刷新，因此本次没有伪造 Unity EditMode／Play 通过记录。编辑器完成刷新或重开后，按以下顺序一次性执行：
-
-1. 关闭并重开或主动刷新主 Editor，等待 `DarkNights.Core/Runtime/View/Entry/Editor/Tests` 域重载，确认 Console 无新增编译错误。
-2. 复核既有 StateData 生成输出中的 `MineralDepositState` Tag 8，并检查两份 Definition、两个 Prefab、Archetype、数据库和 Addressable 条目；不得手改生成文件。
-3. 以随机模板检查 11 个蓝图是否创建 11 个运行时 `MineralDepositBehaviour`，再保存／重开验证最终剩余量和钻机身份。
-4. 先跑 EditMode 的 Terrain／Save／Object 测试，再跑 M2 的 Host＋Client＋LateJoin、重连和幂等场景。
-5. 生成一次 Mono Player，复用同一产物完成地图画面、碰撞、保存恢复和弱网检查；不生成 IL2CPP，除非另获确认。
-
-本分支未提交或推送远端；隔离 Unity 工程只用于编译／安装内容，已移出工作区；正式资产、脚本和证据已回填仓库，主 Editor／Play 仍待执行。
+1. 主 Editor 完整批次 196/196；碰撞补充用例 1/1；Core 1048/1048、Terrain 24 向量／100 seed、ArchitectureGuard 372 文件／12 自测／0 错误。
+2. 正式 Mono `artifacts/map-fix/player-mono-r3/DarkNights.exe` 启动 6/6；正常网络 18/18、实际 UDP 弱网 18/18。
+3. 验收 seed 的入口位于 `(100, 90)`，设计通路 `x=94` 从地表到入口前没有实心格；普通墙手挖同时被真实客户端拒绝，因此不能以任意向下挖替代找入口。
+4. Host、Client、LateJoin 和 Reconnect 最终地图 SHA 一致；重复 RequestId 不增加 CommitId，只消耗一次炸药。
+5. 实际 Player 写入 v6 存档、退出并重新启动后，最终地形和矿床剩余量均精确恢复。
+6. 完整证据索引见 `docs/evidence/map-fix-2026-09-19.json`。本分支未推送远端；没有生成 IL2CPP，也没有改动用户 YYGC master。
+7. 两份过期 Mono、失败验收副本和工具 bin/obj 共 482,873,498 字节的有界清理被文件系统策略拒绝；按约定未重试或改删父目录，收尾时磁盘仍有 34,684,579,840 字节可用。

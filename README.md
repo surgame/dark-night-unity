@@ -1,6 +1,6 @@
 # Dark Nights · Unity
 
-2026-09-19 执行[地图改造修复文档 v1.1](<D:/Downloads/Dark Nights 地图改造修复执行文档 v1.1.md>)的遗漏项：地形命令改为服务端 `CommitId` 权威提交，`RequestId` 在完整玩法授权前幂等缓存；手采、软岩空格保存、主角炸药／钻机库存、矿床候选和真实钻机对象链已补齐。矿床与钻机的 Definition／Prefab／Archetype／Addressable 资产已由 Unity `6000.4.9f1` 隔离安装并回填，当前协议 10、存档 v6。Core 1048 checks、Terrain 24 向量及 100 seed 候选回归、ArchitectureGuard 375/12 通过；正式 Editor／Play、Host＋Client／LateJoin／重连、弱网、Mono Player 和 M6 平衡仍待执行，不能把本批写成 M5 完成。
+2026-09-19 当前地图改造验收只保留手采、有限炸破、矿室矿床、最终地图同步与保存恢复；钻机、无人机、自动采矿和自动物流整链已从产品代码、资产及本轮合并条件删除。地形命令使用服务端 `CommitId` 权威提交，`RequestId` 在完整玩法授权前幂等缓存；当前协议 10、存档 v6。主 Unity `6000.4.9f1` 刷新、完整 Editor **196/196**、Core **1048/1048**、Terrain 24 向量／100 seed、ArchitectureGuard **372/12/0** 和 Mono 启动 **6/6** 已通过；同一 Mono 的正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 **18/18**，覆盖 Host＋Client、LateJoin、重连、幂等、局部刷新及真实写盘重启恢复。M6 价值比例、前台性能、IL2CPP、双机和真正新机器依赖恢复不在本批已完成范围。
 
 2026-09-17 新增独立[随机地图 Debug Bootstrap](docs/TERRAIN_DEBUG_BOOTSTRAP.md)：菜单 `Dark Nights/Debug/打开随机地图 Bootstrap` 后直接 Play，角色出生于随机入口洞室，WASD 穿墙飞行，镜头近距离跟随且可调；参数实时重建、换种子与 8 房间定位。调试地图没有正式营地的 72 列平地覆盖，原 Pinewatch 场景保留。
 

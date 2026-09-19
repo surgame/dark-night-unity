@@ -264,7 +264,7 @@ U2 分批覆盖 126 个不同 Editor／Play 用例，无未解决失败；Mono �
 | `tools/map-framework-patch/source-lock.json` | 更新两个隔离文件的 SHA-256，保持解包可重现 | `prepare-map-packages.ps1` 442/442 通过 |
 | `tools/prepare-map-packages.ps1` | 把补丁纳入一次性解包／校验流程，避免依赖本机用户框架工作区 | 既有用户工作区未写入；远端 clone 可用性仍是 P2 待核查 |
 
-这不是 YYGC master 的上游合并，也不代表远端框架已发布新版本；游戏仍通过隔离包和锁文件使用该适配。游戏侧地形路由、ActorState 库存、矿床／钻机对象和正式资产改动均记录在当前分支，不计入 YYGC 文件变更。
+这不是 YYGC master 的上游合并，也不代表远端框架已发布新版本；游戏仍通过隔离包和锁文件使用该适配。游戏侧地形路由、ActorState 炸药库存、矿床手采对象和正式资产改动均记录在当前分支，不计入 YYGC 文件变更；钻机链已从本轮产品代码与验收中删除。
 
 `prepare-lan-sample.ps1` 的远端恢复路径已补齐：新环境从基线 `0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143` 克隆，再应用 `tools/lan-framework-patch/NetworkCommandInterfaceGenerator.patch` 及既有 LAN 补丁，得到与 `12b253c6bdd262feb860ab905b9e56e940ec9c40` 等价的源码。使用临时空 checkout 的本地克隆模拟已通过并回收；当前环境的 GitHub `ls-remote` 未在限时内返回，所以公网可达性仍待新机器确认。未修改 `D:\Developer\YYGC` master，也未推送新提交。
 

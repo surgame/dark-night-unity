@@ -24,6 +24,7 @@ namespace DarkNights.Tests
         public void FormalDefinitionsAndGeneratedRegistriesAreComplete()
         {
             Editor.FormalObjectContentSetup.Validate();
+            Editor.MineralDepositContentSetup.Validate();
             Editor.NativeObjectContracts.Validate();
             foreach (var type in new[] { typeof(WorldSessionBehaviour), typeof(CampSessionBehaviour),
                 typeof(ActorPresentationBehaviour), typeof(BuildingPresentationBehaviour), typeof(WorksitePresentationBehaviour) })

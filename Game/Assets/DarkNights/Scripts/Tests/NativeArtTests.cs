@@ -22,13 +22,14 @@ namespace DarkNights.Tests
     public sealed class NativeArtTests
     {
         [Test]
-        public void FrozenPixelsAndFifteenDefinitionsRemainComplete()
+        public void FrozenPixelsAndNativeDefinitionsRemainCompleteWithMineralDeposit()
         {
             NativeArtSetup.Validate();
             var database = ObjectDefinitionDatabase.Instance;
             database.RebuildLookup();
             var map = new DefinitionRuleIndex(database);
-            Assert.That(map.Count, Is.EqualTo(15));
+            Assert.That(map.Count, Is.EqualTo(16));
+            Assert.That(map.GetRequired(DarkNights.Runtime.Objects.MineralDepositRuleConfig.Rule), Is.Not.Null);
             foreach (JObject spec in Input()["visuals"])
             {
                 string name = (string)spec["name"];

@@ -20,6 +20,10 @@ namespace DarkNights.View.Terrain
         private bool refreshingReplica;
         private readonly HashSet<ChunkCoord> pendingReplicaChunks = new HashSet<ChunkCoord>();
         public long BuiltPages => controller?.Renderer.CommittedBuilds ?? 0;
+        public int LastChangedChunkCount { get; private set; }
+        public int LastRefreshRegionCount { get; private set; }
+        public long RefreshBatchCount { get; private set; }
+        public bool RefreshingReplica => refreshingReplica;
         public Exception LastError { get; private set; }
         public bool Ready => controller != null && controller.Renderer.CommittedBuilds > 0 && controller.Renderer.QueueCount == 0 && controller.Renderer.InFlightCount == 0;
         public void NotifyReplicaChanged() => replicaSource?.NotifyChanged();
@@ -122,6 +126,7 @@ namespace DarkNights.View.Terrain
         private void OnReplicaChanged(IReadOnlyList<ChunkCoord> changedChunks)
         {
             if (changedChunks == null || changedChunks.Count == 0) return;
+            LastChangedChunkCount = changedChunks.Count;
             foreach (var chunk in changedChunks) pendingReplicaChunks.Add(chunk);
             StartReplicaRefresh();
         }
@@ -137,7 +142,10 @@ namespace DarkNights.View.Terrain
                 {
                     ChunkCoord[] batch = new ChunkCoord[pendingReplicaChunks.Count];
                     pendingReplicaChunks.CopyTo(batch); pendingReplicaChunks.Clear();
-                    foreach (GridBounds region in MergeChunkRegions(batch, controller.Descriptor.ChunkSize))
+                    IReadOnlyList<GridBounds> regions = MergeChunkRegions(batch, controller.Descriptor.ChunkSize);
+                    LastRefreshRegionCount = regions.Count;
+                    RefreshBatchCount++;
+                    foreach (GridBounds region in regions)
                     {
                         await controller.UnloadRegionAsync(region, MapUnloadPolicy.DiscardUnsaved, own.Token);
                         await controller.LoadRegionAsync(region, own.Token);

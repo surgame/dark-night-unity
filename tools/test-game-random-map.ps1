@@ -97,8 +97,8 @@ try {
     $late = Wait-Report 'late' {param($r) $r.ready -and $r.terrain.visible} 'late join while paused'
     Check 'late_join_full_map_while_paused' ($late.terrain.sha256 -eq $digest -and $late.frame.Paused)
     $null = Receipt 'host' @{operation='Save';value=0}
-    $h = Wait-Report 'host' {param($r) !$r.storageBusy -and (Test-Path -LiteralPath (Join-Path $saves 'v4/slot-00.dnsave.json'))} 'save v4 map'
-    Check 'save_contains_final_map' (Test-Path -LiteralPath (Join-Path $saves 'v4/slot-00.dnsave.json'))
+    $h = Wait-Report 'host' {param($r) !$r.storageBusy -and (Test-Path -LiteralPath (Join-Path $saves 'v6/slot-00.dnsave.json'))} 'save v6 map'
+    Check 'save_contains_final_map' (Test-Path -LiteralPath (Join-Path $saves 'v6/slot-00.dnsave.json'))
     $oldEpoch = $h.epoch
     $null = Consume 'host' @{operation='BeginLoad';value=0}
     $h = Wait-Report 'host' {param($r) $r.ready -and $r.epoch -gt $oldEpoch -and $r.terrain.epoch -eq $r.epoch} 'load new epoch'
@@ -130,7 +130,7 @@ try {
     # This is isolated in this run's save directory; no frozen fixture or user save is edited.
     $hero = @($h.frame.World.Actors | Where-Object ControllerSlot -eq 0)[0].Id
     $null = Consume 'host' @{operation='Save';value=1}
-    $fixturePath = Join-Path $saves 'v4/slot-01.dnsave.json'
+    $fixturePath = Join-Path $saves 'v6/slot-01.dnsave.json'
     $null = Wait-Report 'host' {param($r) !$r.storageBusy -and (Test-Path -LiteralPath $fixturePath)} 'exploration fixture save'
     $fixture = [IO.File]::ReadAllText($fixturePath) | ConvertFrom-Json
     $cells = [Convert]::FromBase64String($fixture.world.terrain.materials)

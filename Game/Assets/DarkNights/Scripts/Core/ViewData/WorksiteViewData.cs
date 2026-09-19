@@ -19,7 +19,6 @@ namespace DarkNights.Core.ViewData
         public string Rarity { get; }
         public int Capacity { get; }
         public string Stage { get; }
-        public int DrillId { get; }
 
         public WorksiteViewData(
             int id,
@@ -30,7 +29,7 @@ namespace DarkNights.Core.ViewData
             double progress,
             int variant,
             int farmId)
-            : this(id, kind, x, 0, workerId, amount, progress, variant, farmId, false, "", "", 0, "", 0)
+            : this(id, kind, x, 0, workerId, amount, progress, variant, farmId, false, "", "", 0, "")
         {
         }
 
@@ -48,8 +47,7 @@ namespace DarkNights.Core.ViewData
             string roomKind,
             string rarity,
             int capacity,
-            string stage,
-            int drillId)
+            string stage)
         {
             Id = id;
             Kind = kind;
@@ -65,7 +63,6 @@ namespace DarkNights.Core.ViewData
             Rarity = rarity ?? "";
             Capacity = capacity;
             Stage = stage ?? "";
-            DrillId = drillId;
         }
 
         public WorksiteViewData(
@@ -81,10 +78,9 @@ namespace DarkNights.Core.ViewData
             string roomKind,
             string rarity,
             int capacity,
-            string stage,
-            int drillId)
+            string stage)
             : this(id, kind, x, 0, workerId, amount, progress, variant, farmId, isMineralDeposit,
-                roomKind, rarity, capacity, stage, drillId)
+                roomKind, rarity, capacity, stage)
         {
         }
     }

@@ -20,7 +20,7 @@ namespace DarkNights.Runtime.Objects
                 return new ActorViewData(a.Id, actor.RuleKey, a.Name, a.Enemy, a.X, a.Hp,
                     a.Activity.ToString(), a.TargetId, a.Face, a.Walking, a.ActionTime, a.Windup, a.HitFlash,
                     a.Height, a.VerticalSpeed, a.SupportPlatform, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ControllerSlot, a.ControlLease,
-                    a.ExplosiveCharges, a.DrillCharges);
+                    a.ExplosiveCharges);
             }).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {
@@ -35,8 +35,8 @@ namespace DarkNights.Runtime.Objects
                 return new WorksiteViewData(w.Id, site.RuleKey, w.X, w.WorkerId, w.Amount, w.Progress, w.Variant, w.FarmId);
             }).Concat(session.Index.MineralDeposits.Select(deposit =>
             {
-                return new WorksiteViewData(deposit.Id, "mineral-deposit", deposit.X, deposit.Y, 0, deposit.Remaining, deposit.DrillProgress, 0, 0,
-                    true, deposit.RoomKind, deposit.Rarity, deposit.Capacity, deposit.Stage.ToString(), deposit.DrillId);
+                return new WorksiteViewData(deposit.Id, "mineral-deposit", deposit.X, deposit.Y, 0, deposit.Remaining, 0, 0, 0,
+                    true, deposit.RoomKind, deposit.Rarity, deposit.Capacity, deposit.Stage.ToString());
             })).ToArray();
             WaveState wave = session.Waves.Read();
             var summary = new CampViewData(session.Economy.Stock, session.Economy.Population, session.Economy.Capacity,

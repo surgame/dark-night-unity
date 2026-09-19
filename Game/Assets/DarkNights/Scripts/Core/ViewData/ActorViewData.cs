@@ -27,7 +27,6 @@ namespace DarkNights.Core.ViewData
         public bool JetpackEquipped { get; }
         public double JetpackFuel { get; }
         public int ExplosiveCharges { get; }
-        public int DrillCharges { get; }
         public int ControllerSlot { get; }
         public int ControlLease { get; }
 
@@ -55,8 +54,7 @@ namespace DarkNights.Core.ViewData
             double jetpackFuel = 0,
             int controllerSlot = -1,
             int controlLease = 0,
-            int explosiveCharges = 0,
-            int drillCharges = 0)
+            int explosiveCharges = 0)
         {
             Id = id;
             Kind = kind;
@@ -82,7 +80,6 @@ namespace DarkNights.Core.ViewData
             ControllerSlot = controllerSlot;
             ControlLease = controlLease;
             ExplosiveCharges = explosiveCharges;
-            DrillCharges = drillCharges;
         }
     }
 }

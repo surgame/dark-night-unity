@@ -27,7 +27,7 @@ namespace DarkNights.Runtime.Objects
                     a.TargetId, a.MoveX, a.RallyX, a.Face, a.ActionTime, a.AttackClock, a.Windup,
                     a.HitPending, a.ForcedAttack, a.AiClock,
                     a.Height, a.VerticalSpeed, a.SupportPlatform, a.IgnoredPlatform, a.DropRemaining, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel,
-                    a.ExplosiveCharges, a.DrillCharges);
+                    a.ExplosiveCharges);
             }).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {
@@ -40,8 +40,8 @@ namespace DarkNights.Runtime.Objects
                 WorksiteState w = site.Read();
                 return new WorksiteSnapshot(w.Id, site.RuleKey, w.X, w.WorkerId, w.Amount, w.Progress, w.Variant, w.FarmId);
             }).Concat(session.Index.MineralDeposits.Select(deposit =>
-                new WorksiteSnapshot(deposit.Id, "mineral-deposit", deposit.X, deposit.Y, 0, deposit.Remaining, deposit.DrillProgress, 0, 0,
-                    true, deposit.RoomKind, deposit.Rarity, deposit.Capacity, deposit.Stage.ToString(), deposit.DrillId))).ToArray();
+                new WorksiteSnapshot(deposit.Id, "mineral-deposit", deposit.X, deposit.Y, 0, deposit.Remaining, 0, 0, 0,
+                    true, deposit.RoomKind, deposit.Rarity, deposit.Capacity, deposit.Stage.ToString()))).ToArray();
             var identities = session.Index.FreezeOrder().Select(e => new EntityIdentityData(e.Id, e.DefinitionGuid, e.PlacementKey)).ToArray();
             WaveState wave = session.Waves.Read();
             var shots = session.Projectiles.Read().Shots.Select(p => new ProjectileSnapshot(
@@ -106,7 +106,7 @@ namespace DarkNights.Runtime.Objects
                     ActionTime = a.ActionTime, AttackClock = a.AttackClock, Windup = a.Windup,
                     HitPending = a.HitPending, ForcedAttack = a.ForcedAttack, AiClock = a.AiClock,
                     Height = a.Height, VerticalSpeed = a.VerticalSpeed, SupportPlatform = a.SupportPlatform, IgnoredPlatform = a.IgnoredPlatform, DropRemaining = a.DropRemaining, ManualControl = a.ManualControl, SelectedItem = a.SelectedItem, SelectionRevision = a.SelectionRevision, JetpackEquipped = a.JetpackEquipped, JetpackFuel = a.JetpackFuel,
-                    ExplosiveCharges = a.ExplosiveCharges, DrillCharges = a.DrillCharges, LastTerrainActionTick = -1000
+                    ExplosiveCharges = a.ExplosiveCharges, LastTerrainActionTick = -1000
                 });
             }
             else if (owner.GetBehaviour<BuildingBehaviour>() is BuildingBehaviour building)
@@ -126,8 +126,7 @@ namespace DarkNights.Runtime.Objects
                 deposit.PrepareState(new MineralDepositState
                 {
                     Id = id, PlacementKey = placement, X = (float)w.X, Y = (int)w.Y, RoomKind = w.RoomKind, Rarity = w.Rarity,
-                    Capacity = w.Capacity, Remaining = w.Amount, Stage = Enum.Parse<MineralDepositStage>(w.Stage),
-                    DrillId = w.DrillId, DrillProgress = w.Progress
+                    Capacity = w.Capacity, Remaining = w.Amount, Stage = Enum.Parse<MineralDepositStage>(w.Stage)
                 });
             }
             else if (owner.GetBehaviour<WorksiteBehaviour>() is WorksiteBehaviour site)

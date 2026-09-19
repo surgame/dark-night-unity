@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-2026-09-19 执行[地图改造修复文档 v1.1](<D:/Downloads/Dark Nights 地图改造修复执行文档 v1.1.md>)，全部改动位于新分支 `codex/map-plan-execution`。本批已完成依赖冻结、随机地图生成、破坏策略／权威幂等路由、矿脉对象／真实钻机保存代码和隔离 Unity 内容安装；Core／Terrain／ArchitectureGuard 通过，协议 10／存档 v6。正式主 Editor 刷新后的 EditMode／Play、双进程弱网、LateJoin／重连、Mono Player、前台性能或 IL2CPP 仍未验收，不写成已完成。
+2026-09-19 地图改造分支 `codex/map-plan-execution` 已把钻机／无人机／自动采矿／自动物流完全移出本轮范围，产品仅保留散矿和 SoftRock 手采、有限炸破、矿室矿床手动采集以及最终状态恢复。协议 10／存档 v6；主 Editor 刷新、完整 Editor **196/196**、Core **1048/1048**、Terrain 24 向量／100 seed、ArchitectureGuard **372/12/0** 和 Mono 启动 **6/6** 通过。首轮双进程暴露的动态矿床客户端身份校验缺口及弱网全图 Ready 超时已经修正；同一 Mono 正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 **18/18**，覆盖 Host＋Client、LateJoin、重连、幂等、局部刷新及真实写盘重启恢复。前台性能、IL2CPP、双机、新机器依赖恢复与 M6 比例平衡不写成已完成。
 
 2026-09-17 新增[独立随机地图 Debug Bootstrap](TERRAIN_DEBUG_BOOTSTRAP.md)：原平地场景未被覆盖，调试入口直接使用 HTML 对应的 8 房间／7 通道蓝图，无营地 72 列覆盖或波次；默认近距离跟随、WASD 二维穿墙、可调镜头与实时重建。Editor 地图 11/11、表现修正后 3/3 复验、真实 Play 22/22。独立 Mono 与本批清理见专属证据；正式网络、IL2CPP、前台性能和 M5 边界不变。
 

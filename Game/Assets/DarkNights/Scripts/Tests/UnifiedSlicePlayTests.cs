@@ -96,7 +96,7 @@ namespace DarkNights.Tests
                 "Explicit legacy camp mode releases the default hero");
             var world = network.ObjectWorld;
             Assert.That(world, Is.Not.Null);
-            Assert.That(world.Index.Count, Is.EqualTo(17));
+            Assert.That(world.Index.Count, Is.EqualTo(28), "17 个场景对象与 11 个随机矿室矿床应同属正式世界。");
             Assert.That(network.ActiveSession.StartCount, Is.EqualTo(1));
             Assert.That(world.Camp.Object, Is.SameAs(world.Economy.Object));
             Assert.That(world.Camp.Object.SessionContext, Is.SameAs(world.Context));
@@ -104,7 +104,8 @@ namespace DarkNights.Tests
             await Until(() => network.GetComponent<SessionEntityViews>().Count == world.Index.Count, "Exact Host object views");
             foreach (IEntityBehaviour entity in world.Index.FreezeOrder())
             {
-                if (entity.PlacementKey.Length == 0) continue;
+                if (entity.PlacementKey.Length == 0 ||
+                    entity.PlacementKey.StartsWith("terrain.deposit.", StringComparison.Ordinal)) continue;
                 var placement = network.ObjectPlacements.Single(p => p.PlacementKey == entity.PlacementKey);
                 Assert.That(entity.Object, Is.SameAs(placement.Loader.ObjectInstance));
             }
@@ -149,7 +150,7 @@ namespace DarkNights.Tests
 
             await network.Client.Send(SessionOperation.Save, value: 0);
             string path = Path.Combine(network.SaveDirectory, "slot-00.dnsave.json");
-            await Until(() => File.Exists(path) && !network.Server.Storage.Busy, "Save v3");
+            await Until(() => File.Exists(path) && !network.Server.Storage.Busy, "Save v6");
             string saved = File.ReadAllText(path);
             Assert.That((int)JObject.Parse(saved)["format_version"], Is.EqualTo(Runtime.Save.ObjectWorldSaveJson.FormatVersion));
             int epoch = network.Server.Authority.Epoch;
@@ -157,7 +158,7 @@ namespace DarkNights.Tests
             await network.Client.Send(SessionOperation.Restart);
             await Until(() => network.Client.Ready && network.Client.Replica.Current.Epoch == epoch + 1, "Restart Ready");
             Assert.That(previous.IsAlive, Is.False);
-            Assert.That(world.Index.Count, Is.EqualTo(17));
+            Assert.That(world.Index.Count, Is.EqualTo(28));
             Assert.That(world.Index.Find<ActorBehaviour>(13).Object, Is.SameAs(original));
             Assert.That(network.Client.Replica.Current.Events.Any(e => e.Type == "banner" && e.Text == "灰松谷 · 第一天"), Is.True);
             Assert.That(network.ReplicaObjects.Count, Is.Zero);

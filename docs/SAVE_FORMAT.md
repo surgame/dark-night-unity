@@ -1,6 +1,6 @@
 # Unity 世界存档 v6
 
-2026-09-19 地图遗漏修复将正式格式升级为 **v6**，目录使用 `v6` 子目录；协议同步为 10。Actor 保存 `explosive_charges`、`drill_charges`，矿床保存最终剩余量／阶段／钻机身份／钻进进度，真实钻机以 `mineral-drill.*` 身份进入 `worksites`。`terrain.deposit.*` 只允许对应 `mineral-deposit` 定义，动态钻机只允许 `worksite.mineral-drill` 定义。
+2026-09-19 地图遗漏修复将正式格式升级为 **v6**，目录使用 `v6` 子目录；协议同步为 10。Actor 保存 `explosive_charges`，矿床保存最终剩余量与枯竭阶段。`terrain.deposit.*` 是唯一新增的动态放置身份，且只允许对应 `mineral-deposit` 定义。本轮已删除钻机次数、钻进、输出缓冲和钻机对象字段，不接受旧格式迁移。
 
 2026-09-17 [随机灰松谷](RANDOM_PINEWATCH.md)将格式升级为 **v4**，文件位置使用 `v4` 子目录。`world.terrain` 为随机模板必需的对象，固定 Pinewatch 为 null；对象严格包含 `world_id`（32 位十六进制 GUID）、`seed`（1–80 字符）、`materials` 与 `protection`（各 61,440 字节的 Base64，材料 0–8、保护位 0/1）。记录最终格子，不按 seed 重新生成。严格校验材料、底部基岩、营地保护区域和随机布局是否匹配；实体与地图候选一起恢复，地图运行代次不沿用存档。原 v3 文件不迁移或删除。
 
@@ -26,9 +26,9 @@ world 包含 level_id、economy、wave、elapsed、speed、paused、next_entity_
 
 每个 identity 严格包含 id、definition_guid、placement_key；实体与身份一一对应，GUID 必须匹配该实体 RuleKey。非空放置键必须来自当前场景，职业替换仅允许合法单位定义间沿用原放置身份。重复键、未知／缺失字段、重复 JSON 属性、尾随内容和不兼容摘要均拒绝。
 
-actors 包含 height、vertical_speed、support_platform、ignored_platform、drop_remaining、manual_control、selected_item、selection_revision、jetpack_equipped、jetpack_fuel、explosive_charges、drill_charges。高度以原地面为零、向上为正；随机模板允许负高度至底部基岩顶面 -2416，支撑 0 表示权威地图支撑，-1 为空中；固定模板的正数表示场景平台 ID。支撑关系、范围、燃料和库存数量必须合法。
+actors 包含 height、vertical_speed、support_platform、ignored_platform、drop_remaining、manual_control、selected_item、selection_revision、jetpack_equipped、jetpack_fuel、explosive_charges。高度以原地面为零、向上为正；随机模板允许负高度至底部基岩顶面 -2416，支撑 0 表示权威地图支撑，-1 为空中；固定模板的正数表示场景平台 ID。支撑关系、范围、燃料和库存数量必须合法。
 
-worksites 中的 `mineral-deposit` 保存 RoomKind、Y、Rarity、Capacity、Remaining、Stage、DrillId 和 DrillProgress；`worksite.mineral-drill` 保存真实钻机的 Variant、输出缓冲 Amount 和 Progress。钻机输出缓冲属于对象状态，恢复时不能从全局 Economy 或初始 seed 推导。
+worksites 中的 `mineral-deposit` 保存 RoomKind、Y、Rarity、Capacity、Remaining 和 Stage。最终剩余量必须从该 YYGC 对象状态恢复，不能从初始 seed 或全局 Economy 推导。
 
 文件不包含相机、选区、epoch、连接代次、FishNet 身份或房间共享策略；也不保存 ControllerSlot、ControllerGeneration、ControlLease、默认人物偏好、输入序号和按钮意图。恢复后的手动角色保留姿态、手动标记与装备；新 epoch 完整投影 Ready 后，服务端只接回这些已保存主角。连接仍记录的专属 ID 若指向不带手动标记的普通闲置村民，必须视为不可恢复并新建默认村民；旧连接所有权和输入不会恢复或重放。
 
@@ -38,7 +38,7 @@ SaveContentFingerprint 直接使用本次会话的 GameCatalog 与经过校验�
 
 规则与布局使用二进制编码域 dark-nights.rules.v2／dark-nights.layout.v2，纳入 hero_control 和有序平台定义：小端整数、IEEE 754 float/double、UTF-8 字符串及显式集合长度。字典按 Ordinal Key 排序，布局和敌人序列保留顺序。这两个域标记描述摘要编码，不表示接受 v2 存档。
 
-identity_sha256 对按 Ordinal 排序的 definitions／placements 对象做紧凑 JSON UTF-8 SHA-256，值来自实际加载定义和场景放置关系；动态 `terrain.deposit.*` 与 `mineral-drill.*` 身份按其固定规则校验。新增格式字段或修改规范编码须明确升级合同。摘要用于内容一致性，不是文件签名，也不能替代协议 10 的完整握手摘要。
+identity_sha256 对按 Ordinal 排序的 definitions／placements 对象做紧凑 JSON UTF-8 SHA-256，值来自实际加载定义和场景放置关系；动态 `terrain.deposit.*` 身份只允许对应 `mineral-deposit` 定义且全局唯一。新增格式字段或修改规范编码须明确升级合同。摘要用于内容一致性，不是文件签名，也不能替代协议 10 的完整握手摘要。
 
 ## 保存与恢复顺序
 

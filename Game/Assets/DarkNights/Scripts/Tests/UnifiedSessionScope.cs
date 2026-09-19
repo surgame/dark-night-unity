@@ -9,6 +9,7 @@ using DarkNights.Runtime.Framework;
 using DarkNights.Runtime.Objects;
 using DarkNights.Runtime.Save;
 using DarkNights.Runtime.Session;
+using DarkNights.Runtime.Terrain;
 using GameCore.Objects.Behaviours;
 using GameCore.Objects.Definition;
 using GameCore.Objects.Runner;
@@ -27,6 +28,7 @@ namespace DarkNights.Tests
         private ObjectSessionResources resources;
         private GameObject updates;
         public static UnifiedSessionScope Current { get; private set; }
+        public ObjectSessionResources Resources => resources;
 
         public static async UniTask<UnifiedSessionScope> Create()
         {
@@ -44,7 +46,10 @@ namespace DarkNights.Tests
                 }
                 GameCatalog catalog = RuleScenario.Catalog();
                 var directory = new DefinitionRuleIndex(ObjectDefinitionDatabase.Instance);
-                string[] keys = catalog.Balance.Units.Keys.Concat(catalog.Balance.Buildings.Keys).Concat(catalog.Balance.Worksites.Keys).ToArray();
+                var keys = catalog.Balance.Units.Keys.Concat(catalog.Balance.Buildings.Keys)
+                    .Concat(catalog.Balance.Worksites.Keys).ToList();
+                if (directory.FindOptional(MineralDepositRuleConfig.Rule) != null)
+                    keys.Add(MineralDepositRuleConfig.Rule);
                 scope.resources = await ObjectSessionResources.Prepare(keys.Select(directory.GetRequired).ToArray(), loading.CancellationToken);
                 Current = scope;
                 return scope;
@@ -52,7 +57,7 @@ namespace DarkNights.Tests
             catch { scope.Dispose(); throw; }
         }
 
-        private ObjectPlacement[] Placements(LevelLayout layout) => layout.Buildings.Concat(layout.Worksites).Concat(layout.Actors)
+        public ObjectPlacement[] Placements(LevelLayout layout) => layout.Buildings.Concat(layout.Worksites).Concat(layout.Actors)
             .Select((p, i) => new ObjectPlacement("scenario-placement-" + i, resources.Find(p.Kind), p.X, p.Variant, p.Name, null)).ToArray();
 
         public ObjectWorldSaveJson Codec(GameCatalog catalog, LevelLayout layout) => new ObjectWorldSaveJson(catalog, layout,
@@ -60,10 +65,11 @@ namespace DarkNights.Tests
             Placements(layout).ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition)));
 
         public ObjectSession NewWorld(GameCatalog catalog, LevelLayout layout, bool activate = true,
-            float debugHeroSpeedMultiplier = 1)
+            float debugHeroSpeedMultiplier = 1, Func<ObjectSession, SessionTerrain> terrain = null)
         {
             var world = new ObjectSession(catalog, layout, resources, () => true,
                 debugHeroSpeedMultiplier: debugHeroSpeedMultiplier);
+            world.Terrain = terrain?.Invoke(world);
             GameObject root = null;
             try
             {

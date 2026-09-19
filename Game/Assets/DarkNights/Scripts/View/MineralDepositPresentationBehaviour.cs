@@ -6,7 +6,7 @@ using UnityEngine;
 namespace DarkNights.View
 {
     /// <summary>
-    /// 矿床的只读表现适配；容量、阶段和钻机状态来自投影，视觉只负责位置、稀有度变体和枯竭标记。
+    /// 矿床的只读表现适配；容量和手采阶段来自投影，视觉只负责位置、稀有度变体和枯竭标记。
     /// 不提交工人订单，也不修改地形格，矿床行为由 YYGC MineralDepositBehaviour 唯一拥有。
     /// </summary>
     public sealed class MineralDepositPresentationBehaviour : EntityPresentationBehaviour

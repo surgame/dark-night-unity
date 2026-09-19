@@ -50,7 +50,6 @@ namespace DarkNights.Runtime.Objects
                 Face = enemy ? -1 : 1, AiClock = id * 0.07 % 0.25,
                 JetpackFuel = Session.Catalog.Balance.HeroControl?.FuelSeconds ?? 0,
                 ExplosiveCharges = enemy ? 0 : 3,
-                DrillCharges = enemy ? 0 : 1,
                 LastTerrainActionTick = -1000
             });
         }

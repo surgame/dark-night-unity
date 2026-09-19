@@ -8,6 +8,6 @@ namespace DarkNights.Runtime.Session
     {
         IssueOrders, PlaceBuilding, TrainActors, Recruit, Repair,
         SetPaused, SetSpeed, StartNight, SetControlMode, BeginLoad, Save, Restart,
-        ClaimHero, ReleaseHero, SelectHeroItem, UseHeroItem, DeployMineralDrill
+        ClaimHero, ReleaseHero, SelectHeroItem, UseHeroItem
     }
 }

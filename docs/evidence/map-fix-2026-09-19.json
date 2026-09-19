@@ -4,53 +4,138 @@
   "unity": "6000.4.9f1",
   "protocol": 10,
   "save_format": 6,
+  "scope": {
+    "included": [
+      "meaningful authored entrance",
+      "SoftRock and scattered ore hand mining",
+      "manual mineral-deposit mining",
+      "finite protected explosive route changes",
+      "Host, Client, LateJoin and Reconnect final-map consistency",
+      "v6 Player save, exit, restart and exact restore"
+    ],
+    "excluded_and_removed": [
+      "MineralDrill",
+      "DrillCharges",
+      "DeployMineralDrill",
+      "drill Prefab and Definition",
+      "drill OutputBuffer and progress",
+      "drone hauling",
+      "automatic mining and logistics"
+    ]
+  },
+  "fixes": [
+    "removed the drill chain from product code, state, wire projection, save mapping, database and Addressables",
+    "accepted unique terrain.deposit.* identities only for mineral-deposit replicas",
+    "updated SnapshotValidator to the v6 save schema",
+    "extended full-map Ready timeout from 30 to 90 seconds for the bounded four-client session",
+    "added the missing NativePanelTheme to the main-menu map button",
+    "exposed local terrain refresh counters and formal terrain-command automation evidence"
+  ],
   "regressions": {
     "core": "1048 checks, 0 failures",
     "terrain": "24 H5 vectors; gameplay scattered=24, deposits=11, softRock=352; 100 seed candidate batch passed",
-    "architecture": "375 files, 12 self-tests, 0 errors",
+    "architecture": "372 files, 12 self-tests, 0 errors",
     "core_build": "0 warnings, 0 errors",
     "map_package_prepare": "442 files verified; TerrainEditCommandPayload patch applied"
   },
-  "isolated_unity_content_install": {
-    "mineral_deposit_prefab": 1,
-    "mineral_deposit_definition": 1,
-    "mineral_drill_prefab": 1,
-    "mineral_drill_definition": 1,
-    "archetypes": ["MineralDeposit", "Worksite"],
-    "state_data_tag": 8,
-    "asset_database_reload": true,
-    "reopen_validation": {
-      "mineral_deposit": "passed; DarkNights.Editor.MineralDepositContentSetup.Validate; artifacts/map-fix-editor-p2-final-reopen-deposit.log",
-      "mineral_drill": "passed; DarkNights.Editor.MineralDrillContentSetup.Validate; artifacts/map-fix-editor-p2-final-reopen-drill.log"
+  "formal_unity": {
+    "main_editor_refresh": {
+      "passed": true,
+      "log": "artifacts/map-fix-main-editor-refresh-r2.log"
     },
-    "log": "artifacts/map-fix-editor-install2.log"
+    "complete_editor_tests": {
+      "passed": 196,
+      "failed": 0,
+      "duration_seconds": 57.33,
+      "result": "artifacts/map-fix-editor-tests-final.xml",
+      "log": "artifacts/map-fix-editor-tests-final.log"
+    },
+    "authoritative_collision_supplement": {
+      "passed": 1,
+      "failed": 0,
+      "result": "artifacts/map-fix-terrain-collision-final-r4.xml",
+      "log": "artifacts/map-fix-terrain-collision-final-r4.log",
+      "assertion": "blasting a two-cell support edge makes the actor lose support and fall on the next authoritative physics tick"
+    }
   },
-  "isolated_unity_source_compile": {
-    "passed": true,
-    "result": "Final isolated Unity batchmode using locally cached package copies exited with return code 0; Tundra build success and no error CS diagnostics. Existing YYGC ShaderGraph plus one cached-package asset import error remain in the isolated log and are unrelated to this batch's C# source changes.",
-    "log": "artifacts/map-fix-editor-p2-finalcompile2.log"
+  "mono_player": {
+    "path": "artifacts/map-fix/player-mono-r3/DarkNights.exe",
+    "files": 431,
+    "bytes": 201374658,
+    "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "runtime_dll_sha256": "57fd02cad9c0a4bb8053355bfa5a065932adade8d2e624437cf35fbf8d9a3197",
+    "entry_dll_sha256": "3145e7500766a4450129809d92e775912a7fa1fb267395c6771efb0b72d56fbc",
+    "build_log": "artifacts/map-fix-player-build-r3.log",
+    "startup": {
+      "passed": 6,
+      "failed": 0,
+      "result": "artifacts/migration/run-20260919-204259-717-mono/result.json"
+    }
+  },
+  "normal_network": {
+    "passed": 18,
+    "failed": 0,
+    "result": "artifacts/map-fix/terrain-loop-20260919-204312-119/result.json"
+  },
+  "weak_network": {
+    "profile": "200 ms RTT + 5% loss + 25 ms jitter",
+    "passed": 18,
+    "failed": 0,
+    "result": "artifacts/map-fix/terrain-loop-20260919-204357-261/result.json",
+    "relay": "artifacts/map-fix/terrain-loop-weak-20260919-204356-647/relay.json",
+    "received_packets": 11936,
+    "dropped_packets": 585,
+    "delayed_reorders": 7190,
+    "elapsed_seconds": 89.406177
+  },
+  "acceptance": {
+    "meaningful_entrance": {
+      "passed": true,
+      "entry": [100, 90],
+      "authored_route_x": 94,
+      "solid_cells_before_entry": 0,
+      "ordinary_wall_hand_mine_rejected_in_player": true
+    },
+    "hand_mining_rules": true,
+    "finite_protected_explosives": true,
+    "host_client_latejoin_reconnect_final_map_equal": true,
+    "player_save_exit_restart_exact_restore": true,
+    "mine_room_more_valuable": {
+      "passed": true,
+      "mine_room_capacity": 600,
+      "scattered_ore_cells": 28
+    }
   },
   "yygc_remote_base_reproduction": {
     "recovery_script_ready": true,
     "local_empty_checkout_simulation": true,
-    "actual_remote_network_probe": "not_verified: GitHub ls-remote did not return within the bounded wait",
+    "actual_clean_machine": "not_verified",
     "base_commit": "0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143",
     "equivalent_target": "12b253c6bdd262feb860ab905b9e56e940ec9c40",
     "patch": "tools/lan-framework-patch/NetworkCommandInterfaceGenerator.patch",
-    "result": "temporary empty checkout cloned from a local repository source as a remote-path simulation, all locked LAN patches applied, expected tracked file set verified"
+    "user_yygc_master_modified": false
   },
-  "assets": {
-    "mineral_deposit_definition_guid": "e6c460b98178a9c4eb9ec2e702828e4a",
-    "mineral_deposit_prefab_guid": "fab77cf0d58e1f742887cd94c5ec9ddf",
-    "mineral_deposit_archetype_guid": "9c3e56581045d5a469208b34ca4f7fa7",
-    "mineral_drill_definition_guid": "51b03733d825c324480ff5113a464c4e",
-    "mineral_drill_prefab_guid": "f545fff7c28c2a44f932ce1e335c36c6"
+  "cleanup": {
+    "requested_bytes": 482873498,
+    "removed_bytes": 0,
+    "result": "filesystem policy rejected the bounded Remove-Item batch; no retry or parent-directory workaround was attempted",
+    "retained": [
+      "artifacts/map-fix/player-mono-r1",
+      "artifacts/map-fix/player-mono-r2",
+      "five failed terrain-loop run directories",
+      "tools/CoreBuild, CoreRegression, TerrainRegression and ArchitectureGuard bin/obj",
+      "tools/__pycache__"
+    ],
+    "free_bytes_before_attempt": 36900749312,
+    "free_bytes_at_closeout": 34684579840,
+    "final_player_preserved": "artifacts/map-fix/player-mono-r3/DarkNights.exe"
   },
-  "not_run": [
-    "main Unity Editor reimport/reopen after the final source refactor",
-    "formal EditMode and PlayMode acceptance",
-    "Host+Client+LateJoin, reconnect, save/restart/load and weak-network acceptance",
-    "Mono Player build and runtime acceptance",
-    "IL2CPP, dual-machine LAN, foreground performance and M6 balance"
+  "not_verified": [
+    "actual clean-machine dependency preparation over the public remote",
+    "M6 20-30 / 60-70 / 10 percent contribution balance",
+    "foreground performance and final visual-experience signoff",
+    "IL2CPP Player",
+    "dual-machine LAN",
+    "power-loss or forced-crash interruption during save replacement"
   ]
 }

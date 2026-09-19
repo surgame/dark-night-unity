@@ -4,7 +4,6 @@ namespace DarkNights.Core.Config
     public enum MineralDepositStage
     {
         Available = 0,
-        Drilling = 1,
-        Depleted = 2
+        Depleted = 1
     }
 }

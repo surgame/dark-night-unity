@@ -42,7 +42,6 @@ namespace DarkNights.Runtime.Objects
         public bool JetpackEquipped { get; internal set; }
         public double JetpackFuel { get; internal set; }
         public int ExplosiveCharges { get; internal set; }
-        public int DrillCharges { get; internal set; }
         public long LastTerrainActionTick { get; internal set; } = -1000;
         // 占用及输入只属于本次连接和 epoch，不写入存档。
         public int ControllerSlot { get; internal set; } = -1;

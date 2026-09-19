@@ -15,7 +15,7 @@ namespace DarkNights.Runtime.Session
         internal SessionHeroControl(ObjectSession world) { this.world = world; }
         internal static bool IsOperation(SessionOperation operation) => operation == SessionOperation.ClaimHero ||
             operation == SessionOperation.ReleaseHero || operation == SessionOperation.SelectHeroItem ||
-            operation == SessionOperation.UseHeroItem || operation == SessionOperation.DeployMineralDrill;
+            operation == SessionOperation.UseHeroItem;
 
         internal int AssignDefault(SessionConnection connection)
         {
@@ -68,11 +68,6 @@ namespace DarkNights.Runtime.Session
             var control = actor.Object.GetBehaviour<HeroControlBehaviour>();
             if (control == null) return 0;
             if (!Owns(actor, connection, request.ControlLease)) return 0;
-            if (request.Operation == SessionOperation.DeployMineralDrill)
-            {
-                if (world.Paused) return 0;
-                return world.DeployMineralDrill(actor.Id, request.TargetId) > 0 ? 1 : 0;
-            }
             int affected = world.Mutations.Run(() =>
             {
                 if (request.Operation == SessionOperation.ReleaseHero) { control.Release(); return 1; }

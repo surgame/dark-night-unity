@@ -9,6 +9,7 @@ namespace DarkNights.Runtime.Network
     /// </summary>
     internal sealed class SessionPeer
     {
+        public const double ReadyTimeoutSeconds = 90;
         public NetworkConnection Network { get; }
         public SessionConnection Authority { get; set; }
         public bool IsHost { get; }
@@ -22,7 +23,7 @@ namespace DarkNights.Runtime.Network
             Network = network;
             IsHost = host;
             Endpoint = endpoint;
-            ReadyDeadline = joinedAt + 30;
+            ReadyDeadline = joinedAt + ReadyTimeoutSeconds;
         }
     }
 }

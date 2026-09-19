@@ -4,9 +4,9 @@ using MemoryPack;
 
 namespace DarkNights.Runtime.Objects
 {
-    /// <summary>单个矿床的唯一容量、稀有度和钻机状态；地图只保存其静态生成标记，不能复制这份运行进度。</summary>
+    /// <summary>单个矿床的唯一容量、稀有度和手采阶段；地图只保存静态生成标记，不复制运行存量。</summary>
     [MemoryPackable, StateData]
-        public partial record MineralDepositState
+    public partial record MineralDepositState
     {
         public uint Sequence { get; set; }
         public int Id { get; internal set; }
@@ -18,7 +18,5 @@ namespace DarkNights.Runtime.Objects
         public int Capacity { get; internal set; }
         public int Remaining { get; internal set; }
         public MineralDepositStage Stage { get; internal set; }
-        public int DrillId { get; internal set; }
-        public double DrillProgress { get; internal set; }
     }
 }

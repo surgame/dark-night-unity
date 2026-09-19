@@ -9,7 +9,6 @@ using DarkNights.Core.Logic;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.Save;
 using DarkNights.Core.ViewData;
-using DarkNights.Runtime.Objects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using static DarkNights.Runtime.Save.SaveJsonFields;
@@ -122,11 +121,6 @@ namespace DarkNights.Runtime.Save
                 if (identity.PlacementKey.StartsWith("terrain.deposit.", StringComparison.Ordinal))
                 {
                     if (kind != "mineral-deposit") throw new FormatException("Terrain deposit identity has the wrong RuleKey.");
-                    continue;
-                }
-                if (identity.PlacementKey.StartsWith("mineral-drill.", StringComparison.Ordinal))
-                {
-                    if (kind != WorksiteBehaviour.MineralDrillRule) throw new FormatException("Mineral drill identity has the wrong RuleKey.");
                     continue;
                 }
                 if (!placements.TryGetValue(identity.PlacementKey, out string original) ||

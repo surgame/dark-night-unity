@@ -25,7 +25,6 @@ namespace DarkNights.Core.Save
         public string Rarity { get; }
         public int Capacity { get; }
         public string Stage { get; }
-        public int DrillId { get; }
 
         public WorksiteSnapshot(
             int id,
@@ -36,7 +35,7 @@ namespace DarkNights.Core.Save
             double progress,
             int variant,
             int farmId)
-            : this(id, kind, x, 0, workerId, amount, progress, variant, farmId, false, "", "", 0, "", 0)
+            : this(id, kind, x, 0, workerId, amount, progress, variant, farmId, false, "", "", 0, "")
         {
         }
 
@@ -54,8 +53,7 @@ namespace DarkNights.Core.Save
             string roomKind,
             string rarity,
             int capacity,
-            string stage,
-            int drillId)
+            string stage)
         {
             Id = id;
             Kind = kind;
@@ -71,7 +69,6 @@ namespace DarkNights.Core.Save
             Rarity = rarity ?? "";
             Capacity = capacity;
             Stage = stage ?? "";
-            DrillId = drillId;
         }
 
         public WorksiteSnapshot(
@@ -87,10 +84,9 @@ namespace DarkNights.Core.Save
             string roomKind,
             string rarity,
             int capacity,
-            string stage,
-            int drillId)
+            string stage)
             : this(id, kind, x, 0, workerId, amount, progress, variant, farmId, isMineralDeposit,
-                roomKind, rarity, capacity, stage, drillId)
+                roomKind, rarity, capacity, stage)
         {
         }
     }

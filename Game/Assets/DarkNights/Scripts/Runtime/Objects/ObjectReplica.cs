@@ -54,11 +54,21 @@ namespace DarkNights.Runtime.Objects
             var placementKeys = new HashSet<string>();
             foreach (EntityIdentityData identity in world.Identities)
             {
-                var definition = resources.Find(kinds[identity.Id]);
-                if (definition.Guid.ToString() != identity.DefinitionGuid ||
-                    (identity.PlacementKey.Length != 0 && (!placementKeys.Add(identity.PlacementKey) ||
-                    !placements.TryGetValue(identity.PlacementKey, out var source) ||
-                    (source.Definition != definition && (source.Definition.Type != ObjectType.Unit || definition.Type != ObjectType.Unit)))))
+                string kind = kinds[identity.Id];
+                var definition = resources.Find(kind);
+                if (definition.Guid.ToString() != identity.DefinitionGuid)
+                    throw new InvalidOperationException("Unknown or conflicting object identity in projection.");
+                if (identity.PlacementKey.Length == 0) continue;
+                if (!placementKeys.Add(identity.PlacementKey))
+                    throw new InvalidOperationException("Unknown or conflicting object identity in projection.");
+                if (identity.PlacementKey.StartsWith("terrain.deposit.", StringComparison.Ordinal))
+                {
+                    if (kind != MineralDepositRuleConfig.Rule)
+                        throw new InvalidOperationException("Unknown or conflicting object identity in projection.");
+                    continue;
+                }
+                if (!placements.TryGetValue(identity.PlacementKey, out var source) ||
+                    (source.Definition != definition && (source.Definition.Type != ObjectType.Unit || definition.Type != ObjectType.Unit)))
                     throw new InvalidOperationException("Unknown or conflicting object identity in projection.");
             }
         }
@@ -96,10 +106,11 @@ namespace DarkNights.Runtime.Objects
                     candidate.Activate();
                     candidate.gameObject.SetActive(false);
                     next.Add(id, candidate);
-                    if (row.Identity.PlacementKey.Length != 0 && placements[row.Identity.PlacementKey].Loader != null &&
-                        placements[row.Identity.PlacementKey].Definition == definition)
+                    if (row.Identity.PlacementKey.Length != 0 &&
+                        placements.TryGetValue(row.Identity.PlacementKey, out ObjectPlacement source) && source.Loader != null &&
+                        source.Definition == definition)
                     {
-                        var original = placements[row.Identity.PlacementKey].Loader.ObjectInstance;
+                        var original = source.Loader.ObjectInstance;
                         if (original == null) throw new InvalidOperationException("Scene Loader has no bound ObjectInstance.");
                         ObjectAssemblyValidation.Validate(definition, original.ObjectView);
                     }
@@ -108,9 +119,10 @@ namespace DarkNights.Runtime.Objects
                 {
                     ObjectInstance target = next[row.Identity.Id];
                     if (owned.Contains(target) && row.Identity.PlacementKey.Length != 0 &&
-                        placements[row.Identity.PlacementKey].Loader != null && placements[row.Identity.PlacementKey].Definition == target.Definition)
+                        placements.TryGetValue(row.Identity.PlacementKey, out ObjectPlacement source) &&
+                        source.Loader != null && source.Definition == target.Definition)
                     {
-                        ObjectPlacement placement = placements[row.Identity.PlacementKey];
+                        ObjectPlacement placement = source;
                         ObjectInstance original = placement.Loader.ObjectInstance;
                         var oldDefinition = original.Definition ?? placement.Definition;
                         var oldContext = original.SessionContext;
