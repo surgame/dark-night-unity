@@ -1,0 +1,65 @@
+{
+  "canvas": [
+    24,
+    24
+  ],
+  "grip_pixel_top_left": [
+    8,
+    12
+  ],
+  "pixels_per_unit": 100,
+  "palette": {
+    ".": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "d": "#393c3b",
+    "s": "#656b68",
+    "m": "#9ba29b",
+    "h": "#d1cebc",
+    "w": "#69462e",
+    "b": "#96704b",
+    "l": "#b29566",
+    "r": "#984d3f",
+    "R": "#c17858",
+    "t": "#c7b58b",
+    "f": "#e8bc67",
+    "F": "#f4e2b5",
+    "a": "#d2b58b",
+    "A": "#a88864"
+  },
+  "items": {
+    "Pistol": {
+      "source": "Pistol.aseprite",
+      "held_frame": 0,
+      "icon_frame": 2,
+      "layers": [
+        "Wood grip",
+        "Iron barrel",
+        "Metal highlights"
+      ]
+    },
+    "Pickaxe": {
+      "source": "Pickaxe.aseprite",
+      "held_frame": 0,
+      "icon_frame": 2,
+      "layers": [
+        "Wood shaft",
+        "Iron pick",
+        "Metal highlights"
+      ]
+    },
+    "Bomb": {
+      "source": "Bomb.aseprite",
+      "held_frame": 0,
+      "icon_frame": 2,
+      "layers": [
+        "Dynamite sticks",
+        "Rope and fuse",
+        "Highlights"
+      ]
+    }
+  }
+}

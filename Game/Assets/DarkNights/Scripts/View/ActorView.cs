@@ -10,6 +10,7 @@ namespace DarkNights.View
     /// </summary>
     public sealed class ActorView : EntityView, IRemnantView
     {
+        [SerializeField] private HandheldView handheld;
         [SerializeField] private SpriteRenderer shadow;
         [SerializeField] private Transform facing;
         [SerializeField] private Transform poseRoot;
@@ -24,12 +25,15 @@ namespace DarkNights.View
             new Color32(167, 174, 122, 255), new Color32(185, 164, 194, 255)
         };
 
+        public void PresentHandheld(ActorViewData actor, double elapsed) => handheld?.Present(actor, elapsed, Ambient);
+
         public PoseClip[] Clips => (PoseClip[])clips.Clone();
 
         public double PoseDuration(string pose) => RequiredClip(pose).Duration;
 
         public void SamplePose(string pose, double seconds)
         {
+            handheld?.RestorePose();
             RequiredClip(pose).Sample(gameObject, seconds);
         }
 
@@ -54,6 +58,7 @@ namespace DarkNights.View
 
         public override void Preview(int identity, int variant)
         {
+            handheld?.Hide();
             RequiredClip("idle").Sample(gameObject, 0);
             if (shadow != null) shadow.enabled = true;
             facing.localScale = Vector3.one;
@@ -64,6 +69,7 @@ namespace DarkNights.View
         public void PresentRemnant(VisualCue cue, double age)
         {
             if (cue.Kind != "corpse") throw new InvalidOperationException("ActorView only presents corpse remnants.");
+            handheld?.Hide();
             UseRemnantSorting();
             if (shadow != null) shadow.enabled = false;
             RequiredClip("die").Sample(gameObject, age);

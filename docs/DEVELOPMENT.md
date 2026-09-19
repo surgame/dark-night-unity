@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-20 完成[主角手持装备开发](HERO_HANDHELD_EQUIPMENT.md)：三套分层 Aseprite 像素素材与图标，手枪／128 槽投射物池、蓄力抛物线黏性炸药、仅动作矿镐及底部四槽栏。复用 YYGC 输入／状态和 R3 表现链，协议 10／存档 v5。基于本次最新 main `b96d8dc`，Unity 6000.4.9f1 编译通过；**按用户要求没有运行玩法测试或构建 Player**，后续按[冒烟／回归文档](HERO_HANDHELD_TEST_PLAN.md)执行。YYGC 仍为 `12b253c`；保留本机漂移的 AnyRules 缓存，新隔离缓存恢复原锁并核对 442 文件。
+
 2026-09-17 新增[独立随机地图 Debug Bootstrap](TERRAIN_DEBUG_BOOTSTRAP.md)：原平地场景未被覆盖，调试入口直接使用 HTML 对应的 8 房间／7 通道蓝图，无营地 72 列覆盖或波次；默认近距离跟随、WASD 二维穿墙、可调镜头与实时重建。Editor 地图 11/11、表现修正后 3/3 复验、真实 Play 22/22。独立 Mono 与本批清理见专属证据；正式网络、IL2CPP、前台性能和 M5 边界不变。
 
 2026-09-17 完成[正式随机灰松谷接线](RANDOM_PINEWATCH.md)：保留原场景，增加每关卡一个随机模板的入口；菜单按需后台生成、开局复用，主角碰撞、完整地图 Ready、暂停晚加入及最终格子存档恢复接入现有会话。协议 9／存档 v4，Mono `artifacts/random-map/player-mono`；本批相关测试、独立进程联机及清理记录见[证据](evidence/random-pinewatch-2026-09-17.json)。采矿、NPC 跨随机区域寻路、IL2CPP、双机器和前台性能不在本批完成范围。

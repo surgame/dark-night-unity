@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-20 完成[主角手持装备开发](docs/HERO_HANDHELD_EQUIPMENT.md)：三套分层 Aseprite 像素素材与图标，手枪／128 槽投射物池、蓄力抛物线黏性炸药、仅动作矿镐及底部四槽栏。复用 YYGC 输入／状态和 R3 表现链，协议 10／存档 v5。基于本次最新 main `b96d8dc`，Unity 6000.4.9f1 编译通过；**按用户要求没有运行玩法测试或构建 Player**，后续按[冒烟／回归文档](docs/HERO_HANDHELD_TEST_PLAN.md)执行。YYGC 仍为 `12b253c`；保留本机漂移的 AnyRules 缓存，新隔离缓存恢复原锁并核对 442 文件。
+
 2026-09-17 新增独立[随机地图 Debug Bootstrap](docs/TERRAIN_DEBUG_BOOTSTRAP.md)：菜单 `Dark Nights/Debug/打开随机地图 Bootstrap` 后直接 Play，角色出生于随机入口洞室，WASD 穿墙飞行，镜头近距离跟随且可调；参数实时重建、换种子与 8 房间定位。调试地图没有正式营地的 72 列平地覆盖，原 Pinewatch 场景保留。
 
 2026-09-17 默认正式入口已接入[随机灰松谷](docs/RANDOM_PINEWATCH.md)：保留原 Pinewatch，新增独立随机关卡模板，菜单选择地图时后台生成并在开局复用。正式协议 9／存档 v4，主角查询权威地形，地图完整同步后才 Ready；保存恢复最终格子。新 Mono 位于 `artifacts/random-map/player-mono/DarkNights.exe`，操作和本批验收见切片文档；以下记录保留各历史构建身份。

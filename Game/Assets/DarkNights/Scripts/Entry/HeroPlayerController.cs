@@ -18,6 +18,7 @@ namespace DarkNights.Entry
     /// </summary>
     public sealed class HeroPlayerController : MonoBehaviour
     {
+        private readonly HeroActionInput equipment = new HeroActionInput();
         private SessionNetwork network;
         private CampInput camp;
         private GameInputActions input;
@@ -78,7 +79,7 @@ namespace DarkNights.Entry
             {
                 jumpPending = dropPending = sentJump = sentUse = false; sentDirection = 0;
                 actorId = Current?.Id ?? 0; lease = Current?.ControlLease ?? 0; nextSend = heartbeat = 0;
-                pendingItem = -1;
+                pendingItem = -1; equipment.Cancel();
                 if (Current != null) camp.SelectEntity(Current.Id);
             }
             bool controlling = preferHero && (Current != null || !campControlEnabled);
@@ -113,7 +114,9 @@ namespace DarkNights.Entry
             bool allowed = input.CanRead(input.Move) && !network.Client.Replica.Current.Paused;
             int direction = allowed ? Math.Sign(input.Move.ReadValue<float>()) : 0;
             bool jump = allowed && input.CanRead(input.Jump) && input.Jump.IsPressed();
-            bool use = allowed && input.CanRead(input.UseItem) && input.UseItem.IsPressed();
+            Vector3 hand = entities.Visual(Current.Id)?.transform.position ?? new Vector3(Current.X / 100, Current.Height / 100, 0);
+            equipment.Sample(input, stage.SceneCamera, hand + Vector3.up * .09f, allowed && pendingItem < 0);
+            bool use = equipment.Held;
             if (allowed)
             {
                 jumpPending |= input.CanRead(input.Jump) && input.Jump.WasPressedThisFrame();
@@ -121,10 +124,11 @@ namespace DarkNights.Entry
             }
             else jumpPending = dropPending = false;
             double now = Time.unscaledTimeAsDouble;
-            bool changed = direction != sentDirection || jump != sentJump || use != sentUse || jumpPending || dropPending;
+            bool changed = direction != sentDirection || jump != sentJump || use != sentUse || jumpPending || dropPending || equipment.Changed;
             if (now >= nextSend && (changed || now >= heartbeat))
             {
                 Send(direction, jump, use, jumpPending, dropPending).Forget();
+                equipment.Consume();
                 sentDirection = direction; sentJump = jump; sentUse = use;
                 jumpPending = dropPending = false;
                 nextSend = now + 1.0 / 30; heartbeat = now + 0.1;
@@ -133,11 +137,12 @@ namespace DarkNights.Entry
             {
                 int selected = input.CanRead(input.Item1) && input.Item1.WasPressedThisFrame() ? 0 :
                     input.CanRead(input.Item2) && input.Item2.WasPressedThisFrame() ? 1 :
-                    input.CanRead(input.Item3) && input.Item3.WasPressedThisFrame() ? 2 : -1;
+                    input.CanRead(input.Item3) && input.Item3.WasPressedThisFrame() ? 2 :
+                    input.CanRead(input.Item4) && input.Item4.WasPressedThisFrame() ? 3 : -1;
                 float scroll = input.PointerOverUi ? 0 : input.Scroll.ReadValue<Vector2>().y;
-                if (selected < 0 && scroll != 0) selected = (Current.SelectedItem + (scroll > 0 ? 2 : 1)) % 3;
+                if (selected < 0 && scroll != 0) selected = (Current.SelectedItem + (scroll > 0 ? 3 : 1)) % 4;
                 if (selected >= 0) SelectItem(selected).Forget();
-                if (pendingItem < 0 && input.CanRead(input.UseItem) && input.UseItem.WasPressedThisFrame()) Use().Forget();
+                if (Current.SelectedItem == 3 && pendingItem < 0 && input.CanRead(input.UseItem) && input.UseItem.WasPressedThisFrame()) Use().Forget();
             }
         }
 
@@ -167,6 +172,7 @@ namespace DarkNights.Entry
             else if (action == "HeroItem0") await SelectItem(0);
             else if (action == "HeroItem1") await SelectItem(1);
             else if (action == "HeroItem2") await SelectItem(2);
+            else if (action == "HeroItem3") await SelectItem(3);
             return true;
         }
 
@@ -195,18 +201,17 @@ namespace DarkNights.Entry
         private async UniTask SelectItem(int index)
         {
             if (Current == null || index == Current.SelectedItem || pendingItem == index) return;
-            pendingItem = index;
+            StopInput(); pendingItem = index;
             try { selectionRequest = await network.Client.Send(SessionOperation.SelectHeroItem, new[] { Current.Id }, value: index, controlLease: Current.ControlLease); }
             catch (Exception error) { pendingItem = -1; notice = error.Message; }
         }
 
         private async UniTask Use()
         {
-            int target = Current.SelectedItem == 2 ? 0 : camp.Pick(stage.SceneCamera.ScreenToWorldPoint(input.Pointer));
-            if (Current.SelectedItem != 2 && target == 0) return;
+            if (Current.SelectedItem != 3) return;
             try
             {
-                await network.Client.Send(SessionOperation.UseHeroItem, new[] { Current.Id }, target: target,
+                await network.Client.Send(SessionOperation.UseHeroItem, new[] { Current.Id }, target: 0,
                     kind: HeroInventoryBehaviour.ItemKey(Current.SelectedItem), value: Current.SelectionRevision, controlLease: Current.ControlLease);
             }
             catch (Exception error) { notice = error.Message; }
@@ -214,13 +219,14 @@ namespace DarkNights.Entry
 
         private async UniTask Send(int direction, bool jump, bool use, bool pressed = false, bool drop = false)
         {
-            try { await network.Client.SendInput(actorId, lease, direction, jump, use, pressed, drop); }
+            try { await network.Client.SendInput(actorId, lease, direction, jump, use, pressed, drop, equipment.Aim, Current?.SelectionRevision ?? 0, equipment.Pressed, equipment.Released, equipment.Cancelled); }
             catch (Exception error) { notice = error.Message; }
         }
         private void StopInput()
         {
             jumpPending = dropPending = false;
-            if (actorId > 0 && (sentDirection != 0 || sentJump || sentUse)) Send(0, false, false).Forget();
+            equipment.Cancel();
+            if (actorId > 0) Send(0, false, false).Forget();
             sentDirection = 0; sentJump = sentUse = false;
         }
         private void BeginRebind()

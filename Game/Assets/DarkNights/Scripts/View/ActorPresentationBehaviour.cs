@@ -42,6 +42,7 @@ namespace DarkNights.View
             ActorVisual.SamplePose(Pose, seconds);
             ActorVisual.SetStanding(actor.Face);
             ActorVisual.TintActor(actor.Id, actor.HitFlash > 0, actor.Activity == "Training");
+            ActorVisual.PresentHandheld(actor, Math.Max(0, actionTime - actor.ActionTime));
             return true;
         }
 

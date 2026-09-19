@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using DarkNights.Runtime.Session;
 using Newtonsoft.Json.Linq;
@@ -9,51 +9,60 @@ using UnityEngine.TestTools;
 namespace DarkNights.Tests
 {
     /// <summary>
-    /// 验证主角武器仍使用职业原前摇、一次点击与原伤害范围，并将高度纳入近战距离。
-    /// 独立临时世界把角色移到远离友军处，敌人通过原 YYGC 创建入口生成，不改冻结关卡或期望规则。
+    /// 手枪输入、一次命中和有界状态槽的待执行回归；复用真实 YYGC 会话与可信输入入口。
+    /// 原职业自动攻击仍由原规则测试覆盖，此处不再要求手持枪执行旧职业近战。
     /// </summary>
     public sealed class HeroCombatTests
     {
         [UnityTest]
-        public IEnumerator ClickUsesOriginalWindupAndDoesNotRepeatAfterRelease() => UniTask.ToCoroutine(async () =>
+        public IEnumerator ShortClickHitsOnceAndDuplicateInputCannotFireAgain() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
-            MoveAside(f);
-            f.Command(SessionOperation.ClaimHero);
+            MoveAside(f); f.Command(SessionOperation.ClaimHero);
             var enemy = UnifiedGameplayProbe.Spawn(f.World, "zombie", f.Actor.X + 1);
             double hp = enemy.Hp;
-            Assert.That(f.Command(SessionOperation.UseHeroItem, target: enemy.Id, kind: "weapon",
-                value: f.State.SelectionRevision).Code, Is.EqualTo(SessionResultCode.Applied));
-            Assert.That(enemy.Hp, Is.EqualTo(hp));
-            int ticks = Math.Max(0, (int)Math.Ceiling(f.State.Windup * 60) - 1);
-            f.Step(ticks); Assert.That(enemy.Hp, Is.EqualTo(hp), "Original windup must elapse before damage.");
-            // 原前摇逐步相减可能在数学边界残留正浮点尾数；允许原实现的一步量化，不改攻击时机。
+            var click = f.Packet(usePressed: true, useReleased: true);
+            Assert.That(f.Authority.SubmitInput(f.Host, click), Is.True);
+            Assert.That(f.Authority.SubmitInput(f.Host, click), Is.False);
             f.Step(2);
-            double damage = hp - enemy.Hp;
-            Assert.That(damage, Is.InRange(f.Actor.Definition.Damage[0], f.Actor.Definition.Damage[1]));
-            f.Step(60);
-            Assert.That(enemy.Hp, Is.EqualTo(hp - damage), "A released click cannot start a second attack.");
+            Assert.That(enemy.Hp, Is.LessThan(hp));
+            double after = enemy.Hp;
+            f.Step(30);
+            Assert.That(enemy.Hp, Is.EqualTo(after));
+            Assert.That(f.World.Projectiles.CaptureState().Ballistics.Count(p => p.Kind == 1), Is.Zero);
         });
 
         [UnityTest]
-        public IEnumerator AirborneMeleeCannotHitGroundTargetOutsideVerticalReach() => UniTask.ToCoroutine(async () =>
+        public IEnumerator RepeatedFireReusesBoundedSlotsAndRetiresExpiredShots() => UniTask.ToCoroutine(async () =>
         {
-            using var f = await HeroTestSession.Create(); MoveAside(f);
+            using var f = await HeroTestSession.Create();
             f.Command(SessionOperation.ClaimHero);
-            f.Input(jumpPressed: true); f.Step(14);
-            Assert.That(f.State.Height, Is.GreaterThan(f.Actor.Definition.Range));
-            var enemy = UnifiedGameplayProbe.Spawn(f.World, "zombie", f.Actor.X);
-            double hp = enemy.Hp;
-            Assert.That(f.Command(SessionOperation.UseHeroItem, target: enemy.Id, kind: "weapon",
-                value: f.State.SelectionRevision).Code, Is.EqualTo(SessionResultCode.NoEffect));
-            Assert.That(enemy.Hp, Is.EqualTo(hp));
+            long before = f.World.Projectiles.CaptureState().NextViewId;
+            f.Step(300, useHeld: true, keepAlive: true);
+            var state = f.World.Projectiles.CaptureState();
+            Assert.That(state.Ballistics.Length, Is.EqualTo(128));
+            Assert.That(state.NextViewId - before, Is.GreaterThan(10));
+            Assert.That(state.Ballistics.Count(p => p.Kind != 0), Is.LessThan(10));
+            f.Input(); f.Step(120);
+            Assert.That(f.World.Projectiles.CaptureState().Ballistics.All(p => p.Kind == 0), Is.True);
+        });
+
+        [UnityTest]
+        public IEnumerator NonfiniteAimAndOtherConnectionCannotFire() => UniTask.ToCoroutine(async () =>
+        {
+            using var f = await HeroTestSession.Create();
+            f.Command(SessionOperation.ClaimHero);
+            Assert.That(f.Authority.SubmitInput(f.Host, f.Packet(aim: float.NaN, usePressed: true)), Is.False);
+            Assert.That(f.Authority.SubmitInput(f.Guest, f.Packet(usePressed: true)), Is.False);
+            f.Step(2);
+            Assert.That(f.World.Projectiles.CaptureState().Ballistics.All(p => p.Kind == 0), Is.True);
         });
 
         private static void MoveAside(HeroTestSession f)
         {
             var save = JObject.Parse(f.World.SaveCodec.Serialize(f.World.CaptureWorld()));
             var actor = save["world"]["actors"][0];
-            actor["x"] = actor["move_x"] = actor["rally_x"] = f.World.Layout.WorldWidth - 40;
+            actor["x"] = actor["move_x"] = actor["rally_x"] = f.World.Layout.WorldWidth - 80;
             f.World.Restore(save.ToString());
         }
     }
