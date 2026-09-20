@@ -85,13 +85,22 @@ namespace DarkNights.Runtime.Session
             if (input.ActorId <= 0 || input.ControlLease <= 0 || input.Sequence <= 0 ||
                 input.Horizontal < -1 || input.Horizontal > 1 || input.ObservedTick < 0 || input.ObservedTick > tick ||
                 tick - input.ObservedTick > 60 || world.Paused || world.Camp.Read().Mode != SessionMode.Playing) return false;
+            if (float.IsNaN(input.AimAngle) || float.IsInfinity(input.AimAngle) || Math.Abs(input.AimAngle) > 180 || input.SelectionRevision < 0) return false;
             var actor = world.Index.Find<ActorBehaviour>(input.ActorId);
             if (!Owns(actor, connection, input.ControlLease) || input.Sequence <= actor.Read().LastInputSequence) return false;
             return world.Mutations.Run(() =>
             {
                 ActorState state = actor.Edit();
                 state.LastInputSequence = input.Sequence; state.LastInputTick = tick;
-                state.Horizontal = input.Horizontal; state.JumpHeld = input.JumpHeld; state.UseHeld = input.UseHeld;
+                state.Horizontal = input.Horizontal; state.JumpHeld = input.JumpHeld;
+                state.AimAngle = input.AimAngle;
+                if (input.CancelUse || input.SelectionRevision != state.SelectionRevision) HeroEquipment.Cancel(state);
+                else
+                {
+                    state.UseHeld = input.UseHeld;
+                    state.UsePressed |= input.UsePressed;
+                    state.UseReleased |= input.UseReleased;
+                }
                 state.JumpPending |= input.JumpPressed; state.DropPending |= input.DropPressed;
                 return true;
             });
@@ -103,7 +112,7 @@ namespace DarkNights.Runtime.Session
             {
                 var current = actor.Read();
                 if (!current.ManualControl || (!world.Paused && tick - current.LastInputTick <= InputTimeoutTicks) ||
-                    (current.Horizontal == 0 && !current.JumpHeld && !current.UseHeld && !current.JumpPending && !current.DropPending)) continue;
+                    (current.Horizontal == 0 && !current.JumpHeld && !current.UseHeld && !current.Charging && !current.UsePressed && !current.UseReleased && !current.JumpPending && !current.DropPending)) continue;
                 world.Mutations.Run(() => { ClearInput(actor.Edit()); return true; });
             }
         }
@@ -129,6 +138,7 @@ namespace DarkNights.Runtime.Session
 
         private static void ClearInput(ActorState state)
         {
+            HeroEquipment.Cancel(state);
             state.Horizontal = 0; state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
         }
         private int Claim(SessionConnection connection, ActorBehaviour actor)

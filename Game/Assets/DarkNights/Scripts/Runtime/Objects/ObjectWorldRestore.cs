@@ -96,7 +96,7 @@ namespace DarkNights.Runtime.Objects
                 session.Camp.Edit().CopyFrom(ObjectSnapshotMapper.Camp(snapshot));
                 session.Economy.Edit().CopyFrom(ObjectSnapshotMapper.Economy(snapshot));
                 session.Waves.Edit().CopyFrom(ObjectSnapshotMapper.Wave(snapshot));
-                session.Projectiles.Edit().CopyFrom(ObjectSnapshotMapper.Projectiles(snapshot));
+                session.Projectiles.Edit().CopyFrom(ObjectSnapshotMapper.Projectiles(snapshot, session.Layout.GroundY));
                 session.ReplaceEntities(replacement, context);
                 return true;
             });

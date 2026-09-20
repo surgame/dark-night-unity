@@ -41,6 +41,14 @@ namespace DarkNights.Runtime.Objects
         public int SelectionRevision { get; internal set; }
         public bool JetpackEquipped { get; internal set; }
         public double JetpackFuel { get; internal set; }
+        public float AimAngle { get; internal set; }
+        public double EquipmentCooldown { get; internal set; }
+        public double EquipmentAction { get; internal set; }
+        public double EquipmentActionDuration { get; internal set; }
+        public bool Charging { get; internal set; }
+        public double ChargeSeconds { get; internal set; }
+        public bool UsePressed { get; internal set; }
+        public bool UseReleased { get; internal set; }
         // 占用及输入只属于本次连接和 epoch，不写入存档。
         public int ControllerSlot { get; internal set; } = -1;
         public int ControllerGeneration { get; internal set; }

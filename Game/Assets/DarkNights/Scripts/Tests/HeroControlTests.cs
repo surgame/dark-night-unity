@@ -138,7 +138,7 @@ namespace DarkNights.Tests
         {
             using var f = await HeroTestSession.Create();
             f.Command(SessionOperation.ClaimHero);
-            f.Command(SessionOperation.SelectHeroItem, value: 2);
+            f.Command(SessionOperation.SelectHeroItem, value: 3);
             Assert.That(f.Command(SessionOperation.UseHeroItem, kind: "jetpack", value: 0).Code, Is.EqualTo(SessionResultCode.NoEffect));
             Assert.That(f.State.JetpackEquipped, Is.False);
             Assert.That(f.Command(SessionOperation.UseHeroItem, kind: "jetpack", value: f.State.SelectionRevision).Code, Is.EqualTo(SessionResultCode.Applied));
@@ -151,22 +151,19 @@ namespace DarkNights.Tests
         });
 
         [UnityTest]
-        public IEnumerator HeldWorkToolUsesExistingProductionAndStopsOnRelease() => UniTask.ToCoroutine(async () =>
+        public IEnumerator PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
             f.Command(SessionOperation.ClaimHero); f.Command(SessionOperation.SelectHeroItem, value: 1);
             var site = f.World.Index.Worksites.First(w => w.RuleKey == "wood");
-            Assert.That(f.Command(SessionOperation.UseHeroItem, target: site.Id, kind: "tool", value: f.State.SelectionRevision).Code,
-                Is.EqualTo(SessionResultCode.NoEffect), "No automatic movement to an out-of-range resource.");
-            f.Step(450, horizontal: 1, keepAlive: true); f.Input(); f.Step(1);
-            Assert.That(Math.Abs(f.Actor.X - site.X), Is.LessThanOrEqualTo(16));
-            f.Input(useHeld: true);
-            Assert.That(f.Command(SessionOperation.UseHeroItem, target: site.Id, kind: "tool", value: f.State.SelectionRevision).Code,
-                Is.EqualTo(SessionResultCode.Applied));
             double before = f.World.Economy.Stock.Wood;
-            f.Step(250, useHeld: true, keepAlive: true);
-            Assert.That(f.World.Economy.Stock.Wood, Is.EqualTo(before + 3));
-            f.Input(); f.Step(1); Assert.That(site.WorkerId, Is.Zero);
+            f.Input(useHeld: true); f.Step(4);
+            Assert.That(f.State.EquipmentAction, Is.GreaterThan(0));
+            Assert.That(site.WorkerId, Is.Zero);
+            f.Step(90, useHeld: true, keepAlive: true);
+            Assert.That(f.World.Economy.Stock.Wood, Is.EqualTo(before));
+            f.Input(); f.Step(40);
+            Assert.That(f.State.EquipmentAction, Is.Zero);
         });
 
         [UnityTest]

@@ -41,7 +41,30 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.EconomyBehaviour
   - DarkNights.Runtime.Objects.WaveBehaviour
   - DarkNights.Runtime.Objects.ProjectileBehaviour
-  SharedConfigs: []
+  SharedConfigs:
+  - rid: 6961529734502023168
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 6961529734502023168
+      type: {class: HandheldConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        BulletSpeed: 360
+        BulletRadius: 1
+        BulletLifetime: 1.5
+        BulletDamage: 12
+        FireInterval: 0.22
+        MuzzleDistance: 8
+        HandHeight: 9
+        PickaxeSeconds: 0.48
+        BombMinimumSpeed: 65
+        BombMaximumSpeed: 180
+        BombLift: 65
+        BombGravity: 220
+        BombChargeSeconds: 1.2
+        BombCooldown: 0.65
+        BombFuseSeconds: 3
+        BombRadius: 2
+        ExplosionRadius: 36
+        BombDamage: 32
+        ExplosionSeconds: 0.3

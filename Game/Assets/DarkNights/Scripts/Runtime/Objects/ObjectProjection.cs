@@ -19,7 +19,7 @@ namespace DarkNights.Runtime.Objects
                 ActorState a = actor.Read();
                 return new ActorViewData(a.Id, actor.RuleKey, a.Name, a.Enemy, a.X, a.Hp,
                     a.Activity.ToString(), a.TargetId, a.Face, a.Walking, a.ActionTime, a.Windup, a.HitFlash,
-                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ControllerSlot, a.ControlLease);
+                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ControllerSlot, a.ControlLease, a.AimAngle, a.EquipmentCooldown, a.EquipmentAction, a.EquipmentActionDuration, a.Charging, a.ChargeSeconds);
             }).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {
@@ -40,7 +40,10 @@ namespace DarkNights.Runtime.Objects
             var identities = session.Index.FreezeOrder().Select(entity =>
                 new EntityIdentityData(entity.Id, entity.DefinitionGuid, entity.PlacementKey)).ToArray();
             var shots = session.Projectiles.Read().Shots.Select(p => new ProjectileViewData(
-                p.ViewId, p.FromX, p.FromY, p.ToX, p.ToY, p.Age, p.Duration)).ToArray();
+                p.ViewId, p.FromX, p.FromY, p.ToX, p.ToY, p.Age, p.Duration)).Concat(
+                session.Projectiles.Read().Ballistics.Where(p => p.Kind != 0).Select(p => new ProjectileViewData(
+                    p.ViewId, p.X, session.Layout.GroundY - p.Height, p.X, session.Layout.GroundY - p.Height,
+                    p.Age, p.Lifetime, p.Kind, p.VelocityX, p.VelocityY, p.Gravity, p.Kind == 3 ? p.BlastRadius : p.Radius, p.Stuck))).ToArray();
             return new WorldViewData(summary, actors, buildings, sites, shots, identities);
         }
     }

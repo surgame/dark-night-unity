@@ -18,13 +18,21 @@ namespace DarkNights.Core.Save
         public double Age { get; }
         public double Duration { get; }
 
+        public int Kind { get; }
+        public float VelocityX { get; }
+        public float VelocityY { get; }
+        public float Gravity { get; }
+        public float Radius { get; }
+        public float BlastRadius { get; }
+        public bool Stuck { get; }
+
         public ProjectileSnapshot(
             IReadOnlyList<double> from,
             IReadOnlyList<double> to,
             int targetId,
             int damage,
             double age,
-            double duration)
+            double duration, int kind = 0, float velocityX = 0, float velocityY = 0, float gravity = 0, float radius = 0, float blastRadius = 0, bool stuck = false)
         {
             From = from == null ? null : new List<double>(from).AsReadOnly();
             To = to == null ? null : new List<double>(to).AsReadOnly();
@@ -32,6 +40,14 @@ namespace DarkNights.Core.Save
             Damage = damage;
             Age = age;
             Duration = duration;
+            Kind = kind;
+            VelocityX = velocityX;
+            VelocityY = velocityY;
+            Gravity = gravity;
+            Radius = radius;
+            BlastRadius = blastRadius;
+            Stuck = stuck;
+
         }
     }
 }

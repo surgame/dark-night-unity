@@ -36,6 +36,13 @@ namespace DarkNights.Runtime.Network
         public int ControllerSlot { get; set; } = -1;
         public int ControlLease { get; set; }
 
+        public float AimAngle { get; set; }
+        public double EquipmentCooldown { get; set; }
+        public double EquipmentAction { get; set; }
+        public double EquipmentActionDuration { get; set; }
+        public bool Charging { get; set; }
+        public double ChargeSeconds { get; set; }
+
         public static ActorWire From(ActorViewData value) => new ActorWire
         {
             Id = value.Id,
@@ -61,6 +68,13 @@ namespace DarkNights.Runtime.Network
             JetpackFuel = value.JetpackFuel,
             ControllerSlot = value.ControllerSlot,
             ControlLease = value.ControlLease,
+            AimAngle = value.AimAngle,
+            EquipmentCooldown = value.EquipmentCooldown,
+            EquipmentAction = value.EquipmentAction,
+            EquipmentActionDuration = value.EquipmentActionDuration,
+            Charging = value.Charging,
+            ChargeSeconds = value.ChargeSeconds,
+
         };
 
         public ActorViewData Freeze() => new ActorViewData(
@@ -86,6 +100,6 @@ namespace DarkNights.Runtime.Network
             JetpackEquipped,
             JetpackFuel,
             ControllerSlot,
-            ControlLease);
+            ControlLease, AimAngle, EquipmentCooldown, EquipmentAction, EquipmentActionDuration, Charging, ChargeSeconds);
     }
 }

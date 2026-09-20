@@ -29,6 +29,13 @@ namespace DarkNights.Core.ViewData
         public int ControllerSlot { get; }
         public int ControlLease { get; }
 
+        public float AimAngle { get; }
+        public double EquipmentCooldown { get; }
+        public double EquipmentAction { get; }
+        public double EquipmentActionDuration { get; }
+        public bool Charging { get; }
+        public double ChargeSeconds { get; }
+
         public ActorViewData(
             int id,
             string kind,
@@ -52,7 +59,13 @@ namespace DarkNights.Core.ViewData
             bool jetpackEquipped = false,
             double jetpackFuel = 0,
             int controllerSlot = -1,
-            int controlLease = 0)
+            int controlLease = 0,
+            float aimAngle = 0,
+            double equipmentCooldown = 0,
+            double equipmentAction = 0,
+            double equipmentActionDuration = 0,
+            bool charging = false,
+            double chargeSeconds = 0)
         {
             Id = id;
             Kind = kind;
@@ -77,6 +90,13 @@ namespace DarkNights.Core.ViewData
             JetpackFuel = jetpackFuel;
             ControllerSlot = controllerSlot;
             ControlLease = controlLease;
+            AimAngle = aimAngle;
+            EquipmentCooldown = equipmentCooldown;
+            EquipmentAction = equipmentAction;
+            EquipmentActionDuration = equipmentActionDuration;
+            Charging = charging;
+            ChargeSeconds = chargeSeconds;
+
         }
     }
 }

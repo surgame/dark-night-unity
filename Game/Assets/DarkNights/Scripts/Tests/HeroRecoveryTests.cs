@@ -21,7 +21,7 @@ namespace DarkNights.Tests
         public IEnumerator AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
-            f.Command(SessionOperation.ClaimHero); f.Command(SessionOperation.SelectHeroItem, value: 2);
+            f.Command(SessionOperation.ClaimHero); f.Command(SessionOperation.SelectHeroItem, value: 3);
             f.Command(SessionOperation.UseHeroItem, kind: "jetpack", value: f.State.SelectionRevision);
             f.Input(jumpHeld: true, jumpPressed: true); f.Step(1); f.Step(12, jumpHeld: true, keepAlive: true);
             var state = f.State; var stale = f.Packet(horizontal: 1);
@@ -30,7 +30,7 @@ namespace DarkNights.Tests
             f.Authority.CompleteLoad(ticket, save);
             Assert.That(f.State.Height, Is.EqualTo(state.Height)); Assert.That(f.State.VerticalSpeed, Is.EqualTo(state.VerticalSpeed));
             Assert.That(f.State.JetpackFuel, Is.EqualTo(state.JetpackFuel)); Assert.That(f.State.JetpackEquipped, Is.True);
-            Assert.That(f.State.SelectedItem, Is.EqualTo(2)); Assert.That(f.State.ControllerSlot, Is.EqualTo(-1));
+            Assert.That(f.State.SelectedItem, Is.EqualTo(3)); Assert.That(f.State.ControllerSlot, Is.EqualTo(-1));
             Assert.That(f.State.LastInputSequence, Is.Zero); Assert.That(f.State.JumpHeld, Is.False);
             Assert.That(f.Authority.SubmitInput(f.Host, stale), Is.False);
             f.Ready(); Assert.That(f.Command(SessionOperation.ClaimHero).Code, Is.EqualTo(SessionResultCode.Applied));

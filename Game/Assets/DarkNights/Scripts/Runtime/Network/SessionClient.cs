@@ -149,7 +149,7 @@ namespace DarkNights.Runtime.Network
         }
 
         public ValueTask SendInput(int actor, int lease, int horizontal, bool jumpHeld, bool useHeld,
-            bool jumpPressed = false, bool dropPressed = false)
+            bool jumpPressed = false, bool dropPressed = false, float aimAngle = 0, int selectionRevision = 0, bool usePressed = false, bool useReleased = false, bool cancelUse = false)
         {
             var frame = Replica.Current;
             if (!Ready || endpoint == null || frame == null) return default;
@@ -158,7 +158,7 @@ namespace DarkNights.Runtime.Network
                 SenderObjectId = endpoint.ObjectId, Protocol = SessionAuthority.ProtocolVersion,
                 Epoch = frame.Epoch, PolicyRevision = frame.PolicyRevision, ActorId = actor, ControlLease = lease,
                 InputSequence = ++inputSequence, ObservedTick = frame.ServerTick, Horizontal = horizontal,
-                JumpHeld = jumpHeld, UseHeld = useHeld, JumpPressed = jumpPressed, DropPressed = dropPressed
+                JumpHeld = jumpHeld, UseHeld = useHeld, JumpPressed = jumpPressed, DropPressed = dropPressed, AimAngle = aimAngle, SelectionRevision = selectionRevision, UsePressed = usePressed, UseReleased = useReleased, CancelUse = cancelUse
             });
         }
 
@@ -185,7 +185,7 @@ namespace DarkNights.Runtime.Network
                 SenderObjectId = endpoint.ObjectId, Protocol = request.Protocol, Epoch = request.Epoch,
                 PolicyRevision = request.PolicyRevision, ActorId = request.ActorId, ControlLease = request.ControlLease,
                 InputSequence = request.Sequence, ObservedTick = request.ObservedTick, Horizontal = request.Horizontal,
-                JumpHeld = request.JumpHeld, UseHeld = request.UseHeld, JumpPressed = request.JumpPressed, DropPressed = request.DropPressed
+                JumpHeld = request.JumpHeld, UseHeld = request.UseHeld, JumpPressed = request.JumpPressed, DropPressed = request.DropPressed, AimAngle = request.AimAngle, SelectionRevision = request.SelectionRevision, UsePressed = request.UsePressed, UseReleased = request.UseReleased, CancelUse = request.CancelUse
             });
         }
 

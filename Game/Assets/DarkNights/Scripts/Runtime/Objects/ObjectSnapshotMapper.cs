@@ -25,7 +25,7 @@ namespace DarkNights.Runtime.Objects
                 return new ActorSnapshot(a.Id, actor.RuleKey, a.Enemy, a.Name, a.X, a.Hp, a.Activity,
                     a.TargetId, a.MoveX, a.RallyX, a.Face, a.ActionTime, a.AttackClock, a.Windup,
                     a.HitPending, a.ForcedAttack, a.AiClock,
-                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.IgnoredPlatform, a.DropRemaining, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel);
+                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.IgnoredPlatform, a.DropRemaining, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.AimAngle, a.EquipmentCooldown, a.EquipmentAction, a.EquipmentActionDuration);
             }).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {
@@ -41,7 +41,10 @@ namespace DarkNights.Runtime.Objects
             var identities = session.Index.FreezeOrder().Select(e => new EntityIdentityData(e.Id, e.DefinitionGuid, e.PlacementKey)).ToArray();
             WaveState wave = session.Waves.Read();
             var shots = session.Projectiles.Read().Shots.Select(p => new ProjectileSnapshot(
-                new double[] { p.FromX, p.FromY }, new double[] { p.ToX, p.ToY }, p.TargetId, p.Damage, p.Age, p.Duration)).ToArray();
+                new double[] { p.FromX, p.FromY }, new double[] { p.ToX, p.ToY }, p.TargetId, p.Damage, p.Age, p.Duration)).Concat(
+                session.Projectiles.Read().Ballistics.Where(p => p.Kind != 0).Select(p => new ProjectileSnapshot(
+                    new double[] { p.X, session.Layout.GroundY - p.Height }, new double[] { p.X, session.Layout.GroundY - p.Height },
+                    0, p.Damage, p.Age, p.Lifetime, p.Kind, p.VelocityX, p.VelocityY, p.Gravity, p.Radius, p.BlastRadius, p.Stuck))).ToArray();
             return new SessionSnapshot(ObjectWorldSaveJson.FormatVersion, session.Catalog.Level.Id,
                 new EconomySnapshot(session.Economy.Stock, economy.UpkeepElapsed, economy.StarvationElapsed, economy.RecruitCooldown),
                 new WaveSnapshot(wave.Index, wave.Phase, wave.DayRemaining, wave.SpawnElapsed, wave.NextSpawn),
@@ -77,16 +80,29 @@ namespace DarkNights.Runtime.Objects
             SpawnElapsed = s.Wave.SpawnElapsed, NextSpawn = s.Wave.NextSpawn
         };
 
-        internal static ProjectileState Projectiles(SessionSnapshot s) => new ProjectileState
+        internal static ProjectileState Projectiles(SessionSnapshot s, float ground)
         {
-            NextViewId = s.Projectiles.Count + 1,
-            Shots = s.Projectiles.Select((p, index) => new ProjectileFlight
+            var state = new ProjectileState { NextViewId = s.Projectiles.Count + 1 };
+            state.Shots = s.Projectiles.Select((p, i) => (p, i)).Where(v => v.p.Kind == 0).Select(v => new ProjectileFlight
             {
-                ViewId = index + 1, FromX = (float)p.From[0], FromY = (float)p.From[1],
-                ToX = (float)p.To[0], ToY = (float)p.To[1], TargetId = p.TargetId,
-                Damage = p.Damage, Age = p.Age, Duration = p.Duration
-            }).ToArray()
-        };
+                ViewId = v.i + 1, FromX = (float)v.p.From[0], FromY = (float)v.p.From[1],
+                ToX = (float)v.p.To[0], ToY = (float)v.p.To[1], TargetId = v.p.TargetId,
+                Damage = v.p.Damage, Age = v.p.Age, Duration = v.p.Duration
+            }).ToArray();
+            int slot = 0;
+            for (int i = 0; i < s.Projectiles.Count; i++)
+            {
+                var p = s.Projectiles[i];
+                if (p.Kind == 0) continue;
+                state.Ballistics[slot++] = new BallisticFlight
+                {
+                    ViewId = i + 1, Kind = p.Kind, X = (float)p.From[0], Height = ground - (float)p.From[1],
+                    VelocityX = p.VelocityX, VelocityY = p.VelocityY, Gravity = p.Gravity, Radius = p.Radius,
+                    BlastRadius = p.BlastRadius, Stuck = p.Stuck, Damage = p.Damage, Age = p.Age, Lifetime = p.Duration
+                };
+            }
+            return state;
+        }
 
         internal static void Initialize(ObjectInstance owner, int id, SessionSnapshot snapshot)
         {
@@ -101,7 +117,7 @@ namespace DarkNights.Runtime.Objects
                     MoveX = (float)a.MoveX, RallyX = (float)a.RallyX, Face = (float)a.Face,
                     ActionTime = a.ActionTime, AttackClock = a.AttackClock, Windup = a.Windup,
                     HitPending = a.HitPending, ForcedAttack = a.ForcedAttack, AiClock = a.AiClock,
-                    Height = a.Height, VerticalSpeed = a.VerticalSpeed, SupportPlatform = a.SupportPlatform, IgnoredPlatform = a.IgnoredPlatform, DropRemaining = a.DropRemaining, ManualControl = a.ManualControl, SelectedItem = a.SelectedItem, SelectionRevision = a.SelectionRevision, JetpackEquipped = a.JetpackEquipped, JetpackFuel = a.JetpackFuel
+                    Height = a.Height, VerticalSpeed = a.VerticalSpeed, SupportPlatform = a.SupportPlatform, IgnoredPlatform = a.IgnoredPlatform, DropRemaining = a.DropRemaining, ManualControl = a.ManualControl, SelectedItem = a.SelectedItem, SelectionRevision = a.SelectionRevision, JetpackEquipped = a.JetpackEquipped, JetpackFuel = a.JetpackFuel, AimAngle = a.AimAngle, EquipmentCooldown = a.EquipmentCooldown, EquipmentAction = a.EquipmentAction, EquipmentActionDuration = a.EquipmentActionDuration
                 });
             }
             else if (owner.GetBehaviour<BuildingBehaviour>() is BuildingBehaviour building)

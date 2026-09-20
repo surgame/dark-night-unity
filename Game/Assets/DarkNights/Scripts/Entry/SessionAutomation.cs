@@ -144,6 +144,7 @@ namespace DarkNights.Entry
                     ["clientStatus"] = network.Client.Status, ["ready"] = network.Client.Ready,
                     ["slot"] = network.Client.PlayerSlot, ["commandsConsumed"] = consumed, ["error"] = error ?? heroInput.Error,
                     ["inputPacketsSent"] = heroInput.PacketsSent,
+                    ["ballisticActive"] = effects.BallisticCount, ["ballisticPool"] = effects.BallisticPoolCount,
                     ["terrain"] = network.Terrain == null ? null : new JObject
                     {
                         ["epoch"] = network.Terrain.Epoch, ["seed"] = network.Terrain.Seed,

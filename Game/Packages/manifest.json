@@ -62,8 +62,8 @@
     "com.unity.modules.xr": "1.0.0",
     "com.unity.pipeline": "0.6.0-exp.1",
     "com.unity.nuget.newtonsoft-json": "3.2.2",
-    "com.tsgame.anyrules": "file:../../.deps/AnyRules/AnyRuleD~/Packages/com.tsgame.anyrules",
-    "com.tsgame.anyrules.yygc": "file:../../.deps/AnyRules/AnyRuleD~/Packages/com.tsgame.anyrules.yygc",
-    "com.tsgame.anyrules.yygc.fishnet": "file:../../.deps/AnyRules/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet"
+    "com.tsgame.anyrules": "file:../../.deps/AnyRules-locked-aa450a7/AnyRuleD~/Packages/com.tsgame.anyrules",
+    "com.tsgame.anyrules.yygc": "file:../../.deps/AnyRules-locked-aa450a7/AnyRuleD~/Packages/com.tsgame.anyrules.yygc",
+    "com.tsgame.anyrules.yygc.fishnet": "file:../../.deps/AnyRules-locked-aa450a7/AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet"
   }
 }
