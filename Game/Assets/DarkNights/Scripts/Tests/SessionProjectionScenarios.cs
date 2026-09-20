@@ -99,9 +99,13 @@ namespace DarkNights.Tests
             var document = Newtonsoft.Json.Linq.JObject.Parse(codec.Serialize(snapshot));
             document["world"]["projectiles"] = new Newtonsoft.Json.Linq.JArray(
                 new Newtonsoft.Json.Linq.JObject { ["from"] = new Newtonsoft.Json.Linq.JArray(10, 20), ["to"] = new Newtonsoft.Json.Linq.JArray(30, 40),
-                    ["target_id"] = target, ["damage"] = 1, ["age"] = 0, ["duration"] = 0.01 },
+                    ["target_id"] = target, ["damage"] = 1, ["age"] = 0, ["duration"] = 0.01,
+                    ["kind"] = 0, ["velocity_x"] = 0, ["velocity_y"] = 0, ["gravity"] = 0,
+                    ["radius"] = 0, ["blast_radius"] = 0, ["stuck"] = false },
                 new Newtonsoft.Json.Linq.JObject { ["from"] = new Newtonsoft.Json.Linq.JArray(50, 60), ["to"] = new Newtonsoft.Json.Linq.JArray(70, 80),
-                    ["target_id"] = target, ["damage"] = 1, ["age"] = 0, ["duration"] = 10 });
+                    ["target_id"] = target, ["damage"] = 1, ["age"] = 0, ["duration"] = 10,
+                    ["kind"] = 0, ["velocity_x"] = 0, ["velocity_y"] = 0, ["gravity"] = 0,
+                    ["radius"] = 0, ["blast_radius"] = 0, ["stuck"] = false });
             string saved = codec.Serialize(codec.Parse(document.ToString()));
             var ticket = Execute(session, host, Request(session, SessionOperation.BeginLoad, 1));
             session.CompleteLoad(ticket, saved);

@@ -17,6 +17,7 @@ namespace DarkNights.Core.Config.Terrain
         public IReadOnlyList<TerrainRoom> Rooms { get; }
         public IReadOnlyList<TerrainDepositBlueprint> Deposits { get; }
         public int SoftRockCount { get; }
+        public IReadOnlyList<CavePassage> Passages { get; }
 
         public TerrainBlueprint(TerrainGenerationSettings settings, byte[] cells, bool[] protectedCells,
             int[] surface, TerrainRoom[] rooms)
@@ -26,9 +27,10 @@ namespace DarkNights.Core.Config.Terrain
         }
 
         public TerrainBlueprint(TerrainGenerationSettings settings, byte[] cells, bool[] protectedCells,
-            int[] surface, TerrainRoom[] rooms, bool[] softRock, TerrainDepositBlueprint[] deposits)
+            int[] surface, TerrainRoom[] rooms, bool[] softRock, TerrainDepositBlueprint[] deposits, CavePassage[] passages = null)
         {
             this.settings = settings.CopyValidated();
+            Passages = Array.AsReadOnly((CavePassage[])(passages ?? Array.Empty<CavePassage>()).Clone());
             if (cells == null || cells.Length != Width * Height || protectedCells == null ||
                 protectedCells.Length != cells.Length || surface == null || surface.Length != Width || rooms == null ||
                 softRock == null || softRock.Length != cells.Length || deposits == null)

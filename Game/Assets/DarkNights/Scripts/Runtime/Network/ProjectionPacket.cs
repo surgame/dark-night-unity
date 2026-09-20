@@ -12,12 +12,13 @@ namespace DarkNights.Runtime.Network
     public static class ProjectionPacket
     {
         public const int HeaderBytes = 9;
-        public const int MaximumBodyBytes = ProjectionCodec.MaximumBytes - HeaderBytes;
+        // 装备及矿床字段增加后的完整容量帧；解压预算与线上封包预算分别限制。
+        public const int MaximumBodyBytes = 786432;
 
         public static byte[] Pack(byte[] raw)
         {
             if (raw == null || raw.Length == 0 || raw.Length > MaximumBodyBytes)
-                throw new InvalidOperationException("Full projection exceeds supported byte limit.");
+                throw new InvalidOperationException("Full projection exceeds decoded byte limit: " + (raw?.Length ?? 0));
             byte mode = 0;
             byte[] body = raw;
             if (raw.Length >= 1024)
@@ -29,6 +30,8 @@ namespace DarkNights.Runtime.Network
                     mode = 1;
                 }
             }
+            if (body.Length > ProjectionCodec.MaximumBytes - HeaderBytes)
+                throw new InvalidOperationException("Encoded projection exceeds transport byte limit.");
             var packet = new byte[HeaderBytes + body.Length];
             packet[0] = (byte)'D';
             packet[1] = (byte)'N';

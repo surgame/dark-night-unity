@@ -63,9 +63,10 @@ namespace DarkNights.Tests
             return result.Code == SessionResultCode.Pending ? Authority.Tick().Single(r => r.Sequence == request.Sequence) : result;
         }
         public HeroInputRequest Packet(int horizontal = 0, bool jumpHeld = false, bool useHeld = false,
-            bool jumpPressed = false, bool dropPressed = false, int? lease = null) =>
+            bool jumpPressed = false, bool dropPressed = false, int? lease = null,
+            float aim = 0, bool usePressed = false, bool useReleased = false, bool cancelUse = false) =>
             new HeroInputRequest(SessionAuthority.ProtocolVersion, Authority.Epoch, Authority.PolicyRevision, ActorId,
-                lease ?? State.ControlLease, ++inputSequence, Authority.ServerTick, horizontal, jumpHeld, useHeld, jumpPressed, dropPressed);
+                lease ?? State.ControlLease, ++inputSequence, Authority.ServerTick, horizontal, jumpHeld, useHeld, jumpPressed, dropPressed, aim, State.SelectionRevision, usePressed, useReleased, cancelUse);
         public bool Input(int horizontal = 0, bool jumpHeld = false, bool useHeld = false,
             bool jumpPressed = false, bool dropPressed = false) =>
             Authority.SubmitInput(Host, Packet(horizontal, jumpHeld, useHeld, jumpPressed, dropPressed));

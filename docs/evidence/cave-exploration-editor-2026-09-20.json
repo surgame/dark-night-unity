@@ -1,0 +1,169 @@
+{
+  "fullSummary": {
+    "total": 205,
+    "passed": 203,
+    "failed": 2,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "retestSummary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "distinctPassedByImpactUnion": 205,
+  "note": "Unity CLI full report returns aggregate summary with 19 recent result entries, not all 205 case records. The two failed names exactly match the two passing retests.",
+  "fullRecentResults": [
+    {
+      "FullName": "DarkNights.Tests.UnifiedSlicePlayTests.FormalPlayWithDomainReload",
+      "Status": "Failed",
+      "Duration": 41.9178088,
+      "Message": "Unhandled log message: '[Error] [AppStartup] Module 'Dark Nights 会话装配' failed: System.NullReferenceException: Object reference not set to an instance of an object\r\n  at DarkNights.View.GameInputActions.Initialize (UnityEngine.InputSystem.PlayerInput value, GameCore.Interactions.IYYInteractionSessionService service) [0x00034] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\View\\GameInputActions.cs:60 \r\n  at DarkNights.Entry.SessionUiController.Initialize (DarkNights.Runtime.Network.SessionNetwork session, DarkNights.Core.Config.GameCatalog rules, DarkNights.View.PinewatchStage stage, DarkNights.Entry.SessionEntityViews entities) [0x00055] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\SessionUiController.cs:65 \r\n  at Cysharp.Threading.Tasks.UniTask+ExceptionResultSource.GetResult (System.Int16 token) [0x00015] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTask.Factory.cs:326 \r\n  at DarkNights.Entry.GameSessionStartupModule.InitializeAsync (Runtime.AppStartup.AppStartupContext context, System.Threading.CancellationToken cancellationToken) [0x00521] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\GameSessionStartupModule.cs:82 \r\n  at Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult (System.Int16 token) [0x00000] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\CompilerServices\\StateMachineRunner.cs:218 \r\n  at Runtime.AppStartup.AppStartup.StartupAsync (System.Collections.Generic.IReadOnlyList`1[T] plan) [0x00173] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-unified\\Runtime\\AppStartup\\AppStartup.cs:179 '. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "Runtime.AppStartup.AppStartup/<StartupAsync>d__30:MoveNext () (at D:/Developer/MiniGames/Dark Nights/unity-projects/.deps/YYGC-unified/Runtime/AppStartup/AppStartup.cs:224)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1<Runtime.AppStartup.AppStartup/<StartupAsync>d__30>:Run () (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:189)\r\nCysharp.Threading.Tasks.AwaiterActions:Continuation (object) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTask.cs:25)\r\nCysharp.Threading.Tasks.UniTaskCompletionSourceCore`1<Cysharp.Threading.Tasks.AsyncUnit>:TrySetException (System.Exception) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTaskCompletionSource.cs:167)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1<DarkNights.Entry.GameSessionStartupModule/<InitializeAsync>d__14>:SetException (System.Exception) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:210)\r\nDarkNights.Entry.GameSessionStartupModule/<InitializeAsync>d__14:MoveNext () (at Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs:88)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1<DarkNights.Entry.GameSessionStartupModule/<InitializeAsync>d__14>:Run () (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:189)\r\nCysharp.Threading.Tasks.AwaiterActions:Continuation (object) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTask.cs:25)\r\nCysharp.Threading.Tasks.UniTaskCompletionSourceCore`1<DarkNights.Runtime.Objects.ObjectSessionResources>:TrySetResult (DarkNights.Runtime.Objects.ObjectSessionResources) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTaskCompletionSource.cs:139)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<DarkNights.Runtime.Objects.ObjectSessionResources/<Prepare>d__7, DarkNights.Runtime.Objects.ObjectSessionResources>:SetResult (DarkNights.Runtime.Objects.ObjectSessionResources) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:328)\r\nDarkNights.Runtime.Objects.ObjectSessionResources/<Prepare>d__7:MoveNext () (at Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionResources.cs:43)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<DarkNights.Runtime.Objects.ObjectSessionResources/<Prepare>d__7, DarkNights.Runtime.Objects.ObjectSessionResources>:Run () (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:313)\r\nCysharp.Threading.Tasks.AwaiterActions:Continuation (object) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTask.cs:25)\r\nCysharp.Threading.Tasks.UniTaskCompletionSourceCore`1<GameCore.Objects.Runner.PreparedObjectDefinition>:TrySetResult (GameCore.Objects.Runner.PreparedObjectDefinition) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTaskCompletionSource.cs:139)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<GameCore.Objects.Runner.ObjectInstanceFactory/<PrepareAsync>d__0, GameCore.Objects.Runner.PreparedObjectDefinition>:SetResult (GameCore.Objects.Runner.PreparedObjectDefinition) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:328)\r\nGameCore.Objects.Runner.ObjectInstanceFactory/<PrepareAsync>d__0:MoveNext () (at D:/Developer/MiniGames/Dark Nights/unity-projects/.deps/YYGC-unified/Runtime/Objects/Runner/ObjectInstanceFactory.cs:36)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<GameCore.Objects.Runner.ObjectInstanceFactory/<PrepareAsync>d__0, GameCore.Objects.Runner.PreparedObjectDefinition>:Run () (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:313)\r\nCysharp.Threading.Tasks.AwaiterActions:Continuation (object) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTask.cs:25)\r\nCysharp.Threading.Tasks.UniTaskCompletionSourceCore`1<Runtime.Utils.ComponentAssetLease`1<YY.Features.Players.View.ObjectView>>:TrySetResult (Runtime.Utils.ComponentAssetLease`1<YY.Features.Players.View.ObjectView>) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTaskCompletionSource.cs:139)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<Runtime.Utils.FastInstantiator/<AcquireComponentAsync>d__0`1<YY.Features.Players.View.ObjectView>, Runtime.Utils.ComponentAssetLease`1<YY.Features.Players.View.ObjectView>>:SetResult (Runtime.Utils.ComponentAssetLease`1<YY.Features.Players.View.ObjectView>) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:328)\r\nRuntime.Utils.FastInstantiator/<AcquireComponentAsync>d__0`1<YY.Features.Players.View.ObjectView>:MoveNext () (at D:/Developer/MiniGames/Dark Nights/unity-projects/.deps/YYGC-unified/Runtime/Utils/FastInstantiator.cs:43)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<Runtime.Utils.FastInstantiator/<AcquireComponentAsync>d__0`1<YY.Features.Players.View.ObjectView>, Runtime.Utils.ComponentAssetLease`1<YY.Features.Players.View.ObjectView>>:Run () (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:313)\r\nCysharp.Threading.Tasks.AwaiterActions:Continuation (object) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTask.cs:25)\r\nCysharp.Threading.Tasks.UniTaskCompletionSourceCore`1<UnityEngine.GameObject>:TrySetResult (UnityEngine.GameObject) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTaskCompletionSource.cs:139)\r\nCysharp.Threading.Tasks.AddressablesAsyncExtensions/AsyncOperationHandleConfiguredSource`1<UnityEngine.GameObject>:HandleCompleted (UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1<UnityEngine.GameObject>) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/External/Addressables/AddressablesAsyncExtensions.cs:398)\r\nDelegateList`1<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1<UnityEngine.GameObject>>:Invoke (UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1<UnityEngine.GameObject>) (at ./Library/PackageCache/com.unity.addressables@ce3e2b3f7c84/Runtime/ResourceManager/Util/DelegateList.cs:75)\r\nUnityEngine.ResourceManagement.Util.DelayedActionManager:LateUpdate () (at ./Library/PackageCache/com.unity.addressables@ce3e2b3f7c84/Runtime/ResourceManager/Util/DelayedActionManager.cs:162)\r\n\r\n"
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSlicePlayTests.FormalPlayWithoutDomainReload",
+      "Status": "Failed",
+      "Duration": 36.513756,
+      "Message": "Unhandled log message: '[Error] [AppStartup] Module 'Dark Nights 会话装配' failed: System.NullReferenceException: Object reference not set to an instance of an object\r\n  at DarkNights.View.GameInputActions.Initialize (UnityEngine.InputSystem.PlayerInput value, GameCore.Interactions.IYYInteractionSessionService service) [0x00034] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\View\\GameInputActions.cs:60 \r\n  at DarkNights.Entry.SessionUiController.Initialize (DarkNights.Runtime.Network.SessionNetwork session, DarkNights.Core.Config.GameCatalog rules, DarkNights.View.PinewatchStage stage, DarkNights.Entry.SessionEntityViews entities) [0x00055] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\SessionUiController.cs:65 \r\n  at Cysharp.Threading.Tasks.UniTask+ExceptionResultSource.GetResult (System.Int16 token) [0x00015] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTask.Factory.cs:326 \r\n  at DarkNights.Entry.GameSessionStartupModule.InitializeAsync (Runtime.AppStartup.AppStartupContext context, System.Threading.CancellationToken cancellationToken) [0x00521] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\GameSessionStartupModule.cs:82 \r\n  at Cysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1[TStateMachine].GetResult (System.Int16 token) [0x00000] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\CompilerServices\\StateMachineRunner.cs:218 \r\n  at Runtime.AppStartup.AppStartup.StartupAsync (System.Collections.Generic.IReadOnlyList`1[T] plan) [0x00173] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-unified\\Runtime\\AppStartup\\AppStartup.cs:179 '. Use UnityEngine.TestTools.LogAssert.Expect",
+      "StackTrace": "Runtime.AppStartup.AppStartup/<StartupAsync>d__30:MoveNext () (at D:/Developer/MiniGames/Dark Nights/unity-projects/.deps/YYGC-unified/Runtime/AppStartup/AppStartup.cs:224)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1<Runtime.AppStartup.AppStartup/<StartupAsync>d__30>:Run () (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:189)\r\nCysharp.Threading.Tasks.AwaiterActions:Continuation (object) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTask.cs:25)\r\nCysharp.Threading.Tasks.UniTaskCompletionSourceCore`1<Cysharp.Threading.Tasks.AsyncUnit>:TrySetException (System.Exception) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTaskCompletionSource.cs:167)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1<DarkNights.Entry.GameSessionStartupModule/<InitializeAsync>d__14>:SetException (System.Exception) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:210)\r\nDarkNights.Entry.GameSessionStartupModule/<InitializeAsync>d__14:MoveNext () (at Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs:88)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`1<DarkNights.Entry.GameSessionStartupModule/<InitializeAsync>d__14>:Run () (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:189)\r\nCysharp.Threading.Tasks.AwaiterActions:Continuation (object) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTask.cs:25)\r\nCysharp.Threading.Tasks.UniTaskCompletionSourceCore`1<DarkNights.Runtime.Objects.ObjectSessionResources>:TrySetResult (DarkNights.Runtime.Objects.ObjectSessionResources) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTaskCompletionSource.cs:139)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<DarkNights.Runtime.Objects.ObjectSessionResources/<Prepare>d__7, DarkNights.Runtime.Objects.ObjectSessionResources>:SetResult (DarkNights.Runtime.Objects.ObjectSessionResources) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:328)\r\nDarkNights.Runtime.Objects.ObjectSessionResources/<Prepare>d__7:MoveNext () (at Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionResources.cs:43)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<DarkNights.Runtime.Objects.ObjectSessionResources/<Prepare>d__7, DarkNights.Runtime.Objects.ObjectSessionResources>:Run () (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:313)\r\nCysharp.Threading.Tasks.AwaiterActions:Continuation (object) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTask.cs:25)\r\nCysharp.Threading.Tasks.UniTaskCompletionSourceCore`1<GameCore.Objects.Runner.PreparedObjectDefinition>:TrySetResult (GameCore.Objects.Runner.PreparedObjectDefinition) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTaskCompletionSource.cs:139)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<GameCore.Objects.Runner.ObjectInstanceFactory/<PrepareAsync>d__0, GameCore.Objects.Runner.PreparedObjectDefinition>:SetResult (GameCore.Objects.Runner.PreparedObjectDefinition) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:328)\r\nGameCore.Objects.Runner.ObjectInstanceFactory/<PrepareAsync>d__0:MoveNext () (at D:/Developer/MiniGames/Dark Nights/unity-projects/.deps/YYGC-unified/Runtime/Objects/Runner/ObjectInstanceFactory.cs:36)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<GameCore.Objects.Runner.ObjectInstanceFactory/<PrepareAsync>d__0, GameCore.Objects.Runner.PreparedObjectDefinition>:Run () (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:313)\r\nCysharp.Threading.Tasks.AwaiterActions:Continuation (object) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTask.cs:25)\r\nCysharp.Threading.Tasks.UniTaskCompletionSourceCore`1<Runtime.Utils.ComponentAssetLease`1<YY.Features.Players.View.ObjectView>>:TrySetResult (Runtime.Utils.ComponentAssetLease`1<YY.Features.Players.View.ObjectView>) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTaskCompletionSource.cs:139)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<Runtime.Utils.FastInstantiator/<AcquireComponentAsync>d__0`1<YY.Features.Players.View.ObjectView>, Runtime.Utils.ComponentAssetLease`1<YY.Features.Players.View.ObjectView>>:SetResult (Runtime.Utils.ComponentAssetLease`1<YY.Features.Players.View.ObjectView>) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:328)\r\nRuntime.Utils.FastInstantiator/<AcquireComponentAsync>d__0`1<YY.Features.Players.View.ObjectView>:MoveNext () (at D:/Developer/MiniGames/Dark Nights/unity-projects/.deps/YYGC-unified/Runtime/Utils/FastInstantiator.cs:43)\r\nCysharp.Threading.Tasks.CompilerServices.AsyncUniTask`2<Runtime.Utils.FastInstantiator/<AcquireComponentAsync>d__0`1<YY.Features.Players.View.ObjectView>, Runtime.Utils.ComponentAssetLease`1<YY.Features.Players.View.ObjectView>>:Run () (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/CompilerServices/StateMachineRunner.cs:313)\r\nCysharp.Threading.Tasks.AwaiterActions:Continuation (object) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTask.cs:25)\r\nCysharp.Threading.Tasks.UniTaskCompletionSourceCore`1<UnityEngine.GameObject>:TrySetResult (UnityEngine.GameObject) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/UniTaskCompletionSource.cs:139)\r\nCysharp.Threading.Tasks.AddressablesAsyncExtensions/AsyncOperationHandleConfiguredSource`1<UnityEngine.GameObject>:HandleCompleted (UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1<UnityEngine.GameObject>) (at ./Library/PackageCache/com.cysharp.unitask@d648f5692cf2/Runtime/External/Addressables/AddressablesAsyncExtensions.cs:398)\r\nDelegateList`1<UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1<UnityEngine.GameObject>>:Invoke (UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1<UnityEngine.GameObject>) (at ./Library/PackageCache/com.unity.addressables@ce3e2b3f7c84/Runtime/ResourceManager/Util/DelegateList.cs:75)\r\nUnityEngine.ResourceManagement.Util.DelayedActionManager:LateUpdate () (at ./Library/PackageCache/com.unity.addressables@ce3e2b3f7c84/Runtime/ResourceManager/Util/DelayedActionManager.cs:162)\r\n\r\n"
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.ConcurrentSpendingAndResendsUseOneAuthorityQueue",
+      "Status": "Passed",
+      "Duration": 0.1332412,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.FailedAssemblyPreservesPaymentIdsAndExistingWork",
+      "Status": "Passed",
+      "Duration": 0.0382227,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.HouseCreationPaysOnceAndCompletesWithOriginalCapacity",
+      "Status": "Passed",
+      "Duration": 0.0433376,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.IndependentMovementAndGatheringPreserveOriginalTiming",
+      "Status": "Passed",
+      "Duration": 0.0566928,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.NewProjectionCopiesIdentityAndStateNotificationsCannotReenter",
+      "Status": "Passed",
+      "Duration": 0.1002697,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.PolicyPauseAndMalformedTargetsCannotMutateObjects",
+      "Status": "Passed",
+      "Duration": 0.0324249,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.SaveRestoreKeepsOriginalSceneObjectAndRejectsBadCandidates",
+      "Status": "Passed",
+      "Duration": 0.0714238,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedTransactionTests.FailedReplicaEpochKeepsCurrentObjectsAndAllowsRetry",
+      "Status": "Passed",
+      "Duration": 0.0974645,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedTransactionTests.NotificationsObserveAllStatesAndCannotRetireSibling",
+      "Status": "Passed",
+      "Duration": 0.0368204,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedTransactionTests.RollbackExceptionsStillRunRemainingCleanupAndUnlockBatch",
+      "Status": "Passed",
+      "Duration": 0.0359634,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedTransactionTests.ThrowingNotificationDoesNotUndoOnlyPartOfPayment",
+      "Status": "Passed",
+      "Duration": 0.0346831,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedTransactionTests.UnsupportedSaveVersionsHaveExplicitErrors",
+      "Status": "Passed",
+      "Duration": 0.0328627,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.WorldSessionLifecycleTests.ClientConfigurationAndDespawnNeverCreateAuthority",
+      "Status": "Passed",
+      "Duration": 0.0296402,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.WorldSessionLifecycleTests.ConfigurationAndRoleStartOnceInEitherOrder(True)",
+      "Status": "Passed",
+      "Duration": 0.0147357,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.WorldSessionLifecycleTests.ConfigurationAndRoleStartOnceInEitherOrder(False)",
+      "Status": "Passed",
+      "Duration": 0.0116709,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.WorldSessionLifecycleTests.FailedCreationReleasesContextAndFreshAssemblyStarts",
+      "Status": "Passed",
+      "Duration": 0.0215001,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.WorldSessionLifecycleTests.StopRevokesBeforeDisposalAndLateStartCannotResurrect",
+      "Status": "Passed",
+      "Duration": 0.0125142,
+      "Message": null,
+      "StackTrace": null
+    }
+  ],
+  "retestResults": [
+    {
+      "FullName": "DarkNights.Tests.UnifiedSlicePlayTests.FormalPlayWithDomainReload",
+      "Status": "Passed",
+      "Duration": 53.2319449,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSlicePlayTests.FormalPlayWithoutDomainReload",
+      "Status": "Passed",
+      "Duration": 40.2076292,
+      "Message": null,
+      "StackTrace": null
+    }
+  ]
+}

@@ -20,6 +20,13 @@ namespace DarkNights.Runtime.Network
         public double Age { get; set; }
         public double Duration { get; set; }
 
+        public int Kind { get; set; }
+        public float VelocityX { get; set; }
+        public float VelocityY { get; set; }
+        public float Gravity { get; set; }
+        public float Radius { get; set; }
+        public bool Stuck { get; set; }
+
         public static ProjectileWire From(ProjectileViewData value) => new ProjectileWire
         {
             ViewId = value.ViewId,
@@ -29,6 +36,13 @@ namespace DarkNights.Runtime.Network
             ToY = value.ToY,
             Age = value.Age,
             Duration = value.Duration,
+            Kind = value.Kind,
+            VelocityX = value.VelocityX,
+            VelocityY = value.VelocityY,
+            Gravity = value.Gravity,
+            Radius = value.Radius,
+            Stuck = value.Stuck,
+
         };
 
         public ProjectileViewData Freeze() => new ProjectileViewData(
@@ -38,6 +52,6 @@ namespace DarkNights.Runtime.Network
             ToX,
             ToY,
             Age,
-            Duration);
+            Duration, Kind, VelocityX, VelocityY, Gravity, Radius, Stuck);
     }
 }

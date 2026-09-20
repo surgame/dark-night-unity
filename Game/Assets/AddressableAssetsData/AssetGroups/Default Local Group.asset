@@ -80,6 +80,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6658e6194affc3248b530bfc49ce5534
+    m_Address: dark_nights.effect.ballistic
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6dea9ad83887074408cd854d3962911a
     m_Address: dark_nights.object.trees
     m_ReadOnly: 0

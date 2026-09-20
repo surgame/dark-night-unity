@@ -1,0 +1,611 @@
+{
+  "scope": "Changed/new compile, resource and reproducibility inputs; not a hash inventory of the entire repository. Captured after successful final compilation; only docs/evidence changed thereafter.",
+  "baseline": "b96d8dccaefc4d36da56f688dd73927be2914aac",
+  "files": [
+    {
+      "path": "Game/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset",
+      "bytes": 7349,
+      "sha256": "c0bb1a8fb6bf7696acf6de93a12941e37e65810e0dc0796f887e5d2901f6b533"
+    },
+    {
+      "path": "Game/Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset",
+      "bytes": 2844,
+      "sha256": "7d36a549aa21f8a5fa049412dbcaef53ff9648f467777742078ec6c781c6046b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom.meta",
+      "bytes": 172,
+      "sha256": "f3e053cb12b75f9d102f7086f9fefbfc4a1b7d03144386a6517d0a1a1721d42f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld.meta",
+      "bytes": 172,
+      "sha256": "f95f713344f1fc5382aee698cf6183ae22a190fad438b2306eba07c536c364c9"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Bomb.aseprite",
+      "bytes": 1043,
+      "sha256": "54027eba222e7e2af4b107221f22bfe60385672b45346234a6f485c82c8d284d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Bomb.aseprite.meta",
+      "bytes": 5544,
+      "sha256": "70bf1299241e498c29dd3ae76655f1bbcd65ccb2512bf2b7c5c3c5311cc8779b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Bomb.png",
+      "bytes": 179,
+      "sha256": "72c83dd8868015badbf677ca0c28f47b192a60f6e6e0481b9541a7b89f2dcc4a"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Bomb.png.meta",
+      "bytes": 3274,
+      "sha256": "5b4e9be5b97998841b154b36cfab47008f51acd4eecdf001995d1af1cd32feb6"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/BombIcon.png",
+      "bytes": 205,
+      "sha256": "a517e4599f4ee31b02cac7099f99ea5fc5115f3c955e365755135edf879644dc"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/BombIcon.png.meta",
+      "bytes": 3280,
+      "sha256": "1c8ecfbd705a5ba32cdf5a554be6240c203807ebc116e7af3f51d3aa030ee762"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Bullet.png",
+      "bytes": 89,
+      "sha256": "80f14c9cafb7852a0663b1af820b3fac8ac25782e2d6e82ff06b7a6082da3a53"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Bullet.png.meta",
+      "bytes": 3269,
+      "sha256": "26679cde5cdb2827e520fab81d007921dc5c2efd0e35285565c237c9ef357834"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Explosion.aseprite",
+      "bytes": 1040,
+      "sha256": "8b4b9157d5d0486b5fc2a4f11046911e3ea7b0713e28ffecc27114d9b4c321c4"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Explosion.aseprite.meta",
+      "bytes": 6215,
+      "sha256": "17fc862fc75392a8fad81a51472dbf5b97c8d44447a8efe955db94e6adf62cd4"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Explosion0.png",
+      "bytes": 184,
+      "sha256": "037b9007c5d21bd2f4f19c606e929c50252da5f51e3b98f6c0077a24e232c2a4"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Explosion0.png.meta",
+      "bytes": 3283,
+      "sha256": "db829140fc38d3d9383c373426b602456efbdb2ea64eb68eebce30103f1dc454"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Explosion1.png",
+      "bytes": 209,
+      "sha256": "4be953517add50c4d6e0efe8953c475b0b37acce1d3d0a01b01d4092a013daaf"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Explosion1.png.meta",
+      "bytes": 3286,
+      "sha256": "021a3e2bb4710268762dc675fdbad967fffb57d0c49a60396c7f0663f84e30ef"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Explosion2.png",
+      "bytes": 233,
+      "sha256": "f33a08c1003e645e35a4998659123ef6eb0966efa3f191fa89652bb336691e9c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Explosion2.png.meta",
+      "bytes": 3286,
+      "sha256": "07926fccf4d7b27fe43822d217dd5fb056fd78a6142536d2f9604f58be111935"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Explosion3.png",
+      "bytes": 212,
+      "sha256": "b8615f8ecfd0fbd66da9c0eb4d3f3519a3db97153750f9136addaa29d9fe63da"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Explosion3.png.meta",
+      "bytes": 3286,
+      "sha256": "a6b02f5a1f720ef2c9273925f648c4f0fc64d3edc9fe01c2a7cbb592499c7f5d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Hand.png",
+      "bytes": 126,
+      "sha256": "91c7cfb9fc180fb813e14488e1964a36ae26ac9155909a9d7fb36cbe28aca68b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Hand.png.meta",
+      "bytes": 3269,
+      "sha256": "3ca8bdfaa71fa5b0feea574cd0e4ed09cd04bd290853d97d89e68f8971fe37d5"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Muzzle.png",
+      "bytes": 102,
+      "sha256": "5ea5174aa800854e718fad54d1bda7039c1f92854c16159ee0850cff0ce74473"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Muzzle.png.meta",
+      "bytes": 3269,
+      "sha256": "9efc044e88bcf57502c3827ed7a75d471b36c36a8f6d9fcf06ef2ce9632c780f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Pickaxe.aseprite",
+      "bytes": 1042,
+      "sha256": "251e1f09a873f5dc1260dc377bc1c18e4c0c6a4264d080995147eeec8da38e16"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Pickaxe.aseprite.meta",
+      "bytes": 5551,
+      "sha256": "29f86722dd71b234520a6f68c5fd3c13cf32d1652e82087768d212c8f8be55e6"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Pickaxe.png",
+      "bytes": 183,
+      "sha256": "4fd78c73052e6c7e43b4d66e2bff4e80f68f00546e03c7bf4537f9943854b9e4"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Pickaxe.png.meta",
+      "bytes": 3282,
+      "sha256": "dc1976a735f80edd3a85c9095a856f528d0bdc54025324a175922f38a93d5302"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/PickaxeIcon.png",
+      "bytes": 214,
+      "sha256": "bc4813b5e67fecef2361b0abae2e80666dff77d633ee5a96ca109cb51b0f8809"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/PickaxeIcon.png.meta",
+      "bytes": 3289,
+      "sha256": "06467db85991587f6c828f24c92287ac2da50a897a94a25e7c342b4a66a5919d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Pistol.aseprite",
+      "bytes": 1061,
+      "sha256": "8b4f2dd4de9cbaf16bcedb77cec1cffb8e4f95ae2503fe3f2906fcdd90fc589c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Pistol.aseprite.meta",
+      "bytes": 5561,
+      "sha256": "4b3a2edb84ae908061c3c88291d3803c72ea22e57a624c2c5258806434adc809"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Pistol.png",
+      "bytes": 168,
+      "sha256": "f6eb67ac1b04b81a5a86f5344bf808f2df58ef335408214433ebf32833aabca0"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/Pistol.png.meta",
+      "bytes": 3277,
+      "sha256": "11dbc0c9765e7d5d535aff68e1b399248d08c5f485dc734fb7ddc194fe6baa21"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/PistolIcon.png",
+      "bytes": 182,
+      "sha256": "0c25293fec64fe768750845ac8ef4edebed2cc9245be5cc2b0746c817829fcec"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/PistolIcon.png.meta",
+      "bytes": 3286,
+      "sha256": "ca10668509937e109bf4c8cffae6107f2cc7bbfa389159056ded21818b4bfeb5"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/manifest.json",
+      "bytes": 1143,
+      "sha256": "a2031858ecfd958134ab76d781b9020baa17d71267bae1f131a43ce8948d89d7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/Handheld/manifest.json.meta",
+      "bytes": 158,
+      "sha256": "ef1924f89a1941250311759bf9b1f837b4bdfbcc352d904dbd6ae5b606a536ef"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Input/Gameplay.inputactions",
+      "bytes": 49210,
+      "sha256": "c872cb7ed0115fb7083e80c50276f132bccb16edec4a2780ce66716844f9359f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Archer/Archer.prefab",
+      "bytes": 34509,
+      "sha256": "8ee5fd0f8dd748ec586a5fecb6f871c47184eea3e627e2c0d3d2cc344a91ab7a"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Handheld.meta",
+      "bytes": 172,
+      "sha256": "25ee2cde7b711a07c8cfa27ab3e8080b8cea5bedc8874f2dafaad03f1f161bfb"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Handheld/Ballistic.asset",
+      "bytes": 1057,
+      "sha256": "85ef636e4bccb4e199078bb98e5a2b76b455a24bced8306d31b2c1d00938d9a7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Handheld/Ballistic.asset.meta",
+      "bytes": 189,
+      "sha256": "7c3db9ea3cabe9067063d053830f3c7a57604eaf5e90e6935604363df999337f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Handheld/Ballistic.prefab",
+      "bytes": 6557,
+      "sha256": "c9aa7a059c7ce53ac90cfc190e320ecac0bda39f10e6ff120bc1820e7e621ba8"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Handheld/Ballistic.prefab.meta",
+      "bytes": 154,
+      "sha256": "63a71653aae3ace8e4949f54507adb6a10b44d998e084d6dfba9c9f4766c5173"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Handheld/Handheld.prefab",
+      "bytes": 10536,
+      "sha256": "c99c5926eb7c8fba44873428ca1a3622f2aae024b86662da4a074015f974fec7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Handheld/Handheld.prefab.meta",
+      "bytes": 154,
+      "sha256": "4675c65b425da0906ac19d3ec54da596b7231db9f0c4ffd71289ff5f41214207"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.prefab",
+      "bytes": 30436,
+      "sha256": "4546e519f0d755d86c0ee4f56399d3c46ef981795315d7d91939041a8d813f98"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.prefab",
+      "bytes": 30962,
+      "sha256": "7162dba72d687ce681b555eb44990c743b7383a70fba51084d7bf08e9579ab1a"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+      "bytes": 2010,
+      "sha256": "08c1903ede4efdcf10b82def33906bfa4699077528aab893e049bde5f1ef8c04"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/Hero/Hero.prefab",
+      "bytes": 55139,
+      "sha256": "e53db8fec85631ca79d8de139694cc52120d717ecbcab5b577c2f8d3aa18b468"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Save/ActorSnapshot.cs",
+      "bytes": 3943,
+      "sha256": "a27c7797082479fda0cb09565b50e47e8f25a41a1d2d80af91017e1cf7f91fdc"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Save/EntitySnapshotValidator.cs",
+      "bytes": 4983,
+      "sha256": "d856d34c4a0acb9621add411f67dc5c025279dcad7dedf03cdb69e70b03bda29"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Save/ProjectileSnapshot.cs",
+      "bytes": 1844,
+      "sha256": "e8c9b31877a859f30aa0502ef5d9370a5103c23362f96b4f09163d47d71d6290"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Save/SnapshotValidator.cs",
+      "bytes": 6181,
+      "sha256": "e12e1056b5ba9408ba67a40686114b33d5713e7d4f2047c09dc58ed6e1e2b3a7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/ActorViewData.cs",
+      "bytes": 3591,
+      "sha256": "ed24a655cc4c89c7e24d261067df63c6922fe243d9d42882c32ebe78f4e4017d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/ProjectileViewData.cs",
+      "bytes": 1529,
+      "sha256": "119822b68ec6f308d4d7ac90c4a1667a34de49c7f865cb5d8e196b73f58e2953"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/HandheldContentSetup.cs",
+      "bytes": 11903,
+      "sha256": "c857c2e87525cd1fb95f98ab001b419f6ba29add85d5787aad6726c3eb097404"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/HandheldContentSetup.cs.meta",
+      "bytes": 59,
+      "sha256": "23d870967ed388c6bfe09c712275051d637c35d4121918fbce8f1b0747e8da93"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/HandheldHudSetup.cs",
+      "bytes": 3024,
+      "sha256": "068ea0d09e02c47f44c247d476dd6ef021196b95d7da0e340ebf5b3db05ce553"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/HandheldHudSetup.cs.meta",
+      "bytes": 59,
+      "sha256": "5773e32b428f50ecd710615e686c9b1b484311439e6f1adbd999420f12c6f16e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/HeroInputPlayback.cs",
+      "bytes": 4114,
+      "sha256": "ebe662c9f36881c5383ceac71c62bdde22d9ea6b0b5cd6f0124285ad21b6dda1"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/HeroPlayerController.cs",
+      "bytes": 14135,
+      "sha256": "6e011947fd0cd71cf1928a2476a62b0e025896c68cb47390b8ec9084d9dea9af"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/SessionAutomation.cs",
+      "bytes": 12956,
+      "sha256": "fcb1ee6dd01935c8e845da708987d82fda9f60b9d727360c035b4070828e6df8"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/SessionBallistics.cs",
+      "bytes": 4046,
+      "sha256": "763cf92743e05a7ac8fa92e96ed6ba82d715cb33566f8878b18f59002a4fdeab"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/SessionBallistics.cs.meta",
+      "bytes": 59,
+      "sha256": "f936da11f1a6c1aa28b7e1417a9d8eb006b45b418cf6e85fe286d5d90f63ddcf"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/SessionEffects.cs",
+      "bytes": 10665,
+      "sha256": "7b2fa1b2b30992099ee7174c12a49dcf66e825eddb04767989291d3bcd09a319"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ActorWire.cs",
+      "bytes": 3949,
+      "sha256": "320c1d67829cfed26f6b3fbec37c192f945afbb69bd470f856c297c3a75e4e9c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/HeroInputCommand.cs",
+      "bytes": 2118,
+      "sha256": "91d624dc1c775208e20f59e29f8e3a0ba5a4679e33d73ca1c4d0ef303beab33c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ProjectileWire.cs",
+      "bytes": 1935,
+      "sha256": "a09f111aa8c690f90751e0112af3dfd4c37e0ab64ae22e5833f243699a3c2c55"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ProjectionValidation.cs",
+      "bytes": 9778,
+      "sha256": "06f490a14218a405c9bb074b3a86fade6a69f15614fce0cbee486d8a3034522e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionClient.cs",
+      "bytes": 11524,
+      "sha256": "310d1c9aa1b9eaa98ed8df3328f14fe2addfb8f3a016211fda141f0a857b568b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionNetwork.cs",
+      "bytes": 15905,
+      "sha256": "f03cffa30ca24b30c42b4068250cb84407ca5142eb6a3d9751d6a1f31bb9c402"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ActorState.cs",
+      "bytes": 3261,
+      "sha256": "b7157b71d2a728a1ee5b5fd908a3b177574ffcc5ed3a5933b402909966a2d169"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/BallisticFlight.cs",
+      "bytes": 954,
+      "sha256": "04870eb8085f3472d4a788879c3f5c28aeca6b8cb9bba8817a1cdfa79bc8ff82"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/BallisticFlight.cs.meta",
+      "bytes": 59,
+      "sha256": "9578087b0aef4b9cb15b8f08da2b7d0d7d5f33c66be80b89213605b74dd66d07"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/BallisticMotion.cs",
+      "bytes": 4096,
+      "sha256": "9b6016429ecbe723e514c24c25f824add50a3bd2b61dc7a2c61d260a910c2530"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/BallisticMotion.cs.meta",
+      "bytes": 59,
+      "sha256": "5fd9103912ae6c17a80d634a8fd19240bf2531becb0912498242f8b76668d453"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HandheldConfig.cs",
+      "bytes": 2872,
+      "sha256": "bd97c657fd6b08829ca4a899cc4e9edab28bed2fe040e002f3e61c9559ff8f53"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HandheldConfig.cs.meta",
+      "bytes": 59,
+      "sha256": "311827d41894bab427980931c8c3f88c859c1949b796bf28f2616bf842f2c39e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroControlBehaviour.cs",
+      "bytes": 3585,
+      "sha256": "833e2c19684d79c7fd8b8f7dc0d43d4b5f1c8d0ab5529cfe6e5c43ea770c0e3e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroEquipment.cs",
+      "bytes": 2705,
+      "sha256": "56981266bc8883983e696309293ed282ef2b7a445a688359147592845d50eae8"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroEquipment.cs.meta",
+      "bytes": 59,
+      "sha256": "7fbcfe3af33a2dc3b0c32e0844f3762cc2405501d2f5e793af18e643172921b3"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroInventoryBehaviour.cs",
+      "bytes": 1542,
+      "sha256": "c04717cb56b61eb1bf715b5c99f09914c6e56b870e163e386bafa63f5250b54f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectProjection.cs",
+      "bytes": 3206,
+      "sha256": "e13d9044e3b1a2eb735ea58e3c56ea22ec6a21aef1de07b9a8802ae49d5fc85d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs",
+      "bytes": 14266,
+      "sha256": "631514e8b742de560afcca73fe15b5d66b69765d2ea0da77ee71370f0a64b6e8"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSnapshotMapper.cs",
+      "bytes": 10049,
+      "sha256": "1b6fffc87eca5a7e460e8ecf5e366cb25ef3a4a135c17de2fb4d6441d0b3c80c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectWorldRestore.cs",
+      "bytes": 6298,
+      "sha256": "8516deceede2b696869a2fe9c1867ad9eb4513a4d5cb429ddadeba1a7128a38a"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ProjectileBehaviour.cs",
+      "bytes": 4726,
+      "sha256": "e2b9a7e587dc0c27fabf8792612fbcecb7f8db43f21ac5faed42368f6def7344"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ProjectileState.cs",
+      "bytes": 1406,
+      "sha256": "b456ff4456421f59ea1eecc6324d9c4fe3c469b0afaad41c32f75ca1d3071a53"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ReplicaEntityState.cs",
+      "bytes": 5442,
+      "sha256": "d7a93fc1db9c69c5cbe43318c327d54be057a195f2e1c60b96df7b9ac0079d1b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/ObjectWorldSaveJson.cs",
+      "bytes": 9178,
+      "sha256": "d6f071c2f0106c4a49c4458ad41d439a4c45420da24f94be95d6c1439c019f9d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/SnapshotEntityJson.cs",
+      "bytes": 6952,
+      "sha256": "c17e5dd46572ec9d958edc5f87d2db021179add8eca2b6d5f0d83f1436b4b27a"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/HeroInputRequest.cs",
+      "bytes": 1719,
+      "sha256": "2274d5b15ea1f53532c9421b05e26b0caac092ba4f0b14b97a9b6f99fe654208"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+      "bytes": 15764,
+      "sha256": "7d51617021da67a97e36fdef77b17ee16b2ba5e2af4710d46c6371037cff8a10"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs",
+      "bytes": 8903,
+      "sha256": "268a8598256e4464bc965bf7e9ee02b64c931a7454f79aaca2039bfe75801562"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperations.cs",
+      "bytes": 2862,
+      "sha256": "dabb8a91d9b9c64ab69c09330b2f9ba3aef74cd3ee71bc8977fdb2ba4a6a6e87"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/HeroBombTests.cs",
+      "bytes": 4490,
+      "sha256": "99c95d8530a6efa4b0f5fb72424b21e7b27a50b6b3175075a46b1fd3fb330b3a"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/HeroBombTests.cs.meta",
+      "bytes": 59,
+      "sha256": "b65228cbd601365717c72d218086eb582dbbd40d7fcc03064c23617cd1a4cfad"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/HeroCombatTests.cs",
+      "bytes": 3235,
+      "sha256": "f2860a21f6669b17ae7a10db5d60a5559f7b0cbfde260864f99bca68c74b8933"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/HeroControlTests.cs",
+      "bytes": 11063,
+      "sha256": "1c2469467c7191fed1b28e7490f980af60dbc24eb5c77cd4ff85717626bfc483"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/HeroRecoveryTests.cs",
+      "bytes": 6015,
+      "sha256": "3d45ec99617e873d0447b8fce6e820defafbeac5188a9f83dc65f49978a39fcd"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/HeroTestSession.cs",
+      "bytes": 4931,
+      "sha256": "8a98e2f36cc40c552cbd4c638cac95fe3d44f29089a9e3b11d697e97cf2e1cbf"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/ActorPresentationBehaviour.cs",
+      "bytes": 3217,
+      "sha256": "71adecb948007914247ee16eb619938cf482df9a8ad2249962370ca85646d5a6"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/ActorView.cs",
+      "bytes": 3511,
+      "sha256": "a4ac889ec848ed114a5795f79a01a766c585f672671f57845904f2595c18154c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/BallisticView.cs",
+      "bytes": 1878,
+      "sha256": "62969c57d22eeb882941bfcd70c522963fd111ecdbf38ed186f146f0a8daa8bd"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/BallisticView.cs.meta",
+      "bytes": 59,
+      "sha256": "30bf54660f11e33e791fa0686a57faaec1fa170a3c1eec07cb4fa302276599c0"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/GameInputActions.cs",
+      "bytes": 6386,
+      "sha256": "b9809922db2bb0b95cfd062120ab3fba1c967f9854c9890bb2c65cb67a306549"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/HandheldView.cs",
+      "bytes": 3999,
+      "sha256": "604e565806386b05e16def4bdccb97eaf15b1f19df007fda5bce112a3c2427f3"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/HandheldView.cs.meta",
+      "bytes": 59,
+      "sha256": "06a15a658610a4e3ee7426a1047110230a8effec02e463d248634f0139f710f8"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/HelpMenuBehaviour.cs",
+      "bytes": 1126,
+      "sha256": "14b96fdfb1405b2c2a5ee54993c372a03b4d604e489f872d23b3a11d29e65793"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/HeroActionInput.cs",
+      "bytes": 1772,
+      "sha256": "51c2202f3854844d65a61aa3d33c72daa0f7f3209e3dede279ed69a41b8ed40f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/HeroActionInput.cs.meta",
+      "bytes": 59,
+      "sha256": "f23534f6631cdf23cda38237fc53950f758994619f2b51e497f42fa7e3b804cd"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/HeroHudBehaviour.cs",
+      "bytes": 3166,
+      "sha256": "24b7a074ffe1d03945d59378cae2b066c8192e88d115b0a2fef08f5af199a1ce"
+    },
+    {
+      "path": "Game/Packages/manifest.json",
+      "bytes": 3580,
+      "sha256": "97b72ec555378d1b63d468341c093f88168dfe18815f217d1fa7d33882a969ec"
+    },
+    {
+      "path": "Game/Packages/packages-lock.json",
+      "bytes": 20539,
+      "sha256": "3bb87016481a0dd7c8f6d77a1cc59d093b39bdba6854d1450a51916c57d3b439"
+    },
+    {
+      "path": "tools/create-handheld-art.py",
+      "bytes": 6303,
+      "sha256": "5fb9f8a84c4cfe489b29d64463395cfb7f0fb32d8925227791e58147863dee38"
+    },
+    {
+      "path": "tools/prepare-map-packages.ps1",
+      "bytes": 3743,
+      "sha256": "f442d4cdcc0ff1f4de9649bda38111139ff81614d0c49cc7dd71da7e199998bd"
+    },
+    {
+      "path": "tools/test-game-hero.ps1",
+      "bytes": 17778,
+      "sha256": "4e8459390ae6c6c4fc7f87be88806e0348fedef6fc4ee315654bcbd89c144af5"
+    }
+  ]
+}

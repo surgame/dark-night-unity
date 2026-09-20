@@ -115,18 +115,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Item4",
+                    "name": "ToggleMode",
                     "type": "Button",
-                    "id": "6e2eec4e-1db5-4e0b-8d80-1b27f5d1431d",
+                    "id": "986e60e2-2db6-4d4a-8a2e-1f03291178b0",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ToggleMode",
+                    "name": "Item4",
                     "type": "Button",
-                    "id": "986e60e2-2db6-4d4a-8a2e-1f03291178b0",
+                    "id": "716c8214-55d8-4d13-81b8-e215ef24b857",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -356,23 +356,23 @@
                 },
                 {
                     "name": "",
-                    "id": "9b4d69de-0c49-4b98-bd19-d44ca4b5a132",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Item4",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "41ed308f-52b2-4dc6-b412-8554e7c5de93",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "ToggleMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1fec1a6e-98e1-4d8d-b7e3-03503f5970ad",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Item4",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

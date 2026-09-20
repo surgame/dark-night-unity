@@ -55,3 +55,5 @@ static bool Solid(TerrainBlueprint map, int x, int y)
 {
     return x >= 0 && x < map.Width && y >= 0 && y < map.Height && map.MaterialAt(x, y) > 0 && map.MaterialAt(x, y) != 8;
 }
+
+DarkNights.Tools.TerrainRegression.CaveRegression.Run();

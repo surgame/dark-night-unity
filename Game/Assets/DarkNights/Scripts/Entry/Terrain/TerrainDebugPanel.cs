@@ -81,11 +81,16 @@ namespace DarkNights.Entry.Terrain
                 settings.Seed = GUILayout.TextField(settings.Seed ?? "", 80, GUILayout.Width(266));
                 Bootstrap.Flyer.InputBlocked = GUI.GetNameOfFocusedControl() == "TerrainSeed";
                 if (Event.current.type == EventType.MouseDown && !area.Contains(Event.current.mousePosition)) GUI.FocusControl(null);
-                int surface = Math.Max(0, Array.IndexOf(TerrainGenerationSettings.SurfaceNames, settings.Surface));
-                settings.Surface = TerrainGenerationSettings.SurfaceNames[GUILayout.SelectionGrid(surface, Surfaces, 3)];
-                settings.OrganicCaves = GUILayout.Toggle(settings.OrganicCaves, "叠加自然洞穴");
+                bool cave = settings.ResourceProfile == TerrainGenerationSettings.CaveExplorationProfile;
+                if (cave) GUILayout.Label("天然洞穴实验 · 隐藏拓扑 / 部分掩埋");
+                else
+                {
+                    int surface = Math.Max(0, Array.IndexOf(TerrainGenerationSettings.SurfaceNames, settings.Surface));
+                    settings.Surface = TerrainGenerationSettings.SurfaceNames[GUILayout.SelectionGrid(surface, Surfaces, 3)];
+                    settings.OrganicCaves = GUILayout.Toggle(settings.OrganicCaves, "叠加自然洞穴");
+                    settings.OreDensity = Slider("矿脉密度", (float)settings.OreDensity, .2f, 2);
+                }
                 settings.Amplitude = Slider("地表起伏", (float)settings.Amplitude, .3f, 1.6f);
-                settings.OreDensity = Slider("矿脉密度", (float)settings.OreDensity, .2f, 2);
                 Bootstrap.LiveRegenerate = GUILayout.Toggle(Bootstrap.LiveRegenerate, "修改参数后实时重建");
                 GUILayout.BeginHorizontal();
                 if (GUILayout.Button("重建同种子")) { GUI.FocusControl(null); Bootstrap.RequestRegenerate(); }
@@ -94,13 +99,15 @@ namespace DarkNights.Entry.Terrain
                 Bootstrap.Flyer.CameraDistance = Slider("镜头距离（越小越近）", Bootstrap.Flyer.CameraDistance, 5, 100);
                 Bootstrap.Flyer.Speed = Slider("飞行速度（格/秒）", Bootstrap.Flyer.Speed, 2, 100);
                 GUILayout.Label("房间定位");
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < ((Bootstrap.Blueprint?.Rooms.Count ?? 8) + 3) / 4; i++)
                 {
                     GUILayout.BeginHorizontal();
                     for (int j = 0; j < 4; j++)
                     {
                         int room = i * 4 + j;
-                        if (GUILayout.Button(Rooms[room])) { GUI.FocusControl(null); Bootstrap.VisitRoom(room); }
+                        if (room >= (Bootstrap.Blueprint?.Rooms.Count ?? 8)) break;
+                        string label = cave ? (room == 0 ? "入口" : "洞室 " + room) : Rooms[room];
+                        if (GUILayout.Button(label)) { GUI.FocusControl(null); Bootstrap.VisitRoom(room); }
                     }
                     GUILayout.EndHorizontal();
                 }

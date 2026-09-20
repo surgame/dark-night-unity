@@ -119,8 +119,8 @@ try {
     $null = Consume 'client' @{operation='input';actor=$guestActor;lease=$guestLease;dropPressed=$true}
     $null = Wait-Report 'host' { param($r) (Actor $r $guestActor).Height -eq 0 -and (Actor $r $guestActor).SupportPlatform -eq 0 } 'S drops through support'
     Check 'drop_through_returns_to_ground' $true
-    $null = Receipt 'client' @{operation='SelectHeroItem';actors=@($guestActor);lease=$guestLease;value=2}
-    $c = Wait-Report 'client' { param($r) (Actor $r $guestActor).SelectedItem -eq 2 }
+    $null = Receipt 'client' @{operation='SelectHeroItem';actors=@($guestActor);lease=$guestLease;value=3}
+    $c = Wait-Report 'client' { param($r) (Actor $r $guestActor).SelectedItem -eq 3 }
     $selection = (Actor $c $guestActor).SelectionRevision
     Check 'stale_item_selection_rejected' ((Receipt 'client' @{operation='UseHeroItem';actors=@($guestActor);lease=$guestLease;kind='jetpack';value=($selection-1)}).Code -eq 'NoEffect')
     $toggle = @{operation='raw';intent='UseHeroItem';actors=@($guestActor);lease=$guestLease;kind='jetpack';value=$selection;sequence=1000}

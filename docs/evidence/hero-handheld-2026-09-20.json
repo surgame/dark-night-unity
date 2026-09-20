@@ -1,0 +1,154 @@
+{
+  "dateLocal": "2026-09-20",
+  "timezone": "Asia/Shanghai",
+  "branch": "codex/hero-handheld-equipment",
+  "baseMain": "b96d8dccaefc4d36da56f688dd73927be2914aac",
+  "status": "Implementation and compilation complete; gameplay and multiplayer validation deferred by explicit user request.",
+  "unity": "6000.4.9f1",
+  "protocol": 10,
+  "saveVersion": 5,
+  "yygc": "12b253c6bdd262feb860ab905b9e56e940ec9c40",
+  "compilation": {
+    "exitCode": 0,
+    "completedUtc": "2026-09-19T21:31:32.0812699Z",
+    "csharpErrors": 0,
+    "successMarker": "Exiting batchmode successfully now!",
+    "logs": [
+      {
+        "path": "artifacts/handheld/compile-install.log",
+        "bytes": 72748,
+        "sha256": "d77c1672556b327309b901b2d7ce9cce62d13c01ab7cee941f9f41d4330d7076"
+      },
+      {
+        "path": "artifacts/handheld/compile-install-r2.log",
+        "bytes": 139379,
+        "sha256": "741510ba7c8192bacedc2a63f29657d3bb0c017cbbbcef59a50d96a20aec3283"
+      },
+      {
+        "path": "artifacts/handheld/compile-final.log",
+        "bytes": 68555,
+        "sha256": "ba65aee8f8b365d6b5176d37b7407d115e73fabeae41edd2d81206b491386434"
+      }
+    ],
+    "initialFailure": "Two pre-existing AnyRules cache files did not match source-lock; ExpectedRevision missing. Original cache retained; rebuilt same lock in new directory, then compile succeeded."
+  },
+  "installation": {
+    "marker": "DARK_NIGHTS_HANDHELD_INSTALLED actors=3 pooledEffect=1 sharedPrefab=1 icons=3 config=1 inputSlots=4",
+    "sourceAsepriteFiles": 4,
+    "pngExports": 13,
+    "newPrefabFiles": 2,
+    "ballisticDefinitionKey": "effect.ballistic",
+    "poolCapacity": 128,
+    "originalArtModified": false,
+    "asepriteNativeAppEditRoundTrip": "Not run; Unity import and exported PNG preview inspected."
+  },
+  "dependencies": {
+    "anyrulesCommit": "aa450a7168d5800b0899e216ed484892e44fb40a",
+    "activePath": ".deps/AnyRules-locked-aa450a7",
+    "verifiedLockedFiles": 442,
+    "newFrameworkSourcePatches": 0,
+    "preservedCache": ".deps/AnyRules",
+    "preservedDrift": [
+      {
+        "path": "com.tsgame.anyrules.yygc/Runtime/TerrainEditBusinessHandler.cs",
+        "expected": "6630cd47272955745b598a5e16065032ef536af5caee41f96a81cf47e50d15c8",
+        "actual": "ff090a5eea00c31c67ea0240fccd437ebb47a9b0e5f2e106e84f00aaece449a1"
+      },
+      {
+        "path": "com.tsgame.anyrules.yygc.fishnet/Runtime/TerrainEditCommand.cs",
+        "expected": "24d5fb0e9fc0ebe1d92abb95b7a29e390de1ce9cf8a0732bfb7e0e0ebaa63050",
+        "actual": "5d22c5ae1162a813f43c40c67976d77bb9a27385d24fd78e1baadfd382a1332f"
+      }
+    ]
+  },
+  "staticReview": {
+    "diffCheck": 0,
+    "changedCSharpFiles": 52,
+    "maximumHandwrittenCSharpLines": 300,
+    "newAssetsWithMeta": 32,
+    "unresolvedSerializedGuidReferences": [],
+    "resolvedExternalPackageGuids": 13
+  },
+  "verificationNotPerformed": [
+    "Gameplay tests",
+    "Editor/Play test execution",
+    "Prefab edit/save/reopen round trip",
+    "Player build",
+    "Independent-process multiplayer",
+    "Weak network",
+    "Runtime save/restore",
+    "Front-end performance",
+    "IL2CPP",
+    "Two-machine LAN"
+  ],
+  "testsExecuted": false,
+  "playerBuilt": false,
+  "newCombatBombTestCasesCompiledButNotRun": 7,
+  "inputManifest": {
+    "path": "docs/evidence/hero-handheld-inputs-2026-09-20.json",
+    "sha256": "3c326d4fae4ed921d63b3f48045ec70dbe8491ed001e176fae823d1f0881914d",
+    "fileCount": 121
+  },
+  "cleanup": {
+    "removed": [
+      {
+        "path": "artifacts/handheld/update-hud.py",
+        "bytes": 6843
+      },
+      {
+        "path": "artifacts/handheld/update-input.py",
+        "bytes": 4871
+      },
+      {
+        "path": "artifacts/handheld/update-model.py",
+        "bytes": 10784
+      },
+      {
+        "path": "artifacts/handheld/update-wire.py",
+        "bytes": 11116
+      },
+      {
+        "path": "artifacts/handheld/unity-pid.txt",
+        "bytes": 7
+      },
+      {
+        "path": "artifacts/handheld/reference.png",
+        "bytes": 3506
+      },
+      {
+        "path": "artifacts/handheld/art-review.png",
+        "bytes": 4964
+      },
+      {
+        "path": ".deps/anyrules-locked-aa450a7.zip",
+        "bytes": 537811
+      }
+    ],
+    "releasedBytes": 579902.0,
+    "freeBefore": 40963268608,
+    "freeAfter": 40963862528,
+    "retained": [
+      {
+        "path": "artifacts/handheld",
+        "bytes": 286226.0,
+        "reason": "Compile logs and static evidence retained for review."
+      },
+      {
+        "path": ".deps/AnyRules-locked-aa450a7",
+        "bytes": 2121924.0,
+        "reason": "Active locked source dependency required for subsequent Unity verification."
+      },
+      {
+        "path": ".deps/AnyRules",
+        "bytes": 2121857.0,
+        "reason": "Pre-existing locally modified dependency; preserved for user inspection."
+      }
+    ],
+    "sharedUnityLibrary": "Retained existing local import cache; no second Library or Player created."
+  },
+  "documents": [
+    "docs/HERO_HANDHELD_EQUIPMENT.md",
+    "docs/HERO_HANDHELD_TEST_PLAN.md"
+  ],
+  "artPreview": "docs/evidence/handheld-art-2026-09-20.png"
+}

@@ -88,7 +88,7 @@ namespace DarkNights.Tests
             Assert.That(world.Index.MineralDeposits.Single(value => value.PlacementKey == minedPlacement).Remaining,
                 Is.EqualTo(minedRemaining));
             var valid = world.Terrain.Map;
-            Assert.Throws<FormatException>(() => world.Restore(save.Replace("\"format_version\":6", "\"format_version\":4")));
+            Assert.Throws<FormatException>(() => world.Restore(save.Replace("\"format_version\":" + Runtime.Save.ObjectWorldSaveJson.FormatVersion, "\"format_version\":4")));
             Assert.That(world.Terrain.Map, Is.SameAs(valid));
             var state = world.Index.Actors.First(a => !a.Enemy).CaptureState();
             TerrainHeroMotion.Tick(valid, state, catalog.Balance.HeroControl, 1.0 / 60, true, false);

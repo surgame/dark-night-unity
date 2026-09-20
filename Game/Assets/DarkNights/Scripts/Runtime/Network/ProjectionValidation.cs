@@ -58,6 +58,9 @@ namespace DarkNights.Runtime.Network
                     a.ControllerSlot >= -1 && a.ControllerSlot <= 3 && (a.ControllerSlot < 0 || (a.ManualControl && !a.Enemy)) &&
                     Finite(a.JetpackFuel) && a.JetpackFuel >= 0 && a.JetpackFuel <= (catalog.Balance.HeroControl?.FuelSeconds ?? 0) &&
                     a.ExplosiveCharges >= 0 && a.ExplosiveCharges <= 1000);
+                Require(Finite(a.AimAngle) && Math.Abs(a.AimAngle) <= 180 && Finite(a.EquipmentCooldown) && a.EquipmentCooldown >= 0 && a.EquipmentCooldown <= 5 &&
+                    Finite(a.EquipmentAction) && a.EquipmentAction >= 0 && a.EquipmentAction <= 5 && Finite(a.EquipmentActionDuration) && a.EquipmentActionDuration >= 0 && a.EquipmentActionDuration <= 5 &&
+                    Finite(a.ChargeSeconds) && a.ChargeSeconds >= 0 && a.ChargeSeconds <= 5);
                 Require(a.SupportPlatform <= 0 || layout.Platforms.Any(p => p.Id == a.SupportPlatform));
             }
             Require(!world.Actors.Where(a => a.ControllerSlot >= 0).GroupBy(a => a.ControllerSlot).Any(g => g.Count() > 1));
@@ -94,9 +97,12 @@ namespace DarkNights.Runtime.Network
                 Position(w.X, layout);
                 Nonnegative(w.Progress);
             }
+            Require(world.Projectiles.Select(p => p?.ViewId).Distinct().Count() == world.Projectiles.Length && world.Projectiles.Count(p => p != null && p.Kind != 0) <= 128);
             foreach (var p in world.Projectiles)
             {
-                Require(p != null);
+                Require(p != null && p.ViewId > 0 && p.Kind >= 0 && p.Kind <= 3 && Finite(p.VelocityX) && Finite(p.VelocityY) &&
+                    Math.Abs(p.VelocityX) <= 1000 && Math.Abs(p.VelocityY) <= 5000 && Finite(p.Gravity) && p.Gravity >= 0 && p.Gravity <= 500 &&
+                    Finite(p.Radius) && p.Radius >= 0 && p.Radius <= 128);
                 Nonnegative(p.Age, p.Duration);
                 Require(p.Duration > 0 && p.Age <= p.Duration);
                 Require(Finite(p.FromX) && Finite(p.FromY) && Finite(p.ToX) && Finite(p.ToY));

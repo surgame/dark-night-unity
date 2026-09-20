@@ -59,6 +59,26 @@ namespace DarkNights.Runtime.Terrain
         public GridSnapshot CaptureSnapshot(GridBounds bounds) => map.CaptureSnapshot(bounds);
         public GridSnapshot CapturePageSnapshot(PageCoord page) => map.CapturePageSnapshot(page);
 
+        /// <summary>仅由服务端投射物引信调用；允许空中落点，沿用有限十三格爆破范围，过滤基岩及保护格。</summary>
+        internal void Detonate(float x, float height, long projectileId)
+        {
+            if (disposed || !session.IsActive || !session.CanWriteState)
+                throw new InvalidOperationException("地图无写权限。");
+            var center = new CellCoord((int)Math.Floor(x / PlayableTerrain.CellPixels),
+                (int)Math.Floor((height - PlayableTerrain.OriginY) / PlayableTerrain.CellPixels));
+            var targets = new List<CellCoord>();
+            foreach (var offset in TerrainDestructionPolicy.Offsets(TerrainEditAction.Explosive))
+            {
+                var position = new CellCoord(center.U + offset.X, center.V + offset.Y);
+                if (Descriptor.Bounds.Contains(position) && CanDestroy(TerrainEditAction.Explosive, position))
+                    targets.Add(position);
+            }
+            if (targets.Count == 0) return;
+            using var edit = map.BeginEdit(CommitId);
+            foreach (var position in targets) edit.ClearTile(position);
+            edit.Commit();
+        }
+
         /// <summary>服务端根据可信动作生成固定范围；客户端不能提交半径或目标列表替代此结果。</summary>
         public IReadOnlyList<CellCoord> BuildTargets(TerrainEditAction action, CellCoord center)
         {

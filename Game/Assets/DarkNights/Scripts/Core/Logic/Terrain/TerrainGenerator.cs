@@ -9,7 +9,10 @@ namespace DarkNights.Core.Logic.Terrain
         public static TerrainBlueprint Generate(TerrainGenerationSettings settings)
         {
             if (settings == null) throw new ArgumentNullException(nameof(settings));
-            var s = settings.CopyValidated(); var b = new TerrainGenerationBuffer();
+            var s = settings.CopyValidated();
+            if (s.ResourceProfile == TerrainGenerationSettings.CaveExplorationProfile)
+                return CaveExplorationGenerator.Generate(s);
+            var b = new TerrainGenerationBuffer();
             TerrainSurfaceGenerator.Fill(b, s);
             TerrainCaveGenerator.Carve(b, s);
             if (s.ResourceProfile == TerrainGenerationSettings.ReferenceResourceProfile) FillReferenceOres(b, s);

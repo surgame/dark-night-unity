@@ -16,14 +16,15 @@ using static DarkNights.Runtime.Save.SaveJsonFields;
 namespace DarkNights.Runtime.Save
 {
     /// <summary>
-    /// 统一 YYGC 世界的 v6 冻结存档边界；只解析 DTO，不创建对象或修改当前会话。
+    /// 统一 YYGC 世界的 v7 冻结存档边界；只解析 DTO，不创建对象或修改当前会话。
     /// 拒绝旧版本、未知字段、内容摘要和身份关系不符；保存不包含权限、相机或连接身份。
     /// </summary>
     public sealed class ObjectWorldSaveJson
     {
-        public const int FormatVersion = 6;
+        public const int FormatVersion = 7;
         public const int MaximumBytes = 4000000;
         public const string Format = "dark-nights.world";
+        private readonly string equipmentFingerprint;
         private readonly GameCatalog catalog;
         private readonly LevelLayout layout;
         private readonly SaveContentFingerprint fingerprint;
@@ -32,8 +33,9 @@ namespace DarkNights.Runtime.Save
         public string IdentitySha256 { get; }
 
         public ObjectWorldSaveJson(GameCatalog catalog, LevelLayout layout,
-            IReadOnlyDictionary<string, string> definitions, IReadOnlyDictionary<string, string> placements)
+            IReadOnlyDictionary<string, string> definitions, IReadOnlyDictionary<string, string> placements, Objects.HandheldConfig equipment = null)
         {
+            equipmentFingerprint = (equipment ?? new Objects.HandheldConfig()).Fingerprint();
             this.catalog = catalog;
             this.layout = layout;
             this.definitions = definitions.ToDictionary(p => p.Key, p => p.Value, StringComparer.Ordinal);
@@ -59,7 +61,7 @@ namespace DarkNights.Runtime.Save
                 ["format"] = Format, ["format_version"] = FormatVersion,
                 ["random_algorithm"] = SimulationRandom.Algorithm,
                 ["rules_sha256"] = fingerprint.RulesSha256, ["layout_sha256"] = fingerprint.LayoutSha256,
-                ["identity_sha256"] = IdentitySha256, ["world"] = World(snapshot)
+                ["identity_sha256"] = IdentitySha256, ["equipment_sha256"] = equipmentFingerprint, ["world"] = World(snapshot)
             }.ToString(Formatting.None);
             CheckSize(text);
             return text;
@@ -78,7 +80,7 @@ namespace DarkNights.Runtime.Save
             if (root["format"]?.Type != JTokenType.String || (string)root["format"] != Format ||
                 root["format_version"]?.Type != JTokenType.Integer || (long)root["format_version"] != FormatVersion)
                 throw new FormatException("不支持的存档版本。");
-            if (root.Count != 7 || Text(root["random_algorithm"]) != SimulationRandom.Algorithm ||
+            if (root.Count != 8 || Text(root["equipment_sha256"]) != equipmentFingerprint || Text(root["random_algorithm"]) != SimulationRandom.Algorithm ||
                 Text(root["rules_sha256"]) != fingerprint.RulesSha256 || Text(root["layout_sha256"]) != fingerprint.LayoutSha256 ||
                 Text(root["identity_sha256"]) != IdentitySha256)
                 throw new FormatException("Save content does not match this game.");

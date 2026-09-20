@@ -34,6 +34,7 @@ namespace DarkNights.Runtime.Objects
                 state.Walking = true;
             }
             motion.Tick(delta, jump, drop || (!manual && state.SupportPlatform > 0), manual && state.JumpHeld);
+            HeroEquipment.Tick(actor, delta);
             if (!manual) return true;
             if (state.Height > 0 && (state.Activity == ActorActivity.Work || state.Activity == ActorActivity.Build))
                 actor.World.Work.Clear(actor);
@@ -65,6 +66,7 @@ namespace DarkNights.Runtime.Objects
 
         internal static void ResetInput(ActorState state)
         {
+            HeroEquipment.Cancel(state);
             state.Horizontal = 0;
             state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
             state.LastInputSequence = 0; state.LastInputTick = 0;

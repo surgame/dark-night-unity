@@ -95,7 +95,7 @@ namespace DarkNights.Runtime.Objects
             Projectiles.Prepare();
             SaveCodec = new ObjectWorldSaveJson(Catalog, Layout,
                 Resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
-                placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition)));
+                placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition)), Projectiles.Settings);
             Mutations.Run(() =>
             {
                 foreach (ObjectPlacement placement in placements)

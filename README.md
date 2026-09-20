@@ -1,6 +1,9 @@
 # Dark Nights · Unity
 
+2026-09-20 新实验分支 `codex/cave-exploration-art` 合入 main `6b7b74c` 的手持装备，保留地图手采、矿床与恢复；协议 **11**／存档 **v7**。新增[天然洞穴技术原型](docs/CAVE_EXPLORATION_ART.md)：10–13 个不规则洞室、双入口、回环与部分掩埋通路，独立 Debug 场景可 Play。**新像素美术、独立斜面块与匹配碰撞仍未完成**，当前旧图集只作技术预览；完整游戏策划未扩入本轮。以下记录均为各自历史切片，不替代本批证据。
+
 2026-09-19 当前地图改造验收只保留手采、有限炸破、矿室矿床、最终地图同步与保存恢复；钻机、无人机、自动采矿和自动物流整链已从产品代码、资产及本轮合并条件删除。地形命令使用服务端 `CommitId` 权威提交，`RequestId` 在完整玩法授权前幂等缓存；当前协议 10、存档 v6。主 Unity `6000.4.9f1` 刷新、完整 Editor **196/196**、Core **1048/1048**、Terrain 24 向量／100 seed、ArchitectureGuard **372/12/0** 和 Mono 启动 **6/6** 已通过；同一 Mono 的正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 **18/18**，覆盖 Host＋Client、LateJoin、重连、幂等、局部刷新及真实写盘重启恢复。M6 价值比例、前台性能、IL2CPP、双机和真正新机器依赖恢复不在本批已完成范围。
+2026-09-20 完成[主角手持装备开发](docs/HERO_HANDHELD_EQUIPMENT.md)：三套分层 Aseprite 像素素材与图标，手枪／128 槽投射物池、蓄力抛物线黏性炸药、仅动作矿镐及底部四槽栏。复用 YYGC 输入／状态和 R3 表现链，协议 10／存档 v5。基于本次最新 main `b96d8dc`，Unity 6000.4.9f1 编译通过；**首批主角测试 22/22 通过；全批 77 通过、1 加载超时、120 未完成，尚未构建 Player**，后续按[冒烟／回归文档](docs/HERO_HANDHELD_TEST_PLAN.md)执行。YYGC 仍为 `12b253c`；保留本机漂移的 AnyRules 缓存，新隔离缓存恢复原锁并核对 442 文件。
 
 2026-09-17 新增独立[随机地图 Debug Bootstrap](docs/TERRAIN_DEBUG_BOOTSTRAP.md)：菜单 `Dark Nights/Debug/打开随机地图 Bootstrap` 后直接 Play，角色出生于随机入口洞室，WASD 穿墙飞行，镜头近距离跟随且可调；参数实时重建、换种子与 8 房间定位。调试地图没有正式营地的 72 列平地覆盖，原 Pinewatch 场景保留。
 

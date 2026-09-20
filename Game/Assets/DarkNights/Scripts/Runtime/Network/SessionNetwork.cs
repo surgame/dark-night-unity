@@ -78,14 +78,15 @@ namespace DarkNights.Runtime.Network
             int saveArgument = Array.IndexOf(args, "--dn-save-dir");
             SaveDirectory = Path.GetFullPath(saveArgument >= 0 && saveArgument + 1 < args.Length
                 ? args[saveArgument + 1] : Path.Combine(Application.persistentDataPath, "Saves"));
-            SaveDirectory = Path.Combine(SaveDirectory, "v6");
+            SaveDirectory = Path.Combine(SaveDirectory, "v7");
             var fingerprint = new SaveContentFingerprint(catalog, layout);
             authenticator = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
             string identity = new ObjectWorldSaveJson(catalog, layout,
                 resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
                 placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition))).IdentitySha256;
+            var equipment = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch").SharedConfigs.OfType<HandheldConfig>().Single();
             authenticator.Configure(ObjectDefinitionDatabase.Instance, "dark-nights-session-v" + Session.SessionAuthority.ProtocolVersion +
-                ":" + fingerprint.RulesSha256 + ":" + fingerprint.LayoutSha256 + ":" + identity);
+                ":" + fingerprint.RulesSha256 + ":" + fingerprint.LayoutSha256 + ":" + identity + ":" + equipment.Fingerprint());
             manager.ServerManager.SetAuthenticator(authenticator);
             GenericTypeSerializer<GameCore.Objects.NetworkStates.IStateData>.MaximumPayloadBytes = ProjectionCodec.MaximumBytes + 1024;
             GenericTypeSerializer<INetworkCommand>.MaximumPayloadBytes = 8192;

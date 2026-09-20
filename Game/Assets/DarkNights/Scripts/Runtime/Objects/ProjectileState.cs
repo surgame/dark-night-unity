@@ -15,10 +15,14 @@ namespace DarkNights.Runtime.Objects
         public long NextViewId { get; internal set; } = 1;
         public ProjectileFlight[] Shots { get; internal set; } = Array.Empty<ProjectileFlight>();
 
+        public BallisticFlight[] Ballistics { get; internal set; } = new BallisticFlight[HandheldConfig.PoolCapacity];
+
         public void CopyFrom(IStateData source)
         {
             if (!(source is ProjectileState value)) throw new ArgumentException("Expected projectile state.", nameof(source));
             Sequence = value.Sequence;
+            if (Ballistics == null || Ballistics.Length != HandheldConfig.PoolCapacity) Ballistics = new BallisticFlight[HandheldConfig.PoolCapacity];
+            Array.Copy(value.Ballistics, Ballistics, HandheldConfig.PoolCapacity);
             NextViewId = value.NextViewId;
             Shots = value.Shots == null ? Array.Empty<ProjectileFlight>() : (ProjectileFlight[])value.Shots.Clone();
         }

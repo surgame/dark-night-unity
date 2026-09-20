@@ -108,7 +108,8 @@ namespace DarkNights.Entry.Terrain
                 Release(Preview);
                 Blueprint = blueprint; Preview = candidate; candidate = null;
                 Generation++; Flyer.Ready = true; VisitRoom(0);
-                Status = settings.Seed + " · 8 房间 / 7 通道 · 第 " + Generation + " 次生成";
+                Status = settings.Seed + " · " + blueprint.Rooms.Count + " 洞室 / " +
+                    (blueprint.Passages.Count == 0 ? 7 : blueprint.Passages.Count) + " 通路 · 第 " + Generation + " 次生成";
             }
             catch (OperationCanceledException) { }
             catch (Exception error)

@@ -1,5 +1,19 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-20：手持装备复用框架，隔离恢复本机依赖漂移
+
+本批 **没有修改 YYGC／AnyRules 框架源文件，没有新增框架补丁**。YYGC 继续锁定 `12b253c`；AnyRules 继续基于 `aa450a7` 加原三份补丁。新装备使用现有 ObjectInstance、IConfigData、状态同步、输入命令链和 R3 生命周期；不新增业务 Router。
+
+首轮编译发现 `.deps/AnyRules` 的 `TerrainEditCommand.cs` 与 `TerrainEditBusinessHandler.cs` 偏离已提交的源码哈希锁，导致 ExpectedRevision 缺失。原缓存及 `D:/Developer/YYGC` 用户仓库原样保留。在 `.deps/AnyRules-locked-aa450a7` 从原提交解包并应用既有补丁，442 个文件哈希全部匹配；然后 Unity 批处理编译退出 0。
+
+| 本仓库修改文件 | 原因／落点 | 本批验证 |
+|---|---|---|
+| `tools/prepare-map-packages.ps1` | 使用新隔离目录及专用解包 zip，保留旧缓存；提交和补丁锁不变 | 442 文件哈希一致 |
+| `Game/Packages/manifest.json` | 三个 AnyRules 包指向新锁定目录 | Unity 实际解析并编译 |
+| `Game/Packages/packages-lock.json` | 同步本地包路径 | Unity 最终编译退出 0 |
+
+游戏协议升为 10／存档 v5，与框架版本升级无关。[本批证据](evidence/hero-handheld-2026-09-20.json)保留漂移哈希、失败原因和成功编译记录；未运行 Play、Player 或联机验收，不计入历史通过矩阵。
+
 ## 2026-09-17：正式随机地图有界区块预算
 
 本批不修改 `D:/Developer/YYGC` master，YYGC 主包仍锁定 `12b253c`。AnyRules 仍基于 `aa450a7`，只在游戏隔离 `.deps/AnyRules` 应用三份受版本管理的补丁。原 64 块、每轴六块上限不足以发送 320×192 的正式地图（负坐标对齐后 70 块），具体缺口已由 Editor 回归复现。

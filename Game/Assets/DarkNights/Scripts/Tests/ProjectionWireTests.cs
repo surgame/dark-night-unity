@@ -189,6 +189,7 @@ namespace DarkNights.Tests
             {
                 ["context"] = "Unity Editor codec only; no transport measurement", ["initialBytes"] = initialBytes.Length,
                 ["maximumBytes"] = maximumBytes.Length, ["maximumEntities"] = 256, ["maximumProjectiles"] = 1024,
+                ["maximumRawBytes"] = MemoryPackSerializer.Serialize(SessionWire.From(maximum)).Length,
                 ["actorNameCharacters"] = 256, ["payloadLimit"] = ProjectionCodec.MaximumBytes,
                 ["maximumPresentationEvents"] = SessionViewData.MaximumEvents,
                 ["maximumActiveRemnants"] = SessionViewData.MaximumRemnants,

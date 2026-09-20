@@ -111,8 +111,8 @@ try {
     Check 'initial_host_client_map_equal' ($h.terrain.sha256 -eq $c.terrain.sha256)
     Check 'pause_for_fixture' ((Receipt 'host' @{operation='SetPaused';value=1}).Code -eq 'Applied')
     $null = Receipt 'host' @{operation='Save';value=0}
-    $savePath = Join-Path $saves 'v6/slot-00.dnsave.json'
-    $h = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $savePath) } 'initial v6 save'
+    $savePath = Join-Path $saves 'v7/slot-00.dnsave.json'
+    $h = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $savePath) } 'initial v7 save'
     $fixture = [IO.File]::ReadAllText($savePath) | ConvertFrom-Json
     $cells = [Convert]::FromBase64String($fixture.world.terrain.materials)
     $protection = [Convert]::FromBase64String($fixture.world.terrain.protection)
@@ -127,8 +127,8 @@ try {
     $bedrockCell = Find-Cell $cells $protection $soft { param($m,$p,$s,$x,$y) $m -eq 8 }
     $hostId = (Actor $h 0).Id; $clientId = (Actor $c 1).Id
     Place-Actor (@($fixture.world.actors | Where-Object id -eq $clientId)[0]) $softCell 1
-    Place-Actor (@($fixture.world.actors | Where-Object id -eq $hostId)[0]) $blastCell 3
-    $fixture.world.paused = $true
+    Place-Actor (@($fixture.world.actors | Where-Object id -eq $hostId)[0]) $blastCell 2
+    $fixture.world.paused = $false
     [IO.File]::WriteAllText($savePath, ($fixture | ConvertTo-Json -Depth 64), [Text.UTF8Encoding]::new($false))
     $oldEpoch = $h.epoch
     $null = Consume 'host' @{operation='BeginLoad';value=0}
@@ -142,12 +142,21 @@ try {
     $protectedReply = Terrain-Receipt 'host' $protectedCell.x (-$protectedCell.y) 'host-protected'
     $bedrockReply = Terrain-Receipt 'host' $bedrockCell.x (-$bedrockCell.y) 'host-bedrock'
     Check 'explosive_rejects_protected_and_bedrock' (!$protectedReply.Accepted -and !$bedrockReply.Accepted)
-    $blastReply = Terrain-Receipt 'host' $blastCell.x (-$blastCell.y) 'host-blast-once'
-    $duplicateReply = Terrain-Receipt 'host' $blastCell.x (-$blastCell.y) 'host-blast-once'
-    Check 'explosive_changes_route_once' ($blastReply.Accepted -and $duplicateReply.Accepted -and
-        $blastReply.CommitId -eq $duplicateReply.CommitId)
-    $h = Wait-Report 'host' { param($r) $r.terrain.sha256 -ne $beforeDigest -and !$r.terrainPresentation.refreshing } 'local terrain refresh'
-    $c = Wait-Report 'client' { param($r) $r.terrain.sha256 -eq $h.terrain.sha256 -and !$r.terrainPresentation.refreshing } 'client terrain refresh'
+    $blastReply = Terrain-Receipt 'host' $blastCell.x (-$blastCell.y) 'host-direct-blast'
+    Check 'bomb_slot_rejects_direct_cell_explosion' (!$blastReply.Accepted)
+    $h = Wait-Report 'host' { param($r) $r.terrain.sha256 -eq (Read-Report 'client').terrain.sha256 -and !$r.terrainPresentation.refreshing }
+    $beforeBlast = $h.terrain.sha256
+    $hero = Actor $h 0
+    $throw = @{operation='input-raw';actor=$hero.Id;lease=$hero.ControlLease;sequence=1000000;
+        observedTick=$h.frame.ServerTick;epoch=$h.epoch;selectionRevision=$hero.SelectionRevision;
+        aimAngle=-90;usePressed=$true;useReleased=$true}
+    $null = Consume 'host' $throw
+    $null = Consume 'host' $throw
+    $h = Wait-Report 'host' { param($r) (Actor $r 0).ExplosiveCharges -eq 2 } 'one projectile consumes one charge'
+    Check 'throw_consumes_one_charge_for_duplicate_input' ((Actor $h 0).ExplosiveCharges -eq 2)
+    $h = Wait-Report 'host' { param($r) $r.terrain.sha256 -ne $beforeBlast -and !$r.terrainPresentation.refreshing } 'projectile fuse changes terrain'
+    $c = Wait-Report 'client' { param($r) $r.terrain.sha256 -eq $h.terrain.sha256 -and !$r.terrainPresentation.refreshing } 'client blast refresh'
+    Check 'projectile_fuse_changes_terrain_at_actual_location' ($h.terrain.sha256 -ne $beforeBlast)
     Check 'explosive_inventory_decrements_once' ((Actor $h 0).ExplosiveCharges -eq 2)
     Check 'changed_chunks_only_refresh_local_regions' ($h.terrainPresentation.changedChunks -ge 1 -and
         $h.terrainPresentation.changedChunks -le 4 -and $h.terrainPresentation.refreshRegions -ge 1 -and
@@ -155,7 +164,7 @@ try {
     Check 'host_client_final_map_equal_after_blast' ($h.terrain.sha256 -eq $c.terrain.sha256)
 
     $null = Receipt 'host' @{operation='Save';value=1}
-    $save1 = Join-Path $saves 'v6/slot-01.dnsave.json'
+    $save1 = Join-Path $saves 'v7/slot-01.dnsave.json'
     $null = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $save1) } 'post-blast save'
     $fixture = [IO.File]::ReadAllText($save1) | ConvertFrom-Json
     Place-Actor (@($fixture.world.actors | Where-Object id -eq $clientId)[0]) $scatterCell 1
@@ -179,7 +188,7 @@ try {
     Check 'hand_mine_deposit_has_floor_support' ($null -ne $deposit)
     $beforeDeposit = $deposit.Amount
     $null = Receipt 'host' @{operation='Save';value=2}
-    $save2 = Join-Path $saves 'v6/slot-02.dnsave.json'
+    $save2 = Join-Path $saves 'v7/slot-02.dnsave.json'
     $null = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $save2) } 'deposit fixture save'
     $fixture = [IO.File]::ReadAllText($save2) | ConvertFrom-Json
     $clientActor = @($fixture.world.actors | Where-Object id -eq $clientId)[0]
@@ -192,14 +201,14 @@ try {
     $h = Wait-Report 'host' { param($r) $r.ready -and $r.epoch -gt $oldEpoch -and $r.terrain.visible }
     $c = Wait-Report 'client' { param($r) $r.ready -and $r.epoch -eq $h.epoch }
     $clientActor = Actor $c 1
-    $use = Receipt 'client' @{operation='UseHeroItem';actors=@($clientActor.Id);target=$deposit.Id;kind='tool';
+    $use = Receipt 'client' @{operation='UseHeroItem';actors=@($clientActor.Id);target=$deposit.Id;kind='pickaxe';
         value=$clientActor.SelectionRevision;lease=$clientActor.ControlLease}
     Check 'mineral_deposit_is_hand_mined' ($use.Code -eq 'Applied')
     $h = Wait-Report 'host' { param($r) @($r.frame.World.Worksites | Where-Object Id -eq $deposit.Id)[0].Amount -eq $beforeDeposit - 1 }
     Check 'deposit_remaining_is_authoritative' (@($h.frame.World.Worksites | Where-Object Id -eq $deposit.Id)[0].Amount -eq $beforeDeposit - 1)
     $null = Receipt 'host' @{operation='SetPaused';value=1}
     $null = Receipt 'host' @{operation='Save';value=3}
-    $save3 = Join-Path $saves 'v6/slot-03.dnsave.json'
+    $save3 = Join-Path $saves 'v7/slot-03.dnsave.json'
     $null = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $save3) } 'final save'
     $finalDigest = $h.terrain.sha256
 

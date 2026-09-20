@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发约定
 
+2026-09-20 新实验分支 `codex/cave-exploration-art` 合入 main `6b7b74c` 的手持装备，保留地图手采、矿床与恢复；协议 **11**／存档 **v7**。新增[天然洞穴技术原型](docs/CAVE_EXPLORATION_ART.md)：10–13 个不规则洞室、双入口、回环与部分掩埋通路，独立 Debug 场景可 Play。**新像素美术、独立斜面块与匹配碰撞仍未完成**，当前旧图集只作技术预览；完整游戏策划未扩入本轮。以下记录均为各自历史切片，不替代本批证据。
+
 2026-09-19 当前切片为[手采地图验收收口](docs/MAP_PLAN_EXECUTION.md)，分支 `codex/map-plan-execution`：协议 10／存档 v6；钻机、无人机、自动采矿和自动物流整链已从产品代码、资源与本轮门槛删除。主 Editor 完整 196/196、Core 1048/1048、Terrain 24 向量／100 seed、ArchitectureGuard 372/12/0、Mono 启动 6/6；同一 Mono 正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 18/18，覆盖 Host、Client、LateJoin、Reconnect、幂等、局部刷新与真实写盘重启恢复。M6 比例、前台性能、IL2CPP、双机器和真正新机器依赖恢复仍待后续；不把这些边界写成已完成。
 
 2026-09-17 新增[独立随机地图 Debug Bootstrap](docs/TERRAIN_DEBUG_BOOTSTRAP.md)：通过 `Dark Nights/Debug/打开随机地图 Bootstrap` 直接 Play，原始 8 房间／7 通道蓝图没有正式营地的 72 列平地覆盖；本地观察角色 WASD 穿墙飞行、近距离可调镜头、参数实时重建。原 Pinewatch 及正式 Bootstrap 保留。本批 Editor 地图 11/11、实际 Play 22/22，独立 Mono 已构建与启动；隐藏 Player 黑图不计视觉通过，画面证据来自 Editor Play。正式协议、存档、YYGC 与 M5 边界不变。
@@ -26,6 +28,15 @@
 <a id="execution-efficiency"></a>
 
 ## 执行效率与批量操作
+
+### 用户明确要求 Worktree 时的低成本 Unity 流程
+
+- 用户明确强调使用 worktree 时，除非同时要求各 worktree 独立启动 Unity、并行 Editor 验收或独立缓存，默认采用“薄 worktree 开发＋Local 单一 Unity 验收通道”。worktree 用于隔离代码、文档、配置和文本资源改动，不因任务最终可能放弃而提前支付完整 Unity 缓存成本。
+- 薄 worktree 不启动 Unity，不生成、复制、硬链接或目录联接 `Library`、`Temp`、`Logs`、`obj`、构建输出和 `artifacts`；`.worktreeinclude` 不得包含这些路径。只有非 Unity 检查确实需要时才准备最小锁定依赖，不复制整套导入缓存。共享或链接同一 `Library` 给多个检出、并发 Editor 写入同一缓存均禁止。
+- 在薄 worktree 先完成实现、静态检查和不依赖 Unity 导入的验证，并建立可恢复的临时 checkpoint；checkpoint 或临时分支不代表必须合并。需要 Editor 编译、PlayMode、场景／Prefab 保存重开、Player 构建或画面验收时，先合并同批候选验证项，再通过 Codex“移交到 Local”把聊天与代码状态带到本地检出，复用 Local 现有 `Library`，同一时间只运行一个 Unity 写入／构建通道。
+- 移交是借用 Local 环境进行验证，不构成 merge、rebase、cherry-pick 或交付授权。通过后按原任务目标决定是否集成；未采用的实验移交回原 worktree 后归档或删除，不为保留 Unity 缓存而留下完整工作副本。移交前后检查当前分支、未提交改动和 Editor／Player 进程，不能覆盖其他会话或用户工作。
+- 若候选修改 Unity Editor 版本、`Packages/manifest.json`／`packages-lock.json`、关键 `ProjectSettings`、目标平台／Scripting Backend、渲染管线或大批资源导入设置，先报告 Local 缓存失效与反复重导入风险；未经用户明确选择，不把薄 worktree 升级为第二套完整 Unity 工作区。确需独立 Unity 验收时只保留一个长期验证 worktree，并继续串行使用其中的 Editor。
+- Local 中的 Unity 长任务仍按一次触发原则组合为有限批次：完整输出写日志，前台只保留任务 ID、阶段、完成标记、退出码和摘要路径；首次有界等待后退避到最多每 60 秒一次的极小状态检查，未变化不读取全量日志、不发送重复进度、不重启任务。优先使用完成通知或原子结果文件；需要完全避免模型守候时，可后台运行并在完成后由用户或后续任务恢复，但必须如实说明自动续接边界。
 
 - 以一个可验证的功能切片或同类资源批次组织工作。执行前汇总已知输入、依赖顺序、输出和验收项；能够一起准备、一起执行的操作必须合并，避免逐文件、逐资源发起工具请求。批次保持可审查，不把整个移植合成难以定位失败的大任务。
 - 已授权范围内连续完成准备、修改、生成和验证，不逐步向用户请求“继续”或重复确认。只有必须由用户补充的必要信息、超出授权范围或尚未获准的不可逆操作，才集中提出所需问题。

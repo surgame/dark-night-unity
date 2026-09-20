@@ -1,0 +1,187 @@
+{
+  "date": "2026-09-20",
+  "branch": "codex/cave-exploration-art",
+  "parents": {
+    "map": "e60e1fb",
+    "main": "6b7b74c"
+  },
+  "protocol": 11,
+  "saveVersion": 7,
+  "sourceDesign": {
+    "path": "D:/Downloads/dark_nights_final_core_loop_map_design_v1.md",
+    "sha256": "1d928818006125da72a3295e0349f482a04e6a4e817d9218caab4ee51b6e52ed",
+    "scope": "04/05 and related constraints, not full game implementation"
+  },
+  "stage": "equipment merged and cave topology prototype; pixel art and explicit slope cells unfinished",
+  "core": {
+    "passed": 1048,
+    "total": 1048,
+    "report": "artifacts/cave-exploration/core-regression.json"
+  },
+  "terrain": {
+    "frozenVectors": 24,
+    "oldDepositSeeds": 100,
+    "caveSeeds": 100,
+    "report": "artifacts/cave-exploration/generation.json"
+  },
+  "architecture": {
+    "files": 389,
+    "selfTests": 12,
+    "errors": 0,
+    "report": "artifacts/cave-exploration/architecture.json"
+  },
+  "editor": {
+    "distinctPassedByImpactUnion": 205,
+    "fullRunPassed": 203,
+    "fullRunFailed": 2,
+    "affectedFormalPlayRetestPassed": 2,
+    "cause": "Duplicate Item4 introduced by merge; restored main input action asset preserving GUID",
+    "fullReport": "artifacts/cave-exploration/editor-final.json",
+    "retestReport": "artifacts/cave-exploration/formal-play.json",
+    "committedReport": "docs/evidence/cave-exploration-editor-2026-09-20.json"
+  },
+  "cavePlay": {
+    "scene": "Game/Assets/DarkNights/Res/Terrain/CaveExploration/CaveExploration.unity",
+    "savedReopenedAndPlayed": true,
+    "seed": "CAVE-EXPLORATION-01",
+    "rooms": 10,
+    "passages": 12,
+    "pages": 273,
+    "image": "artifacts/cave-exploration/topology-overview.png",
+    "artAccepted": false,
+    "note": "Old technical atlas; hidden graph connectivity is not character traversal acceptance"
+  },
+  "mono": {
+    "buildCount": 1,
+    "path": "artifacts/cave-exploration/player-mono/DarkNights.exe",
+    "buildReport": "artifacts/cave-exploration/build.json",
+    "startup": {
+      "passed": 6,
+      "total": 6,
+      "report": "artifacts/migration/run-20260920-175343-862-mono/result.json"
+    },
+    "normal": {
+      "passed": 20,
+      "total": 20,
+      "report": "artifacts/map-fix/terrain-loop-20260920-175247-706/result.json"
+    },
+    "weak": {
+      "passed": 20,
+      "total": 20,
+      "rttMs": 200,
+      "loss": 0.05,
+      "jitterMs": 25,
+      "dropped": 693,
+      "reordered": 8435,
+      "report": "artifacts/map-fix/terrain-loop-20260920-175349-232/result.json",
+      "relay": "artifacts/map-fix/terrain-loop-weak-20260920-175348-624/relay.json"
+    },
+    "managedSha256": {
+      "DarkNights.Core.dll": "474b95a80027804a16e5e99b76653c1ee0bfcaecfdafaace69ecdf1bb762f072",
+      "DarkNights.Entry.dll": "edcb26ce732e70523cae3d785633709f4c934f258efb932886cc50debcf9257e",
+      "DarkNights.Runtime.dll": "05cd37160bbfdb777c7b4cf1e7786ea68e2d2a7b01ef7886695b4c017ffe3431",
+      "DarkNights.Samples.LanCoop.Bootstrap.dll": "51a526f4d843d80508200c6186cfb0bae46d949e0ad4093a223cefa3c6171bbe",
+      "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+      "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+      "DarkNights.Samples.LanCoop.Runtime.dll": "f2c534d80ba6e5d950170e691a230891de3002def79ce00be6bc4baa0cebe434",
+      "DarkNights.View.dll": "157e635571f39ca9537432204b95e45d1a8e6d5a28210f80ee0095d3e8773ce7"
+    }
+  },
+  "pending": [
+    "Pixel art source and DualGrid atlas",
+    "Explicit slope cell shapes and matching collisions",
+    "Slope save/network/local refresh and visual seams",
+    "Final raster traversability and buried-link validation",
+    "IL2CPP",
+    "Two machines",
+    "Foreground performance",
+    "Fresh machine dependency restore"
+  ],
+  "dependencies": {
+    "yygc": "12b253c",
+    "anyRules": "aa450a7",
+    "newFrameworkEdits": false
+  },
+  "cleanup": {
+    "releasedBytes": 0,
+    "rejected": true,
+    "rejectedTargetsBytes": 76069757,
+    "retained": [
+      {
+        "path": "tools/CoreBuild/bin",
+        "bytes": 285298,
+        "reason": "Cleanup rejected by automatic approval; not retried",
+        "condition": "Future cleanup requires permission under applicable policy"
+      },
+      {
+        "path": "tools/CoreBuild/obj",
+        "bytes": 296568,
+        "reason": "Cleanup rejected by automatic approval; not retried",
+        "condition": "Future cleanup requires permission under applicable policy"
+      },
+      {
+        "path": "tools/CoreRegression/bin",
+        "bytes": 7816220,
+        "reason": "Cleanup rejected by automatic approval; not retried",
+        "condition": "Future cleanup requires permission under applicable policy"
+      },
+      {
+        "path": "tools/CoreRegression/obj",
+        "bytes": 406768,
+        "reason": "Cleanup rejected by automatic approval; not retried",
+        "condition": "Future cleanup requires permission under applicable policy"
+      },
+      {
+        "path": "tools/TerrainRegression/bin",
+        "bytes": 614544,
+        "reason": "Cleanup rejected by automatic approval; not retried",
+        "condition": "Future cleanup requires permission under applicable policy"
+      },
+      {
+        "path": "tools/TerrainRegression/obj",
+        "bytes": 368964,
+        "reason": "Cleanup rejected by automatic approval; not retried",
+        "condition": "Future cleanup requires permission under applicable policy"
+      },
+      {
+        "path": "tools/ArchitectureGuard/bin",
+        "bytes": 65854280,
+        "reason": "Cleanup rejected by automatic approval; not retried",
+        "condition": "Future cleanup requires permission under applicable policy"
+      },
+      {
+        "path": "tools/ArchitectureGuard/obj",
+        "bytes": 413624,
+        "reason": "Cleanup rejected by automatic approval; not retried",
+        "condition": "Future cleanup requires permission under applicable policy"
+      },
+      {
+        "path": "artifacts/cave-stage",
+        "bytes": 13491,
+        "reason": "Cleanup rejected by automatic approval; not retried",
+        "condition": "Future cleanup requires permission under applicable policy"
+      },
+      {
+        "path": "artifacts/cave-exploration/player-mono",
+        "bytes": 201506757,
+        "reason": "Same Player retained for follow-up validation",
+        "condition": "Keep until follow-up acceptance completes"
+      },
+      {
+        "path": "artifacts/map-fix/terrain-loop-20260920-175247-706",
+        "bytes": 4679403,
+        "reason": "Logs and saves for reproducible normal network recovery evidence",
+        "condition": "Keep until follow-up acceptance completes"
+      },
+      {
+        "path": "artifacts/map-fix/terrain-loop-20260920-175349-232",
+        "bytes": 4705349,
+        "reason": "Logs and saves for reproducible weak network recovery evidence",
+        "condition": "Keep until follow-up acceptance completes"
+      }
+    ],
+    "freeCBytes": 7406297088,
+    "freeDBytes": 40288739328,
+    "sharedCaches": "Existing Unity Library and .deps retained and reused; no new dependency download or cache copy"
+  }
+}

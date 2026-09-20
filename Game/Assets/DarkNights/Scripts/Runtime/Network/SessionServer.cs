@@ -101,15 +101,15 @@ namespace DarkNights.Runtime.Network
         {
             var peer = Sender(context, false);
             var map = simulation.Terrain?.Map;
-            if (peer?.Authority == null || !peer.Authority.Ready || Authority.Loading || command == null || map == null ||
+            if (peer?.Authority == null || !peer.Authority.Ready || Authority.Loading || simulation.Paused || command == null || map == null ||
                 (!peer.IsHost && Authority.ControlMode == CampControlMode.HostOnly)) return null;
             var actor = simulation.Index.Find<ActorBehaviour>(peer.Authority.DefaultHeroId);
             var state = actor?.Read();
             if (state == null || state.Enemy || state.Hp <= 0 || !state.ManualControl ||
                 state.ControllerSlot != peer.Authority.PlayerSlot || state.ControllerGeneration != peer.Authority.Generation ||
-                state.ControlLease <= 0 || (state.SelectedItem != 1 && state.SelectedItem != 3) ||
+                state.ControlLease <= 0 || state.SelectedItem != 1 ||
                 Authority.ServerTick - state.LastTerrainActionTick < 3) return null;
-            var action = state.SelectedItem == 3 ? TerrainEditAction.Explosive : TerrainEditAction.HandMine;
+            var action = TerrainEditAction.HandMine;
             if (action == TerrainEditAction.Explosive && state.ExplosiveCharges <= 0) return null;
             return new TerrainActionAuthorization(peer.Authority.Generation, map.World, action,
                 position => WithinTerrainReach(state, position),

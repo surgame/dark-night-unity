@@ -44,7 +44,7 @@ namespace DarkNights.Runtime.Objects
                     Name = value.Name, Enemy = value.Enemy, Activity = activity, TargetId = value.TargetId,
                     Face = value.Face, ActionTime = value.ActionTime, Windup = value.Windup,
                     HitFlash = value.HitFlash, Walking = value.Walking,
-                    Height = value.Height, VerticalSpeed = value.VerticalSpeed, SupportPlatform = value.SupportPlatform, ManualControl = value.ManualControl, SelectedItem = value.SelectedItem, SelectionRevision = value.SelectionRevision, JetpackEquipped = value.JetpackEquipped, JetpackFuel = value.JetpackFuel, ControllerSlot = value.ControllerSlot, ControlLease = value.ControlLease,
+                    Height = value.Height, VerticalSpeed = value.VerticalSpeed, SupportPlatform = value.SupportPlatform, ManualControl = value.ManualControl, SelectedItem = value.SelectedItem, SelectionRevision = value.SelectionRevision, JetpackEquipped = value.JetpackEquipped, JetpackFuel = value.JetpackFuel, ControllerSlot = value.ControllerSlot, ControlLease = value.ControlLease, AimAngle = value.AimAngle, EquipmentCooldown = value.EquipmentCooldown, EquipmentAction = value.EquipmentAction, EquipmentActionDuration = value.EquipmentActionDuration, Charging = value.Charging, ChargeSeconds = value.ChargeSeconds,
                     ExplosiveCharges = value.ExplosiveCharges
                 };
                 result.Add(new ReplicaEntityState(identity, value.Kind,

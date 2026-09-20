@@ -63,7 +63,7 @@ namespace DarkNights.View
             Move = hero.FindAction("Move", true); Jump = hero.FindAction("Jump", true);
             Drop = hero.FindAction("Crouch", true); UseItem = hero.FindAction("Attack", true);
             Item1 = hero.FindAction("Item1", true); Item2 = hero.FindAction("Item2", true); Item3 = hero.FindAction("Item3", true);
-            Item4 = hero.FindAction("Item4", false);
+            Item4 = hero.FindAction("Item4", true);
             HeroToggle = hero.FindAction("ToggleMode", true); CampToggle = camp.FindAction("ToggleMode", true);
             routing = new YYInputActionService(sessions);
             foreach (var action in camp.actions) routing.Register(action, YYInteractionBlockFlags.GameplayActions);

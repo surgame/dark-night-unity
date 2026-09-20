@@ -13,6 +13,17 @@ namespace DarkNights.Tests
     public sealed class ProjectionPacketTests
     {
         [Test]
+        public void ExpandedCapacityStillEnforcesEncodedPacketLimit()
+        {
+            byte[] raw = Enumerable.Repeat((byte)7, 600000).ToArray();
+            byte[] packet = ProjectionPacket.Pack(raw);
+            Assert.That(packet.Length, Is.LessThan(ProjectionCodec.MaximumBytes));
+            CollectionAssert.AreEqual(raw, ProjectionPacket.Unpack(packet));
+            new Random(712).NextBytes(raw);
+            Assert.Throws<InvalidOperationException>(() => ProjectionPacket.Pack(raw));
+        }
+
+        [Test]
         public void RepetitivePayloadCompressesAndReturnsIndependentBytes()
         {
             var raw = Enumerable.Repeat((byte)65, 16384).ToArray();

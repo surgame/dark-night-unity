@@ -59,14 +59,18 @@ namespace DarkNights.Entry
             int horizontal = (int?)command["horizontal"] ?? 0;
             bool jump = (bool?)command["jumpHeld"] ?? false, use = (bool?)command["useHeld"] ?? false;
             bool pressed = (bool?)command["jumpPressed"] ?? false, drop = (bool?)command["dropPressed"] ?? false;
+            float aim = (float?)command["aimAngle"] ?? 0;
+            int selection = (int?)command["selectionRevision"] ?? frame.World.Actors.Single(a => a.Id == actor).SelectionRevision;
+            bool usePressed = (bool?)command["usePressed"] ?? false, useReleased = (bool?)command["useReleased"] ?? false;
+            bool cancel = (bool?)command["cancelUse"] ?? false;
             if (raw)
                 await client.SendInputFrozen(new HeroInputRequest(
                     (int?)command["protocol"] ?? SessionAuthority.ProtocolVersion, (int?)command["epoch"] ?? frame.Epoch,
                     (int?)command["policy"] ?? frame.PolicyRevision, actor, lease, (long)command["sequence"],
-                    (long?)command["observedTick"] ?? frame.ServerTick, horizontal, jump, use, pressed, drop));
-            else await client.SendInput(actor, lease, horizontal, jump, use, pressed, drop);
+                    (long?)command["observedTick"] ?? frame.ServerTick, horizontal, jump, use, pressed, drop, aim, selection, usePressed, useReleased, cancel));
+            else await client.SendInput(actor, lease, horizontal, jump, use, pressed, drop, aim, selection, usePressed, useReleased, cancel);
             PacketsSent++;
-            if (ReferenceEquals(command, held)) { command["jumpPressed"] = false; command["dropPressed"] = false; }
+            if (ReferenceEquals(command, held)) { command["jumpPressed"] = false; command["dropPressed"] = false; command["usePressed"] = false; command["useReleased"] = false; command["cancelUse"] = false; }
         }
 
         private void OnDisable() { held = null; }

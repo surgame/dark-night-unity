@@ -18,6 +18,7 @@ namespace DarkNights.Entry
     /// </summary>
     public sealed class SessionEffects : MonoBehaviour
     {
+        private readonly SessionBallistics ballistics = new SessionBallistics();
         private readonly PresentationCursor cursor = new PresentationCursor();
         private readonly LocalCommandRings commandRings = new LocalCommandRings();
         private readonly Dictionary<long, (ObjectView Owner, NativeEffect Effect)> arrows =
@@ -37,6 +38,8 @@ namespace DarkNights.Entry
         private float ground;
         public int EffectCount => effects.Count + commandRings.Count;
         public int ArrowCount => arrows.Count;
+        public int BallisticCount => ballistics.ActiveCount;
+        public int BallisticPoolCount => ballistics.InstanceCount;
         public int CommandRingCount => commandRings.Count;
         public int CommandRingInstanceCount => commandRings.InstanceCount;
         public long CommandRingPresentationCount => commandRings.PresentationCount;
@@ -44,6 +47,8 @@ namespace DarkNights.Entry
         public async UniTask Initialize(SessionClient value, SessionUiController panels, PinewatchStage scene, float groundY)
         {
             client = value; ui = panels; stage = scene; ground = groundY;
+            await ballistics.Initialize(stage.Entities);
+            if (this == null) return;
             audioOwner = await Create("audio.camp");
             if (this == null) { Release(audioOwner); return; }
             audioView = Required<CampAudio>(audioOwner, "audio");
@@ -69,7 +74,7 @@ namespace DarkNights.Entry
                     else if (item.Type == "effect") Spawn(item, now - age, generation).Forget();
                     else ui.PresentEvent(item, age);
                 }
-                var ids = new HashSet<long>(frame.World.Projectiles.Select(p => p.ViewId));
+                var ids = new HashSet<long>(frame.World.Projectiles.Where(p => p.Kind == 0).Select(p => p.ViewId));
                 foreach (long id in arrows.Keys.ToArray()) if (!ids.Contains(id))
                 {
                     Release(arrows[id].Owner); arrows.Remove(id);
@@ -89,8 +94,9 @@ namespace DarkNights.Entry
                 }
                 else effect.Effect.Present(effect.Event.Cue, age, ground, stage.IlluminationAt(effect.Owner.transform.position));
             }
+            ballistics.Present(frame, frame.Paused || frame.Loading ? 0 : Math.Min(now - received, .1) * frame.Speed, ground, stage.Ambient);
             foreach (ProjectileViewData arrow in frame.World.Projectiles)
-                if (arrows.TryGetValue(arrow.ViewId, out var view))
+                if (arrow.Kind == 0 && arrows.TryGetValue(arrow.ViewId, out var view))
                 {
                     double age = arrow.Age + (frame.Paused || frame.Loading ? 0 : Math.Min(now - received, 0.1) * frame.Speed);
                     view.Effect.Present(arrow, age, ground);
@@ -183,7 +189,7 @@ namespace DarkNights.Entry
         private void Clear()
         {
             generation++; cursor.Reset(); applied = null;
-            commandRings.Clear();
+            commandRings.Clear(); ballistics.Clear();
             foreach (var value in arrows.Values) Release(value.Owner);
             foreach (var value in effects) Release(value.Owner);
             arrows.Clear(); pendingArrows.Clear(); effects.Clear();
@@ -191,7 +197,7 @@ namespace DarkNights.Entry
         private void OnDestroy()
         {
             if (ui != null && ui.Input != null) ui.Input.Intent -= LocalIntent;
-            Clear(); commandRings.Dispose(); Release(audioOwner);
+            Clear(); commandRings.Dispose(); ballistics.Dispose(); Release(audioOwner);
         }
     }
 }

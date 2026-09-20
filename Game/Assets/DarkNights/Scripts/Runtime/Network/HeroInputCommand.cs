@@ -25,12 +25,24 @@ namespace DarkNights.Runtime.Network
         public bool JumpPressed { get; set; }
         public bool DropPressed { get; set; }
 
+        public float AimAngle { get; set; }
+        public int SelectionRevision { get; set; }
+        public bool UsePressed { get; set; }
+        public bool UseReleased { get; set; }
+        public bool CancelUse { get; set; }
+
         public HeroInputRequest Freeze() => new HeroInputRequest(Protocol, Epoch, PolicyRevision, ActorId,
-            ControlLease, InputSequence, ObservedTick, Horizontal, JumpHeld, UseHeld, JumpPressed, DropPressed);
+            ControlLease, InputSequence, ObservedTick, Horizontal, JumpHeld, UseHeld, JumpPressed, DropPressed, AimAngle, SelectionRevision, UsePressed, UseReleased, CancelUse);
         public void OnReturnToPool()
         {
             SenderObjectId = Protocol = Epoch = PolicyRevision = ActorId = ControlLease = Horizontal = 0;
             InputSequence = ObservedTick = 0;
+            AimAngle = 0;
+            SelectionRevision = 0;
+            UsePressed = false;
+            UseReleased = false;
+            CancelUse = false;
+
             JumpHeld = UseHeld = JumpPressed = DropPressed = false;
         }
     }

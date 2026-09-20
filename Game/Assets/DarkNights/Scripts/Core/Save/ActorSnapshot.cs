@@ -40,6 +40,11 @@ namespace DarkNights.Core.Save
         public double JetpackFuel { get; }
         public int ExplosiveCharges { get; }
 
+        public float AimAngle { get; }
+        public double EquipmentCooldown { get; }
+        public double EquipmentAction { get; }
+        public double EquipmentActionDuration { get; }
+
         public ActorSnapshot(
             int id,
             string kind,
@@ -68,7 +73,11 @@ namespace DarkNights.Core.Save
             int selectionRevision = 0,
             bool jetpackEquipped = false,
             double jetpackFuel = 0,
-            int explosiveCharges = 3)
+            int explosiveCharges = 3,
+            float aimAngle = 0,
+            double equipmentCooldown = 0,
+            double equipmentAction = 0,
+            double equipmentActionDuration = 0)
         {
             Id = id;
             Kind = kind;
@@ -98,6 +107,11 @@ namespace DarkNights.Core.Save
             JetpackEquipped = jetpackEquipped;
             JetpackFuel = jetpackFuel;
             ExplosiveCharges = explosiveCharges;
+            AimAngle = aimAngle;
+            EquipmentCooldown = equipmentCooldown;
+            EquipmentAction = equipmentAction;
+            EquipmentActionDuration = equipmentActionDuration;
+
         }
     }
 }

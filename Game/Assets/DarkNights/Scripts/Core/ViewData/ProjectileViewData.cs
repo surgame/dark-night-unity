@@ -13,6 +13,13 @@ namespace DarkNights.Core.ViewData
         public double Age { get; }
         public double Duration { get; }
 
+        public int Kind { get; }
+        public float VelocityX { get; }
+        public float VelocityY { get; }
+        public float Gravity { get; }
+        public float Radius { get; }
+        public bool Stuck { get; }
+
         public ProjectileViewData(
             long viewId,
             float fromX,
@@ -20,7 +27,7 @@ namespace DarkNights.Core.ViewData
             float toX,
             float toY,
             double age,
-            double duration)
+            double duration, int kind = 0, float velocityX = 0, float velocityY = 0, float gravity = 0, float radius = 0, bool stuck = false)
         {
             ViewId = viewId;
             FromX = fromX;
@@ -29,6 +36,13 @@ namespace DarkNights.Core.ViewData
             ToY = toY;
             Age = age;
             Duration = duration;
+            Kind = kind;
+            VelocityX = velocityX;
+            VelocityY = velocityY;
+            Gravity = gravity;
+            Radius = radius;
+            Stuck = stuck;
+
         }
     }
 }

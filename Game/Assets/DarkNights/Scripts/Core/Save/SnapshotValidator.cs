@@ -17,7 +17,7 @@ namespace DarkNights.Core.Save
     {
         public static string Validate(SessionSnapshot s, GameCatalog catalog, LevelLayout layout)
         {
-            if (s == null || s.SchemaVersion != 6 || s.LevelId != catalog.Level.Id)
+            if (s == null || s.SchemaVersion != 7 || s.LevelId != catalog.Level.Id)
                 return "存档版本或关卡不匹配";
             if (layout.RandomTerrain != (s.Terrain != null)) return "存档地图类型不匹配";
             if (!Number(s.Elapsed, 0, 1000000) || s.Speed is not (1 or 2))
@@ -65,8 +65,21 @@ namespace DarkNights.Core.Save
                 error = RelationshipValidator.Validate(context);
             if (error.Length != 0)
                 return error;
+            if (s.Projectiles.Count(p => p.Kind != 0) > 128) return "投射物池容量超限";
             foreach (var shot in s.Projectiles)
             {
+                if (shot.Kind != 0)
+                {
+                    if (shot.Kind < 1 || shot.Kind > 3 || shot.TargetId != 0 || shot.From == null || shot.From.Count != 2 ||
+                        shot.To == null || shot.To.Count != 2 || !Number(shot.From[0], 0, layout.WorldWidth) ||
+                        !Number(shot.From[1], -10000, 10000) || shot.From[0] != shot.To[0] || shot.From[1] != shot.To[1] ||
+                        !Number(shot.VelocityX, -1000, 1000) || !Number(shot.VelocityY, -5000, 5000) ||
+                        !Number(shot.Gravity, 0, 500) || !Number(shot.Radius, .001, 4) || !Number(shot.BlastRadius, 0, 128) ||
+                        !Number(shot.Duration, .001, 8) || !Number(shot.Age, 0, shot.Duration) ||
+                        (shot.Kind == 3 ? shot.Damage != 0 || !shot.Stuck : shot.Damage < 1 || shot.Damage > 1000) ||
+                        (shot.Stuck && (shot.VelocityX != 0 || shot.VelocityY != 0))) return "道具投射物无效";
+                    continue;
+                }
                 if (!Point(shot.From, catalog, layout) || !Point(shot.To, catalog, layout) || !Id(shot.TargetId, 1) ||
                     shot.Damage is < 1 or > 1000 || !Number(shot.Duration, 0.01, 10) || !Number(shot.Age, 0, shot.Duration))
                     return "箭矢数据或计时无效";

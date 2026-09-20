@@ -43,8 +43,7 @@ namespace DarkNights.Runtime.Save
                 Integer(v["selected_item"]),
                 Integer(v["selection_revision"]),
                 Boolean(v["jetpack_equipped"]),
-                Number(v["jetpack_fuel"]),
-                Integer(v["explosive_charges"]));
+                Number(v["jetpack_fuel"]), Integer(v["explosive_charges"]), (float)Number(v["aim_angle"]), Number(v["equipment_cooldown"]), Number(v["equipment_action"]), Number(v["equipment_action_duration"]));
         }
 
         public static JObject Write(ActorSnapshot v) => new JObject
@@ -76,7 +75,11 @@ namespace DarkNights.Runtime.Save
             ["selection_revision"] = v.SelectionRevision,
             ["jetpack_equipped"] = v.JetpackEquipped,
             ["jetpack_fuel"] = v.JetpackFuel,
-            ["explosive_charges"] = v.ExplosiveCharges
+            ["explosive_charges"] = v.ExplosiveCharges,
+            ["aim_angle"] = v.AimAngle,
+            ["equipment_cooldown"] = v.EquipmentCooldown,
+            ["equipment_action"] = v.EquipmentAction,
+            ["equipment_action_duration"] = v.EquipmentActionDuration
         };
 
         public static BuildingSnapshot BuildingSnapshot(JToken value)
@@ -152,7 +155,7 @@ namespace DarkNights.Runtime.Save
                 Integer(v["target_id"]),
                 Integer(v["damage"]),
                 Number(v["age"]),
-                Number(v["duration"]));
+                Number(v["duration"]), Integer(v["kind"]), (float)Number(v["velocity_x"]), (float)Number(v["velocity_y"]), (float)Number(v["gravity"]), (float)Number(v["radius"]), (float)Number(v["blast_radius"]), Boolean(v["stuck"]));
         }
 
         public static JObject Write(ProjectileSnapshot v) => new JObject
@@ -162,7 +165,14 @@ namespace DarkNights.Runtime.Save
             ["target_id"] = v.TargetId,
             ["damage"] = v.Damage,
             ["age"] = v.Age,
-            ["duration"] = v.Duration
+            ["duration"] = v.Duration,
+            ["kind"] = v.Kind,
+            ["velocity_x"] = v.VelocityX,
+            ["velocity_y"] = v.VelocityY,
+            ["gravity"] = v.Gravity,
+            ["radius"] = v.Radius,
+            ["blast_radius"] = v.BlastRadius,
+            ["stuck"] = v.Stuck
         };
 
         public static TrainingSnapshot TrainingSnapshot(JToken value)
