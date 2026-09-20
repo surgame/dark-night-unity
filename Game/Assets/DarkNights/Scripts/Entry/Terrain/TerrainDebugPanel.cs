@@ -64,7 +64,8 @@ namespace DarkNights.Entry.Terrain
             {
                 if (!visible)
                 {
-                    GUI.Label(new Rect(12, 10, 400, 24), "F1 参数面板 · WASD 飞行 · Shift 加速 · 滚轮缩放");
+                    GUI.Label(new Rect(12, 10, 620, 24), Bootstrap.Workshop == null ? "F1 参数 · WASD 观察 · 滚轮缩放" :
+                        "F1 参数 · Tab 行走/观察 · AD 移动 · 空格跳跃/喷气 · 滚轮缩放");
                     Bootstrap.Flyer.PointerOverPanel = false;
                     return;
                 }
@@ -73,8 +74,10 @@ namespace DarkNights.Entry.Terrain
                 GUILayout.BeginArea(area, GUI.skin.box);
                 scroll = GUILayout.BeginScrollView(scroll);
                 GUILayout.BeginVertical(GUILayout.Width(266));
-                GUILayout.Label("随机地图 · Debug Bootstrap");
-                GUILayout.Label("WASD 穿墙飞行 / Shift 3×\nF 返回入口 / R 换种子\n滚轮缩放 / F1 收起面板", GUILayout.Height(60));
+                GUILayout.Label(Bootstrap.Workshop == null ? "随机地图 · Debug Bootstrap" : "天然洞穴 · 地图工作台");
+                if (Bootstrap.Workshop != null) GUILayout.Label("喷气燃料：" + Bootstrap.Workshop.Fuel.ToString("0.0") + " 秒（落地恢复）");
+                GUILayout.Label(Bootstrap.Workshop == null ? "WASD 穿墙飞行 / Shift 3×\nF 返回入口 / R 换种子\n滚轮缩放 / F1 收起面板" :
+                    "Tab 行走/穿墙观察 · AD 移动\n空格跳跃/按住喷气 · F 回入口\n左键手采 / 右键调试爆破（6格）\nR 换种子 · F1 面板 · 滚轮缩放", GUILayout.Height(85));
                 var settings = Bootstrap.Settings;
                 GUILayout.Label("种子");
                 GUI.SetNextControlName("TerrainSeed");

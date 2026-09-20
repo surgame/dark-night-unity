@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 533a05f34ee90c441b1fd0edfa5a9d4c, type: 3}
+  m_Name: Terrain
+  m_EditorClassIdentifier: AnyRules.Authoring::AnyRules.Next.Authoring.TerrainDefinition
+  PersistentGuid: f006b3fcf106b58ff206b722f306b8b5
+  Key: slate
+  DisplayName: slate
+  ConnectionGroups: []
+  GameplayDefinitionGuid: 
+  Gameplay: {fileID: 0}
+  Solid: 1
+  MaximumDurability: 40
+  FillVisualSet: {fileID: 11400000, guid: c2769348f66e7bf4faa0a7dcda467d98, type: 2}

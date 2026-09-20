@@ -17,6 +17,10 @@ namespace DarkNights.Entry.Terrain
     public sealed class TerrainDebugBootstrap : MonoBehaviour
     {
         public ARDMapDefinition Definition;
+        public CaveTerrainStyle CaveStyle;
+        public TextAsset BalanceJson;
+        public TextAsset LevelJson;
+        public DarkNights.Runtime.Terrain.CaveWorkshopSession Workshop { get; private set; }
         public TerrainDebugFlyer Flyer;
         public TerrainGenerationSettings Settings = new TerrainGenerationSettings();
         public bool LiveRegenerate = true;
@@ -54,7 +58,8 @@ namespace DarkNights.Entry.Terrain
         {
             if (Blueprint == null || index < 0 || index >= Blueprint.Rooms.Count) return;
             var room = Blueprint.Rooms[index];
-            Flyer.Teleport(new Vector2(room.X + .5f, -room.Y + .5f));
+            Workshop?.Teleport(room.X, -room.Y);
+            Flyer.Teleport(new Vector2(room.X, -room.Y));
         }
 
         private void Update()
@@ -80,6 +85,7 @@ namespace DarkNights.Entry.Terrain
             int version = request;
             CancellationToken token = lifetime.Token;
             TerrainPreview candidate = null;
+            DarkNights.Runtime.Terrain.CaveWorkshopSession workshop = null;
             try
             {
                 if (Definition == null || Flyer == null || Flyer.ViewCamera == null)
@@ -93,7 +99,14 @@ namespace DarkNights.Entry.Terrain
                 root.transform.SetParent(transform, false);
                 candidate = root.AddComponent<TerrainPreview>();
                 candidate.ViewCamera = Flyer.ViewCamera;
-                candidate.ShowBlueprint(Definition, blueprint);
+                candidate.CaveStyle = CaveStyle;
+                if (CaveStyle != null)
+                {
+                    var game = DarkNights.Runtime.Config.GameCatalogJson.Parse(BalanceJson.text, LevelJson.text);
+                    workshop = new DarkNights.Runtime.Terrain.CaveWorkshopSession(blueprint, Definition.LoadGameplayCatalog(), game);
+                    candidate.ShowReplica(Definition, new TerrainReplicaSource(workshop.Map), workshop.Map.World);
+                }
+                else candidate.ShowBlueprint(Definition, blueprint);
                 float deadline = Time.realtimeSinceStartup + 30;
                 while (!candidate.Ready)
                 {
@@ -105,7 +118,7 @@ namespace DarkNights.Entry.Terrain
                 }
                 token.ThrowIfCancellationRequested();
                 if (version != request) return;
-                Release(Preview);
+                Release(Preview); Workshop?.Dispose(); Workshop = workshop; workshop = null;
                 Blueprint = blueprint; Preview = candidate; candidate = null;
                 Generation++; Flyer.Ready = true; VisitRoom(0);
                 Status = settings.Seed + " · " + blueprint.Rooms.Count + " 洞室 / " +
@@ -117,7 +130,7 @@ namespace DarkNights.Entry.Terrain
                 LastError = error.Message; Status = "生成失败：" + error.Message;
                 Debug.LogException(error, this);
             }
-            finally { Release(candidate); Generating = false; }
+            finally { Release(candidate); workshop?.Dispose(); Generating = false; }
         }
 
         private void Release(TerrainPreview preview)
@@ -130,6 +143,7 @@ namespace DarkNights.Entry.Terrain
         private void OnDisable()
         {
             lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null;
+            Workshop?.Dispose(); Workshop = null;
             pending = false; Release(Preview); Preview = null; Blueprint = null;
             if (Flyer != null) Flyer.Ready = false;
         }

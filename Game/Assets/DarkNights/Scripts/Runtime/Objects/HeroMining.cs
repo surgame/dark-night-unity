@@ -34,10 +34,10 @@ namespace DarkNights.Runtime.Objects
             {
                 float x = actor.X + (float)Math.Cos(radians) * d;
                 float h = state.Height + 9 + (float)Math.Sin(radians) * d;
-                var cell = new CellCoord((int)Math.Floor(x / PlayableTerrain.CellPixels),
-                    (int)Math.Floor((h - PlayableTerrain.OriginY) / PlayableTerrain.CellPixels));
+                var cell = new CellCoord((int)Math.Floor(x / PlayableTerrain.CellPixels + .5f),
+                    (int)Math.Floor((h - PlayableTerrain.OriginY) / PlayableTerrain.CellPixels + .5f));
                 if (!map.Descriptor.Bounds.Contains(cell)) return;
-                if (!map.Read(cell).Cell.IsEmpty)
+                if (Terrain.TerrainHeroMotion.Solid(map, x, h))
                 {
                     try
                     {

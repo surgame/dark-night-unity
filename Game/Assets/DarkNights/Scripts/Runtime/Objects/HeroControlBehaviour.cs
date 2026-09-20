@@ -29,7 +29,8 @@ namespace DarkNights.Runtime.Objects
             {
                 float target = Math.Clamp(state.X + state.Horizontal * (float)(actor.Definition.Speed *
                     actor.World.DebugHeroSpeedMultiplier * delta), 16, actor.World.Layout.WorldWidth - 16);
-                state.X = actor.World.Terrain == null ? target : Terrain.TerrainHeroMotion.MoveX(actor.World.Terrain.Map, state.X, target, state.Height);
+                if (actor.World.Terrain == null) state.X = target;
+                else Terrain.TerrainHeroMotion.MoveHorizontal(actor.World.Terrain.Map, state, target);
                 state.Face = state.Horizontal;
                 state.Walking = true;
             }

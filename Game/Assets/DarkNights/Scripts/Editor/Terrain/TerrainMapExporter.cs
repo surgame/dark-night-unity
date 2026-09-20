@@ -27,11 +27,13 @@ namespace DarkNights.Editor.Terrain
             for (int y = 0; y < blueprint.Height; y++) for (int x = 0; x < blueprint.Width; x++)
             {
                 int i = (y * blueprint.Width + x) * 2;
-                bytes[i] = blueprint.MaterialAt(x, y); bytes[i + 1] = (byte)(blueprint.IsProtected(x, y) ? 1 : 0);
+                bytes[i] = blueprint.MaterialAt(x, y); bytes[i + 1] = (byte)blueprint.CellFlagsAt(x, y);
             }
             File.WriteAllBytes(cellsPath, bytes); AssetDatabase.ImportAsset(cellsPath, ImportAssetOptions.ForceSynchronousImport);
             var asset = ScriptableObject.CreateInstance<TerrainMapAsset>();
-            asset.Settings = blueprint.Settings; asset.Definition = definition;
+            asset.CellFormat = 2; asset.Settings = blueprint.Settings; asset.Definition = definition;
+            if (blueprint.Settings.ResourceProfile == TerrainGenerationSettings.CaveExplorationProfile)
+                asset.CaveStyle = AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>(CaveWorkshopSetup.StylePath);
             asset.InitialCells = AssetDatabase.LoadAssetAtPath<TextAsset>(cellsPath);
             AssetDatabase.CreateAsset(asset, assetPath); AssetDatabase.SaveAssets(); return asset;
         }

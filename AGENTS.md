@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发约定
 
+2026-09-20 最新地图切片为[洞穴地图工作台](docs/CAVE_WORKSHOP.md)：`CaveExploration` 已接入 gpt-image-2.5 岩层源、新 DualGrid 样式、12 种坡形及匹配权威运动、暗后壁与冷暖光、临时手采／爆破。默认碰撞行走，Tab 切换观察。正式协议 11／存档 v7 不变，正式开局和洞穴存档尚未接入；100 种子隐藏图与 96 洞室落地不代表全路线能力可达。当前实测与边界以本页链接中的新证据为准，下方为历史切片。
+
 2026-09-20 新实验分支 `codex/cave-exploration-art` 合入 main `6b7b74c` 的手持装备，保留地图手采、矿床与恢复；协议 **11**／存档 **v7**。新增[天然洞穴技术原型](docs/CAVE_EXPLORATION_ART.md)：10–13 个不规则洞室、双入口、回环与部分掩埋通路，独立 Debug 场景可 Play。**新像素美术、独立斜面块与匹配碰撞仍未完成**，当前旧图集只作技术预览；完整游戏策划未扩入本轮。以下记录均为各自历史切片，不替代本批证据。
 
 2026-09-19 当前切片为[手采地图验收收口](docs/MAP_PLAN_EXECUTION.md)，分支 `codex/map-plan-execution`：协议 10／存档 v6；钻机、无人机、自动采矿和自动物流整链已从产品代码、资源与本轮门槛删除。主 Editor 完整 196/196、Core 1048/1048、Terrain 24 向量／100 seed、ArchitectureGuard 372/12/0、Mono 启动 6/6；同一 Mono 正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 18/18，覆盖 Host、Client、LateJoin、Reconnect、幂等、局部刷新与真实写盘重启恢复。M6 比例、前台性能、IL2CPP、双机器和真正新机器依赖恢复仍待后续；不把这些边界写成已完成。

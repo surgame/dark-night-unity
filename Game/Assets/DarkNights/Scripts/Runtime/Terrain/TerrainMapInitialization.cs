@@ -21,7 +21,7 @@ namespace DarkNights.Runtime.Terrain
                         int u = cu * size + x, v = cv * size + y;
                         if (u >= blueprint.Width || -v < 0 || -v >= blueprint.Height) continue;
                         byte t = blueprint.MaterialAt(u, -v);
-                        if (t != 0) cells[y * size + x] = new GridCell(tiles[t], 0, (ushort)(blueprint.IsProtected(u, -v) ? 1 : 0));
+                        if (t != 0) cells[y * size + x] = new GridCell(tiles[t], 0, DarkNights.Core.Logic.Terrain.TerrainShapeGeometry.Encode(blueprint.ShapeAt(u, -v), blueprint.IsProtected(u, -v)));
                     }
                     map.LoadChunk(new ChunkCoord(cu, cv), cells);
                 }

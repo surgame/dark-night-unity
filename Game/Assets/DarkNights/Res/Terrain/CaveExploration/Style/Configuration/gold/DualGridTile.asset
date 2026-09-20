@@ -1,0 +1,437 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b59f236fa6cf0f468429bf91ff53e04, type: 3}
+  m_Name: DualGridTile
+  m_EditorClassIdentifier: AnyRules.Authoring::AnyRules.Next.Authoring.AnyRuleD
+  PersistentGuid: 596e43d89a118a63aae933aa0bc48564
+  TargetTerrain: {fileID: 11400000, guid: b2786a70a71910840a544ece8747738a, type: 2}
+  Rules:
+  - RuleGuid: 78ae74ee2093fd91e2aef16d8a54629d
+    DisplayName: Mask 1
+    Priority: 0
+    Corners:
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: 4a770090bc730f9f99fde8f25eff4d00
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: 915fbbee5ed6f694b9de8bc7e762bcd7, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: c74465917ec2f7c48782ce8b862ccf9b
+    DisplayName: Mask 2
+    Priority: 0
+    Corners:
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: 80c3de95b32316fa5c52a2a6e2216ca8
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: 00ed5022b2a560a4d8c3d11cd691391b, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: 387779f8dca0c2685e8820fd9235ab1b
+    DisplayName: Mask 3
+    Priority: 0
+    Corners:
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: bfc39d2e5af7260ea83b17c1283a3fa9
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: bc3d0eb9da061c74fa59378ff001af5f, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: 4afe7f792ca0b48117115fc6f8b261b1
+    DisplayName: Mask 4
+    Priority: 0
+    Corners:
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: 2037df23bed36d1e315a73a6146f4d50
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: 5192f790cff590d4183980f43f212f66, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: 5256f571885b7a35dc3c4383c341ed95
+    DisplayName: Mask 5
+    Priority: 0
+    Corners:
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: 18ce3134a8087d5d62fdee4eb7233fd1
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: b4043c949848be744917fe783aa01e4e, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: cd869fc1988f5fa26ed085fe7395d479
+    DisplayName: Mask 6
+    Priority: 0
+    Corners:
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: 02dbf8dff3f24f7348dc0a9000e75e26
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: 8450523397976764687c1b8707387566, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: 8acf9a22882ad8e76e987f434dd46578
+    DisplayName: Mask 7
+    Priority: 0
+    Corners:
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: 88d4c4351f94d4a362e67ddc1c96659e
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: e67c85b51251df345bd8ae1fffab448a, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: 9790733377609ba19f04190735790142
+    DisplayName: Mask 8
+    Priority: 0
+    Corners:
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: 746fd4ab3b278e7bb3f674636a56b8b7
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: 9ebcc588c70a43a479da964367bab409, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: 1c096e029d8f32616b81c0f160c39c23
+    DisplayName: Mask 9
+    Priority: 0
+    Corners:
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: 29ac4b069e3f3d104f1df439558b9df1
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: 9ee074eb482796047b28988e0a645266, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: ee0ffc08ccc82695a62f38cd39efe248
+    DisplayName: Mask 10
+    Priority: 0
+    Corners:
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: 38abec3a20b73aa64bc6a3c4e2a47cee
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: 96417c6ba6f5ff341ad63a60d6231a29, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: 76c0c38fd95beca21182c64f3b691563
+    DisplayName: Mask 11
+    Priority: 0
+    Corners:
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: fd77f6c6301ff99090c017605dd6b522
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: 7e24b0b86555458449c0c35c0819a300, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: cf96e565a97bfbbe03159bb76f7c6ea6
+    DisplayName: Mask 12
+    Priority: 0
+    Corners:
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: 6ec070ca1923b96d466fb6fd7f2e07bf
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: 0d3b69d3b8cfc654db56f490d5a2bdb4, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: ecfa6a54f47f70d76fcc6067e7485345
+    DisplayName: Mask 13
+    Priority: 0
+    Corners:
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: b7875751fed3e20c7d24e430d53063e8
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: 075e576e6b6c9624ab891595b6cb1b11, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: 2d050f769796ea183217740c56b210b6
+    DisplayName: Mask 14
+    Priority: 0
+    Corners:
+    - Condition: 5
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: ae374a05f936e72f070f0e2114e0dc5a
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: ba9ce03a0b55b7b47914d47a66c3218f, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1
+  - RuleGuid: 89cf2730cd6c8c751e8e6fe0445ef589
+    DisplayName: Mask 15
+    Priority: 0
+    Corners:
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    - Condition: 1
+      SpecifiedTerrain: {fileID: 0}
+      ConnectionGroup: 
+    AllowedTransforms: 1
+    Outputs:
+    - SlotGuid: 18b59d75adbf234ae3819059a86fb4da
+      Channel: cell
+      VisualSet: {fileID: 11400000, guid: 85f63f1d647048e4195e5e2621416c28, type: 2}
+      Fallback: {fileID: 0}
+      Required: 1
+      SortingDomain: 0
+      Coverage: 2
+      BoundaryTarget: 0
+      BoundaryTerrain: {fileID: 0}
+      BoundaryContract: 1

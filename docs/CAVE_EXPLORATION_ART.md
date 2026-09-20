@@ -1,5 +1,7 @@
 # 天然洞穴与像素地形实验
 
+后续实现已推进到[洞穴地图工作台](CAVE_WORKSHOP.md)：新美术、坡形碰撞和行走／破坏测试已可用。以下为早期原型与合并的历史记录，当前验证结果以新文档和证据为准。
+
 2026-09-20，分支 `codex/cave-exploration-art`。从 `codex/map-plan-execution` 的 `e60e1fb` 创建，合入主分支 `6b7b74c`。保留两个父分支、原 Pinewatch、RandomPinewatch 和随机地图 Debug Bootstrap。
 
 2026-09-20 后续评估：用户实测后再次确认参考图目标，并指定生图使用 `imagegen-codex-provider`，同时要求先评估低像素素材是否适合生图。该规范已写入 [AGENTS.md](../AGENTS.md#prefab美术与内容)，不再等待 provider 路径选择。当前差异、素材方式和分阶段验收见[洞穴视觉与空间目标](CAVE_EXPLORATION_TARGETS.md)；本次只完成评估与文档，没有新增美术、斜面或运行验收。

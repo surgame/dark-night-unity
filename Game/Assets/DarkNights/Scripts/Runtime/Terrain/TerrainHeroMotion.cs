@@ -2,6 +2,7 @@ using System;
 using AnyRules.Next;
 using DarkNights.Core.Config;
 using DarkNights.Core.Config.Terrain;
+using DarkNights.Core.Logic.Terrain;
 using DarkNights.Runtime.Objects;
 
 namespace DarkNights.Runtime.Terrain
@@ -17,7 +18,10 @@ namespace DarkNights.Runtime.Terrain
             if (u < 0 || u >= TerrainGenerationSettings.Width || y >= TerrainGenerationSettings.Height) return true;
             if (y < 0) return false;
             var sample = map.Read(new CellCoord(u, -y));
-            return !sample.TryGetCell(out var cell) || !cell.IsEmpty;
+            if (!sample.TryGetCell(out var cell)) return true;
+            if (cell.IsEmpty) return false;
+            return TerrainShapeGeometry.Contains(TerrainShapeGeometry.Decode(cell.Flags),
+                x / PlayableTerrain.CellPixels - u + .5f, (height - PlayableTerrain.OriginY) / PlayableTerrain.CellPixels + y + .5f);
         }
         private static bool Blocked(IReadOnlyGrid map, float x, float height)
         {
@@ -25,19 +29,40 @@ namespace DarkNights.Runtime.Terrain
                 if (Solid(map, x - HalfWidth, height + y) || Solid(map, x + HalfWidth, height + y)) return true;
             return false;
         }
-        private static bool Supported(IReadOnlyGrid map, float x, float h) =>
-            Solid(map, x - HalfWidth, h - .1f) || Solid(map, x + HalfWidth, h - .1f);
-        public static float MoveX(IReadOnlyGrid map, float previous, float target, float height)
+        private static bool Supported(IReadOnlyGrid map, float x, float h) => Ground(map, x, h + .2f, h - .25f, out _);
+        private static bool Ground(IReadOnlyGrid map, float x, float high, float low, out float height)
         {
+            height = float.NegativeInfinity;
+            for (int foot = -1; foot <= 1; foot++)
+            {
+                float px = x + foot * HalfWidth;
+                int u = (int)Math.Floor(px / PlayableTerrain.CellPixels + .5f);
+                int top = (int)Math.Floor((PlayableTerrain.OriginY - high) / PlayableTerrain.CellPixels + .5f);
+                int bottom = (int)Math.Floor((PlayableTerrain.OriginY - low) / PlayableTerrain.CellPixels + .5f) + 1;
+                for (int y = top; y <= bottom; y++)
+                {
+                    if (!map.Read(new CellCoord(u, -y)).TryGetCell(out var cell) || cell.IsEmpty) continue;
+                    var shape = TerrainShapeGeometry.Decode(cell.Flags);
+                    float edge = TerrainShapeGeometry.Ceiling(shape) ? 1 : TerrainShapeGeometry.Edge(shape, px / PlayableTerrain.CellPixels - u + .5f);
+                    float surface = PlayableTerrain.OriginY + (-y - .5f + edge) * PlayableTerrain.CellPixels;
+                    if (surface <= high + .001f && surface >= low - .001f) height = Math.Max(height, surface);
+                }
+            }
+            return !float.IsNegativeInfinity(height);
+        }
+        public static void MoveHorizontal(IReadOnlyGrid map, ActorState state, float target)
+        {
+            float previous = state.X;
             int steps = Math.Max(1, (int)Math.Ceiling(Math.Abs(target - previous) / 2));
-            float x = previous;
             for (int i = 1; i <= steps; i++)
             {
                 float next = previous + (target - previous) * i / steps;
-                if (Blocked(map, next, height)) break;
-                x = next;
+                float h = state.Height;
+                if (state.VerticalSpeed <= 0 && Supported(map, state.X, h) &&
+                    Ground(map, next, h + 2.05f, h - 2.05f, out float floor)) h = floor;
+                if (Blocked(map, next, h)) break;
+                state.X = next; state.Height = h;
             }
-            return x;
         }
         public static void Tick(IReadOnlyGrid map, ActorState state, HeroControlDefinition rules, double delta, bool jump, bool thrust)
         {
@@ -61,17 +86,10 @@ namespace DarkNights.Runtime.Terrain
             for (int i = 1; i <= steps; i++)
             {
                 float next = from + (target - from) * i / steps;
-                if (Blocked(map, state.X, next) || (state.VerticalSpeed < 0 && Supported(map, state.X, next)))
-                {
-                    if (state.VerticalSpeed < 0)
-                    {
-                        // 精确吸附到被扫过格子的顶边，消除落地后的小间隙和下一帧抖动。
-                        float row = (float)Math.Floor((PlayableTerrain.OriginY - next + .1f) / PlayableTerrain.CellPixels + .5f);
-                        state.Height = PlayableTerrain.OriginY - (row - .5f) * PlayableTerrain.CellPixels;
-                        state.SupportPlatform = 0;
-                    }
-                    state.VerticalSpeed = 0; return;
-                }
+                if (state.VerticalSpeed <= 0 && Ground(map, state.X, state.Height + .1f, next - .1f, out float floor))
+                { state.Height = floor; state.VerticalSpeed = 0; state.SupportPlatform = 0; return; }
+                if (Blocked(map, state.X, next))
+                { state.VerticalSpeed = 0; return; }
                 state.Height = next;
             }
             if (target == rules.MaximumHeight || target == PlayableTerrain.MinimumHeight) state.VerticalSpeed = 0;

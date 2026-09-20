@@ -11,6 +11,8 @@ namespace DarkNights.View.Terrain
     public sealed class TerrainPreview : MonoBehaviour
     {
         public TerrainMapAsset Map;
+        public CaveTerrainStyle CaveStyle;
+        private CaveVisualSource caveSource;
         public Camera ViewCamera;
         private ARDMapController controller;
         private CancellationTokenSource lifetime;
@@ -30,17 +32,20 @@ namespace DarkNights.View.Terrain
         public async void ShowReplica(AnyRules.Next.Authoring.ARDMapDefinition definition, IMapChunkSource source, WorldIdentity world)
         {
             replicaSource = source as TerrainReplicaSource;
+            if (CaveStyle != null)
+            { caveSource = new CaveVisualSource(source, CaveStyle, definition.LoadGameplayCatalog().Tiles, transform); source = caveSource; }
             localCoordinates = true;
             var own = lifetime = new CancellationTokenSource();
             try
             {
                 var result = await ARDMapController.CreateAsync(definition, new MapOptions(initialize: false, showOnCreate: false,
-                    autoUpdate: false, maximumInitializationCells: 131072, chunkSource: source, parent: transform, world: world), own.Token);
+                    autoUpdate: false, maximumInitializationCells: 131072, chunkSource: source, parent: transform, world: world, profile: CaveProfile()), own.Token);
                 if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
                 controller = result;
                 await result.LoadRegionAsync(result.Descriptor.Bounds, own.Token);
                 if (own.IsCancellationRequested) return;
                 if (replicaSource != null) replicaSource.Changed += OnReplicaChanged;
+                caveSource?.Flush();
                 UpdateVisible();
             }
             catch (OperationCanceledException) { }
@@ -50,6 +55,7 @@ namespace DarkNights.View.Terrain
         private void OnEnable()
         {
             if (Map == null || ViewCamera == null) return;
+            if (CaveStyle == null) CaveStyle = Map.CaveStyle;
             ShowBlueprint(Map.Definition, Map.ReadBlueprint());
         }
 
@@ -62,20 +68,24 @@ namespace DarkNights.View.Terrain
             try
             {
                 var catalog = definition.LoadGameplayCatalog();
-                var source = new TerrainBlueprintSource(blueprint, catalog.Tiles);
+                IMapChunkSource source = new TerrainBlueprintSource(blueprint, catalog.Tiles);
+                if (CaveStyle != null) { caveSource = new CaveVisualSource(source, CaveStyle, catalog.Tiles, transform); source = caveSource; }
                 // Definition reloads its catalog; TileIds remain mapped through stable terrain keys.
                 var result = await ARDMapController.CreateAsync(definition,
                     new MapOptions(initialize: false, showOnCreate: false, autoUpdate: false,
-                        maximumInitializationCells: 131072, chunkSource: source, parent: transform), own.Token);
+                        maximumInitializationCells: 131072, chunkSource: source, parent: transform, profile: CaveProfile()), own.Token);
                 if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
                 controller = result;
                 await result.LoadRegionAsync(result.Descriptor.Bounds, own.Token);
                 if (own.IsCancellationRequested) return;
+                caveSource?.Flush();
                 UpdateVisible();
             }
             catch (OperationCanceledException) { }
             catch (Exception e) { LastError = e; Debug.LogException(e, this); }
         }
+
+        private RenderProfile CaveProfile() => caveSource == null ? null : new RenderProfile(defaultMaterial: caveSource.Material);
 
         private void Update()
         {
@@ -150,7 +160,7 @@ namespace DarkNights.View.Terrain
                         await controller.UnloadRegionAsync(region, MapUnloadPolicy.DiscardUnsaved, own.Token);
                         await controller.LoadRegionAsync(region, own.Token);
                     }
-                    if (!own.IsCancellationRequested) controller.ShowRegion(visible);
+                    if (!own.IsCancellationRequested) { caveSource?.Flush(); controller.ShowRegion(visible); }
                 }
             }
             catch (OperationCanceledException) { }
@@ -196,6 +206,7 @@ namespace DarkNights.View.Terrain
             lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null; refreshingReplica = false; pendingReplicaChunks.Clear();
             var old = controller; controller = null; visible = default;
             if (old != null) await old.DisposeAsync();
+            caveSource?.Dispose(); caveSource = null;
         }
     }
 }

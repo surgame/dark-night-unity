@@ -258,6 +258,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: DebugFlyer
       objectReference: {fileID: 0}
+    - target: {fileID: 5519118104325254019, guid: 75e39142b36ad7448876d164a30718c1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 6.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519118104325254019, guid: 75e39142b36ad7448876d164a30718c1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 6.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519118104325254019, guid: 75e39142b36ad7448876d164a30718c1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 6.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519118104325254019, guid: 75e39142b36ad7448876d164a30718c1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519118104325254019, guid: 75e39142b36ad7448876d164a30718c1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -285,6 +305,7 @@ GameObject:
   - component: {fileID: 2146584200}
   - component: {fileID: 2146584199}
   - component: {fileID: 2146584198}
+  - component: {fileID: 2146584201}
   m_Layer: 0
   m_Name: Cave Exploration Bootstrap
   m_TagString: Untagged
@@ -318,7 +339,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cae1d5eb72995f241975afeb7c967f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: DarkNights.Entry::DarkNights.Entry.Terrain.TerrainDebugBootstrap
-  Definition: {fileID: 11400000, guid: c792638485176ca4ea0b2de6e8814b3a, type: 2}
+  Definition: {fileID: 11400000, guid: 9510153ee53fe324f86d6a4021ad5410, type: 2}
+  CaveStyle: {fileID: 11400000, guid: 296a03033270f1646b5efb54cb2e6a3b, type: 2}
+  BalanceJson: {fileID: 4900000, guid: 887f7dd8067191b469ededa0a55ed0ab, type: 3}
+  LevelJson: {fileID: 4900000, guid: d54580f6965e6754d8a69884072bf2f0, type: 3}
   Flyer: {fileID: 848257536}
   Settings:
     Seed: CAVE-EXPLORATION-01
@@ -343,6 +367,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2146584201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2146584197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e05b96d8e9e877346b3d6c71cac926e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.Entry::DarkNights.Entry.Terrain.CaveWorkshopInput
+  Bootstrap: {fileID: 2146584199}
+  Walking: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

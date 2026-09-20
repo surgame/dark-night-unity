@@ -1,0 +1,9 @@
+{
+  "source": "rock-source-gpt-image-2.5.png",
+  "model": "gpt-image-2.5",
+  "sourceSha256": "7f6c29465d5e3d49c9ea4972ffc4126978d4ba34e5277248ee306e58db2d784b",
+  "outputs": {
+    "cave-rock.png": "3cc0c45c1494440757d021fbd2c4a568b53494ddcc847d7aab5fafefcb028ee3",
+    "cave-dualgrid.png": "7b09069fcfe79d996ccc1942a4221f32a7ac3db9fbad4dffbb3a84934b4b0a4a"
+  }
+}

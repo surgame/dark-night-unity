@@ -1,0 +1,105 @@
+{
+  "date": "2026-09-20",
+  "branch": "codex/cave-exploration-art",
+  "scope": "Independent CaveExploration map workshop; formal protocol 11/save v7 unchanged",
+  "imageModel": "gpt-image-2.5 (retry succeeded after initial routing failure)",
+  "editorGroups": {
+    "Cave": {
+      "summary": {
+        "total": 7,
+        "passed": 7,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "duration": 5.04,
+      "source": "artifacts\\cave-workshop\\cave-complete-status.json"
+    },
+    "Terrain": {
+      "summary": {
+        "total": 17,
+        "passed": 17,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "duration": 5.59,
+      "source": "artifacts\\cave-workshop\\terrain-isolated-status.json"
+    },
+    "Hero": {
+      "summary": {
+        "total": 26,
+        "passed": 26,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "duration": 3.03,
+      "source": "artifacts\\cave-workshop\\hero-status.json"
+    },
+    "Equipment": {
+      "summary": {
+        "total": 1,
+        "passed": 1,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "duration": 0.43,
+      "source": "artifacts\\cave-workshop\\equipment-status.json"
+    }
+  },
+  "groupCountsAreNotAdditive": true,
+  "core": {
+    "checks": 1048,
+    "failed": 0
+  },
+  "terrain": {
+    "legacyVectors": 24,
+    "depositSeeds": 100,
+    "caveSeeds": 100,
+    "scope": "determinism, frozen shapes, hidden graph; not ability traversal"
+  },
+  "architecture": {
+    "files": 400,
+    "selfTests": 12,
+    "errors": 0
+  },
+  "play": {
+    "seeds": 8,
+    "landings": 96,
+    "result": "8 seeds captured; 96 authority landings checked",
+    "screenshots": {
+      "artifacts\\cave-workshop\\overview-0.png": "fd07993291e521f5e120eff0abcfed65ebbf05918af22849434bb387da0b55d9",
+      "artifacts\\cave-workshop\\overview-1.png": "e6515d8a204b7a9cffac306adcd1d70f8815e99167d57679c16360cb431ba853",
+      "artifacts\\cave-workshop\\overview-2.png": "e509cb90ec343ea2f0e163757378f83733a0faa37f50da626ec8beda222b4886",
+      "artifacts\\cave-workshop\\overview-3.png": "2b36e4d5a86f73cb9240f7e49ae839b7b336900aab3e3d0f56c1e350f0221264",
+      "artifacts\\cave-workshop\\overview-4.png": "2a9623b9a1d44f9ad58b8b18243aaade8b9f757f2effe544e2ca87f5ba2510b9",
+      "artifacts\\cave-workshop\\overview-5.png": "7f3f3ef1fdfd28d4421b72785a6f5393bc6944a9f16214d93e37c69a07fd7b13",
+      "artifacts\\cave-workshop\\overview-6.png": "a5ed6d4890a9fa8cc13737338afbe9771df2237652409ac61d7685aa115bde8b",
+      "artifacts\\cave-workshop\\overview-7.png": "0690ec7c964b7a1832012cfaf0de0cb057360ebc6e289c9795f8cff9301731f3",
+      "artifacts\\cave-workshop\\near-0.png": "9bf68bfc66c72ac740e35bf2a3151bc754c63d3c28be00a579a64017bf080f41",
+      "artifacts\\cave-workshop\\near-1.png": "cc0b3abb4f59df137fcda0b833f2570e4835949b7b7bcd12151f8cd358b7a790",
+      "artifacts\\cave-workshop\\near-2.png": "ad662e32e569daf3f4986f450d1c86521a2282cfff4d94e9edcac47d7773e254",
+      "artifacts\\cave-workshop\\near-3.png": "05d2622bce5cbe56dfbbb38a7bf0a9a74222bef7f445954a1b06558031b8c3f3",
+      "artifacts\\cave-workshop\\near-4.png": "111f6c91acdfb01f45a5fbe37877b1525ecd27508ee3c6204d4b0079173e9e44",
+      "artifacts\\cave-workshop\\near-5.png": "b787a341f5c523dc053e5554de4e27e078ec697a15f182e11854e0519af3dda1",
+      "artifacts\\cave-workshop\\near-6.png": "39ee6a6795d2fa0a2cc36629c42ffaa8fbfb63235e72bce1531e8681a5f529a6",
+      "artifacts\\cave-workshop\\near-7.png": "58d6049a13a38d7e00ad4a4f88fbc2faf9ba4c9aef515b94508ebf0f81bb8644"
+    }
+  },
+  "completeEditorSuitePassed": false,
+  "newPlayerBuild": false,
+  "formalCaveSessionIntegrated": false,
+  "wholeRouteTraversalVerified": false,
+  "cleanup": {
+    "status": "rejected by policy; not retried",
+    "retained": "Game/Assets/Temp",
+    "bytes": 1548990,
+    "retainedCaches": "Library, dependencies, existing tool caches and historical players",
+    "freeGB": {
+      "C": 6.76,
+      "D": 34.44
+    }
+  }
+}

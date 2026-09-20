@@ -27,7 +27,7 @@ namespace DarkNights.View.Terrain
                 int u = coordinate.U * size + x, v = coordinate.V * size + y;
                 if (u < 0 || u >= blueprint.Width || -v < 0 || -v >= blueprint.Height) continue;
                 byte material = blueprint.MaterialAt(u, -v);
-                if (material != 0) cells[y * size + x] = new GridCell(tiles[material], 0, (ushort)(blueprint.IsProtected(u, -v) ? 1 : 0));
+                if (material != 0) cells[y * size + x] = new GridCell(tiles[material], 0, blueprint.CellFlagsAt(u, -v));
             }
             return Task.FromResult(new MapChunkData(coordinate, cells));
         }

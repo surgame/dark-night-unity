@@ -9,6 +9,7 @@ namespace DarkNights.Core.Config.Terrain
         private readonly byte[] cells;
         private readonly bool[] protectedCells;
         private readonly bool[] softRock;
+        private readonly byte[] shapes;
         private readonly TerrainGenerationSettings settings;
         public int Width => TerrainGenerationSettings.Width;
         public int Height => TerrainGenerationSettings.Height;
@@ -27,7 +28,7 @@ namespace DarkNights.Core.Config.Terrain
         }
 
         public TerrainBlueprint(TerrainGenerationSettings settings, byte[] cells, bool[] protectedCells,
-            int[] surface, TerrainRoom[] rooms, bool[] softRock, TerrainDepositBlueprint[] deposits, CavePassage[] passages = null)
+            int[] surface, TerrainRoom[] rooms, bool[] softRock, TerrainDepositBlueprint[] deposits, CavePassage[] passages = null, byte[] shapes = null)
         {
             this.settings = settings.CopyValidated();
             Passages = Array.AsReadOnly((CavePassage[])(passages ?? Array.Empty<CavePassage>()).Clone());
@@ -35,6 +36,11 @@ namespace DarkNights.Core.Config.Terrain
                 protectedCells.Length != cells.Length || surface == null || surface.Length != Width || rooms == null ||
                 softRock == null || softRock.Length != cells.Length || deposits == null)
                 throw new ArgumentException("蓝图尺寸不完整。");
+            this.shapes = shapes == null ? new byte[cells.Length] : (byte[])shapes.Clone();
+            if (this.shapes.Length != cells.Length) throw new ArgumentException("坡形尺寸无效。");
+            for (int i = 0; i < this.shapes.Length; i++)
+                if (this.shapes[i] > 12 || (this.shapes[i] != 0 && (cells[i] == 0 || protectedCells[i])))
+                    throw new ArgumentException("坡形或保护约束无效。");
             for (int i = 0; i < cells.Length; i++)
                 if (cells[i] > 8 || (softRock[i] && (cells[i] == 8 || protectedCells[i])))
                     throw new ArgumentException("未知地形编号或软岩标记。");
@@ -54,6 +60,9 @@ namespace DarkNights.Core.Config.Terrain
         public byte MaterialAt(int x, int y) => cells[Index(x, y)];
         public bool IsProtected(int x, int y) => protectedCells[Index(x, y)];
         public bool IsSoftRock(int x, int y) => softRock[Index(x, y)];
+        public TerrainCellShape ShapeAt(int x, int y) => (TerrainCellShape)shapes[Index(x, y)];
+        public ushort CellFlagsAt(int x, int y) => (ushort)(((int)ShapeAt(x, y) << 1) | (IsProtected(x, y) ? 1 : 0));
+        public byte[] CopyShapes() => (byte[])shapes.Clone();
         public byte[] CopyMaterials() => (byte[])cells.Clone();
         public bool[] CopySoftRock() => (bool[])softRock.Clone();
         private int Index(int x, int y)

@@ -36,8 +36,8 @@ namespace DarkNights.Tools.TerrainRegression
                     thin = map.Passages.Count(e => e.Kind == CavePassageKind.ThinRock),
                     deep = map.Passages.Count(e => e.Kind == CavePassageKind.DeepRock) });
             }
-            Directory.CreateDirectory("artifacts/cave-exploration");
-            File.WriteAllText("artifacts/cave-exploration/generation.json", JsonSerializer.Serialize(new
+            Directory.CreateDirectory("artifacts/cave-workshop");
+            File.WriteAllText("artifacts/cave-workshop/generation.json", JsonSerializer.Serialize(new
             { seeds = rows.Count, passed = true, scope = "determinism and hidden topology; not player traversal", rows },
                 new JsonSerializerOptions { WriteIndented = true }));
             Console.WriteLine("Cave exploration: 100 deterministic connected hidden graphs with buried passages passed.");
