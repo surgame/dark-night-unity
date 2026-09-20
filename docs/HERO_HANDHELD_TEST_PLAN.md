@@ -1,6 +1,6 @@
 # 主角手持装备冒烟／回归执行文档
 
-本次开发依用户要求只编译。**下列项目全部待执行，没有通过计数。** 对应[实现合同](HERO_HANDHELD_EQUIPMENT.md)、[编译证据](evidence/hero-handheld-2026-09-20.json)。执行时另建带日期及实际提交的结果文件，不能把本计划或旧版本 Player 结果当作证据。
+本次开发时依用户要求只编译。2026-09-20 已执行首批测试：主角相关 22/22 通过，整个自动化批次在旧指令圈资源加载超时后停止；详见[实际结果](HERO_HANDHELD_TEST_RESULTS.md)。下方保留原计划，各项目实际状态以结果文档为准。对应[实现合同](HERO_HANDHELD_EQUIPMENT.md)、[编译证据](evidence/hero-handheld-2026-09-20.json)，不能把本计划或旧版本 Player 结果当作证据。
 
 ## 准备与顺序
 
