@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-2026-09-20 完成[主角手持装备开发](HERO_HANDHELD_EQUIPMENT.md)：三套分层 Aseprite 像素素材与图标，手枪／128 槽投射物池、蓄力抛物线黏性炸药、仅动作矿镐及底部四槽栏。复用 YYGC 输入／状态和 R3 表现链，协议 10／存档 v5。基于本次最新 main `b96d8dc`，Unity 6000.4.9f1 编译通过；**按用户要求没有运行玩法测试或构建 Player**，后续按[冒烟／回归文档](HERO_HANDHELD_TEST_PLAN.md)执行。YYGC 仍为 `12b253c`；保留本机漂移的 AnyRules 缓存，新隔离缓存恢复原锁并核对 442 文件。
+2026-09-20 完成[主角手持装备开发](HERO_HANDHELD_EQUIPMENT.md)：三套分层 Aseprite 像素素材与图标，手枪／128 槽投射物池、蓄力抛物线黏性炸药、仅动作矿镐及底部四槽栏。复用 YYGC 输入／状态和 R3 表现链，协议 10／存档 v5。基于本次最新 main `b96d8dc`，Unity 6000.4.9f1 编译通过；**首批主角测试 22/22 通过；全批 77 通过、1 加载超时、120 未完成，尚未构建 Player**，后续按[冒烟／回归文档](HERO_HANDHELD_TEST_PLAN.md)执行。YYGC 仍为 `12b253c`；保留本机漂移的 AnyRules 缓存，新隔离缓存恢复原锁并核对 442 文件。
 
 2026-09-17 新增[独立随机地图 Debug Bootstrap](TERRAIN_DEBUG_BOOTSTRAP.md)：原平地场景未被覆盖，调试入口直接使用 HTML 对应的 8 房间／7 通道蓝图，无营地 72 列覆盖或波次；默认近距离跟随、WASD 二维穿墙、可调镜头与实时重建。Editor 地图 11/11、表现修正后 3/3 复验、真实 Play 22/22。独立 Mono 与本批清理见专属证据；正式网络、IL2CPP、前台性能和 M5 边界不变。
 

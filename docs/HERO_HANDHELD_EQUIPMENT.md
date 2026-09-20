@@ -1,6 +1,6 @@
 # 主角手持装备：开发成果与交接
 
-2026-09-20。基于本次拉取的 `origin/main` **b96d8dccaefc4d36da56f688dd73927be2914aac**，开发分支 `codex/hero-handheld-equipment`。实现和 Unity 6000.4.9f1 编译已完成；依用户要求，玩法、Prefab 保存重开、Player、独立进程联机和性能验收均留待执行，不能引用历史批次的通过计数。执行清单见[冒烟／回归计划](HERO_HANDHELD_TEST_PLAN.md)，机器记录见[本批证据](evidence/hero-handheld-2026-09-20.json)。
+2026-09-20。基于本次拉取的 `origin/main` **b96d8dccaefc4d36da56f688dd73927be2914aac**，开发分支 `codex/hero-handheld-equipment`。实现和 Unity 6000.4.9f1 编译已完成；首批主角自动化测试 22/22 通过，全批在旧指令圈加载超时后停止。人工画面、Prefab 保存重开、Player、联机和性能仍未验收，当前结果与人工接入步骤统一维护在测试清单。执行清单见[冒烟／回归计划](HERO_HANDHELD_TEST_PLAN.md)，机器记录见[本批证据](evidence/hero-handheld-2026-09-20.json)。
 
 ## 可操作功能
 
@@ -70,4 +70,4 @@
 
 已完成：代码编译、整批 PNG／Aseprite 导入、首版 Prefab／配置／Addressable 装配、静态差异与资源引用检查、PNG 预览检查。
 
-待执行：新增 7 个手枪／炸药用例及更新后的主角用例；Prefab 编辑保存重开；真实输入、像素挂点和动作观感；Editor／Play、Mono、2–4 进程联机、弱网、恢复与性能。未运行任何本批玩法测试、未构建 Player，未验证 IL2CPP、双机器 LAN 或 M5 前台性能。
+测试状态：新增手枪／炸药 7 项及其他主角 15 项已通过；其余自动化和人工验收状态见[测试清单](HERO_HANDHELD_TEST_PLAN.md)。尚未构建本批 Player，未验证 IL2CPP、双机器 LAN 或 M5 前台性能。
