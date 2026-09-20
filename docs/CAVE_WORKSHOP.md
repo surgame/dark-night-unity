@@ -2,6 +2,10 @@
 
 2026-09-20，`codex/cave-exploration-art`。这是参考图评估之后的新实现切片；旧的“未制作美术／斜坡”记录属于此前原型。正式协议仍为 11、存档 v7，未更换正式开局地图。
 
+同日修复 `8869da7` 后工作台人物的转向锚点跳动与缺失行走动画：原精灵使用左上角原点，旧行走分支只翻转精灵、未镜像偏移。现在行走／观察共用画布底边中点锚定，每次转向或换帧同步修正偏移；接回已有的 12 帧、1 秒循环行走素材，转身不重置进度，松键恢复静止。行走仅关闭飞行输入，保留组件及 LateUpdate 镜头跟随。没有改正式主角、权威运动、地图、协议、存档或 YYGC。
+
+本批无需生图：复用原始 12×12 工人像素帧，洞穴保持 16 像素／格的既有比例，保留透明边缘和导入设置。只增加 DebugFlyer Prefab 的直接素材引用；Prefab 与洞穴场景保存、重开完成，场景序列化内容无差异。Unity 6000.4.9f1 编译通过，新增 Editor 回归 2/2，实际 Play 的四次 AD 转向、逐帧锚点／动画、松键、Tab 往返和跳跃通过（277 次断言采样，并非 277 个独立用例）；ArchitectureGuard 401 文件／12 自测／0 错误。见[本批证据](evidence/cave-character-repair-2026-09-20.json)。未构建 Player，未重跑联机或全地图可达矩阵。
+
 ## 测试入口
 
 Unity 菜单 `Dark Nights/Debug/打开天然洞穴实验`，或打开 `Game/Assets/DarkNights/Res/Terrain/CaveExploration/CaveExploration.unity` 后 Play。默认种子 `CAVE-EXPLORATION-01`，默认实际碰撞行走模式。

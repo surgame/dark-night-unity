@@ -1,0 +1,64 @@
+{
+  "date": "2026-09-20",
+  "baseCommit": "8869da7f74a2730c838564bbc2ed241aefd5a797",
+  "scope": "洞穴工作台与共用 DebugFlyer 表现修复",
+  "editor": "6000.4.9f1",
+  "compilation": "passed",
+  "editorTests": {
+    "total": 2,
+    "report": "artifacts/cave-character-repair/editor-tests.json",
+    "passed": 2,
+    "failed": 0
+  },
+  "play": {
+    "report": "artifacts/cave-character-repair/play-validation.json",
+    "sampleAssertions": 277,
+    "cases": [
+      "AD四次转向时锚点居中、脚底对齐、精灵持续有效",
+      "行走帧推进",
+      "松键恢复idle并保留朝向",
+      "Tab观察与行走往返",
+      "空格跳跃"
+    ],
+    "inputSettingsRestored": true,
+    "passed": true,
+    "screenshots": [
+      "artifacts/cave-character-repair/A.png",
+      "artifacts/cave-character-repair/D.png"
+    ]
+  },
+  "architecture": {
+    "selfTests": 12,
+    "errors": 0,
+    "files": 401
+  },
+  "assets": {
+    "caveSceneDiff": false,
+    "guidChanges": false,
+    "source": "已有12x12 spr_worker_walking，12帧/1秒",
+    "caveSceneSavedAndReopened": true,
+    "generatedArt": false,
+    "prefabSavedAndReloaded": true
+  },
+  "validationCorrections": [
+    "首轮单测恰好按1/12浮点帧边界采样，改为0.09秒后2/2通过",
+    "首次Play走出出生岩棚，改在预探测连续落地的岩棚验证步行；不将空中idle判为步行动画失败",
+    "后台Editor禁用或过滤测试键盘，验证脚本临时启用后台GameView输入并finally恢复原设置"
+  ],
+  "boundaries": [
+    "未改正式主角、权威运动、协议11、存档v7、YYGC或依赖",
+    "未构建Mono/IL2CPP Player，未验收网络或全路线可达"
+  ],
+  "retainedArtifacts": {
+    "reason": "本批截图、最终报告与失败诊断；复核证据保留",
+    "releasedBytes": 0,
+    "bytes": 1261602,
+    "freeBytes": 36972711936,
+    "path": "artifacts/cave-character-repair"
+  },
+  "hashes": {
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/CaveWorkshopInput.cs": "81FA6CF198D096238912F50E6AB521BD96AF13A0F0B65F4E55ABA83B1DCCC2AA",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainDebugFlyer.cs": "2040ABB480AF70FE1B27FAD3E2F744DEF9FEDD9FA07C6EF1CF035E3B48390AA2",
+    "Game/Assets/DarkNights/Res/Terrain/DebugBootstrap/DebugFlyer.prefab": "9AF93C060F00DEA8AFFAFB6DE644C7F104A934F06C923C8B16A9AA078F79CFD2"
+  }
+}

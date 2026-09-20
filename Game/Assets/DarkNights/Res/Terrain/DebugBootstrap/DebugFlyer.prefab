@@ -138,5 +138,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Terrain.TerrainDebugFlyer
   ViewCamera: {fileID: 0}
   Art: {fileID: 2277429551795917280}
+  IdleFrame: {fileID: 21300000, guid: d79777d6ea983f041a4bf192c7aca9af, type: 3}
+  WalkFrames:
+  - {fileID: 21300000, guid: 661bb7571fb454c409ee2179e256ff0c, type: 3}
+  - {fileID: 21300000, guid: 66935829a85d1f54fa380c1bc3d41aa9, type: 3}
+  - {fileID: 21300000, guid: 38db5fd8149bf2c49a7913dbaae13780, type: 3}
+  - {fileID: 21300000, guid: 58195c7717cc06b4ca09573226554b7b, type: 3}
+  - {fileID: 21300000, guid: a992f83a3556a5142baa31a835e47aad, type: 3}
+  - {fileID: 21300000, guid: 0d043080d89949d4b87afaf707e7d199, type: 3}
+  - {fileID: 21300000, guid: a904c89deeba30a49bfd5b2f5c136f7d, type: 3}
+  - {fileID: 21300000, guid: 591fe9d362245054ab1efc0c31b1f997, type: 3}
+  - {fileID: 21300000, guid: ebfcdfee11ef0fa49ada2004edd7c3f4, type: 3}
+  - {fileID: 21300000, guid: 60e8d3addbd18084194ce55faab8ec47, type: 3}
+  - {fileID: 21300000, guid: 24d95eec82357944bae5ecd3f8fbea0b, type: 3}
+  - {fileID: 21300000, guid: 02afd74113dcd044a9c77841eb722944, type: 3}
   Speed: 18
   CameraDistance: 12

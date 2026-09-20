@@ -10,17 +10,23 @@ namespace DarkNights.Entry.Terrain
         public bool Walking = true;
         private float accumulator;
         private bool jump;
+        private void OnEnable()
+        {
+            if (Bootstrap != null && Bootstrap.Flyer != null) Bootstrap.Flyer.FlightInputEnabled = !Walking;
+        }
         private void Update()
         {
             if (Bootstrap == null || Bootstrap.Workshop == null || Bootstrap.Generating) return;
             var flyer = Bootstrap.Flyer; var keys = Keyboard.current; var mouse = Mouse.current;
+            flyer.FlightInputEnabled = !Walking;
             if (keys == null || flyer.InputBlocked) return;
             if (keys.tabKey.wasPressedThisFrame)
             {
                 Walking = !Walking;
+                accumulator = 0; jump = false;
                 if (Walking) Bootstrap.Workshop.Teleport(flyer.transform.position.x, flyer.transform.position.y);
             }
-            flyer.enabled = !Walking;
+            flyer.FlightInputEnabled = !Walking;
             if (!Walking) return;
             jump |= keys.spaceKey.wasPressedThisFrame;
             accumulator = Mathf.Min(accumulator + Time.unscaledDeltaTime, .1f);
@@ -28,7 +34,7 @@ namespace DarkNights.Entry.Terrain
             while (accumulator >= 1f / 60)
             { Bootstrap.Workshop.Tick(horizontal, jump, keys.spaceKey.isPressed, 1f / 60); jump = false; accumulator -= 1f / 60; }
             flyer.Teleport(new Vector2(Bootstrap.Workshop.X, Bootstrap.Workshop.Y));
-            if (horizontal != 0) flyer.Art.flipX = horizontal < 0;
+            flyer.PresentMovement(horizontal, horizontal != 0 && Bootstrap.Workshop.Grounded, Time.unscaledDeltaTime);
             if (mouse != null && !flyer.PointerOverPanel)
             {
                 float scroll = mouse.scroll.ReadValue().y;
@@ -40,6 +46,6 @@ namespace DarkNights.Entry.Terrain
                 }
             }
         }
-        private void OnDisable() { if (Bootstrap != null && Bootstrap.Flyer != null) Bootstrap.Flyer.enabled = true; }
+        private void OnDisable() { if (Bootstrap != null && Bootstrap.Flyer != null) Bootstrap.Flyer.FlightInputEnabled = true; }
     }
 }
