@@ -82,6 +82,10 @@
 
 ## Prefab、美术与内容
 
+- 用户于 2026-09-20 明确指定：本项目需要 AI 生图时，使用 [imagegen-codex-provider](C:/Users/Jobscn/.codex/skills/imagegen-codex-provider/SKILL.md) 替代内置 imagegen 路径，通过已配置 provider 的 gpt-image 模型执行，遵循该技能当前模型及调用规范。这一工具选择已获授权，不再因缺少内置工具重复询问是否允许使用配置 API；具体生图仍须属于当次任务范围，评估任务不自动变成批量生图任务。
+- 每批素材制作前必须评估生图必要性，记录目标原生像素尺寸、用途、共边／透明／形状精度要求、选用方式及理由。16×16／32×32 等低像素地形、DualGrid 掩码、斜面和碰撞轮廓优先采用可控的像素绘制与确定性图集工具；需要风格探索、大块岩层、远景或装饰源图时才考虑生图。不得把大图缩小、像素化滤镜或模型输出网格直接当成合格像素 tile。
+- 生图源只作为可编辑美术输入，最终像素资产必须统一像素密度、调色板、透明边缘及拼接合同；按原生尺寸和实际游戏镜头检查像素团块、重复纹理、共边、材质过渡与斜面衔接。视觉斜面必须对应独立形状和权威碰撞，不能用方块圆角／阶梯冒充。新源图和派生资源保留来源及重建关系，不覆盖人工源文件。
+- 洞穴参考图的差异和下一批目标见[洞穴视觉与空间目标](docs/CAVE_EXPLORATION_TARGETS.md)。先完成固定洞穴样板的美术、空间与真实角色通行，再推广到随机生成；隐藏拓扑连通和旧测试图集通过不代表参考风格验收通过。
 - 资源按对象／面板归组：`Res/Objects/Worker` 等目录集中所属 ObjectDefinition、Prefab、专用动画和材质；UI 同理。共用资源才放 Res/Shared，原始素材只保存一份，不因对象归组重复复制。
 - Addressables 不要求游戏资源目录叫 Addressable／Addressables；Res 是项目约定，不自动注册资源。通过 Addressable 条目与分组管理加载，不使用特殊 Resources 目录存放 Addressable 资源。保留现有 AddressableAssetsData 配置位置，物理目录、分组、Address／Label 与 YYGC 定义身份分开。
 - 正式对象通过 DefinitionReference 和 YYGC 定义／创建入口，由 ObjectDefinition.PrefabRef 驱动 Addressables；沿用组件绑定、注入与生成注册。检查绑定键、类型、引用及装配／池化／释放时机，不以 GetComponent、节点名或子节点索引兜底缺失绑定，不手改生成结果。详细合同见移植方案。

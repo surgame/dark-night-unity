@@ -2,6 +2,8 @@
 
 2026-09-20，分支 `codex/cave-exploration-art`。从 `codex/map-plan-execution` 的 `e60e1fb` 创建，合入主分支 `6b7b74c`。保留两个父分支、原 Pinewatch、RandomPinewatch 和随机地图 Debug Bootstrap。
 
+2026-09-20 后续评估：用户实测后再次确认参考图目标，并指定生图使用 `imagegen-codex-provider`，同时要求先评估低像素素材是否适合生图。该规范已写入 [AGENTS.md](../AGENTS.md#prefab美术与内容)，不再等待 provider 路径选择。当前差异、素材方式和分阶段验收见[洞穴视觉与空间目标](CAVE_EXPLORATION_TARGETS.md)；本次只完成评估与文档，没有新增美术、斜面或运行验收。
+
 ## 本次范围与资料使用
 
 用户要求先同步主分支装备，再分阶段尝试新地图，第一阶段重点是像素 DualGrid / RuleTile 美术与基础洞室。输入 `D:/Downloads/dark_nights_final_core_loop_map_design_v1.md` 的 04、05 章为地图目标，06、07、08、11、15、16 章提供相关约束。该文件里的实施建议和完整游戏循环是设计资料，不自动成为本轮任务指令。交易星球、飞船结算、成长、怪潮、完整矿物碎片链不在本轮范围。
@@ -36,9 +38,9 @@ Unity 菜单：`Dark Nights/Debug/打开天然洞穴实验`。场景：`Game/Ass
 - 斜面必须有对应占据区域／碰撞高度定义，后续穿过网络、保存、局部刷新后仍保持。当前原型尚未实现这些独立形状，不能称为斜坡功能完成。
 - 验收图应含洞口、非矩形洞室、长斜坡、缓坡、顶面坡、断面、材料交界和松散填充；先看近景拼接，再看整张洞室构成。
 
-当前会话未提供内置 image_gen，已请求用户选择配置 API 后备路径，尚未收到选择。未调用 API、未生成新像素图，不以旧测试贴图签署美术通过。
+上次原型制作时未提供内置 image_gen，且当时尚未收到配置 API 路径选择，因此未调用 API、未生成新像素图。后续用户已明确指定 `imagegen-codex-provider`；未来素材批次先评估必要性，再按该路径调用。旧测试贴图仍不构成美术通过证据。
 
-### 待调用的材质源提示词
+### 评估决定使用生图时的可选材质源提示词
 
 > Use case: stylized-concept. Asset type: source textures for a pixel-art side-view underground exploration tileset. Reference image: user-provided Dark Nights cave cross-section, style only. Create three clearly separated large material studies: dark blue-grey layered shale with restrained warm ochre chips, loose warm earth and broken rubble, near-black dense bedrock. Crisp deliberate pixel clusters, limited palette, readable fractured rock masses, subtle mineral specks, no blur, no antialiasing, no gradients. Surfaces should support irregular cave walls and long diagonal slopes. Flat orthographic material samples, no perspective. No characters, UI, text, ship, furniture, water, or complete game scene. Consistent texture scale and understated ambient lighting. These are source textures to be cut into exact DualGrid masks and explicit slope pieces later, not a finished tileset.
 
