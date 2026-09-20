@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-21 新增[远征营地玩法评估与执行方案](docs/EXPEDITION_CAMP_EXECUTION.md)，分支 `codex/expedition-camp-plan`，基于 main `f28bb7d`。规划紧凑洞室、背景墙矿物与透岩矿光，再分阶段接入采矿返船、机器人展开、中继作业、撤离与舱段成长。本轮仅评估和文档，玩法／地图修改尚未实施，协议 11／存档 v7 不变。
+
 2026-09-20 最新[洞穴地图工作台](docs/CAVE_WORKSHOP.md)已提供新岩层美术、独立坡形碰撞与行走／破坏测试。打开 `Dark Nights/Debug/打开天然洞穴实验` 后 Play；Tab 切换观察。它仍是独立测试入口，正式开局／存档尚未切换。[视觉与空间目标](docs/CAVE_EXPLORATION_TARGETS.md)保留原始计划与未完成门槛。
 
 2026-09-20 新实验分支 `codex/cave-exploration-art` 合入 main `6b7b74c` 的手持装备，保留地图手采、矿床与恢复；协议 **11**／存档 **v7**。新增[天然洞穴技术原型](docs/CAVE_EXPLORATION_ART.md)：10–13 个不规则洞室、双入口、回环与部分掩埋通路，独立 Debug 场景可 Play。**新像素美术、独立斜面块与匹配碰撞仍未完成**，当前旧图集只作技术预览；完整游戏策划未扩入本轮。以下记录均为各自历史切片，不替代本批证据。
