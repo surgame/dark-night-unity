@@ -14,6 +14,8 @@ namespace DarkNights.Core.Config.Terrain
         private readonly byte[] materials;
         private readonly bool[] protection;
         private readonly bool[] softRock;
+        private readonly byte[] shapes;
+        public bool Expedition { get; }
         public string WorldId { get; }
         public string Seed { get; }
         public int Count => materials.Length;
@@ -27,7 +29,7 @@ namespace DarkNights.Core.Config.Terrain
         }
 
         public PlayableTerrain(string worldId, string seed, byte[] cells, bool[] protectedCells,
-            bool[] softRock, TerrainRoom[] rooms, TerrainDepositBlueprint[] deposits)
+            bool[] softRock, TerrainRoom[] rooms, TerrainDepositBlueprint[] deposits, byte[] shapes = null, bool expedition = false)
         {
             if (!Guid.TryParseExact(worldId, "N", out _) || string.IsNullOrWhiteSpace(seed) || seed.Length > 80 ||
                 cells == null || cells.Length != TerrainGenerationSettings.Width * TerrainGenerationSettings.Height ||
@@ -46,7 +48,13 @@ namespace DarkNights.Core.Config.Terrain
             for (int x = 0; x < TerrainGenerationSettings.Width; x++)
                 if (cells[(TerrainGenerationSettings.Height - 1) * TerrainGenerationSettings.Width + x] != 8)
                     throw new ArgumentException("随机地图底边必须保留基岩。");
-            for (int x = 0; x < CampColumns; x++)
+            this.shapes = shapes == null ? new byte[cells.Length] : (byte[])shapes.Clone();
+            if (this.shapes.Length != cells.Length) throw new ArgumentException("坡形尺寸无效。");
+            for (int i = 0; i < cells.Length; i++)
+                if (this.shapes[i] > 12 || (this.shapes[i] != 0 && (cells[i] == 0 || protectedCells[i])))
+                    throw new ArgumentException("坡形内容无效。");
+            Expedition = expedition;
+            for (int x = 0; !expedition && x < CampColumns; x++)
                 for (int y = 0; y < CampRow + 4; y++)
                     if (y < CampRow ? cells[y * TerrainGenerationSettings.Width + x] != 0 :
                         cells[y * TerrainGenerationSettings.Width + x] == 0 || !protectedCells[y * TerrainGenerationSettings.Width + x])
@@ -61,8 +69,10 @@ namespace DarkNights.Core.Config.Terrain
         public byte[] CopyMaterials() => (byte[])materials.Clone();
         public bool[] CopyProtection() => (bool[])protection.Clone();
         public bool[] CopySoftRock() => (bool[])softRock.Clone();
-        public TerrainBlueprint Blueprint() => new TerrainBlueprint(new TerrainGenerationSettings { Seed = Seed },
+        public byte[] CopyShapes() => (byte[])shapes.Clone();
+        public TerrainBlueprint Blueprint() => new TerrainBlueprint(new TerrainGenerationSettings { Seed = Seed,
+            ResourceProfile = Expedition ? TerrainGenerationSettings.CaveExplorationProfile : TerrainGenerationSettings.GameplayResourceProfile },
             materials, protection, new int[TerrainGenerationSettings.Width],
-            new List<TerrainRoom>(Rooms).ToArray(), softRock, new List<TerrainDepositBlueprint>(Deposits).ToArray());
+            new List<TerrainRoom>(Rooms).ToArray(), softRock, new List<TerrainDepositBlueprint>(Deposits).ToArray(), shapes: shapes);
     }
 }

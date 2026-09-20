@@ -15,6 +15,7 @@ namespace DarkNights.Runtime.Save
             return new JObject
             {
                 ["world_id"] = data.WorldId, ["seed"] = data.Seed,
+                ["expedition"] = data.Expedition, ["shapes"] = Convert.ToBase64String(data.CopyShapes()),
                 ["materials"] = Convert.ToBase64String(data.CopyMaterials()),
                 ["protection"] = Convert.ToBase64String(data.CopyProtection().Select(v => v ? (byte)1 : (byte)0).ToArray()),
                 ["soft_rock"] = Convert.ToBase64String(data.CopySoftRock().Select(v => v ? (byte)1 : (byte)0).ToArray()),
@@ -35,7 +36,7 @@ namespace DarkNights.Runtime.Save
         {
             if (token?.Type == JTokenType.Null) return null;
             JObject value = Object(token);
-            if (value.Count != 7) throw new FormatException("地图字段不完整。");
+            if (value.Count != 9) throw new FormatException("地图字段不完整。");
             byte[] cells = Convert.FromBase64String(Text(value["materials"]));
             byte[] flags = Convert.FromBase64String(Text(value["protection"]));
             byte[] soft = Convert.FromBase64String(Text(value["soft_rock"]));
@@ -61,7 +62,8 @@ namespace DarkNights.Runtime.Save
             try
             {
                 return new PlayableTerrain(Text(value["world_id"]), Text(value["seed"]), cells,
-                    flags.Select(v => v == 1).ToArray(), soft.Select(v => v == 1).ToArray(), rooms, deposits);
+                    flags.Select(v => v == 1).ToArray(), soft.Select(v => v == 1).ToArray(), rooms, deposits,
+                    Convert.FromBase64String(Text(value["shapes"])), Boolean(value["expedition"]));
             }
             catch (ArgumentException error) { throw new FormatException("随机地图数据无效。", error); }
         }

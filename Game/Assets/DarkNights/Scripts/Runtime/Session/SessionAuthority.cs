@@ -18,7 +18,7 @@ namespace DarkNights.Runtime.Session
     /// </summary>
     public sealed class SessionAuthority : IDisposable
     {
-        public const int ProtocolVersion = 11;
+        public const int ProtocolVersion = 12;
         public const int MaximumPendingPerPlayer = 16;
         public const int ResultWindow = 64;
         private readonly int ownerThread = Thread.CurrentThread.ManagedThreadId;
@@ -174,7 +174,8 @@ namespace DarkNights.Runtime.Session
                 if (request.Operation == SessionOperation.ClaimHero) connection.DefaultHeroRequested = true;
                 else if (request.Operation == SessionOperation.ReleaseHero) connection.DefaultHeroRequested = false;
                 affected = heroes.Apply(connection, request);
-                if (affected > 0) entityId = request.ActorIds[0];
+                if (affected < 0) return Receipt(connection, request, SessionResultCode.PermissionDenied);
+                if (affected > 0 && request.ActorIds.Count > 0) entityId = request.ActorIds[0];
             }
             else if (!storage)
             {
@@ -243,11 +244,7 @@ namespace DarkNights.Runtime.Session
             finally { loadTicket = null; StorageRequest = null; }
         }
 
-        public void CompleteRestart(SessionReceipt ticket)
-        {
-            CheckLoadTicket(ticket);
-            CompleteLoad(ticket, null);
-        }
+        public void CompleteRestart(SessionReceipt ticket) => CompleteLoad(ticket, null);
 
         public void ReleaseStorage(SessionStorageRequest request)
         {

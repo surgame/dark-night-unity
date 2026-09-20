@@ -50,6 +50,18 @@ namespace DarkNights.Runtime.Save
                 writer.Write(hero.JetpackSpeed); writer.Write(hero.FuelSeconds); writer.Write(hero.FuelRecovery);
                 writer.Write(hero.DropSeconds); writer.Write(hero.WorkReach);
             }
+            writer.Write(balance.Expedition.OxygenSeconds);
+            writer.Write(balance.Expedition.BagCapacity);
+            writer.Write(balance.Expedition.ShipCapacity);
+            writer.Write(balance.Expedition.StorageCapacity);
+            writer.Write(balance.Expedition.OxygenRadius);
+            writer.Write(balance.Expedition.RelayRange);
+            writer.Write(balance.Expedition.PowerSupply);
+            writer.Write(balance.Expedition.DeploySeconds);
+            writer.Write(balance.Expedition.ExtractSeconds);
+            writer.Write(balance.Expedition.RecallSeconds);
+            writer.Write(balance.Expedition.ThreatSeconds);
+            writer.Write(balance.Expedition.ModulePrice);
             EconomyDefinition economy = balance.Economy;
             WriteResources(writer, economy.StartingResources);
             writer.Write(economy.UpkeepInterval);
@@ -136,6 +148,7 @@ namespace DarkNights.Runtime.Save
         private static void WriteLayout(BinaryWriter writer, LevelLayout layout)
         {
             writer.Write("dark-nights.layout.v2");
+            writer.Write(layout.Expedition);
             writer.Write(layout.WorldWidth);
             writer.Write(layout.GroundY);
             writer.Write(layout.BuildMinX);

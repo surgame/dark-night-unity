@@ -17,9 +17,11 @@ namespace DarkNights.Runtime.Objects
             float reach = actor.World.Catalog.Balance.HeroControl.WorkReach;
             if (Math.Abs(actor.X - deposit.X) > reach || Math.Abs(state.Height - height) > reach ||
                 state.EquipmentCooldown > 0) return false;
+            var map = actor.World.Terrain?.Map;
+            if (!ExpeditionCargo.CanMine(actor) || map != null && !ExpeditionNavigation.Sight(map, actor.X, state.Height + 9, deposit.X, (float)height)) return false;
             if (!deposit.ExtractByHand()) return false;
             state.EquipmentCooldown = actor.World.Projectiles.Settings.PickaxeSeconds;
-            actor.World.Economy.AddResource(deposit.ResourceId, 1);
+            ExpeditionCargo.Collect(actor, deposit.ResourceId);
             return true;
         }
 
@@ -45,7 +47,7 @@ namespace DarkNights.Runtime.Objects
                         string resource = map.ResourceAt(cell);
                         map.DestroyTrusted(state.ControllerGeneration, "pick:" + actor.Id + ":" + map.CommitId,
                             TerrainEditAction.HandMine, map.World, cell, targets, _ => true, out bool applied);
-                        if (applied && resource.Length != 0) actor.World.Economy.AddResource(resource, 1);
+                        if (applied && resource.Length != 0 && !actor.World.IsExpedition) actor.World.Economy.AddResource(resource, 1);
                     }
                     catch (InvalidOperationException) { }
                     return;

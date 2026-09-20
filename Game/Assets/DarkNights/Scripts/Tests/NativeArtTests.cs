@@ -28,7 +28,9 @@ namespace DarkNights.Tests
             var database = ObjectDefinitionDatabase.Instance;
             database.RebuildLookup();
             var map = new DefinitionRuleIndex(database);
-            Assert.That(map.Count, Is.EqualTo(16));
+            var balance = DarkNights.Runtime.Config.GameCatalogJson.Parse(
+                File.ReadAllText(GameContentSetup.ConfigRoot + "balance.json"), File.ReadAllText(GameContentSetup.ConfigRoot + "pinewatch.json")).Balance;
+            Assert.That(map.Count, Is.EqualTo(balance.Units.Count + balance.Buildings.Count + balance.Worksites.Count + 1));
             Assert.That(map.GetRequired(DarkNights.Runtime.Objects.MineralDepositRuleConfig.Rule), Is.Not.Null);
             foreach (JObject spec in Input()["visuals"])
             {

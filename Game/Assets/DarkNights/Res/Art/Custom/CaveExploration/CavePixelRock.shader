@@ -6,6 +6,7 @@ Shader "DarkNights/CavePixelRock"
         _RockTex ("Pixel rock", 2D) = "white" {}
         _CaveMap ("Read-only shapes", 2D) = "black" {}
         _CaveLight ("Occluded light", 2D) = "black" {}
+        _OreMap ("Background minerals", 2D) = "black" {}
         _Background ("Background", Float) = 0
     }
     SubShader
@@ -18,7 +19,7 @@ Shader "DarkNights/CavePixelRock"
             #pragma vertex vert
             #pragma fragment frag
             #include "UnityCG.cginc"
-            sampler2D _MainTex, _RockTex, _CaveMap, _CaveLight;
+            sampler2D _MainTex, _RockTex, _CaveMap, _CaveLight, _OreMap;
             float4x4 _MapWorldToLocal;
             float _Background;
             struct Input { float4 vertex:POSITION; float2 uv:TEXCOORD0; };
@@ -50,6 +51,8 @@ Shader "DarkNights/CavePixelRock"
                 float2 p=(floor(i.p*32)+.5)/32;
                 float4 c=data(p); float2 uv=(float2(p.x,-p.y)+.5)/float2(320,192);
                 float2 light=tex2D(_CaveLight,uv).rg;
+                float2 ore=tex2D(_OreMap,uv).rg;
+                float3 oreColor=lerp(float3(.018,.25,.4),float3(.6,.27,.03),ore.r);
                 float3 illumination=float3(.20,.082,.021)*light.r*light.r + float3(.017,.10,.21)*light.g*light.g;
                 float3 tex=rock(p*2);
                 float2 tileUV=frac(i.uv*float2(16,32));
@@ -69,6 +72,9 @@ Shader "DarkNights/CavePixelRock"
                     float2 f=frac(p+.5)-.5;
                     if(c.b==1 && abs(f.x)<.08 && f.y>-.35 && f.y<.24)
                         color=f.y>-.17&&f.y<.04?float3(1,.48,.07):float3(.075,.05,.025);
+                    float2 shard=frac(p*2+floor(p.y)*.31);
+                    float crystal=step(abs(shard.x-.5)*1.8+abs(shard.y-.5),.43);
+                    color+=ore.g*crystal*oreColor;
                     return float4(color,1);
                 }
                 clip(solid(p)-.5);
@@ -84,11 +90,7 @@ Shader "DarkNights/CavePixelRock"
                 color+=illumination*(.4+tex*8);
                 if(c.r==1)color*=float3(1.22,.89,.66);
                 if(c.r==8)color*=.5;
-                if(c.r>=4&&c.r<=6)
-                {
-                    float2 shard=frac(p*2.0+floor(p.y)*.31); float crystal=step(abs(shard.x-.5)*1.8+abs(shard.y-.5),.43);
-                    color+=crystal*step(.4,hash(floor(p*2)))*(c.r==6?float3(.21,.12,.022):float3(.015,.14,.28))*(.4+edge);
-                }
+                color+=ore.g*oreColor*(.16+.12*step(.72,hash(floor(p*12))));
                 return float4(color,1);
             }
             ENDHLSL

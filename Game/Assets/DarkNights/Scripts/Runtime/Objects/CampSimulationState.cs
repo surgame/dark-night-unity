@@ -11,6 +11,17 @@ namespace DarkNights.Runtime.Objects
     [MemoryPackable, StateData]
     public partial record CampSimulationState
     {
+        public int ExpeditionRun { get; internal set; }
+        public int ExpeditionPhase { get; internal set; }
+        public double ExpeditionRisk { get; internal set; }
+        public double ExpeditionClock { get; internal set; }
+        public bool ExpeditionSettled { get; internal set; }
+        public int RobotModule { get; internal set; }
+        public int CargoModule { get; internal set; }
+        public int CrewModule { get; internal set; }
+        public int LostCargo { get; internal set; }
+        public int LostDevices { get; internal set; }
+        public int ResupplyCost { get; internal set; }
         public uint Sequence { get; set; }
         public SessionMode Mode { get; internal set; }
         public bool Paused { get; internal set; }

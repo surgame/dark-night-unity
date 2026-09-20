@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc8652e55004e79a017907c38b6a1b2, type: 3}
+  m_Name: miner
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinition
+  Id: 0
+  definitionGuid: 2a3197090e032454bb311c3549121f58
+  key: expedition.miner
+  keyAliases: []
+  legacyIdAliases: 
+  debugContent: 0
+  legacyAllocationPending: 
+  Type: 700
+  Name: miner
+  Icon: {fileID: 0}
+  Describe: 
+  MaxStack: 1
+  ItemLevel: 1
+  NetType: 1
+  PrefabRef:
+    m_AssetGUID: ec305e787cf586445915c0d7f2222886
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  Archetype: {fileID: 11400000, guid: a8889a7057cea1044a96bb9b701cbbcd, type: 2}
+  UseMonolithicPooling: 0
+  BehaviourTypes:
+  - DarkNights.View.ActorPresentationBehaviour
+  - DarkNights.Runtime.Objects.ActorBehaviour
+  - DarkNights.Runtime.Objects.MovementBehaviour
+  - DarkNights.Runtime.Objects.ActorCombatBehaviour
+  - DarkNights.Runtime.Objects.AutomaticActorControlBehaviour
+  - DarkNights.Runtime.Objects.MeleeAttackBehaviour
+  SharedConfigs:
+  - rid: 6961529756691202138
+  - rid: 6961529756691202139
+  references:
+    version: 2
+    RefIds:
+    - rid: 6961529756691202138
+      type: {class: ActorRuleConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        RuleKey: miner
+    - rid: 6961529756691202139
+      type: {class: MovementConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        ArrivalDistance: 0.8

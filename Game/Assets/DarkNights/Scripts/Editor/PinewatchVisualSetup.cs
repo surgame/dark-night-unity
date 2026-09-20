@@ -57,8 +57,6 @@ namespace DarkNights.Editor
                     Layer(background, "FrontForest", "bg_forest_close", 0.54f, 0.7f, new Color32(95, 117, 101, 255), -95)
                 };
                 Ground(background);
-                SpriteRenderer tomb = Sprite(background, "Tomb", "spr_ubld_tomb", new Vector2(9.74f, 1), -90);
-                tomb.color = new Color32(185, 185, 177, 255);
                 NativePrefabBuilder.SetReference(stage, "sceneCamera", camera);
                 NativePrefabBuilder.SetReference(stage, "entities", entities);
                 NativePrefabBuilder.SetReference(stage, "sky", sky);

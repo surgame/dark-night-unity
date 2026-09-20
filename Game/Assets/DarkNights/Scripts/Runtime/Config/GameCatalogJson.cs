@@ -18,7 +18,7 @@ namespace DarkNights.Runtime.Config
             var rules = new BalanceDefinition(ConfigJson.Integer(balance, "schema_version"),
                 Economy(ConfigJson.Object(balance, "economy")),
                 Dictionary(balance, "units", Unit), Dictionary(balance, "buildings", Building),
-                Dictionary(balance, "worksites", Worksite), HeroControl(ConfigJson.Object(balance, "hero_control")));
+                Dictionary(balance, "worksites", Worksite), HeroControl(ConfigJson.Object(balance, "hero_control")), Expedition(balance["expedition"]));
             var waves = new List<WaveDefinition>();
             foreach (JToken wave in ConfigJson.Array(level, "waves"))
             {
@@ -48,6 +48,9 @@ namespace DarkNights.Runtime.Config
             }
             return result;
         }
+
+        private static ExpeditionDefinition Expedition(JToken v) => v == null ? new ExpeditionDefinition() : new ExpeditionDefinition(
+            ConfigJson.Positive(v, "OxygenSeconds"), ConfigJson.Integer(v, "BagCapacity"), ConfigJson.Integer(v, "ShipCapacity"), ConfigJson.Integer(v, "StorageCapacity"), ConfigJson.Positive(v, "OxygenRadius"), ConfigJson.Positive(v, "RelayRange"), ConfigJson.Integer(v, "PowerSupply"), ConfigJson.Positive(v, "DeploySeconds"), ConfigJson.Positive(v, "ExtractSeconds"), ConfigJson.Positive(v, "RecallSeconds"), ConfigJson.Positive(v, "ThreatSeconds"), ConfigJson.Integer(v, "ModulePrice"));
 
         private static HeroControlDefinition HeroControl(JToken value) => new HeroControlDefinition(
             ConfigJson.Positive(value, "jump_speed"), ConfigJson.Positive(value, "gravity"),

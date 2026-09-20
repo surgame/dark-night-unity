@@ -26,7 +26,7 @@ namespace DarkNights.View
         public void FocusHero(Vector3 position) { cameraHeight = RandomTerrain ? position.y * 100 : 0; Focus(position.x * 100); }
         private double visualTime;
         private int epoch;
-        private bool observing;
+        private bool observing, expedition;
         private static readonly Color DayAmbient = new Color32(233, 235, 222, 255);
         private static readonly Color NightAmbient = new Color32(113, 135, 169, 255);
         public Camera SceneCamera => sceneCamera;
@@ -42,6 +42,10 @@ namespace DarkNights.View
 
         public void Initialize(LevelLayout layout)
         {
+            expedition = layout.Expedition;
+            sky.gameObject.SetActive(!expedition);
+            foreach (NativeBackdrop backdrop in backgrounds) backdrop.gameObject.SetActive(!expedition);
+            if (environment != null) environment.gameObject.SetActive(!expedition);
             worldWidth = layout.WorldWidth;
             InitialCameraX = layout.CameraX;
             Focus(InitialCameraX);
@@ -84,6 +88,7 @@ namespace DarkNights.View
         private void Render()
         {
             UpdateCamera();
+            if (expedition) return;
             sky.color = Color.Lerp(new Color32(170, 188, 193, 255), new Color32(70, 87, 120, 255), night) * Ambient;
             foreach (NativeBackdrop backdrop in backgrounds) backdrop.Apply(cameraX, night, Ambient);
             if (environment != null) environment.Present(visualTime, night, cameraX, Ambient);
@@ -94,7 +99,7 @@ namespace DarkNights.View
             float half = Screen.width * 0.5f / zoom;
             cameraX = Mathf.Clamp(cameraX, half, Mathf.Max(half, worldWidth - half));
             sceneCamera.orthographicSize = Screen.height * 0.5f / zoom / 100;
-            sceneCamera.transform.position = new Vector3(cameraX / 100, (cameraHeight + Screen.height * 0.215f / zoom) / 100, -10);
+            sceneCamera.transform.position = new Vector3(cameraX / 100, (cameraHeight + Screen.height * (expedition ? 0.04f : 0.215f) / zoom) / 100, -10);
         }
     }
 }

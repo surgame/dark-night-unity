@@ -7,5 +7,7 @@ namespace DarkNights.View.Terrain
     public sealed class RandomLevelTemplate : MonoBehaviour
     {
         public ARDMapDefinition Definition;
+        public CaveTerrainStyle CaveStyle;
+        public bool Expedition;
     }
 }

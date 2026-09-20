@@ -16,7 +16,7 @@ namespace DarkNights.Core.Save
 
         public static string Validate(ValidationContext c)
         {
-            int taverns = c.Buildings.Values.Count(b => b.Kind == "tavern");
+            int taverns = c.Buildings.Values.Count(b => b.Kind == (c.Saved.Terrain?.Expedition == true ? "ship" : "tavern"));
             int expectedTaverns = c.Saved.Mode == SessionMode.Lost ? 0 : 1;
             if (taverns != expectedTaverns)
                 return "营地必须拥有一座酒馆";
@@ -67,7 +67,7 @@ namespace DarkNights.Core.Save
                 if (!c.Catalog.Balance.Units.TryGetValue(a.Kind, out var d) || a.Name == null || a.Name.Length > 80 ||
                     a.Enemy != (a.Kind is "zombie" or "ghoul" or "armored"))
                     return "单位阵营或姓名无效";
-                if (!Number(a.Hp, 0.001, d.Hp) || !Enum.IsDefined(typeof(ActorActivity), a.State) || !Id(a.TargetId) ||
+                if (!Number(a.Hp, c.Saved.Expedition == null ? .001 : 0, d.Hp) || !Enum.IsDefined(typeof(ActorActivity), a.State) || !Id(a.TargetId) ||
                     !Number(a.MoveX, 0, c.Layout.WorldWidth) || !Number(a.RallyX, 0, c.Layout.WorldWidth) ||
                     a.Face is not (-1 or 1))
                     return "单位生命、状态或目标无效";
@@ -81,7 +81,7 @@ namespace DarkNights.Core.Save
                     !Number(a.DropRemaining, 0, hero?.DropSeconds ?? 0) || !Number(a.JetpackFuel, 0, hero?.FuelSeconds ?? 0) ||
                     a.ExplosiveCharges < 0 || a.ExplosiveCharges > 1000 ||
                     a.SelectedItem < 0 || a.SelectedItem > 3 || a.SelectionRevision < 0 || a.SupportPlatform < -1 || a.IgnoredPlatform < 0 ||
-                    (a.Enemy && (a.ManualControl || a.Height != 0 || a.JetpackEquipped)) ||
+                    (a.Enemy && (a.ManualControl || (c.Saved.Expedition == null && a.Height != 0) || a.JetpackEquipped)) ||
                     (a.SupportPlatform == 0 && ((c.Saved.Terrain == null && a.Height != 0) || a.VerticalSpeed != 0)) ||
                     (a.SupportPlatform > 0 && !c.Layout.Platforms.Any(p => p.Id == a.SupportPlatform && p.Contains((float)a.X) &&
                         Math.Abs(p.Height - a.Height) < 0.001 && a.VerticalSpeed == 0)) ||

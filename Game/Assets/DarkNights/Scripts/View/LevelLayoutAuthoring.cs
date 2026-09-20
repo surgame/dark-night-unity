@@ -25,6 +25,7 @@ namespace DarkNights.View
         [SerializeField] private Transform buildings;
         [SerializeField] private Transform worksites;
         [SerializeField] private Transform actors;
+        public bool Expedition;
         [SerializeField] private HeroPlatform[] platforms = Array.Empty<HeroPlatform>();
 
         public Transform PlacementGroup(ObjectType type)
@@ -53,7 +54,7 @@ namespace DarkNights.View
             if (placementKeys.Any(string.IsNullOrWhiteSpace) || placementKeys.Distinct().Count() != placementKeys.Length)
                 throw new InvalidOperationException("Scene placement identities must be present and unique.");
             var layout = new LevelLayout(Local(worldEnd).x, ground.y, Local(buildStart).x, Local(buildEnd).x,
-                Local(enemySpawn).x, Local(cameraStart).x, buildingEntries, worksiteEntries, actorEntries, ReadPlatforms(ground.y));
+                Local(enemySpawn).x, Local(cameraStart).x, buildingEntries, worksiteEntries, actorEntries, ReadPlatforms(ground.y), Expedition, Expedition);
             layout.Validate(catalog);
             return layout;
         }
@@ -65,7 +66,7 @@ namespace DarkNights.View
         {
             ScenePlacement[] placements = Enumerable.Range(0, group.childCount)
                 .Select(index => group.GetChild(index).GetComponent<ScenePlacement>()).ToArray();
-            if (placements.Length == 0 || placements.Any(placement => placement == null))
+            if ((!Expedition && placements.Length == 0) || placements.Any(placement => placement == null))
                 throw new InvalidOperationException(group.name + " must contain only direct scene placement instances.");
             var entries = new List<PlacementDefinition>(placements.Length);
             foreach (ScenePlacement placement in placements)

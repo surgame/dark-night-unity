@@ -17,7 +17,7 @@ namespace DarkNights.Core.Save
     {
         public static string Validate(SessionSnapshot s, GameCatalog catalog, LevelLayout layout)
         {
-            if (s == null || s.SchemaVersion != 7 || s.LevelId != catalog.Level.Id)
+            if (s == null || s.SchemaVersion != 8 || s.LevelId != catalog.Level.Id)
                 return "存档版本或关卡不匹配";
             if (layout.RandomTerrain != (s.Terrain != null)) return "存档地图类型不匹配";
             if (!Number(s.Elapsed, 0, 1000000) || s.Speed is not (1 or 2))
@@ -59,6 +59,13 @@ namespace DarkNights.Core.Save
                 s.Identities.Select(i => i.Id).Distinct().Count() != ids.Count ||
                 s.Identities.Where(i => i.PlacementKey.Length != 0).GroupBy(i => i.PlacementKey).Any(g => g.Count() != 1))
                 return "定义或场景身份关系无效";
+            if ((s.Expedition != null) != (s.Terrain?.Expedition == true)) return "远征合同与地图不一致";
+            if (s.Expedition != null)
+            {
+                string extra = ExpeditionValidator.Validate(s.Expedition, s.Actors.Select(a => a.Id).ToArray(),
+                    s.Buildings.Select(b => b.Id).ToArray(), s.Worksites.Select(w => w.Id).ToArray(), catalog.Balance.Expedition);
+                if (extra.Length != 0) return extra;
+            }
             var context = new ValidationContext(s, catalog, layout);
             string error = EntitySnapshotValidator.Validate(context);
             if (error.Length == 0)

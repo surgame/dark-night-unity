@@ -54,6 +54,17 @@ namespace DarkNights.Runtime.Objects
 
         internal void ActorDied(ActorBehaviour actor)
         {
+            if (session.IsExpedition)
+            {
+                if (!actor.Enemy && actor.Read().ExpeditionRole > 0) session.Camp.Edit().ResupplyCost += session.Catalog.Balance.Expedition.ModulePrice / 2;
+                session.Camp.Edit().LostCargo += actor.Read().CargoIron + actor.Read().CargoGold;
+                actor.Edit().CargoIron = actor.Edit().CargoGold = 0;
+            }
+            if (session.IsExpedition && actor.Read().OwnerSlot >= 0)
+            {
+                session.Camp.Edit().LostCargo += actor.Read().CargoIron + actor.Read().CargoGold;
+                actor.Edit().Boarded = true; actor.Edit().CargoIron = actor.Edit().CargoGold = 0; return;
+            }
             session.Work.Release(actor.Id);
             foreach (BuildingBehaviour building in session.Index.Buildings)
                 if (building.Read().TrainingQueue.Any(entry => entry.ActorId == actor.Id))
@@ -61,7 +72,7 @@ namespace DarkNights.Runtime.Objects
             if (actor.Enemy)
             {
                 session.Camp.Edit().Kills++;
-                session.Economy.Credit(new ResourceAmounts(gold: actor.Definition.Gold));
+                if (!session.IsExpedition) session.Economy.Credit(new ResourceAmounts(gold: actor.Definition.Gold));
             }
             else
             {
@@ -92,13 +103,18 @@ namespace DarkNights.Runtime.Objects
             if (building.RuleKey == "tavern") session.Camp.Finish(false);
         }
 
+        internal void Retire(IEntityBehaviour entity) => Remove(entity);
+
         private void Remove(IEntityBehaviour entity)
         {
             int id = entity.Id;
             ObjectInstance owner = entity.Object;
             session.Index.Remove(entity, session.Mutations);
             foreach (ActorBehaviour actor in session.Index.Actors)
+            {
                 if (actor.TargetId == id) session.Work.Clear(actor);
+                if (actor.Read().TaskTarget == id) { actor.Edit().TaskTarget = actor.Edit().TaskPhase = 0; }
+            }
             session.Mutations.AfterCommit(() => session.ReleaseEntity(owner));
         }
     }

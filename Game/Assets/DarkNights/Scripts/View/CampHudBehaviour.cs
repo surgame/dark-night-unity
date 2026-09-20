@@ -53,9 +53,24 @@ namespace DarkNights.View
             overlay.Present(frame, input, entities, stage, catalog);
         }
 
-        public void Configure(GameCatalog value)
+        public void Configure(GameCatalog value, bool expedition = false)
         {
             catalog = value;
+            if (expedition)
+            {
+                View.Get<RectTransform>("TopBar").gameObject.SetActive(false);
+                View.Get<RectTransform>("BottomBar").gameObject.SetActive(false);
+                objective.gameObject.SetActive(false); hint.gameObject.SetActive(false);
+                string[] keys = { "Menu", "Help", "Pause", "Speed" };
+                for (int i = 0; i < keys.Length; i++)
+                {
+                    var rect = (RectTransform)Button(keys[i]).transform;
+                    rect.SetParent(View.transform, false);
+                    rect.anchorMin = rect.anchorMax = rect.pivot = Vector2.one;
+                    rect.anchoredPosition = new Vector2(-12 - i * 72, -12);
+                    rect.sizeDelta = new Vector2(64, 34);
+                }
+            }
             toastFade = View.Get<CanvasGroup>("ToastFade");
             bannerFade = View.Get<CanvasGroup>("BannerFade");
             foreach (string kind in new[] { "house", "farm", "barracks", "tower" })

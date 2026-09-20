@@ -43,6 +43,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c89f78d0a70da0844b25be8716d9fa7c, type: 2}
   - {fileID: 11400000, guid: e6c460b98178a9c4eb9ec2e702828e4a, type: 2}
   - {fileID: 11400000, guid: 97d3f45214541724481f11bbb0ad90a1, type: 2}
+  - {fileID: 11400000, guid: 9903d990f6f881b4ebe8c00e13167e8e, type: 2}
+  - {fileID: 11400000, guid: e4b73fb57e306934a8e0471288fb455b, type: 2}
+  - {fileID: 11400000, guid: 00be10e702cf97c4bace525e73f9c62d, type: 2}
+  - {fileID: 11400000, guid: cc9ec8d0c8586dd448a54e0441684cfa, type: 2}
+  - {fileID: 11400000, guid: ec7a3321e3c30b14a9378180f0e9f5c6, type: 2}
+  - {fileID: 11400000, guid: 84d003ed89ec6904e81a7dffca3ea33d, type: 2}
+  - {fileID: 11400000, guid: 2a3197090e032454bb311c3549121f58, type: 2}
   registryServerUrl: https://ID-REGISTRY/id-registry
   projectName: DNights
   identityMode: 1

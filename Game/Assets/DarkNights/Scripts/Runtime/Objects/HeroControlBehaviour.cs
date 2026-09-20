@@ -50,6 +50,7 @@ namespace DarkNights.Runtime.Objects
             actor.World.Work.Clear(actor);
             ActorState state = actor.Edit();
             state.ManualControl = true;
+            if (actor.World.IsExpedition) state.OwnerSlot = slot;
             state.ControllerSlot = slot; state.ControllerGeneration = generation;
             state.ControlLease = checked(state.ControlLease + 1);
             ResetInput(state);
@@ -59,7 +60,7 @@ namespace DarkNights.Runtime.Objects
         {
             actor.World.Work.Clear(actor);
             ActorState state = actor.Edit();
-            state.ManualControl = false;
+            state.ManualControl = actor.World.IsExpedition;
             state.ControllerSlot = -1; state.ControllerGeneration = 0;
             state.ControlLease = checked(state.ControlLease + 1);
             ResetInput(state);

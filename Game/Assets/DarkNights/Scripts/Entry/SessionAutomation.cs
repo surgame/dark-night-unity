@@ -26,7 +26,7 @@ namespace DarkNights.Entry
         private readonly Queue<DarkNights.Runtime.Terrain.TerrainActionResult> terrainFeedback =
             new Queue<DarkNights.Runtime.Terrain.TerrainActionResult>();
         private string error;
-        private int peakEffects, peakArrows, peakCommandRings;
+        private int peakEffects, peakArrows;
         private int reportRetries;
         private bool pauseOnProjectile;
         private bool fullReport = true;
@@ -145,7 +145,6 @@ namespace DarkNights.Entry
                 var effects = network.GetComponent<SessionEffects>();
                 peakEffects = Math.Max(peakEffects, effects.EffectCount);
                 peakArrows = Math.Max(peakArrows, effects.ArrowCount);
-                peakCommandRings = Math.Max(peakCommandRings, effects.CommandRingCount);
                 long reportStart = capture == null ? 0 : System.Diagnostics.Stopwatch.GetTimestamp();
                 var frame = network.Client.Replica.Current;
                 var terrainPreview = UnityEngine.Object.FindAnyObjectByType<DarkNights.View.Terrain.TerrainPreview>();
@@ -185,10 +184,7 @@ namespace DarkNights.Entry
                     ["selected"] = JArray.FromObject(network.GetComponent<SessionUiController>().Input.Selected),
                     ["entityViews"] = network.GetComponent<SessionEntityViews>().Count,
                     ["effectViews"] = effects.EffectCount, ["arrowViews"] = effects.ArrowCount,
-                    ["peakEffectViews"] = peakEffects, ["peakArrowViews"] = peakArrows,
-                    ["commandRings"] = effects.CommandRingCount, ["commandRingInstances"] = effects.CommandRingInstanceCount,
-                    ["commandRingShows"] = effects.CommandRingPresentationCount,
-                    ["peakCommandRings"] = peakCommandRings
+                    ["peakEffectViews"] = peakEffects, ["peakArrowViews"] = peakArrows
                 };
                 string temporary = reportPath + ".tmp";
                 File.WriteAllText(temporary, report.ToString());

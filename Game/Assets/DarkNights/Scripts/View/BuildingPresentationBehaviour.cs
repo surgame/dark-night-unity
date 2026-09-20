@@ -19,16 +19,22 @@ namespace DarkNights.View
 
         public void Bind(int id, int epoch, string kind, Action<InputIntent> submit) => BindEntity(id, epoch, kind, submit);
 
-        public bool Present(BuildingViewData building, int epoch, Color ambient)
+        public bool Present(BuildingViewData building, int epoch, Color ambient, ExpeditionDeviceData device = null, int moduleMask = 0)
         {
             if (building == null || !Accept(building.Id, epoch, building.Kind)) return false;
             Current = building;
-            Position(building.X, ambient);
+            Position(building.X, ambient, device?.Height ?? 0);
             if (BuildingVisual.HasPoseClips) BuildingVisual.SamplePose("construction", Math.Min(building.Progress, 0.999999));
             BuildingVisual.SetVisibility(building.Progress >= 1 || BuildingVisual.FadeConstruction,
                 building.Progress < 1 && !BuildingVisual.FadeConstruction, false);
             Color tint = building.HitFlash > 0 ? new Color(1.4f, 1.15f, 1.1f) : Color.white;
             if (BuildingVisual.FadeConstruction && building.Progress < 1) tint.a = 0.4f + (float)building.Progress * 0.6f;
+            if (device != null)
+            {
+                BuildingVisual.PresentExpedition(moduleMask);
+                if (device.Stage is 0 or 6) BuildingVisual.SetVisibility(false, false, false);
+                if (!device.Powered && building.Kind != "ship") tint *= .55f;
+            }
             BuildingVisual.TintSurface(tint);
             return true;
         }

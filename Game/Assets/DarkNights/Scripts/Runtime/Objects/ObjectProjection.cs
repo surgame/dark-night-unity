@@ -48,7 +48,7 @@ namespace DarkNights.Runtime.Objects
                 session.Projectiles.Read().Ballistics.Where(p => p.Kind != 0).Select(p => new ProjectileViewData(
                     p.ViewId, p.X, session.Layout.GroundY - p.Height, p.X, session.Layout.GroundY - p.Height,
                     p.Age, p.Lifetime, p.Kind, p.VelocityX, p.VelocityY, p.Gravity, p.Kind == 3 ? p.BlastRadius : p.Radius, p.Stuck))).ToArray();
-            return new WorldViewData(summary, actors, buildings, sites, shots, identities);
+            return new WorldViewData(summary, actors, buildings, sites, shots, identities, ExpeditionMapping.Capture(session));
         }
     }
 }

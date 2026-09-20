@@ -15,7 +15,7 @@ namespace DarkNights.Runtime.Session
         internal SessionHeroControl(ObjectSession world) { this.world = world; }
         internal static bool IsOperation(SessionOperation operation) => operation == SessionOperation.ClaimHero ||
             operation == SessionOperation.ReleaseHero || operation == SessionOperation.SelectHeroItem ||
-            operation == SessionOperation.UseHeroItem;
+            operation == SessionOperation.UseHeroItem || operation == SessionOperation.Expedition;
 
         internal int AssignDefault(SessionConnection connection)
         {
@@ -29,12 +29,16 @@ namespace DarkNights.Runtime.Session
                     if (current.Read().ControllerGeneration == connection.Generation) return 0;
                     return Claim(connection, current);
                 }
+            if (world.IsExpedition)
+                foreach (var saved in world.Index.Actors)
+                    if (saved.Read().OwnerSlot == connection.PlayerSlot && CanClaim(saved)) return Claim(connection, saved);
             ActorBehaviour actor = world.Index.Find<ActorBehaviour>(connection.DefaultHeroId);
             if (connection.DefaultHeroRecoveryPending && actor?.Read().ManualControl != true) actor = null;
             if (CanClaim(actor)) return Claim(connection, actor);
             foreach (var restored in world.Index.Actors)
             {
-                if (!restored.Read().ManualControl || !CanClaim(restored)) continue;
+                if (!restored.Read().ManualControl || !CanClaim(restored) ||
+                    world.IsExpedition && restored.Read().OwnerSlot >= 0 && restored.Read().OwnerSlot != connection.PlayerSlot) continue;
                 return Claim(connection, restored);
             }
             try
@@ -55,6 +59,7 @@ namespace DarkNights.Runtime.Session
 
         internal int Apply(SessionConnection connection, SessionRequest request)
         {
+            if (request.Operation == SessionOperation.Expedition) return SessionExpeditionControl.Apply(world, connection, request);
             ActorBehaviour actor = world.Index.Find<ActorBehaviour>(request.ActorIds[0]);
             if (request.Operation == SessionOperation.ClaimHero)
             {
@@ -153,7 +158,7 @@ namespace DarkNights.Runtime.Session
             connection.DefaultHeroRecoveryPending = false;
             return id;
         }
-        private bool CanClaim(ActorBehaviour actor) => actor != null && !actor.Enemy && actor.Hp > 0 && !actor.IsTraining &&
+        private bool CanClaim(ActorBehaviour actor) => actor != null && !actor.Enemy && (actor.Hp > 0 || world.IsExpedition && actor.Read().OwnerSlot >= 0) && !actor.IsTraining &&
             actor.Read().ControllerSlot < 0 && actor.Object.GetBehaviour<HeroControlBehaviour>() != null &&
             world.Camp.Read().Mode == SessionMode.Playing && world.Catalog.Balance.HeroControl != null;
         private static bool Owns(ActorBehaviour actor, SessionConnection connection, int lease) =>

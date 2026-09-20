@@ -66,7 +66,8 @@ namespace DarkNights.Tests
                     lights.Select(l => Mathf.Round(l.transform.position.x * 100)).ToArray());
                 var data = new SerializedObject(environment);
                 Assert.AreEqual(15, data.FindProperty("fireflies").arraySize);
-                Assert.AreEqual(9, data.FindProperty("staticSprites").arraySize);
+                Assert.AreEqual(8, data.FindProperty("staticSprites").arraySize);
+                Assert.IsFalse(root.GetComponentsInChildren<Transform>(true).Any(t => t.name == "Tomb"));
                 var terrain = AssetDatabase.LoadAssetAtPath<Mesh>(NativeEnvironmentSetup.Root + "/Terrain.asset");
                 Assert.AreEqual(190 * 4, terrain.vertexCount);
                 environment.Present(0, 1, 500, Color.white);

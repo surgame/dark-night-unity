@@ -37,7 +37,7 @@ namespace DarkNights.Entry
         public async UniTask InitializeAsync(AppStartupContext context, CancellationToken cancellationToken)
         {
             const string defaultScene = "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity";
-            string scenePath = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-camp-mode") >= 0 ? defaultScene : Terrain.RandomLevelEntry.ScenePath;
+            string scenePath = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-camp-mode") >= 0 ? defaultScene : Terrain.RandomLevelEntry.ExpeditionScenePath;
 #if UNITY_EDITOR
             scenePath = UnityEditor.SessionState.GetString("DarkNights.PlayScene", scenePath);
 #endif
@@ -56,7 +56,7 @@ namespace DarkNights.Entry
             var authoring = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
             LevelLayout layout = authoring.CreateLayout(catalog, DefinitionRuleIndex.RuleKey);
             var randomLevel = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<DarkNights.View.Terrain.RandomLevelTemplate>(true)).SingleOrDefault();
-            if (randomLevel != null) layout = DarkNights.Core.Logic.Terrain.PlayableTerrainGenerator.Layout(layout);
+            if (randomLevel != null && !randomLevel.Expedition) layout = DarkNights.Core.Logic.Terrain.PlayableTerrainGenerator.Layout(layout);
             var network = context.GetOrCreateChild("Dark Nights Session").gameObject.AddComponent<SessionNetwork>();
             context.Register(network);
             context.Register(layout);
@@ -79,9 +79,11 @@ namespace DarkNights.Entry
             var entities = network.gameObject.AddComponent<SessionEntityViews>();
             entities.Initialize(network.Client, catalog, stage, network);
             var ui = network.gameObject.AddComponent<SessionUiController>();
-            await ui.Initialize(network, catalog, stage, entities);
+            await ui.Initialize(network, catalog, stage, entities, layout.Expedition);
             network.gameObject.AddComponent<SessionPlacementView>().Initialize(network.Client, ui.Input, stage, catalog, layout);
             await network.gameObject.AddComponent<SessionEffects>().Initialize(network.Client, ui, stage, layout.GroundY);
+            var expeditionPanel = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<ExpeditionPanel>(true)).SingleOrDefault();
+            if (expeditionPanel != null) network.gameObject.AddComponent<ExpeditionHud>().Initialize(network, expeditionPanel);
             SessionAutomation.Install(network);
             Application.runInBackground = true;
             Application.targetFrameRate = 60;

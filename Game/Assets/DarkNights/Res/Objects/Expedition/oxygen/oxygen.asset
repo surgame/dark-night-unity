@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc8652e55004e79a017907c38b6a1b2, type: 3}
+  m_Name: oxygen
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinition
+  Id: 0
+  definitionGuid: e4b73fb57e306934a8e0471288fb455b
+  key: expedition.oxygen
+  keyAliases: []
+  legacyIdAliases: 
+  debugContent: 0
+  legacyAllocationPending: 
+  Type: 400
+  Name: oxygen
+  Icon: {fileID: 0}
+  Describe: 
+  MaxStack: 1
+  ItemLevel: 1
+  NetType: 1
+  PrefabRef:
+    m_AssetGUID: f1ae1dbee38fe30428b6827ecab7eef1
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  Archetype: {fileID: 11400000, guid: df29002f86da9cb46b2b8a7133c28005, type: 2}
+  UseMonolithicPooling: 0
+  BehaviourTypes:
+  - DarkNights.View.BuildingPresentationBehaviour
+  - DarkNights.Runtime.Objects.BuildingBehaviour
+  SharedConfigs:
+  - rid: 6961529756691202146
+  references:
+    version: 2
+    RefIds:
+    - rid: 6961529756691202146
+      type: {class: BuildingRuleConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        RuleKey: oxygen

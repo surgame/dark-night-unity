@@ -52,6 +52,12 @@ namespace DarkNights.Runtime.Objects
         internal ActorBehaviour SpawnDefaultResident()
         {
             if (session.Camp.Read().Mode != SessionMode.Playing) return null;
+            if (session.IsExpedition)
+            {
+                var a = session.Lifecycle.SpawnActor("worker", session.Expedition.Ship.X + 70);
+                a.Edit().Oxygen = session.Catalog.Balance.Expedition.OxygenSeconds;
+                a.Edit().JetpackEquipped = true; return a;
+            }
             BuildingBehaviour tavern = session.Index.Buildings.LastOrDefault(b => b.RuleKey == "tavern" && b.IsComplete);
             return tavern == null ? null : SpawnResident(tavern);
         }

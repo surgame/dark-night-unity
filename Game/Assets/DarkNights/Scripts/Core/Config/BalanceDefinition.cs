@@ -9,6 +9,7 @@ namespace DarkNights.Core.Config
     /// </summary>
     public sealed class BalanceDefinition
     {
+        public ExpeditionDefinition Expedition { get; }
         public int SchemaVersion { get; }
         public EconomyDefinition Economy { get; }
         public HeroControlDefinition HeroControl { get; }
@@ -21,8 +22,9 @@ namespace DarkNights.Core.Config
             EconomyDefinition economy,
             IReadOnlyDictionary<string, UnitDefinition> units,
             IReadOnlyDictionary<string, BuildingDefinition> buildings,
-            IReadOnlyDictionary<string, WorksiteDefinition> worksites, HeroControlDefinition heroControl = null)
+            IReadOnlyDictionary<string, WorksiteDefinition> worksites, HeroControlDefinition heroControl = null, ExpeditionDefinition expedition = null)
         {
+            Expedition = expedition ?? new ExpeditionDefinition();
             SchemaVersion = schemaVersion;
             HeroControl = heroControl;
             Economy = economy ?? throw new ArgumentNullException(nameof(economy));

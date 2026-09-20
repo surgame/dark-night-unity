@@ -50,6 +50,7 @@ namespace DarkNights.Runtime.Network
             Authority = new SessionAuthority(simulation);
             clock = new SessionClock(Authority);
             Storage = new SessionStorage(Authority, saves);
+            if (simulation.IsExpedition) simulation.Expedition.CommitSave = snapshot => saves.Save(GameSaveStore.SlotCount - 1, snapshot);
             if (measure) { Measurements = new SessionMeasurements(); clock.MeasureStep = Measurements.Step; }
             try { Publish(); }
             catch { Dispose(); throw; }
@@ -103,9 +104,10 @@ namespace DarkNights.Runtime.Network
             var map = simulation.Terrain?.Map;
             if (peer?.Authority == null || !peer.Authority.Ready || Authority.Loading || simulation.Paused || command == null || map == null ||
                 (!peer.IsHost && Authority.ControlMode == CampControlMode.HostOnly)) return null;
+            if (simulation.IsExpedition && !simulation.Expedition.Active) return null;
             var actor = simulation.Index.Find<ActorBehaviour>(peer.Authority.DefaultHeroId);
             var state = actor?.Read();
-            if (state == null || state.Enemy || state.Hp <= 0 || !state.ManualControl ||
+            if (state == null || state.Boarded || state.Enemy || state.Hp <= 0 || !state.ManualControl ||
                 state.ControllerSlot != peer.Authority.PlayerSlot || state.ControllerGeneration != peer.Authority.Generation ||
                 state.ControlLease <= 0 || state.SelectedItem != 1 ||
                 Authority.ServerTick - state.LastTerrainActionTick < 3) return null;
@@ -120,7 +122,7 @@ namespace DarkNights.Runtime.Network
                         ActorState current = actor.Edit();
                         current.LastTerrainActionTick = Authority.ServerTick;
                         if (action == TerrainEditAction.Explosive) current.ExplosiveCharges--;
-                        if (resources == null || resources.Count == 0) return true;
+                        if (simulation.IsExpedition || resources == null || resources.Count == 0) return true;
                         foreach (string resource in resources) simulation.Economy.AddResource(resource, 1);
                         return true;
                     });

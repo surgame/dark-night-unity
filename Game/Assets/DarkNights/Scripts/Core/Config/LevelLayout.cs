@@ -9,6 +9,7 @@ namespace DarkNights.Core.Config
     /// </summary>
     public sealed class LevelLayout
     {
+        public bool Expedition { get; }
         public bool RandomTerrain { get; }
         public float WorldWidth { get; }
         public float GroundY { get; }
@@ -24,11 +25,11 @@ namespace DarkNights.Core.Config
         public LevelLayout(float worldWidth, float groundY, float buildMinX, float buildMaxX,
             float spawnX, float cameraX, IReadOnlyList<PlacementDefinition> buildings,
             IReadOnlyList<PlacementDefinition> worksites, IReadOnlyList<PlacementDefinition> actors,
-            IReadOnlyList<PlatformDefinition> platforms = null, bool randomTerrain = false)
+            IReadOnlyList<PlatformDefinition> platforms = null, bool randomTerrain = false, bool expedition = false)
         {
             Platforms = new List<PlatformDefinition>(platforms ?? Array.Empty<PlatformDefinition>()).AsReadOnly();
             WorldWidth = worldWidth;
-            RandomTerrain = randomTerrain;
+            RandomTerrain = randomTerrain; Expedition = expedition;
             GroundY = groundY;
             BuildMinX = buildMinX;
             BuildMaxX = buildMaxX;
@@ -47,12 +48,12 @@ namespace DarkNights.Core.Config
                 !Coordinate(BuildMinX) || !Coordinate(BuildMaxX) || BuildMinX >= BuildMaxX ||
                 !Coordinate(SpawnX) || !Coordinate(CameraX))
                 throw new ArgumentException("Invalid level bounds.");
-            if (Buildings.Count + Worksites.Count + Actors.Count > 255 || Buildings.Count == 0 || Actors.Count == 0)
+            if (Buildings.Count + Worksites.Count + Actors.Count > 255 || Buildings.Count == 0 || (!Expedition && Actors.Count == 0))
                 throw new ArgumentException("Invalid initial entity count.");
             foreach (var entry in Buildings.Concat(Worksites).Concat(Actors))
                 if (entry == null || !Coordinate(entry.X) || entry.Variant < 0 || entry.Variant > 3 || entry.Name.Length > 80)
                     throw new ArgumentException("Invalid placement.");
-            if (Buildings.Count(b => b.Kind == "tavern") != 1 ||
+            if (Buildings.Count(b => b.Kind == (Expedition ? "ship" : "tavern")) != 1 ||
                 Buildings.Any(b => b.Variant != 0 || !catalog.Balance.Buildings.ContainsKey(b.Kind)) ||
                 Worksites.Any(w => w.Kind == "food" || !catalog.Balance.Worksites.ContainsKey(w.Kind)) ||
                 Actors.Any(a => a.Variant != 0 || (a.Kind != "worker" && a.Kind != "spearman" && a.Kind != "archer")) ||

@@ -18,6 +18,7 @@ namespace DarkNights.Runtime.Terrain
         private uint generation;
         public TerrainMapAuthority Map { get; private set; }
         public string Seed { get; private set; }
+        public bool Expedition { get; private set; }
         public IReadOnlyList<TerrainDepositBlueprint> Deposits => new List<TerrainDepositBlueprint>(deposits).AsReadOnly();
         public SessionTerrain(ObjectSessionContext context, ServerGameplayCatalog catalog, PlayableTerrain initial)
         {
@@ -41,6 +42,7 @@ namespace DarkNights.Runtime.Terrain
             if (Map == null) return initial;
             var cells = new byte[TerrainGenerationSettings.Width * TerrainGenerationSettings.Height];
             var flags = new bool[cells.Length];
+            var shapes = new byte[cells.Length];
             string[] keys = { "loam", "slate", "basalt", "copper", "iron", "gold", "moss", "bedrock" };
             var palette = new System.Collections.Generic.Dictionary<uint, byte>();
             for (byte i = 0; i < keys.Length; i++) palette.Add(catalog.Tiles.ByKey(keys[i]), (byte)(i + 1));
@@ -49,12 +51,14 @@ namespace DarkNights.Runtime.Terrain
                 var cell = Map.Read(new CellCoord(x, -y)).Cell;
                 int index = y * TerrainGenerationSettings.Width + x;
                 cells[index] = cell.IsEmpty ? (byte)0 : palette[cell.TileId]; flags[index] = (cell.Flags & 1) != 0;
+                shapes[index] = (byte)((cell.Flags >> 1) & 15);
             }
             return new PlayableTerrain(Map.World.WorldId.ToString().Replace("-", ""), Seed, cells, flags,
-                (bool[])softRock.Clone(), (TerrainRoom[])rooms.Clone(), (TerrainDepositBlueprint[])deposits.Clone());
+                (bool[])softRock.Clone(), (TerrainRoom[])rooms.Clone(), (TerrainDepositBlueprint[])deposits.Clone(), shapes, Expedition);
         }
         private void SetStatic(PlayableTerrain data)
         {
+            Expedition = data.Expedition;
             softRock = data.CopySoftRock(); rooms = new List<TerrainRoom>(data.Rooms).ToArray();
             deposits = new List<TerrainDepositBlueprint>(data.Deposits).ToArray();
         }

@@ -14,6 +14,7 @@ namespace DarkNights.View
         private WorksiteView DepositVisual => Visual as WorksiteView ??
             throw new InvalidOperationException("Mineral deposit presentation is missing WorksiteView.");
 
+        public void UseBackgroundWall() => DepositVisual.SetVisibility(false, 0, false);
         public WorksiteViewData Current { get; private set; }
         public override bool IsAvailable => IsBound && Current != null;
 

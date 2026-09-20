@@ -21,7 +21,7 @@ namespace DarkNights.Runtime.Save
     /// </summary>
     public sealed class ObjectWorldSaveJson
     {
-        public const int FormatVersion = 7;
+        public const int FormatVersion = 8;
         public const int MaximumBytes = 4000000;
         public const string Format = "dark-nights.world";
         private readonly string equipmentFingerprint;
@@ -101,7 +101,7 @@ namespace DarkNights.Runtime.Save
                 Array(world["buildings"], SnapshotEntityJson.BuildingSnapshot, 256),
                 Array(world["worksites"], SnapshotEntityJson.WorksiteSnapshot, 256),
                 Array(world["projectiles"], SnapshotEntityJson.ProjectileSnapshot, 1024),
-                SnapshotDocumentJson.StatisticsSnapshot(world["stats"]), mode, identities, TerrainSaveJson.Read(world["terrain"]));
+                SnapshotDocumentJson.StatisticsSnapshot(world["stats"]), mode, identities, TerrainSaveJson.Read(world["terrain"]), ExpeditionSaveJson.Read(world["expedition"]));
             Validate(snapshot);
             RequireFields(world, World(snapshot));
             return snapshot;
@@ -135,6 +135,7 @@ namespace DarkNights.Runtime.Save
         {
             JObject world = SnapshotDocumentJson.Write(snapshot);
             world["mode"] = snapshot.Mode.ToString();
+            world["expedition"] = ExpeditionSaveJson.Write(snapshot.Expedition);
             world["identities"] = new JArray(snapshot.Identities.Select(i => new JObject
             {
                 ["id"] = i.Id, ["definition_guid"] = i.DefinitionGuid, ["placement_key"] = i.PlacementKey

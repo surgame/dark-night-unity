@@ -120,15 +120,20 @@ namespace DarkNights.Entry
                 {
                     workKinds.TryGetValue(actor.TargetId, out string kind);
                     view.Present(actor, frame.Epoch, kind ?? "", timeline.X(actor, now), timeline.ActionTime(actor, now), stage.Ambient, timeline.Height(actor, now));
+                    ((ActorView)view.Visual).PresentBoarded(frame.World.Expedition?.Crew.FirstOrDefault(c => c.Id == actor.Id)?.Boarded == true);
                 }
             foreach (BuildingViewData building in frame.World.Buildings)
-                if (Presentation(building.Id) is BuildingPresentationBehaviour view) view.Present(building, frame.Epoch, stage.Ambient);
+                if (Presentation(building.Id) is BuildingPresentationBehaviour view) view.Present(building, frame.Epoch, stage.Ambient, frame.World.Expedition?.Devices.FirstOrDefault(d => d.Id == building.Id),
+                    frame.World.Expedition == null ? 0 : frame.World.Expedition.RobotModule + frame.World.Expedition.CargoModule * 2 + frame.World.Expedition.CrewModule * 4);
             foreach (WorksiteViewData site in frame.World.Worksites)
             {
                 if (site.IsMineralDeposit || site.Kind == "mineral-deposit")
                 {
                     if (Presentation(site.Id) is MineralDepositPresentationBehaviour deposit)
+                    {
                         deposit.Present(site, frame.Epoch, stage.Ambient);
+                        if (frame.World.Expedition != null) deposit.UseBackgroundWall();
+                    }
                 }
                 else if (Presentation(site.Id) is WorksitePresentationBehaviour view) view.Present(site, frame.Epoch, stage.Ambient);
             }

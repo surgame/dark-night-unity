@@ -1,0 +1,111 @@
+{
+  "method": "native-pixel Pillow drawing; no image generation",
+  "density": "16 pixels per terrain cell",
+  "constraints": "transparent hard edges, Point sampling; ship interfaces at x=48/80/112/144",
+  "artifacts": [
+    {
+      "file": "ship-0.png",
+      "size": [
+        192,
+        48
+      ],
+      "sha256": "fbde52b61d29be6cd38bc8df3e86123e5937fdc71e7afd1ffde59bc98eb2180e"
+    },
+    {
+      "file": "ship-1.png",
+      "size": [
+        192,
+        48
+      ],
+      "sha256": "2a8430fb97c2e7b6fe22d1c20390e6975e851d88465b9b08e59891fd78660147"
+    },
+    {
+      "file": "ship-2.png",
+      "size": [
+        192,
+        48
+      ],
+      "sha256": "8f8a02e68be7972f708621286729fd65eff6ff08eda3955e4fafe4d88d8c952f"
+    },
+    {
+      "file": "ship-3.png",
+      "size": [
+        192,
+        48
+      ],
+      "sha256": "c9bad8dfb82998d6311721e75c34ba1b64f7f807c1bceb63552cae14ed00c725"
+    },
+    {
+      "file": "ship-4.png",
+      "size": [
+        192,
+        48
+      ],
+      "sha256": "11a14bfb75497f1f752a172415adb461d0b9691e91b067e484601704f6b33ec1"
+    },
+    {
+      "file": "ship-5.png",
+      "size": [
+        192,
+        48
+      ],
+      "sha256": "b9b2b734525ebbbe9445fecc2a19a280f9e4869fe6dcd7e48c982b64e9ff5fb7"
+    },
+    {
+      "file": "ship-6.png",
+      "size": [
+        192,
+        48
+      ],
+      "sha256": "ef54ca000eb3b6f8c46d75674dc0d83fa0de1b7000c6b7e7773798670403a418"
+    },
+    {
+      "file": "ship-7.png",
+      "size": [
+        192,
+        48
+      ],
+      "sha256": "d86468ea3623c5bc9fcdf717aba787d3ebab64cde86bc98ba1eaddcf06280213"
+    },
+    {
+      "file": "oxygen.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "ca8cf0e4358e566a644b200aefcfccc14ce9e6c62749b5a6e80931110120e7fc"
+    },
+    {
+      "file": "storage.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "28d1d33892a324206a2ff9974c08ac88b9557ccb2384376e3736d9a7cad5dce5"
+    },
+    {
+      "file": "turret.png",
+      "size": [
+        32,
+        32
+      ],
+      "sha256": "f86821cc379c0f71bfb55fad94bd8ad24b56e706b192d0145eb1a42079ee65f7"
+    },
+    {
+      "file": "lamp.png",
+      "size": [
+        16,
+        32
+      ],
+      "sha256": "55ea26a991a87c9c46547f2c97e52055e4297a0bebb8b75cb299e6b3f2f374ef"
+    },
+    {
+      "file": "hauler.png",
+      "size": [
+        16,
+        16
+      ],
+      "sha256": "39f6567c1d2ccfd26dd79c6162316ac3016f02da65eadaf942048f863fcaba14"
+    }
+  ]
+}

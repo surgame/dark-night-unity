@@ -55,7 +55,7 @@ namespace DarkNights.Entry
             button.onClick.Invoke();
         }
 
-        public async UniTask Initialize(SessionNetwork session, GameCatalog rules, PinewatchStage stage, SessionEntityViews entities)
+        public async UniTask Initialize(SessionNetwork session, GameCatalog rules, PinewatchStage stage, SessionEntityViews entities, bool expedition = false)
         {
             network = session;
             this.entities = entities;
@@ -87,7 +87,7 @@ namespace DarkNights.Entry
             result = Behaviour<ResultMenuBehaviour>("Result");
             help = Behaviour<HelpMenuBehaviour>("Help");
             hud = Behaviour<CampHudBehaviour>("Chrome");
-            hud.Configure(catalog);
+            hud.Configure(catalog, expedition);
             hero = gameObject.AddComponent<HeroPlayerController>();
             hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"), entities);
             network.Client.Feedback += Feedback;

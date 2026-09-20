@@ -13,6 +13,7 @@ namespace DarkNights.Entry.Terrain
     /// <summary>随机灰松谷场景的装配及只读页面生命周期；网络、对象与渲染代次必须一致，退房和换世界销毁旧页面。</summary>
     public sealed class RandomLevelEntry : MonoBehaviour
     {
+        public const string ExpeditionScenePath = "Assets/DarkNights/Res/Scenes/Expedition/Expedition.unity";
         public const string ScenePath = "Assets/DarkNights/Res/Scenes/RandomPinewatch/Pinewatch.unity";
         private SessionNetwork network;
         private RandomLevelTemplate template;
@@ -25,7 +26,7 @@ namespace DarkNights.Entry.Terrain
         {
             var entry = network.gameObject.AddComponent<RandomLevelEntry>();
             entry.network = network; entry.template = template; entry.stage = stage; stage.RandomTerrain = true;
-            network.Terrain = new SessionTerrainNetwork(InstanceFinder.NetworkManager, network, template.Definition);
+            network.Terrain = new SessionTerrainNetwork(InstanceFinder.NetworkManager, network, template.Definition, template.Expedition);
         }
         private void Update()
         {
@@ -41,7 +42,7 @@ namespace DarkNights.Entry.Terrain
                     root.transform.SetParent(transform, false);
                     root.transform.localPosition = new Vector3(0, PlayableTerrain.OriginY / 100, 0);
                     root.transform.localScale = Vector3.one * (PlayableTerrain.CellPixels / 100f);
-                    view = root.AddComponent<TerrainPreview>(); view.ViewCamera = stage.SceneCamera;
+                    view = root.AddComponent<TerrainPreview>(); view.ViewCamera = stage.SceneCamera; view.CaveStyle = template.CaveStyle;
                     view.ShowReplica(template.Definition, new TerrainReplicaSource(replica), replica.World);
                 }
                 else if (replica.CommitId != presentedCommit)
@@ -49,6 +50,8 @@ namespace DarkNights.Entry.Terrain
                     presentedCommit = replica.CommitId;
                     view?.NotifyReplicaChanged();
                 }
+                var frame = network.Client.Replica.Current;
+                if (frame != null) { view.SetMinerals(frame.World.Worksites); view.SetDevices(frame.World); }
                 if (view.LastError != null) throw view.LastError;
                 network.Terrain.PresentationReady = view.Ready;
             }

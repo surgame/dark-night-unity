@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AnyRules.Next.Authoring;
@@ -120,6 +121,8 @@ namespace DarkNights.Entry.Terrain
                 if (version != request) return;
                 Release(Preview); Workshop?.Dispose(); Workshop = workshop; workshop = null;
                 Blueprint = blueprint; Preview = candidate; candidate = null;
+                Preview.SetMinerals(blueprint.Deposits.Select((d, i) => new DarkNights.Core.ViewData.WorksiteViewData(
+                    i + 1, "mineral-deposit", (d.X + .5f) * 16, d.Y, 0, d.Capacity, 0, 0, 0, true, d.RoomKind, d.Rarity, d.Capacity, "Active")).ToArray());
                 Generation++; Flyer.Ready = true; VisitRoom(0);
                 Status = settings.Seed + " · " + blueprint.Rooms.Count + " 洞室 / " +
                     (blueprint.Passages.Count == 0 ? 7 : blueprint.Passages.Count) + " 通路 · 第 " + Generation + " 次生成";

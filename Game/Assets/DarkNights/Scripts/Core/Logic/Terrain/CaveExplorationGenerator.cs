@@ -11,7 +11,7 @@ namespace DarkNights.Core.Logic.Terrain
         public static TerrainBlueprint Generate(TerrainGenerationSettings input)
         {
             var settings = input.CopyValidated();
-            var random = new TerrainRandom(settings.Seed + ":cave-exploration-v2");
+            var random = new TerrainRandom(settings.Seed + ":cave-exploration-v3");
             var cells = new byte[W * H]; var protection = new bool[cells.Length]; var soft = new bool[cells.Length];
             int[] surface = Surface(settings);
             for (int y = 0; y < H; y++) for (int x = 0; x < W; x++)
@@ -49,12 +49,9 @@ namespace DarkNights.Core.Logic.Terrain
                 while (floor < H - 5 && cells[floor * W + x] == 0) floor++;
                 if (floor < H - 5)
                 {
-                    deposits.Add(new TerrainDepositBlueprint("cave-" + n, room.Kind, x, floor - 1, n > 7 ? "rare" : "common", 80));
-                    for (int dx = -2; dx <= 2; dx++) for (int dy = 0; dy < 3; dy++)
-                    {
-                        int i = (floor + dy) * W + x + dx;
-                        if (cells[i] != 0 && !protection[i] && random.Next() > .25) cells[i] = (byte)(n % 3 == 0 ? 6 : 4);
-                    }
+                    // 只有独立矿床产出矿物。部分锚点藏在普通岩体后，前景挖开后才可采。
+                    deposits.Add(new TerrainDepositBlueprint("cave-" + n, room.Kind, x,
+                        n % 3 == 1 ? floor : floor - 1, n > 7 ? "rare" : "common", 80));
                 }
             }
             byte[] shapes = TerrainShapeGeometry.Build(cells, protection, W, H);
@@ -77,11 +74,11 @@ namespace DarkNights.Core.Logic.Terrain
             string[] kinds = { "gallery", "shelf", "rift", "vault" };
             for (int row = 0; row < 3; row++) for (int col = 0; col < 4; col++)
             {
-                int x = 43 + col * 77 + (int)(r.Next() * 19) - 9;
-                int y = 65 + row * 43 + (int)(r.Next() * 25) - 12;
+                int x = 80 + col * 53 + (int)(r.Next() * 11) - 5;
+                int y = 62 + row * 30 + (int)(r.Next() * 11) - 5;
                 int kind = (col + row) % 4;
-                rooms.Add(new TerrainRoom(kinds[kind], x, y, kind == 2 ? 28 : 38 + (int)(r.Next() * 13),
-                    kind == 2 ? 29 : 18 + (int)(r.Next() * 8)));
+                rooms.Add(new TerrainRoom(kinds[kind], x, y, kind == 2 ? 16 : kind == 3 ? 32 : 22 + (int)(r.Next() * 9),
+                    kind == 2 ? 22 : kind == 3 ? 16 : 10 + (int)(r.Next() * 6)));
             }
             return rooms;
         }

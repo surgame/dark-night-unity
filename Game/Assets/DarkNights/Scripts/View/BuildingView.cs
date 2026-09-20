@@ -10,6 +10,9 @@ namespace DarkNights.View
     /// </summary>
     public sealed class BuildingView : EntityView, IRemnantView
     {
+        [SerializeField] private Sprite[] expeditionVariants = Array.Empty<Sprite>();
+        public void PresentExpedition(int mask)
+        { if (expeditionVariants.Length > 0) complete.sprite = expeditionVariants[Math.Clamp(mask, 0, expeditionVariants.Length - 1)]; }
         [SerializeField] private SpriteRenderer complete;
         [SerializeField] private SpriteRenderer foundation;
         [SerializeField] private SpriteRenderer rubble;

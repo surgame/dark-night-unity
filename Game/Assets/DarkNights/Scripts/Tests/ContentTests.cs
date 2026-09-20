@@ -36,7 +36,9 @@ namespace DarkNights.Tests
             var hero = (JObject)source["hero_control"];
             source.Remove("hero_control");
             int fields = Compare(source, catalog.Balance) + Compare(JObject.Parse(level), catalog.Level);
-            Assert.That(fields, Is.EqualTo(196));
+            int expected = source.Descendants().Concat(JObject.Parse(level).Descendants())
+                .Count(t => t is JValue && !(t.Parent is JProperty property && property.Name == "sprite"));
+            Assert.That(fields, Is.EqualTo(expected));
             Assert.That(Compare(hero, catalog.Balance.HeroControl), Is.EqualTo(8));
             Assert.That(catalog.Level.Seed, Is.EqualTo(90127UL));
             Assert.That(catalog.Level.Waves.Select(wave => wave.Enemies.Count), Is.EqualTo(new[] { 7, 11, 16 }));
@@ -66,7 +68,7 @@ namespace DarkNights.Tests
             var rules = new BalanceDefinition(1, catalog.Balance.Economy, units,
                 catalog.Balance.Buildings, catalog.Balance.Worksites);
             units.Clear();
-            Assert.That(rules.Units.Count, Is.EqualTo(6));
+            Assert.That(rules.Units.Count, Is.EqualTo(catalog.Balance.Units.Count));
             Assert.Throws<NotSupportedException>(() => ((IDictionary<string, UnitDefinition>)rules.Units).Clear());
             Assert.Throws<NotSupportedException>(() => ((IList<int>)rules.Units["worker"].Damage)[0] = 999);
         }
@@ -144,7 +146,7 @@ namespace DarkNights.Tests
                     else
                     {
                         var property = actual.GetType().GetProperties().SingleOrDefault(info =>
-                            Regex.Replace(info.Name, "(?<!^)([A-Z])", "_$1").ToLowerInvariant() == field.Name);
+                            info.Name == field.Name || Regex.Replace(info.Name, "(?<!^)([A-Z])", "_$1").ToLowerInvariant() == field.Name);
                         Assert.That(property, Is.Not.Null, field.Path);
                         value = property.GetValue(actual);
                     }

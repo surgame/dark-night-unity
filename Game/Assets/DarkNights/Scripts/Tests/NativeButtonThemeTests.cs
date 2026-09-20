@@ -94,20 +94,25 @@ namespace DarkNights.Tests
                 Button button = view.Get<Button>("ControlMode");
                 Text label = view.Get<Text>("ControlModeLabel");
                 button.interactable = false;
-                EditorApplication.QueuePlayerLoopUpdate();
-                yield return null;
-                AssertColor(label.color, Disabled);
+                yield return AwaitColor(label, Disabled);
                 button.interactable = true;
-                EditorApplication.QueuePlayerLoopUpdate();
-                yield return null;
-                AssertColor(label.color, Normal);
+                yield return AwaitColor(label, Normal);
                 var group = root.AddComponent<CanvasGroup>();
                 group.interactable = false;
-                EditorApplication.QueuePlayerLoopUpdate();
-                yield return null;
-                AssertColor(label.color, Disabled);
+                yield return AwaitColor(label, Disabled);
             }
             finally { UnityEngine.Object.DestroyImmediate(root); }
+        }
+
+        private static IEnumerator AwaitColor(Text label, Color expected)
+        {
+            double deadline = EditorApplication.timeSinceStartup + 2;
+            while (label.color != expected && EditorApplication.timeSinceStartup < deadline)
+            {
+                EditorApplication.QueuePlayerLoopUpdate();
+                yield return null;
+            }
+            AssertColor(label.color, expected);
         }
 
         private static GameObject Open(string page) => UnityEngine.Object.Instantiate(

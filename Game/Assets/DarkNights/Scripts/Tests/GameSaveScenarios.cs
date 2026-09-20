@@ -121,7 +121,7 @@ namespace DarkNights.Tests
             var reordered = new GameCatalog(new BalanceDefinition(balance.SchemaVersion, balance.Economy,
                 balance.Units.Reverse().ToDictionary(p => p.Key, p => p.Value),
                 balance.Buildings.Reverse().ToDictionary(p => p.Key, p => p.Value),
-                balance.Worksites.Reverse().ToDictionary(p => p.Key, p => p.Value), balance.HeroControl), catalog.Level);
+                balance.Worksites.Reverse().ToDictionary(p => p.Key, p => p.Value), balance.HeroControl, balance.Expedition), catalog.Level);
             check(new SaveContentFingerprint(reordered, layout).RulesSha256 == baseline.RulesSha256,
                 "Dictionary insertion order does not change rules digest");
             var cameraOnly = CopyLayout(layout, layout.Actors, layout.CameraX + 1);

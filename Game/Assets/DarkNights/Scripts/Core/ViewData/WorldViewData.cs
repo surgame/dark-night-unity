@@ -11,6 +11,7 @@ namespace DarkNights.Core.ViewData
     {
         public const int MaximumEntities = 256;
         public const int MaximumProjectiles = 1024;
+        public ExpeditionViewData Expedition { get; }
         public CampViewData Camp { get; }
         public IReadOnlyList<ActorViewData> Actors { get; }
         public IReadOnlyList<BuildingViewData> Buildings { get; }
@@ -20,8 +21,9 @@ namespace DarkNights.Core.ViewData
 
         public WorldViewData(CampViewData camp, IReadOnlyList<ActorViewData> actors,
             IReadOnlyList<BuildingViewData> buildings, IReadOnlyList<WorksiteViewData> worksites,
-            IReadOnlyList<ProjectileViewData> projectiles, IReadOnlyList<EntityIdentityData> identities = null)
+            IReadOnlyList<ProjectileViewData> projectiles, IReadOnlyList<EntityIdentityData> identities = null, ExpeditionViewData expedition = null)
         {
+            Expedition = expedition;
             Camp = camp ?? throw new ArgumentNullException(nameof(camp));
             if (actors == null || buildings == null || worksites == null || projectiles == null)
                 throw new ArgumentNullException(nameof(actors));

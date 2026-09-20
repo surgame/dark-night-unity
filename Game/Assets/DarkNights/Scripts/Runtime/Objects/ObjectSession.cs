@@ -49,6 +49,10 @@ namespace DarkNights.Runtime.Objects
         public ObjectCombat Combat { get; }
         public ObjectCampCommands Commands { get; }
         public SessionFeedback Feedback { get; } = new SessionFeedback();
+        public bool IsExpedition => Terrain?.Expedition == true;
+        public ExpeditionOperations Expedition { get; }
+        public ExpeditionDevices ExpeditionDevices { get; }
+        public ExpeditionThreat ExpeditionThreat { get; }
         public bool Paused => Camp.Read().Paused;
         public int Speed => Camp.Read().Speed;
         public double Elapsed => Camp.Read().Elapsed;
@@ -76,6 +80,9 @@ namespace DarkNights.Runtime.Objects
             Lifecycle = new ObjectEntityLifecycle(this);
             Combat = new ObjectCombat(this);
             Commands = new ObjectCampCommands(this);
+            Expedition = new ExpeditionOperations(this);
+            ExpeditionDevices = new ExpeditionDevices(this);
+            ExpeditionThreat = new ExpeditionThreat(this);
         }
 
         public void Prepare(ObjectInstance sessionOwner, IReadOnlyList<ObjectPlacement> placements)
@@ -106,6 +113,7 @@ namespace DarkNights.Runtime.Objects
                     foreach (TerrainDepositBlueprint deposit in Terrain.Deposits)
                         Create(mineralDefinition, (deposit.X + .5f) * PlayableTerrain.CellPixels,
                             "terrain.deposit." + deposit.Id, true, 0, "", null, false, 0, deposit);
+                if (IsExpedition) Expedition.Prepare();
                 return true;
             });
             initial = CaptureWorld();
@@ -128,6 +136,7 @@ namespace DarkNights.Runtime.Objects
         public void Loaded(bool restarted)
         {
             if (!restarted) return;
+            if (IsExpedition) { Feedback.ShowBanner("远征整备", "出发、采矿、卸货、返航。舱段升级会带入下一次远征。"); return; }
             Feedback.ShowBanner("灰松谷 · 第一天", "安排生产，训练守卫。守住三次夜袭。");
             Feedback.Notify("先安排一名工人耕作，再采集木材。东侧已有两名守卫。");
         }
@@ -195,6 +204,7 @@ namespace DarkNights.Runtime.Objects
         {
             if (!Context.IsActive) throw new InvalidOperationException("Prepared sessions cannot tick.");
             if (Camp.Read().Mode != SessionMode.Playing || Paused) return;
+            if (IsExpedition) { Expedition.Advance(seconds); return; }
             Mutations.Run(() =>
             {
                 double delta = Camp.BeginStep(seconds);

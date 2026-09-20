@@ -5553,6 +5553,12 @@ MonoBehaviour:
   - key: BannerFade
     targetObject: {fileID: 8001729611637876421}
     target: {fileID: 3267757622039346574}
+  - key: TopBar
+    targetObject: {fileID: 211239438219542452}
+    target: {fileID: 100683798775929909}
+  - key: BottomBar
+    targetObject: {fileID: 1867550137470717130}
+    target: {fileID: 5296782886735059322}
 --- !u!223 &5166033833062093639
 Canvas:
   m_ObjectHideFlags: 0

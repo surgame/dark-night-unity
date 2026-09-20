@@ -15,6 +15,11 @@ namespace DarkNights.View.Terrain
         private readonly IMapChunkSource source;
         private readonly Color32[] cells = new Color32[W * H];
         private readonly Dictionary<uint, byte> materials = new Dictionary<uint, byte>();
+        private readonly Color32[] ores = new Color32[W * H];
+        private readonly Texture2D oreMap;
+        private int mineralHash;
+        private byte[] deviceLights;
+        private int deviceHash;
         private readonly Texture2D map;
         private readonly Texture2D light;
         private readonly Material background;
@@ -36,7 +41,10 @@ namespace DarkNights.View.Terrain
             Material = new Material(style.Shader) { name = "Cave per-map rock" };
             Material.SetTexture("_CaveMap", map); Material.SetTexture("_CaveLight", light); Material.SetTexture("_RockTex", style.Rock);
             Material.SetMatrix("_MapWorldToLocal", parent.worldToLocalMatrix);
+            oreMap = new Texture2D(W, H, TextureFormat.RGBA32, false, true) { filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp };
+            Material.SetTexture("_OreMap", oreMap);
             background = new Material(Material); background.SetFloat("_Background", 1);
+            background.SetMatrix("_MapWorldToLocal", parent.worldToLocalMatrix);
             backdrop = new GameObject("Cave distant wall"); backdrop.transform.SetParent(parent, false);
             mesh = new Mesh { name = "Cave backdrop quad" };
             mesh.vertices = new[] { new Vector3(-1,-193,1), new Vector3(321,-193,1), new Vector3(321,12,1), new Vector3(-1,12,1) };
@@ -58,19 +66,56 @@ namespace DarkNights.View.Terrain
             }
             dirty = true; return data;
         }
+        public void SetMinerals(IReadOnlyList<DarkNights.Core.ViewData.WorksiteViewData> deposits)
+        {
+            int hash = 17;
+            foreach (var d in deposits) if (d.IsMineralDeposit) hash = unchecked(hash * 31 + d.Id * 17 + d.Amount);
+            if (hash == mineralHash) return;
+            mineralHash = hash; Array.Clear(ores, 0, ores.Length);
+            foreach (var d in deposits)
+            {
+                if (!d.IsMineralDeposit || d.Amount <= 0) continue;
+                int x = Mathf.FloorToInt(d.X / 16 + .5f), y = Mathf.FloorToInt((float)d.Y + 1);
+                if (x < 0 || x >= W || y < 0 || y >= H) continue;
+                ores[y * W + x] = new Color32(d.Rarity == "rare" ? (byte)255 : (byte)0, 255, 0, 255);
+            }
+            dirty = true;
+        }
         public void Flush()
         {
             if (!dirty) return;
             dirty = false;
-            var lights = CaveLightField.Build(cells, W, H);
+            var lights = CaveLightField.Build(cells, W, H, ores, deviceLights);
+            oreMap.SetPixels32(ores); oreMap.Apply(false, false);
             map.SetPixels32(cells); map.Apply(false, false);
             light.SetPixels32(lights); light.Apply(false, false);
+        }
+        public void SetDevices(DarkNights.Core.ViewData.WorldViewData world)
+        {
+            if (world.Expedition == null) return;
+            int hash = 17;
+            foreach (var b in world.Expedition.Devices)
+                if (b.Powered) hash = unchecked(hash * 31 + b.Id * 7 + b.Height.GetHashCode());
+            foreach (var b in world.Buildings) hash = unchecked(hash * 31 + b.X.GetHashCode());
+            if (deviceLights != null && hash == deviceHash) return;
+            deviceHash = hash; deviceLights = new byte[W * H];
+            foreach (var b in world.Buildings)
+            {
+                if (b.Kind != "lamp" && b.Kind != "ship") continue;
+                foreach (var d in world.Expedition.Devices)
+                {
+                    if (d.Id != b.Id || !d.Powered) continue;
+                    int x = Mathf.RoundToInt(b.X / 16), y = Mathf.RoundToInt((632 - d.Height - 16) / 16);
+                    if (x >= 0 && x < W && y >= 0 && y < H) deviceLights[y * W + x] = 255;
+                }
+            }
+            dirty = true;
         }
         public void Dispose()
         {
             UnityEngine.Object.Destroy(backdrop); UnityEngine.Object.Destroy(mesh);
             UnityEngine.Object.Destroy(Material); UnityEngine.Object.Destroy(background);
-            UnityEngine.Object.Destroy(map); UnityEngine.Object.Destroy(light);
+            UnityEngine.Object.Destroy(map); UnityEngine.Object.Destroy(light); UnityEngine.Object.Destroy(oreMap);
         }
     }
 }

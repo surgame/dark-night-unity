@@ -98,6 +98,7 @@ namespace DarkNights.Runtime.Objects
                 session.Waves.Edit().CopyFrom(ObjectSnapshotMapper.Wave(snapshot));
                 session.Projectiles.Edit().CopyFrom(ObjectSnapshotMapper.Projectiles(snapshot, session.Layout.GroundY));
                 session.ReplaceEntities(replacement, context);
+                ExpeditionMapping.Restore(session, snapshot.Expedition);
                 return true;
             });
             committed = true;

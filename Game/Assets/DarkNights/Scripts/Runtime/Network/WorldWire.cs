@@ -12,6 +12,7 @@ namespace DarkNights.Runtime.Network
     [MemoryPackable]
     public partial class WorldWire
     {
+        public ExpeditionViewWire Expedition { get; set; }
         public CampWire Camp { get; set; }
         public ActorWire[] Actors { get; set; }
         public BuildingWire[] Buildings { get; set; }
@@ -21,6 +22,7 @@ namespace DarkNights.Runtime.Network
 
         public static WorldWire From(WorldViewData value) => new WorldWire
         {
+            Expedition = ExpeditionViewWire.From(value.Expedition),
             Camp = CampWire.From(value.Camp),
             Actors = value.Actors.Select(ActorWire.From).ToArray(),
             Buildings = value.Buildings.Select(BuildingWire.From).ToArray(),
@@ -35,6 +37,6 @@ namespace DarkNights.Runtime.Network
             Buildings?.Select(item => item?.Freeze()).ToArray(),
             Worksites?.Select(item => item?.Freeze()).ToArray(),
             Projectiles?.Select(item => item?.Freeze()).ToArray(),
-            Identities?.Select(item => item?.Freeze()).ToArray());
+            Identities?.Select(item => item?.Freeze()).ToArray(), Expedition?.Freeze());
     }
 }

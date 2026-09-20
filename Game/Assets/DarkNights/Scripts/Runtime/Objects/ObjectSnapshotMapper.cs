@@ -56,7 +56,7 @@ namespace DarkNights.Runtime.Objects
                 unchecked((long)camp.RandomState).ToString(CultureInfo.InvariantCulture),
                 actors, buildings, sites, shots,
                 new StatisticsSnapshot(camp.Kills, camp.Lost, session.Economy.Gathered),
-                camp.Mode, identities, session.Terrain?.Capture());
+                camp.Mode, identities, session.Terrain?.Capture(), ExpeditionMapping.Capture(session));
         }
 
         internal static CampSimulationState Camp(SessionSnapshot s) => new CampSimulationState

@@ -34,6 +34,11 @@ namespace DarkNights.Runtime.Network
             foreach (var identity in world.Identities)
                 Require(identity != null && identity.Id > 0 && Text(identity.DefinitionGuid, 36) &&
                     Guid.TryParse(identity.DefinitionGuid, out var guid) && guid != Guid.Empty && Text(identity.PlacementKey, 80));
+            Require((world.Expedition != null) == layout.Expedition);
+            if (world.Expedition != null)
+                Require(DarkNights.Core.Save.ExpeditionValidator.Validate(world.Expedition.Freeze(),
+                    world.Actors.Select(a => a.Id).ToArray(), world.Buildings.Select(b => b.Id).ToArray(),
+                    world.Worksites.Select(w => w.Id).ToArray(), catalog.Balance.Expedition).Length == 0);
             var camp = world.Camp;
             Require(camp.Stock != null && camp.Gathered != null && camp.Stock.Freeze().IsValid() && camp.Gathered.Freeze().IsValid());
             Require(camp.Population >= 0 && camp.Capacity >= 0 && camp.EnemyCount >= 0 && camp.Kills >= 0 && camp.Lost >= 0 &&

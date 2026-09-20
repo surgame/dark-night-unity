@@ -1,75 +1,14 @@
 # Dark Nights Unity 开发执行计划
 
-2026-09-21 当前新增规划见[远征营地执行方案](EXPEDITION_CAMP_EXECUTION.md)：新分支 `codex/expedition-camp-plan`，以 main `f28bb7d` 为基线，E0–E6 均待开发。优先缩小洞室、分离背景矿物与前景岩体，再完成正式远征闭环、设备部署／作业、风险撤离和跨局成长。本轮仅完成评估文档，不改变既有玩法、协议 11／存档 v7 或历史验收边界。
+2026-09-21 远征首轮实现与验收见[交付记录](EXPEDITION_CAMP_DELIVERY.md)，分支 `codex/expedition-camp-plan`，协议 **12**／存档 **v8**。E0–E5 的 Demo 主循环已有实现，E6 按本轮快速验收收口：Editor 合并 213/214，1 项通用按钮主题失败单列；Mono 常规／弱网四进程各 35/35；固定浅层往返、矿工交货、部署撤收与原子结算有新证据。原[执行方案](EXPEDITION_CAMP_EXECUTION.md)的全路线、完整故障矩阵、前台性能及正式美术仍不是已通过状态。
 
-2026-09-20 最新[洞穴地图工作台](CAVE_WORKSHOP.md)完成新岩层素材、坡形碰撞、随机洞室与真实运动探针的测试切片。A／B／C 已有实现，完整阶段门槛仍未全部签署；D 正式会话接入未实施。请按新文档区分实际落地、抽象拓扑与全路线通行，不能套用下方历史“仅评估”或整批通过结论。
-
-2026-09-20 新实验分支 `codex/cave-exploration-art` 合入 main `6b7b74c` 的手持装备，保留地图手采、矿床与恢复；协议 **11**／存档 **v7**。新增[天然洞穴技术原型](CAVE_EXPLORATION_ART.md)：10–13 个不规则洞室、双入口、回环与部分掩埋通路，独立 Debug 场景可 Play。**新像素美术、独立斜面块与匹配碰撞仍未完成**，当前旧图集只作技术预览；完整游戏策划未扩入本轮。以下记录均为各自历史切片，不替代本批证据。
-
-2026-09-19 地图改造分支 `codex/map-plan-execution` 已把钻机／无人机／自动采矿／自动物流完全移出本轮范围，产品仅保留散矿和 SoftRock 手采、有限炸破、矿室矿床手动采集以及最终状态恢复。协议 10／存档 v6；主 Editor 刷新、完整 Editor **196/196**、Core **1048/1048**、Terrain 24 向量／100 seed、ArchitectureGuard **372/12/0** 和 Mono 启动 **6/6** 通过。首轮双进程暴露的动态矿床客户端身份校验缺口及弱网全图 Ready 超时已经修正；同一 Mono 正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 **18/18**，覆盖 Host＋Client、LateJoin、重连、幂等、局部刷新及真实写盘重启恢复。前台性能、IL2CPP、双机、新机器依赖恢复与 M6 比例平衡不写成已完成。
-2026-09-20 完成[主角手持装备开发](HERO_HANDHELD_EQUIPMENT.md)：三套分层 Aseprite 像素素材与图标，手枪／128 槽投射物池、蓄力抛物线黏性炸药、仅动作矿镐及底部四槽栏。复用 YYGC 输入／状态和 R3 表现链，协议 10／存档 v5。基于本次最新 main `b96d8dc`，Unity 6000.4.9f1 编译通过；**首批主角测试 22/22 通过；全批 77 通过、1 加载超时、120 未完成，尚未构建 Player**，后续按[冒烟／回归文档](HERO_HANDHELD_TEST_PLAN.md)执行。YYGC 仍为 `12b253c`；保留本机漂移的 AnyRules 缓存，新隔离缓存恢复原锁并核对 442 文件。
-
-2026-09-17 新增[独立随机地图 Debug Bootstrap](TERRAIN_DEBUG_BOOTSTRAP.md)：原平地场景未被覆盖，调试入口直接使用 HTML 对应的 8 房间／7 通道蓝图，无营地 72 列覆盖或波次；默认近距离跟随、WASD 二维穿墙、可调镜头与实时重建。Editor 地图 11/11、表现修正后 3/3 复验、真实 Play 22/22。独立 Mono 与本批清理见专属证据；正式网络、IL2CPP、前台性能和 M5 边界不变。
-
-2026-09-17 完成[正式随机灰松谷接线](RANDOM_PINEWATCH.md)：保留原场景，增加每关卡一个随机模板的入口；菜单按需后台生成、开局复用，主角碰撞、完整地图 Ready、暂停晚加入及最终格子存档恢复接入现有会话。协议 9／存档 v4，Mono `artifacts/random-map/player-mono`；本批相关测试、独立进程联机及清理记录见[证据](evidence/random-pinewatch-2026-09-17.json)。采矿、NPC 跨随机区域寻路、IL2CPP、双机器和前台性能不在本批完成范围。
-
-2026-09-17 完成 Bootstrap 地形命令漏注册修复：框架生成器正确识别包含 record 与结果结构体的脚本，游戏锁定 YYGC `12b253c`，重新生成全局命令注册表。Editor 新增 2/2，实际 Play 主菜单、开局与主角显示通过；新 Mono 启动 6/6、独立 Host＋客户端 13/13。见[证据](evidence/bootstrap-registry-2026-09-17.json)与[逐文件账本](YYGC_CHANGES.md)。未重跑完整历史矩阵，未验收 IL2CPP、双机器或前台性能。
-
-2026-09-16 新增[地图生成切片](TERRAIN_GENERATION.md)：测试素材与规则、生成器编辑工具、YYGC 会话约束的地图权威 API、AnyRuleD 区块网络接线及静态缓存验证。它是后续可破坏地图的独立基础，不将正式采矿、掉落、碰撞或跨模块保存标为已完成。具体测试与清理证据随切片文档列出。
-
-2026-09-16 已完成[默认主角入口收尾](HERO_INPUT_EXECUTION.md)：协议 8／存档 v3 和 YYGC `0c7cec0` 不变。Ready 命令携带本地默认主角偏好，服务端为每个首次上线且有权限的玩家新建不同的专属村民，不再占用场景现有闲置村民；重复 Ready 不增员，重连生成新人，SharedCamp 恢复原人物。默认 UI 继续隐藏顶部主角工具栏和旧建造、训练、招募、修缮入口。新增跟进 Editor／Play 20/20，累计 178 个不同游戏用例按影响合并通过；架构守卫 316 文件／12 自测／0 错误。当前 Mono `artifacts/hero-input/player-mono-generated-villager-r2` 构建成功，本机独立 Host＋客户端和实际 UI 捕获 39/39。输入 Sample 34 项及历史 350／155 项未重跑；前台性能、IL2CPP、双机器 LAN 与 M5 状态不变。
-
-2026-09-15 完成[右键指令圈本地化切片](LOCAL_COMMAND_RINGS.md)：服务端不再发布指令圈，网络投影拒绝该本地效果；输入立即驱动八槽原生对象／网格池，断线与新 epoch 清空显示，退出显式释放运行网格。相关 Editor 24/24、架构 294 文件／12 自测／0 错误、同一新 Mono 72/72 通过，覆盖双方隔离、密集点击、暂停、权限、重连、实际战斗及真实 UDP 弱网；四张隔离截图已复核。2,629 个输入和 412 个产物哈希一致，本切片没有新增 YYGC 修改。清理批次被自动审批拒绝，约 34.18 MiB 保留并列账，释放量 0；不改变前台性能、IL2CPP、双机器 LAN 和 M5 边界。按用户要求，AGENTS 已加入中文提交标题和正文规范。
-
-2026-09-15 完成 Pinewatch 场景放置收口：16 个正式 Prefab 根已直接挂在 Buildings／Worksites／Actors 分组，旧辅助父节点和 `VisualPreview` 退出。薄组件改名为 `ScenePlacement`，只保存 Editor 自动维护的稳定放置身份和实例初值；Inspector 不暴露完整键值，复制实例会自动换新。创建顺序改为分组内 sibling 顺序，删除并行 `SpawnOrder`。冻结布局与直接场景实例检查通过，架构守卫 292 文件／12 自测／0 错误；未修改 YYGC、规则、美术或 Prefab，未构建 Player，其余验收边界不变。
-
-2026-09-14 完成[原生对象主视图统一](NATIVE_OBJECT_VIEWS.md)：`ActorView`、`BuildingView`、`WorksiteView` 直接继承 YYGC `ObjectView`，15 个正式 Prefab 不再并列挂载泛型 `ObjectView` 与 `NativeVisual`，也不再以 `"visual"` 把对象绑定回自身。Pinewatch 16 个放置引用、被动预览／残骸工厂、Editor 制作入口及测试合同已同步。Unity 编译、相关测试与 291 文件／12 自测架构守卫通过；最终完整批次 155/156，唯一失败为未修改的 `NativeButtonThemeTests.InteractableChangesUpdateWithoutPointerMovement`，隔离复跑 5/6。本切片未构建 Player、未修改 YYGC；前台性能、IL2CPP、双机器 LAN 和 M5 状态不变。
-
-2026-09-14 编译警告维护：修正 5 个脚本中的 7 处调用／比较，消除本次报告的 10 条 CS0618／CS0252。对象查找改用 Unity 6000.4 的无排序参数重载，保留非活动对象范围；初始化器接口显式转换为 UnityEngine.Object 后比较。复用当前 Editor 完成一次增量编译，Entry／Editor／Tests 程序集均更新，本轮 C# 警告和错误为 0；现有 FormalObjectContentSetup.Validate、NativeObjectContracts.Validate 两项只读校验通过。按用户要求仅做快速验证，未运行完整 Play／Player／联机矩阵，M5 验收边界不变。见[本次验证记录](evidence/unity-warnings-2026-09-14.json)。
-
-2026-09-14 最新已完成 [Linear 世界表现切片](M5_WORLD_PRESENTATION.md)的五个阶段，游戏源码 `a4a5450`。完整 Editor／Play 155/155、架构 285 文件／12 自测、同一新 Mono 固定世界／启动／双进程会话／真实战斗共 77/77 通过；六种局面和来宾画面已复核，2,611 个输入和 408 个产物文件哈希一致。当前 Player 为 `artifacts/m5-world/player-mono`，没有新增 YYGC／FishNet 修改。本阶段累计清理 67,000,747 字节，按用户要求完成[255 条产物盘点和受限清理交接](STAGE_CLEANUP_INVENTORY.md)，8 个拒绝目标仍在且未重试。**U0–U5 主体完成；前台性能暂缓、IL2CPP 未获授权、双机器 LAN 缺条件，M5 尚未完成。** 下方保留各历史批次的当时状态和计数。
-
-2026-09-14 后续已修复[终局页面重开残留](M5_RESULT_UI.md)，游戏提交 `af29950`。完整 Editor／Play 155/155、同一新 Mono 的终局 21/21、启动 6/6、双进程会话 13/13 通过；四张胜负页截图、2,603 个输入与 408 个产物文件哈希已归档。修复版 Player 位于 `artifacts/m5-results/player-mono`，本切片没有 YYGC／FishNet 或美术资源修改。新调试目录清理被自动审批拒绝，未重试；前台验收继续暂缓，其余 M5 边界保持，见[机器证据](evidence/m5-result-ui-2026-09-14.json)。
-
-2026-09-14 已完成[原生 UI 校准切片](M5_UI_CALIBRATION.md)，源码提交 `2fff198`：155 项 Editor／Play 按影响合并通过（首轮 154/155，相关 22/22 复验），真实鼠标 19/19。新 Mono 仅构建一次，启动 6/6、独立双进程 13/13、两分辨率捕获各 6/6，共 31 项通过；十张截图已复核。该 UI 校准批次的 Player 在 `artifacts/m5-ui/player-mono`，408 个文件测试前后哈希一致，见[本批证据](evidence/m5-ui-calibration-2026-09-14.json)。本批 `dotnet clean` 释放 32,992,552 字节，新调试目录清理受自动审批阻断。前台性能、完整同状态世界画面对照、IL2CPP 与双机器 LAN 的边界保持，M5 不签署完成。
-
-2026-09-13 按 [YYGC 统一对象架构 U0–U6](YYGC_UNIFIED_REFACTOR_PLAN.md)实施：YYGC 业务 Behaviour／State 已取代独立 Core 运行实体，无需旧数据适配。分支为 `codex/yygc-unified-object-migration`；**U0–U5 已完成；U6 最新游戏 `4e3798f`／YYGC `745f3d2` 已通过 144 项 Editor／Play、协议 7 Mono 完整矩阵 350 项和同产物 240 秒容量检查 21 项。前台验收按用户选择暂缓，性能签署及受审批限制的清理仍未完成，见[性能验收](YYGC_UNIFIED_PERFORMANCE.md)与[机器证据](evidence/yygc-unified-u6-compression.json)**。长测 48 组抽样最大落后 0.3 秒；摘要报告下客户端后台帧时 p95 为 29.33–29.62 ms，不能据此签署前台 60 FPS。下述 U5、早期 U6、C 方案、场景修复和 M0–M5 的结果按输入、日期保留在[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)及历史段落，M5 未完成状态保持。
-
-2026-09-13 Definition 场景入口修复已实施：删除手填 ContentDefinitionMap／独立分类，补齐 17 个 Definition.Type，迁移 16 个现有场景实例至 Loader 静态初始化，并接入场景视图借还与当前关卡试玩。Unity 编译和静态差异核对完成；**按用户要求，测试回归等待确认，未运行 Play、Player 或联机验收**。见[实现与待回归范围](SCENE_DEFINITIONS.md)。
-
-2026-09-12 C 重构已实施并完成最终 Ready 修复后的 Mono 复验。Core 1361、最终 Editor 95、Play 生命周期 20、Mono 启动 6 和双进程 13 项通过；同一最终产物的并发 13/13、活跃加载 13/13、九组四进程弱网各 22/22、战斗晚加入 9/9、三夜 17/17、容量上限 13/13 均通过。容量发布在 30.56 秒内增加 298，超过门槛 150。性能 A/C 对比仍待后续；M5 既有待验收项保持。实际合同和复验证据见[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)。下文历史批次的当时边界保留。
-
-2026-09-12 C 重构执行记录：[C 方案执行计划](C_REFACTOR_PLAN.md)的 R1–R4 已完成。ObjectsV2 会话对象拥有权威生命周期、Core 保留个体状态和规则、Local 个体 Behaviour 接管表现职责；本批不包含装备/Buff 新玩法，也不改变 M5 未完成状态。
-
-2026-09-12 编辑器维护：YYGC Workshop 已改为名称／Key／原资产文件名三行，平铺与树形统一 60 像素行高；有效旧 ID 仅作辅助标记，搜索和排序适配 GUID／Key。Unity `6000.4.9f1` 编译与 47 项 UI 检查通过，实际窗口关闭重开后 29 个定义行均保留文件名。框架锁定更新至 `516f76c`，逐文件修改及边界见[YYGC 账本](YYGC_CHANGES.md#workshop-display)和[本批证据](evidence/workshop-display-2026-09-12.json)。本批不改变下述 M5 游戏验收状态。
-
-2026-09-12 独立美术流程试验：[Blender 像素角色脚手架](../experiments/blender-pixel-crew/README.md)完成共用骨架、模块切换、序列帧及 MCP 接入的技术验证；用户认为外观与参考图仍有明显差距，**美术风格验证未通过**。该试验独立于 Game，不计入 M3/M5 完成状态。
-
-2026-09-12 2D 对照试验：[Aseprite 像素角色与换装](../experiments/aseprite-pixel-crew/README.md)已生成可编辑的 64×64／13 图层源文件、空闲／行走／跳跃共 24 帧及 H5 预览。头部／上衣／背包共 18 种组合，432 帧原生合成比对、原生编辑保存重开及浏览器交互检查通过。**美术风格待用户评审**；Cel 为独立副本，不宣称任意服饰自动适配全部动作。试验未接入 Game，不改变 M3/M5 状态。
-
-当前状态（2026-09-12 验收续跑）：环境恢复后，源码 `e567f8c` 的干净 Mono 构建成功；活跃施工／训练／在飞箭矢恢复 13/13、并发 13/13、九组四进程弱网各 22/22、三夜 17/17、容量上限 13/13 均通过。Core 1355、Editor 55 与架构守卫因游戏输入未变而复用，2,457 个构建输入前后哈希一致。
-
-M5 尚未完成：画面复核发现字体、禁用文字状态和新增菜单控件布局需校准；工作集全零、分位数样本窗口与隐藏窗口使性能证据仍不足。已归档新 Mono 的 408 个文件及完整哈希，IL2CPP 与第二台 Windows 主机仍待外部条件。详见 [Mono 验收记录](MONO_ACCEPTANCE.md)与[M5 后续清单](M5_EXECUTION.md#mono-acceptance)。下方保留历史实施批次及当时边界。
-
-2026-09-12 集成进展：协议 5 的十槽位存档、同房间重开、120 秒恢复凭据已接通；九组四进程弱网各 22/22、并发 13/13、三夜 17/17、容量上限四端 13/13 通过。Core 1355、Editor 55、鼠标 13 项通过；五页 UI 圆角与状态边框已校准。正在执行干净目录 Mono、普通 Player 性能与完整画面对照；IL2CPP 和双机器仍单独待验收。
-
-2026-09-12 增补：M3 正式 Mono 四进程三夜通关 13/13，34 个击杀与四端胜利一致；图形战斗晚加入 9/9。效果、环境、音频和插值主体已接通；完整画面对照、M4 存档恢复与 M5 矩阵仍待完成，详见 [原生效果](NATIVE_EFFECTS.md)。
-
-后续执行主入口：[从当前实现连续推进到 M5](M5_EXECUTION.md)。现有阶段和历史证据保留；执行收敛为 M2 可玩闭环 → M3 完整关卡 → M4 会话恢复 → M5 交付四批，集中准备、导入和验证，复用已通过结果。
-
-计划更新：2026-09-12，配合[移植方案](MIGRATION_PLAN.md)。**M0–M4 的规则、原生表现、正式四人和恢复主体已实现并完成上述分批验证；M3 画面对照与 M5 干净交付／性能／外部条件继续收口。** 下文统一使用 M0 表示环境与正式接入收口、M1 表示规则核心；历史记录中的“M0/M1 环境完成”不代表本表 M1 完成。
-
-Sample 使用独立四个运行程序集、Editor、原生资源和复跑脚本；YYGC 锁定 `10b8f0e` 加窄范围友元程序集补丁，VitalRouter 修正从固定源构建。Mono 和 Windows x64 IL2CPP Release＋High 裁剪均已实际构建，每种后端的基础与弱网各 30 项多进程断言见 Sample 文档及 `docs/evidence/lan-sample-*.json`。下文正式玩法预算和退出条件保持有效，不能以测试营地代替完整游戏验收。
-
-原方案更新时只修改设计，没有运行新的 Unity / Godot 测试；本次实际实施与检查见下方进展。Sample 已覆盖的旧生成器、首状态和命令路由问题不再作为从零研究任务；正式程序集与 AppStartup / Addressables 的小探针现已独立验收，实体集合投影、命令处理与游戏权限仍需正式联机验收。先可靠完整投影，测量后再做分块或拆流。
-
-2026-09-11 目录复审要求已写入[移植方案](MIGRATION_PLAN.md)与[技术架构](ARCHITECTURE.md)：正式代码位于 Scripts（Core、Runtime、View、Entry），资源位于 Res，按对象／面板归组；Addressables 无游戏素材目录命名要求，保留现有配置目录。目录已按实际功能落地，Worker 与 WorldSession 首批定义／Prefab／绑定已建立，其余对象、UI 与美术目录仍随功能实施。
+本文件下文保留原移植里程碑与历史证据。当前远征阶段以[本轮交付记录](EXPEDITION_CAMP_DELIVERY.md)为准，旧协议／存档和原营地回归计数不再重复列在入口顶部。
 
 <a id="implementation-progress"></a>
 
-## 当前实施进展
+## 历史移植实施进展
 
-当前接续以本页开头的[主角与输入联合执行](HERO_INPUT_EXECUTION.md)和 [M5 剩余验收](M5_EXECUTION.md)为准。以下批次保留历史推进过程，不代表最新版本仍缺相应功能。
+原主角输入与 M5 的历史切片见[主角与输入联合执行](HERO_INPUT_EXECUTION.md)和 [M5 剩余验收](M5_EXECUTION.md)。以下批次保留历史推进过程，不代表最新版本仍缺相应功能。
 
 第十二批最新状态（2026-09-12）：原生箭矢／浮字／残骸／声音与消息、环境火把／七灯位／月亮／萤火／地表／阴影、角色插值和放置范围线已接入。规则 1338/1338、Editor 53/53、鼠标 13/13、战斗 Play 7/7 通过；新协议 4 Mono 启动 6/6、双进程操作 13/13 通过，详见[原生效果与环境](NATIVE_EFFECTS.md)。画面对照、三夜流程、M4 恢复及完整网络矩阵继续执行，M3–M5 尚未整体完成。
 

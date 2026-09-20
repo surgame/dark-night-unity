@@ -17,6 +17,9 @@ namespace DarkNights.Runtime.Session
             if (r == null || r.Sequence <= 0 || r.PolicyRevision < 0 ||
                 !Enum.IsDefined(typeof(SessionOperation), r.Operation) || float.IsNaN(r.X) || float.IsInfinity(r.X) ||
                 r.TargetId < 0 || r.ActorIds.Any(id => id <= 0)) return false;
+            if (r.Operation == SessionOperation.Expedition)
+                return r.ActorIds.Count <= 1 && r.X == 0 && r.Value == 0 && r.Kind.Length > 0 &&
+                    new[] { "depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "relay", "mine", "resupply" }.Contains(r.Kind);
             if (SessionHeroControl.IsOperation(r.Operation))
                 return r.ActorIds.Count == 1 && r.X == 0 &&
                     (r.Operation == SessionOperation.ClaimHero ? r.ControlLease == 0 : r.ControlLease > 0) &&

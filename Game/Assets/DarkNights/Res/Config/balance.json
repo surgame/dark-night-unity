@@ -23,14 +23,21 @@
     "archer": {"name": "弓箭手", "hp": 20, "armor": 1, "damage": [4, 5], "speed": 30.0, "range": 112.0, "aggro": 155.0, "leash": 136.0, "attack_seconds": 1.65, "windup": 0.45, "cost": {"food": 10, "wood": 5, "iron": 5}},
     "zombie": {"name": "游荡亡者", "hp": 20, "armor": 0, "damage": [1, 5], "speed": 12.0, "range": 10.0, "aggro": 68.0, "attack_seconds": 1.65, "windup": 0.45, "gold": 2},
     "ghoul": {"name": "食尸鬼", "hp": 20, "armor": 0, "damage": [3, 6], "speed": 21.0, "range": 12.0, "aggro": 78.0, "attack_seconds": 1.3, "windup": 0.36, "gold": 3},
-    "armored": {"name": "披甲亡者", "hp": 40, "armor": 3, "damage": [3, 7], "speed": 10.0, "range": 12.0, "aggro": 70.0, "attack_seconds": 1.8, "windup": 0.5, "gold": 5}
+    "armored": {"name": "披甲亡者", "hp": 40, "armor": 3, "damage": [3, 7], "speed": 10.0, "range": 12.0, "aggro": 70.0, "attack_seconds": 1.8, "windup": 0.5, "gold": 5},
+    "hauler": {"name": "搬运机器人", "hp": 10, "armor": 0, "damage": [1, 3], "speed": 30.0, "range": 11.0, "aggro": 13.0, "attack_seconds": 1.5, "windup": 0.35},
+    "miner": {"name": "矿工", "hp": 10, "armor": 0, "damage": [1, 3], "speed": 30.0, "range": 11.0, "aggro": 13.0, "attack_seconds": 1.5, "windup": 0.35}
   },
   "buildings": {
     "tavern": {"name": "酒馆", "sprite": "spr_bld_tavern", "hp": 320, "width": 58.0, "build_seconds": 30.0, "capacity": 6, "description": "营地核心 · 招募居民；被摧毁则失守"},
     "house": {"name": "住宅", "sprite": "spr_bld_house", "hp": 100, "width": 28.0, "build_seconds": 10.0, "capacity": 3, "cost": {"wood": 25}, "description": "人口容量 +3"},
     "barracks": {"name": "兵营", "sprite": "spr_bld_barracks", "hp": 200, "width": 74.0, "build_seconds": 24.0, "cost": {"wood": 60, "stone": 30}, "description": "将工人训练为长矛兵或弓箭手"},
     "farm": {"name": "农田", "sprite": "spr_res_farm", "hp": 70, "width": 30.0, "build_seconds": 8.0, "cost": {"wood": 20}, "description": "一名工人耕作 · 每5秒产出3食物"},
-    "tower": {"name": "守望塔", "sprite": "spr_bld_tower", "hp": 200, "width": 28.0, "build_seconds": 20.0, "cost": {"wood": 45, "stone": 35, "iron": 10}, "range": 145.0, "damage": [6, 9], "attack_seconds": 1.7, "description": "自动射击 · 射程145 · 伤害6–9"}
+    "tower": {"name": "守望塔", "sprite": "spr_bld_tower", "hp": 200, "width": 28.0, "build_seconds": 20.0, "cost": {"wood": 45, "stone": 35, "iron": 10}, "range": 145.0, "damage": [6, 9], "attack_seconds": 1.7, "description": "自动射击 · 射程145 · 伤害6–9"},
+    "ship": {"name": "远征飞船", "sprite": "spr_bld_house", "hp": 320, "width": 192, "build_seconds": 3, "capacity": 6, "description": "远征飞船 · 远征设备", "cost": {"iron": 2}},
+    "oxygen": {"name": "氧气中继", "sprite": "spr_bld_house", "hp": 70, "width": 32, "build_seconds": 3, "capacity": 0, "description": "氧气中继 · 远征设备", "cost": {"iron": 2}},
+    "storage": {"name": "仓储平台", "sprite": "spr_bld_house", "hp": 70, "width": 32, "build_seconds": 3, "capacity": 0, "description": "仓储平台 · 远征设备", "cost": {"iron": 2}},
+    "turret": {"name": "警戒炮塔", "sprite": "spr_bld_house", "hp": 70, "width": 32, "build_seconds": 3, "capacity": 0, "description": "警戒炮塔 · 远征设备", "cost": {"iron": 2}},
+    "lamp": {"name": "照明灯", "sprite": "spr_bld_house", "hp": 70, "width": 16, "build_seconds": 3, "capacity": 0, "description": "照明灯 · 远征设备", "cost": {"iron": 2}}
   },
   "worksites": {
     "wood": {"name": "松林", "sprite": "spr_res_trees", "amount": 120, "yield": 3, "interval": 4.0, "width": 22.0},
@@ -38,4 +45,19 @@
     "iron": {"name": "铁矿", "sprite": "spr_res_iron", "amount": 90, "yield": 2, "interval": 6.0, "width": 18.0},
     "food": {"name": "麦田", "sprite": "spr_res_farm", "amount": -1, "yield": 3, "interval": 5.0, "width": 30.0}
   }
+,
+  "expedition": {
+    "OxygenSeconds": 120,
+    "BagCapacity": 24,
+    "ShipCapacity": 160,
+    "StorageCapacity": 80,
+    "OxygenRadius": 120,
+    "RelayRange": 360,
+    "PowerSupply": 12,
+    "DeploySeconds": 3,
+    "ExtractSeconds": 2,
+    "RecallSeconds": 8,
+    "ThreatSeconds": 180,
+    "ModulePrice": 10
+}
 }

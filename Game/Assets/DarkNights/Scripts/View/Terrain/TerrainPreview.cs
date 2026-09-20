@@ -52,6 +52,11 @@ namespace DarkNights.View.Terrain
             catch (Exception error) { LastError = error; Debug.LogException(error, this); }
         }
 
+        public void SetMinerals(System.Collections.Generic.IReadOnlyList<DarkNights.Core.ViewData.WorksiteViewData> deposits)
+        { caveSource?.SetMinerals(deposits); caveSource?.Flush(); }
+        public void SetDevices(DarkNights.Core.ViewData.WorldViewData world)
+        { caveSource?.SetDevices(world); caveSource?.Flush(); }
+
         private void OnEnable()
         {
             if (Map == null || ViewCamera == null) return;

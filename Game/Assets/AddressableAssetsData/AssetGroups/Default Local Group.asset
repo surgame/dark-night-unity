@@ -20,6 +20,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b708b0d84431564b86d3910c972a29d
+    m_Address: dark_nights.expedition.turret
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 23801b6abb405aa4c9fc53d875870524
     m_Address: dark_nights.ui.help
     m_ReadOnly: 0
@@ -37,6 +42,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3e6d7493f1deefb46b405c27d83da56d
     m_Address: ObjectDefinitionDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f9ae3abe59e7f546a859cc175b317c6
+    m_Address: dark_nights.expedition.lamp
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -72,6 +82,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5e4085280505da54786c0409b73e2fcd
     m_Address: dark_nights.effect.command
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5f12f874f238cf14785f1e425b2961ba
+    m_Address: dark_nights.expedition.storage
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -155,6 +170,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1126f1082f43864dbd77adb4e839655
+    m_Address: dark_nights.expedition.hauler
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c3a4a103cafc13a4a99a0e888fdc082a
     m_Address: dark_nights.object.archer
     m_ReadOnly: 0
@@ -190,6 +210,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ec305e787cf586445915c0d7f2222886
+    m_Address: dark_nights.expedition.miner
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f1ae1dbee38fe30428b6827ecab7eef1
+    m_Address: dark_nights.expedition.oxygen
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f32054fedcf949b4c81637b7b4e734fd
     m_Address: dark_nights.effect.floating
     m_ReadOnly: 0
@@ -202,6 +232,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fab77cf0d58e1f742887cd94c5ec9ddf
     m_Address: dark_nights.object.mineral_deposit
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fd0e3b6081e4a364e962aa89ed64644a
+    m_Address: dark_nights.expedition.ship
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

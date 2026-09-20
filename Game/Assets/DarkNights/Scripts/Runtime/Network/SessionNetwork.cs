@@ -78,7 +78,7 @@ namespace DarkNights.Runtime.Network
             int saveArgument = Array.IndexOf(args, "--dn-save-dir");
             SaveDirectory = Path.GetFullPath(saveArgument >= 0 && saveArgument + 1 < args.Length
                 ? args[saveArgument + 1] : Path.Combine(Application.persistentDataPath, "Saves"));
-            SaveDirectory = Path.Combine(SaveDirectory, "v7");
+            SaveDirectory = Path.Combine(SaveDirectory, "v" + DarkNights.Runtime.Save.ObjectWorldSaveJson.FormatVersion);
             var fingerprint = new SaveContentFingerprint(catalog, layout);
             authenticator = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
             string identity = new ObjectWorldSaveJson(catalog, layout,

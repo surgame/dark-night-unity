@@ -26,6 +26,12 @@ namespace DarkNights.View
         };
 
         public void PresentHandheld(ActorViewData actor, double elapsed) => handheld?.Present(actor, elapsed, Ambient);
+        public void PresentBoarded(bool boarded)
+        {
+            facing.gameObject.SetActive(!boarded);
+            if (shadow != null) shadow.enabled = !boarded;
+            if (boarded) handheld?.Hide();
+        }
 
         public PoseClip[] Clips => (PoseClip[])clips.Clone();
 

@@ -23,6 +23,7 @@ namespace DarkNights.Runtime.Terrain
         private readonly SessionNetwork network;
         private readonly ServerGameplayCatalog gameplay;
         private readonly string visual;
+        private readonly bool expedition;
         private Task<PlayableTerrain> generation;
         private PlayableTerrain selected;
         private FishNetMapTransport transport;
@@ -38,8 +39,10 @@ namespace DarkNights.Runtime.Terrain
         public string ContentSha256 { get; private set; } = "";
         private ulong hashedCommit;
         public long SentBytes => transport?.SentBytes ?? 0;
-        public SessionTerrainNetwork(NetworkManager manager, SessionNetwork network, ARDMapDefinition definition)
+        public SessionTerrainNetwork(NetworkManager manager, SessionNetwork network, ARDMapDefinition definition, bool expedition = false)
         {
+            this.expedition = expedition;
+            if (expedition) SelectionStatus = "选择地图：洞穴远征 · 点击地图生成新种子";
             this.manager = manager; this.network = network;
             gameplay = definition.LoadGameplayCatalog(); using (var hash = System.Security.Cryptography.SHA256.Create())
                 visual = BitConverter.ToString(hash.ComputeHash(definition.VisualCatalog.bytes)).Replace("-", "").ToLowerInvariant();
@@ -50,19 +53,19 @@ namespace DarkNights.Runtime.Terrain
         public async UniTask SelectNew()
         {
             if (disposed || network.Hosting || network.Client.Replica.Current != null || generation != null) return;
-            SelectionStatus = "灰松谷 · 正在生成地图…";
+            SelectionStatus = (expedition ? "洞穴远征" : "灰松谷") + " · 正在生成地图…";
             string seed = Guid.NewGuid().ToString("N");
             string[] args = System.Environment.GetCommandLineArgs(); int index = Array.IndexOf(args, "--dn-map-seed");
             if (index >= 0 && index + 1 < args.Length) seed = args[index + 1];
             string id = Guid.NewGuid().ToString("N");
             var watch = Stopwatch.StartNew();
-            generation = Task.Run(() => PlayableTerrainGenerator.Generate(seed, id));
+            generation = Task.Run(() => expedition ? ExpeditionTerrainGenerator.Generate(seed, id) : PlayableTerrainGenerator.Generate(seed, id));
             try
             {
                 var result = await generation;
                 if (disposed) return;
                 selected = result; GenerationMilliseconds = watch.ElapsedMilliseconds;
-                SelectionStatus = "已选择灰松谷 · 种子 " + seed.Substring(0, Math.Min(12, seed.Length)) + " · 点击地图可重新生成";
+                SelectionStatus = "已选择" + (expedition ? "洞穴远征" : "灰松谷") + " · 种子 " + seed.Substring(0, Math.Min(12, seed.Length)) + " · 点击地图可重新生成";
                 UnityEngine.Debug.Log("DARK_NIGHTS_MAP_GENERATED seed=" + seed + " milliseconds=" + GenerationMilliseconds);
             }
             finally { generation = null; }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using DarkNights.Core.Config;
 using DarkNights.Core.Logic;
 
@@ -12,7 +13,8 @@ namespace DarkNights.Tests
     {
         public static void Run(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
         {
-            check(catalog.Balance.Units.Count == 6 && catalog.Balance.Buildings.Count == 5 &&
+            check(new[] { "worker", "spearman", "archer", "zombie", "ghoul", "armored" }.All(catalog.Balance.Units.ContainsKey) &&
+                new[] { "tavern", "house", "barracks", "farm", "tower" }.All(catalog.Balance.Buildings.ContainsKey) &&
                 catalog.Balance.Worksites.Count == 4 && catalog.Level.Waves.Count == 3,
                 "Frozen Pinewatch content has all 15 rule definitions and three nights");
             check(layout.Buildings.Count == 4 && layout.Worksites.Count == 5 && layout.Actors.Count == 7,

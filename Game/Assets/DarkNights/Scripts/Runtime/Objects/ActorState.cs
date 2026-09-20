@@ -11,6 +11,15 @@ namespace DarkNights.Runtime.Objects
     [MemoryPackable, StateData]
     public partial record ActorState
     {
+        public double Oxygen { get; internal set; }
+        public int CargoIron { get; internal set; }
+        public int CargoGold { get; internal set; }
+        public int ExpeditionRole { get; internal set; }
+        public int TaskTarget { get; internal set; }
+        public int TaskPhase { get; internal set; }
+        public double TaskClock { get; internal set; }
+        public int OwnerSlot { get; internal set; } = -1;
+        public bool Boarded { get; internal set; }
         public uint Sequence { get; set; }
         public int Id { get; internal set; }
         public string PlacementKey { get; internal set; }
