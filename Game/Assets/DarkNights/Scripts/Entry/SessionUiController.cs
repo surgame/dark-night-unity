@@ -151,7 +151,7 @@ namespace DarkNights.Entry
             panels["Chrome"].gameObject.SetActive(true);
             hud.Present(frame, input.Selected, input.BuildKind, input.Hover, network.Client.Ready,
                 network.Client.PlayerSlot, Portrait(frame), page.Length != 0, actions.HeroMode);
-            hud.PresentWorld(frame, input, entities, stage, network.Client.Ready && page.Length == 0,
+            hud.PresentWorld(frame, input, entities, stage, network.Client.Ready && page.Length == 0, !actions.HeroMode,
                 network.Terrain?.DataReady == true ? network.Terrain.Replica : null);
             pause.Present($"玩家 {frame.PlayerCount} / 4 · {(frame.HostOnly ? "仅房主控制" : "共享营地控制")}",
                 network.Client.PlayerSlot == 0 ? (storageStatus.Length != 0 ? storageStatus : "房主拥有时间与营地控制设置权限。") : "来宾可操作共享营地，时间与存档由房主控制。");

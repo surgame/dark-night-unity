@@ -47,10 +47,10 @@ namespace DarkNights.View
         private CanvasGroup toastFade, bannerFade;
         private bool? campControlsVisible;
         public void PresentWorld(SessionViewData frame, CampInput input, IEntityVisuals entities, PinewatchStage stage,
-            bool ready, IReadOnlyGrid terrain = null)
+            bool ready, bool showSelectionGuides, IReadOnlyGrid terrain = null)
         {
             map.Present(frame, stage, stage.WorldWidth, ready, terrain);
-            overlay.Present(frame, input, entities, stage, catalog);
+            overlay.Present(frame, input, entities, stage, catalog, showSelectionGuides);
         }
 
         public void Configure(GameCatalog value, bool expedition = false)

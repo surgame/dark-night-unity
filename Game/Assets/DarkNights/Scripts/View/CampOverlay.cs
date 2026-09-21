@@ -17,10 +17,14 @@ namespace DarkNights.View
         private IEntityVisuals visuals;
         private PinewatchStage stage;
         private GameCatalog catalog;
+        private bool selectionGuidesVisible;
 
-        public void Present(SessionViewData value, CampInput controls, IEntityVisuals entities, PinewatchStage scene, GameCatalog rules)
+        /// <summary>更新世界叠加层；选择、悬停和框选标记只在上帝视角操作模式显示。</summary>
+        public void Present(SessionViewData value, CampInput controls, IEntityVisuals entities, PinewatchStage scene,
+            GameCatalog rules, bool showSelectionGuides)
         {
             frame = value; input = controls; visuals = entities; stage = scene; catalog = rules;
+            selectionGuidesVisible = showSelectionGuides;
             raycastTarget = false;
             SetVerticesDirty();
         }
@@ -34,7 +38,8 @@ namespace DarkNights.View
             {
                 EntityView visual = visuals.Visual(actor.Id);
                 if (visual == null) continue;
-                bool selected = input.Selected.Contains(actor.Id), hover = input.Hover == actor.Id;
+                bool selected = selectionGuidesVisible && input.Selected.Contains(actor.Id);
+                bool hover = selectionGuidesVisible && input.Hover == actor.Id;
                 Vector2 root = Point(visual.transform.position);
                 if (selected || hover)
                     Ellipse(mesh, root + new Vector2(0, -.5f) * zoom, new Vector2(7, 2.1f) * zoom,
@@ -52,7 +57,8 @@ namespace DarkNights.View
                 if (visual == null) continue;
                 BuildingDefinition definition = catalog.Balance.Buildings[building.Kind];
                 Vector2 root = Point(visual.transform.position), status = Point(visual.StatusAnchor.position);
-                bool chosen = input.Selected.Contains(building.Id) || input.Hover == building.Id;
+                bool chosen = selectionGuidesVisible &&
+                    (input.Selected.Contains(building.Id) || input.Hover == building.Id);
                 if (chosen) Line(mesh, root + new Vector2(-definition.Width * .5f, 1) * zoom,
                     root + new Vector2(definition.Width * .5f, 1) * zoom, new Color32(225, 201, 142, 255), zoom);
                 if (chosen || building.Progress < 1 || building.Hp < definition.Hp)
@@ -70,13 +76,13 @@ namespace DarkNights.View
                 EntityView visual = visuals.Visual(site.Id);
                 if (visual == null) continue;
                 Vector2 root = Point(visual.transform.position);
-                if (input.Selected.Contains(site.Id) || input.Hover == site.Id)
+                if (selectionGuidesVisible && (input.Selected.Contains(site.Id) || input.Hover == site.Id))
                     Line(mesh, root + new Vector2(-12, 1) * zoom, root + new Vector2(12, 1) * zoom, new Color32(217, 196, 132, 255), zoom);
                 if (site.IsMineralDeposit || site.Kind == "mineral-deposit") continue;
                 if (site.WorkerId != 0) Bar(mesh, root + new Vector2(0, 5) * zoom, 20, 2,
                     site.Progress / catalog.Balance.Worksites[site.Kind].Interval, new Color32(24, 38, 43, 255), new Color32(163, 198, 139, 255));
             }
-            if (input.BuildKind.Length > 0)
+            if (selectionGuidesVisible && input.BuildKind.Length > 0)
             {
                 var definition = catalog.Balance.Buildings[input.BuildKind];
                 Vector2 root = Point(new Vector3(input.PlacementX / 100, 0));
@@ -90,7 +96,7 @@ namespace DarkNights.View
                         root + new Vector2((float)definition.Range, 6) * zoom, tint, zoom);
                 }
             }
-            if (input.Dragging && Vector2.Distance(input.DragStart, input.Pointer) > 5)
+            if (selectionGuidesVisible && input.Dragging && Vector2.Distance(input.DragStart, input.Pointer) > 5)
             {
                 Vector2 a = new Vector2(input.DragStart.x, Screen.height - input.DragStart.y);
                 Vector2 b = new Vector2(input.Pointer.x, Screen.height - input.Pointer.y);
