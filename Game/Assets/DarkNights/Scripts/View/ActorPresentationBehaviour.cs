@@ -26,7 +26,8 @@ namespace DarkNights.View
             rules = definition;
         }
 
-        public bool Present(ActorViewData actor, int epoch, string workKind, float x, double actionTime, Color ambient, float? height = null)
+        public bool Present(ActorViewData actor, int epoch, string workKind, float x, double actionTime,
+            Color ambient, float? height = null, float artScale = 1)
         {
             if (actor == null || !Accept(actor.Id, epoch, actor.Kind)) return false;
             Current = actor;
@@ -40,7 +41,7 @@ namespace DarkNights.View
             double seconds = actor.Activity == "Attack"
                 ? actionTime / rules.AttackSeconds * ActorVisual.PoseDuration(Pose) : actionTime;
             ActorVisual.SamplePose(Pose, seconds);
-            ActorVisual.SetStanding(actor.Face);
+            ActorVisual.SetStanding(actor.Face, artScale);
             ActorVisual.TintActor(actor.Id, actor.HitFlash > 0, actor.Activity == "Training");
             ActorVisual.PresentHandheld(actor, Math.Max(0, actionTime - actor.ActionTime));
             return true;

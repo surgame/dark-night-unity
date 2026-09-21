@@ -1,4 +1,5 @@
 using DarkNights.Editor.Terrain;
+using DarkNights.Entry.Terrain;
 using DarkNights.View.Terrain;
 using NUnit.Framework;
 using UnityEditor;
@@ -20,7 +21,9 @@ namespace DarkNights.Tests
                 Assert.That(flyer.IdleFrame, Is.Not.Null);
                 Assert.That(flyer.WalkFrames.Length, Is.EqualTo(12));
                 instance.transform.position = new Vector3(100, -80, 0);
-                flyer.Art.transform.localScale = Vector3.one * 6.25f;
+                flyer.UsePixelsPerCell(CaveWorkshopInput.ArtPixelsPerCell);
+                Assert.That(flyer.Art.bounds.size.y, Is.EqualTo(1.5f).Within(.001f),
+                    "12 px 角色在 8 px／格地形上应为 1.5 格高");
                 Sprite previous = null;
                 for (int frame = 0; frame < 36; frame++)
                 {

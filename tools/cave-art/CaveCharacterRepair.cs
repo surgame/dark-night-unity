@@ -34,11 +34,12 @@ public static class CaveCharacterRepair
         finally { PrefabUtility.UnloadPrefabContents(root); }
         var scene = EditorSceneManager.OpenScene(CaveExplorationSetup.ScenePath);
         var bootstrap = UnityEngine.Object.FindAnyObjectByType<TerrainDebugBootstrap>();
+        bootstrap.Flyer.UsePixelsPerCell(CaveWorkshopInput.ArtPixelsPerCell);
         bootstrap.Flyer.PresentMovement(1, false, 0);
         PrefabUtility.RecordPrefabInstancePropertyModifications(bootstrap.Flyer.Art.transform);
         EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene);
         AssetDatabase.SaveAssets(); EditorSceneManager.OpenScene(CaveExplorationSetup.ScenePath);
-        return "已绑定12帧，保存Prefab和洞穴场景，并重开场景。";
+        return "已绑定12帧，以8 px／格保存角色比例、Prefab和洞穴场景，并重开场景。";
     }
 
     public static async Task<string> Validate()

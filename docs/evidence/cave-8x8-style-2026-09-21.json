@@ -3,7 +3,7 @@
   "date": "2026-09-21",
   "branch": "codex/cave-8x8-art-direction",
   "baseCommit": "8dbee1d",
-  "scope": "Cave pixel assets and shader only; no gameplay, terrain authority, protocol, save, YYGC, package, scene or prefab changes.",
+  "scope": "Cave pixel assets, shader and character presentation scale; no gameplay, terrain authority, collision, protocol, save, YYGC, package or prefab changes.",
   "referenceInputs": {
     "dark_nights_8x8_design.html": "4b74ff5b3fa931856dd68acd895133e43d8a57e14922fec8ec05c8545eef8501",
     "dark_nights_8x8_final.html": "010d86029c5f7eb2f22a3d21932bf90e5e74a720b3790f8cb6a608b04ddf228a",
@@ -36,6 +36,17 @@
     "atlasEdgeChecks": 1024,
     "passed": true
   },
+  "characterScaleFix": {
+    "sourceFramePixels": 12,
+    "terrainPixelsPerCell": 8,
+    "beforeHeightCells": 0.75,
+    "afterHeightCells": 1.5,
+    "authorityBodyHeightCells": 1.375,
+    "workshopScale": 2.0,
+    "formalExpeditionScale": 2.0,
+    "legacyCampScale": 1.0,
+    "rootPositionAndCollisionChanged": false
+  },
   "architectureGuard": {
     "files": 418,
     "selfTests": 12,
@@ -51,6 +62,15 @@
       "passed": 8,
       "failed": 0
     },
+    "characterEditMode": {
+      "terrainDebugCharacter": { "total": 2, "passed": 2, "failed": 0 },
+      "entityPresentation": { "total": 29, "passed": 29, "failed": 0 }
+    },
+    "characterPlay": {
+      "passed": true,
+      "checks": 190,
+      "coverage": "Real key walking, facing, idle restoration, foot anchoring, Tab mode round-trip and jump"
+    },
     "initialFailedPlay": {
       "message": "地图可见页未在 30 秒内就绪。",
       "treatment": "Retained as a failed attempt; shader depth probing was reduced to a bounded three-band approximation and the affected Play capture was rerun."
@@ -62,14 +82,14 @@
       "overview": {
         "path": "artifacts/cave-8x8-style/overview.png",
         "dimensions": "1600x1000",
-        "bytes": 388168,
-        "sha256": "dc9c99b512890203b8cc473c01857cdac73f83a6d5285b42ff7280adfab331bc"
+        "bytes": 360871,
+        "sha256": "affb3233c1e6d64dc48b178a2e7d570f350f064236807cf99daa552f734ed139"
       },
       "near": {
         "path": "artifacts/cave-8x8-style/near.png",
         "dimensions": "1600x900",
-        "bytes": 83787,
-        "sha256": "8c79a66170806d670cc25e7f96a626517c2b65fa6558bdd307cfe5a9423f762f"
+        "bytes": 76036,
+        "sha256": "b6b4c5fa93303a1a732220f044f2f188f4667a7c45679bf63b499ac00c58281a"
       }
     }
   },

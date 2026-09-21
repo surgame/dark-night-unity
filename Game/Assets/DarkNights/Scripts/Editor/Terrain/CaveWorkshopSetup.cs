@@ -42,9 +42,7 @@ namespace DarkNights.Editor.Terrain
             if (input == null) input = bootstrap.gameObject.AddComponent<CaveWorkshopInput>();
             input.Bootstrap = bootstrap; input.Walking = true;
             var flyer = bootstrap.Flyer; flyer.CameraDistance = 10;
-            var sprite = flyer.Art.sprite; float scale = sprite.pixelsPerUnit / 16f;
-            flyer.Art.transform.localScale = Vector3.one * scale;
-            flyer.Art.transform.localPosition = new Vector3(-sprite.bounds.center.x * scale, -sprite.bounds.min.y * scale, 0);
+            flyer.UsePixelsPerCell(CaveWorkshopInput.ArtPixelsPerCell);
             EditorUtility.SetDirty(bootstrap); EditorUtility.SetDirty(input);
             EditorSceneManager.SaveScene(scene); AssetDatabase.SaveAssets();
             EditorSceneManager.OpenScene(CaveExplorationSetup.ScenePath);

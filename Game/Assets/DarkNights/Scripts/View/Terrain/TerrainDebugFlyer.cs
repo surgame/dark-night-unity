@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -64,6 +65,17 @@ namespace DarkNights.View.Terrain
             float center = (sprite.rect.width * .5f - sprite.pivot.x) / sprite.pixelsPerUnit;
             Art.transform.localPosition = new Vector3(center * scale.x * (Art.flipX ? 1 : -1),
                 sprite.pivot.y / sprite.pixelsPerUnit * scale.y, Art.transform.localPosition.z);
+        }
+
+        /// <summary>按每个地形格的目标像素数重设角色美术比例，并保持当前帧的脚底与水平中心锚点。</summary>
+        public void UsePixelsPerCell(float pixelsPerCell)
+        {
+            if (Art == null || Art.sprite == null) throw new InvalidOperationException("Debug flyer art is incomplete.");
+            if (float.IsNaN(pixelsPerCell) || float.IsInfinity(pixelsPerCell) || pixelsPerCell <= 0)
+                throw new ArgumentOutOfRangeException(nameof(pixelsPerCell));
+            float scale = Art.sprite.pixelsPerUnit / pixelsPerCell;
+            Art.transform.localScale = new Vector3(scale, scale, 1);
+            PresentMovement(0, moving, 0);
         }
 
         public void Teleport(Vector2 position)

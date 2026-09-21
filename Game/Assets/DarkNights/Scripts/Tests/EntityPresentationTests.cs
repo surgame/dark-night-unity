@@ -101,6 +101,23 @@ namespace DarkNights.Tests
             Assert.That(newCalls, Is.EqualTo(1));
         }
 
+        [Test]
+        public void ExpeditionActorUsesTerrainPixelScaleWithoutMovingRoot()
+        {
+            var actor = Load<ActorPresentationBehaviour>("Worker");
+            var visual = (ActorView)actor.Visual;
+            Vector3 root = visual.transform.position;
+            actor.Bind(7, 2, "worker", catalog.Balance.Units["worker"], null);
+            Assert.That(actor.Present(Actor("worker", "Idle"), 2, "", 100, 0, Color.white,
+                artScale: ActorView.ExpeditionPixelScale), Is.True);
+            var serialized = new SerializedObject(visual);
+            var facing = (Transform)serialized.FindProperty("facing").objectReferenceValue;
+            Assert.That(facing.localScale, Is.EqualTo(new Vector3(2, 2, 1)));
+            visual.SetStanding(-1, ActorView.ExpeditionPixelScale);
+            Assert.That(facing.localScale, Is.EqualTo(new Vector3(-2, 2, 1)));
+            Assert.That(visual.transform.position, Is.EqualTo(root));
+        }
+
         [TestCase("Move", "", "move")]
         [TestCase("WorkMove", "wood", "move")]
         [TestCase("BuildMove", "", "move")]

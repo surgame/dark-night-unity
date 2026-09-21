@@ -6,13 +6,18 @@ namespace DarkNights.Entry.Terrain
     /// <summary>洞穴工作台输入；Tab 在无碰撞观察和共用权威运动之间切换，鼠标仅调用有距离限制的调试破坏，不代表正式装备结算。</summary>
     public sealed class CaveWorkshopInput : MonoBehaviour
     {
+        public const float ArtPixelsPerCell = 8;
         public TerrainDebugBootstrap Bootstrap;
         public bool Walking = true;
         private float accumulator;
         private bool jump;
         private void OnEnable()
         {
-            if (Bootstrap != null && Bootstrap.Flyer != null) Bootstrap.Flyer.FlightInputEnabled = !Walking;
+            if (Bootstrap != null && Bootstrap.Flyer != null)
+            {
+                Bootstrap.Flyer.UsePixelsPerCell(ArtPixelsPerCell);
+                Bootstrap.Flyer.FlightInputEnabled = !Walking;
+            }
         }
         private void Update()
         {

@@ -10,6 +10,7 @@ namespace DarkNights.View
     /// </summary>
     public sealed class ActorView : EntityView, IRemnantView
     {
+        public const float ExpeditionPixelScale = 2;
         [SerializeField] private HandheldView handheld;
         [SerializeField] private SpriteRenderer shadow;
         [SerializeField] private Transform facing;
@@ -43,10 +44,13 @@ namespace DarkNights.View
             RequiredClip(pose).Sample(gameObject, seconds);
         }
 
-        public void SetStanding(float face)
+        /// <summary>按场景像素密度设置角色朝向；远征使用两倍美术比例，脚底根节点和权威碰撞保持不变。</summary>
+        public void SetStanding(float face, float artScale = 1)
         {
+            if (float.IsNaN(artScale) || float.IsInfinity(artScale) || artScale <= 0)
+                throw new ArgumentOutOfRangeException(nameof(artScale));
             if (shadow != null) shadow.enabled = true;
-            facing.localScale = new Vector3(face, 1, 1);
+            facing.localScale = new Vector3(face * artScale, artScale, 1);
             poseRoot.localPosition = standingOffset;
         }
 
@@ -79,7 +83,8 @@ namespace DarkNights.View
             UseRemnantSorting();
             if (shadow != null) shadow.enabled = false;
             RequiredClip("die").Sample(gameObject, age);
-            facing.localScale = new Vector3(cue.Face, 1, 1);
+            float artScale = Mathf.Abs(facing.localScale.y);
+            facing.localScale = new Vector3(cue.Face * artScale, artScale, 1);
             poseRoot.localPosition = deathOffset;
             TintSurface(new Color(0.75f, 0.75f, 0.75f, Mathf.Clamp01(8 - (float)age)));
         }
