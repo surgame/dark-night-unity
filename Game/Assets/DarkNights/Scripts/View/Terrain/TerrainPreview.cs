@@ -56,6 +56,7 @@ namespace DarkNights.View.Terrain
         { caveSource?.SetMinerals(deposits); caveSource?.Flush(); }
         public void SetDevices(DarkNights.Core.ViewData.WorldViewData world)
         { caveSource?.SetDevices(world); caveSource?.Flush(); }
+        public void ApplyCaveStyle(CaveTerrainStyle style) => caveSource?.ApplyStyle(style);
 
         private void OnEnable()
         {

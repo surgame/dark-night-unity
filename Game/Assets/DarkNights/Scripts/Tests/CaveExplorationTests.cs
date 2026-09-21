@@ -22,6 +22,10 @@ namespace DarkNights.Tests
                 Assert.That(map.Passages.Count, Is.GreaterThanOrEqualTo(map.Rooms.Count));
                 Assert.That(map.SoftRockCount, Is.GreaterThan(0));
                 Assert.That(map.Passages.Count(e => e.Kind == CavePassageKind.Open), Is.GreaterThanOrEqualTo(2));
+                Assert.That(map.Rooms.All(r => r.Width <= 25 && r.Height <= 14), Is.True, settings.Seed);
+                Assert.That(map.Passages.All(p => p.Radius == 2), Is.True, settings.Seed);
+                Assert.That(map.Rooms.Max(r => r.X) - map.Rooms.Min(r => r.X), Is.LessThanOrEqualTo(140), settings.Seed);
+                Assert.That(map.Rooms.Max(r => r.Y) - map.Rooms.Min(r => r.Y), Is.LessThanOrEqualTo(56), settings.Seed);
                 var reached = new HashSet<int> { 0 };
                 for (int n = 0; n < map.Rooms.Count; n++) foreach (var edge in map.Passages)
                 {
@@ -35,7 +39,8 @@ namespace DarkNights.Tests
                     Assert.That(map.IsProtected(x, map.Height - 1), Is.True);
                     Assert.That(map.MaterialAt(x, map.Height - 1), Is.EqualTo(8));
                 }
-                signatures.Add(string.Join(";", map.Passages.Select(e => e.From + ":" + e.To + ":" + e.Kind)));
+                signatures.Add(string.Join(";", map.Passages.Select(e => e.From + ":" + e.To + ":" + e.Kind +
+                    ":" + e.BendX + ":" + e.BendY)));
                 CollectionAssert.AreEqual(map.CopyMaterials(), TerrainGenerator.Generate(settings).CopyMaterials());
             }
             Assert.That(signatures.Count, Is.GreaterThan(90));
@@ -54,6 +59,21 @@ namespace DarkNights.Tests
             var reference = TerrainGenerator.Generate(input.AsReferenceProfile());
             Assert.That(reference.Rooms.Count, Is.EqualTo(8));
             Assert.That(reference.Passages, Is.Empty);
+        }
+
+        [Test]
+        public void CompactAndLegacyPresetsAreValidatedAndProduceDifferentScales()
+        {
+            var compact = new TerrainGenerationSettings
+            { Seed = "CAVE-SCALE", ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile };
+            var tight = TerrainGenerator.Generate(compact);
+            compact.UseLegacyCaveScale(); var legacy = TerrainGenerator.Generate(compact);
+            Assert.That(tight.Rooms.Max(r => r.Width), Is.LessThan(legacy.Rooms.Max(r => r.Width)));
+            Assert.That(tight.Rooms.Max(r => r.Height), Is.LessThan(legacy.Rooms.Max(r => r.Height)));
+            Assert.That(tight.Passages.All(p => p.Radius == 2), Is.True);
+            Assert.That(legacy.Passages.All(p => p.Radius == 3), Is.True);
+            compact.CavePassageRadius = 1;
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => TerrainGenerator.Generate(compact));
         }
     }
 }

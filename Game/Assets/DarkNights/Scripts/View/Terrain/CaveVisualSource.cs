@@ -20,6 +20,8 @@ namespace DarkNights.View.Terrain
         private int mineralHash;
         private byte[] deviceLights;
         private int deviceHash;
+        private int lightFalloff;
+        private int rockLightLoss;
         private readonly Texture2D map;
         private readonly Texture2D light;
         private readonly Material background;
@@ -43,6 +45,9 @@ namespace DarkNights.View.Terrain
             Material.SetMatrix("_MapWorldToLocal", parent.worldToLocalMatrix);
             oreMap = new Texture2D(W, H, TextureFormat.RGBA32, false, true) { filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp };
             Material.SetTexture("_OreMap", oreMap);
+            lightFalloff = Mathf.RoundToInt(style.LightFalloff);
+            rockLightLoss = Mathf.RoundToInt(style.RockLightLoss);
+            style.ApplyTo(Material);
             background = new Material(Material); background.SetFloat("_Background", 1);
             background.SetMatrix("_MapWorldToLocal", parent.worldToLocalMatrix);
             backdrop = new GameObject("Cave distant wall"); backdrop.transform.SetParent(parent, false);
@@ -51,6 +56,15 @@ namespace DarkNights.View.Terrain
             mesh.triangles = new[] { 0,2,1,0,3,2 }; mesh.RecalculateBounds();
             backdrop.AddComponent<MeshFilter>().sharedMesh = mesh;
             var renderer = backdrop.AddComponent<MeshRenderer>(); renderer.sharedMaterial = background; renderer.sortingOrder = -100;
+        }
+        public void ApplyStyle(CaveTerrainStyle style)
+        {
+            if (style == null) return;
+            style.ApplyTo(Material); style.ApplyTo(background);
+            if (background != null) background.SetFloat("_Background", 1);
+            int falloff = Mathf.RoundToInt(style.LightFalloff), rockLoss = Mathf.RoundToInt(style.RockLightLoss);
+            if (falloff == lightFalloff && rockLoss == rockLightLoss) return;
+            lightFalloff = falloff; rockLightLoss = rockLoss; dirty = true; Flush();
         }
         public async Task<MapChunkData> LoadAsync(WorldDescriptor descriptor, ChunkCoord coordinate, CancellationToken cancellation)
         {
@@ -85,7 +99,7 @@ namespace DarkNights.View.Terrain
         {
             if (!dirty) return;
             dirty = false;
-            var lights = CaveLightField.Build(cells, W, H, ores, deviceLights);
+            var lights = CaveLightField.Build(cells, W, H, ores, deviceLights, lightFalloff, rockLightLoss);
             oreMap.SetPixels32(ores); oreMap.Apply(false, false);
             map.SetPixels32(cells); map.Apply(false, false);
             light.SetPixels32(lights); light.Apply(false, false);

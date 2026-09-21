@@ -8,6 +8,18 @@ Shader "DarkNights/CavePixelRock"
         _CaveLight ("Occluded light", 2D) = "black" {}
         _OreMap ("Background minerals", 2D) = "black" {}
         _Background ("Background", Float) = 0
+        _TextureSeed ("Texture seed", Float) = 17
+        _TextureDetail ("Texture detail", Range(0,0.6)) = 0.22
+        _DarkColor ("Dark color", Color) = (0.067,0.055,0.059,1)
+        _BaseColor ("Base color", Color) = (0.204,0.161,0.149,1)
+        _LightColor ("Light color", Color) = (0.541,0.420,0.302,1)
+        _EdgeColor ("Edge color", Color) = (0.659,0.510,0.376,1)
+        _EdgeStrength ("Edge strength", Range(0,0.6)) = 0.045
+        _EdgeStartPixels ("Edge start pixels", Range(1,5)) = 2
+        _EdgeDecayPixels ("Edge decay pixels", Range(4,16)) = 10
+        _CoreAfterPixels ("Core after pixels", Range(16,48)) = 36
+        _EdgeSoftness ("Edge softness", Range(0.5,2.5)) = 1.55
+        _LightSoftness ("Light softness", Range(0.5,2.5)) = 1.55
     }
     SubShader
     {
@@ -22,6 +34,9 @@ Shader "DarkNights/CavePixelRock"
             sampler2D _MainTex, _RockTex, _CaveMap, _CaveLight, _OreMap;
             float4x4 _MapWorldToLocal;
             float _Background;
+            float _TextureSeed, _TextureDetail, _EdgeStrength;
+            float _EdgeStartPixels, _EdgeDecayPixels, _CoreAfterPixels, _EdgeSoftness, _LightSoftness;
+            float4 _DarkColor, _BaseColor, _LightColor, _EdgeColor;
             struct Input { float4 vertex:POSITION; float2 uv:TEXCOORD0; };
             struct Output { float4 vertex:SV_POSITION; float2 p:TEXCOORD0; float2 uv:TEXCOORD1; };
             Output vert(Input v)
@@ -44,18 +59,30 @@ Shader "DarkNights/CavePixelRock"
                 float edge=shape<1.5?f.x:shape<2.5?1-f.x:shape<3.5?f.x*.5:shape<4.5?.5+f.x*.5:shape<5.5?1-f.x*.5:.5-f.x*.5;
                 return ceiling?step(edge,f.y):step(f.y,edge);
             }
-            float3 rock(float2 p) { return tex2D(_RockTex,frac((floor(p*8)+.5)/256)).rgb; }
+            float3 rock(float2 p)
+            {
+                float seed=floor(_TextureSeed+.5);
+                float2 offset=fmod(float2(seed*37,seed*83),256);
+                float3 raw=tex2D(_RockTex,frac((floor(p*8)+offset+.5)/256)).rgb;
+                float tone=saturate((dot(raw,float3(.2126,.7152,.0722))-.025)/.52);
+                float contrast=lerp(.55,2.0,saturate(_TextureDetail/.6));
+                tone=saturate((tone-.32)*contrast+.32);
+                float3 low=lerp(_DarkColor.rgb,_BaseColor.rgb,saturate(tone*2));
+                return lerp(low,_LightColor.rgb,saturate((tone-.5)*2));
+            }
             float exposed(float2 p,float radius)
             {
                 return 1-min(min(solid(p+float2(radius,0)),solid(p-float2(radius,0))),
                     min(solid(p+float2(0,radius)),solid(p-float2(0,radius))));
             }
-            float depthPixels(float2 p)
+            float edgeInfluence(float2 p)
             {
-                if(exposed(p,25.0/8.0)<.5)return 26;
-                if(exposed(p,7.0/8.0)>.5)return exposed(p,2.0/8.0)>.5?2:7;
-                if(exposed(p,16.0/8.0)>.5)return 16;
-                return 25;
+                float middle=(_EdgeDecayPixels+_CoreAfterPixels)*.5;
+                float value=exposed(p,_EdgeStartPixels/8)*.40;
+                value+=exposed(p,_EdgeDecayPixels/8)*.30;
+                value+=exposed(p,middle/8)*.20;
+                value+=exposed(p,_CoreAfterPixels/8)*.10;
+                return pow(saturate(value),1/max(.5,_EdgeSoftness));
             }
             float3 materialTint(float material)
             {
@@ -72,7 +99,7 @@ Shader "DarkNights/CavePixelRock"
             {
                 float2 p=(floor(i.p*8)+.5)/8;
                 float4 c=data(p); float2 uv=(float2(p.x,-p.y)+.5)/float2(320,192);
-                float2 light=tex2D(_CaveLight,uv).rg;
+                float2 light=pow(saturate(tex2D(_CaveLight,uv).rg),1/max(.5,_LightSoftness));
                 float2 ore=tex2D(_OreMap,uv).rg;
                 float3 oreColor=lerp(float3(.018,.25,.4),float3(.6,.27,.03),ore.r);
                 float3 illumination=float3(.20,.082,.021)*light.r*light.r + float3(.017,.10,.21)*light.g*light.g;
@@ -98,15 +125,15 @@ Shader "DarkNights/CavePixelRock"
                     return float4(color,1);
                 }
                 clip(solid(p)-.5);
-                float depth=depthPixels(p);
-                float factor=.1+.95*exp(-max(0,depth-2)/7);
-                float blend=depth<=1?.15:depth<=2?.58:.94;
+                float influence=edgeInfluence(p);
                 float3 core=float3(.0030,.0027,.0024);
-                float3 color=depth>25?core:lerp(tex,core+tex*factor,blend);
+                float3 color=core+tex*(.035+.965*influence);
+                float edge=exposed(p,_EdgeStartPixels/8)*_EdgeStrength;
+                color=lerp(color,_EdgeColor.rgb,edge);
                 float top=1-solid(p+float2(0,1.0/8.0));
-                color+=float3(.040,.021,.009)*top*(.25+tex*2.5);
+                color+=float3(.014,.008,.004)*top*(.18+tex*1.8);
                 color*=materialTint(c.r);
-                color+=illumination*(.12+factor*.46+tex*1.3);
+                color+=illumination*(.18+influence*.40+tex*1.15);
                 color+=ore.g*oreColor*(.12+.08*step(.55,tex.r));
                 return float4(color,1);
             }

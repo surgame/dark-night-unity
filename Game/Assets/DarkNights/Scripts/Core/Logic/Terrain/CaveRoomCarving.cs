@@ -21,7 +21,7 @@ namespace DarkNights.Core.Logic.Terrain
                 int side = (step / 5) % 2 == 0 ? 1 : -1, wall = x;
                 while (Math.Abs(wall - x) < 12 && wall > 4 && wall < w - 5 && cells[y * w + wall] == 0) wall += side;
                 if (Math.Abs(wall - x) >= 12) continue;
-                for (int n = 1; n <= 3; n++)
+                for (int n = 1; n <= 2; n++)
                 {
                     int u = wall - side * n;
                     if (Math.Abs(u - x) < 1) break;

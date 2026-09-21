@@ -350,6 +350,11 @@ MonoBehaviour:
     OrganicCaves: 0
     Amplitude: 1
     OreDensity: 1
+    CaveColumnSpacing: 43
+    CaveRowSpacing: 24
+    CaveRoomWidthScale: 0.78
+    CaveRoomHeightScale: 0.62
+    CavePassageRadius: 2
     ResourceProfile: cave-exploration
   LiveRegenerate: 1
 --- !u!4 &2146584200

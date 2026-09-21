@@ -122,6 +122,19 @@ namespace DarkNights.Tests
             var atlas = AssetDatabase.LoadAssetAtPath<Texture2D>(root + "cave-dualgrid.png");
             Assert.That(style, Is.Not.Null); Assert.That(style.Shader.name, Is.EqualTo("DarkNights/CavePixelRock"));
             Assert.That(style.Rock, Is.SameAs(rock)); Assert.That(rock.width, Is.EqualTo(256)); Assert.That(rock.height, Is.EqualTo(256));
+            Assert.That(style.TextureSeed, Is.EqualTo(17)); Assert.That(style.TextureDetail, Is.EqualTo(.22f).Within(.001f));
+            Assert.That(style.EdgeDecayPixels, Is.EqualTo(10)); Assert.That(style.CoreAfterPixels, Is.EqualTo(36));
+            Assert.That(style.EdgeSoftness, Is.GreaterThan(1)); Assert.That(style.LightSoftness, Is.GreaterThan(1));
+            Assert.That(style.LightFalloff, Is.EqualTo(12)); Assert.That(style.RockLightLoss, Is.EqualTo(96));
+            var material = new Material(style.Shader);
+            try
+            {
+                style.ApplyTo(material);
+                Assert.That(material.GetFloat("_TextureSeed"), Is.EqualTo(17));
+                Assert.That(material.GetFloat("_EdgeSoftness"), Is.EqualTo(style.EdgeSoftness));
+                Assert.That(material.GetFloat("_LightSoftness"), Is.EqualTo(style.LightSoftness));
+            }
+            finally { UnityEngine.Object.DestroyImmediate(material); }
             Assert.That(atlas.width, Is.EqualTo(512)); Assert.That(atlas.height, Is.EqualTo(1024));
             var rockImporter = (TextureImporter)AssetImporter.GetAtPath(root + "cave-rock.png");
             var atlasImporter = (TextureImporter)AssetImporter.GetAtPath(root + "cave-dualgrid.png");

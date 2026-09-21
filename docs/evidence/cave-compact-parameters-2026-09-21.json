@@ -1,0 +1,47 @@
+{
+  "date": "2026-09-21",
+  "branch": "codex/cave-8x8-art-direction",
+  "scope": "洞穴参数开放、HTML 思路紧凑生成、岩壁与灯光柔化",
+  "unity": "6000.4.9f1",
+  "compile": {
+    "status": "completed",
+    "failed": false,
+    "errors": 0
+  },
+  "generation": {
+    "rooms": 12,
+    "passages": 16,
+    "defaultColumnSpacing": 43,
+    "defaultRowSpacing": 24,
+    "defaultWidthScale": 0.78,
+    "defaultHeightScale": 0.62,
+    "defaultPassageRadius": 2,
+    "hundredSeedMaxRoom": [25, 14],
+    "hundredSeedMaxCenterSpan": [135, 54],
+    "hundredSeedUniqueSignatures": 100
+  },
+  "tests": [
+    { "filter": "CaveExplorationTests", "passed": 3, "failed": 0 },
+    { "filter": "CaveWorkshopTests", "passed": 6, "failed": 0 },
+    { "filter": "TerrainDebugCharacterTests", "passed": 2, "failed": 0 },
+    { "filter": "ExpeditionTests", "passed": 8, "failed": 0 }
+  ],
+  "staticChecks": {
+    "coreBuild": "passed",
+    "architectureGuard": { "files": 418, "selfTests": 12, "errors": 0 },
+    "artValidation": { "scaledBlocks": 32768, "atlasEdges": 1024 }
+  },
+  "play": {
+    "seed": "CAVE-EXPLORATION-01",
+    "overview": "artifacts/cave-8x8-style/overview.png",
+    "near": "artifacts/cave-8x8-style/near.png",
+    "captured": true
+  },
+  "notVerified": [
+    "Mono Player",
+    "IL2CPP Player",
+    "跨进程联机与弱网",
+    "正式远征前台性能",
+    "全部种子的有限燃料全路线可达"
+  ]
+}

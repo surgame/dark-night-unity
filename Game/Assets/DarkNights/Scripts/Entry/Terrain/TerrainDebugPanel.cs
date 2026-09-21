@@ -1,5 +1,6 @@
 using System;
 using DarkNights.Core.Config.Terrain;
+using DarkNights.View.Terrain;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -85,7 +86,12 @@ namespace DarkNights.Entry.Terrain
                 Bootstrap.Flyer.InputBlocked = GUI.GetNameOfFocusedControl() == "TerrainSeed";
                 if (Event.current.type == EventType.MouseDown && !area.Contains(Event.current.mousePosition)) GUI.FocusControl(null);
                 bool cave = settings.ResourceProfile == TerrainGenerationSettings.CaveExplorationProfile;
-                if (cave) GUILayout.Label("天然洞穴实验 · 隐藏拓扑 / 部分掩埋");
+                if (cave)
+                {
+                    GUILayout.Label("参考 HTML 紧凑洞穴 · 设计层级 / 受控连接");
+                    DrawCaveGeneration(settings);
+                    DrawCaveStyle(Bootstrap.EditableCaveStyle);
+                }
                 else
                 {
                     int surface = Math.Max(0, Array.IndexOf(TerrainGenerationSettings.SurfaceNames, settings.Surface));
@@ -126,6 +132,66 @@ namespace DarkNights.Entry.Terrain
         {
             GUILayout.Label(label + "  " + value.ToString("F2"));
             return GUILayout.HorizontalSlider(value, min, max);
+        }
+
+        private static void DrawCaveGeneration(TerrainGenerationSettings settings)
+        {
+            GUILayout.Label("空间参数", GUI.skin.box);
+            settings.CaveColumnSpacing = Mathf.RoundToInt(Slider("横向洞室间距", settings.CaveColumnSpacing, 34, 60));
+            settings.CaveRowSpacing = Mathf.RoundToInt(Slider("纵向层距", settings.CaveRowSpacing, 18, 36));
+            settings.CaveRoomWidthScale = Slider("洞室宽度比例", (float)settings.CaveRoomWidthScale, .45f, 1.25f);
+            settings.CaveRoomHeightScale = Slider("洞室高度比例", (float)settings.CaveRoomHeightScale, .45f, 1.25f);
+            settings.CavePassageRadius = Mathf.RoundToInt(Slider("通路半径（最小 2）", settings.CavePassageRadius, 2, 4));
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("参考紧凑")) settings.UseCompactCaveDefaults();
+            if (GUILayout.Button("旧版宽松")) settings.UseLegacyCaveScale();
+            GUILayout.EndHorizontal();
+        }
+
+        private void DrawCaveStyle(CaveTerrainStyle style)
+        {
+            if (style == null) return;
+            GUILayout.Label("材质参数（即时，不重建地图）", GUI.skin.box);
+            bool changed = false;
+            int seed = Mathf.RoundToInt(Slider("纹理种子", style.TextureSeed, 0, 255));
+            changed |= seed != style.TextureSeed; style.TextureSeed = seed;
+            changed |= Set(ref style.TextureDetail, Slider("纹理密度", style.TextureDetail, 0, .6f));
+            changed |= Set(ref style.EdgeStrength, Slider("边缘提亮强度", style.EdgeStrength, 0, .6f));
+            changed |= Set(ref style.EdgeStartPixels, Slider("边缘起始（像素）", style.EdgeStartPixels, 1, 5));
+            changed |= Set(ref style.EdgeDecayPixels, Slider("衰减过渡（像素）", style.EdgeDecayPixels, 4, 16));
+            changed |= Set(ref style.CoreAfterPixels, Slider("近黑岩芯深度", style.CoreAfterPixels, 16, 48));
+            changed |= Set(ref style.EdgeSoftness, Slider("岩壁衰减柔度", style.EdgeSoftness, .5f, 2.5f));
+            changed |= Set(ref style.LightSoftness, Slider("灯光柔度", style.LightSoftness, .5f, 2.5f));
+            changed |= Set(ref style.LightFalloff, Slider("空气光衰减（越小越远）", style.LightFalloff, 6, 24));
+            changed |= Set(ref style.RockLightLoss, Slider("岩体遮光损耗", style.RockLightLoss, 48, 160));
+            changed |= Set(ref style.DarkColor, ColorSliders("暗部", style.DarkColor));
+            changed |= Set(ref style.BaseColor, ColorSliders("基色", style.BaseColor));
+            changed |= Set(ref style.LightColor, ColorSliders("亮部", style.LightColor));
+            changed |= Set(ref style.EdgeColor, ColorSliders("边缘色", style.EdgeColor));
+            if (GUILayout.Button("恢复素材默认参数")) { Bootstrap.ResetCaveStyle(); changed = false; }
+            else if (changed) Bootstrap.ApplyCaveStyle();
+        }
+
+        private static Color ColorSliders(string label, Color value)
+        {
+            GUILayout.Label(label + $"  #{ColorUtility.ToHtmlStringRGB(value)}");
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("R", GUILayout.Width(14)); value.r = GUILayout.HorizontalSlider(value.r, 0, 1);
+            GUILayout.Label("G", GUILayout.Width(14)); value.g = GUILayout.HorizontalSlider(value.g, 0, 1);
+            GUILayout.Label("B", GUILayout.Width(14)); value.b = GUILayout.HorizontalSlider(value.b, 0, 1);
+            GUILayout.EndHorizontal(); value.a = 1; return value;
+        }
+
+        private static bool Set(ref float target, float value)
+        {
+            if (Mathf.Approximately(target, value)) return false;
+            target = value; return true;
+        }
+
+        private static bool Set(ref Color target, Color value)
+        {
+            if (target == value) return false;
+            target = value; return true;
         }
     }
 }

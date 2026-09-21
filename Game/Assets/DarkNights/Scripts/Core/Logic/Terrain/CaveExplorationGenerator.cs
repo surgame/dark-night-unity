@@ -11,7 +11,7 @@ namespace DarkNights.Core.Logic.Terrain
         public static TerrainBlueprint Generate(TerrainGenerationSettings input)
         {
             var settings = input.CopyValidated();
-            var random = new TerrainRandom(settings.Seed + ":cave-exploration-v3");
+            var random = new TerrainRandom(settings.Seed + ":cave-exploration-v4");
             var cells = new byte[W * H]; var protection = new bool[cells.Length]; var soft = new bool[cells.Length];
             int[] surface = Surface(settings);
             for (int y = 0; y < H; y++) for (int x = 0; x < W; x++)
@@ -20,22 +20,13 @@ namespace DarkNights.Core.Logic.Terrain
                 protection[i] = x < 3 || x >= W - 3 || y >= H - 3;
                 cells[i] = protection[i] ? (byte)8 : y < surface[x] ? (byte)0 : y < surface[x] + 3 ? (byte)1 : (byte)2;
             }
-            var rooms = Rooms(random); var passages = Connect(rooms, random);
+            var rooms = Rooms(random, settings); var passages = Connect(rooms, random, settings.CavePassageRadius);
             foreach (var room in rooms) CaveRoomCarving.Carve(cells, room, random);
-            foreach (var edge in passages)
-            {
-                var a = rooms[edge.From]; var b = rooms[edge.To];
-                CarveLine(cells, a.X, a.Y + 2, edge.BendX, edge.BendY, edge.Radius);
-                CarveLine(cells, edge.BendX, edge.BendY, b.X, b.Y + 2, edge.Radius);
-            }
-            CarveLine(cells, rooms[0].X - 8, surface[rooms[0].X - 8] - 2, rooms[0].X, rooms[0].Y, 4);
-            CarveLine(cells, rooms[3].X + 12, surface[rooms[3].X + 12] - 2, rooms[3].X, rooms[3].Y, 3);
-            foreach (var edge in passages)
-            {
-                var a = rooms[edge.From]; var b = rooms[edge.To];
-                CaveRoomCarving.Shelves(cells, a.X, a.Y, edge.BendX, edge.BendY, rooms);
-                CaveRoomCarving.Shelves(cells, edge.BendX, edge.BendY, b.X, b.Y, rooms);
-            }
+            foreach (var edge in passages) CarvePassage(cells, rooms, edge);
+            int entranceRadius = settings.CavePassageRadius;
+            CarveLine(cells, rooms[0].X - 8, surface[rooms[0].X - 8] - 2, rooms[0].X, rooms[0].Y, entranceRadius);
+            CarveLine(cells, rooms[3].X + 12, surface[rooms[3].X + 12] - 2, rooms[3].X, rooms[3].Y, entranceRadius);
+            foreach (var edge in passages) DecoratePassage(cells, rooms, edge);
             CaveRoomCarving.Shelves(cells, rooms[0].X - 8, surface[rooms[0].X - 8], rooms[0].X, rooms[0].Y, rooms);
             CaveRoomCarving.Shelves(cells, rooms[3].X + 12, surface[rooms[3].X + 12], rooms[3].X, rooms[3].Y, rooms);
             foreach (var edge in passages) Cover(cells, soft, rooms, edge);
@@ -68,57 +59,89 @@ namespace DarkNights.Core.Logic.Terrain
             for (int x = 24; x < 48; x++) result[x] = result[24];
             return result;
         }
-        private static List<TerrainRoom> Rooms(TerrainRandom r)
+        private static List<TerrainRoom> Rooms(TerrainRandom r, TerrainGenerationSettings settings)
         {
             var rooms = new List<TerrainRoom>();
             string[] kinds = { "gallery", "shelf", "rift", "vault" };
             for (int row = 0; row < 3; row++) for (int col = 0; col < 4; col++)
             {
-                int x = 80 + col * 53 + (int)(r.Next() * 11) - 5;
-                int y = 62 + row * 30 + (int)(r.Next() * 11) - 5;
+                int x = 74 + col * settings.CaveColumnSpacing + (int)(r.Next() * 7) - 3;
+                int y = 60 + row * settings.CaveRowSpacing + (int)(r.Next() * 7) - 3;
                 int kind = (col + row) % 4;
-                rooms.Add(new TerrainRoom(kinds[kind], x, y, kind == 2 ? 16 : kind == 3 ? 32 : 22 + (int)(r.Next() * 9),
-                    kind == 2 ? 22 : kind == 3 ? 16 : 10 + (int)(r.Next() * 6)));
+                int baseWidth = kind == 2 ? 16 : kind == 3 ? 32 : 22 + (int)(r.Next() * 9);
+                int baseHeight = kind == 2 ? 22 : kind == 3 ? 16 : 10 + (int)(r.Next() * 6);
+                int width = Math.Max(12, (int)Math.Round(baseWidth * settings.CaveRoomWidthScale));
+                int height = Math.Max(6, (int)Math.Round(baseHeight * settings.CaveRoomHeightScale));
+                rooms.Add(new TerrainRoom(kinds[kind], x, y, width, height));
             }
             return rooms;
         }
-        private static List<CavePassage> Connect(List<TerrainRoom> rooms, TerrainRandom r)
+        private static List<CavePassage> Connect(List<TerrainRoom> rooms, TerrainRandom r, int radius)
         {
             var edges = new List<CavePassage>();
-            var joined = new HashSet<int> { 0 };
-            while (joined.Count < rooms.Count)
+            for (int row = 0; row < 3; row++) for (int col = 0; col < 3; col++)
+                Add(edges, rooms, row * 4 + col, row * 4 + col + 1, CavePassageKind.Open, r, radius);
+            for (int layer = 0; layer < 2; layer++)
             {
-                int a = -1, b = -1; double best = double.MaxValue;
-                foreach (int i in joined) for (int j = 0; j < rooms.Count; j++)
-                {
-                    if (joined.Contains(j)) continue;
-                    double dx = rooms[i].X - rooms[j].X, dy = rooms[i].Y - rooms[j].Y;
-                    double cost = dx * dx + dy * dy * 1.8;
-                    if (cost < best) { best = cost; a = i; b = j; }
-                }
-                Add(edges, rooms, a, b, CavePassageKind.Open, r); joined.Add(b);
+                int first = (int)(r.Next() * 4);
+                int second = (first + 1 + (int)(r.Next() * 3)) % 4;
+                Add(edges, rooms, layer * 4 + first, (layer + 1) * 4 + first, CavePassageKind.Open, r, radius);
+                Add(edges, rooms, layer * 4 + second, (layer + 1) * 4 + second, CavePassageKind.Open, r, radius);
             }
-            for (int k = 0; k < 4; k++)
+            for (int k = 0; k < 3; k++)
             {
-                int a = (int)(r.Next() * rooms.Count), b = -1; double best = double.MaxValue;
-                for (int j = 0; j < rooms.Count; j++)
+                int a = -1, b = -1;
+                for (int attempt = 0; attempt < 32 && b < 0; attempt++)
                 {
-                    if (j == a || edges.Exists(e => e.From == a && e.To == j || e.To == a && e.From == j)) continue;
-                    double dx = rooms[a].X - rooms[j].X, dy = rooms[a].Y - rooms[j].Y;
-                    if (dx * dx + dy * dy < best) { best = dx * dx + dy * dy; b = j; }
+                    int candidateA = (int)(r.Next() * rooms.Count), candidateB = (int)(r.Next() * rooms.Count);
+                    if (candidateA == candidateB || Connected(edges, candidateA, candidateB)) continue;
+                    int rowDistance = Math.Abs(candidateA / 4 - candidateB / 4);
+                    int columnDistance = Math.Abs(candidateA % 4 - candidateB % 4);
+                    if (rowDistance + columnDistance > 2) continue;
+                    a = candidateA; b = candidateB;
                 }
-                if (b >= 0) Add(edges, rooms, a, b, k < 2 ? CavePassageKind.LooseFill : k == 2 ? CavePassageKind.ThinRock : CavePassageKind.DeepRock, r);
+                if (b >= 0) Add(edges, rooms, a, b,
+                    k == 0 ? CavePassageKind.LooseFill : k == 1 ? CavePassageKind.ThinRock : CavePassageKind.DeepRock, r, radius);
             }
             for (int i = edges.Count - 1; i > 0; i--)
             { int j = (int)(r.Next() * (i + 1)); var swap = edges[i]; edges[i] = edges[j]; edges[j] = swap; }
             return edges;
         }
-        private static void Add(List<CavePassage> edges, List<TerrainRoom> rooms, int a, int b, CavePassageKind kind, TerrainRandom r)
+        private static bool Connected(List<CavePassage> edges, int a, int b) =>
+            edges.Exists(e => e.From == a && e.To == b || e.From == b && e.To == a);
+        private static void Add(List<CavePassage> edges, List<TerrainRoom> rooms, int a, int b,
+            CavePassageKind kind, TerrainRandom r, int radius)
         {
             var p = rooms[a]; var q = rooms[b];
-            int x = (p.X + q.X) / 2 + (int)(r.Next() * 7) - 3;
-            int y = (p.Y + q.Y) / 2 + 2 + (int)(r.Next() * 5) - 2;
-            edges.Add(new CavePassage(a, b, kind, x, y, 3, kind == CavePassageKind.Open ? 0 : kind == CavePassageKind.ThinRock ? 2 : 6));
+            int x = Math.Abs(p.X - q.X) >= Math.Abs(p.Y - q.Y) ?
+                (p.X + q.X) / 2 + (int)(r.Next() * 5) - 2 : p.X + (int)(r.Next() * 5) - 2;
+            int y = Math.Abs(p.X - q.X) >= Math.Abs(p.Y - q.Y) ?
+                p.Y + 2 + (int)(r.Next() * 3) - 1 : (p.Y + q.Y) / 2 + 2 + (int)(r.Next() * 5) - 2;
+            int cover = kind == CavePassageKind.Open ? 0 : kind == CavePassageKind.ThinRock ? 2 : 5;
+            edges.Add(new CavePassage(a, b, kind, x, y, radius, cover));
+        }
+        private static void CarvePassage(byte[] cells, List<TerrainRoom> rooms, CavePassage edge)
+        {
+            var a = rooms[edge.From]; var b = rooms[edge.To];
+            int ay = a.Y + 2, by = b.Y + 2;
+            if (Math.Abs(a.X - b.X) >= Math.Abs(ay - by))
+            {
+                CarveLine(cells, a.X, ay, edge.BendX, ay, edge.Radius);
+                CarveLine(cells, edge.BendX, ay, edge.BendX, by, edge.Radius);
+                CarveLine(cells, edge.BendX, by, b.X, by, edge.Radius);
+            }
+            else
+            {
+                CarveLine(cells, a.X, ay, a.X, edge.BendY, edge.Radius);
+                CarveLine(cells, a.X, edge.BendY, b.X, edge.BendY, edge.Radius);
+                CarveLine(cells, b.X, edge.BendY, b.X, by, edge.Radius);
+            }
+        }
+        private static void DecoratePassage(byte[] cells, List<TerrainRoom> rooms, CavePassage edge)
+        {
+            var a = rooms[edge.From]; var b = rooms[edge.To];
+            CaveRoomCarving.Shelves(cells, a.X, a.Y, edge.BendX, edge.BendY, rooms);
+            CaveRoomCarving.Shelves(cells, edge.BendX, edge.BendY, b.X, b.Y, rooms);
         }
         private static void CarveLine(byte[] cells, int ax, int ay, int bx, int by, int radius)
         {

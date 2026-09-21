@@ -14,3 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Terrain.CaveTerrainStyle
   Shader: {fileID: 4800000, guid: 6b5cc89560367e742aba779c03ef3fd8, type: 3}
   Rock: {fileID: 2800000, guid: 4818107d929b68a47b92bddf51dcfb11, type: 3}
+  TextureSeed: 17
+  TextureDetail: 0.22
+  DarkColor: {r: 0.06666667, g: 0.05490196, b: 0.05882353, a: 1}
+  BaseColor: {r: 0.20392157, g: 0.16078432, b: 0.14901961, a: 1}
+  LightColor: {r: 0.5411765, g: 0.41960785, b: 0.3019608, a: 1}
+  EdgeColor: {r: 0.65882355, g: 0.50980395, b: 0.3764706, a: 1}
+  EdgeStrength: 0.045
+  EdgeStartPixels: 2
+  EdgeDecayPixels: 10
+  CoreAfterPixels: 36
+  EdgeSoftness: 1.55
+  LightSoftness: 1.55
+  LightFalloff: 12
+  RockLightLoss: 96

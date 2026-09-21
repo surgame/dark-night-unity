@@ -27,6 +27,7 @@ namespace DarkNights.Entry.Terrain
         public bool LiveRegenerate = true;
         public TerrainBlueprint Blueprint { get; private set; }
         public TerrainPreview Preview { get; private set; }
+        public CaveTerrainStyle EditableCaveStyle { get; private set; }
         public bool Generating { get; private set; }
         public int Generation { get; private set; }
         public string Status { get; private set; } = "准备生成房间地图…";
@@ -40,6 +41,7 @@ namespace DarkNights.Entry.Terrain
         private void OnEnable()
         {
             lifetime = new CancellationTokenSource();
+            if (CaveStyle != null) EditableCaveStyle = Instantiate(CaveStyle);
             observedSettings = JsonUtility.ToJson(Settings);
             RequestRegenerate();
         }
@@ -61,6 +63,14 @@ namespace DarkNights.Entry.Terrain
             var room = Blueprint.Rooms[index];
             Workshop?.Teleport(room.X, -room.Y);
             Flyer.Teleport(new Vector2(room.X, -room.Y));
+        }
+
+        public void ApplyCaveStyle() => Preview?.ApplyCaveStyle(EditableCaveStyle);
+
+        public void ResetCaveStyle()
+        {
+            EditableCaveStyle?.CopyParametersFrom(CaveStyle);
+            ApplyCaveStyle();
         }
 
         private void Update()
@@ -100,8 +110,8 @@ namespace DarkNights.Entry.Terrain
                 root.transform.SetParent(transform, false);
                 candidate = root.AddComponent<TerrainPreview>();
                 candidate.ViewCamera = Flyer.ViewCamera;
-                candidate.CaveStyle = CaveStyle;
-                if (CaveStyle != null)
+                candidate.CaveStyle = EditableCaveStyle;
+                if (EditableCaveStyle != null)
                 {
                     var game = DarkNights.Runtime.Config.GameCatalogJson.Parse(BalanceJson.text, LevelJson.text);
                     workshop = new DarkNights.Runtime.Terrain.CaveWorkshopSession(blueprint, Definition.LoadGameplayCatalog(), game);
@@ -148,6 +158,9 @@ namespace DarkNights.Entry.Terrain
             lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null;
             Workshop?.Dispose(); Workshop = null;
             pending = false; Release(Preview); Preview = null; Blueprint = null;
+            if (EditableCaveStyle != null)
+                Destroy(EditableCaveStyle);
+            EditableCaveStyle = null;
             if (Flyer != null) Flyer.Ready = false;
         }
     }
