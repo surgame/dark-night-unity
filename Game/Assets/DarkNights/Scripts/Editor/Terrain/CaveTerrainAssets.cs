@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace DarkNights.Editor.Terrain
 {
-    /// <summary>只在新的洞穴风格目录制作 DualGrid 首版资源；32 像素原生图集保留四角位序，后续导入不覆盖人工资产。</summary>
+    /// <summary>只在新的洞穴风格目录制作 DualGrid 首版资源；8 像素原生图放大到既有 32 像素 Sprite 合同，保留四角位序且后续导入不覆盖人工资产。</summary>
     public static class CaveTerrainAssets
     {
         public const string Root = "Assets/DarkNights/Res/Terrain/CaveExploration/Style";

@@ -1,0 +1,87 @@
+{
+  "schema": "dark-nights-cave-8x8-style-evidence/v1",
+  "date": "2026-09-21",
+  "branch": "codex/cave-8x8-art-direction",
+  "baseCommit": "8dbee1d",
+  "scope": "Cave pixel assets and shader only; no gameplay, terrain authority, protocol, save, YYGC, package, scene or prefab changes.",
+  "referenceInputs": {
+    "dark_nights_8x8_design.html": "4b74ff5b3fa931856dd68acd895133e43d8a57e14922fec8ec05c8545eef8501",
+    "dark_nights_8x8_final.html": "010d86029c5f7eb2f22a3d21932bf90e5e74a720b3790f8cb6a608b04ddf228a",
+    "dark_nights_final_validation.json": "d46abc3c980d716ee93a465c7391be3dee395bb2cc978e0d1bcd147d47b90095"
+  },
+  "imageGeneration": {
+    "used": false,
+    "reason": "Exact 8x8 seams, fixed masks, limited palette and deterministic regeneration are better served by direct pixel construction. Existing provider sources remain historical research only."
+  },
+  "assets": {
+    "cave-rock.png": {
+      "dimensions": "256x256",
+      "paletteColors": 6,
+      "sha256": "16d6114c09d463d4d520c36a64a731072fda238831fca65b4b94ce8563a92ad7"
+    },
+    "cave-dualgrid.png": {
+      "dimensions": "512x1024",
+      "nativeTilePixels": 8,
+      "unitySpritePixels": 32,
+      "sha256": "81de377cd8c8348d31aa42d0b409b9035a1413c4adca24d072b9962b3008dfa0"
+    },
+    "CavePixelRock.shader": {
+      "rockPixelsPerWorldUnit": 8,
+      "fixedEdgeShadingPixels": [2, 7, 25],
+      "sha256": "6c41f1d375f3950a7a271456a43ddd6e3c102fb31d0360403d245df5ee194f44"
+    }
+  },
+  "deterministicValidation": {
+    "scaledBlockChecks": 32768,
+    "atlasEdgeChecks": 1024,
+    "passed": true
+  },
+  "architectureGuard": {
+    "files": 418,
+    "selfTests": 12,
+    "errors": 0
+  },
+  "unity": {
+    "version": "6000.4.9f1",
+    "recompile": "completed; failed=false; errors=[]",
+    "finalConsoleErrors": 0,
+    "caveEditMode": {
+      "filter": "testname: Cave",
+      "total": 8,
+      "passed": 8,
+      "failed": 0
+    },
+    "initialFailedPlay": {
+      "message": "地图可见页未在 30 秒内就绪。",
+      "treatment": "Retained as a failed attempt; shader depth probing was reduced to a bounded three-band approximation and the affected Play capture was rerun."
+    },
+    "finalPlayCapture": {
+      "seed": "CAVE-EXPLORATION-01",
+      "scriptDiagnostics": 0,
+      "result": "Captured 8x8 cave overview and near view for CAVE-EXPLORATION-01",
+      "overview": {
+        "path": "artifacts/cave-8x8-style/overview.png",
+        "dimensions": "1600x1000",
+        "bytes": 388168,
+        "sha256": "dc9c99b512890203b8cc473c01857cdac73f83a6d5285b42ff7280adfab331bc"
+      },
+      "near": {
+        "path": "artifacts/cave-8x8-style/near.png",
+        "dimensions": "1600x900",
+        "bytes": 83787,
+        "sha256": "8c79a66170806d670cc25e7f96a626517c2b65fa6558bdd307cfe5a9423f762f"
+      }
+    }
+  },
+  "notValidated": [
+    "Formal expedition scene with ship, devices and HUD in the same capture",
+    "Mono or IL2CPP Player",
+    "Host plus clients or weak network",
+    "Foreground frame-time performance",
+    "All masks and all material transitions by human visual review"
+  ],
+  "workspace": {
+    "startFreeGiB": { "C": 6.21, "D": 36.28 },
+    "existingUntrackedPreserved": ["Game/Assets/Temp.meta", "Game/Assets/Temp/"]
+  }
+}

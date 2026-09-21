@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace DarkNights.Tests
 {
-    /// <summary>洞穴坡形的权威运动、格编码、AMP1 副本和破坏回归；采用实际地图会话，视觉验收另外保存 Play 截图。</summary>
+    /// <summary>洞穴坡形的权威运动、格编码、AMP1 副本、破坏及像素素材合同回归；采用实际地图会话，视觉验收另外保存 Play 截图。</summary>
     public sealed class CaveWorkshopTests
     {
         private static CaveWorkshopSession Session(TerrainBlueprint map)
@@ -112,6 +112,27 @@ namespace DarkNights.Tests
                 int i = Array.FindIndex(shapes, s => s > 0); byte old = shapes[i]; shapes[i] = 0;
                 Assert.That((byte)map.ShapeAt(i % 320, i / 320), Is.EqualTo(old));
             }
+        }
+        [Test]
+        public void CaveStyleKeepsEightPixelTonalAssetContract()
+        {
+            const string root = "Assets/DarkNights/Res/Art/Custom/CaveExploration/";
+            var style = AssetDatabase.LoadAssetAtPath<DarkNights.View.Terrain.CaveTerrainStyle>(CaveWorkshopSetup.StylePath);
+            var rock = AssetDatabase.LoadAssetAtPath<Texture2D>(root + "cave-rock.png");
+            var atlas = AssetDatabase.LoadAssetAtPath<Texture2D>(root + "cave-dualgrid.png");
+            Assert.That(style, Is.Not.Null); Assert.That(style.Shader.name, Is.EqualTo("DarkNights/CavePixelRock"));
+            Assert.That(style.Rock, Is.SameAs(rock)); Assert.That(rock.width, Is.EqualTo(256)); Assert.That(rock.height, Is.EqualTo(256));
+            Assert.That(atlas.width, Is.EqualTo(512)); Assert.That(atlas.height, Is.EqualTo(1024));
+            var rockImporter = (TextureImporter)AssetImporter.GetAtPath(root + "cave-rock.png");
+            var atlasImporter = (TextureImporter)AssetImporter.GetAtPath(root + "cave-dualgrid.png");
+            Assert.That(rockImporter.filterMode, Is.EqualTo(FilterMode.Point)); Assert.That(rockImporter.mipmapEnabled, Is.False);
+            Assert.That(rockImporter.textureCompression, Is.EqualTo(TextureImporterCompression.Uncompressed));
+            Assert.That(rockImporter.wrapMode, Is.EqualTo(TextureWrapMode.Repeat));
+            Assert.That(atlasImporter.filterMode, Is.EqualTo(FilterMode.Point)); Assert.That(atlasImporter.mipmapEnabled, Is.False);
+            Assert.That(atlasImporter.textureCompression, Is.EqualTo(TextureImporterCompression.Uncompressed));
+            var manifest = AssetDatabase.LoadAssetAtPath<TextAsset>(root + "cave-art-manifest.json");
+            StringAssert.Contains("\"nativeTilePixels\": 8", manifest.text);
+            StringAssert.Contains("\"fixedEdgeShadingPixels\"", manifest.text);
         }
     }
 }

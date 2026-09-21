@@ -1,9 +1,35 @@
 {
-  "source": "rock-source-gpt-image-2.5.png",
-  "model": "gpt-image-2.5",
-  "sourceSha256": "7f6c29465d5e3d49c9ea4972ffc4126978d4ba34e5277248ee306e58db2d784b",
+  "schema": "dark-nights-cave-art/v2",
+  "previousResearchSource": "rock-source-gpt-image-2.5.png",
+  "previousResearchModel": "gpt-image-2.5",
+  "previousResearchSourceSha256": "7f6c29465d5e3d49c9ea4972ffc4126978d4ba34e5277248ee306e58db2d784b",
+  "referenceInputs": {
+    "dark_nights_8x8_design.html": "4b74ff5b3fa931856dd68acd895133e43d8a57e14922fec8ec05c8545eef8501",
+    "dark_nights_8x8_final.html": "010d86029c5f7eb2f22a3d21932bf90e5e74a720b3790f8cb6a608b04ddf228a",
+    "dark_nights_final_validation.json": "d46abc3c980d716ee93a465c7391be3dee395bb2cc978e0d1bcd147d47b90095"
+  },
+  "generator": "tools/cave-art/build_cave_art.py",
+  "design": {
+    "palette": "warm-tonal",
+    "coherence": 1.0,
+    "toneGrouping": 0.55,
+    "rockPixelsPerWorldUnit": 8,
+    "fixedEdgeShadingPixels": {
+      "start": 2,
+      "decay": 7,
+      "coreAfter": 25
+    },
+    "note": "The provider image remains provenance for the prior study; v2 output is deterministic pixel construction from the supplied 8x8 direction."
+  },
+  "validation": {
+    "nativeTilePixels": 8,
+    "unitySpritePixels": 32,
+    "rockPaletteColors": 6,
+    "atlasEdgeChecks": 1024,
+    "scaledBlockChecks": 32768
+  },
   "outputs": {
-    "cave-rock.png": "3cc0c45c1494440757d021fbd2c4a568b53494ddcc847d7aab5fafefcb028ee3",
-    "cave-dualgrid.png": "7b09069fcfe79d996ccc1942a4221f32a7ac3db9fbad4dffbb3a84934b4b0a4a"
+    "cave-rock.png": "16d6114c09d463d4d520c36a64a731072fda238831fca65b4b94ce8563a92ad7",
+    "cave-dualgrid.png": "81de377cd8c8348d31aa42d0b409b9035a1413c4adca24d072b9962b3008dfa0"
   }
 }

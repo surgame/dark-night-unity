@@ -44,24 +44,44 @@ Shader "DarkNights/CavePixelRock"
                 float edge=shape<1.5?f.x:shape<2.5?1-f.x:shape<3.5?f.x*.5:shape<4.5?.5+f.x*.5:shape<5.5?1-f.x*.5:.5-f.x*.5;
                 return ceiling?step(edge,f.y):step(f.y,edge);
             }
-            float3 rock(float2 p) { return tex2D(_RockTex,frac((floor(p*32)+.5)/256)).rgb; }
-            float hash(float2 p) { return frac(sin(dot(p,float2(12.9898,78.233)))*43758.5453); }
+            float3 rock(float2 p) { return tex2D(_RockTex,frac((floor(p*8)+.5)/256)).rgb; }
+            float exposed(float2 p,float radius)
+            {
+                return 1-min(min(solid(p+float2(radius,0)),solid(p-float2(radius,0))),
+                    min(solid(p+float2(0,radius)),solid(p-float2(0,radius))));
+            }
+            float depthPixels(float2 p)
+            {
+                if(exposed(p,25.0/8.0)<.5)return 26;
+                if(exposed(p,7.0/8.0)>.5)return exposed(p,2.0/8.0)>.5?2:7;
+                if(exposed(p,16.0/8.0)>.5)return 16;
+                return 25;
+            }
+            float3 materialTint(float material)
+            {
+                if(material<1.5)return float3(1.08,.98,.86);
+                if(material<2.5)return float3(.92,.97,1.03);
+                if(material<3.5)return float3(.76,.80,.88);
+                if(material<4.5)return float3(1.10,.88,.72);
+                if(material<5.5)return float3(.86,.93,1.00);
+                if(material<6.5)return float3(1.14,1.02,.76);
+                if(material<7.5)return float3(.88,.98,.80);
+                return float3(.58,.61,.68);
+            }
             float4 frag(Output i):SV_Target
             {
-                float2 p=(floor(i.p*32)+.5)/32;
+                float2 p=(floor(i.p*8)+.5)/8;
                 float4 c=data(p); float2 uv=(float2(p.x,-p.y)+.5)/float2(320,192);
                 float2 light=tex2D(_CaveLight,uv).rg;
                 float2 ore=tex2D(_OreMap,uv).rg;
                 float3 oreColor=lerp(float3(.018,.25,.4),float3(.6,.27,.03),ore.r);
                 float3 illumination=float3(.20,.082,.021)*light.r*light.r + float3(.017,.10,.21)*light.g*light.g;
-                float3 tex=rock(p*2);
-                float2 tileUV=frac(i.uv*float2(16,32));
+                float3 tex=rock(p);
                 float4 atlas=tex2D(_MainTex,i.uv);
-                float variation=sin(tileUV.x*3.14159)*sin(tileUV.y*3.14159)*atlas.a*.12;
-                tex=lerp(tex,atlas.rgb,variation); float sky=saturate((p.y+55)/22);
+                tex=lerp(tex,atlas.rgb,atlas.a*.08);
                 if(_Background>.5)
                 {
-                    float3 color=float3(.002,.003,.006)+rock(p*.37+17)*.018+illumination*.22;
+                    float3 color=float3(.002,.003,.005)+rock(p*.37+17)*.014+illumination*.18;
                     if(p.y>-43)
                     {
                         float horizon=-28+sin(p.x*.031)*6+sin(p.x*.12)*2;
@@ -78,19 +98,16 @@ Shader "DarkNights/CavePixelRock"
                     return float4(color,1);
                 }
                 clip(solid(p)-.5);
-                float cluster=hash(floor(p*5));
-                float fringe=.08+cluster*.16, band=.3+cluster*.48, outer=.7+cluster*.65;
-                float nearAir=1-min(min(solid(p+float2(fringe,0)),solid(p-float2(fringe,0))),min(solid(p+float2(0,fringe)),solid(p-float2(0,fringe))));
-                float edge=1-min(min(solid(p+float2(band,0)),solid(p-float2(band,0))),min(solid(p+float2(0,band)),solid(p-float2(0,band))));
-                float broad=1-min(min(solid(p+float2(outer,0)),solid(p-float2(outer,0))),min(solid(p+float2(0,outer)),solid(p-float2(0,outer))));
-                float top=1-solid(p+float2(0,.25));
-                float3 color=tex*(.006+broad*.18+edge*.7+sky*.2);
-                color+=float3(.030,.017,.011)*edge+float3(.055,.032,.018)*nearAir*(.25+tex.r*15);
-                color+=float3(.043,.032,.021)*top*(.2+tex.r*12);
-                color+=illumination*(.4+tex*8);
-                if(c.r==1)color*=float3(1.22,.89,.66);
-                if(c.r==8)color*=.5;
-                color+=ore.g*oreColor*(.16+.12*step(.72,hash(floor(p*12))));
+                float depth=depthPixels(p);
+                float factor=.1+.95*exp(-max(0,depth-2)/7);
+                float blend=depth<=1?.15:depth<=2?.58:.94;
+                float3 core=float3(.0030,.0027,.0024);
+                float3 color=depth>25?core:lerp(tex,core+tex*factor,blend);
+                float top=1-solid(p+float2(0,1.0/8.0));
+                color+=float3(.040,.021,.009)*top*(.25+tex*2.5);
+                color*=materialTint(c.r);
+                color+=illumination*(.12+factor*.46+tex*1.3);
+                color+=ore.g*oreColor*(.12+.08*step(.55,tex.r));
                 return float4(color,1);
             }
             ENDHLSL
