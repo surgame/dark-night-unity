@@ -1,0 +1,14 @@
+{
+  "status": "completed",
+  "scheduled": 1,
+  "current": "DarkNights.Tests.TerrainReplicaBoundaryTests.AuthorityPaddingIsStableAndEdgeEditsRemainLocal",
+  "results": [
+    {
+      "FullName": "DarkNights.Tests.TerrainReplicaBoundaryTests.AuthorityPaddingIsStableAndEdgeEditsRemainLocal",
+      "Status": "Passed",
+      "Duration": 0.165583,
+      "Message": null,
+      "StackTrace": null
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "passed": false,
+  "checks": {
+    "formal_expediton_ready": true,
+    "initial_reference_matches": true,
+    "candidate_background_uploaded": true,
+    "host_client_same_map": true,
+    "guest_cannot_depart": true,
+    "host_depart_once": true,
+    "late_join_active_expedition": true,
+    "late_initial_reference_matches": true,
+    "real_mining_0": false
+  },
+  "error": "System.Management.Automation.RuntimeException: Failed: real_mining_0",
+  "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\contour\\player-mono-r3\\DarkNights.exe",
+  "weak": false,
+  "smokeOnly": false,
+  "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\contour\\network-20260922-165847-normal",
+  "playerSha256": "93C19F9E7C681845D34407807D33B6438E781DD34C4D8895EBDF2C6FB083711D"
+}

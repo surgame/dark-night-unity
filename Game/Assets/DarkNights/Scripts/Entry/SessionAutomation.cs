@@ -158,6 +158,7 @@ namespace DarkNights.Entry
                     ["terrain"] = network.Terrain == null ? null : new JObject
                     {
                         ["epoch"] = network.Terrain.Epoch, ["seed"] = network.Terrain.Seed,
+                        ["backgroundHash"] = network.Terrain.Background?.ReferenceHash,
                         ["sha256"] = network.Terrain.ContentSha256, ["dataReady"] = network.Terrain.DataReady,
                         ["visible"] = network.Terrain.PresentationReady, ["generationMs"] = network.Terrain.GenerationMilliseconds,
                         ["sentBytes"] = network.Terrain.SentBytes
@@ -167,6 +168,10 @@ namespace DarkNights.Entry
                     ["terrainPresentation"] = terrainPreview == null ? null : new JObject
                     {
                         ["builtPages"] = terrainPreview.BuiltPages,
+                        ["backgroundBuilds"] = terrainPreview.BackgroundBuildCount,
+                        ["rockBuilds"] = terrainPreview.RockBuildCount,
+                        ["backgroundPages"] = terrainPreview.BackgroundResidentPages,
+                        ["backgroundUploadedBytes"] = terrainPreview.BackgroundUploadedBytes,
                         ["changedChunks"] = terrainPreview.LastChangedChunkCount,
                         ["refreshRegions"] = terrainPreview.LastRefreshRegionCount,
                         ["refreshBatches"] = terrainPreview.RefreshBatchCount,

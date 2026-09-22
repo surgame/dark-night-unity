@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76f90122b029ba645a416534ad000649, type: 3}
+  m_Name: Background
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Terrain.CaveBackgroundStyle
+  ContourStatic: 1
+  MiddleSoftness: 2
+  Near: 1
+  Middle: 1
+  Deep: 1
+  SourceMaskAtlas: {fileID: 2800000, guid: 3cb367ac8474c2c46bb569af531a2a42, type: 3}
+  ContentHash: ac9aa349ebd5df70ae95a48ad146ab911cf4320e34beb4a1dd8b133cba727081

@@ -22,22 +22,28 @@ namespace DarkNights.View.Terrain
         private bool refreshingReplica;
         private readonly HashSet<ChunkCoord> pendingReplicaChunks = new HashSet<ChunkCoord>();
         public long BuiltPages => controller?.Renderer.CommittedBuilds ?? 0;
+        public int BackgroundBuildCount => caveSource?.BackgroundBuildCount ?? 0;
+        public int RockBuildCount => caveSource?.RockBuildCount ?? 0;
+        public long BackgroundUploadedBytes => caveSource?.BackgroundUploadedBytes ?? 0;
+        public int BackgroundResidentPages => caveSource?.BackgroundResidentPages ?? 0;
         public int LastChangedChunkCount { get; private set; }
         public int LastRefreshRegionCount { get; private set; }
         public long RefreshBatchCount { get; private set; }
         public bool RefreshingReplica => refreshingReplica;
         public Exception LastError { get; private set; }
-        public bool Ready => controller != null && controller.Renderer.CommittedBuilds > 0 && controller.Renderer.QueueCount == 0 && controller.Renderer.InFlightCount == 0;
+        public bool Ready => LastError == null && controller != null && (caveSource?.BackgroundReady ?? true) && controller.Renderer.CommittedBuilds > 0 && controller.Renderer.QueueCount == 0 && controller.Renderer.InFlightCount == 0;
         public void NotifyReplicaChanged() => replicaSource?.NotifyChanged();
-        public async void ShowReplica(AnyRules.Next.Authoring.ARDMapDefinition definition, IMapChunkSource source, WorldIdentity world)
+        public async void ShowReplica(AnyRules.Next.Authoring.ARDMapDefinition definition, IMapChunkSource source, WorldIdentity world,
+            DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null)
         {
+            if (lifetime != null) throw new InvalidOperationException("每个预览只接收一份世界。");
             replicaSource = source as TerrainReplicaSource;
-            if (CaveStyle != null)
-            { caveSource = new CaveVisualSource(source, CaveStyle, definition.LoadGameplayCatalog().Tiles, transform); source = caveSource; }
             localCoordinates = true;
             var own = lifetime = new CancellationTokenSource();
             try
             {
+                if (CaveStyle != null)
+                { caveSource = new CaveVisualSource(source, CaveStyle, definition.LoadGameplayCatalog().Tiles, transform, reference); source = caveSource; }
                 var result = await ARDMapController.CreateAsync(definition, new MapOptions(initialize: false, showOnCreate: false,
                     autoUpdate: false, maximumInitializationCells: 131072, chunkSource: source, parent: transform, world: world, profile: CaveProfile()), own.Token);
                 if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
@@ -74,7 +80,12 @@ namespace DarkNights.View.Terrain
             {
                 var catalog = definition.LoadGameplayCatalog();
                 IMapChunkSource source = new TerrainBlueprintSource(blueprint, catalog.Tiles);
-                if (CaveStyle != null) { caveSource = new CaveVisualSource(source, CaveStyle, catalog.Tiles, transform); source = caveSource; }
+                if (CaveStyle != null)
+                {
+                    var reference = new DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor(Guid.NewGuid().ToString("N"),
+                        blueprint.Settings.Seed, blueprint.CopyMaterials(), blueprint.CopyShapes());
+                    caveSource = new CaveVisualSource(source, CaveStyle, catalog.Tiles, transform, reference); source = caveSource;
+                }
                 // Definition reloads its catalog; TileIds remain mapped through stable terrain keys.
                 var result = await ARDMapController.CreateAsync(definition,
                     new MapOptions(initialize: false, showOnCreate: false, autoUpdate: false,
@@ -94,6 +105,8 @@ namespace DarkNights.View.Terrain
 
         private void Update()
         {
+            try { caveSource?.TickBackground(); }
+            catch (Exception error) { LastError = error; Debug.LogException(error, this); }
             if (controller == null || LastError != null || refreshingReplica) return;
             UpdateVisible();
             if (pendingReplicaChunks.Count != 0) StartReplicaRefresh();
@@ -117,7 +130,7 @@ namespace DarkNights.View.Terrain
             if (visible.IsValid) HideDifference(visible, next);
             // HideRegion expands logical strips by the DualGrid halo. Restore the complete
             // target so shared boundary pages cannot stay hidden; unchanged shown pages stay cached.
-            controller.ShowRegion(next); visible = next;
+            controller.ShowRegion(next); visible = next; caveSource?.SetVisible(next);
         }
 
         // Only departing logical strips are hidden; ShowRegion restores any shared halo pages.
@@ -162,8 +175,12 @@ namespace DarkNights.View.Terrain
                     RefreshBatchCount++;
                     foreach (GridBounds region in regions)
                     {
-                        await controller.UnloadRegionAsync(region, MapUnloadPolicy.DiscardUnsaved, own.Token);
-                        await controller.LoadRegionAsync(region, own.Token);
+                        var bounds = controller.Descriptor.Bounds;
+                        int left = Math.Max(region.MinU, bounds.MinU), bottom = Math.Max(region.MinV, bounds.MinV);
+                        int right = (int)Math.Min(region.MaxUExclusive, bounds.MaxUExclusive), top = (int)Math.Min(region.MaxVExclusive, bounds.MaxVExclusive);
+                        var inside = new GridBounds(left, bottom, right - left, top - bottom);
+                        await controller.UnloadRegionAsync(inside, MapUnloadPolicy.DiscardUnsaved, own.Token);
+                        await controller.LoadRegionAsync(inside, own.Token);
                     }
                     if (!own.IsCancellationRequested) { caveSource?.Flush(); controller.ShowRegion(visible); }
                 }

@@ -1,0 +1,15 @@
+{
+  "linear": "Linear",
+  "position": "(69.00, -51.50, 0.00)",
+  "walkDistance": 0.9375,
+  "blasts": 1,
+  "backgroundBefore": 6,
+  "backgroundAfterEdit": 6,
+  "rockBefore": 6,
+  "rockAfter": 8,
+  "pixelsPerCell": 8,
+  "actorSpritePixelsPerCell": 8,
+  "mineralVisuals": false,
+  "outline": "HybridB/OUTLINE-0921/3/20/2",
+  "stonePixels": 4
+}

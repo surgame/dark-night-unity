@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发约定
 
+2026-09-22 当前候选为[独立岩层与三层背景](docs/STATIC_CAVE_BACKGROUND_EXECUTION.md)，分支 `codex/static-cave-background`，协议 **13**／存档 **v9**。用户明确允许脱离旧素材／场景；新 `StrataCave/ReferenceChamber.unity` 与 `RandomCave.unity` 使用独立 AnyRuleD 规则和同源 H5 岩壁、背景算法，保留 YYGC 权威与真实坡形碰撞。原生密度统一为 8px／格，矿粒与矿光暂时隐藏、矿床玩法保留。正式远征用 `--dn-contour-static` 试用；旧风格默认保留。前台性能、IL2CPP 和双机器不宣称通过，本批证据优先于下方历史切片。 外轮廓为独立可配置的六方案，当前 HybridB／OUTLINE-0921／3px／20px／2px、岩块 4px；仅修饰表现，权威碰撞保持原坡形。
+
 2026-09-21 当前切片为[远征营地 Demo](docs/EXPEDITION_CAMP_DELIVERY.md)，协议 **12**／存档 **v8**，分支 `codex/expedition-camp-plan`。正式默认入口已切换紧凑洞穴远征；背景墙矿物、氧气货袋、设备搬运／矿工、风险撤收和原子结算已有首轮实现。旧 `Tomb` 洞口和指令圈运行链退出；以下日期记录仅代表历史切片。当前 Mono 常规／弱网四进程各 35/35，Editor 合并 213/214、远征 8/8、Core 1048/1048；按钮主题 1 项失败、全路线与前台性能等边界见本轮证据，不宣称全部产品目标完成。
 
 2026-09-20 最新地图切片为[洞穴地图工作台](docs/CAVE_WORKSHOP.md)：`CaveExploration` 已接入 gpt-image-2.5 岩层源、新 DualGrid 样式、12 种坡形及匹配权威运动、暗后壁与冷暖光、临时手采／爆破。默认碰撞行走，Tab 切换观察。正式协议 11／存档 v7 不变，正式开局和洞穴存档尚未接入；100 种子隐藏图与 96 洞室落地不代表全路线能力可达。当前实测与边界以本页链接中的新证据为准，下方为历史切片。

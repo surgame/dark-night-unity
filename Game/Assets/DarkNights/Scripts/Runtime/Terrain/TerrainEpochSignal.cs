@@ -7,5 +7,8 @@ namespace DarkNights.Runtime.Terrain
     {
         public int Epoch;
         public string Seed;
+        public string WorldId;
+        public ulong MapEpoch;
+        public int BackgroundBytes;
     }
 }

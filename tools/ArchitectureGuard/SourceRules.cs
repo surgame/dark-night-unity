@@ -67,6 +67,8 @@ namespace DarkNights.Tools.ArchitectureGuard
                 foreach (var name in root.DescendantNodes().OfType<SimpleNameSyntax>())
                 {
                     ISymbol symbol = model.GetAliasInfo(name)?.Target ?? model.GetSymbolInfo(name).Symbol;
+                    // Namespace segments are not type dependencies; complete using directives are checked below.
+                    if (symbol is INamespaceSymbol) continue;
                     string ns = symbol is INamespaceSymbol space ? space.ToDisplayString() : symbol?.ContainingNamespace?.ToDisplayString();
                     if (ns != null) Dependency(layer, ns, fail);
                 }
@@ -84,7 +86,8 @@ namespace DarkNights.Tools.ArchitectureGuard
         {
             string target = ns.Split('.').ElementAtOrDefault(1) ?? "";
             if (ns.StartsWith("DarkNights.") && !Allowed[layer].Contains(target)) fail("Forbidden dependency: " + ns);
-            if (layer == "View" && (ns.StartsWith("DarkNights.Core.Logic") || ns.StartsWith("DarkNights.Core.Save")))
+            if (layer == "View" && ((ns.StartsWith("DarkNights.Core.Logic") &&
+                ns != "DarkNights.Core.Logic.Terrain" && !ns.StartsWith("DarkNights.Core.Logic.Terrain.")) || ns.StartsWith("DarkNights.Core.Save")))
                 fail("View must use Config/ViewData, not mutable world or save data: " + ns);
             if (layer == "Core")
             {

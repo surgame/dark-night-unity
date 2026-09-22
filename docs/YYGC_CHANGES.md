@@ -1,5 +1,9 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-22：独立岩层与外轮廓候选
+
+本批 **YYGC／AnyRules 修改文件为 0**；继续锁定 YYGC `12b253c`，未触碰用户框架工作区、UPM 路径或锁文件。新材质调用纯 Core 算法，权威状态与命令仍使用 ObjectInstance／ObjectSession／TerrainMapAuthority。发现的地图边界刷新问题修正在游戏侧 `TerrainReplicaSource` 指纹和 `TerrainPreview` 边界裁剪，没有给框架加入临时回退路径。验证和已知边界见 [执行记录](STATIC_CAVE_BACKGROUND_EXECUTION.md)。
+
 ## 2026-09-20：手持装备复用框架，隔离恢复本机依赖漂移
 
 本批 **没有修改 YYGC／AnyRules 框架源文件，没有新增框架补丁**。YYGC 继续锁定 `12b253c`；AnyRules 继续基于 `aa450a7` 加原三份补丁。新装备使用现有 ObjectInstance、IConfigData、状态同步、输入命令链和 R3 生命周期；不新增业务 Router。

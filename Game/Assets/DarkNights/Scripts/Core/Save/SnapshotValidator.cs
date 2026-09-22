@@ -17,7 +17,7 @@ namespace DarkNights.Core.Save
     {
         public static string Validate(SessionSnapshot s, GameCatalog catalog, LevelLayout layout)
         {
-            if (s == null || s.SchemaVersion != 8 || s.LevelId != catalog.Level.Id)
+            if (s == null || s.SchemaVersion != 9 || s.LevelId != catalog.Level.Id)
                 return "存档版本或关卡不匹配";
             if (layout.RandomTerrain != (s.Terrain != null)) return "存档地图类型不匹配";
             if (!Number(s.Elapsed, 0, 1000000) || s.Speed is not (1 or 2))

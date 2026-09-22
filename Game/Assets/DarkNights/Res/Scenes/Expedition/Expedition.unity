@@ -652,6 +652,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Terrain.RandomLevelTemplate
   Definition: {fileID: 11400000, guid: 9510153ee53fe324f86d6a4021ad5410, type: 2}
   CaveStyle: {fileID: 11400000, guid: 296a03033270f1646b5efb54cb2e6a3b, type: 2}
+  StaticBackgroundStyle: {fileID: 11400000, guid: b8f1f94057451ec459e1bac28aba1c8a, type: 2}
+  ContourDefinition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
   Expedition: 1
 --- !u!1 &238113022
 GameObject:

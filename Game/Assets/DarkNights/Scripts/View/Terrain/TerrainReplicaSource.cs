@@ -70,8 +70,9 @@ namespace DarkNights.View.Terrain
             ulong result = offset;
             for (int y = 0; y < size; y++) for (int x = 0; x < size; x++)
             {
-                var sample = source.Read(new CellCoord(coordinate.U * size + x, coordinate.V * size + y));
-                bool known = sample.TryGetCell(out var cell);
+                var position = new CellCoord(coordinate.U * size + x, coordinate.V * size + y);
+                var sample = source.Read(position);
+                bool known = sample.TryGetCell(out var cell) && descriptor.Bounds.Contains(position);
                 result ^= known ? 1UL : 0UL;
                 result *= prime;
                 if (!known) continue;

@@ -5,6 +5,7 @@ using System.Text.Json;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.Terrain;
 
+DarkNights.Tools.TerrainRegression.BackgroundRegression.Run();
 var vectors = JsonDocument.Parse(File.ReadAllText("tools/terrain-reference/generation-vectors.json"));
 int count = 0;
 foreach (var v in vectors.RootElement.GetProperty("vectors").EnumerateArray())

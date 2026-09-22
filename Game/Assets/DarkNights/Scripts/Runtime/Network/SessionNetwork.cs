@@ -86,7 +86,8 @@ namespace DarkNights.Runtime.Network
                 placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition))).IdentitySha256;
             var equipment = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch").SharedConfigs.OfType<HandheldConfig>().Single();
             authenticator.Configure(ObjectDefinitionDatabase.Instance, "dark-nights-session-v" + Session.SessionAuthority.ProtocolVersion +
-                ":" + fingerprint.RulesSha256 + ":" + fingerprint.LayoutSha256 + ":" + identity + ":" + equipment.Fingerprint());
+                ":" + fingerprint.RulesSha256 + ":" + fingerprint.LayoutSha256 + ":" + identity + ":" + equipment.Fingerprint() +
+                ":" + DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor.StyleContentHash);
             manager.ServerManager.SetAuthenticator(authenticator);
             GenericTypeSerializer<GameCore.Objects.NetworkStates.IStateData>.MaximumPayloadBytes = ProjectionCodec.MaximumBytes + 1024;
             GenericTypeSerializer<INetworkCommand>.MaximumPayloadBytes = 8192;

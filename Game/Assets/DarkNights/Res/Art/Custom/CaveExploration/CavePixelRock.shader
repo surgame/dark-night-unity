@@ -8,6 +8,11 @@ Shader "DarkNights/CavePixelRock"
         _CaveLight ("Occluded light", 2D) = "black" {}
         _OreMap ("Background minerals", 2D) = "black" {}
         _Background ("Background", Float) = 0
+        _StrataNear ("Static near rock", 2D) = "black" {}
+        _StrataMiddle ("Static middle rock", 2D) = "black" {}
+        _StrataDeep ("Static deep rock", 2D) = "black" {}
+        _StrataPage ("Static page origin and size", Vector) = (0,0,32,32)
+        _StrataEnabled ("Near middle deep and enabled", Vector) = (0,0,0,0)
     }
     SubShader
     {
@@ -20,6 +25,8 @@ Shader "DarkNights/CavePixelRock"
             #pragma fragment frag
             #include "UnityCG.cginc"
             sampler2D _MainTex, _RockTex, _CaveMap, _CaveLight, _OreMap;
+            sampler2D _StrataNear, _StrataMiddle, _StrataDeep;
+            float4 _StrataPage, _StrataEnabled;
             float4x4 _MapWorldToLocal;
             float _Background;
             struct Input { float4 vertex:POSITION; float2 uv:TEXCOORD0; };
@@ -68,6 +75,17 @@ Shader "DarkNights/CavePixelRock"
                         color=lerp(float3(.018,.023,.036),float3(.065,.048,.059),saturate((p.y+42)/60));
                         if(p.y<horizon) color=float3(.023,.025,.035);
                         if(p.y<horizon-4+sin(p.x*.23)*4) color=float3(.014,.019,.024);
+                    }
+                    if(_StrataEnabled.w>.5)
+                    {
+                        float2 bgUV=(float2(p.x,-p.y)+.5-_StrataPage.xy)/_StrataPage.zw;
+                        float3 dynamicLight=p.y<=-43?illumination*.22:0;
+                        color-=dynamicLight;
+                        float4 deep=tex2D(_StrataDeep,bgUV), middle=tex2D(_StrataMiddle,bgUV), near=tex2D(_StrataNear,bgUV);
+                        color=lerp(color,deep.rgb,deep.a*_StrataEnabled.z);
+                        color=lerp(color,middle.rgb,middle.a*_StrataEnabled.y);
+                        color=lerp(color,near.rgb,near.a*_StrataEnabled.x);
+                        color+=dynamicLight;
                     }
                     float2 f=frac(p+.5)-.5;
                     if(c.b==1 && abs(f.x)<.08 && f.y>-.35 && f.y<.24)

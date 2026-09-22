@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "checks": {
+    "initial_reference_equal": true,
+    "fixture_keeps_initial_reference": true,
+    "bomb_is_idempotent": true,
+    "blast_keeps_reference": true,
+    "blast_does_not_rebuild_visible_background": true,
+    "blast_rebakes_current_rock_surface": true,
+    "late_receives_destroyed_map": true,
+    "late_receives_original_reference": true,
+    "reconnect_receives_both_sources": true,
+    "restart_restores_destroyed_map": true,
+    "restart_restores_initial_background": true,
+    "client_no_runtime_exception": true,
+    "host_no_runtime_exception": true,
+    "late_no_runtime_exception": true
+  },
+  "error": null,
+  "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\contour\\player-mono-r3\\DarkNights.exe",
+  "fixture": "Hero position and bomb equipment only; real input, fuse and authority destruction",
+  "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\contour\\background-network-20260922-170739-weak",
+  "playerSha256": "93C19F9E7C681845D34407807D33B6438E781DD34C4D8895EBDF2C6FB083711D"
+}

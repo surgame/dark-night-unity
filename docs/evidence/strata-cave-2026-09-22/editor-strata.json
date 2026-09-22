@@ -1,0 +1,1547 @@
+{
+  "status": "completed",
+  "scheduled": 220,
+  "current": "DarkNights.Tests.WorldSessionLifecycleTests.StopRevokesBeforeDisposalAndLateStartCannotResurrect",
+  "results": [
+    {
+      "FullName": "DarkNights.Tests.BackgroundReferenceTests.AlphaSoftnessNeverChangesRgbOrExpandsMask",
+      "Status": "Passed",
+      "Duration": 0.0109404,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.BackgroundReferenceTests.CodecRoundtripAndDefensiveCopies",
+      "Status": "Passed",
+      "Duration": 0.0288545,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.BackgroundReferenceTests.CorruptVersionHashRunAndTrailingDataAreRejected",
+      "Status": "Passed",
+      "Duration": 0.0049191,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.BackgroundReferenceTests.DestructionSaveRestoreKeepsInitialReferenceAndRejectsBrokenCandidate",
+      "Status": "Passed",
+      "Duration": 0.1806747,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.BackgroundReferenceTests.ReliableBaselineIsAtomicAndRejectsStaleWorld",
+      "Status": "Passed",
+      "Duration": 0.0051029,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveExplorationTests.BlueprintFreezesInputsAndExperimentalProfileKeepsLegacyGeneratorSeparate",
+      "Status": "Passed",
+      "Duration": 0.0077207,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveExplorationTests.HundredSeedsHaveConnectedHiddenGraphsAndBuriedPassages",
+      "Status": "Passed",
+      "Duration": 2.1913832,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveWorkshopTests.BakedMapRetainsShapesAndRejectsUnknownShape",
+      "Status": "Passed",
+      "Duration": 0.0199452,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveWorkshopTests.CaveSeedsProduceSlopeDiversityAndFrozenShapeArrays",
+      "Status": "Passed",
+      "Duration": 0.1340957,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveWorkshopTests.GentleRampAscendsDescendsAndJumpLandsWithoutPenetration",
+      "Status": "Passed",
+      "Duration": 0.007886,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveWorkshopTests.InitialAndLateReplicasKeepSlopesAndDestroyedState",
+      "Status": "Passed",
+      "Duration": 0.1276391,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveWorkshopTests.ShapesRoundTripAndCeilingsOccupyOppositeHalf",
+      "Status": "Passed",
+      "Duration": 0.0010664,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.CollectionsOwnTheirInputsAndCannotBeWritten",
+      "Status": "Passed",
+      "Duration": 0.0031142,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.EverySourceRuleFieldSurvivesParsing",
+      "Status": "Passed",
+      "Duration": 0.0136328,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"version\")",
+      "Status": "Passed",
+      "Duration": 0.0020617,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"missing\")",
+      "Status": "Passed",
+      "Duration": 0.0018171,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"string_number\")",
+      "Status": "Passed",
+      "Duration": 0.0014684,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"infinity\")",
+      "Status": "Passed",
+      "Duration": 0.0012768,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"negative\")",
+      "Status": "Passed",
+      "Duration": 0.0011671,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"fractional_integer\")",
+      "Status": "Passed",
+      "Duration": 0.0011858,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"damage_order\")",
+      "Status": "Passed",
+      "Duration": 0.0012554,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"damage_length\")",
+      "Status": "Passed",
+      "Duration": 0.0012434,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"null_cost\")",
+      "Status": "Passed",
+      "Duration": 0.0015388,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"unknown_enemy\")",
+      "Status": "Passed",
+      "Duration": 0.0015247,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"negative_seed\")",
+      "Status": "Passed",
+      "Duration": 0.0014145,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"zero_interval\")",
+      "Status": "Passed",
+      "Duration": 0.0012303,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"empty_waves\")",
+      "Status": "Passed",
+      "Duration": 0.0011499,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"duplicate\")",
+      "Status": "Passed",
+      "Duration": 0.0016018,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"trailing\")",
+      "Status": "Passed",
+      "Duration": 0.001119,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"oversize\")",
+      "Status": "Passed",
+      "Duration": 0.0039509,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.ResourceArithmeticPreservesOriginalValueAndDoesNotClamp",
+      "Status": "Passed",
+      "Duration": 0.0011188,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ContentTests.SeedPreservesAllUnsignedBits",
+      "Status": "Passed",
+      "Duration": 0.0029397,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CoreRegressionTests.FrozenRandomAndPureRules",
+      "Status": "Passed",
+      "Duration": 0.0051151,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Worker\")",
+      "Status": "Passed",
+      "Duration": 0.0126987,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Spearman\")",
+      "Status": "Passed",
+      "Duration": 0.0054841,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Archer\")",
+      "Status": "Passed",
+      "Duration": 0.0054487,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Zombie\")",
+      "Status": "Passed",
+      "Duration": 0.0038599,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Ghoul\")",
+      "Status": "Passed",
+      "Duration": 0.0046786,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Armored\")",
+      "Status": "Passed",
+      "Duration": 0.0047206,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.BindDespawnAndReentryClearStateIdentityAndCallbacks",
+      "Status": "Passed",
+      "Duration": 0.0052164,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"House\")",
+      "Status": "Passed",
+      "Duration": 0.0060243,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Tavern\")",
+      "Status": "Passed",
+      "Duration": 0.0034447,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Barracks\")",
+      "Status": "Passed",
+      "Duration": 0.0029934,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Farm\")",
+      "Status": "Passed",
+      "Duration": 0.0024646,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Tower\")",
+      "Status": "Passed",
+      "Duration": 0.0034865,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.ProfessionReplacementKeepsIdentityButRejectsOldVisualUpdates",
+      "Status": "Passed",
+      "Duration": 0.0048145,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.TimelinePauseAndSpeedStillDriveTheSameIndividual",
+      "Status": "Passed",
+      "Duration": 0.0085002,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Move\",\"\",\"move\")",
+      "Status": "Passed",
+      "Duration": 0.0045459,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"WorkMove\",\"wood\",\"move\")",
+      "Status": "Passed",
+      "Duration": 0.0031238,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"BuildMove\",\"\",\"move\")",
+      "Status": "Passed",
+      "Duration": 0.0026785,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"TrainingMove\",\"\",\"move\")",
+      "Status": "Passed",
+      "Duration": 0.0026,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"wood\",\"work_wood\")",
+      "Status": "Passed",
+      "Duration": 0.0029514,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"food\",\"work_farm\")",
+      "Status": "Passed",
+      "Duration": 0.0031659,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"stone\",\"work_mine\")",
+      "Status": "Passed",
+      "Duration": 0.0032021,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"iron\",\"work_mine\")",
+      "Status": "Passed",
+      "Duration": 0.0026453,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Build\",\"\",\"build\")",
+      "Status": "Passed",
+      "Duration": 0.0025586,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Training\",\"\",\"idle\")",
+      "Status": "Passed",
+      "Duration": 0.0034118,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Trees\",\"wood\")",
+      "Status": "Passed",
+      "Duration": 0.0046233,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Stone\",\"stone\")",
+      "Status": "Passed",
+      "Duration": 0.0026447,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Iron\",\"iron\")",
+      "Status": "Passed",
+      "Duration": 0.0025267,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Farmland\",\"food\")",
+      "Status": "Passed",
+      "Duration": 0.0024395,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EnvironmentTests.FormalConfigurationIsRegistered",
+      "Status": "Passed",
+      "Duration": 0.1060508,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.EnvironmentTests.InitializationRejectsExistingAssetsWithoutWrites",
+      "Status": "Passed",
+      "Duration": 0.2502394,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ExpeditionTests.CargoSettlesOnceAndUpgradeChangesSecondDeparture",
+      "Status": "Passed",
+      "Duration": 0.2284826,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ExpeditionTests.FormalMapSaveAndNetworkProjectionKeepShapes",
+      "Status": "Passed",
+      "Duration": 0.1418704,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ExpeditionTests.GuestCannotLaunchAndReconnectReclaimsCargoOwner",
+      "Status": "Passed",
+      "Duration": 0.1026144,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ExpeditionTests.HundredCompactSeedsHaveIndependentMineralsAndValidSlopes",
+      "Status": "Passed",
+      "Duration": 4.466947,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ExpeditionTests.MinerCanReachStarterDepositAndDeliverCargo",
+      "Status": "Passed",
+      "Duration": 0.4292453,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ExpeditionTests.NegativeCargoSaveIsRejectedWithoutRetiringWorld",
+      "Status": "Passed",
+      "Duration": 0.1018902,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ExpeditionTests.SettlementWriteFailureRollsBackAndRetryPersistsOnce",
+      "Status": "Passed",
+      "Duration": 0.0692961,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ExpeditionTests.StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent",
+      "Status": "Passed",
+      "Duration": 0.064451,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.FormalObjectContentTests.FormalDefinitionsAndGeneratedRegistriesAreComplete",
+      "Status": "Passed",
+      "Duration": 0.0044764,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.FormalObjectContentTests.SessionDefinitionCreatesItsGeneratedBehaviour",
+      "Status": "Passed",
+      "Duration": 0.00748,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.FormalObjectContentTests.WorkerDefinitionRoundTripsThroughFormalInitializerAndBindings",
+      "Status": "Passed",
+      "Duration": 0.0067039,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroBombTests.GroundAdhesionAndFuseSurviveAtomicSaveRestore",
+      "Status": "Passed",
+      "Duration": 0.1015578,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroBombTests.LongerChargeProducesHigherThrowSpeed",
+      "Status": "Passed",
+      "Duration": 0.0235578,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroBombTests.SelectionAndPauseCancelCharge",
+      "Status": "Passed",
+      "Duration": 0.0999288,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroBombTests.ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging",
+      "Status": "Passed",
+      "Duration": 0.0224093,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroBombTests.TimeoutAndExplicitCancelNeverThrow",
+      "Status": "Passed",
+      "Duration": 0.1003482,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroCombatTests.NonfiniteAimAndOtherConnectionCannotFire",
+      "Status": "Passed",
+      "Duration": 0.0196636,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroCombatTests.RepeatedFireReusesBoundedSlotsAndRetiresExpiredShots",
+      "Status": "Passed",
+      "Duration": 0.1035198,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroCombatTests.ShortClickHitsOnceAndDuplicateInputCannotFireAgain",
+      "Status": "Passed",
+      "Duration": 0.0315512,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroControlTests.DebugSpeedMultipliesOnlyAuthoritativeHeroMovement",
+      "Status": "Passed",
+      "Duration": 0.1014192,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroControlTests.InputExpiryPauseAndDisconnectInvalidateOldControl",
+      "Status": "Passed",
+      "Duration": 0.020006,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroControlTests.PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources",
+      "Status": "Passed",
+      "Duration": 0.1007412,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroControlTests.PolicyChangeReleasesGuestAndRejectsQueuedLease",
+      "Status": "Passed",
+      "Duration": 0.0178929,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroControlTests.PossessionCancelsOrdersAndRejectsOtherConnection",
+      "Status": "Passed",
+      "Duration": 0.0998785,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroControlTests.ReadyCreatesDistinctVillagersForAllFourSlotsWithoutClaimingSceneActors",
+      "Status": "Passed",
+      "Duration": 0.0242856,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroControlTests.ReconnectCreatesANewVillagerInsteadOfTakingReleasedOne",
+      "Status": "Passed",
+      "Duration": 0.1009758,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroControlTests.SelectionVersionAndFuelRemainAuthoritative",
+      "Status": "Passed",
+      "Duration": 0.0263773,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroControlTests.SharedCampRestoresTheSameGeneratedVillager",
+      "Status": "Passed",
+      "Duration": 0.1007451,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroControlTests.ShortJumpIsConsumedOnceAndSOnlyDropsCurrentPlatform",
+      "Status": "Passed",
+      "Duration": 0.0213569,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroRecoveryTests.AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership",
+      "Status": "Passed",
+      "Duration": 0.1226556,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroRecoveryTests.DeathRemovesPossessionWithoutAnOrphanedPlayerIndex",
+      "Status": "Passed",
+      "Duration": 0.0313787,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroRecoveryTests.InvalidMotionOrFuelCannotReplaceCurrentWorld",
+      "Status": "Passed",
+      "Duration": 0.1041984,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroRecoveryTests.LoadDoesNotTreatRememberedIdsAsExistingIdleHeroes",
+      "Status": "Passed",
+      "Duration": 0.029236,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.HeroRecoveryTests.NativeProjectionCarriesFrozenVerticalAndInventoryState",
+      "Status": "Passed",
+      "Duration": 0.019027,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.LayoutAuthoringTests.PinewatchSceneMatchesFrozenLayout",
+      "Status": "Passed",
+      "Duration": 0.0393303,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.MeasurementSeriesTests.LongObservationKeepsEarlyLoadInQuantiles",
+      "Status": "Passed",
+      "Duration": 0.0026147,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.MeasurementSeriesTests.QuantilesHaveBoundedErrorAcrossTimeAndByteScales",
+      "Status": "Passed",
+      "Duration": 0.000254,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.MeasurementSeriesTests.ResetAndZeroSamplesDoNotCarryEarlierMeasurements",
+      "Status": "Passed",
+      "Duration": 0.000472,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeArtTests.EveryNativeClipSamplesFrozenFramesOffsetsAndVisibility",
+      "Status": "Passed",
+      "Duration": 0.1280071,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeArtTests.FifteenPrefabCopiesSaveReopenAndAssemblePassivePresentations",
+      "Status": "Passed",
+      "Duration": 0.910806,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeArtTests.FrozenPixelsAndNativeDefinitionsRemainCompleteWithMineralDeposit",
+      "Status": "Passed",
+      "Duration": 0.3293422,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Chrome\")",
+      "Status": "Passed",
+      "Duration": 0.0244259,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"MainMenu\")",
+      "Status": "Passed",
+      "Duration": 0.009263,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"PauseMenu\")",
+      "Status": "Passed",
+      "Duration": 0.0036267,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Help\")",
+      "Status": "Passed",
+      "Duration": 0.001703,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Result\")",
+      "Status": "Passed",
+      "Duration": 0.0015579,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeButtonThemeTests.InteractableChangesUpdateWithoutPointerMovement",
+      "Status": "Failed",
+      "Duration": 2.0930475,
+      "Message": "  Expected: 0.407843143f +/- 0.0001d\r\n  But was:  0.894117653f\r\n",
+      "StackTrace": "at DarkNights.Tests.NativeButtonThemeTests.AssertColor (UnityEngine.Color actual, UnityEngine.Color expected) [0x00000] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\NativeButtonThemeTests.cs:123\r\nat DarkNights.Tests.NativeButtonThemeTests+<AwaitColor>d__6.MoveNext () [0x0006f] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\NativeButtonThemeTests.cs:115\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@76560ee600cb\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeEffectTests.EffectsReopenWithExplicitBindingsAndSourceGeometry",
+      "Status": "Passed",
+      "Duration": 0.0138413,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeEffectTests.HudFadesRemainBoundAfterReopening",
+      "Status": "Passed",
+      "Duration": 0.0007868,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeEffectTests.RemnantsRemainPassiveWithGeneratedIndividualBehaviour(\"Worker\",\"corpse\")",
+      "Status": "Passed",
+      "Duration": 0.0066288,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeEffectTests.RemnantsRemainPassiveWithGeneratedIndividualBehaviour(\"House\",\"rubble\")",
+      "Status": "Passed",
+      "Duration": 0.0029557,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeEnvironmentTests.HeroToolbarStartsHiddenInProductPrefab",
+      "Status": "Passed",
+      "Duration": 0.0017352,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeEnvironmentTests.NativeEnvironmentReopensWithFrozenLightsAndGeometry",
+      "Status": "Passed",
+      "Duration": 0.0186515,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeEnvironmentTests.PlatformVisibleTopMatchesAuthoritativeHeightAfterReopen",
+      "Status": "Passed",
+      "Duration": 0.015509,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"MainMenu\",1280,800)",
+      "Status": "Passed",
+      "Duration": 0.0076807,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"MainMenu\",1600,900)",
+      "Status": "Passed",
+      "Duration": 0.0019377,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"PauseMenu\",1280,800)",
+      "Status": "Passed",
+      "Duration": 0.0019036,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"PauseMenu\",1600,900)",
+      "Status": "Passed",
+      "Duration": 0.0013588,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeUiTests.OriginalMultilineLabelsKeepTheirMeasuredBaselineSpacing",
+      "Status": "Passed",
+      "Duration": 0.0132435,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeUiTests.ReopenedPanelsMatchFrozenGeometryAndBindings(0)",
+      "Status": "Passed",
+      "Duration": 0.0180511,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeUiTests.ReopenedPanelsMatchFrozenGeometryAndBindings(1)",
+      "Status": "Passed",
+      "Duration": 0.0164217,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeUiTests.SavedDynamicFontsContainMaterialsAndCanRenderOriginalLanguages",
+      "Status": "Passed",
+      "Duration": 0.0023473,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NetworkCommandRegistryTests.GeneratedRegistryCoversInstalledCommandsAndPreservesGameTags",
+      "Status": "Passed",
+      "Duration": 0.085379,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NetworkCommandRegistryTests.TerrainCommandScriptResolvesCommandInsteadOfSiblingResult",
+      "Status": "Passed",
+      "Duration": 0.0005752,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.PlayableTerrainTests.FullMapStreamAndSaveRestoreShareFinalCells",
+      "Status": "Passed",
+      "Duration": 0.6486326,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.PlayableTerrainTests.SelectionIsDeterministicAndKeepsCampClear",
+      "Status": "Passed",
+      "Duration": 0.0376278,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.PlayableTerrainTests.SoftRockMiningPersistsEmptyCellAcrossSaveRestore",
+      "Status": "Passed",
+      "Duration": 0.0921015,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionPacketTests.DeclaredExpansionMustMatchExactlyAndCannotHideExtraOutput",
+      "Status": "Passed",
+      "Duration": 0.0014513,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionPacketTests.ExpandedCapacityStillEnforcesEncodedPacketLimit",
+      "Status": "Passed",
+      "Duration": 0.262511,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionPacketTests.HeaderAndAllocationBoundsAreCheckedBeforeExpansion",
+      "Status": "Passed",
+      "Duration": 0.0009507,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionPacketTests.IncompressibleAndSmallPayloadsUseExactRawFrames",
+      "Status": "Passed",
+      "Duration": 0.0018952,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionPacketTests.RepetitivePayloadCompressesAndReturnsIndependentBytes",
+      "Status": "Passed",
+      "Duration": 0.0051007,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionPacketTests.TrailingBytesAndConcatenatedGzipMembersAreRejected",
+      "Status": "Passed",
+      "Duration": 0.0007777,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionPacketTests.TruncatedAndCorruptedGzipCannotBecomeAValidProjection",
+      "Status": "Passed",
+      "Duration": 0.0008804,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionWireTests.MeasureCompleteProjectionAtSupportedLimits",
+      "Status": "Passed",
+      "Duration": 0.0301068,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionWireTests.PooledStateReturnCannotRewriteOwnedReplica",
+      "Status": "Passed",
+      "Duration": 0.0567592,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionWireTests.ProjectionRejectsLocalCommandRings",
+      "Status": "Passed",
+      "Duration": 0.0141665,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionWireTests.RealBattleSnapshotsRemainDecodableAfterWindupCrossesZero",
+      "Status": "Passed",
+      "Duration": 0.8076257,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ProjectionWireTests.RealCodecFreezesNestedStateAndRejectsMalformedFrames",
+      "Status": "Passed",
+      "Duration": 0.0366125,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ScenePlacementTests.PinewatchUsesDirectFormalInstancesAndAutomaticIdentities",
+      "Status": "Passed",
+      "Duration": 0.0159578,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionClientReadyTests.DetachedEndpointAndDisposedReplicaCannotConfirm",
+      "Status": "Passed",
+      "Duration": 0.0244265,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionClientReadyTests.OldHandshakeOrEpochCannotConfirm(6,1)",
+      "Status": "Passed",
+      "Duration": 0.0373854,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionClientReadyTests.OldHandshakeOrEpochCannotConfirm(7,0)",
+      "Status": "Passed",
+      "Duration": 0.0130457,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionClientReadyTests.SuccessfulRetryCannotBeRevokedByLateRejection",
+      "Status": "Passed",
+      "Duration": 0.0138805,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"economy\")",
+      "Status": "Passed",
+      "Duration": 0.1057932,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"work-training\")",
+      "Status": "Passed",
+      "Duration": 0.0728277,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"time-combat\")",
+      "Status": "Passed",
+      "Duration": 0.0439256,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"new-save\")",
+      "Status": "Passed",
+      "Duration": 0.2088476,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"save-files\")",
+      "Status": "Passed",
+      "Duration": 0.0693486,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"commands\")",
+      "Status": "Passed",
+      "Duration": 0.1547992,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"boundary\")",
+      "Status": "Passed",
+      "Duration": 0.0932126,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"lifecycle\")",
+      "Status": "Passed",
+      "Duration": 0.196853,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"projection\")",
+      "Status": "Passed",
+      "Duration": 0.1774384,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"replica\")",
+      "Status": "Passed",
+      "Duration": 0.0603047,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"clock\")",
+      "Status": "Passed",
+      "Duration": 0.3096086,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"events\")",
+      "Status": "Passed",
+      "Duration": 0.0850529,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"storage\")",
+      "Status": "Passed",
+      "Duration": 0.1738103,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.SingletonLifecycleTests.InteractionSingletonRegistersAgainAfterPooledDespawn",
+      "Status": "Passed",
+      "Duration": 0.0053063,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainAuthorityTests.ActionPolicyAndRequestIdAreAuthoritativeAndIdempotent",
+      "Status": "Passed",
+      "Duration": 0.0120227,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainAuthorityTests.IdleStreamDoesNotScanAndChangedMapReachesLateReplica",
+      "Status": "Passed",
+      "Duration": 0.0352597,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainAuthorityTests.InvalidBatchAndProtectedSupportAreAtomic",
+      "Status": "Passed",
+      "Duration": 0.0101742,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainAuthorityTests.LocalDestructionTouchesAtMostFourPagesAndIsFrozen",
+      "Status": "Passed",
+      "Duration": 0.0100328,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainDebugCharacterTests.AuthoredFramesAnimateAndKeepFeetCenteredInBothDirections",
+      "Status": "Passed",
+      "Duration": 0.0035177,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainDebugCharacterTests.FlightUsesTheSameAnchorAtOriginalPreviewScale",
+      "Status": "Passed",
+      "Duration": 0.0009366,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.GameplayProfileKeepsScatteredOreRoomDriven",
+      "Status": "Passed",
+      "Duration": 0.0516144,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.GenerationIsFrozenAndProtectsSupport",
+      "Status": "Passed",
+      "Duration": 0.0066601,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.HtmlVectorsMatchAllTwentyFourMaps",
+      "Status": "Passed",
+      "Duration": 0.1987121,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(double.NaN,1)",
+      "Status": "Passed",
+      "Duration": 0.0004683,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(double.PositiveInfinity,1)",
+      "Status": "Passed",
+      "Duration": 0.0001285,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(1,0)",
+      "Status": "Passed",
+      "Duration": 8.09E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainPresentationTests.ActualPagesStayStaticAndDestructionIsLocal",
+      "Status": "Passed",
+      "Duration": 3.5994527,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainPresentationTests.AuthoredAtlasAndNativeCatalogReload",
+      "Status": "Passed",
+      "Duration": 0.0064624,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainPresentationTests.PreviewKeepsCameraPagesVisibleAcrossDirectionChanges",
+      "Status": "Passed",
+      "Duration": 1.3119863,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainReplicaBoundaryTests.AuthorityPaddingIsStableAndEdgeEditsRemainLocal",
+      "Status": "Passed",
+      "Duration": 0.0694253,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedAuthoringTests.RuleChoiceAndPrefabEditsSurviveSaveAndReopen",
+      "Status": "Passed",
+      "Duration": 0.7366251,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedCampaignTests.DoubleSpeedCampaignCompletesWithStableSaveAndNoFurtherSimulation",
+      "Status": "Passed",
+      "Duration": 0.8688184,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedCampaignTests.NormalCampaignMatchesFrozenGodotResults",
+      "Status": "Passed",
+      "Duration": 1.6732218,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedCampaignTests.UnattendedCampLosesAtFrozenTimeAndAlsoStopsAtDoubleSpeed",
+      "Status": "Passed",
+      "Duration": 2.2819333,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedGameplayTests.ActiveWorldSaveRestoresTrainingConstructionFlightAndRandomContinuation",
+      "Status": "Passed",
+      "Duration": 0.3135514,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedGameplayTests.ArmorFlightAndBountyUseOneDamageOwner",
+      "Status": "Passed",
+      "Duration": 0.1228118,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedGameplayTests.AttackWindupAndDoubleSpeedKeepSingleStepSemantics",
+      "Status": "Passed",
+      "Duration": 0.0198438,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedGameplayTests.DestructionRefundsTrainingAndReleasesFarmWork",
+      "Status": "Passed",
+      "Duration": 0.1137928,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedGameplayTests.InitialOrderAndFarmCompletionPreserveRelationships",
+      "Status": "Passed",
+      "Duration": 0.0711127,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedGameplayTests.TrainingFailureRollsBackWholeTickAndPartialPaymentRemainsOrdered",
+      "Status": "Passed",
+      "Duration": 0.1091054,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedGameplayTests.TrainingReplacesProfessionOnceAndPreservesSceneIdentity",
+      "Status": "Passed",
+      "Duration": 0.0966078,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectAssemblyTests.CachedRequirementsStillRejectChangedConfigsForBindingFreeView",
+      "Status": "Passed",
+      "Duration": 0.0056097,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectAssemblyTests.FailedMutationRollsBackAndFrozenListsSurvivePooling",
+      "Status": "Passed",
+      "Duration": 0.0075606,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectAssemblyTests.MissingConfigDuplicateConfigAndCapabilityFailBeforeActivation",
+      "Status": "Passed",
+      "Duration": 0.0009291,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectAssemblyTests.MissingDependenciesReleaseFailedAssemblyContainer",
+      "Status": "Passed",
+      "Duration": 0.0011715,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectAssemblyTests.MutationOpenedBeforeReassemblyCannotCommitIntoNewLifecycle",
+      "Status": "Passed",
+      "Duration": 0.0009952,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectAssemblyTests.PreparedObjectsOwnIndependentStateAndActivateExactlyOnce",
+      "Status": "Passed",
+      "Duration": 0.0020872,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectAssemblyTests.RealWorkerUsesSpecializedPrimaryViewWithoutSelfBinding",
+      "Status": "Passed",
+      "Duration": 0.0058952,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectAssemblyTests.ReentryRefreshesDependenciesAndDropsOldSubscriptions",
+      "Status": "Passed",
+      "Duration": 0.0012103,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectAssemblyTests.ReplicaCannotWriteAndCopiesIncomingSnapshot",
+      "Status": "Passed",
+      "Duration": 0.0023581,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectFactoryTests.PreparedWorkerCreatesSynchronouslyAndCancellationCannotActivate",
+      "Status": "Passed",
+      "Duration": 0.0108769,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectFactoryTests.SceneLoaderBindsTheOriginalPrefabInstanceAcrossSessions",
+      "Status": "Passed",
+      "Duration": 0.0028745,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectRetirementTests.DefinitionChangeReassemblesCapabilitiesWithoutKeepingOldState",
+      "Status": "Passed",
+      "Duration": 0.0032021,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectRetirementTests.FailedRetirementCannotReuseTheDamagedBehaviour",
+      "Status": "Passed",
+      "Duration": 0.0054963,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectRetirementTests.RetirementDuringStateNotificationClearsAfterDelivery",
+      "Status": "Passed",
+      "Duration": 0.0007042,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedObjectRetirementTests.RevokedAuthorityCannotWriteEvenBeforeContextDisposal",
+      "Status": "Passed",
+      "Duration": 0.0017399,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.ConcurrentSpendingAndResendsUseOneAuthorityQueue",
+      "Status": "Passed",
+      "Duration": 0.0793019,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.FailedAssemblyPreservesPaymentIdsAndExistingWork",
+      "Status": "Passed",
+      "Duration": 0.0704952,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.HouseCreationPaysOnceAndCompletesWithOriginalCapacity",
+      "Status": "Passed",
+      "Duration": 0.1148388,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.IndependentMovementAndGatheringPreserveOriginalTiming",
+      "Status": "Passed",
+      "Duration": 0.1518975,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.NewProjectionCopiesIdentityAndStateNotificationsCannotReenter",
+      "Status": "Passed",
+      "Duration": 0.0776524,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.PolicyPauseAndMalformedTargetsCannotMutateObjects",
+      "Status": "Passed",
+      "Duration": 0.0805349,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedSliceTests.SaveRestoreKeepsOriginalSceneObjectAndRejectsBadCandidates",
+      "Status": "Passed",
+      "Duration": 0.1326028,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedTransactionTests.FailedReplicaEpochKeepsCurrentObjectsAndAllowsRetry",
+      "Status": "Passed",
+      "Duration": 0.1191729,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedTransactionTests.NotificationsObserveAllStatesAndCannotRetireSibling",
+      "Status": "Passed",
+      "Duration": 0.0745346,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedTransactionTests.RollbackExceptionsStillRunRemainingCleanupAndUnlockBatch",
+      "Status": "Passed",
+      "Duration": 0.0733433,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedTransactionTests.ThrowingNotificationDoesNotUndoOnlyPartOfPayment",
+      "Status": "Passed",
+      "Duration": 0.1035491,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.UnifiedTransactionTests.UnsupportedSaveVersionsHaveExplicitErrors",
+      "Status": "Passed",
+      "Duration": 0.0481627,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.WorldSessionLifecycleTests.ClientConfigurationAndDespawnNeverCreateAuthority",
+      "Status": "Passed",
+      "Duration": 0.0157212,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.WorldSessionLifecycleTests.ConfigurationAndRoleStartOnceInEitherOrder(True)",
+      "Status": "Passed",
+      "Duration": 0.0179389,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.WorldSessionLifecycleTests.ConfigurationAndRoleStartOnceInEitherOrder(False)",
+      "Status": "Passed",
+      "Duration": 0.0281003,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.WorldSessionLifecycleTests.FailedCreationReleasesContextAndFreshAssemblyStarts",
+      "Status": "Passed",
+      "Duration": 0.0528826,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.WorldSessionLifecycleTests.StopRevokesBeforeDisposalAndLateStartCannotResurrect",
+      "Status": "Passed",
+      "Duration": 0.0516422,
+      "Message": null,
+      "StackTrace": null
+    }
+  ]
+}

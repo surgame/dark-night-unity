@@ -29,24 +29,29 @@ namespace DarkNights.Runtime.Terrain
         private FishNetMapTransport transport;
         private TerrainMapAuthority streaming;
         private bool disposed;
+        private readonly TerrainBackgroundBaseline background = new TerrainBackgroundBaseline();
+        public BackgroundBakeDescriptor Background => background.Reference;
         public ChunkReplicaStateMachine Replica { get; private set; }
         public int Epoch { get; private set; }
         public string Seed { get; private set; } = "";
         public bool PresentationReady { get; set; }
-        public bool DataReady => Replica?.Descriptor != null && Replica.CommitId > 0 && !Replica.Closed && !Replica.NeedsResync;
+        public bool DataReady => background.Ready && Replica?.Descriptor != null && Replica.CommitId > 0 && !Replica.Closed && !Replica.NeedsResync &&
+            Replica.World.WorldId.ToString().Replace("-", "") == background.WorldId && Replica.World.Epoch == background.MapEpoch;
         public string SelectionStatus { get; private set; } = "选择地图：灰松谷 · 点击地图按钮生成新地图";
         public long GenerationMilliseconds { get; private set; }
         public string ContentSha256 { get; private set; } = "";
         private ulong hashedCommit;
         public long SentBytes => transport?.SentBytes ?? 0;
-        public SessionTerrainNetwork(NetworkManager manager, SessionNetwork network, ARDMapDefinition definition, bool expedition = false)
+        public SessionTerrainNetwork(NetworkManager manager, SessionNetwork network, ARDMapDefinition definition, bool expedition = false, string styleIdentity = "")
         {
             this.expedition = expedition;
             if (expedition) SelectionStatus = "选择地图：洞穴远征 · 点击地图生成新种子";
             this.manager = manager; this.network = network;
             gameplay = definition.LoadGameplayCatalog(); using (var hash = System.Security.Cryptography.SHA256.Create())
-                visual = BitConverter.ToString(hash.ComputeHash(definition.VisualCatalog.bytes)).Replace("-", "").ToLowerInvariant();
+                visual = BitConverter.ToString(hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(
+                    Convert.ToBase64String(definition.VisualCatalog.bytes) + BackgroundBakeDescriptor.StyleContentHash + "|" + styleIdentity))).Replace("-", "").ToLowerInvariant();
             manager.ClientManager.RegisterBroadcast<TerrainEpochSignal>(ReceiveEpoch);
+            manager.ClientManager.RegisterBroadcast<TerrainBackgroundChunk>(ReceiveBackground);
             network.Client.MapReady = epoch => Epoch == epoch && DataReady && PresentationReady;
             network.Client.MapIdentity = () => Replica == null ? "" : Replica.World.WorldId + ":" + Replica.World.Epoch;
         }
@@ -92,14 +97,38 @@ namespace DarkNights.Runtime.Terrain
             transport = new FishNetMapTransport(manager, (connection, token) =>
             {
                 var map = network.ObjectWorld.Terrain.Map;
-                manager.ServerManager.Broadcast(connection, new TerrainEpochSignal { Epoch = network.Server.Authority.Epoch, Seed = network.ObjectWorld.Terrain.Seed }, true, Channel.Reliable);
+                var terrain = network.ObjectWorld.Terrain;
+                byte[] bytes = BackgroundReferenceCodec.Encode(terrain.Background);
+                string id = map.World.WorldId.ToString().Replace("-", "");
+                int epoch = network.Server.Authority.Epoch;
+                manager.ServerManager.Broadcast(connection, new TerrainEpochSignal { Epoch = epoch, Seed = terrain.Seed,
+                    WorldId = id, MapEpoch = map.World.Epoch, BackgroundBytes = bytes.Length }, true, Channel.Reliable);
+                for (int offset = 0, index = 0; offset < bytes.Length; offset += TerrainBackgroundBaseline.ChunkBytes, index++)
+                {
+                    var part = new byte[Math.Min(TerrainBackgroundBaseline.ChunkBytes, bytes.Length - offset)];
+                    Buffer.BlockCopy(bytes, offset, part, 0, part.Length);
+                    manager.ServerManager.Broadcast(connection, new TerrainBackgroundChunk { Epoch = epoch, MapEpoch = map.World.Epoch,
+                        WorldId = id, Index = index, Bytes = part }, true, Channel.Reliable);
+                }
                 return TerrainMapNetworking.OpenStream(map, TerrainMapNetworking.Handshake(map, gameplay, visual), token, _ => true, () => 1);
             }, Replica, new GridBounds(0, -TerrainGenerationSettings.Height + 1, TerrainGenerationSettings.Width, TerrainGenerationSettings.Height));
         }
         private void ReceiveEpoch(TerrainEpochSignal signal, Channel channel)
         {
-            if (channel != Channel.Reliable || signal.Epoch < 1 || signal.Seed == null || signal.Seed.Length > 80) return;
+            if (channel != Channel.Reliable || signal.Epoch < Epoch) return;
+            try
+            {
+                if (expedition && signal.BackgroundBytes == 0) throw new FormatException("远征基线缺少初始背景参考。");
+                background.Begin(signal);
+            }
+            catch (Exception error) { network.Fail(error); return; }
             Replica.ResetConnection(); hashedCommit = 0; ContentSha256 = ""; Epoch = signal.Epoch; Seed = signal.Seed; PresentationReady = false;
+        }
+        private void ReceiveBackground(TerrainBackgroundChunk chunk, Channel channel)
+        {
+            if (channel != Channel.Reliable) return;
+            try { background.Accept(chunk); }
+            catch (Exception error) { network.Fail(error); }
         }
         public void Pump()
         {
@@ -134,11 +163,13 @@ namespace DarkNights.Runtime.Terrain
         {
             transport?.Dispose(); transport = null; Replica = null; streaming = null;
             Epoch = 0; hashedCommit = 0; ContentSha256 = ""; PresentationReady = false;
+            background.Reset();
         }
         public void Dispose()
         {
             if (disposed) return; disposed = true;
             Disconnect(); manager.ClientManager.UnregisterBroadcast<TerrainEpochSignal>(ReceiveEpoch);
+            manager.ClientManager.UnregisterBroadcast<TerrainBackgroundChunk>(ReceiveBackground);
         }
     }
 }

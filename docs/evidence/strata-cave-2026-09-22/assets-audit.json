@@ -1,0 +1,9 @@
+{
+  "oldTerrainDependencies": [],
+  "dependencies": 41,
+  "scene": "Assets/DarkNights/Res/Terrain/StrataCave/ReferenceChamber.unity",
+  "style": "True|4|HybridB|OUTLINE-0921|3|20|2|ac9aa349ebd5df70ae95a48ad146ab911cf4320e34beb4a1dd8b133cba727081,2,True,True,True",
+  "spawn": "(69, 51)",
+  "editorPreview": true,
+  "linear": "Linear"
+}

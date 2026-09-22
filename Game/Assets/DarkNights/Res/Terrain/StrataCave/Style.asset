@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3e55522d9dcdf48adbceaa0bb08d65, type: 3}
+  m_Name: Style
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Terrain.CaveTerrainStyle
+  Shader: {fileID: 4800000, guid: 817be2e17bf5dde4aa24be9b28a9d1b9, type: 3}
+  Rock: {fileID: 0}
+  Background: {fileID: 11400000, guid: 1b99e2e684b842f42907b47f37d9d092, type: 2}
+  ProceduralRock: 1
+  StoneSize: 4
+  OutlineMode: 4
+  OutlineSeed: OUTLINE-0921
+  OutlineAmplitude: 3
+  OutlineWavelength: 20
+  OutlineQuantization: 2

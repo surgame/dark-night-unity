@@ -1,0 +1,11 @@
+{
+  "source": "dark_nights_material_pipeline_explainer_v16_1_soft_middle.html",
+  "sha256": "0ba9423eaf1c4bc0acaf521d16f019d032ec6efd7b18038b18473c5d893c3de0",
+  "maskSha256": "1f245aa86d05751adc0e9e582d4a7e68487ca746f3b5f5622328b8cca9c46012",
+  "nativeTilePixels": 8,
+  "atlasPixels": [
+    128,
+    32
+  ],
+  "method": "Verbatim H5 4 variants x 16 binary masks; no AI generation or rescaling"
+}

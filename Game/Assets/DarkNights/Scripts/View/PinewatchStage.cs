@@ -23,6 +23,7 @@ namespace DarkNights.View
         private float night = 0.16f;
         private float cameraHeight;
         public bool RandomTerrain { get; set; }
+        public float ActorPresentationScale { get; set; } = 1;
         public void FocusHero(Vector3 position) { cameraHeight = RandomTerrain ? position.y * 100 : 0; Focus(position.x * 100); }
         private double visualTime;
         private int epoch;

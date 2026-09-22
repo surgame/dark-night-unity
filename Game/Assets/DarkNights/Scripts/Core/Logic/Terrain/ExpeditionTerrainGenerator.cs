@@ -38,7 +38,8 @@ namespace DarkNights.Core.Logic.Terrain
             int mineX = DockRight + 5;
             int mineFloor = DockRow + (int)Math.Round((room.Y + 3 - DockRow) * 5 / (double)(room.X - DockRight));
             deposits[0] = new TerrainDepositBlueprint("cave-0", "gallery", mineX, mineFloor - 1, "common", 80);
-            return new PlayableTerrain(worldId, seed, cells, protection, soft, source.Rooms.ToArray(), deposits, shapes, true);
+            var background = new BackgroundBakeDescriptor(worldId, seed, cells, shapes);
+            return new PlayableTerrain(worldId, seed, cells, protection, soft, source.Rooms.ToArray(), deposits, shapes, true, background);
         }
     }
 }

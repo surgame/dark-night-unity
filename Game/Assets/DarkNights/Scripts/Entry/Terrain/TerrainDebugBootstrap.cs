@@ -19,6 +19,7 @@ namespace DarkNights.Entry.Terrain
     {
         public ARDMapDefinition Definition;
         public CaveTerrainStyle CaveStyle;
+        public TerrainMapAsset FixedMap;
         public TextAsset BalanceJson;
         public TextAsset LevelJson;
         public DarkNights.Runtime.Terrain.CaveWorkshopSession Workshop { get; private set; }
@@ -51,6 +52,7 @@ namespace DarkNights.Entry.Terrain
 
         public void NewSeed()
         {
+            if (FixedMap != null) { RequestRegenerate(); return; }
             Settings.Seed = "DEBUG-" + Guid.NewGuid().ToString("N").Substring(0, 12);
             RequestRegenerate();
         }
@@ -93,7 +95,7 @@ namespace DarkNights.Entry.Terrain
                     throw new InvalidOperationException("Debug Bootstrap 缺少明确的地形、角色或镜头引用。");
                 var settings = Settings.CopyValidated();
                 Status = "生成中：" + settings.Seed;
-                var blueprint = await Task.Run(() => TerrainGenerator.Generate(settings), token);
+                var blueprint = FixedMap != null ? FixedMap.ReadBlueprint() : await Task.Run(() => TerrainGenerator.Generate(settings), token);
                 token.ThrowIfCancellationRequested();
                 if (version != request) return;
                 var root = new GameObject("Generated room terrain");
@@ -105,7 +107,9 @@ namespace DarkNights.Entry.Terrain
                 {
                     var game = DarkNights.Runtime.Config.GameCatalogJson.Parse(BalanceJson.text, LevelJson.text);
                     workshop = new DarkNights.Runtime.Terrain.CaveWorkshopSession(blueprint, Definition.LoadGameplayCatalog(), game);
-                    candidate.ShowReplica(Definition, new TerrainReplicaSource(workshop.Map), workshop.Map.World);
+                    var reference = new BackgroundBakeDescriptor(workshop.Map.World.WorldId.ToString().Replace("-", ""),
+                        settings.Seed, blueprint.CopyMaterials(), blueprint.CopyShapes());
+                    candidate.ShowReplica(Definition, new TerrainReplicaSource(workshop.Map), workshop.Map.World, reference);
                 }
                 else candidate.ShowBlueprint(Definition, blueprint);
                 float deadline = Time.realtimeSinceStartup + 30;

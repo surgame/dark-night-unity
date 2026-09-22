@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-09-22 [独立岩层切片](STATIC_CAVE_BACKGROUND_EXECUTION.md)：协议 13／存档 v9。`SessionTerrain` 持有不可变 `BackgroundBakeDescriptor` 并与当前权威地图原子保存恢复；初始参考不是第二张可编辑地图。View 调用 `Core.Logic.Terrain` 的纯岩壁／背景算法，线程、取消调度与 Unity 纹理归 View，Core 通过外层检查回调保持无线程 API。外轮廓是独立纯计算阶段，源格形→有符号距离扰动→岩壁分面；它不拥有权威几何，当前只影响表现。前景缓存读取当前副本局部失效，背景只读初始参考；两者均无玩法写权。新场景／材质／AnyRuleD 定义独立于旧岩石资产，正式实体仍走原有 YYGC 定义、绑定及命令。可靠背景基线复用现有 FishNet 会话，参考、当前 AMP1 副本及可见前景／背景共同门控 Ready。
+
 2026-09-17 [随机灰松谷](RANDOM_PINEWATCH.md)已接入正式会话：Core 生成冻结候选，ObjectSession 中的 SessionTerrain 管理唯一 TerrainMapAuthority，主角仍写 ActorState；网络 AMP1 全图初始订阅与现有对象投影分别传输，共同门控 Ready。View 从只读副本绘制 DualGrid。加载验证地图及实体候选后一起切换，重新同步地图代次。当前协议 9、存档 v4；下方协议 8 和独立预览描述属于历史切片。
 
 新增[地图模块](TERRAIN_GENERATION.md)：Core/Terrain 只生成冻结初始蓝图；Runtime/Terrain 独占 YYGC 会话约束下的 ARDMap 权威状态，提供局部事务与只读流；View/Terrain 负责本地预览。地图格不是逐格业务实体，初始资产、网络副本和视觉网格均不能结算破坏。正式实体生命周期和下方协议保持原样，未来采矿由现有可信会话入口接入。

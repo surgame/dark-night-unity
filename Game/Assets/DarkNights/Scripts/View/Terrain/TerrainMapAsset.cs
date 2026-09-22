@@ -15,6 +15,8 @@ namespace DarkNights.View.Terrain
         public TextAsset InitialCells;
         public int CellFormat = 1;
         public int GeneratorVersion = TerrainGenerationSettings.GeneratorVersion;
+        public bool HasSpawn;
+        public Vector2Int SpawnCell;
         public TerrainBlueprint ReadBlueprint()
         {
             if (Definition == null || InitialCells == null || GeneratorVersion != TerrainGenerationSettings.GeneratorVersion)
@@ -30,7 +32,8 @@ namespace DarkNights.View.Terrain
                 cells[i] = bytes[i * 2]; protectedCells[i] = (bytes[i * 2 + 1] & 1) != 0;
                 shapes[i] = (byte)(bytes[i * 2 + 1] >> 1);
             }
-            return new TerrainBlueprint(Settings, cells, protectedCells, new int[TerrainGenerationSettings.Width], Array.Empty<TerrainRoom>(), new bool[count], Array.Empty<TerrainDepositBlueprint>(), shapes: shapes);
+            var rooms = HasSpawn ? new[] { new TerrainRoom("gallery", SpawnCell.x, SpawnCell.y, 18, 10) } : Array.Empty<TerrainRoom>();
+            return new TerrainBlueprint(Settings, cells, protectedCells, new int[TerrainGenerationSettings.Width], rooms, new bool[count], Array.Empty<TerrainDepositBlueprint>(), shapes: shapes);
         }
     }
 }

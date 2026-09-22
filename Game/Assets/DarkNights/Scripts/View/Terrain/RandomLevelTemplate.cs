@@ -8,6 +8,8 @@ namespace DarkNights.View.Terrain
     {
         public ARDMapDefinition Definition;
         public CaveTerrainStyle CaveStyle;
+        public CaveTerrainStyle StaticBackgroundStyle;
+        public ARDMapDefinition ContourDefinition;
         public bool Expedition;
     }
 }

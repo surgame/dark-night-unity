@@ -19,6 +19,7 @@ namespace DarkNights.Runtime.Terrain
         public TerrainMapAuthority Map { get; private set; }
         public string Seed { get; private set; }
         public bool Expedition { get; private set; }
+        public BackgroundBakeDescriptor Background { get; private set; }
         public IReadOnlyList<TerrainDepositBlueprint> Deposits => new List<TerrainDepositBlueprint>(deposits).AsReadOnly();
         public SessionTerrain(ObjectSessionContext context, ServerGameplayCatalog catalog, PlayableTerrain initial)
         {
@@ -54,11 +55,12 @@ namespace DarkNights.Runtime.Terrain
                 shapes[index] = (byte)((cell.Flags >> 1) & 15);
             }
             return new PlayableTerrain(Map.World.WorldId.ToString().Replace("-", ""), Seed, cells, flags,
-                (bool[])softRock.Clone(), (TerrainRoom[])rooms.Clone(), (TerrainDepositBlueprint[])deposits.Clone(), shapes, Expedition);
+                (bool[])softRock.Clone(), (TerrainRoom[])rooms.Clone(), (TerrainDepositBlueprint[])deposits.Clone(), shapes, Expedition, Background);
         }
         private void SetStatic(PlayableTerrain data)
         {
             Expedition = data.Expedition;
+            Background = data.Background;
             softRock = data.CopySoftRock(); rooms = new List<TerrainRoom>(data.Rooms).ToArray();
             deposits = new List<TerrainDepositBlueprint>(data.Deposits).ToArray();
         }

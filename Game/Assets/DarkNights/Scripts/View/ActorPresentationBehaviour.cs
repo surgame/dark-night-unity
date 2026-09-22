@@ -26,7 +26,7 @@ namespace DarkNights.View
             rules = definition;
         }
 
-        public bool Present(ActorViewData actor, int epoch, string workKind, float x, double actionTime, Color ambient, float? height = null)
+        public bool Present(ActorViewData actor, int epoch, string workKind, float x, double actionTime, Color ambient, float? height = null, float visualScale = 1)
         {
             if (actor == null || !Accept(actor.Id, epoch, actor.Kind)) return false;
             Current = actor;
@@ -37,6 +37,7 @@ namespace DarkNights.View
                 actor.Kind == "worker" && actor.Activity == "Work" ?
                     workKind == "wood" ? "work_wood" : workKind == "food" ? "work_farm" : "work_mine" : "idle";
             Position(x, ambient, height ?? actor.Height);
+            Visual.transform.localScale = Vector3.one * visualScale;
             double seconds = actor.Activity == "Attack"
                 ? actionTime / rules.AttackSeconds * ActorVisual.PoseDuration(Pose) : actionTime;
             ActorVisual.SamplePose(Pose, seconds);

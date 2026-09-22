@@ -18,6 +18,7 @@ namespace DarkNights.Core.Config.Terrain
         public bool Expedition { get; }
         public string WorldId { get; }
         public string Seed { get; }
+        public BackgroundBakeDescriptor Background { get; }
         public int Count => materials.Length;
         public IReadOnlyList<TerrainRoom> Rooms { get; }
         public IReadOnlyList<TerrainDepositBlueprint> Deposits { get; }
@@ -29,7 +30,8 @@ namespace DarkNights.Core.Config.Terrain
         }
 
         public PlayableTerrain(string worldId, string seed, byte[] cells, bool[] protectedCells,
-            bool[] softRock, TerrainRoom[] rooms, TerrainDepositBlueprint[] deposits, byte[] shapes = null, bool expedition = false)
+            bool[] softRock, TerrainRoom[] rooms, TerrainDepositBlueprint[] deposits, byte[] shapes = null, bool expedition = false,
+            BackgroundBakeDescriptor background = null)
         {
             if (!Guid.TryParseExact(worldId, "N", out _) || string.IsNullOrWhiteSpace(seed) || seed.Length > 80 ||
                 cells == null || cells.Length != TerrainGenerationSettings.Width * TerrainGenerationSettings.Height ||
@@ -60,6 +62,9 @@ namespace DarkNights.Core.Config.Terrain
                         cells[y * TerrainGenerationSettings.Width + x] == 0 || !protectedCells[y * TerrainGenerationSettings.Width + x])
                         throw new ArgumentException("营地保护区域不完整。");
             WorldId = worldId; Seed = seed;
+            if (background != null && (background.WorldId != worldId || background.LayoutSeed != seed))
+                throw new ArgumentException("背景参考与地图身份不一致。");
+            Background = background;
             materials = (byte[])cells.Clone(); protection = (bool[])protectedCells.Clone(); this.softRock = (bool[])softRock.Clone();
             Rooms = Array.AsReadOnly((TerrainRoom[])rooms.Clone());
             Deposits = Array.AsReadOnly((TerrainDepositBlueprint[])deposits.Clone());

@@ -1,4 +1,6 @@
-# Unity 世界存档 v6
+# Unity 世界存档 v9
+
+2026-09-22 [静态背景候选](STATIC_CAVE_BACKGROUND_EXECUTION.md)升级为 **v9**／协议 **13**，文件进入独立 `v9` 目录。`world.terrain` 现在严格包含 10 个字段：`world_id`、`seed`、`materials`、`protection`、`soft_rock`、`shapes`、`rooms`、`deposits`、`expedition`、`background`。新增 `background` 为版本化参考封套的 Base64（固定旧地图可为 null，远征必需）；参考材料和坡形在首次生成后冻结，与当前已挖格子分别保存。封套包含版本、持久世界身份、布局种子、样式内容摘要、参考 SHA-256 和有界材料／坡形成对 RLE。校验失败拒绝整个恢复候选，不替换地图或对象。v8 及更旧文件不删除、不迁移、不重新生成伪初始源。下方字段表与旧版本说明为历史切片。
 
 2026-09-19 地图遗漏修复将正式格式升级为 **v6**，目录使用 `v6` 子目录；协议同步为 10。Actor 保存 `explosive_charges`，矿床保存最终剩余量与枯竭阶段。`terrain.deposit.*` 是唯一新增的动态放置身份，且只允许对应 `mineral-deposit` 定义。本轮已删除钻机次数、钻进、输出缓冲和钻机对象字段，不接受旧格式迁移。
 

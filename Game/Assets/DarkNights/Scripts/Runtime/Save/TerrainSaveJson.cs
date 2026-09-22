@@ -15,6 +15,8 @@ namespace DarkNights.Runtime.Save
             return new JObject
             {
                 ["world_id"] = data.WorldId, ["seed"] = data.Seed,
+                ["background"] = data.Background == null ? JValue.CreateNull() :
+                    new JValue(Convert.ToBase64String(Terrain.BackgroundReferenceCodec.Encode(data.Background))),
                 ["expedition"] = data.Expedition, ["shapes"] = Convert.ToBase64String(data.CopyShapes()),
                 ["materials"] = Convert.ToBase64String(data.CopyMaterials()),
                 ["protection"] = Convert.ToBase64String(data.CopyProtection().Select(v => v ? (byte)1 : (byte)0).ToArray()),
@@ -36,7 +38,7 @@ namespace DarkNights.Runtime.Save
         {
             if (token?.Type == JTokenType.Null) return null;
             JObject value = Object(token);
-            if (value.Count != 9) throw new FormatException("地图字段不完整。");
+            if (value.Count != 10) throw new FormatException("地图字段不完整，缺少初始背景参考合同。");
             byte[] cells = Convert.FromBase64String(Text(value["materials"]));
             byte[] flags = Convert.FromBase64String(Text(value["protection"]));
             byte[] soft = Convert.FromBase64String(Text(value["soft_rock"]));
@@ -61,9 +63,12 @@ namespace DarkNights.Runtime.Save
             }, 128).ToArray();
             try
             {
+                var background = value["background"]?.Type == JTokenType.Null ? null :
+                    Terrain.BackgroundReferenceCodec.Decode(Convert.FromBase64String(Text(value["background"])));
+                if (Boolean(value["expedition"]) && background == null) throw new FormatException("远征存档缺少初始背景参考。");
                 return new PlayableTerrain(Text(value["world_id"]), Text(value["seed"]), cells,
                     flags.Select(v => v == 1).ToArray(), soft.Select(v => v == 1).ToArray(), rooms, deposits,
-                    Convert.FromBase64String(Text(value["shapes"])), Boolean(value["expedition"]));
+                    Convert.FromBase64String(Text(value["shapes"])), Boolean(value["expedition"]), background);
             }
             catch (ArgumentException error) { throw new FormatException("随机地图数据无效。", error); }
         }

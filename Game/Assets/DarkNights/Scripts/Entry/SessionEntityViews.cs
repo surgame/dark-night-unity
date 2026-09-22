@@ -119,7 +119,7 @@ namespace DarkNights.Entry
                 if (Presentation(actor.Id) is ActorPresentationBehaviour view)
                 {
                     workKinds.TryGetValue(actor.TargetId, out string kind);
-                    view.Present(actor, frame.Epoch, kind ?? "", timeline.X(actor, now), timeline.ActionTime(actor, now), stage.Ambient, timeline.Height(actor, now));
+                    view.Present(actor, frame.Epoch, kind ?? "", timeline.X(actor, now), timeline.ActionTime(actor, now), stage.Ambient, timeline.Height(actor, now), stage.ActorPresentationScale);
                     ((ActorView)view.Visual).PresentBoarded(frame.World.Expedition?.Crew.FirstOrDefault(c => c.Id == actor.Id)?.Boarded == true);
                 }
             foreach (BuildingViewData building in frame.World.Buildings)

@@ -1,0 +1,23 @@
+{
+  "runtime": "Unity Editor Mono 6000.4.9f1",
+  "pagePixels": 256,
+  "cpuMedianMs": 32.2796,
+  "cpuMaxMs": 39.447,
+  "samplesMs": [
+    30.6462,
+    30.9402,
+    30.9735,
+    32.2796,
+    33.079,
+    35.255900000000004,
+    39.447
+  ],
+  "initialBackgroundLayoutMs": 974.6525,
+  "backgroundThreeLayersPageMedianMs": 3.8029,
+  "backgroundThreeLayersPageMaxMs": 4.0856,
+  "debugLightFieldMs": 5.5871,
+  "debugLights": 20,
+  "foregroundGpuBytes": 15728640,
+  "backgroundGpuMaxBytes": 47185920,
+  "scope": "CPU bake only; excludes GPU upload, draw, foreground frame budget"
+}

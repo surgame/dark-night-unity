@@ -1,0 +1,22 @@
+{
+  "golden-foreground.bin": "f3c975b81d475b61af59aa4621c9dde2f2cdd2de0bc4ccb652f96b87a6b27cde",
+  "golden-layer-0.rgba": "706ca325546739c56ec4447dde1b57e1e0da182b083cbd91f7563c5fd480ae96",
+  "golden-layer-1.rgba": "16de7502c661e16ff58e66df65a1755c81a8557744454c03301c76323b735eb5",
+  "golden-layer-2.rgba": "c2c1716ef09583ef385e673f3cafbfb763211696b1f1ba495fd21ee6a8f8825d",
+  "golden-occupancy.bin": "5db6c58a5e88eed792fe7762cb3d2f248581fb55dc1275cc4092a27d079b3c96",
+  "golden-soft-0.rgba": "16de7502c661e16ff58e66df65a1755c81a8557744454c03301c76323b735eb5",
+  "golden-soft-2.rgba": "545d9550987dc75f2481b2b1b7c2297112c289939f73cc51f8ae66bdbe5d8932",
+  "golden-soft-4.rgba": "89f0af690bcd7b6dfdc6a1b97264a97dd1b5bf7f5461a37251d69640af09080e",
+  "golden-source.bin": "5db6c58a5e88eed792fe7762cb3d2f248581fb55dc1275cc4092a27d079b3c96",
+  "mask-rows.json": "afc0758122e9dfcd493727a76046dcad5ef17cf0bdf8a8df8fc704fbdb17f3ac",
+  "outline-hybridB.bin": "8812568d4290760f67d35b35d9e501b13dfd030db65e6d2ebf6e60d6ec02f118",
+  "outline-hybridC.bin": "96094543149b454e5960b69f35bc3e30f0dceb2b2adb5ef42aad3973d71d3df8",
+  "outline-none.bin": "ef09fa34356f9b4fb3fe9a75e3cad1268afeae7d4b15298f11242e2ca8db2c18",
+  "outline-pixelB.bin": "148c44050ac1859da7c566f17690df92d70098dce6d5760fbb41001c215e0f64",
+  "outline-pixelC.bin": "fddb73a915f92b6e9fbd31e6dd5051feb50061b36013f35dce7a8565ac8794ff",
+  "outline-wave.bin": "442c9fc4dc324ec182b17768b490430c5996c26e80cc6a983529bf004d89e4e3",
+  "profile-foreground.bin": "ebb88fa33e74c5919c0265e38b05b02b8f998e66b1a8310ebd0291ec831ecb4e",
+  "profile-masks.bin": "4e5e3518cf779bec89993bba7506bab23674089e612cab6ae3a994ae7c07102c",
+  "profile-raw.bin": "ef09fa34356f9b4fb3fe9a75e3cad1268afeae7d4b15298f11242e2ca8db2c18",
+  "source-v16.1.html": "0ba9423eaf1c4bc0acaf521d16f019d032ec6efd7b18038b18473c5d893c3de0"
+}

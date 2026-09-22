@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Dark Nights · v16.1 中层柔边与冻结轮廓</title>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#101214;--panel:#181b1e;--panel2:#202428;--line:#34393c;
+  --text:#e6e2d9;--muted:#9a9e99;--accent:#d0a66a;--accent2:#83b6aa;--bad:#c97864;
+}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:13px/1.55 system-ui,-apple-system,"Segoe UI","Microsoft Yahei",sans-serif;height:100vh;overflow:hidden}
+button,input,select{font:inherit}button,select,input[type=text]{background:#22272b;color:var(--text);border:1px solid var(--line);border-radius:4px;padding:7px 9px}button{cursor:pointer}button:hover{border-color:#79684e}button.active{border-color:var(--accent);background:#3a3227;color:#ffe0b4}button.primary{background:#b98f57;color:#141410;border-color:#b98f57;font-weight:700}input[type=range]{width:100%;accent-color:var(--accent)}
+header{height:62px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 18px;gap:14px;background:#15181a}.logo{font:700 13px ui-monospace,monospace;border:1px solid #756144;color:var(--accent);padding:7px}.title strong{font-size:15px;letter-spacing:.5px}.title small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.headRight{margin-left:auto;color:var(--muted);font-size:11px}
+.layout{height:calc(100vh - 62px);display:grid;grid-template-columns:300px minmax(420px,1fr) 330px;min-height:0}.left,.right{background:var(--panel);overflow:auto}.left{border-right:1px solid var(--line)}.right{border-left:1px solid var(--line)}.section{padding:15px;border-bottom:1px solid var(--line)}h2{font-size:11px;letter-spacing:1px;color:var(--accent);margin:0 0 11px}h3{font-size:12px;margin:13px 0 6px}.hint{color:var(--muted);font-size:11px;line-height:1.7}.mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.row{display:flex;gap:7px;align-items:center}.grow{flex:1}.wide{width:100%}.label{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin:9px 0 4px}.steps{display:grid;gap:5px}.stepRow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px;align-items:stretch}.stepBtn{text-align:left;padding:8px 9px;white-space:normal}.stepSwitch{display:flex;align-items:center;gap:4px;padding:0 7px;border:1px solid var(--line);border-radius:4px;background:#202428;color:var(--muted);font-size:9px;cursor:pointer}.stepSwitch input{margin:0;accent-color:var(--accent)}.stepSwitch.on{border-color:#6e7a72;color:#c9d8cf;background:#1d2925}.stepBtn b{display:inline-block;width:24px;color:var(--accent)}.stepBtn small{display:block;color:var(--muted);margin-left:24px;font-size:10px}.stepBtn.active small{color:#d5c3a8}
+.center{min-width:0;display:flex;flex-direction:column;background:#0b0d0f}.toolbar{min-height:49px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 10px;border-bottom:1px solid var(--line);background:#171a1d}.toolbar .spacer{flex:1}.toolGroup{display:flex;gap:4px;align-items:center;padding-left:5px;border-left:1px solid var(--line)}.zoomRead{min-width:54px;text-align:center;color:#c9c2b7;font:10px ui-monospace,monospace}.stage{flex:1;position:relative;overflow:hidden;min-height:0;background:#090b0d;touch-action:none;user-select:none}.stage canvas{position:absolute;left:50%;top:50%;transform-origin:center center;image-rendering:pixelated;image-rendering:crisp-edges;max-width:none;max-height:none;width:auto;height:auto;border:1px solid #303538;background:#0b0d0f;box-shadow:0 8px 40px #0008}.stage.pan{cursor:grab}.stage.pan.dragging{cursor:grabbing}.stage.edit{cursor:crosshair}.caption{position:absolute;left:18px;top:16px;background:#111417e8;border-left:2px solid var(--accent);padding:8px 10px;pointer-events:none;z-index:3}.caption b{display:block;font-size:14px}.caption span{color:var(--muted);font-size:10px}.help{position:absolute;right:14px;bottom:12px;background:#111417dc;border:1px solid #303538;padding:6px 8px;color:var(--muted);font-size:9px;pointer-events:none;z-index:3}.status{min-height:38px;border-top:1px solid var(--line);background:#15181a;display:flex;gap:16px;align-items:center;padding:0 12px;color:var(--muted);font-size:10px;white-space:nowrap;overflow:auto}.status b{color:#d6c7ae;font-weight:500}
+.card{border:1px solid var(--line);background:#14181b;padding:10px;margin:8px 0}.card.good{border-left:2px solid var(--accent2)}.card.warn{border-left:2px solid var(--accent)}.card.bad{border-left:2px solid var(--bad)}.code{background:#0d1113;border:1px solid #303538;padding:9px;color:#c9c6bb;font:10px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap}.pipeline{display:grid;gap:4px}.pipe{padding:7px 8px;background:#202428;border:1px solid #34393c;font-size:11px}.arrow{text-align:center;color:#676e6c;line-height:10px}.metric{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:11px}.metric span:nth-child(odd){color:var(--muted)}.metric span:nth-child(even){font-family:ui-monospace,monospace;color:#ded3c0}.exportGrid{display:grid;gap:6px}.pill{display:inline-block;padding:2px 6px;border:1px solid #4c514f;border-radius:10px;color:#b7bbb4;font-size:9px;margin-right:4px}.switches label{display:block;color:#b8bbb5;font-size:11px;margin:6px 0}.switches input{vertical-align:middle;margin-right:6px;accent-color:var(--accent)}.exportResult{display:none;margin-top:8px;padding:7px 8px;border:1px solid #4f5b58;color:#b8d4cc;text-decoration:none;font-size:10px}.exportResult.show{display:block}.smallButtons{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media(max-width:1100px){.layout{grid-template-columns:280px 1fr}.right{display:none}}@media(max-width:760px){header{height:56px}.layout{height:calc(100vh - 56px);grid-template-columns:1fr}.left{display:none}.headRight{display:none}}
+
+/* v12 workspace refinements */
+.layout{grid-template-columns:320px minmax(440px,1fr) 290px}.grow{min-width:0;width:0}button{white-space:normal}.stepRow{grid-template-columns:42px minmax(0,1fr);gap:4px}.stepBtn{padding:6px 8px}.stepBtn small{font-size:9px;line-height:1.35;margin-top:1px}.stepSwitch{justify-content:center;padding:0 3px;font-size:9px;flex-direction:column;gap:0}.stepNoToggle{display:flex;align-items:center;justify-content:center;color:#4c5256}.stepSwitch input{width:13px;height:13px}.decorControls{padding:8px 0;border-top:1px solid var(--line);margin-top:7px}.decorControls summary{cursor:pointer;color:#ddc5a1;font-size:12px;font-weight:600}.decorControls input{height:16px}.section .smallButtons{margin-top:8px}.decorControls .label{margin:7px 0 2px}.caption{max-width:calc(100% - 36px);top:10px}.caption b{font-size:13px}.caption span{font-size:10px}.stage canvas{border:0;box-shadow:none}.stage #overlay{background:transparent;pointer-events:none;z-index:2}.toolbar{gap:4px}.toolbar button{padding:5px 7px;font-size:11px}.stage.dragging{cursor:grabbing}.error{color:#efae91}.right p{white-space:normal;overflow-wrap:anywhere}.code{font-size:10px;overflow-wrap:anywhere}.status{gap:13px}input:focus-visible,button:focus-visible{outline:2px solid #b99460;outline-offset:1px}.headRight{font-size:10px}.stage{background-image:linear-gradient(45deg,#141719 25%,transparent 25%),linear-gradient(-45deg,#141719 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#141719 75%),linear-gradient(-45deg,transparent 75%,#141719 75%);background-size:16px 16px;background-position:0 0,0 8px,8px -8px,-8px 0}
+@media(max-width:1180px){.layout{grid-template-columns:310px minmax(0,1fr)}.right{display:none}.headRight{display:none}}
+@media(max-width:760px){.layout{grid-template-columns:210px minmax(280px,1fr);overflow:auto}.left{display:block}.title strong{font-size:12px}.section{padding:10px}.stepBtn b{width:21px}.stepBtn small{display:none}.stepBtn{font-size:11px}.stage{min-height:350px}.stepRow{grid-template-columns:28px 1fr}}
+
+/* v15 compare controls */
+.compareTools select{font-size:11px;padding:5px;max-width:180px}.decorControls .label{font-size:11px}.section .hint{line-height:1.6}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">8×8</div><div class="title"><strong>岩层材质实验 · v16.1 中层柔边</strong><small>只柔化中层边缘 / 原始轮廓冻结 / 窄幅像素过渡 / 保留硬边对照</small></div>
+<div class="headRight">v16 视觉基线保留 · 参数与世界快照可回读</div>
+</header>
+<div class="layout">
+<aside class="left">
+<div class="section"><h2>01 / 步骤与合成开关</h2><p class="hint">开关在步骤前。点名称单独看源层；勾选决定是否加入最终场景。三层装饰全部是背景层，生成时参考冻结的初始地形轮廓；拆造仅改变遮挡。</p><div class="smallButtons"><button id="jumpScene">查看最终合成</button><button id="allDecorOff">三层全关</button></div><div class="steps" id="steps"></div></div><div class="section"><h2>02 / 冻结轮廓背景</h2><div class="row"><input aria-label="背景结构种子" class="grow mono" id="detailSeed" value="DECOR-0922"/><button id="detailRandom">随机背景</button></div><p class="hint">背景只读取初次冻结的轮廓。拆造不刷新背景；调柔边、配色仍使用同一份冻结源。按钮可显式重新捕获当前地形。</p><div class="label"><span>旧方向参数（v16 不使用）</span></div><select class="wide" id="rockLayout" disabled><option value="mixed">错层 + 竖裂（默认）</option><option value="horizontal">偏横向层理</option><option value="vertical">偏竖向裂面</option></select><details class="decorControls" open=""><summary>浅层 · 轮廓贴边</summary><div class="label"><span>出现频率</span><b id="decorDensityVal0">58%</b></div><input id="decorDensity0" max="100" min="0" step="1" type="range" value="58"/><div class="label"><span>沿边范围基准</span><b id="decorDepthVal0">24 px</b></div><input id="decorDepth0" max="40" min="8" step="2" type="range" value="24"/><div class="label"><span>缺口随机</span><b id="decorRandomnessVal0">72%</b></div><input id="decorRandomness0" max="100" min="0" step="1" type="range" value="72"/></details><details class="decorControls" open=""><summary>中层 · 轮廓主体</summary><div class="label"><span>中层柔边宽度</span><b id="middleSoftnessVal">2 px</b></div><input id="middleSoftness" type="range" min="0" max="4" step="0.5" value="2"/><p class="hint">0 = 原 v16 硬边。只在轮廓内部衰减 Alpha；不模糊 RGB、不外扩。默认 2px。</p><div class="smallButtons"><button id="viewSoftCompare">硬边 / 柔边对照</button><button id="captureBackground">以当前轮廓重新烘焙</button></div><div class="label"><span>岩面完整度</span><b id="decorDensityVal1">72%</b></div><input id="decorDensity1" max="100" min="25" step="1" type="range" value="72"/><div class="label"><span>中层范围基准</span><b id="decorDepthVal1">40 px</b></div><input id="decorDepth1" max="96" min="24" step="4" type="range" value="40"/><div class="label"><span>中层分布变化</span><b id="decorRandomnessVal1">52%</b></div><input id="decorRandomness1" max="100" min="0" step="1" type="range" value="52"/></details><details class="decorControls" open=""><summary>深层 · 内部凹区</summary><div class="label"><span>裂隙分布</span><b id="decorDensityVal2">48%</b></div><input id="decorDensity2" max="100" min="0" step="1" type="range" value="48"/><div class="label"><span>裂隙宽度基准</span><b id="decorDepthVal2">10 px</b></div><input id="decorDepth2" max="20" min="3" step="1" type="range" value="10"/><div class="label"><span>断口变化</span><b id="decorRandomnessVal2">68%</b></div><input id="decorRandomness2" max="100" min="0" step="1" type="range" value="68"/></details><div class="smallButtons"><button id="allDecorOn">三层全开</button><button id="resetRockStyle">恢复本版背景参数</button><button id="verifyDynamic">验证拆造稳定性</button></div></div>
+<div class="section">
+<h2>03 / 原有地形参数</h2>
+<div class="label"><span>地图种子</span></div><div class="row"><input class="grow mono" id="seed" type="text" value="DN-MATERIAL-0921"/><button id="regen">重置地图</button></div>
+<div class="label"><span>外轮廓方案</span></div><select class="wide" id="outlineMode"><option value="wave">宽波起伏（推荐）</option><option value="pixelB">像素阶梯 B</option><option value="pixelC">像素阶梯 C</option><option value="hybridB">宽波 + B 锯齿</option><option value="hybridC">宽波 + C 锯齿</option><option value="none">关闭</option></select>
+<div class="label"><span>外轮廓种子 / 随机</span></div><div class="row"><input class="grow mono" id="outlineSeed" type="text" value="OUTLINE-0921"/><button id="outlineRandom">随机</button></div>
+<div class="label"><span>岩块尺寸</span><b class="mono" id="stoneVal">5 px</b></div><input id="stoneSize" max="10" min="3" step="1" type="range" value="5"/>
+<div class="label"><span>外轮廓振幅</span><b class="mono" id="outlineVal">2.0 px</b></div><input id="outlineJitter" max="8" min="0" step="0.25" type="range" value="2"/>
+<div class="label"><span>外轮廓波长</span><b class="mono" id="outlineScaleVal">32 px</b></div><input id="outlineScale" max="96" min="8" step="2" type="range" value="32"/>
+<div class="label"><span>像素阶梯尺寸</span><b class="mono" id="outlineQuantVal">2 px</b></div><input id="outlineQuant" max="4" min="1" step="1" type="range" value="2"/>
+<div class="label"><span>配色预设</span></div><select class="wide" id="palettePreset"><option value="warm_rock">暖棕岩层</option><option value="basalt">冷灰玄武</option><option value="moss">苔绿岩壁</option><option value="red_clay">赤陶土层</option><option value="sandstone">黄砂岩</option><option value="violet_ash">灰紫火山灰</option><option value="blue_cave">冷蓝洞岩</option></select>
+<div class="label"><span>色相偏移</span><b class="mono" id="hueVal">0°</b></div><input id="hueShift" max="180" min="-180" step="1" type="range" value="0"/>
+<div class="label"><span>饱和度</span><b class="mono" id="satVal">100%</b></div><input id="satMul" max="200" min="0" step="1" type="range" value="100"/>
+<div class="label"><span>明度</span><b class="mono" id="lightVal">100%</b></div><input id="lightMul" max="170" min="50" step="1" type="range" value="100"/>
+<div class="label"><span>边缘明暗过渡宽度</span><b class="mono" id="widthVal">1.90×</b></div><input id="depthWidth" max="4.2" min="0.7" step="0.05" type="range" value="1.9"/>
+<div class="label"><span>区域明暗成组</span><b class="mono" id="groupVal">55%</b></div><input id="grouping" max="100" min="0" step="1" type="range" value="55"/>
+<div class="label"><span>配色色相收敛</span><b class="mono" id="coherenceVal">100%</b></div><input id="coherence" max="100" min="0" step="1" type="range" value="100"/>
+<div class="label"><span>局部距离场半径</span><b class="mono" id="dfVal">24 px</b></div><input id="dfRadius" max="40" min="8" step="4" type="range" value="24"/>
+<div class="label"><span>背景墙嵌矿密度</span><b class="mono" id="oreDensityVal">28%</b></div><input id="oreDensity" max="100" min="0" step="1" type="range" value="28"/>
+<div class="switches"><label><input id="showGrid" type="checkbox"/>显示 8px Tile 网格</label><label><input id="showDirty" type="checkbox"/>显示 Dirty Region</label></div>
+</div>
+<div class="section">
+<h2>04 / 预设与分层导出</h2><div class="exportGrid">
+<button id="exportStep">导出当前步骤 PNG</button>
+<button id="exportFinal">导出最终材质 PNG</button>
+<button id="exportAtlas">导出 16 Tile 材质图集 · 32×32</button>
+<button id="exportSDF">导出 16 Tile Signed Distance 图集</button>
+<button id="exportPacked">导出 RGBA Tile+SDF 图集</button>
+<button id="exportBundle">导出 材质/SDF 对照图 · 64×32</button>
+<button id="exportField">导出岩块源场 PNG</button>
+<button id="exportJSON">导出参数 / SDF 编码说明 JSON</button>
+</div>
+<div class="smallButtons" style="margin-top:8px">
+<button id="savePreset">导出参数预设</button><button id="saveWorld">保存当前地图快照</button>
+<button id="loadPreset">加载预设 / 快照</button>
+<button class="primary" id="exportPackage">打包导出资源 ZIP</button>
+<button id="revealManifest">导出资源清单 JSON</button>
+</div>
+<input accept="application/json,.json" id="presetFile" style="display:none" type="file"/>
+<a class="exportResult" download="" id="exportResult">如果浏览器拦截自动下载，点这里再次下载最近导出文件</a>
+<p class="hint">ZIP 含三层点缀各自 PNG、最终合成、背景、矿、基础 Tile 图集、距离数据、预设及当前地图快照。旧版 v8–v11 预设可加载。</p>
+</div>
+</aside>
+<main class="center">
+<div class="toolbar">
+<button id="prev">← 上一步</button><div class="toolGroup compareTools"><select aria-label="场景对照" id="sceneMode"><option value="v15">v16.1 柔边合成</option><option value="hard">原 v16 硬边（同一冻结源）</option><option value="softCompare">左硬边 / 右柔边</option><option value="legacy">v14 旧背景对照</option><option value="wipe">左 v14 / 右 v16.1</option><option value="back">只看完整背景（无光）</option><option value="owner">岩层归属诊断</option></select></div><button class="primary" id="next">下一步 →</button>
+<div class="toolGroup"><button id="fit">适配</button><button id="zoomOut">−</button><span class="zoomRead" id="zoomRead">100%</span><button id="zoomIn">＋</button><button id="oneToOne">1:1</button></div>
+<div class="toolGroup"><button class="active" id="toolPan">平移</button><button id="toolDig">拆墙</button><button id="toolBuild">填墙</button><button id="toolMine">嵌矿</button><button id="toolHarvest">采矿</button></div>
+<span class="spacer"></span>
+<button id="rerun">重烘焙当前图</button><button id="benchmark">全量×8</button><button id="benchmarkLocal">拆造验证</button>
+</div>
+<div class="stage pan" id="stage"><canvas height="312" id="view" width="504"></canvas><canvas aria-hidden="true" height="312" id="overlay" width="504"></canvas><div class="caption"><b id="stepTitle"></b><span id="stepSub"></span></div><div class="help">滚轮缩放 · 中键平移 · 左键拆 / 造 · 前景隐藏仅影响显示 · 导出不含选框</div></div>
+<div class="status"><span>整图：<b id="sizeStat"></b></span><span>当前步骤：<b id="currentMs"></b></span><span>完整烘焙：<b id="totalMs"></b></span><span>最近局部编辑：<b id="localMs">—</b></span><span id="benchStat"></span><span>背景重建：<b id="decorUpdateStat">—</b></span></div>
+</main>
+<aside class="right"><div class="section"><h2>当前步骤</h2><p class="hint" id="explain"></p><pre class="code" id="codeBox"></pre></div>
+<div class="section"><h2>本版实际可见比例</h2><p class="hint" id="decorStats"></p><div class="card good">三层沿用 v16 形状。柔边只改变中层边界的不透明度，面积统计不等同于感知亮度。</div><p class="hint">诊断配色：浅层金色 / 中层灰青 / 深层蓝灰 / 底墙棕灰。诊断图不是美术颜色。</p></div>
+<div class="section"><h2>动态拆造验证</h2><p class="hint" id="testResult">测试期间临时拆 / 填，检查前景局部重建一致性，以及背景纹理对象与像素完全不变，然后恢复地图。</p><div class="card warn"><b>运行范围</b><p class="hint">前景局部更新；背景只在参数或种子变化时重建。此 H5 的灯光和场景合成仍在 CPU 整图执行。图集与模板是程序内固定像素素材，不是完整手绘关卡。</p></div></div>
+<div class="section"><h2>最近完整生成耗时</h2><div class="metric" id="metrics"></div></div></aside>
+</div>
+<script>'use strict';
+const $=id=>document.getElementById(id), TILE=8;
+const PALETTES={warm_rock:['#171518','#211d20','#30292b','#413536','#59463f','#725847','#92704f','#b68b5c','#d3ad78'],basalt:['#16181b','#21252a','#2d3238','#3b434a','#4a545b','#5a666d','#738088','#92a1a9','#b7c5cd'],moss:['#121612','#1c231b','#283127','#364135','#465345','#5d6b58','#76846d','#96a181','#bdc49b'],red_clay:['#191313','#261b1a','#392725','#4d3431','#68443f','#85564d','#a96d5f','#c98a6d','#e2b087'],sandstone:['#171410','#241f18','#342b20','#4a3928','#655038','#836848','#a78357','#c8a069','#e3c58a'],violet_ash:['#151319','#211d28','#2d2838','#3d3650','#514767','#685b80','#86739f','#a48fbc','#c8b2dc'],blue_cave:['#101418','#17212a','#22303b','#30424e','#3d5662','#50707b','#6a8f99','#89aeb5','#b4d4d7']};
+const PIXEL_PATTERNS={
+  pixelB:[0,0,1,1,2,2,1,1,0,0,-1,-1,-2,-2,-1,-1],
+  pixelC:[0,1,2,2,1,0,-1,-2,-2,-1,0,1,1,0,-1,0]
+};
+const CRC_TABLE=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);t[n]=c>>>0;}return t;})();
+
+// v12: the v8 terrain material pipeline is retained; background/decor caches are independent.
+const GENERATOR_VERSION = 'v16.1-contour-soft-middle-1';
+const NOMINAL_SURFACE = 7 * TILE;
+const DECOR_SPECS = [
+ {key:'peel',title:'浅层 · 轮廓贴边',density:58,depth:24,randomness:72},
+ {key:'face',title:'中层 · 轮廓主体',density:72,depth:40,randomness:52},
+ {key:'recess',title:'深层 · 内部凹区',density:48,depth:10,randomness:68}
+];
+const PARAM_IDS = ['seed','outlineSeed','outlineMode','palettePreset','stoneSize','outlineJitter','outlineScale','outlineQuant','hueShift','satMul','lightMul','depthWidth','grouping','coherence','dfRadius','oreDensity','detailSeed','rockLayout','middleSoftness'];
+const state = {
+ seed:'DN-MATERIAL-0921', outlineSeed:'OUTLINE-0921',outlineMode:'wave',palettePreset:'warm_rock',w:64,h:40,
+ map:null,masks:null,atlas:null,terrainRaw:null,terrain:null,distance:null,facets:null,tones:null,depth:null,final:null,
+ backBase:null,wallOre:null,oreCells:null,scene:null,sceneDirty:true,surfaceEnvelope:null,step:14,
+ stone:5,outline:2,outlineScale:32,outlineQuant:2,hueShift:0,satMul:1,lightMul:1,width:1.9,group:.55,coherence:1,dfRadius:24,
+ oreDensity:.28,detailSeed:'DECOR-0922',decorParams:DECOR_SPECS.map(s=>({...s})),decorCaches:[],decorLayers:[],
+ boundary:null,times:{},lastDirty:null,lastEditMs:null,lastDecorMs:null,lastCandidates:0,revision:0,debugCache:{},
+ tool:'pan',viewZoom:1,fitScale:1,panX:0,panY:0,drag:null,painting:false,hoverCell:null,lastPaint:null,
+ backgroundSource:null,middleSoftness:2,rockLayout:'mixed',sharedRock:null,sharedKey:null,coverageKey:null,legacyKey:null,comparisonKey:null,worldSeed:null,oreKey:null,backKey:null,renderPending:false,initialized:false,hasEdits:false,testing:false,lastTest:null
+};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t;
+function smoothstep(a,b,v){const t=clamp((v-a)/(b-a),0,1);return t*t*(3-2*t);}
+function unionRect(a,b){if(!a)return b?{...b}:null;if(!b)return {...a};const x=Math.min(a.x,b.x),y=Math.min(a.y,b.y);return{x,y,w:Math.max(a.x+a.w,b.x+b.w)-x,h:Math.max(a.y+a.h,b.y+b.h)-y};}
+function intersects(a,b){return a&&b&&a.x<b.x+b.w&&b.x<a.x+a.w&&a.y<b.y+b.h&&b.y<a.y+a.h;}
+function wholeRect(){return{x:0,y:0,w:state.final.width,h:state.final.height};}
+function solidPixel(x,y){const w=state.terrain.width,h=state.terrain.height;return x>=0&&y>=0&&x<w&&y<h&&state.distance[(y|0)*w+(x|0)]>0;}
+
+// Simple, continuous backing. Its mask DOES NOT depend on foreground cells or cave entrances.
+function backgroundStartY(){return NOMINAL_SURFACE;}
+function backgroundExistsAt(x,y){return x>=0&&y>=backgroundStartY()&&x<state.final.width&&y<state.final.height;}
+function tileHasBackground(lx,ly){return backgroundExistsAt((lx-1)*TILE+4,(ly-1)*TILE+4);}
+function buildBackwallBaseLayer(){
+ const w=state.final.width,h=state.final.height,c=canvas(w,h),g=ctx(c),im=g.createImageData(w,h);
+ const pal=materialPalette(),seed=hashString(state.seed+'|simple-background-v12'),top=backgroundStartY();
+ for(let y=top;y<h;y++)for(let x=0;x<w;x++){
+   const n=smoothNoise(x/26,y/23,seed),n2=smoothNoise(x/8,y/10,seed+91);
+   const level=n*.8+n2*.2, shade=level>.66?.73:level>.36?.63:.53;
+   const k=(y*w+x)*4;
+   for(let ch=0;ch<3;ch++)im.data[k+ch]=Math.round(lerp(pal[1][ch],pal[3][ch],shade)*.87);
+   // A short, smooth entrance transition, not an extra wavy silhouette or a lighting cutoff.
+   im.data[k+3]=Math.round(255*smoothstep(0,10,y-top));
+ }
+ g.putImageData(im,0,0);return c;
+}
+function initOreCells(){
+ const tw=state.map.w-1,th=state.map.h-1,cells=new Uint8Array(tw*th),seed=hashString(state.seed+'|orecells');
+ if(state.oreDensity<=0)return cells;
+ for(let ty=1;ty<th-1;ty++)for(let tx=1;tx<tw-1;tx++){
+   if(!tileHasBackground(tx+1,ty+1))continue;
+   const n=smoothNoise(tx*.28,ty*.24,seed),n2=smoothNoise(tx*.11,ty*.13,seed+29);
+   if(n>.79-state.oreDensity*.24&&n2>.38)cells[ty*tw+tx]=1;
+ }
+ return cells;
+}
+
+// Retains the v8 signed Manhattan-distance displacement math, but samples an outer halo
+// and writes only its interior. The previous patch wrote untrustworthy crop-edge pixels.
+function outlineMaxReach(){return Math.ceil(1.5*state.outline+2*state.outlineQuant)+2;}
+function applyOutlineJitter(target,source,changed){
+ const W=source.width,H=source.height,A=state.outline||0;
+ if(A<=0||state.outlineMode==='none'){
+   const g=ctx(target);g.clearRect(changed.x,changed.y,changed.w,changed.h);
+   g.drawImage(source,changed.x,changed.y,changed.w,changed.h,changed.x,changed.y,changed.w,changed.h);return changed;
+ }
+ const B=outlineMaxReach(),write=expandRect(changed,B+1,W,H),work=expandRect(write,B+2,W,H);
+ const src=ctx(source).getImageData(work.x,work.y,work.w,work.h),bin=new Uint8Array(work.w*work.h);
+ for(let i=0;i<bin.length;i++)bin[i]=src.data[i*4+3]?1:0;
+ const air=distanceTransformBinary(bin,work.w,work.h,0),rock=distanceTransformBinary(bin,work.w,work.h,1);
+ const tmp=new Uint8Array(bin.length),q=Math.max(1,state.outlineQuant||2);
+ for(let y=0;y<work.h;y++)for(let x=0;x<work.w;x++){
+   const i=y*work.w+x,sd=bin[i]?air[i]:-rock[i];let d=outlineDisplacement(work.x+x,work.y+y);
+   if(state.outlineMode!=='wave')d=Math.round(d/q)*q;tmp[i]=sd+d>=0?1:0;
+ }
+ const out=ctx(target).createImageData(write.w,write.h);
+ for(let y=0;y<write.h;y++)for(let x=0;x<write.w;x++){
+   const gx=write.x+x,gy=write.y+y,lx=gx-work.x,ly=gy-work.y,i=ly*work.w+lx;
+   if(!tmp[i])continue;
+   if(gx>0&&gy>0&&gx<W-1&&gy<H-1){let n=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)if(dx||dy)n+=tmp[(ly+dy)*work.w+lx+dx]||0;if(n<=1)continue;}
+   const k=(y*write.w+x)*4;out.data[k]=157;out.data[k+1]=137;out.data[k+2]=114;out.data[k+3]=255;
+ }
+ ctx(target).putImageData(out,write.x,write.y);return write;
+}
+
+const BACKGROUND_MASK_ROWS = [[["00000000","00000000","00000000","00000000","00000000","00000000","00000000","00000000"],["11110000","11100000","11100000","10000000","00000000","00000000","00000000","00000000"],["00001111","00000111","00000111","00000001","00000000","00000000","00000000","00000000"],["11111111","11111111","11111111","11111111","00000000","00000000","00000000","00000000"],["00000000","00000000","00000000","00000000","10000000","11100000","11100000","11110000"],["11110000","11110000","11110000","11110000","11110000","11110000","11110000","11110000"],["00001111","00000111","00000011","00000001","10000000","11000000","11100000","11110000"],["11111111","11111111","11111111","11111111","11111110","11111000","11111000","11110000"],["00000000","00000000","00000000","00000000","00000001","00000111","00000111","00001111"],["11110000","11111000","11111100","11111110","01111111","00111111","00011111","00001111"],["00001111","00001111","00001111","00001111","00001111","00001111","00001111","00001111"],["11111111","11111111","11111111","11111111","01111111","00011111","00011111","00001111"],["00000000","00000000","00000000","00000000","11111111","11111111","11111111","11111111"],["11110000","11111000","11111000","11111110","11111111","11111111","11111111","11111111"],["00001111","00011111","00011111","01111111","11111111","11111111","11111111","11111111"],["11111111","11111111","11111111","11111111","11111111","11111111","11111111","11111111"]],[["00000000","00000000","00000000","00000000","00000000","00000000","00000000","00000000"],["11110000","11110000","11100000","10000000","00000000","00000000","00000000","00000000"],["00001111","00001111","00000011","00000101","00000000","00000000","00000000","00000000"],["11111111","11111111","11111111","11111111","00110000","00000000","00000000","00000000"],["00000000","00000000","00000000","00000000","10100000","11000000","11110000","11110000"],["11110000","11111000","11110000","11111000","11110000","11110000","11111000","11110000"],["00001111","00001111","00000011","00000001","10000000","11000000","11110000","11110000"],["11111111","11111111","11111111","11111111","11111100","11111100","11111000","11110000"],["00000000","00000000","00000000","00000000","00000001","00000111","00001111","00001111"],["11110000","11111000","11111110","11111110","01111111","01111111","00011111","00001111"],["00001111","00011111","00001111","00001111","00011111","00001111","00011111","00001111"],["11111111","11111111","11111111","11111111","00111111","00011111","00011111","00001111"],["00000000","00000000","00000000","00001100","11111111","11111111","11111111","11111111"],["11110000","11111000","11111000","11111100","11111111","11111111","11111111","11111111"],["00001111","00011111","00111111","00111111","11111111","11111111","11111111","11111111"],["11111111","11111111","11111111","11111111","11111111","11111111","11111111","11111111"]],[["00000000","00000000","00000000","00000000","00000000","00000000","00000000","00000000"],["11110000","11110000","11000000","10000000","00000000","00000000","00000000","00000000"],["00001111","00001111","00000111","00000001","00000000","00000000","00000000","00000000"],["11111111","11111111","11111111","10110101","00000000","00000000","00000000","00000000"],["00000000","00000000","00000000","00000000","10000000","11100000","11110000","11110000"],["11110000","11110000","11110000","11110000","11100000","11100000","11110000","11110000"],["00001111","00000011","00000011","00000001","10000000","11000000","11000000","11110000"],["11111111","11111111","11111111","11111111","11111100","11111000","11111000","11110000"],["00000000","00000000","00000000","00000000","00000001","00000011","00001111","00001111"],["11110000","11111000","11111100","11111100","00111111","00111111","00011111","00001111"],["00001111","00001111","00000111","00000111","00001111","00001111","00001111","00001111"],["11111111","11111111","11111111","11111111","00111111","00101111","00011111","00001111"],["00000000","00000000","00000000","00000000","10101101","11111111","11111111","11111111"],["11110000","11111000","11110100","11111100","11111111","11111111","11111111","11111111"],["00001111","00011111","00011111","00111111","11111111","11111111","11111111","11111111"],["11111111","11111111","11111111","11111111","11111111","11111111","11111111","11111111"]],[["00000000","00000000","00000000","00000000","00000000","00000000","00000000","00000000"],["11110000","11110000","11110000","11100000","00000000","00000000","00000000","00000000"],["00001111","00001111","00000011","00000111","00000000","00000000","00000000","00000000"],["11111111","11111111","11111111","11100111","01001100","00000000","00000000","00000000"],["00000000","00000000","00000000","00000000","11000000","11010000","11110000","11110000"],["11110000","11111000","11110000","11100000","11101000","11111000","11110000","11110000"],["00001111","00001011","00000011","00000011","11000000","10000000","11110000","11110000"],["11111111","11111111","11111111","11111111","11111100","11111000","11110000","11110000"],["00000000","00000000","00000000","00000000","00000101","00001011","00000111","00001111"],["11110000","11111000","11111010","11111110","01111111","00011111","00111111","00001111"],["00001111","00011111","00010111","00000111","00001111","00011111","00010111","00001111"],["11111111","11111111","11111111","11111111","01011111","00011111","00111111","00001111"],["00000000","00000000","00000000","01100110","11001101","11111111","11111111","11111111"],["11110000","11111000","11110010","11111110","11111111","11111111","11111111","11111111"],["00001111","00011111","00111111","01111111","11111111","11111111","11111111","11111111"],["11111111","11111111","11111111","11111111","11111111","11111111","11111111","11111111"]]];
+function legacyCreateLogicalGrid(w,h){return{w,h,data:new Uint8Array(w*h)};}
+function legacyGridSet(g,x,y,v){if(x>=0&&y>=0&&x<g.w&&y<g.h)g.data[y*g.w+x]=v;}
+function legacyGridGet(g,x,y){return x<0||y<0||x>=g.w||y>=g.h?0:g.data[y*g.w+x];}
+function legacySmoothLogicalGrid(g,passes=1,birth=5,survive=4){for(let p=0;p<passes;p++){const next=new Uint8Array(g.data.length);for(let y=1;y<g.h-1;y++)for(let x=1;x<g.w-1;x++){let n=0;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)if(dx||dy)n+=legacyGridGet(g,x+dx,y+dy);const cur=legacyGridGet(g,x,y);next[y*g.w+x]=cur?(n>=survive?1:0):(n>=birth?1:0);}g.data=next;}return g;}
+function legacyCleanupLogicalGrid(g,minN=1){for(let y=1;y<g.h-1;y++)for(let x=1;x<g.w-1;x++){if(!legacyGridGet(g,x,y))continue;let n=0;for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]])n+=legacyGridGet(g,x+dx,y+dy);if(n<=minN)legacyGridSet(g,x,y,0);}return g;}
+function legacyGenerateDecorLogicalMap(l,cfg){
+ const g=legacyCreateLogicalGrid(state.map.w,state.map.h), seed=hashString(state.seed+'|'+state.detailSeed+'|'+['nearRock','midRock','farRock'][l]+'|logic'), top=Math.floor(backgroundStartY()/TILE)+1;
+ const density=cfg.density/100, rand=cfg.randomness/100;
+ const sx=l===0?6.5:l===1?10.5:15.5, sy=l===0?3.8:l===1?5.6:7.8;
+ for(let y=top+1;y<g.h-1;y++)for(let x=1;x<g.w-1;x++){
+   const depth=(y-top)/Math.max(1,g.h-top-1);
+   const n1=smoothNoise(x/sx,y/sy,seed), n2=smoothNoise(x/(sx*1.9),y/(sy*1.35),seed+73), n3=smoothNoise(x/(sx*.85),y/(sy*2.7),seed+137);
+   const band=smoothNoise(x/18,y/(2.6+l*1.1),seed+211);
+   const ribbon=smoothNoise(x/24,y/(1.6+l*.6),seed+307);
+   let v=n1*.36+n2*.29+n3*.17+band*.10+ribbon*.08;
+   v += l===0 ? (1-depth)*.10 : l===1 ? .04 : depth*.07;
+   const threshold = l===0 ? (0.62-density*.20-rand*.06) : l===1 ? (0.67-density*.24-rand*.08) : (0.70-density*.26-rand*.10);
+   if(v>threshold) legacyGridSet(g,x,y,1);
+ }
+ legacySmoothLogicalGrid(g, l===0?1:2, l===0?5:4, l===0?4:4);
+ legacyCleanupLogicalGrid(g,0);
+ // carve sparse gaps so masses read as rock layers rather than filled noise
+ const gapSeed=seed+991;
+ for(let y=top+2;y<g.h-2;y++)for(let x=2;x<g.w-2;x++)if(legacyGridGet(g,x,y)){
+   const cut=smoothNoise(x/(4.5+l*2),y/(7.5+l*3),gapSeed);
+   if(l===0 && cut<.10)legacyGridSet(g,x,y,0);
+   else if(l===1 && cut<.07)legacyGridSet(g,x,y,0);
+   else if(l===2 && cut<.05)legacyGridSet(g,x,y,0);
+ }
+ return g;
+}
+function legacyRenderDecorLayerFromLogical(g,spec,l){
+ const W=(g.w-1)*8,H=(g.h-1)*8,c=canvas(W,H),out=ctx(c).createImageData(W,H),pal=materialPalette(),seed=hashString(state.seed+'|'+state.detailSeed+'|render|'+spec.key);
+ const base=pal[4];
+ for(let ty=0;ty<g.h-1;ty++)for(let tx=0;tx<g.w-1;tx++){
+   const mask=maskAt(g,tx,ty); if(!mask) continue;
+   for(let py=0;py<8;py++)for(let px=0;px<8;px++){
+     const u=px/7,v=py/7,edge=(px===0||px===7||py===0||py===7)?0:1;
+     const wav=(hash2((tx<<3)+px>>1,(ty<<3)+py>>1,seed)-.5)*(l===0?.12:l===1?.18:.20)*edge;
+     const f=field(mask,u,v)+wav; const solid=mask!==0&&(mask===15||f>=.5); if(!solid) continue;
+     const x=tx*8+px,y=ty*8+py,k=(y*W+x)*4;
+     const t1=smoothNoise(x/(4.5+l*2.4),y/(5.4+l*2.8),seed+57), t2=smoothNoise(x/(13+l*4.5),y/(3.6+l*1.9),seed+101), grain=hash2(Math.floor(x/2),Math.floor(y/2),seed+149);
+     const strata=t2*.65 + smoothNoise(x/(18+l*6),y/(2.4+l*.7),seed+191)*.35;
+     const shadeBand = t1*.42 + strata*.42 + grain*.16;
+     const tone = shadeBand>.67?2:shadeBand>.36?1:0;
+     const darken = spec.shade[tone];
+     for(let ch=0;ch<3;ch++) out.data[k+ch]=clamp(Math.round(base[ch]*darken),0,255);
+     out.data[k+3]=255;
+   }
+ }
+ ctx(c).putImageData(out,0,0);return c;
+}
+// Fixed background-mask library retained from v15; v16 contour generation uses only the frozen source.
+// Nothing in this module reads state.map.data, state.terrain, state.distance or the ore grid.
+const STRATA_REVISION = 'contour-follow-static-1';
+const STRATA_DEFAULTS = [
+ {key:'peel',title:'浅层 · 轮廓贴边',density:58,depth:24,randomness:72},
+ {key:'face',title:'中层 · 轮廓主体',density:72,depth:40,randomness:52},
+ {key:'recess',title:'深层 · 内部凹区',density:48,depth:10,randomness:68}
+];
+const PEEL_POLYGONS = [
+ [[0,7],[3,4],[9,4],[10,2],[17,2],[20,0],[23,0],[22,3],[18,5],[16,7],[8,7],[5,9],[1,9]],
+ [[0,9],[5,6],[8,3],[14,2],[17,0],[23,0],[20,3],[18,4],[15,7],[7,9],[3,11]],
+ [[0,4],[4,2],[10,2],[11,0],[20,0],[23,2],[21,4],[17,4],[15,7],[10,7],[7,9],[2,8]],
+ [[1,6],[4,4],[5,2],[11,2],[13,0],[22,1],[23,3],[19,5],[16,5],[14,9],[9,10],[7,8],[2,8]],
+ [[0,9],[2,5],[7,5],[10,3],[12,0],[17,0],[20,2],[17,5],[13,6],[10,9],[5,9],[2,11]],
+ [[0,5],[3,2],[8,3],[11,1],[18,1],[21,0],[24,1],[22,3],[18,4],[18,6],[11,6],[8,8],[3,8]],
+ [[0,8],[4,6],[6,3],[12,4],[15,1],[20,0],[22,2],[20,5],[17,6],[13,7],[10,10],[5,10],[3,9]],
+ [[0,7],[5,3],[9,3],[12,1],[18,1],[20,0],[23,2],[20,5],[15,5],[13,7],[6,8],[4,10],[1,10]]
+];
+function modPositive(n,d){return ((n%d)+d)%d;}
+function insidePolygon(x,y,p){let inside=false;for(let i=0,j=p.length-1;i<p.length;j=i++){
+ const a=p[i],b=p[j];if(((a[1]>y)!==(b[1]>y))&&(x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0]))inside=!inside;
+}return inside;}
+function buildPeelTemplates(){
+ return PEEL_POLYGONS.map((poly,v)=>{
+  const data=new Uint8Array(24*12);
+  for(let y=0;y<12;y++)for(let x=0;x<24;x++)if(insidePolygon(x+.5,y+.5,poly))data[y*24+x]=2;
+  const mask=data.slice();for(let y=0;y<12;y++)for(let x=0;x<24;x++)if(mask[y*24+x]){
+    const top=y===0||!mask[(y-1)*24+x],bottom=y===11||!mask[(y+1)*24+x];
+    data[y*24+x]=top&&((x+v)%7<4)?3:bottom?1:2;
+  }
+  return data;
+ });
+}
+const PEEL_TEMPLATES=buildPeelTemplates();
+// A fixed bank of four 16-mask alpha atlases (generated once from the row constants below).
+// All variants share their border samples; the irregularities are confined to tile interiors.
+function buildBackgroundRuleAtlas(){
+ const c=canvas(128,32),im=ctx(c).createImageData(128,32);
+ for(let variant=0;variant<4;variant++)for(let mask=0;mask<16;mask++)
+ for(let y=0;y<8;y++)for(let x=0;x<8;x++){
+   if(BACKGROUND_MASK_ROWS[variant][mask][y][x]!=='1')continue;
+   const k=(((mask>>2)*8+y)*128+variant*32+(mask%4)*8+x)*4;
+   im.data[k]=im.data[k+1]=im.data[k+2]=im.data[k+3]=255;
+ }
+ ctx(c).putImageData(im,0,0);return c;
+}
+let BACKGROUND_RULE_ATLAS=null;
+function getBackgroundRuleAtlas(){return BACKGROUND_RULE_ATLAS||(BACKGROUND_RULE_ATLAS=buildBackgroundRuleAtlas());}
+// Frozen source is a read-only visual reference, NOT another editable foreground map.
+function frozenSourceFromBytes(bytes,W,H){
+ return {width:W,height:H,pixelsPerCell:TILE,occupancy:new Uint8Array(bytes),hash:crc32(bytes).toString(16).padStart(8,'0')};
+}
+function ensureFrozenBackgroundSource(){
+ const W=state.terrain.width,H=state.terrain.height;
+ if(state.backgroundSource&&state.backgroundSource.width===W&&state.backgroundSource.height===H)return state.backgroundSource;
+ const a=pixels(state.terrain),b=new Uint8Array(W*H);
+ for(let i=0;i<b.length;i++)b[i]=a[i*4+3]?1:0;
+ state.backgroundSource=frozenSourceFromBytes(b,W,H);return state.backgroundSource;
+}
+function captureBackgroundExplicitly(){
+ if(state.testing)return;
+ if(state.hasEdits&&!confirm('以当前已经拆造的地形替换背景参考轮廓？这是手动重烘焙，不会修改前景或矿。'))return;
+ state.backgroundSource=null;state.sharedKey=null;ensureFrozenBackgroundSource();
+ refreshDecor();showMessage('已冻结当前轮廓：'+state.backgroundSource.hash+'。后续拆造不再改变背景。');
+}
+function serializeFrozenSource(){
+ const r=ensureFrozenBackgroundSource();return {schema:'dark-nights-background-source/v1',width:r.width,height:r.height,pixelsPerCell:TILE,crc32:r.hash,occupancy:Array.from(r.occupancy)};
+}
+function validateFrozenSource(r){
+ if(!r||r.width!==504||r.height!==312||r.pixelsPerCell!==8||!Array.isArray(r.occupancy)||r.occupancy.length!==504*312||r.occupancy.some(n=>n!==0&&n!==1))throw new Error('冻结背景源尺寸或内容无效');
+ const next=frozenSourceFromBytes(new Uint8Array(r.occupancy),r.width,r.height);
+ if(r.crc32!==next.hash)throw new Error('冻结背景源校验不一致');return next;
+}
+function softenMiddleEdge(source,width){
+ if(width<=0)return source;
+ const W=source.width,H=source.height,pw=W+2,ph=H+2,raw=pixels(source),mask=new Uint8Array(pw*ph);
+ // The explicit one-pixel air border makes image-edge distances well-defined.
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++)mask[(y+1)*pw+x+1]=raw[(y*W+x)*4+3]?1:0;
+ const d=distanceTransformBinary(mask,pw,ph,0),out=new ImageData(new Uint8ClampedArray(raw),W,H);
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+   const k=(y*W+x)*4;if(!raw[k+3])continue;
+   const opacity=smoothstep(0,width+1,d[(y+1)*pw+x+1]);
+   out.data[k+3]=Math.round(raw[k+3]*opacity);
+ }
+ const c=canvas(W,H);ctx(c).putImageData(out,0,0);return c;
+}
+function applyMiddleSoftness(){
+ const r=state.sharedRock;if(!r)return;
+ if(r.appliedSoftness===state.middleSoftness)return;
+ r.layers[1]=softenMiddleEdge(r.middleHard,state.middleSoftness);r.appliedSoftness=state.middleSoftness;
+ state.decorLayers=r.layers;state.sceneDirty=true;state.comparisonKey=null;state.coverageKey=null;
+}
+function refreshMiddleSoftness(){
+ state.middleSoftness=+$('middleSoftness').value;updateLabels();
+ const t=performance.now();applyMiddleSoftness();state.times['中层窄边过渡']=performance.now()-t;
+ state.sceneDirty=true;state.comparisonKey=null;render();
+}
+function rawBackgroundLayers(){const r=state.sharedRock;return[r.layers[0],r.middleHard,r.layers[2]];}
+function middleOpacityCanvas(){
+ const c=canvas(state.final.width,state.final.height),im=ctx(c).createImageData(c.width,c.height),a=pixels(state.decorLayers[1]);
+ for(let k=0;k<a.length;k+=4){im.data[k]=im.data[k+1]=im.data[k+2]=a[k+3];im.data[k+3]=255;}ctx(c).putImageData(im,0,0);return c;
+}
+
+function rockStructureKey(){
+ return JSON.stringify([STRATA_REVISION,ensureFrozenBackgroundSource().hash,state.seed,state.detailSeed,state.map.w,state.map.h,
+ state.rockLayout,state.decorParams.map(p=>[p.density,p.depth,p.randomness]),materialPalette()]);
+}
+function sampleRockStructure(wx,wy,seed){
+ const p=state.decorParams,m=p[1],d=p[2],size=m.depth,rough=m.randomness/100;
+ const layout=state.rockLayout||'mixed',top=backgroundStartY();
+ const bandH=size*(layout==='vertical'?1.30:layout==='horizontal'?.60:.82);
+ const warp=(smoothNoise(wx/(size*2.2),1.7,seed)-.5)*bandH*(.22+rough*.40)
+           +(smoothNoise(wx/(size*.8),4.9,seed+8)-.5)*rough*8;
+ const z=wy-top-warp-9,band=Math.floor(z/bandH),phase=modPositive(z,bandH);
+ const cellW=size*(layout==='vertical'?.67:layout==='horizontal'?1.85:1.26)*(0.85+hash2(band,0,seed+101)*.30);
+ const stagger=hash2(band,0,seed+102)*cellW;
+ const drift=(smoothNoise(wy/(size*1.5),band*.23,seed+108)-.5)*(2+rough*7);
+ const xf=wx+stagger+drift,plate=Math.floor(xf/cellW),u=modPositive(xf,cellW),vDist=Math.min(u,cellW-u),hDist=Math.min(phase,bandH-phase);
+ const dp=d.density/100;
+ const vActive=hash2(plate,band,seed+151)<(.38+dp*.58);
+ const hActive=hash2(plate,band,seed+153)<(.27+dp*.62);
+ const zig=(smoothNoise(Math.floor(wx/3)*3/19,Math.floor(wy/3)*3/21,seed+158)-.5)*(d.randomness/100)*3;
+ const halfV=(.8+d.depth*.15+zig*.45),halfH=(.65+d.depth*.10-zig*.25);
+ const gapV=vActive?vDist-halfV:10000,gapH=hActive?hDist-halfH:10000;
+ const quiet=smoothNoise(wx/(size*1.8),wy/(size*1.7),seed+300);
+ const intact=quiet<.65+(m.density/100)*.33;
+ const pocket=hash2(plate,band,seed+304)>.84&&vDist<d.depth*.85&&hDist<d.depth*.9;
+ const solid=wy>=top+5&&intact&&gapV>0&&gapH>0&&!pocket;
+ const gapDistance=Math.max(0,-Math.min(gapV,gapH));
+ return {solid,band,plate,u:u/cellW,v:phase/bandH,gapDistance,
+  joinDistance:Math.min(vActive?vDist:1000,hActive?hDist:1000),intact,quiet};
+}
+function renderBackgroundMask(logic,seed){
+ const W=(logic.w-1)*8,H=(logic.h-1)*8,c=canvas(W,H),g=ctx(c),atlas=getBackgroundRuleAtlas();
+ const masks=new Uint8Array((logic.w-1)*(logic.h-1));
+ for(let y=0;y<logic.h-1;y++)for(let x=0;x<logic.w-1;x++){
+  const m=maskAt(logic,x,y);masks[y*(logic.w-1)+x]=m;if(!m)continue;
+  const variant=Math.floor(hash2(x,y,seed+35)*4);
+  g.drawImage(atlas,variant*32+(m%4)*8,(m>>2)*8,8,8,x*8,y*8,8,8);
+ }
+ return {canvas:c,masks};
+}
+function buildSharedRockStructure(){
+ const W=state.final.width,H=state.final.height,seed=hashString(state.seed+'|'+state.detailSeed+'|'+STRATA_REVISION),top=backgroundStartY();
+ const fgSolid=ensureFrozenBackgroundSource().occupancy;
+ // Never read the live, destructible foreground when (re)building background materials.
+ const toRock=distanceTransformBinary(fgSolid,W,H,1);
+ const sampleCenter=(gx,gy)=>{const px=clamp(gx*8,0,W-1),py=clamp(gy*8,0,H-1);return{px,py,p:py*W+px};};
+ const makeLogic=()=>({w:state.map.w,h:state.map.h,data:new Uint8Array(state.map.w*state.map.h)});
+ const deepLogic=makeLogic(),midLogic=makeLogic(),nearLogic=makeLogic();
+ const deepCfg=state.decorParams[2],midCfg=state.decorParams[1],nearCfg=state.decorParams[0];
+ for(let gy=0;gy<state.map.h;gy++)for(let gx=0;gx<state.map.w;gx++){
+   const {px,py,p}=sampleCenter(gx,gy); if(!backgroundExistsAt(px,py)||fgSolid[p])continue;
+   const d=toRock[p]; if(d<=0)continue;
+   const n1=smoothNoise(px/34,py/26,seed+11), n2=smoothNoise(px/17,py/41,seed+17), n3=smoothNoise(px/62,py/14,seed+23);
+   const diag=smoothNoise((px+py)/44,(py-px)/51,seed+31), band=smoothNoise(px/95,py/18,seed+37);
+   const edge01=clamp(1-(d-1)/Math.max(2,nearCfg.depth*.7),0,1);
+   const mid01=clamp(1-Math.abs(d-midCfg.depth*.75)/Math.max(3,midCfg.depth*1.1),0,1);
+   const inner01=clamp((d-4)/Math.max(4,deepCfg.depth*2.4),0,1);
+   const midScore=n1*.32+n2*.26+diag*.18+band*.10+edge01*.22+mid01*.20;
+   const deepScore=n1*.20+n2*.24+n3*.24+diag*.12+inner01*.22;
+   if(d>=Math.max(4,deepCfg.depth*.55)&&d<=Math.max(22,deepCfg.depth*3.2)&&deepScore>(0.76-(deepCfg.density/100)*.20-(deepCfg.randomness/100)*.08)) deepLogic.data[gy*deepLogic.w+gx]=1;
+   if(d>=1&&d<=Math.max(14,midCfg.depth*1.9)&&midScore>(0.66-(midCfg.density/100)*.18-(midCfg.randomness/100)*.08)) midLogic.data[gy*midLogic.w+gx]=1;
+ }
+ legacySmoothLogicalGrid(deepLogic,2,4,4); legacyCleanupLogicalGrid(deepLogic,0);
+ legacySmoothLogicalGrid(midLogic,1,4,4); legacyCleanupLogicalGrid(midLogic,0);
+ for(let y=1;y<midLogic.h-1;y++)for(let x=1;x<midLogic.w-1;x++){
+   const i=y*midLogic.w+x; if(deepLogic.data[i] && hash2(x,y,seed+101)>.28) midLogic.data[i]=0;
+ }
+ for(let gy=1;gy<state.map.h-1;gy++)for(let gx=1;gx<state.map.w-1;gx++){
+   const {px,py,p}=sampleCenter(gx,gy); if(!backgroundExistsAt(px,py)||fgSolid[p])continue; const d=toRock[p];
+   if(d<1||d>Math.max(8,nearCfg.depth*.7)) continue;
+   const mi=gy*midLogic.w+gx; let adjMid=0,adjAir=0;
+   for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){adjMid+=midLogic.data[(gy+dy)*midLogic.w+gx+dx]; adjAir += fgSolid[clamp(py+dy*8,0,H-1)*W+clamp(px+dx*8,0,W-1)]?1:0;}
+   const edgeScore=smoothNoise(px/22,py/19,seed+201)*.42 + smoothNoise(px/11,py/37,seed+203)*.18 + (adjMid?0.18:0) + clamp(1-(d-1)/4,0,1)*.32 + (adjAir?0.18:0);
+   if(edgeScore>(0.72-(nearCfg.density/100)*.16-(nearCfg.randomness/100)*.06)) nearLogic.data[mi]=1;
+ }
+ legacyCleanupLogicalGrid(nearLogic,0);
+ const deepMask=renderBackgroundMask(deepLogic,seed+301), midMask=renderBackgroundMask(midLogic,seed+401), nearMask=renderBackgroundMask(nearLogic,seed+501);
+ const colorize=(maskCanvas, shades, seedAdd, alphaScale=1)=>{const src=pixels(maskCanvas),c=canvas(W,H),im=ctx(c).createImageData(W,H),pal=materialPalette(),base=pal[4]; for(let y=top;y<H;y++)for(let x=0;x<W;x++){const p=y*W+x,k=p*4;if(!src[k+3])continue; const n1=smoothNoise(x/(14+seedAdd%5*3),y/(22+seedAdd%7*2),seed+seedAdd),n2=smoothNoise(x/(39+seedAdd%3*7),y/(12+seedAdd%4*5),seed+seedAdd+73),g=hash2(x>>1,y>>1,seed+seedAdd+191),mix=n1*.44+n2*.36+g*.20; const tone=mix>.68?2:mix>.38?1:0; for(let ch=0;ch<3;ch++)im.data[k+ch]=Math.round(base[ch]*shades[tone]); im.data[k+3]=Math.round(src[k+3]*alphaScale);} ctx(c).putImageData(im,0,0); return c;};
+ const deep=colorize(deepMask.canvas,[.28,.37,.47],611,.92),middle=colorize(midMask.canvas,[.44,.58,.74],621,.95),near=colorize(nearMask.canvas,[.66,.82,.98],631,1);
+ const owner=new Uint8Array(W*H),solid=new Uint8Array(W*H),deepA=pixels(deep),midA=pixels(middle),nearA=pixels(near),deepOnly=new Uint8Array(W*H);
+ for(let i=0;i<W*H;i++){if(midA[i*4+3]){owner[i]=2;solid[i]=1;} if(deepA[i*4+3]){owner[i]=3;deepOnly[i]=1;} if(nearA[i*4+3]) owner[i]=1;}
+ const maskIds=midMask.masks; const pieces=countAlpha(near);
+ // Alpha owner order is far < middle < near (diagnostic only).
+ for(let i=0;i<W*H;i++)owner[i]=nearA[i*4+3]?1:midA[i*4+3]?2:deepA[i*4+3]?3:0;
+ return {layers:[near,softenMiddleEdge(middle,state.middleSoftness),deep],middleHard:middle,appliedSoftness:state.middleSoftness,logic:midLogic,maskIds,owner,solid,deepMask:deepOnly,pieces,seed};
+}
+function rebuildSharedStrata(force=false){
+ const key=rockStructureKey();
+ if(!force&&state.sharedKey===key&&state.sharedRock){state.decorLayers=state.sharedRock.layers;applyMiddleSoftness();return;}
+ const t=performance.now(),result=buildSharedRockStructure();state.sharedRock=result;state.sharedKey=key;state.decorLayers=result.layers;
+ state.decorCaches=result.layers.map((c,i)=>new Map([['shared',{size:countAlpha(c),pieces:i===0?result.pieces:0}]]));
+ state.times['背景共享结构 + 三层']=performance.now()-t;state.lastDecorMs=state.times['背景共享结构 + 三层'];
+ state.coverageKey=null;state.comparisonKey=null;
+}
+function countAlpha(c){const a=pixels(c);let n=0;for(let i=3;i<a.length;i+=4)if(a[i])n++;return n;}
+function buildDecorLayer(l){rebuildSharedStrata();return state.decorLayers[l];}
+function updateDecorLocal(){state.lastDecorMs=0;state.lastCandidates=0;return null;}
+function detailCombined(all=true){const c=canvas(state.final.width,state.final.height),g=ctx(c);for(let l=2;l>=0;l--)if(all||layerEnabled('toggleDecor'+l))g.drawImage(state.decorLayers[l],0,0);return c;}
+function rebuildRichnessLayers({background=true,ore=true,decor=true}={}){
+ if(background)state.backBase=measure('背景墙层',buildBackwallBaseLayer);
+ if(ore){if(!state.oreCells)state.oreCells=initOreCells();state.wallOre=measure('背景墙嵌矿',buildWallOreLayer);}
+ if(decor)rebuildSharedStrata();state.sceneDirty=true;
+}
+function peelTemplateAtlas(){
+ const c=canvas(192,12),im=ctx(c).createImageData(192,12),pal=materialPalette(),sh=[.66,.83,1];
+ PEEL_TEMPLATES.forEach((t,v)=>{for(let y=0;y<12;y++)for(let x=0;x<24;x++){const a=t[y*24+x];if(!a)continue;const k=(y*192+v*24+x)*4;for(let ch=0;ch<3;ch++)im.data[k+ch]=Math.round(pal[4][ch]*sh[a-1]);im.data[k+3]=255;}});
+ ctx(c).putImageData(im,0,0);return c;
+}
+function ownershipCanvas(includeForeground=false,respectSwitches=false){
+ const W=state.final.width,H=state.final.height,c=canvas(W,H),im=ctx(c).createImageData(W,H),fg=pixels(state.final);
+ const colors=[[44,42,40],[203,158,91],[89,126,132],[49,63,85]],la=respectSwitches?state.decorLayers.map(pixels):null,ore=respectSwitches?pixels(state.wallOre):null;
+ for(let y=backgroundStartY();y<H;y++)for(let x=0;x<W;x++){
+  const p=y*W+x,k=p*4;let owner=state.sharedRock.owner[p];if(respectSwitches){owner=0;for(let l=0;l<3;l++)if(layerEnabled('toggleDecor'+l)&&la[l][k+3]){owner=l+1;break;}}const hidden=includeForeground&&(!respectSwitches||layerEnabled('toggleForeground'))&&fg[k+3]||respectSwitches&&layerEnabled('toggleOreLayer')&&ore[k+3];const col=hidden?[15,17,18]:colors[owner];
+  im.data[k]=col[0];im.data[k+1]=col[1];im.data[k+2]=col[2];im.data[k+3]=255;
+ }
+ ctx(c).putImageData(im,0,0);return c;
+}
+function ownershipDataCanvas(){const W=state.final.width,H=state.final.height,c=canvas(W,H),im=ctx(c).createImageData(W,H);for(let p=0;p<W*H;p++){im.data[p*4]=im.data[p*4+1]=im.data[p*4+2]=state.sharedRock.owner[p];im.data[p*4+3]=255;}ctx(c).putImageData(im,0,0);return c;}
+function getVisibleCoverage(){
+ const key=JSON.stringify([state.revision,state.sharedKey,STEPS.filter(s=>s.toggle).map(s=>layerEnabled(s.toggle))]);
+ if(state.coverageKey===key&&state.coverage)return state.coverage;
+ const W=state.final.width,H=state.final.height,fg=pixels(state.final),ore=pixels(state.wallOre),la=state.decorLayers.map(pixels),counts=[0,0,0,0];let total=0;
+ for(let y=backgroundStartY()+12;y<H;y++)for(let x=0;x<W;x++){
+  const p=y*W+x,k=p*4;
+  if(layerEnabled('toggleForeground')&&fg[k+3])continue;if(layerEnabled('toggleOreLayer')&&ore[k+3])continue;
+  total++;let owner=0;
+  for(let l=0;l<3;l++)if(layerEnabled('toggleDecor'+l)&&la[l][k+3]){owner=l+1;break;}
+  counts[owner]++;
+ }
+ const percentages=counts.map(n=>total?n*100/total:0);state.coverageKey=key;return state.coverage={counts,total,percentages,description:'Topmost alpha owner after foreground/ore occlusion; not perceived brightness.'};
+}
+function legacyLayers(){
+ const key=JSON.stringify([state.seed,state.detailSeed,state.map.w,state.map.h,materialPalette()]);
+ if(state.legacyKey===key&&state.legacyDecor)return state.legacyDecor;
+ const specs=[{key:'nearRock',density:46,randomness:26,shade:[.60,.78,.96]},{key:'midRock',density:34,randomness:34,shade:[.44,.59,.74]},{key:'farRock',density:24,randomness:46,shade:[.30,.40,.52]}];
+ state.legacyDecor=specs.map((s,l)=>legacyRenderDecorLayerFromLogical(legacyGenerateDecorLogicalMap(l,s),s,l));state.legacyKey=key;return state.legacyDecor;
+}
+function sceneCanvas(layers=state.decorLayers,{foreground=true,ore=true,lighting=true}={}){
+ const W=state.final.width,H=state.final.height,c=canvas(W,H),g=ctx(c),top=backgroundStartY();
+ for(let y=0;y<H;y++){const t=smoothstep(0,top,y),d=smoothstep(top,top+76,y);g.fillStyle=`rgb(${Math.round(lerp(lerp(55,93,t),23,d))},${Math.round(lerp(lerp(45,67,t),21,d))},${Math.round(lerp(lerp(51,69,t),26,d))})`;g.fillRect(0,y,W,1);}
+ if(layerEnabled('toggleBackBase'))g.drawImage(state.backBase,0,0);
+ for(let l=2;l>=0;l--)if(layerEnabled('toggleDecor'+l))g.drawImage(layers[l],0,0);
+ if(ore&&layerEnabled('toggleOreLayer'))g.drawImage(state.wallOre,0,0);
+ if(foreground&&layerEnabled('toggleForeground'))g.drawImage(state.final,0,0);
+ if(!lighting||!layerEnabled('toggleLighting'))return c;
+ const lights=[{x:155,y:92,r:55},{x:360,y:195,r:67},{x:225,y:255,r:45},{x:108,y:228,r:36},{x:430,y:255,r:34}],im=g.getImageData(0,0,W,H);
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){const k=(y*W+x)*4;let a=lerp(1,.64,smoothstep(top,top+72,y)),r=0,gg=0,b=0;
+  for(const L of lights){const d=Math.hypot(x-L.x,y-L.y)/L.r;if(d>=1)continue;const f=(1-d)**1.7;a+=f*.38;r+=f*48;gg+=f*27;b+=f*8;}
+  a=Math.min(a,1.08);im.data[k]=clamp(Math.round(im.data[k]*a+r),0,255);im.data[k+1]=clamp(Math.round(im.data[k+1]*a+gg),0,255);im.data[k+2]=clamp(Math.round(im.data[k+2]*a+b),0,255);
+ }
+ g.putImageData(im,0,0);return c;
+}
+function composeScene(){return sceneCanvas();}
+function getFinalDisplay(){
+ const mode=$('sceneMode').value;
+ if(mode==='v15'){if(state.sceneDirty){state.scene=composeScene();state.sceneDirty=false;}return state.scene;}
+ const key=JSON.stringify([mode,state.middleSoftness,state.revision,state.sharedKey,STEPS.filter(s=>s.toggle).map(s=>layerEnabled(s.toggle))]);
+ if(key===state.comparisonKey&&state.comparisonCanvas)return state.comparisonCanvas;
+ let c;
+ if(mode==='hard')c=sceneCanvas(rawBackgroundLayers());
+ else if(mode==='softCompare'){
+   c=sceneCanvas();const g=ctx(c),old=sceneCanvas(rawBackgroundLayers()),split=Math.floor(c.width/2);
+   g.drawImage(old,0,0,split,c.height,0,0,split,c.height);g.fillStyle='#bea37c';g.fillRect(split,0,1,c.height);
+   g.font='9px monospace';g.fillStyle='#ead8bb';g.fillText('HARD / v16',8,15);g.fillText('SOFT / '+state.middleSoftness+' px',split+8,15);
+ }
+ else if(mode==='legacy')c=sceneCanvas(legacyLayers());
+ else if(mode==='back')c=sceneCanvas(state.decorLayers,{foreground:false,ore:false,lighting:false});
+ else if(mode==='owner')c=ownershipCanvas(true,true);
+ else if(mode==='wipe'){
+  c=sceneCanvas();const g=ctx(c),old=sceneCanvas(legacyLayers()),W=c.width,H=c.height,split=Math.floor(W/2);
+  g.drawImage(old,0,0,split,H,0,0,split,H);g.fillStyle='#caa978';g.fillRect(split,0,1,H);
+  g.font='9px monospace';g.fillStyle='#eed8b4';g.fillText('v14',8,15);g.fillText('v16.1',split+8,15);
+ }else c=sceneCanvas();
+ state.comparisonKey=key;state.comparisonCanvas=c;return c;
+}
+function layerEnabled(id){const e=$(id);return e?e.checked:true;}
+
+function readParams(){
+ state.seed=$('seed').value.trim()||'DN-MATERIAL-0921';state.outlineSeed=$('outlineSeed').value.trim()||'OUTLINE-0921';
+ state.outlineMode=$('outlineMode').value;state.palettePreset=$('palettePreset').value;
+ for(const [s,id] of [['stone','stoneSize'],['outline','outlineJitter'],['outlineScale','outlineScale'],['outlineQuant','outlineQuant'],['hueShift','hueShift'],['width','depthWidth'],['dfRadius','dfRadius']])state[s]=+$(id).value;
+ for(const [s,id] of [['satMul','satMul'],['lightMul','lightMul'],['group','grouping'],['coherence','coherence'],['oreDensity','oreDensity']])state[s]=+$(id).value/100;
+ state.detailSeed=$('detailSeed').value.trim()||'DECOR-0922';state.rockLayout=$('rockLayout').value;state.middleSoftness=+$('middleSoftness').value;
+ state.decorParams=DECOR_SPECS.map((s,l)=>({...s,density:+$('decorDensity'+l).value,depth:+$('decorDepth'+l).value,randomness:+$('decorRandomness'+l).value}));
+}
+function invalidateViews(){state.revision++;state.debugCache={};state.sceneDirty=true;}
+function rebuild(options={}){
+ const reset=options===true||options.resetMap===true;readParams();
+ const newMap=reset||!state.map||state.worldSeed!==state.seed;
+ const total=performance.now();state.times={};state.lastDirty=null;state.lastEditMs=null;state.lastDecorMs=null;
+ if(newMap){state.map=measure('逻辑地图',generateLogicalMap);state.worldSeed=state.seed;state.oreCells=null;state.hasEdits=false;state.backgroundSource=null;state.sharedKey=null;}
+ state.atlas=measure('16 Tile 图集',buildAtlasOriginal);state.masks=measure('Mask 计算',computeMasks);
+ state.terrainRaw=measure('Tile 拼接',rebuildTerrain);
+ state.terrain=measure('外轮廓修饰',()=>{const c=copyCanvas(state.terrainRaw);applyOutlineJitter(c,state.terrainRaw,{x:0,y:0,w:c.width,h:c.height});return c;});
+ state.distance=measure('距离场',distanceField);state.facets=measure('岩块分区',buildFacetField);state.tones=measure('区域明暗',buildToneField);
+ state.depth=measure('深度着色',()=>shadeDepth(false));state.final=measure('裂缝+最终材质',()=>shadeDepth(true));
+ const oreKey=state.seed+'|'+state.oreDensity;if(newMap||state.oreKey!==oreKey||!state.oreCells)state.oreCells=initOreCells();state.oreKey=oreKey;
+ rebuildRichnessLayers();invalidateViews();state.scene=measure('场景合成',composeScene);state.sceneDirty=false;state.times['完整烘焙']=performance.now()-total;
+ render();if(!state.initialized){fitView(true);state.initialized=true;}
+}
+function refreshDecor(){readParams();if(state.worldSeed!==state.seed){rebuild({resetMap:true});return;}
+ const t=performance.now();rebuildSharedStrata();state.lastDecorMs=performance.now()-t;state.sceneDirty=true;state.comparisonKey=null;state.coverageKey=null;render();}
+
+function refreshOre(){readParams();if(state.worldSeed!==state.seed){rebuild({resetMap:true});return;}state.oreKey=state.seed+'|'+state.oreDensity;state.oreCells=initOreCells();state.wallOre=measure('背景墙嵌矿',buildWallOreLayer);state.sceneDirty=true;render();}
+function editLogicalBatch(edits,draw=true){
+ const m=state.map,start=performance.now();let changed=null;
+ for(const e of edits){const {lx,ly,value}=e;if(lx<1||ly<1||lx>=m.w-1||ly>=m.h-1)continue;
+   if(m.data[ly*m.w+lx]===value)continue;m.data[ly*m.w+lx]=value;changed=unionRect(changed,updateTileNeighborhood(lx,ly));}
+ if(!changed)return false;
+ redrawRawTerrainRect(changed);const geometryRect=applyOutlineJitter(state.terrain,state.terrainRaw,changed);
+ const distanceRect=updateDistanceLocal(geometryRect),materialRect=expandRect(distanceRect,2,state.final.width,state.final.height);
+ updateToneLocal(materialRect);shadeRegion(state.depth,materialRect,false);shadeRegion(state.final,materialRect,true);
+ const materialMs=performance.now()-start,decorDirty=updateDecorLocal(geometryRect);
+ state.lastDirty=unionRect(materialRect,decorDirty);state.lastEditMs=performance.now()-start;state.lastMaterialMs=materialMs;
+ state.hasEdits=true;invalidateViews();if(draw)requestRender();return true;
+}
+function editLogical(lx,ly,value){return editLogicalBatch([{lx,ly,value}]);}
+function editOreCell(lx,ly,operation='toggle'){
+ if(lx<1||ly<1||lx>=state.map.w-1||ly>=state.map.h-1||!tileHasBackground(lx,ly))return false;
+ const tw=state.map.w-1,i=(ly-1)*tw+lx-1,prev=state.oreCells[i];const value=operation==='remove'?0:operation==='add'?1:prev?0:1;
+ if(value===prev)return false;state.oreCells[i]=value;const t=performance.now();state.wallOre=buildWallOreLayer();state.sceneDirty=true;state.hasEdits=true;
+ state.lastEditMs=performance.now()-t;state.lastDecorMs=0;state.lastCandidates=0;state.lastDirty={x:(lx-1)*8,y:(ly-1)*8,w:8,h:8};requestRender();return true;
+}
+
+// ---- Retained v8/v11 base terrain and export primitives ----
+function rgba(hex){hex=hex.replace('#','');return[parseInt(hex.slice(0,2),16),parseInt(hex.slice(2,4),16),parseInt(hex.slice(4,6),16),255]}
+
+function rgbToHsl(r,g,b){r/=255;g/=255;b/=255;const max=Math.max(r,g,b),min=Math.min(r,g,b);let h,s,l=(max+min)/2;if(max===min){h=s=0}else{const d=max-min;s=l>.5?d/(2-max-min):d/(max+min);switch(max){case r:h=(g-b)/d+(g<b?6:0);break;case g:h=(b-r)/d+2;break;default:h=(r-g)/d+4;}h*=60}return[h,s||0,l]}
+
+function hslToRgb(h,s,l){h=((h%360)+360)%360;const c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h/60)%2-1)),m=l-c/2;let r=0,g=0,b=0;if(h<60){r=c;g=x}else if(h<120){r=x;g=c}else if(h<180){g=c;b=x}else if(h<240){g=x;b=c}else if(h<300){r=x;b=c}else{r=c;b=x}return[Math.round((r+m)*255),Math.round((g+m)*255),Math.round((b+m)*255),255]}
+
+function adjustColorHSL(hex){const c=rgba(hex),hsl=rgbToHsl(c[0],c[1],c[2]);const h=hsl[0]+state.hueShift,s=clamp(hsl[1]*state.satMul,0,1),l=clamp(hsl[2]*state.lightMul,0,1);return hslToRgb(h,s,l)}
+
+function hashString(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+
+function hash2(x,y,seed=17){let a=Math.imul(x|0,374761393)^Math.imul(y|0,668265263)^Math.imul(seed|0,1442695041);a=Math.imul(a^(a>>>13),1274126177);return ((a^(a>>>16))>>>0)/4294967296;}
+
+function rng(seed){let a=seed>>>0;return()=>{a+=0x6D2B79F5;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296;};}
+
+function smoothNoise(x,y,seed){const ix=Math.floor(x),iy=Math.floor(y),fx=x-ix,fy=y-iy,u=fx*fx*(3-2*fx),v=fy*fy*(3-2*fy);return(hash2(ix,iy,seed)*(1-u)+hash2(ix+1,iy,seed)*u)*(1-v)+(hash2(ix,iy+1,seed)*(1-u)+hash2(ix+1,iy+1,seed)*u)*v;}
+
+function currentOutlineSeed(){return hashString((state.outlineSeed||'OUTLINE-0921')+'|'+state.outlineMode);}
+
+function waveDisplacement(gx,gy){const seed=currentOutlineSeed(),amp=state.outline||0,wave=Math.max(8,state.outlineScale||32);const x=gx/wave,y=gy/(wave*1.7);const n1=(smoothNoise(x,y,seed)-.5)*2;const n2=(smoothNoise(x*.48+13.7,y*.52+7.1,seed+71)-.5)*2;return (n1*.72+n2*.28)*amp;}
+
+function pixelDisplacement(gx,gy,kind){const seed=currentOutlineSeed(),amp=state.outline||0,wave=Math.max(8,state.outlineScale||32),q=Math.max(1,state.outlineQuant||2);const pattern=PIXEL_PATTERNS[kind]||PIXEL_PATTERNS.pixelB;const phase=(seed>>>3)%pattern.length;const idx=(Math.floor(gx/Math.max(q,wave/pattern.length))+phase)%pattern.length;const base=pattern[(idx+pattern.length)%pattern.length]/2;const wobble=(smoothNoise(gx/(wave*1.35),gy/(wave*2.2),seed+151)-.5)*.65;return Math.round((base*.78+wobble*.22)*amp/q)*q;}
+
+function outlineDisplacement(gx,gy){const m=state.outlineMode;if(m==='none')return 0;if(m==='wave')return waveDisplacement(gx,gy);if(m==='pixelB')return pixelDisplacement(gx,gy,'pixelB');if(m==='pixelC')return pixelDisplacement(gx,gy,'pixelC');if(m==='hybridB')return waveDisplacement(gx,gy)*.72+pixelDisplacement(gx,gy,'pixelB')*.48;if(m==='hybridC')return waveDisplacement(gx,gy)*.72+pixelDisplacement(gx,gy,'pixelC')*.48;return 0;}
+
+function currentPaletteBase(){return PALETTES[state.palettePreset]||PALETTES.warm_rock;}
+
+function canvas(w,h){const c=document.createElement('canvas');c.width=w;c.height=h;return c;}function ctx(c){const g=c.getContext('2d',{willReadFrequently:true});g.imageSmoothingEnabled=false;return g;}
+
+function measure(name,fn){const t=performance.now(),v=fn();state.times[name]=performance.now()-t;return v;}
+
+function generateLogicalMap(){const s=hashString(state.seed),r=rng(s),m={w:state.w,h:state.h,data:new Uint8Array(state.w*state.h).fill(1)};const surface=7;for(let y=0;y<surface;y++)for(let x=0;x<m.w;x++)m.data[y*m.w+x]=0;
+ const rooms=[[16,15,10,4],[41,14,12,4],[28,25,13,5],[49,29,9,4],[12,31,8,3]];
+ const air=(x,y)=>{x=Math.round(x);y=Math.round(y);if(x>1&&y>1&&x<m.w-2&&y<m.h-2)m.data[y*m.w+x]=0};
+ const disk=(cx,cy,rx,ry)=>{for(let y=Math.floor(cy-ry);y<=Math.ceil(cy+ry);y++)for(let x=Math.floor(cx-rx);x<=Math.ceil(cx+rx);x++){const n=(smoothNoise(x*.32,y*.37,s+91)-.5)*.22;if((x-cx)*(x-cx)/(rx*rx)+(y-cy)*(y-cy)/(ry*ry)<1+n)air(x,y)}};
+ const line=(x0,y0,x1,y1,rad=1)=>{const n=Math.max(Math.abs(x1-x0),Math.abs(y1-y0))*2;for(let i=0;i<=n;i++){const t=i/Math.max(1,n);disk(lerp(x0,x1,t),lerp(y0,y1,t),rad+.7,rad+.7)}};
+ for(const R of rooms)disk(...R);line(5,7,16,15,1);line(16,15,41,14,1);line(16,15,28,25,1);line(41,14,49,29,1);line(28,25,12,31,1);line(28,25,49,29,1);
+ for(let i=0;i<18;i++){const x=4+Math.floor(r()*(m.w-8)),y=10+Math.floor(r()*(m.h-13));if(r()>.5)disk(x,y,1+r()*2,1+r()*1.4)}return m;}
+
+function sample(m,x,y){return x<0||y<0||x>=m.w||y>=m.h?1:m.data[y*m.w+x]}
+
+function maskAt(m,x,y){return sample(m,x,y)|(sample(m,x+1,y)<<1)|(sample(m,x,y+1)<<2)|(sample(m,x+1,y+1)<<3)}
+
+function computeMasks(){const m=state.map,o=new Uint8Array((m.w-1)*(m.h-1));for(let y=0;y<m.h-1;y++)for(let x=0;x<m.w-1;x++)o[y*(m.w-1)+x]=maskAt(m,x,y);return o;}
+
+function field(mask,u,v){const a=mask&1?1:0,b=mask&2?1:0,c=mask&4?1:0,d=mask&8?1:0;if(mask===6||mask===9)return u>=v?a*(1-u)+b*(u-v)+d*v:a*(1-v)+c*(v-u)+d*u;return a*(1-u)*(1-v)+b*u*(1-v)+c*(1-u)*v+d*u*v;}
+
+function buildAtlasOriginal(){const atlas=canvas(32,32),ag=ctx(atlas),seed=hashString(state.seed)+17;for(let mask=0;mask<16;mask++){const c=canvas(8,8),g=ctx(c),im=g.createImageData(8,8);for(let y=0;y<8;y++)for(let x=0;x<8;x++){const u=x/7,v=y/7,edge=(x===0||x===7||y===0||y===7)?0:1,wav=(hash2(x>>1,y>>1,seed)-.5)*.23*edge,f=field(mask,u,v)+wav,solid=mask!==0&&(mask===15||f>=.5);if(!solid)continue;const k=(y*8+x)*4;im.data[k]=157;im.data[k+1]=137;im.data[k+2]=114;im.data[k+3]=255}g.putImageData(im,0,0);ag.drawImage(c,(mask%4)*8,(mask>>2)*8)}return atlas;}
+
+function rebuildTerrain(){const m=state.map,c=canvas((m.w-1)*8,(m.h-1)*8),g=ctx(c);for(let y=0;y<m.h-1;y++)for(let x=0;x<m.w-1;x++){const k=state.masks[y*(m.w-1)+x];g.drawImage(state.atlas,(k%4)*8,(k>>2)*8,8,8,x*8,y*8,8,8)}return c;}
+
+function copyCanvas(src){const c=canvas(src.width,src.height);ctx(c).drawImage(src,0,0);return c;}
+
+function distanceField(){const c=state.terrain,w=c.width,h=c.height,im=ctx(c).getImageData(0,0,w,h),cap=state.dfRadius+1,d=new Uint16Array(w*h);for(let i=0;i<d.length;i++)d[i]=im.data[i*4+3]?cap:0;for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=y*w+x;if(d[i])d[i]=Math.min(d[i],x?d[i-1]+1:cap,y?d[i-w]+1:cap,cap)}for(let y=h-1;y>=0;y--)for(let x=w-1;x>=0;x--){const i=y*w+x;if(d[i])d[i]=Math.min(d[i],x<w-1?d[i+1]+1:cap,y<h-1?d[i+w]+1:cap,cap)}return d;}
+
+function buildFacetField(){const w=state.terrain.width,h=state.terrain.height,cs=state.stone,s=hashString(state.seed)+316,gw=Math.ceil(w/cs)+2,gh=Math.ceil(h/cs)+2,centres=[];for(let yy=0;yy<gh;yy++)for(let xx=0;xx<gw;xx++){const ix=xx-1,iy=yy-1,v=hash2(ix,iy,s),v2=hash2(ix,iy,s+155),individual=2+Math.floor(hash2(ix,iy,s+331)*4),regional=2.6+smoothNoise((ix+.5)*cs/30,(iy+.5)*cs/30,s+665)*1.6;centres.push({x:(ix+.2+v*.62)*cs,y:(iy+.2+v2*.64)*cs,tone:Math.round(lerp(individual,regional,state.group)),variation:v})}return{cs,gw,gh,centres};}
+
+function nearestFacet(x,y){const F=state.facets,cs=F.cs,gx=Math.floor(x/cs)+1,gy=Math.floor(y/cs)+1;let first=1e9,second=1e9,best=null,idx=-1;for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const xx=gx+dx,yy=gy+dy;if(xx<0||yy<0||xx>=F.gw||yy>=F.gh)continue;const ii=yy*F.gw+xx,c=F.centres[ii],dd=(x-c.x)*(x-c.x)+(y-c.y)*(y-c.y)*1.18;if(dd<first){second=first;first=dd;best=c;idx=ii}else if(dd<second)second=dd}return{best,idx,first,second,gap:Math.sqrt(second)-Math.sqrt(first)}}
+
+function materialPalette(){const PAL=currentPaletteBase(),adjusted=PAL.map(h=>adjustColorHSL(h)),base=adjusted[6]||adjusted[adjusted.length-2],baseY=base[0]*.2126+base[1]*.7152+base[2]*.0722;return adjusted.map(c=>{const Y=c[0]*.2126+c[1]*.7152+c[2]*.0722;return c.map((v,ch)=>clamp(Math.round(lerp(v,base[ch]*Y/baseY,state.coherence)),0,255))})}
+
+function toneAt(x,y){const n=nearestFacet(x,y);return n.best.tone+(y<n.best.y-1?1:0)-(y>n.best.y+1?1:0)}
+
+function buildToneField(){const w=state.terrain.width,h=state.terrain.height,out=new Int16Array(w*h).fill(-1),im=ctx(state.terrain).getImageData(0,0,w,h);for(let y=0;y<h;y++)for(let x=0;x<w;x++){const p=y*w+x;if(!im.data[p*4+3])continue;out[p]=toneAt(x,y)}return out;}
+
+function shadePixel(out,k,x,y,p,withCracks,pal){const dep=state.distance[p];if(dep<=0)return;const n=nearestFacet(x,y),effective=1+Math.max(0,dep-1)/state.width;let tone=clamp(state.tones[p],0,7);if(withCracks&&n.gap<.36)tone=state.group>.75?1:0;const col=pal[tone],fac=.22+.88*Math.exp(-Math.max(0,effective-1)/7),noise=.94+(hash2(x,y,hashString(state.seed)+777)-.5)*.08;const W=state.terrain.width,H=state.terrain.height;const solid=(xx,yy)=>xx>=0&&yy>=0&&xx<W&&yy<H&&state.distance[yy*W+xx]>0;const topExpose=(solid(x,y-1)?0:1)+(solid(x,y-2)?0:.55)+(solid(x-1,y-1)?0:.25)+(solid(x+1,y-1)?0:.25);const rim=dep<=1?1.14:dep<=2?1.06:1;const sky=1+Math.min(topExpose,.8)*0.18*Math.exp(-Math.max(0,dep-1)/3.5);for(let ch=0;ch<3;ch++){let value=col[ch];if(n.best.variation>.62)value*=lerp([.92,1.04,1.19][ch],1,state.coherence);value*=fac*rim*sky*noise;out.data[k+ch]=clamp(Math.round(value),0,255)}out.data[k+3]=255}
+
+function shadeDepth(withCracks){const w=state.terrain.width,h=state.terrain.height,src=ctx(state.terrain).getImageData(0,0,w,h),out=new ImageData(w,h),pal=materialPalette();for(let y=0;y<h;y++)for(let x=0;x<w;x++){const p=y*w+x,k=p*4;if(!src.data[k+3])continue;shadePixel(out,k,x,y,p,withCracks,pal)}const c=canvas(w,h);ctx(c).putImageData(out,0,0);return c;}
+
+function drawShard(g,px,py,isBlue,seedVal){const base=isBlue?'#49bfff':'#ff9657',hi=isBlue?'#d4f3ff':'#ffe3b6',sh=isBlue?'#174666':'#5f2d12';g.fillStyle='rgba(0,0,0,.28)';g.fillRect(px+1,py+2,6,4);g.fillStyle=sh;g.fillRect(px+2,py+2,4,4);g.fillStyle=base;const variant=seedVal%3;if(variant===0){g.fillRect(px+3,py+1,1,4);g.fillRect(px+2,py+3,3,2);g.fillRect(px+5,py+2,1,3);}else if(variant===1){g.fillRect(px+2,py+2,1,3);g.fillRect(px+3,py+1,2,4);g.fillRect(px+5,py+3,1,2);}else{g.fillRect(px+2,py+3,4,2);g.fillRect(px+4,py+1,1,4);}g.fillStyle=hi;g.fillRect(px+3+(variant%2),py+1,1,1);g.fillRect(px+2,py+3,1,1);}
+
+function buildWallOreLayer(){const tw=state.map.w-1,th=state.map.h-1,c=canvas(state.final.width,state.final.height),g=ctx(c);if(!state.oreCells||state.oreCells.length!==tw*th)state.oreCells=initOreCells();const seed=hashString(state.seed+'|oretype');for(let ty=0;ty<th;ty++)for(let tx=0;tx<tw;tx++){if(!state.oreCells[ty*tw+tx])continue;const lx=tx+1,ly=ty+1;if(!tileHasBackground(lx,ly))continue;const px=tx*8,py=ty*8,isBlue=hash2(tx,ty,seed)>.45;drawShard(g,px,py,isBlue,Math.floor(hash2(tx,ty,seed+17)*999));}return c;}
+
+function logicalCanvas(){const m=state.map,c=canvas((m.w-1)*8,(m.h-1)*8),g=ctx(c);g.fillStyle='#0b0d0f';g.fillRect(0,0,c.width,c.height);for(let y=0;y<m.h-1;y++)for(let x=0;x<m.w-1;x++){g.fillStyle=m.data[y*m.w+x]?'#8c6d4f':'#17191c';g.fillRect(x*8,y*8,7,7)}return c;}
+
+function maskCanvas(){const m=state.map,c=canvas((m.w-1)*8,(m.h-1)*8),g=ctx(c);g.fillStyle='#0b0d0f';g.fillRect(0,0,c.width,c.height);g.font='7px monospace';for(let y=0;y<m.h-1;y++)for(let x=0;x<m.w-1;x++){const k=state.masks[y*(m.w-1)+x],v=25+k*12;g.fillStyle=`rgb(${v},${Math.round(v*.88)},${Math.round(v*.72)})`;g.fillRect(x*8,y*8,8,8);g.fillStyle='#111';if(k)g.fillText(k.toString(16).toUpperCase(),x*8+1,y*8+7)}return c;}
+
+function distanceCanvas(){const w=state.terrain.width,h=state.terrain.height,c=canvas(w,h),g=ctx(c),im=g.createImageData(w,h),src=ctx(state.terrain).getImageData(0,0,w,h);for(let i=0;i<w*h;i++){const k=i*4;if(!src.data[k+3]){im.data[k]=9;im.data[k+1]=11;im.data[k+2]=13;im.data[k+3]=255;continue}const d=state.distance[i],v=clamp(Math.round(d/state.dfRadius*235),20,240);im.data[k]=Math.round(v*.55);im.data[k+1]=Math.round(v*.72);im.data[k+2]=v;im.data[k+3]=255}g.putImageData(im,0,0);return c;}
+
+function facetCanvas(){const w=state.terrain.width,h=state.terrain.height,c=canvas(w,h),g=ctx(c),im=g.createImageData(w,h),src=ctx(state.terrain).getImageData(0,0,w,h);for(let y=0;y<h;y++)for(let x=0;x<w;x++){const p=y*w+x,k=p*4;if(!src.data[k+3]){im.data[k+3]=255;continue}const n=nearestFacet(x,y),r=hash2(n.idx,0,91),q=hash2(n.idx,0,131),b=hash2(n.idx,0,181);im.data[k]=55+Math.floor(r*120);im.data[k+1]=48+Math.floor(q*100);im.data[k+2]=40+Math.floor(b*75);im.data[k+3]=255;if(n.gap<.36){im.data[k]=20;im.data[k+1]=18;im.data[k+2]=18}}g.putImageData(im,0,0);return c;}
+
+function toneCanvas(){const w=state.terrain.width,h=state.terrain.height,c=canvas(w,h),g=ctx(c),im=g.createImageData(w,h),pal=materialPalette(),src=ctx(state.terrain).getImageData(0,0,w,h);for(let i=0;i<w*h;i++){const k=i*4;if(!src.data[k+3]){im.data[k+3]=255;continue}const t=clamp(state.tones[i],0,7),col=pal[t];im.data[k]=col[0];im.data[k+1]=col[1];im.data[k+2]=col[2];im.data[k+3]=255}g.putImageData(im,0,0);return c;}
+
+function rectClamp(r,w,h){const x=clamp(Math.floor(r.x),0,w),y=clamp(Math.floor(r.y),0,h),x2=clamp(Math.ceil(r.x+r.w),0,w),y2=clamp(Math.ceil(r.y+r.h),0,h);return{x,y,w:Math.max(0,x2-x),h:Math.max(0,y2-y)}}
+
+function expandRect(r,p,w,h){return rectClamp({x:r.x-p,y:r.y-p,w:r.w+p*2,h:r.h+p*2},w,h)}
+
+function updateTileNeighborhood(lx,ly){const m=state.map;let minX=1e9,minY=1e9,maxX=-1,maxY=-1;for(let ty=ly-1;ty<=ly;ty++)for(let tx=lx-1;tx<=lx;tx++){if(tx<0||ty<0||tx>=m.w-1||ty>=m.h-1)continue;const k=maskAt(m,tx,ty);state.masks[ty*(m.w-1)+tx]=k;minX=Math.min(minX,tx*8);minY=Math.min(minY,ty*8);maxX=Math.max(maxX,(tx+1)*8);maxY=Math.max(maxY,(ty+1)*8)}return maxX<0?null:{x:minX,y:minY,w:maxX-minX,h:maxY-minY}}
+
+function redrawRawTerrainRect(rect){const m=state.map,g=ctx(state.terrainRaw),tileMinX=Math.max(0,Math.floor(rect.x/8)),tileMinY=Math.max(0,Math.floor(rect.y/8)),tileMaxX=Math.min(m.w-2,Math.ceil((rect.x+rect.w)/8)-1),tileMaxY=Math.min(m.h-2,Math.ceil((rect.y+rect.h)/8)-1);g.clearRect(tileMinX*8,tileMinY*8,(tileMaxX-tileMinX+1)*8,(tileMaxY-tileMinY+1)*8);for(let ty=tileMinY;ty<=tileMaxY;ty++)for(let tx=tileMinX;tx<=tileMaxX;tx++){const k=state.masks[ty*(m.w-1)+tx];g.drawImage(state.atlas,(k%4)*8,(k>>2)*8,8,8,tx*8,ty*8,8,8)}return{x:tileMinX*8,y:tileMinY*8,w:(tileMaxX-tileMinX+1)*8,h:(tileMaxY-tileMinY+1)*8}}
+
+function updateDistanceLocal(changedRect){const W=state.terrain.width,H=state.terrain.height,R=state.dfRadius,write=expandRect(changedRect,R,W,H),work=expandRect(write,R,W,H),im=ctx(state.terrain).getImageData(work.x,work.y,work.w,work.h),cap=R+1,d=new Uint16Array(work.w*work.h);for(let i=0;i<d.length;i++)d[i]=im.data[i*4+3]?cap:0;for(let y=0;y<work.h;y++)for(let x=0;x<work.w;x++){const i=y*work.w+x;if(d[i])d[i]=Math.min(d[i],x?d[i-1]+1:cap,y?d[i-work.w]+1:cap,cap)}for(let y=work.h-1;y>=0;y--)for(let x=work.w-1;x>=0;x--){const i=y*work.w+x;if(d[i])d[i]=Math.min(d[i],x<work.w-1?d[i+1]+1:cap,y<work.h-1?d[i+work.w]+1:cap,cap)}for(let gy=write.y;gy<write.y+write.h;gy++)for(let gx=write.x;gx<write.x+write.w;gx++){const li=(gy-work.y)*work.w+(gx-work.x);state.distance[gy*W+gx]=d[li]}return write;}
+
+function updateToneLocal(r){const W=state.terrain.width,im=ctx(state.terrain).getImageData(r.x,r.y,r.w,r.h);for(let y=0;y<r.h;y++)for(let x=0;x<r.w;x++){const gx=r.x+x,gy=r.y+y,p=gy*W+gx,lk=(y*r.w+x)*4;state.tones[p]=im.data[lk+3]?toneAt(gx,gy):-1}}
+
+function shadeRegion(target,r,withCracks){const W=state.terrain.width,src=ctx(state.terrain).getImageData(r.x,r.y,r.w,r.h),out=ctx(target).getImageData(r.x,r.y,r.w,r.h),pal=materialPalette();for(let y=0;y<r.h;y++)for(let x=0;x<r.w;x++){const gx=r.x+x,gy=r.y+y,p=gy*W+gx,k=(y*r.w+x)*4;if(!src.data[k+3]){out.data[k]=out.data[k+1]=out.data[k+2]=0;out.data[k+3]=0;continue;}shadePixel(out,k,gx,gy,p,withCracks,pal)}ctx(target).putImageData(out,r.x,r.y)}
+
+function distanceTransformBinary(binary,w,h,targetValue){const INF=4095,d=new Uint16Array(w*h);for(let i=0;i<d.length;i++)d[i]=binary[i]===targetValue?0:INF;for(let y=0;y<h;y++)for(let x=0;x<w;x++){const i=y*w+x;if(d[i])d[i]=Math.min(d[i],x?d[i-1]+1:INF,y?d[i-w]+1:INF)}for(let y=h-1;y>=0;y--)for(let x=w-1;x>=0;x--){const i=y*w+x;if(d[i])d[i]=Math.min(d[i],x<w-1?d[i+1]+1:INF,y<h-1?d[i+w]+1:INF)}return d}
+
+function buildTileSDFAtlas(){const out=canvas(32,32),og=ctx(out),src=ctx(state.atlas).getImageData(0,0,32,32),range=8,pad=8,pw=8+pad*2,ph=pw;for(let mask=0;mask<16;mask++){const binary=new Uint8Array(pw*ph),sx=(mask%4)*8,sy=(mask>>2)*8;for(let y=0;y<ph;y++)for(let x=0;x<pw;x++){const tx=clamp(x-pad,0,7),ty=clamp(y-pad,0,7),a=src.data[((sy+ty)*32+(sx+tx))*4+3];binary[y*pw+x]=a>0?1:0}const toAir=distanceTransformBinary(binary,pw,ph,0),toRock=distanceTransformBinary(binary,pw,ph,1),tile=og.createImageData(8,8);for(let y=0;y<8;y++)for(let x=0;x<8;x++){const bi=(y+pad)*pw+(x+pad),solid=binary[bi]===1,signed=solid?Math.min(toAir[bi],range):-Math.min(toRock[bi],range),enc=clamp(Math.round(128+signed/range*127),1,255),k=(y*8+x)*4;tile.data[k]=tile.data[k+1]=tile.data[k+2]=enc;tile.data[k+3]=255}og.putImageData(tile,sx,sy)}return out}
+
+function buildPackedSDFAtlas(){const sdf=buildTileSDFAtlas(),sdfIm=ctx(sdf).getImageData(0,0,32,32),mat=ctx(state.atlas).getImageData(0,0,32,32),out=canvas(32,32),im=ctx(out).createImageData(32,32);for(let i=0;i<32*32;i++){const k=i*4;im.data[k]=mat.data[k];im.data[k+1]=mat.data[k+1];im.data[k+2]=mat.data[k+2];im.data[k+3]=sdfIm.data[k]}ctx(out).putImageData(im,0,0);return out}
+
+function buildSDFBundle(){const out=canvas(64,32),g=ctx(out);g.drawImage(state.atlas,0,0);g.drawImage(buildTileSDFAtlas(),32,0);return out}
+
+function exportFacetSource(){const w=state.terrain.width,h=state.terrain.height,c=canvas(w,h),g=ctx(c),im=g.createImageData(w,h);for(let y=0;y<h;y++)for(let x=0;x<w;x++){const p=y*w+x,k=p*4,n=nearestFacet(x,y);im.data[k]=Math.floor(hash2(n.idx,0,17)*255);im.data[k+1]=Math.floor(clamp(n.gap/2,0,1)*255);im.data[k+2]=Math.floor(clamp(n.best.tone/7,0,1)*255);im.data[k+3]=255}g.putImageData(im,0,0);return c}
+
+function canvasPNGBytes(c){const dataURL=c.toDataURL('image/png');const b64=dataURL.split(',')[1];const bin=atob(b64),u=new Uint8Array(bin.length);for(let i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return u;}
+
+function textBytes(s){return new TextEncoder().encode(s)}
+
+function crc32(bytes){let c=0xFFFFFFFF;for(let i=0;i<bytes.length;i++)c=CRC_TABLE[(c^bytes[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+
+function zipStore(files){const enc=new TextEncoder(),locals=[],centrals=[];let offset=0,totalLocal=0,totalCentral=0;const push16=(a,v)=>{a.push(v&255,(v>>>8)&255)};const push32=(a,v)=>{a.push(v&255,(v>>>8)&255,(v>>>16)&255,(v>>>24)&255)};for(const f of files){const name=enc.encode(f.name),data=f.data,crc=crc32(data),local=[];push32(local,0x04034b50);push16(local,20);push16(local,0);push16(local,0);push16(local,0);push16(local,0);push32(local,crc);push32(local,data.length);push32(local,data.length);push16(local,name.length);push16(local,0);locals.push(new Uint8Array(local),name,data);const central=[];push32(central,0x02014b50);push16(central,20);push16(central,20);push16(central,0);push16(central,0);push16(central,0);push16(central,0);push32(central,crc);push32(central,data.length);push32(central,data.length);push16(central,name.length);push16(central,0);push16(central,0);push16(central,0);push16(central,0);push32(central,0);push32(central,offset);centrals.push(new Uint8Array(central),name);offset+=local.length+name.length+data.length;totalLocal+=local.length+name.length+data.length;totalCentral+=central.length+name.length;}const end=[];push32(end,0x06054b50);push16(end,0);push16(end,0);push16(end,files.length);push16(end,files.length);push32(end,totalCentral);push32(end,totalLocal);push16(end,0);const total=totalLocal+totalCentral+end.length;const out=new Uint8Array(total);let p=0;for(const chunk of [...locals,...centrals,new Uint8Array(end)]){out.set(chunk,p);p+=chunk.length;}return out;}
+// ---------- Steps, viewport and interaction ----------
+const STEPS=[
+ {t:'逻辑岩体',s:'前景地形数据',fn:'generateLogicalMap',d:'保留 v8 的地图生成规则；拆 / 造只改前景逻辑数据。'},
+ {t:'Dual Grid / 16 Mask',s:'四角规则索引',fn:'computeMasks',d:'一个逻辑节点变化，最多改变相邻 4 个显示 Tile。'},
+ {t:'基础 8×8 轮廓',s:'保留原有基础图集',fn:'buildAtlasOriginal / rebuildTerrain',d:'基础颜色不混入最终材质；只提供 Alpha 形状。'},
+ {t:'外轮廓修饰',s:'保留宽波 / B / C 风格',fn:'applyOutlineJitter',d:'沿用 v8 的位移算法。局部更新增加读取缓冲区，只写入可靠内区，避免裁剪边缘误判。'},
+ {t:'距离场',s:'修饰后的前景距离',fn:'distanceField / updateDistanceLocal',d:'这里是有限半径的曼哈顿内部距离，不是欧氏距离，也不是背景墙数据。'},
+ {t:'岩块分区',s:'世界坐标纹理',fn:'buildFacetField',d:'保留原有 Voronoi 岩块场，点缀不会改变它。'},
+ {t:'区域明暗',s:'保留原配色和分组',fn:'buildToneField',d:'观察原材质的明暗块，不含装饰、背景或场景灯光。'},
+ {t:'边缘明暗',s:'原地形材质过渡',fn:'shadeDepth',d:'保留 v8 的边缘着色逻辑，不把背景墙形状加入这里。'},
+ {t:'前景墙壁',s:'最上层 · 可拆 / 可造',fn:'shadeDepth / shadeRegion',toggle:'toggleForeground',d:'这是主地形。关闭仅影响合成预览，不删除地形；背景结构始终独立。'},
+ {t:'背景墙',s:'简单铺底 · 拆墙不变',fn:'buildBackwallBaseLayer',toggle:'toggleBackBase',d:'回到简单弱纹理铺底。不再扫描洞口生成表面包络，也不生成第二道入口轮廓。地下实心墙背后同样预先铺满；拆墙后直接显露背景。'},
+ {t:'内嵌矿',s:'独立矿数据 · 不落地',fn:'buildWallOreLayer',toggle:'toggleOreLayer',d:'保留背景墙上的矿；拆前景墙不会删除矿。嵌矿是编辑工具；采矿只移除矿，不更新主地形距离场。'},
+ {t:'浅层 · 轮廓贴边',s:'少量亮色 · 8 种固定模板',fn:'PEEL_TEMPLATES + middleMask',toggle:'toggleDecor0',d:'沿当前前景地形轮廓生成近边浅层，但只在重建时生成一次。局部拆造不会重算它，因此更适合做静态预览对比。'},
+ {t:'中层 · 轮廓主体',s:'原轮廓主体 · 独立柔边宽度',fn:'renderBackgroundMask / softenMiddleEdge',toggle:'toggleDecor1',d:'中层形状沿用 v16。只在轮廓内部 0–4px 调整透明度，不模糊 RGB、不外扩；0px 可恢复同一源的硬边。'},
+ {t:'深层 · 内部凹区',s:'中层留出窗口 · 不大面积铺黑',fn:'deepMask = sharedRecesses',toggle:'toggleDecor2',d:'深层用于补充内部较远离轮廓的暗部凹区，也会少量贴着大洞室的内部边界出现。它不会在拆墙后重生。'},
+ {t:'场景合成',s:'开关 = 演示光照',fn:'sceneCanvas / getFinalDisplay',toggle:'toggleLighting',d:'从后向前：简单底墙 → 深层内部凹区 → 中层轮廓主体 → 浅层贴边轮廓 → 内嵌矿 → 前景。背景读取被冻结的初始轮廓，拆造只改变遮挡。世界快照保存冻结源；软硬对照共享形状。'}
+];
+function getStepCanvas(){
+ const direct={2:state.terrainRaw,3:state.terrain,7:state.depth,8:state.final,9:state.backBase,10:state.wallOre,11:state.decorLayers[0],12:state.decorLayers[1],13:state.decorLayers[2]};
+ if(direct[state.step])return direct[state.step];
+ if(state.step===14)return getFinalDisplay();
+ const funcs={0:logicalCanvas,1:maskCanvas,4:distanceCanvas,5:facetCanvas,6:toneCanvas};
+ if(!state.debugCache[state.step])state.debugCache[state.step]=funcs[state.step]();return state.debugCache[state.step];
+}
+function requestRender(){if(state.renderPending)return;state.renderPending=true;requestAnimationFrame(()=>{state.renderPending=false;if(state.final)render();});}
+function render(){
+ if(!state.final)return;
+ const src=getStepCanvas(),v=$('view'),o=$('overlay');
+ if(v.width!==src.width||v.height!==src.height){v.width=src.width;v.height=src.height;o.width=src.width;o.height=src.height;}
+ const g=ctx(v);g.clearRect(0,0,v.width,v.height);g.drawImage(src,0,0);
+ const S=STEPS[state.step];$('stepTitle').textContent=String(state.step+1).padStart(2,'0')+'  '+S.t;
+ $('stepSub').textContent=state.step===14?$('sceneMode').selectedOptions[0].text+' · 左侧步骤前控制图层':'单独查看源层；关闭该层不删除数据';
+ $('explain').textContent=S.d;$('codeBox').textContent=codeForStep(state.step);
+ document.querySelectorAll('.stepBtn').forEach((b,i)=>b.classList.toggle('active',i===state.step));
+ $('sizeStat').textContent=state.final.width+'×'+state.final.height+' px';
+ $('currentMs').textContent=stepMs(state.step).toFixed(2)+' ms';$('totalMs').textContent=(state.times['完整烘焙']||0).toFixed(2)+' ms';
+ $('localMs').textContent=state.lastEditMs===null?'—':state.lastEditMs.toFixed(2)+' ms';
+ $('decorUpdateStat').textContent=state.lastDecorMs===null?'—':state.lastDecorMs.toFixed(2)+' ms';
+ const cov=getVisibleCoverage();$('decorStats').textContent='当前可见地下区域：浅层 '+cov.percentages[1].toFixed(1)+'% / 中层 '+cov.percentages[2].toFixed(1)+'% / 深层 '+cov.percentages[3].toFixed(1)+'% / 底墙 '+cov.percentages[0].toFixed(1)+'%。按最上层 alpha 归属统计，非亮度评估。';
+ renderMetrics();syncSwitchLabels();applyViewTransform();drawOverlay();
+}
+function stepMs(i){if(i>=11&&i<=13)return state.times['背景共享结构 + 三层']||0;const names=['逻辑地图','Mask 计算','Tile 拼接','外轮廓修饰','距离场','岩块分区','区域明暗','深度着色','裂缝+最终材质','背景墙层','背景墙嵌矿','','','','场景合成'];return state.times[names[i]]||0;}
+function renderMetrics(){const m=$('metrics');m.replaceChildren();for(const [k,v]of Object.entries(state.times)){const a=document.createElement('span'),b=document.createElement('span');a.textContent=k;b.textContent=v.toFixed(2)+' ms';m.append(a,b);}}
+function codeForStep(i){
+ const notes={9:'background = persistentBacking(worldSeed);\n// 覆盖前景实体后方，入口不重塑',10:'mine → oreCells[tile] = 0;\n// 不改变前景 / 背景岩面',11:'peel = selectMiddleFractureAnchors();\nblitFixedPeelTemplate();\n// 只依赖背景岩面，不读取前景',12:'structure = strata + joints;\nalpha = shared16MaskAtlas(structure);\n// 每种 Mask 有 4 个共边界变体',13:'deep = recessesReservedByMiddle();\n// 不与浅层独立争抢同一面积',14:'foreground changes → occlusion only\n// 背景生成调用 = 0'};
+ return STEPS[i].fn+'\n\n'+(notes[i]||STEPS[i].d);
+}
+function initSteps(){
+ const host=$('steps');host.replaceChildren();
+ STEPS.forEach((S,i)=>{
+   const row=document.createElement('div');row.className='stepRow';row.dataset.step=String(i);
+   if(S.toggle){
+     const lab=document.createElement('label');lab.className='stepSwitch';lab.title='勾选：参与最终合成。点击步骤名称：单独查看源层。';
+     const cb=document.createElement('input');cb.type='checkbox';cb.id=S.toggle;cb.checked=true;cb.setAttribute('aria-label',S.t+'开关');
+     const span=document.createElement('span');span.textContent='开';lab.append(cb,span);row.append(lab);
+     cb.addEventListener('change',()=>{syncSwitchLabels();state.sceneDirty=true;state.comparisonKey=null;state.coverageKey=null;requestRender();});
+   }else{const spacer=document.createElement('span');spacer.className='stepNoToggle';spacer.textContent='·';row.append(spacer);}
+   const b=document.createElement('button');b.className='stepBtn';b.innerHTML=`<b>${String(i+1).padStart(2,'0')}</b>${S.t}<small>${S.s}</small>`;
+   b.onclick=()=>{state.step=i;render();};row.append(b);host.append(row);
+ });
+ syncSwitchLabels();
+}
+function syncSwitchLabels(){document.querySelectorAll('.stepSwitch').forEach(l=>{const cb=l.querySelector('input');l.classList.toggle('on',cb.checked);l.querySelector('span').textContent=cb.checked?'开':'关';});}
+function toggleDecors(enabled){for(let l=0;l<3;l++)$('toggleDecor'+l).checked=enabled;state.sceneDirty=true;requestRender();}
+function updateLabels(){
+ $('middleSoftnessVal').textContent=$('middleSoftness').value+' px';
+ const pairs=[['stoneVal','stoneSize',' px'],['outlineVal','outlineJitter',' px'],['outlineScaleVal','outlineScale',' px'],['outlineQuantVal','outlineQuant',' px'],['hueVal','hueShift','°'],['satVal','satMul','%'],['lightVal','lightMul','%'],['widthVal','depthWidth','×'],['groupVal','grouping','%'],['coherenceVal','coherence','%'],['dfVal','dfRadius',' px'],['oreDensityVal','oreDensity','%']];
+ for(const [label,input,suffix]of pairs)$(label).textContent=$(input).value+suffix;
+ for(let l=0;l<3;l++)for(const [p,suffix]of [['Density','%'],['Depth',' px'],['Randomness','%']])$('decor'+p+'Val'+l).textContent=$('decor'+p+l).value+suffix;
+}
+function applyViewTransform(){
+ const scale=state.fitScale*state.viewZoom,transform=`translate(-50%,-50%) translate(${state.panX}px,${state.panY}px) scale(${scale})`;
+ for(const id of ['view','overlay'])$(id).style.transform=transform;
+ $('zoomRead').textContent=Math.round(scale*100)+'%';
+}
+function fitView(reset=true){const st=$('stage'),v=$('view');state.fitScale=Math.max(.05,Math.min((st.clientWidth-42)/v.width,(st.clientHeight-84)/v.height));state.viewZoom=1;if(reset){state.panX=0;state.panY=0;}applyViewTransform();drawOverlay();}
+function zoomBy(n){state.viewZoom=clamp(state.viewZoom*n,.08,24);applyViewTransform();}
+function oneToOne(){state.viewZoom=1/state.fitScale;state.panX=state.panY=0;applyViewTransform();}
+function setTool(t){state.tool=t;state.lastPaint=null;for(const [id,k]of [['toolPan','pan'],['toolDig','dig'],['toolBuild','build'],['toolMine','mine'],['toolHarvest','harvest']])$(id).classList.toggle('active',t===k);$('stage').className='stage '+(t==='pan'?'pan':'edit');drawOverlay();}
+function pointerToLogical(e){
+ const v=$('view'),r=v.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*v.width,y=(e.clientY-r.top)/r.height*v.height;
+ if(x<0||y<0||x>=v.width||y>=v.height)return null;
+ if(state.tool==='mine'||state.tool==='harvest')return{lx:Math.floor(x/8)+1,ly:Math.floor(y/8)+1,px:Math.floor(x/8)*8,py:Math.floor(y/8)*8,x,y};
+ const lx=clamp(Math.round(x/8),1,state.map.w-2),ly=clamp(Math.round(y/8),1,state.map.h-2);
+ return{lx,ly,px:lx*8-4,py:ly*8-4,x,y};
+}
+function drawOverlay(){
+ const o=$('overlay'),g=ctx(o);g.clearRect(0,0,o.width,o.height);if(!state.final)return;
+ if($('showGrid').checked){g.strokeStyle='#ddbb6635';g.lineWidth=1;for(let x=0;x<o.width;x+=8){g.beginPath();g.moveTo(x+.5,0);g.lineTo(x+.5,o.height);g.stroke();}for(let y=0;y<o.height;y+=8){g.beginPath();g.moveTo(0,y+.5);g.lineTo(o.width,y+.5);g.stroke();}}
+ if($('showDirty').checked&&state.lastDirty){const r=state.lastDirty;g.strokeStyle='#d9b976';g.strokeRect(r.x+.5,r.y+.5,r.w-1,r.h-1);}
+ if(state.tool==='pan'||!state.hoverCell||state.drag)return;
+ const h=state.hoverCell,color=state.tool==='build'?'#a0d2a0':state.tool==='mine'||state.tool==='harvest'?'#6ec6da':'#e0b476';
+ g.fillStyle=color+'33';g.fillRect(h.px,h.py,8,8);g.strokeStyle=color;g.lineWidth=1;g.strokeRect(h.px+.5,h.py+.5,7,7);
+}
+function editFromPointer(e){
+ const h=pointerToLogical(e);if(!h)return;state.hoverCell=h;
+ const key=state.tool+':'+h.lx+':'+h.ly;if(state.lastPaint===key)return;state.lastPaint=key;
+ if(state.tool==='mine')editOreCell(h.lx,h.ly,'toggle');else if(state.tool==='harvest')editOreCell(h.lx,h.ly,'remove');else editLogical(h.lx,h.ly,state.tool==='build'?1:0);
+ drawOverlay();
+}
+function setupInteraction(){
+ const st=$('stage');
+ st.addEventListener('wheel',e=>{e.preventDefault();zoomBy(e.deltaY<0?1.15:1/1.15);},{passive:false});
+ st.addEventListener('pointerdown',e=>{
+   if(state.testing)return;
+   if(e.button===1||(e.button===0&&state.tool==='pan')){e.preventDefault();state.painting=false;state.drag={x:e.clientX,y:e.clientY,px:state.panX,py:state.panY};st.classList.add('dragging');st.setPointerCapture(e.pointerId);drawOverlay();return;}
+   if(e.button!==0)return;e.preventDefault();state.painting=true;state.lastPaint=null;st.setPointerCapture(e.pointerId);editFromPointer(e);
+ });
+ st.addEventListener('pointermove',e=>{
+   if(state.drag){state.panX=state.drag.px+e.clientX-state.drag.x;state.panY=state.drag.py+e.clientY-state.drag.y;applyViewTransform();return;}
+   state.hoverCell=pointerToLogical(e);if(state.painting&&(e.buttons&1))editFromPointer(e);else drawOverlay();
+ });
+ const end=e=>{state.painting=false;state.drag=null;state.lastPaint=null;st.classList.remove('dragging');try{if(st.hasPointerCapture(e.pointerId))st.releasePointerCapture(e.pointerId);}catch(_){}drawOverlay();};
+ st.addEventListener('pointerup',end);st.addEventListener('pointercancel',end);st.addEventListener('lostpointercapture',()=>{state.painting=false;state.drag=null;});
+ st.addEventListener('pointerleave',()=>{if(!state.drag&&!state.painting){state.hoverCell=null;drawOverlay();}});
+ st.addEventListener('auxclick',e=>{if(e.button===1)e.preventDefault();});
+ window.addEventListener('blur',()=>{state.painting=false;state.drag=null;});
+ window.addEventListener('resize',()=>{if(state.final)fitView(false);});
+}
+
+// ---------- Presets: v8-v11 input compatibility; v12 also exports an optional world snapshot ----------
+function collectPresetData(){
+ const p={schema:'dark-nights-material-preset/v4',generatorVersion:GENERATOR_VERSION};
+ for(const id of PARAM_IDS){const el=$(id);p[id]=el.type==='range'?+el.value:el.value;}
+ p.decorLayers=DECOR_SPECS.map((s,l)=>({key:s.key,density:+$('decorDensity'+l).value,depth:+$('decorDepth'+l).value,randomness:+$('decorRandomness'+l).value}));
+ p.layers={};for(const s of STEPS)if(s.toggle)p.layers[s.toggle]=layerEnabled(s.toggle);
+ p.showGrid=$('showGrid').checked;p.showDirty=$('showDirty').checked;return p;
+}
+function assignControl(id,value){
+ const el=$(id);if(!el||value===undefined||value===null)return;
+ if(el.tagName==='SELECT'){if([...el.options].some(o=>o.value===String(value)))el.value=String(value);return;}
+ if(el.type==='range'){const n=Number(value);if(!Number.isFinite(n))throw new Error(id+' 不是有效数值');el.value=String(clamp(n,+el.min,+el.max));return;}
+ el.value=String(value).slice(0,200);
+}
+function applyPresetData(data){
+ if(!data||typeof data!=='object'||Array.isArray(data))throw new Error('需要 JSON 对象');
+ const snapshot=/^dark-nights-world-snapshot\/v[123]$/.test(data.schema||'')?data:null;
+ const p=snapshot?data.preset:(data.preset||data);
+ if(!p||!('seed'in p)&&!('outlineMode'in p))throw new Error('未找到材质预设字段');
+ let frozen=null;
+ if(snapshot){
+   if(data.width!==64||data.height!==40||!Array.isArray(data.terrain)||data.terrain.length!==64*40||data.terrain.some(n=>n!==0&&n!==1))throw new Error('世界逻辑格尺寸或内容无效');
+   if(!Array.isArray(data.ore)||data.ore.length!==63*39||data.ore.some(n=>n!==0&&n!==1))throw new Error('矿层数据无效');
+   if(data.backgroundSource)frozen=validateFrozenSource(data.backgroundSource);
+   if(data.schema==='dark-nights-world-snapshot/v3'&&!frozen)throw new Error('v3 世界快照缺少冻结背景源');
+ }
+ const style=/^v(?:15|16)(?:[.-])/.test(String(p.generatorVersion||''));
+ for(const id of PARAM_IDS)if($(id).type==='range'&&p[id]!==undefined&&!Number.isFinite(Number(p[id])))throw new Error('无效参数：'+id);
+ if(p.decorLayers&&!Array.isArray(p.decorLayers))throw new Error('decorLayers 必须为数组');
+ if(p.decorLayers)for(const v of p.decorLayers){if(v)for(const k of ['density','depth','randomness'])if(v[k]!==undefined&&!Number.isFinite(Number(v[k])))throw new Error('无效背景岩层参数');}
+ for(const id of PARAM_IDS)assignControl(id,p[id]);
+ assignControl('middleSoftness',p.middleSoftness===undefined?2:p.middleSoftness);
+ for(let l=0;l<3;l++){
+   const v=style?p.decorLayers?.[l]:null,s=v||DECOR_SPECS[l];
+   for(const [name,key] of [['Density','density'],['Depth','depth'],['Randomness','randomness']])assignControl('decor'+name+l,s[key]);
+ }
+ if(!style)assignControl('rockLayout','mixed');
+ if(p.layers){for(const st of STEPS)if(st.toggle&&p.layers[st.toggle]!==undefined)$(st.toggle).checked=!!p.layers[st.toggle];}
+ else{for(const k of ['toggleBackBase','toggleOreLayer'])if(p[k]!==undefined)$(k).checked=!!p[k];if(p.toggleDetailLayer!==undefined)for(let l=0;l<3;l++)$('toggleDecor'+l).checked=!!p.toggleDetailLayer;}
+ if(p.showGrid!==undefined)$('showGrid').checked=!!p.showGrid;if(p.showDirty!==undefined)$('showDirty').checked=!!p.showDirty;
+ updateLabels();readParams();state.sharedKey=null;
+ if(snapshot){
+   state.map={w:64,h:40,data:new Uint8Array(data.terrain)};state.worldSeed=state.seed;
+   state.oreCells=new Uint8Array(data.ore);state.oreKey=state.seed+'|'+state.oreDensity;
+   state.backgroundSource=frozen;state.hasEdits=true;rebuild();
+   if(!frozen)showMessage('旧快照不含初始轮廓；本次用快照中的地形建立新冻结源，无法保证还原其最初背景。',true);
+ }else rebuild({resetMap:true});
+ syncSwitchLabels();
+}
+function collectWorldSnapshot(){return{schema:'dark-nights-world-snapshot/v3',generatorVersion:GENERATOR_VERSION,width:state.map.w,height:state.map.h,terrain:Array.from(state.map.data),ore:Array.from(state.oreCells),backgroundSource:serializeFrozenSource(),preset:collectPresetData()};}
+function exactDistanceCanvas(signed=false){
+ const W=state.final.width,H=state.final.height,c=canvas(W,H),im=ctx(c).createImageData(W,H),R=state.dfRadius+1;
+ let toRock=null;if(signed){const binary=new Uint8Array(W*H);for(let i=0;i<binary.length;i++)binary[i]=state.distance[i]?1:0;toRock=distanceTransformBinary(binary,W,H,1);}
+ for(let i=0;i<W*H;i++){const d=state.distance[i],v=signed?Math.round(128+(d?Math.min(R,d):-Math.min(R,toRock[i]))/R*127):Math.min(255,d);const k=i*4;im.data[k]=im.data[k+1]=im.data[k+2]=v;im.data[k+3]=255;}
+ ctx(c).putImageData(im,0,0);return c;
+}
+function exportAssetMap(){
+ if(state.sceneDirty){state.scene=composeScene();state.sceneDirty=false;}
+ const assets={
+ 'preview_scene.png':composeScene(),'cave_material_baked.png':state.final,'terrain_outline.png':state.terrain,
+ 'distance_field_preview.png':distanceCanvas(),'distance_field_r8.png':exactDistanceCanvas(false),'terrain_signed_distance_r8.png':exactDistanceCanvas(true),
+ 'background_wall_base_layer.png':state.backBase,'embedded_wall_ore_layer.png':state.wallOre,
+ 'detail_01_near.png':state.decorLayers[0],'detail_02_middle.png':state.decorLayers[1],'detail_03_far.png':state.decorLayers[2],'detail_layer.png':detailCombined(true),
+ 'rock_8x8_16_material_atlas.png':state.atlas,'rock_8x8_16_signed_distance_atlas.png':buildTileSDFAtlas(),
+ 'rock_8x8_16_material_rgb_sdf_alpha.png':buildPackedSDFAtlas(),'rock_8x8_16_material_and_sdf_bundle.png':buildSDFBundle(),
+ 'rock_facet_source_field.png':exportFacetSource()
+ };
+ assets['middle_hard_reference.png']=state.sharedRock.middleHard;
+ assets['middle_soft_opacity_r8.png']=middleOpacityCanvas();
+ assets['background_rule_alpha_variants.png']=getBackgroundRuleAtlas();
+ assets['background_structure_owner_r8.png']=ownershipDataCanvas();
+ assets['background_ownership_preview.png']=ownershipCanvas(false);
+ assets['background_full_preview.png']=sceneCanvas(state.decorLayers,{foreground:false,ore:false,lighting:false});
+ return assets;
+}
+function collectExportManifest(assetNames){
+ const names=assetNames||['preview_scene.png','cave_material_baked.png','terrain_outline.png','distance_field_preview.png','distance_field_r8.png','terrain_signed_distance_r8.png','background_wall_base_layer.png','embedded_wall_ore_layer.png','detail_01_near.png','detail_02_middle.png','detail_03_far.png','detail_layer.png','rock_8x8_16_material_atlas.png','rock_8x8_16_signed_distance_atlas.png','rock_8x8_16_material_rgb_sdf_alpha.png','rock_8x8_16_material_and_sdf_bundle.png','rock_facet_source_field.png','middle_hard_reference.png','middle_soft_opacity_r8.png','background_rule_alpha_variants.png','background_structure_owner_r8.png','background_ownership_preview.png','background_full_preview.png'];
+ return{schema:'dark-nights-material-export/v16.1',generatorVersion:GENERATOR_VERSION,base:'v16 unchanged contour algorithm; v16.1 only middle alpha feather and explicit frozen source persistence',createdAt:new Date().toISOString(),size:{width:state.final.width,height:state.final.height},
+   orderBackToFront:['background','decorFar','decorMiddle','decorNear','embeddedOre','foreground'],
+   note:'Standalone layers are exported even when their preview switch is off. Decoration is visual-only; no collision is added.',
+   background:'Simple persistent backing below the original nominal ground level; not clipped by foreground. No surface-envelope reshape.',
+   distance:{metric:'Manhattan pixel distance',interiorFile:'distance_field_r8.png',interiorDecode:'distancePixels = R_byte; 0=air; saturates at radius+1',radius:state.dfRadius,cap:state.dfRadius+1,signedFile:'terrain_signed_distance_r8.png',signedDecode:'distancePixels = (R_byte-128)/127*(radius+1)',linearData:true,previewIsData:false},
+   tileAtlas:{tileSize:8,width:32,height:32,scope:'base 16 masks only; does not include final world modifier or three decorations',tileSDFRange:8,tileSDFDecode:'(byte-128)/127*8',packedAlpha:'SDF, NOT normal opacity'},
+   backgroundStructure:{version:STRATA_REVISION,foregroundDependent:'initial frozen source only; never live edits',alphaAtlas:'4 variants × 16 masks, each 8px; 128×32 atlas',middleSoftness:{widthPixels:state.middleSoftness,method:'interior Manhattan distance -> smoothstep(0,width+1,d) -> alpha only',alphaData:'middle_soft_opacity_r8.png is opacity 0..255, not signed distance',noRGBBlur:true,noOutsideExpansion:true},frozenSourceHash:ensureFrozenBackgroundSource().hash,owner:'R byte: 0=base,1=near,2=middle,3=deep; topmost nonzero-alpha footprint, not effective visual weight'},visibleCoverage:getVisibleCoverage(),preset:collectPresetData(),files:[...names,'material_preset_v16_1.json','world_snapshot_v16_1.json','export_manifest_v16_1.json','background_structure_v16_1.json','background_source_v16_1.json','README.txt']};
+}
+function exportReadme(){return `Dark Nights v16.1 — 中层窄边柔化
+
+三层背景形状仍为 v16 轮廓跟随算法，生成盐保持不变。新建世界第一次从最终 Modifier Alpha 冻结背景源。拆造前景不重建背景；改变柔边只处理原中层 Alpha。显式“以当前轮廓重新烘焙”才替换参考。
+middleSoftness=0：同源 v16 硬边。默认2px，只向内做 Manhattan distance / smoothstep 过渡，不模糊 RGB、不加碰撞。纹理使用直通 Alpha（未预乘），引擎中 Blend SrcAlpha OneMinusSrcAlpha；不要把不透明度 PNG 当 SDF。
+
+material_preset_v16_1.json：风格，不保存手工地形。world_snapshot_v16_1.json：地形+矿+冻结背景源+风格。background_source_v16_1.json：初始最终轮廓二进制像素与 CRC32。CRC32 仅用于本地完整性测试，不是安全身份或引擎内容指纹。
+旧 v16 快照没有初始轮廓，导入时只能以保存时地形建立新源，不能宣称重现其最初背景。
+
+middle_hard_reference.png：同源硬边中层。
+middle_soft_opacity_r8.png：byte=当前中层 opacity (0..255)。
+detail_02_middle.png：柔边中层（RGB+正常 Alpha）。
+background_rule_alpha_variants.png：128×32，4×16 固定掩码，8px / Tile。v15 剥落模板没有参与 v16，因此不再作为本版新增素材导出。
+distance_field_r8.png：前景内部 Manhattan 像素距离，byte=距离；0空气，radius+1封顶。terrain_signed_distance_r8.png 编码见清单；distance_field_preview.png 仅为可视化。
+
+背景只有全图缓存的演示实现，不是 Unity/联机实机接入。本包不含 Unity main 的代码修改。
+`;}
+
+function exportPackageZIP(){
+ try{const assets=exportAssetMap(),manifest=collectExportManifest(Object.keys(assets));const files=Object.entries(assets).map(([name,c])=>({name,data:canvasPNGBytes(c)}));
+ files.push({name:'material_preset_v16_1.json',data:textBytes(JSON.stringify(collectPresetData(),null,2))},{name:'world_snapshot_v16_1.json',data:textBytes(JSON.stringify(collectWorldSnapshot()))},{name:'export_manifest_v16_1.json',data:textBytes(JSON.stringify(manifest,null,2))},{name:'README.txt',data:textBytes(exportReadme())});
+ files.push({name:'background_source_v16_1.json',data:textBytes(JSON.stringify(serializeFrozenSource()))});
+ files.push({name:'background_structure_v16_1.json',data:textBytes(JSON.stringify({schema:'background-shared-structure/v1',version:STRATA_REVISION,width:state.sharedRock.logic.w,height:state.sharedRock.logic.h,logicalMask:Array.from(state.sharedRock.logic.data),tileMasks:Array.from(state.sharedRock.maskIds),seed:state.sharedRock.seed,preset:collectPresetData()}))});
+ triggerBlobDownload(new Blob([zipStore(files)],{type:'application/zip'}),'dark_nights_material_export_v16_1.zip');
+ }catch(e){showMessage('导出失败：'+e.message,true);}
+}
+function triggerBlobDownload(blob,name){
+ const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();
+ if(state.lastBlobURL)URL.revokeObjectURL(state.lastBlobURL);state.lastBlobURL=url;
+ const f=$('exportResult');f.href=url;f.download=name;f.textContent='再次下载：'+name;f.classList.add('show');
+}
+function saveCanvas(c,name){if(!c){showMessage('该层尚未生成',true);return;}c.toBlob(blob=>{if(blob)triggerBlobDownload(blob,name);else showMessage('PNG 编码失败',true);},'image/png');}
+function saveJSON(d,n){triggerBlobDownload(new Blob([JSON.stringify(d,null,2)],{type:'application/json;charset=utf-8'}),n);}
+function showMessage(message,error=false){$('testResult').textContent=message;$('testResult').classList.toggle('error',error);}
+
+// ---------- Non-destructive, byte-for-byte validation ----------
+function pixels(c){return ctx(c).getImageData(0,0,c.width,c.height).data;}
+function compareBuffers(a,b){if(a.length!==b.length)return Math.max(a.length,b.length);let n=0;for(let i=0;i<a.length;i++)if(a[i]!==b[i])n++;return n;}
+function validateCurrentAgainstFull(){
+ const raw=rebuildTerrain(),mod=copyCanvas(raw);applyOutlineJitter(mod,raw,{x:0,y:0,w:raw.width,h:raw.height});
+ const savedTerrain=state.terrain,savedD=state.distance,savedTone=state.tones;
+ const counts={raw:compareBuffers(pixels(raw),pixels(state.terrainRaw)),outline:compareBuffers(pixels(mod),pixels(savedTerrain))};
+ state.terrain=mod;const df=distanceField();counts.distance=compareBuffers(df,savedD);state.distance=df;state.tones=buildToneField();
+ const fullFinal=shadeDepth(true);counts.material=compareBuffers(pixels(fullFinal),pixels(state.final));
+ state.terrain=savedTerrain;state.distance=savedD;state.tones=savedTone;
+ const independent=buildSharedRockStructure();
+ for(let l=0;l<3;l++)counts['decor'+l]=compareBuffers(pixels(independent.layers[l]),pixels(state.decorLayers[l]));
+ return counts;
+}
+async function verifyDynamic(){
+ if(state.testing)return;state.testing=true;$('verifyDynamic').disabled=true;showMessage('正在验证拆除 / 填回 / 跨格修改…');
+ const snapshot=collectWorldSnapshot(),background=pixels(state.backBase),ore=new Uint8Array(state.oreCells),beforeDecor=state.decorLayers.map(pixels),refs=state.decorLayers.slice(),records=[];
+ try{
+   const operations=[{x:17,y:10,w:4,h:3,value:0},{x:30,y:22,w:3,h:3,value:1},{x:45,y:27,w:4,h:2,value:0}];
+   for(const op of operations){const edits=[];for(let dy=0;dy<op.h;dy++)for(let dx=0;dx<op.w;dx++)edits.push({lx:op.x+dx,ly:op.y+dy,value:op.value});editLogicalBatch(edits,false);
+     records.push({...op,ms:state.lastEditMs,counts:validateCurrentAgainstFull(),background:compareBuffers(background,pixels(state.backBase)),ore:compareBuffers(ore,state.oreCells),decorUnchanged:state.decorLayers.every((c,l)=>c===refs[l]&&compareBuffers(pixels(c),beforeDecor[l])===0)});await new Promise(r=>setTimeout(r,0));}
+   const passed=records.every(r=>Object.values(r.counts).every(n=>n===0)&&r.background===0&&r.ore===0&&r.decorUnchanged);
+   const mean=records.reduce((s,r)=>s+r.ms,0)/records.length;
+   state.lastTest={passed,records};
+   showMessage((passed?'通过':'发现差异')+'：3 组拆 / 造；主地形局部/全量一致；三层背景逐字节未改，纹理对象未重建。背景/矿不变。局部更新均值 '+mean.toFixed(2)+' ms（本浏览器，不含场景重绘）。',!passed);
+ }catch(e){state.lastTest={passed:false,error:e.message};showMessage('验证错误：'+e.message,true);}
+ finally{applyPresetData(snapshot);state.testing=false;$('verifyDynamic').disabled=false;}
+}
+async function benchmark(){const times=[];for(let i=0;i<8;i++){const t=performance.now();rebuild();times.push(performance.now()-t);await new Promise(r=>setTimeout(r,0));}$('benchStat').textContent='全量含三层 / 场景均值 '+(times.reduce((a,b)=>a+b,0)/times.length).toFixed(1)+' ms';}
+async function benchmarkLocal(){return verifyDynamic();}
+
+function setupEvents(){
+ $('prev').onclick=()=>{state.step=Math.max(0,state.step-1);render();};$('next').onclick=()=>{state.step=Math.min(14,state.step+1);render();};
+ $('jumpScene').onclick=()=>{state.step=14;render();};$('regen').onclick=()=>rebuild({resetMap:true});$('rerun').onclick=()=>rebuild();
+ $('benchmark').onclick=benchmark;$('benchmarkLocal').onclick=benchmarkLocal;$('verifyDynamic').onclick=verifyDynamic;
+ const ranges=['stoneSize','outlineJitter','outlineScale','outlineQuant','hueShift','satMul','lightMul','depthWidth','grouping','coherence','dfRadius'];
+ for(const id of ranges){$(id).oninput=updateLabels;$(id).onchange=()=>rebuild();}
+ for(const id of ['outlineMode','palettePreset','outlineSeed'])$(id).onchange=()=>rebuild();
+ $('rockLayout').onchange=refreshDecor;
+ $('middleSoftness').oninput=updateLabels;$('middleSoftness').onchange=refreshMiddleSoftness;
+ $('viewSoftCompare').onclick=()=>{$('sceneMode').value='softCompare';state.step=14;state.comparisonKey=null;render();};
+ $('captureBackground').onclick=captureBackgroundExplicitly;
+ $('sceneMode').onchange=()=>{state.step=14;state.comparisonKey=null;render();};
+ $('resetRockStyle').onclick=()=>{for(let l=0;l<3;l++){const s=DECOR_SPECS[l];$('decorDensity'+l).value=s.density;$('decorDepth'+l).value=s.depth;$('decorRandomness'+l).value=s.randomness;}$('rockLayout').value='mixed';$('middleSoftness').value=2;updateLabels();refreshDecor();};
+ $('seed').onchange=()=>rebuild({resetMap:true});
+ $('oreDensity').oninput=updateLabels;$('oreDensity').onchange=refreshOre;
+ for(let l=0;l<3;l++)for(const id of ['decorDensity'+l,'decorDepth'+l,'decorRandomness'+l]){$(id).oninput=updateLabels;$(id).onchange=refreshDecor;}
+ const randomSeed=()=>{const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0].toString(36).toUpperCase();};
+ $('outlineRandom').onclick=()=>{$('outlineSeed').value='OUT-'+randomSeed();rebuild();};
+ $('detailRandom').onclick=()=>{$('detailSeed').value='DEC-'+randomSeed();refreshDecor();};$('detailSeed').onchange=refreshDecor;
+ $('allDecorOn').onclick=()=>toggleDecors(true);$('allDecorOff').onclick=()=>toggleDecors(false);
+ $('showGrid').onchange=drawOverlay;$('showDirty').onchange=drawOverlay;
+ $('fit').onclick=()=>fitView(true);$('zoomIn').onclick=()=>zoomBy(1.25);$('zoomOut').onclick=()=>zoomBy(.8);$('oneToOne').onclick=oneToOne;
+ for(const [id,t] of [['toolPan','pan'],['toolDig','dig'],['toolBuild','build'],['toolMine','mine'],['toolHarvest','harvest']])$(id).onclick=()=>setTool(t);
+ $('exportStep').onclick=()=>saveCanvas(getStepCanvas(),'step_'+(state.step+1)+'.png');$('exportFinal').onclick=()=>saveCanvas(state.final,'cave_material_baked.png');
+ $('exportAtlas').onclick=()=>saveCanvas(state.atlas,'rock_8x8_16_material_atlas.png');$('exportSDF').onclick=()=>saveCanvas(buildTileSDFAtlas(),'rock_8x8_16_signed_distance_atlas.png');
+ $('exportPacked').onclick=()=>saveCanvas(buildPackedSDFAtlas(),'rock_8x8_16_material_rgb_sdf_alpha.png');$('exportBundle').onclick=()=>saveCanvas(buildSDFBundle(),'rock_8x8_16_material_and_sdf_bundle.png');
+ $('exportField').onclick=()=>saveCanvas(exportFacetSource(),'rock_facet_source_field.png');$('exportJSON').onclick=()=>saveJSON(collectExportManifest(),'material_pipeline_params_v16_1.json');
+ $('savePreset').onclick=()=>saveJSON(collectPresetData(),'material_preset_v16_1.json');$('saveWorld').onclick=()=>saveJSON(collectWorldSnapshot(),'world_snapshot_v16_1.json');
+ $('revealManifest').onclick=()=>saveJSON(collectExportManifest(),'export_manifest_v16_1.json');$('exportPackage').onclick=exportPackageZIP;
+ $('loadPreset').onclick=()=>$('presetFile').click();$('presetFile').onchange=async e=>{const f=e.target.files?.[0];if(!f)return;try{if(f.size>2e6)throw new Error('文件过大');const d=JSON.parse(await f.text());applyPresetData(d);showMessage('已加载：'+f.name);}catch(err){showMessage('加载失败：'+err.message,true);}finally{e.target.value='';}};
+ setupInteraction();
+}
+initSteps();updateLabels();setupEvents();setTool('pan');rebuild();
+</script>
+</body>
+</html>

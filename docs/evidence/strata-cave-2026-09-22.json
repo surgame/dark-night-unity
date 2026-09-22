@@ -1,0 +1,365 @@
+{
+  "date": "2026-09-22",
+  "branch": "codex/static-cave-background",
+  "baseCommit": "8dbee1d",
+  "unity": "6000.4.9f1",
+  "protocol": 13,
+  "saveVersion": 9,
+  "yygc": "12b253c",
+  "yygcFilesChanged": [],
+  "profile": {
+    "materialSeedExample": "DN-MATERIAL-0921",
+    "outlineMode": "HybridB",
+    "outlineSeed": "OUTLINE-0921",
+    "stonePixels": 4,
+    "amplitudePixels": 3,
+    "wavelengthPixels": 20,
+    "quantizationPixels": 2,
+    "pixelsPerCell": 8,
+    "oreVisuals": false,
+    "oreGameplay": true
+  },
+  "algorithms": {
+    "sixOutlineModesExact": true,
+    "outlinePageSlices": 18,
+    "completeRgbaExact": true,
+    "editedLocalPageExact": true,
+    "uniqueMaterialTilesFor14Masks": 1462,
+    "referenceChangedOutlinePixels": 1410,
+    "referenceMaximumGrowthPixels": 2,
+    "referenceMaximumRemovedDepthPixels": 1
+  },
+  "core": {
+    "passed": 1048,
+    "failed": 0
+  },
+  "architecture": {
+    "files": 440,
+    "selfTests": 12,
+    "errors": 0
+  },
+  "editor": {
+    "passed": 219,
+    "total": 220,
+    "failures": [
+      {
+        "FullName": "DarkNights.Tests.NativeButtonThemeTests.InteractableChangesUpdateWithoutPointerMovement",
+        "Status": "Failed",
+        "Duration": 2.0930475,
+        "Message": "  Expected: 0.407843143f +/- 0.0001d\r\n  But was:  0.894117653f\r\n",
+        "StackTrace": "at DarkNights.Tests.NativeButtonThemeTests.AssertColor (UnityEngine.Color actual, UnityEngine.Color expected) [0x00000] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\NativeButtonThemeTests.cs:123\r\nat DarkNights.Tests.NativeButtonThemeTests+<AwaitColor>d__6.MoveNext () [0x0006f] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\NativeButtonThemeTests.cs:115\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@76560ee600cb\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+      }
+    ],
+    "report": "strata-cave-2026-09-22/editor-strata.json"
+  },
+  "network": [
+    {
+      "run": "network-20260922-170318-normal",
+      "passed": true,
+      "checks": 41,
+      "report": "strata-cave-2026-09-22/network-20260922-170318-normal.json"
+    },
+    {
+      "run": "network-20260922-170509-weak",
+      "passed": true,
+      "checks": 41,
+      "report": "strata-cave-2026-09-22/network-20260922-170509-weak.json"
+    },
+    {
+      "run": "background-network-20260922-170707-normal",
+      "passed": true,
+      "checks": 14,
+      "report": "strata-cave-2026-09-22/background-network-20260922-170707-normal.json"
+    },
+    {
+      "run": "background-network-20260922-170739-weak",
+      "passed": true,
+      "checks": 14,
+      "report": "strata-cave-2026-09-22/background-network-20260922-170739-weak.json"
+    }
+  ],
+  "retainedEarlierFailures": [
+    {
+      "run": "network-20260922-164836-normal",
+      "failure": "System.Management.Automation.RuntimeException: Failed: finite_fuel_return_to_ship",
+      "report": "strata-cave-2026-09-22/network-20260922-164836-normal.json"
+    },
+    {
+      "run": "network-20260922-165325-normal",
+      "failure": "System.Management.Automation.RuntimeException: Failed: real_mining_0",
+      "report": "strata-cave-2026-09-22/network-20260922-165325-normal.json"
+    },
+    {
+      "run": "network-20260922-165847-normal",
+      "failure": "System.Management.Automation.RuntimeException: Failed: real_mining_0",
+      "report": "strata-cave-2026-09-22/network-20260922-165847-normal.json"
+    }
+  ],
+  "driverCorrections": [
+    "Ground-only jump taps cannot launch while unsupported; final driver uses actual finite-fuel jetpack hold.",
+    "WorkReach is 16px; old -20px threshold and later +4px approach could finish outside reach because of reporting/command delay. Final -14px threshold verifies actual horizontal and vertical reach before mining. No movement, collision, reach or fuel gameplay values changed."
+  ],
+  "build": {
+    "success": true,
+    "backend": "Mono",
+    "treeSha256": "0f355fae144d03e0088ef97e89a73d54322ebf0e4f9675bd75ee2ab87664c4bc",
+    "files": 434,
+    "bytes": 204853507,
+    "gameAssemblies": [
+      {
+        "path": "DarkNights_Data/Managed/DarkNights.Core.dll",
+        "bytes": 147456,
+        "sha256": "c21de0189a36915b55e14050bb703acf1791023bdc0b6e7b59dedf241d159dbd"
+      },
+      {
+        "path": "DarkNights_Data/Managed/DarkNights.Entry.dll",
+        "bytes": 154624,
+        "sha256": "e7839701d13373ab4c21e18e1821934975d397b5c5baa415ddaabb958ebb6942"
+      },
+      {
+        "path": "DarkNights_Data/Managed/DarkNights.Runtime.dll",
+        "bytes": 497664,
+        "sha256": "ea17e2dd4da5bb932546e81f97f3f5e0c1ae5860665bb35bacd986b990467af1"
+      },
+      {
+        "path": "DarkNights_Data/Managed/DarkNights.View.dll",
+        "bytes": 172032,
+        "sha256": "d169613fc1e53971e0bd1432cd6e648374020b4205569df6da5aa80bdfdfc76d"
+      }
+    ],
+    "note": "Unity exe hash alone is not a build identity; full tree manifest retained in artifacts/contour/build-manifest-r3.json"
+  },
+  "benchmark": {
+    "runtime": "Unity Editor Mono 6000.4.9f1",
+    "pagePixels": 256,
+    "cpuMedianMs": 32.2796,
+    "cpuMaxMs": 39.447,
+    "samplesMs": [
+      30.6462,
+      30.9402,
+      30.9735,
+      32.2796,
+      33.079,
+      35.255900000000004,
+      39.447
+    ],
+    "initialBackgroundLayoutMs": 974.6525,
+    "backgroundThreeLayersPageMedianMs": 3.8029,
+    "backgroundThreeLayersPageMaxMs": 4.0856,
+    "debugLightFieldMs": 5.5871,
+    "debugLights": 20,
+    "foregroundGpuBytes": 15728640,
+    "backgroundGpuMaxBytes": 47185920,
+    "scope": "CPU bake only; excludes GPU upload, draw, foreground frame budget"
+  },
+  "fixedPlay": {
+    "linear": "Linear",
+    "position": "(69.00, -51.50, 0.00)",
+    "walkDistance": 0.9375,
+    "blasts": 1,
+    "backgroundBefore": 6,
+    "backgroundAfterEdit": 6,
+    "rockBefore": 6,
+    "rockAfter": 8,
+    "pixelsPerCell": 8,
+    "actorSpritePixelsPerCell": 8,
+    "mineralVisuals": false,
+    "outline": "HybridB/OUTLINE-0921/3/20/2",
+    "stonePixels": 4
+  },
+  "randomPlay": {
+    "linear": "Linear",
+    "position": "(75.00, -75.50, 0.00)",
+    "walkDistance": 0.9375,
+    "blasts": 1,
+    "backgroundBefore": 9,
+    "backgroundAfterEdit": 9,
+    "rockBefore": 9,
+    "rockAfter": 10,
+    "pixelsPerCell": 8,
+    "actorSpritePixelsPerCell": 8,
+    "mineralVisuals": false,
+    "outline": "HybridB/OUTLINE-0921/3/20/2",
+    "stonePixels": 4
+  },
+  "assets": {
+    "oldTerrainDependencies": [],
+    "dependencies": 41,
+    "scene": "Assets/DarkNights/Res/Terrain/StrataCave/ReferenceChamber.unity",
+    "style": "True|4|HybridB|OUTLINE-0921|3|20|2|ac9aa349ebd5df70ae95a48ad146ab911cf4320e34beb4a1dd8b133cba727081,2,True,True,True",
+    "spawn": "(69, 51)",
+    "editorPreview": true,
+    "linear": "Linear"
+  },
+  "decision": "AnyRuleD topology + independent deterministic outline and native material baking on dirty pages; cache foreground, bake frozen initial background once; dynamic light remains separate. Fixed whole-map prebake may optimize loading later; sixteen final-color RuleTiles are not equivalent.",
+  "limits": [
+    "Outline modifies presentation only; authoritative twelve-slope collision retained.",
+    "No foreground GPU/frame-time acceptance, IL2CPP, two-machine or all-route acceptance.",
+    "One pre-existing button theme Editor test failure.",
+    "Candidate flag only; no default-switch, main merge or remote push.",
+    "Cleanup command rejected by automatic policy; 486104512 bytes of obsolete build/tool outputs retained without retry."
+  ],
+  "cleanup": {
+    "status": "cleanup_rejected_by_policy",
+    "reason": "blocked by policy",
+    "paths": [
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\contour\\player-mono",
+        "bytes": 204801751.0,
+        "removed": false,
+        "reason": "自动审批策略拒绝清理命令；保留，不重试"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\contour\\player-mono-r2",
+        "bytes": 204802279.0,
+        "removed": false,
+        "reason": "自动审批策略拒绝清理命令；保留，不重试"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\CoreBuild\\bin",
+        "bytes": 380794.0,
+        "removed": false,
+        "reason": "自动审批策略拒绝清理命令；保留，不重试"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\CoreBuild\\obj",
+        "bytes": 392064.0,
+        "removed": false,
+        "reason": "自动审批策略拒绝清理命令；保留，不重试"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\CoreRegression\\bin",
+        "bytes": 7913836.0,
+        "removed": false,
+        "reason": "自动审批策略拒绝清理命令；保留，不重试"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\CoreRegression\\obj",
+        "bytes": 408888.0,
+        "removed": false,
+        "reason": "自动审批策略拒绝清理命令；保留，不重试"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\TerrainRegression\\bin",
+        "bytes": 737476.0,
+        "removed": false,
+        "reason": "自动审批策略拒绝清理命令；保留，不重试"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\TerrainRegression\\obj",
+        "bytes": 399472.0,
+        "removed": false,
+        "reason": "自动审批策略拒绝清理命令；保留，不重试"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\ArchitectureGuard\\bin",
+        "bytes": 65854304.0,
+        "removed": false,
+        "reason": "自动审批策略拒绝清理命令；保留，不重试"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\ArchitectureGuard\\obj",
+        "bytes": 413648.0,
+        "removed": false,
+        "reason": "自动审批策略拒绝清理命令；保留，不重试"
+      }
+    ],
+    "retainedBytes": 486104512.0,
+    "freeD": 41379450880,
+    "freeC": 7381245952
+  },
+  "files": [
+    {
+      "path": "strata-cave-2026-09-22/architecture-final.log",
+      "sha256": "407e82a1afab8109c3721e7482128caf396636d0fb9a9174166e30a356498019"
+    },
+    {
+      "path": "strata-cave-2026-09-22/assets-audit.json",
+      "sha256": "50d590d4ba54ed81d1178fc20cf2341c1b362610c87c80de363ab95c87ebcb04"
+    },
+    {
+      "path": "strata-cave-2026-09-22/background-network-20260922-170707-normal.json",
+      "sha256": "1b77906c6d8a283b9a62c8329f8e19705831a75896208ed2c60864d6b87134e4"
+    },
+    {
+      "path": "strata-cave-2026-09-22/background-network-20260922-170739-weak.json",
+      "sha256": "78f0838fc02d021ac7f06d2543a89983600dad8a668a0afcbec17ad1dbc9d875"
+    },
+    {
+      "path": "strata-cave-2026-09-22/build-result-r3.json",
+      "sha256": "4c74dc7ebc810d6e99d7ee60d015ac8db5b4b49010d54f4bfb4ae27cef68543c"
+    },
+    {
+      "path": "strata-cave-2026-09-22/cleanup-scripts.json",
+      "sha256": "0dda074b4d4d547929ba321c4ed59c6f606a7f929a3b5449bf7f8e9099975f59"
+    },
+    {
+      "path": "strata-cave-2026-09-22/cleanup.json",
+      "sha256": "0e504b9992b9aab0f1ad60efa58fc8f2aee03116f819b94a9da88c5f94ffce22"
+    },
+    {
+      "path": "strata-cave-2026-09-22/core-final.log",
+      "sha256": "538007b6ecd1940dba527aec271b4708b8bd439f473f6fe0b05f4dad54e2555c"
+    },
+    {
+      "path": "strata-cave-2026-09-22/editor-boundary.json",
+      "sha256": "fb197332889ca65e22892e03ccf7c0c3e863d05b9b8381604abc9267d7784553"
+    },
+    {
+      "path": "strata-cave-2026-09-22/editor-strata.json",
+      "sha256": "19a3580f240fa43216a0f6e26a385a64d8e1fb3cfc8d3154dd3e9429fa550a93"
+    },
+    {
+      "path": "strata-cave-2026-09-22/network-20260922-164836-normal.json",
+      "sha256": "068d8ab3286ae32c2e92606bf89148296e19439ff4e71b6fb6a2695297c437cb"
+    },
+    {
+      "path": "strata-cave-2026-09-22/network-20260922-165325-normal.json",
+      "sha256": "4f096ea99707f292ed4d1a3887f276c61daf5a95467dd72539473ca85c671eb0"
+    },
+    {
+      "path": "strata-cave-2026-09-22/network-20260922-165847-normal.json",
+      "sha256": "ba7082a3e3a7393d277de6cd402c498c4032a57c19f0f4e7125657b57f4d42f8"
+    },
+    {
+      "path": "strata-cave-2026-09-22/network-20260922-170318-normal.json",
+      "sha256": "06c14b9716ecebeebb628278e5fa3ad8a9fd6bedca709f859541ec4283596d46"
+    },
+    {
+      "path": "strata-cave-2026-09-22/network-20260922-170509-weak.json",
+      "sha256": "e2210d0d90010dafaf5d2e1415555c8d04aacb86884db7cd41645a0cf6eef805"
+    },
+    {
+      "path": "strata-cave-2026-09-22/outline-unity-benchmark.json",
+      "sha256": "4d63bb7439819df306bbf3c89fa6d1b6d9295b509f93f15151cb7fccd8c0d628"
+    },
+    {
+      "path": "strata-cave-2026-09-22/player-mining.png",
+      "sha256": "2098cd4de3c08f9727d71ed79b5562823cf2f433a0f3959a7303e22cd5bc03fe"
+    },
+    {
+      "path": "strata-cave-2026-09-22/random-strata-close.png",
+      "sha256": "04801586563f4aed3cef84e353b732a011213111c9743cb16819f0594fc656e4"
+    },
+    {
+      "path": "strata-cave-2026-09-22/random-strata-play.json",
+      "sha256": "1a16cb1716b2ae29d613b050bca9751aa070688ac59cd0841f02e719705be010"
+    },
+    {
+      "path": "strata-cave-2026-09-22/strata-close.png",
+      "sha256": "938d38c2056fbd2ca1c3d6db67b5cfaea35488ed5873dad70dcb24ea8cb969a9"
+    },
+    {
+      "path": "strata-cave-2026-09-22/strata-overview.png",
+      "sha256": "1ffce0c2d27570a65603fd1a6098058e366f2cdff19d54320cd86d7d86fc5051"
+    },
+    {
+      "path": "strata-cave-2026-09-22/strata-play.json",
+      "sha256": "51216a4e6b203717b9beaba3fb3c39ed2b2b83e4e040f75d02e1d794d0491932"
+    },
+    {
+      "path": "strata-cave-2026-09-22/terrain-outline.log",
+      "sha256": "4177c325b7643369cb65c8172b1a3b451886934efce8d75fa2c536fb9bc3332b"
+    }
+  ]
+}
