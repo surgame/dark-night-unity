@@ -9,7 +9,7 @@ namespace DarkNights.Core.Logic.Terrain
         private static readonly double[][] Shades = { new[] { .66, .82, .98 }, new[] { .44, .58, .74 }, new[] { .28, .37, .47 } };
         // H5 materialPalette()[4] with warm_rock and coherence=1; fixed author sRGB, decoded once by Unity.
         private static readonly byte[] BaseColor = { 92, 70, 50 };
-        public static byte[][] Bake(BackgroundContourBaker source, int left, int top, int width, int height,
+        public static byte[][] Bake(ICaveBackgroundLayout source, int left, int top, int width, int height,
             int softness = 2, Action checkpoint = null)
         {
             if (width < 1 || height < 1 || width > source.Width || height > source.Height || softness < 0 || softness > 4)
@@ -45,7 +45,7 @@ namespace DarkNights.Core.Logic.Terrain
             }
             return layers;
         }
-        private static int InteriorDistance(BackgroundContourBaker source, int x, int y, int cap)
+        private static int InteriorDistance(ICaveBackgroundLayout source, int x, int y, int cap)
         {
             for (int d = 1; d < cap; d++) for (int dx = -d; dx <= d; dx++)
             {

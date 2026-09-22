@@ -1,0 +1,11 @@
+Contour silhouette: changed=1410 pixels; maximum added distance=2px removed depth=1px; collision retains authoritative slopes.
+Outline: 6 exact H5 modes, 18 arbitrary pages, full RGBA and edited page exact; profile=4/3/20/2 HybridB.
+Bake CPU: full 504x312=29.04 ms; 256px page median=12.64 ms max=13.08 ms; unique material tiles=1462 across 14 masks.
+Rock: exact H5 RGBA, 3 unaligned page seams, edited local distance passed; native 8 px/cell.
+Background: H5 layers/softness 9/9, page slices 9/9, immutable/deterministic/slope-12 passed; formal ms=114
+Modifier full formal-map CPU (.NET, not Unity/frontend): 327ms; 9265bc8f5523299457525af54f11360546f46129c12b5108ab0ad3a8864517a2
+Modifiers: 12 exact H5 masks, 36 exact RGBA slices; immutable/attachment/depth/stack/edit invalidation passed.
+H5 generation vectors passed: 24
+M1 gameplay distribution passed: scattered=24, deposits=11, softRock=352
+M1 deposit candidate batch passed: seeds=100
+Cave exploration: 100 deterministic connected hidden graphs with buried passages passed.

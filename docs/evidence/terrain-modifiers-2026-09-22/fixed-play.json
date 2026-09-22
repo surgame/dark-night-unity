@@ -1,0 +1,43 @@
+{
+  "scene": "fixed",
+  "linear": "Linear",
+  "modes": [
+    {
+      "mode": "none",
+      "readySeconds": 0.87461930000063148,
+      "backgroundPages": 6,
+      "rockPages": 6
+    },
+    {
+      "mode": "downward",
+      "readySeconds": 1.2718980999998166,
+      "backgroundPages": 6,
+      "rockPages": 6
+    },
+    {
+      "mode": "foreground-only",
+      "readySeconds": 1.1849150999987614,
+      "backgroundPages": 6,
+      "rockPages": 6
+    },
+    {
+      "mode": "background-only",
+      "readySeconds": 1.5982006000012916,
+      "backgroundPages": 6,
+      "rockPages": 6
+    },
+    {
+      "mode": "rounded",
+      "readySeconds": 1.6579225999994378,
+      "backgroundPages": 6,
+      "rockPages": 6
+    }
+  ],
+  "walkDistance": 0.9375,
+  "edits": 3,
+  "backgroundBefore": 6,
+  "backgroundAfter": 6,
+  "rockBefore": 6,
+  "rockAfter": 8,
+  "success": true
+}

@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "handwrittenFiles": 483,
+  "selfTests": 12,
+  "errors": [],
+  "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+}

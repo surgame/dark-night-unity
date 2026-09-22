@@ -13,5 +13,17 @@ namespace DarkNights.View.Terrain
         public bool Deep = true;
         public Texture2D SourceMaskAtlas;
         public string ContentHash = Core.Config.Terrain.BackgroundBakeDescriptor.StyleContentHash;
+        [Tooltip("独立点缀布局算法；空引用保留旧 v16.1。关闭整层请取消 Contour Static。")]
+        public CaveBackgroundGeneratorAsset Generator;
+        public CaveModifierAsset[] NearModifiers = System.Array.Empty<CaveModifierAsset>();
+        public CaveModifierAsset[] MiddleModifiers = System.Array.Empty<CaveModifierAsset>();
+        public CaveModifierAsset[] DeepModifiers = System.Array.Empty<CaveModifierAsset>();
+        public Core.Logic.Terrain.ICaveBackgroundGenerator CaptureGenerator()
+            => Generator != null ? Generator.Capture() : new Core.Logic.Terrain.ContourBackgroundGenerator();
+        public Core.Logic.Terrain.CaveModifierStack[] CaptureModifiers() => new[] {
+            CaveModifierAsset.CaptureStack(NearModifiers), CaveModifierAsset.CaptureStack(MiddleModifiers), CaveModifierAsset.CaptureStack(DeepModifiers) };
+        public string VisualIdentity => string.Join("|", ContourStatic, ContentHash, MiddleSoftness, Near, Middle, Deep,
+            CaptureGenerator().Identity, CaveModifierAsset.CaptureStack(NearModifiers).Identity,
+            CaveModifierAsset.CaptureStack(MiddleModifiers).Identity, CaveModifierAsset.CaptureStack(DeepModifiers).Identity);
     }
 }

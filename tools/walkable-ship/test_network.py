@@ -15,10 +15,13 @@ from pathlib import Path
 p = argparse.ArgumentParser()
 p.add_argument('--weak', action='store_true')
 p.add_argument('--port', type=int, default=29060)
+p.add_argument('--player', type=Path, help='Reuse the same checks against an explicitly selected Mono build')
+p.add_argument('--output-root', type=Path, help='Keep this run separate from frozen ship evidence')
 a = p.parse_args()
 repo = Path(__file__).resolve().parents[2]
-player = repo / 'artifacts/walkable-ship/player-mono/DarkNights.exe'
-run = repo / 'artifacts/walkable-ship' / ('network-' + time.strftime('%Y%m%d-%H%M%S') + ('-weak' if a.weak else '-normal'))
+player = a.player.resolve() if a.player else repo / 'artifacts/walkable-ship/player-mono/DarkNights.exe'
+output_root = a.output_root.resolve() if a.output_root else repo / 'artifacts/walkable-ship'
+run = output_root / ('network-' + time.strftime('%Y%m%d-%H%M%S') + ('-weak' if a.weak else '-normal'))
 run.mkdir(parents=True)
 saves = run / 'saves'
 processes = {}

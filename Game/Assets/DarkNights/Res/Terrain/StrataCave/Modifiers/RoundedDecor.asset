@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7856edc9ec05e8a4e8cce518f2f378a7, type: 3}
+  m_Name: RoundedDecor
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Terrain.RoundedClusterModifierAsset
+  Seed: 
+  Depth: 8
+  Size: 20
+  Petal: 3
+  Density: 90
+  Variation: 65
+  Grain: 0

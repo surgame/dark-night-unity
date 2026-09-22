@@ -1,0 +1,82 @@
+{
+  "date": "2026-09-22",
+  "branch": "ft-20260922-terrain-modifiers",
+  "status": "implementation-and-editor-play-verified; user-requested-closeout-before-player",
+  "editor": {
+    "scheduled": 48,
+    "passed": 48,
+    "newModifierTests": 9
+  },
+  "h5ExactMasks": 12,
+  "exactRgbaSlices": 36,
+  "architecture": {
+    "files": 483,
+    "selfTests": 12,
+    "errors": 0
+  },
+  "coreRegressionFullSuite": "not run",
+  "monoBuild": "not run",
+  "networkMatrix": "not run",
+  "foregroundPerformance": "not accepted",
+  "il2cpp": "not run",
+  "twoMachines": "not run",
+  "evidence": [
+    {
+      "file": "architecture.json",
+      "bytes": 191,
+      "sha256": "73b4b5e98eb0401bdbcc4f3381d404f2d7660e934f39277942a58f8117caa8f5"
+    },
+    {
+      "file": "cleanup.json",
+      "bytes": 535,
+      "sha256": "999f380e4b84c4b62b0fd95c41692503c19c16b67c84df025f7f00e3257b31ab"
+    },
+    {
+      "file": "editor-r1.json",
+      "bytes": 11312,
+      "sha256": "a460b2436684f29f0c24dfc01e461894a0c7888c0dada2c8d1a789721de7220e"
+    },
+    {
+      "file": "fixed-after-edit.png",
+      "bytes": 421462,
+      "sha256": "29a1bad3cb7ded1e46abda9105d67224abd7c28ecf3c4c45e280229d6127a314"
+    },
+    {
+      "file": "fixed-downward.png",
+      "bytes": 419548,
+      "sha256": "5c86a86f3f7e90d8d9243d8f7de07606f7d62f546ca2c4fb5f31a2837187e2c7"
+    },
+    {
+      "file": "fixed-play.json",
+      "bytes": 908,
+      "sha256": "6074c16152b2e8ce95ba145cc4477e84db0e9855db177246fcdf9daa2db98c03"
+    },
+    {
+      "file": "fixed-rounded.png",
+      "bytes": 423050,
+      "sha256": "f61493351fa39ad016f8fcd94779f241cd2618cfe3b68686bfded0ae2cc9b8e1"
+    },
+    {
+      "file": "random-play.json",
+      "bytes": 490,
+      "sha256": "ad124308811549381160071abc9ea1fd1f97383984ace501d1314c8922e84e36"
+    },
+    {
+      "file": "random-rounded.png",
+      "bytes": 263690,
+      "sha256": "768b2566a80ed7d609c8882c6f5015d9a450f0dc295794bd510b1542b205c897"
+    },
+    {
+      "file": "terrain-regression.txt",
+      "bytes": 1043,
+      "sha256": "2259622f48c891271df1aeeca3bd48b214b37638ccb2684ace177a268fbcdf35"
+    }
+  ],
+  "assets": {
+    "profiles": 5,
+    "references": 15,
+    "missingReferences": 0,
+    "duplicateGuids": 0,
+    "previewSavedAndReopened": true
+  }
+}

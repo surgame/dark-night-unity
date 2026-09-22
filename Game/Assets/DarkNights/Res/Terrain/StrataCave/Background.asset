@@ -19,3 +19,10 @@ MonoBehaviour:
   Deep: 1
   SourceMaskAtlas: {fileID: 2800000, guid: 3cb367ac8474c2c46bb569af531a2a42, type: 3}
   ContentHash: ac9aa349ebd5df70ae95a48ad146ab911cf4320e34beb4a1dd8b133cba727081
+  Generator: {fileID: 11400000, guid: 4c4b4b7208cf95e45b05ec76671b8497, type: 2}
+  NearModifiers:
+  - {fileID: 11400000, guid: e10c82333f0233f49abdba31e1fbdfba, type: 2}
+  MiddleModifiers:
+  - {fileID: 11400000, guid: e10c82333f0233f49abdba31e1fbdfba, type: 2}
+  DeepModifiers:
+  - {fileID: 11400000, guid: e10c82333f0233f49abdba31e1fbdfba, type: 2}

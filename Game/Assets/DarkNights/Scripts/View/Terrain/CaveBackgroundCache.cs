@@ -19,9 +19,9 @@ namespace DarkNights.View.Terrain
         private readonly Material wall;
         private readonly Transform parent;
         private readonly CaveBackgroundStyle style;
-        private Task<BackgroundContourBaker> layoutTask;
+        private Task<ICaveBackgroundLayout> layoutTask;
         private Task<byte[][]> pageTask;
-        private BackgroundContourBaker layout;
+        private ICaveBackgroundLayout layout;
         private int pendingKey;
         private int clock;
         private bool disposed;
@@ -35,8 +35,10 @@ namespace DarkNights.View.Terrain
             if (source == null) throw new InvalidOperationException("静态背景缺少初始参考；禁止从当前格子重建。");
             if (style.ContentHash != BackgroundBakeDescriptor.StyleContentHash) throw new InvalidOperationException("静态背景样式内容身份不匹配。");
             this.style = UnityEngine.Object.Instantiate(style); this.wall = wall; this.parent = parent;
+            var generator = style.CaptureGenerator(); var modifiers = style.CaptureModifiers();
             var token = cancellation.Token;
-            layoutTask = Task.Run(() => BackgroundContourBaker.Build(source, token.ThrowIfCancellationRequested, outline), token);
+            layoutTask = Task.Run<ICaveBackgroundLayout>(() => new ModifiedBackgroundLayout(
+                generator.Build(source, outline, token.ThrowIfCancellationRequested), modifiers, source.LayoutSeed, token.ThrowIfCancellationRequested), token);
         }
         public void SetVisible(GridBounds bounds)
         {

@@ -22,15 +22,18 @@ namespace DarkNights.View.Terrain
         private readonly string seed;
         private readonly int stoneSize, dirtyCells;
         private readonly CaveOutlineSettings outline;
+        private readonly CaveRockGeometry geometry;
         private byte[] materials, shapes;
         private Task<byte[]> task;
         private int pendingKey, pendingVersion;
         private bool disposed;
         public int BuildCount { get; private set; }
-        public bool Ready => materials != null && visible.All(k => bakedVersions[k] == versions[k]);
+        public bool Ready => materials != null && (geometry == null || geometry.Ready) && visible.All(k => bakedVersions[k] == versions[k]);
         public CaveRockSurface(Material material, string seed, CaveTerrainStyle style)
         {
             this.seed = seed; stoneSize = style.StoneSize; outline = style.CaptureOutline();
+            var modifiers = style.CaptureModifiers();
+            if (modifiers.Enabled) geometry = new CaveRockGeometry(seed, outline, modifiers, cancellation.Token);
             dirtyCells = (CaveRockBaker.DistanceCap + outline.Reach + 3 + 7) / 8;
             var descriptor = new RenderTextureDescriptor(2560, 1536, GraphicsFormat.R8G8B8A8_SRGB, 0)
             { msaaSamples = 1, useMipMap = false, autoGenerateMips = false };
@@ -44,11 +47,14 @@ namespace DarkNights.View.Terrain
         public void Replace(Color32[] cells)
         {
             var nextMaterials = new byte[cells.Length]; var nextShapes = new byte[cells.Length];
+            bool changed = materials == null;
             for (int i = 0; i < cells.Length; i++)
             {
                 nextMaterials[i] = cells[i].r; nextShapes[i] = cells[i].g;
                 if (materials != null && (nextMaterials[i] != materials[i] || nextShapes[i] != shapes[i]))
                 {
+                    changed = true;
+                    if (geometry != null) continue;
                     // 距离场和独立轮廓的采样边界相加；失效半径随轮廓参数变化，不重建背景。
                     int x = i % 320, y = i / 320;
                     for (int py = Math.Max(0, (y - dirtyCells) / 32); py <= Math.Min(5, (y + dirtyCells) / 32); py++)
@@ -56,6 +62,7 @@ namespace DarkNights.View.Terrain
                 }
             }
             materials = nextMaterials; shapes = nextShapes;
+            if (changed) geometry?.Replace(materials, shapes);
         }
         public void SetVisible(GridBounds bounds)
         {
@@ -66,6 +73,12 @@ namespace DarkNights.View.Terrain
         public void Tick()
         {
             if (disposed || materials == null) return;
+            if (geometry != null)
+            {
+                var dirty = geometry.Tick();
+                if (dirty != null) for (int i = 0; i < dirty.Length; i++) if (dirty[i]) versions[i]++;
+                if (!geometry.Ready) return;
+            }
             if (task != null)
             {
                 if (!task.IsCompleted) return;
@@ -80,8 +93,9 @@ namespace DarkNights.View.Terrain
                 if (bakedVersions[key] == versions[key]) continue;
                 pendingKey = key; pendingVersion = versions[key];
                 var ownMaterials = materials; var ownShapes = shapes; var token = cancellation.Token;
+                var field = geometry?.Field;
                 task = Task.Run(() => CaveRockBaker.Bake(Solid, 2560, 1536, seed, key % 10 * 256, key / 10 * 256,
-                    256, 256, token.ThrowIfCancellationRequested, stoneSize, outline), token);
+                    256, 256, token.ThrowIfCancellationRequested, stoneSize, outline, field), token);
                 break;
                 bool Solid(int x, int y)
                 {

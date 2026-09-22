@@ -1,0 +1,343 @@
+{
+  "status": "completed",
+  "scheduled": 48,
+  "current": "DarkNights.Tests.TerrainReplicaBoundaryTests.AuthorityPaddingIsStableAndEdgeEditsRemainLocal",
+  "results": [
+    {
+      "FullName": "DarkNights.Tests.BackgroundReferenceTests.AlphaSoftnessNeverChangesRgbOrExpandsMask",
+      "Status": "Passed",
+      "Duration": 0.0153492,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.BackgroundReferenceTests.CodecRoundtripAndDefensiveCopies",
+      "Status": "Passed",
+      "Duration": 0.033894,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.BackgroundReferenceTests.CorruptVersionHashRunAndTrailingDataAreRejected",
+      "Status": "Passed",
+      "Duration": 0.0047884,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.BackgroundReferenceTests.DestructionSaveRestoreKeepsInitialReferenceAndRejectsBrokenCandidate",
+      "Status": "Passed",
+      "Duration": 0.2910587,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.BackgroundReferenceTests.ReliableBaselineIsAtomicAndRejectsStaleWorld",
+      "Status": "Passed",
+      "Duration": 0.0057654,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveExplorationTests.BlueprintFreezesInputsAndExperimentalProfileKeepsLegacyGeneratorSeparate",
+      "Status": "Passed",
+      "Duration": 0.0079958,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveExplorationTests.HundredSeedsHaveConnectedHiddenGraphsAndBuriedPassages",
+      "Status": "Passed",
+      "Duration": 2.2548832,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveWorkshopTests.BakedMapRetainsShapesAndRejectsUnknownShape",
+      "Status": "Passed",
+      "Duration": 0.0208667,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveWorkshopTests.CaveSeedsProduceSlopeDiversityAndFrozenShapeArrays",
+      "Status": "Passed",
+      "Duration": 0.2063866,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveWorkshopTests.GentleRampAscendsDescendsAndJumpLandsWithoutPenetration",
+      "Status": "Passed",
+      "Duration": 0.0086878,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveWorkshopTests.InitialAndLateReplicasKeepSlopesAndDestroyedState",
+      "Status": "Passed",
+      "Duration": 0.0804199,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.CaveWorkshopTests.ShapesRoundTripAndCeilingsOccupyOppositeHalf",
+      "Status": "Passed",
+      "Duration": 0.0011394,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Chrome\")",
+      "Status": "Passed",
+      "Duration": 0.0312994,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"MainMenu\")",
+      "Status": "Passed",
+      "Duration": 0.010406,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"PauseMenu\")",
+      "Status": "Passed",
+      "Duration": 0.0030171,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Help\")",
+      "Status": "Passed",
+      "Duration": 0.0018439,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Result\")",
+      "Status": "Passed",
+      "Duration": 0.0015704,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.NetworkCommandRegistryTests.TerrainCommandScriptResolvesCommandInsteadOfSiblingResult",
+      "Status": "Passed",
+      "Duration": 0.0008552,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.PlayableTerrainTests.FullMapStreamAndSaveRestoreShareFinalCells",
+      "Status": "Passed",
+      "Duration": 0.6794174,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.PlayableTerrainTests.SelectionIsDeterministicAndKeepsCampClear",
+      "Status": "Passed",
+      "Duration": 0.051269,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.PlayableTerrainTests.SoftRockMiningPersistsEmptyCellAcrossSaveRestore",
+      "Status": "Passed",
+      "Duration": 0.1090493,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ShipTests.ThrustCannotCrossTerrainOrTheTrialEnvelope",
+      "Status": "Passed",
+      "Duration": 0.6011169,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.ShipTests.WalkIntoCockpitAndBackToTerrainWithoutTeleport",
+      "Status": "Passed",
+      "Duration": 0.0869266,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainAuthorityTests.ActionPolicyAndRequestIdAreAuthoritativeAndIdempotent",
+      "Status": "Passed",
+      "Duration": 0.0090393,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainAuthorityTests.IdleStreamDoesNotScanAndChangedMapReachesLateReplica",
+      "Status": "Passed",
+      "Duration": 0.0276222,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainAuthorityTests.InvalidBatchAndProtectedSupportAreAtomic",
+      "Status": "Passed",
+      "Duration": 0.0062041,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainAuthorityTests.LocalDestructionTouchesAtMostFourPagesAndIsFrozen",
+      "Status": "Passed",
+      "Duration": 0.0070825,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainDebugCharacterTests.AuthoredFramesAnimateAndKeepFeetCenteredInBothDirections",
+      "Status": "Passed",
+      "Duration": 0.003378,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainDebugCharacterTests.FlightUsesTheSameAnchorAtOriginalPreviewScale",
+      "Status": "Passed",
+      "Duration": 0.0007794,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.GameplayProfileKeepsScatteredOreRoomDriven",
+      "Status": "Passed",
+      "Duration": 0.0323468,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.GenerationIsFrozenAndProtectsSupport",
+      "Status": "Passed",
+      "Duration": 0.0034882,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.HtmlVectorsMatchAllTwentyFourMaps",
+      "Status": "Passed",
+      "Duration": 0.1226594,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(double.NaN,1)",
+      "Status": "Passed",
+      "Duration": 0.00037,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(double.PositiveInfinity,1)",
+      "Status": "Passed",
+      "Duration": 8.7E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(1,0)",
+      "Status": "Passed",
+      "Duration": 8.02E-05,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainModifierTests.AssetsPersistIndependentForegroundAndBackgroundSlots",
+      "Status": "Passed",
+      "Duration": 0.0067946,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainModifierTests.CapturedStackDoesNotFollowLaterAssetEdits",
+      "Status": "Passed",
+      "Duration": 0.0151283,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainModifierTests.EmptyAndZeroStrengthRemainExactOriginal",
+      "Status": "Passed",
+      "Duration": 0.0043855,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainModifierTests.GeneratorCaptureFreezesAllNineParameters",
+      "Status": "Passed",
+      "Duration": 0.0008835,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainModifierTests.GrainSwitchChangesOnlyMaterialNotMask",
+      "Status": "Passed",
+      "Duration": 0.0311904,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainModifierTests.InvalidReferencesAndParametersFailBeforeTasksStart",
+      "Status": "Passed",
+      "Duration": 0.0017273,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainModifierTests.StackOrderIsExplicitAndRebuildStartsAtOriginal",
+      "Status": "Passed",
+      "Duration": 0.0150163,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainModifierTests.UnknownBackgroundImplementationUsesSameModifierAndPagePath",
+      "Status": "Passed",
+      "Duration": 0.0301693,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainModifierTests.VisualIdentityIncludesGeneratorAndEveryModifierSlot",
+      "Status": "Passed",
+      "Duration": 0.0009534,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainPresentationTests.ActualPagesStayStaticAndDestructionIsLocal",
+      "Status": "Passed",
+      "Duration": 2.5316802,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainPresentationTests.AuthoredAtlasAndNativeCatalogReload",
+      "Status": "Passed",
+      "Duration": 0.0057733,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainPresentationTests.PreviewKeepsCameraPagesVisibleAcrossDirectionChanges",
+      "Status": "Passed",
+      "Duration": 0.6106052,
+      "Message": null,
+      "StackTrace": null
+    },
+    {
+      "FullName": "DarkNights.Tests.TerrainReplicaBoundaryTests.AuthorityPaddingIsStableAndEdgeEditsRemainLocal",
+      "Status": "Passed",
+      "Duration": 0.0430765,
+      "Message": null,
+      "StackTrace": null
+    }
+  ]
+}

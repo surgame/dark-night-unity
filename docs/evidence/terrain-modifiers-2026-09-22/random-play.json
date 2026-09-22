@@ -1,0 +1,25 @@
+{
+  "scene": "random",
+  "linear": "Linear",
+  "modes": [
+    {
+      "mode": "downward",
+      "readySeconds": 1.1549360999997589,
+      "backgroundPages": 8,
+      "rockPages": 8
+    },
+    {
+      "mode": "rounded",
+      "readySeconds": 1.5466865999987931,
+      "backgroundPages": 6,
+      "rockPages": 6
+    }
+  ],
+  "walkDistance": 0.9375,
+  "edits": 3,
+  "backgroundBefore": 6,
+  "backgroundAfter": 6,
+  "rockBefore": 6,
+  "rockAfter": 7,
+  "success": true
+}

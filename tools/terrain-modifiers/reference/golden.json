@@ -1,0 +1,219 @@
+{
+  "source": "Original H5 JS retained byte-for-byte",
+  "scripts": [
+    {
+      "file": "downward-edges.js",
+      "sha256": "b6e0f167339e35f2bf4ffd2a4a79d0246f1387d61a12c988c38222ecf75f612f"
+    },
+    {
+      "file": "rounded-clusters.js",
+      "sha256": "5d77eba320c0b3e2026737ca34d3d496864fa5e32ef2f1f88b1d6096f456142e"
+    }
+  ],
+  "cases": [
+    {
+      "source": "profile",
+      "width": 504,
+      "height": 312,
+      "top": 56,
+      "seed": 1938411237,
+      "mode": "downward",
+      "cfg": {
+        "length": 7,
+        "density": 100,
+        "width": 5,
+        "sharpness": 0,
+        "variation": 89
+      },
+      "sha256": "d9a187206fe6644c9668cb60e30930fe233397f3a60ff3f73b200003c4f9ba0f",
+      "added": 1403
+    },
+    {
+      "source": "profile",
+      "width": 504,
+      "height": 312,
+      "top": 56,
+      "seed": 1938411237,
+      "mode": "downward",
+      "cfg": {
+        "length": 4,
+        "density": 45,
+        "width": 11,
+        "sharpness": 15,
+        "variation": 70
+      },
+      "sha256": "dfe5d859246e0468ef879781db22cad69dbb35f5ab020610e1b3f9a1ac7270d8",
+      "added": 561
+    },
+    {
+      "source": "profile",
+      "width": 504,
+      "height": 312,
+      "top": 56,
+      "seed": 1938411237,
+      "mode": "downward",
+      "cfg": {
+        "length": 24,
+        "density": 100,
+        "width": 19,
+        "sharpness": 100,
+        "variation": 100
+      },
+      "sha256": "5c171d64e0197eac5c7fdce78dbff4db0cba4651cee3b39c7802bb52496e819b",
+      "added": 6095
+    },
+    {
+      "source": "profile",
+      "width": 504,
+      "height": 312,
+      "top": 56,
+      "seed": 1938411237,
+      "mode": "rounded",
+      "cfg": {
+        "depth": 8,
+        "size": 20,
+        "petal": 3,
+        "density": 90,
+        "variation": 65
+      },
+      "sha256": "2d7d5b71489a41bd3a862cd4d316810f08e7ce2ab3d740f2fb8da2c0812f6af7",
+      "added": 3205
+    },
+    {
+      "source": "profile",
+      "width": 504,
+      "height": 312,
+      "top": 56,
+      "seed": 1938411237,
+      "mode": "rounded",
+      "cfg": {
+        "depth": 3,
+        "size": 13,
+        "petal": 2,
+        "density": 75,
+        "variation": 60
+      },
+      "sha256": "35446fed81ecb3b3d69f4ebd24fa8d0656ab673bcf2adf45b82104b00706c39d",
+      "added": 863
+    },
+    {
+      "source": "profile",
+      "width": 504,
+      "height": 312,
+      "top": 56,
+      "seed": 1938411237,
+      "mode": "rounded",
+      "cfg": {
+        "depth": 12,
+        "size": 30,
+        "petal": 6,
+        "density": 100,
+        "variation": 100
+      },
+      "sha256": "8b265d3c046821e998fe2549fbcd3663ebc2f3ff90fe3c7533fa305a36dc0f22",
+      "added": 4665
+    },
+    {
+      "source": "wide",
+      "width": 1024,
+      "height": 384,
+      "top": 0,
+      "seed": 1938411237,
+      "mode": "downward",
+      "cfg": {
+        "length": 7,
+        "density": 100,
+        "width": 5,
+        "sharpness": 0,
+        "variation": 89
+      },
+      "sha256": "7e62e8746dae6559d537b113b891d39b412f5db8a002be6a417aa6a290e04b07",
+      "added": 1793
+    },
+    {
+      "source": "wide",
+      "width": 1024,
+      "height": 384,
+      "top": 0,
+      "seed": 1938411237,
+      "mode": "downward",
+      "cfg": {
+        "length": 4,
+        "density": 45,
+        "width": 11,
+        "sharpness": 15,
+        "variation": 70
+      },
+      "sha256": "5acc1ca82b81248933daa8547256cc734937714c865d6668cd14ffd18b70c20b",
+      "added": 1111
+    },
+    {
+      "source": "wide",
+      "width": 1024,
+      "height": 384,
+      "top": 0,
+      "seed": 1938411237,
+      "mode": "downward",
+      "cfg": {
+        "length": 24,
+        "density": 100,
+        "width": 19,
+        "sharpness": 100,
+        "variation": 100
+      },
+      "sha256": "e0771cef2ae77a7c8fd1f3a5b9ddb53336489c71c3f5543f1cf388f1c8f91598",
+      "added": 8601
+    },
+    {
+      "source": "wide",
+      "width": 1024,
+      "height": 384,
+      "top": 0,
+      "seed": 1938411237,
+      "mode": "rounded",
+      "cfg": {
+        "depth": 8,
+        "size": 20,
+        "petal": 3,
+        "density": 90,
+        "variation": 65
+      },
+      "sha256": "c62c050f5dca4a6350d258e45ce0a2c59fe9fb7be457a96cb390b9dac02abab9",
+      "added": 4166
+    },
+    {
+      "source": "wide",
+      "width": 1024,
+      "height": 384,
+      "top": 0,
+      "seed": 1938411237,
+      "mode": "rounded",
+      "cfg": {
+        "depth": 3,
+        "size": 13,
+        "petal": 2,
+        "density": 75,
+        "variation": 60
+      },
+      "sha256": "75e8e5ac4f43eb66b1e9b6620fcec0e1575ab5c4f6ee16f80f842abe74918dfb",
+      "added": 1009
+    },
+    {
+      "source": "wide",
+      "width": 1024,
+      "height": 384,
+      "top": 0,
+      "seed": 1938411237,
+      "mode": "rounded",
+      "cfg": {
+        "depth": 12,
+        "size": 30,
+        "petal": 6,
+        "density": 100,
+        "variation": 100
+      },
+      "sha256": "383acf7c7817beb8aaa65814dd554025fe17ce8af9500aa562a724d18aade582",
+      "added": 6271
+    }
+  ]
+}

@@ -22,3 +22,5 @@ MonoBehaviour:
   OutlineAmplitude: 3
   OutlineWavelength: 20
   OutlineQuantization: 2
+  Modifiers:
+  - {fileID: 11400000, guid: fe93d6aa02f595a43ab40dac8ff24510, type: 2}

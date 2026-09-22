@@ -16,9 +16,12 @@ namespace DarkNights.View.Terrain
         [Range(0, 8)] public float OutlineAmplitude = 3;
         [Range(8, 96)] public int OutlineWavelength = 20;
         [Range(1, 4)] public int OutlineQuantization = 2;
+        [Tooltip("基础外轮廓之后按顺序执行；清空列表关闭。修改后重建预览生效。")]
+        public CaveModifierAsset[] Modifiers = System.Array.Empty<CaveModifierAsset>();
         public string VisualIdentity => string.Join("|", ProceduralRock, StoneSize, OutlineMode, OutlineSeed,
             OutlineAmplitude.ToString(System.Globalization.CultureInfo.InvariantCulture), OutlineWavelength, OutlineQuantization,
-            Background == null ? "none" : string.Join(",", Background.ContentHash, Background.MiddleSoftness, Background.Near, Background.Middle, Background.Deep));
+            CaptureModifiers().Identity, Background == null ? "none" : Background.VisualIdentity);
+        public Core.Logic.Terrain.CaveModifierStack CaptureModifiers() => CaveModifierAsset.CaptureStack(Modifiers);
         public CaveOutlineSettings CaptureOutline() => new CaveOutlineSettings(OutlineMode, OutlineSeed,
             OutlineAmplitude, OutlineWavelength, OutlineQuantization);
     }
