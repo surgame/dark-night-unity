@@ -14,6 +14,7 @@ namespace DarkNights.Core.Save
     public sealed class SessionSnapshot
     {
         public ExpeditionViewData Expedition { get; }
+        public const int CurrentVersion = 10;
         public int SchemaVersion { get; }
         public Config.Terrain.PlayableTerrain Terrain { get; }
         public string LevelId { get; }

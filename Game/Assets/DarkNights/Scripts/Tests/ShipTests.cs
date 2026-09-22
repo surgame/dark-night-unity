@@ -91,7 +91,7 @@ namespace DarkNights.Tests
             for (int i = 0; i < 90; i++) authority.Tick();
             Assert.That(ship.CaptureState().ShipVelocityY, Is.Zero);
             float height = ship.CaptureState().Height; string save = world.SaveCodec.Serialize(world.CaptureWorld());
-            authority.Disconnect(host); authority.Tick(); Assert.That(ship.CaptureState().PilotId, Is.Zero);
+            authority.Disconnect(host, closeHostedSession: false); authority.Tick(); Assert.That(ship.CaptureState().PilotId, Is.Zero);
             world.Restore(save); ship = Ship(world); host = Connect(authority, 0); pilot = Hero(world, 0);
             Assert.That(ship.CaptureState().Height, Is.EqualTo(height)); Assert.That(ship.CaptureState().PilotId, Is.Zero);
             Assert.That(pilot.CaptureState().Height, Is.EqualTo(height + 80).Within(.01));
@@ -125,12 +125,32 @@ namespace DarkNights.Tests
         });
 
         [UnityTest]
+        public IEnumerator ThrustCannotCrossTerrainOrTheTrialEnvelope() => UniTask.ToCoroutine(async () =>
+        {
+            using var scope = await UnifiedSessionScope.Create(); var world = Create(scope);
+            using var authority = new SessionAuthority(world); var host = Connect(authority, 0);
+            var pilot = Hero(world, 0); var ship = Ship(world);
+            Walk(authority, host, pilot, ship.X + 96); Send(authority, host, 1, "pilot", pilot); Send(authority, host, 2, "takeoff", pilot);
+            for (int i = 0; i < 90; i++) authority.Tick();
+            for (int i = 0; i < 600; i++) Input(authority, host, pilot, up: true);
+            Assert.That(ship.CaptureState().Height, Is.InRange(1, 192));
+            for (int i = 0; i < 600; i++) Input(authority, host, pilot, 1);
+            var end = ship.CaptureState();
+            Assert.That(end.X, Is.GreaterThan(end.DockX)); Assert.That(end.X - end.DockX, Is.LessThanOrEqualTo(128));
+            for (int i = 0; i < 90; i++) Input(authority, host, pilot, 1);
+            Assert.That(ship.X, Is.EqualTo(end.X).Within(.01), "持续推力不能越过岩壁或边界。");
+        });
+
+        [UnityTest]
         public IEnumerator InvalidShipSaveDoesNotReplaceTheActiveWorld() => UniTask.ToCoroutine(async () =>
         {
             using var scope = await UnifiedSessionScope.Create(); var world = Create(scope);
             using var authority = new SessionAuthority(world); Connect(authority, 0); var map = world.Terrain.Map;
             var saved = JObject.Parse(world.SaveCodec.Serialize(world.CaptureWorld()));
             saved["world"]["expedition"]["Ship"]["PilotId"] = Hero(world, 0).Id;
+            Assert.Throws<FormatException>(() => world.Restore(saved.ToString())); Assert.That(world.Terrain.Map, Is.SameAs(map));
+            saved = JObject.Parse(world.SaveCodec.Serialize(world.CaptureWorld()));
+            saved["world"]["expedition"]["Ship"]["DockX"] = 999;
             Assert.Throws<FormatException>(() => world.Restore(saved.ToString())); Assert.That(world.Terrain.Map, Is.SameAs(map));
         });
     }

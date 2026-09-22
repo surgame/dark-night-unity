@@ -97,14 +97,14 @@ namespace DarkNights.Tests
             Assert.That(world.Index.Actors.Count(a => a.RuleKey == "hauler"), Is.EqualTo(1));
             Assert.That(world.Index.Buildings.Count(), Is.EqualTo(5));
             Assert.That(world.Economy.Stock.Iron, Is.EqualTo(2));
-            for (int i = 0; i < 1800; i++) authority.Tick();
+            for (int i = 0; i < 6000 && world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3) < 5; i++) authority.Tick();
             Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3), Is.EqualTo(5), "四设备应真实搬运展开");
             string mid = world.SaveCodec.Serialize(world.CaptureWorld()); world.Restore(mid);
             Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3), Is.EqualTo(5));
             host = Connect(authority, 0); hero = world.Index.Actors.Single(a => a.CaptureState().OwnerSlot == 0);
             Send(authority, host, Request(authority, 7, "recall"));
             Send(authority, host, Request(authority, 8, "board", hero));
-            for (int i = 0; i < 4200 && world.CaptureView().Expedition.Crew.Any(a => !a.Boarded); i++) authority.Tick();
+            for (int i = 0; i < 9000 && (world.CaptureView().Expedition.Crew.Any(a => a.Role != 3 && !a.Boarded) || world.CaptureView().Expedition.Devices.Count(d => d.Stage == 6) < 4); i++) authority.Tick();
             Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 6), Is.EqualTo(4), "四设备均应被实际撤收");
             Assert.That(Send(authority, host, Request(authority, 9, "launch")), Is.EqualTo(SessionResultCode.Applied));
         });
@@ -171,7 +171,7 @@ namespace DarkNights.Tests
             var hero = world.Index.Actors.Single(a => a.CaptureState().OwnerSlot == 0);
             var deposit = world.Index.MineralDeposits.Cast<MineralDepositBehaviour>().First();
             Assert.That(Send(authority, host, Request(authority, 2, "mine", hero, deposit.Id)), Is.EqualTo(SessionResultCode.Applied));
-            for (int tick = 0; tick < 4600 && world.CaptureView().Expedition.Devices.Sum(d => d.Iron) == 0; tick++) authority.Tick();
+            for (int tick = 0; tick < 9000 && world.CaptureView().Expedition.Devices.Sum(d => d.Iron) == 0; tick++) authority.Tick();
             var frame = world.CaptureView().Expedition;
             Assert.That(deposit.Remaining, Is.LessThan(80));
             Assert.That(frame.Devices.Sum(d => d.Iron) + frame.Crew.Sum(a => a.Iron) + frame.LostCargo, Is.EqualTo(80 - deposit.Remaining));

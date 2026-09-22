@@ -58,7 +58,7 @@ namespace DarkNights.Entry
             int lease = (int?)command["lease"] ?? frame.World.Actors.Single(a => a.Id == actor).ControlLease;
             int horizontal = (int?)command["horizontal"] ?? 0;
             bool jump = (bool?)command["jumpHeld"] ?? false, use = (bool?)command["useHeld"] ?? false;
-            bool pressed = (bool?)command["jumpPressed"] ?? false, drop = (bool?)command["dropPressed"] ?? false;
+            bool pressed = (bool?)command["jumpPressed"] ?? false, drop = ((bool?)command["dropHeld"] ?? false) || ((bool?)command["dropPressed"] ?? false);
             float aim = (float?)command["aimAngle"] ?? 0;
             int selection = (int?)command["selectionRevision"] ?? frame.World.Actors.Single(a => a.Id == actor).SelectionRevision;
             bool usePressed = (bool?)command["usePressed"] ?? false, useReleased = (bool?)command["useReleased"] ?? false;

@@ -50,6 +50,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 40438c025edb8de41a86c13775301333
+    m_Address: dark_nights.ship.expedition.ship
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 41d7ecce9e18e0043abfb36cfea5a417
     m_Address: dark_nights.object.armored
     m_ReadOnly: 0
@@ -117,6 +122,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 84a14c89fd48a9547a8fa3897296e273
     m_Address: dark_nights.object.barracks
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86f5e10008ad99d42a31b5098c514b7a
+    m_Address: dark_nights.ship.expedition.hauler
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -212,6 +222,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ec305e787cf586445915c0d7f2222886
     m_Address: dark_nights.expedition.miner
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eea4283f838548b4c9d77e318cb25c50
+    m_Address: dark_nights.ship.expedition.scout-drone
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

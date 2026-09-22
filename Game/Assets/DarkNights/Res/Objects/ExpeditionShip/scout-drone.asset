@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc8652e55004e79a017907c38b6a1b2, type: 3}
+  m_Name: scout-drone
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinition
+  Id: 0
+  definitionGuid: 314d075940d1cc547b62706086be01de
+  key: expedition.scout-drone
+  keyAliases: []
+  legacyIdAliases: 
+  debugContent: 0
+  legacyAllocationPending: 
+  Type: 700
+  Name: "\u4FA6\u5BDF\u65E0\u4EBA\u673A"
+  Icon: {fileID: 0}
+  Describe: 
+  MaxStack: 1
+  ItemLevel: 1
+  NetType: 1
+  PrefabRef:
+    m_AssetGUID: eea4283f838548b4c9d77e318cb25c50
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  Archetype: {fileID: 11400000, guid: a8889a7057cea1044a96bb9b701cbbcd, type: 2}
+  UseMonolithicPooling: 0
+  BehaviourTypes:
+  - DarkNights.View.ActorPresentationBehaviour
+  - DarkNights.Runtime.Objects.ActorBehaviour
+  - DarkNights.Runtime.Objects.MovementBehaviour
+  - DarkNights.Runtime.Objects.ActorCombatBehaviour
+  - DarkNights.Runtime.Objects.AutomaticActorControlBehaviour
+  - DarkNights.Runtime.Objects.MeleeAttackBehaviour
+  SharedConfigs:
+  - rid: 6961529789000188022
+  - rid: 6961529789000188023
+  references:
+    version: 2
+    RefIds:
+    - rid: 6961529789000188022
+      type: {class: ActorRuleConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        RuleKey: scout-drone
+    - rid: 6961529789000188023
+      type: {class: MovementConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        ArrivalDistance: 0.8

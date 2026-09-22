@@ -27,7 +27,7 @@ namespace DarkNights.Runtime.Objects
             {
                 float toe = ship.X + ShipGeometry.RampToe;
                 if (s.X > toe + 8 || s.X < toe - 24) s.ShipEntryBlocked = false;
-                if (s.DropPending && Math.Abs(s.X - toe) < 24) s.ShipEntryBlocked = true;
+                if (s.DropPending && Math.Abs(s.X - toe) <= 24) s.ShipEntryBlocked = true;
                 if (s.ShipEntryBlocked) return false;
                 if (!Open || s.Horizontal <= 0 || s.X > toe + 3 || target < toe || Math.Abs(s.Height - ship.Height) > 4) return false;
                 s.Boarded = true;

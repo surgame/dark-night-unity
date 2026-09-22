@@ -36,9 +36,14 @@ namespace DarkNights.Runtime.Network
                     Guid.TryParse(identity.DefinitionGuid, out var guid) && guid != Guid.Empty && Text(identity.PlacementKey, 80));
             Require((world.Expedition != null) == layout.Expedition);
             if (world.Expedition != null)
+            {
                 Require(DarkNights.Core.Save.ExpeditionValidator.Validate(world.Expedition.Freeze(),
                     world.Actors.Select(a => a.Id).ToArray(), world.Buildings.Select(b => b.Id).ToArray(),
                     world.Worksites.Select(w => w.Id).ToArray(), catalog.Balance.Expedition).Length == 0);
+                var ship = world.Buildings.SingleOrDefault(b => b.Kind == "ship");
+                var device = world.Expedition.Devices.FirstOrDefault(d => d.Id == ship?.Id);
+                Require(ship != null && device != null && Core.Save.ExpeditionShipValidator.Transform(world.Expedition.Ship.Freeze(), ship.Id, ship.X, device.Height, catalog.Balance.Expedition.Ship));
+            }
             var camp = world.Camp;
             Require(camp.Stock != null && camp.Gathered != null && camp.Stock.Freeze().IsValid() && camp.Gathered.Freeze().IsValid());
             Require(camp.Population >= 0 && camp.Capacity >= 0 && camp.EnemyCount >= 0 && camp.Kills >= 0 && camp.Lost >= 0 &&

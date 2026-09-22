@@ -59,6 +59,7 @@ namespace DarkNights.Runtime.Objects
 
         internal void Release()
         {
+            actor.World.Ship.ReleasePilot(actor.Id);
             actor.World.Work.Clear(actor);
             ActorState state = actor.Edit();
             state.ManualControl = actor.World.IsExpedition;

@@ -2,7 +2,7 @@ using DarkNights.Runtime.Objects;
 
 namespace DarkNights.Runtime.Session
 {
-    /// <summary>远征命令的可信连接授权；个人请求校验角色租约，起飞与购买只允许房主，状态由现有事务更新。</summary>
+    /// <summary>远征命令的可信连接授权；驾驶等个人请求校验本人角色租约，购买与返航结算只允许房主，状态由现有事务更新。</summary>
     internal static class SessionExpeditionControl
     {
         internal static int Apply(ObjectSession world, SessionConnection connection, SessionRequest request)

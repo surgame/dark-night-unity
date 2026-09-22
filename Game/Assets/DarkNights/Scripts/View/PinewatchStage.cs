@@ -24,10 +24,18 @@ namespace DarkNights.View
         private float cameraHeight;
         public bool RandomTerrain { get; set; }
         public float ActorPresentationScale { get; set; } = 1;
-        public void FocusHero(Vector3 position) { cameraHeight = RandomTerrain ? position.y * 100 : 0; Focus(position.x * 100); }
+        public void FocusHero(Vector3 position) { shipFraming = false; cameraHeight = RandomTerrain ? position.y * 100 : 0; Focus(position.x * 100); }
+        /// <summary>登船后为整船、顶舱口和左侧远征面板留出视野；离船恢复玩家原有缩放。</summary>
+        public void FocusShip(Vector3 position)
+        {
+            shipFraming = true; cameraHeight = position.y * 100 + 90;
+            Focus(position.x * 100 - 240 / EffectiveZoom);
+        }
         private double visualTime;
         private int epoch;
-        private bool observing, expedition;
+        private bool observing, expedition, shipFraming;
+        private float EffectiveZoom => shipFraming ? Mathf.Min(zoom, Mathf.Max(.8f, (Screen.width - 480f) /
+            (Core.Logic.Terrain.ShipGeometry.HalfWidth * 2 + 64)), Screen.height / 300f) : zoom;
         private static readonly Color DayAmbient = new Color32(233, 235, 222, 255);
         private static readonly Color NightAmbient = new Color32(113, 135, 169, 255);
         public Camera SceneCamera => sceneCamera;
@@ -61,7 +69,7 @@ namespace DarkNights.View
             CampViewData camp = frame?.World.Camp;
             float target = camp == null ? 0.35f : camp.Mode == "Won" ? 0 : camp.WavePhase == "Night" ? 1 :
                 camp.DayRemaining < 22 ? (float)(1 - camp.DayRemaining / 22) * 0.6f : 0.05f;
-            if (frame == null) observing = false;
+            if (frame == null) { observing = false; shipFraming = false; }
             else if (!observing || epoch != frame.Epoch)
             {
                 night = frame.Elapsed > 0 ? target : 0.16f;
@@ -97,10 +105,11 @@ namespace DarkNights.View
 
         private void UpdateCamera()
         {
-            float half = Screen.width * 0.5f / zoom;
+            float viewZoom = EffectiveZoom;
+            float half = Screen.width * 0.5f / viewZoom;
             cameraX = Mathf.Clamp(cameraX, half, Mathf.Max(half, worldWidth - half));
-            sceneCamera.orthographicSize = Screen.height * 0.5f / zoom / 100;
-            sceneCamera.transform.position = new Vector3(cameraX / 100, (cameraHeight + Screen.height * (expedition ? 0.04f : 0.215f) / zoom) / 100, -10);
+            sceneCamera.orthographicSize = Screen.height * 0.5f / viewZoom / 100;
+            sceneCamera.transform.position = new Vector3(cameraX / 100, (cameraHeight + Screen.height * (expedition ? 0.04f : 0.215f) / viewZoom) / 100, -10);
         }
     }
 }

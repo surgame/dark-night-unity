@@ -7,6 +7,13 @@ namespace DarkNights.Core.Save
     /// <summary>校验船体冻结字段和驾驶席引用；数值非有限、阶段不匹配及舱外驾驶者不能进入网络或存档。</summary>
     public static class ExpeditionShipValidator
     {
+        public static bool Transform(ExpeditionShipData s, int id, float x, float height, Config.ShipFlightDefinition rules)
+        {
+            if (s == null || s.Id != id || s.DockX != Logic.Terrain.ExpeditionTerrainGenerator.ShipX || s.DockHeight != 0 ||
+                float.IsNaN(x) || float.IsNaN(height) || Math.Abs(x - s.DockX) > rules.HorizontalRange ||
+                height < 0 || height > rules.MaximumLift) return false;
+            return s.Phase == 3 || Math.Abs(x - s.DockX) < .001f && Math.Abs(height) < .001f;
+        }
         public static string Validate(ExpeditionViewData data, Config.ShipFlightDefinition rules)
         {
             var s = data.Ship;

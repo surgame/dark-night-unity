@@ -76,6 +76,13 @@ namespace DarkNights.Runtime.Objects
                 (a.Read().ExpeditionRole == 4 || ShipGeometry.Inside(a.X - s.X, a.Read().Height - s.Height)));
         }
 
+        internal void ReleasePilot(int actorId)
+        {
+            if (Ship == null || Ship.Read().PilotId != actorId) return;
+            var s = Ship.Edit(); s.PilotId = 0; s.ShipVelocityX = s.ShipVelocityY = 0;
+            if (s.ShipPhase is 1 or 2) { s.ShipPhase = 0; s.ShipDoorClock = 0; }
+        }
+
         internal void ResetDock()
         {
             var s = Ship.Edit(); s.X = s.DockX; s.Height = s.DockHeight;

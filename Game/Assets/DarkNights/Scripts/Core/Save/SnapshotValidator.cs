@@ -17,7 +17,7 @@ namespace DarkNights.Core.Save
     {
         public static string Validate(SessionSnapshot s, GameCatalog catalog, LevelLayout layout)
         {
-            if (s == null || s.SchemaVersion != 9 || s.LevelId != catalog.Level.Id)
+            if (s == null || s.SchemaVersion != SessionSnapshot.CurrentVersion || s.LevelId != catalog.Level.Id)
                 return "存档版本或关卡不匹配";
             if (layout.RandomTerrain != (s.Terrain != null)) return "存档地图类型不匹配";
             if (!Number(s.Elapsed, 0, 1000000) || s.Speed is not (1 or 2))
@@ -65,6 +65,10 @@ namespace DarkNights.Core.Save
                 string extra = ExpeditionValidator.Validate(s.Expedition, s.Actors.Select(a => a.Id).ToArray(),
                     s.Buildings.Select(b => b.Id).ToArray(), s.Worksites.Select(w => w.Id).ToArray(), catalog.Balance.Expedition);
                 if (extra.Length != 0) return extra;
+                var ship = s.Buildings.SingleOrDefault(b => b.Kind == "ship");
+                var device = s.Expedition.Devices.FirstOrDefault(d => d.Id == ship?.Id);
+                if (ship == null || device == null || !ExpeditionShipValidator.Transform(s.Expedition.Ship, ship.Id, (float)ship.X, device.Height, catalog.Balance.Expedition.Ship))
+                    return "飞船泊位或位置不匹配";
             }
             var context = new ValidationContext(s, catalog, layout);
             string error = EntitySnapshotValidator.Validate(context);

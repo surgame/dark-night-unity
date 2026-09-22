@@ -28,7 +28,7 @@ namespace DarkNights.Entry
         private HeroHudBehaviour hud;
         private YYInputRebindingHandle rebind;
         private YYInteractionSessionHandle rebindModal;
-        private bool preferHero = true, campControlEnabled, attempted, jumpPending, dropPending, sentJump, sentUse, sentDrop;
+        private bool preferHero = true, campControlEnabled, replayOnly, attempted, jumpPending, dropPending, sentJump, sentUse, sentDrop;
         private int epoch, actorId, lease, sentDirection, pendingItem = -1;
         private long connection, selectionRequest, claimRequest;
         private double nextSend, heartbeat, nextToggle;
@@ -57,6 +57,8 @@ namespace DarkNights.Entry
             network = session; camp = campInput; input = actions; stage = scene; hud = panel;
             entities = visuals;
             campControlEnabled = System.Environment.GetCommandLineArgs().Contains("--dn-camp-mode");
+            replayOnly = System.Environment.GetCommandLineArgs().Contains("--dn-role") &&
+                System.Environment.GetCommandLineArgs().Contains("--dn-input-replay");
             preferHero = !campControlEnabled;
             network.Client.RequestDefaultHero = preferHero;
             input.Unavailable += StopInput;
@@ -100,12 +102,13 @@ namespace DarkNights.Entry
                     Claim().Forget();
                 }
             }
-            hud.Present(Current, ready && !menu && !frame.Paused, jumpLabel, notice, campControlEnabled);
+            bool aboard = frame?.World.Expedition?.Crew.Any(a => a.Id == Current?.Id && a.Boarded) == true;
+            hud.Present(aboard ? null : Current, ready && !menu && !frame.Paused, jumpLabel, notice, campControlEnabled && !aboard);
         }
 
         private void Update()
         {
-            if (input == null || network.Client.Replica.Current == null || !network.Client.Ready) return;
+            if (replayOnly || input == null || network.Client.Replica.Current == null || !network.Client.Ready) return;
             if (campControlEnabled)
             {
                 var toggle = input.HeroMode ? input.HeroToggle : input.CampToggle;
@@ -123,7 +126,7 @@ namespace DarkNights.Entry
             if (allowed)
             {
                 jumpPending |= input.CanRead(input.Jump) && input.Jump.WasPressedThisFrame();
-                dropPending = pilot ? input.CanRead(input.Drop) && input.Drop.IsPressed() : dropPending || input.CanRead(input.Drop) && input.Drop.WasPressedThisFrame();
+                dropPending = pilot || !aboard && network.Client.Replica.Current.World.Expedition != null ? input.CanRead(input.Drop) && input.Drop.IsPressed() : dropPending || input.CanRead(input.Drop) && input.Drop.WasPressedThisFrame();
             }
             else jumpPending = dropPending = false;
             double now = Time.unscaledTimeAsDouble;
@@ -157,6 +160,12 @@ namespace DarkNights.Entry
                 YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.CameraInput)) return;
             // 等待所有 Update 完成，跟随本帧插值后的显示位置，避免与低频快照产生相对抖动。
             EntityView visual = entities.Visual(Current.Id);
+            var expedition = network.Client.Replica.Current.World.Expedition;
+            if (expedition?.Ship != null && expedition.Crew.Any(a => a.Id == Current.Id && a.Boarded))
+            {
+                var ship = entities.Visual(expedition.Ship.Id);
+                if (ship != null) { stage.FocusShip(ship.transform.position); return; }
+            }
             if (visual != null) stage.FocusHero(visual.transform.position);
         }
 
