@@ -63,6 +63,8 @@
 
 ## 清理与保留
 
+后续用户明确要求把所有待清理产物集中移动，现已完成：10 个目录、1,110 个文件、486,104,512 字节，统一归档到 `artifacts/pending-cleanup/20260922-strata-cave/`。内部保留原仓库相对路径，`manifest.json` 记录原位置、新位置和逐文件 SHA-256；移动前后哈希一致，原 10 个目录均已移出。当前 r3 Player、Unity Library、源码和验证证据保留在原处。同盘移动未删除内容、不释放空间。见 [移动回执](evidence/strata-cave-2026-09-22-moved.json)。以下拒绝记录为移动前历史状态。
+
 自动审批策略拒绝了清理过期构建和工具编译目录的命令，原因仅返回 `blocked by policy`；**未重试、未改工具或删除父目录绕过**。以下可重建目录合计 486,104,512 字节，完整逐路径体积见 [清理账](evidence/strata-cave-2026-09-22/cleanup.json)：
 
 - `artifacts/contour/player-mono`、`player-mono-r2`：过期对照构建，保留等待后续人工处置。

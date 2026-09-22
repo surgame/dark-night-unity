@@ -1,0 +1,10 @@
+{
+  "status": "archived_pending_cleanup",
+  "archive": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\pending-cleanup\\20260922-strata-cave",
+  "directories": 10,
+  "files": 1110.0,
+  "bytes": 486104512.0,
+  "manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\pending-cleanup\\20260922-strata-cave\\manifest.json",
+  "deleted": false,
+  "verified": "逐文件 SHA-256 一致，原目录均已移出"
+}
