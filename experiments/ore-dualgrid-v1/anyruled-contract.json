@@ -1,0 +1,3851 @@
+{
+  "status": "art contract; not imported Unity assets",
+  "cornerOrder": [
+    "NW",
+    "NE",
+    "SW",
+    "SE"
+  ],
+  "cornerBits": [
+    1,
+    2,
+    4,
+    8
+  ],
+  "pixelsPerUnit": 8,
+  "filter": "Point",
+  "spriteMesh": "FullRect",
+  "rgb": "sRGB",
+  "alpha": "straight",
+  "ruleSlotCoverage": "ExactCell",
+  "boundaryContract": "CanonicalMaterialEdgesV1",
+  "mask0": "no output",
+  "diagonalPolicy": "6 and 9 disconnected",
+  "rules": [
+    {
+      "ore": "copper",
+      "mask": 1,
+      "corners": [
+        "This",
+        "NotThis",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m1_v0",
+          "rectUnityBottomLeft": [
+            8,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m1_v1",
+          "rectUnityBottomLeft": [
+            40,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m1_v2",
+          "rectUnityBottomLeft": [
+            72,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m1_v3",
+          "rectUnityBottomLeft": [
+            104,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 2,
+      "corners": [
+        "NotThis",
+        "This",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m2_v0",
+          "rectUnityBottomLeft": [
+            16,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m2_v1",
+          "rectUnityBottomLeft": [
+            48,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m2_v2",
+          "rectUnityBottomLeft": [
+            80,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m2_v3",
+          "rectUnityBottomLeft": [
+            112,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 3,
+      "corners": [
+        "This",
+        "This",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m3_v0",
+          "rectUnityBottomLeft": [
+            24,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m3_v1",
+          "rectUnityBottomLeft": [
+            56,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m3_v2",
+          "rectUnityBottomLeft": [
+            88,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m3_v3",
+          "rectUnityBottomLeft": [
+            120,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 4,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m4_v0",
+          "rectUnityBottomLeft": [
+            0,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m4_v1",
+          "rectUnityBottomLeft": [
+            32,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m4_v2",
+          "rectUnityBottomLeft": [
+            64,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m4_v3",
+          "rectUnityBottomLeft": [
+            96,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 5,
+      "corners": [
+        "This",
+        "NotThis",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m5_v0",
+          "rectUnityBottomLeft": [
+            8,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m5_v1",
+          "rectUnityBottomLeft": [
+            40,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m5_v2",
+          "rectUnityBottomLeft": [
+            72,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m5_v3",
+          "rectUnityBottomLeft": [
+            104,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 6,
+      "corners": [
+        "NotThis",
+        "This",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m6_v0",
+          "rectUnityBottomLeft": [
+            16,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m6_v1",
+          "rectUnityBottomLeft": [
+            48,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m6_v2",
+          "rectUnityBottomLeft": [
+            80,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m6_v3",
+          "rectUnityBottomLeft": [
+            112,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 7,
+      "corners": [
+        "This",
+        "This",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m7_v0",
+          "rectUnityBottomLeft": [
+            24,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m7_v1",
+          "rectUnityBottomLeft": [
+            56,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m7_v2",
+          "rectUnityBottomLeft": [
+            88,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m7_v3",
+          "rectUnityBottomLeft": [
+            120,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 8,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m8_v0",
+          "rectUnityBottomLeft": [
+            0,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m8_v1",
+          "rectUnityBottomLeft": [
+            32,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m8_v2",
+          "rectUnityBottomLeft": [
+            64,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m8_v3",
+          "rectUnityBottomLeft": [
+            96,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 9,
+      "corners": [
+        "This",
+        "NotThis",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m9_v0",
+          "rectUnityBottomLeft": [
+            8,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m9_v1",
+          "rectUnityBottomLeft": [
+            40,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m9_v2",
+          "rectUnityBottomLeft": [
+            72,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m9_v3",
+          "rectUnityBottomLeft": [
+            104,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 10,
+      "corners": [
+        "NotThis",
+        "This",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m10_v0",
+          "rectUnityBottomLeft": [
+            16,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m10_v1",
+          "rectUnityBottomLeft": [
+            48,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m10_v2",
+          "rectUnityBottomLeft": [
+            80,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m10_v3",
+          "rectUnityBottomLeft": [
+            112,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 11,
+      "corners": [
+        "This",
+        "This",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m11_v0",
+          "rectUnityBottomLeft": [
+            24,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m11_v1",
+          "rectUnityBottomLeft": [
+            56,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m11_v2",
+          "rectUnityBottomLeft": [
+            88,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m11_v3",
+          "rectUnityBottomLeft": [
+            120,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 12,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m12_v0",
+          "rectUnityBottomLeft": [
+            0,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m12_v1",
+          "rectUnityBottomLeft": [
+            32,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m12_v2",
+          "rectUnityBottomLeft": [
+            64,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m12_v3",
+          "rectUnityBottomLeft": [
+            96,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 13,
+      "corners": [
+        "This",
+        "NotThis",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m13_v0",
+          "rectUnityBottomLeft": [
+            8,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m13_v1",
+          "rectUnityBottomLeft": [
+            40,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m13_v2",
+          "rectUnityBottomLeft": [
+            72,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m13_v3",
+          "rectUnityBottomLeft": [
+            104,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 14,
+      "corners": [
+        "NotThis",
+        "This",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m14_v0",
+          "rectUnityBottomLeft": [
+            16,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m14_v1",
+          "rectUnityBottomLeft": [
+            48,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m14_v2",
+          "rectUnityBottomLeft": [
+            80,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m14_v3",
+          "rectUnityBottomLeft": [
+            112,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "copper",
+      "mask": 15,
+      "corners": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": true,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "copper_m15_v0",
+          "rectUnityBottomLeft": [
+            24,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m15_v1",
+          "rectUnityBottomLeft": [
+            56,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m15_v2",
+          "rectUnityBottomLeft": [
+            88,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "copper_m15_v3",
+          "rectUnityBottomLeft": [
+            120,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 1,
+      "corners": [
+        "This",
+        "NotThis",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m1_v0",
+          "rectUnityBottomLeft": [
+            8,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m1_v1",
+          "rectUnityBottomLeft": [
+            40,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m1_v2",
+          "rectUnityBottomLeft": [
+            72,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m1_v3",
+          "rectUnityBottomLeft": [
+            104,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 2,
+      "corners": [
+        "NotThis",
+        "This",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m2_v0",
+          "rectUnityBottomLeft": [
+            16,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m2_v1",
+          "rectUnityBottomLeft": [
+            48,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m2_v2",
+          "rectUnityBottomLeft": [
+            80,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m2_v3",
+          "rectUnityBottomLeft": [
+            112,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 3,
+      "corners": [
+        "This",
+        "This",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m3_v0",
+          "rectUnityBottomLeft": [
+            24,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m3_v1",
+          "rectUnityBottomLeft": [
+            56,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m3_v2",
+          "rectUnityBottomLeft": [
+            88,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m3_v3",
+          "rectUnityBottomLeft": [
+            120,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 4,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m4_v0",
+          "rectUnityBottomLeft": [
+            0,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m4_v1",
+          "rectUnityBottomLeft": [
+            32,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m4_v2",
+          "rectUnityBottomLeft": [
+            64,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m4_v3",
+          "rectUnityBottomLeft": [
+            96,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 5,
+      "corners": [
+        "This",
+        "NotThis",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m5_v0",
+          "rectUnityBottomLeft": [
+            8,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m5_v1",
+          "rectUnityBottomLeft": [
+            40,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m5_v2",
+          "rectUnityBottomLeft": [
+            72,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m5_v3",
+          "rectUnityBottomLeft": [
+            104,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 6,
+      "corners": [
+        "NotThis",
+        "This",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m6_v0",
+          "rectUnityBottomLeft": [
+            16,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m6_v1",
+          "rectUnityBottomLeft": [
+            48,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m6_v2",
+          "rectUnityBottomLeft": [
+            80,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m6_v3",
+          "rectUnityBottomLeft": [
+            112,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 7,
+      "corners": [
+        "This",
+        "This",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m7_v0",
+          "rectUnityBottomLeft": [
+            24,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m7_v1",
+          "rectUnityBottomLeft": [
+            56,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m7_v2",
+          "rectUnityBottomLeft": [
+            88,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m7_v3",
+          "rectUnityBottomLeft": [
+            120,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 8,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m8_v0",
+          "rectUnityBottomLeft": [
+            0,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m8_v1",
+          "rectUnityBottomLeft": [
+            32,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m8_v2",
+          "rectUnityBottomLeft": [
+            64,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m8_v3",
+          "rectUnityBottomLeft": [
+            96,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 9,
+      "corners": [
+        "This",
+        "NotThis",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m9_v0",
+          "rectUnityBottomLeft": [
+            8,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m9_v1",
+          "rectUnityBottomLeft": [
+            40,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m9_v2",
+          "rectUnityBottomLeft": [
+            72,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m9_v3",
+          "rectUnityBottomLeft": [
+            104,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 10,
+      "corners": [
+        "NotThis",
+        "This",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m10_v0",
+          "rectUnityBottomLeft": [
+            16,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m10_v1",
+          "rectUnityBottomLeft": [
+            48,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m10_v2",
+          "rectUnityBottomLeft": [
+            80,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m10_v3",
+          "rectUnityBottomLeft": [
+            112,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 11,
+      "corners": [
+        "This",
+        "This",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m11_v0",
+          "rectUnityBottomLeft": [
+            24,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m11_v1",
+          "rectUnityBottomLeft": [
+            56,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m11_v2",
+          "rectUnityBottomLeft": [
+            88,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m11_v3",
+          "rectUnityBottomLeft": [
+            120,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 12,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m12_v0",
+          "rectUnityBottomLeft": [
+            0,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m12_v1",
+          "rectUnityBottomLeft": [
+            32,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m12_v2",
+          "rectUnityBottomLeft": [
+            64,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m12_v3",
+          "rectUnityBottomLeft": [
+            96,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 13,
+      "corners": [
+        "This",
+        "NotThis",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m13_v0",
+          "rectUnityBottomLeft": [
+            8,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m13_v1",
+          "rectUnityBottomLeft": [
+            40,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m13_v2",
+          "rectUnityBottomLeft": [
+            72,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m13_v3",
+          "rectUnityBottomLeft": [
+            104,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 14,
+      "corners": [
+        "NotThis",
+        "This",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m14_v0",
+          "rectUnityBottomLeft": [
+            16,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m14_v1",
+          "rectUnityBottomLeft": [
+            48,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m14_v2",
+          "rectUnityBottomLeft": [
+            80,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m14_v3",
+          "rectUnityBottomLeft": [
+            112,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "iron",
+      "mask": 15,
+      "corners": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": true,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "iron_m15_v0",
+          "rectUnityBottomLeft": [
+            24,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m15_v1",
+          "rectUnityBottomLeft": [
+            56,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m15_v2",
+          "rectUnityBottomLeft": [
+            88,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "iron_m15_v3",
+          "rectUnityBottomLeft": [
+            120,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 1,
+      "corners": [
+        "This",
+        "NotThis",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m1_v0",
+          "rectUnityBottomLeft": [
+            8,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m1_v1",
+          "rectUnityBottomLeft": [
+            40,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m1_v2",
+          "rectUnityBottomLeft": [
+            72,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m1_v3",
+          "rectUnityBottomLeft": [
+            104,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 2,
+      "corners": [
+        "NotThis",
+        "This",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m2_v0",
+          "rectUnityBottomLeft": [
+            16,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m2_v1",
+          "rectUnityBottomLeft": [
+            48,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m2_v2",
+          "rectUnityBottomLeft": [
+            80,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m2_v3",
+          "rectUnityBottomLeft": [
+            112,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 3,
+      "corners": [
+        "This",
+        "This",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m3_v0",
+          "rectUnityBottomLeft": [
+            24,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m3_v1",
+          "rectUnityBottomLeft": [
+            56,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m3_v2",
+          "rectUnityBottomLeft": [
+            88,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m3_v3",
+          "rectUnityBottomLeft": [
+            120,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 4,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m4_v0",
+          "rectUnityBottomLeft": [
+            0,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m4_v1",
+          "rectUnityBottomLeft": [
+            32,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m4_v2",
+          "rectUnityBottomLeft": [
+            64,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m4_v3",
+          "rectUnityBottomLeft": [
+            96,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 5,
+      "corners": [
+        "This",
+        "NotThis",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m5_v0",
+          "rectUnityBottomLeft": [
+            8,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m5_v1",
+          "rectUnityBottomLeft": [
+            40,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m5_v2",
+          "rectUnityBottomLeft": [
+            72,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m5_v3",
+          "rectUnityBottomLeft": [
+            104,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 6,
+      "corners": [
+        "NotThis",
+        "This",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m6_v0",
+          "rectUnityBottomLeft": [
+            16,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m6_v1",
+          "rectUnityBottomLeft": [
+            48,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m6_v2",
+          "rectUnityBottomLeft": [
+            80,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m6_v3",
+          "rectUnityBottomLeft": [
+            112,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 7,
+      "corners": [
+        "This",
+        "This",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m7_v0",
+          "rectUnityBottomLeft": [
+            24,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m7_v1",
+          "rectUnityBottomLeft": [
+            56,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m7_v2",
+          "rectUnityBottomLeft": [
+            88,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m7_v3",
+          "rectUnityBottomLeft": [
+            120,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 8,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m8_v0",
+          "rectUnityBottomLeft": [
+            0,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m8_v1",
+          "rectUnityBottomLeft": [
+            32,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m8_v2",
+          "rectUnityBottomLeft": [
+            64,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m8_v3",
+          "rectUnityBottomLeft": [
+            96,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 9,
+      "corners": [
+        "This",
+        "NotThis",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m9_v0",
+          "rectUnityBottomLeft": [
+            8,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m9_v1",
+          "rectUnityBottomLeft": [
+            40,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m9_v2",
+          "rectUnityBottomLeft": [
+            72,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m9_v3",
+          "rectUnityBottomLeft": [
+            104,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 10,
+      "corners": [
+        "NotThis",
+        "This",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m10_v0",
+          "rectUnityBottomLeft": [
+            16,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m10_v1",
+          "rectUnityBottomLeft": [
+            48,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m10_v2",
+          "rectUnityBottomLeft": [
+            80,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m10_v3",
+          "rectUnityBottomLeft": [
+            112,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 11,
+      "corners": [
+        "This",
+        "This",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m11_v0",
+          "rectUnityBottomLeft": [
+            24,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m11_v1",
+          "rectUnityBottomLeft": [
+            56,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m11_v2",
+          "rectUnityBottomLeft": [
+            88,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m11_v3",
+          "rectUnityBottomLeft": [
+            120,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 12,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m12_v0",
+          "rectUnityBottomLeft": [
+            0,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m12_v1",
+          "rectUnityBottomLeft": [
+            32,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m12_v2",
+          "rectUnityBottomLeft": [
+            64,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m12_v3",
+          "rectUnityBottomLeft": [
+            96,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 13,
+      "corners": [
+        "This",
+        "NotThis",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m13_v0",
+          "rectUnityBottomLeft": [
+            8,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m13_v1",
+          "rectUnityBottomLeft": [
+            40,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m13_v2",
+          "rectUnityBottomLeft": [
+            72,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m13_v3",
+          "rectUnityBottomLeft": [
+            104,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 14,
+      "corners": [
+        "NotThis",
+        "This",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m14_v0",
+          "rectUnityBottomLeft": [
+            16,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m14_v1",
+          "rectUnityBottomLeft": [
+            48,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m14_v2",
+          "rectUnityBottomLeft": [
+            80,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m14_v3",
+          "rectUnityBottomLeft": [
+            112,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "gold",
+      "mask": 15,
+      "corners": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": true,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "gold_m15_v0",
+          "rectUnityBottomLeft": [
+            24,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m15_v1",
+          "rectUnityBottomLeft": [
+            56,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m15_v2",
+          "rectUnityBottomLeft": [
+            88,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "gold_m15_v3",
+          "rectUnityBottomLeft": [
+            120,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 1,
+      "corners": [
+        "This",
+        "NotThis",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m1_v0",
+          "rectUnityBottomLeft": [
+            8,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m1_v1",
+          "rectUnityBottomLeft": [
+            40,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m1_v2",
+          "rectUnityBottomLeft": [
+            72,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m1_v3",
+          "rectUnityBottomLeft": [
+            104,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 2,
+      "corners": [
+        "NotThis",
+        "This",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m2_v0",
+          "rectUnityBottomLeft": [
+            16,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m2_v1",
+          "rectUnityBottomLeft": [
+            48,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m2_v2",
+          "rectUnityBottomLeft": [
+            80,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m2_v3",
+          "rectUnityBottomLeft": [
+            112,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 3,
+      "corners": [
+        "This",
+        "This",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m3_v0",
+          "rectUnityBottomLeft": [
+            24,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m3_v1",
+          "rectUnityBottomLeft": [
+            56,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m3_v2",
+          "rectUnityBottomLeft": [
+            88,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m3_v3",
+          "rectUnityBottomLeft": [
+            120,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 4,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m4_v0",
+          "rectUnityBottomLeft": [
+            0,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m4_v1",
+          "rectUnityBottomLeft": [
+            32,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m4_v2",
+          "rectUnityBottomLeft": [
+            64,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m4_v3",
+          "rectUnityBottomLeft": [
+            96,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 5,
+      "corners": [
+        "This",
+        "NotThis",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m5_v0",
+          "rectUnityBottomLeft": [
+            8,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m5_v1",
+          "rectUnityBottomLeft": [
+            40,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m5_v2",
+          "rectUnityBottomLeft": [
+            72,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m5_v3",
+          "rectUnityBottomLeft": [
+            104,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 6,
+      "corners": [
+        "NotThis",
+        "This",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m6_v0",
+          "rectUnityBottomLeft": [
+            16,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m6_v1",
+          "rectUnityBottomLeft": [
+            48,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m6_v2",
+          "rectUnityBottomLeft": [
+            80,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m6_v3",
+          "rectUnityBottomLeft": [
+            112,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 7,
+      "corners": [
+        "This",
+        "This",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m7_v0",
+          "rectUnityBottomLeft": [
+            24,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m7_v1",
+          "rectUnityBottomLeft": [
+            56,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m7_v2",
+          "rectUnityBottomLeft": [
+            88,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m7_v3",
+          "rectUnityBottomLeft": [
+            120,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 8,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m8_v0",
+          "rectUnityBottomLeft": [
+            0,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m8_v1",
+          "rectUnityBottomLeft": [
+            32,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m8_v2",
+          "rectUnityBottomLeft": [
+            64,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m8_v3",
+          "rectUnityBottomLeft": [
+            96,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 9,
+      "corners": [
+        "This",
+        "NotThis",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m9_v0",
+          "rectUnityBottomLeft": [
+            8,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m9_v1",
+          "rectUnityBottomLeft": [
+            40,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m9_v2",
+          "rectUnityBottomLeft": [
+            72,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m9_v3",
+          "rectUnityBottomLeft": [
+            104,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 10,
+      "corners": [
+        "NotThis",
+        "This",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m10_v0",
+          "rectUnityBottomLeft": [
+            16,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m10_v1",
+          "rectUnityBottomLeft": [
+            48,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m10_v2",
+          "rectUnityBottomLeft": [
+            80,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m10_v3",
+          "rectUnityBottomLeft": [
+            112,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 11,
+      "corners": [
+        "This",
+        "This",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m11_v0",
+          "rectUnityBottomLeft": [
+            24,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m11_v1",
+          "rectUnityBottomLeft": [
+            56,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m11_v2",
+          "rectUnityBottomLeft": [
+            88,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m11_v3",
+          "rectUnityBottomLeft": [
+            120,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 12,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m12_v0",
+          "rectUnityBottomLeft": [
+            0,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m12_v1",
+          "rectUnityBottomLeft": [
+            32,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m12_v2",
+          "rectUnityBottomLeft": [
+            64,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m12_v3",
+          "rectUnityBottomLeft": [
+            96,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 13,
+      "corners": [
+        "This",
+        "NotThis",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m13_v0",
+          "rectUnityBottomLeft": [
+            8,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m13_v1",
+          "rectUnityBottomLeft": [
+            40,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m13_v2",
+          "rectUnityBottomLeft": [
+            72,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m13_v3",
+          "rectUnityBottomLeft": [
+            104,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 14,
+      "corners": [
+        "NotThis",
+        "This",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m14_v0",
+          "rectUnityBottomLeft": [
+            16,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m14_v1",
+          "rectUnityBottomLeft": [
+            48,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m14_v2",
+          "rectUnityBottomLeft": [
+            80,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m14_v3",
+          "rectUnityBottomLeft": [
+            112,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "silver",
+      "mask": 15,
+      "corners": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": true,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "silver_m15_v0",
+          "rectUnityBottomLeft": [
+            24,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m15_v1",
+          "rectUnityBottomLeft": [
+            56,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m15_v2",
+          "rectUnityBottomLeft": [
+            88,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "silver_m15_v3",
+          "rectUnityBottomLeft": [
+            120,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 1,
+      "corners": [
+        "This",
+        "NotThis",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m1_v0",
+          "rectUnityBottomLeft": [
+            8,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m1_v1",
+          "rectUnityBottomLeft": [
+            40,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m1_v2",
+          "rectUnityBottomLeft": [
+            72,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m1_v3",
+          "rectUnityBottomLeft": [
+            104,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 2,
+      "corners": [
+        "NotThis",
+        "This",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m2_v0",
+          "rectUnityBottomLeft": [
+            16,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m2_v1",
+          "rectUnityBottomLeft": [
+            48,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m2_v2",
+          "rectUnityBottomLeft": [
+            80,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m2_v3",
+          "rectUnityBottomLeft": [
+            112,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 3,
+      "corners": [
+        "This",
+        "This",
+        "NotThis",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m3_v0",
+          "rectUnityBottomLeft": [
+            24,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m3_v1",
+          "rectUnityBottomLeft": [
+            56,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m3_v2",
+          "rectUnityBottomLeft": [
+            88,
+            24,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m3_v3",
+          "rectUnityBottomLeft": [
+            120,
+            24,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 4,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m4_v0",
+          "rectUnityBottomLeft": [
+            0,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m4_v1",
+          "rectUnityBottomLeft": [
+            32,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m4_v2",
+          "rectUnityBottomLeft": [
+            64,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m4_v3",
+          "rectUnityBottomLeft": [
+            96,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 5,
+      "corners": [
+        "This",
+        "NotThis",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m5_v0",
+          "rectUnityBottomLeft": [
+            8,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m5_v1",
+          "rectUnityBottomLeft": [
+            40,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m5_v2",
+          "rectUnityBottomLeft": [
+            72,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m5_v3",
+          "rectUnityBottomLeft": [
+            104,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 6,
+      "corners": [
+        "NotThis",
+        "This",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m6_v0",
+          "rectUnityBottomLeft": [
+            16,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m6_v1",
+          "rectUnityBottomLeft": [
+            48,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m6_v2",
+          "rectUnityBottomLeft": [
+            80,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m6_v3",
+          "rectUnityBottomLeft": [
+            112,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 7,
+      "corners": [
+        "This",
+        "This",
+        "This",
+        "NotThis"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m7_v0",
+          "rectUnityBottomLeft": [
+            24,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m7_v1",
+          "rectUnityBottomLeft": [
+            56,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m7_v2",
+          "rectUnityBottomLeft": [
+            88,
+            16,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m7_v3",
+          "rectUnityBottomLeft": [
+            120,
+            16,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 8,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m8_v0",
+          "rectUnityBottomLeft": [
+            0,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m8_v1",
+          "rectUnityBottomLeft": [
+            32,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m8_v2",
+          "rectUnityBottomLeft": [
+            64,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m8_v3",
+          "rectUnityBottomLeft": [
+            96,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 9,
+      "corners": [
+        "This",
+        "NotThis",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m9_v0",
+          "rectUnityBottomLeft": [
+            8,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m9_v1",
+          "rectUnityBottomLeft": [
+            40,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m9_v2",
+          "rectUnityBottomLeft": [
+            72,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m9_v3",
+          "rectUnityBottomLeft": [
+            104,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 10,
+      "corners": [
+        "NotThis",
+        "This",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m10_v0",
+          "rectUnityBottomLeft": [
+            16,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m10_v1",
+          "rectUnityBottomLeft": [
+            48,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m10_v2",
+          "rectUnityBottomLeft": [
+            80,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m10_v3",
+          "rectUnityBottomLeft": [
+            112,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 11,
+      "corners": [
+        "This",
+        "This",
+        "NotThis",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m11_v0",
+          "rectUnityBottomLeft": [
+            24,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m11_v1",
+          "rectUnityBottomLeft": [
+            56,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m11_v2",
+          "rectUnityBottomLeft": [
+            88,
+            8,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m11_v3",
+          "rectUnityBottomLeft": [
+            120,
+            8,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 12,
+      "corners": [
+        "NotThis",
+        "NotThis",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m12_v0",
+          "rectUnityBottomLeft": [
+            0,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m12_v1",
+          "rectUnityBottomLeft": [
+            32,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m12_v2",
+          "rectUnityBottomLeft": [
+            64,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m12_v3",
+          "rectUnityBottomLeft": [
+            96,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 13,
+      "corners": [
+        "This",
+        "NotThis",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m13_v0",
+          "rectUnityBottomLeft": [
+            8,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m13_v1",
+          "rectUnityBottomLeft": [
+            40,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m13_v2",
+          "rectUnityBottomLeft": [
+            72,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m13_v3",
+          "rectUnityBottomLeft": [
+            104,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 14,
+      "corners": [
+        "NotThis",
+        "This",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": false,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m14_v0",
+          "rectUnityBottomLeft": [
+            16,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m14_v1",
+          "rectUnityBottomLeft": [
+            48,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m14_v2",
+          "rectUnityBottomLeft": [
+            80,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m14_v3",
+          "rectUnityBottomLeft": [
+            112,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    },
+    {
+      "ore": "diamond",
+      "mask": 15,
+      "corners": [
+        "This",
+        "This",
+        "This",
+        "This"
+      ],
+      "channel": "ore",
+      "tileableFill": true,
+      "transforms": "Identity",
+      "variants": [
+        {
+          "name": "diamond_m15_v0",
+          "rectUnityBottomLeft": [
+            24,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m15_v1",
+          "rectUnityBottomLeft": [
+            56,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m15_v2",
+          "rectUnityBottomLeft": [
+            88,
+            0,
+            8,
+            8
+          ]
+        },
+        {
+          "name": "diamond_m15_v3",
+          "rectUnityBottomLeft": [
+            120,
+            0,
+            8,
+            8
+          ]
+        }
+      ]
+    }
+  ]
+}

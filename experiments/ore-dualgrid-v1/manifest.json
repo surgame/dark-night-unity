@@ -1,0 +1,429 @@
+{
+  "nativeTile": [
+    8,
+    8
+  ],
+  "atlasSize": [
+    128,
+    32
+  ],
+  "variants": 4,
+  "masks": 16,
+  "minerals": [
+    "copper",
+    "iron",
+    "gold",
+    "silver",
+    "diamond"
+  ],
+  "files": [
+    {
+      "path": "atlases/copper-body.png",
+      "sha256": "69d4aa429c2d345b22ea6598544526894720eb6a45742f1286288fe9acfe51a4"
+    },
+    {
+      "path": "atlases/copper-alteration.png",
+      "sha256": "219d84ea857dcdff2c62a0cf2824b8e8dae9904e460755449daa14466e6972c8"
+    },
+    {
+      "path": "atlases/copper-merged.png",
+      "sha256": "9586a1125af1ee47c14149cb7ede41ca3a060b1c8e7493242d8d79282ed2d7c9"
+    },
+    {
+      "path": "atlases/iron-body.png",
+      "sha256": "c92ef2f6082c578dcb64d4fa48150b70cb0fdcbf8718847cb7d3e036920b0109"
+    },
+    {
+      "path": "atlases/iron-alteration.png",
+      "sha256": "3b25adb1d74332a03316646b4eaf2c0f1a1407d2d9eca3d5b057863a1386dec1"
+    },
+    {
+      "path": "atlases/iron-merged.png",
+      "sha256": "c83c2e0f14aadcffddb4e2dcbee31c3250691716a8ef21ce21b968ed5af95850"
+    },
+    {
+      "path": "atlases/gold-body.png",
+      "sha256": "a732782ec3ff1932836db595db376559b2fb073b1d84228f3a3601f0b7847247"
+    },
+    {
+      "path": "atlases/gold-alteration.png",
+      "sha256": "a835a4d48a990c93fc492a8c3190ce9a3ccfc1f20fd8526ca2dbab69fb9af6dd"
+    },
+    {
+      "path": "atlases/gold-merged.png",
+      "sha256": "994c94dc701577b054c2c9c8dbf0fc3870b4210540a0987296d02819daced2b1"
+    },
+    {
+      "path": "atlases/silver-body.png",
+      "sha256": "6cfa7a25f0a2e89a8dbb024d434a01cd5b9c7b14bb848b8cdd707ba487de406e"
+    },
+    {
+      "path": "atlases/silver-alteration.png",
+      "sha256": "f59df41a930f3ed556f6ed189e982f3f0e2d4959b15f86b79a9d85deca780f38"
+    },
+    {
+      "path": "atlases/silver-merged.png",
+      "sha256": "5a8a3b45f738d9a3d44b84f46140b2b5c849adb705f3fcb3d0eba04388a4e36f"
+    },
+    {
+      "path": "atlases/diamond-body.png",
+      "sha256": "82bdd1623f2885fd11332625675280c636daa9fb4faa0475fad29e26ce45125d"
+    },
+    {
+      "path": "atlases/diamond-alteration.png",
+      "sha256": "1c8dcc1cfbc0b315693752ccff1abef87125333826c42b14218593293eccdea5"
+    },
+    {
+      "path": "atlases/diamond-merged.png",
+      "sha256": "84c70b8a7ea957872d201da8f10be5a260ab0a5ecc9798a2b66a8d1de57ed522"
+    }
+  ],
+  "placements": [
+    {
+      "ore": 0,
+      "x": 68,
+      "y": 88,
+      "layer": 1,
+      "grid": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "ore": 1,
+      "x": 148,
+      "y": 102,
+      "layer": 0,
+      "grid": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "ore": 2,
+      "x": 246,
+      "y": 87,
+      "layer": 1,
+      "grid": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "ore": 3,
+      "x": 341,
+      "y": 85,
+      "layer": 2,
+      "grid": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "ore": 4,
+      "x": 391,
+      "y": 227,
+      "layer": 0,
+      "grid": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    }
+  ],
+  "checks": {
+    "exactRgbaSharedEdges": 30720,
+    "emptyMask": "pass",
+    "disconnectedDiagonals": "pass"
+  },
+  "unityValidation": "not run"
+}

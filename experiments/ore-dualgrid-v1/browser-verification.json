@@ -1,0 +1,37 @@
+{
+  "checks": [
+    {
+      "name": "五矿画面各不相同",
+      "passed": true
+    },
+    {
+      "name": "三种深度色样不同",
+      "passed": true
+    },
+    {
+      "name": "按格添加改变占用数量",
+      "passed": true
+    },
+    {
+      "name": "添加后连接图变化",
+      "passed": true
+    },
+    {
+      "name": "擦除恢复原始矿格",
+      "passed": true
+    },
+    {
+      "name": "格线可关闭",
+      "passed": true
+    },
+    {
+      "name": "窄屏无横向溢出",
+      "passed": true
+    },
+    {
+      "name": "无脚本错误",
+      "passed": true
+    }
+  ],
+  "errors": []
+}

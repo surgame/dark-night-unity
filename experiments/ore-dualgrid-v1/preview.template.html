@@ -1,0 +1,70 @@
+<div id="dn-grid-ore" class="stack">
+  <style>
+    #dn-grid-ore {color:var(--foreground);}
+    #dn-grid-ore .dg-controls {display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+    #dn-grid-ore .dg-picker {display:flex;align-items:center;gap:8px;white-space:nowrap;}
+    #dn-grid-ore canvas {display:block;width:100%;height:auto;image-rendering:pixelated;touch-action:none;}
+    #dn-grid-ore .dg-caption {display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+  </style>
+  <div class="dg-controls">
+    <div class="dg-picker"><label class="form-label" for="dg-ore">矿种</label><select class="form-select" id="dg-ore"><option value="0">铜</option><option value="1">铁</option><option value="2">金</option><option value="3">银</option><option value="4">钻石</option></select></div>
+    <div class="dg-picker"><label class="form-label" for="dg-depth">岩层</label><select class="form-select" id="dg-depth"><option value="0">浅层</option><option value="1">中层</option><option value="2">深层</option></select></div>
+    <div class="dg-picker"><label class="form-label" for="dg-brush">操作</label><select class="form-select" id="dg-brush"><option value="1">添加矿格</option><option value="0">擦除矿格</option></select></div>
+    <label class="form-check"><input id="dg-lines" class="form-check-input" type="checkbox" checked><span>格线</span></label>
+  </div>
+  <canvas id="dg-paint" class="cursor-interaction" width="184" height="120" role="img" aria-label="点选或拖动添加擦除矿格，相邻矿格按四角 DualGrid 自动连接">矿格连接绘制样板</canvas>
+  <div class="dg-caption text-small"><span id="dg-status" aria-live="polite">点击或拖动修改矿格</span><span>原生 8px／格 · 自动连接</span></div>
+  <canvas id="dg-context" width="504" height="264" role="img" aria-label="五种按格矿层嵌入原版浅、中、深岩层的固定样板">三层洞室嵌入样板</canvas>
+  <div class="dg-caption text-small"><span>三层洞室嵌入样板</span><span>无自发光 · 美术候选</span></div>
+  <script>
+  (async function(){
+    const root=document.getElementById('dn-grid-ore'),data=__GRID_DATA__;
+    const $=id=>root.querySelector('#'+id),gw=24,gh=16,W=184,H=120;
+    const labels=['铜','铁','金','银','钻石'];
+    const linear=v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4;
+    const srgb=v=>v<=.0031308?v*12.92:1.055*Math.max(0,v)**(1/2.4)-.055;
+    async function load(uri){const im=new Image();im.src=uri;await im.decode();return im;}
+    const images=await Promise.all(data.atlases.map(load));
+    const pixelData=images.map(im=>{const c=document.createElement('canvas');c.width=128;c.height=32;const g=c.getContext('2d');g.drawImage(im,0,0);return g.getImageData(0,0,128,32).data;});
+    const bgImage=await load(data.background),contextImage=await load(data.context);
+    const canvas=$('dg-paint'),g=canvas.getContext('2d');g.drawImage(bgImage,0,0);
+    const background=g.getImageData(0,0,W,H).data;
+    $('dg-context').getContext('2d').drawImage(contextImage,0,-48);
+    let cfg={ore:0,depth:0,brush:1,lines:true,grid:data.grid.flat()},painting=false;
+    function apply(saved){const s=saved?.privateContent;if(!s||typeof s!=='object')return;
+      for(const k of ['ore','depth','brush'])if(Number.isInteger(s[k])&&s[k]>=0&&s[k]<({ore:5,depth:3,brush:2}[k]))cfg[k]=s[k];
+      if(typeof s.lines==='boolean')cfg.lines=s.lines;
+      if(Array.isArray(s.grid)&&s.grid.length===gw*gh&&s.grid.every(x=>x===0||x===1))cfg.grid=s.grid.slice();
+    }
+    apply(window.openai?.widgetState);
+    function save(){window.openai?.setWidgetState({modelContent:{mineral:labels[cfg.ore],layer:['浅层','中层','深层'][cfg.depth],cells:cfg.grid.reduce((a,b)=>a+b,0)},privateContent:cfg}).catch(()=>{});}
+    function variant(x,y){let n=(Math.imul(x+1,374761393)+Math.imul(y+1,668265263))>>>0;n=Math.imul(n^(n>>>13),1274126177)>>>0;return (n^(n>>>16))&3;}
+    function render(){
+      for(const k of ['ore','depth','brush'])$('dg-'+k).value=String(cfg[k]);$('dg-lines').checked=cfg.lines;
+      const result=new Uint8ClampedArray(background),atlas=pixelData[cfg.ore],factor=[.72,.48,.28][cfg.depth];
+      const at=(x,y)=>cfg.grid[y*gw+x];
+      for(let y=0;y<gh-1;y++)for(let x=0;x<gw-1;x++){
+        const m=at(x,y)+2*at(x+1,y)+4*at(x,y+1)+8*at(x+1,y+1);if(!m)continue;
+        const sx=variant(x,y)*32+(m%4)*8,sy=Math.floor(m/4)*8;
+        for(let py=0;py<8;py++)for(let px=0;px<8;px++){
+          const j=((sy+py)*128+sx+px)*4,k=((y*8+py)*W+x*8+px)*4,a=atlas[j+3]/255;
+          for(let c=0;c<3;c++)result[k+c]=Math.round(255*srgb(linear(atlas[j+c]/255)*factor*a+linear(result[k+c]/255)*(1-a)));
+        }
+      }
+      g.putImageData(new ImageData(result,W,H),0,0);
+      if(cfg.lines){const color=getComputedStyle(root).getPropertyValue('--foreground').trim()||'currentColor';g.strokeStyle=color;g.globalAlpha=.22;g.lineWidth=.25;g.beginPath();for(let x=4;x<W;x+=8){g.moveTo(x,0);g.lineTo(x,H);}for(let y=4;y<H;y+=8){g.moveTo(0,y);g.lineTo(W,y);}g.stroke();g.globalAlpha=1;}
+      $('dg-status').textContent=labels[cfg.ore]+' · '+cfg.grid.reduce((a,b)=>a+b,0)+' 个矿格 · 点击或拖动修改';root.dataset.ready='true';
+    }
+    function paint(e){const r=canvas.getBoundingClientRect();const x=Math.round((e.clientX-r.left)/r.width*W/8),y=Math.round((e.clientY-r.top)/r.height*H/8);if(x<1||x>=gw-1||y<1||y>=gh-1)return;cfg.grid[y*gw+x]=cfg.brush;render();}
+    canvas.addEventListener('pointerdown',e=>{painting=true;canvas.setPointerCapture(e.pointerId);paint(e);});
+    canvas.addEventListener('pointermove',e=>{if(painting)paint(e);});
+    canvas.addEventListener('pointerup',()=>{painting=false;save();});
+    canvas.addEventListener('pointercancel',()=>{painting=false;save();});
+    for(const k of ['ore','depth','brush'])$('dg-'+k).addEventListener('change',()=>{cfg[k]=Number($('dg-'+k).value);render();save();});
+    $('dg-lines').addEventListener('change',()=>{cfg.lines=$('dg-lines').checked;render();save();});
+    window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){apply(e.detail.globals.widgetState);render();}});
+    const observer=new MutationObserver(render);observer.observe(document.documentElement,{attributes:true,attributeFilter:['class','style','data-theme']});
+    render();
+  })().catch(e=>{const root=document.getElementById('dn-grid-ore');root.dataset.error=String(e);root.querySelector('#dg-status').textContent='预览加载失败';});
+  </script>
+</div>

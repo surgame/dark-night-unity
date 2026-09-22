@@ -1,0 +1,15 @@
+{
+  "technique": "native pixel painting with exact four-corner masks; no AI pixels in current atlases",
+  "nativePixelsPerCell": 8,
+  "deterministicPngHashes": 15,
+  "referenceSourceSha256": "0ba9423eaf1c4bc0acaf521d16f019d032ec6efd7b18038b18473c5d893c3de0",
+  "rejectedSeamStudy": "artifacts\\ore-art-rejected-seams-20260922",
+  "rejectedStudyBytes": 2963804,
+  "currentBytesBeforeZip": 1286271,
+  "freeBytes": {
+    "C": 7413313536,
+    "D": 41850253312
+  },
+  "unityImported": false,
+  "cleanedTaskPythonCacheBytes": 21214
+}
