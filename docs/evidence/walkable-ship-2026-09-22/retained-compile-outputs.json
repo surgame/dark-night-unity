@@ -1,4 +1,16 @@
-[
+{
+  "Disposition": {
+    "Status": "moved_to_temporary_deletion_holding",
+    "MovedAt": "2026-09-22T19:39:22.7569069+08:00",
+    "OriginalRoot": "D:\\Downloads\\飞船\\游戏接入验证_20260922",
+    "HoldingRoot": "D:\\Downloads\\飞船\\临时待删除\\20260922-walkable-expedition-ship",
+    "PayloadRoot": "D:\\Downloads\\飞船\\临时待删除\\20260922-walkable-expedition-ship\\游戏接入验证_20260922",
+    "DirectoryCount": 22,
+    "Bytes": 444721300,
+    "Reason": "可重建 bin/obj 的原删除操作被策略阻止；按用户要求集中移动，尚未删除。",
+    "DeleteCondition": "后续按明确清理范围复核无引用、无活动进程后再处理。"
+  },
+  "OriginalPreview": [
   {
     "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Core\\bin",
     "Bytes": 211531.0
@@ -87,4 +99,5 @@
     "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\DarkNights.Runtime\\obj",
     "Bytes": 9173.0
   }
-]
+  ]
+}

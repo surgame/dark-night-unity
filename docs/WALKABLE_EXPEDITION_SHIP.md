@@ -59,5 +59,5 @@ IL2CPP、双机器、前台性能及全洞穴飞行不在本批通过声明中�
 
 - 游戏资源及修改已落在当前功能分支，Local 复用单一 Unity 验证通道；原 `ft-20260922-embedded-ore-art` 分支保留。
 - `artifacts/walkable-ship/player-mono` 约 193 MiB，保留为本批试玩与复验产物。网络报告、截图及独立测试存档保留，以便追溯正常／弱网的实际过程。
-- `D:/Downloads/飞船/游戏接入验证_20260922/compile` 与 `static` 合计约 424 MiB。删除其中可重建 bin／obj 的操作被自动审批以 `blocked by policy` 拦截；未执行清理、未换工具重试，源码与报告一并保留。预览清单在 `artifacts/walkable-ship/cleanup-preview.json`。
+- `D:/Downloads/飞船/游戏接入验证_20260922/compile` 与 `static` 曾包含约 424 MiB 可重建 bin／obj；删除操作被自动审批以 `blocked by policy` 拦截后未重试。2026-09-22 按用户要求将清单中的 22 个目录、共 444,721,300 字节移动到 `D:/Downloads/飞船/临时待删除/20260922-walkable-expedition-ship/游戏接入验证_20260922`，原验证源码、报告和正式试玩产物仍在原位。原始预览在 `artifacts/walkable-ship/cleanup-preview.json`，移动记录见 `docs/evidence/walkable-ship-2026-09-22/retained-compile-outputs.json`。
 - `C:/Users/Jobscn/.codex/worktrees/walkable-expedition-ship/unity-projects` 保留为无 Unity 缓存的初始 checkpoint；其中首次 C# 试编产生的 CoreBuild bin／obj 共约 0.41 MiB。没有执行 `.codex` 清理，也未删除或移动该 worktree。
