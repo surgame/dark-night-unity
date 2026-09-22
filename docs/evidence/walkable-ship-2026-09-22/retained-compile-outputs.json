@@ -1,0 +1,90 @@
+[
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Core\\bin",
+    "Bytes": 211531.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Core\\obj",
+    "Bytes": 212548.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\View\\obj",
+    "Bytes": 429409.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\View\\bin",
+    "Bytes": 98989739.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Tests\\obj",
+    "Bytes": 741394.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Tests\\bin",
+    "Bytes": 76128452.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Entry\\obj",
+    "Bytes": 360922.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Entry\\bin",
+    "Bytes": 63070535.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Editor\\bin",
+    "Bytes": 103428596.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Editor\\obj",
+    "Bytes": 473236.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Runtime\\bin",
+    "Bytes": 62324285.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Runtime\\obj",
+    "Bytes": 944378.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\static\\CoreRegression\\bin",
+    "Bytes": 3978174.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\static\\CoreRegression\\obj",
+    "Bytes": 205955.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\DarkNights.Core\\obj",
+    "Bytes": 5927.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\DarkNights.View\\obj",
+    "Bytes": 9119.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\DarkNights.Tests\\obj",
+    "Bytes": 24963.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\DarkNights.Entry\\obj",
+    "Bytes": 16250.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\static\\ArchitectureGuard\\bin",
+    "Bytes": 32927016.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\static\\ArchitectureGuard\\obj",
+    "Bytes": 209245.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\DarkNights.Editor\\obj",
+    "Bytes": 20453.0
+  },
+  {
+    "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\DarkNights.Runtime\\obj",
+    "Bytes": 9173.0
+  }
+]

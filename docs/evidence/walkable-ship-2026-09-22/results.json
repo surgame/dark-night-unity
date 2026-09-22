@@ -1,0 +1,1825 @@
+{
+  "utc": "2026-09-22T11:05:00.306431+00:00",
+  "branch": "ft-20260922-walkable-expedition-ship",
+  "checkpoint": "8cffb8e73ebb3e5c5f33c8fd247fd8a23496cd21",
+  "protocol": 14,
+  "save_version": 10,
+  "build": {
+    "startedUtc": "2026-09-22T10:57:02.3236225Z",
+    "backend": "Mono",
+    "success": true,
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\walkable-ship\\player-mono\\DarkNights.exe",
+    "finishedUtc": "2026-09-22T10:57:27.3324690Z"
+  },
+  "managed_sha256": {
+    "DarkNights.Core.dll": "0aaaea812ea73a8692e768f1fe6641bc63fa26f41c02f2dca64701e4f3f5d348",
+    "DarkNights.Entry.dll": "fe135b19b43f56c8583ae469b21dd00793ec6060dab8b73057f6853558aa3f81",
+    "DarkNights.Runtime.dll": "b94b8252bfba744a47a4638892d7e966a7b664ba30494f8f73402de8a0dcfc95",
+    "DarkNights.Samples.LanCoop.Bootstrap.dll": "51a526f4d843d80508200c6186cfb0bae46d949e0ad4093a223cefa3c6171bbe",
+    "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+    "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+    "DarkNights.Samples.LanCoop.Runtime.dll": "f2c534d80ba6e5d950170e691a230891de3002def79ce00be6bc4baa0cebe434",
+    "DarkNights.View.dll": "e8b0b7fa40dd26b967221f60fe7fe2d1c47dcef279d5b736d522c42e4c4a3f8e"
+  },
+  "editor": {
+    "passed": 235,
+    "total": 236,
+    "batches": [
+      {
+        "file": "editor-r1.json",
+        "sha256": "3fb8e968f8239c55851af3b4a999d0358014a42c931a650e20d884e515949d98",
+        "status": "completed",
+        "scheduled": 25
+      },
+      {
+        "file": "editor-r2.json",
+        "sha256": "0fbc29f25a3d6e3a08f4b747fcdc55ab7761ce79b270e24f6e3ec140e0ed4c45",
+        "status": "completed",
+        "scheduled": 235
+      },
+      {
+        "file": "editor-r3.json",
+        "sha256": "189322ee431f1c8a63c96cfb0c3f00db1a28811f37b38e105dbe44a5804434a8",
+        "status": "completed",
+        "scheduled": 40
+      },
+      {
+        "file": "editor-r4.json",
+        "sha256": "5f2c755662afdb345d9d5c78240fd4effe9a9ee2d13d34a888a1e8be24ace412",
+        "status": "completed",
+        "scheduled": 3
+      },
+      {
+        "file": "editor-r5.json",
+        "sha256": "325b04d0cd7a18ef05edb7277a97dc8860879ba8b797443038d0926f1b026c47",
+        "status": "completed",
+        "scheduled": 24
+      }
+    ],
+    "tests": [
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.CargoSettlesOnceAndUpgradeChangesSecondDeparture",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.FormalMapSaveAndNetworkProjectionKeepShapes",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.GuestCannotLaunchAndReconnectReclaimsCargoOwner",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.HundredCompactSeedsHaveIndependentMineralsAndValidSlopes",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.MinerCanReachStarterDepositAndDeliverCargo",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.NegativeCargoSaveIsRejectedWithoutRetiringWorld",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.SettlementWriteFailureRollsBackAndRetryPersistsOnce",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroRecoveryTests.AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipGeometryTests.FlightRulesRejectUnboundedOrNonFiniteValues",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipGeometryTests.NativeShipAndRobotUseOneDensityConversion",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipGeometryTests.WalkwayEndpointsMatchNativeArt(-160,0)",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipGeometryTests.WalkwayEndpointsMatchNativeArt(-80,40)",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipGeometryTests.WalkwayEndpointsMatchNativeArt(16,40)",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipGeometryTests.WalkwayEndpointsMatchNativeArt(80,80)",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipGeometryTests.WalkwayEndpointsMatchNativeArt(128,80)",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipGeometryTests.WalkwayIsContinuousAndFitsTheExistingDock",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipTests.DownThroughRampKeepsTheGroundRouteUsable",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipTests.ExpiredInputDisconnectAndAirborneLoadDoNotRetainThrust",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipTests.FlightWaitsForPassengerAndCarriesThemInTheSameStep",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipTests.InvalidShipSaveDoesNotReplaceTheActiveWorld",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipTests.SeatHasOneOwnerAndRejectsForgedOrOldLease",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipTests.WalkIntoCockpitAndBackToTerrainWithoutTeleport",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipTests.WorkingRobotAndScoutReturnBeforeDoorsClose",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.InitialOrderAndFarmCompletionPreserveRelationships",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.BackgroundReferenceTests.AlphaSoftnessNeverChangesRgbOrExpandsMask",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.BackgroundReferenceTests.CodecRoundtripAndDefensiveCopies",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.BackgroundReferenceTests.CorruptVersionHashRunAndTrailingDataAreRejected",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.BackgroundReferenceTests.DestructionSaveRestoreKeepsInitialReferenceAndRejectsBrokenCandidate",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.BackgroundReferenceTests.ReliableBaselineIsAtomicAndRejectsStaleWorld",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.CaveExplorationTests.BlueprintFreezesInputsAndExperimentalProfileKeepsLegacyGeneratorSeparate",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.CaveExplorationTests.HundredSeedsHaveConnectedHiddenGraphsAndBuriedPassages",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.CaveWorkshopTests.BakedMapRetainsShapesAndRejectsUnknownShape",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.CaveWorkshopTests.CaveSeedsProduceSlopeDiversityAndFrozenShapeArrays",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.CaveWorkshopTests.GentleRampAscendsDescendsAndJumpLandsWithoutPenetration",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.CaveWorkshopTests.InitialAndLateReplicasKeepSlopesAndDestroyedState",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.CaveWorkshopTests.ShapesRoundTripAndCeilingsOccupyOppositeHalf",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.CollectionsOwnTheirInputsAndCannotBeWritten",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.EverySourceRuleFieldSurvivesParsing",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"version\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"missing\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"string_number\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"infinity\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"negative\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"fractional_integer\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"damage_order\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"damage_length\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"null_cost\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"unknown_enemy\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"negative_seed\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"zero_interval\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"empty_waves\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"duplicate\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"trailing\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.RejectsInvalidConfiguration(\"oversize\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.ResourceArithmeticPreservesOriginalValueAndDoesNotClamp",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ContentTests.SeedPreservesAllUnsignedBits",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.CoreRegressionTests.FrozenRandomAndPureRules",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Worker\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Spearman\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Archer\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Zombie\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Ghoul\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.AttackUsesSharedDisplayTimeMappedToOriginalClip(\"Armored\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BindDespawnAndReentryClearStateIdentityAndCallbacks",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"House\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Tavern\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Barracks\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Farm\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.BuildingOwnsConstructionAndPreservesFrozenTraining(\"Tower\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.ProfessionReplacementKeepsIdentityButRejectsOldVisualUpdates",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.TimelinePauseAndSpeedStillDriveTheSameIndividual",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Move\",\"\",\"move\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"WorkMove\",\"wood\",\"move\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"BuildMove\",\"\",\"move\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"TrainingMove\",\"\",\"move\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"wood\",\"work_wood\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"food\",\"work_farm\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"stone\",\"work_mine\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Work\",\"iron\",\"work_mine\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Build\",\"\",\"build\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorkerOwnsPoseAndExplicitActorOperations(\"Training\",\"\",\"idle\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Trees\",\"wood\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Stone\",\"stone\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Iron\",\"iron\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EntityPresentationTests.WorksiteOwnsVariantDepletionAndExplicitTarget(\"Farmland\",\"food\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EnvironmentTests.FormalConfigurationIsRegistered",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.EnvironmentTests.InitializationRejectsExistingAssetsWithoutWrites",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.FormalObjectContentTests.FormalDefinitionsAndGeneratedRegistriesAreComplete",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.FormalObjectContentTests.SessionDefinitionCreatesItsGeneratedBehaviour",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.FormalObjectContentTests.WorkerDefinitionRoundTripsThroughFormalInitializerAndBindings",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroBombTests.GroundAdhesionAndFuseSurviveAtomicSaveRestore",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroBombTests.LongerChargeProducesHigherThrowSpeed",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroBombTests.SelectionAndPauseCancelCharge",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroBombTests.ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroBombTests.TimeoutAndExplicitCancelNeverThrow",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroCombatTests.NonfiniteAimAndOtherConnectionCannotFire",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroCombatTests.RepeatedFireReusesBoundedSlotsAndRetiresExpiredShots",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroCombatTests.ShortClickHitsOnceAndDuplicateInputCannotFireAgain",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.DebugSpeedMultipliesOnlyAuthoritativeHeroMovement",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.InputExpiryPauseAndDisconnectInvalidateOldControl",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.PolicyChangeReleasesGuestAndRejectsQueuedLease",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.PossessionCancelsOrdersAndRejectsOtherConnection",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.ReadyCreatesDistinctVillagersForAllFourSlotsWithoutClaimingSceneActors",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.ReconnectCreatesANewVillagerInsteadOfTakingReleasedOne",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.SelectionVersionAndFuelRemainAuthoritative",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.SharedCampRestoresTheSameGeneratedVillager",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroControlTests.ShortJumpIsConsumedOnceAndSOnlyDropsCurrentPlatform",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroRecoveryTests.DeathRemovesPossessionWithoutAnOrphanedPlayerIndex",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroRecoveryTests.InvalidMotionOrFuelCannotReplaceCurrentWorld",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroRecoveryTests.LoadDoesNotTreatRememberedIdsAsExistingIdleHeroes",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.HeroRecoveryTests.NativeProjectionCarriesFrozenVerticalAndInventoryState",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.LayoutAuthoringTests.PinewatchSceneMatchesFrozenLayout",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.MeasurementSeriesTests.LongObservationKeepsEarlyLoadInQuantiles",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.MeasurementSeriesTests.QuantilesHaveBoundedErrorAcrossTimeAndByteScales",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.MeasurementSeriesTests.ResetAndZeroSamplesDoNotCarryEarlierMeasurements",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeArtTests.EveryNativeClipSamplesFrozenFramesOffsetsAndVisibility",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeArtTests.FifteenPrefabCopiesSaveReopenAndAssemblePassivePresentations",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeArtTests.FrozenPixelsAndNativeDefinitionsRemainCompleteWithMineralDeposit",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Chrome\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"MainMenu\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"PauseMenu\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Help\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.AllButtonsKeepExplicitTextAndBackgroundStates(\"Result\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeButtonThemeTests.InteractableChangesUpdateWithoutPointerMovement",
+        "status": "Failed",
+        "batch": "editor-r2.json",
+        "message": "  Expected: 0.407843143f +/- 0.0001d\r\n  But was:  0.894117653f\r\n"
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.EffectsReopenWithExplicitBindingsAndSourceGeometry",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.HudFadesRemainBoundAfterReopening",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.RemnantsRemainPassiveWithGeneratedIndividualBehaviour(\"Worker\",\"corpse\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeEffectTests.RemnantsRemainPassiveWithGeneratedIndividualBehaviour(\"House\",\"rubble\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeEnvironmentTests.HeroToolbarStartsHiddenInProductPrefab",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeEnvironmentTests.NativeEnvironmentReopensWithFrozenLightsAndGeometry",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeEnvironmentTests.PlatformVisibleTopMatchesAuthoritativeHeightAfterReopen",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"MainMenu\",1280,800)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"MainMenu\",1600,900)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"PauseMenu\",1280,800)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.AddedControlsFitTheirPanelWithoutCoveringOriginalContent(\"PauseMenu\",1600,900)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.OriginalMultilineLabelsKeepTheirMeasuredBaselineSpacing",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.ReopenedPanelsMatchFrozenGeometryAndBindings(0)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.ReopenedPanelsMatchFrozenGeometryAndBindings(1)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NativeUiTests.SavedDynamicFontsContainMaterialsAndCanRenderOriginalLanguages",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NetworkCommandRegistryTests.GeneratedRegistryCoversInstalledCommandsAndPreservesGameTags",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.NetworkCommandRegistryTests.TerrainCommandScriptResolvesCommandInsteadOfSiblingResult",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.PlayableTerrainTests.FullMapStreamAndSaveRestoreShareFinalCells",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.PlayableTerrainTests.SelectionIsDeterministicAndKeepsCampClear",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.PlayableTerrainTests.SoftRockMiningPersistsEmptyCellAcrossSaveRestore",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.DeclaredExpansionMustMatchExactlyAndCannotHideExtraOutput",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.ExpandedCapacityStillEnforcesEncodedPacketLimit",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.HeaderAndAllocationBoundsAreCheckedBeforeExpansion",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.IncompressibleAndSmallPayloadsUseExactRawFrames",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.RepetitivePayloadCompressesAndReturnsIndependentBytes",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.TrailingBytesAndConcatenatedGzipMembersAreRejected",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.TruncatedAndCorruptedGzipCannotBecomeAValidProjection",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.MeasureCompleteProjectionAtSupportedLimits",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.PooledStateReturnCannotRewriteOwnedReplica",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.ProjectionRejectsLocalCommandRings",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.RealBattleSnapshotsRemainDecodableAfterWindupCrossesZero",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.RealCodecFreezesNestedStateAndRejectsMalformedFrames",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ScenePlacementTests.PinewatchUsesDirectFormalInstancesAndAutomaticIdentities",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.DetachedEndpointAndDisposedReplicaCannotConfirm",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.OldHandshakeOrEpochCannotConfirm(6,1)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.OldHandshakeOrEpochCannotConfirm(7,0)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.SuccessfulRetryCannotBeRevokedByLateRejection",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"economy\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"work-training\")",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"time-combat\")",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"new-save\")",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"save-files\")",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"commands\")",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"boundary\")",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"lifecycle\")",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"projection\")",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"replica\")",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"clock\")",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"events\")",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"storage\")",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.SingletonLifecycleTests.InteractionSingletonRegistersAgainAfterPooledDespawn",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainAuthorityTests.ActionPolicyAndRequestIdAreAuthoritativeAndIdempotent",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainAuthorityTests.IdleStreamDoesNotScanAndChangedMapReachesLateReplica",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainAuthorityTests.InvalidBatchAndProtectedSupportAreAtomic",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainAuthorityTests.LocalDestructionTouchesAtMostFourPagesAndIsFrozen",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainDebugCharacterTests.AuthoredFramesAnimateAndKeepFeetCenteredInBothDirections",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainDebugCharacterTests.FlightUsesTheSameAnchorAtOriginalPreviewScale",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationTests.GameplayProfileKeepsScatteredOreRoomDriven",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationTests.GenerationIsFrozenAndProtectsSupport",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationTests.HtmlVectorsMatchAllTwentyFourMaps",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(double.NaN,1)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(double.PositiveInfinity,1)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationTests.InvalidSettingsFailBeforeGenerating(1,0)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainPresentationTests.ActualPagesStayStaticAndDestructionIsLocal",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainPresentationTests.AuthoredAtlasAndNativeCatalogReload",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainPresentationTests.PreviewKeepsCameraPagesVisibleAcrossDirectionChanges",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.TerrainReplicaBoundaryTests.AuthorityPaddingIsStableAndEdgeEditsRemainLocal",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedAuthoringTests.RuleChoiceAndPrefabEditsSurviveSaveAndReopen",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedCampaignTests.DoubleSpeedCampaignCompletesWithStableSaveAndNoFurtherSimulation",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedCampaignTests.NormalCampaignMatchesFrozenGodotResults",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedCampaignTests.UnattendedCampLosesAtFrozenTimeAndAlsoStopsAtDoubleSpeed",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.ActiveWorldSaveRestoresTrainingConstructionFlightAndRandomContinuation",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.ArmorFlightAndBountyUseOneDamageOwner",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.AttackWindupAndDoubleSpeedKeepSingleStepSemantics",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.DestructionRefundsTrainingAndReleasesFarmWork",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.TrainingFailureRollsBackWholeTickAndPartialPaymentRemainsOrdered",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedGameplayTests.TrainingReplacesProfessionOnceAndPreservesSceneIdentity",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.CachedRequirementsStillRejectChangedConfigsForBindingFreeView",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.FailedMutationRollsBackAndFrozenListsSurvivePooling",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.MissingConfigDuplicateConfigAndCapabilityFailBeforeActivation",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.MissingDependenciesReleaseFailedAssemblyContainer",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.MutationOpenedBeforeReassemblyCannotCommitIntoNewLifecycle",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.PreparedObjectsOwnIndependentStateAndActivateExactlyOnce",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.RealWorkerUsesSpecializedPrimaryViewWithoutSelfBinding",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.ReentryRefreshesDependenciesAndDropsOldSubscriptions",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.ReplicaCannotWriteAndCopiesIncomingSnapshot",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectFactoryTests.PreparedWorkerCreatesSynchronouslyAndCancellationCannotActivate",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectFactoryTests.SceneLoaderBindsTheOriginalPrefabInstanceAcrossSessions",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectRetirementTests.DefinitionChangeReassemblesCapabilitiesWithoutKeepingOldState",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectRetirementTests.FailedRetirementCannotReuseTheDamagedBehaviour",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectRetirementTests.RetirementDuringStateNotificationClearsAfterDelivery",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedObjectRetirementTests.RevokedAuthorityCannotWriteEvenBeforeContextDisposal",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.ConcurrentSpendingAndResendsUseOneAuthorityQueue",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.FailedAssemblyPreservesPaymentIdsAndExistingWork",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.HouseCreationPaysOnceAndCompletesWithOriginalCapacity",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.IndependentMovementAndGatheringPreserveOriginalTiming",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.NewProjectionCopiesIdentityAndStateNotificationsCannotReenter",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.PolicyPauseAndMalformedTargetsCannotMutateObjects",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedSliceTests.SaveRestoreKeepsOriginalSceneObjectAndRejectsBadCandidates",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedTransactionTests.FailedReplicaEpochKeepsCurrentObjectsAndAllowsRetry",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedTransactionTests.NotificationsObserveAllStatesAndCannotRetireSibling",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedTransactionTests.RollbackExceptionsStillRunRemainingCleanupAndUnlockBatch",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedTransactionTests.ThrowingNotificationDoesNotUndoOnlyPartOfPayment",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.UnifiedTransactionTests.UnsupportedSaveVersionsHaveExplicitErrors",
+        "status": "Passed",
+        "batch": "editor-r3.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.ClientConfigurationAndDespawnNeverCreateAuthority",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.ConfigurationAndRoleStartOnceInEitherOrder(True)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.ConfigurationAndRoleStartOnceInEitherOrder(False)",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.FailedCreationReleasesContextAndFreshAssemblyStarts",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.StopRevokesBeforeDisposalAndLateStartCannotResurrect",
+        "status": "Passed",
+        "batch": "editor-r2.json",
+        "message": null
+      },
+      {
+        "name": "DarkNights.Tests.ShipTests.ThrustCannotCrossTerrainOrTheTrialEnvelope",
+        "status": "Passed",
+        "batch": "editor-r5.json",
+        "message": null
+      }
+    ],
+    "method": "latest affected rerun per unique test; not a new full pass"
+  },
+  "core": {
+    "utc": "2026-09-22T10:48:13.0631612Z",
+    "runtime": "8.0.16",
+    "passed": true,
+    "total": 1048,
+    "failures": 0
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 458,
+    "selfTests": 12,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "art": {
+    "assets": 50,
+    "passed": 200,
+    "total": 200,
+    "checks": {
+      "hull_back:sha256": true,
+      "hull_back:native-size": true,
+      "hull_back:straight-binary-alpha": true,
+      "hull_back:import-contract": true,
+      "hull_structure:sha256": true,
+      "hull_structure:native-size": true,
+      "hull_structure:straight-binary-alpha": true,
+      "hull_structure:import-contract": true,
+      "hull_front_shell:sha256": true,
+      "hull_front_shell:native-size": true,
+      "hull_front_shell:straight-binary-alpha": true,
+      "hull_front_shell:import-contract": true,
+      "shell_work_section:sha256": true,
+      "shell_work_section:native-size": true,
+      "shell_work_section:straight-binary-alpha": true,
+      "shell_work_section:import-contract": true,
+      "shell_cockpit_section:sha256": true,
+      "shell_cockpit_section:native-size": true,
+      "shell_cockpit_section:straight-binary-alpha": true,
+      "shell_cockpit_section:import-contract": true,
+      "engine_left:sha256": true,
+      "engine_left:native-size": true,
+      "engine_left:straight-binary-alpha": true,
+      "engine_left:import-contract": true,
+      "engine_right:sha256": true,
+      "engine_right:native-size": true,
+      "engine_right:straight-binary-alpha": true,
+      "engine_right:import-contract": true,
+      "gear_socket:sha256": true,
+      "gear_socket:native-size": true,
+      "gear_socket:straight-binary-alpha": true,
+      "gear_socket:import-contract": true,
+      "gear_piston:sha256": true,
+      "gear_piston:native-size": true,
+      "gear_piston:straight-binary-alpha": true,
+      "gear_piston:import-contract": true,
+      "gear_foot:sha256": true,
+      "gear_foot:native-size": true,
+      "gear_foot:straight-binary-alpha": true,
+      "gear_foot:import-contract": true,
+      "ramp_deployed:sha256": true,
+      "ramp_deployed:native-size": true,
+      "ramp_deployed:straight-binary-alpha": true,
+      "ramp_deployed:import-contract": true,
+      "ramp_stowed:sha256": true,
+      "ramp_stowed:native-size": true,
+      "ramp_stowed:straight-binary-alpha": true,
+      "ramp_stowed:import-contract": true,
+      "airlock_closed:sha256": true,
+      "airlock_closed:native-size": true,
+      "airlock_closed:straight-binary-alpha": true,
+      "airlock_closed:import-contract": true,
+      "airlock_half:sha256": true,
+      "airlock_half:native-size": true,
+      "airlock_half:straight-binary-alpha": true,
+      "airlock_half:import-contract": true,
+      "airlock_open:sha256": true,
+      "airlock_open:native-size": true,
+      "airlock_open:straight-binary-alpha": true,
+      "airlock_open:import-contract": true,
+      "drone_hatch_closed:sha256": true,
+      "drone_hatch_closed:native-size": true,
+      "drone_hatch_closed:straight-binary-alpha": true,
+      "drone_hatch_closed:import-contract": true,
+      "drone_hatch_open:sha256": true,
+      "drone_hatch_open:native-size": true,
+      "drone_hatch_open:straight-binary-alpha": true,
+      "drone_hatch_open:import-contract": true,
+      "cargo_locker:sha256": true,
+      "cargo_locker:native-size": true,
+      "cargo_locker:straight-binary-alpha": true,
+      "cargo_locker:import-contract": true,
+      "robot_dock_empty:sha256": true,
+      "robot_dock_empty:native-size": true,
+      "robot_dock_empty:straight-binary-alpha": true,
+      "robot_dock_empty:import-contract": true,
+      "pilot_seat:sha256": true,
+      "pilot_seat:native-size": true,
+      "pilot_seat:straight-binary-alpha": true,
+      "pilot_seat:import-contract": true,
+      "pilot_console:sha256": true,
+      "pilot_console:native-size": true,
+      "pilot_console:straight-binary-alpha": true,
+      "pilot_console:import-contract": true,
+      "cabin_lamp:sha256": true,
+      "cabin_lamp:native-size": true,
+      "cabin_lamp:straight-binary-alpha": true,
+      "cabin_lamp:import-contract": true,
+      "crew_walk_0:sha256": true,
+      "crew_walk_0:native-size": true,
+      "crew_walk_0:straight-binary-alpha": true,
+      "crew_walk_0:import-contract": true,
+      "crew_walk_1:sha256": true,
+      "crew_walk_1:native-size": true,
+      "crew_walk_1:straight-binary-alpha": true,
+      "crew_walk_1:import-contract": true,
+      "crew_walk_2:sha256": true,
+      "crew_walk_2:native-size": true,
+      "crew_walk_2:straight-binary-alpha": true,
+      "crew_walk_2:import-contract": true,
+      "crew_walk_3:sha256": true,
+      "crew_walk_3:native-size": true,
+      "crew_walk_3:straight-binary-alpha": true,
+      "crew_walk_3:import-contract": true,
+      "robot_walk_0:sha256": true,
+      "robot_walk_0:native-size": true,
+      "robot_walk_0:straight-binary-alpha": true,
+      "robot_walk_0:import-contract": true,
+      "robot_walk_1:sha256": true,
+      "robot_walk_1:native-size": true,
+      "robot_walk_1:straight-binary-alpha": true,
+      "robot_walk_1:import-contract": true,
+      "robot_walk_2:sha256": true,
+      "robot_walk_2:native-size": true,
+      "robot_walk_2:straight-binary-alpha": true,
+      "robot_walk_2:import-contract": true,
+      "robot_walk_3:sha256": true,
+      "robot_walk_3:native-size": true,
+      "robot_walk_3:straight-binary-alpha": true,
+      "robot_walk_3:import-contract": true,
+      "drone_hover_0:sha256": true,
+      "drone_hover_0:native-size": true,
+      "drone_hover_0:straight-binary-alpha": true,
+      "drone_hover_0:import-contract": true,
+      "drone_hover_1:sha256": true,
+      "drone_hover_1:native-size": true,
+      "drone_hover_1:straight-binary-alpha": true,
+      "drone_hover_1:import-contract": true,
+      "drone_hover_2:sha256": true,
+      "drone_hover_2:native-size": true,
+      "drone_hover_2:straight-binary-alpha": true,
+      "drone_hover_2:import-contract": true,
+      "field_lamp:sha256": true,
+      "field_lamp:native-size": true,
+      "field_lamp:straight-binary-alpha": true,
+      "field_lamp:import-contract": true,
+      "oxygen_pack:sha256": true,
+      "oxygen_pack:native-size": true,
+      "oxygen_pack:straight-binary-alpha": true,
+      "oxygen_pack:import-contract": true,
+      "cargo_crate:sha256": true,
+      "cargo_crate:native-size": true,
+      "cargo_crate:straight-binary-alpha": true,
+      "cargo_crate:import-contract": true,
+      "flame_low_0:sha256": true,
+      "flame_low_0:native-size": true,
+      "flame_low_0:straight-binary-alpha": true,
+      "flame_low_0:import-contract": true,
+      "flame_low_1:sha256": true,
+      "flame_low_1:native-size": true,
+      "flame_low_1:straight-binary-alpha": true,
+      "flame_low_1:import-contract": true,
+      "flame_low_2:sha256": true,
+      "flame_low_2:native-size": true,
+      "flame_low_2:straight-binary-alpha": true,
+      "flame_low_2:import-contract": true,
+      "flame_medium_0:sha256": true,
+      "flame_medium_0:native-size": true,
+      "flame_medium_0:straight-binary-alpha": true,
+      "flame_medium_0:import-contract": true,
+      "flame_medium_1:sha256": true,
+      "flame_medium_1:native-size": true,
+      "flame_medium_1:straight-binary-alpha": true,
+      "flame_medium_1:import-contract": true,
+      "flame_medium_2:sha256": true,
+      "flame_medium_2:native-size": true,
+      "flame_medium_2:straight-binary-alpha": true,
+      "flame_medium_2:import-contract": true,
+      "flame_high_0:sha256": true,
+      "flame_high_0:native-size": true,
+      "flame_high_0:straight-binary-alpha": true,
+      "flame_high_0:import-contract": true,
+      "flame_high_1:sha256": true,
+      "flame_high_1:native-size": true,
+      "flame_high_1:straight-binary-alpha": true,
+      "flame_high_1:import-contract": true,
+      "flame_high_2:sha256": true,
+      "flame_high_2:native-size": true,
+      "flame_high_2:straight-binary-alpha": true,
+      "flame_high_2:import-contract": true,
+      "flame_shutdown_0:sha256": true,
+      "flame_shutdown_0:native-size": true,
+      "flame_shutdown_0:straight-binary-alpha": true,
+      "flame_shutdown_0:import-contract": true,
+      "dust_0:sha256": true,
+      "dust_0:native-size": true,
+      "dust_0:straight-binary-alpha": true,
+      "dust_0:import-contract": true,
+      "dust_1:sha256": true,
+      "dust_1:native-size": true,
+      "dust_1:straight-binary-alpha": true,
+      "dust_1:import-contract": true,
+      "dust_2:sha256": true,
+      "dust_2:native-size": true,
+      "dust_2:straight-binary-alpha": true,
+      "dust_2:import-contract": true,
+      "dust_3:sha256": true,
+      "dust_3:native-size": true,
+      "dust_3:straight-binary-alpha": true,
+      "dust_3:import-contract": true
+    }
+  },
+  "network": {
+    "normal": {
+      "passed": true,
+      "checks": {
+        "same_current_terrain": true,
+        "seat_requires_actual_cockpit": true,
+        "client_pilot": true,
+        "guest_can_drive_shared_ship": true,
+        "foreign_lease_rejected": true,
+        "client_takeoff": true,
+        "passenger_moves_with_ship": true,
+        "timeout_stops_thrust": true,
+        "late_join_inside_moving_ship": true,
+        "disconnect_releases_driver": true,
+        "reconnect_keeps_passenger_identity": true,
+        "client_pilot_2": true,
+        "no_midair_disembark": true,
+        "airborne_departure_rejected": true,
+        "load_keeps_ship_position": true,
+        "load_clears_driver_and_velocity": true,
+        "client_pilot_3": true,
+        "client_land": true,
+        "leave_seat_after_landing": true,
+        "deploy_command_accepted": true,
+        "robot_and_drone_work_outside": true,
+        "client_pilot_4": true,
+        "recall_working_units": true,
+        "all_devices_stowed_before_flight": true,
+        "robot_and_drone_boarded_before_flight": true,
+        "host_no_runtime_exception": true,
+        "client_no_runtime_exception": true,
+        "late_no_runtime_exception": true
+      },
+      "error": null,
+      "weak": false,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\walkable-ship\\player-mono\\DarkNights.exe",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "purchased_module_fixture": true,
+      "managed_sha256": {
+        "DarkNights.Core.dll": "0aaaea812ea73a8692e768f1fe6641bc63fa26f41c02f2dca64701e4f3f5d348",
+        "DarkNights.Entry.dll": "fe135b19b43f56c8583ae469b21dd00793ec6060dab8b73057f6853558aa3f81",
+        "DarkNights.Runtime.dll": "b94b8252bfba744a47a4638892d7e966a7b664ba30494f8f73402de8a0dcfc95",
+        "DarkNights.Samples.LanCoop.Bootstrap.dll": "51a526f4d843d80508200c6186cfb0bae46d949e0ad4093a223cefa3c6171bbe",
+        "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+        "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+        "DarkNights.Samples.LanCoop.Runtime.dll": "f2c534d80ba6e5d950170e691a230891de3002def79ce00be6bc4baa0cebe434",
+        "DarkNights.View.dll": "e8b0b7fa40dd26b967221f60fe7fe2d1c47dcef279d5b736d522c42e4c4a3f8e"
+      },
+      "source": "artifacts\\walkable-ship\\network-20260922-185826-normal",
+      "report_sha256": "54f09d734a071539adc0bcf0266e0049f2c637c106a1ad70e1990460f4bad0da",
+      "terrain_sha256": "2065088c34e8ca593634a7aef1e983e20c57affeee7854c37ca7eb14576f24f5",
+      "background_hash": "ca93b7af253dd1ac64add7f986e524f291528d305fe35ca8d4265bfd3e534733"
+    },
+    "weak": {
+      "passed": true,
+      "checks": {
+        "same_current_terrain": true,
+        "seat_requires_actual_cockpit": true,
+        "client_pilot": true,
+        "guest_can_drive_shared_ship": true,
+        "foreign_lease_rejected": true,
+        "client_takeoff": true,
+        "passenger_moves_with_ship": true,
+        "timeout_stops_thrust": true,
+        "late_join_inside_moving_ship": true,
+        "disconnect_releases_driver": true,
+        "reconnect_keeps_passenger_identity": true,
+        "client_pilot_2": true,
+        "no_midair_disembark": true,
+        "airborne_departure_rejected": true,
+        "load_keeps_ship_position": true,
+        "load_clears_driver_and_velocity": true,
+        "client_pilot_3": true,
+        "client_land": true,
+        "leave_seat_after_landing": true,
+        "deploy_command_accepted": true,
+        "robot_and_drone_work_outside": true,
+        "client_pilot_4": true,
+        "recall_working_units": true,
+        "all_devices_stowed_before_flight": true,
+        "robot_and_drone_boarded_before_flight": true,
+        "host_no_runtime_exception": true,
+        "client_no_runtime_exception": true,
+        "late_no_runtime_exception": true
+      },
+      "error": null,
+      "weak": true,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\walkable-ship\\player-mono\\DarkNights.exe",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "purchased_module_fixture": true,
+      "managed_sha256": {
+        "DarkNights.Core.dll": "0aaaea812ea73a8692e768f1fe6641bc63fa26f41c02f2dca64701e4f3f5d348",
+        "DarkNights.Entry.dll": "fe135b19b43f56c8583ae469b21dd00793ec6060dab8b73057f6853558aa3f81",
+        "DarkNights.Runtime.dll": "b94b8252bfba744a47a4638892d7e966a7b664ba30494f8f73402de8a0dcfc95",
+        "DarkNights.Samples.LanCoop.Bootstrap.dll": "51a526f4d843d80508200c6186cfb0bae46d949e0ad4093a223cefa3c6171bbe",
+        "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+        "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+        "DarkNights.Samples.LanCoop.Runtime.dll": "f2c534d80ba6e5d950170e691a230891de3002def79ce00be6bc4baa0cebe434",
+        "DarkNights.View.dll": "e8b0b7fa40dd26b967221f60fe7fe2d1c47dcef279d5b736d522c42e4c4a3f8e"
+      },
+      "source": "artifacts\\walkable-ship\\network-20260922-190109-weak",
+      "report_sha256": "73345b98ca8dc30bd2300997c97a07a2dc03b07c55c50e5a3c649bb57d79f3de",
+      "terrain_sha256": "2065088c34e8ca593634a7aef1e983e20c57affeee7854c37ca7eb14576f24f5",
+      "background_hash": "cce0a393dd87c1201f61f8c31f8198deec16a5ec5f53e6fe00110df8021bd4f0",
+      "relay": {
+        "received": 20973,
+        "dropped": 1044,
+        "forwarded": 19927,
+        "reordered": 9943,
+        "peer_resets": 8,
+        "received_bytes": 15778362,
+        "forwarded_bytes": 14942442,
+        "client_to_server_bytes": 136257,
+        "server_to_client_bytes": 15642105,
+        "elapsed_seconds": 169.98166870000205
+      }
+    }
+  },
+  "visual": "Actual Mono scene camera and real UGUI offscreen captures reviewed; not foreground performance evidence.",
+  "boundaries": [
+    "Flight is limited to the original dock envelope; no full-cave route or arbitrary landing.",
+    "Robot deployment uses an explicitly purchased-module save fixture; this does not prove earning its price.",
+    "NativeButtonThemeTests.InteractableChangesUpdateWithoutPointerMovement remains a known failure.",
+    "No IL2CPP, two-machine, foreground performance or old-save compatibility acceptance."
+  ]
+}
