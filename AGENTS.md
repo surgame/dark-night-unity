@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发约定
 
+2026-09-22 本分支正在接入[可步入远征飞船](docs/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。船内步行、单驾驶席、受限试飞、机器人与侦察机归队使用现有 YYGC 状态；50 张原生素材按当前 8px 岩层适配。当前仅 C# 编译与 Core／架构检查通过，Unity 导入、Play 与新 Mono 联机待本批验证，不沿用下方历史通过数。
+
 2026-09-22 当前候选为[独立岩层与三层背景](docs/STATIC_CAVE_BACKGROUND_EXECUTION.md)，分支 `codex/static-cave-background`，协议 **13**／存档 **v9**。用户明确允许脱离旧素材／场景；新 `StrataCave/ReferenceChamber.unity` 与 `RandomCave.unity` 使用独立 AnyRuleD 规则和同源 H5 岩壁、背景算法，保留 YYGC 权威与真实坡形碰撞。原生密度统一为 8px／格，矿粒与矿光暂时隐藏、矿床玩法保留。正式远征用 `--dn-contour-static` 试用；旧风格默认保留。前台性能、IL2CPP 和双机器不宣称通过，本批证据优先于下方历史切片。 外轮廓为独立可配置的六方案，当前 HybridB／OUTLINE-0921／3px／20px／2px、岩块 4px；仅修饰表现，权威碰撞保持原坡形。
 
 2026-09-21 当前切片为[远征营地 Demo](docs/EXPEDITION_CAMP_DELIVERY.md)，协议 **12**／存档 **v8**，分支 `codex/expedition-camp-plan`。正式默认入口已切换紧凑洞穴远征；背景墙矿物、氧气货袋、设备搬运／矿工、风险撤收和原子结算已有首轮实现。旧 `Tomb` 洞口和指令圈运行链退出；以下日期记录仅代表历史切片。当前 Mono 常规／弱网四进程各 35/35，Editor 合并 213/214、远征 8/8、Core 1048/1048；按钮主题 1 项失败、全路线与前台性能等边界见本轮证据，不宣称全部产品目标完成。

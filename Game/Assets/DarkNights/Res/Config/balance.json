@@ -25,6 +25,7 @@
     "ghoul": {"name": "食尸鬼", "hp": 20, "armor": 0, "damage": [3, 6], "speed": 21.0, "range": 12.0, "aggro": 78.0, "attack_seconds": 1.3, "windup": 0.36, "gold": 3},
     "armored": {"name": "披甲亡者", "hp": 40, "armor": 3, "damage": [3, 7], "speed": 10.0, "range": 12.0, "aggro": 70.0, "attack_seconds": 1.8, "windup": 0.5, "gold": 5},
     "hauler": {"name": "搬运机器人", "hp": 10, "armor": 0, "damage": [1, 3], "speed": 30.0, "range": 11.0, "aggro": 13.0, "attack_seconds": 1.5, "windup": 0.35},
+    "scout-drone": {"name": "侦察无人机", "hp": 10, "armor": 0, "damage": [1, 3], "speed": 45.0, "range": 11.0, "aggro": 13.0, "attack_seconds": 1.5, "windup": 0.35},
     "miner": {"name": "矿工", "hp": 10, "armor": 0, "damage": [1, 3], "speed": 30.0, "range": 11.0, "aggro": 13.0, "attack_seconds": 1.5, "windup": 0.35}
   },
   "buildings": {
@@ -58,6 +59,7 @@
     "ExtractSeconds": 2,
     "RecallSeconds": 8,
     "ThreatSeconds": 180,
-    "ModulePrice": 10
+    "ModulePrice": 10,
+    "Ship": {"HorizontalSpeed": 60, "VerticalSpeed": 44, "Acceleration": 120, "HorizontalRange": 128, "MaximumLift": 192, "DoorSeconds": 1, "LandingTolerance": 6, "LandingSpeed": 8}
 }
 }

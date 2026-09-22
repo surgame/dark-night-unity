@@ -11,6 +11,13 @@ namespace DarkNights.Runtime.Objects
     [MemoryPackable, StateData]
     public partial record BuildingState
     {
+        public int ShipPhase { get; internal set; }
+        public int PilotId { get; internal set; }
+        public float ShipVelocityX { get; internal set; }
+        public float ShipVelocityY { get; internal set; }
+        public double ShipDoorClock { get; internal set; }
+        public float DockX { get; internal set; }
+        public float DockHeight { get; internal set; }
         public float Height { get; internal set; }
         public int CargoIron { get; internal set; }
         public int CargoGold { get; internal set; }
@@ -34,6 +41,13 @@ namespace DarkNights.Runtime.Objects
         public void CopyFrom(IStateData source)
         {
             if (!(source is BuildingState value)) throw new ArgumentException("Expected building state.", nameof(source));
+            ShipPhase = value.ShipPhase;
+            PilotId = value.PilotId;
+            ShipVelocityX = value.ShipVelocityX;
+            ShipVelocityY = value.ShipVelocityY;
+            ShipDoorClock = value.ShipDoorClock;
+            DockX = value.DockX;
+            DockHeight = value.DockHeight;
             Height = value.Height;
             CargoIron = value.CargoIron;
             CargoGold = value.CargoGold;

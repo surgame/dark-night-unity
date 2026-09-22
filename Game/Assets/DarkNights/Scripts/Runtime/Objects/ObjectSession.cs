@@ -50,6 +50,7 @@ namespace DarkNights.Runtime.Objects
         public ObjectCampCommands Commands { get; }
         public SessionFeedback Feedback { get; } = new SessionFeedback();
         public bool IsExpedition => Terrain?.Expedition == true;
+        public ExpeditionShip Ship { get; }
         public ExpeditionOperations Expedition { get; }
         public ExpeditionDevices ExpeditionDevices { get; }
         public ExpeditionThreat ExpeditionThreat { get; }
@@ -81,6 +82,7 @@ namespace DarkNights.Runtime.Objects
             Combat = new ObjectCombat(this);
             Commands = new ObjectCampCommands(this);
             Expedition = new ExpeditionOperations(this);
+            Ship = new ExpeditionShip(this);
             ExpeditionDevices = new ExpeditionDevices(this);
             ExpeditionThreat = new ExpeditionThreat(this);
         }

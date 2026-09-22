@@ -123,8 +123,15 @@ namespace DarkNights.Entry
                     ((ActorView)view.Visual).PresentBoarded(frame.World.Expedition?.Crew.FirstOrDefault(c => c.Id == actor.Id)?.Boarded == true);
                 }
             foreach (BuildingViewData building in frame.World.Buildings)
-                if (Presentation(building.Id) is BuildingPresentationBehaviour view) view.Present(building, frame.Epoch, stage.Ambient, frame.World.Expedition?.Devices.FirstOrDefault(d => d.Id == building.Id),
+                if (Presentation(building.Id) is BuildingPresentationBehaviour view)
+                {
+                    view.Present(building, frame.Epoch, stage.Ambient, frame.World.Expedition?.Devices.FirstOrDefault(d => d.Id == building.Id),
                     frame.World.Expedition == null ? 0 : frame.World.Expedition.RobotModule + frame.World.Expedition.CargoModule * 2 + frame.World.Expedition.CrewModule * 4);
+                    var expedition = frame.World.Expedition;
+                    if (building.Kind == "ship" && expedition?.Ship != null)
+                        ((BuildingView)view.Visual).PresentShip(expedition.Ship, expedition.Crew.Any(c => c.OwnerSlot == client.PlayerSlot && c.Boarded),
+                            expedition.RobotModule + expedition.CargoModule * 2 + expedition.CrewModule * 4, Time.timeAsDouble);
+                }
             foreach (WorksiteViewData site in frame.World.Worksites)
             {
                 if (site.IsMineralDeposit || site.Kind == "mineral-deposit")

@@ -10,6 +10,8 @@ namespace DarkNights.View
     /// </summary>
     public sealed class BuildingView : EntityView, IRemnantView
     {
+        [SerializeField] private ExpeditionShipView ship;
+        public void PresentShip(ExpeditionShipData state, bool cutaway, int modules, double elapsed) => ship?.Present(state, cutaway, modules, elapsed);
         [SerializeField] private Sprite[] expeditionVariants = Array.Empty<Sprite>();
         public void PresentExpedition(int mask)
         { if (expeditionVariants.Length > 0) complete.sprite = expeditionVariants[Math.Clamp(mask, 0, expeditionVariants.Length - 1)]; }
@@ -38,7 +40,7 @@ namespace DarkNights.View
         public override void Preview(int identity, int variant)
         {
             SetVisibility(true, false, false);
-            TintSurface(Color.white);
+            TintSurface(Color.white); ship?.Preview();
         }
 
         public void PresentRemnant(VisualCue cue, double age)

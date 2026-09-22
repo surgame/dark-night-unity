@@ -1,0 +1,23 @@
+{
+  "schema": "ship-art-geometry/2",
+  "status": "拟接入几何；仅设计样机使用，未写入正式权威碰撞",
+  "coordinate_system": "ship-local native pixels; origin top-left; +Y down",
+  "root_pivot": [88, 96],
+  "authority_units_per_native_pixel": 2,
+  "dock": {"native_width": 192, "cells": 24, "ship_envelope": [0, 12, 176, 96], "spare_each_side": 8},
+  "ground_y": 96,
+  "walk_surface": [[-96,96],[8,96],[48,76],[96,76],[128,56],[152,56]],
+  "native_ceiling": [[8,72],[24,72],[40,48],[96,42],[108,20],[142,18],[152,30]],
+  "portal": {"center": [48,64], "foot": [48,76], "clear_height": 24, "clear_width": 16},
+  "external_ramp": {"toe": [8,96], "hinge": [48,76], "slope": 0.5, "angle_degrees": 26.565},
+  "internal_stair": {"base": [96,76], "top": [128,56], "slope": 0.625, "angle_degrees": 32.005},
+  "pilot": {"feet": [136,56], "interaction_radius": 8, "max_occupants": 1},
+  "robot_docks": [[63,76],[75,76]],
+  "drone_route": [[68,54],[68,36],[68,18],[16,18]],
+  "gear_feet": [[60,96],[140,96]],
+  "engine_nozzles": [[12,72],[164,72]],
+  "light_anchors": [[68,44],[144,42],[48,54]],
+  "body_reference": {"current_authority_half_width": 5, "current_authority_height": 22, "native_authority_width": 5, "native_authority_height": 11, "current_worker_sprite_canvas": [12,12], "candidate_suited_crew_canvas": [12,16]},
+  "proposed_landing_gates": {"max_attitude_degrees": 3, "gear_support_height_delta_max_native_px": 4, "body_clearance_native_px": 8, "require_full_foot_area_support": true, "require_ramp_exit_clear": true},
+  "note": "着陆阈值为设计初值；必须对当前权威十二坡形检查支撑和整船扫掠。显示轮廓扰动和H5岩壁PNG均不能作为碰撞。"
+}

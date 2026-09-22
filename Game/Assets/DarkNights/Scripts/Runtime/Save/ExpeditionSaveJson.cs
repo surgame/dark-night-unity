@@ -46,6 +46,7 @@ namespace DarkNights.Runtime.Save
         }
         internal static JToken Write(ExpeditionViewData d) => d == null ? JValue.CreateNull() : new JObject
         {
+            ["Ship"] = ExpeditionShipJson.Write(d.Ship),
             ["Run"] = d.Run,
             ["Phase"] = d.Phase,
             ["Risk"] = d.Risk,
@@ -63,7 +64,7 @@ namespace DarkNights.Runtime.Save
         {
             if (t?.Type == JTokenType.Null) return null;
             var d = Object(t);
-            return new ExpeditionViewData(Integer(d["Run"]), Integer(d["Phase"]), Number(d["Risk"]), Number(d["Clock"]), Boolean(d["Settled"]), Integer(d["RobotModule"]), Integer(d["CargoModule"]), Integer(d["CrewModule"]), Integer(d["LostCargo"]), Integer(d["LostDevices"]), Array(d["Crew"], Actor, 256).ToArray(), Array(d["Devices"], Device, 256).ToArray(), Integer(d["ResupplyCost"]));
+            return new ExpeditionViewData(Integer(d["Run"]), Integer(d["Phase"]), Number(d["Risk"]), Number(d["Clock"]), Boolean(d["Settled"]), Integer(d["RobotModule"]), Integer(d["CargoModule"]), Integer(d["CrewModule"]), Integer(d["LostCargo"]), Integer(d["LostDevices"]), Array(d["Crew"], Actor, 256).ToArray(), Array(d["Devices"], Device, 256).ToArray(), Integer(d["ResupplyCost"]), ExpeditionShipJson.Read(d["Ship"]));
         }
     }
 }

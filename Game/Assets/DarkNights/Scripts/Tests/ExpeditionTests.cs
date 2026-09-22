@@ -82,6 +82,7 @@ namespace DarkNights.Tests
             Assert.That(Send(authority, host, Request(authority, 2, "unload", hero)), Is.EqualTo(SessionResultCode.Applied));
             Assert.That(world.CaptureView().Expedition.Devices.Sum(d => d.Iron), Is.EqualTo(12));
             Assert.That(world.Economy.Stock.Iron, Is.Zero);
+            ShipScenario.Walk(authority, host, hero, 528);
             Assert.That(Send(authority, host, Request(authority, 3, "board", hero)), Is.EqualTo(SessionResultCode.Applied));
             var launch = Request(authority, 4, "emergency"); Send(authority, host, launch);
             authority.Submit(host, launch); authority.Tick();
@@ -132,7 +133,7 @@ namespace DarkNights.Tests
             {
                 var s = hero.CaptureState();
                 authority.SubmitInput(host, new HeroInputRequest(SessionAuthority.ProtocolVersion, authority.Epoch, authority.PolicyRevision,
-                    hero.Id, s.ControlLease, ++inputSequence, authority.ServerTick, 1, false, false, false, false));
+                    hero.Id, s.ControlLease, ++inputSequence, authority.ServerTick, 1, false, false, false, hero.X < 416));
                 authority.Tick();
             }
             Assert.That(hero.X, Is.GreaterThan(deposit.X - 10), "必经矿房必须能实际走到");

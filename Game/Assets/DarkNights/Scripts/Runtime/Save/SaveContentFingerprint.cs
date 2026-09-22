@@ -62,6 +62,10 @@ namespace DarkNights.Runtime.Save
             writer.Write(balance.Expedition.RecallSeconds);
             writer.Write(balance.Expedition.ThreatSeconds);
             writer.Write(balance.Expedition.ModulePrice);
+            var ship = balance.Expedition.Ship;
+            writer.Write(ship.HorizontalSpeed); writer.Write(ship.VerticalSpeed); writer.Write(ship.Acceleration);
+            writer.Write(ship.HorizontalRange); writer.Write(ship.MaximumLift); writer.Write(ship.DoorSeconds);
+            writer.Write(ship.LandingTolerance); writer.Write(ship.LandingSpeed);
             EconomyDefinition economy = balance.Economy;
             WriteResources(writer, economy.StartingResources);
             writer.Write(economy.UpkeepInterval);

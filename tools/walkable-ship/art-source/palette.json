@@ -1,0 +1,28 @@
+{
+  "name": "Strata Utility / 岩层工业",
+  "native_pixels_per_cell": 8,
+  "colors": {
+    "ink": "#1d211f",
+    "shade": "#2d322d",
+    "dark": "#40483e",
+    "mid": "#5b6352",
+    "metal": "#7c826c",
+    "light": "#a2a68a",
+    "edge": "#c2bea0",
+    "rust": "#785044",
+    "copper": "#a06e51",
+    "ochre": "#b39560",
+    "cream": "#d5c49a",
+    "glass": "#243e3d",
+    "teal": "#456461",
+    "mint": "#759991",
+    "glow": "#b7c6aa",
+    "void": "#262823",
+    "wall": "#353a31",
+    "warm": "#5c5541",
+    "dirt": "#514637",
+    "rubber": "#171d1c"
+  },
+  "method": "整数坐标直接绘制；无大图缩小、像素化滤镜、随机散点或生成式图像",
+  "material_rule": "2–4px 成组明暗；1px 接缝；主面板 3 级明度；发光只做小范围标识"
+}

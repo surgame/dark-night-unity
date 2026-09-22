@@ -76,7 +76,7 @@ namespace DarkNights.Runtime.Session
             int affected = world.Mutations.Run(() =>
             {
                 if (request.Operation == SessionOperation.ReleaseHero) { control.Release(); return 1; }
-                if (world.Paused) return 0;
+                if (world.Paused || world.IsExpedition && actor.Read().Boarded) return 0;
                 var inventory = actor.Object.GetBehaviour<HeroInventoryBehaviour>();
                 if (inventory == null) return 0;
                 return (request.Operation == SessionOperation.SelectHeroItem ? inventory.Select(request.Value) :
@@ -107,7 +107,7 @@ namespace DarkNights.Runtime.Session
                     state.UsePressed |= input.UsePressed;
                     state.UseReleased |= input.UseReleased;
                 }
-                state.JumpPending |= input.JumpPressed; state.DropPending |= input.DropPressed;
+                state.JumpPending |= input.JumpPressed; state.DropPending = world.IsExpedition && world.Expedition.Ship?.Read().PilotId == actor.Id ? input.DropPressed : state.DropPending || input.DropPressed;
                 return true;
             });
         }

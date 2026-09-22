@@ -16,7 +16,7 @@ namespace DarkNights.Runtime.Objects
         internal BuildingBehaviour Ship => world.Index.Buildings.FirstOrDefault(b => b.RuleKey == "ship");
         internal bool Active => world.Camp.Read().ExpeditionPhase is 1 or 2;
         internal bool AtShip(ActorBehaviour a) => Ship != null &&
-            Math.Abs(a.X - Ship.X) < 100 && Math.Abs(a.Read().Height - Ship.Read().Height) < 24;
+            (a.Read().Boarded || Math.Abs(a.X - Ship.X - ShipGeometry.RampToe) < 30 && Math.Abs(a.Read().Height - Ship.Read().Height) < 8);
 
         internal void Advance(double seconds)
         {
@@ -25,9 +25,10 @@ namespace DarkNights.Runtime.Objects
                 world.Mutations.Run(() =>
                 {
                     double delta = world.Camp.BeginStep(seconds); Tick(delta);
-                    if (Active || world.Camp.Read().ExpeditionPhase == 3)
+                    world.Ship.Tick(delta);
+                    if (world.IsExpedition)
                     {
-                        foreach (var a in world.Index.Actors.Where(a => a.Read().ExpeditionRole == 0 && !a.Read().Boarded).ToArray()) a.Tick(delta);
+                        foreach (var a in world.Index.Actors.Where(a => a.Read().ExpeditionRole == 0).ToArray()) a.Tick(delta);
                         world.Projectiles.Tick(delta);
                     }
                     return true;
@@ -47,23 +48,25 @@ namespace DarkNights.Runtime.Objects
             world.Camp.Edit().ExpeditionRun = 1;
             world.Economy.SetStock(new ResourceAmounts());
             var ship = Ship.Edit(); ship.DeviceStage = 3; ship.Powered = true;
-            world.Notify("远征整备：出发后采矿，返回船边卸货。首次收益可购买舱段。");
+            ship.DockX = ship.X; ship.DockHeight = ship.Height;
+            world.Notify("从左侧坡道走进飞船，走到右侧驾驶位可驾驶。出发探索后采矿，首次收益可购买机器人舱。");
         }
 
         internal int Command(string operation, int target, ActorBehaviour hero)
         {
             var c = world.Camp.Edit();
+            if (operation is "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy") return world.Ship.Command(operation, hero);
             switch (operation)
             {
                 case "depart":
-                    if (c.ExpeditionPhase != 0 && c.ExpeditionPhase != 4) return 0;
+                    if ((c.ExpeditionPhase != 0 && c.ExpeditionPhase != 4) || !world.Ship.Docked) return 0;
                     if (c.ExpeditionSettled) c.ExpeditionRun++;
                     c.ExpeditionPhase = 1; c.ExpeditionSettled = false; c.ExpeditionClock = 0; c.ExpeditionRisk = 0;
                     c.LostCargo = c.LostDevices = 0;
                     foreach (var a in world.Index.Actors.Where(a => !a.Enemy))
                     {
-                        var s = a.Edit(); s.Boarded = false; s.Oxygen = Rules.OxygenSeconds;
-                        s.Hp = a.MaximumHp; s.X = Ship.X + 70; s.Height = Ship.Read().Height;
+                        var s = a.Edit(); s.Oxygen = Rules.OxygenSeconds;
+                        s.Hp = a.MaximumHp;
                         s.TaskTarget = s.TaskPhase = 0;
                     }
                     world.ExpeditionDevices.BeginDeployment();
@@ -73,8 +76,8 @@ namespace DarkNights.Runtime.Objects
                     ExpeditionCargo.Transfer(hero, Ship, Rules.ShipCapacity * (1 + c.CargoModule)); return 1;
                 case "board":
                     if ((!Active && c.ExpeditionPhase != 3) || hero == null || !AtShip(hero)) return 0;
-                    ExpeditionCargo.Transfer(hero, Ship, Rules.ShipCapacity * (1 + c.CargoModule));
-                    hero.Edit().Boarded = true; HeroControlBehaviour.ResetInput(hero.Edit()); return 1;
+                    if (!hero.Read().Boarded) { world.Notify("请从左侧坡道步行进入舱内。"); return 0; }
+                    ExpeditionCargo.Transfer(hero, Ship, Rules.ShipCapacity * (1 + c.CargoModule)); return 1;
                 case "recall":
                     if (c.ExpeditionPhase != 1) return 0;
                     c.ExpeditionPhase = 2;
@@ -86,11 +89,11 @@ namespace DarkNights.Runtime.Objects
                         world.Index.Buildings.Any(b => b != Ship && b.Read().DeviceStage != 0 && b.Read().DeviceStage != 6)) return 0;
                     goto case "emergency";
                 case "emergency":
-                    if (!Active) return 0;
+                    if (!Active || !world.Ship.Docked) return 0;
                     c.ExpeditionPhase = 3; c.ExpeditionClock = Rules.RecallSeconds;
                     world.Notify("起飞倒计时开始；截止时未登船的货物和设备将损失。", true); return 1;
                 case "robot": case "cargo": case "crew":
-                    if (c.ExpeditionPhase != 0 && c.ExpeditionPhase != 4) return 0;
+                    if ((c.ExpeditionPhase != 0 && c.ExpeditionPhase != 4) || !world.Ship.Docked) return 0;
                     if (operation == "robot" && c.RobotModule != 0 || operation == "cargo" && c.CargoModule != 0 ||
                         operation == "crew" && c.CrewModule != 0) return 0;
                     if (!world.Economy.Pay(new ResourceAmounts(iron: Rules.ModulePrice))) return 0;
@@ -127,7 +130,8 @@ namespace DarkNights.Runtime.Objects
             foreach (var a in world.Index.Actors.Where(a => !a.Enemy).ToArray())
             {
                 var s = a.Edit();
-                if (s.Boarded || s.ExpeditionRole == 1) continue;
+                if (s.Boarded) { s.Oxygen = Math.Min(Rules.OxygenSeconds, s.Oxygen + delta * 12); continue; }
+                if (s.ExpeditionRole is 1 or 4) continue;
                 bool supplied = AtShip(a) || world.ExpeditionDevices.OxygenAt(a.X, s.Height);
                 s.Oxygen = Math.Clamp(s.Oxygen + delta * (supplied ? 12 : -1), 0, Rules.OxygenSeconds);
                 if (s.Oxygen <= 0)
@@ -165,6 +169,7 @@ namespace DarkNights.Runtime.Objects
             world.Economy.AddResource("iron", ship.CargoIron); world.Economy.AddResource("gold", ship.CargoGold);
             ship.CargoIron = ship.CargoGold = 0;
             c.ExpeditionSettled = true; c.ExpeditionPhase = 4;
+            world.Ship.ResetDock();
             foreach (var enemy in world.Index.Actors.Where(a => a.Enemy).ToArray()) world.Lifecycle.Retire(enemy);
             CommitSave?.Invoke(world.CaptureWorld());
             world.Notify("已返航：船仓收益已结算。可购买舱段后再次出发。");

@@ -77,7 +77,10 @@ namespace DarkNights.Core.Save
                 if (!Number(a.AimAngle, -180, 180) || !Number(a.EquipmentCooldown, 0, 5) || !Number(a.EquipmentAction, 0, 5) || !Number(a.EquipmentActionDuration, 0, 5))
                     return "道具动作或冷却无效";
                 var hero = c.Catalog.Balance.HeroControl;
-                if (!Number(a.Height, c.Saved.Terrain == null ? 0 : Config.Terrain.PlayableTerrain.MinimumHeight, hero?.MaximumHeight ?? 0) || !Number(a.VerticalSpeed, -1000, 1000) ||
+                double maximumHeight = hero?.MaximumHeight ?? 0;
+                var crew = c.Saved.Expedition?.Crew.FirstOrDefault(v => v.Id == a.Id);
+                if (crew?.Boarded == true || crew?.Role == 4) maximumHeight = Math.Max(maximumHeight, 384);
+                if (!Number(a.Height, c.Saved.Terrain == null ? 0 : Config.Terrain.PlayableTerrain.MinimumHeight, maximumHeight) || !Number(a.VerticalSpeed, -1000, 1000) ||
                     !Number(a.DropRemaining, 0, hero?.DropSeconds ?? 0) || !Number(a.JetpackFuel, 0, hero?.FuelSeconds ?? 0) ||
                     a.ExplosiveCharges < 0 || a.ExplosiveCharges > 1000 ||
                     a.SelectedItem < 0 || a.SelectedItem > 3 || a.SelectionRevision < 0 || a.SupportPlatform < -1 || a.IgnoredPlatform < 0 ||

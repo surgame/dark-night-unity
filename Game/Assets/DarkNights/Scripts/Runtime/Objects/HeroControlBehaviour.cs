@@ -18,6 +18,7 @@ namespace DarkNights.Runtime.Objects
         internal bool Tick(double delta)
         {
             ActorState state = actor.Edit();
+            if (actor.World.Ship.Cabin.Player(actor, delta)) return true;
             bool manual = state.ManualControl;
             if (!manual && state.Height == 0 && state.SupportPlatform == 0) return false;
             bool jump = manual && state.JumpPending;
@@ -69,7 +70,7 @@ namespace DarkNights.Runtime.Objects
         internal static void ResetInput(ActorState state)
         {
             HeroEquipment.Cancel(state);
-            state.Horizontal = 0;
+            state.Horizontal = 0; state.ShipEntryBlocked = false;
             state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
             state.LastInputSequence = 0; state.LastInputTick = 0;
         }

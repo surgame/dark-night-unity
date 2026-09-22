@@ -50,7 +50,13 @@ namespace DarkNights.Runtime.Config
         }
 
         private static ExpeditionDefinition Expedition(JToken v) => v == null ? new ExpeditionDefinition() : new ExpeditionDefinition(
-            ConfigJson.Positive(v, "OxygenSeconds"), ConfigJson.Integer(v, "BagCapacity"), ConfigJson.Integer(v, "ShipCapacity"), ConfigJson.Integer(v, "StorageCapacity"), ConfigJson.Positive(v, "OxygenRadius"), ConfigJson.Positive(v, "RelayRange"), ConfigJson.Integer(v, "PowerSupply"), ConfigJson.Positive(v, "DeploySeconds"), ConfigJson.Positive(v, "ExtractSeconds"), ConfigJson.Positive(v, "RecallSeconds"), ConfigJson.Positive(v, "ThreatSeconds"), ConfigJson.Integer(v, "ModulePrice"));
+            ConfigJson.Positive(v, "OxygenSeconds"), ConfigJson.Integer(v, "BagCapacity"), ConfigJson.Integer(v, "ShipCapacity"), ConfigJson.Integer(v, "StorageCapacity"), ConfigJson.Positive(v, "OxygenRadius"), ConfigJson.Positive(v, "RelayRange"), ConfigJson.Integer(v, "PowerSupply"), ConfigJson.Positive(v, "DeploySeconds"), ConfigJson.Positive(v, "ExtractSeconds"), ConfigJson.Positive(v, "RecallSeconds"), ConfigJson.Positive(v, "ThreatSeconds"), ConfigJson.Integer(v, "ModulePrice"), Ship(v["Ship"]));
+
+        private static ShipFlightDefinition Ship(JToken s) => s == null ? new ShipFlightDefinition() : new ShipFlightDefinition(
+            (float)ConfigJson.Positive(s, "HorizontalSpeed"), (float)ConfigJson.Positive(s, "VerticalSpeed"),
+            (float)ConfigJson.Positive(s, "Acceleration"), (float)ConfigJson.Positive(s, "HorizontalRange"),
+            (float)ConfigJson.Positive(s, "MaximumLift"), ConfigJson.Positive(s, "DoorSeconds"),
+            (float)ConfigJson.Positive(s, "LandingTolerance"), (float)ConfigJson.Positive(s, "LandingSpeed"));
 
         private static HeroControlDefinition HeroControl(JToken value) => new HeroControlDefinition(
             ConfigJson.Positive(value, "jump_speed"), ConfigJson.Positive(value, "gravity"),

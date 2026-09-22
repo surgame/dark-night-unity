@@ -21,7 +21,7 @@ namespace DarkNights.Runtime.Save
     /// </summary>
     public sealed class ObjectWorldSaveJson
     {
-        public const int FormatVersion = 9;
+        public const int FormatVersion = 10;
         public const int MaximumBytes = 4000000;
         public const string Format = "dark-nights.world";
         private readonly string equipmentFingerprint;

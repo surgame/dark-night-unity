@@ -19,7 +19,7 @@ namespace DarkNights.Runtime.Session
                 r.TargetId < 0 || r.ActorIds.Any(id => id <= 0)) return false;
             if (r.Operation == SessionOperation.Expedition)
                 return r.ActorIds.Count <= 1 && r.X == 0 && r.Value == 0 && r.Kind.Length > 0 &&
-                    new[] { "depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "relay", "mine", "resupply" }.Contains(r.Kind);
+                    new[] { "depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "relay", "mine", "resupply", "pilot", "takeoff", "land", "cancel-flight", "deploy" }.Contains(r.Kind);
             if (SessionHeroControl.IsOperation(r.Operation))
                 return r.ActorIds.Count == 1 && r.X == 0 &&
                     (r.Operation == SessionOperation.ClaimHero ? r.ControlLease == 0 : r.ControlLease > 0) &&

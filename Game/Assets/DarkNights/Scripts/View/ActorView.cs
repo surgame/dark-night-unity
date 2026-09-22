@@ -10,6 +10,7 @@ namespace DarkNights.View
     /// </summary>
     public sealed class ActorView : EntityView, IRemnantView
     {
+        [SerializeField] private ExpeditionUnitView expeditionUnit;
         [SerializeField] private HandheldView handheld;
         [SerializeField] private SpriteRenderer shadow;
         [SerializeField] private Transform facing;
@@ -25,11 +26,15 @@ namespace DarkNights.View
             new Color32(167, 174, 122, 255), new Color32(185, 164, 194, 255)
         };
 
-        public void PresentHandheld(ActorViewData actor, double elapsed) => handheld?.Present(actor, elapsed, Ambient);
+        public void PresentHandheld(ActorViewData actor, double elapsed)
+        {
+            if (expeditionUnit != null) { handheld?.Hide(); expeditionUnit.Present(actor); }
+            else handheld?.Present(actor, elapsed, Ambient);
+        }
         public void PresentBoarded(bool boarded)
         {
-            facing.gameObject.SetActive(!boarded);
-            if (shadow != null) shadow.enabled = !boarded;
+            facing.gameObject.SetActive(true);
+            if (shadow != null) shadow.enabled = !boarded && expeditionUnit == null;
             if (boarded) handheld?.Hide();
         }
 
@@ -69,7 +74,7 @@ namespace DarkNights.View
             if (shadow != null) shadow.enabled = true;
             facing.localScale = Vector3.one;
             poseRoot.localPosition = standingOffset;
-            TintActor(identity, false, false);
+            TintActor(identity, false, false); expeditionUnit?.Present(null);
         }
 
         public void PresentRemnant(VisualCue cue, double age)

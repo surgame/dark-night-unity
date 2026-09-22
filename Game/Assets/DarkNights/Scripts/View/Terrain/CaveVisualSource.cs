@@ -115,6 +115,8 @@ namespace DarkNights.View.Terrain
             foreach (var b in world.Expedition.Devices)
                 if (b.Powered) hash = unchecked(hash * 31 + b.Id * 7 + b.Height.GetHashCode());
             foreach (var b in world.Buildings) hash = unchecked(hash * 31 + b.X.GetHashCode());
+            foreach (var a in world.Actors)
+                if (a.Kind == "scout-drone") hash = unchecked(hash * 31 + Mathf.RoundToInt(a.X / 16) * 7 + Mathf.RoundToInt(a.Height / 16));
             if (deviceLights != null && hash == deviceHash) return;
             deviceHash = hash; deviceLights = new byte[W * H];
             foreach (var b in world.Buildings)
@@ -126,6 +128,12 @@ namespace DarkNights.View.Terrain
                     int x = Mathf.RoundToInt(b.X / 16), y = Mathf.RoundToInt((632 - d.Height - 16) / 16);
                     if (x >= 0 && x < W && y >= 0 && y < H) deviceLights[y * W + x] = 255;
                 }
+            }
+            foreach (var a in world.Actors)
+            {
+                if (a.Kind != "scout-drone" || a.Hp <= 0) continue;
+                int x = Mathf.RoundToInt(a.X / 16), y = Mathf.RoundToInt((632 - a.Height) / 16);
+                if (x >= 0 && x < W && y >= 0 && y < H) deviceLights[y * W + x] = 255;
             }
             lightDirty = true;
         }

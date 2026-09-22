@@ -16,7 +16,8 @@ namespace DarkNights.Core.Config
         public double RecallSeconds { get; }
         public double ThreatSeconds { get; }
         public int ModulePrice { get; }
-        public ExpeditionDefinition(double oxygenSeconds = 120, int bagCapacity = 24, int shipCapacity = 160, int storageCapacity = 80, double oxygenRadius = 120, double relayRange = 360, int powerSupply = 12, double deploySeconds = 3, double extractSeconds = 2, double recallSeconds = 8, double threatSeconds = 90, int modulePrice = 10)
+        public ShipFlightDefinition Ship { get; }
+        public ExpeditionDefinition(double oxygenSeconds = 120, int bagCapacity = 24, int shipCapacity = 160, int storageCapacity = 80, double oxygenRadius = 120, double relayRange = 360, int powerSupply = 12, double deploySeconds = 3, double extractSeconds = 2, double recallSeconds = 8, double threatSeconds = 90, int modulePrice = 10, ShipFlightDefinition ship = null)
         {
             if (oxygenSeconds <= 0 || oxygenSeconds > 10000 || double.IsNaN(oxygenSeconds)) throw new ArgumentOutOfRangeException(nameof(oxygenSeconds));
             OxygenSeconds = oxygenSeconds;
@@ -41,7 +42,7 @@ namespace DarkNights.Core.Config
             if (threatSeconds <= 0 || threatSeconds > 10000 || double.IsNaN(threatSeconds)) throw new ArgumentOutOfRangeException(nameof(threatSeconds));
             ThreatSeconds = threatSeconds;
             if (modulePrice <= 0 || modulePrice > 10000) throw new ArgumentOutOfRangeException(nameof(modulePrice));
-            ModulePrice = modulePrice;
+            ModulePrice = modulePrice; Ship = ship ?? new ShipFlightDefinition();
         }
     }
 }

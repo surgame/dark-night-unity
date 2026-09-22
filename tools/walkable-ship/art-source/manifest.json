@@ -1,0 +1,1473 @@
+{
+  "schema": "dark-nights-ship-art/2",
+  "version": "2026-09-22",
+  "ship_canvas": [
+    176,
+    104
+  ],
+  "ship_origin_top_left": [
+    88,
+    96
+  ],
+  "pixels_per_cell": 8,
+  "logical_units_per_cell": 16,
+  "pixels_per_unity_unit": 8,
+  "units_note": "每原生像素对应2个权威坐标单位；PPU=8 以当前地形每格1 Unity单位为前提，Prefab接入须核对父缩放",
+  "texture": {
+    "filter": "Point",
+    "compression": "None",
+    "mipmaps": false,
+    "sRGB": true,
+    "alpha": "straight; no premultiply; RGB=0 when A=0",
+    "mesh": "FullRect"
+  },
+  "assets": {
+    "hull_back": {
+      "file": "assets/hull_back.png",
+      "size": [
+        176,
+        104
+      ],
+      "pivot_top_left": [
+        88.0,
+        104
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "ship",
+      "role": "后壁与舱内远侧玻璃；无角色、门和设备烘焙",
+      "sorting_order": 10,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "81b1823500883092812f23cacee51b932262f895372ee5bff9edf8a174bc6559"
+    },
+    "hull_structure": {
+      "file": "assets/hull_structure.png",
+      "size": [
+        176,
+        104
+      ],
+      "pivot_top_left": [
+        88.0,
+        104
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "ship",
+      "role": "固定骨架与短梯；玩法斜面由 geometry.json 定义",
+      "sorting_order": 50,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "94d9851fc0e217b72ab505c6fede46483782d35747e02ce4f9d685fba446f62d"
+    },
+    "hull_front_shell": {
+      "file": "assets/hull_front_shell.png",
+      "size": [
+        176,
+        104
+      ],
+      "pivot_top_left": [
+        88.0,
+        104
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "ship",
+      "role": "完整外壳；进入时按舱段隐藏，不把小人画在壳上",
+      "sorting_order": 80,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "13631e9bcfa13e4d07ebe1b46365ad90f8384ebf60d1e5be945e04a6d20d228e"
+    },
+    "shell_work_section": {
+      "file": "assets/shell_work_section.png",
+      "size": [
+        176,
+        104
+      ],
+      "pivot_top_left": [
+        88.0,
+        104
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "ship",
+      "role": "舱段剖切遮挡层，与 hull_front_shell 二选一",
+      "sorting_order": 80,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "da7bae594a951b835fe788e2a4d71a950c311eb839eb10f1cee7ef1a94720fdb"
+    },
+    "shell_cockpit_section": {
+      "file": "assets/shell_cockpit_section.png",
+      "size": [
+        176,
+        104
+      ],
+      "pivot_top_left": [
+        88.0,
+        104
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "ship",
+      "role": "舱段剖切遮挡层，与 hull_front_shell 二选一",
+      "sorting_order": 80,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "ac4a48d17f49cb9d8f0b5d7e5b493236e1f5036a28eb718a96e85fb77d86865f"
+    },
+    "engine_left": {
+      "file": "assets/engine_left.png",
+      "size": [
+        24,
+        40
+      ],
+      "pivot_top_left": [
+        12,
+        36
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.09999999999999998
+      ],
+      "assembly_top_left": [
+        0,
+        36
+      ],
+      "category": "ship",
+      "role": "左动力舱；不含火焰",
+      "sorting_order": 60,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "8ef461a09447d130b2a223e319c4b4d8e3abc6209f90b305bd3734ec170fff60"
+    },
+    "engine_right": {
+      "file": "assets/engine_right.png",
+      "size": [
+        24,
+        40
+      ],
+      "pivot_top_left": [
+        12,
+        36
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.09999999999999998
+      ],
+      "assembly_top_left": [
+        152,
+        36
+      ],
+      "category": "ship",
+      "role": "右动力舱；镜像后独立导出",
+      "sorting_order": 60,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "40c876eeaa3bfce8244e53f2b7dafe6a40913c40c0281afa30c8d3171f7e3846"
+    },
+    "gear_socket": {
+      "file": "assets/gear_socket.png",
+      "size": [
+        12,
+        8
+      ],
+      "pivot_top_left": [
+        6.0,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "mechanism",
+      "role": "固定安装座",
+      "sorting_order": 40,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "349f1e68e3c08c01313da8b3fa35fc4a54b300800090b5705248ba63a377ffa9"
+    },
+    "gear_piston": {
+      "file": "assets/gear_piston.png",
+      "size": [
+        6,
+        16
+      ],
+      "pivot_top_left": [
+        3.0,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "mechanism",
+      "role": "独立活塞，不缩放整套支柱",
+      "sorting_order": 40,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "0312ec6e8981b9316b770da38d18f495ce555777ed3f9b7937fae5f93ecbcd3b"
+    },
+    "gear_foot": {
+      "file": "assets/gear_foot.png",
+      "size": [
+        18,
+        6
+      ],
+      "pivot_top_left": [
+        9.0,
+        6
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "mechanism",
+      "role": "脚垫底面为接触锚点",
+      "sorting_order": 40,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "c92d1a1d4a3cb4167b3a94e0784f2beb2f7e4d598bab8d3df867ff042358cf62"
+    },
+    "ramp_deployed": {
+      "file": "assets/ramp_deployed.png",
+      "size": [
+        42,
+        24
+      ],
+      "pivot_top_left": [
+        40,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.9523809523809523,
+        1.0
+      ],
+      "assembly_top_left": [
+        8,
+        76
+      ],
+      "category": "mechanism",
+      "role": "1:2 展开坡道；铰点为 (48,76)，足端 (8,96)",
+      "sorting_order": 45,
+      "state": "deployed",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "702b337be1147e3bf27e634f62751e5fd13bd5fa81cce86fd548414509327ddb"
+    },
+    "ramp_stowed": {
+      "file": "assets/ramp_stowed.png",
+      "size": [
+        12,
+        24
+      ],
+      "pivot_top_left": [
+        10,
+        24
+      ],
+      "pivot_unity_normalized": [
+        0.8333333333333334,
+        0.0
+      ],
+      "assembly_top_left": [
+        38,
+        52
+      ],
+      "category": "mechanism",
+      "role": "收拢坡道独立状态，不与展开态同时显示",
+      "sorting_order": 65,
+      "state": "stowed",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "d760bee94f89f66104d2f0148dae09ec2b0d9e8c9ee0c2564a172cd275fe4d93"
+    },
+    "airlock_closed": {
+      "file": "assets/airlock_closed.png",
+      "size": [
+        20,
+        28
+      ],
+      "pivot_top_left": [
+        10,
+        27
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0357142857142857
+      ],
+      "assembly_top_left": [
+        38,
+        49
+      ],
+      "category": "mechanism",
+      "role": "工作气闸：24px 垂直净空；帧间同锚点",
+      "sorting_order": 70,
+      "state": "closed",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "5caf9f8338aba85ed42da68ecd62bc698dd65daf96f45d3604b7d0f97da41af0"
+    },
+    "airlock_half": {
+      "file": "assets/airlock_half.png",
+      "size": [
+        20,
+        28
+      ],
+      "pivot_top_left": [
+        10,
+        27
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0357142857142857
+      ],
+      "assembly_top_left": [
+        38,
+        49
+      ],
+      "category": "mechanism",
+      "role": "工作气闸：24px 垂直净空；帧间同锚点",
+      "sorting_order": 70,
+      "state": "half",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "df23bc3d8946c053f47e9c208ca859992470bbdf2bdcc8e2c791226bc8acb812"
+    },
+    "airlock_open": {
+      "file": "assets/airlock_open.png",
+      "size": [
+        20,
+        28
+      ],
+      "pivot_top_left": [
+        10,
+        27
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0357142857142857
+      ],
+      "assembly_top_left": [
+        38,
+        49
+      ],
+      "category": "mechanism",
+      "role": "工作气闸：24px 垂直净空；帧间同锚点",
+      "sorting_order": 70,
+      "state": "open",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "cbd002f45806f814c159f9faf46ceea4956c493b7c452da256d7a4b95fbad24d"
+    },
+    "drone_hatch_closed": {
+      "file": "assets/drone_hatch_closed.png",
+      "size": [
+        24,
+        10
+      ],
+      "pivot_top_left": [
+        12,
+        6
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.4
+      ],
+      "assembly_top_left": [
+        56,
+        34
+      ],
+      "category": "mechanism",
+      "role": "无人机独立顶部出口；离舱先上升再侧移",
+      "sorting_order": 55,
+      "state": "closed",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "96b51099721fc4e672aacc31b6545607ccb79a2897a09fe613843b4d75a70024"
+    },
+    "drone_hatch_open": {
+      "file": "assets/drone_hatch_open.png",
+      "size": [
+        24,
+        10
+      ],
+      "pivot_top_left": [
+        12,
+        6
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.4
+      ],
+      "assembly_top_left": [
+        56,
+        34
+      ],
+      "category": "mechanism",
+      "role": "无人机独立顶部出口；离舱先上升再侧移",
+      "sorting_order": 55,
+      "state": "open",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "ce61c917c6363156ebfd0e0b0207dc9ac763f040cebaa3e2762d1efcef0ac678"
+    },
+    "cargo_locker": {
+      "file": "assets/cargo_locker.png",
+      "size": [
+        20,
+        16
+      ],
+      "pivot_top_left": [
+        10.0,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        72,
+        58
+      ],
+      "category": "interior",
+      "role": "低矮背景货柜，不阻断行走层",
+      "sorting_order": 25,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "573cefd2580268b9382d1d989dc287f50d321b6a0b292b98fc1fb4bb14d789bc"
+    },
+    "robot_dock_empty": {
+      "file": "assets/robot_dock_empty.png",
+      "size": [
+        24,
+        20
+      ],
+      "pivot_top_left": [
+        12.0,
+        20
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        55,
+        56
+      ],
+      "category": "interior",
+      "role": "两个空机器人泊位；绝不烘焙单位",
+      "sorting_order": 25,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "486669a8c6b5707b24e5e8269fea8ce5da282ea6da8fe1aeb4712f09eb680f84"
+    },
+    "pilot_seat": {
+      "file": "assets/pilot_seat.png",
+      "size": [
+        12,
+        16
+      ],
+      "pivot_top_left": [
+        6.0,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        130,
+        40
+      ],
+      "category": "interior",
+      "role": "可占用座椅；就座挂点 (136,56)",
+      "sorting_order": 25,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "93e8b6909938f75167838951fee313dcb69b58be49b7d819c7ff822ddea58475"
+    },
+    "pilot_console": {
+      "file": "assets/pilot_console.png",
+      "size": [
+        16,
+        13
+      ],
+      "pivot_top_left": [
+        8.0,
+        13
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        138,
+        39
+      ],
+      "category": "interior",
+      "role": "驾驶台；屏幕只有小面积亮色",
+      "sorting_order": 25,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "fd615348e058ccee34a0aa72f1fe8c068d24af85a6e172a0fd9ea450a230d015"
+    },
+    "cabin_lamp": {
+      "file": "assets/cabin_lamp.png",
+      "size": [
+        16,
+        4
+      ],
+      "pivot_top_left": [
+        8.0,
+        4
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        60,
+        42
+      ],
+      "category": "interior",
+      "role": "灯罩像素；实际柔光需运行时独立生成",
+      "sorting_order": 45,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "9cbb73a51936bec6dd630998fbe3faad9740142c4bd8137786636d101152c2ec"
+    },
+    "crew_walk_0": {
+      "file": "assets/crew_walk_0.png",
+      "size": [
+        12,
+        16
+      ],
+      "pivot_top_left": [
+        6,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "unit",
+      "role": "美术候选动作草稿；非既有正式人物替换",
+      "sorting_order": 35,
+      "state": "walk_0",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "93c0d3e7b1bd21d15096bf16d1484cdaadd3bdf9055afc3e711fef4d59b6c298"
+    },
+    "crew_walk_1": {
+      "file": "assets/crew_walk_1.png",
+      "size": [
+        12,
+        16
+      ],
+      "pivot_top_left": [
+        6,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "unit",
+      "role": "美术候选动作草稿；非既有正式人物替换",
+      "sorting_order": 35,
+      "state": "walk_1",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "e4cd5f4d5a99eb70f5979bd472eb6871df32263af0b284071e4241c173719039"
+    },
+    "crew_walk_2": {
+      "file": "assets/crew_walk_2.png",
+      "size": [
+        12,
+        16
+      ],
+      "pivot_top_left": [
+        6,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "unit",
+      "role": "美术候选动作草稿；非既有正式人物替换",
+      "sorting_order": 35,
+      "state": "walk_2",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "93c0d3e7b1bd21d15096bf16d1484cdaadd3bdf9055afc3e711fef4d59b6c298"
+    },
+    "crew_walk_3": {
+      "file": "assets/crew_walk_3.png",
+      "size": [
+        12,
+        16
+      ],
+      "pivot_top_left": [
+        6,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "unit",
+      "role": "美术候选动作草稿；非既有正式人物替换",
+      "sorting_order": 35,
+      "state": "walk_3",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "d22afc9f691af2b1d57ed14a73238ef2ae857f9a21fe69862f74c932fb84dfe3"
+    },
+    "robot_walk_0": {
+      "file": "assets/robot_walk_0.png",
+      "size": [
+        12,
+        16
+      ],
+      "pivot_top_left": [
+        6,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "unit",
+      "role": "美术候选动作草稿；非既有正式人物替换",
+      "sorting_order": 35,
+      "state": "walk_0",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "dfb8f0879a67ec60d1d0a2b741ec0f2dcee714f4d32d803f29883f466caa3f63"
+    },
+    "robot_walk_1": {
+      "file": "assets/robot_walk_1.png",
+      "size": [
+        12,
+        16
+      ],
+      "pivot_top_left": [
+        6,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "unit",
+      "role": "美术候选动作草稿；非既有正式人物替换",
+      "sorting_order": 35,
+      "state": "walk_1",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "ca515b2da267a20439aa0720ae2105f8a2f8f2679c921d23cbf257bb2285d350"
+    },
+    "robot_walk_2": {
+      "file": "assets/robot_walk_2.png",
+      "size": [
+        12,
+        16
+      ],
+      "pivot_top_left": [
+        6,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "unit",
+      "role": "美术候选动作草稿；非既有正式人物替换",
+      "sorting_order": 35,
+      "state": "walk_2",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "dfb8f0879a67ec60d1d0a2b741ec0f2dcee714f4d32d803f29883f466caa3f63"
+    },
+    "robot_walk_3": {
+      "file": "assets/robot_walk_3.png",
+      "size": [
+        12,
+        16
+      ],
+      "pivot_top_left": [
+        6,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "unit",
+      "role": "美术候选动作草稿；非既有正式人物替换",
+      "sorting_order": 35,
+      "state": "walk_3",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "04d572e78b896f0c09fa30957f4acbe48b5be026f0f1adb787f6efc2355f9a06"
+    },
+    "drone_hover_0": {
+      "file": "assets/drone_hover_0.png",
+      "size": [
+        16,
+        12
+      ],
+      "pivot_top_left": [
+        8,
+        6
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.5
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "unit",
+      "role": "独立照明／勘探无人机，未赋予自动采矿能力",
+      "sorting_order": 35,
+      "state": "hover_0",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "8e7e97422ea41e0980e4e35f0be5df63157314775325ed6260d8499da9f88e3b"
+    },
+    "drone_hover_1": {
+      "file": "assets/drone_hover_1.png",
+      "size": [
+        16,
+        12
+      ],
+      "pivot_top_left": [
+        8,
+        6
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.5
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "unit",
+      "role": "独立照明／勘探无人机，未赋予自动采矿能力",
+      "sorting_order": 35,
+      "state": "hover_1",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "74df3f48e875e035fdc998570e5b994c505d89374336bb798801671782111860"
+    },
+    "drone_hover_2": {
+      "file": "assets/drone_hover_2.png",
+      "size": [
+        16,
+        12
+      ],
+      "pivot_top_left": [
+        8,
+        6
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.5
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "unit",
+      "role": "独立照明／勘探无人机，未赋予自动采矿能力",
+      "sorting_order": 35,
+      "state": "hover_2",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "6a17044dd31cd223595ab5c9f7a787533e5fbc4815d55ab3e353a5436b12d2a8"
+    },
+    "field_lamp": {
+      "file": "assets/field_lamp.png",
+      "size": [
+        16,
+        24
+      ],
+      "pivot_top_left": [
+        8,
+        24
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "equipment",
+      "role": "同风格可搬设备，玩法仍归正式设备对象",
+      "sorting_order": 35,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "6e4f45d3865873496a79759e24482811327f39b9a31e10a46ad576b0ea3cebc7"
+    },
+    "oxygen_pack": {
+      "file": "assets/oxygen_pack.png",
+      "size": [
+        16,
+        24
+      ],
+      "pivot_top_left": [
+        8,
+        24
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "equipment",
+      "role": "同风格可搬设备，玩法仍归正式设备对象",
+      "sorting_order": 35,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "fb6adb46206f8e9daf8837e33c169d773199eb5f656f67c6a50787e54537a912"
+    },
+    "cargo_crate": {
+      "file": "assets/cargo_crate.png",
+      "size": [
+        16,
+        24
+      ],
+      "pivot_top_left": [
+        8,
+        24
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "equipment",
+      "role": "同风格可搬设备，玩法仍归正式设备对象",
+      "sorting_order": 35,
+      "state": "static",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "264ab13dcc0518e6a6393e53eb6f1eb93dbeab30ee3bb043a6b1e696cbf42d65"
+    },
+    "flame_low_0": {
+      "file": "assets/flame_low_0.png",
+      "size": [
+        16,
+        32
+      ],
+      "pivot_top_left": [
+        8,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "按推力档选帧；同档 3 帧，熄火 1 帧",
+      "sorting_order": 5,
+      "state": "low",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "abf1c586a2654637573af29fe6b1e80ef16cce96568e90a1ea161feb41d982fe"
+    },
+    "flame_low_1": {
+      "file": "assets/flame_low_1.png",
+      "size": [
+        16,
+        32
+      ],
+      "pivot_top_left": [
+        8,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "按推力档选帧；同档 3 帧，熄火 1 帧",
+      "sorting_order": 5,
+      "state": "low",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "7f268fb6b92bb72738fdc3f795bed863227c7131f1af07244e46737515aa38ba"
+    },
+    "flame_low_2": {
+      "file": "assets/flame_low_2.png",
+      "size": [
+        16,
+        32
+      ],
+      "pivot_top_left": [
+        8,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "按推力档选帧；同档 3 帧，熄火 1 帧",
+      "sorting_order": 5,
+      "state": "low",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "14985435782eebf6ea2e6c77282ae2d50addb7db784095d0c9f45430648bb967"
+    },
+    "flame_medium_0": {
+      "file": "assets/flame_medium_0.png",
+      "size": [
+        16,
+        32
+      ],
+      "pivot_top_left": [
+        8,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "按推力档选帧；同档 3 帧，熄火 1 帧",
+      "sorting_order": 5,
+      "state": "medium",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "fbf14e0bcc168c8e0a14ba539641ae1ee680b7eae1fc8e0bfca7e64c491ebb8a"
+    },
+    "flame_medium_1": {
+      "file": "assets/flame_medium_1.png",
+      "size": [
+        16,
+        32
+      ],
+      "pivot_top_left": [
+        8,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "按推力档选帧；同档 3 帧，熄火 1 帧",
+      "sorting_order": 5,
+      "state": "medium",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "caee5a106926bb187c42f4b8e3fd7c03e9738c2fafebad5230fcc5ac021c17c5"
+    },
+    "flame_medium_2": {
+      "file": "assets/flame_medium_2.png",
+      "size": [
+        16,
+        32
+      ],
+      "pivot_top_left": [
+        8,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "按推力档选帧；同档 3 帧，熄火 1 帧",
+      "sorting_order": 5,
+      "state": "medium",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "1b19ec9c0c541cb1eaa68ce0f99bf15dccce33c8f6cc70df9f40c603d58a4437"
+    },
+    "flame_high_0": {
+      "file": "assets/flame_high_0.png",
+      "size": [
+        16,
+        32
+      ],
+      "pivot_top_left": [
+        8,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "按推力档选帧；同档 3 帧，熄火 1 帧",
+      "sorting_order": 5,
+      "state": "high",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "523a2c8112e8dc45b1af01c8b949183c1a2bc85cb8c71c7bdda6826289dec207"
+    },
+    "flame_high_1": {
+      "file": "assets/flame_high_1.png",
+      "size": [
+        16,
+        32
+      ],
+      "pivot_top_left": [
+        8,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "按推力档选帧；同档 3 帧，熄火 1 帧",
+      "sorting_order": 5,
+      "state": "high",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "2ca7564114ed365e62126f2176178b5ce5e1714b62255df38fc9b90606e74961"
+    },
+    "flame_high_2": {
+      "file": "assets/flame_high_2.png",
+      "size": [
+        16,
+        32
+      ],
+      "pivot_top_left": [
+        8,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "按推力档选帧；同档 3 帧，熄火 1 帧",
+      "sorting_order": 5,
+      "state": "high",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "c87a86bd33bc65e026a2e992b932919cbc8f6a7f007972e04053fae0a8e5613a"
+    },
+    "flame_shutdown_0": {
+      "file": "assets/flame_shutdown_0.png",
+      "size": [
+        16,
+        32
+      ],
+      "pivot_top_left": [
+        8,
+        0
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        1.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "按推力档选帧；同档 3 帧，熄火 1 帧",
+      "sorting_order": 5,
+      "state": "shutdown",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "6c5de244ad06d6619f76fe9c71a78444d2fc135eab051585b2c4bcf4506a962c"
+    },
+    "dust_0": {
+      "file": "assets/dust_0.png",
+      "size": [
+        48,
+        16
+      ],
+      "pivot_top_left": [
+        24,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "岩尘颜色低饱和；整帧 Alpha 可在运行时衰减",
+      "sorting_order": 90,
+      "state": "dust_0",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "855bb63e3a94d76c9252b399eb7472325a424346b072bda11f1c979fbcfca9ab"
+    },
+    "dust_1": {
+      "file": "assets/dust_1.png",
+      "size": [
+        48,
+        16
+      ],
+      "pivot_top_left": [
+        24,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "岩尘颜色低饱和；整帧 Alpha 可在运行时衰减",
+      "sorting_order": 90,
+      "state": "dust_1",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "0b3b2efe61793412eabde491cbf69b83ba39e0d7228d41c739173d1c403feb89"
+    },
+    "dust_2": {
+      "file": "assets/dust_2.png",
+      "size": [
+        48,
+        16
+      ],
+      "pivot_top_left": [
+        24,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "岩尘颜色低饱和；整帧 Alpha 可在运行时衰减",
+      "sorting_order": 90,
+      "state": "dust_2",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "71fdd0911ed30a14c8f80e4d3fc8a214716e0f536fa29d17b6e7ff09520e05d2"
+    },
+    "dust_3": {
+      "file": "assets/dust_3.png",
+      "size": [
+        48,
+        16
+      ],
+      "pivot_top_left": [
+        24,
+        16
+      ],
+      "pivot_unity_normalized": [
+        0.5,
+        0.0
+      ],
+      "assembly_top_left": [
+        0,
+        0
+      ],
+      "category": "effect",
+      "role": "岩尘颜色低饱和；整帧 Alpha 可在运行时衰减",
+      "sorting_order": 90,
+      "state": "dust_3",
+      "alpha": "binary straight",
+      "status": "候选可导入像素源，未在 Unity 导入验收",
+      "sha256": "cd706e6f3af9a1550d343caf97c51758871592fe81202a09eef521ffbb7cb5a4"
+    }
+  },
+  "assembly": [
+    {
+      "asset": "hull_back",
+      "top_left": [
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "cargo_locker",
+      "top_left": [
+        72,
+        58
+      ]
+    },
+    {
+      "asset": "robot_dock_empty",
+      "top_left": [
+        55,
+        56
+      ]
+    },
+    {
+      "asset": "pilot_seat",
+      "top_left": [
+        130,
+        40
+      ]
+    },
+    {
+      "asset": "pilot_console",
+      "top_left": [
+        138,
+        39
+      ]
+    },
+    {
+      "asset": "cabin_lamp",
+      "top_left": [
+        60,
+        42
+      ]
+    },
+    {
+      "asset": "hull_structure",
+      "top_left": [
+        0,
+        0
+      ]
+    },
+    {
+      "asset": "engine_left",
+      "top_left": [
+        0,
+        36
+      ]
+    },
+    {
+      "asset": "engine_right",
+      "top_left": [
+        152,
+        36
+      ]
+    },
+    {
+      "asset": "drone_hatch_open",
+      "top_left": [
+        56,
+        34
+      ]
+    },
+    {
+      "asset": "ramp_deployed",
+      "top_left": [
+        8,
+        76
+      ]
+    },
+    {
+      "asset": "airlock_open",
+      "top_left": [
+        38,
+        49
+      ]
+    },
+    {
+      "asset": "gear_socket",
+      "top_left": [
+        54,
+        76
+      ]
+    },
+    {
+      "asset": "gear_piston",
+      "top_left": [
+        57,
+        78
+      ]
+    },
+    {
+      "asset": "gear_foot",
+      "top_left": [
+        51,
+        90
+      ]
+    },
+    {
+      "asset": "gear_socket",
+      "top_left": [
+        134,
+        76
+      ]
+    },
+    {
+      "asset": "gear_piston",
+      "top_left": [
+        137,
+        78
+      ]
+    },
+    {
+      "asset": "gear_foot",
+      "top_left": [
+        131,
+        90
+      ]
+    }
+  ],
+  "animation": {
+    "crew_walk": {
+      "frames": 4,
+      "fps": 6
+    },
+    "robot_walk": {
+      "frames": 4,
+      "fps": 6
+    },
+    "drone_hover": {
+      "frames": 3,
+      "fps": 8
+    },
+    "flame": {
+      "frames_per_strength": 3,
+      "fps": 10,
+      "shutdown_frames": 1
+    }
+  }
+}

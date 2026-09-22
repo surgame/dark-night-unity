@@ -28,7 +28,7 @@ namespace DarkNights.Entry
         private HeroHudBehaviour hud;
         private YYInputRebindingHandle rebind;
         private YYInteractionSessionHandle rebindModal;
-        private bool preferHero = true, campControlEnabled, attempted, jumpPending, dropPending, sentJump, sentUse;
+        private bool preferHero = true, campControlEnabled, attempted, jumpPending, dropPending, sentJump, sentUse, sentDrop;
         private int epoch, actorId, lease, sentDirection, pendingItem = -1;
         private long connection, selectionRequest, claimRequest;
         private double nextSend, heartbeat, nextToggle;
@@ -115,26 +115,28 @@ namespace DarkNights.Entry
             bool allowed = input.CanRead(input.Move) && !network.Client.Replica.Current.Paused;
             int direction = allowed ? Math.Sign(input.Move.ReadValue<float>()) : 0;
             bool jump = allowed && input.CanRead(input.Jump) && input.Jump.IsPressed();
+            bool pilot = network.Client.Replica.Current.World.Expedition?.Ship?.PilotId == Current.Id;
+            bool aboard = network.Client.Replica.Current.World.Expedition?.Crew.Any(a => a.Id == Current.Id && a.Boarded) == true;
             Vector3 hand = entities.Visual(Current.Id)?.transform.position ?? new Vector3(Current.X / 100, Current.Height / 100, 0);
-            equipment.Sample(input, stage.SceneCamera, hand + Vector3.up * .09f, allowed && pendingItem < 0);
+            equipment.Sample(input, stage.SceneCamera, hand + Vector3.up * .09f, allowed && pendingItem < 0 && !aboard);
             bool use = equipment.Held;
             if (allowed)
             {
                 jumpPending |= input.CanRead(input.Jump) && input.Jump.WasPressedThisFrame();
-                dropPending |= input.CanRead(input.Drop) && input.Drop.WasPressedThisFrame();
+                dropPending = pilot ? input.CanRead(input.Drop) && input.Drop.IsPressed() : dropPending || input.CanRead(input.Drop) && input.Drop.WasPressedThisFrame();
             }
             else jumpPending = dropPending = false;
             double now = Time.unscaledTimeAsDouble;
-            bool changed = direction != sentDirection || jump != sentJump || use != sentUse || jumpPending || dropPending || equipment.Changed;
+            bool changed = direction != sentDirection || jump != sentJump || use != sentUse || jumpPending || dropPending != sentDrop || (!pilot && dropPending) || equipment.Changed;
             if (now >= nextSend && (changed || now >= heartbeat))
             {
                 Send(direction, jump, use, jumpPending, dropPending).Forget();
                 equipment.Consume();
-                sentDirection = direction; sentJump = jump; sentUse = use;
+                sentDirection = direction; sentJump = jump; sentUse = use; sentDrop = dropPending;
                 jumpPending = dropPending = false;
                 nextSend = now + 1.0 / 30; heartbeat = now + 0.1;
             }
-            if (allowed)
+            if (allowed && !aboard)
             {
                 int selected = input.CanRead(input.Item1) && input.Item1.WasPressedThisFrame() ? 0 :
                     input.CanRead(input.Item2) && input.Item2.WasPressedThisFrame() ? 1 :
@@ -228,7 +230,7 @@ namespace DarkNights.Entry
             jumpPending = dropPending = false;
             equipment.Cancel();
             if (actorId > 0) Send(0, false, false).Forget();
-            sentDirection = 0; sentJump = sentUse = false;
+            sentDirection = 0; sentJump = sentUse = sentDrop = false;
         }
         private void BeginRebind()
         {

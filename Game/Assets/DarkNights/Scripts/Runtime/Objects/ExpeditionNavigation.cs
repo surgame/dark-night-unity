@@ -25,10 +25,13 @@ namespace DarkNights.Runtime.Objects
         }
         internal bool Move(ActorBehaviour actor, float x, float height, double delta, bool flying)
         {
+            bool entering = !flying && !actor.Enemy && !actor.Read().Boarded && world.Expedition.Ship != null &&
+                Core.Logic.Terrain.ShipGeometry.Inside(x - world.Expedition.Ship.X, height - world.Expedition.Ship.Read().Height);
+            if (!flying && world.Ship.Cabin.Navigate(actor, ref x, ref height, delta, out bool arrived)) return arrived;
             var map = world.Terrain.Map; var s = actor.Edit(); var goal = new Vector2(x, height);
             if (mapIdentity != map || commit != map.CommitId)
             { paths.Clear(); goals.Clear(); progress.Clear(); mapIdentity = map; commit = map.CommitId; }
-            if (Vector2.Distance(new Vector2(s.X, s.Height), goal) < 20) return true;
+            if (Vector2.Distance(new Vector2(s.X, s.Height), goal) < 4) return !entering;
             var position = new Vector2(s.X, s.Height);
             if (!progress.TryGetValue(actor.Id, out var sample) || Vector2.Distance(position, sample.Position) > 4)
                 progress[actor.Id] = (position, 0);
@@ -48,7 +51,7 @@ namespace DarkNights.Runtime.Objects
                 return false;
             }
             var next = path.Peek();
-            if (Vector2.Distance(new Vector2(s.X, s.Height), next) < 12)
+            if (Vector2.Distance(new Vector2(s.X, s.Height), next) < 12 && path.Count > 1)
             { path.Dequeue(); return false; }
             float step = (float)(Math.Max(30, actor.Definition.Speed) * delta);
             if (Math.Abs(next.x - s.X) > .01f) s.Face = Math.Sign(next.x - s.X);
@@ -70,7 +73,7 @@ namespace DarkNights.Runtime.Objects
         }
 
         internal bool CanReach(ActorBehaviour actor, float x, float height, bool flying) =>
-            Find(new Vector2(actor.X, actor.Read().Height), new Vector2(x, height), flying).Count > 0;
+            Find(actor.Read().Boarded && !flying ? new Vector2(world.Expedition.Ship.X + Core.Logic.Terrain.ShipGeometry.RampToe, world.Expedition.Ship.Read().Height) : new Vector2(actor.X, actor.Read().Height), new Vector2(x, height), flying).Count > 0;
 
         private Queue<Vector2> Find(Vector2 start, Vector2 goal, bool flying)
         {

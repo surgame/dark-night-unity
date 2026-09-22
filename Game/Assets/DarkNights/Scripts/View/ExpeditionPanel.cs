@@ -36,12 +36,23 @@ namespace DarkNights.View
                 (e.Phase == 3 ? $"{e.Clock:0.0} 秒后起飞 · 当前未登船 {e.Crew.Count(c => !c.Boarded)}" :
                 e.Phase == 4 ? $"损失：货物 {e.LostCargo}，设备 {e.LostDevices}；补充需 {e.ResupplyCost} 铁。自动存档 10。" :
                 $"未归队：人员 {e.Crew.Count(c => !c.Boarded && c.Role != 3)} · 货物 {exposed} · 设备 {devices}；中继在脚下，派工选近矿。");
+            var flight = e.Ship;
+            bool piloting = flight != null && flight.PilotId == a?.Id;
+            string[] flightStages = { "泊位", "等待归队", "关闭舱门", "悬停飞行" };
+            Status.text += $"\n飞船：{flightStages[flight?.Phase ?? 0]} · {(flight?.PilotId > 0 ? "驾驶位已占用" : "驾驶位空闲")}\n" +
+                (piloting ? "A/D 平移 · 空格上升 · S 下降 · 松开悬停；仅可在原泊位着陆。" : "左坡道进舱 → 短梯到驾驶位；坡道前按 S 可贴地绕行。");
             for (int i = 0; i < Actions.Length; i++)
             {
                 string c = Commands[i]; bool prep = e.Phase is 0 or 4, active = e.Phase is 1 or 2;
-                bool personal = c is "unload" or "board" or "relay" or "mine";
+                bool personal = c is "unload" or "board" or "relay" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
                 Actions[i].interactable = ready && (personal ? a != null : slot == 0) &&
-                    (c is "depart" or "robot" or "cargo" or "crew" or "resupply" ? prep : c == "board" ? active || e.Phase == 3 : active);
+                    (c == "pilot" ? e.Phase != 3 && a.Boarded :
+                     c == "takeoff" ? piloting && flight.Phase == 0 && e.Phase != 2 :
+                     c == "land" ? piloting && flight.Phase == 3 :
+                     c == "cancel-flight" ? piloting && flight.Phase is 1 or 2 :
+                     c == "deploy" ? piloting && flight.Phase == 0 && e.Phase == 1 :
+                     c is "depart" or "robot" or "cargo" or "crew" or "resupply" ? prep && flight?.Phase == 0 :
+                     c == "board" ? (active || e.Phase == 3) && a.Boarded : active);
             }
         }
     }

@@ -30,7 +30,7 @@ namespace DarkNights.Entry
                 if (operation == "emergency" && Time.unscaledTime > emergencyConfirmation)
                 { emergencyConfirmation = Time.unscaledTime + 4; return; }
                 emergencyConfirmation = -1;
-                bool personal = operation is "unload" or "board" or "relay" or "mine";
+                bool personal = operation is "unload" or "board" or "relay" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
                 var actor = frame.World.Actors.FirstOrDefault(a => a.ControllerSlot == client.PlayerSlot);
                 int target = operation == "mine" && actor != null ? frame.World.Worksites.Where(w => w.IsMineralDeposit && w.Amount > 0)
                     .OrderBy(w => Math.Abs(w.X - actor.X) + Math.Abs(632 - (w.Y + .5) * 16 - actor.Height)).FirstOrDefault()?.Id ?? 0 : 0;

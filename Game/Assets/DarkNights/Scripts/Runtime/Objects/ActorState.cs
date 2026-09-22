@@ -71,5 +71,6 @@ namespace DarkNights.Runtime.Objects
         public bool UseHeld { get; internal set; }
         public bool JumpPending { get; internal set; }
         public bool DropPending { get; internal set; }
+        public bool ShipEntryBlocked { get; internal set; }
     }
 }
