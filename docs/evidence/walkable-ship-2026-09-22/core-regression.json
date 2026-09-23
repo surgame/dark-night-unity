@@ -1,0 +1,4201 @@
+{
+  "utc": "2026-09-22T10:48:13.0631612Z",
+  "runtime": "8.0.16",
+  "passed": true,
+  "total": 1048,
+  "failures": 0,
+  "checks": [
+    {
+      "name": "Frozen Pinewatch content has all 15 rule definitions and three nights",
+      "passed": true
+    },
+    {
+      "name": "Frozen authored layout contains 16 placements before the derived farm worksite",
+      "passed": true
+    },
+    {
+      "name": "Movement never overshoots in either direction",
+      "passed": true
+    },
+    {
+      "name": "Zero elapsed time cannot move and reverse travel retains its direction",
+      "passed": true
+    },
+    {
+      "name": "Signed half-grid boundaries keep the original rounding rule",
+      "passed": true
+    },
+    {
+      "name": "Build preview and authority cross the same four-pixel grid boundary",
+      "passed": true
+    },
+    {
+      "name": "Footprints include exact legal edges and reject boundary overlap",
+      "passed": true
+    },
+    {
+      "name": "Building clearance retains the eight-pixel gap",
+      "passed": true
+    },
+    {
+      "name": "Worksite clearance retains the six-pixel gap",
+      "passed": true
+    },
+    {
+      "name": "Resource arithmetic preserves the original and does not hide an invalid payment",
+      "passed": true
+    },
+    {
+      "name": "Nonfinite resources are rejected before publication or persistence",
+      "passed": true
+    },
+    {
+      "name": "RNG seeded state: 90127",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/0",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/0",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/1",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/1",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/2",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/2",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/3",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/3",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/4",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/4",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/5",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/5",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/6",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/6",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/7",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/7",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/8",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/8",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/9",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/9",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/10",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/10",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/11",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/11",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/12",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/12",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/13",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/13",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/14",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/14",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/15",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/15",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/16",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/16",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/17",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/17",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/18",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/18",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/19",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/19",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/20",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/20",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/21",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/21",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/22",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/22",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/23",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/23",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/24",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/24",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/25",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/25",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/26",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/26",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/27",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/27",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/28",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/28",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/29",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/29",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/30",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/30",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/31",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/31",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/32",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/32",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/33",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/33",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/34",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/34",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/35",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/35",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/36",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/36",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/37",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/37",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/38",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/38",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/39",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/39",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/40",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/40",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/41",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/41",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/42",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/42",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/43",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/43",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/44",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/44",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/45",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/45",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/46",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/46",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/47",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/47",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/48",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/48",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/49",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/49",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/50",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/50",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/51",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/51",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/52",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/52",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/53",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/53",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/54",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/54",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/55",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/55",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/56",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/56",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/57",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/57",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/58",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/58",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/59",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/59",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/60",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/60",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/61",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/61",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/62",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/62",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/63",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/63",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/64",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/64",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/65",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/65",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/66",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/66",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/67",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/67",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/68",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/68",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/69",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/69",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/70",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/70",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/71",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/71",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/72",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/72",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/73",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/73",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/74",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/74",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/75",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/75",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/76",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/76",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/77",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/77",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/78",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/78",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/79",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/79",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/80",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/80",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/81",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/81",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/82",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/82",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/83",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/83",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/84",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/84",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/85",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/85",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/86",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/86",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/87",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/87",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/88",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/88",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/89",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/89",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/90",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/90",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/91",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/91",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/92",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/92",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/93",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/93",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/94",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/94",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/95",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/95",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/96",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/96",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/97",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/97",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/98",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/98",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/99",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/99",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/100",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/100",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/101",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/101",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/102",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/102",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/103",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/103",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/104",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/104",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/105",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/105",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/106",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/106",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/107",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/107",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/108",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/108",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/109",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/109",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/110",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/110",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/111",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/111",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/112",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/112",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/113",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/113",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/114",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/114",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/115",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/115",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/116",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/116",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/117",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/117",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/118",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/118",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/119",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/119",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/120",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/120",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/121",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/121",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/122",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/122",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/123",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/123",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/124",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/124",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/125",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/125",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/126",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/126",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 90127/127",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 90127/127",
+      "passed": true
+    },
+    {
+      "name": "Equal integer bounds consume no randomness",
+      "passed": true
+    },
+    {
+      "name": "RNG seeded state: -1",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/0",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/0",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/1",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/1",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/2",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/2",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/3",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/3",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/4",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/4",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/5",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/5",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/6",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/6",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/7",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/7",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/8",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/8",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/9",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/9",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/10",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/10",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/11",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/11",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/12",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/12",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/13",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/13",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/14",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/14",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/15",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/15",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/16",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/16",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/17",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/17",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/18",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/18",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/19",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/19",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/20",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/20",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/21",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/21",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/22",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/22",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/23",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/23",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/24",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/24",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/25",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/25",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/26",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/26",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/27",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/27",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/28",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/28",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/29",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/29",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/30",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/30",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/31",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/31",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/32",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/32",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/33",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/33",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/34",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/34",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/35",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/35",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/36",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/36",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/37",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/37",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/38",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/38",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/39",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/39",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/40",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/40",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/41",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/41",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/42",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/42",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/43",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/43",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/44",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/44",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/45",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/45",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/46",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/46",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/47",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/47",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/48",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/48",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/49",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/49",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/50",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/50",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/51",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/51",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/52",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/52",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/53",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/53",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/54",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/54",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/55",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/55",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/56",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/56",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/57",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/57",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/58",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/58",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/59",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/59",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/60",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/60",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/61",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/61",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/62",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/62",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/63",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/63",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/64",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/64",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/65",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/65",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/66",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/66",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/67",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/67",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/68",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/68",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/69",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/69",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/70",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/70",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/71",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/71",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/72",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/72",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/73",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/73",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/74",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/74",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/75",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/75",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/76",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/76",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/77",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/77",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/78",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/78",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/79",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/79",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/80",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/80",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/81",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/81",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/82",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/82",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/83",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/83",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/84",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/84",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/85",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/85",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/86",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/86",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/87",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/87",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/88",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/88",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/89",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/89",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/90",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/90",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/91",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/91",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/92",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/92",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/93",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/93",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/94",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/94",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/95",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/95",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/96",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/96",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/97",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/97",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/98",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/98",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/99",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/99",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/100",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/100",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/101",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/101",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/102",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/102",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/103",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/103",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/104",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/104",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/105",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/105",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/106",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/106",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/107",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/107",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/108",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/108",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/109",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/109",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/110",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/110",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/111",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/111",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/112",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/112",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/113",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/113",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/114",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/114",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/115",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/115",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/116",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/116",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/117",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/117",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/118",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/118",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/119",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/119",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/120",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/120",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/121",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/121",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/122",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/122",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/123",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/123",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/124",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/124",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/125",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/125",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/126",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/126",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -1/127",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -1/127",
+      "passed": true
+    },
+    {
+      "name": "Equal integer bounds consume no randomness",
+      "passed": true
+    },
+    {
+      "name": "RNG seeded state: -9223372036854775808",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/0",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/0",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/1",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/1",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/2",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/2",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/3",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/3",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/4",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/4",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/5",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/5",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/6",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/6",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/7",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/7",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/8",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/8",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/9",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/9",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/10",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/10",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/11",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/11",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/12",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/12",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/13",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/13",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/14",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/14",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/15",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/15",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/16",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/16",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/17",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/17",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/18",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/18",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/19",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/19",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/20",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/20",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/21",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/21",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/22",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/22",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/23",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/23",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/24",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/24",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/25",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/25",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/26",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/26",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/27",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/27",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/28",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/28",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/29",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/29",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/30",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/30",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/31",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/31",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/32",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/32",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/33",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/33",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/34",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/34",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/35",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/35",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/36",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/36",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/37",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/37",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/38",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/38",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/39",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/39",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/40",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/40",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/41",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/41",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/42",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/42",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/43",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/43",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/44",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/44",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/45",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/45",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/46",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/46",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/47",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/47",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/48",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/48",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/49",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/49",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/50",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/50",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/51",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/51",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/52",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/52",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/53",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/53",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/54",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/54",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/55",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/55",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/56",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/56",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/57",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/57",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/58",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/58",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/59",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/59",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/60",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/60",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/61",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/61",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/62",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/62",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/63",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/63",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/64",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/64",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/65",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/65",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/66",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/66",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/67",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/67",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/68",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/68",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/69",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/69",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/70",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/70",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/71",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/71",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/72",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/72",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/73",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/73",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/74",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/74",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/75",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/75",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/76",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/76",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/77",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/77",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/78",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/78",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/79",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/79",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/80",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/80",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/81",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/81",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/82",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/82",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/83",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/83",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/84",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/84",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/85",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/85",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/86",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/86",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/87",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/87",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/88",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/88",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/89",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/89",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/90",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/90",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/91",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/91",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/92",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/92",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/93",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/93",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/94",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/94",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/95",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/95",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/96",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/96",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/97",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/97",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/98",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/98",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/99",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/99",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/100",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/100",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/101",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/101",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/102",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/102",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/103",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/103",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/104",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/104",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/105",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/105",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/106",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/106",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/107",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/107",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/108",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/108",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/109",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/109",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/110",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/110",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/111",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/111",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/112",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/112",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/113",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/113",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/114",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/114",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/115",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/115",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/116",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/116",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/117",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/117",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/118",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/118",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/119",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/119",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/120",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/120",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/121",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/121",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/122",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/122",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/123",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/123",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/124",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/124",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/125",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/125",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/126",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/126",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: -9223372036854775808/127",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: -9223372036854775808/127",
+      "passed": true
+    },
+    {
+      "name": "Equal integer bounds consume no randomness",
+      "passed": true
+    },
+    {
+      "name": "RNG seeded state: 0",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/0",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/0",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/1",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/1",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/2",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/2",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/3",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/3",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/4",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/4",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/5",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/5",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/6",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/6",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/7",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/7",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/8",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/8",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/9",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/9",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/10",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/10",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/11",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/11",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/12",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/12",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/13",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/13",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/14",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/14",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/15",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/15",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/16",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/16",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/17",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/17",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/18",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/18",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/19",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/19",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/20",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/20",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/21",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/21",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/22",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/22",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/23",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/23",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/24",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/24",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/25",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/25",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/26",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/26",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/27",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/27",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/28",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/28",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/29",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/29",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/30",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/30",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/31",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/31",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/32",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/32",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/33",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/33",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/34",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/34",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/35",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/35",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/36",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/36",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/37",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/37",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/38",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/38",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/39",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/39",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/40",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/40",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/41",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/41",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/42",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/42",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/43",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/43",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/44",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/44",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/45",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/45",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/46",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/46",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/47",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/47",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/48",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/48",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/49",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/49",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/50",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/50",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/51",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/51",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/52",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/52",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/53",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/53",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/54",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/54",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/55",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/55",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/56",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/56",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/57",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/57",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/58",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/58",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/59",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/59",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/60",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/60",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/61",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/61",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/62",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/62",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/63",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/63",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/64",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/64",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/65",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/65",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/66",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/66",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/67",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/67",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/68",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/68",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/69",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/69",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/70",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/70",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/71",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/71",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/72",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/72",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/73",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/73",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/74",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/74",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/75",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/75",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/76",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/76",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/77",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/77",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/78",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/78",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/79",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/79",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/80",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/80",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/81",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/81",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/82",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/82",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/83",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/83",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/84",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/84",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/85",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/85",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/86",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/86",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/87",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/87",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/88",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/88",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/89",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/89",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/90",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/90",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/91",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/91",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/92",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/92",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/93",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/93",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/94",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/94",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/95",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/95",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/96",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/96",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/97",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/97",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/98",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/98",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/99",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/99",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/100",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/100",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/101",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/101",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/102",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/102",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/103",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/103",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/104",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/104",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/105",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/105",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/106",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/106",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/107",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/107",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/108",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/108",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/109",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/109",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/110",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/110",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/111",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/111",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/112",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/112",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/113",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/113",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/114",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/114",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/115",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/115",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/116",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/116",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/117",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/117",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/118",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/118",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/119",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/119",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/120",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/120",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/121",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/121",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/122",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/122",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/123",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/123",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/124",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/124",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/125",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/125",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/126",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/126",
+      "passed": true
+    },
+    {
+      "name": "Godot RNG exact integer/float/state: 0/127",
+      "passed": true
+    },
+    {
+      "name": "RNG restored state replay: 0/127",
+      "passed": true
+    },
+    {
+      "name": "Equal integer bounds consume no randomness",
+      "passed": true
+    },
+    {
+      "name": "Map plan generation remains deterministic for the same seed",
+      "passed": true
+    },
+    {
+      "name": "Map plan keeps eight rooms and gameplay resource markers",
+      "passed": true
+    },
+    {
+      "name": "Hand mining and explosive target sets stay bounded",
+      "passed": true
+    },
+    {
+      "name": "Hand mining is limited to soft rock and scattered ore",
+      "passed": true
+    },
+    {
+      "name": "Explosives cannot clear bedrock or protected cells",
+      "passed": true
+    }
+  ]
+}

@@ -44,4 +44,4 @@ SceneEntityViews 接管已装配的本地视图，并作为按定义复用的场
 2. 保存重开、当前场景副本试玩、重复 Play、开局／退出／重开、转职和加载 epoch 的实例归属。
 3. 复用一次 Mono 构建，执行独立 Host＋客户端初始快照、晚加入、重连和重复实例检查；按受影响范围续跑既有联机矩阵。
 
-以上均待确认，IL2CPP 未构建、未验证。YYGC 四个修改文件与锁定提交见 [改动账本](YYGC_CHANGES.md#scene-definitions)。
+以上均待确认，IL2CPP 未构建、未验证。YYGC 四个修改文件与锁定提交见 [改动账本](../YYGC_CHANGES.md#scene-definitions)。

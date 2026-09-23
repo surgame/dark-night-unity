@@ -1,6 +1,6 @@
 # 正式会话恢复与文件接入
 
-2026-09-13 当前入口使用 YYGC 统一对象、协议 6 和 v2 文件；不再导入旧档。U5 的 134 项 Editor／Play 已通过；U6 最终同一 Mono 产物再次通过活跃恢复 14/14、四人恢复 24/24 与九组弱网各 24/24。当前恢复字段与原子性见[存档合同](SAVE_FORMAT.md)，实际阶段状态见[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)。下文保留协议 5 的历史证据。
+2026-09-13 当前入口使用 YYGC 统一对象、协议 6 和 v2 文件；不再导入旧档。U5 的 134 项 Editor／Play 已通过；U6 最终同一 Mono 产物再次通过活跃恢复 14/14、四人恢复 24/24 与九组弱网各 24/24。当前恢复字段与原子性见[存档合同](../SAVE_FORMAT.md)，实际阶段状态见[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)。下文保留协议 5 的历史证据。
 
 2026-09-12 续验：干净 Mono 新产物再次通过九组四进程弱网各 22/22，并补齐实际施工／训练／在飞箭矢同时存在的晚加入与保存加载 13/13。暂停加载后再次保存的完整文件字节相同，覆盖随机状态、攻击时序及任务关系；展示身份和不持久化的行走／闪烁标志按已有合同单独验证。详见 [Mono 验收记录](MONO_ACCEPTANCE.md)。本轮没有新增网络、存档或框架代码修改。
 
@@ -19,7 +19,7 @@
 
 分片修复属于 FishNet。随后关闭 Domain Reload 的实际启动还发现 YYGC 池化单例的 Instance 没有重新登记，造成 Interaction Sessions 为空。新增 `RestoreSingletonOnPooledReentry.patch` 将本地／网络单例登记移至每次执行的 InitializeCore，首次业务初始化仍只运行一次；实际服务重入回归与完整 Editor 55/55 已通过，连续无 Domain Reload 两次 Play、每次三轮会话均为 10/10，九组四进程弱网均为 22/22。
 
-用户维护的 YYGC 仓库保持不变；本次三项 YYGC 改动见 [改动账本](YYGC_CHANGES.md)，FishNet 单独计列。首次分片探针等待条件过早（只看游戏视图），补充客户端 transport 停止后，常规 Domain Reload 的三次会话共 9 项通过；随后独立记录的两份无 Domain Reload 报告补齐完整启动检查。
+用户维护的 YYGC 仓库保持不变；本次三项 YYGC 改动见 [改动账本](../YYGC_CHANGES.md)，FishNet 单独计列。首次分片探针等待条件过早（只看游戏视图），补充客户端 transport 停止后，常规 Domain Reload 的三次会话共 9 项通过；随后独立记录的两份无 Domain Reload 报告补齐完整启动检查。
 
 ## 已完成的矩阵与连接超时
 

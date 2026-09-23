@@ -1,16 +1,18 @@
 # Dark Nights Unity 技术架构
 
+2026-09-22 [可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)：协议 14／存档 v10。船的 BuildingState 与乘员 ActorState 继续由各自 YYGC 业务对象拥有，船体和乘员位移同事务提交；`ExpeditionShipData` 进入冻结投影与原子存档。下方按日期保留此前地形和对象架构切片，其版本号不代表当前版本。
+
 2026-09-22 [独立岩层切片](STATIC_CAVE_BACKGROUND_EXECUTION.md)：协议 13／存档 v9。`SessionTerrain` 持有不可变 `BackgroundBakeDescriptor` 并与当前权威地图原子保存恢复；初始参考不是第二张可编辑地图。View 调用 `Core.Logic.Terrain` 的纯岩壁／背景算法，线程、取消调度与 Unity 纹理归 View，Core 通过外层检查回调保持无线程 API。外轮廓是独立纯计算阶段，源格形→有符号距离扰动→岩壁分面；它不拥有权威几何，当前只影响表现。前景缓存读取当前副本局部失效，背景只读初始参考；两者均无玩法写权。新场景／材质／AnyRuleD 定义独立于旧岩石资产，正式实体仍走原有 YYGC 定义、绑定及命令。可靠背景基线复用现有 FishNet 会话，参考、当前 AMP1 副本及可见前景／背景共同门控 Ready。
 
-2026-09-17 [随机灰松谷](RANDOM_PINEWATCH.md)已接入正式会话：Core 生成冻结候选，ObjectSession 中的 SessionTerrain 管理唯一 TerrainMapAuthority，主角仍写 ActorState；网络 AMP1 全图初始订阅与现有对象投影分别传输，共同门控 Ready。View 从只读副本绘制 DualGrid。加载验证地图及实体候选后一起切换，重新同步地图代次。当前协议 9、存档 v4；下方协议 8 和独立预览描述属于历史切片。
+2026-09-17 [随机灰松谷](archive/RANDOM_PINEWATCH.md)已接入正式会话：Core 生成冻结候选，ObjectSession 中的 SessionTerrain 管理唯一 TerrainMapAuthority，主角仍写 ActorState；网络 AMP1 全图初始订阅与现有对象投影分别传输，共同门控 Ready。View 从只读副本绘制 DualGrid。加载验证地图及实体候选后一起切换，重新同步地图代次。当前协议 9、存档 v4；下方协议 8 和独立预览描述属于历史切片。
 
 新增[地图模块](TERRAIN_GENERATION.md)：Core/Terrain 只生成冻结初始蓝图；Runtime/Terrain 独占 YYGC 会话约束下的 ARDMap 权威状态，提供局部事务与只读流；View/Terrain 负责本地预览。地图格不是逐格业务实体，初始资产、网络副本和视觉网格均不能结算破坏。正式实体生命周期和下方协议保持原样，未来采矿由现有可信会话入口接入。
 
-2026-09-16 当前切片见[主角与输入联合执行](HERO_INPUT_EXECUTION.md)：YYGC `0c7cec0`、协议 8、存档 v3；ActorState 仍是唯一状态，自动控制与主角控制以能力切换。Ready 携带默认主角偏好，SessionAuthority 通过同一 YYGC 对象生命周期为每个首次上线且有权限的连接新建专属 `worker`，不从现有闲置 Actor 中选择；连接保存人物 ID 用于重复 Ready 和策略恢复，加载后还必须验证对象仍带手动主角标记。默认 UI 隐藏顶部主角工具栏和旧营地入口。下段日期较早的版本与计数保留历史时点。
+2026-09-16 当前切片见[主角与输入联合执行](archive/HERO_INPUT_EXECUTION.md)：YYGC `0c7cec0`、协议 8、存档 v3；ActorState 仍是唯一状态，自动控制与主角控制以能力切换。Ready 携带默认主角偏好，SessionAuthority 通过同一 YYGC 对象生命周期为每个首次上线且有权限的连接新建专属 `worker`，不从现有闲置 Actor 中选择；连接保存人物 ID 用于重复 Ready 和策略恢复，加载后还必须验证对象仍带手动主角标记。默认 UI 隐藏顶部主角工具栏和旧营地入口。下段日期较早的版本与计数保留历史时点。
 
-2026-09-14，采用 [YYGC 统一对象重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。U0–U5 已完成，正式入口使用全部 YYGC 业务能力，旧运行模型已删除。U6 协议 7／YYGC `745f3d2` 通过 144 项 Editor／Play、Mono 完整矩阵 350 项及 240 秒容量检查 21 项；后续 [Linear 世界表现](M5_WORLD_PRESENTATION.md)在 `a4a5450` 完成 155 项 Editor／Play 和新 Mono 77 项检查。前台验收由用户暂缓，IL2CPP／双机器仍未验收；受限清理已完成[列账交接](STAGE_CLEANUP_INVENTORY.md)，目录未删除。实际状态与证据见[性能验收](YYGC_UNIFIED_PERFORMANCE.md)和[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)，不以类型或目录存在代替验收。
+2026-09-14，采用 [YYGC 统一对象重构计划](archive/YYGC_UNIFIED_REFACTOR_PLAN.md)。U0–U5 已完成，正式入口使用全部 YYGC 业务能力，旧运行模型已删除。U6 协议 7／YYGC `745f3d2` 通过 144 项 Editor／Play、Mono 完整矩阵 350 项及 240 秒容量检查 21 项；后续 [Linear 世界表现](archive/M5_WORLD_PRESENTATION.md)在 `a4a5450` 完成 155 项 Editor／Play 和新 Mono 77 项检查。前台验收由用户暂缓，IL2CPP／双机器仍未验收；受限清理已完成[列账交接](archive/STAGE_CLEANUP_INVENTORY.md)，目录未删除。实际状态与证据见[性能验收](archive/YYGC_UNIFIED_PERFORMANCE.md)和[实施记录](archive/YYGC_UNIFIED_IMPLEMENTATION.md)，不以类型或目录存在代替验收。
 
-本页描述统一后的源码。原集中 Core 世界及按 Kind 借还视图的方案保留在 Git 历史和 [C 重构记录](C_REFACTOR_IMPLEMENTATION.md)，不再作为当前状态归属合同。游戏不兼容 Godot 旧档、Unity v1／v2 或协议 7／6／5；独立 LAN Sample 的兼容边界单独保留。
+本页描述统一后的源码。原集中 Core 世界及按 Kind 借还视图的方案保留在 Git 历史和 [C 重构记录](archive/C_REFACTOR_IMPLEMENTATION.md)，不再作为当前状态归属合同。游戏不兼容 Godot 旧档、Unity v1／v2 或协议 7／6／5；独立 LAN Sample 的兼容边界单独保留。
 
 ## 唯一状态归属
 
@@ -31,7 +33,7 @@
 
 ObjectSession 只组合能力、上下文、资源租约和对象索引，不保存第二套经济／实体状态。SessionEntityIndex 只引用 YYGC 对象。旧 GameSession、WorldState、Entity、Commands／Systems 运行链及过渡 SessionWorld 已删除。
 
-右键指令圈不属于会话状态、表现事件或网络投影。`LocalCommandRings` 通过正式效果定义预热八个本地实例并复用网格，0.8 秒未缩放时间后隐藏；连接代次或 epoch 变化时清空显示，宿主释放时显式清理网格和对象。具体输入权限及验证见[本地指令圈](LOCAL_COMMAND_RINGS.md)。
+右键指令圈不属于会话状态、表现事件或网络投影。`LocalCommandRings` 通过正式效果定义预热八个本地实例并复用网格，0.8 秒未缩放时间后隐藏；连接代次或 epoch 变化时清空显示，宿主释放时显式清理网格和对象。具体输入权限及验证见[本地指令圈](archive/LOCAL_COMMAND_RINGS.md)。
 
 所有可写 State 使用 YYGC 会话权限。网络 DTO、ScriptableObject、展示副本和客户端 Behaviour 不成为另一份权威模型。单对象 State 的变化不自行发送个体 RPC。
 
@@ -66,7 +68,7 @@ flowchart LR
 
 Core/Logic 不再包含可运行实体、命令服务或世界生命周期。View 不读 Runtime 的权威 State。Core/Save 仅保存冻结数据，恢复对象的装配在 Runtime/Objects，JSON 和文件访问在 Runtime/Save。
 
-手写 C# 使用 C# 9／.NET Standard 2.1，单文件硬上限 300 行；生成代码单独维护输入与重建入口。源码和程序集边界由 tools/ArchitectureGuard 检查；纯计算工具与 Unity 测试的分工见[覆盖映射](YYGC_UNIFIED_TEST_COVERAGE.md)。
+手写 C# 使用 C# 9／.NET Standard 2.1，单文件硬上限 300 行；生成代码单独维护输入与重建入口。源码和程序集边界由 tools/ArchitectureGuard 检查；纯计算工具与 Unity 测试的分工见[覆盖映射](archive/YYGC_UNIFIED_TEST_COVERAGE.md)。
 
 ## 装配、能力和事务
 
@@ -88,7 +90,7 @@ SessionClock 累积未缩放时间，以 60 Hz 调用 SessionAuthority。命令�
 
 Host 与客户端使用同一验证入口；服务器从 NetworkCommandContext 取得连接身份。请求中的玩家 ID、资源和伤害不能构成授权。SharedCamp／HostOnly 与 PolicyRevision 在执行点检查，包含建造自动派工和训练；已生效任务继续。加载保持房间策略。
 
-正式游戏为协议 8，YYGC 定义 wire 为 GuidV2，两者是不同版本概念。握手在业务载荷解析前拒绝旧协议 7／6／5，并校验规则、布局、定义和生成注册摘要。完整投影携带 EntityId、DefinitionGuid、放置关系、epoch／revision、实体与在飞箭矢；真实副本应用完成后才 Ready。投影使用有界原始／GZip 封套，解封后仍执行完整 MemoryPack 和规则校验，见[性能修正](YYGC_UNIFIED_PERFORMANCE.md)。继续复用 Gateway／Sender／Processor、StatefulBehaviour／StateSynchronizer，不新建并行传输栈。
+正式游戏为协议 8，YYGC 定义 wire 为 GuidV2，两者是不同版本概念。握手在业务载荷解析前拒绝旧协议 7／6／5，并校验规则、布局、定义和生成注册摘要。完整投影携带 EntityId、DefinitionGuid、放置关系、epoch／revision、实体与在飞箭矢；真实副本应用完成后才 Ready。投影使用有界原始／GZip 封套，解封后仍执行完整 MemoryPack 和规则校验，见[性能修正](archive/YYGC_UNIFIED_PERFORMANCE.md)。继续复用 Gateway／Sender／Processor、StatefulBehaviour／StateSynchronizer，不新建并行传输栈。
 
 ## 场景对象与展示生命周期
 
@@ -102,7 +104,7 @@ SessionEntityViews 只按当前 epoch／EntityId 分发展示：Host 查询权�
 
 ## 主角与输入
 
-2026-09-16 的[联合切片](HERO_INPUT_EXECUTION.md)将旧决策原序提取为 AutomaticActorControlBehaviour，通过 IAutomaticActorControl 装配；HeroControlBehaviour、HeroMotionBehaviour、HeroInventoryBehaviour 共用 ActorState。ActorBehaviour 每步只选择一种决策入口，共享行动时钟、移动数值、工作与战斗结算。
+2026-09-16 的[联合切片](archive/HERO_INPUT_EXECUTION.md)将旧决策原序提取为 AutomaticActorControlBehaviour，通过 IAutomaticActorControl 装配；HeroControlBehaviour、HeroMotionBehaviour、HeroInventoryBehaviour 共用 ActorState。ActorBehaviour 每步只选择一种决策入口，共享行动时钟、移动数值、工作与战斗结算。
 
 GameInputActions 缓存原生 PlayerInput.actions；YYInputActionService 只接线动作组与 Interaction Sessions。HeroPlayerController 保存渲染输入边沿并发送意图；SetReadyCommand 传递本地默认主角偏好，SessionHeroControl 从可信连接请求 ObjectSession 创建新村民，并验证占用、租约、epoch、策略和输入序号。重复 Ready 复用当前占用，HostOnly 恢复复用连接记录的专属 ID；加载后只有仍标记为手动主角的保存对象可恢复，ID 碰撞到普通闲置角色时改为新建，真正重连也创建新人。变化输入上限 30 Hz，无变化 10 Hz 保活，30 个服务端 tick 无输入归零。
 

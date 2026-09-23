@@ -170,9 +170,9 @@ Pinewatch 保留原 16 个摆放及人工 GUID，另加三个原生单向平台�
 
 ## 复验与示例入口
 
-- 游戏：Unity 打开 `Game`，进入 Pinewatch 或运行当前完整 Player。当前玩家入口直接进入主角操作且不显示顶部工具栏，详见[玩家说明](PLAYER_GUIDE.md)。按 3 选择喷气背包后左键装备，空中按住空格喷气。
+- 游戏：Unity 打开 `Game`，进入 Pinewatch 或运行当前完整 Player。当前玩家入口直接进入主角操作且不显示顶部工具栏，详见[玩家说明](../PLAYER_GUIDE.md)。按 3 选择喷气背包后左键装备，空中按住空格喷气。
 - 输入示例：Package Manager → Game Core → Samples → Input Actions → Import，打开 `Content/InputActions.unity`。游戏已导入副本为 `Game/Assets/Samples/YYGCInputActions/Content/InputActions.unity`；同级上层 README 提供完整操作与维护说明。
-- 框架源码与 API：`D:/Developer/YYGC-worktrees/input-actions/Documentation~/INPUT_ACTIONS.md`。保留原方法名与原生返回类型；新增 `YYInputActionService` 及 `YYInputRebindingHandle` 的用途、迁移成本和限制已对比列出，全部 54 文件见[YYGC 改动账本](YYGC_CHANGES.md#hero-input)。
+- 框架源码与 API：`D:/Developer/YYGC-worktrees/input-actions/Documentation~/INPUT_ACTIONS.md`。保留原方法名与原生返回类型；新增 `YYInputActionService` 及 `YYInputRebindingHandle` 的用途、迁移成本和限制已对比列出，全部 54 文件见[YYGC 改动账本](../YYGC_CHANGES.md#hero-input)。
 
 已有资产不运行初建工具。确有源码／资源输入变化时，Mono 构建入口为 `DarkNights.Editor.GamePlayerBuild.MonoToEmptyDirectory`，`-darkNightsOutput` 指向新的空目录；测试使用 `DarkNights.Tests`，框架 Sample 使用 `YYGC.InputActions.Tests` 的 PlayMode。
 

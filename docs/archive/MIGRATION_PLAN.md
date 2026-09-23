@@ -1,6 +1,6 @@
 # Dark Nights Godot → Unity 移植方案
 
-2026-09-16 当前入口：[YYGC 统一对象架构分阶段执行计划](YYGC_UNIFIED_REFACTOR_PLAN.md)与[主角输入联合执行](HERO_INPUT_EXECUTION.md)。运行实体与状态所有权已迁入 YYGC，Core 只保留纯算法／数据合同；游戏现为协议 8／存档 v3，默认产品入口在玩家首次 Ready 时新建专属村民，不占用场景现有闲置村民，顶部主角工具栏和旧营地操作入口暂时隐藏。**U0–U5 已完成，框架输入锁定 `0c7cec0`；历史协议 7 Mono 的 350 项完整矩阵、Linear 155/155 与 Mono 77/77 均按原输入保留。新增村民跟进按组复跑受影响 Editor／Play 20/20 和新 Mono 双进程／UI 39/39，不将其写成历史完整矩阵重跑。前台验收由用户暂缓，IL2CPP／双机器 LAN 仍待条件；受限清理按用户要求完成[清单交接](STAGE_CLEANUP_INVENTORY.md)。** 下文保留原移植方案的历史设计，旧档兼容和 Core 世界长期保留要求不再适用；当前合同以[技术架构](ARCHITECTURE.md)和[存档格式](SAVE_FORMAT.md)为准。
+2026-09-16 当前入口：[YYGC 统一对象架构分阶段执行计划](YYGC_UNIFIED_REFACTOR_PLAN.md)与[主角输入联合执行](HERO_INPUT_EXECUTION.md)。运行实体与状态所有权已迁入 YYGC，Core 只保留纯算法／数据合同；游戏现为协议 8／存档 v3，默认产品入口在玩家首次 Ready 时新建专属村民，不占用场景现有闲置村民，顶部主角工具栏和旧营地操作入口暂时隐藏。**U0–U5 已完成，框架输入锁定 `0c7cec0`；历史协议 7 Mono 的 350 项完整矩阵、Linear 155/155 与 Mono 77/77 均按原输入保留。新增村民跟进按组复跑受影响 Editor／Play 20/20 和新 Mono 双进程／UI 39/39，不将其写成历史完整矩阵重跑。前台验收由用户暂缓，IL2CPP／双机器 LAN 仍待条件；受限清理按用户要求完成[清单交接](STAGE_CLEANUP_INVENTORY.md)。** 下文保留原移植方案的历史设计，旧档兼容和 Core 世界长期保留要求不再适用；当前合同以[技术架构](../ARCHITECTURE.md)和[存档格式](../SAVE_FORMAT.md)为准。
 
 2026-09-13 Definition 场景入口修复已实施，具体职责与替代关系见[当前合同](SCENE_DEFINITIONS.md)。场景身份和分类由 Loader 的 Definition 提供，Marker 仅保留实例参数；静态视图沿用 YYGC 初始化并绑定权威副本。编译完成，回归按用户要求待确认；下文早期手工 ContentId 映射表和预览替换描述保留历史时点。
 
@@ -8,7 +8,7 @@
 
 设计更新：2026-09-11。**建议保留普通 C# 规则核心，由 YYGC 会话对象管理权威运行与状态发布，Unity 原生 Prefab / UGUI 负责表现；单人和联机使用同一条命令链。** 首版默认共享营地控制，同时提供仅房主操作模式，后期关闭共享控制只改变权限。
 
-方案已开始执行：配置已接通 AppStartup / Addressables，权威模拟、显式命令、旧档核心和可编辑布局来源已通过冻结夹具对照；首批 WorldSession／Worker Definition、Prefab 与生成 wire 合同也已通过双后端启动检查，实际状态和证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)。可玩会话、完整对象表现和正式联机尚未完成。目标保持灰松谷的素材、布局、数值、操作意图、三夜玩法和旧档语义。多人输入的权限、顺序与反馈作为明确的会话差异单独验收。
+方案已开始执行：配置已接通 AppStartup / Addressables，权威模拟、显式命令、旧档核心和可编辑布局来源已通过冻结夹具对照；首批 WorldSession／Worker Definition、Prefab 与生成 wire 合同也已通过双后端启动检查，实际状态和证据见[开发执行计划](../DEVELOPMENT.md#implementation-progress)。可玩会话、完整对象表现和正式联机尚未完成。目标保持灰松谷的素材、布局、数值、操作意图、三夜玩法和旧档语义。多人输入的权限、顺序与反馈作为明确的会话差异单独验收。
 
 ## 已有基础与实施范围
 
@@ -22,11 +22,11 @@
 
 首版沿用仓库的 2–4 人共享营地范围，以 Windows、房主主持、局域网 IP 直连为实施假设。单人使用一人本地主持会话；镜头、框选、悬停、建造预览和菜单各自独立。公网邀请、Steam 与中继可随后接入连接层；首版不包含这些入口、私人营地或房主迁移。
 
-原始检查记录见 [LAN Sample](LAN_SAMPLE.md) 和[冻结依赖证据](evidence/lan-sample-dependencies.json)。本次读取证据并核对代码，没有重新运行这些 Player 测试。早期框架复评中的故障属于旧提交，不再按未修复问题从头安排。
+原始检查记录见 [LAN Sample](../LAN_SAMPLE.md) 和[冻结依赖证据](evidence/lan-sample-dependencies.json)。本次读取证据并核对代码，没有重新运行这些 Player 测试。早期框架复评中的故障属于旧提交，不再按未修复问题从头安排。
 
 ## 实施效率要求
 
-实施必须遵循 [AGENTS 的批量执行约束](../AGENTS.md#execution-efficiency)及[每批执行方式](DEVELOPMENT.md#每批实施的执行方式)。同批文件、`.meta` 生成、资源配置和验证尽量集中准备、一次触发、汇总取回结果；避免逐文件刷新、重复编译／构建、密集轮询和逐步请求用户继续。按真实编译／导入依赖分批，保留既有 GUID、人工资源和全部必要验收。此项为后续实施约束，不代表自动化批量流程已经实现。
+实施必须遵循 [AGENTS 的批量执行约束](../../AGENTS.md#execution-efficiency)及[每批执行方式](../DEVELOPMENT.md#每批实施的执行方式)。同批文件、`.meta` 生成、资源配置和验证尽量集中准备、一次触发、汇总取回结果；避免逐文件刷新、重复编译／构建、密集轮询和逐步请求用户继续。按真实编译／导入依赖分批，保留既有 GUID、人工资源和全部必要验收。此项为后续实施约束，不代表自动化批量流程已经实现。
 
 ## 架构与 YYGC 的对应关系
 
@@ -54,7 +54,7 @@ flowchart LR
 | R3 / VitalRouter | R3 观察副本并管理订阅释放；VitalRouter 只做现有命令链的显式适配，规则使用普通 C# 调用 |
 | UGUI / Interaction Sessions / Addressables | 正式 HUD 和菜单使用 UGUI；建造、框选、模态输入由本地交互会话仲裁；内容本地打包 |
 
-新定义遵循当前 YYGC 的 GUID / Key 设计：ContentId 映射到 `DefinitionReference`，运行时使用 `GetDefinitionByKey` / `CreateByKeyAsync` 等正式入口。核心 EntityId、资产 GUID / Key、旧整数定义 ID 和 FishNet ObjectId 分开。正式 Dark Nights 已整体采用 GuidFirst／GuidV2：数据库关闭在线 ID 服务，所有正式 Definition 的旧整数 ID 和别名均为空，Windows 构建启用 `YYGC_GUID_DEFINITION_WIRE_V2`，网络定义不再依赖旧 ID。YYGC 框架仍保留废弃字段以支持其他旧项目，但正式 Editor／Runtime 守卫会拒绝旧身份。独立 LAN Sample 继续使用已验证的 LegacyV1；旧 v1 存档导入属于玩法迁移，不与定义身份兼容混用。详见[身份指南](<D:/Developer/YYGC/Documentation~/DEFINITION_IDENTITY.md>)及[架构](ARCHITECTURE.md)。
+新定义遵循当前 YYGC 的 GUID / Key 设计：ContentId 映射到 `DefinitionReference`，运行时使用 `GetDefinitionByKey` / `CreateByKeyAsync` 等正式入口。核心 EntityId、资产 GUID / Key、旧整数定义 ID 和 FishNet ObjectId 分开。正式 Dark Nights 已整体采用 GuidFirst／GuidV2：数据库关闭在线 ID 服务，所有正式 Definition 的旧整数 ID 和别名均为空，Windows 构建启用 `YYGC_GUID_DEFINITION_WIRE_V2`，网络定义不再依赖旧 ID。YYGC 框架仍保留废弃字段以支持其他旧项目，但正式 Editor／Runtime 守卫会拒绝旧身份。独立 LAN Sample 继续使用已验证的 LegacyV1；旧 v1 存档导入属于玩法迁移，不与定义身份兼容混用。详见[身份指南](<D:/Developer/YYGC/Documentation~/DEFINITION_IDENTITY.md>)及[架构](../ARCHITECTURE.md)。
 
 正式代码不引用 `Assets/Samples/LanCoop`；将其中已验证的接法落实到正式的四个程序集，业务 DTO、注册表、Prefab 与会话服务均由正式工程拥有。Sample 保留为独立回归对照。
 
@@ -62,7 +62,7 @@ flowchart LR
 
 ## 目录、Addressables 与对象装配要求
 
-2026-09-11 经人工可读性复审，正式目录采用 **Scripts / Res 分离，代码按职责分层，资源按游戏对象归组**。本节为实施要求；已创建正式配置、启动、View、Res/Scenes/Pinewatch，并按首批对象建立 Res/Objects/Worker 与 WorldSession。完整对象、UI 和美术仍待按实际功能实施；完整目录及程序集依赖以[技术架构](ARCHITECTURE.md)为准，不预建空目录、占位类或通用 Manager。
+2026-09-11 经人工可读性复审，正式目录采用 **Scripts / Res 分离，代码按职责分层，资源按游戏对象归组**。本节为实施要求；已创建正式配置、启动、View、Res/Scenes/Pinewatch，并按首批对象建立 Res/Objects/Worker 与 WorldSession。完整对象、UI 和美术仍待按实际功能实施；完整目录及程序集依赖以[技术架构](../ARCHITECTURE.md)为准，不预建空目录、占位类或通用 Manager。
 
 | 入口，相对于 `Assets/DarkNights` | 归属与维护方式 |
 |---|---|
@@ -112,7 +112,7 @@ ObjectDefinition 与所属 Prefab 放在同一对象目录，方便一起核对�
 
 仅房主操作模式同时限制移动、攻击、采集、施工派工、训练、招募和修缮，避免通过建造的自动选工人路径间接控制居民。暂停、倍速、提前入夜、加载、重开和修改控制模式在两种模式下始终属于房主。
 
-切换在服务端命令顺序中生效，并增加 `PolicyRevision`。尚未执行的旧策略请求被拒绝；已执行的订单、施工和训练继续，不取消任务或退款。客户端据投影更新按钮和预览；即使绕过 UI 发包，服务端仍按当前策略拒绝。单人也走同一入口。完整权限表和切换验收见[联机设计](MULTIPLAYER.md)。
+切换在服务端命令顺序中生效，并增加 `PolicyRevision`。尚未执行的旧策略请求被拒绝；已执行的订单、施工和训练继续，不取消任务或退款。客户端据投影更新按钮和预览；即使绕过 UI 发包，服务端仍按当前策略拒绝。单人也走同一入口。完整权限表和切换验收见[联机设计](../MULTIPLAYER.md)。
 
 如果首个切片希望先只让房主操作，可把默认值设为 `HostOnly`，保持相同的同步与命令结构；无需为暂缓共同操作重做网络模型。
 
@@ -255,7 +255,7 @@ HUD 使用1280×800作为对照尺寸，同时验1600×900；建立独立的菜�
 
 ## 存档接入
 
-Unity 新档已在 M1 第六批实现独立格式 `dark-nights.world` v1，记录规则／布局摘要并引用 Core 随机算法标识；字段、原子文件流程与实际验证见[存档合同](SAVE_FORMAT.md)。旧 v1 用独立导入入口，保留严格字段和关系校验。第七批会话层已实现房主 BeginLoad 票据及加载 epoch；产品 UI、实际文件任务与网络通知仍待装配。
+Unity 新档已在 M1 第六批实现独立格式 `dark-nights.world` v1，记录规则／布局摘要并引用 Core 随机算法标识；字段、原子文件流程与实际验证见[存档合同](../SAVE_FORMAT.md)。旧 v1 用独立导入入口，保留严格字段和关系校验。第七批会话层已实现房主 BeginLoad 票据及加载 epoch；产品 UI、实际文件任务与网络通知仍待装配。
 
 世界快照与玩家显示设置分离。旧档的相机／选择可供房主本地恢复，其余客户端使用各自设置。epoch、连接ID和网络对象ID是本次会话状态，不把它们当作持久实体身份。
 
@@ -263,7 +263,7 @@ Unity 新档已在 M1 第六批实现独立格式 `dark-nights.world` v1，记�
 
 ## 迁移执行方式
 
-按以下阶段推进，每一步都形成可独立检查的产物。详细退出条件、剩余工作量与验收矩阵见[执行计划](DEVELOPMENT.md)。
+按以下阶段推进，每一步都形成可独立检查的产物。详细退出条件、剩余工作量与验收矩阵见[执行计划](../DEVELOPMENT.md)。
 
 | 阶段 | 交付物 | 通过后再扩展 |
 |---|---|---|
@@ -274,7 +274,7 @@ Unity 新档已在 M1 第六批实现独立格式 `dark-nights.world` v1，记�
 | M4 会话完整性 | 四人、晚加入、断线重连、暂停／倍速、保存／加载、epoch | 第二夜加入、加载中的旧包和控制策略切换均正确 |
 | M5 交付验收 | 双机器 LAN、完整关卡弱网／性能、干净构建及操作文档 | 可独立运行的 Windows Player 和可复现报告 |
 
-M0 已完成两个源码确认的接入项：[SampleAssemblyAccess.cs](../tools/lan-framework-patch/SampleAssemblyAccess.cs) 同时向样板 Runtime 与正式 DarkNights.Runtime 授予生成调度器所需的窄范围友元访问；[DarkNightsEnvironmentSetup](../Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs) 已拆开 `BuildAddressablesContent()` 与 `Initialize()` 并保护初始化输出。Worker／WorldSession 定义、Prefab、Addressables、FishNet spawn、ContentId 映射和 GuidV2／MemoryPack 生成注册已在 Mono 与 IL2CPP Player 启动验证；旧的 LegacyCompatible／LegacyV1 记录保留为历史基线，当前切换证据见[开发执行计划](DEVELOPMENT.md#implementation-progress)及[正式身份切换记录](evidence/formal-object-contracts-guid-v2-2026-09-11.json)。M2 已实现独立的权威会话业务层；仍需接入网络命令处理器、实际会话装配和真实实体集合投影。
+M0 已完成两个源码确认的接入项：[SampleAssemblyAccess.cs](../../tools/lan-framework-patch/SampleAssemblyAccess.cs) 同时向样板 Runtime 与正式 DarkNights.Runtime 授予生成调度器所需的窄范围友元访问；[DarkNightsEnvironmentSetup](../../Game/Assets/DarkNights/Scripts/Editor/DarkNightsEnvironmentSetup.cs) 已拆开 `BuildAddressablesContent()` 与 `Initialize()` 并保护初始化输出。Worker／WorldSession 定义、Prefab、Addressables、FishNet spawn、ContentId 映射和 GuidV2／MemoryPack 生成注册已在 Mono 与 IL2CPP Player 启动验证；旧的 LegacyCompatible／LegacyV1 记录保留为历史基线，当前切换证据见[开发执行计划](../DEVELOPMENT.md#implementation-progress)及[正式身份切换记录](evidence/formal-object-contracts-guid-v2-2026-09-11.json)。M2 已实现独立的权威会话业务层；仍需接入网络命令处理器、实际会话装配和真实实体集合投影。
 
 M2 先迁移真实规则下的工人采集与住宅施工，不再做另一个十金币测试营地。使用冻结开局布局和数值；可暂只接必要视图，其余表现由 M3 补齐。实体集合的复制、序列化、在飞箭矢及事件池生命周期是相对标量 Sample 新增的验证重点。
 

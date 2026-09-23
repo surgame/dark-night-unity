@@ -6,7 +6,7 @@
 
 ## 运行与可重现依赖
 
-2026-09-11 官方 MCP 接入补充：准备脚本增加全局注册扫描的 Sample 排除补丁，防止 Editor 重载后将样板类型写入正式注册表。新增 Pipeline 后完成 Editor 编译／重载、Mono／IL2CPP 重建及两个后端各 30 项基础＋30 项弱网四进程检查。[本次新增证据](evidence/unity-mcp-2026-09-11.json)与下方接入前冻结证据分开保留，详情见[依赖说明](DEPENDENCIES.md#官方-unity-mcp-开发工具)。
+2026-09-11 官方 MCP 接入补充：准备脚本增加全局注册扫描的 Sample 排除补丁，防止 Editor 重载后将样板类型写入正式注册表。新增 Pipeline 后完成 Editor 编译／重载、Mono／IL2CPP 重建及两个后端各 30 项基础＋30 项弱网四进程检查。[本次新增证据](archive/evidence/unity-mcp-2026-09-11.json)与下方接入前冻结证据分开保留，详情见[依赖说明](DEPENDENCIES.md#官方-unity-mcp-开发工具)。
 
 Editor 锁定 `6000.4.9f1`；样板手写代码兼容 C# 9，Core 不引用引擎，Player 使用 .NET Standard 2.1，已验证 Mono 和 IL2CPP。YYGC 使用提交 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` 的隔离 checkout。UPM manifest/lock 指向仓库 `.deps/YYGC`，先执行：
 
@@ -87,12 +87,12 @@ VitalRouter **在当前 YYGC 命令链里是必要依赖**：INetworkCommand 继
 | VitalRouter 完成语义 | 固定源码和补丁构建，15 项框架回归通过 |
 | Unity／资源 | 编译通过；场景重开、ObjectInstance/ObjectView 引用及 Prefab 副本编辑／保存／重开通过 |
 | Windows Mono Player | 实际构建成功；图形窗口的面板、工位及 Ready 状态已检查 |
-| Host＋3 客户端基础 | 30 项断言通过；[冻结结果](evidence/lan-sample-baseline.json) |
-| Host＋3 客户端弱网 | 30 项断言通过；实际接收 627 包、丢弃 33 包、重排 52 次；[冻结结果](evidence/lan-sample-weak-network.json) |
-| Windows x64 IL2CPP | 非 Development、C++ Release、High 裁剪构建成功；MSVC 14.44.35207／SDK 10.0.26100.0；[构建及产物哈希](evidence/lan-sample-il2cpp-build.json) |
-| IL2CPP Host＋3 客户端基础 | 30 项断言通过；四进程均报告 ENABLE_IL2CPP 后端；[冻结结果](evidence/lan-sample-il2cpp-baseline.json) |
-| IL2CPP Host＋3 客户端弱网 | 30 项断言通过；622 包、33 丢弃、49 次重排；[冻结结果](evidence/lan-sample-il2cpp-weak-network.json) |
-| 依赖与构建来源 | [提交、DLL、补丁和日志 SHA-256](evidence/lan-sample-dependencies.json) |
+| Host＋3 客户端基础 | 30 项断言通过；[冻结结果](archive/evidence/lan-sample-baseline.json) |
+| Host＋3 客户端弱网 | 30 项断言通过；实际接收 627 包、丢弃 33 包、重排 52 次；[冻结结果](archive/evidence/lan-sample-weak-network.json) |
+| Windows x64 IL2CPP | 非 Development、C++ Release、High 裁剪构建成功；MSVC 14.44.35207／SDK 10.0.26100.0；[构建及产物哈希](archive/evidence/lan-sample-il2cpp-build.json) |
+| IL2CPP Host＋3 客户端基础 | 30 项断言通过；四进程均报告 ENABLE_IL2CPP 后端；[冻结结果](archive/evidence/lan-sample-il2cpp-baseline.json) |
+| IL2CPP Host＋3 客户端弱网 | 30 项断言通过；622 包、33 丢弃、49 次重排；[冻结结果](archive/evidence/lan-sample-il2cpp-weak-network.json) |
+| 依赖与构建来源 | [提交、DLL、补丁和日志 SHA-256](archive/evidence/lan-sample-dependencies.json) |
 
 Mono 和 IL2CPP 的基础／弱网测试均覆盖首次 null 后状态、非法实体／伪造 SenderObjectId、非 Host 权限、协议版本、旧 epoch、并发资源扣款、重复请求、工位独占、四人晚加入、断开／重连、暂停及运行、加载式 epoch 重置、Host 退出和同进程重开。最终报告可能记录重开后的世界；各阶段成功由脚本按当时状态判断，未由最终状态倒推。第一次 Mono 基础测试因脚本变量作用域错误失败，前两次 Mono 弱网因 Windows UDP ICMP 导致中继退出失败，均已修正后完整重跑；没有将这些失败记录为成功。
 

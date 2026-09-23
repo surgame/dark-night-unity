@@ -4,7 +4,7 @@
 
 2026-09-20，分支 `codex/cave-exploration-art`。从 `codex/map-plan-execution` 的 `e60e1fb` 创建，合入主分支 `6b7b74c`。保留两个父分支、原 Pinewatch、RandomPinewatch 和随机地图 Debug Bootstrap。
 
-2026-09-20 后续评估：用户实测后再次确认参考图目标，并指定生图使用 `imagegen-codex-provider`，同时要求先评估低像素素材是否适合生图。该规范已写入 [AGENTS.md](../AGENTS.md#prefab美术与内容)，不再等待 provider 路径选择。当前差异、素材方式和分阶段验收见[洞穴视觉与空间目标](CAVE_EXPLORATION_TARGETS.md)；本次只完成评估与文档，没有新增美术、斜面或运行验收。
+2026-09-20 后续评估：用户实测后再次确认参考图目标，并指定生图使用 `imagegen-codex-provider`，同时要求先评估低像素素材是否适合生图。该规范已写入 [AGENTS.md](../../AGENTS.md#prefab美术与内容)，不再等待 provider 路径选择。当前差异、素材方式和分阶段验收见[洞穴视觉与空间目标](CAVE_EXPLORATION_TARGETS.md)；本次只完成评估与文档，没有新增美术、斜面或运行验收。
 
 ## 本次范围与资料使用
 

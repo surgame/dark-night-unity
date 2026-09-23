@@ -28,26 +28,26 @@
 
 | Definition Key／资产 | 实际角色 | 评估 | 建议落点 | 必须保留的依赖与语义 |
 |---|---|---|---|---|
-| [effect.command](../Game/Assets/DarkNights/Res/Effects/Command/Command.asset) | 指令落点圈 | 优先提取；改动面小 | 本地可复用指令圈绘制组件 | 多个圈并存、0.8 秒淡出、未缩放时钟、世界排序 160 |
-| [effect.floating](../Game/Assets/DarkNights/Res/Effects/Floating/Floating.asset) | 伤害／资源浮字 | 优先提取；改动面中 | 保留原生浮字 Prefab，由本地展示集合复用 | 文字／资源图标、1.6 秒寿命、世界 Canvas 排序 170、字体与布局 |
-| [effect.arrow](../Game/Assets/DarkNights/Res/Effects/Arrow/Arrow.asset) | 在飞箭矢外观 | 优先提取；改动面中 | 按 ProjectileViewData.ViewId 绑定的本地箭矢视图集合 | 晚加入的在飞箭矢、轨迹与朝向、暂停／倍速、epoch 清理、排序 150 |
-| [audio.camp](../Game/Assets/DarkNights/Res/Effects/Audio/Audio.asset) | 背景音乐与音效 | 优先提取；改动面小 | 本地表现宿主持有 CampAudio／音频 Prefab | 现状随应用装配创建一次；断线不销毁。保留静音、音乐循环、命中音冷却及原音量 |
-| [unit.worker](../Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset) | 工人外观 | 可提取；需共同外观迁移 | ContentId → 原生 NativeVisual Prefab 映射 | 采集／施工动作、头像与四类锚点；FormalObjectCatalog 明确要求 worker 定义 |
-| [unit.spearman](../Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.asset) | 长矛兵外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 动作、朝向、插值和死亡残影；战斗仍由 Core 结算 |
-| [unit.archer](../Game/Assets/DarkNights/Res/Objects/Archer/Archer.asset) | 弓箭手外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 分层动作、朝向、死亡残影；与 effect.arrow 的展示职责分开 |
-| [unit.zombie](../Game/Assets/DarkNights/Res/Objects/Zombie/Zombie.asset) | Zombie 外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 敌方动作、插值、受击与死亡残影 |
-| [unit.ghoul](../Game/Assets/DarkNights/Res/Objects/Ghoul/Ghoul.asset) | Ghoul 外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 敌方动作、插值、受击与死亡残影 |
-| [unit.armored](../Game/Assets/DarkNights/Res/Objects/Armored/Armored.asset) | Armored 外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 敌方动作、插值、受击与死亡残影 |
-| [building.tavern](../Game/Assets/DarkNights/Res/Objects/Tavern/Tavern.asset) | 酒馆外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 场景初始布局、施工／成品、头像与废墟 |
-| [building.house](../Game/Assets/DarkNights/Res/Objects/House/House.asset) | 住宅外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 建造幽灵、施工／成品、头像与废墟 |
-| [building.barracks](../Game/Assets/DarkNights/Res/Objects/Barracks/Barracks.asset) | 兵营外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 建造幽灵、施工／成品、训练状态锚点与废墟 |
-| [building.farm](../Game/Assets/DarkNights/Res/Objects/Farm/Farm.asset) | 农田建筑外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 建造幽灵、施工和派生食物工位；当前工作区绑定差异见下文 |
-| [building.tower](../Game/Assets/DarkNights/Res/Objects/Tower/Tower.asset) | 守望塔外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 建造幽灵、施工／成品、范围预览与废墟 |
-| [worksite.wood](../Game/Assets/DarkNights/Res/Objects/Trees/Trees.asset) | 木材工位外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 变体、耗尽外观、选择边界与状态锚点 |
-| [worksite.stone](../Game/Assets/DarkNights/Res/Objects/Stone/Stone.asset) | 石料工位外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 变体、耗尽外观、选择边界与状态锚点 |
-| [worksite.iron](../Game/Assets/DarkNights/Res/Objects/Iron/Iron.asset) | 铁矿工位外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 变体、耗尽外观、选择边界与状态锚点 |
-| [worksite.food](../Game/Assets/DarkNights/Res/Objects/Farmland/Farmland.asset) | 食物工位外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 自然工位与农田派生工位的显示差异、变体与耗尽状态 |
-| [connection.pinewatch](../Game/Assets/DarkNights/Res/Objects/PlayerConnection/PlayerConnection.asset) | 玩家网络连接入口 | 保留；不属于纯本地表现 | 现有 YYGC／FishNet 网络定义 | Prefab 实际包含 PlayerEndpoint、NetworkCommandSender、NetworkObject、StateSynchronizer |
+| [effect.command](../../Game/Assets/DarkNights/Res/Effects/Command/Command.asset) | 指令落点圈 | 优先提取；改动面小 | 本地可复用指令圈绘制组件 | 多个圈并存、0.8 秒淡出、未缩放时钟、世界排序 160 |
+| [effect.floating](../../Game/Assets/DarkNights/Res/Effects/Floating/Floating.asset) | 伤害／资源浮字 | 优先提取；改动面中 | 保留原生浮字 Prefab，由本地展示集合复用 | 文字／资源图标、1.6 秒寿命、世界 Canvas 排序 170、字体与布局 |
+| [effect.arrow](../../Game/Assets/DarkNights/Res/Effects/Arrow/Arrow.asset) | 在飞箭矢外观 | 优先提取；改动面中 | 按 ProjectileViewData.ViewId 绑定的本地箭矢视图集合 | 晚加入的在飞箭矢、轨迹与朝向、暂停／倍速、epoch 清理、排序 150 |
+| [audio.camp](../../Game/Assets/DarkNights/Res/Effects/Audio/Audio.asset) | 背景音乐与音效 | 优先提取；改动面小 | 本地表现宿主持有 CampAudio／音频 Prefab | 现状随应用装配创建一次；断线不销毁。保留静音、音乐循环、命中音冷却及原音量 |
+| [unit.worker](../../Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset) | 工人外观 | 可提取；需共同外观迁移 | ContentId → 原生 NativeVisual Prefab 映射 | 采集／施工动作、头像与四类锚点；FormalObjectCatalog 明确要求 worker 定义 |
+| [unit.spearman](../../Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.asset) | 长矛兵外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 动作、朝向、插值和死亡残影；战斗仍由 Core 结算 |
+| [unit.archer](../../Game/Assets/DarkNights/Res/Objects/Archer/Archer.asset) | 弓箭手外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 分层动作、朝向、死亡残影；与 effect.arrow 的展示职责分开 |
+| [unit.zombie](../../Game/Assets/DarkNights/Res/Objects/Zombie/Zombie.asset) | Zombie 外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 敌方动作、插值、受击与死亡残影 |
+| [unit.ghoul](../../Game/Assets/DarkNights/Res/Objects/Ghoul/Ghoul.asset) | Ghoul 外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 敌方动作、插值、受击与死亡残影 |
+| [unit.armored](../../Game/Assets/DarkNights/Res/Objects/Armored/Armored.asset) | Armored 外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 敌方动作、插值、受击与死亡残影 |
+| [building.tavern](../../Game/Assets/DarkNights/Res/Objects/Tavern/Tavern.asset) | 酒馆外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 场景初始布局、施工／成品、头像与废墟 |
+| [building.house](../../Game/Assets/DarkNights/Res/Objects/House/House.asset) | 住宅外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 建造幽灵、施工／成品、头像与废墟 |
+| [building.barracks](../../Game/Assets/DarkNights/Res/Objects/Barracks/Barracks.asset) | 兵营外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 建造幽灵、施工／成品、训练状态锚点与废墟 |
+| [building.farm](../../Game/Assets/DarkNights/Res/Objects/Farm/Farm.asset) | 农田建筑外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 建造幽灵、施工和派生食物工位；当前工作区绑定差异见下文 |
+| [building.tower](../../Game/Assets/DarkNights/Res/Objects/Tower/Tower.asset) | 守望塔外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 建造幽灵、施工／成品、范围预览与废墟 |
+| [worksite.wood](../../Game/Assets/DarkNights/Res/Objects/Trees/Trees.asset) | 木材工位外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 变体、耗尽外观、选择边界与状态锚点 |
+| [worksite.stone](../../Game/Assets/DarkNights/Res/Objects/Stone/Stone.asset) | 石料工位外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 变体、耗尽外观、选择边界与状态锚点 |
+| [worksite.iron](../../Game/Assets/DarkNights/Res/Objects/Iron/Iron.asset) | 铁矿工位外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 变体、耗尽外观、选择边界与状态锚点 |
+| [worksite.food](../../Game/Assets/DarkNights/Res/Objects/Farmland/Farmland.asset) | 食物工位外观 | 可提取；需共同外观迁移 | 同一外观内容目录 | 自然工位与农田派生工位的显示差异、变体与耗尽状态 |
+| [connection.pinewatch](../../Game/Assets/DarkNights/Res/Objects/PlayerConnection/PlayerConnection.asset) | 玩家网络连接入口 | 保留；不属于纯本地表现 | 现有 YYGC／FishNet 网络定义 | Prefab 实际包含 PlayerEndpoint、NetworkCommandSender、NetworkObject、StateSynchronizer |
 
 这 15 类实体视图没有独立权威状态；空装配列表符合目前 Core 集中模拟、客户端只读展示的实现。继续使用 ObjectDefinition 的实际用途是内容身份／Prefab 寻址和 ObjectView 装配。它们并非技术上必须保留，也不能仅以“没有 Behaviour”判定现有内容合同可以被删掉。
 
@@ -55,13 +55,13 @@
 
 | Definition Key／资产 | 类型 | 实际装配 | 评估 |
 |---|---|---|---|
-| [session.pinewatch](../Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset) | Network | WorldSessionBehaviour + ContentDefinitionMap | 保留会话定义；15 类外观若迁出，内容映射字段另行迁移 |
-| [ui.chrome](../Game/Assets/DarkNights/Res/UI/Chrome/Chrome.asset) | Local | CampHudBehaviour | 保留；UGUIManager、生成绑定与 HUD 行为正在使用 |
-| [ui.mainmenu](../Game/Assets/DarkNights/Res/UI/MainMenu/MainMenu.asset) | Local | MainMenuBehaviour | 保留；UGUI 面板生命周期及输入事件 |
-| [ui.pausemenu](../Game/Assets/DarkNights/Res/UI/PauseMenu/PauseMenu.asset) | Local | PauseMenuBehaviour | 保留；UGUI 面板生命周期及输入事件 |
-| [ui.help](../Game/Assets/DarkNights/Res/UI/Help/Help.asset) | Local | HelpMenuBehaviour | 保留；UGUI 面板生命周期及输入事件 |
-| [ui.result](../Game/Assets/DarkNights/Res/UI/Result/Result.asset) | Local | ResultMenuBehaviour | 保留；UGUI 面板生命周期及输入事件 |
-| [service.interaction_sessions](../Game/Assets/DarkNights/Res/UI/Shared/InteractionSessions.asset) | Local | YYInteractionSessionService | 保留；通过 ObjectSingletonDatabase 装配输入互斥服务，无 Prefab 是现有服务接法 |
+| [session.pinewatch](../../Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset) | Network | WorldSessionBehaviour + ContentDefinitionMap | 保留会话定义；15 类外观若迁出，内容映射字段另行迁移 |
+| [ui.chrome](../../Game/Assets/DarkNights/Res/UI/Chrome/Chrome.asset) | Local | CampHudBehaviour | 保留；UGUIManager、生成绑定与 HUD 行为正在使用 |
+| [ui.mainmenu](../../Game/Assets/DarkNights/Res/UI/MainMenu/MainMenu.asset) | Local | MainMenuBehaviour | 保留；UGUI 面板生命周期及输入事件 |
+| [ui.pausemenu](../../Game/Assets/DarkNights/Res/UI/PauseMenu/PauseMenu.asset) | Local | PauseMenuBehaviour | 保留；UGUI 面板生命周期及输入事件 |
+| [ui.help](../../Game/Assets/DarkNights/Res/UI/Help/Help.asset) | Local | HelpMenuBehaviour | 保留；UGUI 面板生命周期及输入事件 |
+| [ui.result](../../Game/Assets/DarkNights/Res/UI/Result/Result.asset) | Local | ResultMenuBehaviour | 保留；UGUI 面板生命周期及输入事件 |
+| [service.interaction_sessions](../../Game/Assets/DarkNights/Res/UI/Shared/InteractionSessions.asset) | Local | YYInteractionSessionService | 保留；通过 ObjectSingletonDatabase 装配输入互斥服务，无 Prefab 是现有服务接法 |
 
 UI 定义虽然没有 SharedConfigs，但每个都有实际 MenuBehaviour 派生行为和 UGUIManager 创建入口。InteractionSessions 通过单例数据库以定义 GUID 装配 YYInteractionSessionService；不能因为没有 Prefab 将其视为遗留空壳。
 
@@ -69,8 +69,8 @@ UI 定义虽然没有 SharedConfigs，但每个都有实际 MenuBehaviour 派生
 
 | 项目 | 实际状态 | 评估 |
 |---|---|---|
-| [lan_sample.worksite](../Game/Assets/Samples/LanCoop/Content/Worksite.asset) | Local，行为／配置双空；SampleComposition 显式将场景中的 Worksite ObjectInstance 与此定义初始化绑定 | 保留。它用于演示 YYGC 本地对象接法，不在正式数据库中 |
-| [lan_sample.session](../Game/Assets/Samples/LanCoop/Content/Session.asset) | Network，装配 CampBehaviour；由独立 Sample 自建目录 | 非空，保留。正式游戏不反向引用 Sample |
+| [lan_sample.worksite](../../Game/Assets/Samples/LanCoop/Content/Worksite.asset) | Local，行为／配置双空；SampleComposition 显式将场景中的 Worksite ObjectInstance 与此定义初始化绑定 | 保留。它用于演示 YYGC 本地对象接法，不在正式数据库中 |
+| [lan_sample.session](../../Game/Assets/Samples/LanCoop/Content/Session.asset) | Network，装配 CampBehaviour；由独立 Sample 自建目录 | 非空，保留。正式游戏不反向引用 Sample |
 | 选择圈、悬停、建筑／工位底线、建造占地／范围线、框选 | CampOverlay 已用 UGUI 网格集中绘制 | 没有各自的 ObjectDefinition，不存在额外定义可移除 |
 | 尸体／废墟 | SessionEffects 复用角色／建筑的内容映射和 NativeVisual，未建立独立尸体／废墟定义 | 归入 15 类外观迁移的依赖，避免为残骸再建一套定义 |
 | 建造幽灵 | SessionPlacementView 复用相应建筑外观定义 | 归入建筑外观迁移；支付和合法性仍走现有权威链 |
@@ -116,6 +116,6 @@ SessionNetwork 实际安装 DefinitionNetworkAuthenticator，后者调用 Defini
 
 ## 盘点中发现的现有差异
 
-用户已有未提交修改的 [Farm.prefab](../Game/Assets/DarkNights/Res/Objects/Farm/Farm.prefab) 当前 ObjectView 绑定键为 `Farm`，而 [SessionEntityViews](../Game/Assets/DarkNights/Scripts/Entry/SessionEntityViews.cs) 与 [SessionPlacementView](../Game/Assets/DarkNights/Scripts/Entry/SessionPlacementView.cs) 查询 `visual`。这是序列化资源与源码的静态不一致，尚未在 Unity 运行复现；本次未改动或覆盖该 Prefab。后续核对或迁移这项时需基于用户现有编辑处理。
+用户已有未提交修改的 [Farm.prefab](../../Game/Assets/DarkNights/Res/Objects/Farm/Farm.prefab) 当前 ObjectView 绑定键为 `Farm`，而 [SessionEntityViews](../../Game/Assets/DarkNights/Scripts/Entry/SessionEntityViews.cs) 与 [SessionPlacementView](../../Game/Assets/DarkNights/Scripts/Entry/SessionPlacementView.cs) 查询 `visual`。这是序列化资源与源码的静态不一致，尚未在 Unity 运行复现；本次未改动或覆盖该 Prefab。后续核对或迁移这项时需基于用户现有编辑处理。
 
-主要依据：[SessionEffects](../Game/Assets/DarkNights/Scripts/Entry/SessionEffects.cs)、[NativeEffect](../Game/Assets/DarkNights/Scripts/View/NativeEffect.cs)、[CampAudio](../Game/Assets/DarkNights/Scripts/View/CampAudio.cs)、[NativeVisual](../Game/Assets/DarkNights/Scripts/View/NativeVisual.cs)、[ContentDefinitionMap](../Game/Assets/DarkNights/Scripts/Runtime/Framework/ContentDefinitionMap.cs)、[正式目录守卫](../Game/Assets/DarkNights/Scripts/Runtime/Framework/FormalObjectCatalog.cs)、[正式数据库](../Game/Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset)和同批机器可读记录。
+主要依据：[SessionEffects](../../Game/Assets/DarkNights/Scripts/Entry/SessionEffects.cs)、[NativeEffect](../../Game/Assets/DarkNights/Scripts/View/NativeEffect.cs)、[CampAudio](../../Game/Assets/DarkNights/Scripts/View/CampAudio.cs)、当时的 `NativeVisual` 和 `ContentDefinitionMap`（源码已退出当前树）、[正式目录守卫](../../Game/Assets/DarkNights/Scripts/Runtime/Framework/FormalObjectCatalog.cs)、[正式数据库](../../Game/Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset)和同批机器可读记录。

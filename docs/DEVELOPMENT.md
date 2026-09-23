@@ -1,24 +1,26 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-22 [可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)已接入正式远征，协议 14／存档 v10；本批 Mono 正常／弱网三进程各 28/28、Core 1048/1048，Editor 按影响合并 235/236（按钮主题 1 项失败留账）。完整边界和证据见切片记录；下方为先前版本的阶段记录，不将其旧“当前”表述用作本批结论。
+
 2026-09-22 [独立洞穴候选实施](STATIC_CAVE_BACKGROUND_EXECUTION.md)已增加同源三层背景、初始轮廓持久化／基线同步和后台分页缓存，协议 13／存档 v9。按用户对首轮画面的反馈，范围扩大为独立原生岩壁、柔光、角色比例与新场景，保留 AnyRuleD 能力；矿粒和矿光暂时隐藏。固定样板先于随机／正式集成验收；P5 前台目标硬件性能及最终美术签署仍待验，不自动切换正式默认风格。
 
-2026-09-21 远征首轮实现与验收见[交付记录](EXPEDITION_CAMP_DELIVERY.md)，分支 `codex/expedition-camp-plan`，协议 **12**／存档 **v8**。E0–E5 的 Demo 主循环已有实现，E6 按本轮快速验收收口：Editor 合并 213/214，1 项通用按钮主题失败单列；Mono 常规／弱网四进程各 35/35；固定浅层往返、矿工交货、部署撤收与原子结算有新证据。原[执行方案](EXPEDITION_CAMP_EXECUTION.md)的全路线、完整故障矩阵、前台性能及正式美术仍不是已通过状态。
+2026-09-21 远征首轮实现与验收见[交付记录](archive/EXPEDITION_CAMP_DELIVERY.md)，分支 `codex/expedition-camp-plan`，协议 **12**／存档 **v8**。E0–E5 的 Demo 主循环已有实现，E6 按本轮快速验收收口：Editor 合并 213/214，1 项通用按钮主题失败单列；Mono 常规／弱网四进程各 35/35；固定浅层往返、矿工交货、部署撤收与原子结算有新证据。原[执行方案](archive/EXPEDITION_CAMP_EXECUTION.md)的全路线、完整故障矩阵、前台性能及正式美术仍不是已通过状态。
 
-本文件下文保留原移植里程碑与历史证据。当前远征阶段以[本轮交付记录](EXPEDITION_CAMP_DELIVERY.md)为准，旧协议／存档和原营地回归计数不再重复列在入口顶部。
+本文件下文保留原移植里程碑与历史证据。当前远征阶段以[本轮交付记录](archive/EXPEDITION_CAMP_DELIVERY.md)为准，旧协议／存档和原营地回归计数不再重复列在入口顶部。
 
 <a id="implementation-progress"></a>
 
 ## 历史移植实施进展
 
-原主角输入与 M5 的历史切片见[主角与输入联合执行](HERO_INPUT_EXECUTION.md)和 [M5 剩余验收](M5_EXECUTION.md)。以下批次保留历史推进过程，不代表最新版本仍缺相应功能。
+原主角输入与 M5 的历史切片见[主角与输入联合执行](archive/HERO_INPUT_EXECUTION.md)和 [M5 剩余验收](archive/M5_EXECUTION.md)。以下批次保留历史推进过程，不代表最新版本仍缺相应功能。
 
-第十二批最新状态（2026-09-12）：原生箭矢／浮字／残骸／声音与消息、环境火把／七灯位／月亮／萤火／地表／阴影、角色插值和放置范围线已接入。规则 1338/1338、Editor 53/53、鼠标 13/13、战斗 Play 7/7 通过；新协议 4 Mono 启动 6/6、双进程操作 13/13 通过，详见[原生效果与环境](NATIVE_EFFECTS.md)。画面对照、三夜流程、M4 恢复及完整网络矩阵继续执行，M3–M5 尚未整体完成。
+第十二批最新状态（2026-09-12）：原生箭矢／浮字／残骸／声音与消息、环境火把／七灯位／月亮／萤火／地表／阴影、角色插值和放置范围线已接入。规则 1338/1338、Editor 53/53、鼠标 13/13、战斗 Play 7/7 通过；新协议 4 Mono 启动 6/6、双进程操作 13/13 通过，详见[原生效果与环境](archive/NATIVE_EFFECTS.md)。画面对照、三夜流程、M4 恢复及完整网络矩阵继续执行，M3–M5 尚未整体完成。
 
-第十一批最新状态（2026-09-12）：五个原生 UGUI 面板、15 类头像、选择／镜头／小地图、状态叠层及工厂建造预览已接入；真实鼠标 13/13、两分辨率 162 控件及原生资源 5/5 检查通过，规则 1316 项、守卫 181 文件通过。Mono Player 实际构建一次，启动 6/6、独立双进程 13/13 通过，详见[原生 UI 与操作](NATIVE_UI.md)。后续继续完整表现和恢复，不将本批作为 M2–M5 整体完成。
+第十一批最新状态（2026-09-12）：五个原生 UGUI 面板、15 类头像、选择／镜头／小地图、状态叠层及工厂建造预览已接入；真实鼠标 13/13、两分辨率 162 控件及原生资源 5/5 检查通过，规则 1316 项、守卫 181 文件通过。Mono Player 实际构建一次，启动 6/6、独立双进程 13/13 通过，详见[原生 UI 与操作](archive/NATIVE_UI.md)。后续继续完整表现和恢复，不将本批作为 M2–M5 整体完成。
 
-第十批最新状态（2026-09-12）：551项冻结素材、15类原生外观、32段动画、场景布局预览和正式副本到对象工厂的接线已实施；583个关键帧采样、冻结布局与Editor Host启停重连通过。UI操作、完整环境／效果／音频及本批Player验证仍待完成，见[原生外观实施](NATIVE_ART.md)。以下第九批及更早段落保留历史边界，后续继续A3/B。
+第十批最新状态（2026-09-12）：551项冻结素材、15类原生外观、32段动画、场景布局预览和正式副本到对象工厂的接线已实施；583个关键帧采样、冻结布局与Editor Host启停重连通过。UI操作、完整环境／效果／音频及本批Player验证仍待完成，见[原生外观实施](archive/NATIVE_ART.md)。以下第九批及更早段落保留历史边界，后续继续A3/B。
 
-第九批最新状态：M2 A2 已接通正式网络与 Entry，Mono Host＋独立客户端12项检查通过；详见[正式网络接线](FORMAL_NETWORK.md)。下述第八批状态为先前实现边界；当前继续A3可操作表现与M3完整资源，M2整体尚未退出。
+第九批最新状态：M2 A2 已接通正式网络与 Entry，Mono Host＋独立客户端12项检查通过；详见[正式网络接线](archive/FORMAL_NETWORK.md)。下述第八批状态为先前实现边界；当前继续A3可操作表现与M3完整资源，M2整体尚未退出。
 
 2026-09-11 截至第八批：**M0 正式接入退出条件已完成；M1 规则与存储基础已实现；M2 权威业务层、冻结展示副本和真实时间累积已通过独立及 Editor 回归。** 新增 SessionProjector／WorldReplica 覆盖全部实体及 HUD、发布次序和连接／epoch 隔离，SessionClock 以未缩放时间驱动 60 Hz。尚未接入 Bootstrap、Unity Update 或 YYGC 网络回调；wire／内容握手／真实 Ready、存档文件编排及 UI 待完成。M0 双后端探针与本批内存投影回归不代表可玩会话或正式联机。
 
@@ -39,7 +41,7 @@
 
 本批已通过 22 项 Editor 检查、Core 独立编译、10 项守卫自测，以及 Mono／IL2CPP 各 5 项独立启动检查。397 个构建前已有资源与 `.meta` 无非预期改写；Unity 构建期间可能生成 Addressables `link.xml`，验证后按既有工作区约定清理，不将该生成物作为正式内容源。
 
-本批验证记录在 [首批移植证据](evidence/migration-start-2026-09-11.json)。配置宿主可用于验证依赖与启动，**尚不能游玩灰松谷**。LevelDefinition 仍只含 JSON 中的身份、seed 和波次；后续第三批已将布局保存在独立的唯一可编辑场景来源，启动仍不能从 JSON 缺省出零坐标世界。
+本批验证记录在 [首批移植证据](archive/evidence/migration-start-2026-09-11.json)。配置宿主可用于验证依赖与启动，**尚不能游玩灰松谷**。LevelDefinition 仍只含 JSON 中的身份、seed 和波次；后续第三批已将布局保存在独立的唯一可编辑场景来源，启动仍不能从 JSON 缺省出零坐标世界。
 
 复跑入口（仓库根目录，已打开正确的 Game Editor）：
 
@@ -59,31 +61,31 @@ pwsh -NoProfile -File tools/test-game-startup.ps1 -Backend il2cpp
 
 验证：C#9／netstandard2.1 实际编译零错误／警告；架构守卫 78 个手写文件、10 项自测通过；独立回归 1102 项通过，其中 70 项规则／旧档／输入检查及 1032 项随机检查。正常策略、无人照料、旧档恢复及继续 20 秒均与冻结结果一致。Unity Editor 首次 28 项中 27 项通过，发现 Mono 浮点中间值精度差异；固定 binary32 舍入后，重跑受影响的 6 组核心检查全部通过，原 22 项环境／配置结果复用。未重跑 Player 构建或联机；Sample 历史结果不作为本批核心的 Player 证据。
 
-详见[核心迁移记录](CORE_MIGRATION.md)与[冻结证据](evidence/core-migration-2026-09-11.json)。独立复跑新增 `dotnet run --project tools/CoreRegression -- .`；Editor 仍使用上方正式测试程序集入口。Godot 原目录、用户 YYGC 仓库、规则 JSON 和美术未修改。
+详见[核心迁移记录](archive/CORE_MIGRATION.md)与[冻结证据](archive/evidence/core-migration-2026-09-11.json)。独立复跑新增 `dotnet run --project tools/CoreRegression -- .`；Editor 仍使用上方正式测试程序集入口。Godot 原目录、用户 YYGC 仓库、规则 JSON 和美术未修改。
 
 第三批建立实际 `DarkNights.View`，以 `LevelLayoutAuthoring` 和场景放置组件保存灰松谷边界及 4 个建筑、5 个资源点、7 个友方单位。一次性 Editor 入口只向指定空目录生成首版 `Pinewatch.unity`；日常验证只读场景。2026-09-15 放置组件已收缩为 `ScenePlacement`：正式 Prefab 直接位于三个分组，按 sibling 顺序导出冻结 `LevelLayout`，稳定放置身份自动生成且不要求人工录入。Core 布局校验同时覆盖建筑边界、建筑重叠、资源点遮盖及类别变体约束，错误不会创建部分世界。
 
-验证：结构守卫 83 个手写文件、10 项自测通过；C#9／netstandard2.1 编译零错误／警告；独立回归 1104 项通过；Unity 重编译无错误，完整 Editor 程序集 29/29 通过，其中布局场景逐项对照冻结夹具并创建出相同初始实体顺序。未运行 Player、PlayMode、对象表现或联机检查；本批场景只有可编辑玩法标记和 Gizmo，不把它写成正式可玩或美术完成。证据见[布局迁移记录](evidence/pinewatch-layout-2026-09-11.json)。
+验证：结构守卫 83 个手写文件、10 项自测通过；C#9／netstandard2.1 编译零错误／警告；独立回归 1104 项通过；Unity 重编译无错误，完整 Editor 程序集 29/29 通过，其中布局场景逐项对照冻结夹具并创建出相同初始实体顺序。未运行 Player、PlayMode、对象表现或联机检查；本批场景只有可编辑玩法标记和 Gizmo，不把它写成正式可玩或美术完成。证据见[布局迁移记录](archive/evidence/pinewatch-layout-2026-09-11.json)。
 
 第四批（历史基线，已被后续身份切换取代）完成 M0 正式接入探针：离线定义目录冻结为 `DNights`／LegacyCompatible，Worker ContentId 经 DefinitionReference 指向本地定义，WorldSession 网络定义固定 LegacyV1 ID `930001` 并进入 FishNet spawn 列表；两个 Prefab 均注册 Addressables。正式 Runtime 获得窄范围生成器友元访问，SetReadyCommand、SessionStatusState 和 WorldSessionBehaviour 的具体注册已生成并由 AppStartup 强校验。一次性工具只创建空目录首版，日常构建只验证，不重写正式对象。
 
-上述第四批验证：隔离 YYGC `10b8f0e` 准备可重现；结构守卫 92 个手写文件、10 项自测通过；C#9／netstandard2.1 编译零错误／警告；独立核心回归 1104 项通过；Unity 重编译无错误，完整 Editor 程序集 32/32 通过。Windows Mono 与 IL2CPP Player 各构建一次并在独立进程完成 6/6 启动检查，正式对象／命令／状态／Behaviour 注册只出现一次且 Editor／Tests 程序集未进入 Player。Worker、WorldSession 四个资产及 Pinewatch 场景的构建前后 SHA-256 一致。该记录中的身份设置是历史 LegacyV1 基线，见[历史正式对象接入记录](evidence/formal-object-contracts-2026-09-11.json)。
+上述第四批验证：隔离 YYGC `10b8f0e` 准备可重现；结构守卫 92 个手写文件、10 项自测通过；C#9／netstandard2.1 编译零错误／警告；独立核心回归 1104 项通过；Unity 重编译无错误，完整 Editor 程序集 32/32 通过。Windows Mono 与 IL2CPP Player 各构建一次并在独立进程完成 6/6 启动检查，正式对象／命令／状态／Behaviour 注册只出现一次且 Editor／Tests 程序集未进入 Player。Worker、WorldSession 四个资产及 Pinewatch 场景的构建前后 SHA-256 一致。该记录中的身份设置是历史 LegacyV1 基线，见[历史正式对象接入记录](archive/evidence/formal-object-contracts-2026-09-11.json)。
 
 第五批切断正式 ObjectDefinition 的旧整数兼容：数据库固定为 `GuidFirst`、在线 ID 服务关闭且无 `LegacyIdMap`；Worker／WorldSession 的 `Id` 均为 `0`、旧 ID 别名为空；正式 Windows 构建开启 `YYGC_GUID_DEFINITION_WIRE_V2`。正式 Editor／Runtime 校验会拒绝 `LegacyCompatible`、旧 ID、旧 ID 别名、旧映射或 LegacyV1；独立 LAN Sample 与 YYGC 用户仓库保持不变，旧 v1 存档导入仍作为独立的玩法迁移边界保留。
 
-验证：结构守卫 92 个手写文件、Core 编译零错误／警告、独立核心回归 1104 项通过；Unity Editor 测试 32/32 通过；Windows Mono 与 IL2CPP Player 均在独立进程完成 6/6 启动检查，正式日志均包含 `identity=GuidFirst wire=GuidV2`，Editor／Tests 程序集未进入 Player。切换后的数据库与两个 Definition 资产哈希分别为 `0ec20eded0912c30852db60a99b03c3ab77a27a7057da30e08a085cd1282d10b`、`83f71cb728b42d10de75295369ebc889e91e4659ed978cd4ff7e7e77b36b8714`、`c24b46a54049efd47a6b7f161fc84b05d1238f56ba8fdc7b5db392dee71278e5`；证据见[正式 GuidV2 身份切换记录](evidence/formal-object-contracts-guid-v2-2026-09-11.json)。
+验证：结构守卫 92 个手写文件、Core 编译零错误／警告、独立核心回归 1104 项通过；Unity Editor 测试 32/32 通过；Windows Mono 与 IL2CPP Player 均在独立进程完成 6/6 启动检查，正式日志均包含 `identity=GuidFirst wire=GuidV2`，Editor／Tests 程序集未进入 Player。切换后的数据库与两个 Definition 资产哈希分别为 `0ec20eded0912c30852db60a99b03c3ab77a27a7057da30e08a085cd1282d10b`、`83f71cb728b42d10de75295369ebc889e91e4659ed978cd4ff7e7e77b36b8714`、`c24b46a54049efd47a6b7f161fc84b05d1238f56ba8fdc7b5db392dee71278e5`；证据见[正式 GuidV2 身份切换记录](archive/evidence/formal-object-contracts-guid-v2-2026-09-11.json)。
 
 第六批补齐 M1 独立存储切片：新档固定 `dark-nights.world` v1，引用 Core 的随机算法标识，以实际不可变目录和布局计算独立二进制规范化 SHA-256；世界字段不含相机、选择或房间控制策略。旧 v1 保持独立显式导入，恢复先经过现有完整字段／关系校验，只返回新 GameSession。文件适配提供 0–9 槽位、严格 UTF-8 与 4 MB 上限、取消检查、同目录临时文件 `Flush(true)` 后 Move／Replace；失败保留原档，同实例操作串行。遵循方案的 JSON／文件路线，未接 YYArchive 模块或 UI。
 
-验证：独立回归 **1164/1164**（新增存档 60 项），架构守卫 **97 个手写文件、10 项自测**通过；Unity 本批导入及修正算法常量后的编译均无错误，完整 Editor 程序集 **34/34**通过。覆盖真实文件锁导致提交失败、损坏／超大输入、取消、并发保存、新旧格式隔离及新格式恢复后继续 20 秒的冻结结果。实际 .NET 存档在 Unity 加载后 JSON 字段值精确一致，两个摘要一致；浮点文本位数不同不作为字节一致保证。本批未构建或运行 Mono／IL2CPP Player、联机或美术验收。正式资产、配置和旧夹具未改写；详见[存档合同](SAVE_FORMAT.md)及[第六批证据](evidence/world-save-2026-09-11.json)。
+验证：独立回归 **1164/1164**（新增存档 60 项），架构守卫 **97 个手写文件、10 项自测**通过；Unity 本批导入及修正算法常量后的编译均无错误，完整 Editor 程序集 **34/34**通过。覆盖真实文件锁导致提交失败、损坏／超大输入、取消、并发保存、新旧格式隔离及新格式恢复后继续 20 秒的冻结结果。实际 .NET 存档在 Unity 加载后 JSON 字段值精确一致，两个摘要一致；浮点文本位数不同不作为字节一致保证。本批未构建或运行 Mono／IL2CPP Player、联机或美术验收。正式资产、配置和旧夹具未改写；详见[存档合同](SAVE_FORMAT.md)及[第六批证据](archive/evidence/world-save-2026-09-11.json)。
 
 第七批实现 `Runtime/Session`：权威实例自行创建并独占 GameSession；Host 和来宾均提交冻结的显式参数，在创建线程按接受顺序处理。每连接最多 16 条待处理、全局最多 64 条，保留最近 64 条完成结果；重复请求返回原回执，改参重发／窗口外旧序号不能再次支付。连接替换增加代次并清除 Ready，执行点复查当前连接、epoch、策略与权限。SharedCamp／HostOnly 限制所有营地修改及自动派工；房主控制时间与 BeginLoad。加载票据由服务端持有，取消／失败保留旧世界，成功恢复完整世界后增加 epoch、清空 Ready／去重并保持房间策略。
 
-验证：独立回归 **1260/1260**（新增会话 96 项），架构守卫 **109 个手写文件、10 项自测**零错误；Unity 两次批量编译无错误，最终完整 Editor 程序集 **37/37**通过。采集 12 秒、住宅施工和训练与直接 Core 的完整快照一致；队列争抢不足资源、工位独占、部分训练支付、策略切换、非法输入、重连旧请求及加载失败／取消均有检查；加载冻结旧档后继续 20 秒对照原结果。没有运行 Player、PlayMode、多进程或弱网检查，没有修改正式资源或冻结夹具。第二次编译的新增输入为显式保序去重及补充队列／部分成功场景；详见[会话业务合同](SESSION_AUTHORITY.md)和[第七批证据](evidence/session-authority-2026-09-11.json)。
+验证：独立回归 **1260/1260**（新增会话 96 项），架构守卫 **109 个手写文件、10 项自测**零错误；Unity 两次批量编译无错误，最终完整 Editor 程序集 **37/37**通过。采集 12 秒、住宅施工和训练与直接 Core 的完整快照一致；队列争抢不足资源、工位独占、部分训练支付、策略切换、非法输入、重连旧请求及加载失败／取消均有检查；加载冻结旧档后继续 20 秒对照原结果。没有运行 Player、PlayMode、多进程或弱网检查，没有修改正式资源或冻结夹具。第二次编译的新增输入为显式保序去重及补充队列／部分成功场景；详见[会话业务合同](archive/SESSION_AUTHORITY.md)和[第七批证据](archive/evidence/session-authority-2026-09-11.json)。
 
-第八批执行 M5 路线的 A1：实现全部实体／HUD 冻结展示、箭矢稳定展示身份、WorldReplica 完整帧替换与连接／发布版本过滤，以及 SessionClock 的有界追帧和余量保留。独立回归 **1316/1316**（新增 56 项），架构守卫 **123 文件／10 自测／0 错误**；一次 Unity 批量编译无错误，完整 Editor **40/40**。没有修改规则、夹具或正式资源，没有构建 Player 或运行联机。实现合同及边界见[展示副本与时钟](SESSION_PROJECTION.md)，实测摘要见[第八批证据](evidence/session-projection-2026-09-11.json)。
+第八批执行 M5 路线的 A1：实现全部实体／HUD 冻结展示、箭矢稳定展示身份、WorldReplica 完整帧替换与连接／发布版本过滤，以及 SessionClock 的有界追帧和余量保留。独立回归 **1316/1316**（新增 56 项），架构守卫 **123 文件／10 自测／0 错误**；一次 Unity 批量编译无错误，完整 Editor **40/40**。没有修改规则、夹具或正式资源，没有构建 Player 或运行联机。实现合同及边界见[展示副本与时钟](archive/SESSION_PROJECTION.md)，实测摘要见[第八批证据](archive/evidence/session-projection-2026-09-11.json)。
 
-后续批次已完成 M3 表现与 M4 存档恢复主体及正式四进程／弱网分批检查；当前余项以 [M5 收尾清单](M5_EXECUTION.md#closeout) 为准。M1 存档产品已并入 M4；IL2CPP 和双机器分别取得对应前置条件后实测。
+后续批次已完成 M3 表现与 M4 存档恢复主体及正式四进程／弱网分批检查；当前余项以 [M5 收尾清单](archive/M5_EXECUTION.md#closeout) 为准。M1 存档产品已并入 M4；IL2CPP 和双机器分别取得对应前置条件后实测。
 
 ## 工作量与难度
 

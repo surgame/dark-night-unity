@@ -36,7 +36,7 @@
 | 隔离依赖差异 | `.deps/YYGC` 有六个已跟踪修改，以及 SampleAssemblyAccess.cs／.meta；路径对应已有补丁 | 它不是干净的裸提交；U0 还需精确核对补丁内容，不能直接清理或覆盖 |
 | 未完成交付项 | M5 的字体／菜单画面、可信性能记录、IL2CPP、双机器 LAN 仍有未验收项 | 本重构完成与 M5 完成分别记录 |
 
-现状依据：[开发状态](DEVELOPMENT.md)、[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)、[场景修复](SCENE_DEFINITIONS.md)、[YYGC 账本](YYGC_CHANGES.md)。本次只读源码，没有据此新增运行通过记录。
+现状依据：[开发状态](../DEVELOPMENT.md)、[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)、[场景修复](SCENE_DEFINITIONS.md)、[YYGC 账本](../YYGC_CHANGES.md)。本次只读源码，没有据此新增运行通过记录。
 
 ## 3. 目标架构与所有权
 
@@ -131,7 +131,7 @@ flowchart TD
 | `Scripts/View` | 只读表现、UI、本地输入和场景制作组件 |
 | `Scripts/Entry` | 启动及跨程序集装配；退出业务计算和双对象生命周期协调 |
 
-Core 继续 `noEngineReferences`、C# 9／.NET Standard 2.1；实例 State 因依赖 YYGC／MemoryPack 放 Runtime。普通规则函数留 Core，不为接框架伪造 Unity／YYGC stub。代码长度、中文 XML summary、生成文件隔离和绑定检查沿用 [AGENTS](../AGENTS.md)。
+Core 继续 `noEngineReferences`、C# 9／.NET Standard 2.1；实例 State 因依赖 YYGC／MemoryPack 放 Runtime。普通规则函数留 Core，不为接框架伪造 Unity／YYGC stub。代码长度、中文 XML summary、生成文件隔离和绑定检查沿用 [AGENTS](../../AGENTS.md)。
 
 ## 4. YYGC 前置改动与验证门槛
 
@@ -154,7 +154,7 @@ F1–F4 是 U1 必须解决的合同。具体 API 名称在 U1 锁定，本文�
 2. 修改落在最小公共能力范围。游戏的权限、工位事务、epoch、Ready 和存档恢复仍归游戏；不把灰松谷规则塞进 YYGC。
 3. 真实 Unity 测试通过后提交框架版本，核对用户仓库当时分支和改动，再以保留现有改动的方式落地。不能因本次读取时干净，就在后续盲目快进／重置。
 4. 游戏锁定完整框架提交，维护 `tools/prepare-lan-sample.ps1`、必要补丁及 UPM manifest／packages-lock；路径未变时记录复核结果，不制造无意义锁文件改动。已吸收进新框架的补丁从准备链退出，其余精确复用。
-5. 在 [YYGC_CHANGES](YYGC_CHANGES.md)逐项记录实际文件、原因、隔离／用户仓库落点、提交及验证。冻结源码生成器输入／输出的来源，不手改生成结果。
+5. 在 [YYGC_CHANGES](../YYGC_CHANGES.md)逐项记录实际文件、原因、隔离／用户仓库落点、提交及验证。冻结源码生成器输入／输出的来源，不手改生成结果。
 
 不需要为同一已授权框架适配重复请求许可。若出现真正的结构阻断，应记录复现、涉及范围和修正方案，再调整阶段工作量；不能悄悄恢复长期双系统，或自动切到已放弃的轻量路线。
 

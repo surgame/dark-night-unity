@@ -10,6 +10,13 @@
     "Reason": "可重建 bin/obj 的原删除操作被策略阻止；按用户要求集中移动，尚未删除。",
     "DeleteCondition": "后续按明确清理范围复核无引用、无活动进程后再处理。"
   },
+  "FollowUp": {
+    "CheckedAt": "2026-09-22T22:13:00+08:00",
+    "HoldingRootPayload": "上述 HoldingRoot 及其载荷在当日晚间复核时已不在磁盘：全盘目录搜索与 D 盘回收站均无记录，原验证目录父目录修改时间为 19:43（提交后 2 分钟），推定由用户在仓库外永久删除；本会话未执行该删除。",
+    "VerificationFolder": "D:\\Downloads\\飞船\\游戏接入验证_20260922 剩余内容（8 个生成 csproj、compile.log、run.log、与仓库 tools 仅差 2 行输出路径的 Program.cs 副本）经核验无独立价值，按用户指示整目录移除；其中唯一的静态报告 architecture.json 与 core-regression.json 已先归档至本证据目录。",
+    "Worktree": "C:\\Users\\Jobscn\\.codex\\worktrees\\walkable-expedition-ship 为提交 70e4e7a 的干净检出（该提交可由 ft-20260922-walkable-expedition-ship 等分支可达，无独立内容）；其 CoreBuild bin/obj 共 425,004 字节移入重建后的 HoldingRoot 下 codex-worktree-unity-projects/tools/CoreBuild/，随后整个 worktree 经 git worktree remove 移除，移动记录见 HoldingRoot 下 inventory.json。",
+    "AuthorizedBy": "用户 2026-09-22 指示：把剩余中间产物整理到独立文件夹，被整理物文件夹已空或无价值则整目录移除。"
+  },
   "OriginalPreview": [
   {
     "Path": "D:\\Downloads\\飞船\\游戏接入验证_20260922\\compile\\Core\\bin",

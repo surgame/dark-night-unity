@@ -31,7 +31,7 @@
 
 `SnapshotMapper.Restore` 验证输入后返回一个新建的完整会话，不修改调用方持有的活动世界。只有未来的会话协调器可以在成功后原子替换它。旧 seed/state 仍是有符号十进制字符串的 64 位位表示；不经过浮点转换。
 
-旧相机／选择只通过单独的 `LegacyDisplayState` 提供给导入方，恢复不会写入 GameSession，也不覆盖其他客户端。后续第六批已实现 [Unity 新格式及原子文件适配](SAVE_FORMAT.md)，独立校验规则／布局摘要并引用现有随机算法标识；UI、权限和加载 epoch 仍未实施，不能把存储适配宣称为完整存档产品入口。
+旧相机／选择只通过单独的 `LegacyDisplayState` 提供给导入方，恢复不会写入 GameSession，也不覆盖其他客户端。后续第六批已实现 [Unity 新格式及原子文件适配](../SAVE_FORMAT.md)，独立校验规则／布局摘要并引用现有随机算法标识；UI、权限和加载 epoch 仍未实施，不能把存储适配宣称为完整存档产品入口。
 
 ## 验证与复跑
 
@@ -52,4 +52,4 @@ Editor 首次 28 项中 27 项通过、随机向量失败；修正后重跑受 R
 
 ## 第三方算法来源
 
-PCG32 算法来自 M. E. O'Neill / pcg-random.org（2014），参考实现使用 Apache License 2.0；Godot RandomPCG 的浮点映射为 Godot Engine contributors / Juan Linietsky、Ariel Manzur，使用 MIT License。对应许可和来源见 [算法许可说明](third-party/PCG-NOTICES.md)。本项目只保留玩法需要的最小实现，未复制 Godot 数学库。
+PCG32 算法来自 M. E. O'Neill / pcg-random.org（2014），参考实现使用 Apache License 2.0；Godot RandomPCG 的浮点映射为 Godot Engine contributors / Juan Linietsky、Ariel Manzur，使用 MIT License。对应许可和来源见 [算法许可说明](../third-party/PCG-NOTICES.md)。本项目只保留玩法需要的最小实现，未复制 Godot 数学库。

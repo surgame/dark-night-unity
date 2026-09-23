@@ -33,7 +33,7 @@
 
 `test-game-pressure.ps1` 支持 `-CompactReports`、`-DurationSeconds`、`-ForegroundRole`；`test-game-campaign.ps1` 支持 `-ForegroundRole`。前台角色为 host／client1／client2／client3，默认 none。指定前台角色时，脚本要求该进程至少 95% 的帧区间有 OS 前台证据；不足则失败，不以其他进程或隐藏窗口数据代替。
 
-延续 [开发计划](DEVELOPMENT.md)的可用 60 FPS 目标。U0 未冻结更细的性能预算，也无可信旧架构 Player 性能基线；本次先修复实测热点并提供完整条件，不宣称原架构对比优势。容量为合成投影，Host 只有 17 个真实权威对象，不代表 256 个 AI 的完整模拟。
+延续 [开发计划](../DEVELOPMENT.md)的可用 60 FPS 目标。U0 未冻结更细的性能预算，也无可信旧架构 Player 性能基线；本次先修复实测热点并提供完整条件，不宣称原架构对比优势。容量为合成投影，Host 只有 17 个真实权威对象，不代表 256 个 AI 的完整模拟。
 
 ## Mono 测量与长窗口积压
 

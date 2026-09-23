@@ -4,7 +4,7 @@
 
 ## 测试入口
 
-专门观察随机地形、无需营地平地和守夜波次时，使用[独立 Debug Bootstrap](TERRAIN_DEBUG_BOOTSTRAP.md)：直接出生入口洞室，WASD 穿墙飞行、近距离镜头与实时参数重建。下列正式入口仍保留营地规则与 72 列保护区。
+专门观察随机地形、无需营地平地和守夜波次时，使用[独立 Debug Bootstrap](../TERRAIN_DEBUG_BOOTSTRAP.md)：直接出生入口洞室，WASD 穿墙飞行、近距离镜头与实时参数重建。下列正式入口仍保留营地规则与 72 列保护区。
 
 - Mono：运行 `artifacts/random-map/player-mono/DarkNights.exe`，主菜单点击“选择地图：灰松谷 · 生成新地图”，等待种子状态更新，再点击“开始守夜”。再次选择地图产生新种子；已选地图在开局时复用。
 - Editor：从 Bootstrap 进入默认正式菜单，或使用既有关卡试玩入口运行 `RandomPinewatch/Pinewatch.unity`。原 Pinewatch 仍可单独试玩；Player 的 `--dn-camp-mode` 保留原固定场景回归入口。
@@ -26,7 +26,7 @@
 
 ## 框架适配
 
-仅对游戏隔离 `.deps/AnyRules` 应用可重现补丁，未修改 `D:/Developer/YYGC` 工作区。原 `MaximumChunks=64` 和每轴六块订阅限制不能容纳正式地图，新增 `PlayableMapChunkBudget.patch` 将块预算提高到 128、每轴上限十块，并在分配前检查与实际地图相交后的 halo 块数。保留单包 256 KiB、缓存 2 MiB 等其他边界。准备脚本和 442 文件哈希锁同步，完整解包加三份补丁可复现。逐文件说明见 [YYGC 账本](YYGC_CHANGES.md)。
+仅对游戏隔离 `.deps/AnyRules` 应用可重现补丁，未修改 `D:/Developer/YYGC` 工作区。原 `MaximumChunks=64` 和每轴六块订阅限制不能容纳正式地图，新增 `PlayableMapChunkBudget.patch` 将块预算提高到 128、每轴上限十块，并在分配前检查与实际地图相交后的 halo 块数。保留单包 256 KiB、缓存 2 MiB 等其他边界。准备脚本和 442 文件哈希锁同步，完整解包加三份补丁可复现。逐文件说明见 [YYGC 账本](../YYGC_CHANGES.md)。
 
 ## 验收
 

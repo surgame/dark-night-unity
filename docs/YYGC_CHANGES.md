@@ -16,7 +16,7 @@
 | `Game/Packages/manifest.json` | 三个 AnyRules 包指向新锁定目录 | Unity 实际解析并编译 |
 | `Game/Packages/packages-lock.json` | 同步本地包路径 | Unity 最终编译退出 0 |
 
-游戏协议升为 10／存档 v5，与框架版本升级无关。[本批证据](evidence/hero-handheld-2026-09-20.json)保留漂移哈希、失败原因和成功编译记录；未运行 Play、Player 或联机验收，不计入历史通过矩阵。
+游戏协议升为 10／存档 v5，与框架版本升级无关。[本批证据](archive/evidence/hero-handheld-2026-09-20.json)保留漂移哈希、失败原因和成功编译记录；未运行 Play、Player 或联机验收，不计入历史通过矩阵。
 
 ## 2026-09-17：正式随机地图有界区块预算
 
@@ -30,7 +30,7 @@
 | `tools/map-framework-patch/source-lock.json` | 更新受影响两个文件哈希，其余保持 | 442 个包文件一致 |
 | `tools/prepare-map-packages.ps1` | 纳入第三份补丁、换行规范化；完整哈希已匹配时幂等返回，避免补丁重叠上下文误判 | 准备脚本与干净复现通过 |
 
-详见[正式随机灰松谷](RANDOM_PINEWATCH.md)及[本批证据](evidence/random-pinewatch-2026-09-17.json)。未将独立生成器或旧游戏历史大矩阵计入新构建验收。
+详见[正式随机灰松谷](archive/RANDOM_PINEWATCH.md)及[本批证据](archive/evidence/random-pinewatch-2026-09-17.json)。未将独立生成器或旧游戏历史大矩阵计入新构建验收。
 
 ## 2026-09-17：Bootstrap 地形命令漏注册修复
 
@@ -45,7 +45,7 @@ AnyRuleD 的 `TerrainEditCommand.cs` 同时包含命令 record 和结果结构�
 | 游戏 `tools/lan-framework-patch/ExcludeSampleFromGlobalRegistry.patch` | 随新基线更新补丁 blob 身份，原 Sample 排除语义不变 | 准备脚本精确差异验证通过 |
 | 游戏全局 `NetworkCommandInterfaceGenerateRegistry.asset` 和 `INetworkCommand.generated.cs` | 使用框架发现／生成菜单加入地形命令 Tag 3；原 Tag 0/1/2 不变，不手改生成源码 | 已安装命令完整性与稳定编号回归通过 |
 
-本批不修改 AnyRuleD 包、场景、Prefab、人工资源、玩法协议 8 或存档 v3。新的注册表摘要会区分包含地形命令的构建，不将旧 Player 混作本批联机客户端。详细验收与产物见 [Bootstrap 修复证据](evidence/bootstrap-registry-2026-09-17.json)。未验证 IL2CPP、双机器 LAN 或前台性能，M5 状态不变。
+本批不修改 AnyRuleD 包、场景、Prefab、人工资源、玩法协议 8 或存档 v3。新的注册表摘要会区分包含地形命令的构建，不将旧 Player 混作本批联机客户端。详细验收与产物见 [Bootstrap 修复证据](archive/evidence/bootstrap-registry-2026-09-17.json)。未验证 IL2CPP、双机器 LAN 或前台性能，M5 状态不变。
 
 <a id="hero-input"></a>
 
@@ -114,7 +114,7 @@ AnyRuleD 的 `TerrainEditCommand.cs` 同时包含命令 record 和结果结构�
 
 Unity 6000.4.9f1／Input System 1.19.0 下 **34 个不同 PlayMode 用例按影响合并通过**（服务／文件 33 项、最终真实场景 1 项），并非一次全绿 34 项运行。末次场景复跑禁用音频；虚拟键鼠驱动原生 UGUI，两张真实截图已检查。路由内核 10,000 次 Refresh＋全部 CanRead：2 动作 2.4844 ms、32 动作 75.8918 ms；校准后 GC.Alloc 未检测到分配。该数字不覆盖 UI、网络或前台帧率。Sample 未单独构建 Player，游戏 Mono 不能替代其独立发布验收。
 
-游戏侧切片与验收见[联合执行文档](HERO_INPUT_EXECUTION.md)，输入详细结果见[机器证据](evidence/hero-input-framework.json)。保留原 `StartInteractiveRebind` 原生返回类型；旧调用者提前结束仍须先 Cancel 再 Dispose。新增管理入口用于界面生命周期，不重写 Unity 的设备或按钮状态机。
+游戏侧切片与验收见[联合执行文档](archive/HERO_INPUT_EXECUTION.md)，输入详细结果见[机器证据](archive/evidence/hero-input-framework.json)。保留原 `StartInteractiveRebind` 原生返回类型；旧调用者提前结束仍须先 Cancel 再 Dispose。新增管理入口用于界面生命周期，不重写 Unity 的设备或按钮状态机。
 
 
 
@@ -128,7 +128,7 @@ Unity 6000.4.9f1／Input System 1.19.0 下 **34 个不同 PlayMode 用例按影�
 |---|---|---|
 | `Runtime/Objects/Runner/ObjectAssemblyValidation.cs` | 每次客户端完整投影都重新反射 Behaviour 的配置及组件绑定声明，256 次校验微测量均值 101.64 ms。按类型缓存不变声明，不保存 Definition、配置／组件实例或成功结果；实际配置、工厂、能力和绑定仍逐次验证 | 隔离 checkout 与用户仓库同路径；最终 138/138 Editor／Play，56.68 秒，包括预热后删除配置、清空／重复绑定的拒绝回归。缓存声明后的两次微测量为 16.66／9.76 ms；不据此宣称 Player 帧率通过 |
 
-类型解析缓存候选没有显示明确收益，已撤回，`BehaviourTypeResolver.cs` 无最终差异；该候选的 139 项回归不增加当前通过数。本次无新增 YYGC 文件或 `.meta`。游戏 `a7bb926`／本框架提交的正式 Mono 完整矩阵 347 项通过，Sample 基础／弱网各 30 项通过。后续容量积压修正只落在游戏投影编码及验收工具中：`4e3798f`／同框架通过 144 项 Editor／Play、正式 Mono 350 项与另一次 240 秒容量 21 项。Sample 代码及共用框架未变，沿用其已有 60 项证据。收尾再次核对用户仓库干净且 HEAD 仍为 `745f3d2`，未推送；本次没有追加 YYGC 或 FishNet 修改。前台性能由用户暂缓，详情见[性能切片](YYGC_UNIFIED_PERFORMANCE.md)。
+类型解析缓存候选没有显示明确收益，已撤回，`BehaviourTypeResolver.cs` 无最终差异；该候选的 139 项回归不增加当前通过数。本次无新增 YYGC 文件或 `.meta`。游戏 `a7bb926`／本框架提交的正式 Mono 完整矩阵 347 项通过，Sample 基础／弱网各 30 项通过。后续容量积压修正只落在游戏投影编码及验收工具中：`4e3798f`／同框架通过 144 项 Editor／Play、正式 Mono 350 项与另一次 240 秒容量 21 项。Sample 代码及共用框架未变，沿用其已有 60 项证据。收尾再次核对用户仓库干净且 HEAD 仍为 `745f3d2`，未推送；本次没有追加 YYGC 或 FishNet 修改。前台性能由用户暂缓，详情见[性能切片](archive/YYGC_UNIFIED_PERFORMANCE.md)。
 
 <a id="unified-u5"></a>
 
@@ -142,7 +142,7 @@ Unity 6000.4.9f1／Input System 1.19.0 下 **34 个不同 PlayMode 用例按影�
 
 本次没有新增 YYGC 文件、程序集引用或 `.meta`。Sample 未调用本次修改的 AcquireComponentAsync／PrepareAsync 路径，其既有 API 未改；不重复构建未受影响的 Sample。先前尝试仅更改 Task 续接上下文仍会阻塞，失败与取消记录保留，不作为修正通过证据。
 
-U6 未新增框架修改；2026-09-13 收尾再次核对用户 YYGC 工作区干净且 HEAD 为上述完整提交。最终 Mono 使用游戏 `9e69a76`，通过活跃恢复、四人重开、九组弱网、三夜及容量功能；报告见 [U6 证据](evidence/yygc-unified-u6.json)。容量性能尚未签署，IL2CPP／双机器未验收，不将功能结果扩展为框架全平台或性能保证。
+U6 未新增框架修改；2026-09-13 收尾再次核对用户 YYGC 工作区干净且 HEAD 为上述完整提交。最终 Mono 使用游戏 `9e69a76`，通过活跃恢复、四人重开、九组弱网、三夜及容量功能；报告见 [U6 证据](archive/evidence/yygc-unified-u6.json)。容量性能尚未签署，IL2CPP／双机器未验收，不将功能结果扩展为框架全平台或性能保证。
 
 <a id="unified-u2"></a>
 
@@ -163,7 +163,7 @@ U6 未新增框架修改；2026-09-13 收尾再次核对用户 YYGC 工作区干
 | `Runtime/Objects/Runner/ObjectSessionContext.cs` | 批量通知期间拒绝激活／退休上下文 | 撤权重入用例、退出和换 epoch 通过 |
 | `Documentation~/OBJECT_SESSION_LIFECYCLE.md` | 记录批量提交、网络上下文、瞬时池引用和注册范围 | 与实际 API 及验收边界核对 |
 
-U2 分批覆盖 126 个不同 Editor／Play 用例，无未解决失败；Mono 装配 14/14，正式三进程切片 26/26，独立四进程 Sample 30/30。只构建正式 Mono 和 Sample Mono 各一次，复验复用产物。游戏准备脚本锁定完整提交；manifest／packages-lock 保持同一隔离路径。既有六文件 Sample／UI／单例补丁完整保留，启动排除 patch 仅更新新基线的上下文和 blob 哈希。详见 [U2 证据](evidence/yygc-unified-u2.json)。完整玩法、最终弱网／性能、IL2CPP 及双机器 LAN 不属于本阶段通过范围。
+U2 分批覆盖 126 个不同 Editor／Play 用例，无未解决失败；Mono 装配 14/14，正式三进程切片 26/26，独立四进程 Sample 30/30。只构建正式 Mono 和 Sample Mono 各一次，复验复用产物。游戏准备脚本锁定完整提交；manifest／packages-lock 保持同一隔离路径。既有六文件 Sample／UI／单例补丁完整保留，启动排除 patch 仅更新新基线的上下文和 blob 哈希。详见 [U2 证据](archive/evidence/yygc-unified-u2.json)。完整玩法、最终弱网／性能、IL2CPP 及双机器 LAN 不属于本阶段通过范围。
 
 ## 2026-09-13：U1 显式会话状态与对象装配
 
@@ -196,11 +196,11 @@ U2 分批覆盖 126 个不同 Editor／Play 用例，无未解决失败；Mono �
 
 宿主额外修改 `tools/lan-framework-patch/SampleAssemblyAccess.cs`，为真实 `DarkNights.Tests` 生成调度器增加友元访问。该文件继续作为游戏的锁定补丁，不混入通用框架提交。旧六文件补丁没有被清理或重复计为本轮框架修改。
 
-分批验证覆盖原 95 项及新增 16 项 Editor／Play 用例，失败的测试驱动已修复并复测；独立 Mono 装配 14/14，Sample 四进程基础 30/30。详情见[U1 证据](evidence/yygc-unified-u1.json)与[实施记录](YYGC_UNIFIED_IMPLEMENTATION.md)。没有进行 IL2CPP 或双机器 LAN；U2–U6 尚未完成。
+分批验证覆盖原 95 项及新增 16 项 Editor／Play 用例，失败的测试驱动已修复并复测；独立 Mono 装配 14/14，Sample 四进程基础 30/30。详情见[U1 证据](archive/evidence/yygc-unified-u1.json)与[实施记录](archive/YYGC_UNIFIED_IMPLEMENTATION.md)。没有进行 IL2CPP 或双机器 LAN；U2–U6 尚未完成。
 
 ## 2026-09-13：统一对象架构的升级适配授权（仅规划）
 
-用户明确允许在 YYGC 存在能力限制或 BUG 时升级适配；正式游戏后续采用一套 YYGC 对象／状态模型，不要求旧数据兼容。具体前置能力、阶段门槛和交付要求见 [YYGC 统一重构计划](YYGC_UNIFIED_REFACTOR_PLAN.md)。先在隔离 checkout 核实和验证，保留用户已有改动，游戏仍锁定可重现依赖；该授权不要求每项必要修正重复确认。
+用户明确允许在 YYGC 存在能力限制或 BUG 时升级适配；正式游戏后续采用一套 YYGC 对象／状态模型，不要求旧数据兼容。具体前置能力、阶段门槛和交付要求见 [YYGC 统一重构计划](archive/YYGC_UNIFIED_REFACTOR_PLAN.md)。先在隔离 checkout 核实和验证，保留用户已有改动，游戏仍锁定可重现依赖；该授权不要求每项必要修正重复确认。
 
 本次只读核对：用户 YYGC 仓库与隔离依赖均位于 `ccd61e01f15332b1197cfa5ee72af8777c4a0b49`，用户仓库状态为空；`.deps/YYGC` 的既有补丁差异保留。**本次 YYGC 修改文件数为 0，未创建框架提交、未升级依赖、未进行新 Unity／Player 验证。** 新计划中的状态权限、显式会话装配、同步创建和严格校验是待实施项，不能计入下方已实施账本。后续每阶段须逐文件补充原因、隔离／用户仓库落点、提交和验证结果。
 
@@ -219,7 +219,7 @@ U2 分批覆盖 126 个不同 Editor／Play 用例，无未解决失败；Mono �
 | `Runtime/Objects/Types/ObjectType.cs` | 追加 Unit、Scenery_ResourceNode、World_Session、World_Connection，保留所有旧枚举值 | 编译完成；17 个游戏定义已配置 |
 | `Runtime/Objects/Types/TypeCategory.cs` | 末尾追加 Unit 分类并补充职责注释，不重排旧值 | 编译完成；序列化回归待确认 |
 
-本批没有新增 YYGC 文件或重建 `.meta`。游戏侧 16 个场景放置引用迁移和静态差异核对见 [实施记录](SCENE_DEFINITIONS.md)。
+本批没有新增 YYGC 文件或重建 `.meta`。游戏侧 16 个场景放置引用迁移和静态差异核对见 [实施记录](archive/SCENE_DEFINITIONS.md)。
 
 2026-09-12 用户授权：必要时可以更新 YYGC，并将这项约定加入项目知识；完成后必须一一列出 YYGC 改动。此授权允许为实际接入缺口修正框架，保留用户已有修改、隔离验证和锁定依赖的要求仍有效。`AGENTS.md` 已同步该约定。
 
@@ -229,7 +229,7 @@ U2 分批覆盖 126 个不同 Editor／Play 用例，无未解决失败；Mono �
 | 修正 UGUI 根组件的 Unity 空引用判断 | 空场景启动实际抛出 `MissingComponentException: Canvas`；`GetComponent<T>() ?? AddComponent<T>()` 未识别 Unity 的空组件包装对象 | 新增可复现补丁 `tools/lan-framework-patch/FixUguiRootUnityNull.patch`，修改隔离依赖 `UGUIRuntimeStartupModule` 中 Manager、Canvas、CanvasScaler 的三个判断；准备脚本验证并应用补丁，用户 YYGC 仓库未改动 | 修复后 Editor 实际创建五个正式面板和一个菜单 Interaction Session；字体及后续生命周期另行验证 |
 | 为 `DarkNights.View` 增加 `InternalsVisibleTo` | UGUI Behaviour 的 YYGC 生成更新分派器读取 `CoreBehaviour._updateFlags`，Unity 编译报 CS1061；既有 Runtime／Sample 已有相同授权 | 本仓库 `tools/lan-framework-patch/SampleAssemblyAccess.cs`，经核对旧文件等于已提交基线后更新 `.deps/YYGC/Runtime/NetworkCommands/SampleAssemblyAccess.cs`；用户维护的 YYGC 仓库尚未改动 | 依赖准备脚本通过；Unity 编译通过；原生 UGUI 首版资源创建完成，运行与生命周期验收继续执行 |
 
-后两项已随原生 UI 批次 Mono 实际构建、启动 6/6、独立 Host＋客户端 13/13 和 Editor 鼠标 13/13 验证，见[实际证据](evidence/native-ui-2026-09-12.json)。用户维护的 `D:\Developer\YYGC` 未改动，修正位于可重现补丁与隔离依赖。
+后两项已随原生 UI 批次 Mono 实际构建、启动 6/6、独立 Host＋客户端 13/13 和 Editor 鼠标 13/13 验证，见[实际证据](archive/evidence/native-ui-2026-09-12.json)。用户维护的 `D:\Developer\YYGC` 未改动，修正位于可重现补丁与隔离依赖。
 
 <a id="workshop-display"></a>
 
@@ -254,7 +254,7 @@ U2 分批覆盖 126 个不同 Editor／Play 用例，无未解决失败；Mono �
 | `Editor/Objects/Definition/Workshop/WorkshopInspectorPresenter.cs` | 基本属性显示可选中复制、自动换行的 Key／GUID；零旧 ID 不显示 | 实际 Worker 属性区绘制及窗口重开通过，Console 无错误 |
 | `Documentation~/DEFINITION_IDENTITY.md` | 记录三行展示、长文本、旧号、搜索与身份制作边界 | 与本次实现和用户保留文件名的要求核对 |
 
-验证：Unity `6000.4.9f1` 导入／编译通过，UI 检查 **47/47**；实际窗口搜索、名称排序与重开检查通过；2,457 个游戏资源、meta、Packages 和 ProjectSettings 输入哈希不变。当前依赖准备与全新隔离 clone 准备均通过。首次导入生成两份新 meta；用户提出三行要求后，仅对新增输入涉及的三份源码／样式统一再导入一次。未新增 Player、PlayMode 或联机验证，不改变 M5 状态。详见[本批证据](evidence/workshop-display-2026-09-12.json)。
+验证：Unity `6000.4.9f1` 导入／编译通过，UI 检查 **47/47**；实际窗口搜索、名称排序与重开检查通过；2,457 个游戏资源、meta、Packages 和 ProjectSettings 输入哈希不变。当前依赖准备与全新隔离 clone 准备均通过。首次导入生成两份新 meta；用户提出三行要求后，仅对新增输入涉及的三份源码／样式统一再导入一次。未新增 Player、PlayMode 或联机验证，不改变 M5 状态。详见[本批证据](archive/evidence/workshop-display-2026-09-12.json)。
 
 已有的 Sample 注册排除、启动验证排除及 Sample／Runtime 友元声明是此前已提交补丁，本次没有改变这些行为。每次后续修复在本表新增独立行；最终交付逐项列出真实改动及各自通过／待验证状态，不把用户原有修改算作本次成果。
 ## 2026-09-16／17 地图包接入（独立切片）

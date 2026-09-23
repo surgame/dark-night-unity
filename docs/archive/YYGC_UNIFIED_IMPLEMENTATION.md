@@ -32,7 +32,7 @@ Editor 测试任务 `9e27cb92cd774896bf0d50205d4e3944` 的自动化回传在测�
 - 工厂预加载：经 `FastInstantiator` 取得明确的 Addressables 租约，`PreparedObjectDefinition.Create` 同步准备未激活对象，取消／失败释放当前请求持有的引用。
 - 真实 Unity 测试：独立状态、客户端误写、深复制、异常回滚、旧作用域提交、换会话依赖、缺配置／能力／绑定，以及真实 Worker Prefab 的预加载与取消。
 
-框架已提交 `ddce2ffdf422c8c9cb8e872fb5f20053cdedcda6`。用户仓库在重新检查干净且 HEAD 未变后快进到该提交；游戏 manifest／lock 指向 `.deps/YYGC-unified`，准备脚本已锁定完整提交并精确校验通过。逐文件修改、原因和落点见 [YYGC 账本](YYGC_CHANGES.md)。
+框架已提交 `ddce2ffdf422c8c9cb8e872fb5f20053cdedcda6`。用户仓库在重新检查干净且 HEAD 未变后快进到该提交；游戏 manifest／lock 指向 `.deps/YYGC-unified`，准备脚本已锁定完整提交并精确校验通过。逐文件修改、原因和落点见 [YYGC 账本](../YYGC_CHANGES.md)。
 
 已取得的 U1 证据：
 
@@ -71,7 +71,7 @@ Mono 正式 Player 和 Sample 均已实际构建成功。正式 Player 显式装
 
 上述短文件名均位于 `artifacts/yygc-unified/u2/`。初次移动断言要求精确终点，与冻结算法的 0.8 到达阈值不符，已按原容差修正；没有改移动算法。首次 Prefab 往返测试修改根名，但 Unity 保存时使用资产文件名，改为验证实际可编辑的缩放值。Sprite 失败已核实同一原生 InstanceID、GUID 和 local file ID，只是托管包装不同，改用 Unity 原生对象相等；原图哈希检查仍保留。首轮三进程 24 项已通过，最后等待误要求动态 revision 相等；修正为冻结世界收敛后，复用同一二进制通过全部 26 项，没有再次构建。
 
-框架追加网络上下文、批量状态提交和注册校验一致性修正，已提交并锁定 `0305eb74bbc2677a3d9025f684d8ded16481be4a`，用户仓库检查干净后快进至同一提交。Sample 的六文件覆盖补丁和友元文件继续保留；启动排除补丁仅重定新提交的上下文及 blob 哈希。UPM manifest／lock 的隔离路径不变。逐文件落点见 [YYGC 账本](YYGC_CHANGES.md#unified-u2)，机器摘要见 [U2 证据](evidence/yygc-unified-u2.json)。
+框架追加网络上下文、批量状态提交和注册校验一致性修正，已提交并锁定 `0305eb74bbc2677a3d9025f684d8ded16481be4a`，用户仓库检查干净后快进至同一提交。Sample 的六文件覆盖补丁和友元文件继续保留；启动排除补丁仅重定新提交的上下文及 blob 哈希。UPM manifest／lock 的隔离路径不变。逐文件落点见 [YYGC 账本](../YYGC_CHANGES.md#unified-u2)，机器摘要见 [U2 证据](evidence/yygc-unified-u2.json)。
 
 U2 的范围只有 Worker、Trees、House 和基础 Tavern。波次投影暂为第一日，箭矢／训练为空；敌人、战斗、农田、招募、训练、三夜和正式入口均属于 U3–U4 的未完成工作。没有据此宣称完整玩法、性能、弱网、IL2CPP 或双机器 LAN 通过。
 
@@ -136,7 +136,7 @@ Editor 旧升级入口退出：NativeObjectContracts 只读检查，ObjectCapabi
 
 短文件名均位于 `artifacts/yygc-unified/u5/`，机器摘要见[U5 证据](evidence/yygc-unified-u5.json)。整批测试后仅新增空目录构建入口，已单独编译检查；它将在 U6 实际执行。原始 552 文件包含 551 项素材及 manifest，不能写成 552 项素材。U0 输入表未包含 Fixtures，因此夹具另按 U0 Git blob 与当前 blob 核对，并记录当前 SHA-256，不冒称有未保存的旧物理哈希。
 
-首次失败来自 UnitySetUp 恢复点、后台 AssetDatabase 模拟延迟、已完成资源的延迟 Task 回调，以及两个断言对引用／释放后对象的使用。已修复测试装配环境与 YYGC 资源等待，没有放宽业务期望或增加超时掩盖阻塞；失败及取消报告保留。YYGC 仅修改 FastInstantiator.cs，提交并锁定 `8faf74f`，逐文件原因和落点见[账本](YYGC_CHANGES.md#unified-u5)。
+首次失败来自 UnitySetUp 恢复点、后台 AssetDatabase 模拟延迟、已完成资源的延迟 Task 回调，以及两个断言对引用／释放后对象的使用。已修复测试装配环境与 YYGC 资源等待，没有放宽业务期望或增加超时掩盖阻塞；失败及取消报告保留。YYGC 仅修改 FastInstantiator.cs，提交并锁定 `8faf74f`，逐文件原因和落点见[账本](../YYGC_CHANGES.md#unified-u5)。
 
 U5 没有生成 Player；U4 二进制不包含此次删除与框架修正。U6 必须使用干净来源、锁定依赖和新 Library 构建一次，再完成最终 Mono 矩阵。IL2CPP、双机器 LAN 和缺少可靠旧性能基线分别记录，不提前签署 M5 完成。
 

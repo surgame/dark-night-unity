@@ -11,11 +11,11 @@
 
 2026-09-13 场景入口修复：当前锁定 `ccd61e01f15332b1197cfa5ee72af8777c4a0b49`。Loader、GUID 拖拽与分类增补已编译，回归等待用户确认；完整文件清单见[账本](YYGC_CHANGES.md#scene-definitions)。既有隔离路径与补丁保留，下方 2026-09-12 记录为历史版本。
 
-2026-09-12 恢复批次新增：先运行 `tools/prepare-fishnet.ps1`，UPM 从 `.deps/FishNet/Assets/FishNet` 使用原 4.7.2 提交 `de19b5d66459f60400ffd0edc443c4da173a01e7` 和两行分片生命周期修补；源码、补丁与失败证据见[恢复接入](NETWORK_RECOVERY.md)。不改 Library 缓存或用户框架仓库。`tools/prepare-lan-sample.ps1` 仍负责 YYGC 的已有两项正式 UI 修正及此前 Sample 隔离补丁。
+2026-09-12 恢复批次新增：先运行 `tools/prepare-fishnet.ps1`，UPM 从 `.deps/FishNet/Assets/FishNet` 使用原 4.7.2 提交 `de19b5d66459f60400ffd0edc443c4da173a01e7` 和两行分片生命周期修补；源码、补丁与失败证据见[恢复接入](archive/NETWORK_RECOVERY.md)。不改 Library 缓存或用户框架仓库。`tools/prepare-lan-sample.ps1` 仍负责 YYGC 的已有两项正式 UI 修正及此前 Sample 隔离补丁。
 
-2026-09-11 核对：当前 `Game/Packages` 通过 `tools/prepare-lan-sample.ps1` 使用 YYGC 提交 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` 的 `.deps/YYGC`，原框架仓库只读。另含样板程序集访问补丁和框架要求的 VitalRouter wait-all 修正版。来源、恢复方法和 SHA-256 见 [LAN Sample](LAN_SAMPLE.md) 与[依赖证据](evidence/lan-sample-dependencies.json)。正式接入计划见[移植方案](MIGRATION_PLAN.md)，旧环境操作记录保存在[评估状态](ASSESSMENT_STATUS.md)。
+2026-09-11 核对：当前 `Game/Packages` 通过 `tools/prepare-lan-sample.ps1` 使用 YYGC 提交 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` 的 `.deps/YYGC`，原框架仓库只读。另含样板程序集访问补丁和框架要求的 VitalRouter wait-all 修正版。来源、恢复方法和 SHA-256 见 [LAN Sample](LAN_SAMPLE.md) 与[依赖证据](archive/evidence/lan-sample-dependencies.json)。正式接入计划见[移植方案](archive/MIGRATION_PLAN.md)，旧环境操作记录保存在[评估状态](archive/ASSESSMENT_STATUS.md)。
 
-2026-09-12 Workshop 修复：当前锁定更新为 `516f76c4fe062fa82384f7b91ac46c453abbe80d`，仅增加 Editor 展示／搜索及身份指南说明。先在隔离依赖验证，再将同一提交快进到用户 YYGC 仓库；原运行补丁继续由准备脚本精确校验。UPM manifest／lock 的本地包路径保持不变，完整提交锁定位于准备脚本。逐文件变更与 Editor 验证见[账本](YYGC_CHANGES.md#workshop-display)及[证据](evidence/workshop-display-2026-09-12.json)，本批不新增 Player 或联机验收结论。
+2026-09-12 Workshop 修复：当前锁定更新为 `516f76c4fe062fa82384f7b91ac46c453abbe80d`，仅增加 Editor 展示／搜索及身份指南说明。先在隔离依赖验证，再将同一提交快进到用户 YYGC 仓库；原运行补丁继续由准备脚本精确校验。UPM manifest／lock 的本地包路径保持不变，完整提交锁定位于准备脚本。逐文件变更与 Editor 验证见[账本](YYGC_CHANGES.md#workshop-display)及[证据](archive/evidence/workshop-display-2026-09-12.json)，本批不新增 Player 或联机验收结论。
 
 本文件记录 Unity 宿主的实际依赖与剩余核验项；可运行的 manifest、lock、NuGet 配置和包缓存位于 `Game/`。
 
@@ -44,7 +44,7 @@
 
 ## 官方 Unity MCP 开发工具
 
-2026-09-11 已接入 **Unity CLI 1.0.0-beta.9 + com.unity.pipeline 0.6.0-exp.1**，Editor 保持 `6000.4.9f1`。官方文档与实际包声明最低 Unity `6000.0`。已通过 UPM 导入、脚本编译、MCP stdio 握手、149 项工具发现、场景／Console／运行设置读取与域重载后重连。[验证摘要](evidence/unity-mcp-2026-09-11.json)
+2026-09-11 已接入 **Unity CLI 1.0.0-beta.9 + com.unity.pipeline 0.6.0-exp.1**，Editor 保持 `6000.4.9f1`。官方文档与实际包声明最低 Unity `6000.0`。已通过 UPM 导入、脚本编译、MCP stdio 握手、149 项工具发现、场景／Console／运行设置读取与域重载后重连。[验证摘要](archive/evidence/unity-mcp-2026-09-11.json)
 
 官方已弃用 AI Assistant 包内旧 MCP server，当前入口为 `unity mcp`，通过 Pipeline 连接本地 Editor，不要求 Unity AI 订阅。CLI／Pipeline 仍为 beta／experimental。[官方迁移说明](https://docs.unity.com/en-us/unity-cli/replace-mcp-server-unity-cli)、[Pipeline 版本要求](https://docs.unity.com/en-us/unity-production-pipeline/local-tools-cli/unity-pipeline-package)
 
@@ -110,7 +110,7 @@ YYGC 的 package.json 未声明 dependencies。以下依赖由 Unity 宿主显�
 | Runtime/Objects/NetworkStates/SourceGenerators/YYGame.StateDataNoMemPack.Generator.dll | 未找到 | 不能从名字推断完整 MemoryPack/AOT 支持，需编译与往返探针 |
 | Runtime/YYPlugins/YYSingleton/SourceGenerators/GenInstance/YYSingletonInstanceGenerator.dll | 未找到 | 同上 |
 
-精确 SHA-256 位于[证据](evidence/assessment-2026-09-10.json)的 `bundled_dlls`。生成器 DLL 的 RoslynAnalyzer 标签、平台导入设置和程序集作用域也属于构建输入。
+精确 SHA-256 位于[证据](archive/evidence/assessment-2026-09-10.json)的 `bundled_dlls`。生成器 DLL 的 RoslynAnalyzer 标签、平台导入设置和程序集作用域也属于构建输入。
 
 ViewBinding 与 DI 工程的 AfterBuild 会复制 DLL 回框架目录；本轮没有运行这些构建。后续仅在隔离 checkout 构建，避免覆盖用户工作区。纯 Core 不引用 GameCore，必须确认框架生成器不会向 Core 注入引擎代码。
 
@@ -135,7 +135,7 @@ M0 选择 Unity 可用且版本固定的 JSON 库；优先复用宿主已验证�
 
 ## 正式接入收口的退出条件
 
-基础环境与 Sample 已完成；[复评 R01–R03](YYGC_REASSESSMENT.md)保留旧问题来源。正式接入需验证本次新增程序集、类型与宿主组合，不重复宣称旧问题仍未修复。
+基础环境与 Sample 已完成；[复评 R01–R03](archive/YYGC_REASSESSMENT.md)保留旧问题来源。正式接入需验证本次新增程序集、类型与宿主组合，不重复宣称旧问题仍未修复。
 
 - Editor 补丁、API profile、依赖版本、框架 commit 和生成器都可重现。
 - 全新目录导入成功，Runtime 没有 Editor 类型泄漏。

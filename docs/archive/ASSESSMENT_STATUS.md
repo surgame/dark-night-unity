@@ -4,7 +4,7 @@
 
 ## 2026-09-11 开始正式移植
 
-已实施配置、AppStartup 接入、资源构建防覆盖、架构守卫以及权威规则／旧档核心，详见[当前执行状态](DEVELOPMENT.md#implementation-progress)、[首批证据](evidence/migration-start-2026-09-11.json)和[核心迁移证据](evidence/core-migration-2026-09-11.json)。后续各节保留历史时点，不代表新一批的状态；正式场景、对象绑定、灰松谷表现和正式联机仍未完成。
+已实施配置、AppStartup 接入、资源构建防覆盖、架构守卫以及权威规则／旧档核心，详见[当前执行状态](../DEVELOPMENT.md#implementation-progress)、[首批证据](evidence/migration-start-2026-09-11.json)和[核心迁移证据](evidence/core-migration-2026-09-11.json)。后续各节保留历史时点，不代表新一批的状态；正式场景、对象绑定、灰松谷表现和正式联机仍未完成。
 
 ## 2026-09-11 ObjectDefinition 身份模式切换
 
@@ -14,7 +14,7 @@
 
 ## 2026-09-11 正式移植设计更新
 
-本次按当前工作区更新[移植方案](MIGRATION_PLAN.md)、[架构](ARCHITECTURE.md)、[联机合同](MULTIPLAYER.md)和[执行计划](DEVELOPMENT.md)，同步 README、依赖、开发入口及协作约定。工作范围为设计文档，未开始正式游戏代码迁移。
+本次按当前工作区更新[移植方案](MIGRATION_PLAN.md)、[架构](../ARCHITECTURE.md)、[联机合同](../MULTIPLAYER.md)和[执行计划](../DEVELOPMENT.md)，同步 README、依赖、开发入口及协作约定。工作范围为设计文档，未开始正式游戏代码迁移。
 
 实际核对：Godot HEAD 为 `91cb09ff0894f26134f07fd544f1273d9fe7ffaa`；Unity 设计输入为 `4432d75`；YYGC 当前 HEAD 为 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` / `0.3.0-preview.1`。读取了当前项目版本、包引用、真实命令／状态链、定义身份入口、Godot 规则及旧档约束，并检查 Sample 的已提交验证摘要。设计开始时三个仓库均无工作区差异。
 
@@ -26,7 +26,7 @@
 
 下文保留此前环境、框架和 Sample 的执行记录；其中“M0/M1 环境”是历史命名，当前阶段以执行计划为准。
 
-2026-09-11 增补：独立 [LAN Sample](LAN_SAMPLE.md) 已完成。25 项真实 Core 断言、15 项 VitalRouter 修正回归、Unity 编译与 Windows Mono Player 构建通过；四个 Player 的基础和真实 UDP 弱网各 30 项断言通过。另已完成 Windows x64 IL2CPP Release＋High 裁剪构建，IL2CPP 四进程基础／弱网也各通过 30 项；弱网实测 622 包、33 丢弃、49 次重排。原生场景重开、ObjectView 绑定和 Prefab 副本编辑／保存／重开通过，Mono 图形 Player 画面已检查。证据在 `docs/evidence/lan-sample-*.json`。双机器 LAN、Steam、正式玩法 AOT、长期负载未验证；下文保留原评估时点。
+2026-09-11 增补：独立 [LAN Sample](../LAN_SAMPLE.md) 已完成。25 项真实 Core 断言、15 项 VitalRouter 修正回归、Unity 编译与 Windows Mono Player 构建通过；四个 Player 的基础和真实 UDP 弱网各 30 项断言通过。另已完成 Windows x64 IL2CPP Release＋High 裁剪构建，IL2CPP 四进程基础／弱网也各通过 30 项；弱网实测 622 包、33 丢弃、49 次重排。原生场景重开、ObjectView 绑定和 Prefab 副本编辑／保存／重开通过，Mono 图形 Player 画面已检查。证据在 `docs/evidence/lan-sample-*.json`。双机器 LAN、Steam、正式玩法 AOT、长期负载未验证；下文保留原评估时点。
 
 日期：2026-09-10。本文件保留 YYGC 静态评估与 Unity／合作联机方案的历史边界；M0/M1 执行结果已追加在下方。
 

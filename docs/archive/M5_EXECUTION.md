@@ -49,7 +49,7 @@ YYGC 统一对象迁移的 U0–U5 已完成。U6 协议 7／游戏 `4e3798f`／
 
 本轮额外完成：修正 README／Quick start／评估状态／联机设计的过期当前状态，保留历史批次；11 个 `test-game-*.ps1` 通过 PowerShell 语法解析。没有更改游戏代码、人工资源或冻结夹具，没有新建 Player 验收通过记录。此前调度修复提交 `9f21c08` 的自测 5/5 仍仅证明调度行为。用户 YYGC 仓库状态为空，当前仓库用户的 `AGENTS.md` 改动保持未暂存。
 
-恢复时从下表第 2 项新 Mono 构建继续，复用已通过且输入未变的检查。既有 Mono 与当前源码不等价，不能用其旧报告签署新 UI／测量改动。三项 YYGC 修正逐项见 [YYGC 改动账本](YYGC_CHANGES.md)，FishNet 分片清理另计。
+恢复时从下表第 2 项新 Mono 构建继续，复用已通过且输入未变的检查。既有 Mono 与当前源码不等价，不能用其旧报告签署新 UI／测量改动。三项 YYGC 修正逐项见 [YYGC 改动账本](../YYGC_CHANGES.md)，FishNet 分片清理另计。
 
 <a id="当前停点与后续检查清单2026-09-12"></a>
 
@@ -71,7 +71,7 @@ YYGC 统一对象迁移的 U0–U5 已完成。U6 协议 7／游戏 `4e3798f`／
 
 现有已验证的协议 5 Mono 仍保留于 `artifacts/migration/player-mono`，Entry DLL SHA-256 为 `82c63ad23733e2ea101ffd8eff7b3f6272e7346450d65572e78b49604faa8df9`；它不包含随后提交的主题和测量校准。干净工作副本是 `artifacts/clean-m5-94ff636`，已推进到 `e593a31`，没有复制旧 Library。恢复环境后从失败的 Mono 构建阶段继续，无需重做规则迁移、素材导入或重建已通过的 Editor 检查，除非输入发生改变。
 
-本次 YYGC 仅三项窄范围改动：View 友元程序集、UGUI 根组件 Unity 空判断、池化单例重入登记；FishNet 断线分片清理另计。详见[逐项账本](YYGC_CHANGES.md)、[干净目录证据与失败边界](evidence/m5-clean-validation-2026-09-12.json)、[操作与复跑说明](PLAYER_GUIDE.md)。下方原计划与分批记录保留历史时点。
+本次 YYGC 仅三项窄范围改动：View 友元程序集、UGUI 根组件 Unity 空判断、池化单例重入登记；FishNet 断线分片清理另计。详见[逐项账本](../YYGC_CHANGES.md)、[干净目录证据与失败边界](evidence/m5-clean-validation-2026-09-12.json)、[操作与复跑说明](../PLAYER_GUIDE.md)。下方原计划与分批记录保留历史时点。
 
 更新：2026-09-11。执行基线为 `3195495`：M0 已完成，M1 规则／文件存储已验证，M2 只有权威业务服务，尚未构成可玩联机。本文是后续执行主入口；DEVELOPMENT 保留阶段定义和历史证据，MULTIPLAYER／MIGRATION_PLAN 保留产品合同，不在每批重写全部方案。
 
@@ -118,7 +118,7 @@ CoreRegression 会引用并实际编译 C#9／netstandard2.1 Core。每个 detac
 
 现有 `Dark Nights/Build/Windows Mono` 入口仅在完成对应装配后执行。`tools/test-game-startup.ps1` 只验证启动探针，不能替代待实现的正式玩法进程驱动。新驱动应接受既有构建目录及网络用例输入，输出逐项结果和日志路径；不重新打包、不改玩家存档。旧 Sample 弱网工具可复用外部进程组织方式，但正式断言必须读取真实游戏结果。
 
-完整矩阵仍以 [DEVELOPMENT 的验收矩阵](DEVELOPMENT.md#验收矩阵)为准。每次报告区分代码已实现、独立／Editor 已验证、Player 已验证和待实测，不用历史双后端探针替代新增类型的 Player 验收。
+完整矩阵仍以 [DEVELOPMENT 的验收矩阵](../DEVELOPMENT.md#验收矩阵)为准。每次报告区分代码已实现、独立／Editor 已验证、Player 已验证和待实测，不用历史双后端探针替代新增类型的 Player 验收。
 
 ## 外部条件与最终交付
 
@@ -138,7 +138,7 @@ CoreRegression 会引用并实际编译 C#9／netstandard2.1 Core。每个 detac
 
 - B 表现主体：原生效果／音频、消息／横幅、环境与插值已接入；协议 4 保留最近通知与独立活动残骸集合。Core 1338、Editor 53、鼠标 13、Play 战斗 7 项通过；新 Mono 启动 6 与双进程 13 项通过。继续画面对照／三夜与 C 的恢复闭环，见[原生效果与环境](NATIVE_EFFECTS.md)。
 
-- A3/B 原生操作：五页 UGUI、15 类头像、本地选择／镜头／地图、状态指示与建造预览已接入，鼠标 13 项和两种分辨率的 162 控件检查通过；存档按钮仍待 M4，完整效果／环境及网络矩阵继续执行，见[原生 UI](NATIVE_UI.md)。YYGC 修改授权已加入 AGENTS，并维护逐项[改动账本](YYGC_CHANGES.md)。
+- A3/B 原生操作：五页 UGUI、15 类头像、本地选择／镜头／地图、状态指示与建造预览已接入，鼠标 13 项和两种分辨率的 162 控件检查通过；存档按钮仍待 M4，完整效果／环境及网络矩阵继续执行，见[原生 UI](NATIVE_UI.md)。YYGC 修改授权已加入 AGENTS，并维护逐项[改动账本](../YYGC_CHANGES.md)。
 
 - A3/B 外观基础：551项冻结素材、15类原生Prefab及32段动画已落地；583个关键帧实际采样通过，正式场景保存16个预览，Editor Host创建17个视图、退出归零及再连恢复通过。UI操作、完整环境／特效／音频及新Player仍待接入，见[原生外观实施](NATIVE_ART.md)。
 

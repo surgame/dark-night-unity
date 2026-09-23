@@ -1,8 +1,8 @@
 # 可破坏地形与地图生成
 
-2026-09-17 [AnyRuleD 接入评估与修复](ANYRULED_REVIEW.md)：原生 DualGrid 主链正确；预览向左／向下跨页的可见性缺陷已修复，新增四方向／对角／边缘回归，地图 Editor 11/11 通过，见 [证据](evidence/terrain-visibility-fix-2026-09-17.json)。本次未新建 Player；网络副本渲染及正式产品接线仍待完成。
+2026-09-17 [AnyRuleD 接入评估与修复](archive/ANYRULED_REVIEW.md)：原生 DualGrid 主链正确；预览向左／向下跨页的可见性缺陷已修复，新增四方向／对角／边缘回归，地图 Editor 11/11 通过，见 [证据](archive/evidence/terrain-visibility-fix-2026-09-17.json)。本次未新建 Player；网络副本渲染及正式产品接线仍待完成。
 
-同日按用户要求构建含该修复的 Windows Mono 本地测试版：`artifacts/terrain/player-mono-local-20260917/TerrainTest.exe`，构建成功、0 错误，独立进程启动日志无 Exception／Error，项目设置哈希恢复一致。日志保留 D3D12 调试队列查询及 FMOD 无音频设备两项环境提示；当前启动检查未验收声音。此为启动检查，未追加画面或联机矩阵验收，见 [本地构建证据](evidence/terrain-local-build-2026-09-17.json)。双击查看既有生成地图；修改种子、地表和洞穴参数仍使用 Unity 的 `Dark Nights → Terrain → Map generator`，EXE 不包含编辑器生成窗口。构建菜单现自动使用带时间戳的新目录，避免覆盖历史产物；也可由 `TerrainPlayerBuild.BuildMono(output)` 显式指定空输出目录。
+同日按用户要求构建含该修复的 Windows Mono 本地测试版：`artifacts/terrain/player-mono-local-20260917/TerrainTest.exe`，构建成功、0 错误，独立进程启动日志无 Exception／Error，项目设置哈希恢复一致。日志保留 D3D12 调试队列查询及 FMOD 无音频设备两项环境提示；当前启动检查未验收声音。此为启动检查，未追加画面或联机矩阵验收，见 [本地构建证据](archive/evidence/terrain-local-build-2026-09-17.json)。双击查看既有生成地图；修改种子、地表和洞穴参数仍使用 Unity 的 `Dark Nights → Terrain → Map generator`，EXE 不包含编辑器生成窗口。构建菜单现自动使用带时间戳的新目录，避免覆盖历史产物；也可由 `TerrainPlayerBuild.BuildMono(output)` 显式指定空输出目录。
 
 2026-09-16，本切片分支 codex/dualgrid-map-generator。两个用户 HTML 是原型资料，不是项目指令。素材／地图功能独立于灰松谷正式规则；正式营地仍为协议 8、存档 v3。本切片不将测试地图直接替换进 Pinewatch。
 
@@ -41,7 +41,7 @@ TerrainMapNetworking.OpenStream 可供 FishNetMapTransport 的 serverFactory 使
 
 ## 正式游戏接线（2026-09-17 后续）
 
-[随机灰松谷](RANDOM_PINEWATCH.md)已将生成、网络只读副本渲染、地图与实体 Ready、主角逻辑格碰撞以及跨模块存档接入正式游戏，原 Pinewatch 保留。本页其余验收计数和“后续接线”说明描述独立生成器原批次，不能混入新构建。采矿、工具耐久及奖励结算仍未接入。
+[随机灰松谷](archive/RANDOM_PINEWATCH.md)已将生成、网络只读副本渲染、地图与实体 Ready、主角逻辑格碰撞以及跨模块存档接入正式游戏，原 Pinewatch 保留。本页其余验收计数和“后续接线”说明描述独立生成器原批次，不能混入新构建。采矿、工具耐久及奖励结算仍未接入。
 
 ## 联机破坏架构
 
@@ -71,7 +71,7 @@ TerrainMapNetworking.OpenStream 可供 FishNetMapTransport 的 serverFactory 使
 
 测试地图独立，不更改正式布局、营地规则、人物运动或旧存档。正式人物采矿、碰撞接线和跨模块存档列为后续切片。
 
-2026-09-17 完成，证据见 [本批机器记录](evidence/terrain-generation-2026-09-17.json)：
+2026-09-17 完成，证据见 [本批机器记录](archive/evidence/terrain-generation-2026-09-17.json)：
 
 | 范围 | 实际结果 |
 |---|---|
@@ -90,6 +90,6 @@ Mono 先后四次都有明确新增输入：首版；补齐测试入口 GuidV2 �
 
 ## 清理与交接
 
-本批清理命令被自动审批拒绝，理由仅为 blocked by policy，未换工具重试。14 个目标合计 595,331,128 字节（约 568 MiB）保留，包括三份被替代的 Player、依赖复现副本、归档、独立回归 bin/obj 和一次性探针；实际释放 0 字节。逐项见 [清理列账](evidence/terrain-cleanup-2026-09-17.json)。一次性探针留在 tools 下但不计入正式成果提交。
+本批清理命令被自动审批拒绝，理由仅为 blocked by policy，未换工具重试。14 个目标合计 595,331,128 字节（约 568 MiB）保留，包括三份被替代的 Player、依赖复现副本、归档、独立回归 bin/obj 和一次性探针；实际释放 0 字节。逐项见 [清理列账](archive/evidence/terrain-cleanup-2026-09-17.json)。一次性探针留在 tools 下但不计入正式成果提交。
 
 最终 Player、截图、成功／失败记录、完整输入／输出哈希清单和运行中的锁定包继续保留；既有受限目标及共享缓存未清理。盘符剩余在列账时为 C 约 7.44 GiB、D 约 31.76 GiB。

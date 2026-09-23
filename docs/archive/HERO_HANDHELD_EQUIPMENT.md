@@ -66,7 +66,7 @@
 
 ## 编译、依赖与验证边界
 
-最终批处理编译退出码 **0**，没有 C# 编译错误；新增 Editor／Tests 代码也已编译。首轮失败是旧 `.deps/AnyRules` 两个文件偏离原锁导致 TerrainEditCommand.ExpectedRevision 缺失，不是本批功能代码失败。保留旧缓存，改用 `.deps/AnyRules-locked-aa450a7`，从原提交与原三份补丁重建后 **442 个文件哈希一致**。manifest、lock 和准备脚本同步新路径；YYGC 仍锁 `12b253c`，AnyRules 仍锁 `aa450a7`，没有新增框架源码补丁，详见[账本](YYGC_CHANGES.md)。
+最终批处理编译退出码 **0**，没有 C# 编译错误；新增 Editor／Tests 代码也已编译。首轮失败是旧 `.deps/AnyRules` 两个文件偏离原锁导致 TerrainEditCommand.ExpectedRevision 缺失，不是本批功能代码失败。保留旧缓存，改用 `.deps/AnyRules-locked-aa450a7`，从原提交与原三份补丁重建后 **442 个文件哈希一致**。manifest、lock 和准备脚本同步新路径；YYGC 仍锁 `12b253c`，AnyRules 仍锁 `aa450a7`，没有新增框架源码补丁，详见[账本](../YYGC_CHANGES.md)。
 
 已完成：代码编译、整批 PNG／Aseprite 导入、首版 Prefab／配置／Addressable 装配、静态差异与资源引用检查、PNG 预览检查。
 

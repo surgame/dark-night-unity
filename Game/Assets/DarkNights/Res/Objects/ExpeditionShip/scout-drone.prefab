@@ -618,6 +618,7 @@ MonoBehaviour:
   - {fileID: 8240442887361787150}
   - {fileID: 5641280795829565067}
   - {fileID: 3541561598071606389}
+  - {fileID: 9157952962244603097}
   - {fileID: 5315275694084604590}
   _meshRenderers: []
   _healthBarWidth: 0.12

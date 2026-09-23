@@ -216,13 +216,13 @@ E1 涉及跨模块合同，应同时修改 `Core/Config/Terrain`、`Runtime/Terr
 
 ## 10. 分支、批处理和交付记录
 
-本轮按要求从 main `f28bb7d` 建立 `codex/expedition-camp-plan`；后续实施可继续在该分支按 E 阶段提交。当前只是新分支，没有要求新建 worktree，因此未复制 Unity 工作区。若后续明确要求 worktree，按[薄 worktree＋Local 单 Unity 通道](../AGENTS.md#execution-efficiency)执行。
+本轮按要求从 main `f28bb7d` 建立 `codex/expedition-camp-plan`；后续实施可继续在该分支按 E 阶段提交。当前只是新分支，没有要求新建 worktree，因此未复制 Unity 工作区。若后续明确要求 worktree，按[薄 worktree＋Local 单 Unity 通道](../../AGENTS.md#execution-efficiency)执行。
 
 开工前复核分支、未提交内容、磁盘和 Editor／Player 所属项目。本轮发现已有 `Game/Assets/Temp.meta` 与 `Game/Assets/Temp/` 未跟踪，且历史记录说明清理曾被拒绝；原样保留，不加入本次提交。采集时 D 盘可用约 33.4 GiB，存在三个 Unity 进程；本轮没有启动、刷新或接管 Editor。未来批次需核对各进程实际项目，仅串行使用本项目的写入／构建通道。
 
 每批先集中写源码／配置／资产，再按真实编译依赖一次触发导入／生成／验证；每个受影响 Mono 配置构建一次并复用。日志落盘、结果用任务 ID 与完成标记读取，未变化不重复拉日志或重启。每批记录源码提交、Unity／依赖／规则身份、实际用例、失败和待验边界、产物路径与磁盘清理；仅清理本任务已结束且可重建的产物。
 
-YYGC 先复用现有锁定版本；导航、设备与结算属于游戏业务，不以此预先升级框架。若遇到已复现的序列化／命令／装配限制，在隔离 checkout 修复并更新可重现锁，维护[YYGC 改动账本](YYGC_CHANGES.md)，不操作用户另一会话的框架工作区。
+YYGC 先复用现有锁定版本；导航、设备与结算属于游戏业务，不以此预先升级框架。若遇到已复现的序列化／命令／装配限制，在隔离 checkout 修复并更新可重现锁，维护[YYGC 改动账本](../YYGC_CHANGES.md)，不操作用户另一会话的框架工作区。
 
 本轮验证仅为设计稿读取、源码核对、文档链接及 Git 差异检查；未运行 Unity 测试、Play、Player 或性能验收，未生成美术与构建中间产物。提交留在本地新分支，不推送、不合并主分支。
 

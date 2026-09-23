@@ -10,7 +10,7 @@
 
 Unity `6000.4.9f1` 的许可握手与 WMI 查询已恢复。本轮没有修改系统服务或许可文件，旧阻塞的共同根因仍未确认。构建使用 Mono Development、`DOTNET_PROCESSOR_COUNT=2`、两个 job worker，一次恢复构建成功退出。构建前后及验收后，2,457 个已跟踪输入文件 SHA-256 全部相同；生成的 `link.xml` 与 `.meta` 已原样移入本批归档。
 
-当前本机入口为 [DarkNights.exe](../artifacts/migration/player-mono/DarkNights.exe)，完整目录含 **408 个文件、198,739,832 字节**，从干净副本复制后逐文件核对一致。Entry DLL SHA-256：
+当时的本机入口为 `artifacts/migration/player-mono/DarkNights.exe`（历史产物未随文档归档），完整目录含 **408 个文件、198,739,832 字节**，从干净副本复制后逐文件核对一致。Entry DLL SHA-256：
 
 ```text
 BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872
@@ -70,6 +70,6 @@ BD451C7648903247FDE937F45815453F5F5E8B59A77E3AC8BC36D60C18C44872
 
 ## 工作区边界
 
-本轮 YYGC 与 FishNet 无新增修改，锁定提交及既有补丁见 [YYGC 账本](YYGC_CHANGES.md)与[恢复接入](NETWORK_RECOVERY.md)。用户维护的 YYGC 仓库未触及。
+本轮 YYGC 与 FishNet 无新增修改，锁定提交及既有补丁见 [YYGC 账本](../YYGC_CHANGES.md)与[恢复接入](NETWORK_RECOVERY.md)。用户维护的 YYGC 仓库未触及。
 
 主工作区 `AGENTS.md` 改动已保留。验收期间另观察到 `Farm.prefab` 绑定键从 `visual` 改为 `Farm`；本轮未修改或提交该资源，构建使用已提交的 `visual` 绑定。这项工作区改动不包含在本批验收结果中，保留时需另行验证绑定合同。

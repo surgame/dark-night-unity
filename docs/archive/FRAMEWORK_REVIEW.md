@@ -43,7 +43,7 @@
 
 包声明 `6000.2` / `35f1`；M0 实际使用 `6000.4.9f1` 完成导入、脚本编译和 Windows Player 构建。最低受支持补丁仍需和 YYGC 正式 commit 一起确认，不能只凭一次本地构建扩大兼容性结论。
 
-**处置：M0 基础已完成，联机和干净机器复现仍待验收。** 依赖版本与来源已写入 manifest/lock 和 NuGet 配置；详细清单见[依赖文档](DEPENDENCIES.md)。
+**处置：M0 基础已完成，联机和干净机器复现仍待验收。** 依赖版本与来源已写入 manifest/lock 和 NuGet 配置；详细清单见[依赖文档](../DEPENDENCIES.md)。
 
 ### F02 · Runtime 与 Editor 隔离存在编译风险
 
@@ -126,7 +126,7 @@
 
 ### F11 · 类型注册与生成器是协议和构建输入
 
-**已确认：** GenericTypeRegistry 以整型 ID 注册类型，启动模块验证生成注册。三个 Editor 生成器有源码，网络命令、StateData、Singleton 的三个 DLL 未在该仓库找到对应源码工程。详见[依赖清单](DEPENDENCIES.md)。
+**已确认：** GenericTypeRegistry 以整型 ID 注册类型，启动模块验证生成注册。三个 Editor 生成器有源码，网络命令、StateData、Singleton 的三个 DLL 未在该仓库找到对应源码工程。详见[依赖清单](../DEPENDENCIES.md)。
 
 **处置：M0/M2。** 锁定 DLL/hash、.meta、生成注册表及包版本。连接先校验协议与注册表摘要；未兼容的客户端在反序列化业务数据前被拒绝。不运行 IDRegistry 服务或改写其数据库来完成本次评估。
 
@@ -142,4 +142,4 @@
 
 不需要先把 YYGC 改成“理想框架”再做游戏。优先处理 F01/F02 的编译与依赖、验证 F07/F10 的实际使用路径；游戏侧实现 F03/F04/F05/F06 所需的会话合同。F08/F09 按测量和生命周期约束落实。大型 Editor 工具、3D 地形、全部对象池和 UI Toolkit 的全面重构暂不进入该关卡工程。
 
-下一步顺序和每阶段出口见[开发执行计划](DEVELOPMENT.md)，推荐架构见[技术架构](ARCHITECTURE.md)。
+下一步顺序和每阶段出口见[开发执行计划](../DEVELOPMENT.md)，推荐架构见[技术架构](../ARCHITECTURE.md)。

@@ -1,6 +1,6 @@
 # 权威会话业务层
 
-2026-09-13 当前实现：SessionAuthority 接收已准备的 ObjectSession，统一访问 YYGC 业务能力；旧 GameSession／WorldState 和 GameSaveJson 已删除。U5 的命令、权限、去重、加载与生命周期回归已通过；当前合同见[技术架构](ARCHITECTURE.md)、[v2 存档](SAVE_FORMAT.md)和[覆盖迁移](YYGC_UNIFIED_TEST_COVERAGE.md)。下文按日期保留旧实现记录，其中旧世界创建与旧档导入不再适用。
+2026-09-13 当前实现：SessionAuthority 接收已准备的 ObjectSession，统一访问 YYGC 业务能力；旧 GameSession／WorldState 和 GameSaveJson 已删除。U5 的命令、权限、去重、加载与生命周期回归已通过；当前合同见[技术架构](../ARCHITECTURE.md)、[v2 存档](../SAVE_FORMAT.md)和[覆盖迁移](YYGC_UNIFIED_TEST_COVERAGE.md)。下文按日期保留旧实现记录，其中旧世界创建与旧档导入不再适用。
 
 2026-09-12 C 重构已实施，按用户要求收尾并先交付架构验收。Core 1361、最终 Editor 95、Play 生命周期 20、Mono 启动 6 和双进程 13 项通过；容量检查未签署通过，Ready 修复后的完整弱网矩阵及性能对比留待下次。实际合同、此前通过记录和待办见[C 实施记录](C_REFACTOR_IMPLEMENTATION.md)。M5 既有待验收项保持，下文历史批次的当时边界保留。
 

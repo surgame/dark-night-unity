@@ -19,7 +19,7 @@
 
 已执行 `Install Initial Native Effects` 和 `Install Initial Native Environment`。前者写入 `Res/Effects` 的四个 Prefab／定义及 HUD 淡出绑定；后者写入 `Res/Levels/Pinewatch/Environment`，向既有场景添加原生 Prefab 实例，并明确修改十五类外观的材质／阴影绑定。两入口均拒绝已有输出，不得再次运行来覆盖美术编辑。现有资源 GUID 与 551 项原始素材字节保持不变。
 
-当前正式定义合计 27，命令 2、网络状态 1、生成 Behaviour 7。此批未增加 YYGC 修改；已授权框架改动继续逐项维护在 [YYGC_CHANGES](YYGC_CHANGES.md)。
+当前正式定义合计 27，命令 2、网络状态 1、生成 Behaviour 7。此批未增加 YYGC 修改；已授权框架改动继续逐项维护在 [YYGC_CHANGES](../YYGC_CHANGES.md)。
 
 ## 已执行验证
 
