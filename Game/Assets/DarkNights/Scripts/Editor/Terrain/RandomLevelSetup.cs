@@ -15,7 +15,6 @@ namespace DarkNights.Editor.Terrain
     /// <summary>显式创建独立灰松谷随机模板并添加原生选图按钮；只运行一次，不覆盖既有随机场景或修改原 Pinewatch。</summary>
     public static class RandomLevelSetup
     {
-        [MenuItem("Dark Nights/Terrain/Create random Pinewatch template")]
         public static void Install()
         {
             const string original = "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity";

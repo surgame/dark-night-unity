@@ -19,7 +19,6 @@ namespace DarkNights.Editor.Terrain
         private const string Atlas = Root + "/Art/terrain-8x8-all.png";
         private static readonly string[] Keys = { "loam", "slate", "basalt", "copper", "iron", "gold", "moss", "bedrock" };
 
-        [MenuItem("Dark Nights/Terrain/Create initial test tiles")]
         public static void Create()
         {
             string output = Root + "/Configuration";

@@ -27,7 +27,6 @@ namespace DarkNights.Editor.Terrain
         private Vector2 scroll, canvasOffset;
         private bool panning;
 
-        [MenuItem("Dark Nights/Terrain/岩壁实时预览（编辑态）")]
         public static void Open()
         {
             var window = GetWindow<TerrainStylePreviewWindow>("岩壁实时预览");

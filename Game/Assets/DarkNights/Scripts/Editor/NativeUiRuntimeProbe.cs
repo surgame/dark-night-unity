@@ -26,7 +26,6 @@ namespace DarkNights.Editor
     {
         private static bool running;
 
-        [UnityEditor.MenuItem("Dark Nights/Verify/Native UI Runtime")]
         public static async void Run()
         {
             if (!Application.isPlaying || running) throw new InvalidOperationException("Run once in Play after startup.");

@@ -21,7 +21,6 @@ namespace DarkNights.Editor
     public static class HeroContentSetup
     {
         public const string Scene = "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity";
-        [MenuItem("Dark Nights/Content/Install Hero Input Slice")]
         public static void Install()
         {
             if (File.Exists(HeroInputAssetSetup.Path) || Directory.Exists(HeroHudSetup.Root))

@@ -17,7 +17,6 @@ namespace DarkNights.Editor
     /// </summary>
     public static class PinewatchVisualSetup
     {
-        [MenuItem("Dark Nights/Content/Install Initial Pinewatch Visuals")]
         public static void Install()
         {
             Scene scene = SceneManager.GetSceneByPath(PinewatchLayoutSetup.ScenePath);

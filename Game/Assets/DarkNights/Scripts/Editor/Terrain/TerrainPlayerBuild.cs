@@ -21,7 +21,6 @@ namespace DarkNights.Editor.Terrain
     {
         public const string Root = TerrainTestAssets.Root + "/NetworkTest";
         public const string ScenePath = TerrainScenePaths.TerrainNetworkTest;
-        [MenuItem("Dark Nights/Terrain/Create network test scene")]
         public static void Create()
         {
             if (Directory.Exists(Root)) throw new IOException("网络测试资产已存在。");
@@ -49,7 +48,6 @@ namespace DarkNights.Editor.Terrain
             finally { EditorSceneManager.CloseScene(scene, true); if (original.IsValid()) SceneManager.SetActiveScene(original); }
         }
 
-        [MenuItem("Dark Nights/Terrain/Build test Mono")]
         public static void Mono()
         {
             BuildMono(Path.GetFullPath("../artifacts/terrain/player-mono-" + DateTime.Now.ToString("yyyyMMdd-HHmmss") + "/TerrainTest.exe"));

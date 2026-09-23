@@ -23,7 +23,6 @@ namespace DarkNights.Editor
     public static class NativeEffectsSetup
     {
         public const string Root = "Assets/DarkNights/Res/Effects";
-        [MenuItem("Dark Nights/Content/Install Initial Native Effects")]
         public static void Install()
         {
             if (Directory.Exists(Root) && Directory.GetFileSystemEntries(Root).Length != 0)

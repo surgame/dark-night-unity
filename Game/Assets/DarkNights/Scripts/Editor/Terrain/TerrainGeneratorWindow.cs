@@ -16,7 +16,6 @@ namespace DarkNights.Editor.Terrain
         private Texture2D preview;
         private string status = "生成预览后可导出新地图。";
         private Vector2 scroll;
-        [MenuItem("Dark Nights/Terrain/Map generator（旧版）")]
         public static void Open() => GetWindow<TerrainGeneratorWindow>("地图生成器（旧版）");
         private void OnEnable() { definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(TerrainTestAssets.DefinitionPath); }
         private void OnDisable() { if (preview != null) DestroyImmediate(preview); }

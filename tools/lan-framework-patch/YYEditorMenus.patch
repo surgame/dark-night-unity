@@ -1,0 +1,236 @@
+diff --git a/Editor/AppStartup/AppStartupSettingsWindow.cs b/Editor/AppStartup/AppStartupSettingsWindow.cs
+index bb2e192..54c2ac5 100644
+--- a/Editor/AppStartup/AppStartupSettingsWindow.cs
++++ b/Editor/AppStartup/AppStartupSettingsWindow.cs
+@@ -16,5 +16,4 @@ namespace Runtime.AppStartup.Editor
+         private VisualElement _inspectorHost;
+ 
+-        [MenuItem("YY/📦 对象系统套件 (Object Manager Suite)/应用启动流程 (App Startup)", priority = 5)]
+         public static void ShowWindow()
+         {
+diff --git a/Editor/NetworkCommands/NetworkCommandDependencyValidator.cs b/Editor/NetworkCommands/NetworkCommandDependencyValidator.cs
+index 85f1dcd..20290cc 100644
+--- a/Editor/NetworkCommands/NetworkCommandDependencyValidator.cs
++++ b/Editor/NetworkCommands/NetworkCommandDependencyValidator.cs
+@@ -13,5 +13,4 @@ namespace GameCore.Editor.NetworkCommands
+         public int callbackOrder => 0;
+ 
+-        [MenuItem("YY/Networking/Check Command Dependency")]
+         public static void Validate()
+         {
+diff --git a/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs b/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
+index be7c556..f780543 100644
+--- a/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
++++ b/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
+@@ -18,5 +18,4 @@ namespace GameCore.Editor.NetworkCommands
+         }
+ 
+-        [MenuItem("YY/NetworkCommands/Generate `NetworkCommand` Registry Source")]
+         public static void GenerateUnions()
+         {
+@@ -47,5 +46,4 @@ namespace GameCore.Editor.NetworkCommands
+         }
+ 
+-        [MenuItem("YY/NetworkCommands/Discover and Update `NetworkCommand` Registry")]
+         public static void DiscoverAndRegisterNetworkCommands()
+         {
+diff --git a/Editor/ObjectDefinitionViewer/ObjectDefinitionViewer.cs b/Editor/ObjectDefinitionViewer/ObjectDefinitionViewer.cs
+index 2b02cbc..a12334f 100644
+--- a/Editor/ObjectDefinitionViewer/ObjectDefinitionViewer.cs
++++ b/Editor/ObjectDefinitionViewer/ObjectDefinitionViewer.cs
+@@ -149,5 +149,4 @@ namespace GameCore.Editor.Objects.Runner
+         }
+     
+-        [MenuItem("YY/📦 对象系统套件 (Object Manager Suite)/定义文件浏览器 (Object Definition Viewer)", priority = 1)]
+         public static void ShowWindow()
+         {
+diff --git a/Editor/Objects/Definition/DefinitionLookupWindow.cs b/Editor/Objects/Definition/DefinitionLookupWindow.cs
+index ced6272..1d009c8 100644
+--- a/Editor/Objects/Definition/DefinitionLookupWindow.cs
++++ b/Editor/Objects/Definition/DefinitionLookupWindow.cs
+@@ -13,5 +13,4 @@ namespace GameCore.Editor.Objects.Definition
+         private Vector2 scroll;
+ 
+-        [MenuItem("YY/Definitions/Key 搜索与调试")]
+         public static void Open() => GetWindow<DefinitionLookupWindow>("定义 Key");
+ 
+diff --git a/Editor/Objects/Definition/DefinitionMigrationWindow.cs b/Editor/Objects/Definition/DefinitionMigrationWindow.cs
+index cf3fbd2..9a97061 100644
+--- a/Editor/Objects/Definition/DefinitionMigrationWindow.cs
++++ b/Editor/Objects/Definition/DefinitionMigrationWindow.cs
+@@ -17,5 +17,4 @@ namespace GameCore.Editor.Objects.Definition
+         private Vector2 scroll;
+ 
+-        [MenuItem("YY/定义身份/GUID 与 Key 迁移")]
+         private static void ShowWindow() { Open(ObjectDefinitionDatabase.Instance); }
+ 
+diff --git a/Editor/Objects/Definition/ObjectArchetypeManagerWindow.cs b/Editor/Objects/Definition/ObjectArchetypeManagerWindow.cs
+index e04440d..40e1248 100644
+--- a/Editor/Objects/Definition/ObjectArchetypeManagerWindow.cs
++++ b/Editor/Objects/Definition/ObjectArchetypeManagerWindow.cs
+@@ -18,5 +18,4 @@ namespace GameCore.Editor.Objects.Definition
+         public ObjectArchetypeDatabase Database;
+ 
+-        [MenuItem("YY/📦 对象系统套件 (Object Manager Suite)/原型管理器 (Archetype Manager)", priority = 3)]
+         public static void ShowWindow()
+         {
+diff --git a/Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs b/Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs
+index cf6898e..c9041e2 100644
+--- a/Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs
++++ b/Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs
+@@ -42,5 +42,4 @@ namespace GameCore.Editor.Objects.Definition
+         }
+ 
+-        [MenuItem("YY/📦 打开对象配置工坊 (Open Workshop)", priority = 0)]
+         public static void OpenWindow()
+         {
+diff --git a/Editor/Objects/NetworkStates/StateDataInterfaceGenerator.cs b/Editor/Objects/NetworkStates/StateDataInterfaceGenerator.cs
+index c8bc187..d2bac0d 100644
+--- a/Editor/Objects/NetworkStates/StateDataInterfaceGenerator.cs
++++ b/Editor/Objects/NetworkStates/StateDataInterfaceGenerator.cs
+@@ -12,5 +12,4 @@ namespace GameCore.Editor.Objects.NetworkStates
+     public static class StateDataInterfaceGenerator
+     {
+-        [MenuItem("YY/State Datas/Generate State Data Registry Source")]
+         public static void GenerateUnions()
+         {
+diff --git a/Editor/Objects/NetworkStates/StateDataRegistryUpdater.cs b/Editor/Objects/NetworkStates/StateDataRegistryUpdater.cs
+index 6d217d2..25c343b 100644
+--- a/Editor/Objects/NetworkStates/StateDataRegistryUpdater.cs
++++ b/Editor/Objects/NetworkStates/StateDataRegistryUpdater.cs
+@@ -21,5 +21,4 @@ namespace GameCore.Editor.Objects.NetworkStates
+         }
+ 
+-        [MenuItem("YY/State Datas/Update Registry and Generate Mappings")]
+         public static void UpdateRegistryAndGenerateMappings()
+         {
+diff --git a/Editor/Objects/ObjectManagerSuite.cs b/Editor/Objects/ObjectManagerSuite.cs
+index 4650ae4..e5dbe06 100644
+--- a/Editor/Objects/ObjectManagerSuite.cs
++++ b/Editor/Objects/ObjectManagerSuite.cs
+@@ -15,6 +15,4 @@ namespace GameCore.Editor.Objects
+     public static class ObjectManagerSuite
+     {
+-        [MenuItem("YY/📦 打开对象系统套件 (Open Suite)", priority = 0)]
+-        [MenuItem("YY/📦 对象系统套件 (Object Manager Suite)/🌟 打开套件全家桶 (Open Suite)", priority = 0)]
+         public static void OpenSuite()
+         {
+@@ -22,5 +20,4 @@ namespace GameCore.Editor.Objects
+         }
+ 
+-        [MenuItem("YY/📦 对象系统套件 (Object Manager Suite)/DI 容器调试 (DI Debug Window)", priority = 4)]
+         public static void OpenDIDebugWindow()
+         {
+diff --git a/Editor/Objects/Singletons/ObjectSingletonEditorWindow.cs b/Editor/Objects/Singletons/ObjectSingletonEditorWindow.cs
+index b0b0b8a..59f20f1 100644
+--- a/Editor/Objects/Singletons/ObjectSingletonEditorWindow.cs
++++ b/Editor/Objects/Singletons/ObjectSingletonEditorWindow.cs
+@@ -26,5 +26,4 @@ namespace GameCore.Objects.Editor.Singletons
+ 
+         // 移至同级目录，排在定义文件浏览器之后
+-        [MenuItem("YY/📦 对象系统套件 (Object Manager Suite)/单例管理器 (Singleton Manager)", priority = 2)]
+         public static void ShowWindow()
+         {
+diff --git a/Runtime/YYPlugins/YYToolkits/Databases/SODatabaseUpdater.cs b/Runtime/YYPlugins/YYToolkits/Databases/SODatabaseUpdater.cs
+index 560fa41..9e9f103 100644
+--- a/Runtime/YYPlugins/YYToolkits/Databases/SODatabaseUpdater.cs
++++ b/Runtime/YYPlugins/YYToolkits/Databases/SODatabaseUpdater.cs
+@@ -13,5 +13,4 @@ namespace Plugins.YYToolkits.Databases
+         /// 在顶部菜单栏提供一个一键更新所有数据库的按钮。
+         /// </summary>
+-        [MenuItem("YY/Update All SODatabases", priority = 100)]
+         public static void UpdateAllSODatabases()
+         {
+diff --git a/Runtime/YYPlugins/YYToolkits/MapGenerator/Editor/WorldGeneratorEditorWindow.cs b/Runtime/YYPlugins/YYToolkits/MapGenerator/Editor/WorldGeneratorEditorWindow.cs
+index d9a4e32..0af0926 100644
+--- a/Runtime/YYPlugins/YYToolkits/MapGenerator/Editor/WorldGeneratorEditorWindow.cs
++++ b/Runtime/YYPlugins/YYToolkits/MapGenerator/Editor/WorldGeneratorEditorWindow.cs
+@@ -20,5 +20,4 @@ public class WorldGeneratorEditorWindow : EditorWindow
+ 
+     // 修改菜单路径以匹配新的 Settings 资源路径 (可选)
+-    [MenuItem("YY/Map Generator (User Version)")]
+     public static void ShowWindow()
+     {
+diff --git a/Editor/YYMenu.cs b/Editor/YYMenu.cs
+new file mode 100644
+--- /dev/null
++++ b/Editor/YYMenu.cs
+@@ -0,0 +1,57 @@
++using GameCore.Editor.NetworkCommands;
++using GameCore.Editor.Objects;
++using GameCore.Editor.Objects.Definition;
++using GameCore.Editor.Objects.NetworkStates;
++using GameCore.Editor.Objects.Runner;
++using GameCore.Objects.Definition;
++using GameCore.Objects.Editor.Singletons;
++using Plugins.YYToolkits.Databases;
++using Runtime.AppStartup.Editor;
++using UnityEditor;
++
++namespace GameCore.Editor
++{
++    /// <summary>
++    /// 注册 YYGC 的顶部编辑器菜单。实现留在各自工具内，自动注册与其他调用入口不依赖菜单。
++    /// </summary>
++    public static class YYMenu
++    {
++        private const string Root = "YY/";
++
++        [MenuItem(Root + "Objects/Open Suite", priority = 0)]
++        private static void OpenSuite() => ObjectManagerSuite.OpenSuite();
++        [MenuItem(Root + "Objects/Open Workshop", priority = 1)]
++        private static void OpenWorkshop() => ObjectDefinitionWorkshopWindow.OpenWindow();
++        [MenuItem(Root + "Objects/Definition Viewer", priority = 2)]
++        private static void OpenDefinitions() => ObjectDefinitionViewer.ShowWindow();
++        [MenuItem(Root + "Objects/Singleton Manager", priority = 3)]
++        private static void OpenSingletons() => ObjectSingletonEditorWindow.ShowWindow();
++        [MenuItem(Root + "Objects/Archetype Manager", priority = 4)]
++        private static void OpenArchetypes() => ObjectArchetypeManagerWindow.ShowWindow();
++        [MenuItem(Root + "Objects/DI Debug Window", priority = 5)]
++        private static void OpenDiDebug() => ObjectManagerSuite.OpenDIDebugWindow();
++        [MenuItem(Root + "Objects/App Startup", priority = 6)]
++        private static void OpenAppStartup() => AppStartupSettingsWindow.ShowWindow();
++
++        [MenuItem(Root + "Definitions/Key 搜索与调试")]
++        private static void SearchDefinitionKey() => DefinitionLookupWindow.Open();
++        [MenuItem(Root + "Definitions/GUID 与 Key 迁移")]
++        private static void MigrateDefinitionIdentity() => DefinitionMigrationWindow.Open(ObjectDefinitionDatabase.Instance);
++
++        [MenuItem(Root + "NetworkCommands/Discover and Update `NetworkCommand` Registry")]
++        private static void DiscoverCommands() => NetworkCommandInterfaceGenerator.DiscoverAndRegisterNetworkCommands();
++        [MenuItem(Root + "NetworkCommands/Generate `NetworkCommand` Registry Source")]
++        private static void GenerateCommands() => NetworkCommandInterfaceGenerator.GenerateUnions();
++        [MenuItem(Root + "Networking/Check Command Dependency")]
++        private static void CheckCommandDependency() => NetworkCommandDependencyValidator.Validate();
++        [MenuItem(Root + "State Datas/Update Registry and Generate Mappings")]
++        private static void UpdateStates() => StateDataRegistryUpdater.UpdateRegistryAndGenerateMappings();
++        [MenuItem(Root + "State Datas/Generate State Data Registry Source")]
++        private static void GenerateStates() => StateDataInterfaceGenerator.GenerateUnions();
++
++        [MenuItem(Root + "Tools/Map Generator (User Version)")]
++        private static void OpenMapGenerator() => WorldGeneratorEditorWindow.ShowWindow();
++        [MenuItem(Root + "Tools/Update All SODatabases")]
++        private static void UpdateDatabases() => SODatabaseUpdater.UpdateAllSODatabases();
++    }
++}
+diff --git a/Editor/YYMenu.cs.meta b/Editor/YYMenu.cs.meta
+new file mode 100644
+--- /dev/null
++++ b/Editor/YYMenu.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: f4073be31f42c3e44bf6a63d63880d6b
+\ No newline at end of file
+diff --git a/Samples~/InputActions/Editor/InputActionsSampleBuilder.cs b/Samples~/InputActions/Editor/InputActionsSampleBuilder.cs
+index dddb9a0..58235bc 100644
+--- a/Samples~/InputActions/Editor/InputActionsSampleBuilder.cs
++++ b/Samples~/InputActions/Editor/InputActionsSampleBuilder.cs
+@@ -17,7 +17,7 @@ namespace GameCore.Samples.InputActions.Editor
+     public static class InputActionsSampleBuilder
+     {
+         public const string Root = "Assets/Samples/YYGCInputActions/Content";
+-        [MenuItem("GameCore/Samples/Create Input Actions Sample In Empty Directory")]
++        [MenuItem("YY/Samples/Create Input Actions Sample In Empty Directory")]
+         public static void Create()
+         {
+             if (Directory.Exists(Root)) throw new InvalidOperationException("Sample Content must be absent; existing assets are protected.");

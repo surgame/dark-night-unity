@@ -19,7 +19,6 @@ namespace DarkNights.Editor.Terrain
         public const string Root = "Assets/DarkNights/Res/Terrain/DebugBootstrap";
         public const string ScenePath = TerrainScenePaths.TerrainDebugBootstrap;
 
-        [MenuItem("Dark Nights/Debug/打开随机地图 Bootstrap")]
         public static void Open()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先退出 Play。");
@@ -74,7 +73,6 @@ namespace DarkNights.Editor.Terrain
             }
         }
 
-        [MenuItem("Dark Nights/Debug/构建随机地图 Bootstrap Mono")]
         public static void Build()
         {
             if (!File.Exists(ScenePath)) throw new FileNotFoundException("请先创建调试场景。");

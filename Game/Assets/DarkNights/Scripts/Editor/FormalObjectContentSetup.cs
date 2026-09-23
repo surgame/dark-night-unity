@@ -42,7 +42,6 @@ namespace DarkNights.Editor
         private const string GeneratedCommandPath = "Assets/Scripts/Generated/INetworkCommand.generated.cs";
         private const string GeneratedStatePath = "Assets/Scripts/Generated/IStateData.generated.cs";
 
-        [MenuItem("Dark Nights/Content/Create Initial Formal Objects")]
         public static void CreateInitial()
         {
             EnvironmentValidation.Validate();

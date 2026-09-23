@@ -17,7 +17,7 @@ namespace GameCore.Samples.InputActions.Editor
     public static class InputActionsSampleBuilder
     {
         public const string Root = "Assets/Samples/YYGCInputActions/Content";
-        [MenuItem("GameCore/Samples/Create Input Actions Sample In Empty Directory")]
+        [MenuItem("YY/Samples/Create Input Actions Sample In Empty Directory")]
         public static void Create()
         {
             if (Directory.Exists(Root)) throw new InvalidOperationException("Sample Content must be absent; existing assets are protected.");

@@ -22,7 +22,6 @@ namespace DarkNights.Editor
         public const string Prefab = Root + "/ExpeditionShip.prefab";
         internal static JObject Manifest => JObject.Parse(File.ReadAllText("../tools/walkable-ship/art-source/manifest.json"));
 
-        [MenuItem("Dark Nights/Art/安装可步入飞船首版")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || Enumerable.Range(0, UnityEngine.SceneManagement.SceneManager.sceneCount)

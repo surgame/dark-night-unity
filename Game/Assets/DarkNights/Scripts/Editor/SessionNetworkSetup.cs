@@ -29,7 +29,6 @@ namespace DarkNights.Editor
         public const string DefinitionPath = Root + "/PlayerConnection.asset";
         public const string Pinewatch = "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity";
 
-        [MenuItem("Dark Nights/Content/Install Formal Session Network")]
         public static void Install()
         {
             EnvironmentValidation.Validate();

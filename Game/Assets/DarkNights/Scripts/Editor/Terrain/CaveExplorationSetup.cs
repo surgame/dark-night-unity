@@ -13,7 +13,6 @@ namespace DarkNights.Editor.Terrain
     {
         public const string ScenePath = TerrainScenePaths.CaveExploration;
 
-        [MenuItem("Dark Nights/Debug/打开天然洞穴实验")]
         public static void Open()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先退出 Play。");

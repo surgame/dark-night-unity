@@ -17,7 +17,6 @@ namespace DarkNights.Editor
     {
         public const string ConfigRoot = "Assets/DarkNights/Res/Config/";
 
-        [MenuItem("Dark Nights/Content/Register Initial Configuration")]
         public static void Register()
         {
             EnvironmentValidation.Validate();

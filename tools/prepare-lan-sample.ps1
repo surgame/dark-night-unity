@@ -37,69 +37,96 @@ $previousCompleteDiff = $completeDiff
 $singletonPatch = Join-Path $PSScriptRoot 'lan-framework-patch/RestoreSingletonOnPooledReentry.patch'
 $singletonDiff = [IO.File]::ReadAllText($singletonPatch).Replace("`r`n", "`n").TrimEnd()
 $completeDiff = $combinedDiff + "`n" + $singletonDiff + "`n" + $uiDiff
-$allowed = @('Runtime/NetworkCommands/SampleAssemblyAccess.cs', 'Runtime/NetworkCommands/SampleAssemblyAccess.cs.meta')
+$menuPatch = Join-Path $PSScriptRoot 'lan-framework-patch/YYEditorMenus.patch'
+$menuTrackedDiffSha256 = '0BA969F1CAA6CD1A3A43956228399B91A840B26E0826EE1DD8A2D819E6886134'
+$remoteBaseMenuDiffSha256 = '64D9B346607D93D289155E45ED825804424C17183F2D96E229192D6EFC62574B'
+$menuApplied = $false
+$allowed = @('Runtime/NetworkCommands/SampleAssemblyAccess.cs', 'Runtime/NetworkCommands/SampleAssemblyAccess.cs.meta',
+    'Editor/YYMenu.cs', 'Editor/YYMenu.cs.meta')
 foreach ($untracked in (git -C $checkout ls-files --others --exclude-standard)) {
     if ($untracked -notin $allowed) { throw "Unexpected file in isolated YYGC: $untracked" }
 }
 if ($fromRemoteBase) {
     $baseDiff = (git -C $checkout diff HEAD --binary) -join "`n"
     if ($LASTEXITCODE) { throw 'Unable to inspect remote-base YYGC changes' }
-    if ($baseDiff.TrimEnd().Length -ne 0) { throw 'Remote-base YYGC has unexpected tracked changes; preserve and inspect them first' }
-    foreach ($patch in @($networkPatch, $registryPatch, $startupPatch, $singletonPatch, $uiPatch)) {
-        $previousErrorAction = $ErrorActionPreference
-        $ErrorActionPreference = 'Continue'
-        git -C $checkout apply --reverse --check $patch 2>$null
-        $reverseStatus = $LASTEXITCODE
-        $ErrorActionPreference = $previousErrorAction
-        if ($reverseStatus -eq 0) { continue }
-        git -C $checkout apply --check $patch
-        if ($LASTEXITCODE) { throw "YYGC base patch does not match locked source: $patch" }
-        git -C $checkout apply $patch
-        if ($LASTEXITCODE) { throw "Unable to apply YYGC base patch: $patch" }
+    if ($baseDiff.TrimEnd().Length -ne 0) {
+        $baseHash = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($baseDiff)))
+        if ($baseHash -ne $remoteBaseMenuDiffSha256) {
+            throw 'Remote-base YYGC has unexpected tracked changes; preserve and inspect them first'
+        }
+        git -C $checkout apply --reverse --check $menuPatch
+        if ($LASTEXITCODE) { throw 'Remote-base YYGC editor menu patch has changed' }
+        $menuApplied = $true
     }
-    $expectedTracked = @(
-        'Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs',
-        'Editor/Objects/NetworkStates/StateDataRegistryUpdater.cs',
-        'Runtime/NetworkCommands/NetworkCommandStartupModule.cs',
-        'Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs',
-        'Runtime/Objects/Singletons/SingletonBehaviours.cs',
-        'Runtime/UI/UGUI/UGUIRuntimeStartupModule.cs')
-    $changedTracked = @(git -C $checkout diff HEAD --name-only)
-    if ($LASTEXITCODE) { throw 'Unable to inspect remote-base YYGC changes' }
-    if ($changedTracked.Count -ne $expectedTracked.Count -or
-        ($changedTracked | Where-Object { $_ -notin $expectedTracked }).Count -ne 0) {
-        throw 'Remote-base YYGC patch set contains unexpected tracked changes'
+    if (!$menuApplied) {
+        foreach ($patch in @($networkPatch, $registryPatch, $startupPatch, $singletonPatch, $uiPatch)) {
+            $previousErrorAction = $ErrorActionPreference
+            $ErrorActionPreference = 'Continue'
+            git -C $checkout apply --reverse --check $patch 2>$null
+            $reverseStatus = $LASTEXITCODE
+            $ErrorActionPreference = $previousErrorAction
+            if ($reverseStatus -eq 0) { continue }
+            git -C $checkout apply --check $patch
+            if ($LASTEXITCODE) { throw "YYGC base patch does not match locked source: $patch" }
+            git -C $checkout apply $patch
+            if ($LASTEXITCODE) { throw "Unable to apply YYGC base patch: $patch" }
+        }
+        $expectedTracked = @(
+            'Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs',
+            'Editor/Objects/NetworkStates/StateDataRegistryUpdater.cs',
+            'Runtime/NetworkCommands/NetworkCommandStartupModule.cs',
+            'Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs',
+            'Runtime/Objects/Singletons/SingletonBehaviours.cs',
+            'Runtime/UI/UGUI/UGUIRuntimeStartupModule.cs')
+        $changedTracked = @(git -C $checkout diff HEAD --name-only)
+        if ($LASTEXITCODE) { throw 'Unable to inspect remote-base YYGC changes' }
+        if ($changedTracked.Count -ne $expectedTracked.Count -or
+            ($changedTracked | Where-Object { $_ -notin $expectedTracked }).Count -ne 0) {
+            throw 'Remote-base YYGC patch set contains unexpected tracked changes'
+        }
     }
 } else {
     $actualDiff = (git -C $checkout diff HEAD --binary) -join "`n"
     if ($LASTEXITCODE) { throw 'Unable to inspect isolated YYGC changes' }
-    if ($actualDiff -and $actualDiff.TrimEnd() -ne $expectedDiff.TrimEnd() -and $actualDiff.TrimEnd() -ne $combinedDiff.TrimEnd() -and $actualDiff.TrimEnd() -ne $previousCompleteDiff.TrimEnd() -and $actualDiff.TrimEnd() -ne $completeDiff.TrimEnd()) {
+    $actualHash = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($actualDiff)))
+    $menuApplied = $actualHash -eq $menuTrackedDiffSha256
+    if ($menuApplied) {
+        git -C $checkout apply --reverse --check $menuPatch
+        if ($LASTEXITCODE) { throw 'YYGC editor menu patch has changed; preserve and inspect it first' }
+    }
+    if (!$menuApplied -and $actualDiff -and $actualDiff.TrimEnd() -ne $expectedDiff.TrimEnd() -and $actualDiff.TrimEnd() -ne $combinedDiff.TrimEnd() -and $actualDiff.TrimEnd() -ne $previousCompleteDiff.TrimEnd() -and $actualDiff.TrimEnd() -ne $completeDiff.TrimEnd()) {
         throw 'Isolated YYGC has unexpected tracked changes; preserve and inspect them first'
     }
-    if (!$actualDiff) {
+    if (!$menuApplied -and !$actualDiff) {
         git -C $checkout apply --check $registryPatch
         if ($LASTEXITCODE) { throw 'Sample registry exclusion patch does not match locked YYGC' }
         git -C $checkout apply $registryPatch
         if ($LASTEXITCODE) { throw 'Unable to apply sample registry exclusion patch' }
     }
-    if (!$actualDiff -or $actualDiff.TrimEnd() -eq $expectedDiff) {
+    if (!$menuApplied -and (!$actualDiff -or $actualDiff.TrimEnd() -eq $expectedDiff)) {
         git -C $checkout apply --check $startupPatch
         if ($LASTEXITCODE) { throw 'Startup validation patch does not match locked YYGC' }
         git -C $checkout apply $startupPatch
         if ($LASTEXITCODE) { throw 'Unable to apply sample startup validation exclusion patch' }
     }
-    if (!$actualDiff -or ($actualDiff.TrimEnd() -ne $completeDiff -and $actualDiff.TrimEnd() -ne $previousCompleteDiff)) {
+    if (!$menuApplied -and (!$actualDiff -or ($actualDiff.TrimEnd() -ne $completeDiff -and $actualDiff.TrimEnd() -ne $previousCompleteDiff))) {
         git -C $checkout apply --check $uiPatch
         if ($LASTEXITCODE) { throw 'UGUI root null patch does not match locked YYGC' }
         git -C $checkout apply $uiPatch
         if ($LASTEXITCODE) { throw 'Unable to apply UGUI root null patch' }
     }
-    if (!$actualDiff -or $actualDiff.TrimEnd() -ne $completeDiff) {
+    if (!$menuApplied -and (!$actualDiff -or $actualDiff.TrimEnd() -ne $completeDiff)) {
         git -C $checkout apply --check $singletonPatch
         if ($LASTEXITCODE) { throw 'Singleton reentry patch does not match locked YYGC' }
         git -C $checkout apply $singletonPatch
         if ($LASTEXITCODE) { throw 'Unable to apply singleton reentry patch' }
     }
+}
+if (!$menuApplied) {
+    git -C $checkout apply --check $menuPatch
+    if ($LASTEXITCODE) { throw 'YYGC editor menu patch does not match locked source' }
+    git -C $checkout apply $menuPatch
+    if ($LASTEXITCODE) { throw 'Unable to apply YYGC editor menu patch' }
 }
 foreach ($name in @('SampleAssemblyAccess.cs', 'SampleAssemblyAccess.cs.meta')) {
     $source = Join-Path $PSScriptRoot "lan-framework-patch/$name"

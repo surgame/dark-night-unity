@@ -24,7 +24,6 @@ namespace DarkNights.Editor
         public const string OriginalRoot = "Assets/DarkNights/Res/Art/Original";
         private const string ObjectsRoot = "Assets/DarkNights/Res/Objects";
 
-        [MenuItem("Dark Nights/Content/Install Initial Native Art")]
         public static void Install()
         {
             foreach (string name in new[] { "Worker", "House", "Trees" })

@@ -14,7 +14,6 @@ namespace DarkNights.Editor
     /// </summary>
     public static class NativeThemeCalibration
     {
-        [MenuItem("Dark Nights/Content/Calibrate Native UI Theme Once")]
         public static void Apply()
         {
             var pages = JObject.Parse(File.ReadAllText(NativeUiSetup.InputPath))["profiles"][0]["pages"];

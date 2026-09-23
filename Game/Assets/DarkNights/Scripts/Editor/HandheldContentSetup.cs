@@ -25,7 +25,6 @@ namespace DarkNights.Editor
         public const string Art = "Assets/DarkNights/Res/Art/Custom/Handheld";
         public const string Root = "Assets/DarkNights/Res/Objects/Handheld";
 
-        [MenuItem("Dark Nights/Content/Install Handheld Equipment")]
         public static void Install()
         {
             if (EditorApplication.isPlaying || Directory.Exists(Root))

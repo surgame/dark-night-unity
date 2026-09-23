@@ -28,7 +28,6 @@ namespace DarkNights.Editor
         private const string SourcePrefabPath = "Assets/DarkNights/Res/Objects/Stone/Stone.prefab";
         private const string DatabasePath = "Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset";
 
-        [MenuItem("Dark Nights/Content/Install Mineral Deposit Object")]
         public static void Install()
         {
             if (!File.Exists(SourcePrefabPath)) throw new InvalidOperationException("Stone source Prefab is missing.");

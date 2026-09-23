@@ -19,7 +19,6 @@ namespace DarkNights.Editor.Terrain
         private const string Atlas = "Assets/DarkNights/Res/Art/Custom/CaveExploration/cave-dualgrid.png";
         private static readonly string[] Keys = { "loam", "slate", "basalt", "copper", "iron", "gold", "moss", "bedrock" };
 
-        [MenuItem("Dark Nights/Terrain/Create initial cave tiles")]
         public static void Create()
         {
             string output = Root + "/Configuration";

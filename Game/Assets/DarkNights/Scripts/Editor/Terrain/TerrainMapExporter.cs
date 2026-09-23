@@ -60,7 +60,6 @@ namespace DarkNights.Editor.Terrain
             finally { EditorSceneManager.CloseScene(scene, true); if (original.IsValid()) SceneManager.SetActiveScene(original); }
         }
 
-        [MenuItem("Dark Nights/Terrain/Create default test map and scene")]
         public static void CreateDefault()
         {
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(TerrainTestAssets.DefinitionPath);

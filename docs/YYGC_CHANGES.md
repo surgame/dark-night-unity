@@ -1,5 +1,24 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-23：编辑器顶部菜单归属
+
+仅调整 Editor 菜单注册，不修改运行时框架身份、`com.tsgame.gamecore` 包名或 `GameCore.*` 程序集名。正式游戏的菜单声明集中在 `Game/Assets/DarkNights/Scripts/Editor/DarkNightsMenu.cs`，环境初始化／校验／Addressables 从 `YY/Dark Nights` 归入 `Dark Nights`；调用仍转发原工具。LAN 示例因独立程序集仍在自己的 `SampleBuilder.cs` 注册。框架菜单声明集中在 YYGC `Editor/YYMenu.cs`，保留窗口、注册器的原方法与自动初始化；`Assets/Create` 和 `GameObject` 上下文菜单不挪动。导入的输入示例与框架源示例均改为 `YY/Samples`，不再创建 `GameCore` 顶级菜单。
+
+| YYGC 隔离包修改文件 | 原因／落点 |
+|---|---|
+| `Editor/YYMenu.cs`、`Editor/YYMenu.cs.meta` | 集中注册对象套件、定义、命令、状态和工具窗口的顶部菜单；`YY/Objects` 只保留一次打开套件／工坊。 |
+| `Editor/AppStartup/AppStartupSettingsWindow.cs`、`Editor/ObjectDefinitionViewer/ObjectDefinitionViewer.cs`、`Editor/Objects/ObjectManagerSuite.cs`、`Editor/Objects/Singletons/ObjectSingletonEditorWindow.cs` | 移除分散的对象套件菜单特性，保留窗口方法。 |
+| `Editor/Objects/Definition/DefinitionLookupWindow.cs`、`DefinitionMigrationWindow.cs`、`ObjectArchetypeManagerWindow.cs`、`ObjectDefinitionWorkshopWindow.cs` | 定义与原型入口改由 `YYMenu` 注册，原窗口逻辑不变。 |
+| `Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs`、`NetworkCommandDependencyValidator.cs`、`Editor/Objects/NetworkStates/StateDataInterfaceGenerator.cs`、`StateDataRegistryUpdater.cs` | 菜单特性迁移；原自动发现、生成和构建前校验仍直接调用原方法。 |
+| `Runtime/YYPlugins/YYToolkits/Databases/SODatabaseUpdater.cs`、`Runtime/YYPlugins/YYToolkits/MapGenerator/Editor/WorldGeneratorEditorWindow.cs` | 两个 YYGC 工具入口改由 `YYMenu` 注册。 |
+| `Samples~/InputActions/Editor/InputActionsSampleBuilder.cs` | 包内待导入示例与游戏中已导入副本保持相同的 `YY/Samples` 路径。 |
+
+游戏仓库以 `tools/lan-framework-patch/YYEditorMenus.patch` 重放上述 YYGC 源码差异，`tools/prepare-lan-sample.ps1` 对已有隔离包及从 `0c7cec0` 重放的薄目录都进行了差异哈希和反向补丁校验。AnyRuleD 不属于 GameCore：其 `Editor/Workbench/AnyRuleDWorkbench.cs` 和 `Editor/Import/TileImportWizard.cs` 从 `YY/AnyRuleD` 移到 `Tools/AnyRules`，由 `tools/map-framework-patch/EditorMenus.patch` 与 `source-lock.json` 的两个文件哈希记录；未改其他地形文件。
+
+Unity 6000.4.9f1 本机 Editor 重新编译通过；菜单枚举确认 `GameCore/*`、`YY/Dark Nights/*`、`YY/AnyRuleD/*` 均已消失。YYGC 现有锁定目录和从旧提交重放的薄目录各通过重复准备检查。AnyRuleD 菜单补丁在隔离源上应用并匹配两项更新哈希；当前 AnyRules 缓存另有 `TerrainEditBusinessHandler.cs`、`TerrainEditCommand.cs` 两项既存哈希漂移，原有 `TerrainEditCommandPayload.patch` 在全新源上的应用也失败，因此没有宣称完整 442 文件重放通过，也没有覆盖这两项文件。未运行 Player 或联机检查。
+
+本任务两个可重建的隔离验证目录删除被执行策略拒绝，已核对绝对路径和无链接后移到 `artifacts/临时待删除/20260923-editor-menus/`，同卷移动不计入释放空间。原 `artifacts/menu-package-repro` 为 28,987,065 字节，现为 `artifacts/临时待删除/20260923-editor-menus/menu-package-repro`；原 `artifacts/menu-anyrules-repro` 为 2,659,699 字节，现为同目录下 `menu-anyrules-repro`。两者仅含本任务的克隆／解包及补丁验证输入，不是正式成果；策略允许且确认无需复核时才可另行删除，不自动清理。
+
 ## 2026-09-22：独立岩层与外轮廓候选
 
 本批 **YYGC／AnyRules 修改文件为 0**；继续锁定 YYGC `12b253c`，未触碰用户框架工作区、UPM 路径或锁文件。新材质调用纯 Core 算法，权威状态与命令仍使用 ObjectInstance／ObjectSession／TerrainMapAuthority。发现的地图边界刷新问题修正在游戏侧 `TerrainReplicaSource` 指纹和 `TerrainPreview` 边界裁剪，没有给框架加入临时回退路径。验证和已知边界见 [执行记录](STATIC_CAVE_BACKGROUND_EXECUTION.md)。

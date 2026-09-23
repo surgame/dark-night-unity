@@ -27,7 +27,6 @@ namespace DarkNights.Editor
         public const string InputPath = "Assets/DarkNights/Scripts/Editor/UiLayoutInput.json";
         public const string Root = "Assets/DarkNights/Res/UI";
 
-        [MenuItem("Dark Nights/Content/Install Initial Native UI")]
         public static void Install()
         {
             if (Directory.Exists(Root) && Directory.GetFileSystemEntries(Root).Length != 0)

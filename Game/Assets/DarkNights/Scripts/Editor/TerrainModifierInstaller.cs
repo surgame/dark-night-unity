@@ -9,7 +9,6 @@ namespace DarkNights.Editor
     public static class TerrainModifierInstaller
     {
         public const string Root = "Assets/DarkNights/Res/Terrain/StrataCave/";
-        [MenuItem("Dark Nights/Art/安装地形 Modifier 首版")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先退出 Play。");

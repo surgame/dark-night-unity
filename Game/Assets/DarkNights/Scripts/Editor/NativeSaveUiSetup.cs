@@ -13,7 +13,6 @@ namespace DarkNights.Editor
     /// </summary>
     public static class NativeSaveUiSetup
     {
-        [MenuItem("Dark Nights/Content/Add Native Save Slots")]
         public static void Install()
         {
             string[] pages = { "MainMenu", "PauseMenu" };

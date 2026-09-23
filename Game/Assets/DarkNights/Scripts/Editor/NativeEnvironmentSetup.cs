@@ -16,7 +16,6 @@ namespace DarkNights.Editor
     public static class NativeEnvironmentSetup
     {
         public const string Root = "Assets/DarkNights/Res/Levels/Pinewatch/Environment";
-        [MenuItem("Dark Nights/Content/Install Initial Native Environment")]
         public static void Install()
         {
             if (Application.isPlaying) throw new InvalidOperationException("Stop Play before installing environment.");

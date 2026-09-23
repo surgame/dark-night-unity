@@ -40,7 +40,6 @@ namespace DarkNights.Editor
                     throw new InvalidOperationException("Save the current scene before first-time initialization.");
         }
 
-        [MenuItem("YY/Dark Nights/Validate Environment")]
         public static void Validate()
         {
             if (EditorApplication.isCompiling || EditorApplication.isPlayingOrWillChangePlaymode)

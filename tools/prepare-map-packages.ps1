@@ -34,7 +34,7 @@ if ($locked) {
 }
 Push-Location $root
 try {
-    foreach ($name in @('IdleMapPublication','RealtimeMapRetry','PlayableMapChunkBudget','TerrainEditCommandPayload')) {
+    foreach ($name in @('IdleMapPublication','RealtimeMapRetry','PlayableMapChunkBudget','TerrainEditCommandPayload','EditorMenus')) {
         $patch = Join-Path $PSScriptRoot "map-framework-patch/$name.patch"
         git apply --directory=.deps/AnyRules-locked-aa450a7 --reverse --check --ignore-space-change $patch 2>$null
         if ($LASTEXITCODE -ne 0) {
@@ -50,6 +50,12 @@ foreach ($relative in @('Protocol/MapInterestService.cs','Runtime/FishNetMapTran
     $patched = Join-Path $destination "AnyRuleD~/Packages/com.tsgame.anyrules.yygc.fishnet/$relative"
     $original = [IO.File]::ReadAllText($patched)
     $contents = $original.Replace("`r`n", "`n")
+    if ($original -cne $contents) { [IO.File]::WriteAllText($patched, $contents, $encoding) }
+}
+foreach ($relative in @('Editor/Workbench/AnyRuleDWorkbench.cs','Editor/Import/TileImportWizard.cs')) {
+    $patched = Join-Path $destination "AnyRuleD~/Packages/com.tsgame.anyrules/$relative"
+    $original = [IO.File]::ReadAllText($patched)
+    $contents = $original.Replace("`r`n", "`n").Replace("`n", "`r`n")
     if ($original -cne $contents) { [IO.File]::WriteAllText($patched, $contents, $encoding) }
 }
 $lock = Get-Content (Join-Path $PSScriptRoot 'map-framework-patch/source-lock.json') -Raw | ConvertFrom-Json

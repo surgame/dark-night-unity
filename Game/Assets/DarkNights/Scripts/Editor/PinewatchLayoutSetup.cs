@@ -21,7 +21,6 @@ namespace DarkNights.Editor
         public const string Root = "Assets/DarkNights/Res/Scenes/Pinewatch";
         public const string ScenePath = Root + "/Pinewatch.unity";
 
-        [MenuItem("Dark Nights/Content/Create Initial Pinewatch Layout")]
         public static void Create()
         {
             if (Directory.Exists(Root) && Directory.GetFileSystemEntries(Root).Length != 0)

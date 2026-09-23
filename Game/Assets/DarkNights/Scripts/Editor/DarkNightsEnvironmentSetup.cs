@@ -25,7 +25,6 @@ namespace DarkNights.Editor
         private const string BootstrapScenePath = "Assets/Scenes/Bootstrap.unity";
         private const string DefaultPrefabObjectsPath = "Assets/DefaultPrefabObjects.asset";
 
-        [MenuItem("YY/Dark Nights/Initialize Environment")]
         public static void Initialize()
         {
             EnvironmentValidation.RequireEmptyOutputs();
@@ -57,7 +56,6 @@ namespace DarkNights.Editor
             Debug.Log("[DarkNights] Environment initialization completed. Addressables, AppStartup, GameCore, FishNet and Bootstrap are ready.");
         }
 
-        [MenuItem("YY/Dark Nights/Build Addressables Content")]
         public static void BuildAddressablesContent()
         {
             EnvironmentValidation.Validate();

@@ -1,0 +1,24 @@
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs b/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs
+@@ -24,7 +24,7 @@ namespace AnyRules.Next.Editor
+         public bool IsStale => _refreshRequested || _error != null;
+         public string LastError => _error;
+
+-        [MenuItem("YY/AnyRuleD/地形工作台")]
++        [MenuItem("Tools/AnyRules/地形工作台")]
+         public static void Open() => GetWindow<AnyRuleDWorkbench>("地形工作台").Show();
+         public static AnyRuleDWorkbench OpenForCatalog(EditorAnyRuleDDatabase source)
+         {
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Import/TileImportWizard.cs b/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Import/TileImportWizard.cs
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Import/TileImportWizard.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Import/TileImportWizard.cs
+@@ -25,7 +25,7 @@ namespace AnyRules.Next.Editor
+         public SpriteMappingManifest Manifest => _saved != null ? _saved : _draft?.Manifest;
+         public GridPreviewSession Preview => _preview;
+
+-        [MenuItem("YY/AnyRuleD/导入地形素材")]
++        [MenuItem("Tools/AnyRules/导入地形素材")]
+         public static void Open() => GetWindow<TileImportWizard>("地形素材导入").Show();
+         public static TileImportWizard OpenForManifest(SpriteMappingManifest manifest)
+         {

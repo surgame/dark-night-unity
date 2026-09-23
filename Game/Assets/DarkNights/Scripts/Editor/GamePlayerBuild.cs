@@ -16,7 +16,6 @@ namespace DarkNights.Editor
     /// </summary>
     public static class GamePlayerBuild
     {
-        [MenuItem("Dark Nights/Build/Windows Mono")]
         public static void Mono() => Build(ScriptingImplementation.Mono2x, "mono", BuildOptions.Development);
 
         /// <summary>供干净源码验收使用；调用方通过 -darkNightsOutput 指定空目录中的 DarkNights.exe。</summary>
@@ -34,7 +33,6 @@ namespace DarkNights.Editor
             Build(ScriptingImplementation.Mono2x, "mono", BuildOptions.Development, output);
         }
 
-        [MenuItem("Dark Nights/Build/Windows IL2CPP")]
         public static void Il2Cpp() => Build(ScriptingImplementation.IL2CPP, "il2cpp", BuildOptions.None);
 
         private static void Build(ScriptingImplementation backend, string folder, BuildOptions options, string explicitOutput = null)

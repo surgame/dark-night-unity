@@ -22,7 +22,6 @@ namespace DarkNights.Editor
     public static class SessionLifecycleProbe
     {
         private static bool running;
-        [MenuItem("Dark Nights/Verify/Session Lifecycle")]
         public static async void Run()
         {
             if (!Application.isPlaying || running) throw new InvalidOperationException("Run once in Play.");
