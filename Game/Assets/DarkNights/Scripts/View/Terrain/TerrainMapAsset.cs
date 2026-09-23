@@ -6,7 +6,7 @@ using UnityEngine;
 namespace DarkNights.View.Terrain
 {
     /// <summary>人工可维护的测试地图根资产；保存初始格子文件、生成参数及 AnyRuleD 配置，不保存运行时破坏。</summary>
-    [CreateAssetMenu(menuName = "Dark Nights/Terrain/Map recipe")]
+    [CreateAssetMenu(menuName = "Dark Nights/Terrain/Legacy/Map recipe")]
     public sealed class TerrainMapAsset : ScriptableObject
     {
         public ARDMapDefinition Definition;

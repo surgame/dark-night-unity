@@ -10,8 +10,8 @@
 | 正式远征 | `DarkNights/Res/Scenes/Expedition/Expedition.unity` | 当前产品入口 |
 | 固定岩层样板 | `DarkNights/Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` | 地形 Modifier、岩层与背景的固定对照；对应资产仍在 `Res/Terrain/StrataCave/` |
 | 随机岩层样板 | `DarkNights/Res/Scenes/Workbenches/Terrain/RandomCave.unity` | 随机地图工作台 |
-| 天然洞穴实验 | `DarkNights/Res/Scenes/Workbenches/Terrain/CaveExploration.unity` | `Dark Nights/Debug/打开天然洞穴实验` |
-| 随机地图 Debug | `DarkNights/Res/Scenes/Workbenches/Terrain/TerrainDebugBootstrap.unity` | `Dark Nights/Debug/打开随机地图 Bootstrap` |
+| 天然洞穴实验 | `DarkNights/Res/Scenes/Workbenches/Terrain/CaveExploration.unity` | `Dark Nights/Terrain/Legacy/打开天然洞穴实验` |
+| 随机地图 Debug | `DarkNights/Res/Scenes/Workbenches/Terrain/TerrainDebugBootstrap.unity` | `Dark Nights/Terrain/Legacy/打开随机地图 Bootstrap` |
 | DualGrid 单机测试 | `DarkNights/Res/Scenes/Tests/Terrain/TerrainTest.unity` | 地图预览和专用测试 Player |
 | DualGrid 联机测试 | `DarkNights/Res/Scenes/Tests/Terrain/TerrainNetworkTest.unity` | 独立网络探针与专用测试 Player |
 

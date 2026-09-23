@@ -9,6 +9,7 @@ namespace DarkNights.Editor
     public static class DarkNightsMenu
     {
         private const string Root = "Dark Nights/";
+        private const string LegacyTerrain = Root + "Terrain/Legacy/";
         internal const string HeroSpeedPath = Root + "Debug/主角移动 8×";
 
         [MenuItem(Root + "Content/Initialize Environment")]
@@ -63,27 +64,27 @@ namespace DarkNights.Editor
         [MenuItem(HeroSpeedPath, true)]
         private static bool ValidateHeroSpeed() => ScenePlaySelection.ValidateDebugSpeed();
 
-        [MenuItem(Root + "Debug/打开随机地图 Bootstrap")]
+        [MenuItem(LegacyTerrain + "打开随机地图 Bootstrap")]
         private static void OpenTerrainDebug() => TerrainDebugSetup.Open();
-        [MenuItem(Root + "Debug/构建随机地图 Bootstrap Mono")]
+        [MenuItem(LegacyTerrain + "构建随机地图 Bootstrap Mono")]
         private static void BuildTerrainDebug() => TerrainDebugSetup.Build();
-        [MenuItem(Root + "Debug/打开天然洞穴实验")]
+        [MenuItem(LegacyTerrain + "打开天然洞穴实验")]
         private static void OpenCaveExploration() => CaveExplorationSetup.Open();
-        [MenuItem(Root + "Terrain/Map generator（旧版）")]
+        [MenuItem(LegacyTerrain + "Map generator")]
         private static void OpenLegacyTerrainGenerator() => TerrainGeneratorWindow.Open();
         [MenuItem(Root + "Terrain/Cave Wall Tuner")]
         private static void OpenTerrainPreview() => TerrainStylePreviewWindow.Open();
-        [MenuItem(Root + "Terrain/Create initial test tiles")]
+        [MenuItem(LegacyTerrain + "Create initial test tiles")]
         private static void CreateTestTiles() => TerrainTestAssets.Create();
-        [MenuItem(Root + "Terrain/Create initial cave tiles")]
+        [MenuItem(LegacyTerrain + "Create initial cave tiles")]
         private static void CreateCaveTiles() => CaveTerrainAssets.Create();
-        [MenuItem(Root + "Terrain/Create default test map and scene")]
+        [MenuItem(LegacyTerrain + "Create default test map and scene")]
         private static void CreateTestMap() => TerrainMapExporter.CreateDefault();
-        [MenuItem(Root + "Terrain/Create network test scene")]
+        [MenuItem(LegacyTerrain + "Create network test scene")]
         private static void CreateNetworkTestScene() => TerrainPlayerBuild.Create();
-        [MenuItem(Root + "Terrain/Build test Mono")]
+        [MenuItem(LegacyTerrain + "Build test Mono")]
         private static void BuildNetworkTest() => TerrainPlayerBuild.Mono();
-        [MenuItem(Root + "Terrain/Create random Pinewatch template")]
+        [MenuItem(LegacyTerrain + "Create random Pinewatch template")]
         private static void CreateRandomPinewatch() => RandomLevelSetup.Install();
     }
 }

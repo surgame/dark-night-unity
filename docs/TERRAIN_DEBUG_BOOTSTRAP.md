@@ -4,7 +4,7 @@
 
 ## 打开与操作
 
-Unity 菜单选择 **Dark Nights / Debug / 打开随机地图 Bootstrap**，然后点击 Play。当前也可以直接打开 `Game/Assets/DarkNights/Res/Scenes/Workbenches/Terrain/TerrainDebugBootstrap.unity`（2026-09-23 从原地形资源目录移动，GUID 保持）。该场景不经过正式 Bootstrap、主菜单或 Ready，会自动生成地图并把观察角色放入入口洞室。
+Unity 菜单选择 **Dark Nights / Terrain / Legacy / 打开随机地图 Bootstrap**，然后点击 Play。当前也可以直接打开 `Game/Assets/DarkNights/Res/Scenes/Workbenches/Terrain/TerrainDebugBootstrap.unity`（2026-09-23 从原地形资源目录移动，GUID 保持）。该场景不经过正式 Bootstrap、主菜单或 Ready，会自动生成地图并把观察角色放入入口洞室。
 
 | 操作 | 效果 |
 |---|---|
@@ -19,7 +19,7 @@ Unity 菜单选择 **Dark Nights / Debug / 打开随机地图 Bootstrap**，然�
 
 左侧面板和 `Terrain Debug Bootstrap` Inspector 均可调整种子、六类地表、自然洞穴、起伏和矿脉密度。默认开启实时重建：停止调整约 0.35 秒后后台生成，并用真实 DualGrid 页面替换预览。文本框输入时暂停角色键盘控制；点击面板外恢复。重建成功后角色回到入口，镜头距离与飞行速度保留。无效参数保留上一次成功地图并显示错误。
 
-独立 Mono 构建菜单为 **Dark Nights / Debug / 构建随机地图 Bootstrap Mono**，每次写入新的时间戳目录。本批产物为 `artifacts/terrain-debug/player-mono/TerrainDebug.exe`。
+独立 Mono 构建菜单为 **Dark Nights / Terrain / Legacy / 构建随机地图 Bootstrap Mono**，每次写入新的时间戳目录。本批产物为 `artifacts/terrain-debug/player-mono/TerrainDebug.exe`。
 
 ## 原平地与生成算法
 
