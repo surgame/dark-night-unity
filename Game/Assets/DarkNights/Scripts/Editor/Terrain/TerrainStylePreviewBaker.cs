@@ -17,19 +17,22 @@ namespace DarkNights.Editor.Terrain
 
         public static byte[] BakeFull(byte[] materials, byte[] shapes, string seed, int stoneSize,
             CaveOutlineSettings outline, CaveModifierStack foreground, ICaveBackgroundGenerator generator,
-            CaveModifierStack[] backgroundModifiers, bool[] visible, int softness, Action checkpoint = null)
+            CaveModifierStack[] backgroundModifiers, bool[] visible, int softness, Action checkpoint = null,
+            byte[] backgroundMaterials = null, byte[] backgroundShapes = null)
             => BakeRect(materials, shapes, seed, 0, 0, WorldWidth, WorldHeight, stoneSize, outline, foreground,
-                generator, backgroundModifiers, visible, softness, checkpoint);
+                generator, backgroundModifiers, visible, softness, checkpoint, backgroundMaterials, backgroundShapes);
 
         private static byte[] BakeRect(byte[] materials, byte[] shapes, string seed, int left, int top,
             int width, int height, int stoneSize, CaveOutlineSettings outline, CaveModifierStack foreground,
             ICaveBackgroundGenerator generator, CaveModifierStack[] backgroundModifiers, bool[] visible,
-            int softness, Action checkpoint)
+            int softness, Action checkpoint, byte[] backgroundMaterials = null, byte[] backgroundShapes = null)
         {
             const int cellsWide = 320;
             if (materials == null || shapes == null || materials.Length != 320 * 192 || shapes.Length != materials.Length ||
                 seed == null || foreground == null || generator == null || backgroundModifiers == null ||
                 backgroundModifiers.Length != 3 || visible == null || visible.Length != 3 ||
+                (backgroundMaterials != null && backgroundMaterials.Length != materials.Length) ||
+                (backgroundShapes != null && backgroundShapes.Length != shapes.Length) ||
                 left < 0 || top < 0 || width < 1 || height < 1 || left + width > WorldWidth || top + height > WorldHeight)
                 throw new ArgumentException("预览输入或窗口范围无效。");
             bool Solid(int x, int y)
@@ -46,7 +49,8 @@ namespace DarkNights.Editor.Terrain
             byte[][] layers = null;
             if (visible[0] || visible[1] || visible[2])
             {
-                var reference = new BackgroundBakeDescriptor(Guid.Empty.ToString("N"), seed, materials, shapes);
+                var reference = new BackgroundBakeDescriptor(Guid.Empty.ToString("N"), seed,
+                    backgroundMaterials ?? materials, backgroundShapes ?? shapes);
                 var layout = new ModifiedBackgroundLayout(generator.Build(reference, outline, checkpoint),
                     backgroundModifiers, seed, checkpoint);
                 layers = BackgroundPageBaker.Bake(layout, left, top, width, height, softness, checkpoint);

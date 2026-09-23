@@ -138,5 +138,61 @@ namespace DarkNights.Tests
             }
             finally { AssetDatabase.DeleteAsset(folder); }
         }
+
+        [Test]
+        public void MapPaintingIsDraftedAndPreservesProtectedCells()
+        {
+            const string root = "Assets/DarkNights/Res/Terrain/StrataCave/";
+            var source = AssetDatabase.LoadAssetAtPath<TerrainMapAsset>(root + "ReferenceChamber.asset");
+            Assert.That(source, Is.Not.Null);
+            string folder = "Assets/CaveWallMapTests-" + Guid.NewGuid().ToString("N");
+            Assert.That(AssetDatabase.CreateFolder("Assets", Path.GetFileName(folder)), Is.Not.Empty);
+            try
+            {
+                string mapPath = folder + "/scratch.asset", cellsPath = folder + "/scratch.cells.bytes";
+                Assert.That(AssetDatabase.CopyAsset(root + "ReferenceChamber.cells.bytes", cellsPath), Is.True);
+                string diskPath = Path.Combine(Path.GetDirectoryName(Application.dataPath), cellsPath);
+                byte[] protectedCopy = File.ReadAllBytes(diskPath);
+                protectedCopy[(100 * 320 + 100) * 2 + 1] = 2;
+                protectedCopy[(100 * 320 + 101) * 2 + 1] = 1;
+                File.WriteAllBytes(diskPath, protectedCopy);
+                AssetDatabase.ImportAsset(cellsPath, ImportAssetOptions.ForceSynchronousImport);
+                var map = UnityEngine.Object.Instantiate(source);
+                map.InitialCells = AssetDatabase.LoadAssetAtPath<TextAsset>(cellsPath);
+                AssetDatabase.CreateAsset(map, mapPath);
+                byte[] original = File.ReadAllBytes(diskPath);
+                var draft = new TerrainMapDraft(); draft.Open(map);
+                Assert.That(draft.IsReady, Is.True, draft.Error);
+                const int x = 100, y = 100;
+                int offset = (y * 320 + x) * 2;
+                byte before = original[offset];
+                Assert.That(draft.Paint(x, y, false, 1), Is.EqualTo(before != 0 || original[offset + 1] != 0));
+                Assert.That(draft.CopyMaterials()[y * 320 + x], Is.Zero);
+                CollectionAssert.AreEqual(original, File.ReadAllBytes(diskPath));
+                Assert.That(draft.Paint(0, y, true, 1), Is.False);
+                Assert.That(draft.Paint(x + 1, y, false, 1), Is.False);
+                Assert.That(draft.Paint(x, y, true, 2), Is.True);
+                Assert.That(draft.CopyMaterials()[y * 320 + x], Is.EqualTo(2));
+                Assert.That(draft.CopyShapes()[y * 320 + x], Is.Zero);
+                Assert.That(draft.CopyOriginalShapes()[y * 320 + x], Is.EqualTo(1));
+                Assert.That(draft.ChangedCells, Is.EqualTo(1));
+                draft.Open(map);
+                Assert.That(draft.HasChanges, Is.False);
+                CollectionAssert.AreEqual(original, File.ReadAllBytes(diskPath));
+
+                Assert.That(draft.Paint(x, y, true, 1), Is.True);
+                byte[] external = (byte[])original.Clone();
+                external[50] = external[50] == 1 ? (byte)2 : (byte)1;
+                File.WriteAllBytes(diskPath, external);
+                Assert.Throws<InvalidOperationException>(() => draft.Apply());
+                CollectionAssert.AreEqual(external, File.ReadAllBytes(diskPath));
+                File.WriteAllBytes(diskPath, original);
+                AssetDatabase.ImportAsset(cellsPath, ImportAssetOptions.ForceSynchronousImport);
+                draft.Apply();
+                Assert.That(draft.HasChanges, Is.False);
+                Assert.That(map.ReadBlueprint().MaterialAt(x, y), Is.EqualTo(1));
+            }
+            finally { AssetDatabase.DeleteAsset(folder); }
+        }
     }
 }
