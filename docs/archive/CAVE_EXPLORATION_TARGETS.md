@@ -7,7 +7,7 @@
 - 已读取上次任务“制作像素风双网格地形”（`01a0be18-92bf-7881-b7ef-f1575c48d977`），结合当前源码与[原型证据](evidence/cave-exploration-2026-09-20.json)复核。
 - 本次参考为用户附图 `C:/Users/Jobscn/AppData/Local/Temp/codex-clipboard-ec1cb455-c100-495d-93f2-7377fd034149.png`。图中飞船、UI、氧气、水体、怪物和梯子为视觉与设计参考，不自动转为本次功能需求。
 - 对照画面为上次真实 Editor Play 捕获的 `artifacts/cave-exploration/topology-overview.png`，不是本轮重新运行的截图。只据此评估该种子画面，不宣称所有随机种子均呈现相同问题。
-- 场景确为 `Game/Assets/DarkNights/Res/Terrain/CaveExploration/CaveExploration.unity`，菜单为 `Dark Nights/Debug/打开天然洞穴实验`。其 `TerrainDebugBootstrap` 使用穿墙观察器；独立 Debug 可 Play 不等于正式主角能游玩。
+- 本批场景原路径为 `Game/Assets/DarkNights/Res/Terrain/CaveExploration/CaveExploration.unity`；2026-09-23 保留 GUID 移至 `Game/Assets/DarkNights/Res/Scenes/Workbenches/Terrain/CaveExploration.unity`。菜单为 `Dark Nights/Debug/打开天然洞穴实验`。其 `TerrainDebugBootstrap` 使用穿墙观察器；独立 Debug 可 Play 不等于正式主角能游玩。
 - 前次外部设计文档第 04、05 章及相关章节用于理解天然洞穴和潜在通路。文档内的实施命令及完整策划不是本轮用户指令。
 
 ## 结论

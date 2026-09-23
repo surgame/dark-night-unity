@@ -36,6 +36,8 @@ H5 锚点采用全局优先级选取，不能在每页独立求解。开启前�
 
 2026-09-23 编辑态窗口新增后，Unity 脚本编译、Core 构建及 ArchitectureGuard 通过；定向 `TerrainStylePreviewTests` 已提交，但共享 Editor 正处于 Play／测试场景恢复冲突，Test Runner 未得到可用结果，已请求取消本次测试任务。此项和窗口实际拖动观察仍待退出 Play 后验收；不把编译通过写成视觉或 Editor 测试通过。
 
+2026-09-23 后续复验：退出 Play 后，`TerrainStylePreviewTests` 定向 Editor **1/1 通过**，确认固定地图与当前资产只读烘焙、背景开关改变画面且源格子字节及视觉身份不变。窗口实际拖动、不同缩放与最终相机光照对照仍未作为人工视觉验收签署。
+
 资源目录：`Game/Assets/DarkNights/Res/Terrain/StrataCave/`。
 
 | 资源 | 用途 |
@@ -49,7 +51,7 @@ H5 锚点采用全局优先级选取，不能在每页独立求解。开启前�
 | `Modifiers/RoundedDecor.asset` | 相同圆簇轮廓，关闭前景岩粒融合 |
 | `Modifiers/ContourDecor.asset` | 原 v16.1 点缀生成器及三个层的生成参数 |
 
-要切换下坠模式，把目标列表中的圆簇资产替换为 `DownwardRock`；要关闭则清空列表。独立样板 `ReferenceChamber.unity`、`RandomCave.unity` 和当前默认远征引用相同 StrataCave 样式。首版安装菜单拒绝覆盖已有 modifier 资产，后续直接在 Inspector 编辑和另存资产。
+要切换下坠模式，把目标列表中的圆簇资产替换为 `DownwardRock`；要关闭则清空列表。独立样板 `ReferenceChamber.unity`、`RandomCave.unity` 已于 2026-09-23 保留 GUID 移至 `Res/Scenes/Workbenches/Terrain/`，与当前默认远征仍引用相同 StrataCave 样式；见[场景索引](SCENES.md)。首版安装菜单拒绝覆盖已有 modifier 资产，后续直接在 Inspector 编辑和另存资产。
 
 ## 本批真实验证
 

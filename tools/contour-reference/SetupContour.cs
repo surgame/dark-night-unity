@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using DarkNights.Editor.Terrain;
 using DarkNights.View.Terrain;
 using DarkNights.Entry.Terrain;
 using UnityEditor;
@@ -23,8 +24,9 @@ public static class SetupContour
         var originalStyle = AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>("Assets/DarkNights/Res/Terrain/CaveExploration/Style/CaveStyle.asset");
         var candidate = UnityEngine.Object.Instantiate(originalStyle); candidate.Background = background;
         AssetDatabase.CreateAsset(candidate, dir + "/CaveStyle.asset");
-        string scene = dir + "/CaveContourStatic.unity";
-        if (!AssetDatabase.CopyAsset("Assets/DarkNights/Res/Terrain/CaveExploration/CaveExploration.unity", scene))
+        string scene = TerrainScenePaths.PendingCaveContourStatic;
+        Directory.CreateDirectory(TerrainScenePaths.PendingDeletion); AssetDatabase.ImportAsset(TerrainScenePaths.PendingDeletion);
+        if (!AssetDatabase.CopyAsset(TerrainScenePaths.CaveExploration, scene))
             throw new InvalidOperationException("复制候选场景失败。");
         var opened = EditorSceneManager.OpenScene(scene);
         var bootstrap = opened.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<TerrainDebugBootstrap>(true)).Single();

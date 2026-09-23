@@ -11,13 +11,13 @@ public static class RefreshStrataPreview
     {
         const string root = "Assets/DarkNights/Res/Terrain/StrataCave/";
         if (Application.isPlaying) throw new System.InvalidOperationException("先停止 Play。");
-        var scene = EditorSceneManager.OpenScene(root + "ReferenceChamber.unity");
+        var scene = EditorSceneManager.OpenScene(DarkNights.Editor.Terrain.TerrainScenePaths.ReferenceChamber);
         var boot = Object.FindAnyObjectByType<TerrainDebugBootstrap>();
         boot.FixedMap.SpawnCell = new Vector2Int(69, 51); EditorUtility.SetDirty(boot.FixedMap);
         boot.Flyer.Teleport(new Vector2(69, -51.5f));
         File.Copy("../artifacts/contour/strata-editor-preview.png", root + "ReferenceChamberPreview.png", true);
         AssetDatabase.ImportAsset(root + "ReferenceChamberPreview.png");
         EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene); AssetDatabase.SaveAssets();
-        EditorSceneManager.OpenScene(root + "ReferenceChamber.unity"); return "Saved/reopened fixed spawn and derived editor artwork";
+        EditorSceneManager.OpenScene(DarkNights.Editor.Terrain.TerrainScenePaths.ReferenceChamber); return "Saved/reopened fixed spawn and derived editor artwork";
     }
 }

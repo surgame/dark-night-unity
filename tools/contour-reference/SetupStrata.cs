@@ -33,6 +33,7 @@ public static class SetupStrata
         var blueprint = CreateSample();
         var map = TerrainMapExporter.Export(blueprint, definition, Root + "/ReferenceChamber.asset");
         map.CaveStyle = style; map.HasSpawn = true; map.SpawnCell = new Vector2Int(69, 51); EditorUtility.SetDirty(map);
+        Directory.CreateDirectory(TerrainScenePaths.Workbenches); AssetDatabase.ImportAsset(TerrainScenePaths.Workbenches);
         CreateScene(definition, style, map, "ReferenceChamber");
         CreateScene(definition, style, null, "RandomCave");
         var expedition = EditorSceneManager.OpenScene(RandomLevelEntry.ExpeditionScenePath);
@@ -40,10 +41,10 @@ public static class SetupStrata
         template.StaticBackgroundStyle = style; template.ContourDefinition = definition;
         EditorSceneManager.MarkSceneDirty(expedition); EditorSceneManager.SaveScene(expedition);
         AssetDatabase.SaveAssets();
-        EditorSceneManager.OpenScene(Root + "/ReferenceChamber.unity");
+        EditorSceneManager.OpenScene(TerrainScenePaths.ReferenceChamber);
         var boot = UnityEngine.Object.FindFirstObjectByType<TerrainDebugBootstrap>();
         if (boot.Definition != definition || boot.CaveStyle != style || boot.FixedMap != map) throw new Exception("独立样板重开失败。");
-        var dependencies = AssetDatabase.GetDependencies(Root + "/ReferenceChamber.unity", true);
+        var dependencies = AssetDatabase.GetDependencies(TerrainScenePaths.ReferenceChamber, true);
         var obsolete = dependencies.Where(p => p.Contains("/CaveExploration/") || p.Contains("/DebugBootstrap/") || p.Contains("/Pinewatch/")).ToArray();
         if (obsolete.Length != 0) throw new Exception("仍依赖旧场景或地形：" + string.Join(",", obsolete));
         return "Created independent StrataCave: fixed reference / random scenes, native actor, AnyRuleD rules; old terrain dependencies=0";
@@ -134,7 +135,7 @@ public static class SetupStrata
         boot.gameObject.AddComponent<CaveWorkshopInput>().Bootstrap = boot;
         var panel = boot.gameObject.AddComponent<TerrainDebugPanel>(); panel.Bootstrap = boot;
         panel.Font = AssetDatabase.LoadAssetAtPath<Font>("Assets/DarkNights/Res/UI/Shared/UIFont.fontsettings");
-        EditorSceneManager.SaveScene(scene, Root + "/" + name + ".unity");
+        EditorSceneManager.SaveScene(scene, TerrainScenePaths.Workbenches + "/" + name + ".unity");
     }
     private static string Id(string key)
     {

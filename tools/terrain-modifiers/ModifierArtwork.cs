@@ -20,12 +20,12 @@ public static class ModifierArtwork
         importer.spritePixelsPerUnit = 8; importer.filterMode = FilterMode.Point; importer.mipmapEnabled = false;
         importer.textureCompression = TextureImporterCompression.Uncompressed; importer.npotScale = TextureImporterNPOTScale.None;
         importer.sRGBTexture = true; importer.SaveAndReimport();
-        var scene = EditorSceneManager.OpenScene(root + "ReferenceChamber.unity");
+        var scene = EditorSceneManager.OpenScene(DarkNights.Editor.Terrain.TerrainScenePaths.ReferenceChamber);
         var artwork = UnityEngine.Object.FindAnyObjectByType<TerrainEditorArtwork>();
         if (artwork == null || artwork.Artwork == null) throw new Exception("缺少派生场景预览的明确引用。");
         artwork.Artwork.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(target);
         EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene); AssetDatabase.SaveAssets();
-        EditorSceneManager.OpenScene(root + "ReferenceChamber.unity");
+        EditorSceneManager.OpenScene(DarkNights.Editor.Terrain.TerrainScenePaths.ReferenceChamber);
         var reopened = UnityEngine.Object.FindAnyObjectByType<TerrainEditorArtwork>();
         if (AssetDatabase.GetAssetPath(reopened.Artwork.sprite) != target) throw new Exception("预览引用重开失败。");
         return "New native 504x312 preview imported, scene saved/reopened; original artwork retained.";

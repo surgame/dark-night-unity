@@ -19,7 +19,7 @@ public static class InstallEditorArtwork
         var importer = (TextureImporter)AssetImporter.GetAtPath(asset); importer.textureType = TextureImporterType.Sprite;
         importer.spritePixelsPerUnit = 8; importer.filterMode = FilterMode.Point; importer.mipmapEnabled = false;
         importer.textureCompression = TextureImporterCompression.Uncompressed; importer.sRGBTexture = true; importer.SaveAndReimport();
-        var scene = EditorSceneManager.OpenScene(root + "ReferenceChamber.unity");
+        var scene = EditorSceneManager.OpenScene(DarkNights.Editor.Terrain.TerrainScenePaths.ReferenceChamber);
         var boot = UnityEngine.Object.FindAnyObjectByType<TerrainDebugBootstrap>();
         boot.FixedMap.SpawnCell = new Vector2Int(69, 51); EditorUtility.SetDirty(boot.FixedMap);
         boot.Flyer.Teleport(new Vector2(69, -51.5f));
@@ -36,6 +36,6 @@ public static class InstallEditorArtwork
         var renderer = preview.AddComponent<SpriteRenderer>(); renderer.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(asset); renderer.sortingOrder = -100;
         preview.AddComponent<TerrainEditorArtwork>().Artwork = renderer;
         EditorSceneManager.MarkSceneDirty(scene); EditorSceneManager.SaveScene(scene); AssetDatabase.SaveAssets();
-        EditorSceneManager.OpenScene(root + "ReferenceChamber.unity"); return "Saved and reopened native fixed-chamber editor artwork";
+        EditorSceneManager.OpenScene(DarkNights.Editor.Terrain.TerrainScenePaths.ReferenceChamber); return "Saved and reopened native fixed-chamber editor artwork";
     }
 }

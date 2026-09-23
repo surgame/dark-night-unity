@@ -37,7 +37,7 @@ TerrainGenerator.Generate(settings) 返回冻结蓝图；TerrainMapExporter.Expo
 
 TerrainMapNetworking.OpenStream 可供 FishNetMapTransport 的 serverFactory 使用；CreateReplica 创建只读副本。地图流使用 AnyRuleD AMP1，握手必须传入真实 gameplay/visual digest，不能使用示例固定摘要。地图身份、目录版本、营地协议与存档版本分别管理。
 
-实际入口：打开 Res/Terrain/TestTerrain/Maps/TerrainTest.unity 后 Play 查看原生 DualGrid；地图生成窗口导出地图根资产，TerrainMapExporter.CreateTestScene 可建立独立场景。网络验收使用另一个 NetworkTest 场景，默认直接启动 Player 则进入地图预览。网络场景只验证逻辑同步，当前 TerrainPreview 是离线表现；把网络只读副本接入生产渲染页仍属于后续接线，不能把图中的完整产品链路视作全部已完成。
+实际入口：打开 `Res/Scenes/Tests/Terrain/TerrainTest.unity` 后 Play 查看原生 DualGrid；地图生成窗口导出地图根资产，TerrainMapExporter.CreateTestScene 可建立独立场景。网络验收使用同目录的 `TerrainNetworkTest.unity`，默认直接启动 Player 则进入地图预览。两处场景于 2026-09-23 从原地形资源目录移动，GUID 保持；对应地图根资产仍留在 `Res/Terrain/TestTerrain/Maps/`。网络场景只验证逻辑同步，当前 TerrainPreview 是离线表现；把网络只读副本接入生产渲染页仍属于后续接线，不能把图中的完整产品链路视作全部已完成。
 
 ## 正式游戏接线（2026-09-17 后续）
 

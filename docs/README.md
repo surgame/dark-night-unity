@@ -15,6 +15,7 @@
 - [QUICK_START.md](QUICK_START.md) — 人工开发快速上手
 - [PLAYER_GUIDE.md](PLAYER_GUIDE.md) — 操作说明与本机验收入口
 - [DEPENDENCIES.md](DEPENDENCIES.md) — YYGC／AnyRules 依赖准备与锁定
+- [SCENES.md](SCENES.md) — Unity 场景目录、入口及工作台／测试用途
 
 ## 使用说明
 

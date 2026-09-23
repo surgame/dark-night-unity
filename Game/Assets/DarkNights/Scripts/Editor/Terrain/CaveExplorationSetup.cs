@@ -11,7 +11,7 @@ namespace DarkNights.Editor.Terrain
     /// <summary>天然洞穴实验的独立场景入口；首次从现有调试场景派生，后续打开不覆盖人工编辑。</summary>
     public static class CaveExplorationSetup
     {
-        public const string ScenePath = "Assets/DarkNights/Res/Terrain/CaveExploration/CaveExploration.unity";
+        public const string ScenePath = TerrainScenePaths.CaveExploration;
 
         [MenuItem("Dark Nights/Debug/打开天然洞穴实验")]
         public static void Open()
@@ -25,7 +25,7 @@ namespace DarkNights.Editor.Terrain
         public static void Create()
         {
             string directory = Path.GetDirectoryName(ScenePath);
-            if (Directory.Exists(directory)) throw new IOException("实验目录已存在，拒绝覆盖人工资源。");
+            if (File.Exists(ScenePath)) throw new IOException("实验场景已存在，拒绝覆盖人工资源。");
             Directory.CreateDirectory(directory);
             AssetDatabase.ImportAsset(directory);
             if (!AssetDatabase.CopyAsset(TerrainDebugSetup.ScenePath, ScenePath))

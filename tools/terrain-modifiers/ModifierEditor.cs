@@ -23,7 +23,7 @@ public static class ModifierEditor
         File.WriteAllText(Path.Combine(Root, "original-scenes.json"), new JArray(Enumerable.Range(0, SceneManager.sceneCount)
             .Select(i => SceneManager.GetSceneAt(i).path)).ToString());
         TerrainModifierInstaller.Install();
-        string path = TerrainModifierInstaller.Root + "ReferenceChamber.unity";
+        string path = DarkNights.Editor.Terrain.TerrainScenePaths.ReferenceChamber;
         EditorSceneManager.OpenScene(path); EditorSceneManager.SaveScene(SceneManager.GetActiveScene()); EditorSceneManager.OpenScene(path);
         return "Modifier assets saved; fixed scene saved/reopened; " + Inspect();
     }
@@ -31,14 +31,20 @@ public static class ModifierEditor
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("已有 Play。");
         if (SceneManager.GetActiveScene().isDirty) throw new InvalidOperationException("场景尚未保存。");
-        EditorSceneManager.OpenScene(TerrainModifierInstaller.Root + scene + ".unity");
+        string path = scene == "ReferenceChamber" ? DarkNights.Editor.Terrain.TerrainScenePaths.ReferenceChamber :
+            scene == "RandomCave" ? DarkNights.Editor.Terrain.TerrainScenePaths.RandomCave :
+            throw new ArgumentException("未知地形工作台场景。", nameof(scene));
+        EditorSceneManager.OpenScene(path);
         EditorApplication.isPlaying = true; return "Play requested: " + scene;
     }
     public static string Stop() { EditorApplication.isPlaying = false; return "Stop requested"; }
     public static string Restore()
     {
         if (EditorApplication.isPlayingOrWillChangePlaymode || SceneManager.GetActiveScene().isDirty) throw new InvalidOperationException("先退出 Play 并检查场景。");
-        var paths = JArray.Parse(File.ReadAllText(Path.Combine(Root, "original-scenes.json"))).Values<string>().Where(p => !string.IsNullOrEmpty(p)).ToArray();
+        var paths = JArray.Parse(File.ReadAllText(Path.Combine(Root, "original-scenes.json"))).Values<string>()
+            .Where(p => !string.IsNullOrEmpty(p))
+            .Select(p => p == TerrainModifierInstaller.Root + "ReferenceChamber.unity" ? DarkNights.Editor.Terrain.TerrainScenePaths.ReferenceChamber :
+                p == TerrainModifierInstaller.Root + "RandomCave.unity" ? DarkNights.Editor.Terrain.TerrainScenePaths.RandomCave : p).ToArray();
         for (int i = 0; i < paths.Length; i++) EditorSceneManager.OpenScene(paths[i], i == 0 ? OpenSceneMode.Single : OpenSceneMode.Additive);
         return "Original Editor scenes restored";
     }

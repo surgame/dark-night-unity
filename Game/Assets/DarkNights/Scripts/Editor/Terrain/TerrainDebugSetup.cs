@@ -17,7 +17,7 @@ namespace DarkNights.Editor.Terrain
     public static class TerrainDebugSetup
     {
         public const string Root = "Assets/DarkNights/Res/Terrain/DebugBootstrap";
-        public const string ScenePath = Root + "/TerrainDebugBootstrap.unity";
+        public const string ScenePath = TerrainScenePaths.TerrainDebugBootstrap;
 
         [MenuItem("Dark Nights/Debug/打开随机地图 Bootstrap")]
         public static void Open()
@@ -37,6 +37,7 @@ namespace DarkNights.Editor.Terrain
             var font = AssetDatabase.LoadAssetAtPath<Font>("Assets/DarkNights/Res/UI/Shared/UIFont.fontsettings");
             if (definition == null || sprite == null || font == null) throw new InvalidOperationException("缺少调试地形或原生美术引用。");
             Directory.CreateDirectory(Root); AssetDatabase.ImportAsset(Root);
+            Directory.CreateDirectory(TerrainScenePaths.Workbenches); AssetDatabase.ImportAsset(TerrainScenePaths.Workbenches);
             Scene original = SceneManager.GetActiveScene();
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
             try

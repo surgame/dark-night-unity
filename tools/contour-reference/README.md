@@ -18,7 +18,7 @@
 
 - `SetupStrata` / `SetupContour` 只向空目录首建资产，禁止重跑覆盖人工资源。`RefineStrataSample`、`ApplyOutlineProfile`、`RefreshStrataPreview` 是本批拥有资产的显式修订入口，保留 GUID。
 - `ContourEditorBatch` 提交 220 项 Editor 验证，等待 `artifacts/contour/editor-strata.json` 的 `status=completed`，不要在测试期间切场景或进入 Play。`BoundaryEditorBatch` 用于边界失败的定向重测。
-- Play `StrataCave/ReferenceChamber.unity` 或 `RandomCave.unity` 后调用 `VerifyStrataPlay.Run`。真实行走和爆破；比较静态背景计数与当前前景更新。输出近景、总览及爆破画面；停止 Play 后才能刷新派生 Editor 预览。
+- Play `Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` 或同目录 `RandomCave.unity` 后调用 `VerifyStrataPlay.Run`。地形资产仍在 `Res/Terrain/StrataCave/`。真实行走和爆破；比较静态背景计数与当前前景更新。输出近景、总览及爆破画面；停止 Play 后才能刷新派生 Editor 预览。
 - `MeasureOutlineBake` 只测 Unity Mono CPU 单页生成，不证明前台性能达标。
 - `ContourBuild` 单次构建 Mono r3，结果为 `build-result-r3.json`。构建返回或超时后先检查同一任务状态，不重复触发；此入口拒绝覆盖已有本批结果。
 

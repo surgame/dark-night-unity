@@ -26,7 +26,7 @@
 
 `TerrainBlueprint.Passages` 保留隐藏图的两端洞室、掩埋类型、折点、半径与覆盖长度。该数据只属于生成候选；不会作为客户端权限、另一个运行地形状态或自动导航路径。实验没有切换正式开局，不把这些静态元数据写成已接通的正式保存格式。
 
-Unity 菜单：`Dark Nights/Debug/打开天然洞穴实验`。场景：`Game/Assets/DarkNights/Res/Terrain/CaveExploration/CaveExploration.unity`。沿用 WASD 穿墙观察、F 回入口、R 换种子、滚轮缩放、F1 面板；房间按钮按实际数量生成。这是离线观察器，不是正式主角的可玩性验收。
+Unity 菜单：`Dark Nights/Debug/打开天然洞穴实验`。场景于 2026-09-23 保留 GUID 移至 `Game/Assets/DarkNights/Res/Scenes/Workbenches/Terrain/CaveExploration.unity`。沿用 WASD 穿墙观察、F 回入口、R 换种子、滚轮缩放、F1 面板；房间按钮按实际数量生成。这是离线观察器，不是正式主角的可玩性验收。
 
 ## 美术制作规格（待执行）
 

@@ -8,7 +8,7 @@
 
 ## 测试入口
 
-Unity 菜单 `Dark Nights/Debug/打开天然洞穴实验`，或打开 `Game/Assets/DarkNights/Res/Terrain/CaveExploration/CaveExploration.unity` 后 Play。默认种子 `CAVE-EXPLORATION-01`，默认实际碰撞行走模式。
+Unity 菜单 `Dark Nights/Debug/打开天然洞穴实验`，或打开当前路径 `Game/Assets/DarkNights/Res/Scenes/Workbenches/Terrain/CaveExploration.unity` 后 Play（2026-09-23 保留 GUID 移动，历史证据保留旧路径）。默认种子 `CAVE-EXPLORATION-01`，默认实际碰撞行走模式。
 
 - AD 移动；空格起跳，持续按住使用原配置的有限喷气燃料，落地恢复。
 - Tab 切换穿墙观察；观察模式 WASD 移动、Shift 加速。

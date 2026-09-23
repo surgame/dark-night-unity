@@ -42,9 +42,9 @@
 
 ## 试用入口
 
-当前固定样板：`Game/Assets/DarkNights/Res/Terrain/StrataCave/ReferenceChamber.unity`；随机样板：同目录 `RandomCave.unity`。可直接 Play，A/D 行走、空格跳跃／背包、Tab 观察、左右键工作台挖掘／爆破；固定样板 R 重置，随机样板 R 换种子。`Style.asset` 引用独立 `Background.asset`，三层显示和 0–4 柔边修改后重建预览；一份活跃预览冻结其样式选项，不混用修改前后的页。
+当前固定样板：`Game/Assets/DarkNights/Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity`；随机样板：同目录 `RandomCave.unity`（2026-09-23 仅移动场景文件并保留 GUID）。可直接 Play，A/D 行走、空格跳跃／背包、Tab 观察、左右键工作台挖掘／爆破；固定样板 R 重置，随机样板 R 换种子。`Style.asset` 仍留在 `Res/Terrain/StrataCave/`，引用独立 `Background.asset`；三层显示和 0–4 柔边修改后重建预览；一份活跃预览冻结其样式选项，不混用修改前后的页。
 
-初批 `CaveContourStatic` 场景保留为旧前景＋新背景的技术对照，用户已指出其视觉不达标，不作为本次最终画面。
+初批 `CaveContourStatic` 场景是旧前景＋新背景的技术对照，用户已指出其视觉不达标，不作为本次最终画面。2026-09-23 场景本体连同原 `.meta` 移至 `Game/Assets/DarkNights/Res/Scenes/PendingDeletion/Terrain/CaveContourStatic.unity`，仅列为删除待定，未删除关联资源；详见[场景索引](SCENES.md)。
 
 正式远征模板持有独立候选样式和 AnyRuleD 定义。验证 Player 加 `--dn-contour-static` 同时选择两者；正常入口继续使用原风格，按输入方案保持切换／回退路径，未把候选风格自动变成正式默认。原人工源图保持。
 

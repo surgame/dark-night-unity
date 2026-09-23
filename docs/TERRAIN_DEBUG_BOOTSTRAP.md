@@ -4,7 +4,7 @@
 
 ## 打开与操作
 
-Unity 菜单选择 **Dark Nights / Debug / 打开随机地图 Bootstrap**，然后点击 Play。也可以直接打开 `Game/Assets/DarkNights/Res/Terrain/DebugBootstrap/TerrainDebugBootstrap.unity`。该场景不经过正式 Bootstrap、主菜单或 Ready，会自动生成地图并把观察角色放入入口洞室。
+Unity 菜单选择 **Dark Nights / Debug / 打开随机地图 Bootstrap**，然后点击 Play。当前也可以直接打开 `Game/Assets/DarkNights/Res/Scenes/Workbenches/Terrain/TerrainDebugBootstrap.unity`（2026-09-23 从原地形资源目录移动，GUID 保持）。该场景不经过正式 Bootstrap、主菜单或 Ready，会自动生成地图并把观察角色放入入口洞室。
 
 | 操作 | 效果 |
 |---|---|

@@ -20,12 +20,13 @@ namespace DarkNights.Editor.Terrain
     public static class TerrainPlayerBuild
     {
         public const string Root = TerrainTestAssets.Root + "/NetworkTest";
-        public const string ScenePath = Root + "/TerrainNetworkTest.unity";
+        public const string ScenePath = TerrainScenePaths.TerrainNetworkTest;
         [MenuItem("Dark Nights/Terrain/Create network test scene")]
         public static void Create()
         {
             if (Directory.Exists(Root)) throw new IOException("网络测试资产已存在。");
             Directory.CreateDirectory(Root); AssetDatabase.ImportAsset(Root);
+            Directory.CreateDirectory(TerrainScenePaths.Tests); AssetDatabase.ImportAsset(TerrainScenePaths.Tests);
             Scene original = SceneManager.GetActiveScene();
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
             try
@@ -68,7 +69,7 @@ namespace DarkNights.Editor.Terrain
                 PlayerSettings.SetPreloadedAssets(Array.Empty<UnityEngine.Object>());
                 Directory.CreateDirectory(Path.GetDirectoryName(output));
                 var result = BuildPipeline.BuildPlayer(new BuildPlayerOptions {
-                    scenes = scenes ?? new[] { ScenePath, TerrainTestAssets.Root + "/Maps/TerrainTest.unity" },
+                    scenes = scenes ?? new[] { ScenePath, TerrainScenePaths.TerrainTest },
                     locationPathName = output, target = BuildTarget.StandaloneWindows64, options = BuildOptions.Development });
                 File.WriteAllText(Path.Combine(Path.GetDirectoryName(output), "build-result.json"), "{\"result\":\"" + result.summary.result +
                     "\",\"bytes\":" + result.summary.totalSize + ",\"errors\":" + result.summary.totalErrors + "}");

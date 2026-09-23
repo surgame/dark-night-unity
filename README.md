@@ -4,7 +4,7 @@
 
 2026-09-22 本分支已接入[可步入远征飞船](docs/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。支持船内步行、唯一驾驶席、泊位附近试飞、搬运机器人与侦察机出舱归队；远征默认应用当前 StrataCave 岩层与三层背景。50 张原生素材导入检查 200/200，新增飞船／远征用例 24/24，同一 Mono 正常／弱网三进程各 28/28，Core 1048/1048；Editor 按影响合并 235/236，既有按钮主题 1 项失败留账。实际画面和本批证据见实现说明，不宣称全洞穴航行、异地降落、前台性能、IL2CPP 或双机器通过。
 
-2026-09-22 当前候选为[独立洞穴材质与三层背景](docs/STATIC_CAVE_BACKGROUND_EXECUTION.md)，分支 `codex/static-cave-background`，协议 **13**／存档 **v9**。`StrataCave/ReferenceChamber.unity` 是 HTML 同源固定样板，`RandomCave.unity` 验证随机地图；独立 AnyRuleD 规则、原生 8px 岩壁、圆形柔光和角色比例已接入。矿粒及矿光按用户要求暂时隐藏。正式远征以 `--dn-contour-static` 试用，原风格保持默认；结果及前台性能边界见本批记录，下方为历史切片。 外轮廓为独立可配置的六方案，当前 HybridB／OUTLINE-0921／3px／20px／2px、岩块 4px；仅修饰表现，权威碰撞保持原坡形。
+2026-09-22 当前候选为[独立洞穴材质与三层背景](docs/STATIC_CAVE_BACKGROUND_EXECUTION.md)，分支 `codex/static-cave-background`，协议 **13**／存档 **v9**。`Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` 是 HTML 同源固定样板，同目录 `RandomCave.unity` 验证随机地图（2026-09-23 仅整理场景路径，资产仍在 `Res/Terrain/StrataCave/`）；独立 AnyRuleD 规则、原生 8px 岩壁、圆形柔光和角色比例已接入。矿粒及矿光按用户要求暂时隐藏。正式远征以 `--dn-contour-static` 试用，原风格保持默认；结果及前台性能边界见本批记录，下方为历史切片。 外轮廓为独立可配置的六方案，当前 HybridB／OUTLINE-0921／3px／20px／2px、岩块 4px；仅修饰表现，权威碰撞保持原坡形。
 
 2026-09-21 当前切片为[远征营地 Demo 实施与快速验收](docs/archive/EXPEDITION_CAMP_DELIVERY.md)，分支 `codex/expedition-camp-plan`，协议 **12**／存档 **v8**。正式入口接入紧凑洞穴、背景墙矿物和透岩矿光、氧气与货袋、机器人四设备展开、矿工交货、风险撤收、原子结算与三种舱段成长。Editor 按影响合并 213/214 通过，1 项通用按钮主题用例留账，Mono 常规／弱网四进程各 35/35；完整证据、玩法简化和待验边界以交付记录为准，不将原[执行方案](docs/archive/EXPEDITION_CAMP_EXECUTION.md)中的完整性能及全路线门槛写成通过。
 
@@ -43,6 +43,7 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 | 要解决的问题 | 文档 |
 |---|---|
 | 当前合同、开发入口与近期切片 | [文档索引](docs/README.md) |
+| 场景位置、用途与入口 | [场景索引](docs/SCENES.md) |
 | 试玩与本机复跑 | [Player 指南](docs/PLAYER_GUIDE.md)、[Quick start](docs/QUICK_START.md) |
 | 状态归属、权限、存档与依赖 | [技术架构](docs/ARCHITECTURE.md)、[联机设计](docs/MULTIPLAYER.md)、[存档格式](docs/SAVE_FORMAT.md)、[依赖说明](docs/DEPENDENCIES.md) |
 | 历史迁移方案、框架评估、阶段验收与清理列账 | [历史文档索引](docs/archive/README.md) |

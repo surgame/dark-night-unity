@@ -40,9 +40,10 @@ namespace DarkNights.Editor.Terrain
 
         public static void CreateTestScene(TerrainMapAsset map, string path)
         {
-            if (map == null || !path.StartsWith("Assets/DarkNights/Res/Terrain/", StringComparison.Ordinal) ||
+            if (map == null || !path.StartsWith(TerrainScenePaths.Tests + "/", StringComparison.Ordinal) ||
                 path.Contains("..") || !path.EndsWith(".unity", StringComparison.Ordinal) || File.Exists(path))
-                throw new ArgumentException("只允许新的地形测试场景路径。");
+                throw new ArgumentException("只允许在统一测试场景目录创建新场景。");
+            Directory.CreateDirectory(Path.GetDirectoryName(path)); AssetDatabase.ImportAsset(Path.GetDirectoryName(path));
             Scene original = SceneManager.GetActiveScene();
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
             try
@@ -65,7 +66,7 @@ namespace DarkNights.Editor.Terrain
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(TerrainTestAssets.DefinitionPath);
             var map = Export(TerrainGenerator.Generate(new TerrainGenerationSettings()), definition,
                 TerrainTestAssets.Root + "/Maps/GreypineTest.asset");
-            CreateTestScene(map, TerrainTestAssets.Root + "/Maps/TerrainTest.unity");
+            CreateTestScene(map, TerrainScenePaths.TerrainTest);
         }
     }
 }
