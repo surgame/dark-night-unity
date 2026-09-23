@@ -65,6 +65,34 @@ namespace DarkNights.Tests
         }
 
         [Test]
+        public void MapEditRebuildsForegroundPagesAndKeepsFrozenBackground()
+        {
+            const string root = "Assets/DarkNights/Res/Terrain/StrataCave/";
+            var map = AssetDatabase.LoadAssetAtPath<TerrainMapAsset>(root + "ReferenceChamber.asset");
+            var style = AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>(root + "Style.asset");
+            var blueprint = map.ReadBlueprint(); var background = style.Background;
+            var original = blueprint.CopyMaterials(); var materials = (byte[])original.Clone();
+            var shapes = blueprint.CopyShapes();
+            var outline = style.CaptureOutline(); var foreground = style.CaptureModifiers();
+            var generator = background.CaptureGenerator(); var modifiers = background.CaptureModifiers();
+            var visible = new[] { background.Near, background.Middle, background.Deep };
+            var initial = TerrainStylePreviewBaker.BakeFullFrame(original, shapes, blueprint.Settings.Seed,
+                style.StoneSize, outline, foreground, generator, modifiers, visible, background.MiddleSoftness);
+            int cell = 60 * 320 + 31;
+            materials[cell] = original[cell] == 0 ? (byte)1 : (byte)0;
+            shapes[cell] = 0;
+            var changed = TerrainStylePreviewBaker.UpdateFrame(initial, materials, shapes, blueprint.Settings.Seed,
+                style.StoneSize, outline, foreground);
+            var expected = TerrainStylePreviewBaker.BakeFull(materials, shapes, blueprint.Settings.Seed,
+                style.StoneSize, outline, foreground, generator, modifiers, visible, background.MiddleSoftness,
+                backgroundMaterials: original, backgroundShapes: blueprint.CopyShapes());
+            Assert.That(changed.Background, Is.SameAs(initial.Background));
+            Assert.That(initial.Pixels.SequenceEqual(expected), Is.False);
+            Assert.That(changed.Pixels.SequenceEqual(expected), Is.True);
+            CollectionAssert.AreEqual(blueprint.CopyMaterials(), original);
+        }
+
+        [Test]
         public void ResetAndCancelLeaveOriginalParametersUntouched()
         {
             var original = ScriptableObject.CreateInstance<DownwardEdgeModifierAsset>();

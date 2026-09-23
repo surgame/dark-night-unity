@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using DarkNights.Core.Config.Terrain;
+using DarkNights.Core.Logic.Terrain;
 using DarkNights.View.Terrain;
 using UnityEditor;
 using UnityEngine;
@@ -19,7 +20,9 @@ namespace DarkNights.Editor.Terrain
         private readonly TerrainMapDraft mapDraft = new TerrainMapDraft();
         private readonly TerrainStylePreviewCanvas preview = new TerrainStylePreviewCanvas();
         private Texture2D image;
-        private Task<byte[]> job;
+        private Task<(byte[] Pixels, byte[] Background, byte[] Materials, byte[] Shapes, CaveMaskField Field)> job;
+        private (byte[] Pixels, byte[] Background, byte[] Materials, byte[] Shapes, CaveMaskField Field) frame;
+        private bool fullBakeNeeded = true, jobIsFull;
         private CancellationTokenSource cancellation;
         private string observed, status = "选择样板后生成预览。";
         private double due, nextRepaint, fpsStart, bakeStart;
@@ -28,14 +31,12 @@ namespace DarkNights.Editor.Terrain
         private byte fillMaterial = 1;
         private Vector2 scroll;
         private bool resizing;
-
         public static void Open()
         {
             var window = GetWindow<TerrainStylePreviewWindow>("Cave Wall Tuner");
             window.titleContent = new GUIContent("Cave Wall Tuner");
             window.minSize = new Vector2(800, 440);
         }
-
         private void OnEnable()
         {
             titleContent = new GUIContent("Cave Wall Tuner");
@@ -48,22 +49,19 @@ namespace DarkNights.Editor.Terrain
             EditorApplication.update += Tick;
             Invalidate();
         }
-
         private void OnDisable()
         {
             EditorApplication.update -= Tick;
-            preview.Stop(); resizing = false;
+            preview.Stop(); resizing = false; frame = default;
             cancellation?.Cancel();
             cancellation?.Dispose(); cancellation = null;
             drafts.Dispose();
             if (image != null) DestroyImmediate(image);
         }
-
         private void OnLostFocus()
         {
             preview.Stop(); resizing = false;
         }
-
         private void OnGUI()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)
@@ -81,7 +79,7 @@ namespace DarkNights.Editor.Terrain
             var panel = new Rect(0, 0, panelWidth, position.height);
             var canvas = new Rect(panelWidth + 4, 0, position.width - panelWidth - 4, position.height);
             preview.Input(canvas, image, (x, y) => mapDraft.Paint(x, y,
-                preview.ActiveTool == TerrainStylePreviewTool.Fill, fillMaterial), Invalidate);
+                preview.ActiveTool == TerrainStylePreviewTool.Fill, fillMaterial), InvalidateMap);
             EditorGUI.DrawRect(new Rect(panelWidth, 0, 4, position.height), new Color(.25f, .25f, .25f));
             EditorGUIUtility.AddCursorRect(new Rect(panelWidth - 3, 0, 10, position.height), MouseCursor.ResizeHorizontal);
             GUILayout.BeginArea(panel);
@@ -97,7 +95,6 @@ namespace DarkNights.Editor.Terrain
             preview.Draw(canvas, image, canvasFps, bakeMilliseconds,
                 job != null || !double.IsPositiveInfinity(due));
         }
-
         private void DrawControls()
         {
             EditorGUILayout.HelpBox("参数和地图格子先进入草稿；各自 Apply 后才写盘。预览不含动态灯光。", MessageType.Info);
@@ -108,7 +105,7 @@ namespace DarkNights.Editor.Terrain
                 else
                 {
                     map = selectedMap; mapDraft.Open(map);
-                    if (image != null) { DestroyImmediate(image); image = null; }
+                    if (image != null) { DestroyImmediate(image); image = null; frame = default; }
                     Invalidate();
                 }
             }
@@ -162,7 +159,6 @@ namespace DarkNights.Editor.Terrain
             }
             if (GUILayout.Button("重新烘焙")) Invalidate();
         }
-
         private void ApplyDrafts()
         {
             try
@@ -173,13 +169,11 @@ namespace DarkNights.Editor.Terrain
             }
             catch (Exception error) { status = "Apply 失败：" + error.Message; }
         }
-
         private void CancelDrafts()
         {
             drafts.Clear(); Invalidate();
             status = "草稿已丢弃，原资产未更改。";
         }
-
         private void ApplyMap()
         {
             try
@@ -190,7 +184,6 @@ namespace DarkNights.Editor.Terrain
             }
             catch (Exception error) { status = "应用地图失败：" + error.Message; }
         }
-
         private void HandleSplitter()
         {
             var input = Event.current;
@@ -202,15 +195,25 @@ namespace DarkNights.Editor.Terrain
             else if (input.type == EventType.MouseUp && resizing)
             { resizing = false; input.Use(); }
         }
-
         private void Invalidate()
         {
-            due = EditorApplication.timeSinceStartup + .4;
+            fullBakeNeeded = true;
+            ScheduleBake(.4);
+        }
+
+        private void InvalidateMap()
+        {
+            if (job != null && jobIsFull) fullBakeNeeded = true;
+            ScheduleBake(fullBakeNeeded ? .4 : .12);
+        }
+
+        private void ScheduleBake(double delay)
+        {
+            due = EditorApplication.timeSinceStartup + delay;
             cancellation?.Cancel();
             status = "参数已变化，等待重烘焙…";
             Repaint();
         }
-
         private void Tick()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) { cancellation?.Cancel(); return; }
@@ -229,12 +232,13 @@ namespace DarkNights.Editor.Terrain
                     var done = job; job = null;
                     if (!done.IsCanceled && !done.IsFaulted && cancellation != null && !cancellation.IsCancellationRequested)
                     {
-                        Present(done.Result);
+                        frame = done.Result;
+                        Present(frame.Pixels);
                         bakeMilliseconds = Mathf.RoundToInt((float)((now - bakeStart) * 1000));
                         status = "预览已更新（无动态灯光）。"; Repaint();
                     }
                     else if (done.IsFaulted && !(done.Exception.GetBaseException() is OperationCanceledException))
-                    { status = "烘焙失败：" + done.Exception.GetBaseException().Message; Repaint(); }
+                    { fullBakeNeeded |= jobIsFull; status = "烘焙失败：" + done.Exception.GetBaseException().Message; Repaint(); }
                 }
                 if (EditorApplication.timeSinceStartup < due || style == null || map == null) return;
                 due = double.PositiveInfinity;
@@ -264,15 +268,21 @@ namespace DarkNights.Editor.Terrain
                 int softness = background != null ? background.MiddleSoftness : 0;
                 int stone = working.StoneSize; string seed = blueprint.Settings.Seed;
                 bakeStart = now;
-                job = Task.Run(() => TerrainStylePreviewBaker.BakeFull(materials, shapes, seed, stone,
-                    outline, foreground, generator, modifiers, visible, softness, token.ThrowIfCancellationRequested,
-                    referenceMaterials, referenceShapes), token);
-                status = "正在烘焙完整初始地图…"; Repaint();
+                bool full = fullBakeNeeded || frame.Pixels == null;
+                var previous = frame;
+                jobIsFull = full;
+                job = Task.Run(() => full
+                    ? TerrainStylePreviewBaker.BakeFullFrame(materials, shapes, seed, stone, outline,
+                        foreground, generator, modifiers, visible, softness, token.ThrowIfCancellationRequested,
+                        referenceMaterials, referenceShapes)
+                    : TerrainStylePreviewBaker.UpdateFrame(previous, materials, shapes, seed, stone,
+                        outline, foreground, token.ThrowIfCancellationRequested), token);
+                fullBakeNeeded = false;
+                status = full ? "正在烘焙完整初始地图…" : "正在更新改动区域…"; Repaint();
             }
             catch (Exception error)
             { status = "预览失败：" + error.Message; due = double.PositiveInfinity; Repaint(); }
         }
-
         private void Present(byte[] rgba)
         {
             if (image == null) image = new Texture2D(TerrainStylePreviewBaker.WorldWidth, TerrainStylePreviewBaker.WorldHeight,

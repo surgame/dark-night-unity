@@ -108,10 +108,10 @@ namespace DarkNights.Editor.Terrain
             string action = ActiveTool == TerrainStylePreviewTool.Pan ? "左键拖拽平移" :
                 ActiveTool == TerrainStylePreviewTool.Dig ? "左键单击或拖动拆格" : "左键单击或拖动填格";
             GUI.Box(new Rect(8, 8, Mathf.Min(canvas.width - 16, 335), 42),
-                "画布刷新 " + fps + " FPS · 全图烘焙 " + bakeMilliseconds + " ms\n" +
+                "画布刷新 " + fps + " FPS · 最近刷新 " + bakeMilliseconds + " ms\n" +
                 action + " · 中键平移 · 滚轮缩放");
             if (pending) GUI.Label(new Rect(8, canvas.height - 30, canvas.width - 16, 22),
-                "完整画面更新中…", EditorStyles.whiteLabel);
+                "画面更新中…", EditorStyles.whiteLabel);
             GUI.EndGroup();
         }
 
