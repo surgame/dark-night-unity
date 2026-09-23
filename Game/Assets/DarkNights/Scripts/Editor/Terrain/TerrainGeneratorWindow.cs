@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DarkNights.Editor.Terrain
 {
-    /// <summary>地图生成工作台；显式预览和新资产导出，参数变化不触发生成、网络或玩家存档访问。</summary>
+    /// <summary>旧版地图生成工作台；显式预览和新资产导出，参数变化不触发生成、网络或玩家存档访问。</summary>
     public sealed class TerrainGeneratorWindow : EditorWindow
     {
         private TerrainGenerationSettings settings = new TerrainGenerationSettings();
@@ -16,14 +16,14 @@ namespace DarkNights.Editor.Terrain
         private Texture2D preview;
         private string status = "生成预览后可导出新地图。";
         private Vector2 scroll;
-        [MenuItem("Dark Nights/Terrain/Map generator")]
-        public static void Open() => GetWindow<TerrainGeneratorWindow>("地图生成器");
+        [MenuItem("Dark Nights/Terrain/Map generator（旧版）")]
+        public static void Open() => GetWindow<TerrainGeneratorWindow>("地图生成器（旧版）");
         private void OnEnable() { definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(TerrainTestAssets.DefinitionPath); }
         private void OnDisable() { if (preview != null) DestroyImmediate(preview); }
 
         private void OnGUI()
         {
-            EditorGUILayout.LabelField("地图生成 · DualGrid / AnyRuleD", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("地图生成（旧版）· DualGrid / AnyRuleD", EditorStyles.boldLabel);
             EditorGUILayout.HelpBox("320×192 逻辑格。地形破坏归服务端；本工具只创建初始地图。预览使用材料色，Play 场景使用真实 AnyRuleD。", MessageType.Info);
             settings.Seed = EditorGUILayout.TextField("种子", settings.Seed);
             settings.Surface = TerrainGenerationSettings.SurfaceNames[EditorGUILayout.Popup("地表算法",

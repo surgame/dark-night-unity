@@ -20,13 +20,19 @@ namespace DarkNights.Editor.Terrain
         private Task<byte[]> job;
         private CancellationTokenSource cancellation;
         private string observed, status = "选择样板后生成预览。";
-        private double due;
+        private double due, nextRepaint, fpsStart, bakeStart;
+        private int frames, canvasFps, bakeMilliseconds, jobLeft, jobTop, imageLeft, imageTop;
         private int left = 316, top = 284;
         private float zoom = 1;
-        private Vector2 scroll;
+        private Vector2 scroll, canvasOffset;
+        private bool panning;
 
         [MenuItem("Dark Nights/Terrain/岩壁实时预览（编辑态）")]
-        public static void Open() => GetWindow<TerrainStylePreviewWindow>("岩壁调参");
+        public static void Open()
+        {
+            var window = GetWindow<TerrainStylePreviewWindow>("岩壁实时预览");
+            window.minSize = new Vector2(780, 440);
+        }
 
         private void OnEnable()
         {
@@ -40,16 +46,46 @@ namespace DarkNights.Editor.Terrain
         private void OnDisable()
         {
             EditorApplication.update -= Tick;
+            panning = false;
             cancellation?.Cancel();
             cancellation?.Dispose(); cancellation = null;
             if (inspector != null) DestroyImmediate(inspector);
             if (image != null) DestroyImmediate(image);
         }
 
+        private void OnLostFocus()
+        {
+            if (!panning) return;
+            panning = false;
+            Recenter();
+        }
+
         private void OnGUI()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)
             { EditorGUILayout.HelpBox("请先退出 Play；编辑态预览不会在运行场景中改写资产。", MessageType.Warning); return; }
+            if (Event.current.type == EventType.Repaint)
+            {
+                frames++;
+                double now = EditorApplication.timeSinceStartup;
+                if (fpsStart == 0) fpsStart = now;
+                if (now - fpsStart >= 1)
+                { canvasFps = Mathf.RoundToInt((float)(frames / (now - fpsStart))); frames = 0; fpsStart = now; }
+            }
+            float panelWidth = Mathf.Min(390, Mathf.Max(340, position.width * .42f));
+            var panel = new Rect(0, 0, panelWidth, position.height);
+            var canvas = new Rect(panelWidth + 1, 0, position.width - panelWidth - 1, position.height);
+            EditorGUI.DrawRect(new Rect(panelWidth, 0, 1, position.height), new Color(.13f, .13f, .13f));
+            GUILayout.BeginArea(panel);
+            scroll = EditorGUILayout.BeginScrollView(scroll);
+            DrawControls();
+            EditorGUILayout.EndScrollView();
+            GUILayout.EndArea();
+            DrawCanvas(canvas);
+        }
+
+        private void DrawControls()
+        {
             EditorGUILayout.HelpBox("直接编辑原有共享资产；停止调整约 0.4 秒后自动烘焙。不进入 Play、不写场景。预览为初始地形的无动态灯光材质合成，底墙简化；最终画面仍以 Play 为准。", MessageType.Info);
             EditorGUI.BeginChangeCheck();
             map = (TerrainMapAsset)EditorGUILayout.ObjectField("固定地图", map, typeof(TerrainMapAsset), false);
@@ -57,7 +93,8 @@ namespace DarkNights.Editor.Terrain
             left = EditorGUILayout.IntSlider("预览左边（原生 px）", left, 0, 2560 - TerrainStylePreviewBaker.Width);
             top = EditorGUILayout.IntSlider("预览上边（原生 px）", top, 0, 1536 - TerrainStylePreviewBaker.Height);
             if (EditorGUI.EndChangeCheck()) Invalidate();
-            zoom = EditorGUILayout.Slider("显示倍率", zoom, 1, 3);
+            float requestedZoom = EditorGUILayout.Slider("显示倍率", zoom, .5f, 8);
+            if (!Mathf.Approximately(requestedZoom, zoom)) SetZoom(requestedZoom, Vector2.zero, false);
 
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
@@ -90,10 +127,65 @@ namespace DarkNights.Editor.Terrain
             }
             EditorGUILayout.LabelField(status, EditorStyles.wordWrappedMiniLabel);
             if (GUILayout.Button("重新烘焙")) Invalidate();
+        }
+
+        private void DrawCanvas(Rect canvas)
+        {
+            EditorGUI.DrawRect(canvas, new Color(.12f, .13f, .15f));
+            HandleCanvasInput(canvas);
+            GUI.BeginGroup(canvas);
+            if (image != null)
+            {
+                var center = new Vector2(canvas.width * .5f, canvas.height * .5f) + canvasOffset;
+                var bounds = new Rect(center.x - image.width * zoom * .5f,
+                    center.y - image.height * zoom * .5f, image.width * zoom, image.height * zoom);
+                GUI.DrawTexture(bounds, image, ScaleMode.StretchToFill, false);
+            }
+            else GUI.Label(new Rect(16, 38, canvas.width - 32, 40), "等待岩壁预览…", EditorStyles.whiteLabel);
+            GUI.Box(new Rect(8, 8, Mathf.Min(canvas.width - 16, 310), 42),
+                "画布刷新 " + canvasFps + " FPS · 上次烘焙 " + bakeMilliseconds + " ms\n中键拖拽平移 · 滚轮围绕光标缩放");
+            GUI.EndGroup();
+        }
+
+        private void HandleCanvasInput(Rect canvas)
+        {
+            var input = Event.current;
+            if (input.type == EventType.MouseDown && input.button == 2 && canvas.Contains(input.mousePosition))
+            { panning = true; input.Use(); }
+            else if (input.type == EventType.MouseDrag && input.button == 2 && panning)
+            { canvasOffset += input.delta; input.Use(); Repaint(); }
+            else if (input.type == EventType.MouseUp && input.button == 2 && panning)
+            {
+                panning = false;
+                Recenter();
+                input.Use();
+            }
+            else if (input.type == EventType.ScrollWheel && canvas.Contains(input.mousePosition))
+            {
+                var pivot = input.mousePosition - canvas.center;
+                SetZoom(zoom * Mathf.Pow(1.1f, -input.delta.y), pivot, true);
+                input.Use();
+            }
+        }
+
+        private void SetZoom(float requested, Vector2 pivot, bool anchored)
+        {
+            float previous = zoom;
+            zoom = Mathf.Clamp(requested, .5f, 8);
+            if (anchored && !Mathf.Approximately(previous, zoom))
+                canvasOffset = pivot + (canvasOffset - pivot) * (zoom / previous);
+            Repaint();
+        }
+
+        private void Recenter()
+        {
             if (image == null) return;
-            scroll = EditorGUILayout.BeginScrollView(scroll);
-            GUILayout.Label(image, GUILayout.Width(image.width * zoom), GUILayout.Height(image.height * zoom));
-            EditorGUILayout.EndScrollView();
+            int nextLeft = Mathf.Clamp(Mathf.RoundToInt(imageLeft - canvasOffset.x / zoom), 0,
+                2560 - TerrainStylePreviewBaker.Width);
+            int nextTop = Mathf.Clamp(Mathf.RoundToInt(imageTop - canvasOffset.y / zoom), 0,
+                1536 - TerrainStylePreviewBaker.Height);
+            if (left != nextLeft || top != nextTop)
+            { left = nextLeft; top = nextTop; Invalidate(); }
         }
 
         private void AssetButtons(string name, CaveModifierAsset[] assets)
@@ -122,6 +214,8 @@ namespace DarkNights.Editor.Terrain
         private void Tick()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) { cancellation?.Cancel(); return; }
+            double now = EditorApplication.timeSinceStartup;
+            if (now >= nextRepaint) { nextRepaint = now + 1.0 / 30; Repaint(); }
             try
             {
                 string current = style == null || map == null ? "none" :
@@ -132,9 +226,18 @@ namespace DarkNights.Editor.Terrain
                 if (job != null)
                 {
                     if (!job.IsCompleted) return;
+                    if (panning) return;
                     var done = job; job = null;
                     if (!done.IsCanceled && !done.IsFaulted && cancellation != null && !cancellation.IsCancellationRequested)
-                    { Present(done.Result); status = "预览已更新（无动态灯光）。"; Repaint(); }
+                    {
+                        bool hadImage = image != null;
+                        int imageLeftBefore = imageLeft, imageTopBefore = imageTop;
+                        Present(done.Result); imageLeft = jobLeft; imageTop = jobTop;
+                        if (hadImage) canvasOffset += new Vector2((jobLeft - imageLeftBefore) * zoom,
+                            (jobTop - imageTopBefore) * zoom);
+                        bakeMilliseconds = Mathf.RoundToInt((float)((now - bakeStart) * 1000));
+                        status = "预览已更新（无动态灯光）。"; Repaint();
+                    }
                     else if (done.IsFaulted && !(done.Exception.GetBaseException() is OperationCanceledException))
                     { status = "烘焙失败：" + done.Exception.GetBaseException().Message; Repaint(); }
                 }
@@ -158,6 +261,7 @@ namespace DarkNights.Editor.Terrain
                     ? new[] { background.Near, background.Middle, background.Deep } : new bool[3];
                 int softness = background != null ? background.MiddleSoftness : 0;
                 int x = left, y = top, stone = style.StoneSize; string seed = blueprint.Settings.Seed;
+                jobLeft = x; jobTop = y; bakeStart = now;
                 job = Task.Run(() => TerrainStylePreviewBaker.Bake(materials, shapes, seed, x, y, stone,
                     outline, foreground, generator, modifiers, visible, softness, token.ThrowIfCancellationRequested), token);
                 status = "正在从初始地图计算轮廓与三层背景…"; Repaint();
