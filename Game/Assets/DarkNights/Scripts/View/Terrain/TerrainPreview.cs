@@ -17,10 +17,12 @@ namespace DarkNights.View.Terrain
         private ARDMapController controller;
         private CancellationTokenSource lifetime;
         private TerrainReplicaSource replicaSource;
+        private ITerrainChunkChangeSource changeSource;
         private GridBounds visible;
         private bool localCoordinates;
         private bool refreshingReplica;
         private readonly HashSet<ChunkCoord> pendingReplicaChunks = new HashSet<ChunkCoord>();
+        public int VisualRevision { get; private set; }
         public long BuiltPages => controller?.Renderer.CommittedBuilds ?? 0;
         public int BackgroundBuildCount => caveSource?.BackgroundBuildCount ?? 0;
         public int RockBuildCount => caveSource?.RockBuildCount ?? 0;
@@ -38,6 +40,7 @@ namespace DarkNights.View.Terrain
         {
             if (lifetime != null) throw new InvalidOperationException("每个预览只接收一份世界。");
             replicaSource = source as TerrainReplicaSource;
+            changeSource = source as ITerrainChunkChangeSource;
             localCoordinates = true;
             var own = lifetime = new CancellationTokenSource();
             try
@@ -48,11 +51,13 @@ namespace DarkNights.View.Terrain
                     autoUpdate: false, maximumInitializationCells: 131072, chunkSource: source, parent: transform, world: world, profile: CaveProfile()), own.Token);
                 if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
                 controller = result;
+                if (changeSource != null) changeSource.Changed += OnReplicaChanged;
                 await result.LoadRegionAsync(result.Descriptor.Bounds, own.Token);
                 if (own.IsCancellationRequested) return;
-                if (replicaSource != null) replicaSource.Changed += OnReplicaChanged;
                 caveSource?.Flush();
                 UpdateVisible();
+                VisualRevision++;
+                if (pendingReplicaChunks.Count != 0) StartReplicaRefresh();
             }
             catch (OperationCanceledException) { }
             catch (Exception error) { LastError = error; Debug.LogException(error, this); }
@@ -71,7 +76,8 @@ namespace DarkNights.View.Terrain
         }
 
         public async void ShowBlueprint(AnyRules.Next.Authoring.ARDMapDefinition definition,
-            DarkNights.Core.Config.Terrain.TerrainBlueprint blueprint)
+            DarkNights.Core.Config.Terrain.TerrainBlueprint blueprint, IMapChunkSource input = null,
+            DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null)
         {
             if (lifetime != null) throw new InvalidOperationException("每个预览只接收一份蓝图；重新生成须替换预览实例。");
             localCoordinates = true;
@@ -79,10 +85,12 @@ namespace DarkNights.View.Terrain
             try
             {
                 var catalog = definition.LoadGameplayCatalog();
-                IMapChunkSource source = new TerrainBlueprintSource(blueprint, catalog.Tiles);
+                input = input ?? new TerrainBlueprintSource(blueprint, catalog.Tiles);
+                changeSource = input as ITerrainChunkChangeSource;
+                IMapChunkSource source = input;
                 if (CaveStyle != null)
                 {
-                    var reference = new DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor(Guid.NewGuid().ToString("N"),
+                    reference = reference ?? new DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor(Guid.NewGuid().ToString("N"),
                         blueprint.Settings.Seed, blueprint.CopyMaterials(), blueprint.CopyShapes());
                     caveSource = new CaveVisualSource(source, CaveStyle, catalog.Tiles, transform, reference); source = caveSource;
                 }
@@ -92,10 +100,13 @@ namespace DarkNights.View.Terrain
                         maximumInitializationCells: 131072, chunkSource: source, parent: transform, profile: CaveProfile()), own.Token);
                 if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
                 controller = result;
+                if (changeSource != null) changeSource.Changed += OnReplicaChanged;
                 await result.LoadRegionAsync(result.Descriptor.Bounds, own.Token);
                 if (own.IsCancellationRequested) return;
                 caveSource?.Flush();
                 UpdateVisible();
+                VisualRevision++;
+                if (pendingReplicaChunks.Count != 0) StartReplicaRefresh();
             }
             catch (OperationCanceledException) { }
             catch (Exception e) { LastError = e; Debug.LogException(e, this); }
@@ -103,15 +114,24 @@ namespace DarkNights.View.Terrain
 
         private RenderProfile CaveProfile() => caveSource == null ? null : new RenderProfile(defaultMaterial: caveSource.Material);
 
-        private void Update()
+        private void Update() => TickPresentation();
+
+        /// <summary>供编辑器离屏宿主驱动与运行时 Update 相同的地形、岩壁和背景分页刷新。</summary>
+        public void TickFromEditor() => TickPresentation();
+
+        private void TickPresentation()
         {
+            int rockBefore = RockBuildCount, backgroundBefore = BackgroundBuildCount;
+            long pagesBefore = BuiltPages;
             try { caveSource?.TickBackground(); }
             catch (Exception error) { LastError = error; Debug.LogException(error, this); }
+            if (rockBefore != RockBuildCount || backgroundBefore != BackgroundBuildCount) VisualRevision++;
             if (controller == null || LastError != null || refreshingReplica) return;
             UpdateVisible();
             if (pendingReplicaChunks.Count != 0) StartReplicaRefresh();
             var renderer = controller.Renderer;
             if (renderer.QueueCount != 0 || renderer.InFlightCount != 0 || renderer.CommittedBuilds == 0) controller.Tick();
+            if (pagesBefore != BuiltPages) VisualRevision++;
         }
 
         private void UpdateVisible()
@@ -156,6 +176,7 @@ namespace DarkNights.View.Terrain
             if (changedChunks == null || changedChunks.Count == 0) return;
             LastChangedChunkCount = changedChunks.Count;
             foreach (var chunk in changedChunks) pendingReplicaChunks.Add(chunk);
+            VisualRevision++;
             StartReplicaRefresh();
         }
 
@@ -182,14 +203,14 @@ namespace DarkNights.View.Terrain
                         await controller.UnloadRegionAsync(inside, MapUnloadPolicy.DiscardUnsaved, own.Token);
                         await controller.LoadRegionAsync(inside, own.Token);
                     }
-                    if (!own.IsCancellationRequested) { caveSource?.Flush(); controller.ShowRegion(visible); }
+                    if (!own.IsCancellationRequested) { caveSource?.Flush(); controller.ShowRegion(visible); VisualRevision++; }
                 }
             }
             catch (OperationCanceledException) { }
             catch (Exception error) { LastError = error; Debug.LogException(error, this); }
             finally
             {
-                refreshingReplica = false;
+                refreshingReplica = false; VisualRevision++;
                 if (pendingReplicaChunks.Count != 0 && lifetime == own && !own.IsCancellationRequested)
                     StartReplicaRefresh();
             }
@@ -224,7 +245,8 @@ namespace DarkNights.View.Terrain
 
         private async void OnDisable()
         {
-            if (replicaSource != null) { replicaSource.Changed -= OnReplicaChanged; replicaSource = null; }
+            if (changeSource != null) { changeSource.Changed -= OnReplicaChanged; changeSource = null; }
+            replicaSource = null;
             lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null; refreshingReplica = false; pendingReplicaChunks.Clear();
             var old = controller; controller = null; visible = default;
             if (old != null) await old.DisposeAsync();

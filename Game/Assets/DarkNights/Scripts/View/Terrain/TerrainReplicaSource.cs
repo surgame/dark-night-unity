@@ -8,7 +8,7 @@ using AnyRules.Next.Unity;
 namespace DarkNights.View.Terrain
 {
     /// <summary>把已经原子提交的网络只读格子复制为本地页面输入；所有渲染区块标记只读，不生成地图或开放编辑能力。</summary>
-    public sealed class TerrainReplicaSource : IMapChunkSource
+    public sealed class TerrainReplicaSource : ITerrainChunkChangeSource
     {
         private readonly IReadOnlyGrid source;
         private readonly Dictionary<ChunkCoord, ulong> fingerprints = new Dictionary<ChunkCoord, ulong>();

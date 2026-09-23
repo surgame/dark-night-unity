@@ -1,6 +1,6 @@
 # Dark Nights · Unity
 
-2026-09-24 [地形 Modifier 与可插拔点缀层进度](docs/TERRAIN_MODIFIERS_PROGRESS.md)：下坠岩齿／花菜圆簇已接入主工程，前景及三个背景层可分别配置，点缀生成器可替换。编辑态入口为 `Dark Nights / Terrain / Cave Wall Tuner`，支持全图异步预览、样式资产草稿及初始地图的平移／拆／填与网格显示；地图和样式分别显式应用或取消。本次窗口改动的 Unity 回归状态见切片记录。此前相关 Editor 48/48、固定／随机样板 Play 通过；本批 Mono 构建、联机及前台性能尚未验证。
+2026-09-24 [地形 Modifier 与可插拔点缀层进度](docs/TERRAIN_MODIFIERS_PROGRESS.md)：下坠岩齿／花菜圆簇已接入主工程，前景及三个背景层可分别配置，点缀生成器可替换。`Cave Wall Tuner` 保留样式与地图草稿 Apply／Cancel、拆填和网格；预览仅在空白离屏宿主中渲染当前地图，共用正式 `TerrainPreview`、AnyRuleD、`CaveVisualSource` 和 Cave shader，不加载正式游戏场景或角色。静态 C# 定向编译与架构守卫通过；最新相机隔离修改后的 Unity Editor 编译、EditMode 与画面对照待验。Modifier 轮廓在运行时与编辑器共用整幅重算，前台性能不据此宣称通过。
 
 2026-09-22 本分支已接入[可步入远征飞船](docs/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。支持船内步行、唯一驾驶席、泊位附近试飞、搬运机器人与侦察机出舱归队；远征默认应用当前 StrataCave 岩层与三层背景。50 张原生素材导入检查 200/200，新增飞船／远征用例 24/24，同一 Mono 正常／弱网三进程各 28/28，Core 1048/1048；Editor 按影响合并 235/236，既有按钮主题 1 项失败留账。实际画面和本批证据见实现说明，不宣称全洞穴航行、异地降落、前台性能、IL2CPP 或双机器通过。
 

@@ -8,7 +8,7 @@ namespace DarkNights.Editor.Terrain
     public sealed class TerrainStylePreviewCanvas
     {
         public TerrainStylePreviewTool ActiveTool { get; set; }
-        public bool ShowGrid { get; set; }
+        public bool ShowGrid { get; set; } = true;
         public float Zoom { get; private set; } = 1;
         private Vector2 offset;
         private Vector2Int? hover, previous;
@@ -25,7 +25,7 @@ namespace DarkNights.Editor.Terrain
                 offset = pivot + (offset - pivot) * (Zoom / old);
         }
 
-        public void Input(Rect canvas, Texture2D image, Func<int, int, bool> paint, Action changed)
+        public void Input(Rect canvas, Texture image, Func<int, int, bool> paint, Action changed)
         {
             var input = Event.current;
             bool inside = canvas.Contains(input.mousePosition);
@@ -77,7 +77,7 @@ namespace DarkNights.Editor.Terrain
             if (edited) changed();
         }
 
-        private Rect ImageBounds(Rect canvas, Texture2D image)
+        private Rect ImageBounds(Rect canvas, Texture image)
         {
             float scale = Mathf.Min(canvas.width / image.width, canvas.height / image.height) * Zoom;
             var center = new Vector2(canvas.width * .5f, canvas.height * .5f) + offset;
@@ -85,7 +85,7 @@ namespace DarkNights.Editor.Terrain
                 center.y - image.height * scale * .5f, image.width * scale, image.height * scale);
         }
 
-        private Vector2Int? CellAt(Vector2 mouse, Rect canvas, Texture2D image)
+        private Vector2Int? CellAt(Vector2 mouse, Rect canvas, Texture image)
         {
             Rect bounds = ImageBounds(canvas, image);
             float x = mouse.x - canvas.x - bounds.x, y = mouse.y - canvas.y - bounds.y;
@@ -94,7 +94,7 @@ namespace DarkNights.Editor.Terrain
                 Mathf.FloorToInt(y / bounds.height * image.height / 8));
         }
 
-        public void Draw(Rect canvas, Texture2D image, int fps, int bakeMilliseconds, bool pending)
+        public void Draw(Rect canvas, Texture image, int fps, int renderMilliseconds, bool pending)
         {
             EditorGUI.DrawRect(canvas, new Color(.12f, .13f, .15f));
             GUI.BeginGroup(canvas);
@@ -108,14 +108,14 @@ namespace DarkNights.Editor.Terrain
             string action = ActiveTool == TerrainStylePreviewTool.Pan ? "左键拖拽平移" :
                 ActiveTool == TerrainStylePreviewTool.Dig ? "左键单击或拖动拆格" : "左键单击或拖动填格";
             GUI.Box(new Rect(8, 8, Mathf.Min(canvas.width - 16, 335), 42),
-                "画布刷新 " + fps + " FPS · 最近刷新 " + bakeMilliseconds + " ms\n" +
+                "预览画布 " + fps + " FPS · 最近相机渲染 " + renderMilliseconds + " ms\n" +
                 action + " · 中键平移 · 滚轮缩放");
             if (pending) GUI.Label(new Rect(8, canvas.height - 30, canvas.width - 16, 22),
                 "画面更新中…", EditorStyles.whiteLabel);
             GUI.EndGroup();
         }
 
-        private void DrawOverlay(Rect bounds, Texture2D image)
+        private void DrawOverlay(Rect bounds, Texture image)
         {
             float step = bounds.width * 8 / image.width;
             if (ShowGrid)

@@ -1,12 +1,15 @@
 using System;
+using System.Collections;
 using System.IO;
 using System.Linq;
+using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.Terrain;
 using DarkNights.Editor.Terrain;
 using DarkNights.View.Terrain;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace DarkNights.Tests
 {
@@ -221,6 +224,48 @@ namespace DarkNights.Tests
                 Assert.That(map.ReadBlueprint().MaterialAt(x, y), Is.EqualTo(1));
             }
             finally { AssetDatabase.DeleteAsset(folder); }
+        }
+
+        [UnityTest]
+        public IEnumerator RuntimeStageRendersAndRefreshesEditableMapChunks()
+        {
+            const string root = "Assets/DarkNights/Res/Terrain/StrataCave/";
+            var map = AssetDatabase.LoadAssetAtPath<TerrainMapAsset>(root + "ReferenceChamber.asset");
+            var style = AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>(root + "Style.asset");
+            var blueprint = map.ReadBlueprint(); var materials = blueprint.CopyMaterials(); var shapes = blueprint.CopyShapes();
+            byte[] originalAsset = map.InitialCells.bytes.ToArray();
+            var reference = new BackgroundBakeDescriptor(Guid.NewGuid().ToString("N"), blueprint.Settings.Seed,
+                blueprint.CopyMaterials(), blueprint.CopyShapes());
+            var drafts = new TerrainStyleDrafts(); var stage = new TerrainStylePreviewStage();
+            try
+            {
+                stage.Open(map, blueprint, style, drafts, materials, shapes, reference);
+                for (int frame = 0; frame < 3000 && !stage.Ready && stage.Error == null; frame++)
+                { stage.Tick(); yield return null; }
+                Assert.That(stage.Error, Is.Null);
+                Assert.That(stage.Ready, Is.True, "Runtime terrain, rock and background pages did not settle.");
+                Assert.That(stage.Image, Is.TypeOf<RenderTexture>());
+
+                int changedCell = -1;
+                for (int y = 24; y < blueprint.Height - 24 && changedCell < 0; y++)
+                    for (int x = 24; x < blueprint.Width - 24; x++)
+                        if (!blueprint.IsProtected(x, y) && blueprint.MaterialAt(x, y) != 8)
+                        { changedCell = y * blueprint.Width + x; break; }
+                Assert.That(changedCell, Is.GreaterThanOrEqualTo(0));
+                materials[changedCell] = materials[changedCell] == 0 ? (byte)1 : (byte)0;
+                shapes[changedCell] = 0;
+                int rockBuilds = stage.RockBuildCount; long refreshes = stage.RefreshBatchCount;
+                stage.Source.ReplaceCells(materials, shapes);
+                for (int frame = 0; frame < 3000 &&
+                    (stage.RefreshBatchCount == refreshes || stage.RockBuildCount == rockBuilds) && stage.Error == null; frame++)
+                { stage.Tick(); yield return null; }
+                Assert.That(stage.Error, Is.Null);
+                Assert.That(stage.LastChangedChunkCount, Is.GreaterThan(0));
+                Assert.That(stage.RefreshBatchCount, Is.GreaterThan(refreshes));
+                Assert.That(stage.RockBuildCount, Is.GreaterThan(rockBuilds));
+                CollectionAssert.AreEqual(originalAsset, map.InitialCells.bytes);
+            }
+            finally { stage.Dispose(); drafts.Dispose(); }
         }
     }
 }
