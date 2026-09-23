@@ -28,7 +28,25 @@
 
 H5 锚点采用全局优先级选取，不能在每页独立求解。开启前景 modifier 时，后台先生成同一份完整轮廓，再供各页着色。编辑后重新求解完整轮廓，并比较新旧掩码及岩粒字段；差异扩展 25px 材质距离场范围，只有受影响页面重烘焙。连续输入合并到最新版本，旧结果不发布。空栈继续原有局部分页路径。
 
-这里仍有明确成本：每次有效前景编辑会重新计算完整 modifier 轮廓，圆簇还需要完整距离场和岩粒字段。当前不是局部增量锚点算法；CPU 峰值、内存峰值、连续采矿负载和前台帧时仍待测量。
+这里仍有明确成本：每次有效前景编辑会重新计算完整 modifier 轮廓，圆簇还需要完整距离场和岩粒字段。当前不是局部增量锚点算法。下方有纯算法微基准；Unity 端到端耗时、峰值内存、连续输入负载和前台帧时仍待测量。
+
+### 2026-09-24 拆填刷新微基准
+
+输入为固定 `ReferenceChamber.cells.bytes`（320×192 格、61,440 格），输出表现尺寸为 2,560×1,536 像素、3,932,160 像素；配置与当前 `StrataCave/Style.asset` 一致：HybridB 轮廓和活动的 RoundedRock（8／20／3／90／65，岩粒开启）。Core 算法取自 Unity 已编译的 `DarkNights.Core.dll`，由 .NET 8 Stopwatch 调用。多次进程复测结果：
+
+| 阶段 | 测得时间 | 范围与边界 |
+| --- | ---: | --- |
+| 基础外轮廓（不含 Modifier） | 196–198 ms | 完整 2,560×1,536 输出 |
+| 基础外轮廓 + RoundedRock 完整烘焙 | 281–286 ms | 单格变化仍完整重算；比基础轮廓多约 85 ms |
+| 新旧掩码／岩粒字段比较 | 39–132 ms | 全量比较 3,932,160 像素；不同进程离散较大，视为范围而非稳定值 |
+| 单格变化命中的 4 张岩壁页 | 46–47 ms | 四页顺序烘焙的 CPU 总时间，不含 Unity 上传和逐帧调度 |
+| 运行时副本变化检测 | 2.8–3.1 ms | 70 个 Chunk、71,680 个采样；CaveWallTuner 不走此哈希检测路径 |
+
+最大已测阶段是 `CaveRockGeometry.Tick` 启动的 `CaveModifiedTerrain.Bake`：每次变化将 61,440 个逻辑格换成整张 393 万像素轮廓和 Modifier 结果。接着 `CaveMaskChanges.DirtyPages` 又扫描整张新旧结果，最后才重烘焙受影响页。仅这些算法阶段合计约 366–464 ms，**不是**实际输入到屏幕的端到端延迟；Unity `UnloadRegionAsync`／`LoadRegionAsync`、AnyRuleD `controller.Tick`、`Texture2D.Apply`／`Graphics.CopyTexture`、Tuner 的 2,560×1,536 `Camera.Render` 和帧间等待均未由该微基准计时。动态光约 1.8 ms 是带 `Mathf` 替身的托管估算，也不是 Unity/GPU 计时。
+
+这解释了“格子链路已经提交、画面仍慢一拍”：AnyRuleD 可刷新逻辑区块，但前景 `CaveStrata` shader 从 `_RockSurface` 取墙面并按其 alpha 裁剪；活动 Modifier 时，最终可见岩面要等完整轮廓、全量差异比较和页面上传。计算运行在后台，不等于画面能立即显示新墙。连续笔触会增加几何 revision；旧任务不会因 revision 改变而中止，完成后结果被丢弃，再启动最新 revision 的整图烘焙，因此笔触期间可能持续看到上一版。
+
+运行时若使用 Expedition 场景当前绑定的 `StrataCave/Style.asset`，也会经过相同 `CaveRockGeometry` 算法；`TerrainReplicaSource.NotifyChanged` 额外的约 3 ms 扫描不是主要耗时。Tuner 直接由 `TerrainBlueprintSource` 通知变化区块，避免了这项运行时哈希扫描。编辑器另外使用整图离屏 `Camera.Render`，所以本结果不能证明 Editor 与 Player 的端到端帧时相同。微基准源码和产物已归档在 `artifacts/待清理/20260924-cave-wall-refresh-benchmark/`，供复核；正式游戏代码没有加入临时计时脚本。
 
 ## 策划／美术入口
 
