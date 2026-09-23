@@ -32,6 +32,10 @@ H5 锚点采用全局优先级选取，不能在每页独立求解。开启前�
 
 ## 策划／美术入口
 
+编辑态调参窗口：Unity 菜单 **Dark Nights / Terrain / 岩壁实时预览（编辑态）**。默认读取固定样板 `ReferenceChamber.asset` 和现有 `Style.asset`；窗口内可打开样式、背景、点缀生成器及当前各层 Modifier 的原资产 Inspector。参数停止变化约 0.4 秒后后台重新烘焙 504×312 原生像素局部画面，也可调整取景原点、放大倍率或手动重烘焙。连续变化取消旧结果，不运行 Play、不保存场景、不改地图格子、网络或存档。**这是无动态灯光的材质预览，底墙为简化颜色；角色、光照及最终合成仍须在 Play 核对。** 窗口编辑的是共享资产，保存后会影响引用相同样式的固定样板、随机样板和远征；如需独立实验先复制资产并重新指定引用。窗口不覆盖旧的场景静态预览图，也不自动导出 PNG。
+
+2026-09-23 编辑态窗口新增后，Unity 脚本编译、Core 构建及 ArchitectureGuard 通过；定向 `TerrainStylePreviewTests` 已提交，但共享 Editor 正处于 Play／测试场景恢复冲突，Test Runner 未得到可用结果，已请求取消本次测试任务。此项和窗口实际拖动观察仍待退出 Play 后验收；不把编译通过写成视觉或 Editor 测试通过。
+
 资源目录：`Game/Assets/DarkNights/Res/Terrain/StrataCave/`。
 
 | 资源 | 用途 |
