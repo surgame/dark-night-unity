@@ -8,33 +8,36 @@ using UnityEngine;
 
 namespace DarkNights.Editor.Terrain
 {
-    /// <summary>编辑态岩壁调参窗口；仅捕获现有资产的只读副本异步生成预览，不启动 Play、保存场景或改动游戏接口。</summary>
+    /// <summary>Cave Wall Tuner 编辑窗口；草稿参数异步烘焙完整地图，只在 Apply 时提交原资产。</summary>
     public sealed class TerrainStylePreviewWindow : EditorWindow
     {
         private const string Root = "Assets/DarkNights/Res/Terrain/StrataCave/";
         private TerrainMapAsset map;
         private CaveTerrainStyle style;
-        private UnityEngine.Object inspected;
-        private UnityEditor.Editor inspector;
+        private ScriptableObject inspected;
+        private readonly TerrainStyleDrafts drafts = new TerrainStyleDrafts();
         private Texture2D image;
         private Task<byte[]> job;
         private CancellationTokenSource cancellation;
         private string observed, status = "选择样板后生成预览。";
         private double due, nextRepaint, fpsStart, bakeStart;
-        private int frames, canvasFps, bakeMilliseconds, jobLeft, jobTop, imageLeft, imageTop;
-        private int left = 316, top = 284;
+        private int frames, canvasFps, bakeMilliseconds;
+        private float panelWidth = 440;
         private float zoom = 1;
         private Vector2 scroll, canvasOffset;
-        private bool panning;
+        private bool panning, resizing;
 
         public static void Open()
         {
-            var window = GetWindow<TerrainStylePreviewWindow>("岩壁实时预览");
-            window.minSize = new Vector2(780, 440);
+            var window = GetWindow<TerrainStylePreviewWindow>("Cave Wall Tuner");
+            window.titleContent = new GUIContent("Cave Wall Tuner");
+            window.minSize = new Vector2(800, 440);
         }
 
         private void OnEnable()
         {
+            titleContent = new GUIContent("Cave Wall Tuner");
+            zoom = 1; canvasOffset = Vector2.zero;
             map = AssetDatabase.LoadAssetAtPath<TerrainMapAsset>(Root + "ReferenceChamber.asset");
             style = AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>(Root + "Style.asset");
             inspected = style;
@@ -45,18 +48,16 @@ namespace DarkNights.Editor.Terrain
         private void OnDisable()
         {
             EditorApplication.update -= Tick;
-            panning = false;
+            panning = false; resizing = false;
             cancellation?.Cancel();
             cancellation?.Dispose(); cancellation = null;
-            if (inspector != null) DestroyImmediate(inspector);
+            drafts.Dispose();
             if (image != null) DestroyImmediate(image);
         }
 
         private void OnLostFocus()
         {
-            if (!panning) return;
-            panning = false;
-            Recenter();
+            panning = false; resizing = false;
         }
 
         private void OnGUI()
@@ -71,13 +72,20 @@ namespace DarkNights.Editor.Terrain
                 if (now - fpsStart >= 1)
                 { canvasFps = Mathf.RoundToInt((float)(frames / (now - fpsStart))); frames = 0; fpsStart = now; }
             }
-            float panelWidth = Mathf.Min(390, Mathf.Max(340, position.width * .42f));
+            HandleSplitter();
+            panelWidth = Mathf.Clamp(panelWidth, 390, position.width - 320);
             var panel = new Rect(0, 0, panelWidth, position.height);
-            var canvas = new Rect(panelWidth + 1, 0, position.width - panelWidth - 1, position.height);
-            EditorGUI.DrawRect(new Rect(panelWidth, 0, 1, position.height), new Color(.13f, .13f, .13f));
+            var canvas = new Rect(panelWidth + 4, 0, position.width - panelWidth - 4, position.height);
+            EditorGUI.DrawRect(new Rect(panelWidth, 0, 4, position.height), new Color(.25f, .25f, .25f));
+            EditorGUIUtility.AddCursorRect(new Rect(panelWidth - 3, 0, 10, position.height), MouseCursor.ResizeHorizontal);
             GUILayout.BeginArea(panel);
-            scroll = EditorGUILayout.BeginScrollView(scroll);
+            scroll = EditorGUILayout.BeginScrollView(scroll, false, false, GUIStyle.none, GUI.skin.verticalScrollbar, GUIStyle.none);
+            float labelWidth = EditorGUIUtility.labelWidth;
+            EditorGUIUtility.labelWidth = 120;
+            GUILayout.BeginVertical(GUILayout.Width(panel.width - 22));
             DrawControls();
+            GUILayout.EndVertical();
+            EditorGUIUtility.labelWidth = labelWidth;
             EditorGUILayout.EndScrollView();
             GUILayout.EndArea();
             DrawCanvas(canvas);
@@ -85,47 +93,64 @@ namespace DarkNights.Editor.Terrain
 
         private void DrawControls()
         {
-            EditorGUILayout.HelpBox("直接编辑原有共享资产；停止调整约 0.4 秒后自动烘焙。不进入 Play、不写场景。预览为初始地形的无动态灯光材质合成，底墙简化；最终画面仍以 Play 为准。", MessageType.Info);
-            EditorGUI.BeginChangeCheck();
-            map = (TerrainMapAsset)EditorGUILayout.ObjectField("固定地图", map, typeof(TerrainMapAsset), false);
-            style = (CaveTerrainStyle)EditorGUILayout.ObjectField("岩壁样式", style, typeof(CaveTerrainStyle), false);
-            left = EditorGUILayout.IntSlider("预览左边（原生 px）", left, 0, 2560 - TerrainStylePreviewBaker.Width);
-            top = EditorGUILayout.IntSlider("预览上边（原生 px）", top, 0, 1536 - TerrainStylePreviewBaker.Height);
-            if (EditorGUI.EndChangeCheck()) Invalidate();
+            EditorGUILayout.HelpBox("参数先进入草稿；Apply 写回共享资产，Cancel 丢弃。预览不含动态灯光。", MessageType.Info);
+            var selectedMap = (TerrainMapAsset)EditorGUILayout.ObjectField("固定地图", map, typeof(TerrainMapAsset), false);
+            if (selectedMap != map) { map = selectedMap; Invalidate(); }
+            var selectedStyle = (CaveTerrainStyle)EditorGUILayout.ObjectField("岩壁样式", style, typeof(CaveTerrainStyle), false);
+            if (selectedStyle != style)
+            {
+                if (drafts.HasChanges) status = "先 Apply 或 Cancel 当前草稿，再切换样式。";
+                else { drafts.Clear(); style = selectedStyle; inspected = style; Invalidate(); }
+            }
             float requestedZoom = EditorGUILayout.Slider("显示倍率", zoom, .5f, 8);
             if (!Mathf.Approximately(requestedZoom, zoom)) SetZoom(requestedZoom, Vector2.zero, false);
+            if (GUILayout.Button("适配画布")) { zoom = 1; canvasOffset = Vector2.zero; Repaint(); }
 
             EditorGUILayout.Space();
-            EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button("岩壁/外轮廓")) Inspect(style);
-            if (GUILayout.Button("三层背景")) Inspect(style != null ? style.Background : null);
-            if (GUILayout.Button("点缀生成器")) Inspect(style != null && style.Background != null ? style.Background.Generator : null);
-            EditorGUILayout.EndHorizontal();
-            EditorGUILayout.BeginHorizontal();
-            if (style != null) AssetButtons("前景", style.Modifiers);
-            if (style != null && style.Background != null)
-            {
-                AssetButtons("近层", style.Background.NearModifiers);
-                AssetButtons("中层", style.Background.MiddleModifiers);
-                AssetButtons("深层", style.Background.DeepModifiers);
-            }
-            EditorGUILayout.EndHorizontal();
+            inspected = drafts.ChooseAsset(style, inspected);
             EditorGUILayout.LabelField("当前编辑", EditorStyles.boldLabel);
-            EditorGUI.BeginChangeCheck();
-            var target = EditorGUILayout.ObjectField(inspected, typeof(UnityEngine.Object), false);
-            if (EditorGUI.EndChangeCheck()) Inspect(target);
+            using (new EditorGUI.DisabledScope(true))
+                EditorGUILayout.ObjectField("原资产", inspected, typeof(ScriptableObject), false);
             if (inspected != null)
-            {
-                UnityEditor.Editor.CreateCachedEditor(inspected, null, ref inspector);
-                if (inspector != null)
-                {
-                    EditorGUI.BeginChangeCheck();
-                    inspector.OnInspectorGUI();
-                    if (EditorGUI.EndChangeCheck()) Invalidate();
-                }
-            }
+                drafts.DrawInspector(inspected, Invalidate);
             EditorGUILayout.LabelField(status, EditorStyles.wordWrappedMiniLabel);
+            using (new EditorGUI.DisabledScope(!drafts.HasChanges))
+            {
+                EditorGUILayout.BeginHorizontal();
+                if (GUILayout.Button("Apply")) ApplyDrafts();
+                if (GUILayout.Button("Cancel")) CancelDrafts();
+                EditorGUILayout.EndHorizontal();
+            }
             if (GUILayout.Button("重新烘焙")) Invalidate();
+        }
+
+        private void ApplyDrafts()
+        {
+            try
+            {
+                int count = drafts.Apply();
+                drafts.Clear(); Invalidate();
+                status = count + " 个资产已应用。";
+            }
+            catch (Exception error) { status = "Apply 失败：" + error.Message; }
+        }
+
+        private void CancelDrafts()
+        {
+            drafts.Clear(); Invalidate();
+            status = "草稿已丢弃，原资产未更改。";
+        }
+
+        private void HandleSplitter()
+        {
+            var input = Event.current;
+            if (input.type == EventType.MouseDown && input.button == 0 &&
+                Mathf.Abs(input.mousePosition.x - panelWidth) <= 5)
+            { resizing = true; input.Use(); }
+            else if (input.type == EventType.MouseDrag && resizing)
+            { panelWidth = Mathf.Clamp(input.mousePosition.x, 390, position.width - 320); input.Use(); Repaint(); }
+            else if (input.type == EventType.MouseUp && resizing)
+            { resizing = false; input.Use(); }
         }
 
         private void DrawCanvas(Rect canvas)
@@ -136,13 +161,15 @@ namespace DarkNights.Editor.Terrain
             if (image != null)
             {
                 var center = new Vector2(canvas.width * .5f, canvas.height * .5f) + canvasOffset;
-                var bounds = new Rect(center.x - image.width * zoom * .5f,
-                    center.y - image.height * zoom * .5f, image.width * zoom, image.height * zoom);
+                float scale = Mathf.Min(canvas.width / image.width, canvas.height / image.height) * zoom;
+                var bounds = new Rect(center.x - image.width * scale * .5f,
+                    center.y - image.height * scale * .5f, image.width * scale, image.height * scale);
                 GUI.DrawTexture(bounds, image, ScaleMode.StretchToFill, false);
             }
-            else GUI.Label(new Rect(16, 38, canvas.width - 32, 40), "等待岩壁预览…", EditorStyles.whiteLabel);
+            else GUI.Label(new Rect(16, 38, canvas.width - 32, 40), "正在生成完整画面…", EditorStyles.whiteLabel);
             GUI.Box(new Rect(8, 8, Mathf.Min(canvas.width - 16, 310), 42),
-                "画布刷新 " + canvasFps + " FPS · 上次烘焙 " + bakeMilliseconds + " ms\n中键拖拽平移 · 滚轮围绕光标缩放");
+                "画布刷新 " + canvasFps + " FPS · 全图烘焙 " + bakeMilliseconds + " ms\n中键拖拽平移 · 滚轮围绕光标缩放");
+            if (job != null || !double.IsPositiveInfinity(due)) GUI.Label(new Rect(8, canvas.height - 30, canvas.width - 16, 22), "完整画面更新中…", EditorStyles.whiteLabel);
             GUI.EndGroup();
         }
 
@@ -156,7 +183,6 @@ namespace DarkNights.Editor.Terrain
             else if (input.type == EventType.MouseUp && input.button == 2 && panning)
             {
                 panning = false;
-                Recenter();
                 input.Use();
             }
             else if (input.type == EventType.ScrollWheel && canvas.Contains(input.mousePosition))
@@ -174,32 +200,6 @@ namespace DarkNights.Editor.Terrain
             if (anchored && !Mathf.Approximately(previous, zoom))
                 canvasOffset = pivot + (canvasOffset - pivot) * (zoom / previous);
             Repaint();
-        }
-
-        private void Recenter()
-        {
-            if (image == null) return;
-            int nextLeft = Mathf.Clamp(Mathf.RoundToInt(imageLeft - canvasOffset.x / zoom), 0,
-                2560 - TerrainStylePreviewBaker.Width);
-            int nextTop = Mathf.Clamp(Mathf.RoundToInt(imageTop - canvasOffset.y / zoom), 0,
-                1536 - TerrainStylePreviewBaker.Height);
-            if (left != nextLeft || top != nextTop)
-            { left = nextLeft; top = nextTop; Invalidate(); }
-        }
-
-        private void AssetButtons(string name, CaveModifierAsset[] assets)
-        {
-            if (assets == null) return;
-            for (int i = 0; i < assets.Length; i++)
-                if (assets[i] != null && GUILayout.Button(name + ": " + assets[i].name)) Inspect(assets[i]);
-        }
-
-        private void Inspect(UnityEngine.Object asset)
-        {
-            if (inspected == asset) return;
-            inspected = asset;
-            if (inspector != null) DestroyImmediate(inspector);
-            inspector = null;
         }
 
         private void Invalidate()
@@ -220,20 +220,15 @@ namespace DarkNights.Editor.Terrain
                 string current = style == null || map == null ? "none" :
                     style.VisualIdentity + "|" + AssetDatabase.GetAssetPath(map) + "|" +
                     (map.InitialCells != null ? AssetDatabase.GetAssetDependencyHash(AssetDatabase.GetAssetPath(map.InitialCells)).ToString() : "none") +
-                    "|" + map.Settings?.Seed + "|" + left + "|" + top;
+                    "|" + map.Settings?.Seed;
                 if (current != observed) { observed = current; Invalidate(); }
                 if (job != null)
                 {
                     if (!job.IsCompleted) return;
-                    if (panning) return;
                     var done = job; job = null;
                     if (!done.IsCanceled && !done.IsFaulted && cancellation != null && !cancellation.IsCancellationRequested)
                     {
-                        bool hadImage = image != null;
-                        int imageLeftBefore = imageLeft, imageTopBefore = imageTop;
-                        Present(done.Result); imageLeft = jobLeft; imageTop = jobTop;
-                        if (hadImage) canvasOffset += new Vector2((jobLeft - imageLeftBefore) * zoom,
-                            (jobTop - imageTopBefore) * zoom);
+                        Present(done.Result);
                         bakeMilliseconds = Mathf.RoundToInt((float)((now - bakeStart) * 1000));
                         status = "预览已更新（无动态灯光）。"; Repaint();
                     }
@@ -242,28 +237,32 @@ namespace DarkNights.Editor.Terrain
                 }
                 if (EditorApplication.timeSinceStartup < due || style == null || map == null) return;
                 due = double.PositiveInfinity;
-                if (!style.ProceduralRock) { status = "仅支持程序岩壁样式；请选择 StrataCave/Style.asset。"; Repaint(); return; }
-                if (style.Background != null && style.Background.ContourStatic &&
-                    style.Background.ContentHash != BackgroundBakeDescriptor.StyleContentHash)
+                var working = drafts.Draft(style);
+                var background = drafts.Draft(working.Background);
+                if (!working.ProceduralRock) { status = "仅支持程序岩壁样式；请选择 StrataCave/Style.asset。"; Repaint(); return; }
+                if (background != null && background.ContourStatic &&
+                    background.ContentHash != BackgroundBakeDescriptor.StyleContentHash)
                     throw new InvalidOperationException("背景样式内容身份不匹配。");
                 cancellation?.Dispose(); cancellation = new CancellationTokenSource();
                 var token = cancellation.Token;
                 var blueprint = map.ReadBlueprint();
                 var materials = blueprint.CopyMaterials(); var shapes = blueprint.CopyShapes();
-                var foreground = style.CaptureModifiers(); var outline = style.CaptureOutline();
-                var background = style.Background;
-                var generator = background != null ? background.CaptureGenerator() : new DarkNights.Core.Logic.Terrain.ContourBackgroundGenerator();
-                var modifiers = background != null ? background.CaptureModifiers() : new[] {
+                var foreground = drafts.Capture(working.Modifiers); var outline = working.CaptureOutline();
+                var generator = background != null && background.Generator != null
+                    ? drafts.Draft(background.Generator).Capture() : new DarkNights.Core.Logic.Terrain.ContourBackgroundGenerator();
+                var modifiers = background != null ? new[] {
+                    drafts.Capture(background.NearModifiers), drafts.Capture(background.MiddleModifiers),
+                    drafts.Capture(background.DeepModifiers) } : new[] {
                     DarkNights.Core.Logic.Terrain.CaveModifierStack.Empty, DarkNights.Core.Logic.Terrain.CaveModifierStack.Empty,
                     DarkNights.Core.Logic.Terrain.CaveModifierStack.Empty };
                 var visible = background != null && background.ContourStatic
                     ? new[] { background.Near, background.Middle, background.Deep } : new bool[3];
                 int softness = background != null ? background.MiddleSoftness : 0;
-                int x = left, y = top, stone = style.StoneSize; string seed = blueprint.Settings.Seed;
-                jobLeft = x; jobTop = y; bakeStart = now;
-                job = Task.Run(() => TerrainStylePreviewBaker.Bake(materials, shapes, seed, x, y, stone,
+                int stone = working.StoneSize; string seed = blueprint.Settings.Seed;
+                bakeStart = now;
+                job = Task.Run(() => TerrainStylePreviewBaker.BakeFull(materials, shapes, seed, stone,
                     outline, foreground, generator, modifiers, visible, softness, token.ThrowIfCancellationRequested), token);
-                status = "正在从初始地图计算轮廓与三层背景…"; Repaint();
+                status = "正在烘焙完整初始地图…"; Repaint();
             }
             catch (Exception error)
             { status = "预览失败：" + error.Message; due = double.PositiveInfinity; Repaint(); }
@@ -271,7 +270,7 @@ namespace DarkNights.Editor.Terrain
 
         private void Present(byte[] rgba)
         {
-            if (image == null) image = new Texture2D(TerrainStylePreviewBaker.Width, TerrainStylePreviewBaker.Height,
+            if (image == null) image = new Texture2D(TerrainStylePreviewBaker.WorldWidth, TerrainStylePreviewBaker.WorldHeight,
                 TextureFormat.RGBA32, false, false) { filterMode = FilterMode.Point, hideFlags = HideFlags.HideAndDontSave };
             var pixels = new Color32[image.width * image.height];
             for (int y = 0; y < image.height; y++) for (int x = 0; x < image.width; x++)

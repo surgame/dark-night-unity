@@ -71,7 +71,7 @@ namespace DarkNights.Editor
         private static void OpenCaveExploration() => CaveExplorationSetup.Open();
         [MenuItem(Root + "Terrain/Map generator（旧版）")]
         private static void OpenLegacyTerrainGenerator() => TerrainGeneratorWindow.Open();
-        [MenuItem(Root + "Terrain/岩壁实时预览（编辑态）")]
+        [MenuItem(Root + "Terrain/Cave Wall Tuner")]
         private static void OpenTerrainPreview() => TerrainStylePreviewWindow.Open();
         [MenuItem(Root + "Terrain/Create initial test tiles")]
         private static void CreateTestTiles() => TerrainTestAssets.Create();

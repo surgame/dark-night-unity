@@ -1,13 +1,16 @@
+using System;
+using System.IO;
 using System.Linq;
 using DarkNights.Core.Logic.Terrain;
 using DarkNights.Editor.Terrain;
 using DarkNights.View.Terrain;
 using NUnit.Framework;
 using UnityEditor;
+using UnityEngine;
 
 namespace DarkNights.Tests
 {
-    /// <summary>编辑态预览只读回归；直接从固定地图和共享配置捕获参数，确认不同背景选择改变画面而不写回源资产。</summary>
+    /// <summary>编辑态全图预览与草稿事务回归；确认参数修改在 Apply 前不写回源资产。</summary>
     public sealed class TerrainStylePreviewTests
     {
         [Test]
@@ -31,6 +34,107 @@ namespace DarkNights.Tests
             Assert.That(withBackground.SequenceEqual(withoutBackground), Is.False);
             CollectionAssert.AreEqual(original, map.InitialCells.bytes);
             Assert.That(style.VisualIdentity, Is.EqualTo(identity));
+        }
+
+        [Test]
+        public void FullPreviewContainsTheSamePixelsAsLocalBake()
+        {
+            const string root = "Assets/DarkNights/Res/Terrain/StrataCave/";
+            var map = AssetDatabase.LoadAssetAtPath<TerrainMapAsset>(root + "ReferenceChamber.asset");
+            var style = AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>(root + "Style.asset");
+            Assert.That(map, Is.Not.Null); Assert.That(style, Is.Not.Null);
+            var blueprint = map.ReadBlueprint(); var background = style.Background;
+            var materials = blueprint.CopyMaterials(); var shapes = blueprint.CopyShapes();
+            var visible = new[] { background.Near, background.Middle, background.Deep };
+            var outline = style.CaptureOutline(); var foreground = style.CaptureModifiers();
+            var generator = background.CaptureGenerator(); var modifiers = background.CaptureModifiers();
+            byte[] full = TerrainStylePreviewBaker.BakeFull(materials, shapes, blueprint.Settings.Seed,
+                style.StoneSize, outline, foreground, generator, modifiers, visible, background.MiddleSoftness);
+            byte[] local = TerrainStylePreviewBaker.Bake(materials, shapes, blueprint.Settings.Seed,
+                316, 284, style.StoneSize, outline, foreground, generator, modifiers, visible, background.MiddleSoftness);
+            Assert.That(full.Length, Is.EqualTo(TerrainStylePreviewBaker.WorldWidth * TerrainStylePreviewBaker.WorldHeight * 4));
+            for (int y = 0; y < TerrainStylePreviewBaker.Height; y++)
+                for (int x = 0; x < TerrainStylePreviewBaker.Width; x++)
+                {
+                    int source = (y * TerrainStylePreviewBaker.Width + x) * 4;
+                    int destination = ((y + 284) * TerrainStylePreviewBaker.WorldWidth + x + 316) * 4;
+                    for (int channel = 0; channel < 4; channel++)
+                        if (full[destination + channel] != local[source + channel])
+                            Assert.Fail("Pixel {0},{1} channel {2} differs", x, y, channel);
+                }
+        }
+
+        [Test]
+        public void ResetAndCancelLeaveOriginalParametersUntouched()
+        {
+            var original = ScriptableObject.CreateInstance<DownwardEdgeModifierAsset>();
+            var style = ScriptableObject.CreateInstance<CaveTerrainStyle>();
+            style.Modifiers = new CaveModifierAsset[] { original };
+            using (var drafts = new TerrainStyleDrafts())
+            {
+                try
+                {
+                    var working = drafts.Draft(original);
+                    var workingStyle = drafts.Draft(style);
+                    Assert.That(drafts.Draft(original), Is.SameAs(working));
+                    working.Length = 12; working.Density = 45;
+                    workingStyle.Modifiers = Array.Empty<CaveModifierAsset>();
+                    Assert.That(drafts.HasChanges, Is.True);
+                    Assert.That(original.Length, Is.EqualTo(7));
+                    Assert.That(original.Density, Is.EqualTo(100));
+                    Assert.That(drafts.Reset(original, "Length"), Is.True);
+                    Assert.That(working.Length, Is.EqualTo(7));
+                    Assert.That(working.Density, Is.EqualTo(45));
+                    Assert.That(drafts.Reset(style, "Modifiers"), Is.True);
+                    Assert.That(workingStyle.Modifiers, Is.EquivalentTo(new[] { original }));
+                    drafts.Clear();
+                    Assert.That(original.Length, Is.EqualTo(7));
+                    Assert.That(original.Density, Is.EqualTo(100));
+                    Assert.That(style.Modifiers, Is.EquivalentTo(new[] { original }));
+                }
+                finally
+                {
+                    UnityEngine.Object.DestroyImmediate(style);
+                    UnityEngine.Object.DestroyImmediate(original);
+                }
+            }
+        }
+
+        [Test]
+        public void ApplyWritesOnlyAfterConfirmationAndRejectsExternalConflicts()
+        {
+            string folder = "Assets/CaveWallTunerTests-" + Guid.NewGuid().ToString("N");
+            Assert.That(AssetDatabase.CreateFolder("Assets", Path.GetFileName(folder)), Is.Not.Empty);
+            try
+            {
+                string firstPath = folder + "/first.asset", secondPath = folder + "/second.asset";
+                var first = ScriptableObject.CreateInstance<DownwardEdgeModifierAsset>();
+                var second = ScriptableObject.CreateInstance<DownwardEdgeModifierAsset>();
+                AssetDatabase.CreateAsset(first, firstPath);
+                AssetDatabase.CreateAsset(second, secondPath);
+                string diskPath = Path.Combine(Path.GetDirectoryName(Application.dataPath), firstPath);
+                byte[] before = File.ReadAllBytes(diskPath);
+                using (var drafts = new TerrainStyleDrafts())
+                {
+                    drafts.Draft(first).Length = 11;
+                    drafts.Draft(second).Length = 12;
+                    CollectionAssert.AreEqual(before, File.ReadAllBytes(diskPath));
+                    var external = new SerializedObject(second);
+                    external.FindProperty("Length").intValue = 13;
+                    external.ApplyModifiedPropertiesWithoutUndo();
+                    Assert.Throws<InvalidOperationException>(() => drafts.Apply());
+                    Assert.That(first.Length, Is.EqualTo(7));
+                    CollectionAssert.AreEqual(before, File.ReadAllBytes(diskPath));
+                    external.Update();
+                    external.FindProperty("Length").intValue = 7;
+                    external.ApplyModifiedPropertiesWithoutUndo();
+                    Assert.That(drafts.Apply(), Is.EqualTo(2));
+                    Assert.That(first.Length, Is.EqualTo(11));
+                    Assert.That(second.Length, Is.EqualTo(12));
+                    CollectionAssert.AreNotEqual(before, File.ReadAllBytes(diskPath));
+                }
+            }
+            finally { AssetDatabase.DeleteAsset(folder); }
         }
     }
 }
