@@ -77,6 +77,8 @@ namespace DarkNights.Tests
                     var working = drafts.Draft(original);
                     var workingStyle = drafts.Draft(style);
                     Assert.That(drafts.Draft(original), Is.SameAs(working));
+                    Assert.That(working.hideFlags & HideFlags.NotEditable, Is.EqualTo(HideFlags.None));
+                    Assert.That(working.hideFlags & HideFlags.DontSaveInEditor, Is.Not.EqualTo(HideFlags.None));
                     working.Length = 12; working.Density = 45;
                     workingStyle.Modifiers = Array.Empty<CaveModifierAsset>();
                     Assert.That(drafts.HasChanges, Is.True);

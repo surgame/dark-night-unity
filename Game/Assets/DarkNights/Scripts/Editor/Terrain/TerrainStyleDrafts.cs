@@ -19,8 +19,8 @@ namespace DarkNights.Editor.Terrain
             if (!entries.TryGetValue(source, out var entry))
             {
                 entry = (UnityEngine.Object.Instantiate(source), UnityEngine.Object.Instantiate(source));
-                entry.Draft.hideFlags = HideFlags.HideAndDontSave;
-                entry.Baseline.hideFlags = HideFlags.HideAndDontSave;
+                entry.Draft.hideFlags = HideFlags.DontSave;
+                entry.Baseline.hideFlags = HideFlags.DontSave;
                 entries.Add(source, entry);
             }
             return (T)entry.Draft;

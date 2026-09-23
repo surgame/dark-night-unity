@@ -52,6 +52,8 @@ H5 锚点采用全局优先级选取，不能在每页独立求解。开启前�
 
 2026-09-23 本次最终源码检查：窗口／草稿／全图烘焙器及四个 `TerrainStylePreviewTests` 方法均通过定向 C# 9 编译；ArchitectureGuard **490 文件／12 自测／0 错误**，`git diff --check` 无误。Unity 曾在改动途中重新编译 Editor 和 Tests 程序集并显示全图预览及 Apply／Cancel；最后一次源码修改之后尚未取得 Test Runner 的有效结果，**全图像素一致性、Reset 数组、Apply 写盘／冲突与最终窗口视觉操作仍待 Unity 实跑**。外部整工程 `dotnet build` 的 Unity 包 `PassesData.cs` 错误不算本批脚本编译通过或失败的证据；定向编译只验证源码及已引用 API，不等于 Unity 运行验收。
 
+2026-09-23 交互回归修复：草稿副本原用的 `HideAndDontSave` 含 `NotEditable`，导致参数 Inspector 禁用；改用不保存但可编辑的 `DontSave`。画布输入改在左侧滚动面板绘制前处理，避免滚轮及中键事件先被面板消费。当前打开的 Unity Editor 已重新编译，`TerrainStylePreviewTests` **4/4 通过**（含全图像素、Reset／Cancel 和 Apply／冲突）；窗口实操确认 Stone Size 改值后预览更新、滚轮放大及 Cancel 还原。中键拖拽的代码路径已核对，但本次自动鼠标接口不能发送中键拖拽，实际手势仍待人工确认；此项不扩展为 Player 性能或最终画面验收。
+
 资源目录：`Game/Assets/DarkNights/Res/Terrain/StrataCave/`。
 
 | 资源 | 用途 |

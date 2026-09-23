@@ -76,6 +76,7 @@ namespace DarkNights.Editor.Terrain
             panelWidth = Mathf.Clamp(panelWidth, 390, position.width - 320);
             var panel = new Rect(0, 0, panelWidth, position.height);
             var canvas = new Rect(panelWidth + 4, 0, position.width - panelWidth - 4, position.height);
+            HandleCanvasInput(canvas);
             EditorGUI.DrawRect(new Rect(panelWidth, 0, 4, position.height), new Color(.25f, .25f, .25f));
             EditorGUIUtility.AddCursorRect(new Rect(panelWidth - 3, 0, 10, position.height), MouseCursor.ResizeHorizontal);
             GUILayout.BeginArea(panel);
@@ -156,7 +157,6 @@ namespace DarkNights.Editor.Terrain
         private void DrawCanvas(Rect canvas)
         {
             EditorGUI.DrawRect(canvas, new Color(.12f, .13f, .15f));
-            HandleCanvasInput(canvas);
             GUI.BeginGroup(canvas);
             if (image != null)
             {
