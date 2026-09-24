@@ -33,5 +33,6 @@
   "canonicalCompare": {"sourceCommit": "b239df6", "dotNetPassed": 129, "dotNetTotal": 129, "statusesTested": ["Matched", "Different", "Incomplete"], "standaloneHostOne": "D:/Developer/YYGC-worktrees/map-state-networking/AnyRuleD~/Evidence/MapState/20260924-211506-3986ed88/results.json", "standaloneBlackoutFour": "D:/Developer/YYGC-worktrees/map-state-networking/AnyRuleD~/Evidence/MapState/20260924-211510-3075d9bb/results.json"},
   "mixedPlayer": {"status": "FAIL_BEFORE_MAP_STREAM", "oldClient": "artifacts/terrain-modifiers/player-mono/DarkNights.exe", "newHost": "artifacts/map-state/player-mono-20260924-211842-938cc86a/DarkNights.exe", "reason": "YYGC DefinitionNetworkAuthenticator rejected type table mismatch", "result": "artifacts/map-fix/terrain-loop-20260924-212955-459/result.json"},
   "independentPluginSample": "D:/Developer/YYGC-worktrees/map-state-networking/AnyRuleD~/Evidence/MapState/map-state-20260924-summary.json",
+  "userDecision": {"il2cpp": "not in this round, explicitly declined"},
   "notRun": ["IL2CPP", "dual-machine LAN", "foreground performance", "successful old/new Player mixed-version connection", "remote Player debugger bridge", "Editor canonical diff interaction", "long-duration latency/GC percentiles"]
 }

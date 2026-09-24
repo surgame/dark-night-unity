@@ -24,6 +24,6 @@
 - 游戏的 Unity 6000.4.9f1 Editor 编译与当前锁 Terrain 定向 41/41；全量 Editor 在上一锁 255/259，旧包路径断言已修正并定向 2/2，仍有两个旧场景对象数断言及既有按钮主题失败。当前锁 `b239df6` 的同一 Mono Player 在正常与真实 UDP 弱网三进程下各 28/28，v10 地图编辑循环正常与弱网各 15/15，覆盖授权挖掘、局部刷新、晚加入、重连与写盘重启；真实 UDP 弱网共记录丢包与乱序。身份、结果文件和未验项见[本轮证据](evidence/map-state-networking-2026-09-24.json)。
 - 基线 `artifacts/terrain-modifiers/player-mono` 作为旧客户端接入当前锁 Host 的实测在 YYGC 定义握手阶段被“类型表不同”拒绝，未进入 AMP1 地图流；旧完整 Delta／新稀疏 Delta 的协议向量通过，不能代替真实新旧 Player 混连。
 - 正式运行不注册调试操作端点。Editor/Development 会话使用有界只读诊断；调试编辑仍须经过游戏业务命令授权。
-- 当前未构建 IL2CPP；需要用户另行明确授权。前台性能与双机器验收也未完成。
+- 用户明确选择本轮不构建或验证 IL2CPP，状态为 NOT_RUN。前台性能与双机器验收也未完成。
 
 本轮依赖文件、提交、验证结果及回退步骤在[YYGC 改动账本](YYGC_CHANGES.md)中继续记录。任何包路径或锁 SHA 变化后，先重建 `.deps`，再进行 Unity 编译与 Player 验收。
