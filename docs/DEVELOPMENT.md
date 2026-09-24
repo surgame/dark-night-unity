@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-25 [局部地形即时刷新](IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)在 `ft-20260925-immediate-terrain-refresh` 形成隔离候选：AnyRuleD Core 138/138；LocalV2 独立全图/分页遮罩、岩粒和最终 RGBA 对照 10 组通过。默认 LegacyV1 保持不变，V1/V2 画面门槛、Unity 导入/编译、运行时与性能仍未验；不得称填拆延迟已解决。游戏包锁尚未切到候选 AnyRuleD API，完整阶段状态与依赖风险见执行记录。
+
 2026-09-24 [地图联网重构](MAP_STATE_NETWORKING.md)已在 `ref-20260924-map-state-networking` 完成本轮代码与 Mono 收口；YYGC 可选协议和 FishNet 包锁定 `e07e9a9`，AMP1 V1 帧结构不变。最终 Mono 的地图循环与新旧双向混连已通过；完整三进程正常／弱网矩阵保留 `b239df6` 构建身份，不能冒称最终锁重跑。阶段状态、实际结果与未验项见 `D:/Downloads/AnyRuleD_MapSync/PROGRESS.md`。
 
 2026-09-22 [可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)已接入正式远征，协议 14／存档 v10；本批 Mono 正常／弱网三进程各 28/28、Core 1048/1048，Editor 按影响合并 235/236（按钮主题 1 项失败留账）。完整边界和证据见切片记录；下方为先前版本的阶段记录，不将其旧“当前”表述用作本批结论。

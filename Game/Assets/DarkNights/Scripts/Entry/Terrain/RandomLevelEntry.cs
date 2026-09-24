@@ -22,7 +22,8 @@ namespace DarkNights.Entry.Terrain
         private TerrainPreview view;
         private ChunkReplicaStateMachine subscribedReplica;
         private WorldIdentity world;
-        private ulong presentedCommit;
+        private ulong receivedSession, receivedStreamGeneration, receivedCommit;
+        private bool receivedIdentityKnown;
         private bool presenting;
         private AnyRules.Next.Authoring.ARDMapDefinition definition;
         private CaveTerrainStyle style;
@@ -46,7 +47,8 @@ namespace DarkNights.Entry.Terrain
                 if (!network.Terrain.DataReady) { Clear(); return; }
                 if (!presenting || !world.Equals(replica.World))
                 {
-                    Clear(); world = replica.World; presentedCommit = replica.CommitId; presenting = true;
+                    Clear(); world = replica.World; receivedSession = replica.Session;
+                    receivedStreamGeneration = replica.Generation; receivedCommit = replica.CommitId; receivedIdentityKnown = true; presenting = true;
                     var root = new GameObject("Pinewatch random terrain");
                     root.transform.SetParent(transform, false);
                     root.transform.localPosition = new Vector3(0, PlayableTerrain.OriginY / 100, 0);
@@ -65,8 +67,15 @@ namespace DarkNights.Entry.Terrain
         }
         private void OnReplicaApplied(MapReplicaChange transition)
         {
-            if (!presenting || !world.Equals(transition.World) || transition.Commit <= presentedCommit) return;
-            presentedCommit = transition.Commit;
+            if (!presenting || !world.Equals(transition.World)) return;
+            bool lifecycle = transition.Kind == MapReplicaChangeKind.WorldReset ||
+                transition.Kind == MapReplicaChangeKind.VisibilityRevoked || transition.Kind == MapReplicaChangeKind.Disconnected;
+            bool streamChanged = receivedIdentityKnown && (receivedSession != transition.Session ||
+                receivedStreamGeneration != transition.StreamGeneration);
+            if (!lifecycle && !streamChanged && receivedIdentityKnown && transition.Commit <= receivedCommit) return;
+            receivedSession = transition.Session; receivedStreamGeneration = transition.StreamGeneration;
+            receivedIdentityKnown = true;
+            receivedCommit = lifecycle ? 0 : transition.Commit;
             view?.NotifyReplicaChanged(transition);
         }
         private void Clear()
@@ -75,7 +84,7 @@ namespace DarkNights.Entry.Terrain
             subscribedReplica = null;
             if (view != null) Destroy(view.gameObject);
             view = null; presenting = false; network.Terrain.PresentationReady = false;
-            presentedCommit = 0;
+            receivedSession = receivedStreamGeneration = receivedCommit = 0; receivedIdentityKnown = false;
         }
         private void OnDestroy() { Clear(); network.Terrain?.Dispose(); }
     }

@@ -14,6 +14,9 @@ namespace DarkNights.View.Terrain
         [Range(0, 100), InspectorName("出现密度（%）")] public int Density = 90;
         [Range(0, 100), InspectorName("形态起伏（%）")] public int Variation = 65;
         [InspectorName("融合局部岩粒")] public bool Grain = true;
-        public override ICaveMaskModifier Capture() => new RoundedClusterModifier(Depth, Size, Petal, Density, Variation, Grain, Seed);
+        [Tooltip("LegacyV1 保留原视觉身份；LocalV2 仅用于独立对照样式，通过视觉验收前不绑定到正式 Style。")]
+        public RoundedClusterAlgorithmVersion AlgorithmVersion = RoundedClusterAlgorithmVersion.LegacyV1;
+        public override ICaveMaskModifier Capture() => new RoundedClusterModifier(Depth, Size, Petal, Density,
+            Variation, Grain, Seed, AlgorithmVersion);
     }
 }

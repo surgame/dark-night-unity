@@ -44,11 +44,11 @@ namespace DarkNights.Editor.Terrain
 
         private void OnDisable()
         {
-            EditorApplication.update -= Tick; preview.Stop(); resizing = false;
+            EditorApplication.update -= Tick; preview.Stop(mapDraft.EndStroke); resizing = false;
             stage.Dispose(); drafts.Dispose();
         }
 
-        private void OnLostFocus() { preview.Stop(); resizing = false; }
+        private void OnLostFocus() { preview.Stop(mapDraft.EndStroke); resizing = false; }
 
         private void OnGUI()
         {
@@ -65,7 +65,8 @@ namespace DarkNights.Editor.Terrain
             var panel = new Rect(0, 0, panelWidth, position.height);
             var canvas = new Rect(panelWidth + 4, 0, position.width - panelWidth - 4, position.height);
             preview.Input(canvas, Image, (x, y) => mapDraft.Paint(x, y,
-                preview.ActiveTool == TerrainStylePreviewTool.Fill, fillMaterial), InvalidateMap);
+                preview.ActiveTool == TerrainStylePreviewTool.Fill, fillMaterial), InvalidateMap,
+                mapDraft.BeginStroke, mapDraft.EndStroke, mapDraft.Undo, mapDraft.Redo);
             EditorGUI.DrawRect(new Rect(panelWidth, 0, 4, position.height), new Color(.25f, .25f, .25f));
             EditorGUIUtility.AddCursorRect(new Rect(panelWidth - 3, 0, 10, position.height), MouseCursor.ResizeHorizontal);
             GUILayout.BeginArea(panel);
@@ -107,6 +108,12 @@ namespace DarkNights.Editor.Terrain
                 : "左键单击或拖动连续绘制地形格；边界、保护格和基岩不可修改。", EditorStyles.wordWrappedMiniLabel);
             if (!mapDraft.IsReady && map != null) EditorGUILayout.HelpBox(mapDraft.Error ?? "地图草稿不可用。", MessageType.Warning);
             EditorGUILayout.LabelField("地图草稿改动：" + mapDraft.ChangedCells + " 格", EditorStyles.miniLabel);
+            EditorGUILayout.BeginHorizontal();
+            using (new EditorGUI.DisabledScope(!mapDraft.CanUndo)) if (GUILayout.Button("撤销")) { mapDraft.Undo(); InvalidateMap(); }
+            using (new EditorGUI.DisabledScope(!mapDraft.CanRedo)) if (GUILayout.Button("重做")) { mapDraft.Redo(); InvalidateMap(); }
+            using (new EditorGUI.DisabledScope(!mapDraft.HasChanges)) if (GUILayout.Button("取消草稿"))
+            { mapDraft.Cancel(); InvalidateMap(); status = "地图草稿已撤销，原资产未更改。"; }
+            EditorGUILayout.EndHorizontal();
             using (new EditorGUI.DisabledScope(!mapDraft.HasChanges))
             {
                 EditorGUILayout.BeginHorizontal();
@@ -164,8 +171,8 @@ namespace DarkNights.Editor.Terrain
         {
             try
             {
-                if (stage.Source != null) stage.Source.ReplaceCells(mapDraft.CopyMaterials(), mapDraft.CopyShapes());
-                status = "地形改动已送入运行时区块刷新。";
+                if (stage.Source != null) stage.Source.ApplyChanges(mapDraft.DrainChangedCells());
+                status = "地形格变化已送入局部表现队列。";
             }
             catch (Exception error) { status = "预览刷新失败：" + error.Message; }
             Repaint();

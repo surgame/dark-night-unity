@@ -14,7 +14,8 @@ namespace DarkNights.Editor.Terrain
         private Vector2Int? hover, previous;
         private bool panning, painting;
 
-        public void Stop() { panning = false; painting = false; previous = null; }
+        public void Stop(Action endStroke = null)
+        { if (painting) endStroke?.Invoke(); panning = false; painting = false; previous = null; }
         public void Fit() { Zoom = 1; offset = Vector2.zero; }
 
         public void SetZoom(float value, Vector2 pivot, bool anchored)
@@ -25,9 +26,14 @@ namespace DarkNights.Editor.Terrain
                 offset = pivot + (offset - pivot) * (Zoom / old);
         }
 
-        public void Input(Rect canvas, Texture image, Func<int, int, bool> paint, Action changed)
+        public void Input(Rect canvas, Texture image, Func<int, int, bool> paint, Action changed,
+            Action beginStroke = null, Action endStroke = null, Func<bool> undo = null, Func<bool> redo = null)
         {
             var input = Event.current;
+            if (input.type == EventType.KeyDown && (input.control || input.command) &&
+                ((input.keyCode == KeyCode.Z && (input.shift ? redo : undo)?.Invoke() == true) ||
+                 (input.keyCode == KeyCode.Y && redo?.Invoke() == true)))
+            { changed(); input.Use(); return; }
             bool inside = canvas.Contains(input.mousePosition);
             if (input.type == EventType.ScrollWheel && inside)
             {
@@ -45,7 +51,7 @@ namespace DarkNights.Editor.Terrain
             if (input.type == EventType.MouseMove || input.type == EventType.MouseDrag || input.type == EventType.MouseDown)
                 hover = inside && image != null ? CellAt(input.mousePosition, canvas, image) : null;
             if (input.type == EventType.MouseDown && input.button == 0 && inside && ActiveTool != TerrainStylePreviewTool.Pan && hover.HasValue)
-            { painting = true; previous = null; PaintTo(hover.Value, paint, changed); input.Use(); }
+            { beginStroke?.Invoke(); painting = true; previous = null; PaintTo(hover.Value, paint, changed); input.Use(); }
             else if (input.type == EventType.MouseDrag && input.button == 0 && painting)
             {
                 if (hover.HasValue) PaintTo(hover.Value, paint, changed);
@@ -53,8 +59,8 @@ namespace DarkNights.Editor.Terrain
                 input.Use();
             }
             else if (input.type == EventType.MouseUp && input.button == 0 && painting)
-            { painting = false; previous = null; input.Use(); }
-            if (input.type == EventType.MouseLeaveWindow) { hover = null; Stop(); }
+            { endStroke?.Invoke(); painting = false; previous = null; input.Use(); }
+            if (input.type == EventType.MouseLeaveWindow) { hover = null; Stop(endStroke); }
         }
 
         private void PaintTo(Vector2Int target, Func<int, int, bool> paint, Action changed)

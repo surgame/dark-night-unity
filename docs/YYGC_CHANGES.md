@@ -1,5 +1,20 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-25：局部地形源输入与即时刷新候选
+
+隔离 AnyRuleD 检出从 `e07e9a9e3e36cdbae1e0d39ec07aea555e95fbad` 建立 `ft-20260925-immediate-terrain-refresh`；完整改动以提交 `6b85403630c07d886811e5f18494c15c056eb2ef` 推送到同名远端分支。按用户要求，`D:/Developer/YYGC` 主检出已从 `master` 切换到该分支；推送后确认工作树干净，再由 Git 安全移除隔离工作树 `D:/Developer/YYGC-worktrees/immediate-terrain-refresh`。游戏同名候选分支将读取新增的源输入 API，但 `Packages/manifest.json`、`packages-lock.json` 及 `source-lock-map-state.json` 目前仍锁定 `e07e9a9`，因此未宣称游戏 Unity 编译通过。
+
+| YYGC / AnyRuleD 修改文件 | 原因与落点 | 已验证 / 边界 |
+|---|---|---|
+| `com.tsgame.anyrules/Runtime/Core/Grid/MapInputBatch.cs`、`Grid/ARDMap.Input.cs` | 冻结格变化、完整快照和生命周期输入；对显式只读源地图执行整批验证、原位安装、输入代次及提交游标校验。 |
+| `com.tsgame.anyrules/Runtime/Core/Contracts/WorldDescriptor.cs`、`Grid/GridChangeSet.cs`、`Invalidation/GridDependency.cs` | 增加源提交变化原因与依赖记录，使精确格/范围失效可沿既有地图通知链传递。 |
+| `com.tsgame.anyrules/Runtime/Core/AssemblyInfo.cs` | 允许独立 Core 测试程序集覆盖内部原子安装 API。 |
+| `com.tsgame.anyrules/Runtime/Unity/Facade/MapOptions.cs`、`Facade/ARDMapController.cs`、`Scheduling/ARDRenderController.cs`、`Collision/GridCollisionProjection.cs`、`Debug/GridDebugController.cs` | 接入只读源地图创建、主线程安装和渲染/碰撞范围失效；调试摘要记录来源变化类型。 |
+| `com.tsgame.anyrules.networking/Protocol/ChunkReplicaStateMachine.cs` | 每个已完成网络提交包含 session、stream generation、snapshot chunks 和 cell coordinates 的冻结通知；不改 AMP1 V1 wire。 |
+| `TestHosts/CoreTests/AnyRules.Core.Tests.csproj`、`MapInputBatchTests.cs`、`SourceInputInstallTests.cs` | 覆盖冻结值、快照、增量、生命周期、权限、非法批次拒绝及同一源提交内的快照加增量原子安装。 |
+
+验证：`dotnet test AnyRuleD~/TestHosts/CoreTests/AnyRules.Core.Tests.csproj --nologo --no-restore` 为 138/138 通过。Unity 包导入/编译、Editor 场景及游戏 Player 未运行；完整文件差异与待验条件见[局部地形即时刷新执行记录](IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)。
+
 ## 2026-09-24：AnyRuleD 地图联网拆包与稀疏增量
 
 隔离检出 `D:/Developer/YYGC-worktrees/map-state-networking` 从 YYGC `4939af2` 建立 `ref-20260924-map-state-networking`；用户维护的 `D:/Developer/YYGC` 主检出未切换或覆盖。游戏从 `ft-20260922-terrain-modifiers` 的 `e204c1d` 同名新分支接入。YYGC 当前包代码锁定 `e07e9a9e3e36cdbae1e0d39ec07aea555e95fbad`，由 `tools/map-framework-patch/source-lock-map-state.json` 校验四包 462 个文件。旧 `aa450a7` 加补丁的准备脚本保留为 `tools/prepare-map-packages-legacy.ps1`。

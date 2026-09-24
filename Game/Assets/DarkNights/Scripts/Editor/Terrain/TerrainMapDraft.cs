@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.View.Terrain;
 using UnityEditor;
@@ -15,6 +16,11 @@ namespace DarkNights.Editor.Terrain
         private string assetPath;
         private byte[] baseline, working;
         private int changed;
+        private readonly Dictionary<int, TerrainBlueprintCellChange> pending = new Dictionary<int, TerrainBlueprintCellChange>();
+        private readonly HashSet<int> modifiedIndexes = new HashSet<int>();
+        private readonly List<HistoryEntry> history = new List<HistoryEntry>();
+        private Dictionary<int, CellValue> strokeBefore;
+        private int historyCursor;
 
         public bool HasChanges => changed != 0;
         public int ChangedCells => changed;
@@ -23,7 +29,8 @@ namespace DarkNights.Editor.Terrain
 
         public void Open(TerrainMapAsset source)
         {
-            map = source; assetPath = null; baseline = null; working = null; changed = 0; Error = null;
+            map = source; assetPath = null; baseline = null; working = null; changed = 0; pending.Clear();
+            modifiedIndexes.Clear(); history.Clear(); historyCursor = 0; strokeBefore = null; Error = null;
             if (map == null) return;
             try
             {
@@ -49,11 +56,71 @@ namespace DarkNights.Editor.Terrain
             if ((working[offset + 1] & 1) != 0 || working[offset] == 8) return false;
             byte value = fill ? material : (byte)0;
             if (working[offset] == value && working[offset + 1] == 0) return false;
-            bool wasChanged = working[offset] != baseline[offset] || working[offset + 1] != baseline[offset + 1];
-            working[offset] = value; working[offset + 1] = 0;
-            bool isChanged = working[offset] != baseline[offset] || working[offset + 1] != baseline[offset + 1];
-            if (wasChanged != isChanged) changed += isChanged ? 1 : -1;
+            bool ownStroke = strokeBefore == null;
+            if (ownStroke) BeginStroke();
+            int index = y * TerrainGenerationSettings.Width + x;
+            if (!strokeBefore.ContainsKey(index)) strokeBefore.Add(index, Read(working, index));
+            Write(index, new CellValue(value, 0));
+            if (ownStroke) EndStroke();
             return true;
+        }
+
+        /// <summary>把连续鼠标拖动合成一个撤销事务；权威草稿仍只持有当前输入快照。</summary>
+        public void BeginStroke()
+        { if (working != null && strokeBefore == null) strokeBefore = new Dictionary<int, CellValue>(); }
+
+        public void EndStroke()
+        {
+            if (strokeBefore == null) return;
+            var edits = new List<CellEdit>(strokeBefore.Count);
+            foreach (var pair in strokeBefore)
+            {
+                CellValue after = Read(working, pair.Key);
+                if (!pair.Value.Equals(after)) edits.Add(new CellEdit(pair.Key, pair.Value, after));
+            }
+            if (edits.Count != 0)
+            {
+                if (historyCursor < history.Count) history.RemoveRange(historyCursor, history.Count - historyCursor);
+                history.Add(new HistoryEntry(edits.ToArray())); historyCursor = history.Count;
+            }
+            strokeBefore = null;
+        }
+
+        public bool CanUndo => historyCursor > 0 && working != null;
+        public bool CanRedo => historyCursor < history.Count && working != null;
+
+        /// <summary>撤回最近一次笔触，并通过同一稀疏变化出口更新运行时预览。</summary>
+        public bool Undo()
+        {
+            EndStroke(); if (!CanUndo) return false;
+            var entry = history[--historyCursor]; foreach (var edit in entry.Edits) Write(edit.Index, edit.Before);
+            return entry.Edits.Length != 0;
+        }
+
+        /// <summary>重放下一次已撤销笔触，不改写地图资产直到显式 Apply。</summary>
+        public bool Redo()
+        {
+            EndStroke(); if (!CanRedo) return false;
+            var entry = history[historyCursor++]; foreach (var edit in entry.Edits) Write(edit.Index, edit.After);
+            return entry.Edits.Length != 0;
+        }
+
+        /// <summary>丢弃所有未应用格草稿；仅遍历已修改格并把恢复值排入预览批次。</summary>
+        public bool Cancel()
+        {
+            EndStroke(); if (!HasChanges) return false;
+            var indexes = new List<int>(modifiedIndexes);
+            foreach (int index in indexes) Write(index, Read(baseline, index));
+            changed = 0; modifiedIndexes.Clear(); history.Clear(); historyCursor = 0;
+            return true;
+        }
+
+        /// <summary>取出自上次预览提交以来触及格子的最终值，不复制整张地图来发现差异。</summary>
+        public IReadOnlyList<TerrainBlueprintCellChange> DrainChangedCells()
+        {
+            var result = new List<TerrainBlueprintCellChange>(pending.Values);
+            result.Sort((left, right) => left.Row != right.Row ? left.Row.CompareTo(right.Row) : left.X.CompareTo(right.X));
+            pending.Clear(); return result;
         }
 
         public byte[] CopyMaterials() => Extract(false, working);
@@ -68,6 +135,40 @@ namespace DarkNights.Editor.Terrain
             for (int i = 0; i < result.Length; i++)
                 result[i] = shapes ? (byte)(source[i * 2 + 1] >> 1) : source[i * 2];
             return result;
+        }
+
+        private void Write(int index, CellValue value)
+        {
+            int offset = index * 2; bool beforeChanged = working[offset] != baseline[offset] || working[offset + 1] != baseline[offset + 1];
+            working[offset] = value.Material; working[offset + 1] = value.Shape;
+            bool afterChanged = working[offset] != baseline[offset] || working[offset + 1] != baseline[offset + 1];
+            if (beforeChanged != afterChanged) changed += afterChanged ? 1 : -1;
+            if (afterChanged) modifiedIndexes.Add(index); else modifiedIndexes.Remove(index);
+            pending[index] = new TerrainBlueprintCellChange(index % TerrainGenerationSettings.Width,
+                index / TerrainGenerationSettings.Width, value.Material, value.Shape);
+        }
+
+        private static CellValue Read(byte[] source, int index) => new CellValue(source[index * 2], source[index * 2 + 1]);
+
+        /// <summary>一个像素格的原生材料与坡形状态。</summary>
+        private readonly struct CellValue
+        {
+            internal readonly byte Material, Shape;
+            internal CellValue(byte material, byte shape) { Material = material; Shape = shape; }
+        }
+
+        /// <summary>一笔笔触的有序格快照，可用于撤销和重做。</summary>
+        private readonly struct CellEdit
+        {
+            internal readonly int Index; internal readonly CellValue Before, After;
+            internal CellEdit(int index, CellValue before, CellValue after) { Index = index; Before = before; After = after; }
+        }
+
+        /// <summary>一组鼠标笔触格差异；保留同一笔画的撤销事务边界。</summary>
+        private sealed class HistoryEntry
+        {
+            internal readonly CellEdit[] Edits;
+            internal HistoryEntry(CellEdit[] edits) { Edits = edits; }
         }
 
         public void Apply()

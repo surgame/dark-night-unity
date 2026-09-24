@@ -65,6 +65,55 @@ namespace DarkNights.Core.Logic.Terrain
             bool At(int x, int y) => x >= 0 && y >= 0 && x >= x0 && y >= y0 && x < x0 + w && y < y0 + h && mask[(y - y0) * w + x - x0] != 0;
         }
 
+        /// <summary>从带完整依赖 halo 的局部最终遮罩生成单张 RGBA 岩壁页，不触碰其他页面像素。</summary>
+        public static byte[] BakeRegion(CaveMaskRegion region, int left, int top, int width, int height, string seed,
+            int stoneSize, Action checkpoint = null)
+        {
+            if (region == null || stoneSize < 2 || stoneSize > 12 || left < 0 || top < 0 || width < 1 || height < 1 ||
+                left + width > region.WorldWidth || top + height > region.WorldHeight ||
+                region.Left > Math.Max(0, left - DistanceCap) || region.Top > Math.Max(0, top - DistanceCap) ||
+                region.Left + region.Width < Math.Min(region.WorldWidth, left + width + DistanceCap) ||
+                region.Top + region.Height < Math.Min(region.WorldHeight, top + height + DistanceCap))
+                throw new ArgumentException("局部岩壁页的距离场 halo 不完整。");
+            var mask = region.CopyPixels();
+            var distances = BackgroundPixelMath.Distance(mask, region.Width, region.Height, 0);
+            uint hash = BackgroundPixelMath.Seed(seed);
+            var baseTones = new CaveRockToneField(left, top, width, height, hash, stoneSize);
+            var fineTones = region.HasGrain ? new CaveRockToneField(left, top, width, height, hash, region.GrainStoneSize) : null;
+            var result = new byte[checked(width * height * 4)];
+            for (int y = 0; y < height; y++)
+            {
+                checkpoint?.Invoke(); int gy = top + y;
+                for (int x = 0; x < width; x++)
+                {
+                    int gx = left + x, localX = gx - region.Left, localY = gy - region.Top;
+                    int depth = Math.Min(DistanceCap, (int)distances[localY * region.Width + localX]);
+                    if (depth == 0) continue;
+                    int k = (y * width + x) * 4, tone = baseTones.Tone(gx, gy);
+                    double exposure = (region.Solid(gx, gy - 1) ? 0 : 1) + (region.Solid(gx, gy - 2) ? 0 : .55) +
+                        (region.Solid(gx - 1, gy - 1) ? 0 : .25) + (region.Solid(gx + 1, gy - 1) ? 0 : .25);
+                    double shade = (.22 + .88 * Math.Exp(-(depth - 1) / 1.9 / 7)) *
+                        (.94 + (BackgroundPixelMath.Hash(gx, gy, unchecked(hash + 777)) - .5) * .08) *
+                        (depth == 1 ? 1.14 : depth == 2 ? 1.06 : 1) *
+                        (1 + Math.Min(exposure, .8) * .18 * Math.Exp(-(depth - 1) / 3.5));
+                    for (int c = 0; c < 3; c++) result[k + c] = BackgroundPixelMath.Round(Palette[tone, c] * shade);
+                    if (fineTones != null)
+                    {
+                        double weight = region.GrainWeight(gx, gy);
+                        if (weight > 0)
+                        {
+                            int fineTone = fineTones.Tone(gx, gy); byte face = region.GrainTone(gx, gy);
+                            if (face > 0) fineTone = (int)Math.Floor(fineTone * .55 + (face - 1) * .45 + .5);
+                            for (int c = 0; c < 3; c++) result[k + c] = BackgroundPixelMath.Round(result[k + c] * (1 - weight) +
+                                BackgroundPixelMath.Round(Palette[fineTone, c] * shade) * weight);
+                        }
+                    }
+                    result[k + 3] = 255;
+                }
+            }
+            return result;
+        }
+
         internal static CaveRockFacet Create(int x, int y, uint seed, double stoneSize)
         {
             uint s = unchecked(seed + 316);

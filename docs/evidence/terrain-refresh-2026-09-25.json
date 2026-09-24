@@ -1,0 +1,41 @@
+{
+  "date": "2026-09-25",
+  "game_branch": "ft-20260925-immediate-terrain-refresh",
+  "framework_branch": "ft-20260925-immediate-terrain-refresh",
+  "game_base": "68a4552d26fc423557460a06bd7b24fcbbf240e0",
+  "framework_base": "e07e9a9e3e36cdbae1e0d39ec07aea555e95fbad",
+  "status": "CANDIDATE_NOT_DELIVERED",
+  "checks": {
+    "framework_core_dotnet": {
+      "command": "dotnet test AnyRuleD~/TestHosts/CoreTests/AnyRules.Core.Tests.csproj --nologo --no-restore",
+      "status": "PASS",
+      "passed": 138,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pure_local_v2_full_vs_paged": {
+      "status": "PASS",
+      "cases": 10,
+      "compared": ["mask", "grain_weight", "grain_tone", "rgba_rock_page"],
+      "queue_ordering_and_coalescing": "PASS"
+    },
+    "unity_editor_import_compile": "NOT_RUN",
+    "unity_editmode_playmode": "NOT_RUN",
+    "legacy_v1_vs_local_v2_visual_review": "NOT_RUN",
+    "camera_present_and_collision": "NOT_RUN",
+    "mono_player_and_multiplayer": "NOT_RUN",
+    "performance": "NOT_RUN",
+    "il2cpp": "NOT_RUN",
+    "two_physical_machines": "NOT_RUN"
+  },
+  "dependency_lock": {
+    "game_manifest_anyruled_source": "e07e9a9",
+    "candidate_api_in_locked_package": false,
+    "updated": false
+  },
+  "notes": [
+    "The independent pure C# harness links candidate terrain sources and the AnyRules.Core assembly built from the framework candidate.",
+    "The Unity Editor remains open on the original ref-20260924-map-state-networking checkout; no second Editor was launched.",
+    "No Unity-generated .meta files, Player builds, runtime captures, visual signoff, or foreground timing results are included."
+  ]
+}

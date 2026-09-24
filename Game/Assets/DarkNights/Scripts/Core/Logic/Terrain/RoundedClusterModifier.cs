@@ -10,16 +10,49 @@ namespace DarkNights.Core.Logic.Terrain
         private readonly int depth, size, petal, density, variation;
         private readonly bool grain;
         private readonly string seed;
-        public string Identity => string.Join(",", "rounded-v1", seed.Length + ":" + seed, depth, size, petal, density, variation, grain);
-        public RoundedClusterModifier(int depth = 8, int size = 20, int petal = 3, int density = 90, int variation = 65, bool grain = true, string seed = "")
+        private readonly RoundedClusterAlgorithmVersion algorithmVersion;
+        public string Identity => string.Join(",", algorithmVersion == RoundedClusterAlgorithmVersion.LocalV2 ? "rounded-local-v2" : "rounded-v1",
+            seed.Length + ":" + seed, depth, size, petal, density, variation, grain);
+        public int Depth => depth;
+        public int Size => size;
+        public int Petal => petal;
+        public int Density => density;
+        public int Variation => variation;
+        public bool Grain => grain;
+        public string ModifierSeed => seed;
+        public RoundedClusterAlgorithmVersion AlgorithmVersion => algorithmVersion;
+        public int DependencyRadiusPixels => LocalRoundedClusterV2.DependencyRadius(depth, size, petal, density);
+        public RoundedClusterModifier(int depth = 8, int size = 20, int petal = 3, int density = 90, int variation = 65,
+            bool grain = true, string seed = "", RoundedClusterAlgorithmVersion algorithmVersion = RoundedClusterAlgorithmVersion.LegacyV1)
         {
             if (depth < 0 || depth > 12 || size < 8 || size > 30 || petal < 2 || petal > 6 || density < 0 || density > 100 ||
-                variation < 0 || variation > 100 || seed == null || seed.Length > 80) throw new ArgumentException("圆簇参数超出原生像素合同。");
+                variation < 0 || variation > 100 || seed == null || seed.Length > 80 ||
+                !System.Enum.IsDefined(typeof(RoundedClusterAlgorithmVersion), algorithmVersion)) throw new ArgumentException("圆簇参数超出原生像素合同。");
             this.depth = depth; this.size = size; this.petal = petal; this.density = density;
-            this.variation = variation; this.grain = grain; this.seed = seed;
+            this.variation = variation; this.grain = grain; this.seed = seed; this.algorithmVersion = algorithmVersion;
         }
         public CaveMaskField Apply(CaveMaskField source, string worldSeed, Action checkpoint = null)
-            => ApplySeed(source, Seed((seed.Length == 0 ? worldSeed : seed) + "|rounded-native-v1"), checkpoint);
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (algorithmVersion == RoundedClusterAlgorithmVersion.LegacyV1)
+                return ApplySeed(source, Seed((seed.Length == 0 ? worldSeed : seed) + "|rounded-native-v1"), checkpoint);
+            if (depth == 0 || density == 0) return source;
+            var input = new CaveMaskRegion(source.CopyPixels(), source.Width, source.Height, 0, 0, source.Width, source.Height);
+            var output = LocalRoundedClusterV2.Apply(input, 0, 0, source.Width, source.Height, worldSeed,
+                depth, size, petal, density, variation, grain, seed, source.Top, checkpoint);
+            var layer = output.HasGrain ? new CaveGrainLayer(output.CopyGrainWeights(), output.CopyGrainTones(), output.GrainStoneSize) : null;
+            return source.With(output.CopyPixels(), layer);
+        }
+
+        /// <summary>用固定样式参数重算目标局部像素；输入基础轮廓需包含声明的冲突与资格采样 Halo。</summary>
+        public CaveMaskRegion ApplyRegion(CaveMaskRegion source, int left, int top, int width, int height,
+            string worldSeed, int candidateTop, Action checkpoint = null)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (depth == 0 || density == 0) return source.Slice(left, top, width, height);
+            return LocalRoundedClusterV2.Apply(source, left, top, width, height, worldSeed,
+                depth, size, petal, density, variation, grain, seed, candidateTop, checkpoint);
+        }
         public CaveMaskField ApplySeed(CaveMaskField source, uint s, Action checkpoint = null)
         {
             if (depth == 0 || density == 0) return source;

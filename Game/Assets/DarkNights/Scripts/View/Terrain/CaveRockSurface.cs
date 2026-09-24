@@ -67,6 +67,7 @@ namespace DarkNights.View.Terrain
         public void SetVisible(GridBounds bounds)
         {
             visible.Clear();
+            if (!bounds.IsValid) return;
             for (int y = Math.Max(0, (1 - (int)bounds.MaxVExclusive) / 32); y <= Math.Min(5, -bounds.MinV / 32); y++)
                 for (int x = Math.Max(0, bounds.MinU / 32); x <= Math.Min(9, ((int)bounds.MaxUExclusive - 1) / 32); x++) visible.Add(y * 10 + x);
         }

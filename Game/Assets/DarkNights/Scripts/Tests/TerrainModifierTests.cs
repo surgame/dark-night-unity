@@ -99,6 +99,50 @@ namespace DarkNights.Tests
             Assert.That(a.SequenceEqual(b), Is.False);
             for (int p = 0; p < 128 * 128; p++) Assert.That(a[p * 4 + 3], Is.EqualTo(b[p * 4 + 3]));
         }
+
+        [Test]
+        public void LegacyVersionStaysDefaultAndLocalV2HasDistinctIdentity()
+        {
+            var legacy = new RoundedClusterModifier();
+            var local = new RoundedClusterModifier(algorithmVersion: RoundedClusterAlgorithmVersion.LocalV2);
+            Assert.That(legacy.AlgorithmVersion, Is.EqualTo(RoundedClusterAlgorithmVersion.LegacyV1));
+            Assert.That(legacy.Identity, Does.StartWith("rounded-v1,"));
+            Assert.That(local.Identity, Does.StartWith("rounded-local-v2,"));
+            Assert.That(local.Identity, Is.Not.EqualTo(legacy.Identity));
+            Assert.That(new CaveModifierStack(new[] { legacy }).SupportsLocalRoundedCluster, Is.False);
+            Assert.That(new CaveModifierStack(new[] { local }).SupportsLocalRoundedCluster, Is.True);
+        }
+
+        [Test]
+        public void LocalV2PagesMatchFullBakeBeforeAndAfterCrossPageEdits()
+        {
+            const int width = 512, height = 384, candidateTop = 8, pageSize = 128;
+            var modifier = new RoundedClusterModifier(algorithmVersion: RoundedClusterAlgorithmVersion.LocalV2);
+            var original = Ceiling(width, height);
+            AssertLocalMatchesFull(modifier, original, width, height, candidateTop, pageSize);
+
+            var edited = (byte[])original.Clone();
+            for (int y = 116; y < 137; y++) for (int x = 249; x < 263; x++) edited[y * width + x] = 0;
+            for (int y = 121; y < 134; y++) for (int x = 302; x < 307; x++) edited[y * width + x] = 1;
+            AssertLocalMatchesFull(modifier, edited, width, height, candidateTop, pageSize);
+        }
+
+        [TestCase(0, 90)]
+        [TestCase(8, 0)]
+        public void LocalV2ZeroStrengthHasNoGrainLayer(int depth, int density)
+        {
+            var modifier = new RoundedClusterModifier(depth: depth, density: density,
+                algorithmVersion: RoundedClusterAlgorithmVersion.LocalV2);
+            var source = Field(); var full = modifier.Apply(source, "zero-strength");
+            var region = new CaveMaskRegion(source.CopyPixels(), source.Width, source.Height, 0, 0, source.Width, source.Height);
+            var page = modifier.ApplyRegion(region, 0, 0, 64, 64, "zero-strength", source.Top);
+
+            Assert.That(full.Grains.Count, Is.Zero);
+            Assert.That(page.HasGrain, Is.False);
+            for (int y = 0; y < 64; y++) for (int x = 0; x < 64; x++)
+                Assert.That(page.Solid(x, y), Is.EqualTo(full.Solid(x, y)));
+        }
+
         [Test]
         public void StackOrderIsExplicitAndRebuildStartsAtOriginal()
         {
@@ -117,6 +161,55 @@ namespace DarkNights.Tests
             Assert.Throws<ArgumentException>(() => new BackgroundContourSettings(nearWidth: 0));
             Assert.Throws<ArgumentException>(() => new CaveModifierStack(Enumerable.Repeat<ICaveMaskModifier>(new DownwardEdgeModifier(), 9)));
         }
+
+        private static void AssertLocalMatchesFull(RoundedClusterModifier modifier, byte[] input,
+            int worldWidth, int worldHeight, int candidateTop, int pageSize)
+        {
+            var full = modifier.Apply(new CaveMaskField(input, worldWidth, worldHeight, candidateTop), "local-v2-test");
+            var fullRock = CaveRockBaker.Bake((x, y) => input[y * worldWidth + x] != 0,
+                worldWidth, worldHeight, "local-v2-test", 0, 0, worldWidth, worldHeight,
+                stoneSize: 5, modified: full);
+            var stack = new CaveModifierStack(new ICaveMaskModifier[] { modifier });
+            for (int top = 0; top < worldHeight; top += pageSize)
+            for (int left = 0; left < worldWidth; left += pageSize)
+            {
+                int width = Math.Min(pageSize, worldWidth - left), height = Math.Min(pageSize, worldHeight - top);
+                int halo = modifier.DependencyRadiusPixels;
+                int sourceLeft = Math.Max(0, left - halo), sourceTop = Math.Max(0, top - halo);
+                int sourceRight = Math.Min(worldWidth, left + width + halo), sourceBottom = Math.Min(worldHeight, top + height + halo);
+                int sourceWidth = sourceRight - sourceLeft, sourceHeight = sourceBottom - sourceTop;
+                var pixels = new byte[sourceWidth * sourceHeight];
+                for (int y = 0; y < sourceHeight; y++)
+                    Array.Copy(input, (sourceTop + y) * worldWidth + sourceLeft, pixels, y * sourceWidth, sourceWidth);
+                var region = new CaveMaskRegion(pixels, worldWidth, worldHeight, sourceLeft, sourceTop, sourceWidth, sourceHeight);
+                var page = modifier.ApplyRegion(region, left, top, width, height, "local-v2-test", candidateTop);
+                var rockRegion = CaveModifiedTerrain.BakeRockRegion((x, y) => input[y * worldWidth + x] != 0,
+                    worldWidth, worldHeight, "local-v2-test", null, stack, left, top, width, height,
+                    CaveRockBaker.DistanceCap, candidateTop);
+                var pageRock = CaveRockBaker.BakeRegion(rockRegion, left, top, width, height, "local-v2-test", 5);
+                for (int y = top; y < top + height; y++) for (int x = left; x < left + width; x++)
+                {
+                    int index = y * worldWidth + x;
+                    Assert.That(page.Solid(x, y), Is.EqualTo(full.Solid(x, y)), "mask mismatch at " + x + "," + y);
+                    Assert.That(page.GrainWeight(x, y), Is.EqualTo(full.Grains[0].Weight(index)), "grain mismatch at " + x + "," + y);
+                    Assert.That(page.GrainTone(x, y), Is.EqualTo(full.Grains[0].Tone(index)), "tone mismatch at " + x + "," + y);
+                    int pageIndex = ((y - top) * width + x - left) * 4, fullIndex = index * 4;
+                    for (int channel = 0; channel < 4; channel++)
+                        Assert.That(pageRock[pageIndex + channel], Is.EqualTo(fullRock[fullIndex + channel]),
+                            "rock pixel mismatch at " + x + "," + y + ", channel " + channel);
+                }
+            }
+        }
+
+        private static byte[] Ceiling(int width, int height)
+        {
+            var result = new byte[width * height];
+            for (int y = 0; y < height; y++)
+            for (int x = 0; x < width; x++)
+                if (y < 128 || y >= 220) result[y * width + x] = 1;
+            return result;
+        }
+
         private static CaveMaskField Field()
         {
             var mask = new byte[128 * 128];

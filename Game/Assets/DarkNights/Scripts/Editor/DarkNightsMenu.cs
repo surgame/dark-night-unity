@@ -50,6 +50,8 @@ namespace DarkNights.Editor
         private static void InstallShipArt() => ShipAssetSetup.Install();
         [MenuItem(Root + "Art/安装地形 Modifier 首版")]
         private static void InstallTerrainModifiers() => TerrainModifierInstaller.Install();
+        [MenuItem(Root + "Art/创建 LocalV2 岩层对照样式")]
+        private static void CreateLocalV2TerrainStyle() => TerrainModifierInstaller.CreateLocalV2Candidate();
         [MenuItem(Root + "Build/Windows Mono")]
         private static void BuildMono() => GamePlayerBuild.Mono();
         [MenuItem(Root + "Build/Windows Mono Map State")]

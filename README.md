@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-25 [局部地形即时刷新执行记录](docs/IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)：隔离分支实现源驱动稀疏安装和 LocalV2 分页岩壁候选；AnyRuleD Core 138/138，纯算法全图/分页遮罩、岩粒及 RGBA 页对照 10 组通过。LegacyV1 仍为默认；Unity 导入/编译、运行画面、网络场景、碰撞、V1/V2 美术门槛与前台性能未验，完整即时刷新未交付。
+
 2026-09-24 [AnyRuleD 地图联网重构](docs/MAP_STATE_NETWORKING.md)在 `ref-20260924-map-state-networking` 开发：纯协议与 FishNet 传输已从 YYGC 业务包拆出，单格 Delta 改为 1 个最终格记录，游戏副本通知已接入范围刷新。现有 Editor 编译通过；本轮 Editor、Mono 联机及独立样板的具体结果以进度文档为准，不沿用旧 Player 数字。
 
 2026-09-24 [地形 Modifier 与可插拔点缀层进度](docs/TERRAIN_MODIFIERS_PROGRESS.md)：下坠岩齿／花菜圆簇已接入主工程，前景及三个背景层可分别配置，点缀生成器可替换。`Cave Wall Tuner` 保留样式与地图草稿 Apply／Cancel、拆填和网格；预览仅在空白离屏宿主中渲染当前地图，共用正式 `TerrainPreview`、AnyRuleD、`CaveVisualSource` 和 Cave shader，不加载正式游戏场景或角色。拆填微基准发现活动 RoundedRock 下单格全图轮廓烘焙约 281–286 ms，之后全量差异比较约 39–132 ms，是画面滞后的主要已测阶段；Unity 端到端及 Player 前台帧时仍待实测，不据微基准宣称通过。
