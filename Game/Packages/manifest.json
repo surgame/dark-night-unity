@@ -62,9 +62,9 @@
     "com.unity.modules.xr": "1.0.0",
     "com.unity.pipeline": "0.6.0-exp.1",
     "com.unity.nuget.newtonsoft-json": "3.2.2",
-    "com.tsgame.anyrules": "file:../../.deps/AnyRules-map-state-b239df6/AnyRuleD~/Packages/com.tsgame.anyrules",
-    "com.tsgame.anyrules.yygc": "file:../../.deps/AnyRules-map-state-b239df6/AnyRuleD~/Packages/com.tsgame.anyrules.yygc",
-    "com.tsgame.anyrules.networking": "file:../../.deps/AnyRules-map-state-b239df6/AnyRuleD~/Packages/com.tsgame.anyrules.networking",
-    "com.tsgame.anyrules.networking.fishnet": "file:../../.deps/AnyRules-map-state-b239df6/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet"
+    "com.tsgame.anyrules": "file:../../.deps/AnyRules-map-state-e07e9a9/AnyRuleD~/Packages/com.tsgame.anyrules",
+    "com.tsgame.anyrules.yygc": "file:../../.deps/AnyRules-map-state-e07e9a9/AnyRuleD~/Packages/com.tsgame.anyrules.yygc",
+    "com.tsgame.anyrules.networking": "file:../../.deps/AnyRules-map-state-e07e9a9/AnyRuleD~/Packages/com.tsgame.anyrules.networking",
+    "com.tsgame.anyrules.networking.fishnet": "file:../../.deps/AnyRules-map-state-e07e9a9/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet"
   }
 }

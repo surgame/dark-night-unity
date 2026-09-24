@@ -80,6 +80,8 @@ namespace DarkNights.Runtime.Network
                 ? args[saveArgument + 1] : Path.Combine(Application.persistentDataPath, "Saves"));
             SaveDirectory = Path.Combine(SaveDirectory, "v" + DarkNights.Runtime.Save.ObjectWorldSaveJson.FormatVersion);
             var fingerprint = new SaveContentFingerprint(catalog, layout);
+            // 地图编辑命令只迁移程序集，注册 ID 与载荷不变；握手仍使用已发布的类型表身份。
+            DefinitionNetworkProfile.RegisterWireAssemblyAlias(typeof(TerrainEditCommand), "AnyRules.FishNet");
             authenticator = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
             string identity = new ObjectWorldSaveJson(catalog, layout,
                 resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
@@ -267,7 +269,6 @@ namespace DarkNights.Runtime.Network
 
         public ValueTask SendTerrain(int u, int v, string requestId = null) =>
             Client == null || Terrain?.Replica == null ? throw new InvalidOperationException("地图尚未连接。") : Client.SendTerrain(u, v, requestId);
-
         public void Fail(Exception error)
         {
             Disconnect();
@@ -275,7 +276,6 @@ namespace DarkNights.Runtime.Network
             Debug.LogException(error);
             Failed?.Invoke(error);
         }
-
         private void OnDestroy()
         {
             Disconnect();

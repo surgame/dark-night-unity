@@ -1,6 +1,6 @@
 # Dark Nights 合作联机设计
 
-2026-09-24 [AnyRuleD 地图联网重构](MAP_STATE_NETWORKING.md)在 `ref-20260924-map-state-networking` 将 AMP1 协议与 FishNet 传输移入 YYGC AnyRuleD 可选包，游戏保留业务授权、地图生成、存档与表现装配。协议号仍为 **14**、存档仍为 **v10**；最终锁 Mono 正常／弱网三进程各 28/28、地图编辑正常／弱网各 15/15，最终锁 Terrain Editor 41/41；上一锁全量 Editor 255/259 的失败与独立插件样板、未验矩阵见[本轮证据](evidence/map-state-networking-2026-09-24.json)。
+2026-09-24 [AnyRuleD 地图联网重构](MAP_STATE_NETWORKING.md)在 `ref-20260924-map-state-networking` 将 AMP1 协议与 FishNet 传输移入 YYGC AnyRuleD 可选包，游戏保留业务授权、地图生成、存档与表现装配。协议号仍为 **14**、存档仍为 **v10**；`b239df6` 构建的 Mono 正常／弱网三进程各 28/28、地图编辑正常／弱网各 15/15；最终 `e07e9a9` 构建的地图循环含诊断桥 17/17，旧／新 Player 双向混连各 15/15。Editor、独立插件样板与未验项见[本轮证据](evidence/map-state-networking-2026-09-24.json)。
 
 2026-09-22 [可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)已使用正式协议 **14**／存档 **v10**。船体驾驶席租约、归队、试飞、乘员位移和空中恢复沿用服务端唯一写入、可信连接校验、冻结投影与原子存档；实际正常／弱网三进程验证及边界见该切片，不据此宣称全洞穴飞行、IL2CPP 或双机器通过。下文按日期保留旧协议的设计和证据，不是当前版本号。
 

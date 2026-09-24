@@ -1,5 +1,5 @@
 {
-  "commit": "b239df6484c195281dcafdaa311d8a254a37ea13",
+  "commit": "e07e9a9e3e36cdbae1e0d39ec07aea555e95fbad",
   "files": [
     {
       "path": "com.tsgame.anyrules.networking.fishnet/README.md",
@@ -23,11 +23,19 @@
     },
     {
       "path": "com.tsgame.anyrules.networking.fishnet/Runtime/FishNetMapTransport.cs",
-      "sha256": "f0afccdffc69b07f1dc4d47c99a450f6afc9549b02b0fa4bf7d7a430127c633b"
+      "sha256": "382f2eb6f15f71f4680538fc6cfa86da99baeb93ac23832e3f115487df09252e"
     },
     {
       "path": "com.tsgame.anyrules.networking.fishnet/Runtime/FishNetMapTransport.cs.meta",
       "sha256": "dda5c2220269493cf74511fe7599463fc8107978a3557720e00031a8182c53fd"
+    },
+    {
+      "path": "com.tsgame.anyrules.networking.fishnet/Runtime/MapStateDebugBridge.cs",
+      "sha256": "14bd579251d0fc2f311e9dfd7718597ab9ac78a46c503ff33154e6297f841393"
+    },
+    {
+      "path": "com.tsgame.anyrules.networking.fishnet/Runtime/MapStateDebugBridge.cs.meta",
+      "sha256": "7d74fc52eb40a73d9659b01ff44c807906debcf5c62c1d88ec825a3c3f68b128"
     },
     {
       "path": "com.tsgame.anyrules.networking.fishnet/Samples~/StandaloneNetwork/AnyRules.StandaloneMapSample.asmdef",
@@ -71,7 +79,7 @@
     },
     {
       "path": "com.tsgame.anyrules.networking/Editor/MapStateDebuggerWindow.cs",
-      "sha256": "68ab4835c875899f8cbd51ee7eec2614a17be33c32a229f8f64c6df8a89bbea0"
+      "sha256": "6f24bf09ebcdee53a1232ded2f3a3cb421a955889ead5ddf0b096a20244bbb71"
     },
     {
       "path": "com.tsgame.anyrules.networking/Editor/MapStateDebuggerWindow.cs.meta",
@@ -107,7 +115,7 @@
     },
     {
       "path": "com.tsgame.anyrules.networking/Protocol/MapInterestService.cs",
-      "sha256": "04091ec48537d52fb3b739b1de25e3e660ecaf258259350988b20053922aa6f0"
+      "sha256": "8bd2b6d3f9ab3abb06c883b5418bed7681d3023de59761008f2396a267907494"
     },
     {
       "path": "com.tsgame.anyrules.networking/Protocol/MapInterestService.cs.meta",
@@ -123,7 +131,7 @@
     },
     {
       "path": "com.tsgame.anyrules.networking/Protocol/MapStateDiagnostics.cs",
-      "sha256": "99ec59059d3efd0bddf3a0da81e55ab242603dea61de040e33981538544f033e"
+      "sha256": "6fc70d42bdc3594aa8c5910b2997b0576a6ca4e5a9c7b08fd23916a90dc68e7d"
     },
     {
       "path": "com.tsgame.anyrules.networking/Protocol/MapStateDiagnostics.cs.meta",
@@ -163,7 +171,7 @@
     },
     {
       "path": "com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs",
-      "sha256": "d5c0b4d74a63a0d2b2820e556bdd9ff3d3c4b3f6973fc5f6472b3eb757f1e0fe"
+      "sha256": "1e47d203982ec1c8a41fa41173ddbe4b6ba0dd80002d84f4354092fe94e40bde"
     },
     {
       "path": "com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs.meta",

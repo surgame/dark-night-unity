@@ -1,6 +1,8 @@
 param(
     [Parameter(Mandatory)][string]$PlayerPath,
     [string]$ClientPlayerPath = '',
+    [switch]$UseCompatibilityHash,
+    [switch]$VerifyDebugBridge,
     [int]$Port = 28820,
     [int]$ClientPort = 0,
     [string]$Seed = 'terrain-loop-acceptance',
@@ -19,6 +21,21 @@ New-Item -ItemType Directory -Path $run -Force | Out-Null
 $processes = @{}
 $checks = [ordered]@{}
 $failure = $null
+$debugToken = [Guid]::NewGuid().ToString('N')
+$debugPorts = @{host=31821; client=31822; late=31823}
+
+function Read-DebugBridge([string]$Role, [string]$Secret, [switch]$Compare) {
+    $tcp = [Net.Sockets.TcpClient]::new()
+    try {
+        $tcp.Connect('127.0.0.1', $debugPorts[$Role])
+        $tcp.ReceiveTimeout = 3000; $tcp.SendTimeout = 3000
+        $stream = $tcp.GetStream()
+        $request = [Text.Encoding]::ASCII.GetBytes($Secret + $(if ($Compare) { ' compare' } else { '' }) + "`n")
+        $stream.Write($request, 0, $request.Length)
+        $reader = [IO.StreamReader]::new($stream)
+        return ($reader.ReadLine() | ConvertFrom-Json)
+    } finally { $tcp.Dispose() }
+}
 
 function Read-Report([string]$Role) {
     try {
@@ -51,6 +68,8 @@ function Start-Player([string]$Role) {
         '--dn-role', $Role, '--dn-port', $endpoint, '--dn-save-dir', ('"' + $saves + '"'),
         '--dn-map-seed', $Seed, '--dn-report', ('"' + $report + '"'),
         '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
+    if ($UseCompatibilityHash) { $arguments += '--dn-map-compat-hash' }
+    if ($VerifyDebugBridge) { $arguments += @('--ard-map-debug-port', $debugPorts[$Role], '--ard-map-debug-token', $debugToken) }
     $rolePlayer = if ($Role -eq 'host') { $player } else { $clientPlayer }
     $processes[$Role] = Start-Process -FilePath $rolePlayer -ArgumentList $arguments -WindowStyle Hidden -PassThru
 }
@@ -89,6 +108,10 @@ function Terrain-Receipt([string]$Role, [int]$U, [int]$V, [string]$RequestId) {
     return @($after.terrainFeedback | Where-Object RequestId -eq $RequestId)[-1]
 }
 function Check([string]$Name, [bool]$Ok) { $checks[$Name] = $Ok; if (!$Ok) { throw "Failed: $Name" } }
+function Map-Hash($Report) {
+    if ($UseCompatibilityHash -and $Report.terrain.compatibilitySha256) { return $Report.terrain.compatibilitySha256 }
+    return $Report.terrain.sha256
+}
 function Actor($Report, [int]$Slot) { return @($Report.frame.World.Actors | Where-Object ControllerSlot -eq $Slot)[0] }
 function Find-Cell([byte[]]$Cells, [byte[]]$Protection, [byte[]]$Soft, [scriptblock]$Predicate) {
     for ($y = 0; $y -lt 192; $y++) { for ($x = 0; $x -lt 320; $x++) {
@@ -109,11 +132,28 @@ try {
     $h = Wait-Report 'host' { param($r) $r.ready -and $r.terrain.visible } 'host ready'
     Start-Player 'client'
     $c = Wait-Report 'client' { param($r) $r.ready -and $r.terrain.visible } 'client ready'
+    if ($VerifyDebugBridge) {
+        $deadline = [DateTime]::UtcNow.AddSeconds(20)
+        do {
+            $serverDebug = Read-DebugBridge 'host' $debugToken -Compare
+            $clientDebug = Read-DebugBridge 'client' $debugToken -Compare
+            $projection = @($serverDebug.sessions.peerProjections | Where-Object {
+                $_.status -eq 'Ready' -and $_.canonical -eq $clientDebug.sessions[0].replicaCanonical -and
+                $_.streamCommit -eq $clientDebug.sessions[0].streamCommit -and
+                $_.session -eq $clientDebug.sessions[0].session -and
+                $_.generation -eq $clientDebug.sessions[0].generation })
+            if ($projection.Count) { break }
+            Start-Sleep -Milliseconds 300
+        } while ([DateTime]::UtcNow -lt $deadline)
+        Check 'debug_bridge_authorized_projection_matches_client' ($projection.Count -gt 0)
+        Check 'debug_bridge_wrong_token_denied' ((Read-DebugBridge 'host' ('0' * 32)).status -eq 'denied')
+        $debugEvidence = @{server=$serverDebug;client=$clientDebug;matchedPeer=$projection[0].peer;wrongTokenDenied=$true}
+    }
     $h = Wait-Report 'host' { param($r) @($r.frame.World.Actors | Where-Object ControllerSlot -eq 0).Count -eq 1 -and
         @($r.frame.World.Actors | Where-Object ControllerSlot -eq 1).Count -eq 1 } 'host sees both controlled heroes'
     $c = Wait-Report 'client' { param($r) @($r.frame.World.Actors | Where-Object ControllerSlot -eq 0).Count -eq 1 -and
         @($r.frame.World.Actors | Where-Object ControllerSlot -eq 1).Count -eq 1 } 'client sees both controlled heroes'
-    Check 'initial_host_client_map_equal' ($h.terrain.sha256 -eq $c.terrain.sha256)
+    Check 'initial_host_client_map_equal' ((Map-Hash $h) -eq (Map-Hash $c))
     if ($SaveVersion -ge 10) {
         Check 'expedition_depart_for_terrain_authorization' ((Receipt 'host' @{operation='Expedition';kind='depart'}).Code -eq 'Applied')
         $h = Wait-Report 'host' { param($r) $r.frame.World.Expedition.Phase -eq 1 } 'active expedition'
@@ -146,7 +186,7 @@ try {
     $null = Consume 'host' @{operation='BeginLoad';value=0}
     $h = Wait-Report 'host' { param($r) $r.ready -and $r.epoch -gt $oldEpoch -and $r.terrain.visible } 'fixture loaded'
     $c = Wait-Report 'client' { param($r) $r.ready -and $r.epoch -eq $h.epoch -and $r.terrain.visible } 'client fixture loaded'
-    $beforeDigest = $h.terrain.sha256
+    $beforeDigest = Map-Hash $h
     $softReply = Terrain-Receipt 'client' $softCell.x (-$softCell.y) 'client-soft-rock'
     Check 'client_hand_mines_soft_rock' $softReply.Accepted
     $normalReply = Terrain-Receipt 'client' $normalNearSoft.x (-$normalNearSoft.y) 'client-normal-wall'
@@ -156,8 +196,8 @@ try {
     Check 'explosive_rejects_protected_and_bedrock' (!$protectedReply.Accepted -and !$bedrockReply.Accepted)
     $blastReply = Terrain-Receipt 'host' $blastCell.x (-$blastCell.y) 'host-direct-blast'
     Check 'bomb_slot_rejects_direct_cell_explosion' (!$blastReply.Accepted)
-    $h = Wait-Report 'host' { param($r) $r.terrain.sha256 -eq (Read-Report 'client').terrain.sha256 -and !$r.terrainPresentation.refreshing }
-    $beforeBlast = $h.terrain.sha256
+    $h = Wait-Report 'host' { param($r) (Map-Hash $r) -eq (Map-Hash (Read-Report 'client')) -and !$r.terrainPresentation.refreshing }
+    $beforeBlast = Map-Hash $h
     $hero = Actor $h 0
     $throw = @{operation='input-raw';actor=$hero.Id;lease=$hero.ControlLease;sequence=1000000;
         observedTick=$h.frame.ServerTick;epoch=$h.epoch;selectionRevision=$hero.SelectionRevision;
@@ -166,34 +206,34 @@ try {
     $null = Consume 'host' $throw
     $h = Wait-Report 'host' { param($r) (Actor $r 0).ExplosiveCharges -eq 2 } 'one projectile consumes one charge'
     Check 'throw_consumes_one_charge_for_duplicate_input' ((Actor $h 0).ExplosiveCharges -eq 2)
-    $h = Wait-Report 'host' { param($r) $r.terrain.sha256 -ne $beforeBlast -and !$r.terrainPresentation.refreshing } 'projectile fuse changes terrain'
-    $c = Wait-Report 'client' { param($r) $r.terrain.sha256 -eq $h.terrain.sha256 -and !$r.terrainPresentation.refreshing } 'client blast refresh'
-    Check 'projectile_fuse_changes_terrain_at_actual_location' ($h.terrain.sha256 -ne $beforeBlast)
+    $h = Wait-Report 'host' { param($r) (Map-Hash $r) -ne $beforeBlast -and !$r.terrainPresentation.refreshing } 'projectile fuse changes terrain'
+    $c = Wait-Report 'client' { param($r) (Map-Hash $r) -eq (Map-Hash $h) -and !$r.terrainPresentation.refreshing } 'client blast refresh'
+    Check 'projectile_fuse_changes_terrain_at_actual_location' ((Map-Hash $h) -ne $beforeBlast)
     Check 'explosive_inventory_decrements_once' ((Actor $h 0).ExplosiveCharges -eq 2)
     Check 'changed_chunks_only_refresh_local_regions' ($h.terrainPresentation.changedChunks -ge 1 -and
         $h.terrainPresentation.changedChunks -le 4 -and $h.terrainPresentation.refreshRegions -ge 1 -and
         $h.terrainPresentation.refreshRegions -le 4)
-    Check 'host_client_final_map_equal_after_blast' ($h.terrain.sha256 -eq $c.terrain.sha256)
+    Check 'host_client_final_map_equal_after_blast' ((Map-Hash $h) -eq (Map-Hash $c))
 
     if ($SaveVersion -ge 10) {
         $null = Receipt 'host' @{operation='Save';value=3}
         $save3 = Join-Path $saves "v$SaveVersion/slot-03.dnsave.json"
         $null = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $save3) } 'current-format final save'
-        $finalDigest = $h.terrain.sha256
+        $finalDigest = Map-Hash $h
         Start-Player 'late'
         $late = Wait-Report 'late' { param($r) $r.ready -and $r.terrain.visible } 'late join edited map'
-        Check 'late_join_matches_edited_map' ($late.terrain.sha256 -eq $finalDigest)
+        Check 'late_join_matches_edited_map' ((Map-Hash $late) -eq $finalDigest)
         Stop-Player 'late'; Stop-Player 'client'
         Start-Player 'client'
         $reconnected = Wait-Report 'client' { param($r) $r.ready -and $r.terrain.visible } 'reconnected map'
-        Check 'reconnect_matches_edited_map' ($reconnected.terrain.sha256 -eq $finalDigest)
+        Check 'reconnect_matches_edited_map' ((Map-Hash $reconnected) -eq $finalDigest)
         Stop-Player 'client'; Stop-Player 'host'
         Start-Player 'host'
         $restarted = Wait-Report 'host' { param($r) $r.ready -and $r.terrain.visible } 'restarted host'
         $restartEpoch = $restarted.epoch
         $null = Consume 'host' @{operation='BeginLoad';value=3}
-        $restarted = Wait-Report 'host' { param($r) $r.ready -and $r.epoch -gt $restartEpoch -and $r.terrain.sha256 -eq $finalDigest } 'restored edited map'
-        Check 'restart_restores_edited_map' ($restarted.terrain.sha256 -eq $finalDigest)
+        $restarted = Wait-Report 'host' { param($r) $r.ready -and $r.epoch -gt $restartEpoch -and (Map-Hash $r) -eq $finalDigest } 'restored edited map'
+        Check 'restart_restores_edited_map' ((Map-Hash $restarted) -eq $finalDigest)
         return
     }
 
@@ -209,7 +249,7 @@ try {
     $c = Wait-Report 'client' { param($r) $r.ready -and $r.epoch -eq $h.epoch -and $r.terrain.visible }
     $scatterReply = Terrain-Receipt 'client' $scatterCell.x (-$scatterCell.y) 'client-scattered-ore'
     Check 'client_hand_mines_scattered_ore' $scatterReply.Accepted
-    $h = Wait-Report 'host' { param($r) $r.terrain.sha256 -eq (Read-Report 'client').terrain.sha256 -and !$r.terrainPresentation.refreshing }
+    $h = Wait-Report 'host' { param($r) (Map-Hash $r) -eq (Map-Hash (Read-Report 'client')) -and !$r.terrainPresentation.refreshing }
 
     $mineDeposits = @($h.frame.World.Worksites | Where-Object { $_.IsMineralDeposit -and $_.RoomKind -eq 'mine' })
     $scatteredCount = @($cells | Where-Object { $_ -in 4,5,6 }).Count
@@ -244,29 +284,30 @@ try {
     $null = Receipt 'host' @{operation='Save';value=3}
     $save3 = Join-Path $saves "v$SaveVersion/slot-03.dnsave.json"
     $null = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $save3) } 'final save'
-    $finalDigest = $h.terrain.sha256
+    $finalDigest = Map-Hash $h
 
     Start-Player 'late'
     $late = Wait-Report 'late' { param($r) $r.ready -and $r.terrain.visible } 'late join final map'
-    Check 'late_join_matches_final_map' ($late.terrain.sha256 -eq $finalDigest)
+    Check 'late_join_matches_final_map' ((Map-Hash $late) -eq $finalDigest)
     Stop-Player 'late'; Stop-Player 'client'
     Start-Player 'client'
     $reconnected = Wait-Report 'client' { param($r) $r.ready -and $r.terrain.visible } 'client reconnect final map'
-    Check 'reconnect_matches_final_map' ($reconnected.terrain.sha256 -eq $finalDigest)
+    Check 'reconnect_matches_final_map' ((Map-Hash $reconnected) -eq $finalDigest)
     Stop-Player 'client'; Stop-Player 'host'
     Start-Player 'host'
     $restarted = Wait-Report 'host' { param($r) $r.ready -and $r.terrain.visible } 'restarted host initial map'
     $restartEpoch = $restarted.epoch
     $null = Consume 'host' @{operation='BeginLoad';value=3}
-    $restarted = Wait-Report 'host' { param($r) $r.ready -and $r.epoch -gt $restartEpoch -and $r.terrain.sha256 -eq $finalDigest } 'disk save after process restart'
-    Check 'player_restart_restores_exact_final_map' ($restarted.terrain.sha256 -eq $finalDigest)
+    $restarted = Wait-Report 'host' { param($r) $r.ready -and $r.epoch -gt $restartEpoch -and (Map-Hash $r) -eq $finalDigest } 'disk save after process restart'
+    Check 'player_restart_restores_exact_final_map' ((Map-Hash $restarted) -eq $finalDigest)
     Check 'player_restart_restores_deposit_remaining' (@($restarted.frame.World.Worksites | Where-Object Id -eq $deposit.Id)[0].Amount -eq $beforeDeposit - 1)
 }
 catch { $failure = $_.Exception.ToString() }
 finally {
     foreach ($role in @($processes.Keys)) { Stop-Player $role }
     [ordered]@{passed=(!$failure);checks=$checks;error=$failure;artifacts=$run;player=$player;clientPlayer=$clientPlayer;
-        network=@{port=$Port;clientPort=$ClientPort;seed=$Seed}} | ConvertTo-Json -Depth 12 |
+        network=@{port=$Port;clientPort=$ClientPort;seed=$Seed;compatibilityHash=[bool]$UseCompatibilityHash;
+            debugBridge=[bool]$VerifyDebugBridge};debugEvidence=$debugEvidence} | ConvertTo-Json -Depth 12 |
         Set-Content -LiteralPath (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Terrain loop: passed=$(!$failure); checks=$($checks.Count); $run/result.json"
 }

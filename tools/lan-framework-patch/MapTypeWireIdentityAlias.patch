@@ -1,0 +1,49 @@
+diff --git a/Runtime/Objects/NetworkStates/DefinitionNetworkProfile.cs b/Runtime/Objects/NetworkStates/DefinitionNetworkProfile.cs
+index acdca87..e2509d9 100644
+--- a/Runtime/Objects/NetworkStates/DefinitionNetworkProfile.cs
++++ b/Runtime/Objects/NetworkStates/DefinitionNetworkProfile.cs
+@@ -10,12 +10,30 @@ namespace GameCore.Objects.NetworkStates
+     /// <summary>从已初始化的实际目录和类型注册表生成握手摘要；宿主内容版本覆盖配置与载荷 schema 的变更。</summary>
+     public static class DefinitionNetworkProfile
+     {
++        private static readonly Dictionary<Type, string> wireAssemblyAliases = new Dictionary<Type, string>();
+ #if YYGC_GUID_DEFINITION_WIRE_V2
+         public const ushort WireVersion = 2;
+ #else
+         public const ushort WireVersion = 1;
+ #endif
+ 
++        /// <summary>为已验证 wire 不变、仅迁移程序集的注册类型指定原程序集身份；须在握手配置前调用。</summary>
++        public static void RegisterWireAssemblyAlias(Type type, string originalAssembly)
++        {
++            if (type == null) throw new ArgumentNullException(nameof(type));
++            if (!typeof(IStateData).IsAssignableFrom(type) && !typeof(INetworkCommand).IsAssignableFrom(type))
++                throw new ArgumentException("仅状态或命令注册类型可指定 wire 身份。", nameof(type));
++            if (string.IsNullOrWhiteSpace(originalAssembly) || originalAssembly.Contains(":"))
++                throw new ArgumentException("原程序集名不能为空或包含分隔符。", nameof(originalAssembly));
++            if (wireAssemblyAliases.TryGetValue(type, out string existing))
++            {
++                if (!string.Equals(existing, originalAssembly, StringComparison.Ordinal))
++                    throw new InvalidOperationException("同一类型不能声明不同的原程序集 wire 身份。");
++                return;
++            }
++            wireAssemblyAliases.Add(type, originalAssembly);
++        }
++
+         public static DefinitionNetworkStamp Create(ObjectDefinitionDatabase database, string contentVersion)
+         {
+             if (database == null) throw new ArgumentNullException(nameof(database));
+@@ -50,8 +68,12 @@ namespace GameCore.Objects.NetworkStates
+         private static void AddTypes<T>(List<string> rows, string kind) where T : IPooled
+         {
+             foreach (Type type in GenericTypeRegistry<T>.RegisteredTypes)
++            {
++                string assembly = wireAssemblyAliases.TryGetValue(type, out string original)
++                    ? original : type.Assembly.GetName().Name;
+                 rows.Add(kind + ":" + GenericTypeRegistry<T>.GetId(type).ToString(CultureInfo.InvariantCulture) + ":" +
+-                    type.Assembly.GetName().Name + ":" + type.FullName);
++                    assembly + ":" + type.FullName);
++            }
+         }
+     }
+ }

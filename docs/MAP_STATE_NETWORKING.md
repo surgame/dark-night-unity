@@ -20,10 +20,10 @@
 
 ## 验证与限制
 
-- 新协议的 .NET 测试已通过 129/129；协议 runner 写出本轮 TRX/JSON。无 YYGC 独立 FishNet 样板已在 Unity 6000.4.9f1 编译为 Mono，Host 0/1/2/4/8/16 与 Dedicated 1/4 客户端通过；TypicalWeak、Severe、Blackout 四客户端通过，真实 UDP 分别丢弃 25、63、28 包。`b239df6` 的按需 canonical 比较另通过 Matched、Different、Incomplete 定向测试及新样板 Host 1／Blackout 4 烟测。证据汇总在 YYGC `AnyRuleD~/Evidence/MapState/map-state-20260924-summary.json`，该汇总的完整矩阵基于先前 `b0e2387` 样板。
-- 游戏的 Unity 6000.4.9f1 Editor 编译与当前锁 Terrain 定向 41/41；全量 Editor 在上一锁 255/259，旧包路径断言已修正并定向 2/2，仍有两个旧场景对象数断言及既有按钮主题失败。当前锁 `b239df6` 的同一 Mono Player 在正常与真实 UDP 弱网三进程下各 28/28，v10 地图编辑循环正常与弱网各 15/15，覆盖授权挖掘、局部刷新、晚加入、重连与写盘重启；真实 UDP 弱网共记录丢包与乱序。身份、结果文件和未验项见[本轮证据](evidence/map-state-networking-2026-09-24.json)。
-- 基线 `artifacts/terrain-modifiers/player-mono` 作为旧客户端接入当前锁 Host 的实测在 YYGC 定义握手阶段被“类型表不同”拒绝，未进入 AMP1 地图流；旧完整 Delta／新稀疏 Delta 的协议向量通过，不能代替真实新旧 Player 混连。
-- 正式运行不注册调试操作端点。Editor/Development 会话使用有界只读诊断；调试编辑仍须经过游戏业务命令授权。
+- 新协议的 .NET 测试已通过 130/130，含不同权限投影对比；协议 runner 写出本轮 TRX/JSON。无 YYGC 独立 FishNet 样板已在 Unity 6000.4.9f1 编译为 Mono，Host 0/1/2/4/8/16 与 Dedicated 1/4 客户端通过；TypicalWeak、Severe、Blackout 四客户端通过，真实 UDP 分别丢弃 25、63、28 包。完整样板矩阵基于先前 `b0e2387` 产物；新桥接代码的 Unity 编译和游戏进程检查单列。
+- 游戏的 Unity 6000.4.9f1 Editor 最终锁 `e07e9a9` 编译通过，调试器菜单可开窗；上一锁 Terrain 定向 41/41、全量 Editor 255/259，旧包路径断言已修正并定向 2/2，仍有两个旧场景对象数断言及既有按钮主题失败。`b239df6` 锁的 Mono 正常与真实 UDP 弱网三进程各 28/28，v10 地图编辑正常与弱网各 15/15；最终锁的新 Mono 地图循环 17/17，包括真实 Host 与客户端诊断桥的授权投影 SHA 对比和错误令牌拒绝。每个构建的身份见[本轮证据](evidence/map-state-networking-2026-09-24.json)。
+- 旧 Player 初次混连在 YYGC 类型表握手阶段拒绝；原因是 `TerrainEditCommand` 搬移程序集后类型身份哈希变化。对唯一迁移命令显式登记旧线缆程序集名，保留其余握手校验。修正后最终锁 Host＋基线客户端、基线 Host＋最终锁客户端各通过真实独立进程地图循环 15/15，含晚加入、重连和写盘恢复。
+- 正式运行不注册调试操作端点。Editor/Development 会话仅以显式端口和令牌开放回环只读桥，调试编辑仍须经过游戏业务命令授权。不同权限连接目前由 .NET 投影测试验证，尚无异权限双 Player 实测；调试窗口故障档的按钮操作未人工验收，故障脚本本身已有真实 UDP 三档证据。
 - 用户明确选择本轮不构建或验证 IL2CPP，状态为 NOT_RUN。前台性能与双机器验收也未完成。
 
 本轮依赖文件、提交、验证结果及回退步骤在[YYGC 改动账本](YYGC_CHANGES.md)中继续记录。任何包路径或锁 SHA 变化后，先重建 `.deps`，再进行 Unity 编译与 Player 验收。

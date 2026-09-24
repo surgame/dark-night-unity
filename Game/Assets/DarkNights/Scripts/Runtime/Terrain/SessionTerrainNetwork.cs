@@ -47,6 +47,32 @@ namespace DarkNights.Runtime.Terrain
         private readonly Dictionary<ChunkCoord, byte[]> chunkDigests = new Dictionary<ChunkCoord, byte[]>();
         private string contentSha256 = "";
         private bool digestDirty;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        private ulong compatibilityHashCommit;
+        private string compatibilityHash = "";
+        /// <summary>仅供显式验收读取旧 V1 的 TileId/Flags 摘要；不参与日常地图发布与表现。</summary>
+        public string CompatibilitySha256
+        {
+            get
+            {
+                if (!DataReady) return "";
+                if (compatibilityHashCommit == Replica.CommitId && compatibilityHash.Length != 0) return compatibilityHash;
+                var bytes = new byte[TerrainGenerationSettings.Width * TerrainGenerationSettings.Height * 6];
+                int at = 0;
+                for (int y = 0; y < TerrainGenerationSettings.Height; y++)
+                    for (int x = 0; x < TerrainGenerationSettings.Width; x++)
+                    {
+                        var cell = Replica.Read(new CellCoord(x, -y)).Cell;
+                        for (int shift = 0; shift < 32; shift += 8) bytes[at++] = (byte)(cell.TileId >> shift);
+                        bytes[at++] = (byte)cell.Flags; bytes[at++] = (byte)(cell.Flags >> 8);
+                    }
+                using var hash = System.Security.Cryptography.SHA256.Create();
+                compatibilityHash = BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
+                compatibilityHashCommit = Replica.CommitId;
+                return compatibilityHash;
+            }
+        }
+#endif
         public string ContentSha256
         {
             get
@@ -185,7 +211,13 @@ namespace DarkNights.Runtime.Terrain
         {
             if (change.Kind == MapReplicaChangeKind.WorldReset || change.Kind == MapReplicaChangeKind.VisibilityRevoked ||
                 change.Kind == MapReplicaChangeKind.Disconnected)
-            { chunkDigests.Clear(); contentSha256 = ""; digestDirty = true; return; }
+            {
+                chunkDigests.Clear(); contentSha256 = ""; digestDirty = true;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                compatibilityHashCommit = 0; compatibilityHash = "";
+#endif
+                return;
+            }
             int size = Replica.Descriptor.ChunkSize;
             using var hash = System.Security.Cryptography.SHA256.Create();
             foreach (var chunk in change.Chunks)
@@ -227,6 +259,9 @@ namespace DarkNights.Runtime.Terrain
             if (Replica != null) Replica.Applied -= OnReplicaApplied;
             transport?.Dispose(); transport = null; Replica = null; streaming = null;
             Epoch = 0; contentSha256 = ""; chunkDigests.Clear(); digestDirty = false; PresentationReady = false;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            compatibilityHashCommit = 0; compatibilityHash = "";
+#endif
             background.Reset();
         }
         public void Dispose()

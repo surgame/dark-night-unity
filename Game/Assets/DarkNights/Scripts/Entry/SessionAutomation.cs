@@ -30,6 +30,9 @@ namespace DarkNights.Entry
         private int reportRetries;
         private bool pauseOnProjectile;
         private bool fullReport = true;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        private bool compatibilityMapHash;
+#endif
         private PlayerPerformanceCapture capture;
         private HeroInputPlayback heroInput;
 
@@ -52,6 +55,9 @@ namespace DarkNights.Entry
             driver.commandPath = Path.GetFullPath(Read("--dn-commands"));
             driver.heroInput = network.gameObject.AddComponent<HeroInputPlayback>();
             driver.heroInput.Initialize(network.Client);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            driver.compatibilityMapHash = Array.IndexOf(args, "--dn-map-compat-hash") >= 0;
+#endif
             Directory.CreateDirectory(Path.GetDirectoryName(driver.reportPath));
             network.Client.Feedback += driver.OnFeedback;
             network.Client.TerrainFeedback += driver.OnTerrainFeedback;
@@ -191,6 +197,10 @@ namespace DarkNights.Entry
                     ["effectViews"] = effects.EffectCount, ["arrowViews"] = effects.ArrowCount,
                     ["peakEffectViews"] = peakEffects, ["peakArrowViews"] = peakArrows
                 };
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                if (compatibilityMapHash && network.Terrain != null)
+                    ((JObject)report["terrain"])["compatibilitySha256"] = network.Terrain.CompatibilitySha256;
+#endif
                 string temporary = reportPath + ".tmp";
                 File.WriteAllText(temporary, report.ToString());
                 try

@@ -1,8 +1,8 @@
 {
   "branch": "ref-20260924-map-state-networking",
   "gameBaseline": "e204c1d",
-  "yygcSourceCommit": "b239df6484c195281dcafdaa311d8a254a37ea13",
-  "sourceLockFilesVerified": 460,
+  "yygcSourceCommit": "e07e9a9e3e36cdbae1e0d39ec07aea555e95fbad",
+  "sourceLockFilesVerified": 462,
   "unity": "6000.4.9f1",
   "fishNet": "4.7.2",
   "transport": "Tugboat",
@@ -12,7 +12,7 @@
     "finalLockTerrain": {"passed": 41, "total": 41},
     "priorLockFull": {"passed": 255, "total": 259, "fixedOldPackagePathTargeted": "2/2", "remainingHistoricalFailures": ["UnifiedSlicePlayTests.FormalPlayWithDomainReload: old scene expects 28 objects, actual 13", "UnifiedSlicePlayTests.FormalPlayWithoutDomainReload: old scene expects 28 objects, actual 13", "NativeButtonThemeTests.InteractableChangesUpdateWithoutPointerMovement"]}
   },
-  "monoPlayer": {
+  "priorLockMonoPlayer": {
     "path": "artifacts/map-state/player-mono-20260924-211842-938cc86a/DarkNights.exe",
     "exeSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
     "managedSha256": {
@@ -24,15 +24,16 @@
       "DarkNights.Entry.dll": "a2f3a3d476321d3a6a2dc916274bb2d1b124245159936061d1ec9b0f0d98ed37"
     }
   },
-  "independentProcesses": [
+  "priorLockIndependentProcesses": [
     {"case": "normal ship/session", "passed": 28, "total": 28, "result": "artifacts/map-state/network-20260924-212038-normal/result.json"},
     {"case": "TypicalWeak ship/session, 100ms one-way, 25ms jitter, 5% raw UDP loss", "passed": 28, "total": 28, "udpDropped": 984, "udpReordered": 9208, "result": "artifacts/map-state/network-20260924-212250-weak/result.json"},
     {"case": "v10 active-expedition terrain edit", "passed": 15, "total": 15, "result": "artifacts/map-fix/terrain-loop-20260924-212558-103/result.json"},
     {"case": "v10 terrain edit, 100ms one-way, 25ms jitter, 5% raw UDP loss", "passed": 15, "total": 15, "udpDropped": 414, "udpReordered": 4875, "result": "artifacts/map-fix/terrain-loop-20260924-212747-974/result.json"}
   ],
-  "canonicalCompare": {"sourceCommit": "b239df6", "dotNetPassed": 129, "dotNetTotal": 129, "statusesTested": ["Matched", "Different", "Incomplete"], "standaloneHostOne": "D:/Developer/YYGC-worktrees/map-state-networking/AnyRuleD~/Evidence/MapState/20260924-211506-3986ed88/results.json", "standaloneBlackoutFour": "D:/Developer/YYGC-worktrees/map-state-networking/AnyRuleD~/Evidence/MapState/20260924-211510-3075d9bb/results.json"},
-  "mixedPlayer": {"status": "FAIL_BEFORE_MAP_STREAM", "oldClient": "artifacts/terrain-modifiers/player-mono/DarkNights.exe", "newHost": "artifacts/map-state/player-mono-20260924-211842-938cc86a/DarkNights.exe", "reason": "YYGC DefinitionNetworkAuthenticator rejected type table mismatch", "result": "artifacts/map-fix/terrain-loop-20260924-212955-459/result.json"},
+  "canonicalCompare": {"sourceCommit": "e07e9a9", "dotNetPassed": 130, "dotNetTotal": 130, "statusesTested": ["Matched", "Different", "Incomplete", "DifferentPermissionPeersMatchOnlyTheirOwnCanonicalProjection"], "standaloneHostOne": "D:/Developer/YYGC-worktrees/map-state-networking/AnyRuleD~/Evidence/MapState/20260924-211506-3986ed88/results.json", "standaloneBlackoutFour": "D:/Developer/YYGC-worktrees/map-state-networking/AnyRuleD~/Evidence/MapState/20260924-211510-3075d9bb/results.json"},
+  "mixedPlayer": {"initialFailure": {"status": "FAIL_BEFORE_MAP_STREAM", "reason": "moved TerrainEditCommand changed YYGC type-table assembly identity", "result": "artifacts/map-fix/terrain-loop-20260924-212955-459/result.json"}, "fix": "explicit original wire assembly alias for TerrainEditCommand only", "finalLockOldClientNewHost": {"passed": 15, "total": 15, "result": "artifacts/map-fix/terrain-loop-20260924-225921-557/result.json"}, "finalLockOldHostNewClient": {"passed": 15, "total": 15, "result": "artifacts/map-fix/terrain-loop-20260924-230126-936/result.json"}, "priorLockOldClientNewHost": "artifacts/map-fix/terrain-loop-20260924-221809-068/result.json", "priorLockOldHostNewClient": "artifacts/map-fix/terrain-loop-20260924-221914-850/result.json", "oldPlayer": "artifacts/terrain-modifiers/player-mono/DarkNights.exe"},
+  "finalMonoPlayer": {"path": "artifacts/map-state/player-mono-20260924-225713-c519fa5f/DarkNights.exe", "exeSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d", "sourceCommit": "e07e9a9e3e36cdbae1e0d39ec07aea555e95fbad", "managedSha256": {"AnyRules.Core.dll": "26196a88bad5d4c01cd9a68327f2b8bcc3d716b17a55e1da2bf13e5016cd28de", "AnyRules.FishNet.dll": "cc0a0c89e0dc8ab98387afa0302c04427da4aeffd9e2ea235c395ad47b7c1fb6", "AnyRules.MapProtocol.dll": "8147d6e011f977cc51d4ce31956569cf2e132967eda22d671315b5a8183b303f", "AnyRules.YYGC.dll": "62a9815665f9cb2a878604adcce5c1df2e4c12f0bbae6977ce9faf609844d3bc", "DarkNights.Entry.dll": "796ecc6fe9b6b5ec43a8979ece5b81514d2c657e489f12e0a0b70a8a27103c07", "DarkNights.Runtime.dll": "f67112bfb8940d2084a18b583bc0ab840229da3ec09afd308a55c096972392e6"}, "newNewTerrainAndDebugBridge": {"passed": 17, "total": 17, "result": "artifacts/map-fix/terrain-loop-20260924-225814-660/result.json", "matchedPeer": 1, "wrongTokenDenied": true}},
   "independentPluginSample": "D:/Developer/YYGC-worktrees/map-state-networking/AnyRuleD~/Evidence/MapState/map-state-20260924-summary.json",
   "userDecision": {"il2cpp": "not in this round, explicitly declined"},
-  "notRun": ["IL2CPP", "dual-machine LAN", "foreground performance", "successful old/new Player mixed-version connection", "remote Player debugger bridge", "Editor canonical diff interaction", "long-duration latency/GC percentiles"]
+  "notRun": ["IL2CPP (user excluded this round)", "dual-machine LAN", "foreground performance", "different-permission two-Player run", "debug-window button interaction for remote comparison and fault profiles", "final-lock full normal/weak three-process matrix (previous b239df6 lock passed)", "long-duration latency/GC percentiles"]
 }
