@@ -53,7 +53,7 @@
       "hash": "a7c6b49a0141a5bff9b1983e38137522ef61977d"
     },
     "com.tsgame.anyrules": {
-      "version": "file:../../.deps/AnyRules-map-state-b0e2387/AnyRuleD~/Packages/com.tsgame.anyrules",
+      "version": "file:../../.deps/AnyRules-map-state-b239df6/AnyRuleD~/Packages/com.tsgame.anyrules",
       "depth": 0,
       "source": "local",
       "dependencies": {
@@ -61,7 +61,7 @@
       }
     },
     "com.tsgame.anyrules.networking": {
-      "version": "file:../../.deps/AnyRules-map-state-b0e2387/AnyRuleD~/Packages/com.tsgame.anyrules.networking",
+      "version": "file:../../.deps/AnyRules-map-state-b239df6/AnyRuleD~/Packages/com.tsgame.anyrules.networking",
       "depth": 0,
       "source": "local",
       "dependencies": {
@@ -69,7 +69,7 @@
       }
     },
     "com.tsgame.anyrules.networking.fishnet": {
-      "version": "file:../../.deps/AnyRules-map-state-b0e2387/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet",
+      "version": "file:../../.deps/AnyRules-map-state-b239df6/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet",
       "depth": 0,
       "source": "local",
       "dependencies": {
@@ -78,7 +78,7 @@
       }
     },
     "com.tsgame.anyrules.yygc": {
-      "version": "file:../../.deps/AnyRules-map-state-b0e2387/AnyRuleD~/Packages/com.tsgame.anyrules.yygc",
+      "version": "file:../../.deps/AnyRules-map-state-b239df6/AnyRuleD~/Packages/com.tsgame.anyrules.yygc",
       "depth": 0,
       "source": "local",
       "dependencies": {

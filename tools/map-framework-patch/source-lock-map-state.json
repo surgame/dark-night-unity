@@ -1,5 +1,5 @@
 {
-  "commit": "b0e238719f6d2cfd9bb1fe5676323ec2d843ae89",
+  "commit": "b239df6484c195281dcafdaa311d8a254a37ea13",
   "files": [
     {
       "path": "com.tsgame.anyrules.networking.fishnet/README.md",
@@ -71,7 +71,7 @@
     },
     {
       "path": "com.tsgame.anyrules.networking/Editor/MapStateDebuggerWindow.cs",
-      "sha256": "fbb2e7b9f8cc05ff5dfa961ca1f3638e2e0b48206407a7379217b7659d3c1aa4"
+      "sha256": "68ab4835c875899f8cbd51ee7eec2614a17be33c32a229f8f64c6df8a89bbea0"
     },
     {
       "path": "com.tsgame.anyrules.networking/Editor/MapStateDebuggerWindow.cs.meta",
@@ -123,7 +123,7 @@
     },
     {
       "path": "com.tsgame.anyrules.networking/Protocol/MapStateDiagnostics.cs",
-      "sha256": "f803065b74df2fbe0bb9d18a8b97b48db9b77b5376028b838fff6939f0bd72b8"
+      "sha256": "99ec59059d3efd0bddf3a0da81e55ab242603dea61de040e33981538544f033e"
     },
     {
       "path": "com.tsgame.anyrules.networking/Protocol/MapStateDiagnostics.cs.meta",
@@ -163,7 +163,7 @@
     },
     {
       "path": "com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs",
-      "sha256": "f6e9ec6f6f3db12cdb27dc25d1fab707af791bfaa50d77f3085f155ac2416567"
+      "sha256": "d5c0b4d74a63a0d2b2820e556bdd9ff3d3c4b3f6973fc5f6472b3eb757f1e0fe"
     },
     {
       "path": "com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs.meta",

@@ -129,7 +129,11 @@ namespace DarkNights.Runtime.Terrain
                 return TerrainMapNetworking.OpenStream(map, TerrainMapNetworking.Handshake(map, gameplay, visual), token, _ => true, () => 1);
             }, Replica, new GridBounds(0, -TerrainGenerationSettings.Height + 1, TerrainGenerationSettings.Width, TerrainGenerationSettings.Height));
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            if (transport.Diagnostics != null) transport.Diagnostics.Contributor = this;
+            if (transport.Diagnostics != null)
+            {
+                transport.Diagnostics.Contributor = this;
+                transport.Diagnostics.Authority = () => network.ObjectWorld?.Terrain?.Map;
+            }
 #endif
         }
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

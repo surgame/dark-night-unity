@@ -1,6 +1,6 @@
 # Unity 与 YYGC 依赖准备
 
-2026-09-24 地图联网候选：游戏在 `ref-20260924-map-state-networking` 使用 YYGC 隔离提交 `b0e238719f6d2cfd9bb1fe5676323ec2d843ae89` 的四个 AnyRuleD 包。先运行 `pwsh -NoProfile -File tools/prepare-map-packages.ps1 -FrameworkPath 'D:/Developer/YYGC-worktrees/map-state-networking'`，脚本从锁定提交归档到忽略的 `.deps/AnyRules-map-state-b0e2387` 并校验 460 个文件；`Game/Packages/manifest.json` 与 `packages-lock.json` 指向同一提取。旧补丁式脚本已另存 `tools/prepare-map-packages-legacy.ps1`。YYGC 主检出无需切换，新增包及未验边界见[改动账本](YYGC_CHANGES.md)。
+2026-09-24 地图联网候选：游戏在 `ref-20260924-map-state-networking` 使用 YYGC 隔离提交 `b239df6484c195281dcafdaa311d8a254a37ea13` 的四个 AnyRuleD 包。先运行 `pwsh -NoProfile -File tools/prepare-map-packages.ps1 -FrameworkPath 'D:/Developer/YYGC-worktrees/map-state-networking'`，脚本从锁定提交归档到忽略的 `.deps/AnyRules-map-state-b239df6` 并校验 460 个文件；`Game/Packages/manifest.json` 与 `packages-lock.json` 指向同一提取。旧补丁式脚本已另存 `tools/prepare-map-packages-legacy.ps1`。YYGC 主检出无需切换，新增包及未验边界见[改动账本](YYGC_CHANGES.md)。
 
 本开发分支的 M0 复现入口固定到 YYGC `12b253c6bdd262feb860ab905b9e56e940ec9c40`。`tools/prepare-lan-sample.ps1` 优先使用本机 `D:\Developer\YYGC`，该路径不存在时回退到远端 `git@github.com:surgame/YYGC.git`；也可显式传入 `-FrameworkPath` 或 `-Repository`。脚本不会覆盖已有 `.deps/YYGC-unified`，发现未知差异会停止并要求保留检查。
 2026-09-20 手持装备批次：AnyRules 本地包路径改为 `.deps/AnyRules-locked-aa450a7/AnyRuleD~/Packages/…`，现在可执行 `tools/prepare-map-packages-legacy.ps1` 复现。版本仍锁 `aa450a7` 加原三份补丁，442 文件哈希一致；本机原 `.deps/AnyRules` 有两处漂移，保留待用户处置。YYGC 仍为 `12b253c`，无框架源码升级。详见[账本](YYGC_CHANGES.md)。

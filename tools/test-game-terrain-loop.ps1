@@ -1,5 +1,6 @@
 param(
     [Parameter(Mandatory)][string]$PlayerPath,
+    [string]$ClientPlayerPath = '',
     [int]$Port = 28820,
     [int]$ClientPort = 0,
     [string]$Seed = 'terrain-loop-acceptance',
@@ -9,6 +10,8 @@ $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
 $player = [IO.Path]::GetFullPath($PlayerPath)
 if (!(Test-Path -LiteralPath $player)) { throw 'Build the formal Mono Player first.' }
+$clientPlayer = if ($ClientPlayerPath) { [IO.Path]::GetFullPath($ClientPlayerPath) } else { $player }
+if (!(Test-Path -LiteralPath $clientPlayer)) { throw 'Build the client Mono Player first.' }
 if (!$ClientPort) { $ClientPort = $Port }
 $run = Join-Path $repo ('artifacts/map-fix/terrain-loop-' + (Get-Date -Format 'yyyyMMdd-HHmmss-fff'))
 $saves = Join-Path $run 'saves'
@@ -48,7 +51,8 @@ function Start-Player([string]$Role) {
         '--dn-role', $Role, '--dn-port', $endpoint, '--dn-save-dir', ('"' + $saves + '"'),
         '--dn-map-seed', $Seed, '--dn-report', ('"' + $report + '"'),
         '--dn-commands', ('"' + (Join-Path $run "$Role.commands") + '"'))
-    $processes[$Role] = Start-Process -FilePath $player -ArgumentList $arguments -WindowStyle Hidden -PassThru
+    $rolePlayer = if ($Role -eq 'host') { $player } else { $clientPlayer }
+    $processes[$Role] = Start-Process -FilePath $rolePlayer -ArgumentList $arguments -WindowStyle Hidden -PassThru
 }
 function Stop-Player([string]$Role) {
     if (!$processes.ContainsKey($Role)) { return }
@@ -261,7 +265,7 @@ try {
 catch { $failure = $_.Exception.ToString() }
 finally {
     foreach ($role in @($processes.Keys)) { Stop-Player $role }
-    [ordered]@{passed=(!$failure);checks=$checks;error=$failure;artifacts=$run;player=$player;
+    [ordered]@{passed=(!$failure);checks=$checks;error=$failure;artifacts=$run;player=$player;clientPlayer=$clientPlayer;
         network=@{port=$Port;clientPort=$ClientPort;seed=$Seed}} | ConvertTo-Json -Depth 12 |
         Set-Content -LiteralPath (Join-Path $run 'result.json') -Encoding utf8
     Write-Output "Terrain loop: passed=$(!$failure); checks=$($checks.Count); $run/result.json"

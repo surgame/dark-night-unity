@@ -2,19 +2,19 @@
 
 ## 2026-09-24：AnyRuleD 地图联网拆包与稀疏增量
 
-隔离检出 `D:/Developer/YYGC-worktrees/map-state-networking` 从 YYGC `4939af2` 建立 `ref-20260924-map-state-networking`；用户维护的 `D:/Developer/YYGC` 主检出未切换或覆盖。游戏从 `ft-20260922-terrain-modifiers` 的 `e204c1d` 同名新分支接入。YYGC 当前包代码锁定 `b0e238719f6d2cfd9bb1fe5676323ec2d843ae89`，由 `tools/map-framework-patch/source-lock-map-state.json` 校验四包 460 个文件。旧 `aa450a7` 加补丁的准备脚本保留为 `tools/prepare-map-packages-legacy.ps1`。
+隔离检出 `D:/Developer/YYGC-worktrees/map-state-networking` 从 YYGC `4939af2` 建立 `ref-20260924-map-state-networking`；用户维护的 `D:/Developer/YYGC` 主检出未切换或覆盖。游戏从 `ft-20260922-terrain-modifiers` 的 `e204c1d` 同名新分支接入。YYGC 当前包代码锁定 `b239df6484c195281dcafdaa311d8a254a37ea13`，由 `tools/map-framework-patch/source-lock-map-state.json` 校验四包 460 个文件。旧 `aa450a7` 加补丁的准备脚本保留为 `tools/prepare-map-packages-legacy.ps1`。
 
 | YYGC / AnyRuleD 修改文件或目录 | 原因与落点 | 已验证 / 边界 |
 |---|---|---|
-| `com.tsgame.anyrules/Runtime/Core/Contracts/WorldDescriptor.cs`、`Runtime/Core/Grid/ARDMap.cs` | 新增 `IGridChangeSource`，权威提交时发布已有变化集；仍由地图对象唯一写入。 | .NET 127/127；Game Editor 编译通过。 |
+| `com.tsgame.anyrules/Runtime/Core/Contracts/WorldDescriptor.cs`、`Runtime/Core/Grid/ARDMap.cs` | 新增 `IGridChangeSource`，权威提交时发布已有变化集；仍由地图对象唯一写入。 | .NET 129/129；Game Editor 编译通过。 |
 | 旧 `com.tsgame.anyrules.yygc.fishnet/Protocol/*` → `com.tsgame.anyrules.networking/Protocol/*` | 协议、发布器与只读副本移出 YYGC/FishNet；`MapInterestService` 只为变化格编码 Delta，保留 AMP1 V1 帧、完整 Snapshot、连接权限及版本边界；`ChunkReplicaStateMachine` 一次解码并原子通知范围。原 `.meta` 随移动保留。 | 单格 1 record、负坐标、跨块原子、新旧 V1 向量、背压与空闲扫描 .NET 用例通过；真实新旧 Player 混连未跑。 |
 | 旧 `com.tsgame.anyrules.yygc.fishnet/Runtime/FishNetMapTransport.cs` → `com.tsgame.anyrules.networking.fishnet/Runtime/` | 可靠传输、连接清理与实时重试；仅依赖 FishNet 和地图协议，编辑意图不经此状态流。原 `.meta` 保留；安全停止后 `Pump` 空操作。 | Game Editor 编译通过；无 YYGC Mono Host/16 客户端及 Dedicated/4 客户端通过，真实 UDP 三档通过。 |
 | 旧 `com.tsgame.anyrules.yygc.fishnet/Runtime/TerrainEditCommand.cs` → `com.tsgame.anyrules.yygc/Runtime/` | 命令保留 YYGC 认证、路由、权限及业务去重路径；原 `.meta` 保留。 | Game 的 Runtime/Entry/Tests 引用更新后编译通过；最终锁 Mono 地图编辑循环正常及真实弱网各 15/15。 |
 | 两个新包的 `package.json`、`README.md`、asmdef 与 `.meta` | UPM 将基础、纯协议、FishNet 与 YYGC 分离；FishNet 最低依赖兼容 YYGC 宿主 4.6.12，游戏实际仍为 4.7.2。新资源 `.meta` 由 Unity 导入生成。 | `verify-package-layout.py`：15 个程序集、432 个唯一 GUID；四包锁 460/460。 |
-| `MapStateDiagnostics.cs`、`MapStateDebuggerWindow.cs`、`MapStateFeatureWindow.cs` 与 FishNet 诊断接线 | YY 菜单、有界 2048 事件、只读业务贡献者、安全停止；正式 Player 不注册诊断会话。 | Game Editor 编译通过；窗口交互、远程诊断、差异页和真实故障控制未完全验收。 |
+| `MapStateDiagnostics.cs`、`MapStateDebuggerWindow.cs`、`MapStateFeatureWindow.cs` 与 FishNet 诊断接线 | YY 菜单、有界 2048 事件、只读业务贡献者、安全停止、按需本机权威与副本 canonical 对比；正式 Player 不注册诊断会话。 | 比对状态 Matched、Different、Incomplete 定向测试通过；Game Editor 编译、菜单开窗通过。实际会话窗口交互、远程诊断、不同权限 peer 对比和真实故障控制未验收。 |
 | `Samples~/StandaloneNetwork/*`、`Tools~/MapStateTests/*`、`tools/prepare-standalone-map-host.py` | 无 YYGC 独立 FishNet 样板、协议/进程测试入口、真实 UDP 弱网档位；输出隔离 runId。 | 宿主 5/5 文件且不装 YYGC；协议 runner 有 TRX/JSON，Mono Host 0/1/2/4/8/16、Dedicated 1/4，TypicalWeak/Severe/Blackout 四客户端通过；证据在 YYGC `AnyRuleD~/Evidence/MapState/map-state-20260924-summary.json`。 |
 
-YYGC 分段提交：`13cd0b9` 红测，`85275e3` 稀疏 Delta，`0684b9d` 变化集与副本，`1ec2b55` 拆包，`d4687c9` 诊断，`f8ebc76` 样板初稿，`b0e2387` 独立多进程和弱网收口。迁移说明在 YYGC `AnyRuleD~/Documentation~/MAP_STATE_NETWORKING.md`；游戏接入与待验边界见[地图联网重构](MAP_STATE_NETWORKING.md)。回退时切回旧锁与旧三包 manifest、恢复旧游戏接线，不删除存档或原素材。尚未运行 IL2CPP、双机器或前台性能验证。
+YYGC 分段提交：`13cd0b9` 红测，`85275e3` 稀疏 Delta，`0684b9d` 变化集与副本，`1ec2b55` 拆包，`d4687c9` 诊断，`f8ebc76` 样板初稿，`b0e2387` 独立多进程和弱网收口，`b239df6` 按需 canonical 对比。当前锁 Game Mono 正常／弱网三进程各 28/28、地图编辑各 15/15。旧基线 Player 作为客户端接入时，被 YYGC 定义握手以“类型表不同”拒绝，未进入 AMP1 地图流；此项不记为新旧 Player 互通通过。迁移说明在 YYGC `AnyRuleD~/Documentation~/MAP_STATE_NETWORKING.md`；游戏接入与待验边界见[地图联网重构](MAP_STATE_NETWORKING.md)。回退时切回旧锁与旧三包 manifest、恢复旧游戏接线，不删除存档或原素材。尚未运行 IL2CPP、双机器或前台性能验证。
 
 ## 2026-09-23：编辑器顶部菜单归属
 

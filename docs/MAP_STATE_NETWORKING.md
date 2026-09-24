@@ -20,8 +20,9 @@
 
 ## 验证与限制
 
-- 新协议的 .NET 测试已通过 127/127；协议 runner 写出本轮 TRX/JSON。无 YYGC 独立 FishNet 样板已在 Unity 6000.4.9f1 编译为 Mono，Host 0/1/2/4/8/16 与 Dedicated 1/4 客户端通过；同一最终样板 Player 的 TypicalWeak、Severe、Blackout 四客户端通过，真实 UDP 分别丢弃 25、63、28 包。证据汇总在 YYGC `AnyRuleD~/Evidence/MapState/map-state-20260924-summary.json`。
-- 游戏的 Unity 6000.4.9f1 Editor 编译与最终锁 Terrain 定向 41/41；全量 Editor 在上一锁 255/259，旧包路径断言已修正并定向 2/2，仍有两个旧场景对象数断言及既有按钮主题失败。最终锁 `b0e2387` 的同一 Mono Player 在正常与真实 UDP 弱网三进程下各 28/28，v10 地图编辑循环正常与弱网各 15/15，覆盖授权挖掘、局部刷新、晚加入、重连与写盘重启；真实 UDP 弱网共记录丢包与乱序。身份、结果文件和未验项见[本轮证据](evidence/map-state-networking-2026-09-24.json)。
+- 新协议的 .NET 测试已通过 129/129；协议 runner 写出本轮 TRX/JSON。无 YYGC 独立 FishNet 样板已在 Unity 6000.4.9f1 编译为 Mono，Host 0/1/2/4/8/16 与 Dedicated 1/4 客户端通过；TypicalWeak、Severe、Blackout 四客户端通过，真实 UDP 分别丢弃 25、63、28 包。`b239df6` 的按需 canonical 比较另通过 Matched、Different、Incomplete 定向测试及新样板 Host 1／Blackout 4 烟测。证据汇总在 YYGC `AnyRuleD~/Evidence/MapState/map-state-20260924-summary.json`，该汇总的完整矩阵基于先前 `b0e2387` 样板。
+- 游戏的 Unity 6000.4.9f1 Editor 编译与当前锁 Terrain 定向 41/41；全量 Editor 在上一锁 255/259，旧包路径断言已修正并定向 2/2，仍有两个旧场景对象数断言及既有按钮主题失败。当前锁 `b239df6` 的同一 Mono Player 在正常与真实 UDP 弱网三进程下各 28/28，v10 地图编辑循环正常与弱网各 15/15，覆盖授权挖掘、局部刷新、晚加入、重连与写盘重启；真实 UDP 弱网共记录丢包与乱序。身份、结果文件和未验项见[本轮证据](evidence/map-state-networking-2026-09-24.json)。
+- 基线 `artifacts/terrain-modifiers/player-mono` 作为旧客户端接入当前锁 Host 的实测在 YYGC 定义握手阶段被“类型表不同”拒绝，未进入 AMP1 地图流；旧完整 Delta／新稀疏 Delta 的协议向量通过，不能代替真实新旧 Player 混连。
 - 正式运行不注册调试操作端点。Editor/Development 会话使用有界只读诊断；调试编辑仍须经过游戏业务命令授权。
 - 当前未构建 IL2CPP；需要用户另行明确授权。前台性能与双机器验收也未完成。
 
