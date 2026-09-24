@@ -1,0 +1,66 @@
+{
+  "date": "2026-09-24",
+  "stage": "E0",
+  "gameBase": "e204c1dbfc1323c3bc45b948f5c1a6cfa7cddf62",
+  "gameBranch": "ref-20260924-map-state-networking",
+  "yygcBase": "4939af25e266d4a518b3843171dafb86b348dea0",
+  "anyRuleDSource": "aa450a7168d5800b0899e216ed484892e44fb40a",
+  "yygcAnyRuleDPackageDiffFiles": 0,
+  "sourceLockSha256": "98ffb17454f440cc923ef2da7b7bfbfeb1f8b4a1ce157a06889236fda80b9858",
+  "lockedFiles": 442,
+  "lockDifferences": [
+    {
+      "status": "MISMATCH",
+      "path": "com.tsgame.anyrules.yygc/Runtime/TerrainEditBusinessHandler.cs",
+      "expected": "ff090a5eea00c31c67ea0240fccd437ebb47a9b0e5f2e106e84f00aaece449a1",
+      "actual": "6630cd47272955745b598a5e16065032ef536af5caee41f96a81cf47e50d15c8"
+    },
+    {
+      "status": "MISMATCH",
+      "path": "com.tsgame.anyrules.yygc.fishnet/Runtime/TerrainEditCommand.cs",
+      "expected": "5d22c5ae1162a813f43c40c67976d77bb9a27385d24fd78e1baadfd382a1332f",
+      "actual": "24d5fb0e9fc0ebe1d92abb95b7a29e390de1ce9cf8a0732bfb7e0e0ebaa63050"
+    }
+  ],
+  "patches": [
+    {
+      "sha256": "cb576f111d8a1c97805ea72abd5a12218ffc910c0dfa297e5b22c35d2db274e0",
+      "name": "EditorMenus.patch"
+    },
+    {
+      "sha256": "9e99dedde177fa563ee945efbd141d4e3e4fa1296322b53290b5ad1e69bfd267",
+      "name": "IdleMapPublication.patch"
+    },
+    {
+      "sha256": "b8e0f708e7acf820da69c57da2e61d01449957705a74a7ed77a11bb0db297105",
+      "name": "PlayableMapChunkBudget.patch"
+    },
+    {
+      "sha256": "fdb099db3d53e51dcf88e6ecc7f4fdec1f9b869c6343bb15014a98eb9a0472bd",
+      "name": "RealtimeMapRetry.patch"
+    },
+    {
+      "sha256": "5896f568412633c7065244c7e6d44d7d8b6f4cdce9aee2ee6846be4b036f93e7",
+      "name": "TerrainEditCommandPayload.patch"
+    }
+  ],
+  "unity": "6000.4.9f1",
+  "fishNet": "4.7.2 game dependency; runtime transport not yet measured",
+  "playerBuild": "NOT_RUN",
+  "baselineTests": [
+    {
+      "status": "EXPECTED_FAIL",
+      "observedRecords": 16,
+      "name": "SingleCellDeltaContainsOnlyFinalCell",
+      "expectedRecords": 1
+    },
+    {
+      "status": "PASS",
+      "name": "CrossChunkCommitManifest"
+    },
+    {
+      "status": "PASS",
+      "name": "LateJoinReconnect"
+    }
+  ]
+}
