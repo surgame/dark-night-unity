@@ -20,7 +20,7 @@ namespace DarkNights.Tests
         public void TerrainCommandScriptResolvesCommandInsteadOfSiblingResult()
         {
             var script = AssetDatabase.LoadAssetAtPath<MonoScript>(
-                "Packages/com.tsgame.anyrules.yygc.fishnet/Runtime/TerrainEditCommand.cs");
+                "Packages/com.tsgame.anyrules.yygc/Runtime/TerrainEditCommand.cs");
             Assert.That(script, Is.Not.Null);
             var resolver = typeof(NetworkCommandInterfaceGenerator).GetMethod(
                 "GetTypeFromMonoScript", BindingFlags.NonPublic | BindingFlags.Static);

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using AnyRules.Next;
@@ -17,7 +18,11 @@ using GameCore.Objects.Runner;
 namespace DarkNights.Runtime.Terrain
 {
     /// <summary>正式会话的地图选择缓存和 AMP1 网络接线；后台只执行纯生成，主线程拥有传输与副本，地图及实体共同就绪才 Ready。</summary>
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    public sealed class SessionTerrainNetwork : IMapStateDebugContributor, IDisposable
+#else
     public sealed class SessionTerrainNetwork : IDisposable
+#endif
     {
         private readonly NetworkManager manager;
         private readonly SessionNetwork network;
@@ -39,8 +44,18 @@ namespace DarkNights.Runtime.Terrain
             Replica.World.WorldId.ToString().Replace("-", "") == background.WorldId && Replica.World.Epoch == background.MapEpoch;
         public string SelectionStatus { get; private set; } = "选择地图：灰松谷 · 点击地图按钮生成新地图";
         public long GenerationMilliseconds { get; private set; }
-        public string ContentSha256 { get; private set; } = "";
-        private ulong hashedCommit;
+        private readonly Dictionary<ChunkCoord, byte[]> chunkDigests = new Dictionary<ChunkCoord, byte[]>();
+        private string contentSha256 = "";
+        private bool digestDirty;
+        public string ContentSha256
+        {
+            get
+            {
+                if (!DataReady) return "";
+                if (digestDirty) RebuildDigest();
+                return contentSha256;
+            }
+        }
         public long SentBytes => transport?.SentBytes ?? 0;
         public SessionTerrainNetwork(NetworkManager manager, SessionNetwork network, ARDMapDefinition definition, bool expedition = false, string styleIdentity = "")
         {
@@ -90,6 +105,7 @@ namespace DarkNights.Runtime.Terrain
         {
             Disconnect();
             Replica = TerrainMapNetworking.CreateReplica(gameplay, visual);
+            Replica.Applied += OnReplicaApplied;
             CreateTransport();
         }
         private void CreateTransport()
@@ -112,7 +128,23 @@ namespace DarkNights.Runtime.Terrain
                 }
                 return TerrainMapNetworking.OpenStream(map, TerrainMapNetworking.Handshake(map, gameplay, visual), token, _ => true, () => 1);
             }, Replica, new GridBounds(0, -TerrainGenerationSettings.Height + 1, TerrainGenerationSettings.Width, TerrainGenerationSettings.Height));
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (transport.Diagnostics != null) transport.Diagnostics.Contributor = this;
+#endif
         }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        public IReadOnlyDictionary<string, string> Capture()
+        {
+            return new Dictionary<string, string>
+            {
+                ["游戏 Epoch"] = Epoch.ToString(),
+                ["地图世界"] = Replica?.World.ToString() ?? "未连接",
+                ["流 Commit"] = Replica?.CommitId.ToString() ?? "0",
+                ["数据就绪"] = DataReady.ToString(),
+                ["背景参考"] = Background?.ReferenceHash ?? "未安装"
+            };
+        }
+#endif
         private void ReceiveEpoch(TerrainEpochSignal signal, Channel channel)
         {
             if (channel != Channel.Reliable || signal.Epoch < Epoch) return;
@@ -122,7 +154,7 @@ namespace DarkNights.Runtime.Terrain
                 background.Begin(signal);
             }
             catch (Exception error) { network.Fail(error); return; }
-            Replica.ResetConnection(); hashedCommit = 0; ContentSha256 = ""; Epoch = signal.Epoch; Seed = signal.Seed; PresentationReady = false;
+            Replica.ResetConnection(); Epoch = signal.Epoch; Seed = signal.Seed; PresentationReady = false;
         }
         private void ReceiveBackground(TerrainBackgroundChunk chunk, Channel channel)
         {
@@ -144,25 +176,53 @@ namespace DarkNights.Runtime.Terrain
                 }
             }
             transport.Pump();
-            if (DataReady && hashedCommit != Replica.CommitId)
+        }
+        private void OnReplicaApplied(MapReplicaChange change)
+        {
+            if (change.Kind == MapReplicaChangeKind.WorldReset || change.Kind == MapReplicaChangeKind.VisibilityRevoked ||
+                change.Kind == MapReplicaChangeKind.Disconnected)
+            { chunkDigests.Clear(); contentSha256 = ""; digestDirty = true; return; }
+            int size = Replica.Descriptor.ChunkSize;
+            using var hash = System.Security.Cryptography.SHA256.Create();
+            foreach (var chunk in change.Chunks)
             {
-                var bytes = new byte[TerrainGenerationSettings.Width * TerrainGenerationSettings.Height * 6];
-                int at = 0;
-                for (int y = 0; y < 192; y++) for (int x = 0; x < 320; x++)
+                var bytes = new byte[size * size * 9]; int at = 0;
+                for (int i = 0; i < size * size; i++)
                 {
-                    var cell = Replica.Read(new CellCoord(x, -y)).Cell;
-                    for (int shift = 0; shift < 32; shift += 8) bytes[at++] = (byte)(cell.TileId >> shift);
-                    bytes[at++] = (byte)cell.Flags; bytes[at++] = (byte)(cell.Flags >> 8);
+                    var cell = Replica.Read(new CellCoord(chunk.U * size + i % size, chunk.V * size + i / size));
+                    bool known = cell.TryGetCell(out var value);
+                    bytes[at++] = known ? (byte)1 : (byte)0;
+                    uint tile = known ? value.TileId : 0;
+                    for (int shift = 0; shift < 32; shift += 8) bytes[at++] = (byte)(tile >> shift);
+                    short height = known ? value.Height : (short)0;
+                    bytes[at++] = (byte)height; bytes[at++] = (byte)(height >> 8);
+                    ushort flags = known ? value.Flags : (ushort)0;
+                    bytes[at++] = (byte)flags; bytes[at++] = (byte)(flags >> 8);
                 }
-                using var hash = System.Security.Cryptography.SHA256.Create();
-                ContentSha256 = BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
-                hashedCommit = Replica.CommitId;
+                chunkDigests[chunk] = hash.ComputeHash(bytes);
             }
+            digestDirty = true;
+        }
+        private void RebuildDigest()
+        {
+            var chunks = new List<ChunkCoord>(chunkDigests.Keys);
+            chunks.Sort((a, b) => a.V != b.V ? a.V.CompareTo(b.V) : a.U.CompareTo(b.U));
+            var bytes = new byte[chunks.Count * 40]; int at = 0;
+            foreach (var chunk in chunks)
+            {
+                foreach (int coordinate in new[] { chunk.U, chunk.V })
+                    for (int shift = 0; shift < 32; shift += 8) bytes[at++] = (byte)(coordinate >> shift);
+                Buffer.BlockCopy(chunkDigests[chunk], 0, bytes, at, 32); at += 32;
+            }
+            using var hash = System.Security.Cryptography.SHA256.Create();
+            contentSha256 = BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
+            digestDirty = false;
         }
         public void Disconnect()
         {
+            if (Replica != null) Replica.Applied -= OnReplicaApplied;
             transport?.Dispose(); transport = null; Replica = null; streaming = null;
-            Epoch = 0; hashedCommit = 0; ContentSha256 = ""; PresentationReady = false;
+            Epoch = 0; contentSha256 = ""; chunkDigests.Clear(); digestDirty = false; PresentationReady = false;
             background.Reset();
         }
         public void Dispose()

@@ -9,7 +9,7 @@ using GameCore.Objects.Runner;
 namespace DarkNights.Runtime.Terrain
 {
     /// <summary>绑定可信 YYGC 会话的地图逻辑所有者。只读查询供网络使用；破坏以短事务更新，禁止逐格实体和整图复制。</summary>
-    public sealed class TerrainMapAuthority : IReadOnlyGrid, IGridSnapshotSource, IDisposable
+    public sealed class TerrainMapAuthority : IGridChangeSource, IGridSnapshotSource, IDisposable
     {
         private readonly ObjectSessionContext session;
         private readonly ARDMap map;

@@ -2,7 +2,8 @@ param(
     [Parameter(Mandatory)][string]$PlayerPath,
     [int]$Port = 28820,
     [int]$ClientPort = 0,
-    [string]$Seed = 'terrain-loop-acceptance'
+    [string]$Seed = 'terrain-loop-acceptance',
+    [ValidateRange(7, 20)][int]$SaveVersion = 7
 )
 $ErrorActionPreference = 'Stop'
 $repo = Split-Path $PSScriptRoot -Parent
@@ -109,10 +110,15 @@ try {
     $c = Wait-Report 'client' { param($r) @($r.frame.World.Actors | Where-Object ControllerSlot -eq 0).Count -eq 1 -and
         @($r.frame.World.Actors | Where-Object ControllerSlot -eq 1).Count -eq 1 } 'client sees both controlled heroes'
     Check 'initial_host_client_map_equal' ($h.terrain.sha256 -eq $c.terrain.sha256)
+    if ($SaveVersion -ge 10) {
+        Check 'expedition_depart_for_terrain_authorization' ((Receipt 'host' @{operation='Expedition';kind='depart'}).Code -eq 'Applied')
+        $h = Wait-Report 'host' { param($r) $r.frame.World.Expedition.Phase -eq 1 } 'active expedition'
+        $c = Wait-Report 'client' { param($r) $r.frame.World.Expedition.Phase -eq 1 } 'client active expedition'
+    }
     Check 'pause_for_fixture' ((Receipt 'host' @{operation='SetPaused';value=1}).Code -eq 'Applied')
     $null = Receipt 'host' @{operation='Save';value=0}
-    $savePath = Join-Path $saves 'v7/slot-00.dnsave.json'
-    $h = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $savePath) } 'initial v7 save'
+    $savePath = Join-Path $saves "v$SaveVersion/slot-00.dnsave.json"
+    $h = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $savePath) } 'initial current-format save'
     $fixture = [IO.File]::ReadAllText($savePath) | ConvertFrom-Json
     $cells = [Convert]::FromBase64String($fixture.world.terrain.materials)
     $protection = [Convert]::FromBase64String($fixture.world.terrain.protection)
@@ -122,7 +128,9 @@ try {
         $p -eq 0 -and $s -eq 0 -and $m -in 1,2,3,7 -and [Math]::Abs($x-$softCell.x) -le 3 -and [Math]::Abs($y-$softCell.y) -le 3 }
     $blastCell = Find-Cell $cells $protection $soft { param($m,$p,$s,$x,$y)
         $p -eq 0 -and $m -in 1,2,3,7 -and ($x % 32) -gt 3 -and ($x % 32) -lt 28 -and ($y % 32) -gt 3 -and ($y % 32) -lt 28 }
-    $scatterCell = Find-Cell $cells $protection $soft { param($m,$p,$s,$x,$y) $p -eq 0 -and $m -in 4,5,6 }
+    $scatterCell = if ($SaveVersion -le 7) {
+        Find-Cell $cells $protection $soft { param($m,$p,$s,$x,$y) $p -eq 0 -and $m -in 4,5,6 }
+    } else { $null }
     $protectedCell = Find-Cell $cells $protection $soft { param($m,$p,$s,$x,$y) $p -eq 1 -and $m -ne 0 }
     $bedrockCell = Find-Cell $cells $protection $soft { param($m,$p,$s,$x,$y) $m -eq 8 }
     $hostId = (Actor $h 0).Id; $clientId = (Actor $c 1).Id
@@ -163,8 +171,30 @@ try {
         $h.terrainPresentation.refreshRegions -le 4)
     Check 'host_client_final_map_equal_after_blast' ($h.terrain.sha256 -eq $c.terrain.sha256)
 
+    if ($SaveVersion -ge 10) {
+        $null = Receipt 'host' @{operation='Save';value=3}
+        $save3 = Join-Path $saves "v$SaveVersion/slot-03.dnsave.json"
+        $null = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $save3) } 'current-format final save'
+        $finalDigest = $h.terrain.sha256
+        Start-Player 'late'
+        $late = Wait-Report 'late' { param($r) $r.ready -and $r.terrain.visible } 'late join edited map'
+        Check 'late_join_matches_edited_map' ($late.terrain.sha256 -eq $finalDigest)
+        Stop-Player 'late'; Stop-Player 'client'
+        Start-Player 'client'
+        $reconnected = Wait-Report 'client' { param($r) $r.ready -and $r.terrain.visible } 'reconnected map'
+        Check 'reconnect_matches_edited_map' ($reconnected.terrain.sha256 -eq $finalDigest)
+        Stop-Player 'client'; Stop-Player 'host'
+        Start-Player 'host'
+        $restarted = Wait-Report 'host' { param($r) $r.ready -and $r.terrain.visible } 'restarted host'
+        $restartEpoch = $restarted.epoch
+        $null = Consume 'host' @{operation='BeginLoad';value=3}
+        $restarted = Wait-Report 'host' { param($r) $r.ready -and $r.epoch -gt $restartEpoch -and $r.terrain.sha256 -eq $finalDigest } 'restored edited map'
+        Check 'restart_restores_edited_map' ($restarted.terrain.sha256 -eq $finalDigest)
+        return
+    }
+
     $null = Receipt 'host' @{operation='Save';value=1}
-    $save1 = Join-Path $saves 'v7/slot-01.dnsave.json'
+    $save1 = Join-Path $saves "v$SaveVersion/slot-01.dnsave.json"
     $null = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $save1) } 'post-blast save'
     $fixture = [IO.File]::ReadAllText($save1) | ConvertFrom-Json
     Place-Actor (@($fixture.world.actors | Where-Object id -eq $clientId)[0]) $scatterCell 1
@@ -188,7 +218,7 @@ try {
     Check 'hand_mine_deposit_has_floor_support' ($null -ne $deposit)
     $beforeDeposit = $deposit.Amount
     $null = Receipt 'host' @{operation='Save';value=2}
-    $save2 = Join-Path $saves 'v7/slot-02.dnsave.json'
+    $save2 = Join-Path $saves "v$SaveVersion/slot-02.dnsave.json"
     $null = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $save2) } 'deposit fixture save'
     $fixture = [IO.File]::ReadAllText($save2) | ConvertFrom-Json
     $clientActor = @($fixture.world.actors | Where-Object id -eq $clientId)[0]
@@ -208,7 +238,7 @@ try {
     Check 'deposit_remaining_is_authoritative' (@($h.frame.World.Worksites | Where-Object Id -eq $deposit.Id)[0].Amount -eq $beforeDeposit - 1)
     $null = Receipt 'host' @{operation='SetPaused';value=1}
     $null = Receipt 'host' @{operation='Save';value=3}
-    $save3 = Join-Path $saves 'v7/slot-03.dnsave.json'
+    $save3 = Join-Path $saves "v$SaveVersion/slot-03.dnsave.json"
     $null = Wait-Report 'host' { param($r) !$r.storageBusy -and (Test-Path -LiteralPath $save3) } 'final save'
     $finalDigest = $h.terrain.sha256
 

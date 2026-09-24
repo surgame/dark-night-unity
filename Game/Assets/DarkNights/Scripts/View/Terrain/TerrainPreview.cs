@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using AnyRules.Next;
+using AnyRules.Next.Networking;
 using AnyRules.Next.Unity;
 using UnityEngine;
 
@@ -35,6 +36,7 @@ namespace DarkNights.View.Terrain
         public Exception LastError { get; private set; }
         public bool Ready => LastError == null && controller != null && (caveSource?.BackgroundReady ?? true) && controller.Renderer.CommittedBuilds > 0 && controller.Renderer.QueueCount == 0 && controller.Renderer.InFlightCount == 0;
         public void NotifyReplicaChanged() => replicaSource?.NotifyChanged();
+        public void NotifyReplicaChanged(MapReplicaChange transition) => replicaSource?.NotifyChanged(transition);
         public async void ShowReplica(AnyRules.Next.Authoring.ARDMapDefinition definition, IMapChunkSource source, WorldIdentity world,
             DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null)
         {

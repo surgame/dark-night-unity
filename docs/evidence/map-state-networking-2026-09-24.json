@@ -1,0 +1,35 @@
+{
+  "branch": "ref-20260924-map-state-networking",
+  "gameBaseline": "e204c1d",
+  "yygcSourceCommit": "b0e238719f6d2cfd9bb1fe5676323ec2d843ae89",
+  "sourceLockFilesVerified": 460,
+  "unity": "6000.4.9f1",
+  "fishNet": "4.7.2",
+  "transport": "Tugboat",
+  "wire": "AMP1 V1",
+  "save": "v10",
+  "editor": {
+    "finalLockTerrain": {"passed": 41, "total": 41},
+    "priorLockFull": {"passed": 255, "total": 259, "fixedOldPackagePathTargeted": "2/2", "remainingHistoricalFailures": ["UnifiedSlicePlayTests.FormalPlayWithDomainReload: old scene expects 28 objects, actual 13", "UnifiedSlicePlayTests.FormalPlayWithoutDomainReload: old scene expects 28 objects, actual 13", "NativeButtonThemeTests.InteractableChangesUpdateWithoutPointerMovement"]}
+  },
+  "monoPlayer": {
+    "path": "artifacts/map-state/player-mono-20260924-204324-9c077071/DarkNights.exe",
+    "exeSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "managedSha256": {
+      "AnyRules.Core.dll": "22051b8985a0039ef0ad9afd08c0d6bc931f3fcb1ab7018b7d8d5ba1f9fb4abb",
+      "AnyRules.MapProtocol.dll": "f1c0ed1924008b9d829e7c7ff9df825753b80a92cf5f8a82380cfe6ae55a7129",
+      "AnyRules.FishNet.dll": "a8a105f3aa34db6270005c1f4f2ac12e39d998c4ce46f8ac8a942bfe0dc623d1",
+      "AnyRules.YYGC.dll": "b64fe6e88438648c22bda40ec1ba386126e0d72bd46ff9af6773cdb8c158cd4b",
+      "DarkNights.Runtime.dll": "e5a22ecb34dfc0408fe22761751a4ac13770092f9d20a821de30a5b34b2dfeaa",
+      "DarkNights.Entry.dll": "fc62e73c074e00a7b1e181a3743b0c15f698a281cb7cadda94b8b33addc84f01"
+    }
+  },
+  "independentProcesses": [
+    {"case": "normal ship/session", "passed": 28, "total": 28, "result": "artifacts/map-state/network-20260924-204613-normal/result.json"},
+    {"case": "TypicalWeak ship/session, 100ms one-way, 25ms jitter, 5% raw UDP loss", "passed": 28, "total": 28, "udpDropped": 887, "udpReordered": 7865, "result": "artifacts/map-state/network-20260924-204814-weak/result.json"},
+    {"case": "v10 active-expedition terrain edit", "passed": 15, "total": 15, "result": "artifacts/map-fix/terrain-loop-20260924-205130-627/result.json"},
+    {"case": "v10 terrain edit, 100ms one-way, 25ms jitter, 5% raw UDP loss", "passed": 15, "total": 15, "udpDropped": 417, "udpReordered": 4856, "result": "artifacts/map-fix/terrain-loop-20260924-205206-333/result.json"}
+  ],
+  "independentPluginSample": "D:/Developer/YYGC-worktrees/map-state-networking/AnyRuleD~/Evidence/MapState/map-state-20260924-summary.json",
+  "notRun": ["IL2CPP", "dual-machine LAN", "foreground performance", "real old/new Player mixed-version connection", "remote Player debugger bridge", "Editor canonical diff interaction", "long-duration latency/GC percentiles"]
+}

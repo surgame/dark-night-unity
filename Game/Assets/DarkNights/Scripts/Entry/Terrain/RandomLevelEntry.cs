@@ -1,5 +1,6 @@
 using System;
 using AnyRules.Next;
+using AnyRules.Next.Networking;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.Runtime.Network;
 using DarkNights.Runtime.Terrain;
@@ -19,6 +20,7 @@ namespace DarkNights.Entry.Terrain
         private RandomLevelTemplate template;
         private PinewatchStage stage;
         private TerrainPreview view;
+        private ChunkReplicaStateMachine subscribedReplica;
         private WorldIdentity world;
         private ulong presentedCommit;
         private bool presenting;
@@ -51,11 +53,8 @@ namespace DarkNights.Entry.Terrain
                     root.transform.localScale = Vector3.one * (PlayableTerrain.CellPixels / 100f);
                     view = root.AddComponent<TerrainPreview>(); view.ViewCamera = stage.SceneCamera; view.CaveStyle = style;
                     view.ShowReplica(definition, new TerrainReplicaSource(replica), replica.World, network.Terrain.Background);
-                }
-                else if (replica.CommitId != presentedCommit)
-                {
-                    presentedCommit = replica.CommitId;
-                    view?.NotifyReplicaChanged();
+                    subscribedReplica = replica;
+                    subscribedReplica.Applied += OnReplicaApplied;
                 }
                 var frame = network.Client.Replica.Current;
                 if (frame != null) { view.SetMinerals(frame.World.Worksites); view.SetDevices(frame.World); }
@@ -64,8 +63,16 @@ namespace DarkNights.Entry.Terrain
             }
             catch (Exception error) { network.Fail(error); }
         }
+        private void OnReplicaApplied(MapReplicaChange transition)
+        {
+            if (!presenting || !world.Equals(transition.World) || transition.Commit <= presentedCommit) return;
+            presentedCommit = transition.Commit;
+            view?.NotifyReplicaChanged(transition);
+        }
         private void Clear()
         {
+            if (subscribedReplica != null) subscribedReplica.Applied -= OnReplicaApplied;
+            subscribedReplica = null;
             if (view != null) Destroy(view.gameObject);
             view = null; presenting = false; network.Terrain.PresentationReady = false;
             presentedCommit = 0;

@@ -52,6 +52,8 @@ namespace DarkNights.Editor
         private static void InstallTerrainModifiers() => TerrainModifierInstaller.Install();
         [MenuItem(Root + "Build/Windows Mono")]
         private static void BuildMono() => GamePlayerBuild.Mono();
+        [MenuItem(Root + "Build/Windows Mono Map State")]
+        private static void BuildMapStateMono() => GamePlayerBuild.MapStateMono();
         [MenuItem(Root + "Build/Windows IL2CPP")]
         private static void BuildIl2Cpp() => GamePlayerBuild.Il2Cpp();
         [MenuItem(Root + "Verify/Session Lifecycle")]

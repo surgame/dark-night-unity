@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using AnyRules.Next;
+using AnyRules.Next.Networking;
 using AnyRules.Next.Unity;
 
 namespace DarkNights.View.Terrain
@@ -61,6 +62,14 @@ namespace DarkNights.View.Terrain
             fingerprints.Clear();
             foreach (var pair in current) fingerprints.Add(pair.Key, pair.Value);
             if (changed.Count != 0) Changed?.Invoke(changed.AsReadOnly());
+        }
+
+        /// <summary>把已原子安装的副本范围直接传给表现层，不读取其他区块。</summary>
+        public void NotifyChanged(MapReplicaChange transition)
+        {
+            if (transition == null || transition.Kind != MapReplicaChangeKind.CellsChanged ||
+                transition.Chunks.Count == 0) return;
+            Changed?.Invoke(transition.Chunks);
         }
 
         private ulong Fingerprint(ChunkCoord coordinate, int size)

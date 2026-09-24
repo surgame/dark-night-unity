@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-24 [AnyRuleD 地图联网重构](docs/MAP_STATE_NETWORKING.md)在 `ref-20260924-map-state-networking` 开发：纯协议与 FishNet 传输已从 YYGC 业务包拆出，单格 Delta 改为 1 个最终格记录，游戏副本通知已接入范围刷新。现有 Editor 编译通过；本轮 Editor、Mono 联机及独立样板的具体结果以进度文档为准，不沿用旧 Player 数字。
+
 2026-09-24 [地形 Modifier 与可插拔点缀层进度](docs/TERRAIN_MODIFIERS_PROGRESS.md)：下坠岩齿／花菜圆簇已接入主工程，前景及三个背景层可分别配置，点缀生成器可替换。`Cave Wall Tuner` 保留样式与地图草稿 Apply／Cancel、拆填和网格；预览仅在空白离屏宿主中渲染当前地图，共用正式 `TerrainPreview`、AnyRuleD、`CaveVisualSource` 和 Cave shader，不加载正式游戏场景或角色。拆填微基准发现活动 RoundedRock 下单格全图轮廓烘焙约 281–286 ms，之后全量差异比较约 39–132 ms，是画面滞后的主要已测阶段；Unity 端到端及 Player 前台帧时仍待实测，不据微基准宣称通过。
 
 2026-09-22 本分支已接入[可步入远征飞船](docs/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。支持船内步行、唯一驾驶席、泊位附近试飞、搬运机器人与侦察机出舱归队；远征默认应用当前 StrataCave 岩层与三层背景。50 张原生素材导入检查 200/200，新增飞船／远征用例 24/24，同一 Mono 正常／弱网三进程各 28/28，Core 1048/1048；Editor 按影响合并 235/236，既有按钮主题 1 项失败留账。实际画面和本批证据见实现说明，不宣称全洞穴航行、异地降落、前台性能、IL2CPP 或双机器通过。

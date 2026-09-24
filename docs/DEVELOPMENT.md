@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-24 [地图联网重构](MAP_STATE_NETWORKING.md)正在 `ref-20260924-map-state-networking` 实施；YYGC 可选协议和 FishNet 包锁定 `b0e2387`，AMP1 V1 帧结构不变。新 Mono 构建使用 `Dark Nights/Build/Windows Mono Map State` 输出独立目录，串行运行游戏联机矩阵。阶段状态、实际结果与未验项见 `D:/Downloads/AnyRuleD_MapSync/PROGRESS.md`，不将历史构建视为本轮验收。
+
 2026-09-22 [可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)已接入正式远征，协议 14／存档 v10；本批 Mono 正常／弱网三进程各 28/28、Core 1048/1048，Editor 按影响合并 235/236（按钮主题 1 项失败留账）。完整边界和证据见切片记录；下方为先前版本的阶段记录，不将其旧“当前”表述用作本批结论。
 
 2026-09-22 [独立洞穴候选实施](STATIC_CAVE_BACKGROUND_EXECUTION.md)已增加同源三层背景、初始轮廓持久化／基线同步和后台分页缓存，协议 13／存档 v9。按用户对首轮画面的反馈，范围扩大为独立原生岩壁、柔光、角色比例与新场景，保留 AnyRuleD 能力；矿粒和矿光暂时隐藏。固定样板先于随机／正式集成验收；P5 前台目标硬件性能及最终美术签署仍待验，不自动切换正式默认风格。

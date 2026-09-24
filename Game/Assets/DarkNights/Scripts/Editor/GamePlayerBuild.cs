@@ -18,6 +18,15 @@ namespace DarkNights.Editor
     {
         public static void Mono() => Build(ScriptingImplementation.Mono2x, "mono", BuildOptions.Development);
 
+        /// <summary>为地图联网验收创建不会覆盖旧 Player 的独立 Mono 目录。</summary>
+        public static void MapStateMono()
+        {
+            string run = DateTime.Now.ToString("yyyyMMdd-HHmmss") + "-" + Guid.NewGuid().ToString("N").Substring(0, 8);
+            string output = Path.GetFullPath("../artifacts/map-state/player-mono-" + run + "/DarkNights.exe");
+            if (Directory.Exists(Path.GetDirectoryName(output))) throw new IOException("地图联网 Player 输出目录必须是新的。");
+            Build(ScriptingImplementation.Mono2x, "mono", BuildOptions.Development, output);
+        }
+
         /// <summary>供干净源码验收使用；调用方通过 -darkNightsOutput 指定空目录中的 DarkNights.exe。</summary>
         public static void MonoToEmptyDirectory()
         {

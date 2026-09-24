@@ -12,7 +12,8 @@
     "AnyRules.Core",
     "AnyRules.MapProtocol",
     "AnyRules.Authoring",
-    "AnyRules.FishNet"
+    "AnyRules.FishNet",
+    "AnyRules.YYGC"
   ],
   "allowUnsafeCode": true,
   "overrideReferences": true,

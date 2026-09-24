@@ -18,7 +18,8 @@
     "AnyRules.Authoring",
     "AnyRules.Editor",
     "AnyRules.Unity",
-    "AnyRules.MapProtocol"
+    "AnyRules.MapProtocol",
+    "AnyRules.YYGC"
   ],
   "includePlatforms": [
     "Editor"
