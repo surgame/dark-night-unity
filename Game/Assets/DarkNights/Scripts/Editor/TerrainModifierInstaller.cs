@@ -1,4 +1,5 @@
 using System;
+using DarkNights.Core.Logic.Terrain;
 using DarkNights.View.Terrain;
 using UnityEditor;
 using UnityEngine;

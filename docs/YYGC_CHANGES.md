@@ -9,7 +9,7 @@
 | `Runtime/NetworkCommands/SampleAssemblyAccess.cs` | 加入既有宿主补丁中的 `InternalsVisibleTo` 声明，授权 LAN Sample、正式 Runtime、View 访问更新分派所需内部状态。 | 当前 Unity 6000.4.9f1 刷新编译后，三个程序集生成代码的 CS1061 均消失。 |
 | `Runtime/NetworkCommands/SampleAssemblyAccess.cs.meta` | 沿用游戏仓库补丁的 GUID，保持资源身份一致。 | 与 `tools/lan-framework-patch/SampleAssemblyAccess.cs.meta` 字节一致。 |
 
-编译边界：完整 Editor 编译仍被无关的 `TerrainModifierInstaller.cs(62,50)` CS0103（`RoundedClusterAlgorithmVersion` 未定义）阻断；本次没有运行 PlayMode 或 Player 测试。活动 `D:/Developer/YYGC` 文件目前是未提交本地补丁；锁定 `.deps/YYGC-unified` 的 `prepare-lan-sample.ps1` 路径与本次活动包路径不同，切换依赖时应继续使用对应的锁定准备流程。
+编译边界：本次 Unity 编译发现 `TerrainModifierInstaller.cs(62,50)` 缺少 `DarkNights.Core.Logic.Terrain` 命名空间导入，已补上；本轮尚未取得补丁后的 Unity 编译结果，也没有运行 PlayMode 或 Player 测试。活动 `D:/Developer/YYGC` 文件目前是未提交本地补丁；锁定 `.deps/YYGC-unified` 的 `prepare-lan-sample.ps1` 路径与本次活动包路径不同，切换依赖时应继续使用对应的锁定准备流程。
 
 ## 2026-09-25：局部地形源输入与即时刷新候选
 
