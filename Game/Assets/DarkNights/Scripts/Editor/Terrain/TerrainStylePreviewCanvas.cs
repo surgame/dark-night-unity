@@ -100,7 +100,7 @@ namespace DarkNights.Editor.Terrain
                 Mathf.FloorToInt(y / bounds.height * image.height / 8));
         }
 
-        public void Draw(Rect canvas, Texture image, int fps, int renderMilliseconds, bool pending)
+        public void Draw(Rect canvas, Texture image, int fps, int renderMilliseconds, bool pending, string pendingReason = null)
         {
             EditorGUI.DrawRect(canvas, new Color(.12f, .13f, .15f));
             GUI.BeginGroup(canvas);
@@ -117,7 +117,7 @@ namespace DarkNights.Editor.Terrain
                 "预览画布 " + fps + " FPS · 最近相机渲染 " + renderMilliseconds + " ms\n" +
                 action + " · 中键平移 · 滚轮缩放");
             if (pending) GUI.Label(new Rect(8, canvas.height - 30, canvas.width - 16, 22),
-                "画面更新中…", EditorStyles.whiteLabel);
+                pendingReason ?? "画面更新中…", EditorStyles.whiteLabel);
             GUI.EndGroup();
         }
 

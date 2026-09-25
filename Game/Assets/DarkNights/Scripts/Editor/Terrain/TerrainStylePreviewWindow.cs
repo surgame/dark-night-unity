@@ -75,7 +75,8 @@ namespace DarkNights.Editor.Terrain
             GUILayout.BeginVertical(GUILayout.Width(panel.width - 22)); DrawControls(); GUILayout.EndVertical();
             EditorGUIUtility.labelWidth = labelWidth; EditorGUILayout.EndScrollView(); GUILayout.EndArea();
             preview.Draw(canvas, Image, canvasFps, renderMilliseconds,
-                !double.IsPositiveInfinity(due) || (Image != null && !stage.Ready));
+                !double.IsPositiveInfinity(due) || (Image != null && !stage.Ready),
+                !double.IsPositiveInfinity(due) ? "配置变化：等待重建（不属于填拆增量）" : stage.Progress);
         }
 
         private void DrawControls()
@@ -126,6 +127,7 @@ namespace DarkNights.Editor.Terrain
             EditorGUILayout.LabelField("当前编辑", EditorStyles.boldLabel);
             using (new EditorGUI.DisabledScope(true)) EditorGUILayout.ObjectField("原资产", inspected, typeof(ScriptableObject), false);
             if (inspected != null) drafts.DrawInspector(inspected, Invalidate);
+            EditorGUILayout.LabelField("刷新路径：" + stage.RefreshPath, EditorStyles.miniLabel);
             EditorGUILayout.LabelField(status, EditorStyles.wordWrappedMiniLabel);
             using (new EditorGUI.DisabledScope(!drafts.HasChanges))
             {
@@ -171,8 +173,13 @@ namespace DarkNights.Editor.Terrain
         {
             try
             {
-                if (stage.Source != null) stage.Source.ApplyChanges(mapDraft.DrainChangedCells());
-                status = "地形格变化已送入局部表现队列。";
+                if (stage.Source != null)
+                {
+                    stage.Source.ApplyChanges(mapDraft.DrainChangedCells());
+                    // 与 AnyRuleD 工作台相同：输入提交后立即泵送，不等下一次 Editor update。
+                    stage.Tick();
+                }
+                status = stage.RefreshPath + " · " + stage.Progress;
             }
             catch (Exception error) { status = "预览刷新失败：" + error.Message; }
             Repaint();
@@ -196,10 +203,11 @@ namespace DarkNights.Editor.Terrain
                 if (now >= due) RebuildNow();
                 if (Image != null)
                 {
-                    double started = EditorApplication.timeSinceStartup;
-                    if (stage.Tick())
+                    bool drawn = stage.Tick();
+                    if (stage.Error != null) status = "运行时预览失败：" + stage.Error.Message;
+                    if (drawn)
                     {
-                        renderMilliseconds = Mathf.RoundToInt((float)((EditorApplication.timeSinceStartup - started) * 1000));
+                        renderMilliseconds = stage.LastCameraMilliseconds;
                         if (stage.Error != null) status = "运行时预览失败：" + stage.Error.Message;
                         else if (stage.Ready) status = "运行时渲染链已就绪。";
                         Repaint();

@@ -22,6 +22,11 @@ namespace DarkNights.Editor.Terrain
         private CaveBackgroundStyle transientBackground;
         private RenderTexture target;
         private int renderedRevision = -1;
+        private ulong renderedGeneration, renderedCommit;
+        private bool lastDrawCouldConfirm;
+        public int LastCameraMilliseconds { get; private set; }
+        public string Progress => terrain == null ? "尚未创建预览" : terrain.PresentationWaitReason;
+        public string RefreshPath => terrain == null ? "未选择" : terrain.RefreshPath;
         public Texture Image => target;
         public TerrainBlueprintSource Source { get; private set; }
         public Exception Error => terrain != null ? terrain.LastError : null;
@@ -71,13 +76,26 @@ namespace DarkNights.Editor.Terrain
         {
             if (terrain == null || camera == null) return false;
             terrain.TickFromEditor();
-            if (renderedRevision == terrain.VisualRevision) return false;
-            camera.Render(); renderedRevision = terrain.VisualRevision; return true;
+            if (terrain.LastError != null) return false;
+            bool newTicket = renderedGeneration != terrain.InstalledInputGeneration ||
+                renderedCommit != terrain.InstalledSourceCommit;
+            // 清理作业可能使表现稳定而不改变画面版本，需要补一次真正绘制。
+            bool confirmation = terrain.NeedsPresentationDraw && (!lastDrawCouldConfirm || newTicket);
+            if (renderedRevision == terrain.VisualRevision && !confirmation) return false;
+            lastDrawCouldConfirm = terrain.NeedsPresentationDraw;
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            camera.Render();
+            LastCameraMilliseconds = (int)watch.ElapsedMilliseconds;
+            renderedRevision = terrain.VisualRevision;
+            renderedGeneration = terrain.InstalledInputGeneration;
+            renderedCommit = terrain.InstalledSourceCommit;
+            return true;
         }
 
         public void Dispose()
         {
             Source = null; terrain = null; renderedRevision = -1;
+            renderedGeneration = renderedCommit = 0; lastDrawCouldConfirm = false;
             if (camera != null) camera.targetTexture = null;
             if (root != null) UnityEngine.Object.DestroyImmediate(root);
             camera = null; root = null;
