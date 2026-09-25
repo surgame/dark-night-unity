@@ -51,6 +51,23 @@ namespace DarkNights.View.Terrain
         public bool Ready => IsPresentationStable && PresentedInputGeneration == InstalledInputGeneration &&
             PresentedSourceCommit == InstalledSourceCommit;
 
+        /// <summary>只读绘制请求；不会推进 Ready 或跳过真实相机回执。</summary>
+        public bool NeedsPresentationDraw => IsPresentationStable && !Ready;
+        /// <summary>诊断等待阶段，不参与网络授权或调度。</summary>
+        public string PresentationWaitReason
+        {
+            get
+            {
+                if (LastError != null) return "错误：" + LastError.Message;
+                if (controller == null || loading) return "初始地图装载";
+                if (awaitingBaseline) return "等待完整基线";
+                if (inputQueue.HasPending) return "待安装变化格";
+                if (controller.HasPendingPresentationWork) return "Dual Grid 规则/资源处理中";
+                if (!(caveSource?.BackgroundReady ?? true)) return "岩壁/背景烘焙中（" + RefreshPath + "）";
+                return Ready ? "已绘制" : "等待相机完成回执";
+            }
+        }
+
         public void NotifyReplicaChanged() => replicaSource?.NotifyChanged();
         public void NotifyReplicaChanged(MapReplicaChange transition) => replicaSource?.NotifyChanged(transition);
 
