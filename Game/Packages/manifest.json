@@ -6,7 +6,7 @@
     "com.cysharp.zlinq": "https://github.com/Cysharp/ZLinq.git?path=src/ZLinq.Unity/Assets/ZLinq.Unity#1.5.6",
     "com.firstgeargames.fishnet": "file:../../.deps/FishNet/Assets/FishNet",
     "com.github-glitchenzo.nugetforunity": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity#v4.5.0",
-    "com.tsgame.gamecore": "file:../../.deps/YYGC-unified",
+    "com.tsgame.gamecore": "file:D:/Developer/YYGC",
     "com.unity.2d.animation": "14.0.4",
     "com.unity.2d.aseprite": "4.0.2",
     "com.unity.2d.psdimporter": "13.0.3",
@@ -62,9 +62,9 @@
     "com.unity.modules.xr": "1.0.0",
     "com.unity.pipeline": "0.6.0-exp.1",
     "com.unity.nuget.newtonsoft-json": "3.2.2",
-    "com.tsgame.anyrules": "file:../../.deps/AnyRules-map-state-d1a6c14/AnyRuleD~/Packages/com.tsgame.anyrules",
-    "com.tsgame.anyrules.yygc": "file:../../.deps/AnyRules-map-state-d1a6c14/AnyRuleD~/Packages/com.tsgame.anyrules.yygc",
-    "com.tsgame.anyrules.networking": "file:../../.deps/AnyRules-map-state-d1a6c14/AnyRuleD~/Packages/com.tsgame.anyrules.networking",
-    "com.tsgame.anyrules.networking.fishnet": "file:../../.deps/AnyRules-map-state-d1a6c14/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet"
+    "com.tsgame.anyrules": "file:D:/Developer/YYGC/AnyRuleD~/Packages/com.tsgame.anyrules",
+    "com.tsgame.anyrules.yygc": "file:D:/Developer/YYGC/AnyRuleD~/Packages/com.tsgame.anyrules.yygc",
+    "com.tsgame.anyrules.networking": "file:D:/Developer/YYGC/AnyRuleD~/Packages/com.tsgame.anyrules.networking",
+    "com.tsgame.anyrules.networking.fishnet": "file:D:/Developer/YYGC/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet"
   }
 }
