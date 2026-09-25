@@ -19,7 +19,9 @@
     "AnyRules.Compiler",
     "AnyRules.Authoring",
     "AnyRules.Editor",
-    "AnyRules.Unity"
+    "AnyRules.Unity",
+    "UnityEditor.TestRunner",
+    "UnityEngine.TestRunner"
   ],
   "includePlatforms": [
     "Editor"

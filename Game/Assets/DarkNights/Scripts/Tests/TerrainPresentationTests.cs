@@ -37,7 +37,8 @@ namespace DarkNights.Tests
             var asset = AssetDatabase.LoadAssetAtPath<TerrainMapAsset>(TerrainTestAssets.Root + "/Maps/GreypineTest.asset");
             var source = new TerrainBlueprintSource(asset.ReadBlueprint(), asset.Definition.LoadGameplayCatalog().Tiles);
             var creation = ARDMapController.CreateAsync(asset.Definition,
-                new MapOptions(initialize: false, showOnCreate: false, autoUpdate: false, maximumInitializationCells: 131072, chunkSource: source));
+                new MapOptions(initialize: false, showOnCreate: false, autoUpdate: false, maximumInitializationCells: 131072, chunkSource: source,
+                    sourceDrivenInputs: true, layers: new GridLayerConfiguration(GridEditability.ReadOnly, GridRenderPolicy.LiveRules, GridBusinessCapability.TileTypeOnly)));
             while (!creation.IsCompleted) yield return null;
             Assert.That(creation.Exception, Is.Null);
             var map = creation.Result;
@@ -46,6 +47,9 @@ namespace DarkNights.Tests
                 var loading = map.LoadRegionAsync(map.Descriptor.Bounds);
                 while (!loading.IsCompleted) yield return null;
                 Assert.That(loading.Exception, Is.Null);
+                MapInputBatch baseline = null;
+                source.InputChanged += batch => baseline = batch; source.PublishInitialBaseline();
+                map.InstallSourceInput(baseline);
                 var shown = map.ShowRegion(map.Descriptor.Bounds);
                 var waiting = map.WhenPresentedAsync(shown);
                 for (int i = 0; i < 1500 && !waiting.IsCompleted; i++) { map.Tick(); yield return null; }
@@ -56,11 +60,16 @@ namespace DarkNights.Tests
                 for (int i = 0; i < 120; i++) map.Tick();
                 Assert.That(map.Renderer.CommittedBuilds, Is.EqualTo(before));
                 var target = new CellCoord(120, -110);
-                map.SetTileType(target, map.Tiles.ByKey("slate"));
+                var fill = new MapInputBatch(map.World, 1, 0, 0, 1, MapInputBatchKind.Delta,
+                    new[] { new MapInputCell(target, new GridCell(map.Tiles.ByKey("slate"))) });
+                map.InstallSourceInput(fill);
                 map.Tick();
                 for (int i = 0; i < 1500 && (map.Renderer.QueueCount > 0 || map.Renderer.InFlightCount > 0); i++) { map.Tick(); yield return null; }
                 before = map.Renderer.CommittedBuilds;
-                var receipt = map.ClearTile(target); var changed = map.WhenPresentedAsync(receipt, PresentationScope.VisibleNow());
+                var dig = new MapInputBatch(map.World, 1, 0, 0, 2, MapInputBatchKind.Delta,
+                    new[] { new MapInputCell(target, default) });
+                var receipt = map.InstallSourceInput(dig).Receipt;
+                var changed = map.WhenPresentedAsync(receipt, PresentationScope.VisibleNow());
                 for (int i = 0; i < 1500 && !changed.IsCompleted; i++) { map.Tick(); yield return null; }
                 Assert.That(changed.IsCompleted, Is.True); Assert.That(changed.Exception, Is.Null);
                 changed.Result.RequirePresentedOrSuperseded();
@@ -84,7 +93,9 @@ namespace DarkNights.Tests
             cameraObject.SetActive(false);
             var camera = cameraObject.AddComponent<Camera>();
             camera.orthographic = true; camera.orthographicSize = 8; camera.aspect = 1;
-            var preview = cameraObject.AddComponent<TerrainPreview>();
+            var terrainObject = new GameObject("Terrain static host regression");
+            terrainObject.SetActive(false);
+            var preview = terrainObject.AddComponent<TerrainPreview>();
             preview.ViewCamera = camera;
             var flags = BindingFlags.NonPublic | BindingFlags.Instance;
             var controllerField = typeof(TerrainPreview).GetField("controller", flags);
@@ -129,7 +140,7 @@ namespace DarkNights.Tests
             finally
             {
                 controllerField.SetValue(preview, null);
-                Object.DestroyImmediate(cameraObject); map.Dispose();
+                Object.DestroyImmediate(cameraObject); Object.DestroyImmediate(terrainObject); map.Dispose();
             }
         }
 

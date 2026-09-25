@@ -19,7 +19,8 @@
     "AnyRules.Editor",
     "AnyRules.Unity",
     "AnyRules.MapProtocol",
-    "AnyRules.YYGC"
+    "AnyRules.YYGC",
+    "Unity.Collections"
   ],
   "includePlatforms": [
     "Editor"

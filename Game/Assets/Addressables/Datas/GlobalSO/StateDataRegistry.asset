@@ -13,23 +13,23 @@ MonoBehaviour:
   m_Name: StateDataRegistry
   m_EditorClassIdentifier: GameCore.Editor::StateDataRegistry
   GeneratedFilePath: Assets/Scripts/Generated/IStateData.generated.cs
-  nextTag: 9
+  nextTag: 19
   Registrations:
-  - StateType: {fileID: 11500000, guid: 84557eb8961c29442a375285110ad679, type: 3}
-    Tag: 0
-  - StateType: {fileID: 11500000, guid: 43975e29eb37fe54796ca61b484c21c3, type: 3}
-    Tag: 1
-  - StateType: {fileID: 11500000, guid: 7d300f4df14045f4193f6f2cc6dd149f, type: 3}
-    Tag: 2
-  - StateType: {fileID: 11500000, guid: dcf8764d10a862246a0993f7962c0b40, type: 3}
-    Tag: 3
   - StateType: {fileID: 11500000, guid: 4e6b714c5e81f114e8f09883a64e5ff7, type: 3}
-    Tag: 4
-  - StateType: {fileID: 11500000, guid: b0dfda388e028f74fb41dd10c2c6a511, type: 3}
-    Tag: 5
+    Tag: 10
   - StateType: {fileID: 11500000, guid: 826b91f6c51dee545ac9d9fb12579b10, type: 3}
-    Tag: 6
+    Tag: 11
+  - StateType: {fileID: 11500000, guid: 7d300f4df14045f4193f6f2cc6dd149f, type: 3}
+    Tag: 12
+  - StateType: {fileID: 11500000, guid: b0dfda388e028f74fb41dd10c2c6a511, type: 3}
+    Tag: 13
+  - StateType: {fileID: 11500000, guid: 43975e29eb37fe54796ca61b484c21c3, type: 3}
+    Tag: 14
   - StateType: {fileID: 11500000, guid: 33d4ff4726e31bf428180856725a64a6, type: 3}
-    Tag: 7
+    Tag: 15
   - StateType: {fileID: 11500000, guid: ab0c90c96ce0e504eb548ec465fecfd4, type: 3}
-    Tag: 8
+    Tag: 16
+  - StateType: {fileID: 11500000, guid: 84557eb8961c29442a375285110ad679, type: 3}
+    Tag: 17
+  - StateType: {fileID: 11500000, guid: dcf8764d10a862246a0993f7962c0b40, type: 3}
+    Tag: 18

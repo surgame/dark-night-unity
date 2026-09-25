@@ -1,0 +1,216 @@
+{
+  "date": "2026-09-26",
+  "unity": "6000.4.9f1",
+  "mode": "Unity EditMode TestRunner in active Local Editor",
+  "passed": 32,
+  "failed": 2,
+  "tests": [
+    {
+      "name": "DarkNights.Tests.NetworkCommandRegistryTests.GeneratedRegistryCoversInstalledCommandsAndPreservesGameTags",
+      "result": "Passed",
+      "duration_seconds": "0.129090",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.NetworkCommandRegistryTests.TerrainCommandScriptResolvesCommandInsteadOfSiblingResult",
+      "result": "Passed",
+      "duration_seconds": "0.002284",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.SessionClientReadyTests.DetachedEndpointAndDisposedReplicaCannotConfirm",
+      "result": "Passed",
+      "duration_seconds": "0.177019",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.SessionClientReadyTests.OldHandshakeOrEpochCannotConfirm(6,1)",
+      "result": "Passed",
+      "duration_seconds": "0.013912",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.SessionClientReadyTests.OldHandshakeOrEpochCannotConfirm(7,0)",
+      "result": "Passed",
+      "duration_seconds": "0.012720",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.SessionClientReadyTests.SuccessfulRetryCannotBeRevokedByLateRejection",
+      "result": "Passed",
+      "duration_seconds": "0.012870",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainAuthorityTests.ActionPolicyAndRequestIdAreAuthoritativeAndIdempotent",
+      "result": "Passed",
+      "duration_seconds": "0.045884",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainAuthorityTests.IdleStreamDoesNotScanAndChangedMapReachesLateReplica",
+      "result": "Passed",
+      "duration_seconds": "0.036303",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainAuthorityTests.InvalidBatchAndProtectedSupportAreAtomic",
+      "result": "Passed",
+      "duration_seconds": "0.005918",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainAuthorityTests.LocalDestructionTouchesAtMostFourPagesAndIsFrozen",
+      "result": "Passed",
+      "duration_seconds": "0.006732",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.AssetsPersistIndependentForegroundAndBackgroundSlots",
+      "result": "Passed",
+      "duration_seconds": "0.006593",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.CapturedStackDoesNotFollowLaterAssetEdits",
+      "result": "Passed",
+      "duration_seconds": "0.010507",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.EmptyAndZeroStrengthRemainExactOriginal",
+      "result": "Passed",
+      "duration_seconds": "0.001848",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.GeneratorCaptureFreezesAllNineParameters",
+      "result": "Passed",
+      "duration_seconds": "0.000656",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.GrainSwitchChangesOnlyMaterialNotMask",
+      "result": "Passed",
+      "duration_seconds": "0.024455",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.InvalidReferencesAndParametersFailBeforeTasksStart",
+      "result": "Passed",
+      "duration_seconds": "0.000767",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.LegacyVersionStaysDefaultAndLocalV2HasDistinctIdentity",
+      "result": "Passed",
+      "duration_seconds": "0.000743",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.LocalV2PagesMatchFullBakeBeforeAndAfterCrossPageEdits",
+      "result": "Passed",
+      "duration_seconds": "4.894617",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.LocalV2ZeroStrengthHasNoGrainLayer(0,90)",
+      "result": "Passed",
+      "duration_seconds": "0.012386",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.LocalV2ZeroStrengthHasNoGrainLayer(8,0)",
+      "result": "Passed",
+      "duration_seconds": "0.011904",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.StackOrderIsExplicitAndRebuildStartsAtOriginal",
+      "result": "Passed",
+      "duration_seconds": "0.013896",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.UnknownBackgroundImplementationUsesSameModifierAndPagePath",
+      "result": "Passed",
+      "duration_seconds": "0.026600",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainModifierTests.VisualIdentityIncludesGeneratorAndEveryModifierSlot",
+      "result": "Passed",
+      "duration_seconds": "0.000930",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainPresentationTests.ActualPagesStayStaticAndDestructionIsLocal",
+      "result": "Failed",
+      "duration_seconds": "1.442660",
+      "failure": "AnyRules.Next.GridEditException : The chunk is read-only."
+    },
+    {
+      "name": "DarkNights.Tests.TerrainPresentationTests.AuthoredAtlasAndNativeCatalogReload",
+      "result": "Passed",
+      "duration_seconds": "0.006856",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainPresentationTests.PreviewKeepsCameraPagesVisibleAcrossDirectionChanges",
+      "result": "Failed",
+      "duration_seconds": "0.023572",
+      "failure": "  (120.00, -104.00) missing Page(7,-7)\n  Expected: True\n  But was:  False\n"
+    },
+    {
+      "name": "DarkNights.Tests.TerrainReplicaBoundaryTests.AuthorityPaddingIsStableAndEdgeEditsRemainLocal",
+      "result": "Passed",
+      "duration_seconds": "0.080072",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainStylePreviewTests.ApplyWritesOnlyAfterConfirmationAndRejectsExternalConflicts",
+      "result": "Passed",
+      "duration_seconds": "0.628187",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainStylePreviewTests.FixedMapPreviewUsesCapturedAssetsWithoutChangingSource",
+      "result": "Passed",
+      "duration_seconds": "1.797680",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainStylePreviewTests.FullPreviewContainsTheSamePixelsAsLocalBake",
+      "result": "Passed",
+      "duration_seconds": "3.344619",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainStylePreviewTests.MapEditRebuildsForegroundPagesAndKeepsFrozenBackground",
+      "result": "Passed",
+      "duration_seconds": "4.540556",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainStylePreviewTests.MapPaintingIsDraftedAndPreservesProtectedCells",
+      "result": "Passed",
+      "duration_seconds": "0.539785",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainStylePreviewTests.ResetAndCancelLeaveOriginalParametersUntouched",
+      "result": "Passed",
+      "duration_seconds": "0.001723",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TerrainStylePreviewTests.RuntimeStageRendersAndRefreshesEditableMapChunks",
+      "result": "Passed",
+      "duration_seconds": "1.778844",
+      "failure": null
+    }
+  ],
+  "xml_sha256": "2f1ce1e49d96ae052313010a51c2e38882fca7ae08d9779f42996231a99da78b",
+  "new_visual_acceptance_tests": "NOT_RUN_TRIGGER_BLOCKED",
+  "strict_cross_resource_publication": "NOT_IMPLEMENTED_WRITE_BLOCKED_AND_PARTIAL_CHANGES_REVERTED"
+}

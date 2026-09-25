@@ -15,15 +15,15 @@ namespace YYGC.Generated
 
         private static void RegisterTypes()
         {
-            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Network.SessionStatusState>(0);
-            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.EconomyState>(1);
-            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.WorksiteState>(2);
-            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.CampSimulationState>(3);
-            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.ActorState>(4);
-            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.BuildingState>(5);
-            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.WaveState>(6);
-            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.ProjectileState>(7);
-            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.MineralDepositState>(8);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.ActorState>(10);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.WaveState>(11);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.WorksiteState>(12);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.BuildingState>(13);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.EconomyState>(14);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.ProjectileState>(15);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.MineralDepositState>(16);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Network.SessionStatusState>(17);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.CampSimulationState>(18);
         }
     }
 }
