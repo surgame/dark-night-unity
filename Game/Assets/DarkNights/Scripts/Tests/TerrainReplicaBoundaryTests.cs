@@ -11,7 +11,7 @@ using UnityEditor;
 
 namespace DarkNights.Tests
 {
-    /// <summary>工作台权威源的世界边界指纹回归；外部 padding 必须与加载时一致，首次通知不得误报整行区块。</summary>
+    /// <summary>验证工作台冻结快照在世界边缘的变化局部性；未改动基线不应改变区块，外部 padding 不计作世界内容。</summary>
     public sealed class TerrainReplicaBoundaryTests
     {
         [Test]
@@ -28,18 +28,52 @@ namespace DarkNights.Tests
             var source = new TerrainReplicaSource(session.Map);
             for (int v = -6; v <= 0; v++) for (int u = 0; u < 10; u++)
                 source.LoadAsync(session.Map.Descriptor, new ChunkCoord(u, v), CancellationToken.None).GetAwaiter().GetResult();
-            IReadOnlyList<ChunkCoord> changed = null; source.Changed += chunks => changed = chunks;
-            source.NotifyChanged(); Assert.That(changed, Is.Null, "未编辑的边界不能误报。");
+            MapInputBatch current = null; source.InputChanged += batch => current = batch;
+            source.PublishInitialBaseline(); Assert.That(current, Is.Not.Null);
+            Assert.That(current.Kind, Is.EqualTo(MapInputBatchKind.Baseline));
+            MapInputBatch previous = current;
+            current = null; source.NotifyChanged(); Assert.That(current, Is.Not.Null);
+            Assert.That(ChangedChunks(previous, current), Is.Empty, "未编辑的边界不能误报。");
+            previous = current;
             foreach (int row in new[] { 0, 191 })
             {
                 var center = new CellCoord(15, -row);
                 session.Map.DestroyTrusted(1, "edge:" + row, TerrainEditAction.Explosive, session.Map.World,
                     center, session.Map.BuildTargets(TerrainEditAction.Explosive, center), _ => true);
-                source.NotifyChanged(); Assert.That(changed.Count, Is.EqualTo(row == 0 ? 2 : 1));
+                current = null; source.NotifyChanged(); Assert.That(current, Is.Not.Null);
+                var changed = ChangedChunks(previous, current);
+                Assert.That(changed.Count, Is.EqualTo(row == 0 ? 2 : 1));
                 Assert.That(changed, Does.Contain(new ChunkCoord(0, GridMath.FloorDiv(-row, 32))));
                 if (row == 0) Assert.That(changed, Does.Contain(new ChunkCoord(0, -1)));
-                changed = null; source.NotifyChanged(); Assert.That(changed, Is.Null);
+                previous = current;
+                current = null; source.NotifyChanged(); Assert.That(current, Is.Not.Null);
+                Assert.That(ChangedChunks(previous, current), Is.Empty);
+                previous = current;
             }
+        }
+
+        private static IReadOnlyList<ChunkCoord> ChangedChunks(MapInputBatch previous, MapInputBatch current)
+        {
+            var remaining = new Dictionary<ChunkCoord, IReadOnlyList<GridCell>>();
+            foreach (var snapshot in previous.SnapshotChunks) remaining[snapshot.Coordinate] = snapshot.Cells;
+            var changed = new List<ChunkCoord>();
+            foreach (var snapshot in current.SnapshotChunks)
+            {
+                if (!remaining.TryGetValue(snapshot.Coordinate, out var cells) || !SameCells(cells, snapshot.Cells))
+                    changed.Add(snapshot.Coordinate);
+                remaining.Remove(snapshot.Coordinate);
+            }
+            changed.AddRange(remaining.Keys);
+            return changed;
+        }
+
+        private static bool SameCells(IReadOnlyList<GridCell> left, IReadOnlyList<GridCell> right)
+        {
+            if (left.Count != right.Count) return false;
+            for (int i = 0; i < left.Count; i++)
+                if (left[i].TileId != right[i].TileId || left[i].Height != right[i].Height || left[i].Flags != right[i].Flags)
+                    return false;
+            return true;
         }
     }
 }
