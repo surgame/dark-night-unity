@@ -1,5 +1,16 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-25：生成更新分派器的友元程序集访问
+
+原因：Unity 当前 `com.tsgame.gamecore` 包路径指向用户 YYGC 工作区 `D:/Developer/YYGC`，该检出缺少游戏已有的 `SampleAssemblyAccess.cs` 宿主补丁。BehaviourRegistry 为 `DarkNights.Samples.LanCoop.Runtime`、`DarkNights.Runtime` 和 `DarkNights.View` 生成的分派器需要访问 `CoreBehaviour` 的 internal 更新标志与索引；没有友元声明时触发 CS1061。先从 YYGC `01289e0f92ebcab3671cd03ab8e11751e627602f` 建隔离分支 `fix-20260925-lan-dispatcher-access` 核对补丁落点与原工作区状态，再将现有两文件补丁原样补入活动包，并由当前 Unity Editor 编译验证；未改生成器、包路径、manifest／lock 或 AnyRules 文件，也未提交 YYGC 工作区。
+
+| YYGC 修改文件 | 原因与落点 | 验证 |
+|---|---|---|
+| `Runtime/NetworkCommands/SampleAssemblyAccess.cs` | 加入既有宿主补丁中的 `InternalsVisibleTo` 声明，授权 LAN Sample、正式 Runtime、View 访问更新分派所需内部状态。 | 当前 Unity 6000.4.9f1 刷新编译后，三个程序集生成代码的 CS1061 均消失。 |
+| `Runtime/NetworkCommands/SampleAssemblyAccess.cs.meta` | 沿用游戏仓库补丁的 GUID，保持资源身份一致。 | 与 `tools/lan-framework-patch/SampleAssemblyAccess.cs.meta` 字节一致。 |
+
+编译边界：完整 Editor 编译仍被无关的 `TerrainModifierInstaller.cs(62,50)` CS0103（`RoundedClusterAlgorithmVersion` 未定义）阻断；本次没有运行 PlayMode 或 Player 测试。活动 `D:/Developer/YYGC` 文件目前是未提交本地补丁；锁定 `.deps/YYGC-unified` 的 `prepare-lan-sample.ps1` 路径与本次活动包路径不同，切换依赖时应继续使用对应的锁定准备流程。
+
 ## 2026-09-25：局部地形源输入与即时刷新候选
 
 隔离 AnyRuleD 检出从 `e07e9a9e3e36cdbae1e0d39ec07aea555e95fbad` 建立 `ft-20260925-immediate-terrain-refresh`；完整改动以提交 `6b85403630c07d886811e5f18494c15c056eb2ef` 推送到同名远端分支。按用户要求，`D:/Developer/YYGC` 主检出已从 `master` 切换到该分支；推送后确认工作树干净，再由 Git 安全移除隔离工作树 `D:/Developer/YYGC-worktrees/immediate-terrain-refresh`。游戏同名候选分支将读取新增的源输入 API，但 `Packages/manifest.json`、`packages-lock.json` 及 `source-lock-map-state.json` 目前仍锁定 `e07e9a9`，因此未宣称游戏 Unity 编译通过。
