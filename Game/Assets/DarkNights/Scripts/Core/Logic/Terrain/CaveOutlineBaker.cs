@@ -28,6 +28,8 @@ namespace DarkNights.Core.Logic.Terrain
                     for (int x = 0; x < w; x++)
                     {
                         int i = y * w + x, distance = mask[i] != 0 ? air[i] : -rock[i];
+                        // Reach 严格覆盖最大位移；远离边缘的符号不可能改变，无需计算噪声。
+                        if (distance > settings.Reach || distance < -settings.Reach) continue;
                         double d = Displacement(x0 + x, y0 + y, settings, seed);
                         if (settings.Mode != CaveOutlineMode.Wave) d = Math.Floor(d / settings.Quantization + .5) * settings.Quantization;
                         mask[i] = distance + d >= 0 ? (byte)1 : (byte)0;
