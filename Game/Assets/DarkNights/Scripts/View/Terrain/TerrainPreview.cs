@@ -1,15 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using AnyRules.Next;
+using AnyRules.Next.Authoring;
 using AnyRules.Next.Networking;
 using AnyRules.Next.Unity;
+using DarkNights.Core.Config.Terrain;
 using UnityEngine;
 using UnityEngine.Rendering;
 
 namespace DarkNights.View.Terrain
 {
-    /// <summary>Editor 与正式会话共用的只读地形表现宿主；冻结输入在主线程原位安装，隐藏页休眠并随宿主释放。</summary>
+    /// <summary>Editor 与运行时共用的只读地形宿主；先安装冻结输入，再求解表现，相机绘制后确认当前游标。</summary>
     public sealed class TerrainPreview : MonoBehaviour
     {
         public TerrainMapAsset Map;
@@ -22,13 +25,16 @@ namespace DarkNights.View.Terrain
         private ITerrainInputSource inputSource;
         private readonly TerrainInputBatchQueue inputQueue = new TerrainInputBatchQueue();
         private GridBounds visible;
-        private bool localCoordinates, awaitingBaseline, loading, recoverableOverflowError;
+        private bool awaitingBaseline, loading, cameraHooks, drawing;
+        private int drawingVisualRevision;
+        private ulong drawingGeneration, drawingCommit;
         public int VisualRevision { get; private set; }
-        public long BuiltPages => controller?.Renderer.CommittedBuilds ?? 0;
+        public long BuiltPages => controller?.Renderer?.CommittedBuilds ?? 0;
         public int BackgroundBuildCount => caveSource?.BackgroundBuildCount ?? 0;
         public int RockBuildCount => caveSource?.RockBuildCount ?? 0;
         public long BackgroundUploadedBytes => caveSource?.BackgroundUploadedBytes ?? 0;
         public int BackgroundResidentPages => caveSource?.BackgroundResidentPages ?? 0;
+        public string RefreshPath => caveSource?.RefreshPath ?? "DualGrid";
         public int LastChangedChunkCount { get; private set; }
         public int LastRefreshRegionCount { get; private set; }
         public long RefreshBatchCount { get; private set; }
@@ -38,208 +44,163 @@ namespace DarkNights.View.Terrain
         public ulong InstalledSourceCommit { get; private set; }
         public ulong PresentedInputGeneration { get; private set; }
         public ulong PresentedSourceCommit { get; private set; }
-        public bool RefreshingReplica
-        {
-            get { return loading || awaitingBaseline || inputQueue.HasPending; }
-        }
+        public bool RefreshingReplica => loading || awaitingBaseline || inputQueue.HasPending;
         public Exception LastError { get; private set; }
+        private bool IsPresentationStable => LastError == null && controller != null && !RefreshingReplica &&
+            (caveSource?.BackgroundReady ?? true) && BuiltPages > 0 && !controller.HasPendingPresentationWork;
         public bool Ready => IsPresentationStable && PresentedInputGeneration == InstalledInputGeneration &&
             PresentedSourceCommit == InstalledSourceCommit;
-        private bool IsPresentationStable => LastError == null && controller != null && !RefreshingReplica &&
-            (caveSource?.BackgroundReady ?? true) && controller.Renderer.CommittedBuilds > 0 && !controller.HasPendingPresentationWork;
 
         public void NotifyReplicaChanged() => replicaSource?.NotifyChanged();
         public void NotifyReplicaChanged(MapReplicaChange transition) => replicaSource?.NotifyChanged(transition);
 
-        public async void ShowReplica(AnyRules.Next.Authoring.ARDMapDefinition definition, IMapChunkSource source, WorldIdentity world,
-            DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null)
+        public async void ShowReplica(ARDMapDefinition definition, IMapChunkSource source, WorldIdentity world,
+            BackgroundBakeDescriptor reference = null)
         {
-            if (lifetime != null) throw new InvalidOperationException("每个预览只接收一份世界。");
-            replicaSource = source as TerrainReplicaSource; inputSource = source as ITerrainInputSource;
-            localCoordinates = true; loading = true;
+            replicaSource = source as TerrainReplicaSource;
+            await OpenAsync(definition, source, world, reference);
+        }
+
+        public async void ShowBlueprint(ARDMapDefinition definition, TerrainBlueprint blueprint,
+            IMapChunkSource input = null, BackgroundBakeDescriptor reference = null)
+        {
+            try
+            {
+                input = input ?? new TerrainBlueprintSource(blueprint, definition.LoadGameplayCatalog().Tiles);
+                if (CaveStyle != null && reference == null)
+                    reference = new BackgroundBakeDescriptor(Guid.NewGuid().ToString("N"), blueprint.Settings.Seed,
+                        blueprint.CopyMaterials(), blueprint.CopyShapes());
+                await OpenAsync(definition, input, null, reference);
+            }
+            catch (Exception error) { Fail(error); }
+        }
+
+        private async Task OpenAsync(ARDMapDefinition definition, IMapChunkSource source,
+            WorldIdentity? world, BackgroundBakeDescriptor reference)
+        {
+            if (lifetime != null) throw new InvalidOperationException("每个表现宿主只接收一个世界；换图须替换宿主。");
             var own = lifetime = new CancellationTokenSource();
+            loading = true; awaitingBaseline = source is ITerrainInputSource;
+            EnsureCameraHooks();
+            inputSource = source as ITerrainInputSource;
             if (inputSource != null) inputSource.InputChanged += OnInputChanged;
             try
             {
-                var catalog = definition.LoadGameplayCatalog();
                 IMapChunkSource mapSource = source;
                 if (CaveStyle != null)
-                { caveSource = new CaveVisualSource(source, CaveStyle, catalog.Tiles, transform, reference); mapSource = caveSource; }
-                var result = await ARDMapController.CreateAsync(definition, PreviewOptions(mapSource, world, CaveProfile()), own.Token);
+                {
+                    caveSource = new CaveVisualSource(source, CaveStyle, definition.LoadGameplayCatalog().Tiles, transform, reference);
+                    mapSource = caveSource;
+                }
+                var profile = caveSource == null ? null : new RenderProfile(defaultMaterial: caveSource.Material);
+                var options = new MapOptions(initialize: false, showOnCreate: false, autoUpdate: false,
+                    maximumInitializationCells: 131072, chunkSource: mapSource, parent: transform, world: world,
+                    sourceDrivenInputs: inputSource != null, profile: profile,
+                    scheduling: new RenderSchedulingOptions(lagPolicy: RenderLagPolicy.LatestOnly));
+                var result = await ARDMapController.CreateAsync(definition, options, own.Token);
                 if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
                 controller = result;
+                inputQueue.Configure(result.Descriptor);
                 await result.LoadRegionAsync(result.Descriptor.Bounds, own.Token);
                 if (own.IsCancellationRequested) return;
                 inputSource?.PublishInitialBaseline();
                 caveSource?.Flush();
-                loading = false; UpdateVisible(); VisualRevision++;
+                loading = false;
+                TickPresentation();
+                VisualRevision++;
             }
             catch (OperationCanceledException) { }
-            catch (Exception error) { loading = false; LastError = error; Debug.LogException(error, this); }
+            catch (Exception error) { loading = false; Fail(error); }
+        }
+
+        private void OnEnable()
+        {
+            EnsureCameraHooks();
+            if (Map == null || ViewCamera == null) return;
+            if (CaveStyle == null) CaveStyle = Map.CaveStyle;
+            ShowBlueprint(Map.Definition, Map.ReadBlueprint());
         }
 
         public void SetMinerals(IReadOnlyList<DarkNights.Core.ViewData.WorksiteViewData> deposits)
         { caveSource?.SetMinerals(deposits); caveSource?.Flush(); }
         public void SetDevices(DarkNights.Core.ViewData.WorldViewData world)
         { caveSource?.SetDevices(world); caveSource?.Flush(); }
-
-        private void OnEnable()
-        {
-            Camera.onPostRender += OnCameraPostRender;
-            RenderPipelineManager.endCameraRendering += OnEndCameraRendering;
-            if (Map == null || ViewCamera == null) return;
-            if (CaveStyle == null) CaveStyle = Map.CaveStyle;
-            ShowBlueprint(Map.Definition, Map.ReadBlueprint());
-        }
-
-        public async void ShowBlueprint(AnyRules.Next.Authoring.ARDMapDefinition definition,
-            DarkNights.Core.Config.Terrain.TerrainBlueprint blueprint, IMapChunkSource input = null,
-            DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null)
-        {
-            if (lifetime != null) throw new InvalidOperationException("每个预览只接收一份蓝图；重新生成须替换预览实例。");
-            localCoordinates = true; loading = true;
-            var own = lifetime = new CancellationTokenSource();
-            try
-            {
-                var catalog = definition.LoadGameplayCatalog();
-                input = input ?? new TerrainBlueprintSource(blueprint, catalog.Tiles);
-                inputSource = input as ITerrainInputSource;
-                if (inputSource != null) inputSource.InputChanged += OnInputChanged;
-                IMapChunkSource mapSource = input;
-                if (CaveStyle != null)
-                {
-                    reference = reference ?? new DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor(Guid.NewGuid().ToString("N"),
-                        blueprint.Settings.Seed, blueprint.CopyMaterials(), blueprint.CopyShapes());
-                    caveSource = new CaveVisualSource(input, CaveStyle, catalog.Tiles, transform, reference); mapSource = caveSource;
-                }
-                var result = await ARDMapController.CreateAsync(definition, PreviewOptions(mapSource, null, CaveProfile()), own.Token);
-                if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
-                controller = result;
-                await result.LoadRegionAsync(result.Descriptor.Bounds, own.Token);
-                if (own.IsCancellationRequested) return;
-                inputSource?.PublishInitialBaseline();
-                caveSource?.Flush();
-                loading = false; UpdateVisible(); VisualRevision++;
-            }
-            catch (OperationCanceledException) { }
-            catch (Exception error) { loading = false; LastError = error; Debug.LogException(error, this); }
-        }
-
-        private MapOptions PreviewOptions(IMapChunkSource source, WorldIdentity? world, RenderProfile profile)
-        {
-            bool sourceDriven = source is CaveVisualSource cave ? cave.IsSourceDriven : source is ITerrainInputSource;
-            var layers = sourceDriven ? new GridLayerConfiguration(GridEditability.ReadOnly, GridRenderPolicy.LiveRules,
-                GridBusinessCapability.TileTypeOnly) : null;
-            return new MapOptions(initialize: false, showOnCreate: false, autoUpdate: false, maximumInitializationCells: 131072,
-                chunkSource: source, parent: null, world: world, layers: layers, sourceDrivenInputs: sourceDriven, profile: profile);
-        }
-
-        private RenderProfile CaveProfile() => caveSource == null ? null : new RenderProfile(defaultMaterial: caveSource.Material);
         private void Update() => TickPresentation();
-        /// <summary>供离屏 Editor 宿主驱动与运行时 Update 相同的输入安装、规则求解和动态岩壁链。</summary>
-        public void TickFromEditor() => TickPresentation();
+        /// <summary>离屏窗口显式驱动同一条链；不依赖编辑态 MonoBehaviour.Update 自动运行。</summary>
+        public void TickFromEditor() { EnsureCameraHooks(); TickPresentation(); }
 
         private void TickPresentation()
         {
-            int rockBefore = RockBuildCount, backgroundBefore = BackgroundBuildCount;
-            long pagesBefore = BuiltPages;
-            try { caveSource?.TickBackground(); }
-            catch (Exception error) { LastError = error; Debug.LogException(error, this); }
-            if (rockBefore != RockBuildCount || backgroundBefore != BackgroundBuildCount) VisualRevision++;
-            if (controller == null || LastError != null || loading) return;
-            HandleInputOverflow(); ProcessOneInputBatch();
-            if (!awaitingBaseline) UpdateVisible();
-            if (controller.HasPendingPresentationWork) controller.Tick();
-            if (pagesBefore != BuiltPages) VisualRevision++;
-        }
-
-        private void OnCameraPostRender(Camera camera)
-        { if (camera == ViewCamera) MarkPresented(); }
-
-        private void OnEndCameraRendering(ScriptableRenderContext context, Camera camera)
-        { if (camera == ViewCamera) MarkPresented(); }
-
-        private void MarkPresented()
-        {
-            if (!IsPresentationStable) return;
-            PresentedInputGeneration = InstalledInputGeneration; PresentedSourceCommit = InstalledSourceCommit;
+            if (controller == null || loading || LastError != null) return;
+            try
+            {
+                // 新输入先使旧作业失效，不能先提交旧岩壁再处理已收到的新数据。
+                if (inputQueue.TakeOverflow())
+                {
+                    HideForBaseline();
+                    inputSource?.PublishInitialBaseline();
+                }
+                ProcessOneInputBatch();
+                if (!awaitingBaseline) UpdateVisible();
+                long pagesBefore = BuiltPages;
+                int rockBefore = RockBuildCount, backgroundBefore = BackgroundBuildCount;
+                if (controller.HasPendingPresentationWork) controller.Tick();
+                caveSource?.TickBackground();
+                if (pagesBefore != BuiltPages || rockBefore != RockBuildCount || backgroundBefore != BackgroundBuildCount)
+                    VisualRevision++;
+            }
+            catch (Exception error) { Fail(error); }
         }
 
         private void OnInputChanged(MapInputBatch batch)
         {
             if (batch == null || lifetime == null || lifetime.IsCancellationRequested) return;
-            if (batch.Kind == MapInputBatchKind.Baseline && recoverableOverflowError)
-            { LastError = null; recoverableOverflowError = false; }
-            inputQueue.Enqueue(batch);
-        }
-
-        private void HandleInputOverflow()
-        {
-            if (!inputQueue.TakeOverflow()) return;
-            awaitingBaseline = true; visible = default;
-            controller.HideRegion(controller.Descriptor.Bounds);
-            caveSource?.SetVisible(default);
-            VisualRevision++;
-            LastError = new InvalidOperationException("地形输入队列超限，已撤销旧画面的显示资格；等待完整基线恢复。");
-            recoverableOverflowError = true;
-            try { inputSource?.PublishInitialBaseline(); }
-            catch (Exception error) { LastError = error; recoverableOverflowError = false; }
+            try { inputQueue.Enqueue(batch); }
+            catch (Exception error) { Fail(error); }
         }
 
         private void ProcessOneInputBatch()
         {
-            if (LastError != null) return;
             if (!inputQueue.TryDequeue(out var batch)) return;
-            try
+            bool lifecycle = batch.Kind == MapInputBatchKind.Reset || batch.Kind == MapInputBatchKind.VisibilityRevoked ||
+                batch.Kind == MapInputBatchKind.Disconnected;
+            if (awaitingBaseline && batch.Kind != MapInputBatchKind.Baseline && !lifecycle)
+                throw new InvalidOperationException("等待完整基线时不能安装普通增量。");
+            var result = controller.InstallSourceInput(batch);
+            InstalledInputGeneration = result.InputGeneration; InstalledSourceCommit = result.SourceCommit;
+            if (lifecycle)
             {
-                if (awaitingBaseline && batch.Kind != MapInputBatchKind.Baseline)
-                    throw new InvalidOperationException("地形源正在等待完整基线，普通增量不能恢复显示资格。");
-                var result = controller.InstallSourceInput(batch);
-                InstalledInputGeneration = result.InputGeneration; InstalledSourceCommit = result.SourceCommit;
-                if (IsLifecycle(batch.Kind))
-                {
-                    awaitingBaseline = true; visible = default; PresentedInputGeneration = 0; PresentedSourceCommit = 0;
-                    controller.HideRegion(controller.Descriptor.Bounds); caveSource?.SetVisible(default);
-                    VisualRevision++;
-                }
-                else if (result.Status == MapInputInstallStatus.NoChange)
-                {
-                    LastChangedChunkCount = 0; LastRefreshRegionCount = 0;
-                    if (batch.Kind == MapInputBatchKind.Baseline)
-                    { awaitingBaseline = false; visible = default; VisualRevision++; }
-                    else if (IsPresentationStable)
-                    { PresentedInputGeneration = InstalledInputGeneration; PresentedSourceCommit = InstalledSourceCommit; }
-                }
-                else
-                {
-                    caveSource?.ApplyInput(batch); caveSource?.Flush();
-                    awaitingBaseline = false; visible = default;
-                    LastChangedChunkCount = CountChangedChunks(batch, controller.Descriptor.ChunkSize);
-                    LastRefreshRegionCount = LastChangedChunkCount;
-                    RefreshBatchCount++;
-                    VisualRevision++;
-                    if (batch.Kind == MapInputBatchKind.Baseline) awaitingBaseline = false;
-                }
+                HideForBaseline();
+                PresentedInputGeneration = PresentedSourceCommit = 0;
+                return;
             }
-            catch (Exception error) { LastError = error; Debug.LogException(error, this); }
+            if (result.Status == MapInputInstallStatus.Applied)
+            {
+                caveSource?.ApplyInput(batch); caveSource?.Flush();
+                LastChangedChunkCount = result.Receipt.ChangedChunks.Count;
+                LastRefreshRegionCount = result.Receipt.PageTargets.Count;
+                RefreshBatchCount++;
+            }
+            else { LastChangedChunkCount = 0; LastRefreshRegionCount = 0; }
+            if (batch.Kind == MapInputBatchKind.Baseline) awaitingBaseline = false;
+            // 保留已有可见区域，普通 Delta 不重复 ShowRegion，也不覆盖 Interactive 优先级。
+            VisualRevision++;
         }
 
-        private static int CountChangedChunks(MapInputBatch batch, int chunkSize)
+        private void HideForBaseline()
         {
-            var chunks = new HashSet<ChunkCoord>();
-            foreach (var snapshot in batch.SnapshotChunks) chunks.Add(snapshot.Coordinate);
-            foreach (var cell in batch.Cells) chunks.Add(GridMath.ChunkOf(cell.Position, chunkSize));
-            return chunks.Count;
+            awaitingBaseline = true; visible = default; drawing = false;
+            controller.HideRegion(controller.Descriptor.Bounds);
+            caveSource?.SetVisible(default);
+            VisualRevision++;
         }
-
-        private static bool IsLifecycle(MapInputBatchKind kind) => kind == MapInputBatchKind.Reset ||
-            kind == MapInputBatchKind.VisibilityRevoked || kind == MapInputBatchKind.Disconnected;
 
         private void UpdateVisible()
         {
+            if (ViewCamera == null) return;
             var bounds = controller.Descriptor.Bounds;
-            float halfH = ViewCamera.orthographicSize / (localCoordinates ? transform.lossyScale.y : 1), halfW = halfH * ViewCamera.aspect;
-            Vector3 p = localCoordinates ? transform.InverseTransformPoint(ViewCamera.transform.position) : ViewCamera.transform.position;
+            float halfH = ViewCamera.orthographicSize / Mathf.Abs(transform.lossyScale.y), halfW = halfH * ViewCamera.aspect;
+            Vector3 p = transform.InverseTransformPoint(ViewCamera.transform.position);
             int page = controller.Descriptor.PageSize;
             int minU = Math.Max(bounds.MinU, Mathf.FloorToInt((p.x - halfW - 2) / page) * page);
             int minV = Math.Max(bounds.MinV, Mathf.FloorToInt((p.y - halfH - 2) / page) * page);
@@ -249,36 +210,64 @@ namespace DarkNights.View.Terrain
             var next = new GridBounds(minU, minV, maxU - minU, maxV - minV);
             if (visible.Equals(next)) return;
             if (visible.IsValid) HideDifference(visible, next);
-            controller.ShowRegion(next); visible = next; caveSource?.SetVisible(next);
+            controller.ShowRegion(next); visible = next; caveSource?.SetVisible(next); VisualRevision++;
         }
 
         private void HideDifference(GridBounds area, GridBounds overlap)
         {
             int left = Math.Max(area.MinU, overlap.MinU), bottom = Math.Max(area.MinV, overlap.MinV);
-            int right = (int)Math.Min(area.MaxUExclusive, overlap.MaxUExclusive);
-            int top = (int)Math.Min(area.MaxVExclusive, overlap.MaxVExclusive);
-            if (!overlap.IsValid || left >= right || bottom >= top) { controller.HideRegion(area); return; }
+            int right = (int)Math.Min(area.MaxUExclusive, overlap.MaxUExclusive), top = (int)Math.Min(area.MaxVExclusive, overlap.MaxVExclusive);
+            if (left >= right || bottom >= top) { controller.HideRegion(area); return; }
             HideStrip(area.MinU, area.MinV, left - area.MinU, area.Height);
             HideStrip(right, area.MinV, (int)area.MaxUExclusive - right, area.Height);
             HideStrip(left, area.MinV, right - left, bottom - area.MinV);
             HideStrip(left, top, right - left, (int)area.MaxVExclusive - top);
         }
-
         private void HideStrip(int u, int v, int width, int height)
         { if (width > 0 && height > 0) controller.HideRegion(new GridBounds(u, v, width, height)); }
 
+        private void EnsureCameraHooks()
+        {
+            if (cameraHooks) return;
+            cameraHooks = true;
+            Camera.onPreCull += BeginCamera; Camera.onPostRender += EndCamera;
+            RenderPipelineManager.beginCameraRendering += BeginPipelineCamera;
+            RenderPipelineManager.endCameraRendering += EndPipelineCamera;
+        }
+        private void BeginPipelineCamera(ScriptableRenderContext context, Camera camera) => BeginCamera(camera);
+        private void EndPipelineCamera(ScriptableRenderContext context, Camera camera) => EndCamera(camera);
+        private void BeginCamera(Camera camera)
+        {
+            if (camera != ViewCamera) return;
+            drawing = IsPresentationStable; drawingGeneration = InstalledInputGeneration;
+            drawingCommit = InstalledSourceCommit; drawingVisualRevision = VisualRevision;
+        }
+        private void EndCamera(Camera camera)
+        {
+            if (camera != ViewCamera || !drawing) return;
+            drawing = false;
+            if (!IsPresentationStable || drawingVisualRevision != VisualRevision || drawingGeneration != InstalledInputGeneration ||
+                drawingCommit != InstalledSourceCommit) return;
+            PresentedInputGeneration = drawingGeneration; PresentedSourceCommit = drawingCommit;
+        }
+        private void Fail(Exception error) { LastError = error; Debug.LogException(error, this); }
+
         private async void OnDisable()
         {
-            Camera.onPostRender -= OnCameraPostRender;
-            RenderPipelineManager.endCameraRendering -= OnEndCameraRendering;
-            if (inputSource != null) { inputSource.InputChanged -= OnInputChanged; inputSource = null; }
-            replicaSource = null;
+            if (cameraHooks)
+            {
+                Camera.onPreCull -= BeginCamera; Camera.onPostRender -= EndCamera;
+                RenderPipelineManager.beginCameraRendering -= BeginPipelineCamera;
+                RenderPipelineManager.endCameraRendering -= EndPipelineCamera;
+                cameraHooks = false;
+            }
+            if (inputSource != null) inputSource.InputChanged -= OnInputChanged;
+            inputSource = null; replicaSource = null; drawing = false;
             lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null;
-            inputQueue.Clear();
-            loading = false; awaitingBaseline = false;
+            inputQueue.Clear(); loading = awaitingBaseline = false;
             var old = controller; controller = null; visible = default;
-            if (old != null) await old.DisposeAsync();
             caveSource?.Dispose(); caveSource = null;
+            if (old != null) await old.DisposeAsync();
         }
     }
 }

@@ -1,0 +1,24 @@
+name: Terrain repair tests
+on:
+  push:
+    branches: [fix-20260925-terrain-refresh-review]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  algorithms:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Compile game Core and test actual LocalV2 patch algorithm
+        run: dotnet test tools/TerrainRepairTests/TerrainRepairTests.csproj --nologo --logger 'trx;LogFileName=terrain.trx' --results-directory terrain-test-results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: terrain-repair-test-results
+          path: terrain-test-results/
+          retention-days: 7

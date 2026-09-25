@@ -4,13 +4,12 @@ using System.Linq;
 
 namespace DarkNights.Core.Logic.Terrain
 {
-    /// <summary>冻结的有序轮廓流水线；空栈原样返回，各阶段从前一只读结果计算，每次地图重建从基础轮廓开始，不累积上次产物。</summary>
+    /// <summary>冻结的有序轮廓栈；即时前景合同与原作者资产分离，局部能力不覆盖不受支持的 Modifier。</summary>
     public sealed class CaveModifierStack
     {
         private readonly ICaveMaskModifier[] modifiers;
         public static CaveModifierStack Empty { get; } = new CaveModifierStack(Array.Empty<ICaveMaskModifier>());
         public bool Enabled => modifiers.Length > 0;
-        /// <summary>此栈是否能沿整图与局部使用同一有界内核；空栈只有基础外轮廓，也满足该合同。</summary>
         public bool SupportsLocalRoundedCluster => modifiers.Length == 0 ||
             (modifiers.Length == 1 && modifiers[0] is RoundedClusterModifier rounded &&
              rounded.AlgorithmVersion == RoundedClusterAlgorithmVersion.LocalV2);
@@ -34,13 +33,22 @@ namespace DarkNights.Core.Logic.Terrain
             }
             return source;
         }
-
-        /// <summary>返回本轮具备有界增量合同的唯一前景 modifier；其他顺序栈不能进入活动动态局部模式。</summary>
+        /// <summary>显式生成 LocalV2 前景副本，参数保留；不修改旧实例，不声称 V1/V2 像素完全相同。</summary>
+        public CaveModifierStack AsLocalForeground()
+        {
+            if (SupportsLocalRoundedCluster) return this;
+            if (modifiers.Length == 1 && modifiers[0] is RoundedClusterModifier original)
+                return new CaveModifierStack(new ICaveMaskModifier[]
+                {
+                    new RoundedClusterModifier(original.Depth, original.Size, original.Petal, original.Density,
+                        original.Variation, original.Grain, original.ModifierSeed, RoundedClusterAlgorithmVersion.LocalV2)
+                });
+            throw new NotSupportedException("即时前景只支持空栈或单个圆簇；请使用独立局部样式，或关闭 ImmediateForeground 对照旧栈。");
+        }
         public RoundedClusterModifier RequireLocalRoundedCluster()
         {
             if (modifiers.Length == 0) return null;
-            if (modifiers.Length == 1 && modifiers[0] is RoundedClusterModifier rounded &&
-                rounded.AlgorithmVersion == RoundedClusterAlgorithmVersion.LocalV2) return rounded;
+            if (SupportsLocalRoundedCluster) return (RoundedClusterModifier)modifiers[0];
             throw new NotSupportedException("当前 modifier 栈不是已显式启用的 LocalV2 局部算法。");
         }
     }

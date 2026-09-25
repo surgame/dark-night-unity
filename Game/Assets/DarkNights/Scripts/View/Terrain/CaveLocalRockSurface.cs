@@ -4,127 +4,193 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AnyRules.Next;
-using DarkNights.Core.Config.Terrain;
-using DarkNights.Core.Logic.Terrain;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
+using Stopwatch = System.Diagnostics.Stopwatch;
 
 namespace DarkNights.View.Terrain
 {
-    /// <summary>当前岩壁的持久 GPU 纹理与有限页队列；作业冻结依赖格，过期页不提交，上传使用局部 staging 拷贝。</summary>
+    /// <summary>持久岩壁纹理的局部补丁宿主；热编辑优先于冷页，有限同步预算耗尽后后台继续，不等全图任务。</summary>
     internal sealed class CaveLocalRockSurface : IDisposable
     {
-        private sealed class PageBake
+        /// <summary>一次冻结补丁的版本、像素范围及独立结果；提交前整批复核。</summary>
+        private sealed class Patch
         {
-            internal readonly int Key, Version;
-            internal readonly byte[] Pixels;
-            internal PageBake(int key, int version, byte[] pixels) { Key = key; Version = version; Pixels = pixels; }
+            internal int Key, Version;
+            internal RectInt Rect;
+            internal Func<byte[]> Bake;
+            internal byte[] Pixels;
         }
-
         private readonly RenderTexture texture;
         private readonly Texture2D upload;
-        private readonly CancellationTokenSource cancellation = new CancellationTokenSource();
-        private readonly CancellationToken cancellationToken;
-        private readonly HashSet<int> visible = new HashSet<int>();
-        private readonly HashSet<int> dirty = new HashSet<int>();
+        private readonly CancellationTokenSource lifetime = new CancellationTokenSource();
+        private readonly HashSet<int> visible = new HashSet<int>(), interactive = new HashSet<int>();
+        private readonly Dictionary<int, RectInt> dirty = new Dictionary<int, RectInt>();
         private readonly int[] versions = new int[60], bakedVersions = new int[60];
         private readonly CaveLocalRockGeometry geometry;
-        private Task<PageBake[]> task;
+        private readonly double inlineBudget;
+        private CancellationTokenSource workCancellation;
+        private Task<Patch[]> task;
+        private int generation, workGeneration;
         private bool disposed;
         private Exception fault;
         public int BuildCount { get; private set; }
-        public bool Ready => fault == null && geometry.Initialized && task == null && visible.All(k => bakedVersions[k] == versions[k]);
+        public long UploadedBytes { get; private set; }
+        public long DiscardedBatches { get; private set; }
+        public long InlineBatches { get; private set; }
+        public bool Ready => fault == null && geometry.Initialized && task == null &&
+            visible.All(k => bakedVersions[k] == versions[k]);
         public Exception Fault => fault;
 
         public CaveLocalRockSurface(Material material, string seed, CaveTerrainStyle style)
         {
-            cancellationToken = cancellation.Token;
-            geometry = new CaveLocalRockGeometry(seed, style.CaptureOutline(), style.CaptureModifiers(), style.StoneSize, cancellationToken);
+            inlineBudget = Math.Max(0, Math.Min(8, style.InteractiveBakeBudgetMs));
+            geometry = new CaveLocalRockGeometry(seed, style.CaptureOutline(), style.CaptureModifiers(), style.StoneSize, lifetime.Token);
             var descriptor = new RenderTextureDescriptor(2560, 1536, GraphicsFormat.R8G8B8A8_SRGB, 0)
             { msaaSamples = 1, useMipMap = false, autoGenerateMips = false };
-            texture = new RenderTexture(descriptor) { name = "Live cave rock surface", filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp };
+            texture = new RenderTexture(descriptor)
+            { name = "LocalV2 cave rock", filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp };
             texture.Create();
-            var active = RenderTexture.active; RenderTexture.active = texture; GL.Clear(false, true, Color.clear); RenderTexture.active = active;
-            upload = new Texture2D(256, 256, TextureFormat.RGBA32, false, false) { name = "Cave rock page upload" };
+            var previous = RenderTexture.active;
+            RenderTexture.active = texture; GL.Clear(false, true, Color.clear); RenderTexture.active = previous;
+            upload = new Texture2D(1, 1, TextureFormat.RGBA32, false, false) { name = "Cave patch staging" };
             material.SetTexture("_RockSurface", texture);
         }
-
-        /// <summary>首次只读区块装载时创建岩壁输入快照；每页随后独立参与初次烘焙。</summary>
         public void Replace(Color32[] cells)
         {
-            geometry.Replace(cells);
-            for (int i = 0; i < versions.Length; i++) { versions[i] = checked(versions[i] + 1); dirty.Add(i); }
+            geometry.Replace(cells); generation++; workCancellation?.Cancel();
+            for (int key = 0; key < versions.Length; key++)
+            { versions[key] = checked(versions[key] + 1); dirty[key] = CaveLocalRockGeometry.PageRect(key); }
         }
-
-        /// <summary>应用实际变化格并仅使其依赖半径命中的岩壁页失效。</summary>
-        public void ApplyChanges(Color32[] cells, IReadOnlyList<int> changedIndexes)
+        public void ApplyChanges(Color32[] cells, IReadOnlyList<int> indexes)
         {
-            if (!geometry.Initialized || changedIndexes == null || changedIndexes.Count == 0) return;
-            geometry.ApplyCells(cells, changedIndexes); var affected = new HashSet<int>();
-            foreach (int index in changedIndexes) geometry.AddAffectedPages(index, affected);
-            foreach (int page in affected) { versions[page] = checked(versions[page] + 1); dirty.Add(page); }
+            if (!geometry.Initialized || indexes == null || indexes.Count == 0) return;
+            geometry.ApplyCells(cells, indexes);
+            var touched = new HashSet<int>();
+            foreach (int index in indexes)
+            {
+                var affected = geometry.ChangedRect(index);
+                var pages = new HashSet<int>(); geometry.AddAffectedPages(index, pages);
+                foreach (int key in pages)
+                {
+                    var page = CaveLocalRockGeometry.PageRect(key);
+                    var patch = Intersect(page, affected);
+                    if (bakedVersions[key] == 0) patch = page;
+                    dirty[key] = dirty.TryGetValue(key, out var previous) ? Union(previous, patch) : patch;
+                    touched.Add(key); interactive.Add(key);
+                }
+            }
+            foreach (int key in touched) versions[key] = checked(versions[key] + 1);
+            // 旧工作读取冻结输入；取消只加快让路，正确性仍由提交版本门禁保证。
+            workCancellation?.Cancel();
         }
-
         public void SetVisible(GridBounds bounds)
         {
+            if (!bounds.IsValid)
+            { visible.Clear(); generation++; workCancellation?.Cancel(); return; }
             var next = new HashSet<int>();
-            if (!bounds.IsValid) { visible.Clear(); return; }
             for (int y = Math.Max(0, (1 - (int)bounds.MaxVExclusive) / 32); y <= Math.Min(5, -bounds.MinV / 32); y++)
-                for (int x = Math.Max(0, bounds.MinU / 32); x <= Math.Min(9, ((int)bounds.MaxUExclusive - 1) / 32); x++) next.Add(y * 10 + x);
-            foreach (int key in next)
-                if (!visible.Contains(key) && bakedVersions[key] != versions[key]) dirty.Add(key);
+                for (int x = Math.Max(0, bounds.MinU / 32); x <= Math.Min(9, ((int)bounds.MaxUExclusive - 1) / 32); x++)
+                    next.Add(y * 10 + x);
             visible.Clear(); foreach (int key in next) visible.Add(key);
         }
-
         public void Tick()
         {
             if (disposed || fault != null || !geometry.Initialized) return;
-            if (task != null)
+            try
             {
-                if (!task.IsCompleted) return;
-                var completed = task; task = null;
-                PageBake[] pages;
-                try { pages = completed.GetAwaiter().GetResult(); }
-                catch (Exception error) { fault = error; throw; }
-                bool stale = false;
-                foreach (var page in pages)
-                    if (visible.Contains(page.Key) && page.Version != versions[page.Key]) stale = true;
-                if (stale)
+                if (task != null)
                 {
-                    foreach (var page in pages)
-                        if (visible.Contains(page.Key) && bakedVersions[page.Key] != versions[page.Key]) dirty.Add(page.Key);
-                    return;
+                    if (!task.IsCompleted) return;
+                    var completed = task; task = null;
+                    bool cancelled = workCancellation.IsCancellationRequested;
+                    workCancellation.Dispose(); workCancellation = null;
+                    try
+                    {
+                        var result = completed.GetAwaiter().GetResult();
+                        if (!cancelled && workGeneration == generation) Commit(result);
+                        else DiscardedBatches++;
+                    }
+                    catch (OperationCanceledException) { DiscardedBatches++; }
                 }
-                foreach (var page in pages)
+                var keys = dirty.Keys.Where(visible.Contains).Where(k => bakedVersions[k] != versions[k]).OrderBy(k => k).ToArray();
+                if (keys.Length == 0) return;
+                var hot = keys.Where(interactive.Contains).ToArray();
+                bool isHot = hot.Length != 0;
+                if (isHot) keys = hot;
+                else keys = keys.Take(2).ToArray(); // 冷启动不再把整个屏幕的 60 页绑成一个工作。
+                workCancellation = CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);
+                var token = workCancellation.Token;
+                var clock = Stopwatch.StartNew();
+                bool inline = isHot && inlineBudget > 0 && keys.All(k => bakedVersions[k] != 0) && keys.Length <= 4;
+                var patches = new Patch[keys.Length];
+                for (int i = 0; i < keys.Length; i++)
                 {
-                    if (!visible.Contains(page.Key)) continue;
-                    upload.LoadRawTextureData(page.Pixels); upload.Apply(false, false);
-                    Graphics.CopyTexture(upload, 0, 0, 0, 0, 256, 256, texture, 0, 0, page.Key % 10 * 256, page.Key / 10 * 256);
-                    bakedVersions[page.Key] = page.Version; dirty.Remove(page.Key); BuildCount++;
+                    int key = keys[i]; var rect = dirty[key];
+                    patches[i] = new Patch { Key = key, Version = versions[key], Rect = rect,
+                        Bake = geometry.CaptureRegionBake(rect, () =>
+                        {
+                            token.ThrowIfCancellationRequested();
+                            if (inline && clock.Elapsed.TotalMilliseconds >= inlineBudget) throw new TimeoutException("inline budget");
+                        }) };
                 }
-                return;
+                if (inline)
+                {
+                    try
+                    {
+                        BakeAll(patches, token); Commit(patches); InlineBatches++;
+                        workCancellation.Dispose(); workCancellation = null;
+                        return;
+                    }
+                    catch (TimeoutException) { foreach (var patch in patches) patch.Pixels = null; }
+                }
+                inline = false; workGeneration = generation;
+                task = Task.Run(() => { BakeAll(patches, token); return patches; }, token);
             }
-            var keys = dirty.Where(visible.Contains).Where(key => bakedVersions[key] != versions[key]).OrderBy(key => key).ToArray();
-            if (keys.Length == 0) return;
-            var bakes = new Func<byte[]>[keys.Length]; var capturedVersions = new int[keys.Length];
-            for (int i = 0; i < keys.Length; i++)
-            {
-                capturedVersions[i] = versions[keys[i]]; bakes[i] = geometry.CapturePageBake(keys[i]); dirty.Remove(keys[i]);
-            }
-            task = Task.Run(() =>
-            {
-                var result = new PageBake[bakes.Length];
-                for (int i = 0; i < bakes.Length; i++)
-                { cancellationToken.ThrowIfCancellationRequested(); result[i] = new PageBake(keys[i], capturedVersions[i], bakes[i]()); }
-                return result;
-            }, cancellationToken);
+            catch (Exception error) { fault = error; throw; }
         }
-
+        private static void BakeAll(Patch[] patches, CancellationToken token)
+        {
+            foreach (var patch in patches) { token.ThrowIfCancellationRequested(); patch.Pixels = patch.Bake(); }
+        }
+        private void Commit(Patch[] patches)
+        {
+            foreach (var patch in patches)
+                if (patch.Version != versions[patch.Key]) { DiscardedBatches++; return; }
+            foreach (var patch in patches)
+            {
+                if (!visible.Contains(patch.Key)) continue;
+                var rect = patch.Rect;
+                if ((upload.width != rect.width || upload.height != rect.height) && !upload.Reinitialize(rect.width, rect.height))
+                    throw new InvalidOperationException("局部上传纹理无法调整尺寸。");
+                upload.LoadRawTextureData(patch.Pixels); upload.Apply(false, false);
+                Graphics.CopyTexture(upload, 0, 0, 0, 0, rect.width, rect.height, texture, 0, 0, rect.x, rect.y);
+                UploadedBytes += patch.Pixels.Length;
+                bakedVersions[patch.Key] = patch.Version;
+                dirty.Remove(patch.Key); interactive.Remove(patch.Key); BuildCount++;
+            }
+        }
+        private static RectInt Intersect(RectInt a, RectInt b)
+        {
+            int x = Math.Max(a.xMin, b.xMin), y = Math.Max(a.yMin, b.yMin);
+            return new RectInt(x, y, Math.Min(a.xMax, b.xMax) - x, Math.Min(a.yMax, b.yMax) - y);
+        }
+        private static RectInt Union(RectInt a, RectInt b)
+        {
+            int x = Math.Min(a.xMin, b.xMin), y = Math.Min(a.yMin, b.yMin);
+            return new RectInt(x, y, Math.Max(a.xMax, b.xMax) - x, Math.Max(a.yMax, b.yMax) - y);
+        }
         public void Dispose()
         {
-            if (disposed) return; disposed = true; cancellation.Cancel(); cancellation.Dispose();
-            texture.Release(); UnityEngine.Object.Destroy(texture); UnityEngine.Object.Destroy(upload);
-            task = null; dirty.Clear(); visible.Clear();
+            if (disposed) return;
+            disposed = true; generation++; lifetime.Cancel(); workCancellation?.Cancel();
+            if (task != null)
+                _ = task.ContinueWith(completed => { var observed = completed.Exception; }, CancellationToken.None,
+                    TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
+            workCancellation?.Dispose(); lifetime.Dispose(); task = null;
+            texture.Release(); DestroyOwned(texture); DestroyOwned(upload); dirty.Clear(); visible.Clear(); interactive.Clear();
         }
+        private static void DestroyOwned(UnityEngine.Object value)
+        { if (Application.isPlaying) UnityEngine.Object.Destroy(value); else UnityEngine.Object.DestroyImmediate(value); }
     }
 }
