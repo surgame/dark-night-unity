@@ -11,9 +11,19 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
+      - name: Verify UPM changes are limited to the four map packages
+        run: python3 tools/check-terrain-repair-locks.py
+      - name: Parse dependency preparation script
+        shell: pwsh
+        run: |
+          $tokens = $null; $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile((Join-Path $PWD 'tools/prepare-map-packages.ps1'), [ref]$tokens, [ref]$errors) | Out-Null
+          if ($errors.Count -ne 0) { $errors | Format-List; exit 1 }
       - name: Compile game Core and test actual LocalV2 patch algorithm
         run: dotnet test tools/TerrainRepairTests/TerrainRepairTests.csproj --nologo --logger 'trx;LogFileName=terrain.trx' --results-directory terrain-test-results
       - uses: actions/upload-artifact@v4
