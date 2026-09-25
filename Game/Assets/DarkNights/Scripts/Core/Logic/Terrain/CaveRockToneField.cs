@@ -20,9 +20,10 @@ namespace DarkNights.Core.Logic.Terrain
         public int Tone(int x, int y)
         {
             double first = double.MaxValue, second = double.MaxValue; CaveRockFacet nearest = default;
+            int column = (int)Math.Floor(x / size) - x0, row = (int)Math.Floor(y / size) - y0;
             for (int dy = -1; dy <= 1; dy++) for (int dx = -1; dx <= 1; dx++)
             {
-                var f = facets[((int)Math.Floor(y / size) + dy - y0) * width + (int)Math.Floor(x / size) + dx - x0];
+                var f = facets[(row + dy) * width + column + dx];
                 double d = (x - f.X) * (x - f.X) + (y - f.Y) * (y - f.Y) * 1.18;
                 if (d < first) { second = first; first = d; nearest = f; }
                 else if (d < second) second = d;

@@ -44,6 +44,7 @@ namespace DarkNights.Core.Logic.Terrain
             uint seed = Seed((string.IsNullOrEmpty(modifierSeed) ? worldSeed : modifierSeed) + "|rounded-local-v2");
             var accepted = new List<Cluster>(winners.Count);
             foreach (var winner in winners) accepted.Add(new Cluster(winner, CreateLobes(winner, petal, variation, seed)));
+            var rowClusters = new List<Cluster>(accepted.Count);
             var result = new byte[checked(width * height)];
             var weights = grain ? new float[result.Length] : null;
             var tones = grain ? new byte[result.Length] : null;
@@ -51,11 +52,19 @@ namespace DarkNights.Core.Logic.Terrain
             {
                 checkpoint?.Invoke();
                 int worldY = top + y;
+                rowClusters.Clear();
+                // 保留原簇次序，仅排除本行绝不可能覆盖的簇，不改变平滑融合结果。
+                foreach (var cluster in accepted)
+                {
+                    var a = cluster.Anchor;
+                    if (worldY >= a.Y - a.Extent - a.Radius - 3 &&
+                        worldY <= a.Y + a.Extent + a.Radius + 3) rowClusters.Add(cluster);
+                }
                 for (int x = 0; x < width; x++)
                 {
                     int worldX = left + x, sourceIndex = (worldY - source.Top) * source.Width + worldX - source.Left;
                     double distance = signed[sourceIndex];
-                    foreach (var cluster in accepted)
+                    foreach (var cluster in rowClusters)
                     {
                         var candidate = cluster.Anchor;
                         if (Math.Abs(worldX - candidate.X) > candidate.Radius + petal + 3 ||
