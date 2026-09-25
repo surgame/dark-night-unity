@@ -1,0 +1,117 @@
+{
+  "game_base": "6964f57106d2fcfd58bcdf81fdfcd2dbba48d8bb",
+  "yygc_base": "5ad6f0c63185e09442bf21b2e165e9c5a48b1a61",
+  "branch": "fix-20260925-cave-tuner-isolated",
+  "scope": "isolated source, no Local Unity mutation",
+  "kernel_checks": {
+    "total": 56,
+    "mismatches": [],
+    "status": "PASS"
+  },
+  "regression": {
+    "passed": 7,
+    "failed": 0,
+    "runtime": "dotnet8, real Core sources"
+  },
+  "compile": {
+    "assemblies": [
+      "DarkNights.Core",
+      "DarkNights.View",
+      "DarkNights.Editor"
+    ],
+    "status": "PASS",
+    "kind": "standalone Roslyn with Local Unity 6000.4.9f1 response files; no Unity import or Play"
+  },
+  "kernel_timings": {
+    "baseline": {
+      "single": {
+        "samples": [
+          33.0539,
+          31.2465,
+          30.636,
+          30.8849,
+          30.3379,
+          30.5622,
+          30.8834,
+          29.9997,
+          30.0314,
+          29.7503,
+          30.1148
+        ],
+        "median": 30.5622,
+        "p95": 33.0539
+      },
+      "8x8": {
+        "samples": [
+          37.3464,
+          36.3401,
+          36.2133,
+          36.4861,
+          35.9811,
+          36.9613,
+          36.5523,
+          36.2462,
+          35.6279,
+          35.9932,
+          36.1797
+        ],
+        "median": 36.2462,
+        "p95": 37.3464
+      }
+    },
+    "candidate": {
+      "single": {
+        "samples": [
+          18.0975,
+          15.8985,
+          15.684,
+          15.8537,
+          15.362,
+          15.113,
+          15.1562,
+          15.3872,
+          15.1368,
+          15.5297,
+          15.4186
+        ],
+        "median": 15.4186,
+        "p95": 18.0975
+      },
+      "8x8": {
+        "samples": [
+          19.3181,
+          19.4041,
+          19.4694,
+          19.0491,
+          25.853,
+          22.3331,
+          20.9335,
+          20.6152,
+          20.7692,
+          20.7284,
+          20.8652
+        ],
+        "median": 20.7284,
+        "p95": 25.853
+      }
+    },
+    "unit": "ms",
+    "warmup": 3,
+    "samples": 11,
+    "includes": "CPU kernel and output assembly only",
+    "excludes": [
+      "GPU",
+      "camera",
+      "Editor scheduling",
+      "network"
+    ]
+  },
+  "runtime_visual": "NOT_RUN",
+  "weak_network": "NOT_RUN",
+  "fixture_sha256": "f169e88b7e50212b1560702e720e8aa065ced3f359ff83daee9e7861b1ef798e",
+  "code_commits": {
+    "editor_route": "fd100f438b1a5394cf7ea18cc350f08523d6fb2b",
+    "pixel_equivalent_route": "6f3fa2c7115d23d4364b24ec688274e5670c62a0"
+  },
+  "bench_caveat": "11 samples with active Unity; empirical P95 is highest of 11; not end-to-end or Unity Mono"
+}
