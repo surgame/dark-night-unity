@@ -105,8 +105,8 @@ namespace DarkNights.Tests
             using var scope = new TerrainVisualTestScope();
             yield return scope.Settle();
             var type = typeof(TerrainPreview); var flags = BindingFlags.Instance | BindingFlags.NonPublic;
-            Action<Camera> pre = (Action<Camera>)Delegate.CreateDelegate(typeof(Action<Camera>), scope.Preview, type.GetMethod("BeginCamera", flags));
-            Action<Camera> post = (Action<Camera>)Delegate.CreateDelegate(typeof(Action<Camera>), scope.Preview, type.GetMethod("EndCamera", flags));
+            Camera.CameraCallback pre = (Camera.CameraCallback)Delegate.CreateDelegate(typeof(Camera.CameraCallback), scope.Preview, type.GetMethod("BeginCamera", flags));
+            Camera.CameraCallback post = (Camera.CameraCallback)Delegate.CreateDelegate(typeof(Camera.CameraCallback), scope.Preview, type.GetMethod("EndCamera", flags));
             var beginPipeline = (Action<ScriptableRenderContext, Camera>)Delegate.CreateDelegate(typeof(Action<ScriptableRenderContext, Camera>), scope.Preview, type.GetMethod("BeginPipelineCamera", flags));
             var endPipeline = (Action<ScriptableRenderContext, Camera>)Delegate.CreateDelegate(typeof(Action<ScriptableRenderContext, Camera>), scope.Preview, type.GetMethod("EndPipelineCamera", flags));
             Camera.onPreCull -= pre; Camera.onPostRender -= post;
