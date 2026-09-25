@@ -93,10 +93,12 @@ namespace DarkNights.View.Terrain
                     mapSource = caveSource;
                 }
                 var profile = caveSource == null ? null : new RenderProfile(defaultMaterial: caveSource.Material);
+                var layers = inputSource == null ? null : new GridLayerConfiguration(GridEditability.ReadOnly,
+                    GridRenderPolicy.LiveRules, GridBusinessCapability.TileTypeOnly);
                 var options = new MapOptions(initialize: false, showOnCreate: false, autoUpdate: false,
                     maximumInitializationCells: 131072, chunkSource: mapSource, parent: transform, world: world,
-                    sourceDrivenInputs: inputSource != null, profile: profile,
-                    scheduling: new RenderSchedulingOptions(lagPolicy: RenderLagPolicy.LatestOnly));
+                    sourceDrivenInputs: inputSource != null, layers: layers, profile: profile,
+                    scheduling: new RenderSchedulingOptions(lagPolicy: RenderLagPolicy.BoundedLag));
                 var result = await ARDMapController.CreateAsync(definition, options, own.Token);
                 if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
                 controller = result;
@@ -134,7 +136,7 @@ namespace DarkNights.View.Terrain
             if (controller == null || loading || LastError != null) return;
             try
             {
-                // 新输入先使旧作业失效，不能先提交旧岩壁再处理已收到的新数据。
+                // 新输入先更新依赖；工作结果不允许覆盖已经显示过的更高版本。
                 if (inputQueue.TakeOverflow())
                 {
                     HideForBaseline();
@@ -183,7 +185,6 @@ namespace DarkNights.View.Terrain
             }
             else { LastChangedChunkCount = 0; LastRefreshRegionCount = 0; }
             if (batch.Kind == MapInputBatchKind.Baseline) awaitingBaseline = false;
-            // 保留已有可见区域，普通 Delta 不重复 ShowRegion，也不覆盖 Interactive 优先级。
             VisualRevision++;
         }
 

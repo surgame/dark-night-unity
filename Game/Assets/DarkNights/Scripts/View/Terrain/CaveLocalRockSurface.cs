@@ -10,10 +10,9 @@ using Stopwatch = System.Diagnostics.Stopwatch;
 
 namespace DarkNights.View.Terrain
 {
-    /// <summary>持久岩壁纹理的局部补丁宿主；热编辑优先于冷页，有限同步预算耗尽后后台继续，不等全图任务。</summary>
+    /// <summary>热编辑的有限像素补丁优先于冷页；显示版本单调前进，最终就绪只接受当前输入版本。</summary>
     internal sealed class CaveLocalRockSurface : IDisposable
     {
-        /// <summary>一次冻结补丁的版本、像素范围及独立结果；提交前整批复核。</summary>
         private sealed class Patch
         {
             internal int Key, Version;
@@ -32,7 +31,7 @@ namespace DarkNights.View.Terrain
         private CancellationTokenSource workCancellation;
         private Task<Patch[]> task;
         private int generation, workGeneration;
-        private bool disposed;
+        private bool disposed, workIsInteractive;
         private Exception fault;
         public int BuildCount { get; private set; }
         public long UploadedBytes { get; private set; }
@@ -81,8 +80,8 @@ namespace DarkNights.View.Terrain
                 }
             }
             foreach (int key in touched) versions[key] = checked(versions[key] + 1);
-            // 旧工作读取冻结输入；取消只加快让路，正确性仍由提交版本门禁保证。
-            workCancellation?.Cancel();
+            // 只抢占冷页。每来一笔就取消热作业，会让连续绘制永远没有提交机会。
+            if (!workIsInteractive) workCancellation?.Cancel();
         }
         public void SetVisible(GridBounds bounds)
         {
@@ -112,13 +111,14 @@ namespace DarkNights.View.Terrain
                         else DiscardedBatches++;
                     }
                     catch (OperationCanceledException) { DiscardedBatches++; }
+                    workIsInteractive = false;
                 }
                 var keys = dirty.Keys.Where(visible.Contains).Where(k => bakedVersions[k] != versions[k]).OrderBy(k => k).ToArray();
                 if (keys.Length == 0) return;
                 var hot = keys.Where(interactive.Contains).ToArray();
                 bool isHot = hot.Length != 0;
                 if (isHot) keys = hot;
-                else keys = keys.Take(2).ToArray(); // 冷启动不再把整个屏幕的 60 页绑成一个工作。
+                else keys = keys.Take(2).ToArray();
                 workCancellation = CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);
                 var token = workCancellation.Token;
                 var clock = Stopwatch.StartNew();
@@ -144,7 +144,7 @@ namespace DarkNights.View.Terrain
                     }
                     catch (TimeoutException) { foreach (var patch in patches) patch.Pixels = null; }
                 }
-                inline = false; workGeneration = generation;
+                inline = false; workGeneration = generation; workIsInteractive = isHot;
                 task = Task.Run(() => { BakeAll(patches, token); return patches; }, token);
             }
             catch (Exception error) { fault = error; throw; }
@@ -155,11 +155,13 @@ namespace DarkNights.View.Terrain
         }
         private void Commit(Patch[] patches)
         {
+            // 热批次允许单调前进的中间显示；绝不回退已显示版本，旧世界/撤权批次由 generation 拦截。
             foreach (var patch in patches)
-                if (patch.Version != versions[patch.Key]) { DiscardedBatches++; return; }
+                if (patch.Version < bakedVersions[patch.Key] || patch.Version > versions[patch.Key])
+                { DiscardedBatches++; return; }
             foreach (var patch in patches)
             {
-                if (!visible.Contains(patch.Key)) continue;
+                if (!visible.Contains(patch.Key) || patch.Version <= bakedVersions[patch.Key]) continue;
                 var rect = patch.Rect;
                 if ((upload.width != rect.width || upload.height != rect.height) && !upload.Reinitialize(rect.width, rect.height))
                     throw new InvalidOperationException("局部上传纹理无法调整尺寸。");
@@ -167,7 +169,10 @@ namespace DarkNights.View.Terrain
                 Graphics.CopyTexture(upload, 0, 0, 0, 0, rect.width, rect.height, texture, 0, 0, rect.x, rect.y);
                 UploadedBytes += patch.Pixels.Length;
                 bakedVersions[patch.Key] = patch.Version;
-                dirty.Remove(patch.Key); interactive.Remove(patch.Key); BuildCount++;
+                if (patch.Version == versions[patch.Key])
+                { dirty.Remove(patch.Key); interactive.Remove(patch.Key); }
+                // 若输入又有变化，保留脏范围（包括未显示的后续变化），下一批继续追上。
+                BuildCount++;
             }
         }
         private static RectInt Intersect(RectInt a, RectInt b)
