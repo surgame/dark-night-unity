@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-26",
+  "unity": "6000.4.9f1",
+  "frameworkBase": "0b1fad66b904808dd8803b6601ab82dac76e4927",
+  "frameworkFix": "094e72241380c3ef4ad86be19eaafdf6b94bec8b",
+  "regressionPassed": 7,
+  "startup": "Ready",
+  "startupErrors": 0,
+  "newGameErrors": 0,
+  "visible": [
+    "main-menu",
+    "space-ship",
+    "hero",
+    "destination-picker"
+  ],
+  "evidenceDirectory": "artifacts/bootstrap-startup-fix",
+  "scope": "Bootstrap启动与新建Host太空出生；不代表完整航程、联机、IL2CPP验收"
+}

@@ -1,5 +1,25 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-26：Bootstrap 蓝屏启动修复
+
+用户报告 `UGUI Runtime` 缺少 Canvas、`Network State Types` 缺少独立 Sample 的 `CampState`，授权修复并通知航程验收聊天。当前包直接引用 `D:/Developer/YYGC`，基线 `0b1fad6` 已按生成目标程序集隔离注册，但运行时仍扫描所有已加载程序集；该包也缺少旧隔离包曾有的 Unity 空值补丁。
+
+修复先在 `D:/Developer/YYGC-worktrees/bootstrap-startup` 的 `fix-20260926-bootstrap-startup` 完成，提交 **`094e722`**，再以精确补丁应用到当前包的七个文件。未切换用户 YYGC 分支，未覆盖已有 `ARDRenderController.cs` 修改，未更换 manifest、lock、渲染或平台设置。游戏保存 `tools/bootstrap-startup/YYGCStartup.patch`、前后源码 SHA-256 与补丁锁；`Apply-YYGCStartup.ps1` 仅接受完整基线或已应用状态，不覆盖未知或部分修改。当前仍是项目既有的本机包引用；补丁可重放不等于已经验证全新机器的完整依赖恢复。
+
+| YYGC 修改文件 | 原因与落点 | 验证 |
+|---|---|---|
+| `Runtime/UI/UGUI/UGUIRuntimeStartupModule.cs` | Canvas、CanvasScaler、UGUIManager 使用 Unity `== null` 判断，避免 `??` 漏掉缺失组件托管壳。 | 修复前临时根节点复现原异常；修复后补组件、重复初始化、销毁后重建通过。 |
+| `Editor/GeneratedRegistryScope.cs` | 提取与类型筛选同源的稳定程序集名称列表。 | 正式范围包含游戏 Runtime，排除独立 LAN Sample。 |
+| `Editor/Objects/NetworkStates/StateDataInterfaceGenerator.cs` | 正式状态生成器把作者引用范围写入注册器，不手改生成输出。 | 原有 Tag 10–18 保持，航程状态 Tag 19；Sample 不写入正式表。 |
+| `Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs` | 命令生成器同步写入范围，避免状态通过后命令校验继续阻断启动。 | 正式命令启动校验通过，原命令 Tag 保持。 |
+| `Runtime/Middlewares/GenericTypeSerializer/GeneratedGenericTypeRegistryCatalog.cs` | 注册器同时保存范围并随 SubsystemRegistration 清空；无范围或旧生成器保持严格校验。 | 缺少范围时不跳过校验，测试结束恢复全局注册状态。 |
+| `Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs` | 只要求当前生成注册器范围内的状态，仍拒绝正式类型漏注册。 | 故意移除 ActorState 仍失败；独立 CampState 不阻止正式启动。 |
+| `Runtime/NetworkCommands/NetworkCommandStartupModule.cs` | 命令启动使用相同范围合同。 | 实际 Bootstrap 全部启动模块进入 Ready。 |
+
+Unity **6000.4.9f1** 当前 Local 统一编译完成；`tools/bootstrap-startup/StartupRegression.cs` **7/7**。实际 Bootstrap Play 主菜单显示，点击“开始守夜”后 Host 建立、太空飞船／人物／目的地入口显示，两阶段错误日志均 **0**。已退出 Play，留在 Bootstrap。正式证据为 [摘要](evidence/bootstrap-startup-20260926.json) 与 `artifacts/bootstrap-startup-fix/` 下诊断 JSON、`bootstrap-menu.png`、`newgame.png`；这些为保留证据。未构建本轮 Player，未宣称完整航程、独立进程联机或 IL2CPP 通过。
+
+本批只生成上述源码、补丁与正式证据，复用 Local Library，无独立 Unity 缓存或可移出的中间构建产物；未删除或移动其他任务文件。阶段完成 D 盘约 25.5 GB 可用，C 盘约 6.7 GB 可用。
+
 ## 2026-09-25：生成更新分派器的友元程序集访问
 
 原因：Unity 当前 `com.tsgame.gamecore` 包路径指向用户 YYGC 工作区 `D:/Developer/YYGC`，该检出缺少游戏已有的 `SampleAssemblyAccess.cs` 宿主补丁。BehaviourRegistry 为 `DarkNights.Samples.LanCoop.Runtime`、`DarkNights.Runtime` 和 `DarkNights.View` 生成的分派器需要访问 `CoreBehaviour` 的 internal 更新标志与索引；没有友元声明时触发 CS1061。先从 YYGC `01289e0f92ebcab3671cd03ab8e11751e627602f` 建隔离分支 `fix-20260925-lan-dispatcher-access` 核对补丁落点与原工作区状态，再将现有两文件补丁原样补入活动包，并由当前 Unity Editor 编译验证；未改生成器、包路径、manifest／lock 或 AnyRules 文件，也未提交 YYGC 工作区。

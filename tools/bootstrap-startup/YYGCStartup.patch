@@ -1,0 +1,183 @@
+diff --git a/Editor/GeneratedRegistryScope.cs b/Editor/GeneratedRegistryScope.cs
+index 30fe310..571408f 100644
+--- a/Editor/GeneratedRegistryScope.cs
++++ b/Editor/GeneratedRegistryScope.cs
+@@ -11,14 +11,20 @@ namespace GameCore.Editor
+         public static bool CanReference(Type type, string generatedPath)
+         {
+             if (type == null || string.IsNullOrEmpty(generatedPath)) return false;
++            return GetAssemblyNames(generatedPath).Contains(type.Assembly.GetName().Name);
++        }
++
++        /// <summary>冻结生成目标的直接程序集引用，供 Editor 与 Development Player 使用相同的启动校验范围。</summary>
++        public static string[] GetAssemblyNames(string generatedPath)
++        {
+             string targetName = CompilationPipeline.GetAssemblyNameFromScriptPath(generatedPath);
+             targetName = Path.GetFileNameWithoutExtension(targetName ?? "Assembly-CSharp");
+             var target = CompilationPipeline.GetAssemblies(AssembliesType.Player)
+                 .FirstOrDefault(assembly => assembly.name == targetName);
+-            if (target == null) return false;
+-            string sourceName = type.Assembly.GetName().Name;
+-            return sourceName == target.name || target.assemblyReferences.Any(a => a.name == sourceName) ||
+-                target.compiledAssemblyReferences.Any(path => Path.GetFileNameWithoutExtension(path) == sourceName);
++            if (target == null) return Array.Empty<string>();
++            return new[] { target.name }.Concat(target.assemblyReferences.Select(a => a.name))
++                .Concat(target.compiledAssemblyReferences.Select(Path.GetFileNameWithoutExtension))
++                .Distinct().OrderBy(name => name, StringComparer.Ordinal).ToArray();
+         }
+     }
+ }
+diff --git a/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs b/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
+index c13300a..9cd7156 100644
+--- a/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
++++ b/Editor/NetworkCommands/NetworkCommandInterfaceGenerator.cs
+@@ -157,7 +157,11 @@ namespace GameCore.Editor.NetworkCommands
+             sb.AppendLine("        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]");
+             sb.AppendLine("        private static void RegisterRegistrar()");
+             sb.AppendLine("        {");
+-            sb.AppendLine("            GeneratedGenericTypeRegistryCatalog.AddNetworkCommandRegistrar(RegisterTypes);");
++            sb.AppendLine("            GeneratedGenericTypeRegistryCatalog.AddNetworkCommandRegistrar(RegisterTypes, new string[]");
++            sb.AppendLine("            {");
++            foreach (string assemblyName in GeneratedRegistryScope.GetAssemblyNames(registry.GeneratedFilePath))
++                sb.AppendLine($"                \"{assemblyName}\",");
++            sb.AppendLine("            });");
+             sb.AppendLine("        }");
+             sb.AppendLine();
+             sb.AppendLine("        private static void RegisterTypes()");
+diff --git a/Editor/Objects/NetworkStates/StateDataInterfaceGenerator.cs b/Editor/Objects/NetworkStates/StateDataInterfaceGenerator.cs
+index d171bd0..f65b238 100644
+--- a/Editor/Objects/NetworkStates/StateDataInterfaceGenerator.cs
++++ b/Editor/Objects/NetworkStates/StateDataInterfaceGenerator.cs
+@@ -66,7 +66,11 @@ namespace GameCore.Editor.Objects.NetworkStates
+             sb.AppendLine("        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterAssembliesLoaded)]");
+             sb.AppendLine("        private static void RegisterRegistrar()");
+             sb.AppendLine("        {");
+-            sb.AppendLine("            GeneratedGenericTypeRegistryCatalog.AddStateDataRegistrar(RegisterTypes);");
++            sb.AppendLine("            GeneratedGenericTypeRegistryCatalog.AddStateDataRegistrar(RegisterTypes, new string[]");
++            sb.AppendLine("            {");
++            foreach (string assemblyName in GeneratedRegistryScope.GetAssemblyNames(registry.GeneratedFilePath))
++                sb.AppendLine($"                \"{assemblyName}\",");
++            sb.AppendLine("            });");
+             sb.AppendLine("        }");
+             sb.AppendLine();
+             sb.AppendLine("        private static void RegisterTypes()");
+diff --git a/Runtime/Middlewares/GenericTypeSerializer/GeneratedGenericTypeRegistryCatalog.cs b/Runtime/Middlewares/GenericTypeSerializer/GeneratedGenericTypeRegistryCatalog.cs
+index e491cc7..fddf931 100644
+--- a/Runtime/Middlewares/GenericTypeSerializer/GeneratedGenericTypeRegistryCatalog.cs
++++ b/Runtime/Middlewares/GenericTypeSerializer/GeneratedGenericTypeRegistryCatalog.cs
+@@ -1,26 +1,49 @@
+ using System;
+ using System.Collections.Generic;
++using System.Linq;
+ using GameCore.NetworkCommands;
+ using UnityEngine;
+ 
+ namespace GameCore.Objects.NetworkStates
+ {
++    /// <summary>保存本轮启动的生成注册器及其作者程序集范围；域重载或再次 Play 时一起清空。</summary>
+     public static class GeneratedGenericTypeRegistryCatalog
+     {
+         private static readonly List<Action> NetworkCommandRegistrars = new();
+         private static readonly List<Action> StateDataRegistrars = new();
++        private static readonly Dictionary<Action, HashSet<string>> Scopes = new();
+ 
+         public static int NetworkCommandRegistrarCount => NetworkCommandRegistrars.Count;
+         public static int StateDataRegistrarCount => StateDataRegistrars.Count;
+ 
+-        public static void AddNetworkCommandRegistrar(Action registrar)
++        public static void AddNetworkCommandRegistrar(Action registrar, string[] assemblyNames = null)
+         {
+             AddRegistrar(NetworkCommandRegistrars, registrar);
++            SetScope(registrar, assemblyNames);
+         }
+ 
+-        public static void AddStateDataRegistrar(Action registrar)
++        public static void AddStateDataRegistrar(Action registrar, string[] assemblyNames = null)
+         {
+             AddRegistrar(StateDataRegistrars, registrar);
++            SetScope(registrar, assemblyNames);
++        }
++
++        public static bool IsStateDataTypeInScope(Type type) => IsInScope(StateDataRegistrars, type);
++        public static bool IsNetworkCommandTypeInScope(Type type) => IsInScope(NetworkCommandRegistrars, type);
++
++        private static void SetScope(Action registrar, string[] assemblyNames)
++        {
++            if (registrar == null) return;
++            if (assemblyNames == null || assemblyNames.Length == 0) Scopes.Remove(registrar);
++            else Scopes[registrar] = new HashSet<string>(assemblyNames, StringComparer.Ordinal);
++        }
++
++        private static bool IsInScope(IReadOnlyList<Action> registrars, Type type)
++        {
++            // 旧生成器或缺失注册器仍严格检查全部类型，不能因缺少范围元数据而静默跳过校验。
++            if (registrars.Count == 0 || registrars.Any(registrar => !Scopes.ContainsKey(registrar))) return true;
++            string name = type.Assembly.GetName().Name;
++            return registrars.Any(registrar => Scopes[registrar].Contains(name));
+         }
+ 
+         public static void RegisterNetworkCommands()
+@@ -58,6 +81,7 @@ namespace GameCore.Objects.NetworkStates
+         {
+             NetworkCommandRegistrars.Clear();
+             StateDataRegistrars.Clear();
++            Scopes.Clear();
+         }
+     }
+ }
+diff --git a/Runtime/NetworkCommands/NetworkCommandStartupModule.cs b/Runtime/NetworkCommands/NetworkCommandStartupModule.cs
+index bfee798..1cfa25f 100644
+--- a/Runtime/NetworkCommands/NetworkCommandStartupModule.cs
++++ b/Runtime/NetworkCommands/NetworkCommandStartupModule.cs
+@@ -89,7 +89,8 @@ namespace GameCore.NetworkCommands
+         private static void ValidateGeneratedRegistry()
+         {
+ #if UNITY_EDITOR || DEVELOPMENT_BUILD
+-            var discoverableTypes = GenericTypeRegistry<INetworkCommand>.DiscoverSupportedTypes();
++            var discoverableTypes = GenericTypeRegistry<INetworkCommand>.DiscoverSupportedTypes()
++                .Where(GeneratedGenericTypeRegistryCatalog.IsNetworkCommandTypeInScope).ToList();
+             if (discoverableTypes.Count == 0)
+             {
+                 return;
+diff --git a/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs b/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs
+index 7f7f23f..5e5ec19 100644
+--- a/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs
++++ b/Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs
+@@ -62,6 +62,7 @@ namespace GameCore.Objects.NetworkStates
+         {
+ #if UNITY_EDITOR || DEVELOPMENT_BUILD
+             var discoverableTypes = GenericTypeRegistry<IStateData>.DiscoverSupportedTypes()
++                .Where(GeneratedGenericTypeRegistryCatalog.IsStateDataTypeInScope)
+                 .Where(type => type.IsDefined(typeof(StateDataAttribute), false)).ToList();
+             if (discoverableTypes.Count == 0)
+             {
+diff --git a/Runtime/UI/UGUI/UGUIRuntimeStartupModule.cs b/Runtime/UI/UGUI/UGUIRuntimeStartupModule.cs
+index 04767d2..604b5e0 100644
+--- a/Runtime/UI/UGUI/UGUIRuntimeStartupModule.cs
++++ b/Runtime/UI/UGUI/UGUIRuntimeStartupModule.cs
+@@ -88,7 +88,8 @@ namespace Runtime.AppStartup
+             var root = FindOrCreateRoot(context);
+             EnsureRootComponents(root);
+             EnsureEventSystem();
+-            var manager = root.GetComponent<UGUIManager>() ?? root.AddComponent<UGUIManager>();
++            var manager = root.GetComponent<UGUIManager>();
++            if (manager == null) manager = root.AddComponent<UGUIManager>();
+             manager.RegisterInstance();
+             return manager;
+         }
+@@ -125,10 +126,13 @@ namespace Runtime.AppStartup
+                 root.AddComponent<RectTransform>();
+             }
+ 
+-            var canvas = root.GetComponent<Canvas>() ?? root.AddComponent<Canvas>();
++            // Unity 缺失组件可能保留托管壳；必须使用 Unity 的空值判断。
++            var canvas = root.GetComponent<Canvas>();
++            if (canvas == null) canvas = root.AddComponent<Canvas>();
+             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+ 
+-            var scaler = root.GetComponent<CanvasScaler>() ?? root.AddComponent<CanvasScaler>();
++            var scaler = root.GetComponent<CanvasScaler>();
++            if (scaler == null) scaler = root.AddComponent<CanvasScaler>();
+             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+             scaler.referenceResolution = new Vector2(1920f, 1080f);
+             scaler.matchWidthOrHeight = 0.5f;
