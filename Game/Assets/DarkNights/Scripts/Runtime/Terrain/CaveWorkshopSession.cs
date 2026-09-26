@@ -19,6 +19,7 @@ namespace DarkNights.Runtime.Terrain
         private bool active = true;
         private ulong sequence;
         public TerrainMapAuthority Map { get; }
+        public WorkshopTerrainEdits Edits { get; }
         public float X => actor.X / PlayableTerrain.CellPixels;
         public float Y => (actor.Height - PlayableTerrain.OriginY) / PlayableTerrain.CellPixels;
         public double Fuel => actor.JetpackFuel;
@@ -33,6 +34,7 @@ namespace DarkNights.Runtime.Terrain
             container = new DIContainer(); container.Initialize();
             context = ObjectSessionContext.CreateAuthority(container, () => active); context.Activate();
             Map = new TerrainMapAuthority(context, blueprint, catalog, new WorldIdentity(StableGuid.Parse(Guid.NewGuid().ToString("N")), 1));
+            Edits = new WorkshopTerrainEdits(Map, blueprint);
             actor = new ActorState { JetpackEquipped = true, JetpackFuel = rules.FuelSeconds, SupportPlatform = -1 };
             Teleport(blueprint.Rooms[0].X, -blueprint.Rooms[0].Y);
         }

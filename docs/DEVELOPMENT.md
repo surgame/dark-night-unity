@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-26 [运行时洞穴工作台](RUNTIME_TERRAIN_TUNER.md)已将 Cave Wall Tuner 接入新版固定／随机工作台左栏，五个主 Tab、岩壁／背景子页、拆填草稿与自适应 UI。受影响 Unity 检查按最新结果合并 35/35，通过两场景实际 Play 与小窗口画面检查；既有架构守卫 10 项和下条地形可见页 2 项继续留账，本批不宣称全项目验收通过。
+
 2026-09-26 当前地图入口与接入核验见[场景索引](SCENES.md)：正式远征、新版固定／随机工作台共用 StrataCave。最新代码已默认开启即时前景并捕获 LocalV2，不能继续按下条早期记录判断“未接入”。已有 Local Unity 实测 32 通过／2 失败，完整视觉、前台性能及新 Player 联机仍未验收；本次仅整理旧场景与入口，不扩大为刷新算法修复。
 
 2026-09-25 [局部地形即时刷新](IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)在 `ft-20260925-immediate-terrain-refresh` 形成隔离候选：AnyRuleD Core 138/138；LocalV2 独立全图/分页遮罩、岩粒和最终 RGBA 对照 10 组通过。默认 LegacyV1 保持不变，V1/V2 画面门槛、Unity 导入/编译、运行时与性能仍未验；不得称填拆延迟已解决。游戏包锁尚未切到候选 AnyRuleD API，完整阶段状态与依赖风险见执行记录。

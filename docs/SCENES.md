@@ -4,6 +4,8 @@
 
 地形配置、地图格子、Prefab 和贴图继续留在各自的 `Res/Terrain/` 资源目录。旧场景通过 Unity AssetDatabase 移入 `(old)` 并在文件名追加 `(old)`，保留原 `.meta`／GUID 和场景内容。
 
+新版工作台 Play 左栏现已接入[运行时 Cave Wall Tuner 功能](RUNTIME_TERRAIN_TUNER.md)：地图／岩壁／背景／显示／状态五页，包含造型子页、草稿应用取消、固定地图保存及自适应缩放。独立编辑器窗口继续保留。
+
 ## 正式接入与当前验收状态
 
 `GameSessionStartupModule` 默认选择 `Expedition.unity`；该场景的 `Definition`／`ContourDefinition` 均指向 StrataCave 定义（GUID `d4a19379210ced349b64c1b628f9c7ca`），`CaveStyle`／`StaticBackgroundStyle` 均指向 `Res/Terrain/StrataCave/Style.asset`（GUID `b8f1f94057451ec459e1bac28aba1c8a`）。因此无需 `--dn-contour-static` 就使用新版岩层和三层背景。两个新版工作台使用同一组定义和样式，但地图输入分别为固定蓝图和随机生成；正式远征有自己的权威地图与玩法，接入同一渲染链不表示三者地图布局相同。

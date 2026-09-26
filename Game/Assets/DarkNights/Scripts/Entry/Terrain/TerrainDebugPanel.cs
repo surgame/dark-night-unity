@@ -1,131 +1,144 @@
 using System;
-using DarkNights.Core.Config.Terrain;
+using DarkNights.View.Terrain;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace DarkNights.Entry.Terrain
 {
-    /// <summary>
-    /// 独立调试场景的即时参数面板，参数变化交由 Bootstrap 防抖重建，房间按钮仅移动本地观察角色。
-    /// 文本编辑时屏蔽飞行和重生快捷键；不调用正式会话命令，也不读写玩家存档。
-    /// </summary>
+    /// <summary>离线工作台左栏；按地图、岩壁、背景、显示和状态分页，提前仲裁输入，调参及地图编辑均保留独立草稿语义。</summary>
+    [DefaultExecutionOrder(-200)]
     public sealed class TerrainDebugPanel : MonoBehaviour
     {
         public TerrainDebugBootstrap Bootstrap;
         public Font Font;
-        private bool visible = true;
-        private Vector2 scroll;
+        public int ActiveTab { get; set; }
+        public float UiScale = 1, PanelWidth = 380;
+        public bool Visible = true;
+        public int MapTool;
+        public byte FillMaterial = 1;
+        public bool ShowGrid;
+        public string Message { get; private set; } = "更改先预览；应用保留本次运行，保存资产才写盘。";
+        public TerrainPanelLayout Layout => new TerrainPanelLayout(Screen.width, Screen.height, UiScale, PanelWidth);
+        private readonly Vector2[] scroll = new Vector2[5];
+        private readonly TerrainStyleControls styleControls = new TerrainStyleControls();
+        private readonly TerrainWorkbenchPages pages = new TerrainWorkbenchPages();
+        private TerrainWorkbenchPointer pointer;
         private Font runtimeFont;
         private GUISkin skin;
-        private static readonly string[] Surfaces = { "针峰", "台地", "喀斯特", "盆地", "丘陵", "断层" };
-        private static readonly string[] Rooms = { "入口", "矿洞", "树根", "长廊", "熔炉", "首领", "密室", "遗迹" };
+        private bool textFocus;
+        private static readonly string[] Tabs = { "地图", "岩壁", "背景", "显示", "状态" };
 
         private void OnEnable()
         {
-            // 序列化的 UIFont 不含字体数据；IMGUI 的字体引擎需要实际加载的系统字面。
             runtimeFont = UnityEngine.Font.CreateDynamicFontFromOSFont(
                 Font != null ? Font.fontNames : new[] { "Microsoft YaHei", "Arial" }, 15);
+            pointer = new TerrainWorkbenchPointer();
+            if (Bootstrap != null) Bootstrap.StyleDraft = new CaveStyleDraft(Bootstrap.CaveStyle);
         }
-
-        private void OnDisable()
-        {
-            if (runtimeFont != null) Destroy(runtimeFont);
-            if (skin != null) Destroy(skin);
-            if (Bootstrap != null && Bootstrap.Flyer != null)
-            {
-                Bootstrap.Flyer.InputBlocked = false;
-                Bootstrap.Flyer.PointerOverPanel = false;
-            }
-        }
-
         private void Update()
         {
-            if (Keyboard.current != null && Keyboard.current.f1Key.wasPressedThisFrame)
-            {
-                visible = !visible;
-                Bootstrap.Flyer.InputBlocked = false;
-            }
+            if (Bootstrap?.Flyer == null) return;
+            if (Keyboard.current?.f1Key.wasPressedThisFrame == true)
+            { Visible = !Visible; textFocus = false; pointer.Stop(); }
+            var mousePoint = Mouse.current?.position.ReadValue() ?? new Vector2(-1, -1);
+            bool over = Mouse.current != null && (Visible ? Layout.ContainsScreenPoint(mousePoint, Screen.height) :
+                new Rect(12, 12, 200, 32).Contains(new Vector2(mousePoint.x, Screen.height - mousePoint.y) / Layout.Scale));
+            Bootstrap.Flyer.PointerOverPanel = over;
+            if (Mouse.current?.leftButton.wasPressedThisFrame == true && !over) textFocus = false;
+            Bootstrap.Flyer.InputBlocked = textFocus;
+            Bootstrap.Flyer.WorkbenchPointerActive = MapTool != 0;
+            pointer.Update(this, over || textFocus || Bootstrap.Generating);
+            pages.Observe(Bootstrap);
         }
-
         private void OnGUI()
         {
-            if (Bootstrap == null || Bootstrap.Flyer == null) return;
-            GUISkin previous = GUI.skin;
-            if (skin == null)
-            {
-                skin = Instantiate(previous); skin.font = runtimeFont;
-                skin.label.wordWrap = true; skin.box.wordWrap = true;
-            }
-            GUI.skin = skin;
-            float scale = Mathf.Max(1, Screen.height / 900f);
-            Matrix4x4 previousMatrix = GUI.matrix;
-            GUI.matrix = Matrix4x4.Scale(new Vector3(scale, scale, 1));
+            if (Bootstrap?.Flyer == null) return;
+            var previousSkin = GUI.skin; var previousMatrix = GUI.matrix; bool previousEnabled = GUI.enabled;
+            EnsureSkin(previousSkin);
+            var layout = Layout;
+            GUI.skin = skin; GUI.matrix = Matrix4x4.Scale(new Vector3(layout.Scale, layout.Scale, 1));
             try
             {
-                if (!visible)
+                pointer.DrawGrid(this, layout.Scale);
+                if (!Visible)
                 {
-                    GUI.Label(new Rect(12, 10, 620, 24), Bootstrap.Workshop == null ? "F1 参数 · WASD 观察 · 滚轮缩放" :
-                        "F1 参数 · Tab 行走/观察 · AD 移动 · 空格跳跃/喷气 · 滚轮缩放");
-                    Bootstrap.Flyer.PointerOverPanel = false;
+                    if (GUI.Button(new Rect(12, 12, 200, 32), "F1 · 打开地图工作台")) Visible = true;
                     return;
                 }
-                var area = new Rect(12, 12, 300, Mathf.Min(660, Screen.height / scale - 24));
-                Bootstrap.Flyer.PointerOverPanel = area.Contains(Event.current.mousePosition);
-                GUILayout.BeginArea(area, GUI.skin.box);
-                scroll = GUILayout.BeginScrollView(scroll);
-                GUILayout.BeginVertical(GUILayout.Width(266));
-                GUILayout.Label(Bootstrap.Workshop == null ? "随机地图 · Debug Bootstrap" : "天然洞穴 · 地图工作台");
-                if (Bootstrap.Workshop != null) GUILayout.Label("喷气燃料：" + Bootstrap.Workshop.Fuel.ToString("0.0") + " 秒（落地恢复）");
-                GUILayout.Label(Bootstrap.Workshop == null ? "WASD 穿墙飞行 / Shift 3×\nF 返回入口 / R 换种子\n滚轮缩放 / F1 收起面板" :
-                    "Tab 行走/穿墙观察 · AD 移动\n空格跳跃/按住喷气 · F 回入口\n左键手采 / 右键调试爆破（6格）\nR 换种子 · F1 面板 · 滚轮缩放", GUILayout.Height(85));
-                var settings = Bootstrap.Settings;
-                GUILayout.Label("种子");
-                GUI.SetNextControlName("TerrainSeed");
-                settings.Seed = GUILayout.TextField(settings.Seed ?? "", 80, GUILayout.Width(266));
-                Bootstrap.Flyer.InputBlocked = GUI.GetNameOfFocusedControl() == "TerrainSeed";
-                if (Event.current.type == EventType.MouseDown && !area.Contains(Event.current.mousePosition)) GUI.FocusControl(null);
-                bool cave = settings.ResourceProfile == TerrainGenerationSettings.CaveExplorationProfile;
-                if (cave) GUILayout.Label("天然洞穴实验 · 隐藏拓扑 / 部分掩埋");
-                else
-                {
-                    int surface = Math.Max(0, Array.IndexOf(TerrainGenerationSettings.SurfaceNames, settings.Surface));
-                    settings.Surface = TerrainGenerationSettings.SurfaceNames[GUILayout.SelectionGrid(surface, Surfaces, 3)];
-                    settings.OrganicCaves = GUILayout.Toggle(settings.OrganicCaves, "叠加自然洞穴");
-                    settings.OreDensity = Slider("矿脉密度", (float)settings.OreDensity, .2f, 2);
-                }
-                settings.Amplitude = Slider("地表起伏", (float)settings.Amplitude, .3f, 1.6f);
-                Bootstrap.LiveRegenerate = GUILayout.Toggle(Bootstrap.LiveRegenerate, "修改参数后实时重建");
-                GUILayout.BeginHorizontal();
-                if (GUILayout.Button("重建同种子")) { GUI.FocusControl(null); Bootstrap.RequestRegenerate(); }
-                if (GUILayout.Button("新随机种子")) { GUI.FocusControl(null); Bootstrap.NewSeed(); }
+                GUILayout.BeginArea(layout.Panel, skin.box);
+                GUILayout.BeginHorizontal(); GUILayout.Label("洞穴地图工作台", skin.GetStyle("title"));
+                if (GUILayout.Button("收起", GUILayout.Width(52))) { Visible = false; textFocus = false; pointer.Stop(); }
                 GUILayout.EndHorizontal();
-                Bootstrap.Flyer.CameraDistance = Slider("镜头距离（越小越近）", Bootstrap.Flyer.CameraDistance, 5, 100);
-                Bootstrap.Flyer.Speed = Slider("飞行速度（格/秒）", Bootstrap.Flyer.Speed, 2, 100);
-                GUILayout.Label("房间定位");
-                for (int i = 0; i < ((Bootstrap.Blueprint?.Rooms.Count ?? 8) + 3) / 4; i++)
-                {
-                    GUILayout.BeginHorizontal();
-                    for (int j = 0; j < 4; j++)
-                    {
-                        int room = i * 4 + j;
-                        if (room >= (Bootstrap.Blueprint?.Rooms.Count ?? 8)) break;
-                        string label = cave ? (room == 0 ? "入口" : "洞室 " + room) : Rooms[room];
-                        if (GUILayout.Button(label)) { GUI.FocusControl(null); Bootstrap.VisitRoom(room); }
-                    }
-                    GUILayout.EndHorizontal();
-                }
-                GUILayout.Label(Bootstrap.Status, GUI.skin.box, GUILayout.Height(52));
-                Vector3 p = Bootstrap.Flyer.transform.position;
-                GUILayout.Label($"格子：{p.x:F1}, {-p.y:F1} · 全图 320×192", GUILayout.Height(24));
-                GUILayout.EndVertical(); GUILayout.EndScrollView(); GUILayout.EndArea();
+                GUILayout.Label(Bootstrap.FixedMap != null ? "固定地图 · " + Bootstrap.FixedMap.name : "随机地图 · " + Bootstrap.Settings.Seed, skin.GetStyle("hint"));
+                int selected = GUILayout.SelectionGrid(ActiveTab, Tabs, layout.TabColumns);
+                if (selected != ActiveTab)
+                { ActiveTab = selected; textFocus = false; pointer.Stop(); GUI.FocusControl(null); GUIUtility.ExitGUI(); }
+                scroll[ActiveTab] = GUILayout.BeginScrollView(scroll[ActiveTab], false, false);
+                GUILayout.BeginVertical(GUILayout.ExpandWidth(true));
+                if (ActiveTab == 0) pages.DrawMap(this, styleControls);
+                else if (ActiveTab == 1 || ActiveTab == 2) styleControls.Draw(this, ActiveTab == 2);
+                else if (ActiveTab == 3) pages.DrawDisplay(this);
+                else pages.DrawStatus(this);
+                GUILayout.EndVertical(); GUILayout.EndScrollView();
+                if (ActiveTab == 1 || ActiveTab == 2) DrawStyleActions();
+                GUILayout.Label(Bootstrap.Generating ? "正在更新地图表现…" : Message, skin.GetStyle("hint"));
+                GUILayout.EndArea();
+                textFocus = !string.IsNullOrEmpty(GUI.GetNameOfFocusedControl());
+                if (Event.current.type == EventType.MouseDown && !layout.Panel.Contains(Event.current.mousePosition))
+                { GUI.FocusControl(null); textFocus = false; }
             }
-            finally { GUI.matrix = previousMatrix; GUI.skin = previous; }
+            finally { GUI.matrix = previousMatrix; GUI.skin = previousSkin; GUI.enabled = previousEnabled; }
         }
-
-        private static float Slider(string label, float value, float min, float max)
+        private void DrawStyleActions()
         {
-            GUILayout.Label(label + "  " + value.ToString("F2"));
-            return GUILayout.HorizontalSlider(value, min, max);
+            var draft = Bootstrap.StyleDraft;
+            if (draft?.Style == null) return;
+            bool enabled = GUI.enabled; GUI.enabled = enabled && draft.HasChanges && !Bootstrap.Generating;
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("应用样式")) Run(() => { draft.Apply(); SetMessage("样式已应用到本次运行；退出 Play 不保存资产。"); });
+            if (GUILayout.Button("取消样式")) Run(() => { draft.Cancel(); StyleChanged(); SetMessage("已恢复上次应用的样式。"); });
+            GUILayout.EndHorizontal(); GUI.enabled = enabled && !Bootstrap.Generating;
+            if (TerrainWorkbenchAssets.SaveStyle != null && GUILayout.Button("保存样式资产"))
+                Run(() => { TerrainWorkbenchAssets.SaveStyle(draft); draft.Apply(); SetMessage("已保存样式资产，共享此样式的场景也会使用修改。"); });
+            GUI.enabled = enabled;
+        }
+        private void EnsureSkin(GUISkin source)
+        {
+            if (skin != null) return;
+            skin = Instantiate(source); skin.font = runtimeFont;
+            foreach (var style in new[] { skin.label, skin.button, skin.toggle, skin.textField, skin.box })
+            { style.fontSize = 14; style.wordWrap = true; }
+            skin.button.padding = new RectOffset(8, 8, 6, 6); skin.button.fixedHeight = 0;
+            skin.textField.padding = new RectOffset(6, 6, 5, 5);
+            skin.box.padding = new RectOffset(10, 10, 8, 8);
+            skin.verticalScrollbar.fixedWidth = 16;
+            skin.customStyles = new[] {
+                new GUIStyle(skin.label) { name = "title", fontSize = 18, fontStyle = FontStyle.Bold },
+                new GUIStyle(skin.label) { name = "hint", fontSize = 12, wordWrap = true }
+            };
+        }
+        public void StyleChanged()
+        { Bootstrap.RequestStyleRefresh(); SetMessage("草稿预览 · 稍停后更新；地图拆填和角色位置保留。"); }
+        public void SetMessage(string message) => Message = message;
+        public void Run(Action action)
+        { try { action(); } catch (Exception error) { SetMessage(error.Message); } }
+        public void SwitchStyle(CaveTerrainStyle style)
+        {
+            if (style == null) return;
+            if (Bootstrap.StyleDraft?.HasChanges == true) { SetMessage("先应用或取消当前样式草稿。"); return; }
+            Bootstrap.StyleDraft?.Dispose(); Bootstrap.CaveStyle = style; Bootstrap.StyleDraft = new CaveStyleDraft(style); StyleChanged();
+        }
+        private void OnApplicationFocus(bool focus) { if (!focus) { pointer?.Stop(); textFocus = false; } }
+        private void OnDisable()
+        {
+            pointer?.Stop();
+            if (Bootstrap != null)
+            {
+                Bootstrap.StyleDraft?.Dispose(); Bootstrap.StyleDraft = null;
+                if (Bootstrap.Flyer != null)
+                { Bootstrap.Flyer.InputBlocked = false; Bootstrap.Flyer.PointerOverPanel = false; Bootstrap.Flyer.WorkbenchPointerActive = false; }
+            }
+            CaveStyleDraft.Release(runtimeFont); CaveStyleDraft.Release(skin); runtimeFont = null; skin = null;
         }
     }
 }

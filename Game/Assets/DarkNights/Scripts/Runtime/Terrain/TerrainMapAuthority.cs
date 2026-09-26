@@ -59,6 +59,24 @@ namespace DarkNights.Runtime.Terrain
         public GridSnapshot CaptureSnapshot(GridBounds bounds) => map.CaptureSnapshot(bounds);
         public GridSnapshot CapturePageSnapshot(PageCoord page) => map.CapturePageSnapshot(page);
 
+        /// <summary>仅供同程序集离线工作台使用的原子格子编辑；不暴露为网络命令，受保护格与边界不可覆盖。</summary>
+        internal void ApplyWorkshopCells(IReadOnlyDictionary<CellCoord, GridCell> cells)
+        {
+            if (disposed || !session.IsActive || !session.CanWriteState) throw new InvalidOperationException("工作台地图无写权限。");
+            foreach (var pair in cells)
+            {
+                var p = pair.Key;
+                if (p.U <= 0 || p.U >= TerrainGenerationSettings.Width - 1 || p.V >= 0 || p.V <= -TerrainGenerationSettings.Height + 1 ||
+                    !Read(p).TryGetCell(out var old) || (old.Flags & 1) != 0 || TileMaterial(old.TileId) == 8 ||
+                    (pair.Value.Flags & 1) != 0 || pair.Value.Flags > 24 ||
+                    (!pair.Value.IsEmpty && (TileMaterial(pair.Value.TileId) < 1 || TileMaterial(pair.Value.TileId) > 7)))
+                    throw new InvalidOperationException("工作台格子无效、受保护或越界。");
+            }
+            using var edit = map.BeginEdit(CommitId);
+            foreach (var pair in cells) edit.SetCell(pair.Key, pair.Value);
+            edit.Commit();
+        }
+
         /// <summary>仅由服务端投射物引信调用；允许空中落点，沿用有限十三格爆破范围，过滤基岩及保护格。</summary>
         internal void Detonate(float x, float height, long projectileId)
         {

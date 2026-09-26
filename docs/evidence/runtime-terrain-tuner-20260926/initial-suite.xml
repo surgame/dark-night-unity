@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="35" result="Failed(Child)" total="35" passed="33" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-26 06:49:42Z" end-time="2026-09-26 06:50:01Z" duration="18.5711846">
+  <test-suite type="TestSuite" id="1000" name="DNights" fullname="DNights" runstate="Runnable" testcasecount="282" result="Failed" site="Child" start-time="2026-09-26 06:49:42Z" end-time="2026-09-26 06:50:01Z" duration="18.571185" total="35" passed="33" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1351" name="DarkNights.Tests.dll" fullname="D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Tests.dll" runstate="Runnable" testcasecount="281" result="Failed" site="Child" start-time="2026-09-26 06:49:44Z" end-time="2026-09-26 06:50:01Z" duration="16.349639" total="35" passed="33" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="35828" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1352" name="DarkNights" fullname="DarkNights" runstate="Runnable" testcasecount="281" result="Failed" site="Child" start-time="2026-09-26 06:49:44Z" end-time="2026-09-26 06:50:01Z" duration="16.340738" total="35" passed="33" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1353" name="Tests" fullname="DarkNights.Tests" runstate="Runnable" testcasecount="281" result="Failed" site="Child" start-time="2026-09-26 06:49:44Z" end-time="2026-09-26 06:50:01Z" duration="16.332019" total="35" passed="33" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1011" name="CaveWorkshopTests" fullname="DarkNights.Tests.CaveWorkshopTests" classname="DarkNights.Tests.CaveWorkshopTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-09-26 06:49:26Z" end-time="2026-09-26 06:49:26Z" duration="0.316435" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1015" name="BakedMapRetainsShapesAndRejectsUnknownShape" fullname="DarkNights.Tests.CaveWorkshopTests.BakedMapRetainsShapesAndRejectsUnknownShape" methodname="BakedMapRetainsShapesAndRejectsUnknownShape" classname="DarkNights.Tests.CaveWorkshopTests" runstate="Runnable" seed="359555722" result="Passed" start-time="2026-09-26 06:49:26Z" end-time="2026-09-26 06:49:26Z" duration="0.038359" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1016" name="CaveSeedsProduceSlopeDiversityAndFrozenShapeArrays" fullname="DarkNights.Tests.CaveWorkshopTests.CaveSeedsProduceSlopeDiversityAndFrozenShapeArrays" methodname="CaveSeedsProduceSlopeDiversityAndFrozenShapeArrays" classname="DarkNights.Tests.CaveWorkshopTests" runstate="Runnable" seed="1285731690" result="Passed" start-time="2026-09-26 06:49:26Z" end-time="2026-09-26 06:49:26Z" duration="0.123859" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1012" name="GentleRampAscendsDescendsAndJumpLandsWithoutPenetration" fullname="DarkNights.Tests.CaveWorkshopTests.GentleRampAscendsDescendsAndJumpLandsWithoutPenetration" methodname="GentleRampAscendsDescendsAndJumpLandsWithoutPenetration" classname="DarkNights.Tests.CaveWorkshopTests" runstate="Runnable" seed="570251054" result="Passed" start-time="2026-09-26 06:49:26Z" end-time="2026-09-26 06:49:26Z" duration="0.043880" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1014" name="InitialAndLateReplicasKeepSlopesAndDestroyedState" fullname="DarkNights.Tests.CaveWorkshopTests.InitialAndLateReplicasKeepSlopesAndDestroyedState" methodname="InitialAndLateReplicasKeepSlopesAndDestroyedState" classname="DarkNights.Tests.CaveWorkshopTests" runstate="Runnable" seed="1105454728" result="Passed" start-time="2026-09-26 06:49:26Z" end-time="2026-09-26 06:49:26Z" duration="0.094088" asserts="0">
+              <properties />
+            </test-case>
+            <test-case id="1013" name="ShapesRoundTripAndCeilingsOccupyOppositeHalf" fullname="DarkNights.Tests.CaveWorkshopTests.ShapesRoundTripAndCeilingsOccupyOppositeHalf" methodname="ShapesRoundTripAndCeilingsOccupyOppositeHalf" classname="DarkNights.Tests.CaveWorkshopTests" runstate="Runnable" seed="923898231" result="Passed" start-time="2026-09-26 06:49:26Z" end-time="2026-09-26 06:49:26Z" duration="0.001154" asserts="0">
+              <properties />
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1177" name="RuntimeTerrainWorkbenchPlayTests" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchPlayTests" classname="DarkNights.Tests.RuntimeTerrainWorkbenchPlayTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-09-26 06:49:44Z" end-time="2026-09-26 06:49:47Z" duration="3.010429" total="2" passed="0" failed="2" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1179" name="RandomCaveRendersAt720p" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchPlayTests.RandomCaveRendersAt720p" methodname="RandomCaveRendersAt720p" classname="DarkNights.Tests.RuntimeTerrainWorkbenchPlayTests" runstate="Runnable" seed="2020333059" result="Failed" start-time="2026-09-26 06:49:26Z" end-time="2026-09-26 06:49:36Z" duration="9.731859" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Error] Invalid index 1 7 2'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[System.Reflection.MethodBase:Invoke (object,object[])
+DarkNights.Tests.TerrainGameViewTestSize:Dispose () (at Assets/DarkNights/Scripts/Tests/TerrainGameViewTestSize.cs:37)
+DarkNights.Tests.RuntimeTerrainWorkbenchPlayTests/<RandomCaveRendersAt720p>d__5:<>m__Finally1 ()
+DarkNights.Tests.RuntimeTerrainWorkbenchPlayTests/<RandomCaveRendersAt720p>d__5:MoveNext () (at Assets/DarkNights/Scripts/Tests/RuntimeTerrainWorkbenchPlayTests.cs:100)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Invalid index 1 7 2
+]]></output>
+            </test-case>
+            <test-case id="1178" name="TabsRenderAndStyleRefreshPreservesEditedMap" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchPlayTests.TabsRenderAndStyleRefreshPreservesEditedMap" methodname="TabsRenderAndStyleRefreshPreservesEditedMap" classname="DarkNights.Tests.RuntimeTerrainWorkbenchPlayTests" runstate="Runnable" seed="575716240" result="Failed" start-time="2026-09-26 06:49:36Z" end-time="2026-09-26 06:49:47Z" duration="11.343782" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[Unhandled log message: '[Error] Invalid index 2 7 3'. Use UnityEngine.TestTools.LogAssert.Expect]]></message>
+                <stack-trace><![CDATA[System.Reflection.MethodBase:Invoke (object,object[])
+DarkNights.Tests.TerrainGameViewTestSize:Dispose () (at Assets/DarkNights/Scripts/Tests/TerrainGameViewTestSize.cs:37)
+DarkNights.Tests.RuntimeTerrainWorkbenchPlayTests/<TabsRenderAndStyleRefreshPreservesEditedMap>d__4:<>m__Finally1 ()
+DarkNights.Tests.RuntimeTerrainWorkbenchPlayTests/<TabsRenderAndStyleRefreshPreservesEditedMap>d__4:MoveNext () (at Assets/DarkNights/Scripts/Tests/RuntimeTerrainWorkbenchPlayTests.cs:77)
+UnityEditor.EditorApplication:Internal_CallUpdateFunctions ()
+
+]]></stack-trace>
+              </failure>
+              <output><![CDATA[Invalid index 2 7 3
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1180" name="RuntimeTerrainWorkbenchTests" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.193509" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1190" name="BrushUndoRedoAndCancelUseAuthorityAndRetainSourceShapes" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.BrushUndoRedoAndCancelUseAuthorityAndRetainSourceShapes" methodname="BrushUndoRedoAndCancelUseAuthorityAndRetainSourceShapes" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" seed="1428101782" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.118569" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1192" name="FixedMapImportRejectsProtectedCellsAndExternalBaseline" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.FixedMapImportRejectsProtectedCellsAndExternalBaseline" methodname="FixedMapImportRejectsProtectedCellsAndExternalBaseline" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" seed="1696518195" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.039672" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1191" name="OneDragSegmentCommitsOnceAndExternalEditsCannotBeOverwrittenByUndo" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.OneDragSegmentCommitsOnceAndExternalEditsCannotBeOverwrittenByUndo" methodname="OneDragSegmentCommitsOnceAndExternalEditsCannotBeOverwrittenByUndo" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" seed="467020173" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.009485" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1189" name="RuntimeApplyCannotBypassOriginalAssetConflict" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.RuntimeApplyCannotBypassOriginalAssetConflict" methodname="RuntimeApplyCannotBypassOriginalAssetConflict" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" seed="1007841864" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.003749" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1187" name="ScaledPanelFitsAndPointerUsesTheSameCoordinates" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.ScaledPanelFitsAndPointerUsesTheSameCoordinates" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.008317" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1181" name="ScaledPanelFitsAndPointerUsesTheSameCoordinates(640,360,1.75f,520)" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.ScaledPanelFitsAndPointerUsesTheSameCoordinates(640,360,1.75f,520)" methodname="ScaledPanelFitsAndPointerUsesTheSameCoordinates" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" seed="1779746199" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.000489" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1182" name="ScaledPanelFitsAndPointerUsesTheSameCoordinates(800,600,1.0f,280)" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.ScaledPanelFitsAndPointerUsesTheSameCoordinates(800,600,1.0f,280)" methodname="ScaledPanelFitsAndPointerUsesTheSameCoordinates" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" seed="487978178" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.000062" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1183" name="ScaledPanelFitsAndPointerUsesTheSameCoordinates(1280,720,1.0f,380)" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.ScaledPanelFitsAndPointerUsesTheSameCoordinates(1280,720,1.0f,380)" methodname="ScaledPanelFitsAndPointerUsesTheSameCoordinates" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" seed="841692523" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.000053" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1184" name="ScaledPanelFitsAndPointerUsesTheSameCoordinates(1920,1080,1.75f,520)" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.ScaledPanelFitsAndPointerUsesTheSameCoordinates(1920,1080,1.75f,520)" methodname="ScaledPanelFitsAndPointerUsesTheSameCoordinates" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" seed="99770813" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.000053" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1185" name="ScaledPanelFitsAndPointerUsesTheSameCoordinates(2560,1440,0.75f,380)" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.ScaledPanelFitsAndPointerUsesTheSameCoordinates(2560,1440,0.75f,380)" methodname="ScaledPanelFitsAndPointerUsesTheSameCoordinates" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" seed="1420261269" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.000051" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1186" name="ScaledPanelFitsAndPointerUsesTheSameCoordinates(3840,2160,1.75f,520)" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.ScaledPanelFitsAndPointerUsesTheSameCoordinates(3840,2160,1.75f,520)" methodname="ScaledPanelFitsAndPointerUsesTheSameCoordinates" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" seed="1782769451" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.000048" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1188" name="SharedModifiersStaySharedAndCancelDoesNotTouchAssets" fullname="DarkNights.Tests.RuntimeTerrainWorkbenchTests.SharedModifiersStaySharedAndCancelDoesNotTouchAssets" methodname="SharedModifiersStaySharedAndCancelDoesNotTouchAssets" classname="DarkNights.Tests.RuntimeTerrainWorkbenchTests" runstate="Runnable" seed="1919214941" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.001819" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1237" name="TerrainAuthorityTests" fullname="DarkNights.Tests.TerrainAuthorityTests" classname="DarkNights.Tests.TerrainAuthorityTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:48Z" duration="0.068838" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1240" name="ActionPolicyAndRequestIdAreAuthoritativeAndIdempotent" fullname="DarkNights.Tests.TerrainAuthorityTests.ActionPolicyAndRequestIdAreAuthoritativeAndIdempotent" methodname="ActionPolicyAndRequestIdAreAuthoritativeAndIdempotent" classname="DarkNights.Tests.TerrainAuthorityTests" runstate="Runnable" seed="933724091" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:47Z" duration="0.018033" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1241" name="IdleStreamDoesNotScanAndChangedMapReachesLateReplica" fullname="DarkNights.Tests.TerrainAuthorityTests.IdleStreamDoesNotScanAndChangedMapReachesLateReplica" methodname="IdleStreamDoesNotScanAndChangedMapReachesLateReplica" classname="DarkNights.Tests.TerrainAuthorityTests" runstate="Runnable" seed="1238965060" result="Passed" start-time="2026-09-26 06:49:47Z" end-time="2026-09-26 06:49:48Z" duration="0.035430" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1239" name="InvalidBatchAndProtectedSupportAreAtomic" fullname="DarkNights.Tests.TerrainAuthorityTests.InvalidBatchAndProtectedSupportAreAtomic" methodname="InvalidBatchAndProtectedSupportAreAtomic" classname="DarkNights.Tests.TerrainAuthorityTests" runstate="Runnable" seed="1213604807" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:48Z" duration="0.005929" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1238" name="LocalDestructionTouchesAtMostFourPagesAndIsFrozen" fullname="DarkNights.Tests.TerrainAuthorityTests.LocalDestructionTouchesAtMostFourPagesAndIsFrozen" methodname="LocalDestructionTouchesAtMostFourPagesAndIsFrozen" classname="DarkNights.Tests.TerrainAuthorityTests" runstate="Runnable" seed="1373297018" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:48Z" duration="0.005737" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1242" name="TerrainDebugCharacterTests" fullname="DarkNights.Tests.TerrainDebugCharacterTests" classname="DarkNights.Tests.TerrainDebugCharacterTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:48Z" duration="0.012169" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1243" name="AuthoredFramesAnimateAndKeepFeetCenteredInBothDirections" fullname="DarkNights.Tests.TerrainDebugCharacterTests.AuthoredFramesAnimateAndKeepFeetCenteredInBothDirections" methodname="AuthoredFramesAnimateAndKeepFeetCenteredInBothDirections" classname="DarkNights.Tests.TerrainDebugCharacterTests" runstate="Runnable" seed="387816986" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:48Z" duration="0.006659" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1244" name="FlightUsesTheSameAnchorAtOriginalPreviewScale" fullname="DarkNights.Tests.TerrainDebugCharacterTests.FlightUsesTheSameAnchorAtOriginalPreviewScale" methodname="FlightUsesTheSameAnchorAtOriginalPreviewScale" classname="DarkNights.Tests.TerrainDebugCharacterTests" runstate="Runnable" seed="1223710330" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:48Z" duration="0.000726" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1274" name="TerrainSceneCatalogTests" fullname="DarkNights.Tests.TerrainSceneCatalogTests" classname="DarkNights.Tests.TerrainSceneCatalogTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:48Z" duration="0.076349" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1276" name="FixedAndRandomWorkbenchesRetainBootstrapAndMapReferences" fullname="DarkNights.Tests.TerrainSceneCatalogTests.FixedAndRandomWorkbenchesRetainBootstrapAndMapReferences" methodname="FixedAndRandomWorkbenchesRetainBootstrapAndMapReferences" classname="DarkNights.Tests.TerrainSceneCatalogTests" runstate="Runnable" seed="545348703" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:48Z" duration="0.005488" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Unloading the last loaded scene Assets/DarkNights/Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity(build index: -1), is not supported. Please use SceneManager.LoadScene()/EditorSceneManager.OpenScene() to switch to another scene.
+]]></output>
+            </test-case>
+            <test-case id="1277" name="FormalExpeditionUsesCurrentStrataStyleAndEffectiveLocalForeground" fullname="DarkNights.Tests.TerrainSceneCatalogTests.FormalExpeditionUsesCurrentStrataStyleAndEffectiveLocalForeground" methodname="FormalExpeditionUsesCurrentStrataStyleAndEffectiveLocalForeground" classname="DarkNights.Tests.TerrainSceneCatalogTests" runstate="Runnable" seed="14612969" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:48Z" duration="0.047697" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1275" name="MovedScenesKeepTheirOriginalGuids" fullname="DarkNights.Tests.TerrainSceneCatalogTests.MovedScenesKeepTheirOriginalGuids" methodname="MovedScenesKeepTheirOriginalGuids" classname="DarkNights.Tests.TerrainSceneCatalogTests" runstate="Runnable" seed="1464755276" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:48Z" duration="0.001019" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1278" name="OtherMovedScenesCanBeOpenedReadOnly" fullname="DarkNights.Tests.TerrainSceneCatalogTests.OtherMovedScenesCanBeOpenedReadOnly" methodname="OtherMovedScenesCanBeOpenedReadOnly" classname="DarkNights.Tests.TerrainSceneCatalogTests" runstate="Runnable" seed="175420338" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:48Z" duration="0.016130" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1279" name="TerrainStylePreviewTests" fullname="DarkNights.Tests.TerrainStylePreviewTests" classname="DarkNights.Tests.TerrainStylePreviewTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:50:01Z" duration="12.951733" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1284" name="ApplyWritesOnlyAfterConfirmationAndRejectsExternalConflicts" fullname="DarkNights.Tests.TerrainStylePreviewTests.ApplyWritesOnlyAfterConfirmationAndRejectsExternalConflicts" methodname="ApplyWritesOnlyAfterConfirmationAndRejectsExternalConflicts" classname="DarkNights.Tests.TerrainStylePreviewTests" runstate="Runnable" seed="1990381512" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:48Z" duration="0.850592" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Default prefab generator found 3 prefabs in 290ms.
+]]></output>
+            </test-case>
+            <test-case id="1280" name="FixedMapPreviewUsesCapturedAssetsWithoutChangingSource" fullname="DarkNights.Tests.TerrainStylePreviewTests.FixedMapPreviewUsesCapturedAssetsWithoutChangingSource" methodname="FixedMapPreviewUsesCapturedAssetsWithoutChangingSource" classname="DarkNights.Tests.TerrainStylePreviewTests" runstate="Runnable" seed="1779464998" result="Passed" start-time="2026-09-26 06:49:48Z" end-time="2026-09-26 06:49:50Z" duration="1.739200" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1281" name="FullPreviewContainsTheSamePixelsAsLocalBake" fullname="DarkNights.Tests.TerrainStylePreviewTests.FullPreviewContainsTheSamePixelsAsLocalBake" methodname="FullPreviewContainsTheSamePixelsAsLocalBake" classname="DarkNights.Tests.TerrainStylePreviewTests" runstate="Runnable" seed="641391207" result="Passed" start-time="2026-09-26 06:49:50Z" end-time="2026-09-26 06:49:53Z" duration="3.032101" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1282" name="MapEditRebuildsForegroundPagesAndKeepsFrozenBackground" fullname="DarkNights.Tests.TerrainStylePreviewTests.MapEditRebuildsForegroundPagesAndKeepsFrozenBackground" methodname="MapEditRebuildsForegroundPagesAndKeepsFrozenBackground" classname="DarkNights.Tests.TerrainStylePreviewTests" runstate="Runnable" seed="908933899" result="Passed" start-time="2026-09-26 06:49:53Z" end-time="2026-09-26 06:49:58Z" duration="4.730853" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1285" name="MapPaintingIsDraftedAndPreservesProtectedCells" fullname="DarkNights.Tests.TerrainStylePreviewTests.MapPaintingIsDraftedAndPreservesProtectedCells" methodname="MapPaintingIsDraftedAndPreservesProtectedCells" classname="DarkNights.Tests.TerrainStylePreviewTests" runstate="Runnable" seed="2060433563" result="Passed" start-time="2026-09-26 06:49:58Z" end-time="2026-09-26 06:49:59Z" duration="0.663245" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1283" name="ResetAndCancelLeaveOriginalParametersUntouched" fullname="DarkNights.Tests.TerrainStylePreviewTests.ResetAndCancelLeaveOriginalParametersUntouched" methodname="ResetAndCancelLeaveOriginalParametersUntouched" classname="DarkNights.Tests.TerrainStylePreviewTests" runstate="Runnable" seed="1502773917" result="Passed" start-time="2026-09-26 06:49:59Z" end-time="2026-09-26 06:49:59Z" duration="0.002160" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1286" name="RuntimeStageRendersAndRefreshesEditableMapChunks" fullname="DarkNights.Tests.TerrainStylePreviewTests.RuntimeStageRendersAndRefreshesEditableMapChunks" methodname="RuntimeStageRendersAndRefreshesEditableMapChunks" classname="DarkNights.Tests.TerrainStylePreviewTests" runstate="Runnable" seed="808250675" result="Passed" start-time="2026-09-26 06:49:59Z" end-time="2026-09-26 06:50:01Z" duration="1.921551" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/Jobscn/AppData/LocalLow/DefaultCompany/DNights\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -84,7 +84,8 @@ namespace DarkNights.Editor
         {
             var status = new Status { phase = phase, active = active, playing = EditorApplication.isPlaying,
                 utc = DateTime.UtcNow.ToString("o"), unity = Application.unityVersion,
-                scenes = EditorSceneManager.GetSceneManagerSetup().Select(scene => scene.path).ToArray() };
+                scenes = Enumerable.Range(0, UnityEngine.SceneManagement.SceneManager.sceneCount)
+                    .Select(index => UnityEngine.SceneManagement.SceneManager.GetSceneAt(index).path).ToArray() };
             File.WriteAllText(Path.Combine(Root, "editor-status.json"), JsonUtility.ToJson(status, true));
         }
         /// <summary>有限测试请求，不允许注入脚本或任意文件路径。</summary>

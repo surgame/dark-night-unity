@@ -19,6 +19,7 @@
 
 ## 使用说明
 
+- [RUNTIME_TERRAIN_TUNER.md](RUNTIME_TERRAIN_TUNER.md) — 新版工作台运行时左栏、分 Tab 调参、拆填与 UI 缩放
 - [LAN_SAMPLE.md](LAN_SAMPLE.md) — 独立 LAN 合作联机模板
 - [SCENES.md](SCENES.md) — 新版 ReferenceChamber／RandomCave、Cave Wall Tuner 与正式远征入口
 - [TERRAIN_DEBUG_BOOTSTRAP.md](TERRAIN_DEBUG_BOOTSTRAP.md) — (old) 随机地图 Debug Bootstrap，仅供旧版回归

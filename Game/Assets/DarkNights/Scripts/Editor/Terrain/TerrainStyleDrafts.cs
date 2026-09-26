@@ -161,6 +161,19 @@ namespace DarkNights.Editor.Terrain
             return changes.Count;
         }
 
+        /// <summary>接收运行工作台草稿及最初源基线；沿用逐字段冲突校验，运行时的 Apply 不会绕过外部资产保护。</summary>
+        public void Import(CaveStyleDraft source)
+        {
+            Clear();
+            foreach (var item in source.Items)
+            {
+                var working = UnityEngine.Object.Instantiate(item.Working);
+                var baseline = UnityEngine.Object.Instantiate(item.Original);
+                working.hideFlags = baseline.hideFlags = HideFlags.DontSave;
+                entries.Add(item.Source, (working, baseline));
+            }
+        }
+
         private static List<string> ChangedPaths((ScriptableObject Draft, ScriptableObject Baseline) entry)
         {
             var draft = new SerializedObject(entry.Draft);

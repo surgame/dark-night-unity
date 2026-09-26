@@ -19,7 +19,7 @@ namespace DarkNights.Entry.Terrain
             if (Bootstrap == null || Bootstrap.Workshop == null || Bootstrap.Generating) return;
             var flyer = Bootstrap.Flyer; var keys = Keyboard.current; var mouse = Mouse.current;
             flyer.FlightInputEnabled = !Walking;
-            if (keys == null || flyer.InputBlocked) return;
+            if (keys == null || flyer.InputBlocked || flyer.WorkbenchPointerActive) return;
             if (keys.tabKey.wasPressedThisFrame)
             {
                 Walking = !Walking;

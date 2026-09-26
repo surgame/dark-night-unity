@@ -198,6 +198,25 @@ namespace DarkNights.Editor.Terrain
             Open(map);
         }
 
+        /// <summary>导入同一固定地图的运行时最终格快照；先完整验证源基线、边界和保护位，再进入原有原子保存流程。</summary>
+        public void ImportCells(byte[] original, byte[] cells)
+        {
+            if (working == null || original == null || cells == null || cells.Length != baseline.Length || !baseline.SequenceEqual(original))
+                throw new InvalidOperationException("固定地图源文件已变化或快照不完整；保存被拒绝。");
+            for (int i = 0; i < cells.Length / 2; i++)
+            {
+                int offset = i * 2, x = i % TerrainGenerationSettings.Width, y = i / TerrainGenerationSettings.Width;
+                if (cells[offset] == baseline[offset] && cells[offset + 1] == baseline[offset + 1]) continue;
+                if (x == 0 || y == 0 || x == TerrainGenerationSettings.Width - 1 || y == TerrainGenerationSettings.Height - 1 ||
+                    (baseline[offset + 1] & 1) != 0 || baseline[offset] == 8 || cells[offset] > 7 ||
+                    (cells[offset + 1] & 1) != 0 || cells[offset + 1] > 24 || (cells[offset] == 0 && cells[offset + 1] != 0))
+                    throw new InvalidOperationException("运行草稿包含非法、边界或保护格修改。");
+            }
+            for (int i = 0; i < cells.Length / 2; i++)
+                if (cells[i * 2] != baseline[i * 2] || cells[i * 2 + 1] != baseline[i * 2 + 1])
+                    Write(i, new CellValue(cells[i * 2], cells[i * 2 + 1]));
+        }
+
         private string AbsolutePath() => Path.Combine(Path.GetDirectoryName(Application.dataPath), assetPath);
     }
 }

@@ -18,13 +18,16 @@ namespace DarkNights.View.Terrain
         [Range(5, 100)] public float CameraDistance = 12;
         public bool InputBlocked { get; set; }
         public bool PointerOverPanel { get; set; }
+        public bool WorkbenchPointerActive { get; set; }
+        private bool detachedCamera;
+        private Vector3 cameraPosition;
         public bool Ready { get; set; }
         private float animationTime;
         private bool moving;
 
         private void Update()
         {
-            if (!FlightInputEnabled || !Ready || InputBlocked) return;
+            if (!FlightInputEnabled || !Ready || InputBlocked || WorkbenchPointerActive) return;
             var keyboard = Keyboard.current;
             if (keyboard != null)
             {
@@ -74,12 +77,28 @@ namespace DarkNights.View.Terrain
 
         private void LateUpdate() => Follow();
 
+        public void PanWorkbenchCamera(Vector2 delta)
+        {
+            if (ViewCamera == null) return;
+            if (!detachedCamera) { cameraPosition = ViewCamera.transform.position; detachedCamera = true; }
+            cameraPosition += (Vector3)delta; Follow();
+        }
+        public void FitWorkbenchMap(float panelPixels)
+        {
+            if (ViewCamera == null) return;
+            float available = Mathf.Max(120, Screen.width - panelPixels);
+            CameraDistance = Mathf.Max(100, 166 * Screen.height / available);
+            cameraPosition = new Vector3(160 - panelPixels / Screen.height * CameraDistance, -96, -10);
+            detachedCamera = true; Follow();
+        }
+        public void ResetWorkbenchCamera() { detachedCamera = false; CameraDistance = Mathf.Min(CameraDistance, 100); Follow(); }
+
         private void Follow()
         {
             if (ViewCamera == null) return;
-            CameraDistance = Mathf.Clamp(CameraDistance, 5, 100);
+            CameraDistance = Mathf.Clamp(CameraDistance, 5, detachedCamera ? 600 : 100);
             ViewCamera.orthographicSize = CameraDistance;
-            ViewCamera.transform.position = transform.position + new Vector3(0, .75f, -10);
+            ViewCamera.transform.position = detachedCamera ? cameraPosition : transform.position + new Vector3(0, .75f, -10);
         }
     }
 }

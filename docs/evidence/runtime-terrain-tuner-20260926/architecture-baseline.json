@@ -1,0 +1,18 @@
+{
+  "passed": false,
+  "handwrittenFiles": 506,
+  "selfTests": 12,
+  "errors": [
+    "Editor/TerrainValidationRunner.cs: One main named type per file is required",
+    "Editor/TerrainValidationRunner.cs: Type must match filename",
+    "Editor/TerrainValidationRunner.cs: Meaningful Chinese XML summary is required",
+    "Editor/Terrain/TerrainMapDraft.cs: One main named type per file is required",
+    "Editor/Terrain/TerrainMapDraft.cs: Type must match filename",
+    "View/Terrain/CaveLocalRockSurface.cs: One main named type per file is required",
+    "View/Terrain/CaveLocalRockSurface.cs: Type must match filename",
+    "View/Terrain/CaveLocalRockSurface.cs: Meaningful Chinese XML summary is required",
+    "Core/Logic/Terrain/LocalRoundedClusterV2.cs: One main named type per file is required",
+    "Core/Logic/Terrain/LocalRoundedClusterV2.cs: Type must match filename"
+  ],
+  "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+}

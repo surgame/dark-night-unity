@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-26",
+  "unity": "6000.4.9f1",
+  "branch": "ft-20260926-runtime-terrain-tuner",
+  "baseCommit": "8ff6dfe7078eb6b4f4d1ec572479899b9c052d85",
+  "validation": "按最新受影响用例结果合并，不把两批执行数量相加",
+  "uniquePassed": 35,
+  "uniqueFailed": 0,
+  "initial": {
+    "reason": "临时 GameView 尺寸清理使用相对索引；场景断言和截图已完成，清理报错",
+    "failed": 2,
+    "passed": 33
+  },
+  "finalAffected": {
+    "failed": 0,
+    "passed": 13
+  },
+  "architecture": {
+    "newErrors": 0,
+    "currentErrors": 10,
+    "selfTests": 12,
+    "baselineErrors": 10
+  },
+  "screenshots": [
+    "1280x720-random.png",
+    "640x360-fit-map.png",
+    "640x360-rock.png",
+    "large-ui-narrow-panel.png",
+    "tab-0.png",
+    "tab-1.png",
+    "tab-2.png",
+    "tab-3.png",
+    "tab-4.png"
+  ],
+  "scope": [
+    "ReferenceChamber / RandomCave Editor Play",
+    "真实修改格子后样式更新保留地图与会话",
+    "草稿取消、应用基线、保存冲突、笔触撤销重做、保护格",
+    "640x360 / 1280x720 / 1919x1008 实际截图；六组布局坐标覆盖至 3840x2160",
+    "全图镜头距离保持、临时 GameView 尺寸恢复"
+  ],
+  "notClaimed": [
+    "本批未构建新 Player",
+    "既有地形可见页两项失败未修复",
+    "既有架构守卫十项未清零",
+    "前台性能、IL2CPP、双机器"
+  ]
+}

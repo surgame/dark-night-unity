@@ -6,6 +6,7 @@ tools/CoreRegression/Fixtures/*.json -text whitespace=cr-at-eol
 tools/terrain-modifiers/reference/*.js -text whitespace=cr-at-eol
 docs/evidence/terrain-modifiers-2026-09-22/* -text whitespace=cr-at-eol
 docs/evidence/terrain-scene-catalog-20260926.xml -text whitespace=cr-at-eol
+docs/evidence/runtime-terrain-tuner-20260926/*.xml -text whitespace=cr-at-eol
 *.cs text eol=lf
 *.ps1 text eol=lf
 # Unified patches preserve a leading space on blank context lines.
