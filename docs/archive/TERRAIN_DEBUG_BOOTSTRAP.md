@@ -4,7 +4,7 @@
 
 ## 打开与操作
 
-**此页是 (old) 旧版回归说明。新版地图请打开 [ReferenceChamber／RandomCave](SCENES.md)，调参用 Cave Wall Tuner；正式游戏用 Bootstrap → Expedition。**
+**此页是 (old) 旧版回归说明。新版地图请打开 [ReferenceChamber／RandomCave](../SCENES.md)，调参用 Cave Wall Tuner；正式游戏用 Bootstrap → Expedition。**
 
 Unity 菜单选择 **Dark Nights / Terrain / (old) / 打开随机地图 Bootstrap**，然后点击 Play。当前路径为 `Game/Assets/DarkNights/Res/Scenes/Workbenches/Terrain/(old)/TerrainDebugBootstrap(old).unity`（2026-09-26 保留原 GUID 归组）。该场景不经过正式 Bootstrap、主菜单或 Ready，会自动生成地图并把观察角色放入入口洞室。
 
@@ -37,4 +37,4 @@ Unity 菜单选择 **Dark Nights / Terrain / (old) / 打开随机地图 Bootstra
 
 本批 Editor 地图检查 11/11 通过（含 24 组冻结生成向量）；取消加载保护修改后，受影响的表现检查 3/3 复验。实际 Play 验证 22/22，覆盖直接出生、原始蓝图、真实 WASD 输入、二维穿墙、斜向等速、输入阻塞、镜头调节、同种子重建、参数自动生成、最新候选和 8 房间跳转。原生场景与角色 Prefab 已保存、关闭重开并运行，中文面板截图已核对。字体使用运行时加载的系统字体，避免序列化 UIFont 在 IMGUI 中缺少字面数据导致重复文字。
 
-Mono 构建与独立进程结果、输入哈希和清理盘点见 [本批证据](archive/evidence/terrain-debug-bootstrap-2026-09-17.json)。本批不计为正式多人验收、IL2CPP 或前台帧率验收；协议 9／存档 v4、YYGC 锁定与 M5 状态不变。
+Mono 构建与独立进程结果、输入哈希和清理盘点见 [本批证据](evidence/terrain-debug-bootstrap-2026-09-17.json)。本批不计为正式多人验收、IL2CPP 或前台帧率验收；协议 9／存档 v4、YYGC 锁定与 M5 状态不变。

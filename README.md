@@ -4,15 +4,15 @@
 
 2026-09-26 [当前地图入口](docs/SCENES.md)：正式 `Bootstrap → Expedition` 已使用 StrataCave 岩层、三层背景及当前共享地形刷新代码。新版工作台为 `ReferenceChamber`（固定）和 `RandomCave`（随机），Unity 菜单 `Dark Nights / Terrain` 可直接打开；调参使用 `Cave Wall Tuner`。旧 `TerrainDebugBootstrap`、`CaveExploration` 统一收进 `(old)`。当前代码默认 `ImmediateForeground = true`，有效前景为 LocalV2；下方 09-25“LegacyV1 默认／尚未导入”是早期记录。09-26 已有 Unity 实测 32 通过／2 失败，不能称完整画面、即时刷新或联机验收通过，详见场景索引。
 
-2026-09-25 [局部地形即时刷新执行记录](docs/IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)：隔离分支实现源驱动稀疏安装和 LocalV2 分页岩壁候选；AnyRuleD Core 138/138，纯算法全图/分页遮罩、岩粒及 RGBA 页对照 10 组通过。LegacyV1 仍为默认；Unity 导入/编译、运行画面、网络场景、碰撞、V1/V2 美术门槛与前台性能未验，完整即时刷新未交付。
+2026-09-25 [局部地形即时刷新执行记录](docs/archive/IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)：隔离分支实现源驱动稀疏安装和 LocalV2 分页岩壁候选；AnyRuleD Core 138/138，纯算法全图/分页遮罩、岩粒及 RGBA 页对照 10 组通过。LegacyV1 仍为默认；Unity 导入/编译、运行画面、网络场景、碰撞、V1/V2 美术门槛与前台性能未验，完整即时刷新未交付。
 
 2026-09-24 [AnyRuleD 地图联网重构](docs/MAP_STATE_NETWORKING.md)在 `ref-20260924-map-state-networking` 开发：纯协议与 FishNet 传输已从 YYGC 业务包拆出，单格 Delta 改为 1 个最终格记录，游戏副本通知已接入范围刷新。现有 Editor 编译通过；本轮 Editor、Mono 联机及独立样板的具体结果以进度文档为准，不沿用旧 Player 数字。
 
-2026-09-24 [地形 Modifier 与可插拔点缀层进度](docs/TERRAIN_MODIFIERS_PROGRESS.md)：下坠岩齿／花菜圆簇已接入主工程，前景及三个背景层可分别配置，点缀生成器可替换。`Cave Wall Tuner` 保留样式与地图草稿 Apply／Cancel、拆填和网格；预览仅在空白离屏宿主中渲染当前地图，共用正式 `TerrainPreview`、AnyRuleD、`CaveVisualSource` 和 Cave shader，不加载正式游戏场景或角色。拆填微基准发现活动 RoundedRock 下单格全图轮廓烘焙约 281–286 ms，之后全量差异比较约 39–132 ms，是画面滞后的主要已测阶段；Unity 端到端及 Player 前台帧时仍待实测，不据微基准宣称通过。
+2026-09-24 [地形 Modifier 与可插拔点缀层进度](docs/archive/TERRAIN_MODIFIERS_PROGRESS.md)：下坠岩齿／花菜圆簇已接入主工程，前景及三个背景层可分别配置，点缀生成器可替换。`Cave Wall Tuner` 保留样式与地图草稿 Apply／Cancel、拆填和网格；预览仅在空白离屏宿主中渲染当前地图，共用正式 `TerrainPreview`、AnyRuleD、`CaveVisualSource` 和 Cave shader，不加载正式游戏场景或角色。拆填微基准发现活动 RoundedRock 下单格全图轮廓烘焙约 281–286 ms，之后全量差异比较约 39–132 ms，是画面滞后的主要已测阶段；Unity 端到端及 Player 前台帧时仍待实测，不据微基准宣称通过。
 
-2026-09-22 本分支已接入[可步入远征飞船](docs/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。支持船内步行、唯一驾驶席、泊位附近试飞、搬运机器人与侦察机出舱归队；远征默认应用当前 StrataCave 岩层与三层背景。50 张原生素材导入检查 200/200，新增飞船／远征用例 24/24，同一 Mono 正常／弱网三进程各 28/28，Core 1048/1048；Editor 按影响合并 235/236，既有按钮主题 1 项失败留账。实际画面和本批证据见实现说明，不宣称全洞穴航行、异地降落、前台性能、IL2CPP 或双机器通过。
+2026-09-22 本分支已接入[可步入远征飞船](docs/archive/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。支持船内步行、唯一驾驶席、泊位附近试飞、搬运机器人与侦察机出舱归队；远征默认应用当前 StrataCave 岩层与三层背景。50 张原生素材导入检查 200/200，新增飞船／远征用例 24/24，同一 Mono 正常／弱网三进程各 28/28，Core 1048/1048；Editor 按影响合并 235/236，既有按钮主题 1 项失败留账。实际画面和本批证据见实现说明，不宣称全洞穴航行、异地降落、前台性能、IL2CPP 或双机器通过。
 
-2026-09-22 当前候选为[独立洞穴材质与三层背景](docs/STATIC_CAVE_BACKGROUND_EXECUTION.md)，分支 `codex/static-cave-background`，协议 **13**／存档 **v9**。`Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` 是 HTML 同源固定样板，同目录 `RandomCave.unity` 验证随机地图（2026-09-23 仅整理场景路径，资产仍在 `Res/Terrain/StrataCave/`）；独立 AnyRuleD 规则、原生 8px 岩壁、圆形柔光和角色比例已接入。矿粒及矿光按用户要求暂时隐藏。正式远征以 `--dn-contour-static` 试用，原风格保持默认；结果及前台性能边界见本批记录，下方为历史切片。 外轮廓为独立可配置的六方案，当前 HybridB／OUTLINE-0921／3px／20px／2px、岩块 4px；仅修饰表现，权威碰撞保持原坡形。
+2026-09-22 当前候选为[独立洞穴材质与三层背景](docs/archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)，分支 `codex/static-cave-background`，协议 **13**／存档 **v9**。`Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` 是 HTML 同源固定样板，同目录 `RandomCave.unity` 验证随机地图（2026-09-23 仅整理场景路径，资产仍在 `Res/Terrain/StrataCave/`）；独立 AnyRuleD 规则、原生 8px 岩壁、圆形柔光和角色比例已接入。矿粒及矿光按用户要求暂时隐藏。正式远征以 `--dn-contour-static` 试用，原风格保持默认；结果及前台性能边界见本批记录，下方为历史切片。 外轮廓为独立可配置的六方案，当前 HybridB／OUTLINE-0921／3px／20px／2px、岩块 4px；仅修饰表现，权威碰撞保持原坡形。
 
 2026-09-21 当前切片为[远征营地 Demo 实施与快速验收](docs/archive/EXPEDITION_CAMP_DELIVERY.md)，分支 `codex/expedition-camp-plan`，协议 **12**／存档 **v8**。正式入口接入紧凑洞穴、背景墙矿物和透岩矿光、氧气与货袋、机器人四设备展开、矿工交货、风险撤收、原子结算与三种舱段成长。Editor 按影响合并 213/214 通过，1 项通用按钮主题用例留账，Mono 常规／弱网四进程各 35/35；完整证据、玩法简化和待验边界以交付记录为准，不将原[执行方案](docs/archive/EXPEDITION_CAMP_EXECUTION.md)中的完整性能及全路线门槛写成通过。
 
@@ -32,7 +32,7 @@ YYGC 适合作为应用、表现与联机基础：已有启动编排、DI、Obje
 
 早期复评的生成器、首状态和序列化问题属于当时版本。新 Sample 已在 YYGC `10b8f0e` 上复用完整命令与状态链，通过真实多进程验证；独立程序集补丁、依赖和未验收边界见 [Sample 说明](docs/LAN_SAMPLE.md)。联机尚未正式生产使用。
 
-早期 M0／M1 时点的剩余工作估算为 16–26 人日，预留后约 20–33 人日；该历史估算及 [M5 当时的收尾状态](docs/archive/M5_EXECUTION.md#closeout)不代表当前剩余工作。当前飞船切片与未验边界见[实现说明](docs/WALKABLE_EXPEDITION_SHIP.md)。
+早期 M0／M1 时点的剩余工作估算为 16–26 人日，预留后约 20–33 人日；该历史估算及 [M5 当时的收尾状态](docs/archive/M5_EXECUTION.md#closeout)不代表当前剩余工作。当前飞船切片与未验边界见[实现说明](docs/archive/WALKABLE_EXPEDITION_SHIP.md)。
 
 ## 范围与假设
 

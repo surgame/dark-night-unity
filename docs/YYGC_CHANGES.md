@@ -44,7 +44,7 @@ Unity **6000.4.9f1** 当前 Local 统一编译完成；`tools/bootstrap-startup/
 | `com.tsgame.anyrules.networking/Protocol/ChunkReplicaStateMachine.cs` | 每个已完成网络提交包含 session、stream generation、snapshot chunks 和 cell coordinates 的冻结通知；不改 AMP1 V1 wire。 |
 | `TestHosts/CoreTests/AnyRules.Core.Tests.csproj`、`MapInputBatchTests.cs`、`SourceInputInstallTests.cs` | 覆盖冻结值、快照、增量、生命周期、权限、非法批次拒绝及同一源提交内的快照加增量原子安装。 |
 
-验证：`dotnet test AnyRuleD~/TestHosts/CoreTests/AnyRules.Core.Tests.csproj --nologo --no-restore` 为 138/138 通过。Unity 包导入/编译、Editor 场景及游戏 Player 未运行；完整文件差异与待验条件见[局部地形即时刷新执行记录](IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)。
+验证：`dotnet test AnyRuleD~/TestHosts/CoreTests/AnyRules.Core.Tests.csproj --nologo --no-restore` 为 138/138 通过。Unity 包导入/编译、Editor 场景及游戏 Player 未运行；完整文件差异与待验条件见[局部地形即时刷新执行记录](archive/IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)。
 
 ## 2026-09-24：AnyRuleD 地图联网拆包与稀疏增量
 
@@ -83,7 +83,7 @@ Unity 6000.4.9f1 本机 Editor 重新编译通过；菜单枚举确认 `GameCore
 
 ## 2026-09-22：独立岩层与外轮廓候选
 
-本批 **YYGC／AnyRules 修改文件为 0**；继续锁定 YYGC `12b253c`，未触碰用户框架工作区、UPM 路径或锁文件。新材质调用纯 Core 算法，权威状态与命令仍使用 ObjectInstance／ObjectSession／TerrainMapAuthority。发现的地图边界刷新问题修正在游戏侧 `TerrainReplicaSource` 指纹和 `TerrainPreview` 边界裁剪，没有给框架加入临时回退路径。验证和已知边界见 [执行记录](STATIC_CAVE_BACKGROUND_EXECUTION.md)。
+本批 **YYGC／AnyRules 修改文件为 0**；继续锁定 YYGC `12b253c`，未触碰用户框架工作区、UPM 路径或锁文件。新材质调用纯 Core 算法，权威状态与命令仍使用 ObjectInstance／ObjectSession／TerrainMapAuthority。发现的地图边界刷新问题修正在游戏侧 `TerrainReplicaSource` 指纹和 `TerrainPreview` 边界裁剪，没有给框架加入临时回退路径。验证和已知边界见 [执行记录](archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)。
 
 ## 2026-09-20：手持装备复用框架，隔离恢复本机依赖漂移
 

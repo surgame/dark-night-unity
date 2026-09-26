@@ -1,6 +1,6 @@
 # Dark Nights 操作与本机验收
 
-正式入口为 `DarkNights.exe`，必须保留同目录的 Data、UnityPlayer 和 Addressables 内容。当前正式联机协议为 **14**，房间内各端使用同一构建；旧协议和内容摘要不匹配的连接会被拒绝。项目使用 Linear 色彩空间。当前飞船 Mono 的入口与验收范围见[可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)；下列旧构建记录只代表各自历史输入。
+正式入口为 `DarkNights.exe`，必须保留同目录的 Data、UnityPlayer 和 Addressables 内容。当前正式联机协议为 **14**，房间内各端使用同一构建；旧协议和内容摘要不匹配的连接会被拒绝。项目使用 Linear 色彩空间。当前飞船 Mono 的入口与验收范围见[可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)；下列旧构建记录只代表各自历史输入。
 
 2026-09-16 默认村民生成修正后的输出目录为 `artifacts/hero-input/player-mono-generated-villager-r2`，执行范围、实际通过项与输入 Sample 见[联合执行文档](archive/HERO_INPUT_EXECUTION.md)。下列旧构建记录只代表历史输入。
 

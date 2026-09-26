@@ -1,8 +1,8 @@
 # Dark Nights Unity 开发约定
 
-2026-09-22 本分支已接入[可步入远征飞船](docs/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。支持船内步行、唯一驾驶席、泊位附近试飞、搬运机器人与侦察机出舱归队；远征默认应用当前 StrataCave 岩层与三层背景。50 张原生素材导入检查 200/200，新增飞船／远征用例 24/24，同一 Mono 正常／弱网三进程各 28/28，Core 1048/1048；Editor 按影响合并 235/236，既有按钮主题 1 项失败留账。实际画面和本批证据见实现说明，不宣称全洞穴航行、异地降落、前台性能、IL2CPP 或双机器通过。
+2026-09-22 本分支已接入[可步入远征飞船](docs/archive/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。支持船内步行、唯一驾驶席、泊位附近试飞、搬运机器人与侦察机出舱归队；远征默认应用当前 StrataCave 岩层与三层背景。50 张原生素材导入检查 200/200，新增飞船／远征用例 24/24，同一 Mono 正常／弱网三进程各 28/28，Core 1048/1048；Editor 按影响合并 235/236，既有按钮主题 1 项失败留账。实际画面和本批证据见实现说明，不宣称全洞穴航行、异地降落、前台性能、IL2CPP 或双机器通过。
 
-2026-09-22 当前候选为[独立岩层与三层背景](docs/STATIC_CAVE_BACKGROUND_EXECUTION.md)，分支 `codex/static-cave-background`，协议 **13**／存档 **v9**。用户明确允许脱离旧素材／场景；`Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` 与同目录 `RandomCave.unity`（2026-09-23 保留 GUID 从 StrataCave 资源目录移入统一工作台，见[场景索引](docs/SCENES.md)）使用独立 AnyRuleD 规则和同源 H5 岩壁、背景算法，保留 YYGC 权威与真实坡形碰撞。原生密度统一为 8px／格，矿粒与矿光暂时隐藏、矿床玩法保留。正式远征用 `--dn-contour-static` 试用；旧风格默认保留。前台性能、IL2CPP 和双机器不宣称通过，本批证据优先于下方历史切片。 外轮廓为独立可配置的六方案，当前 HybridB／OUTLINE-0921／3px／20px／2px、岩块 4px；仅修饰表现，权威碰撞保持原坡形。
+2026-09-22 当前候选为[独立岩层与三层背景](docs/archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)，分支 `codex/static-cave-background`，协议 **13**／存档 **v9**。用户明确允许脱离旧素材／场景；`Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` 与同目录 `RandomCave.unity`（2026-09-23 保留 GUID 从 StrataCave 资源目录移入统一工作台，见[场景索引](docs/SCENES.md)）使用独立 AnyRuleD 规则和同源 H5 岩壁、背景算法，保留 YYGC 权威与真实坡形碰撞。原生密度统一为 8px／格，矿粒与矿光暂时隐藏、矿床玩法保留。正式远征用 `--dn-contour-static` 试用；旧风格默认保留。前台性能、IL2CPP 和双机器不宣称通过，本批证据优先于下方历史切片。 外轮廓为独立可配置的六方案，当前 HybridB／OUTLINE-0921／3px／20px／2px、岩块 4px；仅修饰表现，权威碰撞保持原坡形。
 
 2026-09-21 当前切片为[远征营地 Demo](docs/archive/EXPEDITION_CAMP_DELIVERY.md)，协议 **12**／存档 **v8**，分支 `codex/expedition-camp-plan`。正式默认入口已切换紧凑洞穴远征；背景墙矿物、氧气货袋、设备搬运／矿工、风险撤收和原子结算已有首轮实现。旧 `Tomb` 洞口和指令圈运行链退出；以下日期记录仅代表历史切片。当前 Mono 常规／弱网四进程各 35/35，Editor 合并 213/214、远征 8/8、Core 1048/1048；按钮主题 1 项失败、全路线与前台性能等边界见本轮证据，不宣称全部产品目标完成。
 
@@ -12,7 +12,7 @@
 
 2026-09-19 当前切片为[手采地图验收收口](docs/archive/MAP_PLAN_EXECUTION.md)，分支 `codex/map-plan-execution`：协议 10／存档 v6；钻机、无人机、自动采矿和自动物流整链已从产品代码、资源与本轮门槛删除。主 Editor 完整 196/196、Core 1048/1048、Terrain 24 向量／100 seed、ArchitectureGuard 372/12/0、Mono 启动 6/6；同一 Mono 正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 18/18，覆盖 Host、Client、LateJoin、Reconnect、幂等、局部刷新与真实写盘重启恢复。M6 比例、前台性能、IL2CPP、双机器和真正新机器依赖恢复仍待后续；不把这些边界写成已完成。
 
-2026-09-17 新增[独立随机地图 Debug Bootstrap](docs/TERRAIN_DEBUG_BOOTSTRAP.md)：通过 `Dark Nights/Debug/打开随机地图 Bootstrap` 直接 Play，原始 8 房间／7 通道蓝图没有正式营地的 72 列平地覆盖；本地观察角色 WASD 穿墙飞行、近距离可调镜头、参数实时重建。原 Pinewatch 及正式 Bootstrap 保留。本批 Editor 地图 11/11、实际 Play 22/22，独立 Mono 已构建与启动；隐藏 Player 黑图不计视觉通过，画面证据来自 Editor Play。正式协议、存档、YYGC 与 M5 边界不变。
+2026-09-17 新增[独立随机地图 Debug Bootstrap](docs/archive/TERRAIN_DEBUG_BOOTSTRAP.md)：通过 `Dark Nights/Debug/打开随机地图 Bootstrap` 直接 Play，原始 8 房间／7 通道蓝图没有正式营地的 72 列平地覆盖；本地观察角色 WASD 穿墙飞行、近距离可调镜头、参数实时重建。原 Pinewatch 及正式 Bootstrap 保留。本批 Editor 地图 11/11、实际 Play 22/22，独立 Mono 已构建与启动；隐藏 Player 黑图不计视觉通过，画面证据来自 Editor Play。正式协议、存档、YYGC 与 M5 边界不变。
 
 2026-09-17 最新切片为[正式随机灰松谷](docs/archive/RANDOM_PINEWATCH.md)，分支 `codex/feature-dualgrid-game-start`：默认随机模板为 `Res/Scenes/RandomPinewatch/Pinewatch.unity`，原 Pinewatch 场景保持；选择地图后台生成，正式协议 9／存档 v4，YYGC 仍锁定 `12b253c`。地图权威状态随 ObjectSession 生命周期，完整地图与表现共同门控 Ready；主角按权威格子碰撞，存档保存最终格子。AnyRules 隔离包增加有界 128 块预算补丁及哈希锁；不修改用户 YYGC master。本批结果见[证据](docs/archive/evidence/random-pinewatch-2026-09-17.json)，不把下方旧构建计数当作新批验收。
 

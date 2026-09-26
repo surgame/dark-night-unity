@@ -6,13 +6,13 @@
 
 2026-09-26 当前地图入口与接入核验见[场景索引](SCENES.md)：正式远征、新版固定／随机工作台共用 StrataCave。最新代码已默认开启即时前景并捕获 LocalV2，不能继续按下条早期记录判断“未接入”。已有 Local Unity 实测 32 通过／2 失败，完整视觉、前台性能及新 Player 联机仍未验收；本次仅整理旧场景与入口，不扩大为刷新算法修复。
 
-2026-09-25 [局部地形即时刷新](IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)在 `ft-20260925-immediate-terrain-refresh` 形成隔离候选：AnyRuleD Core 138/138；LocalV2 独立全图/分页遮罩、岩粒和最终 RGBA 对照 10 组通过。默认 LegacyV1 保持不变，V1/V2 画面门槛、Unity 导入/编译、运行时与性能仍未验；不得称填拆延迟已解决。游戏包锁尚未切到候选 AnyRuleD API，完整阶段状态与依赖风险见执行记录。
+2026-09-25 [局部地形即时刷新](archive/IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)在 `ft-20260925-immediate-terrain-refresh` 形成隔离候选：AnyRuleD Core 138/138；LocalV2 独立全图/分页遮罩、岩粒和最终 RGBA 对照 10 组通过。默认 LegacyV1 保持不变，V1/V2 画面门槛、Unity 导入/编译、运行时与性能仍未验；不得称填拆延迟已解决。游戏包锁尚未切到候选 AnyRuleD API，完整阶段状态与依赖风险见执行记录。
 
 2026-09-24 [地图联网重构](MAP_STATE_NETWORKING.md)已在 `ref-20260924-map-state-networking` 完成本轮代码与 Mono 收口；YYGC 可选协议和 FishNet 包锁定 `e07e9a9`，AMP1 V1 帧结构不变。最终 Mono 的地图循环与新旧双向混连已通过；完整三进程正常／弱网矩阵保留 `b239df6` 构建身份，不能冒称最终锁重跑。阶段状态、实际结果与未验项见 `D:/Downloads/AnyRuleD_MapSync/PROGRESS.md`。
 
-2026-09-22 [可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)已接入正式远征，协议 14／存档 v10；本批 Mono 正常／弱网三进程各 28/28、Core 1048/1048，Editor 按影响合并 235/236（按钮主题 1 项失败留账）。完整边界和证据见切片记录；下方为先前版本的阶段记录，不将其旧“当前”表述用作本批结论。
+2026-09-22 [可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)已接入正式远征，协议 14／存档 v10；本批 Mono 正常／弱网三进程各 28/28、Core 1048/1048，Editor 按影响合并 235/236（按钮主题 1 项失败留账）。完整边界和证据见切片记录；下方为先前版本的阶段记录，不将其旧“当前”表述用作本批结论。
 
-2026-09-22 [独立洞穴候选实施](STATIC_CAVE_BACKGROUND_EXECUTION.md)已增加同源三层背景、初始轮廓持久化／基线同步和后台分页缓存，协议 13／存档 v9。按用户对首轮画面的反馈，范围扩大为独立原生岩壁、柔光、角色比例与新场景，保留 AnyRuleD 能力；矿粒和矿光暂时隐藏。固定样板先于随机／正式集成验收；P5 前台目标硬件性能及最终美术签署仍待验，不自动切换正式默认风格。
+2026-09-22 [独立洞穴候选实施](archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)已增加同源三层背景、初始轮廓持久化／基线同步和后台分页缓存，协议 13／存档 v9。按用户对首轮画面的反馈，范围扩大为独立原生岩壁、柔光、角色比例与新场景，保留 AnyRuleD 能力；矿粒和矿光暂时隐藏。固定样板先于随机／正式集成验收；P5 前台目标硬件性能及最终美术签署仍待验，不自动切换正式默认风格。
 
 2026-09-21 远征首轮实现与验收见[交付记录](archive/EXPEDITION_CAMP_DELIVERY.md)，分支 `codex/expedition-camp-plan`，协议 **12**／存档 **v8**。E0–E5 的 Demo 主循环已有实现，E6 按本轮快速验收收口：Editor 合并 213/214，1 项通用按钮主题失败单列；Mono 常规／弱网四进程各 35/35；固定浅层往返、矿工交货、部署撤收与原子结算有新证据。原[执行方案](archive/EXPEDITION_CAMP_EXECUTION.md)的全路线、完整故障矩阵、前台性能及正式美术仍不是已通过状态。
 

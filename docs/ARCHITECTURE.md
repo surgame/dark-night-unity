@@ -1,8 +1,8 @@
 # Dark Nights Unity 技术架构
 
-2026-09-22 [可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)：协议 14／存档 v10。船的 BuildingState 与乘员 ActorState 继续由各自 YYGC 业务对象拥有，船体和乘员位移同事务提交；`ExpeditionShipData` 进入冻结投影与原子存档。下方按日期保留此前地形和对象架构切片，其版本号不代表当前版本。
+2026-09-22 [可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)：协议 14／存档 v10。船的 BuildingState 与乘员 ActorState 继续由各自 YYGC 业务对象拥有，船体和乘员位移同事务提交；`ExpeditionShipData` 进入冻结投影与原子存档。下方按日期保留此前地形和对象架构切片，其版本号不代表当前版本。
 
-2026-09-22 [独立岩层切片](STATIC_CAVE_BACKGROUND_EXECUTION.md)：协议 13／存档 v9。`SessionTerrain` 持有不可变 `BackgroundBakeDescriptor` 并与当前权威地图原子保存恢复；初始参考不是第二张可编辑地图。View 调用 `Core.Logic.Terrain` 的纯岩壁／背景算法，线程、取消调度与 Unity 纹理归 View，Core 通过外层检查回调保持无线程 API。外轮廓是独立纯计算阶段，源格形→有符号距离扰动→岩壁分面；它不拥有权威几何，当前只影响表现。前景缓存读取当前副本局部失效，背景只读初始参考；两者均无玩法写权。新场景／材质／AnyRuleD 定义独立于旧岩石资产，正式实体仍走原有 YYGC 定义、绑定及命令。可靠背景基线复用现有 FishNet 会话，参考、当前 AMP1 副本及可见前景／背景共同门控 Ready。
+2026-09-22 [独立岩层切片](archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)：协议 13／存档 v9。`SessionTerrain` 持有不可变 `BackgroundBakeDescriptor` 并与当前权威地图原子保存恢复；初始参考不是第二张可编辑地图。View 调用 `Core.Logic.Terrain` 的纯岩壁／背景算法，线程、取消调度与 Unity 纹理归 View，Core 通过外层检查回调保持无线程 API。外轮廓是独立纯计算阶段，源格形→有符号距离扰动→岩壁分面；它不拥有权威几何，当前只影响表现。前景缓存读取当前副本局部失效，背景只读初始参考；两者均无玩法写权。新场景／材质／AnyRuleD 定义独立于旧岩石资产，正式实体仍走原有 YYGC 定义、绑定及命令。可靠背景基线复用现有 FishNet 会话，参考、当前 AMP1 副本及可见前景／背景共同门控 Ready。
 
 2026-09-17 [随机灰松谷](archive/RANDOM_PINEWATCH.md)已接入正式会话：Core 生成冻结候选，ObjectSession 中的 SessionTerrain 管理唯一 TerrainMapAuthority，主角仍写 ActorState；网络 AMP1 全图初始订阅与现有对象投影分别传输，共同门控 Ready。View 从只读副本绘制 DualGrid。加载验证地图及实体候选后一起切换，重新同步地图代次。当前协议 9、存档 v4；下方协议 8 和独立预览描述属于历史切片。
 

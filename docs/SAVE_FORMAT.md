@@ -2,9 +2,9 @@
 
 2026-09-26 [太空到星球候选](SPACE_TO_PLANET_IMPLEMENTATION.md)升级为 **v11**／协议 **15**。新增 `expedition.Journey`：Enabled、JourneyId、Revision、Phase、PlanetId、Seed、MapId、ContentFingerprint、PhaseElapsed、Error、Planets，共 11 字段；每个星球包含 17 个显式字段，完整定义见 `JourneySaveJson`。只保存 Orbit／Descent／Landed；恢复校验当前配置指纹和全部目录字段，保存最终地图，下降恢复清除驾驶占用和速度。用户要求本轮不执行验证，真实写盘重启与联机恢复全部待验收，下列旧版本通过记录不适用于本候选。
 
-2026-09-22 [可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)升级为 **v10**／协议 **14**。`SessionSnapshot.CurrentVersion` 与正式握手常量分别为 10、14；冻结 `ExpeditionShipData` 随远征状态进入同一权威存档，恢复时校验候选并原子替换。空中读档保留位置与乘员，释放驾驶占用并归零速度；旧版本严格拒绝，原文件不自动删除。具体飞船行为和本批验证见切片记录；下方按日期标记的旧版本段落只用于追溯。
+2026-09-22 [可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)升级为 **v10**／协议 **14**。`SessionSnapshot.CurrentVersion` 与正式握手常量分别为 10、14；冻结 `ExpeditionShipData` 随远征状态进入同一权威存档，恢复时校验候选并原子替换。空中读档保留位置与乘员，释放驾驶占用并归零速度；旧版本严格拒绝，原文件不自动删除。具体飞船行为和本批验证见切片记录；下方按日期标记的旧版本段落只用于追溯。
 
-2026-09-22 [静态背景候选](STATIC_CAVE_BACKGROUND_EXECUTION.md)升级为 **v9**／协议 **13**，文件进入独立 `v9` 目录。`world.terrain` 现在严格包含 10 个字段：`world_id`、`seed`、`materials`、`protection`、`soft_rock`、`shapes`、`rooms`、`deposits`、`expedition`、`background`。新增 `background` 为版本化参考封套的 Base64（固定旧地图可为 null，远征必需）；参考材料和坡形在首次生成后冻结，与当前已挖格子分别保存。封套包含版本、持久世界身份、布局种子、样式内容摘要、参考 SHA-256 和有界材料／坡形成对 RLE。校验失败拒绝整个恢复候选，不替换地图或对象。v8 及更旧文件不删除、不迁移、不重新生成伪初始源。下方字段表与旧版本说明为历史切片。
+2026-09-22 [静态背景候选](archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)升级为 **v9**／协议 **13**，文件进入独立 `v9` 目录。`world.terrain` 现在严格包含 10 个字段：`world_id`、`seed`、`materials`、`protection`、`soft_rock`、`shapes`、`rooms`、`deposits`、`expedition`、`background`。新增 `background` 为版本化参考封套的 Base64（固定旧地图可为 null，远征必需）；参考材料和坡形在首次生成后冻结，与当前已挖格子分别保存。封套包含版本、持久世界身份、布局种子、样式内容摘要、参考 SHA-256 和有界材料／坡形成对 RLE。校验失败拒绝整个恢复候选，不替换地图或对象。v8 及更旧文件不删除、不迁移、不重新生成伪初始源。下方字段表与旧版本说明为历史切片。
 
 2026-09-19 地图遗漏修复将正式格式升级为 **v6**，目录使用 `v6` 子目录；协议同步为 10。Actor 保存 `explosive_charges`，矿床保存最终剩余量与枯竭阶段。`terrain.deposit.*` 是唯一新增的动态放置身份，且只允许对应 `mineral-deposit` 定义。本轮已删除钻机次数、钻进、输出缓冲和钻机对象字段，不接受旧格式迁移。
 

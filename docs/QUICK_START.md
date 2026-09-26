@@ -2,16 +2,16 @@
 
 `Game/` 使用 Unity `6000.4.9f1` 和 **Linear** 色彩空间。正式入口继续使用 Bootstrap；游戏操作、当前 Player 和复跑条件见 [Player 指南](PLAYER_GUIDE.md)。独立模板位于 `Assets/Samples/LanCoop/Content/LanCoop.unity`，只作为 [LAN Sample](LAN_SAMPLE.md) 对照。
 
-2026-09-22 当前正式远征为协议 **14**／存档 **v10**；试玩入口、Mono 产物及验证边界见[可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)。前台性能、IL2CPP 和双机器 LAN 未通过本批验收。
+2026-09-22 当前正式远征为协议 **14**／存档 **v10**；试玩入口、Mono 产物及验证边界见[可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)。前台性能、IL2CPP 和双机器 LAN 未通过本批验收。
 
 2026-09-16 历史主角切片：YYGC 统一对象迁移 U0–U5 已完成，Core 只保留纯算法、只读配置和数据合同。产品默认固定为主角操控，每个有权限的玩家首次 Ready 由服务端新建一名专属村民，不占用场景现有闲置村民；顶部主角工具栏与旧营地操作入口暂时隐藏，快捷键继续生效，仅显式 `--dn-camp-mode` 开发回归保留旧 UI／后端。当时协议 8／新档 v3，YYGC 输入提交 `0c7cec0`；历史 Player 为 `artifacts/hero-input/player-mono-generated-villager-r2`，验收以[联合执行文档](archive/HERO_INPUT_EXECUTION.md)为准。
 
 ## 先读什么
 
 1. 读[项目 README](../README.md)确认当前状态、范围与联机假设。
-2. 读[当前切片](WALKABLE_EXPEDITION_SHIP.md)和[LAN Sample](LAN_SAMPLE.md)，需要追溯早期方案时再读[移植方案](archive/MIGRATION_PLAN.md)及[YYGC 能力复评](archive/YYGC_REASSESSMENT.md)。
+2. 读[当前切片](archive/WALKABLE_EXPEDITION_SHIP.md)和[LAN Sample](LAN_SAMPLE.md)，需要追溯早期方案时再读[移植方案](archive/MIGRATION_PLAN.md)及[YYGC 能力复评](archive/YYGC_REASSESSMENT.md)。
 3. 读[技术架构](ARCHITECTURE.md)的程序集表，再读[联机设计](MULTIPLAYER.md)的权限和请求流水线。
-4. 按[当前飞船切片](WALKABLE_EXPEDITION_SHIP.md)核对未验边界；[开发执行计划](DEVELOPMENT.md)保留阶段合同和历史记录，早期 [M5 清单](archive/M5_EXECUTION.md)仅作追溯。
+4. 按[当前飞船切片](archive/WALKABLE_EXPEDITION_SHIP.md)核对未验边界；[开发执行计划](DEVELOPMENT.md)保留阶段合同和历史记录，早期 [M5 清单](archive/M5_EXECUTION.md)仅作追溯。
 
 ## 准备已有工程
 
@@ -69,4 +69,4 @@ python tools/measure-stage-storage.py --output artifacts/storage-review
 
 这些命令读取状态和盘点空间，不启动 Unity／Player 或执行删除。原始评估与冻结夹具保留；不重生成旧期望来掩盖差异。
 
-历史规则／Editor 覆盖见[回归映射](archive/YYGC_UNIFIED_TEST_COVERAGE.md)；当前试玩入口见[飞船切片](WALKABLE_EXPEDITION_SHIP.md)，旧 Player 复跑参数见[主角与输入联合执行](archive/HERO_INPUT_EXECUTION.md#复验与示例入口)。只验证受本批改动影响的范围；输入未变时复用已通过证据。新构建输出到新的空目录，后续脚本显式传入 `-PlayerPath`，避免使用历史默认产物。手写 C# 遵守 C# 9／.NET Standard 2.1、中文 XML summary 和 300 行上限。
+历史规则／Editor 覆盖见[回归映射](archive/YYGC_UNIFIED_TEST_COVERAGE.md)；当前试玩入口见[飞船切片](archive/WALKABLE_EXPEDITION_SHIP.md)，旧 Player 复跑参数见[主角与输入联合执行](archive/HERO_INPUT_EXECUTION.md#复验与示例入口)。只验证受本批改动影响的范围；输入未变时复用已通过证据。新构建输出到新的空目录，后续脚本显式传入 `-PlayerPath`，避免使用历史默认产物。手写 C# 遵守 C# 9／.NET Standard 2.1、中文 XML summary 和 300 行上限。

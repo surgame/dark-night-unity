@@ -14,7 +14,7 @@ p.add_argument('static', type=Path)
 a = p.parse_args()
 repo = Path(__file__).resolve().parents[2]
 artifacts = repo / 'artifacts/walkable-ship'
-destination = repo / 'docs/evidence/walkable-ship-2026-09-22'
+destination = repo / 'docs/archive/evidence/walkable-ship-2026-09-22'
 destination.mkdir(parents=True, exist_ok=True)
 def read(path): return json.loads(path.read_text(encoding='utf-8-sig'))
 def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()

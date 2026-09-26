@@ -93,7 +93,7 @@ H5 锚点采用全局优先级选取，不能在每页独立求解。开启前�
 | `Modifiers/RoundedDecor.asset` | 相同圆簇轮廓，关闭前景岩粒融合 |
 | `Modifiers/ContourDecor.asset` | 原 v16.1 点缀生成器及三个层的生成参数 |
 
-要切换下坠模式，把目标列表中的圆簇资产替换为 `DownwardRock`；要关闭则清空列表。独立样板 `ReferenceChamber.unity`、`RandomCave.unity` 已于 2026-09-23 保留 GUID 移至 `Res/Scenes/Workbenches/Terrain/`，与当前默认远征仍引用相同 StrataCave 样式；见[场景索引](SCENES.md)。首版安装菜单拒绝覆盖已有 modifier 资产，后续直接在 Inspector 编辑和另存资产。
+要切换下坠模式，把目标列表中的圆簇资产替换为 `DownwardRock`；要关闭则清空列表。独立样板 `ReferenceChamber.unity`、`RandomCave.unity` 已于 2026-09-23 保留 GUID 移至 `Res/Scenes/Workbenches/Terrain/`，与当前默认远征仍引用相同 StrataCave 样式；见[场景索引](../SCENES.md)。首版安装菜单拒绝覆盖已有 modifier 资产，后续直接在 Inspector 编辑和另存资产。
 
 ## 本批真实验证
 

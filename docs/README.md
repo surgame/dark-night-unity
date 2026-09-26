@@ -22,18 +22,12 @@
 - [RUNTIME_TERRAIN_TUNER.md](RUNTIME_TERRAIN_TUNER.md) — 新版工作台运行时左栏、分 Tab 调参、拆填与 UI 缩放
 - [LAN_SAMPLE.md](LAN_SAMPLE.md) — 独立 LAN 合作联机模板
 - [SCENES.md](SCENES.md) — 新版 ReferenceChamber／RandomCave、Cave Wall Tuner 与正式远征入口
-- [TERRAIN_DEBUG_BOOTSTRAP.md](TERRAIN_DEBUG_BOOTSTRAP.md) — (old) 随机地图 Debug Bootstrap，仅供旧版回归
 - [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md) — 可破坏地形与地图生成器
 
 ## 近期切片与候选（2026-09-26）
 
 - [太空到星球源码候选](SPACE_TO_PLANET_IMPLEMENTATION.md) / [待验收清单](SPACE_TO_PLANET_ACCEPTANCE.md) / [设计](SPACE_TO_PLANET_FLOW_DESIGN.md) — 主分支 `31aaecf` 基线；YYGC 航程、UI Toolkit 星球表格、会话内切图和驾驶降落；按用户要求未执行 Unity 导入、编译、测试或验收
-- [局部地形即时刷新执行记录](IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md) — 2026-09-25 隔离候选；P2–P4 与 Unity 未验边界
 - [MAP_STATE_NETWORKING.md](MAP_STATE_NETWORKING.md) — AnyRuleD 地图联网重构与本轮验证边界
-- [STATIC_CAVE_BACKGROUND_PLAN.md](STATIC_CAVE_BACKGROUND_PLAN.md) / [STATIC_CAVE_BACKGROUND_EXECUTION.md](STATIC_CAVE_BACKGROUND_EXECUTION.md) — 静态背景岩层与独立洞穴材质
-- [TERRAIN_MODIFIERS_PROGRESS.md](TERRAIN_MODIFIERS_PROGRESS.md) — 地形 Modifier 与可插拔点缀层
-- [WALKABLE_EXPEDITION_SHIP.md](WALKABLE_EXPEDITION_SHIP.md) — 可步入远征飞船
-- [ORE_LAYER_ART.md](ORE_LAYER_ART.md) — 按格矿层美术候选（AnyRuleD 资产待导入）
 
 ## 其他
 

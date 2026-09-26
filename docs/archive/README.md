@@ -24,4 +24,10 @@
 - [洞穴原型](CAVE_EXPLORATION_ART.md)、[视觉与空间目标](CAVE_EXPLORATION_TARGETS.md)、[地图工作台](CAVE_WORKSHOP.md)
 - [远征执行方案](EXPEDITION_CAMP_EXECUTION.md)及[交付记录](EXPEDITION_CAMP_DELIVERY.md)
 
+## 2026-09-22～26 地形、岩层与飞船切片
+
+- [可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)、[独立岩层与三层背景方案](STATIC_CAVE_BACKGROUND_PLAN.md)及[执行记录](STATIC_CAVE_BACKGROUND_EXECUTION.md)、[按格矿层美术候选](ORE_LAYER_ART.md)
+- [地形 Modifier 与点缀层](TERRAIN_MODIFIERS_PROGRESS.md)、[局部地形即时刷新](IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)、[Cave Tuner 隔离评审](CAVE_TUNER_ISOLATED_REVIEW.md)及[本机验证](CAVE_TUNER_LOCAL_VALIDATION_20260926.md)
+- [旧随机地图 Debug Bootstrap](TERRAIN_DEBUG_BOOTSTRAP.md)（`(old)` 场景回归用）
+
 这些记录保留各自时点的“当前”措辞，仅代表当时输入。不可把旧计划、历史 Player 哈希或后台功能结果当作当前版本的完整验收。
