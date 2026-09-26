@@ -9,7 +9,7 @@ namespace DarkNights.Editor
     public static class DarkNightsMenu
     {
         private const string Root = "Dark Nights/";
-        private const string LegacyTerrain = Root + "Terrain/Legacy/";
+        private const string LegacyTerrain = Root + "Terrain/(old)/";
         internal const string HeroSpeedPath = Root + "Debug/主角移动 8×";
 
         [MenuItem(Root + "Content/Initialize Environment")]
@@ -78,6 +78,12 @@ namespace DarkNights.Editor
         private static void OpenLegacyTerrainGenerator() => TerrainGeneratorWindow.Open();
         [MenuItem(Root + "Terrain/Cave Wall Tuner")]
         private static void OpenTerrainPreview() => TerrainStylePreviewWindow.Open();
+        [MenuItem(Root + "Terrain/打开新版固定地图 ReferenceChamber")]
+        private static void OpenReferenceChamber() => TerrainWorkbenchScenes.Open(TerrainScenePaths.ReferenceChamber);
+        [MenuItem(Root + "Terrain/打开新版随机地图 RandomCave")]
+        private static void OpenRandomCave() => TerrainWorkbenchScenes.Open(TerrainScenePaths.RandomCave);
+        [MenuItem(Root + "Terrain/打开正式远征 Expedition")]
+        private static void OpenExpedition() => TerrainWorkbenchScenes.Open(DarkNights.Entry.Terrain.RandomLevelEntry.ExpeditionScenePath);
         [MenuItem(LegacyTerrain + "Create initial test tiles")]
         private static void CreateTestTiles() => TerrainTestAssets.Create();
         [MenuItem(LegacyTerrain + "Create initial cave tiles")]

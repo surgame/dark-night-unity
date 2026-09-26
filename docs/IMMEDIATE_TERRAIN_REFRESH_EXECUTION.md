@@ -1,5 +1,7 @@
 # 局部地形即时刷新执行记录
 
+**2026-09-26 状态更正：** 下文保留 09-25 首轮候选时点。最新代码 `CaveTerrainStyle.ImmediateForeground = true`，`CaptureModifiers()` 将活动圆簇捕获为 LocalV2；正式 `Expedition` 和固定／随机工作台已共用该 StrataCave 样式。因此“LegacyV1 仍为默认”“Unity 未导入”不再是当前结论。Local Unity 的[原始结果](evidence/terrain-local-validation-20260926.xml)为 32 通过／2 失败，失败为只读 chunk 编辑和镜头换向缺页；视觉门槛、完整发布栅栏、前台即时性与新 Player 联机仍未验收。当前打开路径和整理后的 `(old)` 场景见[场景索引](SCENES.md)。
+
 日期：2026-09-25
 状态：**候选实现；未完成 Unity 导入、运行时、画面与性能验收。不得标记“填拆延迟已解决”。**
 

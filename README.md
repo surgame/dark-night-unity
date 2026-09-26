@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-26 [当前地图入口](docs/SCENES.md)：正式 `Bootstrap → Expedition` 已使用 StrataCave 岩层、三层背景及当前共享地形刷新代码。新版工作台为 `ReferenceChamber`（固定）和 `RandomCave`（随机），Unity 菜单 `Dark Nights / Terrain` 可直接打开；调参使用 `Cave Wall Tuner`。旧 `TerrainDebugBootstrap`、`CaveExploration` 统一收进 `(old)`。当前代码默认 `ImmediateForeground = true`，有效前景为 LocalV2；下方 09-25“LegacyV1 默认／尚未导入”是早期记录。09-26 已有 Unity 实测 32 通过／2 失败，不能称完整画面、即时刷新或联机验收通过，详见场景索引。
+
 2026-09-25 [局部地形即时刷新执行记录](docs/IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)：隔离分支实现源驱动稀疏安装和 LocalV2 分页岩壁候选；AnyRuleD Core 138/138，纯算法全图/分页遮罩、岩粒及 RGBA 页对照 10 组通过。LegacyV1 仍为默认；Unity 导入/编译、运行画面、网络场景、碰撞、V1/V2 美术门槛与前台性能未验，完整即时刷新未交付。
 
 2026-09-24 [AnyRuleD 地图联网重构](docs/MAP_STATE_NETWORKING.md)在 `ref-20260924-map-state-networking` 开发：纯协议与 FishNet 传输已从 YYGC 业务包拆出，单格 Delta 改为 1 个最终格记录，游戏副本通知已接入范围刷新。现有 Editor 编译通过；本轮 Editor、Mono 联机及独立样板的具体结果以进度文档为准，不沿用旧 Player 数字。
@@ -12,7 +14,7 @@
 
 2026-09-21 当前切片为[远征营地 Demo 实施与快速验收](docs/archive/EXPEDITION_CAMP_DELIVERY.md)，分支 `codex/expedition-camp-plan`，协议 **12**／存档 **v8**。正式入口接入紧凑洞穴、背景墙矿物和透岩矿光、氧气与货袋、机器人四设备展开、矿工交货、风险撤收、原子结算与三种舱段成长。Editor 按影响合并 213/214 通过，1 项通用按钮主题用例留账，Mono 常规／弱网四进程各 35/35；完整证据、玩法简化和待验边界以交付记录为准，不将原[执行方案](docs/archive/EXPEDITION_CAMP_EXECUTION.md)中的完整性能及全路线门槛写成通过。
 
-当前默认玩法为远征。地图调试仍可通过[洞穴地图工作台](docs/archive/CAVE_WORKSHOP.md)进入；旧营地仅作为 `--dn-camp-mode` 的兼容回归入口。各旧版本的验收数字留在对应切片文档中，不作为当前构建结论。过时的指令圈运行链和专用回归已删除。
+当前默认玩法为远征。地图调试通过[新版固定／随机工作台](docs/SCENES.md)进入；旧营地仅作为 `--dn-camp-mode` 的兼容回归入口。各旧版本的验收数字留在对应切片文档中，不作为当前构建结论。过时的指令圈运行链和专用回归已删除。
 
 目录设计已收口为 `Assets/DarkNights/Scripts` 与 `Res` 分离；代码采用 Core、Runtime、View、Entry，资源按对象／面板集中维护定义、Prefab 和专用资源。Addressables 不要求游戏素材目录采用特殊名称，仍通过 ObjectDefinition 驱动加载与绑定；现有 AddressableAssetsData 配置位置保留。详见[目录及绑定要求](docs/archive/MIGRATION_PLAN.md#directory-and-assets)。目前已建立四个运行程序集、Editor/Tests、配置与 Pinewatch 场景、15 类原生对象、效果与五页 UI。
 

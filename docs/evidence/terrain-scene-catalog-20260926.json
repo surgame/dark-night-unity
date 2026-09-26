@@ -1,0 +1,28 @@
+{
+  "date": "2026-09-26",
+  "input_commit": "9dc1a39",
+  "unity": "6000.4.9f1",
+  "change": "两个旧工作台保留 GUID 归组到 (old)，新增新版地图菜单，修正当前接入说明",
+  "editmode": {
+    "failed": 0,
+    "sha256": "edb76bbb967deec3912bf21ed69374fecfa8a4c9f514093d8d79ebc1e02e40f9",
+    "skipped": 0,
+    "passed": 4,
+    "xml": "terrain-scene-catalog-20260926.xml"
+  },
+  "checks": {
+    "formal_style_loaded_immediate_foreground": true,
+    "effective_modifier": "rounded-local-v2",
+    "moved_scene_and_meta_bytes_unchanged": true,
+    "active_editor_scene": "ReferenceChamber.unity",
+    "build_settings_unchanged": true
+  },
+  "not_run": [
+    "Player build",
+    "PlayMode visual acceptance",
+    "multiplayer",
+    "performance"
+  ],
+  "prior_failures": "09-26 既有地形批次 32/34；2 项失败未在本次修复或重跑",
+  "disk_free_bytes": 36373417984
+}

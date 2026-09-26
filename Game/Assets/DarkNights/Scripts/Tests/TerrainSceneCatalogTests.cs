@@ -54,6 +54,32 @@ namespace DarkNights.Tests
         }
 
         [Test]
+        public void FormalExpeditionUsesCurrentStrataStyleAndEffectiveLocalForeground()
+        {
+            const string root = "Assets/DarkNights/Res/Terrain/StrataCave/";
+            var style = AssetDatabase.LoadAssetAtPath<DarkNights.View.Terrain.CaveTerrainStyle>(root + "Style.asset");
+            Assert.That(style, Is.Not.Null);
+            Assert.That(style.ImmediateForeground, Is.True);
+            Assert.That(style.CaptureModifiers().Identity, Does.Contain("rounded-local-v2"));
+            var scene = UnityEditor.SceneManagement.EditorSceneManager.OpenScene(
+                DarkNights.Entry.Terrain.RandomLevelEntry.ExpeditionScenePath,
+                UnityEditor.SceneManagement.OpenSceneMode.Additive);
+            try
+            {
+                var templates = new System.Collections.Generic.List<DarkNights.View.Terrain.RandomLevelTemplate>();
+                foreach (GameObject item in scene.GetRootGameObjects())
+                    templates.AddRange(item.GetComponentsInChildren<DarkNights.View.Terrain.RandomLevelTemplate>(true));
+                Assert.That(templates.Count, Is.EqualTo(1));
+                Assert.That(templates[0].CaveStyle, Is.SameAs(style));
+                Assert.That(templates[0].StaticBackgroundStyle, Is.SameAs(style));
+                Assert.That(templates[0].Definition, Is.SameAs(templates[0].ContourDefinition).And.Not.Null);
+                Assert.That(AssetDatabase.AssetPathToGUID(AssetDatabase.GetAssetPath(templates[0].Definition)),
+                    Is.EqualTo("d4a19379210ced349b64c1b628f9c7ca"));
+            }
+            finally { UnityEditor.SceneManagement.EditorSceneManager.CloseScene(scene, true); }
+        }
+
+        [Test]
         public void OtherMovedScenesCanBeOpenedReadOnly()
         {
             string[] paths = { TerrainScenePaths.CaveExploration, TerrainScenePaths.TerrainDebugBootstrap,

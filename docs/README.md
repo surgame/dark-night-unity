@@ -20,7 +20,8 @@
 ## 使用说明
 
 - [LAN_SAMPLE.md](LAN_SAMPLE.md) — 独立 LAN 合作联机模板
-- [TERRAIN_DEBUG_BOOTSTRAP.md](TERRAIN_DEBUG_BOOTSTRAP.md) — 随机地图 Debug Bootstrap
+- [SCENES.md](SCENES.md) — 新版 ReferenceChamber／RandomCave、Cave Wall Tuner 与正式远征入口
+- [TERRAIN_DEBUG_BOOTSTRAP.md](TERRAIN_DEBUG_BOOTSTRAP.md) — (old) 随机地图 Debug Bootstrap，仅供旧版回归
 - [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md) — 可破坏地形与地图生成器
 
 ## 近期切片与候选（2026-09-22）

@@ -4,12 +4,13 @@ namespace DarkNights.Editor.Terrain
     public static class TerrainScenePaths
     {
         public const string Workbenches = "Assets/DarkNights/Res/Scenes/Workbenches/Terrain";
+        public const string OldWorkbenches = Workbenches + "/(old)";
         public const string Tests = "Assets/DarkNights/Res/Scenes/Tests/Terrain";
         public const string PendingDeletion = "Assets/DarkNights/Res/Scenes/PendingDeletion/Terrain";
         public const string ReferenceChamber = Workbenches + "/ReferenceChamber.unity";
         public const string RandomCave = Workbenches + "/RandomCave.unity";
-        public const string CaveExploration = Workbenches + "/CaveExploration.unity";
-        public const string TerrainDebugBootstrap = Workbenches + "/TerrainDebugBootstrap.unity";
+        public const string CaveExploration = OldWorkbenches + "/CaveExploration(old).unity";
+        public const string TerrainDebugBootstrap = OldWorkbenches + "/TerrainDebugBootstrap(old).unity";
         public const string PendingCaveContourStatic = PendingDeletion + "/CaveContourStatic.unity";
         public const string TerrainTest = Tests + "/TerrainTest.unity";
         public const string TerrainNetworkTest = Tests + "/TerrainNetworkTest.unity";

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-26 05:59:10Z" end-time="2026-09-26 05:59:10Z" duration="0.3240568">
+  <test-suite type="TestSuite" id="1000" name="DNights" fullname="DNights" runstate="Runnable" testcasecount="269" result="Passed" start-time="2026-09-26 05:59:10Z" end-time="2026-09-26 05:59:10Z" duration="0.324057" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1335" name="DarkNights.Tests.dll" fullname="D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Tests.dll" runstate="Runnable" testcasecount="268" result="Passed" start-time="2026-09-26 05:59:10Z" end-time="2026-09-26 05:59:10Z" duration="0.315003" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="35828" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1336" name="DarkNights" fullname="DarkNights" runstate="Runnable" testcasecount="268" result="Passed" start-time="2026-09-26 05:59:10Z" end-time="2026-09-26 05:59:10Z" duration="0.218731" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1337" name="Tests" fullname="DarkNights.Tests" runstate="Runnable" testcasecount="268" result="Passed" start-time="2026-09-26 05:59:10Z" end-time="2026-09-26 05:59:10Z" duration="0.215187" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1258" name="TerrainSceneCatalogTests" fullname="DarkNights.Tests.TerrainSceneCatalogTests" classname="DarkNights.Tests.TerrainSceneCatalogTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-09-26 05:59:10Z" end-time="2026-09-26 05:59:10Z" duration="0.114916" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1260" name="FixedAndRandomWorkbenchesRetainBootstrapAndMapReferences" fullname="DarkNights.Tests.TerrainSceneCatalogTests.FixedAndRandomWorkbenchesRetainBootstrapAndMapReferences" methodname="FixedAndRandomWorkbenchesRetainBootstrapAndMapReferences" classname="DarkNights.Tests.TerrainSceneCatalogTests" runstate="Runnable" seed="942449844" result="Passed" start-time="2026-09-26 05:59:10Z" end-time="2026-09-26 05:59:10Z" duration="0.023111" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1261" name="FormalExpeditionUsesCurrentStrataStyleAndEffectiveLocalForeground" fullname="DarkNights.Tests.TerrainSceneCatalogTests.FormalExpeditionUsesCurrentStrataStyleAndEffectiveLocalForeground" methodname="FormalExpeditionUsesCurrentStrataStyleAndEffectiveLocalForeground" classname="DarkNights.Tests.TerrainSceneCatalogTests" runstate="Runnable" seed="1061366558" result="Passed" start-time="2026-09-26 05:59:10Z" end-time="2026-09-26 05:59:10Z" duration="0.046991" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1259" name="MovedScenesKeepTheirOriginalGuids" fullname="DarkNights.Tests.TerrainSceneCatalogTests.MovedScenesKeepTheirOriginalGuids" methodname="MovedScenesKeepTheirOriginalGuids" classname="DarkNights.Tests.TerrainSceneCatalogTests" runstate="Runnable" seed="1207812820" result="Passed" start-time="2026-09-26 05:59:10Z" end-time="2026-09-26 05:59:10Z" duration="0.001194" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1262" name="OtherMovedScenesCanBeOpenedReadOnly" fullname="DarkNights.Tests.TerrainSceneCatalogTests.OtherMovedScenesCanBeOpenedReadOnly" methodname="OtherMovedScenesCanBeOpenedReadOnly" classname="DarkNights.Tests.TerrainSceneCatalogTests" runstate="Runnable" seed="891208862" result="Passed" start-time="2026-09-26 05:59:10Z" end-time="2026-09-26 05:59:10Z" duration="0.027918" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/Jobscn/AppData/LocalLow/DefaultCompany/DNights\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

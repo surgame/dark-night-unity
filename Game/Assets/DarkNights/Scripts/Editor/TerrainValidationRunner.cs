@@ -54,6 +54,12 @@ namespace DarkNights.Editor
                     var filter = new Filter { testMode = mode, assemblyNames = request.assemblies, testNames = request.tests };
                     api.Execute(new ExecutionSettings(filter));
                 }
+                else if (request.command == "organize-terrain-scenes")
+                {
+                    Terrain.TerrainWorkbenchScenes.OrganizeOldScenes();
+                    Terrain.TerrainWorkbenchScenes.Open(Terrain.TerrainScenePaths.ReferenceChamber);
+                    Complete("SCENES_ORGANIZED", 0, 0, 0);
+                }
                 else if (request.command == "build")
                 {
                     GamePlayerBuild.MapStateMono();
