@@ -26,6 +26,7 @@
 
 ## 近期切片与候选（2026-09-22）
 
+- [太空飞船到星球降落流程设计](SPACE_TO_PLANET_FLOW_DESIGN.md) — 2026-09-26 分析设计；YYGC 配置驱动、UI Toolkit 星球表格、会话内地图切换与联机就绪，尚未实施
 - [局部地形即时刷新执行记录](IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md) — 2026-09-25 隔离候选；P2–P4 与 Unity 未验边界
 - [MAP_STATE_NETWORKING.md](MAP_STATE_NETWORKING.md) — AnyRuleD 地图联网重构与本轮验证边界
 - [STATIC_CAVE_BACKGROUND_PLAN.md](STATIC_CAVE_BACKGROUND_PLAN.md) / [STATIC_CAVE_BACKGROUND_EXECUTION.md](STATIC_CAVE_BACKGROUND_EXECUTION.md) — 静态背景岩层与独立洞穴材质
