@@ -1,4 +1,6 @@
-# Unity 世界存档 v10
+# Unity 世界存档 v11（航程源码候选）
+
+2026-09-26 [太空到星球候选](SPACE_TO_PLANET_IMPLEMENTATION.md)升级为 **v11**／协议 **15**。新增 `expedition.Journey`：Enabled、JourneyId、Revision、Phase、PlanetId、Seed、MapId、ContentFingerprint、PhaseElapsed、Error、Planets，共 11 字段；每个星球包含 17 个显式字段，完整定义见 `JourneySaveJson`。只保存 Orbit／Descent／Landed；恢复校验当前配置指纹和全部目录字段，保存最终地图，下降恢复清除驾驶占用和速度。用户要求本轮不执行验证，真实写盘重启与联机恢复全部待验收，下列旧版本通过记录不适用于本候选。
 
 2026-09-22 [可步入远征飞船](WALKABLE_EXPEDITION_SHIP.md)升级为 **v10**／协议 **14**。`SessionSnapshot.CurrentVersion` 与正式握手常量分别为 10、14；冻结 `ExpeditionShipData` 随远征状态进入同一权威存档，恢复时校验候选并原子替换。空中读档保留位置与乘员，释放驾驶占用并归零速度；旧版本严格拒绝，原文件不自动删除。具体飞船行为和本批验证见切片记录；下方按日期标记的旧版本段落只用于追溯。
 
@@ -10,16 +12,16 @@
 
 2026-09-16，[主角与输入联合切片](archive/HERO_INPUT_EXECUTION.md)将正式格式升级为 v3：增加高度、纵向速度、平台支撑、下穿计时及道具状态。正式入口仍为 ObjectWorldSaveJson 与 GameSaveStore，状态仍来自所属 YYGC Behaviour。当前验收记录见联合执行文档；U5／U6 的 v2 计数按历史输入保留在[实施记录](archive/YYGC_UNIFIED_IMPLEMENTATION.md)。
 
-当前只接受 v10；旧格式不读取或自动迁移，旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前世界。下方根字段以当前源码为准；按日期标记的 v1–v9 说明仅用于追溯。历史 v1 证据见[原存储记录](archive/evidence/world-save-2026-09-11.json)。
+当前候选只接受 v11；旧格式不读取或自动迁移，旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前世界。下方根字段以当前源码为准；按日期标记的 v1–v10 说明仅用于追溯。历史 v1 证据见[原存储记录](archive/evidence/world-save-2026-09-11.json)。
 
 ## 文件合同
 
-无 BOM 的 UTF-8 JSON，上限 **4,000,000 字节**，解析深度 32。v10 根对象严格只有 8 个字段：
+无 BOM 的 UTF-8 JSON，上限 **4,000,000 字节**，解析深度 32。v11 根对象严格只有 8 个字段：
 
-| 字段 | v10 合同 |
+| 字段 | v11 合同 |
 |---|---|
 | format | dark-nights.world |
-| format_version | 整数 10 |
+| format_version | 整数 11 |
 | random_algorithm | SimulationRandom.Algorithm，当前为 godot-pcg32-clz-f32-v1 |
 | rules_sha256 | 实际只读 GameCatalog 的规范化 SHA-256 |
 | layout_sha256 | 实际场景导出 LevelLayout 的规范化 SHA-256 |

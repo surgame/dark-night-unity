@@ -41,8 +41,11 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.EconomyBehaviour
   - DarkNights.Runtime.Objects.WaveBehaviour
   - DarkNights.Runtime.Objects.ProjectileBehaviour
+  - DarkNights.Runtime.Objects.ExpeditionJourneyBehaviour
+  - DarkNights.Runtime.Objects.ExpeditionFlowBehaviour
   SharedConfigs:
   - rid: 6961529734502023168
+  - rid: 6961529734502023169
   references:
     version: 2
     RefIds:
@@ -68,3 +71,27 @@ MonoBehaviour:
         ExplosionRadius: 36
         BombDamage: 32
         ExplosionSeconds: 0.3
+    - rid: 6961529734502023169
+      type: {class: ExpeditionFlowConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        Enabled: 1
+        PreparationTimeoutSeconds: 30
+        ArrivalTimeoutSeconds: 30
+        Planets:
+        - Id: grey-pine
+          DisplayName: 灰松星
+          Description: 地表安全降落区连接灰松洞穴。
+          Enabled: 1
+          Seed:
+          DockColumn: 36
+          DockRow: 40
+          LandingWidth: 32
+          ArrivalHeight: 176
+          HorizontalRange: 240
+          MaximumLift: 448
+          TransitSeconds: 0.8
+          StarCount: 120
+          StarSpeed: 110
+          TransitionKind: star-shift
+          SpaceColorHex: '#060C20'
+          SkyColorHex: '#243B55'

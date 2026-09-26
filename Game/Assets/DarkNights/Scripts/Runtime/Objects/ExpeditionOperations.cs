@@ -18,13 +18,17 @@ namespace DarkNights.Runtime.Objects
         internal bool AtShip(ActorBehaviour a) => Ship != null &&
             (a.Read().Boarded || Math.Abs(a.X - Ship.X - ShipGeometry.RampToe) < 30 && Math.Abs(a.Read().Height - Ship.Read().Height) < 8);
 
+        internal void ShowIntro() => world.Feedback.ShowBanner(world.Flow.Enabled ? "太空待命" : "远征整备",
+            world.Flow.Enabled ? "可在船内走动；靠近右侧驾驶台选择星球，抵达上空后手动降落。" :
+                "出发、采矿、卸货、返航。舱段升级会带入下一次远征。");
+
         internal void Advance(double seconds)
         {
             try
             {
                 world.Mutations.Run(() =>
                 {
-                    double delta = world.Camp.BeginStep(seconds); Tick(delta);
+                    double delta = world.Camp.BeginStep(seconds); world.Flow.Tick(delta); Tick(delta);
                     world.Ship.Tick(delta);
                     if (world.IsExpedition)
                     {
@@ -49,6 +53,7 @@ namespace DarkNights.Runtime.Objects
             world.Economy.SetStock(new ResourceAmounts());
             var ship = Ship.Edit(); ship.DeviceStage = 3; ship.Powered = true;
             ship.DockX = ship.X; ship.DockHeight = ship.Height;
+            if (world.Flow.Enabled) { world.Flow.PrepareOrbit(); return; }
             world.Notify("从左侧坡道走进飞船，走到右侧驾驶位可驾驶。出发探索后采矿，首次收益可购买机器人舱。");
         }
 
@@ -59,18 +64,9 @@ namespace DarkNights.Runtime.Objects
             switch (operation)
             {
                 case "depart":
+                    if (world.Flow.Enabled) return 0;
                     if ((c.ExpeditionPhase != 0 && c.ExpeditionPhase != 4) || !world.Ship.Docked) return 0;
-                    if (c.ExpeditionSettled) c.ExpeditionRun++;
-                    c.ExpeditionPhase = 1; c.ExpeditionSettled = false; c.ExpeditionClock = 0; c.ExpeditionRisk = 0;
-                    c.LostCargo = c.LostDevices = 0;
-                    foreach (var a in world.Index.Actors.Where(a => !a.Enemy))
-                    {
-                        var s = a.Edit(); s.Oxygen = Rules.OxygenSeconds;
-                        s.Hp = a.MaximumHp;
-                        s.TaskTarget = s.TaskPhase = 0;
-                    }
-                    world.ExpeditionDevices.BeginDeployment();
-                    world.Notify("已降落。矿物只在卸入船仓并撤离后结算。"); return 1;
+                    BeginGround(); return 1;
                 case "unload":
                     if (!Active || hero == null || !AtShip(hero)) return 0;
                     ExpeditionCargo.Transfer(hero, Ship, Rules.ShipCapacity * (1 + c.CargoModule)); return 1;
@@ -111,6 +107,22 @@ namespace DarkNights.Runtime.Objects
                     return c.ExpeditionPhase == 1 ? world.ExpeditionDevices.AssignMiner(target) : 0;
                 default: return 0;
             }
+        }
+
+        internal void BeginGround()
+        {
+            var c = world.Camp.Edit();
+            if (c.ExpeditionPhase == 1) return;
+            if (c.ExpeditionSettled) c.ExpeditionRun++;
+            c.ExpeditionPhase = 1; c.ExpeditionSettled = false; c.ExpeditionClock = 0; c.ExpeditionRisk = 0;
+            c.LostCargo = c.LostDevices = 0;
+            foreach (var actor in world.Index.Actors.Where(a => !a.Enemy))
+            {
+                var s = actor.Edit(); s.Oxygen = Rules.OxygenSeconds; s.Hp = actor.MaximumHp;
+                s.TaskTarget = s.TaskPhase = 0;
+            }
+            world.ExpeditionDevices.BeginDeployment();
+            world.Notify("地面探索开始。矿物只在卸入船仓并撤离后结算。");
         }
 
         internal void Tick(double delta)

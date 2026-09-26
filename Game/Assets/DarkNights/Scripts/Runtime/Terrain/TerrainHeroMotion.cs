@@ -64,8 +64,10 @@ namespace DarkNights.Runtime.Terrain
                 state.X = next; state.Height = h;
             }
         }
-        public static void Tick(IReadOnlyGrid map, ActorState state, HeroControlDefinition rules, double delta, bool jump, bool thrust)
+        public static void Tick(IReadOnlyGrid map, ActorState state, HeroControlDefinition rules, double delta, bool jump, bool thrust,
+            float? maximumHeight = null)
         {
+            float ceiling = maximumHeight ?? rules.MaximumHeight;
             bool grounded = state.VerticalSpeed <= 0 && Supported(map, state.X, state.Height);
             state.DropRemaining = 0; state.IgnoredPlatform = 0; state.SupportPlatform = grounded ? 0 : -1;
             if (grounded && jump) { state.VerticalSpeed = rules.JumpSpeed; grounded = false; state.SupportPlatform = -1; }
@@ -81,7 +83,7 @@ namespace DarkNights.Runtime.Terrain
                 state.VerticalSpeed = Math.Min(rules.JetpackSpeed, state.VerticalSpeed + (rules.Gravity + rules.JetpackSpeed * 4) * (float)delta * fraction);
                 state.JetpackFuel = Math.Max(0, state.JetpackFuel - delta);
             }
-            float from = state.Height, target = Math.Clamp(from + state.VerticalSpeed * (float)delta, PlayableTerrain.MinimumHeight, rules.MaximumHeight);
+            float from = state.Height, target = Math.Clamp(from + state.VerticalSpeed * (float)delta, PlayableTerrain.MinimumHeight, ceiling);
             int steps = Math.Max(1, (int)Math.Ceiling(Math.Abs(target - from) / 2));
             for (int i = 1; i <= steps; i++)
             {
@@ -92,7 +94,7 @@ namespace DarkNights.Runtime.Terrain
                 { state.VerticalSpeed = 0; return; }
                 state.Height = next;
             }
-            if (target == rules.MaximumHeight || target == PlayableTerrain.MinimumHeight) state.VerticalSpeed = 0;
+            if (target == ceiling || target == PlayableTerrain.MinimumHeight) state.VerticalSpeed = 0;
         }
     }
 }

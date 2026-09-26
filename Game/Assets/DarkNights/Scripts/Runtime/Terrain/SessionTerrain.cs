@@ -38,6 +38,25 @@ namespace DarkNights.Runtime.Terrain
             if (candidate == null || data == null) throw new ArgumentNullException(nameof(candidate));
             var previous = Map; Map = candidate; Seed = data.Seed; SetStatic(data); previous?.Dispose();
         }
+        /// <summary>航程事务交换已准备地图；先复制静态数据，返回无通知回滚动作，由调用方在提交成功后退休旧地图。</summary>
+        internal Action Swap(TerrainMapAuthority candidate, PlayableTerrain data)
+        {
+            if (candidate == null || data == null) throw new ArgumentNullException(nameof(candidate));
+            var nextSoft = data.CopySoftRock();
+            var nextRooms = new List<TerrainRoom>(data.Rooms).ToArray();
+            var nextDeposits = new List<TerrainDepositBlueprint>(data.Deposits).ToArray();
+            var previousMap = Map; var previousSeed = Seed; var previousExpedition = Expedition;
+            var previousBackground = Background; var previousSoft = softRock;
+            var previousRooms = rooms; var previousDeposits = deposits;
+            Action rollback = () =>
+            {
+                Map = previousMap; Seed = previousSeed; Expedition = previousExpedition;
+                Background = previousBackground; softRock = previousSoft; rooms = previousRooms; deposits = previousDeposits;
+            };
+            Map = candidate; Seed = data.Seed; Expedition = data.Expedition; Background = data.Background;
+            softRock = nextSoft; rooms = nextRooms; deposits = nextDeposits;
+            return rollback;
+        }
         public PlayableTerrain Capture()
         {
             if (Map == null) return initial;

@@ -68,7 +68,12 @@ namespace DarkNights.Runtime.Objects
                     IsOpen = false;
                 }
                 if (success)
-                    foreach (Action notification in notifications) notification();
+                    foreach (Action notification in notifications)
+                    {
+                        // 状态已经提交；单个视图或回收通知失败不能伪装成事务回滚，也不能跳过后续资源收尾。
+                        try { notification(); }
+                        catch (Exception error) { Debug.LogException(error); }
+                    }
             }
         }
 

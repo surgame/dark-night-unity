@@ -36,6 +36,9 @@ namespace DarkNights.Runtime.Objects
                 case SessionOperation.Repair: return session.Index.Find<BuildingBehaviour>(request.TargetId) != null;
                 case SessionOperation.Expedition:
                     return session.IsExpedition && !session.Paused;
+                case SessionOperation.SelectDestination:
+                case SessionOperation.CancelJourney:
+                    return session.IsExpedition && session.Flow?.Enabled == true && !session.Paused;
                 case SessionOperation.ClaimHero:
                 case SessionOperation.ReleaseHero:
                 case SessionOperation.SelectHeroItem:

@@ -20,7 +20,6 @@ using GameCore.Objects.Runner;
 using UnityEngine;
 using VitalRouter;
 using Runtime.Utils;
-using YY.Features.Players.View;
 
 namespace DarkNights.Runtime.Network
 {
@@ -87,9 +86,10 @@ namespace DarkNights.Runtime.Network
                 resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
                 placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition))).IdentitySha256;
             var equipment = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch").SharedConfigs.OfType<HandheldConfig>().Single();
+            var flow = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch").SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
             authenticator.Configure(ObjectDefinitionDatabase.Instance, "dark-nights-session-v" + Session.SessionAuthority.ProtocolVersion +
                 ":" + fingerprint.RulesSha256 + ":" + fingerprint.LayoutSha256 + ":" + identity + ":" + equipment.Fingerprint() +
-                ":" + DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor.StyleContentHash);
+                ":" + DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor.StyleContentHash + ":" + flow.Fingerprint());
             manager.ServerManager.SetAuthenticator(authenticator);
             GenericTypeSerializer<GameCore.Objects.NetworkStates.IStateData>.MaximumPayloadBytes = ProjectionCodec.MaximumBytes + 1024;
             GenericTypeSerializer<INetworkCommand>.MaximumPayloadBytes = 8192;

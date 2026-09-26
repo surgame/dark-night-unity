@@ -12,11 +12,24 @@ namespace DarkNights.Runtime.Session
     {
         internal static bool HostRequired(SessionOperation operation) => operation >= SessionOperation.SetPaused && operation <= SessionOperation.Restart;
 
+        internal static SessionResultCode ValidateEnvelope(bool closed, bool activeConnection, int epoch, SessionRequest request)
+        {
+            if (closed) return SessionResultCode.SessionClosed;
+            if (!activeConnection) return SessionResultCode.InvalidConnection;
+            if (!ValidShape(request)) return SessionResultCode.InvalidRequest;
+            if (request.Protocol != SessionAuthority.ProtocolVersion) return SessionResultCode.ProtocolMismatch;
+            if (request.Epoch != epoch) return SessionResultCode.EpochChanged;
+            return SessionResultCode.Applied;
+        }
+
         internal static bool ValidShape(SessionRequest r)
         {
             if (r == null || r.Sequence <= 0 || r.PolicyRevision < 0 ||
                 !Enum.IsDefined(typeof(SessionOperation), r.Operation) || float.IsNaN(r.X) || float.IsInfinity(r.X) ||
                 r.TargetId < 0 || r.ActorIds.Any(id => id <= 0)) return false;
+            if (r.Operation is SessionOperation.SelectDestination or SessionOperation.CancelJourney)
+                return r.ActorIds.Count == 1 && r.TargetId > 0 && r.X == 0 && r.ControlLease > 0 && r.Value >= 0 &&
+                    (r.Operation == SessionOperation.SelectDestination ? r.Kind.Length > 0 : r.Kind.Length == 0);
             if (r.Operation == SessionOperation.Expedition)
                 return r.ActorIds.Count <= 1 && r.X == 0 && r.Value == 0 && r.Kind.Length > 0 &&
                     new[] { "depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "relay", "mine", "resupply", "pilot", "takeoff", "land", "cancel-flight", "deploy" }.Contains(r.Kind);

@@ -19,7 +19,7 @@ namespace DarkNights.Runtime.Objects
                 var s = a.Read();
                 return new ExpeditionDeviceData(a.Id, s.Height, s.CargoIron, s.CargoGold, s.DeviceStage, s.ParentId, s.TargetX, s.TargetHeight, s.Powered);
             }).ToArray();
-            return new ExpeditionViewData(c.ExpeditionRun, c.ExpeditionPhase, c.ExpeditionRisk, c.ExpeditionClock, c.ExpeditionSettled, c.RobotModule, c.CargoModule, c.CrewModule, c.LostCargo, c.LostDevices, actors, devices, c.ResupplyCost, CaptureShip(world));
+            return new ExpeditionViewData(c.ExpeditionRun, c.ExpeditionPhase, c.ExpeditionRisk, c.ExpeditionClock, c.ExpeditionSettled, c.RobotModule, c.CargoModule, c.CrewModule, c.LostCargo, c.LostDevices, actors, devices, c.ResupplyCost, CaptureShip(world), world.Journey?.Capture());
         }
         private static ExpeditionShipData CaptureShip(ObjectSession world)
         {
@@ -29,6 +29,7 @@ namespace DarkNights.Runtime.Objects
         internal static void Restore(ObjectSession world, ExpeditionViewData data)
         {
             if (data == null) return;
+            world.Journey?.Restore(data.Journey);
             var ship = world.Expedition.Ship.Edit();
             ship.ShipPhase = data.Ship.Phase is 1 or 2 ? 0 : data.Ship.Phase;
             ship.PilotId = 0; ship.ShipVelocityX = ship.ShipVelocityY = 0; ship.ShipDoorClock = 0;

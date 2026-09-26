@@ -9,6 +9,7 @@ namespace DarkNights.Runtime.Network
     public partial class ExpeditionViewWire
     {
         public ExpeditionShipWire Ship { get; set; }
+        public JourneyWire Journey { get; set; }
         public int Run { get; set; }
         public int Phase { get; set; }
         public double Risk { get; set; }
@@ -25,6 +26,7 @@ namespace DarkNights.Runtime.Network
         public static ExpeditionViewWire From(ExpeditionViewData v) => v == null ? null : new ExpeditionViewWire
         {
             Ship = ExpeditionShipWire.From(v.Ship),
+            Journey = JourneyWire.From(v.Journey),
             Run = v.Run,
             Phase = v.Phase,
             Risk = v.Risk,
@@ -39,6 +41,6 @@ namespace DarkNights.Runtime.Network
             Crew = v.Crew.Select(ExpeditionActorWire.From).ToArray(),
             Devices = v.Devices.Select(ExpeditionDeviceWire.From).ToArray(),
         };
-        public ExpeditionViewData Freeze() => new ExpeditionViewData(Run, Phase, Risk, Clock, Settled, RobotModule, CargoModule, CrewModule, LostCargo, LostDevices, Crew?.Select(v => v.Freeze()).ToArray(), Devices?.Select(v => v.Freeze()).ToArray(), ResupplyCost, Ship?.Freeze());
+        public ExpeditionViewData Freeze() => new ExpeditionViewData(Run, Phase, Risk, Clock, Settled, RobotModule, CargoModule, CrewModule, LostCargo, LostDevices, Crew?.Select(v => v.Freeze()).ToArray(), Devices?.Select(v => v.Freeze()).ToArray(), ResupplyCost, Ship?.Freeze(), Journey?.Freeze());
     }
 }

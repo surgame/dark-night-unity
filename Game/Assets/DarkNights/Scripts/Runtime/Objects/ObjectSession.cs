@@ -43,6 +43,8 @@ namespace DarkNights.Runtime.Objects
         public EconomyBehaviour Economy { get; private set; }
         public WaveBehaviour Waves { get; private set; }
         public ProjectileBehaviour Projectiles { get; private set; }
+        public ExpeditionJourneyBehaviour Journey { get; private set; }
+        public ExpeditionFlowBehaviour Flow { get; private set; }
         public ObjectWorkOrders Work { get; }
         public ObjectConstruction Construction { get; }
         public ObjectEntityLifecycle Lifecycle { get; }
@@ -98,6 +100,12 @@ namespace DarkNights.Runtime.Objects
             Economy = owner.GetBehaviour<EconomyBehaviour>() ?? throw new InvalidOperationException("Missing economy capability.");
             Waves = owner.GetBehaviour<WaveBehaviour>() ?? throw new InvalidOperationException("Missing wave capability.");
             Projectiles = owner.GetBehaviour<ProjectileBehaviour>() ?? throw new InvalidOperationException("Missing projectile capability.");
+            Journey = owner.GetBehaviour<ExpeditionJourneyBehaviour>();
+            Flow = owner.GetBehaviour<ExpeditionFlowBehaviour>();
+            if (IsExpedition && (Journey == null || Flow == null))
+                throw new InvalidOperationException("远征会话缺少航程状态或配置能力。");
+            Flow?.InitializeSession(this);
+            Journey?.Prepare();
             Camp.Prepare();
             Economy.Prepare();
             Waves.Prepare();
@@ -138,7 +146,7 @@ namespace DarkNights.Runtime.Objects
         public void Loaded(bool restarted)
         {
             if (!restarted) return;
-            if (IsExpedition) { Feedback.ShowBanner("远征整备", "出发、采矿、卸货、返航。舱段升级会带入下一次远征。"); return; }
+            if (IsExpedition) { Expedition.ShowIntro(); return; }
             Feedback.ShowBanner("灰松谷 · 第一天", "安排生产，训练守卫。守住三次夜袭。");
             Feedback.Notify("先安排一名工人耕作，再采集木材。东侧已有两名守卫。");
         }
@@ -243,6 +251,7 @@ namespace DarkNights.Runtime.Objects
             if (disposed) return;
             if (Mutations.IsOpen) throw new InvalidOperationException("Cannot retire a session inside a state notification.");
             disposed = true;
+            Flow?.ResetPending();
             ObjectInstance[] entities = Index.FreezeOrder().Select(e => e.Object).ToArray();
             Index.Clear();
             EntityContext.Dispose();
@@ -262,11 +271,15 @@ namespace DarkNights.Runtime.Objects
         private void RestoreSnapshot(SessionSnapshot snapshot)
         {
             if ((Terrain == null) != (snapshot.Terrain == null)) throw new FormatException("存档地图类型不匹配。");
+            var journey = snapshot.Expedition?.Journey;
+            if (Flow == null ? journey != null : !Flow.Accepts(journey))
+                throw new FormatException("存档航程配置与当前会话不一致。");
             DarkNights.Runtime.Terrain.TerrainMapAuthority map = Terrain?.Prepare(snapshot.Terrain);
             try
             {
                 using var candidate = new ObjectWorldRestore(this, snapshot);
                 candidate.Commit();
+                Flow?.ResetPending();
                 if (map != null) { Terrain.Replace(map, snapshot.Terrain); map = null; }
             }
             finally { map?.Dispose(); }

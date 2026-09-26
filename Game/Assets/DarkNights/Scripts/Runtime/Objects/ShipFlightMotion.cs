@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace DarkNights.Runtime.Objects
 {
-    /// <summary>服务端有界短距悬停飞行；两单位子步查询原坡形，并把位移同事务施加给乘员和已收纳设备。</summary>
+    /// <summary>服务端配置边界内悬停飞行；两单位子步查询原坡形，并把位移同事务施加给乘员和已收纳设备。</summary>
     internal sealed class ShipFlightMotion
     {
         private readonly ObjectSession world;
@@ -36,9 +36,10 @@ namespace DarkNights.Runtime.Objects
         internal bool Land()
         {
             var s = world.Expedition.Ship.Edit();
-            // 首版只允许返回保护泊位，避免把未验证洞底当成新着陆点。
+            // 本轮仅开放目的地配置产出的安全着陆区，不把任意洞底视为降落点。
             if (Math.Abs(s.X - s.DockX) > Rules.LandingTolerance || s.Height - s.DockHeight > Rules.LandingTolerance || s.Height < s.DockHeight ||
                 Math.Abs(s.ShipVelocityX) > Rules.LandingSpeed || Math.Abs(s.ShipVelocityY) > Rules.LandingSpeed) return false;
+            if (!Clear(s.DockX, s.DockHeight) || !Supported(s.DockX, s.DockHeight)) return false;
             float dx = s.DockX - s.X, dy = s.DockHeight - s.Height;
             s.X = s.DockX; s.Height = s.DockHeight; s.ShipVelocityX = s.ShipVelocityY = 0;
             Carry(dx, dy); s.ShipPhase = 0; s.ShipDoorClock = 0;
@@ -48,15 +49,27 @@ namespace DarkNights.Runtime.Objects
         private bool Clear(float x, float h)
         {
             var s = world.Expedition.Ship.Read();
-            // 保留原泊位上方的短距试飞空间；洞穴深入飞行等待专门航线验收。
-            if (Math.Abs(x - s.DockX) > Rules.HorizontalRange || h < s.DockHeight || h > s.DockHeight + Rules.MaximumLift) return false;
+            var planet = world.Flow.Enabled ? world.Flow.ActivePlanet : null;
+            float range = planet?.HorizontalRange ?? Rules.HorizontalRange;
+            float lift = planet?.MaximumLift ?? Rules.MaximumLift;
+            if (Math.Abs(x - s.DockX) > range || h < s.DockHeight || h > s.DockHeight + lift) return false;
             for (float px = -ShipGeometry.HalfWidth; px <= ShipGeometry.HalfWidth; px += 2)
                 for (float py = 1; py <= ShipGeometry.Roof; py += 2)
                     if (ShipGeometry.Hull(px, py) && TerrainHeroMotion.Solid(world.Terrain.Map, x + px, h + py)) return false;
             return true;
         }
 
-        private void Carry(float dx, float dh)
+        private bool Supported(float x, float h)
+        {
+            if (!TerrainHeroMotion.Solid(world.Terrain.Map, x - 56, h - 1) ||
+                !TerrainHeroMotion.Solid(world.Terrain.Map, x + 104, h - 1)) return false;
+            for (float local = ShipGeometry.RampToe; local <= ShipGeometry.RampHinge; local += 4)
+                for (float head = 1; head <= 28; head += 4)
+                    if (TerrainHeroMotion.Solid(world.Terrain.Map, x + local, h + ShipGeometry.Floor(local) + head)) return false;
+            return true;
+        }
+
+        internal void Carry(float dx, float dh)
         {
             if (dx == 0 && dh == 0) return;
             foreach (var actor in world.Index.Actors.Where(a => a.Read().Boarded))

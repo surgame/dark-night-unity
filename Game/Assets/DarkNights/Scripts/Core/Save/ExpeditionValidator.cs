@@ -11,6 +11,8 @@ namespace DarkNights.Core.Save
         public static string Validate(ExpeditionViewData data, int[] actors, int[] buildings, int[] deposits, ExpeditionDefinition rules)
         {
             if (data == null) return "远征合同缺失";
+            string journeyError = JourneyValidator.Validate(data.Journey);
+            if (journeyError.Length != 0) return journeyError;
             bool Number(double v, double max) => !double.IsNaN(v) && !double.IsInfinity(v) && v >= 0 && v <= max;
             if (data.Run < 1 || data.Run > 1000000 || data.Phase < 0 || data.Phase > 4 ||
                 !Number(data.Risk, 1000000) || !Number(data.Clock, 1000000) || data.Settled != (data.Phase == 4) ||
@@ -28,7 +30,8 @@ namespace DarkNights.Core.Save
                     a.TaskTarget != 0 && !buildings.Contains(a.TaskTarget) && !deposits.Contains(a.TaskTarget)) return "远征角色状态无效";
             foreach (var b in data.Devices)
                 if (b.Stage is < 0 or > 6 || !Number(b.Iron, rules.ShipCapacity * 2) || !Number(b.Gold, rules.ShipCapacity * 2 - b.Iron) ||
-                    !Number(b.Height + 2560, 2816) || !Number(b.TargetHeight + 2560, 2688) || !Number(b.TargetX, 5120) ||
+                    !Number(b.Height + 2560, 2560 + JourneyValidator.MaximumCrewHeight(data.Journey)) ||
+                    !Number(b.TargetHeight + 2560, 2560 + JourneyValidator.MaximumCrewHeight(data.Journey)) || !Number(b.TargetX, 5120) ||
                     b.ParentId != 0 && (!buildings.Contains(b.ParentId) || b.ParentId == b.Id)) return "远征设备状态无效";
             return ExpeditionShipValidator.Validate(data, rules.Ship);
         }

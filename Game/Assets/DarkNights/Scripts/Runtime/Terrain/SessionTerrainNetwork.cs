@@ -86,7 +86,7 @@ namespace DarkNights.Runtime.Terrain
         public SessionTerrainNetwork(NetworkManager manager, SessionNetwork network, ARDMapDefinition definition, bool expedition = false, string styleIdentity = "")
         {
             this.expedition = expedition;
-            if (expedition) SelectionStatus = "选择地图：洞穴远征 · 点击地图生成新种子";
+            if (expedition) SelectionStatus = "太空远征 · 进入船舱后在驾驶台选择星球";
             this.manager = manager; this.network = network;
             gameplay = definition.LoadGameplayCatalog(); using (var hash = System.Security.Cryptography.SHA256.Create())
                 visual = BitConverter.ToString(hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(
@@ -105,13 +105,18 @@ namespace DarkNights.Runtime.Terrain
             if (index >= 0 && index + 1 < args.Length) seed = args[index + 1];
             string id = Guid.NewGuid().ToString("N");
             var watch = Stopwatch.StartNew();
-            generation = Task.Run(() => expedition ? ExpeditionTerrainGenerator.Generate(seed, id) : PlayableTerrainGenerator.Generate(seed, id));
+            var flow = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
+                .SharedConfigs.Find(c => c is DarkNights.Runtime.Objects.ExpeditionFlowConfig) as DarkNights.Runtime.Objects.ExpeditionFlowConfig;
+            bool orbit = expedition && flow?.Enabled == true;
+            generation = Task.Run(() => orbit ? PlanetTerrainGenerator.Space(id) :
+                expedition ? ExpeditionTerrainGenerator.Generate(seed, id) : PlayableTerrainGenerator.Generate(seed, id));
             try
             {
                 var result = await generation;
                 if (disposed) return;
                 selected = result; GenerationMilliseconds = watch.ElapsedMilliseconds;
-                SelectionStatus = "已选择" + (expedition ? "洞穴远征" : "灰松谷") + " · 种子 " + seed.Substring(0, Math.Min(12, seed.Length)) + " · 点击地图可重新生成";
+                SelectionStatus = orbit ? "太空船舱已准备 · 开房后靠近驾驶台选择星球" :
+                    "已选择" + (expedition ? "洞穴远征" : "灰松谷") + " · 种子 " + seed.Substring(0, Math.Min(12, seed.Length)) + " · 点击地图可重新生成";
                 UnityEngine.Debug.Log("DARK_NIGHTS_MAP_GENERATED seed=" + seed + " milliseconds=" + GenerationMilliseconds);
             }
             finally { generation = null; }

@@ -5,6 +5,7 @@ using DarkNights.Core.Config.Terrain;
 using DarkNights.Runtime.Network;
 using DarkNights.Runtime.Terrain;
 using DarkNights.View;
+using DarkNights.View.Expedition;
 using DarkNights.View.Terrain;
 using FishNet;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace DarkNights.Entry.Terrain
         private RandomLevelTemplate template;
         private PinewatchStage stage;
         private TerrainPreview view;
+        private JourneyEnvironment environment;
         private ChunkReplicaStateMachine subscribedReplica;
         private WorldIdentity world;
         private ulong receivedSession, receivedStreamGeneration, receivedCommit;
@@ -31,6 +33,8 @@ namespace DarkNights.Entry.Terrain
         {
             var entry = network.gameObject.AddComponent<RandomLevelEntry>();
             entry.network = network; entry.template = template; entry.stage = stage; stage.RandomTerrain = true;
+            entry.environment = network.gameObject.AddComponent<JourneyEnvironment>();
+            entry.environment.Initialize(stage.SceneCamera);
             bool contour = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-contour-static") >= 0;
             entry.definition = contour ? template.ContourDefinition : template.Definition;
             entry.style = contour ? template.StaticBackgroundStyle : template.CaveStyle;
@@ -43,8 +47,22 @@ namespace DarkNights.Entry.Terrain
             try
             {
                 network.Terrain.Pump();
+                var frame = network.Client.Replica.Current;
+                environment.Present(frame);
                 var replica = network.Terrain.Replica;
-                if (!network.Terrain.DataReady) { Clear(); return; }
+                if (!network.Terrain.DataReady || frame == null || network.Terrain.Epoch != frame.Epoch)
+                { Clear(); return; }
+                var journey = frame.World.Expedition?.Journey;
+                string mapId = journey?.MapId ?? "";
+                if (!JourneyPresentationRules.InSpace(journey) && mapId.Length != 0 &&
+                    mapId.Replace("-", "") != replica.World.WorldId.ToString().Replace("-", ""))
+                { Clear(); return; }
+                if (JourneyPresentationRules.InSpace(frame?.World.Expedition?.Journey))
+                {
+                    if (presenting) Clear();
+                    network.Terrain.PresentationReady = environment.SpaceReady;
+                    return;
+                }
                 if (!presenting || !world.Equals(replica.World))
                 {
                     Clear(); world = replica.World; receivedSession = replica.Session;
@@ -58,7 +76,6 @@ namespace DarkNights.Entry.Terrain
                     subscribedReplica = replica;
                     subscribedReplica.Applied += OnReplicaApplied;
                 }
-                var frame = network.Client.Replica.Current;
                 if (frame != null) { view.SetMinerals(frame.World.Worksites); view.SetDevices(frame.World); }
                 if (view.LastError != null) throw view.LastError;
                 network.Terrain.PresentationReady = view.Ready;
@@ -82,10 +99,10 @@ namespace DarkNights.Entry.Terrain
         {
             if (subscribedReplica != null) subscribedReplica.Applied -= OnReplicaApplied;
             subscribedReplica = null;
-            if (view != null) Destroy(view.gameObject);
+            if (view != null) { view.gameObject.SetActive(false); Destroy(view.gameObject); }
             view = null; presenting = false; network.Terrain.PresentationReady = false;
             receivedSession = receivedStreamGeneration = receivedCommit = 0; receivedIdentityKnown = false;
         }
-        private void OnDestroy() { Clear(); network.Terrain?.Dispose(); }
+        private void OnDestroy() { Clear(); if (environment != null) Destroy(environment); network.Terrain?.Dispose(); }
     }
 }

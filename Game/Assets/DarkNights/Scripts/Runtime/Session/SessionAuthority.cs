@@ -18,7 +18,7 @@ namespace DarkNights.Runtime.Session
     /// </summary>
     public sealed class SessionAuthority : IDisposable
     {
-        public const int ProtocolVersion = 14;
+        public const int ProtocolVersion = 15;
         public const int MaximumPendingPerPlayer = 16;
         public const int ResultWindow = 64;
         private readonly int ownerThread = Thread.CurrentThread.ManagedThreadId;
@@ -28,6 +28,7 @@ namespace DarkNights.Runtime.Session
         private readonly SessionProjector projector = new SessionProjector();
         private readonly ObjectSession world;
         private readonly SessionHeroControl heroes;
+        private readonly SessionJourneyTransfer journey;
         private SessionEventJournal events;
         private SessionReceipt loadTicket;
         private bool started;
@@ -46,6 +47,7 @@ namespace DarkNights.Runtime.Session
         {
             world = simulation ?? throw new ArgumentNullException(nameof(simulation));
             heroes = new SessionHeroControl(world);
+            journey = new SessionJourneyTransfer(world);
             events = new SessionEventJournal(world.Feedback, () => ServerTick);
             world.Activate();
         }
@@ -130,6 +132,8 @@ namespace DarkNights.Runtime.Session
                 results.Add(entry.Receipt);
             }
             heroes.Expire(ServerTick);
+            if (!Loading && journey.Pump(ServerTick, connections, () => BeginJourneyEpoch(checked(Epoch + 1))))
+                Revision = checked(Revision + 1);
             if (started && !Loading)
             {
                 int nextRevision = checked(Revision + 1);
@@ -151,6 +155,7 @@ namespace DarkNights.Runtime.Session
             if (gate == SessionResultCode.Applied && !world.ValidRequest(request)) gate = SessionResultCode.InvalidRequest;
             bool storage = request.Operation == SessionOperation.Save || request.Operation == SessionOperation.BeginLoad || request.Operation == SessionOperation.Restart;
             if (gate == SessionResultCode.Applied && storage && StorageRequest != null) gate = SessionResultCode.Loading;
+            if (gate == SessionResultCode.Applied && storage && world.Flow?.CanSave == false) gate = SessionResultCode.Loading;
             if (gate != SessionResultCode.Applied) return Receipt(connection, request, gate);
             int nextRevision = checked(Revision + 1);
             int affected = 1;
@@ -197,15 +202,8 @@ namespace DarkNights.Runtime.Session
             return result;
         }
 
-        private SessionResultCode ValidateEnvelope(SessionConnection connection, SessionRequest request)
-        {
-            if (Closed) return SessionResultCode.SessionClosed;
-            if (!Active(connection)) return SessionResultCode.InvalidConnection;
-            if (!SessionOperations.ValidShape(request)) return SessionResultCode.InvalidRequest;
-            if (request.Protocol != ProtocolVersion) return SessionResultCode.ProtocolMismatch;
-            if (request.Epoch != Epoch) return SessionResultCode.EpochChanged;
-            return SessionResultCode.Applied;
-        }
+        private SessionResultCode ValidateEnvelope(SessionConnection connection, SessionRequest request) =>
+            SessionOperations.ValidateEnvelope(Closed, Active(connection), Epoch, request);
 
         // 仅供权威存储和验证读取；包含 RNG 的恢复快照禁止发送到客户端或交给 View。
         public SessionSnapshot CaptureWorld()
@@ -229,22 +227,25 @@ namespace DarkNights.Runtime.Session
             try
             {
                 int nextEpoch = checked(Epoch + 1);
+                world.Flow?.ResetPending();
+                journey.Reset();
                 if (json == null) world.Restart();
                 else world.Restore(json);
-                events.Dispose();
-                events = new SessionEventJournal(world.Feedback, () => ServerTick);
-                projector.Clear();
-                Epoch = nextEpoch;
-                Revision = 0;
-                started = false;
-                pending.Clear();
-                foreach (var connection in connections) connection?.ResetWorld(true);
+                BeginJourneyEpoch(nextEpoch);
                 world.Loaded(json == null);
             }
             finally { loadTicket = null; StorageRequest = null; }
         }
 
         public void CompleteRestart(SessionReceipt ticket) => CompleteLoad(ticket, null);
+
+        private void BeginJourneyEpoch(int nextEpoch)
+        {
+            Epoch = nextEpoch;
+            Revision = 0; started = false; pending.Clear(); projector.Clear();
+            events.Dispose(); events = new SessionEventJournal(world.Feedback, () => ServerTick);
+            foreach (var connection in connections) connection?.ResetWorld(true);
+        }
 
         public void ReleaseStorage(SessionStorageRequest request)
         {

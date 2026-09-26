@@ -30,19 +30,26 @@ namespace DarkNights.Runtime.Network
                 world.Worksites != null && world.Projectiles != null);
             Require((long)world.Actors.Length + world.Buildings.Length + world.Worksites.Length <= WorldViewData.MaximumEntities &&
                 world.Projectiles.Length <= WorldViewData.MaximumProjectiles);
+            Require(world.Actors.All(a => a != null) && world.Buildings.All(b => b != null) && world.Worksites.All(w => w != null));
             Require(world.Identities != null && world.Identities.Length == world.Actors.Length + world.Buildings.Length + world.Worksites.Length);
             foreach (var identity in world.Identities)
                 Require(identity != null && identity.Id > 0 && Text(identity.DefinitionGuid, 36) &&
                     Guid.TryParse(identity.DefinitionGuid, out var guid) && guid != Guid.Empty && Text(identity.PlacementKey, 80));
             Require((world.Expedition != null) == layout.Expedition);
+            ExpeditionViewData expedition = null;
             if (world.Expedition != null)
             {
-                Require(DarkNights.Core.Save.ExpeditionValidator.Validate(world.Expedition.Freeze(),
+                Require(world.Expedition.Crew != null && world.Expedition.Crew.Length <= 256 && world.Expedition.Crew.All(a => a != null) &&
+                    world.Expedition.Devices != null && world.Expedition.Devices.Length <= 256 && world.Expedition.Devices.All(d => d != null));
+                expedition = world.Expedition.Freeze();
+                Require(DarkNights.Core.Save.ExpeditionValidator.Validate(expedition,
                     world.Actors.Select(a => a.Id).ToArray(), world.Buildings.Select(b => b.Id).ToArray(),
                     world.Worksites.Select(w => w.Id).ToArray(), catalog.Balance.Expedition).Length == 0);
-                var ship = world.Buildings.SingleOrDefault(b => b.Kind == "ship");
+                Require(world.Buildings.Count(b => b.Kind == "ship") == 1);
+                var ship = world.Buildings.FirstOrDefault(b => b.Kind == "ship");
                 var device = world.Expedition.Devices.FirstOrDefault(d => d.Id == ship?.Id);
-                Require(ship != null && device != null && Core.Save.ExpeditionShipValidator.Transform(world.Expedition.Ship.Freeze(), ship.Id, ship.X, device.Height, catalog.Balance.Expedition.Ship));
+                Require(ship != null && device != null && Core.Save.ExpeditionShipValidator.Transform(expedition.Ship,
+                    ship.Id, ship.X, device.Height, catalog.Balance.Expedition.Ship, expedition.Journey));
             }
             var camp = world.Camp;
             Require(camp.Stock != null && camp.Gathered != null && camp.Stock.Freeze().IsValid() && camp.Gathered.Freeze().IsValid());
@@ -63,7 +70,9 @@ namespace DarkNights.Runtime.Network
                 Require(Finite(a.Windup));
                 Require(a.Face == -1 || a.Face == 0 || a.Face == 1);
                 var crew = world.Expedition?.Crew?.FirstOrDefault(c => c.Id == a.Id);
-                double maximumHeight = crew?.Boarded == true || crew?.Role == 4 ? 384 : catalog.Balance.HeroControl?.MaximumHeight ?? 0;
+                double maximumHeight = crew?.Boarded == true || crew?.Role == 4
+                    ? Math.Max(catalog.Balance.HeroControl?.MaximumHeight ?? 0, Core.Save.JourneyValidator.MaximumCrewHeight(expedition?.Journey))
+                    : Core.Save.JourneyValidator.MaximumGroundHeight(expedition?.Journey, catalog.Balance.HeroControl?.MaximumHeight ?? 0);
                 Require(Finite(a.Height) && a.Height >= (layout.RandomTerrain ? Core.Config.Terrain.PlayableTerrain.MinimumHeight : 0) && a.Height <= maximumHeight &&
                     Finite(a.VerticalSpeed) && Math.Abs(a.VerticalSpeed) <= 1000 && a.SupportPlatform >= -1 &&
                     a.SelectedItem >= 0 && a.SelectedItem <= 3 && a.SelectionRevision >= 0 && a.ControlLease >= 0 &&

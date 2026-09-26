@@ -15,7 +15,8 @@ namespace DarkNights.Runtime.Session
         internal SessionHeroControl(ObjectSession world) { this.world = world; }
         internal static bool IsOperation(SessionOperation operation) => operation == SessionOperation.ClaimHero ||
             operation == SessionOperation.ReleaseHero || operation == SessionOperation.SelectHeroItem ||
-            operation == SessionOperation.UseHeroItem || operation == SessionOperation.Expedition;
+            operation == SessionOperation.UseHeroItem || operation == SessionOperation.Expedition ||
+            operation == SessionOperation.SelectDestination || operation == SessionOperation.CancelJourney;
 
         internal int AssignDefault(SessionConnection connection)
         {
@@ -59,6 +60,8 @@ namespace DarkNights.Runtime.Session
 
         internal int Apply(SessionConnection connection, SessionRequest request)
         {
+            if (request.Operation is SessionOperation.SelectDestination or SessionOperation.CancelJourney)
+                return SessionJourneyControl.Apply(world, connection, request);
             if (request.Operation == SessionOperation.Expedition) return SessionExpeditionControl.Apply(world, connection, request);
             ActorBehaviour actor = world.Index.Find<ActorBehaviour>(request.ActorIds[0]);
             if (request.Operation == SessionOperation.ClaimHero)

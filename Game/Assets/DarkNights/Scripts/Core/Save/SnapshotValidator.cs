@@ -65,9 +65,13 @@ namespace DarkNights.Core.Save
                 string extra = ExpeditionValidator.Validate(s.Expedition, s.Actors.Select(a => a.Id).ToArray(),
                     s.Buildings.Select(b => b.Id).ToArray(), s.Worksites.Select(w => w.Id).ToArray(), catalog.Balance.Expedition);
                 if (extra.Length != 0) return extra;
-                var ship = s.Buildings.SingleOrDefault(b => b.Kind == "ship");
+                extra = JourneyValidator.Validate(s.Expedition.Journey, stableOnly: true, worldId: s.Terrain.WorldId);
+                if (extra.Length != 0) return extra;
+                if (s.Buildings.Count(b => b.Kind == "ship") != 1) return "远征飞船数量无效";
+                var ship = s.Buildings.FirstOrDefault(b => b.Kind == "ship");
                 var device = s.Expedition.Devices.FirstOrDefault(d => d.Id == ship?.Id);
-                if (ship == null || device == null || !ExpeditionShipValidator.Transform(s.Expedition.Ship, ship.Id, (float)ship.X, device.Height, catalog.Balance.Expedition.Ship))
+                if (ship == null || device == null || !ExpeditionShipValidator.Transform(s.Expedition.Ship, ship.Id, (float)ship.X,
+                    device.Height, catalog.Balance.Expedition.Ship, s.Expedition.Journey))
                     return "飞船泊位或位置不匹配";
             }
             var context = new ValidationContext(s, catalog, layout);

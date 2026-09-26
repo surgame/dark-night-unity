@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-26 [太空到星球流程源码候选](docs/SPACE_TO_PLANET_IMPLEMENTATION.md)：在主分支 `31aaecf` 基线上接入船内太空开局、驾驶台选星球、可配置本地过场、后台地图生成、联机到达就绪、驾驶降落与下船；UI Toolkit 菜单为 `Dark Nights/配置/星球与航程`。候选协议 **15**／存档 **v11**。按用户要求未运行 Unity 导入、编译、测试、构建或验收，新增 `.meta` 和状态生成注册待接入；[完整验收列表](docs/SPACE_TO_PLANET_ACCEPTANCE.md)全部未执行。下方历史通过记录不代表该候选通过。
+
 2026-09-26 [当前地图入口](docs/SCENES.md)：正式 `Bootstrap → Expedition` 已使用 StrataCave 岩层、三层背景及当前共享地形刷新代码。新版工作台为 `ReferenceChamber`（固定）和 `RandomCave`（随机），Unity 菜单 `Dark Nights / Terrain` 可直接打开；调参使用 `Cave Wall Tuner`。旧 `TerrainDebugBootstrap`、`CaveExploration` 统一收进 `(old)`。当前代码默认 `ImmediateForeground = true`，有效前景为 LocalV2；下方 09-25“LegacyV1 默认／尚未导入”是早期记录。09-26 已有 Unity 实测 32 通过／2 失败，不能称完整画面、即时刷新或联机验收通过，详见场景索引。
 
 2026-09-25 [局部地形即时刷新执行记录](docs/IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)：隔离分支实现源驱动稀疏安装和 LocalV2 分页岩壁候选；AnyRuleD Core 138/138，纯算法全图/分页遮罩、岩粒及 RGBA 页对照 10 组通过。LegacyV1 仍为默认；Unity 导入/编译、运行画面、网络场景、碰撞、V1/V2 美术门槛与前台性能未验，完整即时刷新未交付。

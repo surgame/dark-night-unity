@@ -5,8 +5,8 @@
 ## 合同与架构（长期有效）
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — 当前技术架构合同
-- [MULTIPLAYER.md](MULTIPLAYER.md) — 联机协议与同步设计（协议 14；旧切片按日期保留）
-- [SAVE_FORMAT.md](SAVE_FORMAT.md) — 世界存档格式合同（v10；下文含历史版本）
+- [MULTIPLAYER.md](MULTIPLAYER.md) — 联机协议与同步设计（航程候选协议 15，未验证；旧切片按日期保留）
+- [SAVE_FORMAT.md](SAVE_FORMAT.md) — 世界存档格式合同（航程候选 v11，未验证；下文含历史版本）
 - [YYGC_CHANGES.md](YYGC_CHANGES.md) — YYGC 修改授权与改动账本（持续维护）
 
 ## 开发入口
@@ -25,9 +25,9 @@
 - [TERRAIN_DEBUG_BOOTSTRAP.md](TERRAIN_DEBUG_BOOTSTRAP.md) — (old) 随机地图 Debug Bootstrap，仅供旧版回归
 - [TERRAIN_GENERATION.md](TERRAIN_GENERATION.md) — 可破坏地形与地图生成器
 
-## 近期切片与候选（2026-09-22）
+## 近期切片与候选（2026-09-26）
 
-- [太空飞船到星球降落流程设计](SPACE_TO_PLANET_FLOW_DESIGN.md) — 2026-09-26 分析设计；YYGC 配置驱动、UI Toolkit 星球表格、会话内地图切换与联机就绪，尚未实施
+- [太空到星球源码候选](SPACE_TO_PLANET_IMPLEMENTATION.md) / [待验收清单](SPACE_TO_PLANET_ACCEPTANCE.md) / [设计](SPACE_TO_PLANET_FLOW_DESIGN.md) — 主分支 `31aaecf` 基线；YYGC 航程、UI Toolkit 星球表格、会话内切图和驾驶降落；按用户要求未执行 Unity 导入、编译、测试或验收
 - [局部地形即时刷新执行记录](IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md) — 2026-09-25 隔离候选；P2–P4 与 Unity 未验边界
 - [MAP_STATE_NETWORKING.md](MAP_STATE_NETWORKING.md) — AnyRuleD 地图联网重构与本轮验证边界
 - [STATIC_CAVE_BACKGROUND_PLAN.md](STATIC_CAVE_BACKGROUND_PLAN.md) / [STATIC_CAVE_BACKGROUND_EXECUTION.md](STATIC_CAVE_BACKGROUND_EXECUTION.md) — 静态背景岩层与独立洞穴材质

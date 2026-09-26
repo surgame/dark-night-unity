@@ -19,7 +19,13 @@ namespace DarkNights.Runtime.Objects
             HeroControlDefinition rules = actor.World.Catalog.Balance.HeroControl;
             if (rules == null) return;
             ActorState state = actor.Edit();
-            if (actor.World.Terrain != null) { Terrain.TerrainHeroMotion.Tick(actor.World.Terrain.Map, state, rules, delta, jump, thrust); return; }
+            if (actor.World.Terrain != null)
+            {
+                var flow = actor.World.Flow;
+                var planet = flow?.Enabled == true && !flow.IsSpace ? flow.ActivePlanet : null;
+                float ceiling = planet == null ? rules.MaximumHeight : Math.Max(rules.MaximumHeight, planet.DockHeight + rules.MaximumHeight);
+                Terrain.TerrainHeroMotion.Tick(actor.World.Terrain.Map, state, rules, delta, jump, thrust, ceiling); return;
+            }
             state.DropRemaining = Math.Max(0, state.DropRemaining - delta);
             if (state.SupportPlatform > 0)
             {

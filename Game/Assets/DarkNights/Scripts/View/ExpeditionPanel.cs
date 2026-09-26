@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
+using DarkNights.Core.Logic.State;
 using DarkNights.Core.ViewData;
+using DarkNights.View.Expedition;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,15 +15,21 @@ namespace DarkNights.View
         public Text Status;
         public Button[] Actions;
         public string[] Commands;
+        private Text[] labels;
+        private string[] originalLabels;
+        private Vector2[] originalPositions;
         public void Bind(Action<string> command)
         {
             if (Actions.Length != Commands.Length) throw new InvalidOperationException("远征按钮绑定不完整。");
+            labels = Actions.Select(a => a.GetComponentInChildren<Text>(true)).ToArray();
+            originalLabels = labels.Select(l => l.text).ToArray();
+            originalPositions = Actions.Select(a => ((RectTransform)a.transform).anchoredPosition).ToArray();
             for (int i = 0; i < Actions.Length; i++)
             { string name = Commands[i]; Actions[i].onClick.AddListener(() => command(name)); }
         }
-        public void Present(WorldViewData world, int slot, bool ready)
+        public void Present(WorldViewData world, int slot, bool ready, bool hostOnly = false, bool paused = false)
         {
-            var e = world?.Expedition; Panel.SetActive(e != null && ready);
+            var e = world?.Expedition; Panel.SetActive(e != null && (ready || e.Journey?.Enabled == true));
             if (e == null) return;
             var a = e.Crew.FirstOrDefault(c => c.OwnerSlot == slot);
             var shipId = world.Buildings.FirstOrDefault(b => b.Kind == "ship")?.Id ?? 0;
@@ -38,11 +46,28 @@ namespace DarkNights.View
                 $"未归队：人员 {e.Crew.Count(c => !c.Boarded && c.Role != 3)} · 货物 {exposed} · 设备 {devices}；中继在脚下，派工选近矿。");
             var flight = e.Ship;
             bool piloting = flight != null && flight.PilotId == a?.Id;
+            var journey = e.Journey;
+            if (journey?.Enabled == true)
+            {
+                string landing = journey.Phase == JourneyPhase.Descent && journey.ActivePlanet != null && ship != null ?
+                    $"\n离地 {ship.Height - journey.ActivePlanet.DockHeight:0} · 偏离泊位 {world.Buildings.First(b => b.Id == ship.Id).X - journey.ActivePlanet.DockX:0} · 速度 {flight.VelocityX:0}/{flight.VelocityY:0}" : "";
+                Status.text = $"{JourneyPresentationRules.Stage(journey.Phase)} · {journey.ActivePlanet?.DisplayName ?? "未选择目的地"}\n" +
+                    $"氧气 {a?.Oxygen ?? 0:0}  携带 {(a?.Iron ?? 0) + (a?.Gold ?? 0)}  船仓 {(ship?.Iron ?? 0) + (ship?.Gold ?? 0)}\n" +
+                    $"可用铁 {world.Camp.Stock.Iron} / 金 {world.Camp.Stock.Gold} · {(piloting ? "你在驾驶" : flight?.PilotId > 0 ? "驾驶位已占用" : "驾驶位空闲")}\n" +
+                    JourneyPresentationRules.Guidance(journey, piloting) + landing +
+                    (!ready ? "\n正在同步，操作尚未开放。" : "") +
+                    (paused ? "\n会话已暂停。" : "") +
+                    (journey.Error.Length != 0 ? "\n" + journey.Error : "");
+                PresentJourneyActions(world, slot, ready && !paused && (!hostOnly || slot == 0), piloting, a);
+                return;
+            }
             string[] flightStages = { "泊位", "等待归队", "关闭舱门", "悬停飞行" };
             Status.text += $"\n飞船：{flightStages[flight?.Phase ?? 0]} · {(flight?.PilotId > 0 ? "驾驶位已占用" : "驾驶位空闲")}\n" +
                 (piloting ? "A/D 平移 · 空格上升 · S 下降 · 松开悬停；仅可在原泊位着陆。" : "左坡道进舱 → 短梯到驾驶位；坡道前按 S 可贴地绕行。");
             for (int i = 0; i < Actions.Length; i++)
             {
+                Actions[i].gameObject.SetActive(true);
+                if (labels != null) { labels[i].text = originalLabels[i]; ((RectTransform)Actions[i].transform).anchoredPosition = originalPositions[i]; }
                 string c = Commands[i]; bool prep = e.Phase is 0 or 4, active = e.Phase is 1 or 2;
                 bool personal = c is "unload" or "board" or "relay" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
                 Actions[i].interactable = ready && (personal ? a != null : slot == 0) &&
@@ -53,6 +78,35 @@ namespace DarkNights.View
                      c == "deploy" ? piloting && flight.Phase == 0 && e.Phase == 1 :
                      c is "depart" or "robot" or "cargo" or "crew" or "resupply" ? prep && flight?.Phase == 0 :
                      c == "board" ? (active || e.Phase == 3) && a.Boarded : active);
+            }
+        }
+
+        private void PresentJourneyActions(WorldViewData world, int slot, bool ready, bool pilot, ExpeditionActorData actor)
+        {
+            var e = world.Expedition; var phase = e.Journey.Phase;
+            bool landed = phase == JourneyPhase.Landed, orbit = phase == JourneyPhase.Orbit;
+            int visible = 0;
+            for (int i = 0; i < Actions.Length; i++)
+            {
+                string command = Commands[i];
+                bool show = command == "pilot" ? orbit || landed || phase == JourneyPhase.Descent :
+                    command == "land" ? phase == JourneyPhase.Descent :
+                    command == "cancel-flight" ? phase == JourneyPhase.Preparing :
+                    landed && (command is "unload" or "board" or "relay" or "mine" or "deploy" or "robot" or "cargo" or "crew" or "resupply");
+                Actions[i].gameObject.SetActive(show);
+                if (!show) continue;
+                if (labels != null)
+                {
+                    labels[i].text = command == "pilot" ? orbit ? "选择目的地" : pilot ? "离开驾驶位" : "接管驾驶" :
+                        command == "land" ? "安全区着陆" : command == "cancel-flight" ? "取消航程" : originalLabels[i];
+                    ((RectTransform)Actions[i].transform).anchoredPosition = new Vector2(10 + visible % 3 * 141, -168 - visible / 3 * 30);
+                }
+                visible++;
+                Actions[i].interactable = ready && (command == "pilot" ? pilot ||
+                    (JourneyPresentationRules.AtCockpit(world, slot) && e.Ship.PilotId == 0) :
+                    command is "land" or "cancel-flight" ? pilot :
+                    command == "deploy" ? pilot && e.Ship.Phase == 0 :
+                    command is "robot" or "cargo" or "crew" or "resupply" ? slot == 0 && (e.Phase is 0 or 4) : actor != null);
             }
         }
     }

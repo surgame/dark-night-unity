@@ -7,6 +7,7 @@ namespace DarkNights.Core.ViewData
     public sealed class ExpeditionViewData
     {
         public ExpeditionShipData Ship { get; }
+        public JourneyViewData Journey { get; }
         public int Run { get; }
         public int Phase { get; }
         public double Risk { get; }
@@ -20,9 +21,10 @@ namespace DarkNights.Core.ViewData
         public int ResupplyCost { get; }
         public IReadOnlyList<ExpeditionActorData> Crew { get; }
         public IReadOnlyList<ExpeditionDeviceData> Devices { get; }
-        public ExpeditionViewData(int run, int phase, double risk, double clock, bool settled, int robotModule, int cargoModule, int crewModule, int lostCargo, int lostDevices, ExpeditionActorData[] crew, ExpeditionDeviceData[] devices, int resupplyCost = 0, ExpeditionShipData ship = null)
+        public ExpeditionViewData(int run, int phase, double risk, double clock, bool settled, int robotModule, int cargoModule, int crewModule, int lostCargo, int lostDevices, ExpeditionActorData[] crew, ExpeditionDeviceData[] devices, int resupplyCost = 0, ExpeditionShipData ship = null, JourneyViewData journey = null)
         {
             Ship = ship;
+            Journey = journey;
             Run = run;
             Phase = phase;
             Risk = risk;
