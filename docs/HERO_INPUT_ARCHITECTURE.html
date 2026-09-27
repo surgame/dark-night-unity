@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>主角控制链路：重构前后</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#f6f8fb; --surface:#fff; --ink:#152234; --muted:#526274; --line:#d8e0ea; --accent:#2563eb; --soft:#eaf1ff; --old:#9a5a18; --new:#147d64; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#101722; --surface:#182333; --ink:#ecf2fb; --muted:#b0bdcc; --line:#364559; --accent:#8db6ff; --soft:#263957; --old:#ffc17a; --new:#77dec0; } }
+    * { box-sizing:border-box; }
+    body { margin:0; padding:clamp(16px,4vw,42px); background:var(--bg); color:var(--ink); font:16px/1.55 system-ui,-apple-system,"Microsoft YaHei",sans-serif; }
+    main { max-width:1100px; margin:auto; }
+    h1 { margin:0 0 8px; font-size:clamp(25px,4vw,36px); line-height:1.25; }
+    p { margin:0 0 18px; color:var(--muted); }
+    .steps { display:flex; flex-wrap:wrap; gap:8px; margin:22px 0; }
+    button { appearance:none; border:1px solid var(--line); background:var(--surface); color:var(--ink); padding:10px 14px; border-radius:10px; font:inherit; cursor:pointer; }
+    button[aria-pressed="true"] { border-color:var(--accent); background:var(--soft); color:var(--accent); font-weight:700; }
+    button:focus-visible, a:focus-visible { outline:3px solid var(--accent); outline-offset:2px; }
+    .compare { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+    article { border:1px solid var(--line); border-radius:14px; background:var(--surface); padding:20px; min-width:0; }
+    .tag { display:inline-block; font-size:13px; font-weight:700; letter-spacing:.04em; margin-bottom:8px; }
+    .before .tag { color:var(--old); } .after .tag { color:var(--new); }
+    h2 { margin:0 0 12px; font-size:22px; }
+    h3 { margin:15px 0 5px; font-size:14px; color:var(--muted); }
+    .path { font-family:ui-monospace,SFMono-Regular,Consolas,monospace; overflow-wrap:anywhere; color:var(--ink); }
+    .detail { min-height:4.5em; margin:0; color:var(--ink); }
+    a { color:var(--accent); overflow-wrap:anywhere; }
+    .invariants { margin-top:18px; border-top:1px solid var(--line); padding-top:16px; }
+    .invariants h2 { font-size:18px; }
+    .invariants ul { margin:8px 0 0; padding-left:22px; }
+    .invariants li { margin:5px 0; }
+    @media (max-width:680px) { .compare { grid-template-columns:1fr; } article { padding:16px; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>主角控制链路：重构前后</h1>
+  <p>选择一个环节，查看职责如何变化。权威状态、YYGC 命令链、60 Hz 服务端推进保持原有归属。</p>
+  <nav class="steps" aria-label="链路环节" id="steps"></nav>
+  <section class="compare" aria-live="polite" aria-label="重构前后对照">
+    <article class="before"><span class="tag">重构前</span><h2 id="before-title"></h2><h3>调用路径</h3><div class="path" id="before-path"></div><h3>职责与问题</h3><p class="detail" id="before-detail"></p><a id="before-link" href="#">查看相关代码</a></article>
+    <article class="after"><span class="tag">重构后</span><h2 id="after-title"></h2><h3>调用路径</h3><div class="path" id="after-path"></div><h3>职责与收益</h3><p class="detail" id="after-detail"></p><a id="after-link" href="#">查看相关代码</a></article>
+  </section>
+  <section class="invariants" aria-label="链路不变量">
+    <h2>始终保留的边界</h2>
+    <ul>
+      <li>Unity 渲染帧采样输入边沿；变化最高 30 Hz，静止 10 Hz 保活，短按跨发送间隔保留。</li>
+      <li>YYGC 输入服务负责动作许可与交互互斥；R3 继续用于网络投影订阅，不替代逐帧边沿采样。</li>
+      <li>服务端验证连接、租约、序号、时间窗；ActorState 是唯一权威角色状态。</li>
+      <li>本次重构未运行编译、Play 或联机测试，人工验证仍待完成。</li>
+    </ul>
+  </section>
+</main>
+<script>
+(() => {
+  const data = [
+    { name:"① 本地输入", before:["HeroPlayerController.Update", "Update 同时读方向、跳跃、下落、道具与快捷键，控制器持有多组输入边沿字段。", "https://github.com/surgame/dark-night-unity/blob/269dc90/Game/Assets/DarkNights/Scripts/Entry/HeroPlayerController.cs"], after:["GameInputActions → HeroInputSampler.Sample", "View 读取 YYGC 许可后的动作，并冻结一次输入 Packet；Entry 只提供角色展示上下文。", "../Game/Assets/DarkNights/Scripts/View/HeroInputSampler.cs"] },
+    { name:"② 缓冲与发送", before:["HeroPlayerController.Update → Send", "30 Hz 限速、10 Hz 保活、短按缓存及发送时机都写在同一个 Update 中。", "https://github.com/surgame/dark-night-unity/blob/269dc90/Game/Assets/DarkNights/Scripts/Entry/HeroPlayerController.cs"], after:["HeroInputSampler → HeroPlayerController.Send", "采样器独占边沿缓冲与节流；控制器接收冻结 Packet，再交给 SessionClient 发送。", "../Game/Assets/DarkNights/Scripts/View/HeroInputSampler.cs"] },
+    { name:"③ YYGC 命令", before:["SessionClient.SendInput → Gateway", "通过现有 YYGC 命令链传输，Host 与客户端走同一权威入口。", "https://github.com/surgame/dark-night-unity/blob/269dc90/Game/Assets/DarkNights/Scripts/Runtime/Network/SessionClient.cs"], after:["SessionClient.SendInput → Gateway", "传输链路保持一致；Packet 只整理本地采样结果，不建立第二套对象或网络系统。", "../Game/Assets/DarkNights/Scripts/Runtime/Network/SessionClient.cs"] },
+    { name:"④ 服务端授权", before:["SessionAuthority → SessionHeroControl.Receive/Apply", "默认接管、操作分派和输入验证集中在较密的条件分支中。", "https://github.com/surgame/dark-night-unity/blob/269dc90/Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs"], after:["SessionAuthority → FindDefaultCandidate / ApplyOwned / ValidInput / ApplyInput", "候选角色选择、操作授权、数据校验和状态写入分别命名；未知操作显式拒绝。", "../Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs"] },
+    { name:"⑤ 权威模拟", before:["ActorBehaviour.Tick → HeroControlBehaviour.Tick → ActorState", "ObjectsV2 Behaviour 按服务端 60 Hz 推进同一 ActorState。", "https://github.com/surgame/dark-night-unity/blob/269dc90/Game/Assets/DarkNights/Scripts/Runtime/Objects/ActorBehaviour.cs"], after:["ActorBehaviour.Tick → HeroControlBehaviour.Tick → ActorState", "权威状态和推进顺序保持不变，客户端采样器不写入角色状态。", "../Game/Assets/DarkNights/Scripts/Runtime/Objects/ActorBehaviour.cs"] },
+    { name:"⑥ 镜头表现", before:["HeroPlayerController.LateUpdate → PinewatchStage.FocusHero/FocusShip", "Entry 判断船员身份、查找外观并选择人物或飞船镜头。", "https://github.com/surgame/dark-night-unity/blob/269dc90/Game/Assets/DarkNights/Scripts/Entry/HeroPlayerController.cs"], after:["HeroPlayerController.LateUpdate → PinewatchStage.FollowControlledActor", "Entry 只检查本地许可；View 按冻结副本和已插值外观选择镜头目标。", "../Game/Assets/DarkNights/Scripts/View/PinewatchStage.cs"] }
+  ];
+  const steps = document.getElementById("steps");
+  const render = index => {
+    const item = data[index];
+    document.getElementById("before-title").textContent = item.name;
+    document.getElementById("after-title").textContent = item.name;
+    for (const [side, entry] of [["before", item.before], ["after", item.after]]) {
+      document.getElementById(side + "-path").textContent = entry[0];
+      document.getElementById(side + "-detail").textContent = entry[1];
+      document.getElementById(side + "-link").href = entry[2];
+    }
+    [...steps.children].forEach((button, position) => button.setAttribute("aria-pressed", String(position === index)));
+  };
+  data.forEach((item, index) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = item.name;
+    button.setAttribute("aria-pressed", "false");
+    button.addEventListener("click", () => render(index));
+    steps.appendChild(button);
+  });
+  render(0);
+})();
+</script>
+</body>
+</html>

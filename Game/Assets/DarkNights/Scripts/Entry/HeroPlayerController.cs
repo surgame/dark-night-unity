@@ -14,12 +14,12 @@ using UnityEngine;
 namespace DarkNights.Entry
 {
     /// <summary>
-    /// 单个本地玩家的输入采样和控制请求适配；角色及背包以服务端冻结投影为准。
-    /// 输入变化最高 30 Hz、无变化 10 Hz 保活，短按跨渲染帧保留至发送；不预测位置或结算道具。
+    /// 单个本地玩家的角色上下文、控制请求和输入发送装配；角色及背包以服务端冻结投影为准。
+    /// View 采样器负责逐帧短按和节流，本类不预测位置或结算道具。
     /// </summary>
     public sealed class HeroPlayerController : MonoBehaviour
     {
-        private readonly HeroActionInput equipment = new HeroActionInput();
+        private HeroInputSampler sampler;
         private SessionNetwork network;
         private CampInput camp;
         private GameInputActions input;
@@ -28,10 +28,10 @@ namespace DarkNights.Entry
         private HeroHudBehaviour hud;
         private YYInputRebindingHandle rebind;
         private YYInteractionSessionHandle rebindModal;
-        private bool preferHero = true, campControlEnabled, replayOnly, attempted, jumpPending, dropPending, sentJump, sentUse, sentDrop;
-        private int epoch, actorId, lease, sentDirection, pendingItem = -1;
+        private bool preferHero = true, campControlEnabled, replayOnly, attempted;
+        private int epoch, actorId, lease, pendingItem = -1;
         private long connection, selectionRequest, claimRequest;
-        private double nextSend, heartbeat, nextToggle;
+        private double nextToggle;
         private string notice = "", jumpLabel;
         public ActorViewData Current { get; private set; }
         public string JumpBindingLabel => jumpLabel;
@@ -56,6 +56,7 @@ namespace DarkNights.Entry
         {
             network = session; camp = campInput; input = actions; stage = scene; hud = panel;
             entities = visuals;
+            sampler = new HeroInputSampler(actions, scene.SceneCamera);
             campControlEnabled = System.Environment.GetCommandLineArgs().Contains("--dn-camp-mode");
             replayOnly = System.Environment.GetCommandLineArgs().Contains("--dn-role") &&
                 System.Environment.GetCommandLineArgs().Contains("--dn-input-replay");
@@ -80,9 +81,8 @@ namespace DarkNights.Entry
                     if (actor.ControllerSlot == network.Client.PlayerSlot) { Current = actor; break; }
             if ((Current?.Id ?? 0) != actorId || (Current?.ControlLease ?? 0) != lease)
             {
-                jumpPending = dropPending = sentJump = sentUse = false; sentDirection = 0;
-                actorId = Current?.Id ?? 0; lease = Current?.ControlLease ?? 0; nextSend = heartbeat = 0;
-                pendingItem = -1; equipment.Cancel();
+                actorId = Current?.Id ?? 0; lease = Current?.ControlLease ?? 0;
+                pendingItem = -1; sampler.ResetControl();
                 if (Current != null) camp.SelectEntity(Current.Id);
             }
             bool controlling = preferHero && (Current != null || !campControlEnabled);
@@ -109,65 +109,33 @@ namespace DarkNights.Entry
         private void Update()
         {
             if (replayOnly || input == null || network.Client.Replica.Current == null || !network.Client.Ready) return;
-            if (campControlEnabled)
-            {
-                var toggle = input.HeroMode ? input.HeroToggle : input.CampToggle;
-                if (input.CanRead(toggle) && toggle.WasPressedThisFrame()) HandleAction("HeroToggle").Forget();
-            }
+            SampleModeToggle();
             if (!input.HeroMode || Current == null) return;
-            bool allowed = input.CanRead(input.Move) && !network.Client.Replica.Current.Paused;
-            int direction = allowed ? Math.Sign(input.Move.ReadValue<float>()) : 0;
-            bool jump = allowed && input.CanRead(input.Jump) && input.Jump.IsPressed();
-            bool pilot = network.Client.Replica.Current.World.Expedition?.Ship?.PilotId == Current.Id;
-            bool aboard = network.Client.Replica.Current.World.Expedition?.Crew.Any(a => a.Id == Current.Id && a.Boarded) == true;
-            Vector3 hand = entities.Visual(Current.Id)?.transform.position ?? new Vector3(Current.X / 100, Current.Height / 100, 0);
-            equipment.Sample(input, stage.SceneCamera, hand + Vector3.up * .09f, allowed && pendingItem < 0 && !aboard);
-            bool use = equipment.Held;
-            if (allowed)
-            {
-                jumpPending |= input.CanRead(input.Jump) && input.Jump.WasPressedThisFrame();
-                dropPending = pilot || !aboard && network.Client.Replica.Current.World.Expedition != null ? input.CanRead(input.Drop) && input.Drop.IsPressed() : dropPending || input.CanRead(input.Drop) && input.Drop.WasPressedThisFrame();
-            }
-            else jumpPending = dropPending = false;
-            double now = Time.unscaledTimeAsDouble;
-            bool changed = direction != sentDirection || jump != sentJump || use != sentUse || jumpPending || dropPending != sentDrop || (!pilot && dropPending) || equipment.Changed;
-            if (now >= nextSend && (changed || now >= heartbeat))
-            {
-                Send(direction, jump, use, jumpPending, dropPending).Forget();
-                equipment.Consume();
-                sentDirection = direction; sentJump = jump; sentUse = use; sentDrop = dropPending;
-                jumpPending = dropPending = false;
-                nextSend = now + 1.0 / 30; heartbeat = now + 0.1;
-            }
-            if (allowed && !aboard)
-            {
-                int selected = input.CanRead(input.Item1) && input.Item1.WasPressedThisFrame() ? 0 :
-                    input.CanRead(input.Item2) && input.Item2.WasPressedThisFrame() ? 1 :
-                    input.CanRead(input.Item3) && input.Item3.WasPressedThisFrame() ? 2 :
-                    input.CanRead(input.Item4) && input.Item4.WasPressedThisFrame() ? 3 : -1;
-                float scroll = input.PointerOverUi ? 0 : input.Scroll.ReadValue<Vector2>().y;
-                if (selected < 0 && scroll != 0) selected = (Current.SelectedItem + (scroll > 0 ? 3 : 1)) % 4;
-                if (selected >= 0) SelectItem(selected).Forget();
-                if (Current.SelectedItem == 3 && pendingItem < 0 && input.CanRead(input.UseItem) && input.UseItem.WasPressedThisFrame()) Use().Forget();
-            }
+            if (sampler.Sample(Current, network.Client.Replica.Current, entities, pendingItem >= 0,
+                Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet)) Send(packet).Forget();
+            if (sampler.SelectedItem >= 0) SelectItem(sampler.SelectedItem).Forget();
+            if (sampler.UseItemRequested) Use().Forget();
+        }
+
+        private void SampleModeToggle()
+        {
+            if (!campControlEnabled) return;
+            var toggle = input.HeroMode ? input.HeroToggle : input.CampToggle;
+            if (input.CanRead(toggle) && toggle.WasPressedThisFrame()) HandleAction("HeroToggle").Forget();
         }
 
         private void LateUpdate()
         {
-            if (input == null || !input.HeroMode || Current == null || !network.Client.Ready ||
-                network.Client.Replica.Current?.Epoch != epoch ||
-                network.Client.ConnectionGeneration != connection ||
-                YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.CameraInput)) return;
+            if (!CanFollowCamera()) return;
             // 等待所有 Update 完成，跟随本帧插值后的显示位置，避免与低频快照产生相对抖动。
-            EntityView visual = entities.Visual(Current.Id);
-            var expedition = network.Client.Replica.Current.World.Expedition;
-            if (expedition?.Ship != null && expedition.Crew.Any(a => a.Id == Current.Id && a.Boarded))
-            {
-                var ship = entities.Visual(expedition.Ship.Id);
-                if (ship != null) { stage.FocusShip(ship.transform.position); return; }
-            }
-            if (visual != null) stage.FocusHero(visual.transform.position);
+            stage.FollowControlledActor(Current.Id, network.Client.Replica.Current, entities);
         }
+
+        private bool CanFollowCamera() =>
+            input != null && input.HeroMode && Current != null && network.Client.Ready &&
+                network.Client.Replica.Current?.Epoch == epoch &&
+                network.Client.ConnectionGeneration == connection &&
+                !YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.CameraInput);
 
         public async UniTask<bool> HandleAction(string action)
         {
@@ -229,17 +197,20 @@ namespace DarkNights.Entry
             catch (Exception error) { notice = error.Message; }
         }
 
-        private async UniTask Send(int direction, bool jump, bool use, bool pressed = false, bool drop = false)
+        private async UniTask Send(HeroInputSampler.Packet packet)
         {
-            try { await network.Client.SendInput(actorId, lease, direction, jump, use, pressed, drop, equipment.Aim, Current?.SelectionRevision ?? 0, equipment.Pressed, equipment.Released, equipment.Cancelled); }
+            try
+            {
+                await network.Client.SendInput(actorId, lease, packet.Direction, packet.JumpHeld, packet.UseHeld,
+                    packet.JumpPressed, packet.DropPressed, packet.Aim, packet.SelectionRevision,
+                    packet.UsePressed, packet.UseReleased, packet.CancelUse);
+            }
             catch (Exception error) { notice = error.Message; }
         }
         private void StopInput()
         {
-            jumpPending = dropPending = false;
-            equipment.Cancel();
-            if (actorId > 0) Send(0, false, false).Forget();
-            sentDirection = 0; sentJump = sentUse = sentDrop = false;
+            HeroInputSampler.Packet packet = sampler?.Stop(Current?.SelectionRevision ?? 0) ?? default;
+            if (actorId > 0) Send(packet).Forget();
         }
         private void BeginRebind()
         {

@@ -1,0 +1,155 @@
+using System;
+using System.Linq;
+using DarkNights.Core.ViewData;
+using UnityEngine;
+
+namespace DarkNights.View
+{
+    /// <summary>
+    /// 本地逐帧采样、短按缓冲和输入发送节流；只持有客户端输入，不修改角色权威状态。
+    /// 切换角色或输入失效时生成一次归零意图，发送仍由 Entry 交给会话客户端。
+    /// </summary>
+    public sealed class HeroInputSampler
+    {
+        /// <summary>一次发送所需的冻结输入；避免网络调用读取下一帧已变化的采样状态。</summary>
+        public readonly struct Packet
+        {
+            public readonly int Direction;
+            public readonly bool JumpHeld, UseHeld, JumpPressed, DropPressed;
+            public readonly float Aim;
+            public readonly int SelectionRevision;
+            public readonly bool UsePressed, UseReleased, CancelUse;
+
+            internal Packet(int direction, bool jumpHeld, bool useHeld, bool jumpPressed, bool dropPressed,
+                float aim, int selectionRevision, bool usePressed, bool useReleased, bool cancelUse)
+            {
+                Direction = direction; JumpHeld = jumpHeld; UseHeld = useHeld;
+                JumpPressed = jumpPressed; DropPressed = dropPressed; Aim = aim;
+                SelectionRevision = selectionRevision; UsePressed = usePressed;
+                UseReleased = useReleased; CancelUse = cancelUse;
+            }
+        }
+
+        private readonly GameInputActions input;
+        private readonly Camera camera;
+        private readonly EquipmentInput equipment = new EquipmentInput();
+        private bool jumpPending, dropPending, sentJump, sentUse, sentDrop;
+        private int sentDirection;
+        private double nextSend, heartbeat;
+        public int SelectedItem { get; private set; } = -1;
+        public bool UseItemRequested { get; private set; }
+
+        public HeroInputSampler(GameInputActions input, Camera camera)
+        {
+            this.input = input; this.camera = camera;
+        }
+
+        public void ResetControl()
+        {
+            jumpPending = dropPending = sentJump = sentUse = sentDrop = false;
+            sentDirection = 0; nextSend = heartbeat = 0;
+            SelectedItem = -1; UseItemRequested = false;
+            equipment.Cancel();
+        }
+
+        public Packet Stop(int selectionRevision)
+        {
+            jumpPending = dropPending = sentJump = sentUse = sentDrop = false;
+            sentDirection = 0; SelectedItem = -1; UseItemRequested = false;
+            equipment.Cancel();
+            return new Packet(0, false, false, false, false, equipment.Aim, selectionRevision,
+                equipment.Pressed, equipment.Released, equipment.Cancelled);
+        }
+
+        public bool Sample(ActorViewData actor, SessionViewData frame, IEntityVisuals visuals,
+            bool selectionPending, double now, out Packet packet)
+        {
+            bool allowed = input.CanRead(input.Move) && !frame.Paused;
+            bool pilot = frame.World.Expedition?.Ship?.PilotId == actor.Id;
+            bool aboard = frame.World.Expedition?.Crew.Any(a => a.Id == actor.Id && a.Boarded) == true;
+            Vector3 hand = visuals.Visual(actor.Id)?.transform.position ??
+                new Vector3(actor.X / 100, actor.Height / 100, 0);
+            int direction = allowed ? Math.Sign(input.Move.ReadValue<float>()) : 0;
+            bool jump = allowed && input.CanRead(input.Jump) && input.Jump.IsPressed();
+            equipment.Sample(input, camera, hand + Vector3.up * .09f, allowed && !selectionPending && !aboard);
+            SampleEdges(allowed, pilot, aboard, frame.World.Expedition != null);
+            SelectedItem = allowed && !aboard ? ReadSelectedItem(actor.SelectedItem) : -1;
+            UseItemRequested = allowed && !aboard && actor.SelectedItem == 3 && !selectionPending &&
+                input.CanRead(input.UseItem) && input.UseItem.WasPressedThisFrame();
+
+            bool changed = direction != sentDirection || jump != sentJump || equipment.Held != sentUse ||
+                jumpPending || dropPending != sentDrop || (!pilot && dropPending) || equipment.Changed;
+            if (now < nextSend || (!changed && now < heartbeat))
+            {
+                packet = default;
+                return false;
+            }
+
+            packet = new Packet(direction, jump, equipment.Held, jumpPending, dropPending, equipment.Aim,
+                actor.SelectionRevision, equipment.Pressed, equipment.Released, equipment.Cancelled);
+            equipment.Consume();
+            sentDirection = direction; sentJump = jump; sentUse = packet.UseHeld; sentDrop = dropPending;
+            jumpPending = dropPending = false;
+            nextSend = now + 1.0 / 30; heartbeat = now + 0.1;
+            return true;
+        }
+
+        private void SampleEdges(bool allowed, bool pilot, bool aboard, bool expedition)
+        {
+            if (!allowed) { jumpPending = dropPending = false; return; }
+            jumpPending |= input.CanRead(input.Jump) && input.Jump.WasPressedThisFrame();
+            bool drop = input.CanRead(input.Drop);
+            if (pilot || (!aboard && expedition))
+                dropPending = drop && input.Drop.IsPressed();
+            else
+                dropPending |= drop && input.Drop.WasPressedThisFrame();
+        }
+
+        private int ReadSelectedItem(int selectedItem)
+        {
+            if (input.CanRead(input.Item1) && input.Item1.WasPressedThisFrame()) return 0;
+            if (input.CanRead(input.Item2) && input.Item2.WasPressedThisFrame()) return 1;
+            if (input.CanRead(input.Item3) && input.Item3.WasPressedThisFrame()) return 2;
+            if (input.CanRead(input.Item4) && input.Item4.WasPressedThisFrame()) return 3;
+            float scroll = input.PointerOverUi ? 0 : input.Scroll.ReadValue<Vector2>().y;
+            return scroll == 0 ? -1 : (selectedItem + (scroll > 0 ? 3 : 1)) % 4;
+        }
+
+        /// <summary>瞄准与使用动作的本地边沿；阻塞后要求松开再按，取消不解释为释放。</summary>
+        private sealed class EquipmentInput
+        {
+            private bool suppress;
+            private float sentAim;
+            public float Aim { get; private set; }
+            public bool Held { get; private set; }
+            public bool Pressed { get; private set; }
+            public bool Released { get; private set; }
+            public bool Cancelled { get; private set; }
+            public bool Changed => Pressed || Released || Cancelled || Mathf.Abs(Mathf.DeltaAngle(sentAim, Aim)) > 1;
+
+            public void Sample(GameInputActions input, Camera camera, Vector3 hand, bool allowed)
+            {
+                bool raw = input.UseItem.IsPressed();
+                if (!allowed || !input.CanRead(input.UseItem)) { Cancel(); return; }
+                if (suppress)
+                {
+                    if (!raw) suppress = false;
+                    Held = false;
+                    return;
+                }
+                Vector3 aim = camera.ScreenToWorldPoint(input.Pointer) - hand;
+                if (aim.sqrMagnitude > .0001f) Aim = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
+                Pressed |= input.UseItem.WasPressedThisFrame();
+                Released |= input.UseItem.WasReleasedThisFrame();
+                Held = raw;
+            }
+
+            public void Consume() { Pressed = Released = Cancelled = false; sentAim = Aim; }
+            public void Cancel()
+            {
+                Held = Pressed = Released = false;
+                Cancelled = suppress = true;
+            }
+        }
+    }
+}

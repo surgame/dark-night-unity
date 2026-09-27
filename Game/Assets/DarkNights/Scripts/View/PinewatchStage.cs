@@ -40,6 +40,21 @@ namespace DarkNights.View
             targetCameraHeight = position.y * 100 + 90;
             targetCameraX = position.x * 100 - 240 / TargetZoom;
         }
+        /// <summary>按本地冻结副本选择人物或飞船目标，镜头只跟随已插值的外观位置。</summary>
+        public void FollowControlledActor(int actorId, SessionViewData frame, IEntityVisuals visuals)
+        {
+            var expedition = frame?.World.Expedition;
+            if (expedition?.Ship != null)
+                foreach (var crew in expedition.Crew)
+                    if (crew.Id == actorId && crew.Boarded)
+                    {
+                        EntityView ship = visuals.Visual(expedition.Ship.Id);
+                        if (ship != null) { FocusShip(ship.transform.position); return; }
+                        break;
+                    }
+            EntityView hero = visuals.Visual(actorId);
+            if (hero != null) FocusHero(hero.transform.position);
+        }
         private double visualTime;
         private int epoch;
         private bool observing, expedition, shipFraming, cameraInitialized;

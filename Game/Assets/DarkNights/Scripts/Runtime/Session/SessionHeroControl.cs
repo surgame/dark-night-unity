@@ -22,26 +22,44 @@ namespace DarkNights.Runtime.Session
         {
             if (connection == null || world.Camp.Read().Mode != SessionMode.Playing ||
                 world.Catalog.Balance.HeroControl == null) return 0;
-            foreach (var current in world.Index.Actors)
-                if (current.Read().ControllerSlot == connection.PlayerSlot)
-                {
-                    connection.DefaultHeroId = current.Id;
-                    connection.DefaultHeroRecoveryPending = false;
-                    if (current.Read().ControllerGeneration == connection.Generation) return 0;
-                    return Claim(connection, current);
-                }
+            ActorBehaviour current = FindControlledBy(connection.PlayerSlot);
+            if (current != null)
+            {
+                connection.DefaultHeroId = current.Id;
+                connection.DefaultHeroRecoveryPending = false;
+                return current.Read().ControllerGeneration == connection.Generation ? 0 : Claim(connection, current);
+            }
+            ActorBehaviour candidate = FindDefaultCandidate(connection);
+            return candidate != null ? Claim(connection, candidate) : SpawnDefault(connection);
+        }
+
+        private ActorBehaviour FindControlledBy(int slot)
+        {
+            foreach (var actor in world.Index.Actors)
+                if (actor.Read().ControllerSlot == slot) return actor;
+            return null;
+        }
+
+        private ActorBehaviour FindDefaultCandidate(SessionConnection connection)
+        {
             if (world.IsExpedition)
                 foreach (var saved in world.Index.Actors)
-                    if (saved.Read().OwnerSlot == connection.PlayerSlot && CanClaim(saved)) return Claim(connection, saved);
+                    if (saved.Read().OwnerSlot == connection.PlayerSlot && CanClaim(saved)) return saved;
             ActorBehaviour actor = world.Index.Find<ActorBehaviour>(connection.DefaultHeroId);
             if (connection.DefaultHeroRecoveryPending && actor?.Read().ManualControl != true) actor = null;
-            if (CanClaim(actor)) return Claim(connection, actor);
+            if (CanClaim(actor)) return actor;
             foreach (var restored in world.Index.Actors)
             {
                 if (!restored.Read().ManualControl || !CanClaim(restored) ||
                     world.IsExpedition && restored.Read().OwnerSlot >= 0 && restored.Read().OwnerSlot != connection.PlayerSlot) continue;
-                return Claim(connection, restored);
+                return restored;
             }
+            return null;
+        }
+
+        private int SpawnDefault(SessionConnection connection)
+        {
+            ActorBehaviour actor;
             try
             {
                 actor = world.Mutations.Run(() =>
@@ -60,30 +78,57 @@ namespace DarkNights.Runtime.Session
 
         internal int Apply(SessionConnection connection, SessionRequest request)
         {
-            if (request.Operation is SessionOperation.SelectDestination or SessionOperation.CancelJourney)
-                return SessionJourneyControl.Apply(world, connection, request);
-            if (request.Operation == SessionOperation.Expedition) return SessionExpeditionControl.Apply(world, connection, request);
-            ActorBehaviour actor = world.Index.Find<ActorBehaviour>(request.ActorIds[0]);
-            if (request.Operation == SessionOperation.ClaimHero)
+            switch (request.Operation)
             {
-                if (!CanClaim(actor)) return 0;
-                foreach (var current in world.Index.Actors)
-                    if (current.Read().ControllerSlot == connection.PlayerSlot) return 0;
-                return Claim(connection, actor) > 0 ? 1 : 0;
+                case SessionOperation.SelectDestination:
+                case SessionOperation.CancelJourney:
+                    return SessionJourneyControl.Apply(world, connection, request);
+                case SessionOperation.Expedition:
+                    return SessionExpeditionControl.Apply(world, connection, request);
+                case SessionOperation.ClaimHero:
+                    return ApplyClaim(connection, request.ActorIds[0]);
+                case SessionOperation.ReleaseHero:
+                case SessionOperation.SelectHeroItem:
+                case SessionOperation.UseHeroItem:
+                    return ApplyOwned(connection, request);
+                default:
+                    return 0;
             }
+        }
+
+        private int ApplyClaim(SessionConnection connection, int actorId)
+        {
+            ActorBehaviour actor = world.Index.Find<ActorBehaviour>(actorId);
+            if (!CanClaim(actor) || FindControlledBy(connection.PlayerSlot) != null) return 0;
+            return Claim(connection, actor) > 0 ? 1 : 0;
+        }
+
+        private int ApplyOwned(SessionConnection connection, SessionRequest request)
+        {
+            ActorBehaviour actor = world.Index.Find<ActorBehaviour>(request.ActorIds[0]);
             if (actor == null || actor.Enemy || actor.Hp <= 0 || actor.IsTraining ||
                 world.Camp.Read().Mode != SessionMode.Playing || world.Catalog.Balance.HeroControl == null) return 0;
             var control = actor.Object.GetBehaviour<HeroControlBehaviour>();
-            if (control == null) return 0;
-            if (!Owns(actor, connection, request.ControlLease)) return 0;
+            if (control == null || !Owns(actor, connection, request.ControlLease)) return 0;
             int affected = world.Mutations.Run(() =>
             {
-                if (request.Operation == SessionOperation.ReleaseHero) { control.Release(); return 1; }
+                if (request.Operation == SessionOperation.ReleaseHero)
+                {
+                    control.Release();
+                    return 1;
+                }
                 if (world.Paused || world.IsExpedition && actor.Read().Boarded) return 0;
                 var inventory = actor.Object.GetBehaviour<HeroInventoryBehaviour>();
                 if (inventory == null) return 0;
-                return (request.Operation == SessionOperation.SelectHeroItem ? inventory.Select(request.Value) :
-                    inventory.Use(request.Kind, request.Value, request.TargetId)) ? 1 : 0;
+                switch (request.Operation)
+                {
+                    case SessionOperation.SelectHeroItem:
+                        return inventory.Select(request.Value) ? 1 : 0;
+                    case SessionOperation.UseHeroItem:
+                        return inventory.Use(request.Kind, request.Value, request.TargetId) ? 1 : 0;
+                    default:
+                        return 0;
+                }
             });
             if (affected > 0 && request.Operation == SessionOperation.ReleaseHero) connection.DefaultHeroId = 0;
             return affected;
@@ -91,28 +136,41 @@ namespace DarkNights.Runtime.Session
 
         internal bool Receive(SessionConnection connection, HeroInputRequest input, long tick)
         {
-            if (input.ActorId <= 0 || input.ControlLease <= 0 || input.Sequence <= 0 ||
-                input.Horizontal < -1 || input.Horizontal > 1 || input.ObservedTick < 0 || input.ObservedTick > tick ||
-                tick - input.ObservedTick > 60 || world.Paused || world.Camp.Read().Mode != SessionMode.Playing) return false;
-            if (float.IsNaN(input.AimAngle) || float.IsInfinity(input.AimAngle) || Math.Abs(input.AimAngle) > 180 || input.SelectionRevision < 0) return false;
+            if (!ValidInput(input, tick)) return false;
             var actor = world.Index.Find<ActorBehaviour>(input.ActorId);
             if (!Owns(actor, connection, input.ControlLease) || input.Sequence <= actor.Read().LastInputSequence) return false;
             return world.Mutations.Run(() =>
             {
-                ActorState state = actor.Edit();
-                state.LastInputSequence = input.Sequence; state.LastInputTick = tick;
-                state.Horizontal = input.Horizontal; state.JumpHeld = input.JumpHeld;
-                state.AimAngle = input.AimAngle;
-                if (input.CancelUse || input.SelectionRevision != state.SelectionRevision) HeroEquipment.Cancel(state);
-                else
-                {
-                    state.UseHeld = input.UseHeld;
-                    state.UsePressed |= input.UsePressed;
-                    state.UseReleased |= input.UseReleased;
-                }
-                state.JumpPending |= input.JumpPressed; state.DropPending = world.IsExpedition && world.Expedition.Ship?.Read().PilotId == actor.Id ? input.DropPressed : state.DropPending || input.DropPressed;
+                ApplyInput(actor.Edit(), actor.Id, input, tick);
                 return true;
             });
+        }
+
+        private bool ValidInput(HeroInputRequest input, long tick)
+        {
+            if (input.ActorId <= 0 || input.ControlLease <= 0 || input.Sequence <= 0) return false;
+            if (input.Horizontal < -1 || input.Horizontal > 1 || input.ObservedTick < 0 ||
+                input.ObservedTick > tick || tick - input.ObservedTick > 60) return false;
+            if (world.Paused || world.Camp.Read().Mode != SessionMode.Playing) return false;
+            return !float.IsNaN(input.AimAngle) && !float.IsInfinity(input.AimAngle) &&
+                Math.Abs(input.AimAngle) <= 180 && input.SelectionRevision >= 0;
+        }
+
+        private void ApplyInput(ActorState state, int actorId, HeroInputRequest input, long tick)
+        {
+            state.LastInputSequence = input.Sequence; state.LastInputTick = tick;
+            state.Horizontal = input.Horizontal; state.JumpHeld = input.JumpHeld;
+            state.AimAngle = input.AimAngle;
+            if (input.CancelUse || input.SelectionRevision != state.SelectionRevision) HeroEquipment.Cancel(state);
+            else
+            {
+                state.UseHeld = input.UseHeld;
+                state.UsePressed |= input.UsePressed;
+                state.UseReleased |= input.UseReleased;
+            }
+            state.JumpPending |= input.JumpPressed;
+            bool pilot = world.IsExpedition && world.Expedition.Ship?.Read().PilotId == actorId;
+            state.DropPending = pilot ? input.DropPressed : state.DropPending || input.DropPressed;
         }
 
         internal void Expire(long tick)

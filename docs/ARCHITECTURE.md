@@ -108,7 +108,7 @@ SessionEntityViews 只按当前 epoch／EntityId 分发展示：Host 查询权�
 
 2026-09-16 的[联合切片](archive/HERO_INPUT_EXECUTION.md)将旧决策原序提取为 AutomaticActorControlBehaviour，通过 IAutomaticActorControl 装配；HeroControlBehaviour、HeroMotionBehaviour、HeroInventoryBehaviour 共用 ActorState。ActorBehaviour 每步只选择一种决策入口，共享行动时钟、移动数值、工作与战斗结算。
 
-GameInputActions 缓存原生 PlayerInput.actions；YYInputActionService 只接线动作组与 Interaction Sessions。HeroPlayerController 保存渲染输入边沿并发送意图；SetReadyCommand 传递本地默认主角偏好，SessionHeroControl 从可信连接请求 ObjectSession 创建新村民，并验证占用、租约、epoch、策略和输入序号。重复 Ready 复用当前占用，HostOnly 恢复复用连接记录的专属 ID；加载后只有仍标记为手动主角的保存对象可恢复，ID 碰撞到普通闲置角色时改为新建，真正重连也创建新人。变化输入上限 30 Hz，无变化 10 Hz 保活，30 个服务端 tick 无输入归零。
+GameInputActions 缓存原生 PlayerInput.actions；YYInputActionService 只接线动作组与 Interaction Sessions。View 的 HeroInputSampler 保存渲染输入边沿、30 Hz 限速和 10 Hz 保活，并输出冻结 Packet；Entry 的 HeroPlayerController 装配本地角色上下文并发送意图，PinewatchStage 从冻结副本与已插值外观选择镜头目标。SetReadyCommand 传递本地默认主角偏好；SessionHeroControl 从可信连接请求 ObjectSession 创建新村民，并显式分开默认候选选择、占用操作、输入校验及写入。重复 Ready 复用当前占用，HostOnly 恢复复用连接记录的专属 ID；加载后只有仍标记为手动主角的保存对象可恢复，ID 碰撞到普通闲置角色时改为新建，真正重连也创建新人。30 个服务端 tick 无输入归零。此职责重构未改变 ObjectsV2 的 ActorState 所有权，也未引入第二套输入对象或命令链。
 
 ## 身份与 v3 恢复
 
