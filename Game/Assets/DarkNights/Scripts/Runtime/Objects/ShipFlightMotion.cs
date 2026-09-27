@@ -29,12 +29,23 @@ namespace DarkNights.Runtime.Objects
             float dx = s.ShipVelocityX * dt, dy = s.ShipVelocityY * dt;
             int count = Math.Max(1, (int)Math.Ceiling(Math.Max(Math.Abs(dx), Math.Abs(dy)) / 2));
             float oldX = s.X, oldH = s.Height;
+            bool touchedGround = false;
             for (int i = 0; i < count; i++)
             {
                 float x = s.X + dx / count, h = s.Height + dy / count;
                 if (dx != 0 && Clear(x, s.Height)) s.X = x; else s.ShipVelocityX = 0;
-                if (dy != 0 && Clear(s.X, h)) s.Height = h; else s.ShipVelocityY = 0;
+                if (dy != 0 && Clear(s.X, h)) s.Height = h;
+                else
+                {
+                    if (dy < 0 && h < s.DockHeight) touchedGround = true;
+                    s.ShipVelocityY = 0;
+                }
             }
+            // 接地路径经过有效泊位时制动，避免单步横移越过容差；安全判定仍使用碰撞前速度。
+            float left = s.DockX - Rules.LandingTolerance, right = s.DockX + Rules.LandingTolerance;
+            if (world.Flow.Enabled && touchedGround && Math.Min(oldX, s.X) <= right && Math.Max(oldX, s.X) >= left &&
+                Clear(s.DockX, s.DockHeight) && Supported(s.DockX, s.DockHeight))
+            { s.X = Math.Clamp(s.X, left, right); s.ShipVelocityX = 0; }
             Carry(s.X - oldX, s.Height - oldH);
             return world.Flow.Enabled && pilot != null && safeApproach && Land();
         }
