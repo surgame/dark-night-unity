@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-2026-09-26 [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)在 `ft-20260926-space-planet-flow` 形成首轮源码候选，基线为工作台已合并的主分支 `31aaecf`。包括船内太空开局、UI Toolkit 配置表、驾驶台选星球、后台生成、星点过场、联机 Ready 屏障与手动着陆；协议 **15**／存档 **v11**。用户明确允许不执行验证，本轮没有启动 Unity、编译、测试、构建或运行；新增 `.meta` 与生成注册待导入，全部验收项见[未执行清单](SPACE_TO_PLANET_ACCEPTANCE.md)。
+2026-09-26 [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)在 `ft-20260926-space-planet-flow` 继续验收，基线 `31aaecf`，已接入启动修复 `4f270dc`。协议 **15**／存档 **v11**，Local 编译及 Mono r2 构建通过；用户反馈的落地问题已改为配置缓降、自动安全着陆、释放驾驶席和开门。测试、实际 Play、联机、构建和环境阻塞分别记入[验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)，不再沿用首轮免验收状态。
 
 2026-09-26 [运行时洞穴工作台](RUNTIME_TERRAIN_TUNER.md)已将 Cave Wall Tuner 接入新版固定／随机工作台左栏，五个主 Tab、岩壁／背景子页、拆填草稿与自适应 UI。受影响 Unity 检查按最新结果合并 35/35，通过两场景实际 Play 与小窗口画面检查；既有架构守卫 10 项和下条地形可见页 2 项继续留账，本批不宣称全项目验收通过。
 

@@ -32,6 +32,7 @@ namespace DarkNights.Entry
         private bool fullReport = true;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         private bool compatibilityMapHash;
+        private int pauseOnJourneyPhase = -1;
 #endif
         private PlayerPerformanceCapture capture;
         private HeroInputPlayback heroInput;
@@ -91,11 +92,23 @@ namespace DarkNights.Entry
         {
             if (network == null || working) return;
             bool freezeProjectile = pauseOnProjectile && network.Client.Ready && network.Client.Replica.Current.World.Projectiles.Count > 0;
-            if (!freezeProjectile && Time.realtimeSinceStartupAsDouble < nextPoll) return;
+            bool freezeJourney = false;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            freezeJourney = pauseOnJourneyPhase >= 0 && network.Client.Ready &&
+                (int?)network.Client.Replica.Current?.World.Expedition?.Journey?.Phase == pauseOnJourneyPhase;
+#endif
+            if (!freezeProjectile && !freezeJourney && Time.realtimeSinceStartupAsDouble < nextPoll) return;
             working = true;
             nextPoll = Time.realtimeSinceStartupAsDouble + 0.2;
             try
             {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                if (freezeJourney)
+                {
+                    pauseOnJourneyPhase = -1;
+                    await network.Client.Send(SessionOperation.SetPaused, value: 1);
+                }
+#endif
                 if (freezeProjectile)
                 {
                     pauseOnProjectile = false;
@@ -121,6 +134,9 @@ namespace DarkNights.Entry
                         else if (operation == "input" || operation == "input-raw" || operation == "input-hold" || operation == "input-stop")
                             await heroInput.Execute(command);
                         else if (operation == "pause-on-projectile") pauseOnProjectile = true;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                        else if (operation == "pause-on-journey-phase") pauseOnJourneyPhase = (int)command["value"];
+#endif
                         else if (operation == "capture")
                         {
                             var stage = UnityEngine.Object.FindAnyObjectByType<DarkNights.View.PinewatchStage>();
@@ -164,6 +180,8 @@ namespace DarkNights.Entry
                     ["terrain"] = network.Terrain == null ? null : new JObject
                     {
                         ["epoch"] = network.Terrain.Epoch, ["seed"] = network.Terrain.Seed,
+                        ["worldId"] = network.Terrain.Replica?.World.WorldId.ToString(),
+                        ["mapEpoch"] = network.Terrain.Replica?.World.Epoch,
                         ["backgroundHash"] = network.Terrain.Background?.ReferenceHash,
                         ["sha256"] = network.Terrain.ContentSha256, ["dataReady"] = network.Terrain.DataReady,
                         ["visible"] = network.Terrain.PresentationReady, ["generationMs"] = network.Terrain.GenerationMilliseconds,

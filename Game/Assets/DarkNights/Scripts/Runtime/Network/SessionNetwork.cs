@@ -20,6 +20,7 @@ using GameCore.Objects.Runner;
 using UnityEngine;
 using VitalRouter;
 using Runtime.Utils;
+using YY.Features.Players.View;
 
 namespace DarkNights.Runtime.Network
 {
@@ -78,18 +79,11 @@ namespace DarkNights.Runtime.Network
             SaveDirectory = Path.GetFullPath(saveArgument >= 0 && saveArgument + 1 < args.Length
                 ? args[saveArgument + 1] : Path.Combine(Application.persistentDataPath, "Saves"));
             SaveDirectory = Path.Combine(SaveDirectory, "v" + DarkNights.Runtime.Save.ObjectWorldSaveJson.FormatVersion);
-            var fingerprint = new SaveContentFingerprint(catalog, layout);
             // 地图编辑命令只迁移程序集，注册 ID 与载荷不变；握手仍使用已发布的类型表身份。
             DefinitionNetworkProfile.RegisterWireAssemblyAlias(typeof(TerrainEditCommand), "AnyRules.FishNet");
             authenticator = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
-            string identity = new ObjectWorldSaveJson(catalog, layout,
-                resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
-                placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition))).IdentitySha256;
-            var equipment = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch").SharedConfigs.OfType<HandheldConfig>().Single();
-            var flow = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch").SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
-            authenticator.Configure(ObjectDefinitionDatabase.Instance, "dark-nights-session-v" + Session.SessionAuthority.ProtocolVersion +
-                ":" + fingerprint.RulesSha256 + ":" + fingerprint.LayoutSha256 + ":" + identity + ":" + equipment.Fingerprint() +
-                ":" + DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor.StyleContentHash + ":" + flow.Fingerprint());
+            authenticator.Configure(ObjectDefinitionDatabase.Instance,
+                SessionContentFingerprint.Create(catalog, layout, resources, placements));
             manager.ServerManager.SetAuthenticator(authenticator);
             GenericTypeSerializer<GameCore.Objects.NetworkStates.IStateData>.MaximumPayloadBytes = ProjectionCodec.MaximumBytes + 1024;
             GenericTypeSerializer<INetworkCommand>.MaximumPayloadBytes = 8192;

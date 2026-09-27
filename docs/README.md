@@ -5,8 +5,8 @@
 ## 合同与架构（长期有效）
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — 当前技术架构合同
-- [MULTIPLAYER.md](MULTIPLAYER.md) — 联机协议与同步设计（航程候选协议 15，未验证；旧切片按日期保留）
-- [SAVE_FORMAT.md](SAVE_FORMAT.md) — 世界存档格式合同（航程候选 v11，未验证；下文含历史版本）
+- [MULTIPLAYER.md](MULTIPLAYER.md) — 联机协议与同步设计（航程协议 15，验收状态见当前清单；旧切片按日期保留）
+- [SAVE_FORMAT.md](SAVE_FORMAT.md) — 世界存档格式合同（航程 v11，验收状态见当前清单；下文含历史版本）
 - [YYGC_CHANGES.md](YYGC_CHANGES.md) — YYGC 修改授权与改动账本（持续维护）
 
 ## 开发入口
@@ -26,7 +26,7 @@
 
 ## 近期切片与候选（2026-09-26）
 
-- [太空到星球源码候选](SPACE_TO_PLANET_IMPLEMENTATION.md) / [待验收清单](SPACE_TO_PLANET_ACCEPTANCE.md) / [设计](SPACE_TO_PLANET_FLOW_DESIGN.md) — 主分支 `31aaecf` 基线；YYGC 航程、UI Toolkit 星球表格、会话内切图和驾驶降落；按用户要求未执行 Unity 导入、编译、测试或验收
+- [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md) / [验收清单](SPACE_TO_PLANET_ACCEPTANCE.md) / [设计](SPACE_TO_PLANET_FLOW_DESIGN.md) — 主分支 `31aaecf` 基线；YYGC 航程、UI Toolkit 星球表格、会话内切图和驾驶降落；Local 编译、Mono r2、纯回归及实际 Play 主流程已执行；多人／弱网等结果持续记入清单
 - [MAP_STATE_NETWORKING.md](MAP_STATE_NETWORKING.md) — AnyRuleD 地图联网重构与本轮验证边界
 
 ## 其他

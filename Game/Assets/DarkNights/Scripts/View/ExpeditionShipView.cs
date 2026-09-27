@@ -14,11 +14,11 @@ namespace DarkNights.View
         public void Present(ExpeditionShipData ship, bool cutaway, int modules, double elapsed)
         {
             if (ship == null) return;
-            bool open = ship.Phase <= 1;
+            bool open = ship.Phase <= 1 && ship.DoorClock <= 0;
             WorkShell.enabled = CockpitShell.enabled = !cutaway;
             Ramp.sprite = open ? RampOpen : RampClosed;
             // 两个坡道帧各自的进口 pivot 都是铰链，位置不随状态跳动。
-            Door.sprite = open ? DoorOpen : ship.Phase == 2 ? DoorHalf : DoorClosed;
+            Door.sprite = open ? DoorOpen : ship.Phase == 2 || ship.Phase == 0 && ship.DoorClock > 0 ? DoorHalf : DoorClosed;
             Hatch.sprite = open ? HatchOpen : HatchClosed;
             RobotDock.SetActive((modules & 1) != 0); CargoLocker.SetActive((modules & 2) != 0);
             bool flying = ship.Phase == 3;

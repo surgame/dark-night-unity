@@ -32,7 +32,8 @@ namespace DarkNights.Tools.CoreRegression
                 RunMapPlanChecks(check);
             }
             catch (Exception error) { check(false, error.ToString()); }
-            string output = Path.Combine(RuleScenario.RepositoryRoot, "artifacts/migration/core-regression.json");
+            string output = args.Length > 1 ? Path.GetFullPath(args[1]) :
+                Path.Combine(RuleScenario.RepositoryRoot, "artifacts/migration/core-regression.json");
             Directory.CreateDirectory(Path.GetDirectoryName(output));
             File.WriteAllText(output, new JObject
             {

@@ -1,6 +1,6 @@
 # Dark Nights 合作联机设计
 
-2026-09-26 [太空到星球候选](SPACE_TO_PLANET_IMPLEMENTATION.md)将游戏协议常量升级为 **15**／存档 **v11**，AMP1 帧结构保持原样。星球目录配置摘要纳入内容握手；确认目的地与驾驶席在同一权威事务完成，切图保留船员对象并更新会话 epoch、撤销旧输入、重新收集地图／背景／实体／表现 Ready。提交后单端超时不回滚世界，下降放行前保持悬停。用户要求本轮省略验证，**以下历史联机通过记录均不适用于本候选**，完整矩阵见[未执行清单](SPACE_TO_PLANET_ACCEPTANCE.md)。
+2026-09-26 [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)使用协议 **15**／存档 **v11**，AMP1 帧结构不变。配置摘要进入握手；目的地与驾驶席在同一权威事务确定，切图保留船员并更新 epoch、撤销旧输入，重新收集地图／背景／实体／表现 Ready。无人驾驶及到达同步期间悬停，有效驾驶者松手后按配置缓降，安全着陆由权威端自动完成。全部验收已开始执行；本批使用图形窗口取得真实相机 Ready，不用 batchmode 省略表现条件，结果见[验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)。
 
 2026-09-24 [AnyRuleD 地图联网重构](MAP_STATE_NETWORKING.md)在 `ref-20260924-map-state-networking` 将 AMP1 协议与 FishNet 传输移入 YYGC AnyRuleD 可选包，游戏保留业务授权、地图生成、存档与表现装配。协议号仍为 **14**、存档仍为 **v10**；`b239df6` 构建的 Mono 正常／弱网三进程各 28/28、地图编辑正常／弱网各 15/15；最终 `e07e9a9` 构建的地图循环含诊断桥 17/17，旧／新 Player 双向混连各 15/15。Editor、独立插件样板与未验项见[本轮证据](evidence/map-state-networking-2026-09-24.json)。
 

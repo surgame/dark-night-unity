@@ -56,7 +56,8 @@ namespace DarkNights.Runtime.Config
             (float)ConfigJson.Positive(s, "HorizontalSpeed"), (float)ConfigJson.Positive(s, "VerticalSpeed"),
             (float)ConfigJson.Positive(s, "Acceleration"), (float)ConfigJson.Positive(s, "HorizontalRange"),
             (float)ConfigJson.Positive(s, "MaximumLift"), ConfigJson.Positive(s, "DoorSeconds"),
-            (float)ConfigJson.Positive(s, "LandingTolerance"), (float)ConfigJson.Positive(s, "LandingSpeed"));
+            (float)ConfigJson.Positive(s, "LandingTolerance"), (float)ConfigJson.Positive(s, "LandingSpeed"),
+            (float)ConfigJson.Positive(s, "IdleDescentSpeed"));
 
         private static HeroControlDefinition HeroControl(JToken value) => new HeroControlDefinition(
             ConfigJson.Positive(value, "jump_speed"), ConfigJson.Positive(value, "gravity"),

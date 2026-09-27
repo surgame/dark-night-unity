@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发约定
 
+2026-09-27 当前切片为[太空到星球流程](docs/SPACE_TO_PLANET_IMPLEMENTATION.md)，分支 `ft-20260926-space-planet-flow` 已合入 `main`，协议 **15**／存档 **v11**。太空船内步行、驾驶台选星球、过场、后台生成、到达同步、缓降与自动着陆下船已实现；航程 Editor 53/53，Mono r3 双进程 127/127，IL2CPP r4 双进程及三组四人通过。YYGC 框架改动已合入 YYGC `master` `fee1864`。人工画面、逐阶段晚加入、前台性能和双机器仍待验收，详见[验收清单](docs/SPACE_TO_PLANET_ACCEPTANCE.md)，不宣称最终交付。
+
 2026-09-22 本分支已接入[可步入远征飞船](docs/archive/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。支持船内步行、唯一驾驶席、泊位附近试飞、搬运机器人与侦察机出舱归队；远征默认应用当前 StrataCave 岩层与三层背景。50 张原生素材导入检查 200/200，新增飞船／远征用例 24/24，同一 Mono 正常／弱网三进程各 28/28，Core 1048/1048；Editor 按影响合并 235/236，既有按钮主题 1 项失败留账。实际画面和本批证据见实现说明，不宣称全洞穴航行、异地降落、前台性能、IL2CPP 或双机器通过。
 
 2026-09-22 当前候选为[独立岩层与三层背景](docs/archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)，分支 `codex/static-cave-background`，协议 **13**／存档 **v9**。用户明确允许脱离旧素材／场景；`Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` 与同目录 `RandomCave.unity`（2026-09-23 保留 GUID 从 StrataCave 资源目录移入统一工作台，见[场景索引](docs/SCENES.md)）使用独立 AnyRuleD 规则和同源 H5 岩壁、背景算法，保留 YYGC 权威与真实坡形碰撞。原生密度统一为 8px／格，矿粒与矿光暂时隐藏、矿床玩法保留。正式远征用 `--dn-contour-static` 试用；旧风格默认保留。前台性能、IL2CPP 和双机器不宣称通过，本批证据优先于下方历史切片。 外轮廓为独立可配置的六方案，当前 HybridB／OUTLINE-0921／3px／20px／2px、岩块 4px；仅修饰表现，权威碰撞保持原坡形。

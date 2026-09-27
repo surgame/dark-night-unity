@@ -6,21 +6,26 @@ using UnityEngine;
 
 namespace DarkNights.Runtime.Objects
 {
-    /// <summary>服务端配置边界内悬停飞行；两单位子步查询原坡形，并把位移同事务施加给乘员和已收纳设备。</summary>
+    /// <summary>服务端配置边界内飞行及安全着陆；无人驾驶悬停，航程驾驶松手缓降，原坡形碰撞和乘员位移在同一事务推进。</summary>
     internal sealed class ShipFlightMotion
     {
         private readonly ObjectSession world;
         internal ShipFlightMotion(ObjectSession world) { this.world = world; }
         private Core.Config.ShipFlightDefinition Rules => world.Catalog.Balance.Expedition.Ship;
-        internal void Tick(double delta, ActorState pilot)
+        internal bool Tick(double delta, ActorState pilot)
         {
             var ship = world.Expedition.Ship; var s = ship.Edit();
+            if (world.Flow.Enabled && pilot == null)
+            { s.ShipVelocityX = s.ShipVelocityY = 0; return false; }
             float dt = (float)delta;
             int horizontal = pilot?.Horizontal ?? 0;
             int vertical = pilot == null ? 0 : (pilot.JumpHeld ? 1 : 0) - (pilot.DropPending ? 1 : 0);
-            // 无输入时悬停制动；过期输入、失焦和断线由同一租约路径清零。
+            float targetY = world.Flow.Enabled && pilot != null && vertical == 0 ? -Rules.IdleDescentSpeed : vertical * Rules.VerticalSpeed;
             s.ShipVelocityX = Mathf.MoveTowards(s.ShipVelocityX, horizontal * Rules.HorizontalSpeed, Rules.Acceleration * dt);
-            s.ShipVelocityY = Mathf.MoveTowards(s.ShipVelocityY, vertical * Rules.VerticalSpeed, Rules.Acceleration * dt);
+            s.ShipVelocityY = Mathf.MoveTowards(s.ShipVelocityY, targetY, Rules.Acceleration * dt);
+            // 碰撞后的清零不能把高速接地伪装成满足安全速度，持续加速下降时也必须先松手减速。
+            bool safeApproach = targetY <= 0 && Math.Abs(targetY) <= Rules.LandingSpeed &&
+                Math.Abs(s.ShipVelocityX) <= Rules.LandingSpeed && Math.Abs(s.ShipVelocityY) <= Rules.LandingSpeed;
             float dx = s.ShipVelocityX * dt, dy = s.ShipVelocityY * dt;
             int count = Math.Max(1, (int)Math.Ceiling(Math.Max(Math.Abs(dx), Math.Abs(dy)) / 2));
             float oldX = s.X, oldH = s.Height;
@@ -31,6 +36,7 @@ namespace DarkNights.Runtime.Objects
                 if (dy != 0 && Clear(s.X, h)) s.Height = h; else s.ShipVelocityY = 0;
             }
             Carry(s.X - oldX, s.Height - oldH);
+            return world.Flow.Enabled && pilot != null && safeApproach && Land();
         }
 
         internal bool Land()

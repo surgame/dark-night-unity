@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-09-26 [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)：协议 15／存档 v11。`ExpeditionFlowBehaviour : PooledBehaviour` 注入 `IConfigData` 并冻结目录；航程唯一状态归 `ExpeditionJourneyBehaviour`，船体／乘员继续归原 Building／Actor State。纯生成器准备候选，单一权威事务交换地图；冻结展示副本和实际相机回执门控 Ready。没有新增并行世界、对象网络变换或客户端模拟。验证状态以本批[验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)为准。
+
 2026-09-22 [可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)：协议 14／存档 v10。船的 BuildingState 与乘员 ActorState 继续由各自 YYGC 业务对象拥有，船体和乘员位移同事务提交；`ExpeditionShipData` 进入冻结投影与原子存档。下方按日期保留此前地形和对象架构切片，其版本号不代表当前版本。
 
 2026-09-22 [独立岩层切片](archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)：协议 13／存档 v9。`SessionTerrain` 持有不可变 `BackgroundBakeDescriptor` 并与当前权威地图原子保存恢复；初始参考不是第二张可编辑地图。View 调用 `Core.Logic.Terrain` 的纯岩壁／背景算法，线程、取消调度与 Unity 纹理归 View，Core 通过外层检查回调保持无线程 API。外轮廓是独立纯计算阶段，源格形→有符号距离扰动→岩壁分面；它不拥有权威几何，当前只影响表现。前景缓存读取当前副本局部失效，背景只读初始参考；两者均无玩法写权。新场景／材质／AnyRuleD 定义独立于旧岩石资产，正式实体仍走原有 YYGC 定义、绑定及命令。可靠背景基线复用现有 FishNet 会话，参考、当前 AMP1 副本及可见前景／背景共同门控 Ready。

@@ -60,6 +60,6 @@
     "RecallSeconds": 8,
     "ThreatSeconds": 180,
     "ModulePrice": 10,
-    "Ship": {"HorizontalSpeed": 60, "VerticalSpeed": 44, "Acceleration": 120, "HorizontalRange": 128, "MaximumLift": 192, "DoorSeconds": 1, "LandingTolerance": 6, "LandingSpeed": 8}
+    "Ship": {"HorizontalSpeed": 60, "VerticalSpeed": 44, "Acceleration": 120, "HorizontalRange": 128, "MaximumLift": 192, "DoorSeconds": 1, "LandingTolerance": 6, "LandingSpeed": 8, "IdleDescentSpeed": 6}
 }
 }

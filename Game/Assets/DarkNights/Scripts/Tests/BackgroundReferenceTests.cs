@@ -94,7 +94,8 @@ namespace DarkNights.Tests
                 randomTerrain: true, expedition: true);
             var selected = ExpeditionTerrainGenerator.Generate("CONTOUR-0922", Id);
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(Editor.Terrain.CaveTerrainAssets.DefinitionPath);
-            var world = scope.NewWorld(catalog, layout, false, terrain: w => new SessionTerrain(w.Context, definition.LoadGameplayCatalog(), selected));
+            var world = scope.NewWorld(catalog, layout, false,
+                terrain: w => new SessionTerrain(w.Context, definition.LoadGameplayCatalog(), selected), journeyEnabled: false);
             using var authority = new SessionAuthority(world);
             var host = authority.Connect(0); authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true);
             var map = world.Terrain.Map;

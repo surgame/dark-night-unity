@@ -1,0 +1,1268 @@
+{
+  "schemaVersion": 1,
+  "kind": "space-planet-flow-runtime-source-and-evidence-audit",
+  "capturedUtc": "2026-09-26T09:36:06Z",
+  "branch": "ft-20260926-space-planet-flow",
+  "head": "4f270dcc83df9be56d9daaed3786c0bcb247aa42",
+  "designBaseline": "31aaecf",
+  "workspace": "D:/Developer/MiniGames/Dark Nights/unity-projects",
+  "sourceState": "读取当前未提交候选；HEAD 不单独代表全部审查源码，文末 sourceFileHashes 固定本次文件内容。",
+  "authorization": "父代理委派独立源码及现有证据审查。只新增本 JSON；未启动 Unity/Player，未修改 Assets，未编辑验收清单。",
+  "method": "不将未执行分支写成运行通过。可封闭证明的所有权、纯输入、单向调用、显式拒绝和有界循环使用直接源码证据；真实几何或跨生命周期组合不能仅以正向路径总数代替。独立网络结果只引用已有同一 Mono r2 正常二进程报告。",
+  "references": {
+    "EJ": {
+      "path": "artifacts/space-planet-flow/editor-journey-r1.json",
+      "note": "首轮47项45通过2失败；本审查仅引用逐项Passed，不将失败Orbit/Window旧结果计作通过。"
+    },
+    "EB": {
+      "path": "artifacts/space-planet-flow/editor-baseline-and-repairs.json",
+      "note": "277项274通过；逐用例引用，不将3个存量/待修失败掩盖为整批通过。"
+    },
+    "N2": {
+      "path": "artifacts/space-planet-flow/network-20260926-172852-677043-mono-normal-2p-client/result.json",
+      "note": "已完成127/127；另列not_covered，不推导弱网、四人或不同目的地竞争通过。"
+    }
+  },
+  "items": [
+    {
+      "id": "A020",
+      "contract": "RequireConfig/注入取得正式共享配置；缺少配置明确失败，无运行默认参数兜底。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 17,
+          "symbol": "ExpeditionFlowBehaviour.RequireConfig / config",
+          "proof": "RequireConfig(typeof(ExpeditionFlowConfig)) 与 [Inject] 字段明确声明依赖。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 54,
+          "symbol": "InitializeSession",
+          "proof": "第58行 config==null 明确抛 InvalidOperationException；后续仅从注入配置 FreezePlanets/Fingerprint/两类timeout/Enabled 读取。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs",
+          "line": 103,
+          "symbol": "Prepare",
+          "proof": "从正式owner取Journey/Flow；缺能力的远征会话直接失败，再调用Flow.InitializeSession。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.MissingConfigDuplicateConfigAndCapabilityFailBeforeActivation",
+          "result": "Passed"
+        },
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.CachedRequirementsStillRejectChangedConfigsForBindingFreeView",
+          "result": "Passed"
+        },
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.OrbitBoardsPlayersAndClosedHullAllowsWalking",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "缺少 ExpeditionFlowConfig 的分支是直接不可绕过的 throw；通用 RequireConfig 回归及正式航程装配提供运行佐证，可按注入合同验收。",
+      "boundaries": [
+        "未宣称执行了专门删除 ExpeditionFlowConfig 的新用例；该分支采用源码证据。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A022",
+      "contract": "航程阶段单归Journey State；船体、驾驶者、舱门、乘员位置仍归Building/Actor State。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionJourneyState.cs",
+          "line": 10,
+          "symbol": "ExpeditionJourneyState",
+          "proof": "Phase/Revision/PhaseElapsed/JourneyId 等唯一持久字段；任务和目录不在该State复制运行。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionJourneyBehaviour.cs",
+          "line": 8,
+          "symbol": "ExpeditionJourneyBehaviour / SetPhase",
+          "proof": "SessionStateBehaviour<ExpeditionJourneyState>拥有阶段，SetPhase经Edit写草稿并递增修订。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/BuildingState.cs",
+          "line": 14,
+          "symbol": "BuildingState",
+          "proof": "ShipPhase/PilotId/速度/舱门时钟/DockHeight/Height属于原BuildingState。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ActorState.cs",
+          "line": 22,
+          "symbol": "ActorState",
+          "proof": "Boarded、X/Height及控制输入属于ActorState；Flow仅经ActorBehaviour.Edit写入。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/SessionStateBehaviour.cs",
+          "line": 30,
+          "symbol": "Edit",
+          "proof": "仅有权威且处于当前同步事务才允许修改，展示捕获不能成为写入者。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.InstallChangesEpochAndWaitsForBothReadyWithoutThrust",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneySaveTests.OrbitSaveAndProjectionRoundTripPreserveFrozenCatalog",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "全部持久状态字段及写边界可直接枚举；Flow.Phase是Journey.Read派生属性，Flight/Cabin只持ObjectSession引用，未引入平行航程或飞船状态。",
+      "boundaries": [],
+      "missing": []
+    },
+    {
+      "id": "A023",
+      "contract": "ObjectSession只组合能力，无第二份地图/席位/船员状态，无逐船员NetworkTransform或重复模拟入口。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs",
+          "line": 24,
+          "symbol": "ObjectSession fields",
+          "proof": "字段保存容器、对象/能力引用、索引、初始冻结快照；Terrain为唯一SessionTerrain引用，非另一个运行地图。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs",
+          "line": 213,
+          "symbol": "Advance",
+          "proof": "暂停直接返回；远征分支调用Expedition.Advance后立即return，不能同时执行普通营地分支。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs",
+          "line": 25,
+          "symbol": "Advance",
+          "proof": "同一事务仅一次Flow.Tick、Ship.Tick及相应角色Tick。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroControlBehaviour.cs",
+          "line": 18,
+          "symbol": "Tick",
+          "proof": "船内运动返回true后不再执行地面运动；驾驶者由ShipCabinMotion固定在席位。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+          "line": 119,
+          "symbol": "Tick",
+          "proof": "唯一60Hz入口经world.Advance(1/60)，不接受网络delta。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.DescentCarriesPassengerAllowsTakeoverAndLandsBeforeExit",
+          "result": "Passed"
+        },
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"clock\")",
+          "result": "Passed"
+        },
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.ShipTests.FlightWaitsForPassengerAndCarriesThemInTheSameStep",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "源码组合和互斥return可直接验收；本次针对正式Scripts的NetworkTransform文本搜索未命中，复核角色投影/运动入口未发现逐角色网络位置组件。",
+      "boundaries": [
+        "仅确认本次航程的所有权与调度合同；architecture-final的10条存量命中仍独立保留，不代表全仓库架构门槛通过。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A025",
+      "contract": "OnSpawn/重用/OnDespawn清空前局目录、候选、任务、错误和订阅且无驾驶权泄漏。",
+      "verdict": "partial",
+      "checklistChecked": false,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 216,
+          "symbol": "ResetPending",
+          "proof": "取消并处置CTS；故障continuation读取Exception；generation/candidate/taskJourney置null。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 239,
+          "symbol": "OnSpawn / OnDespawn",
+          "proof": "OnSpawn清Planets/Fingerprint/timeout，OnDespawn第247行只清pending/world/Enabled；目录/指纹/timeout仍可从闲置旧Flow实例读取，直到下一次OnSpawn。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/SessionStateBehaviour.cs",
+          "line": 66,
+          "symbol": "OnDespawn",
+          "proof": "草稿和Session引用清理，基类释放State；Flow本身没有事件订阅字段。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs",
+          "line": 249,
+          "symbol": "Dispose",
+          "proof": "释放会话前先ResetPending，再清索引、释放实体/上下文；驾驶权在原BuildingState生命周期内。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.ReentryRefreshesDependenciesAndDropsOldSubscriptions",
+          "result": "Passed"
+        },
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.UnifiedObjectAssemblyTests.MutationOpenedBeforeReassemblyCannotCommitIntoNewLifecycle",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.CancelDiscardsLateGenerationAndReleasesPilot",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "不能按现有字面合同全勾选：销毁时缓存目录未立即清空，且现有测试没有带后台任务的同一Flow两局重用组合。",
+      "boundaries": [
+        "已隔离权威写入和旧任务，当前没有证据表明残留只读目录能泄漏驾驶权；该事实不能等同于OnDespawn已清目录。"
+      ],
+      "missing": [
+        "若保留当前清单要求，统一OnSpawn/OnDespawn清理冻结目录/指纹/timeout。补一项实际YYGC池对象重用测试：首局持pending生成后销毁，复用同一Flow第二局，以不同目录/种子启动，等待旧任务完成，核对新目录/状态/候选/租约不变且无旧通知。"
+      ]
+    },
+    {
+      "id": "A027",
+      "contract": "取消/超时/离房/销毁丢弃过时任务，阶段取消回调停止后续生成，异常被观察。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 117,
+          "symbol": "Pump",
+          "proof": "Task.Run仅捕获冻结planet/seed/mapId/token；完成结果只由当前generation字段且taskJourney匹配时读取。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 199,
+          "symbol": "Abort / ResetPending",
+          "proof": "取消和超时成功事务AfterCommit调用ResetPending，断开当前Task引用；OnlyOnFaulted continuation读取旧Task.Exception，无世界回调。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs",
+          "line": 249,
+          "symbol": "Dispose",
+          "proof": "离房/销毁调用Flow.ResetPending，再释放对象。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/PlanetTerrainGenerator.cs",
+          "line": 19,
+          "symbol": "Generate / CheckCancellation",
+          "proof": "入口、洞穴生成后、逐地表行、坡道后/坡形后/背景前检查取消；OperationCanceledException不被随机重试catch吞掉。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 245,
+          "symbol": "OnDespawn",
+          "proof": "池回收再次ResetPending，旧Task没有写入当前Flow/State的完成回调。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.CancelDiscardsLateGenerationAndReleasesPilot",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.FailedGenerationReturnsToOrbitWithoutReplacingTerrain",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.DisconnectCancelsBeforeArrivalAndHoversAfterArrival",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRecoveryTests.PreparationTimeoutCancelsCandidateWithoutChangingEpoch",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "任务纯返回值、旧句柄清除、唯一受保护Pump消费路径构成销毁后不能发布的直接证明；已有取消/超时/离线和故障用例验证主路径。",
+      "boundaries": [
+        "未执行运行Task期间销毁全会话的单独用例；此子条件以源码控制流证据验收。取消为阶段边界协作取消，不承诺打断CaveExplorationGenerator内部当前计算或固定毫秒响应。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A028",
+      "contract": "相同航程/地图/修订只提交一次，回收后完成的旧任务不能推进新会话。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 136,
+          "symbol": "Pump",
+          "proof": "旧JourneyId任务直接ResetPending；Preparing成功一次后转Transit，不再进入消费分支。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 148,
+          "symbol": "TakeArrivalCandidate / ArrivalCommitted",
+          "proof": "要求Transit和MapId匹配；提交即ArrivalSync，AfterCommit清候选，无法重复返回候选。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyTransfer.cs",
+          "line": 71,
+          "symbol": "Install",
+          "proof": "候选在单次事务中安装；通知异常不会使已提交状态重走失败回滚路径。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 216,
+          "symbol": "ResetPending / OnSpawn",
+          "proof": "旧Task仅保留观察异常continuation；不捕获world/Flow供写入，池重用清任务句柄与taskJourney。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyAdversarialTests.FourPlayersCompetingForDifferentPlanetsCommitExactlyOneDestination",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyAdversarialTests.ThrowingArrivalSubscriberDoesNotDisposeOrReinstallActiveMap",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.DestinationUsesTrustedActorAndOnlyOneConcurrentSelectionWins",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "阶段单向推进、候选ID核对和完成后移除句柄封闭了重复安装入口；旧任务跨回收不能回写由Task无状态回调直接证明。",
+      "boundaries": [
+        "跨两局同一池对象重用的动态组合未单独执行，增强回归建议归A025，不伪称该测试已跑。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A039",
+      "contract": "可信连接身份；伪造/他人EntityId、远距、死亡、未登船角色均拒绝。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionServer.cs",
+          "line": 79,
+          "symbol": "Sender / Handle",
+          "proof": "从YYGC NetworkCommandContext.SenderConnection查peer，并核对server execution、连接、Endpoint.Owner及SenderObjectId；业务使用peer.Authority。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyControl.cs",
+          "line": 8,
+          "symbol": "Apply",
+          "proof": "核对目标船、唯一ActorId、JourneyRevision及ControllerSlot/Generation/ControlLease，未知/他人角色返回拒绝。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionCommands.cs",
+          "line": 14,
+          "symbol": "Valid",
+          "proof": "Actor不存在/敌人/Hp<=0提前拒绝。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 76,
+          "symbol": "SelectDestination",
+          "proof": "再次检查Hp、Boarded、AtPilot及所有存活友方Boarded，均位于写pilot之前。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.DestinationUsesTrustedActorAndOnlyOneConcurrentSelectionWins",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyAdversarialTests.DisabledPlanetUnknownPlanetStaleRevisionAndLeaseHaveNoSideEffects",
+          "result": "Passed"
+        },
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.HeroControlTests.PossessionCancelsOrdersAndRejectsOtherConnection",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "所有复合条件均有明确权威拒绝谓词；已运行他人身份/距离/旧租约用例。死亡和未登船选星负例未单独执行，但直接前置谓词足以验收该授权合同。",
+      "boundaries": [
+        "不把客户端本地提示当身份验证；恶意网络压力或漏洞渗透不在此直接合同结论中。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A041",
+      "contract": "重发/乱序/旧policy/旧journey revision/epoch/control lease按合同拒绝或复用结果。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+          "line": 91,
+          "symbol": "Submit",
+          "proof": "缓存同序号SameIntent返回原Receipt，内容不同SequenceConflict，未缓存且<=HighestSequence为SequenceExpired。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+          "line": 146,
+          "symbol": "Execute",
+          "proof": "入队后再检policy revision与Ready/epoch，防止排队期间策略失效。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperations.cs",
+          "line": 15,
+          "symbol": "ValidateEnvelope",
+          "proof": "协议与epoch入口检查。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyControl.cs",
+          "line": 12,
+          "symbol": "Apply",
+          "proof": "航程Revision及本人ControlLease二次权威核对。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Tests/SessionBoundaryScenarios.cs",
+          "line": 122,
+          "symbol": "WindowAndConnections",
+          "proof": "实际提交seq100再seq99断言SequenceExpired；缓存窗口过期不重做。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyAdversarialTests.NonPilotCannotCancelAndConflictingSequenceCannotChangeDestination",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyAdversarialTests.DisabledPlanetUnknownPlanetStaleRevisionAndLeaseHaveNoSideEffects",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyAdversarialTests.HostOnlyPolicyRejectsQueuedGuestSelectionAndRevokesGuestPilot",
+          "result": "Passed"
+        },
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"boundary\")",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "old epoch command rejected",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "old lease command rejected",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "旧清单把网络乱序包矩阵作为本项阻塞过严：权威通用队列实际乱序测试适用于航程同一入口；独立网络旧epoch/lease另有当前r2通过。",
+      "boundaries": [
+        "业务RequestId在本实现对应每连接RequestSequence/SessionRequest.Sequence；不冒充独立弱网乱序矩阵已通过，该网络矩阵仍另列。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A042",
+      "contract": "仅当前pilot可取消Preparing，随后释放席位、清输入并可重新选择。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 99,
+          "symbol": "Cancel",
+          "proof": "必须Enabled、Preparing且hero.Id==PilotId，Transit及其后无法取消。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 199,
+          "symbol": "Abort",
+          "proof": "pilot租约递增、ResetInput，PilotId/速度0，航程身份清空并回Orbit，AfterCommit清任务。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroControlBehaviour.cs",
+          "line": 71,
+          "symbol": "ResetInput",
+          "proof": "方向、跳跃、下降、使用、输入序号/时钟均归零。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 76,
+          "symbol": "SelectDestination",
+          "proof": "取消后Orbit/空pilot允许同一仍在驾驶台的合法角色用新revision/lease重选，新的Guid与seed只在成功时生成。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.CancelDiscardsLateGenerationAndReleasesPilot",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyAdversarialTests.NonPilotCannotCancelAndConflictingSequenceCannotChangeDestination",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.DisconnectCancelsBeforeArrivalAndHoversAfterArrival",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "precommit disconnect preserves orbit epoch",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "取消、输入清零和重新进入选择条件形成完整控制流；选择租约和修订都必须从新投影取得，旧请求不能自动重选。",
+      "boundaries": [
+        "没有将所有输入位先置真再取消/重选的单个新组合用例；输入清零按ResetInput显式字段审查。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A043",
+      "contract": "选定后其他船员仍可走动，未登船合法成员不被丢弃或绕过起航条件。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 84,
+          "symbol": "SelectDestination",
+          "proof": "任一存活非敌成员未Boarded就拒绝，在占席和新建Journey之前检查。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs",
+          "line": 31,
+          "symbol": "Advance",
+          "proof": "准备/过场中不停止角色Tick，Ship.Tick与角色Tick共同推进。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipCabinMotion.cs",
+          "line": 18,
+          "symbol": "Player / Walk",
+          "proof": "只有PilotId匹配者固定席位；其他Boarded成员继续输入步行，关闭门夹在船内可走区。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs",
+          "line": 45,
+          "symbol": "AssignDefault",
+          "proof": "新加入成员从正式SpawnDefaultResident/Claim路径加入，切图不用全量清人恢复。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyPlacementTests.PreparingTransitAndArrivalLateJoinRetainEveryCrewMember",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.DescentCarriesPassengerAllowsTakeoverAndLandsBeforeExit",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "全体存活成员Boarded是原子选择前置条件，提交后已有角色保留且船内运动不因阶段停止；不存在静默过滤未登船角色启动的路径。",
+      "boundaries": [
+        "未单独注入未登船成员与选择同帧排队，但该负向条件以单线程事务前置谓词审查。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A045",
+      "contract": "随机最多3次含首次，固定一次；实际成功seed同时用于航程/地图/背景/存档。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 226,
+          "symbol": "GenerateCandidate",
+          "proof": "attempts=planet.Seed.Length==0?3:1；attempt从0严格小于attempts，retry1/retry2为唯一派生种子；仅剩余次数时捕获InvalidOperationException。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/PlanetTerrainGenerator.cs",
+          "line": 19,
+          "symbol": "Generate",
+          "proof": "同一个seed传CaveExplorationGenerator，最终BackgroundBakeDescriptor与PlayableTerrain均用同一个参数seed。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 142,
+          "symbol": "Pump",
+          "proof": "成功ready.Seed写回Journey后才转Transit，不能保留初次失败seed。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Save/JourneySaveJson.cs",
+          "line": 18,
+          "symbol": "Write",
+          "proof": "直接保存冻结Journey.Seed，不回读Preset.Seed。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Core/Save/JourneyValidator.cs",
+          "line": 35,
+          "symbol": "Validate / ValidateTerrain",
+          "proof": "固定seed须与preset相同；星球地图seed必须等Journey.Seed。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyPreviewTests.ActualTaskPublishesOnMainThreadAndFixedSeedRepeats",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneySaveTests.PlanetMapIdentityAndDockMustMatchBeforeRestore",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "landed host actual map identity",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "landed restores final terrain hash",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "循环上界及seed数据流可直接封闭证明；无需人为失败生成器才允许接受有界次数和种子复制合同。",
+      "boundaries": [
+        "未执行强制前两次失败第三次成功的分支覆盖；普通成功地图与保存证据不写成重试成功运行证据。取消或非InvalidOperationException不会被重试吞掉。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A054",
+      "contract": "权威坡形船体扫掠：下降/横移/最高速近地/地图边界均无穿透。",
+      "verdict": "partial",
+      "checklistChecked": false,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipFlightMotion.cs",
+          "line": 29,
+          "symbol": "Tick",
+          "proof": "按位移最大轴/2向上取整做<=2单位子步，横纵轴分别Clear后才能写位置。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipFlightMotion.cs",
+          "line": 55,
+          "symbol": "Clear",
+          "proof": "读取当前planet水平/高度包络；船Hull内每2单位点通过TerrainHeroMotion.Solid读取权威坡形。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.ShipTests.ThrustCannotCrossTerrainOrTheTrialEnvelope",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyLandingTests.IdleInputDescendsAndFastGroundContactCannotFakeSafeLanding",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyPlacementTests.HighPlatformLandingExitJumpAndBoardUsePlanetGroundHeight",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "可确认使用权威坡形及子步扫掠，但离散船壳采样与高速/边界组合的真实几何结论不能仅由前置if证明。旧试飞包络不等同所有星球配置包络。",
+      "boundaries": [],
+      "missing": [
+        "最小补测用真实Session/HeroInput参数化默认和一组高/边界泊位：最高水平/垂直及对角输入至左右/顶部/地面边界，在每步核对船壳对最终权威材料/坡形无重叠；至少含坡面/近地横移和制动前后。无需OS或新Player构建，可复用Editor真实权威夹具。"
+      ]
+    },
+    {
+      "id": "A059",
+      "contract": "星点仅本地推进，无逐帧网络动画状态，不能自行到达或解锁驾驶。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/View/Expedition/JourneyEnvironment.cs",
+          "line": 15,
+          "symbol": "JourneyEnvironment fields / LateUpdate / RenderEnvironment",
+          "proof": "本地Mesh、origins、localClock/receivedAt；仅Present接收冻结SessionViewData，LateUpdate本地时钟，RenderEnvironment只写网格。无发送器、Authority或Runtime状态引用。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/View/Expedition/ConfiguredTravelTransition.cs",
+          "line": 11,
+          "symbol": "StarPosition / StarOpacity",
+          "proof": "纯参数采样，只返回Vector2/float，无到达回调或命令。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 148,
+          "symbol": "TakeArrivalCandidate",
+          "proof": "到达资格由权威PhaseElapsed与配置TransitSeconds判定，星点状态不参与。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyTransfer.cs",
+          "line": 62,
+          "symbol": "Pump",
+          "proof": "Descent必须由服务端Ready屏障在事务中ReleaseDescent。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.InstallChangesEpochAndWaitsForBothReadyWithoutThrust",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.PauseHoldsCompletedGenerationUntilResume",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "局部私有动画字段未进入State/网络DTO，单向View调用图足以证明不逐帧发送；无需以无关总字节流量估计该事实。",
+      "boundaries": [
+        "SpaceReady是相机已绘制当前身份的本地表现证明，仍需服务端地图/连接门控；它不是动画完成自动到达。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A060",
+      "contract": "准备后最短过场由服务端控制，本地低FPS/时钟/动画时长不改变航程结果。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 142,
+          "symbol": "Pump / TakeArrivalCandidate",
+          "proof": "成功准备转Transit将PhaseElapsed清零，只有权威累积>=冻结TransitSeconds才返回候选。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionJourneyBehaviour.cs",
+          "line": 40,
+          "symbol": "SetPhase",
+          "proof": "每阶段开始elapsed=0，不能沿用Preparing累计时间跳过过场。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionClock.cs",
+          "line": 30,
+          "symbol": "Advance",
+          "proof": "固定60Hz累积，有界追帧保留余量，不丢模拟时间；网络或View无法提供航程delta。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+          "line": 135,
+          "symbol": "Tick",
+          "proof": "同一服务端调用world.Advance(1/60)；ObjectSession.Advance暂停直接返回。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/View/Expedition/JourneyEnvironment.cs",
+          "line": 96,
+          "symbol": "RenderEnvironment",
+          "proof": "展示elapsed可从本地时钟插值，但只用于StarPosition/Opacity，与权威PhaseElapsed没有反向写链。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.PauseHoldsCompletedGenerationUntilResume",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.InstallChangesEpochAndWaitsForBothReadyWithoutThrust",
+          "result": "Passed"
+        },
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"clock\")",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "30/60/144FPS时钟完整状态对照及积压追帧已有运行证据；本地时钟/策略只读且无权威回调，故其偏差不能改目的地或阶段结论。",
+      "boundaries": [
+        "最短时间单位是受会话倍速控制的模拟秒；低帧率可能延迟实际墙钟时刻/Ready，不承诺相同帧率、视觉平滑度或相同现实到达时间。没有声称跑了三种动画各自改变时钟的实机比较。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A062",
+      "contract": "切换目标地图/会话身份；船体/乘员/随船设备同事务平移到半空。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyTransfer.cs",
+          "line": 71,
+          "symbol": "Install",
+          "proof": "Prepare候选后，在同一Mutations.Run retire/spawn矿床、Terrain.Swap+回滚、ArrivalCommitted与所有角色租约/输入清理。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+          "line": 155,
+          "symbol": "ArrivalCommitted",
+          "proof": "要求候选WorldId匹配Journey.MapId，调用Ship.Arrive后阶段ArrivalSync；候选清理在AfterCommit。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionShip.cs",
+          "line": 126,
+          "symbol": "Arrive",
+          "proof": "先flight.Carry相同dx/dh，再写船X/Height/Dock；关闭舱门与速度0。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipFlightMotion.cs",
+          "line": 78,
+          "symbol": "Carry",
+          "proof": "所有Boarded演员以及非船体、DeviceStage为0或6的随船设备统一相同位移。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyTransfer.cs",
+          "line": 35,
+          "symbol": "Pump",
+          "proof": "Install成功才立即beginEpoch，同一服务端线程调度内完成；不存在中间网络发布。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+          "line": 242,
+          "symbol": "BeginJourneyEpoch",
+          "proof": "更新Epoch，清旧待执行/投影，重置所有连接Ready。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.InstallChangesEpochAndWaitsForBothReadyWithoutThrust",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyAdversarialTests.ThrowingArrivalSubscriberDoesNotDisposeOrReinstallActiveMap",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "journey replaces epoch once",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "landed host actual map identity",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "landed client1 actual map identity",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "权威状态/地图在同步事务切换，epoch紧接在同一Tick内更新后才允许网络发布；乘员与可随船设备位移通过同一Carry循环，无设备专属第二位置系统。",
+      "boundaries": [
+        "全部设备型号同时随船切星的运行样本未执行；设备阶段过滤和位移以源码逐分支验证。原子性指对外发布的权威Tick，epoch不是ObjectMutationBatch内的池化State；不得声称任意AfterCommit回调观察到的epoch也已更新。"
+      ],
+      "missing": []
+    },
+    {
+      "id": "A069",
+      "contract": "唯当前pilot施加推力；其他玩家不能经旧营地命令或网络请求移船。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionShip.cs",
+          "line": 59,
+          "symbol": "Tick",
+          "proof": "只按Ship.PilotId找Actor，死亡/离船/无控制者归零；仅Descent传该pilot.Read给Flight。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipFlightMotion.cs",
+          "line": 15,
+          "symbol": "Tick",
+          "proof": "推力只读传入pilot的Horizontal/JumpHeld/DropPending；无pilot安全悬停。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs",
+          "line": 92,
+          "symbol": "Receive / Owns",
+          "proof": "输入必须当前可信slot/generation/lease，序号新鲜且Actor可控制；无可请求的ShipVelocity/X字段。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionServer.cs",
+          "line": 166,
+          "symbol": "Input",
+          "proof": "输入经Sender(publication)解析连接身份后Authority.SubmitInput；客户端自报身份不参与授权。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionCommands.cs",
+          "line": 14,
+          "symbol": "Valid",
+          "proof": "远征拒绝旧IssueOrders/PlaceBuilding/Train/Recruit/Repair/StartNight；手动Actor亦拒绝旧工作命令。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionExpeditionControl.cs",
+          "line": 8,
+          "symbol": "Apply",
+          "proof": "pilot/takeoff/land等个人旧入口也验证自己的ControllerSlot/Generation/lease；Flow开启takeoff/land直接NoEffect。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.ShipTests.SeatHasOneOwnerAndRejectsForgedOrOldLease",
+          "result": "Passed"
+        },
+        {
+          "report": "EB",
+          "name": "DarkNights.Tests.HeroControlTests.PossessionCancelsOrdersAndRejectsOtherConnection",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.DescentCarriesPassengerAllowsTakeoverAndLandsBeforeExit",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRecoveryTests.LateJoinInDescentSpawnsInsideShipAndCannotStealPilotSeat",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "old lease command rejected",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "midair seat release safely hovers without pilot",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "授权入口和唯一推力读取点封闭可审查，不需独立伪造网络工具才可验收该代码权限合同；旧营地及网络都无法直接写船位。",
+      "boundaries": [],
+      "missing": []
+    },
+    {
+      "id": "A073",
+      "contract": "仅指定平台/足够支撑/安全速度/净空满足条件自动着陆，无确认命令。",
+      "verdict": "partial",
+      "checklistChecked": false,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipFlightMotion.cs",
+          "line": 26,
+          "symbol": "Tick.safeApproach",
+          "proof": "碰撞清速度之前检查目标速度和当前XY速度，持续快降不能通过碰撞归零假装安全。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipFlightMotion.cs",
+          "line": 42,
+          "symbol": "Land / Supported",
+          "proof": "仅Dock附近指定容差；最终Dock Clear且起落架两点Solid、坡道净高无Solid才对齐并落地。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionShip.cs",
+          "line": 82,
+          "symbol": "Tick / CompleteLanding",
+          "proof": "Flight.Tick返回true立即在同一事务完成Landed与开门计时；Flow开启旧land命令不可用。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyLandingTests.IdleInputDescendsAndFastGroundContactCannotFakeSafeLanding",
+          "result": "Passed"
+        },
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyLandingTests.AutomaticLandingOpensAfterConfiguredDelayAndBothPlayersCanWalkOut",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "landed snaps to supported platform",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "landed releases seat and stale input",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "retired manual landing cannot restart exploration",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "安全谓词和无确认自动触发已直接确认；缺支撑/阻挡的实际地图几何负例尚无单独当前运行证据，不把默认平台成功当这些物理分支全部通过。",
+      "boundaries": [],
+      "missing": [
+        "一组真实Session负例即可：偏离Dock超过Tolerance、任一支撑探针无实体材料、船壳净空受阻、坡道头部受阻，分别用合法pilot低速下降核对保持Descent/不释放席位/不开门；恢复合法地图和对齐后自动落地。测试可在Editor权威夹具完成，地图改动仅夹具准备，不直接写Phase冒充降落。"
+      ]
+    },
+    {
+      "id": "A078",
+      "contract": "未支持返太空/多点着陆/战略地图没有误导性可用按钮。",
+      "verdict": "verified",
+      "checklistChecked": true,
+      "basis": "源码审查与已执行报告交叉核对；本审查未执行测试",
+      "sources": [
+        {
+          "file": "Game/Assets/DarkNights/Scripts/View/ExpeditionPanel.cs",
+          "line": 49,
+          "symbol": "Present",
+          "proof": "Journey.Enabled分支调用PresentJourneyActions后立即return，不执行旧远征全按钮显示。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/View/ExpeditionPanel.cs",
+          "line": 84,
+          "symbol": "PresentJourneyActions",
+          "proof": "明确白名单仅pilot、Preparing取消及Landed地面功能；land永false，takeoff/depart/recall/launch/emergency均不在白名单。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/View/Expedition/DestinationPicker.cs",
+          "line": 80,
+          "symbol": "Present",
+          "proof": "只有Orbit目录允许保持打开；进入其他阶段关闭。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionShip.cs",
+          "line": 39,
+          "symbol": "Command",
+          "proof": "Flow启用时takeoff和land旧入口返回NoEffect。"
+        },
+        {
+          "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs",
+          "line": 66,
+          "symbol": "Command.depart",
+          "proof": "Flow启用时旧depart不开始伪航程。"
+        }
+      ],
+      "tests": [
+        {
+          "report": "EJ",
+          "name": "DarkNights.Tests.JourneyRuntimeTests.DescentCarriesPassengerAllowsTakeoverAndLandsBeforeExit",
+          "result": "Passed"
+        },
+        {
+          "report": "N2",
+          "name": "retired manual landing cannot restart exploration",
+          "result": "Passed"
+        }
+      ],
+      "conclusion": "可用按钮来自唯一显式白名单，未支持功能无白名单项；不要求每个OS菜单手点才能确认不存在入口。",
+      "boundaries": [
+        "此结论针对当前正式Journey HUD/目的地面板。旧营地停用Flow时仍有自己的合法起飞/撤收按钮；后台旧结算命令是否继续支持属另一范围，不等于已支持返太空。"
+      ],
+      "missing": []
+    }
+  ],
+  "reconnectContract": {
+    "id": "A087",
+    "scope": "补充合同溯源；不是将A087全部弱网/网络场景一并判通过。",
+    "conclusion": "远征重连恢复原OwnerSlot角色是31aaecf合并基线已有行为。本次SessionHeroControl diff只增加SelectDestination/CancelJourney操作和转发，AssignDefault/Release/Owns未改。",
+    "sources": [
+      {
+        "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs",
+        "line": 21,
+        "symbol": "AssignDefault",
+        "proof": "先找本slot已有控制者；远征再按OwnerSlot找可Claim角色，保持Actor.Id及cargo；非远征不走此分支。"
+      },
+      {
+        "file": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroControlBehaviour.cs",
+        "line": 60,
+        "symbol": "Release",
+        "proof": "释放pilot及工作，远征保留ManualControl，ControllerSlot=-1/Generation=0，递增lease并清输入。"
+      },
+      {
+        "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+        "line": 55,
+        "symbol": "Connect / Disconnect / AcknowledgeReady",
+        "proof": "旧连接失效、generation递增，Ready后按新连接Claim；不会自动恢复驾驶席。"
+      },
+      {
+        "file": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionServer.cs",
+        "line": 173,
+        "symbol": "Ready",
+        "proof": "网络恢复先由SessionRecoverySlots验证/分配可信槽位，再Authority.Connect(slot)和AcknowledgeReady。"
+      },
+      {
+        "file": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionRecoverySlots.cs",
+        "line": 10,
+        "symbol": "Claim / Release",
+        "proof": "房间内120秒恢复凭据；活动槽不可抢、成功轮换token。不是平台永久身份，也不跨Host进程持久化。"
+      },
+      {
+        "file": "Game/Assets/DarkNights/Scripts/Tests/ExpeditionTests.cs",
+        "line": 112,
+        "symbol": "GuestCannotLaunchAndReconnectReclaimsCargoOwner",
+        "proof": "合并基线既有远征用例，断开/重连同slot后Actor.Id不变且总数仍2。"
+      },
+      {
+        "file": "Game/Assets/DarkNights/Scripts/Tests/HeroControlTests.cs",
+        "line": 44,
+        "symbol": "ReconnectCreatesANewVillagerInsteadOfTakingReleasedOne / SharedCampRestoresTheSameGeneratedVillager",
+        "proof": "普通营地新人语义与SharedCamp权限恢复复用同人物属于独立模式/路径。"
+      }
+    ],
+    "tests": [
+      {
+        "report": "EB",
+        "name": "DarkNights.Tests.ExpeditionTests.GuestCannotLaunchAndReconnectReclaimsCargoOwner",
+        "result": "Passed"
+      },
+      {
+        "report": "EB",
+        "name": "DarkNights.Tests.HeroControlTests.ReconnectCreatesANewVillagerInsteadOfTakingReleasedOne",
+        "result": "Passed"
+      },
+      {
+        "report": "EB",
+        "name": "DarkNights.Tests.HeroControlTests.SharedCampRestoresTheSameGeneratedVillager",
+        "result": "Passed"
+      },
+      {
+        "report": "N2",
+        "name": "orbit reconnect identity recovered",
+        "result": "Passed"
+      },
+      {
+        "report": "N2",
+        "name": "Preparing reconnect identity recovered",
+        "result": "Passed"
+      },
+      {
+        "report": "N2",
+        "name": "airborne driver reconnect identity recovered",
+        "result": "Passed"
+      },
+      {
+        "report": "N2",
+        "name": "landed reconnect identity recovered",
+        "result": "Passed"
+      },
+      {
+        "report": "N2",
+        "name": "landed restores original actors",
+        "result": "Passed"
+      }
+    ],
+    "boundaries": [
+      "同一运行房间内：有效恢复token取回同slot，远征该slot可Claim的原OwnerSlot角色复用；租约/连接代数刷新、驾驶席需重新主动认领。",
+      "权限恢复：HostOnly->SharedCamp未销毁会话或角色，保留/恢复同一角色；不是物理断线。",
+      "Client进程重启且仍持有效token属于同房间恢复；无token/过期时是否拿到同slot不能当永久人物身份承诺。",
+      "Host进程重启：旧网络token/connection生命周期结束，恢复Actor.Id靠当前v11存档加载和OwnerSlot映射；127项报告三阶段重启/原Actor恢复是存档恢复证据，不是旧网络连接持续存在。",
+      "旧AGENTS/PLAYER_GUIDE主角新人说明应注明普通营地模式；不为统一文字反向改变基线远征货物持有人合同。"
+    ]
+  },
+  "minimalFollowups": [
+    {
+      "items": [
+        "A025"
+      ],
+      "kind": "代码缺口及单个生命周期组合",
+      "action": "保持清单字面要求时，在合法空闲批次统一清Flow冻结字段并用同一池对象跨两局测试；本审查不改Assets。"
+    },
+    {
+      "items": [
+        "A054"
+      ],
+      "kind": "真实权威几何参数化用例",
+      "action": "最大速度贴地/坡形/包络边界每步查重叠；无需OS交互。"
+    },
+    {
+      "items": [
+        "A073"
+      ],
+      "kind": "真实权威着陆负例",
+      "action": "偏离、缺支撑、船壳/坡道阻挡逐项拒绝；无需OS交互。"
+    }
+  ],
+  "excludedClaims": [
+    "本文件不宣布117项全部通过。",
+    "没有新运行Unity、Player、弱网、四人或IL2CPP验收。",
+    "可封闭证明的代码合同接受源码证据；未执行的具体运行分支在对应boundary中明确保留。"
+  ],
+  "sourceFileHashes": {
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/PlanetTerrainGenerator.cs": "e89ef2b0682ddf59f2fbc273138cca7c93af3db29c1eb54512694b89f17fd9c1",
+    "Game/Assets/DarkNights/Scripts/Core/Save/JourneyValidator.cs": "e2717047a06ea0f8e1412334f4911f6343eb24cbcee62a2bb838fd6b123aa28d",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionServer.cs": "f462217fcf47d4c1c3df6842fb732e52be95e3f5d9435b411d46e65da7190a15",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ActorState.cs": "5721a2ca12632ce6583a3e852733f3cca51c23859edbe834a5f953f8cabea0f9",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/BuildingState.cs": "86e856b0f09b6fef87f0043796e59e710abd406310f96ac0af7002b470a2a477",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs": "0180b6f7b52e195e3155a838f0d0fa847aa5322a296f1b07c71bacf3d9af0275",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionJourneyBehaviour.cs": "32569dc09b98f01e97284278ac90cac2b60b5130d668c4dad1c63c01dc1a4839",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionJourneyState.cs": "3346a2246aa166929d832c28dc1414d2c85db2ea72bf3fdee1e579960b8e3a5c",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs": "798dcb8aeb67d0082869cddd47a417d4862c8094306a3c202d2d8189fec4bbb2",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionShip.cs": "bd4f1600781ce54086d294479de903f60aebc8eaa5aa98e373bd74e12a41721c",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroControlBehaviour.cs": "be9b5d8f49cf83ea65e0fb52e2a62001bc0af49c7dbb95999b49abc9316e4239",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs": "8d60c7fa4cf9c912d14c66aa7f132b0b8be13ed4366698984a085e3003f09d83",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionCommands.cs": "c065ae8c3b36915957bb3d57ae85ac0f77d9e76f363070740de90d94b5e44b5a",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/SessionStateBehaviour.cs": "e349f0b6f865536744493038d3711b18af01d28fe872df04950bea143381f7bd",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipCabinMotion.cs": "ef7b0288589fe6d1801b17feef778f5f71008dd76373631308423e025074c321",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipFlightMotion.cs": "d1608dacb7f31ab3a23362fe1514b9970b18c930d976ee0c58361066ff6ae929",
+    "Game/Assets/DarkNights/Scripts/Runtime/Save/JourneySaveJson.cs": "4e89123cd59d8a8038e97ce032c952287f16dbbdb70487c5dc29aeae0cf7975b",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs": "1555d2986e76bc8ba075d2cae53c47a647e49281f7829641bd03c4f4677b36b4",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionClock.cs": "1a2607134a834ba48f253ba70c68dc99c9a30983da5b9d09d5ddb253d704fe0b",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionExpeditionControl.cs": "fac5b43a8d182e6af0ffdc3e61ed9c8457069a995b2025eff36640af561c3826",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs": "6ddfd6cd1e1d01a22a866a861029d559a6ffc1e9caf08053affa998897a8bfb7",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyControl.cs": "6a0de89c715658205374f1084b572c6e18d5007f8e1cef6051002247d5ade248",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyTransfer.cs": "a6436b1f60f4d306a50305916dac22fa78ca918ed82ca21cbe8fe804f76635bc",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperations.cs": "6ac4ae7100ac8adeecc72fdbc15c8ef5e8a106b024be0ccc7a8d3975ce9e8f87",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionRecoverySlots.cs": "f5e63dd6d85f22dd5be3e02a0d24b1eae46d818145872bbe298d2d9902ff862e",
+    "Game/Assets/DarkNights/Scripts/Tests/ExpeditionTests.cs": "973c33cabda73b9f324a1f5dd6be1bfcc9e88169743c6dbf9ad2f4484322f70e",
+    "Game/Assets/DarkNights/Scripts/Tests/HeroControlTests.cs": "86b8624be706793f60d87189b6255ed3e51a43d3a7ddfac1f38b9c39eac467e6",
+    "Game/Assets/DarkNights/Scripts/Tests/SessionBoundaryScenarios.cs": "efd9e937f949bf4561ad187a078d6fc33d8a62263e9212fa0e327ebf7b4cef50",
+    "Game/Assets/DarkNights/Scripts/View/Expedition/ConfiguredTravelTransition.cs": "b9da5a6a30bc876142a22a840baa93f42579973e4d4ccc38a6ac2d96f6a1f219",
+    "Game/Assets/DarkNights/Scripts/View/Expedition/DestinationPicker.cs": "90cb56f02c1bcea1dc7586a2b689df4bed1e658c677c99aa56e6201be54c45ef",
+    "Game/Assets/DarkNights/Scripts/View/Expedition/JourneyEnvironment.cs": "384152d64e2ee28fc65314294bb58981c9f87fd5bd5b964ee8b0b114663762d4",
+    "Game/Assets/DarkNights/Scripts/View/ExpeditionPanel.cs": "efcec6b5b2b9b1edcde660621c86a38a8900e1b2dcad03859ec7ca6461c0215e"
+  },
+  "reportHashes": {
+    "artifacts/space-planet-flow/editor-journey-r1.json": "1d17e7eee33fdcac9c8d0a0142a53b580d9e4e206498b113d662c06e93bd0714",
+    "artifacts/space-planet-flow/editor-baseline-and-repairs.json": "23ca18043fc418199fc39db1b43e6a5ef4cca620c15b5d3a2830c7a3e130f0df",
+    "artifacts/space-planet-flow/network-20260926-172852-677043-mono-normal-2p-client/result.json": "4230f88fd1e33a8ffeef79e4cb0a8919ab07bc6c95e3249c6875506bd4a840fc"
+  }
+}

@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using DarkNights.Core.Logic.State;
 using DarkNights.Core.ViewData;
 using DarkNights.View.Expedition;
 using UnityEngine;
@@ -54,7 +53,8 @@ namespace DarkNights.View
                 Status.text = $"{JourneyPresentationRules.Stage(journey.Phase)} · {journey.ActivePlanet?.DisplayName ?? "未选择目的地"}\n" +
                     $"氧气 {a?.Oxygen ?? 0:0}  携带 {(a?.Iron ?? 0) + (a?.Gold ?? 0)}  船仓 {(ship?.Iron ?? 0) + (ship?.Gold ?? 0)}\n" +
                     $"可用铁 {world.Camp.Stock.Iron} / 金 {world.Camp.Stock.Gold} · {(piloting ? "你在驾驶" : flight?.PilotId > 0 ? "驾驶位已占用" : "驾驶位空闲")}\n" +
-                    JourneyPresentationRules.Guidance(journey, piloting) + landing +
+                    (journey.Phase == JourneyPhase.Landed && flight.DoorClock > 0 ?
+                        $"已自动着陆并离座，坡道展开中（{flight.DoorClock:0.0} 秒）。" : JourneyPresentationRules.Guidance(journey, piloting)) + landing +
                     (!ready ? "\n正在同步，操作尚未开放。" : "") +
                     (paused ? "\n会话已暂停。" : "") +
                     (journey.Error.Length != 0 ? "\n" + journey.Error : "");
@@ -90,7 +90,7 @@ namespace DarkNights.View
             {
                 string command = Commands[i];
                 bool show = command == "pilot" ? orbit || landed || phase == JourneyPhase.Descent :
-                    command == "land" ? phase == JourneyPhase.Descent :
+                    command == "land" ? false :
                     command == "cancel-flight" ? phase == JourneyPhase.Preparing :
                     landed && (command is "unload" or "board" or "relay" or "mine" or "deploy" or "robot" or "cargo" or "crew" or "resupply");
                 Actions[i].gameObject.SetActive(show);
@@ -98,7 +98,7 @@ namespace DarkNights.View
                 if (labels != null)
                 {
                     labels[i].text = command == "pilot" ? orbit ? "选择目的地" : pilot ? "离开驾驶位" : "接管驾驶" :
-                        command == "land" ? "安全区着陆" : command == "cancel-flight" ? "取消航程" : originalLabels[i];
+                        command == "cancel-flight" ? "取消航程" : originalLabels[i];
                     ((RectTransform)Actions[i].transform).anchoredPosition = new Vector2(10 + visible % 3 * 141, -168 - visible / 3 * 30);
                 }
                 visible++;

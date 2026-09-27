@@ -29,7 +29,7 @@ namespace DarkNights.Tests
                 randomTerrain: true, expedition: true);
             var map = ExpeditionTerrainGenerator.Generate("EXPEDITION-QUICK-01", WorldId);
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(Editor.Terrain.CaveTerrainAssets.DefinitionPath);
-            return scope.NewWorld(catalog, layout, false, terrain: w => new SessionTerrain(w.Context, definition.LoadGameplayCatalog(), map));
+            return scope.NewWorld(catalog, layout, false, terrain: w => new SessionTerrain(w.Context, definition.LoadGameplayCatalog(), map), journeyEnabled: false);
         }
         private static SessionConnection Connect(SessionAuthority authority, int slot)
         {

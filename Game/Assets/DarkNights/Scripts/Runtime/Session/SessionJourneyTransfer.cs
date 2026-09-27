@@ -1,3 +1,4 @@
+using DarkNights.Core.ViewData;
 using System;
 using System.Collections.Generic;
 using System.Linq;

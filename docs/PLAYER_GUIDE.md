@@ -1,6 +1,8 @@
 # Dark Nights 操作与本机验收
 
-正式入口为 `DarkNights.exe`，必须保留同目录的 Data、UnityPlayer 和 Addressables 内容。当前正式联机协议为 **14**，房间内各端使用同一构建；旧协议和内容摘要不匹配的连接会被拒绝。项目使用 Linear 色彩空间。当前飞船 Mono 的入口与验收范围见[可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)；下列旧构建记录只代表各自历史输入。
+正式入口为 `DarkNights.exe`，必须保留同目录的 Data、UnityPlayer 和 Addressables 内容。当前航程协议为 **15**／存档 **v11**，房间内各端使用同一构建；旧协议和内容摘要不匹配的连接会被拒绝。项目使用 Linear 色彩空间。本批 Mono 为 `artifacts/space-planet-flow/player-mono-r2/DarkNights.exe`，实际验收与限制见[太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)；下列旧构建记录只代表各自历史输入。
+
+本批开局在太空船舱。用 A/D 走到右侧驾驶台，打开目的地列表并确认；确认者获得驾驶席。抵达星球半空且同步完成后，A/D 平移、空格上升、S 快降，松手自动缓降。对准配置泊位并满足安全速度后自动着陆，驾驶席自动释放，等待开门后从左侧坡道走下；无须点击“安全区着陆”。无人驾驶、断线或到达同步期间仍悬停，合法船员可到驾驶台接管。星球配置入口是 `Dark Nights/配置/星球与航程`。
 
 2026-09-16 默认村民生成修正后的输出目录为 `artifacts/hero-input/player-mono-generated-villager-r2`，执行范围、实际通过项与输入 Sample 见[联合执行文档](archive/HERO_INPUT_EXECUTION.md)。下列旧构建记录只代表历史输入。
 

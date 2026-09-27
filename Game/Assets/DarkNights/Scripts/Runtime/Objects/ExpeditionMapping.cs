@@ -33,6 +33,7 @@ namespace DarkNights.Runtime.Objects
             var ship = world.Expedition.Ship.Edit();
             ship.ShipPhase = data.Ship.Phase is 1 or 2 ? 0 : data.Ship.Phase;
             ship.PilotId = 0; ship.ShipVelocityX = ship.ShipVelocityY = 0; ship.ShipDoorClock = 0;
+            if (data.Journey?.Phase == JourneyPhase.Landed) ship.ShipDoorClock = data.Ship.DoorClock;
             ship.DockX = data.Ship.DockX; ship.DockHeight = data.Ship.DockHeight;
             var c = world.Camp.Edit();
             c.ExpeditionRun = data.Run;

@@ -1,5 +1,4 @@
 using System.Linq;
-using DarkNights.Core.Logic.State;
 using DarkNights.Core.Logic.Terrain;
 using DarkNights.Core.ViewData;
 
@@ -57,9 +56,9 @@ namespace DarkNights.View.Expedition
                 case JourneyPhase.Preparing: return "正在准备星球地图；驾驶者可取消，乘员可继续在船内走动。";
                 case JourneyPhase.Transit: return "正在前往目的地；星点过场只在本地播放。";
                 case JourneyPhase.ArrivalSync: return "已到达星球半空，等待地图和乘员同步；飞船保持悬停。";
-                case JourneyPhase.Descent: return pilot ? "A/D 平移 · 空格上升 · S 下降；停稳后点击安全区着陆。" :
+                case JourneyPhase.Descent: return pilot ? "A/D 平移 · 空格上升 · S 快降；松手缓降，对准泊位自动着陆。" :
                     "乘员可在舱内走动；驾驶位空闲时可到驾驶台接管。";
-                case JourneyPhase.Landed: return "坡道已展开，可步行下船；驾驶者先点击离座。";
+                case JourneyPhase.Landed: return "已自动着陆并离座，可从左侧坡道步行下船。";
                 default: return "";
             }
         }

@@ -1,3 +1,4 @@
+using DarkNights.Core.ViewData;
 using System;
 using System.Linq;
 using DarkNights.Core.Logic.State;
@@ -5,7 +6,7 @@ using DarkNights.Core.Logic.Terrain;
 
 namespace DarkNights.Runtime.Objects
 {
-    /// <summary>飞船驾驶席和收舱阶段协调；0 停泊、1 召回、2 关舱、3 飞行，权威字段只归船的 BuildingState。</summary>
+    /// <summary>飞船驾驶席和舱门阶段协调；0 停泊（可含开门倒计时）、1 召回、2 关舱、3 飞行，权威字段只归 BuildingState。</summary>
     public sealed class ExpeditionShip
     {
         private readonly ObjectSession world;
@@ -33,7 +34,8 @@ namespace DarkNights.Runtime.Objects
                     }
                     if (s.PilotId != 0 || !a.Boarded || !ShipGeometry.AtPilot(a.X - s.X, a.Height - s.Height)) return 0;
                     s.PilotId = hero.Id; a.ControlLease = checked(a.ControlLease + 1); HeroControlBehaviour.ResetInput(a);
-                    world.Notify("已进入驾驶位：A/D 平移，空格上升，S 下降；松开悬停，低速接近降落区后着陆。"); return 1;
+                    world.Notify(world.Flow.Enabled ? "已进入驾驶位：A/D 平移，空格上升，S 加速下降；松手缓降，对准泊位后自动着陆。" :
+                        "已进入驾驶位：A/D 平移，空格上升，S 下降；松开悬停，低速接近降落区后着陆。"); return 1;
                 case "takeoff":
                     if (world.Flow.Enabled) return 0;
                     if (s.PilotId != hero.Id || s.ShipPhase != 0 || world.Camp.Read().ExpeditionPhase is not (0 or 1 or 4)) return 0;
@@ -43,7 +45,7 @@ namespace DarkNights.Runtime.Objects
                     if (s.PilotId != hero.Id || s.ShipPhase is not (1 or 2)) return 0;
                     s.ShipPhase = 0; s.ShipDoorClock = 0; return 1;
                 case "land":
-                    if (world.Flow.Enabled && world.Flow.Phase != JourneyPhase.Descent) return 0;
+                    if (world.Flow.Enabled) return 0;
                     if (s.PilotId != hero.Id || s.ShipPhase != 3 || !flight.Land()) return 0;
                     world.Flow.Landed();
                     world.Notify("着陆完成，坡道已展开；可离开驾驶位步行下船。"); return 1;
@@ -62,8 +64,14 @@ namespace DarkNights.Runtime.Objects
             if (pilot == null || pilot.Hp <= 0 || !pilot.Read().Boarded || pilot.Read().ControllerSlot < 0)
             {
                 s.PilotId = 0;
+                if (world.Flow.Enabled) s.ShipVelocityX = s.ShipVelocityY = 0;
                 if (s.ShipPhase is 1 or 2) { s.ShipPhase = 0; s.ShipDoorClock = 0; }
                 pilot = null;
+            }
+            if (s.ShipPhase == 0 && s.ShipDoorClock > 0)
+            {
+                s.ShipDoorClock = Math.Max(0, s.ShipDoorClock - delta);
+                if (s.ShipDoorClock == 0) world.Notify("坡道已展开，可从左侧步行下船。");
             }
             if (s.ShipPhase == 1 && Ready()) { s.ShipPhase = 2; s.ShipDoorClock = world.Catalog.Balance.Expedition.Ship.DoorSeconds; }
             if (s.ShipPhase == 2)
@@ -73,9 +81,21 @@ namespace DarkNights.Runtime.Objects
             }
             if (s.ShipPhase == 3)
             {
-                if (!world.Flow.Enabled || world.Flow.Phase == JourneyPhase.Descent) flight.Tick(delta, pilot?.Read());
+                if (!world.Flow.Enabled || world.Flow.Phase == JourneyPhase.Descent)
+                {
+                    if (flight.Tick(delta, pilot?.Read())) CompleteLanding(pilot);
+                }
                 else s.ShipVelocityX = s.ShipVelocityY = 0;
             }
+        }
+
+        private void CompleteLanding(ActorBehaviour pilot)
+        {
+            var s = Ship.Edit(); s.PilotId = 0;
+            s.ShipDoorClock = world.Catalog.Balance.Expedition.Ship.DoorSeconds;
+            var a = pilot.Edit(); a.ControlLease = checked(a.ControlLease + 1); HeroControlBehaviour.ResetInput(a);
+            world.Flow.Landed();
+            world.Notify("已安全着陆并离开驾驶位，正在展开坡道。");
         }
 
         private bool Ready()

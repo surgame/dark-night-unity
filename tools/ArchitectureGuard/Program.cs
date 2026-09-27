@@ -26,7 +26,7 @@ namespace DarkNights.Tools.ArchitectureGuard
             string res = Path.Combine(root, "Game/Assets/DarkNights/Res");
             if (Directory.Exists(res) && Directory.GetFiles(res, "*.cs", SearchOption.AllDirectories).Length != 0)
                 errors.Add("Code must not be placed under Res");
-            string report = Path.Combine(root, "artifacts/migration/architecture.json");
+            string report = args.Length > 1 ? Path.GetFullPath(args[1]) : Path.Combine(root, "artifacts/migration/architecture.json");
             Directory.CreateDirectory(Path.GetDirectoryName(report));
             File.WriteAllText(report, JsonSerializer.Serialize(new
             {

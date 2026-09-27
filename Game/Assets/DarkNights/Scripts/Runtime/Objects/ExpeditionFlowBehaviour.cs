@@ -172,7 +172,7 @@ namespace DarkNights.Runtime.Objects
             {
                 var a = pilot.Edit(); a.ControlLease = checked(a.ControlLease + 1); HeroControlBehaviour.ResetInput(a);
             }
-            world.Notify("可以驾驶降落：A/D 平移，空格上升，S 下降；低速接近降落区后确认着陆。");
+            world.Notify("可以驾驶降落：A/D 平移，空格上升，S 加速下降；松手缓降，在安全平台自动着陆并离座。");
         }
 
         public void ArrivalFailed(string reason)
@@ -238,14 +238,19 @@ namespace DarkNights.Runtime.Objects
 
         protected override void OnSpawn()
         {
-            ResetPending(); world = null; Enabled = false; Planets = Array.Empty<PlanetDefinition>();
-            ContentFingerprint = ""; PreparationTimeoutSeconds = ArrivalTimeoutSeconds = 0;
+            ClearSession();
         }
 
         public override void OnDespawn()
         {
-            ResetPending(); world = null; Enabled = false;
+            ClearSession();
             base.OnDespawn();
+        }
+
+        private void ClearSession()
+        {
+            ResetPending(); world = null; Enabled = false; Planets = Array.Empty<PlanetDefinition>();
+            ContentFingerprint = ""; PreparationTimeoutSeconds = ArrivalTimeoutSeconds = 0;
         }
     }
 }

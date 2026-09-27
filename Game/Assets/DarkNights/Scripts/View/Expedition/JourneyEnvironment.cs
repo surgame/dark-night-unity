@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using DarkNights.Core.Config.Expedition;
 using DarkNights.Core.Config.Terrain;
-using DarkNights.Core.Logic.State;
 using DarkNights.Core.ViewData;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -82,6 +81,8 @@ namespace DarkNights.View.Expedition
             sky.SetActive(visible);
             if (!visible) return;
             ColorUtility.TryParseHtmlString(space ? planet?.SpaceColorHex ?? "#060C20" : planet?.SkyColorHex ?? "#243B55", out Color tint);
+            // Mesh 顶点颜色不会像材质 Color 属性那样自动解码，作者十六进制颜色先进入线性空间。
+            if (QualitySettings.activeColorSpace == ColorSpace.Linear) tint = tint.linear;
             var upperTint = space ? tint : new Color(tint.r * .7f, tint.g * .7f, tint.b * .7f, 1);
             skyMesh.Clear();
             skyMesh.vertices = new[] { new Vector3(left, bottom, 1), new Vector3(right, bottom, 1),
@@ -107,6 +108,7 @@ namespace DarkNights.View.Expedition
                 vertices[k + 2] = new Vector3(x + radius, y + radius, 0);
                 vertices[k + 3] = new Vector3(x - radius, y + radius, 0);
                 var color = new Color(.65f + (i % 3) * .1f, .8f, 1, opacity);
+                if (QualitySettings.activeColorSpace == ColorSpace.Linear) color = color.linear;
                 for (int v = 0; v < 4; v++) colors[k + v] = color;
             }
             starMesh.vertices = vertices; starMesh.colors = colors; starMesh.RecalculateBounds();

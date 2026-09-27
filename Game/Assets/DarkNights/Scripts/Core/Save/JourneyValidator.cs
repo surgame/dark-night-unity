@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.Logic.Terrain;
 using DarkNights.Core.ViewData;
@@ -38,6 +39,23 @@ namespace DarkNights.Core.Save
 
         public static bool OnPlanet(JourneyViewData d) => d != null &&
             d.Phase is JourneyPhase.ArrivalSync or JourneyPhase.Descent or JourneyPhase.Landed;
+
+        public static string Environment(JourneyViewData journey, PlayableTerrain terrain)
+        {
+            if (journey == null) return "";
+            if (terrain == null || !terrain.Expedition) return "航程缺少远征地图";
+            if (OnPlanet(journey))
+                return terrain.Seed == journey.Seed && terrain.Rooms.Count != 0 ? "" : "航程实际种子或星球地图不匹配";
+            if (terrain.Seed != PlanetTerrainGenerator.SpaceSeed || terrain.Rooms.Count != 0 || terrain.Deposits.Count != 0)
+                return "太空航程必须使用空载体地图";
+            byte[] cells = terrain.CopyMaterials(), shapes = terrain.CopyShapes();
+            bool[] protection = terrain.CopyProtection(), soft = terrain.CopySoftRock();
+            int bottom = (TerrainGenerationSettings.Height - 1) * TerrainGenerationSettings.Width;
+            for (int i = 0; i < cells.Length; i++)
+                if (cells[i] != (i < bottom ? 0 : 8) || protection[i] != (i >= bottom) || shapes[i] != 0 || soft[i])
+                    return "太空载体含有非预期地形";
+            return "";
+        }
 
         public static double MaximumCrewHeight(JourneyViewData d)
         {

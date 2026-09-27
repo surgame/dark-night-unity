@@ -1,3 +1,4 @@
+using DarkNights.Core.ViewData;
 using System;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.Logic.Terrain;
@@ -12,7 +13,7 @@ namespace DarkNights.Runtime.Objects
         internal ShipCabinMotion(ObjectSession world) { this.world = world; }
         private BuildingBehaviour Ship => world.Expedition.Ship;
         internal bool Open => Ship != null && Ship.Read().ShipPhase <= 1 &&
-            (!world.Flow.Enabled || world.Flow.Phase == JourneyPhase.Landed);
+            (!world.Flow.Enabled || world.Flow.Phase == JourneyPhase.Landed && Ship.Read().ShipDoorClock == 0);
 
         internal bool Player(ActorBehaviour actor, double delta)
         {

@@ -2,6 +2,8 @@
 
 `Game/` 使用 Unity `6000.4.9f1` 和 **Linear** 色彩空间。正式入口继续使用 Bootstrap；游戏操作、当前 Player 和复跑条件见 [Player 指南](PLAYER_GUIDE.md)。独立模板位于 `Assets/Samples/LanCoop/Content/LanCoop.unity`，只作为 [LAN Sample](LAN_SAMPLE.md) 对照。
 
+2026-09-26 本批已接入[太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)，协议 **15**／存档 **v11**。打开 `Game/Assets/Scenes/Bootstrap.unity` 进入 Play，或运行 `artifacts/space-planet-flow/player-mono-r2/DarkNights.exe`；不要以 `-batchmode` 跳过太空相机 Ready。星球表格为 `Dark Nights/配置/星球与航程`，驾驶松手后缓降并自动安全着陆。验收状态与双机器等条件见[清单](SPACE_TO_PLANET_ACCEPTANCE.md)。
+
 2026-09-22 当前正式远征为协议 **14**／存档 **v10**；试玩入口、Mono 产物及验证边界见[可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)。前台性能、IL2CPP 和双机器 LAN 未通过本批验收。
 
 2026-09-16 历史主角切片：YYGC 统一对象迁移 U0–U5 已完成，Core 只保留纯算法、只读配置和数据合同。产品默认固定为主角操控，每个有权限的玩家首次 Ready 由服务端新建一名专属村民，不占用场景现有闲置村民；顶部主角工具栏与旧营地操作入口暂时隐藏，快捷键继续生效，仅显式 `--dn-camp-mode` 开发回归保留旧 UI／后端。当时协议 8／新档 v3，YYGC 输入提交 `0c7cec0`；历史 Player 为 `artifacts/hero-input/player-mono-generated-villager-r2`，验收以[联合执行文档](archive/HERO_INPUT_EXECUTION.md)为准。

@@ -1,6 +1,6 @@
-# Unity 世界存档 v11（航程源码候选）
+# Unity 世界存档 v11（太空到星球流程）
 
-2026-09-26 [太空到星球候选](SPACE_TO_PLANET_IMPLEMENTATION.md)升级为 **v11**／协议 **15**。新增 `expedition.Journey`：Enabled、JourneyId、Revision、Phase、PlanetId、Seed、MapId、ContentFingerprint、PhaseElapsed、Error、Planets，共 11 字段；每个星球包含 17 个显式字段，完整定义见 `JourneySaveJson`。只保存 Orbit／Descent／Landed；恢复校验当前配置指纹和全部目录字段，保存最终地图，下降恢复清除驾驶占用和速度。用户要求本轮不执行验证，真实写盘重启与联机恢复全部待验收，下列旧版本通过记录不适用于本候选。
+2026-09-26 [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)使用 **v11**／协议 **15**。新增 `expedition.Journey`，定义见 `JourneySaveJson`；只保存 Orbit／Descent／Landed，校验当前指纹、完整目录、实际种子与地图阶段，保存最终地图。下降恢复释放驾驶占用并悬停，着陆恢复保留剩余开门时间。当前纯校验与 Editor 恢复已执行，真实写盘重启和多人恢复按本批产物记录在[验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)；历史结果不替代本批结果。
 
 2026-09-22 [可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)升级为 **v10**／协议 **14**。`SessionSnapshot.CurrentVersion` 与正式握手常量分别为 10、14；冻结 `ExpeditionShipData` 随远征状态进入同一权威存档，恢复时校验候选并原子替换。空中读档保留位置与乘员，释放驾驶占用并归零速度；旧版本严格拒绝，原文件不自动删除。具体飞船行为和本批验证见切片记录；下方按日期标记的旧版本段落只用于追溯。
 

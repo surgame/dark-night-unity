@@ -14,6 +14,7 @@ namespace DarkNights.Core.Logic.Terrain
     {
         private const int W = TerrainGenerationSettings.Width;
         private const int H = TerrainGenerationSettings.Height;
+        public const string SpaceSeed = "SPACE-CARRIER-V1";
 
         public static PlayableTerrain Generate(PlanetDefinition planet, string seed, string worldId, Func<bool> cancelled = null)
         {
@@ -48,9 +49,9 @@ namespace DarkNights.Core.Logic.Terrain
                 }
             }
 
-            TerrainRoom destination = SelectRoom(source, planet, left, right, out int targetFloor);
-            int start = destination.X < left ? left - 1 : right + 1;
-            CarveWalkway(cells, protection, soft, start, planet.DockRow, destination.X, targetFloor);
+            SelectSupport(source, planet, left, right, out int targetColumn, out int targetFloor);
+            int start = targetColumn < left ? left - 1 : right + 1;
+            CarveWalkway(cells, protection, soft, start, planet.DockRow, targetColumn, targetFloor);
             CheckCancellation(cancelled);
             byte[] shapes = TerrainShapeGeometry.Build(cells, protection, W, H);
             var deposits = new List<TerrainDepositBlueprint>();
@@ -68,7 +69,7 @@ namespace DarkNights.Core.Logic.Terrain
         {
             // 初始环境沿用现有 AMP1 地图生命周期；只有协议要求的底边基岩，没有可开采星球。
             // 这不是一颗虚构星球：船舱关闭，地面玩法门控由航程阶段负责。
-            const string seed = "SPACE-CARRIER-V1";
+            const string seed = SpaceSeed;
             var cells = new byte[W * H];
             var protection = new bool[cells.Length];
             var shapes = new byte[cells.Length];
@@ -82,24 +83,36 @@ namespace DarkNights.Core.Logic.Terrain
                 Array.Empty<TerrainRoom>(), Array.Empty<TerrainDepositBlueprint>(), shapes, true, background);
         }
 
-        private static TerrainRoom SelectRoom(TerrainBlueprint source, PlanetDefinition planet, int left, int right, out int targetFloor)
+        private static void SelectSupport(TerrainBlueprint source, PlanetDefinition planet, int left, int right,
+            out int targetColumn, out int targetFloor)
         {
-            TerrainRoom selected = null;
             int best = int.MaxValue;
-            targetFloor = 0;
+            targetColumn = targetFloor = -1;
             foreach (var room in source.Rooms)
             {
-                int floor = room.Y;
-                while (floor < H - 5 && source.MaterialAt(room.X, floor) == 0) floor++;
-                int start = room.X < left ? left - 1 : right + 1;
-                int horizontal = Math.Abs(room.X - start);
-                int vertical = floor - planet.DockRow;
-                if (room.X >= left && room.X <= right || vertical < 0 || horizontal < vertical + 2) continue;
-                int score = horizontal + vertical * 2;
-                if (score >= best) continue;
-                best = score; selected = room; targetFloor = floor;
+                // 房间中心可能通向竖井；只选择房间内部具有站立净空的真实支撑点。
+                for (int x = Math.Max(3, room.Left + 2); x <= Math.Min(W - 4, room.Left + room.Width - 2); x++)
+                {
+                    if (x >= left && x <= right) continue;
+                    int start = x < left ? left - 1 : right + 1;
+                    int horizontal = Math.Abs(x - start);
+                    int top = Math.Max(planet.DockRow + 8, room.Top + 3);
+                    int bottom = Math.Min(H - 5, room.Top + room.Height + 3);
+                    for (int floor = top; floor <= bottom; floor++)
+                    {
+                        if (source.MaterialAt(x, floor) == 0 || source.IsProtected(x, floor) ||
+                            source.MaterialAt(x, floor - 1) != 0 || source.MaterialAt(x, floor - 2) != 0 ||
+                            source.MaterialAt(x, floor - 3) != 0) continue;
+                        int vertical = floor - planet.DockRow;
+                        if (horizontal < vertical + 2) continue;
+                        int score = horizontal + vertical * 2;
+                        if (score >= best) continue;
+                        best = score; targetColumn = x; targetFloor = floor;
+                    }
+                }
             }
-            return selected ?? throw new InvalidOperationException("当前泊位无法以每列最多一格的坡道连接洞室，请调整泊位。");
+            if (targetColumn < 0)
+                throw new InvalidOperationException("当前泊位无法以每列最多一格的坡道连接洞室，请调整泊位。");
         }
 
         private static void CheckCancellation(Func<bool> cancelled)

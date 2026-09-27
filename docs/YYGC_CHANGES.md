@@ -1,5 +1,23 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-27：框架分支合入 master
+
+用户授权将游戏实际使用的 YYGC 改动合入 `master`。`D:/Developer/YYGC` 活动检出中暂存的八个文件与 `fix-20260926-bootstrap-startup`（`094e722`、`19d8f5b`）逐字节一致，以合并提交 **`0a9eec7`** 记录，工作区文件无变化；`CHANGELOG.md` 补记后 `master` 快进到 **`fee1864`**，原 `4939af2` 之后的地图联网拆包、局部地形刷新、地形复核、生成注册范围及启动修复共 24 个提交全部合入。活动检出已切到 `master`（同一提交）。AnyRules 暂无旧数据，拆包不做数据迁移。未推送远端。
+
+游戏 `manifest.json` 仍为 `file:D:/Developer/YYGC`；当前构建对应的框架源码即 `fee1864`，但本机包路径不等于全新机器可重现的依赖恢复。
+
+## 2026-09-26：航程验收恢复池化单例注册
+
+实际 Editor 回归发现 `YYInteractionSessionService` 第二轮初始化后 `Instance` 为空。当前 `D:/Developer/YYGC` 缺少游戏仓库已有的 `RestoreSingletonOnPooledReentry.patch`：首次初始化标记保留，离场却清空单例，导致重入跳过注册。
+
+先在已空闲且干净的 `D:/Developer/YYGC-worktrees/bootstrap-startup` 核验并应用现有补丁，隔离提交 **`19d8f5b`**；确认目标文件与隔离基线 SHA-256 相同后，只向活动包应用该文件。保留七文件启动修复和其他既有改动，不切换用户框架分支。
+
+| YYGC 修改文件 | 原因与落点 | 当前验证 |
+|---|---|---|
+| `Runtime/Objects/Singletons/SingletonBehaviours.cs` | 两类单例在每轮 `InitializeCore` 注册实例，首次初始化钩子仍只执行一次。 | Local Unity 编译通过；实际 `InteractionSingletonRegistersAgainAfterPooledDespawn` 连续三轮重入通过。 |
+
+补丁仍由 `tools/lan-framework-patch/RestoreSingletonOnPooledReentry.patch` 和既有准备脚本管理；不另复制一份实现。前后源码哈希及工作区状态见 `artifacts/space-planet-flow/singleton-source-proof.json`，本批测试见 `editor-walkway-and-framework.json`。Player 和后续联机结果以航程验收报告为准。
+
 ## 2026-09-26：Bootstrap 蓝屏启动修复
 
 用户报告 `UGUI Runtime` 缺少 Canvas、`Network State Types` 缺少独立 Sample 的 `CampState`，授权修复并通知航程验收聊天。当前包直接引用 `D:/Developer/YYGC`，基线 `0b1fad6` 已按生成目标程序集隔离注册，但运行时仍扫描所有已加载程序集；该包也缺少旧隔离包曾有的 Unity 空值补丁。

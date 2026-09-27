@@ -29,7 +29,8 @@ namespace DarkNights.Core.Save
             if (s == null || !data.Devices.Any(d => d.Id == s.Id) || s.Phase is < 0 or > 3 ||
                 !Finite(s.VelocityX, -rules.HorizontalSpeed, rules.HorizontalSpeed) || !Finite(s.VelocityY, -rules.VerticalSpeed, rules.VerticalSpeed) || !Finite(s.DoorClock, 0, rules.DoorSeconds) ||
                 !Finite(s.DockX, 176, 4944) || !Finite(s.DockHeight, -2400, 192)) return "飞船运动合同无效";
-            if (s.Phase != 3 && (s.VelocityX != 0 || s.VelocityY != 0) || s.Phase != 2 && s.DoorClock != 0)
+            bool opening = s.Phase == 0 && data.Journey?.Phase == JourneyPhase.Landed;
+            if (s.Phase != 3 && (s.VelocityX != 0 || s.VelocityY != 0) || s.Phase != 2 && !opening && s.DoorClock != 0)
                 return "飞船阶段与运动不一致";
             if (s.PilotId != 0 && !data.Crew.Any(a => a.Id == s.PilotId && a.Role == 0 && a.Boarded && a.OwnerSlot >= 0))
                 return "驾驶席引用无效";

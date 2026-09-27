@@ -22,7 +22,7 @@ namespace DarkNights.Tests
                 randomTerrain: true, expedition: true);
             var map = ExpeditionTerrainGenerator.Generate("SHIP-0922", "9765fd14785b4b0bb4ab7d7b7286b384");
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(Editor.Terrain.CaveTerrainAssets.DefinitionPath);
-            return scope.NewWorld(catalog, layout, false, terrain: w => new SessionTerrain(w.Context, definition.LoadGameplayCatalog(), map));
+            return scope.NewWorld(catalog, layout, false, terrain: w => new SessionTerrain(w.Context, definition.LoadGameplayCatalog(), map), journeyEnabled: false);
         }
         internal static SessionConnection Connect(SessionAuthority authority, int slot)
         {

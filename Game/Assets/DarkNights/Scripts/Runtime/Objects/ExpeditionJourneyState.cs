@@ -1,3 +1,4 @@
+using DarkNights.Core.ViewData;
 using DarkNights.Core.Logic.State;
 using GameCore.Objects.NetworkStates;
 using MemoryPack;

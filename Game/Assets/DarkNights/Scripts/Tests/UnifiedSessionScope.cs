@@ -25,6 +25,7 @@ namespace DarkNights.Tests
     public sealed class UnifiedSessionScope : IDisposable
     {
         private readonly List<(ObjectSession World, GameObject Root)> worlds = new List<(ObjectSession, GameObject)>();
+        private readonly List<ObjectDefinition> sessionDefinitions = new List<ObjectDefinition>();
         private ObjectSessionResources resources;
         private GameObject updates;
         public static UnifiedSessionScope Current { get; private set; }
@@ -65,27 +66,45 @@ namespace DarkNights.Tests
             Placements(layout).ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition)));
 
         public ObjectSession NewWorld(GameCatalog catalog, LevelLayout layout, bool activate = true,
-            float debugHeroSpeedMultiplier = 1, Func<ObjectSession, SessionTerrain> terrain = null)
+            float debugHeroSpeedMultiplier = 1, Func<ObjectSession, SessionTerrain> terrain = null, bool? journeyEnabled = null,
+            Action<ExpeditionFlowConfig> configureJourney = null)
         {
             var world = new ObjectSession(catalog, layout, resources, () => true,
                 debugHeroSpeedMultiplier: debugHeroSpeedMultiplier);
             world.Terrain = terrain?.Invoke(world);
             GameObject root = null;
+            ObjectDefinition definitionCopy = null;
             try
             {
                 root = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(Editor.FormalObjectContentSetup.SessionPrefabPath));
                 var instance = root.GetComponent<ObjectInstance>();
-                instance.Initialize("integration-session", ObjectDefinitionDatabase.Instance.GetDefinitionByKey(FormalObjectCatalog.SessionKey),
+                var definition = ObjectDefinitionDatabase.Instance.GetDefinitionByKey(FormalObjectCatalog.SessionKey);
+                if (journeyEnabled.HasValue || configureJourney != null)
+                {
+                    definitionCopy = UnityEngine.Object.Instantiate(definition);
+                    definitionCopy.hideFlags = HideFlags.HideAndDontSave;
+                    int index = definitionCopy.SharedConfigs.FindIndex(c => c is ExpeditionFlowConfig);
+                    if (index < 0) throw new InvalidOperationException("Formal session is missing journey configuration.");
+                    var flow = JsonUtility.FromJson<ExpeditionFlowConfig>(JsonUtility.ToJson(definition.SharedConfigs[index]));
+                    if (journeyEnabled.HasValue) flow.Enabled = journeyEnabled.Value;
+                    configureJourney?.Invoke(flow);
+                    flow.Validate();
+                    definitionCopy.SharedConfigs[index] = flow;
+                    definition = definitionCopy;
+                }
+                instance.Initialize("integration-session", definition,
                     session: world.Context, activate: false);
                 world.Prepare(instance, Placements(layout));
                 if (activate) world.Activate();
                 worlds.Add((world, root));
+                if (definitionCopy != null) sessionDefinitions.Add(definitionCopy);
                 return world;
             }
             catch
             {
                 world.Dispose();
                 if (root != null) UnityEngine.Object.DestroyImmediate(root);
+                if (definitionCopy != null) UnityEngine.Object.DestroyImmediate(definitionCopy);
                 throw;
             }
         }
@@ -100,6 +119,8 @@ namespace DarkNights.Tests
                 if (entry.Root != null) UnityEngine.Object.DestroyImmediate(entry.Root);
             }
             worlds.Clear();
+            foreach (var definition in sessionDefinitions) UnityEngine.Object.DestroyImmediate(definition);
+            sessionDefinitions.Clear();
             resources?.Dispose();
             if (updates != null)
             {
