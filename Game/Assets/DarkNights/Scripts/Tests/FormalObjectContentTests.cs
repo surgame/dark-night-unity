@@ -1,11 +1,13 @@
 using System.Linq;
 using DarkNights.Runtime.Framework;
 using DarkNights.Runtime.Network;
+using DarkNights.Runtime.Objects;
 using DarkNights.View;
 using GameCore.Objects.Behaviours;
 using GameCore.Objects.Definition;
 using GameCore.Objects.NetworkStates;
 using GameCore.Objects.Runner;
+using GameCore.Objects.Runner.DI;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -66,6 +68,12 @@ namespace DarkNights.Tests
         [Test]
         public void SessionDefinitionCreatesItsGeneratedBehaviour()
         {
+            DIRegistrationFilter.Initialize();
+            Assert.That(DIFilterConfig.Instance, Is.Not.Null);
+            Assert.That(DIContainer.GetFilteredInterfaces(typeof(CampSimulationBehaviour))
+                .Contains(typeof(IStatefulBehaviour)), Is.False);
+            Assert.That(DIContainer.GetFilteredInterfaces(typeof(CampSimulationBehaviour))
+                .Any(type => type.FullName == "DarkNights.Runtime.Objects.IObjectMutation"), Is.False);
             ObjectDefinition session = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(
                 Editor.FormalObjectContentSetup.SessionDefinitionPath);
             GameObject root = PrefabUtility.LoadPrefabContents(Editor.FormalObjectContentSetup.SessionPrefabPath);
@@ -76,6 +84,8 @@ namespace DarkNights.Tests
                 instance.Initialize("editor-session-contract", session, root.GetComponent<StateSynchronizer>());
                 Assert.That(instance.GetBehaviour<WorldSessionBehaviour>(), Is.Not.Null);
                 Assert.That(instance.GetBehaviour<CampSessionBehaviour>(), Is.Not.Null);
+                Assert.That(instance.GetBehaviour<CampSimulationBehaviour>(), Is.Not.Null);
+                Assert.That(instance.GetBehaviour<IStatefulBehaviour>(), Is.Null);
                 Assert.That(instance.GetAllBehaviors().OfType<IStatefulBehaviour>()
                     .Count(b => b.NetworkMode != SyncMode.Session), Is.EqualTo(1));
                 var link = root.GetComponent<SessionObjectLink>();
