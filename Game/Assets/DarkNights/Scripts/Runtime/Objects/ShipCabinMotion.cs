@@ -1,5 +1,6 @@
 using DarkNights.Core.ViewData;
 using System;
+using DarkNights.Core.Config;
 using DarkNights.Core.Logic.State;
 using DarkNights.Core.Logic.Terrain;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace DarkNights.Runtime.Objects
     /// <summary>玩家与地面工人共用的船内坡道运动；只修改角色唯一位置，不把活动船体烘焙进地形。</summary>
     internal sealed class ShipCabinMotion
     {
+        private const float PlayerHalfWidth = 5, PlayerBodyHeight = 22;
         private readonly ObjectSession world;
         internal ShipCabinMotion(ObjectSession world) { this.world = world; }
         private BuildingBehaviour Ship => world.Expedition.Ship;
@@ -22,10 +24,10 @@ namespace DarkNights.Runtime.Objects
             if (ship.PilotId == actor.Id)
             {
                 s.X = ship.X + ShipGeometry.PilotX; s.Height = ship.Height + ShipGeometry.PilotHeight;
-                s.Boarded = true; s.Walking = false; s.VerticalSpeed = 0;
+                s.Boarded = true; s.Walking = false; s.VerticalSpeed = 0; s.JumpPending = false;
                 HeroEquipment.Cancel(s); return true;
             }
-            float target = s.X + (float)(s.Horizontal * actor.Definition.Speed * world.DebugHeroSpeedMultiplier * delta);
+            float target = s.X + s.Horizontal * HeroControlBehaviour.PlayerMoveSpeed(actor) * (float)delta;
             if (!s.Boarded)
             {
                 float toe = ship.X + ShipGeometry.RampToe;
@@ -35,10 +37,80 @@ namespace DarkNights.Runtime.Objects
                 if (!Open || s.Horizontal <= 0 || s.X > toe + 3 || target < toe || Math.Abs(s.Height - ship.Height) > 4) return false;
                 s.Boarded = true;
             }
-            Walk(actor, target);
-            s.JumpPending = s.DropPending = false; HeroEquipment.Cancel(s);
+            MovePlayer(actor, target, delta);
             return true;
         }
+
+        private void MovePlayer(ActorBehaviour actor, float target, double delta)
+        {
+            var s = actor.Edit(); var ship = Ship.Read();
+            float oldLocal = Math.Clamp(s.X - ship.X, ShipGeometry.RampToe, ShipGeometry.CabinRight);
+            float requestedLocal = target - ship.X;
+            float local = Math.Clamp(requestedLocal, Open ? ShipGeometry.RampToe : ShipGeometry.RampHinge + 8,
+                ShipGeometry.CabinRight);
+            float oldFloor = ship.Height + ShipGeometry.Floor(oldLocal);
+            bool grounded = s.VerticalSpeed <= 0 && s.Height <= oldFloor + .5f;
+
+            if (Open && requestedLocal < ShipGeometry.RampToe && grounded && !s.JumpPending)
+            {
+                float exitX = s.X;
+                s.Boarded = false; s.X = target; s.Height = ship.Height;
+                s.VerticalSpeed = 0; s.SupportPlatform = -1;
+                s.Walking = Math.Abs(s.X - exitX) > .001f;
+                s.JumpPending = s.DropPending = false; HeroEquipment.Cancel(s);
+                return;
+            }
+
+            if (local < ShipGeometry.RampToe) local = ShipGeometry.RampToe;
+            float maximumFoot = MaximumFootHeight(local);
+            if (s.Height - ship.Height > maximumFoot)
+            {
+                local = oldLocal;
+                maximumFoot = MaximumFootHeight(local);
+            }
+
+            float previousX = s.X;
+            s.X = ship.X + local;
+            s.Walking = Math.Abs(previousX - s.X) > .001f;
+            if (s.Walking) s.Face = Math.Sign(s.X - previousX);
+            float floor = ship.Height + ShipGeometry.Floor(local);
+            if (grounded) s.Height = floor;
+
+            HeroControlDefinition rules = world.Catalog.Balance.HeroControl;
+            if (grounded && s.JumpPending && rules != null)
+            {
+                s.VerticalSpeed = (float)rules.JumpSpeed;
+                s.SupportPlatform = -1; grounded = false;
+            }
+            s.JumpPending = s.DropPending = false;
+            HeroEquipment.Cancel(s);
+            if (grounded)
+            {
+                s.Height = floor; s.VerticalSpeed = 0; s.SupportPlatform = 0;
+                return;
+            }
+
+            float previousHeight = s.Height;
+            s.VerticalSpeed -= (float)(rules?.Gravity ?? 0) * (float)delta;
+            float nextHeight = previousHeight + s.VerticalSpeed * (float)delta;
+            if (nextHeight - ship.Height > maximumFoot)
+            {
+                nextHeight = ship.Height + maximumFoot;
+                if (s.VerticalSpeed > 0) s.VerticalSpeed = 0;
+            }
+            if (s.VerticalSpeed <= 0 && nextHeight <= floor)
+            {
+                s.Height = floor; s.VerticalSpeed = 0; s.SupportPlatform = 0;
+            }
+            else
+            {
+                s.Height = nextHeight; s.SupportPlatform = -1;
+            }
+        }
+
+        private static float MaximumFootHeight(float local) =>
+            Math.Min(ShipGeometry.CabinCeiling(local - PlayerHalfWidth),
+                Math.Min(ShipGeometry.CabinCeiling(local), ShipGeometry.CabinCeiling(local + PlayerHalfWidth))) - PlayerBodyHeight;
 
         internal void Place(ActorBehaviour actor, float localX = ShipGeometry.HoldX)
         {

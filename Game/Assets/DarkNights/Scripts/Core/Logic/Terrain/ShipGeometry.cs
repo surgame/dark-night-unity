@@ -19,6 +19,15 @@ namespace DarkNights.Core.Logic.Terrain
             return 80;
         }
 
+        /// <summary>舱内顶棚高度；坡道段保持开放，舱体段按外壳轮廓限制乘员头顶。</summary>
+        public static float CabinCeiling(float x)
+        {
+            if (x < RampHinge) return float.PositiveInfinity;
+            if (x <= 40) return 134;
+            if (x < 80) return 134 + (x - 40) * .85f;
+            return Roof;
+        }
+
         public static bool AtPilot(float x, float height) => Math.Abs(x - PilotX) <= 16 && Math.Abs(height - PilotHeight) <= 4;
         public static bool Inside(float x, float height) => x >= RampHinge + 8 && x <= CabinRight && Math.Abs(height - Floor(x)) <= 4;
 

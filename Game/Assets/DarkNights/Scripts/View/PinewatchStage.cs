@@ -22,19 +22,28 @@ namespace DarkNights.View
         [SerializeField] private float worldWidth = 1100;
         private float night = 0.16f;
         private float cameraHeight;
+        private float targetCameraX = 255, targetCameraHeight, viewZoom = 2.8f;
+        private float cameraXVelocity, cameraHeightVelocity, zoomVelocity;
+        private const float FollowSmoothTime = 0.24f;
         public bool RandomTerrain { get; set; }
         public float ActorPresentationScale { get; set; } = 1;
-        public void FocusHero(Vector3 position) { shipFraming = false; cameraHeight = RandomTerrain ? position.y * 100 : 0; Focus(position.x * 100); }
-        /// <summary>登船后为整船、顶舱口和左侧远征面板留出视野；离船恢复玩家原有缩放。</summary>
+        public void FocusHero(Vector3 position)
+        {
+            shipFraming = false;
+            targetCameraHeight = RandomTerrain ? position.y * 100 : 0;
+            targetCameraX = position.x * 100;
+        }
+        /// <summary>登船时连续调整目标取景，为整船、顶舱口和左侧远征面板留出空间。</summary>
         public void FocusShip(Vector3 position)
         {
-            shipFraming = true; cameraHeight = position.y * 100 + 90;
-            Focus(position.x * 100 - 240 / EffectiveZoom);
+            shipFraming = true;
+            targetCameraHeight = position.y * 100 + 90;
+            targetCameraX = position.x * 100 - 240 / TargetZoom;
         }
         private double visualTime;
         private int epoch;
-        private bool observing, expedition, shipFraming;
-        private float EffectiveZoom => shipFraming ? Mathf.Min(zoom, Mathf.Max(.8f, (Screen.width - 480f) /
+        private bool observing, expedition, shipFraming, cameraInitialized;
+        private float TargetZoom => shipFraming ? Mathf.Min(zoom, Mathf.Max(.8f, (Screen.width - 480f) /
             (Core.Logic.Terrain.ShipGeometry.HalfWidth * 2 + 64)), Screen.height / 300f) : zoom;
         private static readonly Color DayAmbient = new Color32(233, 235, 222, 255);
         private static readonly Color NightAmbient = new Color32(113, 135, 169, 255);
@@ -51,18 +60,33 @@ namespace DarkNights.View
 
         public void Initialize(LevelLayout layout)
         {
+            shipFraming = false;
             expedition = layout.Expedition;
             sky.gameObject.SetActive(!expedition);
             foreach (NativeBackdrop backdrop in backgrounds) backdrop.gameObject.SetActive(!expedition);
             if (environment != null) environment.gameObject.SetActive(!expedition);
             worldWidth = layout.WorldWidth;
             InitialCameraX = layout.CameraX;
+            targetCameraX = cameraX = InitialCameraX;
+            targetCameraHeight = cameraHeight = 0;
+            viewZoom = TargetZoom;
+            cameraXVelocity = cameraHeightVelocity = zoomVelocity = 0;
+            cameraInitialized = true;
             Focus(InitialCameraX);
         }
 
-        public void Move(float pixels) { cameraX += pixels; UpdateCamera(); }
-        public void Focus(float pixels) { cameraX = pixels; Render(); }
-        public void ChangeZoom(float factor) { zoom = Mathf.Clamp(zoom * factor, 1.8f, 4.5f); UpdateCamera(); }
+        public void Move(float pixels)
+        {
+            cameraX += pixels; targetCameraX = cameraX; cameraXVelocity = 0; UpdateCamera();
+        }
+        public void Focus(float pixels)
+        {
+            cameraX = targetCameraX = pixels; cameraXVelocity = 0; Render();
+        }
+        public void ChangeZoom(float factor)
+        {
+            zoom = Mathf.Clamp(zoom * factor, 1.8f, 4.5f); UpdateCamera();
+        }
 
         public void Present(SessionViewData frame)
         {
@@ -105,7 +129,22 @@ namespace DarkNights.View
 
         private void UpdateCamera()
         {
-            float viewZoom = EffectiveZoom;
+            float targetZoom = TargetZoom;
+            float delta = Time.unscaledDeltaTime;
+            if (!cameraInitialized)
+            {
+                cameraX = targetCameraX; cameraHeight = targetCameraHeight; viewZoom = targetZoom;
+                cameraInitialized = true;
+            }
+            else if (delta > 0)
+            {
+                cameraX = Mathf.SmoothDamp(cameraX, targetCameraX, ref cameraXVelocity, FollowSmoothTime,
+                    Mathf.Infinity, delta);
+                cameraHeight = Mathf.SmoothDamp(cameraHeight, targetCameraHeight, ref cameraHeightVelocity,
+                    FollowSmoothTime, Mathf.Infinity, delta);
+                viewZoom = Mathf.SmoothDamp(viewZoom, targetZoom, ref zoomVelocity, FollowSmoothTime,
+                    Mathf.Infinity, delta);
+            }
             float half = Screen.width * 0.5f / viewZoom;
             cameraX = Mathf.Clamp(cameraX, half, Mathf.Max(half, worldWidth - half));
             sceneCamera.orthographicSize = Screen.height * 0.5f / viewZoom / 100;

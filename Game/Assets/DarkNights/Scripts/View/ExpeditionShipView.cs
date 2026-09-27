@@ -11,11 +11,16 @@ namespace DarkNights.View
         public Sprite RampOpen, RampClosed, DoorOpen, DoorHalf, DoorClosed, HatchOpen, HatchClosed;
         public Sprite[] FlameLow = Array.Empty<Sprite>(), FlameMedium = Array.Empty<Sprite>(), FlameHigh = Array.Empty<Sprite>();
         public GameObject RobotDock, CargoLocker;
+        private float shellAlpha = 1;
+        private bool shellPresentationInitialized;
         public void Present(ExpeditionShipData ship, bool cutaway, int modules, double elapsed)
         {
             if (ship == null) return;
             bool open = ship.Phase <= 1 && ship.DoorClock <= 0;
-            WorkShell.enabled = CockpitShell.enabled = !cutaway;
+            float targetAlpha = cutaway ? .12f : 1;
+            if (!shellPresentationInitialized) { shellAlpha = targetAlpha; shellPresentationInitialized = true; }
+            else shellAlpha = Mathf.MoveTowards(shellAlpha, targetAlpha, Time.unscaledDeltaTime * 4);
+            ApplyShellAlpha(WorkShell); ApplyShellAlpha(CockpitShell);
             Ramp.sprite = open ? RampOpen : RampClosed;
             // 两个坡道帧各自的进口 pivot 都是铰链，位置不随状态跳动。
             Door.sprite = open ? DoorOpen : ship.Phase == 2 || ship.Phase == 0 && ship.DoorClock > 0 ? DoorHalf : DoorClosed;
@@ -30,8 +35,15 @@ namespace DarkNights.View
         }
         public void Preview()
         {
-            WorkShell.enabled = CockpitShell.enabled = false; Ramp.sprite = RampOpen;
+            shellAlpha = 0;
+            ApplyShellAlpha(WorkShell); ApplyShellAlpha(CockpitShell); Ramp.sprite = RampOpen;
             Door.sprite = DoorOpen; Hatch.sprite = HatchOpen; LeftFlame.enabled = RightFlame.enabled = false;
+        }
+
+        private void ApplyShellAlpha(SpriteRenderer renderer)
+        {
+            if (renderer == null) return;
+            Color color = renderer.color; color.a = shellAlpha; renderer.color = color;
         }
     }
 }

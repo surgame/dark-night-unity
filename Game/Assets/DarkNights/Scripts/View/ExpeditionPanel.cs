@@ -16,12 +16,14 @@ namespace DarkNights.View
         public string[] Commands;
         private Text[] labels;
         private string[] originalLabels;
+        private Color[] originalLabelColors;
         private Vector2[] originalPositions;
         public void Bind(Action<string> command)
         {
             if (Actions.Length != Commands.Length) throw new InvalidOperationException("远征按钮绑定不完整。");
             labels = Actions.Select(a => a.GetComponentInChildren<Text>(true)).ToArray();
             originalLabels = labels.Select(l => l.text).ToArray();
+            originalLabelColors = labels.Select(l => l.color).ToArray();
             originalPositions = Actions.Select(a => ((RectTransform)a.transform).anchoredPosition).ToArray();
             for (int i = 0; i < Actions.Length; i++)
             { string name = Commands[i]; Actions[i].onClick.AddListener(() => command(name)); }
@@ -67,7 +69,11 @@ namespace DarkNights.View
             for (int i = 0; i < Actions.Length; i++)
             {
                 Actions[i].gameObject.SetActive(true);
-                if (labels != null) { labels[i].text = originalLabels[i]; ((RectTransform)Actions[i].transform).anchoredPosition = originalPositions[i]; }
+                if (labels != null)
+                {
+                    labels[i].text = originalLabels[i]; labels[i].color = originalLabelColors[i];
+                    ((RectTransform)Actions[i].transform).anchoredPosition = originalPositions[i];
+                }
                 string c = Commands[i]; bool prep = e.Phase is 0 or 4, active = e.Phase is 1 or 2;
                 bool personal = c is "unload" or "board" or "relay" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
                 Actions[i].interactable = ready && (personal ? a != null : slot == 0) &&
@@ -95,18 +101,24 @@ namespace DarkNights.View
                     landed && (command is "unload" or "board" or "relay" or "mine" or "deploy" or "robot" or "cargo" or "crew" or "resupply");
                 Actions[i].gameObject.SetActive(show);
                 if (!show) continue;
+                bool atCockpit = JourneyPresentationRules.AtCockpit(world, slot);
+                bool canUsePilot = pilot || (atCockpit && e.Ship.PilotId == 0);
                 if (labels != null)
                 {
-                    labels[i].text = command == "pilot" ? orbit ? "选择目的地" : pilot ? "离开驾驶位" : "接管驾驶" :
-                        command == "cancel-flight" ? "取消航程" : originalLabels[i];
+                    if (command == "pilot")
+                        labels[i].text = orbit ?
+                            (canUsePilot ? "选择目的地" : e.Ship.PilotId != 0 ? "驾驶位已占用" : "前往驾驶台") :
+                            pilot ? "离开驾驶位" : "接管驾驶";
+                    else labels[i].text = command == "cancel-flight" ? "取消航程" : originalLabels[i];
                     ((RectTransform)Actions[i].transform).anchoredPosition = new Vector2(10 + visible % 3 * 141, -168 - visible / 3 * 30);
                 }
                 visible++;
-                Actions[i].interactable = ready && (command == "pilot" ? pilot ||
-                    (JourneyPresentationRules.AtCockpit(world, slot) && e.Ship.PilotId == 0) :
+                Actions[i].interactable = ready && (command == "pilot" ? canUsePilot :
                     command is "land" or "cancel-flight" ? pilot :
                     command == "deploy" ? pilot && e.Ship.Phase == 0 :
                     command is "robot" or "cargo" or "crew" or "resupply" ? slot == 0 && (e.Phase is 0 or 4) : actor != null);
+                if (labels != null)
+                    labels[i].color = Actions[i].interactable ? originalLabelColors[i] : new Color(.58f, .62f, .68f, 1);
             }
         }
     }

@@ -11,6 +11,7 @@ namespace DarkNights.Runtime.Objects
     /// </summary>
     public sealed partial class HeroControlBehaviour : PooledBehaviour
     {
+        internal const float PlayerMovementMultiplier = 1.35f;
         [Inject] private ActorBehaviour actor;
         [Inject] private HeroMotionBehaviour motion;
         [Inject] private ActorCombatBehaviour combat;
@@ -28,8 +29,8 @@ namespace DarkNights.Runtime.Objects
                 (state.Activity == ActorActivity.Work || state.Activity == ActorActivity.Build)) actor.World.Work.Clear(actor);
             if (manual && state.Horizontal != 0)
             {
-                float target = Math.Clamp(state.X + state.Horizontal * (float)(actor.Definition.Speed *
-                    actor.World.DebugHeroSpeedMultiplier * delta), 16, actor.World.Layout.WorldWidth - 16);
+                float target = Math.Clamp(state.X + state.Horizontal * PlayerMoveSpeed(actor) * (float)delta,
+                    16, actor.World.Layout.WorldWidth - 16);
                 if (actor.World.Terrain == null) state.X = target;
                 else Terrain.TerrainHeroMotion.MoveHorizontal(actor.World.Terrain.Map, state, target);
                 state.Face = state.Horizontal;
@@ -45,6 +46,9 @@ namespace DarkNights.Runtime.Objects
             if (state.Activity == ActorActivity.Attack) combat.TickManualAttack(delta, state.UseHeld);
             return true;
         }
+
+        internal static float PlayerMoveSpeed(ActorBehaviour actor) =>
+            (float)(actor.Definition.Speed * PlayerMovementMultiplier * actor.World.DebugHeroSpeedMultiplier);
 
         internal void Claim(int slot, int generation)
         {
