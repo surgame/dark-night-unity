@@ -16,12 +16,13 @@ namespace DarkNights.Core.Logic.Terrain
         private const int H = TerrainGenerationSettings.Height;
         public const string SpaceSeed = "SPACE-CARRIER-V1";
 
-        public static PlayableTerrain Generate(PlanetDefinition planet, string seed, string worldId, Func<bool> cancelled = null)
+        public static PlayableTerrain Generate(PlanetDefinition planet, string seed, string worldId, Func<bool> cancelled = null,
+            TerrainGenerationSettings template = null)
         {
             if (planet == null) throw new ArgumentNullException(nameof(planet));
             CheckCancellation(cancelled);
-            var source = CaveExplorationGenerator.Generate(new TerrainGenerationSettings
-            { Seed = seed, ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile });
+            var source = TerrainGenerator.GenerateCave(template ?? new TerrainGenerationSettings
+            { ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile }, seed);
             CheckCancellation(cancelled);
             var cells = source.CopyMaterials();
             var protection = new bool[cells.Length];

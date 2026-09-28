@@ -22,6 +22,7 @@ namespace DarkNights.Runtime.Objects
         private Task<PlayableTerrain> generation;
         private CancellationTokenSource generationCancellation;
         private PlayableTerrain candidate;
+        private TerrainGenerationSettings caveMap;
         private string taskJourney;
         public IReadOnlyList<PlanetDefinition> Planets { get; private set; } = Array.Empty<PlanetDefinition>();
         public string ContentFingerprint { get; private set; } = "";
@@ -57,6 +58,7 @@ namespace DarkNights.Runtime.Objects
             world = session ?? throw new ArgumentNullException(nameof(session));
             if (config == null) throw new InvalidOperationException("航程能力缺少 ExpeditionFlowConfig。");
             Planets = Array.AsReadOnly(config.FreezePlanets());
+            caveMap = config.FreezeCaveMap();
             ContentFingerprint = config.Fingerprint();
             PreparationTimeoutSeconds = config.PreparationTimeoutSeconds;
             ArrivalTimeoutSeconds = config.ArrivalTimeoutSeconds;
@@ -126,10 +128,11 @@ namespace DarkNights.Runtime.Objects
             {
                 var planet = ActivePlanet;
                 string seed = journey.Seed, mapId = journey.MapId;
+                var mapTemplate = caveMap;
                 taskJourney = journey.JourneyId;
                 generationCancellation = new CancellationTokenSource();
                 var token = generationCancellation.Token;
-                generation = Task.Run(() => GenerateCandidate(planet, seed, mapId, token), token);
+                generation = Task.Run(() => GenerateCandidate(planet, seed, mapId, mapTemplate, token), token);
                 return;
             }
             if (!generation.IsCompleted) return;
@@ -223,14 +226,15 @@ namespace DarkNights.Runtime.Objects
 
         private static string Bounded(string value, int limit) => value == null ? "" : value.Length <= limit ? value : value.Substring(0, limit);
 
-        private static PlayableTerrain GenerateCandidate(PlanetDefinition planet, string seed, string mapId, CancellationToken token)
+        private static PlayableTerrain GenerateCandidate(PlanetDefinition planet, string seed, string mapId,
+            TerrainGenerationSettings template, CancellationToken token)
         {
             int attempts = planet.Seed.Length == 0 ? 3 : 1;
             for (int attempt = 0; attempt < attempts; attempt++)
             {
                 token.ThrowIfCancellationRequested();
                 string actualSeed = attempt == 0 ? seed : seed + "-retry" + attempt;
-                try { return PlanetTerrainGenerator.Generate(planet, actualSeed, mapId, () => token.IsCancellationRequested); }
+                try { return PlanetTerrainGenerator.Generate(planet, actualSeed, mapId, () => token.IsCancellationRequested, template); }
                 catch (InvalidOperationException) when (attempt + 1 < attempts) { }
             }
             throw new InvalidOperationException("星球候选生成重试已耗尽。");
@@ -250,6 +254,7 @@ namespace DarkNights.Runtime.Objects
         private void ClearSession()
         {
             ResetPending(); world = null; Enabled = false; Planets = Array.Empty<PlanetDefinition>();
+            caveMap = null;
             ContentFingerprint = ""; PreparationTimeoutSeconds = ArrivalTimeoutSeconds = 0;
         }
     }

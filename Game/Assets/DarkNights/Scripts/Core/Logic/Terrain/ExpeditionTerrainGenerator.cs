@@ -9,10 +9,10 @@ namespace DarkNights.Core.Logic.Terrain
     {
         public const int DockLeft = 24, DockRight = 48, DockRow = 40;
         public const float ShipX = 568;
-        public static PlayableTerrain Generate(string seed, string worldId)
+        public static PlayableTerrain Generate(string seed, string worldId, TerrainGenerationSettings template = null)
         {
-            var source = CaveExplorationGenerator.Generate(new TerrainGenerationSettings
-            { Seed = seed, ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile });
+            var source = TerrainGenerator.GenerateCave(template ?? new TerrainGenerationSettings
+            { ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile }, seed);
             var cells = source.CopyMaterials(); var shapes = source.CopyShapes(); var soft = source.CopySoftRock();
             var protection = new bool[cells.Length];
             for (int y = 0; y < source.Height; y++) for (int x = 0; x < source.Width; x++)

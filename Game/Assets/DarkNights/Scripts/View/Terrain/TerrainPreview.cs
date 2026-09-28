@@ -70,6 +70,15 @@ namespace DarkNights.View.Terrain
 
         public void NotifyReplicaChanged() => replicaSource?.NotifyChanged();
         public void NotifyReplicaChanged(MapReplicaChange transition) => replicaSource?.NotifyChanged(transition);
+        /// <summary>正式场景与地图工作台共用的完整洞穴表现入口；样式决定前景、背景及各装饰层。</summary>
+        public void ShowCaveReplica(ARDMapDefinition definition, CaveTerrainStyle style, IMapChunkSource source,
+            WorldIdentity world, BackgroundBakeDescriptor reference)
+        {
+            if (style == null || reference == null)
+                throw new InvalidOperationException("完整洞穴表现缺少样式或冻结背景参考。");
+            CaveStyle = style;
+            ShowReplica(definition, source, world, reference);
+        }
 
         public async void ShowReplica(ARDMapDefinition definition, IMapChunkSource source, WorldIdentity world,
             BackgroundBakeDescriptor reference = null)

@@ -77,6 +77,13 @@ MonoBehaviour:
         Enabled: 1
         PreparationTimeoutSeconds: 30
         ArrivalTimeoutSeconds: 30
+        CaveMap:
+          Seed: STRATA-0922
+          Surface: needles
+          OrganicCaves: 0
+          Amplitude: 1
+          OreDensity: 1
+          ResourceProfile: cave-exploration
         Planets:
         - Id: grey-pine
           DisplayName: 灰松星

@@ -39,7 +39,10 @@ namespace DarkNights.Entry.Terrain
             entry.definition = contour ? template.ContourDefinition : template.Definition;
             entry.style = contour ? template.StaticBackgroundStyle : template.CaveStyle;
             stage.ActorPresentationScale = entry.style != null && entry.style.ProceduralRock ? 2 : 1;
-            if (entry.definition == null || (contour && entry.style == null)) throw new InvalidOperationException("地图缺少指定风格的独立配置。");
+            if (entry.definition == null || (template.Expedition || contour) && entry.style == null)
+                throw new InvalidOperationException("地图缺少指定风格的独立配置。");
+            if (template.Expedition && entry.style.Background == null)
+                throw new InvalidOperationException("正式远征缺少洞穴背景层配置。");
             network.Terrain = new SessionTerrainNetwork(InstanceFinder.NetworkManager, network, entry.definition, template.Expedition, entry.style?.VisualIdentity ?? "");
         }
         private void Update()
@@ -71,8 +74,10 @@ namespace DarkNights.Entry.Terrain
                     root.transform.SetParent(transform, false);
                     root.transform.localPosition = new Vector3(0, PlayableTerrain.OriginY / 100, 0);
                     root.transform.localScale = Vector3.one * (PlayableTerrain.CellPixels / 100f);
-                    view = root.AddComponent<TerrainPreview>(); view.ViewCamera = stage.SceneCamera; view.CaveStyle = style;
-                    view.ShowReplica(definition, new TerrainReplicaSource(replica), replica.World, network.Terrain.Background);
+                    view = root.AddComponent<TerrainPreview>(); view.ViewCamera = stage.SceneCamera;
+                    var source = new TerrainReplicaSource(replica);
+                    if (style != null) view.ShowCaveReplica(definition, style, source, replica.World, network.Terrain.Background);
+                    else view.ShowReplica(definition, source, replica.World, network.Terrain.Background);
                     subscribedReplica = replica;
                     subscribedReplica.Applied += OnReplicaApplied;
                 }

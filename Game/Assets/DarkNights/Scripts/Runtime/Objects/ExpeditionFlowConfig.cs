@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using DarkNights.Core.Config.Expedition;
+using DarkNights.Core.Config.Terrain;
 using GameCore.Objects.Behaviours.Interfaces;
 using UnityEngine;
 
@@ -19,7 +20,19 @@ namespace DarkNights.Runtime.Objects
         public bool Enabled = true;
         public float PreparationTimeoutSeconds = 30;
         public float ArrivalTimeoutSeconds = 30;
+        public TerrainGenerationSettings CaveMap = new TerrainGenerationSettings
+        { Seed = "STRATA-0922", ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile };
         public List<PlanetPreset> Planets = new List<PlanetPreset> { new PlanetPreset() };
+
+        /// <summary>冻结共用洞穴输入；工作台保留预览种子，正式会话在生成时覆盖为航程种子。</summary>
+        public TerrainGenerationSettings FreezeCaveMap()
+        {
+            if (CaveMap == null) throw new InvalidOperationException("航程缺少洞穴地图装配输入。");
+            var settings = CaveMap.CopyValidated();
+            if (settings.ResourceProfile != TerrainGenerationSettings.CaveExplorationProfile)
+                throw new InvalidOperationException("航程地图必须使用洞穴资源方案。");
+            return settings;
+        }
 
         public PlanetDefinition[] FreezePlanets()
         {
@@ -39,7 +52,7 @@ namespace DarkNights.Runtime.Objects
             return result;
         }
 
-        public void Validate() => FreezePlanets();
+        public void Validate() { FreezePlanets(); FreezeCaveMap(); }
 
         public string Fingerprint()
         {

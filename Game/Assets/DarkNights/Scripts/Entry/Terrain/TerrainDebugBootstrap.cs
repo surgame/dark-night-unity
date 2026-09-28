@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using AnyRules.Next.Authoring;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.Terrain;
+using DarkNights.Runtime.Objects;
 using DarkNights.View.Terrain;
+using GameCore.Objects.Definition;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +21,7 @@ namespace DarkNights.Entry.Terrain
     {
         public ARDMapDefinition Definition;
         public CaveTerrainStyle CaveStyle;
+        public ObjectDefinition MapAssemblySource;
         public TerrainMapAsset FixedMap;
         public TextAsset BalanceJson;
         public TextAsset LevelJson;
@@ -44,6 +47,11 @@ namespace DarkNights.Entry.Terrain
 
         private void OnEnable()
         {
+            if (MapAssemblySource != null)
+            {
+                var flow = MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().SingleOrDefault();
+                Settings = flow?.FreezeCaveMap() ?? throw new InvalidOperationException("工作台缺少共用洞穴地图配置。");
+            }
             lifetime = new CancellationTokenSource();
             observedSettings = JsonUtility.ToJson(Settings);
             RequestRegenerate();
@@ -106,8 +114,11 @@ namespace DarkNights.Entry.Terrain
                 if (Definition == null || Flyer == null || Flyer.ViewCamera == null)
                     throw new InvalidOperationException("Debug Bootstrap 缺少明确的地形、角色或镜头引用。");
                 var settings = Settings.CopyValidated();
+                bool caveMap = settings.ResourceProfile == TerrainGenerationSettings.CaveExplorationProfile;
                 Status = "生成中：" + settings.Seed;
-                var blueprint = appearanceOnly ? Blueprint : FixedMap != null ? FixedMap.ReadBlueprint() : await Task.Run(() => TerrainGenerator.Generate(settings), token);
+                var blueprint = appearanceOnly ? Blueprint : FixedMap != null ? FixedMap.ReadBlueprint() :
+                    await Task.Run(() => caveMap ? TerrainGenerator.GenerateCave(settings, settings.Seed) :
+                        TerrainGenerator.Generate(settings), token);
                 token.ThrowIfCancellationRequested();
                 if (version != request) return;
                 var root = new GameObject("Generated room terrain");
@@ -115,7 +126,7 @@ namespace DarkNights.Entry.Terrain
                 candidate = root.AddComponent<TerrainPreview>();
                 candidate.ViewCamera = Flyer.ViewCamera;
                 capturedStyle = StyleDraft?.Capture(out capturedBackground);
-                candidate.CaveStyle = capturedStyle != null ? capturedStyle : CaveStyle;
+                var presentationStyle = capturedStyle != null ? capturedStyle : CaveStyle;
                 var reference = appearanceOnly ? backgroundReference : null;
                 if (CaveStyle != null)
                 {
@@ -127,7 +138,7 @@ namespace DarkNights.Entry.Terrain
                             blueprint.Settings.Seed, blueprint.CopyMaterials(), blueprint.CopyShapes());
                     }
                     var authority = appearanceOnly ? Workshop.Map : workshop.Map;
-                    candidate.ShowReplica(Definition, new TerrainReplicaSource(authority), authority.World, reference);
+                    candidate.ShowCaveReplica(Definition, presentationStyle, new TerrainReplicaSource(authority), authority.World, reference);
                 }
                 else candidate.ShowBlueprint(Definition, blueprint);
                 float deadline = Time.realtimeSinceStartup + 30;

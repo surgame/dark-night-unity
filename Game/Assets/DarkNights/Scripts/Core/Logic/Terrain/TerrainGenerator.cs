@@ -6,6 +6,17 @@ namespace DarkNights.Core.Logic.Terrain
     /// <summary>公开的纯地图生成入口；一次调用产出完整冻结蓝图，不创建 Unity 对象、网络状态或存档。</summary>
     public static class TerrainGenerator
     {
+        /// <summary>工作台与正式远征共用的洞穴入口；会话种子只覆盖冻结模板，不修改作者配置。</summary>
+        public static TerrainBlueprint GenerateCave(TerrainGenerationSettings template, string seed)
+        {
+            if (template == null) throw new ArgumentNullException(nameof(template));
+            var settings = template.CopyValidated();
+            if (settings.ResourceProfile != TerrainGenerationSettings.CaveExplorationProfile)
+                throw new ArgumentException("远征地图必须使用洞穴资源方案。", nameof(template));
+            settings.Seed = seed;
+            return Generate(settings);
+        }
+
         public static TerrainBlueprint Generate(TerrainGenerationSettings settings)
         {
             if (settings == null) throw new ArgumentNullException(nameof(settings));
