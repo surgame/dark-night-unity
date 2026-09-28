@@ -5,6 +5,7 @@ namespace DarkNights.Core.Logic.Terrain
     /// <summary>176×104 原生像素工作船的可行走合同；每像素两权威单位，坐标以两脚接地中点为原点。</summary>
     public static class ShipGeometry
     {
+        // RampToe 是登船／下船交界处运动适配的共同边界；改变坡道美术或登船方式时同步检查 ShipCabinMotion。
         public const float RampToe = -160, RampHinge = -80, CabinRight = 128;
         public const float PilotX = 96, PilotHeight = 80, HatchX = -40, HatchHeight = 156;
         public const float HoldX = -40, HoldHeight = 40;

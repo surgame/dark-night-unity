@@ -30,6 +30,7 @@ namespace DarkNights.Runtime.Objects
             float target = s.X + s.Horizontal * HeroControlBehaviour.PlayerMoveSpeed(actor) * (float)delta;
             if (!s.Boarded)
             {
+                // 交界处运动适配：入口仍以 RampToe 和脚底高度判定；修改登船方式时须与 ShipRampTransition 一起检查。
                 float toe = ship.X + ShipGeometry.RampToe;
                 if (s.X > toe + 8 || s.X < toe - 24) s.ShipEntryBlocked = false;
                 if (s.DropPending && Math.Abs(s.X - toe) <= 24) s.ShipEntryBlocked = true;
@@ -51,7 +52,11 @@ namespace DarkNights.Runtime.Objects
             float oldFloor = ship.Height + ShipGeometry.Floor(oldLocal);
             bool grounded = s.VerticalSpeed <= 0 && s.Height <= oldFloor + .5f;
 
-            if (Open && requestedLocal < ShipGeometry.RampToe && grounded && !s.JumpPending)
+            // 交界处运动适配的唯一调用点：移除 ShipRampTransition 时可恢复下方原有步行出舱路径。
+            bool adapted = false, leftCabin = false;
+            adapted = ShipRampTransition.TryLeave(actor, ship.X, target, Open, delta, ref grounded, out leftCabin);
+            if (leftCabin) return;
+            if (!adapted && Open && requestedLocal < ShipGeometry.RampToe && grounded && !s.JumpPending)
             {
                 float exitX = s.X;
                 s.Boarded = false; s.X = target; s.Height = ship.Height;
@@ -79,7 +84,7 @@ namespace DarkNights.Runtime.Objects
             HeroControlDefinition rules = world.Catalog.Balance.HeroControl;
             if (grounded && s.JumpPending && rules != null)
             {
-                s.VerticalSpeed = (float)rules.JumpSpeed;
+                s.VerticalSpeed = rules.JumpSpeed;
                 s.SupportPlatform = -1; grounded = false;
             }
             s.JumpPending = s.DropPending = false;
@@ -147,6 +152,7 @@ namespace DarkNights.Runtime.Objects
         {
             var s = actor.Edit(); var ship = Ship.Read(); float old = s.X;
             float local = target - ship.X;
+            // 自动工人沿用任务导航；ShipRampTransition 只适配玩家跳跃出口。改变通用登船路线时需同时检查此分支。
             if (Open && local < ShipGeometry.RampToe)
             { s.Boarded = false; s.X = target; s.Height = ship.Height; }
             else

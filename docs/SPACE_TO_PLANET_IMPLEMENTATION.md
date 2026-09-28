@@ -10,6 +10,8 @@
 
 2026-09-28 主角输入职责重构：逐帧边沿缓冲与节流归 View 的 HeroInputSampler，Entry 只编排本地角色和发送，镜头目标选择归 PinewatchStage；SessionHeroControl 的默认接管、操作授权及输入写入拆为显式步骤。[交互式前后链路](HERO_INPUT_ARCHITECTURE.html)可逐环节查看。按用户要求未进行 Unity 编译、Play 或联机测试，人工验证待完成。
 
+2026-09-28 坡道交界处运动适配（`fix-20260928-ship-ramp-transition`）：`ShipRampTransition.TryLeave` 是独立、可撤除的玩家出口适配函数，调用点位于 `ShipCabinMotion.MovePlayer`；原步行出舱分支保留在调用点下方，自动工人的 `Navigate/Walk` 路线不经过此适配。仅在舱门开放且角色试图跨过 `ShipGeometry.RampToe` 时，先应用本帧船内起跳，再沿地形扫掠出口；通过后保留高度与竖直速度，同帧接续地形纵向运动。`Boarded` 仍是权威乘船归属，船体飞行和乘员搬运不变。船内道具使用仍受服务端限制，但已选手持物继续显示，避免登船瞬间消失。未来修改坡道美术、登船入口、飞船运动或关闭舱门逻辑时，应联合检查入口判定、适配函数、自动工人路径、船内／地形碰撞及跳跃跨界用例。本批 Unity 脚本编译通过；用户收窄验收范围之前，受影响 Editor 用例 44/44 通过，结果保存在 `artifacts/ship-ramp-transition/editor-results-r4.xml`。按用户后续要求不再扩展 Play、联机或 Player 验收，实际画面仍待人工确认。
+
 ## 本轮流程
 
 ```mermaid

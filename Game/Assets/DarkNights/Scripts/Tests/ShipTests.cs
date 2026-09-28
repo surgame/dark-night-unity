@@ -31,6 +31,30 @@ namespace DarkNights.Tests
         });
 
         [UnityTest]
+        public IEnumerator JumpAcrossRampToeKeepsAirborneMotion() => UniTask.ToCoroutine(async () =>
+        {
+            using var scope = await UnifiedSessionScope.Create(); var world = Create(scope);
+            using var authority = new SessionAuthority(world); var host = Connect(authority, 0);
+            var hero = Hero(world, 0); var ship = Ship(world);
+            float toe = ship.X + ShipGeometry.RampToe;
+            Walk(authority, host, hero, toe + 3);
+            Assert.That(hero.CaptureState().Boarded, Is.True);
+
+            // 交界处运动适配回归：用真实输入起跳并越过 RampToe，不能先撞隐形墙、落地后才切到地形。
+            var state = hero.CaptureState();
+            Assert.That(authority.SubmitInput(host, new HeroInputRequest(SessionAuthority.ProtocolVersion, authority.Epoch,
+                authority.PolicyRevision, hero.Id, state.ControlLease, authority.ServerTick + 1, authority.ServerTick,
+                -1, true, false, true, false)), Is.True);
+            authority.Tick();
+            for (int i = 0; i < 20 && hero.CaptureState().Boarded; i++) Input(authority, host, hero, -1, up: true);
+            state = hero.CaptureState();
+            Assert.That(state.Boarded, Is.False);
+            Assert.That(state.X, Is.LessThan(toe));
+            Assert.That(state.Height, Is.GreaterThan(ship.CaptureState().Height));
+            Assert.That(state.VerticalSpeed, Is.GreaterThan(0));
+        });
+
+        [UnityTest]
         public IEnumerator DownThroughRampKeepsTheGroundRouteUsable() => UniTask.ToCoroutine(async () =>
         {
             using var scope = await UnifiedSessionScope.Create(); var world = Create(scope);

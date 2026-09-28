@@ -35,7 +35,7 @@ namespace DarkNights.View
         {
             facing.gameObject.SetActive(true);
             if (shadow != null) shadow.enabled = !boarded && expeditionUnit == null;
-            if (boarded) handheld?.Hide();
+            // 船内禁用道具由权威输入处理；保留当前手持外观，避免登船瞬间凭空消失。
         }
 
         public PoseClip[] Clips => (PoseClip[])clips.Clone();
