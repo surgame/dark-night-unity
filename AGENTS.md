@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发约定
 
+2026-09-28 原地着陆源码候选位于 `fix-20260928-free-ship-landing`：星球降落改为当前安全位置原地着陆，游戏协议 **16**／存档 **v11**。下方协议 15 的 Editor、Mono 和 IL2CPP 数字属于原泊位规则的已验构建，不代表本候选通过；验证状态见[验收清单](docs/SPACE_TO_PLANET_ACCEPTANCE.md)。
+
 2026-09-27 当前切片为[太空到星球流程](docs/SPACE_TO_PLANET_IMPLEMENTATION.md)，分支 `ft-20260926-space-planet-flow` 已合入 `main`，协议 **15**／存档 **v11**。太空船内步行、驾驶台选星球、过场、后台生成、到达同步、缓降与自动着陆下船已实现；航程 Editor 53/53，Mono r3 双进程 127/127，IL2CPP r4 双进程及三组四人通过。YYGC 框架改动已合入 YYGC `master` `fee1864`。人工画面、逐阶段晚加入、前台性能和双机器仍待验收，详见[验收清单](docs/SPACE_TO_PLANET_ACCEPTANCE.md)，不宣称最终交付。
 
 2026-09-22 本分支已接入[可步入远征飞船](docs/archive/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。支持船内步行、唯一驾驶席、泊位附近试飞、搬运机器人与侦察机出舱归队；远征默认应用当前 StrataCave 岩层与三层背景。50 张原生素材导入检查 200/200，新增飞船／远征用例 24/24，同一 Mono 正常／弱网三进程各 28/28，Core 1048/1048；Editor 按影响合并 235/236，既有按钮主题 1 项失败留账。实际画面和本批证据见实现说明，不宣称全洞穴航行、异地降落、前台性能、IL2CPP 或双机器通过。

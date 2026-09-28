@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-28 原地着陆源码候选已移除星球降落的唯一泊位限制，并同步快照校验、提示与回归用例；游戏协议 **16**／存档 **v11**。新规则的实际验证以[航程验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)为准。
+
 2026-09-28 正式会话运行对象已按用途挂到 `EntityViews` 的独立父节点：角色按类型归组，矿床、投射物池及其他效果分开，便于在 Hierarchy 中查找 `worker`。静态差异检查通过；当前 Unity Editor 正在使用本工程，本批尚未单独执行编译或 Play 画面验收，见[场景索引](SCENES.md)。
 
 2026-09-28 [输入平台实施前后对照](INPUT_PLATFORM_COMPARISON.html)对应的代码边界已在 `ref-20260928-input-boundary` 调整：主角与营地从 `GameInputActions` 读取当帧语义值，帮助面板提供通用改键和恢复默认；未修改 YYGC、协议、存档或 Unity 动作资产。按用户要求本批不执行 Unity 编译、Play 或联机回归，运行状态待验证。

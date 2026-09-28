@@ -102,18 +102,24 @@ namespace DarkNights.Tests
         [UnityTest]
         public IEnumerator MissingSupportAndBlockedHullOrRampRejectLandingUntilRepaired() => UniTask.ToCoroutine(async () =>
         {
-            foreach (string obstruction in new[] { "left support", "right support", "hull", "ramp head" })
+            foreach (string obstruction in new[] { "left support", "right support", "ramp exit", "hull", "ramp head" })
             {
                 using var scope = await UnifiedSessionScope.Create(); var world = JourneyScenario.Create(scope);
                 using var authority = new SessionAuthority(world); var host = Connect(authority, 0);
                 await Descent(authority, world, host);
-                var pilot = Hero(world, 0); var ship = Ship(world); var state = ship.CaptureState();
+                var pilot = Hero(world, 0); var ship = Ship(world);
+                for (int i = 0; i < 40; i++) Input(authority, host, pilot, 1);
+                for (int i = 0; i < 40; i++) Input(authority, host, pilot);
+                Assert.That(Math.Abs(ship.X - ship.CaptureState().DockX),
+                    Is.GreaterThan(world.Catalog.Balance.Expedition.Ship.LandingTolerance));
+                var state = ship.CaptureState();
                 var baseline = world.Terrain.Capture();
-                float x = state.DockX, height = state.DockHeight;
+                float x = state.X, height = state.DockHeight;
                 switch (obstruction)
                 {
                     case "left support": ReplaceFixtureCell(world, baseline, x - 56, height - 1, 0); break;
                     case "right support": ReplaceFixtureCell(world, baseline, x + 104, height - 1, 0); break;
+                    case "ramp exit": ReplaceFixtureCell(world, baseline, x + ShipGeometry.RampToe - 8, height - 1, 0); break;
                     case "hull": ReplaceFixtureCell(world, baseline, x + 104, height + 100, 1); break;
                     default: ReplaceFixtureCell(world, baseline, x + ShipGeometry.RampToe, height + 16, 1); break;
                 }
@@ -129,24 +135,30 @@ namespace DarkNights.Tests
         });
 
         [UnityTest]
-        public IEnumerator MisalignedShipCannotLandUntilPilotReturnsToDock() => UniTask.ToCoroutine(async () =>
+        public IEnumerator LateralDescentLandsAtCurrentSafePositionAndRestores() => UniTask.ToCoroutine(async () =>
         {
-            using var scope = await UnifiedSessionScope.Create(); var world = JourneyScenario.Create(scope);
-            using var authority = new SessionAuthority(world); var host = Connect(authority, 0);
-            await Descent(authority, world, host);
-            var pilot = Hero(world, 0); var ship = Ship(world);
-            for (int i = 0; i < 40; i++) Input(authority, host, pilot, 1);
-            Assert.That(ship.CaptureState().X - ship.CaptureState().DockX,
-                Is.GreaterThan(world.Catalog.Balance.Expedition.Ship.LandingTolerance));
-            for (int i = 0; i < 400; i++) Input(authority, host, pilot, down: true);
-            for (int i = 0; i < 120; i++) Input(authority, host, pilot);
-            Assert.That(world.Flow.Phase, Is.EqualTo(JourneyPhase.Descent));
-            var rules = world.Catalog.Balance.Expedition.Ship;
-            float stoppingDistance = rules.HorizontalSpeed * rules.HorizontalSpeed / (2 * rules.Acceleration);
-            for (int i = 0; i < 200 && ship.CaptureState().X > ship.CaptureState().DockX + stoppingDistance; i++)
-                Input(authority, host, pilot, -1);
-            for (int i = 0; i < 1200 && world.Flow.Phase != JourneyPhase.Landed; i++) Input(authority, host, pilot);
-            Assert.That(world.Flow.Phase, Is.EqualTo(JourneyPhase.Landed));
+            foreach (int direction in new[] { -1, 1 })
+            {
+                using var scope = await UnifiedSessionScope.Create(); var world = JourneyScenario.Create(scope);
+                using var authority = new SessionAuthority(world); var host = Connect(authority, 0);
+                await Descent(authority, world, host);
+                var pilot = Hero(world, 0); var ship = Ship(world);
+                for (int i = 0; i < 40; i++) Input(authority, host, pilot, direction);
+                Assert.That(Math.Abs(ship.X - ship.CaptureState().DockX),
+                    Is.GreaterThan(world.Catalog.Balance.Expedition.Ship.LandingTolerance));
+                for (int i = 0; i < 400; i++) Input(authority, host, pilot, down: true);
+                Assert.That(world.Flow.Phase, Is.EqualTo(JourneyPhase.Descent), "持续快降不能利用碰撞后的零速度直接着陆。");
+                float stoppedX = ship.X;
+                for (int i = 0; i < 1200 && world.Flow.Phase != JourneyPhase.Landed; i++) Input(authority, host, pilot);
+                Assert.That(world.Flow.Phase, Is.EqualTo(JourneyPhase.Landed));
+                Assert.That(ship.X, Is.EqualTo(stoppedX).Within(.01f), "着陆必须保持当前横向落点。");
+                Assert.That(Math.Abs(ship.X - ship.CaptureState().DockX),
+                    Is.GreaterThan(world.Catalog.Balance.Expedition.Ship.LandingTolerance));
+                Assert.That(ship.CaptureState().PilotId, Is.Zero);
+                string save = world.SaveCodec.Serialize(world.CaptureWorld());
+                world.Restore(save);
+                Assert.That(Ship(world).X, Is.EqualTo(stoppedX).Within(.01f), "星球上的原地落点应可保存和恢复。");
+            }
         });
 
         [UnityTest]

@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-09-28 原地着陆候选：星球飞船在当前安全位置落地，配置到达点仅保留地图生成和飞行包络职责。协议 **16**／存档 **v11**；着陆状态仍由权威 `BuildingState`、`ExpeditionJourneyBehaviour` 和原会话投影承载。
+
 2026-09-26 [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)：协议 15／存档 v11。`ExpeditionFlowBehaviour : PooledBehaviour` 注入 `IConfigData` 并冻结目录；航程唯一状态归 `ExpeditionJourneyBehaviour`，船体／乘员继续归原 Building／Actor State。纯生成器准备候选，单一权威事务交换地图；冻结展示副本和实际相机回执门控 Ready。没有新增并行世界、对象网络变换或客户端模拟。验证状态以本批[验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)为准。
 
 2026-09-22 [可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)：协议 14／存档 v10。船的 BuildingState 与乘员 ActorState 继续由各自 YYGC 业务对象拥有，船体和乘员位移同事务提交；`ExpeditionShipData` 进入冻结投影与原子存档。下方按日期保留此前地形和对象架构切片，其版本号不代表当前版本。

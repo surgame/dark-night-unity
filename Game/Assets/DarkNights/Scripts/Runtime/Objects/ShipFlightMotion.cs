@@ -29,7 +29,6 @@ namespace DarkNights.Runtime.Objects
             float dx = s.ShipVelocityX * dt, dy = s.ShipVelocityY * dt;
             int count = Math.Max(1, (int)Math.Ceiling(Math.Max(Math.Abs(dx), Math.Abs(dy)) / 2));
             float oldX = s.X, oldH = s.Height;
-            bool touchedGround = false;
             for (int i = 0; i < count; i++)
             {
                 float x = s.X + dx / count, h = s.Height + dy / count;
@@ -37,15 +36,9 @@ namespace DarkNights.Runtime.Objects
                 if (dy != 0 && Clear(s.X, h)) s.Height = h;
                 else
                 {
-                    if (dy < 0 && h < s.DockHeight) touchedGround = true;
                     s.ShipVelocityY = 0;
                 }
             }
-            // 接地路径经过有效泊位时制动，避免单步横移越过容差；安全判定仍使用碰撞前速度。
-            float left = s.DockX - Rules.LandingTolerance, right = s.DockX + Rules.LandingTolerance;
-            if (world.Flow.Enabled && touchedGround && Math.Min(oldX, s.X) <= right && Math.Max(oldX, s.X) >= left &&
-                Clear(s.DockX, s.DockHeight) && Supported(s.DockX, s.DockHeight))
-            { s.X = Math.Clamp(s.X, left, right); s.ShipVelocityX = 0; }
             Carry(s.X - oldX, s.Height - oldH);
             return world.Flow.Enabled && pilot != null && safeApproach && Land();
         }
@@ -53,14 +46,34 @@ namespace DarkNights.Runtime.Objects
         internal bool Land()
         {
             var s = world.Expedition.Ship.Edit();
-            // 本轮仅开放目的地配置产出的安全着陆区，不把任意洞底视为降落点。
-            if (Math.Abs(s.X - s.DockX) > Rules.LandingTolerance || s.Height - s.DockHeight > Rules.LandingTolerance || s.Height < s.DockHeight ||
-                Math.Abs(s.ShipVelocityX) > Rules.LandingSpeed || Math.Abs(s.ShipVelocityY) > Rules.LandingSpeed) return false;
-            if (!Clear(s.DockX, s.DockHeight) || !Supported(s.DockX, s.DockHeight)) return false;
-            float dx = s.DockX - s.X, dy = s.DockHeight - s.Height;
-            s.X = s.DockX; s.Height = s.DockHeight; s.ShipVelocityX = s.ShipVelocityY = 0;
+            if (Math.Abs(s.ShipVelocityX) > Rules.LandingSpeed || Math.Abs(s.ShipVelocityY) > Rules.LandingSpeed) return false;
+            float landingX = s.DockX, landingHeight = s.DockHeight;
+            if (world.Flow.Enabled)
+            {
+                if (!TryLandingHeight(s.X, s.Height, out landingHeight)) return false;
+                landingX = s.X;
+            }
+            else if (Math.Abs(s.X - s.DockX) > Rules.LandingTolerance ||
+                     s.Height - s.DockHeight > Rules.LandingTolerance || s.Height < s.DockHeight ||
+                     !Clear(landingX, landingHeight) || !Supported(landingX, landingHeight)) return false;
+            float dx = landingX - s.X, dy = landingHeight - s.Height;
+            s.X = landingX; s.Height = landingHeight; s.ShipVelocityX = s.ShipVelocityY = 0;
             Carry(dx, dy); s.ShipPhase = 0; s.ShipDoorClock = 0;
             return true;
+        }
+
+        private bool TryLandingHeight(float x, float height, out float landingHeight)
+        {
+            var s = world.Expedition.Ship.Read();
+            if (height < s.DockHeight || height > s.DockHeight + Rules.LandingTolerance)
+            { landingHeight = 0; return false; }
+            float lowest = Math.Max(s.DockHeight, height - Rules.LandingTolerance);
+            // 在当前地点寻找真实支撑；基准高度限定地表接近区，泊位中心不决定横向落点。
+            for (float candidate = lowest; candidate <= height + .001f; candidate += .5f)
+                if (Supported(x, candidate) && Clear(x, candidate))
+                { landingHeight = candidate; return true; }
+            landingHeight = 0;
+            return false;
         }
 
         private bool Clear(float x, float h)
@@ -79,7 +92,8 @@ namespace DarkNights.Runtime.Objects
         private bool Supported(float x, float h)
         {
             if (!TerrainHeroMotion.Solid(world.Terrain.Map, x - 56, h - 1) ||
-                !TerrainHeroMotion.Solid(world.Terrain.Map, x + 104, h - 1)) return false;
+                !TerrainHeroMotion.Solid(world.Terrain.Map, x + 104, h - 1) ||
+                !TerrainHeroMotion.Solid(world.Terrain.Map, x + ShipGeometry.RampToe - 8, h - 1)) return false;
             for (float local = ShipGeometry.RampToe; local <= ShipGeometry.RampHinge; local += 4)
                 for (float head = 1; head <= 28; head += 4)
                     if (TerrainHeroMotion.Solid(world.Terrain.Map, x + local, h + ShipGeometry.Floor(local) + head)) return false;

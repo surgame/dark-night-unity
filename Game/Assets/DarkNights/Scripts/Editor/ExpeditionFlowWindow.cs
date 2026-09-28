@@ -93,7 +93,7 @@ namespace DarkNights.Editor
             AddColumn("id", "稳定 ID", 180, p => p.Id);
             AddColumn("name", "星球名称", 150, p => p.DisplayName);
             AddColumn("seed", "种子（空白为随机）", 180, p => p.Seed);
-            AddColumn("landing", "降落区", 150, p => $"{p.DockColumn}, {p.DockRow} / {p.LandingWidth} 格");
+            AddColumn("landing", "到达地表基准", 150, p => $"{p.DockColumn}, {p.DockRow} / {p.LandingWidth} 格");
             table.selectionChanged += _ => ShowSelection();
             root.Add(table);
             var actions = new Toolbar();
@@ -135,9 +135,10 @@ namespace DarkNights.Editor
             if (index < 0 || index >= draft.Config.Planets.Count) return;
             var item = serialized.FindProperty("Config.Planets").GetArrayElementAtIndex(index);
             details.Add(new HelpBox("ID 是网络／存档引用的稳定标识。修改 ID 会使旧引用失效，请在有意更换内容身份时修改。", HelpBoxMessageType.Info));
+            details.Add(new HelpBox("基准列、地表行和平台宽度用于生成地形及确定飞行范围；降落时可选择范围内任意有支撑和净空的位置。", HelpBoxMessageType.Info));
             string[] names = { "Id", "DisplayName", "Description", "Enabled", "Seed", "DockColumn", "DockRow", "LandingWidth",
                 "ArrivalHeight", "HorizontalRange", "MaximumLift", "TransitSeconds", "TransitionKind", "StarCount", "StarSpeed", "SpaceColorHex", "SkyColorHex" };
-            string[] labels = { "稳定 ID", "名称", "说明", "启用", "固定种子", "泊位列", "地表行", "平台宽度（格）",
+            string[] labels = { "稳定 ID", "名称", "说明", "启用", "固定种子", "到达基准列", "地表行", "连续地表宽度（格）",
                 "到达高度", "水平范围", "最大升高", "最短过场（秒）", "过场策略", "星点数量", "星点速度", "太空颜色", "天空颜色" };
             for (int i = 0; i < names.Length; i++)
             {

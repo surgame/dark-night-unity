@@ -34,7 +34,7 @@ namespace DarkNights.Runtime.Objects
                     }
                     if (s.PilotId != 0 || !a.Boarded || !ShipGeometry.AtPilot(a.X - s.X, a.Height - s.Height)) return 0;
                     s.PilotId = hero.Id; a.ControlLease = checked(a.ControlLease + 1); HeroControlBehaviour.ResetInput(a);
-                    world.Notify(world.Flow.Enabled ? "已进入驾驶位：A/D 平移，空格上升，S 加速下降；松手缓降，对准泊位后自动着陆。" :
+                    world.Notify(world.Flow.Enabled ? "已进入驾驶位：A/D 平移，空格上升，S 加速下降；松手缓降，安全接地后原地着陆。" :
                         "已进入驾驶位：A/D 平移，空格上升，S 下降；松开悬停，低速接近降落区后着陆。"); return 1;
                 case "takeoff":
                     if (world.Flow.Enabled) return 0;

@@ -20,6 +20,8 @@ namespace DarkNights.Core.Save
                 Math.Abs(x - s.DockX) > range || height < dockHeight || height > dockHeight + lift) return false;
             if (journey != null && !JourneyValidator.OnPlanet(journey))
                 return Math.Abs(x - s.DockX) < .001f && Math.Abs(height - dockHeight) < .001f;
+            if (journey?.Phase == JourneyPhase.Landed)
+                return s.Phase == 0 && height <= dockHeight + rules.LandingTolerance;
             return s.Phase == 3 || Math.Abs(x - s.DockX) < .001f && Math.Abs(height - dockHeight) < .001f;
         }
         public static string Validate(ExpeditionViewData data, Config.ShipFlightDefinition rules)

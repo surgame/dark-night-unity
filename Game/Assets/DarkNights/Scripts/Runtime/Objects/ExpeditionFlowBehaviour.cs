@@ -172,7 +172,7 @@ namespace DarkNights.Runtime.Objects
             {
                 var a = pilot.Edit(); a.ControlLease = checked(a.ControlLease + 1); HeroControlBehaviour.ResetInput(a);
             }
-            world.Notify("可以驾驶降落：A/D 平移，空格上升，S 加速下降；松手缓降，在安全平台自动着陆并离座。");
+            world.Notify("可以驾驶降落：A/D 平移，空格上升，S 加速下降；松手缓降，有足够支撑和净空时原地着陆并离座。");
         }
 
         public void ArrivalFailed(string reason)

@@ -11,7 +11,7 @@ using UnityEngine.UIElements;
 namespace DarkNights.Editor
 {
     /// <summary>
-    /// 编辑态星球蓝图缩略图；直接调用纯生成器，按原生格子显示地表、矿床、保护泊位和到达点。
+    /// 编辑态星球蓝图缩略图；直接调用纯生成器，按原生格子显示地表、矿床、保护平台和到达点。
     /// 不创建场景对象、不启动会话、不读写玩家存档；纹理由面板生命周期显式释放。
     /// </summary>
     public sealed class ExpeditionPlanetPreview : IDisposable

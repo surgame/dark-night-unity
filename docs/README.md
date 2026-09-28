@@ -5,7 +5,7 @@
 ## 合同与架构（长期有效）
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — 当前技术架构合同
-- [MULTIPLAYER.md](MULTIPLAYER.md) — 联机协议与同步设计（航程协议 15，验收状态见当前清单；旧切片按日期保留）
+- [MULTIPLAYER.md](MULTIPLAYER.md) — 联机协议与同步设计（原地着陆源码候选协议 16，验收状态见当前清单；旧切片按日期保留）
 - [SAVE_FORMAT.md](SAVE_FORMAT.md) — 世界存档格式合同（航程 v11，验收状态见当前清单；下文含历史版本）
 - [YYGC_CHANGES.md](YYGC_CHANGES.md) — YYGC 修改授权与改动账本（持续维护）
 

@@ -51,7 +51,7 @@ namespace DarkNights.View
             if (journey?.Enabled == true)
             {
                 string landing = journey.Phase == JourneyPhase.Descent && journey.ActivePlanet != null && ship != null ?
-                    $"\n离地 {ship.Height - journey.ActivePlanet.DockHeight:0} · 偏离泊位 {world.Buildings.First(b => b.Id == ship.Id).X - journey.ActivePlanet.DockX:0} · 速度 {flight.VelocityX:0}/{flight.VelocityY:0}" : "";
+                    $"\n相对地表基准高度 {ship.Height - journey.ActivePlanet.DockHeight:0} · 速度 {flight.VelocityX:0}/{flight.VelocityY:0}" : "";
                 Status.text = $"{JourneyPresentationRules.Stage(journey.Phase)} · {journey.ActivePlanet?.DisplayName ?? "未选择目的地"}\n" +
                     $"氧气 {a?.Oxygen ?? 0:0}  携带 {(a?.Iron ?? 0) + (a?.Gold ?? 0)}  船仓 {(ship?.Iron ?? 0) + (ship?.Gold ?? 0)}\n" +
                     $"可用铁 {world.Camp.Stock.Iron} / 金 {world.Camp.Stock.Gold} · {(piloting ? "你在驾驶" : flight?.PilotId > 0 ? "驾驶位已占用" : "驾驶位空闲")}\n" +

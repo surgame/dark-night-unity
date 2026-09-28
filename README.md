@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-28 原地着陆源码候选：星球降落不再要求对准唯一泊位，在飞行范围内具备安全支撑和净空即可原地着陆；游戏协议 **16**／存档 **v11**。旧 Player 与旧验收数字只代表协议 15，候选验证见[实现说明](docs/SPACE_TO_PLANET_IMPLEMENTATION.md)。
+
 2026-09-26 [太空到星球流程](docs/SPACE_TO_PLANET_IMPLEMENTATION.md)已在 Local 导入并构建 Mono r2：太空船内走动、驾驶台选星球、配置过场、后台生成、到达同步、松手缓降与自动着陆下船。协议 **15**／存档 **v11**，UI Toolkit 菜单为 `Dark Nights/配置/星球与航程`。用户后续要求执行全部验收，现已完成 Core、航程纯回归、Editor 与实际 Play 主流程，多人／弱网等结果持续收录到[验收清单](docs/SPACE_TO_PLANET_ACCEPTANCE.md)；不以旧构建数字代替本批结果。2026-09-27 以 Editor 航程 53/53、Mono r3 双进程 127/127、IL2CPP r4 双进程及三组四人全部通过的候选合入 `main`，人工、双机器与前台性能项仍待验收。
 
 2026-09-26 [当前地图入口](docs/SCENES.md)：正式 `Bootstrap → Expedition` 已使用 StrataCave 岩层、三层背景及当前共享地形刷新代码。新版工作台为 `ReferenceChamber`（固定）和 `RandomCave`（随机），Unity 菜单 `Dark Nights / Terrain` 可直接打开；调参使用 `Cave Wall Tuner`。旧 `TerrainDebugBootstrap`、`CaveExploration` 统一收进 `(old)`。当前代码默认 `ImmediateForeground = true`，有效前景为 LocalV2；下方 09-25“LegacyV1 默认／尚未导入”是早期记录。09-26 已有 Unity 实测 32 通过／2 失败，不能称完整画面、即时刷新或联机验收通过，详见场景索引。

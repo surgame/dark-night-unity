@@ -2,7 +2,7 @@ using System;
 
 namespace DarkNights.Core.Config
 {
-    /// <summary>泊位飞行与安全着陆的只读规则；数值唯一来源为 balance.expedition.Ship，缓降速度必须低于着陆速度上限。</summary>
+    /// <summary>飞行包络与安全着陆的只读规则；LandingTolerance 是接地距离，缓降速度必须低于着陆速度上限。</summary>
     public sealed class ShipFlightDefinition
     {
         public float HorizontalSpeed { get; }
