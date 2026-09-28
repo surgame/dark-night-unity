@@ -47,6 +47,8 @@ namespace YYGC.Generated
                 "Sirenix.Serialization",
                 "Sirenix.Serialization.Config",
                 "Sirenix.Utilities",
+                "SmartConsole",
+                "SmartConsole.Readme",
                 "SynapseSocket",
                 "System",
                 "System.AppContext",
