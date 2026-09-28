@@ -12,14 +12,16 @@ namespace DarkNights.View.Terrain
         private readonly CaveOutlineSettings outline;
         private readonly CaveModifierStack modifiers;
         private readonly string seed;
+        private readonly int decorationStartRow;
         private readonly CancellationToken token;
         private byte[] materials, shapes;
         private int revision, bakedRevision, pendingRevision;
         private Task<(CaveMaskField Field, bool[] Dirty)> task;
         public CaveMaskField Field { get; private set; }
         public bool Ready => Field != null && revision == bakedRevision;
-        public CaveRockGeometry(string seed, CaveOutlineSettings outline, CaveModifierStack modifiers, CancellationToken token)
-        { this.seed = seed; this.outline = outline; this.modifiers = modifiers; this.token = token; }
+        public CaveRockGeometry(string seed, CaveOutlineSettings outline, CaveModifierStack modifiers,
+            int decorationStartRow, CancellationToken token)
+        { this.seed = seed; this.outline = outline; this.modifiers = modifiers; this.decorationStartRow = decorationStartRow; this.token = token; }
         public void Replace(byte[] materials, byte[] shapes)
         { this.materials = materials; this.shapes = shapes; revision++; }
         public bool[] Tick()
@@ -36,7 +38,8 @@ namespace DarkNights.View.Terrain
             pendingRevision = revision;
             task = Task.Run(() =>
             {
-                var next = CaveModifiedTerrain.Bake(Solid, 2560, 1536, seed, outline, modifiers, 43 * 8, token.ThrowIfCancellationRequested);
+                var next = CaveModifiedTerrain.Bake(Solid, 2560, 1536, seed, outline, modifiers,
+                    decorationStartRow * 8, token.ThrowIfCancellationRequested);
                 return (next, CaveMaskChanges.DirtyPages(previous, next, checkpoint: token.ThrowIfCancellationRequested));
                 bool Solid(int x, int y)
                 {

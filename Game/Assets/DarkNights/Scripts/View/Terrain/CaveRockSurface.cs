@@ -33,7 +33,8 @@ namespace DarkNights.View.Terrain
         {
             this.seed = seed; stoneSize = style.StoneSize; outline = style.CaptureOutline();
             var modifiers = style.CaptureModifiers();
-            if (modifiers.Enabled) geometry = new CaveRockGeometry(seed, outline, modifiers, cancellation.Token);
+            if (modifiers.Enabled) geometry = new CaveRockGeometry(seed, outline, modifiers,
+                style.DecorationStartRow, cancellation.Token);
             dirtyCells = (CaveRockBaker.DistanceCap + outline.Reach + 3 + 7) / 8;
             var descriptor = new RenderTextureDescriptor(2560, 1536, GraphicsFormat.R8G8B8A8_SRGB, 0)
             { msaaSamples = 1, useMipMap = false, autoGenerateMips = false };

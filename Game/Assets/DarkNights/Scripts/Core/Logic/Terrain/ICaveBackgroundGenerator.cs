@@ -7,6 +7,7 @@ namespace DarkNights.Core.Logic.Terrain
     public interface ICaveBackgroundGenerator
     {
         string Identity { get; }
-        ICaveBackgroundLayout Build(BackgroundBakeDescriptor source, CaveOutlineSettings outline, Action checkpoint = null);
+        ICaveBackgroundLayout Build(BackgroundBakeDescriptor source, CaveOutlineSettings outline,
+            Action checkpoint = null, int decorationStartRow = 43);
     }
 }

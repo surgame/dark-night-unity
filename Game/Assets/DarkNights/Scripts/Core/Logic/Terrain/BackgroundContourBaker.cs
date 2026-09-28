@@ -15,12 +15,15 @@ namespace DarkNights.Core.Logic.Terrain
         public int Top { get; }
         public uint LayoutSeed { get; }
 
-        public static BackgroundContourBaker Build(BackgroundBakeDescriptor source, Action checkpoint = null, CaveOutlineSettings outline = null, BackgroundContourSettings settings = null)
+        public static BackgroundContourBaker Build(BackgroundBakeDescriptor source, Action checkpoint = null,
+            CaveOutlineSettings outline = null, BackgroundContourSettings settings = null, int decorationStartRow = 43)
         {
+            if (decorationStartRow < 0 || decorationStartRow >= source.Height)
+                throw new ArgumentOutOfRangeException(nameof(decorationStartRow));
             var raw = TerrainVisualCoordinates.Rasterize(source);
             int w = source.Width * 8, h = source.Height * 8;
             var pixels = outline == null ? raw : CaveOutlineBaker.Bake((x, y) => raw[y * w + x] != 0, w, h, 0, 0, w, h, outline, checkpoint);
-            return new BackgroundContourBaker(pixels, w, h, source.LayoutSeed, 43 * 8, checkpoint, settings);
+            return new BackgroundContourBaker(pixels, w, h, source.LayoutSeed, decorationStartRow * 8, checkpoint, settings);
         }
 
         public BackgroundContourBaker(byte[] occupancy, int width, int height, string seed, int top, Action checkpoint = null, BackgroundContourSettings settings = null)

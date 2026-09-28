@@ -44,7 +44,8 @@ namespace DarkNights.View.Terrain
         public CaveLocalRockSurface(Material material, string seed, CaveTerrainStyle style)
         {
             inlineBudget = Math.Max(0, Math.Min(8, style.InteractiveBakeBudgetMs));
-            geometry = new CaveLocalRockGeometry(seed, style.CaptureOutline(), style.CaptureModifiers(), style.StoneSize, lifetime.Token);
+            geometry = new CaveLocalRockGeometry(seed, style.CaptureOutline(), style.CaptureModifiers(),
+                style.StoneSize, style.DecorationStartRow, lifetime.Token);
             var descriptor = new RenderTextureDescriptor(2560, 1536, GraphicsFormat.R8G8B8A8_SRGB, 0)
             { msaaSamples = 1, useMipMap = false, autoGenerateMips = false };
             texture = new RenderTexture(descriptor)

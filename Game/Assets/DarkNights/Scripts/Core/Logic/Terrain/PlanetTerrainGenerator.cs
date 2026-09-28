@@ -40,11 +40,11 @@ namespace DarkNights.Core.Logic.Terrain
                     {
                         cells[i] = 0; protection[i] = false; soft[i] = false;
                     }
-                    else if (y < Math.Max(planet.DockRow + 3, source.Surface[x] + 3))
+                    else if (x >= left && x <= right && y < planet.DockRow + 3)
                     {
-                        // 地表连续，飞船全部起落架、船壳投影和坡道出口均受平台覆盖。
+                        // 只在飞船泊位铺设平台；保留工作台生成的其余天然洞穴轮廓。
                         cells[i] = 1; soft[i] = false;
-                        protection[i] = x >= left && x <= right && y < planet.DockRow + 3 || x < 3 || x >= W - 3;
+                        protection[i] = true;
                     }
                     if (protection[i]) soft[i] = false;
                 }
@@ -57,7 +57,7 @@ namespace DarkNights.Core.Logic.Terrain
             byte[] shapes = TerrainShapeGeometry.Build(cells, protection, W, H);
             var deposits = new List<TerrainDepositBlueprint>();
             foreach (var deposit in source.Deposits)
-                if (deposit.Y >= Math.Max(planet.DockRow + 3, source.Surface[deposit.X] + 3) &&
+                if (!(deposit.X >= left && deposit.X <= right && deposit.Y < planet.DockRow + 3) &&
                     !protection[deposit.Y * W + deposit.X])
                     deposits.Add(deposit);
             CheckCancellation(cancelled);

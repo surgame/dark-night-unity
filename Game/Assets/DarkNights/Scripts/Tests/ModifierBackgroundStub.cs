@@ -12,7 +12,8 @@ namespace DarkNights.Tests
         public int Height => 128;
         public int Top => 0;
         public uint LayoutSeed => 987654;
-        public ICaveBackgroundLayout Build(BackgroundBakeDescriptor source, CaveOutlineSettings outline, Action checkpoint = null) => this;
+        public ICaveBackgroundLayout Build(BackgroundBakeDescriptor source, CaveOutlineSettings outline,
+            Action checkpoint = null, int decorationStartRow = 43) => this;
         public bool Solid(int layer, int x, int y) => x >= 0 && x < Width && y >= layer * 20 && y < layer * 20 + 15;
     }
 }

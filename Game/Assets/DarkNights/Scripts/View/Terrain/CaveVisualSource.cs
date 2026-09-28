@@ -73,7 +73,8 @@ namespace DarkNights.View.Terrain
             backdrop.AddComponent<MeshFilter>().sharedMesh = mesh;
             var renderer = backdrop.AddComponent<MeshRenderer>(); renderer.sharedMaterial = background; renderer.sortingOrder = -100;
             if (style.Background != null && style.Background.ContourStatic)
-                staticBackground = new CaveBackgroundCache(reference, style.Background, background, parent, style.ProceduralRock ? style.CaptureOutline() : null);
+                staticBackground = new CaveBackgroundCache(reference, style.Background, background, parent,
+                    style.ProceduralRock ? style.CaptureOutline() : null, style.DecorationStartRow);
         }
         public async Task<MapChunkData> LoadAsync(WorldDescriptor descriptor, ChunkCoord coordinate, CancellationToken cancellation)
         {

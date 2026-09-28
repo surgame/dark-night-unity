@@ -13,6 +13,7 @@ namespace DarkNights.View.Terrain
         private const int CellWidth = 320, CellHeight = 192, PixelScale = 8;
         private readonly string seed;
         private readonly int stoneSize;
+        private readonly int decorationStartRow;
         private readonly CaveOutlineSettings outline;
         private readonly RoundedClusterModifier modifier;
         private readonly CaveModifierStack modifiers;
@@ -21,9 +22,10 @@ namespace DarkNights.View.Terrain
         public int DirtyPixelRadius { get; }
         public bool Initialized { get; private set; }
         public CaveLocalRockGeometry(string seed, CaveOutlineSettings outline, CaveModifierStack modifiers,
-            int stoneSize, CancellationToken cancellation)
+            int stoneSize, int decorationStartRow, CancellationToken cancellation)
         {
-            this.seed = seed; this.outline = outline; this.stoneSize = stoneSize; this.cancellation = cancellation;
+            this.seed = seed; this.outline = outline; this.stoneSize = stoneSize;
+            this.decorationStartRow = decorationStartRow; this.cancellation = cancellation;
             this.modifiers = modifiers ?? CaveModifierStack.Empty; modifier = this.modifiers.RequireLocalRoundedCluster();
             DirtyPixelRadius = CaveRockBaker.DistanceCap + (outline?.Reach ?? 0) +
                 (modifier?.DependencyRadiusPixels ?? 0) + PixelScale;
@@ -66,7 +68,8 @@ namespace DarkNights.View.Terrain
                 void Check() { cancellation.ThrowIfCancellationRequested(); checkpoint?.Invoke(); }
                 Check();
                 var region = CaveModifiedTerrain.BakeRockRegion(Solid, 2560, 1536, seed, outline, modifiers,
-                    output.x, output.y, output.width, output.height, CaveRockBaker.DistanceCap, 43 * PixelScale, Check);
+                    output.x, output.y, output.width, output.height, CaveRockBaker.DistanceCap,
+                    decorationStartRow * PixelScale, Check);
                 return CaveRockBaker.BakeRegion(region, output.x, output.y, output.width, output.height, seed, stoneSize, Check);
                 bool Solid(int x, int y)
                 {

@@ -30,7 +30,8 @@ namespace DarkNights.View.Terrain
         public int ResidentPages => pages.Count;
         public bool Ready => !disposed && layout != null && visible.All(pages.ContainsKey);
 
-        public CaveBackgroundCache(BackgroundBakeDescriptor source, CaveBackgroundStyle style, Material wall, Transform parent, CaveOutlineSettings outline = null)
+        public CaveBackgroundCache(BackgroundBakeDescriptor source, CaveBackgroundStyle style, Material wall, Transform parent,
+            CaveOutlineSettings outline = null, int decorationStartRow = 43)
         {
             if (source == null) throw new InvalidOperationException("静态背景缺少初始参考；禁止从当前格子重建。");
             if (style.ContentHash != BackgroundBakeDescriptor.StyleContentHash) throw new InvalidOperationException("静态背景样式内容身份不匹配。");
@@ -38,7 +39,8 @@ namespace DarkNights.View.Terrain
             var generator = style.CaptureGenerator(); var modifiers = style.CaptureModifiers();
             var token = cancellation.Token;
             layoutTask = Task.Run<ICaveBackgroundLayout>(() => new ModifiedBackgroundLayout(
-                generator.Build(source, outline, token.ThrowIfCancellationRequested), modifiers, source.LayoutSeed, token.ThrowIfCancellationRequested), token);
+                generator.Build(source, outline, token.ThrowIfCancellationRequested, decorationStartRow),
+                modifiers, source.LayoutSeed, token.ThrowIfCancellationRequested), token);
         }
         public void SetVisible(GridBounds bounds)
         {

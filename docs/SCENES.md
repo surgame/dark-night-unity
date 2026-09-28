@@ -8,7 +8,9 @@
 
 ## 正式接入与当前验收状态
 
-2026-09-29 地图装配入口：`WorldSession.asset → ExpeditionFlowConfig.CaveMap → TerrainGenerator.GenerateCave` 是 RandomCave 与正式远征共同的洞穴生成输入。RandomCave 通过 `MapAssemblySource` 读取该配置，以 `STRATA-0922` 预览；正式航程冻结同一配置，只用本次星球种子覆盖预览种子，随后保留天空、泊位和下洞步道的权威修改。两端均通过 `TerrainPreview.ShowCaveReplica` 安装同一 `Style.asset` 和冻结背景参考；前景修饰、三层背景及各层点缀由样式资源装配，业务调用无需传层级开关。工作台运行时改动目前仍是预览草稿，日后要让其持久影响正式生成，应写回 `CaveMap` 与样式资产，不能只修改运行时副本。本轮仅做代码静态检查，未做 Unity 画面或联机回归；地表与洞室的可见内容不能据此宣称视觉验收通过。
+2026-09-29 地图装配入口：`WorldSession.asset → ExpeditionFlowConfig.CaveMap → TerrainGenerator.GenerateCave` 是 RandomCave 与正式远征共同的洞穴生成输入。RandomCave 通过 `MapAssemblySource` 读取该配置，以 `STRATA-0922` 预览；正式航程冻结同一配置，只用本次星球种子覆盖预览种子。此前正式星球生成会在全部 320 列把地表至天然表面下三格填实，覆盖工作台生成的洞口及浅层轮廓；现仅在飞船泊位列铺设保护平台，其他列保留天然洞穴，另保留天空与下洞步道。两端均通过 `TerrainPreview.ShowCaveReplica` 安装同一 `Style.asset` 和冻结背景参考；前景修饰、三层背景及各层点缀由样式资源装配，业务调用无需传层级开关。`Style.asset.DecorationStartRow` 统一控制前景下缘和背景点缀的候选区域起始行，当前设为默认泊位第 40 行；算法仍按真实轮廓、空隙、密度及间距选取装饰，不会在该行直接画一条边。原先写死的第 43 行只会排除更浅的候选点，不能单独解释整层不可见。工作台运行时改动目前仍是预览草稿，要让其持久影响正式生成需保存样式资产及共用生成配置。本轮仅做代码静态检查，未做 Unity 画面或联机回归；地表与洞室的可见内容不能据此宣称视觉验收通过。
+
+直接 Play `Bootstrap` 时先进入太空待命；`Orbit`／`Preparing`／`Transit` 只显示船舱和本地太空环境，`RandomLevelEntry` 在这些阶段主动跳过洞穴渲染。走到右侧驾驶台选星球，地图后台生成并到达同步后才创建正式洞穴表现。正式地图仍有星球种子、开放天空、泊位和下洞步道，因此与工作台固定种子的首屏布局不同。地图在选星球时冻结；已在运行中的航程不会因修改源码或样式资产自动重生。
 
 `GameSessionStartupModule` 默认选择 `Expedition.unity`；该场景的 `Definition`／`ContourDefinition` 均指向 StrataCave 定义（GUID `d4a19379210ced349b64c1b628f9c7ca`），`CaveStyle`／`StaticBackgroundStyle` 均指向 `Res/Terrain/StrataCave/Style.asset`（GUID `b8f1f94057451ec459e1bac28aba1c8a`）。因此无需 `--dn-contour-static` 就使用新版岩层和三层背景。两个新版工作台使用同一组定义和样式，但地图输入分别为固定蓝图和随机生成；正式远征有自己的权威地图与玩法，接入同一渲染链不表示三者地图布局相同。
 

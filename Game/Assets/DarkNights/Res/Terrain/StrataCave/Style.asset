@@ -17,6 +17,7 @@ MonoBehaviour:
   Background: {fileID: 11400000, guid: 1b99e2e684b842f42907b47f37d9d092, type: 2}
   ProceduralRock: 1
   StoneSize: 4
+  DecorationStartRow: 40
   OutlineMode: 4
   OutlineSeed: OUTLINE-0921
   OutlineAmplitude: 3

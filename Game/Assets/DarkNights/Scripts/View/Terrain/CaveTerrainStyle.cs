@@ -17,6 +17,7 @@ namespace DarkNights.View.Terrain
         [Range(0, 8), Tooltip("热资源小范围修改的同步求解预算；超时自动转后台，不阻塞整帧等待。")]
         public float InteractiveBakeBudgetMs = 4;
         [Range(2, 12)] public int StoneSize = 4;
+        [Range(0, 191), Tooltip("前景下缘和三层背景点缀共同开始的地图行；默认泊位从第 40 行起。")] public int DecorationStartRow = 40;
         public CaveOutlineMode OutlineMode = CaveOutlineMode.HybridB;
         public string OutlineSeed = "OUTLINE-0921";
         [Range(0, 8)] public float OutlineAmplitude = 3;
@@ -24,7 +25,7 @@ namespace DarkNights.View.Terrain
         [Range(1, 4)] public int OutlineQuantization = 2;
         [Tooltip("即时模式支持空栈或单个圆簇；其他栈明确报错，不悄悄回退全图烘焙。")]
         public CaveModifierAsset[] Modifiers = System.Array.Empty<CaveModifierAsset>();
-        public string VisualIdentity => string.Join("|", ProceduralRock, StoneSize, OutlineMode, OutlineSeed,
+        public string VisualIdentity => string.Join("|", ProceduralRock, StoneSize, DecorationStartRow, OutlineMode, OutlineSeed,
             OutlineAmplitude.ToString(System.Globalization.CultureInfo.InvariantCulture), OutlineWavelength, OutlineQuantization,
             CaptureModifiers().Identity, Background == null ? "none" : Background.VisualIdentity);
         public CaveModifierStack CaptureModifiers()
