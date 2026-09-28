@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-28 正式会话运行对象已按用途挂到 `EntityViews` 的独立父节点：角色按类型归组，矿床、投射物池及其他效果分开，便于在 Hierarchy 中查找 `worker`。静态差异检查通过；当前 Unity Editor 正在使用本工程，本批尚未单独执行编译或 Play 画面验收，见[场景索引](SCENES.md)。
+
 2026-09-28 [输入平台实施前后对照](INPUT_PLATFORM_COMPARISON.html)对应的代码边界已在 `ref-20260928-input-boundary` 调整：主角与营地从 `GameInputActions` 读取当帧语义值，帮助面板提供通用改键和恢复默认；未修改 YYGC、协议、存档或 Unity 动作资产。按用户要求本批不执行 Unity 编译、Play 或联机回归，运行状态待验证。
 
 2026-09-26 [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)在 `ft-20260926-space-planet-flow` 继续验收，基线 `31aaecf`，已接入启动修复 `4f270dc`。协议 **15**／存档 **v11**，Local 编译及 Mono r2 构建通过；用户反馈的落地问题已改为配置缓降、自动安全着陆、释放驾驶席和开门。测试、实际 Play、联机、构建和环境阻塞分别记入[验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)，不再沿用首轮免验收状态。

@@ -10,6 +10,8 @@
 
 `GameSessionStartupModule` 默认选择 `Expedition.unity`；该场景的 `Definition`／`ContourDefinition` 均指向 StrataCave 定义（GUID `d4a19379210ced349b64c1b628f9c7ca`），`CaveStyle`／`StaticBackgroundStyle` 均指向 `Res/Terrain/StrataCave/Style.asset`（GUID `b8f1f94057451ec459e1bac28aba1c8a`）。因此无需 `--dn-contour-static` 就使用新版岩层和三层背景。两个新版工作台使用同一组定义和样式，但地图输入分别为固定蓝图和随机生成；正式远征有自己的权威地图与玩法，接入同一渲染链不表示三者地图布局相同。
 
+Play 模式下，正式会话在场景 `EntityViews` 下建立运行时分组：活实体按 `Actors/<类型>`、`Buildings/<类型>`、`Worksites/<类型>` 与 `Mineral Deposits` 查找；`Ballistics` 集中放置预热的 128 个投射物表现，箭矢、其他效果、残骸、音频及建造预览各有独立节点。收起 `Ballistics` 可直接在 `Actors/worker` 查看工人。此分组只整理 Hierarchy，不改变对象身份、权威状态或关卡布局；代码已接入，Unity Play 画面尚未验收。
+
 最新代码 `CaveTerrainStyle.ImmediateForeground` 默认 `true`，当前 Style 没有序列化覆盖此字段；`CaptureModifiers()` 经 `AsLocalForeground()` 将前景圆簇转换为 LocalV2。源 RoundedRock 资产的版本仍可为 LegacyV1，不能仅看源资产字段或旧文档判断运行时版本。近期输入、只读副本安装和相机完成判定也由正式 `RandomLevelEntry → TerrainPreview` 共用；这些属于**代码已接入**，不代表整项已验收。
 
 09-26 既有 Local Unity [原始 XML](evidence/terrain-local-validation-20260926.xml)／[结果摘要](evidence/terrain-local-validation-20260926.json)为 **32 通过、2 失败**：`ActualPagesStayStaticAndDestructionIsLocal` 在只读 chunk 编辑时报错；`PreviewKeepsCameraPagesVisibleAcrossDirectionChanges` 缺少相机所需页。新视觉用例和严格跨资源发布门槛未完成，前台性能及新 Player 联机不能宣称通过。本次整理入口不处理这些算法问题，也没有切换美术参数或生成 Player。

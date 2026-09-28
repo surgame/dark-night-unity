@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DarkNights.Core.ViewData;
 using DarkNights.Core.Config;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace DarkNights.View
         public UnityEngine.InputSystem.PlayerInput InputPlayer => inputPlayer;
         [SerializeField] private Camera sceneCamera;
         [SerializeField] private Transform entities;
+        private readonly Dictionary<string, Transform> runtimeGroups = new Dictionary<string, Transform>();
         [SerializeField] private SpriteRenderer sky;
         [SerializeField] private NativeBackdrop[] backgrounds;
         [SerializeField] private NativeEnvironment environment;
@@ -64,6 +66,18 @@ namespace DarkNights.View
         private static readonly Color NightAmbient = new Color32(113, 135, 169, 255);
         public Camera SceneCamera => sceneCamera;
         public Transform Entities => entities;
+        /// <summary>按用途建立可嵌套的运行时容器，供会话对象统一挂载和折叠查看。</summary>
+        public Transform RuntimeGroup(string path)
+        {
+            if (entities == null) throw new System.InvalidOperationException("EntityViews root is missing.");
+            if (runtimeGroups.TryGetValue(path, out Transform group) && group != null) return group;
+            int separator = path.LastIndexOf('/');
+            Transform parent = separator < 0 ? entities : RuntimeGroup(path.Substring(0, separator));
+            group = new GameObject(path.Substring(separator + 1)).transform;
+            group.SetParent(parent, false);
+            runtimeGroups[path] = group;
+            return group;
+        }
         public Color Ambient => Color.Lerp(DayAmbient, NightAmbient, night);
         public float CameraX => cameraX;
         public float Zoom => zoom;

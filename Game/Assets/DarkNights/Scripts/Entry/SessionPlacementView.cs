@@ -66,7 +66,7 @@ namespace DarkNights.Entry
             EntityView created = null;
             try
             {
-                created = await EntityViewFactory.Create(requested, stage.Entities);
+                created = await EntityViewFactory.Create(requested, stage.RuntimeGroup("Placement Preview"));
                 if (this == null || captured != generation || kind != input.BuildKind ||
                     client.ConnectionGeneration != connection || client.Replica.Current?.Epoch != epoch)
                 {

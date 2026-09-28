@@ -43,9 +43,9 @@ namespace DarkNights.Entry
         public async UniTask Initialize(SessionClient value, SessionUiController panels, PinewatchStage scene, float groundY)
         {
             client = value; ui = panels; stage = scene; ground = groundY;
-            await ballistics.Initialize(stage.Entities);
+            await ballistics.Initialize(stage.RuntimeGroup("Ballistics"));
             if (this == null) return;
-            audioOwner = await Create("audio.camp");
+            audioOwner = await Create("audio.camp", stage.RuntimeGroup("Audio"));
             if (this == null) { Release(audioOwner); return; }
             audioView = Required<CampAudio>(audioOwner, "audio");
         }
@@ -102,8 +102,8 @@ namespace DarkNights.Entry
             try
             {
                 bool remnant = item.Cue.Kind == "corpse" || item.Cue.Kind == "rubble";
-                owner = remnant ? await EntityViewFactory.Create(item.Cue.ContentId, stage.Entities) :
-                    await Create("effect.floating");
+                owner = remnant ? await EntityViewFactory.Create(item.Cue.ContentId, stage.RuntimeGroup("Remnants")) :
+                    await Create("effect.floating", stage.RuntimeGroup("Effects"));
                 if (!Current(captured) || Time.unscaledTimeAsDouble - born >= PresentationCursor.Lifetime(item)) { Release(owner); return; }
                 // 残骸复用同一定义外观，但从不绑定已消失的活实体。
                 EntityView visual = remnant ? EntityViewFactory.RequiredPresentation((EntityView)owner).Visual : null;
@@ -133,7 +133,7 @@ namespace DarkNights.Entry
             ObjectView owner = null;
             try
             {
-                owner = await Create("effect.arrow");
+                owner = await Create("effect.arrow", stage.RuntimeGroup("Arrows"));
                 if (!Current(captured) || !client.Replica.Current.World.Projectiles.Any(p => p.ViewId == id)) { Release(owner); return; }
                 arrows.Add(id, (owner, Required<NativeEffect>(owner, "effect")));
             }
@@ -141,11 +141,11 @@ namespace DarkNights.Entry
             finally { if (captured == generation) pendingArrows.Remove(id); }
         }
 
-        private UniTask<ObjectView> Create(string key)
+        private UniTask<ObjectView> Create(string key, Transform parent)
         {
             var definition = ObjectDefinitionDatabase.Instance.GetDefinitionByKey(key);
             if (definition == null) throw new InvalidOperationException("Missing native effect definition: " + key);
-            return ObjectInstanceFactory.CreateObjectInstanceAsync(new DefinitionReference(definition.Guid).Resolve(), Vector3.zero, Quaternion.identity, stage.Entities);
+            return ObjectInstanceFactory.CreateObjectInstanceAsync(new DefinitionReference(definition.Guid).Resolve(), Vector3.zero, Quaternion.identity, parent);
         }
         private static T Required<T>(ObjectView owner, string key) where T : Component =>
             owner != null && owner.Get<T>(key) != null ? owner.Get<T>(key) : throw new InvalidOperationException("Missing native effect binding: " + key);

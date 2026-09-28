@@ -72,7 +72,8 @@ namespace DarkNights.Entry
                 required = required.Concat(new[] { MineralDepositRuleConfig.Rule });
             ObjectSessionResources resources = await ObjectSessionResources.Prepare(required.Select(definitions.GetRequired).ToArray(), cancellationToken);
             float debugHeroSpeed = DebugHeroSpeedMultiplier();
-            network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements, stage.Entities, debugHeroSpeed);
+            network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements,
+                stage.RuntimeGroup("Unbound Entities"), debugHeroSpeed);
             if (debugHeroSpeed > 1) Debug.Log("DARK_NIGHTS_DEBUG_HERO_SPEED multiplier=" + debugHeroSpeed);
             stage.Initialize(layout);
             if (randomLevel != null) Terrain.RandomLevelEntry.Install(network, randomLevel, stage);

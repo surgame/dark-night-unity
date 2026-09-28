@@ -83,15 +83,29 @@ namespace DarkNights.Entry
                 EntityPresentationBehaviour presentation = EntityViewFactory.RequiredPresentation(owner);
                 int captured = generation;
                 Action<InputIntent> submit = intent => Submit(presentation, captured, intent);
+                string group;
                 if (catalog.Balance.Units.TryGetValue(pair.Value, out UnitDefinition rules) && presentation is ActorPresentationBehaviour actor)
+                {
                     actor.Bind(pair.Key, epoch, pair.Value, rules, submit);
+                    group = "Actors/" + pair.Value;
+                }
                 else if (catalog.Balance.Buildings.ContainsKey(pair.Value) && presentation is BuildingPresentationBehaviour building)
+                {
                     building.Bind(pair.Key, epoch, pair.Value, submit);
+                    group = "Buildings/" + pair.Value;
+                }
                 else if (pair.Value == "mineral-deposit" && presentation is MineralDepositPresentationBehaviour deposit)
+                {
                     deposit.Bind(pair.Key, epoch, pair.Value, submit);
+                    group = "Mineral Deposits";
+                }
                 else if (catalog.Balance.Worksites.ContainsKey(pair.Value) && presentation is WorksitePresentationBehaviour site)
+                {
                     site.Bind(pair.Key, epoch, pair.Value, submit);
+                    group = "Worksites/" + pair.Value;
+                }
                 else throw new InvalidOperationException("Unsupported entity presentation: " + pair.Value);
+                owner.transform.SetParent(stage.RuntimeGroup(group), true);
                 views.Add(pair.Key, (owner, presentation, pair.Value));
                 owner.gameObject.name = pair.Value + " #" + pair.Key;
             }
