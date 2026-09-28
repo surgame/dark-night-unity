@@ -28,6 +28,7 @@
 
 - [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md) / [验收清单](SPACE_TO_PLANET_ACCEPTANCE.md) / [设计](SPACE_TO_PLANET_FLOW_DESIGN.md) — 主分支 `31aaecf` 基线；YYGC 航程、UI Toolkit 星球表格、会话内切图和驾驶降落；Local 编译、Mono r2、纯回归及实际 Play 主流程已执行；多人／弱网等结果持续记入清单
 - [主角控制链路前后对照](HERO_INPUT_ARCHITECTURE.html) — 输入采样、命令、服务端授权、ObjectsV2 模拟与镜头表现的交互式职责图；重构后的人工验证待完成
+- [输入平台现状与建议方案](INPUT_PLATFORM_COMPARISON.html) — 可切换输入流、跳跃改键和驾驶键扩展的交互式对照；右侧仅为设计，尚未实现
 - [MAP_STATE_NETWORKING.md](MAP_STATE_NETWORKING.md) — AnyRuleD 地图联网重构与本轮验证边界
 
 ## 其他
