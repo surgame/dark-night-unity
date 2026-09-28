@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dark Nights 输入平台：现状与建议方案</title>
+  <title>Dark Nights 输入平台：实施前后对照</title>
   <style>
     :root {
       color-scheme: light dark;
@@ -74,20 +74,20 @@
 <main>
   <header>
     <div class="eyebrow">DARK NIGHTS · 输入架构对照</div>
-    <h1>现在怎样接输入，未来怎样改按键</h1>
-    <p class="intro">选择场景，再点链路节点查看职责和代码位置。左侧是 2026-09-28 仓库现状；右侧是讨论中的设计，尚未实现。</p>
-    <div class="status"><span class="badge current">左：已实现</span><span class="badge planned">右：建议方案 · 未实现</span></div>
+    <h1>输入平台：实施前后</h1>
+    <p class="intro">选择场景，再点链路节点查看职责。左侧固定为 2026-09-28 实施前基线；右侧是本轮落地的设计。代码已修改，按用户要求未运行 Unity 回归。</p>
+    <div class="status"><span class="badge current">左：实施前基线</span><span class="badge planned">右：本轮实现 · 待运行验证</span></div>
   </header>
 
   <nav class="controls" id="scenarios" aria-label="对照场景"></nav>
-  <section class="grid" aria-label="当前与建议链路">
+  <section class="grid" aria-label="实施前后链路">
     <article class="lane now">
-      <div class="lane-head"><span class="label">当前</span><h2 id="now-heading"></h2></div>
+      <div class="lane-head"><span class="label">实施前</span><h2 id="now-heading"></h2></div>
       <p class="lane-summary" id="now-summary"></p>
       <ol class="flow" id="now-flow"></ol>
     </article>
     <article class="lane future">
-      <div class="lane-head"><span class="label">建议</span><h2 id="future-heading"></h2></div>
+      <div class="lane-head"><span class="label">本轮实现</span><h2 id="future-heading"></h2></div>
       <p class="lane-summary" id="future-summary"></p>
       <ol class="flow" id="future-flow"></ol>
     </article>
@@ -96,15 +96,15 @@
   <section class="detail" aria-live="polite" aria-label="所选节点说明">
     <h3 id="detail-heading"></h3>
     <div class="detail-grid">
-      <div><strong>当前做法</strong><p id="now-detail"></p><div class="source" id="now-source"></div></div>
-      <div><strong>建议做法</strong><p id="future-detail"></p><div class="source" id="future-source"></div></div>
+      <div><strong>实施前做法</strong><p id="now-detail"></p><div class="source" id="now-source"></div></div>
+      <div><strong>本轮实现</strong><p id="future-detail"></p><div class="source" id="future-source"></div></div>
     </div>
   </section>
 
   <section class="boundary" aria-label="共同边界">
     <h3>实施时保持的边界</h3>
     <ul>
-      <li><code>GameInputActions</code> 是每位本地玩家在游戏代码中唯一的 Unity <code>InputAction</code> 接入点；不启用旧 GameVS <code>InputBus</code> 的第二套资产。</li>
+      <li><code>GameInputActions</code> 是正式会话每位本地玩家唯一的 Unity <code>InputAction</code> 接入点；不启用旧 GameVS <code>InputBus</code> 的第二套资产。</li>
       <li>业务只读取当前帧的语义值：主角、营地和 Entry 不持有 <code>InputAction</code>；输入层不再对它们公开原始动作、<code>Asset</code>、<code>CampAction</code> 或 <code>CanRead</code>。</li>
       <li>改键只使用 <code>Gameplay.inputactions</code> 自带的动作／绑定身份与少量可改键白名单；不维护平行的动作目录或第二份运行输入状态。</li>
       <li>沿用 YYGC 的动作许可、Interaction Sessions、改键与保存。短按缓冲、30 Hz 变化发送、10 Hz 保活以及服务端 <code>ActorState</code> 权威归属保持原样。</li>
@@ -178,11 +178,11 @@
 
   function source(container, path) {
     container.replaceChildren();
-    if (!path) { container.textContent = '建议方案，尚无源码。'; return; }
+    if (!path) { container.textContent = '对应实现见本轮输入层与帮助面板改动。'; return; }
     if (path.startsWith('D:/')) { container.textContent = '现有 YYGC：' + path; return; }
     const link = document.createElement('a');
     link.href = path;
-    link.textContent = '查看现有源码';
+    link.textContent = '查看源码';
     container.appendChild(link);
   }
 

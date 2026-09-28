@@ -30,7 +30,6 @@ namespace DarkNights.View
             }
         }
 
-        private readonly GameInputActions input;
         private readonly Camera camera;
         private readonly EquipmentInput equipment = new EquipmentInput();
         private bool jumpPending, dropPending, sentJump, sentUse, sentDrop;
@@ -39,10 +38,7 @@ namespace DarkNights.View
         public int SelectedItem { get; private set; } = -1;
         public bool UseItemRequested { get; private set; }
 
-        public HeroInputSampler(GameInputActions input, Camera camera)
-        {
-            this.input = input; this.camera = camera;
-        }
+        public HeroInputSampler(Camera camera) { this.camera = camera; }
 
         public void ResetControl()
         {
@@ -61,21 +57,21 @@ namespace DarkNights.View
                 equipment.Pressed, equipment.Released, equipment.Cancelled);
         }
 
-        public bool Sample(ActorViewData actor, SessionViewData frame, IEntityVisuals visuals,
+        public bool Sample(GameInputActions.HeroFrame controls, ActorViewData actor, SessionViewData frame, IEntityVisuals visuals,
             bool selectionPending, double now, out Packet packet)
         {
-            bool allowed = input.CanRead(input.Move) && !frame.Paused;
+            bool allowed = controls.Allowed && !frame.Paused;
             bool pilot = frame.World.Expedition?.Ship?.PilotId == actor.Id;
             bool aboard = frame.World.Expedition?.Crew.Any(a => a.Id == actor.Id && a.Boarded) == true;
             Vector3 hand = visuals.Visual(actor.Id)?.transform.position ??
                 new Vector3(actor.X / 100, actor.Height / 100, 0);
-            int direction = allowed ? Math.Sign(input.Move.ReadValue<float>()) : 0;
-            bool jump = allowed && input.CanRead(input.Jump) && input.Jump.IsPressed();
-            equipment.Sample(input, camera, hand + Vector3.up * .09f, allowed && !selectionPending && !aboard);
-            SampleEdges(allowed, pilot, aboard, frame.World.Expedition != null);
-            SelectedItem = allowed && !aboard ? ReadSelectedItem(actor.SelectedItem) : -1;
+            int direction = allowed ? Math.Sign(controls.Move) : 0;
+            bool jump = allowed && controls.JumpHeld;
+            equipment.Sample(controls, camera, hand + Vector3.up * .09f, allowed && !selectionPending && !aboard);
+            SampleEdges(controls, allowed, pilot, aboard, frame.World.Expedition != null);
+            SelectedItem = allowed && !aboard ? ReadSelectedItem(controls, actor.SelectedItem) : -1;
             UseItemRequested = allowed && !aboard && actor.SelectedItem == 3 && !selectionPending &&
-                input.CanRead(input.UseItem) && input.UseItem.WasPressedThisFrame();
+                controls.UsePressed;
 
             bool changed = direction != sentDirection || jump != sentJump || equipment.Held != sentUse ||
                 jumpPending || dropPending != sentDrop || (!pilot && dropPending) || equipment.Changed;
@@ -94,24 +90,20 @@ namespace DarkNights.View
             return true;
         }
 
-        private void SampleEdges(bool allowed, bool pilot, bool aboard, bool expedition)
+        private void SampleEdges(GameInputActions.HeroFrame controls, bool allowed, bool pilot, bool aboard, bool expedition)
         {
             if (!allowed) { jumpPending = dropPending = false; return; }
-            jumpPending |= input.CanRead(input.Jump) && input.Jump.WasPressedThisFrame();
-            bool drop = input.CanRead(input.Drop);
+            jumpPending |= controls.JumpPressed;
             if (pilot || (!aboard && expedition))
-                dropPending = drop && input.Drop.IsPressed();
+                dropPending = controls.DropHeld;
             else
-                dropPending |= drop && input.Drop.WasPressedThisFrame();
+                dropPending |= controls.DropPressed;
         }
 
-        private int ReadSelectedItem(int selectedItem)
+        private static int ReadSelectedItem(GameInputActions.HeroFrame controls, int selectedItem)
         {
-            if (input.CanRead(input.Item1) && input.Item1.WasPressedThisFrame()) return 0;
-            if (input.CanRead(input.Item2) && input.Item2.WasPressedThisFrame()) return 1;
-            if (input.CanRead(input.Item3) && input.Item3.WasPressedThisFrame()) return 2;
-            if (input.CanRead(input.Item4) && input.Item4.WasPressedThisFrame()) return 3;
-            float scroll = input.PointerOverUi ? 0 : input.Scroll.ReadValue<Vector2>().y;
+            if (controls.ItemPressed >= 0) return controls.ItemPressed;
+            float scroll = controls.Scroll;
             return scroll == 0 ? -1 : (selectedItem + (scroll > 0 ? 3 : 1)) % 4;
         }
 
@@ -127,20 +119,20 @@ namespace DarkNights.View
             public bool Cancelled { get; private set; }
             public bool Changed => Pressed || Released || Cancelled || Mathf.Abs(Mathf.DeltaAngle(sentAim, Aim)) > 1;
 
-            public void Sample(GameInputActions input, Camera camera, Vector3 hand, bool allowed)
+            public void Sample(GameInputActions.HeroFrame controls, Camera camera, Vector3 hand, bool allowed)
             {
-                bool raw = input.UseItem.IsPressed();
-                if (!allowed || !input.CanRead(input.UseItem)) { Cancel(); return; }
+                bool raw = controls.UseHeld;
+                if (!allowed || !controls.UseAllowed) { Cancel(); return; }
                 if (suppress)
                 {
                     if (!raw) suppress = false;
                     Held = false;
                     return;
                 }
-                Vector3 aim = camera.ScreenToWorldPoint(input.Pointer) - hand;
+                Vector3 aim = camera.ScreenToWorldPoint(controls.Pointer) - hand;
                 if (aim.sqrMagnitude > .0001f) Aim = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
-                Pressed |= input.UseItem.WasPressedThisFrame();
-                Released |= input.UseItem.WasReleasedThisFrame();
+                Pressed |= controls.UsePressed;
+                Released |= controls.UseReleased;
                 Held = raw;
             }
 
