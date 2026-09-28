@@ -86,6 +86,7 @@ namespace DarkNights.Entry
             pause = Behaviour<PauseMenuBehaviour>("PauseMenu");
             result = Behaviour<ResultMenuBehaviour>("Result");
             help = Behaviour<HelpMenuBehaviour>("Help");
+            help.Configure(actions, View("Help").Get<Button>("Back"));
             hud = Behaviour<CampHudBehaviour>("Chrome");
             hud.Configure(catalog, expedition);
             hero = gameObject.AddComponent<HeroPlayerController>();
@@ -204,6 +205,7 @@ namespace DarkNights.Entry
                 }
                 if (action == "MainMenu") { continuePending = false; network.Disconnect(); input.ResetLocal(); Switch("MainMenu"); return; }
                 if (action == "Help") { returnPage = page; Switch("Help"); return; }
+                if (action == "HeroRebind") { returnPage = page; Switch("Help"); help.OpenSettings(); return; }
                 if (action == "Back") { Switch(returnPage); return; }
                 if (action == "Resume") { Switch(""); return; }
                 if (action == "Menu") { Switch(page.Length == 0 ? "PauseMenu" : ""); return; }
@@ -237,9 +239,10 @@ namespace DarkNights.Entry
 
         private void Switch(string value)
         {
+            if (page == "Help" && value != "Help") help.CloseSettings();
             modal?.Dispose(); modal = null;
             page = value;
-            if (page == "Help") help.Present(hero.JumpBindingLabel);
+            if (page == "Help") help.Present();
             input.CancelBuild();
             if (page.Length != 0) modal = YYInteractionSessionService.Instance.Begin(new YYInteractionSessionDescriptor
             {

@@ -110,6 +110,8 @@ SessionEntityViews 只按当前 epoch／EntityId 分发展示：Host 查询权�
 
 GameInputActions 缓存原生 PlayerInput.actions；YYInputActionService 只接线动作组与 Interaction Sessions。View 的 HeroInputSampler 保存渲染输入边沿、30 Hz 限速和 10 Hz 保活，并输出冻结 Packet；Entry 的 HeroPlayerController 装配本地角色上下文并发送意图，PinewatchStage 从冻结副本与已插值外观选择镜头目标。SetReadyCommand 传递本地默认主角偏好；SessionHeroControl 从可信连接请求 ObjectSession 创建新村民，并显式分开默认候选选择、占用操作、输入校验及写入。重复 Ready 复用当前占用，HostOnly 恢复复用连接记录的专属 ID；加载后只有仍标记为手动主角的保存对象可恢复，ID 碰撞到普通闲置角色时改为新建，真正重连也创建新人。30 个服务端 tick 无输入归零。此职责重构未改变 ObjectsV2 的 ActorState 所有权，也未引入第二套输入对象或命令链。
 
+2026-09-28 输入边界调整：`GameInputActions` 是正式会话每位本地玩家唯一的 Unity `InputAction` 接入点，按 YYGC 许可向 `HeroInputSampler` 和 `CampInput` 提供当帧语义值；Entry 只读取模式切换值。帮助面板复用原生按钮提供动作／绑定列表、交互式改键及单项／全部恢复，输入层按 Unity 绑定 ID 解析并复用 YYGC 改键与设置存储。主角短按缓冲、30 Hz 发送、10 Hz 保活及服务端权威链未改。本批只完成代码与静态审查，按用户要求未运行 Unity 编译、Play 或联机回归；运行表现仍待验证。
+
 ## 身份与 v3 恢复
 
 | 标识 | 用途 |

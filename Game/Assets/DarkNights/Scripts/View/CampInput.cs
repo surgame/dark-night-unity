@@ -5,7 +5,6 @@ using DarkNights.Core.ViewData;
 using GameCore.Interactions;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 namespace DarkNights.View
 {
@@ -21,7 +20,6 @@ namespace DarkNights.View
         private IEntityVisuals visuals;
         private PinewatchStage stage;
         private GameInputActions controls;
-        private InputAction cameraMove, select, orders, appendKey, pan, panDelta, pauseKey, helpKey, saveKey, loadKey, homeKey, guardsKey, idleKey;
         private SessionViewData frame;
         private bool ready, dragging, append;
         private Vector2 dragStart, dragWorld;
@@ -40,11 +38,6 @@ namespace DarkNights.View
         {
             stage = scene;
             controls = actions;
-            cameraMove = controls.CampAction("Move"); select = controls.CampAction("Select"); orders = controls.CampAction("Orders");
-            appendKey = controls.CampAction("Append"); pan = controls.CampAction("Pan"); panDelta = controls.CampAction("PanDelta");
-            pauseKey = controls.CampAction("Pause"); helpKey = controls.CampAction("Help"); saveKey = controls.CampAction("Save");
-            loadKey = controls.CampAction("Load"); homeKey = controls.CampAction("Home");
-            guardsKey = controls.CampAction("Guards"); idleKey = controls.CampAction("IdleWorkers");
             visuals = entities;
             sessions = service ?? throw new ArgumentNullException(nameof(service));
         }
@@ -96,38 +89,37 @@ namespace DarkNights.View
             Intent?.Invoke(new InputIntent("Orders", ActorIds(), target, x));
         }
 
-        private bool Pressed(InputAction action) => controls.CanRead(action) && action.WasPressedThisFrame();
-
         private void Update()
         {
             if (sessions == null || frame == null || !ready) return;
-            if (controls.CanReadMenu && controls.Menu.WasPressedThisFrame())
+            GameInputActions.CampFrame keys = controls.ReadCamp();
+            if (keys.Menu)
             {
                 if (BuildKind.Length > 0) CancelBuild();
                 else Emit("Menu");
                 return;
             }
             if (controls.HeroMode) return;
-            bool blocked = !controls.CanRead(cameraMove);
+            bool blocked = !keys.Allowed;
             if (blocked) { Hover = 0; EndDrag(); return; }
-            CameraInput();
-            if (Pressed(pauseKey)) Emit("Pause");
-            if (Pressed(helpKey)) Emit("Help");
-            if (Pressed(saveKey)) Emit("Save");
-            if (Pressed(loadKey)) Emit("Load");
-            if (Pressed(homeKey)) stage.Focus(stage.InitialCameraX);
-            if (Pressed(guardsKey)) SelectGroup(true);
-            if (Pressed(idleKey)) SelectGroup(false);
-            Vector2 pointer = controls.Pointer;
-            bool ui = controls.PointerOverUi;
+            CameraInput(keys);
+            if (keys.Pause) Emit("Pause");
+            if (keys.Help) Emit("Help");
+            if (keys.Save) Emit("Save");
+            if (keys.Load) Emit("Load");
+            if (keys.Home) stage.Focus(stage.InitialCameraX);
+            if (keys.Guards) SelectGroup(true);
+            if (keys.Idle) SelectGroup(false);
+            Vector2 pointer = keys.Pointer;
+            bool ui = keys.PointerOverUi;
             Vector2 point = stage.SceneCamera.ScreenToWorldPoint(pointer);
             Hover = ui ? 0 : Pick(point);
-            if (Pressed(orders) && !ui)
+            if (keys.Orders && !ui)
             {
                 if (BuildKind.Length > 0) CancelBuild();
                 else IssueOrders(point.x * 100, Hover);
             }
-            if (Pressed(select) && !ui)
+            if (keys.Select && !ui)
             {
                 if (BuildKind.Length > 0 && sessions.IsTopOrUnblocked(placement.SessionId, YYInteractionBlockFlags.WorldConfirm))
                     Intent?.Invoke(new InputIntent("Build", ActorIds(), 0, point.x * 100, BuildKind));
@@ -137,19 +129,19 @@ namespace DarkNights.View
                 }, out drag))
                 {
                     dragging = true; dragStart = pointer; dragWorld = point;
-                    append = appendKey.IsPressed();
+                    append = keys.AppendHeld;
                 }
             }
-            if (dragging && !select.IsPressed()) FinishSelection(pointer, point);
+            if (dragging && !keys.SelectHeld) FinishSelection(pointer, point);
         }
 
-        private void CameraInput()
+        private void CameraInput(GameInputActions.CampFrame keys)
         {
-            if (sessions.IsBlocked(YYInteractionBlockFlags.CameraInput)) return;
-            stage.Move(cameraMove.ReadValue<float>() * Time.unscaledDeltaTime * 240);
-            float scroll = controls.PointerOverUi ? 0 : controls.Scroll.ReadValue<Vector2>().y;
+            if (!keys.CameraAllowed) return;
+            stage.Move(keys.CameraMove * Time.unscaledDeltaTime * 240);
+            float scroll = keys.Scroll;
             if (scroll != 0) stage.ChangeZoom(scroll > 0 ? 1.12f : 1 / 1.12f);
-            if (pan.IsPressed()) stage.Move(-panDelta.ReadValue<Vector2>().x / stage.Zoom);
+            if (keys.PanHeld) stage.Move(-keys.PanDelta.x / stage.Zoom);
         }
 
         private void FinishSelection(Vector2 screen, Vector2 point)

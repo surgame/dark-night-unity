@@ -8,7 +8,6 @@ using DarkNights.Runtime.Objects;
 using DarkNights.Runtime.Session;
 using DarkNights.View;
 using GameCore.Interactions;
-using GameCore.PlayerInputs;
 using UnityEngine;
 
 namespace DarkNights.Entry
@@ -26,15 +25,13 @@ namespace DarkNights.Entry
         private PinewatchStage stage;
         private SessionEntityViews entities;
         private HeroHudBehaviour hud;
-        private YYInputRebindingHandle rebind;
-        private YYInteractionSessionHandle rebindModal;
         private bool preferHero = true, campControlEnabled, replayOnly, attempted;
         private int epoch, actorId, lease, pendingItem = -1;
         private long connection, selectionRequest, claimRequest;
         private double nextToggle;
-        private string notice = "", jumpLabel;
+        private string notice = "";
         public ActorViewData Current { get; private set; }
-        public string JumpBindingLabel => jumpLabel;
+        public string JumpBindingLabel => input?.JumpBindingLabel;
 
         /// <summary>设置本地模式偏好；连接前仅记录，连接后通过同一权威入口接管或释放角色。</summary>
         public async UniTask SetHeroMode(bool value)
@@ -56,7 +53,7 @@ namespace DarkNights.Entry
         {
             network = session; camp = campInput; input = actions; stage = scene; hud = panel;
             entities = visuals;
-            sampler = new HeroInputSampler(actions, scene.SceneCamera);
+            sampler = new HeroInputSampler(scene.SceneCamera);
             campControlEnabled = System.Environment.GetCommandLineArgs().Contains("--dn-camp-mode");
             replayOnly = System.Environment.GetCommandLineArgs().Contains("--dn-role") &&
                 System.Environment.GetCommandLineArgs().Contains("--dn-input-replay");
@@ -64,7 +61,6 @@ namespace DarkNights.Entry
             network.Client.RequestDefaultHero = preferHero;
             input.Unavailable += StopInput;
             network.Client.Feedback += Feedback;
-            jumpLabel = YYInputRebindingService.GetBindingDisplayString(input.Jump, 0);
         }
 
         public void Present(SessionViewData frame, bool menu)
@@ -103,7 +99,7 @@ namespace DarkNights.Entry
                 }
             }
             bool aboard = frame?.World.Expedition?.Crew.Any(a => a.Id == Current?.Id && a.Boarded) == true;
-            hud.Present(aboard ? null : Current, ready && !menu && !frame.Paused, jumpLabel, notice, campControlEnabled && !aboard);
+            hud.Present(aboard ? null : Current, ready && !menu && !frame.Paused, JumpBindingLabel, notice, campControlEnabled && !aboard);
         }
 
         private void Update()
@@ -111,7 +107,7 @@ namespace DarkNights.Entry
             if (replayOnly || input == null || network.Client.Replica.Current == null || !network.Client.Ready) return;
             SampleModeToggle();
             if (!input.HeroMode || Current == null) return;
-            if (sampler.Sample(Current, network.Client.Replica.Current, entities, pendingItem >= 0,
+            if (sampler.Sample(input.ReadHero(), Current, network.Client.Replica.Current, entities, pendingItem >= 0,
                 Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet)) Send(packet).Forget();
             if (sampler.SelectedItem >= 0) SelectItem(sampler.SelectedItem).Forget();
             if (sampler.UseItemRequested) Use().Forget();
@@ -120,8 +116,7 @@ namespace DarkNights.Entry
         private void SampleModeToggle()
         {
             if (!campControlEnabled) return;
-            var toggle = input.HeroMode ? input.HeroToggle : input.CampToggle;
-            if (input.CanRead(toggle) && toggle.WasPressedThisFrame()) HandleAction("HeroToggle").Forget();
+            if (input.ModeTogglePressed) HandleAction("HeroToggle").Forget();
         }
 
         private void LateUpdate()
@@ -140,7 +135,8 @@ namespace DarkNights.Entry
         public async UniTask<bool> HandleAction(string action)
         {
             if (!action.StartsWith("Hero", StringComparison.Ordinal)) return false;
-            if (rebind != null || !network.Client.Ready) return true;
+            if (action == "HeroRebind") return false;
+            if (input.IsRebinding || !network.Client.Ready) return true;
             if (action == "HeroToggle")
             {
                 if (!campControlEnabled) return true;
@@ -148,7 +144,6 @@ namespace DarkNights.Entry
                 nextToggle = Time.unscaledTimeAsDouble + 0.5;
                 await SetHeroMode(Current == null);
             }
-            else if (action == "HeroRebind") BeginRebind();
             else if (action == "HeroItem0") await SelectItem(0);
             else if (action == "HeroItem1") await SelectItem(1);
             else if (action == "HeroItem2") await SelectItem(2);
@@ -212,26 +207,9 @@ namespace DarkNights.Entry
             HeroInputSampler.Packet packet = sampler?.Stop(Current?.SelectionRevision ?? 0) ?? default;
             if (actorId > 0) Send(packet).Forget();
         }
-        private void BeginRebind()
-        {
-            StopInput(); input.RebindingActive = true;
-            rebindModal = YYInteractionSessionService.Instance.Begin(new YYInteractionSessionDescriptor
-            { Kind = "dark_nights.rebind", Owner = nameof(HeroPlayerController), Priority = 200, Blocks = YYInteractionBlockFlags.All });
-            notice = "请按新的跳跃键，Esc 取消。";
-            try { rebind = YYInputRebindingService.StartManagedInteractiveRebind(input.Jump, 0, () => false, () => EndRebind(true), () => EndRebind(false)); }
-            catch { EndRebind(false); throw; }
-        }
-        private void EndRebind(bool save)
-        {
-            rebind = null; rebindModal?.Dispose(); rebindModal = null; input.RebindingActive = false;
-            input.SuppressMenu();
-            notice = save && !YYInputSettingsStore.SaveBindingOverrides(input.Asset) ? "改键已生效，但保存失败。" : "";
-            jumpLabel = YYInputRebindingService.GetBindingDisplayString(input.Jump, 0);
-        }
         private void OnDisable()
         {
-            StopInput(); rebind?.Dispose(); rebindModal?.Dispose();
-            if (input != null) input.RebindingActive = false;
+            StopInput();
         }
         private void OnDestroy()
         {
