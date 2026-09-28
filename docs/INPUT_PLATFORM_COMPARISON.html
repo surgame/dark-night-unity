@@ -104,9 +104,10 @@
   <section class="boundary" aria-label="共同边界">
     <h3>实施时保持的边界</h3>
     <ul>
-      <li><code>Gameplay.inputactions</code> 和场景 <code>PlayerInput</code> 仍是每位本地玩家的动作与设备来源；不启用旧 GameVS <code>InputBus</code> 的第二套资产。</li>
-      <li>沿用 YYGC 的动作许可、Interaction Sessions、交互式改键与覆盖设置保存。</li>
-      <li>主角短按缓冲、30 Hz 变化发送和 10 Hz 保活仍由本地采样器处理；服务端租约、权限和 <code>ActorState</code> 权威归属不变。</li>
+      <li><code>GameInputActions</code> 是每位本地玩家在游戏代码中唯一的 Unity <code>InputAction</code> 接入点；不启用旧 GameVS <code>InputBus</code> 的第二套资产。</li>
+      <li>业务只读取当前帧的语义值：主角、营地和 Entry 不持有 <code>InputAction</code>；输入层不再对它们公开原始动作、<code>Asset</code>、<code>CampAction</code> 或 <code>CanRead</code>。</li>
+      <li>改键只使用 <code>Gameplay.inputactions</code> 自带的动作／绑定身份与少量可改键白名单；不维护平行的动作目录或第二份运行输入状态。</li>
+      <li>沿用 YYGC 的动作许可、Interaction Sessions、改键与保存。短按缓冲、30 Hz 变化发送、10 Hz 保活以及服务端 <code>ActorState</code> 权威归属保持原样。</li>
     </ul>
   </section>
 </main>
@@ -126,36 +127,47 @@
     {
       name: '游戏输入流', heading: '从按键到权威角色',
       nowSummary: '动作许可已统一；采样业务仍直接持有 Unity InputAction 引用。',
-      futureSummary: '增加游戏语义入口，采样业务按动作含义读取；权威链路沿用现状。',
+      futureSummary: '沿用 GameInputActions 作为唯一所有者，对外只给本帧的主角语义值。',
       steps: [
         { now: ['Gameplay.inputactions', '唯一动作资源', '场景 PlayerInput 使用 Gameplay 资产；Player 与 Camp 动作组定义真实绑定。', files.asset], future: ['同一份 Gameplay 资产', '设备和绑定来源', '继续由 Unity Input System 管理动作和设备；不生成并行输入资产。'] },
-        { now: ['GameInputActions', '缓存与 YYGC 许可', '缓存 PlayerInput.actions；YYInputActionService 按 Ready、焦点、模式和交互会话控制动作许可。', files.actions], future: ['现有 YYGC 输入服务', '保留许可与互斥', '继续复用 YYInputActionService；统一入口只组合动作目录、读取和改键服务。'] },
-        { now: ['HeroInputSampler', '读取 InputAction', '直接调用 ReadValue、IsPressed 和 WasPressedThisFrame；保留短按并按 30 Hz / 10 Hz 输出 Packet。', files.sampler], future: ['语义动作读取入口', '建议新增游戏层', '用稳定动作标识取得轴值、按住和本帧按下状态；HeroInputSampler 仍负责短按缓冲与发送节流。'] },
-        { now: ['HeroPlayerController', '装配并 SendInput', '绑定本地角色、租约与连接，再把冻结 Packet 交给客户端命令链。', files.controller], future: ['HeroPlayerController', '沿用装配与发送', '继续绑定角色上下文和发送输入；输入平台不承担网络请求和角色选择。'] },
+        { now: ['GameInputActions', '缓存与 YYGC 许可', '缓存 PlayerInput.actions；YYInputActionService 按 Ready、焦点、模式和交互会话控制动作许可。', files.actions], future: ['GameInputActions', '唯一底层输入所有者', '继续持有 PlayerInput.actions 并复用 YYGC 许可。Unity InputAction 不再从这里暴露给业务类。'] },
+        { now: ['HeroInputSampler', '读取 InputAction', '直接调用 ReadValue、IsPressed 和 WasPressedThisFrame；保留短按并按 30 Hz / 10 Hz 输出 Packet。', files.sampler], future: ['主角输入只读值', '当前帧、无第二份状态', 'GameInputActions 先应用 YYGC 逐动作许可，再给出方向、按住、本帧按下／松开和屏幕指针等有类型的值；阻塞动作返回中性值。HeroInputSampler 仍负责短按缓冲与节流。'] },
+        { now: ['HeroPlayerController', '装配并 SendInput', '绑定本地角色、租约与连接，再把冻结 Packet 交给客户端命令链。', files.controller], future: ['HeroPlayerController', '只依赖语义值与 Packet', '继续绑定角色上下文和发送输入；模式切换读语义值，不调用 CanRead，也不持有改键句柄。'] },
         { now: ['SessionHeroControl / ActorState', '权威验证和推进', '服务端校验连接、租约、序号和业务条件，YYGC 对象拥有唯一角色状态。', files.session], future: ['同一服务端权威链', '无输入平台依赖', '权威端仍只接收意图与命令；不会依赖 Unity InputAction 或改键配置。'] }
       ]
     },
     {
       name: '修改跳跃键', heading: '已有改键能力如何使用',
       nowSummary: 'YYGC 已能改键和保存；界面仅为跳跃动作写了专用入口。',
-      futureSummary: '设置界面按动作目录生成条目，所有可改动作共用同一流程。',
+      futureSummary: '设置界面使用小型可改键白名单，动作与绑定身份仍以 Unity 资产为准。',
       steps: [
-        { now: ['Hero HUD 改键按钮', '只有一个动作入口', '当前按钮发出 HeroRebind；其他动作没有同等的通用设置入口。', files.hud], future: ['输入设置动作列表', '建议新增游戏界面', '列出标记为可改键的动作和每个可改绑定，显示当前设备与按键。'] },
-        { now: ['固定 Jump + 索引 0', '业务代码选绑定', 'HeroPlayerController 将 input.Jump 和绑定索引 0 写入改键调用。', files.controller], future: ['动作及绑定目录', '建议新增游戏层', '以稳定动作 ID 与绑定 ID 定位目标；组合键分别定位具体分项，业务代码不写绑定索引。'] },
-        { now: ['YYInputRebindingService', '执行交互式改键', 'YYGC 提供托管改键、显示字符串与可选的冲突查找；当前游戏未为全部动作接线。', 'D:/Developer/YYGC/Runtime/PlayerInputs/YYInputRebindingService.cs'], future: ['同一 YYGC 改键服务', '复用已有能力', '统一入口处理取消、重复绑定和同时生效的动作组，再交给 YYGC 执行改键。'] },
+        { now: ['Hero HUD 改键按钮', '只有一个动作入口', '当前按钮发出 HeroRebind；其他动作没有同等的通用设置入口。', files.hud], future: ['输入设置动作列表', '少量展示配置', '只为需要展示与改键的动作写名称和白名单；不复制每个动作的默认按键或运行值。'] },
+        { now: ['固定 Jump + 索引 0', '业务代码选绑定', 'HeroPlayerController 将 input.Jump 和绑定索引 0 写入改键调用。', files.controller], future: ['Unity 原生动作／绑定 ID', '单一身份来源', '设置界面将选中的 ID 交给 GameInputActions；由它解析资产中的动作和具体绑定，组合键选择分项。业务类不传 InputAction 或绑定索引。'] },
+        { now: ['YYInputRebindingService', '执行交互式改键', 'YYGC 提供托管改键、显示字符串与可选的冲突查找；当前游戏未为全部动作接线。', 'D:/Developer/YYGC/Runtime/PlayerInputs/YYInputRebindingService.cs'], future: ['同一 YYGC 改键服务', '输入层拥有改键生命周期', 'GameInputActions 负责模态阻塞、取消和与同时启用动作的冲突判断，再调用现有 YYGC 服务。'] },
         { now: ['YYInputSettingsStore', '保存覆盖设置', '完成跳跃改键后保存整个 InputActionAsset 的覆盖设置；启动时重新应用。', 'D:/Developer/YYGC/Runtime/PlayerInputs/YYInputSettingsStore.cs'], future: ['同一设置存储', '保持单一存档', '继续保存 Unity 原生绑定覆盖；提供单项恢复默认和全部恢复默认入口。'] },
-        { now: ['刷新 Jump 文案', '单个显示标签', '当前只更新跳跃键的显示文本，帮助界面显示该值。', files.controller], future: ['统一刷新绑定标签', '建议新增游戏界面', '改键成功后刷新对应动作的显示；HeroInputSampler 不因键位变化修改代码。'] }
+        { now: ['刷新 Jump 文案', '单个显示标签', '当前只更新跳跃键的显示文本，帮助界面显示该值。', files.controller], future: ['刷新设置界面标签', '业务代码无需改动', 'GameInputActions 返回新的显示字符串；设置界面更新标签，HeroInputSampler 和权威代码不读取物理键位。'] }
       ]
     },
     {
       name: '以后改驾驶键', heading: '扩充动作时要改哪里',
       nowSummary: '驾驶下降复用 Crouch/Drop；采样逻辑知道角色是否在驾驶。',
-      futureSummary: '动作目录让现有驾驶键直接可配置；需要分键时再新增独立动作。',
+      futureSummary: '把现有动作加入可改键白名单；若驾驶与徒步需分键，再改 Unity 资产。',
       steps: [
         { now: ['Crouch 动作绑定', 'Gameplay 资产', '当前 GameInputActions 将 Player/Crouch 暴露为 Drop。', files.actions], future: ['Gameplay 动作仍是来源', '资产层变更', '仅改默认键位时修改资产绑定；如果驾驶与徒步要不同按键，再在资产中增加独立动作。'] },
-        { now: ['HeroInputSampler 分支', '驾驶解释', '飞行员按住 Drop 形成持续下降意图；其他状态按短按处理。', files.sampler], future: ['采样器保留业务解释', '状态语义仍在业务侧', '动作入口提供按下/按住；飞行员持续下降与普通下落的解释仍由采样器决定。'] },
-        { now: ['缺少通用改键入口', '新增界面接线', '若要让玩家在界面改此键，需要再增加按钮、选择绑定和显示文本。', files.controller], future: ['目录声明可改绑定', '统一设置界面', '把该动作和绑定列入目录后，共用设置界面与 YYGC 改键保存流程。'] },
+        { now: ['HeroInputSampler 分支', '驾驶解释', '飞行员按住 Drop 形成持续下降意图；其他状态按短按处理。', files.sampler], future: ['采样器保留业务解释', '只读语义输入', '采样器只接收 Drop 按住／本帧按下值；飞行员持续下降与普通下落的解释仍由它决定。'] },
+        { now: ['缺少通用改键入口', '新增界面接线', '若要让玩家在界面改此键，需要再增加按钮、选择绑定和显示文本。', files.controller], future: ['可改键白名单', '设置界面复用流程', '让现有 Drop/Crouch 出现在设置界面即可共用改键流程；无需新增动作目录或专用按钮。'] },
         { now: ['网络 DropPressed', '权威命令', '发送仍经过 HeroPlayerController、SessionClient 与服务端验证；键位本身不进入网络协议。', files.controller], future: ['网络语义保持一致', '无需同步物理键位', '客户端把任意重绑键映射成同一业务意图；服务端仍只验证意图和租约。'] }
+      ]
+    },
+    {
+      name: '业务边界', heading: '谁可以接触 InputAction',
+      nowSummary: '主角、营地和 Entry 都直接读取底层动作，改键也写在业务控制器里。',
+      futureSummary: '底层 API 收在 GameInputActions；业务只接收有类型的本帧输入值。',
+      steps: [
+        { now: ['HeroInputSampler', '直接读 Unity 动作', '读取 Move、Jump、Drop、UseItem 等 InputAction 的值和边沿。', files.sampler], future: ['HeroInputSampler', '只读主角输入值', '接收当前帧的方向、按住、按下、松开及指针；业务缓冲与 Packet 生成保留，不知道动作名、设备或绑定。'] },
+        { now: ['CampInput', '缓存十余个 InputAction', '通过 CampAction 字符串查找动作，并在 Update 中调用 IsPressed、ReadValue 和 WasPressedThisFrame。', files.camp], future: ['CampInput', '只读营地输入值', '接收已按许可过滤的选择、命令、镜头、快捷键与指针值；本地选择、建造与 Interaction Sessions 的占用生命周期仍归 CampInput。'] },
+        { now: ['HeroPlayerController', '直接读与改键', '模式切换调用 CanRead 和 WasPressedThisFrame；跳跃改键句柄与保存也在这里。', files.controller], future: ['Entry 与设置界面', '分开业务装配与改键', 'Entry 只读模式切换语义值；设置界面调用 GameInputActions 的改键操作。输入层持有句柄和绑定身份。'] },
+        { now: ['GameInputActions', '暴露 InputAction', '把底层动作对象公开给采样器、CampInput 和 Entry。', files.actions], future: ['GameInputActions', '保留单一接入层', '内部仍管理 Unity 动作、YYGC 许可和绑定覆盖；对业务只提供按帧读取的值，不建立通用事件总线或新的状态仓库。'] }
       ]
     }
   ];
