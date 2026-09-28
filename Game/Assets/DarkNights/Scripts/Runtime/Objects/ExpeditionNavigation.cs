@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using AnyRules.Next;
 using DarkNights.Runtime.Terrain;
+using GameCore.Logging;
 using UnityEngine;
 
 namespace DarkNights.Runtime.Objects
@@ -41,7 +42,9 @@ namespace DarkNights.Runtime.Objects
                 if (sample.Time >= 3)
                 {
                     goals.Remove(actor.Id); progress[actor.Id] = (position, 0);
-                    world.Notify("路径受阻，正在重新寻找通路；可开路或召回。", true);
+                    YYLogger.LogWarning($"远征寻路受阻 actor={actor.RuleKey}#{actor.Id} " +
+                        $"position=({position.x:F1},{position.y:F1}) goal=({goal.x:F1},{goal.y:F1}) " +
+                        $"flying={flying} terrainCommit={map.CommitId}; 正在重新寻路。", LoggingChannel.Gameplay);
                 }
             }
             if (!goals.TryGetValue(actor.Id, out var old) || Vector2.Distance(goal, old) > 20)

@@ -4,6 +4,7 @@ using System.Linq;
 using AnyRules.Next;
 using DarkNights.Core.Config;
 using DarkNights.Core.ViewData;
+using GameCore.Logging;
 using GameCore.Objects.Views;
 using GameCore.UI.UGUI;
 using UnityEngine;
@@ -84,6 +85,8 @@ namespace DarkNights.View
 
         public void ShowMessage(string value, bool warning = true, double remaining = 5)
         {
+            if (warning) YYLogger.LogWarning("界面提示: " + value, LoggingChannel.Gameplay);
+            else YYLogger.LogInfo("界面提示: " + value, LoggingChannel.Gameplay);
             toast.text = value;
             toast.color = warning ? new Color32(239, 180, 156, 255) : new Color32(228, 229, 215, 255);
             toastRemaining = remaining;
@@ -95,6 +98,7 @@ namespace DarkNights.View
             if (value.Type == "message") ShowMessage(value.Text, value.Warning, Math.Max(0, 5 - age));
             else if (value.Type == "banner")
             {
+                YYLogger.LogInfo("会话横幅: " + value.Text + " · " + value.Detail, LoggingChannel.Gameplay);
                 bannerTitle.text = value.Text;
                 bannerDetail.text = value.Detail;
                 bannerRemaining = Math.Max(0, 5 - age);

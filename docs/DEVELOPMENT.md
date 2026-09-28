@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-28 [Smart Console 与游戏日志接入](SMART_CONSOLE_INTEGRATION.md)：Bootstrap 装配控制台并订阅 Unity 日志；客户端可见消息与横幅、局部 HUD 状态接入既有 YYLogger。远征寻路停滞改为含单位和目标的服务端 Gameplay 诊断，不再弹通用玩家提示。实际 Unity 验证状态见接入文档。
+
 2026-09-28 原地着陆源码候选已移除星球降落的唯一泊位限制，并同步快照校验、提示与回归用例；游戏协议 **16**／存档 **v11**。新规则的实际验证以[航程验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)为准。
 
 2026-09-28 正式会话运行对象已按用途挂到 `EntityViews` 的独立父节点：角色按类型归组，矿床、投射物池及其他效果分开，便于在 Hierarchy 中查找 `worker`。静态差异检查通过；当前 Unity Editor 正在使用本工程，本批尚未单独执行编译或 Play 画面验收，见[场景索引](SCENES.md)。

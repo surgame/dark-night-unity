@@ -10,7 +10,9 @@ using DarkNights.Runtime.Framework;
 using DarkNights.Runtime.Objects;
 using GameCore.Objects.Definition;
 using DarkNights.View;
+using ED.SC.Components;
 using FishNet;
+using GameCore.Interactions;
 using Runtime.AppStartup;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -81,6 +83,17 @@ namespace DarkNights.Entry
             entities.Initialize(network.Client, catalog, stage, network);
             var ui = network.gameObject.AddComponent<SessionUiController>();
             await ui.Initialize(network, catalog, stage, entities, layout.Expedition);
+            ConsoleSystem console = UnityEngine.Object.FindAnyObjectByType<ConsoleSystem>();
+            if (console != null)
+            {
+                YYInteractionSessionHandle consoleModal = null;
+                console.OnActivate += () => consoleModal = YYInteractionSessionService.Instance.Begin(new YYInteractionSessionDescriptor
+                {
+                    Kind = "dark_nights.console", Owner = "SmartConsole", Priority = 200,
+                    Blocks = YYInteractionBlockFlags.All, ConflictPolicy = YYInteractionConflictPolicy.SuspendLowerPriority
+                });
+                console.OnDeactivate += () => { consoleModal?.Dispose(); consoleModal = null; };
+            }
             network.gameObject.AddComponent<SessionPlacementView>().Initialize(network.Client, ui.Input, stage, catalog, layout);
             await network.gameObject.AddComponent<SessionEffects>().Initialize(network.Client, ui, stage, layout.GroundY);
             var expeditionPanel = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<ExpeditionPanel>(true)).SingleOrDefault();

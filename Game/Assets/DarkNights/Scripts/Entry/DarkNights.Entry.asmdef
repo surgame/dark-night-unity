@@ -6,6 +6,7 @@
     "DarkNights.Runtime",
     "DarkNights.View",
     "GameCore.Runtime",
+    "SmartConsole",
     "FishNet.Runtime",
     "UniTask",
     "Unity.ugui",
