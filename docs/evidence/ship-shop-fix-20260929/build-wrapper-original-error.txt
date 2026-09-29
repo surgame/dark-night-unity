@@ -1,0 +1,9 @@
+System.IO.IOException: Win32 IO returned 1224. Path: D:\Developer\MiniGames\Dark Nights\unity-projects\Game\ProjectSettings\ProjectSettings.asset
+  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share, System.Int32 bufferSize, System.Boolean anonymous, System.IO.FileOptions options) [0x0019e] in <f713e1c3c5f545ce9b1df47230f4f853>:0 
+  at System.IO.FileStream..ctor (System.String path, System.IO.FileMode mode, System.IO.FileAccess access, System.IO.FileShare share) [0x00000] in <f713e1c3c5f545ce9b1df47230f4f853>:0 
+  at (wrapper remoting-invoke-with-check) System.IO.FileStream..ctor(string,System.IO.FileMode,System.IO.FileAccess,System.IO.FileShare)
+  at System.IO.File.InternalWriteAllBytes (System.String path, System.Byte[] bytes) [0x00000] in <f713e1c3c5f545ce9b1df47230f4f853>:0 
+  at System.IO.File.WriteAllBytes (System.String path, System.Byte[] bytes) [0x00039] in <f713e1c3c5f545ce9b1df47230f4f853>:0 
+  at DarkNights.Editor.GamePlayerBuild.Build (UnityEditor.ScriptingImplementation backend, System.String folder, UnityEditor.BuildOptions options, System.String explicitOutput) [0x0017c] in D:\Developer\MiniGames\Dark Nights\unity-projects\Game\Assets\DarkNights\Scripts\Editor\GamePlayerBuild.cs:92 
+  at DarkNights.Editor.GamePlayerBuild.MapStateMono () [0x00064] in D:\Developer\MiniGames\Dark Nights\unity-projects\Game\Assets\DarkNights\Scripts\Editor\GamePlayerBuild.cs:27 
+  at DarkNights.Editor.TerrainValidationRunner.Tick () [0x00229] in D:\Developer\MiniGames\Dark Nights\unity-projects\Game\Assets\DarkNights\Scripts\Editor\TerrainValidationRunner.cs:70 

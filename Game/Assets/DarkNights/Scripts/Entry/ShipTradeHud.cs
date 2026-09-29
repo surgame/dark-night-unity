@@ -10,7 +10,9 @@ using DarkNights.View;
 using GameCore.Interactions;
 using GameCore.Objects.Runner.DI;
 using GameCore.UI;
+using Runtime.Utils;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
 
 namespace DarkNights.Entry
@@ -26,20 +28,32 @@ namespace DarkNights.Entry
         private ShipEquipmentPanel panel;
         private UIDocument document;
         private PanelSettings settings;
+        private FontAsset font;
         private YYInteractionSessionHandle modal;
         private GameCatalog catalog;
         private int shipId;
         private bool nearSale, nearShop;
+        private int epoch, actorId, controlLease;
+        private long connection;
+        public bool ShopOpen => panel?.ShopOpen == true;
 
         public async UniTask Initialize(SessionNetwork session, GameInputActions input, HeroPlayerController player,
             SessionEntityViews views, GameCatalog rules)
         {
             network = session; actions = input; hero = player; entities = views; catalog = rules;
-            settings = ScriptableObject.CreateInstance<PanelSettings>();
+            var source = await AssetProvider.LoadAssetAsync<PanelSettings>("dark_nights.ui.ship_equipment_settings");
+            if (source == null || source.themeStyleSheet == null)
+                throw new InvalidOperationException("飞船装备 UI 缺少 PanelSettings 或运行时主题。");
+            if (this == null) return;
+            settings = Instantiate(source);
             document = gameObject.AddComponent<UIDocument>();
             document.panelSettings = settings;
+            document.rootVisualElement.pickingMode = PickingMode.Ignore;
             manager.Initialize(document.rootVisualElement, DIContainer.Root);
             panel = await manager.OpenAsync<ShipEquipmentPanel>();
+            font = FontAsset.CreateFontAsset("Microsoft YaHei", "Regular", 48);
+            if (font == null) throw new InvalidOperationException("无法加载飞船界面的中文字体 Microsoft YaHei。");
+            panel.Root.style.unityFontDefinition = FontDefinition.FromSDFFont(font);
             panel.BuyRequested += Buy;
             panel.Closed += ReleaseModal;
             panel.Present(null, 0, 0, 0, rules.Balance.HeroControl.FuelSeconds,
@@ -49,6 +63,11 @@ namespace DarkNights.Entry
         public void Present(SessionViewData frame, ActorViewData actor, bool gameplay)
         {
             if (panel == null) return;
+            if (!isActiveAndEnabled) { panel.OnHide(); return; }
+            if (epoch != (frame?.Epoch ?? 0) || connection != network.Client.ConnectionGeneration ||
+                actorId != (actor?.Id ?? 0) || controlLease != (actor?.ControlLease ?? 0)) Close();
+            epoch = frame?.Epoch ?? 0; connection = network.Client.ConnectionGeneration;
+            actorId = actor?.Id ?? 0; controlLease = actor?.ControlLease ?? 0;
             var expedition = frame?.World.Expedition;
             var ship = expedition?.Ship;
             shipId = ship?.Id ?? 0;
@@ -77,7 +96,8 @@ namespace DarkNights.Entry
             panel.Present(actor, frame?.World.Camp.Credits ?? 0, cargo?.Iron ?? 0, cargo?.Gold ?? 0,
                 catalog.Balance.HeroControl.FuelSeconds, catalog.Balance.Expedition.Trade, prompt,
                 gameplay && actor != null);
-            if ((!gameplay || !nearShop) && panel.ShopOpen) Close();
+            if (panel.ShopOpen && (!gameplay || !nearShop || modal?.Session?.IsActive != true ||
+                !panel.AttachedAndVisible)) Close();
             if (!gameplay || actor == null || panel.ShopOpen || !actions.ReadHero().InteractPressed) return;
             if (nearShop) Open();
             else if (nearSale && cargo != null && cargo.Iron + cargo.Gold > 0)
@@ -86,14 +106,16 @@ namespace DarkNights.Entry
 
         private void Open()
         {
-            hero.CancelWorldInput();
-            panel.SetShop(true);
+            if (!panel.AttachedAndVisible || ShopOpen) return;
             modal = YYInteractionSessionService.Instance.Begin(new YYInteractionSessionDescriptor
             {
                 Kind = "dark_nights.ship_shop", Owner = nameof(ShipTradeHud), Priority = 100,
                 Blocks = YYInteractionBlockFlags.GameplayActions | YYInteractionBlockFlags.WorldConfirm,
-                ConflictPolicy = YYInteractionConflictPolicy.CancelLowerPriority
+                ConflictPolicy = YYInteractionConflictPolicy.RejectIfBlocked
             });
+            if (!modal.IsValid) { modal = null; return; }
+            hero.CancelWorldInput();
+            panel.SetShop(true);
         }
 
         public void Close() { panel?.SetShop(false); ReleaseModal(); }
@@ -118,12 +140,19 @@ namespace DarkNights.Entry
                 key, actor.InventoryRevision, actor.ControlLease); }
             catch (Exception error) { Debug.LogException(error); }
         }
+        private void OnDisable() => Close();
         private void OnDestroy()
         {
             ReleaseModal();
             if (panel != null) { panel.BuyRequested -= Buy; panel.Closed -= ReleaseModal; }
-            manager.Dispose();
+            if (document != null) manager.Dispose();
             if (settings != null) Destroy(settings);
+            if (font != null)
+            {
+                foreach (var texture in font.atlasTextures) if (texture != null) Destroy(texture);
+                if (font.material != null) Destroy(font.material);
+                Destroy(font);
+            }
         }
     }
 }

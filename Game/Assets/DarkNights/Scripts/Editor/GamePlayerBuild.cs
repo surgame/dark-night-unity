@@ -89,9 +89,15 @@ namespace DarkNights.Editor
                 addressables.BuildAddressablesWithPlayerBuild = previousContent;
                 // Unity 会在构建中保存临时选项；恢复内存 API 不会同步撤销磁盘序列化。
                 // 同一 Editor 内构建串行执行，结束时原样还原该次调用前的项目设置文件。
-                File.WriteAllBytes(settingsPath, settingsBeforeBuild);
-                File.WriteAllBytes(editorSettingsPath, editorSettingsBeforeBuild);
+                RestoreSettings(settingsPath, settingsBeforeBuild);
+                RestoreSettings(editorSettingsPath, editorSettingsBeforeBuild);
             }
+        }
+
+        private static void RestoreSettings(string path, byte[] original)
+        {
+            // Unity 6 可能仍映射设置文件；内容已经恢复时不要再次截断同一文件，否则成功构建会报 IO 1224。
+            if (!File.ReadAllBytes(path).SequenceEqual(original)) File.WriteAllBytes(path, original);
         }
     }
 }

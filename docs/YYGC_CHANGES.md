@@ -1,5 +1,9 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-29：飞船商店交互修复
+
+YYGC 框架修改文件：**无**。实际依赖仍为 `D:/Developer/YYGC` 的 `fee18645c997ed7529c4592917de6c412033c84e`，本轮读取时工作区干净。缺口位于游戏创建 UI Toolkit 面板时遗漏主题和字体配置，沿用已有 AssetProvider、UIManager／UIPanel 与 Interaction Session 即可修复，无须修改框架。游戏内修改与 Editor／Mono 验证见[验收记录](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)。
+
 ## 2026-09-29：飞船交易与装备候选
 
 本批 **YYGC 框架仓库修改文件：无**。飞船服务使用现有 ObjectDefinition／`IConfigData` 与 `DefinitionReference`；UI 使用现有 `UIManager`／`UIPanel` 及绑定扩展；权威命令、对象状态和联机投影只修改游戏仓库。游戏候选协议 17／存档 v12，当前 Editor 快速测试 10/10 通过；框架包修改、独立进程与新机器依赖恢复均未在本批执行。

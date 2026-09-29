@@ -215,6 +215,7 @@ namespace DarkNights.Entry
                 if (action == "HeroRebind") { returnPage = page; Switch("Help"); help.OpenSettings(); return; }
                 if (action == "Back") { Switch(returnPage); return; }
                 if (action == "Resume") { Switch(""); return; }
+                if (action == "Menu" && trade?.ShopOpen == true) { trade.Close(); return; }
                 if (action == "Menu") { Switch(page.Length == 0 ? "PauseMenu" : ""); return; }
                 if (action == "Mute")
                 {

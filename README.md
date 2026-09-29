@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-29 飞船交易修复候选：修复船内 E 打开商店后界面不可见和输入锁残留，补齐 UI Toolkit 主题与中文 TextCore 字体。协议 **17**／存档 **v12**；Editor 规则／交互和同一 Mono 双进程基本回归已执行，范围及剩余人工项见[验收记录](docs/SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)，操作步骤见[快速复测](docs/PLAYER_GUIDE.md#ship-trade-quick-check)。
+
 2026-09-28 原地着陆源码候选：星球降落不再要求对准唯一泊位，在飞行范围内具备安全支撑和净空即可原地着陆；游戏协议 **16**／存档 **v11**。旧 Player 与旧验收数字只代表协议 15，候选验证见[实现说明](docs/SPACE_TO_PLANET_IMPLEMENTATION.md)。
 
 2026-09-26 [太空到星球流程](docs/SPACE_TO_PLANET_IMPLEMENTATION.md)已在 Local 导入并构建 Mono r2：太空船内走动、驾驶台选星球、配置过场、后台生成、到达同步、松手缓降与自动着陆下船。协议 **15**／存档 **v11**，UI Toolkit 菜单为 `Dark Nights/配置/星球与航程`。用户后续要求执行全部验收，现已完成 Core、航程纯回归、Editor 与实际 Play 主流程，多人／弱网等结果持续收录到[验收清单](docs/SPACE_TO_PLANET_ACCEPTANCE.md)；不以旧构建数字代替本批结果。2026-09-27 以 Editor 航程 53/53、Mono r3 双进程 127/127、IL2CPP r4 双进程及三组四人全部通过的候选合入 `main`，人工、双机器与前台性能项仍待验收。

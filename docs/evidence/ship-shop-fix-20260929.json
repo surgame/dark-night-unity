@@ -1,0 +1,141 @@
+{
+  "date": "2026-09-29",
+  "branch": "fix-20260929-ship-shop-interaction",
+  "baseline": "e84b8d3",
+  "unity": "6000.4.9f1",
+  "protocol": 17,
+  "saveVersion": 12,
+  "tests": {
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0,
+    "cases": [
+      {
+        "fullname": "DarkNights.Tests.ExpeditionTests.StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent",
+        "result": "Passed",
+        "duration": "0.484100"
+      },
+      {
+        "fullname": "DarkNights.Tests.HeroBombTests.ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging",
+        "result": "Passed",
+        "duration": "0.145986"
+      },
+      {
+        "fullname": "DarkNights.Tests.HeroControlTests.PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources",
+        "result": "Passed",
+        "duration": "0.133370"
+      },
+      {
+        "fullname": "DarkNights.Tests.HeroControlTests.SelectionVersionAndFuelRemainAuthoritative",
+        "result": "Passed",
+        "duration": "0.029587"
+      },
+      {
+        "fullname": "DarkNights.Tests.HeroRecoveryTests.AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership",
+        "result": "Passed",
+        "duration": "0.101326"
+      },
+      {
+        "fullname": "DarkNights.Tests.ShipTradeTests.EmptyEquipmentAndSprintAreAuthoritative",
+        "result": "Passed",
+        "duration": "0.080035"
+      },
+      {
+        "fullname": "DarkNights.Tests.ShipTradeTests.SaveRejectsInvalidEquipmentAndCredits",
+        "result": "Passed",
+        "duration": "0.087529"
+      },
+      {
+        "fullname": "DarkNights.Tests.ShipTradeTests.ShopAndSaleUseLeasePositionAndAtomicState",
+        "result": "Passed",
+        "duration": "0.058041"
+      },
+      {
+        "fullname": "DarkNights.Tests.ShipTradeTests.ShopReservesFirstPickaxeBudget",
+        "result": "Passed",
+        "duration": "0.031646"
+      },
+      {
+        "fullname": "DarkNights.Tests.ShipTradeTests.TradeValuesAndSprintBoundsAreValidated",
+        "result": "Passed",
+        "duration": "0.001718"
+      },
+      {
+        "fullname": "DarkNights.Tests.ShipTradePlayTests.ShopRendersBuysAndReleasesInput",
+        "result": "Passed",
+        "duration": "21.556641"
+      },
+      {
+        "fullname": "DarkNights.Tests.ShipTradePlayTests.RestoredBuildSettingsAreNotRewrittenWhileLocked",
+        "result": "Passed",
+        "duration": "0.011310"
+      }
+    ],
+    "originalReports": [
+      {
+        "path": "docs/evidence/ship-shop-fix-20260929/ship-shop-tests-r1-20260929.xml",
+        "sha256": "9c189ba0bb2a2d49c72573652808a4001b0ff8a2f2ef09a9f58e872997e43a25"
+      },
+      {
+        "path": "docs/evidence/ship-shop-fix-20260929/ship-shop-play-r2-20260929.xml",
+        "sha256": "c31db55cee320241dbfcd910466690fddf666a06915973d42ef12ba7824fa7e5"
+      },
+      {
+        "path": "docs/evidence/ship-shop-fix-20260929/ship-build-settings-test-20260929.xml",
+        "sha256": "124573a39c62705d18185c5ab59855954834efc716508865fcadee0348b810f1"
+      }
+    ],
+    "aggregation": "10 unaffected rule tests from r1 plus the final r2 formal Play test plus the build settings regression; r1 visual result excluded"
+  },
+  "visuals": {
+    "editorResolutions": [
+      "1280x800",
+      "1600x900",
+      "1920x1080"
+    ],
+    "reviewed": true,
+    "playerHudAndMouseMenuObserved": true,
+    "playerNativeKeyboard": "Not accepted: Computer Use E and Escape injection had no observable effect; formal Editor Play input regression passed"
+  },
+  "mono": {
+    "passed": 26,
+    "failed": 0,
+    "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-shop-fix-20260929\\network-20260929-193848-020341-mono-normal-2p-client\\result.json",
+    "report": "ship-shop-fix-20260929/mono-network.json",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20260929-193510-e4a28d7f\\DarkNights.exe",
+    "files": 437,
+    "bytes": 203413946,
+    "engineBuildResult": "Success",
+    "originalWrapperError": "IO 1224 while rewriting already-restored settings; original bytes unchanged; no-op write now skipped and tested; Player was not rebuilt for Editor-only correction"
+  },
+  "architecture": {
+    "currentErrors": 16,
+    "baselineErrors": 16,
+    "newErrors": 0,
+    "passed": false
+  },
+  "yygc": {
+    "commit": "fee18645c997ed7529c4592917de6c412033c84e",
+    "modifiedFiles": [],
+    "localManifestDependency": true
+  },
+  "preservedUserChange": "Game/ProjectSettings/ProjectSettings.asset: organizationId empty before this task, excluded from commit",
+  "notCovered": [
+    "Player native keyboard acceptance",
+    "complete mining and return-to-ship sale route",
+    "full journey regression",
+    "four-player/weak-network matrix",
+    "IL2CPP",
+    "two physical machines",
+    "foreground performance",
+    "clean-machine dependency restoration"
+  ],
+  "cleanup": {
+    "manifest": "artifacts/待清理/20260929-ship-shop-fix/清单.md",
+    "deletedBytes": 0,
+    "archivedBytes": 2870015,
+    "cFreeBytes": 6262079488,
+    "dFreeBytes": 27000475648
+  },
+  "utc": "2026-09-29T11:54:51.718524+00:00"
+}

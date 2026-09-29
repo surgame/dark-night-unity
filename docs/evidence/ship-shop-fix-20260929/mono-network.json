@@ -1,0 +1,303 @@
+{
+  "passed": true,
+  "error": null,
+  "checks": [
+    {
+      "name": "new host starts with empty equipment and 30 credits",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:38:54.929140+00:00"
+    },
+    {
+      "name": "host buys one pickaxe",
+      "passed": true,
+      "detail": {
+        "Sequence": 10010,
+        "Epoch": 1,
+        "Revision": 174,
+        "Code": "Applied",
+        "AffectedCount": 1,
+        "EntityId": 2,
+        "ReadyReply": false,
+        "PlayerSlot": 0,
+        "ConnectionGeneration": 1
+      },
+      "utc": "2026-09-29T11:38:57.786594+00:00"
+    },
+    {
+      "name": "late client sees host equipment and current shared credits",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:39:05.298896+00:00"
+    },
+    {
+      "name": "late client receives no free equipment or credits",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:39:05.300109+00:00"
+    },
+    {
+      "name": "remote purchase rejected outside terminal",
+      "passed": true,
+      "detail": {
+        "Sequence": 10020,
+        "Epoch": 1,
+        "Revision": 660,
+        "Code": "NoEffect",
+        "AffectedCount": 0,
+        "EntityId": 0,
+        "ReadyReply": false,
+        "PlayerSlot": 1,
+        "ConnectionGeneration": 1
+      },
+      "utc": "2026-09-29T11:39:05.754131+00:00"
+    },
+    {
+      "name": "client buys pistol",
+      "passed": true,
+      "detail": {
+        "Sequence": 10030,
+        "Epoch": 1,
+        "Revision": 829,
+        "Code": "Applied",
+        "AffectedCount": 1,
+        "EntityId": 3,
+        "ReadyReply": false,
+        "PlayerSlot": 1,
+        "ConnectionGeneration": 1
+      },
+      "utc": "2026-09-29T11:39:08.613907+00:00"
+    },
+    {
+      "name": "duplicate purchase returns cached receipt",
+      "passed": true,
+      "detail": {
+        "Sequence": 10030,
+        "Epoch": 1,
+        "Revision": 829,
+        "Code": "Applied",
+        "AffectedCount": 1,
+        "EntityId": 3,
+        "ReadyReply": false,
+        "PlayerSlot": 1,
+        "ConnectionGeneration": 1
+      },
+      "utc": "2026-09-29T11:39:09.068144+00:00"
+    },
+    {
+      "name": "duplicate purchase does not charge twice",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:39:09.070246+00:00"
+    },
+    {
+      "name": "stale inventory revision rejected",
+      "passed": true,
+      "detail": {
+        "Sequence": 10040,
+        "Epoch": 1,
+        "Revision": 880,
+        "Code": "NoEffect",
+        "AffectedCount": 0,
+        "EntityId": 0,
+        "ReadyReply": false,
+        "PlayerSlot": 1,
+        "ConnectionGeneration": 1
+      },
+      "utc": "2026-09-29T11:39:09.373861+00:00"
+    },
+    {
+      "name": "pause=True",
+      "passed": true,
+      "detail": {
+        "Sequence": 10050,
+        "Epoch": 1,
+        "Revision": 905,
+        "Code": "Applied",
+        "AffectedCount": 1,
+        "EntityId": 0,
+        "ReadyReply": false,
+        "PlayerSlot": 0,
+        "ConnectionGeneration": 1
+      },
+      "utc": "2026-09-29T11:39:09.829383+00:00"
+    },
+    {
+      "name": "purchase while paused rejected",
+      "passed": true,
+      "detail": {
+        "Sequence": 10060,
+        "Epoch": 1,
+        "Revision": 927,
+        "Code": "InvalidRequest",
+        "AffectedCount": 0,
+        "EntityId": 0,
+        "ReadyReply": false,
+        "PlayerSlot": 1,
+        "ConnectionGeneration": 1
+      },
+      "utc": "2026-09-29T11:39:10.133365+00:00"
+    },
+    {
+      "name": "paused rejection preserves credits and equipment",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:39:10.134952+00:00"
+    },
+    {
+      "name": "pause=False",
+      "passed": true,
+      "detail": {
+        "Sequence": 10070,
+        "Epoch": 1,
+        "Revision": 942,
+        "Code": "Applied",
+        "AffectedCount": 1,
+        "EntityId": 0,
+        "ReadyReply": false,
+        "PlayerSlot": 0,
+        "ConnectionGeneration": 1
+      },
+      "utc": "2026-09-29T11:39:10.437940+00:00"
+    },
+    {
+      "name": "two players competing for last affordable jetpack only charge once",
+      "passed": true,
+      "detail": [
+        "NoEffect",
+        "Applied"
+      ],
+      "utc": "2026-09-29T11:39:10.894953+00:00"
+    },
+    {
+      "name": "both peers converge on one jetpack and two credits",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:39:10.897202+00:00"
+    },
+    {
+      "name": "client reconnect identity recovered",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:39:13.010046+00:00"
+    },
+    {
+      "name": "client reconnect role inside ship",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:39:13.011040+00:00"
+    },
+    {
+      "name": "reconnect preserves equipment without another payment",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:39:13.012369+00:00"
+    },
+    {
+      "name": "v12 save request accepted",
+      "passed": true,
+      "detail": {
+        "Sequence": 10100,
+        "Epoch": 1,
+        "Revision": 1127,
+        "Code": "Applied",
+        "AffectedCount": 1,
+        "EntityId": 0,
+        "ReadyReply": false,
+        "PlayerSlot": 0,
+        "ConnectionGeneration": 1
+      },
+      "utc": "2026-09-29T11:39:13.466653+00:00"
+    },
+    {
+      "name": "save is format v12",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:39:13.468831+00:00"
+    },
+    {
+      "name": "host actual restart restores exact equipment and credits",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:39:37.459435+00:00"
+    },
+    {
+      "name": "client1 actual restart restores exact equipment and credits",
+      "passed": true,
+      "detail": null,
+      "utc": "2026-09-29T11:39:37.461429+00:00"
+    },
+    {
+      "name": "client1-1.log has no runtime exception or missing theme",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "client1-2.log has no runtime exception or missing theme",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "host-1.log has no runtime exception or missing theme",
+      "passed": true,
+      "detail": []
+    },
+    {
+      "name": "host-2.log has no runtime exception or missing theme",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "saves": {
+    "0": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-shop-fix-20260929\\network-20260929-193848-020341-mono-normal-2p-client\\saves\\v12\\slot-00.dnsave.json",
+      "sha256": "4d659a2eb7e028bb7196ff4a83ff3793c6d343bd55a7477e5e615ef4ec1e2e48",
+      "inventory": {
+        "2": [
+          2,
+          0,
+          0,
+          0,
+          false,
+          false,
+          1
+        ],
+        "3": [
+          1,
+          0,
+          0,
+          0,
+          true,
+          true,
+          2
+        ]
+      },
+      "credits": 2
+    }
+  },
+  "started": "2026-09-29T11:38:48.020789+00:00",
+  "finished": "2026-09-29T11:39:45.838504+00:00",
+  "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20260929-193510-e4a28d7f\\DarkNights.exe",
+  "backend": "mono",
+  "protocol": 17,
+  "save_version": 12,
+  "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+  "managed_sha256": {
+    "DarkNights.Core.dll": "545e82d9ed791ee9b04c3f98865068e9364543ae12fb8a343ec011e92dee0bf0",
+    "DarkNights.Entry.dll": "822e00b36f5fb98bd356030e67a7ee38b383c38565d82625b1845651bb1a1d7e",
+    "DarkNights.Runtime.dll": "ae9b57446e5d0df177f3ff84608e0f14b5cb125667378200898d31da4f2c8516",
+    "DarkNights.Samples.LanCoop.Bootstrap.dll": "5bfcc8ad09c713ba111362770a42cab6c78a18d386a7e345aa6ac50f5f426e0c",
+    "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+    "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+    "DarkNights.Samples.LanCoop.Runtime.dll": "48e21aec54c7a9be6109c9a4f89275502af05a5d90b801da9e083fce589fd00f",
+    "DarkNights.View.dll": "18489aa64eca49d3c47669cc1daa52c7f278965ceae694aca544d2a03fc110ed"
+  },
+  "not_covered": [
+    "weak network",
+    "four players",
+    "mining and sale in Player",
+    "IL2CPP",
+    "two machines"
+  ],
+  "visual_acceptance": false
+}

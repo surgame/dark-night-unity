@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-29 11:34:05Z" end-time="2026-09-29 11:34:20Z" duration="14.9295566">
+  <test-suite type="TestSuite" id="1000" name="DNights" fullname="DNights" runstate="Runnable" testcasecount="342" result="Passed" start-time="2026-09-29 11:34:05Z" end-time="2026-09-29 11:34:20Z" duration="14.929557" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1423" name="DarkNights.Tests.dll" fullname="D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Tests.dll" runstate="Runnable" testcasecount="341" result="Passed" start-time="2026-09-29 11:34:07Z" end-time="2026-09-29 11:34:20Z" duration="12.302313" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="3120" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <output><![CDATA[[Logger] LoggerSettings asset not found in Resources. Logging will use defaults.
+[Runner] ObjectDefinitionLoader.Awake: GameObject=可步入远征飞船, DefinitionId=0
+[Runner] ObjectDefinitionLoader.Awake: initializer type=LocalObjectInstanceInitializer
+[Runner] 检测到本地对象，允许初始化
+[Runner] ObjectDefinitionLoader.Awake: ShouldInitialize=True
+[Runner] ObjectDefinitionLoader.Activate: calling Initialize, DefinitionId=0
+[Runner] ObjectDefinitionLoader.Activate: initialized GameObject '可步入远征飞船'.
+[Runner] ObjectDefinitionLoader.Awake: GameObject '可步入远征飞船' registered for gated activation.
+]]></output>
+      <test-suite type="TestSuite" id="1424" name="DarkNights" fullname="DarkNights" runstate="Runnable" testcasecount="341" result="Passed" start-time="2026-09-29 11:34:07Z" end-time="2026-09-29 11:34:20Z" duration="12.211918" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1425" name="Tests" fullname="DarkNights.Tests" runstate="Runnable" testcasecount="341" result="Passed" start-time="2026-09-29 11:34:07Z" end-time="2026-09-29 11:34:20Z" duration="12.205411" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1299" name="ShipTradePlayTests" fullname="DarkNights.Tests.ShipTradePlayTests" classname="DarkNights.Tests.ShipTradePlayTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-29 11:34:07Z" end-time="2026-09-29 11:34:20Z" duration="12.200986" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1300" name="ShopRendersBuysAndReleasesInput" fullname="DarkNights.Tests.ShipTradePlayTests.ShopRendersBuysAndReleasesInput" methodname="ShopRendersBuysAndReleasesInput" classname="DarkNights.Tests.ShipTradePlayTests" runstate="Runnable" seed="1329479774" result="Passed" start-time="2026-09-29 11:33:58Z" end-time="2026-09-29 11:34:20Z" duration="21.556641" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[NetworkCommandGateway already initialized. Skipping duplicate interceptor registration.
+DARK_NIGHTS_MAP_GENERATED seed=9527a9e4eef9429faf6846078036faea milliseconds=12
+Local server is starting for Tugboat. Listening on port 27777.
+Local server is started for Tugboat.
+Local client is starting for Tugboat. Server IP is 127.0.0.1, port is 27777.
+DARK_NIGHTS_SESSION_AVAILABLE protocol=17 level=pinewatch
+[AppStartup] Module 'Dark Nights 会话装配' completed in 3777.2 ms.
+[AppStartup] Startup completed. Application is ready.
+Remote connection started for Id 0.
+Local client is started for Tugboat.
+[Gameplay] 会话横幅: 太空待命 · 船内可买装备；采矿后带回飞船出售。靠近右侧驾驶台选择星球。
+Sender for NetId 1 registered.
+[Gameplay] 界面提示: 已购买 矿镐。
+[Gameplay] 界面提示: 已购买 喷气背包。
+Sender for NetId 1 unregistered.
+Local client is stopping for Tugboat.
+Local server is stopping for Tugboat.
+Local server is stopped for Tugboat.
+Local client is stopped for Tugboat.
+Saving results to: C:/Users/Jobscn/AppData/LocalLow/DefaultCompany/DNights\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

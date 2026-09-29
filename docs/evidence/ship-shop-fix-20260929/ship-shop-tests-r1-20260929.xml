@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="11" result="Passed" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-29 11:31:26Z" end-time="2026-09-29 11:31:41Z" duration="14.7710493">
+  <test-suite type="TestSuite" id="1000" name="DNights" fullname="DNights" runstate="Runnable" testcasecount="342" result="Passed" start-time="2026-09-29 11:31:26Z" end-time="2026-09-29 11:31:41Z" duration="14.771049" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1423" name="DarkNights.Tests.dll" fullname="D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Tests.dll" runstate="Runnable" testcasecount="341" result="Passed" start-time="2026-09-29 11:31:29Z" end-time="2026-09-29 11:31:41Z" duration="12.406167" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="3120" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <output><![CDATA[[Logger] LoggerSettings asset not found in Resources. Logging will use defaults.
+[Runner] ObjectDefinitionLoader.Awake: GameObject=可步入远征飞船, DefinitionId=0
+[Runner] ObjectDefinitionLoader.Awake: initializer type=LocalObjectInstanceInitializer
+[Runner] 检测到本地对象，允许初始化
+[Runner] ObjectDefinitionLoader.Awake: ShouldInitialize=True
+[Runner] ObjectDefinitionLoader.Activate: calling Initialize, DefinitionId=0
+[Runner] ObjectDefinitionLoader.Activate: initialized GameObject '可步入远征飞船'.
+[Runner] ObjectDefinitionLoader.Awake: GameObject '可步入远征飞船' registered for gated activation.
+]]></output>
+      <test-suite type="TestSuite" id="1424" name="DarkNights" fullname="DarkNights" runstate="Runnable" testcasecount="341" result="Passed" start-time="2026-09-29 11:31:29Z" end-time="2026-09-29 11:31:41Z" duration="12.310061" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1425" name="Tests" fullname="DarkNights.Tests" runstate="Runnable" testcasecount="341" result="Passed" start-time="2026-09-29 11:31:29Z" end-time="2026-09-29 11:31:41Z" duration="12.298767" total="11" passed="11" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1077" name="ExpeditionTests" fullname="DarkNights.Tests.ExpeditionTests" classname="DarkNights.Tests.ExpeditionTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-09-29 11:31:18Z" end-time="2026-09-29 11:31:19Z" duration="0.495452" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1082" name="StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent" fullname="DarkNights.Tests.ExpeditionTests.StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent" methodname="StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent" classname="DarkNights.Tests.ExpeditionTests" runstate="Runnable" seed="1706122956" result="Passed" start-time="2026-09-29 11:31:18Z" end-time="2026-09-29 11:31:19Z" duration="0.484100" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1090" name="HeroBombTests" fullname="DarkNights.Tests.HeroBombTests" classname="DarkNights.Tests.HeroBombTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-09-29 11:31:19Z" end-time="2026-09-29 11:31:19Z" duration="0.149176" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1091" name="ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging" fullname="DarkNights.Tests.HeroBombTests.ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging" methodname="ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging" classname="DarkNights.Tests.HeroBombTests" runstate="Runnable" seed="1565763995" result="Passed" start-time="2026-09-29 11:31:19Z" end-time="2026-09-29 11:31:19Z" duration="0.145986" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1100" name="HeroControlTests" fullname="DarkNights.Tests.HeroControlTests" classname="DarkNights.Tests.HeroControlTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-09-29 11:31:19Z" end-time="2026-09-29 11:31:19Z" duration="0.167463" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1109" name="PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources" fullname="DarkNights.Tests.HeroControlTests.PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources" methodname="PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources" classname="DarkNights.Tests.HeroControlTests" runstate="Runnable" seed="488055945" result="Passed" start-time="2026-09-29 11:31:19Z" end-time="2026-09-29 11:31:19Z" duration="0.133370" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+            <test-case id="1108" name="SelectionVersionAndFuelRemainAuthoritative" fullname="DarkNights.Tests.HeroControlTests.SelectionVersionAndFuelRemainAuthoritative" methodname="SelectionVersionAndFuelRemainAuthoritative" classname="DarkNights.Tests.HeroControlTests" runstate="Runnable" seed="1477835311" result="Passed" start-time="2026-09-29 11:31:19Z" end-time="2026-09-29 11:31:19Z" duration="0.029587" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1111" name="HeroRecoveryTests" fullname="DarkNights.Tests.HeroRecoveryTests" classname="DarkNights.Tests.HeroRecoveryTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-09-29 11:31:19Z" end-time="2026-09-29 11:31:19Z" duration="0.104838" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1112" name="AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership" fullname="DarkNights.Tests.HeroRecoveryTests.AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership" methodname="AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership" classname="DarkNights.Tests.HeroRecoveryTests" runstate="Runnable" seed="1062117305" result="Passed" start-time="2026-09-29 11:31:19Z" end-time="2026-09-29 11:31:19Z" duration="0.101326" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1299" name="ShipTradePlayTests" fullname="DarkNights.Tests.ShipTradePlayTests" classname="DarkNights.Tests.ShipTradePlayTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-09-29 11:31:29Z" end-time="2026-09-29 11:31:41Z" duration="12.008379" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1300" name="ShopRendersBuysAndReleasesInput" fullname="DarkNights.Tests.ShipTradePlayTests.ShopRendersBuysAndReleasesInput" methodname="ShopRendersBuysAndReleasesInput" classname="DarkNights.Tests.ShipTradePlayTests" runstate="Runnable" seed="519996074" result="Passed" start-time="2026-09-29 11:31:19Z" end-time="2026-09-29 11:31:41Z" duration="21.471290" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[NetworkCommandGateway already initialized. Skipping duplicate interceptor registration.
+DARK_NIGHTS_MAP_GENERATED seed=be365b251ad649238077c2825d0c3ace milliseconds=8
+Local server is starting for Tugboat. Listening on port 27777.
+Local server is started for Tugboat.
+Local client is starting for Tugboat. Server IP is 127.0.0.1, port is 27777.
+DARK_NIGHTS_SESSION_AVAILABLE protocol=17 level=pinewatch
+[AppStartup] Module 'Dark Nights 会话装配' completed in 3794.1 ms.
+[AppStartup] Startup completed. Application is ready.
+Remote connection started for Id 0.
+Local client is started for Tugboat.
+[Gameplay] 会话横幅: 太空待命 · 船内可买装备；采矿后带回飞船出售。靠近右侧驾驶台选择星球。
+Sender for NetId 1 registered.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+[Gameplay] 界面提示: 已购买 矿镐。
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+[Gameplay] 界面提示: 已购买 喷气背包。
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Can't Generate Mesh, No Font Asset has been assigned.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Unable to find a font file with the specified Family Name [UIFont] and Style [Regular].
+Unable to load font face for [UIFont]. Make sure "Include Font Data" is enabled in the Font Import Settings.
+Sender for NetId 1 unregistered.
+Local client is stopping for Tugboat.
+Local server is stopping for Tugboat.
+Local server is stopped for Tugboat.
+Local client is stopped for Tugboat.
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1301" name="ShipTradeTests" fullname="DarkNights.Tests.ShipTradeTests" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-09-29 11:31:41Z" end-time="2026-09-29 11:31:41Z" duration="0.267183" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1303" name="EmptyEquipmentAndSprintAreAuthoritative" fullname="DarkNights.Tests.ShipTradeTests.EmptyEquipmentAndSprintAreAuthoritative" methodname="EmptyEquipmentAndSprintAreAuthoritative" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" seed="1033638986" result="Passed" start-time="2026-09-29 11:31:41Z" end-time="2026-09-29 11:31:41Z" duration="0.080035" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1304" name="SaveRejectsInvalidEquipmentAndCredits" fullname="DarkNights.Tests.ShipTradeTests.SaveRejectsInvalidEquipmentAndCredits" methodname="SaveRejectsInvalidEquipmentAndCredits" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" seed="879667482" result="Passed" start-time="2026-09-29 11:31:41Z" end-time="2026-09-29 11:31:41Z" duration="0.087529" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1306" name="ShopAndSaleUseLeasePositionAndAtomicState" fullname="DarkNights.Tests.ShipTradeTests.ShopAndSaleUseLeasePositionAndAtomicState" methodname="ShopAndSaleUseLeasePositionAndAtomicState" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" seed="1985481363" result="Passed" start-time="2026-09-29 11:31:41Z" end-time="2026-09-29 11:31:41Z" duration="0.058041" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1305" name="ShopReservesFirstPickaxeBudget" fullname="DarkNights.Tests.ShipTradeTests.ShopReservesFirstPickaxeBudget" methodname="ShopReservesFirstPickaxeBudget" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" seed="2096918060" result="Passed" start-time="2026-09-29 11:31:41Z" end-time="2026-09-29 11:31:41Z" duration="0.031646" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1302" name="TradeValuesAndSprintBoundsAreValidated" fullname="DarkNights.Tests.ShipTradeTests.TradeValuesAndSprintBoundsAreValidated" methodname="TradeValuesAndSprintBoundsAreValidated" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" seed="25345375" result="Passed" start-time="2026-09-29 11:31:41Z" end-time="2026-09-29 11:31:41Z" duration="0.001718" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/Jobscn/AppData/LocalLow/DefaultCompany/DNights\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

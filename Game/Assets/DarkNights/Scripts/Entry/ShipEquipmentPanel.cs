@@ -23,9 +23,13 @@ namespace DarkNights.Entry
         public event Action<string> BuyRequested;
         public event Action Closed;
         public bool ShopOpen { get; private set; }
+        public bool AttachedAndVisible => Root?.panel != null && Root.resolvedStyle.display != DisplayStyle.None &&
+            Root.worldBound.width > 0 && Root.worldBound.height > 0;
 
         protected override void OnBind()
         {
+            Root.AddToClassList("ship-equipment-panel");
+            Root.pickingMode = PickingMode.Ignore;
             Root.style.position = Position.Absolute;
             Root.style.left = Root.style.top = Root.style.right = Root.style.bottom = 0;
             Disposables.Add(credits.BindText(Root.Q<Label>("credits")));
@@ -80,6 +84,7 @@ namespace DarkNights.Entry
         {
             ShopOpen = visible;
             if (shop != null) shop.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
+            if (visible) Root.Q<Button>("close").Focus();
         }
 
         private void BuyPistol() => BuyRequested?.Invoke("pistol");

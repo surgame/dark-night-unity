@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 558f45b4f4dabc840aad0f13233c0fcb
   m_SerializeEntries:
+  - m_GUID: 06518ee4cd93f504c9e464e0ce17d478
+    m_Address: dark_nights.ui.ship_equipment_settings
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 181276b5f026ec7488abe075c10aacc9
     m_Address: dark_nights.ui.hero
     m_ReadOnly: 0

@@ -1,0 +1,16 @@
+Build Finished, Result: Success.
+Total cache size 267294915
+Total cache size after purge 267294915, took 00:00:00.4523443
+##utp:{"type":"PlayerBuildInfo","version":2,"phase":"Immediate","time":1790681764606,"processId":3120,"steps":[{"description":"Preprocess Player","duration":670},{"description":"Prepare For Build","duration":3},{"description":"ProducePlayerScriptAssemblies","duration":14544},{"description":"Verify Build setup","duration":52},{"description":"Prepare assets for target platform","duration":11},{"description":"Prepare splash screen","duration":1},{"description":"Build scripts DLLs","duration":52},{"description":"Building scenes","duration":1725},{"description":"Build GlobalGameManagers file","duration":139},{"description":"Writing asset files","duration":1219},{"description":"Building Resources/unity_builtin_extra","duration":183},{"description":"Write data build dirty tracking information","duration":500},{"description":"Postprocess built player","duration":17895}],"duration":36994}
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            3.121 ms
+	Integration:            318.500 ms
+	Integration of assets:  97.305 ms
+	Thread Wait Time:       1.185 ms
+	Total Operation Time:   420.111 ms
+Unloading 0 unused Assets / (28.9 MB). Loaded Objects now: 18434.
+Memory consumption went from 0.56 GB to 0.53 GB.
+Total: 39.189300 ms (FindLiveObjects: 0.679800 ms CreateObjectMapping: 0.330500 ms MarkObjects: 38.149600 ms  DeleteObjects: 0.028300 ms)
+
+DARK_NIGHTS_PLAYER_BUILD=D:\Developer\MiniGames\Dark Nights\unity-projects\artifacts\map-state\player-mono-20260929-193510-e4a28d7f\DarkNights.exe
