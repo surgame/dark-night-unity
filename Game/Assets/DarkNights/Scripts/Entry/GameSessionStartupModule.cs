@@ -97,7 +97,12 @@ namespace DarkNights.Entry
             network.gameObject.AddComponent<SessionPlacementView>().Initialize(network.Client, ui.Input, stage, catalog, layout);
             await network.gameObject.AddComponent<SessionEffects>().Initialize(network.Client, ui, stage, layout.GroundY);
             var expeditionPanel = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<ExpeditionPanel>(true)).SingleOrDefault();
-            if (expeditionPanel != null) network.gameObject.AddComponent<ExpeditionHud>().Initialize(network, expeditionPanel);
+            if (expeditionPanel != null)
+            {
+                var expedition = network.gameObject.AddComponent<ExpeditionHud>();
+                expedition.Initialize(network, expeditionPanel);
+                ui.BindCockpit(expedition.InteractAtCockpit);
+            }
             SessionAutomation.Install(network);
             Application.runInBackground = true;
             Application.targetFrameRate = 60;

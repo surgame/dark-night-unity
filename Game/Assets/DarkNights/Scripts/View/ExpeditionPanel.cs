@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace DarkNights.View
 {
-    /// <summary>原生远征 HUD 的显式绑定；只显示冻结库存和阶段，按钮只提交意图，隐藏时不拦截世界输入。</summary>
+    /// <summary>远征调试操作的原生绑定与只读展示数据；保留资源身份和按钮规则，常驻 UGUI 隐藏，由调试 Hub 展示。</summary>
     public sealed class ExpeditionPanel : MonoBehaviour
     {
         public GameObject Panel;
@@ -18,8 +18,11 @@ namespace DarkNights.View
         private string[] originalLabels;
         private Color[] originalLabelColors;
         private Vector2[] originalPositions;
+        public bool DebugAvailable { get; private set; }
+        public string ActionLabel(int index) => labels[index].text;
         public void Bind(Action<string> command)
         {
+            Panel.SetActive(false);
             if (Actions.Length != Commands.Length) throw new InvalidOperationException("远征按钮绑定不完整。");
             labels = Actions.Select(a => a.GetComponentInChildren<Text>(true)).ToArray();
             originalLabels = labels.Select(l => l.text).ToArray();
@@ -30,7 +33,9 @@ namespace DarkNights.View
         }
         public void Present(WorldViewData world, int slot, bool ready, bool hostOnly = false, bool paused = false)
         {
-            var e = world?.Expedition; Panel.SetActive(e != null && (ready || e.Journey?.Enabled == true));
+            Panel.SetActive(false);
+            var e = world?.Expedition;
+            DebugAvailable = e != null && (ready || e.Journey?.Enabled == true);
             if (e == null) return;
             var a = e.Crew.FirstOrDefault(c => c.OwnerSlot == slot);
             var shipId = world.Buildings.FirstOrDefault(b => b.Kind == "ship")?.Id ?? 0;

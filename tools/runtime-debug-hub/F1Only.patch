@@ -1,0 +1,31 @@
+diff --git a/Runtime/Debugging/RuntimeDebugHub.cs b/Runtime/Debugging/RuntimeDebugHub.cs
+index b3c60f2..3ec68ef 100644
+--- a/Runtime/Debugging/RuntimeDebugHub.cs
++++ b/Runtime/Debugging/RuntimeDebugHub.cs
+@@ -137,15 +137,14 @@ namespace GameCore.Debugging
+         {
+ #if ENABLE_INPUT_SYSTEM
+             var keyboard = Keyboard.current;
+-            if (keyboard != null &&
+-                (keyboard.backquoteKey.wasPressedThisFrame || keyboard.f1Key.wasPressedThisFrame))
++            if (keyboard != null && keyboard.f1Key.wasPressedThisFrame)
+             {
+                 return true;
+             }
+ #endif
+ 
+ #if ENABLE_LEGACY_INPUT_MANAGER || !UNITY_2020_3_OR_NEWER
+-            return Input.GetKeyDown(KeyCode.BackQuote) || Input.GetKeyDown(KeyCode.F1);
++            return Input.GetKeyDown(KeyCode.F1);
+ #else
+             return false;
+ #endif
+@@ -166,7 +165,7 @@ namespace GameCore.Debugging
+ 
+         private void DrawWindow(int windowId)
+         {
+-            GUILayout.Label("Runtime Debug Hub [ ` / F1 ]", _headerStyle);
++            GUILayout.Label("Runtime Debug Hub [ F1 ]", _headerStyle);
+ 
+             if (Panels.Count == 0)
+             {

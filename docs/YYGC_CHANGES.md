@@ -1,5 +1,15 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-29：RuntimeDebugHub 仅保留 F1
+
+用户明确要求暂时移除反引号唤出。实际框架 `D:/Developer/YYGC` 开始时为干净的 `master`／`fee18645c997ed7529c4592917de6c412033c84e`；本批不切分支、不提交框架、不改依赖配置，仅保留下列定向源码修改。游戏变更与复现方式见[调试页说明](RUNTIME_DEBUG_HUB.md)。
+
+| YYGC 修改文件 | 原因与落点 | 验证 |
+|---|---|---|
+| `Runtime/Debugging/RuntimeDebugHub.cs` | 新旧输入系统均只读取 F1；标题移除反引号提示。 | 仅源码差异检查；按用户要求未运行测试、编译或 Play 验证。 |
+
+框架原文件 SHA-256：`191F4FD40D09BF81BB333007DD7FC486077D265EC67AADBB5625E60831330242`；修改后落盘 SHA-256：`AE23D39554C5AF3E4F68027F0E3E9C053EC6BD1EA39A18264D263E1116F0DBB6`。精确补丁保存在 `tools/runtime-debug-hub/F1Only.patch`，受保护的重放脚本为 `Apply-F1Only.ps1`；不覆盖其他框架修改。未新增第二套 Unity 工作区。
+
 ## 2026-09-29：飞船商店交互修复
 
 YYGC 框架修改文件：**无**。实际依赖仍为 `D:/Developer/YYGC` 的 `fee18645c997ed7529c4592917de6c412033c84e`，本轮读取时工作区干净。缺口位于游戏创建 UI Toolkit 面板时遗漏主题和字体配置，沿用已有 AssetProvider、UIManager／UIPanel 与 Interaction Session 即可修复，无须修改框架。游戏内修改与 Editor／Mono 验证见[验收记录](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)。

@@ -7,6 +7,7 @@ using DarkNights.Runtime.Network;
 using DarkNights.Runtime.Objects;
 using DarkNights.Runtime.Session;
 using DarkNights.View;
+using DarkNights.View.Expedition;
 using GameCore.Interactions;
 using GameCore.Objects.Runner.DI;
 using GameCore.UI;
@@ -36,6 +37,7 @@ namespace DarkNights.Entry
         private int epoch, actorId, controlLease;
         private long connection;
         public bool ShopOpen => panel?.ShopOpen == true;
+        public Action CockpitRequested { get; set; }
 
         public async UniTask Initialize(SessionNetwork session, GameInputActions input, HeroPlayerController player,
             SessionEntityViews views, GameCatalog rules)
@@ -93,6 +95,13 @@ namespace DarkNights.Entry
             }
             var cargo = expedition?.Crew.FirstOrDefault(value => value.Id == actor?.Id);
             string prompt = nearShop ? "E 打开装备商店" : nearSale ? "E 出售身上矿石" : "Shift 加速 · 1–4 切换装备";
+            bool atCockpit = !nearShop && !nearSale && gameplay && expedition?.Journey?.Enabled == true &&
+                JourneyPresentationRules.AtCockpit(frame.World, network.Client.PlayerSlot);
+            if (atCockpit) prompt = expedition.Journey.Phase == JourneyPhase.Orbit ? "E 选择目的地" :
+                expedition.Journey.Phase == JourneyPhase.Preparing ? "E 取消航程" :
+                expedition.Journey.Phase is JourneyPhase.Descent or JourneyPhase.Landed ?
+                    (ship.PilotId == actor.Id ? "E 离开驾驶位" : ship.PilotId == 0 ? "E 接管驾驶" : "驾驶位已占用") :
+                    "航行中，请等待到达";
             panel.Present(actor, frame?.World.Camp.Credits ?? 0, cargo?.Iron ?? 0, cargo?.Gold ?? 0,
                 catalog.Balance.HeroControl.FuelSeconds, catalog.Balance.Expedition.Trade, prompt,
                 gameplay && actor != null);
@@ -102,6 +111,7 @@ namespace DarkNights.Entry
             if (nearShop) Open();
             else if (nearSale && cargo != null && cargo.Iron + cargo.Gold > 0)
                 Sell(actor, cargo).Forget();
+            else if (atCockpit) CockpitRequested?.Invoke();
         }
 
         private void Open()
@@ -143,6 +153,7 @@ namespace DarkNights.Entry
         private void OnDisable() => Close();
         private void OnDestroy()
         {
+            CockpitRequested = null;
             ReleaseModal();
             if (panel != null) { panel.BuyRequested -= Buy; panel.Closed -= ReleaseModal; }
             if (document != null) manager.Dispose();

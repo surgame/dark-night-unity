@@ -52,7 +52,7 @@ namespace DarkNights.View.Expedition
         {
             switch (journey.Phase)
             {
-                case JourneyPhase.Orbit: return "船内可自由走动；走到右侧驾驶台，点击选择目的地。";
+                case JourneyPhase.Orbit: return "船内可自由走动；走到右侧驾驶台，按 E 选择目的地。";
                 case JourneyPhase.Preparing: return "正在准备星球地图；驾驶者可取消，乘员可继续在船内走动。";
                 case JourneyPhase.Transit: return "正在前往目的地；星点过场只在本地播放。";
                 case JourneyPhase.ArrivalSync: return "已到达星球半空，等待地图和乘员同步；飞船保持悬停。";

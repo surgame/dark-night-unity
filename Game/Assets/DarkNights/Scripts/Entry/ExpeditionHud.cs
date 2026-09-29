@@ -9,10 +9,13 @@ using DarkNights.View.Expedition;
 using GameCore.Interactions;
 using GameCore.Logging;
 using UnityEngine;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+using GameCore.Debugging;
+#endif
 
 namespace DarkNights.Entry
 {
-    /// <summary>将原生远征面板接到现有可信命令链；房主与来宾共用 Send，客户端不预扣任何资源。</summary>
+    /// <summary>驾驶台交互与远征调试页的命令装配；共用可信 Send，常驻按钮移入开发版 Hub，不预扣客户端资源。</summary>
     public sealed class ExpeditionHud : MonoBehaviour
     {
         private SessionNetwork network;
@@ -24,12 +27,19 @@ namespace DarkNights.Entry
         private float requestTime;
         private float emergencyConfirmation = -1;
         private string lastJourneyError = "";
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        private ExpeditionDebugPanel debugPanel;
+#endif
         public void Initialize(SessionNetwork network, ExpeditionPanel panel)
         {
             this.network = network; this.panel = panel; panel.Bind(Submit);
             picker = gameObject.AddComponent<DestinationPicker>();
             picker.Initialize(panel, YYInteractionSessionService.Instance, SelectDestination);
             network.Client.Feedback += OnFeedback;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            debugPanel = new ExpeditionDebugPanel(panel, Submit);
+            RuntimeDebugHub.RegisterPanel(debugPanel);
+#endif
         }
         private void Update()
         {
@@ -43,8 +53,36 @@ namespace DarkNights.Entry
                 awaitingJourney = false;
                 YYLogger.LogWarning("暂未收到确认，请检查航程状态后重试。", LoggingChannel.Network);
             }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
             panel?.Present(frame?.World, client?.PlayerSlot ?? -1, client?.Ready == true, frame?.HostOnly == true, frame?.Paused == true);
+#endif
             picker?.Present(frame, client?.PlayerSlot ?? -1, client?.Ready == true, awaitingJourney);
+        }
+
+        public void InteractAtCockpit()
+        {
+            if (!isActiveAndEnabled) return;
+            var client = network?.Client; var frame = client?.Replica.Current;
+            if (client?.Ready != true || frame == null || frame.Paused ||
+                frame.HostOnly && client.PlayerSlot != 0 || !JourneyPresentationRules.AtCockpit(frame.World, client.PlayerSlot)) return;
+            var journey = frame.World.Expedition.Journey;
+            if (journey?.Enabled != true) return;
+            if (journey.Phase == JourneyPhase.Preparing) Submit("cancel-flight");
+            else if (journey.Phase is JourneyPhase.Orbit or JourneyPhase.Descent or JourneyPhase.Landed) Submit("pilot");
+        }
+
+        private void OnEnable()
+        {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (debugPanel != null) RuntimeDebugHub.RegisterPanel(debugPanel);
+#endif
+        }
+        private void OnDisable()
+        {
+            picker?.Close();
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            debugPanel?.Dispose();
+#endif
         }
         private async void Submit(string operation)
         {
@@ -116,8 +154,77 @@ namespace DarkNights.Entry
 
         private void OnDestroy()
         {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            debugPanel?.Dispose();
+#endif
             if (network != null) network.Client.Feedback -= OnFeedback;
             if (picker != null) Destroy(picker);
         }
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        /// <summary>RuntimeDebugHub 的远征页；复用原生面板的冻结展示和按钮许可，激活时租用本地输入，退出或卸载时释放。</summary>
+        private sealed class ExpeditionDebugPanel : IRuntimeDebugPanel, IRuntimeDebugPanelSizeProvider,
+            IRuntimeDebugPanelLifecycle, IDisposable
+        {
+            private readonly ExpeditionPanel source;
+            private readonly Action<string> submit;
+            private YYInteractionSessionHandle modal;
+            private Vector2 scroll;
+            public string Title => "远征";
+            public int SortOrder => 200;
+
+            internal ExpeditionDebugPanel(ExpeditionPanel source, Action<string> submit)
+            { this.source = source; this.submit = submit; }
+
+            public Vector2 GetPreferredSize() => new Vector2(480, 440);
+
+            public void Draw(RuntimeDebugPanelContext context)
+            {
+                if (source == null || !source.DebugAvailable)
+                { GUILayout.Label("进入远征会话后可查看状态与调试操作。", context.LabelStyle); return; }
+                if (modal?.Session?.IsActive != true) OnRuntimeDebugPanelActivated();
+                bool enabled = GUI.enabled;
+                scroll = GUILayout.BeginScrollView(scroll);
+                try
+                {
+                    GUILayout.Label(source.Status.text, context.LabelStyle);
+                    GUILayout.Space(12);
+                    for (int i = 0; i < source.Actions.Length; i++)
+                    {
+                        var action = source.Actions[i];
+                        if (!action.gameObject.activeSelf) continue;
+                        GUI.enabled = enabled && modal?.Session?.IsActive == true && action.interactable;
+                        if (GUILayout.Button(source.ActionLabel(i), context.ButtonStyle, GUILayout.Height(28)))
+                        {
+                            string command = source.Commands[i];
+                            // 导航页使用自己的模态，先关闭 Hub，避免两层窗口互相遮挡或占用输入。
+                            if (command == "pilot") RuntimeDebugHub.Toggle();
+                            submit(command);
+                        }
+                    }
+                }
+                finally { GUI.enabled = enabled; GUILayout.EndScrollView(); }
+            }
+
+            public void OnRuntimeDebugPanelActivated()
+            {
+                if (modal?.Session?.IsActive == true) return;
+                OnRuntimeDebugPanelDeactivated();
+                var sessions = YYInteractionSessionService.Instance;
+                if (sessions != null) sessions.TryBegin(new YYInteractionSessionDescriptor
+                {
+                    Kind = "dark_nights.expedition_debug", Owner = nameof(ExpeditionDebugPanel), Priority = 60,
+                    Blocks = YYInteractionBlockFlags.All
+                }, out modal);
+            }
+
+            public void OnRuntimeDebugPanelDeactivated() { modal?.Dispose(); modal = null; }
+            public void Dispose()
+            {
+                RuntimeDebugHub.UnregisterPanel(this);
+                OnRuntimeDebugPanelDeactivated();
+            }
+        }
+#endif
     }
 }

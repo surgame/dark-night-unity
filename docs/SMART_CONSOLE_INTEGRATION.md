@@ -1,5 +1,7 @@
 # Smart Console 与游戏日志
 
+2026-09-29 后续调整：远征常驻按钮块已移入 **F1 → 远征** 调试页，正式驾驶台改为 E 交互；Smart Console 仍用 F10。[最新入口](RUNTIME_DEBUG_HUB.md)。
+
 2026-09-29 更新：消息和横幅仅写入 YYLogger → Smart Console，不再同时弹出 HUD。连接状态、Session 提示、航程确认／超时、主角操作反馈和改键结果也写入日志；按值变化记录的状态不逐帧刷屏。F10 开关不变。沿用 `SC.Prefs.asset` 的分类色：普通日志灰白，Warning 黄色，Error／Exception 红色，命令蓝色。正式远征操作面板及库存、阶段、操作说明仍是主流程界面，不属于消息日志。后续选择性恢复横幅时，应在现有冻结 `PresentationEvent` 消费入口实施筛选。本批验证见[修复记录](SESSION_INPUT_FEEDBACK.md)。
 
 2026-09-28：Bootstrap 装配 Smart Console 2.4.0 Prefab，开启 `ShowApplicationLogs`，用 **F10** 打开或关闭；避开游戏菜单使用的 Escape。Prefab 保持插件原样，配置写在场景实例上。插件本身由用户导入到 `Game/Assets/Plugins/EdgarDev/Smart Console/`。

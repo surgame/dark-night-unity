@@ -19,6 +19,7 @@
 
 ## 使用说明
 
+- [RUNTIME_DEBUG_HUB.md](RUNTIME_DEBUG_HUB.md) — F1 调试入口、远征按钮迁移及驾驶台 E 交互
 - [SESSION_INPUT_FEEDBACK.md](SESSION_INPUT_FEEDBACK.md) — Smart Console 消息归集、滚轮退出装备选择及返航恢复修复
 - [RUNTIME_TERRAIN_TUNER.md](RUNTIME_TERRAIN_TUNER.md) — 新版工作台运行时左栏、分 Tab 调参、拆填与 UI 缩放
 - [LAN_SAMPLE.md](LAN_SAMPLE.md) — 独立 LAN 合作联机模板
