@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace DarkNights.Editor.Terrain
 {
-    /// <summary>运行时工作台的编辑器保存适配；显式按钮才写资产，复用 Tuner 冲突校验、Undo 与固定地图文件保护。</summary>
+    /// <summary>运行时工作台的编辑器保存适配；只保存正式生成参数和岩壁样式，不写入单局格子。</summary>
     [InitializeOnLoad]
     public static class TerrainWorkbenchAssetBridge
     {
@@ -20,7 +20,6 @@ namespace DarkNights.Editor.Terrain
         {
             TerrainWorkbenchAssets.Query = Query;
             TerrainWorkbenchAssets.SaveStyle = SaveStyle;
-            TerrainWorkbenchAssets.SaveMap = SaveMap;
             TerrainWorkbenchAssets.SaveGeneration = SaveGeneration;
             EditorApplication.projectChanged += Catalog.Clear;
         }
@@ -61,11 +60,6 @@ namespace DarkNights.Editor.Terrain
                 EditorUtility.CopySerialized(item.Source, item.Baseline);
                 item.Working.hideFlags = item.Original.hideFlags = item.Baseline.hideFlags = HideFlags.HideAndDontSave;
             }
-        }
-        public static void SaveMap(TerrainMapAsset map, byte[] original, byte[] cells)
-        {
-            var draft = new TerrainMapDraft(); draft.Open(map);
-            draft.ImportCells(original, cells); draft.Apply();
         }
     }
 }

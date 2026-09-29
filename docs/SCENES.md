@@ -1,22 +1,22 @@
 # Unity 场景索引
 
-2026-09-26。**新版可运行地图是 `ReferenceChamber`（固定）和 `RandomCave`（随机），正式游戏是 `Bootstrap → Expedition`，编辑器调参使用 `Cave Wall Tuner`。** Unity 的 `Dark Nights / Terrain` 菜单提供三个场景的直接打开入口；工作台直接 Play，正式远征经 Bootstrap 启动会话。
+2026-09-30。**`ReferenceChamber`、`RandomCave` 与 `Cave Wall Tuner` 均预览同一正式星球地图生成链；正式游戏从 `Bootstrap → Expedition` 进入。** 两个工作台场景保留原名称与 GUID，通过 `Dark Nights / Terrain` 打开后直接 Play；地图输入都来自 `WorldSession.asset` 的洞穴配置、星球和种子。
 
 地形配置、地图格子、Prefab 和贴图继续留在各自的 `Res/Terrain/` 资源目录。旧场景通过 Unity AssetDatabase 移入 `(old)` 并在文件名追加 `(old)`，保留原 `.meta`／GUID 和场景内容。
 
-新版工作台 Play 左栏现已接入[运行时 Cave Wall Tuner 功能](RUNTIME_TERRAIN_TUNER.md)：地图／岩壁／背景／显示／状态五页，包含造型子页、草稿应用取消、固定地图保存及自适应缩放。独立编辑器窗口继续保留。
+新版工作台 Play 左栏现已接入[运行时 Cave Wall Tuner 功能](RUNTIME_TERRAIN_TUNER.md)：地图／岩壁／背景／显示／状态五页，包含造型子页、草稿应用取消、临时拆填及自适应缩放。独立编辑器窗口继续保留。
 
 ## 正式接入与当前验收状态
 
-2026-09-29 后续：[洞穴生成统一与通路阻断退出](CAVE_GENERATION_ALIGNMENT.md)。正式航程、RandomCave 和 Tuner 正式预览共用完整星球生成，旧塌方回填／竖井岩棚退出。2026-09-30 Tuner 改为默认正式预览，固定样板仍可通过明确按钮打开并保留原编辑能力；同种子逐格一致性此前已通过，扩展批次仍有 5 项失败，最终空腔连通和人工通行未通过。本次入口调整未运行 Unity；按用户要求不继续复杂测试或构建，人工步骤见链接。下文此前“工作台只用天然洞穴、正式独有后处理”的描述属于历史状态。
+2026-09-29 后续：[洞穴生成统一与通路阻断退出](CAVE_GENERATION_ALIGNMENT.md)。2026-09-30 Tuner 和两个当前工作台均改为只从正式配置生成；旧塌方回填／竖井岩棚已退出，人工固定格子资产保留但不再被当前入口引用。此前 Tuner／RandomCave 同种子逐格一致性已通过；本次新改动未运行测试、Unity 编译或构建。扩展批次留下的 5 项失败、最终空腔连通和人工通行仍未验收。下文按日期记载的固定工作台和旧生成路径属于历史状态。
 
 2026-09-29 主场景地下背景修复：正式 `RandomLevelEntry` 将地形宿主平移并缩放到世界坐标，`CaveVisualSource` 虽给前景材质设置了 `_MapWorldToLocal`，后壁和三层背景页再次复制材质时却丢失该非 Shader Properties 矩阵。工作台宿主处于原点、缩放为 1，因而掩盖了问题。现于两次复制后分别重设矩阵。当前 Unity Editor 编译通过；实际构造的前景、后壁和背景页矩阵均与正式缩放一致。隔离离屏渲染同一地下坐标时，正确矩阵像素为 RGB (47,35,23)，故意恢复单位矩阵后为紫灰色 RGB (55,44,50)。此项确认了背景坐标断点；正式航程连续地下画面及多端验收仍按 A056／A109 待测。
 
 2026-09-29 地图装配入口：`WorldSession.asset → ExpeditionFlowConfig.CaveMap → TerrainGenerator.GenerateCave` 是 RandomCave 与正式远征共同的洞穴生成输入。RandomCave 通过 `MapAssemblySource` 读取该配置，以 `STRATA-0922` 预览；正式航程冻结同一配置，只用本次星球种子覆盖预览种子。此前正式星球生成会在全部 320 列把地表至天然表面下三格填实，覆盖工作台生成的洞口及浅层轮廓；现仅在飞船泊位列铺设保护平台，其他列保留天然洞穴，另保留天空与下洞步道。两端均通过 `TerrainPreview.ShowCaveReplica` 安装同一 `Style.asset` 和冻结背景参考；前景修饰、三层背景及各层点缀由样式资源装配，业务调用无需传层级开关。`Style.asset.DecorationStartRow` 统一控制前景下缘和背景点缀的候选区域起始行，当前设为默认泊位第 40 行；算法仍按真实轮廓、空隙、密度及间距选取装饰，不会在该行直接画一条边。原先写死的第 43 行只会排除更浅的候选点，不能单独解释整层不可见。工作台运行时改动目前仍是预览草稿，要让其持久影响正式生成需保存样式资产及共用生成配置。该次地图生成入口修改仅做代码静态检查；上方背景坐标修复另做了隔离离屏验证，正式航程的地下连续画面与联机仍未验收。
 
-直接 Play `Bootstrap` 时先进入太空待命；`Orbit`／`Preparing`／`Transit` 只显示船舱和本地太空环境，`RandomLevelEntry` 在这些阶段主动跳过洞穴渲染。走到右侧驾驶台选星球，地图后台生成并到达同步后才创建正式洞穴表现。正式地图仍有星球种子、开放天空、泊位和下洞步道，因此与工作台固定种子的首屏布局不同。地图在选星球时冻结；已在运行中的航程不会因修改源码或样式资产自动重生。
+直接 Play `Bootstrap` 时先进入太空待命；`Orbit`／`Preparing`／`Transit` 只显示船舱和本地太空环境，`RandomLevelEntry` 在这些阶段主动跳过洞穴渲染。走到右侧驾驶台选星球，地图后台生成并到达同步后才创建正式洞穴表现。工作台与正式航程使用相同生成流程；若星球或种子不同，布局仍会不同。地图在选星球时冻结；已在运行中的航程不会因修改源码或样式资产自动重生。
 
-`GameSessionStartupModule` 默认选择 `Expedition.unity`；该场景的 `Definition`／`ContourDefinition` 均指向 StrataCave 定义（GUID `d4a19379210ced349b64c1b628f9c7ca`），`CaveStyle`／`StaticBackgroundStyle` 均指向 `Res/Terrain/StrataCave/Style.asset`（GUID `b8f1f94057451ec459e1bac28aba1c8a`）。因此无需 `--dn-contour-static` 就使用新版岩层和三层背景。两个新版工作台使用同一组定义和样式，但地图输入分别为固定蓝图和随机生成；正式远征有自己的权威地图与玩法，接入同一渲染链不表示三者地图布局相同。
+`GameSessionStartupModule` 默认选择 `Expedition.unity`；该场景的 `Definition`／`ContourDefinition` 均指向 StrataCave 定义（GUID `d4a19379210ced349b64c1b628f9c7ca`），`CaveStyle`／`StaticBackgroundStyle` 均指向 `Res/Terrain/StrataCave/Style.asset`（GUID `b8f1f94057451ec459e1bac28aba1c8a`）。因此无需 `--dn-contour-static` 就使用新版岩层和三层背景。两个新版工作台使用同一组定义、样式和正式地图配置；正式远征有自己的权威会话与玩法，地图是否逐格相同取决于星球和种子。
 
 Play 模式下，正式会话在场景 `EntityViews` 下建立运行时分组：活实体按 `Actors/<类型>`、`Buildings/<类型>`、`Worksites/<类型>` 与 `Mineral Deposits` 查找；`Ballistics` 集中放置预热的 128 个投射物表现，箭矢、其他效果、残骸、音频及建造预览各有独立节点。收起 `Ballistics` 可直接在 `Actors/worker` 查看工人。此分组只整理 Hierarchy，不改变对象身份、权威状态或关卡布局；代码已接入，Unity Play 画面尚未验收。
 
@@ -30,8 +30,8 @@ Play 模式下，正式会话在场景 `EntityViews` 下建立运行时分组：
 | 正式旧营地 | `DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity` | 已有内容及兼容回归 |
 | 随机关卡模板 | `DarkNights/Res/Scenes/RandomPinewatch/Pinewatch.unity` | 由正式选图入口使用，与上项同名但 GUID 不同 |
 | 正式远征 | `DarkNights/Res/Scenes/Expedition/Expedition.unity` | 当前产品入口 |
-| 新版固定岩层工作台 | `DarkNights/Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` | `Dark Nights/Terrain/打开新版固定地图 ReferenceChamber`；地形 Modifier、岩层与背景的固定对照 |
-| 新版随机岩层工作台 | `DarkNights/Res/Scenes/Workbenches/Terrain/RandomCave.unity` | `Dark Nights/Terrain/打开新版随机地图 RandomCave` |
+| 正式生成工作台（原固定样板场景） | `DarkNights/Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` | `Dark Nights/Terrain/打开正式生成工作台 ReferenceChamber`；名称与 GUID 保留，地图改从正式配置生成 |
+| 正式生成工作台 | `DarkNights/Res/Scenes/Workbenches/Terrain/RandomCave.unity` | `Dark Nights/Terrain/打开正式生成工作台 RandomCave`；同一配置、星球和种子得到同一地图 |
 | (old) 天然洞穴实验 | `DarkNights/Res/Scenes/Workbenches/Terrain/(old)/CaveExploration(old).unity` | `Dark Nights/Terrain/(old)/打开天然洞穴实验`；旧 CaveExploration 定义与样式 |
 | (old) 随机地图 Debug | `DarkNights/Res/Scenes/Workbenches/Terrain/(old)/TerrainDebugBootstrap(old).unity` | `Dark Nights/Terrain/(old)/打开随机地图 Bootstrap`；旧八房间生成器与测试图集 |
 | DualGrid 单机测试 | `DarkNights/Res/Scenes/Tests/Terrain/TerrainTest.unity` | 地图预览和专用测试 Player |
@@ -45,7 +45,7 @@ Play 模式下，正式会话在场景 `EntityViews` 下建立运行时分组：
 
 此处只是隔离候选，仍可在 Unity 中打开或按原 GUID 移回；没有实际删除。`Res/Terrain/CaveContourStatic/` 中的配置、美术等资源没有随场景移动，是否独占和是否可删尚未核实，须单独确认。后续实际删除要重新核对引用并获得明确授权。
 
-`CaveExploration` 与 `TerrainDebugBootstrap` 已归组为 `(old)`，仅供旧版回归。**`TerrainDebugBootstrap.cs` 是新旧工作台共用的运行组件，不能随旧场景删除或整体改成 old。** `TerrainTest` 与 `TerrainNetworkTest` 仍是地图／网络探针，有专用构建入口；旧 `Pinewatch` 用于已有内容和营地回归。它们的独立用途和正式引用没有因本次归组改变。`Assets/Scenes/SampleScene.unity`、URP 模板和 `Assets/Samples/` 保持原样。
+`CaveExploration` 与 `TerrainDebugBootstrap` 已归组为 `(old)`，仅保留历史场景和引用。当前 `TerrainDebugBootstrap.cs` 要求正式 `MapAssemblySource`，其中旧 `TerrainDebugBootstrap(old)` 场景没有该绑定，不能作为当前可运行地图入口；没有改动其源资产或 GUID。`TerrainTest` 与 `TerrainNetworkTest` 仍是地图／网络探针，有专用构建入口；旧 `Pinewatch` 用于已有内容和营地回归。`Assets/Scenes/SampleScene.unity`、URP 模板和 `Assets/Samples/` 保持原样。
 
 现有 Build Settings 五项（Bootstrap、SampleScene、Pinewatch、RandomPinewatch、Expedition）保持原样；工作台与地形测试场景由明确的菜单或测试构建入口选用，不加入正式构建列表。
 

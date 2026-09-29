@@ -23,7 +23,7 @@ namespace DarkNights.Editor.Terrain
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先退出 Play。");
             if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
-            if (!File.Exists(ScenePath)) Create();
+            if (!File.Exists(ScenePath)) throw new FileNotFoundException("旧场景仅供查看，不再创建独立地图入口。", ScenePath);
             EditorSceneManager.OpenScene(ScenePath);
         }
 

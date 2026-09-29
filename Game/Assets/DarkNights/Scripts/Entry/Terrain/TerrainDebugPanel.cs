@@ -48,7 +48,6 @@ namespace DarkNights.Entry.Terrain
             Bootstrap.Flyer.InputBlocked = textFocus;
             Bootstrap.Flyer.WorkbenchPointerActive = MapTool != 0;
             pointer.Update(this, over || textFocus || Bootstrap.Generating);
-            pages.Observe(Bootstrap);
         }
         private void OnGUI()
         {
@@ -69,7 +68,7 @@ namespace DarkNights.Entry.Terrain
                 GUILayout.BeginHorizontal(); GUILayout.Label("洞穴地图工作台", skin.GetStyle("title"));
                 if (GUILayout.Button("收起", GUILayout.Width(52))) { Visible = false; textFocus = false; pointer.Stop(); }
                 GUILayout.EndHorizontal();
-                GUILayout.Label(Bootstrap.FixedMap != null ? "固定地图 · " + Bootstrap.FixedMap.name : "随机地图 · " + Bootstrap.Settings.Seed, skin.GetStyle("hint"));
+                GUILayout.Label("正式星球生成 · " + (Bootstrap.Blueprint?.Settings.Seed ?? Bootstrap.Settings.Seed), skin.GetStyle("hint"));
                 int selected = GUILayout.SelectionGrid(ActiveTab, Tabs, layout.TabColumns);
                 if (selected != ActiveTab)
                 { ActiveTab = selected; textFocus = false; pointer.Stop(); GUI.FocusControl(null); GUIUtility.ExitGUI(); }

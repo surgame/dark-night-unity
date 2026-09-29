@@ -1,24 +1,15 @@
 using System;
 using System.Linq;
 using DarkNights.Runtime.Objects;
-using DarkNights.Core.Config.Terrain;
 using DarkNights.View.Terrain;
 using UnityEngine;
 
 namespace DarkNights.Entry.Terrain
 {
-    /// <summary>地图、显示和诊断页；固定蓝图隐藏无效随机参数，地图保存保留打开时的原文件基线以检查外部冲突。</summary>
+    /// <summary>地图、显示和诊断页；地图参数来自正式生成配置，运行时拆填只影响当前预览。</summary>
     public sealed class TerrainWorkbenchPages
     {
-        private int generation = -1;
-        private byte[] originalCells;
         private static readonly string[] Materials = { "壤土", "板岩", "玄武岩", "铜矿", "铁矿", "金矿", "苔岩" };
-        public void Observe(TerrainDebugBootstrap bootstrap)
-        {
-            if (generation == bootstrap.Generation) return;
-            generation = bootstrap.Generation;
-            originalCells = bootstrap.FixedMap?.InitialCells != null ? (byte[])bootstrap.FixedMap.InitialCells.bytes.Clone() : null;
-        }
         public void DrawMap(TerrainDebugPanel panel, TerrainStyleControls picker)
         {
             var boot = panel.Bootstrap; var edits = boot.Workshop?.Edits;
@@ -37,51 +28,24 @@ namespace DarkNights.Entry.Terrain
             GUILayout.EndHorizontal();
             GUI.enabled = enabled && edits != null && edits.ChangedCells > 0 && !boot.Generating;
             if (GUILayout.Button("取消地图草稿")) panel.Run(() => { edits.Cancel(); boot.Preview.NotifyReplicaChanged(); });
-            if (TerrainWorkbenchAssets.SaveMap != null && boot.FixedMap != null && GUILayout.Button("应用地图到固定资产"))
-                panel.Run(() =>
-                {
-                    TerrainWorkbenchAssets.SaveMap(boot.FixedMap, originalCells, edits.CaptureCells());
-                    originalCells = (byte[])boot.FixedMap.InitialCells.bytes.Clone();
-                    boot.RequestRegenerate(); panel.SetMessage("地图已保存；重新加载固定样板。");
-                });
             GUI.enabled = enabled;
-            GUILayout.Label("笔刷草稿：" + (edits?.ChangedCells ?? 0) + " 格 · 退出运行丢弃未保存修改");
+            GUILayout.Label("笔刷草稿：" + (edits?.ChangedCells ?? 0) + " 格 · 仅影响当前地图，重新生成或退出运行后丢弃");
             GUILayout.Space(8); GUILayout.Label("地图来源");
-            GUILayout.Label("通路阻断实验已移除；已有固定格子和存档不会自动重绘。");
-            if (picker.Pick("固定蓝图", boot.FixedMap, out TerrainMapAsset map) && map != boot.FixedMap)
-            {
-                if (edits?.ChangedCells > 0) panel.SetMessage("先保存或取消地图草稿，再切换来源。");
-                else if (map != null && map.Definition != boot.Definition) panel.SetMessage("该地图的规则定义不兼容当前工作台。");
-                else { boot.FixedMap = map; boot.RequestRegenerate(); }
-            }
+            GUILayout.Label("正式星球生成；通路阻断实验已移除。已有存档不会自动重绘。");
             if (picker.Pick("岩壁样式", boot.CaveStyle, out CaveTerrainStyle style) && style != boot.CaveStyle) panel.SwitchStyle(style);
-            if (boot.FixedMap == null)
-            {
-                if (boot.MapAssemblySource != null)
-                {
-                    var planets = boot.MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().Single().FreezePlanets().Where(p => p.Enabled).ToArray();
-                    int selected = Math.Max(0, Array.FindIndex(planets, p => p.Id == boot.PlanetId));
-                    int next = GUILayout.SelectionGrid(selected, planets.Select(p => p.DisplayName).ToArray(), 2);
-                    if (next != selected) { boot.PlanetId = planets[next].Id; boot.RequestRegenerate(); }
-                    GUILayout.Label("完整正式星球预览（含天空、泊位、入口）；同一星球和种子逐格一致。");
-                    if (TerrainWorkbenchAssets.SaveGeneration != null && GUILayout.Button("保存生成参数到正式配置"))
-                        panel.Run(() => { TerrainWorkbenchAssets.SaveGeneration(boot.MapAssemblySource, boot.MapConfigBaseline, boot.Settings);
-                            boot.AcceptMapConfigSave(); panel.SetMessage("生成参数已保存；下次正式生成使用新参数，已有地图保持当前格子。"); });
-                }
-                GUILayout.Label("随机种子"); GUI.SetNextControlName("TerrainSeed");
-                boot.Settings.Seed = GUILayout.TextField(boot.Settings.Seed ?? "", 80);
-                if (boot.Settings.ResourceProfile != TerrainGenerationSettings.CaveExplorationProfile)
-                {
-                    int surface = Math.Max(0, Array.IndexOf(TerrainGenerationSettings.SurfaceNames, boot.Settings.Surface));
-                    boot.Settings.Surface = TerrainGenerationSettings.SurfaceNames[GUILayout.SelectionGrid(surface,
-                        new[] { "针峰", "台地", "喀斯特", "盆地", "丘陵", "断层" }, 3)];
-                    boot.Settings.OrganicCaves = GUILayout.Toggle(boot.Settings.OrganicCaves, "叠加自然洞穴");
-                    boot.Settings.OreDensity = TerrainFieldControls.Slider("矿脉密度", (float)boot.Settings.OreDensity, .2f, 2);
-                }
-                boot.Settings.Amplitude = TerrainFieldControls.Slider("地表起伏", (float)boot.Settings.Amplitude, .3f, 1.6f);
-                boot.LiveRegenerate = GUILayout.Toggle(boot.LiveRegenerate, "自动重建随机参数");
-                if (GUILayout.Button("新随机种子（重置地图）")) boot.NewSeed();
-            }
+            var planets = boot.MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().Single().FreezePlanets().Where(p => p.Enabled).ToArray();
+            int selected = Math.Max(0, Array.FindIndex(planets, p => p.Id == boot.PlanetId));
+            int next = GUILayout.SelectionGrid(selected, planets.Select(p => p.DisplayName).ToArray(), 2);
+            if (next != selected) { boot.PlanetId = planets[next].Id; boot.RequestRegenerate(); }
+            GUILayout.Label("完整正式星球预览（含天空、泊位、入口）；同一星球和种子逐格一致。");
+            if (TerrainWorkbenchAssets.SaveGeneration != null && GUILayout.Button("保存生成参数到正式配置"))
+                panel.Run(() => { TerrainWorkbenchAssets.SaveGeneration(boot.MapAssemblySource, boot.MapConfigBaseline, boot.Settings);
+                    boot.AcceptMapConfigSave(); panel.SetMessage("生成参数已保存；下次正式生成使用新参数，已有地图保持当前格子。"); });
+            GUILayout.Label("预览／复现种子"); GUI.SetNextControlName("TerrainSeed");
+            boot.Settings.Seed = GUILayout.TextField(boot.Settings.Seed ?? "", 80);
+            boot.Settings.Amplitude = TerrainFieldControls.Slider("地表起伏", (float)boot.Settings.Amplitude, .3f, 1.6f);
+            boot.LiveRegenerate = GUILayout.Toggle(boot.LiveRegenerate, "自动重建生成参数");
+            if (GUILayout.Button("新预览种子（重置地图）")) boot.NewSeed();
             if (GUILayout.Button("重新加载地图（丢弃运行时拆填）")) boot.RequestRegenerate();
             GUILayout.Space(8); GUILayout.Label("房间定位");
             int rooms = boot.Blueprint?.Rooms.Count ?? 0;

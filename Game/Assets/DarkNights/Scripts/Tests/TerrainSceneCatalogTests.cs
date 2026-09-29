@@ -33,7 +33,7 @@ namespace DarkNights.Tests
         }
 
         [Test]
-        public void FixedAndRandomWorkbenchesRetainBootstrapAndMapReferences()
+        public void BothWorkbenchesUseFormalMapConfiguration()
         {
             foreach (string path in new[] { TerrainScenePaths.ReferenceChamber, TerrainScenePaths.RandomCave })
             {
@@ -47,7 +47,8 @@ namespace DarkNights.Tests
                     Assert.That(bootstraps.Count, Is.EqualTo(1), path);
                     Assert.That(bootstraps[0].Definition, Is.Not.Null);
                     Assert.That(bootstraps[0].CaveStyle, Is.Not.Null);
-                    Assert.That(bootstraps[0].FixedMap == null, Is.EqualTo(path == TerrainScenePaths.RandomCave));
+                    Assert.That(bootstraps[0].MapAssemblySource, Is.SameAs(AssetDatabase.LoadAssetAtPath<GameCore.Objects.Definition.ObjectDefinition>(
+                        "Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset")));
                 }
                 finally { UnityEditor.SceneManagement.EditorSceneManager.CloseScene(scene, true); }
             }

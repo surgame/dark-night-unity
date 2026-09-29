@@ -12,6 +12,5 @@ namespace DarkNights.Entry.Terrain
         public static Func<Type, ScriptableObject[]> Query;
         public static Action<CaveStyleDraft> SaveStyle;
         public static Action<ObjectDefinition, string, TerrainGenerationSettings> SaveGeneration;
-        public static Action<TerrainMapAsset, byte[], byte[]> SaveMap;
     }
 }

@@ -14,7 +14,7 @@ using UnityEngine.InputSystem;
 namespace DarkNights.Entry.Terrain
 {
     /// <summary>
-    /// 独立离线地图调试入口，复用正式星球生成流水线，固定样板只读既有格子，不启动营地会话或波次。
+    /// 独立离线地图调试入口；当前洞穴工作台复用正式星球生成流水线，不启动营地会话或波次。
     /// 参数防抖后在后台生成，主线程完成真实 DualGrid 可见页才替换旧预览；退出取消并释放临时表现。
     /// </summary>
     public sealed class TerrainDebugBootstrap : MonoBehaviour
@@ -22,7 +22,6 @@ namespace DarkNights.Entry.Terrain
         public ARDMapDefinition Definition;
         public CaveTerrainStyle CaveStyle;
         public ObjectDefinition MapAssemblySource;
-        public TerrainMapAsset FixedMap;
         public string PlanetId = "";
         public string MapConfigBaseline { get; private set; }
         public TextAsset BalanceJson;
@@ -49,12 +48,10 @@ namespace DarkNights.Entry.Terrain
 
         private void OnEnable()
         {
-            if (MapAssemblySource != null)
-            {
-                var flow = MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().SingleOrDefault();
-                Settings = flow?.FreezeCaveMap() ?? throw new InvalidOperationException("工作台缺少共用洞穴地图配置。");
-                MapConfigBaseline = JsonUtility.ToJson(flow.CaveMap);
-            }
+            if (MapAssemblySource == null) throw new InvalidOperationException("工作台必须绑定正式 WorldSession 地图配置。");
+            var flow = MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().SingleOrDefault();
+            Settings = flow?.FreezeCaveMap() ?? throw new InvalidOperationException("工作台缺少共用洞穴地图配置。");
+            MapConfigBaseline = JsonUtility.ToJson(flow.CaveMap);
             lifetime = new CancellationTokenSource();
             observedSettings = JsonUtility.ToJson(Settings);
             RequestRegenerate();
@@ -63,11 +60,9 @@ namespace DarkNights.Entry.Terrain
         /// <summary>主线程冻结资产输入；返回的后台任务与正式航程复用完整星球生成，不再跳过天空、平台或入口阶段。</summary>
         public Func<TerrainBlueprint> CaptureMapGenerator()
         {
-            if (FixedMap != null) { var fixedBlueprint = FixedMap.ReadBlueprint(); return () => fixedBlueprint; }
             var settings = Settings.CopyValidated();
             if (settings.ResourceProfile != TerrainGenerationSettings.CaveExplorationProfile)
-                return () => TerrainGenerator.Generate(settings);
-            if (MapAssemblySource == null) throw new InvalidOperationException("随机洞穴必须绑定正式 WorldSession 地图配置。");
+                throw new InvalidOperationException("正式工作台必须使用洞穴资源方案。");
             var config = MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
             var planet = config.PreviewPlanet(PlanetId);
             return () => PlanetTerrainGenerator.GenerateCandidate(planet, settings.Seed,
@@ -87,7 +82,6 @@ namespace DarkNights.Entry.Terrain
 
         public void NewSeed()
         {
-            if (FixedMap != null) { RequestRegenerate(); return; }
             Settings.Seed = "DEBUG-" + Guid.NewGuid().ToString("N").Substring(0, 12);
             RequestRegenerate();
         }

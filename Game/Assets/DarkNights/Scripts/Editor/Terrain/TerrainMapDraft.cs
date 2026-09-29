@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace DarkNights.Editor.Terrain
 {
-    /// <summary>固定地图初始格子的窗口草稿；只编辑可破坏内部格，应用时核对源文件并保留原有资产引用。</summary>
+    /// <summary>历史人工地图资产的独立草稿工具；当前 Tuner 只调用生成地图的临时拆填，不再将格子写回该资产。</summary>
     public sealed class TerrainMapDraft
     {
         private TerrainMapAsset map;

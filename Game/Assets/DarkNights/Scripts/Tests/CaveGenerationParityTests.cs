@@ -28,22 +28,24 @@ namespace DarkNights.Tests
         private static ExpeditionFlowConfig Config => Source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
 
         [Test]
-        public void TunerAndRandomSceneProduceIdenticalFinalCells()
+        public void TunerAndBothWorkbenchScenesProduceIdenticalFinalCells()
         {
             using var tuner = new TerrainGenerationPreview();
             var expected = tuner.Generate();
-            var scene = EditorSceneManager.OpenScene(TerrainScenePaths.RandomCave, OpenSceneMode.Additive);
-            try
+            foreach (string path in new[] { TerrainScenePaths.ReferenceChamber, TerrainScenePaths.RandomCave })
             {
-                var boot = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<TerrainDebugBootstrap>(true)).Single();
-                Assert.That(boot.MapAssemblySource, Is.SameAs(Source));
-                boot.Settings = Config.FreezeCaveMap();
-                var actual = boot.CaptureMapGenerator()();
-                Same(expected, actual);
-                CollectionAssert.AreEqual(expected.CopyMaterials(), expected.Background.CopyMaterials());
-                CollectionAssert.AreEqual(expected.CopyShapes(), expected.Background.CopyShapes());
+                var scene = EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
+                try
+                {
+                    var boot = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<TerrainDebugBootstrap>(true)).Single();
+                    Assert.That(boot.MapAssemblySource, Is.SameAs(Source), path);
+                    boot.Settings = Config.FreezeCaveMap();
+                    Same(expected, boot.CaptureMapGenerator()());
+                    CollectionAssert.AreEqual(expected.CopyMaterials(), expected.Background.CopyMaterials());
+                    CollectionAssert.AreEqual(expected.CopyShapes(), expected.Background.CopyShapes());
+                }
+                finally { EditorSceneManager.CloseScene(scene, true); }
             }
-            finally { EditorSceneManager.CloseScene(scene, true); }
         }
 
         [UnityTest]

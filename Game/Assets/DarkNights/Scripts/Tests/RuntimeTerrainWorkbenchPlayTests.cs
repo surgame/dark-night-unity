@@ -89,7 +89,7 @@ namespace DarkNights.Tests
                 Assert.That(boot.LastError, Is.Null); Assert.That(Time.realtimeSinceStartup, Is.LessThan(deadline), boot.Status);
                 Game.Repaint(); EditorApplication.QueuePlayerLoopUpdate(); yield return null;
             }
-            Assert.That(boot.FixedMap, Is.Null); Assert.That(boot.Blueprint.Rooms.Count, Is.GreaterThan(1));
+            Assert.That(boot.MapAssemblySource, Is.Not.Null); Assert.That(boot.Blueprint.Rooms.Count, Is.GreaterThan(1));
             using (new TerrainGameViewTestSize(Game, 1280, 720))
             {
                 panel.ActiveTab = 0; panel.UiScale = 1; panel.PanelWidth = 380;

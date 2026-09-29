@@ -6,11 +6,10 @@ using UnityEngine;
 
 namespace DarkNights.Editor.Terrain
 {
-    /// <summary>Cave Wall Tuner 编辑窗口；样式与初始地图使用独立草稿，画面由正式 TerrainPreview 渲染。</summary>
+    /// <summary>Cave Wall Tuner 编辑窗口；地图只从正式星球生成，拆填为临时草稿，画面由正式 TerrainPreview 渲染。</summary>
     public sealed class TerrainStylePreviewWindow : EditorWindow
     {
         private const string Root = "Assets/DarkNights/Res/Terrain/StrataCave/";
-        private TerrainMapAsset map;
         private TerrainGenerationPreview generation;
         private string generatedIdentity;
         private CaveTerrainStyle style;
@@ -40,7 +39,6 @@ namespace DarkNights.Editor.Terrain
         {
             titleContent = new GUIContent("Cave Wall Tuner"); wantsMouseMove = true; preview.Fit();
             generation = new TerrainGenerationPreview();
-            map = null;
             OpenMapSnapshot(); style = AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>(Root + "Style.asset");
             inspected = style; EditorApplication.update += Tick; Invalidate();
         }
@@ -85,30 +83,10 @@ namespace DarkNights.Editor.Terrain
         private void DrawControls()
         {
             EditorGUILayout.HelpBox("预览只创建空白离屏宿主和当前地图，复用运行时 TerrainPreview、AnyRuleD 与 Cave shader；不加载游戏场景、角色或游戏会话。", MessageType.Info);
-            EditorGUILayout.LabelField(map == null ? "地图来源：正式星球生成（与 Bootstrap 共用）" : "地图来源：人工固定样板（不参与正式生成）", EditorStyles.boldLabel);
-            if (map == null && GUILayout.Button("打开人工固定样板 ReferenceChamber"))
-            {
-                if (mapDraft.HasChanges) status = "请先取消正式预览中的地图草稿。";
-                else
-                {
-                    map = AssetDatabase.LoadAssetAtPath<TerrainMapAsset>(Root + "ReferenceChamber.asset");
-                    OpenMapSnapshot(); stage.Dispose(); observed = null; Invalidate();
-                }
-            }
-            if (map != null && GUILayout.Button("返回正式星球生成预览"))
-            {
-                if (mapDraft.HasChanges) status = "请先应用或取消固定地图草稿。";
-                else { map = null; OpenMapSnapshot(); stage.Dispose(); observed = null; Invalidate(); }
-            }
-            var selectedMap = (TerrainMapAsset)EditorGUILayout.ObjectField("固定样板（留空用正式）", map, typeof(TerrainMapAsset), false);
-            if (selectedMap != map)
-            {
-                if (mapDraft.HasChanges) status = "先应用或取消当前地图草稿，再切换地图。";
-                else { map = selectedMap; OpenMapSnapshot(); stage.Dispose(); observed = null; Invalidate(); }
-            }
-            EditorGUILayout.HelpBox("通路阻断实验已移除：新地图不再回填塌方或竖井岩棚。固定样板和已有存档保留原格子。", MessageType.Info);
-            if (map == null)
-                using (new EditorGUI.DisabledScope(mapDraft.HasChanges)) generation.Draw(Invalidate);
+            EditorGUILayout.LabelField("地图来源：正式星球生成（与 Bootstrap 共用）", EditorStyles.boldLabel);
+            EditorGUILayout.HelpBox("通路阻断实验已移除：新地图不再回填塌方或竖井岩棚。已有存档保留原格子。", MessageType.Info);
+            using (new EditorGUI.DisabledScope(mapDraft.HasChanges)) generation.Draw(Invalidate);
+            EditorGUILayout.LabelField("当前地图种子：" + (baselineBlueprint?.Settings.Seed ?? "尚未生成"), EditorStyles.miniLabel);
             var selectedStyle = (CaveTerrainStyle)EditorGUILayout.ObjectField("岩壁样式", style, typeof(CaveTerrainStyle), false);
             if (selectedStyle != style)
             {
@@ -128,7 +106,7 @@ namespace DarkNights.Editor.Terrain
             EditorGUILayout.LabelField(preview.ActiveTool == TerrainStylePreviewTool.Pan
                 ? "左键拖拽平移画布；选择“拆”或“填”后才绘制地形格。"
                 : "左键单击或拖动连续绘制地形格；边界、保护格和基岩不可修改。", EditorStyles.wordWrappedMiniLabel);
-            if (!mapDraft.IsReady && map != null) EditorGUILayout.HelpBox(mapDraft.Error ?? "地图草稿不可用。", MessageType.Warning);
+            if (!mapDraft.IsReady) EditorGUILayout.HelpBox(mapDraft.Error ?? "地图草稿不可用。", MessageType.Warning);
             EditorGUILayout.LabelField("地图草稿改动：" + mapDraft.ChangedCells + " 格", EditorStyles.miniLabel);
             EditorGUILayout.BeginHorizontal();
             using (new EditorGUI.DisabledScope(!mapDraft.CanUndo)) if (GUILayout.Button("撤销")) { mapDraft.Undo(); InvalidateMap(); }
@@ -138,10 +116,7 @@ namespace DarkNights.Editor.Terrain
             EditorGUILayout.EndHorizontal();
             using (new EditorGUI.DisabledScope(!mapDraft.HasChanges))
             {
-                EditorGUILayout.BeginHorizontal();
-                if (mapDraft.CanSave && GUILayout.Button("应用固定地图")) ApplyMap();
-                if (GUILayout.Button("取消地图")) { OpenMapSnapshot(); stage.Dispose(); RebuildSoon(); }
-                EditorGUILayout.EndHorizontal();
+                if (GUILayout.Button("重置临时拆填")) { OpenMapSnapshot(); stage.Dispose(); RebuildSoon(); }
             }
 
             EditorGUILayout.Space(); inspected = drafts.ChooseAsset(style, inspected);
@@ -167,16 +142,6 @@ namespace DarkNights.Editor.Terrain
 
         private void CancelDrafts()
         { drafts.Clear(); Invalidate(); status = "草稿已丢弃，原资产未更改。"; }
-
-        private void ApplyMap()
-        {
-            try
-            {
-                int count = mapDraft.ChangedCells; mapDraft.Apply(); OpenMapSnapshot(); stage.Dispose(); observed = null;
-                RebuildNow(); status = count + " 个初始地图格已应用。";
-            }
-            catch (Exception error) { status = "应用地图失败：" + error.Message; }
-        }
 
         private void HandleSplitter()
         {
@@ -241,10 +206,7 @@ namespace DarkNights.Editor.Terrain
         private void CheckExternalChanges()
         {
             generation.ObserveExternalChanges();
-            string current = style == null ? "none" : style.VisualIdentity + "|" + (map == null ? generation.Identity :
-                AssetDatabase.GetAssetPath(map) + "|" +
-                (map.InitialCells != null ? AssetDatabase.GetAssetDependencyHash(AssetDatabase.GetAssetPath(map.InitialCells)).ToString() : "none") +
-                "|" + map.Settings?.Seed);
+            string current = style == null ? "none" : style.VisualIdentity + "|" + generation.Identity;
             if (current == observed) return;
             bool wasObserved = observed != null; observed = current;
             if (!wasObserved) return;
@@ -256,32 +218,25 @@ namespace DarkNights.Editor.Terrain
         private void RebuildNow()
         {
             due = double.PositiveInfinity;
-            if (map == null && generatedIdentity != generation.Identity) OpenMapSnapshot();
+            if (generatedIdentity != generation.Identity) OpenMapSnapshot();
             if (style == null || baselineBlueprint == null)
-            { stage.Dispose(); status = "选择固定地图和岩壁样式以显示运行时预览。"; Repaint(); return; }
+            { stage.Dispose(); status = "正式地图或岩壁样式不可用。"; Repaint(); return; }
             var background = drafts.Draft(drafts.Draft(style).Background);
             if (background != null && background.ContourStatic &&
                 background.ContentHash != BackgroundBakeDescriptor.StyleContentHash)
                 throw new InvalidOperationException("背景样式内容身份不匹配。");
             byte[] materials = mapDraft.IsReady ? mapDraft.CopyMaterials() : baselineBlueprint.CopyMaterials();
             byte[] shapes = mapDraft.IsReady ? mapDraft.CopyShapes() : baselineBlueprint.CopyShapes();
-            stage.Open(map != null ? map.Definition : generation.Definition, baselineBlueprint, style, drafts, materials, shapes, backgroundReference);
+            stage.Open(generation.Definition, baselineBlueprint, style, drafts, materials, shapes, backgroundReference);
             status = "正在加载 AnyRuleD 与洞穴材质分页…"; Repaint();
         }
 
         private void OpenMapSnapshot()
         {
-            mapDraft.Open(map); baselineBlueprint = null; backgroundReference = null;
-            if (map == null)
-            {
-                var result = generation.Generate(); baselineBlueprint = result.Blueprint();
-                backgroundReference = result.Background; generatedIdentity = generation.Identity;
-                mapDraft.OpenGenerated(baselineBlueprint); return;
-            }
-            if (!mapDraft.IsReady) return;
-            baselineBlueprint = map.ReadBlueprint();
-            backgroundReference = new BackgroundBakeDescriptor(Guid.NewGuid().ToString("N"),
-                baselineBlueprint.Settings.Seed, baselineBlueprint.CopyMaterials(), baselineBlueprint.CopyShapes());
+            baselineBlueprint = null; backgroundReference = null;
+            var result = generation.Generate(); baselineBlueprint = result.Blueprint();
+            backgroundReference = result.Background; generatedIdentity = generation.Identity;
+            mapDraft.OpenGenerated(baselineBlueprint);
         }
     }
 }
