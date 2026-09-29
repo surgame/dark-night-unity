@@ -2,6 +2,8 @@
 
 2026-09-30 后续改造见[地形生成阶段 Modifier](TERRAIN_GENERATION_MODIFIER_PIPELINE.md)：本文所说“已移除”的是旧 `Cover`／`Shelves` 回填；另一个泊位后 `CarveWalkway` 会铺出斜向岩带，现已迁为可启停的入口步道步骤。本文下方原人工测试清单属于此前切片，不能作为本次步骤实现的验收结果。
 
+2026-09-30 后续验收：新增步道空腔绕行修复后，原 `OPEN-CAVE-0` 扩展诊断及 100 种子全部通过；真实主角下洞往返的两项旧用例同步当前主角速度和占地后通过。本批 Core 1903/1903、Editor 181/181、Mono 构建成功，用户要求先收尾，尚未运行新 Player 联机。下方历史失败记录仍按原批次保留。
+
 2026-09-29，分支 `fix-20260929-single-cave-generation`。2026-09-30 按正式地图进一步统一：Tuner、ReferenceChamber、RandomCave 与 Bootstrap 的新航程均以 `WorldSession.asset` 中的洞穴生成配置、星球和种子为输入，调用完整星球生成入口。本次按用户要求不运行测试、Unity 编译或构建。
 
 ## 当前行为与入口

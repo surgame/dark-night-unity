@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-2026-09-30 [地形生成阶段 Modifier](TERRAIN_GENERATION_MODIFIER_PIPELINE.md)：泊位后入口步道从硬编码迁为可启停的 `[SerializeReference]` 接口配置，正式航程与所有工作台冻结同一有序步骤；候选步道拒绝切断已有空腔。Odin PropertyTree 已接入 Tuner 和航程面板。新增脚本只执行一次 Unity Editor 导入并生成 `.meta`，批处理无编译错误；按用户要求不运行测试、Play 或 Player 构建，实际画面与通行待验证。
+2026-09-30 [地形生成阶段 Modifier](TERRAIN_GENERATION_MODIFIER_PIPELINE.md)：入口步道迁为 `[SerializeReference]` 接口配置，正式航程与工作台冻结同一有序步骤，Odin 编辑共用。后续授权验收发现并修复 29 个生成组合无安全步道的问题及空格矿床锚点误滤；当前生成器 v4，Core 1903/1903、Editor 181/181、Mono 构建成功。用户要求先收尾，未启动 Player／联机；原生 UI、全路线、旧指纹存档、性能、IL2CPP 和双机器等剩余边界见文末清单。
 
 2026-09-29 [洞穴生成统一与通路阻断退出](CAVE_GENERATION_ALIGNMENT.md)：正式航程、Tuner、ReferenceChamber 和 RandomCave 复用完整生成器，移除塌方与竖井岩棚回填。2026-09-30 当前工作台的固定地图来源与保存入口已退出，原人工资产保留。用户要求本次不验证；此前自动批次 59 通过／5 失败不代表本次改动通过，全路线未验收，不构建 Player。
 

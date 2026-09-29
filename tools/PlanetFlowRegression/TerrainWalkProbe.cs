@@ -1,12 +1,13 @@
 using System;
 using System.Linq;
+using DarkNights.Core.Config;
 using DarkNights.Core.Config.Expedition;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.Terrain;
 
 namespace DarkNights.Tools.PlanetFlowRegression
 {
-    /// <summary>独立的连续地面几何探针；采样 10×22 权威单位占地和 2 单位步幅，仅判定无跳跃步行坡道。</summary>
+    /// <summary>独立的连续地面几何探针；采样当前主角权威占地和 2 单位步幅，仅判定无跳跃步行坡道。</summary>
     internal static class TerrainWalkProbe
     {
         internal static bool ReachesRoom(PlayableTerrain map, PlanetDefinition planet)
@@ -33,7 +34,7 @@ namespace DarkNights.Tools.PlanetFlowRegression
         private static float Surface(PlayableTerrain map, byte[] shapes, float x, float current)
         {
             float highest = float.NegativeInfinity;
-            foreach (float foot in new[] { -5f, 0f, 5f })
+            foreach (float foot in new[] { -HeroControlDefinition.BodyHalfWidth, 0f, HeroControlDefinition.BodyHalfWidth })
             {
                 float px = x + foot;
                 int column = (int)Math.Floor(px / 16 + .5f);
@@ -52,8 +53,8 @@ namespace DarkNights.Tools.PlanetFlowRegression
 
         private static bool Blocked(PlayableTerrain map, byte[] shapes, float x, float height)
         {
-            foreach (float side in new[] { -5f, 5f })
-                for (float head = 1; head <= 22; head += 7)
+            foreach (float side in new[] { -HeroControlDefinition.BodyHalfWidth, HeroControlDefinition.BodyHalfWidth })
+                for (float head = 1; head <= HeroControlDefinition.BodyHeight; head += 7)
                 {
                     float px = x + side, py = height + head;
                     int column = (int)Math.Floor(px / 16 + .5f);

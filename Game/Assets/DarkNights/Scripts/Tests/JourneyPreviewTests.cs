@@ -36,7 +36,7 @@ namespace DarkNights.Tests
             catch (TargetInvocationException error) { throw error.InnerException; }
         }
         private static void Generate(ExpeditionPlanetPreview target, string seed, Action<string> completed) =>
-            Call(target, "Generate", Planet(seed), completed);
+            Call(target, "Generate", Planet(seed), completed, null, null);
 
         [UnityTest]
         public IEnumerator ActualTaskPublishesOnMainThreadAndFixedSeedRepeats()

@@ -12,7 +12,7 @@ namespace DarkNights.Core.Logic.Terrain
         private const int H = TerrainGenerationSettings.Height;
         private readonly int headroom;
         private readonly int maxCandidates;
-        public string StableId => "entrance-walkway-v1";
+        public string StableId => "entrance-walkway-v2";
         public TerrainGenerationStage Stage => TerrainGenerationStage.AfterDock;
 
         public EntranceWalkwayModifier(int headroom = 5, int maxCandidates = 64)
@@ -40,7 +40,10 @@ namespace DarkNights.Core.Logic.Terrain
                 var cells = (byte[])baseline.Clone();
                 var protection = (bool[])baselineProtection.Clone();
                 var soft = (bool[])baselineSoft.Clone();
-                Carve(cells, protection, soft, start, planet.DockRow, target.Column, target.Floor);
+                var support = new bool[cells.Length];
+                Carve(cells, protection, soft, support, start, planet.DockRow, target.Column, target.Floor);
+                if (!TerrainCavityConnectivity.PreservesRooms(baseline, cells, context.Source.Rooms, context.Cancelled) &&
+                    !WalkwayCavityRepair.TryRepair(baseline, cells, protection, soft, support, context.Cancelled)) continue;
                 if (!TerrainCavityConnectivity.PreservesRooms(baseline, cells, context.Source.Rooms, context.Cancelled)) continue;
                 context.Replace(cells, protection, soft);
                 return;
@@ -76,7 +79,7 @@ namespace DarkNights.Core.Logic.Terrain
             return targets;
         }
 
-        private void Carve(byte[] cells, bool[] protection, bool[] soft, int start, int top, int end, int bottom)
+        private void Carve(byte[] cells, bool[] protection, bool[] soft, bool[] support, int start, int top, int end, int bottom)
         {
             int distance = Math.Abs(end - start), direction = Math.Sign(end - start);
             for (int step = 0; step <= distance; step++)
@@ -87,6 +90,7 @@ namespace DarkNights.Core.Logic.Terrain
                 {
                     int index = y * W + x;
                     cells[index] = (byte)(y < floor ? 0 : 2);
+                    support[index] = y >= floor;
                     protection[index] = false; soft[index] = false;
                 }
             }

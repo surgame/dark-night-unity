@@ -37,7 +37,7 @@ namespace DarkNights.Core.Logic.Terrain
             return true;
         }
 
-        private static int[] Label(byte[] cells, Func<bool> cancelled)
+        internal static int[] Label(byte[] cells, Func<bool> cancelled)
         {
             int[] labels = new int[cells.Length], queue = new int[cells.Length];
             int next = 0;

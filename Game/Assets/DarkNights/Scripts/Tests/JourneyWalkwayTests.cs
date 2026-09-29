@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Cysharp.Threading.Tasks;
+using DarkNights.Core.Config;
 using DarkNights.Core.Logic.Terrain;
 using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Objects;
@@ -112,16 +113,18 @@ namespace DarkNights.Tests
             ActorBehaviour hero, float targetX, bool bypassEntry, bool requireOutside)
         {
             float toe = Ship(world).X + ShipGeometry.RampToe;
-            int maximumTicks = (int)Math.Ceiling(Math.Abs(targetX - hero.X) / hero.Definition.Speed * 60) + 180;
+            float speed = world.Catalog.Balance.HeroControl.WalkSpeed;
+            float tolerance = speed / 60f * .51f + .01f;
+            int maximumTicks = (int)Math.Ceiling(Math.Abs(targetX - hero.X) / speed * 60) + 180;
             int stalled = 0;
-            for (int i = 0; i < maximumTicks && Math.Abs(hero.X - targetX) > .75f; i++)
+            for (int i = 0; i < maximumTicks && Math.Abs(hero.X - targetX) > tolerance; i++)
             {
                 var previous = hero.CaptureState();
                 Input(authority, host, hero, Math.Sign(targetX - previous.X),
                     down: bypassEntry && Math.Abs(previous.X - toe) <= 24);
                 var current = hero.CaptureState();
                 Assert.That(current.Hp, Is.GreaterThan(0), "角色必须存活完成往返，不能用死亡归船代替。");
-                Assert.That(Math.Abs(current.X - previous.X), Is.LessThanOrEqualTo(hero.Definition.Speed / 60f + .01f),
+                Assert.That(Math.Abs(current.X - previous.X), Is.LessThanOrEqualTo(speed / 60f + .01f),
                     "实际行走不能发生瞬移。");
                 stalled = Math.Abs(current.X - previous.X) < .001f ? stalled + 1 : 0;
                 Assert.That(stalled, Is.LessThan(90), $"真实运动受阻：({current.X},{current.Height}) -> {targetX}");
@@ -131,14 +134,14 @@ namespace DarkNights.Tests
                 await UniTask.Yield();
             }
             Input(authority, host, hero);
-            Assert.That(hero.X, Is.EqualTo(targetX).Within(.75f), "权威角色未能走到路径目标。");
+            Assert.That(hero.X, Is.EqualTo(targetX).Within(tolerance), "权威角色未能走到路径目标。");
         }
 
         private static void AssertBodyClear(ObjectSession world, ActorBehaviour hero)
         {
             var state = hero.CaptureState();
-            foreach (float side in new[] { -5f, 5f })
-                for (float head = 1; head <= 22; head += 7)
+            foreach (float side in new[] { -HeroControlDefinition.BodyHalfWidth, HeroControlDefinition.BodyHalfWidth })
+                for (float head = 1; head <= HeroControlDefinition.BodyHeight; head += 7)
                     Assert.That(TerrainHeroMotion.Solid(world.Terrain.Map, state.X + side, state.Height + head), Is.False,
                         $"角色实体穿入权威坡形：({state.X},{state.Height})。");
         }

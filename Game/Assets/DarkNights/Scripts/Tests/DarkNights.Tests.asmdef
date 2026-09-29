@@ -36,7 +36,8 @@
     "Newtonsoft.Json.dll",
     "nunit.framework.dll",
     "R3.dll",
-    "Sirenix.OdinInspector.Editor.dll"
+    "Sirenix.OdinInspector.Editor.dll",
+    "Sirenix.Utilities.Editor.dll"
   ],
   "autoReferenced": false
 }
