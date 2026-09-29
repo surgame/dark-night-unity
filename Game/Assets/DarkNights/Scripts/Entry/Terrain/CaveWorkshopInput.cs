@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using DarkNights.Core.Config;
+using DarkNights.Core.Config.Terrain;
 
 namespace DarkNights.Entry.Terrain
 {
@@ -18,6 +20,9 @@ namespace DarkNights.Entry.Terrain
         {
             if (Bootstrap == null || Bootstrap.Workshop == null || Bootstrap.Generating) return;
             var flyer = Bootstrap.Flyer; var keys = Keyboard.current; var mouse = Mouse.current;
+            if (flyer.Art != null && flyer.IdleFrame != null)
+                flyer.Art.transform.localScale = Vector3.one *
+                    (flyer.IdleFrame.pixelsPerUnit * HeroControlDefinition.VisualScale / PlayableTerrain.CellPixels);
             flyer.FlightInputEnabled = !Walking;
             if (keys == null || flyer.InputBlocked || flyer.WorkbenchPointerActive) return;
             if (keys.tabKey.wasPressedThisFrame)
@@ -31,10 +36,14 @@ namespace DarkNights.Entry.Terrain
             jump |= keys.spaceKey.wasPressedThisFrame;
             accumulator = Mathf.Min(accumulator + Time.unscaledDeltaTime, .1f);
             float horizontal = (keys.dKey.isPressed ? 1 : 0) - (keys.aKey.isPressed ? 1 : 0);
+            bool sprint = keys.leftShiftKey.isPressed || keys.rightShiftKey.isPressed;
+            float previousX = Bootstrap.Workshop.X;
             while (accumulator >= 1f / 60)
-            { Bootstrap.Workshop.Tick(horizontal, jump, keys.spaceKey.isPressed, 1f / 60); jump = false; accumulator -= 1f / 60; }
+            { Bootstrap.Workshop.Tick(horizontal, jump, keys.spaceKey.isPressed, 1f / 60, sprint); jump = false; accumulator -= 1f / 60; }
             flyer.Teleport(new Vector2(Bootstrap.Workshop.X, Bootstrap.Workshop.Y));
-            flyer.PresentMovement(horizontal, horizontal != 0 && Bootstrap.Workshop.Grounded, Time.unscaledDeltaTime);
+            float distance = Mathf.Abs(Bootstrap.Workshop.X - previousX) * PlayableTerrain.CellPixels;
+            flyer.PresentMovement(horizontal, horizontal != 0 && Bootstrap.Workshop.Grounded,
+                Time.unscaledDeltaTime, distance / HeroControlDefinition.WalkCycleDistance);
             if (mouse != null && !flyer.PointerOverPanel)
             {
                 float scroll = mouse.scroll.ReadValue().y;

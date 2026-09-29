@@ -10,7 +10,6 @@ namespace DarkNights.Runtime.Objects
     /// <summary>玩家与地面工人共用的船内坡道运动；只修改角色唯一位置，不把活动船体烘焙进地形。</summary>
     internal sealed class ShipCabinMotion
     {
-        private const float PlayerHalfWidth = 5, PlayerBodyHeight = 22;
         private readonly ObjectSession world;
         internal ShipCabinMotion(ObjectSession world) { this.world = world; }
         private BuildingBehaviour Ship => world.Expedition.Ship;
@@ -67,11 +66,11 @@ namespace DarkNights.Runtime.Objects
             }
 
             if (local < ShipGeometry.RampToe) local = ShipGeometry.RampToe;
-            float maximumFoot = MaximumFootHeight(local);
+            float maximumFoot = MaximumFootHeight(local, s.ManualControl);
             if (s.Height - ship.Height > maximumFoot)
             {
                 local = oldLocal;
-                maximumFoot = MaximumFootHeight(local);
+                maximumFoot = MaximumFootHeight(local, s.ManualControl);
             }
 
             float previousX = s.X;
@@ -115,9 +114,13 @@ namespace DarkNights.Runtime.Objects
             }
         }
 
-        private static float MaximumFootHeight(float local) =>
-            Math.Min(ShipGeometry.CabinCeiling(local - PlayerHalfWidth),
-                Math.Min(ShipGeometry.CabinCeiling(local), ShipGeometry.CabinCeiling(local + PlayerHalfWidth))) - PlayerBodyHeight;
+        private static float MaximumFootHeight(float local, bool manual)
+        {
+            float halfWidth = manual ? HeroControlDefinition.BodyHalfWidth : 5;
+            float height = manual ? HeroControlDefinition.BodyHeight : 22;
+            return Math.Min(ShipGeometry.CabinCeiling(local - halfWidth),
+                Math.Min(ShipGeometry.CabinCeiling(local), ShipGeometry.CabinCeiling(local + halfWidth))) - height;
+        }
 
         internal void Place(ActorBehaviour actor, float localX = ShipGeometry.HoldX)
         {

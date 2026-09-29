@@ -81,7 +81,7 @@ namespace DarkNights.Tests
             Assert.That(f.World.IssueOrders(new[] { f.ActorId }, 0, 800), Is.Zero);
             float start = f.Actor.X;
             Assert.That(f.Input(horizontal: 1), Is.True); f.Step(6);
-            Assert.That(f.Actor.X, Is.EqualTo(start + f.Actor.Definition.Speed * 1.35f * .1f).Within(.001));
+            Assert.That(f.Actor.X, Is.EqualTo(start + f.World.Catalog.Balance.HeroControl.WalkSpeed * .1f).Within(.001));
             Assert.That(f.State.Activity, Is.EqualTo(ActorActivity.Idle));
             Assert.That(f.World.Index.Actors[1].X, Is.EqualTo(187));
         });
@@ -93,7 +93,7 @@ namespace DarkNights.Tests
             Assert.That(f.Command(SessionOperation.ClaimHero).Code, Is.EqualTo(SessionResultCode.Applied));
             float start = f.Actor.X;
             Assert.That(f.Input(horizontal: 1), Is.True); f.Step(6);
-            Assert.That(f.Actor.X, Is.EqualTo(start + f.Actor.Definition.Speed * 1.35f * 8 * .1f).Within(.001));
+            Assert.That(f.Actor.X, Is.EqualTo(start + f.World.Catalog.Balance.HeroControl.WalkSpeed * 8 * .1f).Within(.001));
             Assert.That(f.World.Speed, Is.EqualTo(1));
         });
 

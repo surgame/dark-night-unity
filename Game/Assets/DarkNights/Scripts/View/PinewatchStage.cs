@@ -114,7 +114,7 @@ namespace DarkNights.View
         }
         public void ChangeZoom(float factor)
         {
-            zoom = Mathf.Clamp(zoom * factor, 1.8f, 4.5f); UpdateCamera();
+            zoom = Mathf.Clamp(zoom * factor, 1.2f, 4.5f); UpdateCamera();
         }
 
         public void Present(SessionViewData frame)

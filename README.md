@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-09-29 [主角比例与移动调整](docs/HERO_MOVEMENT_SCALE.md)：主角约 3 格高，普通 7 格/秒、Shift 约 11 格/秒；船内外碰撞、工作台和步行动画同步调整，默认镜头扩大视野。协议 **17**／存档 **v13**，旧档保留，请新开局。按用户要求未运行测试或构建，实际画面和通行待验证。
+
 2026-09-29 飞船交易修复候选：修复船内 E 打开商店后界面不可见和输入锁残留，补齐 UI Toolkit 主题与中文 TextCore 字体。协议 **17**／存档 **v12**；Editor 规则／交互和同一 Mono 双进程基本回归已执行，范围及剩余人工项见[验收记录](docs/SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)，操作步骤见[快速复测](docs/PLAYER_GUIDE.md#ship-trade-quick-check)。
 
 2026-09-28 原地着陆源码候选：星球降落不再要求对准唯一泊位，在飞行范围内具备安全支撑和净空即可原地着陆；游戏协议 **16**／存档 **v11**。旧 Player 与旧验收数字只代表协议 15，候选验证见[实现说明](docs/SPACE_TO_PLANET_IMPLEMENTATION.md)。

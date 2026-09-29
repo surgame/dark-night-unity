@@ -14,7 +14,6 @@ namespace DarkNights.Runtime.Terrain
         private readonly DIContainer container;
         private readonly ObjectSessionContext context;
         private readonly HeroControlDefinition rules;
-        private readonly float speed;
         private readonly ActorState actor;
         private bool active = true;
         private ulong sequence;
@@ -29,13 +28,14 @@ namespace DarkNights.Runtime.Terrain
             var source = game.Balance.HeroControl;
             // 工作台全图原点在顶部；只把全局高度上限平移到地图顶，跳跃与燃料数值保持原配置。
             rules = new HeroControlDefinition(source.JumpSpeed, source.Gravity, PlayableTerrain.OriginY + 8,
-                source.JetpackSpeed, source.FuelSeconds, source.FuelRecovery, source.DropSeconds, source.WorkReach);
-            speed = (float)game.Balance.Units["worker"].Speed;
+                source.JetpackSpeed, source.FuelSeconds, source.FuelRecovery, source.DropSeconds, source.WorkReach,
+                source.SprintMultiplier, source.WalkSpeed);
             container = new DIContainer(); container.Initialize();
             context = ObjectSessionContext.CreateAuthority(container, () => active); context.Activate();
             Map = new TerrainMapAuthority(context, blueprint, catalog, new WorldIdentity(StableGuid.Parse(Guid.NewGuid().ToString("N")), 1));
             Edits = new WorkshopTerrainEdits(Map, blueprint);
-            actor = new ActorState { JetpackOwned = true, JetpackEquipped = true, JetpackFuel = rules.FuelSeconds, SupportPlatform = -1 };
+            actor = new ActorState { ManualControl = true, JetpackOwned = true, JetpackEquipped = true,
+                JetpackFuel = rules.FuelSeconds, SupportPlatform = -1 };
             Teleport(blueprint.Rooms[0].X, -blueprint.Rooms[0].Y);
         }
         public void Teleport(float x, float y)
@@ -44,9 +44,9 @@ namespace DarkNights.Runtime.Terrain
             actor.Height = PlayableTerrain.OriginY + y * PlayableTerrain.CellPixels;
             actor.VerticalSpeed = 0; actor.SupportPlatform = -1; actor.JetpackFuel = rules.FuelSeconds;
         }
-        public void Tick(float horizontal, bool jump, bool held, float seconds)
+        public void Tick(float horizontal, bool jump, bool held, float seconds, bool sprint = false)
         {
-            TerrainHeroMotion.MoveHorizontal(Map, actor, actor.X + horizontal * speed * seconds);
+            TerrainHeroMotion.MoveHorizontal(Map, actor, actor.X + horizontal * rules.MoveSpeed(sprint) * seconds);
             TerrainHeroMotion.Tick(Map, actor, rules, seconds, jump, held);
         }
         public bool Edit(float x, float y, bool explode)

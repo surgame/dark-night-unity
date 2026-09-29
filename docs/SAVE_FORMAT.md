@@ -1,4 +1,6 @@
-# Unity 世界存档 v12（飞船交易与装备候选）
+# Unity 世界存档 v13（主角比例与运动）
+
+2026-09-29 [主角比例与移动](HERO_MOVEMENT_SCALE.md)升级为 **v13**，协议仍为 17。规则指纹标记 `dark-nights.rules.v4` 新增独立步速与主角碰撞尺寸，防止新碰撞规则直接恢复旧位置。旧 v12 及更早档案保留且拒绝读取，不自动迁移/删除。本批按用户要求未执行保存恢复测试。
 
 2026-09-29 [飞船交易与装备候选](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)使用 **v12**／协议 **17**。`economy.credits` 保存共享信用点；Actor 新增四个装备槽、背包版本和喷气所有权，恢复时严格校验合法值、重复装备和未购燃料。旧 v11 保留文件但当前读取入口拒绝旧版本。本批仅执行快速 EditMode 检查，其余恢复和独立进程验收见清单。
 
@@ -14,16 +16,16 @@
 
 2026-09-16，[主角与输入联合切片](archive/HERO_INPUT_EXECUTION.md)将正式格式升级为 v3：增加高度、纵向速度、平台支撑、下穿计时及道具状态。正式入口仍为 ObjectWorldSaveJson 与 GameSaveStore，状态仍来自所属 YYGC Behaviour。当前验收记录见联合执行文档；U5／U6 的 v2 计数按历史输入保留在[实施记录](archive/YYGC_UNIFIED_IMPLEMENTATION.md)。
 
-当前候选只接受 v11；旧格式不读取或自动迁移，旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前世界。下方根字段以当前源码为准；按日期标记的 v1–v10 说明仅用于追溯。历史 v1 证据见[原存储记录](archive/evidence/world-save-2026-09-11.json)。
+当前候选只接受 v13；旧格式不读取或自动迁移，旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前世界。下方根字段以当前源码为准；按日期标记的旧版本说明仅用于追溯。历史 v1 证据见[原存储记录](archive/evidence/world-save-2026-09-11.json)。
 
 ## 文件合同
 
-无 BOM 的 UTF-8 JSON，上限 **4,000,000 字节**，解析深度 32。v11 根对象严格只有 8 个字段：
+无 BOM 的 UTF-8 JSON，上限 **4,000,000 字节**，解析深度 32。v13 根对象严格只有 8 个字段：
 
-| 字段 | v11 合同 |
+| 字段 | v13 合同 |
 |---|---|
 | format | dark-nights.world |
-| format_version | 整数 11 |
+| format_version | 整数 13 |
 | random_algorithm | SimulationRandom.Algorithm，当前为 godot-pcg32-clz-f32-v1 |
 | rules_sha256 | 实际只读 GameCatalog 的规范化 SHA-256 |
 | layout_sha256 | 实际场景导出 LevelLayout 的规范化 SHA-256 |

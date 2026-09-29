@@ -10,7 +10,8 @@ namespace DarkNights.Runtime.Terrain
     /// <summary>主角按权威逻辑格执行有界分步碰撞；位置和速度仍只写 ActorState，Sprite、Collider 与客户端不参与结算。</summary>
     public static class TerrainHeroMotion
     {
-        private const float HalfWidth = 5, BodyHeight = 22;
+        private static float HalfWidth(ActorState state) => state.ManualControl ? HeroControlDefinition.BodyHalfWidth : 5;
+        private static float BodyHeight(ActorState state) => state.ManualControl ? HeroControlDefinition.BodyHeight : 22;
         public static bool Solid(IReadOnlyGrid map, float x, float height)
         {
             int u = (int)Math.Floor(x / PlayableTerrain.CellPixels + .5);
@@ -23,19 +24,25 @@ namespace DarkNights.Runtime.Terrain
             return TerrainShapeGeometry.Contains(TerrainShapeGeometry.Decode(cell.Flags),
                 x / PlayableTerrain.CellPixels - u + .5f, (height - PlayableTerrain.OriginY) / PlayableTerrain.CellPixels + y + .5f);
         }
-        private static bool Blocked(IReadOnlyGrid map, float x, float height)
+        private static bool Blocked(IReadOnlyGrid map, ActorState state, float x, float height)
         {
-            for (float y = 1; y <= BodyHeight; y += 7)
-                if (Solid(map, x - HalfWidth, height + y) || Solid(map, x + HalfWidth, height + y)) return true;
+            float bodyHeight = BodyHeight(state), halfWidth = HalfWidth(state);
+            int samples = (int)Math.Ceiling((bodyHeight - 1) / 7);
+            for (int i = 0; i <= samples; i++)
+            {
+                float y = height + 1 + (bodyHeight - 1) * i / samples;
+                if (Solid(map, x - halfWidth, y) || Solid(map, x, y) || Solid(map, x + halfWidth, y)) return true;
+            }
             return false;
         }
-        private static bool Supported(IReadOnlyGrid map, float x, float h) => Ground(map, x, h + .2f, h - .25f, out _);
-        private static bool Ground(IReadOnlyGrid map, float x, float high, float low, out float height)
+        private static bool Supported(IReadOnlyGrid map, ActorState state, float x, float h) =>
+            Ground(map, state, x, h + .2f, h - .25f, out _);
+        private static bool Ground(IReadOnlyGrid map, ActorState state, float x, float high, float low, out float height)
         {
             height = float.NegativeInfinity;
             for (int foot = -1; foot <= 1; foot++)
             {
-                float px = x + foot * HalfWidth;
+                float px = x + foot * HalfWidth(state);
                 int u = (int)Math.Floor(px / PlayableTerrain.CellPixels + .5f);
                 int top = (int)Math.Floor((PlayableTerrain.OriginY - high) / PlayableTerrain.CellPixels + .5f);
                 int bottom = (int)Math.Floor((PlayableTerrain.OriginY - low) / PlayableTerrain.CellPixels + .5f) + 1;
@@ -58,9 +65,9 @@ namespace DarkNights.Runtime.Terrain
             {
                 float next = previous + (target - previous) * i / steps;
                 float h = state.Height;
-                if (state.VerticalSpeed <= 0 && Supported(map, state.X, h) &&
-                    Ground(map, next, h + 2.05f, h - 2.05f, out float floor)) h = floor;
-                if (Blocked(map, next, h)) break;
+                if (state.VerticalSpeed <= 0 && Supported(map, state, state.X, h) &&
+                    Ground(map, state, next, h + 2.05f, h - 2.05f, out float floor)) h = floor;
+                if (Blocked(map, state, next, h)) break;
                 state.X = next; state.Height = h;
             }
         }
@@ -68,7 +75,7 @@ namespace DarkNights.Runtime.Terrain
             float? maximumHeight = null)
         {
             float ceiling = maximumHeight ?? rules.MaximumHeight;
-            bool grounded = state.VerticalSpeed <= 0 && Supported(map, state.X, state.Height);
+            bool grounded = state.VerticalSpeed <= 0 && Supported(map, state, state.X, state.Height);
             state.DropRemaining = 0; state.IgnoredPlatform = 0; state.SupportPlatform = grounded ? 0 : -1;
             if (grounded && jump) { state.VerticalSpeed = rules.JumpSpeed; grounded = false; state.SupportPlatform = -1; }
             if (grounded)
@@ -90,9 +97,9 @@ namespace DarkNights.Runtime.Terrain
             for (int i = 1; i <= steps; i++)
             {
                 float next = from + (target - from) * i / steps;
-                if (state.VerticalSpeed <= 0 && Ground(map, state.X, state.Height + .1f, next - .1f, out float floor))
+                if (state.VerticalSpeed <= 0 && Ground(map, state, state.X, state.Height + .1f, next - .1f, out float floor))
                 { state.Height = floor; state.VerticalSpeed = 0; state.SupportPlatform = 0; return; }
-                if (Blocked(map, state.X, next))
+                if (Blocked(map, state, state.X, next))
                 { state.VerticalSpeed = 0; return; }
                 state.Height = next;
             }

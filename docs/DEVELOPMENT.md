@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-09-29 [主角比例与移动调整](HERO_MOVEMENT_SCALE.md)：`fix-20260929-hero-movement-scale`；独立主角步速、冲刺、3 格显示、匹配碰撞、位移动画与镜头。协议 17／存档 v13，旧档保留，新开局使用新规则。用户明确无需测试；本批未运行测试或构建，不宣称实际手感/通行通过。
+
 2026-09-29 飞船商店交互修复：`fix-20260929-ship-shop-interaction`，协议 17／存档 v12。已修复不可见商店与输入回收，补做正式 Editor Play、三分辨率画面及 Mono 双进程交易／重连／真实重启恢复；通过项、首次失败原因与剩余人工范围见[本批验收](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md#2026-09-29-按-e-卡住的修复与基本回归)。
 
 2026-09-29 [飞船交易、冲刺与背包改版](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)在 `ft-20260929-ship-trade-equipment` 形成源码候选：YYGC 子模块定义、角色唯一装备状态、可信交易事务及 UI Toolkit／R3 展示已接入；协议 **17**／存档 **v12**。自动与人工验收状态见清单，不沿用协议 16／v11 的旧结果。前置方案保留在[设计](SHIP_TRADE_EQUIPMENT_DESIGN.md)。

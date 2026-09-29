@@ -39,7 +39,7 @@ namespace DarkNights.Runtime.Save
 
         private static void WriteRules(BinaryWriter writer, GameCatalog catalog)
         {
-            writer.Write("dark-nights.rules.v3");
+            writer.Write("dark-nights.rules.v4");
             BalanceDefinition balance = catalog.Balance;
             writer.Write(balance.SchemaVersion);
             HeroControlDefinition hero = balance.HeroControl;
@@ -50,6 +50,8 @@ namespace DarkNights.Runtime.Save
                 writer.Write(hero.JetpackSpeed); writer.Write(hero.FuelSeconds); writer.Write(hero.FuelRecovery);
                 writer.Write(hero.DropSeconds); writer.Write(hero.WorkReach);
                 writer.Write(hero.SprintMultiplier);
+                writer.Write(hero.WalkSpeed);
+                writer.Write(HeroControlDefinition.BodyHalfWidth); writer.Write(HeroControlDefinition.BodyHeight);
             }
             writer.Write(balance.Expedition.OxygenSeconds);
             writer.Write(balance.Expedition.BagCapacity);

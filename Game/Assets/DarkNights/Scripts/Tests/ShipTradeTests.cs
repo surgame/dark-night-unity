@@ -38,7 +38,7 @@ namespace DarkNights.Tests
             Assert.That(f.Authority.SubmitInput(f.Host, f.Packet(horizontal: 1, sprintHeld: true)), Is.True);
             f.Step(6);
             float sprintDistance = f.Actor.X - start;
-            double normalDistance = f.Actor.Definition.Speed * 1.35 * .1;
+            double normalDistance = f.World.Catalog.Balance.HeroControl.WalkSpeed * .1;
             Assert.That(sprintDistance, Is.EqualTo(normalDistance * f.World.Catalog.Balance.HeroControl.SprintMultiplier).Within(.001));
             Assert.That(f.Authority.SubmitInput(f.Host, f.Packet(horizontal: 1)), Is.True);
             f.Step(6);

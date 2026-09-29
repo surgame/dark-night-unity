@@ -39,7 +39,7 @@ namespace DarkNights.Tests
             int expected = source.Descendants().Concat(JObject.Parse(level).Descendants())
                 .Count(t => t is JValue && !(t.Parent is JProperty property && property.Name == "sprite"));
             Assert.That(fields, Is.EqualTo(expected));
-            Assert.That(Compare(hero, catalog.Balance.HeroControl), Is.EqualTo(8));
+            Assert.That(Compare(hero, catalog.Balance.HeroControl), Is.EqualTo(10));
             Assert.That(catalog.Level.Seed, Is.EqualTo(90127UL));
             Assert.That(catalog.Level.Waves.Select(wave => wave.Enemies.Count), Is.EqualTo(new[] { 7, 11, 16 }));
             Assert.That(catalog.Balance.Worksites["food"].Amount, Is.EqualTo(-1));
@@ -161,7 +161,7 @@ namespace DarkNights.Tests
                 return items.Select((item, index) => Compare(item, values[index])).Sum();
             }
             if (expected.Type == JTokenType.Integer || expected.Type == JTokenType.Float)
-                Assert.That(Convert.ToDouble(actual), Is.EqualTo((double)expected), expected.Path);
+                Assert.That(Convert.ToDouble(actual), Is.EqualTo(actual is float ? (double)(float)expected : (double)expected), expected.Path);
             else Assert.That(actual.ToString(), Is.EqualTo((string)expected), expected.Path);
             return 1;
         }

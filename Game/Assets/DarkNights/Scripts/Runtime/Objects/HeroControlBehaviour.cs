@@ -11,7 +11,6 @@ namespace DarkNights.Runtime.Objects
     /// </summary>
     public sealed partial class HeroControlBehaviour : PooledBehaviour
     {
-        internal const float PlayerMovementMultiplier = 1.35f;
         [Inject] private ActorBehaviour actor;
         [Inject] private HeroMotionBehaviour motion;
         [Inject] private ActorCombatBehaviour combat;
@@ -48,8 +47,9 @@ namespace DarkNights.Runtime.Objects
         }
 
         internal static float PlayerMoveSpeed(ActorBehaviour actor) =>
-            (float)(actor.Definition.Speed * PlayerMovementMultiplier * actor.World.DebugHeroSpeedMultiplier *
-                (actor.Read().SprintHeld && actor.Read().ManualControl ? actor.World.Catalog.Balance.HeroControl.SprintMultiplier : 1));
+            actor.Read().ManualControl
+                ? actor.World.Catalog.Balance.HeroControl.MoveSpeed(actor.Read().SprintHeld) * actor.World.DebugHeroSpeedMultiplier
+                : (float)actor.Definition.Speed;
 
         internal void Claim(int slot, int generation)
         {

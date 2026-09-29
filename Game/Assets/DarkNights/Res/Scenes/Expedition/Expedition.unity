@@ -636,7 +636,7 @@ MonoBehaviour:
   - {fileID: 625004825}
   environment: {fileID: 837362492}
   cameraX: 255
-  zoom: 2.8
+  zoom: 1.5
   worldWidth: 1100
 --- !u!114 &232465613
 MonoBehaviour:

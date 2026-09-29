@@ -51,13 +51,13 @@ namespace DarkNights.View.Terrain
         }
 
         /// <summary>行走和观察共用的姿态入口；使用原始画布的底边中点，翻转和换帧不会移动脚底锚点。</summary>
-        public void PresentMovement(float horizontal, bool isMoving, float seconds)
+        public void PresentMovement(float horizontal, bool isMoving, float seconds, float? walkCycles = null)
         {
             if (Art == null) return;
             if (horizontal != 0) Art.flipX = horizontal < 0;
             if (moving != isMoving) animationTime = 0;
             moving = isMoving;
-            animationTime = (animationTime + Mathf.Max(0, seconds)) % 1f;
+            animationTime = (animationTime + Mathf.Max(0, walkCycles ?? seconds)) % 1f;
             if (moving && WalkFrames.Length > 0)
                 Art.sprite = WalkFrames[Mathf.FloorToInt(animationTime * WalkFrames.Length)];
             else if (IdleFrame != null) Art.sprite = IdleFrame;

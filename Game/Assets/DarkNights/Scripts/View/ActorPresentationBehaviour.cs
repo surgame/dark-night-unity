@@ -12,6 +12,9 @@ namespace DarkNights.View
     public sealed class ActorPresentationBehaviour : EntityPresentationBehaviour
     {
         private UnitDefinition rules;
+        private bool hasWalkPosition;
+        private float lastWalkX, lastWalkHeight;
+        private double walkCycles;
         private ActorView ActorVisual => Visual as ActorView ??
             throw new InvalidOperationException("Actor presentation is missing ActorView.");
         public ActorViewData Current { get; private set; }
@@ -29,6 +32,7 @@ namespace DarkNights.View
         public bool Present(ActorViewData actor, int epoch, string workKind, float x, double actionTime, Color ambient, float? height = null, float visualScale = 1)
         {
             if (actor == null || !Accept(actor.Id, epoch, actor.Kind)) return false;
+            if (Current == null || Current.ManualControl != actor.ManualControl) hasWalkPosition = false;
             Current = actor;
             Pose = actor.ManualControl && actor.Activity == "Attack" ? "attack" :
                 actor.Walking || actor.Activity == "Move" || actor.Activity == "WorkMove" ||
@@ -37,9 +41,20 @@ namespace DarkNights.View
                 actor.Kind == "worker" && actor.Activity == "Work" ?
                     workKind == "wood" ? "work_wood" : workKind == "food" ? "work_farm" : "work_mine" : "idle";
             Position(x, ambient, height ?? actor.Height);
-            Visual.transform.localScale = Vector3.one * visualScale;
+            Visual.transform.localScale = Vector3.one * (actor.ManualControl ? HeroControlDefinition.VisualScale : visualScale);
             double seconds = actor.Activity == "Attack"
                 ? actionTime / rules.AttackSeconds * ActorVisual.PoseDuration(Pose) : actionTime;
+            float footHeight = height ?? actor.Height;
+            if (actor.ManualControl && Pose == "move")
+            {
+                float distance = hasWalkPosition ? Mathf.Abs(x - lastWalkX) : 0;
+                // 只累计插值后的实际地面路程；传送、切图和空中移动不快进行走动画。
+                if (hasWalkPosition && actor.SupportPlatform >= 0 && distance < 32 && Mathf.Abs(footHeight - lastWalkHeight) < 32)
+                    walkCycles = (walkCycles + distance / HeroControlDefinition.WalkCycleDistance) % 1;
+                seconds = walkCycles * ActorVisual.PoseDuration("move");
+            }
+            else walkCycles = 0;
+            lastWalkX = x; lastWalkHeight = footHeight; hasWalkPosition = true;
             ActorVisual.SamplePose(Pose, seconds);
             ActorVisual.SetStanding(actor.Face);
             ActorVisual.TintActor(actor.Id, actor.HitFlash > 0, actor.Activity == "Training");
@@ -60,6 +75,7 @@ namespace DarkNights.View
             Current = null;
             rules = null;
             Pose = "";
+            hasWalkPosition = false; walkCycles = 0;
         }
     }
 }

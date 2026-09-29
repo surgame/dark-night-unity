@@ -26,6 +26,8 @@
 
 ## 近期切片与候选（2026-09-26）
 
+- [主角比例与移动调整](HERO_MOVEMENT_SCALE.md) — 2026-09-29：3 格高、7/11 格每秒、镜头及工作台同步；v13，按用户要求未测试/构建
+
 - [飞船交易、冲刺与背包改版验收](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md) / [设计](SHIP_TRADE_EQUIPMENT_DESIGN.md) — 2026-09-29 源码候选：船内 E 出售／购物、Shift、空装备开局、四格与独立喷气能量格；测试结果以验收页为准
 - [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md) / [验收清单](SPACE_TO_PLANET_ACCEPTANCE.md) / [设计](SPACE_TO_PLANET_FLOW_DESIGN.md) — 主分支 `31aaecf` 基线；YYGC 航程、UI Toolkit 星球表格、会话内切图和驾驶降落；Local 编译、Mono r2、纯回归及实际 Play 主流程已执行；多人／弱网等结果持续记入清单
 - [主角控制链路前后对照](HERO_INPUT_ARCHITECTURE.html) — 输入采样、命令、服务端授权、ObjectsV2 模拟与镜头表现的交互式职责图；重构后的人工验证待完成

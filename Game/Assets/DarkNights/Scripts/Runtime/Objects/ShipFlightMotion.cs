@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DarkNights.Core.Config;
 using DarkNights.Core.Logic.Terrain;
 using DarkNights.Runtime.Terrain;
 using UnityEngine;
@@ -94,9 +95,12 @@ namespace DarkNights.Runtime.Objects
             if (!TerrainHeroMotion.Solid(world.Terrain.Map, x - 56, h - 1) ||
                 !TerrainHeroMotion.Solid(world.Terrain.Map, x + 104, h - 1) ||
                 !TerrainHeroMotion.Solid(world.Terrain.Map, x + ShipGeometry.RampToe - 8, h - 1)) return false;
-            for (float local = ShipGeometry.RampToe; local <= ShipGeometry.RampHinge; local += 4)
-                for (float head = 1; head <= 28; head += 4)
-                    if (TerrainHeroMotion.Solid(world.Terrain.Map, x + local, h + ShipGeometry.Floor(local) + head)) return false;
+            // 着陆必须为放大后的主角预留坡道及出口净空，不能只检查旧版 28px 的头顶高度。
+            for (float local = ShipGeometry.RampToe - HeroControlDefinition.BodyHalfWidth;
+                local <= ShipGeometry.RampHinge + HeroControlDefinition.BodyHalfWidth; local += 4)
+                for (float head = 1; head <= HeroControlDefinition.BodyHeight + 1; head += 4)
+                    if (TerrainHeroMotion.Solid(world.Terrain.Map, x + local,
+                        h + ShipGeometry.Floor(Math.Max(ShipGeometry.RampToe, local)) + head)) return false;
             return true;
         }
 
