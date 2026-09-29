@@ -14,6 +14,8 @@ namespace DarkNights.View.Terrain
         public CaveBackgroundPage(int x, int row, byte[][] pixels, Material wall, Transform parent, CaveBackgroundStyle style)
         {
             material = new Material(wall) { name = "Static cave background page" };
+            // 每页再复制一次背景材质，必须重新绑定正式场景的地图坐标变换。
+            material.SetMatrix("_MapWorldToLocal", parent.worldToLocalMatrix);
             string[] names = { "_StrataNear", "_StrataMiddle", "_StrataDeep" };
             for (int i = 0; i < 3; i++)
             {

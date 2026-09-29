@@ -66,6 +66,8 @@ namespace DarkNights.View.Terrain
             oreMap = new Texture2D(W, H, TextureFormat.RGBA32, false, true) { filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp };
             Material.SetTexture("_OreMap", oreMap);
             background = new Material(Material); background.SetFloat("_Background", 1);
+            // _MapWorldToLocal 不是 Shader Properties，Unity 复制材质时不会保留它。
+            background.SetMatrix("_MapWorldToLocal", parent.worldToLocalMatrix);
             backdrop = new GameObject("Cave distant wall"); backdrop.transform.SetParent(parent, false);
             mesh = new Mesh { name = "Cave backdrop quad" };
             mesh.vertices = new[] { new Vector3(-1, -193, 1), new Vector3(321, -193, 1), new Vector3(321, 12, 1), new Vector3(-1, 12, 1) };
