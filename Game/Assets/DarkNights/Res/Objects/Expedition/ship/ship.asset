@@ -39,6 +39,7 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.BuildingBehaviour
   SharedConfigs:
   - rid: 6961529756691202140
+  - rid: 6961529947238957162
   references:
     version: 2
     RefIds:
@@ -46,3 +47,14 @@ MonoBehaviour:
       type: {class: BuildingRuleConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         RuleKey: ship
+    - rid: 6961529947238957162
+      type: {class: ShipServicesConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        Sale:
+          guid: 62fb5b5da1e516045a13b3a3522514ce
+          legacyId: 0
+        Shop:
+          guid: d43f019c879d4c146893680891799fbb
+          legacyId: 0
+        SaleEnabled: 1
+        ShopEnabled: 1

@@ -48,6 +48,12 @@ namespace DarkNights.Runtime.Objects
         public bool ManualControl { get; internal set; }
         public int SelectedItem { get; internal set; }
         public int SelectionRevision { get; internal set; }
+        public int InventoryRevision { get; internal set; }
+        public int Slot0 { get; internal set; }
+        public int Slot1 { get; internal set; }
+        public int Slot2 { get; internal set; }
+        public int Slot3 { get; internal set; }
+        public bool JetpackOwned { get; internal set; }
         public bool JetpackEquipped { get; internal set; }
         public double JetpackFuel { get; internal set; }
         public int ExplosiveCharges { get; internal set; }
@@ -67,6 +73,7 @@ namespace DarkNights.Runtime.Objects
         public long LastInputSequence { get; internal set; }
         public long LastInputTick { get; internal set; }
         public int Horizontal { get; internal set; }
+        public bool SprintHeld { get; internal set; }
         public bool JumpHeld { get; internal set; }
         public bool UseHeld { get; internal set; }
         public bool JumpPending { get; internal set; }

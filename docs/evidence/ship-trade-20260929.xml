@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="10" result="Passed" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-09-29 09:51:41Z" end-time="2026-09-29 09:51:42Z" duration="1.755495">
+  <test-suite type="TestSuite" id="1000" name="DNights" fullname="DNights" runstate="Runnable" testcasecount="341" result="Passed" start-time="2026-09-29 09:51:41Z" end-time="2026-09-29 09:51:42Z" duration="1.755495" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1421" name="DarkNights.Tests.dll" fullname="D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Tests.dll" runstate="Runnable" testcasecount="340" result="Passed" start-time="2026-09-29 09:51:41Z" end-time="2026-09-29 09:51:42Z" duration="1.650351" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="3120" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1422" name="DarkNights" fullname="DarkNights" runstate="Runnable" testcasecount="340" result="Passed" start-time="2026-09-29 09:51:41Z" end-time="2026-09-29 09:51:42Z" duration="1.645135" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1423" name="Tests" fullname="DarkNights.Tests" runstate="Runnable" testcasecount="340" result="Passed" start-time="2026-09-29 09:51:41Z" end-time="2026-09-29 09:51:42Z" duration="1.531235" total="10" passed="10" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1077" name="ExpeditionTests" fullname="DarkNights.Tests.ExpeditionTests" classname="DarkNights.Tests.ExpeditionTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-09-29 09:51:41Z" end-time="2026-09-29 09:51:42Z" duration="0.664531" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1082" name="StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent" fullname="DarkNights.Tests.ExpeditionTests.StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent" methodname="StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent" classname="DarkNights.Tests.ExpeditionTests" runstate="Runnable" seed="1802458164" result="Passed" start-time="2026-09-29 09:51:41Z" end-time="2026-09-29 09:51:42Z" duration="0.552453" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1090" name="HeroBombTests" fullname="DarkNights.Tests.HeroBombTests" classname="DarkNights.Tests.HeroBombTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.081283" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1091" name="ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging" fullname="DarkNights.Tests.HeroBombTests.ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging" methodname="ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging" classname="DarkNights.Tests.HeroBombTests" runstate="Runnable" seed="181830979" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.075893" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1100" name="HeroControlTests" fullname="DarkNights.Tests.HeroControlTests" classname="DarkNights.Tests.HeroControlTests" runstate="Runnable" testcasecount="10" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.211578" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1109" name="PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources" fullname="DarkNights.Tests.HeroControlTests.PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources" methodname="PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources" classname="DarkNights.Tests.HeroControlTests" runstate="Runnable" seed="1251953952" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.162483" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+            <test-case id="1108" name="SelectionVersionAndFuelRemainAuthoritative" fullname="DarkNights.Tests.HeroControlTests.SelectionVersionAndFuelRemainAuthoritative" methodname="SelectionVersionAndFuelRemainAuthoritative" classname="DarkNights.Tests.HeroControlTests" runstate="Runnable" seed="1498629183" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.042465" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1111" name="HeroRecoveryTests" fullname="DarkNights.Tests.HeroRecoveryTests" classname="DarkNights.Tests.HeroRecoveryTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.179649" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1112" name="AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership" fullname="DarkNights.Tests.HeroRecoveryTests.AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership" methodname="AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership" classname="DarkNights.Tests.HeroRecoveryTests" runstate="Runnable" seed="2129920897" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.172157" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1299" name="ShipTradeTests" fullname="DarkNights.Tests.ShipTradeTests" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.388787" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1301" name="EmptyEquipmentAndSprintAreAuthoritative" fullname="DarkNights.Tests.ShipTradeTests.EmptyEquipmentAndSprintAreAuthoritative" methodname="EmptyEquipmentAndSprintAreAuthoritative" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" seed="697762216" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.148391" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+            <test-case id="1302" name="SaveRejectsInvalidEquipmentAndCredits" fullname="DarkNights.Tests.ShipTradeTests.SaveRejectsInvalidEquipmentAndCredits" methodname="SaveRejectsInvalidEquipmentAndCredits" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" seed="280295381" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.047681" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+            <test-case id="1304" name="ShopAndSaleUseLeasePositionAndAtomicState" fullname="DarkNights.Tests.ShipTradeTests.ShopAndSaleUseLeasePositionAndAtomicState" methodname="ShopAndSaleUseLeasePositionAndAtomicState" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" seed="1758096059" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.116099" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+            <test-case id="1303" name="ShopReservesFirstPickaxeBudget" fullname="DarkNights.Tests.ShipTradeTests.ShopReservesFirstPickaxeBudget" methodname="ShopReservesFirstPickaxeBudget" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" seed="1218727318" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.062820" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WorldSessionBehaviour
+  New: CampSimulationBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: CampSimulationBehaviour
+  New: EconomyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: EconomyBehaviour
+  New: WaveBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: WaveBehaviour
+  New: ProjectileBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IStatefulBehaviour registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+[DIContainer:WorldSession (Def:灰松谷会话)] Type IObjectMutation registration was overwritten.
+  Old: ProjectileBehaviour
+  New: ExpeditionJourneyBehaviour
+]]></output>
+            </test-case>
+            <test-case id="1300" name="TradeValuesAndSprintBoundsAreValidated" fullname="DarkNights.Tests.ShipTradeTests.TradeValuesAndSprintBoundsAreValidated" methodname="TradeValuesAndSprintBoundsAreValidated" classname="DarkNights.Tests.ShipTradeTests" runstate="Runnable" seed="1223767844" result="Passed" start-time="2026-09-29 09:51:42Z" end-time="2026-09-29 09:51:42Z" duration="0.002395" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/Jobscn/AppData/LocalLow/DefaultCompany/DNights\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

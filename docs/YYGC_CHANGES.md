@@ -1,5 +1,9 @@
 # YYGC 修改授权与改动账本
 
+## 2026-09-29：飞船交易与装备候选
+
+本批 **YYGC 框架仓库修改文件：无**。飞船服务使用现有 ObjectDefinition／`IConfigData` 与 `DefinitionReference`；UI 使用现有 `UIManager`／`UIPanel` 及绑定扩展；权威命令、对象状态和联机投影只修改游戏仓库。游戏候选协议 17／存档 v12，当前 Editor 快速测试 10/10 通过；框架包修改、独立进程与新机器依赖恢复均未在本批执行。
+
 ## 2026-09-27：框架分支合入 master
 
 用户授权将游戏实际使用的 YYGC 改动合入 `master`。`D:/Developer/YYGC` 活动检出中暂存的八个文件与 `fix-20260926-bootstrap-startup`（`094e722`、`19d8f5b`）逐字节一致，以合并提交 **`0a9eec7`** 记录，工作区文件无变化；`CHANGELOG.md` 补记后 `master` 快进到 **`fee1864`**，原 `4939af2` 之后的地图联网拆包、局部地形刷新、地形复核、生成注册范围及启动修复共 24 个提交全部合入。活动检出已切到 `master`（同一提交）。AnyRules 暂无旧数据，拆包不做数据迁移。未推送远端。

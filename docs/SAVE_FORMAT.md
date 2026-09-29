@@ -1,4 +1,6 @@
-# Unity 世界存档 v11（太空到星球流程）
+# Unity 世界存档 v12（飞船交易与装备候选）
+
+2026-09-29 [飞船交易与装备候选](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)使用 **v12**／协议 **17**。`economy.credits` 保存共享信用点；Actor 新增四个装备槽、背包版本和喷气所有权，恢复时严格校验合法值、重复装备和未购燃料。旧 v11 保留文件但当前读取入口拒绝旧版本。本批仅执行快速 EditMode 检查，其余恢复和独立进程验收见清单。
 
 2026-09-26 [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)使用 **v11**／协议 **15**。新增 `expedition.Journey`，定义见 `JourneySaveJson`；只保存 Orbit／Descent／Landed，校验当前指纹、完整目录、实际种子与地图阶段，保存最终地图。下降恢复释放驾驶占用并悬停，着陆恢复保留剩余开门时间。当前纯校验与 Editor 恢复已执行，真实写盘重启和多人恢复按本批产物记录在[验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)；历史结果不替代本批结果。
 

@@ -17,7 +17,8 @@ namespace DarkNights.Core.Config
         public double ThreatSeconds { get; }
         public int ModulePrice { get; }
         public ShipFlightDefinition Ship { get; }
-        public ExpeditionDefinition(double oxygenSeconds = 120, int bagCapacity = 24, int shipCapacity = 160, int storageCapacity = 80, double oxygenRadius = 120, double relayRange = 360, int powerSupply = 12, double deploySeconds = 3, double extractSeconds = 2, double recallSeconds = 8, double threatSeconds = 90, int modulePrice = 10, ShipFlightDefinition ship = null)
+        public ShipTradeDefinition Trade { get; }
+        public ExpeditionDefinition(double oxygenSeconds = 120, int bagCapacity = 24, int shipCapacity = 160, int storageCapacity = 80, double oxygenRadius = 120, double relayRange = 360, int powerSupply = 12, double deploySeconds = 3, double extractSeconds = 2, double recallSeconds = 8, double threatSeconds = 90, int modulePrice = 10, ShipFlightDefinition ship = null, ShipTradeDefinition trade = null)
         {
             if (oxygenSeconds <= 0 || oxygenSeconds > 10000 || double.IsNaN(oxygenSeconds)) throw new ArgumentOutOfRangeException(nameof(oxygenSeconds));
             OxygenSeconds = oxygenSeconds;
@@ -43,6 +44,7 @@ namespace DarkNights.Core.Config
             ThreatSeconds = threatSeconds;
             if (modulePrice <= 0 || modulePrice > 10000) throw new ArgumentOutOfRangeException(nameof(modulePrice));
             ModulePrice = modulePrice; Ship = ship ?? new ShipFlightDefinition();
+            Trade = trade ?? new ShipTradeDefinition(16, 1, 4, 10, 4, 14);
         }
     }
 }

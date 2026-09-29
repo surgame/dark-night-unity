@@ -32,6 +32,7 @@ namespace DarkNights.Entry
         private string notice = "";
         public ActorViewData Current { get; private set; }
         public string JumpBindingLabel => input?.JumpBindingLabel;
+        public void CancelWorldInput() => StopInput();
 
         /// <summary>设置本地模式偏好；连接前仅记录，连接后通过同一权威入口接管或释放角色。</summary>
         public async UniTask SetHeroMode(bool value)
@@ -183,11 +184,11 @@ namespace DarkNights.Entry
 
         private async UniTask Use()
         {
-            if (Current.SelectedItem != 3) return;
+            if (Current == null) return;
             try
             {
                 await network.Client.Send(SessionOperation.UseHeroItem, new[] { Current.Id }, target: 0,
-                    kind: HeroInventoryBehaviour.ItemKey(Current.SelectedItem), value: Current.SelectionRevision, controlLease: Current.ControlLease);
+                    kind: "pickaxe", value: Current.SelectionRevision, controlLease: Current.ControlLease);
             }
             catch (Exception error) { notice = error.Message; }
         }
@@ -198,7 +199,7 @@ namespace DarkNights.Entry
             {
                 await network.Client.SendInput(actorId, lease, packet.Direction, packet.JumpHeld, packet.UseHeld,
                     packet.JumpPressed, packet.DropPressed, packet.Aim, packet.SelectionRevision,
-                    packet.UsePressed, packet.UseReleased, packet.CancelUse);
+                    packet.UsePressed, packet.UseReleased, packet.CancelUse, packet.SprintHeld);
             }
             catch (Exception error) { notice = error.Message; }
         }

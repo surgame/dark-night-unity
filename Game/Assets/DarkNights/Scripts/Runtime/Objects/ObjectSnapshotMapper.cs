@@ -26,7 +26,8 @@ namespace DarkNights.Runtime.Objects
                 return new ActorSnapshot(a.Id, actor.RuleKey, a.Enemy, a.Name, a.X, a.Hp, a.Activity,
                     a.TargetId, a.MoveX, a.RallyX, a.Face, a.ActionTime, a.AttackClock, a.Windup,
                     a.HitPending, a.ForcedAttack, a.AiClock,
-                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.IgnoredPlatform, a.DropRemaining, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ExplosiveCharges, a.AimAngle, a.EquipmentCooldown, a.EquipmentAction, a.EquipmentActionDuration);
+                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.IgnoredPlatform, a.DropRemaining, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ExplosiveCharges, a.AimAngle, a.EquipmentCooldown, a.EquipmentAction, a.EquipmentActionDuration,
+                    a.InventoryRevision, a.Slot0, a.Slot1, a.Slot2, a.Slot3, a.JetpackOwned);
             }).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {
@@ -49,7 +50,7 @@ namespace DarkNights.Runtime.Objects
                     new double[] { p.X, session.Layout.GroundY - p.Height }, new double[] { p.X, session.Layout.GroundY - p.Height },
                     0, p.Damage, p.Age, p.Lifetime, p.Kind, p.VelocityX, p.VelocityY, p.Gravity, p.Radius, p.BlastRadius, p.Stuck))).ToArray();
             return new SessionSnapshot(ObjectWorldSaveJson.FormatVersion, session.Catalog.Level.Id,
-                new EconomySnapshot(session.Economy.Stock, economy.UpkeepElapsed, economy.StarvationElapsed, economy.RecruitCooldown),
+                new EconomySnapshot(session.Economy.Stock, economy.UpkeepElapsed, economy.StarvationElapsed, economy.RecruitCooldown, economy.Credits),
                 new WaveSnapshot(wave.Index, wave.Phase, wave.DayRemaining, wave.SpawnElapsed, wave.NextSpawn),
                 camp.Elapsed, camp.Speed, camp.Paused, camp.NextEntityId,
                 unchecked((long)camp.RandomSeed).ToString(CultureInfo.InvariantCulture),
@@ -70,7 +71,7 @@ namespace DarkNights.Runtime.Objects
         internal static EconomyState Economy(SessionSnapshot s) => new EconomyState
         {
             Food = s.Economy.Resources.Food, Wood = s.Economy.Resources.Wood, Stone = s.Economy.Resources.Stone,
-            Iron = s.Economy.Resources.Iron, Gold = s.Economy.Resources.Gold,
+            Iron = s.Economy.Resources.Iron, Gold = s.Economy.Resources.Gold, Credits = s.Economy.Credits,
             UpkeepElapsed = s.Economy.UpkeepElapsed, StarvationElapsed = s.Economy.StarvationElapsed,
             RecruitCooldown = s.Economy.RecruitCooldown,
             GatheredFood = s.Stats.Gathered.Food, GatheredWood = s.Stats.Gathered.Wood,
@@ -121,7 +122,10 @@ namespace DarkNights.Runtime.Objects
                     ActionTime = a.ActionTime, AttackClock = a.AttackClock, Windup = a.Windup,
                     HitPending = a.HitPending, ForcedAttack = a.ForcedAttack, AiClock = a.AiClock,
                     Height = a.Height, VerticalSpeed = a.VerticalSpeed, SupportPlatform = a.SupportPlatform, IgnoredPlatform = a.IgnoredPlatform, DropRemaining = a.DropRemaining, ManualControl = a.ManualControl, SelectedItem = a.SelectedItem, SelectionRevision = a.SelectionRevision, JetpackEquipped = a.JetpackEquipped, JetpackFuel = a.JetpackFuel, AimAngle = a.AimAngle, EquipmentCooldown = a.EquipmentCooldown, EquipmentAction = a.EquipmentAction, EquipmentActionDuration = a.EquipmentActionDuration,
-                    ExplosiveCharges = a.ExplosiveCharges, LastTerrainActionTick = -1000
+                    ExplosiveCharges = a.ExplosiveCharges, LastTerrainActionTick = -1000,
+                    InventoryRevision = a.InventoryRevision,
+                    Slot0 = a.Slot0, Slot1 = a.Slot1, Slot2 = a.Slot2, Slot3 = a.Slot3,
+                    JetpackOwned = a.JetpackOwned
                 });
             }
             else if (owner.GetBehaviour<BuildingBehaviour>() is BuildingBehaviour building)

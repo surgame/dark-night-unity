@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-09-29 [飞船交易与装备候选](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)：交易模块由飞船子物体 Definition／IConfigData 指定，权威写入留在既有 Actor／Economy Behaviour；输入、命令和冻结投影沿 YYGC 会话链，装备 UI 由 YYGC UIManager／UIPanel 绑定 UXML 并使用 R3 订阅。协议 **17**／存档 **v12**；真实画面及跨进程验收见清单。
+
 2026-09-28 原地着陆候选：星球飞船在当前安全位置落地，配置到达点仅保留地图生成和飞行包络职责。协议 **16**／存档 **v11**；着陆状态仍由权威 `BuildingState`、`ExpeditionJourneyBehaviour` 和原会话投影承载。
 
 2026-09-26 [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)：协议 15／存档 v11。`ExpeditionFlowBehaviour : PooledBehaviour` 注入 `IConfigData` 并冻结目录；航程唯一状态归 `ExpeditionJourneyBehaviour`，船体／乘员继续归原 Building／Actor State。纯生成器准备候选，单一权威事务交换地图；冻结展示副本和实际相机回执门控 Ready。没有新增并行世界、对象网络变换或客户端模拟。验证状态以本批[验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)为准。

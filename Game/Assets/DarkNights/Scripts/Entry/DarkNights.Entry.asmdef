@@ -22,6 +22,7 @@
   "precompiledReferences": [
     "Newtonsoft.Json.dll",
     "VitalRouter.dll",
-    "MemoryPack.Core.dll"
+    "MemoryPack.Core.dll",
+    "R3.dll"
   ]
 }

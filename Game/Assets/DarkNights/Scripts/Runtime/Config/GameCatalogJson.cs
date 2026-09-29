@@ -50,7 +50,12 @@ namespace DarkNights.Runtime.Config
         }
 
         private static ExpeditionDefinition Expedition(JToken v) => v == null ? new ExpeditionDefinition() : new ExpeditionDefinition(
-            ConfigJson.Positive(v, "OxygenSeconds"), ConfigJson.Integer(v, "BagCapacity"), ConfigJson.Integer(v, "ShipCapacity"), ConfigJson.Integer(v, "StorageCapacity"), ConfigJson.Positive(v, "OxygenRadius"), ConfigJson.Positive(v, "RelayRange"), ConfigJson.Integer(v, "PowerSupply"), ConfigJson.Positive(v, "DeploySeconds"), ConfigJson.Positive(v, "ExtractSeconds"), ConfigJson.Positive(v, "RecallSeconds"), ConfigJson.Positive(v, "ThreatSeconds"), ConfigJson.Integer(v, "ModulePrice"), Ship(v["Ship"]));
+            ConfigJson.Positive(v, "OxygenSeconds"), ConfigJson.Integer(v, "BagCapacity"), ConfigJson.Integer(v, "ShipCapacity"), ConfigJson.Integer(v, "StorageCapacity"), ConfigJson.Positive(v, "OxygenRadius"), ConfigJson.Positive(v, "RelayRange"), ConfigJson.Integer(v, "PowerSupply"), ConfigJson.Positive(v, "DeploySeconds"), ConfigJson.Positive(v, "ExtractSeconds"), ConfigJson.Positive(v, "RecallSeconds"), ConfigJson.Positive(v, "ThreatSeconds"), ConfigJson.Integer(v, "ModulePrice"), Ship(v["Ship"]), Trade(ConfigJson.Object(v, "Trade")));
+
+        private static ShipTradeDefinition Trade(JToken value) => new ShipTradeDefinition(
+            ConfigJson.Integer(value, "StartingCredits"), ConfigJson.Integer(value, "IronPrice"),
+            ConfigJson.Integer(value, "GoldPrice"), ConfigJson.Integer(value, "PistolPrice"),
+            ConfigJson.Integer(value, "PickaxePrice"), ConfigJson.Integer(value, "JetpackPrice"));
 
         private static ShipFlightDefinition Ship(JToken s) => s == null ? new ShipFlightDefinition() : new ShipFlightDefinition(
             (float)ConfigJson.Positive(s, "HorizontalSpeed"), (float)ConfigJson.Positive(s, "VerticalSpeed"),
@@ -63,7 +68,8 @@ namespace DarkNights.Runtime.Config
             ConfigJson.Positive(value, "jump_speed"), ConfigJson.Positive(value, "gravity"),
             ConfigJson.Positive(value, "maximum_height"), ConfigJson.Positive(value, "jetpack_speed"),
             ConfigJson.Positive(value, "fuel_seconds"), ConfigJson.Positive(value, "fuel_recovery"),
-            ConfigJson.Positive(value, "drop_seconds"), ConfigJson.Positive(value, "work_reach"));
+            ConfigJson.Positive(value, "drop_seconds"), ConfigJson.Positive(value, "work_reach"),
+            ConfigJson.Positive(value, "sprint_multiplier"));
 
         private static EconomyDefinition Economy(JToken value) => new EconomyDefinition(
             Resources(value, "starting_resources"), ConfigJson.Positive(value, "upkeep_interval"),

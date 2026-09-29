@@ -37,7 +37,12 @@ namespace DarkNights.View
 
         public void Present(ActorViewData actor, double elapsed, Color ambient)
         {
-            bool visible = actor.ManualControl && actor.Hp > 0 && actor.SelectedItem < 3;
+            int equipped = actor.SelectedItem switch
+            {
+                0 => actor.Slot0, 1 => actor.Slot1, 2 => actor.Slot2, 3 => actor.Slot3, _ => 0
+            };
+            int itemIndex = equipped switch { 1 => 0, 2 => 1, 3 => 2, _ => -1 };
+            bool visible = actor.ManualControl && actor.Hp > 0 && itemIndex >= 0 && itemIndex < items.Length;
             item.enabled = arm.enabled = visible;
             flash.enabled = false;
             if (!visible) return;
@@ -51,21 +56,21 @@ namespace DarkNights.View
             body.sprite = frames[frame]; body.transform.localPosition = new Vector3(-.06f, .06f, 0);
             if (clothing != null)
             { clothing.sprite = shirts[frame % shirts.Length]; clothing.transform.localPosition = new Vector3(-.06f, .06f, 0); }
-            item.sprite = items[actor.SelectedItem];
+            item.sprite = items[itemIndex];
             float face = actor.Face < 0 ? -1 : 1;
             float angle = actor.AimAngle;
             if (face < 0) angle = 180 - angle;
             double remaining = Math.Max(0, actor.EquipmentAction - elapsed);
             float progress = actor.EquipmentActionDuration <= 0 ? 1 : Mathf.Clamp01(1 - (float)(remaining / actor.EquipmentActionDuration));
-            float recoil = actor.SelectedItem == 0 && remaining > 0 ? (float)(remaining / .12) : 0;
-            if (actor.SelectedItem == 1)
+            float recoil = itemIndex == 0 && remaining > 0 ? (float)(remaining / .12) : 0;
+            if (itemIndex == 1)
                 angle = remaining > 0 ? Mathf.Lerp(105, -55, Mathf.SmoothStep(0, 1, progress)) : -20;
-            else if (actor.SelectedItem == 2)
+            else if (itemIndex == 2)
                 angle = actor.Charging ? 115 : remaining > 0 ? -25 : -40;
             pivot.localRotation = Quaternion.Euler(0, 0, angle);
             pivot.localPosition = new Vector3(0.015f - recoil * .02f, .09f, 0);
             item.color = arm.color = ambient;
-            flash.enabled = actor.SelectedItem == 0 && remaining > .07;
+            flash.enabled = itemIndex == 0 && remaining > .07;
             flash.color = Color.white;
         }
 

@@ -56,6 +56,7 @@ namespace DarkNights.Runtime.Objects
         public ExpeditionOperations Expedition { get; }
         public ExpeditionDevices ExpeditionDevices { get; }
         public ExpeditionThreat ExpeditionThreat { get; }
+        internal ShipTradeService Trade { get; }
         public bool Paused => Camp.Read().Paused;
         public int Speed => Camp.Read().Speed;
         public double Elapsed => Camp.Read().Elapsed;
@@ -87,6 +88,7 @@ namespace DarkNights.Runtime.Objects
             Ship = new ExpeditionShip(this);
             ExpeditionDevices = new ExpeditionDevices(this);
             ExpeditionThreat = new ExpeditionThreat(this);
+            Trade = new ShipTradeService(this);
         }
 
         public void Prepare(ObjectInstance sessionOwner, IReadOnlyList<ObjectPlacement> placements)

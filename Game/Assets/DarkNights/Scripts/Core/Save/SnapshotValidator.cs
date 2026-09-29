@@ -26,7 +26,8 @@ namespace DarkNights.Core.Save
                 if (!long.TryParse(text, NumberStyles.AllowLeadingSign, CultureInfo.InvariantCulture, out long value) ||
                     value.ToString(CultureInfo.InvariantCulture) != text)
                     return "随机状态无效";
-            if (s.Economy?.Resources == null || !s.Economy.Resources.IsValid())
+            if (s.Economy?.Resources == null || !s.Economy.Resources.IsValid() ||
+                s.Economy.Credits < 0 || s.Economy.Credits > 10000000)
                 return "资源数据无效";
             if (!Number(s.Economy.UpkeepElapsed, 0, 60) || !Number(s.Economy.StarvationElapsed, 0, 60) ||
                 !Number(s.Economy.RecruitCooldown, 0, 60))

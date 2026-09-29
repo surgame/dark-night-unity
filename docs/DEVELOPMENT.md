@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-2026-09-29 [飞船交易、冲刺与背包改版设计](SHIP_TRADE_EQUIPMENT_DESIGN.md)：完成下一轮五项需求的源码核对与开发方案。采用 YYGC 子模块定义、角色唯一装备状态、可信交易事务及 UI Toolkit／R3 展示；经济与背包范围含待确认建议。本批仅文档，不修改游戏／框架、协议／存档常量，不宣称 Unity 或联机验收通过。
+2026-09-29 [飞船交易、冲刺与背包改版](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)在 `ft-20260929-ship-trade-equipment` 形成源码候选：YYGC 子模块定义、角色唯一装备状态、可信交易事务及 UI Toolkit／R3 展示已接入；协议 **17**／存档 **v12**。自动与人工验收状态见清单，不沿用协议 16／v11 的旧结果。前置方案保留在[设计](SHIP_TRADE_EQUIPMENT_DESIGN.md)。
 
 2026-09-28 [Smart Console 与游戏日志接入](SMART_CONSOLE_INTEGRATION.md)：Bootstrap 装配控制台并订阅 Unity 日志；客户端可见消息与横幅、局部 HUD 状态接入既有 YYLogger。远征寻路停滞改为含单位和目标的服务端 Gameplay 诊断，不再弹通用玩家提示。实际 Unity 验证状态见接入文档。
 

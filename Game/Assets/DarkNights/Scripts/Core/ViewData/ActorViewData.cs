@@ -24,6 +24,12 @@ namespace DarkNights.Core.ViewData
         public bool ManualControl { get; }
         public int SelectedItem { get; }
         public int SelectionRevision { get; }
+        public int InventoryRevision { get; }
+        public int Slot0 { get; }
+        public int Slot1 { get; }
+        public int Slot2 { get; }
+        public int Slot3 { get; }
+        public bool JetpackOwned { get; }
         public bool JetpackEquipped { get; }
         public double JetpackFuel { get; }
         public int ExplosiveCharges { get; }
@@ -67,7 +73,8 @@ namespace DarkNights.Core.ViewData
             double equipmentAction = 0,
             double equipmentActionDuration = 0,
             bool charging = false,
-            double chargeSeconds = 0)
+            double chargeSeconds = 0, int inventoryRevision = 0,
+            int slot0 = 0, int slot1 = 0, int slot2 = 0, int slot3 = 0, bool jetpackOwned = false)
         {
             Id = id;
             Kind = kind;
@@ -88,6 +95,9 @@ namespace DarkNights.Core.ViewData
             ManualControl = manualControl;
             SelectedItem = selectedItem;
             SelectionRevision = selectionRevision;
+            InventoryRevision = inventoryRevision;
+            Slot0 = slot0; Slot1 = slot1; Slot2 = slot2; Slot3 = slot3;
+            JetpackOwned = jetpackOwned;
             JetpackEquipped = jetpackEquipped;
             JetpackFuel = jetpackFuel;
             ControllerSlot = controllerSlot;

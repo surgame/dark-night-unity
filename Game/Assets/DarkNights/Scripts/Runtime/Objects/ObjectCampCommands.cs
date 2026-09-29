@@ -56,7 +56,6 @@ namespace DarkNights.Runtime.Objects
             {
                 var a = session.Lifecycle.SpawnActor("worker", session.Expedition.Ship.X - 184);
                 a.Edit().Oxygen = session.Catalog.Balance.Expedition.OxygenSeconds;
-                a.Edit().JetpackEquipped = true;
                 if (session.Flow?.Enabled == true || !session.Ship.Docked) session.Ship.Cabin.Place(a);
                 return a;
             }

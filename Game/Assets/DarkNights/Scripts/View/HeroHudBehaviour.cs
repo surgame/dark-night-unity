@@ -35,14 +35,17 @@ namespace DarkNights.View
             toggleLabel.text = actor == null ? "操控居民 [Tab]" : "营地模式 [Tab]";
             status.text = notice.Length != 0 ? notice : actor == null ? "正在等待服务器分配可用居民。" :
                 actor.Charging ? "蓄力 " + actor.ChargeSeconds.ToString("F1") + "s · 松开左键投掷" :
-                "鼠标瞄准 · 左键使用 / 蓄力 · 1–4 切换 · " + jump + " 跳跃";
-            item1.text = (actor?.SelectedItem == 0 ? "▶ " : "") + "1 手枪";
-            item2.text = (actor?.SelectedItem == 1 ? "▶ " : "") + "2 矿镐";
-            item3.text = (actor?.SelectedItem == 2 ? "▶ " : "") + "3 炸药 · " + (actor?.ExplosiveCharges ?? 0);
-            item4.text = (actor?.SelectedItem == 3 ? "▶ " : "") + "4 背包" + (actor?.JetpackEquipped == true ? " 开" : " 关");
+                "鼠标瞄准 · 左键使用 · 1–4 切换 · Shift 加速 · " + jump + " 跳跃";
+            item1.text = Slot(actor, 0, actor?.Slot0 ?? 0);
+            item2.text = Slot(actor, 1, actor?.Slot1 ?? 0);
+            item3.text = Slot(actor, 2, actor?.Slot2 ?? 0);
+            item4.text = Slot(actor, 3, actor?.Slot3 ?? 0);
             button1.interactable = button2.interactable = button3.interactable = button4.interactable = ready && actor != null;
             rebind.interactable = ready;
         }
+        private static string Slot(ActorViewData actor, int index, int item) =>
+            (actor?.SelectedItem == index ? "▶ " : "") + (index + 1) + " " +
+            (item switch { 1 => "手枪", 2 => "矿镐", 3 => "炸药 · " + (actor?.ExplosiveCharges ?? 0), _ => "空" });
         [UGUIOnClick("Toggle")] private void OnToggle() => Raise("HeroToggle");
         [UGUIOnClick("Item1")] private void OnItem1() => Raise("HeroItem0");
         [UGUIOnClick("Item2")] private void OnItem2() => Raise("HeroItem1");

@@ -33,11 +33,18 @@ namespace DarkNights.Runtime.Session
             if (r.Operation == SessionOperation.Expedition)
                 return r.ActorIds.Count <= 1 && r.X == 0 && r.Value == 0 && r.Kind.Length > 0 &&
                     new[] { "depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "relay", "mine", "resupply", "pilot", "takeoff", "land", "cancel-flight", "deploy" }.Contains(r.Kind);
+            if (r.Operation == SessionOperation.SellCarriedOre)
+                return r.ActorIds.Count == 1 && r.ControlLease > 0 && r.TargetId > 0 &&
+                    r.Kind == "sale" && r.Value >= 0 && r.X >= 0 && r.X <= 100000 && r.X == (int)r.X;
+            if (r.Operation == SessionOperation.BuyEquipment)
+                return r.ActorIds.Count == 1 && r.ControlLease > 0 && r.TargetId > 0 &&
+                    r.X == 0 && r.Value >= 0 &&
+                    (r.Kind == "pistol" || r.Kind == "pickaxe" || r.Kind == "jetpack");
             if (SessionHeroControl.IsOperation(r.Operation))
                 return r.ActorIds.Count == 1 && r.X == 0 &&
                     (r.Operation == SessionOperation.ClaimHero ? r.ControlLease == 0 : r.ControlLease > 0) &&
                     (r.Operation == SessionOperation.UseHeroItem ? r.Value >= 0 &&
-                        (r.Kind == "jetpack" && r.TargetId == 0 || r.Kind == "pickaxe" && r.TargetId > 0) :
+                        (r.Kind == "pickaxe" && r.TargetId > 0) :
                         r.TargetId == 0 && r.Kind.Length == 0 &&
                         (r.Operation == SessionOperation.SelectHeroItem ? r.Value >= 0 && r.Value <= 3 : r.Value == 0));
             if (r.ControlLease != 0) return false;

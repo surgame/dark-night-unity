@@ -40,6 +40,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3cd7c2f3dc02cdd4a8280b54c4356dd1
+    m_Address: dark_nights.item.jetpack
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3e6d7493f1deefb46b405c27d83da56d
     m_Address: ObjectDefinitionDatabase
     m_ReadOnly: 0
@@ -77,6 +82,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 568cf5ad9d7a3814f976abca9cca85aa
     m_Address: GlobalScriptableObjectDatabase
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 59efdef53bbc53e48a22bce3b91e243e
+    m_Address: dark_nights.item.pickaxe
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -140,6 +150,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f71bbace0e555047ad74fc2764e8065
+    m_Address: dark_nights.item.pistol
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90b02abc990efa5438b5dca5a735068a
     m_Address: dark_nights.object.stone
     m_ReadOnly: 0
@@ -200,6 +215,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cd3ab9128c13bd7499238877d7147ca5
+    m_Address: dark_nights.ship-service.sale
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d13bbb658cca1c24b8f5de396a911cdb
     m_Address: dark_nights.ui.chrome
     m_ReadOnly: 0
@@ -207,6 +227,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d54580f6965e6754d8a69884072bf2f0
     m_Address: dark_nights.config.pinewatch
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5bea4908dd075c41ae0eb46a420025d
+    m_Address: dark_nights.ship-service.shop
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -242,6 +267,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f6a5863c65d56f44084e03e012a4e6c1
     m_Address: dark_nights.ui.result
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6d2688c76a2a0d44a5c2a931737c2d4
+    m_Address: dark_nights.ui.ship_equipment
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -39,7 +39,7 @@ namespace DarkNights.Runtime.Save
                 ResourceAmounts(v["resources"]),
                 Number(v["upkeep_elapsed"]),
                 Number(v["starvation_elapsed"]),
-                Number(v["recruit_cooldown"]));
+                Number(v["recruit_cooldown"]), Integer(v["credits"]));
         }
 
         public static JObject Write(EconomySnapshot v) => new JObject
@@ -47,7 +47,8 @@ namespace DarkNights.Runtime.Save
             ["resources"] = Write(v.Resources),
             ["upkeep_elapsed"] = v.UpkeepElapsed,
             ["starvation_elapsed"] = v.StarvationElapsed,
-            ["recruit_cooldown"] = v.RecruitCooldown
+            ["recruit_cooldown"] = v.RecruitCooldown,
+            ["credits"] = v.Credits
         };
 
         public static WaveSnapshot WaveSnapshot(JToken value)

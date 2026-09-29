@@ -19,7 +19,8 @@ namespace DarkNights.Runtime.Objects
                 ActorState a = actor.Read();
                 return new ActorViewData(a.Id, actor.RuleKey, a.Name, a.Enemy, a.X, a.Hp,
                     a.Activity.ToString(), a.TargetId, a.Face, a.Walking, a.ActionTime, a.Windup, a.HitFlash,
-                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ControllerSlot, a.ControlLease, a.ExplosiveCharges, a.AimAngle, a.EquipmentCooldown, a.EquipmentAction, a.EquipmentActionDuration, a.Charging, a.ChargeSeconds);
+                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ControllerSlot, a.ControlLease, a.ExplosiveCharges, a.AimAngle, a.EquipmentCooldown, a.EquipmentAction, a.EquipmentActionDuration, a.Charging, a.ChargeSeconds,
+                    a.InventoryRevision, a.Slot0, a.Slot1, a.Slot2, a.Slot3, a.JetpackOwned);
             }).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {
@@ -40,7 +41,7 @@ namespace DarkNights.Runtime.Objects
             WaveState wave = session.Waves.Read();
             var summary = new CampViewData(session.Economy.Stock, session.Economy.Population, session.Economy.Capacity,
                 economy.RecruitCooldown, wave.Index, wave.Phase.ToString(), wave.DayRemaining,
-                session.Index.EnemyCount, camp.Mode.ToString(), camp.Kills, camp.Lost, session.Economy.Gathered, wave.NextSpawn);
+                session.Index.EnemyCount, camp.Mode.ToString(), camp.Kills, camp.Lost, session.Economy.Gathered, wave.NextSpawn, economy.Credits);
             var identities = session.Index.FreezeOrder().Select(entity =>
                 new EntityIdentityData(entity.Id, entity.DefinitionGuid, entity.PlacementKey)).ToArray();
             var shots = session.Projectiles.Read().Shots.Select(p => new ProjectileViewData(

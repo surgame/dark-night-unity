@@ -48,8 +48,8 @@ namespace DarkNights.Runtime.Objects
                 Enemy = enemy, Name = string.IsNullOrEmpty(name) ? Definition.Name : name,
                 Activity = ActorActivity.Idle, MoveX = x, RallyX = x,
                 Face = enemy ? -1 : 1, AiClock = id * 0.07 % 0.25,
-                JetpackFuel = Session.Catalog.Balance.HeroControl?.FuelSeconds ?? 0,
-                ExplosiveCharges = enemy ? 0 : 3,
+                JetpackFuel = 0,
+                ExplosiveCharges = 0,
                 LastTerrainActionTick = -1000
             });
         }

@@ -1,0 +1,16 @@
+.equipment-root { position: absolute; left: 18px; bottom: 16px; background-color: rgba(7, 16, 27, 0.56); padding: 10px; border-radius: 7px; color: rgb(229, 241, 249); }
+.credits { font-size: 14px; margin-bottom: 6px; }
+.equipment-row { flex-direction: row; align-items: center; }
+.slot { width: 80px; height: 62px; margin-right: 5px; padding: 8px 4px; background-color: rgba(177, 207, 222, 0.21); border-color: rgba(229, 241, 249, 0.58); border-width: 1px; border-radius: 4px; font-size: 14px; -unity-text-align: middle-center; }
+.jetpack-cell { width: 82px; height: 62px; align-items: center; margin-left: 6px; }
+.fuel-ring { width: 52px; height: 52px; position: relative; }
+.fuel-tick { position: absolute; width: 5px; height: 5px; border-radius: 3px; background-color: rgb(102, 229, 245); }
+.jetpack-label { position: absolute; top: 52px; width: 88px; font-size: 10px; -unity-text-align: middle-center; }
+.hint { height: 19px; font-size: 12px; color: rgb(245, 214, 135); margin-top: 6px; }
+.shop-backdrop { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.55); align-items: center; justify-content: center; }
+.shop-card { width: 360px; background-color: rgb(21, 34, 48); border-radius: 8px; padding: 16px; }
+.shop-heading { flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.shop-title { font-size: 21px; color: rgb(229, 241, 249); }
+.close-button { width: 32px; height: 32px; font-size: 22px; }
+.buy-button { height: 42px; margin-bottom: 8px; font-size: 16px; }
+.shop-note { font-size: 12px; color: rgb(173, 193, 205); }

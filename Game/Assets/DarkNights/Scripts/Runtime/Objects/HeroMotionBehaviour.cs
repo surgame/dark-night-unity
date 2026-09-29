@@ -49,12 +49,13 @@ namespace DarkNights.Runtime.Objects
             if (Grounded)
             {
                 state.VerticalSpeed = 0;
-                state.JetpackFuel = Math.Min(rules.FuelSeconds, state.JetpackFuel + rules.FuelRecovery * delta);
+                if (state.JetpackOwned)
+                    state.JetpackFuel = Math.Min(rules.FuelSeconds, state.JetpackFuel + rules.FuelRecovery * delta);
                 return;
             }
             float previous = state.Height;
             state.VerticalSpeed -= rules.Gravity * (float)delta;
-            if (thrust && !jump && state.JetpackEquipped && state.JetpackFuel > 0)
+            if (thrust && !jump && state.JetpackOwned && state.JetpackEquipped && state.JetpackFuel > 0)
             {
                 float fraction = (float)Math.Min(1, state.JetpackFuel / delta);
                 state.VerticalSpeed += (rules.Gravity + rules.JetpackSpeed * 4) * (float)delta * fraction;

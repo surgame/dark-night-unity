@@ -39,6 +39,9 @@ namespace DarkNights.Runtime.Objects
                 case SessionOperation.SelectDestination:
                 case SessionOperation.CancelJourney:
                     return session.IsExpedition && session.Flow?.Enabled == true && !session.Paused;
+                case SessionOperation.SellCarriedOre:
+                case SessionOperation.BuyEquipment:
+                    return session.IsExpedition && !session.Paused;
                 case SessionOperation.ClaimHero:
                 case SessionOperation.ReleaseHero:
                 case SessionOperation.SelectHeroItem:

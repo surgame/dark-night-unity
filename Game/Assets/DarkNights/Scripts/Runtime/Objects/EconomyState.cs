@@ -16,6 +16,7 @@ namespace DarkNights.Runtime.Objects
         public double Stone { get; internal set; }
         public double Iron { get; internal set; }
         public double Gold { get; internal set; }
+        public int Credits { get; internal set; }
         public double GatheredFood { get; internal set; }
         public double GatheredWood { get; internal set; }
         public double GatheredStone { get; internal set; }

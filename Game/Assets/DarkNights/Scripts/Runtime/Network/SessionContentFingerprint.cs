@@ -21,9 +21,28 @@ namespace DarkNights.Runtime.Network
             var shared = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch").SharedConfigs;
             var equipment = shared.OfType<HandheldConfig>().Single();
             var flow = shared.OfType<ExpeditionFlowConfig>().Single();
+            var database = ObjectDefinitionDatabase.Instance;
+            var services = database.GetDefinitionByKey("expedition.ship").SharedConfigs.OfType<ShipServicesConfig>().Single();
+            services.Validate();
+            string serviceIdentity = string.Join(":", new[] { ("sale", services.Sale), ("shop", services.Shop) }
+                .Select(pair =>
+                {
+                    var definition = pair.Item2.Resolve(database);
+                    var config = definition.SharedConfigs.OfType<ShipServiceConfig>().Single();
+                    config.Validate();
+                    return definition.Guid + ":" + config.Service + ":" + config.Radius;
+                }));
+            string itemIdentity = string.Join(":", new[] { "pistol", "pickaxe", "jetpack" }.Select(key =>
+            {
+                var definition = database.GetDefinitionByKey("item." + key);
+                var config = definition.SharedConfigs.OfType<EquipmentItemConfig>().Single();
+                config.Validate();
+                return definition.Guid + ":" + config.RuleKey + ":" + config.Handheld + ":" + config.Jetpack;
+            }));
             return "dark-nights-session-v" + Session.SessionAuthority.ProtocolVersion + ":" + fingerprint.RulesSha256 +
                 ":" + fingerprint.LayoutSha256 + ":" + identity + ":" + equipment.Fingerprint() +
-                ":" + BackgroundBakeDescriptor.StyleContentHash + ":" + flow.Fingerprint();
+                ":" + BackgroundBakeDescriptor.StyleContentHash + ":" + flow.Fingerprint() +
+                ":" + serviceIdentity + ":" + services.SaleEnabled + ":" + services.ShopEnabled + ":" + itemIdentity;
         }
     }
 }

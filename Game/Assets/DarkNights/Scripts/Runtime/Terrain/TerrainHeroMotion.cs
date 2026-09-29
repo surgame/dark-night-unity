@@ -74,10 +74,12 @@ namespace DarkNights.Runtime.Terrain
             if (grounded)
             {
                 state.VerticalSpeed = 0;
-                state.JetpackFuel = Math.Min(rules.FuelSeconds, state.JetpackFuel + rules.FuelRecovery * delta); return;
+                if (state.JetpackOwned)
+                    state.JetpackFuel = Math.Min(rules.FuelSeconds, state.JetpackFuel + rules.FuelRecovery * delta);
+                return;
             }
             state.VerticalSpeed = Math.Max(-900, state.VerticalSpeed - rules.Gravity * (float)delta);
-            if (thrust && !jump && state.JetpackEquipped && state.JetpackFuel > 0)
+            if (thrust && !jump && state.JetpackOwned && state.JetpackEquipped && state.JetpackFuel > 0)
             {
                 float fraction = (float)Math.Min(1, state.JetpackFuel / delta);
                 state.VerticalSpeed = Math.Min(rules.JetpackSpeed, state.VerticalSpeed + (rules.Gravity + rules.JetpackSpeed * 4) * (float)delta * fraction);

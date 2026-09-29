@@ -22,7 +22,8 @@ namespace DarkNights.Runtime.Objects
             PrepareState(new EconomyState
             {
                 Food = values.Food, Wood = values.Wood, Stone = values.Stone,
-                Iron = values.Iron, Gold = values.Gold
+                Iron = values.Iron, Gold = values.Gold,
+                Credits = Session.IsExpedition ? Session.Catalog.Balance.Expedition.Trade.StartingCredits : 0
             });
         }
 

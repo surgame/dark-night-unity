@@ -31,6 +31,12 @@ namespace DarkNights.Runtime.Network
         public bool ManualControl { get; set; }
         public int SelectedItem { get; set; }
         public int SelectionRevision { get; set; }
+        public int InventoryRevision { get; set; }
+        public int Slot0 { get; set; }
+        public int Slot1 { get; set; }
+        public int Slot2 { get; set; }
+        public int Slot3 { get; set; }
+        public bool JetpackOwned { get; set; }
         public bool JetpackEquipped { get; set; }
         public double JetpackFuel { get; set; }
         public int ExplosiveCharges { get; set; }
@@ -65,6 +71,9 @@ namespace DarkNights.Runtime.Network
             ManualControl = value.ManualControl,
             SelectedItem = value.SelectedItem,
             SelectionRevision = value.SelectionRevision,
+            InventoryRevision = value.InventoryRevision,
+            Slot0 = value.Slot0, Slot1 = value.Slot1, Slot2 = value.Slot2, Slot3 = value.Slot3,
+            JetpackOwned = value.JetpackOwned,
             JetpackEquipped = value.JetpackEquipped,
             JetpackFuel = value.JetpackFuel,
             ExplosiveCharges = value.ExplosiveCharges,
@@ -102,6 +111,7 @@ namespace DarkNights.Runtime.Network
             JetpackEquipped,
             JetpackFuel,
             ControllerSlot,
-            ControlLease, ExplosiveCharges, AimAngle, EquipmentCooldown, EquipmentAction, EquipmentActionDuration, Charging, ChargeSeconds);
+            ControlLease, ExplosiveCharges, AimAngle, EquipmentCooldown, EquipmentAction, EquipmentActionDuration, Charging, ChargeSeconds,
+            InventoryRevision, Slot0, Slot1, Slot2, Slot3, JetpackOwned);
     }
 }

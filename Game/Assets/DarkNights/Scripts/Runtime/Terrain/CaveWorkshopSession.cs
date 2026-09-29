@@ -35,7 +35,7 @@ namespace DarkNights.Runtime.Terrain
             context = ObjectSessionContext.CreateAuthority(container, () => active); context.Activate();
             Map = new TerrainMapAuthority(context, blueprint, catalog, new WorldIdentity(StableGuid.Parse(Guid.NewGuid().ToString("N")), 1));
             Edits = new WorkshopTerrainEdits(Map, blueprint);
-            actor = new ActorState { JetpackEquipped = true, JetpackFuel = rules.FuelSeconds, SupportPlatform = -1 };
+            actor = new ActorState { JetpackOwned = true, JetpackEquipped = true, JetpackFuel = rules.FuelSeconds, SupportPlatform = -1 };
             Teleport(blueprint.Rooms[0].X, -blueprint.Rooms[0].Y);
         }
         public void Teleport(float x, float y)

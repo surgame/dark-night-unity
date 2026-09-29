@@ -125,8 +125,16 @@ namespace DarkNights.Tests
         {
             using var scope = await UnifiedSessionScope.Create(); var world = Create(scope);
             using var authority = new SessionAuthority(world); var host = Connect(authority, 0);
-            Send(authority, host, Request(authority, 1, "depart"));
             var hero = world.Index.Actors.Single(a => a.CaptureState().OwnerSlot == 0);
+            var seeded = JObject.Parse(world.SaveCodec.Serialize(world.CaptureWorld()));
+            var actorSave = seeded["world"]["actors"].OfType<JObject>().Single(value => (int)value["id"] == hero.Id);
+            actorSave["slot_1"] = 2; actorSave["inventory_revision"] = 1;
+            actorSave["jetpack_owned"] = actorSave["jetpack_equipped"] = true;
+            actorSave["jetpack_fuel"] = world.Catalog.Balance.HeroControl.FuelSeconds;
+            world.Restore(seeded.ToString());
+            Assert.That(authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true), Is.True);
+            hero = world.Index.Actors.Single(a => a.CaptureState().OwnerSlot == 0);
+            Send(authority, host, Request(authority, 1, "depart"));
             var deposit = world.Index.MineralDeposits.Cast<MineralDepositBehaviour>().First();
             int inputSequence = 0;
             for (int tick = 0; tick < 1300 && hero.X < deposit.X - 5; tick++)

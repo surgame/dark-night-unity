@@ -27,6 +27,7 @@ namespace DarkNights.Entry
         private CampInput input;
         private GameInputActions actions;
         private HeroPlayerController hero;
+        private ShipTradeHud trade;
         private SessionEntityViews entities;
         private PinewatchStage stage;
         private MainMenuBehaviour main;
@@ -91,6 +92,11 @@ namespace DarkNights.Entry
             hud.Configure(catalog, expedition);
             hero = gameObject.AddComponent<HeroPlayerController>();
             hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"), entities);
+            if (expedition)
+            {
+                trade = gameObject.AddComponent<ShipTradeHud>();
+                await trade.Initialize(network, actions, hero, entities, catalog);
+            }
             network.Client.Feedback += Feedback;
             network.Failed += Failed;
             if (network.Terrain != null) View("MainMenu").Get<Button>("Map").onClick.AddListener(() => Execute(new InputIntent("SelectMap", Array.Empty<int>())).Forget());
@@ -139,7 +145,8 @@ namespace DarkNights.Entry
             input.Present(frame, network.Client.Ready);
             actions.Present(network.Client.Ready);
             hero.Present(frame, page.Length != 0);
-            panels["Hero"].gameObject.SetActive(frame != null && page.Length == 0);
+            trade?.Present(frame, hero.Current, frame != null && page.Length == 0 && network.Client.Ready && !frame.Paused);
+            panels["Hero"].gameObject.SetActive(trade == null && frame != null && page.Length == 0);
             if (frame == null)
             {
                 if (page != "MainMenu" && page != "Help") Switch("MainMenu");
@@ -242,6 +249,7 @@ namespace DarkNights.Entry
             if (page == "Help" && value != "Help") help.CloseSettings();
             modal?.Dispose(); modal = null;
             page = value;
+            if (page.Length != 0) trade?.Close();
             if (page == "Help") help.Present();
             input.CancelBuild();
             if (page.Length != 0) modal = YYInteractionSessionService.Instance.Begin(new YYInteractionSessionDescriptor

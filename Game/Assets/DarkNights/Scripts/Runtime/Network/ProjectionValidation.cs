@@ -53,7 +53,7 @@ namespace DarkNights.Runtime.Network
             }
             var camp = world.Camp;
             Require(camp.Stock != null && camp.Gathered != null && camp.Stock.Freeze().IsValid() && camp.Gathered.Freeze().IsValid());
-            Require(camp.Population >= 0 && camp.Capacity >= 0 && camp.EnemyCount >= 0 && camp.Kills >= 0 && camp.Lost >= 0 &&
+            Require(camp.Credits >= 0 && camp.Credits <= 10000000 && camp.Population >= 0 && camp.Capacity >= 0 && camp.EnemyCount >= 0 && camp.Kills >= 0 && camp.Lost >= 0 &&
                 camp.WaveIndex >= 0 && camp.WaveIndex < catalog.Level.Waves.Count &&
                 Enum.TryParse<WavePhase>(camp.WavePhase, out var phase) && Enum.IsDefined(typeof(WavePhase), phase) &&
                 Enum.TryParse<SessionMode>(camp.Mode, out var mode) && Enum.IsDefined(typeof(SessionMode), mode));
@@ -78,7 +78,11 @@ namespace DarkNights.Runtime.Network
                     a.SelectedItem >= 0 && a.SelectedItem <= 3 && a.SelectionRevision >= 0 && a.ControlLease >= 0 &&
                     a.ControllerSlot >= -1 && a.ControllerSlot <= 3 && (a.ControllerSlot < 0 || (a.ManualControl && !a.Enemy)) &&
                     Finite(a.JetpackFuel) && a.JetpackFuel >= 0 && a.JetpackFuel <= (catalog.Balance.HeroControl?.FuelSeconds ?? 0) &&
-                    a.ExplosiveCharges >= 0 && a.ExplosiveCharges <= 1000);
+                    a.ExplosiveCharges >= 0 && a.ExplosiveCharges <= 1000 && a.InventoryRevision >= 0 &&
+                    new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.All(item => item >= 0 && item <= 3) &&
+                    new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.Where(item => item != 0).Distinct().Count() ==
+                        new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.Count(item => item != 0) &&
+                    (!a.JetpackEquipped || a.JetpackOwned) && (a.JetpackOwned || a.JetpackFuel == 0));
                 Require(Finite(a.AimAngle) && Math.Abs(a.AimAngle) <= 180 && Finite(a.EquipmentCooldown) && a.EquipmentCooldown >= 0 && a.EquipmentCooldown <= 5 &&
                     Finite(a.EquipmentAction) && a.EquipmentAction >= 0 && a.EquipmentAction <= 5 && Finite(a.EquipmentActionDuration) && a.EquipmentActionDuration >= 0 && a.EquipmentActionDuration <= 5 &&
                     Finite(a.ChargeSeconds) && a.ChargeSeconds >= 0 && a.ChargeSeconds <= 5);

@@ -1,0 +1,28 @@
+{
+  "date": "2026-09-29",
+  "candidate_branch": "ft-20260929-ship-trade-equipment",
+  "editor": "Unity 6000.4.9f1",
+  "protocol": 17,
+  "save_version": 12,
+  "test_mode": "EditMode",
+  "completed_utc": "2026-09-29T09:51:43.0596886Z",
+  "passed": 10,
+  "failed": 0,
+  "skipped": 0,
+  "result_xml": "ship-trade-20260929.xml",
+  "result_xml_sha256": "cba6c20c6d2b227a3865ba3a8c7fb3d8ef91374bb5d3ab21f745e283e09930fc",
+  "tests": [
+    "DarkNights.Tests.ShipTradeTests.TradeValuesAndSprintBoundsAreValidated",
+    "DarkNights.Tests.ShipTradeTests.EmptyEquipmentAndSprintAreAuthoritative",
+    "DarkNights.Tests.ShipTradeTests.SaveRejectsInvalidEquipmentAndCredits",
+    "DarkNights.Tests.ShipTradeTests.ShopReservesFirstPickaxeBudget",
+    "DarkNights.Tests.ShipTradeTests.ShopAndSaleUseLeasePositionAndAtomicState",
+    "DarkNights.Tests.HeroControlTests.SelectionVersionAndFuelRemainAuthoritative",
+    "DarkNights.Tests.HeroControlTests.PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources",
+    "DarkNights.Tests.HeroRecoveryTests.AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership",
+    "DarkNights.Tests.HeroBombTests.ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging",
+    "DarkNights.Tests.ExpeditionTests.StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent"
+  ],
+  "scope": "数值边界、空装备与冲刺、购买与出售、起步矿镐预算、v12 存档非法字段拒绝、受影响的主角/炸弹/远征矿房路线回归",
+  "not_verified": "实际画面与输入手感、独立进程联机及弱网、真实写盘重启恢复、Mono/IL2CPP Player、双机器和前台性能"
+}

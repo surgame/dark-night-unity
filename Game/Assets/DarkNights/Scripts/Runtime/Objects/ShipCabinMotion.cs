@@ -92,6 +92,8 @@ namespace DarkNights.Runtime.Objects
             if (grounded)
             {
                 s.Height = floor; s.VerticalSpeed = 0; s.SupportPlatform = 0;
+                if (s.JetpackOwned && rules != null)
+                    s.JetpackFuel = Math.Min(rules.FuelSeconds, s.JetpackFuel + rules.FuelRecovery * delta);
                 return;
             }
 

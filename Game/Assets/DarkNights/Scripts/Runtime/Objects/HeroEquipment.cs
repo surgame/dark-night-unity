@@ -1,4 +1,5 @@
 using System;
+using DarkNights.Core.Config;
 
 namespace DarkNights.Runtime.Objects
 {
@@ -23,9 +24,10 @@ namespace DarkNights.Runtime.Objects
             bool pressed = state.UsePressed, released = state.UseReleased;
             state.UsePressed = state.UseReleased = false;
             if (!state.ManualControl || state.ControllerSlot < 0) { Cancel(state); return; }
-            if (state.SelectedItem < 3)
+            HeroEquipmentKind item = HeroInventoryBehaviour.Slot(state, state.SelectedItem);
+            if (item != HeroEquipmentKind.Empty)
                 state.Face = Math.Cos(state.AimAngle * Math.PI / 180) < 0 ? -1 : 1;
-            if (state.SelectedItem == 2)
+            if (item == HeroEquipmentKind.Bomb)
             {
                 if (pressed && state.EquipmentCooldown == 0 && state.ExplosiveCharges > 0) state.Charging = true;
                 if (state.Charging && state.UseHeld)
@@ -38,18 +40,19 @@ namespace DarkNights.Runtime.Objects
                 }
                 return;
             }
-            if (state.SelectedItem == 3 || state.EquipmentCooldown > 0 || (!state.UseHeld && !pressed)) return;
-            if (state.SelectedItem == 0)
+            if (item == HeroEquipmentKind.Empty || state.EquipmentCooldown > 0 || (!state.UseHeld && !pressed)) return;
+            if (item == HeroEquipmentKind.Pistol)
             {
                 if (!actor.World.Projectiles.LaunchHandheld(state, false, 0)) return;
                 state.EquipmentCooldown = config.FireInterval; state.EquipmentAction = 0.12;
             }
-            else
+            else if (item == HeroEquipmentKind.Pickaxe)
             {
                 HeroMining.TryMine(actor);
                 state.EquipmentCooldown = config.PickaxeSeconds;
                 state.EquipmentAction = config.PickaxeSeconds;
             }
+            else return;
             state.EquipmentActionDuration = state.EquipmentAction;
         }
     }

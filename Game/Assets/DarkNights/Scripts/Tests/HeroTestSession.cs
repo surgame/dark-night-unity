@@ -4,6 +4,7 @@ using Cysharp.Threading.Tasks;
 using DarkNights.Core.Config;
 using DarkNights.Runtime.Objects;
 using DarkNights.Runtime.Session;
+using Newtonsoft.Json.Linq;
 
 namespace DarkNights.Tests
 {
@@ -23,6 +24,20 @@ namespace DarkNights.Tests
         public int ActorId { get; private set; }
         public ActorBehaviour Actor => World.Index.Find<ActorBehaviour>(ActorId);
         public ActorState State => Actor.CaptureState();
+
+        /// <summary>为既有道具能力回归构造已购买状态；经正式存档恢复入口校验，不改变新人物空装备默认值。</summary>
+        public void SeedLoadout(int slot, int item, int charges = 0, bool jetpack = false)
+        {
+            var save = JObject.Parse(World.SaveCodec.Serialize(Authority.CaptureWorld()));
+            var actor = save["world"]["actors"].OfType<JObject>().Single(value => (int)value["id"] == ActorId);
+            if (slot >= 0) actor["slot_" + slot] = item;
+            actor["inventory_revision"] = 1;
+            actor["explosive_charges"] = charges;
+            actor["jetpack_owned"] = jetpack;
+            actor["jetpack_equipped"] = jetpack;
+            actor["jetpack_fuel"] = jetpack ? World.Catalog.Balance.HeroControl.FuelSeconds : 0;
+            World.Restore(save.ToString());
+        }
 
         public static async UniTask<HeroTestSession> Create(bool assignDefaultHeroes = false,
             float debugHeroSpeedMultiplier = 1)
@@ -64,9 +79,9 @@ namespace DarkNights.Tests
         }
         public HeroInputRequest Packet(int horizontal = 0, bool jumpHeld = false, bool useHeld = false,
             bool jumpPressed = false, bool dropPressed = false, int? lease = null,
-            float aim = 0, bool usePressed = false, bool useReleased = false, bool cancelUse = false) =>
+            float aim = 0, bool usePressed = false, bool useReleased = false, bool cancelUse = false, bool sprintHeld = false) =>
             new HeroInputRequest(SessionAuthority.ProtocolVersion, Authority.Epoch, Authority.PolicyRevision, ActorId,
-                lease ?? State.ControlLease, ++inputSequence, Authority.ServerTick, horizontal, jumpHeld, useHeld, jumpPressed, dropPressed, aim, State.SelectionRevision, usePressed, useReleased, cancelUse);
+                lease ?? State.ControlLease, ++inputSequence, Authority.ServerTick, horizontal, jumpHeld, useHeld, jumpPressed, dropPressed, aim, State.SelectionRevision, usePressed, useReleased, cancelUse, sprintHeld);
         public bool Input(int horizontal = 0, bool jumpHeld = false, bool useHeld = false,
             bool jumpPressed = false, bool dropPressed = false) =>
             Authority.SubmitInput(Host, Packet(horizontal, jumpHeld, useHeld, jumpPressed, dropPressed));

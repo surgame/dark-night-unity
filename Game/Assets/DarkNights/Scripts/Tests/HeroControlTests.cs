@@ -81,7 +81,7 @@ namespace DarkNights.Tests
             Assert.That(f.World.IssueOrders(new[] { f.ActorId }, 0, 800), Is.Zero);
             float start = f.Actor.X;
             Assert.That(f.Input(horizontal: 1), Is.True); f.Step(6);
-            Assert.That(f.Actor.X, Is.EqualTo(start + 3).Within(.001), "Uses original 30 px/s worker speed.");
+            Assert.That(f.Actor.X, Is.EqualTo(start + f.Actor.Definition.Speed * 1.35f * .1f).Within(.001));
             Assert.That(f.State.Activity, Is.EqualTo(ActorActivity.Idle));
             Assert.That(f.World.Index.Actors[1].X, Is.EqualTo(187));
         });
@@ -93,7 +93,7 @@ namespace DarkNights.Tests
             Assert.That(f.Command(SessionOperation.ClaimHero).Code, Is.EqualTo(SessionResultCode.Applied));
             float start = f.Actor.X;
             Assert.That(f.Input(horizontal: 1), Is.True); f.Step(6);
-            Assert.That(f.Actor.X, Is.EqualTo(start + 24).Within(.001));
+            Assert.That(f.Actor.X, Is.EqualTo(start + f.Actor.Definition.Speed * 1.35f * 8 * .1f).Within(.001));
             Assert.That(f.World.Speed, Is.EqualTo(1));
         });
 
@@ -139,14 +139,13 @@ namespace DarkNights.Tests
             using var f = await HeroTestSession.Create();
             f.Command(SessionOperation.ClaimHero);
             f.Command(SessionOperation.SelectHeroItem, value: 3);
-            Assert.That(f.Command(SessionOperation.UseHeroItem, kind: "jetpack", value: 0).Code, Is.EqualTo(SessionResultCode.NoEffect));
+            Assert.That(f.Command(SessionOperation.UseHeroItem, kind: "jetpack", value: 0).Code, Is.EqualTo(SessionResultCode.InvalidRequest));
             Assert.That(f.State.JetpackEquipped, Is.False);
-            Assert.That(f.Command(SessionOperation.UseHeroItem, kind: "jetpack", value: f.State.SelectionRevision).Code, Is.EqualTo(SessionResultCode.Applied));
+            Assert.That(f.State.JetpackOwned, Is.False);
             f.Input(jumpHeld: true, jumpPressed: true); f.Step(1);
             f.Step(90, jumpHeld: true, keepAlive: true);
-            Assert.That(f.State.Height, Is.GreaterThan(22));
-            Assert.That(f.State.JetpackFuel, Is.InRange(0, .6));
-            f.Step(150); Assert.That(f.State.JetpackFuel, Is.GreaterThan(0));
+            Assert.That(f.State.JetpackFuel, Is.Zero);
+            f.Step(150); Assert.That(f.State.JetpackFuel, Is.Zero);
             Assert.That(f.State.VerticalSpeed, Is.Zero);
         });
 
@@ -154,6 +153,7 @@ namespace DarkNights.Tests
         public IEnumerator PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
+            f.SeedLoadout(1, 2);
             f.Command(SessionOperation.ClaimHero); f.Command(SessionOperation.SelectHeroItem, value: 1);
             var site = f.World.Index.Worksites.First(w => w.RuleKey == "wood");
             double before = f.World.Economy.Stock.Wood;

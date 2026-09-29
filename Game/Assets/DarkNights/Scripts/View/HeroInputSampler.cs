@@ -15,16 +15,17 @@ namespace DarkNights.View
         public readonly struct Packet
         {
             public readonly int Direction;
-            public readonly bool JumpHeld, UseHeld, JumpPressed, DropPressed;
+            public readonly bool JumpHeld, UseHeld, JumpPressed, DropPressed, SprintHeld;
             public readonly float Aim;
             public readonly int SelectionRevision;
             public readonly bool UsePressed, UseReleased, CancelUse;
 
             internal Packet(int direction, bool jumpHeld, bool useHeld, bool jumpPressed, bool dropPressed,
-                float aim, int selectionRevision, bool usePressed, bool useReleased, bool cancelUse)
+                float aim, int selectionRevision, bool usePressed, bool useReleased, bool cancelUse, bool sprintHeld = false)
             {
                 Direction = direction; JumpHeld = jumpHeld; UseHeld = useHeld;
                 JumpPressed = jumpPressed; DropPressed = dropPressed; Aim = aim;
+                SprintHeld = sprintHeld;
                 SelectionRevision = selectionRevision; UsePressed = usePressed;
                 UseReleased = useReleased; CancelUse = cancelUse;
             }
@@ -32,7 +33,7 @@ namespace DarkNights.View
 
         private readonly Camera camera;
         private readonly EquipmentInput equipment = new EquipmentInput();
-        private bool jumpPending, dropPending, sentJump, sentUse, sentDrop;
+        private bool jumpPending, dropPending, sentJump, sentUse, sentDrop, sentSprint;
         private int sentDirection;
         private double nextSend, heartbeat;
         public int SelectedItem { get; private set; } = -1;
@@ -42,7 +43,7 @@ namespace DarkNights.View
 
         public void ResetControl()
         {
-            jumpPending = dropPending = sentJump = sentUse = sentDrop = false;
+            jumpPending = dropPending = sentJump = sentUse = sentDrop = sentSprint = false;
             sentDirection = 0; nextSend = heartbeat = 0;
             SelectedItem = -1; UseItemRequested = false;
             equipment.Cancel();
@@ -50,7 +51,7 @@ namespace DarkNights.View
 
         public Packet Stop(int selectionRevision)
         {
-            jumpPending = dropPending = sentJump = sentUse = sentDrop = false;
+            jumpPending = dropPending = sentJump = sentUse = sentDrop = sentSprint = false;
             sentDirection = 0; SelectedItem = -1; UseItemRequested = false;
             equipment.Cancel();
             return new Packet(0, false, false, false, false, equipment.Aim, selectionRevision,
@@ -67,13 +68,13 @@ namespace DarkNights.View
                 new Vector3(actor.X / 100, actor.Height / 100, 0);
             int direction = allowed ? Math.Sign(controls.Move) : 0;
             bool jump = allowed && controls.JumpHeld;
+            bool sprint = allowed && controls.SprintHeld && !pilot;
             equipment.Sample(controls, camera, hand + Vector3.up * .09f, allowed && !selectionPending && !aboard);
             SampleEdges(controls, allowed, pilot, aboard, frame.World.Expedition != null);
             SelectedItem = allowed && !aboard ? ReadSelectedItem(controls, actor.SelectedItem) : -1;
-            UseItemRequested = allowed && !aboard && actor.SelectedItem == 3 && !selectionPending &&
-                controls.UsePressed;
+            UseItemRequested = false;
 
-            bool changed = direction != sentDirection || jump != sentJump || equipment.Held != sentUse ||
+            bool changed = direction != sentDirection || jump != sentJump || sprint != sentSprint || equipment.Held != sentUse ||
                 jumpPending || dropPending != sentDrop || (!pilot && dropPending) || equipment.Changed;
             if (now < nextSend || (!changed && now < heartbeat))
             {
@@ -82,9 +83,9 @@ namespace DarkNights.View
             }
 
             packet = new Packet(direction, jump, equipment.Held, jumpPending, dropPending, equipment.Aim,
-                actor.SelectionRevision, equipment.Pressed, equipment.Released, equipment.Cancelled);
+                actor.SelectionRevision, equipment.Pressed, equipment.Released, equipment.Cancelled, sprint);
             equipment.Consume();
-            sentDirection = direction; sentJump = jump; sentUse = packet.UseHeld; sentDrop = dropPending;
+            sentDirection = direction; sentJump = jump; sentSprint = sprint; sentUse = packet.UseHeld; sentDrop = dropPending;
             jumpPending = dropPending = false;
             nextSend = now + 1.0 / 30; heartbeat = now + 0.1;
             return true;

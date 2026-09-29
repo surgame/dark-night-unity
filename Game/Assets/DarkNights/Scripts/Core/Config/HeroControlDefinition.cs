@@ -16,9 +16,11 @@ namespace DarkNights.Core.Config
         public double FuelRecovery { get; }
         public double DropSeconds { get; }
         public float WorkReach { get; }
+        public float SprintMultiplier { get; }
 
         public HeroControlDefinition(double jumpSpeed, double gravity, double maximumHeight,
-            double jetpackSpeed, double fuelSeconds, double fuelRecovery, double dropSeconds, double workReach)
+            double jetpackSpeed, double fuelSeconds, double fuelRecovery, double dropSeconds, double workReach,
+            double sprintMultiplier = 1.8)
         {
             foreach (double value in new[] { jumpSpeed, gravity, maximumHeight, jetpackSpeed,
                 fuelSeconds, fuelRecovery, dropSeconds, workReach })
@@ -27,6 +29,9 @@ namespace DarkNights.Core.Config
             JumpSpeed = (float)jumpSpeed; Gravity = (float)gravity; MaximumHeight = (float)maximumHeight;
             JetpackSpeed = (float)jetpackSpeed; FuelSeconds = fuelSeconds; FuelRecovery = fuelRecovery;
             DropSeconds = dropSeconds; WorkReach = (float)workReach;
+            if (double.IsNaN(sprintMultiplier) || double.IsInfinity(sprintMultiplier) || sprintMultiplier < 1 || sprintMultiplier > 4)
+                throw new ArgumentException("Invalid sprint multiplier.");
+            SprintMultiplier = (float)sprintMultiplier;
         }
     }
 }

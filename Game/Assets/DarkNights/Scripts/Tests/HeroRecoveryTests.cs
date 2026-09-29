@@ -21,8 +21,8 @@ namespace DarkNights.Tests
         public IEnumerator AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
+            f.SeedLoadout(-1, 0, jetpack: true);
             f.Command(SessionOperation.ClaimHero); f.Command(SessionOperation.SelectHeroItem, value: 3);
-            f.Command(SessionOperation.UseHeroItem, kind: "jetpack", value: f.State.SelectionRevision);
             f.Input(jumpHeld: true, jumpPressed: true); f.Step(1); f.Step(12, jumpHeld: true, keepAlive: true);
             var state = f.State; var stale = f.Packet(horizontal: 1);
             string save = f.World.SaveCodec.Serialize(f.Authority.CaptureWorld());

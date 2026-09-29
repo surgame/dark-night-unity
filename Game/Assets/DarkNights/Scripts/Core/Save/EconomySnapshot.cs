@@ -15,17 +15,19 @@ namespace DarkNights.Core.Save
         public double UpkeepElapsed { get; }
         public double StarvationElapsed { get; }
         public double RecruitCooldown { get; }
+        public int Credits { get; }
 
         public EconomySnapshot(
             ResourceAmounts resources,
             double upkeepElapsed,
             double starvationElapsed,
-            double recruitCooldown)
+            double recruitCooldown, int credits = 0)
         {
             Resources = resources;
             UpkeepElapsed = upkeepElapsed;
             StarvationElapsed = starvationElapsed;
             RecruitCooldown = recruitCooldown;
+            Credits = credits;
         }
     }
 }

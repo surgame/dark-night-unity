@@ -17,6 +17,7 @@ namespace DarkNights.Tests
         public IEnumerator ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
+            f.SeedLoadout(2, 3, 3);
             f.Command(SessionOperation.ClaimHero); f.Command(SessionOperation.SelectHeroItem, value: 2);
             for (int count = 3; count > 0; count--)
             {
@@ -39,6 +40,7 @@ namespace DarkNights.Tests
         public IEnumerator LongerChargeProducesHigherThrowSpeed() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
+            f.SeedLoadout(2, 3, 3);
             f.Command(SessionOperation.ClaimHero); f.Command(SessionOperation.SelectHeroItem, value: 2);
             f.Authority.SubmitInput(f.Host, f.Packet(usePressed: true, useReleased: true)); f.Step(1);
             float tap = f.World.Projectiles.CaptureState().Ballistics.Single(p => p.Kind == 2).VelocityX;
@@ -56,6 +58,7 @@ namespace DarkNights.Tests
         public IEnumerator TimeoutAndExplicitCancelNeverThrow() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
+            f.SeedLoadout(2, 3, 3);
             f.Command(SessionOperation.ClaimHero); f.Command(SessionOperation.SelectHeroItem, value: 2);
             f.Authority.SubmitInput(f.Host, f.Packet(useHeld: true, usePressed: true)); f.Step(10);
             f.Authority.SubmitInput(f.Host, f.Packet(cancelUse: true, useReleased: true)); f.Step(1);
@@ -69,6 +72,7 @@ namespace DarkNights.Tests
         public IEnumerator GroundAdhesionAndFuseSurviveAtomicSaveRestore() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
+            f.SeedLoadout(2, 3, 3);
             f.Command(SessionOperation.ClaimHero); f.Command(SessionOperation.SelectHeroItem, value: 2);
             f.Authority.SubmitInput(f.Host, f.Packet(aim: -90, usePressed: true, useReleased: true)); f.Step(20);
             var stuck = f.World.Projectiles.CaptureState().Ballistics.Single(p => p.Kind == 2);
@@ -87,6 +91,7 @@ namespace DarkNights.Tests
         public IEnumerator SelectionAndPauseCancelCharge() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
+            f.SeedLoadout(2, 3, 3);
             f.Command(SessionOperation.ClaimHero); f.Command(SessionOperation.SelectHeroItem, value: 2);
             f.Authority.SubmitInput(f.Host, f.Packet(useHeld: true, usePressed: true)); f.Step(5);
             f.Command(SessionOperation.SelectHeroItem, value: 0);

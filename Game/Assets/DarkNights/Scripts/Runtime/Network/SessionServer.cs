@@ -109,7 +109,7 @@ namespace DarkNights.Runtime.Network
             var state = actor?.Read();
             if (state == null || state.Boarded || state.Enemy || state.Hp <= 0 || !state.ManualControl ||
                 state.ControllerSlot != peer.Authority.PlayerSlot || state.ControllerGeneration != peer.Authority.Generation ||
-                state.ControlLease <= 0 || state.SelectedItem != 1 ||
+                state.ControlLease <= 0 || HeroInventoryBehaviour.Slot(state, state.SelectedItem) != Core.Config.HeroEquipmentKind.Pickaxe ||
                 Authority.ServerTick - state.LastTerrainActionTick < 3) return null;
             var action = TerrainEditAction.HandMine;
             if (action == TerrainEditAction.Explosive && state.ExplosiveCharges <= 0) return null;

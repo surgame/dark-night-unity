@@ -14,8 +14,9 @@ namespace DarkNights.Runtime.Session
         public readonly bool UsePressed;
         public readonly bool UseReleased;
         public readonly bool CancelUse;
+        public readonly bool SprintHeld;
         public HeroInputRequest(int protocol, int epoch, int policyRevision, int actorId, int controlLease,
-            long sequence, long observedTick, int horizontal, bool jumpHeld, bool useHeld, bool jumpPressed, bool dropPressed, float aimAngle = 0, int selectionRevision = 0, bool usePressed = false, bool useReleased = false, bool cancelUse = false)
+            long sequence, long observedTick, int horizontal, bool jumpHeld, bool useHeld, bool jumpPressed, bool dropPressed, float aimAngle = 0, int selectionRevision = 0, bool usePressed = false, bool useReleased = false, bool cancelUse = false, bool sprintHeld = false)
         {
             Protocol = protocol; Epoch = epoch; PolicyRevision = policyRevision; ActorId = actorId;
             ControlLease = controlLease; Sequence = sequence; ObservedTick = observedTick; Horizontal = horizontal;
@@ -25,6 +26,7 @@ namespace DarkNights.Runtime.Session
             UseReleased = useReleased;
             CancelUse = cancelUse;
             JumpHeld = jumpHeld; UseHeld = useHeld; JumpPressed = jumpPressed; DropPressed = dropPressed;
+            SprintHeld = sprintHeld;
         }
     }
 }

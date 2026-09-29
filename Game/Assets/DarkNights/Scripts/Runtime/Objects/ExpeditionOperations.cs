@@ -19,7 +19,7 @@ namespace DarkNights.Runtime.Objects
             (a.Read().Boarded || Math.Abs(a.X - Ship.X - ShipGeometry.RampToe) < 30 && Math.Abs(a.Read().Height - Ship.Read().Height) < 8);
 
         internal void ShowIntro() => world.Feedback.ShowBanner(world.Flow.Enabled ? "太空待命" : "远征整备",
-            world.Flow.Enabled ? "可在船内走动；靠近右侧驾驶台选择星球，抵达上空后手动降落。" :
+            world.Flow.Enabled ? "船内可买装备；采矿后带回飞船出售。靠近右侧驾驶台选择星球。" :
                 "出发、采矿、卸货、返航。舱段升级会带入下一次远征。");
 
         internal void Advance(double seconds)
@@ -54,7 +54,7 @@ namespace DarkNights.Runtime.Objects
             var ship = Ship.Edit(); ship.DeviceStage = 3; ship.Powered = true;
             ship.DockX = ship.X; ship.DockHeight = ship.Height;
             if (world.Flow.Enabled) { world.Flow.PrepareOrbit(); return; }
-            world.Notify("从左侧坡道走进飞船，走到右侧驾驶位可驾驶。出发探索后采矿，首次收益可购买机器人舱。");
+            world.Notify("走进飞船购买矿镐；采矿后带回左侧出售点按 E 出售。");
         }
 
         internal int Command(string operation, int target, ActorBehaviour hero)
@@ -73,7 +73,7 @@ namespace DarkNights.Runtime.Objects
                 case "board":
                     if ((!Active && c.ExpeditionPhase != 3) || hero == null || !AtShip(hero)) return 0;
                     if (!hero.Read().Boarded) { world.Notify("请从左侧坡道步行进入舱内。"); return 0; }
-                    ExpeditionCargo.Transfer(hero, Ship, Rules.ShipCapacity * (1 + c.CargoModule)); return 1;
+                    return 1;
                 case "recall":
                     if (c.ExpeditionPhase != 1) return 0;
                     c.ExpeditionPhase = 2;

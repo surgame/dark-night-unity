@@ -84,7 +84,12 @@ namespace DarkNights.Core.Save
                 if (!Number(a.Height, c.Saved.Terrain == null ? 0 : Config.Terrain.PlayableTerrain.MinimumHeight, maximumHeight) || !Number(a.VerticalSpeed, -1000, 1000) ||
                     !Number(a.DropRemaining, 0, hero?.DropSeconds ?? 0) || !Number(a.JetpackFuel, 0, hero?.FuelSeconds ?? 0) ||
                     a.ExplosiveCharges < 0 || a.ExplosiveCharges > 1000 ||
-                    a.SelectedItem < 0 || a.SelectedItem > 3 || a.SelectionRevision < 0 || a.SupportPlatform < -1 || a.IgnoredPlatform < 0 ||
+                    a.SelectedItem < 0 || a.SelectedItem > 3 || a.SelectionRevision < 0 || a.InventoryRevision < 0 ||
+                    new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.Any(item => item < 0 || item > 3) ||
+                    new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.Where(item => item != 0).Distinct().Count() !=
+                        new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.Count(item => item != 0) ||
+                    (!a.JetpackOwned && (a.JetpackEquipped || a.JetpackFuel != 0)) ||
+                    a.SupportPlatform < -1 || a.IgnoredPlatform < 0 ||
                     (a.Enemy && (a.ManualControl || (c.Saved.Expedition == null && a.Height != 0) || a.JetpackEquipped)) ||
                     (a.SupportPlatform == 0 && ((c.Saved.Terrain == null && a.Height != 0) || a.VerticalSpeed != 0)) ||
                     (a.SupportPlatform > 0 && !c.Layout.Platforms.Any(p => p.Id == a.SupportPlatform && p.Contains((float)a.X) &&

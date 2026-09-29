@@ -20,6 +20,7 @@ namespace DarkNights.Core.ViewData
         public int Lost { get; }
         public ResourceAmounts Gathered { get; }
         public int NextSpawn { get; }
+        public int Credits { get; }
 
         public CampViewData(
             ResourceAmounts stock,
@@ -34,7 +35,7 @@ namespace DarkNights.Core.ViewData
             int kills,
             int lost,
             ResourceAmounts gathered,
-            int nextSpawn = 0)
+            int nextSpawn = 0, int credits = 0)
         {
             Stock = stock;
             Population = population;
@@ -49,6 +50,7 @@ namespace DarkNights.Core.ViewData
             Lost = lost;
             Gathered = gathered;
             NextSpawn = nextSpawn;
+            Credits = credits;
         }
     }
 }

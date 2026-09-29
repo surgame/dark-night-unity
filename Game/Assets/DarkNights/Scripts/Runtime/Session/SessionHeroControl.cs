@@ -16,7 +16,8 @@ namespace DarkNights.Runtime.Session
         internal static bool IsOperation(SessionOperation operation) => operation == SessionOperation.ClaimHero ||
             operation == SessionOperation.ReleaseHero || operation == SessionOperation.SelectHeroItem ||
             operation == SessionOperation.UseHeroItem || operation == SessionOperation.Expedition ||
-            operation == SessionOperation.SelectDestination || operation == SessionOperation.CancelJourney;
+            operation == SessionOperation.SelectDestination || operation == SessionOperation.CancelJourney ||
+            operation == SessionOperation.SellCarriedOre || operation == SessionOperation.BuyEquipment;
 
         internal int AssignDefault(SessionConnection connection)
         {
@@ -85,6 +86,9 @@ namespace DarkNights.Runtime.Session
                     return SessionJourneyControl.Apply(world, connection, request);
                 case SessionOperation.Expedition:
                     return SessionExpeditionControl.Apply(world, connection, request);
+                case SessionOperation.SellCarriedOre:
+                case SessionOperation.BuyEquipment:
+                    return ApplyTrade(connection, request);
                 case SessionOperation.ClaimHero:
                     return ApplyClaim(connection, request.ActorIds[0]);
                 case SessionOperation.ReleaseHero:
@@ -101,6 +105,16 @@ namespace DarkNights.Runtime.Session
             ActorBehaviour actor = world.Index.Find<ActorBehaviour>(actorId);
             if (!CanClaim(actor) || FindControlledBy(connection.PlayerSlot) != null) return 0;
             return Claim(connection, actor) > 0 ? 1 : 0;
+        }
+
+        private int ApplyTrade(SessionConnection connection, SessionRequest request)
+        {
+            ActorBehaviour actor = world.Index.Find<ActorBehaviour>(request.ActorIds[0]);
+            if (!Owns(actor, connection, request.ControlLease) || world.Camp.Read().Mode != SessionMode.Playing)
+                return 0;
+            return world.Mutations.Run(() => request.Operation == SessionOperation.SellCarriedOre
+                ? world.Trade.Sell(actor, request.TargetId, request.Value, (int)request.X)
+                : world.Trade.Buy(actor, request.TargetId, request.Kind, request.Value));
         }
 
         private int ApplyOwned(SessionConnection connection, SessionRequest request)
@@ -159,7 +173,7 @@ namespace DarkNights.Runtime.Session
         private void ApplyInput(ActorState state, int actorId, HeroInputRequest input, long tick)
         {
             state.LastInputSequence = input.Sequence; state.LastInputTick = tick;
-            state.Horizontal = input.Horizontal; state.JumpHeld = input.JumpHeld;
+            state.Horizontal = input.Horizontal; state.JumpHeld = input.JumpHeld; state.SprintHeld = input.SprintHeld;
             state.AimAngle = input.AimAngle;
             if (input.CancelUse || input.SelectionRevision != state.SelectionRevision) HeroEquipment.Cancel(state);
             else
@@ -179,7 +193,7 @@ namespace DarkNights.Runtime.Session
             {
                 var current = actor.Read();
                 if (!current.ManualControl || (!world.Paused && tick - current.LastInputTick <= InputTimeoutTicks) ||
-                    (current.Horizontal == 0 && !current.JumpHeld && !current.UseHeld && !current.Charging && !current.UsePressed && !current.UseReleased && !current.JumpPending && !current.DropPending)) continue;
+                    (current.Horizontal == 0 && !current.SprintHeld && !current.JumpHeld && !current.UseHeld && !current.Charging && !current.UsePressed && !current.UseReleased && !current.JumpPending && !current.DropPending)) continue;
                 world.Mutations.Run(() => { ClearInput(actor.Edit()); return true; });
             }
         }
@@ -206,7 +220,7 @@ namespace DarkNights.Runtime.Session
         private static void ClearInput(ActorState state)
         {
             HeroEquipment.Cancel(state);
-            state.Horizontal = 0; state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
+            state.Horizontal = 0; state.SprintHeld = false; state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
         }
         private int Claim(SessionConnection connection, ActorBehaviour actor)
         {

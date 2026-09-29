@@ -109,7 +109,8 @@ namespace DarkNights.View
                         labels[i].text = orbit ?
                             (canUsePilot ? "选择目的地" : e.Ship.PilotId != 0 ? "驾驶位已占用" : "前往驾驶台") :
                             pilot ? "离开驾驶位" : "接管驾驶";
-                    else labels[i].text = command == "cancel-flight" ? "取消航程" : originalLabels[i];
+                    else labels[i].text = command == "cancel-flight" ? "取消航程" :
+                        command == "unload" ? "入仓原矿" : originalLabels[i];
                     ((RectTransform)Actions[i].transform).anchoredPosition = new Vector2(10 + visible % 3 * 141, -168 - visible / 3 * 30);
                 }
                 visible++;

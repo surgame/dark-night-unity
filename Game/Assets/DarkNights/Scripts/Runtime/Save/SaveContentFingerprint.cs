@@ -39,7 +39,7 @@ namespace DarkNights.Runtime.Save
 
         private static void WriteRules(BinaryWriter writer, GameCatalog catalog)
         {
-            writer.Write("dark-nights.rules.v2");
+            writer.Write("dark-nights.rules.v3");
             BalanceDefinition balance = catalog.Balance;
             writer.Write(balance.SchemaVersion);
             HeroControlDefinition hero = balance.HeroControl;
@@ -49,6 +49,7 @@ namespace DarkNights.Runtime.Save
                 writer.Write(hero.JumpSpeed); writer.Write(hero.Gravity); writer.Write(hero.MaximumHeight);
                 writer.Write(hero.JetpackSpeed); writer.Write(hero.FuelSeconds); writer.Write(hero.FuelRecovery);
                 writer.Write(hero.DropSeconds); writer.Write(hero.WorkReach);
+                writer.Write(hero.SprintMultiplier);
             }
             writer.Write(balance.Expedition.OxygenSeconds);
             writer.Write(balance.Expedition.BagCapacity);
@@ -62,6 +63,9 @@ namespace DarkNights.Runtime.Save
             writer.Write(balance.Expedition.RecallSeconds);
             writer.Write(balance.Expedition.ThreatSeconds);
             writer.Write(balance.Expedition.ModulePrice);
+            var trade = balance.Expedition.Trade;
+            writer.Write(trade.StartingCredits); writer.Write(trade.IronPrice); writer.Write(trade.GoldPrice);
+            writer.Write(trade.PistolPrice); writer.Write(trade.PickaxePrice); writer.Write(trade.JetpackPrice);
             var ship = balance.Expedition.Ship;
             writer.Write(ship.HorizontalSpeed); writer.Write(ship.VerticalSpeed); writer.Write(ship.Acceleration);
             writer.Write(ship.HorizontalRange); writer.Write(ship.MaximumLift); writer.Write(ship.DoorSeconds);

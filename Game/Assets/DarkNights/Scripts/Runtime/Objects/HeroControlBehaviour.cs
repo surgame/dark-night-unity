@@ -48,7 +48,8 @@ namespace DarkNights.Runtime.Objects
         }
 
         internal static float PlayerMoveSpeed(ActorBehaviour actor) =>
-            (float)(actor.Definition.Speed * PlayerMovementMultiplier * actor.World.DebugHeroSpeedMultiplier);
+            (float)(actor.Definition.Speed * PlayerMovementMultiplier * actor.World.DebugHeroSpeedMultiplier *
+                (actor.Read().SprintHeld && actor.Read().ManualControl ? actor.World.Catalog.Balance.HeroControl.SprintMultiplier : 1));
 
         internal void Claim(int slot, int generation)
         {
@@ -75,7 +76,7 @@ namespace DarkNights.Runtime.Objects
         internal static void ResetInput(ActorState state)
         {
             HeroEquipment.Cancel(state);
-            state.Horizontal = 0; state.ShipEntryBlocked = false;
+            state.Horizontal = 0; state.SprintHeld = false; state.ShipEntryBlocked = false;
             state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
             state.LastInputSequence = 0; state.LastInputTick = 0;
         }
