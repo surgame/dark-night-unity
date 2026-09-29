@@ -84,7 +84,7 @@ namespace DarkNights.Editor.Terrain
         {
             EditorGUILayout.HelpBox("预览只创建空白离屏宿主和当前地图，复用运行时 TerrainPreview、AnyRuleD 与 Cave shader；不加载游戏场景、角色或游戏会话。", MessageType.Info);
             EditorGUILayout.LabelField("地图来源：正式星球生成（与 Bootstrap 共用）", EditorStyles.boldLabel);
-            EditorGUILayout.HelpBox("通路阻断实验已移除：新地图不再回填塌方或竖井岩棚。已有存档保留原格子。", MessageType.Info);
+            EditorGUILayout.HelpBox("旧塌方与竖井岩棚回填已移除；入口下洞步道是独立的权威地形步骤，可在生成配置中启停。已有存档保留原格子。", MessageType.Info);
             using (new EditorGUI.DisabledScope(mapDraft.HasChanges)) generation.Draw(Invalidate);
             EditorGUILayout.LabelField("当前地图种子：" + (baselineBlueprint?.Settings.Seed ?? "尚未生成"), EditorStyles.miniLabel);
             var selectedStyle = (CaveTerrainStyle)EditorGUILayout.ObjectField("岩壁样式", style, typeof(CaveTerrainStyle), false);

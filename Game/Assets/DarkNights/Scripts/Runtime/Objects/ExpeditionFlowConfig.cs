@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using DarkNights.Core.Logic.Terrain;
 using System.Security.Cryptography;
@@ -25,6 +26,62 @@ namespace DarkNights.Runtime.Objects
         public TerrainGenerationSettings CaveMap = new TerrainGenerationSettings
         { Seed = "STRATA-0922", ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile };
         public List<PlanetPreset> Planets = new List<PlanetPreset> { new PlanetPreset() };
+        public int ModifierSchemaVersion = 1;
+        [SerializeReference] public List<ITerrainGenerationModifierConfig> Modifiers =
+            new List<ITerrainGenerationModifierConfig> { new EntranceWalkwayModifierConfig() };
+
+        /// <summary>冻结启用步骤和顺序；旧配置未含字段时沿用原入口步道，显式空列表则关闭所有附加步骤。</summary>
+        public TerrainGenerationPipeline FreezeModifiers()
+        {
+            var entries = EffectiveModifiers();
+            if (entries.Count > 32) throw new InvalidOperationException("地形步骤最多 32 项。");
+            var steps = new List<ITerrainGenerationModifier>();
+            foreach (var entry in entries)
+            {
+                if (entry == null) throw new InvalidOperationException("地形步骤不得为空；请删除失去类型的配置行。");
+                var frozen = entry.Freeze();
+                if (frozen == null) throw new InvalidOperationException("地形步骤冻结结果为空。");
+                if (entry.Enabled) steps.Add(frozen);
+            }
+            return new TerrainGenerationPipeline(steps);
+        }
+
+        /// <summary>用于草稿保存的完整接口项复制；显式迁移旧资产后，列表为空才代表关闭所有步骤。</summary>
+        public List<ITerrainGenerationModifierConfig> CopyModifiers()
+        {
+            return EffectiveModifiers().Select(entry => entry?.Copy()).ToList();
+        }
+
+        private IReadOnlyList<ITerrainGenerationModifierConfig> EffectiveModifiers()
+        {
+            if (ModifierSchemaVersion == 0 || ModifierSchemaVersion == 1 && Modifiers == null)
+                return new ITerrainGenerationModifierConfig[] { new EntranceWalkwayModifierConfig() };
+            if (ModifierSchemaVersion != 1)
+                throw new InvalidOperationException("地形步骤配置版本或列表无效。");
+            return Modifiers;
+        }
+
+        /// <summary>草稿冲突检查与内容身份使用的规范文本，明确包含接口具体类型、顺序、启用状态及参数。</summary>
+        public string CanonicalIdentity()
+        {
+            var builder = new StringBuilder("flow-v1|");
+            builder.Append(Enabled ? '1' : '0').Append('|')
+                .Append(PreparationTimeoutSeconds.ToString("R", CultureInfo.InvariantCulture)).Append('|')
+                .Append(ArrivalTimeoutSeconds.ToString("R", CultureInfo.InvariantCulture)).Append('|')
+                .Append(CaveMap == null ? "<missing>" : JsonUtility.ToJson(CaveMap)).Append('|')
+                .Append(Planets?.Count ?? -1);
+            if (Planets != null)
+                foreach (var planet in Planets)
+                    builder.Append('|').Append(planet == null ? "<missing>" : JsonUtility.ToJson(planet));
+            builder.Append("|terrain-modifiers-v").Append(ModifierSchemaVersion);
+            var entries = EffectiveModifiers();
+            builder.Append('|').Append(entries.Count);
+            foreach (var entry in entries)
+                builder.Append('|').Append(entry == null ? "<missing>" :
+                    entry.GetType().Assembly.GetName().Name + ":" + entry.GetType().FullName)
+                    .Append(':').Append(entry?.CanonicalSettings ?? "<missing>");
+            return builder.ToString();
+        }
 
         /// <summary>冻结共用洞穴输入；工作台保留预览种子，正式会话在生成时覆盖为航程种子。</summary>
         public TerrainGenerationSettings FreezeCaveMap()
@@ -62,13 +119,13 @@ namespace DarkNights.Runtime.Objects
             return result;
         }
 
-        public void Validate() { FreezePlanets(); FreezeCaveMap(); }
+        public void Validate() { FreezePlanets(); FreezeCaveMap(); FreezeModifiers(); }
 
         public string Fingerprint()
         {
             Validate();
             using var hash = SHA256.Create();
-            byte[] bytes = Encoding.UTF8.GetBytes("dn-space-planet-v" + PlanetTerrainGenerator.Version + "|" + JsonUtility.ToJson(this));
+            byte[] bytes = Encoding.UTF8.GetBytes("dn-space-planet-v" + PlanetTerrainGenerator.Version + "|" + CanonicalIdentity());
             return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
         }
 

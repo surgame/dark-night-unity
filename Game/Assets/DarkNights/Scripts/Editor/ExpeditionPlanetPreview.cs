@@ -32,7 +32,8 @@ namespace DarkNights.Editor
             EditorApplication.update += Tick;
         }
 
-        internal void Generate(PlanetDefinition planet, Action<string> completed, TerrainGenerationSettings template = null)
+        internal void Generate(PlanetDefinition planet, Action<string> completed, TerrainGenerationSettings template = null,
+            TerrainGenerationPipeline modifiers = null)
         {
             Clear();
             var settings = (template ?? new TerrainGenerationSettings { ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile }).CopyValidated();
@@ -41,7 +42,8 @@ namespace DarkNights.Editor
             cancellation = new CancellationTokenSource();
             CancellationToken token = cancellation.Token;
             selected = planet; report = completed; deadline = EditorApplication.timeSinceStartup + 15;
-            pending = Task.Run(() => PlanetTerrainGenerator.GenerateCandidate(planet, seed, worldId, settings, () => token.IsCancellationRequested), token);
+            pending = Task.Run(() => PlanetTerrainGenerator.GenerateCandidate(planet, seed, worldId, settings,
+                () => token.IsCancellationRequested, modifiers), token);
         }
 
         private void Tick()

@@ -19,15 +19,15 @@ namespace DarkNights.Editor
         [SerializeField] private ObjectDefinition source;
         internal string BaselineJson => baselineJson;
         internal ObjectDefinition Source => source;
-        internal bool HasChanges => JsonUtility.ToJson(Config) != draftBaselineJson;
+        internal bool HasChanges => Config.CanonicalIdentity() != draftBaselineJson;
 
         internal void Load(ObjectDefinition source)
         {
             this.source = source;
             var current = Read(source);
-            baselineJson = current == null ? "" : JsonUtility.ToJson(current);
+            baselineJson = current == null ? "" : current.CanonicalIdentity();
             Config = current == null ? new ExpeditionFlowConfig() : Clone(current);
-            draftBaselineJson = JsonUtility.ToJson(Config);
+            draftBaselineJson = Config.CanonicalIdentity();
         }
 
         internal void Apply()
@@ -36,7 +36,7 @@ namespace DarkNights.Editor
                 throw new InvalidOperationException("仅允许在编辑态应用到正式会话定义。");
             Config.Validate();
             var current = Read(Source);
-            string currentJson = current == null ? "" : JsonUtility.ToJson(current);
+            string currentJson = current == null ? "" : current.CanonicalIdentity();
             if (currentJson != BaselineJson)
                 throw new InvalidOperationException("正式配置已被其他编辑操作修改；请取消草稿后重新编辑，避免覆盖。");
             Undo.RecordObject(Source, "应用星球航程配置");
@@ -45,11 +45,29 @@ namespace DarkNights.Editor
             else Source.SharedConfigs[Source.SharedConfigs.IndexOf(current)] = copy;
             EditorUtility.SetDirty(Source);
             AssetDatabase.SaveAssetIfDirty(Source);
-            baselineJson = JsonUtility.ToJson(copy);
+            baselineJson = copy.CanonicalIdentity();
             draftBaselineJson = baselineJson;
         }
 
-        internal static T Clone<T>(T value) => JsonUtility.FromJson<T>(JsonUtility.ToJson(value));
+        internal static T Clone<T>(T value)
+        {
+            if (value is ExpeditionFlowConfig source)
+            {
+                // 接口列表逐项复制，草稿不依赖 JsonUtility 对嵌套 SerializeReference 的支持。
+                var copy = new ExpeditionFlowConfig
+                {
+                    Enabled = source.Enabled,
+                    PreparationTimeoutSeconds = source.PreparationTimeoutSeconds,
+                    ArrivalTimeoutSeconds = source.ArrivalTimeoutSeconds,
+                    CaveMap = source.CaveMap == null ? null : Clone(source.CaveMap),
+                    Planets = source.Planets?.Select(planet => planet == null ? null : Clone(planet)).ToList(),
+                    ModifierSchemaVersion = 1,
+                    Modifiers = source.CopyModifiers()
+                };
+                return (T)(object)copy;
+            }
+            return JsonUtility.FromJson<T>(JsonUtility.ToJson(value));
+        }
 
         private static ExpeditionFlowConfig Read(ObjectDefinition source)
         {

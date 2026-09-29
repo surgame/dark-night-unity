@@ -110,8 +110,10 @@ namespace DarkNights.Runtime.Terrain
             bool orbit = expedition && flow?.Enabled == true;
             var caveMap = expedition ? flow?.FreezeCaveMap() ?? throw new InvalidOperationException("远征缺少共用洞穴地图配置。") : null;
             var groundPlanet = expedition && !orbit ? flow.PreviewPlanet() : null;
+            var terrainModifiers = expedition && !orbit ? flow.FreezeModifiers() : null;
             generation = Task.Run(() => orbit ? PlanetTerrainGenerator.Space(id) :
-                expedition ? PlanetTerrainGenerator.GenerateCandidate(groundPlanet, seed, id, caveMap) : PlayableTerrainGenerator.Generate(seed, id));
+                expedition ? PlanetTerrainGenerator.GenerateCandidate(groundPlanet, seed, id, caveMap,
+                    pipeline: terrainModifiers) : PlayableTerrainGenerator.Generate(seed, id));
             try
             {
                 var result = await generation;

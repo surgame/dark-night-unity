@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using DarkNights.Runtime.Objects;
+using DarkNights.Editor.Terrain;
 using GameCore.Objects.Definition;
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -21,6 +22,7 @@ namespace DarkNights.Editor
         private ScrollView details;
         private Label status;
         private ExpeditionPlanetPreview preview;
+        private TerrainModifierConfigDrawer modifierDrawer;
 
         [MenuItem("Dark Nights/配置/星球与航程")]
         public static void Open()
@@ -42,6 +44,7 @@ namespace DarkNights.Editor
             EditorApplication.playModeStateChanged -= OnPlayModeChanged;
             rootVisualElement.Unbind(); serialized?.Dispose(); serialized = null;
             preview?.Dispose(); preview = null;
+            modifierDrawer?.Dispose(); modifierDrawer = null;
             table = null; details = null; status = null;
         }
 
@@ -63,6 +66,7 @@ namespace DarkNights.Editor
                     draft.Load(AssetDatabase.LoadAssetAtPath<ObjectDefinition>(FormalObjectContentSetup.SessionDefinitionPath));
                 }
                 serialized?.Dispose(); serialized = new SerializedObject(draft);
+                modifierDrawer?.Dispose(); modifierDrawer = new TerrainModifierConfigDrawer(draft);
                 BuildPanel();
                 rootVisualElement.TrackSerializedObjectValue(serialized, _ => DraftChanged());
                 rootVisualElement.SetEnabled(!EditorApplication.isPlayingOrWillChangePlaymode);
@@ -86,6 +90,8 @@ namespace DarkNights.Editor
             AddProperty(common, "Config.PreparationTimeoutSeconds", "准备超时（秒）");
             AddProperty(common, "Config.ArrivalTimeoutSeconds", "到达超时（秒）");
             root.Add(common);
+            root.Add(new HelpBox("权威地形步骤：可在列表中选择接口实现、启停并直接修改参数；顺序决定同阶段的执行顺序。", HelpBoxMessageType.Info));
+            root.Add(new IMGUIContainer(() => modifierDrawer?.Draw(DraftChanged)));
             table = new MultiColumnListView { itemsSource = draft.Config.Planets, fixedItemHeight = 24,
                 selectionType = SelectionType.Single, reorderable = false };
             table.style.height = 156;
@@ -223,7 +229,8 @@ namespace DarkNights.Editor
             try
             {
                 status.text = "正在后台生成静态蓝图；编辑或关闭面板会取消本次预览。";
-                preview.Generate(draft.Config.Planets[index].Freeze(), message => status.text = message, draft.Config.FreezeCaveMap());
+                preview.Generate(draft.Config.Planets[index].Freeze(), message => status.text = message,
+                    draft.Config.FreezeCaveMap(), draft.Config.FreezeModifiers());
             }
             catch (Exception error) { status.text = "预览失败：" + error.Message; }
         }
@@ -236,7 +243,7 @@ namespace DarkNights.Editor
 
         public override void DiscardChanges()
         {
-            try { Undo.ClearUndo(draft); draft.Load(draft.Source); RowsChanged(0); }
+            try { Undo.ClearUndo(draft); draft.Load(draft.Source); modifierDrawer.Rebind(); RowsChanged(0); }
             catch (Exception error) { status.text = "重新读取失败：" + error.Message; }
         }
 

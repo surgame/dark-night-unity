@@ -19,6 +19,7 @@
 
 ## 使用说明
 
+- [TERRAIN_GENERATION_MODIFIER_PIPELINE.md](TERRAIN_GENERATION_MODIFIER_PIPELINE.md) — 生成阶段接口 Modifier、入口步道开关、Odin 配置入口与未验收边界
 - [CAVE_GENERATION_ALIGNMENT.md](CAVE_GENERATION_ALIGNMENT.md) — 洞穴唯一完整生成入口、旧通路阻断退出、Tuner 原功能保留及人工测试清单
 
 - [RUNTIME_DEBUG_HUB.md](RUNTIME_DEBUG_HUB.md) — F1 调试入口、远征按钮迁移及驾驶台 E 交互

@@ -31,7 +31,7 @@ namespace DarkNights.Entry.Terrain
             GUI.enabled = enabled;
             GUILayout.Label("笔刷草稿：" + (edits?.ChangedCells ?? 0) + " 格 · 仅影响当前地图，重新生成或退出运行后丢弃");
             GUILayout.Space(8); GUILayout.Label("地图来源");
-            GUILayout.Label("正式星球生成；通路阻断实验已移除。已有存档不会自动重绘。");
+            GUILayout.Label("正式星球生成；旧塌方阻断已移除，入口步道由正式地形步骤配置。已有存档不会自动重绘。");
             if (picker.Pick("岩壁样式", boot.CaveStyle, out CaveTerrainStyle style) && style != boot.CaveStyle) panel.SwitchStyle(style);
             var planets = boot.MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().Single().FreezePlanets().Where(p => p.Enabled).ToArray();
             int selected = Math.Max(0, Array.FindIndex(planets, p => p.Id == boot.PlanetId));
