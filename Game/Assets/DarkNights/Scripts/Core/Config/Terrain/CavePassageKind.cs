@@ -1,7 +1,5 @@
-using System;
-
 namespace DarkNights.Core.Config.Terrain
 {
-    /// <summary>隐藏拓扑边的通行状态；仅是生成时的地质分类，不构成客户端爆破授权。</summary>
-    public enum CavePassageKind { Open, LooseFill, ThinRock, DeepRock }
+    /// <summary>冻结洞穴连接的类型；当前仅允许开放连接，旧掩埋实验已经退出生成和编辑入口。</summary>
+    public enum CavePassageKind { Open }
 }

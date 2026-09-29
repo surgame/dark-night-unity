@@ -1,6 +1,6 @@
 namespace DarkNights.Core.Config.Terrain
 {
-    /// <summary>冻结的洞室连接及掩埋位置；几何生成先连通再覆盖，运行变化不回写此记录。</summary>
+    /// <summary>冻结的开放洞室连接及转折位置；生成时只挖空通路，运行变化不回写此记录。</summary>
     public sealed class CavePassage
     {
         public int From { get; }

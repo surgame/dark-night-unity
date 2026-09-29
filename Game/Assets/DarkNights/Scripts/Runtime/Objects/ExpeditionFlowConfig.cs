@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using DarkNights.Core.Logic.Terrain;
 using System.Security.Cryptography;
 using System.Text;
 using DarkNights.Core.Config.Expedition;
@@ -34,6 +36,14 @@ namespace DarkNights.Runtime.Objects
             return settings;
         }
 
+        /// <summary>工作台选择正式星球；未指定时使用首个启用项，不构造另一份默认泊位配置。</summary>
+        public PlanetDefinition PreviewPlanet(string id = null)
+        {
+            var planets = FreezePlanets();
+            return planets.FirstOrDefault(p => p.Enabled && (string.IsNullOrEmpty(id) || p.Id == id))
+                ?? throw new InvalidOperationException("没有可预览的正式星球。");
+        }
+
         public PlanetDefinition[] FreezePlanets()
         {
             if (Planets == null || Planets.Count > 32 || Enabled && Planets.Count == 0)
@@ -58,7 +68,7 @@ namespace DarkNights.Runtime.Objects
         {
             Validate();
             using var hash = SHA256.Create();
-            byte[] bytes = Encoding.UTF8.GetBytes("dn-space-planet-v1|" + JsonUtility.ToJson(this));
+            byte[] bytes = Encoding.UTF8.GetBytes("dn-space-planet-v" + PlanetTerrainGenerator.Version + "|" + JsonUtility.ToJson(this));
             return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
         }
 

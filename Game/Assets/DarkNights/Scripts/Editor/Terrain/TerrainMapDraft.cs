@@ -23,6 +23,7 @@ namespace DarkNights.Editor.Terrain
         private int historyCursor;
 
         public bool HasChanges => changed != 0;
+        public bool CanSave => map != null && assetPath != null;
         public int ChangedCells => changed;
         public bool IsReady => working != null;
         public string Error { get; private set; }
@@ -46,6 +47,19 @@ namespace DarkNights.Editor.Terrain
                 working = (byte[])baseline.Clone();
             }
             catch (Exception error) { Error = error.Message; assetPath = null; baseline = null; working = null; }
+        }
+
+        /// <summary>正式生成结果上的临时拆填；只用于预览，不把一局格子写回生成配置或人工样板。</summary>
+        public void OpenGenerated(TerrainBlueprint blueprint)
+        {
+            Open(null);
+            baseline = new byte[blueprint.Width * blueprint.Height * 2];
+            for (int y = 0; y < blueprint.Height; y++) for (int x = 0; x < blueprint.Width; x++)
+            {
+                int i = (y * blueprint.Width + x) * 2;
+                baseline[i] = blueprint.MaterialAt(x, y); baseline[i + 1] = (byte)blueprint.CellFlagsAt(x, y);
+            }
+            working = (byte[])baseline.Clone();
         }
 
         public bool Paint(int x, int y, bool fill, byte material)
@@ -174,6 +188,7 @@ namespace DarkNights.Editor.Terrain
         public void Apply()
         {
             if (!HasChanges) return;
+            if (!CanSave) throw new InvalidOperationException("生成地图拆填仅为临时预览，不能保存到固定资产。");
             if (!File.ReadAllBytes(AbsolutePath()).SequenceEqual(baseline))
                 throw new InvalidOperationException("初始格子文件已在窗口外变化；请先取消地图草稿并重新打开。");
             // 同一格子文件只属于当前地图；不通过替换 TextAsset 破坏场景与地图资产的 GUID。

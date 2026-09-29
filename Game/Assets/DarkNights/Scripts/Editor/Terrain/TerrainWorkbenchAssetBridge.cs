@@ -1,4 +1,7 @@
 using System;
+using DarkNights.Core.Config.Terrain;
+using DarkNights.Runtime.Objects;
+using GameCore.Objects.Definition;
 using System.Collections.Generic;
 using System.Linq;
 using DarkNights.Entry.Terrain;
@@ -18,6 +21,7 @@ namespace DarkNights.Editor.Terrain
             TerrainWorkbenchAssets.Query = Query;
             TerrainWorkbenchAssets.SaveStyle = SaveStyle;
             TerrainWorkbenchAssets.SaveMap = SaveMap;
+            TerrainWorkbenchAssets.SaveGeneration = SaveGeneration;
             EditorApplication.projectChanged += Catalog.Clear;
         }
         private static ScriptableObject[] Query(Type type)
@@ -31,6 +35,19 @@ namespace DarkNights.Editor.Terrain
             }
             return assets;
         }
+        public static void SaveGeneration(ObjectDefinition source, string baseline, TerrainGenerationSettings settings)
+        {
+            var config = source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
+            if (JsonUtility.ToJson(config.CaveMap) != baseline)
+                throw new InvalidOperationException("正式地图配置已变化；请重新打开工作台后再保存。");
+            var copy = settings.CopyValidated();
+            if (copy.ResourceProfile != TerrainGenerationSettings.CaveExplorationProfile)
+                throw new InvalidOperationException("正式地图必须使用洞穴生成。");
+            Undo.RecordObject(source, "应用共用洞穴生成参数");
+            config.CaveMap = copy;
+            EditorUtility.SetDirty(source); AssetDatabase.SaveAssetIfDirty(source);
+        }
+
         public static void SaveStyle(CaveStyleDraft runtime)
         {
             foreach (var item in runtime.Items)

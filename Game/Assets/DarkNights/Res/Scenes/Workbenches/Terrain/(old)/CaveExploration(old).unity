@@ -344,6 +344,7 @@ MonoBehaviour:
   BalanceJson: {fileID: 4900000, guid: 887f7dd8067191b469ededa0a55ed0ab, type: 3}
   LevelJson: {fileID: 4900000, guid: d54580f6965e6754d8a69884072bf2f0, type: 3}
   Flyer: {fileID: 848257536}
+  MapAssemblySource: {fileID: 11400000, guid: 2831308ce23cb1b40b41fceb09dff2e6, type: 2}
   Settings:
     Seed: CAVE-EXPLORATION-01
     Surface: rolling

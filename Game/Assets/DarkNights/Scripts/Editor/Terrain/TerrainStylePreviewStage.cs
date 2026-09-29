@@ -37,9 +37,13 @@ namespace DarkNights.Editor.Terrain
 
         public void Open(TerrainMapAsset map, TerrainBlueprint blueprint, CaveTerrainStyle style,
             TerrainStyleDrafts drafts, byte[] materials, byte[] shapes, BackgroundBakeDescriptor reference)
+            => Open(map.Definition, blueprint, style, drafts, materials, shapes, reference);
+
+        public void Open(ARDMapDefinition definition, TerrainBlueprint blueprint, CaveTerrainStyle style,
+            TerrainStyleDrafts drafts, byte[] materials, byte[] shapes, BackgroundBakeDescriptor reference)
         {
             Dispose();
-            if (map == null || blueprint == null || style == null || drafts == null)
+            if (definition == null || blueprint == null || style == null || drafts == null)
                 throw new ArgumentNullException("地图、蓝图、样式和草稿必须完整。");
             try
             {
@@ -63,9 +67,9 @@ namespace DarkNights.Editor.Terrain
                 terrain = root.AddComponent<TerrainPreview>(); transientStyle = BuildStyle(style, drafts);
                 transientBackground = transientStyle.Background; terrain.CaveStyle = transientStyle;
                 terrain.ViewCamera = camera;
-                Source = new TerrainBlueprintSource(blueprint, map.Definition.LoadGameplayCatalog().Tiles);
+                Source = new TerrainBlueprintSource(blueprint, definition.LoadGameplayCatalog().Tiles);
                 if (materials != null && shapes != null) Source.ReplaceCells(materials, shapes);
-                try { terrain.ShowBlueprint(map.Definition, blueprint, Source, reference); }
+                try { terrain.ShowBlueprint(definition, blueprint, Source, reference); }
                 finally { DestroyTransientStyle(); }
                 renderedRevision = -1;
             }

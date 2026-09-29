@@ -229,15 +229,7 @@ namespace DarkNights.Runtime.Objects
         private static PlayableTerrain GenerateCandidate(PlanetDefinition planet, string seed, string mapId,
             TerrainGenerationSettings template, CancellationToken token)
         {
-            int attempts = planet.Seed.Length == 0 ? 3 : 1;
-            for (int attempt = 0; attempt < attempts; attempt++)
-            {
-                token.ThrowIfCancellationRequested();
-                string actualSeed = attempt == 0 ? seed : seed + "-retry" + attempt;
-                try { return PlanetTerrainGenerator.Generate(planet, actualSeed, mapId, () => token.IsCancellationRequested, template); }
-                catch (InvalidOperationException) when (attempt + 1 < attempts) { }
-            }
-            throw new InvalidOperationException("星球候选生成重试已耗尽。");
+            return PlanetTerrainGenerator.GenerateCandidate(planet, seed, mapId, template, () => token.IsCancellationRequested);
         }
 
         protected override void OnSpawn()

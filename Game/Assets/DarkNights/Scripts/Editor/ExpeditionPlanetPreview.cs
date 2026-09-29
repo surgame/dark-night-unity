@@ -32,15 +32,16 @@ namespace DarkNights.Editor
             EditorApplication.update += Tick;
         }
 
-        internal void Generate(PlanetDefinition planet, Action<string> completed)
+        internal void Generate(PlanetDefinition planet, Action<string> completed, TerrainGenerationSettings template = null)
         {
             Clear();
-            string seed = string.IsNullOrEmpty(planet.Seed) ? "PREVIEW-" + planet.Id : planet.Seed;
+            var settings = (template ?? new TerrainGenerationSettings { ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile }).CopyValidated();
+            string seed = string.IsNullOrEmpty(planet.Seed) ? settings.Seed : planet.Seed;
             const string worldId = "00000000000000000000000000000001";
             cancellation = new CancellationTokenSource();
             CancellationToken token = cancellation.Token;
             selected = planet; report = completed; deadline = EditorApplication.timeSinceStartup + 15;
-            pending = Task.Run(() => PlanetTerrainGenerator.Generate(planet, seed, worldId, () => token.IsCancellationRequested), token);
+            pending = Task.Run(() => PlanetTerrainGenerator.GenerateCandidate(planet, seed, worldId, settings, () => token.IsCancellationRequested), token);
         }
 
         private void Tick()

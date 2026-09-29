@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using DarkNights.Runtime.Objects;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.View.Terrain;
 using UnityEngine;
@@ -45,6 +47,7 @@ namespace DarkNights.Entry.Terrain
             GUI.enabled = enabled;
             GUILayout.Label("笔刷草稿：" + (edits?.ChangedCells ?? 0) + " 格 · 退出运行丢弃未保存修改");
             GUILayout.Space(8); GUILayout.Label("地图来源");
+            GUILayout.Label("通路阻断实验已移除；已有固定格子和存档不会自动重绘。");
             if (picker.Pick("固定蓝图", boot.FixedMap, out TerrainMapAsset map) && map != boot.FixedMap)
             {
                 if (edits?.ChangedCells > 0) panel.SetMessage("先保存或取消地图草稿，再切换来源。");
@@ -54,6 +57,17 @@ namespace DarkNights.Entry.Terrain
             if (picker.Pick("岩壁样式", boot.CaveStyle, out CaveTerrainStyle style) && style != boot.CaveStyle) panel.SwitchStyle(style);
             if (boot.FixedMap == null)
             {
+                if (boot.MapAssemblySource != null)
+                {
+                    var planets = boot.MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().Single().FreezePlanets().Where(p => p.Enabled).ToArray();
+                    int selected = Math.Max(0, Array.FindIndex(planets, p => p.Id == boot.PlanetId));
+                    int next = GUILayout.SelectionGrid(selected, planets.Select(p => p.DisplayName).ToArray(), 2);
+                    if (next != selected) { boot.PlanetId = planets[next].Id; boot.RequestRegenerate(); }
+                    GUILayout.Label("完整正式星球预览（含天空、泊位、入口）；同一星球和种子逐格一致。");
+                    if (TerrainWorkbenchAssets.SaveGeneration != null && GUILayout.Button("保存生成参数到正式配置"))
+                        panel.Run(() => { TerrainWorkbenchAssets.SaveGeneration(boot.MapAssemblySource, boot.MapConfigBaseline, boot.Settings);
+                            boot.AcceptMapConfigSave(); panel.SetMessage("生成参数已保存；下次正式生成使用新参数，已有地图保持当前格子。"); });
+                }
                 GUILayout.Label("随机种子"); GUI.SetNextControlName("TerrainSeed");
                 boot.Settings.Seed = GUILayout.TextField(boot.Settings.Seed ?? "", 80);
                 if (boot.Settings.ResourceProfile != TerrainGenerationSettings.CaveExplorationProfile)

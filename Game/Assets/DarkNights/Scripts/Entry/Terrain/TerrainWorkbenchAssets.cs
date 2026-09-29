@@ -1,4 +1,6 @@
 using System;
+using DarkNights.Core.Config.Terrain;
+using GameCore.Objects.Definition;
 using DarkNights.View.Terrain;
 using UnityEngine;
 
@@ -9,6 +11,7 @@ namespace DarkNights.Entry.Terrain
     {
         public static Func<Type, ScriptableObject[]> Query;
         public static Action<CaveStyleDraft> SaveStyle;
+        public static Action<ObjectDefinition, string, TerrainGenerationSettings> SaveGeneration;
         public static Action<TerrainMapAsset, byte[], byte[]> SaveMap;
     }
 }

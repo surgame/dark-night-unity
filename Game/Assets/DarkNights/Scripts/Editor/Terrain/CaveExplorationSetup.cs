@@ -36,6 +36,8 @@ namespace DarkNights.Editor.Terrain
                 foreach (var root in scene.GetRootGameObjects())
                     foreach (var bootstrap in root.GetComponentsInChildren<TerrainDebugBootstrap>(true))
                     {
+                        bootstrap.MapAssemblySource = AssetDatabase.LoadAssetAtPath<GameCore.Objects.Definition.ObjectDefinition>(
+                            "Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset");
                         bootstrap.Settings = new TerrainGenerationSettings
                         {
                             Seed = "CAVE-EXPLORATION-01", Surface = "rolling",

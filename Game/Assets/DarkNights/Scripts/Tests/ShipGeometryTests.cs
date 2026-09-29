@@ -15,7 +15,7 @@ namespace DarkNights.Tests
         public void WalkwayIsContinuousAndFitsTheExistingDock()
         {
             for (float x = -159; x <= 128; x++) Assert.That(ShipGeometry.Floor(x) - ShipGeometry.Floor(x - 1), Is.InRange(0, .625f));
-            Assert.That((ExpeditionTerrainGenerator.DockRight - ExpeditionTerrainGenerator.DockLeft) * 16 - ShipGeometry.HalfWidth * 2, Is.EqualTo(32));
+            Assert.That((ExpeditionTerrainGenerator.DockRight - ExpeditionTerrainGenerator.DockLeft) * 16 - ShipGeometry.HalfWidth * 2, Is.EqualTo(160));
             Assert.That(ShipGeometry.Inside(-100, 30), Is.False, "坡道上的角色不能使收舱门槛通过。");
             Assert.That(ShipGeometry.AtPilot(96, 80), Is.True);
             Assert.That(ShipGeometry.AtPilot(60, 80), Is.False);

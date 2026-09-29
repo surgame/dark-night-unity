@@ -4,7 +4,7 @@ using DarkNights.Core.Config.Terrain;
 
 namespace DarkNights.Core.Logic.Terrain
 {
-    /// <summary>分层错位的天然洞厅生成；空间骨架、可变通道和塌方先于独立坡形，输出冻结候选，不拥有运行状态。</summary>
+    /// <summary>洞穴生成流水线的天然空间阶段；洞厅与全部连接只挖空，不再回填旧塌方隔断，输出冻结候选。</summary>
     public static class CaveExplorationGenerator
     {
         private const int W = TerrainGenerationSettings.Width, H = TerrainGenerationSettings.Height;
@@ -30,15 +30,6 @@ namespace DarkNights.Core.Logic.Terrain
             }
             CarveLine(cells, rooms[0].X - 8, surface[rooms[0].X - 8] - 2, rooms[0].X, rooms[0].Y, 4);
             CarveLine(cells, rooms[3].X + 12, surface[rooms[3].X + 12] - 2, rooms[3].X, rooms[3].Y, 3);
-            foreach (var edge in passages)
-            {
-                var a = rooms[edge.From]; var b = rooms[edge.To];
-                CaveRoomCarving.Shelves(cells, a.X, a.Y, edge.BendX, edge.BendY, rooms);
-                CaveRoomCarving.Shelves(cells, edge.BendX, edge.BendY, b.X, b.Y, rooms);
-            }
-            CaveRoomCarving.Shelves(cells, rooms[0].X - 8, surface[rooms[0].X - 8], rooms[0].X, rooms[0].Y, rooms);
-            CaveRoomCarving.Shelves(cells, rooms[3].X + 12, surface[rooms[3].X + 12], rooms[3].X, rooms[3].Y, rooms);
-            foreach (var edge in passages) Cover(cells, soft, rooms, edge);
             for (int x = 24; x < 48; x++) for (int y = surface[x]; y <= surface[x] + 2; y++)
             { int i = y * W + x; cells[i] = 1; protection[i] = true; soft[i] = false; }
             var deposits = new List<TerrainDepositBlueprint>();
@@ -107,7 +98,7 @@ namespace DarkNights.Core.Logic.Terrain
                     double dx = rooms[a].X - rooms[j].X, dy = rooms[a].Y - rooms[j].Y;
                     if (dx * dx + dy * dy < best) { best = dx * dx + dy * dy; b = j; }
                 }
-                if (b >= 0) Add(edges, rooms, a, b, k < 2 ? CavePassageKind.LooseFill : k == 2 ? CavePassageKind.ThinRock : CavePassageKind.DeepRock, r);
+                if (b >= 0) Add(edges, rooms, a, b, CavePassageKind.Open, r);
             }
             for (int i = edges.Count - 1; i > 0; i--)
             { int j = (int)(r.Next() * (i + 1)); var swap = edges[i]; edges[i] = edges[j]; edges[j] = swap; }
@@ -118,7 +109,7 @@ namespace DarkNights.Core.Logic.Terrain
             var p = rooms[a]; var q = rooms[b];
             int x = (p.X + q.X) / 2 + (int)(r.Next() * 7) - 3;
             int y = (p.Y + q.Y) / 2 + 2 + (int)(r.Next() * 5) - 2;
-            edges.Add(new CavePassage(a, b, kind, x, y, 3, kind == CavePassageKind.Open ? 0 : kind == CavePassageKind.ThinRock ? 2 : 6));
+            edges.Add(new CavePassage(a, b, kind, x, y, 3, 0));
         }
         private static void CarveLine(byte[] cells, int ax, int ay, int bx, int by, int radius)
         {
@@ -131,18 +122,6 @@ namespace DarkNights.Core.Logic.Terrain
                 for (int y = -radius - 1; y <= radius + 1; y++) for (int x = -radius - 1; x <= radius + 1; x++)
                     if (x * x + y * y <= size * size) Clear(cells, cx + x, cy + y);
             }
-        }
-        private static void Cover(byte[] cells, bool[] soft, List<TerrainRoom> rooms, CavePassage edge)
-        {
-            if (edge.Kind == CavePassageKind.Open) return;
-            for (int y = edge.BendY - edge.CoverLength; y <= edge.BendY + edge.CoverLength; y++)
-                for (int x = edge.BendX - edge.Radius - 2; x <= edge.BendX + edge.Radius + 2; x++)
-                {
-                    if (x < 3 || x >= W - 3 || y < 3 || y >= H - 3) continue;
-                    if (rooms.Exists(room => Math.Abs(x - room.X) < room.Width * .4 && Math.Abs(y - room.Y) < room.Height * .35)) continue;
-                    int i = y * W + x;
-                    if (cells[i] == 0) { cells[i] = edge.Kind == CavePassageKind.LooseFill ? (byte)1 : (byte)2; soft[i] = edge.Kind == CavePassageKind.LooseFill; }
-                }
         }
         private static void Clear(byte[] cells, int x, int y)
         { if (x >= 3 && x < W - 3 && y >= 3 && y < H - 3) cells[y * W + x] = 0; }

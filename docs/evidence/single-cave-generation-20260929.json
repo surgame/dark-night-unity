@@ -1,0 +1,43 @@
+{
+  "id": "single-cave-generation-r1",
+  "state": "Failed(Child)",
+  "utc": "2026-09-29T15:21:11.9410688Z",
+  "unity": "6000.4.9f1",
+  "passed": 59,
+  "failed": 5,
+  "skipped": 0,
+  "scope": "Executed before the user requested manual verification; later UI and legacy scene wiring edits were not retested.",
+  "failures": [
+    {
+      "test": "DarkNights.Tests.CaveGenerationParityTests.HundredFinalMapsKeepEveryRoomInTheSameOpenCavity",
+      "message": "  OPEN-CAVE-0: 80,97\n  Expected: True\n  But was:  False\n"
+    },
+    {
+      "test": "DarkNights.Tests.ExpeditionTests.MinerCanReachStarterDepositAndDeliverCargo",
+      "message": "  Expected: Applied\n  But was:  NoEffect\n"
+    },
+    {
+      "test": "DarkNights.Tests.ExpeditionTests.StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent",
+      "message": "  必经矿房必须能实际走到\n  Expected: greater than 1390.0f\n  But was:  1343.4646f\n"
+    },
+    {
+      "test": "DarkNights.Tests.JourneyWalkwayTests.DefaultDockWalksFromLeftRampIntoCaveAndBack",
+      "message": "  实际行走不能发生瞬移。\n  Expected: less than or equal to 0.50999999977648258d\n  But was:  1.86663818f\n"
+    },
+    {
+      "test": "DarkNights.Tests.JourneyWalkwayTests.HighDockJumpsAboveOldCeilingWalksIntoCaveAndBack",
+      "message": "  实际行走不能发生瞬移。\n  Expected: less than or equal to 0.50999999977648258d\n  But was:  1.86663818f\n"
+    }
+  ],
+  "core": {
+    "passed": 1903,
+    "failed": 0,
+    "report": "artifacts/single-cave-generation/core-planet-flow.json"
+  },
+  "limitations": [
+    "No Player build or new multi-process test",
+    "No all-route traversal acceptance",
+    "Final-cavity diagnostic retained as Explicit; OPEN-CAVE-0 is a known failure",
+    "ArchitectureGuard reports 16 pre-existing violations; modified TerrainMapDraft already had nested helper types"
+  ]
+}

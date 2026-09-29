@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using DarkNights.Core.Config.Terrain;
 
 namespace DarkNights.Core.Logic.Terrain
@@ -7,28 +6,6 @@ namespace DarkNights.Core.Logic.Terrain
     /// <summary>按洞厅用途生成可变顶高与岩棚地面；大形先于像素边缘，中心落脚空间和通路接点始终保留。</summary>
     internal static class CaveRoomCarving
     {
-        internal static void Shelves(byte[] cells, int ax, int ay, int bx, int by, List<TerrainRoom> rooms)
-        {
-            int distance = Math.Abs(by - ay);
-            if (distance < 9 || Math.Abs(bx - ax) > distance * 1.5) return;
-            const int w = TerrainGenerationSettings.Width;
-            for (int step = 5; step < distance - 3; step += 5)
-            {
-                float t = step / (float)distance;
-                int y = (int)Math.Round(ay + (by - ay) * t), x = (int)Math.Round(ax + (bx - ax) * t);
-                if (rooms.Exists(room => Math.Abs(y - room.Y) <= 3 && Math.Abs(x - room.X) < room.Width / 2)) continue;
-                if (cells[y * w + x] != 0) continue;
-                int side = (step / 5) % 2 == 0 ? 1 : -1, wall = x;
-                while (Math.Abs(wall - x) < 12 && wall > 4 && wall < w - 5 && cells[y * w + wall] == 0) wall += side;
-                if (Math.Abs(wall - x) >= 12) continue;
-                for (int n = 1; n <= 3; n++)
-                {
-                    int u = wall - side * n;
-                    if (Math.Abs(u - x) < 1) break;
-                    cells[y * w + u] = 2;
-                }
-            }
-        }
         internal static void Carve(byte[] cells, TerrainRoom room, TerrainRandom random)
         {
             double phase = random.Next() * 6.28;

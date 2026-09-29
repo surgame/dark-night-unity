@@ -15,6 +15,22 @@ namespace DarkNights.Core.Logic.Terrain
         private const int W = TerrainGenerationSettings.Width;
         private const int H = TerrainGenerationSettings.Height;
         public const string SpaceSeed = "SPACE-CARRIER-V1";
+        public const int Version = 2;
+
+        /// <summary>正式航程与所有随机洞穴预览唯一的完整生成入口；重试、最终坡形与背景捕获均在此复用。</summary>
+        public static PlayableTerrain GenerateCandidate(PlanetDefinition planet, string seed, string worldId,
+            TerrainGenerationSettings template, Func<bool> cancelled = null)
+        {
+            int attempts = planet.Seed.Length == 0 ? 3 : 1;
+            for (int attempt = 0; attempt < attempts; attempt++)
+            {
+                CheckCancellation(cancelled);
+                string actualSeed = attempt == 0 ? seed : seed.Substring(0, Math.Min(seed.Length, 73)) + "-retry" + attempt;
+                try { return Generate(planet, actualSeed, worldId, cancelled, template); }
+                catch (InvalidOperationException) when (attempt + 1 < attempts) { }
+            }
+            throw new InvalidOperationException("星球候选生成重试已耗尽。");
+        }
 
         public static PlayableTerrain Generate(PlanetDefinition planet, string seed, string worldId, Func<bool> cancelled = null,
             TerrainGenerationSettings template = null)

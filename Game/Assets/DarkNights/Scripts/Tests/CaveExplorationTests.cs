@@ -10,7 +10,7 @@ namespace DarkNights.Tests
     public sealed class CaveExplorationTests
     {
         [Test]
-        public void HundredSeedsHaveConnectedHiddenGraphsAndBuriedPassages()
+        public void HundredSeedsHaveOpenPassagesWithoutBuriedFill()
         {
             var signatures = new HashSet<string>();
             for (int seed = 0; seed < 100; seed++)
@@ -20,7 +20,8 @@ namespace DarkNights.Tests
                 var map = TerrainGenerator.Generate(settings);
                 Assert.That(map.Rooms.Count, Is.InRange(10, 13));
                 Assert.That(map.Passages.Count, Is.GreaterThanOrEqualTo(map.Rooms.Count));
-                Assert.That(map.SoftRockCount, Is.GreaterThan(0));
+                Assert.That(map.SoftRockCount, Is.Zero);
+                Assert.That(map.Passages.All(e => e.Kind == CavePassageKind.Open && e.CoverLength == 0), Is.True);
                 Assert.That(map.Passages.Count(e => e.Kind == CavePassageKind.Open), Is.GreaterThanOrEqualTo(2));
                 var reached = new HashSet<int> { 0 };
                 for (int n = 0; n < map.Rooms.Count; n++) foreach (var edge in map.Passages)

@@ -223,7 +223,7 @@ namespace DarkNights.Editor
             try
             {
                 status.text = "正在后台生成静态蓝图；编辑或关闭面板会取消本次预览。";
-                preview.Generate(draft.Config.Planets[index].Freeze(), message => status.text = message);
+                preview.Generate(draft.Config.Planets[index].Freeze(), message => status.text = message, draft.Config.FreezeCaveMap());
             }
             catch (Exception error) { status.text = "预览失败：" + error.Message; }
         }

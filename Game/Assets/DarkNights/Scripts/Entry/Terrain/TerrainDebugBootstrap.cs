@@ -14,7 +14,7 @@ using UnityEngine.InputSystem;
 namespace DarkNights.Entry.Terrain
 {
     /// <summary>
-    /// 独立离线地图调试入口，直接使用参考生成器的房间蓝图，不加载正式平地、营地会话或波次。
+    /// 独立离线地图调试入口，复用正式星球生成流水线，固定样板只读既有格子，不启动营地会话或波次。
     /// 参数防抖后在后台生成，主线程完成真实 DualGrid 可见页才替换旧预览；退出取消并释放临时表现。
     /// </summary>
     public sealed class TerrainDebugBootstrap : MonoBehaviour
@@ -23,6 +23,8 @@ namespace DarkNights.Entry.Terrain
         public CaveTerrainStyle CaveStyle;
         public ObjectDefinition MapAssemblySource;
         public TerrainMapAsset FixedMap;
+        public string PlanetId = "";
+        public string MapConfigBaseline { get; private set; }
         public TextAsset BalanceJson;
         public TextAsset LevelJson;
         public DarkNights.Runtime.Terrain.CaveWorkshopSession Workshop { get; private set; }
@@ -51,11 +53,28 @@ namespace DarkNights.Entry.Terrain
             {
                 var flow = MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().SingleOrDefault();
                 Settings = flow?.FreezeCaveMap() ?? throw new InvalidOperationException("工作台缺少共用洞穴地图配置。");
+                MapConfigBaseline = JsonUtility.ToJson(flow.CaveMap);
             }
             lifetime = new CancellationTokenSource();
             observedSettings = JsonUtility.ToJson(Settings);
             RequestRegenerate();
         }
+
+        /// <summary>主线程冻结资产输入；返回的后台任务与正式航程复用完整星球生成，不再跳过天空、平台或入口阶段。</summary>
+        public Func<TerrainBlueprint> CaptureMapGenerator()
+        {
+            if (FixedMap != null) { var fixedBlueprint = FixedMap.ReadBlueprint(); return () => fixedBlueprint; }
+            var settings = Settings.CopyValidated();
+            if (settings.ResourceProfile != TerrainGenerationSettings.CaveExplorationProfile)
+                return () => TerrainGenerator.Generate(settings);
+            if (MapAssemblySource == null) throw new InvalidOperationException("随机洞穴必须绑定正式 WorldSession 地图配置。");
+            var config = MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
+            var planet = config.PreviewPlanet(PlanetId);
+            return () => PlanetTerrainGenerator.GenerateCandidate(planet, settings.Seed,
+                "00000000000000000000000000000001", settings).Blueprint();
+        }
+
+        public void AcceptMapConfigSave() => MapConfigBaseline = JsonUtility.ToJson(Settings);
 
         public void RequestRegenerate()
         {
@@ -114,11 +133,9 @@ namespace DarkNights.Entry.Terrain
                 if (Definition == null || Flyer == null || Flyer.ViewCamera == null)
                     throw new InvalidOperationException("Debug Bootstrap 缺少明确的地形、角色或镜头引用。");
                 var settings = Settings.CopyValidated();
-                bool caveMap = settings.ResourceProfile == TerrainGenerationSettings.CaveExplorationProfile;
                 Status = "生成中：" + settings.Seed;
-                var blueprint = appearanceOnly ? Blueprint : FixedMap != null ? FixedMap.ReadBlueprint() :
-                    await Task.Run(() => caveMap ? TerrainGenerator.GenerateCave(settings, settings.Seed) :
-                        TerrainGenerator.Generate(settings), token);
+                var generate = appearanceOnly ? null : CaptureMapGenerator();
+                var blueprint = appearanceOnly ? Blueprint : await Task.Run(generate, token);
                 token.ThrowIfCancellationRequested();
                 if (version != request) return;
                 var root = new GameObject("Generated room terrain");

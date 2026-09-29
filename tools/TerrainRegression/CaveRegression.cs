@@ -27,20 +27,18 @@ namespace DarkNights.Tools.TerrainRegression
                     if (reached.Contains(e.From)) reached.Add(e.To);
                     if (reached.Contains(e.To)) reached.Add(e.From);
                 }
-                if (reached.Count != map.Rooms.Count || map.Passages.Count < map.Rooms.Count || map.SoftRockCount == 0)
+                if (reached.Count != map.Rooms.Count || map.Passages.Count < map.Rooms.Count || map.SoftRockCount != 0)
                     throw new Exception("Cave topology failed: " + seed);
                 foreach (var room in map.Rooms) if (map.MaterialAt(room.X, room.Y) != 0)
                     throw new Exception("Cave room center blocked: " + seed + "/" + room.Kind);
                 rows.Add(new { seed, rooms = map.Rooms.Count, passages = map.Passages.Count, soft = map.SoftRockCount,
-                    open = map.Passages.Count(e => e.Kind == CavePassageKind.Open),
-                    thin = map.Passages.Count(e => e.Kind == CavePassageKind.ThinRock),
-                    deep = map.Passages.Count(e => e.Kind == CavePassageKind.DeepRock) });
+                    open = map.Passages.Count(e => e.Kind == CavePassageKind.Open) });
             }
             Directory.CreateDirectory("artifacts/cave-workshop");
             File.WriteAllText("artifacts/cave-workshop/generation.json", JsonSerializer.Serialize(new
             { seeds = rows.Count, passed = true, scope = "determinism and hidden topology; not player traversal", rows },
                 new JsonSerializerOptions { WriteIndented = true }));
-            Console.WriteLine("Cave exploration: 100 deterministic connected hidden graphs with buried passages passed.");
+            Console.WriteLine("Cave exploration: 100 deterministic connected hidden graphs without buried passages passed.");
         }
     }
 }
