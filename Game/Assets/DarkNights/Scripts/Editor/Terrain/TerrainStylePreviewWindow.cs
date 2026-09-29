@@ -21,7 +21,7 @@ namespace DarkNights.Editor.Terrain
         private readonly TerrainStylePreviewStage stage = new TerrainStylePreviewStage();
         private TerrainBlueprint baselineBlueprint;
         private BackgroundBakeDescriptor backgroundReference;
-        private string observed, status = "选择样板后生成预览。";
+        private string observed, status = "正在生成正式星球预览。";
         private double due = double.PositiveInfinity, nextRepaint, fpsStart;
         private int frames, canvasFps, renderMilliseconds;
         private float panelWidth = 440;
@@ -40,7 +40,7 @@ namespace DarkNights.Editor.Terrain
         {
             titleContent = new GUIContent("Cave Wall Tuner"); wantsMouseMove = true; preview.Fit();
             generation = new TerrainGenerationPreview();
-            map = AssetDatabase.LoadAssetAtPath<TerrainMapAsset>(Root + "ReferenceChamber.asset");
+            map = null;
             OpenMapSnapshot(); style = AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>(Root + "Style.asset");
             inspected = style; EditorApplication.update += Tick; Invalidate();
         }
@@ -85,8 +85,17 @@ namespace DarkNights.Editor.Terrain
         private void DrawControls()
         {
             EditorGUILayout.HelpBox("预览只创建空白离屏宿主和当前地图，复用运行时 TerrainPreview、AnyRuleD 与 Cave shader；不加载游戏场景、角色或游戏会话。", MessageType.Info);
-            EditorGUILayout.LabelField(map == null ? "地图来源：正式星球生成" : "地图来源：人工固定样板（不代表正式生成）", EditorStyles.boldLabel);
-            if (map != null && GUILayout.Button("切换到正式星球生成预览"))
+            EditorGUILayout.LabelField(map == null ? "地图来源：正式星球生成（与 Bootstrap 共用）" : "地图来源：人工固定样板（不参与正式生成）", EditorStyles.boldLabel);
+            if (map == null && GUILayout.Button("打开人工固定样板 ReferenceChamber"))
+            {
+                if (mapDraft.HasChanges) status = "请先取消正式预览中的地图草稿。";
+                else
+                {
+                    map = AssetDatabase.LoadAssetAtPath<TerrainMapAsset>(Root + "ReferenceChamber.asset");
+                    OpenMapSnapshot(); stage.Dispose(); observed = null; Invalidate();
+                }
+            }
+            if (map != null && GUILayout.Button("返回正式星球生成预览"))
             {
                 if (mapDraft.HasChanges) status = "请先应用或取消固定地图草稿。";
                 else { map = null; OpenMapSnapshot(); stage.Dispose(); observed = null; Invalidate(); }

@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-2026-09-29 [洞穴生成统一与通路阻断退出](CAVE_GENERATION_ALIGNMENT.md)：正式航程、RandomCave 和 Tuner 正式预览复用完整生成器，移除塌方与竖井岩棚回填。Tuner 默认固定样板与编辑能力保留。用户后续要求停止复杂测试，按人工清单验收；此前自动批次 59 通过／5 失败，全路线未验收，不构建 Player。
+2026-09-29 [洞穴生成统一与通路阻断退出](CAVE_GENERATION_ALIGNMENT.md)：正式航程、RandomCave 和 Tuner 正式预览复用完整生成器，移除塌方与竖井岩棚回填。2026-09-30 Tuner 默认切为正式预览，固定样板仍可明确打开并编辑。用户后续要求停止复杂测试，按人工清单验收；此前自动批次 59 通过／5 失败，全路线未验收，不构建 Player。本次入口调整未运行 Unity。
 
 2026-09-29 [远征调试页与 F1 唤出](RUNTIME_DEBUG_HUB.md)：原远征按钮块移入 RuntimeDebugHub“远征”页，正式驾驶台改为靠近后 E 交互；YYGC 唤出键仅保留 F1，Smart Console 仍为 F10。按用户要求不测试、不构建。
 
