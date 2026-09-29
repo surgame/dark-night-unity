@@ -20,7 +20,7 @@ namespace DarkNights.View
         /// <summary>一帧主角操作的只读值；边沿缓冲和业务解释仍由主角采样器负责。</summary>
         public readonly struct HeroFrame
         {
-            public readonly float Move, Scroll;
+            public readonly float Move;
             public readonly Vector2 Pointer;
             public readonly bool Allowed, JumpHeld, JumpPressed, DropHeld, DropPressed, SprintHeld, InteractPressed;
             public readonly bool UseAllowed, UseHeld, UsePressed, UseReleased;
@@ -43,7 +43,6 @@ namespace DarkNights.View
                 ItemPressed = !Allowed ? -1 : source.Pressed(source.item1) ? 0 : source.Pressed(source.item2) ? 1 :
                     source.Pressed(source.item3) ? 2 : source.Pressed(source.item4) ? 3 : -1;
                 Pointer = source.Pointer;
-                Scroll = source.PointerOverUi ? 0 : source.scroll.ReadValue<Vector2>().y;
             }
         }
         /// <summary>一帧营地操作的只读值；本地选择、建造和镜头规则仍归营地视图。</summary>

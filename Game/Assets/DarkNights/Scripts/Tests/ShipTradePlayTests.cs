@@ -22,7 +22,7 @@ namespace DarkNights.Tests
     {
         private const string SceneKey = "DarkNights.ShipTradePlay.Scene";
         private static EditorWindow Game => EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView"));
-        private static string Output => Path.GetFullPath("../artifacts/ship-shop-fix-20260929");
+        private static string Output => Path.GetFullPath("../artifacts/session-input-feedback-20260929");
 
         [Test]
         public void RestoredBuildSettingsAreNotRewrittenWhileLocked()
@@ -115,6 +115,21 @@ namespace DarkNights.Tests
             Assert.That(network.Client.Replica.Current.World.Camp.Credits, Is.EqualTo(12));
             Assert.That(root.Q<Label>("jetpack").text, Is.EqualTo("喷气背包"));
 
+            var hud = (DarkNights.View.CampHudBehaviour)typeof(SessionUiController).GetField("hud",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(ui);
+            Assert.That(hud, Is.Not.Null);
+            LogAssert.Expect(LogType.Warning, "[Gameplay] 界面提示: SESSION_FEEDBACK_WARNING_TEST");
+            hud.ShowMessage("SESSION_FEEDBACK_WARNING_TEST");
+            LogAssert.Expect(LogType.Log, "[Gameplay] 会话横幅: SESSION_BANNER_TEST · detail");
+            hud.PresentEvent(new DarkNights.Core.ViewData.PresentationEvent(1, 0, "banner", "SESSION_BANNER_TEST", "detail"), 0);
+            await UniTask.Yield();
+            var toast = typeof(DarkNights.View.CampHudBehaviour).GetField("toastPanel",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            var banner = typeof(DarkNights.View.CampHudBehaviour).GetField("banner",
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            Assert.That(((RectTransform)toast.GetValue(hud)).gameObject.activeSelf, Is.False);
+            Assert.That(((RectTransform)banner.GetValue(hud)).gameObject.activeSelf, Is.False);
+
             foreach (var size in new[] { new Vector2Int(1280, 800), new Vector2Int(1600, 900), new Vector2Int(1920, 1080) })
             {
                 using var view = new TerrainGameViewTestSize(Game, size.x, size.y);
@@ -132,6 +147,10 @@ namespace DarkNights.Tests
             AssertUnlocked();
             await KeyPress(Key.D, .18f);
             Assert.That(hero.Current.X, Is.GreaterThan(stopped + 2), "关闭后角色恢复移动");
+            await KeyPress(Key.F10);
+            Assert.That(YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.GameplayActions), Is.True);
+            await KeyPress(Key.F10);
+            AssertUnlocked();
             await KeyPress(Key.E);
             await Until(() => trade.ShopOpen, "重复打开商店");
             await KeyPress(Key.Escape);

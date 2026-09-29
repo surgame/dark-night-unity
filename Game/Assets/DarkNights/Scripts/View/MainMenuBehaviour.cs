@@ -1,4 +1,5 @@
 using GameCore.Objects.Views;
+using GameCore.Logging;
 using GameCore.UI.UGUI;
 using UnityEngine.UI;
 
@@ -13,7 +14,14 @@ namespace DarkNights.View
         [ViewComponent("Address")] private InputField address;
         [ViewComponent("ConnectionStatus")] private Text status;
         public string Address => address.text;
-        public void ShowStatus(string value) { status.text = value; }
+        private string lastStatus;
+        public void ShowStatus(string value)
+        {
+            status.gameObject.SetActive(false);
+            if (value == lastStatus) return;
+            lastStatus = value;
+            if (!string.IsNullOrEmpty(value)) YYLogger.LogInfo("连接状态: " + value, LoggingChannel.Network);
+        }
         [UGUIOnClick("NewGame")] private void OnNewGame() => Raise("NewGame");
         [UGUIOnClick("Continue")] private void OnContinue() => Raise("Continue");
         [UGUIOnClick("Slot")] private void OnSlot() => Raise("Slot");

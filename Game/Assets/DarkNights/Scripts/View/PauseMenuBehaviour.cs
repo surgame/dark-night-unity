@@ -1,4 +1,5 @@
 using GameCore.Objects.Views;
+using GameCore.Logging;
 using GameCore.UI.UGUI;
 using UnityEngine.UI;
 
@@ -12,7 +13,14 @@ namespace DarkNights.View
     {
         [ViewComponent("SessionDetail")] private Text detail;
         [ViewComponent("SaveHint")] private Text saveHint;
-        public void Present(string state, string message) { detail.text = state; saveHint.text = message; }
+        private string lastState, lastMessage;
+        public void Present(string state, string message)
+        {
+            detail.gameObject.SetActive(false); saveHint.gameObject.SetActive(false);
+            if (state != lastState) YYLogger.LogInfo("会话状态: " + state, LoggingChannel.Network);
+            if (message != lastMessage) YYLogger.LogInfo("会话提示: " + message, LoggingChannel.Gameplay);
+            lastState = state; lastMessage = message;
+        }
         [UGUIOnClick("Resume")] private void OnResume() => Raise("Resume");
         [UGUIOnClick("Save")] private void OnSave() => Raise("Save");
         [UGUIOnClick("Load")] private void OnLoad() => Raise("Load");

@@ -2,6 +2,7 @@ using DarkNights.Core.ViewData;
 using GameCore.Objects.Views;
 using GameCore.UI.UGUI;
 using UnityEngine.UI;
+using GameCore.Logging;
 
 namespace DarkNights.View
 {
@@ -23,9 +24,13 @@ namespace DarkNights.View
         [ViewComponent("Item4Label")] private Text item4;
         [ViewComponent("Item4")] private Button button4;
         [ViewComponent("Rebind")] private Button rebind;
+        private string lastNotice;
 
         public void Present(ActorViewData actor, bool ready, string jump, string notice, bool allowCampControl)
         {
+            if (notice != lastNotice && !string.IsNullOrEmpty(notice))
+                YYLogger.LogWarning("主角操作: " + notice, LoggingChannel.Gameplay);
+            lastNotice = notice;
             var toolbar = status.transform.parent.gameObject;
             bool visible = actor != null || allowCampControl;
             if (toolbar.activeSelf != visible) toolbar.SetActive(visible);
@@ -33,7 +38,7 @@ namespace DarkNights.View
             rebind.gameObject.SetActive(allowCampControl);
             toggleButton.gameObject.SetActive(allowCampControl);
             toggleLabel.text = actor == null ? "操控居民 [Tab]" : "营地模式 [Tab]";
-            status.text = notice.Length != 0 ? notice : actor == null ? "正在等待服务器分配可用居民。" :
+            status.text = actor == null ? "正在等待服务器分配可用居民。" :
                 actor.Charging ? "蓄力 " + actor.ChargeSeconds.ToString("F1") + "s · 松开左键投掷" :
                 "鼠标瞄准 · 左键使用 · 1–4 切换 · Shift 加速 · " + jump + " 跳跃";
             item1.text = Slot(actor, 0, actor?.Slot0 ?? 0);

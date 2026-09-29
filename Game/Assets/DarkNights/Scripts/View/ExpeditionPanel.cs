@@ -58,8 +58,7 @@ namespace DarkNights.View
                     (journey.Phase == JourneyPhase.Landed && flight.DoorClock > 0 ?
                         $"已自动着陆并离座，坡道展开中（{flight.DoorClock:0.0} 秒）。" : JourneyPresentationRules.Guidance(journey, piloting)) + landing +
                     (!ready ? "\n正在同步，操作尚未开放。" : "") +
-                    (paused ? "\n会话已暂停。" : "") +
-                    (journey.Error.Length != 0 ? "\n" + journey.Error : "");
+                    (paused ? "\n会话已暂停。" : "");
                 PresentJourneyActions(world, slot, ready && !paused && (!hostOnly || slot == 0), piloting, a);
                 return;
             }

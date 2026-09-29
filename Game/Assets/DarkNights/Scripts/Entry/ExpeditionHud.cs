@@ -7,6 +7,7 @@ using DarkNights.Runtime.Session;
 using DarkNights.View;
 using DarkNights.View.Expedition;
 using GameCore.Interactions;
+using GameCore.Logging;
 using UnityEngine;
 
 namespace DarkNights.Entry
@@ -20,9 +21,9 @@ namespace DarkNights.Entry
         private bool awaitingJourney;
         private long journeySequence;
         private CommandFeedback earlyFeedback;
-        private string journeyFeedback = "";
-        private float requestTime, feedbackUntil;
+        private float requestTime;
         private float emergencyConfirmation = -1;
+        private string lastJourneyError = "";
         public void Initialize(SessionNetwork network, ExpeditionPanel panel)
         {
             this.network = network; this.panel = panel; panel.Bind(Submit);
@@ -33,14 +34,17 @@ namespace DarkNights.Entry
         private void Update()
         {
             var client = network?.Client; var frame = client?.Replica.Current;
+            string error = frame?.World.Expedition?.Journey?.Error ?? "";
+            if (error != lastJourneyError && error.Length != 0)
+                YYLogger.LogError("航程: " + error, LoggingChannel.Gameplay);
+            lastJourneyError = error;
             if (awaitingJourney && Time.unscaledTime - requestTime > 12)
-            { awaitingJourney = false; journeyFeedback = "暂未收到确认，请检查航程状态后重试。"; feedbackUntil = Time.unscaledTime + 8; }
-            if (Time.unscaledTime > feedbackUntil) journeyFeedback = "";
+            {
+                awaitingJourney = false;
+                YYLogger.LogWarning("暂未收到确认，请检查航程状态后重试。", LoggingChannel.Network);
+            }
             panel?.Present(frame?.World, client?.PlayerSlot ?? -1, client?.Ready == true, frame?.HostOnly == true, frame?.Paused == true);
-            picker?.Present(frame, client?.PlayerSlot ?? -1, client?.Ready == true, awaitingJourney, journeyFeedback);
-            if (panel != null && journeyFeedback.Length != 0) panel.Status.text += "\n" + journeyFeedback;
-            if (panel != null && Time.unscaledTime <= emergencyConfirmation)
-                panel.Status.text += "\n再次点击紧急起飞确认以下损失；4 秒后取消确认。";
+            picker?.Present(frame, client?.PlayerSlot ?? -1, client?.Ready == true, awaitingJourney);
         }
         private async void Submit(string operation)
         {
@@ -54,7 +58,11 @@ namespace DarkNights.Entry
                 if (journey?.Enabled == true && operation == "cancel-flight" && journey.Phase == JourneyPhase.Preparing)
                 { SendJourney(true, journey.PlanetId); return; }
                 if (operation == "emergency" && Time.unscaledTime > emergencyConfirmation)
-                { emergencyConfirmation = Time.unscaledTime + 4; return; }
+                {
+                    emergencyConfirmation = Time.unscaledTime + 4;
+                    YYLogger.LogWarning("再次点击紧急起飞确认损失；4 秒后取消确认。", LoggingChannel.Gameplay);
+                    return;
+                }
                 emergencyConfirmation = -1;
                 bool personal = operation is "unload" or "board" or "relay" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
                 var actor = frame.World.Actors.FirstOrDefault(a => a.ControllerSlot == client.PlayerSlot);
@@ -78,7 +86,7 @@ namespace DarkNights.Entry
                 var actor = frame?.World.Actors.FirstOrDefault(a => a.ControllerSlot == client.PlayerSlot && a.Hp > 0);
                 if (!client.Ready || journey?.Enabled != true || actor == null) return;
                 awaitingJourney = true; journeySequence = 0; earlyFeedback = null;
-                requestTime = Time.unscaledTime; journeyFeedback = "";
+                requestTime = Time.unscaledTime;
                 journeySequence = await client.Send(cancel ? SessionOperation.CancelJourney : SessionOperation.SelectDestination,
                     new[] { actor.Id }, target: frame.World.Expedition.Ship.Id, kind: cancel ? "" : planetId,
                     value: journey.Revision, controlLease: actor.ControlLease);
@@ -86,7 +94,7 @@ namespace DarkNights.Entry
             }
             catch (Exception error)
             {
-                awaitingJourney = false; journeyFeedback = error.Message; feedbackUntil = Time.unscaledTime + 8;
+                awaitingJourney = false;
                 Debug.LogException(error);
             }
         }
@@ -101,8 +109,9 @@ namespace DarkNights.Entry
         private void CompleteFeedback(CommandFeedback feedback)
         {
             awaitingJourney = false;
-            journeyFeedback = feedback.AffectedCount > 0 ? "航程操作已确认。" : "航程操作未接受：" + feedback.Code;
-            feedbackUntil = Time.unscaledTime + 8;
+            string journeyFeedback = feedback.AffectedCount > 0 ? "航程操作已确认。" : "航程操作未接受：" + feedback.Code;
+            if (feedback.AffectedCount > 0) YYLogger.LogInfo(journeyFeedback, LoggingChannel.Gameplay);
+            else YYLogger.LogWarning(journeyFeedback, LoggingChannel.Gameplay);
         }
 
         private void OnDestroy()

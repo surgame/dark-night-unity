@@ -170,6 +170,13 @@ namespace DarkNights.Runtime.Objects
                     if (s.ExpeditionRole > 0) { c.ResupplyCost += Rules.ModulePrice / 2; world.Lifecycle.Retire(a); continue; }
                 }
                 s.Boarded = true;
+                // 玩家对象保留身份和装备；结算后在船内恢复，避免零生命值永久阻断操控。
+                if (s.OwnerSlot >= 0)
+                {
+                    s.Hp = a.MaximumHp;
+                    s.Oxygen = Rules.OxygenSeconds;
+                    s.ControlLease = checked(s.ControlLease + 1);
+                }
                 // 船仓满载时留在个人包中的部分不属于成功入船货物。
                 c.LostCargo += s.CargoIron + s.CargoGold; s.CargoIron = s.CargoGold = 0;
                 s.TaskTarget = s.TaskPhase = 0; s.TaskClock = 0;

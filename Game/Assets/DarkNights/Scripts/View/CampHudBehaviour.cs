@@ -44,7 +44,6 @@ namespace DarkNights.View
         [ViewComponent("Map")] private CampMap map;
         [ViewComponent("Overlay")] private CampOverlay overlay;
         private GameCatalog catalog;
-        private double toastRemaining, bannerRemaining;
         private CanvasGroup toastFade, bannerFade;
         private bool? campControlsVisible;
         public void PresentWorld(SessionViewData frame, CampInput input, IEntityVisuals entities, PinewatchStage stage,
@@ -87,21 +86,21 @@ namespace DarkNights.View
         {
             if (warning) YYLogger.LogWarning("界面提示: " + value, LoggingChannel.Gameplay);
             else YYLogger.LogInfo("界面提示: " + value, LoggingChannel.Gameplay);
-            toast.text = value;
-            toast.color = warning ? new Color32(239, 180, 156, 255) : new Color32(228, 229, 215, 255);
-            toastRemaining = remaining;
+            ResetMessages();
         }
 
-        public void ResetMessages() { toastRemaining = bannerRemaining = 0; }
+        public void ResetMessages()
+        {
+            toastPanel.gameObject.SetActive(false);
+            banner.gameObject.SetActive(false);
+        }
         public void PresentEvent(PresentationEvent value, double age)
         {
             if (value.Type == "message") ShowMessage(value.Text, value.Warning, Math.Max(0, 5 - age));
             else if (value.Type == "banner")
             {
                 YYLogger.LogInfo("会话横幅: " + value.Text + " · " + value.Detail, LoggingChannel.Gameplay);
-                bannerTitle.text = value.Text;
-                bannerDetail.text = value.Detail;
-                bannerRemaining = Math.Max(0, 5 - age);
+                ResetMessages();
             }
         }
 
@@ -132,12 +131,7 @@ namespace DarkNights.View
                 $"{catalog.Balance.Buildings[buildKind].Name}放置中 · 左键确认 · 右键取消" : SelectionReadout.Hint(frame.World, hover, catalog);
             SetCampControlsVisible(!heroMode);
             Buttons(frame, selected, ready, slot);
-            toastRemaining = Math.Max(0, toastRemaining - Time.unscaledDeltaTime);
-            bannerRemaining = Math.Max(0, bannerRemaining - Time.unscaledDeltaTime);
-            toastPanel.gameObject.SetActive(toastRemaining > 0 && !modal);
-            banner.gameObject.SetActive(bannerRemaining > 0 && !modal);
-            toastFade.alpha = (float)Math.Min(1, toastRemaining);
-            bannerFade.alpha = (float)Math.Min(1, bannerRemaining);
+            ResetMessages();
         }
 
         private void Buttons(SessionViewData frame, IReadOnlyList<int> selected, bool ready, int slot)

@@ -74,7 +74,7 @@ namespace DarkNights.View.Expedition
             if (surface != null) surface.SetActive(false);
         }
 
-        public void Present(SessionViewData frame, int slot, bool ready, bool pending, string feedback)
+        public void Present(SessionViewData frame, int slot, bool ready, bool pending)
         {
             var journey = frame?.World.Expedition?.Journey;
             if (journey?.Enabled != true || journey.Phase != JourneyPhase.Orbit) { Close(); return; }
@@ -92,7 +92,7 @@ namespace DarkNights.View.Expedition
             allowed = blocked.Length == 0 && !pending && selected.Length != 0;
             confirm.interactable = allowed;
             message.text = pending ? "正在等待服务端确认…" : blocked.Length != 0 ? blocked :
-                feedback.Length != 0 ? feedback : "确认后取得驾驶席；仅浏览不会影响其他乘员。";
+                "确认后取得驾驶席；仅浏览不会影响其他乘员。";
         }
 
         private void RenderRows()

@@ -71,7 +71,7 @@ namespace DarkNights.View
             bool sprint = allowed && controls.SprintHeld && !pilot;
             equipment.Sample(controls, camera, hand + Vector3.up * .09f, allowed && !selectionPending && !aboard);
             SampleEdges(controls, allowed, pilot, aboard, frame.World.Expedition != null);
-            SelectedItem = allowed && !aboard ? ReadSelectedItem(controls, actor.SelectedItem) : -1;
+            SelectedItem = allowed && !aboard ? controls.ItemPressed : -1;
             UseItemRequested = false;
 
             bool changed = direction != sentDirection || jump != sentJump || sprint != sentSprint || equipment.Held != sentUse ||
@@ -99,13 +99,6 @@ namespace DarkNights.View
                 dropPending = controls.DropHeld;
             else
                 dropPending |= controls.DropPressed;
-        }
-
-        private static int ReadSelectedItem(GameInputActions.HeroFrame controls, int selectedItem)
-        {
-            if (controls.ItemPressed >= 0) return controls.ItemPressed;
-            float scroll = controls.Scroll;
-            return scroll == 0 ? -1 : (selectedItem + (scroll > 0 ? 3 : 1)) % 4;
         }
 
         /// <summary>瞄准与使用动作的本地边沿；阻塞后要求松开再按，取消不解释为释放。</summary>

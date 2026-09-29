@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using GameCore.Objects.Views;
 using GameCore.UI.UGUI;
+using GameCore.Logging;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -142,23 +143,32 @@ namespace DarkNights.View
             status.text = "请按新键，Esc 取消。";
             try
             {
-                actions.StartRebind(selected.Value, message => { status.text = message; Refresh(); });
+                actions.StartRebind(selected.Value, message => { Feedback(message); Refresh(); });
                 Refresh();
             }
-            catch (Exception error) { status.text = error.Message; Refresh(); }
+            catch (Exception error) { status.text = ""; Debug.LogException(error); Refresh(); }
         }
 
         private void ResetSelected()
         {
             if (!selected.HasValue) return;
-            status.text = actions.ResetBinding(selected.Value) ? "已恢复并保存。" : "已恢复，但保存失败。";
+            bool saved = actions.ResetBinding(selected.Value);
+            Feedback(saved ? "已恢复并保存。" : "已恢复，但保存失败。", !saved);
             Refresh();
         }
 
         private void ResetAll()
         {
-            status.text = actions.ResetAllBindings() ? "全部默认按键已保存。" : "已恢复默认按键，但保存失败。";
+            bool saved = actions.ResetAllBindings();
+            Feedback(saved ? "全部默认按键已保存。" : "已恢复默认按键，但保存失败。", !saved);
             Refresh();
+        }
+
+        private void Feedback(string message, bool warning = false)
+        {
+            status.text = "";
+            if (warning) YYLogger.LogWarning("改键: " + message, LoggingChannel.Gameplay);
+            else YYLogger.LogInfo("改键: " + message, LoggingChannel.Gameplay);
         }
 
         public void CloseSettings()

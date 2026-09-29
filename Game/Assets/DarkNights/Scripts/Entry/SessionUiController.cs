@@ -127,7 +127,7 @@ namespace DarkNights.Entry
             View("PauseMenu").Get<Button>("Load").interactable = canStore && exists;
             View("Result").Get<Button>("NewGame").interactable = canStore;
             string currentStatus = network.Server?.Storage.Status ?? "";
-            if (currentStatus != storageStatus) { storageStatus = currentStatus; if (storageStatus.Length != 0) hud.ShowMessage(storageStatus); }
+            if (currentStatus != storageStatus) { storageStatus = currentStatus; if (storageStatus.Length != 0) hud.ShowMessage(storageStatus, false); }
             if (continuePending && network.Client.Ready)
             {
                 continuePending = false;
@@ -279,8 +279,6 @@ namespace DarkNights.Entry
         private void Failed(Exception error)
         {
             continuePending = false;
-            main?.ShowStatus(error.Message);
-            hud?.ShowMessage(error.Message);
             Debug.LogException(error);
         }
 
