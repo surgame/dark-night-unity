@@ -13,6 +13,8 @@ namespace DarkNights.Runtime.Objects
         {
             state.Charging = false; state.ChargeSeconds = 0;
             state.UsePressed = state.UseReleased = state.UseHeld = false;
+            state.MiningWorldId = null; state.MiningMapEpoch = 0;
+            state.MiningU = state.MiningV = 0; state.MiningTileId = 0; state.MiningFlags = 0;
         }
 
         internal static void Tick(ActorBehaviour actor, double delta)
@@ -23,7 +25,8 @@ namespace DarkNights.Runtime.Objects
             state.EquipmentAction = Math.Max(0, state.EquipmentAction - delta);
             bool pressed = state.UsePressed, released = state.UseReleased;
             state.UsePressed = state.UseReleased = false;
-            if (!state.ManualControl || state.ControllerSlot < 0) { Cancel(state); return; }
+            if (!state.ManualControl || state.ControllerSlot < 0 || state.Hp <= 0 || state.Boarded ||
+                actor.World.IsExpedition && !actor.World.Expedition.Active) { Cancel(state); return; }
             HeroEquipmentKind item = HeroInventoryBehaviour.Slot(state, state.SelectedItem);
             if (item != HeroEquipmentKind.Empty)
                 state.Face = Math.Cos(state.AimAngle * Math.PI / 180) < 0 ? -1 : 1;
@@ -48,7 +51,7 @@ namespace DarkNights.Runtime.Objects
             }
             else if (item == HeroEquipmentKind.Pickaxe)
             {
-                HeroMining.TryMine(actor);
+                if (!HeroMining.TryMine(actor)) return;
                 state.EquipmentCooldown = config.PickaxeSeconds;
                 state.EquipmentAction = config.PickaxeSeconds;
             }

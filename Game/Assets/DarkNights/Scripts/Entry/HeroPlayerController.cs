@@ -25,6 +25,7 @@ namespace DarkNights.Entry
         private PinewatchStage stage;
         private SessionEntityViews entities;
         private HeroHudBehaviour hud;
+        private HeroMiningPointer mining;
         private bool preferHero = true, campControlEnabled, replayOnly, attempted;
         private int epoch, actorId, lease, pendingItem = -1;
         private long connection, selectionRequest, claimRequest;
@@ -32,6 +33,7 @@ namespace DarkNights.Entry
         private string notice = "";
         public ActorViewData Current { get; private set; }
         public string JumpBindingLabel => input?.JumpBindingLabel;
+        public string MiningHint => mining?.Hint ?? "";
         public void CancelWorldInput() => StopInput();
 
         /// <summary>设置本地模式偏好；连接前仅记录，连接后通过同一权威入口接管或释放角色。</summary>
@@ -50,11 +52,12 @@ namespace DarkNights.Entry
         }
 
         public void Initialize(SessionNetwork session, CampInput campInput, GameInputActions actions,
-            PinewatchStage scene, HeroHudBehaviour panel, SessionEntityViews visuals)
+            PinewatchStage scene, HeroHudBehaviour panel, SessionEntityViews visuals, Core.Config.GameCatalog catalog)
         {
             network = session; camp = campInput; input = actions; stage = scene; hud = panel;
             entities = visuals;
             sampler = new HeroInputSampler(scene.SceneCamera);
+            mining = new HeroMiningPointer(session, scene, panel, catalog);
             campControlEnabled = System.Environment.GetCommandLineArgs().Contains("--dn-camp-mode");
             replayOnly = System.Environment.GetCommandLineArgs().Contains("--dn-role") &&
                 System.Environment.GetCommandLineArgs().Contains("--dn-input-replay");
@@ -64,7 +67,7 @@ namespace DarkNights.Entry
             network.Client.Feedback += Feedback;
         }
 
-        public void Present(SessionViewData frame, bool menu)
+        public void Present(SessionViewData frame, bool menu, bool showToolbar = true)
         {
             bool ready = network.Client.Ready && frame != null;
             if (connection != network.Client.ConnectionGeneration || epoch != (frame?.Epoch ?? 0))
@@ -100,16 +103,20 @@ namespace DarkNights.Entry
                 }
             }
             bool aboard = frame?.World.Expedition?.Crew.Any(a => a.Id == Current?.Id && a.Boarded) == true;
-            hud.Present(aboard ? null : Current, ready && !menu && !frame.Paused, JumpBindingLabel, notice, campControlEnabled && !aboard);
+            hud.Present(aboard ? null : Current, ready && !menu && !frame.Paused, JumpBindingLabel, notice,
+                campControlEnabled && !aboard, showToolbar, MiningHint);
         }
 
         private void Update()
         {
-            if (replayOnly || input == null || network.Client.Replica.Current == null || !network.Client.Ready) return;
+            if (replayOnly || input == null || network.Client.Replica.Current == null || !network.Client.Ready)
+            { mining?.Hide(); return; }
             SampleModeToggle();
-            if (!input.HeroMode || Current == null) return;
-            if (sampler.Sample(input.ReadHero(), Current, network.Client.Replica.Current, entities, pendingItem >= 0,
-                Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet)) Send(packet).Forget();
+            if (!input.HeroMode || Current == null) { mining.Hide(); return; }
+            var controls = input.ReadHero();
+            mining.Sample(controls, Current, network.Client.Replica.Current, pendingItem >= 0);
+            if (sampler.Sample(controls, Current, network.Client.Replica.Current, entities, pendingItem >= 0,
+                Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet, mining.Target)) Send(packet).Forget();
             if (sampler.SelectedItem >= 0) SelectItem(sampler.SelectedItem).Forget();
             if (sampler.UseItemRequested) Use().Forget();
         }
@@ -122,9 +129,10 @@ namespace DarkNights.Entry
 
         private void LateUpdate()
         {
-            if (!CanFollowCamera()) return;
+            if (!CanFollowCamera()) { mining?.Hide(); return; }
             // 等待所有 Update 完成，跟随本帧插值后的显示位置，避免与低频快照产生相对抖动。
             stage.FollowControlledActor(Current.Id, network.Client.Replica.Current, entities);
+            mining.Present();
         }
 
         private bool CanFollowCamera() =>
@@ -199,12 +207,13 @@ namespace DarkNights.Entry
             {
                 await network.Client.SendInput(actorId, lease, packet.Direction, packet.JumpHeld, packet.UseHeld,
                     packet.JumpPressed, packet.DropPressed, packet.Aim, packet.SelectionRevision,
-                    packet.UsePressed, packet.UseReleased, packet.CancelUse, packet.SprintHeld);
+                    packet.UsePressed, packet.UseReleased, packet.CancelUse, packet.SprintHeld, packet.Mining);
             }
             catch (Exception error) { notice = error.Message; }
         }
         private void StopInput()
         {
+            mining?.Hide();
             HeroInputSampler.Packet packet = sampler?.Stop(Current?.SelectionRevision ?? 0) ?? default;
             if (actorId > 0) Send(packet).Forget();
         }

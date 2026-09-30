@@ -16,6 +16,7 @@ namespace DarkNights.Runtime.Objects
         private readonly List<IObjectMutation> touched = new List<IObjectMutation>();
         private readonly List<Action> rollback = new List<Action>();
         private readonly List<Action> committed = new List<Action>();
+        private Action beforeCommit;
         public bool IsOpen { get; private set; }
         internal bool Publishing { get; private set; }
 
@@ -36,8 +37,14 @@ namespace DarkNights.Runtime.Objects
             {
                 T result = action();
                 var changes = new List<SessionStateChange>(touched.Count);
-                foreach (IObjectMutation item in touched) changes.Add(item.PrepareCommit());
+                var owners = new HashSet<IObjectMutation>();
+                foreach (IObjectMutation item in touched)
+                {
+                    if (!owners.Add(item)) throw new InvalidOperationException("同一状态所有者不能重复准备提交。");
+                    changes.Add(item.PrepareCommit());
+                }
                 Publishing = true;
+                beforeCommit?.Invoke();
                 SessionStateChange.CommitAll(changes);
                 success = true;
                 notifications = committed.ToArray();
@@ -64,6 +71,7 @@ namespace DarkNights.Runtime.Objects
                     touched.Clear();
                     rollback.Clear();
                     committed.Clear();
+                    beforeCommit = null;
                     Publishing = false;
                     IsOpen = false;
                 }
@@ -100,6 +108,14 @@ namespace DarkNights.Runtime.Objects
         {
             RequireWriting();
             committed.Add(action);
+        }
+
+        /// <summary>登记本批唯一外部地图提交；所有 YYGC 候选先准备成功，地图安装期间不得发布通知或重入状态写入。</summary>
+        internal void BeforeCommit(Action action)
+        {
+            RequireWriting();
+            if (beforeCommit != null) throw new InvalidOperationException("同一对象事务只能组合一张权威地图提交。");
+            beforeCommit = action ?? throw new ArgumentNullException(nameof(action));
         }
     }
 }

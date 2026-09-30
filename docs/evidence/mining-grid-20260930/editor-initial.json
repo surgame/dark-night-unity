@@ -1,0 +1,186 @@
+{
+  "status": "completed",
+  "scheduled": 30,
+  "results": [
+    {
+      "name": "DarkNights.Tests.HeroCombatTests.NonfiniteAimAndOtherConnectionCannotFire",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.HeroCombatTests.RepeatedFireReusesBoundedSlotsAndRetiresExpiredShots",
+      "status": "Failed",
+      "message": "  Expected: greater than 10\r\n  But was:  0\r\n",
+      "stack": "at DarkNights.Tests.HeroCombatTests+<>c.<RepeatedFireReusesBoundedSlotsAndRetiresExpiredShots>b__1_0 () [0x000db] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\HeroCombatTests.cs:44\r\nat Cysharp.Threading.Tasks.UniTask+ExceptionResultSource.GetResult (System.Int16 token) [0x00015] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTask.Factory.cs:326\r\nat Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.RunTask (Cysharp.Threading.Tasks.UniTask task) [0x00020] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTaskExtensions.cs:807\r\nat Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.MoveNext () [0x0002b] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTaskExtensions.cs:838\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@76560ee600cb\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+    },
+    {
+      "name": "DarkNights.Tests.HeroCombatTests.ShortClickHitsOnceAndDuplicateInputCannotFireAgain",
+      "status": "Failed",
+      "message": "  Expected: less than 20.0d\r\n  But was:  20.0d\r\n",
+      "stack": "at DarkNights.Tests.HeroCombatTests+<>c.<ShortClickHitsOnceAndDuplicateInputCannotFireAgain>b__0_0 () [0x0011d] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\HeroCombatTests.cs:28\r\nat Cysharp.Threading.Tasks.UniTask+ExceptionResultSource.GetResult (System.Int16 token) [0x00015] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTask.Factory.cs:326\r\nat Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.RunTask (Cysharp.Threading.Tasks.UniTask task) [0x00020] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTaskExtensions.cs:807\r\nat Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.MoveNext () [0x0002b] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTaskExtensions.cs:838\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@76560ee600cb\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+    },
+    {
+      "name": "DarkNights.Tests.HeroControlTests.DebugSpeedMultipliesOnlyAuthoritativeHeroMovement",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.HeroControlTests.InputExpiryPauseAndDisconnectInvalidateOldControl",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.HeroControlTests.PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources",
+      "status": "Failed",
+      "message": "  Expected: greater than 0\r\n  But was:  0.0d\r\n",
+      "stack": "at DarkNights.Tests.HeroControlTests+<>c.<PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources>b__8_0 () [0x00110] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\HeroControlTests.cs:161\r\nat Cysharp.Threading.Tasks.UniTask+ExceptionResultSource.GetResult (System.Int16 token) [0x00015] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTask.Factory.cs:326\r\nat Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.RunTask (Cysharp.Threading.Tasks.UniTask task) [0x00020] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTaskExtensions.cs:807\r\nat Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.MoveNext () [0x0002b] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTaskExtensions.cs:838\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@76560ee600cb\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n"
+    },
+    {
+      "name": "DarkNights.Tests.HeroControlTests.PolicyChangeReleasesGuestAndRejectsQueuedLease",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.HeroControlTests.PossessionCancelsOrdersAndRejectsOtherConnection",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.HeroControlTests.ReadyCreatesDistinctVillagersForAllFourSlotsWithoutClaimingSceneActors",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.HeroControlTests.ReconnectCreatesANewVillagerInsteadOfTakingReleasedOne",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.HeroControlTests.SelectionVersionAndFuelRemainAuthoritative",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.HeroControlTests.SharedCampRestoresTheSameGeneratedVillager",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.HeroControlTests.ShortJumpIsConsumedOnceAndSOnlyDropsCurrentPlatform",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(-17,-42)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(0,0)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(18,-80)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(1,1.0f)",
+      "status": "Failed",
+      "message": "System.Reflection.AmbiguousMatchException : Ambiguous match found.",
+      "stack": "  at System.RuntimeType.GetMethodImplCommon (System.String name, System.Int32 genericParameterCount, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00050] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at System.RuntimeType.GetMethodImpl (System.String name, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00000] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at System.Type.GetMethod (System.String name, System.Reflection.BindingFlags bindingAttr) [0x0000e] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at DarkNights.Tests.MiningSelectorTests.Populate (DarkNights.View.Terrain.TerrainMiningSelectorGraphic graphic) [0x00006] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\MiningSelectorTests.cs:85 \r\n  at DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround (System.Int32 radius, System.Single scale) [0x0012a] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\MiningSelectorTests.cs:59 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <f713e1c3c5f545ce9b1df47230f4f853>:0 "
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(1,2.0f)",
+      "status": "Failed",
+      "message": "System.Reflection.AmbiguousMatchException : Ambiguous match found.",
+      "stack": "  at System.RuntimeType.GetMethodImplCommon (System.String name, System.Int32 genericParameterCount, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00050] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at System.RuntimeType.GetMethodImpl (System.String name, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00000] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at System.Type.GetMethod (System.String name, System.Reflection.BindingFlags bindingAttr) [0x0000e] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at DarkNights.Tests.MiningSelectorTests.Populate (DarkNights.View.Terrain.TerrainMiningSelectorGraphic graphic) [0x00006] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\MiningSelectorTests.cs:85 \r\n  at DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround (System.Int32 radius, System.Single scale) [0x0012a] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\MiningSelectorTests.cs:59 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <f713e1c3c5f545ce9b1df47230f4f853>:0 "
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(2,1.0f)",
+      "status": "Failed",
+      "message": "System.Reflection.AmbiguousMatchException : Ambiguous match found.",
+      "stack": "  at System.RuntimeType.GetMethodImplCommon (System.String name, System.Int32 genericParameterCount, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00050] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at System.RuntimeType.GetMethodImpl (System.String name, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00000] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at System.Type.GetMethod (System.String name, System.Reflection.BindingFlags bindingAttr) [0x0000e] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at DarkNights.Tests.MiningSelectorTests.Populate (DarkNights.View.Terrain.TerrainMiningSelectorGraphic graphic) [0x00006] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\MiningSelectorTests.cs:85 \r\n  at DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround (System.Int32 radius, System.Single scale) [0x0012a] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\MiningSelectorTests.cs:59 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <f713e1c3c5f545ce9b1df47230f4f853>:0 "
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(2,2.0f)",
+      "status": "Failed",
+      "message": "System.Reflection.AmbiguousMatchException : Ambiguous match found.",
+      "stack": "  at System.RuntimeType.GetMethodImplCommon (System.String name, System.Int32 genericParameterCount, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00050] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at System.RuntimeType.GetMethodImpl (System.String name, System.Reflection.BindingFlags bindingAttr, System.Reflection.Binder binder, System.Reflection.CallingConventions callConv, System.Type[] types, System.Reflection.ParameterModifier[] modifiers) [0x00000] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at System.Type.GetMethod (System.String name, System.Reflection.BindingFlags bindingAttr) [0x0000e] in <f713e1c3c5f545ce9b1df47230f4f853>:0 \r\n  at DarkNights.Tests.MiningSelectorTests.Populate (DarkNights.View.Terrain.TerrainMiningSelectorGraphic graphic) [0x00006] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\MiningSelectorTests.cs:85 \r\n  at DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround (System.Int32 radius, System.Single scale) [0x0012a] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\MiningSelectorTests.cs:59 \r\n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\r\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <f713e1c3c5f545ce9b1df47230f4f853>:0 "
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(-8.01f,-1)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(-8.0f,0)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(7.99f,0)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(8.0f,1)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.ReachIncludesBoundaryButNotNextCell",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.UnifiedTransactionTests.FailedReplicaEpochKeepsCurrentObjectsAndAllowsRetry",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.UnifiedTransactionTests.NotificationsObserveAllStatesAndCannotRetireSibling",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.UnifiedTransactionTests.RollbackExceptionsStillRunRemainingCleanupAndUnlockBatch",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.UnifiedTransactionTests.ThrowingNotificationDoesNotUndoOnlyPartOfPayment",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.UnifiedTransactionTests.UnsupportedSaveVersionsHaveExplicitErrors",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    }
+  ]
+}

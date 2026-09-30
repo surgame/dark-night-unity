@@ -38,6 +38,7 @@ namespace DarkNights.Entry.Terrain
             bool contour = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-contour-static") >= 0;
             entry.definition = contour ? template.ContourDefinition : template.Definition;
             entry.style = contour ? template.StaticBackgroundStyle : template.CaveStyle;
+            stage.MiningSelector = entry.style?.MiningSelector ?? stage.MiningSelector;
             stage.ActorPresentationScale = entry.style != null && entry.style.ProceduralRock ? 2 : 1;
             if (entry.definition == null || (template.Expedition || contour) && entry.style == null)
                 throw new InvalidOperationException("地图缺少指定风格的独立配置。");

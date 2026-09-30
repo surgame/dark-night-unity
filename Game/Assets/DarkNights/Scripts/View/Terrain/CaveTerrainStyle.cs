@@ -14,6 +14,7 @@ namespace DarkNights.View.Terrain
         public bool ProceduralRock;
         [Tooltip("本修复候选使用有界 LocalV2 前景；关闭可对照原 LegacyV1。视觉签收前不要合并正式美术绑定。")]
         public bool ImmediateForeground = true;
+        public TerrainMiningSelectorSettings MiningSelector = new TerrainMiningSelectorSettings();
         [Range(0, 8), Tooltip("热资源小范围修改的同步求解预算；超时自动转后台，不阻塞整帧等待。")]
         public float InteractiveBakeBudgetMs = 4;
         [Range(2, 12)] public int StoneSize = 4;

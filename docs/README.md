@@ -5,8 +5,8 @@
 ## 合同与架构（长期有效）
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — 当前技术架构合同
-- [MULTIPLAYER.md](MULTIPLAYER.md) — 联机协议与同步设计（飞船交易源码候选协议 17，验收状态见当前清单；旧切片按日期保留）
-- [SAVE_FORMAT.md](SAVE_FORMAT.md) — 世界存档格式合同（飞船交易候选 v12，验收状态见当前清单；下文含历史版本）
+- [MULTIPLAYER.md](MULTIPLAYER.md) — 联机协议与同步设计（矿镐网格协议 18，Local 显示已验证、联机待验证；旧切片按日期保留）
+- [SAVE_FORMAT.md](SAVE_FORMAT.md) — 世界存档格式合同（当前 v13，矿镐网格不改格式；下文含历史版本）
 - [YYGC_CHANGES.md](YYGC_CHANGES.md) — YYGC 修改授权与改动账本（持续维护）
 
 ## 开发入口
@@ -18,6 +18,8 @@
 - [SCENES.md](SCENES.md) — Unity 场景目录、入口及工作台／测试用途
 
 ## 使用说明
+
+- [MINING_GRID_EXECUTION.md](MINING_GRID_EXECUTION.md) — 白色矿镐网格、远征显示修复、Local 14/14 及尚未执行的采矿／联机清单
 
 - [TERRAIN_GENERATION_MODIFIER_PIPELINE.md](TERRAIN_GENERATION_MODIFIER_PIPELINE.md) — 生成阶段接口 Modifier、入口步道开关、Odin 配置入口与未验收边界
 - [CAVE_GENERATION_ALIGNMENT.md](CAVE_GENERATION_ALIGNMENT.md) — 洞穴唯一完整生成入口、旧通路阻断退出、Tuner 原功能保留及人工测试清单

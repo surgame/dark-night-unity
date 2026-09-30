@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "checks": {
+    "ready_protocol_18": true,
+    "pickaxe_bought_via_client": true,
+    "walked_out_of_landed_ship": true,
+    "expedition_hero_root_active": true,
+    "legacy_toolbar_stays_hidden": true,
+    "selector_has_nonzero_viewport": true,
+    "pickaxe_hover_renders_grid": true,
+    "center_brightness_matches_target_validity": true,
+    "selector_does_not_block_mouse": true,
+    "pause_hides_grid": true,
+    "switch_to_empty_slot_hides_grid": true,
+    "reequip_restores_grid": true,
+    "menu_hides_grid_root": true,
+    "menu_close_restores_grid": true
+  },
+  "miningVerified": false,
+  "miningLimit": "本次落地区未找到可达合法采矿格；没有伪造地图或坐标，实际采矿仍待验证。",
+  "error": null
+}

@@ -20,6 +20,7 @@
     "AnyRules.Authoring",
     "AnyRules.Editor",
     "AnyRules.Unity",
+    "AnyRules.MapProtocol",
     "UnityEditor.TestRunner",
     "UnityEngine.TestRunner"
   ],

@@ -27,7 +27,7 @@
     "log": "artifacts/terrain-modifier-tests/build-mono.log",
     "coreSha256": "3B432F7277C81FB01506791F0BDF48A4BC4CB98E47CBEE35AB0DC3928945BDC1",
     "player": "artifacts/terrain-modifier-tests/player-mono/DarkNights.exe",
-    "executed": false,
+    "executed": true,
     "exitCode": 0,
     "runtimeSha256": "8EDE5DD5188188498306501E4D79901059AE1A0336739D152AE9410C9C69D9DD"
   },
@@ -35,19 +35,30 @@
     "scope": "实际TerrainPreview离屏渲染，非人工前台玩法验收",
     "path": "artifacts/terrain-modifier-tests/tuner-formal-map.png"
   },
-  "stopReason": "用户要求先收尾并列出剩余未验证项",
   "remaining": [
-    "Mono实际启动、独立Host+Client、正常及弱网、晚加入、重连、跨进程写盘恢复",
-    "Odin原生类型弹窗鼠标交互及Editor重启人工操作",
-    "截图位置人工通行和多种子全路线角色往返",
-    "极端参数、额外业务Modifier组合及前台性能",
-    "生成器版本3及更早指纹的历史存档",
-    "IL2CPP及双机器"
+    "正式目录只有一颗启用星球，未覆盖不同目的地竞争；同目的地竞态已测。",
+    "正常双人及四人房主驾驶组未捕获 ArrivalSync 暂停；正常四人来宾和全部弱网组已实际覆盖该阶段。",
+    "逐阶段全新进程晚加入未全覆盖：短暂阶段主要验证同身份重连，稳定阶段覆盖进程重启后晚加入。",
+    "原生 UI／人工画面、全洞室路线、极端参数与额外 Modifier 组合、历史内容指纹存档、前台性能仍待验。",
+    "IL2CPP 与双机器未执行。"
   ],
   "archive": {
     "bytes": 632202.0,
     "path": "artifacts/待清理/20260930-terrain-modifier-tests/清单.md",
     "spaceFreed": 0,
     "freeBytes": 29579096064
+  },
+  "initialStopReason": "用户要求先收尾并列出剩余未验证项",
+  "completionScope": "用户后续授权的独立进程 Mono 联机矩阵已完成；非联机人工、性能及后端门槛未扩展。",
+  "network": {
+    "passed": true,
+    "configurations": 6,
+    "totalChecks": 945,
+    "failedChecks": 0,
+    "verifiedStableSaveFiles": 18,
+    "summary": "docs/evidence/terrain-modifier-network-20260930.json",
+    "playerReused": true,
+    "productionSourceModified": false,
+    "initialFailedAttempts": 4
   }
 }

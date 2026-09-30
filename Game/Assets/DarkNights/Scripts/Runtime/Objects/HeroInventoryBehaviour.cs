@@ -48,11 +48,10 @@ namespace DarkNights.Runtime.Objects
             return true;
         }
 
+        /// <summary>旧的离散矿床命令不再执行；矿镐统一由带目标的主角输入和服务端装备步骤推进。</summary>
         internal bool Use(string item, int revision, int targetId)
         {
-            ActorState state = actor.Edit();
-            if (revision != state.SelectionRevision || item != ItemKey(Slot(state, state.SelectedItem)) || item != "pickaxe") return false;
-            return HeroMining.TryDeposit(actor, targetId);
+            return false;
         }
     }
 }

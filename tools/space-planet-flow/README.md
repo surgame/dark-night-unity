@@ -1,15 +1,17 @@
 # 航程独立进程验收驱动
 
-`test_network.py` 使用正式 development Player 的命令文件入口和可信客户端命令链，不改运行状态，不写玩家原始存档。所有本次日志、报告、存档与截图均放在独立 `artifacts/space-planet-flow/network-*` 目录。默认协议 15、存档 v11；必须显式传入当前构建，避免误用历史 Player。
+`test_network.py` 使用正式 development Player 的命令文件入口和可信客户端命令链，不改运行状态，不写玩家原始存档。日志、报告、存档与截图默认放在独立 `artifacts/space-planet-flow/network-*` 目录，也可通过 `--output-root` 指定本轮证据目录。协议取实际 Player；`--save-version` 默认 11 仅供历史构建，2026-09-30 当前协议 17／存档 v13 必须显式传入 `--save-version 13`，避免误用历史 Player 或存档路径。跨进程一致性包含航程内容指纹、地图格子与背景哈希，真实进程重启另核验保存前的生成指纹、地图身份及种子。
 
 ```powershell
-python tools/space-planet-flow/test_network.py --player <当前构建绝对路径> --backend mono --clients 1 --driver client --phase-hook
-python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --clients 3 --driver host --phase-hook --port 29270
-python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --clients 1 --driver client --phase-hook --weak --port 29280
-python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --clients 3 --driver host --phase-hook --weak --port 29290
+python tools/space-planet-flow/test_network.py --player <当前构建绝对路径> --backend mono --save-version 13 --clients 1 --driver client --phase-hook
+python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --save-version 13 --clients 3 --driver host --phase-hook --port 29270
+python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --save-version 13 --clients 1 --driver client --phase-hook --weak --port 29280
+python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --save-version 13 --clients 3 --driver host --phase-hook --weak --port 29290
 ```
 
 四进程组还应交换 `--driver host/client` 补齐房主与来宾担任驾驶者。经单独授权并完成 IL2CPP development 构建后，使用相同脚本与 `--backend il2cpp`；标记不替代真实后端构建身份。每组串行启动，端口不重用正在运行的组。
+
+启动屏障除地图 Ready 与可见页外，还等待当前 slot 的受控主角出现在冻结投影中；弱网下 Ready 和新主角投影可能相差一个发布帧。当前较快步速的定位通过可信输入、命令消费回执、服务端位置和自适应提前制动完成；最终本地与权威位置均须在目标 12 单位内且已经停止，不修改游戏步速或直接写角色状态。回执严格匹配请求序号；世界已切换时，只允许当前新 epoch 的 `EpochChanged` 拒绝跨代次匹配，不接受新 epoch 的 `Applied` 或其他请求回执。新增报告同时冻结驱动脚本 SHA-256。
 
 多 Player 组与 Unity／IL2CPP 构建严格分时执行。本轮曾在并发 IL2CPP 编译期间遇到第四个 Player 的 D3D12 `0x8007000e` 内存分配失败；该组保留原始崩溃日志和独立环境中止说明，不计产品验收失败或通过，待构建结束使用同一产物重跑受影响组。
 

@@ -95,6 +95,7 @@ namespace DarkNights.Entry
             }
             var cargo = expedition?.Crew.FirstOrDefault(value => value.Id == actor?.Id);
             string prompt = nearShop ? "E 打开装备商店" : nearSale ? "E 出售身上矿石" : "Shift 加速 · 1–4 切换装备";
+            if (!nearShop && !nearSale && gameplay && hero.MiningHint.Length != 0) prompt = hero.MiningHint;
             bool atCockpit = !nearShop && !nearSale && gameplay && expedition?.Journey?.Enabled == true &&
                 JourneyPresentationRules.AtCockpit(frame.World, network.Client.PlayerSlot);
             if (atCockpit) prompt = expedition.Journey.Phase == JourneyPhase.Orbit ? "E 选择目的地" :

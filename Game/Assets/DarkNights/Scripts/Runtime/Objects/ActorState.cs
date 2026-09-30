@@ -79,5 +79,11 @@ namespace DarkNights.Runtime.Objects
         public bool JumpPending { get; internal set; }
         public bool DropPending { get; internal set; }
         public bool ShipEntryBlocked { get; internal set; }
+        public string MiningWorldId { get; internal set; }
+        public ulong MiningMapEpoch { get; internal set; }
+        public int MiningU { get; internal set; }
+        public int MiningV { get; internal set; }
+        public uint MiningTileId { get; internal set; }
+        public ushort MiningFlags { get; internal set; }
     }
 }

@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-09-30 [矿镐网格候选](MINING_GRID_EXECUTION.md)：选择器为原生主角 HUD 的本地只读几何，Core 只增加纯坐标合同；显式格目标进入既有 HeroInputCommand。唯一权威执行留在 HeroEquipment／HeroMining，地图仍归 TerrainMapAuthority，库存／风险／矿床归现有 YYGC Behaviour。短事务先准备状态、组合地图清除，再安装状态并发布地图通知；异常原子性待故障注入，不宣称已验证。协议 **18**／存档 **v13**，无框架或依赖改动。
+
 2026-09-29 [飞船交易与装备候选](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)：交易模块由飞船子物体 Definition／IConfigData 指定，权威写入留在既有 Actor／Economy Behaviour；输入、命令和冻结投影沿 YYGC 会话链，装备 UI 由 YYGC UIManager／UIPanel 绑定 UXML 并使用 R3 订阅。协议 **17**／存档 **v12**；真实画面及跨进程验收见清单。
 
 2026-09-28 原地着陆候选：星球飞船在当前安全位置落地，配置到达点仅保留地图生成和飞行包络职责。协议 **16**／存档 **v11**；着陆状态仍由权威 `BuildingState`、`ExpeditionJourneyBehaviour` 和原会话投影承载。

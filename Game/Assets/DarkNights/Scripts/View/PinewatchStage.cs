@@ -28,6 +28,7 @@ namespace DarkNights.View
         private float cameraXVelocity, cameraHeightVelocity, zoomVelocity;
         private const float FollowSmoothTime = 0.24f;
         public bool RandomTerrain { get; set; }
+        public Terrain.TerrainMiningSelectorSettings MiningSelector { get; set; } = new Terrain.TerrainMiningSelectorSettings();
         public float ActorPresentationScale { get; set; } = 1;
         public void FocusHero(Vector3 position)
         {

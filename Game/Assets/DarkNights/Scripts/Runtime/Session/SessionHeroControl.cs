@@ -166,6 +166,14 @@ namespace DarkNights.Runtime.Session
             if (input.Horizontal < -1 || input.Horizontal > 1 || input.ObservedTick < 0 ||
                 input.ObservedTick > tick || tick - input.ObservedTick > 60) return false;
             if (world.Paused || world.Camp.Read().Mode != SessionMode.Playing) return false;
+            if (input.Mining.Present)
+            {
+                var map = world.Terrain?.Map;
+                if (map == null || input.Mining.WorldId.Length != 32 ||
+                    input.Mining.WorldId != map.World.WorldId.ToString().Replace("-", "") ||
+                    input.Mining.MapEpoch != map.World.Epoch ||
+                    !map.Descriptor.Bounds.Contains(new AnyRules.Next.CellCoord(input.Mining.U, input.Mining.V))) return false;
+            }
             return !float.IsNaN(input.AimAngle) && !float.IsInfinity(input.AimAngle) &&
                 Math.Abs(input.AimAngle) <= 180 && input.SelectionRevision >= 0;
         }
@@ -178,9 +186,17 @@ namespace DarkNights.Runtime.Session
             if (input.CancelUse || input.SelectionRevision != state.SelectionRevision) HeroEquipment.Cancel(state);
             else
             {
+                bool preservePressedTarget = state.UsePressed && HeroInventoryBehaviour.Slot(state, state.SelectedItem) == DarkNights.Core.Config.HeroEquipmentKind.Pickaxe;
                 state.UseHeld = input.UseHeld;
                 state.UsePressed |= input.UsePressed;
                 state.UseReleased |= input.UseReleased;
+                if (!preservePressedTarget)
+                {
+                    state.MiningWorldId = input.Mining.WorldId;
+                    state.MiningMapEpoch = input.Mining.MapEpoch;
+                    state.MiningU = input.Mining.U; state.MiningV = input.Mining.V;
+                    state.MiningTileId = input.Mining.TileId; state.MiningFlags = input.Mining.Flags;
+                }
             }
             state.JumpPending |= input.JumpPressed;
             bool pilot = world.IsExpedition && world.Expedition.Ship?.Read().PilotId == actorId;
@@ -193,7 +209,7 @@ namespace DarkNights.Runtime.Session
             {
                 var current = actor.Read();
                 if (!current.ManualControl || (!world.Paused && tick - current.LastInputTick <= InputTimeoutTicks) ||
-                    (current.Horizontal == 0 && !current.SprintHeld && !current.JumpHeld && !current.UseHeld && !current.Charging && !current.UsePressed && !current.UseReleased && !current.JumpPending && !current.DropPending)) continue;
+                    (current.Horizontal == 0 && !current.SprintHeld && !current.JumpHeld && !current.UseHeld && !current.Charging && !current.UsePressed && !current.UseReleased && !current.JumpPending && !current.DropPending && string.IsNullOrEmpty(current.MiningWorldId))) continue;
                 world.Mutations.Run(() => { ClearInput(actor.Edit()); return true; });
             }
         }

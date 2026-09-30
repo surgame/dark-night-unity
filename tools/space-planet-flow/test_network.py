@@ -1,7 +1,7 @@
 """Exercise the real space/planet flow in independent development Players.
 
 Commands only use the shipped SessionAutomation/SessionClient path. Each run owns
-its reports and v11 saves. Neither fixture files nor successful old evidence are
+its reports and versioned saves. Neither fixture files nor successful old evidence are
 used as a substitute for gameplay. Screenshots here are diagnostic hidden-player
 captures, not foreground visual acceptance. Invoke again with --weak and with
 --clients 3; every run records the exact executable/managed binary hashes.
@@ -92,7 +92,9 @@ class NetworkRun:
         self.driver = "host" if args.driver == "host" else "client1"
         self.late_role = self.roles[-1]
         self.saved = {}
+        self.save_version = getattr(args, "save_version", 11)
         self.error = None
+        self.driver_sha256 = sha256(Path(__file__))
         self.raw_sequence = 10000
         self.started_at = datetime.now(timezone.utc).isoformat()
         self.write_status("prepared")
@@ -193,7 +195,9 @@ class NetworkRun:
         # Both automated and native-input runs keep a graphics window. Do not use -batchmode/-nographics.
         self.processes[role] = subprocess.Popen(command, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
         self.write_status("starting " + role)
-        return self.ready(role)
+        return self.wait(role, lambda report: report["ready"] and report.get("frame") and report["terrain"]["visible"] and
+                         any(person["ControllerSlot"] == report["slot"] for person in world(report)["Actors"]),
+                         "ready with controlled actor")
 
     def send(self, role, **command):
         with self.paths[role]["commands"].open("a", encoding="utf-8") as stream:
@@ -233,7 +237,9 @@ class NetworkRun:
                 return False
             counts = Counter()
             for feedback in report["feedback"]:
-                if feedback["ReadyReply"] or feedback["Epoch"] != epoch:
+                epoch_changed = (sequence is not None and feedback["Code"] == "EpochChanged" and
+                                 feedback["Epoch"] > epoch and feedback["Epoch"] == report["epoch"])
+                if feedback["ReadyReply"] or feedback["Epoch"] != epoch and not epoch_changed:
                     continue
                 if sequence is not None and feedback["Sequence"] != sequence:
                     continue
@@ -304,25 +310,39 @@ class NetworkRun:
                   name + " ramp opening completes")
         return self.ready("host")
 
-    def walk(self, role, x, tolerance=7, seconds=50):
+    def walk(self, role, x, tolerance=12, seconds=50):
         end = time.monotonic() + seconds
-        last_direction = None
+        braking_distance = 50 if self.args.weak else 28
         while time.monotonic() < end:
             r = self.ready(role)
             distance = x - actor(r)["X"]
-            direction = 0 if abs(distance) <= tolerance else (1 if distance > 0 else -1)
-            if direction != last_direction:
-                self.hold(role, direction)
-                last_direction = direction
-            if direction == 0:
-                time.sleep(.7 if self.args.weak else .35)
-                local = self.ready(role)
-                authoritative = actor(self.ready("host"), local["slot"])
-                if (abs(actor(local)["X"] - x) <= tolerance + 6 and
-                        abs(authoritative["X"] - x) <= tolerance + 6 and
-                        not authoritative["Walking"]):
-                    return
-            time.sleep(.12)
+            if abs(distance) > tolerance:
+                direction = 1 if distance > 0 else -1
+                person = actor(r)
+                count = self.send(role, operation="input-hold", actor=person["Id"], horizontal=direction,
+                                  jumpHeld=False, dropHeld=False)
+                self.consumed(role, count)
+                while time.monotonic() < end:
+                    local = self.ready(role)
+                    authoritative = actor(self.ready("host"), local["slot"])
+                    if direction * (x - authoritative["X"]) <= braking_distance:
+                        break
+                    time.sleep(.04)
+            else:
+                direction = 0
+            local = self.ready(role)
+            count = self.send(role, operation="input-hold", actor=actor(local)["Id"], horizontal=0,
+                              jumpHeld=False, dropHeld=False)
+            self.consumed(role, count)
+            time.sleep(.7 if self.args.weak else .35)
+            local = self.ready(role)
+            authoritative = actor(self.ready("host"), local["slot"])
+            if (abs(actor(local)["X"] - x) <= tolerance and
+                    abs(authoritative["X"] - x) <= tolerance and
+                    not authoritative["Walking"]):
+                return
+            if direction:
+                braking_distance = max(0, braking_distance - direction * (x - authoritative["X"]))
         self.hold(role)
         raise TimeoutError(f"walk {role} to {x}")
 
@@ -337,10 +357,10 @@ class NetworkRun:
     def consistency(self, name, expected_phase):
         reports = self.all_ready(expected_phase)
         host = reports["host"]
-        identity = (journey(host)["JourneyId"], journey(host)["MapId"], journey(host)["PlanetId"],
+        identity = (journey(host)["JourneyId"], journey(host)["MapId"], journey(host)["PlanetId"], journey(host)["ContentFingerprint"],
                     host["terrain"]["sha256"], host["terrain"]["backgroundHash"])
         for role, value in reports.items():
-            current = (journey(value)["JourneyId"], journey(value)["MapId"], journey(value)["PlanetId"],
+            current = (journey(value)["JourneyId"], journey(value)["MapId"], journey(value)["PlanetId"], journey(value)["ContentFingerprint"],
                        value["terrain"]["sha256"], value["terrain"]["backgroundHash"])
             self.record(name + " " + role + " synchronized", current == identity and
                         value["terrain"]["epoch"] == value["epoch"] and value["terrain"]["dataReady"] and
@@ -366,13 +386,13 @@ class NetworkRun:
         return host
 
     def save(self, slot, label):
-        path = self.saves / f"v11/slot-{slot:02d}.dnsave.json"
+        path = self.saves / f"v{self.save_version}/slot-{slot:02d}.dnsave.json"
         modified = path.stat().st_mtime_ns if path.exists() else -1
         self.expect("host", label + " save accepted", operation="Save", value=slot)
         r = self.wait("host", lambda v: not v["storageBusy"] and path.exists() and
                       path.stat().st_mtime_ns != modified, label + " disk save")
         frozen = json.loads(path.read_text(encoding="utf-8-sig"))
-        self.record(label + " v11 disk format", frozen["format_version"] == 11)
+        self.record(label + f" v{self.save_version} disk format", frozen["format_version"] == self.save_version)
         self.saved[slot] = dict(label=label, phase=phase(r), journey=journey(r), ship=ship(r),
                                height=ship_height(r), x=ship_x(r), terrain=r["terrain"],
                                actorIds=sorted(a["Id"] for a in world(r)["Actors"]),
@@ -507,7 +527,7 @@ class NetworkRun:
             if not held["ready"]:
                 held = self.ready("host")
             self.expect("host", stage + " refuses unstable save", "Loading", operation="Save", value=8)
-            self.record(stage + " does not overwrite save", not (self.saves / "v11/slot-08.dnsave.json").exists())
+            self.record(stage + " does not overwrite save", not (self.saves / f"v{self.save_version}/slot-08.dnsave.json").exists())
             if stage != "Transit" or self.late_role != selected_by:
                 self.reconnect(self.late_role, stage + " reconnect", PHASES[stage])
             baseline = journey(self.ready("host"))["PhaseElapsed"]
@@ -643,6 +663,10 @@ class NetworkRun:
                         ship(h)["VelocityX"] == ship(h)["VelocityY"] == 0)
             self.record(expected["label"] + " restores final terrain hash", h["terrain"]["sha256"] == expected["terrain"]["sha256"] and
                         h["terrain"]["backgroundHash"] == expected["terrain"]["backgroundHash"])
+            self.record(expected["label"] + " restores generation fingerprint",
+                        journey(h)["ContentFingerprint"] == expected["journey"]["ContentFingerprint"] and
+                        journey(h)["MapId"] == expected["journey"]["MapId"] and
+                        journey(h)["Seed"] == expected["journey"]["Seed"])
             self.record(expected["label"] + " restores original actors", sorted(a["Id"] for a in world(h)["Actors"]) == expected["actorIds"])
             self.record(expected["label"] + " restores stock", world(h)["Camp"]["Stock"] == expected["stock"])
             if expected["phase"] == PHASES["Descent"]:
@@ -736,10 +760,11 @@ class NetworkRun:
                     self.relay.wait(5)
             result = dict(passed=self.error is None, started=self.started_at, finished=datetime.now(timezone.utc).isoformat(),
                           backend=self.args.backend, player=str(self.player), player_sha256=sha256(self.player),
+                          driver_sha256=self.driver_sha256,
                           managed_sha256={p.name: sha256(p) for p in (self.player.parent / "DarkNights_Data/Managed").glob("DarkNights.*.dll")},
                           game_assembly_sha256=sha256(self.player.parent / "GameAssembly.dll") if (self.player.parent / "GameAssembly.dll").exists() else None,
                           weak=self.args.weak, netem="200 ms RTT + 5% loss + 25 ms jitter" if self.args.weak else None,
-                          clients=self.args.clients, designated_driver=self.driver, mode="manual-observation" if self.args.keep_open else "automated-network",
+                          clients=self.args.clients, save_version=self.save_version, designated_driver=self.driver, mode="manual-observation" if self.args.keep_open else "automated-network",
                           checks=self.checks, not_covered=self.not_covered,
                           saves=self.saved, error=self.error, visual_acceptance=False, command=sys.argv)
             target = self.run / "result.json"
@@ -758,6 +783,7 @@ def main():
     parser.add_argument("--driver", choices=("host", "client"), default="client")
     parser.add_argument("--weak", action="store_true")
     parser.add_argument("--port", type=int, default=29260)
+    parser.add_argument("--save-version", type=int, default=11)
     parser.add_argument("--output-root", type=Path)
     parser.add_argument("--phase-hook", action="store_true", help="Build includes official pause-on-journey-phase automation hook")
     parser.add_argument("--skip-restarts", action="store_true", help="Explicitly report stable process restarts as not covered")
@@ -769,6 +795,8 @@ def main():
         parser.error("--interactive requires --keep-open orbit; automatic movement must not compete with native keyboard input")
     if args.keep_seconds <= 0:
         parser.error("--keep-seconds must be positive")
+    if args.save_version <= 0:
+        parser.error("--save-version must be positive")
     return NetworkRun(args).execute()
 
 

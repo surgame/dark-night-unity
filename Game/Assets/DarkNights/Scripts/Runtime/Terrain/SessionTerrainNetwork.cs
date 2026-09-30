@@ -37,6 +37,7 @@ namespace DarkNights.Runtime.Terrain
         private readonly TerrainBackgroundBaseline background = new TerrainBackgroundBaseline();
         public BackgroundBakeDescriptor Background => background.Reference;
         public ChunkReplicaStateMachine Replica { get; private set; }
+        public TileCatalog Tiles => gameplay.Tiles;
         public int Epoch { get; private set; }
         public string Seed { get; private set; } = "";
         public bool PresentationReady { get; set; }

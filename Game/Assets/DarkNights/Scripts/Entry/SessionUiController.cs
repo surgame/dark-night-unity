@@ -92,7 +92,7 @@ namespace DarkNights.Entry
             hud = Behaviour<CampHudBehaviour>("Chrome");
             hud.Configure(catalog, expedition);
             hero = gameObject.AddComponent<HeroPlayerController>();
-            hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"), entities);
+            hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"), entities, catalog);
             if (expedition)
             {
                 trade = gameObject.AddComponent<ShipTradeHud>();
@@ -145,9 +145,9 @@ namespace DarkNights.Entry
             }
             input.Present(frame, network.Client.Ready);
             actions.Present(network.Client.Ready);
-            hero.Present(frame, page.Length != 0);
+            hero.Present(frame, page.Length != 0, trade == null);
             trade?.Present(frame, hero.Current, frame != null && page.Length == 0 && network.Client.Ready && !frame.Paused);
-            panels["Hero"].gameObject.SetActive(trade == null && frame != null && page.Length == 0);
+            panels["Hero"].gameObject.SetActive(frame != null && page.Length == 0);
             if (frame == null)
             {
                 if (page != "MainMenu" && page != "Help") Switch("MainMenu");

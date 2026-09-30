@@ -97,36 +97,10 @@ namespace DarkNights.Runtime.Network
             return Sender(context)?.Authority?.Generation;
         }
 
-        /// <summary>为 TerrainActionRoute 解析当前连接的主角租约和装备；请求字段不参与身份、动作或距离授权。</summary>
+        /// <summary>关闭玩家的第二条地形采矿入口；旧 Tag 3 请求返回拒绝，正式矿镐只走主角输入授权。</summary>
         internal TerrainActionAuthorization AuthorizeTerrain(NetworkCommandContext context, TerrainEditCommand command)
         {
-            var peer = Sender(context, false);
-            var map = simulation.Terrain?.Map;
-            if (peer?.Authority == null || !peer.Authority.Ready || Authority.Loading || simulation.Paused || command == null || map == null ||
-                (!peer.IsHost && Authority.ControlMode == CampControlMode.HostOnly)) return null;
-            if (simulation.IsExpedition && !simulation.Expedition.Active) return null;
-            var actor = simulation.Index.Find<ActorBehaviour>(peer.Authority.DefaultHeroId);
-            var state = actor?.Read();
-            if (state == null || state.Boarded || state.Enemy || state.Hp <= 0 || !state.ManualControl ||
-                state.ControllerSlot != peer.Authority.PlayerSlot || state.ControllerGeneration != peer.Authority.Generation ||
-                state.ControlLease <= 0 || HeroInventoryBehaviour.Slot(state, state.SelectedItem) != Core.Config.HeroEquipmentKind.Pickaxe ||
-                Authority.ServerTick - state.LastTerrainActionTick < 3) return null;
-            var action = TerrainEditAction.HandMine;
-            if (action == TerrainEditAction.Explosive && state.ExplosiveCharges <= 0) return null;
-            return new TerrainActionAuthorization(peer.Authority.Generation, map.World, action,
-                position => WithinTerrainReach(state, position),
-                resources =>
-                {
-                    simulation.Mutations.Run(() =>
-                    {
-                        ActorState current = actor.Edit();
-                        current.LastTerrainActionTick = Authority.ServerTick;
-                        if (action == TerrainEditAction.Explosive) current.ExplosiveCharges--;
-                        if (simulation.IsExpedition || resources == null || resources.Count == 0) return true;
-                        foreach (string resource in resources) simulation.Economy.AddResource(resource, 1);
-                        return true;
-                    });
-                });
+            return null;
         }
 
         internal void ReplyTerrain(NetworkCommandContext context, TerrainActionResult result)
@@ -136,14 +110,6 @@ namespace DarkNights.Runtime.Network
                 peer.Endpoint.Owner != peer.Network || peer.Endpoint.Sender.ObjectId != context.SenderObjectId) return;
             peer.Endpoint.TerrainReply(peer.Network, result.RequestId, (int)result.Action, result.CommitId,
                 result.Accepted, result.Reason);
-        }
-
-        private static bool WithinTerrainReach(ActorState state, CellCoord position)
-        {
-            float targetX = (position.U + .5f) * PlayableTerrain.CellPixels;
-            float targetHeight = PlayableTerrain.OriginY - (-position.V - .5f) * PlayableTerrain.CellPixels;
-            float dx = state.X - targetX, dy = state.Height - targetHeight;
-            return dx * dx + dy * dy <= 72 * 72;
         }
 
         public ValueTask Handle(SessionCommand command, PublishContext publication)

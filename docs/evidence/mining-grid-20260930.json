@@ -1,0 +1,177 @@
+{
+  "date": "2026-09-30",
+  "recordedAt": "2026-09-30T18:31:07.2823131+08:00",
+  "status": "DISPLAY_VERIFIED_GAMEPLAY_PARTIAL",
+  "branch": "ft-20260930-terrain-modifier-pipeline",
+  "sourceCommit": "7e5ab72652cd06dfd8163973bc952f082e39edbd",
+  "workspaceContainsOtherUncommittedChanges": true,
+  "unity": "6000.4.9f1",
+  "protocol": 18,
+  "saveVersion": 13,
+  "repairs": [
+    "远征不再禁用整个 Hero 根；旧工具栏单独隐藏",
+    "网格的宿主 RectTransform 明确拉伸到全视口"
+  ],
+  "sourceHashes": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/SessionUiController.cs",
+      "sha256": "2B7DFD5D52F04CF6868047E5AE2053464791CDD3EC8815F6E7C14935B9A7C11A",
+      "unityMetaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/HeroPlayerController.cs",
+      "sha256": "AEC3111CF0AB4A6F572FBAF25D3D816ED735077BE31075666A757A51D210BFBB",
+      "unityMetaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/HeroMiningPointer.cs",
+      "sha256": "370D2C7869E5C747678780F0184DDDECA3480C3E09AB7BB9DDBD9046FE625B44",
+      "unityMetaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/HeroHudBehaviour.cs",
+      "sha256": "F351F16D5D64E245B9529D8033D59EB1D695E03A4219BEA4AA84230D469348EA",
+      "unityMetaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainMiningSelectorGraphic.cs",
+      "sha256": "D1BD9C7205535FC281710EEE6525EAB2ED70B5E15B48F57A11246F1D2578767C",
+      "unityMetaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainMiningSelectorSettings.cs",
+      "sha256": "3B402314F21A2112FE197A9C15CE6CDD1E1271867B2C6AC67C4179C33F5C66F1",
+      "unityMetaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/MiningSelectorTests.cs",
+      "sha256": "225204B82BFBBE64047A7B058935E230A12782F7F5E5183E3E454B60F699347F",
+      "unityMetaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/HeroControlTests.cs",
+      "sha256": "1EF1A4668EE81C44ED1E428F5F17EABAFD9A27F61C1E811062FFBE5C62DC1095",
+      "unityMetaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/MiningGridValidation.cs",
+      "sha256": "883E1CDC96343C823A775D766FBE04919D611339907751FFAD63BB81CA45309B",
+      "unityMetaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/MiningGridRuntimeProbe.cs",
+      "sha256": "6E18F017CFE01BA03126E0D281B11141A8F7903128DDF9EABDFCF6AEB9CD6758",
+      "unityMetaPresent": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/DarkNights.Editor.asmdef",
+      "sha256": "82C9F3FAB1C6A0BA050ACFC72F984DFEAB9AA988350EAF197D25DF791B59DB12",
+      "unityMetaPresent": true
+    }
+  ],
+  "editor": {
+    "initial": {
+      "scheduled": 30,
+      "passed": 23,
+      "path": "docs/evidence/mining-grid-20260930/editor-initial.json",
+      "failed": 7
+    },
+    "focusedRetry": {
+      "scheduled": 13,
+      "passed": 13,
+      "path": "docs/evidence/mining-grid-20260930/editor-focused-retry.json",
+      "failed": 0
+    },
+    "mergedUnique": 30,
+    "mergedPassed": 28,
+    "mergedFailed": [
+      "DarkNights.Tests.HeroCombatTests.ShortClickHitsOnceAndDuplicateInputCannotFireAgain",
+      "DarkNights.Tests.HeroCombatTests.RepeatedFireReusesBoundedSlotsAndRetiresExpiredShots"
+    ],
+    "retainedFailuresReason": "两项手枪用例未给当前默认空背包夹具配置手枪；本轮不扩修",
+    "supersededContract": "无目标矿镐原仅挥动断言更新为无显式目标不执行，未改变当前采矿规则"
+  },
+  "play": {
+    "passed": true,
+    "passedChecks": 14,
+    "checks": {
+      "ready_protocol_18": true,
+      "pickaxe_bought_via_client": true,
+      "walked_out_of_landed_ship": true,
+      "expedition_hero_root_active": true,
+      "legacy_toolbar_stays_hidden": true,
+      "selector_has_nonzero_viewport": true,
+      "pickaxe_hover_renders_grid": true,
+      "center_brightness_matches_target_validity": true,
+      "selector_does_not_block_mouse": true,
+      "pause_hides_grid": true,
+      "switch_to_empty_slot_hides_grid": true,
+      "reequip_restores_grid": true,
+      "menu_hides_grid_root": true,
+      "menu_close_restores_grid": true
+    },
+    "viewport": {
+      "height": 855,
+      "width": 1689
+    },
+    "target": "落地附近的无效保护格；显示淡色虚线，而非合法采集证明",
+    "miningVerified": false,
+    "miningLimit": "本次落地区未找到可达合法采矿格；没有伪造地图或坐标，实际采矿仍待验证。",
+    "result": "docs/evidence/mining-grid-20260930/play-display.json",
+    "screenshots": [
+      "docs/evidence/mining-grid-20260930/pickaxe-grid.png",
+      "docs/evidence/mining-grid-20260930/after-menu.png"
+    ],
+    "attemptHistory": [
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mining-grid-20260930\\play-175655\\result.json",
+        "sha256": "3108B7DEBAB503A91513860B8BFC25879DAEB13732DC88E8E3438714AEBE20F4",
+        "passed": false,
+        "completedChecks": 0,
+        "error": "System.TimeoutException: 等待真实运行状态超时。\r\n  at DarkNights.Editor.MiningGridRuntimeProbe.Until (System.Func`1[TResult] complete, System.Int32 seconds) [0x0002c] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningGridRuntimeProbe.cs:192 \r\n  at DarkNights.Editor.MiningGridRuntimeProbe.Run () [0x0033c] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningGridRuntimeProbe.cs:62 "
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mining-grid-20260930\\play-180351\\result.json",
+        "sha256": "2BAC2003028E53D8781F447F0235A1BCBC661077A337576EE1623A9568498CAA",
+        "passed": false,
+        "completedChecks": 0,
+        "error": "System.TimeoutException: 等待真实运行状态超时。\r\n  at DarkNights.Editor.MiningGridRuntimeProbe.Until (System.Func`1[TResult] complete, System.Int32 seconds) [0x0002c] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningGridRuntimeProbe.cs:198 \r\n  at DarkNights.Editor.MiningGridRuntimeProbe.Run () [0x00331] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningGridRuntimeProbe.cs:62 "
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mining-grid-20260930\\play-181125\\result.json",
+        "sha256": "409B74F2F81FD6C450B28CA2717074854CD5921358AD8550879C0EE93EE90FF4",
+        "passed": false,
+        "completedChecks": 3,
+        "error": "System.TimeoutException: 权威输入移动超时。\r\n  at DarkNights.Editor.MiningGridRuntimeProbe.HoldUntil (System.Func`1[TResult] complete, System.Int32 horizontal, System.Boolean down, System.Int32 seconds) [0x00042] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningGridRuntimeProbe.cs:166 \r\n  at DarkNights.Editor.MiningGridRuntimeProbe.Walk (System.Single destination) [0x0004c] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningGridRuntimeProbe.cs:159 \r\n  at DarkNights.Editor.MiningGridRuntimeProbe.Run () [0x00924] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningGridRuntimeProbe.cs:86 "
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mining-grid-20260930\\play-182124\\result.json",
+        "sha256": "635C637175F9C75F733FC2C1EB4F00721E652D0C11C4CE67793E8F25D58BA8C6",
+        "passed": true,
+        "completedChecks": 14,
+        "error": null
+      }
+    ]
+  },
+  "notRun": [
+    "实际合法格采矿、资源入袋与冷却全链",
+    "独立 Host+Client / 弱网 / 晚加入 / 重连",
+    "事务异常与真实写盘重启恢复",
+    "本批 Mono 或 IL2CPP 构建",
+    "双机器、前台性能、完整路线与多分辨率实际画面"
+  ],
+  "preservation": {
+    "codexDataUntouched": true,
+    "frameworkUntouched": true,
+    "nativeAssetsUntouched": true,
+    "gitCommitted": false,
+    "editorPlayExited": true,
+    "historicalArtifactsDeleted": false,
+    "retainedArtifactBytes": 448500.0,
+    "obsoleteExclusiveBuildsToArchive": [],
+    "freeBytes": {
+      "D": 26133594112,
+      "C": 5770665984
+    }
+  }
+}

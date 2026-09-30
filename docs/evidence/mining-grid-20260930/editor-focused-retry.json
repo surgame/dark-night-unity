@@ -1,0 +1,84 @@
+{
+  "status": "completed",
+  "scheduled": 13,
+  "results": [
+    {
+      "name": "DarkNights.Tests.HeroControlTests.PickaxeWithoutGridTargetDoesNotAnimateAssignWorkOrProduceResources",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(-17,-42)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(0,0)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(18,-80)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(1,1.0f)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(1,2.0f)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(2,1.0f)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(2,2.0f)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(-8.01f,-1)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(-8.0f,0)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(7.99f,0)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(8.0f,1)",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    },
+    {
+      "name": "DarkNights.Tests.MiningSelectorTests.ReachIncludesBoundaryButNotNextCell",
+      "status": "Passed",
+      "message": null,
+      "stack": null
+    }
+  ]
+}

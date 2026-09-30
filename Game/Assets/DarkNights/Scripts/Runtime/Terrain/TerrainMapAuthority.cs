@@ -5,6 +5,7 @@ using AnyRules.Next;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.Terrain;
 using GameCore.Objects.Runner;
+using DarkNights.Runtime.Objects;
 
 namespace DarkNights.Runtime.Terrain
 {
@@ -19,6 +20,7 @@ namespace DarkNights.Runtime.Terrain
             new Dictionary<int, Dictionary<string, (string, TerrainEditAction, GridCommitReceipt)>>();
         private readonly Dictionary<int, Queue<string>> resultOrder = new Dictionary<int, Queue<string>>();
         private bool disposed;
+        private readonly TerrainMapTransactions transactions;
         public WorldIdentity World => map.World;
         public WorldDescriptor Descriptor => map.Descriptor;
         public TileCatalog Tiles => map.Tiles;
@@ -35,10 +37,19 @@ namespace DarkNights.Runtime.Terrain
             softRock = initial.CopySoftRock();
             var descriptor = new WorldDescriptor(world, 42, 0, new GridBounds(0, -initial.Height + 1, initial.Width, initial.Height));
             map = ARDMap.CreateAuthority(descriptor, catalog.Tiles, () => !disposed && session.IsActive && session.CanWriteState);
+            transactions = new TerrainMapTransactions(map, change => Changed?.Invoke(change));
             try { TerrainMapInitialization.Load(map, initial); map.Changed += Notify; }
             catch { map.Dispose(); throw; }
         }
-        public GridSample Read(CellCoord position) => map.Read(position);
+        public GridSample Read(CellCoord position) => transactions.Read(position);
+
+        /// <summary>绑定所属对象事务；地图仍是唯一所有者，只在同步批次内保留稀疏候选。</summary>
+        internal void BindMutations(ObjectMutationBatch owner) => transactions.Bind(owner);
+
+        internal bool StageMine(CellCoord target)
+        {
+            return transactions.CanStage && CanDestroy(TerrainEditAction.HandMine, target) && transactions.Clear(target);
+        }
         public bool IsSoftRock(CellCoord position)
         {
             int y = -position.V;
@@ -68,12 +79,13 @@ namespace DarkNights.Runtime.Terrain
                 var p = pair.Key;
                 if (p.U <= 0 || p.U >= TerrainGenerationSettings.Width - 1 || p.V >= 0 || p.V <= -TerrainGenerationSettings.Height + 1 ||
                     !Read(p).TryGetCell(out var old) || (old.Flags & 1) != 0 || TileMaterial(old.TileId) == 8 ||
-                    (pair.Value.Flags & 1) != 0 || pair.Value.Flags > 24 ||
+                    (pair.Value.Flags & 1) != 0 || (pair.Value.Flags & ~TerrainMiningGeometry.SoftRockFlag) > 24 ||
                     (!pair.Value.IsEmpty && (TileMaterial(pair.Value.TileId) < 1 || TileMaterial(pair.Value.TileId) > 7)))
                     throw new InvalidOperationException("工作台格子无效、受保护或越界。");
             }
             using var edit = map.BeginEdit(CommitId);
-            foreach (var pair in cells) edit.SetCell(pair.Key, pair.Value);
+            foreach (var pair in cells) edit.SetCell(pair.Key, pair.Value.IsEmpty ? pair.Value : new GridCell(pair.Value.TileId,
+                pair.Value.Height, (ushort)(pair.Value.Flags | (IsSoftRock(pair.Key) ? TerrainMiningGeometry.SoftRockFlag : 0))));
             edit.Commit();
         }
 
@@ -92,6 +104,11 @@ namespace DarkNights.Runtime.Terrain
                     targets.Add(position);
             }
             if (targets.Count == 0) return;
+            if (transactions.CanStage)
+            {
+                foreach (CellCoord target in targets) transactions.Clear(target);
+                return;
+            }
             using var edit = map.BeginEdit(CommitId);
             foreach (var position in targets) edit.ClearTile(position);
             edit.Commit();
@@ -239,14 +256,7 @@ namespace DarkNights.Runtime.Terrain
 
         private byte TileMaterial(uint tileId)
         {
-            if (!Tiles.TryGet(tileId, out var definition)) return 0;
-            string key = definition.Key.ToString();
-            switch (key)
-            {
-                case "loam": return 1; case "slate": return 2; case "basalt": return 3; case "copper": return 4;
-                case "iron": return 5; case "gold": return 6; case "moss": return 7; case "bedrock": return 8;
-                default: return 0;
-            }
+            return TerrainMiningQuery.Material(Tiles, tileId);
         }
 
         private void Remember(int connectionGeneration, string requestId,
@@ -278,7 +288,7 @@ namespace DarkNights.Runtime.Terrain
                 fingerprint.Substring(first, third - first) == ":" + center.U + ":" + center.V;
         }
 
-        private void Notify(GridChangeSet change) => Changed?.Invoke(change);
+        private void Notify(GridChangeSet change) => transactions.Notify(change);
         public void Dispose()
         {
             if (disposed) return;

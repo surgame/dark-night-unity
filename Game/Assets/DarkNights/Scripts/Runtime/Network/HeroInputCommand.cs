@@ -1,6 +1,7 @@
 using DarkNights.Runtime.Session;
 using GameCore.NetworkCommands;
 using MemoryPack;
+using DarkNights.Core.ViewData;
 
 namespace DarkNights.Runtime.Network
 {
@@ -31,9 +32,17 @@ namespace DarkNights.Runtime.Network
         public bool UsePressed { get; set; }
         public bool UseReleased { get; set; }
         public bool CancelUse { get; set; }
+        public string MiningWorldId { get; set; }
+        public ulong MiningMapEpoch { get; set; }
+        public int MiningU { get; set; }
+        public int MiningV { get; set; }
+        public uint MiningTileId { get; set; }
+        public ushort MiningFlags { get; set; }
 
         public HeroInputRequest Freeze() => new HeroInputRequest(Protocol, Epoch, PolicyRevision, ActorId,
-            ControlLease, InputSequence, ObservedTick, Horizontal, JumpHeld, UseHeld, JumpPressed, DropPressed, AimAngle, SelectionRevision, UsePressed, UseReleased, CancelUse, SprintHeld);
+            ControlLease, InputSequence, ObservedTick, Horizontal, JumpHeld, UseHeld, JumpPressed, DropPressed, AimAngle,
+            SelectionRevision, UsePressed, UseReleased, CancelUse, SprintHeld,
+            new HeroMiningTarget(MiningWorldId, MiningMapEpoch, MiningU, MiningV, MiningTileId, MiningFlags));
         public void OnReturnToPool()
         {
             SenderObjectId = Protocol = Epoch = PolicyRevision = ActorId = ControlLease = Horizontal = 0;
@@ -43,6 +52,7 @@ namespace DarkNights.Runtime.Network
             UsePressed = false;
             UseReleased = false;
             CancelUse = false;
+            MiningWorldId = null; MiningMapEpoch = 0; MiningU = MiningV = 0; MiningTileId = 0; MiningFlags = 0;
 
             JumpHeld = UseHeld = JumpPressed = DropPressed = SprintHeld = false;
         }

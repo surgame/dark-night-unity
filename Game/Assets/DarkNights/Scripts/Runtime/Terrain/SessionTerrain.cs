@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AnyRules.Next;
 using DarkNights.Core.Config.Terrain;
 using GameCore.Objects.Runner;
+using DarkNights.Runtime.Objects;
 
 namespace DarkNights.Runtime.Terrain
 {
@@ -30,8 +31,10 @@ namespace DarkNights.Runtime.Terrain
         public TerrainMapAuthority Prepare(PlayableTerrain data)
         {
             if (data == null) throw new FormatException("随机场景存档缺少地图。");
-            return new TerrainMapAuthority(context, data.Blueprint(), catalog,
+            var candidate = new TerrainMapAuthority(context, data.Blueprint(), catalog,
                 new WorldIdentity(StableGuid.Parse(data.WorldId), checked(++generation)));
+            candidate.BindMutations(context.Container.Resolve<ObjectSession>().Mutations);
+            return candidate;
         }
         public void Replace(TerrainMapAuthority candidate, PlayableTerrain data)
         {

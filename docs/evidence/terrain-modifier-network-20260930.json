@@ -1,0 +1,309 @@
+{
+  "date": "2026-09-30",
+  "timezone": "Asia/Shanghai",
+  "completedAtLocal": "2026-09-30T05:58:11.7273450+08:00",
+  "branch": "ft-20260930-terrain-modifier-pipeline",
+  "sourceCommit": "7e5ab72652cd06dfd8163973bc952f082e39edbd",
+  "protocol": 17,
+  "saveVersion": 13,
+  "generatorVersion": 4,
+  "reusedExistingMono": true,
+  "productionSourceModified": false,
+  "unityEditorInvoked": false,
+  "il2cppBuilt": false,
+  "visualAcceptance": false,
+  "passed": true,
+  "passedConfigurations": 6,
+  "totalChecks": 945.0,
+  "failedChecks": 0,
+  "verifiedStableSaveFiles": 18,
+  "initialFailedAttempts": 4,
+  "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-modifier-tests\\player-mono\\DarkNights.exe",
+  "playerSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+  "managedSha256": {
+    "DarkNights.Core.dll": "3b432f7277c81fb01506791f0bdf48a4bc4cb98e47cbee35ab0dc3928945bdc1",
+    "DarkNights.Entry.dll": "d0ae8b2d3d46b81e467975aa1a6759ea2e760bef6afd87344949834406d19c93",
+    "DarkNights.Runtime.dll": "8ede5dd5188188498306501e4d79901059ae1a0336739d152ae9410c9c69d9dd",
+    "DarkNights.Samples.LanCoop.Bootstrap.dll": "5bfcc8ad09c713ba111362770a42cab6c78a18d386a7e345aa6ac50f5f426e0c",
+    "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+    "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+    "DarkNights.Samples.LanCoop.Runtime.dll": "48e21aec54c7a9be6109c9a4f89275502af05a5d90b801da9e083fce589fd00f",
+    "DarkNights.View.dll": "3aee69f540d5a9b382e73e715d99de33a499d36922356055860f376f2bd65791"
+  },
+  "finalDriverSha256": "b9fa3b0b37cea93c0fdd3f4ca61a4c72ac48c5beb8359ca73eebbd480bbe5ede",
+  "workspaceDriverSha256": "4f6c5d739c48de2501e21327a53726c862a2028c095e8cbadc37032cc98f27fb",
+  "postValidationEdit": "仅将启动谓词的局部参数改为 report／person；限定替换一致性与语法检查通过，无行为变化。各运行报告保留实际执行脚本哈希，不重写。",
+  "driverUnitChecks": {
+    "passed": 6,
+    "total": 6,
+    "scope": "真实驱动内存加载；验证同 epoch 成功、新 epoch 拒绝、拒绝跨 epoch Applied、拒绝非当前 epoch、拒绝错误序号、拒绝旧缓存回执。"
+  },
+  "runs": [
+    {
+      "id": "network-20260930-051037-852653-mono-normal-2p-client",
+      "players": 2,
+      "driver": "client1",
+      "weak": false,
+      "passed": true,
+      "passedChecks": 130,
+      "totalChecks": 130,
+      "startedLocal": "2026-09-30T05:10:37.0000000+08:00",
+      "finishedLocal": "2026-09-30T05:13:28.0000000+08:00",
+      "result": "artifacts/terrain-modifier-network-20260930/network-20260930-051037-852653-mono-normal-2p-client/result.json",
+      "resultSha256": "daa3f4b0f91816d02daf7dae2dedfa3b6dae7a5922e573b83d4e367d40b47cbf",
+      "driverSha256": "c5d18e135211336c25a918a3276c4f9a993c2b00a75e0d2b7499875efe4fba87",
+      "driverHashOrigin": "captured from unchanged driver before final startup/receipt patch; original result has no driver hash field",
+      "notCovered": [
+        {
+          "name": "different-destination competition",
+          "reason": "formal catalog has one enabled planet; same-destination race still tested"
+        },
+        {
+          "name": "ArrivalSync network suspension",
+          "reason": "phase passed before host pause hook took effect"
+        }
+      ],
+      "stableSaveStages": [
+        "orbit",
+        "descent",
+        "landed"
+      ]
+    },
+    {
+      "id": "network-20260930-051332-674390-mono-normal-4p-host",
+      "players": 4,
+      "driver": "host",
+      "weak": false,
+      "passed": true,
+      "passedChecks": 160,
+      "totalChecks": 160,
+      "startedLocal": "2026-09-30T05:13:32.0000000+08:00",
+      "finishedLocal": "2026-09-30T05:18:06.0000000+08:00",
+      "result": "artifacts/terrain-modifier-network-20260930/network-20260930-051332-674390-mono-normal-4p-host/result.json",
+      "resultSha256": "1afe8cc1ddf0d8b07e98b7a1b024146bc7e30e4d6603a4142002cf4515c83808",
+      "driverSha256": "c5d18e135211336c25a918a3276c4f9a993c2b00a75e0d2b7499875efe4fba87",
+      "driverHashOrigin": "captured from unchanged driver before final startup/receipt patch; original result has no driver hash field",
+      "notCovered": [
+        {
+          "name": "different-destination competition",
+          "reason": "formal catalog has one enabled planet; same-destination race still tested"
+        },
+        {
+          "name": "ArrivalSync network suspension",
+          "reason": "phase passed before host pause hook took effect"
+        }
+      ],
+      "stableSaveStages": [
+        "orbit",
+        "descent",
+        "landed"
+      ]
+    },
+    {
+      "id": "network-20260930-051806-114405-mono-weak-2p-client",
+      "players": 2,
+      "driver": "client1",
+      "weak": true,
+      "passed": true,
+      "passedChecks": 141,
+      "totalChecks": 141,
+      "startedLocal": "2026-09-30T05:18:06.0000000+08:00",
+      "finishedLocal": "2026-09-30T05:24:11.0000000+08:00",
+      "result": "artifacts/terrain-modifier-network-20260930/network-20260930-051806-114405-mono-weak-2p-client/result.json",
+      "resultSha256": "652d8cc281f62b7809e9117e20a81faca2509590151170aacbf0506c9d95ee83",
+      "driverSha256": "c5d18e135211336c25a918a3276c4f9a993c2b00a75e0d2b7499875efe4fba87",
+      "driverHashOrigin": "captured from unchanged driver before final startup/receipt patch; original result has no driver hash field",
+      "notCovered": [
+        {
+          "name": "different-destination competition",
+          "reason": "formal catalog has one enabled planet; same-destination race still tested"
+        }
+      ],
+      "stableSaveStages": [
+        "orbit",
+        "descent",
+        "landed"
+      ],
+      "relay": {
+        "received": 27867,
+        "dropped": 1413,
+        "forwarded": 26454,
+        "reordered": 17171,
+        "peer_resets": 428,
+        "received_bytes": 25510274,
+        "forwarded_bytes": 24233682,
+        "client_to_server_bytes": 139244,
+        "server_to_client_bytes": 25371030,
+        "elapsed_seconds": 365.65598849999515
+      }
+    },
+    {
+      "id": "network-20260930-052411-967425-mono-weak-4p-host",
+      "players": 4,
+      "driver": "host",
+      "weak": true,
+      "passed": true,
+      "passedChecks": 172,
+      "totalChecks": 172,
+      "startedLocal": "2026-09-30T05:24:11.0000000+08:00",
+      "finishedLocal": "2026-09-30T05:33:08.0000000+08:00",
+      "result": "artifacts/terrain-modifier-network-20260930/network-20260930-052411-967425-mono-weak-4p-host/result.json",
+      "resultSha256": "3f4ebb91f7f37d6be130e3b1738b07dddcc5a45005727e7dcfbd74a0e1921fc3",
+      "driverSha256": "c5d18e135211336c25a918a3276c4f9a993c2b00a75e0d2b7499875efe4fba87",
+      "driverHashOrigin": "captured from unchanged driver before final startup/receipt patch; original result has no driver hash field",
+      "notCovered": [
+        {
+          "name": "different-destination competition",
+          "reason": "formal catalog has one enabled planet; same-destination race still tested"
+        }
+      ],
+      "stableSaveStages": [
+        "orbit",
+        "descent",
+        "landed"
+      ],
+      "relay": {
+        "received": 74348,
+        "dropped": 3824,
+        "forwarded": 70524,
+        "reordered": 40393,
+        "peer_resets": 87,
+        "received_bytes": 63722177,
+        "forwarded_bytes": 60410182,
+        "client_to_server_bytes": 288936,
+        "server_to_client_bytes": 63433241,
+        "elapsed_seconds": 535.9768562999961
+      }
+    },
+    {
+      "id": "network-20260930-053330-322316-mono-normal-4p-client",
+      "players": 4,
+      "driver": "client1",
+      "weak": false,
+      "passed": true,
+      "passedChecks": 168,
+      "totalChecks": 168,
+      "startedLocal": "2026-09-30T05:33:30.0000000+08:00",
+      "finishedLocal": "2026-09-30T05:38:06.0000000+08:00",
+      "result": "artifacts/terrain-modifier-network-20260930/network-20260930-053330-322316-mono-normal-4p-client/result.json",
+      "resultSha256": "86c51d9e2554fbe55647ba00f1a038a0dac2b53c9645f094bb496c2f8d5b11a4",
+      "driverSha256": "c5d18e135211336c25a918a3276c4f9a993c2b00a75e0d2b7499875efe4fba87",
+      "driverHashOrigin": "captured from unchanged driver before final startup/receipt patch; original result has no driver hash field",
+      "notCovered": [
+        {
+          "name": "different-destination competition",
+          "reason": "formal catalog has one enabled planet; same-destination race still tested"
+        }
+      ],
+      "stableSaveStages": [
+        "orbit",
+        "descent",
+        "landed"
+      ]
+    },
+    {
+      "id": "network-20260930-054605-170788-mono-weak-4p-client",
+      "players": 4,
+      "driver": "client1",
+      "weak": true,
+      "passed": true,
+      "passedChecks": 174,
+      "totalChecks": 174,
+      "startedLocal": "2026-09-30T05:46:05.0000000+08:00",
+      "finishedLocal": "2026-09-30T05:55:15.0000000+08:00",
+      "result": "artifacts/terrain-modifier-network-20260930/network-20260930-054605-170788-mono-weak-4p-client/result.json",
+      "resultSha256": "9266e42ae5d7e510e64bbf6b64f900de29df70248410dc3d73d9bfa15b4f546d",
+      "driverSha256": "b9fa3b0b37cea93c0fdd3f4ca61a4c72ac48c5beb8359ca73eebbd480bbe5ede",
+      "driverHashOrigin": "frozen in raw result at process orchestration start",
+      "notCovered": [
+        {
+          "name": "different-destination competition",
+          "reason": "formal catalog has one enabled planet; same-destination race still tested"
+        }
+      ],
+      "stableSaveStages": [
+        "orbit",
+        "descent",
+        "landed"
+      ],
+      "relay": {
+        "received": 78175,
+        "dropped": 4027,
+        "forwarded": 74148,
+        "reordered": 42603,
+        "peer_resets": 69,
+        "received_bytes": 66378995,
+        "forwarded_bytes": 62965458,
+        "client_to_server_bytes": 326607,
+        "server_to_client_bytes": 66052388,
+        "elapsed_seconds": 550.1109221000006
+      }
+    }
+  ],
+  "failures": [
+    {
+      "id": "network-20260930-050252-469148-mono-normal-2p-client",
+      "result": "artifacts/terrain-modifier-network-20260930/network-20260930-050252-469148-mono-normal-2p-client/result.json",
+      "error": "TimeoutError: walk host to 664.0",
+      "checksBeforeAbort": 9,
+      "driverSha256": null,
+      "preserved": true
+    },
+    {
+      "id": "network-20260930-050800-531894-mono-normal-2p-client",
+      "result": "artifacts/terrain-modifier-network-20260930/network-20260930-050800-531894-mono-normal-2p-client/result.json",
+      "error": "TimeoutError: walk host to 664.0",
+      "checksBeforeAbort": 9,
+      "driverSha256": null,
+      "preserved": true
+    },
+    {
+      "id": "network-20260930-053806-938588-mono-weak-4p-client",
+      "result": "artifacts/terrain-modifier-network-20260930/network-20260930-053806-938588-mono-weak-4p-client/result.json",
+      "error": "StopIteration",
+      "checksBeforeAbort": 6,
+      "driverSha256": null,
+      "preserved": true
+    },
+    {
+      "id": "network-20260930-054113-132760-mono-weak-4p-client",
+      "result": "artifacts/terrain-modifier-network-20260930/network-20260930-054113-132760-mono-weak-4p-client/result.json",
+      "error": "TimeoutError: client1: command receipt",
+      "checksBeforeAbort": 22,
+      "driverSha256": "40497fdee1733174929e79c25bc7cde218cc186b62b0d25b7a48f3a9bc9ef9bd",
+      "preserved": true
+    }
+  ],
+  "driverFixes": [
+    "显式 --save-version 13，保留历史默认 v11；实际写盘按指定版本核验。",
+    "较快步速下按消费回执和权威位置自适应提前制动，本地与权威最终距离都不超过 12 且已停止。",
+    "启动额外等待受控主角投影；修复弱网 Ready 与主角投影不同发布帧造成的 StopIteration。",
+    "仅为同序号、当前新 epoch 的 EpochChanged 拒绝跨代次匹配，不接受跨代次 Applied。",
+    "跨进程地图／背景一致性加入内容指纹，三种真实重启恢复核验保存前的指纹、地图身份和种子。"
+  ],
+  "evidenceIntegrity": {
+    "passed": true,
+    "saveHashesMatch": true,
+    "postTeardownRuntimeExceptions": 0,
+    "weakRelaysWithActualDropsAndReordering": 3,
+    "remainingTestOrEditorProcesses": 0
+  },
+  "artifactInventory": {
+    "root": "artifacts/terrain-modifier-network-20260930",
+    "retainedBytes": 44138519,
+    "retainedReason": "失败轮次、日志、投影、隔离存档、诊断截图及停止标记均为本轮唯一证据；现有 Mono 留供后续验收。未创建 Unity／生成器缓存。",
+    "archivedRebuildableIntermediates": 0,
+    "spaceFreedBytes": 0,
+    "freeBytes": {
+      "C": 5353132032,
+      "D": 29499019264
+    }
+  },
+  "remaining": [
+    "正式目录只有一颗启用星球，未覆盖不同目的地竞争；同目的地竞态已测。",
+    "正常双人及四人房主驾驶组未捕获 ArrivalSync 暂停；正常四人来宾和全部弱网组已实际覆盖该阶段。",
+    "逐阶段全新进程晚加入未全覆盖：短暂阶段主要验证同身份重连，稳定阶段覆盖进程重启后晚加入。",
+    "原生 UI／人工画面、全洞室路线、极端参数与额外 Modifier 组合、历史内容指纹存档、前台性能仍待验。",
+    "IL2CPP 与双机器未执行。"
+  ]
+}

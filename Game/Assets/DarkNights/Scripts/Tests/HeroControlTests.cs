@@ -150,7 +150,7 @@ namespace DarkNights.Tests
         });
 
         [UnityTest]
-        public IEnumerator PickaxeOnlyAnimatesWithoutAssigningWorkOrProducingResources() => UniTask.ToCoroutine(async () =>
+        public IEnumerator PickaxeWithoutGridTargetDoesNotAnimateAssignWorkOrProduceResources() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
             f.SeedLoadout(1, 2);
@@ -158,7 +158,7 @@ namespace DarkNights.Tests
             var site = f.World.Index.Worksites.First(w => w.RuleKey == "wood");
             double before = f.World.Economy.Stock.Wood;
             f.Input(useHeld: true); f.Step(4);
-            Assert.That(f.State.EquipmentAction, Is.GreaterThan(0));
+            Assert.That(f.State.EquipmentAction, Is.Zero);
             Assert.That(site.WorkerId, Is.Zero);
             f.Step(90, useHeld: true, keepAlive: true);
             Assert.That(f.World.Economy.Stock.Wood, Is.EqualTo(before));

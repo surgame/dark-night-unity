@@ -19,14 +19,16 @@ namespace DarkNights.View
             public readonly float Aim;
             public readonly int SelectionRevision;
             public readonly bool UsePressed, UseReleased, CancelUse;
+            public readonly HeroMiningTarget Mining;
 
             internal Packet(int direction, bool jumpHeld, bool useHeld, bool jumpPressed, bool dropPressed,
-                float aim, int selectionRevision, bool usePressed, bool useReleased, bool cancelUse, bool sprintHeld = false)
+                float aim, int selectionRevision, bool usePressed, bool useReleased, bool cancelUse, bool sprintHeld = false, HeroMiningTarget mining = default)
             {
                 Direction = direction; JumpHeld = jumpHeld; UseHeld = useHeld;
                 JumpPressed = jumpPressed; DropPressed = dropPressed; Aim = aim;
                 SprintHeld = sprintHeld;
                 SelectionRevision = selectionRevision; UsePressed = usePressed;
+                Mining = mining;
                 UseReleased = useReleased; CancelUse = cancelUse;
             }
         }
@@ -36,6 +38,8 @@ namespace DarkNights.View
         private bool jumpPending, dropPending, sentJump, sentUse, sentDrop, sentSprint;
         private int sentDirection;
         private double nextSend, heartbeat;
+        private HeroMiningTarget sentMining, pressedMining;
+        private bool miningPressPending;
         public int SelectedItem { get; private set; } = -1;
         public bool UseItemRequested { get; private set; }
 
@@ -45,6 +49,8 @@ namespace DarkNights.View
         {
             jumpPending = dropPending = sentJump = sentUse = sentDrop = sentSprint = false;
             sentDirection = 0; nextSend = heartbeat = 0;
+            sentMining = default;
+            pressedMining = default; miningPressPending = false;
             SelectedItem = -1; UseItemRequested = false;
             equipment.Cancel();
         }
@@ -53,13 +59,14 @@ namespace DarkNights.View
         {
             jumpPending = dropPending = sentJump = sentUse = sentDrop = sentSprint = false;
             sentDirection = 0; SelectedItem = -1; UseItemRequested = false;
+            sentMining = pressedMining = default; miningPressPending = false;
             equipment.Cancel();
             return new Packet(0, false, false, false, false, equipment.Aim, selectionRevision,
                 equipment.Pressed, equipment.Released, equipment.Cancelled);
         }
 
         public bool Sample(GameInputActions.HeroFrame controls, ActorViewData actor, SessionViewData frame, IEntityVisuals visuals,
-            bool selectionPending, double now, out Packet packet)
+            bool selectionPending, double now, out Packet packet, HeroMiningTarget mining = default)
         {
             bool allowed = controls.Allowed && !frame.Paused;
             bool pilot = frame.World.Expedition?.Ship?.PilotId == actor.Id;
@@ -70,12 +77,15 @@ namespace DarkNights.View
             bool jump = allowed && controls.JumpHeld;
             bool sprint = allowed && controls.SprintHeld && !pilot;
             equipment.Sample(controls, camera, hand + Vector3.up * .09f, allowed && !selectionPending && !aboard);
+            if (equipment.Cancelled) { pressedMining = default; miningPressPending = false; }
+            else if (controls.UsePressed && equipment.Pressed && !miningPressPending)
+            { pressedMining = mining; miningPressPending = true; }
             SampleEdges(controls, allowed, pilot, aboard, frame.World.Expedition != null);
             SelectedItem = allowed && !aboard ? controls.ItemPressed : -1;
             UseItemRequested = false;
 
             bool changed = direction != sentDirection || jump != sentJump || sprint != sentSprint || equipment.Held != sentUse ||
-                jumpPending || dropPending != sentDrop || (!pilot && dropPending) || equipment.Changed;
+                jumpPending || dropPending != sentDrop || (!pilot && dropPending) || equipment.Changed || !sentMining.Equals(mining);
             if (now < nextSend || (!changed && now < heartbeat))
             {
                 packet = default;
@@ -83,8 +93,11 @@ namespace DarkNights.View
             }
 
             packet = new Packet(direction, jump, equipment.Held, jumpPending, dropPending, equipment.Aim,
-                actor.SelectionRevision, equipment.Pressed, equipment.Released, equipment.Cancelled, sprint);
+                actor.SelectionRevision, equipment.Pressed, equipment.Released, equipment.Cancelled, sprint,
+                equipment.Pressed && miningPressPending ? pressedMining : mining);
             equipment.Consume();
+            sentMining = packet.Mining;
+            pressedMining = default; miningPressPending = false;
             sentDirection = direction; sentJump = jump; sentSprint = sprint; sentUse = packet.UseHeld; sentDrop = dropPending;
             jumpPending = dropPending = false;
             nextSend = now + 1.0 / 30; heartbeat = now + 0.1;

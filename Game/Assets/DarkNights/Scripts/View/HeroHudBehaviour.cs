@@ -25,20 +25,45 @@ namespace DarkNights.View
         [ViewComponent("Item4")] private Button button4;
         [ViewComponent("Rebind")] private Button rebind;
         private string lastNotice;
+        private Terrain.TerrainMiningSelectorGraphic mining;
 
-        public void Present(ActorViewData actor, bool ready, string jump, string notice, bool allowCampControl)
+        /// <summary>在既有 YYGC 原生面板内装配纯表现子控件；不创建游戏实体或额外 UI 管理器。</summary>
+        public void InitializeMiningSelector()
+        {
+            if (mining != null) return;
+            var viewport = (UnityEngine.RectTransform)View.transform;
+            viewport.anchorMin = UnityEngine.Vector2.zero;
+            viewport.anchorMax = UnityEngine.Vector2.one;
+            viewport.offsetMin = viewport.offsetMax = UnityEngine.Vector2.zero;
+            var overlay = new UnityEngine.GameObject("MiningSelector", typeof(UnityEngine.RectTransform));
+            overlay.transform.SetParent(View.transform, false);
+            overlay.transform.SetAsFirstSibling();
+            mining = overlay.AddComponent<Terrain.TerrainMiningSelectorGraphic>();
+            mining.raycastTarget = false;
+            mining.rectTransform.anchorMin = UnityEngine.Vector2.zero;
+            mining.rectTransform.anchorMax = UnityEngine.Vector2.one;
+            mining.rectTransform.offsetMin = mining.rectTransform.offsetMax = UnityEngine.Vector2.zero;
+        }
+
+        public void PresentMining(UnityEngine.Camera camera, UnityEngine.Vector3 center,
+            Terrain.TerrainMiningSelectorSettings settings, bool visible, bool valid) =>
+            mining?.Present(camera, center, settings, visible, valid);
+
+        public void Present(ActorViewData actor, bool ready, string jump, string notice, bool allowCampControl,
+            bool showToolbar = true, string miningHint = "")
         {
             if (notice != lastNotice && !string.IsNullOrEmpty(notice))
                 YYLogger.LogWarning("主角操作: " + notice, LoggingChannel.Gameplay);
             lastNotice = notice;
             var toolbar = status.transform.parent.gameObject;
-            bool visible = actor != null || allowCampControl;
+            bool visible = showToolbar && (actor != null || allowCampControl);
             if (toolbar.activeSelf != visible) toolbar.SetActive(visible);
             if (!visible) return;
             rebind.gameObject.SetActive(allowCampControl);
             toggleButton.gameObject.SetActive(allowCampControl);
             toggleLabel.text = actor == null ? "操控居民 [Tab]" : "营地模式 [Tab]";
             status.text = actor == null ? "正在等待服务器分配可用居民。" :
+                miningHint.Length != 0 ? miningHint :
                 actor.Charging ? "蓄力 " + actor.ChargeSeconds.ToString("F1") + "s · 松开左键投掷" :
                 "鼠标瞄准 · 左键使用 · 1–4 切换 · Shift 加速 · " + jump + " 跳跃";
             item1.text = Slot(actor, 0, actor?.Slot0 ?? 0);
