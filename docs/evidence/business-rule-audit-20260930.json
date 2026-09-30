@@ -1,0 +1,2894 @@
+{
+  "date": "2026-09-30",
+  "timezone": "Asia/Shanghai",
+  "review_type": "source_audit_only",
+  "git_head": "9084698545c6a527438c6c379ec89bf4c6b1a766",
+  "branch": "main",
+  "protocol": 19,
+  "save_format": 14,
+  "rule_groups": 119,
+  "findings": 16,
+  "references": [
+    {
+      "key": "BAL",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Res/Config/balance.json",
+      "line": 15,
+      "lines": 67,
+      "sha256": "d10564195ea755e910c3117ac596cdd791c7428b402ca1c44179bc3fd81e7399"
+    },
+    {
+      "key": "LEVEL",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Res/Config/pinewatch.json",
+      "line": 5,
+      "lines": 10,
+      "sha256": "d2f7c43b3ffc0c587db12ee47748dece4660630a6d4656de36df18c9c832fa67"
+    },
+    {
+      "key": "OS",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs",
+      "line": 220,
+      "lines": 307,
+      "sha256": "7e5b830f5af31f020d5ea13a0e6e2dc427729232c20e56e38ea3282b1c5b994e"
+    },
+    {
+      "key": "EO",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs",
+      "line": 128,
+      "lines": 197,
+      "sha256": "57745d9d8b7d7c9a54bb79c3f793e2c62e82e69e5ccddb2d65c33334797905f8"
+    },
+    {
+      "key": "ES",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionShip.cs",
+      "line": 118,
+      "lines": 137,
+      "sha256": "895b973a24270be2fa16a17b330efd1e197cb45450d19af534bfa9c236f077ba"
+    },
+    {
+      "key": "CAB",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipCabinMotion.cs",
+      "line": 19,
+      "lines": 173,
+      "sha256": "9eb5b4d6c05e5329b3a47b97b980e735b7172f94209234439f31fe849c3f5e16"
+    },
+    {
+      "key": "FLOW",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+      "line": 110,
+      "lines": 258,
+      "sha256": "37b15bd4bd2726da82375bf0ac46edd3ec4a251d9d129c2f6f6464d8610db51e"
+    },
+    {
+      "key": "FLOWCONFIG",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowConfig.cs",
+      "line": 30,
+      "lines": 138,
+      "sha256": "031abaafae6de575be363e383012939abbc949db52549d82664328cb4df32732"
+    },
+    {
+      "key": "LIFE",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectEntityLifecycle.cs",
+      "line": 55,
+      "lines": 121,
+      "sha256": "f8ba19ea9eb2f7619d540d5b8149c518be99e3d54c451dee61b4e1796b388d9a"
+    },
+    {
+      "key": "CARGO",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionCargo.cs",
+      "line": 7,
+      "lines": 37,
+      "sha256": "c578bf9f135e7050e19727cd736f18c7a635fe836eb1ec33e21d7e6b3c9ae4ba"
+    },
+    {
+      "key": "THREAT",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionThreat.cs",
+      "line": 12,
+      "lines": 54,
+      "sha256": "dc22a3511a1635db643a6127a229c4c2cee959b8a6cda3cd7e6b514e2d1e9dd2"
+    },
+    {
+      "key": "COMBAT",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectCombat.cs",
+      "line": 66,
+      "lines": 89,
+      "sha256": "05156f4660ba8057caf5952733eaa4fc5ab11ac39d239a1ab40970c1b6a48484"
+    },
+    {
+      "key": "INDEX",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/SessionEntityIndex.cs",
+      "line": 40,
+      "lines": 99,
+      "sha256": "4955cc827209279293ba1ff954361d90082628a6d490d7569357bf67609c5909"
+    },
+    {
+      "key": "DEV",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionDevices.cs",
+      "line": 16,
+      "lines": 160,
+      "sha256": "f896e0ae56fb0c9cd051428805555c9a45cc40f820a7a1610570f6309dd67db4"
+    },
+    {
+      "key": "DRONE",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionDrone.cs",
+      "line": 13,
+      "lines": 57,
+      "sha256": "a25575434d7ff618c52cfc94e79e172c978612e15f981f8eeafead7ea699aff9"
+    },
+    {
+      "key": "NAV",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionNavigation.cs",
+      "line": 28,
+      "lines": 130,
+      "sha256": "8f8f122f9e7cf8270e06295ecfc962d28dc84bf3a9bc585a615ae1d021a10467"
+    },
+    {
+      "key": "TRADE",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipTradeService.cs",
+      "line": 17,
+      "lines": 110,
+      "sha256": "31ce89ade88a1628044160461bbe4bcfe1f8bcf76c19751f1c77547a9b1b7c76"
+    },
+    {
+      "key": "SERVICE",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipServiceConfig.cs",
+      "line": 10,
+      "lines": 21,
+      "sha256": "5c862ba914079758c2ccb205bf4816e267780a83e06ab2ce2f334648a802d27b"
+    },
+    {
+      "key": "EQUIPUI",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Entry/ShipEquipmentPanel.cs",
+      "line": 70,
+      "lines": 103,
+      "sha256": "3d768d523a1f676d6d07b48f8df9059e91dc6f277689e4d4994c166c34ac87d0"
+    },
+    {
+      "key": "INV",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroInventoryBehaviour.cs",
+      "line": 25,
+      "lines": 57,
+      "sha256": "efbd9f83fee939e0a58464cdb7cc6f3f0a0ddd5177941cbefdbb07b3a96d4152"
+    },
+    {
+      "key": "GEAR",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroEquipment.cs",
+      "line": 22,
+      "lines": 64,
+      "sha256": "ac7c7c42130f42007cb0f66e507430ee339910e29c1325fc79e3808b2acba1a8"
+    },
+    {
+      "key": "HANDHELD",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HandheldConfig.cs",
+      "line": 14,
+      "lines": 61,
+      "sha256": "3b3761fb0c87f765ccbbdd8597795d22f98f2c4841056c0df41f0d321efb0c23"
+    },
+    {
+      "key": "MINE",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroMining.cs",
+      "line": 13,
+      "lines": 47,
+      "sha256": "cd0ff5a782ab414858b4f035e9790e51032c1d82c3da1d1d6584aa1305105960"
+    },
+    {
+      "key": "MININGQUERY",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMiningQuery.cs",
+      "line": 36,
+      "lines": 48,
+      "sha256": "c02ec87ca84057b22356cbc47bb2f69e5e53194998ba498c2353fc5714a33018"
+    },
+    {
+      "key": "RULES",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Terrain/FrozenTerrainRules.cs",
+      "line": 47,
+      "lines": 59,
+      "sha256": "7c69304d6b715554bcf9e6965d52a2439f259031728133c3ba3733e1bc0cb742"
+    },
+    {
+      "key": "MAP",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMapAuthority.cs",
+      "line": 78,
+      "lines": 192,
+      "sha256": "87b4eb1e9e46a351358e9a288e41a1baa7e5e6ef538f19617711696cdfbd111e"
+    },
+    {
+      "key": "DESTRUCTION",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainDestructionPolicy.cs",
+      "line": 11,
+      "lines": 44,
+      "sha256": "c6b9c06aca80d00b4c475da4f705224377d4d421210ec295d20ebb98d86ccf7d"
+    },
+    {
+      "key": "DEPOSIT",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/MineralDepositBehaviour.cs",
+      "line": 25,
+      "lines": 74,
+      "sha256": "49c600a6082b3d7b507cd8ac44a653f335049825b90dd35799eb9a5c2a0782ae"
+    },
+    {
+      "key": "DEPOSITDEF",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Res/Objects/MineralDeposit/MineralDeposit.asset",
+      "line": 49,
+      "lines": 53,
+      "sha256": "79cfd8c4ba1ca1ef7469ccad1e53c9be1d00ec30b86795df86b3a41fb4d2800c"
+    },
+    {
+      "key": "WORLDDEF",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+      "line": 61,
+      "lines": 147,
+      "sha256": "da9ff383547aeddd5c216626869c3f4d1d569cf221d99ff1b254a0fbc724d98d"
+    },
+    {
+      "key": "TERRAINDIR",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Res/Terrain/StrataCave/slate-terrain.asset",
+      "line": 22,
+      "lines": 23,
+      "sha256": "f5f2af3af2711d1acf9f85ac4b9a80866622cf446c7d03172871a2ba6a1a63b6"
+    },
+    {
+      "key": "CAVEGEN",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveExplorationGenerator.cs",
+      "line": 45,
+      "lines": 129,
+      "sha256": "e6eb902bee8ff47e35aef8950048777767cdf24242f52c7240a1d527d58d36b9"
+    },
+    {
+      "key": "GEN",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainGenerator.cs",
+      "line": 24,
+      "lines": 98,
+      "sha256": "515028666e60d3b38d81cf3465c1fd14a7f0711d1702ace2bea65efa1a22a473"
+    },
+    {
+      "key": "PLANETGEN",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/PlanetTerrainGenerator.cs",
+      "line": 26,
+      "lines": 124,
+      "sha256": "a80da610b9fb3be535ba2dddb9cc503d37efd3f7c166b44644f889a7003f39ee"
+    },
+    {
+      "key": "MOTION",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroMotionBehaviour.cs",
+      "line": 17,
+      "lines": 81,
+      "sha256": "4b8604c2d2584e4fdad9040c4ecbbf115e5c132ec7ec7808078a3244c7df15fe"
+    },
+    {
+      "key": "TERRAINMOTION",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainHeroMotion.cs",
+      "line": 74,
+      "lines": 109,
+      "sha256": "2942fc42ccf88ff0c10b654c5f4a4d1804e8925977c80ff5866cc91a221c1955"
+    },
+    {
+      "key": "CONTROL",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroControlBehaviour.cs",
+      "line": 18,
+      "lines": 84,
+      "sha256": "aa54873cf29b4ddc78986de9bbd15195adb3400f108f359ca65ee17625327854"
+    },
+    {
+      "key": "HERORULE",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Core/Config/HeroControlDefinition.cs",
+      "line": 12,
+      "lines": 44,
+      "sha256": "1da4e951bb08973c64c668628cee6762ec2f798b009dae05750582c0984e5a59"
+    },
+    {
+      "key": "PROJECTILE",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ProjectileBehaviour.cs",
+      "line": 23,
+      "lines": 89,
+      "sha256": "e370a4bb9d3f2c960a8ad6251d81dbf4eec49a3b2c29ace7ba95d63cbe69d580"
+    },
+    {
+      "key": "BALLISTIC",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/BallisticMotion.cs",
+      "line": 23,
+      "lines": 85,
+      "sha256": "f1449205adc9254273e647686ce7c4abe080be713e36b8e6252a0302cbf0ee1c"
+    },
+    {
+      "key": "FLIGHT",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipFlightMotion.cs",
+      "line": 16,
+      "lines": 116,
+      "sha256": "beaa181948e0a9fc0dc5f44fcafffbd5a061abf37f772dc6401c54a564e4d33e"
+    },
+    {
+      "key": "RAMP",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipRampTransition.cs",
+      "line": 16,
+      "lines": 61,
+      "sha256": "8902bd1aeeabf834b19a815b6b27be5a19885862b1280b729a50f5ca8804b23e"
+    },
+    {
+      "key": "TRANSFER",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyTransfer.cs",
+      "line": 22,
+      "lines": 112,
+      "sha256": "a6436b1f60f4d306a50305916dac22fa78ca918ed82ca21cbe8fe804f76635bc"
+    },
+    {
+      "key": "AUTH",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+      "line": 120,
+      "lines": 298,
+      "sha256": "0bbf9ec5fb1b76430e7bd3a3c97d8ca8b01e6368acbf121ad927ab59d2bf9054"
+    },
+    {
+      "key": "HEROS",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs",
+      "line": 151,
+      "lines": 266,
+      "sha256": "c1e2585b4483e66289af2d159b1b425516f8b9c984d83155580c02ed168816d4"
+    },
+    {
+      "key": "EXPCONTROL",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Session/SessionExpeditionControl.cs",
+      "line": 8,
+      "lines": 19,
+      "sha256": "fac5b43a8d182e6af0ffdc3e61ed9c8457069a995b2025eff36640af561c3826"
+    },
+    {
+      "key": "CMD",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionCommands.cs",
+      "line": 15,
+      "lines": 91,
+      "sha256": "a770f561145d0a689d1bfc02da89ea54ea0cc921007ededace9bcce7011c4fce"
+    },
+    {
+      "key": "SERVER",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Network/SessionServer.cs",
+      "line": 43,
+      "lines": 219,
+      "sha256": "6704558ee6eef7c41db6d50f58c609af96c907ed8fb3c3314237e00def42f126"
+    },
+    {
+      "key": "STORE",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Save/GameSaveStore.cs",
+      "line": 30,
+      "lines": 100,
+      "sha256": "1fbf679728b2c1e81ceb9d3120e9d66e7b24f8086eb23848be72192490f64551"
+    },
+    {
+      "key": "ECON",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/EconomyBehaviour.cs",
+      "line": 67,
+      "lines": 87,
+      "sha256": "bd3090f0fd8a934fc92f07bbadd9b3f79399a55cf9dc442d8534cdbee970f880"
+    },
+    {
+      "key": "CAMP",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectCampCommands.cs",
+      "line": 52,
+      "lines": 120,
+      "sha256": "a0eab2d7d4c61ee008ad4fcf0bb892851040240b3b3d8ea9be09686ba1557188"
+    },
+    {
+      "key": "CAMPSTATE",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/CampSimulationBehaviour.cs",
+      "line": 32,
+      "lines": 67,
+      "sha256": "4a3e5656faa9354a1c4ae9dd41bbecb45939f799d2ec335f51aedc3a9e7f04ac"
+    },
+    {
+      "key": "BUILDING",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/BuildingBehaviour.cs",
+      "line": 40,
+      "lines": 74,
+      "sha256": "1ec3c6c0ab1bc2137921c70f62709b1f2b9eed16cff3387be6d6bc5402373989"
+    },
+    {
+      "key": "CONSTRUCT",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectConstruction.cs",
+      "line": 36,
+      "lines": 69,
+      "sha256": "57eb6454e97a184a6ccdecd34e15fea20f1a2cebb5615457516fd0b944ab35b1"
+    },
+    {
+      "key": "PLACEMENT",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Core/Config/PlacementGeometry.cs",
+      "line": 12,
+      "lines": 19,
+      "sha256": "14adb59b0019c94d0dd7376dfadcbfe17273cc7dce08ffc1f9f3b97261e0d803"
+    },
+    {
+      "key": "WORKSITE",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/WorksiteBehaviour.cs",
+      "line": 44,
+      "lines": 72,
+      "sha256": "4661dc9bb54c1b9bf08f2ef550c46e653a95c62d800b58e30b5c89c5c56022b2"
+    },
+    {
+      "key": "TRAIN",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/TrainingBehaviour.cs",
+      "line": 23,
+      "lines": 46,
+      "sha256": "078311c978144c0a7edc85521dc3d955cf94f0a7e920d9335d5a3db3ac611ba0"
+    },
+    {
+      "key": "AUTO",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/AutomaticActorControlBehaviour.cs",
+      "line": 17,
+      "lines": 57,
+      "sha256": "e9076fef00a151adde436a04726279a2954b947d5a57400b9ded64881c307ed1"
+    },
+    {
+      "key": "ACTORCOMBAT",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ActorCombatBehaviour.cs",
+      "line": 49,
+      "lines": 85,
+      "sha256": "5e7b0de893c42afde1715a12016da4410f0d40ff8a1f961b09cf96b6626b21f4"
+    },
+    {
+      "key": "WORK",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectWorkOrders.cs",
+      "line": 73,
+      "lines": 124,
+      "sha256": "e6deced34be6e3d4e1bca2d438861bc80744bcdcd81ba1d78b54d07d4685eb71"
+    },
+    {
+      "key": "WAVE",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/WaveBehaviour.cs",
+      "line": 34,
+      "lines": 67,
+      "sha256": "efde6ac64cdfb93c2a07d6e53c2ddb1d67f0c31c0190e6a1e350a3a7e45ee6f1"
+    },
+    {
+      "key": "TOWER",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/TowerAttackBehaviour.cs",
+      "line": 22,
+      "lines": 33,
+      "sha256": "19567c50bae449a940a0a8338130d668dd4db7b3ba7ef8ce22fdf2fc053e8523"
+    },
+    {
+      "key": "CLOCK",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Session/SessionClock.cs",
+      "line": 25,
+      "lines": 60,
+      "sha256": "1a2607134a834ba48f253ba70c68dc99c9a30983da5b9d09d5ddb253d704fe0b"
+    },
+    {
+      "key": "STARTUP",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs",
+      "line": 39,
+      "lines": 130,
+      "sha256": "ec2220dd52ada3fd3483150d00826b812dbf268217dfb0e5bfcd145e67f0bdbc"
+    },
+    {
+      "key": "SAMPLER",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/View/HeroInputSampler.cs",
+      "line": 65,
+      "lines": 154,
+      "sha256": "b64d810a01058f1a1d8f196a0a1a01051c60b57763b328382adfbb9d6ddd0c6f"
+    },
+    {
+      "key": "HUD",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Entry/ExpeditionHud.cs",
+      "line": 44,
+      "lines": 230,
+      "sha256": "4693ea4198050dc843b41e29537d70144a12c7d8af1ae8d775301a85c1935d64"
+    },
+    {
+      "key": "PANEL",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/View/ExpeditionPanel.cs",
+      "line": 34,
+      "lines": 130,
+      "sha256": "4bbf8cedf42b7f3717a780578d2e8b255b02401b8d1540e498eff54b4709a9fb"
+    },
+    {
+      "key": "CAMPHUD",
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/View/CampHudBehaviour.cs",
+      "line": 85,
+      "lines": 182,
+      "sha256": "8a4ee2e61c9052016478045596d4dd077ccfb983eaeea6209c0af664924837e1"
+    }
+  ],
+  "scan": {
+    "roots": [
+      "Game/Assets/DarkNights/Scripts/Runtime",
+      "Game/Assets/DarkNights/Scripts/Core/Config",
+      "Game/Assets/DarkNights/Scripts/Core/Logic",
+      "Game/Assets/DarkNights/Scripts/Entry",
+      "Game/Assets/DarkNights/Scripts/View"
+    ],
+    "files": [
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/WorksiteView.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "0d822f448645eff06ddc2dc98071a1dde5ecce9745380a07f91d774d9f8b51a4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/WorksitePresentationBehaviour.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 1,
+        "sha256": "3bad202488d59e4c6f0cf3b872ee462b26c603100b15e8b20287c1d275fe7118"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/UiShapeGraphic.cs",
+        "numeric_lines": 12,
+        "state_write_matches": 0,
+        "sha256": "2139c3c206343b4078ea279d33bf0fb2e52eb7e912df68003bd742d76a6c5745"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/WorkshopTerrainStroke.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "e09f2fc8a1c20438de69f3b2a62f4a8a67a257f36ae8ca59d284cdfa9a612886"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/WorkshopTerrainEdits.cs",
+        "numeric_lines": 20,
+        "state_write_matches": 0,
+        "sha256": "0cf658e5c6fed5714c96f49aa184ad8e94d2e3ce3fd4f4cb4289f7b0bc25faff"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainRequestHistory.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "58294435d4e5c1d2e0793e68a66224de28c6c15f6e65512b6398e785ed5ebcfc"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainProfileConfig.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "63ca502caa5ea40d91d5b7f708143f743685ecb7c43eb37d01aa7c86faf37d16"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMiningQuery.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "c02ec87ca84057b22356cbc47bb2f69e5e53194998ba498c2353fc5714a33018"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMiningBatch.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "c0e7ccfaf8153fab86ef7e41bd26d96f7eafbb6a72fbf3a4a0ad995a17d62367"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMaterialMiningRule.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "6da437d71809dfe753b02743832651f696eb5b93401b610b99deaf6f369ec680"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMapTransactions.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "a7e971585f1d3fa27db576d0553897a2808376a1318d500f94273e2c45cdaf63"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMapNetworking.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "e8e135b83d5c131eaef5721e7abafe3a0a9454f686bc86ba24f81fba6a14d2ae"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMapInitialization.cs",
+        "numeric_lines": 8,
+        "state_write_matches": 0,
+        "sha256": "40e0e0b18da504b0b9bf430cf0c7b9635dafd9b7272af3e7ffd6e822fd49debf"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMapAuthority.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "87b4eb1e9e46a351358e9a288e41a1baa7e5e6ef538f19617711696cdfbd111e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainHeroMotion.cs",
+        "numeric_lines": 37,
+        "state_write_matches": 6,
+        "sha256": "2942fc42ccf88ff0c10b654c5f4a4d1804e8925977c80ff5866cc91a221c1955"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainEpochSignal.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "77f2e59a036084e1ceef3db41493c4be4c80325baddb928d550b3e0d11755a38"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainBackgroundChunk.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "394255e417a73dd891e2ef660c18333b66b7170c7e31a0615094922ef483db22"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainBackgroundBaseline.cs",
+        "numeric_lines": 9,
+        "state_write_matches": 0,
+        "sha256": "9c0a7c89aafe7a395966a11d77b5e7fab09c94ab7ff3ffb2e0228e857465dc87"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainActionRoute.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "bafb05c26ccc1cb5d8ab89d9f5ff52873b633cc6e6eb24c232433ce438937b0c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainActionResult.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "ff25933af52262b690f522b421eed2850bbcdadbbaaef71647b714e10c5c520e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainActionAuthorization.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "a975c71ef6b36dd07ec6da3611dd2b84eafc2f54ca84814ac2e87ef9e9fae3a8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/SessionTerrainNetwork.cs",
+        "numeric_lines": 32,
+        "state_write_matches": 0,
+        "sha256": "6d004495e7fa5d812374294f7ba4fb3729c28e6a53a8b8c92aa2eddf55c6cf65"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/SessionTerrain.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "0dfae1204636da999030224dae989c5269df050c460df58ae536fca29dbb77e7"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/FrozenTerrainRules.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "7c69304d6b715554bcf9e6965d52a2439f259031728133c3ba3733e1bc0cb742"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/CaveWorkshopSession.cs",
+        "numeric_lines": 9,
+        "state_write_matches": 3,
+        "sha256": "246347fdcf76be5bcb2f73dcbbdfa6812dce2a46414f75e55d0eb24f90923f02"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/BackgroundReferenceCodec.cs",
+        "numeric_lines": 8,
+        "state_write_matches": 0,
+        "sha256": "d789cb8d7a4dfab45b7d73ad67676b8c1a19666eba3b61337eaa6d81db8775ce"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/WorldPoint.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "745be1dd144c861c87df541d0f52b385cb594c5ffeb60468ee99ac18a48b0538"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionResultCode.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "8c045b8cd7c079a76117f4663bbdaccfddc2f16c9e1f7e98f0735ee405de3399"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionRequest.cs",
+        "numeric_lines": 4,
+        "state_write_matches": 0,
+        "sha256": "7546e45ba88dda83693862d917a77e2cbda009d1bdcd28959ec9aea7ace42465"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionRecoverySlots.cs",
+        "numeric_lines": 15,
+        "state_write_matches": 0,
+        "sha256": "f5e63dd6d85f22dd5be3e02a0d24b1eae46d818145872bbe298d2d9902ff862e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionReceipt.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "cb8a312b890ee54e94ee743b4355697a2954328a810292b95da4917a6a99cf5c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperations.cs",
+        "numeric_lines": 22,
+        "state_write_matches": 6,
+        "sha256": "5f9f15ca5a24460cad50863f462638ebbfe00344c2c2cc7d436322c203e794f4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperationException.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "b50dfd064a18b19e4f6b0c19be3e7d079a042e8a8ca96759366fa8e41d6f4047"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperation.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "d31bef9cd51183d1f96c32616f1c1c71b185831741497b84bf9440d592ba9081"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyTransfer.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 1,
+        "sha256": "a6436b1f60f4d306a50305916dac22fa78ca918ed82ca21cbe8fe804f76635bc"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyControl.cs",
+        "numeric_lines": 4,
+        "state_write_matches": 0,
+        "sha256": "6a0de89c715658205374f1084b572c6e18d5007f8e1cef6051002247d5ade248"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs",
+        "numeric_lines": 38,
+        "state_write_matches": 3,
+        "sha256": "c1e2585b4483e66289af2d159b1b425516f8b9c984d83155580c02ed168816d4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionExpeditionControl.cs",
+        "numeric_lines": 4,
+        "state_write_matches": 0,
+        "sha256": "fac5b43a8d182e6af0ffdc3e61ed9c8457069a995b2025eff36640af561c3826"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionConnection.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "6661dd7f4d9f2f476b75ed1c4e3a6c9e301678e107a46509ef96a747cd161c7f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionCommandEntry.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "2039de2a16b5ace5132cb5d671b1267dd41234926f9ce10ca32a02c755814091"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionClock.cs",
+        "numeric_lines": 14,
+        "state_write_matches": 0,
+        "sha256": "1a2607134a834ba48f253ba70c68dc99c9a30983da5b9d09d5ddb253d704fe0b"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+        "numeric_lines": 31,
+        "state_write_matches": 0,
+        "sha256": "0bbf9ec5fb1b76430e7bd3a3c97d8ca8b01e6368acbf121ad927ab59d2bf9054"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainReplicaSource.cs",
+        "numeric_lines": 15,
+        "state_write_matches": 0,
+        "sha256": "ddcd0532ee2a16fbf5872773d6e167ccd7f23137a556f6286c8c3fd4d992fbf4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/HeroInputRequest.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "c162295d8c89ab044fdb4a64dbdeba039fb4c3bd217b53d5d6d7f982f5cbe991"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPreview.cs",
+        "numeric_lines": 14,
+        "state_write_matches": 0,
+        "sha256": "603cd1cb2668219a6de76750b304ef08637e6610ae1239b7fb74f04a033f8f08"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPanelLayout.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "fe126ce66f6cbb72ef3fddd6742e401cdf83975835a8798bdd4b8674861a04c2"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainMiningSelectorSettings.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "3b402314f21a2112fe197a9c15ce6cdd1e1271867b2c6ac67c4179c33f5c66f1"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainMiningSelectorGraphic.cs",
+        "numeric_lines": 25,
+        "state_write_matches": 0,
+        "sha256": "d1bd9c7205535fc281710eee6525eab2ed70b5e15b48f57a11246f1d2578767c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainMapAsset.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "c36cf7ac5756c4bc316bf59272014e54a5ef9ad7c62571cb6d98be1ecb9dbf0b"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainInputBatchQueue.cs",
+        "numeric_lines": 25,
+        "state_write_matches": 0,
+        "sha256": "2ccbae4aeb37c04b1e2bbf65d427b218fbf827ac9433321f5c3b337b69310696"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainEditorArtwork.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "3c2eb30c880ea5da0772c5dc8110f98c4025154dc2025855be79e5459bf31179"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainDebugFlyer.cs",
+        "numeric_lines": 21,
+        "state_write_matches": 0,
+        "sha256": "d436ce4839dfeefc349790f670a1f9ba94e896313d300978fbb9537fee2fe348"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainBlueprintSource.cs",
+        "numeric_lines": 18,
+        "state_write_matches": 0,
+        "sha256": "0cec4fb7482714a973e4c8a9ca398e9f9faba40cc3d8c39daa019796739149c1"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainBlueprintCellChange.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "1bacd5cd67dced90f29c91be387de6f65419ba0a27b7423c12be161da6aa5c4a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/RoundedClusterModifierAsset.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "695ce497273a67f3bc93b0166d85e31a0df2bc7cf14634a6357b5cd54e8001c6"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/RandomLevelTemplate.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "a2054ab36d9abdbb059c9768483ab5fca3dfa3beaa61c9e4dc7eef7a1bd0dc4a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/ITerrainInputSource.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "07bd67bca86623fdf85c0e262e3b6b6d5faca3872d5559af6134acc5d4b1b9a1"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/DownwardEdgeModifierAsset.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "02db911699ab71ba8cd4f8b239b2d8413af0c663f4605d9b79b0b31343ec73f7"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/ContourBackgroundGeneratorAsset.cs",
+        "numeric_lines": 11,
+        "state_write_matches": 0,
+        "sha256": "c319bba270908a36018fb93fffd26b154fa8643fa391fdbdf651bbe01e8d56a1"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveVisualSource.cs",
+        "numeric_lines": 44,
+        "state_write_matches": 0,
+        "sha256": "03b953cda49bd4fe2e123becd44ea28243003bb32b7a573b92688647a951aa8d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveTerrainStyle.cs",
+        "numeric_lines": 8,
+        "state_write_matches": 0,
+        "sha256": "852f35ea716d08d7a0f6b55011131ac137041096e28527a173847277a508bf3a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveStyleDraftItem.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "0506481309b5f8e9cacb87a16a05c136db673dee7aa80361afc1bfc05d3742da"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveStyleDraft.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "fc2d6b2bd67dbc1b1e4585c7b48d656f3da97eff6cfb8ce41eb40a91259e7238"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveSoftLightField.cs",
+        "numeric_lines": 41,
+        "state_write_matches": 0,
+        "sha256": "0b3ccc3ead70df64d7ead6838fc5ae5677a8c8442b61ade5c1b0b6e0371ea270"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveRockSurface.cs",
+        "numeric_lines": 19,
+        "state_write_matches": 0,
+        "sha256": "0fda7bc1b7788a2d7e3ea44674568965001971c1082b5c6ad1f4b542517eec77"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveRockGeometry.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "fd604a1517b5ed04a639e97419882cc68bfaf2cea004bc1a56d9aaa14533f2c8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveModifierAsset.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "476d9ed4bcad619c5ae19676bdf9fcb8b1deb79d50254fec55b614d280711d45"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveLocalRockSurface.cs",
+        "numeric_lines": 19,
+        "state_write_matches": 0,
+        "sha256": "6af585e1a84fe0c2621378446b2eb56078318a5af1e866d0a1c6873ff2557d45"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveLocalRockGeometry.cs",
+        "numeric_lines": 25,
+        "state_write_matches": 0,
+        "sha256": "1d576812fe11ce976b8dff036cb0dc32fa8e978af4a1bec1329214632919fc6a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveLightField.cs",
+        "numeric_lines": 14,
+        "state_write_matches": 0,
+        "sha256": "1bf0369ec85da44b979f23cc723f05206141251dfbad521a985931e96b179215"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundStyle.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "7ee25348de9decac01904843cf2582bfb937ff62377967fd723c250198768d7d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundPage.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "d2329d532bdf95c1f41ec37b63896bfbc785c05cabc54ff4ff25e34e8b04f424"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundGeneratorAsset.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "f2d337543e0a8ed02cea7b19936a2dee56034ea3c0482f90390e8f1f94e69cbe"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundCache.cs",
+        "numeric_lines": 9,
+        "state_write_matches": 0,
+        "sha256": "7c65caf0063e29617c85306523874e163aabcadacfced5af8ab00db4ed3412de"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/SpriteTintTarget.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "812bb380a06319f91d6ac29e15efa28a7297cfe0344d9344f6b8109243923063"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/SpriteTintGroup.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "13468d53b714c24b8af97fe48bc300e17e8a8376d4074f708c2575f5883c7d30"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/SelectionReadout.cs",
+        "numeric_lines": 13,
+        "state_write_matches": 0,
+        "sha256": "3d401e35ba029c0f5a59526ecba23683ebab442df855c0f721e0d5c29dfbf265"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/ScenePlacement.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "3e4364db87447eed0928d3038f1ce74864177cf2f1693f3bffb41a34778ddf81"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/ResultMenuBehaviour.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "87c8ead77c995fa8aea94268e7423b4bac8988ac46ef62a1a3f6856911bbf0af"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/PoseClip.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "e9cf98dcd985989d5fe2a7dbaa1264fe1be7d67dd6dba266e092ba8b7c538015"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/PinewatchStage.cs",
+        "numeric_lines": 33,
+        "state_write_matches": 1,
+        "sha256": "23b9ac00e75a1d6ee2d797aa31bd942279ec5d5854dff9d35efb36dad228e918"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/PauseMenuBehaviour.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "1c5756120b9bd06b77f69138ca03b1953ca67dfbd5cd8c8841b0b312fe8a5be7"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/NativePanelTheme.cs",
+        "numeric_lines": 24,
+        "state_write_matches": 0,
+        "sha256": "14565f675e98159d1e879832d717b0c19a3bb190da4f6549c5f838f54786c5e8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/NativePanelStyle.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "7cad8e10bcc94e592bf2a89f99656296a09d8356976fd62326452749f76917d0"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/NativeEnvironment.cs",
+        "numeric_lines": 26,
+        "state_write_matches": 0,
+        "sha256": "18453cdfec2e594370865d30ec99dd855830d134c87360be701b7672816b762e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/NativeEffect.cs",
+        "numeric_lines": 31,
+        "state_write_matches": 0,
+        "sha256": "303d47e81c9b94aa11127f3e7c7637bef268b680ecdfe68704d698fb6195d0a6"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/NativeBackdrop.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "2638a3b86607c1933cbb75d50543ab6675d5e7b2aae4417c777c2a0aa22375ef"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/MineralDepositPresentationBehaviour.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 1,
+        "sha256": "a3b56309af3d616eed1071dfaa5c12c3cc09a254b08b023466e68c17e0504a73"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/MenuBehaviour.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "e96859fb06280c73f88c58caccb710bb422acfb17497a1e3dd491d063a24e97e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/MainMenuBehaviour.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "a8073d5bef6455f65acce405d0f10ab6e4a10c41c33d7b7e85c7dbdf83ce31c6"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/LevelLayoutAuthoring.cs",
+        "numeric_lines": 9,
+        "state_write_matches": 0,
+        "sha256": "05e634e5298e25d6211953f663b8f68b15ced37b7700e814546298700570a7e2"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/IRemnantView.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "15453bdff6bb9901f3ddd52b0562d9fe9d6fcb2ef50d8aaee21cf5fccf0fc177"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/InputIntent.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "884506c27cb248dac4157579c9d1b67b3955b9c1bd9f5e539c243469572623bf"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/IEntityVisuals.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "b6f0f4f72355090918f6817bf4a5c89203eb60005e48b80dfe9d7eda7d5a8bbc"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/HeroPlatform.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "789b905f5f429c9e3132484a2a0df4f7198dfcc52572fe6b5dc500433972fe0d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/HeroInputSampler.cs",
+        "numeric_lines": 12,
+        "state_write_matches": 0,
+        "sha256": "b64d810a01058f1a1d8f196a0a1a01051c60b57763b328382adfbb9d6ddd0c6f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/HeroHudBehaviour.cs",
+        "numeric_lines": 8,
+        "state_write_matches": 0,
+        "sha256": "c4b5c4d6d940d41732e03abfa04d77b7353319f74536957c38808c1c371a7e66"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/HelpMenuBehaviour.cs",
+        "numeric_lines": 25,
+        "state_write_matches": 0,
+        "sha256": "6656244f74a9e5754b3461406337d06e5b1106f4757c0c01551d91064cb3f92f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/HandheldView.cs",
+        "numeric_lines": 18,
+        "state_write_matches": 0,
+        "sha256": "e2f4afd459e98f1ab8b135e0c505f6deefd87fbd3a487c6169459e48ceef456e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/GameInputActions.cs",
+        "numeric_lines": 15,
+        "state_write_matches": 0,
+        "sha256": "96168e3abacf39dc00df93de54e63a98c01f798cfcbf1f1f7dd3f119b91b5ffe"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/FullscreenPanel.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "3e9e8522298aa34e0f23856e4a5719a6636c8107929bda3ca26242d48ad9ad21"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/ExpeditionUnitView.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "a6dd07629101cc153b8ac04cbba89b7ad897f839ceca5bc3e93b6f0ed55ac72f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/ExpeditionShipView.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "b4ad2698d2d0c48d6c5594b81fdc0b3a4036d8ca9531df2fcea580ad74ddb806"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/ExpeditionPanel.cs",
+        "numeric_lines": 34,
+        "state_write_matches": 0,
+        "sha256": "4bbf8cedf42b7f3717a780578d2e8b255b02401b8d1540e498eff54b4709a9fb"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/WorksiteDefinition.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "5e5dddfa3982187b68a3d205c5a8ad39dd5c5fd79edddafe2e19f72abfbd70de"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/WaveDefinition.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "0353b1907d39432e80c4cf1194270f6cf6a06fecaf5c25426d6c6cec988db666"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/UnitDefinition.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "745920fc1906d77618f1bc08046144af66bde576aad090b2784b7c611fb8936a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Expedition/JourneyPresentationRules.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 1,
+        "sha256": "e3a5c0abe9126d37171444a45b59a8c6df6eb65706884a49c2b03f7445a8dd81"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Expedition/JourneyEnvironment.cs",
+        "numeric_lines": 29,
+        "state_write_matches": 0,
+        "sha256": "384152d64e2ee28fc65314294bb58981c9f87fd5bd5b964ee8b0b114663762d4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Expedition/ITravelTransitionPresentation.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "c5f6d8c6c6e02547e06979326cbda6d149e58a2710c7e4241ebe9335eaa7bf5d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Expedition/DestinationPicker.cs",
+        "numeric_lines": 30,
+        "state_write_matches": 0,
+        "sha256": "aebc07ba596d118153ceb8ce13cb334833ea78b2c8f47c8adc451b4afe7b4361"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/Expedition/ConfiguredTravelTransition.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "b9da5a6a30bc876142a22a840baa93f42579973e4d4ccc38a6ac2d96f6a1f219"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/EntityView.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "4960ee1e90e7f4ac5c3edaace67bf4cee8a4710d15fd1e4f87357727c84039b8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/EntityPresentationBehaviour.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "05071df386d810abdfaf42690550ad6c806da90a596954a71123a23f4e546f19"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/CampTorch.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "67bf0ea2f7efc6d89b28181d9c6e2ebad1e1c99b112ae14befd864352ca15114"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/CampOverlay.cs",
+        "numeric_lines": 29,
+        "state_write_matches": 0,
+        "sha256": "670e676bd125757ca3743849dd717d7c160b8ef7174f807a8dd3191c8a1056ad"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/CampMap.cs",
+        "numeric_lines": 32,
+        "state_write_matches": 0,
+        "sha256": "ba95d6c73245fa989c863957095791c90d0da15f2cc4f549a7ef4c0bc176a30a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/CampLight.cs",
+        "numeric_lines": 8,
+        "state_write_matches": 0,
+        "sha256": "0f6605d4e259ff53e80c69d4b8f9ad3209c405b510a72daf5f6a7bfb9a7f8822"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/CampInput.cs",
+        "numeric_lines": 21,
+        "state_write_matches": 0,
+        "sha256": "75186b914ddca02e5de8aeaa9d67e5c1df9445a35140cb482cf21df2576f248d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/CampHudBehaviour.cs",
+        "numeric_lines": 19,
+        "state_write_matches": 0,
+        "sha256": "8a4ee2e61c9052016478045596d4dd077ccfb983eaeea6209c0af664924837e1"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/CampAudio.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "5d50d859f86b910682ec1afb5d68cf8785f6993e085d3cd3e6cb9385d198ddad"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/BuildingView.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "f5c2749b22e7332b64c6c50100aa9803724afeaa0b674b8385d8628e3a7a04a1"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/BuildingPresentationBehaviour.cs",
+        "numeric_lines": 12,
+        "state_write_matches": 0,
+        "sha256": "75909847dffd90599349ca8cf12c9609a06819cff65b28681cc1bdcfbccdf1f5"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/TerrainSaveJson.cs",
+        "numeric_lines": 11,
+        "state_write_matches": 0,
+        "sha256": "c4d36ff312612da4cec65394103b8c8f6c97d1221b2d9fb0ff2d2fe55ab31c74"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/SnapshotEntityJson.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "da1a134f8f214aa6c7fdf2ae57dbc070503ed11d1b90042e9e22317c17e1a61f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/SnapshotDocumentJson.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "356f654c19378b2e0cfbad517bf5d2987fa651de83f62868a6d778c52b4b627c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/SessionStorageRequest.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "8fc4706631809c9a74ff978e1479130493ee065e6621ad261af624175324dfae"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/SessionStorage.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "a52272aa72cec75334133a8fd7213eda093a9996ada930088e3cedd82bdad3ea"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/SaveJsonFields.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "a4874c18d01a81f912dfbf4635dcb941dbbe7385989d8e71e5fe34764cb23b94"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/SaveContentFingerprint.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "398070a30e25696c63351dd600767d5fc2add428ba1f063f868317de3a5b7a61"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/ObjectWorldSaveJson.cs",
+        "numeric_lines": 12,
+        "state_write_matches": 0,
+        "sha256": "fcb9d850766bbb30b060b7390f034e0baeb2ef4c5d5471152ee631959ee6d0f1"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/JourneySaveJson.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "4e89123cd59d8a8038e97ce032c952287f16dbbdb70487c5dc29aeae0cf7975b"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/GameSaveStore.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "1fbf679728b2c1e81ceb9d3120e9d66e7b24f8086eb23848be72192490f64551"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/ExpeditionShipJson.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "0bc7ea050758809d0d3432e103d86948f5cdb3f6fc2922affe858461cb3edb38"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/ExpeditionSaveJson.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "c9cf3c93f0db72b4d6e9a7dd737615ba3468c159d48ca7a3b6b74ffcd2fffab5"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/BallisticView.cs",
+        "numeric_lines": 11,
+        "state_write_matches": 0,
+        "sha256": "62969c57d22eeb882941bfcd70c522963fd111ecdbf38ed186f146f0a8daa8bd"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/ActorView.cs",
+        "numeric_lines": 9,
+        "state_write_matches": 0,
+        "sha256": "3c3de599b7def6a088b90881eccfa40f5e5a575be401d05410215f3d6a5b7f4a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/View/ActorPresentationBehaviour.cs",
+        "numeric_lines": 9,
+        "state_write_matches": 0,
+        "sha256": "765942969901534b739abdc23ba02f126291e8fda4af72266c5813efc0949b49"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/SessionAutomation.cs",
+        "numeric_lines": 33,
+        "state_write_matches": 0,
+        "sha256": "dbd92b20caa778cf01e63eaaccaaf233a3fb652c549a8eabe5dc88dd9a42f467"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/PlayerPerformanceCapture.cs",
+        "numeric_lines": 19,
+        "state_write_matches": 0,
+        "sha256": "aa47c8a2b81826625e612a57c59c0571c36859f8b9538e2b92fe7fd3e8e32582"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/HeroPlayerController.cs",
+        "numeric_lines": 25,
+        "state_write_matches": 0,
+        "sha256": "38ce9dd92c600dd9ef1487cebcb3d36db635a5a0bd18cf7c6669f1784625f673"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/HeroMiningPointer.cs",
+        "numeric_lines": 16,
+        "state_write_matches": 0,
+        "sha256": "c84a6be9d7a29c6afe9c5d2a72ae1a7b9f238cd8d2bc70079027f8448964dac0"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/HeroInputPlayback.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "498a4c13d6275efce309b8fa89f438f608b88612a329e3b749a9654cef39ca2a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs",
+        "numeric_lines": 11,
+        "state_write_matches": 0,
+        "sha256": "ec2220dd52ada3fd3483150d00826b812dbf268217dfb0e5bfcd145e67f0bdbc"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/GameContentStartupModule.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "cc9f5ef1dfd868c7ac5d172342c365fbdc92e2d16ea1937504c8c209111633c1"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/ExpeditionHud.cs",
+        "numeric_lines": 23,
+        "state_write_matches": 0,
+        "sha256": "4693ea4198050dc843b41e29537d70144a12c7d8af1ae8d775301a85c1935d64"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/EntityViewFactory.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "3b0133f08c1dcb401d05b8858da81c801d1de11f5754fe223872647fe175dab2"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/SessionPresentationCapture.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "9bed9a0f818a2a845831b3309c687d262e7525f616c6f32216b5e99a679cc5a8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/SessionPlacementView.cs",
+        "numeric_lines": 9,
+        "state_write_matches": 1,
+        "sha256": "36bd10d8e965710ad7b7544da46dc7150e23fe607c47041c1838b3f19ade8755"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/SessionEntityViews.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 1,
+        "sha256": "1b90a75a197f536b277c772212f549004fcb9c9a8ac65889e72425c3ff6e9ab6"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/SessionEffects.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "31818be71b8544aad432f9336c363a9c4d7f306f1a9f504571b96580fe9e623b"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/SessionBallistics.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "763cf92743e05a7ac8fa92e96ed6ba82d715cb33566f8878b18f59002a4fdeab"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/SessionUiController.cs",
+        "numeric_lines": 28,
+        "state_write_matches": 3,
+        "sha256": "2b7dfd5d52f04cf6868047e5ae2053464791cdd3ec8815f6e7c14935b9a7c11a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/SessionRenderCapture.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "13c319a8c1bdc174f26ed6263e29850e0946739760a5609db5196e98ef1499d7"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/ShipEquipmentPanel.cs",
+        "numeric_lines": 17,
+        "state_write_matches": 0,
+        "sha256": "3d768d523a1f676d6d07b48f8df9059e91dc6f277689e4d4994c166c34ac87d0"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/ShipTradeHud.cs",
+        "numeric_lines": 18,
+        "state_write_matches": 0,
+        "sha256": "933ad2c403e84c6e5d807279ad70cb8e7aad5c7c4cc27b695a8ef6c2b818d372"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/HeroEquipmentKind.cs",
+        "numeric_lines": 4,
+        "state_write_matches": 0,
+        "sha256": "ce23eaac4c80cd2beef36eb8a330d9ddce60eb38357f8d61e84a7831cfc2e04f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/HeroControlDefinition.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "1da4e951bb08973c64c668628cee6762ec2f798b009dae05750582c0984e5a59"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/GameText.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "518ddc90612a748ac5b3c51c48acf063ac24eada14f089f4687433b6bae50018"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/GameCatalog.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "99888cc08fb174c591858254720f9ff45c54ebe394efe8b941632a2695c581e5"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/ExpeditionDefinition.cs",
+        "numeric_lines": 14,
+        "state_write_matches": 0,
+        "sha256": "d01dea2e02e86223701db4e3e0fccc81d6ab27ace5064e696ad88b4f850b2629"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Expedition/PlanetDefinition.cs",
+        "numeric_lines": 26,
+        "state_write_matches": 0,
+        "sha256": "996c7bd786e08b671aaf5209192f8d0fc0b2360e42c1dde0f58df5e75039a6d9"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/EconomyDefinition.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "b777a592f01e99f1f44088be327e9eff18fd982ba35f0c53558ebfa51ff887ae"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/BuildingDefinition.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "4ca9f803dfc1a5c16ef92fece9941f47cc698f5361cabfe4b1ca25fa8b04ea31"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/BalanceDefinition.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "7ec6ef6fe62e688771708dc28f7e012fdb0fce3daad2da5c00d1d79db5993396"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/PlacementGeometry.cs",
+        "numeric_lines": 4,
+        "state_write_matches": 0,
+        "sha256": "14adb59b0019c94d0dd7376dfadcbfe17273cc7dce08ffc1f9f3b97261e0d803"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/PlacementDefinition.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "070565b063630c6e84cc49adc1966980f03061dc58094179bbaf2984250caf5a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/MineralDepositStage.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "ae53c9849301752ef9edeec877bf142018ea7de0da2d651e658e9000c24d96dd"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/LevelLayout.cs",
+        "numeric_lines": 17,
+        "state_write_matches": 0,
+        "sha256": "d5edebfcd1c19d2431486ceffa4c76b1b7f2b541b679985b9e14b18dd9c9b161"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/LevelDefinition.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "3db74ee6300bd1ae9885d4b71b65e73a8675e95a129b226751e72d24f2dc6aa0"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/ResourceAmounts.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "9fec7a721454418c4134f7e934bb113ef52d50498392c4627880d734e49d13b2"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/PlatformDefinition.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "3bdb1e00be789208d0e6de4d2f026b4a29fe7c10aa3f1c90ac151b7b1f473eca"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/ShipFlightDefinition.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "d28bee463d411606b856e969c469ac7f598f92a641871a3b3706fd8a17d52672"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/ShipTradeDefinition.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "89fcb27406e4938644363fe7879afdb95a949daa4e37b055274da1091d71359f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/SessionMeasurements.cs",
+        "numeric_lines": 4,
+        "state_write_matches": 0,
+        "sha256": "6e73885dab20c92d92ec6a8749f2d740e733fa79abfd2448bb12f7bc99495d45"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/MeasurementSeries.cs",
+        "numeric_lines": 15,
+        "state_write_matches": 0,
+        "sha256": "d57f45eb4dc70122ced8fab8f2acae7b22b05036e6e9e739fcf4fbe2d723fff8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/ClientMeasurements.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "7964382fa6b7c82f628b3e9566075799782c7112377f155869ebb8e596b742b7"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/AssemblyProbeConfig.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "068f0086817b27ef0b64d3c007f21f1fc6f0f360065e2ab8ac7a6d0f319b22b3"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/AssemblyProbeBehaviour.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "bf6940e1862b87880419635f6b570226bab9d747fcf779e12b9ab99f37ca330f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Diagnostics/AssemblyPlayerProbe.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "052f6c1d00c4c447c8b8f1a452a374ddf7635c1d3cd3270d9d8ad9ca9a518117"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainWorkbenchPointer.cs",
+        "numeric_lines": 20,
+        "state_write_matches": 0,
+        "sha256": "765f26d4f957655905e88be3432ac877e5d0594848be30c299d9b9ac1dba5db4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainWorkbenchPages.cs",
+        "numeric_lines": 27,
+        "state_write_matches": 0,
+        "sha256": "d8907c1a4d92ef0dfc3f4851e5691a7c3916445ab2f085b7177485c32b6a14a0"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainWorkbenchAssets.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "4b2adcb4700b0fa2265f2f2dffc67970b9ff8ec19475b37e87d1839f36cc0ca6"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainStyleControls.cs",
+        "numeric_lines": 15,
+        "state_write_matches": 0,
+        "sha256": "28118a85ef8ba94d31bae94178eef8c2d48e0de7091a578931e79ec311e7f645"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainProbeReport.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "72324def3958aaeb195dc05653f9172dbdb513d05995592d3370d824a56e524d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainNetworkProbe.cs",
+        "numeric_lines": 20,
+        "state_write_matches": 0,
+        "sha256": "49b6d42d361c9aa847756fa9fb2070e80f80e7f8bfc72e6d395a733db4f794dc"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainFieldControls.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "acb36630ca554cd411229201811ea42909f9a8be14e438364d8b7d513db3e65d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainDebugPanel.cs",
+        "numeric_lines": 22,
+        "state_write_matches": 0,
+        "sha256": "057c7ede39a1cfd2a7301bd688c0f6fd2f2d9d8097b7c034f56b5ee19bfc2e79"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainDebugBootstrap.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "8fcc01d5bde0739dc62c6dd21fadc96a46f20659603d0e39973b70024e9d82a8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/RandomLevelEntry.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "f50660e96f2dd4329ffe12520054ae21ba39477e6e83cc9c2defc098ae190208"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/CaveWorkshopInput.cs",
+        "numeric_lines": 8,
+        "state_write_matches": 0,
+        "sha256": "5427b9a11e4a05a08bc1214514f6827468cb8ef25616877861a47913ad33d58d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/CaveOutlineSettings.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "f92a76765e41d02c5c2cd50dab17e7910a8bc553c21fc6a151df970c6be3bae2"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/CaveOutlineMode.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "1439661699de37e18d00eed34fa1e8422caf9181b90bf0586dbd5599dd9c7841"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/BackgroundContourSettings.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "24ace142ed8f1fea2c1ffc068ac06af6882720b367be223f9fc791e7679ba756"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/BackgroundBakeDescriptor.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "0ade9599d45944f1cefcdffcbbfad953185b2e1681d86ee5a5791e945a893cf3"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/PlayableTerrain.cs",
+        "numeric_lines": 18,
+        "state_write_matches": 0,
+        "sha256": "1318b73785455defca855e7b49d56a0da8a6c1ef1cd8a517c214a71d51b2506e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/CavePassageKind.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "95888237d19e5deaaa53883f052f28c25a3afc92b30b565183c7234bb9e11aea"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/CavePassage.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "0abe334e050a68260d4b25808f0ce3c07fff2d8c089e130d6446767b0c21a5e7"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/WalkwayCavityRepair.cs",
+        "numeric_lines": 20,
+        "state_write_matches": 0,
+        "sha256": "d7e0677e6149f18fafd80a0478814b25039a618838798f95a160019840ad1c72"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainVisualCoordinates.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "68485c3c29d77e70ab22b6ba77c6180f20d5c99e7a1c9ff5ac97d15f6a11888c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainBlueprint.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "85119d9b35a186ce1d1cf14e64502051e16dd5c23349a42089c15eccb7f7b02d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainSurfaceGenerator.cs",
+        "numeric_lines": 22,
+        "state_write_matches": 0,
+        "sha256": "b97c120403d79ae8f652f5165e21d98bfef185a0b196e55d5c58b4d9c6f8ae6d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainShapeGeometry.cs",
+        "numeric_lines": 24,
+        "state_write_matches": 0,
+        "sha256": "cc0e70966a16dc59ad1fa5deaab853ccba81d672e6637526983a5d0ecb731e9e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainRoomTemplates.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "e970edb43512574f71ee3b9faf82674c71fdfd6ae56a8007cdac820b49df6d65"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainCellShape.cs",
+        "numeric_lines": 4,
+        "state_write_matches": 0,
+        "sha256": "02f801b4ee20a33d4b0510f9d075d7d5621d1705270b360df63e2f78ba59097b"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainRandom.cs",
+        "numeric_lines": 14,
+        "state_write_matches": 0,
+        "sha256": "99a219a5fc04bf111061cc779db2406a37390ecbf8a96fd60c932da44198b39c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainOffset.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "c4c47c6a0c863d40e2425f4656a472f8994e9e217a4a7cd2640ab814d5b663a4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainModifierDiagnostic.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "249b48cb44f9fb335e9126be04780ba28aa374cab3052a4168cdc7f2d7eceb12"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainMiningGeometry.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "56e94de1d73b8c754ca681e3a2b96ac2ec75b590e34af121bb27fee22eeb8f4b"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainGenerator.cs",
+        "numeric_lines": 27,
+        "state_write_matches": 0,
+        "sha256": "515028666e60d3b38d81cf3465c1fd14a7f0711d1702ace2bea65efa1a22a473"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainGenerationStage.cs",
+        "numeric_lines": 4,
+        "state_write_matches": 0,
+        "sha256": "c87a83ad2a2626910add85a35e632a1093691dbe5b8427f404b5294fd15c16c0"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainGenerationPipeline.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "ac4bd7b1952b477dfe5b183c9b35de4b9764f42c63f88d31c22c5ea4d49518ba"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainGenerationContext.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "978c406c08ca3a069d4d0371acdfafbf466bd9ee1e2945c9412a0552eb51c1e9"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainGenerationBuffer.cs",
+        "numeric_lines": 13,
+        "state_write_matches": 0,
+        "sha256": "98e8787a695db98c09f320cdf4787a3f1b953c4a8d39901aa344c94cb4acbdfd"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainDestructionPolicy.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "c6b9c06aca80d00b4c475da4f705224377d4d421210ec295d20ebb98d86ccf7d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainCavityConnectivity.cs",
+        "numeric_lines": 14,
+        "state_write_matches": 0,
+        "sha256": "a10c9f5e2f616954083a4c158b47f0a944e1b4006f34a6c084fc446802684c46"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainCaveGenerator.cs",
+        "numeric_lines": 59,
+        "state_write_matches": 0,
+        "sha256": "bf822e7b4d7afcadb6c780d963ea4d0f17ca6ec2181e0c54cb840c97c3fafbdf"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/ShipGeometry.cs",
+        "numeric_lines": 17,
+        "state_write_matches": 0,
+        "sha256": "a2925123beaa8e71344e7af851aaa11a6f848f87119cfd1911b784f106f57e13"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/RoundedClusterModifier.cs",
+        "numeric_lines": 53,
+        "state_write_matches": 0,
+        "sha256": "6a21d2bc3440031a5c946e640a974dbd59effd76a2f48dc172959fddc2d51952"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/RoundedClusterAlgorithmVersion.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "213e1e4b1d9ced53fd09749f3f5f8315c3a331f98b96037302309475c7ccf974"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/PlayableTerrainGenerator.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "c84589f9898b3434270c5bba2344ee994bcc2b2206dd448aae37873d13c1fc59"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/PlanetTerrainGenerator.cs",
+        "numeric_lines": 20,
+        "state_write_matches": 0,
+        "sha256": "a80da610b9fb3be535ba2dddb9cc503d37efd3f7c166b44644f889a7003f39ee"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/ModifiedBackgroundLayout.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "77dc9ec3e7c2537ff370e55404cf287c73a6127686b372ced112384647228d44"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/LocalRoundedClusterV2.cs",
+        "numeric_lines": 71,
+        "state_write_matches": 0,
+        "sha256": "19d42f666f9ba5a1d688c011134d480f29e00daf0a79868c7e7c2d376afc062d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/ITerrainGenerationModifier.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "034f1016edf524419a9a35e0e81a5cdc4b62a59e2f164dfc0e9d54775c811d22"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/ICaveMaskModifier.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "118b8a7bb1ca150ab2aa21628d63426683c0aa2c54974f7c0d9796e572cab877"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/ICaveBackgroundLayout.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "e9894d8bf37987f4ec6c6134e8e3bdc5934f2e7b051f7ab7309259fa3b814fc4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/ICaveBackgroundGenerator.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "a18855851e49637065991dcd4171f003d60c1d3279f0a9722dae2268b63478e8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/ExpeditionTerrainGenerator.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "01b4cee87a8b0ee163682fbc848340f582127ba042396c1ff99a2b6287e040ef"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/EntranceWalkwayModifier.cs",
+        "numeric_lines": 19,
+        "state_write_matches": 0,
+        "sha256": "363007f5d7e5ff2f83d6745e2576cd26cce8de3688aae9adef374b9a2e06d38b"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/DownwardEdgeModifier.cs",
+        "numeric_lines": 47,
+        "state_write_matches": 0,
+        "sha256": "6dea41404ea50ac66e937b243d6f0e3024a7d9ece53471c711011289b46bcb0d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/ContourBackgroundGenerator.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "6e76a936c2dfa6437d464550b98e08ed98d8033c56e374d29ca1b21a8856c577"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRoomCarving.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "78ed6053645ef6e8fdd364eb057589693a35abbda4df08c00114ab459797697a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRockToneField.cs",
+        "numeric_lines": 8,
+        "state_write_matches": 0,
+        "sha256": "c92f43fd506e0a48f6439b18e7613fa947d5a6bcfdefcc5cd48c708d62bcce5d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRockFacet.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "4acb1bb405a18fa5f7286b1cd7dafa022d78ab6e357ded896334bb7934131910"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRockBaker.cs",
+        "numeric_lines": 54,
+        "state_write_matches": 0,
+        "sha256": "eeb2f565e0f76d8a56110ca564295980c64f4251af5326ac53fd901b23644f20"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveOutlineBaker.cs",
+        "numeric_lines": 28,
+        "state_write_matches": 5,
+        "sha256": "5aa9bdcaa6ccace10a50be561f49f4ef1285c3a0f3952cfb0178cec2b73b5980"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveModifierStack.cs",
+        "numeric_lines": 8,
+        "state_write_matches": 0,
+        "sha256": "eedc49687f9e51b84a255fb7657306267a20e3e147a21e8bcb81c02d7800c2c2"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveModifiedTerrain.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "b7306d1c5fc9692f95e6411435dcccb2ed6ee94ed64ab3fe11491855a1b9489f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveMaskRegion.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "c17cc29b5663b8f8de89dc486516479a4ce988e18cfafde8308bb6f44afcb8dc"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveMaskField.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "cac6acbd6fb81590ba3000d194f60bae0d2dde76f01f0cb8831a186e96bde3a9"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveMaskChanges.cs",
+        "numeric_lines": 8,
+        "state_write_matches": 0,
+        "sha256": "b55a6d30ee34ad72219db75f1feda2d61052a8c6d441a78469051f9dee57e756"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveGrainLayer.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "8ec6d5c42d6a683ee22fcd9a9d66c188f69c042c1695c01d2bdd1086ff89e13f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveExplorationGenerator.cs",
+        "numeric_lines": 43,
+        "state_write_matches": 0,
+        "sha256": "e6eb902bee8ff47e35aef8950048777767cdf24242f52c7240a1d527d58d36b9"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveEdgeSpacing.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "1100ff02a0a29e52a2e24a3c96e6aed17437eb731984ecb839b94b4ea58eafdf"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveChamferField.cs",
+        "numeric_lines": 16,
+        "state_write_matches": 0,
+        "sha256": "0ea47cb9cc54102220af70ca2555c893eb338854e223c82920ce300f79a760b8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/BackgroundPixelMath.cs",
+        "numeric_lines": 28,
+        "state_write_matches": 0,
+        "sha256": "f5196fb94aa7430d2b3288e1f6ab236aa84873c90b3f1d79915f9c4a02ac9e66"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/BackgroundPageBaker.cs",
+        "numeric_lines": 25,
+        "state_write_matches": 0,
+        "sha256": "0aa17d3404d1e700180434f75c04c17edab3a4360064fc8b1a87b8e063496537"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/BackgroundMaskAtlas.cs",
+        "numeric_lines": 34,
+        "state_write_matches": 0,
+        "sha256": "4a999dc0c697ee1b798e8d426cae8c1a5ae3bb1ad53d09edad7ecc743f846687"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/BackgroundContourBaker.cs",
+        "numeric_lines": 50,
+        "state_write_matches": 0,
+        "sha256": "02d3e111bc7e8cc20528bbd991e34da7d4236e021f68e5a3c00a6b23fbae8fe5"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Config/GameCatalogLoader.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "7a3cc6daca1066bfcd5a8e7d3297ae1fe6694128520c20aebd3eace168e1d80f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Config/GameCatalogJson.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "15520538c4947131ae913dfcbe1eb9910e389252bf58b8fbbcf6e62fa6ac9925"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Config/ConfigJson.cs",
+        "numeric_lines": 9,
+        "state_write_matches": 0,
+        "sha256": "a6ea6201549a250e727eba686772056030eb571b4cf37ed9bb5c565e1f539707"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainEditAction.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "2e102ec030c49df8aaaea70ba809d773b5678680e08b60f61291e0d5d4488758"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainDepositBlueprint.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "8412c891a3a2ce33ca3591493d4732f25a05aa38e932a72e0499c5c1511ee925"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainDamageRecord.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "179b190cc18ee50eef33a509ffc1f0dd58627a69feb8094599a7eb8fd646c66e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainRoom.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "1a6300ff3e875e45d0e9ba91776f7c9c6e505d97120d2cef8d771e6535781a49"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainGenerationSettings.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "abd5fef028adff6b8778251621c281caf7345092972e51216a8fb1e320cd9cc4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainRoomFeature.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "981be689b1b6cced25d7db3df29501ec234c153fc15f8dbf52f6bb81d2a1a3f4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/State/WavePhase.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "17fa28968dc71a8ada5d23e3c90c233cc1bbfd448ff4247ec4b4217cf6e3824d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/State/SessionMode.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "b658becdedefe576742bec4e00b1502e3a951dc7877a97d5a06916b92b2b57fb"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/State/CampControlMode.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "770b04fcfccb40dea4963af3699c81584f32ea04dfacd0ba8e55fde71cb9e44c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/State/ActorActivity.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "08646584e50e8e08960270a8fcf27eda20ecb4f597a583de709b2550a93c4dcf"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/SimulationRandom.cs",
+        "numeric_lines": 12,
+        "state_write_matches": 0,
+        "sha256": "45d6a0f6aa2520f634c1a216e65a6cf3cb37700bc5e5b59e5e7fa3e3480ba43f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Core/Logic/SimulationMath.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "8628a1e19e804f4ba83e033acf68ded0809f2ba13463b9a55a11aa19ad1abff6"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ActorCombatBehaviour.cs",
+        "numeric_lines": 9,
+        "state_write_matches": 0,
+        "sha256": "5e7b0de893c42afde1715a12016da4410f0d40ff8a1f961b09cf96b6626b21f4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ActorBehaviour.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "9f6784d5df2511fbd40d57ba6c72750bed88e9da3c90bd564f492ae2c62dc2e5"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ActorRuleConfig.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "f3542e70395fc356b4e18e35ad949ba781db727197a3911c1995db3a8e889e5d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ActorState.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "c46a1072dcb6b93e45bbd30e0cb4c2e91a8f5e2aa70f98c23448df9e7958f028"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ArrowAttackBehaviour.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "f665b35212c3f62d6acbaa41dfd8eebab14f726f9c40b40ff7e330fbb90f1f0d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Framework/RuleKeyAttribute.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "5024e60b88aa2d5ecc664bc7011fb6ecaa134ebda04872a0e7d69a80ec6a4c1f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Framework/FormalObjectCatalog.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "dd56b61746e04f7c4746d668b4e995319b8dd0f95a2d042feea3c6ebf51ca72e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Framework/DefinitionRuleIndex.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "02e835bad8fc4cce80d814989c5c0191ef00b928a6d19ee24496d1843c867af0"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/EconomyState.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "37c255c53e3771e6462c2b65e8881de047a43e6f353e72a6ed36ff022cc4173e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/EconomyBehaviour.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "bd3090f0fd8a934fc92f07bbadd9b3f79399a55cf9dc442d8534cdbee970f880"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/CampSimulationState.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "a1fcbaeb11fdfbf3bc37dcdc2e723e061d105c3089e4e52da0a9a054ab85fc6a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/CampSimulationBehaviour.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 1,
+        "sha256": "4a3e5656faa9354a1c4ae9dd41bbecb45939f799d2ec335f51aedc3a9e7f04ac"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/BuildingState.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "86e856b0f09b6fef87f0043796e59e710abd406310f96ac0af7002b470a2a477"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/BuildingRuleConfig.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "7eeb791d5d0bac409addbbe6346e78c49b295ad44d7f623a7b39eb55e127d7e3"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/BuildingBehaviour.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 1,
+        "sha256": "1ec3c6c0ab1bc2137921c70f62709b1f2b9eed16cff3387be6d6bc5402373989"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/BallisticMotion.cs",
+        "numeric_lines": 20,
+        "state_write_matches": 2,
+        "sha256": "f1449205adc9254273e647686ce7c4abe080be713e36b8e6252a0302cbf0ee1c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/BallisticFlight.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "04870eb8085f3472d4a788879c3f5c28aeca6b8cb9bba8817a1cdfa79bc8ff82"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/AutomaticActorControlBehaviour.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "e9076fef00a151adde436a04726279a2954b947d5a57400b9ded64881c307ed1"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+        "numeric_lines": 23,
+        "state_write_matches": 3,
+        "sha256": "37b15bd4bd2726da82375bf0ac46edd3ec4a251d9d129c2f6f6464d8610db51e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionDrone.cs",
+        "numeric_lines": 18,
+        "state_write_matches": 9,
+        "sha256": "a25575434d7ff618c52cfc94e79e172c978612e15f981f8eeafead7ea699aff9"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionDevices.cs",
+        "numeric_lines": 51,
+        "state_write_matches": 11,
+        "sha256": "f896e0ae56fb0c9cd051428805555c9a45cc40f820a7a1610570f6309dd67db4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionCargo.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 11,
+        "sha256": "c578bf9f135e7050e19727cd736f18c7a635fe836eb1ec33e21d7e6b3c9ae4ba"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/EquipmentItemConfig.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "9ff82098ac4be614725e3aa8426bed062f0fbcf2dd9cb3778a0b1b2f3fc08ae4"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/EntranceWalkwayModifierConfig.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "dbe21f8eb0d66d39141ba0823509d2363373416f0310ad6d168d091edab190b6"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionMapping.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 10,
+        "sha256": "645978d5d0cd177e806862a3fed8493700feaf9ccedbc0d934902885206ad2e0"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionJourneyState.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "3346a2246aa166929d832c28dc1414d2c85db2ea72bf3fdee1e579960b8e3a5c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionJourneyBehaviour.cs",
+        "numeric_lines": 4,
+        "state_write_matches": 0,
+        "sha256": "32569dc09b98f01e97284278ac90cac2b60b5130d668c4dad1c63c01dc1a4839"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowConfig.cs",
+        "numeric_lines": 14,
+        "state_write_matches": 0,
+        "sha256": "031abaafae6de575be363e383012939abbc949db52549d82664328cb4df32732"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs",
+        "numeric_lines": 64,
+        "state_write_matches": 33,
+        "sha256": "57745d9d8b7d7c9a54bb79c3f793e2c62e82e69e5ccddb2d65c33334797905f8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionNavigation.cs",
+        "numeric_lines": 34,
+        "state_write_matches": 2,
+        "sha256": "8f8f122f9e7cf8270e06295ecfc962d28dc84bf3a9bc585a615ae1d021a10467"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionShip.cs",
+        "numeric_lines": 45,
+        "state_write_matches": 8,
+        "sha256": "895b973a24270be2fa16a17b330efd1e197cb45450d19af534bfa9c236f077ba"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionThreat.cs",
+        "numeric_lines": 14,
+        "state_write_matches": 2,
+        "sha256": "dc22a3511a1635db643a6127a229c4c2cee959b8a6cda3cd7e6b514e2d1e9dd2"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/WorksiteState.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "eeda9545f9e16aecf66476091424cdc17645c5eb1f5e33771f16adb533c03433"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/WorksiteRuleConfig.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "bd2aad126f952e22f5db02ea2da9b8a44f215f1322ec010ec4e6390f36091c13"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/WorksiteBehaviour.cs",
+        "numeric_lines": 9,
+        "state_write_matches": 1,
+        "sha256": "4661dc9bb54c1b9bf08f2ef550c46e653a95c62d800b58e30b5c89c5c56022b2"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/WaveState.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "03be831af1985bf5df394d6774dbff3e25d7493475bb96d3eadf76f1dcfacb5c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/WaveBehaviour.cs",
+        "numeric_lines": 12,
+        "state_write_matches": 0,
+        "sha256": "efde6ac64cdfb93c2a07d6e53c2ddb1d67f0c31c0190e6a1e350a3a7e45ee6f1"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/TrainingStateEntry.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "ff69f4b1e079918194888a37280ca74de6f317ef55f106ea5333bdcca8e65df9"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/TrainingBehaviour.cs",
+        "numeric_lines": 8,
+        "state_write_matches": 0,
+        "sha256": "078311c978144c0a7edc85521dc3d955cf94f0a7e920d9335d5a3db3ac611ba0"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/TowerAttackBehaviour.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "19567c50bae449a940a0a8338130d668dd4db7b3ba7ef8ce22fdf2fc053e8523"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/TerrainGameplayBehaviour.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "d915970ba2d5d368c751e61a4915a2c3f916fa2166d4ae598587c78def3a4faf"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipTradeService.cs",
+        "numeric_lines": 26,
+        "state_write_matches": 5,
+        "sha256": "31ce89ade88a1628044160461bbe4bcfe1f8bcf76c19751f1c77547a9b1b7c76"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipServicesConfig.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "ad93598a5b7a1da4fba80ba18af2d4b563d8877e6fc92457697708aabb94999c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipServiceConfig.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "5c862ba914079758c2ccb205bf4816e267780a83e06ab2ce2f334648a802d27b"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipServiceAnchor.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "6a777f3e88131bea04682efd825330d002f091545eb07b7074b41f344b06ed57"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipRampTransition.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 4,
+        "sha256": "8902bd1aeeabf834b19a815b6b27be5a19885862b1280b729a50f5ca8804b23e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipFlightMotion.cs",
+        "numeric_lines": 24,
+        "state_write_matches": 8,
+        "sha256": "beaa181948e0a9fc0dc5f44fcafffbd5a061abf37f772dc6401c54a564e4d33e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipCabinMotion.cs",
+        "numeric_lines": 28,
+        "state_write_matches": 23,
+        "sha256": "9eb5b4d6c05e5329b3a47b97b980e735b7172f94209234439f31fe849c3f5e16"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/SessionStateBehaviour.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "e349f0b6f865536744493038d3711b18af01d28fe872df04950bea143381f7bd"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/SessionEntityIndex.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "4955cc827209279293ba1ff954361d90082628a6d490d7569357bf67609c5909"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ReplicaEntityState.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "f75b4ff50e75e97538ad919dd41f1bb64e42437bb974db9554f610caef70504f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ProjectileState.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "e193a1a67e7954fbb484100febad78f72a7e5177dcdf0db657f019bc5b7bd08b"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ProjectileFlight.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "1ad7dfff9fe1eb51b4607fe0e8cf9e1c422fb353464ee4f4cbb01e5a445f5098"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ProjectileBehaviour.cs",
+        "numeric_lines": 17,
+        "state_write_matches": 0,
+        "sha256": "e370a4bb9d3f2c960a8ad6251d81dbf4eec49a3b2c29ace7ba95d63cbe69d580"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/PlanetPreset.cs",
+        "numeric_lines": 9,
+        "state_write_matches": 0,
+        "sha256": "aa295964602bd9a235fc213433958445d7a19a56c1b1f38dac92e08c18e04c18"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectWorldRestore.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "342b85a15e56d4e8f3a9ee39c09b64793779b7e172ee887ca727141c58e825c2"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectWorkOrders.cs",
+        "numeric_lines": 20,
+        "state_write_matches": 0,
+        "sha256": "e6deced34be6e3d4e1bca2d438861bc80744bcdcd81ba1d78b54d07d4685eb71"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSnapshotMapper.cs",
+        "numeric_lines": 13,
+        "state_write_matches": 0,
+        "sha256": "200e21639d288fc963459f1680ed0f56a2a9e7b24bd3ba8a6c3dea3f3280181a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionResources.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "01248e4492dd5fef1c42ed5bddb6b0f7f183ad15cc3f35c9326df0885511df75"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionCommands.cs",
+        "numeric_lines": 14,
+        "state_write_matches": 0,
+        "sha256": "a770f561145d0a689d1bfc02da89ea54ea0cc921007ededace9bcce7011c4fce"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 1,
+        "sha256": "7e5b830f5af31f020d5ea13a0e6e2dc427729232c20e56e38ea3282b1c5b994e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectReplica.cs",
+        "numeric_lines": 7,
+        "state_write_matches": 0,
+        "sha256": "cdc4523afe11419c5144fa0e73f4983f78bed507a972ba235af2d6a4846f4f17"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectProjection.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "6ecbc7a89af0fe479a1602b7431347f8c1124d9085f15f052f81d0a5d8075d7e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectPlacement.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "d53dd4a7786ce04b61591075f5c2916e6f863f3f682d134a6163a8c7f9428d82"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectMutationBatch.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "4a00760ad7c82750d3d906adb76c8304c586a9dee68a6d0ab91ba42a2b697937"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectEntityLifecycle.cs",
+        "numeric_lines": 8,
+        "state_write_matches": 7,
+        "sha256": "f8ba19ea9eb2f7619d540d5b8149c518be99e3d54c451dee61b4e1796b388d9a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectConstruction.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "57eb6454e97a184a6ccdecd34e15fea20f1a2cebb5615457516fd0b944ab35b1"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectCombat.cs",
+        "numeric_lines": 18,
+        "state_write_matches": 2,
+        "sha256": "05156f4660ba8057caf5952733eaa4fc5ab11ac39d239a1ab40970c1b6a48484"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectCampCommands.cs",
+        "numeric_lines": 11,
+        "state_write_matches": 2,
+        "sha256": "a0eab2d7d4c61ee008ad4fcf0bb892851040240b3b3d8ea9be09686ba1557188"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/MovementConfig.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "ba0878ed143a2ab19db4783fe06d098a3d6d7ff53a7ae1dc189437c665962188"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/MovementBehaviour.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 2,
+        "sha256": "7535c0f8ad4315606aed5b1a6419c926702dc4e0abf2b4e408fe72f0d0ec9dab"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/MineralDepositState.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "2458567e59158ab99c207cf0edefbb64ccb8f8fd9aef14d87e779dcb46782bf7"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/MineralDepositRuleConfig.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "77ffeb7f33bc24a5c6a4fd8e9e7379c6a478567db02c133259982be577cc856f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/MineralDepositBehaviour.cs",
+        "numeric_lines": 16,
+        "state_write_matches": 0,
+        "sha256": "49c600a6082b3d7b507cd8ac44a653f335049825b90dd35799eb9a5c2a0782ae"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/MeleeAttackBehaviour.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "327735caf22ff69708610e9c330ac475f297b4d881a4ac519a01837584af9817"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/IWorksiteCapability.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "031cefd55a4d94ee6ae9b1923d75546e23dafc2f1908ea2fefb3ef124c297e61"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ITerrainGenerationModifierConfig.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "1627dbadeecfb2109a341378662a052c4e6fa1f3c4fbaf68bc591440c3073cbf"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/IObjectMutation.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "06ec048eabbb37aa4eb4f849984d810aa6c66aa9552394928789f825b1cf1326"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/IMovementCapability.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "9ae0ac54265de2f2e881286ed9d60b4a81d916cf4a543ccf8d4f13ef299be297"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/IMineralDepositCapability.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "93512150f291ee1335d633858d47f5ba8be72bdaf97073ebec69004c862a8da9"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/IEntityBehaviour.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "077bf37b25ba0fe88de1b2c1572da8e4aec7b8fa5df6d2cf565dbce873fd6d6a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ICombatantCapability.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "4db0ad8d11f590039462bb33c5ff6b9f3b5ad8548ee0584bcb2cdcffd8a7fe14"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/IBuildingCapability.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "5f1cfb76c23a70299fe035286c444fdba74ec9d609ca0abc9760a55f08fb6df6"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/IBuildingActivity.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "8ff841baaf4a8ed693c5bffcad40fdf764da2b81acdd8910949321e675453274"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/IAutomaticActorControl.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "9985d470fab79c89da12ceaa83aa9315d707cb954af8b4da1380d270393cab05"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/IAttackCapability.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "0576bfac2b83bec668ac1c012c49a29a591ba359f92c86fd6263abbcfd1eb4ba"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/IActorCombatCapability.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "24b1615ccec46ffaf1516fa2e222db5babfc33f3502ec7e46dae2ec7c1e32e78"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/IActorCapability.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "b3bfcd2b39418fa91126f6cbbe5f2bdf64c1e95330614e1c4028174e96733536"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroMotionBehaviour.cs",
+        "numeric_lines": 21,
+        "state_write_matches": 4,
+        "sha256": "4b8604c2d2584e4fdad9040c4ecbbf115e5c132ec7ec7808078a3244c7df15fe"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroMining.cs",
+        "numeric_lines": 5,
+        "state_write_matches": 0,
+        "sha256": "cd0ff5a782ab414858b4f035e9790e51032c1d82c3da1d1d6584aa1305105960"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroInventoryBehaviour.cs",
+        "numeric_lines": 10,
+        "state_write_matches": 0,
+        "sha256": "efbd9f83fee939e0a58464cdb7cc6f3f0a0ddd5177941cbefdbb07b3a96d4152"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroEquipment.cs",
+        "numeric_lines": 13,
+        "state_write_matches": 0,
+        "sha256": "ac7c7c42130f42007cb0f66e507430ee339910e29c1325fc79e3808b2acba1a8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroControlBehaviour.cs",
+        "numeric_lines": 11,
+        "state_write_matches": 4,
+        "sha256": "aa54873cf29b4ddc78986de9bbd15195adb3400f108f359ca65ee17625327854"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HandheldConfig.cs",
+        "numeric_lines": 29,
+        "state_write_matches": 0,
+        "sha256": "3b3761fb0c87f765ccbbdd8597795d22f98f2c4841056c0df41f0d321efb0c23"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ProjectionInputStream.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "ed1a6561dc0ba80ebc4f7f14ec2b5f2b9ba9948b9d13d2a01e1aafc7410b649e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ProjectionCodec.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "ad54658d442bf281f0b94795cf9bdcc8c3b9871b2465814f552b7b4d59e06d0e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ProjectileWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "79c5096fff37b6a73c68ec28746db1b91b4059749f1504d7347195017da2ea22"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/PresentationWire.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "19214d754a8142dc5321fa7bc35091faa12a8eb0dd5c2664bca98f928d4e165d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/PlayerEndpoint.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "d2811ccb3a80ac2a54468ab57bb994b84cb637a6f0bc235e5b1d694b23263602"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/PlanetWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "cc00e706dc52c62a43e58ce299636d912b8843839f3b13e5be39266ff0359f9a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/JourneyWire.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "3f9803449cc665ed857365d177b0c742dbe4bf707969e38b084b6a1644e9a5a6"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/HeroInputCommand.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "49584290fb6f74203d5bb90f5e3d25f9153c2245e6cb7ce9b1527e1a29613dda"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ExpeditionViewWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "606080f821af0514a1b8737b6c8111c041f3affdcf2719010a1f889837506c54"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ExpeditionShipWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "fbfca403152a0959ae2c06d2fd6b81b4d2e5ed29e8588954f8f38cde36df534b"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ExpeditionDeviceWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "57b1d48d43118f22d7393eafeffd6913781a084f30a12253c81c63cb9aef6153"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ExpeditionActorWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "b6cc84c822df66a69987f9f6e8fc71a720519b429b59b6ed2df8a0373b7775bc"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/EntityIdentityWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "03e85acdee0a31be7cd1828108d241bcb9c6f514a7a4484acb7d93b5de6dc57d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/CampWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "6c79d9169d630220a3c4e2d25e2fe237e579e35fd9c3972fdd91cb2bb2a6fa9e"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/CampSessionBehaviour.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "b5c16b92a8cdc736617a2c423bc2228ff0089696a2bf87b231e39989e0590870"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/BuildingWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "289286a49e55e9ebd66161320d7cd98c29f6a04da5f09c61c0036dee9dc7f439"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ActorWire.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "b99ba59d9df2ef5c727083f0642ae0c4705dc4f54b21af2d68b347167b652288"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionObjectLink.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "77a3dd8f688fa985e0c9f0a3ecc3659f367b0a2138a09a0f087585cac91c138d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionNetwork.cs",
+        "numeric_lines": 14,
+        "state_write_matches": 0,
+        "sha256": "52798b365eb00a11b302213b85868f85947cce0d6eca8037861d3788a79f6a3d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionEventJournal.cs",
+        "numeric_lines": 2,
+        "state_write_matches": 0,
+        "sha256": "05c838118413e637be70d7c7a24aab6404209062f165f80bb32a2543e6676d11"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionContentFingerprint.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "679622b5ae831bab22a84717c77bd5f28f859bd5df7346cf2f3bbf308480a4f8"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionCommand.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "f7d2ba04a1bb4bb5e9639aaf71935357d8f38035c3a45f5b07e20156af5bd6ac"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionClient.cs",
+        "numeric_lines": 18,
+        "state_write_matches": 0,
+        "sha256": "c15be7667c7568801396a6dd7d4aeb5ae105efa18303a56258c3d0833ee87a97"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ResourcesWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "951f7a2a7e841d625c1c4fd4313f7558a53622a7ffdd295f77017f642b830670"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ProjectionValidation.cs",
+        "numeric_lines": 57,
+        "state_write_matches": 5,
+        "sha256": "dc89127b0aed2c2a537e05696591cf962d271b16c21281b5a8d0db3c83488a3f"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ProjectionPressure.cs",
+        "numeric_lines": 11,
+        "state_write_matches": 1,
+        "sha256": "dece3ea2c3c27e199c50b9a479ac2dae6e1aa6c4d07d8888eaf9cb2c2ac68798"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ProjectionPacket.cs",
+        "numeric_lines": 26,
+        "state_write_matches": 0,
+        "sha256": "d80cd98beb5b19e0d881fec79a549973f40f65778e1cc3f5dac261f5bdfec1f6"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "fbdd582a28202cb10dd86cfa8401f766173f628d2e5945951b641cc8aa2faa2a"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionStatusState.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "eb1a6657ad9a0012362db23367c14a21e9886b55fb7ceea0f5702a65523dc14c"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionServer.cs",
+        "numeric_lines": 14,
+        "state_write_matches": 0,
+        "sha256": "6704558ee6eef7c41db6d50f58c609af96c907ed8fb3c3314237e00def42f126"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionProjector.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "cb2f63a104a527a3c89c45b8a5c716d78b970750a58502f25fa5b255d22a47bf"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionPeer.cs",
+        "numeric_lines": 1,
+        "state_write_matches": 0,
+        "sha256": "6780623b1968110683a0f7352e87b695cfdbce74aa400a1ddb09a44ceff136fb"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/WorksiteWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "415adf5c3d9025c2e5698f7dfc6e0111f6cf2400aabcd5b1f35bc23194614e9d"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/TrainingWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "a4b7eddd8d26ab616bc27990c6e8fbd5d48b55f8b0c943f1c71b232c232a70fd"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SetReadyCommand.cs",
+        "numeric_lines": 6,
+        "state_write_matches": 0,
+        "sha256": "e6328789d72b049172ca680bdb66fe54ca11d339489986a708ce0559cc84fbf6"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/WorldSessionBehaviour.cs",
+        "numeric_lines": 3,
+        "state_write_matches": 0,
+        "sha256": "2a4b4152cc5bd318d67ace0efb20536123554caee8ed0dfbe5d6c146caec8dfa"
+      },
+      {
+        "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/WorldWire.cs",
+        "numeric_lines": 0,
+        "state_write_matches": 0,
+        "sha256": "289bed5fc30c8d08c78cfa9a69c0f259c045bb243960df5e1be9a0d3d5c5db0b"
+      }
+    ],
+    "state_write_matches": 195,
+    "numeric_lines": 3562,
+    "source_files": 396
+  },
+  "limitations": [
+    "Includes concurrent uncommitted mining work; fingerprints identify reviewed source.",
+    "No Unity compile, runtime, Player or multiplayer validation.",
+    "Numeric scan is an index, not proof of complete semantic coverage.",
+    "Terrain material authoring values were read; compiled gameplay catalog was not regenerated or verified in Unity."
+  ],
+  "checks": {
+    "file_references_valid": true,
+    "rule_ids_unique": true,
+    "reference_line_bounds_valid": true,
+    "reference_hashes_unchanged_at_delivery": true,
+    "reference_labels_valid": true
+  },
+  "report_sha256": "584155c2a8516fcb8dfb5607df4716aef1bd263de28a11a4025e0e991bb58512",
+  "completed_at": "2026-09-30T23:09:17+08:00"
+}

@@ -11,6 +11,7 @@
 
 ## 开发入口
 
+- [BUSINESS_RULE_AUDIT.md](BUSINESS_RULE_AUDIT.md) — 当前业务规则、隐藏数值、模式生效范围和组件职责问题；2026-09-30 仅审查，未整改或运行验证
 - [DEVELOPMENT.md](DEVELOPMENT.md) — 开发执行入口与当前状态
 - [QUICK_START.md](QUICK_START.md) — 人工开发快速上手
 - [PLAYER_GUIDE.md](PLAYER_GUIDE.md) — 操作说明与本机验收入口
