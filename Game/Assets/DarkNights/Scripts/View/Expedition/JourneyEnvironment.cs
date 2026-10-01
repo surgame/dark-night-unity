@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DarkNights.Core.Config.Expedition;
-using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.ViewData;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -18,6 +17,7 @@ namespace DarkNights.View.Expedition
         private Material material;
         private Mesh skyMesh, starMesh;
         private GameObject sky, stars;
+        private JourneySurfaceBackdrop surface;
         private Vector2[] origins = Array.Empty<Vector2>();
         private Vector3[] vertices = Array.Empty<Vector3>();
         private Color[] colors = Array.Empty<Color>();
@@ -29,13 +29,14 @@ namespace DarkNights.View.Expedition
         private bool rendered, paused;
         public bool SpaceReady => rendered && JourneyPresentationRules.InSpace(journey);
 
-        public void Initialize(Camera camera)
+        public void Initialize(Camera camera, SurfaceEnvironmentSettings surfaceSettings = null)
         {
             viewCamera = camera;
             material = new Material(Shader.Find("Sprites/Default")) { name = "Journey local environment" };
             material.mainTexture = Texture2D.whiteTexture;
-            sky = Layer("Journey sky", -90, out skyMesh);
-            stars = Layer("Journey stars", -89, out starMesh);
+            sky = Layer("Journey sky", -110, out skyMesh);
+            stars = Layer("Journey stars", -109, out starMesh);
+            surface = new JourneySurfaceBackdrop(transform, material, surfaceSettings ?? new SurfaceEnvironmentSettings());
             RegisterTransition("star-shift", new ConfiguredTravelTransition("star-shift"));
             RegisterTransition("fade", new ConfiguredTravelTransition("fade"));
             RegisterTransition("none", new ConfiguredTravelTransition("none"));
@@ -61,6 +62,7 @@ namespace DarkNights.View.Expedition
             planet = next?.ActivePlanet ?? next?.Planets.FirstOrDefault(p => p.Enabled);
             bool active = next?.Enabled == true;
             sky.SetActive(active); stars.SetActive(active && JourneyPresentationRules.InSpace(next));
+            surface.Show(active && !JourneyPresentationRules.InSpace(next));
             if (!active) return;
             if (origins.Length != (planet?.StarCount ?? 120)) BuildStars(planet?.StarCount ?? 120);
         }
@@ -75,8 +77,7 @@ namespace DarkNights.View.Expedition
             float halfHeight = viewCamera.orthographicSize, halfWidth = halfHeight * viewCamera.aspect;
             float left = center.x - halfWidth, right = center.x + halfWidth, top = center.y + halfHeight;
             float bottom = center.y - halfHeight;
-            if (!space && planet != null)
-                bottom = Mathf.Max(bottom, (PlayableTerrain.OriginY - (planet.DockRow - .5f) * PlayableTerrain.CellPixels) / 100f);
+            // 天空铺满视口，地表由只读天际线和洞穴背景遮挡，不能按泊位高度截成水平矩形。
             bool visible = top > bottom;
             sky.SetActive(visible);
             if (!visible) return;
@@ -90,6 +91,7 @@ namespace DarkNights.View.Expedition
             skyMesh.triangles = new[] { 0, 2, 1, 0, 3, 2 };
             skyMesh.colors = new[] { tint, tint, upperTint, upperTint };
             skyMesh.RecalculateBounds();
+            if (!space) surface.Render(viewCamera, planet, tint);
             if (!space) return;
             string kind = planet?.TransitionKind ?? "star-shift";
             if (!transitions.TryGetValue(kind, out var transition)) transition = transitions["none"];
@@ -153,6 +155,7 @@ namespace DarkNights.View.Expedition
 
         private void OnDestroy()
         {
+            surface?.Dispose();
             Camera.onPreCull -= BeginCamera; Camera.onPostRender -= EndCamera;
             RenderPipelineManager.beginCameraRendering -= BeginPipeline;
             RenderPipelineManager.endCameraRendering -= EndPipeline;

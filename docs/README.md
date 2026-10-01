@@ -1,5 +1,7 @@
 # Dark Nights 文档结构
 
+2026-10-01 [地表天空与环境衔接候选](SURFACE_ENVIRONMENT.md)：分支 `ft-20261001-surface-environment`；方案 B 的范围、配置、简单验证及人工清单。自然地表生成重做尚未实施。
+
 2026-10-01 最新矿镐源码候选为 **3 格触及、直线最近表面、持续挥镐与落镐伤害**，见 [DEVELOPMENT.md](DEVELOPMENT.md) 和 [PLAYER_GUIDE.md](PLAYER_GUIDE.md)。游戏协议 **20**／AMP1 schema **2**／存档 **v14**；本批按用户要求未测试、编译、Play 或构建。此前空占用者 GUID 的 28/28 属于此前协议 19 的专项证据，不代表本批通过。
 
 2026-09-30 当前网格业务化源码候选记录于 [DEVELOPMENT.md](DEVELOPMENT.md)、[ARCHITECTURE.md](ARCHITECTURE.md)、[PLAYER_GUIDE.md](PLAYER_GUIDE.md) 和 [YYGC_CHANGES.md](YYGC_CHANGES.md)。协议 **19**／AMP1 schema **2**／存档 **v14**，本批验证 **NOT_RUN**。下方早期切片的协议与计数不代表本候选。

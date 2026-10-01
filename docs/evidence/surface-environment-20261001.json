@@ -1,0 +1,225 @@
+{
+  "date": "2026-10-01",
+  "branch": "ft-20261001-surface-environment",
+  "baseline": "d6f71102e1e491995c04ce311d247c32681860e4",
+  "unity": "6000.4.9f1",
+  "csharp": "9.0",
+  "rendering": "D3D12 GPU, actual Camera.Render in isolated preview scenes",
+  "protocol": 20,
+  "mapSchema": 2,
+  "saveVersion": 14,
+  "scope": "Simple Editor compile, native slope geometry, local columns and GPU fixture rendering; no main-scene Play, Player, independent-process multiplayer or performance acceptance",
+  "verification": {
+    "passed": 24,
+    "failed": 0,
+    "aggregation": "17 unchanged passes from original Editor run plus 7 affected rendering cases from final retry",
+    "finalRender": {
+      "passed": 7,
+      "failed": 0,
+      "processExit": 0,
+      "duration": 0.3363019,
+      "result": "artifacts/surface-environment-20261001/render-r2.xml",
+      "log": "artifacts/surface-environment-20261001/render-r2.log"
+    }
+  },
+  "attempts": [
+    {
+      "report": "artifacts/surface-environment-20261001/editor-151505.json",
+      "passed": 21,
+      "failed": 3,
+      "reason": "PreviewRenderUtility camera did not render fixture objects; only clear color was sampled"
+    },
+    {
+      "report": "artifacts/surface-environment-20261001/render-retry.xml",
+      "passed": 0,
+      "failed": 7,
+      "reason": "Explicit culling mask alone was insufficient; Preview camera still did not draw the fixture"
+    },
+    {
+      "report": "artifacts/surface-environment-20261001/render-r2.xml",
+      "passed": 7,
+      "failed": 0,
+      "change": "Use a Game Camera in an explicit NewPreviewScene, matching the existing terrain preview stage; assert actual pixels"
+    }
+  ],
+  "tests": [
+    {
+      "Name": "DarkNights.Tests.SurfaceEnvironmentTests.CaptureFreezesSettingsAndDisablingDecorationsKeepsSkylineFix",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceEnvironmentTests.DigAndFillOnlyRebuildTouchedColumnAndKeepReferenceDepth",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceEnvironmentTests.SceneryIsDeterministicQuantizedAndIndependentOfGlobalRandom",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceEnvironmentTests.SurfaceRockRemovedBeforeFirstBaselineDoesNotRemainInFrozenMask",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.ActualShaderShowsValleySkyAndPreservesUnderground(False,1.0f)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/render-r2.xml"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.ActualShaderShowsValleySkyAndPreservesUnderground(True,0.16f)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/render-r2.xml"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.ActualShaderShowsValleySkyAndPreservesUnderground(True,1.0f)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/render-r2.xml"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.JourneySkyCoversViewportBelowDockAndKeepsSpaceReceipt(Descent)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/render-r2.xml"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.JourneySkyCoversViewportBelowDockAndKeepsSpaceReceipt(Landed)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/render-r2.xml"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.JourneySkyCoversViewportBelowDockAndKeepsSpaceReceipt(Orbit)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/render-r2.xml"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.JourneySkyCoversViewportBelowDockAndKeepsSpaceReceipt(Transit)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/render-r2.xml"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(0)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(1)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(10)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(11)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(12)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(2)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(3)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(4)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(5)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(6)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(7)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(8)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    },
+    {
+      "Name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(9)",
+      "Status": "Passed",
+      "Evidence": "artifacts/surface-environment-20261001/editor-151505.json"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/CaveContourStatic/CaveStrata.shader",
+      "sha256": "cecd0c5300317f47b1c3701ff8d6f689eba24435280b7a704d2f87edc32a2c43"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainVisualCoordinates.cs",
+      "sha256": "bf4036f9ad51744933449f1ff34ba9501d8e7ce8b21f5230cc969864b00de7bc"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/SurfaceEnvironmentValidation.cs",
+      "sha256": "0c34d01cb7218fe14a780834558aa476a8e358cb1781edaa84bdc1f3f9b49903"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/RandomLevelEntry.cs",
+      "sha256": "753cab5a5fac7ec6b41fc78b34ff1b1e2bde7e4d79a8af0acd5a952ebc4e18b4"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/SurfaceEnvironmentTests.cs",
+      "sha256": "1fd6f1926ecf4157726d1b3145fcf8bda10ff71daf670422f3fc700f0f81fbe6"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/SurfaceSkyTests.cs",
+      "sha256": "577914dc3581ef1596abf5a82a8e1bc1f90ccf85403ee5bd8749643b361ec2c9"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Expedition/JourneyEnvironment.cs",
+      "sha256": "5712399c216f10e5f7df9fe0ec1bfebc65526af939ba0ef910412ccd1585d090"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Expedition/JourneySurfaceBackdrop.cs",
+      "sha256": "7f10ab74f2d4ff7c0cee5031802616cf7ad36a2e63639e66ffc099b64499d7ff"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Expedition/SurfaceEnvironmentSettings.cs",
+      "sha256": "e4de0ed2a63b3d469dd9d371c45993149252c8362b3d1a55825d6a67b7edf78c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveSurfaceSkyline.cs",
+      "sha256": "2c82acb6a93ddca5d9c30ad5203b9c11b4c59450dc88f331c714a646e45f32ee"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveTerrainStyle.cs",
+      "sha256": "27e7113e34045ed37719201e8a574ab7f1045957865936f1d33c20d6298e42de"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveVisualSource.cs",
+      "sha256": "d131010265aad4c5c3be812bade97f69429ff50556bfde035ca0a80b39d52a11"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPreview.cs",
+      "sha256": "185048a4f661df55b2dcbc1175c727903ce60887a04b40752423273ac41cb1f7"
+    }
+  ],
+  "manualChecklist": "docs/SURFACE_ENVIRONMENT.md",
+  "noFrameworkChanges": true,
+  "noImageGeneration": true,
+  "noPlayerBuild": true
+}

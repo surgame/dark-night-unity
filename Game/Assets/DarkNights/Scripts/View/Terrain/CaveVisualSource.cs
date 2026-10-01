@@ -22,6 +22,7 @@ namespace DarkNights.View.Terrain
         private HashSet<int> deviceCells = new HashSet<int>();
         private readonly Color32[] uploadPixels = new Color32[Page * Page];
         private readonly Texture2D oreMap, mapUpload, lightUpload;
+        private readonly CaveSurfaceSkyline skyline;
         private readonly RenderTexture map, light;
         private readonly Material background;
         private readonly GameObject backdrop;
@@ -44,7 +45,7 @@ namespace DarkNights.View.Terrain
         public Material Material { get; }
 
         public CaveVisualSource(IMapChunkSource source, CaveTerrainStyle style, TileCatalog catalog, Transform parent,
-            DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null)
+            DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null, bool surfaceSky = false)
         {
             this.source = source;
             string[] keys = { "loam", "slate", "basalt", "copper", "iron", "gold", "moss", "bedrock" };
@@ -57,6 +58,11 @@ namespace DarkNights.View.Terrain
             Material = new Material(style.Shader) { name = "Cave per-map rock" };
             Material.SetTexture("_CaveMap", map); Material.SetTexture("_CaveLight", light);
             Material.SetMatrix("_MapWorldToLocal", parent.worldToLocalMatrix);
+            var surfaceSettings = (style.SurfaceEnvironment ?? new Expedition.SurfaceEnvironmentSettings()).Capture();
+            if (surfaceSky)
+            {
+                skyline = new CaveSurfaceSkyline(reference, Material, surfaceSettings);
+            }
             var modifiers = style.CaptureModifiers();
             if (style.ProceduralRock && modifiers.SupportsLocalRoundedCluster)
                 localRockSurface = new CaveLocalRockSurface(Material, reference?.LayoutSeed ?? "DN-MATERIAL-0921", style);
@@ -122,6 +128,7 @@ namespace DarkNights.View.Terrain
         }
         public void Flush()
         {
+            skyline?.Flush(cells);
             if (!rockInitialized && (rockSurface != null || localRockSurface != null))
             { rockSurface?.Replace(cells); localRockSurface?.Replace(cells); rockInitialized = true; }
             if (oreDirty) { oreMap.SetPixels32(ores); oreMap.Apply(false, false); oreDirty = false; }
@@ -173,7 +180,7 @@ namespace DarkNights.View.Terrain
         public void TickBackground() { staticBackground?.Tick(); rockSurface?.Tick(); localRockSurface?.Tick(); }
         public void Dispose()
         {
-            staticBackground?.Dispose(); rockSurface?.Dispose(); localRockSurface?.Dispose();
+            staticBackground?.Dispose(); rockSurface?.Dispose(); localRockSurface?.Dispose(); skyline?.Dispose();
             map.Release(); light.Release();
             foreach (var value in new UnityEngine.Object[] { backdrop, mesh, Material, background, map, light, oreMap, mapUpload, lightUpload })
             { if (Application.isPlaying) UnityEngine.Object.Destroy(value); else UnityEngine.Object.DestroyImmediate(value); }
@@ -183,8 +190,9 @@ namespace DarkNights.View.Terrain
             int u = position.U, row = -position.V;
             if (u < 0 || u >= W || row < 0 || row >= H) return;
             int index = row * W + u; Color32 next = ToColor(cell);
-            if (cells[index].r == next.r && cells[index].g == next.g) return;
+            if ((skyline == null || cells[index].a != 0) && cells[index].r == next.r && cells[index].g == next.g) return;
             next.b = cells[index].b; cells[index] = next; changed.Add(index); MarkPage(mapPages, u, row);
+            skyline?.Mark(u);
         }
         private Color32 ToColor(GridCell cell) => new Color32(cell.IsEmpty ? (byte)0 : materials[cell.TileId], (byte)((cell.Flags >> 1) & 15), 0, 255);
         private static RenderTexture CreateTarget(string name, int width, int height, GraphicsFormat format)

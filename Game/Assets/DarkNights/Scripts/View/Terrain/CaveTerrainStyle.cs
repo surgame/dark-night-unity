@@ -14,6 +14,7 @@ namespace DarkNights.View.Terrain
         public bool ProceduralRock;
         [Tooltip("本修复候选使用有界 LocalV2 前景；关闭可对照原 LegacyV1。视觉签收前不要合并正式美术绑定。")]
         public bool ImmediateForeground = true;
+        public Expedition.SurfaceEnvironmentSettings SurfaceEnvironment = new Expedition.SurfaceEnvironmentSettings();
         public TerrainMiningSelectorSettings MiningSelector = new TerrainMiningSelectorSettings();
         [Range(0, 8), Tooltip("热资源小范围修改的同步求解预算；超时自动转后台，不阻塞整帧等待。")]
         public float InteractiveBakeBudgetMs = 4;
@@ -28,7 +29,8 @@ namespace DarkNights.View.Terrain
         public CaveModifierAsset[] Modifiers = System.Array.Empty<CaveModifierAsset>();
         public string VisualIdentity => string.Join("|", ProceduralRock, StoneSize, DecorationStartRow, OutlineMode, OutlineSeed,
             OutlineAmplitude.ToString(System.Globalization.CultureInfo.InvariantCulture), OutlineWavelength, OutlineQuantization,
-            CaptureModifiers().Identity, Background == null ? "none" : Background.VisualIdentity);
+            CaptureModifiers().Identity, Background == null ? "none" : Background.VisualIdentity,
+            (SurfaceEnvironment ?? new Expedition.SurfaceEnvironmentSettings()).Identity);
         public CaveModifierStack CaptureModifiers()
         {
             var original = CaveModifierAsset.CaptureStack(Modifiers);

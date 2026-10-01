@@ -34,11 +34,11 @@ namespace DarkNights.Entry.Terrain
             var entry = network.gameObject.AddComponent<RandomLevelEntry>();
             entry.network = network; entry.template = template; entry.stage = stage; stage.RandomTerrain = true;
             entry.environment = network.gameObject.AddComponent<JourneyEnvironment>();
-            entry.environment.Initialize(stage.SceneCamera);
             bool contour = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-contour-static") >= 0;
             var profile = TerrainProfileConfig.Resolve();
             entry.definition = contour ? profile.ContourDefinition : profile.Definition;
             entry.style = (contour ? profile.BackgroundStyle : profile.CaveStyle) as CaveTerrainStyle;
+            entry.environment.Initialize(stage.SceneCamera, entry.style?.SurfaceEnvironment);
             stage.MiningSelector = entry.style?.MiningSelector ?? stage.MiningSelector;
             stage.ActorPresentationScale = entry.style != null && entry.style.ProceduralRock ? 2 : 1;
             if (entry.definition == null || (template.Expedition || contour) && entry.style == null)
@@ -77,6 +77,7 @@ namespace DarkNights.Entry.Terrain
                     root.transform.localPosition = new Vector3(0, PlayableTerrain.OriginY / 100, 0);
                     root.transform.localScale = Vector3.one * (PlayableTerrain.CellPixels / 100f);
                     view = root.AddComponent<TerrainPreview>(); view.ViewCamera = stage.SceneCamera;
+                    view.SurfaceSky = journey?.Enabled == true;
                     var source = new TerrainReplicaSource(replica);
                     if (style != null) view.ShowCaveReplica(definition, style, source, replica.World, network.Terrain.Background);
                     else view.ShowReplica(definition, source, replica.World, network.Terrain.Background);

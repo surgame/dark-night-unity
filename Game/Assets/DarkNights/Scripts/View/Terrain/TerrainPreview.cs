@@ -18,6 +18,8 @@ namespace DarkNights.View.Terrain
         public TerrainMapAsset Map;
         public CaveTerrainStyle CaveStyle;
         public Camera ViewCamera;
+        /// <summary>航程地表启用天际线透明背景；独立洞穴工作台保留其完整背景预览。</summary>
+        public bool SurfaceSky;
         private CaveVisualSource caveSource;
         private ARDMapController controller;
         private CancellationTokenSource lifetime;
@@ -79,14 +81,12 @@ namespace DarkNights.View.Terrain
             CaveStyle = style;
             ShowReplica(definition, source, world, reference);
         }
-
         public async void ShowReplica(ARDMapDefinition definition, IMapChunkSource source, WorldIdentity world,
             BackgroundBakeDescriptor reference = null)
         {
             replicaSource = source as TerrainReplicaSource;
             await OpenAsync(definition, source, world, reference);
         }
-
         public async void ShowBlueprint(ARDMapDefinition definition, TerrainBlueprint blueprint,
             IMapChunkSource input = null, BackgroundBakeDescriptor reference = null)
         {
@@ -115,7 +115,7 @@ namespace DarkNights.View.Terrain
                 IMapChunkSource mapSource = source;
                 if (CaveStyle != null)
                 {
-                    caveSource = new CaveVisualSource(source, CaveStyle, definition.LoadGameplayCatalog().Tiles, transform, reference);
+                    caveSource = new CaveVisualSource(source, CaveStyle, definition.LoadGameplayCatalog().Tiles, transform, reference, SurfaceSky);
                     mapSource = caveSource;
                 }
                 var profile = caveSource == null ? null : new RenderProfile(defaultMaterial: caveSource.Material);
