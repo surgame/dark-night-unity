@@ -1,5 +1,9 @@
 # Dark Nights Unity 技术架构
 
+2026-10-01 矿镐源码候选：纯 `TerrainMiningGeometry.RayCell` 裁剪真实坡形，Runtime `TerrainMiningQuery.FirstSurface` 与本地选格、权威落镐共用最近表面查询，Unknown／基岩不跳过。每镐的目标、瞄准方向和一次命中门闩归角色唯一 ActorState，只由 YYGC CopyFrom 在事务内按值冻结，标记 MemoryPackIgnore，不写网络帧或存档。展示复用现有装备动作计时和瞄准字段，不由动画事件写权威伤害。游戏协议 **20**，AMP1 schema **2** 与存档 **v14** 不变；本批按用户要求未编译或运行验证。
+
+2026-09-30 网格业务化候选：WorldSession Definition 的 TerrainProfileConfig／TerrainGameplayBehaviour 只承担配置和装配；SessionTerrain 中唯一 ARDMap 的 GridBusinessStateStore 拥有格耐久，独立矿床仍归其 YYGC State。基础 AnyRules 不反向依赖 YYGC。对象候选校验完成后才执行外部地图安装；通知延后。分块副本同时安装业务偏差与内容实例版本，游戏协议 **19**／AMP1 schema **2**／存档 **v14**。按用户要求本批未验证，事务原子性、编辑器绑定及运行画面不作已通过声明；实现边界见 [DEVELOPMENT.md](DEVELOPMENT.md)。
+
 2026-09-30 [矿镐网格候选](MINING_GRID_EXECUTION.md)：选择器为原生主角 HUD 的本地只读几何，Core 只增加纯坐标合同；显式格目标进入既有 HeroInputCommand。唯一权威执行留在 HeroEquipment／HeroMining，地图仍归 TerrainMapAuthority，库存／风险／矿床归现有 YYGC Behaviour。短事务先准备状态、组合地图清除，再安装状态并发布地图通知；异常原子性待故障注入，不宣称已验证。协议 **18**／存档 **v13**，无框架或依赖改动。
 
 2026-09-29 [飞船交易与装备候选](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)：交易模块由飞船子物体 Definition／IConfigData 指定，权威写入留在既有 Actor／Economy Behaviour；输入、命令和冻结投影沿 YYGC 会话链，装备 UI 由 YYGC UIManager／UIPanel 绑定 UXML 并使用 R3 订阅。协议 **17**／存档 **v12**；真实画面及跨进程验收见清单。

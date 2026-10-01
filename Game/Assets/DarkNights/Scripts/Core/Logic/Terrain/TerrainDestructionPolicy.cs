@@ -28,13 +28,13 @@ namespace DarkNights.Core.Logic.Terrain
             }
         }
 
-        /// <summary>判断单格是否能被指定动作清除；保护位和基岩优先于任何工具。</summary>
+        /// <summary>旧蓝图坐标的作用资格；只有基岩拒绝破坏，保护和软岩是生成标签，运行伤害与耐久由冻结业务配置结算。</summary>
         public static bool CanDestroy(TerrainEditAction action, byte material, bool protectedCell, bool softRock)
         {
-            if (protectedCell || material == 0 || material == 8) return false;
+            if (material == 0 || material == 8) return false;
             switch (action)
             {
-                case TerrainEditAction.HandMine: return softRock || material == 4 || material == 5 || material == 6;
+                case TerrainEditAction.HandMine: return true;
                 case TerrainEditAction.Explosive: return true;
                 default: return false;
             }

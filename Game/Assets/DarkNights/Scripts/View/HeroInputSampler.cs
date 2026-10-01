@@ -34,16 +34,19 @@ namespace DarkNights.View
         }
 
         private readonly Camera camera;
+        private readonly float pickaxeHandHeight;
         private readonly EquipmentInput equipment = new EquipmentInput();
         private bool jumpPending, dropPending, sentJump, sentUse, sentDrop, sentSprint;
         private int sentDirection;
         private double nextSend, heartbeat;
         private HeroMiningTarget sentMining, pressedMining;
+        private float pressedAim;
         private bool miningPressPending;
         public int SelectedItem { get; private set; } = -1;
         public bool UseItemRequested { get; private set; }
 
-        public HeroInputSampler(Camera camera) { this.camera = camera; }
+        public HeroInputSampler(Camera camera, float pickaxeHandHeight)
+        { this.camera = camera; this.pickaxeHandHeight = pickaxeHandHeight; }
 
         public void ResetControl()
         {
@@ -73,13 +76,17 @@ namespace DarkNights.View
             bool aboard = frame.World.Expedition?.Crew.Any(a => a.Id == actor.Id && a.Boarded) == true;
             Vector3 hand = visuals.Visual(actor.Id)?.transform.position ??
                 new Vector3(actor.X / 100, actor.Height / 100, 0);
+            int item = actor.SelectedItem switch
+            { 0 => actor.Slot0, 1 => actor.Slot1, 2 => actor.Slot2, 3 => actor.Slot3, _ => 0 };
+            Vector3 origin = item == 2 ? new Vector3(actor.X / 100, (actor.Height + pickaxeHandHeight) / 100, 0)
+                : hand + Vector3.up * .09f;
             int direction = allowed ? Math.Sign(controls.Move) : 0;
             bool jump = allowed && controls.JumpHeld;
             bool sprint = allowed && controls.SprintHeld && !pilot;
-            equipment.Sample(controls, camera, hand + Vector3.up * .09f, allowed && !selectionPending && !aboard);
+            equipment.Sample(controls, camera, origin, allowed && !selectionPending && !aboard);
             if (equipment.Cancelled) { pressedMining = default; miningPressPending = false; }
             else if (controls.UsePressed && equipment.Pressed && !miningPressPending)
-            { pressedMining = mining; miningPressPending = true; }
+            { pressedMining = mining; pressedAim = equipment.Aim; miningPressPending = true; }
             SampleEdges(controls, allowed, pilot, aboard, frame.World.Expedition != null);
             SelectedItem = allowed && !aboard ? controls.ItemPressed : -1;
             UseItemRequested = false;
@@ -92,7 +99,8 @@ namespace DarkNights.View
                 return false;
             }
 
-            packet = new Packet(direction, jump, equipment.Held, jumpPending, dropPending, equipment.Aim,
+            packet = new Packet(direction, jump, equipment.Held, jumpPending, dropPending,
+                equipment.Pressed && miningPressPending ? pressedAim : equipment.Aim,
                 actor.SelectionRevision, equipment.Pressed, equipment.Released, equipment.Cancelled, sprint,
                 equipment.Pressed && miningPressPending ? pressedMining : mining);
             equipment.Consume();
@@ -136,7 +144,8 @@ namespace DarkNights.View
                     Held = false;
                     return;
                 }
-                Vector3 aim = camera.ScreenToWorldPoint(controls.Pointer) - hand;
+                Vector3 aim = camera.ScreenToWorldPoint(new Vector3(controls.Pointer.x, controls.Pointer.y,
+                    camera.WorldToScreenPoint(Vector3.zero).z)) - hand;
                 if (aim.sqrMagnitude > .0001f) Aim = Mathf.Atan2(aim.y, aim.x) * Mathf.Rad2Deg;
                 Pressed |= controls.UsePressed;
                 Released |= controls.UseReleased;

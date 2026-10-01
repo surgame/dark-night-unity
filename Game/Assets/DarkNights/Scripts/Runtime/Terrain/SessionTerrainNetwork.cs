@@ -27,6 +27,9 @@ namespace DarkNights.Runtime.Terrain
         private readonly NetworkManager manager;
         private readonly SessionNetwork network;
         private readonly ServerGameplayCatalog gameplay;
+        private readonly FrozenTerrainRules rules;
+        private readonly ARDMapDefinition definition;
+        public FrozenTerrainRules Rules => rules;
         private readonly string visual;
         private readonly bool expedition;
         private Task<PlayableTerrain> generation;
@@ -89,7 +92,8 @@ namespace DarkNights.Runtime.Terrain
             this.expedition = expedition;
             if (expedition) SelectionStatus = "太空远征 · 进入船舱后在驾驶台选择星球";
             this.manager = manager; this.network = network;
-            gameplay = definition.LoadGameplayCatalog(); using (var hash = System.Security.Cryptography.SHA256.Create())
+            this.definition = definition; rules = TerrainProfileConfig.Resolve().Freeze(definition);
+            gameplay = rules.Business.Gameplay; using (var hash = System.Security.Cryptography.SHA256.Create())
                 visual = BitConverter.ToString(hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(
                     Convert.ToBase64String(definition.VisualCatalog.bytes) + BackgroundBakeDescriptor.StyleContentHash + "|" + styleIdentity))).Replace("-", "").ToLowerInvariant();
             manager.ClientManager.RegisterBroadcast<TerrainEpochSignal>(ReceiveEpoch);
@@ -135,12 +139,12 @@ namespace DarkNights.Runtime.Terrain
         public SessionTerrain CreateAuthority(ObjectSessionContext context)
         {
             if (selected == null) throw new InvalidOperationException("请先选择地图。");
-            var result = new SessionTerrain(context, gameplay, selected); selected = null; return result;
+            var result = new SessionTerrain(context, gameplay, selected, rules, definition); selected = null; return result;
         }
         public void BeginConnection()
         {
             Disconnect();
-            Replica = TerrainMapNetworking.CreateReplica(gameplay, visual);
+            Replica = TerrainMapNetworking.CreateReplica(gameplay, visual, rules.Business);
             Replica.Applied += OnReplicaApplied;
             CreateTransport();
         }

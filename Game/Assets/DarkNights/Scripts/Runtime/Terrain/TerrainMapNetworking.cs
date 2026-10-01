@@ -11,7 +11,7 @@ namespace DarkNights.Runtime.Terrain
         public static MapHandshake Handshake(TerrainMapAuthority authority, ServerGameplayCatalog gameplay, string visualDigest)
         {
             if (authority == null || gameplay == null) throw new ArgumentNullException(nameof(authority));
-            return new MapHandshake(authority.Descriptor, gameplay.ContentDigest, visualDigest,
+            return new MapHandshake(authority.Descriptor, authority.Rules.Business.ContentDigest, visualDigest,
                 gameplay.Definitions.Select(d => d.Identity.Guid).ToArray());
         }
         public static MapInterestService OpenStream(TerrainMapAuthority authority, MapHandshake handshake,
@@ -21,10 +21,10 @@ namespace DarkNights.Runtime.Terrain
             return new MapInterestService(authority, authority.Tiles, handshake, sessionToken, authorize,
                 () => authority.CommitId, permissionRevision);
         }
-        public static ChunkReplicaStateMachine CreateReplica(ServerGameplayCatalog gameplay, string visualDigest)
+        public static ChunkReplicaStateMachine CreateReplica(ServerGameplayCatalog gameplay, string visualDigest, GridBusinessCatalog business = null)
         {
             if (gameplay == null) throw new ArgumentNullException(nameof(gameplay));
-            return new ChunkReplicaStateMachine(gameplay.Tiles, gameplay.ContentDigest, visualDigest);
+            return new ChunkReplicaStateMachine(gameplay.Tiles, business?.ContentDigest ?? gameplay.ContentDigest, visualDigest, business);
         }
     }
 }

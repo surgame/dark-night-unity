@@ -11,5 +11,21 @@ namespace DarkNights.Runtime.Objects
         public string Name => "矿床规则";
         [DarkNights.Runtime.Framework.RuleKey("mineral-deposits")]
         public string RuleKey = Rule;
+        public int HarvestDurability = 40;
+        public int UnitsPerHarvest = 1;
+        public string CommonResource = "iron";
+        public string RareResource = "gold";
+        public string Fingerprint()
+        {
+            Validate();
+            return HarvestDurability.ToString(System.Globalization.CultureInfo.InvariantCulture) + "|" +
+                UnitsPerHarvest.ToString(System.Globalization.CultureInfo.InvariantCulture) + "|" + CommonResource + "|" + RareResource;
+        }
+        public void Validate()
+        {
+            if (HarvestDurability < 1 || HarvestDurability > 1000000 || UnitsPerHarvest < 1 || UnitsPerHarvest > 1000 ||
+                CommonResource != "iron" && CommonResource != "gold" || RareResource != "iron" && RareResource != "gold")
+                throw new InvalidOperationException("矿床采集耐久、产量或资源不合法。");
+        }
     }
 }

@@ -33,9 +33,12 @@ namespace DarkNights.Runtime.Save
         public string IdentitySha256 { get; }
 
         public ObjectWorldSaveJson(GameCatalog catalog, LevelLayout layout,
-            IReadOnlyDictionary<string, string> definitions, IReadOnlyDictionary<string, string> placements, Objects.HandheldConfig equipment = null)
+            IReadOnlyDictionary<string, string> definitions, IReadOnlyDictionary<string, string> placements,
+            Objects.HandheldConfig equipment = null, string terrainRules = "")
         {
-            equipmentFingerprint = (equipment ?? new Objects.HandheldConfig()).Fingerprint();
+            using (var configHash = SHA256.Create())
+                equipmentFingerprint = BitConverter.ToString(configHash.ComputeHash(Encoding.UTF8.GetBytes(
+                    (equipment ?? new Objects.HandheldConfig()).Fingerprint() + "|" + terrainRules))).Replace("-", "").ToLowerInvariant();
             this.catalog = catalog;
             this.layout = layout;
             this.definitions = definitions.ToDictionary(p => p.Key, p => p.Value, StringComparer.Ordinal);

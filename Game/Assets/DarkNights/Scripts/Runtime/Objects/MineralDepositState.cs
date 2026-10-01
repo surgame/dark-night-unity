@@ -18,5 +18,6 @@ namespace DarkNights.Runtime.Objects
         public int Capacity { get; internal set; }
         public int Remaining { get; internal set; }
         public MineralDepositStage Stage { get; internal set; }
+        public int Durability { get; internal set; }
     }
 }

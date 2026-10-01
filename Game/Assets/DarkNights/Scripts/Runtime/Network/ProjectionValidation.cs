@@ -110,6 +110,9 @@ namespace DarkNights.Runtime.Network
                 {
                     Require(w.IsMineralDeposit && w.Kind == "mineral-deposit" && Text(w.RoomKind, 32) && Text(w.Rarity, 16) &&
                         w.Capacity > 0 && w.Capacity <= 1000000 && w.Amount >= 0 && w.Amount <= w.Capacity &&
+                        w.MaximumDurability > 0 && w.MaximumDurability <= 1000000 && w.Durability >= 0 &&
+                        w.Durability <= w.MaximumDurability && (w.Amount == 0 ? w.Durability == 0 : w.Durability > 0) &&
+                        (w.ResourceId == "iron" || w.ResourceId == "gold") && w.HarvestAmount >= 0 && w.HarvestAmount <= w.Amount &&
                         Finite(w.Y) && w.Y >= 0 && w.Y < Core.Config.Terrain.TerrainGenerationSettings.Height &&
                         w.WorkerId == 0 && w.FarmId == 0 && w.Progress == 0 &&
                         Enum.TryParse<DarkNights.Core.Config.MineralDepositStage>(w.Stage, out var stage) &&

@@ -19,6 +19,10 @@ namespace DarkNights.Core.ViewData
         public string Rarity { get; }
         public int Capacity { get; }
         public string Stage { get; }
+        public int Durability { get; }
+        public int MaximumDurability { get; }
+        public string ResourceId { get; }
+        public int HarvestAmount { get; }
 
         public WorksiteViewData(
             int id,
@@ -47,7 +51,7 @@ namespace DarkNights.Core.ViewData
             string roomKind,
             string rarity,
             int capacity,
-            string stage)
+            string stage, int durability = 0, int maximumDurability = 0, string resourceId = "", int harvestAmount = 0)
         {
             Id = id;
             Kind = kind;
@@ -63,6 +67,8 @@ namespace DarkNights.Core.ViewData
             Rarity = rarity ?? "";
             Capacity = capacity;
             Stage = stage ?? "";
+            Durability = durability; MaximumDurability = maximumDurability;
+            ResourceId = resourceId ?? ""; HarvestAmount = harvestAmount;
         }
 
         public WorksiteViewData(

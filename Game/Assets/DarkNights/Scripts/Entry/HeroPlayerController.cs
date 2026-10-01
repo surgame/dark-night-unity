@@ -56,8 +56,8 @@ namespace DarkNights.Entry
         {
             network = session; camp = campInput; input = actions; stage = scene; hud = panel;
             entities = visuals;
-            sampler = new HeroInputSampler(scene.SceneCamera);
             mining = new HeroMiningPointer(session, scene, panel, catalog);
+            sampler = new HeroInputSampler(scene.SceneCamera, mining.HandHeight);
             campControlEnabled = System.Environment.GetCommandLineArgs().Contains("--dn-camp-mode");
             replayOnly = System.Environment.GetCommandLineArgs().Contains("--dn-role") &&
                 System.Environment.GetCommandLineArgs().Contains("--dn-input-replay");

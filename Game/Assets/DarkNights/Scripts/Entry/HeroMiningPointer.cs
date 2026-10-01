@@ -21,17 +21,20 @@ namespace DarkNights.Entry
         private readonly PinewatchStage stage;
         private readonly HeroHudBehaviour hud;
         private readonly GameCatalog catalog;
-        private readonly float handHeight;
+        private readonly float handHeight, reach;
+        private readonly int pickaxeDamage;
         private CellCoord cell;
         private bool visible, valid;
         public HeroMiningTarget Target { get; private set; }
         public string Hint { get; private set; } = "";
+        internal float HandHeight => handHeight;
 
         internal HeroMiningPointer(SessionNetwork network, PinewatchStage stage, HeroHudBehaviour hud, GameCatalog catalog)
         {
             this.network = network; this.stage = stage; this.hud = hud; this.catalog = catalog;
-            handHeight = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
-                .SharedConfigs.OfType<HandheldConfig>().Single().HandHeight;
+            var tools = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
+                .SharedConfigs.OfType<HandheldConfig>().Single();
+            handHeight = tools.PickaxeHandHeight; reach = tools.PickaxeReach; pickaxeDamage = tools.PickaxeDamage;
             hud.InitializeMiningSelector();
         }
 
@@ -47,24 +50,46 @@ namespace DarkNights.Entry
                 frame.HostOnly && network.Client.PlayerSlot != 0 || !stage.SceneCamera.pixelRect.Contains(controls.Pointer)) return;
             Vector3 point = stage.SceneCamera.ScreenToWorldPoint(new Vector3(controls.Pointer.x, controls.Pointer.y,
                 stage.SceneCamera.WorldToScreenPoint(Vector3.zero).z));
-            cell = new CellCoord(TerrainMiningGeometry.CellU(point.x * 100), TerrainMiningGeometry.CellV(point.y * 100));
             var map = terrain.Replica;
-            if (map.Descriptor == null || !map.Descriptor.Bounds.Contains(cell) || !map.Read(cell).TryGetCell(out var value)) return;
+            float hand = actor.Height + handHeight, previewReach = reach + PlayableTerrain.CellPixels;
+            if (map.Descriptor == null || !TerrainMiningGeometry.Direction(point.x * 100 - actor.X,
+                point.y * 100 - hand, out float dx, out float dh)) return;
+            bool found = TerrainMiningQuery.FirstSurface(map, actor.X, hand, dx, dh, previewReach, out cell, out float distance);
+            WorksiteViewData deposit = null;
+            foreach (var site in frame.World.Worksites)
+            {
+                if (!site.IsMineralDeposit || site.Amount <= 0) continue;
+                var position = new CellCoord((int)Math.Floor(site.X / PlayableTerrain.CellPixels), -(int)site.Y);
+                if (!map.Read(position).TryGetCell(out var background) || !background.IsEmpty ||
+                    !TerrainMiningGeometry.RayCell(actor.X, hand, dx, dh, previewReach, position.U, position.V,
+                        TerrainCellShape.Full, out float near) || near >= distance) continue;
+                found = true; cell = position; distance = near; deposit = site;
+            }
+            if (!found) { Hint = "沿鼠标方向没有可触及的采集目标 · 按住左键挥镐"; return; }
             visible = true;
-            var deposit = frame.World.Worksites.FirstOrDefault(site => site.IsMineralDeposit && site.Amount > 0 &&
-                (int)Math.Floor(site.X / PlayableTerrain.CellPixels) == cell.U && -(int)site.Y == cell.V);
+            if (!map.Descriptor.Bounds.Contains(cell) || !map.Read(cell).TryGetCell(out var value))
+            { Hint = "地图尚未就绪"; return; }
             string blocked = value.IsEmpty && deposit != null ? "" : TerrainMiningQuery.BlockReason(map, terrain.Tiles, cell);
             var cargo = frame.World.Expedition?.Crew.FirstOrDefault(crew => crew.Id == actor.Id);
-            bool capacity = cargo == null || cargo.Iron + cargo.Gold < catalog.Balance.Expedition.BagCapacity;
-            if (blocked.Length == 0 && !capacity) blocked = "货袋已满，请先出售或卸货";
-            if (blocked.Length == 0 && !TerrainMiningGeometry.WithinReach(actor.X, actor.Height + handHeight,
-                cell.U, cell.V, catalog.Balance.HeroControl.WorkReach)) blocked = "目标太远，请靠近后采集";
-            if (blocked.Length == 0 && !TerrainMiningQuery.Reachable(map, actor.X, actor.Height + handHeight,
-                cell, catalog.Balance.HeroControl.WorkReach)) blocked = "目标被岩壁遮挡";
+            int durability = 0, maximum = 0, amount = 0, damage = pickaxeDamage;
+            if (!value.IsEmpty && blocked.Length == 0)
+            {
+                var sample = map.Query(cell); durability = sample.State.Durability; maximum = sample.Definition.MaximumDurability;
+                amount = terrain.Rules.Drop(value.TileId).Amount; damage = terrain.Rules.PickaxeDamage(value.TileId, pickaxeDamage);
+            }
+            else if (deposit != null)
+            {
+                durability = deposit.Durability; maximum = deposit.MaximumDurability; amount = deposit.HarvestAmount;
+            }
+            bool capacity = cargo == null || cargo.Iron + cargo.Gold + amount <= catalog.Balance.Expedition.BagCapacity;
+            if (blocked.Length == 0 && durability <= damage && !capacity) blocked = "完成采集需要货袋空间，请先卸货";
+            if (blocked.Length == 0 && distance > reach) blocked = "目标太远，请靠近后采集";
             valid = blocked.Length == 0;
-            Hint = valid ? "左键采集 · 按住连续采集" : blocked;
+            Hint = valid ? (value.IsEmpty ? "矿床采集" : "岩壁耐久") + " " + durability + "/" + maximum + " · 左键／按住采集" : blocked;
             if (valid) Target = new HeroMiningTarget(map.World.WorldId.ToString().Replace("-", ""), map.World.Epoch,
-                cell.U, cell.V, value.TileId, value.Flags);
+                cell.U, cell.V, value.TileId, value.Flags,
+                value.IsEmpty ? HeroMiningTargetKind.MineralDeposit : HeroMiningTargetKind.Foreground,
+                value.IsEmpty ? deposit.Id : 0, map.ContentVersion(cell));
         }
 
         internal void Present()

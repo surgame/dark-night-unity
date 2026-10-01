@@ -43,12 +43,54 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.ProjectileBehaviour
   - DarkNights.Runtime.Objects.ExpeditionJourneyBehaviour
   - DarkNights.Runtime.Objects.ExpeditionFlowBehaviour
+  - DarkNights.Runtime.Objects.TerrainGameplayBehaviour
   SharedConfigs:
   - rid: 6961529734502023168
   - rid: 6961529734502023169
+  - rid: 6961529734502023170
   references:
     version: 2
     RefIds:
+    - rid: 6961529734502023170
+      type: {class: TerrainProfileConfig, ns: DarkNights.Runtime.Terrain, asm: DarkNights.Runtime}
+      data:
+        Definition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
+        ContourDefinition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
+        CaveStyle: {fileID: 11400000, guid: b8f1f94057451ec459e1bac28aba1c8a, type: 2}
+        BackgroundStyle: {fileID: 11400000, guid: b8f1f94057451ec459e1bac28aba1c8a, type: 2}
+        Materials:
+        - MaterialKey: loam
+          ResourceId: ''
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: slate
+          ResourceId: ''
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: basalt
+          ResourceId: ''
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: copper
+          ResourceId: iron
+          Yield: 1
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: iron
+          ResourceId: iron
+          Yield: 1
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: gold
+          ResourceId: gold
+          Yield: 1
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: moss
+          ResourceId: ''
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: bedrock
+          ResourceId: ''
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
     - rid: 6961529734502023168
       type: {class: HandheldConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
@@ -60,6 +102,10 @@ MonoBehaviour:
         MuzzleDistance: 8
         HandHeight: 9
         PickaxeSeconds: 0.48
+        PickaxeReach: 48
+        PickaxeHandHeight: 36
+        PickaxeImpactFraction: 0.6
+        PickaxeDamage: 10
         BombMinimumSpeed: 65
         BombMaximumSpeed: 180
         BombLift: 65

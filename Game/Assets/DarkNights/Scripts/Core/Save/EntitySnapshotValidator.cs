@@ -48,6 +48,7 @@ namespace DarkNights.Core.Save
                 {
                     if (!w.IsMineralDeposit || w.Kind != "mineral-deposit" || w.RoomKind == null || w.RoomKind.Length > 32 ||
                         w.Rarity == null || w.Rarity.Length > 16 || w.Capacity < 1 || w.Capacity > 1000000 ||
+                        w.Durability < 0 || w.Durability > 1000000 || (w.Amount == 0 ? w.Durability != 0 : w.Durability < 1) ||
                         w.Amount < 0 || w.Amount > w.Capacity || !Number(w.Y, 0, Config.Terrain.TerrainGenerationSettings.Height - 1) ||
                         Math.Abs(w.Y - Math.Round(w.Y)) > 0.001 ||
                         !Id(w.WorkerId) || w.WorkerId != 0 ||

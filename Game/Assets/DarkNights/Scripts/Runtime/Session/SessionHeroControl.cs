@@ -169,6 +169,10 @@ namespace DarkNights.Runtime.Session
             if (input.Mining.Present)
             {
                 var map = world.Terrain?.Map;
+                if (input.Mining.Kind != DarkNights.Core.ViewData.HeroMiningTargetKind.Foreground &&
+                    input.Mining.Kind != DarkNights.Core.ViewData.HeroMiningTargetKind.MineralDeposit ||
+                    input.Mining.Kind == DarkNights.Core.ViewData.HeroMiningTargetKind.MineralDeposit && input.Mining.EntityId <= 0)
+                    return false;
                 if (map == null || input.Mining.WorldId.Length != 32 ||
                     input.Mining.WorldId != map.World.WorldId.ToString().Replace("-", "") ||
                     input.Mining.MapEpoch != map.World.Epoch ||
@@ -182,8 +186,8 @@ namespace DarkNights.Runtime.Session
         {
             state.LastInputSequence = input.Sequence; state.LastInputTick = tick;
             state.Horizontal = input.Horizontal; state.JumpHeld = input.JumpHeld; state.SprintHeld = input.SprintHeld;
-            state.AimAngle = input.AimAngle;
-            if (input.CancelUse || input.SelectionRevision != state.SelectionRevision) HeroEquipment.Cancel(state);
+            if (input.CancelUse || input.SelectionRevision != state.SelectionRevision)
+            { state.AimAngle = input.AimAngle; HeroEquipment.Cancel(state); }
             else
             {
                 bool preservePressedTarget = state.UsePressed && HeroInventoryBehaviour.Slot(state, state.SelectedItem) == DarkNights.Core.Config.HeroEquipmentKind.Pickaxe;
@@ -192,10 +196,13 @@ namespace DarkNights.Runtime.Session
                 state.UseReleased |= input.UseReleased;
                 if (!preservePressedTarget)
                 {
+                    state.AimAngle = input.AimAngle;
                     state.MiningWorldId = input.Mining.WorldId;
                     state.MiningMapEpoch = input.Mining.MapEpoch;
                     state.MiningU = input.Mining.U; state.MiningV = input.Mining.V;
                     state.MiningTileId = input.Mining.TileId; state.MiningFlags = input.Mining.Flags;
+                    state.MiningTargetKind = input.Mining.Kind; state.MiningEntityId = input.Mining.EntityId;
+                    state.MiningContentVersion = input.Mining.ContentVersion;
                 }
             }
             state.JumpPending |= input.JumpPressed;
@@ -209,7 +216,7 @@ namespace DarkNights.Runtime.Session
             {
                 var current = actor.Read();
                 if (!current.ManualControl || (!world.Paused && tick - current.LastInputTick <= InputTimeoutTicks) ||
-                    (current.Horizontal == 0 && !current.SprintHeld && !current.JumpHeld && !current.UseHeld && !current.Charging && !current.UsePressed && !current.UseReleased && !current.JumpPending && !current.DropPending && string.IsNullOrEmpty(current.MiningWorldId))) continue;
+                    (current.Horizontal == 0 && !current.SprintHeld && !current.JumpHeld && !current.UseHeld && !current.Charging && !current.UsePressed && !current.UseReleased && !current.JumpPending && !current.DropPending && !current.PickaxeSwingActive && string.IsNullOrEmpty(current.MiningWorldId))) continue;
                 world.Mutations.Run(() => { ClearInput(actor.Edit()); return true; });
             }
         }

@@ -1,5 +1,46 @@
 # YYGC 修改授权与改动账本
 
+## 2026-10-01 矿镐最近表面与持续挥舞
+
+本批 YYGC／AnyRuleD 框架新增源码改动：**无**。游戏复用现有 ARDMap 只读查询、YYGC ActorState 事务与生成 CopyFrom；直线选表面和落镐时机属于游戏。`tools/grid-business/dependency.lock.json` 仅将游戏协议同步为 20，框架补丁摘要仍为下方 GUID 修复的 `60b9f681dab1194d10e27637d9f55ff1dad62b8c105203120d5afbaad0aab00b`。按用户要求未编译、测试或构建，见 [开发记录](DEVELOPMENT.md)。
+
+## 2026-10-01 采矿业务状态空占用者协议修复
+
+改动落点仍为 `.deps/YYGC-grid-business` 的隔离检出，基线 `fee18645c997ed7529c4592917de6c412033c84e`；没有修改或切换用户 `D:/Developer/YYGC` master。现有补丁已加入本次修复及回归，当前 SHA-256 为 **60b9f681dab1194d10e27637d9f55ff1dad62b8c105203120d5afbaad0aab00b**，对应 `tools/grid-business/dependency.lock.json`。当前检出的 `git apply --reverse --check` 通过；未建立新检出验证整套依赖恢复。
+
+| 框架相对文件 | 原因与修改 | 本批验证 |
+| --- | --- | --- |
+| AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapProtocol.cs | Occupant 是可选值；以原十六字节槽的全零编码未占用，读回 default。其他 GUID 维持严格必填合同 | 修复前复现异常；修复后协议与发布链路 28/28 |
+| AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/ProtocolTests.cs | 新增 Snapshot／Delta 的空／非空占用者往返及必填 GUID 严格性共五项 | 5/5 |
+| AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs | 新增 ARDMap 扣血后的发布、受损基线晚加入／重连及清格检查 | 1/1 |
+
+专项回归共六项，修复前 3/6 通过，修复后均通过；已有相关用例同时通过。此为 .NET 协议检查，不代表 Unity 实际左键、独立进程联机、Player、弱网或完整业务化候选验收。游戏协议 19、地图 schema 2、存档 v14 和包路径不变；当前候选此前不可编码空占用者，本次修正没有改变记录宽度或放宽必填身份。证据见 [本轮摘要](evidence/mining-guid-20261001.json)。
+
+## 2026-09-30 网格业务化隔离源码候选（未验证）
+
+用户授权实施但无需验证。基线 fee18645c997ed7529c4592917de6c412033c84e；修改落点为游戏仓库忽略目录 `.deps/YYGC-grid-business` 的 detached worktree。没有切换、合并、提交或覆盖用户 D:/Developer/YYGC master；其 Runtime/Debugging/RuntimeDebugHub.cs 本地修改仍保留于原处，候选依赖只使用锁定基线，不自动携带该未提交修改。
+
+可复现来源为 `tools/grid-business/yygc.patch` 与 `dependency.lock.json`。本日初始候选补丁 SHA-256 为 **9ef9b7e6f4c5c0486aad909c867f2c924345107fd9ae4da721e25f1ee7285f63**，当前摘要以本页 2026-10-01 记录与锁文件为准。准备入口 `tools/grid-business/prepare-dependency.ps1` 只建立隔离检出和应用补丁；不编译、不启动 Unity、不清理源仓库，对不匹配的已有本地修改拒绝覆盖。准备脚本本身未运行验收。
+
+| 框架相对文件 | 修改原因 | 验证 |
+| --- | --- | --- |
+| Runtime/Objects/NetworkStates/SessionStateChange.cs | 对象候选全部 Validate 后才调用唯一外部安装回调，再 Install／Notify；不引用 AnyRuleD 或游戏 | NOT_RUN |
+| AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/IGridCellIdentitySource.cs | 无框架依赖的目标内容实例版本只读能力，耐久变化不使合作目标过期 | NOT_RUN |
+| 同上 .cs.meta | 现有 Editor 自动导入生成，非人工指定 GUID；随补丁保留 | NOT_RUN |
+| AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessStateStore.cs | 允许经过校验的网络副本构造冻结 GridBusinessSample；不增加权威写入口 | NOT_RUN |
+| AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessCatalog.cs | 暴露业务状态边界校验供独立协议接收层使用 | NOT_RUN |
+| AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Grid/ARDMap.cs | 同批清格后同类型重放也发布 Logic 变化，内容重置不会被当成无操作 | NOT_RUN |
+| AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapProtocol.cs | schema 2 格记录传输可选业务偏差和内容版本，校验 Unknown／Empty 的规范编码 | NOT_RUN |
+| AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapInterestService.cs | 权限过滤后读取业务字段，HP-only 变化也发布 delta，不空闲扫全图 | NOT_RUN |
+| AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ChunkReplicaStateMachine.cs | 每次字典交换同时安装格子、业务字段和内容版本，按冻结目录校验 HP | NOT_RUN |
+| AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ProtocolLimits.cs | schema 2；有界 8 MiB 窗口容纳全图受损基线 | NOT_RUN |
+| AnyRuleD~/Packages/com.tsgame.anyrules.networking/package.json | 独立协议候选包升级 0.3.0-preview.1 | NOT_RUN |
+| AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet/package.json | 传输适配包同升候选版本并引用新协议包，未改变认证或 transport | NOT_RUN |
+
+游戏配置、奖励、矿袋、设备与矿床行为没有迁入基础框架。基础 Core／Compiler／Networking 仍不引用 YYGC；未直接复用完整检查点与 Outbox 适配器作为逐击采矿路径。游戏 manifest 和 packages-lock 改为同一相对路径候选检出，可能触发已有 Local Editor 重导入；没有创建第二套 Unity 缓存。
+
+没有测试、故障注入、工作台保存重开、Player、跨进程联机或性能证据。源码实现不代表原子性、完整恢复、生成绑定或编译已经通过。回退时保留用户存档、原目录和候选源码；按基线恢复对应源码与依赖配置，不通过删除 Library、整目录清理或重生成证据来冒充回退。
+
 ## 2026-09-29：RuntimeDebugHub 仅保留 F1
 
 用户明确要求暂时移除反引号唤出。实际框架 `D:/Developer/YYGC` 开始时为干净的 `master`／`fee18645c997ed7529c4592917de6c412033c84e`；本批不切分支、不提交框架、不改依赖配置，仅保留下列定向源码修改。游戏变更与复现方式见[调试页说明](RUNTIME_DEBUG_HUB.md)。

@@ -25,6 +25,7 @@ namespace DarkNights.Core.Save
         public string Rarity { get; }
         public int Capacity { get; }
         public string Stage { get; }
+        public int Durability { get; }
 
         public WorksiteSnapshot(
             int id,
@@ -53,7 +54,7 @@ namespace DarkNights.Core.Save
             string roomKind,
             string rarity,
             int capacity,
-            string stage)
+            string stage, int durability = 0)
         {
             Id = id;
             Kind = kind;
@@ -69,6 +70,7 @@ namespace DarkNights.Core.Save
             Rarity = rarity ?? "";
             Capacity = capacity;
             Stage = stage ?? "";
+            Durability = durability;
         }
 
         public WorksiteSnapshot(

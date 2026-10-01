@@ -22,16 +22,16 @@ namespace DarkNights.Tests
     public sealed class MiningInputTests
     {
         [UnityTest]
-        public IEnumerator SoftRockClickClearsOnlyTargetAndRejectsDuplicate() => Run(2, false, true, true, "");
+        public IEnumerator SoftRockClickDamagesOnlyTargetAndRejectsDuplicate() => Run(2, false, true, true, "");
 
         [UnityTest]
-        public IEnumerator OreClickCollectsExactlyOnce() => Run(5, false, false, true, "");
+        public IEnumerator OreClickDamagesBeforeReward() => Run(5, false, false, true, "");
 
         [UnityTest]
-        public IEnumerator HardRockClickHasNoEffectAndExplainsWhy() => Run(2, false, false, false, "硬岩不能手采");
+        public IEnumerator HardRockCanBeDamaged() => Run(2, false, false, true, "");
 
         [UnityTest]
-        public IEnumerator ProtectedOreCannotBeMined() => Run(5, true, false, false, "保护区域不能采集");
+        public IEnumerator ProtectedOreCanBeDamaged() => Run(5, true, false, true, "");
 
         [UnityTest]
         public IEnumerator BedrockCannotBeMined() => Run(8, false, false, false, "基岩不能破坏");
@@ -40,7 +40,7 @@ namespace DarkNights.Tests
         public IEnumerator EmptyCellHasNoEffectAndExplainsWhy() => Run(0, false, false, false, "这里没有可采集的矿床");
 
         [UnityTest]
-        public IEnumerator MineralDepositClickCollectsExactlyOnce() => Run(0, false, false, true, "这里没有可采集的矿床", true);
+        public IEnumerator MineralDepositClickDamagesBeforeHarvest() => Run(0, false, false, true, "这里没有可采集的矿床", true);
 
         private static IEnumerator Run(byte material, bool protect, bool soft, bool succeeds, string reason, bool deposit = false) =>
             UniTask.ToCoroutine(async () =>
@@ -88,25 +88,37 @@ namespace DarkNights.Tests
                 var map = world.Terrain.Map;
                 var target = new CellCoord(targetU, -targetRow);
                 var before = map.Read(target).Cell;
+                var mineral = deposit ? world.Index.MineralDeposits.OfType<MineralDepositBehaviour>().Single() : null;
+                int durability = deposit ? mineral.Durability : before.IsEmpty ? 0 : map.Query(target).State.Durability;
+                var handheld = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
+                    .SharedConfigs.OfType<HandheldConfig>().Single();
+                int baseDamage = handheld.PickaxeDamage;
+                int damage = deposit ? baseDamage : before.IsEmpty ? 0 : map.Rules.PickaxeDamage(before.TileId, baseDamage);
                 Assert.That(TerrainMiningQuery.CanMine(map, map.Tiles, target), Is.EqualTo(succeeds && !deposit));
                 Assert.That(TerrainMiningQuery.BlockReason(map, map.Tiles, target), Does.StartWith(reason));
-                float handHeight = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
-                    .SharedConfigs.OfType<HandheldConfig>().Single().HandHeight;
+                float handHeight = handheld.HandHeight;
                 Assert.That(TerrainMiningQuery.Reachable(map, state.X, state.Height + handHeight,
                     target, catalog.Balance.HeroControl.WorkReach), Is.True);
                 var mining = new HeroMiningTarget(map.World.WorldId.ToString().Replace("-", ""), map.World.Epoch,
-                    target.U, target.V, before.TileId, before.Flags);
+                    target.U, target.V, before.TileId, before.Flags,
+                    deposit ? HeroMiningTargetKind.MineralDeposit : HeroMiningTargetKind.Foreground,
+                    mineral?.Id ?? 0, map.ContentVersion(target));
                 var input = new HeroInputRequest(SessionAuthority.ProtocolVersion, authority.Epoch, authority.PolicyRevision,
                     actorId, state.ControlLease, 1, authority.ServerTick, 0, false, false, false, false,
                     0, state.SelectionRevision, true, false, false, false, mining);
                 double iron = world.Economy.CaptureState().Iron;
                 Assert.That(authority.SubmitInput(host, input), Is.True);
                 authority.Tick();
-                Assert.That(map.Read(target).Cell.IsEmpty, Is.EqualTo(succeeds || material == 0));
+                Assert.That(map.Read(target).Cell.IsEmpty, Is.EqualTo(material == 0 || succeeds && !deposit && damage >= durability));
                 Assert.That(actor.CaptureState().EquipmentAction > 0, Is.EqualTo(succeeds));
-                int reward = succeeds && (material == 5 || deposit) ? 1 : 0;
+                int reward = succeeds && damage >= durability && (material == 5 || deposit) ? 1 : 0;
                 Assert.That(world.Economy.CaptureState().Iron - iron, Is.EqualTo(reward));
-                if (deposit) Assert.That(world.Index.MineralDeposits.OfType<MineralDepositBehaviour>().Single().Remaining, Is.EqualTo(59));
+                if (deposit)
+                {
+                    Assert.That(mineral.Remaining, Is.EqualTo(60 - reward));
+                    Assert.That(mineral.Durability, Is.EqualTo(durability - damage));
+                }
+                else if (succeeds && damage < durability) Assert.That(map.Query(target).State.Durability, Is.EqualTo(durability - damage));
                 Assert.That(authority.SubmitInput(host, input), Is.False);
                 authority.Tick();
                 Assert.That(world.Economy.CaptureState().Iron - iron, Is.EqualTo(reward));

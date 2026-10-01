@@ -5,12 +5,17 @@ namespace DarkNights.Runtime.Objects
     internal static class ExpeditionCargo
     {
         internal static bool CanMine(ActorBehaviour actor) => !actor.World.IsExpedition ||
-            actor.World.Expedition.Active && !actor.Read().Boarded && actor.Read().CargoIron + actor.Read().CargoGold < actor.World.Catalog.Balance.Expedition.BagCapacity;
-        internal static void Collect(ActorBehaviour actor, string resource)
+            actor.World.Expedition.Active && !actor.Read().Boarded;
+        internal static bool CanCollect(ActorBehaviour actor, int amount) => amount >= 0 && (!actor.World.IsExpedition ||
+            actor.Read().CargoIron + actor.Read().CargoGold + amount <= actor.World.Catalog.Balance.Expedition.BagCapacity);
+        internal static void Collect(ActorBehaviour actor, string resource, int amount = 1)
         {
-            if (!actor.World.IsExpedition) { actor.World.Economy.AddResource(resource, 1); return; }
-            var s = actor.Edit(); if (resource == "gold") s.CargoGold++; else s.CargoIron++;
-            actor.World.Camp.Edit().ExpeditionRisk += 2;
+            if (amount == 0) return;
+            if (amount < 0 || resource != "iron" && resource != "gold" || !CanCollect(actor, amount))
+                throw new InvalidOperationException("采集资源或接收容量不合法。");
+            if (!actor.World.IsExpedition) { actor.World.Economy.AddResource(resource, amount); return; }
+            var state = actor.Edit(); if (resource == "gold") state.CargoGold += amount; else state.CargoIron += amount;
+            actor.World.Camp.Edit().ExpeditionRisk += 2 * amount;
         }
         internal static int Transfer(ActorBehaviour actor, BuildingBehaviour device, int capacity)
         {

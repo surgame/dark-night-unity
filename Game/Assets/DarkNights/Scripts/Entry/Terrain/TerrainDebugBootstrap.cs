@@ -145,7 +145,11 @@ namespace DarkNights.Entry.Terrain
                     if (!appearanceOnly)
                     {
                         var game = DarkNights.Runtime.Config.GameCatalogJson.Parse(BalanceJson.text, LevelJson.text);
-                        workshop = new DarkNights.Runtime.Terrain.CaveWorkshopSession(blueprint, Definition.LoadGameplayCatalog(), game);
+                        var profile = MapAssemblySource.SharedConfigs.OfType<DarkNights.Runtime.Terrain.TerrainProfileConfig>().Single();
+                        var tools = MapAssemblySource.SharedConfigs.OfType<DarkNights.Runtime.Objects.HandheldConfig>().Single();
+                        var terrainRules = profile.Freeze(Definition);
+                        workshop = new DarkNights.Runtime.Terrain.CaveWorkshopSession(blueprint, terrainRules.Business.Gameplay, game,
+                            terrainRules, tools);
                         reference = new BackgroundBakeDescriptor(workshop.Map.World.WorldId.ToString().Replace("-", ""),
                             blueprint.Settings.Seed, blueprint.CopyMaterials(), blueprint.CopyShapes());
                     }

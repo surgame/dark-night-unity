@@ -77,7 +77,7 @@ namespace DarkNights.Runtime.Objects
                     {
                         Id = value.Id, PlacementKey = identity.PlacementKey, X = value.X, Y = (int)value.Y,
                         RoomKind = value.RoomKind, Rarity = value.Rarity, Capacity = value.Capacity,
-                        Remaining = value.Amount, Stage = stage
+                        Remaining = value.Amount, Stage = stage, Durability = value.Durability
                     };
                     result.Add(new ReplicaEntityState(identity, value.Kind,
                         (instance, context) => instance.GetBehaviour<MineralDepositBehaviour>()

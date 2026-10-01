@@ -131,7 +131,7 @@ namespace DarkNights.Runtime.Save
                 Text(v["room_kind"]),
                 Text(v["rarity"]),
                 Integer(v["capacity"]),
-                Text(v["stage"]));
+                Text(v["stage"]), Integer(v["durability"]));
         }
 
         public static JObject Write(WorksiteSnapshot v) => new JObject
@@ -149,7 +149,7 @@ namespace DarkNights.Runtime.Save
             ["room_kind"] = v.RoomKind,
             ["rarity"] = v.Rarity,
             ["capacity"] = v.Capacity,
-            ["stage"] = v.Stage
+            ["stage"] = v.Stage, ["durability"] = v.Durability
         };
 
         public static ProjectileSnapshot ProjectileSnapshot(JToken value)

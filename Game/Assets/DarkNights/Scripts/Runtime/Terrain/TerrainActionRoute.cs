@@ -46,11 +46,11 @@ namespace DarkNights.Runtime.Terrain
                     if (grant == null || grant.ConnectionGeneration != generation.Value)
                         throw new InvalidOperationException("地图或动作授权尚未就绪。");
                     var targets = authority.BuildTargets(grant.Action, center);
-                    var resources = targets.Select(authority.ResourceAt).Where(value => value.Length != 0).ToArray();
+                    if (grant.OnCommitted != null)
+                        throw new InvalidOperationException("带产出采集必须使用主角业务输入，不能在地图提交后另行发奖。");
                     bool applied;
                     var receipt = authority.DestroyTrusted(grant.ConnectionGeneration, command.RequestId, grant.Action,
                         grant.World, center, targets, grant.AllowTarget, out applied);
-                    if (applied) grant.OnCommitted?.Invoke(resources);
                     result = new TerrainActionResult(command.RequestId, grant.Action, receipt.CommitId, true, "Accepted");
                 }
                 catch (ArgumentException error) { result = Reject(command, error.Message); }

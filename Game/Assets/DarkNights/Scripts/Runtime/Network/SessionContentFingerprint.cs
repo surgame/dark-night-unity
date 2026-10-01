@@ -21,6 +21,9 @@ namespace DarkNights.Runtime.Network
             var shared = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch").SharedConfigs;
             var equipment = shared.OfType<HandheldConfig>().Single();
             var flow = shared.OfType<ExpeditionFlowConfig>().Single();
+            string deposits = string.Join(";", resources.Definitions.OrderBy(value => value.Guid.ToString(), System.StringComparer.Ordinal)
+                .SelectMany(value => value.SharedConfigs.OfType<MineralDepositRuleConfig>()
+                    .Select(config => value.Guid + ":" + config.Fingerprint())));
             var database = ObjectDefinitionDatabase.Instance;
             var services = database.GetDefinitionByKey("expedition.ship").SharedConfigs.OfType<ShipServicesConfig>().Single();
             services.Validate();
@@ -42,7 +45,8 @@ namespace DarkNights.Runtime.Network
             return "dark-nights-session-v" + Session.SessionAuthority.ProtocolVersion + ":" + fingerprint.RulesSha256 +
                 ":" + fingerprint.LayoutSha256 + ":" + identity + ":" + equipment.Fingerprint() +
                 ":" + BackgroundBakeDescriptor.StyleContentHash + ":" + flow.Fingerprint() +
-                ":" + serviceIdentity + ":" + services.SaleEnabled + ":" + services.ShopEnabled + ":" + itemIdentity;
+                ":" + serviceIdentity + ":" + services.SaleEnabled + ":" + services.ShopEnabled + ":" + itemIdentity +
+                ":" + Terrain.TerrainProfileConfig.Resolve().Freeze().Fingerprint + ":" + deposits;
         }
     }
 }

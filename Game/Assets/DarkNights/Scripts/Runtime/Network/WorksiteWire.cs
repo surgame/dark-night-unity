@@ -26,6 +26,10 @@ namespace DarkNights.Runtime.Network
         public string Rarity { get; set; }
         public int Capacity { get; set; }
         public string Stage { get; set; }
+        public int Durability { get; set; }
+        public int MaximumDurability { get; set; }
+        public string ResourceId { get; set; }
+        public int HarvestAmount { get; set; }
 
         public static WorksiteWire From(WorksiteViewData value) => new WorksiteWire
         {
@@ -43,6 +47,8 @@ namespace DarkNights.Runtime.Network
             Rarity = value.Rarity,
             Capacity = value.Capacity,
             Stage = value.Stage,
+            Durability = value.Durability, MaximumDurability = value.MaximumDurability,
+            ResourceId = value.ResourceId, HarvestAmount = value.HarvestAmount,
         };
 
         public WorksiteViewData Freeze() => new WorksiteViewData(
@@ -59,6 +65,6 @@ namespace DarkNights.Runtime.Network
             RoomKind,
             Rarity,
             Capacity,
-            Stage);
+            Stage, Durability, MaximumDurability, ResourceId, HarvestAmount);
     }
 }

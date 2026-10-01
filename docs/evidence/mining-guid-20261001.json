@@ -1,0 +1,29 @@
+{
+  "date": "2026-10-01",
+  "issue": "采矿耐久变化后发布未占用格业务状态触发空 GUID 异常",
+  "framework_checkout": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-grid-business",
+  "base_commit": "fee18645c997ed7529c4592917de6c412033c84e",
+  "patch_sha256": "60b9f681dab1194d10e27637d9f55ff1dad62b8c105203120d5afbaad0aab00b",
+  "game_protocol": 19,
+  "map_protocol": 2,
+  "save_version": 14,
+  "before_fix": {
+    "failed": 3,
+    "trx": "artifacts/mining-guid-20261001/before-fix.trx",
+    "passed": 3,
+    "total": 6
+  },
+  "after_fix": {
+    "failed": 0,
+    "trx": "artifacts/mining-guid-20261001/protocol-network.trx",
+    "passed": 28,
+    "filter": "FullyQualifiedName~AnyRules.Tests.ProtocolTests|FullyQualifiedName~AnyRules.Tests.NetworkTests",
+    "total": 28
+  },
+  "boundaries": {
+    "independent_process_network": "NOT_RUN",
+    "unity_compilation": "NOT_RUN",
+    "actual_left_click": "NOT_RUN",
+    "player_build": "NOT_RUN"
+  }
+}

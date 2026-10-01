@@ -4,23 +4,23 @@ using System.Linq;
 using AnyRules.Next;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.Terrain;
-using GameCore.Objects.Runner;
 using DarkNights.Runtime.Objects;
+using GameCore.Objects.Runner;
 
 namespace DarkNights.Runtime.Terrain
 {
-    /// <summary>绑定可信 YYGC 会话的地图逻辑所有者。只读查询供网络使用；破坏以短事务更新，禁止逐格实体和整图复制。</summary>
-    public sealed class TerrainMapAuthority : IGridChangeSource, IGridSnapshotSource, IDisposable
+    /// <summary>YYGC 会话内唯一网格所有者；原生地图拥有耐久，业务门控破坏，内容版本与只读分块投影不形成第二份状态。</summary>
+    public sealed class TerrainMapAuthority : IGridChangeSource, IGridSnapshotSource, IGridBusinessQuery, IGridCellIdentitySource, IDisposable
     {
         private readonly ObjectSessionContext session;
         private readonly ARDMap map;
         private readonly bool[] softRock;
-        private readonly Dictionary<int, ulong> sequences = new Dictionary<int, ulong>();
-        private readonly Dictionary<int, Dictionary<string, (string Fingerprint, TerrainEditAction Action, GridCommitReceipt Receipt)>> results =
-            new Dictionary<int, Dictionary<string, (string, TerrainEditAction, GridCommitReceipt)>>();
-        private readonly Dictionary<int, Queue<string>> resultOrder = new Dictionary<int, Queue<string>>();
-        private bool disposed;
         private readonly TerrainMapTransactions transactions;
+        private readonly TerrainRequestHistory history = new TerrainRequestHistory();
+        private readonly Dictionary<CellCoord, ulong> versions;
+        private readonly int pickaxeDamage, bombDamage;
+        private bool disposed;
+        public FrozenTerrainRules Rules { get; }
         public WorldIdentity World => map.World;
         public WorldDescriptor Descriptor => map.Descriptor;
         public TileCatalog Tiles => map.Tiles;
@@ -28,271 +28,167 @@ namespace DarkNights.Runtime.Terrain
         public event Action<GridChangeSet> Changed;
 
         public TerrainMapAuthority(ObjectSessionContext session, TerrainBlueprint initial,
-            ServerGameplayCatalog catalog, WorldIdentity world)
+            ServerGameplayCatalog catalog, WorldIdentity world, FrozenTerrainRules rules = null, HandheldConfig handheld = null)
         {
             this.session = session ?? throw new ArgumentNullException(nameof(session));
             if (initial == null) throw new ArgumentNullException(nameof(initial));
-            session.RequireAvailable();
-            if (!session.IsActive || !session.CanWriteState) throw new InvalidOperationException("需要活跃的服务端 YYGC 会话。");
-            softRock = initial.CopySoftRock();
+            session.RequireAvailable(); RequireAuthority();
+            Rules = rules ?? new FrozenTerrainRules(catalog, Array.Empty<GameplayDefinitionData>(), new TerrainProfileConfig().Materials);
+            var tools = handheld ?? new HandheldConfig();
+            tools.Validate(); pickaxeDamage = tools.PickaxeDamage; bombDamage = tools.BombDamage;
+            softRock = initial.CopySoftRock(); versions = new Dictionary<CellCoord, ulong>(initial.Width * initial.Height);
             var descriptor = new WorldDescriptor(world, 42, 0, new GridBounds(0, -initial.Height + 1, initial.Width, initial.Height));
-            map = ARDMap.CreateAuthority(descriptor, catalog.Tiles, () => !disposed && session.IsActive && session.CanWriteState);
-            transactions = new TerrainMapTransactions(map, change => Changed?.Invoke(change));
+            // 地图与业务组件共享冻结目录的实例；重复加载同一资产也会产生不同的 TileCatalog。
+            map = ARDMap.CreateAuthority(descriptor, Rules.Business.Gameplay.Tiles,
+                () => !disposed && session.IsActive && session.CanWriteState, Rules.Business);
+            transactions = new TerrainMapTransactions(map, Publish);
             try { TerrainMapInitialization.Load(map, initial); map.Changed += Notify; }
             catch { map.Dispose(); throw; }
         }
         public GridSample Read(CellCoord position) => transactions.Read(position);
-
-        /// <summary>绑定所属对象事务；地图仍是唯一所有者，只在同步批次内保留稀疏候选。</summary>
+        public GridBusinessSample Query(CellCoord position) => transactions.Query(position);
+        public ulong ContentVersion(CellCoord position) => versions.TryGetValue(position, out var version) ? version : 0;
         internal void BindMutations(ObjectMutationBatch owner) => transactions.Bind(owner);
-
-        internal bool StageMine(CellCoord target)
+        internal bool StageDamage(CellCoord target, int damage, out bool destroyed)
         {
-            return transactions.CanStage && CanDestroy(TerrainEditAction.HandMine, target) && transactions.Clear(target);
+            destroyed = false; RequireAuthority();
+            return Read(target).TryGetCell(out var cell) && Rules.CanDamage(cell.TileId) && transactions.Damage(target, damage, out destroyed);
         }
+        internal bool StageMine(CellCoord target) => StageDamage(target, Rules.PickaxeDamage(Read(target).Cell.TileId, pickaxeDamage), out _);
         public bool IsSoftRock(CellCoord position)
         {
-            int y = -position.V;
-            return position.U >= 0 && position.U < TerrainGenerationSettings.Width && y >= 0 &&
-                y < TerrainGenerationSettings.Height && softRock[y * TerrainGenerationSettings.Width + position.U];
+            int row = -position.V;
+            return position.U >= 0 && position.U < TerrainGenerationSettings.Width && row >= 0 && row < TerrainGenerationSettings.Height &&
+                softRock[row * TerrainGenerationSettings.Width + position.U];
         }
-        public string ResourceAt(CellCoord position)
-        {
-            if (!Read(position).TryGetCell(out var value) || value.IsEmpty) return "";
-            switch (TileMaterial(value.TileId))
-            {
-                case 4:
-                case 5: return "iron";
-                case 6: return "gold";
-                default: return "";
-            }
-        }
+        public string ResourceAt(CellCoord position) => Read(position).TryGetCell(out var cell) && !cell.IsEmpty ? Rules.Drop(cell.TileId).Resource : "";
         public GridSnapshot CaptureSnapshot(GridBounds bounds) => map.CaptureSnapshot(bounds);
         public GridSnapshot CapturePageSnapshot(PageCoord page) => map.CapturePageSnapshot(page);
 
-        /// <summary>仅供同程序集离线工作台使用的原子格子编辑；不暴露为网络命令，受保护格与边界不可覆盖。</summary>
         internal void ApplyWorkshopCells(IReadOnlyDictionary<CellCoord, GridCell> cells)
         {
-            if (disposed || !session.IsActive || !session.CanWriteState) throw new InvalidOperationException("工作台地图无写权限。");
+            RequireAuthority();
+            if (cells == null || cells.Count == 0) throw new ArgumentException("工作台笔触为空。");
             foreach (var pair in cells)
-            {
-                var p = pair.Key;
-                if (p.U <= 0 || p.U >= TerrainGenerationSettings.Width - 1 || p.V >= 0 || p.V <= -TerrainGenerationSettings.Height + 1 ||
-                    !Read(p).TryGetCell(out var old) || (old.Flags & 1) != 0 || TileMaterial(old.TileId) == 8 ||
-                    (pair.Value.Flags & 1) != 0 || (pair.Value.Flags & ~TerrainMiningGeometry.SoftRockFlag) > 24 ||
-                    (!pair.Value.IsEmpty && (TileMaterial(pair.Value.TileId) < 1 || TileMaterial(pair.Value.TileId) > 7)))
-                    throw new InvalidOperationException("工作台格子无效、受保护或越界。");
-            }
+                if (!Descriptor.Bounds.Contains(pair.Key) || !Read(pair.Key).TryGetCell(out var old) ||
+                    !old.IsEmpty && !Rules.CanDamage(old.TileId) || !pair.Value.IsEmpty && !Rules.CanDamage(pair.Value.TileId))
+                    throw new InvalidOperationException("工作台目标越界、未加载或为基岩。");
             using var edit = map.BeginEdit(CommitId);
-            foreach (var pair in cells) edit.SetCell(pair.Key, pair.Value.IsEmpty ? pair.Value : new GridCell(pair.Value.TileId,
-                pair.Value.Height, (ushort)(pair.Value.Flags | (IsSoftRock(pair.Key) ? TerrainMiningGeometry.SoftRockFlag : 0))));
+            foreach (var pair in cells) { edit.ClearTile(pair.Key); if (!pair.Value.IsEmpty) edit.SetCell(pair.Key, pair.Value); }
             edit.Commit();
         }
-
-        /// <summary>仅由服务端投射物引信调用；允许空中落点，沿用有限十三格爆破范围，过滤基岩及保护格。</summary>
         internal void Detonate(float x, float height, long projectileId)
         {
-            if (disposed || !session.IsActive || !session.CanWriteState)
-                throw new InvalidOperationException("地图无写权限。");
+            RequireAuthority();
             var center = new CellCoord((int)Math.Floor(x / PlayableTerrain.CellPixels),
                 (int)Math.Floor((height - PlayableTerrain.OriginY) / PlayableTerrain.CellPixels));
-            var targets = new List<CellCoord>();
-            foreach (var offset in TerrainDestructionPolicy.Offsets(TerrainEditAction.Explosive))
-            {
-                var position = new CellCoord(center.U + offset.X, center.V + offset.Y);
-                if (Descriptor.Bounds.Contains(position) && CanDestroy(TerrainEditAction.Explosive, position))
-                    targets.Add(position);
-            }
-            if (targets.Count == 0) return;
-            if (transactions.CanStage)
-            {
-                foreach (CellCoord target in targets) transactions.Clear(target);
-                return;
-            }
-            using var edit = map.BeginEdit(CommitId);
-            foreach (var position in targets) edit.ClearTile(position);
-            edit.Commit();
+            if (!transactions.CanStage) throw new InvalidOperationException("正式爆破必须处于对象事务中。");
+            foreach (var target in Targets(TerrainEditAction.Explosive, center)) StageDamage(target, bombDamage, out _);
         }
-
-        /// <summary>服务端根据可信动作生成固定范围；客户端不能提交半径或目标列表替代此结果。</summary>
         public IReadOnlyList<CellCoord> BuildTargets(TerrainEditAction action, CellCoord center)
         {
-            if (!Descriptor.Bounds.Contains(center)) throw new ArgumentException("破坏中心格越界。", nameof(center));
-            if (!CanDestroy(action, center)) throw new InvalidOperationException("破坏中心格不可作用。");
-            var targets = new List<CellCoord>(TerrainDestructionPolicy.MaximumTargets);
-            foreach (TerrainOffset offset in TerrainDestructionPolicy.Offsets(action))
-            {
-                var position = new CellCoord(center.U + offset.X, center.V + offset.Y);
-                if (Descriptor.Bounds.Contains(position) && CanDestroy(action, position)) targets.Add(position);
-            }
-            if (targets.Count == 0 || targets.Count > TerrainDestructionPolicy.MaximumTargets)
-                throw new InvalidOperationException("破坏范围没有合法目标。");
+            if (!Descriptor.Bounds.Contains(center)) throw new ArgumentException("目标中心越界。");
+            var targets = Targets(action, center);
+            if (targets.Count == 0) throw new InvalidOperationException("范围内没有可破坏目标。");
             return targets.AsReadOnly();
         }
-
-        // Only call after the YYGC NetworkCommandContext has resolved the connection and current policy.
-        // authorize must evaluate Ready, policy revision, actor lease, tool/cooldown and distance on the server.
-        public GridCommitReceipt DestroyTrusted(int connectionGeneration, ulong sequence, WorldIdentity world,
+        private List<CellCoord> Targets(TerrainEditAction action, CellCoord center)
+        {
+            var result = new List<CellCoord>();
+            foreach (var offset in TerrainDestructionPolicy.Offsets(action))
+            {
+                var cell = new CellCoord(center.U + offset.X, center.V + offset.Y);
+                if (Descriptor.Bounds.Contains(cell) && Read(cell).TryGetCell(out var value) && Rules.CanDamage(value.TileId)) result.Add(cell);
+            }
+            return result;
+        }
+        public GridCommitReceipt DestroyTrusted(int connection, ulong sequence, WorldIdentity world,
             ulong expectedRevision, IReadOnlyList<CellCoord> targets, Func<CellCoord, bool> authorize)
         {
-            if (sequence == 0 || targets == null || targets.Count == 0) throw new ArgumentException("旧式地图请求无效。");
-            if (connectionGeneration < 0 || sequences.TryGetValue(connectionGeneration, out ulong previous) && sequence <= previous)
-                throw new InvalidOperationException("地图身份或请求序号已过期。");
-            var receipt = DestroyTrusted(connectionGeneration, "legacy:" + sequence, TerrainEditAction.Explosive,
-                world, targets[0], targets, authorize, out _, false);
-            sequences[connectionGeneration] = sequence;
-            return receipt;
+            history.RequireSequence(connection, sequence);
+            if (targets == null || targets.Count == 0) throw new ArgumentException("目标为空。");
+            var result = ApplyTrusted(connection, "legacy:" + sequence, TerrainEditAction.Explosive, world, targets[0], targets, authorize, out _, false);
+            history.Advance(connection, sequence); return result;
         }
+        public GridCommitReceipt DestroyTrusted(int connection, ulong sequence, WorldIdentity world,
+            IReadOnlyList<CellCoord> targets, Func<CellCoord, bool> authorize) => DestroyTrusted(connection, sequence, world, CommitId, targets, authorize);
+        public GridCommitReceipt DestroyTrusted(int connection, string request, TerrainEditAction action,
+            WorldIdentity world, CellCoord center, IReadOnlyList<CellCoord> targets, Func<CellCoord, bool> authorize) =>
+            DestroyTrusted(connection, request, action, world, center, targets, authorize, out _);
+        public GridCommitReceipt DestroyTrusted(int connection, string request, TerrainEditAction action,
+            WorldIdentity world, ulong ignoredRevision, CellCoord center, IReadOnlyList<CellCoord> targets, Func<CellCoord, bool> authorize) =>
+            DestroyTrusted(connection, request, action, world, center, targets, authorize, out _);
+        public GridCommitReceipt DestroyTrusted(int connection, string request, TerrainEditAction action,
+            WorldIdentity world, CellCoord center, IReadOnlyList<CellCoord> targets, Func<CellCoord, bool> authorize, out bool applied) =>
+            ApplyTrusted(connection, request, action, world, center, targets, authorize, out applied, true);
 
-        public GridCommitReceipt DestroyTrusted(int connectionGeneration, ulong sequence, WorldIdentity world,
-            IReadOnlyList<CellCoord> targets, Func<CellCoord, bool> authorize) =>
-            DestroyTrusted(connectionGeneration, sequence, world, CommitId, targets, authorize);
-
-        /// <summary>执行正式地形动作并缓存首次回执；重复 RequestId 返回同一回执而不再次提交地图事务。</summary>
-        public GridCommitReceipt DestroyTrusted(int connectionGeneration, string requestId, TerrainEditAction action,
-            WorldIdentity world, CellCoord center, IReadOnlyList<CellCoord> targets,
-            Func<CellCoord, bool> authorize)
+        private GridCommitReceipt ApplyTrusted(int connection, string request, TerrainEditAction action, WorldIdentity world,
+            CellCoord center, IReadOnlyList<CellCoord> targets, Func<CellCoord, bool> authorize, out bool applied, bool canonical)
         {
-            return DestroyTrusted(connectionGeneration, requestId, action, world, center, targets, authorize, out _);
-        }
-
-        /// <summary>兼容既有内部测试调用；客户端不再携带该参数，权威事务始终读取当前 CommitId。</summary>
-        public GridCommitReceipt DestroyTrusted(int connectionGeneration, string requestId, TerrainEditAction action,
-            WorldIdentity world, ulong ignoredExpectedRevision, CellCoord center, IReadOnlyList<CellCoord> targets,
-            Func<CellCoord, bool> authorize)
-        {
-            return DestroyTrusted(connectionGeneration, requestId, action, world, center, targets, authorize, out _);
-        }
-
-        public GridCommitReceipt DestroyTrusted(int connectionGeneration, string requestId, TerrainEditAction action,
-            WorldIdentity world, CellCoord center, IReadOnlyList<CellCoord> targets,
-            Func<CellCoord, bool> authorize, out bool applied)
-        {
-            return DestroyTrusted(connectionGeneration, requestId, action, world, center, targets, authorize, out applied, true);
-        }
-
-        private GridCommitReceipt DestroyTrusted(int connectionGeneration, string requestId, TerrainEditAction action,
-            WorldIdentity world, CellCoord center, IReadOnlyList<CellCoord> targets,
-            Func<CellCoord, bool> authorize, out bool applied, bool requireCanonical)
-        {
-            applied = false;
-            if (disposed || !session.IsActive || !session.CanWriteState) throw new InvalidOperationException("地图无写权限。");
-            if (!World.Equals(world) || connectionGeneration < 0) throw new InvalidOperationException("地图身份已过期。");
-            if (string.IsNullOrWhiteSpace(requestId) || requestId.Length > 96)
-                throw new ArgumentException("RequestId 必须为 1–96 个非空字符。", nameof(requestId));
-            string fingerprint = Fingerprint(action, center, targets);
-            if (results.TryGetValue(connectionGeneration, out var cached) && cached.TryGetValue(requestId, out var previous))
-            {
-                if (previous.Fingerprint != fingerprint) throw new InvalidOperationException("RequestId 与首次请求不一致。");
-                return previous.Receipt;
-            }
-            ValidateTargets(action, center, targets, authorize);
-            if (requireCanonical)
-            {
-                IReadOnlyList<CellCoord> canonical = BuildTargets(action, center);
-                if (canonical.Count != targets.Count || canonical.Any(position => !targets.Contains(position)))
-                    throw new InvalidOperationException("破坏目标必须由服务端动作规则生成。");
-            }
+            applied = false; RequireAuthority();
+            if (!World.Equals(world) || connection < 0 || string.IsNullOrWhiteSpace(request) || request.Length > 96 ||
+                targets == null || targets.Count < 1 || targets.Count > TerrainDestructionPolicy.MaximumTargets || authorize == null)
+                throw new ArgumentException("地图请求身份或范围不合法。");
+            string fingerprint = action + ":" + string.Join(";", targets.Select(value => value.U + "," + value.V));
+            if (history.Find(connection, request, action, center, fingerprint, out var prior)) return prior;
+            var expected = canonical ? BuildTargets(action, center) : targets;
+            if (new HashSet<CellCoord>(targets).Count != targets.Count || expected.Count != targets.Count ||
+                expected.Any(value => !targets.Contains(value))) throw new InvalidOperationException("目标必须来自服务端动作规则。");
+            foreach (var target in targets)
+                if (!Descriptor.Bounds.Contains(target) || !authorize(target) || !Read(target).TryGetCell(out var cell) || !Rules.CanDamage(cell.TileId))
+                    throw new InvalidOperationException("目标无权限、未加载或为基岩。");
+            if (transactions.CanStage) throw new InvalidOperationException("对象事务中的采集必须调用暂存伤害入口。");
             using var edit = map.BeginEdit(CommitId);
-            foreach (CellCoord position in targets) edit.ClearTile(position);
-            var receipt = edit.Commit();
-            Remember(connectionGeneration, requestId, (fingerprint, action, receipt));
-            applied = true;
-            return receipt;
-        }
-
-        public void ForgetConnection(int connectionGeneration)
-        {
-            sequences.Remove(connectionGeneration); results.Remove(connectionGeneration); resultOrder.Remove(connectionGeneration);
-        }
-
-        public bool TryGetCached(int connectionGeneration, string requestId, TerrainEditAction action,
-            ulong expectedRevision, CellCoord center, out GridCommitReceipt receipt)
-        {
-            receipt = null;
-            if (!results.TryGetValue(connectionGeneration, out var cached) ||
-                !cached.TryGetValue(requestId, out var previous)) return false;
-            if (previous.Action != action || !CenterMatches(previous.Fingerprint, center))
-                throw new InvalidOperationException("RequestId 与首次请求不一致。");
-            receipt = previous.Receipt;
-            return true;
-        }
-
-        public bool TryGetCached(int connectionGeneration, string requestId, CellCoord center,
-            out TerrainEditAction action, out GridCommitReceipt receipt)
-        {
-            action = default;
-            receipt = null;
-            if (!results.TryGetValue(connectionGeneration, out var cached) ||
-                !cached.TryGetValue(requestId, out var previous)) return false;
-            if (!CenterMatches(previous.Fingerprint, center))
-                throw new InvalidOperationException("RequestId 与首次请求不一致。");
-            action = previous.Action;
-            receipt = previous.Receipt;
-            return true;
-        }
-
-        private bool CanDestroy(TerrainEditAction action, CellCoord position)
-        {
-            if (!Read(position).TryGetCell(out var value)) return false;
-            return TerrainDestructionPolicy.CanDestroy(action, (byte)TileMaterial(value.TileId),
-                (value.Flags & 1) != 0, IsSoftRock(position));
-        }
-
-        private void ValidateTargets(TerrainEditAction action, CellCoord center, IReadOnlyList<CellCoord> targets,
-            Func<CellCoord, bool> authorize)
-        {
-            if (targets == null || targets.Count < 1 || targets.Count > TerrainDestructionPolicy.MaximumTargets || authorize == null)
-                throw new ArgumentException("破坏批次必须为 1–13 个格子并提供服务端授权。");
-            if (!CanDestroy(action, center)) throw new InvalidOperationException("破坏中心格不可作用。");
-            var unique = new HashSet<CellCoord>();
-            foreach (CellCoord position in targets)
+            foreach (var target in targets)
             {
-                if (!unique.Add(position) || !Descriptor.Bounds.Contains(position) || !authorize(position) ||
-                    !CanDestroy(action, position))
-                    throw new InvalidOperationException("破坏目标无效、未加载、受保护、基岩或无权限。");
+                var state = Query(target).State;
+                int amount = action == TerrainEditAction.HandMine ? Rules.PickaxeDamage(Read(target).Cell.TileId, pickaxeDamage) : bombDamage;
+                if (state.Durability <= amount) edit.ClearTile(target);
+                else edit.SetBusinessState(target, state.WithDurability(state.Durability - amount));
             }
+            var receipt = edit.Commit(); history.Remember(connection, request, action, center, fingerprint, receipt);
+            applied = !receipt.IsNoOp; return receipt;
         }
-
-        private byte TileMaterial(uint tileId)
+        public void ForgetConnection(int connection) => history.Forget(connection);
+        public bool TryGetCached(int connection, string request, TerrainEditAction action, ulong expectedRevision,
+            CellCoord center, out GridCommitReceipt receipt)
         {
-            return TerrainMiningQuery.Material(Tiles, tileId);
+            bool found = history.Find(connection, request, center, out var prior, out receipt);
+            if (found && prior != action) throw new InvalidOperationException("重复动作已改变。");
+            return found;
         }
-
-        private void Remember(int connectionGeneration, string requestId,
-            (string Fingerprint, TerrainEditAction Action, GridCommitReceipt Receipt) result)
+        public bool TryGetCached(int connection, string request, CellCoord center, out TerrainEditAction action,
+            out GridCommitReceipt receipt) => history.Find(connection, request, center, out action, out receipt);
+        internal IReadOnlyList<GridBusinessRecord> CaptureBusiness() => map.Business.CaptureRecords(Descriptor.Bounds);
+        internal void RestoreBusiness(IEnumerable<TerrainDamageRecord> records)
         {
-            if (!results.TryGetValue(connectionGeneration, out var cache))
+            using var edit = map.BeginEdit(CommitId);
+            foreach (var record in records)
             {
-                cache = new Dictionary<string, (string, TerrainEditAction, GridCommitReceipt)>(); results.Add(connectionGeneration, cache);
-                resultOrder.Add(connectionGeneration, new Queue<string>());
+                var cell = new CellCoord(record.U, record.V); var sample = Query(cell);
+                if (!sample.HasState || sample.Terrain.Identity.Guid.ToString().Replace("-", "") != record.MaterialGuid)
+                    throw new FormatException("耐久存档与格材质不匹配。");
+                var state = new GridBusinessState(record.Durability, record.Quality, record.Reserves,
+                    (GridBlockingOverride)record.Blocking, string.IsNullOrEmpty(record.Occupant) ? default : StableGuid.Parse(record.Occupant));
+                sample.Definition.Validate(state); edit.SetBusinessState(cell, state);
             }
-            cache.Add(requestId, result); resultOrder[connectionGeneration].Enqueue(requestId);
-            while (resultOrder[connectionGeneration].Count > 64) cache.Remove(resultOrder[connectionGeneration].Dequeue());
+            edit.Commit();
         }
-
-        private static string Fingerprint(TerrainEditAction action, CellCoord center,
-            IReadOnlyList<CellCoord> targets)
+        private void RequireAuthority()
         {
-            var text = action + ":" + center.U + ":" + center.V + ":" + (targets == null ? -1 : targets.Count);
-            if (targets != null) foreach (CellCoord target in targets) text += ":" + target.U + "," + target.V;
-            return text;
+            if (disposed || !session.IsActive || !session.CanWriteState) throw new InvalidOperationException("地图无权威写权限。");
         }
-
-        private static bool CenterMatches(string fingerprint, CellCoord center)
+        private void Notify(GridChangeSet change)
         {
-            int first = fingerprint.IndexOf(':');
-            int second = first < 0 ? -1 : fingerprint.IndexOf(':', first + 1);
-            int third = second < 0 ? -1 : fingerprint.IndexOf(':', second + 1);
-            return first >= 0 && second > first && third > second &&
-                fingerprint.Substring(first, third - first) == ":" + center.U + ":" + center.V;
+            foreach (var cell in change.Changes)
+                if ((cell.Impact & GridChangeImpact.Logic) != 0) versions[cell.Position] = change.Receipt.CommitId;
+            transactions.Notify(change);
         }
-
-        private void Notify(GridChangeSet change) => transactions.Notify(change);
+        private void Publish(GridChangeSet change) => Changed?.Invoke(change);
         public void Dispose()
         {
             if (disposed) return;
-            map.Changed -= Notify; map.Dispose(); disposed = true; sequences.Clear(); results.Clear(); resultOrder.Clear(); Changed = null;
+            map.Changed -= Notify; map.Dispose(); disposed = true; history.Clear(); Changed = null;
         }
     }
 }

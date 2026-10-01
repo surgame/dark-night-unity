@@ -1,0 +1,11 @@
+{
+  "repository": "YYGC",
+  "base_commit": "fee18645c997ed7529c4592917de6c412033c84e",
+  "patch": "yygc.patch",
+  "patch_sha256": "60b9f681dab1194d10e27637d9f55ff1dad62b8c105203120d5afbaad0aab00b",
+  "destination": ".deps/YYGC-grid-business",
+  "game_protocol": 20,
+  "map_protocol": 2,
+  "save_version": 14,
+  "validation": "NOT_RUN"
+}

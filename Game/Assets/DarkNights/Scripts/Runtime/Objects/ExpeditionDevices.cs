@@ -153,7 +153,10 @@ namespace DarkNights.Runtime.Objects
             s.TaskClock += delta;
             if (s.TaskClock < Flight.Rules.ExtractSeconds || !ExpeditionCargo.CanMine(miner)) return;
             s.TaskClock = 0;
-            if (deposit.ExtractByHand()) ExpeditionCargo.Collect(miner, deposit.ResourceId);
+            int damage = world.Projectiles.Settings.PickaxeDamage;
+            if (deposit.Durability <= damage && !ExpeditionCargo.CanCollect(miner, deposit.HarvestAmount)) return;
+            if (deposit.HitByHand(damage, out int harvested) && harvested > 0)
+                ExpeditionCargo.Collect(miner, deposit.ResourceId, harvested);
         }
         internal static double Distance(float ax, float ay, float bx, float by) => Math.Sqrt(Math.Pow(ax - bx, 2) + Math.Pow(ay - by, 2));
     }

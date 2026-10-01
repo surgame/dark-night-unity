@@ -10,6 +10,8 @@ namespace DarkNights.Runtime.Objects
     public sealed partial class MineralDepositBehaviour : SessionStateBehaviour<MineralDepositState>, IMineralDepositCapability
     {
         [Inject] private MineralDepositRuleConfig config;
+        private int harvestDurability, unitsPerHarvest;
+        private string commonResource, rareResource;
         public int Id => Current?.Id ?? 0;
         public string RuleKey => config.RuleKey;
         public string DefinitionGuid => Object.Definition.Guid.ToString();
@@ -21,13 +23,18 @@ namespace DarkNights.Runtime.Objects
         public int Capacity => Current?.Capacity ?? 0;
         public int Remaining => Current?.Remaining ?? 0;
         public MineralDepositStage Stage => Current?.Stage ?? MineralDepositStage.Depleted;
-        public string ResourceId => RoomKind == "boss" || Rarity == "rare" ? "gold" : "iron";
+        public string ResourceId => RoomKind == "boss" || Rarity == "rare" ? rareResource : commonResource;
+        public int Durability => Current?.Durability ?? 0;
+        public int MaximumDurability => harvestDurability;
+        public int HarvestAmount => Math.Min(Remaining, unitsPerHarvest);
 
         protected override void OnReset()
         {
             base.OnReset();
             if (config == null || config.RuleKey != MineralDepositRuleConfig.Rule)
                 throw new InvalidOperationException("MineralDeposit requires its fixed RuleKey.");
+            config.Validate(); harvestDurability = config.HarvestDurability; unitsPerHarvest = config.UnitsPerHarvest;
+            commonResource = config.CommonResource; rareResource = config.RareResource;
         }
 
         internal void Prepare(int id, float x, string placement, TerrainDepositBlueprint blueprint)
@@ -38,7 +45,7 @@ namespace DarkNights.Runtime.Objects
                 Id = id, PlacementKey = placement, X = x, RoomKind = blueprint.RoomKind,
                 Y = blueprint.Y,
                 Rarity = blueprint.Rarity, Capacity = blueprint.Capacity, Remaining = blueprint.Capacity,
-                Stage = MineralDepositStage.Available
+                Stage = MineralDepositStage.Available, Durability = harvestDurability
             });
         }
 
@@ -48,9 +55,20 @@ namespace DarkNights.Runtime.Objects
             MineralDepositState state = Edit();
             state.Remaining = Math.Max(0, state.Remaining - amount);
             state.Stage = state.Remaining == 0 ? MineralDepositStage.Depleted : MineralDepositStage.Available;
+            state.Durability = state.Remaining == 0 ? 0 : harvestDurability;
             return true;
         }
 
-        internal bool ExtractByHand() => Extract(1);
+        internal bool HitByHand(int damage, out int harvested)
+        {
+            harvested = 0;
+            if (damage < 1 || Remaining <= 0 || Durability <= 0) return false;
+            var state = Edit(); state.Durability = Math.Max(0, state.Durability - damage);
+            if (state.Durability > 0) return true;
+            harvested = Math.Min(state.Remaining, unitsPerHarvest); state.Remaining -= harvested;
+            state.Stage = state.Remaining == 0 ? MineralDepositStage.Depleted : MineralDepositStage.Available;
+            state.Durability = state.Remaining == 0 ? 0 : harvestDurability; return true;
+        }
+        internal bool ExtractByHand() => HitByHand(harvestDurability, out _);
     }
 }

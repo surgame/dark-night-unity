@@ -15,6 +15,13 @@ namespace DarkNights.Runtime.Save
             return new JObject
             {
                 ["world_id"] = data.WorldId, ["seed"] = data.Seed,
+                ["mining_rules"] = data.MiningRulesFingerprint,
+                ["damage"] = new JArray(data.Damage.Select(record => new JObject
+                {
+                    ["u"] = record.U, ["v"] = record.V, ["material"] = record.MaterialGuid,
+                    ["durability"] = record.Durability, ["quality"] = record.Quality, ["reserves"] = record.Reserves,
+                    ["blocking"] = record.Blocking, ["occupant"] = record.Occupant
+                })),
                 ["background"] = data.Background == null ? JValue.CreateNull() :
                     new JValue(Convert.ToBase64String(Terrain.BackgroundReferenceCodec.Encode(data.Background))),
                 ["expedition"] = data.Expedition, ["shapes"] = Convert.ToBase64String(data.CopyShapes()),
@@ -38,7 +45,7 @@ namespace DarkNights.Runtime.Save
         {
             if (token?.Type == JTokenType.Null) return null;
             JObject value = Object(token);
-            if (value.Count != 10) throw new FormatException("地图字段不完整，缺少初始背景参考合同。");
+            if (value.Count != 12) throw new FormatException("地图字段不完整，缺少耐久或采集规则合同。");
             byte[] cells = Convert.FromBase64String(Text(value["materials"]));
             byte[] flags = Convert.FromBase64String(Text(value["protection"]));
             byte[] soft = Convert.FromBase64String(Text(value["soft_rock"]));
@@ -68,7 +75,15 @@ namespace DarkNights.Runtime.Save
                 if (Boolean(value["expedition"]) && background == null) throw new FormatException("远征存档缺少初始背景参考。");
                 return new PlayableTerrain(Text(value["world_id"]), Text(value["seed"]), cells,
                     flags.Select(v => v == 1).ToArray(), soft.Select(v => v == 1).ToArray(), rooms, deposits,
-                    Convert.FromBase64String(Text(value["shapes"])), Boolean(value["expedition"]), background);
+                    Convert.FromBase64String(Text(value["shapes"])), Boolean(value["expedition"]), background,
+                    Array(value["damage"], item =>
+                    {
+                        var record = Object(item);
+                        if (record.Count != 8) throw new FormatException("格业务记录字段不完整。");
+                        return new TerrainDamageRecord(Integer(record["u"]), Integer(record["v"]), Text(record["material"]),
+                            Integer(record["durability"]), Integer(record["quality"]), Integer(record["reserves"]),
+                            Integer(record["blocking"]), Text(record["occupant"]));
+                    }, TerrainGenerationSettings.Width * TerrainGenerationSettings.Height).ToArray(), Text(value["mining_rules"]));
             }
             catch (ArgumentException error) { throw new FormatException("随机地图数据无效。", error); }
         }

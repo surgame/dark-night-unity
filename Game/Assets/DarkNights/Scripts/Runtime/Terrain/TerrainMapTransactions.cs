@@ -19,12 +19,14 @@ namespace DarkNights.Runtime.Terrain
         }
 
         internal void Bind(ObjectMutationBatch owner) => mutations = owner;
-        internal GridSample Read(CellCoord position) => pending?.Contains(position) == true ? GridSample.Empty : map.Read(position);
-        internal bool Clear(CellCoord target)
+        internal GridSample Read(CellCoord position) => pending?.Read(position) ?? map.Read(position);
+        internal GridBusinessSample Query(CellCoord position) => pending?.Query(position) ?? map.Business.Query(position);
+        internal bool Damage(CellCoord target, int amount, out bool destroyed)
         {
+            destroyed = false;
             if (!CanStage) return false;
             if (pending == null) pending = new TerrainMiningBatch(map, mutations, () => pending = null, publish);
-            return pending.Clear(target);
+            return pending.Damage(target, amount, out destroyed);
         }
 
         internal void Notify(GridChangeSet change)

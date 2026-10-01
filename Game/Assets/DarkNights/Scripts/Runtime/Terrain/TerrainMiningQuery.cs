@@ -1,5 +1,6 @@
 using System;
 using AnyRules.Next;
+using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.Terrain;
 
 namespace DarkNights.Runtime.Terrain
@@ -21,17 +22,43 @@ namespace DarkNights.Runtime.Terrain
         public static bool CanMine(IReadOnlyGrid map, TileCatalog tiles, CellCoord target)
             => BlockReason(map, tiles, target).Length == 0;
 
+        /// <summary>寻找瞄准直线中最近的真实岩壁表面；Unknown 与地图外区域作为阻挡，不跳过基岩或不可采材质。</summary>
+        public static bool FirstSurface(IReadOnlyGrid map, float x, float height, float directionX,
+            float directionHeight, float reach, out CellCoord target, out float distance)
+        {
+            target = default; distance = float.PositiveInfinity;
+            if (map == null || float.IsNaN(x) || float.IsInfinity(x) || float.IsNaN(height) || float.IsInfinity(height) ||
+                float.IsNaN(reach) || reach <= 0 || reach > 144 ||
+                !TerrainMiningGeometry.Direction(directionX, directionHeight, out float dx, out float dh)) return false;
+            float endX = x + dx * reach, endHeight = height + dh * reach;
+            int minU = TerrainMiningGeometry.CellU(Math.Min(x, endX)) - 1;
+            int maxU = TerrainMiningGeometry.CellU(Math.Max(x, endX)) + 1;
+            int minV = TerrainMiningGeometry.CellV(Math.Min(height, endHeight)) - 1;
+            int maxV = TerrainMiningGeometry.CellV(Math.Max(height, endHeight)) + 1;
+            for (int v = minV; v <= maxV; v++) for (int u = minU; u <= maxU; u++)
+            {
+                var position = new CellCoord(u, v);
+                var sample = map.Read(position);
+                TerrainCellShape shape = TerrainCellShape.Full;
+                if (sample.TryGetCell(out var cell))
+                {
+                    if (cell.IsEmpty) continue;
+                    shape = TerrainShapeGeometry.Decode(cell.Flags);
+                }
+                if (!TerrainMiningGeometry.RayCell(x, height, dx, dh, reach, u, v, shape, out float hit) ||
+                    hit >= distance) continue;
+                target = position; distance = hit;
+            }
+            return !float.IsPositiveInfinity(distance);
+        }
+
         /// <summary>解释前景格的手采限制；空格中的独立矿床由调用方另行查询，不改变破坏规则。</summary>
         public static string BlockReason(IReadOnlyGrid map, TileCatalog tiles, CellCoord target)
         {
             if (map == null || !map.Read(target).TryGetCell(out var cell)) return "地图尚未就绪";
             if (cell.IsEmpty) return "这里没有可采集的矿床";
-            byte material = Material(tiles, cell.TileId);
-            if ((cell.Flags & 1) != 0) return "保护区域不能采集";
-            if (material == 8) return "基岩不能破坏";
-            if (TerrainDestructionPolicy.CanDestroy(Core.Config.Terrain.TerrainEditAction.HandMine,
-                material, false, (cell.Flags & TerrainMiningGeometry.SoftRockFlag) != 0)) return "";
-            return material == 0 ? "这种材料不能手采" : "硬岩不能手采，请寻找软岩或矿床";
+            if (!tiles.TryGet(cell.TileId, out var definition)) return "材质没有配置采集规则";
+            return definition.Key.ToString() == "bedrock" ? "基岩不能破坏" : "";
         }
 
         public static bool Reachable(IReadOnlyGrid map, float x, float height, CellCoord target, float reach)

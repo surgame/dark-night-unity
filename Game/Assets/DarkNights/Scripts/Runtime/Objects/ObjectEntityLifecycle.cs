@@ -54,6 +54,7 @@ namespace DarkNights.Runtime.Objects
 
         internal void ActorDied(ActorBehaviour actor)
         {
+            HeroEquipment.Cancel(actor.Edit());
             if (session.IsExpedition)
             {
                 if (!actor.Enemy && actor.Read().ExpeditionRole > 0) session.Camp.Edit().ResupplyCost += session.Catalog.Balance.Expedition.ModulePrice / 2;

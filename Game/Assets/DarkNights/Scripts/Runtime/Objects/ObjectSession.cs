@@ -104,6 +104,7 @@ namespace DarkNights.Runtime.Objects
             Projectiles = owner.GetBehaviour<ProjectileBehaviour>() ?? throw new InvalidOperationException("Missing projectile capability.");
             Journey = owner.GetBehaviour<ExpeditionJourneyBehaviour>();
             Flow = owner.GetBehaviour<ExpeditionFlowBehaviour>();
+            owner.GetBehaviour<TerrainGameplayBehaviour>()?.InitializeSession(this);
             if (IsExpedition && (Journey == null || Flow == null))
                 throw new InvalidOperationException("远征会话缺少航程状态或配置能力。");
             Flow?.InitializeSession(this);
@@ -114,7 +115,11 @@ namespace DarkNights.Runtime.Objects
             Projectiles.Prepare();
             SaveCodec = new ObjectWorldSaveJson(Catalog, Layout,
                 Resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
-                placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition)), Projectiles.Settings);
+                placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition)), Projectiles.Settings,
+                (Terrain?.Rules.Fingerprint ?? "") + "|" + string.Join(";", Resources.Definitions
+                    .OrderBy(value => value.Guid.ToString(), StringComparer.Ordinal)
+                    .SelectMany(value => value.SharedConfigs.OfType<MineralDepositRuleConfig>()
+                        .Select(config => value.Guid + ":" + config.Fingerprint()))));
             Mutations.Run(() =>
             {
                 foreach (ObjectPlacement placement in placements)

@@ -44,10 +44,9 @@ namespace DarkNights.Runtime.Objects
                     changes.Add(item.PrepareCommit());
                 }
                 Publishing = true;
-                beforeCommit?.Invoke();
-                SessionStateChange.CommitAll(changes);
-                success = true;
                 notifications = committed.ToArray();
+                SessionStateChange.CommitAll(changes, beforeCommit);
+                success = true;
                 return result;
             }
             finally

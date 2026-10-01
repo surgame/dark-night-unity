@@ -46,4 +46,8 @@ MonoBehaviour:
       type: {class: MineralDepositRuleConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         RuleKey: mineral-deposit
+        HarvestDurability: 40
+        UnitsPerHarvest: 1
+        CommonResource: iron
+        RareResource: gold
 

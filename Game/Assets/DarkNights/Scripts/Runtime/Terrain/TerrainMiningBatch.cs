@@ -5,46 +5,58 @@ using DarkNights.Runtime.Objects;
 
 namespace DarkNights.Runtime.Terrain
 {
-    /// <summary>一段同步 YYGC 事务中的稀疏地图草稿；同格只保留一次清除，候选状态准备失败时不安装地图。</summary>
+    /// <summary>YYGC 短事务内的稀疏耐久候选；同格命中累计，全部对象校验后安装地图，通知延迟到对象安装完成。</summary>
     internal sealed class TerrainMiningBatch
     {
         private readonly ARDMap map;
-        private readonly Dictionary<CellCoord, GridCell> originals = new Dictionary<CellCoord, GridCell>();
+        private readonly Dictionary<CellCoord, (GridCell Cell, GridBusinessState Before, GridBusinessState After)> candidates =
+            new Dictionary<CellCoord, (GridCell, GridBusinessState, GridBusinessState)>();
         private readonly Action completed;
         private readonly Action<GridChangeSet> publish;
-        private readonly List<GridChangeSet> notifications = new List<GridChangeSet>();
+        private readonly List<GridChangeSet> notifications = new List<GridChangeSet>(1);
 
         internal TerrainMiningBatch(ARDMap map, ObjectMutationBatch mutations, Action completed, Action<GridChangeSet> publish)
         {
             this.map = map; this.completed = completed; this.publish = publish;
-            mutations.BeforeCommit(Commit);
-            mutations.OnRollback(completed);
-            mutations.AfterCommit(Publish);
+            mutations.BeforeCommit(Commit); mutations.OnRollback(completed); mutations.AfterCommit(Publish);
         }
-
-        internal bool Contains(CellCoord cell) => originals.ContainsKey(cell);
-        internal bool Clear(CellCoord cell)
+        internal GridSample Read(CellCoord cell)
         {
-            if (Contains(cell) || !map.Read(cell).TryGetCell(out var value) || value.IsEmpty) return false;
-            originals.Add(cell, value);
-            return true;
+            if (!candidates.TryGetValue(cell, out var value)) return map.Read(cell);
+            return value.After.Durability == 0 ? GridSample.Empty : GridSample.FromCell(value.Cell);
+        }
+        internal GridBusinessSample Query(CellCoord cell)
+        {
+            var source = map.Business.Query(cell);
+            if (!candidates.TryGetValue(cell, out var value)) return source;
+            return new GridBusinessSample(Read(cell), source.Terrain, source.Definition, value.After, true);
+        }
+        internal bool Damage(CellCoord cell, int damage, out bool destroyed)
+        {
+            destroyed = false;
+            if (damage < 1 || !Read(cell).TryGetCell(out var current) || current.IsEmpty) return false;
+            if (!candidates.TryGetValue(cell, out var value))
+            {
+                var state = map.Business.Query(cell).State;
+                value = (current, state, state);
+            }
+            var next = value.After.WithDurability(Math.Max(0, value.After.Durability - damage));
+            candidates[cell] = (value.Cell, value.Before, next);
+            destroyed = next.Durability == 0; return true;
         }
         internal void Notify(GridChangeSet change) => notifications.Add(change);
-
         private void Commit()
         {
-            foreach (var original in originals)
-                if (!map.Read(original.Key).TryGetCell(out var current) || !current.Equals(original.Value))
-                    throw new InvalidOperationException("采矿地图草稿已被另一写入改变。");
+            foreach (var pair in candidates)
+                if (!map.Read(pair.Key).TryGetCell(out var cell) || cell != pair.Value.Cell ||
+                    map.Business.Query(pair.Key).State != pair.Value.Before)
+                    throw new InvalidOperationException("格子或耐久候选已被其他写入改变。");
             using var edit = map.BeginEdit(map.CommitId);
-            foreach (var original in originals) edit.ClearTile(original.Key);
+            foreach (var pair in candidates)
+                if (pair.Value.After.Durability == 0) edit.ClearTile(pair.Key);
+                else edit.SetBusinessState(pair.Key, pair.Value.After);
             edit.Commit();
         }
-
-        private void Publish()
-        {
-            completed();
-            foreach (GridChangeSet change in notifications) publish(change);
-        }
+        private void Publish() { completed(); foreach (var change in notifications) publish(change); }
     }
 }

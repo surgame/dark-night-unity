@@ -64,7 +64,7 @@ namespace DarkNights.View
             float progress = actor.EquipmentActionDuration <= 0 ? 1 : Mathf.Clamp01(1 - (float)(remaining / actor.EquipmentActionDuration));
             float recoil = itemIndex == 0 && remaining > 0 ? (float)(remaining / .12) : 0;
             if (itemIndex == 1)
-                angle = remaining > 0 ? Mathf.Lerp(105, -55, Mathf.SmoothStep(0, 1, progress)) : -20;
+                angle += remaining > 0 ? Mathf.Lerp(105, -55, Mathf.SmoothStep(0, 1, progress)) : -20;
             else if (itemIndex == 2)
                 angle = actor.Charging ? 115 : remaining > 0 ? -25 : -40;
             pivot.localRotation = Quaternion.Euler(0, 0, angle);

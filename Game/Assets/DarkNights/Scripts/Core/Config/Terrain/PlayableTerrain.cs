@@ -22,6 +22,8 @@ namespace DarkNights.Core.Config.Terrain
         public int Count => materials.Length;
         public IReadOnlyList<TerrainRoom> Rooms { get; }
         public IReadOnlyList<TerrainDepositBlueprint> Deposits { get; }
+        public IReadOnlyList<TerrainDamageRecord> Damage { get; }
+        public string MiningRulesFingerprint { get; }
 
         public PlayableTerrain(string worldId, string seed, byte[] cells, bool[] protectedCells)
             : this(worldId, seed, cells, protectedCells,
@@ -31,7 +33,7 @@ namespace DarkNights.Core.Config.Terrain
 
         public PlayableTerrain(string worldId, string seed, byte[] cells, bool[] protectedCells,
             bool[] softRock, TerrainRoom[] rooms, TerrainDepositBlueprint[] deposits, byte[] shapes = null, bool expedition = false,
-            BackgroundBakeDescriptor background = null)
+            BackgroundBakeDescriptor background = null, TerrainDamageRecord[] damage = null, string miningRulesFingerprint = "")
         {
             if (!Guid.TryParseExact(worldId, "N", out _) || string.IsNullOrWhiteSpace(seed) || seed.Length > 80 ||
                 cells == null || cells.Length != TerrainGenerationSettings.Width * TerrainGenerationSettings.Height ||
@@ -56,11 +58,15 @@ namespace DarkNights.Core.Config.Terrain
                 if (this.shapes[i] > 12 || (this.shapes[i] != 0 && (cells[i] == 0 || protectedCells[i])))
                     throw new ArgumentException("坡形内容无效。");
             Expedition = expedition;
-            for (int x = 0; !expedition && x < CampColumns; x++)
-                for (int y = 0; y < CampRow + 4; y++)
-                    if (y < CampRow ? cells[y * TerrainGenerationSettings.Width + x] != 0 :
-                        cells[y * TerrainGenerationSettings.Width + x] == 0 || !protectedCells[y * TerrainGenerationSettings.Width + x])
-                        throw new ArgumentException("营地保护区域不完整。");
+            damage = damage ?? Array.Empty<TerrainDamageRecord>();
+            var coordinates = new HashSet<int>();
+            foreach (var record in damage)
+                if (record == null || !coordinates.Add(-record.V * TerrainGenerationSettings.Width + record.U) ||
+                    cells[-record.V * TerrainGenerationSettings.Width + record.U] == 0)
+                    throw new ArgumentException("格业务保存重复或对应空格。");
+            if (miningRulesFingerprint == null || miningRulesFingerprint.Length != 0 && miningRulesFingerprint.Length != 64)
+                throw new ArgumentException("采集规则指纹无效。");
+            Damage = Array.AsReadOnly((TerrainDamageRecord[])damage.Clone()); MiningRulesFingerprint = miningRulesFingerprint;
             WorldId = worldId; Seed = seed;
             if (background != null && (background.WorldId != worldId || background.LayoutSeed != seed))
                 throw new ArgumentException("背景参考与地图身份不一致。");

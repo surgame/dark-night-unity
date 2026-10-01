@@ -25,7 +25,8 @@ namespace DarkNights.Editor.Terrain
 
         public TerrainGenerationPreview()
         {
-            Definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>("Assets/DarkNights/Res/Terrain/StrataCave/MapDefinition.asset");
+            var source = AssetDatabase.LoadAssetAtPath<ObjectDefinition>("Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset");
+            Definition = source.SharedConfigs.OfType<DarkNights.Runtime.Terrain.TerrainProfileConfig>().Single().Definition;
             draft = ScriptableObject.CreateInstance<ExpeditionFlowDraft>();
             draft.hideFlags = HideFlags.HideAndDontSave;
             draft.Load(AssetDatabase.LoadAssetAtPath<ObjectDefinition>("Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset"));

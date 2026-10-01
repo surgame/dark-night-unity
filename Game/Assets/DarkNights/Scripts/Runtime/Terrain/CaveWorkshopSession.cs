@@ -23,7 +23,8 @@ namespace DarkNights.Runtime.Terrain
         public float Y => (actor.Height - PlayableTerrain.OriginY) / PlayableTerrain.CellPixels;
         public double Fuel => actor.JetpackFuel;
         public bool Grounded => actor.SupportPlatform >= 0;
-        public CaveWorkshopSession(TerrainBlueprint blueprint, ServerGameplayCatalog catalog, GameCatalog game)
+        public CaveWorkshopSession(TerrainBlueprint blueprint, ServerGameplayCatalog catalog, GameCatalog game,
+            FrozenTerrainRules terrainRules = null, HandheldConfig tools = null)
         {
             var source = game.Balance.HeroControl;
             // 工作台全图原点在顶部；只把全局高度上限平移到地图顶，跳跃与燃料数值保持原配置。
@@ -32,7 +33,8 @@ namespace DarkNights.Runtime.Terrain
                 source.SprintMultiplier, source.WalkSpeed);
             container = new DIContainer(); container.Initialize();
             context = ObjectSessionContext.CreateAuthority(container, () => active); context.Activate();
-            Map = new TerrainMapAuthority(context, blueprint, catalog, new WorldIdentity(StableGuid.Parse(Guid.NewGuid().ToString("N")), 1));
+            Map = new TerrainMapAuthority(context, blueprint, catalog, new WorldIdentity(StableGuid.Parse(Guid.NewGuid().ToString("N")), 1),
+                terrainRules, tools);
             Edits = new WorkshopTerrainEdits(Map, blueprint);
             actor = new ActorState { ManualControl = true, JetpackOwned = true, JetpackEquipped = true,
                 JetpackFuel = rules.FuelSeconds, SupportPlatform = -1 };

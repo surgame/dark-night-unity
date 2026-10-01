@@ -36,8 +36,9 @@ namespace DarkNights.Entry.Terrain
             entry.environment = network.gameObject.AddComponent<JourneyEnvironment>();
             entry.environment.Initialize(stage.SceneCamera);
             bool contour = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-contour-static") >= 0;
-            entry.definition = contour ? template.ContourDefinition : template.Definition;
-            entry.style = contour ? template.StaticBackgroundStyle : template.CaveStyle;
+            var profile = TerrainProfileConfig.Resolve();
+            entry.definition = contour ? profile.ContourDefinition : profile.Definition;
+            entry.style = (contour ? profile.BackgroundStyle : profile.CaveStyle) as CaveTerrainStyle;
             stage.MiningSelector = entry.style?.MiningSelector ?? stage.MiningSelector;
             stage.ActorPresentationScale = entry.style != null && entry.style.ProceduralRock ? 2 : 1;
             if (entry.definition == null || (template.Expedition || contour) && entry.style == null)

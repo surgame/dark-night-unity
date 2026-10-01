@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AnyRules.Next;
+using AnyRules.Next.Authoring;
 using DarkNights.Core.Config.Terrain;
 using GameCore.Objects.Runner;
 using DarkNights.Runtime.Objects;
@@ -18,13 +20,19 @@ namespace DarkNights.Runtime.Terrain
         private TerrainDepositBlueprint[] deposits;
         private uint generation;
         public TerrainMapAuthority Map { get; private set; }
+        public FrozenTerrainRules Rules { get; }
+        public ARDMapDefinition Definition { get; }
         public string Seed { get; private set; }
         public bool Expedition { get; private set; }
         public BackgroundBakeDescriptor Background { get; private set; }
         public IReadOnlyList<TerrainDepositBlueprint> Deposits => new List<TerrainDepositBlueprint>(deposits).AsReadOnly();
-        public SessionTerrain(ObjectSessionContext context, ServerGameplayCatalog catalog, PlayableTerrain initial)
+        public SessionTerrain(ObjectSessionContext context, ServerGameplayCatalog catalog, PlayableTerrain initial,
+            FrozenTerrainRules rules = null, ARDMapDefinition definition = null)
         {
-            this.context = context; this.catalog = catalog; this.initial = initial ?? throw new ArgumentNullException(nameof(initial));
+            this.context = context; this.initial = initial ?? throw new ArgumentNullException(nameof(initial));
+            Definition = definition ?? TerrainProfileConfig.Resolve().Definition;
+            Rules = rules ?? TerrainProfileConfig.Resolve().Freeze(Definition);
+            this.catalog = Rules.Business.Gameplay;
             Seed = initial.Seed; SetStatic(initial);
         }
         public void Activate() { Map = Prepare(initial); initial = null; }
@@ -32,7 +40,16 @@ namespace DarkNights.Runtime.Terrain
         {
             if (data == null) throw new FormatException("随机场景存档缺少地图。");
             var candidate = new TerrainMapAuthority(context, data.Blueprint(), catalog,
-                new WorldIdentity(StableGuid.Parse(data.WorldId), checked(++generation)));
+                new WorldIdentity(StableGuid.Parse(data.WorldId), checked(++generation)), Rules,
+                GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
+                    .SharedConfigs.OfType<HandheldConfig>().Single());
+            try
+            {
+                if (data.MiningRulesFingerprint.Length != 0 && data.MiningRulesFingerprint != Rules.Fingerprint)
+                    throw new FormatException("存档采集规则与当前配置不一致。");
+                candidate.RestoreBusiness(data.Damage);
+            }
+            catch { candidate.Dispose(); throw; }
             candidate.BindMutations(context.Container.Resolve<ObjectSession>().Mutations);
             return candidate;
         }
@@ -77,7 +94,13 @@ namespace DarkNights.Runtime.Terrain
                 shapes[index] = (byte)((cell.Flags >> 1) & 15);
             }
             return new PlayableTerrain(Map.World.WorldId.ToString().Replace("-", ""), Seed, cells, flags,
-                (bool[])softRock.Clone(), (TerrainRoom[])rooms.Clone(), (TerrainDepositBlueprint[])deposits.Clone(), shapes, Expedition, Background);
+                (bool[])softRock.Clone(), (TerrainRoom[])rooms.Clone(), (TerrainDepositBlueprint[])deposits.Clone(), shapes, Expedition, Background,
+                Map.CaptureBusiness().Select(record =>
+                {
+                    var state = record.State; var material = Map.Query(record.Position).Terrain.Identity.Guid.ToString().Replace("-", "");
+                    return new TerrainDamageRecord(record.Position.U, record.Position.V, material, state.Durability, state.Quality,
+                        state.RemainingReserves, (int)state.Blocking, state.Occupant.IsEmpty ? "" : state.Occupant.ToString().Replace("-", ""));
+                }).ToArray(), Rules.Fingerprint);
         }
         private void SetStatic(PlayableTerrain data)
         {

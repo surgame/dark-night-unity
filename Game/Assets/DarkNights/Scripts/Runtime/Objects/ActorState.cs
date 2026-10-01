@@ -85,5 +85,13 @@ namespace DarkNights.Runtime.Objects
         public int MiningV { get; internal set; }
         public uint MiningTileId { get; internal set; }
         public ushort MiningFlags { get; internal set; }
+        public DarkNights.Core.ViewData.HeroMiningTargetKind MiningTargetKind { get; internal set; }
+        public int MiningEntityId { get; internal set; }
+        public ulong MiningContentVersion { get; internal set; }
+        // 单镐的冻结意图和命中门闩只属于当前权威输入生命周期；展示沿用装备动作，不保存或发送这些临时字段。
+        [MemoryPackIgnore] public DarkNights.Core.ViewData.HeroMiningTarget PickaxeSwingTarget { get; internal set; }
+        [MemoryPackIgnore] public float PickaxeSwingAim { get; internal set; }
+        [MemoryPackIgnore] public bool PickaxeSwingActive { get; internal set; }
+        [MemoryPackIgnore] public bool PickaxeHitPending { get; internal set; }
     }
 }

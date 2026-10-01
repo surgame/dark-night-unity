@@ -1,0 +1,434 @@
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet/package.json b/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet/package.json
+index 1d4f433..06b1a8f 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet/package.json
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet/package.json
+@@ -1,10 +1,10 @@
+ {
+   "name": "com.tsgame.anyrules.networking.fishnet",
+-  "version": "0.2.0-preview.1",
++  "version": "0.3.0-preview.1",
+   "displayName": "AnyRuleD Map State FishNet",
+   "unity": "6000.2",
+   "dependencies": {
+-    "com.tsgame.anyrules.networking": "0.2.0-preview.1",
++    "com.tsgame.anyrules.networking": "0.3.0-preview.1",
+     "com.firstgeargames.fishnet": "4.6.12"
+   }
+ }
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ChunkReplicaStateMachine.cs b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ChunkReplicaStateMachine.cs
+index a548647..d9e6371 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ChunkReplicaStateMachine.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ChunkReplicaStateMachine.cs
+@@ -34,12 +34,13 @@ namespace AnyRules.Next.Networking
+     }
+ 
+     /// <summary>Single owner-thread, bounded, transport-independent replica. Each manifest installs by one dictionary swap.</summary>
+-    public sealed class ChunkReplicaStateMachine : IReadOnlyGrid
++    public sealed class ChunkReplicaStateMachine : IReadOnlyGrid, IGridBusinessQuery, IGridCellIdentitySource
+     {
+-        private sealed class Chunk { internal ulong Revision; internal GridSample[] Cells; }
++        private sealed class Chunk { internal ulong Revision; internal GridSample[] Cells; internal GridBusinessState?[] Business; internal ulong[] Versions; }
+         private sealed class Pending { internal MapPacket Manifest; internal readonly Dictionary<ChunkCoord, MapPacket> Parts = new Dictionary<ChunkCoord, MapPacket>(); internal int Age; }
+         private readonly int thread = Thread.CurrentThread.ManagedThreadId;
+         private readonly TileCatalog tiles; private readonly string logic, visual;
++        private readonly GridBusinessCatalog business;
+         private uint[] palette;
+         private Dictionary<ChunkCoord, Chunk> chunks = new Dictionary<ChunkCoord, Chunk>();
+         private readonly SortedDictionary<ulong, Pending> pending = new SortedDictionary<ulong, Pending>();
+@@ -55,13 +56,32 @@ namespace AnyRules.Next.Networking
+         public event Action Changed;
+         public event Action<MapReplicaChange> Applied;
+         public Exception LastObserverError { get; private set; }
+-        public ChunkReplicaStateMachine(TileCatalog tiles, string logicDigest, string visualDigest) { this.tiles = tiles; logic = logicDigest; visual = visualDigest; }
++        public ChunkReplicaStateMachine(TileCatalog tiles, string logicDigest, string visualDigest, GridBusinessCatalog business = null)
++        { this.tiles = tiles; logic = logicDigest; visual = visualDigest; this.business = business; }
+         private void Check() { if (thread != Thread.CurrentThread.ManagedThreadId) throw new InvalidOperationException("Replica owner thread required."); }
+         public GridSample Read(CellCoord position)
+         {
+             Check(); if (Closed || Descriptor == null || !Descriptor.Bounds.Contains(position)) return GridSample.Unknown;
+             int size = Descriptor.ChunkSize; var c = GridMath.ChunkOf(position, size); return chunks.TryGetValue(c, out var chunk) ? chunk.Cells[GridMath.FloorMod(position.V, size) * size + GridMath.FloorMod(position.U, size)] : GridSample.Unknown;
+         }
++        /// <summary>读取已原子安装的格业务投影；没有业务目录的独立宿主不支持此查询。</summary>
++        public GridBusinessSample Query(CellCoord position)
++        {
++            var sample = Read(position);
++            if (sample.State != GridSampleState.Present) return new GridBusinessSample(sample, null, null, default, false);
++            if (business == null || !business.Gameplay.TryGet(sample.Cell.TileId, out var terrain)) throw new NotSupportedException("Missing business catalog.");
++            var definition = business.Get(sample.Cell.TileId);
++            var chunk = chunks[GridMath.ChunkOf(position, Descriptor.ChunkSize)];
++            int index = GridMath.FloorMod(position.V, Descriptor.ChunkSize) * Descriptor.ChunkSize + GridMath.FloorMod(position.U, Descriptor.ChunkSize);
++            var state = chunk.Business[index];
++            return new GridBusinessSample(sample, terrain, definition, state ?? definition.DefaultState, state.HasValue);
++        }
++        public ulong ContentVersion(CellCoord position)
++        {
++            Check(); if (Read(position).State == GridSampleState.Unknown) return 0;
++            int index = GridMath.FloorMod(position.V, Descriptor.ChunkSize) * Descriptor.ChunkSize + GridMath.FloorMod(position.U, Descriptor.ChunkSize);
++            return chunks[GridMath.ChunkOf(position, Descriptor.ChunkSize)].Versions[index];
++        }
+         public bool Receive(byte[] bytes) => ReceivePacket(bytes).Applied;
+         public MapReceiveResult ReceivePacket(byte[] bytes)
+         {
+@@ -108,6 +128,11 @@ namespace AnyRules.Next.Networking
+                 if (c.Index < 0 || c.Index >= count || !seen.Add(c.Index) || c.Value.TileId >= palette.Length) throw new FormatException("Cell index/palette.");
+                 if (c.Known && !Descriptor.Bounds.Contains(new CellCoord(checked(p.Chunk.U * size + c.Index % size), checked(p.Chunk.V * size + c.Index / size)))) throw new FormatException("Known padding outside world.");
+                 if (!c.Value.IsEmpty && (c.Value.Height < Descriptor.MinimumHeight || c.Value.Height > Descriptor.MaximumHeight)) throw new FormatException("Cell height.");
++                if (c.Business.HasValue)
++                {
++                    if (business == null) throw new FormatException("Business state requires a matching catalog.");
++                    business.Get(palette[c.Value.TileId]).Validate(c.Business.Value);
++                }
+             }
+         }
+         private bool Drain()
+@@ -130,8 +155,15 @@ namespace AnyRules.Next.Networking
+                 foreach (var t in entry.Manifest.Targets)
+                 {
+                     var p = entry.Parts[t.Chunk]; var cells = p.Kind == MapMessage.Snapshot ? new GridSample[Descriptor.ChunkSize * Descriptor.ChunkSize] : (GridSample[])chunks[t.Chunk].Cells.Clone();
+-                    foreach (var c in p.Cells) cells[c.Index] = c.Known ? GridSample.FromCell(new GridCell(palette[c.Value.TileId], c.Value.Height, c.Value.Flags)) : GridSample.Unknown;
+-                    next[t.Chunk] = new Chunk { Revision = p.Revision, Cells = cells };
++                    int count = Descriptor.ChunkSize * Descriptor.ChunkSize;
++                    var states = p.Kind == MapMessage.Snapshot ? new GridBusinessState?[count] : (GridBusinessState?[])chunks[t.Chunk].Business.Clone();
++                    var versions = p.Kind == MapMessage.Snapshot ? new ulong[count] : (ulong[])chunks[t.Chunk].Versions.Clone();
++                    foreach (var cell in p.Cells)
++                    {
++                        cells[cell.Index] = cell.Known ? GridSample.FromCell(new GridCell(palette[cell.Value.TileId], cell.Value.Height, cell.Value.Flags)) : GridSample.Unknown;
++                        states[cell.Index] = cell.Business; versions[cell.Index] = cell.ContentVersion;
++                    }
++                    next[t.Chunk] = new Chunk { Revision = p.Revision, Cells = cells, Business = states, Versions = versions };
+                 }
+                 if (next.Count > ProtocolLimits.MaximumChunks) throw new FormatException("Replica interest budget.");
+                 var affectedChunks = new ChunkCoord[entry.Manifest.Targets.Length];
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapInterestService.cs b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapInterestService.cs
+index fdcbccc..0e97c80 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapInterestService.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapInterestService.cs
+@@ -125,14 +125,27 @@ namespace AnyRules.Next.Networking
+                         bool known = x >= minU && x < maxU && y >= minV && y < maxV;
+                         GridCell value = default;
+                         if (known) { var p = new CellCoord((int)x, (int)y); known = authorize(p) && source.Read(p).TryGetCell(out value); SampledCellCount++; }
+-                        any |= known; cells[i] = new WireCell(i, known, known ? new GridCell(palette[value.TileId], value.Height, value.Flags) : default);
++                        GridBusinessState? business = null; ulong version = 0;
++                        if (known)
++                        {
++                            var position = new CellCoord((int)x, (int)y);
++                            var query = source as IGridBusinessQuery ?? (source as ARDMap)?.Business;
++                            if (!value.IsEmpty && query != null)
++                            {
++                                var sample = query.Query(position);
++                                if (sample.HasStoredOverride) business = sample.State;
++                            }
++                            version = (source as IGridCellIdentitySource)?.ContentVersion(position) ?? 0;
++                        }
++                        any |= known; cells[i] = new WireCell(i, known, known ? new GridCell(palette[value.TileId], value.Height, value.Flags) : default, business, version);
+                     }
+                     bool existed = previous.TryGetValue(c, out var old); if (!any && !existed) continue;
+                     var delta = new List<WireCell>();
+                     bool revocation = false;
+                     if (existed) for (int i = 0; i < cells.Length; i++)
+                     {
+-                        if (old[i].Known == cells[i].Known && old[i].Value == cells[i].Value) continue;
++                        if (old[i].Known == cells[i].Known && old[i].Value == cells[i].Value &&
++                            Nullable.Equals(old[i].Business, cells[i].Business) && old[i].ContentVersion == cells[i].ContentVersion) continue;
+                         delta.Add(cells[i]);
+                         revocation |= old[i].Known && !cells[i].Known;
+                     }
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapProtocol.cs b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapProtocol.cs
+index fabf969..c2c01f8 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapProtocol.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapProtocol.cs
+@@ -17,7 +17,10 @@ namespace AnyRules.Next.Networking
+         public int Index { get; }
+         public bool Known { get; }
+         public GridCell Value { get; } // TileId is a terrain-palette index on the wire, never Definition wire V1/V2.
+-        public WireCell(int index, bool known, GridCell value) { Index = index; Known = known; Value = known ? value : default; }
++        public GridBusinessState? Business { get; }
++        public ulong ContentVersion { get; }
++        public WireCell(int index, bool known, GridCell value, GridBusinessState? business = null, ulong contentVersion = 0)
++        { Index = index; Known = known; Value = known ? value : default; Business = known && !value.IsEmpty ? business : null; ContentVersion = known ? contentVersion : 0; }
+     }
+     public sealed class MapPacket
+     {
+@@ -48,7 +51,7 @@ namespace AnyRules.Next.Networking
+                 case MapMessage.Snapshot: case MapMessage.Delta:
+                     w.Write(packet.Chunk.U); w.Write(packet.Chunk.V); w.Write(packet.BaseRevision); w.Write(packet.Revision);
+                     if (packet.Cells == null || packet.Cells.Length > ProtocolLimits.MaximumChunkCells) throw new FormatException("Cell limit.");
+-                    w.Write(packet.Cells.Length); foreach (var c in packet.Cells) { w.Write(c.Index); w.Write(c.Known); w.Write(c.Value.TileId); w.Write(c.Value.Height); w.Write(c.Value.Flags); } break;
++                    w.Write(packet.Cells.Length); foreach (var cell in packet.Cells) WriteCell(w, cell); break;
+                 case MapMessage.Manifest:
+                     if (packet.Targets == null || packet.Targets.Length < 1 || packet.Targets.Length > ProtocolLimits.MaximumChunks) throw new FormatException("Manifest limit.");
+                     w.Write(packet.Targets.Length); foreach (var t in packet.Targets) { w.Write(t.Chunk.U); w.Write(t.Chunk.V); w.Write(t.Revision); } break;
+@@ -77,9 +80,8 @@ namespace AnyRules.Next.Networking
+                     case MapMessage.Subscribe: p.Region = Bounds(r); break;
+                     case MapMessage.Snapshot: case MapMessage.Delta:
+                         p.Chunk = new ChunkCoord(r.ReadInt32(), r.ReadInt32()); p.BaseRevision = r.ReadUInt64(); p.Revision = r.ReadUInt64();
+-                        int count = Count(r, ProtocolLimits.MaximumChunkCells, 13); p.Cells = new WireCell[count];
+-                        for (int i = 0; i < count; i++) { int index = r.ReadInt32(); byte known = r.ReadByte(); uint tile = r.ReadUInt32(); short height = r.ReadInt16(); ushort flags = r.ReadUInt16();
+-                            if (known > 1 || (tile == 0 && (height != 0 || flags != 0)) || (known == 0 && (tile != 0 || height != 0 || flags != 0))) throw new FormatException("Noncanonical cell."); p.Cells[i] = new WireCell(index, known == 1, new GridCell(tile, height, flags)); } break;
++                        int count = Count(r, ProtocolLimits.MaximumChunkCells, 22); p.Cells = new WireCell[count];
++                        for (int index = 0; index < count; index++) p.Cells[index] = ReadCell(r); break;
+                     case MapMessage.Manifest:
+                         int length = Count(r, ProtocolLimits.MaximumChunks, 16); if (length == 0) throw new FormatException("Empty manifest."); p.Targets = new ChunkTarget[length]; for (int i = 0; i < length; i++) p.Targets[i] = new ChunkTarget(new ChunkCoord(r.ReadInt32(), r.ReadInt32()), r.ReadUInt64()); break;
+                 }
+@@ -87,10 +89,51 @@ namespace AnyRules.Next.Networking
+             }
+             catch (Exception e) when (e is EndOfStreamException || e is ArgumentException || e is OverflowException) { throw new FormatException("Invalid bounded packet.", e); }
+         }
++        private static void WriteCell(BinaryWriter writer, WireCell cell)
++        {
++            writer.Write(cell.Index); writer.Write(cell.Known); writer.Write(cell.Value.TileId);
++            writer.Write(cell.Value.Height); writer.Write(cell.Value.Flags); writer.Write(cell.ContentVersion);
++            writer.Write(cell.Business.HasValue);
++            if (!cell.Business.HasValue) return;
++            var state = cell.Business.Value;
++            writer.Write(state.Durability); writer.Write(state.Quality); writer.Write(state.RemainingReserves);
++            writer.Write((byte)state.Blocking); OptionalGuid(writer, state.Occupant);
++        }
++        private static WireCell ReadCell(BinaryReader reader)
++        {
++            int index = reader.ReadInt32(); byte known = reader.ReadByte(); uint tile = reader.ReadUInt32();
++            short height = reader.ReadInt16(); ushort flags = reader.ReadUInt16(); ulong version = reader.ReadUInt64();
++            byte hasBusiness = reader.ReadByte(); GridBusinessState? business = null;
++            if (known > 1 || hasBusiness > 1 || (tile == 0 && (height != 0 || flags != 0 || hasBusiness != 0)) ||
++                (known == 0 && (tile != 0 || height != 0 || flags != 0 || hasBusiness != 0 || version != 0)))
++                throw new FormatException("Noncanonical cell.");
++            if (hasBusiness != 0)
++            {
++                int durability = reader.ReadInt32(), quality = reader.ReadInt32(), reserves = reader.ReadInt32();
++                var blocking = (GridBlockingOverride)reader.ReadByte(); var occupant = OptionalGuid(reader);
++                if (durability < 0 || quality < 0 || quality > ushort.MaxValue || reserves < 0 || !Enum.IsDefined(typeof(GridBlockingOverride), blocking))
++                    throw new FormatException("Invalid business state.");
++                business = new GridBusinessState(durability, quality, reserves, blocking, occupant);
++            }
++            return new WireCell(index, known != 0, new GridCell(tile, height, flags), business, version);
++        }
+         private static int Count(BinaryReader r, int maximum, int width) { int n = r.ReadInt32(); if (n < 0 || n > maximum || (long)n * width > r.BaseStream.Length - r.BaseStream.Position) throw new FormatException("Count limit."); return n; }
+         private static byte[] Exact(BinaryReader r, int length) { byte[] bytes = r.ReadBytes(length); if (bytes.Length != length) throw new EndOfStreamException(); return bytes; }
+         private static void Guid(BinaryWriter w, StableGuid id) { byte[] bytes = new byte[16]; id.WriteCanonicalBytes(bytes); w.Write(bytes); }
+         private static StableGuid Guid(BinaryReader r) => StableGuid.FromCanonicalBytes(Exact(r, 16));
++        // 仅可选占用者允许十六个零字节表示未占用；世界与材质身份仍走严格 Guid 编解码。
++        private static void OptionalGuid(BinaryWriter writer, StableGuid id)
++        {
++            var bytes = new byte[16];
++            if (!id.IsEmpty) id.WriteCanonicalBytes(bytes);
++            writer.Write(bytes);
++        }
++        private static StableGuid OptionalGuid(BinaryReader reader)
++        {
++            var bytes = Exact(reader, 16);
++            foreach (byte value in bytes) if (value != 0) return StableGuid.FromCanonicalBytes(bytes);
++            return default;
++        }
+         private static void Bounds(BinaryWriter w, GridBounds b) { if (!b.IsValid) throw new FormatException(); w.Write(b.MinU); w.Write(b.MinV); w.Write(b.Width); w.Write(b.Height); }
+         private static GridBounds Bounds(BinaryReader r) => new GridBounds(r.ReadInt32(), r.ReadInt32(), r.ReadInt32(), r.ReadInt32());
+     }
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ProtocolLimits.cs b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ProtocolLimits.cs
+index 452fdeb..2c02c03 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ProtocolLimits.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ProtocolLimits.cs
+@@ -2,14 +2,14 @@ namespace AnyRules.Next.Networking
+ {
+     public static class ProtocolLimits
+     {
+-        public const ushort Version = 1;
++        public const ushort Version = 2;
+         public const int MaximumPacketBytes = 256 * 1024;
+         public const int MaximumChunkSize = 32;
+         public const int MaximumChunkCells = 1024;
+         public const int MaximumChunks = 128;
+         public const int MaximumPalette = 4096;
+         public const int MaximumPendingCommits = 16;
+-        public const int MaximumBufferedBytes = 2 * 1024 * 1024;
++        public const int MaximumBufferedBytes = 8 * 1024 * 1024;
+         public const int MaximumLogPackets = 128;
+         public const int RetryTicks = 120;
+         public const int MaximumRetries = 3;
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs
+index df0b8a4..572c555 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs
+@@ -1,6 +1,7 @@
+ using System;
+ using System.Diagnostics;
+ using AnyRules.Next;
++using AnyRules.Next.Compiler;
+ using AnyRules.Next.Networking;
+ using NUnit.Framework;
+ 
+@@ -17,6 +18,40 @@ namespace AnyRules.Tests
+         private static ChunkReplicaStateMachine Replica() => new ChunkReplicaStateMachine(Tiles, Digest, Digest);
+         private static void Drain(MapInterestService stream, ChunkReplicaStateMachine replica, bool ack = true)
+         { byte[] b; while ((b = stream.Dequeue()) != null) replica.Receive(b); if (ack) stream.Acknowledge(replica.CommitId); }
++        [Test]
++        public void DamagedUnoccupiedCellPublishesDeltaAndRestoresLateJoin()
++        {
++            var source = new RuleCatalogSource(Id(130), 1, new[]
++            {
++                new TerrainDefinitionData(Id(1), TerrainKey.Parse("gold"), "Gold", maximumDurability: 100)
++            }, Array.Empty<TileVisualSetData>(), Array.Empty<RuleSetData>());
++            var gameplay = RuleCompiler.Compile(source, RuleCompiler.ComputeSourceDigest(source)).Runtime.Gameplay;
++            var business = new GridBusinessCatalog(gameplay);
++            var descriptor = new WorldDescriptor(new WorldIdentity(Id(220), 1), 0, 0, new GridBounds(0, 0, 4, 4), 4, 4);
++            using var map = ARDMap.CreateOffline(descriptor, gameplay.Tiles, business: business);
++            map.LoadEmptyChunk(default); map.SetTileType(default, map.Tiles.ByKey("gold"));
++            using var stream = Service(map);
++            var replica = new ChunkReplicaStateMachine(map.Tiles, Digest, Digest, business);
++            stream.Subscribe(descriptor.Bounds); Drain(stream, replica);
++            ulong version = replica.ContentVersion(default);
++            map.Edit(edit => edit.Damage(default, 10));
++            Assert.That(stream.Publish(), Is.True); Drain(stream, replica);
++            Assert.That(replica.Query(default).State, Is.EqualTo(map.Business.Query(default).State));
++            Assert.That(replica.Query(default).State.Durability, Is.EqualTo(90));
++            Assert.That(replica.Query(default).State.Occupant.IsEmpty, Is.True);
++            Assert.That(replica.ContentVersion(default), Is.EqualTo(version));
++            using var lateJoin = Service(map, session: 2);
++            var joiningReplica = new ChunkReplicaStateMachine(map.Tiles, Digest, Digest, business);
++            lateJoin.Subscribe(descriptor.Bounds); Drain(lateJoin, joiningReplica);
++            Assert.That(joiningReplica.Query(default).State, Is.EqualTo(replica.Query(default).State));
++            joiningReplica.ResetConnection();
++            using var reconnect = Service(map, session: 3);
++            reconnect.Subscribe(descriptor.Bounds); Drain(reconnect, joiningReplica);
++            Assert.That(joiningReplica.Query(default).State, Is.EqualTo(replica.Query(default).State));
++            map.ClearTile(default); Assert.That(stream.Publish(), Is.True); Drain(stream, replica);
++            Assert.That(replica.Read(default).Cell.IsEmpty, Is.True);
++            Assert.That(replica.Query(default).HasState, Is.False);
++        }
+         [Test] public void LateJoinReconnect()
+         {
+             using var map = Map(); map.ClearTile(default); var first = Service(map); first.Subscribe(new GridBounds(0, 0, 4, 4)); var r = Replica(); Drain(first, r); Assert.That(r.Read(default).Cell.IsEmpty, Is.True);
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/ProtocolTests.cs b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/ProtocolTests.cs
+index 4e3cf35..c417014 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/ProtocolTests.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/ProtocolTests.cs
+@@ -22,6 +22,33 @@ namespace AnyRules.Tests
+         private static MapPacket Manifest(ulong commit = 1, params int[] chunks) { var p = Packet(MapMessage.Manifest, commit); p.Targets = (chunks.Length == 0 ? new[] { 0 } : chunks).Select(i => new ChunkTarget(new ChunkCoord(i, 0), commit)).ToArray(); return p; }
+         private static MapPacket Delta(ulong commit = 2, int chunk = 0) { var p = Packet(MapMessage.Delta, commit, chunk); p.BaseRevision = commit - 1; p.Revision = commit; p.Cells = new[] { new WireCell(0, true, default) }; return p; }
+         private static bool Send(ChunkReplicaStateMachine r, MapPacket p) => r.Receive(MapProtocol.Encode(p));
++        [TestCase(MapMessage.Snapshot, false)]
++        [TestCase(MapMessage.Snapshot, true)]
++        [TestCase(MapMessage.Delta, false)]
++        [TestCase(MapMessage.Delta, true)]
++        public void BusinessOccupantRoundTrips(MapMessage kind, bool occupied)
++        {
++            var state = new GridBusinessState(85, 7, 8, GridBlockingOverride.Passable, occupied ? Id(99) : default);
++            var packet = Packet(kind);
++            packet.Cells = new[] { new WireCell(0, true, new GridCell(1, 2, 3), state, 12) };
++            var decoded = MapProtocol.Decode(MapProtocol.Encode(packet)).Cells[0];
++            Assert.That(decoded.Business, Is.EqualTo(state));
++            Assert.That(decoded.Value, Is.EqualTo(packet.Cells[0].Value));
++            Assert.That(decoded.ContentVersion, Is.EqualTo(12));
++        }
++        [Test]
++        public void RequiredWorldGuidStillRejectsUnassignedIdentity()
++        {
++            var packet = Packet(MapMessage.Ready); packet.World = default;
++            Assert.Throws<InvalidOperationException>(() => MapProtocol.Encode(packet));
++            var bytes = MapProtocol.Encode(Packet(MapMessage.Ready));
++            Array.Clear(bytes, 8, 16);
++            using var sha = SHA256.Create();
++            sha.ComputeHash(bytes, 0, bytes.Length - 32).CopyTo(bytes, bytes.Length - 32);
++            Assert.Throws<FormatException>(() => MapProtocol.Decode(bytes));
++            Assert.Throws<InvalidOperationException>(() => default(StableGuid).WriteCanonicalBytes(new byte[16]));
++            Assert.Throws<FormatException>(() => StableGuid.FromCanonicalBytes(new byte[16]));
++        }
+         [Test] public void SnapshotDeltaRace()
+         {
+             var r = Replica(); Send(r, Delta()); Send(r, Manifest(2)); Send(r, Manifest()); Assert.That(r.Read(default).State, Is.EqualTo(GridSampleState.Unknown)); Send(r, Snapshot());
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/package.json b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/package.json
+index 414d073..fecfc73 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules.networking/package.json
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules.networking/package.json
+@@ -1,6 +1,6 @@
+ {
+   "name": "com.tsgame.anyrules.networking",
+-  "version": "0.2.0-preview.1",
++  "version": "0.3.0-preview.1",
+   "displayName": "AnyRuleD Map State Networking",
+   "description": "Transport-independent bounded map protocol, streams, and read-only replicas.",
+   "unity": "6000.2",
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessCatalog.cs b/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessCatalog.cs
+index c8c677e..bdf9a93 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessCatalog.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessCatalog.cs
+@@ -24,7 +24,7 @@ namespace AnyRules.Next
+             DefaultReserves = defaultReserves; DamageVisualStages = damageVisualStages; DropDefinitionGuid = dropDefinitionGuid;
+         }
+         public GridBusinessState DefaultState => new GridBusinessState(MaximumDurability, DefaultQuality, DefaultReserves);
+-        internal void Validate(GridBusinessState state)
++        public void Validate(GridBusinessState state)
+         {
+             if (state.Durability < 0 || state.Durability > MaximumDurability || state.Quality < 0 || state.Quality > ushort.MaxValue ||
+                 state.RemainingReserves < 0 || !Enum.IsDefined(typeof(GridBlockingOverride), state.Blocking))
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessStateStore.cs b/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessStateStore.cs
+index 7e8fcdf..9fbfdb2 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessStateStore.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessStateStore.cs
+@@ -34,7 +34,8 @@ namespace AnyRules.Next
+         public bool HasStoredOverride { get; }
+         public GridBusinessState State => HasState ? _state : throw new InvalidOperationException("Empty or Unknown has no business state.");
+         public VisualStateKey VisualState => HasState ? Definition.Project(_state) : default;
+-        internal GridBusinessSample(GridSample sample, TerrainGameplayDefinition terrain, GameplayDefinitionData definition, GridBusinessState state, bool stored)
++        /// <summary>由冻结地图或已校验的网络副本构造展示查询值，不授予写入权限。</summary>
++        public GridBusinessSample(GridSample sample, TerrainGameplayDefinition terrain, GameplayDefinitionData definition, GridBusinessState state, bool stored)
+         { Sample = sample; Terrain = terrain; Definition = definition; _state = state; HasStoredOverride = stored; }
+     }
+     public interface IGridBusinessQuery
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/IGridCellIdentitySource.cs b/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/IGridCellIdentitySource.cs
+new file mode 100644
+index 0000000..9a674df
+--- /dev/null
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/IGridCellIdentitySource.cs
+@@ -0,0 +1,8 @@
++namespace AnyRules.Next
++{
++    /// <summary>格内容实例版本的只读合同；更换或重置内容才推进，耐久变化不使合作采集目标过期，世界代次变化后重新建立版本。</summary>
++    public interface IGridCellIdentitySource
++    {
++        ulong ContentVersion(CellCoord position);
++    }
++}
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/IGridCellIdentitySource.cs.meta b/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/IGridCellIdentitySource.cs.meta
+new file mode 100644
+index 0000000..e373cd4
+--- /dev/null
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/IGridCellIdentitySource.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: bd63d1ff18704474e8d7a5e9f1df9649
+\ No newline at end of file
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Grid/ARDMap.cs b/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Grid/ARDMap.cs
+index db06dd4..e4d5cc7 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Grid/ARDMap.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Grid/ARDMap.cs
+@@ -263,6 +263,7 @@ namespace AnyRules.Next
+                     bool remove = buffer.RemovedOverrides.Contains(position);
+                     bool overlayChanged = hasCellWrite && Overlay != null && Overlay.WouldChange(position, after, remove);
+                     var impact = before != after ? GridChangeImpacts.TerrainReplacement : overlayChanged ? GridChangeImpact.Logic : GridChangeImpact.None;
++                    if (buffer.BusinessResets?.Contains(position) == true) impact |= GridChangeImpact.Logic;
+                     if (Business != null)
+                     {
+                         GridBusinessState? requested = buffer.BusinessWrites != null && buffer.BusinessWrites.TryGetValue(position, out var state) ? state : (GridBusinessState?)null;
+diff --git a/Runtime/Objects/NetworkStates/SessionStateChange.cs b/Runtime/Objects/NetworkStates/SessionStateChange.cs
+index f72e989..f983d96 100644
+--- a/Runtime/Objects/NetworkStates/SessionStateChange.cs
++++ b/Runtime/Objects/NetworkStates/SessionStateChange.cs
+@@ -18,7 +18,10 @@ namespace GameCore.Objects.NetworkStates
+         internal abstract void Notify();
+         public abstract void Dispose();
+ 
+-        public static void CommitAll(IReadOnlyList<SessionStateChange> changes)
++        public static void CommitAll(IReadOnlyList<SessionStateChange> changes) => CommitAll(changes, null);
++
++        /// <summary>全部对象候选校验后执行唯一外部原子安装；外部安装失败不得改变自身状态，也不得发布或重入业务通知。</summary>
++        public static void CommitAll(IReadOnlyList<SessionStateChange> changes, Action installExternal)
+         {
+             RequireOutsideNotification();
+             if (changes == null) throw new ArgumentNullException(nameof(changes));
+@@ -29,6 +32,7 @@ namespace GameCore.Objects.NetworkStates
+                     throw new InvalidOperationException("同一状态所有者不能重复加入一个提交批次。");
+                 change.Validate();
+             }
++            installExternal?.Invoke();
+             // Install 只交换已验证的引用，不调用用户代码；任何订阅都只能看到完整提交后的 State。
+             foreach (SessionStateChange change in changes) change.Install();
+             publishing = true;

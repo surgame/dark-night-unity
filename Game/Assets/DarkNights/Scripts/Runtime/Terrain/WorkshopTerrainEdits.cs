@@ -37,7 +37,7 @@ namespace DarkNights.Runtime.Terrain
             {
                 var p = new CellCoord(x, -row);
                 if (x > 0 && row > 0 && x < initial.Width - 1 && row < initial.Height - 1 &&
-                    !initial.IsProtected(x, row) && initial.MaterialAt(x, row) != 8 && map.Read(p).TryGetCell(out var old) && !old.Equals(value))
+                    initial.MaterialAt(x, row) != 8 && map.Read(p).TryGetCell(out var old) && !old.Equals(value))
                 { before[p] = old; after[p] = value; }
                 if (x == endX && row == endRow) break;
                 int twice = error * 2;

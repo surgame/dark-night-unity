@@ -11,10 +11,15 @@ namespace DarkNights.Runtime.Objects
     {
         internal static void Cancel(ActorState state)
         {
+            if (state.PickaxeSwingActive) state.EquipmentAction = 0;
+            state.PickaxeSwingActive = state.PickaxeHitPending = false;
+            state.PickaxeSwingTarget = default; state.PickaxeSwingAim = 0;
             state.Charging = false; state.ChargeSeconds = 0;
             state.UsePressed = state.UseReleased = state.UseHeld = false;
             state.MiningWorldId = null; state.MiningMapEpoch = 0;
             state.MiningU = state.MiningV = 0; state.MiningTileId = 0; state.MiningFlags = 0;
+            state.MiningTargetKind = DarkNights.Core.ViewData.HeroMiningTargetKind.None;
+            state.MiningEntityId = 0; state.MiningContentVersion = 0;
         }
 
         internal static void Tick(ActorBehaviour actor, double delta)
@@ -29,7 +34,12 @@ namespace DarkNights.Runtime.Objects
                 actor.World.IsExpedition && !actor.World.Expedition.Active) { Cancel(state); return; }
             HeroEquipmentKind item = HeroInventoryBehaviour.Slot(state, state.SelectedItem);
             if (item != HeroEquipmentKind.Empty)
-                state.Face = Math.Cos(state.AimAngle * Math.PI / 180) < 0 ? -1 : 1;
+                state.Face = Math.Cos((state.PickaxeSwingActive ? state.PickaxeSwingAim : state.AimAngle) * Math.PI / 180) < 0 ? -1 : 1;
+            if (item == HeroEquipmentKind.Pickaxe)
+            {
+                TickPickaxe(actor, state, config, pressed);
+                return;
+            }
             if (item == HeroEquipmentKind.Bomb)
             {
                 if (pressed && state.EquipmentCooldown == 0 && state.ExplosiveCharges > 0) state.Charging = true;
@@ -49,14 +59,28 @@ namespace DarkNights.Runtime.Objects
                 if (!actor.World.Projectiles.LaunchHandheld(state, false, 0)) return;
                 state.EquipmentCooldown = config.FireInterval; state.EquipmentAction = 0.12;
             }
-            else if (item == HeroEquipmentKind.Pickaxe)
-            {
-                if (!HeroMining.TryMine(actor)) return;
-                state.EquipmentCooldown = config.PickaxeSeconds;
-                state.EquipmentAction = config.PickaxeSeconds;
-            }
             else return;
             state.EquipmentActionDuration = state.EquipmentAction;
+        }
+
+        private static void TickPickaxe(ActorBehaviour actor, ActorState state, HandheldConfig config, bool pressed)
+        {
+            if (state.PickaxeSwingActive)
+            {
+                if (state.PickaxeHitPending && state.EquipmentAction <= config.PickaxeSeconds * (1 - config.PickaxeImpactFraction))
+                {
+                    state.PickaxeHitPending = false;
+                    HeroMining.TryMine(actor, state.PickaxeSwingTarget, state.PickaxeSwingAim);
+                }
+                if (state.EquipmentAction > 0) return;
+                state.PickaxeSwingActive = false; state.PickaxeSwingTarget = default;
+            }
+            if (state.EquipmentCooldown > 0 || (!state.UseHeld && !pressed)) return;
+            state.PickaxeSwingTarget = HeroMining.InputTarget(state);
+            state.PickaxeSwingAim = state.AimAngle;
+            state.Face = Math.Cos(state.PickaxeSwingAim * Math.PI / 180) < 0 ? -1 : 1;
+            state.PickaxeSwingActive = state.PickaxeHitPending = true;
+            state.EquipmentCooldown = state.EquipmentAction = state.EquipmentActionDuration = config.PickaxeSeconds;
         }
     }
 }
