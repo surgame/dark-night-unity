@@ -17,7 +17,9 @@ namespace DarkNights.Editor
         private readonly IVisualElementScheduledItem refresh;
         private readonly Label state = new Label();
         private bool disposed;
+        private bool subscribed;
         internal ObjectDefinition Target { get; }
+        internal string Error { get; private set; } = "";
 
         internal DarkNightsDefinitionEditor(ObjectDefinition target, bool showSave = true)
         {
@@ -41,14 +43,10 @@ namespace DarkNights.Editor
                 };
             }
             Add(state);
-            if (showSave) Add(new Button(Save) { text = "保存当前 Definition" });
-            refresh = schedule.Execute(() =>
-            {
-                bool blocked = EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling;
-                SetEnabled(!blocked);
-                state.text = blocked ? "Play／编译期间禁止编辑与保存。" : Target != null && EditorUtility.IsDirty(Target)
-                    ? "当前原始资产有未保存修改。" : "当前原始资产已保存。";
-            }).Every(250);
+            if (showSave) Add(new Button(() => Save()) { text = "保存当前 Definition" });
+            RegisterCallback<AttachToPanelEvent>(_ => Subscribe());
+            RegisterCallback<DetachFromPanelEvent>(_ => Unsubscribe());
+            UpdateState(); refresh = schedule.Execute(UpdateState).Every(250);
         }
 
         private void AddPane(string label, string name, bool expanded)
@@ -58,21 +56,55 @@ namespace DarkNights.Editor
         }
         private void OnModified()
         {
-            if (disposed || Target == null) return;
+            if (disposed || Target == null || EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling) return;
             WorkshopConfigService.AutoSyncAndCleanConfigs(Target, false, presenter.UpdateTrees);
             EditorUtility.SetDirty(Target); presenter.RepaintAll();
         }
-        internal void Save()
+        internal bool Save() => TrySave(null);
+        internal bool TrySave(Action<ObjectDefinition> validate)
         {
-            if (disposed || Target == null || EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling) return;
-            WorkshopConfigService.AutoSyncAndCleanConfigs(Target, false, presenter.UpdateTrees);
-            ObjectDefinitionSaveUtility.SaveDefinition(Target, WorkshopConfigService.GetRequiredConfigTypes(Target));
+            if (disposed || Target == null || EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)
+            { Error = "当前编辑状态不允许保存。"; return false; }
+            if (!AssetDatabase.Contains(Target)) { Error = "当前 Definition 尚未保存为资产，不能执行资产保存。"; return false; }
+            try
+            {
+                serialized.ApplyModifiedProperties();
+                validate?.Invoke(Target);
+                WorkshopConfigService.AutoSyncAndCleanConfigs(Target, false, presenter.UpdateTrees);
+                ObjectDefinitionSaveUtility.SaveDefinition(Target, WorkshopConfigService.GetRequiredConfigTypes(Target));
+                serialized.Update(); presenter.UpdateTrees(); presenter.RepaintAll(); Error = ""; return true;
+            }
+            catch (Exception error) { Error = error.Message; state.text = "保存未完成：" + Error; return false; }
+        }
+        private void UpdateState()
+        {
+            if (disposed) return;
+            bool blocked = EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling;
+            SetEnabled(!blocked);
+            state.text = blocked ? "Play／编译期间禁止编辑与保存。" : Error.Length > 0 ? "保存未完成：" + Error
+                : Target != null && EditorUtility.IsDirty(Target) ? "当前原始资产有未保存修改。" : "当前原始资产已保存。";
+        }
+        private void Subscribe()
+        {
+            if (disposed || subscribed) return;
+            Undo.undoRedoPerformed += OnUndoRedo; EditorApplication.playModeStateChanged += OnPlayMode;
+            subscribed = true; OnUndoRedo(); UpdateState();
+        }
+        private void Unsubscribe()
+        {
+            if (!subscribed) return;
+            Undo.undoRedoPerformed -= OnUndoRedo; EditorApplication.playModeStateChanged -= OnPlayMode; subscribed = false;
+        }
+        private void OnPlayMode(PlayModeStateChange _) => UpdateState();
+        private void OnUndoRedo()
+        {
+            if (disposed || Target == null) return;
             serialized.Update(); presenter.UpdateTrees(); presenter.RepaintAll();
         }
         public void Dispose()
         {
             if (disposed) return;
-            disposed = true; refresh.Pause(); presenter.OnDataModified -= OnModified;
+            disposed = true; Unsubscribe(); refresh.Pause(); presenter.OnDataModified -= OnModified;
             presenter.DisposeTrees(); serialized.Dispose(); Clear();
         }
     }

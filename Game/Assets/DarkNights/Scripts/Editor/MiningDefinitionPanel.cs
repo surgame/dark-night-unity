@@ -16,7 +16,9 @@ namespace DarkNights.Editor
     /// </summary>
     internal sealed class MiningDefinitionPanel : VisualElement, IDisposable
     {
-        private ObjectDefinition tool, deposit;
+        private readonly MiningDefinitionPanelState selection;
+        private ObjectDefinition tool { get => selection.Tool; set => selection.Tool = value; }
+        private ObjectDefinition deposit { get => selection.Deposit; set => selection.Deposit = value; }
         private DarkNightsDefinitionEditor inspector;
         private readonly VisualElement content = new VisualElement();
         private readonly HelpBox result = new HelpBox("", HelpBoxMessageType.Info);
@@ -26,13 +28,15 @@ namespace DarkNights.Editor
         private readonly Toggle rare = new Toggle("使用稀有矿材料");
         private readonly IVisualElementScheduledItem refresh;
         private Button save;
-        private string tab = "tool";
+        private string tab { get => selection.Tab; set => selection.Tab = value; }
         private bool disposed;
 
-        internal MiningDefinitionPanel()
+        internal MiningDefinitionPanel() : this(new MiningDefinitionPanelState()) { }
+        internal MiningDefinitionPanel(MiningDefinitionPanelState selection)
         {
-            tool = AssetDatabase.LoadAssetAtPath<ObjectDefinition>("Assets/DarkNights/Res/Objects/ShipTrade/item-pickaxe.asset");
-            deposit = AssetDatabase.LoadAssetAtPath<ObjectDefinition>("Assets/DarkNights/Res/Objects/MineralDeposit/MineralDeposit.asset");
+            this.selection = selection ?? throw new ArgumentNullException(nameof(selection)); selection.Initialize();
+            kind.SetValueWithoutNotify(selection.Mineral ? "矿床" : "前景岩壁");
+            rare.SetValueWithoutNotify(selection.Rare); material.SetValueWithoutNotify(selection.Material);
             Add(new HelpBox("直接编辑工具和矿床的原生 YYGC Definition；保存当前资产后新会话生效。", HelpBoxMessageType.Info));
             var toolField = new ObjectField("工具 Definition") { name = "mining-tool", objectType = typeof(ObjectDefinition), value = tool, allowSceneObjects = false };
             var targetField = new ObjectField("矿床 Definition") { name = "mining-deposit", objectType = typeof(ObjectDefinition), value = deposit, allowSceneObjects = false };
@@ -44,17 +48,18 @@ namespace DarkNights.Editor
             toolbar.Add(new ToolbarButton(() => ShowTab("deposit")) { text = "矿床配置", name = "mining-deposit-tab" });
             toolbar.Add(new ToolbarButton(() => ShowTab("match")) { text = "匹配验证", name = "mining-match-tab" });
             Add(toolbar); Add(content);
-            kind.RegisterValueChangedCallback(_ => RefreshMatch());
-            rare.RegisterValueChangedCallback(_ => { DefaultMaterial(); RefreshMatch(); });
-            material.RegisterValueChangedCallback(_ => RefreshMatch());
-            DefaultMaterial(); ShowTab("tool");
+            kind.RegisterValueChangedCallback(_ => { selection.Mineral = kind.index == 0; RefreshMatch(); });
+            rare.RegisterValueChangedCallback(_ => { selection.Rare = rare.value; DefaultMaterial(); RefreshMatch(); });
+            material.RegisterValueChangedCallback(_ => { selection.Material = material.value; RefreshMatch(); });
+            ShowTab(tab);
             refresh = schedule.Execute(UpdateState).Every(250);
         }
 
         private void ShowTab(string selected)
         {
             if (disposed) return;
-            tab = selected; ClearInspector(); content.Clear(); save = null;
+            tab = selected == "deposit" || selected == "match" ? selected : "tool";
+            ClearInspector(); content.Clear(); save = null;
             if (tab == "match")
             {
                 content.Add(kind); content.Add(rare); content.Add(material); content.Add(result);
@@ -87,9 +92,9 @@ namespace DarkNights.Editor
             {
                 var asset = tab == "tool" ? tool : deposit;
                 if (asset == null) return;
-                asset.SharedConfigs.OfType<MiningToolConfig>().SingleOrDefault()?.Freeze();
-                asset.SharedConfigs.OfType<MineralDepositRuleConfig>().SingleOrDefault()?.Validate();
-                inspector?.Save();
+                MiningDefinitionValidation.Validate(asset, tab == "tool");
+                if (inspector == null || !inspector.TrySave(value => MiningDefinitionValidation.Validate(value, tab == "tool")))
+                    throw new InvalidOperationException(inspector?.Error ?? "当前编辑器不可保存，请重新选择 Definition。");
                 result.text = "已校验并保存当前 Definition，新会话生效。"; result.messageType = HelpBoxMessageType.Info;
             }
             catch (Exception error) { result.text = error.Message; result.messageType = HelpBoxMessageType.Error; }
@@ -98,8 +103,13 @@ namespace DarkNights.Editor
 
         private void DefaultMaterial()
         {
-            var target = deposit?.SharedConfigs.OfType<MineralDepositRuleConfig>().SingleOrDefault();
-            material.SetValueWithoutNotify(target == null ? "" : rare.value ? target.RareResource : target.CommonResource);
+            try
+            {
+                var target = deposit?.SharedConfigs.OfType<MineralDepositRuleConfig>().SingleOrDefault();
+                selection.Material = target == null ? "" : rare.value ? target.RareResource : target.CommonResource;
+                material.SetValueWithoutNotify(selection.Material);
+            }
+            catch (Exception error) { result.text = error.Message; result.messageType = HelpBoxMessageType.Error; }
         }
 
         private void RefreshMatch()

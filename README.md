@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-10-02 [Definition 与 Editor 复评](docs/DEFINITION_EDITOR_REVIEW.md)：已核对全部 44 个定义，列出 8 组运行能力缺口；首批修复 6 项 Editor 保存、状态恢复和生命周期问题。专项 11/11、作者资产与生命周期探针 52/52；手枪／炸药、喷气背包等能力迁移仍按清单推进。
+
 2026-10-02 [统一编辑工作台](docs/EDITOR_WORKBENCH.md)：日常配置、预览与正式场景集中到 `Dark Nights / 工作台`，按用途搜索和定位原始资产；复杂编辑继续复用原有专用窗口，Definition 与草稿的状态归属不变。仅调整 Editor 入口，协议 22／存档 v15 不变。
 
 2026-10-02 [工具 Definition 采集重构](docs/TOOL_DEFINITION_HARVESTING.md)：矿镐能力及参数归自身 Definition，装备槽保存稳定定义身份，矿床仅描述材料与采集要求；默认仍只采前景。协议 **22**／存档 **v15**／AMP1 schema **2**。当前工具配置入口为 `Dark Nights / 工作台 → 工具与采集能力`；先前矿床开关方案已被本轮替代，历史证据保留。

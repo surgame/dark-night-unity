@@ -1,0 +1,82 @@
+{
+  "task": "definition-editor-review-20261002",
+  "base_commit": "9c9b8cdd3ad9f4e04c30022b5473d971709c7aab",
+  "date": "2026-10-02",
+  "assessment": "docs/DEFINITION_EDITOR_REVIEW.md",
+  "inventory": "artifacts/definition-editor-review-20261002/definitions-inventory.json",
+  "definition_count": 44,
+  "editor_findings": [
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6"
+  ],
+  "implemented": [
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6"
+  ],
+  "runtime_findings_pending": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7",
+    "R8"
+  ],
+  "framework_popup_callback_boundary": "identified by source review; deferred isolated YYGC hardening, no claim of safety after closed/Play contexts",
+  "verification": {
+    "editor_tests": {
+      "passed": 11,
+      "total": 11,
+      "report": "artifacts/definition-editor-review-20261002/editor-tests-final.json"
+    },
+    "lifecycle_and_author_bytes": {
+      "passed": 52,
+      "total": 52,
+      "report": "artifacts/definition-editor-review-20261002/lifecycle-probe.json",
+      "source": "artifacts/definition-editor-review-20261002/lifecycle-probe.cs"
+    },
+    "initial_fixture_results": {
+      "passed": 8,
+      "total": 11,
+      "report": "artifacts/definition-editor-review-20261002/editor-tests-first.json",
+      "repair": "Three UI callback fixtures now use attached real EditorWindow panels; DefinitionGuid constructor fixture compilation repaired with DefinitionGuid.Parse"
+    },
+    "tests_retry": "artifacts/definition-editor-review-20261002/editor-tests-retry.json",
+    "window_restore": "EditorJsonUtility roundtrip and actual CreateGUI reconstruction; forced domain reload itself not executed",
+    "final_review": "save applies pending serialized edits before business validation and disk write; no automatic validation bypass via config sync; transient and disposed editors cannot save; attach/detach event ownership checked"
+  },
+  "unity": "6000.4.9f1",
+  "protocol": 22,
+  "save_version": 15,
+  "runtime_changes": false,
+  "yygc_changes": [],
+  "not_verified": [
+    "actual forced domain reload through Unity assembly reload",
+    "cross-Play old native GenericMenu callback",
+    "new runtime Definition capability migrations",
+    "pixel-level screenshots",
+    "Player build (Editor-only slice)"
+  ],
+  "cleanup": {
+    "exclusive_rebuildable_outputs": 0,
+    "archived_bytes": 0,
+    "deleted_bytes": 0,
+    "shared_Unity_cache": "retained",
+    "formal_evidence_and_source": "retained",
+    "free_disk_bytes": {
+      "C": 11403051008,
+      "D": 27419062272
+    }
+  },
+  "foreign_worktree_changes": "preserved; partial staging of existing dirty documentation",
+  "pushed": false
+}

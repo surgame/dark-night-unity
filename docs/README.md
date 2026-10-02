@@ -1,5 +1,7 @@
 # Dark Nights 文档结构
 
+2026-10-02 [Definition 与 Editor 复评及最终 Review](DEFINITION_EDITOR_REVIEW.md)：Editor 首批 6 项修正已完成，8 组装备／远征能力化缺口与后续执行顺序逐项列明。专项 11/11，生命周期与资产保持 52/52。
+
 2026-10-02 [统一编辑工作台](EDITOR_WORKBENCH.md)：日常配置、预览和正式场景聚合到 `Dark Nights / 工作台`；入口分类、作者来源和保存流程见本页说明。
 
 2026-10-02 当前[工具 Definition 与采集能力](TOOL_DEFINITION_HARVESTING.md)：工具自身配置能力与目标匹配，矿床配置材料与要求，原生 Definition 编辑入口不编译地形。协议 **22**／存档 **v15**／AMP1 schema **2**；先前矿床开关候选已被替代，当前入口见操作指南。

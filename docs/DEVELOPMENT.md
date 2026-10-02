@@ -1,5 +1,9 @@
 # Dark Nights Unity 开发执行计划
 
+## 2026-10-02 Definition 与 Editor 复评后的首批改进
+
+完整评估与最终 Review 见[复评清单](DEFINITION_EDITOR_REVIEW.md)：44 个 Definition 的能力归属、8 组运行侧缺口与顺序均已记录。先完成 E1–E6：采集装配／白名单严格校验，EditorWindow 序列化纯导航状态，搜索保留当前源与编辑树，初始化与 Play／Undo 状态刷新，事件和地形序列化句柄释放，错误矿床选择转提示。保存以最新已应用序列化值校验后写盘；临时对象／已关闭编辑器拒绝保存。Editor 专项最终 11/11、真实窗口生命周期与作者资产保持 52/52；初轮失败及修复保留报告。无运行数值、身份、协议 22／存档 v15 或 YYGC 变更，未构建 Player。运行能力 R1–R8 以及原生 GenericMenu 跨上下文守卫仍未实施，不宣称整体迁移完成；本批[机器证据](evidence/definition-editor-review-20261002.json)。
+
 ## 2026-10-02 编辑工作台聚合
 
 常用入口集中到 `Dark Nights / 工作台`，左侧分类与搜索，右侧专用工具打开按钮或原生资产 Inspector。原配置菜单、Terrain 下的当前配置／预览／正式场景快捷菜单收进目录；初始化、安装、构建、验证及旧实验入口保留。导航不持有业务配置、不自动应用草稿；YYGC 框架、资源 GUID、协议 22／存档 v15 不变。完成[聚合评估](EDITOR_WORKBENCH_ASSESSMENT.md)后补齐 UI Toolkit 可拖动双栏、分类筛选、内嵌采集编辑／匹配和原生 Definition 浏览器；独立采集窗口复用同一面板。Local Editor 编译及最终交互探针 190/190、原生工坊重绘检查 5/5 通过，覆盖十一个页面、全部资产、筛选／搜索／选择回调、原生工坊 SharedConfigs／BehaviourTypes、目标匹配、四个专用窗口打开、幂等释放与作者资产字节保持。未构建 Player，不计作玩法或画面验收。详见[操作说明](EDITOR_WORKBENCH.md)和[机器证据](evidence/editor-workbench-20261002.json)。

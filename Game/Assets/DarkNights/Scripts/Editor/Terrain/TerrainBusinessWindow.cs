@@ -20,6 +20,7 @@ namespace DarkNights.Editor.Terrain
         private void OnEnable() { minSize = new Vector2(680, 460); Reload(); }
         private void Reload()
         {
+            serialized?.Dispose(); serialized = null;
             preview?.Dispose(); preview = null;
             if (draft == null) { draft = CreateInstance<TerrainProfileDraft>(); draft.hideFlags = HideFlags.HideAndDontSave; }
             try { draft.Load(); serialized = new SerializedObject(draft); error = ""; contour = false; }
@@ -90,8 +91,9 @@ namespace DarkNights.Editor.Terrain
         private void OnDisable()
         {
             preview?.Dispose(); preview = null;
+            serialized?.Dispose(); serialized = null;
             if (draft != null) DestroyImmediate(draft);
-            draft = null; serialized = null;
+            draft = null;
         }
     }
 }

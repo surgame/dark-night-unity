@@ -10,6 +10,7 @@ namespace DarkNights.Editor
     internal sealed class MiningDefinitionWindow : EditorWindow
     {
         private MiningDefinitionPanel panel;
+        [SerializeField] private MiningDefinitionPanelState selection = new MiningDefinitionPanelState();
         public static void Open()
         {
             var window = GetWindow<MiningDefinitionWindow>("工具 Definition");
@@ -19,7 +20,7 @@ namespace DarkNights.Editor
         {
             panel?.Dispose(); rootVisualElement.Clear();
             var scroll = new UnityEngine.UIElements.ScrollView();
-            panel = new MiningDefinitionPanel(); scroll.Add(panel); rootVisualElement.Add(scroll);
+            panel = new MiningDefinitionPanel(selection ??= new MiningDefinitionPanelState()); scroll.Add(panel); rootVisualElement.Add(scroll);
         }
         private void OnDisable() { panel?.Dispose(); panel = null; }
     }

@@ -22,14 +22,17 @@ namespace DarkNights.Editor
         private readonly Label state = new Label();
         private readonly IVisualElementScheduledItem refresh;
         private DarkNightsDefinitionEditor inspector;
-        private ObjectDefinition selected;
-        private string query = "";
+        private readonly DarkNightsDefinitionBrowserState selection;
+        private ObjectDefinition selected { get => selection.Selected; set => selection.Selected = value; }
+        private string query { get => selection.Query; set => selection.Query = value; }
         private bool disposed, subscribed;
 
-        internal DarkNightsDefinitionBrowser()
+        internal DarkNightsDefinitionBrowser() : this(new DarkNightsDefinitionBrowserState()) { }
+        internal DarkNightsDefinitionBrowser(DarkNightsDefinitionBrowserState selection)
         {
+            this.selection = selection ?? throw new ArgumentNullException(nameof(selection));
             Add(new HelpBox("仅浏览游戏 Res 中的原生 Definition。身份与能力沿用 YYGC 编辑器保护，保存只写当前资产。", HelpBoxMessageType.Info));
-            var search = new ToolbarSearchField { name = "definition-search" };
+            var search = new ToolbarSearchField { name = "definition-search", value = query };
             search.RegisterValueChangedCallback(change => { query = change.newValue; Filter(); }); Add(search);
             list = new ListView { name = "definition-list", itemsSource = filtered, fixedItemHeight = 34, selectionType = SelectionType.Single,
                 makeItem = () => new Label(), bindItem = (element, index) =>
@@ -58,21 +61,23 @@ namespace DarkNights.Editor
 
         private void Filter()
         {
+            var desired = selected;
             filtered.Clear();
             filtered.AddRange(definitions.Where(definition => string.IsNullOrWhiteSpace(query) ||
                 (definition.Key + " " + definition.name + " " + AssetDatabase.GetAssetPath(definition))
                     .IndexOf(query.Trim(), StringComparison.OrdinalIgnoreCase) >= 0));
-            list.Rebuild();
-            if (filtered.Count == 0) { list.ClearSelection(); Select(null); return; }
-            int index = filtered.IndexOf(selected); list.selectedIndex = Math.Max(0, index);
+            list.SetSelectionWithoutNotify(Array.Empty<int>()); list.Rebuild();
+            if (filtered.Count == 0) { Select(null); return; }
+            int index = filtered.IndexOf(desired); list.SetSelectionWithoutNotify(new[] { Math.Max(0, index) });
             Select(filtered[list.selectedIndex]);
         }
 
         private void Select(ObjectDefinition definition)
         {
             if (selected == definition && inspector != null && inspector.Target == definition) { UpdateState(); return; }
-            selected = definition; ClearInspector(); editorArea.Clear();
-            if (selected == null) { UpdateState(); return; }
+            ClearInspector(); editorArea.Clear();
+            if (definition == null) { UpdateState(); return; }
+            selected = definition;
             var source = new ObjectField("原始 Definition") { value = selected, objectType = typeof(ObjectDefinition), allowSceneObjects = false };
             source.SetEnabled(false); editorArea.Add(source);
             editorArea.Add(new Button(() => DarkNightsWorkbenchWindow.Locate(selected)) { text = "在 Project 中定位" });
@@ -83,7 +88,7 @@ namespace DarkNights.Editor
         private void UpdateState()
         {
             if (disposed) return;
-            string suffix = selected == null ? "无匹配结果。" : EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling
+            string suffix = inspector == null ? "无匹配结果。" : EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling
                 ? "Play／编译期间禁止编辑与保存。" : EditorUtility.IsDirty(selected) ? "当前资产有未保存修改。" : "当前资产已保存。";
             state.text = filtered.Count + " / " + definitions.Count + " 个 Definition；" + suffix;
         }

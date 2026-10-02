@@ -17,6 +17,10 @@ namespace DarkNights.Editor
         [SerializeField] private string selectedId = "mining";
         [SerializeField] private string search = "";
         [SerializeField] private string group = "全部";
+        [SerializeField] private MiningDefinitionPanelState miningSelection = new MiningDefinitionPanelState();
+        [SerializeField] private DarkNightsDefinitionBrowserState browserSelection = new DarkNightsDefinitionBrowserState();
+        [SerializeField] private string sourceEntry = "", sourcePath = "";
+        private string drawnEntry = "";
         private ScrollView navigation, details;
         private UnityEditor.Editor inspector;
         private DarkNightsDefinitionEditor definitionEditor;
@@ -32,6 +36,7 @@ namespace DarkNights.Editor
 
         public void CreateGUI()
         {
+            ClearInspector(); miningPanel?.Dispose(); miningPanel = null; definitions?.Dispose(); definitions = null; drawnEntry = "";
             rootVisualElement.Clear();
             var header = new Label("Dark Nights 工作台") { style = { fontSize = 18, marginLeft = 12, marginTop = 10, marginBottom = 8 } };
             rootVisualElement.Add(header);
@@ -41,6 +46,7 @@ namespace DarkNights.Editor
             rootVisualElement.Add(searchField);
             var groups = new System.Collections.Generic.List<string> { "全部" };
             groups.AddRange(DarkNightsWorkbenchCatalog.Entries.Select(entry => entry.Group).Distinct());
+            if (!groups.Contains(group)) group = "全部";
             var category = new DropdownField("分类", groups, Math.Max(0, groups.IndexOf(group))) { name = "workbench-category" };
             category.style.marginLeft = category.style.marginRight = 10;
             category.RegisterValueChangedCallback(change => { group = change.newValue; RebuildNavigation(); });
@@ -72,26 +78,26 @@ namespace DarkNights.Editor
             }
             if (entries.Length == 0)
             {
-                ClearInspector(); details.Clear(); details.Add(new HelpBox("没有匹配的入口，请更换搜索词。", HelpBoxMessageType.Info)); return;
+                ClearInspector(); drawnEntry = ""; details.Clear(); details.Add(new HelpBox("没有匹配的入口，请更换搜索词。", HelpBoxMessageType.Info)); return;
             }
-            DrawDetails(entries.Single(entry => entry.Id == selectedId));
+            if (drawnEntry != selectedId) DrawDetails(entries.Single(entry => entry.Id == selectedId));
         }
 
         private void DrawDetails(DarkNightsWorkbenchEntry entry)
         {
-            ClearInspector(); details.Clear();
+            ClearInspector(); drawnEntry = entry.Id; details.Clear();
             details.Add(new Label(entry.Title) { style = { fontSize = 16, unityFontStyleAndWeight = FontStyle.Bold, marginBottom = 8 } });
             details.Add(new HelpBox(entry.Description, HelpBoxMessageType.Info));
             details.Add(new HelpBox(entry.SaveHint, HelpBoxMessageType.None));
             if (entry.Id == "mining")
             {
-                if (miningPanel == null) miningPanel = new MiningDefinitionPanel();
+                if (miningPanel == null) miningPanel = new MiningDefinitionPanel(miningSelection ??= new MiningDefinitionPanelState());
                 details.Add(miningPanel);
                 details.Add(new Button(MiningDefinitionWindow.Open) { text = "在独立窗口继续编辑" }); return;
             }
             if (entry.Id == "objects")
             {
-                if (definitions == null) definitions = new DarkNightsDefinitionBrowser();
+                if (definitions == null) definitions = new DarkNightsDefinitionBrowser(browserSelection ??= new DarkNightsDefinitionBrowserState());
                 details.Add(definitions); return;
             }
             if (entry.OpenEditor != null)
@@ -108,10 +114,11 @@ namespace DarkNights.Editor
                 }
                 return;
             }
-            var choice = new PopupField<string>("作者资产", entry.Assets.ToList(), 0);
+            var paths = entry.Assets.ToList();
+            var choice = new PopupField<string>("作者资产", paths, sourceEntry == entry.Id ? Math.Max(0, paths.IndexOf(sourcePath)) : 0);
             details.Add(choice);
             var assetArea = new VisualElement(); details.Add(assetArea);
-            choice.RegisterValueChangedCallback(change => DrawAsset(assetArea, change.newValue));
+            choice.RegisterValueChangedCallback(change => { sourceEntry = entry.Id; sourcePath = change.newValue; DrawAsset(assetArea, change.newValue); });
             DrawAsset(assetArea, choice.value);
         }
 
