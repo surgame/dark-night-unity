@@ -118,7 +118,7 @@ namespace DarkNights.Tools.PlanetFlowRegression
             bool boarded = true, int? shipPhase = null, int? groundPhase = null)
         {
             bool landed = journey.Phase == JourneyPhase.Landed;
-            var crew = new[] { new ExpeditionActorData(1, 120, 0, 0, 0, 0, 0, 0, 0, boarded) };
+            var crew = new[] { new ExpeditionActorData(1, 0, 0, 0, 0, 0, 0, 0, boarded) };
             var devices = new[] { new ExpeditionDeviceData(2, 0, 0, 0, 0, 0, 568, 0, true) };
             var ship = new ExpeditionShipData(2, shipPhase ?? (landed ? 0 : 3), pilot ?? (journey.Phase == JourneyPhase.Orbit ? 0 : 1), velocity, 0, 0, 568, 0);
             return new ExpeditionViewData(1, groundPhase ?? (landed ? 1 : 0), 0, 0, false, 0, 0, 0, 0, 0, crew, devices,

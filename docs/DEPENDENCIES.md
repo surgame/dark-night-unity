@@ -1,5 +1,7 @@
 # Unity 与 YYGC 依赖准备
 
+2026-10-03 氧气移除候选仅更新游戏协议23／存档v16（含grid-business锁中的游戏版本记录），YYGC锁定提交、补丁哈希、UPM配置和AMP1 schema保持。薄worktree未恢复依赖或启动Unity；后续验证按现有锁定入口准备，不因本切片升级或修改YYGC。具体修改YYGC需先取得用户同意，见[AGENTS](../AGENTS.md)。
+
 2026-09-24 地图联网候选：游戏在 `ref-20260924-map-state-networking` 使用 YYGC 隔离提交 `e07e9a9e3e36cdbae1e0d39ec07aea555e95fbad` 的四个 AnyRuleD 包。先运行 `pwsh -NoProfile -File tools/prepare-map-packages.ps1 -FrameworkPath 'D:/Developer/YYGC-worktrees/map-state-networking'`，脚本从锁定提交归档到忽略的 `.deps/AnyRules-map-state-e07e9a9` 并校验 462 个文件；`Game/Packages/manifest.json` 与 `packages-lock.json` 指向同一提取。旧补丁式脚本已另存 `tools/prepare-map-packages-legacy.ps1`。YYGC 主检出无需切换，新增包及未验边界见[改动账本](YYGC_CHANGES.md)。
 
 本开发分支的 M0 复现入口固定到 YYGC `12b253c6bdd262feb860ab905b9e56e940ec9c40`。`tools/prepare-lan-sample.ps1` 优先使用本机 `D:\Developer\YYGC`，该路径不存在时回退到远端 `git@github.com:surgame/YYGC.git`；也可显式传入 `-FrameworkPath` 或 `-Repository`。脚本不会覆盖已有 `.deps/YYGC-unified`，发现未知差异会停止并要求保留检查。

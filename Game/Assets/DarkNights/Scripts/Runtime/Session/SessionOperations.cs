@@ -32,7 +32,7 @@ namespace DarkNights.Runtime.Session
                     (r.Operation == SessionOperation.SelectDestination ? r.Kind.Length > 0 : r.Kind.Length == 0);
             if (r.Operation == SessionOperation.Expedition)
                 return r.ActorIds.Count <= 1 && r.X == 0 && r.Value == 0 && r.Kind.Length > 0 &&
-                    new[] { "depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "relay", "mine", "resupply", "pilot", "takeoff", "land", "cancel-flight", "deploy" }.Contains(r.Kind);
+                    new[] { "depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "mine", "resupply", "pilot", "takeoff", "land", "cancel-flight", "deploy" }.Contains(r.Kind);
             if (r.Operation == SessionOperation.SellCarriedOre)
                 return r.ActorIds.Count == 1 && r.ControlLease > 0 && r.TargetId > 0 &&
                     r.Kind == "sale" && r.Value >= 0 && r.X >= 0 && r.X <= 100000 && r.X == (int)r.X;

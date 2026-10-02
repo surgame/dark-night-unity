@@ -1,5 +1,7 @@
 # Dark Nights 文档结构
 
+2026-10-03 [氧气业务移除源码候选](OXYGEN_REMOVAL_EXECUTION.md)：协议 **23**／存档 **v16**，独立薄worktree实施；YYGC未修改，编译与运行验证均 **NOT_RUN**。范围、资源退役记录和完整待验证项见该页；此前[评估](OXYGEN_REMOVAL_ASSESSMENT.md)保留评估时点。
+
 2026-10-03 [矿镐统一触及范围](PICKAXE_UNIFIED_REACH.md)：矿镐自身配置同步控制吸附与挥砍，当前64逻辑像素／4格；YYGC合同、验证及配置入口见本页。
 
 2026-10-02 [快速测试与场景整理](QUICK_TEST_SCENES.md)：主菜单专属 Hub 入口、已着陆矿镐预设及完整场景导航；Editor 规则 21/21、实际主菜单 Play 1/1、快捷键／GUI 点击 1/1、跨 Editor 重启记忆通过。Player、多人快速局未验。
@@ -22,7 +24,7 @@
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — 当前技术架构合同
 - [MULTIPLAYER.md](MULTIPLAYER.md) — 联机协议与同步设计（矿镐网格协议 18，Local 显示已验证、联机待验证；旧切片按日期保留）
-- [SAVE_FORMAT.md](SAVE_FORMAT.md) — 世界存档格式合同（当前 v13，矿镐网格不改格式；下文含历史版本）
+- [SAVE_FORMAT.md](SAVE_FORMAT.md) — 世界存档格式合同（氧气移除候选v16；下文含历史版本）
 - [YYGC_CHANGES.md](YYGC_CHANGES.md) — YYGC 修改授权与改动账本（持续维护）
 
 ## 开发入口

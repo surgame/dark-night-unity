@@ -7,7 +7,7 @@ namespace DarkNights.Runtime.Session
     {
         internal static int Apply(ObjectSession world, SessionConnection connection, SessionRequest request)
         {
-            bool personal = request.Kind is "unload" or "board" or "relay" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
+            bool personal = request.Kind is "unload" or "board" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
             if (!world.IsExpedition || !personal && !connection.IsHost) return -1;
             var hero = request.ActorIds.Count == 1 ? world.Index.Find<ActorBehaviour>(request.ActorIds[0]) : null;
             if (personal && (hero == null || hero.Read().ControllerSlot != connection.PlayerSlot ||

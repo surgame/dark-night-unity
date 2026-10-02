@@ -53,12 +53,10 @@ namespace DarkNights.Runtime.Save
                 writer.Write(hero.WalkSpeed);
                 writer.Write(HeroControlDefinition.BodyHalfWidth); writer.Write(HeroControlDefinition.BodyHeight);
             }
-            writer.Write(balance.Expedition.OxygenSeconds);
             writer.Write(balance.Expedition.BagCapacity);
             writer.Write(balance.Expedition.ShipCapacity);
             writer.Write(balance.Expedition.StorageCapacity);
-            writer.Write(balance.Expedition.OxygenRadius);
-            writer.Write(balance.Expedition.RelayRange);
+            writer.Write(balance.Expedition.PowerLinkRange);
             writer.Write(balance.Expedition.PowerSupply);
             writer.Write(balance.Expedition.DeploySeconds);
             writer.Write(balance.Expedition.ExtractSeconds);

@@ -9,7 +9,6 @@ namespace DarkNights.Runtime.Network
     public partial class ExpeditionActorWire
     {
         public int Id { get; set; }
-        public double Oxygen { get; set; }
         public int Iron { get; set; }
         public int Gold { get; set; }
         public int Role { get; set; }
@@ -21,7 +20,6 @@ namespace DarkNights.Runtime.Network
         public static ExpeditionActorWire From(ExpeditionActorData v) => v == null ? null : new ExpeditionActorWire
         {
             Id = v.Id,
-            Oxygen = v.Oxygen,
             Iron = v.Iron,
             Gold = v.Gold,
             Role = v.Role,
@@ -31,6 +29,6 @@ namespace DarkNights.Runtime.Network
             OwnerSlot = v.OwnerSlot,
             Boarded = v.Boarded,
         };
-        public ExpeditionActorData Freeze() => new ExpeditionActorData(Id, Oxygen, Iron, Gold, Role, TaskTarget, TaskPhase, TaskClock, OwnerSlot, Boarded);
+        public ExpeditionActorData Freeze() => new ExpeditionActorData(Id, Iron, Gold, Role, TaskTarget, TaskPhase, TaskClock, OwnerSlot, Boarded);
     }
 }

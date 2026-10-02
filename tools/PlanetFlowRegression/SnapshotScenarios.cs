@@ -63,7 +63,7 @@ namespace DarkNights.Tools.PlanetFlowRegression
                 ActorActivity.Idle, 0, dockX + 96, dockX + 96, 1, 0, 0, 0, false, false, 0,
                 height: crewHeight ?? shipHeight + 80, manualControl: true) };
             var buildings = new[] { new BuildingSnapshot(2, "ship", dockX, 1, 1, 0, 0, Array.Empty<TrainingSnapshot>()) };
-            var crew = new[] { new ExpeditionActorData(1, 0, 0, 0, 0, 0, 0, 0, 0, boarded) };
+            var crew = new[] { new ExpeditionActorData(1, 0, 0, 0, 0, 0, 0, 0, boarded) };
             var devices = new[] { new ExpeditionDeviceData(2, shipHeight, 0, 0, 0, 0, dockX, dockHeight, true) };
             var ship = new ExpeditionShipData(2, landed ? 0 : 3, orbit || !boarded ? 0 : 1, 0, 0, 0, dockX, dockHeight);
             var expedition = new ExpeditionViewData(1, landed ? 1 : 0, 0, 0, false, 0, 0, 0, 0, 0,

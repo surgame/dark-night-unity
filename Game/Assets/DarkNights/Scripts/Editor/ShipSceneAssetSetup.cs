@@ -39,7 +39,7 @@ namespace DarkNights.Editor
                 EditorSceneManager.OpenScene(RandomLevelEntry.ExpeditionScenePath);
                 var check = UnityEngine.Object.FindObjectsByType<ScenePlacement>(FindObjectsInactive.Include, FindObjectsSortMode.None).Single();
                 SceneDefinitionAuthoring.ValidatePlacement(check);
-                if (check.PlacementKey != key || UnityEngine.Object.FindAnyObjectByType<ExpeditionPanel>().Commands.Length != 17)
+                if (check.PlacementKey != key || UnityEngine.Object.FindAnyObjectByType<ExpeditionPanel>().Commands.Length != 16)
                     throw new InvalidOperationException("场景重开后身份或 HUD 绑定不匹配。");
             }
             finally { EditorSceneManager.RestoreSceneManagerSetup(previous); }
@@ -53,8 +53,8 @@ namespace DarkNights.Editor
             try
             {
                 var panel = root.GetComponent<ExpeditionPanel>(); var original = panel.Actions[0];
-                string[] commands = { "depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "relay", "mine", "resupply", "pilot", "takeoff", "land", "cancel-flight", "deploy" };
-                string[] labels = { "开始远征", "坡道卸货", "船内卸货", "召回", "返航结算", "紧急返航", "机器人舱 10铁", "货舱 10铁", "船员舱 10铁", "搬迁中继", "矿工派工", "补充损失", "驾驶 / 离座", "收舱试飞", "泊位着陆", "取消收舱", "重新派出设备" };
+                string[] commands = { "depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "mine", "resupply", "pilot", "takeoff", "land", "cancel-flight", "deploy" };
+                string[] labels = { "开始远征", "坡道卸货", "船内卸货", "召回", "返航结算", "紧急返航", "机器人舱 10铁", "货舱 10铁", "船员舱 10铁", "矿工派工", "补充损失", "驾驶 / 离座", "收舱试飞", "泊位着陆", "取消收舱", "重新派出设备" };
                 var buttons = new Button[commands.Length];
                 for (int i = 0; i < commands.Length; i++)
                 {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using System.Reflection;
 using Cysharp.Threading.Tasks;
 using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Objects;
@@ -12,11 +13,11 @@ using static DarkNights.Tests.ShipScenario;
 
 namespace DarkNights.Tests
 {
-    /// <summary>远征全员倒下后的事务恢复回归；用低氧存档夹具触发真实死亡、结算、保存和可信移动输入。</summary>
+    /// <summary>远征全员战斗死亡后的事务恢复回归；通过通用伤害入口触发死亡，覆盖结算失败、保存及可信移动输入。</summary>
     public sealed class ExpeditionRecoveryTests
     {
         [UnityTest]
-        public IEnumerator ExhaustedCrewCanMoveAfterSettlement() => UniTask.ToCoroutine(() => Verify(false));
+        public IEnumerator CombatDefeatedCrewCanMoveAfterSettlement() => UniTask.ToCoroutine(() => Verify(false));
 
         [UnityTest]
         public IEnumerator FailedSettlementDoesNotReviveUntilCommit() => UniTask.ToCoroutine(() => Verify(true));
@@ -34,10 +35,18 @@ namespace DarkNights.Tests
             var actor = save["world"]["actors"].Single(a => (int)a["id"] == id);
             actor["hp"] = .001;
             var crew = save["world"]["expedition"]["Crew"].Single(a => (int)a["Id"] == id);
-            crew["Oxygen"] = 0; crew["Boarded"] = false; crew["Iron"] = 3;
-            // 角色仍在舱内坐标，但明确为舱外低氧夹具；下一权威 Tick 先执行缺氧及结算。
+            crew["Boarded"] = false; crew["Iron"] = 3;
+            // 有效存档仅准备受伤和携货状态；真正死亡必须经过通用伤害及生命周期入口。
             world.Restore(save.ToString()); host = Connect(authority, 0);
             var hero = Hero(world, 0);
+            var damage = typeof(ObjectCombat).GetMethod("Damage", BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.That(damage, Is.Not.Null);
+            world.Mutations.Run(() =>
+            {
+                damage.Invoke(world.Combat, new object[] { hero, 1d, true });
+                return true;
+            });
+            Assert.That(hero.Hp, Is.Zero);
             int lease = hero.CaptureState().ControlLease;
             string persisted = null; int writes = 0;
             world.Expedition.CommitSave = snapshot =>
@@ -50,14 +59,13 @@ namespace DarkNights.Tests
             {
                 Assert.That(world.Paused, Is.True);
                 Assert.That(world.CaptureView().Expedition.Settled, Is.False);
-                Assert.That(hero.Hp, Is.EqualTo(.001).Within(.00001), "死亡与复原都必须随结算事务回滚");
+                Assert.That(hero.Hp, Is.Zero, "战斗死亡已提交，失败结算不能提前恢复生命");
                 Assert.That(hero.CaptureState().ControlLease, Is.EqualTo(lease));
                 failSave = false; world.SetTime(false, 1); authority.Tick();
             }
             Assert.That(world.CaptureView().Expedition.Settled, Is.True);
             Assert.That(world.CaptureView().Expedition.LostCargo, Is.EqualTo(3));
             Assert.That(hero.Hp, Is.EqualTo(hero.MaximumHp));
-            Assert.That(hero.CaptureState().Oxygen, Is.GreaterThan(0));
             Assert.That(hero.CaptureState().ControlLease, Is.GreaterThan(lease));
             Assert.That(Hero(world, 0).Id, Is.EqualTo(id));
             Assert.That(writes, Is.EqualTo(1));

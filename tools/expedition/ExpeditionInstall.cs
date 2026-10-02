@@ -41,7 +41,7 @@ public static class ExpeditionInstall
         }
         Folder(Objects);
         var database = AssetDatabase.LoadAssetAtPath<ObjectDefinitionDatabase>("Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset");
-        foreach (string key in new[] { "ship", "oxygen", "storage", "turret", "lamp", "hauler", "miner" }) Create(key, database);
+        foreach (string key in new[] { "ship", "storage", "turret", "lamp", "hauler", "miner" }) Create(key, database);
         EditorUtility.SetDirty(database); AssetDatabase.SaveAssets(); database.RebuildLookup();
         Folder("Assets/DarkNights/Res/Scenes/Expedition");
         if (!AssetDatabase.CopyAsset(RandomLevelEntry.ScenePath, RandomLevelEntry.ExpeditionScenePath)) throw new Exception("复制独立模板失败。");
@@ -74,7 +74,7 @@ public static class ExpeditionInstall
         finally { EditorSceneManager.RestoreSceneManagerSetup(previous); }
         EditorBuildSettings.scenes = EditorBuildSettings.scenes.Concat(new[] { new EditorBuildSettingsScene(RandomLevelEntry.ExpeditionScenePath, true) }).ToArray();
         AssetDatabase.SaveAssets();
-        return "7 definitions and prefabs, expedition scene, 11 HUD actions; scene saved/reopened and layout validated.";
+        return "6 definitions and prefabs, expedition scene, 11 HUD actions; scene saved/reopened and layout validated.";
     }
     private static void Create(string key, ObjectDefinitionDatabase database)
     {
@@ -146,8 +146,8 @@ public static class ExpeditionInstall
         var font = AssetDatabase.LoadAssetAtPath<Font>("Assets/DarkNights/Res/UI/Shared/UIFont.fontsettings");
         var text = Rect(background, "Status", 10, -8, 420, 122).gameObject.AddComponent<Text>();
         text.font = font; text.fontSize = 14; text.color = new Color(.85f, .9f, .83f); text.raycastTarget = false; panel.Status = text;
-        panel.Commands = new[] { "depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "relay", "mine", "resupply" };
-        string[] names = { "出发", "卸货", "登船", "召回", "正常起飞", "紧急起飞", "机器人舱 10铁", "货舱 10铁", "船员舱 10铁", "搬迁中继", "派工最近矿床", "补充损失" };
+        panel.Commands = new[] { "depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "mine", "resupply" };
+        string[] names = { "出发", "卸货", "登船", "召回", "正常起飞", "紧急起飞", "机器人舱 10铁", "货舱 10铁", "船员舱 10铁", "派工最近矿床", "补充损失" };
         panel.Actions = new Button[names.Length];
         for (int i = 0; i < names.Length; i++)
         {

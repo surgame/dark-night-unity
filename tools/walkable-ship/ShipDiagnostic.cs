@@ -32,7 +32,7 @@ public static class ShipDiagnostic
             if (tick % 600 != 0) continue;
             var e = world.CaptureView().Expedition;
             samples.Add(new JObject { ["seconds"] = tick / 60, ["actors"] = new JArray(world.Index.Actors.Where(a => a.RuleKey is "miner" or "hauler").Select(a =>
-            { var s = a.CaptureState(); return new JObject { ["kind"] = a.RuleKey, ["x"] = s.X, ["h"] = s.Height, ["hp"] = s.Hp, ["bag"] = s.CargoIron, ["task"] = s.TaskTarget, ["phase"] = s.TaskPhase, ["boarded"] = s.Boarded, ["oxygen"] = s.Oxygen }; })),
+            { var s = a.CaptureState(); return new JObject { ["kind"] = a.RuleKey, ["x"] = s.X, ["h"] = s.Height, ["hp"] = s.Hp, ["bag"] = s.CargoIron, ["task"] = s.TaskTarget, ["phase"] = s.TaskPhase, ["boarded"] = s.Boarded }; })),
                 ["devices"] = JArray.FromObject(e.Devices), ["lost"] = e.LostCargo });
             if (e.Devices.Sum(d => d.Iron) > 0) break;
         }

@@ -10,7 +10,6 @@ namespace DarkNights.Runtime.Save
         internal static JToken Write(ExpeditionActorData d) => d == null ? JValue.CreateNull() : new JObject
         {
             ["Id"] = d.Id,
-            ["Oxygen"] = d.Oxygen,
             ["Iron"] = d.Iron,
             ["Gold"] = d.Gold,
             ["Role"] = d.Role,
@@ -24,7 +23,7 @@ namespace DarkNights.Runtime.Save
         {
             if (t?.Type == JTokenType.Null) return null;
             var d = Object(t);
-            return new ExpeditionActorData(Integer(d["Id"]), Number(d["Oxygen"]), Integer(d["Iron"]), Integer(d["Gold"]), Integer(d["Role"]), Integer(d["TaskTarget"]), Integer(d["TaskPhase"]), Number(d["TaskClock"]), Integer(d["OwnerSlot"]), Boolean(d["Boarded"]));
+            return new ExpeditionActorData(Integer(d["Id"]), Integer(d["Iron"]), Integer(d["Gold"]), Integer(d["Role"]), Integer(d["TaskTarget"]), Integer(d["TaskPhase"]), Number(d["TaskClock"]), Integer(d["OwnerSlot"]), Boolean(d["Boarded"]));
         }
         internal static JToken Write(ExpeditionDeviceData d) => d == null ? JValue.CreateNull() : new JObject
         {

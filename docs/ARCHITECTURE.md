@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-10-03 [氧气移除候选](OXYGEN_REMOVAL_EXECUTION.md)：ActorState不再持有Oxygen，远征配置、冻结投影、网络与存档同步删除该合同；设备只处理剩余设备部署与供电，PowerLinkRange仅表示供电距离。既有Behaviour／State权威归属保持，未增加总规则开关、占位氧气实现或新状态所有者。协议23／存档v16，编译与运行未验。
+
 2026-10-02 当前[工具采集合同](TOOL_DEFINITION_HARVESTING.md)：MiningToolBehaviour 由工具 Definition 的 RequireConfig／Inject 装配；ObjectSessionResources 冻结装备目录。装备槽唯一保存 canonical Definition GUID，视觉枚举仅为派生展示。工具拥有目标类别、材料、等级及矿床定义白名单；矿床拥有目标要求与实例 State；ARDMap 仍拥有格耐久。共享纯匹配、可信装备解析与原事务贯穿选取和命中。会话矿镐参数及 AllowPickaxeHarvest 已退出，无新增框架改动。协议 **22**／存档 **v15**／AMP1 schema **2**，先前开关方案已被本轮替代。
 
 2026-10-01 矿镐源码候选：纯 `TerrainMiningGeometry.RayCell` 裁剪真实坡形，Runtime `TerrainMiningQuery.FirstSurface` 与本地选格、权威落镐共用最近表面查询，Unknown／基岩不跳过。每镐的目标、瞄准方向和一次命中门闩归角色唯一 ActorState，只由 YYGC CopyFrom 在事务内按值冻结，标记 MemoryPackIgnore，不写网络帧或存档。展示复用现有装备动作计时和瞄准字段，不由动画事件写权威伤害。游戏协议 **20**，AMP1 schema **2** 与存档 **v14** 不变；本批按用户要求未编译或运行验证。

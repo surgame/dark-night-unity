@@ -7,7 +7,6 @@ namespace DarkNights.Core.ViewData
     public sealed class ExpeditionActorData
     {
         public int Id { get; }
-        public double Oxygen { get; }
         public int Iron { get; }
         public int Gold { get; }
         public int Role { get; }
@@ -16,10 +15,10 @@ namespace DarkNights.Core.ViewData
         public double TaskClock { get; }
         public int OwnerSlot { get; }
         public bool Boarded { get; }
-        public ExpeditionActorData(int id, double oxygen, int iron, int gold, int role, int taskTarget, int taskPhase, double taskClock, int ownerSlot, bool boarded)
+        public ExpeditionActorData(int id, int iron, int gold, int role, int taskTarget, int taskPhase,
+            double taskClock, int ownerSlot, bool boarded)
         {
             Id = id;
-            Oxygen = oxygen;
             Iron = iron;
             Gold = gold;
             Role = role;

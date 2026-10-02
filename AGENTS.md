@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发约定
 
+2026-10-03 氧气移除源码候选位于独立薄worktree分支 `ref-20261003-remove-oxygen`，基线 `baedc15`，协议 **23**／存档 **v16**／AMP1 schema **2**。氧气业务、氧气站、中继命令及状态合同完整退出，YYGC未修改；按用户要求暂不编译、测试、Play或构建，详见[执行记录与待验证清单](docs/OXYGEN_REMOVAL_EXECUTION.md)。下方历史氧气及验证计数不代表该候选。
+
 2026-09-28 原地着陆源码候选位于 `fix-20260928-free-ship-landing`：星球降落改为当前安全位置原地着陆，游戏协议 **16**／存档 **v11**。下方协议 15 的 Editor、Mono 和 IL2CPP 数字属于原泊位规则的已验构建，不代表本候选通过；验证状态见[验收清单](docs/SPACE_TO_PLANET_ACCEPTANCE.md)。
 
 2026-09-27 当前切片为[太空到星球流程](docs/SPACE_TO_PLANET_IMPLEMENTATION.md)，分支 `ft-20260926-space-planet-flow` 已合入 `main`，协议 **15**／存档 **v11**。太空船内步行、驾驶台选星球、过场、后台生成、到达同步、缓降与自动着陆下船已实现；航程 Editor 53/53，Mono r3 双进程 127/127，IL2CPP r4 双进程及三组四人通过。YYGC 框架改动已合入 YYGC `master` `fee1864`。人工画面、逐阶段晚加入、前台性能和双机器仍待验收，详见[验收清单](docs/SPACE_TO_PLANET_ACCEPTANCE.md)，不宣称最终交付。
