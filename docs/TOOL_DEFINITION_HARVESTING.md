@@ -4,7 +4,7 @@
 
 ## 人工配置
 
-打开 `Dark Nights / 配置 / 工具与采集能力`。窗口嵌入原生 YYGC ObjectDefinition Inspector，明确选择工具或矿床；也可直接在 Project 中打开对应资产。
+打开 `Dark Nights / 工作台 → 工具与采集能力`。主工作台嵌入原生 YYGC 配置工坊的能力与 SharedConfigs 编辑区，明确选择工具或矿床；也可直接在 Project 中双击对应资产进入原生工坊。
 
 - 正式矿镐：`Game/Assets/DarkNights/Res/Objects/ShipTrade/item-pickaxe.asset`。`BehaviourTypes` 装配 `MiningToolBehaviour`；`SharedConfigs / 工具采集能力` 保存 `MiningToolConfig`。
 - `Targets` 设置支持前景岩壁、独立矿床或二者。当前正式矿镐只支持前景岩壁，保持上一轮“不与隐藏矿床交互”的产品行为。

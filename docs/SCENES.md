@@ -1,6 +1,8 @@
 # Unity 场景索引
 
-2026-09-30。**`ReferenceChamber`、`RandomCave` 与 `Cave Wall Tuner` 均预览同一正式星球地图生成链；正式游戏从 `Bootstrap → Expedition` 进入。** 两个工作台场景保留原名称与 GUID，通过 `Dark Nights / Terrain` 打开后直接 Play；地图输入都来自 `WorldSession.asset` 的洞穴配置、星球和种子。
+2026-10-02 当前正式场景入口已聚合到 [Dark Nights 工作台](EDITOR_WORKBENCH.md) 的“场景”分组。
+
+2026-09-30。**`ReferenceChamber`、`RandomCave` 与 `Cave Wall Tuner` 均预览同一正式星球地图生成链；正式游戏从 `Bootstrap → Expedition` 进入。** 两个工作台场景保留原名称与 GUID，通过 `Dark Nights / 工作台 → 场景` 打开后直接 Play；地图输入都来自 `WorldSession.asset` 的洞穴配置、星球和种子。
 
 地形配置、地图格子、Prefab 和贴图继续留在各自的 `Res/Terrain/` 资源目录。旧场景通过 Unity AssetDatabase 移入 `(old)` 并在文件名追加 `(old)`，保留原 `.meta`／GUID 和场景内容。
 
@@ -30,8 +32,8 @@ Play 模式下，正式会话在场景 `EntityViews` 下建立运行时分组：
 | 正式旧营地 | `DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity` | 已有内容及兼容回归 |
 | 随机关卡模板 | `DarkNights/Res/Scenes/RandomPinewatch/Pinewatch.unity` | 由正式选图入口使用，与上项同名但 GUID 不同 |
 | 正式远征 | `DarkNights/Res/Scenes/Expedition/Expedition.unity` | 当前产品入口 |
-| 正式生成工作台（原固定样板场景） | `DarkNights/Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` | `Dark Nights/Terrain/打开正式生成工作台 ReferenceChamber`；名称与 GUID 保留，地图改从正式配置生成 |
-| 正式生成工作台 | `DarkNights/Res/Scenes/Workbenches/Terrain/RandomCave.unity` | `Dark Nights/Terrain/打开正式生成工作台 RandomCave`；同一配置、星球和种子得到同一地图 |
+| 正式生成工作台（原固定样板场景） | `DarkNights/Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` | `Dark Nights/工作台 → ReferenceChamber 生成工作台`；名称与 GUID 保留，地图改从正式配置生成 |
+| 正式生成工作台 | `DarkNights/Res/Scenes/Workbenches/Terrain/RandomCave.unity` | `Dark Nights/工作台 → RandomCave 生成工作台`；同一配置、星球和种子得到同一地图 |
 | (old) 天然洞穴实验 | `DarkNights/Res/Scenes/Workbenches/Terrain/(old)/CaveExploration(old).unity` | `Dark Nights/Terrain/(old)/打开天然洞穴实验`；旧 CaveExploration 定义与样式 |
 | (old) 随机地图 Debug | `DarkNights/Res/Scenes/Workbenches/Terrain/(old)/TerrainDebugBootstrap(old).unity` | `Dark Nights/Terrain/(old)/打开随机地图 Bootstrap`；旧八房间生成器与测试图集 |
 | DualGrid 单机测试 | `DarkNights/Res/Scenes/Tests/Terrain/TerrainTest.unity` | 地图预览和专用测试 Player |

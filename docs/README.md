@@ -1,5 +1,7 @@
 # Dark Nights 文档结构
 
+2026-10-02 [统一编辑工作台](EDITOR_WORKBENCH.md)：日常配置、预览和正式场景聚合到 `Dark Nights / 工作台`；入口分类、作者来源和保存流程见本页说明。
+
 2026-10-02 当前[工具 Definition 与采集能力](TOOL_DEFINITION_HARVESTING.md)：工具自身配置能力与目标匹配，矿床配置材料与要求，原生 Definition 编辑入口不编译地形。协议 **22**／存档 **v15**／AMP1 schema **2**；先前矿床开关候选已被替代，当前入口见操作指南。
 
 2026-10-01 [地表天空与环境衔接候选](SURFACE_ENVIRONMENT.md)：分支 `ft-20261001-surface-environment`；方案 B 的范围、配置、简单验证及人工清单。自然地表生成重做尚未实施。

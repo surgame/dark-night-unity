@@ -1,5 +1,9 @@
 # Dark Nights Unity 开发执行计划
 
+## 2026-10-02 编辑工作台聚合
+
+常用入口集中到 `Dark Nights / 工作台`，左侧分类与搜索，右侧专用工具打开按钮或原生资产 Inspector。原配置菜单、Terrain 下的当前配置／预览／正式场景快捷菜单收进目录；初始化、安装、构建、验证及旧实验入口保留。导航不持有业务配置、不自动应用草稿；YYGC 框架、资源 GUID、协议 22／存档 v15 不变。完成[聚合评估](EDITOR_WORKBENCH_ASSESSMENT.md)后补齐 UI Toolkit 可拖动双栏、分类筛选、内嵌采集编辑／匹配和原生 Definition 浏览器；独立采集窗口复用同一面板。Local Editor 编译及最终交互探针 190/190、原生工坊重绘检查 5/5 通过，覆盖十一个页面、全部资产、筛选／搜索／选择回调、原生工坊 SharedConfigs／BehaviourTypes、目标匹配、四个专用窗口打开、幂等释放与作者资产字节保持。未构建 Player，不计作玩法或画面验收。详见[操作说明](EDITOR_WORKBENCH.md)和[机器证据](evidence/editor-workbench-20261002.json)。
+
 ## 2026-10-02 工具 Definition 采集能力
 
 已完成自身 Definition 配置、YYGC 采集 Behaviour 装配、canonical 装备身份、目标匹配、冻结目录／指纹、动作身份与选择版本、保存恢复及原生 Definition 编辑入口。正式矿镐默认只采前景，数值保持。协议 **22**／存档 **v15**／AMP1 schema **2**，YYGC 框架无新增修改。经用户授权退出当前 Play，单一 Local Editor 完成导入和资源升级。Editor 按影响合并 62/62；单一 Mono 构建成功，正常双进程 27/27。Core 1046/1048、ArchitectureGuard 20 项既有错误均保留。弱网立即重连超时，整体未通过；未验边界及清理账见[本批说明](TOOL_DEFINITION_HARVESTING.md)和机器摘要。先前矿床开关方案已被本轮替代。

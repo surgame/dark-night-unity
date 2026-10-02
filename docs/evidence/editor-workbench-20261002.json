@@ -1,0 +1,122 @@
+{
+  "task": "editor-workbench-20261002",
+  "date": "2026-10-02",
+  "base_commit": "b4f4bad42bd479526de5de486880b6bbb58a7880",
+  "scope": "Editor-only navigation aggregation; original workflow windows and author assets retained",
+  "menu": "Dark Nights/工作台",
+  "entry_count": 11,
+  "removed_direct_menu_count": 7,
+  "unity": "6000.4.9f1",
+  "protocol": 22,
+  "save_version": 15,
+  "yygc_changes": [],
+  "verification": {
+    "editor_probe": {
+      "passed": 190,
+      "total": 190,
+      "report": "artifacts/editor-workbench-20261002/editor-probe-native.json",
+      "source": "artifacts/editor-workbench-20261002/probe-native.cs",
+      "kind": "one-off real Editor integration probe, not NUnit tests",
+      "definition_browser_count": 44,
+      "includes_native_workshop": [
+        "SharedConfigs and BehaviourTypes exposed",
+        "property trees reference original config instances",
+        "native property tree lifecycle",
+        "retained-selection cache",
+        "asset state indicator"
+      ],
+      "revision_note": "Final full native workshop UI probe; subsequent Definition locate-only change passed affected final 5/5 check"
+    },
+    "menu_source_audit": "passed",
+    "author_asset_bytes": "all referenced original assets unchanged during navigation and tool opening",
+    "editor_log": "No compilation or GUI exception markers since workbench state checkpoint",
+    "initial_navigation_probe": {
+      "passed": 64,
+      "total": 64,
+      "report": "artifacts/editor-workbench-20261002/editor-probe.json",
+      "source": "artifacts/editor-workbench-20261002/probe.cs",
+      "kind": "one-off real Editor integration probe, not NUnit tests"
+    },
+    "definition_browser_count": 44,
+    "editor_log_issues_since_checkpoint": [],
+    "final_browser_cache_probe": {
+      "passed": 8,
+      "total": 8,
+      "report": "artifacts/editor-workbench-20261002/browser-cache-probe.json",
+      "source": "artifacts/editor-workbench-20261002/browser-cache-probe.cs",
+      "reason": "Reuse native Inspector when search or project reload retains the same selected definition; final Editor compilation ready"
+    },
+    "historical_ui_probe": {
+      "passed": 183,
+      "total": 183,
+      "report": "artifacts/editor-workbench-20261002/editor-probe-final.json",
+      "source": "artifacts/editor-workbench-20261002/probe-final.cs",
+      "kind": "one-off real Editor integration probe, not NUnit tests",
+      "coverage": [
+        "11 pages and author asset resolution",
+        "resizable two-pane UI Toolkit root",
+        "category/search/selection callbacks",
+        "native Definition discovery limited to game Res",
+        "inline mining ObjectFields and tabs",
+        "material/level/target matching against shared rules",
+        "empty selection and empty search",
+        "native inspector target identity",
+        "four original workflows open",
+        "idempotent Editor/subscription disposal",
+        "author bytes unchanged"
+      ],
+      "revision_note": "Full UI probe before final cache optimization; affected browser callbacks and lifecycle passed final 8/8 retry"
+    },
+    "native_repaint_probe": {
+      "passed": 5,
+      "total": 5,
+      "report": "artifacts/editor-workbench-20261002/native-repaint-probe.json",
+      "source": "artifacts/editor-workbench-20261002/native-repaint-probe.cs",
+      "coverage": "12 Editor ticks with basics and SharedConfigs visible; NetType, serialized memory, dirty state and disk bytes preserved"
+    },
+    "final_locate_probe": {
+      "passed": 5,
+      "total": 5,
+      "report": "artifacts/editor-workbench-20261002/locate-probe.json",
+      "source": "artifacts/editor-workbench-20261002/locate-probe.cs",
+      "coverage": "Definition Ping does not change Selection or invoke plain Inspector; final compilation ready; memory, dirty state and disk bytes preserved"
+    }
+  },
+  "not_verified": [
+    "pixel-level layout screenshot",
+    "manual Play interaction",
+    "Player build (Editor-only change)"
+  ],
+  "cleanup": {
+    "new_exclusive_rebuildable_outputs": 0,
+    "archived_bytes": 0,
+    "deleted_bytes": 0,
+    "shared_unity_cache": "retained",
+    "formal_probe_source_and_report": "retained",
+    "free_disk_after": {
+      "C": 11326001152,
+      "D": 27421777920
+    }
+  },
+  "foreign_worktree_changes": "preserved; existing dirty documentation staged only for own delta",
+  "pushed": false,
+  "assessment": {
+    "document": "docs/EDITOR_WORKBENCH_ASSESSMENT.md",
+    "inventory": "artifacts/editor-workbench-20261002/assessment-inventory.json",
+    "menu_attributes_in_baseline": 52,
+    "active_specialized_windows": 4,
+    "old_windows": 1,
+    "ui_framework": "UI Toolkit with native YYGC/Odin IMGUI Inspector",
+    "native_integration": "Public WorkshopInspectorPresenter and native config/save APIs; plain ObjectDefinitionEditor not instantiated"
+  },
+  "native_inspector_side_effect": {
+    "path": "Game/Assets/DarkNights/Res/Objects/ShipTrade/ship-service-shop.asset",
+    "field": "NetType",
+    "change": "1 to 0",
+    "user_confirmed_no_manual_edit": true,
+    "user_authorized_restore": true,
+    "restored": true,
+    "final_asset_diff": "none",
+    "patch_before_restore": "artifacts/editor-workbench-20261002/native-inspector-auto-nettype.patch"
+  }
+}

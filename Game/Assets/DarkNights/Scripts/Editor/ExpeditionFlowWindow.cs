@@ -24,7 +24,6 @@ namespace DarkNights.Editor
         private ExpeditionPlanetPreview preview;
         private TerrainModifierConfigDrawer modifierDrawer;
 
-        [MenuItem("Dark Nights/配置/星球与航程")]
         public static void Open()
         {
             var window = GetWindow<ExpeditionFlowWindow>("星球与航程");

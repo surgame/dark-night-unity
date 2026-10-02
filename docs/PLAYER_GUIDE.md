@@ -4,7 +4,7 @@
 
 ## 当前工具与矿床配置
 
-打开 **Dark Nights / 配置 / 工具与采集能力**，或直接打开 `Game/Assets/DarkNights/Res/Objects/ShipTrade/item-pickaxe.asset` 的原生 YYGC Inspector。在 `SharedConfigs / 工具采集能力` 设置支持的目标类别、材料、矿床 Definition 白名单和采集等级；伤害、距离、周期也在工具自身定义中。
+打开 **Dark Nights / 工作台 → 工具与采集能力**，或在 Project 中双击 `Game/Assets/DarkNights/Res/Objects/ShipTrade/item-pickaxe.asset` 进入原生 YYGC 配置工坊。在 `SharedConfigs / 工具采集能力` 设置支持的目标类别、材料、矿床 Definition 白名单和采集等级；伤害、距离、周期也在工具自身定义中。
 
 默认矿镐仅支持 Foreground，保持不采隐藏矿床。要允许铁矿床：启用 MineralDeposit，关闭 AllMaterials，Materials 填 iron；需要同时采岩壁时加入对应岩壁材料 Key。Deposits 空列表表示全部矿床定义，也可选择特定矿床 Definition。矿床自身设置 RequiredMiningLevel、耐久和产量；旧 AllowPickaxeHarvest 开关已移除。
 
@@ -59,7 +59,7 @@
 
 正式入口为 `DarkNights.exe`，必须保留同目录的 Data、UnityPlayer 和 Addressables 内容。2026-09-28 原地着陆源码候选使用协议 **16**／存档 **v11**，房间内各端必须使用同一构建；旧协议和内容摘要不匹配的连接会被拒绝。项目使用 Linear 色彩空间。先前 Mono `artifacts/space-planet-flow/player-mono-r2/DarkNights.exe` 属于协议 15 的旧构建，不能用来验证本次规则；下列旧构建记录只代表各自历史输入。
 
-本批开局在太空船舱。用 A/D 走到右侧驾驶台，打开目的地列表并确认；确认者获得驾驶席。抵达星球半空且同步完成后，A/D 平移、空格上升、S 快降，松手自动缓降。飞船在飞行范围内当前地点满足安全速度、船壳净空、起落架支撑和坡道净空后原地着陆，无须回到到达点；驾驶席自动释放，等待开门后从左侧坡道走下。无人驾驶、断线或到达同步期间仍悬停，合法船员可到驾驶台接管。星球配置入口是 `Dark Nights/配置/星球与航程`。
+本批开局在太空船舱。用 A/D 走到右侧驾驶台，打开目的地列表并确认；确认者获得驾驶席。抵达星球半空且同步完成后，A/D 平移、空格上升、S 快降，松手自动缓降。飞船在飞行范围内当前地点满足安全速度、船壳净空、起落架支撑和坡道净空后原地着陆，无须回到到达点；驾驶席自动释放，等待开门后从左侧坡道走下。无人驾驶、断线或到达同步期间仍悬停，合法船员可到驾驶台接管。星球配置入口是 `Dark Nights/工作台 → 星球与航程`。
 
 2026-09-16 默认村民生成修正后的输出目录为 `artifacts/hero-input/player-mono-generated-villager-r2`，执行范围、实际通过项与输入 Sample 见[联合执行文档](archive/HERO_INPUT_EXECUTION.md)。下列旧构建记录只代表历史输入。
 

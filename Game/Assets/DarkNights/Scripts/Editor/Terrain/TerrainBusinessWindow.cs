@@ -16,7 +16,6 @@ namespace DarkNights.Editor.Terrain
         private int tab, material;
         private bool contour;
         private string error = "";
-        [MenuItem("Dark Nights/Terrain/网格业务配置工作台")]
         public static void Open() => GetWindow<TerrainBusinessWindow>("网格业务配置").Show();
         private void OnEnable() { minSize = new Vector2(680, 460); Reload(); }
         private void Reload()
