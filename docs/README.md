@@ -1,5 +1,7 @@
 # Dark Nights 文档结构
 
+2026-10-03 [氧气移除验证记录与人工清单](OXYGEN_REMOVAL_VALIDATION.md)：六程序集独立编译完成，纯航程1903/1903，Core1046/1048保留两项既有失败；用户要求停止后续验证，自行完成Unity、玩法、存档及联机检查。
+
 2026-10-03 [氧气业务移除源码候选](OXYGEN_REMOVAL_EXECUTION.md)：协议 **23**／存档 **v16**，独立薄worktree实施；YYGC未修改，编译与运行验证均 **NOT_RUN**。范围、资源退役记录和完整待验证项见该页；此前[评估](OXYGEN_REMOVAL_ASSESSMENT.md)保留评估时点。
 
 2026-10-03 [矿镐统一触及范围](PICKAXE_UNIFIED_REACH.md)：矿镐自身配置同步控制吸附与挥砍，当前64逻辑像素／4格；YYGC合同、验证及配置入口见本页。

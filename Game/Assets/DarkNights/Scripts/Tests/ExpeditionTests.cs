@@ -95,17 +95,19 @@ namespace DarkNights.Tests
             Send(authority, host, Request(authority, 6, "depart"));
             Assert.That(world.CaptureView().Expedition.Run, Is.EqualTo(2));
             Assert.That(world.Index.Actors.Count(a => a.RuleKey == "hauler"), Is.EqualTo(1));
-            Assert.That(world.Index.Buildings.Count(), Is.EqualTo(5));
+            Assert.That(world.Index.Buildings.Count(), Is.EqualTo(4));
+            CollectionAssert.AreEquivalent(new[] { "ship", "storage", "turret", "lamp" },
+                world.Index.Buildings.Select(b => b.RuleKey).ToArray());
             Assert.That(world.Economy.Stock.Iron, Is.EqualTo(2));
-            for (int i = 0; i < 6000 && world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3) < 5; i++) authority.Tick();
-            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3), Is.EqualTo(5), "四设备应真实搬运展开");
+            for (int i = 0; i < 6000 && world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3) < 4; i++) authority.Tick();
+            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3), Is.EqualTo(4), "三设备应真实搬运展开，飞船仍保持展开");
             string mid = world.SaveCodec.Serialize(world.CaptureWorld()); world.Restore(mid);
-            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3), Is.EqualTo(5));
+            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3), Is.EqualTo(4));
             host = Connect(authority, 0); hero = world.Index.Actors.Single(a => a.CaptureState().OwnerSlot == 0);
             Send(authority, host, Request(authority, 7, "recall"));
             Send(authority, host, Request(authority, 8, "board", hero));
-            for (int i = 0; i < 9000 && (world.CaptureView().Expedition.Crew.Any(a => a.Role != 3 && !a.Boarded) || world.CaptureView().Expedition.Devices.Count(d => d.Stage == 6) < 4); i++) authority.Tick();
-            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 6), Is.EqualTo(4), "四设备均应被实际撤收");
+            for (int i = 0; i < 9000 && (world.CaptureView().Expedition.Crew.Any(a => a.Role != 3 && !a.Boarded) || world.CaptureView().Expedition.Devices.Count(d => d.Stage == 6) < 3); i++) authority.Tick();
+            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 6), Is.EqualTo(3), "三设备均应被实际撤收");
             Assert.That(Send(authority, host, Request(authority, 9, "launch")), Is.EqualTo(SessionResultCode.Applied));
         });
         [UnityTest]

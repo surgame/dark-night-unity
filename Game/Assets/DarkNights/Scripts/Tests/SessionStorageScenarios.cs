@@ -59,7 +59,7 @@ namespace DarkNights.Tests
                 check(authority.Epoch == 3 && authority.CaptureWorld().Elapsed == 0 && authority.ReadyCount == 0 && authority.ControlMode == CampControlMode.HostOnly,
                     "Restart creates a fresh camp in the existing room and resets Ready");
             }
-            finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
+            finally { StorageTestArtifacts.Preserve(directory); }
         }
 
         private static void Finish(SessionStorage storage)
