@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DarkNights.Editor.Terrain;
 
 namespace DarkNights.Editor
@@ -47,17 +48,6 @@ namespace DarkNights.Editor
                     "PanelSettings 在下方编辑；UXML、USS 和主题可用原生编辑器打开。", "", null,
                     Root + "UI/ShipEquipment/ShipEquipmentPanelSettings.asset", Root + "UI/ShipEquipment/ShipEquipment.uxml",
                     Root + "UI/ShipEquipment/ShipEquipment.uss", Root + "UI/ShipEquipment/ShipEquipmentTheme.tss"),
-                new DarkNightsWorkbenchEntry("reference", "场景", "ReferenceChamber 生成工作台",
-                    "从正式星球配置生成地图，进入场景后可 Play 检查角色通行。",
-                    "打开场景前沿用 Unity 的未保存场景提示。", "打开 ReferenceChamber 场景",
-                    () => TerrainWorkbenchScenes.Open(TerrainScenePaths.ReferenceChamber), TerrainScenePaths.ReferenceChamber),
-                new DarkNightsWorkbenchEntry("random", "场景", "RandomCave 生成工作台",
-                    "使用同一正式配置、星球与种子生成地图。", "打开场景前沿用 Unity 的未保存场景提示。",
-                    "打开 RandomCave 场景", () => TerrainWorkbenchScenes.Open(TerrainScenePaths.RandomCave), TerrainScenePaths.RandomCave),
-                new DarkNightsWorkbenchEntry("expedition", "场景", "正式远征 Expedition",
-                    "定位正式远征场景；完整游戏从 Bootstrap 进入。", "打开场景前沿用 Unity 的未保存场景提示。",
-                    "打开 Expedition 场景", () => TerrainWorkbenchScenes.Open(DarkNights.Entry.Terrain.RandomLevelEntry.ExpeditionScenePath),
-                    DarkNights.Entry.Terrain.RandomLevelEntry.ExpeditionScenePath)
-            });
+            }.Concat(GameSceneWorkbenchCatalog.Entries).ToArray());
     }
 }

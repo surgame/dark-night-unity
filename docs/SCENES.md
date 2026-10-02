@@ -1,8 +1,33 @@
 # Unity 场景索引
 
-2026-10-02 后续[主菜单快速测试与场景整理复评](QUICK_TEST_SCENES_ASSESSMENT.md)：建议在现有 Debug Hub 的主菜单专属页选择并启动“已着陆 · 矿镐”，本机记住测试 ID；复用正式场景的干净开局预设，另列 16 个场景的实际归组和 6 项迁移方案。目前仍是评估，未实现按钮或移动场景。
+2026-10-02 开发已实施：[快速测试操作说明](QUICK_TEST_SCENES.md)。主菜单 Debug Hub 提供“已着陆 · 矿镐”，本机记住测试 ID。6 个场景已通过 Unity AssetDatabase 迁移，原 GUID 和场景／meta 字节保持；16 个场景全部保留，SampleScene 退出构建列表。Unity 编译、规则／恢复／目录合同 21/21、主菜单实际 Play 1/1、快捷键与实际 GUI 点击 1/1 通过；已检查画面及跨 Editor 重启记忆。当前验收限定 Editor 使用范围，没有新 Player 或多人快速局证据。下方盘点与复评记录的是迁移前状态，不再作为当前打开路径。
 
-## 2026-10-02 场景盘点与矿镐专项入口建议
+## 当前场景路径（2026-10-02 整理后）
+
+路径相对 `Game/Assets`；普通游戏仍从 Bootstrap 进入，快速测试不新增场景。
+
+| 用途 | 当前路径 |
+| --- | --- |
+| 正式游戏入口／快速测试主菜单 | `Scenes/Bootstrap.unity` |
+| 正式远征内容 | `DarkNights/Res/Scenes/Expedition/Expedition.unity` |
+| 地形预览 | `DarkNights/Res/Scenes/Workbenches/Terrain/RandomCave.unity` |
+| 编辑时参考画面与同源 Play 预览 | `DarkNights/Res/Scenes/References/Terrain/ReferenceChamber.unity` |
+| 静态营地回归 | `DarkNights/Res/Scenes/Regression/Camp/StaticCampRegression.unity` |
+| 随机营地回归 | `DarkNights/Res/Scenes/Regression/Camp/RandomCampRegression.unity` |
+| 地图单机探针 | `DarkNights/Res/Scenes/Tests/Terrain/TerrainTest.unity` |
+| 地图网络探针 | `DarkNights/Res/Scenes/Tests/Terrain/TerrainNetworkTest.unity` |
+| 已退役：八房间调试 | `DarkNights/Res/Scenes/Archive/Terrain/TerrainDebugBootstrap(old).unity` |
+| 已退役：旧洞穴实验 | `DarkNights/Res/Scenes/Archive/Terrain/CaveExploration(old).unity` |
+| 已退役：早期背景对照 | `DarkNights/Res/Scenes/Archive/Terrain/CaveContourStatic.unity` |
+| 默认空场景模板（不构建） | `Scenes/SampleScene.unity` |
+| URP 2D 编辑器模板 | `Settings/Scenes/URP2DSceneTemplate.unity` |
+| LAN 独立样例 | `Samples/LanCoop/Content/LanCoop.unity` |
+| 输入独立样例 | `Samples/YYGCInputActions/Content/InputActions.unity` |
+| 第三方 Console 演示 | `Plugins/EdgarDev/Smart Console/Demo/Demo.unity` |
+
+Build Settings 当前为 Bootstrap、StaticCampRegression、RandomCampRegression、Expedition 4 项，与 `GamePlayerBuild` 的显式列表一致。游戏入口路径由 `GameScenePaths`、`RandomLevelEntry` 管理，参考／预览／测试／退役路径由 `TerrainScenePaths` 管理。下面为本轮迁移前盘点及历史证据，原日期、原路径保留。
+
+## 2026-10-02 迁移前场景盘点与矿镐专项入口建议
 
 本次先整理用途及退役建议，**未移动、改名或删除场景，未实现快速着陆入口**。核对范围为当前 `Game/Assets` 下全部 `.unity`、各场景 `.meta`、项目设置、菜单、启动代码、构建代码和测试引用；不把 `Library`、依赖缓存及包内示例计入项目场景数量。以下为源码／序列化检查，没有切换用户当前场景、进入或退出 Play，也没有运行 Unity 验收或构建。
 

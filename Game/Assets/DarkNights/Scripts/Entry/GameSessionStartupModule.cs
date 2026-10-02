@@ -38,7 +38,7 @@ namespace DarkNights.Entry
 
         public async UniTask InitializeAsync(AppStartupContext context, CancellationToken cancellationToken)
         {
-            const string defaultScene = "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity";
+            const string defaultScene = GameScenePaths.StaticCamp;
             string scenePath = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-camp-mode") >= 0 ? defaultScene : Terrain.RandomLevelEntry.ExpeditionScenePath;
 #if UNITY_EDITOR
             scenePath = UnityEditor.SessionState.GetString("DarkNights.PlayScene", scenePath);
@@ -83,6 +83,9 @@ namespace DarkNights.Entry
             entities.Initialize(network.Client, catalog, stage, network);
             var ui = network.gameObject.AddComponent<SessionUiController>();
             await ui.Initialize(network, catalog, stage, entities, layout.Expedition);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            QuickTestHub.Install(network, ui, layout.Expedition);
+#endif
             ConsoleSystem console = UnityEngine.Object.FindAnyObjectByType<ConsoleSystem>();
             if (console != null)
             {

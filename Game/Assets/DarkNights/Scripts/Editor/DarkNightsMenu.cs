@@ -9,7 +9,6 @@ namespace DarkNights.Editor
     public static class DarkNightsMenu
     {
         private const string Root = "Dark Nights/";
-        private const string LegacyTerrain = Root + "Terrain/(old)/";
         internal const string HeroSpeedPath = Root + "Debug/主角移动 8×";
 
         [MenuItem(Root + "Content/Initialize Environment")]
@@ -68,23 +67,5 @@ namespace DarkNights.Editor
         [MenuItem(HeroSpeedPath, true)]
         private static bool ValidateHeroSpeed() => ScenePlaySelection.ValidateDebugSpeed();
 
-        [MenuItem(LegacyTerrain + "查看旧随机地图 Bootstrap（不再运行）")]
-        private static void OpenTerrainDebug() => TerrainDebugSetup.Open();
-        [MenuItem(LegacyTerrain + "打开天然洞穴实验")]
-        private static void OpenCaveExploration() => CaveExplorationSetup.Open();
-        [MenuItem(LegacyTerrain + "Map generator")]
-        private static void OpenLegacyTerrainGenerator() => TerrainGeneratorWindow.Open();
-        [MenuItem(LegacyTerrain + "Create initial test tiles")]
-        private static void CreateTestTiles() => TerrainTestAssets.Create();
-        [MenuItem(LegacyTerrain + "Create initial cave tiles")]
-        private static void CreateCaveTiles() => CaveTerrainAssets.Create();
-        [MenuItem(LegacyTerrain + "Create default test map and scene")]
-        private static void CreateTestMap() => TerrainMapExporter.CreateDefault();
-        [MenuItem(LegacyTerrain + "Create network test scene")]
-        private static void CreateNetworkTestScene() => TerrainPlayerBuild.Create();
-        [MenuItem(LegacyTerrain + "Build test Mono")]
-        private static void BuildNetworkTest() => TerrainPlayerBuild.Mono();
-        [MenuItem(LegacyTerrain + "Create random Pinewatch template")]
-        private static void CreateRandomPinewatch() => RandomLevelSetup.Install();
     }
 }

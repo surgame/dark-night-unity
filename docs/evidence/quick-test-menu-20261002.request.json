@@ -1,0 +1,8 @@
+{
+  "command": "tests",
+  "tests": [
+    "DarkNights.Tests.QuickTestHubPlayTests"
+  ],
+  "mode": "EditMode",
+  "id": "quick-test-menu-r7-20261002"
+}

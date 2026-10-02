@@ -9,13 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/Bootstrap.unity
     guid: 7a75c8e3d64b07347862b921e19b0875
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
-    path: Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity
+    path: Assets/DarkNights/Res/Scenes/Regression/Camp/StaticCampRegression.unity
     guid: 81168bb9d5dd6ce4782167451ad618da
   - enabled: 1
-    path: Assets/DarkNights/Res/Scenes/RandomPinewatch/Pinewatch.unity
+    path: Assets/DarkNights/Res/Scenes/Regression/Camp/RandomCampRegression.unity
     guid: a002034e2cdb87b4dbc4b877e1207cb2
   - enabled: 1
     path: Assets/DarkNights/Res/Scenes/Expedition/Expedition.unity

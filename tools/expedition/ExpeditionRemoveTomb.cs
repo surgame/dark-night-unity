@@ -13,8 +13,8 @@ public static class ExpeditionRemoveTomb
         var setup = EditorSceneManager.GetSceneManagerSetup(); int removed = 0;
         try
         {
-            foreach (string path in new[] { "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity",
-                "Assets/DarkNights/Res/Scenes/RandomPinewatch/Pinewatch.unity", DarkNights.Entry.Terrain.RandomLevelEntry.ExpeditionScenePath })
+            foreach (string path in new[] { "Assets/DarkNights/Res/Scenes/Regression/Camp/StaticCampRegression.unity",
+                "Assets/DarkNights/Res/Scenes/Regression/Camp/RandomCampRegression.unity", DarkNights.Entry.Terrain.RandomLevelEntry.ExpeditionScenePath })
             {
                 var scene = EditorSceneManager.OpenScene(path);
                 var tombs = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<Transform>(true)).Where(t => t.name == "Tomb").ToArray();

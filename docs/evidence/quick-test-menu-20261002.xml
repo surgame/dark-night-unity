@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-02 15:42:46Z" end-time="2026-10-02 15:43:01Z" duration="15.3204667">
+  <test-suite type="TestSuite" id="1000" name="DNights" fullname="DNights" runstate="Runnable" testcasecount="560" result="Passed" start-time="2026-10-02 15:42:46Z" end-time="2026-10-02 15:43:01Z" duration="15.320467" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1669" name="DarkNights.Tests.dll" fullname="D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Tests.dll" runstate="Runnable" testcasecount="559" result="Passed" start-time="2026-10-02 15:42:48Z" end-time="2026-10-02 15:43:01Z" duration="13.039758" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="39296" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <output><![CDATA[[Logger] LoggerSettings asset not found in Resources. Logging will use defaults.
+[Runner] ObjectDefinitionLoader.Awake: GameObject=可步入远征飞船, DefinitionId=0
+[Runner] ObjectDefinitionLoader.Awake: initializer type=LocalObjectInstanceInitializer
+[Runner] 检测到本地对象，允许初始化
+[Runner] ObjectDefinitionLoader.Awake: ShouldInitialize=True
+[Runner] ObjectDefinitionLoader.Activate: calling Initialize, DefinitionId=0
+[Runner] ObjectDefinitionLoader.Activate: initialized GameObject '可步入远征飞船'.
+[Runner] ObjectDefinitionLoader.Awake: GameObject '可步入远征飞船' registered for gated activation.
+]]></output>
+      <test-suite type="TestSuite" id="1670" name="DarkNights" fullname="DarkNights" runstate="Runnable" testcasecount="559" result="Passed" start-time="2026-10-02 15:42:48Z" end-time="2026-10-02 15:43:01Z" duration="12.977683" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1671" name="Tests" fullname="DarkNights.Tests" runstate="Runnable" testcasecount="559" result="Passed" start-time="2026-10-02 15:42:48Z" end-time="2026-10-02 15:43:01Z" duration="12.975628" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1289" name="QuickTestHubPlayTests" fullname="DarkNights.Tests.QuickTestHubPlayTests" classname="DarkNights.Tests.QuickTestHubPlayTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-02 15:42:48Z" end-time="2026-10-02 15:43:01Z" duration="12.972745" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1290" name="MainMenuQuickLaunchMinesAndRepeatedEntryStartsFresh" fullname="DarkNights.Tests.QuickTestHubPlayTests.MainMenuQuickLaunchMinesAndRepeatedEntryStartsFresh" methodname="MainMenuQuickLaunchMinesAndRepeatedEntryStartsFresh" classname="DarkNights.Tests.QuickTestHubPlayTests" runstate="Runnable" seed="1596674340" result="Passed" start-time="2026-10-02 15:42:40Z" end-time="2026-10-02 15:43:01Z" duration="21.176641" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[NetworkCommandGateway already initialized. Skipping duplicate interceptor registration.
+[Network] 连接状态: 太空远征 · 进入船舱后在驾驶台选择星球
+InvalidOperationException: 快速着陆需要启用正式星球航程配置。
+DarkNights.Runtime.Objects.QuickTestPreset.Create (System.String id, DarkNights.Runtime.Objects.ExpeditionFlowConfig flow) (at Assets/DarkNights/Scripts/Runtime/Objects/QuickTestPreset.cs:30)
+DarkNights.Entry.QuickTestHub.Launch () (at Assets/DarkNights/Scripts/Entry/QuickTestHub.cs:55)
+UnityEngine.Debug:LogException(Exception)
+DarkNights.Runtime.Network.SessionNetwork:Fail(Exception) (at Assets/DarkNights/Scripts/Runtime/Network/SessionNetwork.cs:273)
+DarkNights.Entry.<Launch>d__13:MoveNext() (at Assets/DarkNights/Scripts/Entry/QuickTestHub.cs:59)
+System.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start(<Launch>d__13&)
+DarkNights.Entry.QuickTestHub:Launch()
+DarkNights.Entry.QuickTestHub:Update() (at Assets/DarkNights/Scripts/Entry/QuickTestHub.cs:46)
+
+InvalidOperationException: 快速着陆需要启用正式星球航程配置。
+DarkNights.Runtime.Objects.QuickTestPreset.Create (System.String id, DarkNights.Runtime.Objects.ExpeditionFlowConfig flow) (at Assets/DarkNights/Scripts/Runtime/Objects/QuickTestPreset.cs:30)
+DarkNights.Entry.QuickTestHub.Launch () (at Assets/DarkNights/Scripts/Entry/QuickTestHub.cs:55)
+UnityEngine.Debug:LogException(Exception)
+DarkNights.Entry.SessionUiController:Failed(Exception) (at Assets/DarkNights/Scripts/Entry/SessionUiController.cs:283)
+DarkNights.Runtime.Network.SessionNetwork:Fail(Exception) (at Assets/DarkNights/Scripts/Runtime/Network/SessionNetwork.cs:274)
+DarkNights.Entry.<Launch>d__13:MoveNext() (at Assets/DarkNights/Scripts/Entry/QuickTestHub.cs:59)
+System.Runtime.CompilerServices.AsyncVoidMethodBuilder:Start(<Launch>d__13&)
+DarkNights.Entry.QuickTestHub:Launch()
+DarkNights.Entry.QuickTestHub:Update() (at Assets/DarkNights/Scripts/Entry/QuickTestHub.cs:46)
+
+[Network] 连接状态: 快速着陆需要启用正式星球航程配置。
+DARK_NIGHTS_MAP_GENERATED seed=DN-QUICK-PICKAXE-20261002 milliseconds=3
+Local server is starting for Tugboat. Listening on port 27777.
+Local server is started for Tugboat.
+[Network] 连接状态: 正在创建房间
+Local client is starting for Tugboat. Server IP is 127.0.0.1, port is 27777.
+DARK_NIGHTS_SESSION_AVAILABLE protocol=22 level=pinewatch
+[AppStartup] Module 'Dark Nights 会话装配' completed in 3909.5 ms.
+[AppStartup] Startup completed. Application is ready.
+[Network] 连接状态: 正在连接
+Remote connection started for Id 0.
+Local client is started for Tugboat.
+[Network] 会话状态: 玩家 0 / 4 · 共享营地控制
+[Gameplay] 会话提示: 来宾可操作共享营地，时间与存档由房主控制。
+[Gameplay] 界面提示: 地面探索开始。矿物只在卸入船仓并撤离后结算。
+[Gameplay] 界面提示: 矿镐快速测试已准备：已着陆、人在舱外；返回主菜单可启动干净的新测试局。
+[Gameplay] 会话横幅: 矿镐快速测试 · 已着陆并装备矿镐；返回主菜单可重新进入干净测试局。
+Sender for NetId 1 registered.
+[Network] 会话状态: 玩家 1 / 4 · 共享营地控制
+[Gameplay] 会话提示: 房主拥有时间与营地控制设置权限。
+[Gameplay] 界面提示: 正在保存营地……
+[Gameplay] 会话提示: 正在保存营地……
+[Gameplay] 界面提示: 营地已保存到槽位 1。
+[Gameplay] 会话提示: 营地已保存到槽位 1。
+[Gameplay] 界面提示: 正在载入营地……
+[Gameplay] 会话提示: 正在载入营地……
+[Gameplay] 界面提示: 新的营地已就绪。
+[Gameplay] 会话提示: 新的营地已就绪。
+[Gameplay] 会话横幅: 矿镐快速测试 · 已着陆并装备矿镐；返回主菜单可重新进入干净测试局。
+Sender for NetId 1 unregistered.
+Local client is stopping for Tugboat.
+[Network] 连接状态: 太空远征 · 进入船舱后在驾驶台选择星球
+Local server is stopping for Tugboat.
+Local server is stopped for Tugboat.
+Local client is stopped for Tugboat.
+[Network] 连接状态: 洞穴远征 · 正在生成地图…
+DARK_NIGHTS_MAP_GENERATED seed=DN-QUICK-PICKAXE-20261002 milliseconds=2
+Local server is starting for Tugboat. Listening on port 27777.
+[Network] 连接状态: 正在创建房间
+Local server is started for Tugboat.
+Local client is starting for Tugboat. Server IP is 127.0.0.1, port is 27777.
+[Network] 连接状态: 正在连接
+Remote connection started for Id 0.
+Local client is started for Tugboat.
+Sender for NetId 1 registered.
+[Network] 会话状态: 玩家 0 / 4 · 共享营地控制
+[Gameplay] 会话提示: 来宾可操作共享营地，时间与存档由房主控制。
+[Gameplay] 界面提示: 地面探索开始。矿物只在卸入船仓并撤离后结算。
+[Gameplay] 界面提示: 矿镐快速测试已准备：已着陆、人在舱外；返回主菜单可启动干净的新测试局。
+[Gameplay] 会话横幅: 矿镐快速测试 · 已着陆并装备矿镐；返回主菜单可重新进入干净测试局。
+[Network] 会话状态: 玩家 1 / 4 · 共享营地控制
+[Gameplay] 会话提示: 房主拥有时间与营地控制设置权限。
+Sender for NetId 1 unregistered.
+Local client is stopping for Tugboat.
+[Network] 连接状态: 太空远征 · 进入船舱后在驾驶台选择星球
+Local server is stopping for Tugboat.
+Local server is stopped for Tugboat.
+Local client is stopped for Tugboat.
+[Network] 连接状态: 洞穴远征 · 正在生成地图…
+DARK_NIGHTS_MAP_GENERATED seed=1a048dcd6fd54ab484ba09e08ccd4937 milliseconds=1
+Local server is starting for Tugboat. Listening on port 27777.
+[Network] 连接状态: 正在创建房间
+Local server is started for Tugboat.
+Local client is starting for Tugboat. Server IP is 127.0.0.1, port is 27777.
+[Network] 连接状态: 正在连接
+Remote connection started for Id 0.
+Local client is started for Tugboat.
+Sender for NetId 1 registered.
+[Network] 会话状态: 玩家 0 / 4 · 共享营地控制
+[Gameplay] 会话提示: 来宾可操作共享营地，时间与存档由房主控制。
+[Gameplay] 会话横幅: 太空待命 · 船内可买装备；采矿后带回飞船出售。靠近右侧驾驶台选择星球。
+[Network] 会话状态: 玩家 1 / 4 · 共享营地控制
+[Gameplay] 会话提示: 房主拥有时间与营地控制设置权限。
+[Gameplay] 界面提示: 正在保存营地……
+[Gameplay] 会话提示: 正在保存营地……
+[Gameplay] 界面提示: 营地已保存到槽位 1。
+[Gameplay] 会话提示: 营地已保存到槽位 1。
+Sender for NetId 1 unregistered.
+Local client is stopping for Tugboat.
+[Network] 连接状态: 太空远征 · 进入船舱后在驾驶台选择星球
+Local server is stopping for Tugboat.
+Local server is stopped for Tugboat.
+Local client is stopped for Tugboat.
+[Network] 连接状态: 洞穴远征 · 正在生成地图…
+DARK_NIGHTS_MAP_GENERATED seed=9df6c428ea76443e87d90f1513f7b608 milliseconds=1
+Local server is starting for Tugboat. Listening on port 27777.
+[Network] 连接状态: 正在创建房间
+Local server is started for Tugboat.
+Local client is starting for Tugboat. Server IP is 127.0.0.1, port is 27777.
+[Network] 连接状态: 正在连接
+Remote connection started for Id 0.
+Local client is started for Tugboat.
+Sender for NetId 1 registered.
+[Network] 会话状态: 玩家 0 / 4 · 共享营地控制
+[Gameplay] 会话提示: 来宾可操作共享营地，时间与存档由房主控制。
+[Gameplay] 会话横幅: 太空待命 · 船内可买装备；采矿后带回飞船出售。靠近右侧驾驶台选择星球。
+[Network] 会话状态: 玩家 1 / 4 · 共享营地控制
+[Gameplay] 会话提示: 房主拥有时间与营地控制设置权限。
+[Gameplay] 界面提示: 正在载入营地……
+[Gameplay] 会话提示: 正在载入营地……
+[Gameplay] 界面提示: 已载入槽位 1。
+[Gameplay] 会话提示: 已载入槽位 1。
+Sender for NetId 1 unregistered.
+Local client is stopping for Tugboat.
+[Network] 连接状态: 太空远征 · 进入船舱后在驾驶台选择星球
+Local server is stopping for Tugboat.
+Local server is stopped for Tugboat.
+Local client is stopped for Tugboat.
+Saving results to: C:/Users/Jobscn/AppData/LocalLow/DefaultCompany/DNights\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

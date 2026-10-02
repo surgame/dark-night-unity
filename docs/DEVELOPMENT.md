@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-10-02 [快速测试与场景整理验收](QUICK_TEST_SCENES.md)：复用正式 Bootstrap／Expedition 提供已着陆矿镐局，本机选择记忆、测试槽位隔离与重开基线已完成；6 场景保留原字节／GUID 迁移，16 场景分类。Editor 规则 21/21、主菜单 Play 1/1、快捷键／实际 GUI 点击 1/1 按影响合并通过；重启记忆及画面已检查。补齐取消生成代次及候选清理。协议 22／存档 v15 不变，未构建新 Player，未验多人快速局。证据适用于当前 Local 联合工作区，不替其他斜坡／天空候选宣称交付。
+
 ## 2026-10-02 Definition 与 Editor 复评后的首批改进
 
 完整评估与最终 Review 见[复评清单](DEFINITION_EDITOR_REVIEW.md)：44 个 Definition 的能力归属、8 组运行侧缺口与顺序均已记录。先完成 E1–E6：采集装配／白名单严格校验，EditorWindow 序列化纯导航状态，搜索保留当前源与编辑树，初始化与 Play／Undo 状态刷新，事件和地形序列化句柄释放，错误矿床选择转提示。保存以最新已应用序列化值校验后写盘；临时对象／已关闭编辑器拒绝保存。Editor 专项最终 11/11、真实窗口生命周期与作者资产保持 52/52；初轮失败及修复保留报告。无运行数值、身份、协议 22／存档 v15 或 YYGC 变更，未构建 Player。运行能力 R1–R8 以及原生 GenericMenu 跨上下文守卫仍未实施，不宣称整体迁移完成；本批[机器证据](evidence/definition-editor-review-20261002.json)。

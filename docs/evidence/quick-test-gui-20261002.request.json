@@ -1,0 +1,8 @@
+{
+  "mode": "EditMode",
+  "tests": [
+    "DarkNights.Tests.QuickTestGuiPlayTests.GuiButtonStartsLandedSession"
+  ],
+  "id": "quick-test-gui-r1-20261002",
+  "command": "tests"
+}

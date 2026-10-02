@@ -27,7 +27,7 @@ namespace DarkNights.Editor
         public const string Root = "Assets/DarkNights/Res/Objects/PlayerConnection";
         public const string PrefabPath = Root + "/PlayerConnection.prefab";
         public const string DefinitionPath = Root + "/PlayerConnection.asset";
-        public const string Pinewatch = "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity";
+        public const string Pinewatch = "Assets/DarkNights/Res/Scenes/Regression/Camp/StaticCampRegression.unity";
 
         public static void Install()
         {

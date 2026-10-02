@@ -20,7 +20,7 @@ namespace DarkNights.Editor
     /// </summary>
     public static class HeroContentSetup
     {
-        public const string Scene = "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity";
+        public const string Scene = "Assets/DarkNights/Res/Scenes/Regression/Camp/StaticCampRegression.unity";
         public static void Install()
         {
             if (File.Exists(HeroInputAssetSetup.Path) || Directory.Exists(HeroHudSetup.Root))

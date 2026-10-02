@@ -17,7 +17,7 @@ public static class AuditStrataAssets
         if (Application.isPlaying) throw new InvalidOperationException("需要停止 Play。");
         var dependencies = AssetDatabase.GetDependencies(new[] { TerrainScenePaths.ReferenceChamber, TerrainScenePaths.RandomCave }, true);
         var old = dependencies.Where(p => p.Contains("/Res/Art/Custom/CaveExploration/") ||
-            p.Contains("/Res/Scenes/Pinewatch/") || p.Contains("/Res/Scenes/RandomPinewatch/") ||
+            p.Contains("/Res/Scenes/Regression/Camp/") ||
             p.Contains("/Res/Terrain/CaveExploration/")).ToArray();
         if (old.Length != 0) throw new Exception("新场景依赖旧地形：" + string.Join(",", old));
         EditorSceneManager.OpenScene(TerrainScenePaths.ReferenceChamber);

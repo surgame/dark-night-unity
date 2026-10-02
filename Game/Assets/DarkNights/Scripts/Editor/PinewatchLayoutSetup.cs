@@ -18,8 +18,8 @@ namespace DarkNights.Editor
     /// </summary>
     public static class PinewatchLayoutSetup
     {
-        public const string Root = "Assets/DarkNights/Res/Scenes/Pinewatch";
-        public const string ScenePath = Root + "/Pinewatch.unity";
+        public const string Root = "Assets/DarkNights/Res/Scenes/Regression/Camp";
+        public const string ScenePath = DarkNights.Entry.GameScenePaths.StaticCamp;
 
         public static void Create()
         {

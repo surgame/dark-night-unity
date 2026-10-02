@@ -1,0 +1,1 @@
+{"assemblies":["DarkNights.Tests"],"mode":"EditMode","command":"tests","id":"quick-test-rules-20261002","tests":["DarkNights.Tests.QuickTestEditorTests","DarkNights.Tests.QuickTestSessionTests","DarkNights.Tests.TerrainSceneCatalogTests","DarkNights.Tests.JourneySaveTests","DarkNights.Tests.WorldSessionLifecycleTests"]}

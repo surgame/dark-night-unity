@@ -1,5 +1,7 @@
 # Dark Nights 文档结构
 
+2026-10-02 [快速测试与场景整理](QUICK_TEST_SCENES.md)：主菜单专属 Hub 入口、已着陆矿镐预设及完整场景导航；Editor 规则 21/21、实际主菜单 Play 1/1、快捷键／GUI 点击 1/1、跨 Editor 重启记忆通过。Player、多人快速局未验。
+
 2026-10-02 [Definition 与 Editor 复评及最终 Review](DEFINITION_EDITOR_REVIEW.md)：Editor 首批 6 项修正已完成，8 组装备／远征能力化缺口与后续执行顺序逐项列明。专项 11/11，生命周期与资产保持 52/52。
 
 2026-10-02 [统一编辑工作台](EDITOR_WORKBENCH.md)：日常配置、预览和正式场景聚合到 `Dark Nights / 工作台`；入口分类、作者来源和保存流程见本页说明。

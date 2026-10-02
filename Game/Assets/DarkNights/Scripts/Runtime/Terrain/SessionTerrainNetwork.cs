@@ -10,6 +10,7 @@ using Cysharp.Threading.Tasks;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.Terrain;
 using DarkNights.Runtime.Network;
+using DarkNights.Runtime.Objects;
 using FishNet.Managing;
 using FishNet.Transporting;
 using Channel = FishNet.Transporting.Channel;
@@ -34,6 +35,9 @@ namespace DarkNights.Runtime.Terrain
         private readonly bool expedition;
         private Task<PlayableTerrain> generation;
         private PlayableTerrain selected;
+        private string selectedPresetId = "";
+        private int selectionVersion;
+        public bool Selecting => generation != null;
         private FishNetMapTransport transport;
         private TerrainMapAuthority streaming;
         private bool disposed;
@@ -101,20 +105,23 @@ namespace DarkNights.Runtime.Terrain
             network.Client.MapReady = epoch => Epoch == epoch && DataReady && PresentationReady;
             network.Client.MapIdentity = () => Replica == null ? "" : Replica.World.WorldId + ":" + Replica.World.Epoch;
         }
-        public async UniTask SelectNew()
+        public async UniTask SelectNew(QuickTestPreset quickTest = null)
         {
             if (disposed || network.Hosting || network.Client.Replica.Current != null || generation != null) return;
+            int version = selectionVersion;
+            selected = null;
             SelectionStatus = (expedition ? "洞穴远征" : "灰松谷") + " · 正在生成地图…";
             string seed = Guid.NewGuid().ToString("N");
             string[] args = System.Environment.GetCommandLineArgs(); int index = Array.IndexOf(args, "--dn-map-seed");
             if (index >= 0 && index + 1 < args.Length) seed = args[index + 1];
+            if (quickTest != null) seed = quickTest.Seed;
             string id = Guid.NewGuid().ToString("N");
             var watch = Stopwatch.StartNew();
             var flow = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
                 .SharedConfigs.Find(c => c is DarkNights.Runtime.Objects.ExpeditionFlowConfig) as DarkNights.Runtime.Objects.ExpeditionFlowConfig;
-            bool orbit = expedition && flow?.Enabled == true;
+            bool orbit = expedition && flow?.Enabled == true && quickTest == null;
             var caveMap = expedition ? flow?.FreezeCaveMap() ?? throw new InvalidOperationException("远征缺少共用洞穴地图配置。") : null;
-            var groundPlanet = expedition && !orbit ? flow.PreviewPlanet() : null;
+            var groundPlanet = expedition && !orbit ? quickTest?.Planet ?? flow.PreviewPlanet() : null;
             var terrainModifiers = expedition && !orbit ? flow.FreezeModifiers() : null;
             generation = Task.Run(() => orbit ? PlanetTerrainGenerator.Space(id) :
                 expedition ? PlanetTerrainGenerator.GenerateCandidate(groundPlanet, seed, id, caveMap,
@@ -122,18 +129,20 @@ namespace DarkNights.Runtime.Terrain
             try
             {
                 var result = await generation;
-                if (disposed) return;
-                selected = result; GenerationMilliseconds = watch.ElapsedMilliseconds;
+                if (disposed || version != selectionVersion) throw new OperationCanceledException("地图生成已取消。");
+                selected = result; selectedPresetId = quickTest?.Id ?? ""; GenerationMilliseconds = watch.ElapsedMilliseconds;
                 SelectionStatus = orbit ? "太空船舱已准备 · 开房后靠近驾驶台选择星球" :
                     "已选择" + (expedition ? "洞穴远征" : "灰松谷") + " · 种子 " + seed.Substring(0, Math.Min(12, seed.Length)) + " · 点击地图可重新生成";
                 UnityEngine.Debug.Log("DARK_NIGHTS_MAP_GENERATED seed=" + seed + " milliseconds=" + GenerationMilliseconds);
             }
             finally { generation = null; }
         }
-        public async UniTask EnsureSelected()
+        public async UniTask EnsureSelected(QuickTestPreset quickTest = null)
         {
+            int version = selectionVersion;
             if (generation != null) await generation;
-            if (selected == null) await SelectNew();
+            if (disposed || version != selectionVersion) throw new OperationCanceledException("地图选择已取消。");
+            if (quickTest != null || selected == null || selectedPresetId != "") await SelectNew(quickTest);
             if (selected == null) throw new InvalidOperationException("地图尚未生成。");
         }
         public SessionTerrain CreateAuthority(ObjectSessionContext context)
@@ -270,6 +279,8 @@ namespace DarkNights.Runtime.Terrain
         }
         public void Disconnect()
         {
+            selectionVersion++; selected = null; selectedPresetId = "";
+            SelectionStatus = expedition ? "太空远征 · 进入船舱后在驾驶台选择星球" : "选择地图：灰松谷 · 点击地图按钮生成新地图";
             if (Replica != null) Replica.Applied -= OnReplicaApplied;
             transport?.Dispose(); transport = null; Replica = null; streaming = null;
             Epoch = 0; contentSha256 = ""; chunkDigests.Clear(); digestDirty = false; PresentationReady = false;

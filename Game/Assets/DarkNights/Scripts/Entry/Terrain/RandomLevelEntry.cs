@@ -16,7 +16,7 @@ namespace DarkNights.Entry.Terrain
     public sealed class RandomLevelEntry : MonoBehaviour
     {
         public const string ExpeditionScenePath = "Assets/DarkNights/Res/Scenes/Expedition/Expedition.unity";
-        public const string ScenePath = "Assets/DarkNights/Res/Scenes/RandomPinewatch/Pinewatch.unity";
+        public const string ScenePath = GameScenePaths.RandomCamp;
         private SessionNetwork network;
         private RandomLevelTemplate template;
         private PinewatchStage stage;

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="1" result="Passed" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-02 15:39:38Z" end-time="2026-10-02 15:40:16Z" duration="38.0295843">
+  <test-suite type="TestSuite" id="1000" name="DNights" fullname="DNights" runstate="Runnable" testcasecount="560" result="Passed" start-time="2026-10-02 15:39:38Z" end-time="2026-10-02 15:40:16Z" duration="38.029584" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1669" name="DarkNights.Tests.dll" fullname="D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Tests.dll" runstate="Runnable" testcasecount="559" result="Passed" start-time="2026-10-02 15:39:40Z" end-time="2026-10-02 15:40:16Z" duration="35.709485" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="39296" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <output><![CDATA[[Logger] LoggerSettings asset not found in Resources. Logging will use defaults.
+[Runner] ObjectDefinitionLoader.Awake: GameObject=可步入远征飞船, DefinitionId=0
+[Runner] ObjectDefinitionLoader.Awake: initializer type=LocalObjectInstanceInitializer
+[Runner] 检测到本地对象，允许初始化
+[Runner] ObjectDefinitionLoader.Awake: ShouldInitialize=True
+[Runner] ObjectDefinitionLoader.Activate: calling Initialize, DefinitionId=0
+[Runner] ObjectDefinitionLoader.Activate: initialized GameObject '可步入远征飞船'.
+[Runner] ObjectDefinitionLoader.Awake: GameObject '可步入远征飞船' registered for gated activation.
+]]></output>
+      <test-suite type="TestSuite" id="1670" name="DarkNights" fullname="DarkNights" runstate="Runnable" testcasecount="559" result="Passed" start-time="2026-10-02 15:39:40Z" end-time="2026-10-02 15:40:16Z" duration="35.647496" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1671" name="Tests" fullname="DarkNights.Tests" runstate="Runnable" testcasecount="559" result="Passed" start-time="2026-10-02 15:39:40Z" end-time="2026-10-02 15:40:16Z" duration="35.645759" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1287" name="QuickTestGuiPlayTests" fullname="DarkNights.Tests.QuickTestGuiPlayTests" classname="DarkNights.Tests.QuickTestGuiPlayTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-02 15:39:40Z" end-time="2026-10-02 15:40:16Z" duration="35.643456" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1288" name="GuiButtonStartsLandedSession" fullname="DarkNights.Tests.QuickTestGuiPlayTests.GuiButtonStartsLandedSession" methodname="GuiButtonStartsLandedSession" classname="DarkNights.Tests.QuickTestGuiPlayTests" runstate="Explicit" seed="1169136299" result="Passed" start-time="2026-10-02 15:39:32Z" end-time="2026-10-02 15:40:16Z" duration="43.839915" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="_SKIPREASON" value="实际 GUI 点击验收，需要在两分钟内点击启动所选测试。" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[NetworkCommandGateway already initialized. Skipping duplicate interceptor registration.
+[Network] 连接状态: 太空远征 · 进入船舱后在驾驶台选择星球
+DARK_NIGHTS_SESSION_AVAILABLE protocol=22 level=pinewatch
+[AppStartup] Module 'Dark Nights 会话装配' completed in 3822.5 ms.
+[AppStartup] Startup completed. Application is ready.
+[Network] 连接状态: 洞穴远征 · 正在生成地图…
+DARK_NIGHTS_MAP_GENERATED seed=DN-QUICK-PICKAXE-20261002 milliseconds=12
+Local server is starting for Tugboat. Listening on port 27777.
+Local server is started for Tugboat.
+[Network] 连接状态: 正在创建房间
+Local client is starting for Tugboat. Server IP is 127.0.0.1, port is 27777.
+[Network] 连接状态: 正在连接
+Remote connection started for Id 0.
+Local client is started for Tugboat.
+[Network] 会话状态: 玩家 0 / 4 · 共享营地控制
+[Gameplay] 会话提示: 来宾可操作共享营地，时间与存档由房主控制。
+[Gameplay] 界面提示: 地面探索开始。矿物只在卸入船仓并撤离后结算。
+[Gameplay] 界面提示: 矿镐快速测试已准备：已着陆、人在舱外；返回主菜单可启动干净的新测试局。
+[Gameplay] 会话横幅: 矿镐快速测试 · 已着陆并装备矿镐；返回主菜单可重新进入干净测试局。
+Sender for NetId 1 registered.
+[Network] 会话状态: 玩家 1 / 4 · 共享营地控制
+[Gameplay] 会话提示: 房主拥有时间与营地控制设置权限。
+Sender for NetId 1 unregistered.
+Local client is stopping for Tugboat.
+[Network] 连接状态: 已选择洞穴远征 · 种子 DN-QUICK-PIC · 点击地图可重新生成
+Local server is stopping for Tugboat.
+Local server is stopped for Tugboat.
+Local client is stopped for Tugboat.
+Saving results to: C:/Users/Jobscn/AppData/LocalLow/DefaultCompany/DNights\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

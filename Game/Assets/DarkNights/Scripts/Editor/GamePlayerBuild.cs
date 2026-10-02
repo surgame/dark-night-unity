@@ -70,7 +70,7 @@ namespace DarkNights.Editor
                 Directory.CreateDirectory(Path.GetDirectoryName(output));
                 var result = BuildPipeline.BuildPlayer(new BuildPlayerOptions
                 {
-                    scenes = new[] { EnvironmentValidation.ScenePath, "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity", DarkNights.Entry.Terrain.RandomLevelEntry.ScenePath, DarkNights.Entry.Terrain.RandomLevelEntry.ExpeditionScenePath },
+                    scenes = new[] { EnvironmentValidation.ScenePath, "Assets/DarkNights/Res/Scenes/Regression/Camp/StaticCampRegression.unity", DarkNights.Entry.Terrain.RandomLevelEntry.ScenePath, DarkNights.Entry.Terrain.RandomLevelEntry.ExpeditionScenePath },
                     locationPathName = output,
                     target = BuildTarget.StandaloneWindows64,
                     options = options

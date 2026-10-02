@@ -17,11 +17,14 @@ namespace DarkNights.Editor.Terrain
     {
         public static void Install()
         {
-            const string original = "Assets/DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity";
+            const string original = "Assets/DarkNights/Res/Scenes/Regression/Camp/StaticCampRegression.unity";
             if (File.Exists(RandomLevelEntry.ScenePath)) throw new InvalidOperationException("随机关卡模板已经存在，拒绝覆盖。");
             if (Enumerable.Range(0, UnityEngine.SceneManagement.SceneManager.sceneCount).Any(i =>
                 UnityEngine.SceneManagement.SceneManager.GetSceneAt(i).isDirty)) throw new InvalidOperationException("先保存已修改的场景。");
-            AssetDatabase.CreateFolder("Assets/DarkNights/Res/Scenes", "RandomPinewatch");
+            if (!AssetDatabase.IsValidFolder("Assets/DarkNights/Res/Scenes/Regression"))
+                AssetDatabase.CreateFolder("Assets/DarkNights/Res/Scenes", "Regression");
+            if (!AssetDatabase.IsValidFolder("Assets/DarkNights/Res/Scenes/Regression/Camp"))
+                AssetDatabase.CreateFolder("Assets/DarkNights/Res/Scenes/Regression", "Camp");
             if (!AssetDatabase.CopyAsset(original, RandomLevelEntry.ScenePath)) throw new IOException("无法复制独立关卡模板。");
             var scene = EditorSceneManager.OpenScene(RandomLevelEntry.ScenePath, OpenSceneMode.Additive);
             try

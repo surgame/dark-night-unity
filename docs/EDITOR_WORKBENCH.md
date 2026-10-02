@@ -12,9 +12,14 @@
 | 地图与表现 | 地形业务与耐久 | 原有 Profile、耐久编译与单格试采 |
 | 地图与表现 | 岩壁、背景与地表 | 原有 Cave Wall Tuner |
 | 界面 | 飞船装备界面 | PanelSettings 原生 Inspector，UXML／USS／主题原生编辑器 |
-| 场景 | ReferenceChamber、RandomCave、Expedition | 既有安全场景打开流程 |
+| 日常开发 | 正式游戏入口、地形预览 | 打开 Bootstrap／RandomCave |
+| 快速测试 | 已着陆 · 矿镐 | 打开 Bootstrap；Play 主菜单后在 Debug Hub 启动预设 |
+| 正式内容／参考对照 | Expedition、岩层参考画面 | 内容装配与编辑时参考用途分开 |
+| 旧玩法回归 | 静态／随机营地回归 | 两个旧 Pinewatch 已归组且分别改名 |
+| 专用测试／独立样例／编辑器模板 | 地图探针、LAN／输入／Console、场景模板 | 按用途打开或定位 |
+| 已退役 | 三个旧地形实验 | “全部”默认隐藏；分类或搜索可定位，不创建／运行 |
 
-原来的“配置／工具与采集能力”“配置／星球与航程”、Terrain 下的网格业务、Cave Wall Tuner 和三个正式场景快捷菜单已收进工作台。Content、Art、Build、Verify、Debug 和旧地形实验入口保留，避免初始化、资源安装和构建混入日常编辑。
+原来的“配置／工具与采集能力”“配置／星球与航程”、Terrain 下的网格业务、Cave Wall Tuner 和日常场景快捷菜单已收进工作台。Content、Art、Build、Verify、Debug 保留；2026-10-02 场景整理撤下旧地形实验创建／运行菜单。全部 16 个场景均可按用途查找，当前路径和快速测试操作见 [场景索引](SCENES.md) 与 [快速测试说明](QUICK_TEST_SCENES.md)。
 
 工作台使用 UI Toolkit；采集编辑和 Definition 浏览器直接嵌入，原生 YYGC 配置工坊的 Odin 编辑区由 IMGUIContainer 承载。航程、地形编译和岩壁大画布点击按钮打开现有专用窗口，保留其草稿、应用／取消、预览资源和生命周期；切换工作台栏目不会应用或丢弃专用窗口草稿。资产页直接编辑原资产，显示未保存状态，保存按钮仅保存当前资产。采集匹配可切换矿床／前景岩壁、材料 Key 与稀有矿材料，复用正式冻结匹配规则并显示具体阻止原因。Play 或编译期间资产页的编辑控件禁用，各专用编辑器继续执行自身限制。
 

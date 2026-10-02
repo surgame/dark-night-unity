@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-10-02 [快速测试与场景整理](docs/QUICK_TEST_SCENES.md)：主菜单 Debug Hub 一键进入已着陆矿镐局，记住本机选择；6 场景保留 GUID／字节迁移，16 场景完整归类。Editor 规则 21/21、真实主菜单 Play 1/1、快捷键与实际 GUI 点击 1/1 通过，跨 Editor 重启记忆已验。协议 22／存档 v15 不变；没有新 Player 或多人快速局证据。
+
 2026-10-02 [Definition 与 Editor 复评](docs/DEFINITION_EDITOR_REVIEW.md)：已核对全部 44 个定义，列出 8 组运行能力缺口；首批修复 6 项 Editor 保存、状态恢复和生命周期问题。专项 11/11、作者资产与生命周期探针 52/52；手枪／炸药、喷气背包等能力迁移仍按清单推进。
 
 2026-10-02 [统一编辑工作台](docs/EDITOR_WORKBENCH.md)：日常配置、预览与正式场景集中到 `Dark Nights / 工作台`，按用途搜索和定位原始资产；复杂编辑继续复用原有专用窗口，Definition 与草稿的状态归属不变。仅调整 Editor 入口，协议 22／存档 v15 不变。

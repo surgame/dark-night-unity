@@ -25,8 +25,9 @@ namespace DarkNights.Runtime.Objects
         private readonly HashSet<ObjectInstance> sceneObjects = new HashSet<ObjectInstance>();
         private readonly Dictionary<string, ObjectInstance> sceneOwners = new Dictionary<string, ObjectInstance>();
         private readonly Dictionary<string, ObjectDefinition> sceneDefinitions = new Dictionary<string, ObjectDefinition>();
-        private SessionSnapshot initial;
-        public ObjectWorldSaveJson SaveCodec { get; private set; }
+        private ObjectSessionPersistence persistence;
+        private QuickTestPreset quickTest;
+        public ObjectWorldSaveJson SaveCodec => persistence?.Codec;
         private readonly Func<bool> authority;
         private ObjectInstance owner;
         private bool disposed;
@@ -91,8 +92,9 @@ namespace DarkNights.Runtime.Objects
             Trade = new ShipTradeService(this);
         }
 
-        public void Prepare(ObjectInstance sessionOwner, IReadOnlyList<ObjectPlacement> placements)
+        public void Prepare(ObjectInstance sessionOwner, IReadOnlyList<ObjectPlacement> placements, QuickTestPreset quickTest = null)
         {
+            this.quickTest = quickTest;
             if (owner != null || sessionOwner == null || sessionOwner.SessionContext != Context)
                 throw new InvalidOperationException("Session owner must be assembled exactly once with the explicit context.");
             if (placements == null || placements.Select(p => p.PlacementKey).Distinct().Count() != placements.Count)
@@ -113,13 +115,7 @@ namespace DarkNights.Runtime.Objects
             Economy.Prepare();
             Waves.Prepare();
             Projectiles.Prepare();
-            SaveCodec = new ObjectWorldSaveJson(Catalog, Layout,
-                Resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
-                placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition)), Projectiles.Settings,
-                (Terrain?.Rules.Fingerprint ?? "") + "|" + Resources.Equipment.Fingerprint + "|" + string.Join(";", Resources.Definitions
-                    .OrderBy(value => value.Guid.ToString(), StringComparer.Ordinal)
-                    .SelectMany(value => value.SharedConfigs.OfType<MineralDepositRuleConfig>()
-                        .Select(config => value.Guid + ":" + config.Fingerprint()))));
+            persistence = new ObjectSessionPersistence(this, placements);
             Mutations.Run(() =>
             {
                 foreach (ObjectPlacement placement in placements)
@@ -133,7 +129,7 @@ namespace DarkNights.Runtime.Objects
                 if (IsExpedition) Expedition.Prepare();
                 return true;
             });
-            initial = CaptureWorld();
+            persistence.CaptureInitial();
         }
 
         public void Activate()
@@ -147,12 +143,19 @@ namespace DarkNights.Runtime.Objects
                 entity.Object.Activate();
                 entity.Object.gameObject.SetActive(true);
             }
+            if (quickTest != null)
+            {
+                Mutations.Run(() => { quickTest.Apply(this); return true; });
+                persistence.CaptureInitial();
+            }
             Loaded(true);
         }
 
         public void Loaded(bool restarted)
         {
             if (!restarted) return;
+            if (quickTest != null)
+            { Feedback.ShowBanner("矿镐快速测试", "已着陆并装备矿镐；返回主菜单可重新进入干净测试局。"); return; }
             if (IsExpedition) { Expedition.ShowIntro(); return; }
             Feedback.ShowBanner("灰松谷 · 第一天", "安排生产，训练守卫。守住三次夜袭。");
             Feedback.Notify("先安排一名工人耕作，再采集木材。东侧已有两名守卫。");
@@ -272,25 +275,8 @@ namespace DarkNights.Runtime.Objects
         public int Apply(SessionRequest request, out int entityId) => ObjectSessionCommands.Apply(this, request, out entityId);
         public SessionSnapshot CaptureWorld() => ObjectSnapshotMapper.Capture(this);
         public WorldViewData CaptureView() => ObjectProjection.Capture(this);
-        public void Restore(string json) => RestoreSnapshot(SaveCodec.Parse(json));
-        public void Restart() => RestoreSnapshot(initial);
-
-        private void RestoreSnapshot(SessionSnapshot snapshot)
-        {
-            if ((Terrain == null) != (snapshot.Terrain == null)) throw new FormatException("存档地图类型不匹配。");
-            var journey = snapshot.Expedition?.Journey;
-            if (Flow == null ? journey != null : !Flow.Accepts(journey))
-                throw new FormatException("存档航程配置与当前会话不一致。");
-            DarkNights.Runtime.Terrain.TerrainMapAuthority map = Terrain?.Prepare(snapshot.Terrain);
-            try
-            {
-                using var candidate = new ObjectWorldRestore(this, snapshot);
-                candidate.Commit();
-                Flow?.ResetPending();
-                if (map != null) { Terrain.Replace(map, snapshot.Terrain); map = null; }
-            }
-            finally { map?.Dispose(); }
-        }
+        public void Restore(string json) => persistence.Restore(json);
+        public void Restart() => persistence.Restart();
 
         internal ObjectSessionContext NewEntityContext() =>
             ObjectSessionContext.CreateAuthority(container, () => !disposed && authority());

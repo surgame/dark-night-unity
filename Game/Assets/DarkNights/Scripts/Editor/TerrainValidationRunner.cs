@@ -60,6 +60,11 @@ namespace DarkNights.Editor
                     Terrain.TerrainWorkbenchScenes.Open(Terrain.TerrainScenePaths.ReferenceChamber);
                     Complete("SCENES_ORGANIZED", 0, 0, 0);
                 }
+                else if (request.command == "organize-quick-test-scenes")
+                {
+                    GameSceneCatalogOrganizer.Apply();
+                    Complete("SCENES_ORGANIZED", 0, 0, 0);
+                }
                 else if (request.command == "prepare-ship-ui")
                 {
                     ShipEquipmentUiSetup.Install();

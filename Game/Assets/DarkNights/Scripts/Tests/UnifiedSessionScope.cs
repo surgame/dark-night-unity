@@ -67,7 +67,7 @@ namespace DarkNights.Tests
 
         public ObjectSession NewWorld(GameCatalog catalog, LevelLayout layout, bool activate = true,
             float debugHeroSpeedMultiplier = 1, Func<ObjectSession, SessionTerrain> terrain = null, bool? journeyEnabled = null,
-            Action<ExpeditionFlowConfig> configureJourney = null)
+            Action<ExpeditionFlowConfig> configureJourney = null, QuickTestPreset quickTest = null)
         {
             var world = new ObjectSession(catalog, layout, resources, () => true,
                 debugHeroSpeedMultiplier: debugHeroSpeedMultiplier);
@@ -94,7 +94,7 @@ namespace DarkNights.Tests
                 }
                 instance.Initialize("integration-session", definition,
                     session: world.Context, activate: false);
-                world.Prepare(instance, Placements(layout));
+                world.Prepare(instance, Placements(layout), quickTest);
                 if (activate) world.Activate();
                 worlds.Add((world, root));
                 if (definitionCopy != null) sessionDefinitions.Add(definitionCopy);

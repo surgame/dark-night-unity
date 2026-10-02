@@ -62,7 +62,8 @@ namespace DarkNights.Editor
         {
             if (navigation == null) return;
             navigation.Clear();
-            var entries = DarkNightsWorkbenchCatalog.Entries.Where(entry => entry.Matches(search) && (group == "全部" || entry.Group == group)).ToArray();
+            var entries = DarkNightsWorkbenchCatalog.Entries.Where(entry => entry.Matches(search) && (group == "全部" || entry.Group == group) &&
+                (entry.Group != "已退役" || group == "已退役" || !string.IsNullOrWhiteSpace(search))).ToArray();
             if (entries.Length > 0 && !entries.Any(entry => entry.Id == selectedId)) selectedId = entries[0].Id;
             foreach (var group in entries.GroupBy(entry => entry.Group))
             {

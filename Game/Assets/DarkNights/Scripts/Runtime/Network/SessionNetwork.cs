@@ -54,7 +54,10 @@ namespace DarkNights.Runtime.Network
         internal int ConnectionAttempt => attempt;
         public string Status { get; private set; } = "未连接";
         public bool Hosting => manager != null && manager.IsServerStarted;
-        public string SaveDirectory { get; private set; }
+        private readonly SessionSaveLocation storage = new SessionSaveLocation();
+        public string SaveDirectory => storage.Current;
+        public bool CanStartSession => initialized && !connecting && activeSession == null &&
+            !manager.IsClientStarted && !manager.IsServerStarted;
         public event Action<Exception> Failed;
 
         public void Initialize(NetworkManager networkManager, GameCatalog content, LevelLayout level,
@@ -75,10 +78,7 @@ namespace DarkNights.Runtime.Network
             manager.TransportManager.Transport.SetTimeout(15, false);
             manager.TransportManager.Transport.SetTimeout(15, true);
             string[] args = System.Environment.GetCommandLineArgs();
-            int saveArgument = Array.IndexOf(args, "--dn-save-dir");
-            SaveDirectory = Path.GetFullPath(saveArgument >= 0 && saveArgument + 1 < args.Length
-                ? args[saveArgument + 1] : Path.Combine(Application.persistentDataPath, "Saves"));
-            SaveDirectory = Path.Combine(SaveDirectory, "v" + DarkNights.Runtime.Save.ObjectWorldSaveJson.FormatVersion);
+            storage.Initialize(args);
             // 地图编辑命令只迁移程序集，注册 ID 与载荷不变；握手仍使用已发布的类型表身份。
             DefinitionNetworkProfile.RegisterWireAssemblyAlias(typeof(TerrainEditCommand), "AnyRules.FishNet");
             authenticator = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
@@ -113,15 +113,17 @@ namespace DarkNights.Runtime.Network
             initialized = true;
         }
 
-        public async UniTask Connect(bool host, string address, ushort port)
+        public async UniTask Connect(bool host, string address, ushort port, QuickTestPreset quickTest = null)
         {
-            if (!initialized || connecting || manager.IsClientStarted || manager.IsServerStarted) return;
+            if (!CanStartSession) return;
+            if (quickTest != null && (!host || Terrain == null)) throw new InvalidOperationException("快速测试只能启动本机远征 Host。");
             connecting = true;
             int current = ++attempt;
             ObjectSession preparing = null;
             try
             {
-                if (host && Terrain != null) await Terrain.EnsureSelected();
+                storage.Select(quickTest?.Id);
+                if (host && Terrain != null) await Terrain.EnsureSelected(quickTest);
                 if (this == null || current != attempt) return;
                 if (host || address != lastAddress || port != lastPort) Client.ClearRecovery();
                 lastAddress = address;
@@ -145,7 +147,7 @@ namespace DarkNights.Runtime.Network
                     if (this == null || current != attempt) { if (view != null) Destroy(view.gameObject); return; }
                     if (view == null) throw new InvalidOperationException("正式会话对象创建失败。");
                     if (Terrain != null) preparing.Terrain = Terrain.CreateAuthority(preparing.Context);
-                    preparing.Prepare(view.Owner, ObjectPlacements);
+                    preparing.Prepare(view.Owner, ObjectPlacements, quickTest);
                     var behaviour = view.Owner.GetAllBehaviors().OfType<WorldSessionBehaviour>().Single();
                     var session = view.Owner.GetAllBehaviors().OfType<CampSessionBehaviour>().Single();
                     if (activeSession != null) throw new InvalidOperationException("A session object is already active.");
@@ -259,6 +261,7 @@ namespace DarkNights.Runtime.Network
                 manager.ServerManager.StopConnection(true);
             }
             Status = "未连接";
+            storage.Select(null);
         }
 
         public ValueTask SendTerrain(int u, int v, string requestId = null) =>

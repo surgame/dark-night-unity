@@ -1,0 +1,108 @@
+{
+  "moved_scenes": [
+    {
+      "old": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\ReferenceChamber.unity",
+      "new": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\References\\Terrain\\ReferenceChamber.unity",
+      "guid": "03daec6cbfa91d24fbe0c1324beff73a",
+      "checks": [
+        {
+          "suffix": "",
+          "same_bytes": true,
+          "sha256": "187ca739c600688d82813f1af466c785ddcf2c2103ba66eb2cc68d50dd0a5ba3"
+        },
+        {
+          "suffix": ".meta",
+          "same_bytes": true,
+          "sha256": "3c213dca65c5bd44cb99cc676aae430751db00dc5a016d6ae1387c7182e9385e"
+        }
+      ]
+    },
+    {
+      "old": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Pinewatch\\Pinewatch.unity",
+      "new": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Regression\\Camp\\StaticCampRegression.unity",
+      "guid": "81168bb9d5dd6ce4782167451ad618da",
+      "checks": [
+        {
+          "suffix": "",
+          "same_bytes": true,
+          "sha256": "8b53773dd08cc0425ac2e64a58535f7bc491ff6527cd7100484a85baffb9fbf4"
+        },
+        {
+          "suffix": ".meta",
+          "same_bytes": true,
+          "sha256": "f07824e60f5249d4da6cec8f30377dd94a301cf493ad796805562fdbb47b89e6"
+        }
+      ]
+    },
+    {
+      "old": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\RandomPinewatch\\Pinewatch.unity",
+      "new": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Regression\\Camp\\RandomCampRegression.unity",
+      "guid": "a002034e2cdb87b4dbc4b877e1207cb2",
+      "checks": [
+        {
+          "suffix": "",
+          "same_bytes": true,
+          "sha256": "c5a2c98b990373c9797b6a39f6918b723932a150f1c31d3033515085dbb7c545"
+        },
+        {
+          "suffix": ".meta",
+          "same_bytes": true,
+          "sha256": "fd50edb500b115d6f86d006f2acc9a20accddc2d01ed76d9aaf13e2ad1ebbf46"
+        }
+      ]
+    },
+    {
+      "old": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\(old)\\TerrainDebugBootstrap(old).unity",
+      "new": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Archive\\Terrain\\TerrainDebugBootstrap(old).unity",
+      "guid": "078f8b061cf736f47ba98e7fd9f906dc",
+      "checks": [
+        {
+          "suffix": "",
+          "same_bytes": true,
+          "sha256": "e5cb907df82d96a739071f0d78505aac121e4f508e448363776774937320999b"
+        },
+        {
+          "suffix": ".meta",
+          "same_bytes": true,
+          "sha256": "7a3a6dfe977323659fe4402270061b28abee466344af0723a7850280e7a8f852"
+        }
+      ]
+    },
+    {
+      "old": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Workbenches\\Terrain\\(old)\\CaveExploration(old).unity",
+      "new": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Archive\\Terrain\\CaveExploration(old).unity",
+      "guid": "56096e47abdc4ed4ba4d0beb210ac3fc",
+      "checks": [
+        {
+          "suffix": "",
+          "same_bytes": true,
+          "sha256": "f6a15644bb0637c2d7c75ad485fb06116a959c6b295a2d4d867cfff79db1035b"
+        },
+        {
+          "suffix": ".meta",
+          "same_bytes": true,
+          "sha256": "13092f432eac4e51dafd0a265372c4d4a271743580cb5891fe43f51bc75cd9d0"
+        }
+      ]
+    },
+    {
+      "old": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\PendingDeletion\\Terrain\\CaveContourStatic.unity",
+      "new": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Scenes\\Archive\\Terrain\\CaveContourStatic.unity",
+      "guid": "83de985c436433b4993b518d1e2fee37",
+      "checks": [
+        {
+          "suffix": "",
+          "same_bytes": true,
+          "sha256": "f536adb11bfe56e402be46bfb710fedc03c05aca9f9484154b64225f568371a3"
+        },
+        {
+          "suffix": ".meta",
+          "same_bytes": true,
+          "sha256": "584ab533068d948a5dae5546b4710511676d2bce5b9993429be11bfac709d9fb"
+        }
+      ]
+    }
+  ],
+  "scene_count": 16,
+  "bytes_preserved": true
+}
