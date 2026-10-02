@@ -1,6 +1,6 @@
 # 氧气移除验证记录
 
-2026-10-03。按用户恢复验证并允许转用 Local 的指示，在 `ref-20261003-remove-oxygen` 串行使用现有 Unity 6000.4.9f1 缓存完成后台验证。协议 **23**／存档 **v16**／AMP1 schema **2**。**验证已执行，整批未通过**：氧气专项、资源和常规双进程链路通过，弱网与两项旧远征路线失败，详见[失败分析](OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。YYGC未修改，未合并或推送。
+2026-10-03。按用户恢复验证并允许转用 Local 的指示，在 `ref-20261003-remove-oxygen` 串行使用现有 Unity 6000.4.9f1 缓存完成后台验证。协议 **23**／存档 **v16**／AMP1 schema **2**。**验证已执行，整批未通过**：氧气专项、资源和常规双进程链路通过；弱网仍失败，修复延后至完整游戏弱网验收。两项旧远征路线用例已按用户要求移除，当前角色矿房交互／矿工采集交货待业务实施。历史诊断见[失败分析](OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。YYGC未修改，候选已推送，未合入main。
 
 ## 结果
 
@@ -9,7 +9,8 @@
 | 独立 C# 编译 | 6/6 | Core、Runtime、View、Entry、Editor、Tests；之后 Local 正常导入、生成及 Mono 构建也通过 |
 | 纯航程／冻结快照 | 1903/1903 | 不代替角色通行或联机 |
 | Core 规则 | 1046/1048 | 两项软岩／保护格旧断言失败，基线[工具 Definition 说明](TOOL_DEFINITION_HARVESTING.md)已记录；未改变规则或冻结期望 |
-| 受影响 Editor 用例 | 119/121 | r1与修正后r3按测试名取最新结果，不累加重复次数；失败为旧矿房行走和矿工交货用例 |
+| 原受影响 Editor 用例（历史） | 119/121 | 原r1＋r3结果保留；两项失败的旧矿房／矿工用例现已退出，不将历史报告改写成通过 |
+| 旧用例移除后的远征回归 | 6/6 | 本次仅重跑ExpeditionTests剩余六项，测试发现列表无两个退役用例；不是完整矩阵重跑 |
 | 氧气专项 | 2/2 | 两名角色通过可信输入离船220单位，隔离敌人后推进18000 tick／五分钟；HP、位置、登船标记、租约保持。relay、协议22、v15拒绝且世界不改变 |
 | 战斗死亡及结算 | 通过 | 更新后的死亡、失败结算回滚、复活后移动用例通过；保留战斗死亡返船语义 |
 | 三设备及货物结算 | 通过 | CargoSettlesOnceAndUpgradeChangesSecondDeparture：ship＋storage＋turret＋lamp，三设备实际展开／撤收、保存恢复、原子结算及下一轮升级 |
@@ -32,10 +33,11 @@
 
 ## 已知失败与待验收
 
-1. 弱网重同步循环及旧矿工路线未修复。报告给出代码链、数值及输入；不能宣称全部远征玩法或弱网通过。涉及YYGC的修改须先取得具体范围的用户同意。
-2. 结算后ExpeditionPhase=4／Journey=Landed的再次完整航程入口问题仍未修复。本次通过的是货物升级后的旧无航程第二次depart，不等于第二次完整星球旅程。
-3. 人工前台画面、HUD排版、音频、性能、四人本批矩阵、双机器尚未验收。此次不激活窗口、不操纵键鼠，隐藏截图只作诊断；Editor实际打开／重开不计前台视觉通过。
-4. IL2CPP未构建／未验证，须另行明确授权；Mono不能替代。
+1. 弱网重同步循环未修复，按用户要求延后；完整游戏验收必须保留初次入场、换图、晚加入／重连和地图Ready／一致性检查，不能只在已经加载的地图里验证。YYGC修改仍须具体范围的用户同意。
+2. 原StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent、MinerCanReachStarterDepositAndDeliverCargo已从ExpeditionTests删除。角色矿房交互与矿工采集交货待后续真实玩法实施，届时根据当前合同新增验收；当前6/6不代表这些玩法完成。
+3. 结算后ExpeditionPhase=4／Journey=Landed的再次完整航程入口问题仍未修复。本次通过的是货物升级后的旧无航程第二次depart，不等于第二次完整星球旅程。
+4. 人工前台画面、HUD排版、音频、性能、四人本批矩阵、双机器尚未验收。此次不激活窗口、不操纵键鼠，隐藏截图只作诊断；Editor实际打开／重开不计前台视觉通过。
+5. IL2CPP未构建／未验证，须另行明确授权；Mono不能替代。
 
 ## 工作区与证据
 
@@ -44,3 +46,5 @@ Local保持氧气候选分支。之前的ft-20261003-art-layer-cave-entrance已�
 机器摘要与原始报告路径／SHA-256见[证据JSON](evidence/oxygen-removal-20261003.json)。Local原始报告和两份Mono保留；薄worktree编译中间输出14,594,145字节已归档至artifacts/待清理/20261003-oxygen-validation。测试存档及本轮Python中间缓存的清单也保留在统一待清理目录。归档不计空间释放，未永久删除任何产物。
 
 2026-10-03 worktree收尾：132项忽略文件共14,938,743字节已移至主项目并逐文件校验SHA-256。最终纯规则证据保存在artifacts/oxygen-removal-20261003/worktree-evidence/；原薄worktree的artifacts/待清理保存在主项目artifacts/待清理/20261003-oxygen-worktree-retirement/from-worktree/artifacts/待清理/。迁移清单为该主项目待清理目录的preservation.json和清单.md；原报告中的编译时绝对路径保留追溯含义，不要求已移除worktree继续存在。两份Player、失败日志、存档、旧任务备份及其他worktree均未清理。
+
+本次用例退役证据见[机器摘要](evidence/legacy-expedition-test-retirement-20261003.json)。两个旧诊断脚本只保留历史复现用途，不注册到自动验收。分支清理仅针对已合入main且无worktree占用的分支，以及与原美术分支相同提交的临时保护别名；原美术分支、stash和文件备份保留，候选分支与main保留。

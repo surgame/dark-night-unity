@@ -1,6 +1,6 @@
 # Dark Nights 文档结构
 
-2026-10-03 [氧气移除验证记录](OXYGEN_REMOVAL_VALIDATION.md)：Editor119/121、资源12/12、正常Mono双进程130/130；纯航程1903/1903、Core1046/1048；[弱网和旧路线失败原因](OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)已定位并保留证据，整批未通过。
+2026-10-03 [氧气移除验证记录](OXYGEN_REMOVAL_VALIDATION.md)：原Editor119/121、资源12/12、正常Mono双进程130/130；两项未实现玩法的旧路线用例已移除，剩余远征回归6/6。纯航程1903/1903、Core1046/1048；[弱网及旧路线历史诊断](OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)保留，弱网修复延后，整批未通过。
 
 2026-10-03 [氧气业务移除源码候选](OXYGEN_REMOVAL_EXECUTION.md)：协议 **23**／存档 **v16**，薄worktree实施、Local串行后台验证；YYGC未修改，实施范围与原验收计划见该页；此前[评估](OXYGEN_REMOVAL_ASSESSMENT.md)保留评估时点。
 

@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-2026-10-03 [氧气业务移除](OXYGEN_REMOVAL_EXECUTION.md)已完成源码及文本资源修改，分支 `ref-20261003-remove-oxygen`，基于提交 `baedc15` 的薄worktree；没有复制另一对话的未提交修改，也未合并回Local。协议23／存档v16；按用户要求全部编译、测试和运行验证暂不执行。后续按链接矩阵验证，独立的phase4／Landed再次出发问题尚未修复。
+2026-10-03 [氧气业务移除](OXYGEN_REMOVAL_EXECUTION.md)位于ref-20261003-remove-oxygen，协议23／存档v16，已在Local后台验证并推送候选，未合入main。原Editor119/121、资源12/12、正常Mono双进程130/130；两项尚无具体玩法的旧角色矿房／矿工用例已移除，本次剩余远征回归6/6。弱网失败保留并延后修复；完整游戏弱网验收须覆盖地图初次同步、换图和晚加入／重连。phase4／Landed再次完整出发问题仍保留。
 
 2026-10-03 [矿镐吸附与挥砍统一距离](PICKAXE_UNIFIED_REACH.md)：矿镐 Definition 的 Reach 从48扩大至64（4格），移除本地额外一格预览；选取与 YYGC 权威落镐共用冻结配置。协议22／存档v15不变，本批验证结果与边界见链接及机器证据。
 

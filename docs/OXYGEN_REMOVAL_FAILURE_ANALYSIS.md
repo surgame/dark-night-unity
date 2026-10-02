@@ -1,5 +1,7 @@
 # 氧气候选：弱网与旧路线失败原因
 
+2026-10-03后续：用户确认角色矿房交互与矿工采集交货的具体玩法尚未实施，已移除对应两项旧自动化用例；剩余远征回归6/6。下文旧路线部分是历史诊断，不再是当前活动用例，也不因删除用例变成玩法通过。弱网修复延后到完整游戏弱网验收阶段，现有失败场景和证据保留，YYGC未修改。
+
 2026-10-03。整批验证未通过。这里区分已确认的失败机制和仍待逐包定位的部分；没有通过传送、改图、放宽门控或减少丢包来消除失败。
 
 ## 弱网：反复作废地图基线，最终Ready超时
@@ -37,7 +39,7 @@ relay实际received10799、dropped536、forwarded10263、reordered7406，115.81�
 
 后续优先评估基线进度感知超时／续传、基线与增量不同预算及可靠队列背压。只增加游戏90秒等待不能解决12秒作废循环；不能移除Ready门控允许未完整地图参与业务。相关实现涉及锁定YYGC的AnyRules网络包，本轮按AGENTS约束未修改，须先单独提出具体范围并取得同意。
 
-## 旧路线：测试假设与当前生成地图、导航能力不匹配
+## 旧路线历史诊断（两项用例已移除）
 
 两项用例共用[ExpeditionTests.Create](../Game/Assets/DarkNights/Scripts/Tests/ExpeditionTests.cs)、种子EXPEDITION-QUICK-01。当前[ExpeditionTerrainGenerator](../Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/ExpeditionTerrainGenerator.cs)转交完整PlanetTerrainGenerator，明确不再改写独立泊位、通路或矿床；旧用例仍假设只向右就必定到第一矿房、矿工能走到矿床中心。
 
