@@ -17,6 +17,19 @@ namespace DarkNights.Tests
     public sealed class MiningSelectorTests
     {
         [Test]
+        public void ReachIsFrozenAndChangesToolFingerprint()
+        {
+            var config = new MiningToolConfig();
+            Assert.That(config.Reach, Is.EqualTo(64));
+            var frozen = config.Freeze();
+            string fingerprint = config.Fingerprint();
+            config.Reach = 32;
+            Assert.That(frozen.Reach, Is.EqualTo(64));
+            Assert.That(config.Freeze().Reach, Is.EqualTo(32));
+            Assert.That(config.Fingerprint(), Is.Not.EqualTo(fingerprint));
+        }
+
+        [Test]
         public void ToolTargetsAndMaterialsAreFrozenAndFingerprintChanges()
         {
             var config = new MiningToolConfig();

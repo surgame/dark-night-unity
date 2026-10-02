@@ -17,6 +17,9 @@ namespace DarkNights.Tests
     /// <summary>Definition 驱动采集的匹配、真实 YYGC 装配及装备身份恢复验收；临时工具只存在于隔离测试目录的内存注册表。</summary>
     public sealed class MiningToolDefinitionTests
     {
+        [SetUp]
+        public void PrepareDefinitionIndex() => ObjectDefinitionDatabase.Instance.RebuildLookup();
+
         [Test]
         public void CategoryMaterialLevelAndDefinitionMustAllMatch()
         {

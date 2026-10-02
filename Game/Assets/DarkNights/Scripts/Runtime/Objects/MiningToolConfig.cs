@@ -18,7 +18,9 @@ namespace DarkNights.Runtime.Objects
         [InspectorName("允许的矿床 Definition（空为全部）")] public DefinitionReference[] Deposits = Array.Empty<DefinitionReference>();
         [InspectorName("采集等级")] public int Level = 1;
         [InspectorName("单次伤害")] public int Damage = 10;
-        [InspectorName("触及距离（逻辑像素）")] public float Reach = 48;
+        [InspectorName("吸附与挥砍距离（逻辑像素）")]
+        [Tooltip("从手部沿瞄准方向到最近真实表面的最大距离；吸附与权威落镐共用，不额外扩大预览范围。16 逻辑像素为一格，新会话生效。")]
+        public float Reach = 64;
         [InspectorName("手部高度（逻辑像素）")] public float HandHeight = 36;
         [InspectorName("动作周期（秒）")] public float Seconds = .48f;
         [InspectorName("命中进度")] public float ImpactFraction = .6f;

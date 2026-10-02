@@ -1,5 +1,7 @@
 # Dark Nights 文档结构
 
+2026-10-03 [矿镐统一触及范围](PICKAXE_UNIFIED_REACH.md)：矿镐自身配置同步控制吸附与挥砍，当前64逻辑像素／4格；YYGC合同、验证及配置入口见本页。
+
 2026-10-02 [快速测试与场景整理](QUICK_TEST_SCENES.md)：主菜单专属 Hub 入口、已着陆矿镐预设及完整场景导航；Editor 规则 21/21、实际主菜单 Play 1/1、快捷键／GUI 点击 1/1、跨 Editor 重启记忆通过。Player、多人快速局未验。
 
 2026-10-02 [Definition 与 Editor 复评及最终 Review](DEFINITION_EDITOR_REVIEW.md)：Editor 首批 6 项修正已完成，8 组装备／远征能力化缺口与后续执行顺序逐项列明。专项 11/11，生命周期与资产保持 52/52。

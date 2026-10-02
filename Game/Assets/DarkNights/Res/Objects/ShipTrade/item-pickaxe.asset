@@ -51,7 +51,7 @@ MonoBehaviour:
         Deposits: []
         Level: 1
         Damage: 10
-        Reach: 48
+        Reach: 64
         HandHeight: 36
         Seconds: 0.48
         ImpactFraction: 0.6

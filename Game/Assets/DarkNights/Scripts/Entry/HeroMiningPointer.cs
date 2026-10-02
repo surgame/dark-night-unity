@@ -52,10 +52,10 @@ namespace DarkNights.Entry
             Vector3 point = stage.SceneCamera.ScreenToWorldPoint(new Vector3(controls.Pointer.x, controls.Pointer.y,
                 stage.SceneCamera.WorldToScreenPoint(Vector3.zero).z));
             var map = terrain.Replica;
-            float hand = actor.Height + handHeight, previewReach = reach + PlayableTerrain.CellPixels;
+            float hand = actor.Height + handHeight;
             if (map.Descriptor == null || !TerrainMiningGeometry.Direction(point.x * 100 - actor.X,
                 point.y * 100 - hand, out float dx, out float dh)) return;
-            bool found = TerrainMiningQuery.FirstSurface(map, actor.X, hand, dx, dh, previewReach, out cell, out float distance);
+            bool found = TerrainMiningQuery.FirstSurface(map, actor.X, hand, dx, dh, reach, out cell, out float distance);
             WorksiteViewData deposit = null;
             foreach (var site in frame.World.Worksites)
             {
@@ -63,7 +63,7 @@ namespace DarkNights.Entry
                     site.ResourceId, site.RequiredMiningLevel, frame.World.Identities.Single(value => value.Id == site.Id).DefinitionGuid).Length > 0) continue;
                 var position = new CellCoord((int)Math.Floor(site.X / PlayableTerrain.CellPixels), -(int)site.Y);
                 if (!map.Read(position).TryGetCell(out var background) || !background.IsEmpty ||
-                    !TerrainMiningGeometry.RayCell(actor.X, hand, dx, dh, previewReach, position.U, position.V,
+                    !TerrainMiningGeometry.RayCell(actor.X, hand, dx, dh, reach, position.U, position.V,
                         TerrainCellShape.Full, out float near) || near >= distance) continue;
                 found = true; cell = position; distance = near; deposit = site;
             }
@@ -87,7 +87,6 @@ namespace DarkNights.Entry
             }
             bool capacity = cargo == null || cargo.Iron + cargo.Gold + amount <= catalog.Balance.Expedition.BagCapacity;
             if (blocked.Length == 0 && durability <= damage && !capacity) blocked = "完成采集需要货袋空间，请先卸货";
-            if (blocked.Length == 0 && distance > reach) blocked = "目标太远，请靠近后采集";
             valid = blocked.Length == 0;
             Hint = valid ? (value.IsEmpty ? "矿床采集" : "岩壁耐久") + " " + durability + "/" + maximum + " · 左键／按住采集" : blocked;
             if (valid) Target = new HeroMiningTarget(map.World.WorldId.ToString().Replace("-", ""), map.World.Epoch,

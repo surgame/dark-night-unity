@@ -10,7 +10,7 @@
 - `Targets` 设置支持前景岩壁、独立矿床或二者。当前正式矿镐只支持前景岩壁，保持上一轮“不与隐藏矿床交互”的产品行为。
 - `AllMaterials=true` 支持所有目标材料；关闭后只接受 `Materials` 中的稳定 Key。前景使用 AnyRuleD 材料 Key（如 slate、iron、gold），矿床使用其实际材料／资源身份（当前 iron、gold）。关闭且列表为空表示不支持任何材料。
 - `Deposits` 为可选矿床 Definition 引用白名单；空列表表示所有矿床定义。只在 `Targets` 包含独立矿床时参与判断。多个矿床共享 Definition 时，使用 Materials 区分材料，不按实例 ID 配置静态能力。
-- `Level` 与矿床的 `RequiredMiningLevel` 比较。原数值保持：Damage=10，Reach=48，HandHeight=36，Seconds=0.48，ImpactFraction=0.6。
+- `Level` 与矿床的 `RequiredMiningLevel` 比较。当前数值：Damage=10，Reach=64，HandHeight=36，Seconds=0.48，ImpactFraction=0.6。Reach 在原生界面显示为“吸附与挥砍距离”，两者共用；本次从48扩大至64（4格）的原因和验证见[统一距离记录](PICKAXE_UNIFIED_REACH.md)。
 - 矿床资产：`Game/Assets/DarkNights/Res/Objects/MineralDeposit/MineralDeposit.asset`。矿床只配置最低采集等级、耐久、产量和材料；原 `AllowPickaxeHarvest` 已退出。
 
 例如，要让某把镐只采铁矿床：在该工具 Definition 中启用 MineralDeposit，关闭 AllMaterials，Materials 填 iron；如还需限制矿床类型，在 Deposits 中选择对应 Definition。支持岩壁且限制材料时须同时列出需要的岩壁材料 Key。匹配预览使用与游戏同一纯匹配函数，但不替代距离、遮挡、权限和容量校验。

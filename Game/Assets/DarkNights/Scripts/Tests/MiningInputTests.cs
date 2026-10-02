@@ -22,6 +22,9 @@ namespace DarkNights.Tests
     /// <summary>隔离 YYGC 会话中的显式采矿输入回归；夹具安排可达目标，不代表正式地图路线或实际鼠标验收。</summary>
     public sealed class MiningInputTests
     {
+        [SetUp]
+        public void PrepareDefinitionIndex() => ObjectDefinitionDatabase.Instance.RebuildLookup();
+
         [UnityTest]
         public IEnumerator SoftRockClickDamagesOnlyTargetAndRejectsDuplicate() => Run(2, false, true, true, "");
 
@@ -47,23 +50,37 @@ namespace DarkNights.Tests
         public IEnumerator DisabledDepositForgedTargetCannotDamageOrReward() => Run(0, false, false, false,
             "这里没有可采集的矿床", true, false);
 
+        [UnityTest]
+        public IEnumerator PreviouslyPreviewOnlyWallCanBeDamaged() => Run(2, false, false, true, "", surfaceDistance: 52);
+
+        [UnityTest]
+        public IEnumerator SharedReachBoundaryCanBeDamaged() => Run(2, false, false, true, "", surfaceDistance: 64);
+
+        [UnityTest]
+        public IEnumerator BeyondSharedReachForgedTargetCannotDamage() => Run(2, false, false, false, "", surfaceDistance: 64.1f);
+
+        [UnityTest]
+        public IEnumerator CustomToolReachControlsSurfaceAndHit() => Run(2, false, false, false, "", surfaceDistance: 40, configuredReach: 32);
+
         private static IEnumerator Run(byte material, bool protect, bool soft, bool succeeds, string reason,
-            bool deposit = false, bool allowDeposit = true) =>
+            bool deposit = false, bool allowDeposit = true, float surfaceDistance = 0, float configuredReach = 0) =>
             UniTask.ToCoroutine(async () =>
             {
                 var config = AssetDatabase.LoadAssetAtPath<ObjectDefinition>("Assets/DarkNights/Res/Objects/ShipTrade/item-pickaxe.asset")
                     .SharedConfigs.OfType<MiningToolConfig>().Single();
                 var previous = config.Targets;
+                float previousReach = config.Reach;
                 try
                 {
                     config.Targets = DarkNights.Core.Config.MiningTargetKinds.Foreground | (allowDeposit ? DarkNights.Core.Config.MiningTargetKinds.MineralDeposit : 0);
-                    await Execute(material, protect, soft, succeeds, reason, deposit, allowDeposit);
+                    if (configuredReach > 0) config.Reach = configuredReach;
+                    await Execute(material, protect, soft, succeeds, reason, deposit, allowDeposit, surfaceDistance);
                 }
-                finally { config.Targets = previous; }
+                finally { config.Targets = previous; config.Reach = previousReach; }
             });
 
         private static async UniTask Execute(byte material, bool protect, bool soft, bool succeeds, string reason,
-            bool deposit, bool allowDeposit)
+            bool deposit, bool allowDeposit, float surfaceDistance)
         {
             using var scope = await UnifiedSessionScope.Create();
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(Editor.Terrain.TerrainTestAssets.DefinitionPath);
@@ -80,8 +97,8 @@ namespace DarkNights.Tests
                     cells[floor] = bottom ? (byte)8 : (byte)2;
                     protection[floor] = bottom || column < PlayableTerrain.CampColumns && row < PlayableTerrain.CampRow + 4;
                 }
-            const float actorX = 1300;
-            int targetU = TerrainMiningGeometry.CellU(actorX) + 1;
+            float actorX = surfaceDistance > 0 ? 85 * PlayableTerrain.CellPixels - PlayableTerrain.CellPixels * .5f - surfaceDistance : 1300;
+            int targetU = surfaceDistance > 0 ? 85 : TerrainMiningGeometry.CellU(actorX) + 1;
             int targetRow = PlayableTerrain.CampRow - 3;
             int index = targetRow * TerrainGenerationSettings.Width + targetU;
             cells[index] = material; protection[index] = protect; softRock[index] = soft;
@@ -115,11 +132,22 @@ namespace DarkNights.Tests
                 .SharedConfigs.OfType<MiningToolConfig>().Single();
             int baseDamage = handheld.Damage;
             int damage = deposit ? baseDamage : before.IsEmpty ? 0 : map.Rules.PickaxeDamage(before.TileId, baseDamage);
-            Assert.That(TerrainMiningQuery.CanMine(map, map.Tiles, target), Is.EqualTo(succeeds && !deposit));
+            Assert.That(TerrainMiningQuery.CanMine(map, map.Tiles, target), Is.EqualTo(material != 0 && material != 8));
             Assert.That(TerrainMiningQuery.BlockReason(map, map.Tiles, target), Does.StartWith(reason));
             float handHeight = handheld.HandHeight;
             Assert.That(TerrainMiningQuery.Reachable(map, state.X, state.Height + handHeight,
-                target, handheld.Reach), Is.True);
+                target, handheld.Reach), Is.EqualTo(surfaceDistance <= handheld.Reach));
+            if (surfaceDistance > 0)
+            {
+                bool snapped = TerrainMiningQuery.FirstSurface(map, state.X, state.Height + handHeight,
+                    1, 0, handheld.Reach, out var selected, out float distance);
+                Assert.That(snapped, Is.EqualTo(succeeds), "与落镐共用工具配置距离的只读表面查询。");
+                if (snapped)
+                {
+                    Assert.That(selected, Is.EqualTo(target));
+                    Assert.That(distance, Is.EqualTo(surfaceDistance).Within(.001f));
+                }
+            }
             if (deposit)
             {
                 Assert.That(mineral.RequiredMiningLevel, Is.EqualTo(1));
@@ -151,6 +179,7 @@ namespace DarkNights.Tests
                 Assert.That(mineral.Durability, Is.EqualTo(expectedDurability));
             }
             else if (succeeds && damage < durability) Assert.That(map.Query(target).State.Durability, Is.EqualTo(durability - damage));
+            else if (!succeeds && !deposit && material != 0) Assert.That(map.Query(target).State.Durability, Is.EqualTo(durability));
             Assert.That(authority.SubmitInput(host, input), Is.False);
             authority.Tick();
             Assert.That(world.Economy.CaptureState().Iron - iron, Is.EqualTo(reward));
