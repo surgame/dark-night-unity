@@ -1260,5 +1260,27 @@
     "space_freed": 0,
     "deleted_artifacts": false,
     "retained": "all final Players, original reports, failed reports/logs, screenshots, versioned test saves, old-task backup and shared Unity cache"
+  },
+  "worktree_retirement": {
+    "authorized_by_user": true,
+    "main_project_branch": "ref-20261003-remove-oxygen",
+    "preserved_ignored_file_count": 132,
+    "preserved_ignored_bytes": 14938743.0,
+    "hash_verified": true,
+    "path_mappings": [
+      {
+        "original": "C:\\Users\\Jobscn\\.codex\\worktrees\\ft-20261003-remove-oxygen\\unity-projects\\artifacts\\oxygen-removal-20261003",
+        "preserved": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\oxygen-removal-20261003\\worktree-evidence",
+        "bytes": 342829.0
+      },
+      {
+        "original": "C:\\Users\\Jobscn\\.codex\\worktrees\\ft-20261003-remove-oxygen\\unity-projects\\artifacts\\待清理",
+        "preserved": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261003-oxygen-worktree-retirement\\from-worktree\\artifacts\\待清理",
+        "bytes": 14595914.0
+      }
+    ],
+    "preservation_manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261003-oxygen-worktree-retirement\\preservation.json",
+    "method": "Codex archive_worktree after branch push; saves recoverable Git snapshot; keep all other worktrees",
+    "verification_status_unchanged": true
   }
 }

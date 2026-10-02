@@ -39,6 +39,8 @@
 
 ## 工作区与证据
 
-Local保持氧气候选分支。之前的ft-20261003-art-layer-cave-entrance已有HEAD d265421，另建保护分支chore-20261003-before-oxygen-local；26项未提交文件逐字节备份于artifacts/oxygen-removal-20261003/local-before，Git stash为e33cf30dc062b13caf877763b10b2f3488bda1d1。没有清空或删除旧任务文件。原薄worktree保持detached，未生成第二套Unity缓存。
+Local保持氧气候选分支。之前的ft-20261003-art-layer-cave-entrance已有HEAD d265421，另建保护分支chore-20261003-before-oxygen-local；26项未提交文件逐字节备份于artifacts/oxygen-removal-20261003/local-before，Git stash为e33cf30dc062b13caf877763b10b2f3488bda1d1。没有清空或删除旧任务文件。薄worktree源码与验证工具均已提交，未生成第二套Unity缓存。用户随后要求推送分支并归档移除该worktree；主项目已经在该分支。
 
 机器摘要与原始报告路径／SHA-256见[证据JSON](evidence/oxygen-removal-20261003.json)。Local原始报告和两份Mono保留；薄worktree编译中间输出14,594,145字节已归档至artifacts/待清理/20261003-oxygen-validation。测试存档及本轮Python中间缓存的清单也保留在统一待清理目录。归档不计空间释放，未永久删除任何产物。
+
+2026-10-03 worktree收尾：132项忽略文件共14,938,743字节已移至主项目并逐文件校验SHA-256。最终纯规则证据保存在artifacts/oxygen-removal-20261003/worktree-evidence/；原薄worktree的artifacts/待清理保存在主项目artifacts/待清理/20261003-oxygen-worktree-retirement/from-worktree/artifacts/待清理/。迁移清单为该主项目待清理目录的preservation.json和清单.md；原报告中的编译时绝对路径保留追溯含义，不要求已移除worktree继续存在。两份Player、失败日志、存档、旧任务备份及其他worktree均未清理。
