@@ -11,7 +11,8 @@ namespace DarkNights.Tests
         {
             if (!Directory.Exists(directory)) return;
             string source = Path.GetFullPath(directory);
-            string temp = Path.GetFullPath(Path.GetTempPath()).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+            string temp = Path.GetFullPath(Path.Combine(RuleScenario.RepositoryRoot, "artifacts", "session-storage-tests"))
+                .TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
             string name = Path.GetFileName(source);
             if (!source.StartsWith(temp, StringComparison.OrdinalIgnoreCase) ||
                 !name.StartsWith("dark-nights-storage-", StringComparison.Ordinal) ||

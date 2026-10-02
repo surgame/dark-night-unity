@@ -1,12 +1,12 @@
 # 氧气业务移除：源码候选与待验证清单
 
-2026-10-03后续：独立C#编译及纯规则结果见[验证记录与人工清单](OXYGEN_REMOVAL_VALIDATION.md)。用户随后要求暂不继续验证并自行完成，已停止后续移交／Unity／Player／联机操作；下方NOT_RUN保留最初源码交付时点，整批尚未通过。
+2026-10-03后续：用户恢复验证并授权转用Local后，已完成后台验证：Editor119/121、原生资源12/12、正常Mono双进程130/130；弱网与两项旧路线失败，整批未通过。结果见[验证记录](OXYGEN_REMOVAL_VALIDATION.md)，具体原因见[失败分析](OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。
 
-2026-10-03。基于已提交基线 `baedc158b3d1b5616cf6118765a3c776b416f64d`，在独立薄 worktree 的 `ref-20261003-remove-oxygen` 分支实施。原 Local 中另一对话的未提交洞穴／天空等修改没有复制、覆盖或合并。本候选只完成源码与文本资源修改及静态审阅；用户要求暂不验证，未恢复依赖、生成代码、启动 Unity、编译、运行测试、Play、构建或联机。不能据此宣称可运行或交付通过。
+源码实施基于已提交基线baedc158b3d1b5616cf6118765a3c776b416f64d，在独立薄worktree分支ref-20261003-remove-oxygen完成。验证时复用Local现有Unity缓存；前一任务工作已完整备份并暂存，没有复制或覆盖其未提交修改。源码阶段原本暂不验证的状态已被上述后续结果替代。
 
 游戏协议 **23**／存档 **v16**／AMP1 schema **2**。YYGC 源码、版本及补丁均未修改；[AGENTS](../AGENTS.md) 中“修改 YYGC 必须事先取得具体范围的用户同意”继续有效。
 
-隔离避免了当前目录互相覆盖，但未来集成仍需协调：Local另一对话正在修改SaveContentFingerprint及README／ARCHITECTURE／DEVELOPMENT／文档索引等共同文件。不得直接用本分支覆盖它们；应在对方形成checkpoint后审查合并双方修改及协议／指纹。本轮未执行集成，也未产生Unity缓存、构建或测试中间产物。
+Local已在用户授权后转为本氧气候选，未合并、推送或代改YYGC。旧任务HEAD、保护分支、stash与26项文件备份均保留，详见验证记录。未来与main集成仍应审查共同文档、存档指纹和协议修改，不直接覆盖其他任务成果。
 
 ## 已实施范围与定位
 
@@ -19,7 +19,7 @@
 | 命令及表现 | 删除 relay 的许可、分派、HUD命令、两套 Prefab按钮及氧气显示；船HUD16项、远征面板11项 | SessionOperations、SessionExpeditionControl、ExpeditionHud、ExpeditionPanel、ShipSceneAssetSetup、ShipHud.prefab、Expedition.prefab |
 | 正式资源 | 移除 DefinitionDatabase 与 Addressables 的氧气注册；资产原样移出Assets，保留GUID、人工内容和源图 | [资源退役清单](archive/retired-assets/README.md) |
 | 制作及回归入口 | 首版安装器不再创建氧气站／中继；诊断不再读取氧气；相关构造调用调整 | tools/expedition/ExpeditionInstall.cs、ShipDiagnostic、PlanetFlowRegression |
-| 原死亡回归 | 缺氧死亡用例改为通过现有通用伤害／生命周期触发战斗死亡，保留结算失败、复活、写盘和移动断言；已更新但未执行 | ExpeditionRecoveryTests、JourneyWalkwayTests |
+| 原死亡回归 | 缺氧死亡用例改为通过现有通用伤害／生命周期触发战斗死亡，保留结算失败、复活、写盘和移动断言；已更新并执行通过 | ExpeditionRecoveryTests、JourneyWalkwayTests |
 | 兼容界限 | 协议22客户端及v15存档不兼容；不迁移、不删除用户旧档。依赖锁中游戏版本同步，框架提交及补丁哈希不变 | SessionAuthority、SessionSnapshot、ObjectWorldSaveJson、tools/grid-business/dependency.lock.json |
 
 所有业务继续由原 YYGC Behaviour／State 拥有，未新增规则总开关、空实现、插件调度或另一套状态系统。以后重新加入氧气应依据新玩法定义自己的状态与规则边界，再接入现有权威事务、投影和存档；本次提交与退役资产可追溯旧实现，但不建议整段直接还原。
@@ -34,9 +34,9 @@
 - 已发现的独立问题：结算后ExpeditionPhase=4但Journey仍为Landed，再次出发入口可能无法重新推进。此问题在移除前已存在，本切片未修；不能宣称再次远征已通过。
 - 原始氧气图像及历史生成脚本继续作为资料保留，不注册为氧气设备。退役Definition不再被Unity导入，避免不存在的RuleKey造成作者配置错误。
 
-## 待验证清单（全部 NOT_RUN）
+## 原实施阶段验收计划（现执行状态以验证记录为准）
 
-按用户要求，本轮不执行以下项目。后续授权验证时先在可恢复checkpoint上安排 Local 单一Unity通道，检查另一对话分支、未提交修改与Editor占用后再移交；不在本薄worktree生成第二套Unity缓存。
+下表保留原实施阶段的范围与预期，不代表各项全部通过；已执行、失败及尚未执行项见本页顶部验证记录。验证使用Local单一Unity通道，薄worktree没有生成第二套Unity缓存。
 
 | 项目 | 预期及边界 |
 | --- | --- |

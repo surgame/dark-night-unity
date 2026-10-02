@@ -1,6 +1,6 @@
 # Dark Nights · Unity
 
-2026-10-03 [氧气业务移除源码候选](docs/OXYGEN_REMOVAL_EXECUTION.md)：独立薄 worktree 分支 `ref-20261003-remove-oxygen`，完整移除耗氧、缺氧返船、氧气站、中继命令及氧气数据合同。协议 **23**／存档 **v16**／AMP1 schema **2**，YYGC未修改。按用户要求未编译、测试、Play或构建；实施范围、保留的战斗死亡返航和待验证项见链接，下方旧版本证据不代表本候选通过。
+2026-10-03 [氧气业务移除候选](docs/OXYGEN_REMOVAL_EXECUTION.md)：ref-20261003-remove-oxygen，协议 **23**／存档 **v16**／AMP1 schema **2**，YYGC未修改。后台验证Editor119/121、原生资源12/12、正常Mono双进程130/130；弱网及旧路线失败，**整批未通过**，见[验证记录](docs/OXYGEN_REMOVAL_VALIDATION.md)及[失败原因](docs/OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。前台画面、四人、IL2CPP与双机器不宣称通过。
 
 2026-10-02 [快速测试与场景整理](docs/QUICK_TEST_SCENES.md)：主菜单 Debug Hub 一键进入已着陆矿镐局，记住本机选择；6 场景保留 GUID／字节迁移，16 场景完整归类。Editor 规则 21/21、真实主菜单 Play 1/1、快捷键与实际 GUI 点击 1/1 通过，跨 Editor 重启记忆已验。协议 22／存档 v15 不变；没有新 Player 或多人快速局证据。
 

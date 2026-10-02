@@ -41,8 +41,7 @@ public static class OxygenAssetProbe
                 "Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset");
             Check(db.Definitions.All(d => d != null) && db.GetDefinitionByKey("expedition.oxygen") == null,
                 "DefinitionDatabase无氧气及悬空对象");
-            Check(AssetDatabase.GUIDToAssetPath(StationGuid) == "" &&
-                AssetDatabase.GUIDToAssetPath(StationPrefabGuid) == "", "退役Definition和Prefab不再导入");
+            Check(Retired(StationGuid) && Retired(StationPrefabGuid), "退役Definition和Prefab不再导入");
             var settings = AddressableAssetSettingsDefaultObject.Settings;
             Check(settings.FindAssetEntry(StationGuid) == null &&
                 settings.FindAssetEntry(StationPrefabGuid) == null, "Addressables无退役氧气条目");
@@ -86,5 +85,14 @@ public static class OxygenAssetProbe
                 path + "保存重开及GUID保持");
         }
         finally { PrefabUtility.UnloadPrefabContents(root); }
+    }
+
+    private static bool Retired(string guid)
+    {
+        string path = AssetDatabase.GUIDToAssetPath(guid);
+        // Unity会保留本Editor会话内已删除资产的GUID；只检查实际存在的资产，不要求历史路径缓存立刻消失。
+        return string.IsNullOrEmpty(path) || !File.Exists(path) &&
+            AssetDatabase.AssetPathToGUID(path, AssetPathToGUIDOptions.OnlyExistingAssets) == "" &&
+            AssetDatabase.LoadMainAssetAtPath(path) == null;
     }
 }

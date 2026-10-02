@@ -18,7 +18,8 @@ namespace DarkNights.Tests
         public static void Run(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
         {
             Recovery(check);
-            string directory = Path.Combine(Path.GetTempPath(), "dark-nights-storage-" + Guid.NewGuid().ToString("N"));
+            string directory = Path.Combine(RuleScenario.RepositoryRoot, "artifacts", "session-storage-tests",
+                "dark-nights-storage-" + Guid.NewGuid().ToString("N"));
             try
             {
                 using var authority = Open(catalog, layout, out var host, out var guest);
