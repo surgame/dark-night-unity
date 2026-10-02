@@ -1,5 +1,55 @@
 # Unity 场景索引
 
+## 2026-10-02 场景盘点与矿镐专项入口建议
+
+本次先整理用途及退役建议，**未移动、改名或删除场景，未实现快速着陆入口**。核对范围为当前 `Game/Assets` 下全部 `.unity`、各场景 `.meta`、项目设置、菜单、启动代码、构建代码和测试引用；不把 `Library`、依赖缓存及包内示例计入项目场景数量。以下为源码／序列化检查，没有切换用户当前场景、进入或退出 Play，也没有运行 Unity 验收或构建。
+
+当前共 **16 个场景**：正式启动／关卡 4 个、当前地形工作台 2 个、专用地形测试 2 个、退役地形实验 3 个、模板／独立示例 5 个。所有表内路径相对 `D:\Developer\MiniGames\Dark Nights\unity-projects\Game\Assets`；同名 `Pinewatch.unity` 必须按完整路径区分。
+
+| 分组 | 场景路径 | 实际用途与处理建议 |
+| --- | --- | --- |
+| 正式 | `Scenes/Bootstrap.unity` | 产品启动、资源与网络装配；保留，完整游戏从这里进入。 |
+| 正式 | `DarkNights/Res/Scenes/Expedition/Expedition.unity` | 当前正式远征内容；保留。打开后 Play 会由 `ScenePlaySelection` 经 Bootstrap 装配，仍从太空待命开始。 |
+| 旧玩法回归 | `DarkNights/Res/Scenes/Pinewatch/Pinewatch.unity` | 旧营地静态布局，`--dn-camp-mode` 仍直接引用；保留，退出日常远征导航即可，不能按过期资源直接删除。 |
+| 旧玩法回归 | `DarkNights/Res/Scenes/RandomPinewatch/Pinewatch.unity` | 旧随机灰松谷模板；仍在正式 Player 显式构建列表及 Editor 场景选择链中，保留供专项回归。当前默认启动不选它。 |
+| 地形预览 | `DarkNights/Res/Scenes/Workbenches/Terrain/RandomCave.unity` | 正式配置的地图／岩壁／背景／通行工作台；建议作为日常地形预览唯一入口。 |
+| 地形预览 | `DarkNights/Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` | Play 已与 RandomCave 同走正式生成；额外保留 `EditorOnly` 的静态参考画面。功能重叠，可退出日常导航，但整合前保留参考资产、GUID 及现有测试。 |
+| 专用测试 | `DarkNights/Res/Scenes/Tests/Terrain/TerrainTest.unity` | DualGrid 单机预览／探针；`TerrainNetworkProbe` 仍会加载它，不能删。 |
+| 专用测试 | `DarkNights/Res/Scenes/Tests/Terrain/TerrainNetworkTest.unity` | 独立地图网络探针，`TerrainPlayerBuild` 的专用 Player 入口；保留，不用于矿镐产品验收。 |
+| 退役候选 | `DarkNights/Res/Scenes/Workbenches/Terrain/(old)/TerrainDebugBootstrap(old).unity` | 旧八房间地图调试；未绑定当前入口必需的 `MapAssemblySource`，源码检查确认不能作为当前直接 Play 入口。可列入退役处理清单。 |
+| 退役候选 | `DarkNights/Res/Scenes/Workbenches/Terrain/(old)/CaveExploration(old).unity` | 旧洞穴定义／样式实验，已被 StrataCave 工作台替代；它已有正式 `MapAssemblySource` 绑定，不应与上项一起断言为缺绑定。保留历史对照用途，是否退役另行处理。 |
+| 退役候选 | `DarkNights/Res/Scenes/PendingDeletion/Terrain/CaveContourStatic.unity` | 初批旧前景＋新背景对照，已被替代；无正式构建或日常入口，且缺当前 `MapAssemblySource`。最明确的退役候选，仍未删除。 |
+| 模板残留 | `Scenes/SampleScene.unity` | 仅有相机与 2D 全局光，但 `ProjectSettings.asset.templateDefaultScene` 仍引用它，Build Settings 也启用它。建议先从正式 Build Settings 移出；实际删除前处理模板引用。 |
+| 编辑器模板 | `Settings/Scenes/URP2DSceneTemplate.unity` | 被 `Settings/Lit2DSceneTemplate.scenetemplate` 引用，用于新建 2D 场景；保留。 |
+| 独立示例 | `Samples/LanCoop/Content/LanCoop.unity` | 框架联机样板，有自身启动和验证流程；保留，与正式玩法分开。 |
+| 独立示例 | `Samples/YYGCInputActions/Content/InputActions.unity` | 输入、重绑定及模态交互样板，有独立场景测试；保留。 |
+| 第三方示例 | `Plugins/EdgarDev/Smart Console/Demo/Demo.unity` | Smart Console 插件演示；退出日常导航即可，不因本次整理改动插件包。 |
+
+Build Settings 当前启用 5 项：Bootstrap、SampleScene、静态 Pinewatch、随机 Pinewatch、Expedition。**正式 `GamePlayerBuild` 显式构建的只有后者中的 4 个游戏场景，不包含 SampleScene**；Build Settings 的残留与正式构建内容要分开判断。旧营地及随机模板目前也包含在这个显式构建列表中，减少发行场景需同时核对构建与回归用途。
+
+### 退役边界与推荐导航
+
+三个退役地形实验仍被 `TerrainSceneCatalogTests` 要求存在并保留 GUID；旧场景路径仍出现在 `TerrainScenePaths`、旧菜单／整理代码及 `tools/contour-reference/SetupContour.cs`。当前没有查到它们的产品加载或正式构建入口，但不能将“退出玩法”当作“无任何引用”。后续退役需同步调整现行菜单／路径合同／测试，保留历史证据与共享资源；本次没有核实关联美术的独占关系，因此不提出整目录删除。
+
+建议日常“场景”导航收敛为：**正式游戏（Bootstrap）、地形预览（RandomCave）、矿镐专项（已着陆）**。第三项目前不存在，是下述方案的拟议入口。ReferenceChamber 移到“参考对照”，两个 Pinewatch 移到“旧玩法回归”，Tests／Samples 保持各自专用分类，退役场景仅供历史查看。先改导航的中文用途标签就能减少混淆，无需立即移动场景或改变 GUID。本段为建议，尚未修改工作台菜单。
+
+### “已着陆＋一把矿镐”的最小方案
+
+现有生成工作台**不能替代正式矿镐验收**：`CaveWorkshopInput` 左右键调用的是调试破坏，`CaveWorkshopSession` 使用离线人物与调试装备，不运行正式 `HeroEquipment → MiningToolBehaviour` 挥镐、装备槽、货袋和交易流程。地图共用不等于整套玩法共用。
+
+短期可用当前版本的新局正常购镐、着陆并出舱后，保存到一个专用测试槽，之后从正式菜单加载。源码已有着陆航程、地图和装备的保存恢复链；这能省掉后续重复航行，但本次没有验证当前候选完整恢复。须使用当前 v15／当前配置指纹产生的新档；工具、地图、规则或依赖指纹变化后可能需要重新制作，不能依赖旧档迁移，也不覆盖用户已有存档。
+
+长期建议增加**编辑器专用的一次性“矿镐专项快速开局”预设**，继续复用同一个 Bootstrap、Expedition、WorldSession 与正式装备 Definition，不再复制一份 Expedition 场景，也不修改正式默认开局或航程规则：
+
+1. 从当前正式星球配置生成地图，测试预设固定可复现的星球和种子；不复制另一套地图算法。
+2. 由服务端初始化一致的着陆航程、地图身份、船体和乘员，主角在有安全支撑和净空的舱外位置，矿镐按真实工具 Definition 放入并选中装备槽；不只改一个 `JourneyPhase` 或显示一张矿镐图片。
+3. 继续等待正式实体、地图、表现与 Ready 门槛完成，之后运行原有移动、选取、连续挥镐、耐久、奖励和货袋代码。预设仅替代测试初始条件，不绕过后续采集授权。
+4. 使用独立测试存档位置；每次重进可重新生成初始状态。正常 Bootstrap Play 不携带该预设，仍按现有主流程开始。
+
+落地实现预期涉及少量 Editor 入口和会话初始化装配，不需要改采矿规则、数值、素材、协议或另建运行状态系统。需要验证快速入口的实际装备／出舱／采矿、重复进入不残留状态、普通 Bootstrap 仍走正常航程；如扩展到联机测试，还需独立 Host＋Client 的初始状态与采集收敛。当前只有可行性评估，未将这些检查写成通过。
+
+---
+
 2026-10-02 当前正式场景入口已聚合到 [Dark Nights 工作台](EDITOR_WORKBENCH.md) 的“场景”分组。
 
 2026-09-30。**`ReferenceChamber`、`RandomCave` 与 `Cave Wall Tuner` 均预览同一正式星球地图生成链；正式游戏从 `Bootstrap → Expedition` 进入。** 两个工作台场景保留原名称与 GUID，通过 `Dark Nights / 工作台 → 场景` 打开后直接 Play；地图输入都来自 `WorldSession.asset` 的洞穴配置、星球和种子。
