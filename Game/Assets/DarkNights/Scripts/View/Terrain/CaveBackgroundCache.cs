@@ -19,6 +19,7 @@ namespace DarkNights.View.Terrain
         private readonly Material wall;
         private readonly Transform parent;
         private readonly CaveBackgroundStyle style;
+        private CaveEntranceBackdrop entrance;
         private Task<ICaveBackgroundLayout> layoutTask;
         private Task<byte[][]> pageTask;
         private ICaveBackgroundLayout layout;
@@ -31,16 +32,22 @@ namespace DarkNights.View.Terrain
         public bool Ready => !disposed && layout != null && visible.All(pages.ContainsKey);
 
         public CaveBackgroundCache(BackgroundBakeDescriptor source, CaveBackgroundStyle style, Material wall, Transform parent,
-            CaveOutlineSettings outline = null, int decorationStartRow = 43)
+            CaveOutlineSettings outline = null, int decorationStartRow = 43, bool surfaceSky = false)
         {
             if (source == null) throw new InvalidOperationException("静态背景缺少初始参考；禁止从当前格子重建。");
             if (style.ContentHash != BackgroundBakeDescriptor.StyleContentHash) throw new InvalidOperationException("静态背景样式内容身份不匹配。");
             this.style = UnityEngine.Object.Instantiate(style); this.wall = wall; this.parent = parent;
+            bool withEntrance = surfaceSky;
+            int rimReach = style.EntranceRimReach * 8, rearDepth = style.EntranceRearDepth * 8;
             var generator = style.CaptureGenerator(); var modifiers = style.CaptureModifiers();
             var token = cancellation.Token;
-            layoutTask = Task.Run<ICaveBackgroundLayout>(() => new ModifiedBackgroundLayout(
-                generator.Build(source, outline, token.ThrowIfCancellationRequested, decorationStartRow),
-                modifiers, source.LayoutSeed, token.ThrowIfCancellationRequested), token);
+            layoutTask = Task.Run<ICaveBackgroundLayout>(() =>
+            {
+                var result = new ModifiedBackgroundLayout(generator.Build(source, outline, token.ThrowIfCancellationRequested, decorationStartRow),
+                    modifiers, source.LayoutSeed, token.ThrowIfCancellationRequested);
+                if (withEntrance) entrance = new CaveEntranceBackdrop(source, result, rimReach, rearDepth, token.ThrowIfCancellationRequested);
+                return result;
+            }, token);
         }
         public void SetVisible(GridBounds bounds)
         {
@@ -73,7 +80,7 @@ namespace DarkNights.View.Terrain
                 byte[][] pixels = pageTask.GetAwaiter().GetResult(); pageTask = null;
                 var page = new CaveBackgroundPage(pendingKey % 10, pendingKey / 10, pixels, wall, parent, style) { LastUsed = ++clock };
                 page.Show(visible.Contains(pendingKey)); pages.Add(pendingKey, page);
-                BuildCount++; UploadedBytes += 256 * 256 * 4 * 3;
+                BuildCount++; UploadedBytes += 256 * 256 * 4 * pixels.Length;
                 Trim();
                 return;
             }
@@ -82,13 +89,15 @@ namespace DarkNights.View.Terrain
                 if (pages.ContainsKey(key)) continue;
                 pendingKey = key;
                 var token = cancellation.Token; var source = layout; int softness = style.MiddleSoftness;
-                pageTask = Task.Run(() => BackgroundPageBaker.Bake(source, key % 10 * 256, key / 10 * 256, 256, 256, softness, token.ThrowIfCancellationRequested), token);
+                pageTask = Task.Run(() => entrance != null ?
+                    entrance.Bake(key % 10 * 256, key / 10 * 256, 256, 256, softness, token.ThrowIfCancellationRequested) :
+                    BackgroundPageBaker.Bake(source, key % 10 * 256, key / 10 * 256, 256, 256, softness, token.ThrowIfCancellationRequested), token);
                 break;
             }
         }
         private void Trim()
         {
-            // 24 cached pages normally; a full-map debug camera may show all 60, still a fixed 45 MiB GPU ceiling.
+            // 通常缓存 24 页；全图最多 60 页，三层 45 MiB／四层素材 60 MiB 的有界贴图预算。
             foreach (int key in pages.Where(p => !visible.Contains(p.Key)).OrderBy(p => p.Value.LastUsed).Select(p => p.Key).ToArray())
             {
                 if (pages.Count <= Math.Max(24, visible.Count)) break;
@@ -100,7 +109,9 @@ namespace DarkNights.View.Terrain
             if (disposed) return; disposed = true; cancellation.Cancel(); cancellation.Dispose();
             foreach (var page in pages.Values) page.Dispose();
             pages.Clear(); visible.Clear(); layout = null; pageTask = null; layoutTask = null;
-            UnityEngine.Object.Destroy(style);
+            DestroyOwned(style);
         }
+        private static void DestroyOwned(UnityEngine.Object value)
+        { if (Application.isPlaying) UnityEngine.Object.Destroy(value); else UnityEngine.Object.DestroyImmediate(value); }
     }
 }

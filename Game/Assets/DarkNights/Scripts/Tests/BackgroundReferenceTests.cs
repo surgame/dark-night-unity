@@ -101,8 +101,18 @@ namespace DarkNights.Tests
             var map = world.Terrain.Map;
             var center = Enumerable.Range(44 * 320, 100 * 320).Select(i => new CellCoord(i % 320, -(i / 320)))
                 .First(p => !map.Read(p).Cell.IsEmpty && (map.Read(p).Cell.Flags & 1) == 0);
-            var targets = map.BuildTargets(TerrainEditAction.Explosive, center);
-            map.DestroyTrusted(1, "background-blast", TerrainEditAction.Explosive, map.World, center, targets, _ => true);
+            // 网格业务化后爆破扣耐久；复用真实伤害，直到目标耗尽，再验证背景参考与存档。
+            int damage = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
+                .SharedConfigs.OfType<DarkNights.Runtime.Objects.HandheldConfig>().Single().BombDamage;
+            Assert.That(damage, Is.GreaterThan(0));
+            int hits = (int)Math.Ceiling(map.Query(center).State.Durability / (double)damage);
+            Assert.That(hits, Is.InRange(1, 64));
+            for (int hit = 0; hit < hits; hit++)
+            {
+                var targets = map.BuildTargets(TerrainEditAction.Explosive, center);
+                var receipt = map.DestroyTrusted(1, "background-blast-" + hit, TerrainEditAction.Explosive, map.World, center, targets, _ => true);
+                Assert.That(receipt.IsNoOp, Is.False, "每次合法爆破都必须扣除真实耐久");
+            }
             Assert.That(map.Read(center).Cell.IsEmpty, Is.True);
             Assert.That(world.Terrain.Background.ReferenceHash, Is.EqualTo(selected.Background.ReferenceHash));
             Assert.That(world.Terrain.Background.Material(center.U, -center.V), Is.Not.Zero);

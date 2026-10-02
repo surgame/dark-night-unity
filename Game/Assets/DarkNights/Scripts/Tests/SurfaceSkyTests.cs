@@ -44,7 +44,7 @@ namespace DarkNights.Tests
         }
 
         [TestCase(false, 1f)] [TestCase(true, 1f)] [TestCase(true, .16f)]
-        public void ActualShaderShowsValleySkyAndPreservesUnderground(bool surfaceSky, float scale)
+        public void RockShaderDoesNotCreateAnEntranceFadeFromLegacySkyline(bool surfaceSky, float scale)
         {
             var scene = EditorSceneManager.NewPreviewScene();
             var root = new GameObject("Surface sky GPU fixture"); SceneManager.MoveGameObjectToScene(root, scene);
@@ -82,7 +82,7 @@ namespace DarkNights.Tests
                 camera.backgroundColor = Color.magenta; camera.targetTexture = target; target.Create();
                 camera.Render(); RenderTexture.active = target;
                 pixels.ReadPixels(new Rect(0, 0, 128, 128), 0, 0); pixels.Apply();
-                string folder = Path.GetFullPath("../artifacts/surface-environment-20261001/images"); Directory.CreateDirectory(folder);
+                string folder = Path.Combine(DarkNights.Editor.SurfaceEnvironmentValidation.EvidenceRoot, "images"); Directory.CreateDirectory(folder);
                 string imagePath = Path.Combine(folder, "shader-" + surfaceSky + "-" + scale.ToString(System.Globalization.CultureInfo.InvariantCulture) + ".png");
                 File.WriteAllBytes(imagePath, pixels.EncodeToPNG());
                 bool IsSky(float x, float row)
@@ -91,15 +91,15 @@ namespace DarkNights.Tests
                     Color32 color = pixels.GetPixel((int)point.x, (int)point.y);
                     return color.r > 240 && color.g < 10 && color.b > 240;
                 }
-                Assert.That(IsSky(2, 39), Is.EqualTo(surfaceSky), "地表上方天空");
-                Assert.That(IsSky(6, 42), Is.EqualTo(surfaceSky), "低于泊位但高于凹地表的位置仍应是天空");
+                Assert.That(IsSky(2, 39), Is.False, "旧底板只用于完整地下预览，不能产生洞口透明渐变");
+                Assert.That(IsSky(6, 42), Is.False);
                 Assert.That(IsSky(2, 42), Is.False, "同高度平台下仍是洞穴背景");
                 Assert.That(IsSky(6, 45), Is.False, "凹地下方仍是洞穴背景");
-                // 背景分页复制材质后也必须保留同一遮罩，不能重新覆盖天空。
-                material.SetVector("_StrataEnabled", new Vector4(1, 1, 1, 1));
-                material.SetTexture("_StrataNear", clear); material.SetTexture("_StrataMiddle", clear); material.SetTexture("_StrataDeep", clear);
+                // 旧遮罩数据槽不再影响背景颜色或透明度；正式页面由独立素材材质绘制。
+                Color before = pixels.GetPixel(64, 64);
+                material.SetFloat("_SurfaceSky", surfaceSky ? 0 : 1);
                 camera.Render(); pixels.ReadPixels(new Rect(0, 0, 128, 128), 0, 0); pixels.Apply();
-                Assert.That(IsSky(6, 42), Is.EqualTo(surfaceSky));
+                Assert.That(pixels.GetPixel(64, 64), Is.EqualTo(before));
                 File.WriteAllBytes(imagePath, pixels.EncodeToPNG());
             }
             finally

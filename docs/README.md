@@ -1,5 +1,7 @@
 # Dark Nights 文档结构
 
+2026-10-03 [天空与矿洞分层衔接](CAVE_ENTRANCE_ART_LAYERS.md)：复用已有三层，退出深度透明／底色／亮度过渡；原三层 RGBA 对照与 Editor 36/36、Mono、正式 Play 已验。新图草稿未采用，验证边界见本批记录。
+
 2026-10-03 [矿镐统一触及范围](PICKAXE_UNIFIED_REACH.md)：矿镐自身配置同步控制吸附与挥砍，当前64逻辑像素／4格；YYGC合同、验证及配置入口见本页。
 
 2026-10-02 [快速测试与场景整理](QUICK_TEST_SCENES.md)：主菜单专属 Hub 入口、已着陆矿镐预设及完整场景导航；Editor 规则 21/21、实际主菜单 Play 1/1、快捷键／GUI 点击 1/1、跨 Editor 重启记忆通过。Player、多人快速局未验。

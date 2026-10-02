@@ -12,6 +12,15 @@ namespace DarkNights.View.Terrain
         public bool Middle = true;
         public bool Deep = true;
         public Texture2D SourceMaskAtlas;
+        public Shader LayerShader;
+        [Range(0, 64), Tooltip("初始岩缘的定位范围；只定位现有背景，不生成透明度过渡。")] public int EntranceRimReach = 16;
+        [Range(2, 24), Tooltip("没有现有点缀轮廓时，地下完整后壁最迟开始的深度。")] public int EntranceRearDepth = 10;
+        [Range(.2f, 1)] public float ForegroundAmbient = .65f;
+        [Range(.2f, 1)] public float BackgroundAmbient = .36f;
+        public int FarOrder = -100;
+        public int DeepOrder = -99;
+        public int MiddleOrder = -98;
+        public int NearOrder = -97;
         public string ContentHash = Core.Config.Terrain.BackgroundBakeDescriptor.StyleContentHash;
         [Tooltip("独立点缀布局算法；空引用保留旧 v16.1。关闭整层请取消 Contour Static。")]
         public CaveBackgroundGeneratorAsset Generator;
@@ -24,6 +33,9 @@ namespace DarkNights.View.Terrain
             CaveModifierAsset.CaptureStack(NearModifiers), CaveModifierAsset.CaptureStack(MiddleModifiers), CaveModifierAsset.CaptureStack(DeepModifiers) };
         public string VisualIdentity => string.Join("|", ContourStatic, ContentHash, MiddleSoftness, Near, Middle, Deep,
             CaptureGenerator().Identity, CaveModifierAsset.CaptureStack(NearModifiers).Identity,
-            CaveModifierAsset.CaptureStack(MiddleModifiers).Identity, CaveModifierAsset.CaptureStack(DeepModifiers).Identity);
+            CaveModifierAsset.CaptureStack(MiddleModifiers).Identity, CaveModifierAsset.CaptureStack(DeepModifiers).Identity,
+            "existing-layers-entrance-v1", EntranceRimReach, EntranceRearDepth, FarOrder, DeepOrder, MiddleOrder, NearOrder,
+            ForegroundAmbient.ToString(System.Globalization.CultureInfo.InvariantCulture),
+            BackgroundAmbient.ToString(System.Globalization.CultureInfo.InvariantCulture));
     }
 }

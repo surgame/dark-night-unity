@@ -14,9 +14,10 @@ namespace DarkNights.View.Expedition
         [Range(0, .5f), InspectorName("远景视差")] public float Parallax = .14f;
         [Range(2, 16), InspectorName("远山高度（格）")] public float RidgeHeight = 7;
         [Range(8, 40), InspectorName("云层高度（格）")] public float CloudHeight = 18;
-        [Range(0, 3), InspectorName("风化表层厚度（格）")] public float WeatheredDepth = 1.25f;
-        [Range(2, 20), InspectorName("洞口明暗过渡（格）")] public float EntranceDepth = 9;
-        [Range(.2f, .6f), InspectorName("地下基础亮度")] public float UndergroundAmbient = .36f;
+        // 旧诊断夹具保留序列化字段；正式地表不读取，不再向作者展示无效过渡参数。
+        [HideInInspector] public float WeatheredDepth = 1.25f;
+        [HideInInspector] public float EntranceDepth = 9;
+        [HideInInspector] public float UndergroundAmbient = .36f;
 
         public SurfaceEnvironmentSettings Capture() => new SurfaceEnvironmentSettings
         {
@@ -30,9 +31,8 @@ namespace DarkNights.View.Expedition
             get
             {
                 var value = Capture();
-                return string.Join(",", "surface-environment-v1", value.Enabled, value.Ridges, value.Clouds,
-                    Number(value.Parallax), Number(value.RidgeHeight), Number(value.CloudHeight), Number(value.WeatheredDepth),
-                    Number(value.EntranceDepth), Number(value.UndergroundAmbient));
+                return string.Join(",", "surface-scenery-v3", value.Enabled, value.Ridges, value.Clouds,
+                    Number(value.Parallax), Number(value.RidgeHeight), Number(value.CloudHeight));
             }
         }
         private static string Number(float value) => value.ToString("R", CultureInfo.InvariantCulture);

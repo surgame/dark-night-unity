@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-10-03 [天空与矿洞分层衔接](docs/CAVE_ENTRANCE_ART_LAYERS.md)：复用原近／中／远三层点缀，RGBA 不变；独立绘制及完整后壁覆盖替代 Shader 入口渐隐。没有新 PNG 接入。专项 Editor 36/36、Mono 构建与正式 Play 通过；独立进程及弱网边界见本批证据。
+
 2026-10-02 [快速测试与场景整理](docs/QUICK_TEST_SCENES.md)：主菜单 Debug Hub 一键进入已着陆矿镐局，记住本机选择；6 场景保留 GUID／字节迁移，16 场景完整归类。Editor 规则 21/21、真实主菜单 Play 1/1、快捷键与实际 GUI 点击 1/1 通过，跨 Editor 重启记忆已验。协议 22／存档 v15 不变；没有新 Player 或多人快速局证据。
 
 2026-10-02 [Definition 与 Editor 复评](docs/DEFINITION_EDITOR_REVIEW.md)：已核对全部 44 个定义，列出 8 组运行能力缺口；首批修复 6 项 Editor 保存、状态恢复和生命周期问题。专项 11/11、作者资产与生命周期探针 52/52；手枪／炸药、喷气背包等能力迁移仍按清单推进。

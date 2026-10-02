@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-03",
+  "utc": "2026-10-02T17:29:18.659975+00:00",
+  "scope": "reuse existing three decor layers; no new artwork",
+  "editor": {
+    "passed": true,
+    "count": 36,
+    "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\art-layer-entrance-20261003\\editor-010615.json"
+  },
+  "mono": {
+    "backend": "Mono",
+    "startedUtc": "2026-10-02T17:06:39.9596416Z",
+    "success": true,
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\art-layer-entrance-20261003\\player-mono-existing-r1/DarkNights.exe",
+    "finishedUtc": "2026-10-02T17:07:17.4314818Z"
+  },
+  "candidate_compilation": {
+    "tree": "dd996479535a269ead760442fc577f29dcf18b41",
+    "source_files": 745,
+    "results": [
+      {
+        "assembly": "DarkNights.Core",
+        "exit": 0
+      },
+      {
+        "assembly": "DarkNights.Runtime",
+        "exit": 0
+      },
+      {
+        "assembly": "DarkNights.View",
+        "exit": 0
+      },
+      {
+        "assembly": "DarkNights.Entry",
+        "exit": 0
+      },
+      {
+        "assembly": "DarkNights.Editor",
+        "exit": 0
+      },
+      {
+        "assembly": "DarkNights.Tests",
+        "exit": 0
+      }
+    ],
+    "tracked_csharp_sha256": "19d4af178d11f6e33dc960b9965b3651fd66b64e84fac0709bbd046e68bf1da2",
+    "output_archive": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261003-existing-layer-checks"
+  },
+  "network": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\art-layer-entrance-20261003\\network-20261003-010901-276650-mono-normal-2p-host\\result.json",
+      "passed": true,
+      "checks": 31,
+      "passed_checks": 31,
+      "weak": false,
+      "error": null
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\art-layer-entrance-20261003\\network-20261003-011152-237644-mono-weak-2p-host\\result.json",
+      "passed": false,
+      "checks": 14,
+      "passed_checks": 14,
+      "weak": true,
+      "error": "Traceback (most recent call last):\n  File \"D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\cave-entrance-art\\verify_player.py\", line 41, in main\n    run.roles.append('client2'); run.start('client2')\n                                 ~~~~~~~~~^^^^^^^^^^^\n  File \"D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\space-planet-flow\\test_network.py\", line 198, in start\n    return self.wait(role, lambda report: report[\"ready\"] and report.get(\"frame\") and report[\"terrain\"][\"visible\"] and\n           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                     any(person[\"ControllerSlot\"] == report[\"slot\"] for person in world(report)[\"Actors\"]),\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                     \"ready with controlled actor\")\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\space-planet-flow\\test_network.py\", line 167, in wait\n    raise TimeoutError(role + \": \" + description)\nTimeoutError: client2: ready with controlled actor\n"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\art-layer-entrance-20261003\\network-20261003-012010-087580-mono-weak-2p-host\\result.json",
+      "passed": false,
+      "checks": 0,
+      "passed_checks": 0,
+      "weak": true,
+      "error": "Traceback (most recent call last):\n  File \"D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\cave-entrance-art\\verify_player.py\", line 33, in main\n    run.start('host'); run.start('client1')\n                       ~~~~~~~~~^^^^^^^^^^^\n  File \"D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\space-planet-flow\\test_network.py\", line 198, in start\n    return self.wait(role, lambda report: report[\"ready\"] and report.get(\"frame\") and report[\"terrain\"][\"visible\"] and\n           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                     any(person[\"ControllerSlot\"] == report[\"slot\"] for person in world(report)[\"Actors\"]),\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                     \"ready with controlled actor\")\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\space-planet-flow\\test_network.py\", line 167, in wait\n    raise TimeoutError(role + \": \" + description)\nTimeoutError: client1: ready with controlled actor\n"
+    }
+  ],
+  "existing_pngs": {
+    "count": 577,
+    "all_bytes_unchanged": true
+  },
+  "actual_editor_play": {
+    "ready": true,
+    "journey": "Landed",
+    "refresh": "LocalV2 / bounded patches",
+    "resident_background_pages": 9,
+    "image": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\art-layer-entrance-20261003\\editor-main-quick.png",
+    "sha256": "f6db3597a667d8286586510df5cf9f58be2f4d3710c9ee9189ab0cb16ae52b45",
+    "restored_scene": "Assets/Scenes/Bootstrap.unity"
+  },
+  "superseded_draft": {
+    "archived": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261003-entrance-art-unused\\清单.md",
+    "released_bytes": 0,
+    "connected_new_pngs": 0,
+    "unadopted_draft_pngs": 3
+  },
+  "limits": [
+    "weak-network join timeouts retained as failures; not fully passed",
+    "no IL2CPP",
+    "no two-machine acceptance",
+    "no foreground performance acceptance"
+  ],
+  "git": {
+    "base": "549f8de",
+    "parallel_commit_preserved": "baedc15",
+    "normal_index_untouched_during_staging": true
+  },
+  "framework_modified": false
+}

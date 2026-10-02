@@ -22,7 +22,6 @@ namespace DarkNights.View.Terrain
         private HashSet<int> deviceCells = new HashSet<int>();
         private readonly Color32[] uploadPixels = new Color32[Page * Page];
         private readonly Texture2D oreMap, mapUpload, lightUpload;
-        private readonly CaveSurfaceSkyline skyline;
         private readonly RenderTexture map, light;
         private readonly Material background;
         private readonly GameObject backdrop;
@@ -58,11 +57,9 @@ namespace DarkNights.View.Terrain
             Material = new Material(style.Shader) { name = "Cave per-map rock" };
             Material.SetTexture("_CaveMap", map); Material.SetTexture("_CaveLight", light);
             Material.SetMatrix("_MapWorldToLocal", parent.worldToLocalMatrix);
-            var surfaceSettings = (style.SurfaceEnvironment ?? new Expedition.SurfaceEnvironmentSettings()).Capture();
-            if (surfaceSky)
-            {
-                skyline = new CaveSurfaceSkyline(reference, Material, surfaceSettings);
-            }
+            if (surfaceSky && (style.Background == null || !style.Background.ContourStatic || style.Background.LayerShader == null))
+                throw new InvalidOperationException("航程地表缺少现有分层背景配置，不能回退深度渐隐。");
+            Material.SetFloat("_Ambient", surfaceSky ? style.Background.ForegroundAmbient : .36f);
             var modifiers = style.CaptureModifiers();
             if (style.ProceduralRock && modifiers.SupportsLocalRoundedCluster)
                 localRockSurface = new CaveLocalRockSurface(Material, reference?.LayoutSeed ?? "DN-MATERIAL-0921", style);
@@ -71,7 +68,7 @@ namespace DarkNights.View.Terrain
             else Material.SetTexture("_RockTex", style.Rock);
             oreMap = new Texture2D(W, H, TextureFormat.RGBA32, false, true) { filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp };
             Material.SetTexture("_OreMap", oreMap);
-            background = new Material(Material); background.SetFloat("_Background", 1);
+            background = new Material(Material); background.SetFloat("_Background", surfaceSky ? 2 : 1);
             // _MapWorldToLocal 不是 Shader Properties，Unity 复制材质时不会保留它。
             background.SetMatrix("_MapWorldToLocal", parent.worldToLocalMatrix);
             backdrop = new GameObject("Cave distant wall"); backdrop.transform.SetParent(parent, false);
@@ -79,10 +76,11 @@ namespace DarkNights.View.Terrain
             mesh.vertices = new[] { new Vector3(-1, -193, 1), new Vector3(321, -193, 1), new Vector3(321, 12, 1), new Vector3(-1, 12, 1) };
             mesh.triangles = new[] { 0, 2, 1, 0, 3, 2 }; mesh.RecalculateBounds();
             backdrop.AddComponent<MeshFilter>().sharedMesh = mesh;
-            var renderer = backdrop.AddComponent<MeshRenderer>(); renderer.sharedMaterial = background; renderer.sortingOrder = -100;
+            var renderer = backdrop.AddComponent<MeshRenderer>(); renderer.sharedMaterial = background;
+            renderer.sortingOrder = surfaceSky ? style.Background.NearOrder + 1 : -96;
             if (style.Background != null && style.Background.ContourStatic)
                 staticBackground = new CaveBackgroundCache(reference, style.Background, background, parent,
-                    style.ProceduralRock ? style.CaptureOutline() : null, style.DecorationStartRow);
+                    style.ProceduralRock ? style.CaptureOutline() : null, style.DecorationStartRow, surfaceSky);
         }
         public async Task<MapChunkData> LoadAsync(WorldDescriptor descriptor, ChunkCoord coordinate, CancellationToken cancellation)
         {
@@ -128,7 +126,6 @@ namespace DarkNights.View.Terrain
         }
         public void Flush()
         {
-            skyline?.Flush(cells);
             if (!rockInitialized && (rockSurface != null || localRockSurface != null))
             { rockSurface?.Replace(cells); localRockSurface?.Replace(cells); rockInitialized = true; }
             if (oreDirty) { oreMap.SetPixels32(ores); oreMap.Apply(false, false); oreDirty = false; }
@@ -180,7 +177,7 @@ namespace DarkNights.View.Terrain
         public void TickBackground() { staticBackground?.Tick(); rockSurface?.Tick(); localRockSurface?.Tick(); }
         public void Dispose()
         {
-            staticBackground?.Dispose(); rockSurface?.Dispose(); localRockSurface?.Dispose(); skyline?.Dispose();
+            staticBackground?.Dispose(); rockSurface?.Dispose(); localRockSurface?.Dispose();
             map.Release(); light.Release();
             foreach (var value in new UnityEngine.Object[] { backdrop, mesh, Material, background, map, light, oreMap, mapUpload, lightUpload })
             { if (Application.isPlaying) UnityEngine.Object.Destroy(value); else UnityEngine.Object.DestroyImmediate(value); }
@@ -190,9 +187,8 @@ namespace DarkNights.View.Terrain
             int u = position.U, row = -position.V;
             if (u < 0 || u >= W || row < 0 || row >= H) return;
             int index = row * W + u; Color32 next = ToColor(cell);
-            if ((skyline == null || cells[index].a != 0) && cells[index].r == next.r && cells[index].g == next.g) return;
+            if (cells[index].a != 0 && cells[index].r == next.r && cells[index].g == next.g) return;
             next.b = cells[index].b; cells[index] = next; changed.Add(index); MarkPage(mapPages, u, row);
-            skyline?.Mark(u);
         }
         private Color32 ToColor(GridCell cell) => new Color32(cell.IsEmpty ? (byte)0 : materials[cell.TileId], (byte)((cell.Flags >> 1) & 15), 0, 255);
         private static RenderTexture CreateTarget(string name, int width, int height, GraphicsFormat format)
