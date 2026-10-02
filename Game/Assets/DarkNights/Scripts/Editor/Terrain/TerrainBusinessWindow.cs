@@ -42,8 +42,8 @@ namespace DarkNights.Editor.Terrain
             else if (tab == 1) DrawTerrain();
             else if (tab == 2)
             {
-                EditorGUILayout.PropertyField(serialized.FindProperty("Tools"), true);
-                EditorGUILayout.PropertyField(serialized.FindProperty("Deposits"), true);
+                EditorGUILayout.HelpBox("工具能力由各工具自己的 YYGC Definition 配置；矿床描述材料与采集等级。修改这些规则直接保存对应 Definition，不需要地形编译。", MessageType.Info);
+                if (GUILayout.Button("打开原生 Definition 编辑与匹配预览")) MiningDefinitionWindow.Open();
             }
             else DrawPreview();
             EditorGUILayout.EndScrollView(); serialized.ApplyModifiedProperties();
@@ -77,7 +77,9 @@ namespace DarkNights.Editor.Terrain
             if (keys.Length == 0) return;
             material = EditorGUILayout.Popup("试采材质", Mathf.Clamp(material, 0, keys.Length - 1), keys);
             if (GUILayout.Button("从当前编译配置重建试采格"))
-                Run(() => { preview?.Dispose(); preview = new TerrainMiningPreview(draft.Profile, draft.Tools, keys[material], contour); });
+                Run(() => { preview?.Dispose(); preview = new TerrainMiningPreview(draft.Profile,
+                    GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item.pickaxe")
+                        .SharedConfigs.OfType<Runtime.Objects.MiningToolConfig>().Single(), keys[material], contour); });
             if (preview == null) return;
             EditorGUILayout.LabelField("耐久", preview.Durability + "/" + preview.Maximum);
             EditorGUILayout.LabelField("命中次数", preview.Hits.ToString());

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using AnyRules.Next;
 using DarkNights.Core.Config.Terrain;
+using DarkNights.Core.Config;
 using DarkNights.Core.Logic.Terrain;
 using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Terrain;
@@ -15,10 +16,10 @@ namespace DarkNights.Runtime.Objects
             state.MiningMapEpoch, state.MiningU, state.MiningV, state.MiningTileId, state.MiningFlags,
             state.MiningTargetKind, state.MiningEntityId, state.MiningContentVersion);
 
-        internal static bool TryMine(ActorBehaviour actor, HeroMiningTarget intent, float aim)
+        internal static bool TryMine(ActorBehaviour actor, HeroMiningTarget intent, float aim, MiningToolRules tool)
         {
             var map = actor.World.Terrain?.Map;
-            var state = actor.Read(); var tool = actor.World.Projectiles.Settings;
+            var state = actor.Read();
             if (map == null || actor.RuleKey != "worker" || state.Hp <= 0 || !intent.Present ||
                 intent.WorldId != map.World.WorldId.ToString().Replace("-", "") || intent.MapEpoch != map.World.Epoch ||
                 !ExpeditionCargo.CanMine(actor)) return false;
@@ -28,13 +29,14 @@ namespace DarkNights.Runtime.Objects
                 map.ContentVersion(target) != intent.ContentVersion) return false;
             float radians = aim * (float)Math.PI / 180;
             float dx = (float)Math.Cos(radians), dh = (float)Math.Sin(radians);
-            float hand = state.Height + tool.PickaxeHandHeight;
-            bool wall = TerrainMiningQuery.FirstSurface(map, state.X, hand, dx, dh, tool.PickaxeReach,
+            float hand = state.Height + tool.HandHeight;
+            bool wall = TerrainMiningQuery.FirstSurface(map, state.X, hand, dx, dh, tool.Reach,
                 out var first, out float wallDistance);
             if (intent.Kind == HeroMiningTargetKind.Foreground)
             {
                 if (!wall || !first.Equals(target) || cell.IsEmpty || intent.EntityId != 0 || !map.Rules.CanDamage(cell.TileId)) return false;
-                int damage = map.Rules.PickaxeDamage(cell.TileId, tool.PickaxeDamage);
+                if (tool.BlockReason(intent.Kind, map.Rules.Material(cell.TileId)).Length > 0) return false;
+                int damage = map.Rules.PickaxeDamage(cell.TileId, tool.Damage);
                 var drop = map.Rules.Drop(cell.TileId);
                 if (map.Query(target).State.Durability <= damage && !ExpeditionCargo.CanCollect(actor, drop.Amount)) return false;
                 if (!map.StageDamage(target, damage, out bool destroyed)) return false;
@@ -42,15 +44,16 @@ namespace DarkNights.Runtime.Objects
                 return true;
             }
             if (intent.Kind != HeroMiningTargetKind.MineralDeposit || !cell.IsEmpty ||
-                !TerrainMiningGeometry.RayCell(state.X, hand, dx, dh, tool.PickaxeReach,
+                !TerrainMiningGeometry.RayCell(state.X, hand, dx, dh, tool.Reach,
                     target.U, target.V, TerrainCellShape.Full, out float depositDistance) ||
                 wall && wallDistance <= depositDistance) return false;
             var deposit = actor.World.Index.MineralDeposits.OfType<MineralDepositBehaviour>()
                 .SingleOrDefault(value => value.Id == intent.EntityId);
-            if (deposit == null || deposit.Remaining <= 0 || (int)Math.Floor(deposit.X / PlayableTerrain.CellPixels) != target.U ||
-                -deposit.Y != target.V || deposit.Durability <= tool.PickaxeDamage && !ExpeditionCargo.CanCollect(actor, deposit.HarvestAmount))
+            if (deposit == null || tool.BlockReason(intent.Kind, deposit.ResourceId, deposit.RequiredMiningLevel, deposit.DefinitionGuid).Length > 0 ||
+                deposit.Remaining <= 0 || (int)Math.Floor(deposit.X / PlayableTerrain.CellPixels) != target.U ||
+                -deposit.Y != target.V || deposit.Durability <= tool.Damage && !ExpeditionCargo.CanCollect(actor, deposit.HarvestAmount))
                 return false;
-            if (!deposit.HitByHand(tool.PickaxeDamage, out int harvested)) return false;
+            if (!deposit.HitByTool(tool, out int harvested)) return false;
             if (harvested > 0) ExpeditionCargo.Collect(actor, deposit.ResourceId, harvested);
             return true;
         }

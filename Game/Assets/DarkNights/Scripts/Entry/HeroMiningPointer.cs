@@ -21,8 +21,10 @@ namespace DarkNights.Entry
         private readonly PinewatchStage stage;
         private readonly HeroHudBehaviour hud;
         private readonly GameCatalog catalog;
-        private readonly float handHeight, reach;
-        private readonly int pickaxeDamage;
+        private MiningToolRules tool;
+        private float handHeight => tool?.HandHeight ?? 0;
+        private float reach => tool?.Reach ?? 0;
+        private int pickaxeDamage => tool?.Damage ?? 0;
         private CellCoord cell;
         private bool visible, valid;
         public HeroMiningTarget Target { get; private set; }
@@ -32,20 +34,19 @@ namespace DarkNights.Entry
         internal HeroMiningPointer(SessionNetwork network, PinewatchStage stage, HeroHudBehaviour hud, GameCatalog catalog)
         {
             this.network = network; this.stage = stage; this.hud = hud; this.catalog = catalog;
-            var tools = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
-                .SharedConfigs.OfType<HandheldConfig>().Single();
-            handHeight = tools.PickaxeHandHeight; reach = tools.PickaxeReach; pickaxeDamage = tools.PickaxeDamage;
             hud.InitializeMiningSelector();
         }
 
         internal void Sample(GameInputActions.HeroFrame controls, ActorViewData actor, SessionViewData frame, bool selectionPending)
         {
             Target = default; visible = valid = false; Hint = "";
+            tool = actor == null ? null : network.ObjectResources.Equipment.Mining(actor.SelectedItem switch
+            { 0 => actor.Slot0Definition, 1 => actor.Slot1Definition, 2 => actor.Slot2Definition, 3 => actor.Slot3Definition, _ => "" });
             var terrain = network.Terrain;
             bool aboard = frame?.World.Expedition?.Crew.Any(value => value.Id == actor?.Id && value.Boarded) == true;
             if (!controls.Allowed || !controls.UseAllowed || selectionPending || !network.Client.Ready ||
                 terrain?.DataReady != true || !terrain.PresentationReady || actor == null || actor.Hp <= 0 ||
-                frame == null || frame.Paused || aboard || Slot(actor) != 2 ||
+                frame == null || frame.Paused || aboard || tool == null ||
                 frame.World.Expedition != null && frame.World.Expedition.Phase != 1 && frame.World.Expedition.Phase != 2 ||
                 frame.HostOnly && network.Client.PlayerSlot != 0 || !stage.SceneCamera.pixelRect.Contains(controls.Pointer)) return;
             Vector3 point = stage.SceneCamera.ScreenToWorldPoint(new Vector3(controls.Pointer.x, controls.Pointer.y,
@@ -58,7 +59,8 @@ namespace DarkNights.Entry
             WorksiteViewData deposit = null;
             foreach (var site in frame.World.Worksites)
             {
-                if (!site.IsMineralDeposit || site.Amount <= 0) continue;
+                if (!site.IsMineralDeposit || site.Amount <= 0 || tool.BlockReason(HeroMiningTargetKind.MineralDeposit,
+                    site.ResourceId, site.RequiredMiningLevel, frame.World.Identities.Single(value => value.Id == site.Id).DefinitionGuid).Length > 0) continue;
                 var position = new CellCoord((int)Math.Floor(site.X / PlayableTerrain.CellPixels), -(int)site.Y);
                 if (!map.Read(position).TryGetCell(out var background) || !background.IsEmpty ||
                     !TerrainMiningGeometry.RayCell(actor.X, hand, dx, dh, previewReach, position.U, position.V,
@@ -70,6 +72,8 @@ namespace DarkNights.Entry
             if (!map.Descriptor.Bounds.Contains(cell) || !map.Read(cell).TryGetCell(out var value))
             { Hint = "地图尚未就绪"; return; }
             string blocked = value.IsEmpty && deposit != null ? "" : TerrainMiningQuery.BlockReason(map, terrain.Tiles, cell);
+            if (!value.IsEmpty && blocked.Length == 0)
+                blocked = tool.BlockReason(HeroMiningTargetKind.Foreground, terrain.Rules.Material(value.TileId));
             var cargo = frame.World.Expedition?.Crew.FirstOrDefault(crew => crew.Id == actor.Id);
             int durability = 0, maximum = 0, amount = 0, damage = pickaxeDamage;
             if (!value.IsEmpty && blocked.Length == 0)

@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-02",
+  "branch": "ft-20261001-surface-environment",
+  "base_commit": "61d2c2ecabba2080874931f8386fd309961fc45b",
+  "protocol": 22,
+  "save_version": 15,
+  "map_schema": 2,
+  "scope": "Mining tool Definition ability, target matching, canonical equipment identity, native editor, synchronization and recovery; existing workspace changes preserved",
+  "yygc_modified_files": [],
+  "compilation": {
+    "isolated_source_assemblies": 6,
+    "local_unity": "passed",
+    "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tool-definition-harvesting-20261002\\compile\\compile.json",
+    "staged_tree_source_assemblies": 6,
+    "staged_tree_report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tool-definition-harvesting-20261002\\staged-compile\\compile.json"
+  },
+  "editor": {
+    "distinct_tests": 62,
+    "passed_by_impact_merge": 62,
+    "full_retry_passed": 61,
+    "full_retry_failed": 1,
+    "last_affected_retry_passed": 1,
+    "first_report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tool-definition-harvesting-20261002\\editor-194808.json",
+    "retry_report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tool-definition-harvesting-20261002\\editor-195204.json",
+    "last_retry_report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tool-definition-harvesting-20261002\\second-definition-retry.json",
+    "last_failure_correction": "Test retained actor ID before restoring and retiring its original instance; no production logic changed"
+  },
+  "mono": {
+    "build": "succeeded",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tool-definition-harvesting-20261002\\player-mono\\DarkNights.exe",
+    "sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+    "managed_sha256": {
+      "DarkNights.Core.dll": "c6d21f1a50de1801b2ff4e624866e7f80edc0f1b664340ba21583ef181f225b3",
+      "DarkNights.Entry.dll": "f728a49ed4d500b213ff7348c94cb78e9cd9b7e314d3a1f62043a66badf0200c",
+      "DarkNights.Runtime.dll": "41e9f83d0b1553e73bb303c3d7534dc9b98b56dcfcd09f01d9ff67b7bcf70043",
+      "DarkNights.Samples.LanCoop.Bootstrap.dll": "be1d1fa3a2398faadc1fc6a8b9f59ddb80192dc510674cff438e67eae54bee3c",
+      "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+      "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+      "DarkNights.Samples.LanCoop.Runtime.dll": "cd3f41a67420a5c5a54e16ffb0bb26f9be86c5f12b4f728bdc4d216136e182a5",
+      "DarkNights.View.dll": "615fdc4830af3bd744fa3747cfa3717b2bca6969762b788771d14a4a14014df9"
+    },
+    "normal": {
+      "passed": true,
+      "checks": 27,
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tool-definition-harvesting-20261002\\network-20261002-195833-351238-mono-normal-2p-client\\result.json"
+    },
+    "weak": {
+      "passed": false,
+      "passed_checks_before_and_after_timeout": 18,
+      "failure": "Immediate disconnect/reconnect did not regain Ready within 100 seconds; transport restarted and server released old control, then remote closed connection",
+      "netem": "200 ms RTT + 5% loss + 25 ms jitter",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tool-definition-harvesting-20261002\\network-20261002-200007-747548-mono-weak-2p-client\\result.json"
+    }
+  },
+  "core_regression": {
+    "total": 1048,
+    "passed": 1046,
+    "failed": 2,
+    "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tool-definition-harvesting-20261002\\core-regression.json",
+    "failures": [
+      "Hand mining is limited to soft rock and scattered ore",
+      "Explosives cannot clear bedrock or protected cells"
+    ],
+    "classification": "Prior terrain rule assertions; frozen evidence retained"
+  },
+  "architecture": {
+    "errors": 20,
+    "self_tests": 12,
+    "new_type_errors": 0,
+    "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tool-definition-harvesting-20261002\\architecture.json",
+    "errors_list": [
+      "Editor/TerrainValidationRunner.cs: One main named type per file is required",
+      "Editor/TerrainValidationRunner.cs: Type must match filename",
+      "Editor/TerrainValidationRunner.cs: Meaningful Chinese XML summary is required",
+      "Tests/TerrainGenerationPipelineTests.cs: One main named type per file is required",
+      "Tests/TerrainGenerationPipelineTests.cs: Type must match filename",
+      "View/GameInputActions.cs: Handwritten source exceeds 300 lines",
+      "View/GameInputActions.cs: One main named type per file is required",
+      "View/GameInputActions.cs: Type must match filename",
+      "View/HeroInputSampler.cs: One main named type per file is required",
+      "View/HeroInputSampler.cs: Type must match filename",
+      "Editor/Terrain/TerrainMapDraft.cs: One main named type per file is required",
+      "Editor/Terrain/TerrainMapDraft.cs: Type must match filename",
+      "Runtime/Objects/ObjectSession.cs: Handwritten source exceeds 300 lines",
+      "View/Terrain/CaveLocalRockSurface.cs: One main named type per file is required",
+      "View/Terrain/CaveLocalRockSurface.cs: Type must match filename",
+      "View/Terrain/CaveLocalRockSurface.cs: Meaningful Chinese XML summary is required",
+      "Core/Logic/Terrain/EntranceWalkwayModifier.cs: One main named type per file is required",
+      "Core/Logic/Terrain/EntranceWalkwayModifier.cs: Type must match filename",
+      "Core/Logic/Terrain/LocalRoundedClusterV2.cs: One main named type per file is required",
+      "Core/Logic/Terrain/LocalRoundedClusterV2.cs: Type must match filename"
+    ]
+  },
+  "cleanup": {
+    "archived_bytes": 10575759.0,
+    "deleted_bytes": 0,
+    "released_bytes": 0,
+    "manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261002-tool-definition-harvesting\\清单.md",
+    "shared_tool_caches": "Retained in place: CoreRegression and ArchitectureGuard bin/obj; not exclusively owned by this task"
+  },
+  "not_verified": [
+    "Immediate weak-network reconnect (failed)",
+    "Player actual mining and sale",
+    "Second tool across independent Players",
+    "Four players",
+    "IL2CPP",
+    "Two machines",
+    "Complete visual acceptance",
+    "Foreground performance"
+  ],
+  "initial_workspace_checkpoint": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tool-definition-harvesting-20261002\\initial-workspace.patch",
+  "editor_scene_state": "User authorized ending Play; stopped, compilation preference restored to original 0; native tool Definition editor opened",
+  "configuration": "Default pickaxe targets Foreground only; original damage/range/timing preserved; target policy and materials belong to tool Definition"
+}

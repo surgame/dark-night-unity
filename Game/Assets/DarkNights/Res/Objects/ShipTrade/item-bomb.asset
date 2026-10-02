@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc8652e55004e79a017907c38b6a1b2, type: 3}
+  m_Name: item-bomb
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinition
+  Id: 0
+  definitionGuid: f6964b57649590e438fc69e4ddc77f8a
+  key: item.bomb
+  keyAliases:
+  - d_ytb4pnv4
+  legacyIdAliases: 
+  debugContent: 0
+  legacyAllocationPending: 
+  Type: 202
+  Name: "\u7206\u7834\u5F39"
+  Icon: {fileID: 0}
+  Describe: 
+  MaxStack: 1
+  ItemLevel: 1
+  NetType: 1
+  PrefabRef:
+    m_AssetGUID: 8f71bbace0e555047ad74fc2764e8065
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  Archetype: {fileID: 0}
+  UseMonolithicPooling: 0
+  BehaviourTypes: []
+  SharedConfigs:
+  - rid: 4004706173535912236
+  references:
+    version: 2
+    RefIds:
+    - rid: 4004706173535912236
+      type: {class: EquipmentItemConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        RuleKey: bomb
+        Jetpack: 0
+        Handheld: 3

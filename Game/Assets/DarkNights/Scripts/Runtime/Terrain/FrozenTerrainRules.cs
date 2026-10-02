@@ -14,6 +14,7 @@ namespace DarkNights.Runtime.Terrain
         private readonly Dictionary<uint, (string Resource, int Yield, int Efficiency)> rules =
             new Dictionary<uint, (string, int, int)>();
         private readonly uint bedrock;
+        private readonly Dictionary<uint, string> materials = new Dictionary<uint, string>();
         public GridBusinessCatalog Business { get; }
         public string Fingerprint { get; }
 
@@ -34,6 +35,7 @@ namespace DarkNights.Runtime.Terrain
                 if (rules.ContainsKey(tile) || tile == bedrock && rule.Yield != 0)
                     throw new InvalidOperationException("材质规则重复或基岩配置了产出。");
                 rules.Add(tile, (rule.ResourceId ?? "", rule.Yield, rule.PickaxeEfficiencyPercent));
+                materials.Add(tile, rule.MaterialKey);
                 identity.Append('|').Append(rule.MaterialKey).Append('|').Append(rule.ResourceId).Append('|')
                     .Append(rule.Yield.ToString(CultureInfo.InvariantCulture)).Append('|')
                     .Append(rule.PickaxeEfficiencyPercent.ToString(CultureInfo.InvariantCulture));
@@ -45,6 +47,7 @@ namespace DarkNights.Runtime.Terrain
         }
 
         public bool CanDamage(uint tile) => tile != 0 && tile != bedrock && rules.ContainsKey(tile);
+        public string Material(uint tile) => materials.TryGetValue(tile, out var value) ? value : "";
         public int PickaxeDamage(uint tile, int damage)
         {
             if (damage < 1 || !CanDamage(tile)) return 0;

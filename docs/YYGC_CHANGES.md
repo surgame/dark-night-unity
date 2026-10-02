@@ -1,5 +1,7 @@
 # YYGC 修改授权与改动账本
 
+2026-10-02 工具 Definition 采集重构：**框架修改文件为 0**。新增游戏 MiningToolBehaviour 复用现有 RequireConfig／Inject、ObjectInstanceFactory／PreparedObjectDefinition、LocalObjectInstanceInitializer 和会话权限；无独立 DI、对象或状态框架。矿镐 Prefab 保留 GUID 补齐原生装配；新增炸弹定义身份使用 Unity meta 与 DefinitionIdentityAuthoring.AdoptCopiedAsset。真实装配与恢复验收见[本批说明](TOOL_DEFINITION_HARVESTING.md)。
+
 ## 2026-10-01 矿镐最近表面与持续挥舞
 
 本批 YYGC／AnyRuleD 框架新增源码改动：**无**。游戏复用现有 ARDMap 只读查询、YYGC ActorState 事务与生成 CopyFrom；直线选表面和落镐时机属于游戏。`tools/grid-business/dependency.lock.json` 仅将游戏协议同步为 20，框架补丁摘要仍为下方 GUID 修复的 `60b9f681dab1194d10e27637d9f55ff1dad62b8c105203120d5afbaad0aab00b`。按用户要求未编译、测试或构建，见 [开发记录](DEVELOPMENT.md)。

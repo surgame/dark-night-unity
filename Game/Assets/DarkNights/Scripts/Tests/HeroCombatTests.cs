@@ -18,6 +18,7 @@ namespace DarkNights.Tests
         public IEnumerator ShortClickHitsOnceAndDuplicateInputCannotFireAgain() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
+            f.SeedLoadout(0, 1);
             MoveAside(f); f.Command(SessionOperation.ClaimHero);
             var enemy = UnifiedGameplayProbe.Spawn(f.World, "zombie", f.Actor.X + 1);
             double hp = enemy.Hp;
@@ -36,6 +37,7 @@ namespace DarkNights.Tests
         public IEnumerator RepeatedFireReusesBoundedSlotsAndRetiresExpiredShots() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
+            f.SeedLoadout(0, 1);
             f.Command(SessionOperation.ClaimHero);
             long before = f.World.Projectiles.CaptureState().NextViewId;
             f.Step(300, useHeld: true, keepAlive: true);
@@ -51,6 +53,7 @@ namespace DarkNights.Tests
         public IEnumerator NonfiniteAimAndOtherConnectionCannotFire() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
+            f.SeedLoadout(0, 1);
             f.Command(SessionOperation.ClaimHero);
             Assert.That(f.Authority.SubmitInput(f.Host, f.Packet(aim: float.NaN, usePressed: true)), Is.False);
             Assert.That(f.Authority.SubmitInput(f.Guest, f.Packet(usePressed: true)), Is.False);

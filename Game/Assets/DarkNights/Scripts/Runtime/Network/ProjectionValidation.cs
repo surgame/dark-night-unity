@@ -80,8 +80,7 @@ namespace DarkNights.Runtime.Network
                     Finite(a.JetpackFuel) && a.JetpackFuel >= 0 && a.JetpackFuel <= (catalog.Balance.HeroControl?.FuelSeconds ?? 0) &&
                     a.ExplosiveCharges >= 0 && a.ExplosiveCharges <= 1000 && a.InventoryRevision >= 0 &&
                     new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.All(item => item >= 0 && item <= 3) &&
-                    new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.Where(item => item != 0).Distinct().Count() ==
-                        new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.Count(item => item != 0) &&
+                    EquipmentSlots(a) &&
                     (!a.JetpackEquipped || a.JetpackOwned) && (a.JetpackOwned || a.JetpackFuel == 0));
                 Require(Finite(a.AimAngle) && Math.Abs(a.AimAngle) <= 180 && Finite(a.EquipmentCooldown) && a.EquipmentCooldown >= 0 && a.EquipmentCooldown <= 5 &&
                     Finite(a.EquipmentAction) && a.EquipmentAction >= 0 && a.EquipmentAction <= 5 && Finite(a.EquipmentActionDuration) && a.EquipmentActionDuration >= 0 && a.EquipmentActionDuration <= 5 &&
@@ -112,7 +111,8 @@ namespace DarkNights.Runtime.Network
                         w.Capacity > 0 && w.Capacity <= 1000000 && w.Amount >= 0 && w.Amount <= w.Capacity &&
                         w.MaximumDurability > 0 && w.MaximumDurability <= 1000000 && w.Durability >= 0 &&
                         w.Durability <= w.MaximumDurability && (w.Amount == 0 ? w.Durability == 0 : w.Durability > 0) &&
-                        (w.ResourceId == "iron" || w.ResourceId == "gold") && w.HarvestAmount >= 0 && w.HarvestAmount <= w.Amount &&
+                        (w.ResourceId == "iron" || w.ResourceId == "gold") && w.RequiredMiningLevel >= 1 && w.RequiredMiningLevel <= 1000 &&
+                        w.HarvestAmount >= 0 && w.HarvestAmount <= w.Amount &&
                         Finite(w.Y) && w.Y >= 0 && w.Y < Core.Config.Terrain.TerrainGenerationSettings.Height &&
                         w.WorkerId == 0 && w.FarmId == 0 && w.Progress == 0 &&
                         Enum.TryParse<DarkNights.Core.Config.MineralDepositStage>(w.Stage, out var stage) &&
@@ -121,7 +121,7 @@ namespace DarkNights.Runtime.Network
                     continue;
                 }
                 Require(w != null && Text(w.Kind, 64) && catalog.Balance.Worksites.ContainsKey(w.Kind) &&
-                    w.Amount >= -1 && w.Variant >= 0);
+                    w.Amount >= -1 && w.Variant >= 0 && w.RequiredMiningLevel == 0);
                 Position(w.X, layout);
                 Nonnegative(w.Progress);
             }
@@ -160,6 +160,22 @@ namespace DarkNights.Runtime.Network
                 if (item.Kind == "rubble") Require(catalog.Balance.Buildings.ContainsKey(item.ContentId));
                 if (item.Kind == "resource") Require(GameText.ResourceIds.Contains(item.ContentId));
             }
+        }
+
+        private static bool EquipmentSlots(ActorWire actor)
+        {
+            string[] identities = { actor.Slot0Definition, actor.Slot1Definition, actor.Slot2Definition, actor.Slot3Definition };
+            int[] kinds = { actor.Slot0, actor.Slot1, actor.Slot2, actor.Slot3 };
+            if (identities.Any(value => value == null) || identities.Where(value => value != "").Distinct().Count() != identities.Count(value => value != "")) return false;
+            for (int index = 0; index < identities.Length; index++)
+            {
+                if (identities[index] == "") { if (kinds[index] != 0) return false; continue; }
+                if (!Guid.TryParseExact(identities[index], "N", out var guid) || guid == Guid.Empty || identities[index] != guid.ToString("N")) return false;
+                var definition = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance?.ResolveDefinition(identities[index], 0);
+                var config = definition?.SharedConfigs.OfType<Objects.EquipmentItemConfig>().SingleOrDefault();
+                if (config == null || config.Jetpack || (int)config.Handheld != kinds[index]) return false;
+            }
+            return true;
         }
 
         private static void Position(double x, LevelLayout layout) => Require(Finite(x) && x >= -100 && x <= layout.WorldWidth + 100);

@@ -1,5 +1,6 @@
 using System;
 using GameCore.Objects.Behaviours.Interfaces;
+using UnityEngine;
 
 namespace DarkNights.Runtime.Objects
 {
@@ -11,6 +12,7 @@ namespace DarkNights.Runtime.Objects
         public string Name => "矿床规则";
         [DarkNights.Runtime.Framework.RuleKey("mineral-deposits")]
         public string RuleKey = Rule;
+        [InspectorName("最低采集等级")] public int RequiredMiningLevel = 1;
         public int HarvestDurability = 40;
         public int UnitsPerHarvest = 1;
         public string CommonResource = "iron";
@@ -19,11 +21,11 @@ namespace DarkNights.Runtime.Objects
         {
             Validate();
             return HarvestDurability.ToString(System.Globalization.CultureInfo.InvariantCulture) + "|" +
-                UnitsPerHarvest.ToString(System.Globalization.CultureInfo.InvariantCulture) + "|" + CommonResource + "|" + RareResource;
+                UnitsPerHarvest.ToString(System.Globalization.CultureInfo.InvariantCulture) + "|" + CommonResource + "|" + RareResource + "|" + RequiredMiningLevel;
         }
         public void Validate()
         {
-            if (HarvestDurability < 1 || HarvestDurability > 1000000 || UnitsPerHarvest < 1 || UnitsPerHarvest > 1000 ||
+            if (RequiredMiningLevel < 1 || RequiredMiningLevel > 1000 || HarvestDurability < 1 || HarvestDurability > 1000000 || UnitsPerHarvest < 1 || UnitsPerHarvest > 1000 ||
                 CommonResource != "iron" && CommonResource != "gold" || RareResource != "iron" && RareResource != "gold")
                 throw new InvalidOperationException("矿床采集耐久、产量或资源不合法。");
         }

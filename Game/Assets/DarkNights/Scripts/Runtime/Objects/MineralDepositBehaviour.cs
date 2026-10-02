@@ -27,6 +27,7 @@ namespace DarkNights.Runtime.Objects
         public int Durability => Current?.Durability ?? 0;
         public int MaximumDurability => harvestDurability;
         public int HarvestAmount => Math.Min(Remaining, unitsPerHarvest);
+        public int RequiredMiningLevel { get; private set; }
 
         protected override void OnReset()
         {
@@ -34,6 +35,7 @@ namespace DarkNights.Runtime.Objects
             if (config == null || config.RuleKey != MineralDepositRuleConfig.Rule)
                 throw new InvalidOperationException("MineralDeposit requires its fixed RuleKey.");
             config.Validate(); harvestDurability = config.HarvestDurability; unitsPerHarvest = config.UnitsPerHarvest;
+            RequiredMiningLevel = config.RequiredMiningLevel;
             commonResource = config.CommonResource; rareResource = config.RareResource;
         }
 
@@ -57,6 +59,14 @@ namespace DarkNights.Runtime.Objects
             state.Stage = state.Remaining == 0 ? MineralDepositStage.Depleted : MineralDepositStage.Available;
             state.Durability = state.Remaining == 0 ? 0 : harvestDurability;
             return true;
+        }
+
+        internal bool HitByTool(MiningToolRules tool, out int harvested)
+        {
+            harvested = 0;
+            if (tool == null || tool.BlockReason(Core.ViewData.HeroMiningTargetKind.MineralDeposit,
+                ResourceId, RequiredMiningLevel, DefinitionGuid).Length > 0) return false;
+            return HitByHand(tool.Damage, out harvested);
         }
 
         internal bool HitByHand(int damage, out int harvested)

@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-10-02 [工具 Definition 采集重构](docs/TOOL_DEFINITION_HARVESTING.md)：矿镐能力及参数归自身 Definition，装备槽保存稳定定义身份，矿床仅描述材料与采集要求；默认仍只采前景。协议 **22**／存档 **v15**／AMP1 schema **2**。当前工具配置入口为 `Dark Nights / 配置 / 工具与采集能力`；先前矿床开关方案已被本轮替代，历史证据保留。
+
 2026-10-01 矿镐表面选取与持续挥镐源码候选：独立触及范围设为 **3 格／48 逻辑像素**，鼠标方向优先选最近真实岩壁表面；按住连续挥镐，每轮落镐只尝试一次伤害，不能越过外层墙。游戏协议 **20**／地图 AMP1 schema **2**／存档 **v14**。源码按用户要求提交至分支 `fix-20261001-pickaxe-surface-swing`；本批未运行测试、编译、Play 或构建。参数、保存指纹变化与待验边界见 [开发执行计划](docs/DEVELOPMENT.md)。
 
 2026-09-30 网格业务化源码候选：正式 WorldSession Definition 增加地形 Profile 与业务装配，非基岩按耐久采集，岩壁和背景矿床目标明确分开。配置入口为 `Dark Nights / Terrain / 网格业务配置工作台`。游戏协议 **19**、地图 AMP1 schema **2**、存档 **v14**；按用户要求未运行测试、构建、Play 或联机验证，不宣称编译或 MVP 验收通过。实现边界见 [开发执行计划](docs/DEVELOPMENT.md)。

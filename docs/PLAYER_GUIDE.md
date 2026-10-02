@@ -1,5 +1,17 @@
 # Dark Nights 操作与本机验收
 
+<a id="mineral-pickaxe-permission"></a>
+
+## 当前工具与矿床配置
+
+打开 **Dark Nights / 配置 / 工具与采集能力**，或直接打开 `Game/Assets/DarkNights/Res/Objects/ShipTrade/item-pickaxe.asset` 的原生 YYGC Inspector。在 `SharedConfigs / 工具采集能力` 设置支持的目标类别、材料、矿床 Definition 白名单和采集等级；伤害、距离、周期也在工具自身定义中。
+
+默认矿镐仅支持 Foreground，保持不采隐藏矿床。要允许铁矿床：启用 MineralDeposit，关闭 AllMaterials，Materials 填 iron；需要同时采岩壁时加入对应岩壁材料 Key。Deposits 空列表表示全部矿床定义，也可选择特定矿床 Definition。矿床自身设置 RequiredMiningLevel、耐久和产量；旧 AllowPickaxeHarvest 开关已移除。
+
+退出 Play 后编辑，直接校验并保存 Definition，新会话生效。工具／矿床编辑不编译地形；“网格业务配置工作台”的工具页提供上述入口。原矿镐 Damage=10、Reach=48、HandHeight=36、Seconds=0.48、ImpactFraction=0.6 不变。
+
+当前协议 **22**／存档 **v15**，旧档保留但拒绝读取，请新开局。详细合同、第二工具配置方式和验证边界见[工具 Definition 与采集能力](TOOL_DEFINITION_HARVESTING.md)。下方按日期保留历史操作，不代表当前配置归属。
+
 ## 2026-10-01 矿镐表面与持续挥舞候选操作
 
 本段是游戏协议 **20**／存档 **v14** 源码的预期操作，按用户要求未运行编译、Play、测试或 Player 构建。

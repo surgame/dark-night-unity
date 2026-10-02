@@ -29,7 +29,7 @@ namespace DarkNights.Tests
         public IEnumerator EmptyEquipmentAndSprintAreAuthoritative() => UniTask.ToCoroutine(async () =>
         {
             using var f = await HeroTestSession.Create();
-            Assert.That(new[] { f.State.Slot0, f.State.Slot1, f.State.Slot2, f.State.Slot3 }, Is.All.EqualTo(0));
+            Assert.That(new[] { f.State.Slot0, f.State.Slot1, f.State.Slot2, f.State.Slot3 }, Is.All.EqualTo(""));
             Assert.That(f.State.JetpackOwned, Is.False);
             Assert.That(f.State.JetpackFuel, Is.Zero);
             Assert.That(f.State.ExplosiveCharges, Is.Zero);
@@ -62,7 +62,7 @@ namespace DarkNights.Tests
             JObject Actor(JObject root) => root["world"]["actors"].OfType<JObject>()
                 .Single(value => (int)value["id"] == f.ActorId);
             Reject(root => Actor(root)["slot_0"] = 4);
-            Reject(root => { Actor(root)["slot_0"] = 2; Actor(root)["slot_1"] = 2; });
+            Reject(root => { Actor(root)["slot_0"] = "f739a1d69023de54b8b90e2061afd135"; Actor(root)["slot_1"] = "f739a1d69023de54b8b90e2061afd135"; });
             Reject(root => Actor(root)["jetpack_fuel"] = 1);
             Reject(root => root["world"]["economy"]["credits"] = -1);
             Reject(root => root["world"]["economy"]["credits"] = 10000001);
@@ -111,7 +111,7 @@ namespace DarkNights.Tests
                 authority.Epoch, authority.PolicyRevision, 2, new[] { hero.Id }, targetId: ship.Id,
                 kind: "pickaxe", value: 0, controlLease: hero.CaptureState().ControlLease);
             Assert.That(Execute(authority, host, buy), Is.EqualTo(SessionResultCode.Applied));
-            Assert.That(hero.CaptureState().Slot0, Is.EqualTo(2));
+            Assert.That(hero.CaptureState().Slot0, Is.EqualTo(GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item.pickaxe").Guid.ToString()));
             Assert.That(hero.CaptureState().InventoryRevision, Is.EqualTo(1));
             Assert.That(world.Economy.CaptureState().Credits, Is.EqualTo(26));
             Assert.That(authority.Submit(host, buy).Code, Is.EqualTo(SessionResultCode.Applied));

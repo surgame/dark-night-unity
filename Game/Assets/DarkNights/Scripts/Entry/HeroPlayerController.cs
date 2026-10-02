@@ -116,7 +116,7 @@ namespace DarkNights.Entry
             var controls = input.ReadHero();
             mining.Sample(controls, Current, network.Client.Replica.Current, pendingItem >= 0);
             if (sampler.Sample(controls, Current, network.Client.Replica.Current, entities, pendingItem >= 0,
-                Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet, mining.Target)) Send(packet).Forget();
+                Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet, mining.Target, mining.HandHeight)) Send(packet).Forget();
             if (sampler.SelectedItem >= 0) SelectItem(sampler.SelectedItem).Forget();
             if (sampler.UseItemRequested) Use().Forget();
         }

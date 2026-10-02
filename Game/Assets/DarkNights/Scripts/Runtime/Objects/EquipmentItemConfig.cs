@@ -15,7 +15,7 @@ namespace DarkNights.Runtime.Objects
 
         public void Validate()
         {
-            if (RuleKey != "pistol" && RuleKey != "pickaxe" && RuleKey != "jetpack" ||
+            if (RuleKey != "pistol" && RuleKey != "pickaxe" && RuleKey != "jetpack" && RuleKey != "bomb" ||
                 Jetpack != (RuleKey == "jetpack") ||
                 (!Jetpack && Handheld == HeroEquipmentKind.Empty) ||
                 Jetpack && Handheld != HeroEquipmentKind.Empty)

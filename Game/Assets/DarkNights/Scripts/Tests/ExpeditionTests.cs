@@ -128,7 +128,7 @@ namespace DarkNights.Tests
             var hero = world.Index.Actors.Single(a => a.CaptureState().OwnerSlot == 0);
             var seeded = JObject.Parse(world.SaveCodec.Serialize(world.CaptureWorld()));
             var actorSave = seeded["world"]["actors"].OfType<JObject>().Single(value => (int)value["id"] == hero.Id);
-            actorSave["slot_1"] = 2; actorSave["inventory_revision"] = 1;
+            actorSave["slot_1"] = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item.pickaxe").Guid.ToString(); actorSave["inventory_revision"] = 1;
             actorSave["jetpack_owned"] = actorSave["jetpack_equipped"] = true;
             actorSave["jetpack_fuel"] = world.Catalog.Balance.HeroControl.FuelSeconds;
             world.Restore(seeded.ToString());

@@ -190,7 +190,7 @@ namespace DarkNights.Runtime.Session
             { state.AimAngle = input.AimAngle; HeroEquipment.Cancel(state); }
             else
             {
-                bool preservePressedTarget = state.UsePressed && HeroInventoryBehaviour.Slot(state, state.SelectedItem) == DarkNights.Core.Config.HeroEquipmentKind.Pickaxe;
+                bool preservePressedTarget = state.UsePressed && world.Resources.Equipment.Mining(HeroInventoryBehaviour.Slot(state, state.SelectedItem)) != null;
                 state.UseHeld = input.UseHeld;
                 state.UsePressed |= input.UsePressed;
                 state.UseReleased |= input.UseReleased;

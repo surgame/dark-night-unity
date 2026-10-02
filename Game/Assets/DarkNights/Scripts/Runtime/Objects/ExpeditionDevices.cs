@@ -153,7 +153,8 @@ namespace DarkNights.Runtime.Objects
             s.TaskClock += delta;
             if (s.TaskClock < Flight.Rules.ExtractSeconds || !ExpeditionCargo.CanMine(miner)) return;
             s.TaskClock = 0;
-            int damage = world.Projectiles.Settings.PickaxeDamage;
+            int damage = world.Resources.Equipment.Mining(GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance
+                .GetDefinitionByKey("item.pickaxe").Guid.ToString()).Damage;
             if (deposit.Durability <= damage && !ExpeditionCargo.CanCollect(miner, deposit.HarvestAmount)) return;
             if (deposit.HitByHand(damage, out int harvested) && harvested > 0)
                 ExpeditionCargo.Collect(miner, deposit.ResourceId, harvested);

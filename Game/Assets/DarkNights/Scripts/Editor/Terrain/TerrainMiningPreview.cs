@@ -18,12 +18,13 @@ namespace DarkNights.Editor.Terrain
         internal int Durability => map.Read(target).Cell.IsEmpty ? 0 : map.Business.Query(target).State.Durability;
         internal int Maximum { get; }
         internal bool CanMine { get; }
-        internal TerrainMiningPreview(TerrainProfileConfig profile, HandheldConfig tools, string material, bool contour)
+        internal TerrainMiningPreview(TerrainProfileConfig profile, MiningToolConfig tools, string material, bool contour)
         {
-            tools.Validate(); var definition = contour ? profile.ContourDefinition : profile.Definition;
+            var tool = tools.Freeze(); var definition = contour ? profile.ContourDefinition : profile.Definition;
             rules = profile.Freeze(definition); uint tile = rules.Business.Gameplay.Tiles.ByKey(material);
-            damage = rules.PickaxeDamage(tile, tools.PickaxeDamage); Maximum = rules.Business.Get(tile).MaximumDurability;
-            CanMine = rules.CanDamage(tile); Resource = rules.Drop(tile).Resource;
+            damage = rules.PickaxeDamage(tile, tool.Damage); Maximum = rules.Business.Get(tile).MaximumDurability;
+            CanMine = rules.CanDamage(tile) && tool.BlockReason(Core.ViewData.HeroMiningTargetKind.Foreground, material).Length == 0;
+            Resource = rules.Drop(tile).Resource;
             var world = new WorldIdentity(StableGuid.Parse(Guid.NewGuid().ToString("N")), 1);
             map = ARDMap.CreateOffline(new WorldDescriptor(world, 42, 0, new GridBounds(0, 0, 32, 32)),
                 rules.Business.Gameplay.Tiles, business: rules.Business);

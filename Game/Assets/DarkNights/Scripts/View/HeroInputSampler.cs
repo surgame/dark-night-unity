@@ -69,7 +69,7 @@ namespace DarkNights.View
         }
 
         public bool Sample(GameInputActions.HeroFrame controls, ActorViewData actor, SessionViewData frame, IEntityVisuals visuals,
-            bool selectionPending, double now, out Packet packet, HeroMiningTarget mining = default)
+            bool selectionPending, double now, out Packet packet, HeroMiningTarget mining = default, float miningHandHeight = 0)
         {
             bool allowed = controls.Allowed && !frame.Paused;
             bool pilot = frame.World.Expedition?.Ship?.PilotId == actor.Id;
@@ -78,7 +78,8 @@ namespace DarkNights.View
                 new Vector3(actor.X / 100, actor.Height / 100, 0);
             int item = actor.SelectedItem switch
             { 0 => actor.Slot0, 1 => actor.Slot1, 2 => actor.Slot2, 3 => actor.Slot3, _ => 0 };
-            Vector3 origin = item == 2 ? new Vector3(actor.X / 100, (actor.Height + pickaxeHandHeight) / 100, 0)
+            Vector3 origin = miningHandHeight > 0 ? new Vector3(actor.X / 100, (actor.Height + miningHandHeight) / 100, 0)
+                : item == 2 ? new Vector3(actor.X / 100, (actor.Height + pickaxeHandHeight) / 100, 0)
                 : hand + Vector3.up * .09f;
             int direction = allowed ? Math.Sign(controls.Move) : 0;
             bool jump = allowed && controls.JumpHeld;

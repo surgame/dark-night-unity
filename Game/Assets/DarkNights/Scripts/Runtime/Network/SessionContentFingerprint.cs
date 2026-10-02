@@ -35,13 +35,7 @@ namespace DarkNights.Runtime.Network
                     config.Validate();
                     return definition.Guid + ":" + config.Service + ":" + config.Radius;
                 }));
-            string itemIdentity = string.Join(":", new[] { "pistol", "pickaxe", "jetpack" }.Select(key =>
-            {
-                var definition = database.GetDefinitionByKey("item." + key);
-                var config = definition.SharedConfigs.OfType<EquipmentItemConfig>().Single();
-                config.Validate();
-                return definition.Guid + ":" + config.RuleKey + ":" + config.Handheld + ":" + config.Jetpack;
-            }));
+            string itemIdentity = resources.Equipment.Fingerprint;
             return "dark-nights-session-v" + Session.SessionAuthority.ProtocolVersion + ":" + fingerprint.RulesSha256 +
                 ":" + fingerprint.LayoutSha256 + ":" + identity + ":" + equipment.Fingerprint() +
                 ":" + BackgroundBakeDescriptor.StyleContentHash + ":" + flow.Fingerprint() +

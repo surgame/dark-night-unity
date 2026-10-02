@@ -49,10 +49,10 @@ namespace DarkNights.Runtime.Objects
         public int SelectedItem { get; internal set; }
         public int SelectionRevision { get; internal set; }
         public int InventoryRevision { get; internal set; }
-        public int Slot0 { get; internal set; }
-        public int Slot1 { get; internal set; }
-        public int Slot2 { get; internal set; }
-        public int Slot3 { get; internal set; }
+        public string Slot0 { get; internal set; } = "";
+        public string Slot1 { get; internal set; } = "";
+        public string Slot2 { get; internal set; } = "";
+        public string Slot3 { get; internal set; } = "";
         public bool JetpackOwned { get; internal set; }
         public bool JetpackEquipped { get; internal set; }
         public double JetpackFuel { get; internal set; }
@@ -91,6 +91,8 @@ namespace DarkNights.Runtime.Objects
         // 单镐的冻结意图和命中门闩只属于当前权威输入生命周期；展示沿用装备动作，不保存或发送这些临时字段。
         [MemoryPackIgnore] public DarkNights.Core.ViewData.HeroMiningTarget PickaxeSwingTarget { get; internal set; }
         [MemoryPackIgnore] public float PickaxeSwingAim { get; internal set; }
+        [MemoryPackIgnore] public string MiningToolDefinition { get; internal set; } = "";
+        [MemoryPackIgnore] public int MiningToolSelectionRevision { get; internal set; }
         [MemoryPackIgnore] public bool PickaxeSwingActive { get; internal set; }
         [MemoryPackIgnore] public bool PickaxeHitPending { get; internal set; }
     }

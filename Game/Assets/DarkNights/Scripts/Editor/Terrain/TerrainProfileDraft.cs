@@ -16,25 +16,19 @@ namespace DarkNights.Editor.Terrain
     internal sealed class TerrainProfileDraft : ScriptableObject
     {
         public TerrainProfileConfig Profile;
-        public HandheldConfig Tools;
-        public MineralDepositRuleConfig Deposits;
         internal ObjectDefinition Source { get; private set; }
-        internal ObjectDefinition DepositSource { get; private set; }
         internal EditorAnyRuleDDatabase Catalog { get; private set; }
         internal List<TerrainDurabilityDraft> Durability { get; } = new List<TerrainDurabilityDraft>();
-        private string baseline, depositBaseline;
+        private string baseline;
         private ARDMapDefinition compiledSource;
         private bool contour;
         internal void Load()
         {
             Source = AssetDatabase.LoadAssetAtPath<ObjectDefinition>("Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset");
-            DepositSource = AssetDatabase.LoadAssetAtPath<ObjectDefinition>("Assets/DarkNights/Res/Objects/MineralDeposit/MineralDeposit.asset");
-            if (Source == null || DepositSource == null) throw new InvalidOperationException("缺少正式会话或矿床 Definition。");
+            if (Source == null) throw new InvalidOperationException("缺少正式会话或矿床 Definition。");
             var profile = Source.SharedConfigs.OfType<TerrainProfileConfig>().Single();
-            var tools = Source.SharedConfigs.OfType<HandheldConfig>().Single();
-            var deposits = DepositSource.SharedConfigs.OfType<MineralDepositRuleConfig>().Single();
-            baseline = Identity(profile, tools); depositBaseline = JsonUtility.ToJson(deposits);
-            Profile = Copy(profile); Tools = Copy(tools); Deposits = Copy(deposits);
+            baseline = JsonUtility.ToJson(profile);
+            Profile = Copy(profile);
             LoadCatalog(false);
         }
         internal void LoadCatalog(bool useContour)
@@ -50,12 +44,11 @@ namespace DarkNights.Editor.Terrain
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)
                 throw new InvalidOperationException("请退出 Play 并等待编译完成后再应用配置。");
-            if (Identity(Source.SharedConfigs.OfType<TerrainProfileConfig>().Single(), Source.SharedConfigs.OfType<HandheldConfig>().Single()) != baseline ||
-                JsonUtility.ToJson(DepositSource.SharedConfigs.OfType<MineralDepositRuleConfig>().Single()) != depositBaseline)
+            if (JsonUtility.ToJson(Source.SharedConfigs.OfType<TerrainProfileConfig>().Single()) != baseline)
                 throw new InvalidOperationException("ObjectDefinition 配置已被其他编辑修改，请重新加载。");
             if (Catalog == null || compiledSource == null || compiledSource != (contour ? Profile.ContourDefinition : Profile.Definition))
                 throw new InvalidOperationException("请选择带作者来源的目录，并重新载入原生材质草稿。");
-            Tools.Validate(); Deposits.Validate(); Profile.Freeze();
+            Profile.Freeze();
             foreach (var entry in Durability) entry.RequireUnchanged();
             foreach (var group in Durability.GroupBy(entry => entry.Target))
                 if (group.Select(entry => (entry.HitPoints, entry.Hardness, entry.Stages)).Distinct().Count() != 1)
@@ -75,11 +68,10 @@ namespace DarkNights.Editor.Terrain
                 if (Profile.ContourDefinition == compiledSource) Profile.ContourDefinition = compiled;
                 Profile.Freeze(); if (Profile.ContourDefinition != null) Profile.Freeze(Profile.ContourDefinition);
                 Undo.RecordObject(Source, "应用网格业务 Profile");
-                Undo.RecordObject(DepositSource, "应用矿床采集配置");
-                Replace(Source, Profile); Replace(Source, Tools); Replace(DepositSource, Deposits);
-                EditorUtility.SetDirty(Source); EditorUtility.SetDirty(DepositSource);
+                Replace(Source, Profile);
+                EditorUtility.SetDirty(Source);
                 foreach (var entry in Durability) AssetDatabase.SaveAssetIfDirty(entry.Target);
-                AssetDatabase.SaveAssetIfDirty(compiled); AssetDatabase.SaveAssetIfDirty(Source); AssetDatabase.SaveAssetIfDirty(DepositSource);
+                AssetDatabase.SaveAssetIfDirty(compiled); AssetDatabase.SaveAssetIfDirty(Source);
                 Undo.CollapseUndoOperations(undo); Load();
             }
             catch
@@ -88,7 +80,6 @@ namespace DarkNights.Editor.Terrain
                 throw;
             }
         }
-        private static string Identity(TerrainProfileConfig profile, HandheldConfig tools) => JsonUtility.ToJson(profile) + "|" + JsonUtility.ToJson(tools);
         private static T Copy<T>(T value) => JsonUtility.FromJson<T>(JsonUtility.ToJson(value));
         private static void Replace<T>(ObjectDefinition definition, T config) where T : GameCore.Objects.Behaviours.Interfaces.IConfigData
         {

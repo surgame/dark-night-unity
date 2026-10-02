@@ -1,7 +1,12 @@
 using System.Reflection;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.Terrain;
+using DarkNights.Core.ViewData;
+using DarkNights.Runtime.Network;
+using DarkNights.Runtime.Objects;
 using DarkNights.View.Terrain;
+using GameCore.Objects.NetworkStates;
+using MemoryPack;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +16,33 @@ namespace DarkNights.Tests
     /// <summary>采矿选择器的逻辑格与原生 UGUI 几何回归；只创建隔离控件，不修改人工资源或游戏状态。</summary>
     public sealed class MiningSelectorTests
     {
+        [Test]
+        public void ToolTargetsAndMaterialsAreFrozenAndFingerprintChanges()
+        {
+            var config = new MiningToolConfig();
+            var frozen = config.Freeze();
+            string identity = config.Fingerprint();
+            config.Targets |= DarkNights.Core.Config.MiningTargetKinds.MineralDeposit;
+            Assert.That(config.Fingerprint(), Is.Not.EqualTo(identity));
+            Assert.That(frozen.BlockReason(HeroMiningTargetKind.MineralDeposit, "iron"), Is.Not.Empty);
+            config.AllMaterials = false; config.Materials = new[] { "iron" };
+            frozen = config.Freeze(); config.Materials[0] = "gold";
+            Assert.That(frozen.BlockReason(HeroMiningTargetKind.MineralDeposit, "iron"), Is.Empty);
+            Assert.That(frozen.BlockReason(HeroMiningTargetKind.MineralDeposit, "gold"), Is.Not.Empty);
+        }
+
+        [TestCase(1)]
+        [TestCase(2)]
+        public void DepositMiningRequirementsRoundTripAndFreeze(int level)
+        {
+            var source = new WorksiteViewData(4, "mineral-deposit", 2200, 72, 0, 79, 0, 0, 0,
+                true, "shelf", "common", 80, "Available", 40, 40, "iron", 1, level);
+            var decoded = MemoryPackSerializer.Deserialize<WorksiteWire>(MemoryPackSerializer.Serialize(WorksiteWire.From(source)));
+            var frozen = decoded.Freeze(); decoded.RequiredMiningLevel = level + 1;
+            Assert.That(frozen.RequiredMiningLevel, Is.EqualTo(level));
+            Assert.That(frozen.Amount, Is.EqualTo(79));
+        }
+
         [TestCase(-17, -42)]
         [TestCase(0, 0)]
         [TestCase(18, -80)]

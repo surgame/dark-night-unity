@@ -23,6 +23,7 @@ namespace DarkNights.Core.ViewData
         public int MaximumDurability { get; }
         public string ResourceId { get; }
         public int HarvestAmount { get; }
+        public int RequiredMiningLevel { get; }
 
         public WorksiteViewData(
             int id,
@@ -51,7 +52,8 @@ namespace DarkNights.Core.ViewData
             string roomKind,
             string rarity,
             int capacity,
-            string stage, int durability = 0, int maximumDurability = 0, string resourceId = "", int harvestAmount = 0)
+            string stage, int durability = 0, int maximumDurability = 0, string resourceId = "", int harvestAmount = 0,
+            int requiredMiningLevel = 0)
         {
             Id = id;
             Kind = kind;
@@ -69,6 +71,7 @@ namespace DarkNights.Core.ViewData
             Stage = stage ?? "";
             Durability = durability; MaximumDurability = maximumDurability;
             ResourceId = resourceId ?? ""; HarvestAmount = harvestAmount;
+            RequiredMiningLevel = requiredMiningLevel;
         }
 
         public WorksiteViewData(

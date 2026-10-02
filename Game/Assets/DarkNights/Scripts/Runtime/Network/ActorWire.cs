@@ -33,6 +33,10 @@ namespace DarkNights.Runtime.Network
         public int SelectionRevision { get; set; }
         public int InventoryRevision { get; set; }
         public int Slot0 { get; set; }
+        public string Slot0Definition { get; set; } = "";
+        public string Slot1Definition { get; set; } = "";
+        public string Slot2Definition { get; set; } = "";
+        public string Slot3Definition { get; set; } = "";
         public int Slot1 { get; set; }
         public int Slot2 { get; set; }
         public int Slot3 { get; set; }
@@ -73,6 +77,8 @@ namespace DarkNights.Runtime.Network
             SelectionRevision = value.SelectionRevision,
             InventoryRevision = value.InventoryRevision,
             Slot0 = value.Slot0, Slot1 = value.Slot1, Slot2 = value.Slot2, Slot3 = value.Slot3,
+            Slot0Definition = value.Slot0Definition, Slot1Definition = value.Slot1Definition,
+            Slot2Definition = value.Slot2Definition, Slot3Definition = value.Slot3Definition,
             JetpackOwned = value.JetpackOwned,
             JetpackEquipped = value.JetpackEquipped,
             JetpackFuel = value.JetpackFuel,
@@ -112,6 +118,7 @@ namespace DarkNights.Runtime.Network
             JetpackFuel,
             ControllerSlot,
             ControlLease, ExplosiveCharges, AimAngle, EquipmentCooldown, EquipmentAction, EquipmentActionDuration, Charging, ChargeSeconds,
-            InventoryRevision, Slot0, Slot1, Slot2, Slot3, JetpackOwned);
+            InventoryRevision, Slot0, Slot1, Slot2, Slot3, JetpackOwned,
+            Slot0Definition, Slot1Definition, Slot2Definition, Slot3Definition);
     }
 }

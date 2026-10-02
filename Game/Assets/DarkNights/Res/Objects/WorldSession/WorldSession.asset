@@ -101,11 +101,6 @@ MonoBehaviour:
         FireInterval: 0.22
         MuzzleDistance: 8
         HandHeight: 9
-        PickaxeSeconds: 0.48
-        PickaxeReach: 48
-        PickaxeHandHeight: 36
-        PickaxeImpactFraction: 0.6
-        PickaxeDamage: 10
         BombMinimumSpeed: 65
         BombMaximumSpeed: 180
         BombLift: 65

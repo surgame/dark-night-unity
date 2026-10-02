@@ -35,7 +35,7 @@ namespace DarkNights.Runtime.Terrain
             session.RequireAvailable(); RequireAuthority();
             Rules = rules ?? new FrozenTerrainRules(catalog, Array.Empty<GameplayDefinitionData>(), new TerrainProfileConfig().Materials);
             var tools = handheld ?? new HandheldConfig();
-            tools.Validate(); pickaxeDamage = tools.PickaxeDamage; bombDamage = tools.BombDamage;
+            tools.Validate(); pickaxeDamage = MiningToolConfig.DefaultRules().Damage; bombDamage = tools.BombDamage;
             softRock = initial.CopySoftRock(); versions = new Dictionary<CellCoord, ulong>(initial.Width * initial.Height);
             var descriptor = new WorldDescriptor(world, 42, 0, new GridBounds(0, -initial.Height + 1, initial.Width, initial.Height));
             // 地图与业务组件共享冻结目录的实例；重复加载同一资产也会产生不同的 TileCatalog。

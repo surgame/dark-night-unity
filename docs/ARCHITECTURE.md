@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-10-02 当前[工具采集合同](TOOL_DEFINITION_HARVESTING.md)：MiningToolBehaviour 由工具 Definition 的 RequireConfig／Inject 装配；ObjectSessionResources 冻结装备目录。装备槽唯一保存 canonical Definition GUID，视觉枚举仅为派生展示。工具拥有目标类别、材料、等级及矿床定义白名单；矿床拥有目标要求与实例 State；ARDMap 仍拥有格耐久。共享纯匹配、可信装备解析与原事务贯穿选取和命中。会话矿镐参数及 AllowPickaxeHarvest 已退出，无新增框架改动。协议 **22**／存档 **v15**／AMP1 schema **2**，先前开关方案已被本轮替代。
+
 2026-10-01 矿镐源码候选：纯 `TerrainMiningGeometry.RayCell` 裁剪真实坡形，Runtime `TerrainMiningQuery.FirstSurface` 与本地选格、权威落镐共用最近表面查询，Unknown／基岩不跳过。每镐的目标、瞄准方向和一次命中门闩归角色唯一 ActorState，只由 YYGC CopyFrom 在事务内按值冻结，标记 MemoryPackIgnore，不写网络帧或存档。展示复用现有装备动作计时和瞄准字段，不由动画事件写权威伤害。游戏协议 **20**，AMP1 schema **2** 与存档 **v14** 不变；本批按用户要求未编译或运行验证。
 
 2026-09-30 网格业务化候选：WorldSession Definition 的 TerrainProfileConfig／TerrainGameplayBehaviour 只承担配置和装配；SessionTerrain 中唯一 ARDMap 的 GridBusinessStateStore 拥有格耐久，独立矿床仍归其 YYGC State。基础 AnyRules 不反向依赖 YYGC。对象候选校验完成后才执行外部地图安装；通知延后。分块副本同时安装业务偏差与内容实例版本，游戏协议 **19**／AMP1 schema **2**／存档 **v14**。按用户要求本批未验证，事务原子性、编辑器绑定及运行画面不作已通过声明；实现边界见 [DEVELOPMENT.md](DEVELOPMENT.md)。

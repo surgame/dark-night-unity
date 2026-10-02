@@ -68,9 +68,9 @@ namespace DarkNights.Runtime.Objects
             EquipmentItemConfig item = definition?.SharedConfigs.OfType<EquipmentItemConfig>().SingleOrDefault();
             if (item == null) return 0;
             item.Validate();
-            if (item.RuleKey != itemKey || definition.Guid.IsEmpty || definition.PrefabRef == null) return 0;
+            if (definition.Guid.IsEmpty || definition.PrefabRef == null || world.Resources.Equipment.Resolve(definition.Guid.ToString()) != definition) return 0;
             var trade = world.Catalog.Balance.Expedition.Trade;
-            int price = itemKey switch
+            int price = item.RuleKey switch
             {
                 "pistol" => trade.PistolPrice,
                 "pickaxe" => trade.PickaxePrice,
@@ -79,20 +79,17 @@ namespace DarkNights.Runtime.Objects
             };
             int balance = world.Economy.Read().Credits;
             if (price < 0 || balance < price) return 0;
-            if (itemKey != "pickaxe" && balance - price < trade.PickaxePrice &&
+            if (world.Resources.Equipment.Mining(definition.Guid.ToString()) == null && balance - price < trade.PickaxePrice &&
                 !world.Index.Actors.Any(actor => !actor.Enemy && actor.Hp > 0 &&
-                    Enumerable.Range(0, 4).Any(slot => HeroInventoryBehaviour.Slot(actor.Read(), slot) == HeroEquipmentKind.Pickaxe)))
+                    Enumerable.Range(0, 4).Any(slot => world.Resources.Equipment.Mining(HeroInventoryBehaviour.Slot(actor.Read(), slot)) != null)))
             {
                 world.Notify("需预留购买矿镐的信用点。");
                 return 0;
             }
             var state = hero.Read();
             if (item.Jetpack ? state.JetpackOwned :
-                HeroInventoryBehaviour.Slot(state, 0) == item.Handheld ||
-                HeroInventoryBehaviour.Slot(state, 1) == item.Handheld ||
-                HeroInventoryBehaviour.Slot(state, 2) == item.Handheld ||
-                HeroInventoryBehaviour.Slot(state, 3) == item.Handheld) return 0;
-            if (!item.Jetpack && state.Slot0 != 0 && state.Slot1 != 0 && state.Slot2 != 0 && state.Slot3 != 0) return 0;
+                Enumerable.Range(0, 4).Any(slot => HeroInventoryBehaviour.Slot(state, slot) == definition.Guid.ToString())) return 0;
+            if (!item.Jetpack && state.Slot0 != "" && state.Slot1 != "" && state.Slot2 != "" && state.Slot3 != "") return 0;
             var edited = hero.Edit();
             if (item.Jetpack)
             {
@@ -100,7 +97,7 @@ namespace DarkNights.Runtime.Objects
                 edited.JetpackFuel = world.Catalog.Balance.HeroControl.FuelSeconds;
                 edited.InventoryRevision = checked(edited.InventoryRevision + 1);
             }
-            else if (!HeroInventoryBehaviour.Give(edited, item.Handheld))
+            else if (!HeroInventoryBehaviour.Give(edited, definition.Guid.ToString()))
                 throw new InvalidOperationException("已验证的装备槽写入失败。");
             world.Economy.Edit().Credits = balance - price;
             world.Notify("已购买 " + definition.Name + "。");

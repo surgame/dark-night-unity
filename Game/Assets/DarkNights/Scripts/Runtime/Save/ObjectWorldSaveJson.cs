@@ -16,7 +16,7 @@ using static DarkNights.Runtime.Save.SaveJsonFields;
 namespace DarkNights.Runtime.Save
 {
     /// <summary>
-    /// 统一 YYGC 世界的 v10 冻结存档边界；只解析 DTO，不创建对象或修改当前会话。
+    /// 统一 YYGC 世界的 v15 冻结存档边界；只解析 DTO，不创建对象或修改当前会话。
     /// 拒绝旧版本、未知字段、内容摘要和身份关系不符；保存不包含权限、相机或连接身份。
     /// </summary>
     public sealed class ObjectWorldSaveJson
@@ -115,6 +115,14 @@ namespace DarkNights.Runtime.Save
             if (snapshot?.SchemaVersion != FormatVersion) throw new FormatException("不支持的存档版本。");
             string error = SnapshotValidator.Validate(snapshot, catalog, layout);
             if (error.Length != 0) throw new FormatException(error);
+            foreach (var actor in snapshot.Actors)
+                foreach (string item in new[] { actor.Slot0, actor.Slot1, actor.Slot2, actor.Slot3 }.Where(value => value != ""))
+                {
+                    var definition = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance?.ResolveDefinition(item, 0);
+                    var config = definition?.SharedConfigs.OfType<Objects.EquipmentItemConfig>().SingleOrDefault();
+                    if (config == null || config.Jetpack) throw new FormatException("装备槽引用了未知或不可持有的 Definition。");
+                    config.Validate();
+                }
             var kinds = snapshot.Actors.Select(a => (a.Id, a.Kind)).Concat(snapshot.Buildings.Select(b => (b.Id, b.Kind)))
                 .Concat(snapshot.Worksites.Select(w => (w.Id, w.Kind))).ToDictionary(p => p.Id, p => p.Kind);
             foreach (EntityIdentityData identity in snapshot.Identities)

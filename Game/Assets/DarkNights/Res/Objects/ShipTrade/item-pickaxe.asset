@@ -34,12 +34,27 @@ MonoBehaviour:
     m_EditorAssetChanged: 0
   Archetype: {fileID: 0}
   UseMonolithicPooling: 0
-  BehaviourTypes: []
+  BehaviourTypes:
+  - DarkNights.Runtime.Objects.MiningToolBehaviour
   SharedConfigs:
   - rid: 6961529947238957165
+  - rid: 4004706173535912235
   references:
     version: 2
     RefIds:
+    - rid: 4004706173535912235
+      type: {class: MiningToolConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        Targets: 1
+        AllMaterials: 1
+        Materials: []
+        Deposits: []
+        Level: 1
+        Damage: 10
+        Reach: 48
+        HandHeight: 36
+        Seconds: 0.48
+        ImpactFraction: 0.6
     - rid: 6961529947238957165
       type: {class: EquipmentItemConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:

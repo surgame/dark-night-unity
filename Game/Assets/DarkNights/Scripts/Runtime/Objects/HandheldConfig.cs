@@ -4,7 +4,7 @@ using GameCore.Objects.Behaviours.Interfaces;
 namespace DarkNights.Runtime.Objects
 {
     /// <summary>
-    /// 会话投射物及矿镐的共享只读参数；像素、秒和伤害均由服务端读取，客户端不能提交数值。
+    /// 会话枪弹及炸弹的共享只读参数；矿镐参数归工具自身 Definition；像素、秒和伤害均由服务端读取，客户端不能提交数值。
     /// 挂在正式 CampSession 定义的 IConfigData 中；现有职业攻击和 balance 数值保持独立。
     /// </summary>
     [Serializable]
@@ -19,11 +19,6 @@ namespace DarkNights.Runtime.Objects
         public float FireInterval = 0.22f;
         public float MuzzleDistance = 8;
         public float HandHeight = 9;
-        public float PickaxeSeconds = 0.48f;
-        public float PickaxeReach = 48;
-        public float PickaxeHandHeight = 36;
-        public float PickaxeImpactFraction = 0.6f;
-        public int PickaxeDamage = 10;
         public float BombMinimumSpeed = 65;
         public float BombMaximumSpeed = 180;
         public float BombLift = 65;
@@ -47,12 +42,11 @@ namespace DarkNights.Runtime.Objects
         {
             Positive(BulletSpeed, 1000); Positive(BulletRadius, 4); Positive(BulletLifetime, 5);
             Positive(FireInterval, 5); Positive(MuzzleDistance, 16); Positive(HandHeight, 20);
-            Positive(PickaxeSeconds, 5); Positive(BombMinimumSpeed, 300); Positive(BombMaximumSpeed, 500);
-            Positive(PickaxeReach, 128); Positive(PickaxeHandHeight, 64); Positive(PickaxeImpactFraction, 0.95f);
+            Positive(BombMinimumSpeed, 300); Positive(BombMaximumSpeed, 500);
             Positive(BombLift, 300); Positive(BombGravity, 500); Positive(BombChargeSeconds, 5);
             Positive(BombCooldown, 5); Positive(BombFuseSeconds, 8); Positive(BombRadius, 4);
             Positive(ExplosionRadius, 128); Positive(ExplosionSeconds, 1);
-            if (PickaxeDamage < 1 || PickaxeDamage > 1000 || BombMaximumSpeed < BombMinimumSpeed || BulletDamage < 1 || BulletDamage > 1000 || BombDamage < 1 || BombDamage > 1000)
+            if (BombMaximumSpeed < BombMinimumSpeed || BulletDamage < 1 || BulletDamage > 1000 || BombDamage < 1 || BombDamage > 1000)
                 throw new InvalidOperationException("Invalid handheld damage or throw speed.");
         }
 

@@ -37,10 +37,10 @@ namespace DarkNights.Core.Save
         public int SelectedItem { get; }
         public int SelectionRevision { get; }
         public int InventoryRevision { get; }
-        public int Slot0 { get; }
-        public int Slot1 { get; }
-        public int Slot2 { get; }
-        public int Slot3 { get; }
+        public string Slot0 { get; }
+        public string Slot1 { get; }
+        public string Slot2 { get; }
+        public string Slot3 { get; }
         public bool JetpackOwned { get; }
         public bool JetpackEquipped { get; }
         public double JetpackFuel { get; }
@@ -84,7 +84,7 @@ namespace DarkNights.Core.Save
             double equipmentCooldown = 0,
             double equipmentAction = 0,
             double equipmentActionDuration = 0, int inventoryRevision = 0,
-            int slot0 = 0, int slot1 = 0, int slot2 = 0, int slot3 = 0, bool jetpackOwned = false)
+            string slot0 = "", string slot1 = "", string slot2 = "", string slot3 = "", bool jetpackOwned = false)
         {
             Id = id;
             Kind = kind;

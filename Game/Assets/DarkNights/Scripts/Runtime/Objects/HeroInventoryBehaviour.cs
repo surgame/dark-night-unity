@@ -1,38 +1,67 @@
+using System;
 using GameCore.Objects.Behaviours;
+using GameCore.Objects.Runner;
 using GameCore.Objects.Runner.DI;
 using DarkNights.Core.Config;
 
 namespace DarkNights.Runtime.Objects
 {
     /// <summary>
-    /// 四格主角装备选择和背包装备入口；所有实例状态归 ActorState，切换会取消尚未投出的炸弹。
+    /// 四格装备的稳定 Definition 身份与当前工具装配入口；背包状态归 ActorState，工具缓存仅持有 YYGC 对象引用。
     /// 手枪、矿镐、炸弹使用同一主角输入流；喷气背包作为独立的已购买能力。
     /// </summary>
     public sealed partial class HeroInventoryBehaviour : PooledBehaviour
     {
         [Inject] private ActorBehaviour actor;
-        public static HeroEquipmentKind Slot(ActorState state, int slot) => (HeroEquipmentKind)(slot switch
+        private ObjectInstance toolObject;
+        private string toolGuid = "";
+        private ObjectSession toolSession;
+        public static string Slot(ActorState state, int slot) => slot switch
         {
-            0 => state.Slot0, 1 => state.Slot1, 2 => state.Slot2, 3 => state.Slot3, _ => 0
-        });
-
-        public static string ItemKey(HeroEquipmentKind item) => item switch
-        {
-            HeroEquipmentKind.Pistol => "pistol", HeroEquipmentKind.Pickaxe => "pickaxe",
-            HeroEquipmentKind.Bomb => "bomb", _ => ""
+            0 => state.Slot0, 1 => state.Slot1, 2 => state.Slot2, 3 => state.Slot3, _ => ""
         };
 
-        internal static bool Give(ActorState state, HeroEquipmentKind item)
+        internal static bool Give(ActorState state, string item)
         {
-            if (item <= HeroEquipmentKind.Empty || item > HeroEquipmentKind.Bomb ||
+            if (string.IsNullOrEmpty(item) || !Guid.TryParseExact(item, "N", out var guid) || guid == Guid.Empty ||
                 Slot(state, 0) == item || Slot(state, 1) == item || Slot(state, 2) == item || Slot(state, 3) == item) return false;
-            if (state.Slot0 == 0) state.Slot0 = (int)item;
-            else if (state.Slot1 == 0) state.Slot1 = (int)item;
-            else if (state.Slot2 == 0) state.Slot2 = (int)item;
-            else if (state.Slot3 == 0) state.Slot3 = (int)item;
+            if (state.Slot0 == "") state.Slot0 = item;
+            else if (state.Slot1 == "") state.Slot1 = item;
+            else if (state.Slot2 == "") state.Slot2 = item;
+            else if (state.Slot3 == "") state.Slot3 = item;
             else return false;
             state.InventoryRevision = checked(state.InventoryRevision + 1);
             return true;
+        }
+
+        internal MiningToolBehaviour MiningTool()
+        {
+            var state = actor.Read();
+            string guid = Slot(state, state.SelectedItem);
+            if (actor.World.Resources.Equipment.Mining(guid) == null) { ReleaseTool(); return null; }
+            if (toolObject != null && toolGuid == guid) return toolObject.GetBehaviour<MiningToolBehaviour>();
+            var definition = actor.World.Resources.Equipment.Resolve(guid);
+            var next = actor.World.Resources.Create(definition, actor.Object.SessionContext, actor.Object.transform).Owner;
+            try
+            {
+                var capability = next.GetBehaviour<MiningToolBehaviour>() ?? throw new InvalidOperationException("工具缺少采集能力。");
+                next.Activate(); next.gameObject.SetActive(false);
+                ReleaseTool(); toolObject = next; toolGuid = guid; toolSession = actor.World;
+                return capability;
+            }
+            catch { actor.World.ReleaseEntity(next); throw; }
+        }
+
+        private void ReleaseTool()
+        {
+            if (toolObject != null) toolSession.ReleaseEntity(toolObject);
+            toolObject = null; toolGuid = ""; toolSession = null;
+        }
+
+        public override void OnDespawn()
+        {
+            ReleaseTool();
+            base.OnDespawn();
         }
 
         internal bool Select(int slot)

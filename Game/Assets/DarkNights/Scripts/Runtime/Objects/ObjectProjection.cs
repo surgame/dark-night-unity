@@ -20,7 +20,9 @@ namespace DarkNights.Runtime.Objects
                 return new ActorViewData(a.Id, actor.RuleKey, a.Name, a.Enemy, a.X, a.Hp,
                     a.Activity.ToString(), a.TargetId, a.Face, a.Walking, a.ActionTime, a.Windup, a.HitFlash,
                     a.Height, a.VerticalSpeed, a.SupportPlatform, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ControllerSlot, a.ControlLease, a.ExplosiveCharges, a.PickaxeSwingActive ? a.PickaxeSwingAim : a.AimAngle, a.EquipmentCooldown, a.EquipmentAction, a.EquipmentActionDuration, a.Charging, a.ChargeSeconds,
-                    a.InventoryRevision, a.Slot0, a.Slot1, a.Slot2, a.Slot3, a.JetpackOwned);
+                    a.InventoryRevision, (int)session.Resources.Equipment.Kind(a.Slot0), (int)session.Resources.Equipment.Kind(a.Slot1),
+                    (int)session.Resources.Equipment.Kind(a.Slot2), (int)session.Resources.Equipment.Kind(a.Slot3), a.JetpackOwned,
+                    a.Slot0, a.Slot1, a.Slot2, a.Slot3);
             }).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {
@@ -37,7 +39,7 @@ namespace DarkNights.Runtime.Objects
             {
                 return new WorksiteViewData(deposit.Id, "mineral-deposit", deposit.X, deposit.Y, 0, deposit.Remaining, 0, 0, 0,
                     true, deposit.RoomKind, deposit.Rarity, deposit.Capacity, deposit.Stage.ToString(),
-                    deposit.Durability, deposit.MaximumDurability, deposit.ResourceId, deposit.HarvestAmount);
+                    deposit.Durability, deposit.MaximumDurability, deposit.ResourceId, deposit.HarvestAmount, deposit.RequiredMiningLevel);
             })).ToArray();
             WaveState wave = session.Waves.Read();
             var summary = new CampViewData(session.Economy.Stock, session.Economy.Population, session.Economy.Capacity,

@@ -30,7 +30,8 @@ namespace DarkNights.Tests
         {
             var save = JObject.Parse(World.SaveCodec.Serialize(Authority.CaptureWorld()));
             var actor = save["world"]["actors"].OfType<JObject>().Single(value => (int)value["id"] == ActorId);
-            if (slot >= 0) actor["slot_" + slot] = item;
+            if (slot >= 0) actor["slot_" + slot] = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item." +
+                (item == 1 ? "pistol" : item == 2 ? "pickaxe" : "bomb")).Guid.ToString();
             actor["inventory_revision"] = 1;
             actor["explosive_charges"] = charges;
             actor["jetpack_owned"] = jetpack;

@@ -20,6 +20,7 @@ namespace DarkNights.Runtime.Objects
             new Dictionary<string, PreparedObjectDefinition>(StringComparer.Ordinal);
         private bool disposed;
         public IReadOnlyList<ObjectDefinition> Definitions { get; private set; }
+        public EquipmentDefinitionCatalog Equipment { get; private set; }
 
         private ObjectSessionResources() { }
 
@@ -29,7 +30,8 @@ namespace DarkNights.Runtime.Objects
             var result = new ObjectSessionResources();
             try
             {
-                foreach (ObjectDefinition definition in definitions)
+                result.Equipment = new EquipmentDefinitionCatalog(ObjectDefinitionDatabase.Instance);
+                foreach (ObjectDefinition definition in definitions.Concat(result.Equipment.MiningDefinitions).Distinct())
                 {
                     cancellationToken.ThrowIfCancellationRequested();
                     var lease = await ObjectInstanceFactory.PrepareAsync(definition, cancellationToken);
