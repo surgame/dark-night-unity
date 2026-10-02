@@ -95,17 +95,19 @@ namespace DarkNights.Tests
             Send(authority, host, Request(authority, 6, "depart"));
             Assert.That(world.CaptureView().Expedition.Run, Is.EqualTo(2));
             Assert.That(world.Index.Actors.Count(a => a.RuleKey == "hauler"), Is.EqualTo(1));
-            Assert.That(world.Index.Buildings.Count(), Is.EqualTo(5));
+            Assert.That(world.Index.Buildings.Count(), Is.EqualTo(4));
+            CollectionAssert.AreEquivalent(new[] { "ship", "storage", "turret", "lamp" },
+                world.Index.Buildings.Select(b => b.RuleKey).ToArray());
             Assert.That(world.Economy.Stock.Iron, Is.EqualTo(2));
-            for (int i = 0; i < 6000 && world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3) < 5; i++) authority.Tick();
-            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3), Is.EqualTo(5), "四设备应真实搬运展开");
+            for (int i = 0; i < 6000 && world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3) < 4; i++) authority.Tick();
+            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3), Is.EqualTo(4), "三设备应真实搬运展开，飞船仍保持展开");
             string mid = world.SaveCodec.Serialize(world.CaptureWorld()); world.Restore(mid);
-            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3), Is.EqualTo(5));
+            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 3), Is.EqualTo(4));
             host = Connect(authority, 0); hero = world.Index.Actors.Single(a => a.CaptureState().OwnerSlot == 0);
             Send(authority, host, Request(authority, 7, "recall"));
             Send(authority, host, Request(authority, 8, "board", hero));
-            for (int i = 0; i < 9000 && (world.CaptureView().Expedition.Crew.Any(a => a.Role != 3 && !a.Boarded) || world.CaptureView().Expedition.Devices.Count(d => d.Stage == 6) < 4); i++) authority.Tick();
-            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 6), Is.EqualTo(4), "四设备均应被实际撤收");
+            for (int i = 0; i < 9000 && (world.CaptureView().Expedition.Crew.Any(a => a.Role != 3 && !a.Boarded) || world.CaptureView().Expedition.Devices.Count(d => d.Stage == 6) < 3); i++) authority.Tick();
+            Assert.That(world.CaptureView().Expedition.Devices.Count(d => d.Stage == 6), Is.EqualTo(3), "三设备均应被实际撤收");
             Assert.That(Send(authority, host, Request(authority, 9, "launch")), Is.EqualTo(SessionResultCode.Applied));
         });
         [UnityTest]
@@ -119,71 +121,6 @@ namespace DarkNights.Tests
             authority.Disconnect(guest); guest = Connect(authority, 1);
             Assert.That(world.Index.Actors.Single(a => a.CaptureState().OwnerSlot == 1).Id, Is.EqualTo(id));
             Assert.That(world.Index.Actors.Count(), Is.EqualTo(2));
-        });
-        [UnityTest]
-        public IEnumerator StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent() => UniTask.ToCoroutine(async () =>
-        {
-            using var scope = await UnifiedSessionScope.Create(); var world = Create(scope);
-            using var authority = new SessionAuthority(world); var host = Connect(authority, 0);
-            var hero = world.Index.Actors.Single(a => a.CaptureState().OwnerSlot == 0);
-            var seeded = JObject.Parse(world.SaveCodec.Serialize(world.CaptureWorld()));
-            var actorSave = seeded["world"]["actors"].OfType<JObject>().Single(value => (int)value["id"] == hero.Id);
-            actorSave["slot_1"] = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item.pickaxe").Guid.ToString(); actorSave["inventory_revision"] = 1;
-            actorSave["jetpack_owned"] = actorSave["jetpack_equipped"] = true;
-            actorSave["jetpack_fuel"] = world.Catalog.Balance.HeroControl.FuelSeconds;
-            world.Restore(seeded.ToString());
-            Assert.That(authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true), Is.True);
-            hero = world.Index.Actors.Single(a => a.CaptureState().OwnerSlot == 0);
-            Send(authority, host, Request(authority, 1, "depart"));
-            var deposit = world.Index.MineralDeposits.Cast<MineralDepositBehaviour>().First();
-            int inputSequence = 0;
-            for (int tick = 0; tick < 1300 && hero.X < deposit.X - 5; tick++)
-            {
-                var s = hero.CaptureState();
-                authority.SubmitInput(host, new HeroInputRequest(SessionAuthority.ProtocolVersion, authority.Epoch, authority.PolicyRevision,
-                    hero.Id, s.ControlLease, ++inputSequence, authority.ServerTick, 1, false, false, false, hero.X < 416));
-                authority.Tick();
-            }
-            Assert.That(hero.X, Is.GreaterThan(deposit.X - 10), "必经矿房必须能实际走到");
-            var actor = hero.CaptureState();
-            authority.SubmitInput(host, new HeroInputRequest(SessionAuthority.ProtocolVersion, authority.Epoch, authority.PolicyRevision,
-                hero.Id, actor.ControlLease, ++inputSequence, authority.ServerTick, 0, false, false, false, false));
-            var select = new SessionRequest(SessionOperation.SelectHeroItem, SessionAuthority.ProtocolVersion, authority.Epoch,
-                authority.PolicyRevision, 2, new[] { hero.Id }, value: 1, controlLease: actor.ControlLease);
-            Send(authority, host, select);
-            var use = new SessionRequest(SessionOperation.UseHeroItem, SessionAuthority.ProtocolVersion, authority.Epoch,
-                authority.PolicyRevision, 3, new[] { hero.Id }, targetId: deposit.Id, kind: "pickaxe",
-                value: hero.CaptureState().SelectionRevision, controlLease: actor.ControlLease);
-            byte[] before = world.Terrain.Capture().CopyMaterials();
-            Assert.That(Send(authority, host, use), Is.EqualTo(SessionResultCode.Applied));
-            Assert.That(deposit.Remaining, Is.EqualTo(79)); Assert.That(hero.CaptureState().CargoIron, Is.EqualTo(1));
-            CollectionAssert.AreEqual(before, world.Terrain.Capture().CopyMaterials());
-            for (int tick = 0; tick < 1500 && hero.X > 650; tick++)
-            {
-                var s = hero.CaptureState();
-                authority.SubmitInput(host, new HeroInputRequest(SessionAuthority.ProtocolVersion, authority.Epoch, authority.PolicyRevision,
-                    hero.Id, s.ControlLease, ++inputSequence, authority.ServerTick, -1, false, false, tick % 45 == 0, false));
-                authority.Tick();
-            }
-            Assert.That(hero.X, Is.LessThan(655), "矿房需能有限燃料返回船边");
-        });
-        [UnityTest]
-        public IEnumerator MinerCanReachStarterDepositAndDeliverCargo() => UniTask.ToCoroutine(async () =>
-        {
-            using var scope = await UnifiedSessionScope.Create(); var world = Create(scope);
-            using var authority = new SessionAuthority(world); var host = Connect(authority, 0);
-            var save = JObject.Parse(world.SaveCodec.Serialize(world.CaptureWorld()));
-            save["world"]["expedition"]["CrewModule"] = 1; save["world"]["expedition"]["RobotModule"] = 1;
-            world.Restore(save.ToString()); host = Connect(authority, 0);
-            Send(authority, host, Request(authority, 1, "depart"));
-            var hero = world.Index.Actors.Single(a => a.CaptureState().OwnerSlot == 0);
-            var deposit = world.Index.MineralDeposits.Cast<MineralDepositBehaviour>().First();
-            Assert.That(Send(authority, host, Request(authority, 2, "mine", hero, deposit.Id)), Is.EqualTo(SessionResultCode.Applied));
-            for (int tick = 0; tick < 9000 && world.CaptureView().Expedition.Devices.Sum(d => d.Iron) == 0; tick++) authority.Tick();
-            var frame = world.CaptureView().Expedition;
-            Assert.That(deposit.Remaining, Is.LessThan(80));
-            Assert.That(frame.Devices.Sum(d => d.Iron) + frame.Crew.Sum(a => a.Iron) + frame.LostCargo, Is.EqualTo(80 - deposit.Remaining));
-            Assert.That(frame.Devices.Sum(d => d.Iron), Is.GreaterThan(0), "矿工应实际交货");
         });
         [UnityTest]
         public IEnumerator SettlementWriteFailureRollsBackAndRetryPersistsOnce() => UniTask.ToCoroutine(async () =>

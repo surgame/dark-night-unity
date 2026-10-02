@@ -29,7 +29,7 @@ namespace DarkNights.Tests
             using var scope = await UnifiedSessionScope.Create();
             var world = JourneyScenario.Create(scope, config =>
             {
-                // 短距离固定路线使本项聚焦原速移动，往返不依赖氧气或威胁数值的测试特判。
+                // 短距离固定路线使本项聚焦原速移动，往返不依赖威胁数值的测试特判。
                 config.Planets[0].Seed = "FLOW-PURE-12";
                 if (high) { config.Planets[0].DockRow = 28; config.Planets[0].MaximumLift = 256; }
             });
@@ -64,7 +64,7 @@ namespace DarkNights.Tests
             Assert.That(JourneyWalkwayRoute.InRoom(map, planet, atCave.X, atCave.Height), Is.True,
                 "必须到达生成洞室的站立支撑区域，不能只站在地表或通道入口。");
             AssertBodyClear(world, hero);
-            TestContext.WriteLine($"cave reached tick={authority.ServerTick}, position=({atCave.X},{atCave.Height}), oxygen={atCave.Oxygen}");
+            TestContext.WriteLine($"cave reached tick={authority.ServerTick}, position=({atCave.X},{atCave.Height})");
 
             // S 旁路会持续到离开坡道脚 24 单位范围；先按正常输入退到范围外，再右行登船。
             await WalkTo(authority, host, world, hero, rampToe - 28, true, true);
@@ -75,7 +75,6 @@ namespace DarkNights.Tests
             Assert.That(returned.Boarded, Is.True, "回船必须再次从左坡道步行进入船舱。");
             Assert.That(returned.Height, Is.EqualTo(planet.DockHeight + ShipGeometry.Floor(ShipGeometry.HoldX)).Within(1));
             Assert.That(returned.Hp, Is.GreaterThan(0));
-            Assert.That(returned.Oxygen, Is.GreaterThan(0));
             Assert.That(hero.Id, Is.EqualTo(originalActorId));
             Assert.That(world.Flow.Phase, Is.EqualTo(JourneyPhase.Landed));
             Assert.That(ship.X, Is.EqualTo(planet.DockX).Within(.01));
@@ -83,7 +82,7 @@ namespace DarkNights.Tests
             var after = world.Terrain.Capture();
             CollectionAssert.AreEqual(map.CopyMaterials(), after.CopyMaterials(), "往返期间不能修改地形来通过验收。");
             CollectionAssert.AreEqual(map.CopyShapes(), after.CopyShapes());
-            TestContext.WriteLine($"returned tick={authority.ServerTick}, position=({returned.X},{returned.Height}), oxygen={returned.Oxygen}");
+            TestContext.WriteLine($"returned tick={authority.ServerTick}, position=({returned.X},{returned.Height})");
         }
 
         private static async UniTask JumpOnPlatform(SessionAuthority authority, SessionConnection host,

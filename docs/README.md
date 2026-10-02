@@ -1,5 +1,9 @@
 # Dark Nights 文档结构
 
+2026-10-03 [氧气移除验证记录](OXYGEN_REMOVAL_VALIDATION.md)：原Editor119/121、资源12/12、正常Mono双进程130/130；两项未实现玩法的旧路线用例已移除，剩余远征回归6/6。纯航程1903/1903、Core1046/1048；[弱网及旧路线历史诊断](OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)保留，弱网修复延后，整批未通过。
+
+2026-10-03 [氧气业务移除及合并记录](OXYGEN_REMOVAL_EXECUTION.md)：分支已合入本地main，协议 **23**／存档 **v16**，薄worktree实施、Local串行后台验证；YYGC未修改，实施范围与原验收计划见该页；此前[评估](OXYGEN_REMOVAL_ASSESSMENT.md)保留评估时点。
+
 2026-10-03 [天空与矿洞分层衔接](CAVE_ENTRANCE_ART_LAYERS.md)：复用已有三层，退出深度透明／底色／亮度过渡；原三层 RGBA 对照与 Editor 36/36、Mono、正式 Play 已验。新图草稿未采用，验证边界见本批记录。
 
 2026-10-03 [矿镐统一触及范围](PICKAXE_UNIFIED_REACH.md)：矿镐自身配置同步控制吸附与挥砍，当前64逻辑像素／4格；YYGC合同、验证及配置入口见本页。
@@ -24,7 +28,7 @@
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) — 当前技术架构合同
 - [MULTIPLAYER.md](MULTIPLAYER.md) — 联机协议与同步设计（矿镐网格协议 18，Local 显示已验证、联机待验证；旧切片按日期保留）
-- [SAVE_FORMAT.md](SAVE_FORMAT.md) — 世界存档格式合同（当前 v13，矿镐网格不改格式；下文含历史版本）
+- [SAVE_FORMAT.md](SAVE_FORMAT.md) — 世界存档格式合同（氧气移除候选v16；下文含历史版本）
 - [YYGC_CHANGES.md](YYGC_CHANGES.md) — YYGC 修改授权与改动账本（持续维护）
 
 ## 开发入口

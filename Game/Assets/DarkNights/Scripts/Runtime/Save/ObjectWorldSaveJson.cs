@@ -16,7 +16,7 @@ using static DarkNights.Runtime.Save.SaveJsonFields;
 namespace DarkNights.Runtime.Save
 {
     /// <summary>
-    /// 统一 YYGC 世界的 v15 冻结存档边界；只解析 DTO，不创建对象或修改当前会话。
+    /// 统一 YYGC 世界的 v16 冻结存档边界；只解析 DTO，不创建对象或修改当前会话。
     /// 拒绝旧版本、未知字段、内容摘要和身份关系不符；保存不包含权限、相机或连接身份。
     /// </summary>
     public sealed class ObjectWorldSaveJson

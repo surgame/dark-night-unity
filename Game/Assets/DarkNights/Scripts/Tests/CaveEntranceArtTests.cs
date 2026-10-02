@@ -32,10 +32,26 @@ namespace DarkNights.Tests
         {
             var first = AssetDatabase.LoadAssetAtPath<CaveBackgroundStyle>("Assets/DarkNights/Res/Terrain/StrataCave/Background.asset");
             var second = AssetDatabase.LoadAssetAtPath<CaveBackgroundStyle>("Assets/DarkNights/Res/Terrain/CaveContourStatic/Background.asset");
-            Assert.That(first.LayerShader, Is.Not.Null); Assert.That(second.LayerShader, Is.SameAs(first.LayerShader));
-            Assert.That(second.SourceMaskAtlas, Is.SameAs(first.SourceMaskAtlas));
+            Assert.That(first != null && second != null, Is.True, "两套正式背景配置必须存在");
+            AssertSharedAsset(first.LayerShader, second.LayerShader,
+                "Assets/DarkNights/Res/Art/Custom/CaveEntranceLayers/CaveBackgroundLayer.shader");
+            AssertSharedAsset(first.SourceMaskAtlas, second.SourceMaskAtlas,
+                "Assets/DarkNights/Res/Art/Custom/CaveContourStatic/background-mask-v16.png");
             Assert.That(first.Near && first.Middle && first.Deep, Is.True);
             Assert.That(first.FarOrder, Is.LessThan(first.DeepOrder)); Assert.That(first.NearOrder, Is.LessThan(-1));
+        }
+
+        private static void AssertSharedAsset(UnityEngine.Object first, UnityEngine.Object second, string expectedPath)
+        {
+            // Unity 可为同一原生资产返回不同托管包装；绑定合同按持久化 GUID 和子资产身份验证。
+            Assert.That(first != null && second != null, Is.True, expectedPath);
+            Assert.That(AssetDatabase.GetAssetPath(first), Is.EqualTo(expectedPath));
+            Assert.That(AssetDatabase.GetAssetPath(second), Is.EqualTo(expectedPath));
+            Assert.That(AssetDatabase.TryGetGUIDAndLocalFileIdentifier(first, out string firstGuid, out long firstId), Is.True);
+            Assert.That(AssetDatabase.TryGetGUIDAndLocalFileIdentifier(second, out string secondGuid, out long secondId), Is.True);
+            Assert.That(firstGuid, Is.EqualTo(AssetDatabase.AssetPathToGUID(expectedPath)));
+            Assert.That(secondGuid, Is.EqualTo(firstGuid));
+            Assert.That(secondId, Is.EqualTo(firstId));
         }
         [Test]
         public void OriginalThreeLayersAreByteIdenticalAndShaftHasAnOpaqueRearWall()

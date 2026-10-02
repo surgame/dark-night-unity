@@ -45,11 +45,11 @@ namespace DarkNights.View
             int devices = e.Devices.Count(d => d.Id != shipId && d.Stage != 0 && d.Stage != 6);
             string[] stages = { "整备", "探索", "撤收", "起飞倒计时", "结算" };
             Status.text = $"远征 {e.Run} · {stages[e.Phase]}  警戒 {e.Risk:0}\n" +
-                $"氧气 {a?.Oxygen ?? 0:0}  携带 {(a?.Iron ?? 0) + (a?.Gold ?? 0)}  船仓 {(ship?.Iron ?? 0) + (ship?.Gold ?? 0)}  前线 {forward}\n" +
+                $"携带 {(a?.Iron ?? 0) + (a?.Gold ?? 0)}  船仓 {(ship?.Iron ?? 0) + (ship?.Gold ?? 0)}  前线 {forward}\n" +
                 $"可用铁 {world.Camp.Stock.Iron} / 金 {world.Camp.Stock.Gold}  舱段 机器人{e.RobotModule} 货舱{e.CargoModule} 船员{e.CrewModule}\n" +
                 (e.Phase == 3 ? $"{e.Clock:0.0} 秒后起飞 · 当前未登船 {e.Crew.Count(c => !c.Boarded)}" :
                 e.Phase == 4 ? $"损失：货物 {e.LostCargo}，设备 {e.LostDevices}；补充需 {e.ResupplyCost} 铁。自动存档 10。" :
-                $"未归队：人员 {e.Crew.Count(c => !c.Boarded && c.Role != 3)} · 货物 {exposed} · 设备 {devices}；中继在脚下，派工选近矿。");
+                $"未归队：人员 {e.Crew.Count(c => !c.Boarded && c.Role != 3)} · 货物 {exposed} · 设备 {devices}；派工选择最近矿床，需有双向通路。");
             var flight = e.Ship;
             bool piloting = flight != null && flight.PilotId == a?.Id;
             var journey = e.Journey;
@@ -58,7 +58,7 @@ namespace DarkNights.View
                 string landing = journey.Phase == JourneyPhase.Descent && journey.ActivePlanet != null && ship != null ?
                     $"\n相对地表基准高度 {ship.Height - journey.ActivePlanet.DockHeight:0} · 速度 {flight.VelocityX:0}/{flight.VelocityY:0}" : "";
                 Status.text = $"{JourneyPresentationRules.Stage(journey.Phase)} · {journey.ActivePlanet?.DisplayName ?? "未选择目的地"}\n" +
-                    $"氧气 {a?.Oxygen ?? 0:0}  携带 {(a?.Iron ?? 0) + (a?.Gold ?? 0)}  船仓 {(ship?.Iron ?? 0) + (ship?.Gold ?? 0)}\n" +
+                    $"携带 {(a?.Iron ?? 0) + (a?.Gold ?? 0)}  船仓 {(ship?.Iron ?? 0) + (ship?.Gold ?? 0)}\n" +
                     $"可用铁 {world.Camp.Stock.Iron} / 金 {world.Camp.Stock.Gold} · {(piloting ? "你在驾驶" : flight?.PilotId > 0 ? "驾驶位已占用" : "驾驶位空闲")}\n" +
                     (journey.Phase == JourneyPhase.Landed && flight.DoorClock > 0 ?
                         $"已自动着陆并离座，坡道展开中（{flight.DoorClock:0.0} 秒）。" : JourneyPresentationRules.Guidance(journey, piloting)) + landing +
@@ -79,7 +79,7 @@ namespace DarkNights.View
                     ((RectTransform)Actions[i].transform).anchoredPosition = originalPositions[i];
                 }
                 string c = Commands[i]; bool prep = e.Phase is 0 or 4, active = e.Phase is 1 or 2;
-                bool personal = c is "unload" or "board" or "relay" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
+                bool personal = c is "unload" or "board" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
                 Actions[i].interactable = ready && (personal ? a != null : slot == 0) &&
                     (c == "pilot" ? e.Phase != 3 && a.Boarded :
                      c == "takeoff" ? piloting && flight.Phase == 0 && e.Phase != 2 :
@@ -102,7 +102,7 @@ namespace DarkNights.View
                 bool show = command == "pilot" ? orbit || landed || phase == JourneyPhase.Descent :
                     command == "land" ? false :
                     command == "cancel-flight" ? phase == JourneyPhase.Preparing :
-                    landed && (command is "unload" or "board" or "relay" or "mine" or "deploy" or "robot" or "cargo" or "crew" or "resupply");
+                    landed && (command is "unload" or "board" or "mine" or "deploy" or "robot" or "cargo" or "crew" or "resupply");
                 Actions[i].gameObject.SetActive(show);
                 if (!show) continue;
                 bool atCockpit = JourneyPresentationRules.AtCockpit(world, slot);

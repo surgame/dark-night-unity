@@ -50,7 +50,10 @@ namespace DarkNights.Runtime.Config
         }
 
         private static ExpeditionDefinition Expedition(JToken v) => v == null ? new ExpeditionDefinition() : new ExpeditionDefinition(
-            ConfigJson.Positive(v, "OxygenSeconds"), ConfigJson.Integer(v, "BagCapacity"), ConfigJson.Integer(v, "ShipCapacity"), ConfigJson.Integer(v, "StorageCapacity"), ConfigJson.Positive(v, "OxygenRadius"), ConfigJson.Positive(v, "RelayRange"), ConfigJson.Integer(v, "PowerSupply"), ConfigJson.Positive(v, "DeploySeconds"), ConfigJson.Positive(v, "ExtractSeconds"), ConfigJson.Positive(v, "RecallSeconds"), ConfigJson.Positive(v, "ThreatSeconds"), ConfigJson.Integer(v, "ModulePrice"), Ship(v["Ship"]), Trade(ConfigJson.Object(v, "Trade")));
+            ConfigJson.Integer(v, "BagCapacity"), ConfigJson.Integer(v, "ShipCapacity"), ConfigJson.Integer(v, "StorageCapacity"),
+            ConfigJson.Positive(v, "PowerLinkRange"), ConfigJson.Integer(v, "PowerSupply"), ConfigJson.Positive(v, "DeploySeconds"),
+            ConfigJson.Positive(v, "ExtractSeconds"), ConfigJson.Positive(v, "RecallSeconds"), ConfigJson.Positive(v, "ThreatSeconds"),
+            ConfigJson.Integer(v, "ModulePrice"), Ship(v["Ship"]), Trade(ConfigJson.Object(v, "Trade")));
 
         private static ShipTradeDefinition Trade(JToken value) => new ShipTradeDefinition(
             ConfigJson.Integer(value, "StartingCredits"), ConfigJson.Integer(value, "IronPrice"),

@@ -24,7 +24,7 @@ namespace DarkNights.Core.Save
                 data.Devices.Select(b => b.Id).Distinct().Count() != buildings.Length) return "远征对象集合不一致";
             if (data.Crew.Where(a => a.OwnerSlot >= 0).GroupBy(a => a.OwnerSlot).Any(g => g.Count() > 1)) return "远征玩家身份重复";
             foreach (var a in data.Crew)
-                if (!Number(a.Oxygen, rules.OxygenSeconds) || !Number(a.Iron, rules.BagCapacity) ||
+                if (!Number(a.Iron, rules.BagCapacity) ||
                     !Number(a.Gold, rules.BagCapacity - a.Iron) || a.Role is < 0 or > 4 || a.OwnerSlot is < -1 or > 3 ||
                     a.TaskPhase is < 0 or > 9 || !Number(a.TaskClock, 1000000) ||
                     a.TaskTarget != 0 && !buildings.Contains(a.TaskTarget) && !deposits.Contains(a.TaskTarget)) return "远征角色状态无效";

@@ -14,9 +14,9 @@ namespace DarkNights.Tests
     /// <summary>飞船验收的真实 YYGC 会话夹具；所有步行和驾驶通过可信连接输入推进，不注入角色运行坐标。</summary>
     internal static class ShipScenario
     {
-        internal static ObjectSession Create(UnifiedSessionScope scope)
+        internal static ObjectSession Create(UnifiedSessionScope scope, GameCatalog catalog = null)
         {
-            var catalog = RuleScenario.Catalog();
+            catalog = catalog ?? RuleScenario.Catalog();
             var layout = new LevelLayout(5120, RuleScenario.Layout().GroundY, 380, 770, 900, 568,
                 new[] { new PlacementDefinition("ship", 568) }, Array.Empty<PlacementDefinition>(), Array.Empty<PlacementDefinition>(),
                 randomTerrain: true, expedition: true);

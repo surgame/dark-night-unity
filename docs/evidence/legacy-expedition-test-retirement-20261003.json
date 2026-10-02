@@ -1,0 +1,220 @@
+{
+  "date": "2026-10-03",
+  "base_commit": "1c2ec99f04fca96d02204b29cb0e74cfcc98812d",
+  "retired_cases": [
+    "StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent",
+    "MinerCanReachStarterDepositAndDeliverCargo"
+  ],
+  "reason": "用户确认角色矿房交互与矿工采集交货的具体玩法尚未实施，旧用例不适用当前验收范围。",
+  "formal_runtime_changed": false,
+  "yygc_changed": false,
+  "protocol": 23,
+  "save_version": 16,
+  "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\ExpeditionTests.cs",
+  "source_sha256": "e7db5e8c807a9efafadf0f7c963e66192fd1f7e2ba917ae46ab397049ccb7115",
+  "editor": {
+    "status": "completed",
+    "total": 6,
+    "passed": 6,
+    "results": [
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.CargoSettlesOnceAndUpgradeChangesSecondDeparture",
+        "status": "Passed",
+        "duration": 1.1022815,
+        "message": null,
+        "stack": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.FormalMapSaveAndNetworkProjectionKeepShapes",
+        "status": "Passed",
+        "duration": 0.1754151,
+        "message": null,
+        "stack": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.GuestCannotLaunchAndReconnectReclaimsCargoOwner",
+        "status": "Passed",
+        "duration": 0.0333521,
+        "message": null,
+        "stack": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.HundredCompactSeedsHaveIndependentMineralsAndValidSlopes",
+        "status": "Passed",
+        "duration": 4.8277377,
+        "message": null,
+        "stack": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.NegativeCargoSaveIsRejectedWithoutRetiringWorld",
+        "status": "Passed",
+        "duration": 0.7427053,
+        "message": null,
+        "stack": null
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.SettlementWriteFailureRollsBackAndRetryPersistsOnce",
+        "status": "Passed",
+        "duration": 0.0817648,
+        "message": null,
+        "stack": null
+      }
+    ],
+    "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\space-planet-flow\\editor-legacy-expedition-retired-r1.json",
+    "report_sha256": "a14a737b80bcc9011eec0917c535dd0c9babddf82ba9fbaf97b9b66e85e6f353",
+    "retired_names_absent": true
+  },
+  "previous_validation": "docs/evidence/oxygen-removal-20261003.json kept unchanged as historical evidence",
+  "weak_net": {
+    "status": "FAILED_DEFERRED",
+    "remains_in_future_acceptance": true,
+    "required": [
+      "independent Host+Client with actual loss/delay",
+      "initial full map",
+      "new map after journey",
+      "late join/reconnect",
+      "Ready timeout and map identity/hash assertions"
+    ]
+  },
+  "branches_eligible_for_cleanup": {
+    "current": "ref-20261003-remove-oxygen",
+    "main": "5803eaead81794c26b449400e566cb87842681c9",
+    "local_delete": [
+      {
+        "name": "chore-20261003-before-oxygen-local",
+        "oid": "d265421028ee4fb242a9bd7be4b9260f63c7baa1",
+        "reason": "temporary-backup-duplicates-original-art-branch"
+      },
+      {
+        "name": "docs-20260929-ship-trade-equipment-plan",
+        "oid": "ab8e6cecf60e34b078729901419a25559fc7c7c6",
+        "reason": "merged-main"
+      },
+      {
+        "name": "fix-20260929-expedition-debug-hub",
+        "oid": "4fe2c9939f705e053d4a56aaf22f4165c32f553f",
+        "reason": "merged-main"
+      },
+      {
+        "name": "fix-20260929-hero-movement-scale",
+        "oid": "957afb020e1f5b63cc484a0a89bb2996d9aaf430",
+        "reason": "merged-main"
+      },
+      {
+        "name": "fix-20260929-session-input-feedback",
+        "oid": "7ed6de0f875871f2b9b0df9677304afc7bd03a27",
+        "reason": "merged-main"
+      },
+      {
+        "name": "fix-20260929-ship-shop-interaction",
+        "oid": "75d5c297a005428d77d77bcd4d7341223a2e343c",
+        "reason": "merged-main"
+      },
+      {
+        "name": "fix-20260929-single-cave-generation",
+        "oid": "8fa06a71d5575acace37371cb8253594ecbc6bc3",
+        "reason": "merged-main"
+      },
+      {
+        "name": "fix-20261001-pickaxe-surface-swing",
+        "oid": "d6f71102e1e491995c04ce311d247c32681860e4",
+        "reason": "merged-main"
+      },
+      {
+        "name": "fix-20261001-planet-sky-boundary",
+        "oid": "d6f71102e1e491995c04ce311d247c32681860e4",
+        "reason": "merged-main"
+      },
+      {
+        "name": "ft-20260929-ship-trade-equipment",
+        "oid": "e84b8d3caaeb66d44b2f948a126a44ec3a8410fe",
+        "reason": "merged-main"
+      },
+      {
+        "name": "ft-20260929-unified-terrain-assembly",
+        "oid": "c306c12ac36be370d73dee7b96d5e8251c17643c",
+        "reason": "merged-main"
+      },
+      {
+        "name": "ft-20260930-terrain-modifier-pipeline",
+        "oid": "9084698545c6a527438c6c379ec89bf4c6b1a766",
+        "reason": "merged-main"
+      },
+      {
+        "name": "ft-20261001-surface-environment",
+        "oid": "24d35dad13e77701f684199b4f638e6efbcd5581",
+        "reason": "merged-main"
+      },
+      {
+        "name": "ft-20261002-quick-tests-scene-catalog",
+        "oid": "f744847263ce4e70ba73e8ddc6fd98be4fa7fe4b",
+        "reason": "merged-main"
+      },
+      {
+        "name": "ft-20261003-existing-cave-layers",
+        "oid": "5803eaead81794c26b449400e566cb87842681c9",
+        "reason": "merged-main"
+      }
+    ],
+    "remote_delete": [
+      {
+        "name": "fix-20260929-hero-movement-scale",
+        "oid": "957afb020e1f5b63cc484a0a89bb2996d9aaf430"
+      },
+      {
+        "name": "ft-20261003-existing-cave-layers",
+        "oid": "5803eaead81794c26b449400e566cb87842681c9"
+      }
+    ],
+    "preserve": [
+      {
+        "name": "codex/cave-8x8-art-direction",
+        "active_worktree": false,
+        "merged_main": false
+      },
+      {
+        "name": "codex/spaceship-landing-asset",
+        "active_worktree": false,
+        "merged_main": false
+      },
+      {
+        "name": "codex/terrain-retained-probes",
+        "active_worktree": false,
+        "merged_main": false
+      },
+      {
+        "name": "docs-20260928-weekly-progress",
+        "active_worktree": false,
+        "merged_main": false
+      },
+      {
+        "name": "fix-20260925-cave-tuner-isolated",
+        "active_worktree": true,
+        "merged_main": false
+      },
+      {
+        "name": "ft-20260922-downward-rock-edges",
+        "active_worktree": true,
+        "merged_main": true
+      },
+      {
+        "name": "ft-20261003-art-layer-cave-entrance",
+        "active_worktree": false,
+        "merged_main": false
+      },
+      {
+        "name": "main",
+        "active_worktree": false,
+        "merged_main": true
+      },
+      {
+        "name": "ref-20261003-remove-oxygen",
+        "active_worktree": true,
+        "merged_main": false
+      }
+    ],
+    "stash_preserved": true
+  },
+  "overall_game_acceptance": false,
+  "player_rebuilt": false
+}

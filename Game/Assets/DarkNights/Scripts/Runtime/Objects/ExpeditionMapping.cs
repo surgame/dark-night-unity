@@ -12,7 +12,7 @@ namespace DarkNights.Runtime.Objects
             var actors = world.Index.Actors.Select(a =>
             {
                 var s = a.Read();
-                return new ExpeditionActorData(a.Id, s.Oxygen, s.CargoIron, s.CargoGold, s.ExpeditionRole, s.TaskTarget, s.TaskPhase, s.TaskClock, s.OwnerSlot, s.Boarded);
+                return new ExpeditionActorData(a.Id, s.CargoIron, s.CargoGold, s.ExpeditionRole, s.TaskTarget, s.TaskPhase, s.TaskClock, s.OwnerSlot, s.Boarded);
             }).ToArray();
             var devices = world.Index.Buildings.Select(a =>
             {
@@ -50,7 +50,6 @@ namespace DarkNights.Runtime.Objects
             foreach (var item in data.Crew)
             {
                 var s = world.Index.Find<ActorBehaviour>(item.Id).Edit();
-                s.Oxygen = item.Oxygen;
                 s.CargoIron = item.Iron;
                 s.CargoGold = item.Gold;
                 s.ExpeditionRole = item.Role;

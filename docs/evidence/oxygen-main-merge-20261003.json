@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-03",
+  "utc": "2026-10-02T21:22:08.714334+00:00",
+  "scope": "完成氧气候选合并到本地main时最后一项Shader引用检查",
+  "parents": {
+    "main": "5803eaead81794c26b449400e566cb87842681c9",
+    "oxygen": "a0ba66ea73319abe2a1ce2f15174e630751781bd"
+  },
+  "protocol": 23,
+  "save_version": 16,
+  "amp1_schema": 2,
+  "yygc_modified": false,
+  "diagnosis": {
+    "cause": "Is.SameAs比较托管包装对象；同一Unity原生Shader可有不同包装",
+    "identity": {
+      "utc": "2026-10-02T21:18:32.9059376Z",
+      "shader": {
+        "sameManaged": false,
+        "sameNative": true,
+        "nativeA": 788,
+        "nativeB": 788,
+        "guidA": "b8ecdcaa52237314083cdb5c712445a7",
+        "guidB": "b8ecdcaa52237314083cdb5c712445a7",
+        "fileA": 4800000,
+        "fileB": 4800000,
+        "pathA": "Assets/DarkNights/Res/Art/Custom/CaveEntranceLayers/CaveBackgroundLayer.shader",
+        "pathB": "Assets/DarkNights/Res/Art/Custom/CaveEntranceLayers/CaveBackgroundLayer.shader"
+      },
+      "mask": {
+        "sameManaged": true,
+        "sameNative": true,
+        "nativeA": 63806,
+        "nativeB": 63806,
+        "guidA": "3cb367ac8474c2c46bb569af531a2a42",
+        "guidB": "3cb367ac8474c2c46bb569af531a2a42",
+        "fileA": 2800000,
+        "fileB": 2800000,
+        "pathA": "Assets/DarkNights/Res/Art/Custom/CaveContourStatic/background-mask-v16.png",
+        "pathB": "Assets/DarkNights/Res/Art/Custom/CaveContourStatic/background-mask-v16.png"
+      }
+    },
+    "report": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\oxygen-main-merge-20261003\\asset-identity.json",
+      "sha256": "983431e3de8734fc21c3faad88fffb85f8364d20df4dd10d3eae49c162678ddf",
+      "bytes": 2621
+    }
+  },
+  "fix": {
+    "file": "Game/Assets/DarkNights/Scripts/Tests/CaveEntranceArtTests.cs",
+    "sha256": "58360245faa5648b3033555d0048e9073a09691a5296f5aa3898a4b3ff9cfaee",
+    "contract": "正式资产路径、GUID、local fileID及非空绑定"
+  },
+  "editor": {
+    "version": "6000.4.9f1",
+    "recompiled": true,
+    "new_helper_loaded": true,
+    "initial": {
+      "report": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\space-planet-flow\\editor-oxygen-main-merge-r1.json",
+        "sha256": "7d2a61fc5d10accde56e0f393727720e0571d5d237ff9fa14b2601b0c887bc85",
+        "bytes": 9563
+      },
+      "scheduled": 40,
+      "passed": 39,
+      "failed": [
+        {
+          "name": "DarkNights.Tests.CaveEntranceArtTests.ExistingMasksAndThreeLayerConfigurationRemainBoundToFormalStyles",
+          "status": "Failed",
+          "duration": 0.0035157,
+          "message": "  Expected: same as <DarkNights/CaveBackgroundLayer (UnityEngine.Shader)>\r\n  But was:  <DarkNights/CaveBackgroundLayer (UnityEngine.Shader)>\r\n",
+          "stack": "at DarkNights.Tests.CaveEntranceArtTests.ExistingMasksAndThreeLayerConfigurationRemainBoundToFormalStyles () [0x0002a] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\CaveEntranceArtTests.cs:35\r\n"
+        }
+      ]
+    },
+    "affected_rerun": {
+      "report": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\space-planet-flow\\editor-oxygen-main-merge-asset-r2.json",
+        "sha256": "3854765bd92a65e251b64fd6d11254d708a82b056c45f9ca73a94cbcc3d1bd21",
+        "bytes": 1377
+      },
+      "scheduled": 5,
+      "passed": 5,
+      "failed": []
+    },
+    "by_impact": {
+      "unique": 40,
+      "passed": 40,
+      "failed": 0,
+      "reused_unaffected": 35,
+      "replaced": 5,
+      "full_matrix_rerun": false
+    }
+  },
+  "main_art_preservation": {
+    "baseline": "5803eae",
+    "checked": 23,
+    "unchanged": 22,
+    "intentional_changes": [
+      "Game/Assets/DarkNights/Scripts/Tests/CaveEntranceArtTests.cs"
+    ]
+  },
+  "worktrees": {
+    "oxygen_already_archived": true,
+    "historical_worktrees_untouched": true
+  },
+  "outputs": {
+    "new_player": false,
+    "new_disposable_intermediates": [],
+    "retained": [
+      "existing Library",
+      "original failed reports",
+      "diagnostic and rerun reports",
+      "existing Player builds",
+      "user backups and stash"
+    ],
+    "deleted_files": 0,
+    "released_bytes": 0
+  },
+  "disk_free_bytes": {
+    "C": 10823303168,
+    "D": 30460030976
+  },
+  "remaining_boundaries": [
+    "弱网重同步循环按此前指示延后",
+    "本轮无新Player、IL2CPP、双机器或前台性能验收",
+    "40/40仅代表此次合并专项，不代表氧气整批通过"
+  ],
+  "remote_push": false
+}

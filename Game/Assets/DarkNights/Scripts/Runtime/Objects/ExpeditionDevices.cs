@@ -5,7 +5,7 @@ using DarkNights.Core.Logic.Terrain;
 
 namespace DarkNights.Runtime.Objects
 {
-    /// <summary>四设备部署、中继供能和撤收协调；生命周期与库存归各 BuildingState，搬运任务归机器人 ActorState。</summary>
+    /// <summary>仓储、炮塔和灯的部署、飞船供能与撤收协调；状态归各 BuildingState，搬运和矿工任务归 ActorState。</summary>
     public sealed class ExpeditionDevices
     {
         private readonly ObjectSession world;
@@ -25,7 +25,7 @@ namespace DarkNights.Runtime.Objects
             if (camp.ResupplyCost == 0 && camp.CrewModule > 0 && !world.Index.Actors.Any(a => a.RuleKey == "miner"))
             {
                 var miner = world.Lifecycle.SpawnActor("miner", Flight.Ship.X + 80);
-                miner.Edit().ExpeditionRole = 2; miner.Edit().Oxygen = Flight.Rules.OxygenSeconds; world.Ship.Cabin.Place(miner, 0);
+                miner.Edit().ExpeditionRole = 2; world.Ship.Cabin.Place(miner, 0);
             }
             if (camp.RobotModule == 0) return;
             if (camp.ResupplyCost == 0 && !world.Index.Actors.Any(a => a.RuleKey == "scout-drone"))
@@ -33,39 +33,18 @@ namespace DarkNights.Runtime.Objects
                 var scout = world.Lifecycle.SpawnActor("scout-drone", Flight.Ship.X + ShipGeometry.HatchX);
                 scout.Edit().ExpeditionRole = 4; scout.Edit().Boarded = true; scout.Edit().Height = Flight.Ship.Read().Height + 84;
             }
-            string[] kinds = camp.CrewModule > 0 ? new[] { "oxygen", "storage", "turret", "lamp", "oxygen" } :
-                new[] { "oxygen", "storage", "turret", "lamp" };
-            var used = new System.Collections.Generic.HashSet<int>();
+            string[] kinds = { "storage", "turret", "lamp" };
+            float[] offsets = { -50, 30, 110 };
             for (int i = 0; i < kinds.Length; i++)
             {
-                var device = world.Index.Buildings.FirstOrDefault(b => b.RuleKey == kinds[i] && !used.Contains(b.Id));
+                var device = world.Index.Buildings.FirstOrDefault(b => b.RuleKey == kinds[i]);
                 if (device == null && camp.ResupplyCost > 0) continue;
                 if (device == null) device = (BuildingBehaviour)world.Create(world.Resources.Find(kinds[i]), Flight.Ship.X, "", true, 0, "", null);
-                used.Add(device.Id);
                 var s = device.Edit();
                 if (s.DeviceStage is 0 or 6) { s.X = Flight.Ship.X + ShipGeometry.HoldX; s.Height = Flight.Ship.Read().Height + ShipGeometry.HoldHeight; }
                 s.DeviceStage = 1; s.ParentId = Flight.Ship.Id;
-                s.TargetX = Flight.Ship.X - 130 + i * 80; s.TargetHeight = 0;
+                s.TargetX = Flight.Ship.X + offsets[i]; s.TargetHeight = 0;
             }
-        }
-        internal bool OxygenAt(float x, float h) => world.Index.Buildings.Any(b => b.RuleKey == "oxygen" && b.Read().Powered &&
-            Distance(x, h, b.X, b.Read().Height) <= Flight.Rules.OxygenRadius &&
-            ExpeditionNavigation.Sight(world.Terrain.Map, b.X, b.Read().Height + 12, x, h + 12));
-
-        internal int RequestRelay(ActorBehaviour hero)
-        {
-            var device = world.Index.Buildings.Where(b => b.RuleKey == "oxygen" && b.Read().DeviceStage is 0 or 3 or 6)
-                .OrderByDescending(b => b.Id).FirstOrDefault();
-            if (device == null || !world.Index.Actors.Any(a => a.RuleKey == "hauler")) return 0;
-            var s = hero.Read();
-            var parent = world.Index.Buildings.Where(b => b.Id < device.Id && (b == Flight.Ship || b.RuleKey == "oxygen" && b.Read().ParentId == Flight.Ship.Id) &&
-                b.Read().Powered && Distance(s.X, s.Height, b.X, b.Read().Height) <= Flight.Rules.RelayRange)
-                .OrderBy(b => Distance(s.X, s.Height, b.X, b.Read().Height)).FirstOrDefault();
-            if (parent == null ||
-                !Navigation.CanReach(world.Index.Actors.First(a => a.RuleKey == "hauler"), s.X, s.Height, false))
-            { world.Notify("中继超出父节点范围或搬运路径未打通。", true); return 0; }
-            var d = device.Edit(); d.TargetX = s.X; d.TargetHeight = s.Height; d.DeviceStage = 1; d.Powered = false; d.ParentId = parent.Id;
-            return 1;
         }
         internal int AssignMiner(int id)
         {
@@ -84,9 +63,9 @@ namespace DarkNights.Runtime.Objects
             {
                 if (b == Flight.Ship) continue;
                 var s = b.Edit(); var parent = world.Index.Find<BuildingBehaviour>(s.ParentId);
-                int cost = b.RuleKey == "turret" ? 4 : b.RuleKey == "oxygen" ? 3 : 1;
+                int cost = b.RuleKey == "turret" ? 4 : 1;
                 s.Powered = s.DeviceStage == 3 && parent != null && parent.Read().Powered && power >= cost &&
-                    Distance(b.X, s.Height, parent.X, parent.Read().Height) <= Flight.Rules.RelayRange;
+                    Distance(b.X, s.Height, parent.X, parent.Read().Height) <= Flight.Rules.PowerLinkRange;
                 if (s.Powered) power -= cost;
                 if (world.Ship.Recalling && s.DeviceStage is 1 or 3) s.DeviceStage = 4;
             }
@@ -104,7 +83,7 @@ namespace DarkNights.Runtime.Objects
             if (device == null)
             {
                 device = world.Index.Buildings.Where(b => b != Flight.Ship && b.Read().DeviceStage is 1 or 4)
-                    .OrderBy(b => b.RuleKey == "oxygen" ? 1 : 0).ThenByDescending(b => b.Id).FirstOrDefault();
+                    .OrderByDescending(b => b.Id).FirstOrDefault();
                 if (device != null) { s.TaskTarget = device.Id; s.TaskPhase = 1; s.TaskClock = 0; }
             }
             if (device != null)
@@ -135,13 +114,13 @@ namespace DarkNights.Runtime.Objects
         {
             var s = miner.Edit(); s.Walking = false; s.ActionTime += delta;
             if (Flight.Ship.Read().ShipPhase >= 2 || miner.Hp <= 0) return;
-            bool returning = world.Ship.Recalling || s.Oxygen < 25 || s.CargoIron + s.CargoGold >= Flight.Rules.BagCapacity;
+            bool returning = world.Ship.Recalling || s.CargoIron + s.CargoGold >= Flight.Rules.BagCapacity;
             var deposit = world.Index.Find<MineralDepositBehaviour>(s.TaskTarget);
             if (returning || deposit == null || deposit.Remaining == 0)
             {
                 var destination = world.Index.Buildings.FirstOrDefault(b => b.RuleKey == "storage" && b.Read().Powered &&
                     b.Read().CargoIron + b.Read().CargoGold < Flight.Rules.StorageCapacity) ?? Flight.Ship;
-                if (world.Ship.Recalling || s.Oxygen < 25) destination = Flight.Ship;
+                if (world.Ship.Recalling) destination = Flight.Ship;
                 if (!Navigation.Move(miner, destination.X + (destination == Flight.Ship ? ShipGeometry.HoldX : 0), destination.Read().Height + (destination == Flight.Ship ? ShipGeometry.HoldHeight : 0), delta, false)) return;
                 ExpeditionCargo.Transfer(miner, destination, destination == Flight.Ship ? Flight.Rules.ShipCapacity * (1 + world.Camp.Read().CargoModule) : Flight.Rules.StorageCapacity);
                 if (world.Ship.Recalling) s.Boarded = true;

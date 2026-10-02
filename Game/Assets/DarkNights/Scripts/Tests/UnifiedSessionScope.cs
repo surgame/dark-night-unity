@@ -61,9 +61,13 @@ namespace DarkNights.Tests
         public ObjectPlacement[] Placements(LevelLayout layout) => layout.Buildings.Concat(layout.Worksites).Concat(layout.Actors)
             .Select((p, i) => new ObjectPlacement("scenario-placement-" + i, resources.Find(p.Kind), p.X, p.Variant, p.Name, null)).ToArray();
 
-        public ObjectWorldSaveJson Codec(GameCatalog catalog, LevelLayout layout) => new ObjectWorldSaveJson(catalog, layout,
-            resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
-            Placements(layout).ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition)));
+        public ObjectWorldSaveJson Codec(GameCatalog catalog, LevelLayout layout)
+        {
+            // 复用实际会话Codec，包含装备、矿床及投射物合同；测试不再另造缺少业务指纹的解析器。
+            var world = worlds.FirstOrDefault(entry => ReferenceEquals(entry.World.Catalog, catalog) &&
+                ReferenceEquals(entry.World.Layout, layout)).World;
+            return (world ?? NewWorld(catalog, layout, false)).SaveCodec;
+        }
 
         public ObjectSession NewWorld(GameCatalog catalog, LevelLayout layout, bool activate = true,
             float debugHeroSpeedMultiplier = 1, Func<ObjectSession, SessionTerrain> terrain = null, bool? journeyEnabled = null,

@@ -35,7 +35,6 @@
     "farm": {"name": "农田", "sprite": "spr_res_farm", "hp": 70, "width": 30.0, "build_seconds": 8.0, "cost": {"wood": 20}, "description": "一名工人耕作 · 每5秒产出3食物"},
     "tower": {"name": "守望塔", "sprite": "spr_bld_tower", "hp": 200, "width": 28.0, "build_seconds": 20.0, "cost": {"wood": 45, "stone": 35, "iron": 10}, "range": 145.0, "damage": [6, 9], "attack_seconds": 1.7, "description": "自动射击 · 射程145 · 伤害6–9"},
     "ship": {"name": "远征飞船", "sprite": "spr_bld_house", "hp": 320, "width": 192, "build_seconds": 3, "capacity": 6, "description": "远征飞船 · 远征设备", "cost": {"iron": 2}},
-    "oxygen": {"name": "氧气中继", "sprite": "spr_bld_house", "hp": 70, "width": 32, "build_seconds": 3, "capacity": 0, "description": "氧气中继 · 远征设备", "cost": {"iron": 2}},
     "storage": {"name": "仓储平台", "sprite": "spr_bld_house", "hp": 70, "width": 32, "build_seconds": 3, "capacity": 0, "description": "仓储平台 · 远征设备", "cost": {"iron": 2}},
     "turret": {"name": "警戒炮塔", "sprite": "spr_bld_house", "hp": 70, "width": 32, "build_seconds": 3, "capacity": 0, "description": "警戒炮塔 · 远征设备", "cost": {"iron": 2}},
     "lamp": {"name": "照明灯", "sprite": "spr_bld_house", "hp": 70, "width": 16, "build_seconds": 3, "capacity": 0, "description": "照明灯 · 远征设备", "cost": {"iron": 2}}
@@ -48,12 +47,10 @@
   }
 ,
   "expedition": {
-    "OxygenSeconds": 120,
     "BagCapacity": 24,
     "ShipCapacity": 160,
     "StorageCapacity": 80,
-    "OxygenRadius": 120,
-    "RelayRange": 360,
+    "PowerLinkRange": 360,
     "PowerSupply": 12,
     "DeploySeconds": 3,
     "ExtractSeconds": 2,

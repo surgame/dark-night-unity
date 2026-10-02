@@ -18,7 +18,8 @@ namespace DarkNights.Tests
         public static void Run(Action<bool, string> check, GameCatalog catalog, LevelLayout layout)
         {
             Recovery(check);
-            string directory = Path.Combine(Path.GetTempPath(), "dark-nights-storage-" + Guid.NewGuid().ToString("N"));
+            string directory = Path.Combine(RuleScenario.RepositoryRoot, "artifacts", "session-storage-tests",
+                "dark-nights-storage-" + Guid.NewGuid().ToString("N"));
             try
             {
                 using var authority = Open(catalog, layout, out var host, out var guest);
@@ -59,7 +60,7 @@ namespace DarkNights.Tests
                 check(authority.Epoch == 3 && authority.CaptureWorld().Elapsed == 0 && authority.ReadyCount == 0 && authority.ControlMode == CampControlMode.HostOnly,
                     "Restart creates a fresh camp in the existing room and resets Ready");
             }
-            finally { if (Directory.Exists(directory)) Directory.Delete(directory, true); }
+            finally { StorageTestArtifacts.Preserve(directory); }
         }
 
         private static void Finish(SessionStorage storage)

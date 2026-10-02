@@ -101,8 +101,6 @@ namespace DarkNights.Runtime.Objects
                     if (c.ExpeditionPhase != 0 && c.ExpeditionPhase != 4 || c.ResupplyCost == 0 ||
                         !world.Economy.Pay(new ResourceAmounts(iron: c.ResupplyCost))) return 0;
                     c.ResupplyCost = 0; return 1;
-                case "relay":
-                    return c.ExpeditionPhase == 1 && hero != null ? world.ExpeditionDevices.RequestRelay(hero) : 0;
                 case "mine":
                     return c.ExpeditionPhase == 1 ? world.ExpeditionDevices.AssignMiner(target) : 0;
                 default: return 0;
@@ -118,7 +116,7 @@ namespace DarkNights.Runtime.Objects
             c.LostCargo = c.LostDevices = 0;
             foreach (var actor in world.Index.Actors.Where(a => !a.Enemy))
             {
-                var s = actor.Edit(); s.Oxygen = Rules.OxygenSeconds; s.Hp = actor.MaximumHp;
+                var s = actor.Edit(); s.Hp = actor.MaximumHp;
                 s.TaskTarget = s.TaskPhase = 0;
             }
             world.ExpeditionDevices.BeginDeployment();
@@ -139,19 +137,6 @@ namespace DarkNights.Runtime.Objects
             c.ExpeditionClock += delta;
             c.ExpeditionRisk += delta * (1 + world.Index.Buildings.Count(b => b != Ship && b.Read().Powered) * .15);
             world.ExpeditionDevices.Tick(delta);
-            foreach (var a in world.Index.Actors.Where(a => !a.Enemy).ToArray())
-            {
-                var s = a.Edit();
-                if (s.Boarded) { s.Oxygen = Math.Min(Rules.OxygenSeconds, s.Oxygen + delta * 12); continue; }
-                if (s.ExpeditionRole is 1 or 4) continue;
-                bool supplied = AtShip(a) || world.ExpeditionDevices.OxygenAt(a.X, s.Height);
-                s.Oxygen = Math.Clamp(s.Oxygen + delta * (supplied ? 12 : -1), 0, Rules.OxygenSeconds);
-                if (s.Oxygen <= 0)
-                {
-                    s.Hp = Math.Max(0, s.Hp - delta);
-                    if (s.Hp <= 0) { s.Boarded = true; c.LostCargo += s.CargoIron + s.CargoGold; s.CargoIron = s.CargoGold = 0; }
-                }
-            }
             world.ExpeditionThreat.Tick(delta);
             if (world.Index.Actors.Any(a => a.Read().OwnerSlot >= 0) &&
                 world.Index.Actors.Where(a => a.Read().OwnerSlot >= 0).All(a => a.Hp <= 0)) Settle();
@@ -174,7 +159,6 @@ namespace DarkNights.Runtime.Objects
                 if (s.OwnerSlot >= 0)
                 {
                     s.Hp = a.MaximumHp;
-                    s.Oxygen = Rules.OxygenSeconds;
                     s.ControlLease = checked(s.ControlLease + 1);
                 }
                 // 船仓满载时留在个人包中的部分不属于成功入船货物。

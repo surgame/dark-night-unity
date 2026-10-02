@@ -1,4 +1,6 @@
-# Unity 世界存档 v14（网格耐久与矿床采集）
+# Unity 世界存档 v16（氧气移除候选）
+
+2026-10-03 [氧气移除候选](OXYGEN_REMOVAL_EXECUTION.md)升至 **v16**／协议 **23**：Crew不再保存Oxygen，配置指纹不再包含氧气时长／范围，RelayRange改为供电专用PowerLinkRange。保存目录随FormatVersion使用v16；v15拒绝读取，旧文件保留，不迁移或删除。原子保存、恢复和真实重启均未验证；下方按日期保留历史合同。
 
 2026-10-02 工具 Definition 采集重构升级为 **v15**／协议 **22**。四个 slot 字段从工具枚举整数改为 canonical Definition GUID 字符串，空槽为 `""`；拒绝非法／未知／不可持有的定义及重复身份，同视觉类型不同身份可恢复。全部工具能力指纹纳入装备兼容摘要，待命中工具与选择版本不保存，恢复不补伤害。旧档保留在原版本目录，不迁移或删除。实际写盘重启验证见[本批说明](TOOL_DEFINITION_HARVESTING.md)。
 

@@ -260,10 +260,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f1ae1dbee38fe30428b6827ecab7eef1
-    m_Address: dark_nights.expedition.oxygen
-    m_ReadOnly: 0
-    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f32054fedcf949b4c81637b7b4e734fd
     m_Address: dark_nights.effect.floating
