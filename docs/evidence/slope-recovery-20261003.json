@@ -1,0 +1,146 @@
+{
+  "date": "2026-10-03",
+  "baseline": "006e010cbf6d49279e7bb0f4d1a16aed0ec74a8f",
+  "branch": "fix-20261003-continuous-ship-arrival",
+  "scope": "岩石斜坡运动、浅层脚底重叠恢复及完整身体净空，游戏侧修改",
+  "frameworkModified": false,
+  "contracts": {
+    "protocol": 23,
+    "save": 16,
+    "amp1": 2,
+    "unchanged": true
+  },
+  "fix": [
+    "身体碰撞与地面支撑复用现有TerrainBodyCollision区间查询",
+    "恢复旧采样留下的浅层脚底重叠，要求下降/静止、最大1.05逻辑像素及完整身体净空",
+    "恢复真实脚底高度及SupportPlatform后处理起跳，正常撞顶仍保持悬空并下落"
+  ],
+  "sourceReproduction": {
+    "cases": 7936,
+    "baselineJams": 256,
+    "fixedJams": 0,
+    "scope": "实际运动源码加合成只读地图/ActorState适配；计数不代表真实玩家触发概率"
+  },
+  "sourceRegression": {
+    "tests": 17,
+    "baselinePassed": 5,
+    "baselineFailed": 12,
+    "fixedPassed": 17,
+    "fixedFailed": 0,
+    "landingCombinations": 15872,
+    "scope": "相同NUnit测试主体、真实运动源码，独立最小ActorState适配"
+  },
+  "compiler": {
+    "passed": 6,
+    "failed": 0,
+    "scope": "Unity实际编译引用下的Core/Runtime/View/Entry/Editor/Tests；非Player构建"
+  },
+  "unity": {
+    "version": "6000.4.9f1",
+    "sourceImported": true,
+    "specializedPassed": 17,
+    "specializedFailed": 0,
+    "relatedPassed": 24,
+    "relatedFailed": 3,
+    "distinctPassed": 41,
+    "distinctFailed": 3,
+    "allPassed": false,
+    "firstRoundNewTestsNotLoaded": true,
+    "initialNewTestCompilationIssue": "测试不能直接写ActorState internal setter及直接引用内部碰撞类型，已改测试初始化与只读净空探针；正式状态可见性未改变",
+    "failedCases": [
+      {
+        "name": "DarkNights.Tests.CaveWorkshopTests.InitialAndLateReplicasKeepSlopesAndDestroyedState",
+        "result": "Failed",
+        "message": "System.FormatException : Map content contract mismatch.",
+        "stack": "  at AnyRules.Next.Networking.MapHandshake.Resolve (AnyRules.Next.TileCatalog tiles, System.String expectedLogic, System.String expectedVisual) [0x00067] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-grid-business\\AnyRuleD~\\Packages\\com.tsgame.anyrules.networking\\Protocol\\MapHandshake.cs:24 \n  at AnyRules.Next.Networking.ChunkReplicaStateMachine.ReceiveDecoded (AnyRules.Next.Networking.MapPacket p, System.Int32 encodedBytes) [0x00045] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-grid-business\\AnyRuleD~\\Packages\\com.tsgame.anyrules.networking\\Protocol\\ChunkReplicaStateMachine.cs:97 \n  at AnyRules.Next.Networking.ChunkReplicaStateMachine.ReceivePacket (System.Byte[] bytes) [0x0001d] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-grid-business\\AnyRuleD~\\Packages\\com.tsgame.anyrules.networking\\Protocol\\ChunkReplicaStateMachine.cs:90 \n  at AnyRules.Next.Networking.ChunkReplicaStateMachine.Receive (System.Byte[] bytes) [0x00000] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-grid-business\\AnyRuleD~\\Packages\\com.tsgame.anyrules.networking\\Protocol\\ChunkReplicaStateMachine.cs:85 \n  at DarkNights.Tests.CaveWorkshopTests.InitialAndLateReplicasKeepSlopesAndDestroyedState () [0x0009e] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\CaveWorkshopTests.cs:75 \n  at (wrapper managed-to-native) System.Reflection.RuntimeMethodInfo.InternalInvoke(System.Reflection.RuntimeMethodInfo,object,object[],System.Exception&)\n  at System.Reflection.RuntimeMethodInfo.Invoke (System.Object obj, System.Reflection.BindingFlags invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo culture) [0x0006a] in <f713e1c3c5f545ce9b1df47230f4f853>:0 ",
+        "classification": "地图合同或夹具准备阶段失败，未触及本次运动函数；不改写为通过"
+      },
+      {
+        "name": "DarkNights.Tests.PlayableTerrainTests.FullMapStreamAndSaveRestoreShareFinalCells",
+        "result": "Failed",
+        "message": "System.FormatException : Map content contract mismatch.",
+        "stack": "  at AnyRules.Next.Networking.MapHandshake.Resolve (AnyRules.Next.TileCatalog tiles, System.String expectedLogic, System.String expectedVisual) [0x00067] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-grid-business\\AnyRuleD~\\Packages\\com.tsgame.anyrules.networking\\Protocol\\MapHandshake.cs:24 \n  at AnyRules.Next.Networking.ChunkReplicaStateMachine.ReceiveDecoded (AnyRules.Next.Networking.MapPacket p, System.Int32 encodedBytes) [0x00045] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-grid-business\\AnyRuleD~\\Packages\\com.tsgame.anyrules.networking\\Protocol\\ChunkReplicaStateMachine.cs:97 \n  at AnyRules.Next.Networking.ChunkReplicaStateMachine.ReceivePacket (System.Byte[] bytes) [0x0001d] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-grid-business\\AnyRuleD~\\Packages\\com.tsgame.anyrules.networking\\Protocol\\ChunkReplicaStateMachine.cs:90 \n  at AnyRules.Next.Networking.ChunkReplicaStateMachine.Receive (System.Byte[] bytes) [0x00000] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-grid-business\\AnyRuleD~\\Packages\\com.tsgame.anyrules.networking\\Protocol\\ChunkReplicaStateMachine.cs:85 \n  at DarkNights.Tests.PlayableTerrainTests+<>c.<FullMapStreamAndSaveRestoreShareFinalCells>b__2_0 () [0x00369] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\PlayableTerrainTests.cs:67 \n  at Cysharp.Threading.Tasks.UniTask+ExceptionResultSource.GetResult (System.Int16 token) [0x00015] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTask.Factory.cs:326 \n  at Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.RunTask (Cysharp.Threading.Tasks.UniTask task) [0x00020] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTaskExtensions.cs:807 \n  at Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.MoveNext () [0x0002b] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTaskExtensions.cs:838 \n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@76560ee600cb\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44 ",
+        "classification": "地图合同或夹具准备阶段失败，未触及本次运动函数；不改写为通过"
+      },
+      {
+        "name": "DarkNights.Tests.PlayableTerrainTests.SoftRockMiningPersistsEmptyCellAcrossSaveRestore",
+        "result": "Failed",
+        "message": "  A destructible soft-rock fixture is required.\n  Expected: True\n  But was:  False\n",
+        "stack": "at DarkNights.Tests.PlayableTerrainTests+<>c.<SoftRockMiningPersistsEmptyCellAcrossSaveRestore>b__3_0 () [0x001bd] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\PlayableTerrainTests.cs:122\nat Cysharp.Threading.Tasks.UniTask+ExceptionResultSource.GetResult (System.Int16 token) [0x00015] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTask.Factory.cs:326\nat Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.RunTask (Cysharp.Threading.Tasks.UniTask task) [0x00020] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTaskExtensions.cs:807\nat Cysharp.Threading.Tasks.UniTaskExtensions+ToCoroutineEnumerator.MoveNext () [0x0002b] in .\\Library\\PackageCache\\com.cysharp.unitask@d648f5692cf2\\Runtime\\UniTaskExtensions.cs:838\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@76560ee600cb\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\n",
+        "classification": "地图合同或夹具准备阶段失败，未触及本次运动函数；不改写为通过"
+      }
+    ]
+  },
+  "notRun": [
+    "本轮正式场景前台画面",
+    "新Player构建",
+    "独立Host+Client",
+    "弱网",
+    "IL2CPP",
+    "双机器"
+  ],
+  "files": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainHeroMotion.cs",
+      "absolutePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Terrain\\TerrainHeroMotion.cs",
+      "sha256": "86f9fdc042e33c9e7434b83e199a26cd987893360d9a3332855b29ad6f2ff065"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainBodyCollision.cs",
+      "absolutePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Terrain\\TerrainBodyCollision.cs",
+      "sha256": "4b3d315a4375c3fbb4f7f3d8a57d7333d708da3daa98958515f06588a8461ab7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/TerrainSlopeRecoveryTests.cs",
+      "absolutePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainSlopeRecoveryTests.cs",
+      "sha256": "9a18fba9f2db409bc382caac6cb6e3647ee90f501d6eeff2f6adcc58447fcd78"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/TerrainSlopeRecoveryTests.cs.meta",
+      "absolutePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainSlopeRecoveryTests.cs.meta",
+      "sha256": "2a7e13bccc7872ce9819c97aedbd74fad9db5d5838bf0993bfc45e3368cb7e9b"
+    },
+    {
+      "path": "artifacts/slope-analysis-20261003/result.jsonl",
+      "absolutePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\slope-analysis-20261003\\result.jsonl",
+      "sha256": "39a4bb97e2c4079812c2365feacde062b0837b9f01d7de7c88e39d9b9fe809c0"
+    },
+    {
+      "path": "artifacts/slope-analysis-20261003/fixed-result.jsonl",
+      "absolutePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\slope-analysis-20261003\\fixed-result.jsonl",
+      "sha256": "16391f94a357bee0bc9fa4fa42600bd055f83598aafd540f61a2e468d67746e0"
+    },
+    {
+      "path": "artifacts/slope-recovery-20261003/source-tests-r2.jsonl",
+      "absolutePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\slope-recovery-20261003\\source-tests-r2.jsonl",
+      "sha256": "252fc4cbd85b7403592c4dbbafd5a27390ed0ebc07ae4421d7068b29cfb3d892"
+    },
+    {
+      "path": "artifacts/slope-recovery-20261003/baseline-tests-r2.jsonl",
+      "absolutePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\slope-recovery-20261003\\baseline-tests-r2.jsonl",
+      "sha256": "b6821104dced90af7ddc66e58ae5e2129bef2c57d275702aa5c5fb1e35913785"
+    },
+    {
+      "path": "artifacts/slope-recovery-20261003/compiler-r1/compile.json",
+      "absolutePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\slope-recovery-20261003\\compiler-r1\\compile.json",
+      "sha256": "53cb1f12e9acf278636ca8a317b786ecc5a3375c46b8e4e45dfe72729c2696ae"
+    },
+    {
+      "path": "artifacts/terrain-final-20260926/slope-recovery-20261003-r1.xml",
+      "absolutePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\slope-recovery-20261003-r1.xml",
+      "sha256": "b7836c7c78a5992028af56a143a030cdc1bcca3087ff4ef6fd2fc8f2e4139c9d"
+    },
+    {
+      "path": "artifacts/terrain-final-20260926/slope-recovery-20261003-r2.xml",
+      "absolutePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\slope-recovery-20261003-r2.xml",
+      "sha256": "529faa17d4edfc2e88c3a6c938a1e2418dab77a65cc74793400f5b64e879d453"
+    }
+  ],
+  "storage": {
+    "archivePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261003-slope-recovery",
+    "archiveBytes": 16707978,
+    "freeBytes": 12550995968,
+    "deletedBytes": 0,
+    "retained": "源码、人工资源、Unity Library、当前Player、原始失败及正式结果"
+  }
+}
