@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><OutputType>Exe</OutputType><TargetFramework>net8.0</TargetFramework><LangVersion>9.0</LangVersion><EnableDefaultCompileItems>false</EnableDefaultCompileItems></PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Core/**/*.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainHeroMotion.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainBodyCollision.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainBodySweep.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroJumpMotion.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/TerrainSlopeRecoveryTests.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/TerrainJumpFlowTests.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Tests/TerrainMotionTestMap.cs" />
+    <Compile Include="../../.deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/Coordinates.cs" />
+    <Compile Include="../../.deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/GridCell.cs" />
+    <Compile Include="../../.deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/StableGuid.cs" />
+    <Compile Include="*.cs" />
+    <Reference Include="nunit.framework"><HintPath>../../Game/Library/PackageCache/com.unity.ext.nunit@d8c07649098d/net40/unity-custom/nunit.framework.dll</HintPath></Reference>
+  </ItemGroup>
+</Project>

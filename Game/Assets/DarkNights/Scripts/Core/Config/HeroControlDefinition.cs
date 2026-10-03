@@ -20,10 +20,11 @@ namespace DarkNights.Core.Config
         public double DropSeconds { get; }
         public float WorkReach { get; }
         public float SprintMultiplier { get; }
+        public HeroJumpStrategy JumpStrategy { get; }
 
         public HeroControlDefinition(double jumpSpeed, double gravity, double maximumHeight,
             double jetpackSpeed, double fuelSeconds, double fuelRecovery, double dropSeconds, double workReach,
-            double sprintMultiplier = 1.8, double walkSpeed = 112)
+            double sprintMultiplier = 1.8, double walkSpeed = 112, HeroJumpStrategy jumpStrategy = HeroJumpStrategy.Fixed)
         {
             foreach (double value in new[] { jumpSpeed, gravity, maximumHeight, jetpackSpeed,
                 fuelSeconds, fuelRecovery, dropSeconds, workReach, walkSpeed })
@@ -36,6 +37,8 @@ namespace DarkNights.Core.Config
                 throw new ArgumentException("Invalid sprint multiplier.");
             SprintMultiplier = (float)sprintMultiplier;
             WalkSpeed = (float)walkSpeed;
+            if (!Enum.IsDefined(typeof(HeroJumpStrategy), jumpStrategy)) throw new ArgumentException("Invalid jump strategy.");
+            JumpStrategy = jumpStrategy;
         }
 
         /// <summary>正式地面、船舱和工作台共用的步速；调用方负责可信输入和调试倍率。</summary>

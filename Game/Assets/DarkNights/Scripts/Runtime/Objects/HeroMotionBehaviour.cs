@@ -14,7 +14,7 @@ namespace DarkNights.Runtime.Objects
         [Inject] private ActorBehaviour actor;
         public bool Grounded => actor.Read().SupportPlatform >= 0;
 
-        internal void Tick(double delta, bool jump, bool drop, bool thrust)
+        internal void Tick(double delta, bool jump, bool drop, bool thrust, float? targetX = null, bool inputPrepared = false)
         {
             HeroControlDefinition rules = actor.World.Catalog.Balance.HeroControl;
             if (rules == null) return;
@@ -24,8 +24,10 @@ namespace DarkNights.Runtime.Objects
                 var flow = actor.World.Flow;
                 var planet = flow?.Enabled == true && !flow.IsSpace ? flow.ActivePlanet : null;
                 float ceiling = planet == null ? rules.MaximumHeight : Math.Max(rules.MaximumHeight, planet.DockHeight + rules.MaximumHeight);
-                Terrain.TerrainHeroMotion.Tick(actor.World.Terrain.Map, state, rules, delta, jump, thrust, ceiling); return;
+                Terrain.TerrainHeroMotion.Tick(actor.World.Terrain.Map, state, rules, delta, jump, thrust, ceiling, targetX,
+                    inputPrepared: inputPrepared); return;
             }
+            if (!inputPrepared) HeroJumpMotion.Sample(state, jump, delta);
             state.DropRemaining = Math.Max(0, state.DropRemaining - delta);
             if (state.SupportPlatform > 0)
             {
@@ -41,27 +43,14 @@ namespace DarkNights.Runtime.Objects
                 state.SupportPlatform = -1;
                 state.VerticalSpeed = -15;
             }
-            else if (jump && Grounded)
-            {
-                state.VerticalSpeed = rules.JumpSpeed;
-                state.SupportPlatform = -1;
-            }
+            else HeroJumpMotion.TryStart(state, rules, Grounded);
             if (Grounded)
             {
-                state.VerticalSpeed = 0;
-                if (state.JetpackOwned)
-                    state.JetpackFuel = Math.Min(rules.FuelSeconds, state.JetpackFuel + rules.FuelRecovery * delta);
+                HeroJumpMotion.Land(state, rules, delta, state.SupportPlatform);
                 return;
             }
             float previous = state.Height;
-            state.VerticalSpeed -= rules.Gravity * (float)delta;
-            if (thrust && !jump && state.JetpackOwned && state.JetpackEquipped && state.JetpackFuel > 0)
-            {
-                float fraction = (float)Math.Min(1, state.JetpackFuel / delta);
-                state.VerticalSpeed += (rules.Gravity + rules.JetpackSpeed * 4) * (float)delta * fraction;
-                state.VerticalSpeed = Math.Min(state.VerticalSpeed, rules.JetpackSpeed);
-                state.JetpackFuel = Math.Max(0, state.JetpackFuel - delta);
-            }
+            HeroJumpMotion.Accelerate(state, rules, delta, thrust);
             state.Height = Math.Min(rules.MaximumHeight, previous + state.VerticalSpeed * (float)delta);
             if (state.Height >= rules.MaximumHeight) state.VerticalSpeed = Math.Min(0, state.VerticalSpeed);
             float landing = 0;
@@ -74,7 +63,7 @@ namespace DarkNights.Runtime.Objects
                     { landing = platform.Height; supportId = platform.Id; }
             if (state.Height <= landing && state.VerticalSpeed <= 0)
             {
-                state.Height = landing; state.VerticalSpeed = 0; state.SupportPlatform = supportId;
+                state.Height = landing; HeroJumpMotion.Land(state, rules, delta, supportId);
             }
         }
     }

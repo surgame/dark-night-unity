@@ -70,6 +70,11 @@ namespace DarkNights.Editor
                     ShipEquipmentUiSetup.Install();
                     Complete("UI_PREPARED", 0, 0, 0);
                 }
+                else if (request.command == "open-jump-preview")
+                {
+                    Terrain.TerrainWorkbenchScenes.Open(Terrain.TerrainScenePaths.RandomCave);
+                    Complete("PREVIEW_OPENED", 0, 0, 0);
+                }
                 else if (request.command == "build")
                 {
                     GamePlayerBuild.MapStateMono();

@@ -6,7 +6,7 @@
   "destination": ".deps/YYGC-grid-business",
   "game_protocol": 23,
   "map_protocol": 2,
-  "save_version": 16,
+  "save_version": 17,
   "validation": "NOT_RUN",
   "editor_workshop_navigation": "Local Editor 6000.4.9f1: 3 framework navigation + 2 native integration checks passed; clean-baseline reconstruction 18/18"
 }

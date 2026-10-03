@@ -13,6 +13,7 @@
     "training_queue_limit": 5
   },
   "hero_control": {
+    "jump_strategy": "fixed",
     "walk_speed": 112.0, "jump_speed": 160.0, "gravity": 320.0, "maximum_height": 128.0,
     "jetpack_speed": 70.0, "fuel_seconds": 2.0, "fuel_recovery": 2.0,
     "drop_seconds": 0.3, "work_reach": 16.0, "sprint_multiplier": 1.5714285714285714

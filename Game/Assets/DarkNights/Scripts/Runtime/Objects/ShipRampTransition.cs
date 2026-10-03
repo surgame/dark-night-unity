@@ -24,10 +24,8 @@ namespace DarkNights.Runtime.Objects
 
             // 交界处运动适配：先应用船内起跳，再做水平跨界；不能要求跳跃者落回坡道才允许离船。
             var rules = world.Catalog.Balance.HeroControl;
-            if (grounded && actor.JumpPending && rules != null)
+            if (rules != null && HeroJumpMotion.TryStart(actor, rules, grounded))
             {
-                actor.VerticalSpeed = rules.JumpSpeed;
-                actor.SupportPlatform = -1;
                 actor.JumpPending = false;
                 grounded = false;
             }
@@ -52,7 +50,7 @@ namespace DarkNights.Runtime.Objects
             // 交界处运动适配：同一帧只补一次地形纵向运动，控制主链无需了解飞船出口细节。
             var motion = owner.Object.GetBehaviour<HeroMotionBehaviour>() ??
                 throw new InvalidOperationException("Boarded actor is missing hero motion capability.");
-            motion.Tick(delta, false, false, false);
+            motion.Tick(delta, false, false, actor.JumpHeld, inputPrepared: true);
             HeroEquipment.Tick(owner, delta);
             leftCabin = true;
             return true;

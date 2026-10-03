@@ -1,4 +1,6 @@
-# Unity 世界存档 v16（氧气移除候选）
+# Unity 世界存档 v17（斜坡跳跃候选）
+
+2026-10-04 [斜坡跳跃连续运动候选](SLOPE_JUMP_FLOW.md)使用 **v17**／协议 **23**：规则摘要升级 `dark-nights.rules.v5`，包含跳跃策略和输入保留／松键规则。持久字段结构未增加；`JumpBufferRemaining`／`JumpAscending` 是所属Actor的临时输入生命周期量，排除发送、保存并在恢复时归零。保存目录使用v17，旧档保留且严格拒绝，不迁移、删除或覆盖。本批Editor恢复回归已通过，真实写盘重启未验，下方为历史合同。
 
 2026-10-03 [氧气移除候选](OXYGEN_REMOVAL_EXECUTION.md)升至 **v16**／协议 **23**：Crew不再保存Oxygen，配置指纹不再包含氧气时长／范围，RelayRange改为供电专用PowerLinkRange。保存目录随FormatVersion使用v16；v15拒绝读取，旧文件保留，不迁移或删除。原子保存、恢复和真实重启均未验证；下方按日期保留历史合同。
 
@@ -26,7 +28,7 @@
 
 2026-09-16，[主角与输入联合切片](archive/HERO_INPUT_EXECUTION.md)将正式格式升级为 v3：增加高度、纵向速度、平台支撑、下穿计时及道具状态。正式入口仍为 ObjectWorldSaveJson 与 GameSaveStore，状态仍来自所属 YYGC Behaviour。当前验收记录见联合执行文档；U5／U6 的 v2 计数按历史输入保留在[实施记录](archive/YYGC_UNIFIED_IMPLEMENTATION.md)。
 
-当前候选只接受 v13；旧格式不读取或自动迁移，旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前世界。下方根字段以当前源码为准；按日期标记的旧版本说明仅用于追溯。历史 v1 证据见[原存储记录](archive/evidence/world-save-2026-09-11.json)。
+当前候选只接受 v17；旧格式不读取或自动迁移，旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前世界。下方根字段以当前源码为准；按日期标记的旧版本说明仅用于追溯。历史 v1 证据见[原存储记录](archive/evidence/world-save-2026-09-11.json)。
 
 ## 文件合同
 

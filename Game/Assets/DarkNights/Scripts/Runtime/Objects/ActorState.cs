@@ -76,6 +76,9 @@ namespace DarkNights.Runtime.Objects
         public bool JumpHeld { get; internal set; }
         public bool UseHeld { get; internal set; }
         public bool JumpPending { get; internal set; }
+        // 只属于当前权威输入生命周期；不发送或保存，撤销控制、传送和恢复时归零。
+        [MemoryPackIgnore] public double JumpBufferRemaining { get; internal set; }
+        [MemoryPackIgnore] public bool JumpAscending { get; internal set; }
         public bool DropPending { get; internal set; }
         public bool ShipEntryBlocked { get; internal set; }
         public string MiningWorldId { get; internal set; }

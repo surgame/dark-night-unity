@@ -53,40 +53,26 @@ namespace DarkNights.Runtime.Terrain
             }
         }
         public static void Tick(IReadOnlyGrid map, ActorState state, HeroControlDefinition rules, double delta, bool jump, bool thrust,
-            float? maximumHeight = null)
+            float? maximumHeight = null, float? targetX = null, HeroJumpStrategy? jumpStrategy = null, bool inputPrepared = false)
         {
+            if (!inputPrepared) HeroJumpMotion.Sample(state, jump, delta);
             float ceiling = maximumHeight ?? rules.MaximumHeight;
             float support = state.Height;
             bool grounded = state.VerticalSpeed <= 0 && Supported(map, state, state.X, state.Height, out support);
             if (grounded) state.Height = support;
             state.DropRemaining = 0; state.IgnoredPlatform = 0; state.SupportPlatform = grounded ? 0 : -1;
-            if (grounded && jump) { state.VerticalSpeed = rules.JumpSpeed; grounded = false; state.SupportPlatform = -1; }
-            if (grounded)
-            {
-                state.VerticalSpeed = 0;
-                if (state.JetpackOwned)
-                    state.JetpackFuel = Math.Min(rules.FuelSeconds, state.JetpackFuel + rules.FuelRecovery * delta);
-                return;
-            }
-            state.VerticalSpeed = Math.Max(-900, state.VerticalSpeed - rules.Gravity * (float)delta);
-            if (thrust && !jump && state.JetpackOwned && state.JetpackEquipped && state.JetpackFuel > 0)
-            {
-                float fraction = (float)Math.Min(1, state.JetpackFuel / delta);
-                state.VerticalSpeed = Math.Min(rules.JetpackSpeed, state.VerticalSpeed + (rules.Gravity + rules.JetpackSpeed * 4) * (float)delta * fraction);
-                state.JetpackFuel = Math.Max(0, state.JetpackFuel - delta);
-            }
+            bool started = HeroJumpMotion.TryStart(state, rules, grounded);
+            if (started) grounded = false;
+            if (grounded) state.VerticalSpeed = 0;
+            else HeroJumpMotion.Accelerate(state, rules, delta, thrust, jumpStrategy);
             float from = state.Height, target = Math.Clamp(from + state.VerticalSpeed * (float)delta, PlayableTerrain.MinimumHeight, ceiling);
-            int steps = Math.Max(1, (int)Math.Ceiling(Math.Abs(target - from) / 2));
-            for (int i = 1; i <= steps; i++)
-            {
-                float next = from + (target - from) * i / steps;
-                if (state.VerticalSpeed <= 0 && Ground(map, state, state.X, state.Height + .1f, next - .1f, out float floor))
-                { state.Height = floor; state.VerticalSpeed = 0; state.SupportPlatform = 0; return; }
-                if (Blocked(map, state, state.X, next))
-                { state.VerticalSpeed = 0; return; }
-                state.Height = next;
-            }
-            if (target == ceiling || target == PlayableTerrain.MinimumHeight) state.VerticalSpeed = 0;
+            float distance = (targetX ?? state.X) - state.X;
+            if (started) distance = TerrainBodySweep.LaunchDistance(map, state, distance, target - from);
+            grounded = TerrainBodySweep.Move(map, state, distance, target - from, grounded);
+            if (grounded) HeroJumpMotion.Land(state, rules, delta);
+            else state.SupportPlatform = -1;
+            if (state.Height >= ceiling || state.Height <= PlayableTerrain.MinimumHeight)
+            { state.VerticalSpeed = 0; state.JumpAscending = false; }
         }
     }
 }

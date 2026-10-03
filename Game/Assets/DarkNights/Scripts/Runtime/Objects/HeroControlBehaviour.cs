@@ -18,6 +18,7 @@ namespace DarkNights.Runtime.Objects
         internal bool Tick(double delta)
         {
             ActorState state = actor.Edit();
+            HeroJumpMotion.Sample(state, state.ManualControl && state.JumpPending, delta);
             if (actor.World.Ship.Cabin.Player(actor, delta)) return true;
             bool manual = state.ManualControl;
             if (!manual && state.Height == 0 && state.SupportPlatform == 0) return false;
@@ -26,16 +27,19 @@ namespace DarkNights.Runtime.Objects
             state.JumpPending = state.DropPending = false;
             if (manual && (state.Horizontal != 0 || jump || drop) &&
                 (state.Activity == ActorActivity.Work || state.Activity == ActorActivity.Build)) actor.World.Work.Clear(actor);
+            float previousX = state.X;
+            float? terrainTarget = null;
             if (manual && state.Horizontal != 0)
             {
                 float target = Math.Clamp(state.X + state.Horizontal * PlayerMoveSpeed(actor) * (float)delta,
                     16, actor.World.Layout.WorldWidth - 16);
                 if (actor.World.Terrain == null) state.X = target;
-                else Terrain.TerrainHeroMotion.MoveHorizontal(actor.World.Terrain.Map, state, target);
+                else terrainTarget = target;
                 state.Face = state.Horizontal;
                 state.Walking = true;
             }
-            motion.Tick(delta, jump, drop || (!manual && state.SupportPlatform > 0), manual && state.JumpHeld);
+            motion.Tick(delta, jump, drop || (!manual && state.SupportPlatform > 0), manual && state.JumpHeld, terrainTarget, true);
+            if (manual && state.Horizontal != 0) state.Walking = Math.Abs(state.X - previousX) > .001f;
             HeroEquipment.Tick(actor, delta);
             if (!manual) return true;
             if (state.Height > 0 && (state.Activity == ActorActivity.Work || state.Activity == ActorActivity.Build))
@@ -78,6 +82,7 @@ namespace DarkNights.Runtime.Objects
             HeroEquipment.Cancel(state);
             state.Horizontal = 0; state.SprintHeld = false; state.ShipEntryBlocked = false;
             state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
+            HeroJumpMotion.Clear(state);
             state.LastInputSequence = 0; state.LastInputTick = 0;
         }
     }

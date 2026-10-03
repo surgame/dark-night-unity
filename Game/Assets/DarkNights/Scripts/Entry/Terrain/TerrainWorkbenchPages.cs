@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DarkNights.Core.Config;
 using DarkNights.Runtime.Objects;
 using DarkNights.View.Terrain;
 using UnityEngine;
@@ -71,6 +72,14 @@ namespace DarkNights.Entry.Terrain
             if (GUILayout.Button("适配全图")) { panel.MapTool = 1; flyer.FitWorkbenchMap(panel.Layout.Panel.xMax * panel.Layout.Scale); }
             if (GUILayout.Button("回到角色镜头")) { panel.MapTool = 0; flyer.ResetWorkbenchCamera(); }
             panel.ShowGrid = GUILayout.Toggle(panel.ShowGrid, "显示地形网格");
+            var workshop = panel.Bootstrap.Workshop;
+            if (workshop != null)
+            {
+                GUILayout.Space(8); GUILayout.Label("角色跳跃");
+                workshop.JumpStrategy = (HeroJumpStrategy)GUILayout.SelectionGrid((int)workshop.JumpStrategy,
+                    new[] { "固定跳跃", "按住控制跳高" }, 2);
+                workshop.JetpackEnabled = GUILayout.Toggle(workshop.JetpackEnabled, "启用喷气背包");
+            }
         }
         public void DrawStatus(TerrainDebugPanel panel)
         {

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using DarkNights.Core.Config;
+using DarkNights.Runtime.Objects;
 
 namespace DarkNights.Runtime.Save
 {
@@ -39,7 +40,7 @@ namespace DarkNights.Runtime.Save
 
         private static void WriteRules(BinaryWriter writer, GameCatalog catalog)
         {
-            writer.Write("dark-nights.rules.v4");
+            writer.Write("dark-nights.rules.v5");
             BalanceDefinition balance = catalog.Balance;
             writer.Write(balance.SchemaVersion);
             HeroControlDefinition hero = balance.HeroControl;
@@ -52,6 +53,9 @@ namespace DarkNights.Runtime.Save
                 writer.Write(hero.SprintMultiplier);
                 writer.Write(hero.WalkSpeed);
                 writer.Write(HeroControlDefinition.BodyHalfWidth); writer.Write(HeroControlDefinition.BodyHeight);
+                writer.Write((int)hero.JumpStrategy);
+                writer.Write(HeroJumpMotion.BufferSeconds);
+                writer.Write(HeroJumpMotion.ReleaseSpeedRatio);
             }
             writer.Write(balance.Expedition.BagCapacity);
             writer.Write(balance.Expedition.ShipCapacity);

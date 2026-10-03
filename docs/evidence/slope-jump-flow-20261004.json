@@ -1,0 +1,194 @@
+{
+  "date": "2026-10-04",
+  "branch": "fix-20261004-slope-jump-flow",
+  "baseline": "6b63c9b",
+  "scope": "斜坡连续运动、单次点跳保留、可选跳高策略及普通跳跃/喷气衔接",
+  "frameworkModified": false,
+  "contracts": {
+    "protocol": 23,
+    "save": 17,
+    "map": 2,
+    "rules": "dark-nights.rules.v5"
+  },
+  "source": {
+    "passed": 33,
+    "failed": 0,
+    "scope": "正式运动源码与最小ActorState/只读地图适配",
+    "log": "artifacts/slope-jump-flow-20261004/source-r3.jsonl"
+  },
+  "compiler": {
+    "firstPass": 6,
+    "firstFailure": 0,
+    "finalAffectedPass": 2,
+    "finalAffectedFailure": 0,
+    "scope": "只读Unity编译引用；不是Player构建"
+  },
+  "unityFirst": {
+    "id": "slope-jump-flow-20261004-r1",
+    "state": "Passed",
+    "utc": "2026-10-03T18:48:51.5622794Z",
+    "unity": "6000.4.9f1",
+    "passed": 66,
+    "failed": 0,
+    "skipped": 0
+  },
+  "unityFinalMotion": {
+    "state": "PENDING_REFRESH",
+    "expected": 33
+  },
+  "core": {
+    "passed": 1046,
+    "total": 1048,
+    "failed": 2,
+    "failures": [
+      "Hand mining is limited to soft rock and scattered ore",
+      "Explosives cannot clear bedrock or protected cells"
+    ],
+    "classification": "既有规则/软岩夹具断言，保留原始失败，不改为通过",
+    "report": "artifacts/slope-jump-flow-20261004/core-regression.json"
+  },
+  "snapshot": {
+    "passed": 10,
+    "failed": 0,
+    "report": "artifacts/slope-jump-flow-20261004/core-snapshot.json"
+  },
+  "comparison": [
+    {
+      "case": "m0.5-sprint-up-jump",
+      "beforeDistance": 158.40088,
+      "afterDistance": 176.00098,
+      "beforeStops": 6,
+      "afterStops": 0
+    },
+    {
+      "case": "m1-walk-up-jump",
+      "beforeDistance": 85.868164,
+      "afterDistance": 112.00195,
+      "beforeStops": 14,
+      "afterStops": 0
+    },
+    {
+      "case": "m1-sprint-up-jump",
+      "beforeDistance": 120.267334,
+      "afterDistance": 175.14526,
+      "beforeStops": 11,
+      "afterStops": 0
+    },
+    {
+      "case": "m1-sprint-up-repeat",
+      "beforeDistance": 89.46716,
+      "afterDistance": 167.44385,
+      "beforeStops": 14,
+      "afterStops": 0
+    }
+  ],
+  "preview": {
+    "id": "slope-jump-preview-20261004",
+    "state": "PREVIEW_OPENED",
+    "utc": "2026-10-03T18:56:35.7106182Z",
+    "unity": "6000.4.9f1",
+    "passed": 0,
+    "failed": 0,
+    "skipped": 0
+  },
+  "notRun": [
+    "本轮新Player构建",
+    "实际操控画面与手感",
+    "独立进程联机与弱网",
+    "IL2CPP",
+    "双机器",
+    "前台性能"
+  ],
+  "sources": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\HeroControlDefinition.cs",
+      "sha256": "94F7FA87993A4048E660FCD505FF2C2D032930B5BF4D0EA118F3914B6A5E6123"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Save\\SessionSnapshot.cs",
+      "sha256": "AE351984689425EC71BE9CEFACE7FFFC8A167059C36198F582FEB62341A62DC6"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\TerrainValidationRunner.cs",
+      "sha256": "400763DC00728C609D3A87854F964A1AE7ACCC406202B64D10988FB382A02418"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\Terrain\\TerrainWorkbenchPages.cs",
+      "sha256": "E22A0995192D0CCBD99445F5E7C215873B1F6BC1AF205F5172A0B416EC7E05B3"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Config\\GameCatalogJson.cs",
+      "sha256": "F5B0C18612A264BBF0D72EF2530719F1717F24E59899E3C83D0591BAD496C360"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ActorState.cs",
+      "sha256": "D330F2704E2640AD944F917646337A406DDCB76BA9DA8144AFE6B0C3C23D168E"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroControlBehaviour.cs",
+      "sha256": "D9563C5CB11DA9F027E4B317C56730873B46E13EECC13C7ED5104CB0D2DDAD1F"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroMotionBehaviour.cs",
+      "sha256": "3E14DF667C412AFE1A784B87E4A1744A0503851A32B20376FBAF966065D48866"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ShipCabinMotion.cs",
+      "sha256": "A1C535EEBEF4D9F6BD02E00EE33F137748539C3E9812161B82F016C21759B735"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ShipRampTransition.cs",
+      "sha256": "294E2150885950B08A8DE1D8817DED53BA0C20E3326EE0A006A3ACEF02EB8425"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Save\\SaveContentFingerprint.cs",
+      "sha256": "DDB7F214A8C3BFF6FB1ECD0123F03BAB2DBFC11F765D329EA121E0B3B1E07E5D"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Session\\SessionHeroControl.cs",
+      "sha256": "D3C8D23FB62B2C822B8653D6EAFA0FC50BDEB9D378BB2D82462662BEBBBF99B5"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Terrain\\CaveWorkshopSession.cs",
+      "sha256": "78D936B29FA07FA4BCE6393A0811C2700F7E898C57D5B9B02B07BB599C717107"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Terrain\\TerrainHeroMotion.cs",
+      "sha256": "4381F5B661B88600802D2BC2FA2C2CF3BE51C3239A544C09C2D517858A54923D"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainSlopeRecoveryTests.cs",
+      "sha256": "FB40EBED6B285D31510329421F5C3F8E33893081AB11E8A3C017D9D62BE53525"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\HeroJumpStrategy.cs",
+      "sha256": "48540D1DE4B1564B0CC8AEEEB782AEA7EE2CCDC49F81A1B5EDC5C9BC45313965"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroJumpMotion.cs",
+      "sha256": "22BA177DF954C19BFF9CFD795A3AB12DA90469430CBDA09F56E415A91F6EE177"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Terrain\\TerrainBodySweep.cs",
+      "sha256": "C4ED0A54D341595946C7A41B60EA042CD2BB8AEC68256C43A4CEC387658E4048"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\HeroJumpLifecycleTests.cs",
+      "sha256": "F68921FE937A8087E84DAC4FE3D9CE47D29AE1D9AA1AB9B8E16312BD55F64A9E"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainJumpFlowTests.cs",
+      "sha256": "F0B0D5759DFD7EEC09AEA5009411AE751495A4F27DFCB4BE54A35E804F857076"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainMotionTestMap.cs",
+      "sha256": "51E7373E7FA5DF3F90AE6E0868E3AF17CC640CF1D60302A867F7B43CB17C63C4"
+    }
+  ],
+  "storage": {
+    "archivePath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-slope-jump-flow",
+    "archiveBytes": 15656926,
+    "freeBytes": 20222439424,
+    "deletedBytes": 0
+  }
+}

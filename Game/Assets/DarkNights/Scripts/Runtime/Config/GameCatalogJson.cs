@@ -72,7 +72,15 @@ namespace DarkNights.Runtime.Config
             ConfigJson.Positive(value, "maximum_height"), ConfigJson.Positive(value, "jetpack_speed"),
             ConfigJson.Positive(value, "fuel_seconds"), ConfigJson.Positive(value, "fuel_recovery"),
             ConfigJson.Positive(value, "drop_seconds"), ConfigJson.Positive(value, "work_reach"),
-            ConfigJson.Positive(value, "sprint_multiplier"), ConfigJson.Positive(value, "walk_speed"));
+            ConfigJson.Positive(value, "sprint_multiplier"), ConfigJson.Positive(value, "walk_speed"), JumpStrategy(value));
+
+        private static HeroJumpStrategy JumpStrategy(JToken value)
+        {
+            string strategy = (string)value["jump_strategy"] ?? "fixed";
+            if (strategy == "fixed") return HeroJumpStrategy.Fixed;
+            if (strategy == "hold_height") return HeroJumpStrategy.HoldHeight;
+            throw new FormatException("Unknown hero jump_strategy: " + strategy);
+        }
 
         private static EconomyDefinition Economy(JToken value) => new EconomyDefinition(
             Resources(value, "starting_resources"), ConfigJson.Positive(value, "upkeep_interval"),

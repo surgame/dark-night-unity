@@ -163,8 +163,8 @@ namespace DarkNights.Tests
 
         private static void Step(Grid map, ActorState actor, int direction, bool jump = false, bool sprint = false)
         {
-            TerrainHeroMotion.MoveHorizontal(map, actor, actor.X + direction * Rules.MoveSpeed(sprint) * (float)Delta);
-            TerrainHeroMotion.Tick(map, actor, Rules, Delta, jump, false);
+            TerrainHeroMotion.Tick(map, actor, Rules, Delta, jump, false,
+                targetX: actor.X + direction * Rules.MoveSpeed(sprint) * (float)Delta);
         }
 
         private static bool Blocked(Grid map, ActorState actor) => BodyBlocked(

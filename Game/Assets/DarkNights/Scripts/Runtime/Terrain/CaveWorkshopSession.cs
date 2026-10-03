@@ -23,6 +23,8 @@ namespace DarkNights.Runtime.Terrain
         public float Y => (actor.Height - PlayableTerrain.OriginY) / PlayableTerrain.CellPixels;
         public double Fuel => actor.JetpackFuel;
         public bool Grounded => actor.SupportPlatform >= 0;
+        public HeroJumpStrategy JumpStrategy { get; set; }
+        public bool JetpackEnabled { get => actor.JetpackEquipped; set => actor.JetpackEquipped = value; }
         public CaveWorkshopSession(TerrainBlueprint blueprint, ServerGameplayCatalog catalog, GameCatalog game,
             FrozenTerrainRules terrainRules = null, HandheldConfig tools = null)
         {
@@ -30,7 +32,8 @@ namespace DarkNights.Runtime.Terrain
             // 工作台全图原点在顶部；只把全局高度上限平移到地图顶，跳跃与燃料数值保持原配置。
             rules = new HeroControlDefinition(source.JumpSpeed, source.Gravity, PlayableTerrain.OriginY + 8,
                 source.JetpackSpeed, source.FuelSeconds, source.FuelRecovery, source.DropSeconds, source.WorkReach,
-                source.SprintMultiplier, source.WalkSpeed);
+                source.SprintMultiplier, source.WalkSpeed, source.JumpStrategy);
+            JumpStrategy = source.JumpStrategy;
             container = new DIContainer(); container.Initialize();
             context = ObjectSessionContext.CreateAuthority(container, () => active); context.Activate();
             Map = new TerrainMapAuthority(context, blueprint, catalog, new WorldIdentity(StableGuid.Parse(Guid.NewGuid().ToString("N")), 1),
@@ -45,11 +48,12 @@ namespace DarkNights.Runtime.Terrain
             actor.X = x * PlayableTerrain.CellPixels;
             actor.Height = PlayableTerrain.OriginY + y * PlayableTerrain.CellPixels;
             actor.VerticalSpeed = 0; actor.SupportPlatform = -1; actor.JetpackFuel = rules.FuelSeconds;
+            HeroJumpMotion.Clear(actor);
         }
         public void Tick(float horizontal, bool jump, bool held, float seconds, bool sprint = false)
         {
-            TerrainHeroMotion.MoveHorizontal(Map, actor, actor.X + horizontal * rules.MoveSpeed(sprint) * seconds);
-            TerrainHeroMotion.Tick(Map, actor, rules, seconds, jump, held);
+            TerrainHeroMotion.Tick(Map, actor, rules, seconds, jump, held,
+                targetX: actor.X + horizontal * rules.MoveSpeed(sprint) * seconds, jumpStrategy: JumpStrategy);
         }
         public bool Edit(float x, float y, bool explode)
         {

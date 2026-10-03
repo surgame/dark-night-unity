@@ -1,5 +1,7 @@
 # Dark Nights 文档结构
 
+2026-10-04 [斜坡跳跃连续运动候选](SLOPE_JUMP_FLOW.md)：分支 `fix-20261004-slope-jump-flow`，连续斜向运动与接坡、点跳输入保留、默认固定的策略开关和喷气衔接。协议23／AMP1 schema2不变，规则摘要v5／存档v17；本批Editor66/66，完整验证边界与看效果入口见该页。
+
 2026-10-03 [工作台原生聚合](EDITOR_WORKBENCH.md)：四类任务按需停靠 Workshop、Viewer、航程、地形和岩壁编辑器，场景只保留快捷操作。获批工坊导航修正通过，Editor16/16、作者资产436项保持；操作、证据及依赖账本见说明。
 
 2026-10-03 [氧气移除验证记录](OXYGEN_REMOVAL_VALIDATION.md)：原Editor119/121、资源12/12、正常Mono双进程130/130；两项未实现玩法的旧路线用例已移除，剩余远征回归6/6。纯航程1903/1903、Core1046/1048；[弱网及旧路线历史诊断](OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)保留，弱网修复延后，整批未通过。

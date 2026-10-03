@@ -244,6 +244,7 @@ namespace DarkNights.Runtime.Session
         {
             HeroEquipment.Cancel(state);
             state.Horizontal = 0; state.SprintHeld = false; state.JumpHeld = state.UseHeld = state.JumpPending = state.DropPending = false;
+            HeroJumpMotion.Clear(state);
         }
         private int Claim(SessionConnection connection, ActorBehaviour actor)
         {

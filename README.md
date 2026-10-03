@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-10-04 [斜坡跳跃连续运动候选](docs/SLOPE_JUMP_FLOW.md)位于 `fix-20261004-slope-jump-flow`：连续斜向运动、真实接坡与点跳输入保留，固定／按住控制跳高策略默认固定，普通跳跃之后接续喷气。协议23／AMP1 schema2不变，规则摘要v5／存档v17；首轮Editor66/66，最终源码33/33，后续跨缺口边界修正的Editor补测待刷新。YYGC未改，不宣称最终手感、Player或联机验收。
+
 2026-10-03 [工作台原生聚合](docs/EDITOR_WORKBENCH.md)：四类项目任务按需停靠原生编辑器，退出重复 Definition 浏览器和内嵌编辑；场景收为快捷行与折叠目录。获批 YYGC 导航标脏修正已接入，Editor 按不同用例合并16/16、作者资产436项保持；沿用当前分支。
 
 2026-10-03 [氧气业务移除](docs/OXYGEN_REMOVAL_EXECUTION.md)：ref-20261003-remove-oxygen合入本地main，协议 **23**／存档 **v16**／AMP1 schema **2**，YYGC未修改。原后台Editor119/121、原生资源12/12、正常Mono双进程130/130；两项未实现玩法的旧路线用例已移除，本次剩余远征回归6/6。弱网仍失败并延后修复，**整批未通过**，见[验证记录](docs/OXYGEN_REMOVAL_VALIDATION.md)及[失败原因](docs/OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。前台画面、四人、IL2CPP与双机器不宣称通过。

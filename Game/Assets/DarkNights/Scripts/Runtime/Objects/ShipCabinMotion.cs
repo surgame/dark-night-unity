@@ -24,6 +24,7 @@ namespace DarkNights.Runtime.Objects
             {
                 s.X = ship.X + ShipGeometry.PilotX; s.Height = ship.Height + ShipGeometry.PilotHeight;
                 s.Boarded = true; s.Walking = false; s.VerticalSpeed = 0; s.JumpPending = false;
+                HeroJumpMotion.Clear(s);
                 HeroEquipment.Cancel(s); return true;
             }
             float target = s.X + s.Horizontal * HeroControlBehaviour.PlayerMoveSpeed(actor) * (float)delta;
@@ -81,23 +82,18 @@ namespace DarkNights.Runtime.Objects
             if (grounded) s.Height = floor;
 
             HeroControlDefinition rules = world.Catalog.Balance.HeroControl;
-            if (grounded && s.JumpPending && rules != null)
-            {
-                s.VerticalSpeed = rules.JumpSpeed;
-                s.SupportPlatform = -1; grounded = false;
-            }
+            if (rules != null && HeroJumpMotion.TryStart(s, rules, grounded)) grounded = false;
             s.JumpPending = s.DropPending = false;
             HeroEquipment.Cancel(s);
             if (grounded)
             {
-                s.Height = floor; s.VerticalSpeed = 0; s.SupportPlatform = 0;
-                if (s.JetpackOwned && rules != null)
-                    s.JetpackFuel = Math.Min(rules.FuelSeconds, s.JetpackFuel + rules.FuelRecovery * delta);
+                s.Height = floor;
+                if (rules != null) HeroJumpMotion.Land(s, rules, delta);
                 return;
             }
 
             float previousHeight = s.Height;
-            s.VerticalSpeed -= (float)(rules?.Gravity ?? 0) * (float)delta;
+            if (rules != null) HeroJumpMotion.Accelerate(s, rules, delta, s.JumpHeld, jetpack: false);
             float nextHeight = previousHeight + s.VerticalSpeed * (float)delta;
             if (nextHeight - ship.Height > maximumFoot)
             {
@@ -106,7 +102,8 @@ namespace DarkNights.Runtime.Objects
             }
             if (s.VerticalSpeed <= 0 && nextHeight <= floor)
             {
-                s.Height = floor; s.VerticalSpeed = 0; s.SupportPlatform = 0;
+                s.Height = floor;
+                if (rules != null) HeroJumpMotion.Land(s, rules, delta);
             }
             else
             {
@@ -126,6 +123,7 @@ namespace DarkNights.Runtime.Objects
         {
             var s = actor.Edit(); s.X = Ship.X + localX; s.Height = Ship.Read().Height + ShipGeometry.Floor(localX);
             s.Boarded = true; s.VerticalSpeed = 0; s.SupportPlatform = 0;
+            HeroJumpMotion.Clear(s);
         }
 
         internal bool Navigate(ActorBehaviour actor, ref float x, ref float height, double delta, out bool arrived)
