@@ -2,6 +2,13 @@
   "date": "2026-10-04",
   "branch": "fix-20261004-slope-jump-flow",
   "baseline": "6b63c9b",
+  "integration": {
+    "target": "main",
+    "codeCommit": "a711897f5fda506993ee1362908beb07dd1b8af1",
+    "method": "fast-forward",
+    "local": true,
+    "pushed": false
+  },
   "scope": "斜坡连续运动、单次点跳保留、可选跳高策略及普通跳跃/喷气衔接",
   "frameworkModified": false,
   "contracts": {
@@ -33,8 +40,9 @@
     "skipped": 0
   },
   "unityFinalMotion": {
-    "state": "PENDING_REFRESH",
-    "expected": 33
+    "state": "PENDING_EDITMODE_RERUN",
+    "expected": 33,
+    "reason": "合入时Unity正在Play，保持用户当前运行，最终受影响运动补测待执行"
   },
   "core": {
     "passed": 1046,
