@@ -129,20 +129,15 @@ namespace DarkNights.Entry
 
         private void LateUpdate()
         {
-            var frame = network?.Client.Replica.Current;
-            var followed = Current;
-            if (followed == null && frame?.World.Expedition?.Journey?.Enabled == true)
-                followed = frame.World.Actors.FirstOrDefault(a => a.ControllerSlot == network.Client.PlayerSlot && a.Hp > 0);
-            if (!CanFollowCamera(followed, frame)) { mining?.Hide(); return; }
+            if (!CanFollowCamera()) { mining?.Hide(); return; }
             // 等待所有 Update 完成，跟随本帧插值后的显示位置，避免与低频快照产生相对抖动。
-            stage.FollowControlledActor(followed.Id, frame, entities);
-            if (network.Client.Ready) mining.Present(); else mining.Hide();
+            stage.FollowControlledActor(Current.Id, network.Client.Replica.Current, entities);
+            mining.Present();
         }
 
-        private bool CanFollowCamera(ActorViewData followed, SessionViewData frame) =>
-            input != null && input.HeroMode && followed != null &&
-                (network.Client.Ready || frame?.World.Expedition?.Crew.Any(c => c.Id == followed.Id && c.Boarded) == true) &&
-                frame?.Epoch == epoch &&
+        private bool CanFollowCamera() =>
+            input != null && input.HeroMode && Current != null && network.Client.Ready &&
+                network.Client.Replica.Current?.Epoch == epoch &&
                 network.Client.ConnectionGeneration == connection &&
                 !YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.CameraInput);
 

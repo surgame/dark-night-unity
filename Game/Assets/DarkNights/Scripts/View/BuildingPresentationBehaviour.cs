@@ -19,12 +19,11 @@ namespace DarkNights.View
 
         public void Bind(int id, int epoch, string kind, Action<InputIntent> submit) => BindEntity(id, epoch, kind, submit);
 
-        public bool Present(BuildingViewData building, int epoch, Color ambient, ExpeditionDeviceData device = null, int moduleMask = 0,
-            float? displayedX = null, float? displayedHeight = null)
+        public bool Present(BuildingViewData building, int epoch, Color ambient, ExpeditionDeviceData device = null, int moduleMask = 0)
         {
             if (building == null || !Accept(building.Id, epoch, building.Kind)) return false;
             Current = building;
-            Position(displayedX ?? building.X, ambient, displayedHeight ?? device?.Height ?? 0);
+            Position(building.X, ambient, device?.Height ?? 0);
             if (BuildingVisual.HasPoseClips) BuildingVisual.SamplePose("construction", Math.Min(building.Progress, 0.999999));
             BuildingVisual.SetVisibility(building.Progress >= 1 || BuildingVisual.FadeConstruction,
                 building.Progress < 1 && !BuildingVisual.FadeConstruction, false);

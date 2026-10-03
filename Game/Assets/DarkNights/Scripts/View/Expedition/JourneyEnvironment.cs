@@ -25,14 +25,9 @@ namespace DarkNights.View.Expedition
         private PlanetDefinition planet;
         private string identity = "", drawingIdentity = "";
         private double receivedAt;
-        private readonly JourneyArrivalPresentation presentation = new JourneyArrivalPresentation();
-        private float arrivalStarOpacity = 1, lastStarOpacity = 1;
-        private float drawingSurface;
+        private float localClock;
         private bool rendered, paused;
         public bool SpaceReady => rendered && JourneyPresentationRules.InSpace(journey);
-        public bool DestinationDrawn { get; set; }
-        public float SurfaceAmount => presentation.SurfaceAmount;
-        public bool SurfaceReady => rendered && !JourneyPresentationRules.InSpace(journey) && presentation.Complete && drawingSurface >= 1;
 
         public void Initialize(Camera camera, SurfaceEnvironmentSettings surfaceSettings = null)
         {
@@ -60,21 +55,19 @@ namespace DarkNights.View.Expedition
         public void Present(SessionViewData frame)
         {
             var next = frame?.World.Expedition?.Journey;
-            if (presentation.Observe(frame)) arrivalStarOpacity = lastStarOpacity;
             string nextIdentity = next?.Enabled == true ? frame.Epoch + ":" + next.JourneyId + ":" + next.Revision : "";
             if (identity != nextIdentity) { identity = nextIdentity; rendered = false; }
             if (!ReferenceEquals(journey, next)) receivedAt = Time.unscaledTimeAsDouble;
             journey = next; paused = frame?.Paused == true;
             planet = next?.ActivePlanet ?? next?.Planets.FirstOrDefault(p => p.Enabled);
             bool active = next?.Enabled == true;
-            double speed = next?.Phase == JourneyPhase.Transit ? planet?.StarSpeed ?? 110 :
-                !JourneyPresentationRules.InSpace(next) && !presentation.Complete ? (planet?.StarSpeed ?? 110) * (1 - SurfaceAmount) : 1.5;
-            presentation.Advance(Time.unscaledDeltaTime, DestinationDrawn, paused, speed);
-            sky.SetActive(active); stars.SetActive(active && (JourneyPresentationRules.InSpace(next) || !presentation.Complete));
-            surface.Show(active && SurfaceAmount > 0);
+            sky.SetActive(active); stars.SetActive(active && JourneyPresentationRules.InSpace(next));
+            surface.Show(active && !JourneyPresentationRules.InSpace(next));
             if (!active) return;
             if (origins.Length != (planet?.StarCount ?? 120)) BuildStars(planet?.StarCount ?? 120);
         }
+
+        private void LateUpdate() => localClock += Time.unscaledDeltaTime;
 
         private void RenderEnvironment()
         {
@@ -88,31 +81,27 @@ namespace DarkNights.View.Expedition
             bool visible = top > bottom;
             sky.SetActive(visible);
             if (!visible) return;
-            ColorUtility.TryParseHtmlString(planet?.SpaceColorHex ?? "#060C20", out Color spaceTint);
-            ColorUtility.TryParseHtmlString(planet?.SkyColorHex ?? "#243B55", out Color surfaceTint);
+            ColorUtility.TryParseHtmlString(space ? planet?.SpaceColorHex ?? "#060C20" : planet?.SkyColorHex ?? "#243B55", out Color tint);
             // Mesh 顶点颜色不会像材质 Color 属性那样自动解码，作者十六进制颜色先进入线性空间。
-            if (QualitySettings.activeColorSpace == ColorSpace.Linear) { spaceTint = spaceTint.linear; surfaceTint = surfaceTint.linear; }
-            float blend = space ? 0 : SurfaceAmount;
-            Color tint = Color.Lerp(spaceTint, surfaceTint, blend);
-            var upperTint = Color.Lerp(spaceTint, new Color(surfaceTint.r * .7f, surfaceTint.g * .7f, surfaceTint.b * .7f, 1), blend);
+            if (QualitySettings.activeColorSpace == ColorSpace.Linear) tint = tint.linear;
+            var upperTint = space ? tint : new Color(tint.r * .7f, tint.g * .7f, tint.b * .7f, 1);
             skyMesh.Clear();
             skyMesh.vertices = new[] { new Vector3(left, bottom, 1), new Vector3(right, bottom, 1),
                 new Vector3(right, top, 1), new Vector3(left, top, 1) };
             skyMesh.triangles = new[] { 0, 2, 1, 0, 3, 2 };
             skyMesh.colors = new[] { tint, tint, upperTint, upperTint };
             skyMesh.RecalculateBounds();
-            if (!space && blend > 0) surface.Render(viewCamera, planet, tint, blend);
-            if (!space && presentation.Complete) return;
+            if (!space) surface.Render(viewCamera, planet, tint);
+            if (!space) return;
             string kind = planet?.TransitionKind ?? "star-shift";
             if (!transitions.TryGetValue(kind, out var transition)) transition = transitions["none"];
             bool transit = journey.Phase == JourneyPhase.Transit;
-            float elapsed = (float)(journey.PhaseElapsed + (paused ? 0 : Time.unscaledTimeAsDouble - receivedAt));
-            float opacity = !space ? arrivalStarOpacity * (1 - blend) :
-                transit ? transition.StarOpacity(elapsed, (float)(planet?.TransitSeconds ?? 1)) : 1;
-            lastStarOpacity = opacity;
+            float elapsed = transit ? (float)(journey.PhaseElapsed + (paused ? 0 : Time.unscaledTimeAsDouble - receivedAt)) : localClock;
+            float speed = transit ? planet?.StarSpeed ?? 110 : 1.5f;
+            float opacity = transit ? transition.StarOpacity(elapsed, (float)(planet?.TransitSeconds ?? 1)) : 1;
             for (int i = 0; i < origins.Length; i++)
             {
-                var position = transition.StarPosition(origins[i], (float)presentation.StarTravel, 1000 * (.6f + (i % 7) * .1f));
+                var position = transition.StarPosition(origins[i], elapsed, speed * (.6f + (i % 7) * .1f));
                 float x = Mathf.Lerp(left, right, position.x), y = Mathf.Lerp(bottom, top, position.y);
                 float radius = halfHeight / Mathf.Max(1, viewCamera.pixelHeight) * (i % 5 == 0 ? 2 : 1);
                 int k = i * 4;
@@ -156,7 +145,7 @@ namespace DarkNights.View.Expedition
         private void BeginCamera(Camera camera)
         {
             if (camera != viewCamera) return;
-            RenderEnvironment(); drawingIdentity = identity; drawingSurface = SurfaceAmount;
+            RenderEnvironment(); drawingIdentity = identity;
         }
         private void EndCamera(Camera camera)
         {

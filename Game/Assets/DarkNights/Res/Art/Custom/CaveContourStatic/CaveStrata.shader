@@ -9,7 +9,6 @@ Shader "DarkNights/CaveStrata"
         _OreMap ("Background minerals", 2D) = "black" {}
         _Background ("Foreground / legacy wall / contour", Float) = 0
         _Ambient ("Uniform authored-rock illumination", Float) = .65
-        _ArrivalOpacity ("Local journey reveal", Range(0,1)) = 1
         // 旧独立天际线诊断的数据槽；正式渲染不读取，不产生入口过渡。
         _SurfaceSky ("Legacy diagnostic slot", Float) = 0
         _SurfaceSkyline ("Legacy diagnostic data", 2D) = "black" {}
@@ -28,7 +27,7 @@ Shader "DarkNights/CaveStrata"
             #include "UnityCG.cginc"
             sampler2D _RockSurface, _CaveLight;
             float4x4 _MapWorldToLocal;
-            float _Background, _Ambient, _ArrivalOpacity;
+            float _Background, _Ambient;
             struct Input { float4 vertex:POSITION; };
             struct Output { float4 vertex:SV_POSITION; float2 p:TEXCOORD0; };
             Output vert(Input v)
@@ -49,12 +48,12 @@ Shader "DarkNights/CaveStrata"
                 float2 light=tex2D(_CaveLight,cell/float2(320,192)).rg;
                 if(_Background<.5 || _Background>1.5)
                 {
-                    clip(rock.a-.5); return float4(lit(rock.rgb,light),_ArrivalOpacity);
+                    clip(rock.a-.5); return float4(lit(rock.rgb,light),1);
                 }
                 // 独立地下工作台的固定底板；航程使用分层素材，不启用该底板。
                 float3 color=GammaToLinearSpace(float3(40,31,23)/255);
                 color=lerp(color,rock.rgb,step(.5,rock.a));
-                return float4(lit(color,light),_ArrivalOpacity);
+                return float4(lit(color,light),1);
             }
             ENDHLSL
         }

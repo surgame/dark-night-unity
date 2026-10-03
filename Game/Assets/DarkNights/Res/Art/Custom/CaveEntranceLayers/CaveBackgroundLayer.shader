@@ -1,6 +1,6 @@
 Shader "DarkNights/CaveBackgroundLayer"
 {
-    Properties { _MainTex ("Existing background layer", 2D) = "black" {} _CaveLight ("Local lights", 2D) = "black" {} _Ambient ("Uniform background illumination", Float) = .36 _ArrivalOpacity ("Local journey reveal", Range(0,1)) = 1 }
+    Properties { _MainTex ("Existing background layer", 2D) = "black" {} _CaveLight ("Local lights", 2D) = "black" {} _Ambient ("Uniform background illumination", Float) = .36 }
     SubShader
     {
         Tags { "Queue"="Transparent" "RenderType"="Transparent" }
@@ -12,7 +12,7 @@ Shader "DarkNights/CaveBackgroundLayer"
             #pragma fragment frag
             #include "UnityCG.cginc"
             sampler2D _MainTex, _CaveLight;
-            float _Ambient, _ArrivalOpacity;
+            float _Ambient;
             float4x4 _MapWorldToLocal;
             struct Input { float4 vertex:POSITION; float2 uv:TEXCOORD0; };
             struct Output { float4 vertex:SV_POSITION; float2 uv:TEXCOORD0; float2 cell:TEXCOORD1; };
@@ -28,7 +28,7 @@ Shader "DarkNights/CaveBackgroundLayer"
                 float2 light=tex2D(_CaveLight,i.cell/float2(320,192)).rg;
                 color.rgb=color.rgb*min(1.15,_Ambient+light.r*.65+light.g*.4)+
                     float3(.083,.036,.007)*light.r+float3(.009,.036,.06)*light.g;
-                color.a *= _ArrivalOpacity; return color;
+                return color;
             }
             ENDHLSL
         }
