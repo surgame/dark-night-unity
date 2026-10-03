@@ -1,0 +1,27 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:Style src="DarkNightsWorkbench.uss" />
+    <ui:VisualElement class="dn-shell">
+        <ui:VisualElement class="dn-header">
+            <ui:VisualElement class="dn-brand">
+                <ui:Label text="DARK NIGHTS" class="dn-brand-name" />
+                <ui:Label text="开发工作台" class="dn-brand-subtitle" />
+            </ui:VisualElement>
+            <ui:VisualElement class="dn-tabs">
+                <ui:Button name="workspace-editors" text="配置编辑" class="dn-tab" />
+                <ui:Button name="workspace-scenes" text="场景与测试" class="dn-tab" />
+                <ui:Button name="workspace-tools" text="工具与预览" class="dn-tab" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement class="dn-search-row">
+            <ui:Label text="搜索当前工作区" class="dn-muted" />
+            <uie:ToolbarSearchField name="workbench-search" />
+            <ui:Button name="clear-search" text="清除" class="dn-secondary" />
+        </ui:VisualElement>
+        <ui:TwoPaneSplitView name="editor-body" fixed-pane-index="0" fixed-pane-initial-dimension="205" orientation="Horizontal">
+            <ui:ScrollView name="editor-navigation" class="dn-navigation" />
+            <ui:ScrollView name="editor-details" class="dn-details" />
+        </ui:TwoPaneSplitView>
+        <ui:VisualElement name="launcher-body" />
+        <ui:Label name="workbench-status" class="dn-status" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -35,6 +35,7 @@ namespace DarkNights.Editor
         internal MiningDefinitionPanel(MiningDefinitionPanelState selection)
         {
             this.selection = selection ?? throw new ArgumentNullException(nameof(selection)); selection.Initialize();
+            AddToClassList("dn-mining-panel");
             kind.SetValueWithoutNotify(selection.Mineral ? "矿床" : "前景岩壁");
             rare.SetValueWithoutNotify(selection.Rare); material.SetValueWithoutNotify(selection.Material);
             Add(new HelpBox("直接编辑工具和矿床的原生 YYGC Definition；保存当前资产后新会话生效。", HelpBoxMessageType.Info));
@@ -44,6 +45,7 @@ namespace DarkNights.Editor
             targetField.RegisterValueChangedCallback(change => { deposit = change.newValue as ObjectDefinition; DefaultMaterial(); ShowTab(tab); });
             Add(toolField); Add(targetField);
             var toolbar = new Toolbar();
+            toolbar.AddToClassList("dn-mining-tabs");
             toolbar.Add(new ToolbarButton(() => ShowTab("tool")) { text = "工具配置", name = "mining-tool-tab" });
             toolbar.Add(new ToolbarButton(() => ShowTab("deposit")) { text = "矿床配置", name = "mining-deposit-tab" });
             toolbar.Add(new ToolbarButton(() => ShowTab("match")) { text = "匹配验证", name = "mining-match-tab" });
@@ -59,6 +61,8 @@ namespace DarkNights.Editor
         {
             if (disposed) return;
             tab = selected == "deposit" || selected == "match" ? selected : "tool";
+            foreach (var button in this.Query<ToolbarButton>().ToList())
+                button.EnableInClassList("dn-chip-active", button.name == "mining-" + tab + "-tab");
             ClearInspector(); content.Clear(); save = null;
             if (tab == "match")
             {

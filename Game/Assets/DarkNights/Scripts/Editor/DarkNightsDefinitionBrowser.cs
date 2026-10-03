@@ -31,6 +31,7 @@ namespace DarkNights.Editor
         internal DarkNightsDefinitionBrowser(DarkNightsDefinitionBrowserState selection)
         {
             this.selection = selection ?? throw new ArgumentNullException(nameof(selection));
+            AddToClassList("dn-definition-browser");
             Add(new HelpBox("仅浏览游戏 Res 中的原生 Definition。身份与能力沿用 YYGC 编辑器保护，保存只写当前资产。", HelpBoxMessageType.Info));
             var search = new ToolbarSearchField { name = "definition-search", value = query };
             search.RegisterValueChangedCallback(change => { query = change.newValue; Filter(); }); Add(search);
@@ -41,9 +42,12 @@ namespace DarkNights.Editor
                     label.text = definition.Key + " · " + definition.name;
                     label.tooltip = AssetDatabase.GetAssetPath(definition) + "\n" + definition.Guid;
                 } };
-            list.style.height = 190;
             list.selectionChanged += items => Select(items.OfType<ObjectDefinition>().FirstOrDefault());
-            Add(list); Add(state); Add(editorArea);
+            var body = new VisualElement(); body.AddToClassList("dn-browser-body");
+            var listPane = new VisualElement(); listPane.AddToClassList("dn-browser-list");
+            listPane.Add(list); listPane.Add(state); body.Add(listPane);
+            editorArea.AddToClassList("dn-browser-editor"); body.Add(editorArea); Add(body);
+            RegisterCallback<GeometryChangedEvent>(change => EnableInClassList("dn-browser-compact", change.newRect.width < 760));
             RegisterCallback<AttachToPanelEvent>(_ => { if (!subscribed) { EditorApplication.projectChanged += Reload; subscribed = true; Reload(); } });
             RegisterCallback<DetachFromPanelEvent>(_ => Unsubscribe());
             refresh = schedule.Execute(UpdateState).Every(250); Reload();

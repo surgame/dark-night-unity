@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-10-03 [工作台重排](docs/EDITOR_WORKBENCH.md)：UI Toolkit 拆为配置编辑、场景与测试、工具与预览；配置左栏仅 5 页，场景列表和工具卡片直接操作。两个旧营地回归入口已撤下，工作台列出 14 个场景。仅改 Editor 导航与排版，协议 23／存档 v16 不变；本批验证与界面证据见说明。
+
 2026-10-03 [氧气业务移除](docs/OXYGEN_REMOVAL_EXECUTION.md)：ref-20261003-remove-oxygen合入本地main，协议 **23**／存档 **v16**／AMP1 schema **2**，YYGC未修改。原后台Editor119/121、原生资源12/12、正常Mono双进程130/130；两项未实现玩法的旧路线用例已移除，本次剩余远征回归6/6。弱网仍失败并延后修复，**整批未通过**，见[验证记录](docs/OXYGEN_REMOVAL_VALIDATION.md)及[失败原因](docs/OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。前台画面、四人、IL2CPP与双机器不宣称通过。
 
 2026-10-03 [天空与矿洞分层衔接](docs/CAVE_ENTRANCE_ART_LAYERS.md)：复用原近／中／远三层点缀，RGBA 不变；独立绘制及完整后壁覆盖替代 Shader 入口渐隐。没有新 PNG 接入。专项 Editor 36/36、Mono 构建与正式 Play 通过；独立进程及弱网边界见本批证据。

@@ -10,7 +10,7 @@ using UnityEditor;
 
 namespace DarkNights.Tests
 {
-    /// <summary>快速选择及完整场景导航的编辑合同；记忆只存 ID，盘点不遗漏场景，模板保留但不进入正式构建。</summary>
+    /// <summary>快速选择及当前场景导航的编辑合同；记忆只存 ID，旧营地退出工作台，模板保留但不进入正式构建。</summary>
     public sealed class QuickTestEditorTests
     {
         [Test]
@@ -31,7 +31,7 @@ namespace DarkNights.Tests
         }
 
         [Test]
-        public void SceneNavigationCoversEveryProjectSceneAndRetiredItemsOnlyLocate()
+        public void SceneNavigationExcludesLegacyCampAndRetiredItemsOnlyLocate()
         {
             var catalog = typeof(GameSceneCatalogOrganizer).Assembly.GetType("DarkNights.Editor.GameSceneWorkbenchCatalog");
             var entries = ((IEnumerable)catalog.GetField("Entries", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null)).Cast<object>().ToArray();
@@ -39,7 +39,10 @@ namespace DarkNights.Tests
             var paths = entries.SelectMany(entry => (System.Collections.Generic.IEnumerable<string>)
                 entry.GetType().GetProperty("Assets", properties).GetValue(entry)).Distinct().OrderBy(value => value).ToArray();
             var scenes = AssetDatabase.FindAssets("t:Scene", new[] { "Assets" }).Select(AssetDatabase.GUIDToAssetPath).OrderBy(value => value).ToArray();
-            Assert.That(scenes.Length, Is.EqualTo(16)); Assert.That(paths, Is.EqualTo(scenes));
+            var legacyCamp = new[] { GameScenePaths.StaticCamp, GameScenePaths.RandomCamp };
+            Assert.That(scenes.Length, Is.EqualTo(16));
+            Assert.That(paths, Is.EqualTo(scenes.Except(legacyCamp).OrderBy(value => value).ToArray()));
+            Assert.That(entries.Select(entry => (string)entry.GetType().GetProperty("Group", properties).GetValue(entry)), Does.Not.Contain("旧玩法回归"));
             foreach (var entry in entries.Where(e => (string)e.GetType().GetProperty("Group", properties).GetValue(e) == "已退役"))
                 Assert.That((string)entry.GetType().GetProperty("ActionLabel", properties).GetValue(entry), Is.EqualTo("在 Project 中定位"));
             Assert.That(EditorBuildSettings.scenes.Select(scene => scene.path), Does.Not.Contain("Assets/Scenes/SampleScene.unity"));

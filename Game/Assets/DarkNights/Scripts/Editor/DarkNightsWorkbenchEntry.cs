@@ -10,6 +10,7 @@ namespace DarkNights.Editor
     internal sealed class DarkNightsWorkbenchEntry
     {
         internal string Id { get; }
+        internal DarkNightsWorkbenchEntryKind Kind { get; }
         internal string Group { get; }
         internal string Title { get; }
         internal string Description { get; }
@@ -18,10 +19,10 @@ namespace DarkNights.Editor
         internal Action OpenEditor { get; }
         internal IReadOnlyList<string> Assets { get; }
 
-        internal DarkNightsWorkbenchEntry(string id, string group, string title, string description,
+        internal DarkNightsWorkbenchEntry(string id, DarkNightsWorkbenchEntryKind kind, string group, string title, string description,
             string saveHint, string actionLabel, Action openEditor, params string[] assets)
         {
-            Id = id; Group = group; Title = title; Description = description; SaveHint = saveHint;
+            Id = id; Kind = kind; Group = group; Title = title; Description = description; SaveHint = saveHint;
             ActionLabel = actionLabel; OpenEditor = openEditor;
             Assets = Array.AsReadOnly((string[])assets.Clone());
         }

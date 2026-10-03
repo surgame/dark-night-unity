@@ -1,0 +1,131 @@
+{
+  "task": "workbench-layout-20261003",
+  "branch": "ref-20261003-workbench-layout",
+  "baseline": "5ca8c62a7baf6571f5e4986d74990fea4d2d15b1",
+  "utc": "2026-10-03T08:11:43.2826405Z",
+  "unity": "6000.4.9f1",
+  "scope": "Editor workbench layout and navigation",
+  "catalog": {
+    "tools": 3,
+    "scene_entries": 14,
+    "project_scene_assets": 16,
+    "legacy_camp_entries": 0,
+    "editor_pages": 5
+  },
+  "validation": {
+    "combined_note": "13 unchanged workbench cases from the full batch plus the 2 current QuickTestEditorTests; no double counting",
+    "source_assets_and_project_settings_diff": "unchanged",
+    "combined_distinct_cases": 15,
+    "workbench_and_scene_batch": {
+      "id": "workbench-layout-20261003-final",
+      "state": "Passed",
+      "utc": "2026-10-03T07:57:15.8771381Z",
+      "unity": "6000.4.9f1",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0
+    },
+    "affected_navigation_rerun": {
+      "status": "completed",
+      "duration": 0.24,
+      "summary": {
+        "total": 2,
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0,
+        "inconclusive": 0
+      },
+      "results": [
+        {
+          "FullName": "DarkNights.Tests.QuickTestEditorTests.PreferencePersistsSelectionAndRetiredIdsFallBack",
+          "Status": "Passed",
+          "Duration": 0.0084189,
+          "Message": null,
+          "StackTrace": null
+        },
+        {
+          "FullName": "DarkNights.Tests.QuickTestEditorTests.SceneNavigationExcludesLegacyCampAndRetiredItemsOnlyLocate",
+          "Status": "Passed",
+          "Duration": 0.0099929,
+          "Message": null,
+          "StackTrace": null
+        }
+      ]
+    },
+    "compilation": "passed",
+    "final_catalog_check": "artifacts/workbench-layout-20261003/final-catalog-check.txt"
+  },
+  "failure_history": [
+    {
+      "reason": "Two new callback tests used unattached windows; converted to real hosted UnityTests",
+      "report": "artifacts/terrain-final-20260926/workbench-layout-20261003.xml",
+      "passed": 13,
+      "failed": 2
+    },
+    {
+      "reason": "Bootstrap name search also correctly matched the Expedition description; test narrowed to the unique scene path",
+      "report": "artifacts/terrain-final-20260926/workbench-layout-20261003-reattach.xml",
+      "passed": 1,
+      "failed": 1
+    }
+  ],
+  "visual": {
+    "native_actions": "Clicked tools workspace and Bootstrap open button",
+    "definition_browser": {
+      "narrow_content_width": 637,
+      "wide_content_width": 1000,
+      "wide_report": "artifacts/workbench-layout-20261003/definitions-wide-result.txt",
+      "narrow_report": "artifacts/workbench-layout-20261003/definitions-narrow-result.txt",
+      "wide_direction": "Row",
+      "narrow_direction": "Column"
+    },
+    "final_scene_labels": "Verified compiled catalog; no new native capture after user stopped computer use",
+    "snapshots": [
+      {
+        "path": "docs/evidence/workbench-layout-20261003/scenes-wide.png",
+        "width": 1250,
+        "phase": "before legacy-camp navigation removal"
+      },
+      {
+        "path": "docs/evidence/workbench-layout-20261003/scenes-narrow.png",
+        "width": 900,
+        "phase": "before legacy-camp navigation removal"
+      },
+      {
+        "path": "docs/evidence/workbench-layout-20261003/tools-wide.png",
+        "width": 1250,
+        "phase": "tool layout unchanged by legacy-camp removal"
+      }
+    ]
+  },
+  "unchanged": [
+    "YYGC source and dependency versions",
+    "gameplay rules",
+    "scene bytes and GUIDs",
+    "game protocol 23",
+    "save v16",
+    "AMP1 schema 2"
+  ],
+  "not_run": [
+    "Player build",
+    "current Play scene-open disabling interaction",
+    "new native screenshots after legacy-camp removal",
+    "multiplayer",
+    "foreground performance"
+  ],
+  "inventory": {
+    "disk_free_gib": {
+      "C": 11.39,
+      "D": 28.63
+    },
+    "preserved_reports": [
+      "artifacts/workbench-layout-20261003/*.txt",
+      "artifacts/terrain-final-20260926/workbench-layout-20261003*"
+    ],
+    "archived_bytes": 0,
+    "reason": "Unique verification sources and final/historical evidence retained; shared Unity import cache and active Pipeline status file excluded",
+    "eligible_intermediates": 0,
+    "preserved_verification_sources": "artifacts/workbench-layout-20261003/*.cs",
+    "released_bytes": 0
+  }
+}

@@ -113,7 +113,7 @@ namespace DarkNights.Tests
                 var choice = details.Children().OfType<PopupField<string>>().Single();
                 string path = Root + "ShipTrade/item-pistol.asset"; choice.value = path;
                 var editor = Get(window, "definitionEditor");
-                window.rootVisualElement.Children().OfType<ToolbarSearchField>().Single().value = "飞船交易";
+                window.rootVisualElement.Q<ToolbarSearchField>("workbench-search").value = "飞船交易";
                 Assert.That(Get(window, "definitionEditor"), Is.SameAs(editor));
                 Call(window, "CreateGUI");
                 details = (ScrollView)Get(window, "details");
@@ -141,6 +141,58 @@ namespace DarkNights.Tests
                 Assert.That(editor.GetType().GetProperty("Target", Flags).GetValue(editor), Is.SameAs(Asset("ShipTrade/item-pistol.asset")));
             }
             finally { ((IDisposable)browser).Dispose(); host.Close(); }
+        }
+
+        [UnityTest]
+        public IEnumerator WorkspaceSwitchReleasesInspectorAndRestoresIndependentSearches()
+        {
+            var window = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow"));
+            var restored = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow"));
+            try
+            {
+                Set(window, "selectedId", "equipment"); window.Show(); yield return null; Call(window, "CreateGUI");
+                string path = Root + "ShipTrade/item-pistol.asset";
+                window.rootVisualElement.Q<PopupField<string>>("source-choice").value = path;
+                var original = Asset("ShipTrade/item-pistol.asset");
+                bool dirty = EditorUtility.IsDirty(original); string before = JsonUtility.ToJson(original);
+                var editor = Get(window, "definitionEditor");
+                Call(window, "ShowWorkspace", "scenes");
+                Assert.That((bool)Get(editor, "disposed"), Is.True);
+                window.rootVisualElement.Q<ToolbarSearchField>("workbench-search").value = "Assets/Scenes/Bootstrap.unity";
+                Assert.That(window.rootVisualElement.Q<Button>("action-bootstrap"), Is.Not.Null);
+                Assert.That(window.rootVisualElement.Q("launch-expedition"), Is.Null);
+                Call(window, "ShowWorkspace", "tools");
+                window.rootVisualElement.Q<ToolbarSearchField>("workbench-search").value = "岩壁";
+                Call(window, "ShowWorkspace", "scenes");
+                Assert.That(window.rootVisualElement.Q<ToolbarSearchField>("workbench-search").value, Is.EqualTo("Assets/Scenes/Bootstrap.unity"));
+                EditorJsonUtility.FromJsonOverwrite(EditorJsonUtility.ToJson(window), restored); Call(restored, "CreateGUI");
+                Assert.That(Get(restored, "workspace"), Is.EqualTo("scenes"));
+                Call(restored, "ShowWorkspace", "editors");
+                Assert.That(restored.rootVisualElement.Q<PopupField<string>>("source-choice").value, Is.EqualTo(path));
+                Assert.That(JsonUtility.ToJson(original), Is.EqualTo(before));
+                Assert.That(EditorUtility.IsDirty(original), Is.EqualTo(dirty));
+            }
+            finally { window.Close(); UnityEngine.Object.DestroyImmediate(restored); }
+        }
+
+        [UnityTest]
+        public IEnumerator EmptySearchReleasesEditorAndClearingItRestoresSelectedSource()
+        {
+            var window = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow"));
+            try
+            {
+                Set(window, "selectedId", "equipment"); window.Show(); yield return null; Call(window, "CreateGUI");
+                string path = Root + "ShipTrade/item-bomb.asset";
+                window.rootVisualElement.Q<PopupField<string>>("source-choice").value = path;
+                var editor = Get(window, "definitionEditor");
+                var search = window.rootVisualElement.Q<ToolbarSearchField>("workbench-search");
+                search.value = "__missing_workbench__";
+                Assert.That((bool)Get(editor, "disposed"), Is.True);
+                Assert.That(Get(window, "definitionEditor"), Is.Null);
+                search.value = "";
+                Assert.That(window.rootVisualElement.Q<PopupField<string>>("source-choice").value, Is.EqualTo(path));
+            }
+            finally { window.Close(); }
         }
 
         [Test]

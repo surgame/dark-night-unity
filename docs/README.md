@@ -1,5 +1,7 @@
 # Dark Nights 文档结构
 
+2026-10-03 [工作台重排](EDITOR_WORKBENCH.md)：三个顶部工作区、直接操作的场景列表／工具卡片、宽窄窗口排版。旧营地回归退出工作台，场景导航为 14 项；现行操作与本批 Editor 验证见链接，10-02 的初版分类属于历史记录。
+
 2026-10-03 [氧气移除验证记录](OXYGEN_REMOVAL_VALIDATION.md)：原Editor119/121、资源12/12、正常Mono双进程130/130；两项未实现玩法的旧路线用例已移除，剩余远征回归6/6。纯航程1903/1903、Core1046/1048；[弱网及旧路线历史诊断](OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)保留，弱网修复延后，整批未通过。
 
 2026-10-03 [氧气业务移除及合并记录](OXYGEN_REMOVAL_EXECUTION.md)：分支已合入本地main，协议 **23**／存档 **v16**，薄worktree实施、Local串行后台验证；YYGC未修改，实施范围与原验收计划见该页；此前[评估](OXYGEN_REMOVAL_ASSESSMENT.md)保留评估时点。
