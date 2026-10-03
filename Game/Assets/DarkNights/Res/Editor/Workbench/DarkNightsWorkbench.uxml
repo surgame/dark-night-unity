@@ -2,26 +2,20 @@
     <ui:Style src="DarkNightsWorkbench.uss" />
     <ui:VisualElement class="dn-shell">
         <ui:VisualElement class="dn-header">
-            <ui:VisualElement class="dn-brand">
-                <ui:Label text="DARK NIGHTS" class="dn-brand-name" />
-                <ui:Label text="开发工作台" class="dn-brand-subtitle" />
-            </ui:VisualElement>
+            <ui:Label text="DARK NIGHTS" class="dn-brand" />
             <ui:VisualElement class="dn-tabs">
-                <ui:Button name="workspace-editors" text="配置编辑" class="dn-tab" />
-                <ui:Button name="workspace-scenes" text="场景与测试" class="dn-tab" />
-                <ui:Button name="workspace-tools" text="工具与预览" class="dn-tab" />
+                <ui:Button name="workspace-objects" text="对象与装备" class="dn-tab" />
+                <ui:Button name="workspace-journey" text="星球与航程" class="dn-tab" />
+                <ui:Button name="workspace-map" text="地图与表现" class="dn-tab" />
+                <ui:Button name="workspace-ui" text="界面资源" class="dn-tab" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement class="dn-search-row">
-            <ui:Label text="搜索当前工作区" class="dn-muted" />
-            <uie:ToolbarSearchField name="workbench-search" />
-            <ui:Button name="clear-search" text="清除" class="dn-secondary" />
+        <ui:VisualElement name="scene-shortcuts" class="dn-scene-shortcuts">
+            <ui:Label text="场景" class="dn-muted" />
         </ui:VisualElement>
-        <ui:TwoPaneSplitView name="editor-body" fixed-pane-index="0" fixed-pane-initial-dimension="205" orientation="Horizontal">
-            <ui:ScrollView name="editor-navigation" class="dn-navigation" />
-            <ui:ScrollView name="editor-details" class="dn-details" />
-        </ui:TwoPaneSplitView>
-        <ui:VisualElement name="launcher-body" />
+        <ui:HelpBox name="workbench-error" message-type="Error" />
+        <ui:ScrollView name="task-content" class="dn-task-content" />
+        <ui:Foldout name="all-scenes" text="全部场景与测试" value="false" class="dn-all-scenes" />
         <ui:Label name="workbench-status" class="dn-status" />
     </ui:VisualElement>
 </ui:UXML>

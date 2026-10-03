@@ -13,7 +13,7 @@ using UnityEngine.TestTools;
 
 namespace DarkNights.Tests
 {
-    /// <summary>真实 Editor 工作台的保存守卫、窗口状态恢复、选择缓存与 Undo 回归；仅修改临时对象，不写作者资产。</summary>
+    /// <summary>聚合操作栏与采集辅助区的实际窗口回归；检查目标输入、资源保持及释放，临时对象不写作者资产。</summary>
     public sealed class WorkbenchEditorTests
     {
         private const BindingFlags Flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static;
@@ -30,7 +30,7 @@ namespace DarkNights.Tests
         [TestCase("duplicate-config")]
         [TestCase("wrong-whitelist")]
         [TestCase("missing-reference")]
-        public void InvalidMiningAssemblyCannotSaveOrDirtySource(string failure)
+        public void InvalidMiningAssemblyReportsWithoutModifyingDefinition(string failure)
         {
             var original = Asset("ShipTrade/item-pickaxe.asset");
             var copy = UnityEngine.Object.Instantiate(original); copy.hideFlags = HideFlags.HideAndDontSave;
@@ -38,17 +38,16 @@ namespace DarkNights.Tests
             try
             {
                 var config = copy.SharedConfigs.OfType<MiningToolConfig>().Single();
-                Assert.That(config, Is.Not.SameAs(original.SharedConfigs.OfType<MiningToolConfig>().Single()));
                 if (failure == "missing-config") copy.SharedConfigs.Remove(config);
                 if (failure == "missing-behaviour") copy.BehaviourTypes.Remove(typeof(MiningToolBehaviour).FullName);
                 if (failure == "duplicate-config") copy.SharedConfigs.Add(new MiningToolConfig());
                 if (failure == "wrong-whitelist") config.Deposits = new[] { new DefinitionReference(Asset("ShipTrade/item-pistol.asset").Guid) };
                 if (failure == "missing-reference") config.Deposits = new[] { new DefinitionReference(DefinitionGuid.Parse(Guid.NewGuid().ToString("N"))) };
-                var state = Create("MiningDefinitionPanelState"); Set(state, "Initialized", true); Set(state, "Tool", copy);
-                panel = Create("MiningDefinitionPanel", state);
                 bool dirty = EditorUtility.IsDirty(copy); string before = JsonUtility.ToJson(copy);
-                Call(panel, "SaveSelected");
-                Assert.That(((HelpBox)Get(panel, "result")).messageType, Is.EqualTo(HelpBoxMessageType.Error));
+                var state = Create("MiningDefinitionPanelState"); Set(state, "Initialized", true); Set(state, "Tool", copy);
+                Set(state, "Deposit", Asset("MineralDeposit/MineralDeposit.asset"));
+                panel = Create("MiningDefinitionPanel", state);
+                Assert.That(((HelpBox)Get(panel, "assembly")).messageType, Is.EqualTo(HelpBoxMessageType.Warning));
                 Assert.That(JsonUtility.ToJson(copy), Is.EqualTo(before));
                 Assert.That(EditorUtility.IsDirty(copy), Is.EqualTo(dirty));
             }
@@ -64,172 +63,91 @@ namespace DarkNights.Tests
             var host = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow")); host.Show();
             try
             {
-                yield return null;
-                host.rootVisualElement.Add(panel);
-                Call(panel, "ShowTab", "match");
-                var picker = panel.Children().OfType<ObjectField>().Single(field => field.name == "mining-deposit");
-                Assert.DoesNotThrow(() => picker.value = copy);
+                yield return null; host.rootVisualElement.Add(panel);
+                Assert.DoesNotThrow(() => panel.Q<ObjectField>("mining-deposit").value = copy);
                 Assert.That(((HelpBox)Get(panel, "result")).messageType, Is.EqualTo(HelpBoxMessageType.Error));
             }
             finally { ((IDisposable)panel).Dispose(); UnityEngine.Object.DestroyImmediate(copy); host.Close(); }
         }
 
-        [Test]
-        public void WindowSerializationRestoresMiningAndBrowserViewState()
+        [UnityTest]
+        public IEnumerator TaskSwitchAndRebuildRestoreSelectionWithoutOpeningNativeEditors()
         {
             var window = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow"));
             var restored = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow"));
+            int nativeCount = Resources.FindObjectsOfTypeAll<GameCore.Editor.Objects.Definition.ObjectDefinitionWorkshopWindow>().Length;
+            var asset = Asset("ShipTrade/item-pistol.asset"); string before = JsonUtility.ToJson(asset); bool dirty = EditorUtility.IsDirty(asset);
             try
             {
-                var tool = Asset("ShipTrade/item-pistol.asset");
-                var mining = Get(window, "miningSelection");
-                Set(mining, "Initialized", true); Set(mining, "Tool", tool); Set(mining, "Tab", "match");
-                Set(mining, "Material", "gold"); Set(mining, "Mineral", false); Set(mining, "Rare", true);
-                var browser = Get(window, "browserSelection"); Set(browser, "Selected", tool); Set(browser, "Query", "item.pistol");
-                Set(window, "selectedId", "mining");
-                EditorJsonUtility.FromJsonOverwrite(EditorJsonUtility.ToJson(window), restored);
-                Call(restored, "CreateGUI");
-                var panel = Get(restored, "miningPanel");
-                Assert.That(Get(Get(restored, "miningSelection"), "Tool"), Is.SameAs(tool));
-                Assert.That(((TextField)Get(panel, "material")).value, Is.EqualTo("gold"));
-                Assert.That(((DropdownField)Get(panel, "kind")).value, Is.EqualTo("前景岩壁"));
-                Assert.That(((Toggle)Get(panel, "rare")).value, Is.True);
-                Set(restored, "selectedId", "objects"); Call(restored, "RebuildNavigation");
-                var browserPanel = Get(restored, "definitions");
-                var editor = Get(browserPanel, "inspector");
-                Assert.That(editor.GetType().GetProperty("Target", Flags).GetValue(editor), Is.SameAs(tool));
-            }
-            finally { UnityEngine.Object.DestroyImmediate(window); UnityEngine.Object.DestroyImmediate(restored); }
-        }
-
-        [UnityTest]
-        public IEnumerator SearchRetainsActiveSourceAndGuiRebuildRestoresIt()
-        {
-            var window = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow"));
-            try
-            {
-                Set(window, "selectedId", "equipment"); window.Show(); yield return null; Call(window, "CreateGUI");
-                var details = (ScrollView)Get(window, "details");
-                var choice = details.Children().OfType<PopupField<string>>().Single();
-                string path = Root + "ShipTrade/item-pistol.asset"; choice.value = path;
-                var editor = Get(window, "definitionEditor");
-                window.rootVisualElement.Q<ToolbarSearchField>("workbench-search").value = "飞船交易";
-                Assert.That(Get(window, "definitionEditor"), Is.SameAs(editor));
-                Call(window, "CreateGUI");
-                details = (ScrollView)Get(window, "details");
-                Assert.That(details.Children().OfType<PopupField<string>>().Single().value, Is.EqualTo(path));
-                Assert.That((bool)Get(editor, "disposed"), Is.True);
-            }
-            finally { window.Close(); }
-        }
-
-        [UnityTest]
-        public IEnumerator BrowserEmptySearchPreservesLastSelectedDefinition()
-        {
-            var browser = (VisualElement)Create("DarkNightsDefinitionBrowser");
-            var host = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow")); host.Show();
-            try
-            {
-                yield return null;
-                host.rootVisualElement.Add(browser);
-                var search = browser.Children().OfType<ToolbarSearchField>().Single();
-                search.value = "item.pistol";
-                var editor = Get(browser, "inspector");
-                Call(browser, "Reload"); Assert.That(Get(browser, "inspector"), Is.SameAs(editor));
-                search.value = "__missing_definition__"; Assert.That(Get(browser, "inspector"), Is.Null);
-                search.value = ""; editor = Get(browser, "inspector");
-                Assert.That(editor.GetType().GetProperty("Target", Flags).GetValue(editor), Is.SameAs(Asset("ShipTrade/item-pistol.asset")));
-            }
-            finally { ((IDisposable)browser).Dispose(); host.Close(); }
-        }
-
-        [UnityTest]
-        public IEnumerator WorkspaceSwitchReleasesInspectorAndRestoresIndependentSearches()
-        {
-            var window = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow"));
-            var restored = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow"));
-            try
-            {
-                Set(window, "selectedId", "equipment"); window.Show(); yield return null; Call(window, "CreateGUI");
-                string path = Root + "ShipTrade/item-pistol.asset";
+                window.Show(); yield return null; Call(window, "CreateGUI");
+                window.rootVisualElement.Q<ObjectField>("mining-tool").value = asset;
+                var panel = Get(window, "miningPanel");
+                Call(window, "ShowWorkspace", "ui");
+                Assert.That((bool)Get(panel, "disposed"), Is.True);
+                string path = "Assets/DarkNights/Res/UI/ShipEquipment/ShipEquipment.uxml";
                 window.rootVisualElement.Q<PopupField<string>>("source-choice").value = path;
-                var original = Asset("ShipTrade/item-pistol.asset");
-                bool dirty = EditorUtility.IsDirty(original); string before = JsonUtility.ToJson(original);
-                var editor = Get(window, "definitionEditor");
-                Call(window, "ShowWorkspace", "scenes");
-                Assert.That((bool)Get(editor, "disposed"), Is.True);
-                window.rootVisualElement.Q<ToolbarSearchField>("workbench-search").value = "Assets/Scenes/Bootstrap.unity";
-                Assert.That(window.rootVisualElement.Q<Button>("action-bootstrap"), Is.Not.Null);
-                Assert.That(window.rootVisualElement.Q("launch-expedition"), Is.Null);
-                Call(window, "ShowWorkspace", "tools");
-                window.rootVisualElement.Q<ToolbarSearchField>("workbench-search").value = "岩壁";
-                Call(window, "ShowWorkspace", "scenes");
-                Assert.That(window.rootVisualElement.Q<ToolbarSearchField>("workbench-search").value, Is.EqualTo("Assets/Scenes/Bootstrap.unity"));
+                Call(window, "ShowWorkspace", "journey"); Call(window, "ShowWorkspace", "ui");
+                Assert.That(window.rootVisualElement.Q<PopupField<string>>("source-choice").value, Is.EqualTo(path));
                 EditorJsonUtility.FromJsonOverwrite(EditorJsonUtility.ToJson(window), restored); Call(restored, "CreateGUI");
-                Assert.That(Get(restored, "workspace"), Is.EqualTo("scenes"));
-                Call(restored, "ShowWorkspace", "editors");
+                Assert.That(Get(restored, "workspace"), Is.EqualTo("ui"));
                 Assert.That(restored.rootVisualElement.Q<PopupField<string>>("source-choice").value, Is.EqualTo(path));
-                Assert.That(JsonUtility.ToJson(original), Is.EqualTo(before));
-                Assert.That(EditorUtility.IsDirty(original), Is.EqualTo(dirty));
+                Call(restored, "ShowWorkspace", "objects");
+                Assert.That(restored.rootVisualElement.Q<ObjectField>("mining-tool").value, Is.SameAs(asset));
+                Assert.That(JsonUtility.ToJson(asset), Is.EqualTo(before));
+                Assert.That(EditorUtility.IsDirty(asset), Is.EqualTo(dirty));
+                Assert.That(Resources.FindObjectsOfTypeAll<GameCore.Editor.Objects.Definition.ObjectDefinitionWorkshopWindow>().Length, Is.EqualTo(nativeCount));
             }
             finally { window.Close(); UnityEngine.Object.DestroyImmediate(restored); }
         }
 
         [UnityTest]
-        public IEnumerator EmptySearchReleasesEditorAndClearingItRestoresSelectedSource()
+        public IEnumerator SceneSearchRestoresAcrossFoldoutAndGuiRebuild()
         {
             var window = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow"));
             try
             {
-                Set(window, "selectedId", "equipment"); window.Show(); yield return null; Call(window, "CreateGUI");
-                string path = Root + "ShipTrade/item-bomb.asset";
-                window.rootVisualElement.Q<PopupField<string>>("source-choice").value = path;
-                var editor = Get(window, "definitionEditor");
-                var search = window.rootVisualElement.Q<ToolbarSearchField>("workbench-search");
-                search.value = "__missing_workbench__";
-                Assert.That((bool)Get(editor, "disposed"), Is.True);
-                Assert.That(Get(window, "definitionEditor"), Is.Null);
-                search.value = "";
-                Assert.That(window.rootVisualElement.Q<PopupField<string>>("source-choice").value, Is.EqualTo(path));
+                window.Show(); yield return null; Call(window, "CreateGUI");
+                window.rootVisualElement.Q<Foldout>("all-scenes").value = true;
+                window.rootVisualElement.Q<ToolbarSearchField>("scene-search").value = "Assets/Scenes/Bootstrap.unity";
+                Assert.That(window.rootVisualElement.Q<Button>("action-bootstrap"), Is.Not.Null);
+                Assert.That(window.rootVisualElement.Q("launch-expedition"), Is.Null);
+                var launcher = Get(window, "launcher");
+                window.rootVisualElement.Q<Foldout>("all-scenes").value = false;
+                Assert.That((bool)Get(launcher, "disposed"), Is.True);
+                window.rootVisualElement.Q<Foldout>("all-scenes").value = true;
+                Assert.That(window.rootVisualElement.Q<ToolbarSearchField>("scene-search").value, Is.EqualTo("Assets/Scenes/Bootstrap.unity"));
+                Call(window, "CreateGUI");
+                Assert.That(window.rootVisualElement.Q<Button>("action-bootstrap"), Is.Not.Null);
+                Assert.That(window.rootVisualElement.Q<ToolbarSearchField>("scene-search").value, Is.EqualTo("Assets/Scenes/Bootstrap.unity"));
             }
             finally { window.Close(); }
         }
 
-        [Test]
-        public void NativeSaveRejectsTransientDefinitionWithoutModifyingIt()
+        [UnityTest]
+        public IEnumerator ReadOnlyMatchingTracksUndoRedoAndDisposesRefresh()
         {
             var copy = UnityEngine.Object.Instantiate(Asset("ShipTrade/item-pickaxe.asset")); copy.hideFlags = HideFlags.HideAndDontSave;
-            var editor = Create("DarkNightsDefinitionEditor", copy, false);
+            object panel = null;
+            var host = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow")); host.Show();
             try
             {
-                string before = JsonUtility.ToJson(copy); bool dirty = EditorUtility.IsDirty(copy);
-                Assert.That((bool)Call(editor, "Save"), Is.False);
-                Assert.That(JsonUtility.ToJson(copy), Is.EqualTo(before));
-                Assert.That(EditorUtility.IsDirty(copy), Is.EqualTo(dirty));
-            }
-            finally { ((IDisposable)editor).Dispose(); UnityEngine.Object.DestroyImmediate(copy); }
-        }
-
-        [Test]
-        public void NativeEditorRefreshesActualConfigAfterUndoAndRedo()
-        {
-            var copy = UnityEngine.Object.Instantiate(Asset("ShipTrade/item-pickaxe.asset")); copy.hideFlags = HideFlags.HideAndDontSave;
-            object editor = null;
-            try
-            {
-                editor = Create("DarkNightsDefinitionEditor", copy, false);
-                int original = copy.SharedConfigs.OfType<MiningToolConfig>().Single().Damage;
-                Undo.IncrementCurrentGroup(); Undo.RecordObject(copy, "工作台临时 Undo 验收");
-                copy.SharedConfigs.OfType<MiningToolConfig>().Single().Damage = original + 7;
+                yield return null;
+                var state = Create("MiningDefinitionPanelState"); Set(state, "Initialized", true); Set(state, "Tool", copy);
+                Set(state, "Deposit", Asset("MineralDeposit/MineralDeposit.asset")); Set(state, "Mineral", false); Set(state, "Material", "stone");
+                panel = Create("MiningDefinitionPanel", state); host.rootVisualElement.Add((VisualElement)panel);
+                var config = copy.SharedConfigs.OfType<MiningToolConfig>().Single();
+                string original = ((HelpBox)Get(panel, "result")).text;
+                Undo.IncrementCurrentGroup(); Undo.RecordObject(copy, "采集辅助区临时 Undo 验收");
+                config.AllMaterials = false; config.Materials = new[] { "__other_material__" };
                 EditorUtility.SetDirty(copy); Undo.FlushUndoRecordObjects();
-                Undo.PerformUndo(); Call(editor, "OnUndoRedo");
-                Assert.That(copy.SharedConfigs.OfType<MiningToolConfig>().Single().Damage, Is.EqualTo(original));
-                Undo.PerformRedo(); Call(editor, "OnUndoRedo");
-                Assert.That(copy.SharedConfigs.OfType<MiningToolConfig>().Single().Damage, Is.EqualTo(original + 7));
-                ((IDisposable)editor).Dispose();
-                Assert.That((bool)Call(editor, "Save"), Is.False);
+                Call(panel, "UpdateState"); string changed = ((HelpBox)Get(panel, "result")).text;
+                Assert.That(changed, Is.Not.EqualTo(original));
+                Undo.PerformUndo(); Call(panel, "UpdateState"); Assert.That(((HelpBox)Get(panel, "result")).text, Is.EqualTo(original));
+                Undo.PerformRedo(); Call(panel, "UpdateState"); Assert.That(((HelpBox)Get(panel, "result")).text, Is.EqualTo(changed));
+                ((IDisposable)panel).Dispose(); ((IDisposable)panel).Dispose();
+                Assert.That((bool)Get(panel, "disposed"), Is.True);
             }
-            finally { (editor as IDisposable)?.Dispose(); Undo.ClearUndo(copy); UnityEngine.Object.DestroyImmediate(copy); }
+            finally { (panel as IDisposable)?.Dispose(); Undo.ClearUndo(copy); UnityEngine.Object.DestroyImmediate(copy); host.Close(); }
         }
     }
 }

@@ -4,7 +4,7 @@
 
 ## 人工配置
 
-打开 `Dark Nights / 工作台 → 工具与采集能力`。主工作台嵌入原生 YYGC 配置工坊的能力与 SharedConfigs 编辑区，明确选择工具或矿床；也可直接在 Project 中双击对应资产进入原生工坊。
+2026-10-03 当前入口：`Dark Nights / 工作台 → 对象与装备`，点击矿镐／矿床快捷目标进入原生 YYGC Definition Workshop。主工作台只保留采集装配与目标匹配辅助区；也可在 Project 中双击对应资产进入原生工坊。
 
 - 正式矿镐：`Game/Assets/DarkNights/Res/Objects/ShipTrade/item-pickaxe.asset`。`BehaviourTypes` 装配 `MiningToolBehaviour`；`SharedConfigs / 工具采集能力` 保存 `MiningToolConfig`。
 - `Targets` 设置支持前景岩壁、独立矿床或二者。当前正式矿镐只支持前景岩壁，保持上一轮“不与隐藏矿床交互”的产品行为。
@@ -15,7 +15,7 @@
 
 例如，要让某把镐只采铁矿床：在该工具 Definition 中启用 MineralDeposit，关闭 AllMaterials，Materials 填 iron；如还需限制矿床类型，在 Deposits 中选择对应 Definition。支持岩壁且限制材料时须同时列出需要的岩壁材料 Key。匹配预览使用与游戏同一纯匹配函数，但不替代距离、遮挡、权限和容量校验。
 
-编辑后直接校验并保存 Definition，不编译地形或创建新地形目录。新会话加载冻结规则。地形业务工作台的工具页改为此入口；地形作者数据仍走原有独立编译流程。
+在采集辅助区检查装配、白名单与匹配；编辑与保存统一由原生 Workshop 执行，不编译地形或创建新地形目录。新会话加载冻结规则。地形业务工作台的工具页改为此入口；地形作者数据仍走原有独立编译流程。
 
 ## 状态与装配合同
 

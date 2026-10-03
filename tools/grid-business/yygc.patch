@@ -432,3 +432,228 @@ index f72e989..f983d96 100644
              // Install 只交换已验证的引用，不调用用户代码；任何订阅都只能看到完整提交后的 State。
              foreach (SessionStateChange change in changes) change.Install();
              publishing = true;
+diff --git a/Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs b/Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs
+index cf6898e..83ae585 100644
+--- a/Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs
++++ b/Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs
+@@ -119,10 +119,8 @@ namespace GameCore.Editor.Objects.Definition
+                 EditorApplication.delayCall += () =>
+                 {
+                     if (_targetDefinition == null) return;
+-                    WorkshopConfigService.AutoSyncAndCleanConfigs(_targetDefinition, forceRefresh: true, () => {
+-                        _inspectorPresenter?.UpdateTrees();
+-                        _inspectorPresenter?.RepaintAll();
+-                    });
++                    _inspectorPresenter?.UpdateTrees();
++                    _inspectorPresenter?.RepaintAll();
+                 };
+             }
+         }
+@@ -258,10 +256,7 @@ namespace GameCore.Editor.Objects.Definition
+                 _serializedObject = new SerializedObject(_targetDefinition);
+                 _inspectorPresenter?.LoadTarget(_targetDefinition, _serializedObject);
+                 
+-                WorkshopConfigService.AutoSyncAndCleanConfigs(_targetDefinition, false, () => {
+-                    _inspectorPresenter?.UpdateTrees();
+-                    _inspectorPresenter?.RepaintAll();
+-                });
++                // 导航只装配编辑树；补齐配置由能力编辑、显式同步或保存负责。
+             }
+             else
+             {
+diff --git a/Editor/Objects/Definition/Workshop/WorkshopConfigService.cs b/Editor/Objects/Definition/Workshop/WorkshopConfigService.cs
+index adf6a3b..34d8604 100644
+--- a/Editor/Objects/Definition/Workshop/WorkshopConfigService.cs
++++ b/Editor/Objects/Definition/Workshop/WorkshopConfigService.cs
+@@ -9,6 +9,10 @@ using GameCore.Objects.Runner.DI;
+ 
+ namespace GameCore.Editor.Objects.Definition
+ {
++    /// <summary>
++    /// 显式能力编辑、同步和保存时补齐必需共享配置；真实配置变化才标记资产修改，强制刷新只通知视图。
++    /// 普通导航不调用此服务，未声明或暂不可用的配置保持原有数据。
++    /// </summary>
+     public static class WorkshopConfigService
+     {
+         public static bool AutoSyncAndCleanConfigs(ObjectDefinition targetDefinition, bool forceRefresh = false, Action onModified = null)
+@@ -36,11 +40,8 @@ namespace GameCore.Editor.Objects.Definition
+                 }
+             }
+ 
+-            if (isModified || forceRefresh)
+-            {
+-                EditorUtility.SetDirty(targetDefinition);
+-                onModified?.Invoke();
+-            }
++            if (isModified) EditorUtility.SetDirty(targetDefinition);
++            if (isModified || forceRefresh) onModified?.Invoke();
+ 
+             return isModified;
+         }
+diff --git a/Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs b/Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs
+new file mode 100644
+index 0000000..3113e0f
+--- /dev/null
++++ b/Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs
+@@ -0,0 +1,152 @@
++using System;
++using System.Collections;
++using System.IO;
++using System.Linq;
++using System.Reflection;
++using GameCore.Editor.Objects.Definition;
++using GameCore.Objects.Behaviours.Interfaces;
++using GameCore.Objects.Definition;
++using GameCore.Objects.Runner.DI;
++using NUnit.Framework;
++using UnityEditor;
++using UnityEngine;
++using UnityEngine.TestTools;
++
++namespace GameCore.Tests.IdRegistry
++{
++    /// <summary>
++    /// 原生工坊的导航只读、显式同步、保存重开与撤销回归；只写本用例的新资产目录。
++    /// 夹具和清单留给宿主归档，不删除中间资产，不改变游戏定义、数据库或既有工坊目标。
++    /// </summary>
++    public sealed class ObjectDefinitionWorkshopNavigationTests
++    {
++        private const BindingFlags Flags = BindingFlags.Instance | BindingFlags.NonPublic;
++        private const string LastTarget = "ObjectDefinitionWorkshop_LastTarget";
++        private ObjectDefinitionWorkshopWindow window;
++        private string root, previousPreference;
++        private bool hadPreference;
++
++        [SetUp]
++        public void SetUp()
++        {
++            hadPreference = EditorPrefs.HasKey(LastTarget); previousPreference = EditorPrefs.GetString(LastTarget);
++            EditorPrefs.DeleteKey(LastTarget);
++            root = "Assets/__YYGCWorkshopNavigation_" + Guid.NewGuid().ToString("N");
++            AssetDatabase.CreateFolder("Assets", root.Substring("Assets/".Length));
++            string manifest = Path.GetFullPath("../artifacts/workbench-aggregation-20261003/framework-fixtures.txt");
++            Directory.CreateDirectory(Path.GetDirectoryName(manifest));
++            File.AppendAllText(manifest, Path.GetFullPath(root) + System.Environment.NewLine);
++            window = ScriptableObject.CreateInstance<ObjectDefinitionWorkshopWindow>(); window.Show();
++        }
++
++        [TearDown]
++        public void TearDown()
++        {
++            if (window != null) window.Close();
++            if (hadPreference) EditorPrefs.SetString(LastTarget, previousPreference); else EditorPrefs.DeleteKey(LastTarget);
++            foreach (string guid in AssetDatabase.FindAssets("t:ObjectDefinition", new[] { root }))
++            {
++                var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(AssetDatabase.GUIDToAssetPath(guid));
++                Undo.ClearUndo(definition);
++            }
++        }
++
++        private ObjectDefinition Create(string name, bool complete)
++        {
++            var definition = ScriptableObject.CreateInstance<ObjectDefinition>();
++            definition.Name = name; definition.NetType = NetworkType.Local;
++            definition.BehaviourTypes.Add(typeof(NavigationBehaviour).AssemblyQualifiedName);
++            if (complete) definition.SharedConfigs.Add(new NavigationConfig { Marker = 17 });
++            AssetDatabase.CreateAsset(definition, root + "/" + name + ".asset");
++            EditorUtility.SetDirty(definition); AssetDatabase.SaveAssetIfDirty(definition);
++            return definition;
++        }
++
++        private void Call(string method, params object[] args) => window.GetType().GetMethod(method, Flags).Invoke(window, args);
++        private static object Field(object target, string name) => target.GetType().GetField(name, Flags).GetValue(target);
++
++        private IEnumerator FocusAndWait()
++        {
++            Call("OnFocus"); bool completed = false;
++            EditorApplication.delayCall += () => completed = true;
++            double deadline = EditorApplication.timeSinceStartup + 3;
++            while (!completed && EditorApplication.timeSinceStartup < deadline) yield return null;
++            Assert.That(completed, Is.True, "必须等待焦点回调完成再核对资产。");
++        }
++
++        [UnityTest]
++        public IEnumerator OpeningSelectingFocusingAndUndoRefreshKeepCompleteAndIncompleteAssetsUnchanged()
++        {
++            foreach (bool complete in new[] { true, false })
++            {
++                var definition = Create(complete ? "complete" : "incomplete", complete);
++                string before = JsonUtility.ToJson(definition);
++                byte[] bytes = File.ReadAllBytes(AssetDatabase.GetAssetPath(definition));
++                Assert.That(EditorUtility.IsDirty(definition), Is.False);
++                Call("LoadTarget", definition); yield return FocusAndWait();
++                Call("OnUndoRedoPerformed"); yield return FocusAndWait();
++                Assert.That(JsonUtility.ToJson(definition), Is.EqualTo(before));
++                Assert.That(EditorUtility.IsDirty(definition), Is.False);
++                CollectionAssert.AreEqual(bytes, File.ReadAllBytes(AssetDatabase.GetAssetPath(definition)));
++            }
++            var presenter = Field(window, "_inspectorPresenter");
++            Call("LoadTarget", (ObjectDefinition)null);
++            Assert.That(Field(presenter, "_basicTree"), Is.Null);
++            Assert.That(Field(presenter, "_leftTree"), Is.Null);
++            Assert.That(Field(presenter, "_rightTree"), Is.Null);
++        }
++
++        [Test]
++        public void ForcedRefreshNotifiesWithoutDirtyingCompleteConfiguration()
++        {
++            var definition = Create("refresh", true); bool notified = false;
++            string before = JsonUtility.ToJson(definition);
++            Assert.That(WorkshopConfigService.AutoSyncAndCleanConfigs(definition, true, () => notified = true), Is.False);
++            Assert.That(notified, Is.True);
++            Assert.That(EditorUtility.IsDirty(definition), Is.False);
++            Assert.That(JsonUtility.ToJson(definition), Is.EqualTo(before));
++        }
++
++        [UnityTest]
++        public IEnumerator ExplicitSyncSupportsUndoRedoAndExplicitSaveSurvivesReopen()
++        {
++            var definition = Create("save", false); Call("LoadTarget", definition);
++            Assert.That(definition.SharedConfigs, Is.Empty);
++            Undo.IncrementCurrentGroup();
++            Assert.That(WorkshopConfigService.AutoSyncAndCleanConfigs(definition), Is.True);
++            Undo.FlushUndoRecordObjects();
++            Assert.That(EditorUtility.IsDirty(definition), Is.True);
++            Assert.That(definition.SharedConfigs.Single(), Is.TypeOf<NavigationConfig>());
++            Undo.PerformUndo(); yield return FocusAndWait();
++            Assert.That(definition.SharedConfigs, Is.Empty);
++            Undo.PerformRedo(); yield return FocusAndWait();
++            Assert.That(definition.SharedConfigs.Single(), Is.TypeOf<NavigationConfig>());
++            ((NavigationConfig)definition.SharedConfigs.Single()).Marker = 73;
++            Call("SaveTargetDefinition");
++            string path = AssetDatabase.GetAssetPath(definition);
++            Assert.That(EditorUtility.IsDirty(definition), Is.False);
++            Call("LoadTarget", (ObjectDefinition)null); Undo.ClearUndo(definition);
++            Resources.UnloadAsset(definition);
++            var reopened = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(path);
++            Assert.That(((NavigationConfig)reopened.SharedConfigs.Single()).Marker, Is.EqualTo(73));
++            Call("LoadTarget", reopened); yield return FocusAndWait();
++            Assert.That(EditorUtility.IsDirty(reopened), Is.False);
++            var missing = Create("save-missing", false); Call("LoadTarget", missing);
++            Call("SaveTargetDefinition");
++            Assert.That(missing.SharedConfigs.Single(), Is.TypeOf<NavigationConfig>());
++            Assert.That(EditorUtility.IsDirty(missing), Is.False);
++        }
++
++        /// <summary>导航测试的必需共享配置；仅序列化夹具值，不参与运行对象或游戏数值。</summary>
++        [Serializable]
++        public sealed class NavigationConfig : IConfigData
++        {
++            public string Name => "导航回归配置";
++            public int Marker;
++        }
++
++        /// <summary>只供配置服务读取 RequireConfig 的测试声明，不进入运行 Behaviour 注册或实例化。</summary>
++        [RequireConfig(typeof(NavigationConfig))]
++        public sealed class NavigationBehaviour { }
++    }
++}
+diff --git a/Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs.meta b/Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs.meta
+new file mode 100644
+index 0000000..351e1a0
+--- /dev/null
++++ b/Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 8313169eeaf1e4d4d8fc19fa0079de80
+\ No newline at end of file

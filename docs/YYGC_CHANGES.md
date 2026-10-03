@@ -1,5 +1,20 @@
 # YYGC 修改授权与改动账本
 
+## 2026-10-03：获批 Workshop 导航修正
+
+用户在本聊天明确批准两个工坊文件、新导航回归、隔离验证及可重建依赖接入。落点为 detached 薄检出 `D:/Developer/YYGC-worktrees/workshop-navigation-20261003`，检查点 `0d461a29294a3932479f12db8800976b3261914a`。用户 `D:/Developer/YYGC` master 与其已有 RuntimeDebugHub.cs 修改未变；没有新建游戏分支、没有推送。
+
+| 框架相对文件 | 原因／最终行为 | 结果 |
+| --- | --- | --- |
+| `Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs` | 切目标与焦点不自动补配置，只刷新编辑树；原能力编辑、显式同步和保存仍同步 | 完整／缺失配置导航内容与 dirty 保持；原生目标转交、窗口复用通过 |
+| `Editor/Objects/Definition/Workshop/WorkshopConfigService.cs` | 真实配置变化才 SetDirty，forceRefresh 只触发视图回调 | 强制刷新不标脏；显式同步、Undo／Redo、保存重开通过 |
+| `Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs` | 新增导航只读、刷新、显式同步与持久夹具保存重开回归 | Local Editor 框架3/3，原生接入2/2 |
+| 同上 `.cs.meta` | Local Unity 导入生成的测试脚本元数据 | 保留原GUID并接入补丁，未手配GUID |
+
+游戏锁定基线 `fee18645c997ed7529c4592917de6c412033c84e` 不变，更新 `tools/grid-business/yygc.patch` 与 `dependency.lock.json`；补丁SHA-256为 `7b16e941cd7cc119e22b531678584103c697c6b5456b637658cdd0915a039811`。既有14项补丁保留，新修正4项；干净基线重建18/18与本机源码一致，准备脚本幂等通过。没有改 manifest、包版本、运行协议或存档。
+
+框架UPM测试默认未启用，本次由 `tools/workbench-navigation/prepare-probe.ps1` 从依赖唯一源产生临时镜像，编入现有游戏测试程序集验证。镜像、持久夹具及备用Git索引已按工程规则集中保留于 `artifacts/待清理/20261003-workbench-aggregation/`；无永久删除。游戏本批不同Editor用例合并16/16，作者资产436项保持。新增测试首轮命名空间冲突及旧焦点采样失败保留；没有Player、IL2CPP或联机验收。见[机器证据](evidence/workbench-aggregation-20261003.json)与[授权执行记录](WORKSHOP_NAVIGATION_FIX_PROPOSAL.md)。
+
 2026-10-02 工具 Definition 采集重构：**框架修改文件为 0**。新增游戏 MiningToolBehaviour 复用现有 RequireConfig／Inject、ObjectInstanceFactory／PreparedObjectDefinition、LocalObjectInstanceInitializer 和会话权限；无独立 DI、对象或状态框架。矿镐 Prefab 保留 GUID 补齐原生装配；新增炸弹定义身份使用 Unity meta 与 DefinitionIdentityAuthoring.AdoptCopiedAsset。真实装配与恢复验收见[本批说明](TOOL_DEFINITION_HARVESTING.md)。
 
 ## 2026-10-01 矿镐最近表面与持续挥舞

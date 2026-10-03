@@ -1,35 +1,42 @@
 # Dark Nights 工作台
 
-2026-10-03 重排。入口仍为 **Dark Nights → 工作台**。旧版把内嵌编辑、专用窗口启动和场景快捷动作都做成左侧页面，场景页常常只有一个按钮。当前按实际交互分成三个顶部工作区；只有能直接编辑的配置保留左侧目录。
+2026-10-03 原生编辑器聚合。入口仍为 **Dark Nights → 工作台**，沿用 `ref-20261003-workbench-layout`，没有新建分支。本轮依据“重做 Dark Nights 工作台布局”最后两轮确定的第一阶段实施：复用原生窗口，不嵌套 Definition Workshop 的控件，也不接管它的编辑与保存逻辑。
 
-| 工作区 | 内容 | 操作方式 |
+| 项目任务 | 直接操作 | 状态归属 |
 | --- | --- | --- |
-| 配置编辑 | Definition 浏览器、工具与采集能力、飞船交易与装备、规则与会话、飞船装备界面 | 左侧仅 5 项；右侧直接编辑或打开源文件 |
-| 场景与测试 | 14 个场景入口，按用途过滤 | 同一列表直接打开或定位，显示用途、路径及当前场景标记 |
-| 工具与预览 | 星球与航程、地形业务与耐久、岩壁／背景／地表 | 卡片直接启动专用窗口，作者资产可展开定位 |
+| 对象与装备 | 原生 Definition Workshop、YYGC Viewer；矿镐、矿床、手枪、炸药、喷气背包、商店、出售服务、会话常用目标；采集辅助区 | 列表、分类、搜索、装配、共享配置、保存归 Workshop；项目辅助区只读校验 |
+| 星球与航程 | 星球与航程编辑器、会话能力快捷目标、balance.json | 原窗口拥有草稿、冲突检查、应用／取消和预览 |
+| 地图与表现 | 地形业务与耐久、Cave Wall Tuner | 原窗口拥有编译、草稿、离屏画布和释放 |
+| 界面资源 | 原生 UI Builder／源文件打开、USS／主题、PanelSettings | 作者源文件和原生 Inspector，单资产显式保存 |
 
-场景目录默认优先显示正式游戏入口、地形预览、正式远征内容及岩层参考画面。专用测试、样例与模板默认折叠；退役项默认隐藏，通过“已退役”筛选或搜索查看，仍只定位。静态／随机旧营地及“旧玩法回归”分类已退出工作台，搜索也不再列出。项目仍有 16 个场景，两个旧营地仍被旧模式构建及历史测试引用；本批撤掉导航入口，没有删除或移动资产。搜索会展开匹配的次要分组。
+项目操作栏下方只有一行常用场景快捷入口：正式游戏、正式远征、地形预览、岩层参考。完整的 14 项场景目录收在“全部场景与测试”折叠区，保留用途筛选、搜索、定位和当前场景标记。旧营地不回到导航；退役项仍只定位。打开场景沿用未保存提示，不自动 Play。
 
-“已着陆 · 矿镐”复用 Bootstrap，不再重复占一条场景记录。操作提示直接放在正式游戏入口：**打开 Bootstrap → Play → F1 → 快速测试 → 已着陆 · 矿镐**。工作台打开场景不会自动 Play 或自动启动预设。
+## 原生停靠与操作边界
 
-搜索限当前工作区，三个工作区分别记住搜索词；场景和工具分别记住用途筛选。切区、域重载和窗口重建恢复当前工作区、资产选择及匹配输入。搜索未命中时显示空状态，清除搜索恢复原来的资产选择。打开场景沿用 Unity 的未保存提示；Play、编译和导入时禁用场景打开，定位仍可用。缺失资产显示路径，不自动创建。
+工作台新打开时优先停靠到 SceneView；项目动作通过 Unity 公开 `EditorWindow.GetWindow` 的 `desiredDockNextTo` 接口按需创建编辑器。新窗口优先与工作台／已打开的编辑器停靠，已存在窗口原位复用，不为调整位置关闭或重建窗口。若没有可用停靠宿主，Unity 使用普通窗口；可以原生拖动页签调整布局。接口行为参见 [Unity GetWindow 文档](https://docs.unity3d.com/6000.0/Documentation/ScriptReference/EditorWindow.GetWindow.html)。
 
-## UI Toolkit 排版
+切换任务只更新项目操作栏，不自动拉起编辑器；点击编辑动作才转到原生页签。因此切到原生工具后，项目操作栏位于自己的“Dark Nights 工作台”页签中，并非嵌套宿主里的永久工具条。原生 YY 菜单和原独立编辑入口继续可用。Viewer 直接按需打开，不调用会拉起其他管理窗口的 ObjectManagerSuite。
 
-窗口结构在 `Game/Assets/DarkNights/Res/Editor/Workbench/DarkNightsWorkbench.uxml`，视觉规则在同目录 `.uss`；均位于 Editor 资源目录。标题、顶部页签、工作区搜索、操作区和底部状态分开。浅色和深色 Editor 使用对应配色，按钮有选中、悬停与禁用状态。
+游戏侧 `DarkNightsDefinitionBrowser`、浏览器状态与 `DarkNightsDefinitionEditor` 已退出；对象列表、搜索和保存不再有游戏侧副本。采集辅助区与独立“采集校验”窗口复用同一只读面板：保留装配、白名单、材料／等级与目标匹配，按钮把选定工具或矿床转交 Workshop。辅助区不提供第二套配置编辑或保存。校验通过不替代正式采矿的距离、遮挡、状态和权限检查。
 
-配置目录保留可拖动双栏。场景和工具占整个工作区，避免启动按钮之前的中间详情页。窄于 1050px 时，场景动作移到说明下方，工具卡片改单列。Definition 浏览器在内容足够宽时左右排列列表和 Inspector，窄时转上下排列；采集工具／矿床／匹配页签等宽排列。
+任务、作者来源、采集目标、匹配输入和场景搜索保存在窗口导航状态中。界面来源与规则来源分别记忆；重建、切任务和关闭释放项目 Inspector、事件与定时器，不关闭原生窗口、不提交其他窗口草稿。Play、导入、编译期间暂停项目编辑入口与场景打开；资料定位仍可用。缺失来源显示路径，不生成资产。
 
-复杂资产编辑仍复用原生 YYGC 配置工坊；Odin 区域由 IMGUIContainer 承载。航程、地形编译和岩壁画布沿用原专用窗口的草稿、应用／取消及预览生命周期。工作台没有业务配置副本，导航和搜索不保存资产。切区释放原生编辑句柄；定时器只刷新界面状态，资产存在性仅在目录重建时读取。
+## YYGC 导航修正
 
-新增入口在 `DarkNightsWorkbenchCatalog` 显式声明 `Editor` 或 `Tool`；场景在 `GameSceneWorkbenchCatalog` 声明 `Scene` 或 `Reference`。不得把只有打开动作的项目登记成配置编辑页。
+接入时确认锁定 Workshop 在切目标时自动补齐配置，获得焦点时强制同步并标记未保存；有效配置虽不变，dirty 仍变为 true。用户在本聊天明确批准两个工坊文件、新导航测试、隔离验证及可重建依赖接入，随后完成修正。
 
-## 验证记录
+当前打开、切目标、切焦点及 Undo 后只刷新编辑树；能力编辑、显式同步和显式保存仍补齐必需配置。配置服务仅在真实变化时 SetDirty，forceRefresh 只通知刷新。完整和缺失配置的导航都通过内容／dirty 保持检查；显式同步、保存重开与 Undo／Redo 通过。项目没有屏蔽原生焦点或反射移动控件。
 
-本批仅改 Editor 工作台、相关回归与文档。Unity 编译通过；主工作台及场景测试 15/15，撤下旧营地后的受影响场景测试 2/2，按影响合并仍为 15 个不同用例。结果及失败历史见[机器证据](evidence/workbench-layout-20261003.json)；协议 23／存档 v16／AMP1 schema 2 和 YYGC 依赖保持。未构建 Player，本批不代表游戏玩法、联机或性能验收。
+落点为隔离 detached checkout `D:/Developer/YYGC-worktrees/workshop-navigation-20261003`，检查点 `0d461a2`；游戏接入锁定基线 `fee1864` 加更新后的 `tools/grid-business/yygc.patch`。没有切换或修改用户 YYGC master，其已有 RuntimeDebugHub 改动保留。逐文件账本见 [YYGC_CHANGES](YYGC_CHANGES.md)，授权范围与实际结果见[修正记录](WORKSHOP_NAVIGATION_FIX_PROPOSAL.md)。
 
-实际宽／窄窗口及工具卡片已检查；场景截图属于撤下旧营地前的首阶段，最终 14 项目录以编译结果和受影响测试为准。用户按 Esc 停止原生电脑操作后没有再执行原生点击或截图；没有补拍当前分类。Definition 浏览器实际布局读数为宽内容区 1000px 的 Row、窄内容区 637px 的 Column。唯一探针源与正式／失败报告保留在机器证据列出的 artifacts 路径，共享 Unity 缓存不移动；本批无符合归档条件的中间产物，归档和释放空间均为 0。
+## 本批验证
 
-2026-10-02 初版聚合及后续 Editor 修正是历史证据：[初版评估](EDITOR_WORKBENCH_ASSESSMENT.md)、[初版机器证据](evidence/editor-workbench-20261002.json)、[Definition 复评](DEFINITION_EDITOR_REVIEW.md)。当时交互探针 190/190、原生重绘及定位各 5/5，后续 Editor 11/11 与资产／生命周期 52/52；这些数字不算作本次重排通过。
+真实 Local Unity 6000.4.9f1 单一 Editor 通道。游戏侧任务／选择恢复、场景折叠搜索、错误装配与只读匹配、Undo／Redo、释放；原生目标转交、窗口复用、不嵌套、原保存／Undo 入口、Viewer 按需打开及航程草稿保持已执行。按最终影响合并为 **16/16 个不同用例**：项目辅助区与状态恢复9项、场景导航2项、原生接入2项、框架导航3项。最终计数、失败历史、资产保持与画面检查统一记录在[机器证据](evidence/workbench-aggregation-20261003.json)。
 
-布局参考 Unity 官方 [UXML 与样式引用](https://docs.unity3d.com/ja/2022.3/Manual/UIE-reference-other-files-from-uxml.html)及 [TwoPaneSplitView](https://docs.unity3d.com/ja/6000.0/ScriptReference/UIElements.TwoPaneSplitView.html)；实际兼容性以本项目 6000.4.9f1 检查为准。
+初轮原生焦点采样早于 delayCall，误得无 dirty；增加明确回调完成屏障后确认旧行为，并在获批修正后复测。修正后导航诊断为 navigation_clean=true、focus_marks_dirty=false、config_changed=false。框架新增回归使用独立持久夹具覆盖显式保存、卸载后重新读取及 Undo／Redo；没有改写游戏作者资产。
+
+仅涉及 Editor 导航、排版、辅助区、测试与文档。协议 23／存档 v16／AMP1 schema 2 不变，没有 Player、IL2CPP、联机或性能构建。开始时已有 ObjectArchetypeDatabase 改动单独保留，不计入本次提交。
+
+10-02 初版浏览器与内嵌编辑、10-03 前一版三个工作区的计数均是历史记录，不能替代本批：[初版评估](EDITOR_WORKBENCH_ASSESSMENT.md)、[初版证据](evidence/editor-workbench-20261002.json)、[此前重排证据](evidence/workbench-layout-20261003.json)。
+
+436项作者资产磁盘SHA-256保持；已有ObjectArchetypeDatabase改动未纳入提交。实际宽／窄布局与矿镐原生停靠已检查；浅色主题已实看，深色主题保留样式但未人工验图。临时框架夹具、可重建测试镜像和备用Git索引9项共449,195字节已集中移至 artifacts/待清理/20261003-workbench-aggregation/，清单记录原／目标绝对路径；没有永久删除，也不计作释放空间。最终报告、截图、薄隔离checkout和共享Unity缓存保留。

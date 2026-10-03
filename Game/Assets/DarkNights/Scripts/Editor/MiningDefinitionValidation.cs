@@ -5,7 +5,7 @@ using GameCore.Objects.Definition;
 
 namespace DarkNights.Editor
 {
-    /// <summary>专用采集保存前的只读装配校验；验证能力、配置和矿床白名单，不补齐配置、不保存资产。</summary>
+    /// <summary>采集辅助区的只读装配校验；验证能力、配置和矿床白名单，不补齐配置、不保存资产。</summary>
     internal static class MiningDefinitionValidation
     {
         internal static void Validate(ObjectDefinition definition, bool tool)

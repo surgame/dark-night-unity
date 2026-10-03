@@ -1,5 +1,7 @@
 # Unity 与 YYGC 依赖准备
 
+2026-10-03 工作台导航修正已按用户具体授权接入。YYGC基线仍为 `fee18645c997ed7529c4592917de6c412033c84e`，`tools/grid-business/yygc.patch` SHA-256更新为 `7b16e941cd7cc119e22b531678584103c697c6b5456b637658cdd0915a039811`；锁文件单独记录Editor工坊验收，不把原有 `validation: NOT_RUN` 的整体运行边界改成通过。干净基线重建18项与当前依赖一致，准备脚本幂等通过。两个工坊文件只改变导航／刷新语义，保留显式同步、保存和Undo；具体文件、隔离落点及测试见[YYGC账本](YYGC_CHANGES.md)。UPM路径、manifest、包版本、游戏协议23／存档v16／AMP1 schema2不变。
+
 2026-10-03 氧气移除候选仅更新游戏协议23／存档v16（含grid-business锁中的游戏版本记录），YYGC锁定提交、补丁哈希、UPM配置和AMP1 schema保持。薄worktree未恢复依赖或启动Unity；后续验证按现有锁定入口准备，不因本切片升级或修改YYGC。具体修改YYGC需先取得用户同意，见[AGENTS](../AGENTS.md)。
 
 2026-09-24 地图联网候选：游戏在 `ref-20260924-map-state-networking` 使用 YYGC 隔离提交 `e07e9a9e3e36cdbae1e0d39ec07aea555e95fbad` 的四个 AnyRuleD 包。先运行 `pwsh -NoProfile -File tools/prepare-map-packages.ps1 -FrameworkPath 'D:/Developer/YYGC-worktrees/map-state-networking'`，脚本从锁定提交归档到忽略的 `.deps/AnyRules-map-state-e07e9a9` 并校验 462 个文件；`Game/Packages/manifest.json` 与 `packages-lock.json` 指向同一提取。旧补丁式脚本已另存 `tools/prepare-map-packages-legacy.ps1`。YYGC 主检出无需切换，新增包及未验边界见[改动账本](YYGC_CHANGES.md)。

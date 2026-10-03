@@ -4,8 +4,8 @@ using UnityEngine;
 namespace DarkNights.Editor
 {
     /// <summary>
-    /// 采集面板的独立宿主；与聚合工作台复用同一 UI Toolkit 面板，不维护第二份编辑或匹配逻辑。
-    /// 域重载重新装配面板，窗口关闭释放原生 Inspector 和只读状态刷新。
+    /// 采集校验的独立宿主；与项目辅助区复用只读匹配面板，配置编辑统一交给原生 Workshop。
+    /// 域重载恢复目标和匹配输入，关闭释放只读状态刷新，不保存作者资产。
     /// </summary>
     internal sealed class MiningDefinitionWindow : EditorWindow
     {
@@ -13,8 +13,7 @@ namespace DarkNights.Editor
         [SerializeField] private MiningDefinitionPanelState selection = new MiningDefinitionPanelState();
         public static void Open()
         {
-            var window = GetWindow<MiningDefinitionWindow>("工具 Definition");
-            window.minSize = new Vector2(640, 560); window.Show();
+            DarkNightsNativeWorkspace.Mining();
         }
         public void CreateGUI()
         {

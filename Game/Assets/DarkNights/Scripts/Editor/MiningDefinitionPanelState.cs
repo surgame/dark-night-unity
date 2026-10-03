@@ -11,7 +11,7 @@ namespace DarkNights.Editor
     internal sealed class MiningDefinitionPanelState
     {
         public ObjectDefinition Tool, Deposit;
-        public string Tab = "tool", Material = "";
+        public string Material = "";
         public bool Mineral = true, Rare, Initialized;
         internal void Initialize()
         {

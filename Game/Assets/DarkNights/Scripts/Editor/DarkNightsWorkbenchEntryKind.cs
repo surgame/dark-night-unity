@@ -1,6 +1,6 @@
 namespace DarkNights.Editor
 {
-    /// <summary>工作台入口的交互职责；内嵌编辑、专用工具、可打开场景及只定位资料分别布局，不依据标题推断行为。</summary>
+    /// <summary>聚合操作的交互职责；项目作者来源、原生工具、场景快捷操作及只定位资料，不依据标题推断行为。</summary>
     internal enum DarkNightsWorkbenchEntryKind
     {
         Editor,

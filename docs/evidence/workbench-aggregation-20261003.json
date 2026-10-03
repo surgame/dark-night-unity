@@ -1,0 +1,232 @@
+{
+  "task": "workbench-aggregation-20261003",
+  "branch": "ref-20261003-workbench-layout",
+  "baseline": "f092c88",
+  "utc": "2026-10-03T09:26:17.5684172Z",
+  "unity": "6000.4.9f1",
+  "scope": "Native editor aggregation and explicitly approved YYGC Workshop navigation fix",
+  "validation": {
+    "distinct_cases": 16,
+    "passed": 16,
+    "latest_cases": [
+      {
+        "Name": "DarkNights.Tests.NativeWorkspaceEditorTests.ToolsOpenOnDemandReuseWindowsAndKeepJourneyDraft",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-framework"
+      },
+      {
+        "Name": "DarkNights.Tests.NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-framework"
+      },
+      {
+        "Name": "DarkNights.Tests.QuickTestEditorTests.PreferencePersistsSelectionAndRetiredIdsFallBack",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003"
+      },
+      {
+        "Name": "DarkNights.Tests.QuickTestEditorTests.SceneNavigationExcludesLegacyCampAndRetiredItemsOnlyLocate",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003"
+      },
+      {
+        "Name": "DarkNights.Tests.WorkbenchEditorTests.DuplicateTargetSelectionShowsErrorWithoutThrowingCallback",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-ui-final"
+      },
+      {
+        "Name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"duplicate-config\")",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-ui-final"
+      },
+      {
+        "Name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-behaviour\")",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-ui-final"
+      },
+      {
+        "Name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-config\")",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-ui-final"
+      },
+      {
+        "Name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-reference\")",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-ui-final"
+      },
+      {
+        "Name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"wrong-whitelist\")",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-ui-final"
+      },
+      {
+        "Name": "DarkNights.Tests.WorkbenchEditorTests.ReadOnlyMatchingTracksUndoRedoAndDisposesRefresh",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-ui-final"
+      },
+      {
+        "Name": "DarkNights.Tests.WorkbenchEditorTests.SceneSearchRestoresAcrossFoldoutAndGuiRebuild",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-ui-final"
+      },
+      {
+        "Name": "DarkNights.Tests.WorkbenchEditorTests.TaskSwitchAndRebuildRestoreSelectionWithoutOpeningNativeEditors",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-ui-final"
+      },
+      {
+        "Name": "GameCore.Tests.IdRegistry.ObjectDefinitionWorkshopNavigationTests.ExplicitSyncSupportsUndoRedoAndExplicitSaveSurvivesReopen",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-framework"
+      },
+      {
+        "Name": "GameCore.Tests.IdRegistry.ObjectDefinitionWorkshopNavigationTests.ForcedRefreshNotifiesWithoutDirtyingCompleteConfiguration",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-framework"
+      },
+      {
+        "Name": "GameCore.Tests.IdRegistry.ObjectDefinitionWorkshopNavigationTests.OpeningSelectingFocusingAndUndoRefreshKeepCompleteAndIncompleteAssetsUnchanged",
+        "Result": "Passed",
+        "Report": "workbench-aggregation-20261003-framework"
+      }
+    ],
+    "batches": [
+      {
+        "id": "workbench-aggregation-20261003",
+        "state": "Failed(Child)",
+        "utc": "2026-10-03T09:03:45.7928131Z",
+        "unity": "6000.4.9f1",
+        "passed": 11,
+        "failed": 1,
+        "skipped": 0
+      },
+      {
+        "id": "workbench-aggregation-20261003-native-r2",
+        "state": "Passed",
+        "utc": "2026-10-03T09:06:47.8309312Z",
+        "unity": "6000.4.9f1",
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "id": "workbench-aggregation-20261003-ui-final",
+        "state": "Passed",
+        "utc": "2026-10-03T09:10:48.875271Z",
+        "unity": "6000.4.9f1",
+        "passed": 9,
+        "failed": 0,
+        "skipped": 0
+      },
+      {
+        "id": "workbench-aggregation-20261003-framework",
+        "state": "Passed",
+        "utc": "2026-10-03T09:23:00.3490276Z",
+        "unity": "6000.4.9f1",
+        "passed": 5,
+        "failed": 0,
+        "skipped": 0
+      }
+    ],
+    "author_assets_checked": 436,
+    "author_assets_changed": [],
+    "navigation": {
+      "navigation_clean": true,
+      "focus_marks_dirty": false,
+      "config_changed": false,
+      "scope": "temporary_definition"
+    },
+    "reconstruction": {
+      "Passed": true,
+      "Base": "fee18645c997ed7529c4592917de6c412033c84e",
+      "Tree": "15f32cfce0dd918fcf42039df9e93aff264ae27e",
+      "Checked": 18,
+      "Paths": [
+        "AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet/package.json",
+        "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ChunkReplicaStateMachine.cs",
+        "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapInterestService.cs",
+        "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/MapProtocol.cs",
+        "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Protocol/ProtocolLimits.cs",
+        "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs",
+        "AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/ProtocolTests.cs",
+        "AnyRuleD~/Packages/com.tsgame.anyrules.networking/package.json",
+        "AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessCatalog.cs",
+        "AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessStateStore.cs",
+        "AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/IGridCellIdentitySource.cs",
+        "AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Contracts/IGridCellIdentitySource.cs.meta",
+        "AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Grid/ARDMap.cs",
+        "Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs",
+        "Editor/Objects/Definition/Workshop/WorkshopConfigService.cs",
+        "Runtime/Objects/NetworkStates/SessionStateChange.cs",
+        "Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs",
+        "Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs.meta"
+      ]
+    },
+    "final_compilation": "passed after temporary validation mirror and fixtures were archived"
+  },
+  "failure_history": [
+    "Initial focus sample ran before delayCall: 11 passed, 1 failed; callback barrier added",
+    "Temporary framework probe Environment.NewLine namespace collision fixed with System.Environment.NewLine"
+  ],
+  "yygc": {
+    "authorization": "User approved two Workshop files, navigation tests, isolated verification and reproducible dependency integration in this chat",
+    "isolated_checkout": "D:/Developer/YYGC-worktrees/workshop-navigation-20261003",
+    "isolated_commit": "0d461a29294a3932479f12db8800976b3261914a",
+    "source_files": [
+      "Editor/Objects/Definition/ObjectDefinitionWorkshopWindow.cs",
+      "Editor/Objects/Definition/Workshop/WorkshopConfigService.cs",
+      "Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs",
+      "Tests/IdRegistry/ObjectDefinitionWorkshopNavigationTests.cs.meta"
+    ],
+    "base": "fee18645c997ed7529c4592917de6c412033c84e",
+    "patch": "yygc.patch",
+    "patch_sha256": "7b16e941cd7cc119e22b531678584103c697c6b5456b637658cdd0915a039811",
+    "user_main_unchanged": true
+  },
+  "visual": {
+    "current_screenshots": [
+      "docs/evidence/workbench-aggregation-20261003/workbench-final.png",
+      "docs/evidence/workbench-aggregation-20261003/workshop-final.png"
+    ],
+    "before_framework_fix": [
+      "docs/evidence/workbench-aggregation-20261003/workbench-wide.png",
+      "docs/evidence/workbench-aggregation-20261003/workbench-narrow.png",
+      "docs/evidence/workbench-aggregation-20261003/workshop-pickaxe.png"
+    ],
+    "native_click": "Mine pickaxe shortcut opened original Workshop in same dock with item-pickaxe selected",
+    "wide_panel_approx_px": 1045,
+    "narrow_panel_approx_px": 665,
+    "theme": "Unity light theme",
+    "dark_theme_visual": "not manually verified"
+  },
+  "archive": {
+    "ArchivedItems": 9,
+    "ArchivedBytes": 449195.0,
+    "ReleasedBytes": 0,
+    "Manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261003-workbench-aggregation\\清单.md",
+    "DiskFree": [
+      {
+        "Name": "C",
+        "Free": 12133625856
+      },
+      {
+        "Name": "D",
+        "Free": 24819482624
+      }
+    ]
+  },
+  "not_run": [
+    "Player",
+    "IL2CPP",
+    "multiplayer",
+    "foreground performance"
+  ],
+  "unchanged": [
+    "Protocol 23",
+    "Save v16",
+    "AMP1 schema 2",
+    "Author scene/prefab/definition bytes and GUIDs",
+    "User-maintained YYGC master and pre-existing RuntimeDebugHub.cs change",
+    "Pre-existing ObjectArchetypeDatabase.asset modification excluded from commit"
+  ]
+}
