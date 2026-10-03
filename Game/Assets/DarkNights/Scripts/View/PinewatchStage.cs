@@ -9,6 +9,7 @@ namespace DarkNights.View
     /// 正式场景的显式摄像机、实体容器与背景绑定；镜头和昼夜渐变归本地客户端所有。
     /// 暂停时仍响应镜头，场景未开局时保持可见预览，不创建网络或可写世界。
     /// </summary>
+    [DefaultExecutionOrder(100)]
     public sealed class PinewatchStage : MonoBehaviour
     {
         [SerializeField] private UnityEngine.InputSystem.PlayerInput inputPlayer;
@@ -26,22 +27,32 @@ namespace DarkNights.View
         private float cameraHeight;
         private float targetCameraX = 255, targetCameraHeight, viewZoom = 2.8f;
         private float cameraXVelocity, cameraHeightVelocity, zoomVelocity;
+        private int sampledCameraFrame = -1;
+        private bool followingActor;
         private const float FollowSmoothTime = 0.24f;
         public bool RandomTerrain { get; set; }
         public Terrain.TerrainMiningSelectorSettings MiningSelector { get; set; } = new Terrain.TerrainMiningSelectorSettings();
         public float ActorPresentationScale { get; set; } = 1;
         public void FocusHero(Vector3 position)
         {
-            shipFraming = false;
+            shipFraming = false; followingActor = true;
             targetCameraHeight = RandomTerrain ? position.y * 100 : 0;
             targetCameraX = position.x * 100;
         }
         /// <summary>登船时连续调整目标取景，为整船、顶舱口和左侧远征面板留出空间。</summary>
         public void FocusShip(Vector3 position)
         {
-            shipFraming = true;
+            shipFraming = true; followingActor = true;
             targetCameraHeight = position.y * 100 + 90;
             targetCameraX = position.x * 100 - 240 / TargetZoom;
+        }
+        /// <summary>同一航程重定位船体时同步平移镜头和目标；保留速度与缩放，使屏幕相对位置不发生切换。</summary>
+        public void RebaseShipCamera(Vector3 translation)
+        {
+            if (!shipFraming || !cameraInitialized) return;
+            cameraX += translation.x * 100; targetCameraX += translation.x * 100;
+            cameraHeight += translation.y * 100; targetCameraHeight += translation.y * 100;
+            sceneCamera.transform.position += translation;
         }
         /// <summary>按本地冻结副本选择人物或飞船目标，镜头只跟随已插值的外观位置。</summary>
         public void FollowControlledActor(int actorId, SessionViewData frame, IEntityVisuals visuals)
@@ -52,11 +63,11 @@ namespace DarkNights.View
                     if (crew.Id == actorId && crew.Boarded)
                     {
                         EntityView ship = visuals.Visual(expedition.Ship.Id);
-                        if (ship != null) { FocusShip(ship.transform.position); return; }
+                        if (ship != null) { FocusShip(ship.transform.position); UpdateCamera(); return; }
                         break;
                     }
             EntityView hero = visuals.Visual(actorId);
-            if (hero != null) FocusHero(hero.transform.position);
+            if (hero != null) { FocusHero(hero.transform.position); UpdateCamera(); }
         }
         private double visualTime;
         private int epoch;
@@ -107,10 +118,12 @@ namespace DarkNights.View
 
         public void Move(float pixels)
         {
+            followingActor = false;
             cameraX += pixels; targetCameraX = cameraX; cameraXVelocity = 0; UpdateCamera();
         }
         public void Focus(float pixels)
         {
+            followingActor = false;
             cameraX = targetCameraX = pixels; cameraXVelocity = 0; Render();
         }
         public void ChangeZoom(float factor)
@@ -131,8 +144,10 @@ namespace DarkNights.View
             }
             night = Mathf.MoveTowards(night, target, Time.unscaledDeltaTime * 0.16f);
             visualTime += Time.unscaledDeltaTime;
-            Render();
         }
+
+        // 本地角色在默认 LateUpdate 更新目标后，再统一采样一次镜头，避免沿用上一帧目标。
+        private void LateUpdate() => Render();
 
         /// <summary>
         /// 在指定的本地表现时刻采样场景，用于编辑预览与固定状态画面对照；不推进世界或网络。
@@ -160,23 +175,26 @@ namespace DarkNights.View
         private void UpdateCamera()
         {
             float targetZoom = TargetZoom;
-            float delta = Time.unscaledDeltaTime;
+            float delta = sampledCameraFrame == Time.frameCount ? 0 : Time.unscaledDeltaTime;
+            sampledCameraFrame = Time.frameCount;
+            float half = Screen.width * 0.5f / viewZoom;
+            float goalX = shipFraming ? targetCameraX : Mathf.Clamp(targetCameraX, half, Mathf.Max(half, worldWidth - half));
             if (!cameraInitialized)
             {
-                cameraX = targetCameraX; cameraHeight = targetCameraHeight; viewZoom = targetZoom;
+                cameraX = goalX; cameraHeight = targetCameraHeight; viewZoom = targetZoom;
                 cameraInitialized = true;
             }
             else if (delta > 0)
             {
-                cameraX = Mathf.SmoothDamp(cameraX, targetCameraX, ref cameraXVelocity, FollowSmoothTime,
+                cameraX = Mathf.SmoothDamp(cameraX, goalX, ref cameraXVelocity, FollowSmoothTime,
                     Mathf.Infinity, delta);
                 cameraHeight = Mathf.SmoothDamp(cameraHeight, targetCameraHeight, ref cameraHeightVelocity,
                     FollowSmoothTime, Mathf.Infinity, delta);
                 viewZoom = Mathf.SmoothDamp(viewZoom, targetZoom, ref zoomVelocity, FollowSmoothTime,
                     Mathf.Infinity, delta);
             }
-            float half = Screen.width * 0.5f / viewZoom;
-            cameraX = Mathf.Clamp(cameraX, half, Mathf.Max(half, worldWidth - half));
+            half = Screen.width * 0.5f / viewZoom;
+            if (!shipFraming && !followingActor) cameraX = Mathf.Clamp(cameraX, half, Mathf.Max(half, worldWidth - half));
             sceneCamera.orthographicSize = Screen.height * 0.5f / viewZoom / 100;
             sceneCamera.transform.position = new Vector3(cameraX / 100, (cameraHeight + Screen.height * (expedition ? 0.04f : 0.215f) / viewZoom) / 100, -10);
         }

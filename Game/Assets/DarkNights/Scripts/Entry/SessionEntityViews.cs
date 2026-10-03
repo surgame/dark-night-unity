@@ -28,6 +28,8 @@ namespace DarkNights.Entry
         private int epoch, generation;
         private long connection;
         private SessionViewData applied;
+        private Vector3 displayedShipPosition;
+        private bool hasDisplayedShip;
         private readonly PresentationTimeline timeline = new PresentationTimeline();
         public int Count => views.Count;
         public EntityView Visual(int id) => Presentation(id)?.Visual;
@@ -50,6 +52,11 @@ namespace DarkNights.Entry
             SessionViewData frame = client.Replica.Current;
             if (connection != client.ConnectionGeneration || epoch != (frame?.Epoch ?? 0))
             {
+                if (connection == client.ConnectionGeneration && hasDisplayedShip && JourneyContinuity.IsArrival(applied, frame) &&
+                    applied.World.Expedition.Crew.Any(c => c.OwnerSlot == client.PlayerSlot && c.Boarded) &&
+                    frame.World.Expedition.Crew.Any(c => c.OwnerSlot == client.PlayerSlot && c.Boarded) &&
+                    JourneyContinuity.TryShipPosition(frame, out float x, out float height))
+                    stage.RebaseShipCamera(new Vector3(x / 100, height / 100, 0) - displayedShipPosition);
                 Clear();
                 connection = client.ConnectionGeneration;
                 epoch = frame?.Epoch ?? 0;
@@ -139,12 +146,17 @@ namespace DarkNights.Entry
             foreach (BuildingViewData building in frame.World.Buildings)
                 if (Presentation(building.Id) is BuildingPresentationBehaviour view)
                 {
-                    view.Present(building, frame.Epoch, stage.Ambient, frame.World.Expedition?.Devices.FirstOrDefault(d => d.Id == building.Id),
-                    frame.World.Expedition == null ? 0 : frame.World.Expedition.RobotModule + frame.World.Expedition.CargoModule * 2 + frame.World.Expedition.CrewModule * 4);
+                    var device = frame.World.Expedition?.Devices.FirstOrDefault(d => d.Id == building.Id);
+                    view.Present(building, frame.Epoch, stage.Ambient, device,
+                        frame.World.Expedition == null ? 0 : frame.World.Expedition.RobotModule + frame.World.Expedition.CargoModule * 2 + frame.World.Expedition.CrewModule * 4,
+                        timeline.X(building, now), timeline.Height(device, now));
                     var expedition = frame.World.Expedition;
                     if (building.Kind == "ship" && expedition?.Ship != null)
+                    {
                         ((BuildingView)view.Visual).PresentShip(expedition.Ship, expedition.Crew.Any(c => c.OwnerSlot == client.PlayerSlot && c.Boarded),
                             expedition.RobotModule + expedition.CargoModule * 2 + expedition.CrewModule * 4, Time.timeAsDouble);
+                        displayedShipPosition = view.Visual.transform.position; hasDisplayedShip = true;
+                    }
                 }
             foreach (WorksiteViewData site in frame.World.Worksites)
             {
@@ -179,6 +191,7 @@ namespace DarkNights.Entry
             foreach (int id in views.Keys.ToArray()) Remove(id);
             workKinds.Clear();
             applied = null;
+            hasDisplayedShip = false;
             timeline.Reset();
         }
 

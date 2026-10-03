@@ -30,7 +30,7 @@ namespace DarkNights.View.Expedition
         }
 
         public void Show(bool visible) => root.SetActive(visible && settings.Enabled);
-        public void Render(Camera camera, PlanetDefinition planet, Color skyTint)
+        public void Render(Camera camera, PlanetDefinition planet, Color skyTint, float opacity = 1)
         {
             Show(planet != null); if (!root.activeSelf) return;
             vertices.Clear(); colors.Clear(); triangles.Clear();
@@ -51,7 +51,7 @@ namespace DarkNights.View.Expedition
                     float wave = .5f + .24f * Mathf.Sin(wx * .57f + phase + layer * 2) + .15f * Mathf.Sin(wx * 1.39f + phase * 1.7f);
                     return Snap(ground + settings.RidgeHeight * .16f * (wave + (layer == 0 ? .4f : .05f)));
                 }
-                var tint = skyTint * (layer == 0 ? .92f : .73f); tint.a = 1;
+                var tint = skyTint * (layer == 0 ? .92f : .73f); tint.a = opacity;
                 for (float x = Mathf.Floor(left / step) * step; x < right; x += step)
                     Quad(x, x + step, Mathf.Min(bottom, ground - 2), Mathf.Min(bottom, ground - 2), Height(x), Height(x + step), tint, tint);
             }
@@ -66,8 +66,8 @@ namespace DarkNights.View.Expedition
                     float center = Snap(offset + cloud * period + Mathf.Sin(cloud * 2.3f + phase));
                     float altitude = Snap(ground + settings.CloudHeight * .16f + Mathf.Sin(cloud + phase) * .4f);
                     float width = 1.1f + .35f * Mathf.Sin(cloud * 3.1f + phase);
-                    Color tint = Color.Lerp(skyTint, Linear(new Color32(172, 184, 189, 255)), .35f); tint.a = .3f;
-                    Color edge = tint; edge.a = .06f;
+                    Color tint = Color.Lerp(skyTint, Linear(new Color32(172, 184, 189, 255)), .35f); tint.a = .3f * opacity;
+                    Color edge = tint; edge.a = .06f * opacity;
                     for (int strip = 0; strip < 16; strip++)
                     {
                         float x0 = Snap(center - width + strip * width / 8), x1 = Snap(center - width + (strip + 1) * width / 8);

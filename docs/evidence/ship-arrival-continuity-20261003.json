@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-03",
+  "branch": "fix-20261003-continuous-ship-arrival",
+  "baseline": "01d881da931e6ef29c6151eaeb7118e615d7e895",
+  "scope": "游戏侧飞船到达连续表现；编译与定向纯检查，未执行实际Play或Player验收",
+  "versions": {
+    "protocol": 23,
+    "save": 16,
+    "mapSchema": 2,
+    "yygcModified": false
+  },
+  "validation": {
+    "csharpAssembliesPassed": 6,
+    "csharpAssembliesTotal": 6,
+    "unityEditor": "6000.4.9f1",
+    "unityAssembliesPassed": 6,
+    "unityAssembliesTotal": 6,
+    "unityCompletedUtc": "2026-10-03T10:20:58.7117107Z",
+    "purePassed": 25,
+    "pureTotal": 25,
+    "pureFailures": 0,
+    "editorNUnit": "not_run",
+    "play": "not_run",
+    "shaderGpu": "not_run",
+    "player": "not_built",
+    "network": "not_run"
+  },
+  "sourceHashes": {
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\View\\Terrain\\TerrainArrivalVisibility.cs": "6a8cf4014660e495ac5b2c8c7d88762bbd540c054b11fade1461da9945178f02",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\View\\PinewatchStage.cs": "8ad1a6352b83575da9adbe5e569cba3bf3fee1ca0f5b8dbe06474268f2a3cdea",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\View\\BuildingPresentationBehaviour.cs": "5dc40118fd69a425b826321d3f073558b159427d3c9ea0e8772c8e0f58fde5e7",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\View\\Expedition\\JourneySurfaceBackdrop.cs": "08788451db80287f0e88cdf0b2bbadc54ec307f353cc8ef423006da550e2dcc6",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\View\\Expedition\\JourneyEnvironment.cs": "d610bde4b01cc91dc1d181f457e7ddaba82abcc1d65fc88a990537a466e6aadd",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\Terrain\\RandomLevelEntry.cs": "20334a909f485fe78785e9a404befcf8911b5a5b6aba437145c011e6ff2ce043",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\SessionEntityViews.cs": "caf91dbf21fd98d066321b6793b32c5f48db5f627f4747076e09e05ab0df230a",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\HeroPlayerController.cs": "bf0a7b37909c2d31e9f541f62e97be35bf4bd4410c75251cfb93449d5b51285f",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\ViewData\\JourneyContinuity.cs": "56037bd0ad2436f2256335328d34c7249472cffbfee9d2b2ee532711d42017ad",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\ViewData\\JourneyArrivalPresentation.cs": "6923a6e34f0d53e9ad4d77bafd749eea2bd24e6d15668a35d375d73e1f493ba1",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\ViewData\\PresentationTimeline.cs": "03e2eec547d3909c10d5a8c02eeaf053000d6aeb11e5082c53089eee8ca3befc",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\ShipArrivalPresentationTests.cs": "e7471f25cf42879fc25217983049607ded6934e51df42f95a502590a16f102e0",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\ShipArrivalCompileReceipt.cs": "3efc6fcf0108b15754a113a64c0e0f90518c2a1547eb53aa78b2389649954047"
+  },
+  "shaderHashes": [
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/CaveContourStatic/CaveStrata.shader",
+      "sha256": "4ca4d39ba8e05913ffe4b1989fc2fbfc926d14f5dc59644f10cf07ebc39a52db"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/CaveEntranceLayers/CaveBackgroundLayer.shader",
+      "sha256": "7bf6b552eb67bf896fa8d6b34b08cf9c368680b2c4c39911e8eb8b1f49fbeda7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/CaveExploration/CavePixelRock.shader",
+      "sha256": "92ffaf6e199dff3ebe05fe9a98ed62e697a55d2811fd7d939e3f520a4126436b"
+    }
+  ],
+  "reports": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-arrival-20261003\\csharp-r2\\compile.json",
+      "sha256": "04dad8fc026e8862065491b376991b8c5f2a8acd24ce837884a8de948e708cea"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-arrival-20261003\\unity-compile.json",
+      "sha256": "564ea32939ba732e69d074704cbf4c4c4bead71886e6bd54fe4278d02bf9df5e"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-arrival-20261003\\pure-checks-r2.json",
+      "sha256": "b0cfeb5a50df907f5cf962aafb8081ad5142a89043476095b87e1bb226c417e0"
+    }
+  ],
+  "archive": {
+    "manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261003-ship-arrival\\清单.md",
+    "items": 28,
+    "bytes": 25775579,
+    "freeBytes": 25282838528,
+    "deleted": false
+  },
+  "pendingChecklist": "docs/SHIP_ARRIVAL_CONTINUITY.md"
+}

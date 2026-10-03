@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-10-03 [飞船到达连续取景](SHIP_ARRIVAL_CONTINUITY.md)：已实现正常到达时镜头与船体同帧重定位、同步期间取景、船载统一插值和环境渐进显露。最终独立 C# 6/6、Local Unity 6000.4.9f1 导入编译 6/6、定向纯检查 25/25；实际 Play、Shader 绘制、受影响 Editor 用例及联机仍待验证。本轮未构建 Player，YYGC、协议 23／存档 v16／AMP1 schema 2不变。
+
 2026-10-03 [工作台原生聚合](EDITOR_WORKBENCH.md)继续位于 `ref-20261003-workbench-layout`，无新分支：四类任务操作栏、原生窗口停靠与目标转交、只读采集辅助区、场景快捷行和14项折叠目录。重复 Definition 浏览器／内嵌编辑退出。获批 YYGC 导航修正已在隔离checkout验证并接入锁定补丁；Editor按不同用例合并16/16，436项作者资产保持。协议23／存档v16／AMP1 schema2不变。
 
 2026-10-03 [氧气业务移除](OXYGEN_REMOVAL_EXECUTION.md)位于ref-20261003-remove-oxygen，协议23／存档v16，已在Local后台验证，候选分支此前已推送，本次合入本地main；本轮未推送主分支。原Editor119/121、资源12/12、正常Mono双进程130/130；两项尚无具体玩法的旧角色矿房／矿工用例已移除，本次剩余远征回归6/6。弱网失败保留并延后修复；完整游戏弱网验收须覆盖地图初次同步、换图和晚加入／重连。phase4／Landed再次完整出发问题仍保留。

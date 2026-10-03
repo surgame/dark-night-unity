@@ -21,6 +21,7 @@ namespace DarkNights.Entry.Terrain
         private RandomLevelTemplate template;
         private PinewatchStage stage;
         private TerrainPreview view;
+        private TerrainArrivalVisibility visibility;
         private JourneyEnvironment environment;
         private ChunkReplicaStateMachine subscribedReplica;
         private WorldIdentity world;
@@ -53,6 +54,7 @@ namespace DarkNights.Entry.Terrain
             {
                 network.Terrain.Pump();
                 var frame = network.Client.Replica.Current;
+                environment.DestinationDrawn = view != null && view.Ready;
                 environment.Present(frame);
                 var replica = network.Terrain.Replica;
                 if (!network.Terrain.DataReady || frame == null || network.Terrain.Epoch != frame.Epoch)
@@ -77,6 +79,8 @@ namespace DarkNights.Entry.Terrain
                     root.transform.localPosition = new Vector3(0, PlayableTerrain.OriginY / 100, 0);
                     root.transform.localScale = Vector3.one * (PlayableTerrain.CellPixels / 100f);
                     view = root.AddComponent<TerrainPreview>(); view.ViewCamera = stage.SceneCamera;
+                    visibility = root.AddComponent<TerrainArrivalVisibility>();
+                    visibility.Initialize(stage.SceneCamera, () => environment.SurfaceAmount);
                     view.SurfaceSky = journey?.Enabled == true;
                     var source = new TerrainReplicaSource(replica);
                     if (style != null) view.ShowCaveReplica(definition, style, source, replica.World, network.Terrain.Background);
@@ -86,7 +90,8 @@ namespace DarkNights.Entry.Terrain
                 }
                 if (frame != null) { view.SetMinerals(frame.World.Worksites); view.SetDevices(frame.World); }
                 if (view.LastError != null) throw view.LastError;
-                network.Terrain.PresentationReady = view.Ready;
+                network.Terrain.PresentationReady = view.Ready &&
+                    (journey?.Enabled != true || environment.SurfaceReady && visibility.FullyDrawn);
             }
             catch (Exception error) { network.Fail(error); }
         }
@@ -108,7 +113,7 @@ namespace DarkNights.Entry.Terrain
             if (subscribedReplica != null) subscribedReplica.Applied -= OnReplicaApplied;
             subscribedReplica = null;
             if (view != null) { view.gameObject.SetActive(false); Destroy(view.gameObject); }
-            view = null; presenting = false; network.Terrain.PresentationReady = false;
+            view = null; visibility = null; presenting = false; network.Terrain.PresentationReady = false;
             receivedSession = receivedStreamGeneration = receivedCommit = 0; receivedIdentityKnown = false;
         }
         private void OnDestroy() { Clear(); if (environment != null) Destroy(environment); network.Terrain?.Dispose(); }
