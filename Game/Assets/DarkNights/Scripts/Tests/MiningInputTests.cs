@@ -126,8 +126,8 @@ namespace DarkNights.Tests
             var map = world.Terrain.Map;
             var target = new CellCoord(targetU, -targetRow);
             var before = map.Read(target).Cell;
-            var mineral = deposit ? world.Index.MineralDeposits.OfType<MineralDepositBehaviour>().Single() : null;
-            int durability = deposit ? mineral.Durability : before.IsEmpty ? 0 : map.Query(target).State.Durability;
+            var mineral = deposit ? world.Terrain.Minerals : null;
+            int durability = deposit ? mineral.Query(target).State.Durability : before.IsEmpty ? 0 : map.Query(target).State.Durability;
             var handheld = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item.pickaxe")
                 .SharedConfigs.OfType<MiningToolConfig>().Single();
             int baseDamage = handheld.Damage;
@@ -150,13 +150,13 @@ namespace DarkNights.Tests
             }
             if (deposit)
             {
-                Assert.That(mineral.RequiredMiningLevel, Is.EqualTo(1));
-                Assert.That(world.CaptureView().MineralDeposits.Single(value => value.Id == mineral.Id).RequiredMiningLevel, Is.EqualTo(1));
+                Assert.That(mineral.Rules.RequiredLevel, Is.EqualTo(1));
+                Assert.That(world.CaptureView().MineralDeposits, Is.Empty);
             }
             var mining = new HeroMiningTarget(map.World.WorldId.ToString().Replace("-", ""), map.World.Epoch,
                 target.U, target.V, before.TileId, before.Flags,
                 deposit ? HeroMiningTargetKind.MineralDeposit : HeroMiningTargetKind.Foreground,
-                mineral?.Id ?? 0, map.ContentVersion(target), mineral?.PrimaryCell.ContentVersion ?? 0);
+                0, map.ContentVersion(target), mineral?.ContentVersion(target) ?? 0);
             var input = new HeroInputRequest(SessionAuthority.ProtocolVersion, authority.Epoch, authority.PolicyRevision,
                 actorId, state.ControlLease, 1, authority.ServerTick, 0, false, false, false, false,
                 0, state.SelectionRevision, true, false, false, false, mining);
@@ -165,7 +165,7 @@ namespace DarkNights.Tests
             authority.Tick();
             Assert.That(actor.CaptureState().EquipmentAction, Is.GreaterThan(0));
             Assert.That(world.Economy.CaptureState().Iron, Is.EqualTo(iron), "落镐前不能结算资源。");
-            if (deposit) Assert.That(mineral.Durability, Is.EqualTo(durability));
+            if (deposit) Assert.That(mineral.Query(target).State.Durability, Is.EqualTo(durability));
             for (int tick = 0; tick < Math.Ceiling(handheld.Seconds * handheld.ImpactFraction * 60) + 1; tick++)
                 authority.Tick();
             Assert.That(map.Read(target).Cell.IsEmpty, Is.EqualTo(material == 0 || succeeds && !deposit && damage >= durability));
@@ -173,10 +173,10 @@ namespace DarkNights.Tests
             Assert.That(world.Economy.CaptureState().Iron - iron, Is.EqualTo(reward));
             if (deposit)
             {
-                Assert.That(mineral.Remaining, Is.EqualTo(60 - reward));
+                Assert.That(mineral.Query(target).State.RemainingReserves, Is.EqualTo(60 - reward));
                 int expectedDurability = durability;
-                if (succeeds) expectedDurability = damage >= durability ? mineral.MaximumDurability : durability - damage;
-                Assert.That(mineral.Durability, Is.EqualTo(expectedDurability));
+                if (succeeds) expectedDurability = damage >= durability ? mineral.Rules.MaximumDurability : durability - damage;
+                Assert.That(mineral.Query(target).State.Durability, Is.EqualTo(expectedDurability));
             }
             else if (succeeds && damage < durability) Assert.That(map.Query(target).State.Durability, Is.EqualTo(durability - damage));
             else if (!succeeds && !deposit && material != 0) Assert.That(map.Query(target).State.Durability, Is.EqualTo(durability));
@@ -186,19 +186,11 @@ namespace DarkNights.Tests
             Assert.That(map.Read(new CellCoord(targetU + 1, -PlayableTerrain.CampRow)).Cell.IsEmpty, Is.False);
             if (deposit)
             {
-                if (!allowDeposit)
-                {
-                    int remaining = mineral.Remaining;
-                    Assert.That(world.Mutations.Run(() => (bool)typeof(MineralDepositBehaviour)
-                        .GetMethod("Extract", BindingFlags.Instance | BindingFlags.NonPublic)
-                        .Invoke(mineral, new object[] { 1 })), Is.True);
-                    Assert.That(mineral.Remaining, Is.EqualTo(remaining - 1), "独立采集能力不受矿镐开关影响。");
-                }
-                int savedRemaining = mineral.Remaining;
+                int savedRemaining = mineral.Query(target).State.RemainingReserves;
                 world.Restore(world.SaveCodec.Serialize(world.CaptureWorld()));
-                var restored = world.Index.MineralDeposits.Single();
-                Assert.That(restored.Remaining, Is.EqualTo(savedRemaining));
-                Assert.That(restored.RequiredMiningLevel, Is.EqualTo(1));
+                var restored = world.Terrain.Minerals;
+                Assert.That(restored.Query(target).State.RemainingReserves, Is.EqualTo(savedRemaining));
+                Assert.That(restored.Rules.RequiredLevel, Is.EqualTo(1));
             }
         }
     }

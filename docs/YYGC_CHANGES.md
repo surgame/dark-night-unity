@@ -1,5 +1,9 @@
 # YYGC 修改授权与改动账本
 
+## 2026-10-05 原生矿层游戏侧接线
+
+本批没有修改YYGC、AnyRules、`.deps`源码／补丁或升级锁定版本。原生前景 `MapWireMessage` 与独立 `MineralMapWireMessage`／序列化，以及 `NativeMapTransport<TWire>` 位于游戏Runtime，复用现有MapInterestService、MapProtocol及ChunkReplicaStateMachine。记录的373项框架文件哈希复核0项变化；当前限制及验证见[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
+
 ## 2026-10-03：获批 Workshop 导航修正
 
 用户在本聊天明确批准两个工坊文件、新导航回归、隔离验证及可重建依赖接入。落点为 detached 薄检出 `D:/Developer/YYGC-worktrees/workshop-navigation-20261003`，检查点 `0d461a29294a3932479f12db8800976b3261914a`。用户 `D:/Developer/YYGC` master 与其已有 RuntimeDebugHub.cs 修改未变；没有新建游戏分支、没有推送。

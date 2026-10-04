@@ -30,6 +30,7 @@ namespace DarkNights.Runtime.Network
                 world.Worksites != null && world.MineralDeposits != null && world.Projectiles != null);
             Require((long)world.Actors.Length + world.Buildings.Length + world.Worksites.Length + world.MineralDeposits.Length <= WorldViewData.MaximumEntities &&
                 world.Projectiles.Length <= WorldViewData.MaximumProjectiles);
+            Require(world.MineralDeposits.Length == 0);
             Require(world.Actors.All(a => a != null) && world.Buildings.All(b => b != null) && world.Worksites.All(w => w != null) && world.MineralDeposits.All(value => value != null));
             Require(world.Identities != null && world.Identities.Length == world.Actors.Length + world.Buildings.Length + world.Worksites.Length + world.MineralDeposits.Length);
             Require(world.MineralWorldId != null && (world.MineralWorldId.Length == 0 ? world.MineralMapEpoch == 0 &&

@@ -18,14 +18,15 @@ from test_network import NetworkRun, actor, world, sha256
 
 
 def minerals(report):
-    return [{key: value[key] for key in ("Id", "Capacity", "Remaining", "ResourceId")} |
-            {"Cells": [{key: cell[key] for key in ("U", "V", "Capacity", "Remaining", "Durability", "ContentVersion")}
-                       for cell in value["Cells"]]} for value in world(report)["MineralDeposits"]]
+    probe = report.get("mineralProbe")
+    return None if not probe else {key: probe[key] for key in ("u", "v", "remaining", "durability")}
 
 
 def cell(report, target):
-    deposit = next(value for value in world(report)["MineralDeposits"] if value["Id"] == target["entity"])
-    return next(value for value in deposit["Cells"] if value["U"] == target["u"] and value["V"] == target["v"])
+    probe = report.get("mineralProbe")
+    if not probe or probe["u"] != target["u"] or probe["v"] != target["v"]:
+        return {"Remaining": -1, "Durability": 1000000, "ContentVersion": -1}
+    return {"Remaining": probe["remaining"], "Durability": probe["durability"], "ContentVersion": probe["version"]}
 
 
 class MineralRun(NetworkRun):
@@ -61,12 +62,23 @@ class MineralRun(NetworkRun):
         self.consumed("host", count)
         self.send("host", operation="input-stop")
 
+    def observe(self, role, target):
+        report = self.ready(role)
+        count = self.send(role, operation="input-hold", actor=actor(report)["Id"], useHeld=False, aimAngle=target["aim"])
+        self.consumed(role, count)
+        value = self.wait(role, lambda r: r["ready"] and bool(r.get("mineralProbe")) and
+                          r["mineralProbe"]["u"] == target["u"] and r["mineralProbe"]["v"] == target["v"],
+                          "current local mineral region readable " + role)
+        self.consumed(role, self.send(role, operation="input-stop"))
+        return value
+
     def smoke(self):
         host = self.start("host")
         host = self.wait("host", lambda r: bool(r.get("mineralProbe")), "supported mineral ray")
         target = dict(host["mineralProbe"])
-        self.record("quick preset exposes real mineral cells", bool(world(host)["MineralDeposits"]) and target["capacity"] > 0)
+        self.record("quick preset exposes real mineral cells", not world(host)["MineralDeposits"] and target["capacity"] > 0 and host["terrain"]["mineralObjects"] == 0)
         self.start("client1")
+        self.observe("client1", target)
         self.peers_match(self.ready("host"), "initial mineral baseline", ["client1"])
         self.capture("initial-mineral-diagnostic")
         before = self.ready("host"); batches = before["terrainPresentation"]["mineralInputBatches"]
@@ -75,28 +87,32 @@ class MineralRun(NetworkRun):
         self.stop_mining(); self.pause(True)
         checkpoint = self.ready("host")
         self.record("damage preserves occupancy and content version", cell(checkpoint, target)["Remaining"] == target["remaining"] and
-                    cell(checkpoint, target)["ContentVersion"] == 1 and checkpoint["terrainPresentation"]["mineralInputBatches"] == batches)
+                    cell(checkpoint, target)["ContentVersion"] == target["version"] and checkpoint["terrainPresentation"]["mineralBuiltPages"] == before["terrainPresentation"]["mineralBuiltPages"])
         self.peers_match(checkpoint, "damage synchronized")
         for role in self.roles[2:]:
             self.start(role)
+        for role in self.live_roles():
+            report = self.ready(role)
+            self.record("foreground loads at most 25 local chunks " + role,
+                        0 < report["terrainPresentation"]["loadedTerrainChunks"] <= 25 and
+                        report["terrain"]["digestScope"] == "localSubscribedChunks")
         self.peers_match(checkpoint, "late join receives partial durability")
         count = self.send("client1", operation="input-raw", actor=actor(checkpoint)["Id"], lease=actor(checkpoint)["ControlLease"],
                           sequence=10000, useHeld=True, usePressed=True, aimAngle=target["aim"], mining=target)
         self.consumed("client1", count)
         self.record("remote input cannot modify another player while paused", minerals(self.ready("host")) == minerals(checkpoint))
-        save = self.saves / "v18" / "QuickTests" / self.args.quick_test / "slot-00.dnsave.json"
+        save = self.saves / "v19" / "QuickTests" / self.args.quick_test / "slot-00.dnsave.json"
         self.expect("host", "partial mineral save accepted", operation="Save", value=0)
         self.wait("host", lambda r: save.is_file() and not r["storageBusy"], "real mineral save")
         document = json.loads(save.read_text(encoding="utf-8-sig"))
-        self.record("v18 stores cells and no worksite minerals", document["format_version"] == 18 and
-                    bool(document["world"]["mineral_deposits"]) and
+        self.record("v19 stores native mineral map and no mineral entities", document["format_version"] == 19 and
+                    not document["world"]["mineral_deposits"] and bool(document["world"]["terrain"]["mineral_map"]) and
                     not any(value["kind"] == "mineral-deposit" for value in document["world"]["worksites"]))
         self.pause(False); self.mine(target)
         depleted = self.wait("host", lambda r: cell(r, target)["Remaining"] == 0, "one mineral cell depleted", seconds=120)
         self.stop_mining(); self.pause(True); depleted = self.ready("host")
-        self.record("depletion keeps stable bed and advances only cell content", cell(depleted, target)["ContentVersion"] == 2 and
-                    len(minerals(depleted)) == len(minerals(checkpoint)) and
-                    sum(value["Remaining"] for value in minerals(checkpoint)) - sum(value["Remaining"] for value in minerals(depleted)) == target["capacity"])
+        self.record("depletion clears native cell and keeps entity budget", cell(depleted, target)["ContentVersion"] > target["version"] and
+                    not world(depleted)["MineralDeposits"] and depleted["terrain"]["mineralObjects"] == 0)
         cargo = next(value for value in world(depleted)["Expedition"]["Crew"] if value["Id"] == actor(depleted)["Id"])
         self.record("harvest credits cargo once", cargo["Iron"] + cargo["Gold"] == target["capacity"])
         self.record("mineral removal refreshes mineral input without rebuilding background",
@@ -116,6 +132,11 @@ class MineralRun(NetworkRun):
         old_epoch = depleted["epoch"]
         self.send("host", operation="BeginLoad", value=0)
         loaded = self.wait("host", lambda r: r["ready"] and r["epoch"] > old_epoch, "restore partial mineral state")
+        self.pause(False)
+        for role in self.live_roles():
+            self.observe(role, target)
+        self.pause(True)
+        loaded = self.ready("host")
         self.record("load restores partial cell durability and keeps bed identity", minerals(loaded) == minerals(checkpoint))
         self.peers_match(loaded, "loaded cells synchronized")
         self.saved[0] = dict(path=str(save), sha256=sha256(save))
@@ -124,8 +145,12 @@ class MineralRun(NetworkRun):
         restarted = self.start("host")
         self.send("host", operation="BeginLoad", value=0)
         restarted = self.wait("host", lambda r: r["ready"] and r["epoch"] > restarted["epoch"], "real process restart loads mineral cells")
+        self.pause(False)
+        restarted = self.observe("host", target)
+        self.pause(True)
         self.record("process restart restores saved cells", minerals(restarted) == minerals(checkpoint))
-        self.start("client1"); self.peers_match(restarted, "late join after restart", ["client1"])
+        self.start("client1"); self.observe("client1", target)
+        self.peers_match(restarted, "late join after restart", ["client1"])
 
     def execute(self):
         try:
@@ -134,10 +159,10 @@ class MineralRun(NetworkRun):
                     "--target", str(self.args.port), "--loss", ".05", "--delay", ".1", "--jitter", ".025", "--duration", "1800",
                     "--report", str(self.run / "relay.json")], creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
             self.smoke()
-        except Exception:
+        except BaseException:
             self.error = traceback.format_exc()
         finally:
-            for role in list(self.processes):
+            for role in reversed(list(self.processes)):
                 self.stop(role)
             diagnostics = []
             for log in self.run.glob("*.log"):
@@ -169,11 +194,12 @@ def main():
     parser.add_argument("--player", required=True, type=Path)
     parser.add_argument("--clients", type=int, choices=(1, 3), default=1)
     parser.add_argument("--weak", action="store_true")
+    parser.add_argument("--background", action="store_true", help="Start graphics Players without requesting window activation on Windows")
     parser.add_argument("--port", type=int, default=29440)
     parser.add_argument("--output-root", type=Path, required=True)
     args = parser.parse_args()
     args.backend = "mono"; args.driver = "host"; args.interactive = False; args.keep_open = None
-    args.save_version = 18; args.quick_test = "landed-embedded-minerals"
+    args.save_version = 19; args.quick_test = "landed-embedded-minerals"
     return MineralRun(args).execute()
 
 

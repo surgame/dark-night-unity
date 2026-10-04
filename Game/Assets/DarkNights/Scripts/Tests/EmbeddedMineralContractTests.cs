@@ -21,7 +21,8 @@ namespace DarkNights.Tests
             var style = AssetDatabase.LoadAssetAtPath<DarkNights.View.Terrain.CaveTerrainStyle>("Assets/DarkNights/Res/Terrain/StrataCave/Style.asset");
             Assert.That(style.MineralDefinition, Is.SameAs(MineralLayerAssets.Ensure()));
             Assert.That(style.Background.FarOrder, Is.LessThan(DarkNights.View.Terrain.MineralLayerView.DefaultSortingOrder));
-            Assert.That(style.Background.DeepOrder, Is.GreaterThan(DarkNights.View.Terrain.MineralLayerView.DefaultSortingOrder + 3));
+            Assert.That(style.Background.NearOrder, Is.LessThan(DarkNights.View.Terrain.MineralLayerView.DefaultSortingOrder));
+            Assert.That(DarkNights.View.Terrain.MineralLayerView.DefaultSortingOrder + 3, Is.LessThan(0));
             Assert.That(style.Background.MiddleOrder, Is.GreaterThan(style.Background.DeepOrder));
             Assert.That(style.Background.NearOrder, Is.GreaterThan(style.Background.MiddleOrder));
         }

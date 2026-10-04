@@ -90,7 +90,9 @@ namespace DarkNights.Tests
             byte material = blueprint.MaterialAt(cell.x, cell.y) == 2 ? (byte)3 : (byte)2;
             session.Edits.PaintLine(cell.x, cell.y, Math.Min(318, cell.x + 20), cell.y, true, material); session.Edits.EndStroke();
             Assert.That(session.Map.CommitId, Is.EqualTo(commit + 1));
-            session.Teleport(cell.x, -cell.y + 1); Assert.That(session.Edit(cell.x, -cell.y, true), Is.True);
+            session.Teleport(cell.x, -cell.y + 1);
+            for (int hit = 0; hit < 32 && !session.Map.Read(new CellCoord(cell.x, -cell.y)).Cell.IsEmpty; hit++)
+                Assert.That(session.Edit(cell.x, -cell.y, true), Is.True);
             Assert.Throws<InvalidOperationException>(() => session.Edits.Undo());
             Assert.That(session.Map.Read(new CellCoord(cell.x, -cell.y)).Cell.IsEmpty, Is.True);
         }

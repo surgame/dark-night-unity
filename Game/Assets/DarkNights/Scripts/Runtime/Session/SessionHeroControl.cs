@@ -172,7 +172,7 @@ namespace DarkNights.Runtime.Session
                 if (input.Mining.Kind != DarkNights.Core.ViewData.HeroMiningTargetKind.Foreground &&
                     input.Mining.Kind != DarkNights.Core.ViewData.HeroMiningTargetKind.MineralDeposit ||
                     input.Mining.Kind == DarkNights.Core.ViewData.HeroMiningTargetKind.MineralDeposit &&
-                        (input.Mining.EntityId <= 0 || input.Mining.MineralContentVersion != 1) ||
+                        input.Mining.EntityId != 0 ||
                     input.Mining.Kind == DarkNights.Core.ViewData.HeroMiningTargetKind.Foreground &&
                         (input.Mining.EntityId != 0 || input.Mining.MineralContentVersion != 0))
                     return false;

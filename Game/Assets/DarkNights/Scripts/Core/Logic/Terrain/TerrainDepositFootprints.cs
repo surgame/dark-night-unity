@@ -10,7 +10,7 @@ namespace DarkNights.Core.Logic.Terrain
     {
         public const int NominalCells = 8;
         public const int MaximumCellsPerDeposit = 64;
-        public const int MaximumWorldCells = 4096;
+        public const int MaximumWorldCells = TerrainGenerationSettings.Width * TerrainGenerationSettings.Height;
         public const int Version = 1;
         private const int W = TerrainGenerationSettings.Width, H = TerrainGenerationSettings.Height;
         private static readonly int[] Dx = { 1, 0, -1, 0 }, Dy = { 0, 1, 0, -1 };

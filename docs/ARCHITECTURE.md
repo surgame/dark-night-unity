@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-10-05 [原生矿层候选](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：YYGC会话生命周期托管独立 ARDMap，GridBusinessStateStore 唯一拥有矿格耐久／储量；初始矿床为静态元数据，正式运行无逐矿床对象或逐格NetworkObject。前景与矿层均采用局部只读副本与AnyRuleD页面，换区保留静态背景宿主；普通采集组合一层地图与角色状态，拆墙保留后面的矿物。游戏协议25／存档v19／AMP1 schema2，下方逐床对象架构为历史。
+
 2026-10-04 [独立内嵌矿层](EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md)：矿床继续使用现有 YYGC ObjectInstance／MineralDepositBehaviour，每格状态只归 MineralDepositState，汇总容量与阶段按格派生。Core 拥有确定性初始分配及冻结合同；View 把专用矿床投影转成一个只读 AnyRuleD 矿层，借用既有光场，位于基础后壁与点缀之间。同矿连接，异矿各自形成普通边缘；占用不变的耐久更新不触发表现输入。无逐格对象、第二份运行状态或框架修改。协议24／存档v18／AMP1 schema2，验收边界见本批记录。
 
 2026-10-03 [氧气移除候选](OXYGEN_REMOVAL_EXECUTION.md)：ActorState不再持有Oxygen，远征配置、冻结投影、网络与存档同步删除该合同；设备只处理剩余设备部署与供电，PowerLinkRange仅表示供电距离。既有Behaviour／State权威归属保持，未增加总规则开关、占位氧气实现或新状态所有者。协议23／存档v16；原候选验证及弱网延后边界见验证记录，本次与三层背景成果一并保留于本地main。

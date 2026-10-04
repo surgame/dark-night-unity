@@ -90,31 +90,78 @@ namespace DarkNights.Tests
             var tool = world.Resources.Equipment.Mining(state.Slot0); var map = world.Terrain.Map;
             float radians = state.AimAngle * (float)Math.PI / 180;
             float dx = (float)Math.Cos(radians), dh = (float)Math.Sin(radians);
-            var candidates = world.Index.MineralDeposits.SelectMany(deposit => deposit.CaptureState().Cells.Select(cell =>
+            var minerals = world.Terrain.Minerals;
+            Assert.That(MineralMiningQuery.First(minerals, map, state.X, state.Height + tool.HandHeight, dx, dh,
+                tool.Reach, out var target, out _), Is.True);
+            int entities = world.Index.Count;
+            for (int slot = 1; slot < 4; slot++)
             {
-                bool hit = TerrainMiningGeometry.RayCell(state.X, state.Height + tool.HandHeight, dx, dh, tool.Reach,
-                    cell.U, cell.V, DarkNights.Core.Config.Terrain.TerrainCellShape.Full, out float distance);
-                return (deposit, cell, hit, distance);
-            })).Where(value => value.hit && map.Read(new CellCoord(value.cell.U, value.cell.V)).Cell.IsEmpty)
-                .OrderBy(value => value.distance).ToArray();
-            Assert.That(candidates.Length, Is.GreaterThan(0)); var selected = candidates[0];
-            var target = new CellCoord(selected.cell.U, selected.cell.V); var foreground = map.Read(target).Cell;
-            int total = selected.deposit.Remaining, capacity = selected.cell.Capacity;
-            for (int tick = 0; tick < 3000 && selected.deposit.CaptureState().Cells.Single(cell => cell.U == target.U && cell.V == target.V).Remaining > 0; tick++)
+                ShipScenario.Connect(authority, slot);
+                var peer = ShipScenario.Hero(world, slot).CaptureState();
+                Assert.That(peer.X, Is.EqualTo(state.X)); Assert.That(peer.Height, Is.EqualTo(state.Height));
+                Assert.That(peer.Slot0, Is.EqualTo(state.Slot0));
+            }
+            Assert.That(world.Index.Count, Is.EqualTo(entities), "快速局预设的四个专属角色直接接管，不重复增员。");
+            var foreground = map.Read(target).Cell;
+            int capacity = minerals.Query(target).State.RemainingReserves;
+            for (int tick = 0; tick < 3000 && !minerals.Read(target).Cell.IsEmpty; tick++)
             {
                 state = hero.CaptureState();
                 var mining = new HeroMiningTarget(map.World.WorldId.ToString().Replace("-", ""), map.World.Epoch,
                     target.U, target.V, foreground.TileId, foreground.Flags, HeroMiningTargetKind.MineralDeposit,
-                    selected.deposit.Id, map.ContentVersion(target), selected.cell.ContentVersion);
+                    0, map.ContentVersion(target), minerals.ContentVersion(target));
                 var input = new HeroInputRequest(SessionAuthority.ProtocolVersion, authority.Epoch, authority.PolicyRevision,
                     hero.Id, state.ControlLease, authority.ServerTick + 1, authority.ServerTick, 0, false, true, false, false,
                     aimAngle: state.AimAngle, selectionRevision: state.SelectionRevision, mining: mining);
                 Assert.That(authority.SubmitInput(host, input), Is.True); authority.Tick();
             }
-            Assert.That(selected.deposit.Remaining, Is.EqualTo(total - capacity));
+            Assert.That(minerals.Read(target).Cell.IsEmpty, Is.True);
+            Assert.That(world.Index.MineralDeposits, Is.Empty);
             Assert.That(map.Read(target).Cell, Is.EqualTo(foreground), "矿格耗尽不能修改前景");
             Assert.That(hero.CaptureState().CargoIron + hero.CaptureState().CargoGold, Is.EqualTo(capacity));
-            Assert.That(selected.deposit.CaptureState().Cells.Single(cell => cell.U == target.U && cell.V == target.V).ContentVersion, Is.EqualTo(2));
+            Assert.That(minerals.Query(target).HasState, Is.False);
+        });
+
+        [UnityTest]
+        public IEnumerator ConcurrentLastUnitAndRepeatedInputProduceOnlyOneCargoUnit() => UniTask.ToCoroutine(async () =>
+        {
+            using var scope = await UnifiedSessionScope.Create();
+            var world = await Create(scope, QuickTestPreset.EmbeddedMineralsId);
+            using var authority = new SessionAuthority(world);
+            var connections = new[] { ShipScenario.Connect(authority, 0), ShipScenario.Connect(authority, 1) };
+            var first = ShipScenario.Hero(world, 0).CaptureState();
+            var tool = world.Resources.Equipment.Mining(first.Slot0); var map = world.Terrain.Map; var minerals = world.Terrain.Minerals;
+            float angle = first.AimAngle * (float)Math.PI / 180;
+            Assert.That(MineralMiningQuery.First(minerals, map, first.X, first.Height + tool.HandHeight,
+                (float)Math.Cos(angle), (float)Math.Sin(angle), tool.Reach, out var target, out _), Is.True);
+            var hit = typeof(MineralMapAuthority).GetMethod("StageHit", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+            world.Mutations.Run(() =>
+            {
+                int reserves = minerals.Query(target).State.RemainingReserves;
+                for (int i = 1; i < reserves; i++) hit.Invoke(minerals, new object[] { target, 40, 0 });
+                return true;
+            });
+            var foreground = map.Read(target).Cell;
+            var intent = new HeroMiningTarget(map.World.WorldId.ToString().Replace("-", ""), map.World.Epoch,
+                target.U, target.V, foreground.TileId, foreground.Flags, HeroMiningTargetKind.MineralDeposit,
+                0, map.ContentVersion(target), minerals.ContentVersion(target));
+            for (int tick = 0; tick < 300 && !minerals.Read(target).Cell.IsEmpty; tick++)
+            {
+                foreach (var connection in connections)
+                {
+                    var hero = ShipScenario.Hero(world, connection.PlayerSlot); var state = hero.CaptureState();
+                    var input = new HeroInputRequest(SessionAuthority.ProtocolVersion, authority.Epoch, authority.PolicyRevision,
+                        hero.Id, state.ControlLease, authority.ServerTick + 1, authority.ServerTick, 0, false, true, false, false,
+                        aimAngle: first.AimAngle, selectionRevision: state.SelectionRevision, mining: intent);
+                    Assert.That(authority.SubmitInput(connection, input), Is.True);
+                    Assert.That(authority.SubmitInput(connection, input), Is.False, "重发同一输入序号必须拒绝。");
+                }
+                authority.Tick();
+            }
+            Assert.That(minerals.Read(target).Cell.IsEmpty, Is.True);
+            int cargo = connections.Sum(connection =>
+            { var state = ShipScenario.Hero(world, connection.PlayerSlot).CaptureState(); return state.CargoIron + state.CargoGold; });
+            Assert.That(cargo, Is.EqualTo(1)); Assert.That(map.Read(target).Cell, Is.EqualTo(foreground));
         });
 
         private static async UniTask<ObjectSession> Create(UnifiedSessionScope scope, string id = QuickTestPreset.LandedPickaxeId)

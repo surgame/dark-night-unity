@@ -56,16 +56,20 @@ namespace DarkNights.Runtime.Objects
             float x, height, aim = -90;
             if (id == EmbeddedMineralsId) MineralQuickTestSpawn.Find(world, tool, out x, out height, out aim);
             else FindSpawn(world, tool, out x, out height);
-            var hero = world.Commands.SpawnDefaultResident()
-                ?? throw new InvalidOperationException("快速测试主角装配失败。");
-            var state = hero.Edit();
-            state.OwnerSlot = 0; state.ManualControl = true; state.Boarded = false;
-            state.X = state.MoveX = state.RallyX = x; state.Height = height;
-            state.VerticalSpeed = 0; state.SupportPlatform = 0;
-            HeroControlBehaviour.ResetInput(state);
-            if (!HeroInventoryBehaviour.Give(state, definition.Guid.ToString()))
-                throw new InvalidOperationException("快速测试矿镐装备失败。");
-            state.SelectedItem = 0; state.AimAngle = aim;
+            int players = id == EmbeddedMineralsId ? 4 : 1;
+            for (int slot = 0; slot < players; slot++)
+            {
+                var hero = world.Commands.SpawnDefaultResident()
+                    ?? throw new InvalidOperationException("快速测试主角装配失败。");
+                var state = hero.Edit();
+                state.OwnerSlot = slot; state.ManualControl = true; state.Boarded = false;
+                state.X = state.MoveX = state.RallyX = x; state.Height = height;
+                state.VerticalSpeed = 0; state.SupportPlatform = 0;
+                HeroControlBehaviour.ResetInput(state);
+                if (!HeroInventoryBehaviour.Give(state, definition.Guid.ToString()))
+                    throw new InvalidOperationException("快速测试矿镐装备失败。");
+                state.SelectedItem = 0; state.AimAngle = aim;
+            }
             world.Notify("矿镐快速测试已准备：已着陆、人在舱外；返回主菜单可启动干净的新测试局。");
         }
 

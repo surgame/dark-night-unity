@@ -48,10 +48,9 @@ namespace DarkNights.Runtime.Objects
         }
         internal int AssignMiner(int id)
         {
-            var deposit = world.Index.Find<MineralDepositBehaviour>(id);
             var miner = world.Index.Actors.FirstOrDefault(a => a.RuleKey == "miner");
-            if (deposit == null || miner == null || deposit.Remaining <= 0) return 0;
-            if (!TryMinerCell(deposit, miner, out _))
+            if (miner == null || !MineralTaskTarget.TryDecode(id, out int u, out int v)) return 0;
+            if (!TryMinerCell(new AnyRules.Next.CellCoord(u, v), miner, out _))
             { world.Notify("矿工需要双向步行通路，请先开路。", true); return 0; }
             miner.Edit().TaskTarget = id; miner.Edit().TaskPhase = 1; return 1;
         }
@@ -114,8 +113,9 @@ namespace DarkNights.Runtime.Objects
             var s = miner.Edit(); s.Walking = false; s.ActionTime += delta;
             if (Flight.Ship.Read().ShipPhase >= 2 || miner.Hp <= 0) return;
             bool returning = world.Ship.Recalling || s.CargoIron + s.CargoGold >= Flight.Rules.BagCapacity;
-            var deposit = world.Index.Find<MineralDepositBehaviour>(s.TaskTarget);
-            if (returning || deposit == null || deposit.Remaining == 0)
+            bool hasTarget = MineralTaskTarget.TryDecode(s.TaskTarget, out int u, out int v) &&
+                TryMinerCell(new AnyRules.Next.CellCoord(u, v), miner, out _);
+            if (returning || !hasTarget)
             {
                 var destination = world.Index.Buildings.FirstOrDefault(b => b.RuleKey == "storage" && b.Read().Powered &&
                     b.Read().CargoIron + b.Read().CargoGold < Flight.Rules.StorageCapacity) ?? Flight.Ship;
@@ -125,7 +125,7 @@ namespace DarkNights.Runtime.Objects
                 if (world.Ship.Recalling) s.Boarded = true;
                 return;
             }
-            if (!TryMinerCell(deposit, miner, out var target)) return;
+            if (!TryMinerCell(new AnyRules.Next.CellCoord(u, v), miner, out var target)) return;
             float h = Core.Logic.Terrain.TerrainMiningGeometry.CenterHeight(target.V);
             float x = Core.Logic.Terrain.TerrainMiningGeometry.CenterX(target.U);
             if (!Navigation.Move(miner, x, h, delta, false)) return;
@@ -135,18 +135,26 @@ namespace DarkNights.Runtime.Objects
             s.TaskClock = 0;
             int damage = world.Resources.Equipment.Mining(GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance
                 .GetDefinitionByKey("item.pickaxe").Guid.ToString()).Damage;
-            if (target.Durability <= damage && !ExpeditionCargo.CanCollect(miner, Math.Min(target.Remaining, deposit.UnitsPerHarvest))) return;
+            var minerals = world.Terrain.Minerals;
+            var sample = minerals.Query(target);
+            if (sample.State.Durability <= damage && !ExpeditionCargo.CanCollect(miner, Math.Min(sample.State.RemainingReserves, minerals.Rules.UnitsPerHarvest))) return;
             var tool = world.Resources.Equipment.Mining(GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance
                 .GetDefinitionByKey("item.pickaxe").Guid.ToString());
-            if (deposit.HitByTool(tool, target.U, target.V, target.ContentVersion, out int harvested) && harvested > 0)
-                ExpeditionCargo.Collect(miner, deposit.ResourceId, harvested);
+            if (minerals.Rules.BlockReason(tool, minerals.Read(target).Cell.TileId).Length == 0 &&
+                minerals.StageHit(target, damage, out int harvested) && harvested > 0)
+                ExpeditionCargo.Collect(miner, minerals.Rules.Resource(sample.Sample.Cell.TileId), harvested);
         }
 
-        private bool TryMinerCell(MineralDepositBehaviour deposit, ActorBehaviour miner, out MineralCellState target)
+        private bool TryMinerCell(AnyRules.Next.CellCoord anchor, ActorBehaviour miner, out AnyRules.Next.CellCoord target)
         {
-            foreach (var cell in deposit.Read().Cells.Where(value => value.Remaining > 0).OrderBy(value =>
-                Distance(miner.X, miner.Read().Height, Core.Logic.Terrain.TerrainMiningGeometry.CenterX(value.U),
-                    Core.Logic.Terrain.TerrainMiningGeometry.CenterHeight(value.V))))
+            var cells = new System.Collections.Generic.List<AnyRules.Next.CellCoord>();
+            for (int v = anchor.V - 4; v <= anchor.V + 4; v++) for (int u = anchor.U - 4; u <= anchor.U + 4; u++)
+            {
+                var cell = new AnyRules.Next.CellCoord(u, v);
+                if (world.Terrain.Minerals.Descriptor.Bounds.Contains(cell) && world.Terrain.Minerals.Read(cell).TryGetCell(out var ore) && !ore.IsEmpty) cells.Add(cell);
+            }
+            foreach (var cell in cells.OrderBy(value => Distance(miner.X, miner.Read().Height,
+                TerrainMiningGeometry.CenterX(value.U), TerrainMiningGeometry.CenterHeight(value.V))))
             {
                 if (!world.Terrain.Map.Read(new AnyRules.Next.CellCoord(cell.U, cell.V)).TryGetCell(out var foreground) || !foreground.IsEmpty) continue;
                 if (!Navigation.CanReach(miner, Core.Logic.Terrain.TerrainMiningGeometry.CenterX(cell.U),

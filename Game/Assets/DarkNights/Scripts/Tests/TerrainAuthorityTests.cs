@@ -42,7 +42,7 @@ namespace DarkNights.Tests
             for (int v = -115; v <= -100; v++) for (int u = 115; u < 140; u++)
             {
                 var p = new CellCoord(u, v);
-                if (map.Read(p).TryGetCell(out var c) && !c.IsEmpty && c.Flags == 0) return p;
+                if (map.Read(p).TryGetCell(out var c) && !c.IsEmpty && (c.Flags & 1) == 0) return p;
             }
             throw new Exception("Missing destructible fixture.");
         }
@@ -51,7 +51,7 @@ namespace DarkNights.Tests
             for (int v = -115; v <= -100; v++) for (int u = 115; u < 140; u++)
             {
                 var p = new CellCoord(u, v);
-                if (map.IsSoftRock(p) && map.Read(p).TryGetCell(out var c) && !c.IsEmpty && c.Flags == 0) return p;
+                if (map.IsSoftRock(p) && map.Read(p).TryGetCell(out var c) && !c.IsEmpty && (c.Flags & 1) == 0) return p;
             }
             throw new Exception("Missing soft-rock fixture.");
         }
@@ -59,7 +59,7 @@ namespace DarkNights.Tests
         public void LocalDestructionTouchesAtMostFourPagesAndIsFrozen()
         {
             var p = Target(); var before = map.CaptureSnapshot(new GridBounds(p.U, p.V, 1, 1));
-            var receipt = map.DestroyTrusted(1, 1, map.World, map.CommitId, new[] { p }, _ => true);
+            var receipt = DestroyFully(p);
             Assert.That(receipt.ChangedChunks.Count, Is.EqualTo(1));
             Assert.That(receipt.PageTargets.Count, Is.InRange(1, 4));
             Assert.That(before.Read(p).Cell.IsEmpty, Is.False);
@@ -71,7 +71,7 @@ namespace DarkNights.Tests
         {
             var p = Target(); ulong before = map.CommitId;
             Assert.Throws<InvalidOperationException>(() => map.DestroyTrusted(1, 1, map.World, before,
-                new[] { p, new CellCoord(62, -73) }, _ => true));
+                new[] { p, new CellCoord(62, -191) }, _ => true));
             Assert.That(map.CommitId, Is.EqualTo(before)); Assert.That(map.Read(p).Cell.IsEmpty, Is.False);
             Assert.Throws<InvalidOperationException>(() => map.DestroyTrusted(1, 1, map.World, before, new[] { p }, _ => false));
             current = false;
@@ -82,7 +82,7 @@ namespace DarkNights.Tests
         {
             var soft = SoftTarget(); var normal = Target();
             Assert.That(map.BuildTargets(TerrainEditAction.HandMine, soft).Count, Is.EqualTo(1));
-            Assert.Throws<InvalidOperationException>(() => map.BuildTargets(TerrainEditAction.HandMine, normal));
+            Assert.That(map.BuildTargets(TerrainEditAction.HandMine, normal).Count, Is.EqualTo(1), "当前矿镐支持普通岩壁耐久");
             var targets = map.BuildTargets(TerrainEditAction.HandMine, soft);
             var first = map.DestroyTrusted(2, "mine-1", TerrainEditAction.HandMine, map.World, map.CommitId,
                 soft, targets, _ => true);
@@ -104,21 +104,28 @@ namespace DarkNights.Tests
             var hello = TerrainMapNetworking.Handshake(map, gameplay, visualDigest);
             ulong policy = 1; bool permitted = true;
             var stream = TerrainMapNetworking.OpenStream(map, hello, 10, _ => permitted, () => policy);
-            var replica = TerrainMapNetworking.CreateReplica(gameplay, visualDigest);
+            var replica = TerrainMapNetworking.CreateReplica(gameplay, visualDigest, map.Rules.Business);
             stream.Subscribe(new GridBounds(96, -128, 64, 64)); Drain(stream, replica);
             long scans = stream.PublicationScanCount;
             for (int i = 0; i < 1000; i++) Assert.That(stream.Publish(), Is.False);
             Assert.That(stream.PublicationScanCount, Is.EqualTo(scans));
-            var p = Target(); map.DestroyTrusted(1, 1, map.World, map.CommitId, new[] { p }, _ => true);
+            var p = Target(); DestroyFully(p);
             Assert.That(stream.Publish(), Is.True); Drain(stream, replica);
             Assert.That(replica.Read(p).Cell.IsEmpty, Is.True);
-            var late = TerrainMapNetworking.CreateReplica(gameplay, visualDigest);
+            var late = TerrainMapNetworking.CreateReplica(gameplay, visualDigest, map.Rules.Business);
             var lateStream = TerrainMapNetworking.OpenStream(map, hello, 11, _ => true, () => policy);
             lateStream.Subscribe(new GridBounds(96, -128, 64, 64)); Drain(lateStream, late);
             Assert.That(late.Read(p).Cell.IsEmpty, Is.True);
             permitted = false; policy++;
             Assert.That(stream.Publish(), Is.True); Drain(stream, replica);
             Assert.That(replica.Read(p).TryGetCell(out _), Is.False);
+        }
+        private GridCommitReceipt DestroyFully(CellCoord cell)
+        {
+            GridCommitReceipt receipt = null; ulong sequence = 1;
+            while (!map.Read(cell).Cell.IsEmpty)
+                receipt = map.DestroyTrusted(1, sequence++, map.World, map.CommitId, new[] { cell }, _ => true);
+            return receipt;
         }
         private static void Drain(MapInterestService stream, ChunkReplicaStateMachine replica)
         {

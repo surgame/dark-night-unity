@@ -76,7 +76,8 @@ namespace DarkNights.Entry.Terrain
                     root.transform.SetParent(transform, false);
                     root.transform.localPosition = new Vector3(0, PlayableTerrain.OriginY / 100, 0);
                     root.transform.localScale = Vector3.one * (PlayableTerrain.CellPixels / 100f);
-                    view = root.AddComponent<TerrainPreview>(); view.ViewCamera = stage.SceneCamera;
+                    view = root.AddComponent<TerrainPreview>(); view.UseMineralReplica = style?.MineralDefinition != null; view.ViewCamera = stage.SceneCamera;
+                    view.LocalRegion = network.Terrain.Region;
                     view.SurfaceSky = journey?.Enabled == true;
                     var source = new TerrainReplicaSource(replica);
                     if (style != null) view.ShowCaveReplica(definition, style, source, replica.World, network.Terrain.Background);
@@ -84,20 +85,12 @@ namespace DarkNights.Entry.Terrain
                     subscribedReplica = replica;
                     subscribedReplica.Applied += OnReplicaApplied;
                 }
-                bool mineralsCurrent = frame.World.MineralWorldId == world.WorldId.ToString().Replace("-", "") &&
-                    frame.World.MineralMapEpoch == world.Epoch;
-                if (mineralsCurrent)
-                    foreach (var mineral in frame.World.MineralDeposits)
-                        foreach (var cell in mineral.Cells)
-                        {
-                            var position = new CellCoord(cell.U, cell.V);
-                            if (!replica.Read(position).TryGetCell(out _) || replica.ContentVersion(position) < cell.ForegroundContentVersion)
-                                mineralsCurrent = false;
-                        }
-                if (mineralsCurrent) view.SetMinerals(frame.World.MineralDeposits);
+                var minerals = network.Terrain.Minerals;
+                view.SetReplicaRegion(replica, network.Terrain.Region, network.Terrain.LocalDataReady);
+                view.SetMineralReplica(minerals.Replica, minerals.Region, minerals.DataReady);
                 view.SetDevices(frame.World);
                 if (view.LastError != null) throw view.LastError;
-                network.Terrain.PresentationReady = mineralsCurrent && view.Ready;
+                network.Terrain.PresentationReady = view.Ready;
             }
             catch (Exception error) { network.Fail(error); }
         }

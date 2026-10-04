@@ -78,16 +78,12 @@ namespace DarkNights.Runtime.Session
                 var previous = world.Terrain.Map;
                 world.Mutations.Run(() =>
                 {
-                    foreach (var mineral in world.Index.MineralDeposits.ToArray()) world.Lifecycle.Retire(mineral);
-                    var definition = world.Resources.Find(MineralDepositRuleConfig.Rule);
-                    foreach (var deposit in data.Deposits)
-                        world.Create(definition, (deposit.X + .5f) * PlayableTerrain.CellPixels,
-                            "terrain.deposit." + deposit.Id, true, 0, "", null, false, 0, deposit);
                     world.Mutations.OnRollback(world.Terrain.Swap(candidate, data));
                     world.Flow.ArrivalCommitted();
                     foreach (var actor in world.Index.Actors)
                     {
                         var state = actor.Edit();
+                        if (state.ExpeditionRole == 2 && state.TaskTarget < 0) { state.TaskTarget = 0; state.TaskPhase = 0; }
                         state.ControlLease = checked(state.ControlLease + 1);
                         HeroControlBehaviour.ResetInput(state);
                     }

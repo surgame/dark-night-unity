@@ -43,24 +43,15 @@ namespace DarkNights.Runtime.Objects
                 if (destroyed && drop.Amount > 0) ExpeditionCargo.Collect(actor, drop.Resource, drop.Amount);
                 return true;
             }
-            if (intent.Kind != HeroMiningTargetKind.MineralDeposit || !cell.IsEmpty ||
-                !TerrainMiningGeometry.RayCell(state.X, hand, dx, dh, tool.Reach,
-                    target.U, target.V, TerrainCellShape.Full, out float depositDistance) ||
-                wall && wallDistance <= depositDistance) return false;
-            foreach (var nearby in actor.World.Index.MineralDeposits)
-                foreach (var nearCell in nearby.Read().Cells)
-                    if (nearCell.Remaining > 0 && map.Read(new CellCoord(nearCell.U, nearCell.V)).TryGetCell(out var cover) && cover.IsEmpty &&
-                        TerrainMiningGeometry.RayCell(state.X, hand, dx, dh, tool.Reach, nearCell.U, nearCell.V,
-                            TerrainCellShape.Full, out float near) && near + .001f < depositDistance) return false;
-            var deposit = actor.World.Index.MineralDeposits.OfType<MineralDepositBehaviour>()
-                .SingleOrDefault(value => value.Id == intent.EntityId);
-            if (deposit == null || tool.BlockReason(intent.Kind, deposit.ResourceId, deposit.RequiredMiningLevel, deposit.DefinitionGuid).Length > 0 ||
-                !deposit.TryGetCell(target.U, target.V, out var mineral) || mineral.Remaining <= 0 ||
-                mineral.ContentVersion != intent.MineralContentVersion ||
-                mineral.Durability <= tool.Damage && !ExpeditionCargo.CanCollect(actor, Math.Min(mineral.Remaining, deposit.UnitsPerHarvest)))
-                return false;
-            if (!deposit.HitByTool(tool, target.U, target.V, intent.MineralContentVersion, out int harvested)) return false;
-            if (harvested > 0) ExpeditionCargo.Collect(actor, deposit.ResourceId, harvested);
+            var minerals = actor.World.Terrain.Minerals;
+            if (intent.Kind != HeroMiningTargetKind.MineralDeposit || intent.EntityId != 0 || !cell.IsEmpty || minerals == null ||
+                !MineralMiningQuery.First(minerals, map, state.X, hand, dx, dh, tool.Reach, out var firstOre, out _) ||
+                !firstOre.Equals(target) || !minerals.Read(target).TryGetCell(out var ore) || ore.IsEmpty ||
+                minerals.ContentVersion(target) != intent.MineralContentVersion || minerals.Rules.BlockReason(tool, ore.TileId).Length > 0) return false;
+            var mineral = minerals.Query(target).State;
+            if (mineral.Durability <= tool.Damage && !ExpeditionCargo.CanCollect(actor, Math.Min(mineral.RemainingReserves, minerals.Rules.UnitsPerHarvest))) return false;
+            if (!minerals.StageHit(target, tool.Damage, out int harvested)) return false;
+            if (harvested > 0) ExpeditionCargo.Collect(actor, minerals.Rules.Resource(ore.TileId), harvested);
             return true;
         }
     }

@@ -192,15 +192,25 @@ namespace DarkNights.Entry
                         ["worldId"] = network.Terrain.Replica?.World.WorldId.ToString(),
                         ["mapEpoch"] = network.Terrain.Replica?.World.Epoch,
                         ["backgroundHash"] = network.Terrain.Background?.ReferenceHash,
-                        ["sha256"] = network.Terrain.ContentSha256, ["dataReady"] = network.Terrain.DataReady,
+                        ["sha256"] = network.Terrain.ContentSha256, ["digestScope"] = "localSubscribedChunks", ["dataReady"] = network.Terrain.DataReady,
                         ["visible"] = network.Terrain.PresentationReady, ["generationMs"] = network.Terrain.GenerationMilliseconds,
-                        ["sentBytes"] = network.Terrain.SentBytes
+                        ["sentBytes"] = network.Terrain.SentBytes,
+                        ["mineralDataReady"] = network.Terrain.Minerals?.DataReady ?? false,
+                        ["mapStream"] = network.Terrain.Replica == null ? "" : "commit=" + network.Terrain.Replica.CommitId +
+                            " pending=" + network.Terrain.Replica.PendingCount + " closed=" + network.Terrain.Replica.Closed + " resync=" + network.Terrain.Replica.NeedsResync,
+                        ["mineralStream"] = network.Terrain.Minerals?.Diagnostics ?? "",
+                        ["mineralSentBytes"] = network.Terrain.Minerals?.SentBytes ?? 0,
+                        ["mineralRegion"] = network.Terrain.Minerals == null ? null : new JObject
+                        { ["u"] = network.Terrain.Minerals.Region.MinU, ["v"] = network.Terrain.Minerals.Region.MinV,
+                            ["width"] = network.Terrain.Minerals.Region.Width, ["height"] = network.Terrain.Minerals.Region.Height },
+                        ["mineralObjects"] = network.Hosting ? network.ObjectWorld?.Index.MineralDeposits.Count ?? 0 : 0
                     },
                     ["feedback"] = JArray.FromObject(feedback),
                     ["terrainFeedback"] = JArray.FromObject(terrainFeedback),
                     ["terrainPresentation"] = terrainPreview == null ? null : new JObject
                     {
                         ["builtPages"] = terrainPreview.BuiltPages,
+                        ["loadedTerrainChunks"] = terrainPreview.LoadedTerrainChunks,
                         ["mineralInputBatches"] = terrainPreview.MineralInputBatches,
                         ["mineralBuiltPages"] = terrainPreview.MineralBuiltPages,
                         ["backgroundBuilds"] = terrainPreview.BackgroundBuildCount,
@@ -210,7 +220,8 @@ namespace DarkNights.Entry
                         ["changedChunks"] = terrainPreview.LastChangedChunkCount,
                         ["refreshRegions"] = terrainPreview.LastRefreshRegionCount,
                         ["refreshBatches"] = terrainPreview.RefreshBatchCount,
-                        ["refreshing"] = terrainPreview.RefreshingReplica
+                        ["refreshing"] = terrainPreview.RefreshingReplica,
+                        ["waitReason"] = terrainPreview.PresentationWaitReason
                     },
                     ["frame"] = frame == null || !fullReport ? null : JObject.FromObject(frame),
                     ["mineralProbe"] = MineralAutomationProbe.Read(network),

@@ -31,6 +31,7 @@ namespace DarkNights.Runtime.Terrain
         private readonly FrozenTerrainRules rules;
         private readonly ARDMapDefinition definition;
         public FrozenTerrainRules Rules => rules;
+        public SessionMineralNetwork Minerals { get; private set; }
         private readonly string visual;
         private readonly bool expedition;
         private Task<PlayableTerrain> generation;
@@ -38,9 +39,9 @@ namespace DarkNights.Runtime.Terrain
         private string selectedPresetId = "";
         private int selectionVersion;
         public bool Selecting => generation != null;
-        private FishNetMapTransport transport;
+        private NativeMapTransport<MapWireMessage> transport;
         private TerrainMapAuthority streaming;
-        private bool disposed;
+        private bool disposed, initialReady;
         private readonly TerrainBackgroundBaseline background = new TerrainBackgroundBaseline();
         public BackgroundBakeDescriptor Background => background.Reference;
         public ChunkReplicaStateMachine Replica { get; private set; }
@@ -48,44 +49,24 @@ namespace DarkNights.Runtime.Terrain
         public int Epoch { get; private set; }
         public string Seed { get; private set; } = "";
         public bool PresentationReady { get; set; }
-        public bool DataReady => background.Ready && Replica?.Descriptor != null && Replica.CommitId > 0 && !Replica.Closed && !Replica.NeedsResync &&
-            Replica.World.WorldId.ToString().Replace("-", "") == background.WorldId && Replica.World.Epoch == background.MapEpoch;
+        public GridBounds Region => transport?.Requested ?? SessionMapRegion.Around(320, 0);
+        public bool LocalDataReady => transport?.DataReady == true;
+        public bool DataReady => initialReady && background.Ready && Replica?.Descriptor != null && !Replica.Closed &&
+            Replica.World.WorldId.ToString().Replace("-", "") == background.WorldId && Replica.World.Epoch == background.MapEpoch && Minerals?.InitialReady == true && Minerals.Replica.World.Equals(Replica.World);
         public string SelectionStatus { get; private set; } = "选择地图：灰松谷 · 点击地图按钮生成新地图";
         public long GenerationMilliseconds { get; private set; }
         private readonly Dictionary<ChunkCoord, byte[]> chunkDigests = new Dictionary<ChunkCoord, byte[]>();
         private string contentSha256 = "";
         private bool digestDirty;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        private ulong compatibilityHashCommit;
-        private string compatibilityHash = "";
-        /// <summary>仅供显式验收读取旧 V1 的 TileId/Flags 摘要；不参与日常地图发布与表现。</summary>
-        public string CompatibilitySha256
-        {
-            get
-            {
-                if (!DataReady) return "";
-                if (compatibilityHashCommit == Replica.CommitId && compatibilityHash.Length != 0) return compatibilityHash;
-                var bytes = new byte[TerrainGenerationSettings.Width * TerrainGenerationSettings.Height * 6];
-                int at = 0;
-                for (int y = 0; y < TerrainGenerationSettings.Height; y++)
-                    for (int x = 0; x < TerrainGenerationSettings.Width; x++)
-                    {
-                        var cell = Replica.Read(new CellCoord(x, -y)).Cell;
-                        for (int shift = 0; shift < 32; shift += 8) bytes[at++] = (byte)(cell.TileId >> shift);
-                        bytes[at++] = (byte)cell.Flags; bytes[at++] = (byte)(cell.Flags >> 8);
-                    }
-                using var hash = System.Security.Cryptography.SHA256.Create();
-                compatibilityHash = BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
-                compatibilityHashCommit = Replica.CommitId;
-                return compatibilityHash;
-            }
-        }
+        /// <summary>旧诊断字段现在返回局部订阅摘要；不扫描 Unknown 区域，也不能与旧全图摘要比较。</summary>
+        public string CompatibilitySha256 => ContentSha256;
 #endif
         public string ContentSha256
         {
             get
             {
-                if (!DataReady) return "";
+                if (!LocalDataReady) return "";
                 if (digestDirty) RebuildDigest();
                 return contentSha256;
             }
@@ -155,11 +136,12 @@ namespace DarkNights.Runtime.Terrain
             Disconnect();
             Replica = TerrainMapNetworking.CreateReplica(gameplay, visual, rules.Business);
             Replica.Applied += OnReplicaApplied;
+            Minerals = new SessionMineralNetwork(manager, network); Minerals.BeginConnection();
             CreateTransport();
         }
         private void CreateTransport()
         {
-            transport = new FishNetMapTransport(manager, (connection, token) =>
+            transport = new NativeMapTransport<MapWireMessage>(manager, Replica, (connection, token) =>
             {
                 var map = network.ObjectWorld.Terrain.Map;
                 var terrain = network.ObjectWorld.Terrain;
@@ -176,7 +158,8 @@ namespace DarkNights.Runtime.Terrain
                         WorldId = id, Index = index, Bytes = part }, true, Channel.Reliable);
                 }
                 return TerrainMapNetworking.OpenStream(map, TerrainMapNetworking.Handshake(map, gameplay, visual), token, _ => true, () => 1);
-            }, Replica, new GridBounds(0, -TerrainGenerationSettings.Height + 1, TerrainGenerationSettings.Width, TerrainGenerationSettings.Height));
+            }, SessionMapRegion.Client(network), (connection, region) => SessionMapRegion.Authorize(network, connection, region),
+                message => message.Bytes, bytes => new MapWireMessage { Bytes = bytes }, diagnostics: true);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             if (transport.Diagnostics != null)
             {
@@ -186,17 +169,7 @@ namespace DarkNights.Runtime.Terrain
 #endif
         }
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        public IReadOnlyDictionary<string, string> Capture()
-        {
-            return new Dictionary<string, string>
-            {
-                ["游戏 Epoch"] = Epoch.ToString(),
-                ["地图世界"] = Replica?.World.ToString() ?? "未连接",
-                ["流 Commit"] = Replica?.CommitId.ToString() ?? "0",
-                ["数据就绪"] = DataReady.ToString(),
-                ["背景参考"] = Background?.ReferenceHash ?? "未安装"
-            };
-        }
+        public IReadOnlyDictionary<string, string> Capture() => TerrainNetworkDiagnostics.Capture(this);
 #endif
         private void ReceiveEpoch(TerrainEpochSignal signal, Channel channel)
         {
@@ -207,7 +180,9 @@ namespace DarkNights.Runtime.Terrain
                 background.Begin(signal);
             }
             catch (Exception error) { network.Fail(error); return; }
-            Replica.ResetConnection(); Epoch = signal.Epoch; Seed = signal.Seed; PresentationReady = false;
+            var world = new WorldIdentity(StableGuid.Parse(signal.WorldId), signal.MapEpoch);
+            transport.BeginWorld(world); Epoch = signal.Epoch; Seed = signal.Seed; PresentationReady = initialReady = false;
+            Minerals?.BeginWorld(world);
         }
         private void ReceiveBackground(TerrainBackgroundChunk chunk, Channel channel)
         {
@@ -228,7 +203,10 @@ namespace DarkNights.Runtime.Terrain
                     streaming = map; CreateTransport();
                 }
             }
+            transport.RequestRegion(SessionMapRegion.Client(network));
             transport.Pump();
+            initialReady |= transport.DataReady;
+            Minerals?.Pump();
         }
         private void OnReplicaApplied(MapReplicaChange change)
         {
@@ -236,9 +214,6 @@ namespace DarkNights.Runtime.Terrain
                 change.Kind == MapReplicaChangeKind.Disconnected)
             {
                 chunkDigests.Clear(); contentSha256 = ""; digestDirty = true;
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-                compatibilityHashCommit = 0; compatibilityHash = "";
-#endif
                 return;
             }
             int size = Replica.Descriptor.ChunkSize;
@@ -283,10 +258,8 @@ namespace DarkNights.Runtime.Terrain
             SelectionStatus = expedition ? "太空远征 · 进入船舱后在驾驶台选择星球" : "选择地图：灰松谷 · 点击地图按钮生成新地图";
             if (Replica != null) Replica.Applied -= OnReplicaApplied;
             transport?.Dispose(); transport = null; Replica = null; streaming = null;
-            Epoch = 0; contentSha256 = ""; chunkDigests.Clear(); digestDirty = false; PresentationReady = false;
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-            compatibilityHashCommit = 0; compatibilityHash = "";
-#endif
+            Minerals?.Dispose(); Minerals = null;
+            Epoch = 0; contentSha256 = ""; chunkDigests.Clear(); digestDirty = false; PresentationReady = initialReady = false;
             background.Reset();
         }
         public void Dispose()

@@ -3630,8 +3630,8 @@ MonoBehaviour:
   BusinessDefinitions: []
   AuthoringAssetGuid: 0accb676274625147badf51f500656bc
   AuthoringLocalFileId: 11400000
-  AuthoringSourceDigest: 8c10c25e96751323ae19cd8415b31dbfee8ac50605acf74ca20da499f2bdefd1
-  AuthoringBusinessDigest: 2f4f4522a1c672e56e216f8e72eca2bd42764e4dc3d38b649b8c91240b6da438
+  AuthoringSourceDigest: fae6d6f59b415c667acd266aa84f08dba58675d19cd338f78da2d9117aa2f551
+  AuthoringBusinessDigest: eaae242d6bb31be2b82c7d2a8ebe2deb0f5b99b1392e6340387d08d2f1c29832
   Width: 320
   Height: 192
   MinU: 0

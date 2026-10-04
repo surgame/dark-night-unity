@@ -48,18 +48,19 @@ namespace DarkNights.Tests
                 new SessionTerrain(value.Context, definition.LoadGameplayCatalog(), selected, definition: definition));
             using var authority = new SessionAuthority(world);
             var host = authority.Connect(0); authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true);
-            Assert.That(world.Index.MineralDeposits.Count, Is.EqualTo(selected.Deposits.Count));
+            Assert.That(world.Index.MineralDeposits, Is.Empty);
+            Assert.That(world.Terrain.Deposits.Count, Is.EqualTo(selected.Deposits.Count));
             int scattered = selected.CopyMaterials().Count(value => value >= 4 && value <= 6);
             int mineCapacity = selected.Deposits.Where(value => value.RoomKind == "mine").Sum(value => value.Capacity);
             Assert.That(mineCapacity, Is.GreaterThan(scattered), "矿室总容量必须明显高于沿途散矿格数。");
             using (var objectReplica = new ObjectReplica(scope.Resources, scope.Placements(layout), null))
             {
                 objectReplica.Apply(world.CaptureView());
-                Assert.That(objectReplica.Count, Is.EqualTo(world.Index.Count), "客户端必须接受动态地形矿床身份。");
+                Assert.That(objectReplica.Count, Is.EqualTo(world.Index.Count), "矿层不能增加客户端实体数量。");
             }
-            var mined = world.Index.MineralDeposits.First(value => value.RoomKind == "mine");
-            string minedPlacement = mined.PlacementKey;
-            int minedRemaining = mined.Remaining;
+            var mined = selected.Deposits.First(value => value.RoomKind == "mine").Cells[0];
+            var minedCell = new CellCoord(mined.U, mined.V);
+            int minedRemaining = world.Terrain.Minerals.Query(minedCell).State.RemainingReserves;
             var map = world.Terrain.Map; var gameplay = definition.LoadGameplayCatalog();
             string visual = new string('a', 64);
             var stream = TerrainMapNetworking.OpenStream(map, TerrainMapNetworking.Handshake(map, gameplay, visual), 1, _ => true, () => 1);
@@ -85,7 +86,7 @@ namespace DarkNights.Tests
             CollectionAssert.AreEqual(selected.CopySoftRock(), world.Terrain.Capture().CopySoftRock());
             Assert.That(world.Terrain.Capture().Deposits.Count, Is.EqualTo(selected.Deposits.Count));
             Assert.That(world.Terrain.Capture().Rooms.Count, Is.EqualTo(selected.Rooms.Count));
-            Assert.That(world.Index.MineralDeposits.Single(value => value.PlacementKey == minedPlacement).Remaining,
+            Assert.That(world.Terrain.Minerals.Query(minedCell).State.RemainingReserves,
                 Is.EqualTo(minedRemaining));
             var valid = world.Terrain.Map;
             Assert.Throws<FormatException>(() => world.Restore(save.Replace("\"format_version\":" + Runtime.Save.ObjectWorldSaveJson.FormatVersion, "\"format_version\":4")));

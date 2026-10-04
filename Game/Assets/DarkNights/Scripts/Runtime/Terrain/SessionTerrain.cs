@@ -21,6 +21,8 @@ namespace DarkNights.Runtime.Terrain
         private uint generation;
         public TerrainMapAuthority Map { get; private set; }
         public FrozenTerrainRules Rules { get; }
+        public FrozenMineralRules MineralRules { get; }
+        public MineralMapAuthority Minerals => Map?.Minerals;
         public ARDMapDefinition Definition { get; }
         public string Seed { get; private set; }
         public bool Expedition { get; private set; }
@@ -33,6 +35,7 @@ namespace DarkNights.Runtime.Terrain
             Definition = definition ?? TerrainProfileConfig.Resolve().Definition;
             Rules = rules ?? TerrainProfileConfig.Resolve().Freeze(Definition);
             this.catalog = Rules.Business.Gameplay;
+            MineralRules = FrozenMineralRules.Resolve();
             Seed = initial.Seed; SetStatic(initial);
         }
         public void Activate() { Map = Prepare(initial); initial = null; }
@@ -48,6 +51,7 @@ namespace DarkNights.Runtime.Terrain
                 if (data.MiningRulesFingerprint.Length != 0 && data.MiningRulesFingerprint != Rules.Fingerprint)
                     throw new FormatException("存档采集规则与当前配置不一致。");
                 candidate.RestoreBusiness(data.Damage);
+                candidate.Minerals = new MineralMapAuthority(context, data, candidate.World, MineralRules);
             }
             catch { candidate.Dispose(); throw; }
             candidate.BindMutations(context.Container.Resolve<ObjectSession>().Mutations);
@@ -100,7 +104,7 @@ namespace DarkNights.Runtime.Terrain
                     var state = record.State; var material = Map.Query(record.Position).Terrain.Identity.Guid.ToString().Replace("-", "");
                     return new TerrainDamageRecord(record.Position.U, record.Position.V, material, state.Durability, state.Quality,
                         state.RemainingReserves, (int)state.Blocking, state.Occupant.IsEmpty ? "" : state.Occupant.ToString().Replace("-", ""));
-                }).ToArray(), Rules.Fingerprint);
+                }).ToArray(), Rules.Fingerprint, Minerals.Capture());
         }
         private void SetStatic(PlayableTerrain data)
         {

@@ -13,8 +13,8 @@ namespace DarkNights.Runtime.Objects
         internal static void Find(ObjectSession world, MiningToolRules tool, out float x, out float height, out float aim)
         {
             var map = world.Terrain.Map;
-            foreach (var deposit in world.Index.MineralDeposits.OrderBy(value => value.Id))
-                foreach (var cell in deposit.Read().Cells)
+            foreach (var deposit in world.Terrain.Deposits.OrderBy(value => value.Id))
+                foreach (var cell in deposit.Cells)
                 {
                     var target = new CellCoord(cell.U, cell.V);
                     if (!map.Read(target).TryGetCell(out var foreground) || !foreground.IsEmpty) continue;

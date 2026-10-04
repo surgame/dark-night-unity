@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AnyRules.Next;
+using AnyRules.Next.Networking;
+using Cysharp.Threading.Tasks;
+using DarkNights.Core.Config;
+using DarkNights.Core.Config.Terrain;
 using DarkNights.Core.Logic.Terrain;
 using DarkNights.Core.ViewData;
 using DarkNights.Runtime.Objects;
@@ -23,8 +27,9 @@ namespace DarkNights.Tests
     public sealed class MineralCompositeTests
     {
         [UnityTest]
-        public IEnumerator ExposedMineralChangesActualCompositePixels()
+        public IEnumerator ExposedMineralChangesActualCompositePixels() => UniTask.ToCoroutine(async () =>
         {
+            using var scope = await UnifiedSessionScope.Create();
             var flow = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
                 .SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
             var preset = QuickTestPreset.Create(QuickTestPreset.EmbeddedMineralsId, flow);
@@ -33,6 +38,30 @@ namespace DarkNights.Tests
             var profile = TerrainProfileConfig.Resolve();
             var style = profile.CaveStyle as CaveTerrainStyle;
             var definition = profile.Definition;
+            var layout = new LevelLayout(5120, RuleScenario.Layout().GroundY, 380, 770, 900, 568,
+                new[] { new PlacementDefinition("ship", 568) }, Array.Empty<PlacementDefinition>(), Array.Empty<PlacementDefinition>(),
+                randomTerrain: true, expedition: true);
+            var session = scope.NewWorld(RuleScenario.Catalog(), layout, false,
+                terrain: value => new SessionTerrain(value.Context, definition.LoadGameplayCatalog(), map, definition: definition), quickTest: preset);
+            using var authority = new DarkNights.Runtime.Session.SessionAuthority(session);
+            var mineralMap = session.Terrain.Minerals; var rules = mineralMap.Rules;
+            var foregroundMap = session.Terrain.Map; var foregroundRules = foregroundMap.Rules;
+            var foregroundReplica = TerrainMapNetworking.CreateReplica(foregroundRules.Business.Gameplay,
+                definition.AuthoringSourceDigest, foregroundRules.Business);
+            using var foregroundStream = TerrainMapNetworking.OpenStream(foregroundMap,
+                TerrainMapNetworking.Handshake(foregroundMap, foregroundRules.Business.Gameplay, definition.AuthoringSourceDigest),
+                2, _ => true, () => 1);
+            void FlushForeground()
+            { byte[] packet; while ((packet = foregroundStream.Dequeue()) != null) foregroundReplica.ReceivePacket(packet); foregroundStream.Acknowledge(foregroundReplica.CommitId); }
+            var replica = TerrainMapNetworking.CreateReplica(rules.Business.Gameplay, rules.Definition.AuthoringSourceDigest, rules.Business);
+            using var stream = new MapInterestService(mineralMap, mineralMap.Tiles,
+                new MapHandshake(mineralMap.Descriptor, rules.Business.ContentDigest, rules.Definition.AuthoringSourceDigest,
+                    rules.Business.Gameplay.Definitions.Select(value => value.Identity.Guid).ToArray()),
+                1, _ => true, () => mineralMap.CommitId, () => 1);
+            void Flush() { byte[] packet; while ((packet = stream.Dequeue()) != null) replica.ReceivePacket(packet); stream.Acknowledge(replica.CommitId); }
+            var region = SessionMineralNetwork.Around(88 * 16, TerrainMiningGeometry.CenterHeight(-71));
+            stream.Subscribe(MineralRegionReadiness.Subscription(region, mineralMap.Descriptor.Bounds)); Flush();
+            foregroundStream.Subscribe(MineralRegionReadiness.Subscription(region, foregroundMap.Descriptor.Bounds)); FlushForeground();
             var scene = EditorSceneManager.NewPreviewScene();
             var root = new GameObject("Composite mineral regression"); SceneManager.MoveGameObjectToScene(root, scene);
             root.transform.localScale = Vector3.one * .16f;
@@ -45,22 +74,33 @@ namespace DarkNights.Tests
             var target = new RenderTexture(512, 320, 16, RenderTextureFormat.ARGB32); target.Create(); camera.targetTexture = target;
             var image = new Texture2D(512, 320, TextureFormat.RGBA32, false);
             var previous = RenderTexture.active;
-            var view = root.AddComponent<TerrainPreview>(); view.ViewCamera = camera; view.SurfaceSky = true;
-            var minerals = map.Deposits.Select((deposit, index) => new MineralDepositViewData(index + 1,
-                (deposit.X + .5f) * 16, deposit.Y, deposit.RoomKind, deposit.Rarity,
-                deposit.MineralKind, 40, 1, 1, deposit.Cells.Select(cell =>
-                    new MineralCellViewData(cell.U, cell.V, cell.Capacity, cell.Capacity, 40, 1)).ToArray())).ToArray();
-            var source = new TerrainBlueprintSource(map.Blueprint(), definition.LoadGameplayCatalog().Tiles);
-            string evidence = Path.GetFullPath("../artifacts/embedded-ore-development-20261004/p0/composite-r3");
+            var view = root.AddComponent<TerrainPreview>(); view.ViewCamera = camera; view.SurfaceSky = true; view.UseMineralReplica = true;
+            view.LocalRegion = region;
+            var source = new TerrainReplicaSource(foregroundReplica);
+            foregroundReplica.Applied += view.NotifyReplicaChanged;
+            string evidence = Path.GetFullPath("../artifacts/mineral-map-migration-20261005/composite");
             Directory.CreateDirectory(evidence);
             try
             {
                 view.ShowCaveReplica(definition, style, source,
                     new WorldIdentity(StableGuid.Parse(map.WorldId), 1), map.Background);
                 double deadline = EditorApplication.timeSinceStartup + 90;
-                while ((!view.Ready || view.MineralInputBatches < 2) && view.LastError == null && EditorApplication.timeSinceStartup < deadline)
-                { view.SetMinerals(minerals); view.TickFromEditor(); camera.Render(); yield return null; }
+                while ((!view.Ready || view.MineralInputBatches < 1) && view.LastError == null && EditorApplication.timeSinceStartup < deadline)
+                { view.SetMineralReplica(replica, region, true); view.TickFromEditor(); camera.Render(); await UniTask.Yield(); }
                 Assert.That(view.LastError, Is.Null); Assert.That(view.Ready, Is.True);
+                Assert.That(view.LoadedTerrainChunks, Is.EqualTo(25));
+                int backgroundBuilds = view.BackgroundBuildCount;
+                foreach (var destination in new[] { SessionMapRegion.Around(4000, -1200), region })
+                {
+                    foregroundStream.Subscribe(MineralRegionReadiness.Subscription(destination, foregroundMap.Descriptor.Bounds)); FlushForeground();
+                    view.SetReplicaRegion(foregroundReplica, destination, true);
+                    while (!view.Ready && view.LastError == null && EditorApplication.timeSinceStartup < deadline)
+                    { view.TickFromEditor(); camera.Render(); await UniTask.Yield(); }
+                    Assert.That(view.LastError, Is.Null); Assert.That(view.Ready, Is.True);
+                    Assert.That(view.LoadedTerrainChunks, Is.LessThanOrEqualTo(25));
+                    Assert.That(view.BackgroundBuildCount, Is.EqualTo(backgroundBuilds), "局部区换代不得重建静态背景。");
+                }
+                Assert.That(foregroundReplica.Read(new CellCoord(280, -150)).State, Is.EqualTo(GridSampleState.Unknown));
                 Capture(camera, target, image); var before = image.GetPixels32();
                 File.WriteAllBytes(Path.Combine(evidence, "before.png"), image.EncodeToPNG());
                 var renderers = root.GetComponentInChildren<MineralLayerView>().GetComponentsInChildren<Renderer>(true);
@@ -73,9 +113,16 @@ namespace DarkNights.Tests
                     File.WriteAllBytes(Path.Combine(evidence, "order-plus-" + offset + ".png"), image.EncodeToPNG());
                 }
                 for (int i = 0; i < renderers.Length; i++) renderers[i].sortingOrder = orders[i];
-                view.SetMinerals(Array.Empty<MineralDepositViewData>());
-                while ((!view.Ready || view.MineralInputBatches < 3) && view.LastError == null && EditorApplication.timeSinceStartup < deadline)
-                { view.TickFromEditor(); camera.Render(); yield return null; }
+                var hit = typeof(MineralMapAuthority).GetMethod("StageHit", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                session.Mutations.Run(() =>
+                {
+                    foreach (var deposit in map.Deposits) foreach (var cell in deposit.Cells)
+                        for (int i = 0; i < cell.Capacity; i++) hit.Invoke(mineralMap, new object[] { new CellCoord(cell.U, cell.V), 40, 0 });
+                    return true;
+                });
+                stream.Publish(); Flush();
+                while ((!view.Ready || view.MineralInputBatches < 2) && view.LastError == null && EditorApplication.timeSinceStartup < deadline)
+                { view.SetMineralReplica(replica, region, true); view.TickFromEditor(); camera.Render(); await UniTask.Yield(); }
                 Assert.That(view.LastError, Is.Null); Assert.That(view.Ready, Is.True);
                 Capture(camera, target, image); var after = image.GetPixels32();
                 File.WriteAllBytes(Path.Combine(evidence, "after.png"), image.EncodeToPNG());
@@ -93,7 +140,7 @@ namespace DarkNights.Tests
                 target.Release(); UnityEngine.Object.DestroyImmediate(target); UnityEngine.Object.DestroyImmediate(image);
                 EditorSceneManager.ClosePreviewScene(scene);
             }
-        }
+        });
 
         private static void Capture(Camera camera, RenderTexture target, Texture2D image)
         { camera.Render(); RenderTexture.active = target; image.ReadPixels(new Rect(0, 0, 512, 320), 0, 0); image.Apply(); }

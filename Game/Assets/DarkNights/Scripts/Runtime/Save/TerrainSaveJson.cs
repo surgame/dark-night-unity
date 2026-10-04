@@ -16,6 +16,7 @@ namespace DarkNights.Runtime.Save
             {
                 ["world_id"] = data.WorldId, ["seed"] = data.Seed,
                 ["mining_rules"] = data.MiningRulesFingerprint,
+                ["mineral_map"] = MineralMapSaveCodec.Write(data.Minerals),
                 ["damage"] = new JArray(data.Damage.Select(record => new JObject
                 {
                     ["u"] = record.U, ["v"] = record.V, ["material"] = record.MaterialGuid,
@@ -34,20 +35,20 @@ namespace DarkNights.Runtime.Save
                     ["height"] = room.Height, ["features"] = (int)room.Features,
                     ["deposit_budget"] = room.DepositBudget, ["soft_rock_radius"] = room.SoftRockRadius
                 })),
-                ["deposits"] = new JArray(data.Deposits.Select(deposit => new JObject
+                ["deposits"] = MineralMapSaveCodec.WriteMetadata(new JArray(data.Deposits.Select(deposit => new JObject
                 {
                     ["id"] = deposit.Id, ["room_kind"] = deposit.RoomKind, ["x"] = deposit.X, ["y"] = deposit.Y,
                     ["rarity"] = deposit.Rarity, ["capacity"] = deposit.Capacity,
                     ["cells"] = new JArray(deposit.Cells.Select(cell => new JObject
                     { ["u"] = cell.U, ["v"] = cell.V, ["capacity"] = cell.Capacity }))
-                }))
+                })))
             };
         }
         internal static PlayableTerrain Read(JToken token)
         {
             if (token?.Type == JTokenType.Null) return null;
             JObject value = Object(token);
-            if (value.Count != 12) throw new FormatException("地图字段不完整，缺少耐久或采集规则合同。");
+            if (value.Count != 13) throw new FormatException("地图字段不完整，缺少耐久或采集规则合同。");
             byte[] cells = Convert.FromBase64String(Text(value["materials"]));
             byte[] flags = Convert.FromBase64String(Text(value["protection"]));
             byte[] soft = Convert.FromBase64String(Text(value["soft_rock"]));
@@ -63,7 +64,7 @@ namespace DarkNights.Runtime.Save
                     Integer(room["width"]), Integer(room["height"]), features,
                     Integer(room["deposit_budget"]), Integer(room["soft_rock_radius"]));
             }, 32).ToArray();
-            var deposits = Array(value["deposits"], item =>
+            var deposits = Array(MineralMapSaveCodec.ReadMetadata(value["deposits"]), item =>
             {
                 JObject deposit = Object(item);
                 if (deposit.Count != 7) throw new FormatException("地图矿床字段不完整。");
@@ -75,7 +76,7 @@ namespace DarkNights.Runtime.Save
                         if (cell.Count != 3) throw new FormatException("初始矿格字段不完整。");
                         return new TerrainMineralCell(Integer(cell["u"]), Integer(cell["v"]), Integer(cell["capacity"]));
                     }, 64));
-            }, 128).ToArray();
+            }, TerrainGenerationSettings.Width * TerrainGenerationSettings.Height).ToArray();
             try
             {
                 var background = value["background"]?.Type == JTokenType.Null ? null :
@@ -91,7 +92,7 @@ namespace DarkNights.Runtime.Save
                         return new TerrainDamageRecord(Integer(record["u"]), Integer(record["v"]), Text(record["material"]),
                             Integer(record["durability"]), Integer(record["quality"]), Integer(record["reserves"]),
                             Integer(record["blocking"]), Text(record["occupant"]));
-                    }, TerrainGenerationSettings.Width * TerrainGenerationSettings.Height).ToArray(), Text(value["mining_rules"]));
+                    }, TerrainGenerationSettings.Width * TerrainGenerationSettings.Height).ToArray(), Text(value["mining_rules"]), MineralMapSaveCodec.Read(value["mineral_map"]));
             }
             catch (ArgumentException error) { throw new FormatException("随机地图数据无效。", error); }
         }

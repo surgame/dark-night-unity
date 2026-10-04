@@ -108,7 +108,8 @@ namespace DarkNights.Tests
             Assert.That(authority.Epoch, Is.EqualTo(2)); Assert.That(authority.ReadyCount, Is.Zero);
             Assert.That(world.Terrain.Capture().WorldId, Is.EqualTo(world.Journey.Capture().MapId));
             CollectionAssert.AreEquivalent(ids, world.Index.Actors.Select(a => a.Id));
-            Assert.That(world.Index.MineralDeposits.Count(), Is.GreaterThan(0));
+            Assert.That(world.Index.MineralDeposits, Is.Empty);
+            Assert.That(world.Terrain.Deposits.Count, Is.GreaterThan(0));
             Assert.That(authority.AcknowledgeReady(host, 1, authority.Revision, true), Is.False);
             Assert.That(authority.AcknowledgeReady(host, 2, authority.Revision, true), Is.True);
             Assert.That(authority.SubmitInput(host, new HeroInputRequest(SessionAuthority.ProtocolVersion, 2, authority.PolicyRevision,

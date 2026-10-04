@@ -27,7 +27,8 @@ namespace DarkNights.Core.Save
                 if (!Number(a.Iron, rules.BagCapacity) ||
                     !Number(a.Gold, rules.BagCapacity - a.Iron) || a.Role is < 0 or > 4 || a.OwnerSlot is < -1 or > 3 ||
                     a.TaskPhase is < 0 or > 9 || !Number(a.TaskClock, 1000000) ||
-                    a.TaskTarget != 0 && !buildings.Contains(a.TaskTarget) && !deposits.Contains(a.TaskTarget)) return "远征角色状态无效";
+                    a.TaskTarget != 0 && !buildings.Contains(a.TaskTarget) && !deposits.Contains(a.TaskTarget) &&
+                    !(a.Role == 2 && a.TaskPhase == 1 && Config.Terrain.MineralTaskTarget.TryDecode(a.TaskTarget, out _, out _))) return "远征角色状态无效";
             foreach (var b in data.Devices)
                 if (b.Stage is < 0 or > 6 || !Number(b.Iron, rules.ShipCapacity * 2) || !Number(b.Gold, rules.ShipCapacity * 2 - b.Iron) ||
                     !Number(b.Height + 2560, 2560 + JourneyValidator.MaximumCrewHeight(data.Journey)) ||

@@ -24,6 +24,7 @@ namespace DarkNights.Core.Config.Terrain
         public IReadOnlyList<TerrainDepositBlueprint> Deposits { get; }
         public IReadOnlyList<TerrainDamageRecord> Damage { get; }
         public string MiningRulesFingerprint { get; }
+        public MineralMapSnapshot Minerals { get; }
 
         public PlayableTerrain(string worldId, string seed, byte[] cells, bool[] protectedCells)
             : this(worldId, seed, cells, protectedCells,
@@ -33,7 +34,7 @@ namespace DarkNights.Core.Config.Terrain
 
         public PlayableTerrain(string worldId, string seed, byte[] cells, bool[] protectedCells,
             bool[] softRock, TerrainRoom[] rooms, TerrainDepositBlueprint[] deposits, byte[] shapes = null, bool expedition = false,
-            BackgroundBakeDescriptor background = null, TerrainDamageRecord[] damage = null, string miningRulesFingerprint = "")
+            BackgroundBakeDescriptor background = null, TerrainDamageRecord[] damage = null, string miningRulesFingerprint = "", MineralMapSnapshot minerals = null)
         {
             if (!Guid.TryParseExact(worldId, "N", out _) || string.IsNullOrWhiteSpace(seed) || seed.Length > 80 ||
                 cells == null || cells.Length != TerrainGenerationSettings.Width * TerrainGenerationSettings.Height ||
@@ -56,7 +57,7 @@ namespace DarkNights.Core.Config.Terrain
                         protectedCells[-cell.V * TerrainGenerationSettings.Width + cell.U])
                         throw new ArgumentException("初始矿格重叠或占用保护格。");
             }
-            if (mineralCoordinates.Count > 4096) throw new ArgumentException("初始矿格超过世界预算。");
+            if (mineralCoordinates.Count > cells.Length) throw new ArgumentException("初始矿格超过地图预算。");
             for (int x = 0; x < TerrainGenerationSettings.Width; x++)
                 if (cells[(TerrainGenerationSettings.Height - 1) * TerrainGenerationSettings.Width + x] != 8)
                     throw new ArgumentException("随机地图底边必须保留基岩。");
@@ -75,6 +76,7 @@ namespace DarkNights.Core.Config.Terrain
             if (miningRulesFingerprint == null || miningRulesFingerprint.Length != 0 && miningRulesFingerprint.Length != 64)
                 throw new ArgumentException("采集规则指纹无效。");
             Damage = Array.AsReadOnly((TerrainDamageRecord[])damage.Clone()); MiningRulesFingerprint = miningRulesFingerprint;
+            Minerals = minerals;
             WorldId = worldId; Seed = seed;
             if (background != null && (background.WorldId != worldId || background.LayoutSeed != seed))
                 throw new ArgumentException("背景参考与地图身份不一致。");

@@ -39,7 +39,7 @@ namespace DarkNights.Tests
                         backdrop.Bake(x * 256, row * 256, 256, 256), wall, root.transform, style }));
                 var renderers = root.GetComponentsInChildren<MeshRenderer>();
                 Assert.That(renderers.Length, Is.EqualTo(16));
-                Assert.That(renderers.Select(r => r.sortingOrder).Distinct().OrderBy(v => v), Is.EqualTo(new[] { -100, -99, -98, -97 }));
+                Assert.That(renderers.Select(r => r.sortingOrder).Distinct().OrderBy(v => v), Is.EqualTo(new[] { -100, -80, -70, -60 }));
                 camera.orthographic = true; camera.orthographicSize = 21 * scale;
                 camera.overrideSceneCullingMask = EditorSceneManager.GetSceneCullingMask(scene);
                 camera.transform.position = root.transform.TransformPoint(new Vector3(160, .5f - 53, -10 / scale));

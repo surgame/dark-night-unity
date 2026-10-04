@@ -27,6 +27,15 @@ namespace DarkNights.View.Terrain
                 lastSourceCommit = state.CommitId; streamIdentityKnown = descriptor != null;
             }
         }
+        internal ChunkReplicaStateMachine Replica => source as ChunkReplicaStateMachine;
+        /// <summary>原生装卸前退休已跟踪区块；新输入代次显式清空旧源身份，随后只发布新加载区域的完整基线。</summary>
+        internal void ForgetLoadedRegion()
+        {
+            fingerprints.Clear(); inputGeneration = checked(inputGeneration + 1); lastSourceCommit = 0; requiresFreshBaseline = true;
+            if (source is ChunkReplicaStateMachine replica)
+            { sourceSession = replica.Session; streamGeneration = replica.Generation; streamIdentityKnown = true; }
+            InputChanged?.Invoke(new MapInputBatch(descriptor.World, inputGeneration, sourceSession, streamGeneration, 0, MapInputBatchKind.Reset));
+        }
 
         public void PublishInitialBaseline()
         {
@@ -85,11 +94,13 @@ namespace DarkNights.View.Terrain
             foreach (var position in transition.Cells)
             {
                 if (!descriptor.Bounds.Contains(position)) continue;
+                if (!fingerprints.ContainsKey(GridMath.ChunkOf(position, descriptor.ChunkSize))) continue;
                 if (!source.Read(position).TryGetCell(out var value)) { RequestCompleteBaseline(transition.Commit); return; }
                 cells.Add(new MapInputCell(position, value));
             }
             var snapshots = new List<MapInputChunk>(transition.SnapshotChunks.Count);
-            foreach (var coordinate in transition.SnapshotChunks) snapshots.Add(CaptureSnapshot(coordinate));
+            foreach (var coordinate in transition.SnapshotChunks)
+                if (fingerprints.ContainsKey(coordinate)) snapshots.Add(CaptureSnapshot(coordinate));
             MapInputBatchKind batchKind = snapshots.Count == 0 ? MapInputBatchKind.Delta :
                 IsCompleteSnapshotSet(snapshots) ? MapInputBatchKind.Baseline : MapInputBatchKind.SnapshotUpdate;
             var batch = new MapInputBatch(transition.World, inputGeneration, sourceSession, streamGeneration,

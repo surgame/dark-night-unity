@@ -15,12 +15,12 @@ namespace DarkNights.Runtime.Objects
             double interval = world.Catalog.Balance.Expedition.ThreatSeconds;
             if (c.ExpeditionRisk >= interval && world.Index.Actors.Count(a => a.Enemy) < 6)
             {
-                var spot = world.Index.MineralDeposits.FirstOrDefault(d =>
-                    ExpeditionNavigation.Sight(world.Terrain.Map, d.X, Height((MineralDepositBehaviour)d) + 1, d.X, Height((MineralDepositBehaviour)d) + 24));
+                var spot = world.Terrain.Deposits.FirstOrDefault(d =>
+                    ExpeditionNavigation.Sight(world.Terrain.Map, X(d), Height(d) + 1, X(d), Height(d) + 24));
                 if (spot != null)
                 {
-                    var enemy = world.Lifecycle.SpawnActor("zombie", spot.X, true);
-                    enemy.Edit().Height = Height((MineralDepositBehaviour)spot); enemy.Edit().ExpeditionRole = 3;
+                    var enemy = world.Lifecycle.SpawnActor("zombie", X(spot), true);
+                    enemy.Edit().Height = Height(spot); enemy.Edit().ExpeditionRole = 3;
                     c.ExpeditionRisk -= interval;
                     world.Notify("开采声引来了洞穴游荡者。", true);
                 }
@@ -49,6 +49,7 @@ namespace DarkNights.Runtime.Objects
                 world.Combat.Damage(target, 6); s.AttackClock = 1.2;
             }
         }
-        private static float Height(MineralDepositBehaviour d) => PlayableTerrain.OriginY - (d.Y + .5f) * 16;
+        private static float X(TerrainDepositBlueprint d) => (d.X + .5f) * 16;
+        private static float Height(TerrainDepositBlueprint d) => PlayableTerrain.OriginY - (d.Y + .5f) * 16;
     }
 }

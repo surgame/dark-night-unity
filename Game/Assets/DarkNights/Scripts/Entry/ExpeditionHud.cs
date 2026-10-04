@@ -104,8 +104,21 @@ namespace DarkNights.Entry
                 emergencyConfirmation = -1;
                 bool personal = operation is "unload" or "board" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
                 var actor = frame.World.Actors.FirstOrDefault(a => a.ControllerSlot == client.PlayerSlot);
-                int target = operation == "mine" && actor != null ? frame.World.MineralDeposits.Where(w => w.Remaining > 0)
-                    .OrderBy(w => Math.Abs(w.X - actor.X) + Math.Abs(632 - (w.Y + .5) * 16 - actor.Height)).FirstOrDefault()?.Id ?? 0 : 0;
+                int target = 0;
+                var minerals = network.Terrain?.Minerals;
+                if (operation == "mine" && actor != null && minerals?.DataReady == true)
+                {
+                    double nearest = double.MaxValue;
+                    var region = minerals.Region;
+                    for (int v = region.MinV; v < region.MaxVExclusive; v++) for (int u = region.MinU; u < region.MaxUExclusive; u++)
+                    {
+                        var cell = new AnyRules.Next.CellCoord(u, v);
+                        if (!minerals.Replica.Read(cell).TryGetCell(out var ore) || ore.IsEmpty ||
+                            !network.Terrain.Replica.Read(cell).TryGetCell(out var wall) || !wall.IsEmpty) continue;
+                        double distance = Math.Abs((u + .5f) * 16 - actor.X) + Math.Abs(632 + (v - .5f) * 16 - actor.Height);
+                        if (distance < nearest) { nearest = distance; target = DarkNights.Core.Config.Terrain.MineralTaskTarget.Encode(u, v); }
+                    }
+                }
                 await client.Send(SessionOperation.Expedition, personal && actor != null ? new[] { actor.Id } : null,
                     target: target, kind: operation, controlLease: personal ? actor?.ControlLease ?? 0 : 0);
             }

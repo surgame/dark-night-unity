@@ -19,7 +19,7 @@ namespace DarkNights.Tests
     /// <summary>原生矿层固定样板的真实资产、四角规则与相机检查；只操作预览场景，验证混矿和空格而不启动业务会话。</summary>
     public sealed class MineralLayerTests
     {
-        private static readonly string Evidence = Path.GetFullPath("../artifacts/embedded-ore-development-20261004/p0");
+        private static readonly string Evidence = Path.GetFullPath("../artifacts/mineral-map-migration-20261005/mineral-assets");
 
         [Test]
         public void ActualCatalogHasFourVariantsAndNoMixedTransitionOwnership()
@@ -70,6 +70,42 @@ namespace DarkNights.Tests
             source.Replace(Array.Empty<MapInputCell>()); Assert.That(source.SourceCommit, Is.EqualTo(before + 1));
         }
 
+        [UnityTest]
+        public IEnumerator EmptyLocalViewportRequiresCameraDrawButNoNonemptyPage()
+        {
+            var definition = MineralLayerAssets.Ensure();
+            var scene = EditorSceneManager.NewPreviewScene();
+            var root = new GameObject("Empty local mineral regression"); SceneManager.MoveGameObjectToScene(root, scene);
+            var cameraRoot = new GameObject("Empty local camera"); SceneManager.MoveGameObjectToScene(cameraRoot, scene);
+            var camera = cameraRoot.AddComponent<Camera>(); camera.enabled = false; camera.orthographic = true;
+            camera.orthographicSize = 8; camera.overrideSceneCullingMask = EditorSceneManager.GetSceneCullingMask(scene);
+            camera.transform.position = new Vector3(200, -100, -10);
+            var target = new RenderTexture(128, 128, 16); target.Create(); camera.targetTexture = target;
+            var layer = root.AddComponent<MineralLayerView>();
+            try
+            {
+                var source = new MineralLayerInputSource(definition.LoadGameplayCatalog().Tiles);
+                var opening = layer.OpenAsync(definition, source, camera,
+                    new WorldIdentity(StableGuid.Parse("4d7c4817f85a4a4ca48a41ba1ece3bb8"), 1), region: new GridBounds(0, -96, 96, 96));
+                double deadline = EditorApplication.timeSinceStartup + 30;
+                while (!opening.IsCompleted && EditorApplication.timeSinceStartup < deadline) yield return null;
+                opening.GetAwaiter().GetResult(); layer.Tick();
+                Assert.That(layer.LastError, Is.Null); Assert.That(layer.BuiltPages, Is.Zero);
+                Assert.That(layer.NeedsPresentationDraw, Is.True); Assert.That(layer.Ready, Is.False);
+                camera.Render(); Assert.That(layer.Ready, Is.True, "已知空视口完成绘制后可就绪，不能要求存在非空矿页。");
+                camera.transform.position = new Vector3(88, -70, -10);
+                layer.Tick();
+                while (!layer.NeedsPresentationDraw && layer.LastError == null && EditorApplication.timeSinceStartup < deadline)
+                { layer.Tick(); yield return null; }
+                Assert.That(layer.LastError, Is.Null); Assert.That(layer.NeedsPresentationDraw, Is.True, layer.WaitReason);
+                camera.Render(); Assert.That(layer.Ready, Is.True, "跨局部区边缘的视口不能让规则等待永久Unknown。");
+            }
+            finally
+            {
+                camera.targetTexture = null; UnityEngine.Object.DestroyImmediate(root); UnityEngine.Object.DestroyImmediate(cameraRoot);
+                target.Release(); UnityEngine.Object.DestroyImmediate(target); EditorSceneManager.ClosePreviewScene(scene);
+            }
+        }
         [UnityTest]
         public IEnumerator ActualPagesRenderMixedMineralsAtBothScalesAndEmptyLayerBecomesReady()
         {

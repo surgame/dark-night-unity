@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-10-05 [原生矿层迁移](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)继续当前 `ft-20261004-embedded-minerals`：独立权威矿图、原生区块副本、矿格采集／设备目标、零矿床实体及v19紧凑恢复已实现。用户确认拆墙发现部分矿床。Editor首轮39项失败已清除，影响合并105/105；CLI串行编译、测试、截图和Mono构建已可用。同一Mono正常两人30/30、四人38/38、弱网两人30/30通过；两层动态订阅已落实，专项前台性能等尚未完成，整批未交付。未改YYGC或升级依赖，未推送。
+
 2026-10-04 [背景墙内嵌矿开发](EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md)从干净本地 main `b705709` 开始，分支 `ft-20261004-embedded-minerals`。既有工作台改动 `a51eb5c` 与方案 `3e9c7af` 已集成。独立 AnyRuleD 矿层、多格唯一权威、矿镐输入、专用冻结投影／v18 保存及墓碑恢复已实现；协议24／AMP1 schema2。受影响 Editor 按不同用例合并245/245，Mono 第二轮构建通过，正常两人24/24、四人30/30。弱网初始地图／Ready失败，后续弱网按前置停止；正式组合画面发现矿层遮挡，排序诊断尚待导入，整批未交付。首轮 OOM、失败 XML 和0项未匹配结果保留。YYGC 未修改或升级，未推送；最终状态与未验边界以本批记录为准。
 
 2026-10-04 [Cave Wall Tuner 星球工作台](TUNER_JOURNEY_WORKBENCH.md)，分支 `ref-20261004-tuner-journey-workbench`、基线 `9df79dc`：按获选折叠分组完成游戏侧 Editor 合并，地图／星球／航程共用 WorldSession 草稿，表现沿用原生 Inspector 和逐字段冲突保护。旧窗口转移草稿后退出，DontSave 修复序列化属性禁用；几何变更才重建地图。影响相关 Editor 按不同用例合并45/45，实际输入／Undo／步道启停／示意播放与进度／约800px窄栏已验，作者资产1111项保持。首轮两项失败与过早排队的旧程序集R2结果保留，R3补测4/4；独立夹具7437字节归档至统一待清理目录，没有释放空间。YYGC、Runtime、协议23／存档v17／AMP1 schema2未改；未合并、推送或构建Player。机器证据见[本批记录](evidence/tuner-journey-workbench-20261004.json)。

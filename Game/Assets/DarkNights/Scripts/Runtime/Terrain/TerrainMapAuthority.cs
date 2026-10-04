@@ -21,6 +21,7 @@ namespace DarkNights.Runtime.Terrain
         private readonly int pickaxeDamage, bombDamage;
         private bool disposed;
         public FrozenTerrainRules Rules { get; }
+        public MineralMapAuthority Minerals { get; internal set; }
         public WorldIdentity World => map.World;
         public WorldDescriptor Descriptor => map.Descriptor;
         public TileCatalog Tiles => map.Tiles;
@@ -188,6 +189,7 @@ namespace DarkNights.Runtime.Terrain
         public void Dispose()
         {
             if (disposed) return;
+            Minerals?.Dispose(); Minerals = null;
             map.Changed -= Notify; map.Dispose(); disposed = true; history.Clear(); Changed = null;
         }
     }

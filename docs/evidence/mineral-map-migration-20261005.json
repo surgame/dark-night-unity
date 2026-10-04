@@ -1,0 +1,340 @@
+{
+  "date": "2026-10-05",
+  "recorded_utc": "2026-10-04T23:14:56.097314+00:00",
+  "branch": "ft-20261004-embedded-minerals",
+  "base_head": "7467287a31268eb495f6d2f1297e36b1fcf97b3b",
+  "candidate": "native foreground and mineral local streams r12",
+  "protocol": 25,
+  "save_version": 19,
+  "amp1_schema": 2,
+  "unity": "6000.4.9f1",
+  "backend": "Mono",
+  "player": "artifacts/map-state/player-mono-20261005-070310-e50f9fbd/DarkNights.exe",
+  "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+  "managed_sha256": {
+    "DarkNights.Core.dll": "d5e7fe633e49eec55cb157fac1c8b9001cfeac353b00d1b6c018e74517dc1bd4",
+    "DarkNights.Entry.dll": "9503af29c22cdb53104fdb0ce766d98b01a8ca8ddc4fe92547c708e6388308d5",
+    "DarkNights.Runtime.dll": "db0f4c01d49760f7d4527142658f6973daa22b45d7b54c127a784f3fd3887a0a",
+    "DarkNights.Samples.LanCoop.Bootstrap.dll": "be1d1fa3a2398faadc1fc6a8b9f59ddb80192dc510674cff438e67eae54bee3c",
+    "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+    "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+    "DarkNights.Samples.LanCoop.Runtime.dll": "cd3f41a67420a5c5a54e16ffb0bb26f9be86c5f12b4f728bdc4d216136e182a5",
+    "DarkNights.View.dll": "16b781b53cdd6d439d62b8e4807d97c94c4703fae7ae96f8ef979c063c946f30"
+  },
+  "runtime_inputs_digest": "2934e7d9e09a29607f446505b54066a0381cb1918c23f974a9d21fc372a24c0b",
+  "runtime_inputs": "artifacts/mineral-map-migration-20261005/runtime-inputs-sha256.json",
+  "editor": {
+    "distinctTests": 105,
+    "passed": 105,
+    "failed": 0,
+    "originalFailed": 39,
+    "originalFailuresNowPassed": 39
+  },
+  "editor_sources": [
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-20261005.xml",
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-r2-20261005.xml",
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-r3-20261005.xml",
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-r4-20261005.xml",
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-r5-20261005.xml",
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-r6-20261005.xml",
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-r7-20261005.xml",
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-r8-20261005.xml",
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-r9-20261005.xml",
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-r10-20261005.xml",
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-r11-20261005.xml",
+    "artifacts\\terrain-final-20260926\\mineral-map-editor-r12-20261005.xml"
+  ],
+  "editor_merged": "artifacts/mineral-map-migration-20261005/editor-merged-results.json",
+  "network": [
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-070438-161085-mono-normal-2p-host/result.json",
+      "passed": true,
+      "checks": 30,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-070310-e50f9fbd\\DarkNights.exe",
+      "finished": "2026-10-04T23:06:07.260450+00:00",
+      "error": null,
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "424104a0b1f4eabfd0898a906d90b6f50fe7c10b194c0faa03546afa6ec779ae"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-070637-797178-mono-normal-4p-host/result.json",
+      "passed": true,
+      "checks": 38,
+      "weak": false,
+      "clients": 3,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-070310-e50f9fbd\\DarkNights.exe",
+      "finished": "2026-10-04T23:08:33.730565+00:00",
+      "error": null,
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "424104a0b1f4eabfd0898a906d90b6f50fe7c10b194c0faa03546afa6ec779ae"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-070909-319169-mono-weak-2p-host/result.json",
+      "passed": true,
+      "checks": 30,
+      "weak": true,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-070310-e50f9fbd\\DarkNights.exe",
+      "finished": "2026-10-04T23:12:19.415411+00:00",
+      "error": null,
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "424104a0b1f4eabfd0898a906d90b6f50fe7c10b194c0faa03546afa6ec779ae"
+    }
+  ],
+  "weak_profile": {
+    "rtt_ms": 200,
+    "loss": 0.05,
+    "jitter_ms": 25,
+    "relay": {
+      "received": 15123,
+      "dropped": 745,
+      "forwarded": 14378,
+      "reordered": 9566,
+      "peer_resets": 18,
+      "received_bytes": 14370263,
+      "forwarded_bytes": 13635362,
+      "client_to_server_bytes": 98646,
+      "server_to_client_bytes": 14271617,
+      "elapsed_seconds": 190.0075824999949
+    }
+  },
+  "density": {
+    "cells": 61440,
+    "staticBeds": 960,
+    "mineralObjects": 0,
+    "saveBytes": 717985,
+    "prepareMs": 367,
+    "saveMs": 551,
+    "restoreMs": 1024,
+    "scope": "Editor full-map data/save capacity; no foreground FPS claim"
+  },
+  "composite": {
+    "changedPixels": 2870,
+    "visiblePixels": 1311,
+    "orderSweep": {
+      "10": 1311,
+      "20": 1311,
+      "30": 1311
+    }
+  },
+  "framework_audit": {
+    "changed": 0,
+    "checked": 373,
+    "paths": []
+  },
+  "cli": {
+    "version": "1.0.0-beta.12",
+    "pipeline": "0.6.0-exp.1",
+    "commands": 149,
+    "computer_use_calls": 0,
+    "tested": [
+      "status",
+      "recompile",
+      "eval",
+      "run_tests",
+      "test_status",
+      "capture_scene_view",
+      "Mono build through existing runner"
+    ],
+    "capture": "artifacts/mineral-map-migration-20261005/cli-scene.png"
+  },
+  "failed_and_superseded_network_history": [
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-051224-380769-mono-normal-2p-host/result.json",
+      "passed": false,
+      "checks": 0,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-050903-cef1777e\\DarkNights.exe",
+      "finished": "2026-10-04T21:12:38.883350+00:00",
+      "error": "  at DarkNights.Entry.Terrain.RandomLevelEntry.Update () [0x00397] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\Terrain\\RandomLevelEntry.cs:90 ",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "08feb086c8cba106b7633754174559048c98ce79e8977fd2dd3e2a438620fe44"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-052621-436994-mono-normal-2p-host/result.json",
+      "passed": false,
+      "checks": 0,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-052512-687ed27c\\DarkNights.exe",
+      "finished": "2026-10-04T21:28:06.008293+00:00",
+      "error": "TimeoutError: host: ready with controlled actor",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "08feb086c8cba106b7633754174559048c98ce79e8977fd2dd3e2a438620fe44"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-053020-251212-mono-normal-2p-host/result.json",
+      "passed": false,
+      "checks": 1,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-052907-df2e7ad3\\DarkNights.exe",
+      "finished": "2026-10-04T21:32:26.746729+00:00",
+      "error": "TimeoutError: client1: initial mineral baseline client1",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "08feb086c8cba106b7633754174559048c98ce79e8977fd2dd3e2a438620fe44"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-053620-521215-mono-normal-2p-host/result.json",
+      "passed": false,
+      "checks": 12,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-053513-191f28a8\\DarkNights.exe",
+      "finished": "2026-10-04T21:38:57.837822+00:00",
+      "error": "TimeoutError: host: one mineral cell depleted",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "08feb086c8cba106b7633754174559048c98ce79e8977fd2dd3e2a438620fe44"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-054136-910326-mono-normal-2p-host/result.json",
+      "passed": false,
+      "checks": 18,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-054044-434e715a\\DarkNights.exe",
+      "finished": "2026-10-04T21:44:08.463661+00:00",
+      "error": "TimeoutError: client1: ready",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "08feb086c8cba106b7633754174559048c98ce79e8977fd2dd3e2a438620fe44"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-055034-909808-mono-normal-2p-host/result.json",
+      "passed": false,
+      "checks": 18,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-054903-e9d10f7a\\DarkNights.exe",
+      "finished": "2026-10-04T21:53:12.549716+00:00",
+      "error": "TimeoutError: client1: ready",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "08feb086c8cba106b7633754174559048c98ce79e8977fd2dd3e2a438620fe44"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-055956-459448-mono-normal-2p-host/result.json",
+      "passed": false,
+      "checks": 20,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-055858-366ad345\\DarkNights.exe",
+      "finished": "2026-10-04T22:00:53.039381+00:00",
+      "error": "AssertionError: load restores partial cell durability and keeps bed identity: None",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "08feb086c8cba106b7633754174559048c98ce79e8977fd2dd3e2a438620fe44"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-060721-212649-mono-normal-2p-host/result.json",
+      "passed": false,
+      "checks": 19,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-060529-8451976b\\DarkNights.exe",
+      "finished": "2026-10-04T22:10:02.824858+00:00",
+      "error": "TimeoutError: host: current local mineral region readable host",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "d1ce23b32444991dd96dc1380c0d8d09886a8b81f188c4e5c03a77fb01e95449"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-061157-074284-mono-normal-2p-host/result.json",
+      "passed": false,
+      "checks": 20,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-060529-8451976b\\DarkNights.exe",
+      "finished": "2026-10-04T22:14:33.668190+00:00",
+      "error": "TimeoutError: client1: peer receives pause and renewed lease",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "e20c72cf9d2582744f2221f45e8b9d2a440e68f448680594c3b163a358498c34"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-062310-291339-mono-normal-2p-host/result.json",
+      "passed": false,
+      "checks": 20,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-062144-ff673464\\DarkNights.exe",
+      "finished": "2026-10-04T22:25:46.704171+00:00",
+      "error": "TimeoutError: client1: peer receives pause and renewed lease",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "e20c72cf9d2582744f2221f45e8b9d2a440e68f448680594c3b163a358498c34"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-063202-160691-mono-normal-2p-host/result.json",
+      "passed": false,
+      "checks": 20,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-062957-2df1433c\\DarkNights.exe",
+      "finished": "2026-10-04T22:34:38.177273+00:00",
+      "error": "TimeoutError: client1: peer receives pause and renewed lease",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "e20c72cf9d2582744f2221f45e8b9d2a440e68f448680594c3b163a358498c34"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-064040-138469-mono-normal-2p-host/result.json",
+      "passed": true,
+      "checks": 28,
+      "weak": false,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-063931-96a2729a\\DarkNights.exe",
+      "finished": "2026-10-04T22:42:13.037587+00:00",
+      "error": null,
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "e20c72cf9d2582744f2221f45e8b9d2a440e68f448680594c3b163a358498c34"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-064227-946196-mono-normal-4p-host/result.json",
+      "passed": false,
+      "checks": 34,
+      "weak": false,
+      "clients": 3,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-063931-96a2729a\\DarkNights.exe",
+      "finished": "2026-10-04T22:44:24.286791+00:00",
+      "error": "Player log contains exceptions or errors: [{\"log\": \"client1-2.log\", \"message\": \"InvalidOperationException: Input playback requires Ready.\"}]",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "e20c72cf9d2582744f2221f45e8b9d2a440e68f448680594c3b163a358498c34"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-064548-888796-mono-normal-4p-host/result.json",
+      "passed": true,
+      "checks": 34,
+      "weak": false,
+      "clients": 3,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-063931-96a2729a\\DarkNights.exe",
+      "finished": "2026-10-04T22:47:45.351122+00:00",
+      "error": null,
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "2c91fbe1947837a48965bf6dbd27deb42775d01e3a7c5401d79316da0a47d53c"
+    },
+    {
+      "path": "artifacts/mineral-map-migration-20261005/network/network-20261005-064800-211973-mono-weak-2p-host/result.json",
+      "passed": false,
+      "checks": 1,
+      "weak": true,
+      "clients": 1,
+      "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261005-063931-96a2729a\\DarkNights.exe",
+      "finished": "2026-10-04T22:49:57.293428+00:00",
+      "error": "TimeoutError: client1: ready with controlled actor",
+      "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "script_sha256": "2c91fbe1947837a48965bf6dbd27deb42775d01e3a7c5401d79316da0a47d53c"
+    }
+  ],
+  "not_verified": [
+    "scattered four-player regions in independent processes",
+    "independent-process concurrent last harvest",
+    "complete miner logistics route",
+    "foreground frame-time and peak-memory benchmarks",
+    "IL2CPP",
+    "two physical machines",
+    "final human art acceptance"
+  ],
+  "archive": {
+    "manifest": "artifacts/待清理/20261005-mineral-map-migration/清单.md",
+    "bytes": 1961257,
+    "released_bytes": 0
+  },
+  "delivery_status": "current functional checkpoint verified; remaining performance and scenario gates documented, not full plan delivery"
+}

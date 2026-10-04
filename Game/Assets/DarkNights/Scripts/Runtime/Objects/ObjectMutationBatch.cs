@@ -17,6 +17,7 @@ namespace DarkNights.Runtime.Objects
         private readonly List<Action> rollback = new List<Action>();
         private readonly List<Action> committed = new List<Action>();
         private Action beforeCommit;
+        private readonly List<(Action Validate, Action Install)> maps = new List<(Action, Action)>();
         public bool IsOpen { get; private set; }
         internal bool Publishing { get; private set; }
 
@@ -45,7 +46,12 @@ namespace DarkNights.Runtime.Objects
                 }
                 Publishing = true;
                 notifications = committed.ToArray();
-                SessionStateChange.CommitAll(changes, beforeCommit);
+                SessionStateChange.CommitAll(changes, () =>
+                {
+                    foreach (var map in maps) map.Validate();
+                    beforeCommit?.Invoke();
+                    foreach (var map in maps) map.Install();
+                });
                 success = true;
                 return result;
             }
@@ -71,6 +77,7 @@ namespace DarkNights.Runtime.Objects
                     rollback.Clear();
                     committed.Clear();
                     beforeCommit = null;
+                    maps.Clear();
                     Publishing = false;
                     IsOpen = false;
                 }
@@ -115,6 +122,12 @@ namespace DarkNights.Runtime.Objects
             RequireWriting();
             if (beforeCommit != null) throw new InvalidOperationException("同一对象事务只能组合一张权威地图提交。");
             beforeCommit = action ?? throw new ArgumentNullException(nameof(action));
+        }
+        /// <summary>登记本批地图候选；全部对象与地图候选先校验，安装在同一主线程且不发布通知。仅容许既有格子的业务更新与清空。</summary>
+        internal void BeforeMapCommit(Action validate, Action install)
+        {
+            RequireWriting();
+            maps.Add((validate ?? throw new ArgumentNullException(nameof(validate)), install ?? throw new ArgumentNullException(nameof(install))));
         }
     }
 }

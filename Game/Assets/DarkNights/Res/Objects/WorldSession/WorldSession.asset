@@ -51,46 +51,12 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6961529734502023170
-      type: {class: TerrainProfileConfig, ns: DarkNights.Runtime.Terrain, asm: DarkNights.Runtime}
+    - rid: 4004706231644586077
+      type: {class: EntranceWalkwayModifierConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
-        Definition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
-        ContourDefinition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
-        CaveStyle: {fileID: 11400000, guid: b8f1f94057451ec459e1bac28aba1c8a, type: 2}
-        BackgroundStyle: {fileID: 11400000, guid: b8f1f94057451ec459e1bac28aba1c8a, type: 2}
-        Materials:
-        - MaterialKey: loam
-          ResourceId: ''
-          Yield: 0
-          PickaxeEfficiencyPercent: 100
-        - MaterialKey: slate
-          ResourceId: ''
-          Yield: 0
-          PickaxeEfficiencyPercent: 100
-        - MaterialKey: basalt
-          ResourceId: ''
-          Yield: 0
-          PickaxeEfficiencyPercent: 100
-        - MaterialKey: copper
-          ResourceId: iron
-          Yield: 1
-          PickaxeEfficiencyPercent: 100
-        - MaterialKey: iron
-          ResourceId: iron
-          Yield: 1
-          PickaxeEfficiencyPercent: 100
-        - MaterialKey: gold
-          ResourceId: gold
-          Yield: 1
-          PickaxeEfficiencyPercent: 100
-        - MaterialKey: moss
-          ResourceId: ''
-          Yield: 0
-          PickaxeEfficiencyPercent: 100
-        - MaterialKey: bedrock
-          ResourceId: ''
-          Yield: 0
-          PickaxeEfficiencyPercent: 100
+        Enabled: 1
+        Headroom: 5
+        MaxCandidates: 64
     - rid: 6961529734502023168
       type: {class: HandheldConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
@@ -127,10 +93,10 @@ MonoBehaviour:
           ResourceProfile: cave-exploration
         Planets:
         - Id: grey-pine
-          DisplayName: 灰松星
-          Description: 地表安全降落区连接灰松洞穴。
+          DisplayName: "\u7070\u677E\u661F"
+          Description: "\u5730\u8868\u5B89\u5168\u964D\u843D\u533A\u8FDE\u63A5\u7070\u677E\u6D1E\u7A74\u3002"
           Enabled: 1
-          Seed:
+          Seed: 
           DockColumn: 36
           DockRow: 40
           LandingWidth: 32
@@ -143,3 +109,47 @@ MonoBehaviour:
           TransitionKind: star-shift
           SpaceColorHex: '#060C20'
           SkyColorHex: '#243B55'
+        ModifierSchemaVersion: 1
+        Modifiers:
+        - rid: 4004706231644586077
+    - rid: 6961529734502023170
+      type: {class: TerrainProfileConfig, ns: DarkNights.Runtime.Terrain, asm: DarkNights.Runtime}
+      data:
+        Definition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
+        ContourDefinition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
+        MineralDefinition: {fileID: 11400000, guid: c0fa1b2e6e4c55742babce5c51cc19a5, type: 2}
+        CaveStyle: {fileID: 11400000, guid: b8f1f94057451ec459e1bac28aba1c8a, type: 2}
+        BackgroundStyle: {fileID: 11400000, guid: b8f1f94057451ec459e1bac28aba1c8a, type: 2}
+        Materials:
+        - MaterialKey: loam
+          ResourceId: 
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: slate
+          ResourceId: 
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: basalt
+          ResourceId: 
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: copper
+          ResourceId: iron
+          Yield: 1
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: iron
+          ResourceId: iron
+          Yield: 1
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: gold
+          ResourceId: gold
+          Yield: 1
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: moss
+          ResourceId: 
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: bedrock
+          ResourceId: 
+          Yield: 0
+          PickaxeEfficiencyPercent: 100

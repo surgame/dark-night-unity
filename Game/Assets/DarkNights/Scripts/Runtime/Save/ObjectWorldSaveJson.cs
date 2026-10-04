@@ -106,6 +106,8 @@ namespace DarkNights.Runtime.Save
                 Array(world["projectiles"], SnapshotEntityJson.ProjectileSnapshot, 1024),
                 SnapshotDocumentJson.StatisticsSnapshot(world["stats"]), mode, identities, TerrainSaveJson.Read(world["terrain"]), ExpeditionSaveJson.Read(world["expedition"]),
                 Array(world["mineral_deposits"], MineralSaveJson.Read, 128));
+            if (snapshot.MineralDeposits.Count != 0 || snapshot.Terrain != null && snapshot.Terrain.Minerals == null)
+                throw new FormatException("v19 存档必须使用矿层格子状态，不能包含矿床实体。");
             Validate(snapshot);
             RequireFields(world, World(snapshot));
             return snapshot;

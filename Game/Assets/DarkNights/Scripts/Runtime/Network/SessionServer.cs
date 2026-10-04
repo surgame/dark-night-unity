@@ -36,6 +36,8 @@ namespace DarkNights.Runtime.Network
         private bool disposed;
         private long lastPublishTick;
         public SessionAuthority Authority { get; }
+        /// <summary>仅供地图兴趣服务解析可信连接的玩家槽位；请求参数不能指定槽位。</summary>
+        internal int TerrainPlayerSlot(NetworkConnection connection) => peers.TryGetValue(connection, out var peer) && peer.Authority != null ? peer.Authority.PlayerSlot : -1;
         public int LastPayloadBytes { get; private set; }
         public SessionStorage Storage { get; }
         public SessionMeasurements Measurements { get; }

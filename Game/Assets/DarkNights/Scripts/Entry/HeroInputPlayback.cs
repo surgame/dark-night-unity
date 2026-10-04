@@ -87,16 +87,13 @@ namespace DarkNights.Entry
             var position = new CellCoord((int)target["u"], (int)target["v"]);
             if (!map.Read(position).TryGetCell(out var foreground)) return default;
             int id = (int?)target["entity"] ?? 0;
-            var kind = id == 0 ? HeroMiningTargetKind.Foreground : HeroMiningTargetKind.MineralDeposit;
+            var kind = id == 0 && (string)target["kind"] != "mineral" ? HeroMiningTargetKind.Foreground : HeroMiningTargetKind.MineralDeposit;
             ulong version = 0;
-            if (id != 0)
-            {
-                var deposit = client.Replica.Current.World.MineralDeposits.SingleOrDefault(value => value.Id == id);
-                version = deposit?.Cells.FirstOrDefault(value => value.U == position.U && value.V == position.V).ContentVersion ?? 0;
-            }
+            if (kind == HeroMiningTargetKind.MineralDeposit)
+                version = network.Terrain.Minerals?.Replica?.ContentVersion(position) ?? 0;
             return new HeroMiningTarget((string)target["world"] ?? map.World.WorldId.ToString().Replace("-", ""),
                 (ulong?)target["mapEpoch"] ?? map.World.Epoch, position.U, position.V, foreground.TileId, foreground.Flags,
-                kind, id, (ulong?)target["foregroundVersion"] ?? map.ContentVersion(position), (ulong?)target["version"] ?? version);
+                kind, 0, (ulong?)target["foregroundVersion"] ?? map.ContentVersion(position), (ulong?)target["version"] ?? version);
         }
     }
 }

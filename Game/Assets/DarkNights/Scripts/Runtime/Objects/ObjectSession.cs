@@ -121,11 +121,6 @@ namespace DarkNights.Runtime.Objects
                 foreach (ObjectPlacement placement in placements)
                     Create(placement.Definition, placement.X, placement.PlacementKey, true,
                         placement.Variant, placement.ActorName, placement.Loader);
-                ObjectDefinition mineralDefinition = Resources.FindOptional(MineralDepositRuleConfig.Rule);
-                if (Terrain != null && mineralDefinition != null)
-                    foreach (TerrainDepositBlueprint deposit in Terrain.Deposits)
-                        Create(mineralDefinition, (deposit.X + .5f) * PlayableTerrain.CellPixels,
-                            "terrain.deposit." + deposit.Id, true, 0, "", null, false, 0, deposit);
                 if (IsExpedition) Expedition.Prepare();
                 return true;
             });
@@ -166,6 +161,8 @@ namespace DarkNights.Runtime.Objects
             TerrainDepositBlueprint deposit = null)
         {
             Mutations.RequireWriting();
+            if (ObjectSessionResources.Rule(definition) == MineralDepositRuleConfig.Rule)
+                throw new InvalidOperationException("矿床使用会话原生矿层，不能创建矿床实体。");
             ObjectInstance instance = null;
             bool registered = false;
             try

@@ -12,15 +12,15 @@ namespace DarkNights.View.Terrain
     /// <summary>独立矿层的薄原生宿主；复用 AnyRuleD 页面与资源服务，只有当前输入实际绘制后才 Ready，退场取消旧工作且不释放共享光场。</summary>
     public sealed class MineralLayerView : MonoBehaviour
     {
-        public const int DefaultSortingOrder = -88;
+        public const int DefaultSortingOrder = -58;
         private readonly TerrainInputBatchQueue queue = new TerrainInputBatchQueue();
         private ARDMapController controller;
         private DirectAssetService assets;
         private Material material;
-        private MineralLayerInputSource source;
+        private ITerrainInputSource source;
         private Camera sceneCamera;
         private CancellationTokenSource lifetime;
-        private GridBounds visible;
+        private GridBounds visible, loadedRegion;
         private ulong installed, presented, drawingCommit;
         private bool loading, baseline, drawing, hooked, hasPresented;
         private bool retiring;
@@ -31,21 +31,25 @@ namespace DarkNights.View.Terrain
         public long InputBatches { get; private set; }
         public ulong InstalledCommit => installed;
         public ulong PresentedCommit => presented;
+        public bool Loading => loading;
         public Task Retirement { get; private set; } = Task.CompletedTask;
         private bool Stable => LastError == null && controller != null && !loading && baseline &&
-            !queue.HasPending && BuiltPages > 0 && !controller.HasPendingPresentationWork;
+            !queue.HasPending && !controller.HasPendingPresentationWork;
+        public string WaitReason => "loading=" + loading + " baseline=" + baseline + " queue=" + queue.HasPending +
+            " builds=" + BuiltPages + " pending=" + (controller?.HasPendingPresentationWork ?? false) +
+            " drawn=" + hasPresented + " visible=" + visible + " installed=" + installed + " presented=" + presented;
         public bool Ready => Stable && hasPresented && presented == installed && !drawing;
         public bool NeedsPresentationDraw => Stable && !Ready;
 
-        public Task OpenAsync(ARDMapDefinition definition, MineralLayerInputSource input, Camera viewCamera,
-            WorldIdentity world, ulong seed = 42, Texture lights = null, float ambient = .36f, int sortingOrder = DefaultSortingOrder)
+        public Task OpenAsync(ARDMapDefinition definition, ITerrainInputSource input, Camera viewCamera,
+            WorldIdentity world, ulong seed = 42, Texture lights = null, float ambient = .36f, int sortingOrder = DefaultSortingOrder, GridBounds? region = null)
         {
             if (lifetime != null || retiring) throw new InvalidOperationException("矿层宿主已初始化或已退场。");
-            return opening = OpenCoreAsync(definition, input, viewCamera, world, seed, lights, ambient, sortingOrder);
+            return opening = OpenCoreAsync(definition, input, viewCamera, world, seed, lights, ambient, sortingOrder, region);
         }
 
-        private async Task OpenCoreAsync(ARDMapDefinition definition, MineralLayerInputSource input, Camera viewCamera,
-            WorldIdentity world, ulong seed, Texture lights, float ambient, int sortingOrder)
+        private async Task OpenCoreAsync(ARDMapDefinition definition, ITerrainInputSource input, Camera viewCamera,
+            WorldIdentity world, ulong seed, Texture lights, float ambient, int sortingOrder, GridBounds? region)
         {
             if (lifetime != null || definition == null || input == null || viewCamera == null)
                 throw new InvalidOperationException("矿层宿主只能初始化一次，且必须有定义、冻结输入和相机。");
@@ -73,7 +77,8 @@ namespace DarkNights.View.Terrain
                 var next = await ARDMapController.CreateAsync(descriptor, definition.LoadRuntimeCatalog(), options, token);
                 if (own != lifetime || token.IsCancellationRequested) { await next.DisposeAsync(); return; }
                 controller = next; queue.Configure(descriptor);
-                await next.LoadRegionAsync(descriptor.Bounds, token);
+                loadedRegion = region ?? descriptor.Bounds;
+                await next.LoadRegionAsync(loadedRegion, token);
                 if (own != lifetime || token.IsCancellationRequested) return;
                 source.PublishInitialBaseline(); loading = false;
                 Tick();
@@ -111,6 +116,7 @@ namespace DarkNights.View.Terrain
         {
             if (sceneCamera == null || !baseline) return;
             var next = TerrainViewport.Capture(controller.Descriptor, transform, sceneCamera);
+            next = TerrainViewport.Limit(next, loadedRegion, controller.Descriptor);
             if (next.Equals(visible)) return;
             TerrainViewport.HideDifference(controller, visible, next);
             if (next.IsValid) controller.ShowRegion(next);

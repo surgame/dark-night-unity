@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-10-05 [原生矿层迁移](docs/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)在当前 `ft-20261004-embedded-minerals` 开发：矿格状态归独立 ARDMap／GridBusinessStateStore，正式矿床实体退出；协议25／存档v19／AMP1 schema2。按暂定玩法拆墙发现局部矿床；前景与矿层局部订阅及加载、紧凑保存已实现。首轮39项Editor失败已清除，受影响不同用例合并105/105、原生副本组合画面通过；同一Mono正常两人30/30、四人38/38、弱网两人30/30通过，两层局部加载已落实，整批未交付。已通过[Unity CLI](docs/UNITY_CLI_WORKFLOW.md)后台编译、测试、截图及构建，本轮无Computer Use。
+
 2026-10-04 [Cave Wall Tuner 星球工作台](docs/TUNER_JOURNEY_WORKBENCH.md)：按用户选择的折叠分组，合并地图生成、原生岩壁／背景、星球降落和航程设置。修复航程草稿不可编辑，WorldSession 与表现分别显式保存，旧窗口草稿可转移。仅游戏侧 Editor；影响相关用例合并45/45，真实输入／Undo／示意／窄栏通过，作者资产1111项字节保持；本地候选 `ref-20261004-tuner-journey-workbench`，未合并或推送。
 
 2026-10-04 [斜坡跳跃连续运动](docs/SLOPE_JUMP_FLOW.md)已由 `fix-20261004-slope-jump-flow` 快进合入本地 `main`，代码提交 `a711897`，本轮未推送：连续斜向运动、真实接坡与点跳输入保留，固定／按住控制跳高策略默认固定，普通跳跃之后接续喷气。协议23／AMP1 schema2不变，规则摘要v5／存档v17；首轮Editor66/66，最终源码33/33，后续跨缺口边界修正的Editor补测待执行。YYGC未改，不宣称最终手感、Player或联机验收。

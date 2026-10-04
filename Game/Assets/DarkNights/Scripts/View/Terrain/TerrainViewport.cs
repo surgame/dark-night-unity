@@ -34,5 +34,15 @@ namespace DarkNights.View.Terrain
             Hide(left, area.MinV, right - left, bottom - area.MinV);
             Hide(left, top, right - left, (int)area.MaxVExclusive - top);
         }
+        /// <summary>保留非世界边缘的一整页规则缓冲；显示的页不会读取加载范围外的 Unknown 四角。</summary>
+        internal static GridBounds Limit(GridBounds next, GridBounds loaded, WorldDescriptor descriptor)
+        {
+            var bounds = descriptor.Bounds; int page = descriptor.PageSize;
+            int left = Math.Max(next.MinU, loaded.MinU + (loaded.MinU == bounds.MinU ? 0 : page));
+            int bottom = Math.Max(next.MinV, loaded.MinV + (loaded.MinV == bounds.MinV ? 0 : page));
+            int right = (int)Math.Min(next.MaxUExclusive, loaded.MaxUExclusive - (loaded.MaxUExclusive == bounds.MaxUExclusive ? 0 : page));
+            int top = (int)Math.Min(next.MaxVExclusive, loaded.MaxVExclusive - (loaded.MaxVExclusive == bounds.MaxVExclusive ? 0 : page));
+            return next.IsValid && right > left && top > bottom ? new GridBounds(left, bottom, right - left, top - bottom) : default;
+        }
     }
 }

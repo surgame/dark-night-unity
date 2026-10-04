@@ -195,7 +195,13 @@ class NetworkRun:
             command.append("--dn-metrics")
         # SpaceReady requires a real camera completion; batchmode receives the map but never renders it.
         # Both automated and native-input runs keep a graphics window. Do not use -batchmode/-nographics.
-        self.processes[role] = subprocess.Popen(command, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+        startup = None
+        if os.name == "nt" and getattr(self.args, "background", False):
+            startup = subprocess.STARTUPINFO()
+            startup.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+            startup.wShowWindow = 4  # SW_SHOWNOACTIVATE: retain graphics without requesting focus.
+        self.processes[role] = subprocess.Popen(command, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
+                                                startupinfo=startup)
         self.write_status("starting " + role)
         return self.wait(role, lambda report: report["ready"] and report.get("frame") and report["terrain"]["visible"] and
                          any(person["ControllerSlot"] == report["slot"] for person in world(report)["Actors"]),

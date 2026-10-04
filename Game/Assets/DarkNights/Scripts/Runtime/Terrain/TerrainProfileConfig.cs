@@ -15,6 +15,7 @@ namespace DarkNights.Runtime.Terrain
         public string Name => "网格地形与采集";
         public ARDMapDefinition Definition;
         public ARDMapDefinition ContourDefinition;
+        public ARDMapDefinition MineralDefinition;
         public UnityEngine.Object CaveStyle;
         public UnityEngine.Object BackgroundStyle;
         public List<TerrainMaterialMiningRule> Materials = new List<TerrainMaterialMiningRule>

@@ -44,13 +44,14 @@ namespace DarkNights.Tests
             var map = creation.Result;
             try
             {
-                var loading = map.LoadRegionAsync(map.Descriptor.Bounds);
+                // 正式前景现在按局部区块加载；显示区保留一整页缓冲，不能等待世界边缘的 Unknown 页面。
+                var loading = map.LoadRegionAsync(new GridBounds(64, -160, 160, 160));
                 while (!loading.IsCompleted) yield return null;
                 Assert.That(loading.Exception, Is.Null);
                 MapInputBatch baseline = null;
                 source.InputChanged += batch => baseline = batch; source.PublishInitialBaseline();
                 map.InstallSourceInput(baseline);
-                var shown = map.ShowRegion(map.Descriptor.Bounds);
+                var shown = map.ShowRegion(new GridBounds(104, -126, 32, 32));
                 var waiting = map.WhenPresentedAsync(shown);
                 for (int i = 0; i < 1500 && !waiting.IsCompleted; i++) { map.Tick(); yield return null; }
                 Assert.That(waiting.IsCompleted, Is.True);

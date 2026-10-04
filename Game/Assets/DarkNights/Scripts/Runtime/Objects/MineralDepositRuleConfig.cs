@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace DarkNights.Runtime.Objects
 {
-    /// <summary>矿床 ObjectDefinition 的静态规则入口；容量和稀有度实例值由地图蓝图复制到 MineralDepositState。</summary>
+    /// <summary>矿物作者 Definition 的静态采集配置；正式会话冻结到矿层规则，格耐久和储量归原生地图，旧 Behaviour 仅保留作者引用。</summary>
     [Serializable]
     public sealed class MineralDepositRuleConfig : IConfigData
     {

@@ -19,5 +19,5 @@ MonoBehaviour:
   GameplayDefinitionGuid: 
   Gameplay: {fileID: 0}
   Solid: 0
-  MaximumDurability: 1
+  MaximumDurability: 40
   FillVisualSet: {fileID: 11400000, guid: 9180faecd7af6834ba44d009c3fe1efc, type: 2}

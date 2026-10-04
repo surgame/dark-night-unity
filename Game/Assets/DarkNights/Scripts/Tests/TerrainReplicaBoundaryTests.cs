@@ -38,8 +38,10 @@ namespace DarkNights.Tests
             foreach (int row in new[] { 0, 191 })
             {
                 var center = new CellCoord(15, -row);
-                session.Map.DestroyTrusted(1, "edge:" + row, TerrainEditAction.Explosive, session.Map.World,
-                    center, session.Map.BuildTargets(TerrainEditAction.Explosive, center), _ => true);
+                for (int hit = 0; hit < 32 && !session.Map.Read(center).Cell.IsEmpty; hit++)
+                    session.Map.DestroyTrusted(1, "edge:" + row + ":" + hit, TerrainEditAction.Explosive, session.Map.World,
+                        center, session.Map.BuildTargets(TerrainEditAction.Explosive, center), _ => true);
+                Assert.That(session.Map.Read(center).Cell.IsEmpty, Is.True, "边界变化检查仍须经过完整格耐久。");
                 current = null; source.NotifyChanged(); Assert.That(current, Is.Not.Null);
                 var changed = ChangedChunks(previous, current);
                 Assert.That(changed.Count, Is.EqualTo(row == 0 ? 2 : 1));

@@ -1,0 +1,108 @@
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+using System;
+using System.IO;
+using System.Linq;
+using AnyRules.Next;
+using AnyRules.Next.Authoring;
+using AnyRules.Next.Networking;
+using DarkNights.Runtime.Network;
+using DarkNights.Runtime.Terrain;
+using DarkNights.View.Terrain;
+using FishNet;
+using Newtonsoft.Json.Linq;
+using UnityEngine;
+
+namespace DarkNights.Entry
+{
+    /// <summary>显式开发参数启用的独立矿层传输夹具；使用不同地图身份，不修改正式矿床、角色或库存，报告仅证明消息分流与区域合同。</summary>
+    public sealed class MineralMapProtocolProbe : MonoBehaviour
+    {
+        private SessionNetwork network;
+        private MineralMapTransport transport;
+        private ARDMap map;
+        private ServerGameplayCatalog catalog;
+        private GridBusinessCatalog business;
+        private string reportPath, commandPath, visual;
+        private DateTime lastCommand;
+        private float next;
+        private string error;
+        private readonly CellCoord target = new CellCoord(5, 5);
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void Install()
+        {
+            var args = System.Environment.GetCommandLineArgs();
+            int at = Array.IndexOf(args, "--dn-map-probe-report");
+            if (at < 0 || at + 1 >= args.Length) return;
+            var root = new GameObject("Mineral protocol P0 fixture"); DontDestroyOnLoad(root);
+            var probe = root.AddComponent<MineralMapProtocolProbe>();
+            probe.reportPath = Path.GetFullPath(args[at + 1]);
+            probe.commandPath = probe.reportPath + ".command";
+        }
+        private void Update()
+        {
+            if (error != null || Time.unscaledTime < next) return;
+            next = Time.unscaledTime + .1f;
+            try
+            {
+                if (network == null) network = FindAnyObjectByType<SessionNetwork>();
+                if (network == null || InstanceFinder.NetworkManager == null || network.Client?.Replica?.Current == null) return;
+                if (transport == null) Open();
+                if (File.Exists(commandPath) && File.GetLastWriteTimeUtc(commandPath) != lastCommand)
+                {
+                    lastCommand = File.GetLastWriteTimeUtc(commandPath);
+                    string command = File.ReadAllText(commandPath).Trim();
+                    if (command == "right") transport.RequestRegion(new GridBounds(72, 0, 16, 16));
+                    else if (command == "left") transport.RequestRegion(new GridBounds(0, 0, 16, 16));
+                    else if (network.Hosting && (command == "hit" || command == "clear"))
+                    {
+                        using var edit = map.BeginEdit(map.CommitId);
+                        if (command == "clear") edit.ClearTile(target);
+                        else edit.SetBusinessState(target, new GridBusinessState(1, remainingReserves: 2));
+                        edit.Commit();
+                    }
+                }
+                transport.Pump(); Write();
+            }
+            catch (Exception exception) { error = exception.ToString(); Write(); }
+        }
+        private void Open()
+        {
+            var definition = TerrainProfileConfig.Resolve().CaveStyle as CaveTerrainStyle;
+            if (definition?.MineralDefinition == null) throw new InvalidOperationException("P0 缺少既有矿层定义。");
+            var asset = definition.MineralDefinition;
+            catalog = asset.LoadGameplayCatalog(); business = new GridBusinessCatalog(catalog, Array.Empty<GameplayDefinitionData>());
+            visual = new string('a', 64);
+            if (network.Hosting)
+            {
+                var world = new WorldIdentity(StableGuid.Parse("781de29b3c21473a8edcf13c9b0a1aba"), 1);
+                map = ARDMap.CreateAuthority(new WorldDescriptor(world, 42, 1, new GridBounds(0, 0, 96, 32)), catalog.Tiles,
+                    () => network.Hosting, business);
+                for (int c = 0; c < 3; c++) map.LoadChunk(new ChunkCoord(c, 0),
+                    Enumerable.Repeat(new GridCell(catalog.Tiles.ByKey("iron")), 1024).ToArray());
+                using var edit = map.BeginEdit(map.CommitId);
+                edit.SetBusinessState(target, new GridBusinessState(1, remainingReserves: 3)); edit.Commit();
+            }
+            var replica = new ChunkReplicaStateMachine(catalog.Tiles, business.ContentDigest, visual, business);
+            transport = new MineralMapTransport(InstanceFinder.NetworkManager, replica, (connection, session) =>
+                new MapInterestService(map, catalog.Tiles, new MapHandshake(map.Descriptor, business.ContentDigest, visual,
+                    catalog.Definitions.Select(value => value.Identity.Guid).ToArray()), session, _ => true, () => map.CommitId, () => 1),
+                new GridBounds(0, 0, 16, 16));
+        }
+        private void Write()
+        {
+            if (reportPath == null) return;
+            var replica = transport?.Replica;
+            var sample = replica?.Read(target) ?? GridSample.Unknown;
+            var state = sample.State == GridSampleState.Present ? replica.Query(target).State : default;
+            var json = new JObject { ["error"] = error, ["foregroundReady"] = network?.Client?.Ready == true,
+                ["mineralReady"] = transport?.DataReady == true, ["target"] = sample.State.ToString(),
+                ["reserves"] = state.RemainingReserves, ["durability"] = state.Durability,
+                ["right"] = replica?.Read(new CellCoord(80, 5)).State.ToString(), ["generation"] = replica?.Generation ?? 0,
+                ["commit"] = replica?.CommitId ?? 0, ["rejected"] = transport?.RejectedPackets ?? 0 };
+            File.WriteAllText(reportPath, json.ToString());
+        }
+        private void OnDestroy() { transport?.Dispose(); map?.Dispose(); }
+    }
+}
+#endif

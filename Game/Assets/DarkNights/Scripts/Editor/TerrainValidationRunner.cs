@@ -23,12 +23,19 @@ namespace DarkNights.Editor
         }
         private static void Initialize()
         {
+            if (api != null) return;
             Directory.CreateDirectory(Root);
             active = SessionState.GetString(ActiveKey, "");
             api = ScriptableObject.CreateInstance<TestRunnerApi>();
             api.RegisterCallbacks(new Results());
             EditorApplication.update += Tick;
             WriteStatus("ready");
+        }
+        /// <summary>CLI 显式驱动已排队的有限批次，避免后台 Editor 空闲时轮询暂停；沿用当前场景、串行和结果记录门控。</summary>
+        public static void ProcessQueued()
+        {
+            if (api == null) Initialize();
+            next = 0; Tick();
         }
         private static void Tick()
         {
@@ -79,6 +86,11 @@ namespace DarkNights.Editor
                 {
                     GamePlayerBuild.MapStateMono();
                     Complete("BUILD_RETURNED", 0, 0, 0);
+                }
+                else if (request.command == "upgrade-mineral-map")
+                {
+                    Terrain.MineralMapContentSetup.Install();
+                    Complete("MINERAL_MAP_CONFIGURED", 0, 0, 0);
                 }
                 else throw new ArgumentException("Unsupported validation command.");
             }
