@@ -35,12 +35,7 @@ namespace DarkNights.Runtime.Objects
             {
                 WorksiteState w = site.Read();
                 return new WorksiteViewData(w.Id, site.RuleKey, w.X, w.WorkerId, w.Amount, w.Progress, w.Variant, w.FarmId);
-            }).Concat(session.Index.MineralDeposits.Select(deposit =>
-            {
-                return new WorksiteViewData(deposit.Id, "mineral-deposit", deposit.X, deposit.Y, 0, deposit.Remaining, 0, 0, 0,
-                    true, deposit.RoomKind, deposit.Rarity, deposit.Capacity, deposit.Stage.ToString(),
-                    deposit.Durability, deposit.MaximumDurability, deposit.ResourceId, deposit.HarvestAmount, deposit.RequiredMiningLevel);
-            })).ToArray();
+            }).ToArray();
             WaveState wave = session.Waves.Read();
             var summary = new CampViewData(session.Economy.Stock, session.Economy.Population, session.Economy.Capacity,
                 economy.RecruitCooldown, wave.Index, wave.Phase.ToString(), wave.DayRemaining,
@@ -52,7 +47,9 @@ namespace DarkNights.Runtime.Objects
                 session.Projectiles.Read().Ballistics.Where(p => p.Kind != 0).Select(p => new ProjectileViewData(
                     p.ViewId, p.X, session.Layout.GroundY - p.Height, p.X, session.Layout.GroundY - p.Height,
                     p.Age, p.Lifetime, p.Kind, p.VelocityX, p.VelocityY, p.Gravity, p.Kind == 3 ? p.BlastRadius : p.Radius, p.Stuck))).ToArray();
-            return new WorldViewData(summary, actors, buildings, sites, shots, identities, ExpeditionMapping.Capture(session));
+            return new WorldViewData(summary, actors, buildings, sites, shots, identities, ExpeditionMapping.Capture(session),
+                session.Index.MineralDeposits.Select(deposit => deposit.Freeze()).ToArray(),
+                session.Terrain?.Map?.World.WorldId.ToString().Replace("-", "") ?? "", session.Terrain?.Map?.World.Epoch ?? 0);
         }
     }
 }

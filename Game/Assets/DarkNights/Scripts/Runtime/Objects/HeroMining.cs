@@ -14,7 +14,7 @@ namespace DarkNights.Runtime.Objects
     {
         internal static HeroMiningTarget InputTarget(ActorState state) => new HeroMiningTarget(state.MiningWorldId,
             state.MiningMapEpoch, state.MiningU, state.MiningV, state.MiningTileId, state.MiningFlags,
-            state.MiningTargetKind, state.MiningEntityId, state.MiningContentVersion);
+            state.MiningTargetKind, state.MiningEntityId, state.MiningContentVersion, state.MiningMineralContentVersion);
 
         internal static bool TryMine(ActorBehaviour actor, HeroMiningTarget intent, float aim, MiningToolRules tool)
         {
@@ -34,7 +34,7 @@ namespace DarkNights.Runtime.Objects
                 out var first, out float wallDistance);
             if (intent.Kind == HeroMiningTargetKind.Foreground)
             {
-                if (!wall || !first.Equals(target) || cell.IsEmpty || intent.EntityId != 0 || !map.Rules.CanDamage(cell.TileId)) return false;
+                if (!wall || !first.Equals(target) || cell.IsEmpty || intent.EntityId != 0 || intent.MineralContentVersion != 0 || !map.Rules.CanDamage(cell.TileId)) return false;
                 if (tool.BlockReason(intent.Kind, map.Rules.Material(cell.TileId)).Length > 0) return false;
                 int damage = map.Rules.PickaxeDamage(cell.TileId, tool.Damage);
                 var drop = map.Rules.Drop(cell.TileId);
@@ -47,13 +47,19 @@ namespace DarkNights.Runtime.Objects
                 !TerrainMiningGeometry.RayCell(state.X, hand, dx, dh, tool.Reach,
                     target.U, target.V, TerrainCellShape.Full, out float depositDistance) ||
                 wall && wallDistance <= depositDistance) return false;
+            foreach (var nearby in actor.World.Index.MineralDeposits)
+                foreach (var nearCell in nearby.Read().Cells)
+                    if (nearCell.Remaining > 0 && map.Read(new CellCoord(nearCell.U, nearCell.V)).TryGetCell(out var cover) && cover.IsEmpty &&
+                        TerrainMiningGeometry.RayCell(state.X, hand, dx, dh, tool.Reach, nearCell.U, nearCell.V,
+                            TerrainCellShape.Full, out float near) && near + .001f < depositDistance) return false;
             var deposit = actor.World.Index.MineralDeposits.OfType<MineralDepositBehaviour>()
                 .SingleOrDefault(value => value.Id == intent.EntityId);
             if (deposit == null || tool.BlockReason(intent.Kind, deposit.ResourceId, deposit.RequiredMiningLevel, deposit.DefinitionGuid).Length > 0 ||
-                deposit.Remaining <= 0 || (int)Math.Floor(deposit.X / PlayableTerrain.CellPixels) != target.U ||
-                -deposit.Y != target.V || deposit.Durability <= tool.Damage && !ExpeditionCargo.CanCollect(actor, deposit.HarvestAmount))
+                !deposit.TryGetCell(target.U, target.V, out var mineral) || mineral.Remaining <= 0 ||
+                mineral.ContentVersion != intent.MineralContentVersion ||
+                mineral.Durability <= tool.Damage && !ExpeditionCargo.CanCollect(actor, Math.Min(mineral.Remaining, deposit.UnitsPerHarvest)))
                 return false;
-            if (!deposit.HitByTool(tool, out int harvested)) return false;
+            if (!deposit.HitByTool(tool, target.U, target.V, intent.MineralContentVersion, out int harvested)) return false;
             if (harvested > 0) ExpeditionCargo.Collect(actor, deposit.ResourceId, harvested);
             return true;
         }

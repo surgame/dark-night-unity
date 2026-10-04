@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f147528a03f5948bdd494c1faf721d, type: 3}
+  m_Name: Mask03
+  m_EditorClassIdentifier: AnyRules.Authoring::AnyRules.Next.Authoring.TileVisualSet
+  PersistentGuid: 02a23bb4107e40f49a08e8efaaf706c3
+  TileableFill: 0
+  SupportedTransforms: 1
+  Variants:
+  - VariantGuid: 3e57387d1bf340498a6b61e8efecec23
+    ResourceId: e3a8cbbcc6074ddab6c0fd2c06f95572
+    Weight: 1
+    Sprite: {fileID: -4449154012668437095, guid: 4f56caf6988a3ba4f9e8fa9b64ee489e, type: 3}
+    Material: {fileID: 0}
+    Prefab: {fileID: 0}
+    Mesh: {fileID: 0}
+    Sorted:
+      FootpointOffset: {x: 0.5, y: 0}
+      DisplayOffset: {x: 0, y: 0}
+      Scale: {x: 1, y: 1}
+      FramesPerSecond: 8
+      Frames: []
+  - VariantGuid: 56330e2035354534bf0c207e9a669206
+    ResourceId: 16ac4e6985dd4c5d83b9ff94c64349e9
+    Weight: 1
+    Sprite: {fileID: -7957469948551282622, guid: 4f56caf6988a3ba4f9e8fa9b64ee489e, type: 3}
+    Material: {fileID: 0}
+    Prefab: {fileID: 0}
+    Mesh: {fileID: 0}
+    Sorted:
+      FootpointOffset: {x: 0.5, y: 0}
+      DisplayOffset: {x: 0, y: 0}
+      Scale: {x: 1, y: 1}
+      FramesPerSecond: 8
+      Frames: []
+  - VariantGuid: a8c61d53542f42eabadc64337af46606
+    ResourceId: 80173551cce44408a60cddcab85a905b
+    Weight: 1
+    Sprite: {fileID: 4868274227115881742, guid: 4f56caf6988a3ba4f9e8fa9b64ee489e, type: 3}
+    Material: {fileID: 0}
+    Prefab: {fileID: 0}
+    Mesh: {fileID: 0}
+    Sorted:
+      FootpointOffset: {x: 0.5, y: 0}
+      DisplayOffset: {x: 0, y: 0}
+      Scale: {x: 1, y: 1}
+      FramesPerSecond: 8
+      Frames: []
+  - VariantGuid: 860ab476425b4c3dae1d582fd43c3dda
+    ResourceId: 82a6208c53fb4c5e94ff3bafa33308f3
+    Weight: 1
+    Sprite: {fileID: 8128733646066783081, guid: 4f56caf6988a3ba4f9e8fa9b64ee489e, type: 3}
+    Material: {fileID: 0}
+    Prefab: {fileID: 0}
+    Mesh: {fileID: 0}
+    Sorted:
+      FootpointOffset: {x: 0.5, y: 0}
+      DisplayOffset: {x: 0, y: 0}
+      Scale: {x: 1, y: 1}
+      FramesPerSecond: 8
+      Frames: []

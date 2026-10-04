@@ -28,7 +28,7 @@ namespace DarkNights.Core.Logic.Terrain
                 if (y == source.Height - 1) { cells[index] = 8; protection[index] = true; softRock[index] = false; }
             }
             return new PlayableTerrain(worldId, seed, cells, protection, softRock,
-                new List<TerrainRoom>(source.Rooms).ToArray(), new List<TerrainDepositBlueprint>(source.Deposits).ToArray());
+                new List<TerrainRoom>(source.Rooms).ToArray(), TerrainDepositFootprints.Build(source.Deposits, cells, protection, seed));
         }
 
         public static LevelLayout Layout(LevelLayout original) => new LevelLayout(

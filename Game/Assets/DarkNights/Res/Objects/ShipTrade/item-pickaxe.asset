@@ -45,7 +45,7 @@ MonoBehaviour:
     - rid: 4004706173535912235
       type: {class: MiningToolConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
-        Targets: 1
+        Targets: 3
         AllMaterials: 1
         Materials: []
         Deposits: []

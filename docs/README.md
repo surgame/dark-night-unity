@@ -39,7 +39,7 @@
 
 ## 开发入口
 
-- [EMBEDDED_MINERAL_LAYER_PLAN.md](EMBEDDED_MINERAL_LAYER_PLAN.md) — 独立 AnyRuleD 矿层、YYGC 多格矿床、采集同步与恢复的执行方案；2026-10-04 纯规则探针通过，真实素材及玩法未实施；[深度审查](EMBEDDED_MINERAL_LAYER_REVIEW.md)
+- [EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md](EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md) — 2026-10-04 独立 AnyRuleD 矿层、多格 YYGC 状态、协议 24／存档 v18 的开发检查点；Editor 合并245/245，Mono正常两人24/24及四人30/30。弱网初始Ready失败，正式组合矿层遮挡待修正，尚未交付；[执行方案](EMBEDDED_MINERAL_LAYER_PLAN.md)、[深度审查](EMBEDDED_MINERAL_LAYER_REVIEW.md)
 - [BUSINESS_RULE_AUDIT.md](BUSINESS_RULE_AUDIT.md) — 当前业务规则、隐藏数值、模式生效范围和组件职责问题；2026-09-30 仅审查，未整改或运行验证
 - [DEVELOPMENT.md](DEVELOPMENT.md) — 开发执行入口与当前状态
 - [QUICK_START.md](QUICK_START.md) — 人工开发快速上手

@@ -151,12 +151,12 @@ namespace DarkNights.Tests
             if (deposit)
             {
                 Assert.That(mineral.RequiredMiningLevel, Is.EqualTo(1));
-                Assert.That(world.CaptureView().Worksites.Single(value => value.Id == mineral.Id).RequiredMiningLevel, Is.EqualTo(1));
+                Assert.That(world.CaptureView().MineralDeposits.Single(value => value.Id == mineral.Id).RequiredMiningLevel, Is.EqualTo(1));
             }
             var mining = new HeroMiningTarget(map.World.WorldId.ToString().Replace("-", ""), map.World.Epoch,
                 target.U, target.V, before.TileId, before.Flags,
                 deposit ? HeroMiningTargetKind.MineralDeposit : HeroMiningTargetKind.Foreground,
-                mineral?.Id ?? 0, map.ContentVersion(target));
+                mineral?.Id ?? 0, map.ContentVersion(target), mineral?.PrimaryCell.ContentVersion ?? 0);
             var input = new HeroInputRequest(SessionAuthority.ProtocolVersion, authority.Epoch, authority.PolicyRevision,
                 actorId, state.ControlLease, 1, authority.ServerTick, 0, false, false, false, false,
                 0, state.SelectionRevision, true, false, false, false, mining);

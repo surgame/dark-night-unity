@@ -55,7 +55,7 @@ namespace DarkNights.Entry
             driver.reportPath = Path.GetFullPath(Read("--dn-report"));
             driver.commandPath = Path.GetFullPath(Read("--dn-commands"));
             driver.heroInput = network.gameObject.AddComponent<HeroInputPlayback>();
-            driver.heroInput.Initialize(network.Client);
+            driver.heroInput.Initialize(network);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             driver.compatibilityMapHash = Array.IndexOf(args, "--dn-map-compat-hash") >= 0;
 #endif
@@ -72,7 +72,16 @@ namespace DarkNights.Entry
 
         private async void Start()
         {
-            try { await network.Connect(role == "host", address, port); }
+            try
+            {
+                var args = System.Environment.GetCommandLineArgs();
+                int index = Array.IndexOf(args, "--dn-quick-test");
+                var flow = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
+                    .SharedConfigs.OfType<DarkNights.Runtime.Objects.ExpeditionFlowConfig>().Single();
+                var quick = role == "host" && index >= 0 && index + 1 < args.Length ?
+                    DarkNights.Runtime.Objects.QuickTestPreset.Create(args[index + 1], flow) : null;
+                await network.Connect(role == "host", address, port, quick);
+            }
             catch (Exception exception) { OnFailure(exception); }
         }
 
@@ -192,6 +201,8 @@ namespace DarkNights.Entry
                     ["terrainPresentation"] = terrainPreview == null ? null : new JObject
                     {
                         ["builtPages"] = terrainPreview.BuiltPages,
+                        ["mineralInputBatches"] = terrainPreview.MineralInputBatches,
+                        ["mineralBuiltPages"] = terrainPreview.MineralBuiltPages,
                         ["backgroundBuilds"] = terrainPreview.BackgroundBuildCount,
                         ["rockBuilds"] = terrainPreview.RockBuildCount,
                         ["backgroundPages"] = terrainPreview.BackgroundResidentPages,
@@ -202,6 +213,7 @@ namespace DarkNights.Entry
                         ["refreshing"] = terrainPreview.RefreshingReplica
                     },
                     ["frame"] = frame == null || !fullReport ? null : JObject.FromObject(frame),
+                    ["mineralProbe"] = MineralAutomationProbe.Read(network),
                     ["reportDetail"] = fullReport ? "full" : "summary", ["publication"] = frame?.Publication ?? 0,
                     ["serverTick"] = frame?.ServerTick ?? 0, ["epoch"] = frame?.Epoch ?? 0,
                     ["readyCount"] = frame?.ReadyCount ?? 0, ["entityCount"] = frame?.World.Identities.Count ?? 0,

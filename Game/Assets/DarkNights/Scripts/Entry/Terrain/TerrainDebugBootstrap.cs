@@ -171,8 +171,9 @@ namespace DarkNights.Entry.Terrain
                 Release(Preview);
                 if (!appearanceOnly) { Workshop?.Dispose(); Workshop = workshop; workshop = null; backgroundReference = reference; }
                 Blueprint = blueprint; Preview = candidate; candidate = null;
-                Preview.SetMinerals(blueprint.Deposits.Select((d, i) => new DarkNights.Core.ViewData.WorksiteViewData(
-                    i + 1, "mineral-deposit", (d.X + .5f) * 16, d.Y, 0, d.Capacity, 0, 0, 0, true, d.RoomKind, d.Rarity, d.Capacity, "Active")).ToArray());
+                Preview.SetMinerals(blueprint.Deposits.Select((d, i) => new DarkNights.Core.ViewData.MineralDepositViewData(
+                    i + 1, (d.X + .5f) * 16, d.Y, d.RoomKind, d.Rarity, d.MineralKind, 40, 1, 1,
+                    d.Cells.Select(cell => new DarkNights.Core.ViewData.MineralCellViewData(cell.U, cell.V, cell.Capacity, cell.Capacity, 40, 1)).ToArray())).ToArray());
                 Flyer.Ready = true;
                 if (!appearanceOnly) { Generation++; VisitRoom(0); }
                 Status = settings.Seed + " · " + blueprint.Rooms.Count + " 洞室 / " +

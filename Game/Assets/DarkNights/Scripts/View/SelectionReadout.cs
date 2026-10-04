@@ -42,13 +42,13 @@ namespace DarkNights.View
             WorksiteViewData worksite = world.Worksites.FirstOrDefault(w => w.Id == id);
             if (worksite != null)
             {
-                if (worksite.IsMineralDeposit || worksite.Kind == "mineral-deposit")
-                    return ($"矿床 · {worksite.Rarity}", worksite.Stage == "Depleted" ? "已枯竭" : "可采掘",
-                        $"剩余 {worksite.Amount}/{worksite.Capacity}\n房间 {worksite.RoomKind}", -1);
                 WorksiteDefinition definition = catalog.Balance.Worksites[worksite.Kind];
                 return (definition.Name, worksite.WorkerId == 0 ? "空闲工作点" : "一名工人已占用",
                     $"剩余 {worksite.Amount}\n每{GameText.Number(definition.Interval)}秒产出{definition.Yield}{GameText.ResourceName(worksite.Kind)}", -1);
             }
+            var mineral = world.MineralDeposits.FirstOrDefault(value => value.Id == id);
+            if (mineral != null) return ($"矿床 · {mineral.Rarity}", mineral.Stage == "Depleted" ? "已枯竭" : "可采掘",
+                $"剩余 {mineral.Remaining}/{mineral.Capacity}\n房间 {mineral.RoomKind}", -1);
             return ("营地指挥", "守住酒馆，等到黎明", "左键选择 · 右键安排工作\nG选择守卫 · I选择空闲工人", -1);
         }
 
@@ -66,10 +66,10 @@ namespace DarkNights.View
             var site = world.Worksites.FirstOrDefault(w => w.Id == id);
             if (site != null)
             {
-                if (site.IsMineralDeposit || site.Kind == "mineral-deposit")
-                    return $"矿床 · {site.Rarity} · 剩余{site.Amount}/{site.Capacity}";
                 return $"{catalog.Balance.Worksites[site.Kind].Name} · 剩余{site.Amount} · {(site.WorkerId == 0 ? "右键安排工人" : "工作点已有工人")}";
             }
+            var mineral = world.MineralDeposits.FirstOrDefault(value => value.Id == id);
+            if (mineral != null) return $"矿床 · {mineral.Rarity} · 剩余{mineral.Remaining}/{mineral.Capacity}";
             var building = world.Buildings.FirstOrDefault(b => b.Id == id);
             if (building != null) return $"{catalog.Balance.Buildings[building.Kind].Name} · 生命{Math.Ceiling(building.Hp)}/{catalog.Balance.Buildings[building.Kind].Hp} · {GameText.Building(catalog, building.Kind)}";
             var actor = world.Actors.FirstOrDefault(a => a.Id == id);

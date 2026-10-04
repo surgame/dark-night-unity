@@ -29,7 +29,7 @@ namespace DarkNights.View.Terrain
         private readonly CaveBackgroundCache staticBackground;
         private readonly CaveRockSurface rockSurface;
         private readonly CaveLocalRockSurface localRockSurface;
-        private int mineralHash, chunkSize = 32;
+        private int chunkSize = 32;
         private byte[] deviceLights;
         private bool oreDirty = true, lightFullDirty = true, lightInitialized, rockInitialized;
         public bool IsSourceDriven => source is ITerrainInputSource;
@@ -42,6 +42,7 @@ namespace DarkNights.View.Terrain
         public long BackgroundUploadedBytes => staticBackground?.UploadedBytes ?? 0;
         public int BackgroundResidentPages => staticBackground?.ResidentPages ?? 0;
         public Material Material { get; }
+        public Texture LightTexture => light;
 
         public CaveVisualSource(IMapChunkSource source, CaveTerrainStyle style, TileCatalog catalog, Transform parent,
             DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null, bool surfaceSky = false)
@@ -107,22 +108,6 @@ namespace DarkNights.View.Terrain
             if (rockInitialized) { localRockSurface?.ApplyChanges(cells, changed); rockSurface?.Replace(cells); }
             if (localRockSurface != null) foreach (int index in changed) terrainLightChanges.Add(index);
             else lightFullDirty = true;
-        }
-        public void SetMinerals(IReadOnlyList<DarkNights.Core.ViewData.WorksiteViewData> deposits)
-        {
-            if (rockSurface != null || localRockSurface != null) return;
-            int hash = 17;
-            foreach (var d in deposits) if (d.IsMineralDeposit) hash = unchecked(hash * 31 + d.Id * 17 + d.Amount);
-            if (hash == mineralHash) return;
-            mineralHash = hash; Array.Clear(ores, 0, ores.Length);
-            foreach (var d in deposits)
-            {
-                if (!d.IsMineralDeposit || d.Amount <= 0) continue;
-                int x = Mathf.FloorToInt(d.X / 16 + .5f), y = Mathf.FloorToInt((float)d.Y + 1);
-                if (x < 0 || x >= W || y < 0 || y >= H) continue;
-                ores[y * W + x] = new Color32(d.Rarity == "rare" ? (byte)255 : (byte)0, 255, 0, 255);
-            }
-            oreDirty = lightFullDirty = true;
         }
         public void Flush()
         {

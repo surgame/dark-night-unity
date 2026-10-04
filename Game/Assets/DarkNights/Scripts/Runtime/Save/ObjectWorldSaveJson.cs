@@ -104,7 +104,8 @@ namespace DarkNights.Runtime.Save
                 Array(world["buildings"], SnapshotEntityJson.BuildingSnapshot, 256),
                 Array(world["worksites"], SnapshotEntityJson.WorksiteSnapshot, 256),
                 Array(world["projectiles"], SnapshotEntityJson.ProjectileSnapshot, 1024),
-                SnapshotDocumentJson.StatisticsSnapshot(world["stats"]), mode, identities, TerrainSaveJson.Read(world["terrain"]), ExpeditionSaveJson.Read(world["expedition"]));
+                SnapshotDocumentJson.StatisticsSnapshot(world["stats"]), mode, identities, TerrainSaveJson.Read(world["terrain"]), ExpeditionSaveJson.Read(world["expedition"]),
+                Array(world["mineral_deposits"], MineralSaveJson.Read, 128));
             Validate(snapshot);
             RequireFields(world, World(snapshot));
             return snapshot;
@@ -124,7 +125,8 @@ namespace DarkNights.Runtime.Save
                     config.Validate();
                 }
             var kinds = snapshot.Actors.Select(a => (a.Id, a.Kind)).Concat(snapshot.Buildings.Select(b => (b.Id, b.Kind)))
-                .Concat(snapshot.Worksites.Select(w => (w.Id, w.Kind))).ToDictionary(p => p.Id, p => p.Kind);
+                .Concat(snapshot.Worksites.Select(w => (w.Id, w.Kind)))
+                .Concat(snapshot.MineralDeposits.Select(value => (value.Id, Kind: "mineral-deposit"))).ToDictionary(p => p.Id, p => p.Kind);
             foreach (EntityIdentityData identity in snapshot.Identities)
             {
                 string kind = kinds[identity.Id];

@@ -39,9 +39,7 @@ namespace DarkNights.Runtime.Objects
             {
                 WorksiteState w = site.Read();
                 return new WorksiteSnapshot(w.Id, site.RuleKey, w.X, w.WorkerId, w.Amount, w.Progress, w.Variant, w.FarmId);
-            }).Concat(session.Index.MineralDeposits.Select(deposit =>
-                new WorksiteSnapshot(deposit.Id, "mineral-deposit", deposit.X, deposit.Y, 0, deposit.Remaining, 0, 0, 0,
-                    true, deposit.RoomKind, deposit.Rarity, deposit.Capacity, deposit.Stage.ToString(), deposit.Durability))).ToArray();
+            }).ToArray();
             var identities = session.Index.FreezeOrder().Select(e => new EntityIdentityData(e.Id, e.DefinitionGuid, e.PlacementKey)).ToArray();
             WaveState wave = session.Waves.Read();
             var shots = session.Projectiles.Read().Shots.Select(p => new ProjectileSnapshot(
@@ -57,7 +55,9 @@ namespace DarkNights.Runtime.Objects
                 unchecked((long)camp.RandomState).ToString(CultureInfo.InvariantCulture),
                 actors, buildings, sites, shots,
                 new StatisticsSnapshot(camp.Kills, camp.Lost, session.Economy.Gathered),
-                camp.Mode, identities, session.Terrain?.Capture(), ExpeditionMapping.Capture(session));
+                camp.Mode, identities, session.Terrain?.Capture(), ExpeditionMapping.Capture(session),
+                session.Index.MineralDeposits.Select(deposit => new MineralDepositSnapshot(deposit.Id, deposit.X,
+                    deposit.Y, deposit.RoomKind, deposit.Rarity, deposit.Freeze().Cells)).ToArray());
         }
 
         internal static CampSimulationState Camp(SessionSnapshot s) => new CampSimulationState
@@ -141,12 +141,12 @@ namespace DarkNights.Runtime.Objects
             }
             else if (owner.GetBehaviour<MineralDepositBehaviour>() is MineralDepositBehaviour deposit)
             {
-                WorksiteSnapshot w = snapshot.Worksites.Single(value => value.Id == id);
-                if (w.Durability > deposit.MaximumDurability) throw new FormatException("矿床耐久超过当前规则上限。");
+                MineralDepositSnapshot w = snapshot.MineralDeposits.Single(value => value.Id == id);
+                if (w.Cells.Any(cell => cell.Durability > deposit.MaximumDurability)) throw new FormatException("矿床耐久超过当前规则上限。");
                 deposit.PrepareState(new MineralDepositState
                 {
                     Id = id, PlacementKey = placement, X = (float)w.X, Y = (int)w.Y, RoomKind = w.RoomKind, Rarity = w.Rarity,
-                    Capacity = w.Capacity, Remaining = w.Amount, Stage = Enum.Parse<MineralDepositStage>(w.Stage), Durability = w.Durability
+                    Cells = w.Cells.Select(MineralCellState.From).ToArray()
                 });
             }
             else if (owner.GetBehaviour<WorksiteBehaviour>() is WorksiteBehaviour site)

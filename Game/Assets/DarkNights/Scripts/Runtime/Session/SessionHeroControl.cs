@@ -171,7 +171,10 @@ namespace DarkNights.Runtime.Session
                 var map = world.Terrain?.Map;
                 if (input.Mining.Kind != DarkNights.Core.ViewData.HeroMiningTargetKind.Foreground &&
                     input.Mining.Kind != DarkNights.Core.ViewData.HeroMiningTargetKind.MineralDeposit ||
-                    input.Mining.Kind == DarkNights.Core.ViewData.HeroMiningTargetKind.MineralDeposit && input.Mining.EntityId <= 0)
+                    input.Mining.Kind == DarkNights.Core.ViewData.HeroMiningTargetKind.MineralDeposit &&
+                        (input.Mining.EntityId <= 0 || input.Mining.MineralContentVersion != 1) ||
+                    input.Mining.Kind == DarkNights.Core.ViewData.HeroMiningTargetKind.Foreground &&
+                        (input.Mining.EntityId != 0 || input.Mining.MineralContentVersion != 0))
                     return false;
                 if (map == null || input.Mining.WorldId.Length != 32 ||
                     input.Mining.WorldId != map.World.WorldId.ToString().Replace("-", "") ||
@@ -203,6 +206,7 @@ namespace DarkNights.Runtime.Session
                     state.MiningTileId = input.Mining.TileId; state.MiningFlags = input.Mining.Flags;
                     state.MiningTargetKind = input.Mining.Kind; state.MiningEntityId = input.Mining.EntityId;
                     state.MiningContentVersion = input.Mining.ContentVersion;
+                    state.MiningMineralContentVersion = input.Mining.MineralContentVersion;
                 }
             }
             state.JumpPending |= input.JumpPressed;

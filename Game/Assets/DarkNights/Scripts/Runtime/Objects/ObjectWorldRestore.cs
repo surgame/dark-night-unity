@@ -29,7 +29,8 @@ namespace DarkNights.Runtime.Objects
             {
                 var order = snapshot.Buildings.Select(b => (b.Id, b.Kind))
                     .Concat(snapshot.Actors.Select(a => (a.Id, a.Kind)))
-                    .Concat(snapshot.Worksites.Select(w => (w.Id, w.Kind)));
+                    .Concat(snapshot.Worksites.Select(w => (w.Id, w.Kind)))
+                    .Concat(snapshot.MineralDeposits.Select(value => (value.Id, Kind: "mineral-deposit")));
                 foreach (var record in order)
                 {
                     var definition = session.Resources.Find(record.Kind);

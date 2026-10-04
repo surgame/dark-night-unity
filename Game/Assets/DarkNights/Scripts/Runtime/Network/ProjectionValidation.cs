@@ -27,11 +27,14 @@ namespace DarkNights.Runtime.Network
             }
             WorldWire world = frame.World;
             Require(world != null && world.Camp != null && world.Actors != null && world.Buildings != null &&
-                world.Worksites != null && world.Projectiles != null);
-            Require((long)world.Actors.Length + world.Buildings.Length + world.Worksites.Length <= WorldViewData.MaximumEntities &&
+                world.Worksites != null && world.MineralDeposits != null && world.Projectiles != null);
+            Require((long)world.Actors.Length + world.Buildings.Length + world.Worksites.Length + world.MineralDeposits.Length <= WorldViewData.MaximumEntities &&
                 world.Projectiles.Length <= WorldViewData.MaximumProjectiles);
-            Require(world.Actors.All(a => a != null) && world.Buildings.All(b => b != null) && world.Worksites.All(w => w != null));
-            Require(world.Identities != null && world.Identities.Length == world.Actors.Length + world.Buildings.Length + world.Worksites.Length);
+            Require(world.Actors.All(a => a != null) && world.Buildings.All(b => b != null) && world.Worksites.All(w => w != null) && world.MineralDeposits.All(value => value != null));
+            Require(world.Identities != null && world.Identities.Length == world.Actors.Length + world.Buildings.Length + world.Worksites.Length + world.MineralDeposits.Length);
+            Require(world.MineralWorldId != null && (world.MineralWorldId.Length == 0 ? world.MineralMapEpoch == 0 &&
+                world.MineralDeposits.Length == 0 :
+                Guid.TryParseExact(world.MineralWorldId, "N", out var mapId) && mapId != Guid.Empty && world.MineralMapEpoch > 0));
             foreach (var identity in world.Identities)
                 Require(identity != null && identity.Id > 0 && Text(identity.DefinitionGuid, 36) &&
                     Guid.TryParse(identity.DefinitionGuid, out var guid) && guid != Guid.Empty && Text(identity.PlacementKey, 80));
@@ -44,7 +47,7 @@ namespace DarkNights.Runtime.Network
                 expedition = world.Expedition.Freeze();
                 Require(DarkNights.Core.Save.ExpeditionValidator.Validate(expedition,
                     world.Actors.Select(a => a.Id).ToArray(), world.Buildings.Select(b => b.Id).ToArray(),
-                    world.Worksites.Select(w => w.Id).ToArray(), catalog.Balance.Expedition).Length == 0);
+                    world.MineralDeposits.Select(w => w.Id).ToArray(), catalog.Balance.Expedition).Length == 0);
                 Require(world.Buildings.Count(b => b.Kind == "ship") == 1);
                 var ship = world.Buildings.FirstOrDefault(b => b.Kind == "ship");
                 var device = world.Expedition.Devices.FirstOrDefault(d => d.Id == ship?.Id);
@@ -105,25 +108,27 @@ namespace DarkNights.Runtime.Network
             }
             foreach (var w in world.Worksites)
             {
-                if (w != null && (w.IsMineralDeposit || w.Kind == "mineral-deposit"))
-                {
-                    Require(w.IsMineralDeposit && w.Kind == "mineral-deposit" && Text(w.RoomKind, 32) && Text(w.Rarity, 16) &&
-                        w.Capacity > 0 && w.Capacity <= 1000000 && w.Amount >= 0 && w.Amount <= w.Capacity &&
-                        w.MaximumDurability > 0 && w.MaximumDurability <= 1000000 && w.Durability >= 0 &&
-                        w.Durability <= w.MaximumDurability && (w.Amount == 0 ? w.Durability == 0 : w.Durability > 0) &&
-                        (w.ResourceId == "iron" || w.ResourceId == "gold") && w.RequiredMiningLevel >= 1 && w.RequiredMiningLevel <= 1000 &&
-                        w.HarvestAmount >= 0 && w.HarvestAmount <= w.Amount &&
-                        Finite(w.Y) && w.Y >= 0 && w.Y < Core.Config.Terrain.TerrainGenerationSettings.Height &&
-                        w.WorkerId == 0 && w.FarmId == 0 && w.Progress == 0 &&
-                        Enum.TryParse<DarkNights.Core.Config.MineralDepositStage>(w.Stage, out var stage) &&
-                        Enum.IsDefined(typeof(DarkNights.Core.Config.MineralDepositStage), stage));
-                    Position(w.X, layout);
-                    continue;
-                }
                 Require(w != null && Text(w.Kind, 64) && catalog.Balance.Worksites.ContainsKey(w.Kind) &&
-                    w.Amount >= -1 && w.Variant >= 0 && w.RequiredMiningLevel == 0);
+                    w.Amount >= -1 && w.Variant >= 0);
                 Position(w.X, layout);
                 Nonnegative(w.Progress);
+            }
+            var occupied = new System.Collections.Generic.HashSet<int>();
+            foreach (var mineral in world.MineralDeposits)
+            {
+                Require(mineral != null && Text(mineral.RoomKind, 32) && Text(mineral.Rarity, 16) &&
+                    mineral.Y >= 0 && mineral.Y < Core.Config.Terrain.TerrainGenerationSettings.Height &&
+                    (mineral.ResourceId == "iron" || mineral.ResourceId == "gold") && mineral.RequiredMiningLevel >= 1 &&
+                    mineral.RequiredMiningLevel <= 1000 && mineral.UnitsPerHarvest >= 1 && mineral.UnitsPerHarvest <= 1000 &&
+                    mineral.Cells != null && mineral.Cells.Length <= 64);
+                Position(mineral.X, layout);
+                var identity = world.Identities.FirstOrDefault(value => value.Id == mineral.Id);
+                var definition = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance?.ResolveDefinition(identity?.DefinitionGuid, 0);
+                var rules = definition?.SharedConfigs.OfType<Objects.MineralDepositRuleConfig>().SingleOrDefault();
+                Require(rules != null && mineral.MaximumDurability == rules.HarvestDurability && mineral.UnitsPerHarvest == rules.UnitsPerHarvest &&
+                    mineral.RequiredMiningLevel == rules.RequiredMiningLevel && mineral.ResourceId ==
+                        (mineral.RoomKind == "boss" || mineral.Rarity == "rare" ? rules.RareResource : rules.CommonResource));
+                Require(MineralCellValidation.Validate(mineral.Cells.Select(cell => cell.Freeze()).ToArray(), mineral.MaximumDurability, occupied));
             }
             Require(world.Projectiles.Select(p => p?.ViewId).Distinct().Count() == world.Projectiles.Length && world.Projectiles.Count(p => p != null && p.Kind != 0) <= 128);
             foreach (var p in world.Projectiles)

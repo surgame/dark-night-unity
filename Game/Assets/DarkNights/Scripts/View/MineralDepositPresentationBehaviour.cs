@@ -15,18 +15,18 @@ namespace DarkNights.View
             throw new InvalidOperationException("Mineral deposit presentation is missing WorksiteView.");
 
         public void UseBackgroundWall() => DepositVisual.SetVisibility(false, 0, false);
-        public WorksiteViewData Current { get; private set; }
+        public MineralDepositViewData Current { get; private set; }
         public override bool IsAvailable => IsBound && Current != null;
 
         public void Bind(int id, int epoch, string kind, Action<InputIntent> submit) => BindEntity(id, epoch, kind, submit);
 
-        public bool Present(WorksiteViewData deposit, int epoch, Color ambient)
+        public bool Present(MineralDepositViewData deposit, int epoch, Color ambient)
         {
-            if (deposit == null || !deposit.IsMineralDeposit || !Accept(deposit.Id, epoch, deposit.Kind)) return false;
+            if (deposit == null || !Accept(deposit.Id, epoch, "mineral-deposit")) return false;
             Current = deposit;
             float height = PlayableTerrain.OriginY - (deposit.Y + .5f) * PlayableTerrain.CellPixels;
             Position(deposit.X, ambient, height);
-            DepositVisual.SetVisibility(deposit.Amount > 0, Variant(deposit.Rarity), deposit.Amount == 0);
+            DepositVisual.SetVisibility(deposit.Remaining > 0, Variant(deposit.Rarity), deposit.Remaining == 0);
             DepositVisual.TintSurface(Color.white);
             return true;
         }

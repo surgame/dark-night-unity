@@ -16,23 +16,31 @@ namespace DarkNights.Core.ViewData
         public IReadOnlyList<ActorViewData> Actors { get; }
         public IReadOnlyList<BuildingViewData> Buildings { get; }
         public IReadOnlyList<WorksiteViewData> Worksites { get; }
+        public IReadOnlyList<MineralDepositViewData> MineralDeposits { get; }
+        public string MineralWorldId { get; }
+        public ulong MineralMapEpoch { get; }
         public IReadOnlyList<ProjectileViewData> Projectiles { get; }
         public IReadOnlyList<EntityIdentityData> Identities { get; }
 
         public WorldViewData(CampViewData camp, IReadOnlyList<ActorViewData> actors,
             IReadOnlyList<BuildingViewData> buildings, IReadOnlyList<WorksiteViewData> worksites,
-            IReadOnlyList<ProjectileViewData> projectiles, IReadOnlyList<EntityIdentityData> identities = null, ExpeditionViewData expedition = null)
+            IReadOnlyList<ProjectileViewData> projectiles, IReadOnlyList<EntityIdentityData> identities = null, ExpeditionViewData expedition = null,
+            IReadOnlyList<MineralDepositViewData> mineralDeposits = null, string mineralWorldId = "",
+            ulong mineralMapEpoch = 0)
         {
             Expedition = expedition;
+            MineralWorldId = mineralWorldId; MineralMapEpoch = mineralMapEpoch;
             Camp = camp ?? throw new ArgumentNullException(nameof(camp));
+            mineralDeposits = mineralDeposits ?? Array.Empty<MineralDepositViewData>();
             if (actors == null || buildings == null || worksites == null || projectiles == null)
                 throw new ArgumentNullException(nameof(actors));
-            if ((long)actors.Count + buildings.Count + worksites.Count > MaximumEntities ||
+            if ((long)actors.Count + buildings.Count + worksites.Count + mineralDeposits.Count > MaximumEntities ||
                 projectiles.Count > MaximumProjectiles) throw new ArgumentOutOfRangeException(nameof(actors), "Projection exceeds supported limits.");
             var ids = new HashSet<long>();
             Actors = Copy(actors, a => a.Id, ids);
             Buildings = Copy(buildings, b => b.Id, ids);
             Worksites = Copy(worksites, w => w.Id, ids);
+            MineralDeposits = Copy(mineralDeposits, value => value.Id, ids);
             Projectiles = Copy(projectiles, p => p.ViewId, new HashSet<long>());
             Identities = Copy(identities ?? Array.Empty<EntityIdentityData>(), i => i.Id, new HashSet<long>());
             if (Identities.Count != 0 && (Identities.Count != ids.Count ||

@@ -17,6 +17,9 @@ namespace DarkNights.Runtime.Network
         public ActorWire[] Actors { get; set; }
         public BuildingWire[] Buildings { get; set; }
         public WorksiteWire[] Worksites { get; set; }
+        public MineralDepositWire[] MineralDeposits { get; set; }
+        public string MineralWorldId { get; set; }
+        public ulong MineralMapEpoch { get; set; }
         public ProjectileWire[] Projectiles { get; set; }
         public EntityIdentityWire[] Identities { get; set; }
 
@@ -27,6 +30,8 @@ namespace DarkNights.Runtime.Network
             Actors = value.Actors.Select(ActorWire.From).ToArray(),
             Buildings = value.Buildings.Select(BuildingWire.From).ToArray(),
             Worksites = value.Worksites.Select(WorksiteWire.From).ToArray(),
+            MineralDeposits = value.MineralDeposits.Select(MineralDepositWire.From).ToArray(),
+            MineralWorldId = value.MineralWorldId, MineralMapEpoch = value.MineralMapEpoch,
             Projectiles = value.Projectiles.Select(ProjectileWire.From).ToArray(),
             Identities = value.Identities.Select(EntityIdentityWire.From).ToArray(),
         };
@@ -37,6 +42,7 @@ namespace DarkNights.Runtime.Network
             Buildings?.Select(item => item?.Freeze()).ToArray(),
             Worksites?.Select(item => item?.Freeze()).ToArray(),
             Projectiles?.Select(item => item?.Freeze()).ToArray(),
-            Identities?.Select(item => item?.Freeze()).ToArray(), Expedition?.Freeze());
+            Identities?.Select(item => item?.Freeze()).ToArray(), Expedition?.Freeze(), MineralDeposits?.Select(item => item?.Freeze()).ToArray(),
+            MineralWorldId, MineralMapEpoch);
     }
 }

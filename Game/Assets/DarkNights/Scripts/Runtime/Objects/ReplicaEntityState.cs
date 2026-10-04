@@ -68,22 +68,6 @@ namespace DarkNights.Runtime.Objects
             foreach (WorksiteViewData value in world.Worksites)
             {
                 EntityIdentityData identity = identities[value.Id];
-                if (value.IsMineralDeposit || value.Kind == "mineral-deposit")
-                {
-                    if (!Enum.TryParse(value.Stage, out MineralDepositStage stage) ||
-                        !Enum.IsDefined(typeof(MineralDepositStage), stage))
-                        throw new InvalidOperationException("Invalid projected mineral deposit stage.");
-                    var depositState = new MineralDepositState
-                    {
-                        Id = value.Id, PlacementKey = identity.PlacementKey, X = value.X, Y = (int)value.Y,
-                        RoomKind = value.RoomKind, Rarity = value.Rarity, Capacity = value.Capacity,
-                        Remaining = value.Amount, Stage = stage, Durability = value.Durability
-                    };
-                    result.Add(new ReplicaEntityState(identity, value.Kind,
-                        (instance, context) => instance.GetBehaviour<MineralDepositBehaviour>()
-                            .PrepareSessionState(context, depositState)));
-                    continue;
-                }
                 var state = new WorksiteState
                 {
                     Id = value.Id, PlacementKey = identity.PlacementKey, X = value.X, WorkerId = value.WorkerId,
@@ -91,6 +75,17 @@ namespace DarkNights.Runtime.Objects
                 };
                 result.Add(new ReplicaEntityState(identity, value.Kind,
                     (instance, context) => instance.GetBehaviour<WorksiteBehaviour>().PrepareSessionState(context, state)));
+            }
+            foreach (MineralDepositViewData value in world.MineralDeposits)
+            {
+                EntityIdentityData identity = identities[value.Id];
+                var state = new MineralDepositState
+                {
+                    Id = value.Id, PlacementKey = identity.PlacementKey, X = value.X, Y = value.Y,
+                    RoomKind = value.RoomKind, Rarity = value.Rarity, Cells = value.Cells.Select(MineralCellState.From).ToArray()
+                };
+                result.Add(new ReplicaEntityState(identity, MineralDepositRuleConfig.Rule,
+                    (instance, context) => instance.GetBehaviour<MineralDepositBehaviour>().PrepareSessionState(context, state)));
             }
             return result;
         }

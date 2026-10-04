@@ -11,6 +11,7 @@ namespace DarkNights.View.Terrain
         public Shader Shader;
         public Texture2D Rock;
         public CaveBackgroundStyle Background;
+        public AnyRules.Next.Authoring.ARDMapDefinition MineralDefinition;
         public bool ProceduralRock;
         [Tooltip("本修复候选使用有界 LocalV2 前景；关闭可对照原 LegacyV1。视觉签收前不要合并正式美术绑定。")]
         public bool ImmediateForeground = true;
@@ -28,6 +29,7 @@ namespace DarkNights.View.Terrain
         [Tooltip("即时模式支持空栈或单个圆簇；其他栈明确报错，不悄悄回退全图烘焙。")]
         public CaveModifierAsset[] Modifiers = System.Array.Empty<CaveModifierAsset>();
         public string VisualIdentity => string.Join("|", ProceduralRock, StoneSize, DecorationStartRow, OutlineMode, OutlineSeed,
+            MineralDefinition == null ? "no-minerals" : MineralDefinition.AuthoringSourceDigest,
             OutlineAmplitude.ToString(System.Globalization.CultureInfo.InvariantCulture), OutlineWavelength, OutlineQuantization,
             CaptureModifiers().Identity, Background == null ? "none" : Background.VisualIdentity,
             (SurfaceEnvironment ?? new Expedition.SurfaceEnvironmentSettings()).Identity);

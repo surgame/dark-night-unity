@@ -14,7 +14,7 @@ namespace DarkNights.Core.Save
     public sealed class SessionSnapshot
     {
         public ExpeditionViewData Expedition { get; }
-        public const int CurrentVersion = 17;
+        public const int CurrentVersion = 18;
         public int SchemaVersion { get; }
         public Config.Terrain.PlayableTerrain Terrain { get; }
         public string LevelId { get; }
@@ -29,6 +29,7 @@ namespace DarkNights.Core.Save
         public IReadOnlyList<ActorSnapshot> Actors { get; }
         public IReadOnlyList<BuildingSnapshot> Buildings { get; }
         public IReadOnlyList<WorksiteSnapshot> Worksites { get; }
+        public IReadOnlyList<MineralDepositSnapshot> MineralDeposits { get; }
         public IReadOnlyList<ProjectileSnapshot> Projectiles { get; }
         public StatisticsSnapshot Stats { get; }
         public SessionMode Mode { get; }
@@ -51,9 +52,11 @@ namespace DarkNights.Core.Save
             IReadOnlyList<ProjectileSnapshot> projectiles,
             StatisticsSnapshot stats,
             SessionMode mode = SessionMode.Playing,
-            IReadOnlyList<EntityIdentityData> identities = null, Config.Terrain.PlayableTerrain terrain = null, ExpeditionViewData expedition = null)
+            IReadOnlyList<EntityIdentityData> identities = null, Config.Terrain.PlayableTerrain terrain = null, ExpeditionViewData expedition = null,
+            IReadOnlyList<MineralDepositSnapshot> mineralDeposits = null)
         {
             Expedition = expedition;
+            MineralDeposits = new List<MineralDepositSnapshot>(mineralDeposits ?? Array.Empty<MineralDepositSnapshot>()).AsReadOnly();
             SchemaVersion = schemaVersion;
             Terrain = terrain;
             Mode = mode;

@@ -21,6 +21,7 @@ namespace DarkNights.View.Terrain
         /// <summary>航程地表启用天际线透明背景；独立洞穴工作台保留其完整背景预览。</summary>
         public bool SurfaceSky;
         private CaveVisualSource caveSource;
+        private MineralLayerPresentation minerals;
         private ARDMapController controller;
         private CancellationTokenSource lifetime;
         private TerrainReplicaSource replicaSource;
@@ -33,6 +34,8 @@ namespace DarkNights.View.Terrain
         public int VisualRevision { get; private set; }
         public long BuiltPages => controller?.Renderer?.CommittedBuilds ?? 0;
         public int BackgroundBuildCount => caveSource?.BackgroundBuildCount ?? 0;
+        public long MineralInputBatches => minerals?.InputBatches ?? 0;
+        public long MineralBuiltPages => minerals?.BuiltPages ?? 0;
         public int RockBuildCount => caveSource?.RockBuildCount ?? 0;
         public long BackgroundUploadedBytes => caveSource?.BackgroundUploadedBytes ?? 0;
         public int BackgroundResidentPages => caveSource?.BackgroundResidentPages ?? 0;
@@ -51,7 +54,7 @@ namespace DarkNights.View.Terrain
         private bool IsPresentationStable => LastError == null && controller != null && !RefreshingReplica &&
             (caveSource?.BackgroundReady ?? true) && BuiltPages > 0 && !controller.HasPendingPresentationWork;
         public bool Ready => IsPresentationStable && PresentedInputGeneration == InstalledInputGeneration &&
-            PresentedSourceCommit == InstalledSourceCommit;
+            PresentedSourceCommit == InstalledSourceCommit && (minerals?.Ready ?? true);
 
         /// <summary>只读绘制请求；不会推进 Ready 或跳过真实相机回执。</summary>
         public bool NeedsPresentationDraw => IsPresentationStable && !Ready;
@@ -131,6 +134,13 @@ namespace DarkNights.View.Terrain
                 inputQueue.Configure(result.Descriptor);
                 await result.LoadRegionAsync(result.Descriptor.Bounds, own.Token);
                 if (own.IsCancellationRequested) return;
+                if (CaveStyle?.MineralDefinition != null)
+                {
+                    minerals = new MineralLayerPresentation(CaveStyle.MineralDefinition, transform);
+                    await minerals.OpenAsync(CaveStyle.MineralDefinition, ViewCamera, result.Descriptor.World,
+                        caveSource?.LightTexture, CaveStyle.Background?.BackgroundAmbient ?? .36f, MineralLayerView.DefaultSortingOrder);
+                    if (own.IsCancellationRequested) return;
+                }
                 inputSource?.PublishInitialBaseline();
                 caveSource?.Flush();
                 loading = false;
@@ -149,8 +159,8 @@ namespace DarkNights.View.Terrain
             ShowBlueprint(Map.Definition, Map.ReadBlueprint());
         }
 
-        public void SetMinerals(IReadOnlyList<DarkNights.Core.ViewData.WorksiteViewData> deposits)
-        { caveSource?.SetMinerals(deposits); caveSource?.Flush(); }
+        public void SetMinerals(IReadOnlyList<DarkNights.Core.ViewData.MineralDepositViewData> deposits)
+        { minerals?.Replace(deposits); }
         public void SetDevices(DarkNights.Core.ViewData.WorldViewData world)
         { caveSource?.SetDevices(world); caveSource?.Flush(); }
         private void Update() => TickPresentation();
@@ -159,6 +169,8 @@ namespace DarkNights.View.Terrain
 
         private void TickPresentation()
         {
+            minerals?.Tick();
+            if (minerals?.LastError != null) { Fail(minerals.LastError); return; }
             if (controller == null || loading || LastError != null) return;
             try
             {
@@ -225,33 +237,12 @@ namespace DarkNights.View.Terrain
         private void UpdateVisible()
         {
             if (ViewCamera == null) return;
-            var bounds = controller.Descriptor.Bounds;
-            float halfH = ViewCamera.orthographicSize / Mathf.Abs(transform.lossyScale.y), halfW = halfH * ViewCamera.aspect;
-            Vector3 p = transform.InverseTransformPoint(ViewCamera.transform.position);
-            int page = controller.Descriptor.PageSize;
-            int minU = Math.Max(bounds.MinU, Mathf.FloorToInt((p.x - halfW - 2) / page) * page);
-            int minV = Math.Max(bounds.MinV, Mathf.FloorToInt((p.y - halfH - 2) / page) * page);
-            int maxU = Math.Min((int)bounds.MaxUExclusive, Mathf.CeilToInt((p.x + halfW + 2) / page) * page);
-            int maxV = Math.Min((int)bounds.MaxVExclusive, Mathf.CeilToInt((p.y + halfH + 2) / page) * page);
-            if (maxU <= minU || maxV <= minV) return;
-            var next = new GridBounds(minU, minV, maxU - minU, maxV - minV);
+            var next = TerrainViewport.Capture(controller.Descriptor, transform, ViewCamera);
             if (visible.Equals(next)) return;
-            if (visible.IsValid) HideDifference(visible, next);
-            controller.ShowRegion(next); visible = next; caveSource?.SetVisible(next); VisualRevision++;
+            TerrainViewport.HideDifference(controller, visible, next);
+            if (next.IsValid) controller.ShowRegion(next);
+            visible = next; caveSource?.SetVisible(next); VisualRevision++;
         }
-
-        private void HideDifference(GridBounds area, GridBounds overlap)
-        {
-            int left = Math.Max(area.MinU, overlap.MinU), bottom = Math.Max(area.MinV, overlap.MinV);
-            int right = (int)Math.Min(area.MaxUExclusive, overlap.MaxUExclusive), top = (int)Math.Min(area.MaxVExclusive, overlap.MaxVExclusive);
-            if (left >= right || bottom >= top) { controller.HideRegion(area); return; }
-            HideStrip(area.MinU, area.MinV, left - area.MinU, area.Height);
-            HideStrip(right, area.MinV, (int)area.MaxUExclusive - right, area.Height);
-            HideStrip(left, area.MinV, right - left, bottom - area.MinV);
-            HideStrip(left, top, right - left, (int)area.MaxVExclusive - top);
-        }
-        private void HideStrip(int u, int v, int width, int height)
-        { if (width > 0 && height > 0) controller.HideRegion(new GridBounds(u, v, width, height)); }
 
         private void EnsureCameraHooks()
         {
@@ -293,6 +284,8 @@ namespace DarkNights.View.Terrain
             lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null;
             inputQueue.Clear(); loading = awaitingBaseline = false;
             var old = controller; controller = null; visible = default;
+            var oldMinerals = minerals; minerals = null;
+            if (oldMinerals != null) await oldMinerals.RetireAsync();
             caveSource?.Dispose(); caveSource = null;
             if (old != null) await old.DisposeAsync();
         }

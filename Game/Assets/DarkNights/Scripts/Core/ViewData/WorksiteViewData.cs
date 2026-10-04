@@ -1,96 +1,17 @@
 namespace DarkNights.Core.ViewData
 {
-    /// <summary>
-    /// 工位的冻结展示值，供剩余资源、生产进度和占用查询；农田关联及变体沿用权威身份。
-    /// </summary>
+    /// <summary>普通工位的冻结展示值；矿床由独立投影拥有，不混入工人占用或农田关系。</summary>
     public sealed class WorksiteViewData
     {
         public int Id { get; }
         public string Kind { get; }
         public float X { get; }
-        public float Y { get; }
         public int WorkerId { get; }
         public int Amount { get; }
         public double Progress { get; }
         public int Variant { get; }
         public int FarmId { get; }
-        public bool IsMineralDeposit { get; }
-        public string RoomKind { get; }
-        public string Rarity { get; }
-        public int Capacity { get; }
-        public string Stage { get; }
-        public int Durability { get; }
-        public int MaximumDurability { get; }
-        public string ResourceId { get; }
-        public int HarvestAmount { get; }
-        public int RequiredMiningLevel { get; }
-
-        public WorksiteViewData(
-            int id,
-            string kind,
-            float x,
-            int workerId,
-            int amount,
-            double progress,
-            int variant,
-            int farmId)
-            : this(id, kind, x, 0, workerId, amount, progress, variant, farmId, false, "", "", 0, "")
-        {
-        }
-
-        public WorksiteViewData(
-            int id,
-            string kind,
-            float x,
-            float y,
-            int workerId,
-            int amount,
-            double progress,
-            int variant,
-            int farmId,
-            bool isMineralDeposit,
-            string roomKind,
-            string rarity,
-            int capacity,
-            string stage, int durability = 0, int maximumDurability = 0, string resourceId = "", int harvestAmount = 0,
-            int requiredMiningLevel = 0)
-        {
-            Id = id;
-            Kind = kind;
-            X = x;
-            Y = y;
-            WorkerId = workerId;
-            Amount = amount;
-            Progress = progress;
-            Variant = variant;
-            FarmId = farmId;
-            IsMineralDeposit = isMineralDeposit;
-            RoomKind = roomKind ?? "";
-            Rarity = rarity ?? "";
-            Capacity = capacity;
-            Stage = stage ?? "";
-            Durability = durability; MaximumDurability = maximumDurability;
-            ResourceId = resourceId ?? ""; HarvestAmount = harvestAmount;
-            RequiredMiningLevel = requiredMiningLevel;
-        }
-
-        public WorksiteViewData(
-            int id,
-            string kind,
-            float x,
-            int workerId,
-            int amount,
-            double progress,
-            int variant,
-            int farmId,
-            bool isMineralDeposit,
-            string roomKind,
-            string rarity,
-            int capacity,
-            string stage)
-            : this(id, kind, x, 0, workerId, amount, progress, variant, farmId, isMineralDeposit,
-                roomKind, rarity, capacity, stage)
-        {
-        }
+        public WorksiteViewData(int id, string kind, float x, int workerId, int amount, double progress, int variant, int farmId)
+        { Id = id; Kind = kind; X = x; WorkerId = workerId; Amount = amount; Progress = progress; Variant = variant; FarmId = farmId; }
     }
 }

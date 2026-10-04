@@ -56,16 +56,20 @@ namespace DarkNights.Entry
             if (map.Descriptor == null || !TerrainMiningGeometry.Direction(point.x * 100 - actor.X,
                 point.y * 100 - hand, out float dx, out float dh)) return;
             bool found = TerrainMiningQuery.FirstSurface(map, actor.X, hand, dx, dh, reach, out cell, out float distance);
-            WorksiteViewData deposit = null;
-            foreach (var site in frame.World.Worksites)
+            MineralDepositViewData deposit = null;
+            MineralCellViewData mineralCell = default;
+            foreach (var site in frame.World.MineralDeposits)
             {
-                if (!site.IsMineralDeposit || site.Amount <= 0 || tool.BlockReason(HeroMiningTargetKind.MineralDeposit,
+                if (site.Remaining <= 0 || tool.BlockReason(HeroMiningTargetKind.MineralDeposit,
                     site.ResourceId, site.RequiredMiningLevel, frame.World.Identities.Single(value => value.Id == site.Id).DefinitionGuid).Length > 0) continue;
-                var position = new CellCoord((int)Math.Floor(site.X / PlayableTerrain.CellPixels), -(int)site.Y);
-                if (!map.Read(position).TryGetCell(out var background) || !background.IsEmpty ||
-                    !TerrainMiningGeometry.RayCell(actor.X, hand, dx, dh, reach, position.U, position.V,
-                        TerrainCellShape.Full, out float near) || near >= distance) continue;
-                found = true; cell = position; distance = near; deposit = site;
+                foreach (var mineral in site.Cells)
+                {
+                    var position = new CellCoord(mineral.U, mineral.V);
+                    if (mineral.Remaining <= 0 || !map.Read(position).TryGetCell(out var background) || !background.IsEmpty ||
+                        !TerrainMiningGeometry.RayCell(actor.X, hand, dx, dh, reach, position.U, position.V,
+                            TerrainCellShape.Full, out float near) || near >= distance) continue;
+                    found = true; cell = position; distance = near; deposit = site; mineralCell = mineral;
+                }
             }
             if (!found) { Hint = "沿鼠标方向没有可触及的采集目标 · 按住左键挥镐"; return; }
             visible = true;
@@ -83,7 +87,7 @@ namespace DarkNights.Entry
             }
             else if (deposit != null)
             {
-                durability = deposit.Durability; maximum = deposit.MaximumDurability; amount = deposit.HarvestAmount;
+                durability = mineralCell.Durability; maximum = deposit.MaximumDurability; amount = Math.Min(mineralCell.Remaining, deposit.UnitsPerHarvest);
             }
             bool capacity = cargo == null || cargo.Iron + cargo.Gold + amount <= catalog.Balance.Expedition.BagCapacity;
             if (blocked.Length == 0 && durability <= damage && !capacity) blocked = "完成采集需要货袋空间，请先卸货";
@@ -92,7 +96,7 @@ namespace DarkNights.Entry
             if (valid) Target = new HeroMiningTarget(map.World.WorldId.ToString().Replace("-", ""), map.World.Epoch,
                 cell.U, cell.V, value.TileId, value.Flags,
                 value.IsEmpty ? HeroMiningTargetKind.MineralDeposit : HeroMiningTargetKind.Foreground,
-                value.IsEmpty ? deposit.Id : 0, map.ContentVersion(cell));
+                value.IsEmpty ? deposit.Id : 0, map.ContentVersion(cell), value.IsEmpty ? mineralCell.ContentVersion : 0);
         }
 
         internal void Present()

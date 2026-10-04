@@ -17,17 +17,19 @@ namespace DarkNights.Runtime.Objects
     public sealed class QuickTestPreset
     {
         public const string LandedPickaxeId = "landed-pickaxe";
-        public string Id => LandedPickaxeId;
-        public string Seed => "DN-QUICK-PICKAXE-20261002";
+        public const string EmbeddedMineralsId = "landed-embedded-minerals";
+        private readonly string id;
+        public string Id => id;
+        public string Seed => id == EmbeddedMineralsId ? "DN-QUICK-MINERALS-20261004" : "DN-QUICK-PICKAXE-20261002";
         public PlanetDefinition Planet { get; }
-        private QuickTestPreset(PlanetDefinition planet) { Planet = planet; }
+        private QuickTestPreset(PlanetDefinition planet, string id) { Planet = planet; this.id = id; }
 
         public static QuickTestPreset Create(string id, ExpeditionFlowConfig flow)
         {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            if (id != LandedPickaxeId) throw new ArgumentException("未知快速测试项。", nameof(id));
+            if (id != LandedPickaxeId && id != EmbeddedMineralsId) throw new ArgumentException("未知快速测试项。", nameof(id));
             if (flow == null || !flow.Enabled) throw new InvalidOperationException("快速着陆需要启用正式星球航程配置。");
-            return new QuickTestPreset(flow.PreviewPlanet());
+            return new QuickTestPreset(flow.PreviewPlanet(), id);
 #else
             throw new InvalidOperationException("快速测试仅用于 Editor 或开发构建。");
 #endif
@@ -51,7 +53,9 @@ namespace DarkNights.Runtime.Objects
             var definition = world.Resources.Equipment.MiningDefinitions.SingleOrDefault(d => d.Key == "item.pickaxe")
                 ?? throw new InvalidOperationException("快速测试缺少正式矿镐 Definition。");
             var tool = world.Resources.Equipment.Mining(definition.Guid.ToString());
-            FindSpawn(world, tool, out float x, out float height);
+            float x, height, aim = -90;
+            if (id == EmbeddedMineralsId) MineralQuickTestSpawn.Find(world, tool, out x, out height, out aim);
+            else FindSpawn(world, tool, out x, out height);
             var hero = world.Commands.SpawnDefaultResident()
                 ?? throw new InvalidOperationException("快速测试主角装配失败。");
             var state = hero.Edit();
@@ -61,7 +65,7 @@ namespace DarkNights.Runtime.Objects
             HeroControlBehaviour.ResetInput(state);
             if (!HeroInventoryBehaviour.Give(state, definition.Guid.ToString()))
                 throw new InvalidOperationException("快速测试矿镐装备失败。");
-            state.SelectedItem = 0; state.AimAngle = -90;
+            state.SelectedItem = 0; state.AimAngle = aim;
             world.Notify("矿镐快速测试已准备：已着陆、人在舱外；返回主菜单可启动干净的新测试局。");
         }
 

@@ -1,72 +1,23 @@
-using System.Linq;
-using DarkNights.Core.Config;
 using DarkNights.Core.ViewData;
 using MemoryPack;
 
 namespace DarkNights.Runtime.Network
 {
-    /// <summary>
-    /// WorksiteViewData 的 MemoryPack 具体 wire 类型，仅负责传输字段；发送后不修改，接收立即冻结后交给展示层。
-    /// 可变实例不属于客户端世界，不能跨状态池回调保留；字段顺序变更必须升级握手协议。
-    /// </summary>
+    /// <summary>普通工位的会话 wire 合同；矿床改用独立 DTO，字段随协议升版且收包立即冻结。</summary>
     [MemoryPackable]
     public partial class WorksiteWire
     {
         public int Id { get; set; }
         public string Kind { get; set; }
         public float X { get; set; }
-        public float Y { get; set; }
         public int WorkerId { get; set; }
         public int Amount { get; set; }
         public double Progress { get; set; }
         public int Variant { get; set; }
         public int FarmId { get; set; }
-        public bool IsMineralDeposit { get; set; }
-        public string RoomKind { get; set; }
-        public string Rarity { get; set; }
-        public int Capacity { get; set; }
-        public string Stage { get; set; }
-        public int Durability { get; set; }
-        public int MaximumDurability { get; set; }
-        public string ResourceId { get; set; }
-        public int HarvestAmount { get; set; }
-        public int RequiredMiningLevel { get; set; }
-
         public static WorksiteWire From(WorksiteViewData value) => new WorksiteWire
-        {
-            Id = value.Id,
-            Kind = value.Kind,
-            X = value.X,
-            Y = value.Y,
-            WorkerId = value.WorkerId,
-            Amount = value.Amount,
-            Progress = value.Progress,
-            Variant = value.Variant,
-            FarmId = value.FarmId,
-            IsMineralDeposit = value.IsMineralDeposit,
-            RoomKind = value.RoomKind,
-            Rarity = value.Rarity,
-            Capacity = value.Capacity,
-            Stage = value.Stage,
-            Durability = value.Durability, MaximumDurability = value.MaximumDurability,
-            ResourceId = value.ResourceId, HarvestAmount = value.HarvestAmount,
-            RequiredMiningLevel = value.RequiredMiningLevel,
-        };
-
-        public WorksiteViewData Freeze() => new WorksiteViewData(
-            Id,
-            Kind,
-            X,
-            Y,
-            WorkerId,
-            Amount,
-            Progress,
-            Variant,
-            FarmId,
-            IsMineralDeposit,
-            RoomKind,
-            Rarity,
-            Capacity,
-            Stage, Durability, MaximumDurability, ResourceId, HarvestAmount, RequiredMiningLevel);
+        { Id = value.Id, Kind = value.Kind, X = value.X, WorkerId = value.WorkerId, Amount = value.Amount,
+            Progress = value.Progress, Variant = value.Variant, FarmId = value.FarmId };
+        public WorksiteViewData Freeze() => new WorksiteViewData(Id, Kind, X, WorkerId, Amount, Progress, Variant, FarmId);
     }
 }

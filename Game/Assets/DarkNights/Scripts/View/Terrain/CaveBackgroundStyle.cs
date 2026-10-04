@@ -18,9 +18,9 @@ namespace DarkNights.View.Terrain
         [Range(.2f, 1)] public float ForegroundAmbient = .65f;
         [Range(.2f, 1)] public float BackgroundAmbient = .36f;
         public int FarOrder = -100;
-        public int DeepOrder = -99;
-        public int MiddleOrder = -98;
-        public int NearOrder = -97;
+        public int DeepOrder = -80;
+        public int MiddleOrder = -70;
+        public int NearOrder = -60;
         public string ContentHash = Core.Config.Terrain.BackgroundBakeDescriptor.StyleContentHash;
         [Tooltip("独立点缀布局算法；空引用保留旧 v16.1。关闭整层请取消 Contour Static。")]
         public CaveBackgroundGeneratorAsset Generator;

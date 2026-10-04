@@ -19,7 +19,8 @@ namespace DarkNights.Runtime.Network
         }
         public void Select(string testId)
         {
-            if (testId != null && testId != DarkNights.Runtime.Objects.QuickTestPreset.LandedPickaxeId)
+            if (testId != null && testId != DarkNights.Runtime.Objects.QuickTestPreset.LandedPickaxeId &&
+                testId != DarkNights.Runtime.Objects.QuickTestPreset.EmbeddedMineralsId)
                 throw new ArgumentException("未知快速测试存储项。", nameof(testId));
             Current = testId == null ? normal : Path.Combine(normal, "QuickTests", testId);
         }

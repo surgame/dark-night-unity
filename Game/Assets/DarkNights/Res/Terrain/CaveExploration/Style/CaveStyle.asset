@@ -14,3 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Terrain.CaveTerrainStyle
   Shader: {fileID: 4800000, guid: 6b5cc89560367e742aba779c03ef3fd8, type: 3}
   Rock: {fileID: 2800000, guid: 4818107d929b68a47b92bddf51dcfb11, type: 3}
+  Background: {fileID: 0}
+  MineralDefinition: {fileID: 11400000, guid: c0fa1b2e6e4c55742babce5c51cc19a5, type: 2}
+  ProceduralRock: 0
+  ImmediateForeground: 1
+  SurfaceEnvironment:
+    Enabled: 1
+    Ridges: 1
+    Clouds: 1
+    Parallax: 0.14
+    RidgeHeight: 7
+    CloudHeight: 18
+    WeatheredDepth: 1.25
+    EntranceDepth: 9
+    UndergroundAmbient: 0.36
+  MiningSelector:
+    Radius: 1
+    LinePixels: 2
+    CenterOpacity: 1
+    SurroundOpacity: 0.4
+    FillOpacity: 0.055
+    FadePower: 2
+    InvalidOpacity: 0.3
+  InteractiveBakeBudgetMs: 4
+  StoneSize: 4
+  DecorationStartRow: 40
+  OutlineMode: 4
+  OutlineSeed: OUTLINE-0921
+  OutlineAmplitude: 3
+  OutlineWavelength: 20
+  OutlineQuantization: 2
+  Modifiers: []

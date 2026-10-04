@@ -45,10 +45,18 @@ namespace DarkNights.Core.Config.Terrain
                     (softRock[i] && (cells[i] == 8 || protectedCells[i])))
                     throw new ArgumentException("随机地图材料、保护位或软岩标记无效。");
             var ids = new HashSet<string>(StringComparer.Ordinal);
+            var mineralCoordinates = new HashSet<int>();
             foreach (TerrainDepositBlueprint deposit in deposits)
+            {
                 if (deposit == null || deposit.X < 0 || deposit.X >= TerrainGenerationSettings.Width ||
                     deposit.Y < 0 || deposit.Y >= TerrainGenerationSettings.Height || !ids.Add(deposit.Id))
                     throw new ArgumentException("随机地图矿床标记重复或越界。");
+                foreach (var cell in deposit.Cells)
+                    if (!mineralCoordinates.Add(-cell.V * TerrainGenerationSettings.Width + cell.U) ||
+                        protectedCells[-cell.V * TerrainGenerationSettings.Width + cell.U])
+                        throw new ArgumentException("初始矿格重叠或占用保护格。");
+            }
+            if (mineralCoordinates.Count > 4096) throw new ArgumentException("初始矿格超过世界预算。");
             for (int x = 0; x < TerrainGenerationSettings.Width; x++)
                 if (cells[(TerrainGenerationSettings.Height - 1) * TerrainGenerationSettings.Width + x] != 8)
                     throw new ArgumentException("随机地图底边必须保留基岩。");

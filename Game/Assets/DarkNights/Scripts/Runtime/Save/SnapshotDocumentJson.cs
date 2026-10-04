@@ -28,6 +28,7 @@ namespace DarkNights.Runtime.Save
             ["actors"] = new JArray(v.Actors.Select(SnapshotEntityJson.Write)),
             ["buildings"] = new JArray(v.Buildings.Select(SnapshotEntityJson.Write)),
             ["worksites"] = new JArray(v.Worksites.Select(SnapshotEntityJson.Write)),
+            ["mineral_deposits"] = new JArray(v.MineralDeposits.Select(MineralSaveJson.Write)),
             ["projectiles"] = new JArray(v.Projectiles.Select(SnapshotEntityJson.Write)),
             ["stats"] = Write(v.Stats)
         };

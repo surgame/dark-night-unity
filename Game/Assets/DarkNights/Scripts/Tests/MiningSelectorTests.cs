@@ -48,12 +48,12 @@ namespace DarkNights.Tests
         [TestCase(2)]
         public void DepositMiningRequirementsRoundTripAndFreeze(int level)
         {
-            var source = new WorksiteViewData(4, "mineral-deposit", 2200, 72, 0, 79, 0, 0, 0,
-                true, "shelf", "common", 80, "Available", 40, 40, "iron", 1, level);
-            var decoded = MemoryPackSerializer.Deserialize<WorksiteWire>(MemoryPackSerializer.Serialize(WorksiteWire.From(source)));
+            var source = new MineralDepositViewData(4, 2200, 72, "shelf", "common", "iron", 40, 1, level,
+                new[] { new MineralCellViewData(138, -72, 80, 79, 40, 1) });
+            var decoded = MemoryPackSerializer.Deserialize<MineralDepositWire>(MemoryPackSerializer.Serialize(MineralDepositWire.From(source)));
             var frozen = decoded.Freeze(); decoded.RequiredMiningLevel = level + 1;
             Assert.That(frozen.RequiredMiningLevel, Is.EqualTo(level));
-            Assert.That(frozen.Amount, Is.EqualTo(79));
+            Assert.That(frozen.Remaining, Is.EqualTo(79));
         }
 
         [TestCase(-17, -42)]

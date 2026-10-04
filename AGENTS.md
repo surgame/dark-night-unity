@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发约定
 
+2026-10-04 [内嵌矿开发检查点](docs/EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md)位于 `ft-20261004-embedded-minerals`，干净 main 基线 `b705709`；既有工作台和方案已先集成。协议24／存档v18／AMP1 schema2，YYGC未改。多格矿床权威、独立AnyRuleD矿层、专用投影与保存已实施；受影响Editor245/245、Mono正常两人24/24及四人30/30。弱网初始Ready失败，正式组合画面存在矿层遮挡，排序诊断未导入；本候选仍未交付，后续先解决UI弹窗与组合渲染门槛，不能把旧构建或单层小样当作当前最终验收。
+
 2026-10-03 氧气移除分支ref-20261003-remove-oxygen已合入本地main，基线baedc15，协议 **23**／存档 **v16**／AMP1 schema **2**。氧气业务、氧气站、中继命令及状态合同完整退出，YYGC未修改；已转Local后台验证，原Editor119/121、资源12/12、正常Mono双进程130/130；两项未实现玩法的旧路线用例已移除，本次剩余远征回归6/6，历史失败保留。弱网仍失败并延后修复，整批未通过。见[验证记录](docs/OXYGEN_REMOVAL_VALIDATION.md)与[失败分析](docs/OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。下方历史计数不代表本候选。
 
 2026-09-28 原地着陆源码候选位于 `fix-20260928-free-ship-landing`：星球降落改为当前安全位置原地着陆，游戏协议 **16**／存档 **v11**。下方协议 15 的 Editor、Mono 和 IL2CPP 数字属于原泊位规则的已验构建，不代表本候选通过；验证状态见[验收清单](docs/SPACE_TO_PLANET_ACCEPTANCE.md)。

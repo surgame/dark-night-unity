@@ -15,7 +15,7 @@ namespace DarkNights.Core.Logic.Terrain
         private const int W = TerrainGenerationSettings.Width;
         private const int H = TerrainGenerationSettings.Height;
         public const string SpaceSeed = "SPACE-CARRIER-V1";
-        public const int Version = 4;
+        public const int Version = 5;
 
         /// <summary>正式航程与所有随机洞穴预览唯一的完整生成入口；重试、最终坡形与背景捕获均在此复用。</summary>
         public static PlayableTerrain GenerateCandidate(PlanetDefinition planet, string seed, string worldId,
@@ -95,7 +95,7 @@ namespace DarkNights.Core.Logic.Terrain
             CheckCancellation(cancelled);
             var background = new BackgroundBakeDescriptor(worldId, seed, cells, shapes);
             return new PlayableTerrain(worldId, seed, cells, protection, soft, source.Rooms.ToArray(),
-                deposits.ToArray(), shapes, true, background);
+                TerrainDepositFootprints.Build(deposits, cells, protection, seed, planet.DockRow), shapes, true, background);
         }
         public static PlayableTerrain Space(string worldId)
         {

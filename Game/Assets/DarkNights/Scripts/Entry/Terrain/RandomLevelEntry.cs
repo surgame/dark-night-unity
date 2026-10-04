@@ -84,9 +84,20 @@ namespace DarkNights.Entry.Terrain
                     subscribedReplica = replica;
                     subscribedReplica.Applied += OnReplicaApplied;
                 }
-                if (frame != null) { view.SetMinerals(frame.World.Worksites); view.SetDevices(frame.World); }
+                bool mineralsCurrent = frame.World.MineralWorldId == world.WorldId.ToString().Replace("-", "") &&
+                    frame.World.MineralMapEpoch == world.Epoch;
+                if (mineralsCurrent)
+                    foreach (var mineral in frame.World.MineralDeposits)
+                        foreach (var cell in mineral.Cells)
+                        {
+                            var position = new CellCoord(cell.U, cell.V);
+                            if (!replica.Read(position).TryGetCell(out _) || replica.ContentVersion(position) < cell.ForegroundContentVersion)
+                                mineralsCurrent = false;
+                        }
+                if (mineralsCurrent) view.SetMinerals(frame.World.MineralDeposits);
+                view.SetDevices(frame.World);
                 if (view.LastError != null) throw view.LastError;
-                network.Terrain.PresentationReady = view.Ready;
+                network.Terrain.PresentationReady = mineralsCurrent && view.Ready;
             }
             catch (Exception error) { network.Fail(error); }
         }

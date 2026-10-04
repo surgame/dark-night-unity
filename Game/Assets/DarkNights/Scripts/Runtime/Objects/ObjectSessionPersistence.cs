@@ -18,7 +18,9 @@ namespace DarkNights.Runtime.Objects
             Codec = new ObjectWorldSaveJson(world.Catalog, world.Layout,
                 world.Resources.Definitions.ToDictionary(ObjectSessionResources.Rule, d => d.Guid.ToString()),
                 placements.ToDictionary(p => p.PlacementKey, p => ObjectSessionResources.Rule(p.Definition)), world.Projectiles.Settings,
-                (world.Terrain?.Rules.Fingerprint ?? "") + "|" + world.Resources.Equipment.Fingerprint + "|" + string.Join(";", world.Resources.Definitions
+                (world.Terrain?.Rules.Fingerprint ?? "") + "|" + world.Resources.Equipment.Fingerprint + "|" +
+                Core.Logic.Terrain.TerrainDepositFootprints.Version + "|" + Core.Logic.Terrain.TerrainDepositFootprints.NominalCells + "|" +
+                Core.Logic.Terrain.TerrainDepositFootprints.MaximumCellsPerDeposit + "|" + Core.Logic.Terrain.TerrainDepositFootprints.MaximumWorldCells + "|" + string.Join(";", world.Resources.Definitions
                     .OrderBy(value => value.Guid.ToString(), StringComparer.Ordinal)
                     .SelectMany(value => value.SharedConfigs.OfType<MineralDepositRuleConfig>()
                         .Select(config => value.Guid + ":" + config.Fingerprint()))));

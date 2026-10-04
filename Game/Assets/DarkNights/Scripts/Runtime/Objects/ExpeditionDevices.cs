@@ -51,8 +51,7 @@ namespace DarkNights.Runtime.Objects
             var deposit = world.Index.Find<MineralDepositBehaviour>(id);
             var miner = world.Index.Actors.FirstOrDefault(a => a.RuleKey == "miner");
             if (deposit == null || miner == null || deposit.Remaining <= 0) return 0;
-            float height = PlayableTerrain.OriginY - (deposit.Y + .5f) * 16;
-            if (!Navigation.CanReach(miner, deposit.X, height, false))
+            if (!TryMinerCell(deposit, miner, out _))
             { world.Notify("矿工需要双向步行通路，请先开路。", true); return 0; }
             miner.Edit().TaskTarget = id; miner.Edit().TaskPhase = 1; return 1;
         }
@@ -126,17 +125,35 @@ namespace DarkNights.Runtime.Objects
                 if (world.Ship.Recalling) s.Boarded = true;
                 return;
             }
-            float h = PlayableTerrain.OriginY - (deposit.Y + .5f) * 16;
-            if (!Navigation.Move(miner, deposit.X, h, delta, false)) return;
-            if (!ExpeditionNavigation.Sight(world.Terrain.Map, s.X, s.Height + 9, deposit.X, h)) return;
+            if (!TryMinerCell(deposit, miner, out var target)) return;
+            float h = Core.Logic.Terrain.TerrainMiningGeometry.CenterHeight(target.V);
+            float x = Core.Logic.Terrain.TerrainMiningGeometry.CenterX(target.U);
+            if (!Navigation.Move(miner, x, h, delta, false)) return;
+            if (!ExpeditionNavigation.Sight(world.Terrain.Map, s.X, s.Height + 9, x, h)) return;
             s.TaskClock += delta;
             if (s.TaskClock < Flight.Rules.ExtractSeconds || !ExpeditionCargo.CanMine(miner)) return;
             s.TaskClock = 0;
             int damage = world.Resources.Equipment.Mining(GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance
                 .GetDefinitionByKey("item.pickaxe").Guid.ToString()).Damage;
-            if (deposit.Durability <= damage && !ExpeditionCargo.CanCollect(miner, deposit.HarvestAmount)) return;
-            if (deposit.HitByHand(damage, out int harvested) && harvested > 0)
+            if (target.Durability <= damage && !ExpeditionCargo.CanCollect(miner, Math.Min(target.Remaining, deposit.UnitsPerHarvest))) return;
+            var tool = world.Resources.Equipment.Mining(GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance
+                .GetDefinitionByKey("item.pickaxe").Guid.ToString());
+            if (deposit.HitByTool(tool, target.U, target.V, target.ContentVersion, out int harvested) && harvested > 0)
                 ExpeditionCargo.Collect(miner, deposit.ResourceId, harvested);
+        }
+
+        private bool TryMinerCell(MineralDepositBehaviour deposit, ActorBehaviour miner, out MineralCellState target)
+        {
+            foreach (var cell in deposit.Read().Cells.Where(value => value.Remaining > 0).OrderBy(value =>
+                Distance(miner.X, miner.Read().Height, Core.Logic.Terrain.TerrainMiningGeometry.CenterX(value.U),
+                    Core.Logic.Terrain.TerrainMiningGeometry.CenterHeight(value.V))))
+            {
+                if (!world.Terrain.Map.Read(new AnyRules.Next.CellCoord(cell.U, cell.V)).TryGetCell(out var foreground) || !foreground.IsEmpty) continue;
+                if (!Navigation.CanReach(miner, Core.Logic.Terrain.TerrainMiningGeometry.CenterX(cell.U),
+                    Core.Logic.Terrain.TerrainMiningGeometry.CenterHeight(cell.V), false)) continue;
+                target = cell; return true;
+            }
+            target = default; return false;
         }
         internal static double Distance(float ax, float ay, float bx, float by) => Math.Sqrt(Math.Pow(ax - bx, 2) + Math.Pow(ay - by, 2));
     }

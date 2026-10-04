@@ -65,7 +65,8 @@ namespace DarkNights.Entry
             timeline.Push(frame, Time.unscaledTimeAsDouble);
             var wanted = frame.World.Actors.Select(a => (a.Id, a.Kind))
                 .Concat(frame.World.Buildings.Select(b => (b.Id, b.Kind)))
-                .Concat(frame.World.Worksites.Select(w => (w.Id, w.Kind))).ToDictionary(p => p.Id, p => p.Kind);
+                .Concat(frame.World.Worksites.Select(w => (w.Id, w.Kind)))
+                .Concat(frame.World.MineralDeposits.Select(value => (value.Id, Kind: "mineral-deposit"))).ToDictionary(p => p.Id, p => p.Kind);
             workKinds.Clear();
             foreach (WorksiteViewData site in frame.World.Worksites) workKinds.Add(site.Id, site.Kind);
             foreach (int id in views.Keys.ToArray())
@@ -147,17 +148,13 @@ namespace DarkNights.Entry
                             expedition.RobotModule + expedition.CargoModule * 2 + expedition.CrewModule * 4, Time.timeAsDouble);
                 }
             foreach (WorksiteViewData site in frame.World.Worksites)
-            {
-                if (site.IsMineralDeposit || site.Kind == "mineral-deposit")
+                if (Presentation(site.Id) is WorksitePresentationBehaviour view) view.Present(site, frame.Epoch, stage.Ambient);
+            foreach (var mineral in frame.World.MineralDeposits)
+                if (Presentation(mineral.Id) is MineralDepositPresentationBehaviour deposit)
                 {
-                    if (Presentation(site.Id) is MineralDepositPresentationBehaviour deposit)
-                    {
-                        deposit.Present(site, frame.Epoch, stage.Ambient);
-                        if (frame.World.Expedition != null) deposit.UseBackgroundWall();
-                    }
+                    deposit.Present(mineral, frame.Epoch, stage.Ambient);
+                    if (stage.RandomTerrain) deposit.UseBackgroundWall();
                 }
-                else if (Presentation(site.Id) is WorksitePresentationBehaviour view) view.Present(site, frame.Epoch, stage.Ambient);
-            }
         }
 
         internal void SamplePresentation()

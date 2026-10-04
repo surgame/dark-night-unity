@@ -16,12 +16,7 @@ namespace DarkNights.Core.Save
             var farms = new HashSet<int>();
             foreach (var site in c.Sites.Values)
             {
-                if (site.IsMineralDeposit || site.Kind == "mineral-deposit")
-                {
-                    if (!site.IsMineralDeposit || site.WorkerId != 0 || site.FarmId != 0 || site.Amount < 0 || site.Amount > site.Capacity)
-                        return "矿床关系无效";
-                }
-                else if (site.Kind == "food")
+                if (site.Kind == "food")
                 {
                     if (!c.Buildings.TryGetValue(site.FarmId, out var farm) || farm.Kind != "farm" || farm.Progress < 1 ||
                         !farms.Add(farm.Id) || site.Amount != -1 || Math.Abs(site.X - farm.X) > 0.01)
@@ -60,7 +55,7 @@ namespace DarkNights.Core.Save
                 }
                 else if (a.State == ActorActivity.Attack)
                 {
-                    if (c.Sites.ContainsKey(a.TargetId) ||
+                    if (c.Sites.ContainsKey(a.TargetId) || c.Minerals.ContainsKey(a.TargetId) ||
                         (c.Actors.TryGetValue(a.TargetId, out var enemy) && enemy.Enemy == a.Enemy) ||
                         (c.Buildings.ContainsKey(a.TargetId) && !a.Enemy))
                         return "攻击目标阵营无效";

@@ -41,14 +41,15 @@ namespace DarkNights.Core.Save
                 s.Wave.NextSpawn < 0 || s.Wave.NextSpawn > wave.Enemies.Count ||
                 (s.Wave.Phase == WavePhase.Day && s.Wave.NextSpawn != 0))
                 return "夜袭计时无效";
-            if (s.Actors == null || s.Buildings == null || s.Worksites == null || s.Projectiles == null ||
-                s.Actors.Count + s.Buildings.Count + s.Worksites.Count > 256 || s.Projectiles.Count > 1024)
+            if (s.Actors == null || s.Buildings == null || s.Worksites == null || s.Projectiles == null || s.MineralDeposits == null ||
+                s.Actors.Count + s.Buildings.Count + s.Worksites.Count + s.MineralDeposits.Count > 256 || s.Projectiles.Count > 1024)
                 return "实体列表无效或过大";
             if (s.Actors.Any(a => a == null) || s.Buildings.Any(b => b == null) ||
-                s.Worksites.Any(w => w == null) || s.Projectiles.Any(p => p == null))
+                s.Worksites.Any(w => w == null) || s.MineralDeposits.Any(value => value == null) || s.Projectiles.Any(p => p == null))
                 return "实体记录为空";
             var identities = s.Actors.Select(a => (a.Id, a.Kind, a.X))
-                .Concat(s.Buildings.Select(b => (b.Id, b.Kind, b.X))).Concat(s.Worksites.Select(w => (w.Id, w.Kind, w.X))).ToArray();
+                .Concat(s.Buildings.Select(b => (b.Id, b.Kind, b.X))).Concat(s.Worksites.Select(w => (w.Id, w.Kind, w.X)))
+                .Concat(s.MineralDeposits.Select(value => (value.Id, Kind: "mineral-deposit", value.X))).ToArray();
             var ids = new HashSet<int>();
             foreach (var entry in identities)
                 if (!Id(entry.Id, 1) || string.IsNullOrEmpty(entry.Kind) || !Number(entry.X, 0, layout.WorldWidth) || !ids.Add(entry.Id))
@@ -64,7 +65,7 @@ namespace DarkNights.Core.Save
             if (s.Expedition != null)
             {
                 string extra = ExpeditionValidator.Validate(s.Expedition, s.Actors.Select(a => a.Id).ToArray(),
-                    s.Buildings.Select(b => b.Id).ToArray(), s.Worksites.Select(w => w.Id).ToArray(), catalog.Balance.Expedition);
+                    s.Buildings.Select(b => b.Id).ToArray(), s.MineralDeposits.Select(w => w.Id).ToArray(), catalog.Balance.Expedition);
                 if (extra.Length != 0) return extra;
                 extra = JourneyValidator.Validate(s.Expedition.Journey, stableOnly: true, worldId: s.Terrain.WorldId);
                 if (extra.Length != 0) return extra;
@@ -77,6 +78,8 @@ namespace DarkNights.Core.Save
                     device.Height, catalog.Balance.Expedition.Ship, s.Expedition.Journey))
                     return "飞船泊位或位置不匹配";
             }
+            string mineralError = MineralSnapshotValidator.Validate(s);
+            if (mineralError.Length != 0) return mineralError;
             var context = new ValidationContext(s, catalog, layout);
             string error = EntitySnapshotValidator.Validate(context);
             if (error.Length == 0)

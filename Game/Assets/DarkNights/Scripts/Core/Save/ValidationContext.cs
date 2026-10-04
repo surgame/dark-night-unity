@@ -17,6 +17,7 @@ namespace DarkNights.Core.Save
         public Dictionary<int, ActorSnapshot> Actors { get; }
         public Dictionary<int, BuildingSnapshot> Buildings { get; }
         public Dictionary<int, WorksiteSnapshot> Sites { get; }
+        public Dictionary<int, MineralDepositSnapshot> Minerals { get; }
         public Dictionary<int, int> TrainingOwners { get; } = new Dictionary<int, int>();
 
         public LevelLayout Layout { get; }
@@ -29,9 +30,10 @@ namespace DarkNights.Core.Save
             Actors = saved.Actors.ToDictionary(a => a.Id);
             Buildings = saved.Buildings.ToDictionary(a => a.Id);
             Sites = saved.Worksites.ToDictionary(a => a.Id);
+            Minerals = saved.MineralDeposits.ToDictionary(a => a.Id);
         }
 
-        public bool Has(int id) => Actors.ContainsKey(id) || Buildings.ContainsKey(id) || Sites.ContainsKey(id);
+        public bool Has(int id) => Actors.ContainsKey(id) || Buildings.ContainsKey(id) || Sites.ContainsKey(id) || Minerals.ContainsKey(id);
 
         public static bool Number(double value, double minimum, double maximum) => !double.IsNaN(value) && !double.IsInfinity(value) && value >= minimum && value <= maximum;
 

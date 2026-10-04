@@ -189,6 +189,8 @@ class NetworkRun:
                    "--dn-report", str(self.paths[role]["report"]), "--dn-commands", str(self.paths[role]["commands"])]
         if not self.args.interactive:
             command.append("--dn-input-replay")
+        if role == "host" and getattr(self.args, "quick_test", None):
+            command.extend(["--dn-quick-test", self.args.quick_test])
         if getattr(self.args, "metrics", False):
             command.append("--dn-metrics")
         # SpaceReady requires a real camera completion; batchmode receives the map but never renders it.

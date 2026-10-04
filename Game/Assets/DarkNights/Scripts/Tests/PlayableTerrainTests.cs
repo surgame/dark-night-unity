@@ -45,7 +45,7 @@ namespace DarkNights.Tests
             var catalog = RuleScenario.Catalog(); var layout = PlayableTerrainGenerator.Layout(RuleScenario.Layout());
             var selected = PlayableTerrainGenerator.Generate("save-restore", Id);
             var world = scope.NewWorld(catalog, layout, false, terrain: value =>
-                new SessionTerrain(value.Context, definition.LoadGameplayCatalog(), selected));
+                new SessionTerrain(value.Context, definition.LoadGameplayCatalog(), selected, definition: definition));
             using var authority = new SessionAuthority(world);
             var host = authority.Connect(0); authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true);
             Assert.That(world.Index.MineralDeposits.Count, Is.EqualTo(selected.Deposits.Count));
@@ -63,7 +63,7 @@ namespace DarkNights.Tests
             var map = world.Terrain.Map; var gameplay = definition.LoadGameplayCatalog();
             string visual = new string('a', 64);
             var stream = TerrainMapNetworking.OpenStream(map, TerrainMapNetworking.Handshake(map, gameplay, visual), 1, _ => true, () => 1);
-            var replica = TerrainMapNetworking.CreateReplica(gameplay, visual);
+            var replica = TerrainMapNetworking.CreateReplica(gameplay, visual, map.Rules.Business);
             while (stream.QueuedPackets > 0) replica.Receive(stream.Dequeue());
             stream.Subscribe(map.Descriptor.Bounds);
             while (stream.QueuedPackets > 0) replica.Receive(stream.Dequeue());
@@ -105,7 +105,7 @@ namespace DarkNights.Tests
             var catalog = RuleScenario.Catalog(); var layout = PlayableTerrainGenerator.Layout(RuleScenario.Layout());
             var selected = PlayableTerrainGenerator.Generate("soft-rock-save", Id);
             var world = scope.NewWorld(catalog, layout, false, terrain: value =>
-                new SessionTerrain(value.Context, definition.LoadGameplayCatalog(), selected));
+                new SessionTerrain(value.Context, definition.LoadGameplayCatalog(), selected, definition: definition));
             using var authority = new SessionAuthority(world);
             var host = authority.Connect(0); authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true);
 
@@ -117,13 +117,18 @@ namespace DarkNights.Tests
                 {
                     var position = new CellCoord(x, y);
                     if (map.IsSoftRock(position) && map.Read(position).TryGetCell(out var cell) &&
-                        !cell.IsEmpty && cell.Flags == 0) { target = position; found = true; break; }
+                        !cell.IsEmpty && (cell.Flags & 1) == 0) { target = position; found = true; break; }
                 }
             Assert.That(found, Is.True, "A destructible soft-rock fixture is required.");
             var targets = map.BuildTargets(TerrainEditAction.HandMine, target);
-            var receipt = map.DestroyTrusted(1, "soft-rock-save", TerrainEditAction.HandMine, map.World,
-                target, targets, _ => true, out bool applied);
-            Assert.That(applied, Is.True); Assert.That(receipt.ChangedChunks.Count, Is.EqualTo(1));
+            int hit = 0;
+            bool applied;
+            while (!map.Read(target).Cell.IsEmpty && hit < 100)
+            {
+                var receipt = map.DestroyTrusted(1, "soft-rock-save-" + hit++, TerrainEditAction.HandMine, map.World,
+                    target, targets, _ => true, out applied);
+                Assert.That(applied, Is.True); Assert.That(receipt.ChangedChunks.Count, Is.EqualTo(1));
+            }
             Assert.That(map.Read(target).Cell.IsEmpty, Is.True);
 
             string save = world.SaveCodec.Serialize(world.CaptureWorld());
@@ -168,9 +173,13 @@ namespace DarkNights.Tests
             TerrainHeroMotion.Tick(map, state, catalog.Balance.HeroControl, 1.0 / 60, false, false);
             float supportedHeight = state.Height;
             Assert.That(state.SupportPlatform, Is.Zero);
-            map.DestroyTrusted(1, "collision-blast", TerrainEditAction.Explosive, map.World,
-                blast, blastTargets, _ => true, out applied);
-            Assert.That(applied, Is.True);
+            for (int blastHit = 0; blastHit < 100 && blastTargets.Any(position => !map.Read(position).Cell.IsEmpty); blastHit++)
+            {
+                map.DestroyTrusted(1, "collision-blast-" + blastHit, TerrainEditAction.Explosive, map.World,
+                    blast, blastTargets, _ => true, out applied);
+                Assert.That(applied, Is.True);
+            }
+            Assert.That(blastTargets.All(position => map.Read(position).Cell.IsEmpty), Is.True);
             TerrainHeroMotion.Tick(map, state, catalog.Balance.HeroControl, 1.0 / 60, false, false);
             Assert.That(state.SupportPlatform, Is.EqualTo(-1));
             Assert.That(state.Height, Is.LessThan(supportedHeight), "Authoritative collision must observe the blasted cells immediately.");

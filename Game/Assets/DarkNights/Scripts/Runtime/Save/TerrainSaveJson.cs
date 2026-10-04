@@ -37,7 +37,9 @@ namespace DarkNights.Runtime.Save
                 ["deposits"] = new JArray(data.Deposits.Select(deposit => new JObject
                 {
                     ["id"] = deposit.Id, ["room_kind"] = deposit.RoomKind, ["x"] = deposit.X, ["y"] = deposit.Y,
-                    ["rarity"] = deposit.Rarity, ["capacity"] = deposit.Capacity
+                    ["rarity"] = deposit.Rarity, ["capacity"] = deposit.Capacity,
+                    ["cells"] = new JArray(deposit.Cells.Select(cell => new JObject
+                    { ["u"] = cell.U, ["v"] = cell.V, ["capacity"] = cell.Capacity }))
                 }))
             };
         }
@@ -64,9 +66,15 @@ namespace DarkNights.Runtime.Save
             var deposits = Array(value["deposits"], item =>
             {
                 JObject deposit = Object(item);
-                if (deposit.Count != 6) throw new FormatException("地图矿床字段不完整。");
+                if (deposit.Count != 7) throw new FormatException("地图矿床字段不完整。");
                 return new TerrainDepositBlueprint(Text(deposit["id"]), Text(deposit["room_kind"]),
-                    Integer(deposit["x"]), Integer(deposit["y"]), Text(deposit["rarity"]), Integer(deposit["capacity"]));
+                    Integer(deposit["x"]), Integer(deposit["y"]), Text(deposit["rarity"]), Integer(deposit["capacity"]),
+                    Array(deposit["cells"], entry =>
+                    {
+                        var cell = Object(entry);
+                        if (cell.Count != 3) throw new FormatException("初始矿格字段不完整。");
+                        return new TerrainMineralCell(Integer(cell["u"]), Integer(cell["v"]), Integer(cell["capacity"]));
+                    }, 64));
             }, 128).ToArray();
             try
             {

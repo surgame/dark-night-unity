@@ -49,7 +49,8 @@ namespace DarkNights.Runtime.Objects
         public void Validate(WorldViewData world)
         {
             var kinds = world.Actors.Select(a => (a.Id, a.Kind)).Concat(world.Buildings.Select(b => (b.Id, b.Kind)))
-                .Concat(world.Worksites.Select(w => (w.Id, w.Kind))).ToDictionary(p => p.Id, p => p.Kind);
+                .Concat(world.Worksites.Select(w => (w.Id, w.Kind)))
+                .Concat(world.MineralDeposits.Select(value => (value.Id, Kind: "mineral-deposit"))).ToDictionary(p => p.Id, p => p.Kind);
             if (world.Identities.Count != kinds.Count) throw new InvalidOperationException("Complete identity baseline is required.");
             var placementKeys = new HashSet<string>();
             foreach (EntityIdentityData identity in world.Identities)

@@ -15,7 +15,28 @@ MonoBehaviour:
   Shader: {fileID: 4800000, guid: 817be2e17bf5dde4aa24be9b28a9d1b9, type: 3}
   Rock: {fileID: 0}
   Background: {fileID: 11400000, guid: 1b99e2e684b842f42907b47f37d9d092, type: 2}
+  MineralDefinition: {fileID: 11400000, guid: c0fa1b2e6e4c55742babce5c51cc19a5, type: 2}
   ProceduralRock: 1
+  ImmediateForeground: 1
+  SurfaceEnvironment:
+    Enabled: 1
+    Ridges: 1
+    Clouds: 1
+    Parallax: 0.14
+    RidgeHeight: 7
+    CloudHeight: 18
+    WeatheredDepth: 1.25
+    EntranceDepth: 9
+    UndergroundAmbient: 0.36
+  MiningSelector:
+    Radius: 1
+    LinePixels: 2
+    CenterOpacity: 1
+    SurroundOpacity: 0.4
+    FillOpacity: 0.055
+    FadePower: 2
+    InvalidOpacity: 0.3
+  InteractiveBakeBudgetMs: 4
   StoneSize: 4
   DecorationStartRow: 40
   OutlineMode: 4

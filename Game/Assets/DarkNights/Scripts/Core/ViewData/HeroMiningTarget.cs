@@ -13,19 +13,22 @@ namespace DarkNights.Core.ViewData
         public readonly HeroMiningTargetKind Kind;
         public readonly int EntityId;
         public readonly ulong ContentVersion;
+        public readonly ulong MineralContentVersion;
         public bool Present => !string.IsNullOrEmpty(WorldId);
 
         public HeroMiningTarget(string worldId, ulong mapEpoch, int u, int v, uint tileId, ushort flags,
-            HeroMiningTargetKind kind = HeroMiningTargetKind.Foreground, int entityId = 0, ulong contentVersion = 0)
+            HeroMiningTargetKind kind = HeroMiningTargetKind.Foreground, int entityId = 0, ulong contentVersion = 0,
+            ulong mineralContentVersion = 0)
         {
             WorldId = worldId; MapEpoch = mapEpoch; U = u; V = v; TileId = tileId; Flags = flags;
             Kind = kind; EntityId = entityId; ContentVersion = contentVersion;
+            MineralContentVersion = mineralContentVersion;
         }
 
         public bool Equals(HeroMiningTarget other) => WorldId == other.WorldId && MapEpoch == other.MapEpoch &&
             U == other.U && V == other.V && TileId == other.TileId && Flags == other.Flags &&
-            Kind == other.Kind && EntityId == other.EntityId && ContentVersion == other.ContentVersion;
+            Kind == other.Kind && EntityId == other.EntityId && ContentVersion == other.ContentVersion && MineralContentVersion == other.MineralContentVersion;
         public override bool Equals(object value) => value is HeroMiningTarget other && Equals(other);
-        public override int GetHashCode() => HashCode.Combine(HashCode.Combine(WorldId, MapEpoch, U, V, TileId, Flags), Kind, EntityId, ContentVersion);
+        public override int GetHashCode() => HashCode.Combine(HashCode.Combine(WorldId, MapEpoch, U, V, TileId, Flags), Kind, EntityId, ContentVersion, MineralContentVersion);
     }
 }

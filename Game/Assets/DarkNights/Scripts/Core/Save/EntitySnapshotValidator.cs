@@ -44,19 +44,6 @@ namespace DarkNights.Core.Save
             }
             foreach (var w in c.Sites.Values)
             {
-                if (w.IsMineralDeposit || w.Kind == "mineral-deposit")
-                {
-                    if (!w.IsMineralDeposit || w.Kind != "mineral-deposit" || w.RoomKind == null || w.RoomKind.Length > 32 ||
-                        w.Rarity == null || w.Rarity.Length > 16 || w.Capacity < 1 || w.Capacity > 1000000 ||
-                        w.Durability < 0 || w.Durability > 1000000 || (w.Amount == 0 ? w.Durability != 0 : w.Durability < 1) ||
-                        w.Amount < 0 || w.Amount > w.Capacity || !Number(w.Y, 0, Config.Terrain.TerrainGenerationSettings.Height - 1) ||
-                        Math.Abs(w.Y - Math.Round(w.Y)) > 0.001 ||
-                        !Id(w.WorkerId) || w.WorkerId != 0 ||
-                        !Id(w.FarmId) || w.FarmId != 0 || w.Progress != 0 ||
-                        !Enum.IsDefined(typeof(MineralDepositStage), ParseStage(w.Stage)))
-                        return "矿床状态无效";
-                    continue;
-                }
                 if (!c.Catalog.Balance.Worksites.TryGetValue(w.Kind, out var d))
                     return "未知工作点";
                 if (w.Amount is < -1 or > 1000000 || !Number(w.Progress, 0, d.Interval) || w.Variant is < 0 or > 3 ||
@@ -101,7 +88,5 @@ namespace DarkNights.Core.Save
             return "";
         }
 
-        private static MineralDepositStage ParseStage(string value) =>
-            Enum.TryParse(value, out MineralDepositStage stage) ? stage : (MineralDepositStage)(-1);
     }
 }

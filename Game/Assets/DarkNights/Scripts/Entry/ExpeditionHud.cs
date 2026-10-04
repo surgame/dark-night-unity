@@ -104,7 +104,7 @@ namespace DarkNights.Entry
                 emergencyConfirmation = -1;
                 bool personal = operation is "unload" or "board" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
                 var actor = frame.World.Actors.FirstOrDefault(a => a.ControllerSlot == client.PlayerSlot);
-                int target = operation == "mine" && actor != null ? frame.World.Worksites.Where(w => w.IsMineralDeposit && w.Amount > 0)
+                int target = operation == "mine" && actor != null ? frame.World.MineralDeposits.Where(w => w.Remaining > 0)
                     .OrderBy(w => Math.Abs(w.X - actor.X) + Math.Abs(632 - (w.Y + .5) * 16 - actor.Height)).FirstOrDefault()?.Id ?? 0 : 0;
                 await client.Send(SessionOperation.Expedition, personal && actor != null ? new[] { actor.Id } : null,
                     target: target, kind: operation, controlLease: personal ? actor?.ControlLease ?? 0 : 0);

@@ -21,6 +21,7 @@ namespace DarkNights.Runtime.Objects
             state.MiningU = state.MiningV = 0; state.MiningTileId = 0; state.MiningFlags = 0;
             state.MiningTargetKind = DarkNights.Core.ViewData.HeroMiningTargetKind.None;
             state.MiningEntityId = 0; state.MiningContentVersion = 0;
+            state.MiningMineralContentVersion = 0;
         }
 
         internal static void Tick(ActorBehaviour actor, double delta)

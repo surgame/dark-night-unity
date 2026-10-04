@@ -40,7 +40,9 @@ namespace DarkNights.Runtime.Network
                 ":" + fingerprint.LayoutSha256 + ":" + identity + ":" + equipment.Fingerprint() +
                 ":" + BackgroundBakeDescriptor.StyleContentHash + ":" + flow.Fingerprint() +
                 ":" + serviceIdentity + ":" + services.SaleEnabled + ":" + services.ShopEnabled + ":" + itemIdentity +
-                ":" + Terrain.TerrainProfileConfig.Resolve().Freeze().Fingerprint + ":" + deposits;
+                ":" + Terrain.TerrainProfileConfig.Resolve().Freeze().Fingerprint + ":" + deposits + ":" +
+                Core.Logic.Terrain.TerrainDepositFootprints.Version + ":" + Core.Logic.Terrain.TerrainDepositFootprints.NominalCells + ":" +
+                Core.Logic.Terrain.TerrainDepositFootprints.MaximumCellsPerDeposit + ":" + Core.Logic.Terrain.TerrainDepositFootprints.MaximumWorldCells;
         }
     }
 }

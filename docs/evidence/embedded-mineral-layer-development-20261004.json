@@ -1,0 +1,1439 @@
+{
+  "date": "2026-10-04",
+  "mainBaseline": "b705709b18fe03f8389346765879a98c396cecc0",
+  "branch": "ft-20261004-embedded-minerals",
+  "unity": "6000.4.9f1",
+  "protocol": 24,
+  "saveVersion": 18,
+  "amp1Schema": 2,
+  "yygcModified": false,
+  "editor": {
+    "distinctCases": 245,
+    "passed": 245,
+    "cases": [
+      {
+        "name": "DarkNights.Tests.BackgroundReferenceTests.AlphaSoftnessNeverChangesRgbOrExpandsMask",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.BackgroundReferenceTests.CodecRoundtripAndDefensiveCopies",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.BackgroundReferenceTests.CorruptVersionHashRunAndTrailingDataAreRejected",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.BackgroundReferenceTests.DestructionSaveRestoreKeepsInitialReferenceAndRejectsBrokenCandidate",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.BackgroundReferenceTests.ReliableBaselineIsAtomicAndRejectsStaleWorld",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.CaveGenerationParityTests.ActualJourneyUsesDisabledModifierMap",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.CaveGenerationParityTests.ActualJourneyUsesTunerFinalMap",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.CaveGenerationParityTests.GeneratedBrushEditsCannotOverwriteFixedAssets",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.CaveGenerationParityTests.GeneratedTunerStageRendersSharedTerrain",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.CaveGenerationParityTests.HundredFinalMapsKeepEveryRoomInTheSameOpenCavity",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.CaveGenerationParityTests.TunerAndBothWorkbenchScenesProduceIdenticalFinalCells",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.EmbeddedMineralContractTests.FinalFootprintsAreDeterministicAndPreserveCapacity(1)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.EmbeddedMineralContractTests.FinalFootprintsAreDeterministicAndPreserveCapacity(7)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.EmbeddedMineralContractTests.FinalFootprintsAreDeterministicAndPreserveCapacity(8)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.EmbeddedMineralContractTests.FinalFootprintsAreDeterministicAndPreserveCapacity(80)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.EmbeddedMineralContractTests.FinalFootprintsAreDeterministicAndPreserveCapacity(9)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.EmbeddedMineralContractTests.NativeContentBindsOneMineralLayerAndReservesSortingRange",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.EmbeddedMineralContractTests.ProtectedOnlyCandidateFailsWithoutDroppingAnObject",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.EmbeddedMineralContractTests.StateCopyOwnsItsArrayAndFrozenCellsRejectIllegalTombstones",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionRecoveryTests.CombatDefeatedCrewCanMoveAfterSettlement",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionRecoveryTests.FailedSettlementDoesNotReviveUntilCommit",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.CargoSettlesOnceAndUpgradeChangesSecondDeparture",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.FormalMapSaveAndNetworkProjectionKeepShapes",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.GuestCannotLaunchAndReconnectReclaimsCargoOwner",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.HundredCompactSeedsHaveIndependentMineralsAndValidSlopes",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.NegativeCargoSaveIsRejectedWithoutRetiringWorld",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ExpeditionTests.SettlementWriteFailureRollsBackAndRetryPersistsOnce",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyAdversarialTests.ChangingAuthorCloneCannotMutateAnAlreadyFrozenSession",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyAdversarialTests.DisabledPlanetUnknownPlanetStaleRevisionAndLeaseHaveNoSideEffects",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyAdversarialTests.FourPlayersCompetingForDifferentPlanetsCommitExactlyOneDestination",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyAdversarialTests.HostOnlyPolicyRejectsQueuedGuestSelectionAndRevokesGuestPilot",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyAdversarialTests.NonPilotCannotCancelAndConflictingSequenceCannotChangeDestination",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyAdversarialTests.RetiringSessionClearsFrozenCatalogAndIgnoresPendingGeneration",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyAdversarialTests.ThrowingArrivalSubscriberDoesNotDisposeOrReinstallActiveMap",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyLandingTests.AutomaticLandingOpensAfterConfiguredDelayAndBothPlayersCanWalkOut",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyLandingTests.IdleDescentRuleRejectsNonFiniteAndUnsafeValues",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyLandingTests.IdleInputDescendsAndFastGroundContactCannotFakeSafeLanding",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyLandingTests.LateralDescentLandsAtCurrentSafePositionAndRestores",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyLandingTests.MaximumSpeedAvoidsSlopeAndConfiguredFlightEnvelope",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyLandingTests.MissingSupportAndBlockedHullOrRampRejectLandingUntilRepaired",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyLandingTests.OpeningDoorSurvivesProjectionAndSaveRestoreWithoutReleasingEarly",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyRecoveryTests.ArrivalTimeoutLeavesSlowGuestUnreadyAndAllowsReadyHostToLand",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyRecoveryTests.LateJoinInDescentSpawnsInsideShipAndCannotStealPilotSeat",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyRecoveryTests.PreparationTimeoutCancelsCandidateWithoutChangingEpoch",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyRuntimeTests.CancelDiscardsLateGenerationAndReleasesPilot",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyRuntimeTests.DescentCarriesPassengerAllowsTakeoverAndLandsBeforeExit",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyRuntimeTests.DestinationUsesTrustedActorAndOnlyOneConcurrentSelectionWins",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyRuntimeTests.DisconnectCancelsBeforeArrivalAndHoversAfterArrival",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyRuntimeTests.FailedGenerationReturnsToOrbitWithoutReplacingTerrain",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyRuntimeTests.InstallChangesEpochAndWaitsForBothReadyWithoutThrust",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyRuntimeTests.OrbitBoardsPlayersAndClosedHullAllowsWalking",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyRuntimeTests.PauseHoldsCompletedGenerationUntilResume",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneySaveTests.DescentSaveRestoresHoverAndRequiresFreshControlLease",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneySaveTests.MissingOversizedAndInvalidJourneyFieldsRejectWithoutRetiringWorld",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneySaveTests.NotificationExceptionCannotRollBackCommittedSelectionOrSkipCleanup",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneySaveTests.OrbitSaveAndProjectionRoundTripPreserveFrozenCatalog",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneySaveTests.PlanetMapIdentityAndDockMustMatchBeforeRestore",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneySaveTests.SourceCatalogTamperCannotCancelAnExistingGeneration",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneySaveTests.TransientJourneyCannotBeSavedThroughEitherBoundary",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.JourneySaveTests.WireRejectsInvalidCatalogAndUnknownPhase",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MineralBehaviourTests.MaximumMineralFootprintsFitReliableProjectionAndFreezeTheirCells",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MineralBehaviourTests.RollbackFrozenCopiesStaleHitsAndRestoreKeepOneObject",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MineralLayerTests.ActualCatalogHasFourVariantsAndNoMixedTransitionOwnership",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MineralLayerTests.ActualPagesRenderMixedMineralsAtBothScalesAndEmptyLayerBecomesReady",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MineralLayerTests.FrozenInputRejectsOverlapAndUnchangedOccupancyDoesNotAdvance",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.BedrockCannotBeMined",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.BeyondSharedReachForgedTargetCannotDamage",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.CustomToolReachControlsSurfaceAndHit",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.DisabledDepositForgedTargetCannotDamageOrReward",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.EmptyCellHasNoEffectAndExplainsWhy",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.HardRockCanBeDamaged",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.MineralDepositClickDamagesBeforeHarvest",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.OreClickDamagesBeforeReward",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.PreviouslyPreviewOnlyWallCanBeDamaged",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.ProtectedOreCanBeDamaged",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.SharedReachBoundaryCanBeDamaged",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningInputTests.SoftRockClickDamagesOnlyTargetAndRejectsDuplicate",
+        "result": "Passed",
+        "batch": "ore-lifecycle-r2-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(-17,-42)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(0,0)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(18,-80)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.DepositMiningRequirementsRoundTripAndFreeze(1)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.DepositMiningRequirementsRoundTripAndFreeze(2)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(1,1.0f)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(1,2.0f)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(2,1.0f)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(2,2.0f)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(-8.01f,-1)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(-8.0f,0)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(7.99f,0)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(8.0f,1)",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.ReachIncludesBoundaryButNotNextCell",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.ReachIsFrozenAndChangesToolFingerprint",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.StandingBesideOrAboveCellUsesSurfaceReachInsteadOfCenter",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningSelectorTests.ToolTargetsAndMaterialsAreFrozenAndFingerprintChanges",
+        "result": "Passed",
+        "batch": "ore-contracts-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningToolDefinitionTests.CategoryMaterialLevelAndDefinitionMustAllMatch",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningToolDefinitionTests.SecondDefinitionAssemblesOwnFrozenAbilityAndRestoresBothIdentities",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.MiningToolDefinitionTests.SwitchingToolCancelsPendingHitAndOldEquipmentIdentity",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.PlayableTerrainTests.FullMapStreamAndSaveRestoreShareFinalCells",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.PlayableTerrainTests.SelectionIsDeterministicAndKeepsCampClear",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.PlayableTerrainTests.SoftRockMiningPersistsEmptyCellAcrossSaveRestore",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.DeclaredExpansionMustMatchExactlyAndCannotHideExtraOutput",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.ExpandedCapacityStillEnforcesEncodedPacketLimit",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.HeaderAndAllocationBoundsAreCheckedBeforeExpansion",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.IncompressibleAndSmallPayloadsUseExactRawFrames",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.RepetitivePayloadCompressesAndReturnsIndependentBytes",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.TrailingBytesAndConcatenatedGzipMembersAreRejected",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionPacketTests.TruncatedAndCorruptedGzipCannotBecomeAValidProjection",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.MeasureCompleteProjectionAtSupportedLimits",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.PooledStateReturnCannotRewriteOwnedReplica",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.ProjectionRejectsLocalCommandRings",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.RealBattleSnapshotsRemainDecodableAfterWindupCrossesZero",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.ProjectionWireTests.RealCodecFreezesNestedStateAndRejectsMalformedFrames",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.QuickTestSessionTests.EmbeddedMineralFixtureDepletesOneRealCellWithoutChangingForeground",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.QuickTestSessionTests.LandedHeroMinesWithRealInputAndRestartRestoresCleanBaseline",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.QuickTestSessionTests.QuickPresetDoesNotChangeNextNormalOrbitWorld",
+        "result": "Passed",
+        "batch": "ore-final-editor-r4-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.DetachedEndpointAndDisposedReplicaCannotConfirm",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.OldHandshakeOrEpochCannotConfirm(6,1)",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.OldHandshakeOrEpochCannotConfirm(7,0)",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionClientReadyTests.SuccessfulRetryCannotBeRevokedByLateRejection",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"boundary\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"clock\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"commands\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"economy\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"events\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"lifecycle\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"new-save\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"projection\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"replica\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"save-files\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"storage\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"time-combat\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.SessionRegressionTests.ContractsUseRealObjects(\"work-training\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.EmptyPipelinePreservesLegalAirDepositAnchors",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-0\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-1\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-10\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-11\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-12\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-13\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-14\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-15\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-16\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-17\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-18\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-19\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-2\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-20\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-21\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-22\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-23\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-24\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-25\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-26\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-27\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-28\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-29\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-3\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-30\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-31\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-32\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-33\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-34\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-35\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-36\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-37\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-38\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-39\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-4\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-40\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-41\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-42\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-43\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-44\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-45\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-46\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-47\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-48\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-49\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-5\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-50\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-51\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-52\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-53\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-54\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-55\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-56\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-57\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-58\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-59\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-6\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-60\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-61\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-62\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-63\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-64\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-65\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-66\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-67\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-68\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-69\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-7\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-70\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-71\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-72\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-73\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-74\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-75\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-76\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-77\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-78\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-79\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-8\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-80\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-81\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-82\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-83\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-84\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-85\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-86\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-87\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-88\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-89\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-9\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-90\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-91\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-92\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-93\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-94\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-95\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-96\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-97\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-98\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"OPEN-CAVE-99\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FixedSeedPreservesEveryOriginalCavityAndRoom(\"STRATA-0922\")",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.FrozenModifiersIgnoreLaterAuthorEditsAndDisabledIsEmpty",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.InvalidStagesNullStepsAndCancellationFailBeforePublishing",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainGenerationPipelineTests.StageBarriersOrderingAndFlagOnlyDiagnosticsUseFinalCells",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainPresentationTests.ActualPagesStayStaticAndDestructionIsLocal",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainPresentationTests.AuthoredAtlasAndNativeCatalogReload",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainPresentationTests.PreviewKeepsCameraPagesVisibleAcrossDirectionChanges",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.ClientConfigurationAndDespawnNeverCreateAuthority",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.ConfigurationAndRoleStartOnceInEitherOrder(False)",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.ConfigurationAndRoleStartOnceInEitherOrder(True)",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.FailedCreationReleasesContextAndFreshAssemblyStarts",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      },
+      {
+        "name": "DarkNights.Tests.WorldSessionLifecycleTests.StopRevokesBeforeDisposalAndLateStartCannotResurrect",
+        "result": "Passed",
+        "batch": "ore-affected-editor-20261004"
+      }
+    ],
+    "failed": 0
+  },
+  "p0": {
+    "setsWithFourVariants": 75,
+    "actualCameraScales": [
+      1,
+      0.16
+    ],
+    "artNotFinal": true,
+    "combinations": 1296
+  },
+  "sourceArt": [
+    {
+      "source": "experiments/ore-dualgrid-v1/atlases/iron-merged.png",
+      "sha256": "c83c2e0f14aadcffddb4e2dcbee31c3250691716a8ef21ce21b968ed5af95850",
+      "native": "Game/Assets/DarkNights/Res/Terrain/EmbeddedMinerals/iron/iron.png",
+      "kind": "iron"
+    },
+    {
+      "source": "experiments/ore-dualgrid-v1/atlases/gold-merged.png",
+      "sha256": "994c94dc701577b054c2c9c8dbf0fc3870b4210540a0987296d02819daced2b1",
+      "native": "Game/Assets/DarkNights/Res/Terrain/EmbeddedMinerals/gold/gold.png",
+      "kind": "gold"
+    },
+    {
+      "source": "experiments/ore-dualgrid-v1/atlases/copper-merged.png",
+      "sha256": "9586a1125af1ee47c14149cb7ede41ca3a060b1c8e7493242d8d79282ed2d7c9",
+      "native": "Game/Assets/DarkNights/Res/Terrain/EmbeddedMinerals/copper/copper.png",
+      "kind": "copper"
+    },
+    {
+      "source": "experiments/ore-dualgrid-v1/atlases/silver-merged.png",
+      "sha256": "5a8a3b45f738d9a3d44b84f46140b2b5c849adb705f3fcb3d0eba04388a4e36f",
+      "native": "Game/Assets/DarkNights/Res/Terrain/EmbeddedMinerals/silver/silver.png",
+      "kind": "silver"
+    },
+    {
+      "source": "experiments/ore-dualgrid-v1/atlases/diamond-merged.png",
+      "sha256": "84c70b8a7ea957872d201da8f10be5a260ab0a5ecc9798a2b66a8d1de57ed522",
+      "native": "Game/Assets/DarkNights/Res/Terrain/EmbeddedMinerals/diamond/diamond.png",
+      "kind": "diamond"
+    }
+  ],
+  "status": "DEVELOPMENT_CHECKPOINT_PRESENTATION_BLOCKED",
+  "delivered": false,
+  "mono": {
+    "state": "SUCCEEDED_R2",
+    "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261004-204555-239d05b7\\DarkNights.exe",
+    "request": "ore-mono-build-r2-20261004",
+    "firstFailure": "Mono.Cecil TypeDbJsonGenerator OutOfMemoryException",
+    "firstFailureRetained": true,
+    "reusedSameLocalEditorCache": true,
+    "il2cppRun": false
+  },
+  "network": [
+    {
+      "players": 2,
+      "weak": false,
+      "passed": true,
+      "checks": 24,
+      "passedChecks": 24,
+      "error": null,
+      "result": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\embedded-ore-development-20261004\\network\\network-20261004-205220-815431-mono-normal-2p-host\\result.json",
+      "resultSha256": "7118fd1af12c466ef5c0f67b5dbad0e95443101656a3a1e77edb533d64289794",
+      "playerSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "scriptSha256": "860b1c089693125006e9b6e02887a09f254bf45ece67c12ea880fbe26a0a7478",
+      "managedSha256": {
+        "DarkNights.Core.dll": "11bc03fae53d0a9a4e33a299a405e57c6a3f09ba087c834dfeed4191ef169a67",
+        "DarkNights.Entry.dll": "757b5f97fea00bfed50388e0afd1f7ea4e156f681ec78c760703c8fb8853c8a6",
+        "DarkNights.Runtime.dll": "a67588f8fbafadf853ed076bb57a8fa95bbc8a4beebda30366c83d1a6a4f4721",
+        "DarkNights.Samples.LanCoop.Bootstrap.dll": "be1d1fa3a2398faadc1fc6a8b9f59ddb80192dc510674cff438e67eae54bee3c",
+        "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+        "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+        "DarkNights.Samples.LanCoop.Runtime.dll": "cd3f41a67420a5c5a54e16ffb0bb26f9be86c5f12b4f728bdc4d216136e182a5",
+        "DarkNights.View.dll": "fe5675803a38db12a3b2fea823e1aeda25aab436949b9754891091bbc4c38fd5"
+      },
+      "playerDiagnostics": []
+    },
+    {
+      "players": 4,
+      "weak": false,
+      "passed": true,
+      "checks": 30,
+      "passedChecks": 30,
+      "error": null,
+      "result": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\embedded-ore-development-20261004\\network\\network-20261004-205405-923479-mono-normal-4p-host\\result.json",
+      "resultSha256": "3e18beaec0447ced8d60a4455d59f091af3b0c7dad411f129c22d96856b674c8",
+      "playerSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "scriptSha256": "49503eb0d712a5bdb18c1ccb2a617a7711fc24722ea84b51af1efbd751b77544",
+      "managedSha256": {
+        "DarkNights.Core.dll": "11bc03fae53d0a9a4e33a299a405e57c6a3f09ba087c834dfeed4191ef169a67",
+        "DarkNights.Entry.dll": "757b5f97fea00bfed50388e0afd1f7ea4e156f681ec78c760703c8fb8853c8a6",
+        "DarkNights.Runtime.dll": "a67588f8fbafadf853ed076bb57a8fa95bbc8a4beebda30366c83d1a6a4f4721",
+        "DarkNights.Samples.LanCoop.Bootstrap.dll": "be1d1fa3a2398faadc1fc6a8b9f59ddb80192dc510674cff438e67eae54bee3c",
+        "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+        "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+        "DarkNights.Samples.LanCoop.Runtime.dll": "cd3f41a67420a5c5a54e16ffb0bb26f9be86c5f12b4f728bdc4d216136e182a5",
+        "DarkNights.View.dll": "fe5675803a38db12a3b2fea823e1aeda25aab436949b9754891091bbc4c38fd5"
+      },
+      "playerDiagnostics": []
+    },
+    {
+      "players": 2,
+      "weak": true,
+      "passed": false,
+      "checks": 1,
+      "passedChecks": 1,
+      "error": "Traceback (most recent call last):\n  File \"D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\embedded-minerals\\test_network.py\", line 136, in execute\n    self.smoke()\n    ~~~~~~~~~~^^\n  File \"D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\embedded-minerals\\test_network.py\", line 69, in smoke\n    self.start(\"client1\")\n    ~~~~~~~~~~^^^^^^^^^^^\n  File \"D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\space-planet-flow\\test_network.py\", line 200, in start\n    return self.wait(role, lambda report: report[\"ready\"] and report.get(\"frame\") and report[\"terrain\"][\"visible\"] and\n           ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                     any(person[\"ControllerSlot\"] == report[\"slot\"] for person in world(report)[\"Actors\"]),\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n                     \"ready with controlled actor\")\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\space-planet-flow\\test_network.py\", line 167, in wait\n    raise TimeoutError(role + \": \" + description)\nTimeoutError: client1: ready with controlled actor\n",
+      "result": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\embedded-ore-development-20261004\\network\\network-20261004-205619-135008-mono-weak-2p-host\\result.json",
+      "resultSha256": "35b6c5bf7dd4676c8602ab86a0388f34baf1398959ba3fe390f4c8c989637bb5",
+      "playerSha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+      "scriptSha256": "49503eb0d712a5bdb18c1ccb2a617a7711fc24722ea84b51af1efbd751b77544",
+      "managedSha256": {
+        "DarkNights.Core.dll": "11bc03fae53d0a9a4e33a299a405e57c6a3f09ba087c834dfeed4191ef169a67",
+        "DarkNights.Entry.dll": "757b5f97fea00bfed50388e0afd1f7ea4e156f681ec78c760703c8fb8853c8a6",
+        "DarkNights.Runtime.dll": "a67588f8fbafadf853ed076bb57a8fa95bbc8a4beebda30366c83d1a6a4f4721",
+        "DarkNights.Samples.LanCoop.Bootstrap.dll": "be1d1fa3a2398faadc1fc6a8b9f59ddb80192dc510674cff438e67eae54bee3c",
+        "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+        "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+        "DarkNights.Samples.LanCoop.Runtime.dll": "cd3f41a67420a5c5a54e16ffb0bb26f9be86c5f12b4f728bdc4d216136e182a5",
+        "DarkNights.View.dll": "fe5675803a38db12a3b2fea823e1aeda25aab436949b9754891091bbc4c38fd5"
+      },
+      "playerDiagnostics": []
+    }
+  ],
+  "networkNotRun": [
+    "4-player weak network and subsequent weak mining matrix: stopped after initial Ready prerequisite failed"
+  ],
+  "frameworkHashAudit": {
+    "readOnlyFiles": 41,
+    "changed": [],
+    "patchSha256": "7b16e941cd7cc119e22b531678584103c697c6b5456b637658cdd0915a039811",
+    "manifestAndPackagesLockChanged": false,
+    "gameMetadataOnlyLockUpdate": {
+      "game_protocol": 24,
+      "save_version": 18
+    }
+  },
+  "staticAudit": {
+    "changedCSharp": 81,
+    "over300": [],
+    "missingMeta": [],
+    "nativeFiles": 197,
+    "missingAssetMeta": [],
+    "duplicateGuids": []
+  },
+  "payloadBudget": {
+    "context": "Editor codec budget probe; transport and real-world density remain separate",
+    "cells": 4096,
+    "deposits": 64,
+    "encodedBytes": 11405,
+    "rawBytes": 177010
+  },
+  "archive": {
+    "items": [
+      {
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\embedded-minerals\\__pycache__",
+        "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-embedded-minerals\\tools\\embedded-minerals\\__pycache__",
+        "bytes": 23958.0,
+        "reason": "本批可重建 Python 缓存，全部 Python/Player 已退出",
+        "condition": "只有用户另行指定删除清单后才可永久删除"
+      },
+      {
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-state\\player-mono-20261004-201449-45d9c978",
+        "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-embedded-minerals\\artifacts\\map-state\\player-mono-20261004-201449-45d9c978",
+        "bytes": 0,
+        "reason": "首次 OOM 的空构建输出，错误日志与报告另行保留",
+        "condition": "只有用户另行指定删除清单后才可永久删除"
+      }
+    ],
+    "freeBefore": 25347248128,
+    "freeAfter": 25347244032,
+    "freedBytes": 0,
+    "permanentDeletions": 0
+  },
+  "presentation": {
+    "singleLayerP0Passed": true,
+    "formalCompositePassed": false,
+    "weakCompositeAssertionNotAccepted": {
+      "changedPixels": 395,
+      "maximumRgbDelta": 5,
+      "targetCenterDelta": 0,
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\embedded-ore-development-20261004\\p0\\composite"
+    },
+    "playerChangeOutsideActor": 0,
+    "strongCompositeSourceWritten": true,
+    "strongCompositeSourceCompiled": false,
+    "pending": "Import and execute ordering sweep; Windows Security firewall dialog obstructs Editor focus",
+    "visualAcceptance": false
+  },
+  "notVerified": [
+    "final artwork",
+    "full miner navigation",
+    "foreground performance",
+    "IL2CPP",
+    "two physical machines",
+    "weak-network whole game"
+  ],
+  "rawEvidenceRoot": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\embedded-ore-development-20261004"
+}
