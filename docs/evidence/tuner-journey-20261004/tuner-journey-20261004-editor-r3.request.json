@@ -1,0 +1,14 @@
+{
+  "assemblies": [
+    "DarkNights.Tests"
+  ],
+  "tests": [
+    "DarkNights.Tests.TunerWorkbenchEditorTests.ActualSerializedPropertiesAreEditableAndAuthorIsIsolated",
+    "DarkNights.Tests.TunerWorkbenchEditorTests.StyleSaveReloadKeepsUnrelatedExternalFields",
+    "DarkNights.Tests.NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding",
+    "DarkNights.Tests.TerrainStylePreviewTests.ResetAndCancelLeaveOriginalParametersUntouched"
+  ],
+  "command": "tests",
+  "id": "tuner-journey-20261004-editor-r3",
+  "mode": "EditMode"
+}

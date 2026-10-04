@@ -1,4 +1,5 @@
 using System;
+using DarkNights.Runtime.Objects;
 using UnityEditor;
 using UnityEngine;
 
@@ -100,7 +101,8 @@ namespace DarkNights.Editor.Terrain
                 Mathf.FloorToInt(y / bounds.height * image.height / 8));
         }
 
-        public void Draw(Rect canvas, Texture image, int fps, int renderMilliseconds, bool pending, string pendingReason = null)
+        public void Draw(Rect canvas, Texture image, int fps, int renderMilliseconds, bool pending, string pendingReason = null,
+            PlanetPreset planet = null)
         {
             EditorGUI.DrawRect(canvas, new Color(.12f, .13f, .15f));
             GUI.BeginGroup(canvas);
@@ -109,6 +111,7 @@ namespace DarkNights.Editor.Terrain
                 Rect bounds = ImageBounds(canvas, image);
                 GUI.DrawTexture(bounds, image, ScaleMode.StretchToFill, false);
                 DrawOverlay(bounds, image);
+                if (planet != null) DrawLanding(bounds, planet);
             }
             else GUI.Label(new Rect(16, 38, canvas.width - 32, 40), "正在生成完整画面…", EditorStyles.whiteLabel);
             string action = ActiveTool == TerrainStylePreviewTool.Pan ? "左键拖拽平移" :
@@ -119,6 +122,19 @@ namespace DarkNights.Editor.Terrain
             if (pending) GUI.Label(new Rect(8, canvas.height - 30, canvas.width - 16, 22),
                 pendingReason ?? "画面更新中…", EditorStyles.whiteLabel);
             GUI.EndGroup();
+        }
+
+        private void DrawLanding(Rect bounds, PlanetPreset planet)
+        {
+            float x = bounds.x + planet.DockColumn / 320f * bounds.width;
+            float y = bounds.y + planet.DockRow / 192f * bounds.height;
+            float width = planet.LandingWidth / 320f * bounds.width;
+            float arrival = y - planet.ArrivalHeight / 16f / 192f * bounds.height;
+            EditorGUI.DrawRect(new Rect(x - width * .5f, y, width, 2), new Color(.96f, .75f, .42f));
+            EditorGUI.DrawRect(new Rect(x, arrival, 1, Mathf.Max(1, y - arrival)), new Color(.55f, .80f, .95f));
+            GUI.Box(new Rect(Mathf.Clamp(x + 4, bounds.x, bounds.xMax - 100), arrival - 23, 100, 22), "到达位置");
+            GUI.Box(new Rect(Mathf.Clamp(x + 4, bounds.x, bounds.xMax - 120), y + 5, 120, 22),
+                "泊位 " + planet.DockColumn + " / " + planet.LandingWidth + " 格");
         }
 
         private void DrawOverlay(Rect bounds, Texture image)

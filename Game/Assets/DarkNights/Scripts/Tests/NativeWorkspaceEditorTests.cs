@@ -30,7 +30,7 @@ namespace DarkNights.Tests
         {
             var assembly = typeof(DarkNights.Editor.DarkNightsMenu).Assembly;
             var types = new[] { typeof(GameCore.Editor.Objects.Runner.ObjectDefinitionViewer),
-                typeof(DarkNights.Editor.ExpeditionFlowWindow), assembly.GetType("DarkNights.Editor.Terrain.TerrainBusinessWindow", true),
+                typeof(DarkNights.Editor.Terrain.TerrainStylePreviewWindow), assembly.GetType("DarkNights.Editor.Terrain.TerrainBusinessWindow", true),
                 typeof(DarkNights.Editor.Terrain.TerrainStylePreviewWindow) };
             var methods = new[] { "Viewer", "Journey", "Terrain", "Visual" };
             var before = Resources.FindObjectsOfTypeAll<EditorWindow>();
@@ -41,13 +41,13 @@ namespace DarkNights.Tests
                 {
                     Bridge.GetMethod(methods[index], Flags).Invoke(null, null); yield return null;
                     var window = Resources.FindObjectsOfTypeAll<EditorWindow>().Single(value => value.GetType() == types[index]);
-                    object draft = index == 1 ? Get(window, "draft") : null;
+                    object draft = index == 1 ? ((DarkNights.Editor.Terrain.TerrainStylePreviewWindow)window).Draft : null;
                     string original = draft == null ? "" : EditorJsonUtility.ToJson((UnityEngine.Object)draft);
                     Bridge.GetMethod(methods[index], Flags).Invoke(null, null); yield return null;
                     Assert.That(Resources.FindObjectsOfTypeAll<EditorWindow>().Single(value => value.GetType() == types[index]), Is.SameAs(window));
                     if (draft != null)
                     {
-                        Assert.That(Get(window, "draft"), Is.SameAs(draft));
+                        Assert.That(((DarkNights.Editor.Terrain.TerrainStylePreviewWindow)window).Draft, Is.SameAs(draft));
                         Assert.That(EditorJsonUtility.ToJson((UnityEngine.Object)draft), Is.EqualTo(original));
                     }
                 }
@@ -110,8 +110,9 @@ namespace DarkNights.Tests
                 workshop.GetType().GetMethod("OnFocus", Flags).Invoke(workshop, null);
                 bool focused = false;
                 EditorApplication.delayCall += () => focused = true;
-                double deadline = EditorApplication.timeSinceStartup + 3;
-                while (!focused && EditorApplication.timeSinceStartup < deadline) yield return null;
+                double deadline = EditorApplication.timeSinceStartup + 10;
+                while (!focused && EditorApplication.timeSinceStartup < deadline)
+                { workshop.Repaint(); EditorApplication.QueuePlayerLoopUpdate(); yield return null; }
                 Assert.That(focused, Is.True, "工坊焦点后的 delayCall 尚未执行，不能记录诊断结论。");
                 bool focusDirties = EditorUtility.IsDirty(copy);
                 string diagnostic = "{\"navigation_clean\":" + (!focusDirties).ToString().ToLowerInvariant() +

@@ -1,0 +1,20 @@
+{
+  "tests": [
+    "DarkNights.Tests.TunerWorkbenchEditorTests",
+    "DarkNights.Tests.TunerWorkbenchLifecycleTests",
+    "DarkNights.Tests.JourneyEditorTests",
+    "DarkNights.Tests.JourneyPreviewTests",
+    "DarkNights.Tests.TerrainModifierAuthoringTests",
+    "DarkNights.Tests.NativeWorkspaceEditorTests",
+    "DarkNights.Tests.WorkbenchEditorTests",
+    "DarkNights.Tests.CaveGenerationParityTests.TunerAndBothWorkbenchScenesProduceIdenticalFinalCells",
+    "DarkNights.Tests.CaveGenerationParityTests.GeneratedBrushEditsCannotOverwriteFixedAssets",
+    "DarkNights.Tests.CaveGenerationParityTests.GeneratedTunerStageRendersSharedTerrain"
+  ],
+  "id": "tuner-journey-20261004-editor",
+  "mode": "EditMode",
+  "command": "tests",
+  "assemblies": [
+    "DarkNights.Tests"
+  ]
+}

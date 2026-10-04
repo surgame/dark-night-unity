@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-04 06:22:50Z" end-time="2026-10-04 06:22:51Z" duration="1.0594567">
+  <test-suite type="TestSuite" id="1000" name="DNights" fullname="DNights" runstate="Runnable" testcasecount="586" result="Passed" start-time="2026-10-04 06:22:50Z" end-time="2026-10-04 06:22:51Z" duration="1.059457" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1706" name="DarkNights.Tests.dll" fullname="D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Tests.dll" runstate="Runnable" testcasecount="585" result="Passed" start-time="2026-10-04 06:22:50Z" end-time="2026-10-04 06:22:51Z" duration="1.046682" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="28692" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestSuite" id="1707" name="DarkNights" fullname="DarkNights" runstate="Runnable" testcasecount="585" result="Passed" start-time="2026-10-04 06:22:50Z" end-time="2026-10-04 06:22:51Z" duration="1.043178" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-suite type="TestSuite" id="1708" name="Tests" fullname="DarkNights.Tests" runstate="Runnable" testcasecount="585" result="Passed" start-time="2026-10-04 06:22:50Z" end-time="2026-10-04 06:22:51Z" duration="1.037862" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-suite type="TestFixture" id="1279" name="NativeWorkspaceEditorTests" fullname="DarkNights.Tests.NativeWorkspaceEditorTests" classname="DarkNights.Tests.NativeWorkspaceEditorTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-04 06:22:50Z" end-time="2026-10-04 06:22:51Z" duration="0.870134" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1281" name="WorkshopUsesOriginalWindowAndTargetWithoutEmbedding" fullname="DarkNights.Tests.NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding" methodname="WorkshopUsesOriginalWindowAndTargetWithoutEmbedding" classname="DarkNights.Tests.NativeWorkspaceEditorTests" runstate="Runnable" seed="1817397224" result="Passed" start-time="2026-10-04 06:22:50Z" end-time="2026-10-04 06:22:51Z" duration="0.859531" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1609" name="TerrainStylePreviewTests" fullname="DarkNights.Tests.TerrainStylePreviewTests" classname="DarkNights.Tests.TerrainStylePreviewTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-04 06:22:51Z" end-time="2026-10-04 06:22:51Z" duration="0.014608" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1613" name="ResetAndCancelLeaveOriginalParametersUntouched" fullname="DarkNights.Tests.TerrainStylePreviewTests.ResetAndCancelLeaveOriginalParametersUntouched" methodname="ResetAndCancelLeaveOriginalParametersUntouched" classname="DarkNights.Tests.TerrainStylePreviewTests" runstate="Runnable" seed="1739981308" result="Passed" start-time="2026-10-04 06:22:51Z" end-time="2026-10-04 06:22:51Z" duration="0.008471" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1622" name="TunerWorkbenchEditorTests" fullname="DarkNights.Tests.TunerWorkbenchEditorTests" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-04 06:22:51Z" end-time="2026-10-04 06:22:51Z" duration="0.146742" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1623" name="ActualSerializedPropertiesAreEditableAndAuthorIsIsolated" fullname="DarkNights.Tests.TunerWorkbenchEditorTests.ActualSerializedPropertiesAreEditableAndAuthorIsIsolated" methodname="ActualSerializedPropertiesAreEditableAndAuthorIsIsolated" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" seed="430389876" result="Passed" start-time="2026-10-04 06:22:51Z" end-time="2026-10-04 06:22:51Z" duration="0.008646" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1628" name="StyleSaveReloadKeepsUnrelatedExternalFields" fullname="DarkNights.Tests.TunerWorkbenchEditorTests.StyleSaveReloadKeepsUnrelatedExternalFields" methodname="StyleSaveReloadKeepsUnrelatedExternalFields" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" seed="1569062178" result="Passed" start-time="2026-10-04 06:22:51Z" end-time="2026-10-04 06:22:51Z" duration="0.128118" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/Jobscn/AppData/LocalLow/DefaultCompany/DNights\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

@@ -21,6 +21,15 @@ namespace DarkNights.Editor
         internal ObjectDefinition Source => source;
         internal bool HasChanges => Config.CanonicalIdentity() != draftBaselineJson;
 
+        internal void CopyFrom(ExpeditionFlowDraft other)
+        {
+            source = other.source;
+            baselineJson = other.baselineJson;
+            draftBaselineJson = other.draftBaselineJson;
+            Config = Clone(other.Config);
+            hideFlags = HideFlags.DontSave;
+        }
+
         internal void Load(ObjectDefinition source)
         {
             this.source = source;

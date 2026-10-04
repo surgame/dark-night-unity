@@ -1,0 +1,1083 @@
+{
+  "date": "2026-10-04",
+  "branch": "ref-20261004-tuner-journey-workbench",
+  "baseline": "9df79dc",
+  "unity": "6000.4.9f1",
+  "scope": "游戏侧 Editor：Cave Wall Tuner 合并星球、降落、航程，折叠分组；YYGC 和 Runtime 未改",
+  "protocol": 23,
+  "save_version": 17,
+  "amp1_schema": 2,
+  "collected_utc": "2026-10-04T06:40:55.058931+00:00",
+  "editor_impact_merge": {
+    "passed": 45,
+    "failed": 0,
+    "distinct": 45,
+    "method": "首轮43项与R3补测按完整用例名合并；两项首轮失败由R3替换，新增样式保存和既有取消用例。R2不计入。",
+    "cases": [
+      {
+        "name": "DarkNights.Tests.CaveGenerationParityTests.GeneratedBrushEditsCannotOverwriteFixedAssets",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.CaveGenerationParityTests.GeneratedTunerStageRendersSharedTerrain",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.CaveGenerationParityTests.TunerAndBothWorkbenchScenesProduceIdenticalFinalCells",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyEditorTests.CatalogRejectsDuplicateDisabledNullAndExcessRows",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyEditorTests.ConfigFreezesRowsAndFingerprintTracksAuthorChanges",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyEditorTests.DraftApplyIsExplicitAndPreservesUnrelatedConfig",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyEditorTests.ExternalEditConflictKeepsBothAuthorAndDraft",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(0)",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(181)",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(float.NaN)",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(float.PositiveInfinity)",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyEditorTests.TunerRowCommandsAndUndoKeepStableIdsAndSerializedDraft",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyPreviewTests.ActualTaskPublishesOnMainThreadAndFixedSeedRepeats",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyPreviewTests.ClearCancelsRealPendingCandidateWithoutPublishing",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyPreviewTests.DeadlineCancelsPendingTaskAndReportsOnce",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyPreviewTests.DisposePendingTaskNeverPublishesLater",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyPreviewTests.ReplacementPublishesOnlyTheLatestSeed",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.JourneyPreviewTests.TunerModelCancelKeepsAuthorSourceAndScene",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.NativeWorkspaceEditorTests.ToolsOpenOnDemandReuseWindowsAndKeepJourneyDraft",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor-r3"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainModifierAuthoringTests.DraftCopyApplyCancelAndConflictKeepInterfaceObjectsIndependent",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainModifierAuthoringTests.FingerprintTracksOrderParametersAndMissingEntriesAreRejected",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainModifierAuthoringTests.NestedInterfaceAssetSurvivesSaveUnloadAndReimport",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainModifierAuthoringTests.OdinResolvesInterfaceListAndUnityTypeSelectionSupportsUndo",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TerrainStylePreviewTests.ResetAndCancelLeaveOriginalParametersUntouched",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor-r3"
+      },
+      {
+        "name": "DarkNights.Tests.TunerWorkbenchEditorTests.ActualSerializedPropertiesAreEditableAndAuthorIsIsolated",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor-r3"
+      },
+      {
+        "name": "DarkNights.Tests.TunerWorkbenchEditorTests.ExplicitSaveReloadKeepsUnrelatedConfigAndChecksExternalConflict",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TunerWorkbenchEditorTests.FixedSeedIsExplicitAndPreviewDoesNotChangeIt",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TunerWorkbenchEditorTests.JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(\"fade\")",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TunerWorkbenchEditorTests.JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(\"none\")",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TunerWorkbenchEditorTests.JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(\"star-shift\")",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TunerWorkbenchEditorTests.LegacyTransferIsDeepAndConflictingDraftsAreRetained",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TunerWorkbenchEditorTests.MetadataAndJourneyDoNotRebuildGeometryButDockAndStepsDo",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TunerWorkbenchEditorTests.StyleSaveReloadKeepsUnrelatedExternalFields",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor-r3"
+      },
+      {
+        "name": "DarkNights.Tests.TunerWorkbenchLifecycleTests.ReenableKeepsAuthorAndStyleDraftAndNavigationWithoutWritingSources",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.TunerWorkbenchLifecycleTests.SerializedStyleDraftRestoresReferencesAndKeepsFieldConflictChecks",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.WorkbenchEditorTests.DuplicateTargetSelectionShowsErrorWithoutThrowingCallback",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"duplicate-config\")",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-behaviour\")",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-config\")",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-reference\")",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"wrong-whitelist\")",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.WorkbenchEditorTests.ReadOnlyMatchingTracksUndoRedoAndDisposesRefresh",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.WorkbenchEditorTests.SceneSearchRestoresAcrossTaskSwitchAndGuiRebuild",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      },
+      {
+        "name": "DarkNights.Tests.WorkbenchEditorTests.TaskSwitchAndRebuildRestoreSelectionWithoutOpeningNativeEditors",
+        "result": "Passed",
+        "failure": null,
+        "batch": "tuner-journey-20261004-editor"
+      }
+    ]
+  },
+  "batches": [
+    {
+      "id": "tuner-journey-20261004-editor",
+      "state": "Failed(Child)",
+      "utc": "2026-10-04T06:14:23.6980520Z",
+      "unity": "6000.4.9f1",
+      "passed": 41,
+      "failed": 2,
+      "skipped": 0,
+      "original_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\tuner-journey-20261004-editor.xml",
+      "xml_sha256": "03914f2a9b5045ac8910cf3dadac3ae564f54b75378b2d41d66d027f2b14a2ee",
+      "cases": [
+        {
+          "name": "DarkNights.Tests.CaveGenerationParityTests.GeneratedBrushEditsCannotOverwriteFixedAssets",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.CaveGenerationParityTests.GeneratedTunerStageRendersSharedTerrain",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.CaveGenerationParityTests.TunerAndBothWorkbenchScenesProduceIdenticalFinalCells",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyEditorTests.CatalogRejectsDuplicateDisabledNullAndExcessRows",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyEditorTests.ConfigFreezesRowsAndFingerprintTracksAuthorChanges",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyEditorTests.DraftApplyIsExplicitAndPreservesUnrelatedConfig",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyEditorTests.ExternalEditConflictKeepsBothAuthorAndDraft",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(float.NaN)",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(float.PositiveInfinity)",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(0)",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(181)",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyEditorTests.TunerRowCommandsAndUndoKeepStableIdsAndSerializedDraft",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyPreviewTests.ActualTaskPublishesOnMainThreadAndFixedSeedRepeats",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyPreviewTests.ClearCancelsRealPendingCandidateWithoutPublishing",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyPreviewTests.DeadlineCancelsPendingTaskAndReportsOnce",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyPreviewTests.DisposePendingTaskNeverPublishesLater",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyPreviewTests.ReplacementPublishesOnlyTheLatestSeed",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.JourneyPreviewTests.TunerModelCancelKeepsAuthorSourceAndScene",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.NativeWorkspaceEditorTests.ToolsOpenOnDemandReuseWindowsAndKeepJourneyDraft",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding",
+          "result": "Failed",
+          "failure": "  工坊焦点后的 delayCall 尚未执行，不能记录诊断结论。\n  Expected: True\n  But was:  False\n"
+        },
+        {
+          "name": "DarkNights.Tests.TerrainModifierAuthoringTests.DraftCopyApplyCancelAndConflictKeepInterfaceObjectsIndependent",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TerrainModifierAuthoringTests.FingerprintTracksOrderParametersAndMissingEntriesAreRejected",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TerrainModifierAuthoringTests.NestedInterfaceAssetSurvivesSaveUnloadAndReimport",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TerrainModifierAuthoringTests.OdinResolvesInterfaceListAndUnityTypeSelectionSupportsUndo",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchEditorTests.ActualSerializedPropertiesAreEditableAndAuthorIsIsolated",
+          "result": "Failed",
+          "failure": "  Expected: 0\n  But was:  None\n"
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchEditorTests.ExplicitSaveReloadKeepsUnrelatedConfigAndChecksExternalConflict",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchEditorTests.FixedSeedIsExplicitAndPreviewDoesNotChangeIt",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchEditorTests.JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(\"star-shift\")",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchEditorTests.JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(\"fade\")",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchEditorTests.JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(\"none\")",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchEditorTests.LegacyTransferIsDeepAndConflictingDraftsAreRetained",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchEditorTests.MetadataAndJourneyDoNotRebuildGeometryButDockAndStepsDo",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchLifecycleTests.ReenableKeepsAuthorAndStyleDraftAndNavigationWithoutWritingSources",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchLifecycleTests.SerializedStyleDraftRestoresReferencesAndKeepsFieldConflictChecks",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.WorkbenchEditorTests.DuplicateTargetSelectionShowsErrorWithoutThrowingCallback",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-config\")",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-behaviour\")",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"duplicate-config\")",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"wrong-whitelist\")",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-reference\")",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.WorkbenchEditorTests.ReadOnlyMatchingTracksUndoRedoAndDisposesRefresh",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.WorkbenchEditorTests.SceneSearchRestoresAcrossTaskSwitchAndGuiRebuild",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.WorkbenchEditorTests.TaskSwitchAndRebuildRestoreSelectionWithoutOpeningNativeEditors",
+          "result": "Passed",
+          "failure": null
+        }
+      ],
+      "counted_in_impact_merge": true
+    },
+    {
+      "id": "tuner-journey-20261004-editor-r2",
+      "state": "Failed(Child)",
+      "utc": "2026-10-04T06:17:37.6535197Z",
+      "unity": "6000.4.9f1",
+      "passed": 1,
+      "failed": 2,
+      "skipped": 0,
+      "original_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\tuner-journey-20261004-editor-r2.xml",
+      "xml_sha256": "63108d0c3bd43f980f35a465598641fa621c3d6b92b7832ae92d4ad59d58b42a",
+      "cases": [
+        {
+          "name": "DarkNights.Tests.NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding",
+          "result": "Failed",
+          "failure": "  工坊焦点后的 delayCall 尚未执行，不能记录诊断结论。\n  Expected: True\n  But was:  False\n"
+        },
+        {
+          "name": "DarkNights.Tests.TerrainStylePreviewTests.ResetAndCancelLeaveOriginalParametersUntouched",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchEditorTests.ActualSerializedPropertiesAreEditableAndAuthorIsIsolated",
+          "result": "Failed",
+          "failure": "  Expected: 0\n  But was:  None\n"
+        }
+      ],
+      "counted_in_impact_merge": false,
+      "limitation": "请求早于最新源码编译完成；沿用旧测试程序集，两项失败及缺失的新用例不计作修正后的验收。"
+    },
+    {
+      "id": "tuner-journey-20261004-editor-r3",
+      "state": "Passed",
+      "utc": "2026-10-04T06:22:51.5227611Z",
+      "unity": "6000.4.9f1",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "original_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\tuner-journey-20261004-editor-r3.xml",
+      "xml_sha256": "1596e0e6045887d2221d8fb1931fafae8b3ca5c3a5ae1882609eff466d544586",
+      "cases": [
+        {
+          "name": "DarkNights.Tests.NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TerrainStylePreviewTests.ResetAndCancelLeaveOriginalParametersUntouched",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchEditorTests.ActualSerializedPropertiesAreEditableAndAuthorIsIsolated",
+          "result": "Passed",
+          "failure": null
+        },
+        {
+          "name": "DarkNights.Tests.TunerWorkbenchEditorTests.StyleSaveReloadKeepsUnrelatedExternalFields",
+          "result": "Passed",
+          "failure": null
+        }
+      ],
+      "counted_in_impact_merge": true
+    }
+  ],
+  "assemblies": [
+    {
+      "name": "DarkNights.Editor.dll",
+      "sha256": "c04f7b3d5009c56125a5130e4dec99bcc45afa8996f258ad73089e0516bc74e2",
+      "last_write_utc": "2026-10-04T06:13:50.071666+00:00"
+    },
+    {
+      "name": "DarkNights.Tests.dll",
+      "sha256": "ed9deb60c150d521dd473d73fc31f11f8b17baf7c87e9bc0c86731df068ecbd4",
+      "last_write_utc": "2026-10-04T06:18:40.832243+00:00"
+    }
+  ],
+  "source_sha256": {
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\CaveEntranceArtSetup.cs": "50a746d830aae5a08c364a81b2a4fdd9f5d049630330f11a4de4d1cce2003b80",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\CaveEntranceArtValidation.cs": "151f2c7aa1dcdb337a7b2a07aec2dc841141a119685f880eaee090772b38a92f",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\DarkNightsEnvironmentSetup.cs": "36cf3a228a74c4ec3b3ad883ba7fedae68436c6276513d91bbea6fb0342d66fc",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\DarkNightsMenu.cs": "425308a49036c3d77adca6ede2df242a22e56f2fc014e019654490b4ed362d26",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\DarkNightsNativeWorkspace.cs": "0c7c36886c4afec279608f56baf00591fd806d4fdae5251600f23506196a0aab",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\DarkNightsWorkbenchCatalog.cs": "5f2ef37b01aadb80a3caa943feeddbca2242056e20de6cbde11aac85cf6bd094",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\DarkNightsWorkbenchEntry.cs": "72d5c48ed9cd9e336451106fab1b0441f012d8cb0f6e5605e6386f4d9cf6439d",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\DarkNightsWorkbenchEntryKind.cs": "5794b51521351011028b98f09d6e7bba464f459ace13bd1e9b0454d23b42fad3",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\DarkNightsWorkbenchLauncher.cs": "ad2d562e944773cd1267427e24c1139a8597b656abd99e4cda43225436f92dd4",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\DarkNightsWorkbenchSources.cs": "c73d7744956732291da32f67db57b77284826cc2c96c94ed97a3f86909a154f6",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\DarkNightsWorkbenchWindow.cs": "5403529700f6a3be883fe1fd3d5e8ecbb370f0aaada15aae61dfdd83b68f8e52",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\EnvironmentGeometry.cs": "bf72de0d77352be29271f9336d10735fde2bc54e55bcbdf0b4cbab360560cd27",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\EnvironmentValidation.cs": "0b6a697644b596801c3c6722d9f3459ecd461cdd2dd5b64d16550628df26cd1e",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ExpeditionFlowDraft.cs": "4b8a623454bbbb1c0ab60e6ba0e7414006fa265bb43f8e55cb62476f2d46cb05",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ExpeditionFlowWindow.cs": "ef713a41156fa6012bb87bf9abdf49c5f2dce8f94df1b6faadcbce8859cc0c71",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ExpeditionPlanetPreview.cs": "e2c0f53e1d380c50a71eec46d9704513d466770d404538ebabe56d2d88659c1d",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\FormalObjectContentSetup.cs": "540f8e08f4787351ea0ae7939ed4196e54ad88dd57bc2e191971784cceda16aa",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\GameContentSetup.cs": "d785400e7e8865359e8ebebb257606c27b6550d36c56c95fc6ac17b8aea40a91",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\GamePlayerBuild.cs": "b4bff8d0a25479e2568519b9ccbc6c847cb2690074ccc3ac3f5700684b360aa7",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\GameSceneCatalogOrganizer.cs": "1c8f1982d33a79c8f0779977f4e95f49298452c4b30b7afc88c54b5caa2199e1",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\GameSceneWorkbenchCatalog.cs": "4162794623f211d1173c2894dcde23744d770b78121d0b0a7f15f51c00042ab8",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\HandheldContentSetup.cs": "4845687435378a2c37925bf64d3ae14be74a96b66f8fca93b262e79241732bfe",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\HandheldHudSetup.cs": "068ea0d09e02c47f44c247d476dd6ef021196b95d7da0e340ebf5b3db05ce553",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\HeroContentSetup.cs": "08ea78d8b35bdef02f5270e6b5f4c8bd33d0dc6bd90ada4a538a4c8699235b39",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\HeroHudSetup.cs": "93fa87c0e0abfbf244e8b07e9744904ad8a62ac0057f2a7f697b49b6200b98ec",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\HeroInputAssetSetup.cs": "3d6bbfefc226003eabd146faad829d9182d82ed63586e45a326fb1e3949c6073",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\MineralDepositContentSetup.cs": "82e57cb2f5d9990bdd8ea78a47c8182bf9fe8431fff88db999174617d8449019",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningDefinitionPanel.cs": "03578b89c30d2ce20b8541c97af07282825c4d4f342d7e0bc9d87b9f4fcf50f5",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningDefinitionPanelState.cs": "4daf26cd3aef325ca6c50c8f9ff7fbfad9bead21970e537f644c0646c34fac9f",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningDefinitionValidation.cs": "3af6367197727a57b6f438449b153f7d99eec6220946943a3ef5cc9211c8f8f5",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningDefinitionWindow.cs": "45f6f9b6f6efd6685661428e4b37b1556d9690af9775e112d7d5f18f5eb65e74",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningGridRuntimeProbe.cs": "6f37148fc97cfd726415eff934ac073a2356943cc35c311c8a5068a76074b91c",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningGridValidation.cs": "6b5de4fa2a223509cbc997942e693af792d233d7845ffdc041f49e2d402f0827",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningToolContentUpgrade.cs": "af4f9b5c7cb1478277a7908c498488c4249f42deaf5a47fa060436bf9c8c2d4b",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\MiningToolValidation.cs": "66766548db541f1da63393ea3b5eb4bd8d4f55227030ff1bd5a12a739634a857",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeAnimationBuilder.cs": "f4ff037701ad839909dfe67b5efddac09ba692f678ba23c2279734cda95033bc",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeArtSetup.cs": "322300fd3ea8411ef0c3df1e18f66402141ea711176cf1ba4ec954bbb813176d",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeEffectsSetup.cs": "6f45d1ca381b80f021fe58679a89610e5f09137e7357895e3c8007ccf94aa167",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeEnvironmentSetup.cs": "42549d55119c48144e2b5008a1adb9447adc6dd7541391117dc963616c70187d",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeObjectContracts.cs": "57dae37e880dc25edeea33da6cc9327cd5302f8890b5255a250bd13f039236b9",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativePrefabBuilder.cs": "4eff568ed87ca047b10e7aa9819d0374a520da71a1c150ae4aef8ef7d0181c69",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeSaveUiSetup.cs": "243f0aeae3d200917a51841d71a8ef7111250e65035dca30cd53eff6c6b3600d",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeThemeCalibration.cs": "de2f4650a163b17a691681528f0e71e5ab9c0cea3a632870dcea3c5d7d09a9e4",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeUiBuilder.cs": "3c73b096c766b84259e850789d92b7dd18bfa61898200170b4246b9d72b0e7be",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeUiExtras.cs": "620fe76fcd3e0a0acc9a8a924b5837d6fe1546c225e9bbe7fd42ddec6ef2eb73",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeUiGeometry.cs": "83f909894fe88dee1d6d05cad8b32b75e2c469afb72ba4cee43b43ba03effcc1",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeUiRuntimeProbe.cs": "f7a23498a73b1059524ab621e52a165cdd1d8aa76ce1515c0414152d5b07f75e",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\NativeUiSetup.cs": "d1dbc19974697f6c35f7eb2e0a05e71c2cfabcd14e5dd40ce777c40163f21053",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ObjectCapabilitySetup.cs": "c5f0ccb85718b3942c7821d318e6182abad04e3e08153f1388e6c4fe17981f59",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\OriginalArtImporter.cs": "cd63b165e6fff58e485a8b4a80cc43b2c08832c2b604f62bb153af2c4646f086",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\PinewatchLayoutSetup.cs": "44344f908266a89b417213b640fd7fc42d790a7c8bcf8998e6c72a09f721c9b6",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\PinewatchVisualSetup.cs": "1141fb3315f6bb1b8f3127937d19b1c2d9777340f74a0af5c0fcea7dcb7f38cc",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\RuleKeyDrawer.cs": "d6d31c2d506afab19d2552f178b6e554095a052b43474042b1be0c47576bfaab",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\SceneDefinitionAuthoring.cs": "b9b1da55b3e7de18b13a856a1a80d6d4a6643a3f2bc026587069e0c0e6ed2576",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ScenePlacementEditor.cs": "cee0cc1dc9de829569f321e89876360a7bb8c109e5691b0f59d5c31e27343444",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ScenePlaySelection.cs": "83cbcf303acd502cd027d76398273f8a44a30a0b1963dc88aca335b3f7b8642c",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\SessionLifecycleProbe.cs": "9eeac2254b10466c8a5a88817e4cdb986b2cdb60d95f8171d81c6530b1affdd4",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\SessionNetworkSetup.cs": "c5dc071f2f09f0e37be32eca2c275ad7411af64caf86fb6468e93f474cf75df1",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ShipAssetSetup.cs": "0b86b421f438ca1b026ff3cd2778059023e60f5c01f6fd24a198ada9535ee3f6",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ShipEquipmentUiSetup.cs": "dc1c229c6a871e50ed256f9c89c264b0f94ce6921f9f359c4f793b0f9d4bfa44",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs": "d1865587cc7bd43ce1805ca7c68a3b845a3e313cfa3b59e72cbae49a9b067981",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ShipTradeContentSetup.cs": "b9bea35ea571aa584f1bac7da4bb4cd99d12ec1ec6902ac8e4c31b1f1eda422c",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ShipTradeQuickRunner.cs": "4ecb7f6f21d35cb9b1e6061dc4c9246f5840d5e765178f9cb7bf8e5d3f64f23d",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\ShipUnitAssetSetup.cs": "dcde543d9cb520b4bf9681af8408f54b5e6ef49bd8d15e4bcf442dc9f8c50809",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\SurfaceEnvironmentValidation.cs": "0c34d01cb7218fe14a780834558aa476a8e358cb1781edaa84bdc1f3f9b49903",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\TerrainModifierInstaller.cs": "1f8dd19fa606ff55f9ccfddde8bc146ee36bd6dd4f6d18fdd1b0d43a5582c040",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\TerrainValidationRunner.cs": "400763dc00728c609d3a87854f964a1ae7accc406202b64d10988fb382a02418",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\CaveExplorationSetup.cs": "1b71b8bc28150018e9af5b3e50a1d44953d86eae587e307f5d81f5f9e5d7ed29",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\CaveTerrainAssets.cs": "bc96d95975dbac506b1c702f709f87e86a13fd6a954c3363c082da54334d9bba",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\CaveWorkshopSetup.cs": "fd9f1c6d02bc7f983a4c6cb58443ab88c7362d53e21a9df30ca3a74e1c4ee43b",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\RandomLevelSetup.cs": "041adff966c6f1b5ec85107f8ab83239b1bfa7b6068ec6646bcd2e4c95ca4edb",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainBusinessWindow.cs": "3b5d53f18f512a1a51c01429fc56dfe09dd2987a5eef0f777847d0917412f516",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainDebugSetup.cs": "f40a389813d44b60b4aefed4dd9e1bbc4c9b303946bc51cb431e85cd8a0a0147",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainDurabilityDraft.cs": "4b6776c69a01e941b77bc6ae4404012112995cabf57bc7766f011c2667747f89",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainGenerationIdentity.cs": "c836bcc9a85955ddedbca078efe7708594ed970ad06c0e4a5efcb21cc1673d5b",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainGenerationPreview.cs": "c5355a11593cd78d84f3672210e3731f0d56c718155f76741941fb874904f58a",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainGeneratorWindow.cs": "c2ccf812e62526109d6d33858a063e45d46b3594b17045e6e1a9926e7ece2374",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainJourneyPreview.cs": "8496ee9b9b136ececfde098ad1d9ea6d676aefc5f9d73be16fcbd8f10600442a",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainMapDraft.cs": "a2f36034adad4ecb941a6d5f247c6b064bfc52db6b40e34d12be03a1ce3efb2e",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainMapExporter.cs": "d89dc90fb17287ff943fb33651a7ffe49f96c5b68bcaa44a0c8ac1eb9c40697b",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainMiningPreview.cs": "28f5e686fe4768417e67dd1c4fbb3f295142b3fbb40a0d8c9851d271c29eabc9",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainModifierConfigDrawer.cs": "33c874ebeb260946d2ca3c59de558fc8cbaa93df396d281db6b455f550aa823f",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainPlanetControls.cs": "bb84dd1cc50013fe2c383293c64ae31c0242a60a49d93b59cd5137890d9e285e",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainPlayerBuild.cs": "07b8216573f268edc2cca51765f501480cd4d8ff7ed15b35890ba69ce2a76f21",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainProfileDraft.cs": "603a74f3e0fa872d7764348f8d4e26cdfa3c88a2a951bd5d8b9965345f109e99",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainScenePaths.cs": "fa9b7882ff4976e6a9b92c47a6efbd25bd79c0eda97963eb3f94e5bab4dec896",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainStyleDrafts.cs": "a294e0f30b65838f211d796dd38f2c1888e55cd0c810e5903eec5e310f4ee03b",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainStylePreviewBaker.cs": "cafd07cde81b1025fa69df128b783fb15358d97bf53dc86a38c241dc22e1a92a",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainStylePreviewCanvas.cs": "8a248f41b78ed61ffe1df07e6639330c414d0962e73bb132a24d3b23e2a17508",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainStylePreviewStage.cs": "0afb1114ab753c01a99ed128ec56cee715b52c5146b95be6e92c96058a89918d",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainStylePreviewTool.cs": "8fa80555e473c892d72e16665d626a5fcd0b116b385fd248b7e00ef2b02f870d",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainStylePreviewWindow.cs": "9ac96d8cd323531876d2a7cd5d0f9fdb16be881d85ee9c815ae2bae5b1fe45db",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainTestAssets.cs": "20df204435b018041710dfa1de39e6ab157c6dcf6dae723ee5c8299193a7b133",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainWorkbenchAssetBridge.cs": "931c7e7bb62433c3a4a53d6ca0ae3d92c9471fcd6467f8326605b827403f21df",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainWorkbenchControls.cs": "993a986cad8a83a53e0a59be20c5e77c5e7b76a4517b6aba3bccadbe4a81cd56",
+    "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainWorkbenchScenes.cs": "8fc3a7356fdd35af364f8cd70a6a10d999e173223953a48873412bdaee712ec4",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\BackgroundReferenceTests.cs": "5358f9e1951a80082286bc3537b75526c53bcb54b73b3756c57deeac9707265b",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\CaveEntranceArtGpuTests.cs": "65fc0212c28952b128801bec33bda45ec6875a66130e675016a5110047692cfc",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\CaveEntranceArtTests.cs": "58360245faa5648b3033555d0048e9073a09691a5296f5aa3898a4b3ff9cfaee",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\CaveExplorationTests.cs": "704b3a909e1ecbf8c9abe9f78e5af49062778c80052374c3da6f5152175cd3f1",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\CaveGenerationParityTests.cs": "7de4b07f5cf8f5dee28f02fa809d628d9ea67237eb03bd9ee44efab96748f92b",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\CaveWorkshopTests.cs": "6c35b4ef8fb73b5b37a626213e977cf0c043ab2a46a8e5f12e05a2b15c85b3b9",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ContentTests.cs": "42dfffc04dad83ca86ad2cb682f711f9ea1ea333730772da7a4d4057698c6b71",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\CoreRegressionTests.cs": "71cc3045f8eaca2cb0a7bd4fd38b0e4ccf0cecf65ad13cbad42358f349742d72",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\EditorAssetLoading.cs": "5d945bad41a29872021239ab9f14f0484fa9ab81789783d4bec995353401b687",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\EntityPresentationTests.cs": "0f02b542f6639eca0a3418a80bac37b87ae81d7deb44f3f8ece4deb9de017ae5",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\EnvironmentTests.cs": "a504a060efc0aede8df113416cc3f1759cd74eaab24de09a12b27ebdf16a7d89",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ExpeditionRecoveryTests.cs": "37a0af8f65c93869124f0cc67a12997c8c87d18f6624556aad04d021996fa95e",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ExpeditionTests.cs": "6d72c23912d5aea0a4f04dca9fdcd76898ed12a63eb60c3a0106476d7cf70a33",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\FormalObjectContentTests.cs": "6f4de9dd0b8b56603c638dd22855d80ee0ab84635fd638c57071febeba5af494",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\GameSaveFileScenarios.cs": "17473bdbd3d115a0d0651317a7885192a1fb96845240f2a0ab08bc99c512fbd6",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\GameSaveScenarios.cs": "4357f4792a53115c7908b0afb0aafb375a4ba2536018872d0da2c77bc7c49517",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\HeroBombTests.cs": "3184411c9752b4247cb54d6378468e154690f4eeff50ae923b288da10c2fdcee",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\HeroCombatTests.cs": "5331e6568bcd9d536ca4781585f73d402c68395e878601feafd4fba787d907b2",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\HeroControlTests.cs": "3a3a519e2cdcfb107dfeec523074bb3fc420b52d52bed3fe7a82c8639bb5f666",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\HeroJumpLifecycleTests.cs": "f68921fe937a8087e84dac4fe3d9ce47d29ae1d9aa1ab9b8e16312bd55f64a9e",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\HeroRecoveryTests.cs": "cff8a339232681689f50283f042ce0ce2256dc7fc24016a51d132c48ce95af1f",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\HeroTestSession.cs": "8fd716e137ce7a0d60035461370a184d721342b4be3261ac571e5a938d804004",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\JourneyAdversarialTests.cs": "d80aa3a9a166c34fb9f4b36e41da4090b97ada7c1f6caa200ddcb795bd36e6e8",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\JourneyEditorTests.cs": "501c3d04b5ab9832455c4db6c30696bf3009540768047304d8d2d640786a0271",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\JourneyLandingTests.cs": "f8b5df05d9fc4eaedbc75ad07f2c928120f78fb0f9a9f0a0aa57d4ac0ba36e12",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\JourneyPlacementTests.cs": "dc5d5301bc4248914ea18273142b3032903601e279d5519979cca3a7d0559031",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\JourneyPreviewTests.cs": "539b69a80e1560b2c2e53a42af842486e16dd5c4dd1a3ed15fae98eb926aad7c",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\JourneyRecoveryTests.cs": "fb9b4d44bbb934789f37b058f5b47d6dd2cb3a967eb8e3d4bd6b8938066fedc0",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\JourneyRuntimeTests.cs": "7c63f3cb30e0f32923a5bbad53c4308fcc7224ed112649cff49ffa75f90b61c7",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\JourneySaveTests.cs": "0c4616286dbd703e19cd9ccf66fc1afbc29c4509dc6539f2c388025765957cb6",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\JourneyScenario.cs": "380d01864fa75be7f1d04137125f6f43fc6fb5d76c64c97a348f486f10939000",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\JourneyWalkwayRoute.cs": "50c47266247d65d9eae8f923f24ac77af4ffe82122360b23c5f125fb282c6f7a",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\JourneyWalkwayTests.cs": "89cd3a52de567a5ee052fcc27881ad4b23708497f150d8d28bfee1019e9ae993",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\LayoutAuthoringTests.cs": "9a19b210dc8af9a471ced3f9d57fcb16075cb9b12ecb0eea38b6b492f4a1e5e3",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\MeasurementSeriesTests.cs": "172e7a168165032230c7ee94dec29cbae6b50bf39d9e8639afa349dc13c548f7",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\MiningInputTests.cs": "6317b7ab8bd025c7e05256d069322dd096915b9f850b7b60165750edf3f15b1e",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\MiningSelectorTests.cs": "1781b5099fd28db00ed778edc7f799471d1c4f55db54de566b1f12e76927d579",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\MiningToolDefinitionTests.cs": "7bbf578a43b32b665facf23656e99c7a8fcfb19031a8238508713c72c337391d",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ModifierBackgroundStub.cs": "ad0b3b5e738899da23b0e6f6e36992c6252aebe67ec817692261df9535afb550",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\NativeArtTests.cs": "823b1a50898b31a193677db7b3646a5793a5e072c48fb3f147c2a4281c0f230e",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\NativeButtonThemeTests.cs": "f5f23abb97873219405dba87f59da03a19d828780ff7f325722ced8996fb2475",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\NativeEffectTests.cs": "077fe224a8eb797ed1796707f31d17135b17bc4bf9f7106bc4e933fc25b70b6d",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\NativeEnvironmentTests.cs": "d55df84a29e18d1efd831a6c434bbdcf78b7d058dba07be62ea69120bc9e67ed",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\NativeUiTests.cs": "8c94b273a0bd4d28ec08a513fac1170522062c05860dcc878e225b275d59dcd1",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\NativeWorkspaceEditorTests.cs": "c0466db7b7f5dbcb97cea9212d82a05c6c42a11307211ac960f089ec267c7f29",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\NetworkCommandRegistryTests.cs": "e9dfe8cd86955971077701c3e41c518dd9c2c7afa5171a4ab3650abd5ce5966c",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\OxygenRemovalTests.cs": "f0019aac1fb712e01016c6e9291c435e4de9a5093f884e3c6789bc69bb8de2de",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\PlayableTerrainTests.cs": "84ea349d36ed95eb02582e3c1f95255c9c21205301b154f819b3e3c6e94de563",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ProjectionPacketTests.cs": "329c82969b7a30dd5abd44fe58d9510e1b5b198efa8d339ea31a9ad0eff0442d",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ProjectionWireTests.cs": "43d18e680bc06824c358fab22c2c4479b01ff7f6edd4f98f710a1a34b2643cad",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\PureRuleScenarios.cs": "53053d16811cd4999bec0c825472fd4598e0208b0eb74b5a6f3f176f43bd9385",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\QuickTestEditorTests.cs": "9568575ad967a42d9509c466703c9e2306279f160e6815cc1fcb71d3f372a132",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\QuickTestGuiPlayTests.cs": "9cb4d6ce799d7273cf8144dac322b42fd2a4bc5258246a05d36cf1b2a6cea0ce",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\QuickTestHubPlayTests.cs": "f0155ca84806cdfd11e4ca3fd313c7915250d65500541e17bd8a5212e93350e9",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\QuickTestSessionTests.cs": "d07fa4bdb4b3f124e01204a27bbb04bc60fa8cfa106eff8ab9ae79b438574205",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\RandomCompatibilityScenarios.cs": "cc0e36f4fd8c80e7b75209c82735a63173d30dcb7cc959fe30c4b2d9a40adef0",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\RuleScenario.cs": "d45d4b0d00da5e38b6b356f0cee94fb0413da1ec3c1a98354f27f8463e67f8ce",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\RuntimeTerrainWorkbenchPlayTests.cs": "e6c19293b86fcd98214df2845dade442047f134f11abe8e5aaf7a4186692febc",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\RuntimeTerrainWorkbenchTests.cs": "c27e781d10d10c706e9d4150038526bc9bdc54afb9da42f4c921ecbd66af4889",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ScenePlacementTests.cs": "ebe0e3bf8d92956e06fb2658bca3bc72ac1820b0aab326f878a499b478c03bbb",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SessionBoundaryScenarios.cs": "efd9e937f949bf4561ad187a078d6fc33d8a62263e9212fa0e327ebf7b4cef50",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SessionClientReadyTests.cs": "60fdbb79eb59881d3254c70fd22e7831d17cd1d6cc6ddd73dbc5e1d0957348de",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SessionClockScenarios.cs": "ddd4a512560674d2b5775c2a742977c4c0ece3c571c33528a37a070b23509a64",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SessionCommandScenarios.cs": "e042b084db5f1560e25faaf6313348ae6c84f1de13529a8ca1c937b0d4b8fed1",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SessionEventScenarios.cs": "1ee1998b83bb4a0f14b29fdbf99d5634a6fd246e049e61326493bd9859243e9e",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SessionLifecycleScenarios.cs": "3f2dbcce18e88d4773d1759a80ff01918863a28c6822bad95fb57edacaa48154",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SessionProjectionScenarios.cs": "427ec53bb431d0738cf87392d0d115ce8f5ac047cba6896f9092005fec63492c",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SessionRegressionTests.cs": "8d37e5003f47971abb224ba48dcb94de8a1c78dc4f691d81022ea071bf33268b",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SessionReplicaScenarios.cs": "2f6e2e0d416df4af4204bc9cfe0d2607b02fdf5ea0bc71c05d10d293ff470d24",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SessionScenario.cs": "6615de232f80aecdb1615c79d47e176f096b6ab7117017d0626776088e2926e6",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SessionStorageScenarios.cs": "46d3a2e2cef0a21dcf6c6f66beb35c9f93cfa58defe13fe2a43dfe389bf3b5ba",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ShipGeometryTests.cs": "8a0508add7a3286665c638f17453ce067ddee511f8559fde8b609dcda2d9e2a7",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ShipScenario.cs": "60cb91a76499b5d745ac2b563364689cb9c428d0565804a4871ab96a82f262aa",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ShipTests.cs": "643d82d22b7ec2af2b6a437f96a644802410ad48b3fe5e5db72f67762ff3f1c1",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ShipTradePlayTests.cs": "1daf3a2bc493ad3ba44dedfd7795b268fc9b6256176f77c4eccf7a72b57f9276",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\ShipTradeTests.cs": "27d01f60f0b29f054ae294b5ce725bf45500f77e83c7168cc21b878e6e490ddb",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SingletonLifecycleTests.cs": "10567a6860534732b61fa310c2ca3fb363b5d537c2f8cd503478b806b8e5d25b",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\StorageTestArtifacts.cs": "d2caf15f31f0e5f4bd28a8cda3cdd372e5bea39f9f0ac7097abcc22bd12fa6d7",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SurfaceEnvironmentTests.cs": "1fd6f1926ecf4157726d1b3145fcf8bda10ff71daf670422f3fc700f0f81fbe6",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\SurfaceSkyTests.cs": "e168f3adc0c2127a1fc3a3af7578c0f5708156b5438ff99d01172e8b1ebd9e96",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainAuthorityTests.cs": "135e553a756832158561accd0942ee9e7d2bc297ad4f3b2629158a25cad2aca4",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainDebugCharacterTests.cs": "d31300140aa754aa99d68492ebf71542daacbbbc1a6cb82351d03f9ec80551ea",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainGameViewTestSize.cs": "2e650c7c3760d87f7a15e43ae25d2491a938e91345d6a7c0053d92f33f45cc89",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainGenerationPipelineTests.cs": "fe716fe39dc6eb45eb984b23d68f6e5164c492112ddb1fe52b7498521a9a2f2d",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainGenerationTests.cs": "d716dd1974520d4d21a9f79d5ab16fab5c7665484141b1da6a889232748366e6",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainJumpFlowTests.cs": "f0b0d5759dfd7eec09aea5009411ae751495a4f27dfcb4be54a35e804f857076",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainModifierAuthoringTests.cs": "53bb2d6821440d2641f4e38c399914bdf08fa5be45fc5c3edd7b8f07a0612469",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainModifierTests.cs": "5e3c2eff23d365bed4f0703f52dbaefc172fccd9725655c650f17c531be40622",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainMotionTestMap.cs": "51e7373e7fa5df3f90ae6e0868e3af17cc640cf1d60302a867f7b43cb17c63c4",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainPresentationTests.cs": "c1efe2424e8fe1aba1f9d3501548763bece92705eba3a2cabead8a10b1d2a9f3",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainReplicaBoundaryTests.cs": "5ed26ad67d184f93b1095db1778ddaaf4cce1472105d1413bb5abe262c7c4d42",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainSceneCatalogTests.cs": "a18dd3cc70744bf279cfc2766ea4fc56a0f723a4d93f7560bdd43b4fcf5e576f",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainSlopeRecoveryTests.cs": "fb40ebed6b285d31510329421f5c3f8e33893081ab11e8a3c017d9d62be53525",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainStylePreviewTests.cs": "7c1a7907a59b63ba268838236311859250a57ae220d3f9e1625f71642775d051",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainVisualAcceptanceTests.cs": "611c5043de42add303d33757a0e2b59b565a3c746f0799f62162f5d219c58974",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TerrainVisualTestScope.cs": "f3f5e5cf24e681b67ac294654311bfd2cfa09d8e9f2e7ee7582d0e960b5d27d4",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TunerWorkbenchEditorTests.cs": "5faa53e9f1bdebc35c03e7a91465b373e81167ecd82f033942653da463135358",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\TunerWorkbenchLifecycleTests.cs": "08208319abbe84588961d517c9ddbc061fa7aff2bd41ddacda5c42f54e257259",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedAuthoringTests.cs": "2644f593ada2688fd6c9f215b2607619f553d363087004ec48131b4afcb92f84",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedCampaignTests.cs": "e519b7c4c75e7dd27470c455cf6b00a872219b6a78868cff0538c64258df087f",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedGameplayProbe.cs": "ba30b3883ffb45b465276f52fb946eac739b2907b18993538ee28b2690ee19b7",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedGameplayTests.cs": "852cb53306194fe9acbb3715f5d9718d869b3a1a73a3a9e1daaf969d00cd61ba",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectAssemblyTests.cs": "288dc229583a785dfe415a2242580469fbe15251bba2f984c97d915367152773",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectFactoryTests.cs": "dc68bd9c644350a5ce0e8f526cfdc1a1c26d438f5629f7418fb4e85a53a7b528",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectPlayTests.cs": "1ffdd9842219c105e8907a197017effaad310741d8898210169bfc9c3d678f0d",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectProbeBehaviour.cs": "53c95bff513ebc6b63eab20a30224d33766fe4d8f9206f63170b0f9cfcd7b1d3",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectProbeConfig.cs": "c5e0fd00b99b7c4bfd4ad700ec7d358f159cc1c3ded8a7e57dad433331ede2c3",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectProbeDependency.cs": "5328494a3e8026383c47d4d9f4f4f820a60fdbb7b4320176f805d021474ef306",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectProbeState.cs": "aa50b623542be380c443bbd45c2a23f462e3b723641cdbda6d2660dea5152bfa",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectRetirementTests.cs": "842e8329203b51ccc3df8fcaf9f426b7fba30d28195ba48eed72f987774e1358",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedRuleScenarios.cs": "6db9ffa4dfe9894869d46da66a0e5444e5a6b86e872a23d36f906f2312120092",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedSessionScope.cs": "4cd9e9aba86782360721bdd1d774f9aeeb5a90deaa6e81083c8046fb7f92fba8",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedSliceFixture.cs": "f49d2fb762b005010fc4104f202a47735858c7eb53a8af2a671b700eaf61344b",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedSlicePlayTests.cs": "e7ffda3c863a0c53ffe9a03e88b418a90b48eff8b4647c370b86a8928f74f145",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedSliceTests.cs": "91baf624a0128ee5efa3834a593c6d787d933eac63b76e4378d2b2bfb95af46b",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedTransactionTests.cs": "e477662f2596e3cc0ae8d9759ae8c42a094c241cc39bcc3f74f72229769c24e0",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\WorkbenchEditorTests.cs": "972b3912743cb1be4a160a90f0ba7c5f3ff8d75dddceeeb8d426825c1f1c9ca7",
+    "Game\\Assets\\DarkNights\\Scripts\\Tests\\WorldSessionLifecycleTests.cs": "c996803892b28502aa75442563608ef9a5fd4b9676b3dea51fe5b96aa59c2599"
+  },
+  "author_assets": {
+    "count": 1111,
+    "changed": [],
+    "baseline": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tuner-journey-20261004\\author-assets-before.json",
+    "baseline_sha256": "c7ae812889765696e344a4c284c76657ab1aede833305a30553c7aac539805dd"
+  },
+  "preexisting_changes": [
+    {
+      "path": "Game/Assets/Addressables/Datas/GlobalSO/ObjectArchetypeDatabase.asset",
+      "sha256": "246D9075C891756FEE54B308CE2090FE334E0A66AB8251CC929DAC7D9B3E3557",
+      "sha256_after": "246D9075C891756FEE54B308CE2090FE334E0A66AB8251CC929DAC7D9B3E3557",
+      "byte_identical": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Editor/Workbench/DarkNightsWorkbench.uss",
+      "sha256": "B0D0B336B1E1DF07BBA18AE867186F62E99D5CBC22985AD1D36E4F3334E897C0",
+      "sha256_after": "B0D0B336B1E1DF07BBA18AE867186F62E99D5CBC22985AD1D36E4F3334E897C0",
+      "byte_identical": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Editor/Workbench/DarkNightsWorkbench.uxml",
+      "sha256": "20547A40F1A11D497F6B92DB79A4BBCACCA43D43ECEF0F7600057096EE9BFF58",
+      "sha256_after": "20547A40F1A11D497F6B92DB79A4BBCACCA43D43ECEF0F7600057096EE9BFF58",
+      "byte_identical": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/DarkNightsWorkbenchCatalog.cs",
+      "sha256": "0C92E80104C362E2DE704B9C4E711331C1C8F2C5CC477D5D73A7AD44338CEEE1",
+      "sha256_after": "5F2EF37B01AADB80A3CAA943FEEDDBCA2242056E20DE6CBDE11AAC85CF6BD094",
+      "byte_identical": false,
+      "preservation": "预先备份对照；仅两处工具入口文案属于本批，提交时只暂存这一差异，原分类元数据保持未暂存。"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/DarkNightsWorkbenchLauncher.cs",
+      "sha256": "AD2D562E944773CD1267427E24C1139A8597B656ABD99E4CDA43225436F92DD4",
+      "sha256_after": "AD2D562E944773CD1267427E24C1139A8597B656ABD99E4CDA43225436F92DD4",
+      "byte_identical": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/DarkNightsWorkbenchWindow.cs",
+      "sha256": "5403529700F6A3BE883FE1FD3D5E8ECBB370F0AAADA15AAE61DFDD83B68F8E52",
+      "sha256_after": "5403529700F6A3BE883FE1FD3D5E8ECBB370F0AAADA15AAE61DFDD83B68F8E52",
+      "byte_identical": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/WorkbenchEditorTests.cs",
+      "sha256": "972B3912743CB1BE4A160A90F0BA7C5F3FF8D75DDDCEEEB8D426825C1F1C9CA7",
+      "sha256_after": "972B3912743CB1BE4A160A90F0BA7C5F3FF8D75DDDCEEEB8D426825C1F1C9CA7",
+      "byte_identical": true
+    },
+    {
+      "path": "docs/EDITOR_WORKBENCH.md",
+      "sha256": "DFC3C0E9C0D3C43B64F0BA6BA892F432E9FEBFCBF7B206EB60F5DA6C5AA72CCB",
+      "sha256_after": "DFC3C0E9C0D3C43B64F0BA6BA892F432E9FEBFCBF7B206EB60F5DA6C5AA72CCB",
+      "byte_identical": true
+    }
+  ],
+  "gui": {
+    "state": "Verified in actual Unity IMGUI, Light theme",
+    "checks": [
+      "航程时长0.8改为1.1，未保存提示与保存按钮启用；Ctrl+Z还原0.8和已保存状态",
+      "播放出现正式策略星点，完成100%切换天空颜色及到达文字；手动进度50%停止播放",
+      "折叠切换显示原有完整原生样式 Inspector、地形Odin步骤，入口步道Enabled关闭后草稿标脏，Undo还原",
+      "约800px窄停靠区显示工具栏、原生参数与底部操作；恢复约1048px布局",
+      "回到地图显示正式渲染、泊位标记、0格临时拆填和全部已保存状态，未写作者资产"
+    ],
+    "screenshots": [
+      {
+        "name": "Input",
+        "path": "docs\\evidence\\tuner-journey-20261004\\gui-input.png",
+        "sha256": "f8f37aefe7b81518bb7a3ad6a0fed2d9651f7a0e2472611fdb05b2aacc34ad01",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tuner-journey-20261004\\gui\\tunerGuiInput.jpg",
+        "crop": [
+          704,
+          87,
+          1752,
+          592
+        ]
+      },
+      {
+        "name": "Undo",
+        "path": "docs\\evidence\\tuner-journey-20261004\\gui-undo.png",
+        "sha256": "e640db4d7a4cc16f13fa8a9182993a8a43cc8715e5b441026ac55a2c4401d117",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tuner-journey-20261004\\gui\\tunerGuiUndo.jpg",
+        "crop": [
+          704,
+          87,
+          1752,
+          592
+        ]
+      },
+      {
+        "name": "Journey",
+        "path": "docs\\evidence\\tuner-journey-20261004\\gui-journey.png",
+        "sha256": "d362665087dcbddc22148a99f4e56077331f58d2e7e1e49e3568de518ef089b5",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tuner-journey-20261004\\gui\\tunerGuiJourney.jpg",
+        "crop": [
+          704,
+          87,
+          1752,
+          592
+        ]
+      },
+      {
+        "name": "JourneyDone",
+        "path": "docs\\evidence\\tuner-journey-20261004\\gui-journeydone.png",
+        "sha256": "1cf9626bbacb3bc8e92b69ad982ef8c8dd6a360f6ea6959b32e89da48dc78802",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tuner-journey-20261004\\gui\\tunerGuiJourneyDone.jpg",
+        "crop": [
+          704,
+          87,
+          1752,
+          592
+        ]
+      },
+      {
+        "name": "Seek",
+        "path": "docs\\evidence\\tuner-journey-20261004\\gui-seek.png",
+        "sha256": "44f027f469ece741c740a28a2fad021afb836a4ff66c2dab5d5c519799dab48b",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tuner-journey-20261004\\gui\\tunerGuiSeek.jpg",
+        "crop": [
+          704,
+          87,
+          1752,
+          592
+        ]
+      },
+      {
+        "name": "Native",
+        "path": "docs\\evidence\\tuner-journey-20261004\\gui-native.png",
+        "sha256": "cb7417c30d8f8d10e21eddf6e66805a8d3cbe2054b819b5c4fd760636c6e68af",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tuner-journey-20261004\\gui\\tunerGuiNative.jpg",
+        "crop": [
+          704,
+          87,
+          1752,
+          592
+        ]
+      },
+      {
+        "name": "Narrow",
+        "path": "docs\\evidence\\tuner-journey-20261004\\gui-narrow.png",
+        "sha256": "e0f590a33c4886adda06944cd62d11588d488f1086a3c2d61ddc776784ca1662",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tuner-journey-20261004\\gui\\tunerGuiNarrow.jpg",
+        "crop": [
+          950,
+          87,
+          1752,
+          592
+        ]
+      },
+      {
+        "name": "WalkwayOff",
+        "path": "docs\\evidence\\tuner-journey-20261004\\gui-walkwayoff.png",
+        "sha256": "de4143621b27fb9053e3125af8f568cc8605a7fe3c4c7f146e369e4b856b5510",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tuner-journey-20261004\\gui\\tunerGuiWalkwayOff.jpg",
+        "crop": [
+          704,
+          87,
+          1752,
+          592
+        ]
+      },
+      {
+        "name": "WalkwayUndo",
+        "path": "docs\\evidence\\tuner-journey-20261004\\gui-walkwayundo.png",
+        "sha256": "2f3f7473b910c9225d7182262eb45e0ebfb51d4412acc623399ecfdf4d2cdc89",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tuner-journey-20261004\\gui\\tunerGuiWalkwayUndo.jpg",
+        "crop": [
+          704,
+          87,
+          1752,
+          592
+        ]
+      },
+      {
+        "name": "Final",
+        "path": "docs\\evidence\\tuner-journey-20261004\\gui-final.png",
+        "sha256": "7885f57d84917901b55d279b235b4afc6bba7bc8aec0683ea14387637a7305d3",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\tuner-journey-20261004\\gui\\tunerGuiFinal.jpg",
+        "crop": [
+          704,
+          87,
+          1752,
+          592
+        ]
+      }
+    ]
+  },
+  "fixture_archive": {
+    "utc": "2026-10-04T06:37:18.1466935Z",
+    "archive": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-tuner-journey-workbench",
+    "bytes": 7437.0,
+    "releasedBytes": 0,
+    "editor": {
+      "phase": "idle",
+      "active": "",
+      "utc": "2026-10-04T06:37:17.8971704Z",
+      "unity": "6000.4.9f1",
+      "playing": false,
+      "scenes": [
+        "Assets/Scenes/Bootstrap.unity"
+      ]
+    },
+    "before": [
+      {
+        "Name": "C",
+        "Free": 11414228992
+      },
+      {
+        "Name": "D",
+        "Free": 20360830976
+      }
+    ],
+    "after": [
+      {
+        "Name": "C",
+        "Free": 11414228992
+      },
+      {
+        "Name": "D",
+        "Free": 20360822784
+      }
+    ],
+    "items": [
+      {
+        "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\__TunerJourneyValidation20261004",
+        "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-tuner-journey-workbench\\Game\\Assets\\__TunerJourneyValidation20261004",
+        "relative": "Game/Assets/__TunerJourneyValidation20261004",
+        "bytes": 4454,
+        "task": "tuner-journey-20261004",
+        "reason": "本批独立持久保存／接口序列化夹具；测试已结束，无外部 GUID 引用，Tuner 绑定正式资产",
+        "condition": "保留原始结果；仅经用户另行指定删除清单后永久删除"
+      },
+      {
+        "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\__TunerJourneyValidation20261004.meta",
+        "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-tuner-journey-workbench\\Game\\Assets\\__TunerJourneyValidation20261004.meta",
+        "relative": "Game/Assets/__TunerJourneyValidation20261004.meta",
+        "bytes": 172,
+        "task": "tuner-journey-20261004",
+        "reason": "本批独立持久保存／接口序列化夹具；测试已结束，无外部 GUID 引用，Tuner 绑定正式资产",
+        "condition": "保留原始结果；仅经用户另行指定删除清单后永久删除"
+      },
+      {
+        "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\TerrainModifierVerification-9e61c90105dc4c5694d834454ab085fa.asset",
+        "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-tuner-journey-workbench\\Game\\Assets\\TerrainModifierVerification-9e61c90105dc4c5694d834454ab085fa.asset",
+        "relative": "Game/Assets/TerrainModifierVerification-9e61c90105dc4c5694d834454ab085fa.asset",
+        "bytes": 2622,
+        "task": "tuner-journey-20261004",
+        "reason": "本批独立持久保存／接口序列化夹具；测试已结束，无外部 GUID 引用，Tuner 绑定正式资产",
+        "condition": "保留原始结果；仅经用户另行指定删除清单后永久删除"
+      },
+      {
+        "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\TerrainModifierVerification-9e61c90105dc4c5694d834454ab085fa.asset.meta",
+        "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-tuner-journey-workbench\\Game\\Assets\\TerrainModifierVerification-9e61c90105dc4c5694d834454ab085fa.asset.meta",
+        "relative": "Game/Assets/TerrainModifierVerification-9e61c90105dc4c5694d834454ab085fa.asset.meta",
+        "bytes": 189,
+        "task": "tuner-journey-20261004",
+        "reason": "本批独立持久保存／接口序列化夹具；测试已结束，无外部 GUID 引用，Tuner 绑定正式资产",
+        "condition": "保留原始结果；仅经用户另行指定删除清单后永久删除"
+      }
+    ]
+  },
+  "limitations": [
+    "仅影响相关的Editor用例，未运行整个工程测试套件",
+    "窗口OnDisable/OnEnable与持久列表恢复路径已测；未做完整Editor重启验收",
+    "实际GUI仅Light主题；未对Dark主题作视觉验收",
+    "航程示意不等于完整飞船Play或联机验收",
+    "未构建Player/Mono/IL2CPP，未运行多人、双机器或前台性能验收",
+    "旧批次失败与R2旧程序集结果保留原始身份"
+  ]
+}

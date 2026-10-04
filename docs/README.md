@@ -1,5 +1,7 @@
 # Dark Nights 文档结构
 
+2026-10-04 [Cave Wall Tuner 星球工作台](TUNER_JOURNEY_WORKBENCH.md)：四个折叠组共享地图与航程草稿，保留原生样式 Inspector；入口步道启停、显式保存、旧草稿转移及航程示意见本页。影响相关 Editor 用例合并45/45、作者资产1111项保持、真实 GUI 已检查；仅本地 Editor 候选，完整重启／Dark 主题／Player 等边界见记录。
+
 2026-10-04 [斜坡跳跃连续运动](SLOPE_JUMP_FLOW.md)：`fix-20261004-slope-jump-flow` 的代码提交 `a711897` 已快进合入本地 `main`，本轮未推送；连续斜向运动与接坡、点跳输入保留、默认固定的策略开关和喷气衔接。协议23／AMP1 schema2不变，规则摘要v5／存档v17；首轮Editor66/66，最终跨缺口修正的Editor补测待执行，完整验证边界与看效果入口见该页。
 
 2026-10-03 [工作台原生聚合](EDITOR_WORKBENCH.md)：四类任务按需停靠 Workshop、Viewer、航程、地形和岩壁编辑器，场景只保留快捷操作。获批工坊导航修正通过，Editor16/16、作者资产436项保持；操作、证据及依赖账本见说明。

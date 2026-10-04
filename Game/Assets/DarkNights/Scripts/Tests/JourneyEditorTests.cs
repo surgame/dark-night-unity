@@ -95,34 +95,23 @@ namespace DarkNights.Tests
         }
 
         [Test]
-        public void WindowRowCommandsAndUndoKeepStableIdsAndSerializedDraft()
+        public void TunerRowCommandsAndUndoKeepStableIdsAndSerializedDraft()
         {
-            var window = ScriptableObject.CreateInstance<ExpeditionFlowWindow>();
-            try
-            {
-                window.CreateGUI();
-                var draft = (ExpeditionFlowDraft)typeof(ExpeditionFlowWindow).GetField("draft", Private).GetValue(window);
-                var table = window.rootVisualElement.Q<MultiColumnListView>();
-                Assert.That(table, Is.Not.Null); Assert.That(table.columns.Count, Is.EqualTo(5));
-                string before = JsonUtility.ToJson(draft.Config);
-                Undo.IncrementCurrentGroup(); Call(window, "AddPlanet"); Undo.FlushUndoRecordObjects();
-                Undo.IncrementCurrentGroup(); Call(window, "DuplicatePlanet"); Undo.FlushUndoRecordObjects();
-                Assert.That(draft.Config.Planets.Select(p => p.Id).Distinct().Count(), Is.EqualTo(draft.Config.Planets.Count));
-                string selected = draft.Config.Planets[table.selectedIndex].Id;
-                Undo.IncrementCurrentGroup(); Call(window, "MovePlanet", -1);
-                Assert.That(draft.Config.Planets[table.selectedIndex].Id, Is.EqualTo(selected));
-                string reordered = JsonUtility.ToJson(draft.Config);
-                Undo.FlushUndoRecordObjects(); Undo.PerformUndo();
-                Assert.That(draft.Config.Planets.Count, Is.EqualTo(3));
-                Assert.That(draft.Config.Planets.Select(p => p.Id).Distinct().Count(), Is.EqualTo(draft.Config.Planets.Count));
-                Undo.PerformRedo(); Assert.That(JsonUtility.ToJson(draft.Config), Is.EqualTo(reordered));
-                window.CreateGUI();
-                Assert.That(typeof(ExpeditionFlowWindow).GetField("draft", Private).GetValue(window), Is.SameAs(draft));
-                Assert.That(JsonUtility.ToJson(draft.Config), Is.Not.EqualTo(before));
-                window.DiscardChanges(); Assert.That(JsonUtility.ToJson(draft.Config), Is.EqualTo(before));
-                typeof(EditorWindow).GetProperty("hasUnsavedChanges").SetValue(window, false); Undo.ClearUndo(draft);
-            }
-            finally { typeof(EditorWindow).GetProperty("hasUnsavedChanges").SetValue(window, false); UnityEngine.Object.DestroyImmediate(window); }
+            using var model = new DarkNights.Editor.Terrain.TerrainGenerationPreview();
+            using var controls = new DarkNights.Editor.Terrain.TerrainPlanetControls(model);
+            var draft = model.Draft;
+            string before = JsonUtility.ToJson(draft.Config);
+            Undo.IncrementCurrentGroup(); controls.Add(false); Undo.FlushUndoRecordObjects();
+            Undo.IncrementCurrentGroup(); controls.Add(true); Undo.FlushUndoRecordObjects();
+            Assert.That(draft.Config.Planets.Select(p => p.Id).Distinct().Count(), Is.EqualTo(draft.Config.Planets.Count));
+            string selected = model.Selected.Id;
+            Undo.IncrementCurrentGroup(); controls.Move(-1); Undo.FlushUndoRecordObjects();
+            Assert.That(model.Selected.Id, Is.EqualTo(selected));
+            string reordered = JsonUtility.ToJson(draft.Config);
+            Undo.PerformUndo(); Assert.That(draft.Config.Planets.Count, Is.EqualTo(3));
+            Undo.PerformRedo(); Assert.That(JsonUtility.ToJson(draft.Config), Is.EqualTo(reordered));
+            model.Cancel(); Assert.That(JsonUtility.ToJson(draft.Config), Is.EqualTo(before));
+            Undo.ClearUndo(draft);
         }
     }
 }

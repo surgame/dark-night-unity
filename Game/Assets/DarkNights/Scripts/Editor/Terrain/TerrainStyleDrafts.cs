@@ -8,13 +8,26 @@ using UnityEngine;
 namespace DarkNights.Editor.Terrain
 {
     /// <summary>编辑器窗口的临时资产草稿；逐字段对照打开时的基线，显式 Apply 才写入原资产，Cancel 直接丢弃。</summary>
+    [Serializable]
     public sealed class TerrainStyleDrafts : IDisposable
     {
-        private readonly Dictionary<ScriptableObject, (ScriptableObject Draft, ScriptableObject Baseline)> entries =
+        [NonSerialized] private readonly Dictionary<ScriptableObject, (ScriptableObject Draft, ScriptableObject Baseline)> entries =
             new Dictionary<ScriptableObject, (ScriptableObject Draft, ScriptableObject Baseline)>();
+        [SerializeField] private List<ScriptableObject> sourceAssets = new List<ScriptableObject>();
+        [SerializeField] private List<ScriptableObject> workingAssets = new List<ScriptableObject>();
+        [SerializeField] private List<ScriptableObject> baselineAssets = new List<ScriptableObject>();
+
+        private void RestoreEntries()
+        {
+            if (entries.Count != 0) return;
+            for (int i = 0; i < sourceAssets.Count; i++)
+                if (sourceAssets[i] != null && workingAssets[i] != null && baselineAssets[i] != null)
+                    entries.Add(sourceAssets[i], (workingAssets[i], baselineAssets[i]));
+        }
 
         public T Draft<T>(T source) where T : ScriptableObject
         {
+            RestoreEntries();
             if (source == null) return null;
             if (!entries.TryGetValue(source, out var entry))
             {
@@ -22,6 +35,7 @@ namespace DarkNights.Editor.Terrain
                 entry.Draft.hideFlags = HideFlags.DontSave;
                 entry.Baseline.hideFlags = HideFlags.DontSave;
                 entries.Add(source, entry);
+                sourceAssets.Add(source); workingAssets.Add(entry.Draft); baselineAssets.Add(entry.Baseline);
             }
             return (T)entry.Draft;
         }
@@ -30,6 +44,7 @@ namespace DarkNights.Editor.Terrain
         {
             get
             {
+                RestoreEntries();
                 foreach (var entry in entries.Values)
                     if (ChangedPaths(entry).Count != 0) return true;
                 return false;
@@ -128,6 +143,7 @@ namespace DarkNights.Editor.Terrain
 
         public int Apply()
         {
+            RestoreEntries();
             var changes = new Dictionary<ScriptableObject, List<string>>();
             foreach (var pair in entries)
             {
@@ -171,6 +187,7 @@ namespace DarkNights.Editor.Terrain
                 var baseline = UnityEngine.Object.Instantiate(item.Original);
                 working.hideFlags = baseline.hideFlags = HideFlags.DontSave;
                 entries.Add(item.Source, (working, baseline));
+                sourceAssets.Add(item.Source); workingAssets.Add(working); baselineAssets.Add(baseline);
             }
         }
 
@@ -192,12 +209,14 @@ namespace DarkNights.Editor.Terrain
 
         public void Clear()
         {
+            RestoreEntries();
             foreach (var entry in entries.Values)
             {
                 UnityEngine.Object.DestroyImmediate(entry.Draft);
                 UnityEngine.Object.DestroyImmediate(entry.Baseline);
             }
             entries.Clear();
+            sourceAssets.Clear(); workingAssets.Clear(); baselineAssets.Clear();
         }
 
         public void Dispose() => Clear();

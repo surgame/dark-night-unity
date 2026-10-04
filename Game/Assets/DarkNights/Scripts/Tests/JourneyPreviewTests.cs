@@ -144,36 +144,17 @@ namespace DarkNights.Tests
         }
 
         [UnityTest]
-        public IEnumerator WindowRowChangeAndCloseCancelItsActualPreview()
+        public IEnumerator TunerModelCancelKeepsAuthorSourceAndScene()
         {
-            var window = ScriptableObject.CreateInstance<ExpeditionFlowWindow>();
             string sceneBefore = SceneState();
-            try
+            using (var model = new DarkNights.Editor.Terrain.TerrainGenerationPreview())
             {
-                window.CreateGUI();
-                var preview = (ExpeditionPlanetPreview)Get(window, "preview");
-                Call(window, "GeneratePreview");
-                var first = (Task)Get(preview, "pending");
-                Call(window, "AddPlanet");
-                yield return Until(() => first.IsCompleted);
-                Assert.That(Surface(preview).image, Is.Null);
-                Call(window, "GeneratePreview");
-                var second = (Task)Get(preview, "pending");
-                typeof(EditorWindow).GetProperty("hasUnsavedChanges").SetValue(window, false);
-                Undo.ClearUndo((UnityEngine.Object)Get(window, "draft"));
-                UnityEngine.Object.DestroyImmediate(window); window = null;
-                yield return Until(() => second.IsCompleted);
-                Assert.That(Surface(preview).image, Is.Null); Assert.That(Get(preview, "pending"), Is.Null);
+                string before = model.Draft.Config.CanonicalIdentity();
+                model.Selected.DisplayName = "预览草稿";
+                model.Cancel();
+                Assert.That(model.Draft.Config.CanonicalIdentity(), Is.EqualTo(before));
+                yield return null;
                 Assert.That(SceneState(), Is.EqualTo(sceneBefore));
-            }
-            finally
-            {
-                if (window != null)
-                {
-                    typeof(EditorWindow).GetProperty("hasUnsavedChanges").SetValue(window, false);
-                    var draft = (UnityEngine.Object)Get(window, "draft"); if (draft != null) Undo.ClearUndo(draft);
-                    UnityEngine.Object.DestroyImmediate(window);
-                }
             }
         }
 

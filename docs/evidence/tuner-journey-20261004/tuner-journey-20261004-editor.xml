@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="43" result="Failed(Child)" total="43" passed="41" failed="2" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-04 06:14:08Z" end-time="2026-10-04 06:14:23Z" duration="14.8886347">
+  <test-suite type="TestSuite" id="1000" name="DNights" fullname="DNights" runstate="Runnable" testcasecount="585" result="Failed" site="Child" start-time="2026-10-04 06:14:08Z" end-time="2026-10-04 06:14:23Z" duration="14.888635" total="43" passed="41" failed="2" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <failure>
+      <message><![CDATA[One or more child tests had errors]]></message>
+    </failure>
+    <test-suite type="Assembly" id="1705" name="DarkNights.Tests.dll" fullname="D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Tests.dll" runstate="Runnable" testcasecount="584" result="Failed" site="Child" start-time="2026-10-04 06:14:08Z" end-time="2026-10-04 06:14:23Z" duration="14.774722" total="43" passed="41" failed="2" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="28692" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <failure>
+        <message><![CDATA[One or more child tests had errors]]></message>
+      </failure>
+      <test-suite type="TestSuite" id="1706" name="DarkNights" fullname="DarkNights" runstate="Runnable" testcasecount="584" result="Failed" site="Child" start-time="2026-10-04 06:14:08Z" end-time="2026-10-04 06:14:23Z" duration="14.742053" total="43" passed="41" failed="2" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <failure>
+          <message><![CDATA[One or more child tests had errors]]></message>
+        </failure>
+        <test-suite type="TestSuite" id="1707" name="Tests" fullname="DarkNights.Tests" runstate="Runnable" testcasecount="584" result="Failed" site="Child" start-time="2026-10-04 06:14:08Z" end-time="2026-10-04 06:14:23Z" duration="14.711017" total="43" passed="41" failed="2" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <failure>
+            <message><![CDATA[One or more child tests had errors]]></message>
+          </failure>
+          <test-suite type="TestFixture" id="1021" name="CaveGenerationParityTests" fullname="DarkNights.Tests.CaveGenerationParityTests" classname="DarkNights.Tests.CaveGenerationParityTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-04 06:14:08Z" end-time="2026-10-04 06:14:16Z" duration="7.774880" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1026" name="GeneratedBrushEditsCannotOverwriteFixedAssets" fullname="DarkNights.Tests.CaveGenerationParityTests.GeneratedBrushEditsCannotOverwriteFixedAssets" methodname="GeneratedBrushEditsCannotOverwriteFixedAssets" classname="DarkNights.Tests.CaveGenerationParityTests" runstate="Runnable" seed="1489209702" result="Passed" start-time="2026-10-04 06:14:08Z" end-time="2026-10-04 06:14:08Z" duration="0.102311" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1027" name="GeneratedTunerStageRendersSharedTerrain" fullname="DarkNights.Tests.CaveGenerationParityTests.GeneratedTunerStageRendersSharedTerrain" methodname="GeneratedTunerStageRendersSharedTerrain" classname="DarkNights.Tests.CaveGenerationParityTests" runstate="Runnable" seed="867132669" result="Passed" start-time="2026-10-04 06:14:08Z" end-time="2026-10-04 06:14:14Z" duration="5.130286" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1022" name="TunerAndBothWorkbenchScenesProduceIdenticalFinalCells" fullname="DarkNights.Tests.CaveGenerationParityTests.TunerAndBothWorkbenchScenesProduceIdenticalFinalCells" methodname="TunerAndBothWorkbenchScenesProduceIdenticalFinalCells" classname="DarkNights.Tests.CaveGenerationParityTests" runstate="Runnable" seed="1549063571" result="Passed" start-time="2026-10-04 06:14:14Z" end-time="2026-10-04 06:14:16Z" duration="2.513108" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1146" name="JourneyEditorTests" fullname="DarkNights.Tests.JourneyEditorTests" classname="DarkNights.Tests.JourneyEditorTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.291446" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1148" name="CatalogRejectsDuplicateDisabledNullAndExcessRows" fullname="DarkNights.Tests.JourneyEditorTests.CatalogRejectsDuplicateDisabledNullAndExcessRows" methodname="CatalogRejectsDuplicateDisabledNullAndExcessRows" classname="DarkNights.Tests.JourneyEditorTests" runstate="Runnable" seed="338616713" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.002564" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1147" name="ConfigFreezesRowsAndFingerprintTracksAuthorChanges" fullname="DarkNights.Tests.JourneyEditorTests.ConfigFreezesRowsAndFingerprintTracksAuthorChanges" methodname="ConfigFreezesRowsAndFingerprintTracksAuthorChanges" classname="DarkNights.Tests.JourneyEditorTests" runstate="Runnable" seed="1835932684" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.005271" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1154" name="DraftApplyIsExplicitAndPreservesUnrelatedConfig" fullname="DarkNights.Tests.JourneyEditorTests.DraftApplyIsExplicitAndPreservesUnrelatedConfig" methodname="DraftApplyIsExplicitAndPreservesUnrelatedConfig" classname="DarkNights.Tests.JourneyEditorTests" runstate="Runnable" seed="219137167" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.012559" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1155" name="ExternalEditConflictKeepsBothAuthorAndDraft" fullname="DarkNights.Tests.JourneyEditorTests.ExternalEditConflictKeepsBothAuthorAndDraft" methodname="ExternalEditConflictKeepsBothAuthorAndDraft" classname="DarkNights.Tests.JourneyEditorTests" runstate="Runnable" seed="1987674970" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.002777" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1153" name="InvalidTimeoutCannotApply" fullname="DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply" classname="DarkNights.Tests.JourneyEditorTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.168211" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1149" name="InvalidTimeoutCannotApply(float.NaN)" fullname="DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(float.NaN)" methodname="InvalidTimeoutCannotApply" classname="DarkNights.Tests.JourneyEditorTests" runstate="Runnable" seed="1803106047" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.000666" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1150" name="InvalidTimeoutCannotApply(float.PositiveInfinity)" fullname="DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(float.PositiveInfinity)" methodname="InvalidTimeoutCannotApply" classname="DarkNights.Tests.JourneyEditorTests" runstate="Runnable" seed="1760013381" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.071738" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1151" name="InvalidTimeoutCannotApply(0)" fullname="DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(0)" methodname="InvalidTimeoutCannotApply" classname="DarkNights.Tests.JourneyEditorTests" runstate="Runnable" seed="1497736707" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.000259" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1152" name="InvalidTimeoutCannotApply(181)" fullname="DarkNights.Tests.JourneyEditorTests.InvalidTimeoutCannotApply(181)" methodname="InvalidTimeoutCannotApply" classname="DarkNights.Tests.JourneyEditorTests" runstate="Runnable" seed="2027992403" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.000150" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1156" name="TunerRowCommandsAndUndoKeepStableIdsAndSerializedDraft" fullname="DarkNights.Tests.JourneyEditorTests.TunerRowCommandsAndUndoKeepStableIdsAndSerializedDraft" methodname="TunerRowCommandsAndUndoKeepStableIdsAndSerializedDraft" classname="DarkNights.Tests.JourneyEditorTests" runstate="Runnable" seed="1086053413" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.060727" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1169" name="JourneyPreviewTests" fullname="DarkNights.Tests.JourneyPreviewTests" classname="DarkNights.Tests.JourneyPreviewTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:17Z" duration="0.170505" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1170" name="ActualTaskPublishesOnMainThreadAndFixedSeedRepeats" fullname="DarkNights.Tests.JourneyPreviewTests.ActualTaskPublishesOnMainThreadAndFixedSeedRepeats" methodname="ActualTaskPublishesOnMainThreadAndFixedSeedRepeats" classname="DarkNights.Tests.JourneyPreviewTests" runstate="Runnable" seed="1092922115" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:16Z" duration="0.056138" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1171" name="ClearCancelsRealPendingCandidateWithoutPublishing" fullname="DarkNights.Tests.JourneyPreviewTests.ClearCancelsRealPendingCandidateWithoutPublishing" methodname="ClearCancelsRealPendingCandidateWithoutPublishing" classname="DarkNights.Tests.JourneyPreviewTests" runstate="Runnable" seed="2135698726" result="Passed" start-time="2026-10-04 06:14:16Z" end-time="2026-10-04 06:14:17Z" duration="0.019961" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1172" name="DeadlineCancelsPendingTaskAndReportsOnce" fullname="DarkNights.Tests.JourneyPreviewTests.DeadlineCancelsPendingTaskAndReportsOnce" methodname="DeadlineCancelsPendingTaskAndReportsOnce" classname="DarkNights.Tests.JourneyPreviewTests" runstate="Runnable" seed="151465231" result="Passed" start-time="2026-10-04 06:14:17Z" end-time="2026-10-04 06:14:17Z" duration="0.013466" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1174" name="DisposePendingTaskNeverPublishesLater" fullname="DarkNights.Tests.JourneyPreviewTests.DisposePendingTaskNeverPublishesLater" methodname="DisposePendingTaskNeverPublishesLater" classname="DarkNights.Tests.JourneyPreviewTests" runstate="Runnable" seed="350008294" result="Passed" start-time="2026-10-04 06:14:17Z" end-time="2026-10-04 06:14:17Z" duration="0.008653" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1173" name="ReplacementPublishesOnlyTheLatestSeed" fullname="DarkNights.Tests.JourneyPreviewTests.ReplacementPublishesOnlyTheLatestSeed" methodname="ReplacementPublishesOnlyTheLatestSeed" classname="DarkNights.Tests.JourneyPreviewTests" runstate="Runnable" seed="1725538096" result="Passed" start-time="2026-10-04 06:14:17Z" end-time="2026-10-04 06:14:17Z" duration="0.042170" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1175" name="TunerModelCancelKeepsAuthorSourceAndScene" fullname="DarkNights.Tests.JourneyPreviewTests.TunerModelCancelKeepsAuthorSourceAndScene" methodname="TunerModelCancelKeepsAuthorSourceAndScene" classname="DarkNights.Tests.JourneyPreviewTests" runstate="Runnable" seed="1229187294" result="Passed" start-time="2026-10-04 06:14:17Z" end-time="2026-10-04 06:14:17Z" duration="0.008735" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1279" name="NativeWorkspaceEditorTests" fullname="DarkNights.Tests.NativeWorkspaceEditorTests" classname="DarkNights.Tests.NativeWorkspaceEditorTests" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-10-04 06:14:17Z" end-time="2026-10-04 06:14:22Z" duration="5.121103" total="2" passed="1" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1280" name="ToolsOpenOnDemandReuseWindowsAndKeepJourneyDraft" fullname="DarkNights.Tests.NativeWorkspaceEditorTests.ToolsOpenOnDemandReuseWindowsAndKeepJourneyDraft" methodname="ToolsOpenOnDemandReuseWindowsAndKeepJourneyDraft" classname="DarkNights.Tests.NativeWorkspaceEditorTests" runstate="Runnable" seed="783759164" result="Passed" start-time="2026-10-04 06:14:17Z" end-time="2026-10-04 06:14:17Z" duration="0.435676" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Failed to load NotoSansSC-Bold font from Resources/Fonts/noto-sans/, using default font
+]]></output>
+            </test-case>
+            <test-case id="1281" name="WorkshopUsesOriginalWindowAndTargetWithoutEmbedding" fullname="DarkNights.Tests.NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding" methodname="WorkshopUsesOriginalWindowAndTargetWithoutEmbedding" classname="DarkNights.Tests.NativeWorkspaceEditorTests" runstate="Runnable" seed="2146501006" result="Failed" start-time="2026-10-04 06:14:17Z" end-time="2026-10-04 06:14:22Z" duration="4.680097" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  工坊焦点后的 delayCall 尚未执行，不能记录诊断结论。
+  Expected: True
+  But was:  False
+]]></message>
+                <stack-trace><![CDATA[at DarkNights.Tests.NativeWorkspaceEditorTests+<WorkshopUsesOriginalWindowAndTargetWithoutEmbedding>d__7.MoveNext () [0x0050f] in D:\Developer\MiniGames\Dark Nights\unity-projects\Game\Assets\DarkNights\Scripts\Tests\NativeWorkspaceEditorTests.cs:115
+at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\Library\PackageCache\com.unity.test-framework@76560ee600cb\UnityEngine.TestRunner\NUnitExtensions\Attributes\TestEnumerator.cs:44
+]]></stack-trace>
+              </failure>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1557" name="TerrainModifierAuthoringTests" fullname="DarkNights.Tests.TerrainModifierAuthoringTests" classname="DarkNights.Tests.TerrainModifierAuthoringTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.265115" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1560" name="DraftCopyApplyCancelAndConflictKeepInterfaceObjectsIndependent" fullname="DarkNights.Tests.TerrainModifierAuthoringTests.DraftCopyApplyCancelAndConflictKeepInterfaceObjectsIndependent" methodname="DraftCopyApplyCancelAndConflictKeepInterfaceObjectsIndependent" classname="DarkNights.Tests.TerrainModifierAuthoringTests" runstate="Runnable" seed="226699117" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.003976" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1561" name="FingerprintTracksOrderParametersAndMissingEntriesAreRejected" fullname="DarkNights.Tests.TerrainModifierAuthoringTests.FingerprintTracksOrderParametersAndMissingEntriesAreRejected" methodname="FingerprintTracksOrderParametersAndMissingEntriesAreRejected" classname="DarkNights.Tests.TerrainModifierAuthoringTests" runstate="Runnable" seed="554656297" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.001399" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1558" name="NestedInterfaceAssetSurvivesSaveUnloadAndReimport" fullname="DarkNights.Tests.TerrainModifierAuthoringTests.NestedInterfaceAssetSurvivesSaveUnloadAndReimport" methodname="NestedInterfaceAssetSurvivesSaveUnloadAndReimport" classname="DarkNights.Tests.TerrainModifierAuthoringTests" runstate="Runnable" seed="342490477" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.184421" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Evidence asset: Assets/TerrainModifierVerification-9e61c90105dc4c5694d834454ab085fa.asset
+]]></output>
+            </test-case>
+            <test-case id="1559" name="OdinResolvesInterfaceListAndUnityTypeSelectionSupportsUndo" fullname="DarkNights.Tests.TerrainModifierAuthoringTests.OdinResolvesInterfaceListAndUnityTypeSelectionSupportsUndo" methodname="OdinResolvesInterfaceListAndUnityTypeSelectionSupportsUndo" classname="DarkNights.Tests.TerrainModifierAuthoringTests" runstate="Runnable" seed="1235550740" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.037428" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1622" name="TunerWorkbenchEditorTests" fullname="DarkNights.Tests.TunerWorkbenchEditorTests" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" testcasecount="8" result="Failed" site="Child" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.425216" total="8" passed="7" failed="1" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <failure>
+              <message><![CDATA[One or more child tests had errors]]></message>
+            </failure>
+            <test-case id="1623" name="ActualSerializedPropertiesAreEditableAndAuthorIsIsolated" fullname="DarkNights.Tests.TunerWorkbenchEditorTests.ActualSerializedPropertiesAreEditableAndAuthorIsIsolated" methodname="ActualSerializedPropertiesAreEditableAndAuthorIsIsolated" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" seed="917903154" result="Failed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.002592" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <failure>
+                <message><![CDATA[  Expected: 0
+  But was:  None
+]]></message>
+                <stack-trace><![CDATA[at DarkNights.Tests.TunerWorkbenchEditorTests.ActualSerializedPropertiesAreEditableAndAuthorIsIsolated () [0x00013] in D:\Developer\MiniGames\Dark Nights\unity-projects\Game\Assets\DarkNights\Scripts\Tests\TunerWorkbenchEditorTests.cs:31
+]]></stack-trace>
+              </failure>
+            </test-case>
+            <test-case id="1627" name="ExplicitSaveReloadKeepsUnrelatedConfigAndChecksExternalConflict" fullname="DarkNights.Tests.TunerWorkbenchEditorTests.ExplicitSaveReloadKeepsUnrelatedConfigAndChecksExternalConflict" methodname="ExplicitSaveReloadKeepsUnrelatedConfigAndChecksExternalConflict" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" seed="1071956301" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.259883" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Retained validation fixture: D:\Developer\MiniGames\Dark Nights\unity-projects\Game\Assets\__TunerJourneyValidation20261004\Session.asset
+]]></output>
+            </test-case>
+            <test-case id="1625" name="FixedSeedIsExplicitAndPreviewDoesNotChangeIt" fullname="DarkNights.Tests.TunerWorkbenchEditorTests.FixedSeedIsExplicitAndPreviewDoesNotChangeIt" methodname="FixedSeedIsExplicitAndPreviewDoesNotChangeIt" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" seed="803434936" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.027172" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1631" name="JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback" fullname="DarkNights.Tests.TunerWorkbenchEditorTests.JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.085229" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1628" name="JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(&quot;star-shift&quot;)" fullname="DarkNights.Tests.TunerWorkbenchEditorTests.JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(&quot;star-shift&quot;)" methodname="JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" seed="1474807434" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.001535" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1629" name="JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(&quot;fade&quot;)" fullname="DarkNights.Tests.TunerWorkbenchEditorTests.JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(&quot;fade&quot;)" methodname="JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" seed="2133189205" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.000146" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1630" name="JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(&quot;none&quot;)" fullname="DarkNights.Tests.TunerWorkbenchEditorTests.JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback(&quot;none&quot;)" methodname="JourneyPreviewUsesFormalStrategyAndSeekStopsPlayback" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" seed="2007789494" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.000099" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1626" name="LegacyTransferIsDeepAndConflictingDraftsAreRetained" fullname="DarkNights.Tests.TunerWorkbenchEditorTests.LegacyTransferIsDeepAndConflictingDraftsAreRetained" methodname="LegacyTransferIsDeepAndConflictingDraftsAreRetained" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" seed="1863769410" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.003308" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1624" name="MetadataAndJourneyDoNotRebuildGeometryButDockAndStepsDo" fullname="DarkNights.Tests.TunerWorkbenchEditorTests.MetadataAndJourneyDoNotRebuildGeometryButDockAndStepsDo" methodname="MetadataAndJourneyDoNotRebuildGeometryButDockAndStepsDo" classname="DarkNights.Tests.TunerWorkbenchEditorTests" runstate="Runnable" seed="1321907459" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.001449" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1632" name="TunerWorkbenchLifecycleTests" fullname="DarkNights.Tests.TunerWorkbenchLifecycleTests" classname="DarkNights.Tests.TunerWorkbenchLifecycleTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.028199" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1633" name="ReenableKeepsAuthorAndStyleDraftAndNavigationWithoutWritingSources" fullname="DarkNights.Tests.TunerWorkbenchLifecycleTests.ReenableKeepsAuthorAndStyleDraftAndNavigationWithoutWritingSources" methodname="ReenableKeepsAuthorAndStyleDraftAndNavigationWithoutWritingSources" classname="DarkNights.Tests.TunerWorkbenchLifecycleTests" runstate="Runnable" seed="1934465969" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.007235" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1634" name="SerializedStyleDraftRestoresReferencesAndKeepsFieldConflictChecks" fullname="DarkNights.Tests.TunerWorkbenchLifecycleTests.SerializedStyleDraftRestoresReferencesAndKeepsFieldConflictChecks" methodname="SerializedStyleDraftRestoresReferencesAndKeepsFieldConflictChecks" classname="DarkNights.Tests.TunerWorkbenchLifecycleTests" runstate="Runnable" seed="1239036030" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:22Z" duration="0.002885" asserts="0">
+              <properties>
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+          </test-suite>
+          <test-suite type="TestFixture" id="1687" name="WorkbenchEditorTests" fullname="DarkNights.Tests.WorkbenchEditorTests" classname="DarkNights.Tests.WorkbenchEditorTests" runstate="Runnable" testcasecount="9" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:23Z" duration="0.612286" total="9" passed="9" failed="0" inconclusive="0" skipped="0" asserts="0">
+            <properties />
+            <test-case id="1694" name="DuplicateTargetSelectionShowsErrorWithoutThrowingCallback" fullname="DarkNights.Tests.WorkbenchEditorTests.DuplicateTargetSelectionShowsErrorWithoutThrowingCallback" methodname="DuplicateTargetSelectionShowsErrorWithoutThrowingCallback" classname="DarkNights.Tests.WorkbenchEditorTests" runstate="Runnable" seed="270944798" result="Passed" start-time="2026-10-04 06:14:22Z" end-time="2026-10-04 06:14:23Z" duration="0.094064" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-suite type="ParameterizedMethod" id="1693" name="InvalidMiningAssemblyReportsWithoutModifyingDefinition" fullname="DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition" classname="DarkNights.Tests.WorkbenchEditorTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-04 06:14:23Z" end-time="2026-10-04 06:14:23Z" duration="0.014386" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+              <properties />
+              <test-case id="1688" name="InvalidMiningAssemblyReportsWithoutModifyingDefinition(&quot;missing-config&quot;)" fullname="DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(&quot;missing-config&quot;)" methodname="InvalidMiningAssemblyReportsWithoutModifyingDefinition" classname="DarkNights.Tests.WorkbenchEditorTests" runstate="Runnable" seed="1314485148" result="Passed" start-time="2026-10-04 06:14:23Z" end-time="2026-10-04 06:14:23Z" duration="0.002334" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1689" name="InvalidMiningAssemblyReportsWithoutModifyingDefinition(&quot;missing-behaviour&quot;)" fullname="DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(&quot;missing-behaviour&quot;)" methodname="InvalidMiningAssemblyReportsWithoutModifyingDefinition" classname="DarkNights.Tests.WorkbenchEditorTests" runstate="Runnable" seed="1768648195" result="Passed" start-time="2026-10-04 06:14:23Z" end-time="2026-10-04 06:14:23Z" duration="0.001013" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1690" name="InvalidMiningAssemblyReportsWithoutModifyingDefinition(&quot;duplicate-config&quot;)" fullname="DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(&quot;duplicate-config&quot;)" methodname="InvalidMiningAssemblyReportsWithoutModifyingDefinition" classname="DarkNights.Tests.WorkbenchEditorTests" runstate="Runnable" seed="1951898269" result="Passed" start-time="2026-10-04 06:14:23Z" end-time="2026-10-04 06:14:23Z" duration="0.000967" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1691" name="InvalidMiningAssemblyReportsWithoutModifyingDefinition(&quot;wrong-whitelist&quot;)" fullname="DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(&quot;wrong-whitelist&quot;)" methodname="InvalidMiningAssemblyReportsWithoutModifyingDefinition" classname="DarkNights.Tests.WorkbenchEditorTests" runstate="Runnable" seed="1524824673" result="Passed" start-time="2026-10-04 06:14:23Z" end-time="2026-10-04 06:14:23Z" duration="0.002956" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+              <test-case id="1692" name="InvalidMiningAssemblyReportsWithoutModifyingDefinition(&quot;missing-reference&quot;)" fullname="DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(&quot;missing-reference&quot;)" methodname="InvalidMiningAssemblyReportsWithoutModifyingDefinition" classname="DarkNights.Tests.WorkbenchEditorTests" runstate="Runnable" seed="116271235" result="Passed" start-time="2026-10-04 06:14:23Z" end-time="2026-10-04 06:14:23Z" duration="0.000869" asserts="0">
+                <properties>
+                  <property name="retryIteration" value="0" />
+                  <property name="repeatIteration" value="0" />
+                </properties>
+              </test-case>
+            </test-suite>
+            <test-case id="1697" name="ReadOnlyMatchingTracksUndoRedoAndDisposesRefresh" fullname="DarkNights.Tests.WorkbenchEditorTests.ReadOnlyMatchingTracksUndoRedoAndDisposesRefresh" methodname="ReadOnlyMatchingTracksUndoRedoAndDisposesRefresh" classname="DarkNights.Tests.WorkbenchEditorTests" runstate="Runnable" seed="1668072398" result="Passed" start-time="2026-10-04 06:14:23Z" end-time="2026-10-04 06:14:23Z" duration="0.233574" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1696" name="SceneSearchRestoresAcrossTaskSwitchAndGuiRebuild" fullname="DarkNights.Tests.WorkbenchEditorTests.SceneSearchRestoresAcrossTaskSwitchAndGuiRebuild" methodname="SceneSearchRestoresAcrossTaskSwitchAndGuiRebuild" classname="DarkNights.Tests.WorkbenchEditorTests" runstate="Runnable" seed="1920103062" result="Passed" start-time="2026-10-04 06:14:23Z" end-time="2026-10-04 06:14:23Z" duration="0.115573" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+            </test-case>
+            <test-case id="1695" name="TaskSwitchAndRebuildRestoreSelectionWithoutOpeningNativeEditors" fullname="DarkNights.Tests.WorkbenchEditorTests.TaskSwitchAndRebuildRestoreSelectionWithoutOpeningNativeEditors" methodname="TaskSwitchAndRebuildRestoreSelectionWithoutOpeningNativeEditors" classname="DarkNights.Tests.WorkbenchEditorTests" runstate="Runnable" seed="968381292" result="Passed" start-time="2026-10-04 06:14:23Z" end-time="2026-10-04 06:14:23Z" duration="0.146166" asserts="0">
+              <properties>
+                <property name="_JOINTYPE" value="UnityCombinatorial" />
+                <property name="retryIteration" value="0" />
+                <property name="repeatIteration" value="0" />
+              </properties>
+              <output><![CDATA[Saving results to: C:/Users/Jobscn/AppData/LocalLow/DefaultCompany/DNights\TestResults.xml
+]]></output>
+            </test-case>
+          </test-suite>
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
