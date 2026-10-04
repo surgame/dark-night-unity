@@ -9,22 +9,31 @@ using UnityEngine;
 namespace DarkNights.Editor
 {
     /// <summary>
-    /// 通过 Unity 公开停靠接口按需打开原生编辑器；只选择目标和窗口，不转移控件或接管保存、草稿及关闭流程。
-    /// 已存在窗口原位复用；新窗口优先与工作台停靠，无法找到停靠区时由 Unity 使用普通窗口。
+    /// 通过 Unity 公开窗口接口按需打开独立浮窗；只选择目标和窗口，不接管保存、草稿及关闭流程。
+    /// 复用现有实例并解除旧布局停靠，避免关闭重建造成未保存草稿丢失。
     /// </summary>
     internal static class DarkNightsNativeWorkspace
     {
         internal static bool Blocked => EditorApplication.isPlayingOrWillChangePlaymode ||
             EditorApplication.isCompiling || EditorApplication.isUpdating;
 
-        private static T Open<T>(string title, Vector2 minimum) where T : EditorWindow
+        internal static T Open<T>(string title, Vector2 minimum, bool navigationOnly = false) where T : EditorWindow
         {
-            if (Blocked) throw new InvalidOperationException("请等待导入／编译完成，并退出 Play 后打开编辑器。");
-            var window = EditorWindow.GetWindow<T>(title, true, typeof(DarkNightsWorkbenchWindow),
-                typeof(ObjectDefinitionWorkshopWindow), typeof(ExpeditionFlowWindow), typeof(TerrainBusinessWindow),
-                typeof(TerrainStylePreviewWindow), typeof(ObjectDefinitionViewer));
+            if (Blocked && !navigationOnly) throw new InvalidOperationException("请等待导入／编译完成，并退出 Play 后打开编辑器。");
+            var existing = Resources.FindObjectsOfTypeAll<T>();
+            var window = existing.Length > 0 ? existing[0] : ScriptableObject.CreateInstance<T>();
+            bool place = existing.Length == 0 || window.docked;
+            window.titleContent = new GUIContent(title);
             window.minSize = minimum;
+            if (place)
+            {
+                var host = EditorGUIUtility.GetMainWindowPosition();
+                var size = new Vector2(Mathf.Max(minimum.x, Mathf.Min(1120, host.width - 100)),
+                    Mathf.Max(minimum.y, Mathf.Min(760, host.height - 120)));
+                window.position = new Rect(host.center - size * 0.5f, size);
+            }
             window.Show();
+            window.Focus();
             return window;
         }
 
@@ -39,7 +48,6 @@ namespace DarkNights.Editor
         internal static void Viewer() => Open<ObjectDefinitionViewer>("定义文件", new Vector2(800, 400));
         internal static void Journey()
         {
-            Open<TerrainStylePreviewWindow>("Cave Wall Tuner", new Vector2(800, 520));
             TerrainStylePreviewWindow.OpenJourney();
         }
         internal static void Terrain() => Open<TerrainBusinessWindow>("网格业务配置", new Vector2(680, 460));

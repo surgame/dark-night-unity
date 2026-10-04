@@ -33,7 +33,7 @@ namespace DarkNights.Editor
             Run();
         }
 
-        [MenuItem("Dark Nights/Verify/Run Ship Trade Quick Tests")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Verify/Run Ship Trade Quick Tests", "飞船交易快速检查")]
         public static void Run()
         {
             if (active != null || EditorApplication.isPlayingOrWillChangePlaymode)

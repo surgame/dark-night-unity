@@ -20,7 +20,8 @@ namespace DarkNights.Editor
                 ("journey", Journey, "目的地 · 过场 · 规则", "配置星球目的地、航程过场与生成蓝图，定位数值规则。", "内容制作"),
                 ("map", Map, "地形 · 岩壁 · 背景", "调整地形业务、岩壁样式与背景，在专用工具中预览。", "内容制作"),
                 ("ui", UI, "布局 · 样式 · 主题", "打开界面作者来源，使用原生编辑器维护布局与样式。", "内容制作"),
-                ("scenes", "场景与测试", "正式入口 · 预览 · 样例", "按用途查找场景，直接打开或定位；打开前提示保存，不自动 Play。", "运行与检查")
+                ("scenes", "场景与测试", "正式入口 · 预览 · 样例", "按用途查找场景，直接打开或定位；打开前提示保存，不自动 Play。", "运行与检查"),
+                ("maintenance", "工程维护", "安装 · 构建 · 验证", "集中管理低频工程操作，展开分组或使用顶部搜索查找。", "运行与检查")
             });
         internal static IReadOnlyList<DarkNightsWorkbenchEntry> Entries { get; } = System.Array.AsReadOnly(new[]
         {
@@ -31,7 +32,7 @@ namespace DarkNights.Editor
                 "数据库／Addressables 总览与注册诊断。",
                 "按需打开 Viewer，不启动对象管理套件的其他窗口。", "打开 Viewer", DarkNightsNativeWorkspace.Viewer),
             new DarkNightsWorkbenchEntry("mining", DarkNightsWorkbenchEntryKind.Tool, Objects, "采集装配与目标匹配",
-                "只读检查工具、矿床、白名单及目标匹配；配置在 Workshop 编辑。",
+                "只读检查矿镐、矿床、白名单及目标匹配；配置在 Workshop 编辑。",
                 "校验不会补配置或保存资产。", "打开采集校验", DarkNightsNativeWorkspace.Mining,
                 ShipTrade + "item-pickaxe.asset", Root + "Objects/MineralDeposit/MineralDeposit.asset"),
             new DarkNightsWorkbenchEntry("journey", DarkNightsWorkbenchEntryKind.Tool, Journey, "Cave Wall Tuner · 航程设置",

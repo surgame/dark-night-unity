@@ -19,10 +19,10 @@ namespace DarkNights.Editor
         private int scheduled;
         public static string EvidenceRoot => Path.GetFullPath("../artifacts/tool-definition-harvesting-20261002");
 
-        [MenuItem("Dark Nights/Verify/Tool Definition Tests")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Verify/Tool Definition Tests", "工具定义检查")]
         public static void Run() => Schedule(false);
 
-        [MenuItem("Dark Nights/Verify/Tool Definition Focused Retry")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Verify/Tool Definition Focused Retry", "工具定义定向复测")]
         public static void Retry() => Schedule(true);
 
         private static void Schedule(bool focused)

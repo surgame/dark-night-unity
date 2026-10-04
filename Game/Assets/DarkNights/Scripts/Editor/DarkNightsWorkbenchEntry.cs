@@ -28,7 +28,7 @@ namespace DarkNights.Editor
         }
 
         internal bool Matches(string query) => string.IsNullOrWhiteSpace(query) ||
-            (Group + " " + Title + " " + Description + " " + string.Join(" ", Assets))
+            (Group + " " + Title + " " + Description + " " + SaveHint + " " + string.Join(" ", Assets))
                 .IndexOf(query.Trim(), StringComparison.OrdinalIgnoreCase) >= 0;
     }
 }

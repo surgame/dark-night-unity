@@ -39,7 +39,7 @@ namespace DarkNights.Editor
             Run();
         }
 
-        [MenuItem("Dark Nights/Verify/Surface Environment Tests")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Verify/Surface Environment Tests", "地表环境检查")]
         public static void Run()
         {
             if (active != null || EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)

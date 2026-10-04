@@ -20,6 +20,7 @@ namespace DarkNights.Editor
         [SerializeField] private string workspace = "objects";
         [SerializeField] private string sceneSearch = "", sceneGroup = "全部", sourcePath = "", rulesSourcePath = "";
         [SerializeField] private bool miningExpanded;
+        [SerializeField] private string toolSearch = "";
         [SerializeField] private MiningDefinitionPanelState miningSelection = new MiningDefinitionPanelState();
         private ScrollView content;
         private Label status;
@@ -32,13 +33,13 @@ namespace DarkNights.Editor
         [MenuItem(MenuPath, false, 0)]
         public static void Open()
         {
-            var window = GetWindow<DarkNightsWorkbenchWindow>("Dark Nights 工作台", true, typeof(SceneView));
-            window.minSize = new Vector2(640, 460); window.Show();
+            DarkNightsNativeWorkspace.Open<DarkNightsWorkbenchWindow>("Dark Nights 工作台", new Vector2(680, 480), true);
         }
 
         public void CreateGUI()
         {
             rootVisualElement.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+            rootVisualElement.UnregisterCallback<KeyDownEvent>(OnKeyDown);
             ReleasePanels(); refresh?.Pause(); rootVisualElement.Clear();
             var layout = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(Layout);
             if (layout == null) { rootVisualElement.Add(new HelpBox("工作台布局未导入：" + Layout, HelpBoxMessageType.Error)); return; }
@@ -50,10 +51,50 @@ namespace DarkNights.Editor
             error = rootVisualElement.Q<HelpBox>("workbench-error"); error.style.display = DisplayStyle.None;
             BuildNavigation();
             BuildSceneShortcuts();
+            var search = rootVisualElement.Q<TextField>("workbench-search");
+            search.SetValueWithoutNotify(toolSearch);
+            search.RegisterValueChangedCallback(change => { toolSearch = change.newValue; ShowSearch(); });
+            rootVisualElement.Q<Button>("clear-search").clicked += () => search.value = "";
             refresh = rootVisualElement.schedule.Execute(UpdateAvailability).Every(250);
             ShowWorkspace(workspace);
+            if (!string.IsNullOrWhiteSpace(toolSearch)) ShowSearch();
             rootVisualElement.EnableInClassList("dn-compact", position.width < 900);
             rootVisualElement.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+            rootVisualElement.RegisterCallback<KeyDownEvent>(OnKeyDown);
+        }
+
+        private void OnKeyDown(KeyDownEvent evt)
+        {
+            var search = rootVisualElement.Q<TextField>("workbench-search");
+            if ((evt.ctrlKey || evt.commandKey) && evt.keyCode == KeyCode.K) { search.Focus(); evt.StopPropagation(); }
+            else if (evt.keyCode == KeyCode.Escape && toolSearch.Length > 0) { search.value = ""; search.Focus(); evt.StopPropagation(); }
+        }
+
+        private void ShowSearch()
+        {
+            rootVisualElement.Q<Button>("clear-search").style.display = string.IsNullOrWhiteSpace(toolSearch) ? DisplayStyle.None : DisplayStyle.Flex;
+            if (string.IsNullOrWhiteSpace(toolSearch)) { ShowWorkspace(workspace); return; }
+            ReleasePanels(); content.Clear(); content.style.display = DisplayStyle.Flex;
+            rootVisualElement.Q("scene-content").style.display = DisplayStyle.None;
+            rootVisualElement.Q<Label>("task-section").text = "快速查找";
+            rootVisualElement.Q<Label>("task-title").text = "搜索结果";
+            var matches = DarkNightsWorkbenchCatalog.Entries.Concat(DarkNightsWorkbenchCommands.Entries)
+                .Where(entry => entry.Matches(toolSearch)).ToArray();
+            rootVisualElement.Q<Label>("task-description").text = matches.Length + " 个匹配项 · Esc 返回当前任务";
+            foreach (var entry in matches)
+                content.Add(DarkNightsWorkbenchCards.Create(entry, () =>
+                {
+                    if (entry.Kind != DarkNightsWorkbenchEntryKind.Editor) Execute(entry);
+                    else Navigate(DarkNightsWorkbenchCatalog.Tasks.First(task => task.Title == entry.Group).Id);
+                }, entry.Kind == DarkNightsWorkbenchEntryKind.Editor ? "查看来源" : null));
+            if (matches.Length == 0) { var empty = new Label("没有找到匹配项。试试“矿镐”、“构建”或场景名称。"); empty.AddToClassList("dn-empty"); content.Add(empty); }
+            UpdateAvailability();
+        }
+
+        private void Navigate(string id)
+        {
+            toolSearch = ""; rootVisualElement.Q<TextField>("workbench-search").SetValueWithoutNotify("");
+            rootVisualElement.Q<Button>("clear-search").style.display = DisplayStyle.None; ShowWorkspace(id);
         }
 
         private void OnGeometryChanged(GeometryChangedEvent change) =>
@@ -71,7 +112,7 @@ namespace DarkNights.Editor
                 foreach (var task in section)
                 {
                     string id = task.Id;
-                    var button = new Button(() => ShowWorkspace(id)) { name = "workspace-" + id, tooltip = task.Description };
+                    var button = new Button(() => Navigate(id)) { name = "workspace-" + id, tooltip = task.Description };
                     button.AddToClassList("dn-nav-item");
                     var title = new Label(task.Title); title.AddToClassList("dn-nav-title"); button.Add(title);
                     var hint = new Label(task.Hint); hint.AddToClassList("dn-nav-hint"); button.Add(hint);
@@ -118,6 +159,7 @@ namespace DarkNights.Editor
             rootVisualElement.Q<Label>("task-title").text = task.Title;
             rootVisualElement.Q<Label>("task-description").text = task.Description;
             if (workspace == "scenes") { ShowScenes(); UpdateAvailability(); return; }
+            if (workspace == "maintenance") { content.Add(DarkNightsWorkbenchCommands.CreatePanel(Execute)); UpdateAvailability(); return; }
             foreach (var entry in DarkNightsWorkbenchCatalog.Entries.Where(entry => entry.Group == task.Title))
             {
                 if (entry.Kind == DarkNightsWorkbenchEntryKind.Tool) content.Add(ToolRow(entry));
@@ -130,7 +172,6 @@ namespace DarkNights.Editor
             }
             if (workspace == "objects")
             {
-                content.Add(new HelpBox("配置编辑与保存由原生 Workshop 管理；缺少配置时请显式同步或保存，采集辅助区只做校验。", HelpBoxMessageType.Info));
                 var shortcutsTitle = new Label("常用对象"); shortcutsTitle.AddToClassList("dn-section-title"); content.Add(shortcutsTitle);
                 AddDefinitionShortcuts();
                 var validation = new Foldout { text = "采集装配与目标匹配", value = miningExpanded, name = "mining-validation" };
@@ -145,12 +186,7 @@ namespace DarkNights.Editor
 
         private VisualElement ToolRow(DarkNightsWorkbenchEntry entry)
         {
-            var row = new VisualElement(); row.AddToClassList("dn-tool-row");
-            var info = new VisualElement(); info.AddToClassList("dn-entry-info"); row.Add(info);
-            var title = new Label(entry.Title); title.AddToClassList("dn-entry-title"); info.Add(title);
-            var description = new Label(entry.Description); description.AddToClassList("dn-description"); info.Add(description);
-            var action = new Button(() => Execute(entry)) { text = entry.ActionLabel, name = "action-" + entry.Id, tooltip = entry.SaveHint };
-            action.AddToClassList("dn-native-action"); row.Add(action); return row;
+            return DarkNightsWorkbenchCards.Create(entry, () => Execute(entry));
         }
 
         private void AddDefinitionShortcuts()
@@ -202,7 +238,7 @@ namespace DarkNights.Editor
                 button.EnableInClassList("dn-current-scene", active == entry.Assets[0]);
             }
             status.text = DarkNightsNativeWorkspace.Blocked ? "Play／导入／编译期间暂停项目操作。" :
-                "新编辑器优先同区停靠；已打开窗口原位复用。场景：" + SceneManager.GetActiveScene().name;
+                "就绪  ·  " + SceneManager.GetActiveScene().name + "  ·  工具以独立浮窗打开";
         }
 
         internal static void Locate(UnityEngine.Object asset)
@@ -217,6 +253,7 @@ namespace DarkNights.Editor
         {
             EditorApplication.projectChanged -= OnProjectChanged;
             rootVisualElement.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
+            rootVisualElement.UnregisterCallback<KeyDownEvent>(OnKeyDown);
             refresh?.Pause(); ReleasePanels();
         }
     }

@@ -19,7 +19,7 @@ namespace DarkNights.Editor
         private const string Root = "Assets/DarkNights/Res/Objects/ShipTrade";
         private const string Database = "Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset";
         private const string Uxml = "Assets/DarkNights/Res/UI/ShipEquipment/ShipEquipment.uxml";
-        [MenuItem("Dark Nights/Content/安装飞船交易和装备")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Content/安装飞船交易和装备", "安装飞船交易和装备")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || !File.Exists(ShipAssetSetup.Prefab) ||

@@ -9,7 +9,7 @@ namespace DarkNights.Editor
     public static class CaveEntranceArtSetup
     {
         public const string Root = "Assets/DarkNights/Res/Art/Custom/CaveEntranceLayers/";
-        [MenuItem("Dark Nights/Terrain/接入现有背景分层绘制")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Terrain/接入现有背景分层绘制", "接入现有背景分层绘制")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling || BuildPipeline.isBuildingPlayer)

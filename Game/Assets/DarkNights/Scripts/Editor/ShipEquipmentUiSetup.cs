@@ -13,7 +13,7 @@ namespace DarkNights.Editor
         public const string SettingsPath = "Assets/DarkNights/Res/UI/ShipEquipment/ShipEquipmentPanelSettings.asset";
         public const string ThemePath = "Assets/DarkNights/Res/UI/ShipEquipment/ShipEquipmentTheme.tss";
 
-        [MenuItem("Dark Nights/Content/安装飞船界面配置")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Content/安装飞船界面配置", "安装飞船界面配置")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || File.Exists(SettingsPath))

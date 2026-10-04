@@ -25,6 +25,16 @@ namespace DarkNights.Tests
         private static void Open(ObjectDefinition definition) => Bridge.GetMethod("Workshop", Flags, null, new[] { typeof(ObjectDefinition) }, null).Invoke(null, new object[] { definition });
         private static object Get(object target, string name) => target.GetType().GetField(name, Flags).GetValue(target);
 
+        private static IEnumerator WaitForEditor()
+        {
+            double deadline = EditorApplication.timeSinceStartup + 30;
+            while (EditorApplication.isUpdating || EditorApplication.isCompiling)
+            {
+                Assert.That(EditorApplication.timeSinceStartup, Is.LessThan(deadline), "等待 Editor 导入完成超时");
+                yield return null;
+            }
+        }
+
         [UnityTest]
         public IEnumerator ToolsOpenOnDemandReuseWindowsAndKeepJourneyDraft()
         {
@@ -39,10 +49,13 @@ namespace DarkNights.Tests
             {
                 for (int index = 0; index < types.Length; index++)
                 {
+                    yield return WaitForEditor();
                     Bridge.GetMethod(methods[index], Flags).Invoke(null, null); yield return null;
                     var window = Resources.FindObjectsOfTypeAll<EditorWindow>().Single(value => value.GetType() == types[index]);
+                    Assert.That(window.docked, Is.False, methods[index] + " 应以独立浮窗打开");
                     object draft = index == 1 ? ((DarkNights.Editor.Terrain.TerrainStylePreviewWindow)window).Draft : null;
                     string original = draft == null ? "" : EditorJsonUtility.ToJson((UnityEngine.Object)draft);
+                    yield return WaitForEditor();
                     Bridge.GetMethod(methods[index], Flags).Invoke(null, null); yield return null;
                     Assert.That(Resources.FindObjectsOfTypeAll<EditorWindow>().Single(value => value.GetType() == types[index]), Is.SameAs(window));
                     if (draft != null)
@@ -77,19 +90,21 @@ namespace DarkNights.Tests
             {
                 yield return null;
                 string before = JsonUtility.ToJson(copy);
+                yield return WaitForEditor();
                 Open(copy); yield return null;
                 workshop = Resources.FindObjectsOfTypeAll<ObjectDefinitionWorkshopWindow>().Single();
+                Assert.That(workshop.docked, Is.False);
                 Assert.That(Get(workshop, "_targetDefinition"), Is.SameAs(copy));
                 Assert.That(workshop.rootVisualElement.parent, Is.Not.SameAs(host.rootVisualElement));
                 Assert.That(JsonUtility.ToJson(copy), Is.EqualTo(before));
-                Open(copy); yield return null;
+                yield return WaitForEditor(); Open(copy); yield return null;
                 Assert.That(Resources.FindObjectsOfTypeAll<ObjectDefinitionWorkshopWindow>().Single(), Is.SameAs(workshop));
                 var next = UnityEngine.Object.Instantiate(source); next.hideFlags = HideFlags.HideAndDontSave;
                 try
                 {
-                    Open(next); yield return null;
+                    yield return WaitForEditor(); Open(next); yield return null;
                     Assert.That(Get(workshop, "_targetDefinition"), Is.SameAs(next));
-                    Open(copy); yield return null;
+                    yield return WaitForEditor(); Open(copy); yield return null;
                 }
                 finally { UnityEngine.Object.DestroyImmediate(next); }
 
@@ -109,17 +124,22 @@ namespace DarkNights.Tests
                 string beforeFocus = JsonUtility.ToJson(copy);
                 workshop.GetType().GetMethod("OnFocus", Flags).Invoke(workshop, null);
                 bool focused = false;
-                EditorApplication.delayCall += () => focused = true;
-                double deadline = EditorApplication.timeSinceStartup + 10;
-                while (!focused && EditorApplication.timeSinceStartup < deadline)
-                { workshop.Repaint(); EditorApplication.QueuePlayerLoopUpdate(); yield return null; }
+                EditorApplication.CallbackFunction completed = () => focused = true;
+                EditorApplication.delayCall += completed;
+                try
+                {
+                    double deadline = EditorApplication.timeSinceStartup + 10;
+                    workshop.Repaint();
+                    while (!focused && EditorApplication.timeSinceStartup < deadline) yield return null;
+                }
+                finally { EditorApplication.delayCall -= completed; }
                 Assert.That(focused, Is.True, "工坊焦点后的 delayCall 尚未执行，不能记录诊断结论。");
                 bool focusDirties = EditorUtility.IsDirty(copy);
                 string diagnostic = "{\"navigation_clean\":" + (!focusDirties).ToString().ToLowerInvariant() +
                     ",\"focus_marks_dirty\":" + focusDirties.ToString().ToLowerInvariant() +
                     ",\"config_changed\":" + (JsonUtility.ToJson(copy) != beforeFocus).ToString().ToLowerInvariant() +
                     ",\"scope\":\"temporary_definition\"}";
-                File.WriteAllText(Path.GetFullPath("../artifacts/workbench-aggregation-20261003/native-focus.json"), diagnostic);
+                TestContext.WriteLine(diagnostic);
                 Assert.That(JsonUtility.ToJson(copy), Is.EqualTo(beforeFocus));
                 Assert.That(focusDirties, Is.False, "原生导航不得把刷新标记为资产修改。");
 

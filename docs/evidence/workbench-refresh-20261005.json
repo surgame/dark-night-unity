@@ -1,0 +1,154 @@
+{
+  "date": "2026-10-05",
+  "scope": "Dark Nights Editor 工作台样式、菜单、搜索和浮窗",
+  "unity": "6000.4.9f1",
+  "compile": "0 errors, 0 warnings",
+  "unique_tests": 17,
+  "passed": 16,
+  "failed": 1,
+  "tests": [
+    {
+      "name": "DarkNights.Tests.WorkbenchNavigationTests.ExpandedContentKeepsHeaderSeparateAndSearchHandlesKeyboard",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r4.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-config\")",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r1.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding",
+      "result": "Failed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-focus-r6.xml",
+      "failure": "  工坊焦点后的 delayCall 尚未执行，不能记录诊断结论。\n  Expected: True\n  But was:  False\n"
+    },
+    {
+      "name": "DarkNights.Tests.NativeWorkspaceEditorTests.ToolsOpenOnDemandReuseWindowsAndKeepJourneyDraft",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-native-r2.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchNavigationTests.OpeningDockedWorkbenchUndocksSameInstanceAndPreservesNavigation",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r4.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchEditorTests.ReadOnlyMatchingTracksUndoRedoAndDisposesRefresh",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r1.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchNavigationTests.MigratedMaintenanceCommandsAreUniqueDiscoverableAndNotMenus",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r4.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TunerWorkbenchLifecycleTests.SerializedStyleDraftRestoresReferencesAndKeepsFieldConflictChecks",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r1.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"wrong-whitelist\")",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r1.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchNavigationTests.SearchFindsToolsScenesAndMaintenanceAndRestoresTask",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r4.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"duplicate-config\")",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r1.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchEditorTests.DuplicateTargetSelectionShowsErrorWithoutThrowingCallback",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r1.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchEditorTests.TaskSwitchAndRebuildRestoreSelectionWithoutOpeningNativeEditors",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r1.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-reference\")",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r1.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchEditorTests.SceneSearchRestoresAcrossTaskSwitchAndGuiRebuild",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r1.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.TunerWorkbenchLifecycleTests.ReenableKeepsAuthorAndStyleDraftAndNavigationWithoutWritingSources",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r1.xml",
+      "failure": null
+    },
+    {
+      "name": "DarkNights.Tests.WorkbenchEditorTests.InvalidMiningAssemblyReportsWithoutModifyingDefinition(\"missing-behaviour\")",
+      "result": "Passed",
+      "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-final-20260926\\workbench-refresh-20261005-r1.xml",
+      "failure": null
+    }
+  ],
+  "native_focus_live": {
+    "callback_completed": true,
+    "navigation_clean": true,
+    "config_unchanged": true,
+    "docked": false
+  },
+  "visual": {
+    "wide_light": "inspected; header overlap corrected",
+    "narrow_layout": "1120x760 and 680x480 geometry regression passed; narrow screenshot partly occluded",
+    "dark_theme": "USS supplied; complete dark-theme visual acceptance not claimed",
+    "menu": "36 methods migrated; unique registrations tested",
+    "search": "tool, scene, command path, Ctrl+K, Escape and rebuild recovery passed"
+  },
+  "author_assets": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\ShipTrade\\item-pickaxe.asset",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\MineralDeposit\\MineralDeposit.asset",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\WorldSession\\WorldSession.asset",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Terrain\\StrataCave\\Style.asset",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Terrain\\StrataCave\\Background.asset",
+      "unchanged": true
+    }
+  ],
+  "boundaries": [
+    "NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding delayCall sentinel times out; failure retained. Separate live focus callback passed.",
+    "No YYGC source/dependency changes; no Player builds or multiplayer regression for this Editor-only slice.",
+    "Other mineral migration working changes are excluded from this commit."
+  ],
+  "artifacts": "artifacts/workbench-refresh-20261005/"
+}

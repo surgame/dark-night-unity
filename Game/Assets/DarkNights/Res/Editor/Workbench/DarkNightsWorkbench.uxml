@@ -5,12 +5,17 @@
             <ui:VisualElement name="workbench-sidebar" class="dn-sidebar">
                 <ui:VisualElement class="dn-brand-block">
                     <ui:Label text="DARK NIGHTS" class="dn-brand" />
-                    <ui:Label text="项目工作台" class="dn-brand-caption" />
+                    <ui:Label text="创作工作台" class="dn-brand-caption" />
                 </ui:VisualElement>
                 <ui:ScrollView name="workspace-navigation" mode="Vertical" horizontal-scroller-visibility="Hidden" class="dn-navigation" />
-                <ui:Label text="选择任务，打开对应编辑器" class="dn-sidebar-hint" />
+                <ui:Label text="工具在独立浮窗中打开&#10;保留当前编辑草稿" class="dn-sidebar-hint" />
             </ui:VisualElement>
             <ui:VisualElement name="workbench-main" class="dn-main">
+                <ui:VisualElement class="dn-search-bar">
+                    <ui:TextField name="workbench-search" label="搜索" tooltip="搜索工具、场景或维护命令 · Ctrl / Cmd + K" />
+                    <ui:Button name="clear-search" text="清除" class="dn-clear-search" />
+                    <ui:Label text="Ctrl K" class="dn-key-hint" />
+                </ui:VisualElement>
                 <ui:VisualElement class="dn-page-header">
                     <ui:Label name="task-section" class="dn-eyebrow" />
                     <ui:Label name="task-title" class="dn-page-title" />

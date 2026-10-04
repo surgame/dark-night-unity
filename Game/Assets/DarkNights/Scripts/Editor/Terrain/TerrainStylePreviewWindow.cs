@@ -38,8 +38,7 @@ namespace DarkNights.Editor.Terrain
 
         public static void Open()
         {
-            var window = GetWindow<TerrainStylePreviewWindow>("Cave Wall Tuner");
-            window.minSize = new Vector2(800, 520); window.Show();
+            DarkNightsNativeWorkspace.Visual();
         }
 
         public static void OpenJourney()

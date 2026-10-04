@@ -38,7 +38,7 @@ namespace DarkNights.Editor
         private static float ShipX => network.Client.Replica.Current.World.Buildings.Single(building => building.Id == Expedition.Ship.Id).X;
         private static float ShipHeight => Expedition.Devices.Single(device => device.Id == Expedition.Ship.Id).Height;
 
-        [MenuItem("Dark Nights/Verify/Mining Grid Runtime")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Verify/Mining Grid Runtime", "采集网格运行检查")]
         public static async void Run()
         {
             if (!Application.isPlaying || running) throw new InvalidOperationException("请在 Bootstrap 新鲜主菜单的 Play 中执行一次。");

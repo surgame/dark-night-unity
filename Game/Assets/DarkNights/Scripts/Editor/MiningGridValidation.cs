@@ -19,10 +19,10 @@ namespace DarkNights.Editor
         private int scheduled;
         public static string EvidenceRoot => Path.GetFullPath("../artifacts/mining-grid-20260930");
 
-        [MenuItem("Dark Nights/Verify/Mining Grid Tests")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Verify/Mining Grid Tests", "采集网格检查")]
         public static void Run() => Schedule(false);
 
-        [MenuItem("Dark Nights/Verify/Mining Grid Focused Retry")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Verify/Mining Grid Focused Retry", "采集网格定向复测")]
         public static void Retry() => Schedule(true);
 
         private static void Schedule(bool focused)
