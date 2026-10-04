@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Dark Nights 项目周报 2026年9月28日至10月4日</title>
+<style>
+:root{--bg:#f2f4f7;--paper:#fff;--ink:#1d2b3c;--muted:#546579;--line:#d9e1e9;--green:#20643f;--green-bg:#eaf5ee;--amber:#81531c;--amber-bg:#fff5e5;--red:#a53737;--red-bg:#fff0ee;--blue:#315a87}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.8 "Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1140px;margin:32px auto;padding:38px 44px;background:var(--paper);border:1px solid var(--line);border-radius:14px}h1,h2,h3,p{margin:0}h1{font-size:36px;line-height:1.4;font-weight:650;margin:10px 0 14px}h2{font-size:23px;line-height:1.5;margin-bottom:14px}h3{font-size:17px;margin-bottom:7px}p+p{margin-top:12px}a{color:var(--blue);text-underline-offset:3px}a:focus-visible{outline:3px solid var(--blue);outline-offset:3px}code{font:12px/1.8 Consolas,monospace;overflow-wrap:anywhere;background:#edf1f5;padding:2px 4px;border-radius:3px}.brand{font-size:13px;font-weight:650;color:var(--blue);letter-spacing:1px}.dates,.muted{color:var(--muted)}.dates{font-size:14px}.lead{font-size:17px;max-width:900px;margin-top:20px}.decision{border-left:4px solid var(--amber);background:var(--amber-bg);padding:17px 20px;margin:24px 0}.decision strong{display:block;font-size:18px;margin-bottom:5px}.decision p{color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.metric{border:1px solid var(--line);border-radius:9px;padding:16px 18px}.metric b{display:block;font-size:28px;line-height:1.4;margin:3px 0}.metric span{font-size:12px;color:var(--muted)}.good{color:var(--green)}.bad{color:var(--red)}.warn{color:var(--amber)}.note{font-size:12px;color:var(--muted);margin-top:12px}.section{margin-top:34px}.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:8px}table{border-collapse:collapse;width:100%;font-size:14px;text-align:left}caption{text-align:left;font-weight:650;padding:12px 16px;background:#eef3f8}th,td{padding:14px 16px;vertical-align:top;border-top:1px solid var(--line)}thead th{border-top:0;background:#eef3f8;color:var(--muted);font-weight:600}tbody th{font-weight:600;width:17%}.progress td:nth-child(2){width:41%}.progress td:nth-child(3){width:42%}.tag{display:inline-block;font-size:12px;font-weight:600;border-radius:4px;padding:1px 7px;margin:0 0 5px}.tag.good{background:var(--green-bg)}.tag.warn{background:var(--amber-bg)}.tag.bad{background:var(--red-bg)}.reference{display:block;font-size:12px;margin-top:7px}.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{border:1px solid var(--line);border-radius:9px;padding:20px}.card p{font-size:14px}.risk{border-left:3px solid var(--red)}.risk.warn{border-left-color:var(--amber);color:var(--ink)}.priority{font-size:12px;font-weight:650;color:var(--red);margin-bottom:5px}.priority.amber{color:var(--amber)}ol{padding-left:23px;margin:0}ol li+li{margin-top:14px}li p{font-size:14px;color:var(--muted);margin-top:3px}.sources{display:grid;grid-template-columns:1fr 1fr;gap:8px 25px;margin-top:15px;font-size:13px}.sources a{overflow-wrap:anywhere}footer{border-top:1px solid var(--line);margin-top:30px;padding-top:16px;font-size:12px;color:var(--muted)}
+@media(max-width:760px){main{margin:0;border:0;border-radius:0;padding:26px 20px}h1{font-size:29px}.lead{font-size:16px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.pair,.sources{grid-template-columns:1fr}table{min-width:700px}.metric b{font-size:25px}.section{margin-top:28px}}
+@media print{body{background:#fff;font-size:11px;line-height:1.6}main{border:0;margin:0;padding:0;max-width:none}h1{font-size:28px}h2{font-size:18px}h3{font-size:14px}.lead{font-size:13px}.section{margin-top:23px}table,.card p,li p{font-size:11px}th,td{padding:9px 11px}.metrics{grid-template-columns:repeat(4,minmax(0,1fr))}.metric{padding:11px}.metric b{font-size:23px}.card,.metric,.decision,tr{break-inside:avoid}.table-wrap{overflow:visible}table{min-width:0}.pair{grid-template-columns:1fr 1fr}.sources{grid-template-columns:1fr 1fr}a{color:inherit}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<p class="brand">Dark Nights · Unity 项目</p>
+<h1>项目周报与进展确认</h1>
+<p class="dates">报告周期：2026 年 9 月 28 日至 10 月 4 日　｜　核对日期：2026 年 10 月 5 日（北京时间）</p>
+<p class="lead">本周推进了原地着陆、飞船交易与装备、网格采矿、地表与洞穴分层、氧气移除、斜坡跳跃和统一工作台。最新内嵌矿候选已具备多格权威状态、真实客户端采矿、保存恢复及正常两人／四人联机证据。</p>
+<div class="decision"><strong>阶段判断：持续开发与验收收口，当前候选尚未达到最终交付条件</strong><p>内嵌矿的正式组合画面仍被背景遮挡，弱网首次地图／Ready 失败。完整矿工路线、再次完整星球航程和当前候选的部分人工验收仍未闭合。功能已实现、专项通过和整批交付分别记录。</p></div>
+<div class="metrics" aria-label="最新内嵌矿候选的验证状态">
+<div class="metric"><span>受影响 Editor 用例</span><b class="good">245 / 245</b><span>按最新同名用例合并</span></div>
+<div class="metric"><span>同一 Mono 正常两人</span><b class="good">24 / 24</b><span>独立 Host 与客户端</span></div>
+<div class="metric"><span>同一 Mono 正常四人</span><b class="good">30 / 30</b><span>独立 Host 与三名客户端</span></div>
+<div class="metric"><span>正式画面与弱网</span><b class="bad">未通过</b><span>遮挡及初始 Ready 超时</span></div>
+</div>
+<p class="note">上述数字只属于 10 月 4 日内嵌矿批次；联机计数为检查断言，Editor 为不同用例。各批次不相加为全工程通过数。</p>
+</header>
+
+<section class="section" aria-labelledby="versions">
+<h2 id="versions">当前代码与集成状态</h2>
+<div class="table-wrap"><table>
+<thead><tr><th scope="col">代码位置</th><th scope="col">本地状态</th><th scope="col">协议与存档</th></tr></thead>
+<tbody>
+<tr><th scope="row">本地 main</th><td><code>b705709</code>。已包含氧气移除、斜坡跳跃、星球工作台及内嵌矿执行方案。</td><td>游戏协议 23，存档 v17，AMP1 schema 2。</td></tr>
+<tr><th scope="row">当前开发候选</th><td><code>ft-20261004-embedded-minerals</code>，检查点 <code>e0419d2</code>。内嵌矿实现尚未合入 main；本次核对开始时工作区干净。</td><td>游戏协议 24，存档 v18，AMP1 schema 2。该批次未修改或升级 YYGC。</td></tr>
+</tbody></table></div>
+<p class="note">Git 核对确认星球工作台提交已是 main 的祖先，修正旧专项文档“未合并”的时点描述。10 月 3 日飞船到达连续镜头修复已由后续提交撤销，未列入完成成果。本次只核对本地引用；main 相对已记录 origin/main 超前 18 个提交，远端实时状态未查询。</p>
+</section>
+
+<section class="section" aria-labelledby="progress">
+<h2 id="progress">本周主要进展</h2>
+<div class="table-wrap"><table class="progress">
+<thead><tr><th scope="col">方向</th><th scope="col">本周实现</th><th scope="col">确认结果与剩余边界</th></tr></thead>
+<tbody>
+<tr><th scope="row">操控与着陆<br><span class="muted">9 月 28 至 29 日</span></th><td>接入输入边界与通用改键；飞船可在有支撑、净空的当前位置安全着陆。主角调整至约 3 格高，步速约 7 格／秒、冲刺约 11 格／秒。</td><td><span class="tag warn">源码已集成，人工体验待验</span><br>这些改动当批按要求未运行完整回归；后续 Editor 与正常 Mono 已覆盖部分着陆、出舱和恢复。改键及最终比例、镜头、通行体验仍需对应验证。<span class="reference"><a href="../INPUT_PLATFORM_COMPARISON.html">输入改键</a> · <a href="../HERO_MOVEMENT_SCALE.md">比例与移动</a> · <a href="../SPACE_TO_PLANET_ACCEPTANCE.md">着陆验收边界</a></span></td></tr>
+<tr><th scope="row">飞船交易与装备<br><span class="muted">9 月 29 日</span></th><td>船内 E 购物／出售、信用点、四格装备与独立喷气能量显示；修复商店不可见导致输入锁残留、中文字体和关闭回收。</td><td><span class="tag good">专项与正常双进程通过</span><br>Editor 规则 10/10、正式 Play 1/1、同一 Mono 26/26；三种分辨率截图已检查。采矿回船出售的完整人工闭环、弱网及四人交易本批未验。<span class="reference"><a href="../SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md">交易验收记录</a></span></td></tr>
+<tr><th scope="row">地图生成与步道<br><span class="muted">9 月 29 至 30 日</span></th><td>工作台与正式星球共用生成入口；权威生成分阶段支持 Modifier，步道可开关，并修复步道切断原洞穴空腔。</td><td><span class="tag good">该批地图矩阵通过</span><br>纯 Core 1903/1903、Editor 181/181；同一 Mono 正常／弱网六组共 945/945 个断言。101 种子拓扑检查与一个种子的两种泊位真实往返已验；全洞室角色可达性、前台性能未验。后续版本弱网仍失败。<span class="reference"><a href="../TERRAIN_GENERATION_MODIFIER_PIPELINE.md">生成阶段与本批证据</a></span></td></tr>
+<tr><th scope="row">矿镐与工具配置<br><span class="muted">9 月 30 日至 10 月 3 日</span></th><td>网格耐久、最近真实表面、持续挥镐与每轮一次落镐；工具能力归自身 Definition、装备保存稳定身份。吸附与伤害共用 64 逻辑像素／4 格范围。</td><td><span class="tag good">正常链路与 Editor 专项通过</span><br>工具批次 Editor 62/62、Mono 正常双进程 27/27；统一距离批次 35/35。工具批次弱网重连 Ready 超时，整体未通过；统一距离本批未构建新 Player。<span class="reference"><a href="../TOOL_DEFINITION_HARVESTING.md">工具采集合同</a> · <a href="../PICKAXE_UNIFIED_REACH.md">统一范围验证</a></span></td></tr>
+<tr><th scope="row">天空与洞穴背景<br><span class="muted">10 月 1 至 3 日</span></th><td>天空、地表与地下分层衔接；复用已有近／中／远点缀和完整基础后壁，退出入口深度渐隐。原三层 RGBA 与 577 张 PNG 字节保持。</td><td><span class="tag good">背景专项与正常网络通过</span><br>最终复用方案 Editor 36/36、Mono 正常网络 31/31，正式快速局 Ready／Landed 已检查。弱网初次加入或晚加入超时；这些结果不代表新增矿层的组合画面通过。<span class="reference"><a href="../CAVE_ENTRANCE_ART_LAYERS.md">分层衔接与失败记录</a></span></td></tr>
+<tr><th scope="row">氧气业务移除<br><span class="muted">10 月 3 日</span></th><td>氧气业务、氧气站、中继命令和状态合同退出；保留战斗死亡、三设备、货物原子结算及恢复。已合入本地 main。</td><td><span class="tag warn">专项通过，整批未通过</span><br>氧气专项 2/2、资源 12/12、正常 Mono 双进程 130/130；原 Editor 119/121 的两项旧路线失败保留，退役后剩余远征回归 6/6。弱网失败；矿房／矿工真实玩法与再次完整航程仍待实施或修复。<span class="reference"><a href="../OXYGEN_REMOVAL_VALIDATION.md">移除验证记录</a></span></td></tr>
+<tr><th scope="row">斜坡与跳跃<br><span class="muted">10 月 3 至 4 日</span></th><td>修复落坡卡住；连续斜向运动、接坡后横移、短按跳跃保留、可选跳高策略和普通跳跃后的喷气衔接。默认固定跳跃，已合入本地 main。</td><td><span class="tag warn">源码验证通过，最终手感待验</span><br>最终源码回归 33/33、首轮 Editor 66/66；跨缺口修正当批 Editor 补测待执行，后续矿层批次不据此推断其全部运动边界已验。未以专项新 Player 验证最终手感或联机操控。<span class="reference"><a href="../SLOPE_JUMP_FLOW.md">运动实现与验证边界</a></span></td></tr>
+<tr><th scope="row">日常开发工作台<br><span class="muted">10 月 2 至 4 日</span></th><td>统一任务入口、聚合原生编辑器；主菜单一键进入已着陆矿镐局；16 个场景归类、6 个场景保留 GUID 迁移。星球工作台整合地图、背景、降落和航程四组草稿。</td><td><span class="tag good">Editor 使用范围已验</span><br>快速测试 23 个不同用例，跨 Editor 重启记忆已验；原生聚合 16/16；星球工作台 45/45、真实输入／Undo／窄栏检查，1111 项作者资产哈希保持。星球工作台已进入 main，完整重启与 Dark 主题仍待验。<span class="reference"><a href="../QUICK_TEST_SCENES.md">快速测试与场景</a> · <a href="../EDITOR_WORKBENCH.md">原生聚合</a> · <a href="../TUNER_JOURNEY_WORKBENCH.md">星球工作台</a></span></td></tr>
+</tbody></table></div>
+</section>
+
+<section class="section" aria-labelledby="minerals">
+<h2 id="minerals">最新内嵌矿候选确认</h2>
+<p>每个矿床仍是一个稳定 YYGC 业务对象，拥有多格剩余量、耐久与版本；独立 AnyRuleD 矿层读取冻结占用，采空保留墓碑并局部刷新。专用投影、前景版本依赖、v18 保存、回滚与真实客户端采矿已经接入。正式业务为铁与金，另三种矿材用于交界样板。</p>
+<div class="table-wrap" style="margin-top:15px"><table>
+<thead><tr><th scope="col">验收项</th><th scope="col">确认状态</th><th scope="col">适用范围</th></tr></thead>
+<tbody>
+<tr><th scope="row">Editor</th><td class="good">245/245</td><td>原生资源、四角配方、状态复制、事务、采空、墓碑恢复和相机等受影响用例；不含待导入的强组合排序诊断。</td></tr>
+<tr><th scope="row">Mono 构建</th><td class="good">第二轮成功</td><td>同一 Local 缓存。首轮 Mono.Cecil 内存不足报告保留；成功 Player 文件与记录 SHA-256 一致。</td></tr>
+<tr><th scope="row">正常联机</th><td class="good">两人 24/24；四人 30/30</td><td>同一 Mono，显式已着陆开发夹具。覆盖真实客户端扣耐久／采空、一次奖励、晚加入、暂停、重连、v18 写盘及进程重启。</td></tr>
+<tr><th scope="row">弱网</th><td class="bad">失败</td><td>200 ms RTT、5% loss、25 ms jitter 下首次 Ready 100 秒超时，地图身份为空。四人弱网及后续采集矩阵按前置失败停止，未执行。</td></tr>
+<tr><th scope="row">正式组合画面</th><td class="bad">未通过</td><td>采空前后人物区域外没有矿格画面变化；无人物组合检查最大颜色差仅 5，目标中心无变化。单矿层样板通过不能替代正式组合。</td></tr>
+<tr><th scope="row">其他门槛</th><td class="warn">待验</td><td>最终美术、完整矿工路线、当前候选 IL2CPP 与双机器。前台性能按用户既有安排暂缓，尚未验收。</td></tr>
+</tbody></table></div>
+<p class="note">4096 格／64 床编码探针为未压缩 177010 B、封套 11405 B，仅证明 Editor 合同预算；未据此确认真实世界密度、四人容量性能或弱网。<a href="../EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md">开发记录</a> · <a href="../evidence/embedded-mineral-layer-development-20261004.json">机器汇总</a></p>
+</section>
+
+<section class="section" aria-labelledby="gaps">
+<h2 id="gaps">阻塞项与未闭合范围</h2>
+<div class="pair">
+<article class="card risk"><p class="priority">当前交付门槛</p><h3>矿层被背景遮挡</h3><p>当前排序仍受不透明或高 Alpha 背景及前景修饰影响。更严格颜色差门槛和排序扫描源码已写入，最后记录尚未导入／运行。需要在正式组合与真实镜头下看清矿床、观察采空变化。</p></article>
+<article class="card risk"><p class="priority">联机交付门槛</p><h3>地图首次同步与 Ready</h3><p>工具、背景、氧气和内嵌矿批次分别存在弱网失败。最新候选卡在初始入场；与既有失败阶段相似，根因是否相同尚未证明。已加载地图内的采集通过不能替代初始同步验收。</p></article>
+<article class="card risk warn"><p class="priority amber">产品闭环</p><h3>完整矿工路线与重复航程</h3><p>角色矿房交互、矿工采集交货仍缺真实玩法与新验收。结算后 phase4／Landed 的再次完整星球出发问题仍留账；旧无航程的第二次 depart 通过仅覆盖其原有范围。</p></article>
+<article class="card risk warn"><p class="priority amber">剩余质量门槛</p><h3>人工体验与工程留账</h3><p>运动手感、改键、最终 HUD／中文布局和组合美术须在当前输入上复验。相关 Core 最近报告为 1046/1048，两项旧规则断言失败；架构守卫有既有命中，未确认全局门槛通过。当前候选后端／双机器验收仍缺证据。</p></article>
+</div>
+<p class="note">上次排序诊断停在 10 月 4 日 21:30 的防火墙弹窗遮挡记录。本次未操作 Unity 窗口，弹窗是否仍在须续测时确认。10 月 3 日工作台导航曾在明确批准范围内接入 YYGC 修正；最新内嵌矿批次没有新增框架改动，详见<a href="../YYGC_CHANGES.md">改动账本</a>。</p>
+</section>
+
+<section class="section" aria-labelledby="next">
+<h2 id="next">下一阶段建议与完成条件</h2>
+<ol>
+<li><strong>先恢复排序诊断并解决正式矿层遮挡。</strong><p>确认弹窗与实际程序集状态，完成有限排序批次；用正式背景、人物与相机核验采集前后目标格有可见变化，同时保留碰撞和原素材合同。</p></li>
+<li><strong>按最终视觉输入重建一次 Mono，复验受影响链路。</strong><p>复用同一新产物完成两人／四人采矿、合作最后一份矿、晚加入／重连、v18 写盘与进程重启；旧构建结果保持原身份。</p></li>
+<li><strong>收口完整游戏弱网入场与地图一致性。</strong><p>优先定位首次同步／Ready，再覆盖换图、晚加入、重连和采集。此前延后修复的安排保留；如确认必须修改 YYGC，先列具体缺口、文件、影响与验证范围取得授权。</p></li>
+<li><strong>补齐产品闭环和当前人工体验。</strong><p>实施并验收矿房／矿工采集交货，修复再次完整航程；在当前候选检查坡形运动、装备、HUD 和采矿回船交易。已退役旧用例不计作这些玩法完成。</p></li>
+<li><strong>按条件安排其余验收。</strong><p>补齐星球工作台完整重启／Dark 主题、运动受影响 Editor 边界及工程留账。前台性能沿用暂缓安排；需要当前候选 IL2CPP 时按项目约定另行确认，双机器须具备实际设备。</p></li>
+</ol>
+<p class="note">以上为建议顺序与验收条件，不代表已排定工期、新增执行授权或已完成结果。内嵌矿达到正式呈现与所需联机门槛后，再评估集成和交付。</p>
+</section>
+
+<section class="section" aria-labelledby="evidence">
+<h2 id="evidence">核对依据与报告边界</h2>
+<p>本次核对了 README、现行索引、开发计划、架构与联机合同、专项验证文档、当前 Git 历史和分支包含关系。最新内嵌矿汇总中的 245 个 Editor 用例名去重后仍为 245 个，均标记通过；两份正常及一份弱网原始 result.json 的 SHA-256、结果和断言数与汇总一致，成功 Mono 可执行文件哈希也一致。</p>
+<p>本次工作为文档与既有证据核对，未重新执行 Unity 测试、Play、构建、联机或前台测量。初始失败、未运行项和旧版本的通过数保留原范围；9 月 27 日 IL2CPP 航程成绩属于旧候选，未用于当前协议 24 的验收结论。</p>
+<p class="note">报告已检查 UTF-8、HTML 结构和 26 个本地引用。浏览器安全策略禁止本地 file 协议预览，实际浏览器排版未目视核验；文件已请求在 Codex 文件面板打开。</p>
+<div class="sources">
+<a href="../DEVELOPMENT.md">开发执行计划</a><a href="../ARCHITECTURE.md">技术架构</a>
+<a href="../MULTIPLAYER.md">联机合同</a><a href="../OXYGEN_REMOVAL_FAILURE_ANALYSIS.md">弱网与旧路线失败分析</a>
+<a href="../evidence/terrain-modifier-network-20260930.json">9 月 30 日地图六组网络证据</a><a href="../evidence/tool-definition-harvesting-20261002.json">10 月 2 日工具验证证据</a>
+<a href="../evidence/oxygen-removal-20261003.json">10 月 3 日氧气移除证据</a><a href="../evidence/tuner-journey-workbench-20261004.json">10 月 4 日星球工作台证据</a>
+<a href="../evidence/embedded-mineral-layer-development-20261004.json">10 月 4 日内嵌矿开发证据</a><a href="weekly-2026-09-27.html">上一期项目周报</a>
+</div>
+</section>
+<footer>Dark Nights 项目周报 · 本地进展核对 · 2026 年 10 月 5 日</footer>
+</main>
+</body>
+</html>
