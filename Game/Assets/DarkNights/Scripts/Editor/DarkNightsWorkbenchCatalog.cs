@@ -4,8 +4,8 @@ using System.Linq;
 namespace DarkNights.Editor
 {
     /// <summary>
-    /// 四类项目任务的只读操作目录；原生编辑器拥有列表、编辑和保存，项目只声明工具及常用作者来源。
-    /// 场景目录保持独立，不把单个打开场景操作扩成任务页面。
+    /// 项目任务与工具的只读操作目录；分类元数据统一驱动左栏、标题和内容分组，新增分类按纵向排列。
+    /// 原生编辑器拥有编辑和保存；场景在独立目录直接打开或定位，不为单个场景创建中间页面。
     /// </summary>
     internal static class DarkNightsWorkbenchCatalog
     {
@@ -13,6 +13,15 @@ namespace DarkNights.Editor
         internal const string Session = Root + "Objects/WorldSession/WorldSession.asset";
         internal const string ShipTrade = Root + "Objects/ShipTrade/";
         internal const string Objects = "对象与装备", Journey = "星球与航程", Map = "地图与表现", UI = "界面资源";
+        internal static IReadOnlyList<(string Id, string Title, string Hint, string Description, string Section)> Tasks { get; } =
+            System.Array.AsReadOnly(new[]
+            {
+                ("objects", Objects, "定义 · 装备 · 采集", "编辑对象能力与装备配置，检查采集装配和目标匹配。", "内容制作"),
+                ("journey", Journey, "目的地 · 过场 · 规则", "配置星球目的地、航程过场与生成蓝图，定位数值规则。", "内容制作"),
+                ("map", Map, "地形 · 岩壁 · 背景", "调整地形业务、岩壁样式与背景，在专用工具中预览。", "内容制作"),
+                ("ui", UI, "布局 · 样式 · 主题", "打开界面作者来源，使用原生编辑器维护布局与样式。", "内容制作"),
+                ("scenes", "场景与测试", "正式入口 · 预览 · 样例", "按用途查找场景，直接打开或定位；打开前提示保存，不自动 Play。", "运行与检查")
+            });
         internal static IReadOnlyList<DarkNightsWorkbenchEntry> Entries { get; } = System.Array.AsReadOnly(new[]
         {
             new DarkNightsWorkbenchEntry("objects", DarkNightsWorkbenchEntryKind.Tool, Objects, "Definition Workshop",

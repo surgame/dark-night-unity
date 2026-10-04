@@ -10,24 +10,20 @@ using UnityEngine.SceneManagement;
 namespace DarkNights.Editor
 {
     /// <summary>
-    /// 项目任务与原生编辑器的聚合操作栏；四类任务只提供已有工具和常用来源，不拥有 Definition 编辑树。
+    /// 左栏项目任务与右侧原生编辑器操作区；分类纵向滚动，场景目录独立显示，不拥有 Definition 编辑树。
     /// 序列化导航与校验输入，切任务释放辅助区；关闭工作台不会关闭编辑器或提交其草稿。
     /// </summary>
     internal sealed class DarkNightsWorkbenchWindow : EditorWindow
     {
         internal const string MenuPath = "Dark Nights/工作台";
         private const string Layout = "Assets/DarkNights/Res/Editor/Workbench/DarkNightsWorkbench.uxml";
-        private static readonly string[] Tasks = { "objects", "journey", "map", "ui" };
-        private static readonly string[] Groups = { DarkNightsWorkbenchCatalog.Objects, DarkNightsWorkbenchCatalog.Journey,
-            DarkNightsWorkbenchCatalog.Map, DarkNightsWorkbenchCatalog.UI };
         [SerializeField] private string workspace = "objects";
         [SerializeField] private string sceneSearch = "", sceneGroup = "全部", sourcePath = "", rulesSourcePath = "";
-        [SerializeField] private bool scenesExpanded;
+        [SerializeField] private bool miningExpanded;
         [SerializeField] private MiningDefinitionPanelState miningSelection = new MiningDefinitionPanelState();
         private ScrollView content;
         private Label status;
         private HelpBox error;
-        private Foldout scenes;
         private DarkNightsWorkbenchLauncher launcher;
         private MiningDefinitionPanel miningPanel;
         private DarkNightsWorkbenchSources sources;
@@ -52,25 +48,37 @@ namespace DarkNights.Editor
             content = rootVisualElement.Q<ScrollView>("task-content");
             status = rootVisualElement.Q<Label>("workbench-status");
             error = rootVisualElement.Q<HelpBox>("workbench-error"); error.style.display = DisplayStyle.None;
-            foreach (string id in Tasks) rootVisualElement.Q<Button>("workspace-" + id).clicked += () => ShowWorkspace(id);
+            BuildNavigation();
             BuildSceneShortcuts();
-            scenes = rootVisualElement.Q<Foldout>("all-scenes");
-            scenes.SetValueWithoutNotify(scenesExpanded);
-            scenes.RegisterValueChangedCallback(change =>
-            {
-                if (change.target != scenes) return;
-                scenesExpanded = change.newValue; ShowScenes();
-            });
             refresh = rootVisualElement.schedule.Execute(UpdateAvailability).Every(250);
-            ShowWorkspace(workspace); ShowScenes();
+            ShowWorkspace(workspace);
+            rootVisualElement.EnableInClassList("dn-compact", position.width < 900);
             rootVisualElement.RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
         }
 
         private void OnGeometryChanged(GeometryChangedEvent change) =>
-            rootVisualElement.EnableInClassList("dn-compact", change.newRect.width < 950);
+            rootVisualElement.EnableInClassList("dn-compact", change.newRect.width < 900);
 
         private void OnEnable() => EditorApplication.projectChanged += OnProjectChanged;
         private void OnProjectChanged() { if (content != null) CreateGUI(); }
+
+        private void BuildNavigation()
+        {
+            var navigation = rootVisualElement.Q<ScrollView>("workspace-navigation");
+            foreach (var section in DarkNightsWorkbenchCatalog.Tasks.GroupBy(task => task.Section))
+            {
+                var heading = new Label(section.Key); heading.AddToClassList("dn-nav-section"); navigation.Add(heading);
+                foreach (var task in section)
+                {
+                    string id = task.Id;
+                    var button = new Button(() => ShowWorkspace(id)) { name = "workspace-" + id, tooltip = task.Description };
+                    button.AddToClassList("dn-nav-item");
+                    var title = new Label(task.Title); title.AddToClassList("dn-nav-title"); button.Add(title);
+                    var hint = new Label(task.Hint); hint.AddToClassList("dn-nav-hint"); button.Add(hint);
+                    navigation.Add(button);
+                }
+            }
+        }
 
         private void BuildSceneShortcuts()
         {
@@ -86,24 +94,31 @@ namespace DarkNights.Editor
 
         private void ShowScenes()
         {
-            launcher?.Dispose(); launcher = null; scenes.contentContainer.Clear();
-            if (!scenesExpanded) return;
+            var sceneContent = rootVisualElement.Q("scene-content");
             var search = new ToolbarSearchField { name = "scene-search", value = sceneSearch };
-            scenes.Add(search);
+            search.tooltip = "搜索场景名称、用途或资产路径"; sceneContent.Add(search);
             launcher = new DarkNightsWorkbenchLauncher(sceneSearch, sceneGroup,
                 value => sceneGroup = value, _ => { });
-            scenes.Add(launcher);
+            sceneContent.Add(launcher);
             search.RegisterValueChangedCallback(change => { sceneSearch = change.newValue; launcher?.Filter(change.newValue); });
         }
 
         private void ShowWorkspace(string id)
         {
-            int index = Array.IndexOf(Tasks, id); if (index < 0) index = 0;
-            workspace = Tasks[index];
-            ReleaseTask(); content.Clear();
-            foreach (string task in Tasks) rootVisualElement.Q<Button>("workspace-" + task).EnableInClassList("dn-tab-active", task == workspace);
-            var heading = new Label(Groups[index]); heading.AddToClassList("dn-page-title"); content.Add(heading);
-            foreach (var entry in DarkNightsWorkbenchCatalog.Entries.Where(entry => entry.Group == Groups[index]))
+            var task = DarkNightsWorkbenchCatalog.Tasks.FirstOrDefault(item => item.Id == id);
+            if (task.Id == null) task = DarkNightsWorkbenchCatalog.Tasks[0];
+            workspace = task.Id;
+            ReleasePanels(); content.Clear();
+            var sceneContent = rootVisualElement.Q("scene-content"); sceneContent.Clear();
+            content.style.display = workspace == "scenes" ? DisplayStyle.None : DisplayStyle.Flex;
+            sceneContent.style.display = workspace == "scenes" ? DisplayStyle.Flex : DisplayStyle.None;
+            foreach (var item in DarkNightsWorkbenchCatalog.Tasks)
+                rootVisualElement.Q<Button>("workspace-" + item.Id).EnableInClassList("dn-nav-active", item.Id == workspace);
+            rootVisualElement.Q<Label>("task-section").text = task.Section;
+            rootVisualElement.Q<Label>("task-title").text = task.Title;
+            rootVisualElement.Q<Label>("task-description").text = task.Description;
+            if (workspace == "scenes") { ShowScenes(); UpdateAvailability(); return; }
+            foreach (var entry in DarkNightsWorkbenchCatalog.Entries.Where(entry => entry.Group == task.Title))
             {
                 if (entry.Kind == DarkNightsWorkbenchEntryKind.Tool) content.Add(ToolRow(entry));
                 else if (entry.Kind == DarkNightsWorkbenchEntryKind.Editor)
@@ -116,8 +131,11 @@ namespace DarkNights.Editor
             if (workspace == "objects")
             {
                 content.Add(new HelpBox("配置编辑与保存由原生 Workshop 管理；缺少配置时请显式同步或保存，采集辅助区只做校验。", HelpBoxMessageType.Info));
+                var shortcutsTitle = new Label("常用对象"); shortcutsTitle.AddToClassList("dn-section-title"); content.Add(shortcutsTitle);
                 AddDefinitionShortcuts();
-                var validation = new Foldout { text = "采集装配与目标匹配", value = true, name = "mining-validation" };
+                var validation = new Foldout { text = "采集装配与目标匹配", value = miningExpanded, name = "mining-validation" };
+                validation.AddToClassList("dn-validation");
+                validation.RegisterValueChangedCallback(change => { if (change.target == validation) miningExpanded = change.newValue; });
                 miningPanel = new MiningDefinitionPanel(miningSelection ??= new MiningDefinitionPanelState());
                 validation.Add(miningPanel); content.Add(validation);
             }

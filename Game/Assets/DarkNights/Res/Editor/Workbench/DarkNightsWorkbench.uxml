@@ -1,21 +1,29 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
     <ui:Style src="DarkNightsWorkbench.uss" />
     <ui:VisualElement class="dn-shell">
-        <ui:VisualElement class="dn-header">
-            <ui:Label text="DARK NIGHTS" class="dn-brand" />
-            <ui:VisualElement class="dn-tabs">
-                <ui:Button name="workspace-objects" text="对象与装备" class="dn-tab" />
-                <ui:Button name="workspace-journey" text="星球与航程" class="dn-tab" />
-                <ui:Button name="workspace-map" text="地图与表现" class="dn-tab" />
-                <ui:Button name="workspace-ui" text="界面资源" class="dn-tab" />
+        <ui:VisualElement class="dn-body">
+            <ui:VisualElement name="workbench-sidebar" class="dn-sidebar">
+                <ui:VisualElement class="dn-brand-block">
+                    <ui:Label text="DARK NIGHTS" class="dn-brand" />
+                    <ui:Label text="项目工作台" class="dn-brand-caption" />
+                </ui:VisualElement>
+                <ui:ScrollView name="workspace-navigation" mode="Vertical" horizontal-scroller-visibility="Hidden" class="dn-navigation" />
+                <ui:Label text="选择任务，打开对应编辑器" class="dn-sidebar-hint" />
+            </ui:VisualElement>
+            <ui:VisualElement name="workbench-main" class="dn-main">
+                <ui:VisualElement class="dn-page-header">
+                    <ui:Label name="task-section" class="dn-eyebrow" />
+                    <ui:Label name="task-title" class="dn-page-title" />
+                    <ui:Label name="task-description" class="dn-page-description" />
+                </ui:VisualElement>
+                <ui:VisualElement name="scene-shortcuts" class="dn-scene-shortcuts">
+                    <ui:Label text="常用场景" class="dn-muted" />
+                </ui:VisualElement>
+                <ui:HelpBox name="workbench-error" message-type="Error" />
+                <ui:ScrollView name="task-content" mode="Vertical" horizontal-scroller-visibility="Hidden" class="dn-task-content" />
+                <ui:VisualElement name="scene-content" class="dn-scene-content" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="scene-shortcuts" class="dn-scene-shortcuts">
-            <ui:Label text="场景" class="dn-muted" />
-        </ui:VisualElement>
-        <ui:HelpBox name="workbench-error" message-type="Error" />
-        <ui:ScrollView name="task-content" class="dn-task-content" />
-        <ui:Foldout name="all-scenes" text="全部场景与测试" value="false" class="dn-all-scenes" />
         <ui:Label name="workbench-status" class="dn-status" />
     </ui:VisualElement>
 </ui:UXML>

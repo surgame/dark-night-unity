@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 namespace DarkNights.Editor
 {
     /// <summary>
-    /// 折叠的完整场景目录；分组和搜索直接过滤打开／定位操作，不为每个场景创建中间页面。
+    /// 独立任务区的完整场景目录；分组和搜索直接过滤打开／定位操作，不为每个场景创建中间页面。
     /// 定时器只刷新场景状态，资产存在性在目录重建时读取；事件和定时器随面板释放。
     /// </summary>
     internal sealed class DarkNightsWorkbenchLauncher : VisualElement, IDisposable

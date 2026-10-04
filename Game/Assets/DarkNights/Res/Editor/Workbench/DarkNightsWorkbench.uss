@@ -1,48 +1,79 @@
 .dn-workbench { flex-grow: 1; color: rgb(218, 222, 228); background-color: rgb(42, 44, 48); }
-.dn-shell { flex-grow: 1; }
-.dn-header { flex-direction: row; flex-wrap: wrap; align-items: center; padding: 10px 12px; background-color: rgb(32, 34, 38); border-bottom-width: 1px; border-bottom-color: rgb(62, 66, 73); }
-.dn-brand { -unity-font-style: bold; font-size: 14px; margin-right: 18px; }
-.dn-tabs { flex-direction: row; flex-wrap: wrap; flex-grow: 1; }
-.dn-tab { min-height: 30px; flex-grow: 1; margin: 2px; padding: 4px 10px; }
-.dn-tab-active { background-color: rgb(55, 87, 110); color: rgb(243, 246, 250); border-bottom-color: rgb(111, 173, 213); border-bottom-width: 2px; }
-.dn-scene-shortcuts { flex-direction: row; flex-wrap: wrap; align-items: center; padding: 6px 12px; background-color: rgb(37, 39, 43); }
-.dn-scene-button { min-height: 25px; margin-left: 5px; }
+.dn-shell { flex-grow: 1; min-height: 0; }
+.dn-body { flex-direction: row; flex-grow: 1; min-height: 0; }
+.dn-sidebar { width: 210px; flex-shrink: 0; background-color: rgb(30, 33, 38); border-right-width: 1px; border-right-color: rgb(62, 66, 73); }
+.dn-brand-block { padding: 22px 18px 18px; border-bottom-width: 1px; border-bottom-color: rgb(62, 66, 73); }
+.dn-brand { -unity-font-style: bold; font-size: 15px; letter-spacing: 1px; color: rgb(225, 232, 240); }
+.dn-brand-caption { font-size: 11px; margin-top: 6px; color: rgb(147, 163, 184); }
+.dn-navigation { flex-grow: 1; min-height: 0; padding: 8px; }
+.dn-nav-section { font-size: 11px; -unity-font-style: bold; color: rgb(147, 163, 184); margin: 16px 10px 8px; }
+.dn-nav-item { flex-direction: column; align-items: stretch; min-height: 60px; margin: 2px 0; padding: 10px 12px; background-color: rgba(0, 0, 0, 0); border-width: 0; border-left-width: 3px; border-left-color: rgba(0, 0, 0, 0); border-radius: 4px; }
+.dn-nav-title { -unity-font-style: bold; font-size: 13px; -unity-text-align: middle-left; color: rgb(201, 210, 224); }
+.dn-nav-hint { font-size: 10px; margin-top: 5px; -unity-text-align: middle-left; color: rgb(137, 153, 174); }
+.dn-nav-item:hover { background-color: rgb(43, 49, 57); }
+.dn-nav-active, .dn-nav-active:hover { background-color: rgb(43, 65, 82); border-left-color: rgb(111, 173, 213); }
+.dn-nav-active .dn-nav-title { color: rgb(235, 245, 253); }
+.dn-nav-active .dn-nav-hint { color: rgb(162, 201, 229); }
+.dn-sidebar-hint { white-space: normal; font-size: 10px; color: rgb(137, 153, 174); padding: 12px 18px; }
+.dn-main { flex-grow: 1; flex-shrink: 1; min-width: 0; min-height: 0; }
+.dn-page-header { padding: 20px 20px 14px; }
+.dn-eyebrow { font-size: 10px; -unity-font-style: bold; color: rgb(147, 163, 184); margin-bottom: 6px; }
+.dn-page-title { font-size: 21px; -unity-font-style: bold; margin-bottom: 8px; }
+.dn-page-description { white-space: normal; color: rgb(167, 180, 197); }
+.dn-scene-shortcuts { flex-direction: row; flex-wrap: wrap; align-items: center; padding: 7px 16px; background-color: rgb(37, 39, 43); border-top-width: 1px; border-top-color: rgb(62, 66, 73); border-bottom-width: 1px; border-bottom-color: rgb(62, 66, 73); }
+.dn-scene-button { min-height: 25px; margin: 3px 4px; padding: 3px 8px; }
 .dn-current-scene { border-left-width: 3px; border-left-color: rgb(111, 173, 213); }
-.dn-task-content { flex-grow: 1; padding: 12px; }
-.dn-page-title { font-size: 17px; -unity-font-style: bold; margin-bottom: 10px; }
-.dn-tool-row { flex-direction: row; align-items: center; padding: 10px; margin-bottom: 6px; background-color: rgb(48, 51, 57); border-radius: 4px; }
+.dn-task-content { flex-grow: 1; min-height: 0; padding: 16px 20px; }
+.dn-task-content > .unity-scroll-view__content-viewport > .unity-scroll-view__content-container { min-width: 0; }
+.dn-tool-row { flex-direction: row; align-items: center; padding: 14px; margin-bottom: 9px; background-color: rgb(48, 51, 57); border-width: 1px; border-color: rgb(64, 69, 78); border-radius: 5px; }
 .dn-entry-info { flex-grow: 1; flex-shrink: 1; min-width: 0; }
-.dn-entry-title { -unity-font-style: bold; margin-bottom: 4px; }
+.dn-entry-title { -unity-font-style: bold; font-size: 13px; margin-bottom: 5px; }
 .dn-description { white-space: normal; color: rgb(181, 190, 201); margin-bottom: 4px; }
-.dn-native-action { min-height: 28px; margin: 3px 6px; padding: 3px 10px; }
+.dn-native-action { flex-shrink: 0; min-height: 28px; margin: 3px 6px; padding: 3px 10px; }
 .dn-definition-shortcuts, .dn-actions { flex-direction: row; flex-wrap: wrap; margin-top: 5px; margin-bottom: 8px; }
+.dn-section-title { -unity-font-style: bold; margin: 14px 0 6px; }
+.dn-validation { padding: 10px; margin-top: 12px; border-width: 1px; border-color: rgb(64, 69, 78); border-radius: 5px; }
 .dn-mining-panel { margin-top: 7px; padding: 8px; background-color: rgb(37, 40, 45); }
 .dn-mining-panel .unity-help-box { margin-top: 7px; margin-bottom: 7px; }
-.dn-sources { padding: 10px; margin-top: 8px; background-color: rgb(37, 40, 45); }
+.dn-sources { padding: 14px; margin-top: 8px; background-color: rgb(37, 40, 45); border-width: 1px; border-color: rgb(64, 69, 78); border-radius: 5px; }
 .dn-sources > .unity-label { -unity-font-style: bold; margin-bottom: 8px; }
 .dn-sources .unity-popup-field { margin-bottom: 8px; }
-.dn-all-scenes { padding: 6px 12px; border-top-width: 1px; border-top-color: rgb(62, 66, 73); }
-.dn-all-scenes .dn-launcher { max-height: 270px; }
-.dn-all-scenes .dn-page-title, .dn-all-scenes .dn-launcher > .dn-description { display: none; }
-.dn-launcher { flex-grow: 1; min-height: 100px; }
-.dn-launcher-content { flex-grow: 1; }
+.dn-scene-content { flex-grow: 1; min-height: 0; padding: 14px 20px; }
+.dn-scene-content > .unity-toolbar-search-field { margin-bottom: 6px; }
+.dn-launcher { flex-grow: 1; min-height: 0; }
+.dn-launcher-content { flex-grow: 1; min-height: 0; }
 .dn-filters { flex-direction: row; flex-wrap: wrap; margin-top: 6px; margin-bottom: 8px; }
 .dn-chip { min-height: 24px; margin: 2px 4px; }
 .dn-chip-active { background-color: rgb(55, 87, 110); color: rgb(243, 246, 250); }
-.dn-section-title { -unity-font-style: bold; margin: 8px 0; }
-.dn-scene-row { flex-direction: row; align-items: center; padding: 9px; margin-bottom: 5px; background-color: rgb(48, 51, 57); }
+.dn-scene-row { flex-direction: row; align-items: center; padding: 12px; margin-bottom: 7px; background-color: rgb(48, 51, 57); border-radius: 4px; }
 .dn-path { white-space: normal; color: rgb(166, 178, 194); font-size: 11px; }
 .dn-empty { white-space: normal; padding: 18px; }
-.dn-status { white-space: normal; padding: 8px 12px; background-color: rgb(32, 34, 38); color: rgb(181, 190, 201); border-top-width: 1px; border-top-color: rgb(62, 66, 73); }
-.dn-muted { color: rgb(181, 190, 201); }
-.dn-compact .dn-header { flex-direction: column; align-items: stretch; }
-.dn-compact .dn-brand { margin-bottom: 6px; }
-.dn-compact .dn-tool-row, .dn-compact .dn-scene-row { flex-direction: column; align-items: stretch; }
-.dn-compact .dn-native-action { margin-top: 8px; }
-.dn-light { color: rgb(35, 44, 53); background-color: rgb(233, 237, 242); }
-.dn-light .dn-header, .dn-light .dn-status { background-color: rgb(215, 222, 230); border-bottom-color: rgb(186, 194, 204); border-top-color: rgb(186, 194, 204); }
-.dn-light .dn-scene-shortcuts { background-color: rgb(224, 229, 236); }
-.dn-light .dn-tool-row, .dn-light .dn-scene-row { background-color: rgb(247, 249, 252); }
-.dn-light .dn-sources, .dn-light .dn-mining-panel { background-color: rgb(225, 232, 239); }
-.dn-light .dn-description, .dn-light .dn-status, .dn-light .dn-muted, .dn-light .dn-path { color: rgb(72, 88, 108); }
-.dn-light .dn-tab-active, .dn-light .dn-chip-active { background-color: rgb(190, 215, 235); color: rgb(24, 49, 70); }
+.dn-status { white-space: normal; font-size: 11px; padding: 7px 12px; background-color: rgb(30, 33, 38); color: rgb(147, 163, 184); border-top-width: 1px; border-top-color: rgb(62, 66, 73); }
+.dn-muted { color: rgb(181, 190, 201); margin-right: 6px; }
+.dn-compact .dn-sidebar { width: 168px; }
+.dn-compact .dn-brand-block { padding: 18px 14px 14px; }
+.dn-compact .dn-brand { font-size: 13px; }
+.dn-compact .dn-nav-item { padding: 10px 8px; }
+.dn-compact .dn-nav-hint { font-size: 9px; }
+.dn-compact .dn-page-header { padding: 16px 14px 12px; }
+.dn-compact .dn-page-title { font-size: 19px; }
+.dn-compact .dn-task-content, .dn-compact .dn-scene-content { padding: 12px 14px; }
+.dn-compact .dn-tool-row, .dn-compact .dn-scene-row { flex-direction: column; align-items: stretch; padding: 12px; }
+.dn-compact .dn-native-action { margin: 8px 0 0; }
+.dn-compact .dn-definition-shortcuts .dn-native-action { margin: 3px; }
+.dn-light { color: rgb(35, 44, 53); background-color: rgb(238, 241, 245); }
+.dn-light .dn-sidebar, .dn-light .dn-status { background-color: rgb(222, 228, 236); border-right-color: rgb(194, 203, 216); border-top-color: rgb(194, 203, 216); }
+.dn-light .dn-brand-block { border-bottom-color: rgb(194, 203, 216); }
+.dn-light .dn-brand { color: rgb(35, 51, 72); }
+.dn-light .dn-nav-title { color: rgb(61, 78, 99); }
+.dn-light .dn-brand-caption, .dn-light .dn-nav-section, .dn-light .dn-nav-hint, .dn-light .dn-sidebar-hint, .dn-light .dn-eyebrow { color: rgb(99, 117, 138); }
+.dn-light .dn-nav-item:hover { background-color: rgb(211, 221, 234); }
+.dn-light .dn-nav-active, .dn-light .dn-nav-active:hover { background-color: rgb(193, 215, 236); border-left-color: rgb(57, 116, 166); }
+.dn-light .dn-nav-active .dn-nav-title { color: rgb(23, 67, 106); }
+.dn-light .dn-nav-active .dn-nav-hint { color: rgb(57, 98, 135); }
+.dn-light .dn-scene-shortcuts { background-color: rgb(228, 234, 241); border-top-color: rgb(208, 216, 226); border-bottom-color: rgb(208, 216, 226); }
+.dn-light .dn-tool-row, .dn-light .dn-scene-row { background-color: rgb(249, 250, 252); border-color: rgb(211, 220, 230); }
+.dn-light .dn-sources, .dn-light .dn-mining-panel { background-color: rgb(231, 237, 244); border-color: rgb(211, 220, 230); }
+.dn-light .dn-validation { border-color: rgb(211, 220, 230); }
+.dn-light .dn-description, .dn-light .dn-page-description, .dn-light .dn-status, .dn-light .dn-muted, .dn-light .dn-path { color: rgb(72, 88, 108); }
+.dn-light .dn-chip-active { background-color: rgb(190, 215, 235); color: rgb(24, 49, 70); }

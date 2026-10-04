@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd15f4c54cb5b143ab8f993f613f3da, type: 3}
   m_Name: ObjectArchetypeDatabase
   m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectArchetypeDatabase
-  ArchetypeRecords: []
+  ArchetypeRecords:
+  - ShowInMenu: 1
+    Archetype: {fileID: 11400000, guid: a8889a7057cea1044a96bb9b701cbbcd, type: 2}
+  - ShowInMenu: 1
+    Archetype: {fileID: 11400000, guid: df29002f86da9cb46b2b8a7133c28005, type: 2}
+  - ShowInMenu: 1
+    Archetype: {fileID: 11400000, guid: 9c3e56581045d5a469208b34ca4f7fa7, type: 2}
+  - ShowInMenu: 1
+    Archetype: {fileID: 11400000, guid: b0664514001fbc044a80a456489cbc90, type: 2}

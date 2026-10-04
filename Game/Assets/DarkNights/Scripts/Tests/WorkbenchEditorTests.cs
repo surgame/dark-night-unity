@@ -101,20 +101,20 @@ namespace DarkNights.Tests
         }
 
         [UnityTest]
-        public IEnumerator SceneSearchRestoresAcrossFoldoutAndGuiRebuild()
+        public IEnumerator SceneSearchRestoresAcrossTaskSwitchAndGuiRebuild()
         {
             var window = (EditorWindow)ScriptableObject.CreateInstance(Type("DarkNightsWorkbenchWindow"));
             try
             {
                 window.Show(); yield return null; Call(window, "CreateGUI");
-                window.rootVisualElement.Q<Foldout>("all-scenes").value = true;
+                Call(window, "ShowWorkspace", "scenes");
                 window.rootVisualElement.Q<ToolbarSearchField>("scene-search").value = "Assets/Scenes/Bootstrap.unity";
                 Assert.That(window.rootVisualElement.Q<Button>("action-bootstrap"), Is.Not.Null);
                 Assert.That(window.rootVisualElement.Q("launch-expedition"), Is.Null);
                 var launcher = Get(window, "launcher");
-                window.rootVisualElement.Q<Foldout>("all-scenes").value = false;
+                Call(window, "ShowWorkspace", "objects");
                 Assert.That((bool)Get(launcher, "disposed"), Is.True);
-                window.rootVisualElement.Q<Foldout>("all-scenes").value = true;
+                Call(window, "ShowWorkspace", "scenes");
                 Assert.That(window.rootVisualElement.Q<ToolbarSearchField>("scene-search").value, Is.EqualTo("Assets/Scenes/Bootstrap.unity"));
                 Call(window, "CreateGUI");
                 Assert.That(window.rootVisualElement.Q<Button>("action-bootstrap"), Is.Not.Null);

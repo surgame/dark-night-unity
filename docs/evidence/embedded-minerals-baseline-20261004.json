@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-04",
+  "source_branch": "ref-20261004-tuner-journey-workbench",
+  "source_head": "1bf692d6719b57906e6e1b4c52c8ae97c517823c",
+  "scope": "提交已有导航、排版、测试与四项有效Archetype登记；随后合入本地main",
+  "editor": {
+    "id": "ore-baseline-workbench-20261004",
+    "state": "Failed(Child)",
+    "utc": "2026-10-04T09:53:30.0232076Z",
+    "unity": "6000.4.9f1",
+    "passed": 10,
+    "failed": 1,
+    "skipped": 0
+  },
+  "failed_case": "DarkNights.Tests.NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding",
+  "failure": "工坊焦点后的delayCall未在10秒内执行，失败保留；未修改测试或框架",
+  "uxml_parse_passed": true,
+  "archetype_references_resolved": 4,
+  "protocol": 23,
+  "save_version": 17,
+  "raw_xml": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\embedded-ore-development-20261004/baseline-editor.xml",
+  "new_player_builds": 0,
+  "framework_changes": 0,
+  "pushed": false
+}
