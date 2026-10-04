@@ -37,6 +37,8 @@ UXML／USS 使用统一的深浅主题色、青绿色主按钮、低强调快捷
 
 剩余 `NativeWorkspaceEditorTests.WorkshopUsesOriginalWindowAndTargetWithoutEmbedding` 在焦点后的 `EditorApplication.delayCall` 哨兵等待超时；保留所有失败 XML，不改写成通过。另行执行真实 Editor 焦点回调，确认回调完成、配置内容不变、dirty 不变、窗口未停靠；该实测不覆盖自动测试失败计数。测试诊断改为写入本次 XML，避免覆盖 2026-10-03 的冻结证据。
 
+2026-10-05 跟进复测 `workbench-focus-fix-20261005-r1` 仍为 **0/1 通过**，失败位置不变。在等待中请求 `QueuePlayerLoopUpdate` 并重复 Repaint 未解决超时，试验改动已撤回；没有修改 YYGC。按用户要求结束本次调查，将 Editor 验证通道交给另一聊天。后续需定位完整测试流程中 delayCall 未执行的原因，再复测该用例及受影响的原生窗口回归；当前不宣称修复。失败报告为 `artifacts/terrain-final-20260926/workbench-focus-fix-20261005-r1.xml`。
+
 5 项涉及导航的作者资产哈希保持。没有生成美术位图；界面采用现有 UXML 与确定性 USS。验证输出与截图保留在 `artifacts/workbench-refresh-20261005/`，机器索引见 [本批证据](evidence/workbench-refresh-20261005.json)。临时命令发现输出集中到 `artifacts/待清理/20261005-workbench-refresh/` 并保留清单，未永久删除；共享 Library 与其他任务构建继续保留。
 
 ## YYGC 导航修正（历史）
