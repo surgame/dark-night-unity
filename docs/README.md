@@ -39,6 +39,7 @@
 
 ## 开发入口
 
+- [EMBEDDED_MINERAL_LAYER_PLAN.md](EMBEDDED_MINERAL_LAYER_PLAN.md) — 独立 AnyRuleD 矿层、YYGC 多格矿床、采集同步与恢复的执行方案；2026-10-04 纯规则探针通过，真实素材及玩法未实施；[深度审查](EMBEDDED_MINERAL_LAYER_REVIEW.md)
 - [BUSINESS_RULE_AUDIT.md](BUSINESS_RULE_AUDIT.md) — 当前业务规则、隐藏数值、模式生效范围和组件职责问题；2026-09-30 仅审查，未整改或运行验证
 - [DEVELOPMENT.md](DEVELOPMENT.md) — 开发执行入口与当前状态
 - [QUICK_START.md](QUICK_START.md) — 人工开发快速上手
