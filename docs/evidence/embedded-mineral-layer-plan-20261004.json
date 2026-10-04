@@ -1,0 +1,255 @@
+{
+  "schema": 1,
+  "date": "2026-10-04",
+  "task": "embedded-mineral-layer-plan",
+  "game_baseline": "9df79dcdec86175a0885fdcf405b2280e92a34ad",
+  "branch": "docs-20261004-embedded-ore-plan",
+  "kind": "execution-plan-and-self-review",
+  "framework_source_changes": 0,
+  "framework_upgrade": false,
+  "dependency": {
+    "declared_base_commit": "fee18645c997ed7529c4592917de6c412033c84e",
+    "declared_patch_sha256": "7b16e941cd7cc119e22b531678584103c697c6b5456b637658cdd0915a039811",
+    "dependency_lock_sha256": "e69cc5ab960b33f276081b27debbb69e45ccf5a143f2d4bcf9d406b1864bd4e0",
+    "source_root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\.deps\\YYGC-grid-business\\AnyRuleD~\\Packages\\com.tsgame.anyrules",
+    "source_files": 41,
+    "source_drift": 0,
+    "sources": [
+      {
+        "package_relative_path": "Runtime/Core/AssemblyInfo.cs",
+        "sha256": "cbc8e17528216c040f34637b2a80d99df8ea1d7fcd84e907218287d23ec1b360"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Business/GridBusinessCatalog.cs",
+        "sha256": "0c79893af8f99998db449084438f4936d1308ec83d9918792a43b8fd0f384357"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Business/GridBusinessStateStore.cs",
+        "sha256": "d8c3953ff90289fbb18991983f3ef82fcdb7204b02e9eaa1e2c454c2785fa858"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Business/GridChangeImpact.cs",
+        "sha256": "07d2189ab8656f3d99241abd7c85f6398e95bd477d909d19b26f34b7b5691041"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Business/VisualStateKey.cs",
+        "sha256": "f62bdef047a2ece92a957fed9449e9df647d21d356f4db32799cdd717e5b2467"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Collision/GridCollisionGeometry.cs",
+        "sha256": "73ba5eaf6ebae9d5841aa25b16b4c7b8ff8b0046d5617b45b161ab595496d154"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Collision/IGridCollisionQuery.cs",
+        "sha256": "5743e1e16dab8e40c7652baaf14f494ee786a46c16dfd0c17b083a29b531dabc"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Contracts/Coordinates.cs",
+        "sha256": "6989505670763d8a9c940ea94f6dd3fc8841d9cf99fb69748b12e88eca422148"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Contracts/GridCell.cs",
+        "sha256": "ea18e4f74dbdeb81124ca64e6d58ab55919511e1c3cde466dbe940f8d7188419"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Contracts/IGridCellIdentitySource.cs",
+        "sha256": "38bd867e64e3d1891da39c8d31fc63f9629747e086f3674ab61b881de8abbe5f"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Contracts/StableGuid.cs",
+        "sha256": "60c6f27409347e009b9142398e6c0421e0c763b468076e1b7f0d026c29cd8181"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Contracts/StableVariantHash.cs",
+        "sha256": "8b59ee966072bf2357b5860afa982ff2e179ed7d9f2d3ec2a1df0cedac7d8277"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Contracts/TileCatalog.cs",
+        "sha256": "146cb992879314997edb185e0ebe13058cc8c6dbe9d9d90634b4b4b38a92222a"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Contracts/WorldDescriptor.cs",
+        "sha256": "8e18ce11631c011935fd4e250dfc9784fa71b019a1781ced6e640524e89e1af8"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Grid/ARDMap.cs",
+        "sha256": "c9057e6b6263009335cde6fd487ce8efd976b7f4e5dd474470b930466905a7ae"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Grid/ARDMap.Input.cs",
+        "sha256": "67973776c60e3b7bdd7c756926a2cf61cd5ac6cf3fdea1a92c2df6a8ea5aff87"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Grid/DynamicGrid.cs",
+        "sha256": "cfb1f5b8375f3ccfb1ab49c71303b4fcd95f43ebc5db44330e0e4f8f2067234a"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Grid/GridChangeSet.cs",
+        "sha256": "e1bfde56529db68383dceab85bf25b7ffd305b86dd16ee72f121aa1f20801ff4"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Grid/GridSnapshot.cs",
+        "sha256": "dc20b46a9693dbf1991ab67d92f50817266b1414e98a81aad0249ba420d6b4ab"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Grid/MapEditBatch.cs",
+        "sha256": "043de93ef702f5d109af246478b2ded95b9cf9e5db0d3ed6af54597f1f764910"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Grid/MapInputBatch.cs",
+        "sha256": "cc558ef9c1344d4dc6a3f0e0a066385f038b3446a85629d226bdd602351278b7"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Invalidation/GridDependency.cs",
+        "sha256": "2bce9095b17f54caf7ae7de81a3f5c7edc5b3ec90c00840ffde17e6ebcf579bc"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Layers/BoundaryBand.cs",
+        "sha256": "f3b7a7be0d32eb30c0509d36681ef9a6c96e7c9f3ba51e632aa54be48e6f065c"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Layers/GridCapabilities.cs",
+        "sha256": "81786c99a48d044000e1cb895044c66de91caf8bb2f13a3c544e284307ed45f7"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Layers/OverlayGridCodec.cs",
+        "sha256": "52bc6db1705b87eda7027e5da4e3f432bd7fb253d69e16b297f90de530f20c68"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Layers/OverlayGridSource.cs",
+        "sha256": "25f218401ca55540878e35264bb3837fd06768fd0c55c711bf47747d647e1ced"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Persistence/ARDMapPersistence.cs",
+        "sha256": "44e98b3ced90fcd9f7f4ec6b615785f9385309e1cbfee025c19ae03bf9d32ee6"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Persistence/GridJournal.cs",
+        "sha256": "b4c2f3320bdbc97d4e945044d86c395590c64f4d13355d6a67238ea734db2329"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Persistence/GridSaveCodec.cs",
+        "sha256": "f7df4d98b45c04d032e5f935e5bbd3a54bf19518fe97a6e6d7087ecf38a452f3"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Persistence/TerrainPalette.cs",
+        "sha256": "27000c51c15ef77486d3103b0353ba27fef8f2e6cb0d3b741f6dbbb618a6c899"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Rules/FillProfile.cs",
+        "sha256": "3a41953f033fabfe13815b9ced57ff19b510950d560aad62dc58191d623dbd14"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Rules/MultiTerrainSolver.cs",
+        "sha256": "b4c0333b66d2bfca9ac7715e4bcd7ed8b3e991f9fa0747e9b4458fd9b6300f0a"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Rules/RenderRecipe.cs",
+        "sha256": "5a56561eb1b524843b7f2412d26abbadc02de142a5ac6dd82ba15350140357e7"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Rules/RuleCatalogCodec.cs",
+        "sha256": "3bb3b6ef616c9640a149da83aa16e5f8cea9405dee9f52d85fa9c8b689885683"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Rules/RulePrimitives.cs",
+        "sha256": "1bbe59dc9aab0d5cc4a546a6e0da1f11de22f424e1c62483190d4b5f4e96e696"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Rules/RuleSources.cs",
+        "sha256": "d86fd7627567690412819083fc1c662b14c5022d7c512a7164777c9a39b151b6"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Rules/RuntimeAnyRuleDDatabase.cs",
+        "sha256": "a64cfda44732d4bd356668bea1e48fd6f36e781d91301da7b2681fd5320512ee"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Rules/TopologyTemplates.cs",
+        "sha256": "5e7fc460b8782383cf67089ec2b2af0504a518fc2cb7348ba21b7aaeeaf5a084"
+      },
+      {
+        "package_relative_path": "Runtime/Core/Rules/TopologyTemplates.Data.cs",
+        "sha256": "10bcf55abbd9950426f2951b89110eea52a62aed2bf7627e3611a14f789d8c2a"
+      },
+      {
+        "package_relative_path": "Compiler/RuleCompiler.cs",
+        "sha256": "161496526771e17f18a8829e0dea13de4b51b7933e8a700f07c1691dd7a19196"
+      },
+      {
+        "package_relative_path": "Compiler/RuleDiagnostics.cs",
+        "sha256": "f4ab0fdf0a19bfc6840a24b17182da63318fa80390197c28de4ef5c74362621a"
+      }
+    ]
+  },
+  "probe": {
+    "runtime": "dotnet 8.0.409",
+    "language_version": "C# 9",
+    "program_sha256": "ef7339a222adf0f20fd3111db5a5e9adac57c26be22b0827b832ec6fe27f9e1c",
+    "project_sha256": "5c2d71625ef391b9c9a387de9ff6ea10e4f94c3e2b2f973305254531c71667c5",
+    "build_exit_code": 0,
+    "build_warnings": 0,
+    "build_errors": 0,
+    "run_exit_code": 0,
+    "result": {
+      "schema": 1,
+      "passed": true,
+      "checks": {
+        "actual_compilation": 1,
+        "four_variant_rule_sets": 75,
+        "four_corner_recipes": 1296,
+        "nonempty_mineral_selections": 3355,
+        "catalog_roundtrips": 1296,
+        "unknown_corner_pending": 4,
+        "old_exact_notthis_rejected": 1,
+        "notthis_excludes_empty": 1,
+        "surface_channel_mixed_fallback": 1,
+        "missing_fill_rejected": 1
+      },
+      "error": "",
+      "scope": "Actual unchanged AnyRules compiler, solver and codec; synthetic resource IDs; no Unity, raster, business or network validation."
+    },
+    "synthetic_visuals_only": true,
+    "first_single_variant_input_retained": true
+  },
+  "pending": [
+    "Unity rule assets and actual sprite rendering",
+    "RGBA clipping and mixed-mineral seams",
+    "YYGC object assembly and deep copying",
+    "mining transactions and request deduplication",
+    "projection and save roundtrip",
+    "late join, reconnect, Ready and cross-stream ordering",
+    "normal and weak-network independent-process Mono",
+    "four players, foreground performance, IL2CPP and two machines"
+  ],
+  "raw_evidence_root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\embedded-ore-plan-20261004",
+  "archive_root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-embedded-ore-plan",
+  "plan_implementation_started": false,
+  "production_code_changes": 0,
+  "unity_runs": 0,
+  "player_builds": 0,
+  "permanent_deletions": 0,
+  "archive": {
+    "archive_root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-embedded-ore-plan",
+    "manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-embedded-ore-plan\\清单.md",
+    "items": [
+      {
+        "name": "bin",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\embedded-ore-plan-20261004\\bin",
+        "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-embedded-ore-plan\\artifacts\\embedded-ore-plan-20261004\\bin",
+        "bytes": 823730
+      },
+      {
+        "name": "obj",
+        "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\embedded-ore-plan-20261004\\obj",
+        "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261004-embedded-ore-plan\\artifacts\\embedded-ore-plan-20261004\\obj",
+        "bytes": 976845
+      }
+    ],
+    "total_bytes": 1800575,
+    "free_before_bytes": 20360855552,
+    "free_after_bytes": 20360855552,
+    "freed_bytes": 0,
+    "blocked_items": [],
+    "permanent_deletions": 0
+  }
+}
