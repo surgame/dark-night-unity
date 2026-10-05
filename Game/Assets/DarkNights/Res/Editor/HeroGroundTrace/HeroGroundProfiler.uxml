@@ -9,6 +9,10 @@
             <ui:Button name="folder" text="记录目录" />
             <ui:Toggle name="follow" label="跟随录制" value="true" />
         </ui:VisualElement>
+        <ui:VisualElement class="trace-movement-tools">
+            <ui:Toggle name="fastMovement" label="主角移动 8×（快速跑图）" />
+            <ui:Label text="停止 Play 后设置，下次 Play 生效；正常移动／跳跃验收时关闭。" class="trace-movement-hint" />
+        </ui:VisualElement>
         <ui:Label name="status" text="等待录制" class="trace-status" />
         <ui:Label name="counters" text="起跳 0    未起跳丢支撑 0    近地空中 0 步" class="trace-counters" />
         <ui:ProgressBar name="progress" low-value="0" high-value="7200" class="trace-progress" />

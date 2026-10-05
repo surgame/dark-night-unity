@@ -1,15 +1,13 @@
 using DarkNights.Editor.Terrain;
-using UnityEditor;
 
 namespace DarkNights.Editor
 {
     /// <summary>
-    /// 注册工作台维护命令和仍需随时使用的主角调试开关；具体命令与状态仍归原工具。
+    /// 注册工作台维护命令；具体命令与状态仍归原工具。
     /// </summary>
     public static class DarkNightsMenu
     {
         private const string Root = "Dark Nights/";
-        internal const string HeroSpeedPath = Root + "Debug/主角移动 8×";
 
         [DarkNightsWorkbenchCommand(Root + "Content/Initialize Environment", "初始化项目环境")]
         private static void InitializeEnvironment() => DarkNightsEnvironmentSetup.Initialize();
@@ -61,11 +59,6 @@ namespace DarkNights.Editor
         private static void VerifySessionLifecycle() => SessionLifecycleProbe.Run();
         [DarkNightsWorkbenchCommand(Root + "Verify/Native UI Runtime", "检查原生界面运行")]
         private static void VerifyNativeUi() => NativeUiRuntimeProbe.Run();
-
-        [MenuItem(HeroSpeedPath)]
-        private static void ToggleHeroSpeed() => ScenePlaySelection.ToggleDebugSpeed();
-        [MenuItem(HeroSpeedPath, true)]
-        private static bool ValidateHeroSpeed() => ScenePlaySelection.ValidateDebugSpeed();
 
     }
 }

@@ -6,6 +6,9 @@
 .trace-toolbar > .unity-button:disabled { color: rgb(130, 143, 159); background-color: rgb(30, 36, 44); }
 .trace-toolbar > .trace-primary { color: rgb(18, 45, 42); background-color: rgb(136, 211, 198); }
 .trace-toolbar > .unity-toggle { margin-left: 8px; }
+.trace-movement-tools { flex-direction: row; align-items: center; flex-shrink: 0; margin-bottom: 10px; }
+.trace-movement-tools > .unity-toggle { flex-shrink: 0; margin-right: 12px; }
+.trace-movement-hint { flex-grow: 1; white-space: normal; color: rgb(169, 187, 207); }
 .trace-status { font-size: 16px; -unity-font-style: bold; margin-bottom: 6px; color: rgb(136, 211, 198); }
 .trace-counters { margin-bottom: 8px; }
 .trace-progress { height: 18px; margin-bottom: 10px; }

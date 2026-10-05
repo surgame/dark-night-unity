@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using DarkNights.Entry;
 using DarkNights.Runtime.Terrain;
 using UnityEditor;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace DarkNights.Editor
         private Label status, counters, details, inputDetails, notice, output;
         private TerrainJumpTraceSample[] inputArchive = Array.Empty<TerrainJumpTraceSample>();
         private Button start, stop, export, load;
-        private Toggle follow;
+        private Toggle follow, fastMovement;
         private SliderInt selection;
         private ProgressBar progress;
         private IVisualElementScheduledItem refresh;
@@ -52,6 +53,13 @@ namespace DarkNights.Editor
             export = rootVisualElement.Q<Button>("export");
             start.tooltip = "开始新一轮会替换当前内存记录；需要保留时请先导出。";
             load = rootVisualElement.Q<Button>("load"); follow = rootVisualElement.Q<Toggle>("follow");
+            fastMovement = rootVisualElement.Q<Toggle>("fastMovement");
+            fastMovement.tooltip = "将下次 Play 的权威主角横向移动速度设为 8 倍，用于快速跑图；停止 Play 后才能修改。";
+            fastMovement.RegisterValueChangedCallback(e =>
+            {
+                if (!EditorApplication.isPlayingOrWillChangePlaymode)
+                    EditorPrefs.SetBool(GameSessionStartupModule.HeroSpeedPreference, e.newValue);
+            });
             selection = rootVisualElement.Q<SliderInt>("selection");
             graph = new HeroGroundTraceGraph(); rootVisualElement.Q("graphHost").Add(graph);
             start.clicked += () => Act(HeroGroundTraceTool.Start);
@@ -102,6 +110,8 @@ namespace DarkNights.Editor
                 while (HeroGroundTraceTool.TryRead(frames.Count, out var frame)) { frames.Add(frame); Count(frame); }
             }
             bool recording = TerrainMotionTrace.Recording;
+            fastMovement.SetValueWithoutNotify(EditorPrefs.GetBool(GameSessionStartupModule.HeroSpeedPreference, false));
+            fastMovement.SetEnabled(!EditorApplication.isPlayingOrWillChangePlaymode);
             start.SetEnabled(EditorApplication.isPlaying && !recording); stop.SetEnabled(recording);
             export.SetEnabled(!archive && HeroGroundTraceTool.Count > 0);
             load.text = archive ? "当前记录" : "最近记录";

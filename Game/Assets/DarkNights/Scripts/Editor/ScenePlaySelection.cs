@@ -50,18 +50,5 @@ namespace DarkNights.Editor
             SessionState.SetString("DarkNights.PlayScene", scene.path);
         }
 
-        internal static void ToggleDebugSpeed()
-        {
-            bool enabled = !EditorPrefs.GetBool(DarkNights.Entry.GameSessionStartupModule.HeroSpeedPreference, false);
-            EditorPrefs.SetBool(DarkNights.Entry.GameSessionStartupModule.HeroSpeedPreference, enabled);
-            Menu.SetChecked(DarkNightsMenu.HeroSpeedPath, enabled);
-        }
-
-        internal static bool ValidateDebugSpeed()
-        {
-            Menu.SetChecked(DarkNightsMenu.HeroSpeedPath,
-                EditorPrefs.GetBool(DarkNights.Entry.GameSessionStartupModule.HeroSpeedPreference, false));
-            return !EditorApplication.isPlayingOrWillChangePlaymode;
-        }
     }
 }
