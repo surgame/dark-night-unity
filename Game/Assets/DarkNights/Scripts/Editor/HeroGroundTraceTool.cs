@@ -20,7 +20,7 @@ namespace DarkNights.Editor
     [InitializeOnLoad]
     public static class HeroGroundTraceTool
     {
-        private const string Menu = "Dark Nights/Debug/主角地面记录/";
+        private const string Menu = "Dark Nights/Debug/主角地面接触／跳跃调试/";
         private static bool capturing;
         private static HeroGroundTraceBuffer buffer;
         public static int Generation { get; private set; }

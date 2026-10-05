@@ -26,11 +26,11 @@ namespace DarkNights.Editor
         private bool archive;
         private string viewNotice;
 
-        [MenuItem("Dark Nights/Debug/主角地面记录/打开 Profiler 浮窗", false, 0)]
-        [MenuItem("Window/Analysis/Dark Nights 主角地面 Profiler")]
+        [MenuItem("Dark Nights/Debug/主角地面接触／跳跃调试/打开 Profiler 浮窗", false, 0)]
+        [MenuItem("Window/Analysis/Dark Nights 主角地面接触／跳跃调试")]
         public static void Open()
         {
-            var window = GetWindow<HeroGroundProfilerWindow>(true, "主角地面 Profiler", false);
+            var window = GetWindow<HeroGroundProfilerWindow>(true, "主角地面接触／跳跃调试", false);
             window.minSize = new Vector2(640, 560);
             if (window.position.width < 640 || window.position.height < 560)
                 window.position = new Rect(window.position.x, window.position.y, 800, 580);
