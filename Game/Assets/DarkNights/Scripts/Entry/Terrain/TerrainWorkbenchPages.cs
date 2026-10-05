@@ -19,7 +19,7 @@ namespace DarkNights.Entry.Terrain
             if (tool != panel.MapTool) { edits?.EndStroke(); panel.MapTool = tool; GUI.FocusControl(null); }
             GUILayout.Label(panel.MapTool == 0 ? "Tab 切换行走/观察；左键手采，右键爆破。" : "左键拖动操作；中键平移，滚轮缩放。退出工具后回到角色镜头。");
             if (panel.MapTool == 3) panel.FillMaterial = (byte)(GUILayout.SelectionGrid(panel.FillMaterial - 1, Materials, 3) + 1);
-            panel.ShowGrid = GUILayout.Toggle(panel.ShowGrid, "显示格子网格");
+            DrawGridControls(panel);
             bool enabled = GUI.enabled;
             GUILayout.BeginHorizontal();
             GUI.enabled = enabled && edits?.CanUndo == true && !boot.Generating;
@@ -71,7 +71,7 @@ namespace DarkNights.Entry.Terrain
             flyer.Speed = TerrainFieldControls.Slider("观察飞行速度", flyer.Speed, 2, 100);
             if (GUILayout.Button("适配全图")) { panel.MapTool = 1; flyer.FitWorkbenchMap(panel.Layout.Panel.xMax * panel.Layout.Scale); }
             if (GUILayout.Button("回到角色镜头")) { panel.MapTool = 0; flyer.ResetWorkbenchCamera(); }
-            panel.ShowGrid = GUILayout.Toggle(panel.ShowGrid, "显示地形网格");
+            DrawGridControls(panel);
             var workshop = panel.Bootstrap.Workshop;
             if (workshop != null)
             {
@@ -80,6 +80,15 @@ namespace DarkNights.Entry.Terrain
                     new[] { "固定跳跃", "按住控制跳高" }, 2);
                 workshop.JetpackEnabled = GUILayout.Toggle(workshop.JetpackEnabled, "启用喷气背包");
             }
+        }
+        private static void DrawGridControls(TerrainDebugPanel panel)
+        {
+            panel.ShowGrid = GUILayout.Toggle(panel.ShowGrid, "显示地形网格");
+            bool enabled = GUI.enabled; GUI.enabled = enabled && panel.ShowGrid;
+            panel.GridMode = (TerrainGridMode)GUILayout.SelectionGrid((int)panel.GridMode,
+                new[] { "逻辑网格", "渲染网格" }, 2);
+            GUI.enabled = enabled;
+            if (panel.MapTool >= 2) GUILayout.Label("拆填目标始终为逻辑格；切换网格只改变叠图。");
         }
         public void DrawStatus(TerrainDebugPanel panel)
         {

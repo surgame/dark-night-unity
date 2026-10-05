@@ -2,6 +2,7 @@ using System;
 using DarkNights.View.Terrain;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace DarkNights.Entry.Terrain
 {
@@ -14,9 +15,21 @@ namespace DarkNights.Entry.Terrain
         public int ActiveTab { get; set; }
         public float UiScale = 1, PanelWidth = 380;
         public bool Visible = true;
-        public int MapTool;
+        [SerializeField, FormerlySerializedAs("MapTool")] private int mapTool;
+        public int MapTool
+        {
+            get => mapTool;
+            set
+            {
+                if (mapTool == value) return;
+                mapTool = value;
+                if (value < 2) return;
+                ShowGrid = true; GridMode = TerrainGridMode.Logical;
+            }
+        }
         public byte FillMaterial = 1;
         public bool ShowGrid;
+        public TerrainGridMode GridMode = TerrainGridMode.Logical;
         public string Message { get; private set; } = "更改先预览；应用保留本次运行，保存资产才写盘。";
         public TerrainPanelLayout Layout => new TerrainPanelLayout(Screen.width, Screen.height, UiScale, PanelWidth);
         private readonly Vector2[] scroll = new Vector2[5];

@@ -1,5 +1,6 @@
 using System;
 using DarkNights.Runtime.Objects;
+using DarkNights.View.Terrain;
 using UnityEditor;
 using UnityEngine;
 
@@ -8,8 +9,20 @@ namespace DarkNights.Editor.Terrain
     /// <summary>全图预览画布的编辑态交互；网格和悬停仅作叠层，鼠标笔触转换为逻辑格坐标。</summary>
     public sealed class TerrainStylePreviewCanvas
     {
-        public TerrainStylePreviewTool ActiveTool { get; set; }
+        private TerrainStylePreviewTool activeTool;
+        public TerrainStylePreviewTool ActiveTool
+        {
+            get => activeTool;
+            set
+            {
+                if (activeTool == value) return;
+                activeTool = value;
+                if (value == TerrainStylePreviewTool.Pan) return;
+                ShowGrid = true; GridMode = TerrainGridMode.Logical;
+            }
+        }
         public bool ShowGrid { get; set; } = true;
+        public TerrainGridMode GridMode { get; set; } = TerrainGridMode.Render;
         public float Zoom { get; private set; } = 1;
         private Vector2 offset;
         private Vector2Int? hover, previous;
@@ -97,8 +110,9 @@ namespace DarkNights.Editor.Terrain
             Rect bounds = ImageBounds(canvas, image);
             float x = mouse.x - canvas.x - bounds.x, y = mouse.y - canvas.y - bounds.y;
             if (x < 0 || y < 0 || x >= bounds.width || y >= bounds.height) return null;
-            return new Vector2Int(Mathf.FloorToInt(x / bounds.width * image.width / 8),
-                Mathf.FloorToInt(y / bounds.height * image.height / 8));
+            var cell = new Vector2Int(Mathf.FloorToInt(x / bounds.width * image.width / 8 + .5f),
+                Mathf.FloorToInt(y / bounds.height * image.height / 8 + .5f));
+            return cell.x < image.width / 8 && cell.y < image.height / 8 ? cell : (Vector2Int?)null;
         }
 
         public void Draw(Rect canvas, Texture image, int fps, int renderMilliseconds, bool pending, string pendingReason = null,
@@ -142,19 +156,21 @@ namespace DarkNights.Editor.Terrain
             float step = bounds.width * 8 / image.width;
             if (ShowGrid)
             {
-                var tint = new Color(.87f, .73f, .40f, .20f);
+                var tint = GridMode == TerrainGridMode.Logical ? new Color(.45f, .85f, 1f, .25f) : new Color(.87f, .73f, .40f, .25f);
+                float phase = GridMode == TerrainGridMode.Logical ? -.5f : 0;
                 int stride = Mathf.Max(1, Mathf.CeilToInt(3f / step));
                 for (int x = 0; x <= image.width / 8; x += stride)
-                    EditorGUI.DrawRect(new Rect(bounds.x + x * step, bounds.y, 1, bounds.height), tint);
+                    if (x + phase >= 0) EditorGUI.DrawRect(new Rect(bounds.x + (x + phase) * step, bounds.y, 1, bounds.height), tint);
                 for (int y = 0; y <= image.height / 8; y += stride)
-                    EditorGUI.DrawRect(new Rect(bounds.x, bounds.y + y * step, bounds.width, 1), tint);
+                    if (y + phase >= 0) EditorGUI.DrawRect(new Rect(bounds.x, bounds.y + (y + phase) * step, bounds.width, 1), tint);
             }
             if (!hover.HasValue || ActiveTool == TerrainStylePreviewTool.Pan) return;
             var cell = hover.Value;
-            var marker = new Rect(bounds.x + cell.x * step, bounds.y + cell.y * step, step, step);
+            var marker = new Rect(bounds.x + (cell.x - .5f) * step, bounds.y + (cell.y - .5f) * step, step, step);
             Color color = ActiveTool == TerrainStylePreviewTool.Fill ? new Color(.60f, .86f, .60f, .32f) :
                 new Color(.95f, .70f, .44f, .32f);
-            EditorGUI.DrawRect(marker, color);
+            EditorGUI.DrawRect(Rect.MinMaxRect(Mathf.Max(marker.xMin, bounds.xMin), Mathf.Max(marker.yMin, bounds.yMin),
+                Mathf.Min(marker.xMax, bounds.xMax), Mathf.Min(marker.yMax, bounds.yMax)), color);
         }
 
     }

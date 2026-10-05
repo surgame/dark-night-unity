@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-06",
+  "branch": "ft-20261006-terrain-debug-integration",
+  "scope": "Game-side Cave Wall Tuner and runtime workshop grid overlays; no YYGC changes in this follow-up",
+  "compile": {
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "tests": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 734,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "actual_fill": {
+    "x": 160,
+    "y": 96,
+    "changed": 1,
+    "mode": "Logical",
+    "canUndo": true,
+    "material": 2
+  },
+  "actual_dig_and_manual_grid_choice": {
+    "x": 160,
+    "y": 96,
+    "changed": 1,
+    "manualRenderPersisted": true,
+    "digGrid": "Logical",
+    "temporaryChanges": 0
+  },
+  "cleanup": {
+    "temporaryWindows": 0,
+    "originalUnsavedWindows": 1,
+    "scene": "Assets/Scenes/Bootstrap.unity",
+    "sceneDirty": false
+  },
+  "sources": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainGridMode.cs",
+      "sha256": "2c5d653105b3edd3d1f72e55ee0d6265a1c02ce0690760b313758e1135282063"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainGridMode.cs.meta",
+      "sha256": "e5c71c124a8750fcaecd89e73f6c9da40bf7f89378586347196aa413faab9398"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewCanvas.cs",
+      "sha256": "49d1da40005e1f4fa69e1526a3cc8ec28d931eb1988a7cf17037eddef24ff1d7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchControls.cs",
+      "sha256": "527236a5d0c3f1e368d188bbe5ceb3a61b76682a7212b0d023f73dd87fe3c8fa"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainDebugPanel.cs",
+      "sha256": "25ad5ca3b2494fdf8c42d5ddd0e1fc2f4ec24064c45cefa8daa4b317ea3ef573"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainWorkbenchPages.cs",
+      "sha256": "d71462e71fc9452cf9ab2b5bdfa38eb36922d8ff3e61046133380efef022509b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainWorkbenchPointer.cs",
+      "sha256": "91eb84cfb767c3804f6dde91b29e4ea85464abb8706b81219aa7f3a18b9b2324"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/TerrainCanvasGridTests.cs",
+      "sha256": "6df777139bd46fe4fb740902d58dd46f455deae19f37abce5fea9f49508d88b6"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/TerrainCanvasGridTests.cs.meta",
+      "sha256": "2591c2e72f8bb2a069c5c37152bb8bd0b8f001e8dd370f0b2a1883d32d735f17"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cave-wall-grid-modes-20261006\\logical-grid.png",
+      "sha256": "8aca426e88504c7e87bd798af98fa89f3dd18180e1f0d803ab16988a2b19aa96",
+      "visual_checked": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cave-wall-grid-modes-20261006\\render-grid.png",
+      "sha256": "7090b3f4850ca19b740b3b622c9d254d068c846c09e5634f11abefa79be7016a",
+      "visual_checked": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cave-wall-grid-modes-20261006\\narrow-grid.png",
+      "sha256": "53be8fd5c42583c6e974cfa2a68cd9a2fd0e08a41abc98d4f92e71b534eb8bf7",
+      "visual_checked": true
+    }
+  ],
+  "source_assets_packages_settings_unchanged": true,
+  "game_protocol": 25,
+  "save_version": 19,
+  "map_protocol": 2,
+  "runtime_scene_control_unit_checked": true,
+  "additional_play_tests": "NOT_RUN",
+  "player_build": "NOT_RUN",
+  "intermediate_inventory": "Temporary preview textures, scene and coordinate probe released; formal reports and screenshots retained. No filesystem build intermediates created; existing Library and guard binaries reused.",
+  "failed_attempts_preserved": [
+    "window-open.json",
+    "actual-brush-check.json"
+  ],
+  "notes": "Original Tuner contained unsaved authoring changes, so verification used a separate temporary window. Initial injected brush event lacked window GUI offset; corrected probe verified the actual logical target without implementation changes."
+}

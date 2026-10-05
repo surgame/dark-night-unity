@@ -83,9 +83,13 @@ namespace DarkNights.Editor.Terrain
                     fillMaterial = (byte)(EditorGUILayout.Popup(fillMaterial - 1,
                         new[] { "壤土", "板岩", "玄武岩", "铜矿", "铁矿", "金矿", "苔岩" }, GUILayout.Width(55)) + 1);
                 preview.ShowGrid = GUILayout.Toggle(preview.ShowGrid, "网格", EditorStyles.toolbarButton, GUILayout.Width(38));
-                landingMarkers = GUILayout.Toggle(landingMarkers, "降落标记", EditorStyles.toolbarButton, GUILayout.Width(60));
+                using (new EditorGUI.DisabledScope(!preview.ShowGrid))
+                    preview.GridMode = (TerrainGridMode)EditorGUILayout.Popup((int)preview.GridMode,
+                        new[] { "逻辑网格", "渲染网格" }, GUILayout.Width(76));
+                if (area.width >= 420)
+                    landingMarkers = GUILayout.Toggle(landingMarkers, "降落标记", EditorStyles.toolbarButton, GUILayout.Width(60));
                 GUILayout.FlexibleSpace();
-                if (area.width >= 480)
+                if (area.width >= 570)
                 {
                     float zoom = GUILayout.HorizontalSlider(preview.Zoom, .5f, 8, GUILayout.Width(55));
                     if (!Mathf.Approximately(zoom, preview.Zoom)) preview.SetZoom(zoom, Vector2.zero, false);

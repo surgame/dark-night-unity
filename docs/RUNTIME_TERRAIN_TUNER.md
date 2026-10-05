@@ -1,5 +1,7 @@
 # 运行时洞穴工作台
 
+2026-10-06 跟随 Cave Wall Tuner 增加逻辑／渲染网格自由切换。“拆格／填格”选中时默认开启逻辑网格，地图页与显示页共享当前选择；同一工具下手动选择渲染网格会保持。笔刷仍只操作逻辑格，渲染网格仅供查看四角组成。运行场景原 `MapTool` 序列化名称通过 `FormerlySerializedAs` 保留，没有重写人工场景或Prefab。本批Editor定向5/5及编辑态实际拆填／截图通过；未新增Play或Player验收计数。见[机器记录](evidence/cave-wall-grid-modes-20261006.json)。
+
 2026-09-26。`ReferenceChamber` 与 `RandomCave` 的 Play 左栏接入 Cave Wall Tuner 调参和拆填能力，独立 Editor 窗口继续保留。通过 `Dark Nights / Terrain` 打开新版场景；场景位置及正式远征接入关系见[场景索引](SCENES.md)。本批无需新增美术素材。
 
 2026-09-30 更新：两个当前工作台场景都改从正式 `WorldSession.asset` 配置生成地图，固定蓝图选择和“应用地图到固定资产”按钮已退出。拆填保留为当前预览的临时改动，正式生成参数仍可显式保存。下方 09-26 固定地图保存及验收记录只代表当时版本；本次按用户要求未运行验证。
