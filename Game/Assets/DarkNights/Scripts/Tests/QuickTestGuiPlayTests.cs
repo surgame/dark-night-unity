@@ -51,6 +51,8 @@ namespace DarkNights.Tests
                 .GetValue(debug), Is.True, "F1 必须打开真实 Hub。");
             InputSystem.RemoveDevice(keyboard); keyboard = null;
             var network = UnityEngine.Object.FindAnyObjectByType<SessionNetwork>();
+            // 两分钟是点击期限；接受启动后的地图准备另有完整 Ready 等待，避免末秒点击被误判为加载失败。
+            await Until(() => UnityEngine.Object.FindAnyObjectByType<QuickTestHub>()?.Available == false, 120);
             await Until(() => network.Client.Ready, 120);
             Assert.That(network.Client.Replica.Current.World.Expedition.Journey.Phase, Is.EqualTo(JourneyPhase.Landed));
             var hero = network.GetComponent<HeroPlayerController>();

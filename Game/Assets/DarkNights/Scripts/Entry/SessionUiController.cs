@@ -20,6 +20,7 @@ namespace DarkNights.Entry
     /// 把既有 UGUIManager 创建的面板、客户端输入与同一网络命令入口装配起来，不持有权威规则状态。
     /// 面板和 Interaction Session 随应用释放；每次连接或 epoch 变化清空选择，Ready 前不发业务命令。
     /// </summary>
+    [DefaultExecutionOrder(-700)]
     public sealed class SessionUiController : MonoBehaviour
     {
         private readonly Dictionary<string, ObjectInstance> panels = new Dictionary<string, ObjectInstance>();

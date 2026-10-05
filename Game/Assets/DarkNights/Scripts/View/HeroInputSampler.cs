@@ -6,7 +6,7 @@ using UnityEngine;
 namespace DarkNights.View
 {
     /// <summary>
-    /// 本地逐帧采样、短按缓冲和输入发送节流；只持有客户端输入，不修改角色权威状态。
+    /// 本地逐帧采样、短按缓冲和输入发送节流；跳跃按下立即发送，持续输入保持30Hz节流，不修改角色权威状态。
     /// 切换角色或输入失效时生成一次归零意图，发送仍由 Entry 交给会话客户端。
     /// </summary>
     public sealed class HeroInputSampler
@@ -94,7 +94,7 @@ namespace DarkNights.View
 
             bool changed = direction != sentDirection || jump != sentJump || sprint != sentSprint || equipment.Held != sentUse ||
                 jumpPending || dropPending != sentDrop || (!pilot && dropPending) || equipment.Changed || !sentMining.Equals(mining);
-            if (now < nextSend || (!changed && now < heartbeat))
+            if ((!jumpPending && now < nextSend) || (!changed && now < heartbeat))
             {
                 packet = default;
                 return false;

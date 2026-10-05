@@ -14,8 +14,9 @@ namespace DarkNights.Entry
 {
     /// <summary>
     /// 单个本地玩家的角色上下文、控制请求和输入发送装配；角色及背包以服务端冻结投影为准。
-    /// View 采样器负责逐帧短按和节流，本类不预测位置或结算道具。
+    /// View 采样器负责逐帧短按和节流；输入在框架权威模拟前采样，镜头在舞台LateUpdate前跟随。
     /// </summary>
+    [DefaultExecutionOrder(-1200)]
     public sealed class HeroPlayerController : MonoBehaviour
     {
         private HeroInputSampler sampler;
@@ -79,6 +80,7 @@ namespace DarkNights.Entry
             if (ready)
                 foreach (var actor in frame.World.Actors)
                     if (actor.ControllerSlot == network.Client.PlayerSlot) { Current = actor; break; }
+            Current = entities.ControlledActor(Current);
             if ((Current?.Id ?? 0) != actorId || (Current?.ControlLease ?? 0) != lease)
             {
                 actorId = Current?.Id ?? 0; lease = Current?.ControlLease ?? 0;
@@ -114,6 +116,17 @@ namespace DarkNights.Entry
             SampleModeToggle();
             if (!input.HeroMode || Current == null) { mining.Hide(); return; }
             var controls = input.ReadHero();
+#if UNITY_EDITOR
+            if (controls.Allowed && controls.JumpPressed && !network.Client.Replica.Current.Paused && DarkNights.Runtime.Terrain.TerrainMotionTrace.Recording)
+            {
+                var shown = entities.Visual(Current.Id);
+                var replica = network.Client.Replica.Current;
+                var observed = replica.World.Actors.FirstOrDefault(actor => actor.Id == Current.Id);
+                DarkNights.Runtime.Terrain.TerrainJumpTrace.Press(network.ObjectWorld, observed, replica,
+                    network.Server?.Authority.ServerTick ?? -1, shown == null ? (float?)null : shown.transform.position.x * EntityView.PixelsPerUnit,
+                    shown == null ? (float?)null : shown.transform.position.y * EntityView.PixelsPerUnit);
+            }
+#endif
             mining.Sample(controls, Current, network.Client.Replica.Current, pendingItem >= 0);
             if (sampler.Sample(controls, Current, network.Client.Replica.Current, entities, pendingItem >= 0,
                 Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet, mining.Target, mining.HandHeight)) Send(packet).Forget();

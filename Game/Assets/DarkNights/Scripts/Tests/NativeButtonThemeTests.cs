@@ -87,6 +87,8 @@ namespace DarkNights.Tests
         [UnityTest]
         public IEnumerator InteractableChangesUpdateWithoutPointerMovement()
         {
+            // 可交互性刷新依赖运行帧；编辑态 ExecuteAlways 不保证每帧调用 Update。
+            yield return new EnterPlayMode();
             GameObject root = Open("PauseMenu");
             try
             {
@@ -102,7 +104,12 @@ namespace DarkNights.Tests
                 yield return AwaitColor(label, Disabled);
             }
             finally { UnityEngine.Object.DestroyImmediate(root); }
+            yield return new ExitPlayMode();
         }
+
+        [UnityTearDown]
+        public IEnumerator RestoreMode()
+        { if (Application.isPlaying) yield return new ExitPlayMode(); }
 
         private static IEnumerator AwaitColor(Text label, Color expected)
         {

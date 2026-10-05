@@ -27,7 +27,8 @@ namespace DarkNights.Tools.ArchitectureGuard
         public static List<string> Check(IReadOnlyDictionary<string, string> sources)
         {
             var trees = sources.Select(pair => CSharpSyntaxTree.ParseText(pair.Value,
-                new CSharpParseOptions(LanguageVersion.CSharp9, DocumentationMode.Parse), pair.Key)).ToArray();
+                new CSharpParseOptions(LanguageVersion.CSharp9, DocumentationMode.Parse,
+                    preprocessorSymbols: new[] { "UNITY_EDITOR", "DEVELOPMENT_BUILD" }), pair.Key)).ToArray();
             var references = ((string)AppContext.GetData("TRUSTED_PLATFORM_ASSEMBLIES")).Split(Path.PathSeparator)
                 .Select(path => MetadataReference.CreateFromFile(path));
             var compilation = CSharpCompilation.Create("ArchitectureInspection", trees, references,
@@ -50,7 +51,8 @@ namespace DarkNights.Tools.ArchitectureGuard
                     path.StartsWith("Core/Logic/Systems/"))) fail("Core cannot own runtime entities, command execution or system lifecycles");
                 int lines = tree.GetText().Lines.Count - (sources[tree.FilePath].EndsWith("\n") ? 1 : 0);
                 if (lines > 300) fail("Handwritten source exceeds 300 lines");
-                var types = root.DescendantNodes().OfType<BaseTypeDeclarationSyntax>().ToArray();
+                var declarationsInFile = root.DescendantNodes().OfType<BaseTypeDeclarationSyntax>().ToArray();
+                var types = declarationsInFile.Where(type => !type.Ancestors().OfType<BaseTypeDeclarationSyntax>().Any()).ToArray();
                 if (types.Length != 1) fail("One main named type per file is required");
                 foreach (var type in types)
                 {
@@ -59,6 +61,9 @@ namespace DarkNights.Tools.ArchitectureGuard
                     string expected = "DarkNights." + path.Substring(0, path.LastIndexOf('/')).Replace('/', '.');
                     if (ns != expected) fail("Namespace must be " + expected);
                     if (!declarations.Add(ns + "." + type.Identifier.Text)) fail("Multiple handwritten bodies for one type");
+                }
+                foreach (var type in declarationsInFile)
+                {
                     bool summary = type.GetLeadingTrivia().Select(item => item.GetStructure())
                         .OfType<DocumentationCommentTriviaSyntax>().SelectMany(doc => doc.Content.OfType<XmlElementSyntax>())
                         .Any(xml => xml.StartTag.Name.ToString() == "summary" && xml.Content.ToFullString().Trim().Length >= 15);

@@ -14,7 +14,9 @@ namespace DarkNights.Entry
     /// <summary>
     /// 把冻结副本分发给会话已经装配的对象，管理展示时间线和本地输入绑定。
     /// 对象的创建、转职和退休由会话负责；缓存核对真实所有者，避免归池后的旧表现引用干扰新对象。
+    /// Host本地主角在权威模拟后使用即时冻结副本，其余角色继续使用公共展示时间线。
     /// </summary>
+    [DefaultExecutionOrder(-800)]
     public sealed class SessionEntityViews : MonoBehaviour, IEntityVisuals
     {
         private SessionClient client;
@@ -35,6 +37,16 @@ namespace DarkNights.Entry
             view.Owner != null && view.Presentation.Owner == view.Owner.Owner && view.Presentation.Id == id &&
             view.Presentation.Epoch == epoch ? view.Presentation : null;
         public void SetIntentHandler(Action<InputIntent> handler) { intentHandler = handler; }
+
+        /// <summary>输入与HUD复用上一帧实际显示的Host主角冻结副本；控制租约或世界不一致时回到会话副本。</summary>
+        public ActorViewData ControlledActor(ActorViewData observed)
+        {
+            if (observed == null || network?.Hosting != true || client?.Ready != true || network.Server?.Authority.Epoch != epoch ||
+                !(Presentation(observed.Id) is ActorPresentationBehaviour view)) return observed;
+            var shown = view.Current;
+            return shown != null && shown.ManualControl && shown.Kind == observed.Kind &&
+                shown.ControllerSlot == client.PlayerSlot && shown.ControlLease == observed.ControlLease ? shown : observed;
+        }
 
         public void Initialize(SessionClient value, GameCatalog rules, PinewatchStage scene, SessionNetwork session)
         {
@@ -133,8 +145,13 @@ namespace DarkNights.Entry
             foreach (ActorViewData actor in frame.World.Actors)
                 if (Presentation(actor.Id) is ActorPresentationBehaviour view)
                 {
-                    workKinds.TryGetValue(actor.TargetId, out string kind);
-                    view.Present(actor, frame.Epoch, kind ?? "", timeline.X(actor, now), timeline.ActionTime(actor, now), stage.Ambient, timeline.Height(actor, now), stage.ActorPresentationScale);
+                    var current = network.Hosting && client.Ready
+                        ? HostHeroProjection.Capture(network.ObjectWorld, network.Server?.Authority, frame, actor, client.PlayerSlot) : null;
+                    var displayed = current ?? actor;
+                    workKinds.TryGetValue(displayed.TargetId, out string kind);
+                    view.Present(displayed, frame.Epoch, kind ?? "", current?.X ?? timeline.X(actor, now),
+                        current?.ActionTime ?? timeline.ActionTime(actor, now), stage.Ambient,
+                        current?.Height ?? timeline.Height(actor, now), stage.ActorPresentationScale);
                     ((ActorView)view.Visual).PresentBoarded(frame.World.Expedition?.Crew.FirstOrDefault(c => c.Id == actor.Id)?.Boarded == true);
                 }
             foreach (BuildingViewData building in frame.World.Buildings)

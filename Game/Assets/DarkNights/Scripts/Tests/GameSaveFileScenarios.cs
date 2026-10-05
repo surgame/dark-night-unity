@@ -39,6 +39,17 @@ namespace DarkNights.Tests
                 "Existing save is atomically replaced with the complete next snapshot");
             check(!Directory.GetFiles(directory, "*.tmp").Any(), "Successful saves leave no temporary files");
 
+            // 复现真实四人 Player 的 224 字符槽位路径；旧追加 GUID 临时名长 261 字符。
+            int padding = 224 - path.Length - 1;
+            check(padding > 0, "Workspace permits the bounded long-path storage fixture");
+            string longDirectory = Path.Combine(directory, new string('p', padding));
+            string longPath = Path.Combine(longDirectory, "slot-00.dnsave.json");
+            var longStore = new GameSaveStore(longDirectory, codec);
+            longStore.Save(0, first); longStore.Save(0, second);
+            check(longPath.Length == 224 && longStore.Read(0) == secondText &&
+                !Directory.GetFiles(longDirectory, "*.tmp").Any(),
+                "Long valid slot paths preserve atomic replacement and leave no temporary files");
+
             bool lockedFailure = false;
             using (var locked = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read))
             {

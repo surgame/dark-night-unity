@@ -14,6 +14,11 @@ namespace DarkNights.Tools.ArchitectureGuard
             string valid = "namespace DarkNights.Core.Config {\n/// <summary>独立测试配置，不保存可写会话状态，供结构验证使用。</summary>\npublic class Good { }\n}";
             var sources = new Dictionary<string, string> { ["Core/Config/Good.cs"] = valid };
             if (SourceRules.Check(sources).Count != 0) throw new Exception("Guard rejects valid C#9 source");
+            sources["Core/Config/Good.cs"] = valid.Replace("public class Good { }",
+                "public class Good {\n/// <summary>内部辅助值，不形成第二个主要类型或运行状态所有者。</summary>\nprivate struct Inner { } }");
+            if (SourceRules.Check(sources).Count != 0) throw new Exception("Guard rejects a nested helper as a second main type");
+            sources["Core/Config/Good.cs"] = "#if UNITY_EDITOR || DEVELOPMENT_BUILD\n" + valid + "\n#endif";
+            if (SourceRules.Check(sources).Count != 0) throw new Exception("Guard ignores development-only handwritten types");
             string[] invalid =
             {
                 valid.Replace("public class Good { }", "public class Good { public object Read() => System.IO.File.ReadAllText(\"x\"); }"),
@@ -21,6 +26,8 @@ namespace DarkNights.Tools.ArchitectureGuard
                 "using UnityEngine;\n" + valid,
                 "using DarkNights.Runtime.Config;\n" + valid,
                 valid.Replace("public class Good", "public class Wrong"),
+                valid.Replace("public class Good { }", "public class Good { } public class Second { }"),
+                valid.Replace("public class Good { }", "public class Good { private struct Undocumented { } }"),
                 valid.Replace("/// <summary>", "// <summary>"),
                 valid.Replace("DarkNights.Core.Config", "DarkNights.Core.Other"),
                 valid + new string('\n', 301),
@@ -38,7 +45,7 @@ namespace DarkNights.Tools.ArchitectureGuard
                 ["View/BadView.cs"] = "namespace DarkNights.View {\n/// <summary>表现层测试夹具，故意访问了禁止的内部规则类型。</summary>\npublic class BadView { public DarkNights.Core.Logic.InternalRule Rule; } }"
             };
             if (SourceRules.Check(view).Count == 0) throw new Exception("Guard accepted mutable world access from View");
-            return invalid.Length + 2;
+            return invalid.Length + 4;
         }
     }
 }

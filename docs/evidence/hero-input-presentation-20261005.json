@@ -1,0 +1,116 @@
+{
+  "verifiedUtc": "2026-10-05T09:11:39.3409265Z",
+  "passed": 69,
+  "compile": {
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "scope": "Host本地主角即时冻结展示、跳跃边沿立即发送与游戏侧执行顺序；保持当前接地起跳资格。",
+  "metadata": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HostHeroProjection.cs",
+      "metaExists": true,
+      "lines": 28,
+      "sha256": "695C427721D52BA86B2301257D4D5D516B356DCB07297C8FBA8CE67BEF9A09AB"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ObjectProjection.cs",
+      "metaExists": true,
+      "lines": 57,
+      "sha256": "C2A63915EE0ECDCD08331FEAA855C3B82BCBA35A3466BBEDE3E36B3C3BF94676"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\SessionEntityViews.cs",
+      "metaExists": true,
+      "lines": 201,
+      "sha256": "A286DD1AAD94252B15ADD23712CA75EC2C50D3FEC0ED8F9F31A810969FB04CB1"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\HeroPlayerController.cs",
+      "metaExists": true,
+      "lines": 251,
+      "sha256": "A49B48FC505B5D9FAC0E4A0F6F9B3206F5DEA7961D3829AFC8D8A5C8EEAE17EA"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Entry\\SessionUiController.cs",
+      "metaExists": true,
+      "lines": 298,
+      "sha256": "99570E6895C2B36216E390BAC28B5B158F7C55451B7C3D21B118AABC0C3D1FC3"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\View\\GameInputActions.cs",
+      "metaExists": true,
+      "lines": 271,
+      "sha256": "BE940B86D5FCB23E5991EADB31217DD0422E5E014D3C4CA719936568FC2D2AD8"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\View\\HeroInputSampler.cs",
+      "metaExists": true,
+      "lines": 164,
+      "sha256": "236360DD2DD6F5716A9E9C95E90A769E2E8CE79C2C3F3A590CCB918012275DF7"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\HostHeroProjectionTests.cs",
+      "metaExists": true,
+      "lines": 72,
+      "sha256": "063F69806C673663D406517B8FBD418F72102AD2B0A0B553A4C73C562B3EEB6B"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\HeroInputSamplerTests.cs",
+      "metaExists": true,
+      "lines": 83,
+      "sha256": "840634AA733A664EA29F4168F788838F7B86FB3B709C7E9D0EB71FC314464675"
+    }
+  ],
+  "editor": {
+    "executionOrder": [
+      {
+        "type": "GameInputActions",
+        "imported": true,
+        "importedOrder": 0,
+        "declaredOrder": -1300
+      },
+      {
+        "type": "HeroPlayerController",
+        "imported": true,
+        "importedOrder": 0,
+        "declaredOrder": -1200
+      },
+      {
+        "type": "BehaviourUpdateManager",
+        "imported": true,
+        "importedOrder": 0,
+        "declaredOrder": -1000
+      },
+      {
+        "type": "SessionEntityViews",
+        "imported": true,
+        "importedOrder": 0,
+        "declaredOrder": -800
+      },
+      {
+        "type": "SessionUiController",
+        "imported": true,
+        "importedOrder": 0,
+        "declaredOrder": -700
+      }
+    ],
+    "playing": false,
+    "recording": false,
+    "retainedTraceSteps": 183,
+    "lastTraceExport": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-ground-trace\\20261005-162841-800-5574ba"
+  },
+  "validationBoundary": "用户负责实际坡沿试玩；未构建Player，未宣称独立进程联机或远端客户端延迟修复通过。",
+  "intermediates": "未产生Player或构建副本；测试对象由既有隔离scope释放，JSON作为正式证据保留；Pipeline Temp状态文件由Editor复用，不移动共享临时文件。",
+  "diskFree": [
+    {
+      "Name": "C",
+      "Free": 10724257792
+    },
+    {
+      "Name": "D",
+      "Free": 33760333824
+    }
+  ]
+}

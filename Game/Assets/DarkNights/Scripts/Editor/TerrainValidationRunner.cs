@@ -128,7 +128,7 @@ namespace DarkNights.Editor
             public bool playing;
             public string[] scenes;
         }
-        /// <summary>一次批次的真实结果计数。</summary>
+        /// <summary>一次批次的真实结果计数；仅由实际测试回调或已完成的有限入口写入。</summary>
         [Serializable] private sealed class Summary
         {
             public string id, state, utc, unity;

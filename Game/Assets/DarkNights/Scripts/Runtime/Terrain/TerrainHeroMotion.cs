@@ -56,9 +56,15 @@ namespace DarkNights.Runtime.Terrain
             float? maximumHeight = null, float? targetX = null, HeroJumpStrategy? jumpStrategy = null, bool inputPrepared = false)
         {
             if (!inputPrepared) HeroJumpMotion.Sample(state, jump, delta);
+#if UNITY_EDITOR
+            var trace = TerrainMotionTrace.Begin(map, state, delta, jump, thrust, targetX);
+#endif
             float ceiling = maximumHeight ?? rules.MaximumHeight;
             float support = state.Height;
             bool grounded = state.VerticalSpeed <= 0 && Supported(map, state, state.X, state.Height, out support);
+#if UNITY_EDITOR
+            trace.GroundedAtStart = grounded;
+#endif
             if (grounded) state.Height = support;
             state.DropRemaining = 0; state.IgnoredPlatform = 0; state.SupportPlatform = grounded ? 0 : -1;
             bool started = HeroJumpMotion.TryStart(state, rules, grounded);
@@ -73,6 +79,9 @@ namespace DarkNights.Runtime.Terrain
             else state.SupportPlatform = -1;
             if (state.Height >= ceiling || state.Height <= PlayableTerrain.MinimumHeight)
             { state.VerticalSpeed = 0; state.JumpAscending = false; }
+#if UNITY_EDITOR
+            TerrainMotionTrace.End(map, state, trace, started);
+#endif
         }
     }
 }

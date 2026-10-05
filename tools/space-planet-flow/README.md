@@ -1,12 +1,12 @@
 # 航程独立进程验收驱动
 
-`test_network.py` 使用正式 development Player 的命令文件入口和可信客户端命令链，不改运行状态，不写玩家原始存档。日志、报告、存档与截图默认放在独立 `artifacts/space-planet-flow/network-*` 目录，也可通过 `--output-root` 指定本轮证据目录。协议取实际 Player；`--save-version` 默认 11 仅供历史构建，2026-09-30 当前协议 17／存档 v13 必须显式传入 `--save-version 13`，避免误用历史 Player 或存档路径。跨进程一致性包含航程内容指纹、地图格子与背景哈希，真实进程重启另核验保存前的生成指纹、地图身份及种子。
+`test_network.py` 使用正式 development Player 的命令文件入口和可信客户端命令链，不改运行状态，不写玩家原始存档。日志、报告、存档与截图默认放在独立 `artifacts/space-planet-flow/network-*` 目录，也可通过 `--output-root` 指定本轮证据目录。协议取实际 Player；2026-10-05 当前存档为 v19，`--save-version` 默认19，历史构建必须显式指定其版本，避免误用存档路径。跨进程一致性包含航程内容指纹、地图格子与背景哈希，真实进程重启另核验保存前的生成指纹、地图身份及种子。
 
 ```powershell
-python tools/space-planet-flow/test_network.py --player <当前构建绝对路径> --backend mono --save-version 13 --clients 1 --driver client --phase-hook
-python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --save-version 13 --clients 3 --driver host --phase-hook --port 29270
-python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --save-version 13 --clients 1 --driver client --phase-hook --weak --port 29280
-python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --save-version 13 --clients 3 --driver host --phase-hook --weak --port 29290
+python tools/space-planet-flow/test_network.py --player <当前构建绝对路径> --backend mono --save-version 19 --clients 1 --driver client --phase-hook --background
+python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --save-version 19 --clients 3 --driver host --phase-hook --background --port 29270
+python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --save-version 19 --clients 1 --driver client --phase-hook --background --weak --port 29280
+python tools/space-planet-flow/test_network.py --player <同一构建绝对路径> --backend mono --save-version 19 --clients 3 --driver host --phase-hook --background --weak --port 29290
 ```
 
 四进程组还应交换 `--driver host/client` 补齐房主与来宾担任驾驶者。经单独授权并完成 IL2CPP development 构建后，使用相同脚本与 `--backend il2cpp`；标记不替代真实后端构建身份。每组串行启动，端口不重用正在运行的组。

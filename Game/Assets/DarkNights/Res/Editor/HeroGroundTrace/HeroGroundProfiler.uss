@@ -1,0 +1,19 @@
+.trace-window { flex-grow: 1; background-color: rgb(24, 28, 35); color: rgb(231, 236, 243); font-size: 12px; }
+.trace-shell { flex-grow: 1; padding: 12px; }
+.trace-toolbar { flex-direction: row; align-items: center; flex-shrink: 0; margin-bottom: 10px; }
+.trace-toolbar > .unity-button { padding: 5px 10px; margin-right: 6px; background-color: rgb(39, 48, 59); color: rgb(231, 236, 243); border-width: 1px; border-color: rgb(65, 79, 96); border-radius: 4px; }
+.trace-toolbar > .unity-button:hover { background-color: rgb(52, 65, 79); }
+.trace-toolbar > .unity-button:disabled { color: rgb(130, 143, 159); background-color: rgb(30, 36, 44); }
+.trace-toolbar > .trace-primary { color: rgb(18, 45, 42); background-color: rgb(136, 211, 198); }
+.trace-toolbar > .unity-toggle { margin-left: 8px; }
+.trace-status { font-size: 16px; -unity-font-style: bold; margin-bottom: 6px; color: rgb(136, 211, 198); }
+.trace-counters { margin-bottom: 8px; }
+.trace-progress { height: 18px; margin-bottom: 10px; }
+.trace-legend { white-space: normal; color: rgb(169, 187, 207); margin-bottom: 6px; }
+.trace-graph-host { flex-grow: 1; min-height: 140px; background-color: rgb(17, 21, 28); border-width: 1px; border-color: rgb(53, 63, 77); }
+.trace-graph { flex-grow: 1; }
+.trace-selection { margin-top: 10px; margin-bottom: 8px; }
+.trace-details { white-space: normal; padding: 8px; background-color: rgb(33, 39, 48); border-radius: 4px; flex-shrink: 0; }
+.trace-input-details { white-space: normal; margin-top: 6px; color: rgb(169, 187, 207); flex-shrink: 0; }
+.trace-notice { white-space: normal; color: rgb(169, 187, 207); margin-top: 8px; }
+.trace-output { white-space: normal; color: rgb(169, 187, 207); font-size: 11px; margin-top: 6px; }

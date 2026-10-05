@@ -655,7 +655,7 @@ class NetworkRun:
         self.write_status("real process restarts for stable saves")
         for slot in (0, 1, 2):
             expected = self.saved[slot]
-            for role in list(self.processes):
+            for role in reversed(list(self.processes)):
                 self.stop(role)
             self.start("host")
             # Load the frozen world before clients arrive; no bootstrap replacements count as restored actors.
@@ -757,7 +757,7 @@ class NetworkRun:
         except Exception:
             self.error = traceback.format_exc()
         finally:
-            for role in list(self.processes):
+            for role in reversed(list(self.processes)):
                 self.stop(role)
             if self.relay:
                 (self.run / "relay.json.stop").write_text("", encoding="utf-8")
@@ -791,7 +791,8 @@ def main():
     parser.add_argument("--driver", choices=("host", "client"), default="client")
     parser.add_argument("--weak", action="store_true")
     parser.add_argument("--port", type=int, default=29260)
-    parser.add_argument("--save-version", type=int, default=11)
+    parser.add_argument("--save-version", type=int, default=19)
+    parser.add_argument("--background", action="store_true", help="Start graphics Players without requesting window activation")
     parser.add_argument("--output-root", type=Path)
     parser.add_argument("--phase-hook", action="store_true", help="Build includes official pause-on-journey-phase automation hook")
     parser.add_argument("--skip-restarts", action="store_true", help="Explicitly report stable process restarts as not covered")

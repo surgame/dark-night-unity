@@ -64,12 +64,15 @@ namespace DarkNights.Tools.CoreRegression
                 "Hand mining and explosive target sets stay bounded");
             check(TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 1, false, true) &&
                 TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 4, false, false) &&
-                !TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 1, false, false) &&
+                TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 1, false, false) &&
+                TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 1, true, false) &&
+                !TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 0, false, true) &&
                 !TerrainDestructionPolicy.CanDestroy(TerrainEditAction.HandMine, 8, false, true),
-                "Hand mining is limited to soft rock and scattered ore");
+                "Hand mining admits non-bedrock cells independently of generation labels");
             check(!TerrainDestructionPolicy.CanDestroy(TerrainEditAction.Explosive, 8, false, true) &&
-                !TerrainDestructionPolicy.CanDestroy(TerrainEditAction.Explosive, 1, true, true),
-                "Explosives cannot clear bedrock or protected cells");
+                !TerrainDestructionPolicy.CanDestroy(TerrainEditAction.Explosive, 0, false, true) &&
+                TerrainDestructionPolicy.CanDestroy(TerrainEditAction.Explosive, 1, true, true),
+                "Explosives exclude empty cells and bedrock while generation protection remains metadata");
         }
     }
 }

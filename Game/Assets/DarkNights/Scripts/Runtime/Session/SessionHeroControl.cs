@@ -210,6 +210,9 @@ namespace DarkNights.Runtime.Session
                 }
             }
             state.JumpPending |= input.JumpPressed;
+#if UNITY_EDITOR
+            Terrain.TerrainJumpTrace.Received(world.Terrain?.Map, state, input, tick);
+#endif
             bool pilot = world.IsExpedition && world.Expedition.Ship?.Read().PilotId == actorId;
             state.DropPending = pilot ? input.DropPressed : state.DropPending || input.DropPressed;
         }

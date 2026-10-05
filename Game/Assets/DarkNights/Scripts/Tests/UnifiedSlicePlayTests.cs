@@ -19,7 +19,7 @@ using UnityEngine.TestTools;
 namespace DarkNights.Tests
 {
     /// <summary>
-    /// 使用真实 Bootstrap、Pinewatch、网络会话工厂和本地 Host 验证新版正式装配链。
+    /// 使用真实 Bootstrap、保留营地场景、网络会话工厂和本地 Host 验证营地后端装配链。
     /// 开关域重载各重复两次 Play，场景原实例、统一状态所有权与退出撤权必须同时成立。
     /// </summary>
     [Category("UnifiedPlay")]
@@ -27,6 +27,7 @@ namespace DarkNights.Tests
     {
         private const string SettingsKey = "DarkNights.UnifiedSlicePlay.Settings";
         private const string SceneKey = "DarkNights.UnifiedSlicePlay.Scene";
+        private const string PlaySceneKey = "DarkNights.UnifiedSlicePlay.PlayScene";
 
         [UnityTest]
         public IEnumerator FormalPlayWithDomainReload() => RepeatPlay(false);
@@ -47,6 +48,10 @@ namespace DarkNights.Tests
             else EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             SessionState.EraseInt(SettingsKey);
             SessionState.EraseString(SceneKey);
+            string previous = SessionState.GetString(PlaySceneKey, "");
+            if (previous.Length == 0) SessionState.EraseString("DarkNights.PlayScene");
+            else SessionState.SetString("DarkNights.PlayScene", previous);
+            SessionState.EraseString(PlaySceneKey);
         }
 
         private static IEnumerator RepeatPlay(bool disableReload)
@@ -57,6 +62,7 @@ namespace DarkNights.Tests
                     (EditorSettings.enterPlayModeOptionsEnabled ? 1 : 0));
                 var scene = EditorSceneManager.GetActiveScene();
                 SessionState.SetString(SceneKey, scene.path);
+                SessionState.SetString(PlaySceneKey, SessionState.GetString("DarkNights.PlayScene", ""));
                 if (!string.IsNullOrEmpty(scene.path) && scene.isDirty)
                     Assert.That(EditorSceneManager.SaveScene(scene), Is.True);
             }
@@ -74,7 +80,8 @@ namespace DarkNights.Tests
         {
             EditorSettings.enterPlayModeOptionsEnabled = disableReload;
             EditorSettings.enterPlayModeOptions = disableReload ? EnterPlayModeOptions.DisableDomainReload : EnterPlayModeOptions.None;
-            EditorSceneManager.OpenScene(Editor.EnvironmentValidation.ScenePath);
+            // 现有 ScenePlaySelection 在 ExitingEditMode 从真实打开的关卡选择 Bootstrap 目标。
+            EditorSceneManager.OpenScene(GameScenePaths.StaticCamp);
         }
 
         private static async UniTask VerifyLifetime()
@@ -87,8 +94,10 @@ namespace DarkNights.Tests
                     network.GetComponent<HeroPlayerController>() != null;
             }, "Unified startup");
             string directory = Path.GetFullPath(Path.Combine(Application.dataPath,
-                "../../artifacts/hero-input/play-saves", Guid.NewGuid().ToString("N"), "v3"));
-            typeof(SessionNetwork).GetProperty(nameof(SessionNetwork.SaveDirectory)).SetValue(network, directory);
+                "../../artifacts/weak-network-completion-20261005/editor-saves", Guid.NewGuid().ToString("N")));
+            object storage = typeof(SessionNetwork).GetField("storage", System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.NonPublic).GetValue(network);
+            storage.GetType().GetMethod("Initialize").Invoke(storage, new object[] { new[] { "--dn-save-dir", directory } });
             await network.GetComponent<HeroPlayerController>().SetHeroMode(false);
             await network.Connect(true, "127.0.0.1", 27981);
             await Until(() => network.Client.Ready, "Host Ready");
@@ -96,7 +105,7 @@ namespace DarkNights.Tests
                 "Explicit legacy camp mode releases the default hero");
             var world = network.ObjectWorld;
             Assert.That(world, Is.Not.Null);
-            Assert.That(world.Index.Count, Is.EqualTo(28), "17 个场景对象与 11 个随机矿室矿床应同属正式世界。");
+            Assert.That(world.Index.Count, Is.EqualTo(17), "矿床属于原生格层，正式对象只包括场景对象。");
             Assert.That(network.ActiveSession.StartCount, Is.EqualTo(1));
             Assert.That(world.Camp.Object, Is.SameAs(world.Economy.Object));
             Assert.That(world.Camp.Object.SessionContext, Is.SameAs(world.Context));
@@ -158,7 +167,7 @@ namespace DarkNights.Tests
             await network.Client.Send(SessionOperation.Restart);
             await Until(() => network.Client.Ready && network.Client.Replica.Current.Epoch == epoch + 1, "Restart Ready");
             Assert.That(previous.IsAlive, Is.False);
-            Assert.That(world.Index.Count, Is.EqualTo(28));
+            Assert.That(world.Index.Count, Is.EqualTo(17));
             Assert.That(world.Index.Find<ActorBehaviour>(13).Object, Is.SameAs(original));
             Assert.That(network.Client.Replica.Current.Events.Any(e => e.Type == "banner" && e.Text == "灰松谷 · 第一天"), Is.True);
             Assert.That(network.ReplicaObjects.Count, Is.Zero);

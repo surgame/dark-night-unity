@@ -1,0 +1,23 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="HeroGroundProfiler.uss" />
+    <ui:VisualElement class="trace-shell">
+        <ui:VisualElement class="trace-toolbar">
+            <ui:Button name="start" text="开始记录" class="trace-primary" />
+            <ui:Button name="stop" text="停止" />
+            <ui:Button name="export" text="导出" />
+            <ui:Button name="load" text="最近记录" />
+            <ui:Button name="folder" text="记录目录" />
+            <ui:Toggle name="follow" label="跟随录制" value="true" />
+        </ui:VisualElement>
+        <ui:Label name="status" text="等待录制" class="trace-status" />
+        <ui:Label name="counters" text="起跳 0    未起跳丢支撑 0    近地空中 0 步" class="trace-counters" />
+        <ui:ProgressBar name="progress" low-value="0" high-value="7200" class="trace-progress" />
+        <ui:Label text="青色：脚底间隙　金色：竖直速度　绿/橙：地面/空中　紫线：起跳　红线：非起跳丢支撑" class="trace-legend" />
+        <ui:VisualElement name="graphHost" class="trace-graph-host" />
+        <ui:SliderInt name="selection" label="查看模拟步" low-value="0" high-value="0" show-input-field="true" class="trace-selection" />
+        <ui:Label name="details" class="trace-details" />
+        <ui:Label name="inputDetails" class="trace-input-details" />
+        <ui:Label name="notice" text="最多7200步；关闭浮窗会继续录制。诊断标记需结合轨迹判断。" class="trace-notice" />
+        <ui:Label name="output" text="尚未导出" class="trace-output" />
+    </ui:VisualElement>
+</ui:UXML>

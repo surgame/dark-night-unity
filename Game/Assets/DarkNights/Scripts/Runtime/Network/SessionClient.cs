@@ -156,6 +156,9 @@ namespace DarkNights.Runtime.Network
         {
             var frame = Replica.Current;
             if (!Ready || endpoint == null || frame == null) return default;
+#if UNITY_EDITOR
+            if (jumpPressed) TerrainJumpTrace.Sent(actor, inputSequence + 1, frame.Epoch, frame.ServerTick);
+#endif
             return NetworkCommandGateway.Instance.ProcessLocalCommandAsync(new HeroInputCommand
             {
                 SenderObjectId = endpoint.ObjectId, Protocol = SessionAuthority.ProtocolVersion,

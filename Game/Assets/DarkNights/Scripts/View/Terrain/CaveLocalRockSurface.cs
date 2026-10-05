@@ -13,6 +13,7 @@ namespace DarkNights.View.Terrain
     /// <summary>热编辑的有限像素补丁优先于冷页；显示版本单调前进，最终就绪只接受当前输入版本。</summary>
     internal sealed class CaveLocalRockSurface : IDisposable
     {
+        /// <summary>一次后台像素补丁的冻结输入和待上传输出；版本由所属表面检查，补丁不拥有地图状态。</summary>
         private sealed class Patch
         {
             internal int Key, Version;

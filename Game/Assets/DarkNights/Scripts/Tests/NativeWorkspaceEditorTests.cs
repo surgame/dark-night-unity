@@ -130,6 +130,8 @@ namespace DarkNights.Tests
                 {
                     double deadline = EditorApplication.timeSinceStartup + 10;
                     workshop.Repaint();
+                    // 后台 CLI 没有 Inspector 重绘时，显式驱动 Unity 的真实延迟队列；不调用业务回调替身。
+                    typeof(EditorApplication).GetMethod("Internal_CallDelayFunctions", Flags).Invoke(null, null);
                     while (!focused && EditorApplication.timeSinceStartup < deadline) yield return null;
                 }
                 finally { EditorApplication.delayCall -= completed; }

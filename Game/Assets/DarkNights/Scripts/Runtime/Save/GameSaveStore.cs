@@ -35,7 +35,8 @@ namespace DarkNights.Runtime.Save
                 byte[] bytes = Utf8.GetBytes(codec.Serialize(snapshot));
                 cancellationToken.ThrowIfCancellationRequested();
                 Directory.CreateDirectory(directory);
-                string temporary = destination + "." + Guid.NewGuid().ToString("N") + ".tmp";
+                // 同目录保证原子替换；短随机文件名不比合法槽位名更长，避免额外 GUID 使 Windows Mono 路径越界。
+                string temporary = Path.Combine(directory, "." + Path.GetRandomFileName() + ".tmp");
                 bool created = false;
                 try
                 {

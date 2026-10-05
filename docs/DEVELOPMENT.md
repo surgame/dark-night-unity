@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-2026-10-05，当前分支 `ft-20261004-embedded-minerals`。协议 **25**／存档 **v19**／AMP1 schema **2**，Editor **6000.4.9f1**。本页只列当前执行状态；早期评估、M0–M6 估算与历次实现过程保存在[开发历史快照](archive/DEVELOPMENT_HISTORY_20261005.md)。
+2026-10-05，开发成果按用户要求集成到本地 `main`，原开发分支为 `ft-20261004-embedded-minerals`。协议 **25**／存档 **v19**／AMP1 schema **2**，Editor **6000.4.9f1**。本页只列当前执行状态；早期评估、M0–M6 估算与历次实现过程保存在[开发历史快照](archive/DEVELOPMENT_HISTORY_20261005.md)。
 
 ## 当前实现
 
@@ -14,7 +14,11 @@
 
 后续已保存的合并 Editor 记录为608个不同用例通过，存档修复受影响20/20；Core1048/1048、纯航程1903/1903及其他定向结果以[补测过程记录](archive/WEAK_NETWORK_VALIDATION_COMPLETION_20261005.md)和原始报告为准。本次目录整理没有重跑或新增游戏通过计数。
 
+本次集成另包含主角地面与跳跃诊断工具、跳跃边沿立即发送，以及 Host 本地主角在权威模拟后的即时冻结展示。最新编译无错误，定向检查主角35/35、展示28/28、记录器6/6；提交前核对修复源码SHA-256与[原始验证记录](evidence/hero-input-presentation-20261005.json)一致。提交前另跑Core1048/1048、架构守卫731个手写文件／16项自测／0命中，两个改动Python驱动语法通过，报告保留在 `artifacts/commit-main-20261005/`。本次未重建Player，实际坡沿手感、独立进程与远端客户端验证仍待完成；协议、存档及YYGC依赖未改变。
+
 最终 Mono 为 `artifacts/map-state/player-mono-20261005-083543-43792d9e/DarkNights.exe`，源／DLL 身份在 `artifacts/weak-network-completion-20261005/final-player-source-manifest.json`。最终16组矩阵尚未完成；已存在该产物四人采矿弱网38/38报告，另有两人采矿弱网中断状态，不能将旧产物的装备／航程通过数搬入最终矩阵。整理时没有发现运行中的 Python 测试或游戏 Player，未重新启动矩阵。
+
+上述Mono早于本次主角输入与展示修复，其通过数不能作为当前 `main` 的Player验收结果。
 
 下一轮按同一产物的实际结果核销采矿、装备交易和航程两人／四人、正常／弱网及 Host／Client 驾驶组。保留所有失败报告；只重跑未完成或受修复影响的组。完成后重新生成最终汇总并更新本页，不将进程启动或调度提交当成通过。
 

@@ -1,4 +1,4 @@
-"""Basic protocol-22 ship equipment smoke test using independent Mono Players.
+"""Current ship equipment checks using independent Mono Players and explicit save version.
 
 Reuses the existing journey driver for process/command transport. All purchases,
 movement and saves go through SessionClient; no authority state is injected.
@@ -44,6 +44,10 @@ def smoke(run):
                credits(client) == 26 and actor(client, host["slot"])["Slot0"] == 2)
     run.record("late client receives no free equipment or credits", actor(client)["Slot0"] == 0 and
                not actor(client)["JetpackOwned"] and credits(client) == 26)
+    for role in run.roles[2:]:
+        report = run.start(role)
+        run.record(role + " receives current credits and no free equipment", credits(report) == 26 and
+                   actor(report)["Slot0"] == 0 and not actor(report)["JetpackOwned"])
     run.expect("client1", "remote purchase rejected outside terminal", "NoEffect", **payload(run, "client1", "pistol"))
     run.walk("client1", ship_x(client) + 32)
     command = payload(run, "client1", "pistol")
@@ -59,10 +63,12 @@ def smoke(run):
     run.record("paused rejection preserves credits and equipment", credits(run.ready("host")) == 16 and
                not any(a["JetpackOwned"] for a in world(run.ready("host"))["Actors"]))
     run.pause(False)
+    for role in run.roles[2:]:
+        run.walk(role, ship_x(run.ready(role)) + 32)
     markers = {role: run.begin_receipt(role, **payload(run, role, "jetpack")) for role in run.roles}
     results = [run.finish_receipt(role, marker)["Code"] for role, marker in markers.items()]
-    run.record("two players competing for last affordable jetpack only charge once",
-               sorted(results) == ["Applied", "NoEffect"], results)
+    run.record("connected players competing for last affordable jetpack only charge once",
+               results.count("Applied") == 1 and results.count("NoEffect") == len(run.roles) - 1, results)
     for role in run.roles:
         run.wait(role, lambda r: credits(r) == 2 and sum(a["JetpackOwned"] for a in world(r)["Actors"]) == 1,
                  "atomic jetpack result synchronized")
@@ -71,21 +77,22 @@ def smoke(run):
     run.reconnect("client1", "client reconnect", 0)
     run.record("reconnect preserves equipment without another payment", inventory(run.ready("host")) == before and
                credits(run.ready("client1")) == 2)
-    path = run.saves / "v15/slot-00.dnsave.json"
-    run.expect("host", "v15 save request accepted", operation="Save", value=0)
-    run.wait("host", lambda r: path.exists() and not r["storageBusy"], "v15 disk save")
+    path = run.saves / f"v{run.save_version}/slot-00.dnsave.json"
+    run.expect("host", "current format save request accepted", operation="Save", value=0)
+    run.wait("host", lambda r: path.exists() and not r["storageBusy"], "current format disk save")
     saved = json.loads(path.read_text(encoding="utf-8-sig"))
-    run.record("save is format v15", saved["format_version"] == 15)
+    run.record("save has requested format", saved["format_version"] == run.save_version)
     slots = [a[f"slot_{i}"] for a in saved["world"]["actors"] for i in range(4)]
     run.record("saved equipment uses canonical Definition identities", all(isinstance(v,str) and (v == "" or len(v) == 32) for v in slots) and any(slots))
     run.saved[0] = dict(path=str(path), sha256=sha256(path), inventory=before, credits=2)
-    for role in run.roles:
+    for role in reversed(run.roles):
         run.save_report(role, "before-process-restart")
         run.stop(role)
     host = run.start("host")
     run.send("host", operation="BeginLoad", value=0)
-    run.wait("host", lambda r: r["ready"] and r["epoch"] > host["epoch"], "fresh process loads v15")
-    run.start("client1")
+    run.wait("host", lambda r: r["ready"] and r["epoch"] > host["epoch"], "fresh process loads current save")
+    for role in run.roles[1:]:
+        run.start(role)
     for role in run.roles:
         report = run.ready(role)
         run.record(role + " actual restart restores exact equipment and credits", inventory(report) == before and
@@ -98,13 +105,15 @@ def main():
     parser.add_argument("--player", required=True, type=Path)
     parser.add_argument("--port", type=int, default=29380)
     parser.add_argument("--weak", action="store_true")
+    parser.add_argument("--clients", type=int, choices=(1, 3), default=1)
+    parser.add_argument("--save-version", type=int, default=19)
+    parser.add_argument("--output-root", type=Path)
+    parser.add_argument("--background", action="store_true")
     args = parser.parse_args()
     args.backend = "mono"
-    args.clients = 1
     args.driver = "client"
-    args.save_version = 15
     args.interactive = False
-    args.output_root = Path(__file__).resolve().parents[2] / "artifacts/tool-definition-harvesting-20261002"
+    args.output_root = args.output_root or Path(__file__).resolve().parents[2] / "artifacts/weak-network-completion-20261005/equipment"
     run = NetworkRun(args)
     print(json.dumps(dict(run=str(run.run)), ensure_ascii=False), flush=True)
     error = None
@@ -118,7 +127,7 @@ def main():
     except Exception:
         error = traceback.format_exc()
     finally:
-        for role in list(run.processes):
+        for role in reversed(list(run.processes)):
             run.stop(role)
         if run.relay:
             (run.run / "relay.json.stop").write_text("", encoding="utf-8")
@@ -132,11 +141,12 @@ def main():
             error = "Runtime log contains errors"
     result = dict(passed=error is None, error=error, checks=run.checks, saves=run.saved,
                   started=run.started_at, finished=datetime.now(timezone.utc).isoformat(),
-                  player=str(run.player), backend="mono", protocol=22, save_version=15,
+                  player=str(run.player), backend="mono", save_version=args.save_version, clients=args.clients,
                   player_sha256=sha256(run.player),
+                  script_sha256=sha256(Path(__file__)), driver_sha256=run.driver_sha256,
                   managed_sha256={p.name: sha256(p) for p in (run.player.parent / "DarkNights_Data/Managed").glob("DarkNights.*.dll")},
                   weak=args.weak, netem="200 ms RTT + 5% loss + 25 ms jitter" if args.weak else None,
-                  not_covered=[ "four players", "mining and sale in Player", "IL2CPP", "two machines"],
+                  not_covered=[ "mining and sale in Player", "IL2CPP", "two machines"],
                   visual_acceptance=False)
     target = run.run / "result.json"
     target.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")

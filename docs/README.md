@@ -1,6 +1,6 @@
 # Dark Nights 文档索引
 
-当前候选：`ft-20261004-embedded-minerals`，协议25／存档v19／AMP1 schema2。这里保留长期合同、日常入口与当前实现；旧方案、过程记录和周报统一从[历史索引](archive/README.md)进入。不同日期和 Player 的测试结果不能相互替代。
+当前本地 `main` 已集成 `ft-20261004-embedded-minerals`，协议25／存档v19／AMP1 schema2。这里保留长期合同、日常入口与当前实现；旧方案、过程记录和周报统一从[历史索引](archive/README.md)进入。不同日期和 Player 的测试结果不能相互替代。
 
 ## 当前工作
 
@@ -38,6 +38,7 @@
 
 - [历史索引](archive/README.md)：已替代候选、实施计划、审查、验收过程和周报。
 - [当前矿层机器证据](evidence/mineral-map-migration-20261005.json)：保留原始结果与输入身份。
+- [主角输入与展示修复证据](evidence/hero-input-presentation-20261005.json)：69项定向检查、编译结果与源码身份；不代表当前 Player 联机或手感验收。
 - [历史机器证据目录](archive/evidence/)：旧 JSON、XML、截图及日志，字节保持。
 - [第三方声明](third-party/)：持续保留许可与来源。
 - [2026-10-05 整理回执](archive/FOLDER_ORGANIZATION_20261005.md)：移动清单、保留项目与验证。

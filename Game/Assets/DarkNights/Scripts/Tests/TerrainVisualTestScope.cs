@@ -29,6 +29,9 @@ namespace DarkNights.Tests
         internal ARDMapController Controller => Read<ARDMapController>(Preview, "controller");
         internal CaveVisualSource Visual => Read<CaveVisualSource>(Preview, "caveSource");
         internal readonly List<GridChangeSet> Changes = new List<GridChangeSet>();
+        private bool initialized;
+        private readonly HashSet<ulong> presentedTickets = new HashSet<ulong>();
+        private long committedSolved;
         internal static readonly string Output = Path.GetFullPath("../artifacts/terrain-final-20260926");
         internal TerrainVisualTestScope(bool legacy = false, float budget = 4)
         {
@@ -42,23 +45,36 @@ namespace DarkNights.Tests
         }
         internal IEnumerator Settle()
         {
-            double deadline = EditorApplication.timeSinceStartup + 20;
+            // 首次装载真实全图 273 页；后台 Editor 的冷装载与热改动采用不同的有限等待。
+            double deadline = EditorApplication.timeSinceStartup + (initialized ? 20 : 90);
             do
             {
                 Stage.Tick(); Assert.That(Stage.Error, Is.Null, Stage.Progress);
-                if (Stage.Ready) yield break;
+                if (Stage.Ready) { initialized = true; yield break; }
                 yield return null;
             } while (EditorApplication.timeSinceStartup < deadline);
-            Assert.Fail("Terrain did not settle: " + Stage.Progress);
+            Assert.Fail("Terrain did not settle: " + Stage.Progress + "; render=" +
+                Newtonsoft.Json.JsonConvert.SerializeObject(Controller?.Renderer?.CaptureMetrics()) +
+                "; rendererError=" + Controller?.Renderer?.LastError);
         }
-        internal void Observe() { Changes.Clear(); Controller.Logic.Changed += OnChanged; }
+        internal void Observe()
+        {
+            Changes.Clear(); Controller.Logic.Changed += OnChanged;
+            Controller.Renderer.PageStatusChanged += OnPresented;
+        }
         private void OnChanged(GridChangeSet change) => Changes.Add(change);
+        private void OnPresented(AnyRules.Next.Unity.PagePresentationInfo info)
+        {
+            if (info.Status == AnyRules.Next.Unity.PagePresentationStatus.Presented &&
+                Controller.Renderer.TryGetCommittedRecipes(info.Page, out var recipes) && presentedTickets.Add(recipes.Ticket.Id))
+                committedSolved += recipes.SolvedCells;
+        }
         internal void Apply(int x, int row, byte value, byte shape = 0) =>
             Stage.Source.ApplyChanges(new[] { new TerrainBlueprintCellChange(x, row, value, shape) });
         internal static T Read<T>(object owner, string field) =>
             (T)owner.GetType().GetField(field, BindingFlags.Instance | BindingFlags.NonPublic).GetValue(owner);
-        internal long SolvedCells => (long)Read<object>(Controller.Renderer, "_pipeline").GetType()
-            .GetProperty("SolvedCells").GetValue(Read<object>(Controller.Renderer, "_pipeline"));
+        // 只计真实提交的 recipe；BoundedLag 丢弃的尝试不能冒充额外依赖格。
+        internal long SolvedCells => committedSolved;
         internal static byte[] ReadGpu(Texture texture, RectInt rect)
         {
             Assert.That(SystemInfo.supportsAsyncGPUReadback, Is.True, "A real GPU is required for this acceptance.");
@@ -88,7 +104,8 @@ namespace DarkNights.Tests
         }
         public void Dispose()
         {
-            if (Preview != null && Controller != null) Controller.Logic.Changed -= OnChanged;
+            if (Preview != null && Controller != null)
+            { Controller.Logic.Changed -= OnChanged; Controller.Renderer.PageStatusChanged -= OnPresented; }
             Stage.Dispose(); Drafts.Dispose(); UnityEngine.Object.DestroyImmediate(Style);
             CollectionAssert.AreEqual(OriginalBytes, Map.InitialCells.bytes, "Source asset was modified by a preview test.");
         }

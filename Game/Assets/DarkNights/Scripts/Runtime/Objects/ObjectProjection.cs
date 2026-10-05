@@ -14,16 +14,7 @@ namespace DarkNights.Runtime.Objects
         {
             var camp = session.Camp.Read();
             var economy = session.Economy.Read();
-            var actors = session.Index.Actors.Select(actor =>
-            {
-                ActorState a = actor.Read();
-                return new ActorViewData(a.Id, actor.RuleKey, a.Name, a.Enemy, a.X, a.Hp,
-                    a.Activity.ToString(), a.TargetId, a.Face, a.Walking, a.ActionTime, a.Windup, a.HitFlash,
-                    a.Height, a.VerticalSpeed, a.SupportPlatform, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ControllerSlot, a.ControlLease, a.ExplosiveCharges, a.PickaxeSwingActive ? a.PickaxeSwingAim : a.AimAngle, a.EquipmentCooldown, a.EquipmentAction, a.EquipmentActionDuration, a.Charging, a.ChargeSeconds,
-                    a.InventoryRevision, (int)session.Resources.Equipment.Kind(a.Slot0), (int)session.Resources.Equipment.Kind(a.Slot1),
-                    (int)session.Resources.Equipment.Kind(a.Slot2), (int)session.Resources.Equipment.Kind(a.Slot3), a.JetpackOwned,
-                    a.Slot0, a.Slot1, a.Slot2, a.Slot3);
-            }).ToArray();
+            var actors = session.Index.Actors.Select(actor => CaptureActor(session, actor)).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {
                 BuildingState b = building.Read();
@@ -50,6 +41,17 @@ namespace DarkNights.Runtime.Objects
             return new WorldViewData(summary, actors, buildings, sites, shots, identities, ExpeditionMapping.Capture(session),
                 Array.Empty<MineralDepositViewData>(),
                 session.Terrain?.Map?.World.WorldId.ToString().Replace("-", "") ?? "", session.Terrain?.Map?.World.Epoch ?? 0);
+        }
+
+        internal static ActorViewData CaptureActor(ObjectSession session, ActorBehaviour actor)
+        {
+            ActorState a = actor.Read();
+            return new ActorViewData(a.Id, actor.RuleKey, a.Name, a.Enemy, a.X, a.Hp,
+                a.Activity.ToString(), a.TargetId, a.Face, a.Walking, a.ActionTime, a.Windup, a.HitFlash,
+                a.Height, a.VerticalSpeed, a.SupportPlatform, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ControllerSlot, a.ControlLease, a.ExplosiveCharges, a.PickaxeSwingActive ? a.PickaxeSwingAim : a.AimAngle, a.EquipmentCooldown, a.EquipmentAction, a.EquipmentActionDuration, a.Charging, a.ChargeSeconds,
+                a.InventoryRevision, (int)session.Resources.Equipment.Kind(a.Slot0), (int)session.Resources.Equipment.Kind(a.Slot1),
+                (int)session.Resources.Equipment.Kind(a.Slot2), (int)session.Resources.Equipment.Kind(a.Slot3), a.JetpackOwned,
+                a.Slot0, a.Slot1, a.Slot2, a.Slot3);
         }
     }
 }

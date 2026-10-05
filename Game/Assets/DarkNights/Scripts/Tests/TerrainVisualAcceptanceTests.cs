@@ -104,11 +104,12 @@ namespace DarkNights.Tests
         {
             using var scope = new TerrainVisualTestScope();
             yield return scope.Settle();
-            var type = typeof(TerrainPreview); var flags = BindingFlags.Instance | BindingFlags.NonPublic;
-            Camera.CameraCallback pre = (Camera.CameraCallback)Delegate.CreateDelegate(typeof(Camera.CameraCallback), scope.Preview, type.GetMethod("BeginCamera", flags));
-            Camera.CameraCallback post = (Camera.CameraCallback)Delegate.CreateDelegate(typeof(Camera.CameraCallback), scope.Preview, type.GetMethod("EndCamera", flags));
-            var beginPipeline = (Action<ScriptableRenderContext, Camera>)Delegate.CreateDelegate(typeof(Action<ScriptableRenderContext, Camera>), scope.Preview, type.GetMethod("BeginPipelineCamera", flags));
-            var endPipeline = (Action<ScriptableRenderContext, Camera>)Delegate.CreateDelegate(typeof(Action<ScriptableRenderContext, Camera>), scope.Preview, type.GetMethod("EndPipelineCamera", flags));
+            object receipt = TerrainVisualTestScope.Read<object>(scope.Preview, "drawReceipt");
+            var type = receipt.GetType(); var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            Camera.CameraCallback pre = (Camera.CameraCallback)Delegate.CreateDelegate(typeof(Camera.CameraCallback), receipt, type.GetMethod("Begin", flags));
+            Camera.CameraCallback post = (Camera.CameraCallback)Delegate.CreateDelegate(typeof(Camera.CameraCallback), receipt, type.GetMethod("End", flags));
+            var beginPipeline = (Action<ScriptableRenderContext, Camera>)Delegate.CreateDelegate(typeof(Action<ScriptableRenderContext, Camera>), receipt, type.GetMethod("BeginPipeline", flags));
+            var endPipeline = (Action<ScriptableRenderContext, Camera>)Delegate.CreateDelegate(typeof(Action<ScriptableRenderContext, Camera>), receipt, type.GetMethod("EndPipeline", flags));
             Camera.onPreCull -= pre; Camera.onPostRender -= post;
             RenderPipelineManager.beginCameraRendering -= beginPipeline; RenderPipelineManager.endCameraRendering -= endPipeline;
             try
