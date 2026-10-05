@@ -1,0 +1,112 @@
+{
+  "date": "2026-10-06",
+  "branch": "ft-20261006-terrain-debug-integration",
+  "approved_framework_files": [
+    ".deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Debug/GridDebugWindow.cs",
+    ".deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs"
+  ],
+  "framework_base": "fee18645c997ed7529c4592917de6c412033c84e",
+  "game_protocol": 25,
+  "save_version": 19,
+  "map_protocol": 2,
+  "sources": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPreview.cs",
+      "sha256": "010d21467ce5f381220372f59323d2a06dab5f246e8ba4d550a92976ac55b34e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/MineralLayerView.cs",
+      "sha256": "e8db8890785b96f487eac4d70a63700d58ae683dddea5e08bf59f418ef6df88b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/TerrainGridDebugIntegrationTests.cs",
+      "sha256": "65786ac4c1c9805e1140ddca157387844e6469cbd155c858a8da47e0f13a40e8"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/TerrainGridDebugIntegrationTests.cs.meta",
+      "sha256": "88b792628c89b7b0182e59a4920cd3f64bcfa709ac7acd135c9f371d18808628"
+    },
+    {
+      "path": ".deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Debug/GridDebugWindow.cs",
+      "sha256": "9e91af3a1676765b674b540a6f641a32e665d344434d413df9b0d76c778d7798"
+    },
+    {
+      "path": ".deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs",
+      "sha256": "bd5970ad26332a8b9e5e3387ae627aee39d73e26ab2044cf19cdd19a347427b4"
+    },
+    {
+      "path": "tools/grid-business/yygc.patch",
+      "sha256": "58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb"
+    },
+    {
+      "path": "tools/grid-business/dependency.lock.json",
+      "sha256": "360716eb99af3ba1f4dadbd4a2085d3be96b02b83cf38dad4385beb2fbfdf5e9"
+    }
+  ],
+  "compile": {
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "integration_test": {
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 732,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "reconstruction": {
+    "verified_files": 20,
+    "patch_sha256": "58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb"
+  },
+  "checks": {
+    "menu_unique": true,
+    "old_tools_entry_absent": true,
+    "formal_host_two_layers_ready": true,
+    "workbench_live_binding": true,
+    "same_debug_window": true,
+    "retired_borrowed_binding_cleared": true,
+    "scene_shift_pick": {
+      "u": 88,
+      "v": -71,
+      "layer": 0,
+      "shiftPickVerified": true
+    },
+    "final_play_exit": {
+      "playing": false,
+      "maps": 0,
+      "bound": 0,
+      "scene": "Assets/Scenes/Bootstrap.unity",
+      "dirty": false
+    }
+  },
+  "window_screenshot": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\terrain-debug-integration-20261006\\grid-window.png",
+    "width": 600,
+    "height": 800,
+    "sha256": "4c1f8a78181e3b0ee8b12f1741a806d058c2e9f240502e85c28d7d5d2fe7becb",
+    "visual_checked": true
+  },
+  "archive": {
+    "count": 5,
+    "archivedBytes": 408203.0,
+    "freeC": 10198732800,
+    "freeD": 28201385984
+  },
+  "failed_attempts_preserved": [
+    "test-initial-failure.json",
+    "play-exit-check.json",
+    "scene-pick-check.json",
+    "focused-scene-pick-check.json"
+  ],
+  "player_build": "NOT_RUN",
+  "independent_process_multiplayer": "NOT_RUN",
+  "notes": "Editor integration only; no rule, render algorithm, protocol, save format, package version, or user YYGC main checkout changes."
+}

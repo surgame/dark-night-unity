@@ -1,5 +1,7 @@
 # Unity 与 YYGC 依赖准备
 
+2026-10-06 按具体授权整合 AnyRuleD 地形调试入口。YYGC基线、UPM路径与包版本不变；`tools/grid-business/yygc.patch` SHA-256更新为 `58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb`，既有18项补丁保留，新增两个Editor文件。最终干净基线重建20/20与当前隔离源码一致，准备脚本幂等通过；编译、双层检查及边界见[YYGC账本](YYGC_CHANGES.md)和[地形网格检查](TERRAIN_GRID_DEBUGGER.md)。下方旧哈希属于对应历史批次。
+
 2026-10-03 工作台导航修正已按用户具体授权接入。YYGC基线仍为 `fee18645c997ed7529c4592917de6c412033c84e`，`tools/grid-business/yygc.patch` SHA-256更新为 `7b16e941cd7cc119e22b531678584103c697c6b5456b637658cdd0915a039811`；锁文件单独记录Editor工坊验收，不把原有 `validation: NOT_RUN` 的整体运行边界改成通过。干净基线重建18项与当前依赖一致，准备脚本幂等通过。两个工坊文件只改变导航／刷新语义，保留显式同步、保存和Undo；具体文件、隔离落点及测试见[YYGC账本](YYGC_CHANGES.md)。UPM路径、manifest、包版本、游戏协议23／存档v16／AMP1 schema2不变。
 
 2026-10-03 氧气移除候选仅更新游戏协议23／存档v16（含grid-business锁中的游戏版本记录），YYGC锁定提交、补丁哈希、UPM配置和AMP1 schema保持。薄worktree未恢复依赖或启动Unity；后续验证按现有锁定入口准备，不因本切片升级或修改YYGC。具体修改YYGC需先取得用户同意，见[AGENTS](../AGENTS.md)。

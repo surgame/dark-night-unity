@@ -2,11 +2,12 @@
   "repository": "YYGC",
   "base_commit": "fee18645c997ed7529c4592917de6c412033c84e",
   "patch": "yygc.patch",
-  "patch_sha256": "7b16e941cd7cc119e22b531678584103c697c6b5456b637658cdd0915a039811",
+  "patch_sha256": "58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb",
   "destination": ".deps/YYGC-grid-business",
   "game_protocol": 24,
   "map_protocol": 2,
   "save_version": 18,
   "validation": "NOT_RUN",
-  "editor_workshop_navigation": "Local Editor 6000.4.9f1: 3 framework navigation + 2 native integration checks passed; clean-baseline reconstruction 18/18"
+  "editor_workshop_navigation": "Local Editor 6000.4.9f1: 3 framework navigation + 2 native integration checks passed; clean-baseline reconstruction 18/18",
+  "editor_grid_debug_integration": "Local Editor 6000.4.9f1: compilation completed without errors; two-layer integration 1/1; Bootstrap Host maps and retired binding verified; final reconstruction 20/20; Scene Shift pick (88,-71) and 600x800 inspector screenshot verified"
 }

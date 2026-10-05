@@ -77,6 +77,10 @@ namespace DarkNights.View.Terrain
                 var next = await ARDMapController.CreateAsync(descriptor, definition.LoadRuntimeCatalog(), options, token);
                 if (own != lifetime || token.IsCancellationRequested) { await next.DisposeAsync(); return; }
                 controller = next; queue.Configure(descriptor);
+#if UNITY_EDITOR
+                next.Root.name = "矿层地形 · " + next.World.WorldId;
+                next.Root.AddComponent<GridDebugView>().Bind(next.Debugger);
+#endif
                 loadedRegion = region ?? descriptor.Bounds;
                 await next.LoadRegionAsync(loadedRegion, token);
                 if (own != lifetime || token.IsCancellationRequested) return;

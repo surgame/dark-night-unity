@@ -657,3 +657,226 @@ index 0000000..351e1a0
 +fileFormatVersion: 2
 +guid: 8313169eeaf1e4d4d8fc19fa0079de80
 \ No newline at end of file
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Debug/GridDebugWindow.cs b/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Debug/GridDebugWindow.cs
+index a92831b..225778f 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Debug/GridDebugWindow.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Debug/GridDebugWindow.cs
+@@ -1,12 +1,16 @@
+ using System;
++using System.Linq;
+ using AnyRules.Next.Unity;
+ using UnityEditor;
+ using UnityEngine;
+ 
+ namespace AnyRules.Next.Editor
+ {
++    /// <summary>只读网格检查窗口；选择已有地图的诊断控制器，展示四角来源与呈现状态，关闭窗口不会退休借用的地图。</summary>
+     public sealed class GridDebugWindow : EditorWindow
+     {
++        public const string MenuPath = "YY/AnyRuleD/网格调试器";
++        public GridDebugController Controller => _controller;
+         private GridDebugController _controller;
+         private ARDMap _ownedMap;
+         private bool _ownsController;
+@@ -21,13 +25,25 @@ namespace AnyRules.Next.Editor
+         private double _nextRefresh;
+         private long _selectedEvent;
+ 
+-        [MenuItem("Tools/AnyRules/Grid debugger")]
+-        public static void Open() => GetWindow<GridDebugWindow>("AnyRules Debug").Show();
++        [MenuItem(MenuPath)]
++        public static void Open()
++        {
++            var window = GetWindow<GridDebugWindow>("网格调试器");
++            window.OnSelectionChange(); window.Show();
++        }
++
++        public static GridDebugView[] LiveMaps() => Resources.FindObjectsOfTypeAll<GridDebugView>()
++            .Where(view => view != null && view.gameObject.activeInHierarchy && view.gameObject.scene.IsValid() &&
++                view.Controller != null && !view.Controller.IsDisposed && !view.Controller.IsRetired)
++            .OrderBy(view => view.gameObject.scene.path, StringComparer.Ordinal)
++            .ThenBy(view => view.name, StringComparer.Ordinal).ToArray();
++
++        public static string MapLabel(GridDebugView view) => view.name + " · 层 " + view.Controller.Descriptor.Layer;
+ 
+         public static GridDebugWindow ShowForMap(ARDMap map, RuntimeAnyRuleDDatabase catalog = null, bool ownMap = false)
+         {
+             var controller = new GridDebugController(map, catalog);
+-            var window = GetWindow<GridDebugWindow>("AnyRules Debug");
++            var window = GetWindow<GridDebugWindow>("网格调试器");
+             window.ReleaseBinding(); window._controller = controller; window._ownsController = true;
+             window._ownedMap = ownMap ? map : null; window.Refresh(); window.Show();
+             return window;
+@@ -35,15 +51,28 @@ namespace AnyRules.Next.Editor
+ 
+         public static GridDebugWindow ShowForController(GridDebugController controller, Transform projection = null)
+         {
+-            var window = GetWindow<GridDebugWindow>("AnyRules Debug");
++            var window = GetWindow<GridDebugWindow>("网格调试器");
+             if (ReferenceEquals(window._controller, controller))
+             { window._projection = projection; window.Refresh(); window.Show(); return window; }
+             window.ReleaseBinding(); window._controller = controller; window._projection = projection;
+             window.Refresh(); window.Show(); return window;
+         }
+ 
+-        private void OnEnable() => SceneView.duringSceneGui += DrawOverlay;
+-        private void OnDisable() { SceneView.duringSceneGui -= DrawOverlay; ReleaseBinding(); }
++        private void OnEnable()
++        {
++            minSize = new Vector2(480, 420);
++            SceneView.duringSceneGui += DrawOverlay;
++            EditorApplication.playModeStateChanged += OnPlayMode;
++        }
++        private void OnDisable()
++        {
++            SceneView.duringSceneGui -= DrawOverlay;
++            EditorApplication.playModeStateChanged -= OnPlayMode; ReleaseBinding();
++        }
++        private void OnPlayMode(PlayModeStateChange state)
++        {
++            if (state == PlayModeStateChange.ExitingPlayMode && !_ownsController) ReleaseBinding();
++        }
+         private void ReleaseBinding()
+         {
+             if (_ownsController) _controller?.Dispose();
+@@ -53,7 +82,8 @@ namespace AnyRules.Next.Editor
+         private void OnSelectionChange()
+         {
+             var selected = Selection.activeGameObject;
+-            if (selected != null && selected.TryGetComponent<GridDebugView>(out var view) && view.Controller != null)
++            var view = selected == null ? null : selected.GetComponentInParent<GridDebugView>();
++            if (view != null && view.Controller != null && !view.Controller.IsDisposed && !view.Controller.IsRetired)
+                 ShowForController(view.Controller, view.transform);
+         }
+         private void OnInspectorUpdate()
+@@ -63,6 +93,7 @@ namespace AnyRules.Next.Editor
+         }
+         private void Refresh()
+         {
++            if (_controller != null && !_ownsController && (_controller.IsDisposed || _controller.IsRetired)) ReleaseBinding();
+             if (_controller == null || _controller.IsDisposed) { _snapshot = null; return; }
+             try
+             {
+@@ -76,12 +107,14 @@ namespace AnyRules.Next.Editor
+ 
+         private void OnGUI()
+         {
++            DrawMapSelector();
+             if (_controller == null || _controller.IsDisposed)
+             {
+-                EditorGUILayout.HelpBox("选择绑定了 GridDebugView 的对象，或使用矿块样例的 Open live fixture debugger。检查器直接读取逻辑，不要求存在渲染对象。", MessageType.Info);
++                EditorGUILayout.HelpBox("进入游戏并等待地图装载，再选择前景或矿层。也可从地形工作台打开同一窗口；检查不会修改地图。", MessageType.Info);
+                 return;
+             }
+             _scroll = EditorGUILayout.BeginScrollView(_scroll);
++            EditorGUILayout.HelpBox("Scene 视图 Shift + 左键选择逻辑格；U/V 使用地图坐标，渲染格显示其四个来源逻辑格。", MessageType.None);
+             _controller.Enabled = EditorGUILayout.Toggle("记录事件", _controller.Enabled);
+             EditorGUI.BeginChangeCheck();
+             _u = EditorGUILayout.IntField("逻辑 U / 视觉 U", _u); _v = EditorGUILayout.IntField("逻辑 V / 视觉 V", _v);
+@@ -107,7 +140,7 @@ namespace AnyRules.Next.Editor
+                     for (int i = 0; i < 4; i++) DrawCell(new[] { "NW", "NE", "SW", "SE" }[i], _visual.Corners[i]);
+                     if (_visual.Recipe != null)
+                     {
+-                        EditorGUILayout.LabelField("配方 / 原因 / 部件", _visual.Recipe.Status + " / " + _visual.Recipe.Diagnostic + " / " + _visual.Recipe.Parts.Count);
++                        EditorGUILayout.LabelField("求解配方 / 原因 / 部件", _visual.Recipe.Status + " / " + _visual.Recipe.Diagnostic + " / " + _visual.Recipe.Parts.Count);
+                         foreach (var part in _visual.Recipe.Parts)
+                             EditorGUILayout.SelectableLabel(part.ResourceId + " @ " + part.ContentRevision, GUILayout.Height(18));
+                     }
+@@ -132,10 +165,23 @@ namespace AnyRules.Next.Editor
+             }
+             EditorGUILayout.EndScrollView();
+         }
++        private void DrawMapSelector()
++        {
++            if (_controller != null && !_ownsController && (_controller.IsDisposed || _controller.IsRetired)) ReleaseBinding();
++            var maps = LiveMaps();
++            if ((_controller == null || _controller.IsDisposed || _controller.IsRetired) && maps.Length > 0)
++                ShowForController(maps[0].Controller, maps[0].transform);
++            int current = Array.FindIndex(maps, view => ReferenceEquals(view.Controller, _controller));
++            var labels = new[] { "独立预览／未绑定" }.Concat(maps.Select(MapLabel)).ToArray();
++            int next = EditorGUILayout.Popup("检查地图", current + 1, labels) - 1;
++            if (next >= 0 && next != current) ShowForController(maps[next].Controller, maps[next].transform);
++        }
+         private static string Metric<T>(T? value) where T : struct => value.HasValue ? value.Value.ToString() : "未采集";
+         private static void DrawCell(string title, GridCellInspection cell)
+         {
+             EditorGUILayout.LabelField(title, cell.Position + "  " + cell.Chunk + "  " + cell.Sample.State);
++            if (cell.Sample.TryGetCell(out var value))
++                EditorGUILayout.LabelField("TileId / Height / Flags", value.TileId + " / " + value.Height + " / " + value.Flags);
+             if (cell.Terrain != null)
+                 EditorGUILayout.SelectableLabel(cell.Terrain.Key + " / " + cell.Terrain.Guid + " / TileId " + cell.Terrain.TileId, GUILayout.Height(18));
+         }
+@@ -144,6 +190,18 @@ namespace AnyRules.Next.Editor
+         private void DrawOverlay(SceneView view)
+         {
+             if (_controller == null || _controller.IsDisposed || _controller.IsRetired || view.camera == null) return;
++            var input = Event.current;
++            if (input.type == EventType.MouseDown && input.button == 0 && input.shift)
++            {
++                var ray = HandleUtility.GUIPointToWorldRay(input.mousePosition);
++                var plane = new Plane(_projection == null ? Vector3.forward : _projection.forward, Project(Vector3.zero));
++                if (plane.Raycast(ray, out float distance))
++                {
++                    var picked = Unproject(ray.GetPoint(distance));
++                    _u = Mathf.FloorToInt(picked.x + .5f); _v = Mathf.FloorToInt(picked.y + .5f);
++                    Refresh(); Repaint(); input.Use();
++                }
++            }
+             var center = Unproject(view.pivot);
+             // At most 1024 probes, independent of map dimensions. Off-camera probes never read the map.
+             long minU = Math.Max(int.MinValue + 1L, (long)Math.Floor(center.x) - _radius);
+diff --git a/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs b/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs
+index a92b98f..7b4bd2c 100644
+--- a/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs
++++ b/AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs
+@@ -8,6 +8,7 @@ using UnityEngine;
+ 
+ namespace AnyRules.Next.Editor
+ {
++    /// <summary>地形规则制作与独立试画工作台；Play 时借用已绑定的运行地图检查器，导出必须显式执行。</summary>
+     public sealed class AnyRuleDWorkbench : EditorWindow
+     {
+         [SerializeField] private EditorAnyRuleDDatabase _source;
+@@ -20,6 +21,7 @@ namespace AnyRules.Next.Editor
+         private bool _refreshRequested, _grid = true, _collision;
+         private double _refreshAfter;
+         private int _canvasControl;
++        private GridDebugView _live;
+         public WorkbenchSession Session => _session != null && !_session.IsDisposed ? _session : null;
+         public bool IsStale => _refreshRequested || _error != null;
+         public string LastError => _error;
+@@ -57,7 +59,7 @@ namespace AnyRules.Next.Editor
+         private void ReleaseMouse() { if (_canvasControl != 0 && GUIUtility.hotControl == _canvasControl) GUIUtility.hotControl = 0; }
+         public void ReleaseTransient()
+         {
+-            ReleaseMouse(); _session?.Dispose(); _session = null;
++            ReleaseMouse(); _session?.Dispose(); _session = null; _live = null;
+         }
+         private void OnUndo() { RequestRefresh(); Repaint(); }
+         private void OnInspectorUpdate()
+@@ -347,13 +349,21 @@ namespace AnyRules.Next.Editor
+         }
+         private void DrawLiveExport()
+         {
+-            EditorGUILayout.HelpBox("运行模式：选择挂有 GridDebugView 的地图对象。只有点击导出才会保存运行中的变化；源目录保持不变。画布最多 4096 格。", MessageType.Info);
+-            var view = Selection.activeGameObject == null ? null : Selection.activeGameObject.GetComponent<GridDebugView>();
+-            using (new EditorGUI.DisabledScope(view?.Controller == null || _source == null))
++            EditorGUILayout.HelpBox("运行模式：选择当前前景或矿层，打开网格调试器检查逻辑格、渲染格四角及页状态。制作画布在退出 Play 后恢复。", MessageType.Info);
++            var maps = GridDebugWindow.LiveMaps();
++            if (!maps.Contains(_live)) _live = maps.FirstOrDefault();
++            if (maps.Length == 0)
++            { EditorGUILayout.HelpBox("尚无已绑定的运行地图，请等待游戏地图装载。", MessageType.Info); return; }
++            int current = Array.IndexOf(maps, _live);
++            _live = maps[EditorGUILayout.Popup("检查地图", current, maps.Select(GridDebugWindow.MapLabel).ToArray())];
++            if (GUILayout.Button("打开网格调试器")) GridDebugWindow.ShowForController(_live.Controller, _live.transform);
++            EditorGUILayout.LabelField("地图目录", _live.Controller.Catalog?.SourceDigest ?? "仅逻辑地图");
++            EditorGUILayout.HelpBox("另存画布只导出所选运行地图（最多 4096 格），需选择与该地图一致的作者目录。导出不会应用回游戏或覆盖源资产。", MessageType.None);
++            using (new EditorGUI.DisabledScope(_live.Controller.Catalog == null || _source == null))
+                 if (GUILayout.Button("将当前运行地图另存为画布")) Run(() =>
+                 {
+                     string path = EditorUtility.SaveFilePanelInProject("导出运行地图", "RuntimeCanvas", "asset", "退出运行模式后可在工作台打开。");
+-                    if (!string.IsNullOrEmpty(path)) WorkbenchExport.SaveLiveCanvas(view.Controller, _source, path);
++                    if (!string.IsNullOrEmpty(path)) WorkbenchExport.SaveLiveCanvas(_live.Controller, _source, path);
+                 });
+         }
+     }

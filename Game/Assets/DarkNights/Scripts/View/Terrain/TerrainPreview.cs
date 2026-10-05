@@ -141,6 +141,10 @@ namespace DarkNights.View.Terrain
                 var result = await ARDMapController.CreateAsync(definition, options, own.Token);
                 if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
                 controller = result;
+#if UNITY_EDITOR
+                result.Root.name = "前景地形 · " + result.World.WorldId;
+                result.Root.AddComponent<GridDebugView>().Bind(result.Debugger);
+#endif
                 inputQueue.Configure(result.Descriptor);
                 regionLoader = new TerrainReplicaRegion(result, replicaSource, HideForBaseline, own.Token);
                 await regionLoader.Initialize(LocalRegion.IsValid ? LocalRegion : result.Descriptor.Bounds, replicaSource?.Replica);

@@ -29,6 +29,7 @@
 | [工具与采集配置](TOOL_DEFINITION_HARVESTING.md) | 工具 Definition、材料要求与能力合同 |
 | [运行时地形工作台](RUNTIME_TERRAIN_TUNER.md) | Play 预览、调参和拆填 |
 | [地图与地形](TERRAIN_GENERATION.md) | 现行地图入口、状态与碰撞职责 |
+| [运行中地形网格检查](TERRAIN_GRID_DEBUGGER.md) | 正式游戏前景／矿层、逻辑格和 DualGrid 四角检查 |
 | [Smart Console](SMART_CONSOLE_INTEGRATION.md) | F10 日志与 F1 调试入口 |
 | [Unity CLI](UNITY_CLI_WORKFLOW.md) | 后台有限操作、测试与构建 |
 | [LAN Sample](LAN_SAMPLE.md) | 独立模板，正式代码不反向引用 |
@@ -39,6 +40,7 @@
 - [历史索引](archive/README.md)：已替代候选、实施计划、审查、验收过程和周报。
 - [当前矿层机器证据](evidence/mineral-map-migration-20261005.json)：保留原始结果与输入身份。
 - [主角输入与展示修复证据](evidence/hero-input-presentation-20261005.json)：69项定向检查、编译结果与源码身份；不代表当前 Player 联机或手感验收。
+- [地形调试整合证据](evidence/terrain-grid-debug-integration-20261006.json)：两层只读检查、正式Host、Scene定位、退休释放与可重现补丁；未构建Player。
 - [历史机器证据目录](archive/evidence/)：旧 JSON、XML、截图及日志，字节保持。
 - [第三方声明](third-party/)：持续保留许可与来源。
 - [2026-10-05 整理回执](archive/FOLDER_ORGANIZATION_20261005.md)：移动清单、保留项目与验证。

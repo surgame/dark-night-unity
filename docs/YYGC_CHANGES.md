@@ -1,5 +1,18 @@
 # YYGC 修改授权与改动账本
 
+## 2026-10-06：获批地形调试入口整合
+
+用户明确批准本次两个 AnyRuleD Editor 文件、对应检查、隔离候选及可重现补丁接入。修改落在游戏已锁定的隔离检出 `.deps/YYGC-grid-business`，保留其已有修改；没有切换、清理或写入用户 `D:/Developer/YYGC` 主仓库。
+
+| 框架相对文件 | 原因与最终行为 | 验证 |
+| --- | --- | --- |
+| `AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Debug/GridDebugWindow.cs` | 将旧 Tools 菜单迁到 `YY/AnyRuleD/网格调试器`；列出存活的已绑定地图、复用同一窗口，支持子对象选择、Scene Shift 定位、格属性和四角查询；退休后撤销借用引用，窗口不拥有地图 | 实际菜单唯一；真实两层宿主输入／四角／切换／只读／退休检查1/1；Bootstrap Host 两层和退出 Play 检查通过 |
+| `AnyRuleD~/Packages/com.tsgame.anyrules/Editor/Workbench/AnyRuleDWorkbench.cs` | 保留编辑态制作画布；Play 时选择当前地图并打开同一网格调试器；原显式导出与目录身份检查保留 | 真实 Host 中运行页面绑定前景，并列出前景／矿层；不写源资产 |
+
+游戏侧只在 Editor 给 `TerrainPreview`、`MineralLayerView` 绑定原生 `GridDebugView`，新回归位于 `TerrainGridDebugIntegrationTests.cs`。框架补丁仍以 `fee18645c997ed7529c4592917de6c412033c84e` 为基线，`tools/grid-business/yygc.patch` SHA-256为 `58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb`；既有18项保留，追加两个Editor文件，最终干净基线重建20/20与当前源码一致，准备脚本幂等通过。
+
+最终编译完成且无错误，架构732文件／16自测／0命中。首轮新测试断言编译错误、SceneHandle排序失败及Play退出时短暂残留的退休控制器均保留记录并修复；最终退休回归通过。后台Scene未绘制的尝试保留；随后受控聚焦Editor，真实Scene Shift事件在缩放宿主中选中(88,-71)，600×800窗口截图通过布局核对。未构建Player、升级YYGC或更改规则／渲染算法；游戏协议25／存档v19／AMP1 schema2不变。本批记录见[地形检查说明](TERRAIN_GRID_DEBUGGER.md)及 `artifacts/terrain-debug-integration-20261006/`。
+
 ## 2026-10-05 原生矿层游戏侧接线
 
 本批没有修改YYGC、AnyRules、`.deps`源码／补丁或升级锁定版本。原生前景 `MapWireMessage` 与独立 `MineralMapWireMessage`／序列化，以及 `NativeMapTransport<TWire>` 位于游戏Runtime，复用现有MapInterestService、MapProtocol及ChunkReplicaStateMachine。记录的373项框架文件哈希复核0项变化；当前限制及验证见[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
