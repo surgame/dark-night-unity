@@ -10,11 +10,11 @@
 
 ### 已确认的代码链
 
-1. [SessionTerrainNetwork.CreateTransport](../Game/Assets/DarkNights/Scripts/Runtime/Terrain/SessionTerrainNetwork.cs)订阅整个地图范围，背景基线另走可靠消息。启动诊断的完整地图流约1,587,068字节（AMP1诊断字节，不等于UDP线上总字节）。
+1. [SessionTerrainNetwork.CreateTransport](../../Game/Assets/DarkNights/Scripts/Runtime/Terrain/SessionTerrainNetwork.cs)订阅整个地图范围，背景基线另走可靠消息。启动诊断的完整地图流约1,587,068字节（AMP1诊断字节，不等于UDP线上总字节）。
 2. 锁定依赖`.deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet/Runtime/FishNetMapTransport.cs`每100 ms调用Replica.Tick，失效时发Resync；每帧最多8包／预算64 KiB。Reliable并不保证大基线在应用超时前完成。
 3. `com.tsgame.anyrules.networking/Protocol/ChunkReplicaStateMachine.cs`的pending commit从收到首个分片起累计Age；`ProtocolLimits.RetryTicks=120`，约12秒，收到后续分片不会清零Age。必须集齐Manifest列出的全部分片才原子安装，缺少任意块则Commit不推进。
 4. 超时Resync调用ClearPending，丢弃未完整提交的分片；服务端OnServer调用MapInterestService.Subscribe，generation加1、清流队列／投影账本并重新发布整基线；客户端新Hello也清pending、把Commit归零并重置重试计数。
-5. 该过程重复，客户端Commit始终0、数据始终未就绪；[SessionServer.Advance](../Game/Assets/DarkNights/Scripts/Runtime/Network/SessionServer.cs)按[SessionPeer.ReadyTimeoutSeconds=90](../Game/Assets/DarkNights/Scripts/Runtime/Network/SessionPeer.cs)主动Disconnect(true)。Host堆栈指向该检查，Client记录RemoteConnectionClose。失败发生在地图同步与Ready门控，不经过氧气或战斗死亡链。
+5. 该过程重复，客户端Commit始终0、数据始终未就绪；[SessionServer.Advance](../../Game/Assets/DarkNights/Scripts/Runtime/Network/SessionServer.cs)按[SessionPeer.ReadyTimeoutSeconds=90](../../Game/Assets/DarkNights/Scripts/Runtime/Network/SessionPeer.cs)主动Disconnect(true)。Host堆栈指向该检查，Client记录RemoteConnectionClose。失败发生在地图同步与Ready门控，不经过氧气或战斗死亡链。
 
 只读桥观测（相对启动秒数，约1秒采样，非逐包精确时间）：
 
@@ -41,7 +41,7 @@ relay实际received10799、dropped536、forwarded10263、reordered7406，115.81�
 
 ## 旧路线历史诊断（两项用例已移除）
 
-两项用例共用[ExpeditionTests.Create](../Game/Assets/DarkNights/Scripts/Tests/ExpeditionTests.cs)、种子EXPEDITION-QUICK-01。当前[ExpeditionTerrainGenerator](../Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/ExpeditionTerrainGenerator.cs)转交完整PlanetTerrainGenerator，明确不再改写独立泊位、通路或矿床；旧用例仍假设只向右就必定到第一矿房、矿工能走到矿床中心。
+两项用例共用[ExpeditionTests.Create](../../Game/Assets/DarkNights/Scripts/Tests/ExpeditionTests.cs)、种子EXPEDITION-QUICK-01。当前[ExpeditionTerrainGenerator](../../Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/ExpeditionTerrainGenerator.cs)转交完整PlanetTerrainGenerator，明确不再改写独立泊位、通路或矿床；旧用例仍假设只向右就必定到第一矿房、矿工能走到矿床中心。
 
 ### 旧主角矿房路线
 
@@ -49,11 +49,11 @@ StarterRouteUsesFiniteFuelAndMiningKeepsOreIndependent失败于行走断言，�
 
 原图只读碰撞采样：x1353.46处，height -464.54至-432.54均为实体岩层，位于角色前方。此时喷气燃料仍为**2秒**。失败是旧脚本未在障碍处跳跃、喷气或开路，并非燃料耗尽、缺氧停止或自动返船。第一矿床为x1400、height -448。
 
-后续旧断言仍发送离散UseHeroItem(kind=pickaxe,targetId=deposit.Id)；[SessionHeroControl](../Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs)转给[HeroInventoryBehaviour.Use](../Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroInventoryBehaviour.cs)，该入口明确退出、返回false。当前采矿链为带目标HeroInputRequest→[HeroEquipment.TickPickaxe](../Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroEquipment.cs)→MiningTool.Hit。因此只调整行走断言仍不能正确验收现行手采合同；当前MiningInput／MiningToolDefinition回归通过另有证据。
+后续旧断言仍发送离散UseHeroItem(kind=pickaxe,targetId=deposit.Id)；[SessionHeroControl](../../Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs)转给[HeroInventoryBehaviour.Use](../../Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroInventoryBehaviour.cs)，该入口明确退出、返回false。当前采矿链为带目标HeroInputRequest→[HeroEquipment.TickPickaxe](../../Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroEquipment.cs)→MiningTool.Hit。因此只调整行走断言仍不能正确验收现行手采合同；当前MiningInput／MiningToolDefinition回归通过另有证据。
 
 ### 旧矿工采集交货路线
 
-MinerCanReachStarterDepositAndDeliverCargo失败于第一条mine请求，尚未进入采矿或交货。链为Expedition(mine)→[ExpeditionDevices.AssignMiner](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionDevices.cs)→[ExpeditionNavigation.CanReach／Find](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionNavigation.cs)。Find无路径则返回0／NoEffect并提示先开路。
+MinerCanReachStarterDepositAndDeliverCargo失败于第一条mine请求，尚未进入采矿或交货。链为Expedition(mine)→[ExpeditionDevices.AssignMiner](../../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionDevices.cs)→[ExpeditionNavigation.CanReach／Find](../../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionNavigation.cs)。Find无路径则返回0／NoEffect并提示先开路。
 
 - 诊断复用原会话与原图，对全部12个矿床发送可信派工请求，全部NoEffect；只读原Find也全部0个路径点。
 - 矿工起点为坡道脚(408,0)。搜索扩展8单位水平步，要求+18／-24高度范围存在支撑、22高／半宽5净空和视线，不搜索悬空下落、喷气或主动开路。沿右侧连续支撑诊断到x1248、前高-379时已找不到下一支撑点；这不是完整BFS失败点的替代证明，完整Find=0是不可达直接证据。

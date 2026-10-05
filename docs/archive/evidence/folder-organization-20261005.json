@@ -1,0 +1,946 @@
+{
+  "passed": true,
+  "protected_tracked_files_checked": 6096,
+  "permitted_metadata_update": ".gitattributes: frozen evidence paths moved to archive",
+  "local_links_checked": 1052,
+  "current_root_markdown_documents": 19,
+  "cleanup_files_sha256_verified": 311,
+  "historical_evidence_files_sha256_verified": 114,
+  "archived_bytes": 50353724,
+  "permanently_deleted_bytes": 0,
+  "released_bytes": 0,
+  "new_game_tests_run": 0,
+  "preexisting_template_or_vendor_links": [
+    {
+      "kind": "broken_link",
+      "path": "experiments/aseprite-pixel-crew/web/viewer.html",
+      "line": 97,
+      "url": "sheet.png"
+    },
+    {
+      "kind": "broken_link",
+      "path": "experiments/aseprite-pixel-crew/web/viewer.html",
+      "line": 97,
+      "url": "sheet.json"
+    },
+    {
+      "kind": "broken_link",
+      "path": "Game/Assets/Packages/VitalRouter.2.7.1/README.md",
+      "line": 270,
+      "url": "./website/docs/assets/diagram_mruby.png"
+    },
+    {
+      "kind": "broken_link",
+      "path": "Game/Assets/Packages/VitalRouter.2.7.1/README.md",
+      "line": 258,
+      "url": "./website/docs/assets/diagram_interceptors.svg"
+    },
+    {
+      "kind": "broken_link",
+      "path": "Game/Assets/Packages/ZLinq.1.5.6/README.md",
+      "line": 10,
+      "url": "img/benchmarkhead.jpg"
+    },
+    {
+      "kind": "broken_link",
+      "path": "Game/Assets/Packages/ZLinq.1.5.6/README.md",
+      "line": 40,
+      "url": "img/testrun.png"
+    },
+    {
+      "kind": "broken_link",
+      "path": "Game/Assets/Packages/ZLinq.1.5.6/README.md",
+      "line": 232,
+      "url": "img/dropin.jpg"
+    },
+    {
+      "kind": "broken_link",
+      "path": "Game/Assets/Packages/ZLinq.1.5.6/README.md",
+      "line": 459,
+      "url": "img/axis.jpg"
+    },
+    {
+      "kind": "broken_link",
+      "path": "Game/Assets/Packages/ZLinq.1.5.6/README.md",
+      "line": 721,
+      "url": "img/axis.jpg"
+    },
+    {
+      "kind": "broken_link",
+      "path": "Game/Assets/Packages/ZLinq.1.5.6/README.md",
+      "line": 826,
+      "url": "img/unityforeach.png"
+    },
+    {
+      "kind": "broken_link",
+      "path": "Game/Assets/Packages/ZLinq.1.5.6/README.md",
+      "line": 860,
+      "url": "img/godot.jpg"
+    }
+  ],
+  "problems": [],
+  "task_date": "2026-10-05",
+  "branch": "ft-20261004-embedded-minerals",
+  "historical_evidence_git_blobs_preserved": 111,
+  "unity_final_state": {
+    "scenes": [
+      {
+        "path": "Assets/DarkNights/Res/Scenes/Regression/Camp/StaticCampRegression.unity",
+        "dirty": true
+      }
+    ],
+    "playing": false,
+    "compiling": false,
+    "fixturesStillIndexed": []
+  },
+  "document_moves": [
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\BUSINESS_RULE_AUDIT.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\BUSINESS_RULE_AUDIT.md",
+      "bytes": 52092,
+      "sha256": {
+        "BUSINESS_RULE_AUDIT.md": "5985bd246e66109542c0e1bb77c96846ed252228d6c35cde9ed3673fa0a564ff"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\CAVE_ENTRANCE_ART_LAYERS.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\CAVE_ENTRANCE_ART_LAYERS.md",
+      "bytes": 6905,
+      "sha256": {
+        "CAVE_ENTRANCE_ART_LAYERS.md": "84363ca17d982c80399f546b1f4587c4c75821abba85eb538572b12502924889"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\CAVE_GENERATION_ALIGNMENT.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\CAVE_GENERATION_ALIGNMENT.md",
+      "bytes": 6841,
+      "sha256": {
+        "CAVE_GENERATION_ALIGNMENT.md": "0d1282123ba36be153c302f7306e64322e261f563d6698fb54aecbce39bd6f81"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\DEFINITION_EDITOR_REVIEW.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\DEFINITION_EDITOR_REVIEW.md",
+      "bytes": 8977,
+      "sha256": {
+        "DEFINITION_EDITOR_REVIEW.md": "f05be4704806b633367c52d35249ccfb37fdf80a12ce7c532c07a8c6719103c7"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\EDITOR_WORKBENCH_ASSESSMENT.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\EDITOR_WORKBENCH_ASSESSMENT.md",
+      "bytes": 6546,
+      "sha256": {
+        "EDITOR_WORKBENCH_ASSESSMENT.md": "f2b069233591f1f30eef1056c2d167bda91fb9bb57a77f428bc41805650c388c"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\EMBEDDED_MINERAL_LAYER_ART.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\EMBEDDED_MINERAL_LAYER_ART.md",
+      "bytes": 1328,
+      "sha256": {
+        "EMBEDDED_MINERAL_LAYER_ART.md": "5d5173ed8477a625b6456d71588d60c01945800660099fec46cd31caa353534d"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md",
+      "bytes": 6917,
+      "sha256": {
+        "EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md": "70aeac5615f0bc3397020d5a79ca2e7e4775148e09360bcffd0ec7cc0270a6de"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\EMBEDDED_MINERAL_LAYER_PLAN.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\EMBEDDED_MINERAL_LAYER_PLAN.md",
+      "bytes": 28679,
+      "sha256": {
+        "EMBEDDED_MINERAL_LAYER_PLAN.md": "ea4e918ce07f711e5876528bbbf40aa02d6a301e8292edcc5a2f6c1ac38875d5"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\EMBEDDED_MINERAL_LAYER_REVIEW.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\EMBEDDED_MINERAL_LAYER_REVIEW.md",
+      "bytes": 11382,
+      "sha256": {
+        "EMBEDDED_MINERAL_LAYER_REVIEW.md": "5c29772407c765fe834853584fc5503f2d49420a3e68e37b163bb3ec811ebe36"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\HERO_MOVEMENT_SCALE.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\HERO_MOVEMENT_SCALE.md",
+      "bytes": 3043,
+      "sha256": {
+        "HERO_MOVEMENT_SCALE.md": "8e22202e23bd09f99ca44d1d2ef67bd0b607374f29d3932ad6982c678ad365d2"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\MAP_STATE_NETWORKING.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\MAP_STATE_NETWORKING.md",
+      "bytes": 3920,
+      "sha256": {
+        "MAP_STATE_NETWORKING.md": "2705de80af744df46493b6fa03c107def0f4795b7a84b55d568b1442856bfbc7"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\MINERAL_MAP_MIGRATION_PLAN.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\MINERAL_MAP_MIGRATION_PLAN.md",
+      "bytes": 20710,
+      "sha256": {
+        "MINERAL_MAP_MIGRATION_PLAN.md": "a37fdd801cb938850d7f4852d7b5b1e093b5bdd3178cf479314fa485684c3a5c"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\MINING_GRID_EXECUTION.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\MINING_GRID_EXECUTION.md",
+      "bytes": 14590,
+      "sha256": {
+        "MINING_GRID_EXECUTION.md": "5e8ec8c8ef6ac390d6dab8553caf83673d7a0a77cf82887ce9e6c63ddb764c1f"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\OXYGEN_REMOVAL_ASSESSMENT.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\OXYGEN_REMOVAL_ASSESSMENT.md",
+      "bytes": 9241,
+      "sha256": {
+        "OXYGEN_REMOVAL_ASSESSMENT.md": "05acdd55c984bf4dd2fba0198603c4d0fdb081fb69ed8abdd1bbabd472365b90"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\OXYGEN_REMOVAL_EXECUTION.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\OXYGEN_REMOVAL_EXECUTION.md",
+      "bytes": 8425,
+      "sha256": {
+        "OXYGEN_REMOVAL_EXECUTION.md": "70699d6e9745cc63e16b3e010471d8c2e2ced2b4d1a9fea583c98a1dec5cb6f1"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\OXYGEN_REMOVAL_FAILURE_ANALYSIS.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\OXYGEN_REMOVAL_FAILURE_ANALYSIS.md",
+      "bytes": 8738,
+      "sha256": {
+        "OXYGEN_REMOVAL_FAILURE_ANALYSIS.md": "f91359d5fa51c74687ed40d664c008c7d2983cfba9fccf00f994dee748e5c6e0"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\OXYGEN_REMOVAL_VALIDATION.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\OXYGEN_REMOVAL_VALIDATION.md",
+      "bytes": 8879,
+      "sha256": {
+        "OXYGEN_REMOVAL_VALIDATION.md": "a6b63c1416b2947cfefe3bf8bda1eda2091a40c510e34b4b42ca281509e539b7"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\PICKAXE_UNIFIED_REACH.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\PICKAXE_UNIFIED_REACH.md",
+      "bytes": 3969,
+      "sha256": {
+        "PICKAXE_UNIFIED_REACH.md": "1364e3f0fd3c536691b51fe0fd39e76f00d6bdd267a86aa6c83b0af6c1d3088d"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\QUICK_TEST_SCENES.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\QUICK_TEST_SCENES.md",
+      "bytes": 7555,
+      "sha256": {
+        "QUICK_TEST_SCENES.md": "09a8c2c55280a45578115115d00eed75502d559ef7cd68c8ad131cfe1b9368f0"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\QUICK_TEST_SCENES_ASSESSMENT.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\QUICK_TEST_SCENES_ASSESSMENT.md",
+      "bytes": 12679,
+      "sha256": {
+        "QUICK_TEST_SCENES_ASSESSMENT.md": "f30ba8fb4a2b2f79ef63dc11dab4484023b0007a25e6b86f3ba4963fb2e55601"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\RUNTIME_DEBUG_HUB.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\RUNTIME_DEBUG_HUB.md",
+      "bytes": 2443,
+      "sha256": {
+        "RUNTIME_DEBUG_HUB.md": "aa7fa6300c3c081b91206a6d083a7ab2c5f84fac4d334feea323c8161db9a762"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\SESSION_INPUT_FEEDBACK.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\SESSION_INPUT_FEEDBACK.md",
+      "bytes": 3959,
+      "sha256": {
+        "SESSION_INPUT_FEEDBACK.md": "e6c6b104d318bef1a791050fdac130c3ebc77d943a428ca58e9cd7b6cbc3561c"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md",
+      "bytes": 8272,
+      "sha256": {
+        "SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md": "bb2ba27835dd22a845202eac2d76cb994e9c6699355afe2f68ac2072041acb08"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\SHIP_TRADE_EQUIPMENT_DESIGN.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\SHIP_TRADE_EQUIPMENT_DESIGN.md",
+      "bytes": 32365,
+      "sha256": {
+        "SHIP_TRADE_EQUIPMENT_DESIGN.md": "56dde0b7ec0ecf58f1b82dd24acc69b6cc0def79515bd9953baa275498c55db2"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\SLOPE_JUMP_FLOW.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\SLOPE_JUMP_FLOW.md",
+      "bytes": 4554,
+      "sha256": {
+        "SLOPE_JUMP_FLOW.md": "a1ac60dfa62b4fcda2de54f6c044b2c763ff11bc5bbe6285957d21124bb9df0e"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\SPACE_TO_PLANET_ACCEPTANCE.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\SPACE_TO_PLANET_ACCEPTANCE.md",
+      "bytes": 50182,
+      "sha256": {
+        "SPACE_TO_PLANET_ACCEPTANCE.md": "31cf36d25edb40fa95cf549d4a7ca2fb61866f1b6b91bc16cb5295d0095fa122"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\SPACE_TO_PLANET_FLOW_DESIGN.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\SPACE_TO_PLANET_FLOW_DESIGN.md",
+      "bytes": 33528,
+      "sha256": {
+        "SPACE_TO_PLANET_FLOW_DESIGN.md": "afab99fe5a73d67c681ea8a28af4be46f35c377c50ff3c82cc3b1ee62347a747"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\SPACE_TO_PLANET_IMPLEMENTATION.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\SPACE_TO_PLANET_IMPLEMENTATION.md",
+      "bytes": 12925,
+      "sha256": {
+        "SPACE_TO_PLANET_IMPLEMENTATION.md": "62365ab5aadddd2b95d3590196b3e30c407ea77abf1c642c2f9b2b7d675063af"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\SURFACE_ENVIRONMENT.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\SURFACE_ENVIRONMENT.md",
+      "bytes": 7504,
+      "sha256": {
+        "SURFACE_ENVIRONMENT.md": "cef17807dc6ad9ae5d84e4d728622ac3f220e4d30d8ead6e2435a216655f469e"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\TERRAIN_GENERATION_MODIFIER_PIPELINE.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\TERRAIN_GENERATION_MODIFIER_PIPELINE.md",
+      "bytes": 9913,
+      "sha256": {
+        "TERRAIN_GENERATION_MODIFIER_PIPELINE.md": "56365e71b79dac438abca2bf1045c2ddde82ed399913550ff8a190ef928cd5c3"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\TUNER_JOURNEY_WORKBENCH.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\TUNER_JOURNEY_WORKBENCH.md",
+      "bytes": 5535,
+      "sha256": {
+        "TUNER_JOURNEY_WORKBENCH.md": "4d1d42682c690865e7ee0df8175e050cff8089d6a45b0c4e766a3af5c37dd67c"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\WORKSHOP_NAVIGATION_FIX_PROPOSAL.md",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\WORKSHOP_NAVIGATION_FIX_PROPOSAL.md",
+      "bytes": 3760,
+      "sha256": {
+        "WORKSHOP_NAVIGATION_FIX_PROPOSAL.md": "3b103f636a39dff50bb75ff9ea4ae87c201bda9cb2785a83b3fbd561b5efdf40"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\HERO_INPUT_ARCHITECTURE.html",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\HERO_INPUT_ARCHITECTURE.html",
+      "bytes": 8285,
+      "sha256": {
+        "HERO_INPUT_ARCHITECTURE.html": "40963f806a4a5b8a68b8437b547e5b1a0851ed12b823477496742e620fd4b725"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\INPUT_PLATFORM_COMPARISON.html",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\INPUT_PLATFORM_COMPARISON.html",
+      "bytes": 18781,
+      "sha256": {
+        "INPUT_PLATFORM_COMPARISON.html": "e83fbf56dce85695983e14430911d019d47fdda57284fb0c09603fa98496822e"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\reports\\weekly-2026-09-27.html",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\reports\\weekly-2026-09-27.html",
+      "bytes": 58220,
+      "sha256": {
+        "weekly-2026-09-27.html": "b50021b4971558600cc74de6515860aacfc5919cfcd1bcb2f61cc400f6a402b5"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\reports\\weekly-2026-10-04.html",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\reports\\weekly-2026-10-04.html",
+      "bytes": 21012,
+      "sha256": {
+        "weekly-2026-10-04.html": "ff07551285633e2030e6e20d15289650fc8ce7c83d316901f355de7af1ad808c"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\bootstrap-startup-20260926.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\bootstrap-startup-20260926.json",
+      "bytes": 539,
+      "sha256": {
+        "bootstrap-startup-20260926.json": "d0ea88c51bb0df990112f80128a00f949f1531bff9100e67d4025f47f7675a63"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\business-rule-audit-20260930.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\business-rule-audit-20260930.json",
+      "bytes": 123224,
+      "sha256": {
+        "business-rule-audit-20260930.json": "0449395a823e24f19f0ec85f0546f2fdc96171f747aa9db2463d4e9aceeaede7"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\cave-entrance-art-20261003.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\cave-entrance-art-20261003.json",
+      "bytes": 5868,
+      "sha256": {
+        "cave-entrance-art-20261003.json": "0a7667c945454f1071f5a539e3ea9549d6fbad736258b8349b6483edcee69180"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\definition-editor-review-20261002.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\definition-editor-review-20261002.json",
+      "bytes": 2713,
+      "sha256": {
+        "definition-editor-review-20261002.json": "f1000fbc29dc7cbfa52aa6f173520e5cd9d1fc4bed7e13c0b94aed5c16f29fc8"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\editor-workbench-20261002.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\editor-workbench-20261002.json",
+      "bytes": 5287,
+      "sha256": {
+        "editor-workbench-20261002.json": "1070f26ad05bb89f705f03bab53112ab62a833b81a22badf86476d602bfb40d1"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\embedded-mineral-layer-development-20261004.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\embedded-mineral-layer-development-20261004.json",
+      "bytes": 63767,
+      "sha256": {
+        "embedded-mineral-layer-development-20261004.json": "800edb24b562ab0750dd360c42378fca1d9b8a2e65318553c32e10694c9cbd60"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\embedded-mineral-layer-plan-20261004.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\embedded-mineral-layer-plan-20261004.json",
+      "bytes": 11159,
+      "sha256": {
+        "embedded-mineral-layer-plan-20261004.json": "97335737d602fdcd775d8a42a191b53e081f153676fac2afa208e9a24ae84ebd"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\embedded-minerals-baseline-20261004.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\embedded-minerals-baseline-20261004.json",
+      "bytes": 1005,
+      "sha256": {
+        "embedded-minerals-baseline-20261004.json": "1a35fb6a3882961ace18c476e8fc494e7d1a53500c1835f45e3461efd41d75dd"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\legacy-expedition-test-retirement-20261003.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\legacy-expedition-test-retirement-20261003.json",
+      "bytes": 6996,
+      "sha256": {
+        "legacy-expedition-test-retirement-20261003.json": "55a2e60d0c3a0f6a3eb2ccde8c1db39bbe28cdbabf027f0fccab9ed482f6ee0b"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\map-state-e0-2026-09-24.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\map-state-e0-2026-09-24.json",
+      "bytes": 2201,
+      "sha256": {
+        "map-state-e0-2026-09-24.json": "18798850fab1e7e20a7ed835dc3a04cd25ad29415000101324c6444ffe23f32f"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\map-state-networking-2026-09-24.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\map-state-networking-2026-09-24.json",
+      "bytes": 5236,
+      "sha256": {
+        "map-state-networking-2026-09-24.json": "36bffedabd602b43fbcc27b5866b7084faa843eec07ea5e6012d8ae0ed7cf03d"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\mining-grid-20260930",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\mining-grid-20260930",
+      "bytes": 445321,
+      "sha256": {
+        "after-menu.png": "8c1951a155268a54e041ec290a79a2af438fb9b42b64712ce213980fd1db7dab",
+        "editor-focused-retry.json": "9ba96de24820df0b588a2f05016949bedf6a0e064a663497ed22052ded64aaaa",
+        "editor-initial.json": "4ea56aa71c6dd7a75e803184a9974ab0e7893de9d8cb48f8ec21d23feda8fd36",
+        "pickaxe-grid.png": "2463fea33fc40448f32b642fa0391816893631c8eefe43a5e367952e0523fdc7",
+        "play-display.json": "fe9f53e7aaf55078672f97fbf2f43acde5f508a930e3dc168cd7be6ea6e09db9"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\mining-grid-20260930.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\mining-grid-20260930.json",
+      "bytes": 8601,
+      "sha256": {
+        "mining-grid-20260930.json": "d2f623d833c62411876cad861db2bfd422cc3caebbcf43e208fce16abf9efa3b"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\mining-guid-20261001.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\mining-guid-20261001.json",
+      "bytes": 989,
+      "sha256": {
+        "mining-guid-20261001.json": "27c4665af74b3b1ad3e9cbc1d62bd896fac0c6b222097efcbe4c8557a4eca235"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\oxygen-main-merge-20261003.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\oxygen-main-merge-20261003.json",
+      "bytes": 4759,
+      "sha256": {
+        "oxygen-main-merge-20261003.json": "bf5d9cbfeaed31344c9d36a9272e6506f8149f5383dc6f632c1534e33e666ade"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\oxygen-removal-20261003.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\oxygen-removal-20261003.json",
+      "bytes": 137381,
+      "sha256": {
+        "oxygen-removal-20261003.json": "dcea492934aea10ffa84b574034411720de7fe8ec53cf8dbf392545987fd26dc"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\pickaxe-unified-reach-20261002.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\pickaxe-unified-reach-20261002.json",
+      "bytes": 6271,
+      "sha256": {
+        "pickaxe-unified-reach-20261002.json": "3d64d68936fe73c0ac0ccd1ecd86069afa09eb6584b4e7717263af5ceca2414c"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-gui-20261002.request.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-gui-20261002.request.json",
+      "bytes": 185,
+      "sha256": {
+        "quick-test-gui-20261002.request.json": "ad7ed7e62123b1cedcf658c0031dfcd61f81eab0698bb5cb0de4e27b1a545a62"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-gui-20261002.summary.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-gui-20261002.summary.json",
+      "bytes": 187,
+      "sha256": {
+        "quick-test-gui-20261002.summary.json": "f4c56161a26194edb235a73f908e9703bf15faba731d6d3717c39f1b1944b036"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-gui-20261002.xml",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-gui-20261002.xml",
+      "bytes": 5973,
+      "sha256": {
+        "quick-test-gui-20261002.xml": "c970541529695198dac77bf41cee78fbe317d62b6877481194a2181850db315d"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-gui-landed-pickaxe-20261002.png",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-gui-landed-pickaxe-20261002.png",
+      "bytes": 238410,
+      "sha256": {
+        "quick-test-gui-landed-pickaxe-20261002.png": "10923237901a3a1ef2dfc53a3d5f88e3a44755b1caca709b6e7eca311971f828"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-hub-gui-20261002.png",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-hub-gui-20261002.png",
+      "bytes": 124252,
+      "sha256": {
+        "quick-test-hub-gui-20261002.png": "0ef97285c33ad4f78e66a2ffbf6bf3f633bfd7604f565b7c0d186bc0bc06641e"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-landed-pickaxe-20261002.png",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-landed-pickaxe-20261002.png",
+      "bytes": 175352,
+      "sha256": {
+        "quick-test-landed-pickaxe-20261002.png": "4c5403d1659979bb201834c70bc0a61cadfb15540f2bdbe1fff343cd29d5e9a5"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-menu-20261002.request.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-menu-20261002.request.json",
+      "bytes": 157,
+      "sha256": {
+        "quick-test-menu-20261002.request.json": "5046dbe3d5ba40226fac39b2739470c6c276a23718d743f76514aa2b09ed2dc8"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-menu-20261002.summary.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-menu-20261002.summary.json",
+      "bytes": 188,
+      "sha256": {
+        "quick-test-menu-20261002.summary.json": "bf7052ce39f69286b5e9279bc8cf1b49f5e910510ff1c8049ff7c37478b4299c"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-menu-20261002.xml",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-menu-20261002.xml",
+      "bytes": 12487,
+      "sha256": {
+        "quick-test-menu-20261002.xml": "79f9bb6ab6259da962309c8834661b709297a0ef3930627757a5d0684a055fab"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-rules-20261002.request.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-rules-20261002.request.json",
+      "bytes": 323,
+      "sha256": {
+        "quick-test-rules-20261002.request.json": "616572615a61a6fb638e412793c111d3871624266f2742a28fcb77486cb6334a"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-rules-20261002.summary.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-rules-20261002.summary.json",
+      "bytes": 187,
+      "sha256": {
+        "quick-test-rules-20261002.summary.json": "590d40bce873957c9e5cd0c53860e146bf446a66827f6514c6bcf513112e70e0"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-rules-20261002.xml",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-rules-20261002.xml",
+      "bytes": 46563,
+      "sha256": {
+        "quick-test-rules-20261002.xml": "666e5b64be3391699430303ef1afac843d8320db94c2791c4bf04223ff9f0bd5"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-test-scene-migration-20261002.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-test-scene-migration-20261002.json",
+      "bytes": 4550,
+      "sha256": {
+        "quick-test-scene-migration-20261002.json": "59783f985d39693d254c7678670787345d03c5758f7fac3e924acc7f4ff86c1e"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\quick-tests-scenes-20261002.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\quick-tests-scenes-20261002.json",
+      "bytes": 10061,
+      "sha256": {
+        "quick-tests-scenes-20261002.json": "f22a6a8eef7f4585213796e9572ad3bed90e7213c1d046f1fe039cd79596e168"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\runtime-terrain-tuner-20260926",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\runtime-terrain-tuner-20260926",
+      "bytes": 2699656,
+      "sha256": {
+        "1280x720-random.png": "59deeb90f9b5cf912122d736ca8dc7c363a2a880922589ba7ca74f4645b765f1",
+        "640x360-fit-map.png": "390096efc1e769b7ec9a35d4b229f8bbb3c5ac4a0f2fb53da5239e0867653b7b",
+        "640x360-rock.png": "d7a3d5bf2d0d4197e4de396270b7e180d7fa3765061fcf9ce10c22fdc48c2edb",
+        "architecture-baseline.json": "b8f0f4891ad56a0d1536735b2e5b527279c0d44eeaf43d216aa053e5f6d16245",
+        "architecture-current.json": "fda14f0e6b4535f49de9aa64fe034a3d2f1ef241d444d2286a9937ce11df4a0d",
+        "final-affected.xml": "4a2d7f3e67fd3898d21fa747073b12498bfa84f37e63eacbe76b6a7e95dd68e6",
+        "initial-suite.xml": "519661f92f2be8a5a072ca06a9b52eb583771157686184a3ae8b2e6ab90568f9",
+        "large-ui-narrow-panel.png": "a0afed0a4fa9fba4b24f92bdb6d33235a74e3a14a21358d8b488fce3318ef41b",
+        "summary.json": "e1a92e7685f9549964adfa90a6f8d80bc94557dda7cadb06540cb0f77fe22009",
+        "tab-0.png": "cb5f90cb9825be48fd373c9103b49d1da0a792669b994945dfac1a8e9deebd4a",
+        "tab-1.png": "50da2a6bf5c5981121fb70b1c5becb3c6d5ad9f6f5a124103d22e6b30462ab3d",
+        "tab-2.png": "c8da7afbc3f07c0e19a7c30ccabee1d9f8a72180146a6ac09f31649b76d2802f",
+        "tab-3.png": "160d470057c180d46dd5352e3e05d7daab573b23d4d5e1d0058438d1d7bf4d6d",
+        "tab-4.png": "09fd9441f688cfc9bfec31a955bd593e8ea06119a09125623a730d4c67d70209"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\ship-shop-fix-20260929",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\ship-shop-fix-20260929",
+      "bytes": 411512,
+      "sha256": {
+        "architecture-baseline.json": "5efb58340d5b7d0d7902f839ea1e34d48c626f8ee4e0cd1dcc8d60f669da2147",
+        "architecture.json": "71638b15c13ad2ffbb6e9d12fadba8de0b1a488cd5294a763d7561cd8e1899fa",
+        "build-success.log": "e7359bd57a1fbecf3d078e78df111fa6b8e480acdb50826131b77a5b82d18f39",
+        "build-wrapper-original-error.txt": "f1814a5dab78619d8a2652a5a56355f90c01cfe72666cd03a852d0d3199aa539",
+        "mono-network.json": "5be9ef154d2ec1e9358114a86bc134cfd9199efa5803467bc593602af1b0b59e",
+        "player-files.json": "5fb0b9ae20c552246bd1a6e578fb1bf25878e51c0d8f8f4dee7e522c9fdec361",
+        "ship-build-settings-test-20260929.xml": "c685e52240340b443e568f0a76eb5eff0b8d2e3318031c23a5534b4b133dafb1",
+        "ship-shop-play-r2-20260929.xml": "28e48c0a347c9c12ec5b3fa4554472ef82b58948838ffdb72a2ab93972db3777",
+        "ship-shop-tests-r1-20260929.xml": "ceed199eb2a70c63a6fd33a9945d699b446fed98860948ec8d3257dc8579cfc3",
+        "shop-1280x800.png": "a90aacb71d1a516a3e05902d1a8adef40a36ecedb8621bdf67fea005e1c3579b",
+        "shop-1600x900.png": "9afd703cf138ac2137cc62dd92aec03f13d65a113628844002c6bbd1d0a1429e",
+        "shop-1920x1080.png": "97b72008f6e5edc41de370bb14fd39b0e6cdd9683c013857b42149cea9be3726"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\ship-shop-fix-20260929.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\ship-shop-fix-20260929.json",
+      "bytes": 5109,
+      "sha256": {
+        "ship-shop-fix-20260929.json": "161eec0fbf451718afca44706893c6288951b5b5be42db901a742bd84f8c602b"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\ship-trade-20260929.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\ship-trade-20260929.json",
+      "bytes": 1622,
+      "sha256": {
+        "ship-trade-20260929.json": "f6f61252dcddaeb229294b6e4497857843aec937207c9066b1d463255c1c1ead"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\ship-trade-20260929.xml",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\ship-trade-20260929.xml",
+      "bytes": 24327,
+      "sha256": {
+        "ship-trade-20260929.xml": "cba6c20c6d2b227a3865ba3a8c7fb3d8ef91374bb5d3ab21f745e283e09930fc"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\single-cave-generation-20260929.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\single-cave-generation-20260929.json",
+      "bytes": 1874,
+      "sha256": {
+        "single-cave-generation-20260929.json": "206bae63a7b2c25fc0fd9caadde5300208ceb507dd02759cd6c6de94e2e64f54"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\single-cave-generation-20260929.xml",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\single-cave-generation-20260929.xml",
+      "bytes": 100083,
+      "sha256": {
+        "single-cave-generation-20260929.xml": "119bbc282194c42f212db8548a3b51bb730cf01b117a7cb9bf8023f68a4591dc"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\slope-jump-flow-20261004.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\slope-jump-flow-20261004.json",
+      "bytes": 8350,
+      "sha256": {
+        "slope-jump-flow-20261004.json": "4c461a1c6173ff576db9795a1333ba04db5ff3b6af6194eec36a7b8c3b228db0"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\slope-recovery-20261003.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\slope-recovery-20261003.json",
+      "bytes": 12316,
+      "sha256": {
+        "slope-recovery-20261003.json": "3a786d42aa117c94a6356907d6846fc8abdc87416162a98270692e24a769aa54"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\space-planet-flow-acceptance-current.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\space-planet-flow-acceptance-current.json",
+      "bytes": 245205,
+      "sha256": {
+        "space-planet-flow-acceptance-current.json": "77c8348cd16169c9a47c08c219d3f487eacfa95760cbc7661c392b074d342e58"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\space-planet-flow-runtime-audit.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\space-planet-flow-runtime-audit.json",
+      "bytes": 61720,
+      "sha256": {
+        "space-planet-flow-runtime-audit.json": "8c4ff5d59de723279e1203d2eeb0fe1bb7f83950fc142cc0e8d460a4b1dbd519"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\strata-cave-2026-09-22\\architecture-final.log",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\strata-cave-2026-09-22\\architecture-final.log",
+      "bytes": 136,
+      "sha256": {
+        "architecture-final.log": "407e82a1afab8109c3721e7482128caf396636d0fb9a9174166e30a356498019"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\strata-cave-2026-09-22\\core-final.log",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\strata-cave-2026-09-22\\core-final.log",
+      "bytes": 134,
+      "sha256": {
+        "core-final.log": "538007b6ecd1940dba527aec271b4708b8bd439f473f6fe0b05f4dad54e2555c"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\strata-cave-2026-09-22\\terrain-outline.log",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\strata-cave-2026-09-22\\terrain-outline.log",
+      "bytes": 801,
+      "sha256": {
+        "terrain-outline.log": "4177c325b7643369cb65c8172b1a3b451886934efce8d75fa2c536fb9bc3332b"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\surface-environment-20261001.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\surface-environment-20261001.json",
+      "bytes": 9746,
+      "sha256": {
+        "surface-environment-20261001.json": "9a569ca6c4a211aa6d5c01eddb83dcc137b499b997bc06138ebc13c2e9fc1336"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\terrain-local-validation-20260926.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\terrain-local-validation-20260926.json",
+      "bytes": 7486,
+      "sha256": {
+        "terrain-local-validation-20260926.json": "1c4cf9bfbd7677afd31afcc4e22a91b5bd75d30de87a3fede8d8647c5ee3e450"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\terrain-local-validation-20260926.xml",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\terrain-local-validation-20260926.xml",
+      "bytes": 36805,
+      "sha256": {
+        "terrain-local-validation-20260926.xml": "0dc491b9a4ab9d3fe4279bd3353edb483fb8842d75668dc1065842185680a72a"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\terrain-modifier-20260930-core.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\terrain-modifier-20260930-core.json",
+      "bytes": 231997,
+      "sha256": {
+        "terrain-modifier-20260930-core.json": "4b250fbc1a7f765dad338ab83321dd3f23dd55ecf080b670f35dcaa3d028dc91"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\terrain-modifier-20260930-editor.xml",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\terrain-modifier-20260930-editor.xml",
+      "bytes": 207254,
+      "sha256": {
+        "terrain-modifier-20260930-editor.xml": "711bd5ea65e663461d48814b422d7996ff531f06f0c3224b3af193c25b8746cf"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\terrain-modifier-20260930.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\terrain-modifier-20260930.json",
+      "bytes": 2526,
+      "sha256": {
+        "terrain-modifier-20260930.json": "3f35e6d9cdab99ccaeed5e83dfa8130c23cc64770a788b60b25f729d0fc8cba7"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\terrain-modifier-network-20260930.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\terrain-modifier-network-20260930.json",
+      "bytes": 13426,
+      "sha256": {
+        "terrain-modifier-network-20260930.json": "33d19b604be3e8d39a1fe505a9153f0dfe8b24649514dd2aae8c8bb74a01a366"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\terrain-scene-catalog-20260926.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\terrain-scene-catalog-20260926.json",
+      "bytes": 898,
+      "sha256": {
+        "terrain-scene-catalog-20260926.json": "70eac2985a3982416a2ea613ad34e2127987eaf25c0354ec0e08bbd4efaf5127"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\terrain-scene-catalog-20260926.xml",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\terrain-scene-catalog-20260926.xml",
+      "bytes": 5361,
+      "sha256": {
+        "terrain-scene-catalog-20260926.xml": "edb76bbb967deec3912bf21ed69374fecfa8a4c9f514093d8d79ebc1e02e40f9"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\tool-definition-harvesting-20261002.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\tool-definition-harvesting-20261002.json",
+      "bytes": 7040,
+      "sha256": {
+        "tool-definition-harvesting-20261002.json": "2601258e1c257675193304a348ba95204fa63e47ff9144768f8defdf60179537"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\tuner-journey-20261004",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\tuner-journey-20261004",
+      "bytes": 3548644,
+      "sha256": {
+        "gui-final.png": "7885f57d84917901b55d279b235b4afc6bba7bc8aec0683ea14387637a7305d3",
+        "gui-input.png": "f8f37aefe7b81518bb7a3ad6a0fed2d9651f7a0e2472611fdb05b2aacc34ad01",
+        "gui-journey.png": "d362665087dcbddc22148a99f4e56077331f58d2e7e1e49e3568de518ef089b5",
+        "gui-journeydone.png": "1cf9626bbacb3bc8e92b69ad982ef8c8dd6a360f6ea6959b32e89da48dc78802",
+        "gui-narrow.png": "e0f590a33c4886adda06944cd62d11588d488f1086a3c2d61ddc776784ca1662",
+        "gui-native.png": "cb7417c30d8f8d10e21eddf6e66805a8d3cbe2054b819b5c4fd760636c6e68af",
+        "gui-seek.png": "44f027f469ece741c740a28a2fad021afb836a4ff66c2dab5d5c519799dab48b",
+        "gui-undo.png": "e640db4d7a4cc16f13fa8a9182993a8a43cc8715e5b441026ac55a2c4401d117",
+        "gui-walkwayoff.png": "de4143621b27fb9053e3125af8f568cc8605a7fe3c4c7f146e369e4b856b5510",
+        "gui-walkwayundo.png": "2f3f7473b910c9225d7182262eb45e0ebfb51d4412acc623399ecfdf4d2cdc89",
+        "tuner-journey-20261004-editor-r2.request.json": "8cce9c8904f68b415971ae517db140be115f2101a9bcb244aaf4f9608cf07769",
+        "tuner-journey-20261004-editor-r2.summary.json": "eca229275cc1d9c9c274377dfcd51d049272509c04313fb02c360e0d7f4235ec",
+        "tuner-journey-20261004-editor-r2.xml": "de7dfba2af6e881293e65cd4971fd756060c0bbd008b21705f463b477f525443",
+        "tuner-journey-20261004-editor-r3.request.json": "22c41e87d5d3b67bbf9925791403a6435ddb12d3590fa6ebe6fe92f54c02a9e8",
+        "tuner-journey-20261004-editor-r3.summary.json": "959bc7be4451ffa919d218054362c1a51f656bf88758af79af842c50ac160f96",
+        "tuner-journey-20261004-editor-r3.xml": "9b57ce0fd68d341a96a86c4967eba0ef208592e4cc0947fa130a61bbc5b63cc3",
+        "tuner-journey-20261004-editor.request.json": "b9a4060c5b6f8489b5cbb4e394d831d49e29d005fc8bb9e09705d7fa24c56323",
+        "tuner-journey-20261004-editor.summary.json": "f93e05d8c4aaa415dd62b43f5d63848989f83a003296a4b70ff4853f13cd9265",
+        "tuner-journey-20261004-editor.xml": "f1d95499c23de10c4d78b7996f877f041e2cfdc91ca0d5067674cdc562171668"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\tuner-journey-workbench-20261004.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\tuner-journey-workbench-20261004.json",
+      "bytes": 65990,
+      "sha256": {
+        "tuner-journey-workbench-20261004.json": "ff4ea6ef3f3930c5b4fe5971b8a13de88ebe228145cec4d3e04f960d52f2730d"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\workbench-aggregation-20261003",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\workbench-aggregation-20261003",
+      "bytes": 837130,
+      "sha256": {
+        "workbench-final.png": "7b8564cac891c1d2847bfc4f4ab719e36c5307747f6a10dc0b63dd92dc60d085",
+        "workbench-narrow.png": "17f58a190309f5b9eb38246a95d76d5bd578fdebcf5761b1cdb22f0ed7c075d6",
+        "workbench-wide.png": "ba0c6eafd25bd6d158a147ab5638fa04087a3460f0c36bd4b2f9734d1157ce91",
+        "workshop-final.png": "0fd4903bbf11f4d1a8d65a508c5c13b0bbe486befbb8d57a850aa7ea9f748ae2",
+        "workshop-pickaxe.png": "79fe2e9b0916d8565cd9ba49630fa337f55e0068c5b3b679a724ee208e690f8f"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\workbench-aggregation-20261003.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\workbench-aggregation-20261003.json",
+      "bytes": 9911,
+      "sha256": {
+        "workbench-aggregation-20261003.json": "5537c36f9647f2e4537cc54f47ab79e5a77cd5afdcae5987ffccaa7560258858"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\workbench-layout-20261003",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\workbench-layout-20261003",
+      "bytes": 250766,
+      "sha256": {
+        "scenes-narrow.png": "fb17c9f5c7c395bd161807938b6f5cee2d983bd01603110dc8edb07da0c683f5",
+        "scenes-wide.png": "60cff32dbfac5ace07ff1e6d450e3965cdd9da46cfb1ee07e8c6122c5c7d6c29",
+        "tools-wide.png": "2db12ab9cfd55ee01a576c783ec3acfdd71680a65b2b950ccb4f12707b233a1e"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\workbench-layout-20261003.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\workbench-layout-20261003.json",
+      "bytes": 4493,
+      "sha256": {
+        "workbench-layout-20261003.json": "a0ea8b59568282b9b556af879cf8d5baae1517f9f7e7a3a674a5fafff5707a20"
+      }
+    },
+    {
+      "original": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\evidence\\workbench-refresh-20261005.json",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\evidence\\workbench-refresh-20261005.json",
+      "bytes": 7955,
+      "sha256": {
+        "workbench-refresh-20261005.json": "fcb7faefd616cf18183fa8f44164a512613436ff7c49f8039ba0bd122581831f"
+      }
+    }
+  ],
+  "history_snapshots": {
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\README.md": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\PROJECT_CHANGELOG_20261005.md",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\DEVELOPMENT.md": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\DEVELOPMENT_HISTORY_20261005.md",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\ARCHITECTURE.md": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\ARCHITECTURE_HISTORY_20261005.md",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\MULTIPLAYER.md": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\MULTIPLAYER_HISTORY_20261005.md",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\SAVE_FORMAT.md": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\SAVE_FORMAT_HISTORY_20261005.md",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\SCENES.md": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\SCENE_ORGANIZATION_HISTORY_20261005.md",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\TERRAIN_GENERATION.md": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\TERRAIN_GENERATION_HISTORY_20261005.md",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\EDITOR_WORKBENCH.md": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\docs\\archive\\EDITOR_WORKBENCH_HISTORY_20261005.md"
+  },
+  "pending_cleanup_manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261005-folder-organization\\preservation.json",
+  "pending_cleanup_manifest_sha256": "5e08dcd6dd4d239134f21e31be546fae5eb4c3ad6844d0db3ec4865ffb006cee"
+}

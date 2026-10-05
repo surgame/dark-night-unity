@@ -27,4 +27,4 @@
 - PlayMode、Mono 构建、实际 Host/Client、弱网/重连、实际 P95 门槛本轮均未执行。
 - 源包仍按用户当前直接引用 YYGC 工作区；旧来源锁与该引用的差异尚未收口。
 
-证据：`docs/evidence/terrain-local-validation-20260926.json`；原始结果：`artifacts/terrain-final-20260926/terrain-baseline.xml`。
+证据：`docs/archive/evidence/terrain-local-validation-20260926.json`；原始结果：`artifacts/terrain-final-20260926/terrain-baseline.xml`。

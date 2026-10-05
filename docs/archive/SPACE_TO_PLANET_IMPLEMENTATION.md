@@ -78,6 +78,6 @@ flowchart LR
 
 验收修复了真实地图生成步道落在竖井、存档阶段与地图种子不一致仍被接受、池化 Interaction Sessions 重入丢失单例，以及用户反馈的手动着陆无法下船和闲置悬停。松手缓降速度进入唯一 balance 来源及内容指纹；安全着陆检查使用碰撞前速度，不能用高速撞地后的归零速度冒充安全着陆。新天空 Mesh 顶点色先转换为线性值，再进入现有渲染器，保留作者十六进制颜色含义。
 
-Unity 已生成新增 `.meta`，YYGC／MemoryPack 正式生成器已注册航程 State Tag 19，原有 Tag 与资源 GUID 保持。并行启动修复由游戏提交 `4f270dc` 接入；本批复用既有单例补丁，隔离 YYGC 提交 `19d8f5b`，2026-09-27 已随框架分支合入 YYGC `master` `fee1864`，详见[YYGC 改动账本](YYGC_CHANGES.md)。活动包原有改动保留，manifest／lock 未变；目前仍使用已有本机包路径，不能据此宣称全新机器依赖恢复通过。
+Unity 已生成新增 `.meta`，YYGC／MemoryPack 正式生成器已注册航程 State Tag 19，原有 Tag 与资源 GUID 保持。并行启动修复由游戏提交 `4f270dc` 接入；本批复用既有单例补丁，隔离 YYGC 提交 `19d8f5b`，2026-09-27 已随框架分支合入 YYGC `master` `fee1864`，详见[YYGC 改动账本](../YYGC_CHANGES.md)。活动包原有改动保留，manifest／lock 未变；目前仍使用已有本机包路径，不能据此宣称全新机器依赖恢复通过。
 
 原始机器报告、失败复现、实际 GameView 截图和构建位于 `artifacts/space-planet-flow/`。Mono r1 的后台启动没有实际相机回执，Ready 正确保持关闭；同一产物仅改为窗口模式即可完整 Ready。网络夹具因此采用图形窗口，不跳过地图或表现条件。既有按钮主题 EditMode 1 项仍失败，实际 Play 5 项通过；ArchitectureGuard 保留基线 10 条存量命中，本轮新增违例已清零。真实第二机器当前不可用，原生桌面自动化工具初始化失败，相关项目不虚列通过。待清理产物只归档到统一目录并保留清单，不永久删除。

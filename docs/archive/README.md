@@ -1,6 +1,6 @@
 # 历史文档索引
 
-此处保存已完成批次的方案、实施记录与当时的验证边界；它们不是当前协议或存档合同。先读[现行文档入口](../README.md)，再按日期与构建身份查阅历史材料。机器证据在 [`evidence/`](evidence/)；保留原始失败、未验收及输入哈希，不以后续通过结果覆盖。
+此处保存旧方案、审查、实施过程、周报与当时的验证边界；未完成的历史批次也保留原状态；它们不是当前协议或存档合同。先读[现行文档入口](../README.md)，再按日期与构建身份查阅历史材料。机器证据在 [`evidence/`](evidence/)；保留原始失败、未验收及输入哈希，不以后续通过结果覆盖。
 
 ## 评估、迁移与对象架构
 
@@ -31,3 +31,35 @@
 - [旧随机地图 Debug Bootstrap](TERRAIN_DEBUG_BOOTSTRAP.md)（`(old)` 场景回归用）
 
 这些记录保留各自时点的“当前”措辞，仅代表当时输入。不可把旧计划、历史 Player 哈希或后台功能结果当作当前版本的完整验收。
+
+
+## 2026-09-26～10-05 航程、装备与地形过程
+
+- [航程设计](SPACE_TO_PLANET_FLOW_DESIGN.md)、[实现](SPACE_TO_PLANET_IMPLEMENTATION.md)、[验收](SPACE_TO_PLANET_ACCEPTANCE.md)、[交易设计](SHIP_TRADE_EQUIPMENT_DESIGN.md)与[验收](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)。
+- [主角比例](HERO_MOVEMENT_SCALE.md)、[坡面运动](SLOPE_JUMP_FLOW.md)、[矿镐网格](MINING_GRID_EXECUTION.md)、[触及范围](PICKAXE_UNIFIED_REACH.md)、[会话输入反馈](SESSION_INPUT_FEEDBACK.md)。
+- [地图联网重构](MAP_STATE_NETWORKING.md)、[Modifier 管线](TERRAIN_GENERATION_MODIFIER_PIPELINE.md)、[生成入口统一](CAVE_GENERATION_ALIGNMENT.md)、[旧地表环境候选](SURFACE_ENVIRONMENT.md)、[现有三层衔接](CAVE_ENTRANCE_ART_LAYERS.md)。
+- [氧气移除评估](OXYGEN_REMOVAL_ASSESSMENT.md)、[执行](OXYGEN_REMOVAL_EXECUTION.md)、[验证](OXYGEN_REMOVAL_VALIDATION.md)与[历史失败](OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。
+
+## 工作台、审查与快速测试过程
+
+- [业务审查](BUSINESS_RULE_AUDIT.md)、[Definition／Editor 复评](DEFINITION_EDITOR_REVIEW.md)、[工作台聚合评估](EDITOR_WORKBENCH_ASSESSMENT.md)、[导航修正提案](WORKSHOP_NAVIGATION_FIX_PROPOSAL.md)。
+- [快速测试评估](QUICK_TEST_SCENES_ASSESSMENT.md)与[实现／操作记录](QUICK_TEST_SCENES.md)、[F1 调试入口](RUNTIME_DEBUG_HUB.md)、[星球与航程工作台](TUNER_JOURNEY_WORKBENCH.md)。
+- [输入架构对照](HERO_INPUT_ARCHITECTURE.html)、[输入平台对照](INPUT_PLATFORM_COMPARISON.html)，按原制作时点阅读。
+
+## 内嵌矿方案与当前补测过程
+
+- [旧逐床状态方案](EMBEDDED_MINERAL_LAYER_PLAN.md)、[审查](EMBEDDED_MINERAL_LAYER_REVIEW.md)、[素材合同](EMBEDDED_MINERAL_LAYER_ART.md)、[协议24检查点](EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md)。
+- [原生地图迁移执行方案](MINERAL_MAP_MIGRATION_PLAN.md)；现行实现见[当前矿层记录](../MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
+- [周报弱网补测过程](WEAK_NETWORK_VALIDATION_COMPLETION_20261005.md)：最终 Player 矩阵尚未完成，原始失败与中断状态保留。
+
+## 周报与整理快照
+
+- [2026-09-21～27 周报](reports/weekly-2026-09-27.html)、[2026-09-28～10-04 周报](reports/weekly-2026-10-04.html)。
+- [原根 README 时间线](PROJECT_CHANGELOG_20261005.md)、[开发计划历史](DEVELOPMENT_HISTORY_20261005.md)。
+- [架构历史](ARCHITECTURE_HISTORY_20261005.md)、[联机历史](MULTIPLAYER_HISTORY_20261005.md)、[存档历史](SAVE_FORMAT_HISTORY_20261005.md)。
+- [场景整理历史](SCENE_ORGANIZATION_HISTORY_20261005.md)、[地图历史](TERRAIN_GENERATION_HISTORY_20261005.md)、[工作台历史](EDITOR_WORKBENCH_HISTORY_20261005.md)。
+- [2026-10-05 文件夹与文档整理回执](FOLDER_ORGANIZATION_20261005.md)：保留边界、归档路径与核验结果。
+
+历史证据集中在 [evidence/](evidence/)，原始结果字节及哈希保持。归档位置变化见整理回执；JSON 内的原产物路径属于历史来源，不据此重新写证据。
+
+本批整理核验见[2026-10-05机器回执](evidence/folder-organization-20261005.json)。

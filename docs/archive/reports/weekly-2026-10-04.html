@@ -48,11 +48,11 @@
 <tr><th scope="row">操控与着陆<br><span class="muted">9 月 28 至 29 日</span></th><td>接入输入边界与通用改键；飞船可在有支撑、净空的当前位置安全着陆。主角调整至约 3 格高，步速约 7 格／秒、冲刺约 11 格／秒。</td><td><span class="tag warn">源码已集成，人工体验待验</span><br>这些改动当批按要求未运行完整回归；后续 Editor 与正常 Mono 已覆盖部分着陆、出舱和恢复。改键及最终比例、镜头、通行体验仍需对应验证。<span class="reference"><a href="../INPUT_PLATFORM_COMPARISON.html">输入改键</a> · <a href="../HERO_MOVEMENT_SCALE.md">比例与移动</a> · <a href="../SPACE_TO_PLANET_ACCEPTANCE.md">着陆验收边界</a></span></td></tr>
 <tr><th scope="row">飞船交易与装备<br><span class="muted">9 月 29 日</span></th><td>船内 E 购物／出售、信用点、四格装备与独立喷气能量显示；修复商店不可见导致输入锁残留、中文字体和关闭回收。</td><td><span class="tag good">专项与正常双进程通过</span><br>Editor 规则 10/10、正式 Play 1/1、同一 Mono 26/26；三种分辨率截图已检查。采矿回船出售的完整人工闭环、弱网及四人交易本批未验。<span class="reference"><a href="../SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md">交易验收记录</a></span></td></tr>
 <tr><th scope="row">地图生成与步道<br><span class="muted">9 月 29 至 30 日</span></th><td>工作台与正式星球共用生成入口；权威生成分阶段支持 Modifier，步道可开关，并修复步道切断原洞穴空腔。</td><td><span class="tag good">该批地图矩阵通过</span><br>纯 Core 1903/1903、Editor 181/181；同一 Mono 正常／弱网六组共 945/945 个断言。101 种子拓扑检查与一个种子的两种泊位真实往返已验；全洞室角色可达性、前台性能未验。后续版本弱网仍失败。<span class="reference"><a href="../TERRAIN_GENERATION_MODIFIER_PIPELINE.md">生成阶段与本批证据</a></span></td></tr>
-<tr><th scope="row">矿镐与工具配置<br><span class="muted">9 月 30 日至 10 月 3 日</span></th><td>网格耐久、最近真实表面、持续挥镐与每轮一次落镐；工具能力归自身 Definition、装备保存稳定身份。吸附与伤害共用 64 逻辑像素／4 格范围。</td><td><span class="tag good">正常链路与 Editor 专项通过</span><br>工具批次 Editor 62/62、Mono 正常双进程 27/27；统一距离批次 35/35。工具批次弱网重连 Ready 超时，整体未通过；统一距离本批未构建新 Player。<span class="reference"><a href="../TOOL_DEFINITION_HARVESTING.md">工具采集合同</a> · <a href="../PICKAXE_UNIFIED_REACH.md">统一范围验证</a></span></td></tr>
+<tr><th scope="row">矿镐与工具配置<br><span class="muted">9 月 30 日至 10 月 3 日</span></th><td>网格耐久、最近真实表面、持续挥镐与每轮一次落镐；工具能力归自身 Definition、装备保存稳定身份。吸附与伤害共用 64 逻辑像素／4 格范围。</td><td><span class="tag good">正常链路与 Editor 专项通过</span><br>工具批次 Editor 62/62、Mono 正常双进程 27/27；统一距离批次 35/35。工具批次弱网重连 Ready 超时，整体未通过；统一距离本批未构建新 Player。<span class="reference"><a href="../../TOOL_DEFINITION_HARVESTING.md">工具采集合同</a> · <a href="../PICKAXE_UNIFIED_REACH.md">统一范围验证</a></span></td></tr>
 <tr><th scope="row">天空与洞穴背景<br><span class="muted">10 月 1 至 3 日</span></th><td>天空、地表与地下分层衔接；复用已有近／中／远点缀和完整基础后壁，退出入口深度渐隐。原三层 RGBA 与 577 张 PNG 字节保持。</td><td><span class="tag good">背景专项与正常网络通过</span><br>最终复用方案 Editor 36/36、Mono 正常网络 31/31，正式快速局 Ready／Landed 已检查。弱网初次加入或晚加入超时；这些结果不代表新增矿层的组合画面通过。<span class="reference"><a href="../CAVE_ENTRANCE_ART_LAYERS.md">分层衔接与失败记录</a></span></td></tr>
 <tr><th scope="row">氧气业务移除<br><span class="muted">10 月 3 日</span></th><td>氧气业务、氧气站、中继命令和状态合同退出；保留战斗死亡、三设备、货物原子结算及恢复。已合入本地 main。</td><td><span class="tag warn">专项通过，整批未通过</span><br>氧气专项 2/2、资源 12/12、正常 Mono 双进程 130/130；原 Editor 119/121 的两项旧路线失败保留，退役后剩余远征回归 6/6。弱网失败；矿房／矿工真实玩法与再次完整航程仍待实施或修复。<span class="reference"><a href="../OXYGEN_REMOVAL_VALIDATION.md">移除验证记录</a></span></td></tr>
 <tr><th scope="row">斜坡与跳跃<br><span class="muted">10 月 3 至 4 日</span></th><td>修复落坡卡住；连续斜向运动、接坡后横移、短按跳跃保留、可选跳高策略和普通跳跃后的喷气衔接。默认固定跳跃，已合入本地 main。</td><td><span class="tag warn">源码验证通过，最终手感待验</span><br>最终源码回归 33/33、首轮 Editor 66/66；跨缺口修正当批 Editor 补测待执行，后续矿层批次不据此推断其全部运动边界已验。未以专项新 Player 验证最终手感或联机操控。<span class="reference"><a href="../SLOPE_JUMP_FLOW.md">运动实现与验证边界</a></span></td></tr>
-<tr><th scope="row">日常开发工作台<br><span class="muted">10 月 2 至 4 日</span></th><td>统一任务入口、聚合原生编辑器；主菜单一键进入已着陆矿镐局；16 个场景归类、6 个场景保留 GUID 迁移。星球工作台整合地图、背景、降落和航程四组草稿。</td><td><span class="tag good">Editor 使用范围已验</span><br>快速测试 23 个不同用例，跨 Editor 重启记忆已验；原生聚合 16/16；星球工作台 45/45、真实输入／Undo／窄栏检查，1111 项作者资产哈希保持。星球工作台已进入 main，完整重启与 Dark 主题仍待验。<span class="reference"><a href="../QUICK_TEST_SCENES.md">快速测试与场景</a> · <a href="../EDITOR_WORKBENCH.md">原生聚合</a> · <a href="../TUNER_JOURNEY_WORKBENCH.md">星球工作台</a></span></td></tr>
+<tr><th scope="row">日常开发工作台<br><span class="muted">10 月 2 至 4 日</span></th><td>统一任务入口、聚合原生编辑器；主菜单一键进入已着陆矿镐局；16 个场景归类、6 个场景保留 GUID 迁移。星球工作台整合地图、背景、降落和航程四组草稿。</td><td><span class="tag good">Editor 使用范围已验</span><br>快速测试 23 个不同用例，跨 Editor 重启记忆已验；原生聚合 16/16；星球工作台 45/45、真实输入／Undo／窄栏检查，1111 项作者资产哈希保持。星球工作台已进入 main，完整重启与 Dark 主题仍待验。<span class="reference"><a href="../QUICK_TEST_SCENES.md">快速测试与场景</a> · <a href="../../EDITOR_WORKBENCH.md">原生聚合</a> · <a href="../TUNER_JOURNEY_WORKBENCH.md">星球工作台</a></span></td></tr>
 </tbody></table></div>
 </section>
 
@@ -80,7 +80,7 @@
 <article class="card risk warn"><p class="priority amber">产品闭环</p><h3>完整矿工路线与重复航程</h3><p>角色矿房交互、矿工采集交货仍缺真实玩法与新验收。结算后 phase4／Landed 的再次完整星球出发问题仍留账；旧无航程的第二次 depart 通过仅覆盖其原有范围。</p></article>
 <article class="card risk warn"><p class="priority amber">剩余质量门槛</p><h3>人工体验与工程留账</h3><p>运动手感、改键、最终 HUD／中文布局和组合美术须在当前输入上复验。相关 Core 最近报告为 1046/1048，两项旧规则断言失败；架构守卫有既有命中，未确认全局门槛通过。当前候选后端／双机器验收仍缺证据。</p></article>
 </div>
-<p class="note">上次排序诊断停在 10 月 4 日 21:30 的防火墙弹窗遮挡记录。本次未操作 Unity 窗口，弹窗是否仍在须续测时确认。10 月 3 日工作台导航曾在明确批准范围内接入 YYGC 修正；最新内嵌矿批次没有新增框架改动，详见<a href="../YYGC_CHANGES.md">改动账本</a>。</p>
+<p class="note">上次排序诊断停在 10 月 4 日 21:30 的防火墙弹窗遮挡记录。本次未操作 Unity 窗口，弹窗是否仍在须续测时确认。10 月 3 日工作台导航曾在明确批准范围内接入 YYGC 修正；最新内嵌矿批次没有新增框架改动，详见<a href="../../YYGC_CHANGES.md">改动账本</a>。</p>
 </section>
 
 <section class="section" aria-labelledby="next">
@@ -101,8 +101,8 @@
 <p>本次工作为文档与既有证据核对，未重新执行 Unity 测试、Play、构建、联机或前台测量。初始失败、未运行项和旧版本的通过数保留原范围；9 月 27 日 IL2CPP 航程成绩属于旧候选，未用于当前协议 24 的验收结论。</p>
 <p class="note">报告已检查 UTF-8、HTML 结构和 26 个本地引用。浏览器安全策略禁止本地 file 协议预览，实际浏览器排版未目视核验；文件已请求在 Codex 文件面板打开。</p>
 <div class="sources">
-<a href="../DEVELOPMENT.md">开发执行计划</a><a href="../ARCHITECTURE.md">技术架构</a>
-<a href="../MULTIPLAYER.md">联机合同</a><a href="../OXYGEN_REMOVAL_FAILURE_ANALYSIS.md">弱网与旧路线失败分析</a>
+<a href="../../DEVELOPMENT.md">开发执行计划</a><a href="../../ARCHITECTURE.md">技术架构</a>
+<a href="../../MULTIPLAYER.md">联机合同</a><a href="../OXYGEN_REMOVAL_FAILURE_ANALYSIS.md">弱网与旧路线失败分析</a>
 <a href="../evidence/terrain-modifier-network-20260930.json">9 月 30 日地图六组网络证据</a><a href="../evidence/tool-definition-harvesting-20261002.json">10 月 2 日工具验证证据</a>
 <a href="../evidence/oxygen-removal-20261003.json">10 月 3 日氧气移除证据</a><a href="../evidence/tuner-journey-workbench-20261004.json">10 月 4 日星球工作台证据</a>
 <a href="../evidence/embedded-mineral-layer-development-20261004.json">10 月 4 日内嵌矿开发证据</a><a href="weekly-2026-09-27.html">上一期项目周报</a>

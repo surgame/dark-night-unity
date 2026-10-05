@@ -15,8 +15,8 @@
 - **IL2CPP r4** 构建成功，正常双进程 **127/127**，弱网 4p-client、正常 4p-host、弱网 4p-host 分别 **163/163、171/171、169/169**。上文“IL2CPP r2 首次构建失败”为历史记录。
 - 原始报告均在 `artifacts/space-planet-flow/`（`build-*-r3/r4.json`、`network-20260927-*`），带 Player 与程序集 SHA-256；不入库。
 - 仍缺证据、需人工或专项驱动：A031／A032／A034 船员与舱门，A068／A093 选择页焦点，A052／A054／A056／A077 地形与地面玩法画面，A061／A064／A084／A086 慢端与逐阶段晚加入，A090／A092 退出与暂停体验，A101／A103 旧版拒绝与采矿存档重启，A106／A108／A109／A116 前台画面与性能（上次 60 秒采样前台样本为 0），A115 双机器。A010、A104、A105、A107 需 Editor 检查；A025 需池化重用夹具；A038、A050、A058、A085 需改配置另建对照 Player。
-- 若要求最终二进制逐组合完整矩阵：Mono r3 需重跑四人／弱网组合，IL2CPP r4 还缺正常四人来宾驾驶及弱网双进程。人工操作入口见[验收驱动说明](../tools/space-planet-flow/README.md)。
-- 框架依赖：YYGC `master` `fee1864`（含启动修复 `094e722` 与池化单例修复 `19d8f5b`），见 [YYGC 改动账本](YYGC_CHANGES.md)。
+- 若要求最终二进制逐组合完整矩阵：Mono r3 需重跑四人／弱网组合，IL2CPP r4 还缺正常四人来宾驾驶及弱网双进程。人工操作入口见[验收驱动说明](../../tools/space-planet-flow/README.md)。
+- 框架依赖：YYGC `master` `fee1864`（含启动修复 `094e722` 与池化单例修复 `19d8f5b`），见 [YYGC 改动账本](../YYGC_CHANGES.md)。
 
 ## 当前事实与未解决边界
 
@@ -32,7 +32,7 @@
 
 构建前候选记录：Unity `6000.4.9f1`、协议 **15**、存档 **v11**、提交 `4f270dcc83df9be56d9daaed3786c0bcb247aa42` 及当时未提交源码清单；框架记录 `0b1fad66b904808dd8803b6601ab82dac76e4927`。这是 r1 构建输入快照；r2 独立报告保存实际 Player/程序集哈希，不把源提交号作为含未提交改动产物的唯一身份。[I] [N3]
 
-正式机器可读映射、324 个去重用例、原始绝对路径、专项源码哈希和 UI 步骤摘录见[当前证据映射](evidence/space-planet-flow-acceptance-current.json)。原 [17:22 初始状态快照](../artifacts/space-planet-flow/acceptance-current-evidence.json) 保持不改写。
+正式机器可读映射、324 个去重用例、原始绝对路径、专项源码哈希和 UI 步骤摘录见[当前证据映射](evidence/space-planet-flow-acceptance-current.json)。原 [17:22 初始状态快照](../../artifacts/space-planet-flow/acceptance-current-evidence.json) 保持不改写。
 
 ## 实现范围与设计差异
 

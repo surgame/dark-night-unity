@@ -1,6 +1,6 @@
 # 内嵌矿层地图迁移执行方案
 
-2026-10-05执行状态见[实现与测试](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：两层局部流、原生矿格唯一状态与v19恢复已实施，Editor105/105、当前Mono正常两人30/30／四人38/38／弱网两人30/30；下方调查基线与计划保留，专项性能等未验边界以实现页为准。
+2026-10-05执行状态见[实现与测试](../MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：两层局部流、原生矿格唯一状态与v19恢复已实施，Editor105/105、当前Mono正常两人30/30／四人38/38／弱网两人30/30；下方调查基线与计划保留，专项性能等未验边界以实现页为准。
 
 日期：2026-10-05。调查基线：`ft-20261004-embedded-minerals` 的 `3076027`，矿床实现检查点为 `e0419d2`。本文件是拟执行方案；本轮只调查源码和编写文档，没有实施迁移、修改依赖、运行 Unity 或新增验收结果。
 
@@ -25,12 +25,12 @@
 
 源码证据：
 
-- [前景地图状态归属](../Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMapAuthority.cs)
-- [原生格业务组件](../.deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessStateStore.cs)
-- [现有 FishNet 地图适配](../.deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet/Runtime/FishNetMapTransport.cs)
-- [地图订阅接线](../Game/Assets/DarkNights/Scripts/Runtime/Terrain/SessionTerrainNetwork.cs)
-- [地形事务](../Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMiningBatch.cs)
-- [YYGC 游戏侧事务](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectMutationBatch.cs)
+- [前景地图状态归属](../../Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMapAuthority.cs)
+- [原生格业务组件](../../.deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules/Runtime/Core/Business/GridBusinessStateStore.cs)
+- [现有 FishNet 地图适配](../../.deps/YYGC-grid-business/AnyRuleD~/Packages/com.tsgame.anyrules.networking.fishnet/Runtime/FishNetMapTransport.cs)
+- [地图订阅接线](../../Game/Assets/DarkNights/Scripts/Runtime/Terrain/SessionTerrainNetwork.cs)
+- [地形事务](../../Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMiningBatch.cs)
+- [YYGC 游戏侧事务](../../Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectMutationBatch.cs)
 - [当前开发证据与失败](EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md)
 
 依赖链接用于说明本机调查落点，不把本机 .deps 纳入提交。后续实现仍由锁定准备脚本重建依赖。
@@ -158,6 +158,6 @@ Unity写入和构建使用单一通道，依赖就绪后集中导入。每个受
 
 本轮自审已把多流接线、动态订阅代次重置、出生点与Ready循环、矿物耐久重置、空格不能存业务组件、工具白名单、设备实体目标、两层恢复顺序、隐藏的保存上限和业务偏差字典扫描列为明确实施项。
 
-P0通过后，按P1至P6连续完成游戏侧授权范围。若接口探针证明需要修改YYGC／AnyRules包，先提交具体文件、缺口、拟改范围、落点、影响与验证矩阵，再按[AGENTS.md](../AGENTS.md)取得同意；不在本机依赖或隔离检出中先打补丁。
+P0通过后，按P1至P6连续完成游戏侧授权范围。若接口探针证明需要修改YYGC／AnyRules包，先提交具体文件、缺口、拟改范围、落点、影响与验证矩阵，再按[AGENTS.md](../../AGENTS.md)取得同意；不在本机依赖或隔离检出中先打补丁。
 
 完成交付需要原对象矿床退出正式运行、矿层成为唯一状态所有者、局部加载与同步实际生效、保存恢复与容量门槛通过，并保留本批源码／配置／构建身份对应的证据。本文件的只读调查不计作这些门槛已执行。

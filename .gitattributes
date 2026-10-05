@@ -5,12 +5,12 @@
 tools/CoreRegression/Fixtures/*.json -text whitespace=cr-at-eol
 tools/terrain-modifiers/reference/*.js -text whitespace=cr-at-eol
 docs/archive/evidence/terrain-modifiers-2026-09-22/* -text whitespace=cr-at-eol
-docs/evidence/terrain-scene-catalog-20260926.xml -text whitespace=cr-at-eol
-docs/evidence/runtime-terrain-tuner-20260926/*.xml -text whitespace=cr-at-eol
-docs/evidence/ship-shop-fix-20260929/*.xml -text whitespace=cr-at-eol
+docs/archive/evidence/terrain-scene-catalog-20260926.xml -text whitespace=cr-at-eol
+docs/archive/evidence/runtime-terrain-tuner-20260926/*.xml -text whitespace=cr-at-eol
+docs/archive/evidence/ship-shop-fix-20260929/*.xml -text whitespace=cr-at-eol
 # Preserve raw Unity build diagnostics, including emitted trailing spaces.
-docs/evidence/ship-shop-fix-20260929/*.log -text whitespace=cr-at-eol,-blank-at-eol
-docs/evidence/ship-shop-fix-20260929/build-wrapper-original-error.txt -text whitespace=cr-at-eol,-blank-at-eol
+docs/archive/evidence/ship-shop-fix-20260929/*.log -text whitespace=cr-at-eol,-blank-at-eol
+docs/archive/evidence/ship-shop-fix-20260929/build-wrapper-original-error.txt -text whitespace=cr-at-eol,-blank-at-eol
 *.cs text eol=lf
 *.ps1 text eol=lf
 # Unified patches preserve a leading space on blank context lines.

@@ -42,12 +42,14 @@
 $dnProject = Join-Path (Get-Location) 'Game'
 unity status --json
 unity recompile --project-path $dnProject --timeout 60 --json
-unity command eval --project-path $dnProject --code 'return new { playing = UnityEditor.EditorApplication.isPlaying, compiling = UnityEditor.EditorApplication.isCompiling };' --json
-unity command run_tests --project-path $dnProject --mode editor --filter DarkNights.Tests.MineralBehaviourTests --async_tests true --json
-unity command test_status --project-path $dnProject --json
+unity command --caller plugin --skill unity-cli eval --project-path $dnProject --code 'return new { playing = UnityEditor.EditorApplication.isPlaying, compiling = UnityEditor.EditorApplication.isCompiling };' --json
+unity command --caller plugin --skill unity-cli run_tests --project-path $dnProject --mode editor --filter DarkNights.Tests.MineralBehaviourTests --async_tests true --json
+unity command --caller plugin --skill unity-cli test_status --project-path $dnProject --json
 ```
 
 `run_tests` 的测试名筛选是子串匹配，不是正则表达式。要提交一组明确的不同测试，沿用游戏的有限批次请求文件，再显式调用 `DarkNights.Editor.TerrainValidationRunner.ProcessQueued()`。这样不依赖 Editor 在后台持续触发空闲轮询。
+
+本机 CLI 的 `--caller`／`--skill` 标签参数放在 `command` 与具体子命令之间；放在 `eval` 后会被当作未知参数。2026-10-05 目录整理已用上述顺序完成只读检查与测试夹具归档，没有改变依赖或启动新 Editor。
 
 长构建使用 `command eval ... --detach --json`，保存返回的 job ID，随后通过 `unity job status ID --project-path $dnProject --json` 读取完成状态。提交成功不等于构建完成；必须检查 job 状态和游戏构建摘要。编译后的域重载可能让下一次调用返回 Connection reset；先核对请求文件是否已消费、构建是否已开始，再恢复同一已排队请求，不能重写请求或重复构建。不要因等待超时重复启动构建。
 

@@ -41,7 +41,7 @@ P1 为会造成错误状态、丢失收益、无法启动、跨矿覆盖或错�
 
 本轮没有执行 Unity 导入、真实 Sprite 资源读取、GPU 或 CPU 栅格化、页刷新、Definition 装配、采矿、事务故障、序列化业务帧或局域网。Part 的矿种归属正确只证明求解器输出，不证明矿素材的半透明边缘看起来分离，也不证明 4,096 格预算符合实际内存或带宽目标。
 
-正式机器证据：[embedded-mineral-layer-plan-20261004.json](evidence/embedded-mineral-layer-plan-20261004.json)。可重建源：[OreRuleReviewProbe](../tools/OreRuleReviewProbe/README.md)。完整原始日志在 Local `artifacts/embedded-ore-plan-20261004/`；首轮单变体输入和最终四变体结果分开保留。
+正式机器证据：[embedded-mineral-layer-plan-20261004.json](evidence/embedded-mineral-layer-plan-20261004.json)。可重建源：[OreRuleReviewProbe](../../tools/OreRuleReviewProbe/README.md)。完整原始日志在 Local `artifacts/embedded-ore-plan-20261004/`；首轮单变体输入和最终四变体结果分开保留。
 
 ## 文档及实现审查门槛
 

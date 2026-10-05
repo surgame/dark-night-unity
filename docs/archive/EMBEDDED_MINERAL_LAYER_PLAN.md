@@ -37,7 +37,7 @@
 | `CaveVisualSource.SetMinerals` | 程序化岩层直接返回，旧矿点纹理没有参与当前正式矿层表现 | 正式调用迁到新矿层，退出旧 `_OreMap` 的矿床显示职责 |
 | `Entry/SessionEntityViews` | 远征隐藏矿床 Prefab 的旧 WorksiteView 图形 | 保留 YYGC ObjectView 生命周期和绑定；矿格图像只由矿层绘制 |
 
-源文件均位于 `Game/Assets/DarkNights/Scripts`。历史[按格矿层候选](archive/ORE_LAYER_ART.md)与[图集接入说明](../experiments/ore-dualgrid-v1/README.md)只有离线证据，不能作为本方案的 Unity 或联机验收。
+源文件均位于 `Game/Assets/DarkNights/Scripts`。历史[按格矿层候选](ORE_LAYER_ART.md)与[图集接入说明](../../experiments/ore-dualgrid-v1/README.md)只有离线证据，不能作为本方案的 Unity 或联机验收。
 
 ## 四角规则及矿种边界
 
@@ -69,7 +69,7 @@
 
 ### 已取得的纯规则证据
 
-[规则审查摘要](evidence/embedded-mineral-layer-plan-20261004.json)来自可重建的 [OreRuleReviewProbe](../tools/OreRuleReviewProbe/README.md)：只读包含当前锁定包 41 个 Core／Compiler 源文件，使用真实 RuleCompiler、MultiTerrainSolver 和 RuleCatalogCodec，没有改依赖源码。
+[规则审查摘要](evidence/embedded-mineral-layer-plan-20261004.json)来自可重建的 [OreRuleReviewProbe](../../tools/OreRuleReviewProbe/README.md)：只读包含当前锁定包 41 个 Core／Compiler 源文件，使用真实 RuleCompiler、MultiTerrainSolver 和 RuleCatalogCodec，没有改依赖源码。
 
 | 检查 | 本轮结果 | 支持范围 |
 | --- | --- | --- |

@@ -17,7 +17,7 @@
 
 游戏锁定基线 `fee18645c997ed7529c4592917de6c412033c84e` 不变，更新 `tools/grid-business/yygc.patch` 与 `dependency.lock.json`；补丁SHA-256为 `7b16e941cd7cc119e22b531678584103c697c6b5456b637658cdd0915a039811`。既有14项补丁保留，新修正4项；干净基线重建18/18与本机源码一致，准备脚本幂等通过。没有改 manifest、包版本、运行协议或存档。
 
-框架UPM测试默认未启用，本次由 `tools/workbench-navigation/prepare-probe.ps1` 从依赖唯一源产生临时镜像，编入现有游戏测试程序集验证。镜像、持久夹具及备用Git索引已按工程规则集中保留于 `artifacts/待清理/20261003-workbench-aggregation/`；无永久删除。游戏本批不同Editor用例合并16/16，作者资产436项保持。新增测试首轮命名空间冲突及旧焦点采样失败保留；没有Player、IL2CPP或联机验收。见[机器证据](evidence/workbench-aggregation-20261003.json)与[授权执行记录](WORKSHOP_NAVIGATION_FIX_PROPOSAL.md)。
+框架UPM测试默认未启用，本次由 `tools/workbench-navigation/prepare-probe.ps1` 从依赖唯一源产生临时镜像，编入现有游戏测试程序集验证。镜像、持久夹具及备用Git索引已按工程规则集中保留于 `artifacts/待清理/20261003-workbench-aggregation/`；无永久删除。游戏本批不同Editor用例合并16/16，作者资产436项保持。新增测试首轮命名空间冲突及旧焦点采样失败保留；没有Player、IL2CPP或联机验收。见[机器证据](archive/evidence/workbench-aggregation-20261003.json)与[授权执行记录](archive/WORKSHOP_NAVIGATION_FIX_PROPOSAL.md)。
 
 2026-10-02 工具 Definition 采集重构：**框架修改文件为 0**。新增游戏 MiningToolBehaviour 复用现有 RequireConfig／Inject、ObjectInstanceFactory／PreparedObjectDefinition、LocalObjectInstanceInitializer 和会话权限；无独立 DI、对象或状态框架。矿镐 Prefab 保留 GUID 补齐原生装配；新增炸弹定义身份使用 Unity meta 与 DefinitionIdentityAuthoring.AdoptCopiedAsset。真实装配与恢复验收见[本批说明](TOOL_DEFINITION_HARVESTING.md)。
 
@@ -35,7 +35,7 @@
 | AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/ProtocolTests.cs | 新增 Snapshot／Delta 的空／非空占用者往返及必填 GUID 严格性共五项 | 5/5 |
 | AnyRuleD~/Packages/com.tsgame.anyrules.networking/Tests/Protocol/NetworkTests.cs | 新增 ARDMap 扣血后的发布、受损基线晚加入／重连及清格检查 | 1/1 |
 
-专项回归共六项，修复前 3/6 通过，修复后均通过；已有相关用例同时通过。此为 .NET 协议检查，不代表 Unity 实际左键、独立进程联机、Player、弱网或完整业务化候选验收。游戏协议 19、地图 schema 2、存档 v14 和包路径不变；当前候选此前不可编码空占用者，本次修正没有改变记录宽度或放宽必填身份。证据见 [本轮摘要](evidence/mining-guid-20261001.json)。
+专项回归共六项，修复前 3/6 通过，修复后均通过；已有相关用例同时通过。此为 .NET 协议检查，不代表 Unity 实际左键、独立进程联机、Player、弱网或完整业务化候选验收。游戏协议 19、地图 schema 2、存档 v14 和包路径不变；当前候选此前不可编码空占用者，本次修正没有改变记录宽度或放宽必填身份。证据见 [本轮摘要](archive/evidence/mining-guid-20261001.json)。
 
 ## 2026-09-30 网格业务化隔离源码候选（未验证）
 
@@ -64,7 +64,7 @@
 
 ## 2026-09-29：RuntimeDebugHub 仅保留 F1
 
-用户明确要求暂时移除反引号唤出。实际框架 `D:/Developer/YYGC` 开始时为干净的 `master`／`fee18645c997ed7529c4592917de6c412033c84e`；本批不切分支、不提交框架、不改依赖配置，仅保留下列定向源码修改。游戏变更与复现方式见[调试页说明](RUNTIME_DEBUG_HUB.md)。
+用户明确要求暂时移除反引号唤出。实际框架 `D:/Developer/YYGC` 开始时为干净的 `master`／`fee18645c997ed7529c4592917de6c412033c84e`；本批不切分支、不提交框架、不改依赖配置，仅保留下列定向源码修改。游戏变更与复现方式见[调试页说明](archive/RUNTIME_DEBUG_HUB.md)。
 
 | YYGC 修改文件 | 原因与落点 | 验证 |
 |---|---|---|
@@ -74,7 +74,7 @@
 
 ## 2026-09-29：飞船商店交互修复
 
-YYGC 框架修改文件：**无**。实际依赖仍为 `D:/Developer/YYGC` 的 `fee18645c997ed7529c4592917de6c412033c84e`，本轮读取时工作区干净。缺口位于游戏创建 UI Toolkit 面板时遗漏主题和字体配置，沿用已有 AssetProvider、UIManager／UIPanel 与 Interaction Session 即可修复，无须修改框架。游戏内修改与 Editor／Mono 验证见[验收记录](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)。
+YYGC 框架修改文件：**无**。实际依赖仍为 `D:/Developer/YYGC` 的 `fee18645c997ed7529c4592917de6c412033c84e`，本轮读取时工作区干净。缺口位于游戏创建 UI Toolkit 面板时遗漏主题和字体配置，沿用已有 AssetProvider、UIManager／UIPanel 与 Interaction Session 即可修复，无须修改框架。游戏内修改与 Editor／Mono 验证见[验收记录](archive/SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)。
 
 ## 2026-09-29：飞船交易与装备候选
 
@@ -114,7 +114,7 @@ YYGC 框架修改文件：**无**。实际依赖仍为 `D:/Developer/YYGC` 的 `
 | `Runtime/Objects/NetworkStates/StateDataTypeStartupModule.cs` | 只要求当前生成注册器范围内的状态，仍拒绝正式类型漏注册。 | 故意移除 ActorState 仍失败；独立 CampState 不阻止正式启动。 |
 | `Runtime/NetworkCommands/NetworkCommandStartupModule.cs` | 命令启动使用相同范围合同。 | 实际 Bootstrap 全部启动模块进入 Ready。 |
 
-Unity **6000.4.9f1** 当前 Local 统一编译完成；`tools/bootstrap-startup/StartupRegression.cs` **7/7**。实际 Bootstrap Play 主菜单显示，点击“开始守夜”后 Host 建立、太空飞船／人物／目的地入口显示，两阶段错误日志均 **0**。已退出 Play，留在 Bootstrap。正式证据为 [摘要](evidence/bootstrap-startup-20260926.json) 与 `artifacts/bootstrap-startup-fix/` 下诊断 JSON、`bootstrap-menu.png`、`newgame.png`；这些为保留证据。未构建本轮 Player，未宣称完整航程、独立进程联机或 IL2CPP 通过。
+Unity **6000.4.9f1** 当前 Local 统一编译完成；`tools/bootstrap-startup/StartupRegression.cs` **7/7**。实际 Bootstrap Play 主菜单显示，点击“开始守夜”后 Host 建立、太空飞船／人物／目的地入口显示，两阶段错误日志均 **0**。已退出 Play，留在 Bootstrap。正式证据为 [摘要](archive/evidence/bootstrap-startup-20260926.json) 与 `artifacts/bootstrap-startup-fix/` 下诊断 JSON、`bootstrap-menu.png`、`newgame.png`；这些为保留证据。未构建本轮 Player，未宣称完整航程、独立进程联机或 IL2CPP 通过。
 
 本批只生成上述源码、补丁与正式证据，复用 Local Library，无独立 Unity 缓存或可移出的中间构建产物；未删除或移动其他任务文件。阶段完成 D 盘约 25.5 GB 可用，C 盘约 6.7 GB 可用。
 
@@ -158,7 +158,7 @@ Unity **6000.4.9f1** 当前 Local 统一编译完成；`tools/bootstrap-startup/
 | `MapStateDiagnostics.cs`、`MapStateDebuggerWindow.cs`、`MapStateFeatureWindow.cs`、`MapStateDebugBridge.cs` 及 FishNet 诊断接线 | YY 菜单、有界 2048 事件、只读业务贡献者、安全停止、按需本机和每 peer 的 canonical 对比；开发版显式令牌回环桥，正式 Player 不注册端点；窗口增加远程读取、peer 比较和故障档脚本入口。新桥脚本 `.meta` 为 Unity 生成并原样提交。 | Matched/Different/Incomplete 及不同权限投影 .NET 测试通过；Game Editor 编译、菜单开窗；最终锁 Host/Client 的桥摘要匹配和错误令牌拒绝 2/2。窗口按钮人工交互及不同权限双 Player 未验。 |
 | `Samples~/StandaloneNetwork/*`、`Tools~/MapStateTests/*`、`tools/prepare-standalone-map-host.py` | 无 YYGC 独立 FishNet 样板、协议/进程测试入口、真实 UDP 弱网档位；输出隔离 runId。 | 宿主 5/5 文件且不装 YYGC；协议 runner 有 TRX/JSON，Mono Host 0/1/2/4/8/16、Dedicated 1/4，TypicalWeak/Severe/Blackout 四客户端通过；证据在 YYGC `AnyRuleD~/Evidence/MapState/map-state-20260924-summary.json`。 |
 
-YYGC 分段提交：`13cd0b9` 红测，`85275e3` 稀疏 Delta，`0684b9d` 变化集与副本，`1ec2b55` 拆包，`d4687c9` 诊断，`f8ebc76` 样板初稿，`b0e2387` 独立多进程和弱网收口，`b239df6` 按需 canonical 对比，`1501025` 迁移类型的显式线缆身份别名，`cb2ec5f`/`00b7c14`/`e07e9a9` 远程诊断和窗口。Game 的主 YYGC 依赖仍锁旧提交 `12b253c`，故 `tools/lan-framework-patch/MapTypeWireIdentityAlias.patch` 在隔离 `.deps/YYGC-unified` 复现同一别名 API；`tools/prepare-map-type-identity.ps1` 校验来源与修改前后哈希。初次旧 Player 混连的类型表拒绝记录保留，别名仅用于已搬移且内容不变的 `TerrainEditCommand`，其余类型仍严格握手；最终锁的正反向混连各 15/15。`b239df6` Player 的正常／弱网三进程各 28/28、地图编辑各 15/15 保留旧构建身份；最终锁重新构建的地图循环含远程桥 17/17。迁移说明在 YYGC `AnyRuleD~/Documentation~/MAP_STATE_NETWORKING.md`；游戏接入与待验边界见[地图联网重构](MAP_STATE_NETWORKING.md)。回退时切回旧锁与旧三包 manifest、恢复旧游戏接线，不删除存档或原素材。尚未运行 IL2CPP、双机器或前台性能验证。
+YYGC 分段提交：`13cd0b9` 红测，`85275e3` 稀疏 Delta，`0684b9d` 变化集与副本，`1ec2b55` 拆包，`d4687c9` 诊断，`f8ebc76` 样板初稿，`b0e2387` 独立多进程和弱网收口，`b239df6` 按需 canonical 对比，`1501025` 迁移类型的显式线缆身份别名，`cb2ec5f`/`00b7c14`/`e07e9a9` 远程诊断和窗口。Game 的主 YYGC 依赖仍锁旧提交 `12b253c`，故 `tools/lan-framework-patch/MapTypeWireIdentityAlias.patch` 在隔离 `.deps/YYGC-unified` 复现同一别名 API；`tools/prepare-map-type-identity.ps1` 校验来源与修改前后哈希。初次旧 Player 混连的类型表拒绝记录保留，别名仅用于已搬移且内容不变的 `TerrainEditCommand`，其余类型仍严格握手；最终锁的正反向混连各 15/15。`b239df6` Player 的正常／弱网三进程各 28/28、地图编辑各 15/15 保留旧构建身份；最终锁重新构建的地图循环含远程桥 17/17。迁移说明在 YYGC `AnyRuleD~/Documentation~/MAP_STATE_NETWORKING.md`；游戏接入与待验边界见[地图联网重构](archive/MAP_STATE_NETWORKING.md)。回退时切回旧锁与旧三包 manifest、恢复旧游戏接线，不删除存档或原素材。尚未运行 IL2CPP、双机器或前台性能验证。
 
 ## 2026-09-23：编辑器顶部菜单归属
 

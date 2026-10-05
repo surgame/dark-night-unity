@@ -235,6 +235,6 @@ UI Toolkit 的框架合同是在 `UIPanel.OnBind` 中通过 `Root.Q<T>(明确名
 
 ## 10. YYGC 改动判断与本次交付状态
 
-当前已有的定义、IConfigData、注入、UI Toolkit 面板、R3 绑定、Interaction Sessions 和事务／联机接入足以形成实现路线，**本次不预设必须改 YYGC**。UI 异步生命周期、资源租约或生成器若在最小实际装配中出现具体缺口，再在隔离框架 checkout 修正，锁定依赖并逐文件更新 [YYGC_CHANGES.md](YYGC_CHANGES.md)。
+当前已有的定义、IConfigData、注入、UI Toolkit 面板、R3 绑定、Interaction Sessions 和事务／联机接入足以形成实现路线，**本次不预设必须改 YYGC**。UI 异步生命周期、资源租约或生成器若在最小实际装配中出现具体缺口，再在隔离框架 checkout 修正，锁定依赖并逐文件更新 [YYGC_CHANGES.md](../YYGC_CHANGES.md)。
 
 已完成：需求拆解、现行源码与实际依赖核对、状态／配置／绑定设计、交互与经济边界、分批开发与验收矩阵。待确认：四格与货袋关系、经济归属及金额、矿石是否必须手持、取回原矿与死亡装备规则。未进行：产品代码修改、资产修改、Unity 编译／Play／Player／联机验证。

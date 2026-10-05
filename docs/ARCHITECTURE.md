@@ -1,40 +1,8 @@
 # Dark Nights Unity 技术架构
 
-2026-10-05 [原生矿层候选](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：YYGC会话生命周期托管独立 ARDMap，GridBusinessStateStore 唯一拥有矿格耐久／储量；初始矿床为静态元数据，正式运行无逐矿床对象或逐格NetworkObject。前景与矿层均采用局部只读副本与AnyRuleD页面，换区保留静态背景宿主；普通采集组合一层地图与角色状态，拆墙保留后面的矿物。游戏协议25／存档v19／AMP1 schema2，下方逐床对象架构为历史。
+2026-10-05 [原生矿层候选](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：YYGC会话生命周期托管独立 ARDMap，GridBusinessStateStore 唯一拥有矿格耐久／储量；初始矿床为静态元数据，正式运行无逐矿床对象或逐格NetworkObject。前景与矿层均采用局部只读副本与AnyRuleD页面，换区保留静态背景宿主；普通采集组合一层地图与角色状态，拆墙保留后面的矿物。游戏协议25／存档v19／AMP1 schema2。
 
-2026-10-04 [独立内嵌矿层](EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md)：矿床继续使用现有 YYGC ObjectInstance／MineralDepositBehaviour，每格状态只归 MineralDepositState，汇总容量与阶段按格派生。Core 拥有确定性初始分配及冻结合同；View 把专用矿床投影转成一个只读 AnyRuleD 矿层，借用既有光场，位于基础后壁与点缀之间。同矿连接，异矿各自形成普通边缘；占用不变的耐久更新不触发表现输入。无逐格对象、第二份运行状态或框架修改。协议24／存档v18／AMP1 schema2，验收边界见本批记录。
-
-2026-10-03 [氧气移除候选](OXYGEN_REMOVAL_EXECUTION.md)：ActorState不再持有Oxygen，远征配置、冻结投影、网络与存档同步删除该合同；设备只处理剩余设备部署与供电，PowerLinkRange仅表示供电距离。既有Behaviour／State权威归属保持，未增加总规则开关、占位氧气实现或新状态所有者。协议23／存档v16；原候选验证及弱网延后边界见验证记录，本次与三层背景成果一并保留于本地main。
-
-2026-10-03 [地表背景分层衔接](CAVE_ENTRANCE_ART_LAYERS.md)：背景从冻结初始参考生成，原三层 RGBA 保持；各层分别排序，基础后壁只补完整覆盖。Core 只计算覆盖和分页，View 拥有纹理／材质／调度。Shader 不再读取环境包络或按入口深度渐隐，无新增权威状态。
-
-2026-10-02 当前[工具采集合同](TOOL_DEFINITION_HARVESTING.md)：MiningToolBehaviour 由工具 Definition 的 RequireConfig／Inject 装配；ObjectSessionResources 冻结装备目录。装备槽唯一保存 canonical Definition GUID，视觉枚举仅为派生展示。工具拥有目标类别、材料、等级及矿床定义白名单；矿床拥有目标要求与实例 State；ARDMap 仍拥有格耐久。共享纯匹配、可信装备解析与原事务贯穿选取和命中。会话矿镐参数及 AllowPickaxeHarvest 已退出，无新增框架改动。协议 **22**／存档 **v15**／AMP1 schema **2**，先前开关方案已被本轮替代。
-
-2026-10-01 矿镐源码候选：纯 `TerrainMiningGeometry.RayCell` 裁剪真实坡形，Runtime `TerrainMiningQuery.FirstSurface` 与本地选格、权威落镐共用最近表面查询，Unknown／基岩不跳过。每镐的目标、瞄准方向和一次命中门闩归角色唯一 ActorState，只由 YYGC CopyFrom 在事务内按值冻结，标记 MemoryPackIgnore，不写网络帧或存档。展示复用现有装备动作计时和瞄准字段，不由动画事件写权威伤害。游戏协议 **20**，AMP1 schema **2** 与存档 **v14** 不变；本批按用户要求未编译或运行验证。
-
-2026-09-30 网格业务化候选：WorldSession Definition 的 TerrainProfileConfig／TerrainGameplayBehaviour 只承担配置和装配；SessionTerrain 中唯一 ARDMap 的 GridBusinessStateStore 拥有格耐久，独立矿床仍归其 YYGC State。基础 AnyRules 不反向依赖 YYGC。对象候选校验完成后才执行外部地图安装；通知延后。分块副本同时安装业务偏差与内容实例版本，游戏协议 **19**／AMP1 schema **2**／存档 **v14**。按用户要求本批未验证，事务原子性、编辑器绑定及运行画面不作已通过声明；实现边界见 [DEVELOPMENT.md](DEVELOPMENT.md)。
-
-2026-09-30 [矿镐网格候选](MINING_GRID_EXECUTION.md)：选择器为原生主角 HUD 的本地只读几何，Core 只增加纯坐标合同；显式格目标进入既有 HeroInputCommand。唯一权威执行留在 HeroEquipment／HeroMining，地图仍归 TerrainMapAuthority，库存／风险／矿床归现有 YYGC Behaviour。短事务先准备状态、组合地图清除，再安装状态并发布地图通知；异常原子性待故障注入，不宣称已验证。协议 **18**／存档 **v13**，无框架或依赖改动。
-
-2026-09-29 [飞船交易与装备候选](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)：交易模块由飞船子物体 Definition／IConfigData 指定，权威写入留在既有 Actor／Economy Behaviour；输入、命令和冻结投影沿 YYGC 会话链，装备 UI 由 YYGC UIManager／UIPanel 绑定 UXML 并使用 R3 订阅。协议 **17**／存档 **v12**；真实画面及跨进程验收见清单。
-
-2026-09-28 原地着陆候选：星球飞船在当前安全位置落地，配置到达点仅保留地图生成和飞行包络职责。协议 **16**／存档 **v11**；着陆状态仍由权威 `BuildingState`、`ExpeditionJourneyBehaviour` 和原会话投影承载。
-
-2026-09-26 [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)：协议 15／存档 v11。`ExpeditionFlowBehaviour : PooledBehaviour` 注入 `IConfigData` 并冻结目录；航程唯一状态归 `ExpeditionJourneyBehaviour`，船体／乘员继续归原 Building／Actor State。纯生成器准备候选，单一权威事务交换地图；冻结展示副本和实际相机回执门控 Ready。没有新增并行世界、对象网络变换或客户端模拟。验证状态以本批[验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)为准。
-
-2026-09-22 [可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)：协议 14／存档 v10。船的 BuildingState 与乘员 ActorState 继续由各自 YYGC 业务对象拥有，船体和乘员位移同事务提交；`ExpeditionShipData` 进入冻结投影与原子存档。下方按日期保留此前地形和对象架构切片，其版本号不代表当前版本。
-
-2026-09-22 [独立岩层切片](archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)：协议 13／存档 v9。`SessionTerrain` 持有不可变 `BackgroundBakeDescriptor` 并与当前权威地图原子保存恢复；初始参考不是第二张可编辑地图。View 调用 `Core.Logic.Terrain` 的纯岩壁／背景算法，线程、取消调度与 Unity 纹理归 View，Core 通过外层检查回调保持无线程 API。外轮廓是独立纯计算阶段，源格形→有符号距离扰动→岩壁分面；它不拥有权威几何，当前只影响表现。前景缓存读取当前副本局部失效，背景只读初始参考；两者均无玩法写权。新场景／材质／AnyRuleD 定义独立于旧岩石资产，正式实体仍走原有 YYGC 定义、绑定及命令。可靠背景基线复用现有 FishNet 会话，参考、当前 AMP1 副本及可见前景／背景共同门控 Ready。
-
-2026-09-17 [随机灰松谷](archive/RANDOM_PINEWATCH.md)已接入正式会话：Core 生成冻结候选，ObjectSession 中的 SessionTerrain 管理唯一 TerrainMapAuthority，主角仍写 ActorState；网络 AMP1 全图初始订阅与现有对象投影分别传输，共同门控 Ready。View 从只读副本绘制 DualGrid。加载验证地图及实体候选后一起切换，重新同步地图代次。当前协议 9、存档 v4；下方协议 8 和独立预览描述属于历史切片。
-
-新增[地图模块](TERRAIN_GENERATION.md)：Core/Terrain 只生成冻结初始蓝图；Runtime/Terrain 独占 YYGC 会话约束下的 ARDMap 权威状态，提供局部事务与只读流；View/Terrain 负责本地预览。地图格不是逐格业务实体，初始资产、网络副本和视觉网格均不能结算破坏。正式实体生命周期和下方协议保持原样，未来采矿由现有可信会话入口接入。
-
-2026-09-16 当前切片见[主角与输入联合执行](archive/HERO_INPUT_EXECUTION.md)：YYGC `0c7cec0`、协议 8、存档 v3；ActorState 仍是唯一状态，自动控制与主角控制以能力切换。Ready 携带默认主角偏好，SessionAuthority 通过同一 YYGC 对象生命周期为每个首次上线且有权限的连接新建专属 `worker`，不从现有闲置 Actor 中选择；连接保存人物 ID 用于重复 Ready 和策略恢复，加载后还必须验证对象仍带手动主角标记。默认 UI 隐藏顶部主角工具栏和旧营地入口。下段日期较早的版本与计数保留历史时点。
-
-2026-09-14，采用 [YYGC 统一对象重构计划](archive/YYGC_UNIFIED_REFACTOR_PLAN.md)。U0–U5 已完成，正式入口使用全部 YYGC 业务能力，旧运行模型已删除。U6 协议 7／YYGC `745f3d2` 通过 144 项 Editor／Play、Mono 完整矩阵 350 项及 240 秒容量检查 21 项；后续 [Linear 世界表现](archive/M5_WORLD_PRESENTATION.md)在 `a4a5450` 完成 155 项 Editor／Play 和新 Mono 77 项检查。前台验收由用户暂缓，IL2CPP／双机器仍未验收；受限清理已完成[列账交接](archive/STAGE_CLEANUP_INVENTORY.md)，目录未删除。实际状态与证据见[性能验收](archive/YYGC_UNIFIED_PERFORMANCE.md)和[实施记录](archive/YYGC_UNIFIED_IMPLEMENTATION.md)，不以类型或目录存在代替验收。
-
-本页描述统一后的源码。原集中 Core 世界及按 Kind 借还视图的方案保留在 Git 历史和 [C 重构记录](archive/C_REFACTOR_IMPLEMENTATION.md)，不再作为当前状态归属合同。游戏不兼容 Godot 旧档、Unity v1／v2 或协议 7／6／5；独立 LAN Sample 的兼容边界单独保留。
+历史版本、测试时间线与迁移前全文见[历史快照](archive/ARCHITECTURE_HISTORY_20261005.md)。当前矿层合同优先以[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)为准；下述通用会话合同需结合现行两层地图路径阅读。
 
 ## 唯一状态归属
 
@@ -49,13 +17,14 @@
 | 单位位置、HP、任务、攻击与工作进度 | ActorBehaviour／ActorState | 移动和攻击能力操作所属单位状态 |
 | 建筑 HP、施工与训练队列 | BuildingBehaviour／BuildingState | 训练和塔攻击能力由会话按固定顺序调用 |
 | 工位库存、占用和生产进度 | WorksiteBehaviour／WorksiteState | 占用关系与单位任务在同一事务更新 |
+| 前景与矿层格数据、耐久及储量 | SessionTerrain 托管的 ARDMap／GridBusinessStateStore | 房主唯一写入，客户端只读局部副本；矿床为静态元数据 |
 | 请求队列、连接代次、Ready、epoch、共享策略 | SessionAuthority 与可信网络适配 | 不把连接／权限写入存档 |
 | 冻结展示帧与客户端副本 | SessionProjector、WorldReplica、ObjectReplica | 无业务写权限，不自行计算资源或伤害 |
 | 选择、镜头、悬停、预览、待确认反馈 | 各客户端交互状态 | Host 也只从展示副本驱动画面；右键指令圈由本地输入驱动 |
 
 ObjectSession 只组合能力、上下文、资源租约和对象索引，不保存第二套经济／实体状态。SessionEntityIndex 只引用 YYGC 对象。旧 GameSession、WorldState、Entity、Commands／Systems 运行链及过渡 SessionWorld 已删除。
 
-右键指令圈不属于会话状态、表现事件或网络投影。`LocalCommandRings` 通过正式效果定义预热八个本地实例并复用网格，0.8 秒未缩放时间后隐藏；连接代次或 epoch 变化时清空显示，宿主释放时显式清理网格和对象。具体输入权限及验证见[本地指令圈](archive/LOCAL_COMMAND_RINGS.md)。
+旧指令圈的实现过程见[历史快照](archive/ARCHITECTURE_HISTORY_20261005.md)；当前正式远征入口与实际操作以[Player 指南](PLAYER_GUIDE.md)为准。
 
 所有可写 State 使用 YYGC 会话权限。网络 DTO、ScriptableObject、展示副本和客户端 Behaviour 不成为另一份权威模型。单对象 State 的变化不自行发送个体 RPC。
 
@@ -72,7 +41,7 @@ flowchart LR
     Projection --> Host["Host 展示副本"]
     Replica --> View["绑定外观 / UI / 插值"]
     Host --> View
-    Objects --> Save["v3 冻结快照 / 校验 / 原子存储"]
+    Objects --> Save["v19 冻结快照 / 校验 / 原子存储"]
 ```
 
 ## 程序集与目录
@@ -132,7 +101,9 @@ GameInputActions 缓存原生 PlayerInput.actions；YYInputActionService 只接�
 
 2026-09-28 输入边界调整：`GameInputActions` 是正式会话每位本地玩家唯一的 Unity `InputAction` 接入点，按 YYGC 许可向 `HeroInputSampler` 和 `CampInput` 提供当帧语义值；Entry 只读取模式切换值。帮助面板复用原生按钮提供动作／绑定列表、交互式改键及单项／全部恢复，输入层按 Unity 绑定 ID 解析并复用 YYGC 改键与设置存储。主角短按缓冲、30 Hz 发送、10 Hz 保活及服务端权威链未改。本批只完成代码与静态审查，按用户要求未运行 Unity 编译、Play 或联机回归；运行表现仍待验证。
 
-## 身份与 v3 恢复
+<a id="身份与-v3-恢复"></a>
+
+## 身份与当前存档恢复
 
 | 标识 | 用途 |
 |---|---|
@@ -146,7 +117,7 @@ GameInputActions 缓存原生 PlayerInput.actions；YYInputActionService 只接�
 
 正式定义旧整数 Id 固定为 0，无旧别名；不恢复 Kind 后缀或整数兼容。独立 LAN Sample 的 LegacyV1 和 YYGC 面向其他使用者的兼容 API 不在游戏清理范围。
 
-v3 保存全部持久权威状态、实体定义／放置身份、训练／施工／在飞箭矢、主角运动与道具及 RNG；连接占用和待处理输入不进入存档。捕获在模拟边界深度冻结，后台仅编码和写文件。恢复先验证完整 DTO，再准备未激活对象；提交时切换对象索引、增加 epoch、退休旧对象并重新 Ready，服务端依据当前连接偏好分配新的控制者。准备或提交失败保留当前世界；保存失败保留原文件。详细字段及原子文件边界见[存档合同](SAVE_FORMAT.md)。
+v19 保存全部持久权威状态、实体定义／放置身份、训练／施工／在飞箭矢、主角运动与道具、两层地图及 RNG；连接占用和待处理输入不进入存档。捕获在模拟边界深度冻结，后台仅编码和写文件。恢复先验证完整 DTO，再准备未激活对象和候选地图；提交时切换对象索引、增加 epoch、退休旧对象并重新 Ready，服务端依据当前连接偏好分配新的控制者。准备或提交失败保留当前世界；保存失败保留原文件。详细字段及原子文件边界见[存档合同](SAVE_FORMAT.md)。
 
 ## 资源与验证边界
 

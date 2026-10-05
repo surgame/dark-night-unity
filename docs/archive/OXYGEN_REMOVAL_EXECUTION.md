@@ -4,7 +4,7 @@
 
 源码实施基于已提交基线baedc158b3d1b5616cf6118765a3c776b416f64d，在独立薄worktree分支ref-20261003-remove-oxygen完成。验证时复用Local现有Unity缓存；前一任务工作已完整备份并暂存，没有复制或覆盖其未提交修改。源码阶段原本暂不验证的状态已被上述后续结果替代。
 
-游戏协议 **23**／存档 **v16**／AMP1 schema **2**。YYGC 源码、版本及补丁均未修改；[AGENTS](../AGENTS.md) 中“修改 YYGC 必须事先取得具体范围的用户同意”继续有效。
+游戏协议 **23**／存档 **v16**／AMP1 schema **2**。YYGC 源码、版本及补丁均未修改；[AGENTS](../../AGENTS.md) 中“修改 YYGC 必须事先取得具体范围的用户同意”继续有效。
 
 验证阶段Local在用户授权后转为本氧气候选；之后候选推送、worktree归档移除及本地main合并分别按后续指示完成，YYGC未修改。旧任务HEAD、stash与26项文件备份仍保留；同提交保护别名的清理及共同文档、存档指纹、协议修改审查见验证记录。
 
@@ -21,7 +21,7 @@
 | 配置 | 删除 buildings.oxygen、OxygenSeconds、OxygenRadius；通用 RelayRange 改为 PowerLinkRange，仍为360 | balance.json、ExpeditionDefinition、GameCatalogJson、SaveContentFingerprint |
 | 权威与数据合同 | 删除 Oxygen 字段及捕获、恢复、网络投影、JSON和校验，不留下停用字段 | ActorState、ExpeditionActorData、ExpeditionMapping、ExpeditionActorWire、ExpeditionSaveJson、ExpeditionValidator |
 | 命令及表现 | 删除 relay 的许可、分派、HUD命令、两套 Prefab按钮及氧气显示；船HUD16项、远征面板11项 | SessionOperations、SessionExpeditionControl、ExpeditionHud、ExpeditionPanel、ShipSceneAssetSetup、ShipHud.prefab、Expedition.prefab |
-| 正式资源 | 移除 DefinitionDatabase 与 Addressables 的氧气注册；资产原样移出Assets，保留GUID、人工内容和源图 | [资源退役清单](archive/retired-assets/README.md) |
+| 正式资源 | 移除 DefinitionDatabase 与 Addressables 的氧气注册；资产原样移出Assets，保留GUID、人工内容和源图 | [资源退役清单](retired-assets/README.md) |
 | 制作及回归入口 | 首版安装器不再创建氧气站／中继；诊断不再读取氧气；相关构造调用调整 | tools/expedition/ExpeditionInstall.cs、ShipDiagnostic、PlanetFlowRegression |
 | 原死亡回归 | 缺氧死亡用例改为通过现有通用伤害／生命周期触发战斗死亡，保留结算失败、复活、写盘和移动断言；已更新并执行通过 | ExpeditionRecoveryTests、JourneyWalkwayTests |
 | 兼容界限 | 协议22客户端及v15存档不兼容；不迁移、不删除用户旧档。依赖锁中游戏版本同步，框架提交及补丁哈希不变 | SessionAuthority、SessionSnapshot、ObjectWorldSaveJson、tools/grid-business/dependency.lock.json |

@@ -2,13 +2,13 @@
 
 2026-10-05 [原生矿层迁移](docs/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)继续当前 `ft-20261004-embedded-minerals`：协议25／存档v19／AMP1 schema2；矿格唯一状态归ARDMap业务存储，正式矿床实体退出，客户端前景与矿层局部订阅／加载。按用户暂定玩法，拆前景墙发现部分矿床而不伤矿物。首轮39项失败已复测，影响Editor105/105及真实副本组合画面通过，同一Mono正常两人30/30、四人38/38、弱网两人30/30通过；两层局部换区与静态背景保留已验，专项前台性能等未完成，整批未交付。Unity CLI已可后台编译／测试／截图／构建，本轮不使用Computer Use。YYGC未修改／升级，不能把旧Player数字当作本候选验收。
 
-2026-10-04 [内嵌矿开发检查点](docs/EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md)位于 `ft-20261004-embedded-minerals`，干净 main 基线 `b705709`；既有工作台和方案已先集成。协议24／存档v18／AMP1 schema2，YYGC未改。多格矿床权威、独立AnyRuleD矿层、专用投影与保存已实施；受影响Editor245/245、Mono正常两人24/24及四人30/30。弱网初始Ready失败，正式组合画面存在矿层遮挡，排序诊断未导入；本候选仍未交付，后续先解决UI弹窗与组合渲染门槛，不能把旧构建或单层小样当作当前最终验收。
+2026-10-04 [内嵌矿开发检查点](docs/archive/EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md)位于 `ft-20261004-embedded-minerals`，干净 main 基线 `b705709`；既有工作台和方案已先集成。协议24／存档v18／AMP1 schema2，YYGC未改。多格矿床权威、独立AnyRuleD矿层、专用投影与保存已实施；受影响Editor245/245、Mono正常两人24/24及四人30/30。弱网初始Ready失败，正式组合画面存在矿层遮挡，排序诊断未导入；本候选仍未交付，后续先解决UI弹窗与组合渲染门槛，不能把旧构建或单层小样当作当前最终验收。
 
-2026-10-03 氧气移除分支ref-20261003-remove-oxygen已合入本地main，基线baedc15，协议 **23**／存档 **v16**／AMP1 schema **2**。氧气业务、氧气站、中继命令及状态合同完整退出，YYGC未修改；已转Local后台验证，原Editor119/121、资源12/12、正常Mono双进程130/130；两项未实现玩法的旧路线用例已移除，本次剩余远征回归6/6，历史失败保留。弱网仍失败并延后修复，整批未通过。见[验证记录](docs/OXYGEN_REMOVAL_VALIDATION.md)与[失败分析](docs/OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。下方历史计数不代表本候选。
+2026-10-03 氧气移除分支ref-20261003-remove-oxygen已合入本地main，基线baedc15，协议 **23**／存档 **v16**／AMP1 schema **2**。氧气业务、氧气站、中继命令及状态合同完整退出，YYGC未修改；已转Local后台验证，原Editor119/121、资源12/12、正常Mono双进程130/130；两项未实现玩法的旧路线用例已移除，本次剩余远征回归6/6，历史失败保留。弱网仍失败并延后修复，整批未通过。见[验证记录](docs/archive/OXYGEN_REMOVAL_VALIDATION.md)与[失败分析](docs/archive/OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。下方历史计数不代表本候选。
 
-2026-09-28 原地着陆源码候选位于 `fix-20260928-free-ship-landing`：星球降落改为当前安全位置原地着陆，游戏协议 **16**／存档 **v11**。下方协议 15 的 Editor、Mono 和 IL2CPP 数字属于原泊位规则的已验构建，不代表本候选通过；验证状态见[验收清单](docs/SPACE_TO_PLANET_ACCEPTANCE.md)。
+2026-09-28 原地着陆源码候选位于 `fix-20260928-free-ship-landing`：星球降落改为当前安全位置原地着陆，游戏协议 **16**／存档 **v11**。下方协议 15 的 Editor、Mono 和 IL2CPP 数字属于原泊位规则的已验构建，不代表本候选通过；验证状态见[验收清单](docs/archive/SPACE_TO_PLANET_ACCEPTANCE.md)。
 
-2026-09-27 当前切片为[太空到星球流程](docs/SPACE_TO_PLANET_IMPLEMENTATION.md)，分支 `ft-20260926-space-planet-flow` 已合入 `main`，协议 **15**／存档 **v11**。太空船内步行、驾驶台选星球、过场、后台生成、到达同步、缓降与自动着陆下船已实现；航程 Editor 53/53，Mono r3 双进程 127/127，IL2CPP r4 双进程及三组四人通过。YYGC 框架改动已合入 YYGC `master` `fee1864`。人工画面、逐阶段晚加入、前台性能和双机器仍待验收，详见[验收清单](docs/SPACE_TO_PLANET_ACCEPTANCE.md)，不宣称最终交付。
+2026-09-27 当前切片为[太空到星球流程](docs/archive/SPACE_TO_PLANET_IMPLEMENTATION.md)，分支 `ft-20260926-space-planet-flow` 已合入 `main`，协议 **15**／存档 **v11**。太空船内步行、驾驶台选星球、过场、后台生成、到达同步、缓降与自动着陆下船已实现；航程 Editor 53/53，Mono r3 双进程 127/127，IL2CPP r4 双进程及三组四人通过。YYGC 框架改动已合入 YYGC `master` `fee1864`。人工画面、逐阶段晚加入、前台性能和双机器仍待验收，详见[验收清单](docs/archive/SPACE_TO_PLANET_ACCEPTANCE.md)，不宣称最终交付。
 
 2026-09-22 本分支已接入[可步入远征飞船](docs/archive/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。支持船内步行、唯一驾驶席、泊位附近试飞、搬运机器人与侦察机出舱归队；远征默认应用当前 StrataCave 岩层与三层背景。50 张原生素材导入检查 200/200，新增飞船／远征用例 24/24，同一 Mono 正常／弱网三进程各 28/28，Core 1048/1048；Editor 按影响合并 235/236，既有按钮主题 1 项失败留账。实际画面和本批证据见实现说明，不宣称全洞穴航行、异地降落、前台性能、IL2CPP 或双机器通过。
 

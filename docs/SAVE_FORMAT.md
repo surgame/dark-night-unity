@@ -1,45 +1,19 @@
 # Unity 世界存档 v19（原生矿层候选）
 
-2026-10-05 [原生矿层](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)采用v19／协议25。`terrain.mineral_map`保存规则指纹及61440格最终矿种／耐久／储量的有界压缩载荷；初始静态矿床元数据另外压缩，旧`mineral_deposits`必须为空。最终空格覆盖初始矿格，解码及候选恢复严格校验，旧档保留且不自动迁移。全范围夹具完整717985字节，Editor受损／采空／无效恢复通过；当前同一Mono正常两人／四人及弱网两人的真实写盘、加载与重启恢复通过，下方为历史合同。
+2026-10-05 [原生矿层](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)采用v19／协议25。`terrain.mineral_map`保存规则指纹及61440格最终矿种／耐久／储量的有界压缩载荷；初始静态矿床元数据另外压缩，旧`mineral_deposits`必须为空。最终空格覆盖初始矿格，解码及候选恢复严格校验，旧档保留且不自动迁移。全范围夹具完整717985字节，Editor受损／采空／无效恢复通过；当前同一Mono正常两人／四人及弱网两人的真实写盘、加载与重启恢复通过。
 
-2026-10-04 [斜坡跳跃连续运动候选](SLOPE_JUMP_FLOW.md)使用 **v17**／协议 **23**：规则摘要升级 `dark-nights.rules.v5`，包含跳跃策略和输入保留／松键规则。持久字段结构未增加；`JumpBufferRemaining`／`JumpAscending` 是所属Actor的临时输入生命周期量，排除发送、保存并在恢复时归零。保存目录使用v17，旧档保留且严格拒绝，不迁移、删除或覆盖。本批Editor恢复回归已通过，真实写盘重启未验，下方为历史合同。
+历史版本、测试时间线与迁移前全文见[历史快照](archive/SAVE_FORMAT_HISTORY_20261005.md)。当前矿层合同优先以[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)为准；下述通用会话合同需结合现行两层地图路径阅读。
 
-2026-10-03 [氧气移除候选](OXYGEN_REMOVAL_EXECUTION.md)升至 **v16**／协议 **23**：Crew不再保存Oxygen，配置指纹不再包含氧气时长／范围，RelayRange改为供电专用PowerLinkRange。保存目录随FormatVersion使用v16；v15拒绝读取，旧文件保留，不迁移或删除。原子保存、恢复和真实重启均未验证；下方按日期保留历史合同。
-
-2026-10-02 工具 Definition 采集重构升级为 **v15**／协议 **22**。四个 slot 字段从工具枚举整数改为 canonical Definition GUID 字符串，空槽为 `""`；拒绝非法／未知／不可持有的定义及重复身份，同视觉类型不同身份可恢复。全部工具能力指纹纳入装备兼容摘要，待命中工具与选择版本不保存，恢复不补伤害。旧档保留在原版本目录，不迁移或删除。实际写盘重启验证见[本批说明](TOOL_DEFINITION_HARVESTING.md)。
-
-2026-10-01 游戏协议 20 的矿镐表面／挥镐候选保持存档结构 v14：单镐冻结目标、角度及命中门闩只属于当前输入生命周期，不写盘。已有装备动作／冷却仍保存，恢复时不重建待命中目标，避免重启后补伤害。新增 PickaxeReach／PickaxeHandHeight／PickaxeImpactFraction 参与原有装备配置指纹，因此旧配置写出的 v14 存档也可能因 equipment_sha256 不匹配被拒绝；不自动迁移或删除旧档。本批按用户要求未验证保存、重启或恢复。
-
-2026-09-30 网格业务化候选：Terrain JSON 增加 mining_rules 和 damage；damage 是 U/V、稳定材质 GUID、耐久、品质、储量、阻挡覆盖及占用者 GUID 的稀疏冻结记录。加载禁止空格记录、重复坐标、未知材质、越界 HP 和规则不匹配。矿床 WorksiteSnapshot 增加 durability，储量仍用 amount；装备／地形／矿床配置共同参与保存身份。世界恢复使用新的地图代次，不复用旧输入及内容实例版本。v13 不自动适配、不删除旧存档。本批按用户要求未运行保存、重启或原子恢复验证。
-
-2026-09-30 [矿镐网格采集](MINING_GRID_EXECUTION.md)不改存档格式，正式协议为 **18**。新增采矿目标是连接／epoch 内瞬时输入，不写盘；地图 SoftRock 的运行 Flags bit 5 从已有 `soft_rock` 数据恢复，坡形／保护字段布局不变。本批未执行实际写盘重启及恢复验证。
-
-2026-09-29 [主角比例与移动](HERO_MOVEMENT_SCALE.md)升级为 **v13**，协议仍为 17。规则指纹标记 `dark-nights.rules.v4` 新增独立步速与主角碰撞尺寸，防止新碰撞规则直接恢复旧位置。旧 v12 及更早档案保留且拒绝读取，不自动迁移/删除。本批按用户要求未执行保存恢复测试。
-
-2026-09-29 [飞船交易与装备候选](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md)使用 **v12**／协议 **17**。`economy.credits` 保存共享信用点；Actor 新增四个装备槽、背包版本和喷气所有权，恢复时严格校验合法值、重复装备和未购燃料。旧 v11 保留文件但当前读取入口拒绝旧版本。本批仅执行快速 EditMode 检查，其余恢复和独立进程验收见清单。
-
-2026-09-26 [太空到星球流程](SPACE_TO_PLANET_IMPLEMENTATION.md)使用 **v11**／协议 **15**。新增 `expedition.Journey`，定义见 `JourneySaveJson`；只保存 Orbit／Descent／Landed，校验当前指纹、完整目录、实际种子与地图阶段，保存最终地图。下降恢复释放驾驶占用并悬停，着陆恢复保留剩余开门时间。当前纯校验与 Editor 恢复已执行，真实写盘重启和多人恢复按本批产物记录在[验收清单](SPACE_TO_PLANET_ACCEPTANCE.md)；历史结果不替代本批结果。
-
-2026-09-22 [可步入远征飞船](archive/WALKABLE_EXPEDITION_SHIP.md)升级为 **v10**／协议 **14**。`SessionSnapshot.CurrentVersion` 与正式握手常量分别为 10、14；冻结 `ExpeditionShipData` 随远征状态进入同一权威存档，恢复时校验候选并原子替换。空中读档保留位置与乘员，释放驾驶占用并归零速度；旧版本严格拒绝，原文件不自动删除。具体飞船行为和本批验证见切片记录；下方按日期标记的旧版本段落只用于追溯。
-
-2026-09-22 [静态背景候选](archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)升级为 **v9**／协议 **13**，文件进入独立 `v9` 目录。`world.terrain` 现在严格包含 10 个字段：`world_id`、`seed`、`materials`、`protection`、`soft_rock`、`shapes`、`rooms`、`deposits`、`expedition`、`background`。新增 `background` 为版本化参考封套的 Base64（固定旧地图可为 null，远征必需）；参考材料和坡形在首次生成后冻结，与当前已挖格子分别保存。封套包含版本、持久世界身份、布局种子、样式内容摘要、参考 SHA-256 和有界材料／坡形成对 RLE。校验失败拒绝整个恢复候选，不替换地图或对象。v8 及更旧文件不删除、不迁移、不重新生成伪初始源。下方字段表与旧版本说明为历史切片。
-
-2026-09-19 地图遗漏修复将正式格式升级为 **v6**，目录使用 `v6` 子目录；协议同步为 10。Actor 保存 `explosive_charges`，矿床保存最终剩余量与枯竭阶段。`terrain.deposit.*` 是唯一新增的动态放置身份，且只允许对应 `mineral-deposit` 定义。本轮已删除钻机次数、钻进、输出缓冲和钻机对象字段，不接受旧格式迁移。
-
-2026-09-17 [随机灰松谷](archive/RANDOM_PINEWATCH.md)将格式升级为 **v4**，文件位置使用 `v4` 子目录。`world.terrain` 为随机模板必需的对象，固定 Pinewatch 为 null；对象严格包含 `world_id`（32 位十六进制 GUID）、`seed`（1–80 字符）、`materials` 与 `protection`（各 61,440 字节的 Base64，材料 0–8、保护位 0/1）。记录最终格子，不按 seed 重新生成。严格校验材料、底部基岩、营地保护区域和随机布局是否匹配；实体与地图候选一起恢复，地图运行代次不沿用存档。原 v3 文件不迁移或删除。
-
-2026-09-16，[主角与输入联合切片](archive/HERO_INPUT_EXECUTION.md)将正式格式升级为 v3：增加高度、纵向速度、平台支撑、下穿计时及道具状态。正式入口仍为 ObjectWorldSaveJson 与 GameSaveStore，状态仍来自所属 YYGC Behaviour。当前验收记录见联合执行文档；U5／U6 的 v2 计数按历史输入保留在[实施记录](archive/YYGC_UNIFIED_IMPLEMENTATION.md)。
-
-当前候选只接受 v17；旧格式不读取或自动迁移，旧文件不自动修改／删除，显式选择旧格式返回“不支持的存档版本。”并保留当前世界。下方根字段以当前源码为准；按日期标记的旧版本说明仅用于追溯。历史 v1 证据见[原存储记录](archive/evidence/world-save-2026-09-11.json)。
+上述写盘／恢复数字属于矿层初轮产物。长槽位路径修复后的最终 Mono 矩阵尚未完成，状态见[开发执行计划](DEVELOPMENT.md)。当前入口仅接受v19，旧格式拒绝读取并保留旧文件。
 
 ## 文件合同
 
-无 BOM 的 UTF-8 JSON，上限 **4,000,000 字节**，解析深度 32。v13 根对象严格只有 8 个字段：
+无 BOM 的 UTF-8 JSON，上限 **4,000,000 字节**，解析深度 32。v19 根对象严格只有 8 个字段：
 
-| 字段 | v13 合同 |
+| 字段 | v19 合同 |
 |---|---|
 | format | dark-nights.world |
-| format_version | 整数 13 |
+| format_version | 整数 19 |
 | random_algorithm | SimulationRandom.Algorithm，当前为 godot-pcg32-clz-f32-v1 |
 | rules_sha256 | 实际只读 GameCatalog 的规范化 SHA-256 |
 | layout_sha256 | 实际场景导出 LevelLayout 的规范化 SHA-256 |
@@ -53,7 +27,7 @@ world 包含 level_id、terrain、expedition、economy、wave、elapsed、speed�
 
 actors 的运动与装备字段包括 height、vertical_speed、support_platform、ignored_platform、drop_remaining、manual_control、selected_item、selection_revision、jetpack_equipped、jetpack_fuel、explosive_charges；这不是当前 Actor 的完整字段清单。高度以原地面为零、向上为正；随机模板允许负高度至底部基岩顶面 -2416，支撑 0 表示权威地图支撑，-1 为空中；固定模板的正数表示场景平台 ID。支撑关系、范围、燃料和库存数量必须合法。
 
-worksites 中的 `mineral-deposit` 保存 RoomKind、Y、Rarity、Capacity、Remaining 和 Stage。最终剩余量必须从该 YYGC 对象状态恢复，不能从初始 seed 或全局 Economy 推导。
+正式 v19 的 `world.mineral_deposits` 必须为空。最终矿格数据来自 `terrain.mineral_map`；`terrain.deposits` 是压缩的初始静态元数据，不能据它重新生成已采空矿物。前景 `damage` 与矿层最终值分别保存，完整候选一起校验后替换。
 
 文件不包含相机、选区、epoch、连接代次、FishNet 身份或房间共享策略；也不保存 ControllerSlot、ControllerGeneration、ControlLease、默认人物偏好、输入序号和按钮意图。恢复后的手动角色保留姿态、手动标记与装备；新 epoch 完整投影 Ready 后，服务端只接回这些已保存主角。连接仍记录的专属 ID 若指向不带手动标记的普通闲置村民，必须视为不可恢复并新建默认村民；旧连接所有权和输入不会恢复或重放。
 
@@ -61,9 +35,9 @@ worksites 中的 `mineral-deposit` 保存 RoomKind、Y、Rarity、Capacity、Rem
 
 SaveContentFingerprint 直接使用本次会话的 GameCatalog 与经过校验的 LevelLayout。规则覆盖配置名称、说明、资源、单位／建筑／工位参数、关卡 seed 和有序波次；布局覆盖边界、地面、出生点与按出生顺序排列的放置记录，排除本地 CameraX。
 
-规则与布局使用二进制编码域 dark-nights.rules.v2／dark-nights.layout.v2，纳入 hero_control 和有序平台定义：小端整数、IEEE 754 float/double、UTF-8 字符串及显式集合长度。字典按 Ordinal Key 排序，布局和敌人序列保留顺序。这两个域标记描述摘要编码，不表示接受 v2 存档。
+规则与布局使用二进制编码域 dark-nights.rules.v5／dark-nights.layout.v2，纳入 hero_control 和有序平台定义：小端整数、IEEE 754 float/double、UTF-8 字符串及显式集合长度。字典按 Ordinal Key 排序，布局和敌人序列保留顺序。这两个域标记描述摘要编码，格式版本仍为 v19。
 
-identity_sha256 对按 Ordinal 排序的 definitions／placements 对象做紧凑 JSON UTF-8 SHA-256，值来自实际加载定义和场景放置关系；动态 `terrain.deposit.*` 身份只允许对应 `mineral-deposit` 定义且全局唯一。`equipment_sha256` 校验手持装备配置。新增格式字段或修改规范编码须明确升级合同。摘要用于内容一致性，不是文件签名，也不能替代协议 14 的完整握手摘要。
+identity_sha256 对按 Ordinal 排序的 definitions／placements 对象做紧凑 JSON UTF-8 SHA-256，值来自实际加载定义和场景放置关系；v19 的正式矿床不再创建实体身份，旧动态矿床规则仅保留在历史快照中。`equipment_sha256` 校验手持装备配置。新增格式字段或修改规范编码须明确升级合同。摘要用于内容一致性，不是文件签名，也不能替代协议25的完整握手摘要。
 
 ## 保存与恢复顺序
 

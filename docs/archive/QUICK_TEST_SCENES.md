@@ -24,7 +24,7 @@
 
 ## 场景整理结果
 
-全部 **16 个项目场景** 仍保留。6 个场景通过 Unity AssetDatabase 移动／改名，原场景内容、meta 字节和 GUID 已验证不变。当前路径见 [场景索引](SCENES.md)：
+全部 **16 个项目场景** 仍保留。6 个场景通过 Unity AssetDatabase 移动／改名，原场景内容、meta 字节和 GUID 已验证不变。当前路径见 [场景索引](../SCENES.md)：
 
 - 日常只保留正式游戏与 RandomCave 地形预览；快速测试是 Bootstrap 的开局预设，不新增 `.unity` 副本。
 - ReferenceChamber 归入 References；静态／随机 Pinewatch 归入 Regression/Camp，分别命名 StaticCampRegression／RandomCampRegression。
