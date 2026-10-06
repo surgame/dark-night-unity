@@ -1,6 +1,6 @@
 # Dark Nights · Unity
 
-当前本地 `main` 已集成 `ft-20261004-embedded-minerals` 的开发成果：游戏协议 **25**、存档 **v19**、AMP1 schema **2**，Unity Editor 锁定 **6000.4.9f1**。默认从 Bootstrap 进入太空船与星球远征，2–4 人合作；旧营地保留专项回归入口。
+当前本地 `main` 已集成原生矿层与 `ft-20261006-terrain-debug-integration` 的地形调试、工作台网格及保存改进：游戏协议 **25**、存档 **v19**、AMP1 schema **2**，Unity Editor 锁定 **6000.4.9f1**。默认从 Bootstrap 进入太空船与星球远征，2–4 人合作；旧营地保留专项回归入口。
 
 矿物采用会话托管的独立 AnyRuleD 地图，矿格耐久与储量只有一个权威所有者。拆前景墙只露出对应矿格，采空与恢复由地图保存；客户端前景与矿层均局部订阅、加载。实现与验收边界见[当前矿层记录](docs/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
 

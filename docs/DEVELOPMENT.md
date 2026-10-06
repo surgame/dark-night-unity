@@ -1,10 +1,12 @@
 # Dark Nights Unity 开发执行计划
 
-2026-10-05，开发成果按用户要求集成到本地 `main`，原开发分支为 `ft-20261004-embedded-minerals`。协议 **25**／存档 **v19**／AMP1 schema **2**，Editor **6000.4.9f1**。本页只列当前执行状态；早期评估、M0–M6 估算与历次实现过程保存在[开发历史快照](archive/DEVELOPMENT_HISTORY_20261005.md)。
+2026-10-07，地形调试与工作台改进按用户要求从 `ft-20261006-terrain-debug-integration` 集成到本地 `main`；原生矿层成果已于2026-10-05集成。协议 **25**／存档 **v19**／AMP1 schema **2**，Editor **6000.4.9f1**。本页只列当前执行状态；早期评估、M0–M6 估算与历次实现过程保存在[开发历史快照](archive/DEVELOPMENT_HISTORY_20261005.md)。
+
+本次集成保存了工作区已有的 `WorldSession.asset` 入口走道Modifier关闭配置。托管引用4项完整，核对除 `EntranceWalkwayModifierConfig.Enabled` 从1变0外配置数据不变，引用ID与顺序变化来自已有序列化结果。本次只做Git集成、差异和引用核对，沿用下方原批次证据；未重跑Unity、构建Player或新增联机验收结论。
 
 ## 当前实现
 
-2026-10-06 地形调试整合位于 `ft-20261006-terrain-debug-integration`：AnyRuleD菜单统一到YY，正式前景／矿层绑定只读网格检查；工作台Play页面可选择地图并打开同一窗口。当前Editor编译无错误、真实两层宿主回归1/1、Bootstrap Host地图就绪与四角检查、退休释放通过，Scene Shift实点(88,-71)及600×800窗口截图通过，架构732／16／0；没有新增Player或联机矩阵结论。YYGC两个Editor文件的具体授权、锁定补丁及20项重建记录见[账本](YYGC_CHANGES.md)和[操作说明](TERRAIN_GRID_DEBUGGER.md)。
+2026-10-06 地形调试整合原分支为 `ft-20261006-terrain-debug-integration`，已于2026-10-07合入本地 `main`：AnyRuleD菜单统一到YY，正式前景／矿层绑定只读网格检查；工作台Play页面可选择地图并打开同一窗口。该批Editor编译无错误、真实两层宿主回归1/1、Bootstrap Host地图就绪与四角检查、退休释放通过，Scene Shift实点(88,-71)及600×800窗口截图通过，架构732／16／0；没有新增Player或联机矩阵结论。YYGC两个Editor文件的具体授权、锁定补丁及20项重建记录见[账本](YYGC_CHANGES.md)和[操作说明](TERRAIN_GRID_DEBUGGER.md)。
 
 正式开局沿 Bootstrap → 太空船 → 星球远征。主角、装备、船体、经济等业务状态归对应 YYGC Behaviour；前景与矿层由会话托管的原生地图拥有。游戏协议、装备身份、存档与两层 Ready 联合校验。矿床实体退出正式运行，初始矿床信息只作静态元数据。
 

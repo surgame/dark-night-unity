@@ -1,6 +1,6 @@
 # Dark Nights 文档索引
 
-当前本地 `main` 已集成 `ft-20261004-embedded-minerals`，协议25／存档v19／AMP1 schema2。这里保留长期合同、日常入口与当前实现；旧方案、过程记录和周报统一从[历史索引](archive/README.md)进入。不同日期和 Player 的测试结果不能相互替代。
+当前本地 `main` 已集成原生矿层与 `ft-20261006-terrain-debug-integration`，协议25／存档v19／AMP1 schema2。这里保留长期合同、日常入口与当前实现；旧方案、过程记录和周报统一从[历史索引](archive/README.md)进入。不同日期和 Player 的测试结果不能相互替代。
 
 ## 当前工作
 

@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发约定
 
+2026-10-07 按用户要求将 `ft-20261006-terrain-debug-integration` 合入本地 `main`，包含地形网格调试整合、工作台双网格与快捷键、草稿保存及Modifier启停展示。保留本地已保存的 `WorldSession` 入口走道Modifier关闭配置，核对托管引用完整，除该开关外配置语义不变。既有Editor及画面证据见[执行状态](docs/DEVELOPMENT.md)；本次合并未重跑Unity或构建Player，不增加验收结论。协议25／存档v19／AMP1 schema2不变，既有获批YYGC补丁随分支集成，本次未新增框架修改／升级。
+
 2026-10-05 按用户要求将 `ft-20261004-embedded-minerals` 开发成果集成到本地 `main`，协议25／存档v19／AMP1 schema2不变。另提交主角地面诊断、跳跃边沿立即发送及Host即时冻结展示；最新编译无错误、定向Editor69/69，提交前Core1048/1048、架构731文件／16自测／0命中。旧Mono早于本次主角修复，当前Player联机、实际坡沿手感及其余门槛仍待验，不宣称整批交付。YYGC未修改／升级，见[执行状态](docs/DEVELOPMENT.md)与[主角修复证据](docs/evidence/hero-input-presentation-20261005.json)。
 
 2026-10-05 [原生矿层迁移](docs/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)继续当前 `ft-20261004-embedded-minerals`：协议25／存档v19／AMP1 schema2；矿格唯一状态归ARDMap业务存储，正式矿床实体退出，客户端前景与矿层局部订阅／加载。按用户暂定玩法，拆前景墙发现部分矿床而不伤矿物。首轮39项失败已复测，影响Editor105/105及真实副本组合画面通过，同一Mono正常两人30/30、四人38/38、弱网两人30/30通过；两层局部换区与静态背景保留已验，专项前台性能等未完成，整批未交付。Unity CLI已可后台编译／测试／截图／构建，本轮不使用Computer Use。YYGC未修改／升级，不能把旧Player数字当作本候选验收。

@@ -46,39 +46,12 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.TerrainGameplayBehaviour
   SharedConfigs:
   - rid: 6961529734502023168
-  - rid: 6961529734502023169
+  - rid: 4004706249336946894
   - rid: 6961529734502023170
   references:
     version: 2
     RefIds:
-    - rid: 4004706231644586077
-      type: {class: EntranceWalkwayModifierConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
-      data:
-        Enabled: 1
-        Headroom: 5
-        MaxCandidates: 64
-    - rid: 6961529734502023168
-      type: {class: HandheldConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
-      data:
-        BulletSpeed: 360
-        BulletRadius: 1
-        BulletLifetime: 1.5
-        BulletDamage: 12
-        FireInterval: 0.22
-        MuzzleDistance: 8
-        HandHeight: 9
-        BombMinimumSpeed: 65
-        BombMaximumSpeed: 180
-        BombLift: 65
-        BombGravity: 220
-        BombChargeSeconds: 1.2
-        BombCooldown: 0.65
-        BombFuseSeconds: 3
-        BombRadius: 2
-        ExplosionRadius: 36
-        BombDamage: 32
-        ExplosionSeconds: 0.3
-    - rid: 6961529734502023169
+    - rid: 4004706249336946894
       type: {class: ExpeditionFlowConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         Enabled: 1
@@ -111,7 +84,34 @@ MonoBehaviour:
           SkyColorHex: '#243B55'
         ModifierSchemaVersion: 1
         Modifiers:
-        - rid: 4004706231644586077
+        - rid: 4004706249336946895
+    - rid: 4004706249336946895
+      type: {class: EntranceWalkwayModifierConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        Enabled: 0
+        Headroom: 5
+        MaxCandidates: 64
+    - rid: 6961529734502023168
+      type: {class: HandheldConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        BulletSpeed: 360
+        BulletRadius: 1
+        BulletLifetime: 1.5
+        BulletDamage: 12
+        FireInterval: 0.22
+        MuzzleDistance: 8
+        HandHeight: 9
+        BombMinimumSpeed: 65
+        BombMaximumSpeed: 180
+        BombLift: 65
+        BombGravity: 220
+        BombChargeSeconds: 1.2
+        BombCooldown: 0.65
+        BombFuseSeconds: 3
+        BombRadius: 2
+        ExplosionRadius: 36
+        BombDamage: 32
+        ExplosionSeconds: 0.3
     - rid: 6961529734502023170
       type: {class: TerrainProfileConfig, ns: DarkNights.Runtime.Terrain, asm: DarkNights.Runtime}
       data:
