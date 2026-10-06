@@ -1,0 +1,119 @@
+{
+  "date": "2026-10-06",
+  "branch": "ft-20261006-terrain-debug-integration",
+  "scope": "游戏侧 Cave Wall Tuner 保存入口、快捷键与地形生成Modifier状态卡片",
+  "behavior": [
+    "顶部保存全部统一保存地图、航程及表现草稿",
+    "Ctrl+S、Command+S、Save/SaveScene命令进入同一草稿保存入口",
+    "仅保存有修改的草稿；保留外部作者冲突检查",
+    "Modifier编号、名称、启停开关和颜色在收起参数时仍可见；统计启用数",
+    "启停与参数继续由同一Odin PropertyTree编辑SerializeReference草稿",
+    "保留添加、类型选择、排序和移除；停用参数显示灰色",
+    "预览绘制不再每帧覆盖保存结果；临时拆填继续不写作者资产"
+  ],
+  "compile": {
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "tests": {
+    "id": "cave-wall-save-20261006",
+    "state": "Passed",
+    "utc": "2026-10-06T07:31:59.620327Z",
+    "unity": "6000.4.9f1",
+    "passed": 19,
+    "failed": 0,
+    "skipped": 0
+  },
+  "windowEvents": {
+    "layouts": [
+      "1000×720",
+      "800×520，侧栏440px，保存全部高亮"
+    ],
+    "total": 13,
+    "checks": [
+      "Header enables same draft after reload",
+      "ValidateCommand does not save",
+      "ExecuteCommand SaveScene saves",
+      "Command save persists enabled state",
+      "Top Save All button saves",
+      "Button save persists disabled state",
+      "Collapsed card enables second modifier independently",
+      "Seed field receives focus",
+      "Ctrl+S saves while a text field is focused",
+      "Ctrl+S preserves disabled first modifier",
+      "Ctrl+S persists enabled second modifier",
+      "Close, disk reload and new window preserve complete config",
+      "Reopened window retains independent enabled states"
+    ],
+    "authorPersistence": "独立夹具落盘、卸载、加载和新窗口重读"
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 735,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "cleanup": {
+    "originalDirty": true,
+    "temporaryWindows": 0,
+    "originalDraftPreserved": true,
+    "scene": "Assets/Scenes/Bootstrap.unity",
+    "sceneDirty": false,
+    "originalWindowId": -213944
+  },
+  "sources": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainModifierConfigDrawer.cs",
+      "sha256": "d80e5aa5b43b45820a947d4915d20c4865a27f16fa28d1569b5ba594e8f17e5a"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs",
+      "sha256": "9c7f7c1b763db12118e089c034dbda65d07f85bac6d71269fc13042aef96b67b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchControls.cs",
+      "sha256": "29e549eb05d93dfa9ac4c2fe67d6de0b6482041a2af1bfbef66a2f57f88e7634"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchSaveTests.cs",
+      "sha256": "0be7285958e058d939aca41cd444d65d31e2d5b03e02e01b5a78665e823c890a"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cave-wall-modifier-save-20261006\\modifiers-reopened-1000.png",
+      "sha256": "3a141067d98f55e35747eac70dc358d6f5648f491308ed9f4e9da70589a001b3",
+      "visualChecked": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cave-wall-modifier-save-20261006\\modifiers-narrow-800.png",
+      "sha256": "563b5c273208525614a2b74dba3142815e214da2b22ba40ea0afc58507b07eff",
+      "visualChecked": true
+    }
+  ],
+  "captureMethod": "Unity HostView.GrabPixels；校正GPU读回方向，未使用桌面截图",
+  "sourceAssetsPackagesSettingsUnchanged": true,
+  "yygcUnchanged": true,
+  "gameProtocol": 25,
+  "saveVersion": 19,
+  "mapProtocol": 2,
+  "playerBuild": "NOT_RUN",
+  "playMode": "NOT_RUN",
+  "intermediateInventory": {
+    "releasedBytes": 0,
+    "archivedBytes": 2010451.0,
+    "manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261006-cave-wall-modifier-save\\清单.md",
+    "notes": "复用Editor Library与ArchitectureGuard二进制。独立夹具及被最终截图替代的首轮图片统一移动保留。正式日志、结果、最终截图及复现脚本保留在任务产物目录。",
+    "dFreeBytes": 33516994560
+  },
+  "failedAttemptsPreserved": [
+    {
+      "diagnostic": "artifacts/cave-wall-modifier-save-20261006/ui-save-failure-state.json",
+      "cause": "UI探针验证Ctrl+S成功后，提前卸载仍被草稿引用的测试作者资产，后续命令保存被缺少源引用的门控拒绝；重新加载并重绑定独立夹具后完整流程通过。原窗口未卸载。",
+      "report": "artifacts/cave-wall-modifier-save-20261006/ui-save-checks.json"
+    }
+  ],
+  "artifacts": "artifacts/cave-wall-modifier-save-20261006/"
+}

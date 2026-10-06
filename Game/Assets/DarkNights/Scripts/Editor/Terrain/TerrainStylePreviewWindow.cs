@@ -86,6 +86,7 @@ namespace DarkNights.Editor.Terrain
             if (generation == null) return;
             if (EditorApplication.isPlayingOrWillChangePlaymode)
             { EditorGUILayout.HelpBox("请先退出 Play；编辑态预览不改写运行场景。", MessageType.Info); return; }
+            HandleSaveShortcut(Event.current);
             if (!controls.JourneyView && preview.HandleGridShortcut(Event.current,
                 EditorGUIUtility.editingTextField || GUIUtility.hotControl != 0)) Repaint();
             if (Event.current.type == EventType.Repaint)
@@ -99,7 +100,8 @@ namespace DarkNights.Editor.Terrain
             float contentHeight = position.height - 82;
             var panel = new Rect(0, 32, panelWidth, contentHeight);
             var canvas = new Rect(panelWidth + 4, 82, position.width - panelWidth - 4, contentHeight - 82);
-            controls.DrawHeader(new Rect(0, 0, position.width, 30), generation, RefreshChanges);
+            controls.DrawHeader(new Rect(0, 0, position.width, 30), generation, drafts, RefreshChanges,
+                () => Attempt(SaveChanges));
             controls.DrawCanvasTools(new Rect(canvas.x, 32, canvas.width, 48), preview, ref fillMaterial);
             EditorGUI.DrawRect(new Rect(panelWidth, 32, 4, contentHeight), new Color(.25f, .25f, .25f));
             EditorGUIUtility.AddCursorRect(new Rect(panelWidth - 3, 32, 10, contentHeight), MouseCursor.ResizeHorizontal);
@@ -133,9 +135,30 @@ namespace DarkNights.Editor.Terrain
             RefreshChanges();
         }
 
+        private bool HandleSaveShortcut(Event input)
+        {
+            bool command = (input.type == EventType.ValidateCommand || input.type == EventType.ExecuteCommand) &&
+                (input.commandName == "Save" || input.commandName == "SaveScene");
+            bool key = input.type == EventType.KeyDown && input.keyCode == KeyCode.S &&
+                (input.control || input.command) && !input.alt && !input.shift;
+            if ((!command && !key) || GUIUtility.hotControl != 0) return false;
+            if (input.type != EventType.ValidateCommand)
+            {
+                GUI.FocusControl(null); EditorGUIUtility.editingTextField = false;
+                Attempt(SaveChanges);
+            }
+            input.Use(); return true;
+        }
+
         private void SaveWorld() { generation.Apply(); status = "地图与航程已保存到 WorldSession；已有地图保持原格子。"; }
         private void ApplyDrafts() { int count = drafts.Apply(); drafts.Clear(); Invalidate(); status = count + " 个表现资产已保存。"; }
-        public override void SaveChanges() { SaveWorld(); ApplyDrafts(); hasUnsavedChanges = false; }
+        public override void SaveChanges()
+        {
+            if (generation.HasChanges) SaveWorld();
+            if (drafts.HasChanges) ApplyDrafts();
+            hasUnsavedChanges = generation.HasChanges || drafts.HasChanges;
+            status = "全部草稿已保存；Modifiers 启用状态已写入配置。临时拆填仅用于预览。";
+        }
 
         public override void DiscardChanges()
         {
@@ -185,10 +208,11 @@ namespace DarkNights.Editor.Terrain
                 if (now >= due) RebuildNow();
                 if (Image != null)
                 {
+                    bool wasReady = stage.Ready;
                     bool drawn = stage.Tick();
                     if (stage.Error != null) status = "运行时预览失败：" + stage.Error.Message;
                     else if (drawn)
-                    { renderMilliseconds = stage.LastCameraMilliseconds; if (stage.Ready) status = "运行时渲染链已就绪。"; }
+                    { renderMilliseconds = stage.LastCameraMilliseconds; if (stage.Ready && !wasReady) status = "运行时渲染链已就绪。"; }
                 }
             }
             catch (Exception error)

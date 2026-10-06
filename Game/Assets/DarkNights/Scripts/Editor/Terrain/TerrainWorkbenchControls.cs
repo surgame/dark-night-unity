@@ -25,13 +25,21 @@ namespace DarkNights.Editor.Terrain
         public void Bind(TerrainGenerationPreview model) { form?.Dispose(); form = new TerrainPlanetControls(model); }
         public void FocusJourney() { section = "航程设置"; journeyView = false; }
 
-        public void DrawHeader(Rect area, TerrainGenerationPreview model, Action changed)
+        public void DrawHeader(Rect area, TerrainGenerationPreview model, TerrainStyleDrafts drafts, Action changed, Action save)
         {
             GUILayout.BeginArea(area); EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
             GUILayout.Label("星球", GUILayout.Width(30)); form.DrawPicker(changed);
             if (GUILayout.Button("管理星球", EditorStyles.toolbarButton, GUILayout.Width(75)))
             { catalog = !catalog; section = "星球与降落"; }
-            GUILayout.FlexibleSpace(); GUILayout.Label("配置来源：WorldSession", EditorStyles.miniLabel);
+            GUILayout.FlexibleSpace();
+            bool dirty = model.HasChanges || drafts.HasChanges;
+            GUILayout.Label(dirty ? "● 草稿未保存" : "✓ 已保存", EditorStyles.miniLabel, GUILayout.Width(90));
+            Color original = GUI.backgroundColor;
+            if (dirty) GUI.backgroundColor = new Color(.45f, .85f, .67f);
+            using (new EditorGUI.DisabledScope(!dirty))
+                if (GUILayout.Button(new GUIContent("保存全部  Ctrl+S", "保存地图、航程与表现草稿，包含 Modifiers 的启用状态。"),
+                    EditorStyles.toolbarButton, GUILayout.Width(130))) save();
+            GUI.backgroundColor = original;
             EditorGUILayout.EndHorizontal(); GUILayout.EndArea();
         }
 
@@ -146,11 +154,11 @@ namespace DarkNights.Editor.Terrain
             Action saveWorld, Action saveStyle, Action cancel)
         {
             GUILayout.BeginArea(area); EditorGUILayout.BeginHorizontal();
-            GUILayout.Label("地图与航程：" + (model.HasChanges ? "未保存" : "已保存") + " · 表现：" +
-                (drafts.HasChanges ? "未保存" : "已保存"), EditorStyles.miniLabel); GUILayout.FlexibleSpace();
-            using (new EditorGUI.DisabledScope(!model.HasChanges)) if (GUILayout.Button("保存地图与航程")) saveWorld();
-            using (new EditorGUI.DisabledScope(!drafts.HasChanges)) if (GUILayout.Button("保存表现")) saveStyle();
-            using (new EditorGUI.DisabledScope(!model.HasChanges && !drafts.HasChanges)) if (GUILayout.Button("取消修改")) cancel();
+            GUILayout.Label("地图／航程／Modifiers：" + (model.HasChanges ? "未保存" : "已保存") + " · 表现：" +
+                (drafts.HasChanges ? "未保存" : "已保存"), EditorStyles.miniLabel, GUILayout.Width(350)); GUILayout.FlexibleSpace();
+            using (new EditorGUI.DisabledScope(!model.HasChanges)) if (GUILayout.Button("保存地图与航程", GUILayout.Width(110))) saveWorld();
+            using (new EditorGUI.DisabledScope(!drafts.HasChanges)) if (GUILayout.Button("保存表现", GUILayout.Width(80))) saveStyle();
+            using (new EditorGUI.DisabledScope(!model.HasChanges && !drafts.HasChanges)) if (GUILayout.Button("取消修改", GUILayout.Width(80))) cancel();
             EditorGUILayout.EndHorizontal(); EditorGUILayout.LabelField(status, EditorStyles.wordWrappedMiniLabel); GUILayout.EndArea();
         }
 

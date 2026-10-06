@@ -43,6 +43,7 @@
 - [地形调试整合证据](evidence/terrain-grid-debug-integration-20261006.json)：两层只读检查、正式Host、Scene定位、退休释放与可重现补丁；未构建Player。
 - [工作台双网格证据](evidence/cave-wall-grid-modes-20261006.json)：拆填默认逻辑、半格拾取、自由切换与实际画面；原未保存草稿保留。
 - [工作台网格快捷键证据](evidence/cave-wall-grid-shortcuts-20261006.json)：1／2与小键盘切换、按钮高亮、字段与拖动保护、最小窗口布局。
+- [工作台保存与Modifier状态证据](evidence/cave-wall-modifier-save-20261006.json)：顶部保存、Ctrl+S、启停卡片、保存重开与草稿保护。
 - [历史机器证据目录](archive/evidence/)：旧 JSON、XML、截图及日志，字节保持。
 - [第三方声明](third-party/)：持续保留许可与来源。
 - [2026-10-05 整理回执](archive/FOLDER_ORGANIZATION_20261005.md)：移动清单、保留项目与验证。
