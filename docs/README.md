@@ -4,6 +4,7 @@
 
 ## 当前工作
 
+- [Bootstrap启动修复](BOOTSTRAP_STARTUP_OPTIMIZATION.md)：UniTask并发预加载、失败收尾及同配置菜单计时；本轮未构建Player。
 - [开发执行计划](DEVELOPMENT.md)：当前完成情况、最终弱网矩阵与剩余门槛。
 - [原生矿层实现](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：矿格唯一状态、墙后发现、局部副本、保存恢复及本批证据。
 - [弱网补测过程](archive/WEAK_NETWORK_VALIDATION_COMPLETION_20261005.md)：原始失败、修复、构建身份与中断状态；未完成组保持待测。

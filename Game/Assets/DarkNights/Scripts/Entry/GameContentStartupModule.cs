@@ -36,6 +36,7 @@ namespace DarkNights.Entry
 
         public async UniTask InitializeAsync(AppStartupContext context, CancellationToken cancellationToken)
         {
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("ContentStarted");
             GameCatalog catalog = await GameCatalogLoader.LoadAsync(cancellationToken);
             FormalObjectCatalog.ValidateRuntime();
             new DefinitionRuleIndex(GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance).Validate(catalog);
@@ -45,6 +46,7 @@ namespace DarkNights.Entry
                 $"worksites={catalog.Balance.Worksites.Count} waves={catalog.Level.Waves.Count}");
             Debug.Log(FormalObjectCatalog.RuntimeSummary());
             await DarkNights.Runtime.Diagnostics.AssemblyPlayerProbe.RunIfRequested(cancellationToken);
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("ContentReady");
         }
     }
 }

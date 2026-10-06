@@ -73,7 +73,8 @@ namespace DarkNights.Entry
             // Existing framework root owns the scaler; formal UI preserves source pixel sizes at each viewport.
             UGUIManager.Instance.GetComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
             UGUIManager.Instance.GetComponent<Canvas>().pixelPerfect = true;
-            foreach (string name in new[] { "Chrome", "MainMenu", "PauseMenu", "Help", "Result", "Hero" })
+            using var resources = await DarkNights.Runtime.Framework.SessionUiResources.Prepare(this.GetCancellationTokenOnDestroy());
+            foreach (string name in DarkNights.Runtime.Framework.SessionUiResources.PanelNames)
             {
                 var definition = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("ui." + name.ToLowerInvariant());
                 ObjectInstance panel = await UGUIManager.Instance.CreatePanelInstanceAsync(definition);
@@ -105,6 +106,7 @@ namespace DarkNights.Entry
             View("MainMenu").Get<Button>("Map").gameObject.SetActive(network.Terrain != null);
             initialized = true;
             Switch("MainMenu");
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("MenuActivated");
         }
 
         internal void SamplePresentation()

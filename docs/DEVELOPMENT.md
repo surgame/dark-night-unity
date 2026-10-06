@@ -6,6 +6,8 @@
 
 ## 当前实现
 
+2026-10-07 Bootstrap启动修复位于 `fix-20261007-bootstrap-preload`：现有UniTask并发预加载对象与六个UGUI模板，实例装配顺序保持；失败／取消等待全部请求收尾并释放晚成功租约。相同0.1秒模拟延迟下，Editor进入Play至首次菜单Canvas渲染准备三次均值6.114秒→3.318秒，减少2.797秒（约45.7%）；CPU渲染边界及热缓存条件见[实施记录](BOOTSTRAP_STARTUP_OPTIMIZATION.md)。定向Editor50/50、架构741／16／0、正式菜单帮助与Host Ready、退出残留0通过；YYGC、依赖、场景与人工资产未改，没有新增Player或联机矩阵结论。
+
 2026-10-06 地形调试整合原分支为 `ft-20261006-terrain-debug-integration`，已于2026-10-07合入本地 `main`：AnyRuleD菜单统一到YY，正式前景／矿层绑定只读网格检查；工作台Play页面可选择地图并打开同一窗口。该批Editor编译无错误、真实两层宿主回归1/1、Bootstrap Host地图就绪与四角检查、退休释放通过，Scene Shift实点(88,-71)及600×800窗口截图通过，架构732／16／0；没有新增Player或联机矩阵结论。YYGC两个Editor文件的具体授权、锁定补丁及20项重建记录见[账本](YYGC_CHANGES.md)和[操作说明](TERRAIN_GRID_DEBUGGER.md)。
 
 正式开局沿 Bootstrap → 太空船 → 星球远征。主角、装备、船体、经济等业务状态归对应 YYGC Behaviour；前景与矿层由会话托管的原生地图拥有。游戏协议、装备身份、存档与两层 Ready 联合校验。矿床实体退出正式运行，初始矿床信息只作静态元数据。

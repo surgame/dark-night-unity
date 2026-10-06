@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-07",
+  "branch": "fix-20261007-bootstrap-preload",
+  "base": "33d02f8",
+  "unity": "6000.4.9f1",
+  "measurements": {
+    "boundary": "Editor EnteredPlayMode to first Canvas.willRenderCanvases after MainMenu activation; CPU render preparation.",
+    "percentReduction": 45.73790903405434,
+    "afterMs": [
+      3388.7727000000004,
+      3111.3342000000002,
+      3452.9656999999997
+    ],
+    "nativeAssetCache": "warm",
+    "savedMs": 2796.5056333333346,
+    "beforeMeanMs": 6114.196500000001,
+    "afterMeanMs": 3317.6908666666664,
+    "beforeMs": [
+      6150.9758,
+      6121.0936,
+      6070.5201
+    ],
+    "simulatedDelaySeconds": 0.1
+  },
+  "panelsIdentical": true,
+  "editorTests": {
+    "failed": 0,
+    "path": "artifacts/bootstrap-startup-fix-20261007/bootstrap-preload-20261007-editor-r1.xml",
+    "skipped": 0,
+    "passed": 50
+  },
+  "architecture": {
+    "files": 741,
+    "selfTests": 16,
+    "errors": 0
+  },
+  "runtime": {
+    "helpOpened": true,
+    "hostReady": true,
+    "actors": 1,
+    "helpReturned": true,
+    "scopedRuntimeErrorMatches": 0,
+    "exitSessionNetworks": 0,
+    "exitUiInstances": 0,
+    "uiInstances": 6
+  },
+  "settingsSha256": "C11909543413EF15F8F2B3E1DD3022540E535FF8932B33E0D88BD5E7E1125EA1",
+  "limits": "No Player build, Player speedup, full disk-cold startup, IL2CPP, full multiplayer matrix, or dual-machine claim.",
+  "changes": "Game-side UniTask resource concurrency and owned cleanup; default-off startup capture. No YYGC or dependency changes."
+}

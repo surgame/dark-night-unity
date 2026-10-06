@@ -38,6 +38,7 @@ namespace DarkNights.Entry
 
         public async UniTask InitializeAsync(AppStartupContext context, CancellationToken cancellationToken)
         {
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("SceneStarted");
             const string defaultScene = GameScenePaths.StaticCamp;
             string scenePath = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-camp-mode") >= 0 ? defaultScene : Terrain.RandomLevelEntry.ExpeditionScenePath;
 #if UNITY_EDITOR
@@ -55,6 +56,7 @@ namespace DarkNights.Entry
                 scene = SceneManager.GetSceneByPath(scenePath);
             }
             GameCatalog catalog = context.Resolve<GameCatalog>();
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("SceneReady");
             var authoring = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
             LevelLayout layout = authoring.CreateLayout(catalog, DefinitionRuleIndex.RuleKey);
             var randomLevel = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<DarkNights.View.Terrain.RandomLevelTemplate>(true)).SingleOrDefault();
@@ -72,7 +74,9 @@ namespace DarkNights.Entry
             var required = catalog.Balance.Buildings.Keys.Concat(catalog.Balance.Worksites.Keys).Concat(catalog.Balance.Units.Keys);
             if (definitions.FindOptional(MineralDepositRuleConfig.Rule) != null)
                 required = required.Concat(new[] { MineralDepositRuleConfig.Rule });
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("WorldResourcesStarted");
             ObjectSessionResources resources = await ObjectSessionResources.Prepare(required.Select(definitions.GetRequired).ToArray(), cancellationToken);
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("WorldResourcesReady");
             float debugHeroSpeed = DebugHeroSpeedMultiplier();
             network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements,
                 stage.RuntimeGroup("Unbound Entities"), debugHeroSpeed);
@@ -82,7 +86,9 @@ namespace DarkNights.Entry
             var entities = network.gameObject.AddComponent<SessionEntityViews>();
             entities.Initialize(network.Client, catalog, stage, network);
             var ui = network.gameObject.AddComponent<SessionUiController>();
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiStarted");
             await ui.Initialize(network, catalog, stage, entities, layout.Expedition);
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiReady");
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             QuickTestHub.Install(network, ui, layout.Expedition);
 #endif
@@ -110,6 +116,7 @@ namespace DarkNights.Entry
             Application.runInBackground = true;
             Application.targetFrameRate = 60;
             Debug.Log("DARK_NIGHTS_SESSION_AVAILABLE protocol=" + DarkNights.Runtime.Session.SessionAuthority.ProtocolVersion + " level=" + catalog.Level.Id);
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("SessionAvailable");
         }
 
         public static float DebugHeroSpeedMultiplier()
