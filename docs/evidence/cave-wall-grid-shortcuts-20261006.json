@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-06",
+  "branch": "ft-20261006-terrain-debug-integration",
+  "scope": "Game-side Cave Wall Tuner Editor grid keyboard shortcuts and UI",
+  "behavior": [
+    "1 / keypad 1 selects and shows logical grid",
+    "2 / keypad 2 selects and shows render grid",
+    "Toolbar buttons and canvas status share the same state",
+    "Text editing, modifiers, mouse interaction and journey view preserve input",
+    "Canvas click releases field focus; brush always edits logical cells"
+  ],
+  "compile": {
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "tests": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "window_events": {
+    "total": 23,
+    "keyboard": [
+      "2 opens render grid",
+      "1 selects logical grid",
+      "keypad 2 selects render grid",
+      "keypad 1 selects logical grid",
+      "modifier ignored: Control",
+      "modifier ignored: Alt",
+      "modifier ignored: Shift",
+      "modifier ignored: Command",
+      "text editing preserves numeric input",
+      "journey view ignores grid shortcuts",
+      "1 opens hidden grid",
+      "shortcut preserves brush and map"
+    ],
+    "pointer": [
+      "logical toolbar button selects grid",
+      "grid toggle hides overlay",
+      "render toolbar button opens hidden grid",
+      "active mode button remains selected",
+      "seed field receives keyboard focus",
+      "1 leaves grid unchanged while seed field is focused",
+      "2 leaves grid unchanged while seed field is focused",
+      "canvas click releases text focus",
+      "shortcut resumes after canvas click",
+      "panning ignores grid shortcuts",
+      "toolbar and focus changes preserve map"
+    ],
+    "preview_ready": true,
+    "preview_error": null,
+    "temporary_map_unchanged": true
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 734,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "cleanup": {
+    "temporaryWindows": 0,
+    "originalUnsavedWindows": 1,
+    "originalDraftPreserved": true,
+    "originalWindowId": -170332,
+    "scene": "Assets/Scenes/Bootstrap.unity",
+    "sceneDirty": false,
+    "compileErrors": false
+  },
+  "sources": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewCanvas.cs",
+      "sha256": "e618a911118e1d8e0650293ead8759532a0555c6d22dbf0f00a2f671d1b904dc"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs",
+      "sha256": "2645255f697fa15055899bc4ff37862ad69f1aac86ceec37f11e3c28f101617f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchControls.cs",
+      "sha256": "b442b1073676beeaecdae4aa19d1292b84774fdba10da46a49793ae2bef6fefd"
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cave-wall-grid-shortcuts-20261006\\logical-grid-verified.png",
+      "sha256": "d5164294790366692936238514da220aa9f25f5d4b37eeb924cd1921478cd57e",
+      "visual_checked": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cave-wall-grid-shortcuts-20261006\\render-grid-verified.png",
+      "sha256": "4bc2e1bb5b3ee62a8d2dadf6d9d73b7174e7c32be68a3c04a587db8037cdf8db",
+      "visual_checked": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cave-wall-grid-shortcuts-20261006\\narrow-grid-verified.png",
+      "sha256": "d7bcfa24e75131704acf471675ea809c025409605e2a397c1d837661e13f2cbc",
+      "visual_checked": true
+    }
+  ],
+  "capture_method": "Unity HostView.GrabPixels; GPU readback orientation corrected; no desktop foreground capture in accepted evidence",
+  "layouts": [
+    "1000x720 logical and render",
+    "800x520 with maximum sidebar width 440, canvas width 356, Fill tool"
+  ],
+  "source_assets_packages_settings_unchanged": true,
+  "yygc_unchanged": true,
+  "game_protocol": 25,
+  "save_version": 19,
+  "map_protocol": 2,
+  "play_mode": "NOT_RUN",
+  "player_build": "NOT_RUN",
+  "intermediate_inventory": {
+    "archived_bytes": 478140,
+    "released_bytes": 0,
+    "d_free_bytes": 33520775168,
+    "manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261006-cave-wall-grid-shortcuts\\清单.md",
+    "notes": "Existing Library and architecture binaries reused. Runtime preview textures, camera scene and GUI coordinate probe released with temporary window. Formal reports, failures, corrected screenshots and reproduction snippet retained."
+  },
+  "failed_attempts_preserved": [
+    "initial-window-error.txt: first preview reported a destroyed texture; replacement opened after test completion became ready, cause not isolated",
+    "pointer-checks.json: overstrict assertion expected synthetic numeric key to immediately mutate seed; final focused-field probe checks shortcut suppression",
+    "window-cleanup.json: temporary window already absent; final state check confirms original draft and zero temporary windows",
+    "Two rejected screenshots archived with manifest: desktop occlusion and raw inverted readback"
+  ]
+}

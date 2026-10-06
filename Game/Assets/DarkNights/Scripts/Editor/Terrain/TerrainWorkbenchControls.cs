@@ -17,6 +17,8 @@ namespace DarkNights.Editor.Terrain
         [SerializeField] private bool journeyView;
         [SerializeField] private bool landingMarkers = true;
         [NonSerialized] private TerrainPlanetControls form;
+        private static readonly GUIContent LogicalGrid = new GUIContent("1 逻辑网格", "快捷键 1（含小键盘）：显示青色逻辑网格。拆填按整数逻辑格中心选取。");
+        private static readonly GUIContent RenderGrid = new GUIContent("2 渲染网格", "快捷键 2（含小键盘）：显示金色渲染网格，与逻辑网格错开半格；拆填仍操作逻辑格。");
         public bool JourneyView => journeyView;
         public bool LandingMarkers => landingMarkers;
         public string Section => section;
@@ -82,10 +84,6 @@ namespace DarkNights.Editor.Terrain
                 if (preview.ActiveTool == TerrainStylePreviewTool.Fill)
                     fillMaterial = (byte)(EditorGUILayout.Popup(fillMaterial - 1,
                         new[] { "壤土", "板岩", "玄武岩", "铜矿", "铁矿", "金矿", "苔岩" }, GUILayout.Width(55)) + 1);
-                preview.ShowGrid = GUILayout.Toggle(preview.ShowGrid, "网格", EditorStyles.toolbarButton, GUILayout.Width(38));
-                using (new EditorGUI.DisabledScope(!preview.ShowGrid))
-                    preview.GridMode = (TerrainGridMode)EditorGUILayout.Popup((int)preview.GridMode,
-                        new[] { "逻辑网格", "渲染网格" }, GUILayout.Width(76));
                 if (area.width >= 420)
                     landingMarkers = GUILayout.Toggle(landingMarkers, "降落标记", EditorStyles.toolbarButton, GUILayout.Width(60));
                 GUILayout.FlexibleSpace();
@@ -97,7 +95,28 @@ namespace DarkNights.Editor.Terrain
                 GUILayout.Label(preview.Zoom.ToString("0.0") + "×", GUILayout.Width(28));
                 if (GUILayout.Button("适配", EditorStyles.toolbarButton, GUILayout.Width(36))) preview.Fit();
             }
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal(EditorStyles.toolbar);
+            using (new EditorGUI.DisabledScope(journeyView))
+            {
+                preview.ShowGrid = GUILayout.Toggle(preview.ShowGrid, "网格", EditorStyles.toolbarButton, GUILayout.Width(38));
+                DrawGridButton(preview, TerrainGridMode.Logical, LogicalGrid, new Color(.45f, .85f, 1f));
+                DrawGridButton(preview, TerrainGridMode.Render, RenderGrid, new Color(.87f, .73f, .40f));
+                GUILayout.FlexibleSpace();
+                if (area.width >= 460)
+                    GUILayout.Label("拆填始终按逻辑格", EditorStyles.miniLabel);
+            }
             EditorGUILayout.EndHorizontal(); GUILayout.EndArea();
+        }
+
+        private static void DrawGridButton(TerrainStylePreviewCanvas preview, TerrainGridMode mode, GUIContent label, Color tint)
+        {
+            bool selected = preview.ShowGrid && preview.GridMode == mode;
+            Color original = GUI.backgroundColor;
+            GUI.backgroundColor = selected ? tint : original;
+            bool next = GUILayout.Toggle(selected, label, EditorStyles.toolbarButton, GUILayout.Width(92));
+            GUI.backgroundColor = original;
+            if (next && !selected) preview.SelectGrid(mode);
         }
 
         public void DrawPreviewBar(Rect area, TerrainJourneyPreview journey, TerrainMapDraft map, Action changed, Action reset)

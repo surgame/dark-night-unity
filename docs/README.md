@@ -42,6 +42,7 @@
 - [主角输入与展示修复证据](evidence/hero-input-presentation-20261005.json)：69项定向检查、编译结果与源码身份；不代表当前 Player 联机或手感验收。
 - [地形调试整合证据](evidence/terrain-grid-debug-integration-20261006.json)：两层只读检查、正式Host、Scene定位、退休释放与可重现补丁；未构建Player。
 - [工作台双网格证据](evidence/cave-wall-grid-modes-20261006.json)：拆填默认逻辑、半格拾取、自由切换与实际画面；原未保存草稿保留。
+- [工作台网格快捷键证据](evidence/cave-wall-grid-shortcuts-20261006.json)：1／2与小键盘切换、按钮高亮、字段与拖动保护、最小窗口布局。
 - [历史机器证据目录](archive/evidence/)：旧 JSON、XML、截图及日志，字节保持。
 - [第三方声明](third-party/)：持续保留许可与来源。
 - [2026-10-05 整理回执](archive/FOLDER_ORGANIZATION_20261005.md)：移动清单、保留项目与验证。

@@ -28,6 +28,19 @@ namespace DarkNights.Editor.Terrain
         private Vector2Int? hover, previous;
         private bool panning, painting;
 
+        public void SelectGrid(TerrainGridMode mode) { GridMode = mode; ShowGrid = true; }
+
+        /// <summary>处理窗口内未修饰的数字快捷键；输入字段与正在进行的鼠标操作保留原输入，不改变笔刷或地图。</summary>
+        public bool HandleGridShortcut(Event input, bool editingField)
+        {
+            if (input.type != EventType.KeyDown || editingField || panning || painting ||
+                input.control || input.command || input.alt || input.shift) return false;
+            if (input.keyCode == KeyCode.Alpha1 || input.keyCode == KeyCode.Keypad1) SelectGrid(TerrainGridMode.Logical);
+            else if (input.keyCode == KeyCode.Alpha2 || input.keyCode == KeyCode.Keypad2) SelectGrid(TerrainGridMode.Render);
+            else return false;
+            input.Use(); return true;
+        }
+
         public void Stop(Action endStroke = null)
         { if (painting) endStroke?.Invoke(); panning = false; painting = false; previous = null; }
         public void Fit() { Zoom = 1; offset = Vector2.zero; }
@@ -49,6 +62,8 @@ namespace DarkNights.Editor.Terrain
                  (input.keyCode == KeyCode.Y && redo?.Invoke() == true)))
             { changed(); input.Use(); return; }
             bool inside = canvas.Contains(input.mousePosition);
+            if (input.type == EventType.MouseDown && inside)
+            { GUI.FocusControl(null); EditorGUIUtility.editingTextField = false; }
             if (input.type == EventType.ScrollWheel && inside)
             {
                 SetZoom(Zoom * Mathf.Pow(1.1f, -input.delta.y), input.mousePosition - canvas.center, true);
@@ -130,9 +145,10 @@ namespace DarkNights.Editor.Terrain
             else GUI.Label(new Rect(16, 38, canvas.width - 32, 40), "正在生成完整画面…", EditorStyles.whiteLabel);
             string action = ActiveTool == TerrainStylePreviewTool.Pan ? "左键拖拽平移" :
                 ActiveTool == TerrainStylePreviewTool.Dig ? "左键单击或拖动拆格" : "左键单击或拖动填格";
-            GUI.Box(new Rect(8, 8, Mathf.Min(canvas.width - 16, 335), 42),
+            string grid = !ShowGrid ? "网格已隐藏" : GridMode == TerrainGridMode.Logical ? "逻辑网格（青色）" : "渲染网格（金色）";
+            GUI.Box(new Rect(8, 8, Mathf.Min(canvas.width - 16, 335), 58),
                 "预览画布 " + fps + " FPS · 最近相机渲染 " + renderMilliseconds + " ms\n" +
-                action + " · 中键平移 · 滚轮缩放");
+                action + " · 中键平移 · 滚轮缩放\n" + grid + " · 1 逻辑 / 2 渲染");
             if (pending) GUI.Label(new Rect(8, canvas.height - 30, canvas.width - 16, 22),
                 pendingReason ?? "画面更新中…", EditorStyles.whiteLabel);
             GUI.EndGroup();

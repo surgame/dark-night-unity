@@ -86,6 +86,8 @@ namespace DarkNights.Editor.Terrain
             if (generation == null) return;
             if (EditorApplication.isPlayingOrWillChangePlaymode)
             { EditorGUILayout.HelpBox("请先退出 Play；编辑态预览不改写运行场景。", MessageType.Info); return; }
+            if (!controls.JourneyView && preview.HandleGridShortcut(Event.current,
+                EditorGUIUtility.editingTextField || GUIUtility.hotControl != 0)) Repaint();
             if (Event.current.type == EventType.Repaint)
             {
                 frames++; double now = EditorApplication.timeSinceStartup;
@@ -96,9 +98,9 @@ namespace DarkNights.Editor.Terrain
             HandleSplitter(); panelWidth = Mathf.Clamp(panelWidth, 320, position.width - 360);
             float contentHeight = position.height - 82;
             var panel = new Rect(0, 32, panelWidth, contentHeight);
-            var canvas = new Rect(panelWidth + 4, 62, position.width - panelWidth - 4, contentHeight - 62);
+            var canvas = new Rect(panelWidth + 4, 82, position.width - panelWidth - 4, contentHeight - 82);
             controls.DrawHeader(new Rect(0, 0, position.width, 30), generation, RefreshChanges);
-            controls.DrawCanvasTools(new Rect(canvas.x, 32, canvas.width, 28), preview, ref fillMaterial);
+            controls.DrawCanvasTools(new Rect(canvas.x, 32, canvas.width, 48), preview, ref fillMaterial);
             EditorGUI.DrawRect(new Rect(panelWidth, 32, 4, contentHeight), new Color(.25f, .25f, .25f));
             EditorGUIUtility.AddCursorRect(new Rect(panelWidth - 3, 32, 10, contentHeight), MouseCursor.ResizeHorizontal);
             GUILayout.BeginArea(panel);
