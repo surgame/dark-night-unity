@@ -222,7 +222,7 @@ Unity 6000.4.9f1 本机 Editor 重新编译通过；菜单枚举确认 `GameCore
 | `tools/map-framework-patch/source-lock.json` | 更新受影响两个文件哈希，其余保持 | 442 个包文件一致 |
 | `tools/prepare-map-packages.ps1` | 纳入第三份补丁、换行规范化；完整哈希已匹配时幂等返回，避免补丁重叠上下文误判 | 准备脚本与干净复现通过 |
 
-详见[正式随机灰松谷](archive/RANDOM_PINEWATCH.md)及[本批证据](archive/evidence/random-pinewatch-2026-09-17.json)。未将独立生成器或旧游戏历史大矩阵计入新构建验收。
+详见[正式随机灰松谷](archive/TERRAIN_HISTORY.md)及[本批证据](archive/evidence/random-pinewatch-2026-09-17.json)。未将独立生成器或旧游戏历史大矩阵计入新构建验收。
 
 ## 2026-09-17：Bootstrap 地形命令漏注册修复
 
@@ -306,7 +306,7 @@ AnyRuleD 的 `TerrainEditCommand.cs` 同时包含命令 record 和结果结构�
 
 Unity 6000.4.9f1／Input System 1.19.0 下 **34 个不同 PlayMode 用例按影响合并通过**（服务／文件 33 项、最终真实场景 1 项），并非一次全绿 34 项运行。末次场景复跑禁用音频；虚拟键鼠驱动原生 UGUI，两张真实截图已检查。路由内核 10,000 次 Refresh＋全部 CanRead：2 动作 2.4844 ms、32 动作 75.8918 ms；校准后 GC.Alloc 未检测到分配。该数字不覆盖 UI、网络或前台帧率。Sample 未单独构建 Player，游戏 Mono 不能替代其独立发布验收。
 
-游戏侧切片与验收见[联合执行文档](archive/HERO_INPUT_EXECUTION.md)，输入详细结果见[机器证据](archive/evidence/hero-input-framework.json)。保留原 `StartInteractiveRebind` 原生返回类型；旧调用者提前结束仍须先 Cancel 再 Dispose。新增管理入口用于界面生命周期，不重写 Unity 的设备或按钮状态机。
+游戏侧切片与验收见[联合执行文档](archive/PRESENTATION_HISTORY.md)，输入详细结果见[机器证据](archive/evidence/hero-input-framework.json)。保留原 `StartInteractiveRebind` 原生返回类型；旧调用者提前结束仍须先 Cancel 再 Dispose。新增管理入口用于界面生命周期，不重写 Unity 的设备或按钮状态机。
 
 
 
@@ -320,7 +320,7 @@ Unity 6000.4.9f1／Input System 1.19.0 下 **34 个不同 PlayMode 用例按影�
 |---|---|---|
 | `Runtime/Objects/Runner/ObjectAssemblyValidation.cs` | 每次客户端完整投影都重新反射 Behaviour 的配置及组件绑定声明，256 次校验微测量均值 101.64 ms。按类型缓存不变声明，不保存 Definition、配置／组件实例或成功结果；实际配置、工厂、能力和绑定仍逐次验证 | 隔离 checkout 与用户仓库同路径；最终 138/138 Editor／Play，56.68 秒，包括预热后删除配置、清空／重复绑定的拒绝回归。缓存声明后的两次微测量为 16.66／9.76 ms；不据此宣称 Player 帧率通过 |
 
-类型解析缓存候选没有显示明确收益，已撤回，`BehaviourTypeResolver.cs` 无最终差异；该候选的 139 项回归不增加当前通过数。本次无新增 YYGC 文件或 `.meta`。游戏 `a7bb926`／本框架提交的正式 Mono 完整矩阵 347 项通过，Sample 基础／弱网各 30 项通过。后续容量积压修正只落在游戏投影编码及验收工具中：`4e3798f`／同框架通过 144 项 Editor／Play、正式 Mono 350 项与另一次 240 秒容量 21 项。Sample 代码及共用框架未变，沿用其已有 60 项证据。收尾再次核对用户仓库干净且 HEAD 仍为 `745f3d2`，未推送；本次没有追加 YYGC 或 FishNet 修改。前台性能由用户暂缓，详情见[性能切片](archive/YYGC_UNIFIED_PERFORMANCE.md)。
+类型解析缓存候选没有显示明确收益，已撤回，`BehaviourTypeResolver.cs` 无最终差异；该候选的 139 项回归不增加当前通过数。本次无新增 YYGC 文件或 `.meta`。游戏 `a7bb926`／本框架提交的正式 Mono 完整矩阵 347 项通过，Sample 基础／弱网各 30 项通过。后续容量积压修正只落在游戏投影编码及验收工具中：`4e3798f`／同框架通过 144 项 Editor／Play、正式 Mono 350 项与另一次 240 秒容量 21 项。Sample 代码及共用框架未变，沿用其已有 60 项证据。收尾再次核对用户仓库干净且 HEAD 仍为 `745f3d2`，未推送；本次没有追加 YYGC 或 FishNet 修改。前台性能由用户暂缓，详情见[性能切片](archive/MIGRATION_HISTORY.md)。
 
 <a id="unified-u5"></a>
 
@@ -388,11 +388,11 @@ U2 分批覆盖 126 个不同 Editor／Play 用例，无未解决失败；Mono �
 
 宿主额外修改 `tools/lan-framework-patch/SampleAssemblyAccess.cs`，为真实 `DarkNights.Tests` 生成调度器增加友元访问。该文件继续作为游戏的锁定补丁，不混入通用框架提交。旧六文件补丁没有被清理或重复计为本轮框架修改。
 
-分批验证覆盖原 95 项及新增 16 项 Editor／Play 用例，失败的测试驱动已修复并复测；独立 Mono 装配 14/14，Sample 四进程基础 30/30。详情见[U1 证据](archive/evidence/yygc-unified-u1.json)与[实施记录](archive/YYGC_UNIFIED_IMPLEMENTATION.md)。没有进行 IL2CPP 或双机器 LAN；U2–U6 尚未完成。
+分批验证覆盖原 95 项及新增 16 项 Editor／Play 用例，失败的测试驱动已修复并复测；独立 Mono 装配 14/14，Sample 四进程基础 30/30。详情见[U1 证据](archive/evidence/yygc-unified-u1.json)与[实施记录](archive/MIGRATION_HISTORY.md)。没有进行 IL2CPP 或双机器 LAN；U2–U6 尚未完成。
 
 ## 2026-09-13：统一对象架构的升级适配授权（仅规划）
 
-用户明确允许在 YYGC 存在能力限制或 BUG 时升级适配；正式游戏后续采用一套 YYGC 对象／状态模型，不要求旧数据兼容。具体前置能力、阶段门槛和交付要求见 [YYGC 统一重构计划](archive/YYGC_UNIFIED_REFACTOR_PLAN.md)。先在隔离 checkout 核实和验证，保留用户已有改动，游戏仍锁定可重现依赖；该授权不要求每项必要修正重复确认。
+用户明确允许在 YYGC 存在能力限制或 BUG 时升级适配；正式游戏后续采用一套 YYGC 对象／状态模型，不要求旧数据兼容。具体前置能力、阶段门槛和交付要求见 [YYGC 统一重构计划](archive/MIGRATION_HISTORY.md)。先在隔离 checkout 核实和验证，保留用户已有改动，游戏仍锁定可重现依赖；该授权不要求每项必要修正重复确认。
 
 本次只读核对：用户 YYGC 仓库与隔离依赖均位于 `ccd61e01f15332b1197cfa5ee72af8777c4a0b49`，用户仓库状态为空；`.deps/YYGC` 的既有补丁差异保留。**本次 YYGC 修改文件数为 0，未创建框架提交、未升级依赖、未进行新 Unity／Player 验证。** 新计划中的状态权限、显式会话装配、同步创建和严格校验是待实施项，不能计入下方已实施账本。后续每阶段须逐文件补充原因、隔离／用户仓库落点、提交和验证结果。
 

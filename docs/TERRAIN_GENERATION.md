@@ -21,4 +21,4 @@
 - [工具与采集能力](TOOL_DEFINITION_HARVESTING.md)：工具自身的材料／等级／范围配置。
 - [原生矿层实现](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：当前网络、Ready、保存与验收边界。
 
-原地图初次接入、旧逐床对象方案、独立探针数字及早期性能策略保存在[历史快照](archive/TERRAIN_GENERATION_HISTORY_20261005.md)。当前完整验证状态见[开发执行计划](DEVELOPMENT.md)，不沿用旧地图 Player 的计数。
+原地图初次接入、旧逐床对象方案、独立探针数字及早期性能策略保存在[地形历史摘要](archive/TERRAIN_HISTORY.md)。当前完整验证状态见[开发执行计划](DEVELOPMENT.md)，不沿用旧地图 Player 的计数。

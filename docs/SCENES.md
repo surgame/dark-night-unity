@@ -28,4 +28,4 @@
 Build Settings 当前为 Bootstrap、StaticCampRegression、RandomCampRegression、Expedition 4 项，与 `GamePlayerBuild` 的显式列表一致。游戏入口路径由 `GameScenePaths`、`RandomLevelEntry` 管理，参考／预览／测试／退役路径由 `TerrainScenePaths` 管理。
 
 
-迁移前路径、场景审查与验证过程见[历史快照](archive/SCENE_ORGANIZATION_HISTORY_20261005.md)，快速局操作见[归档操作记录](archive/QUICK_TEST_SCENES.md)。本次整理未移动场景、Prefab 或作者资源。
+场景演进见[项目摘要](archive/PROJECT_HISTORY.md)，原迁移列表可从Git历史恢复，快速局操作见[归档操作记录](archive/QUICK_TEST_SCENES.md)。本次整理未移动场景、Prefab 或作者资源。

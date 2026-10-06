@@ -1,6 +1,6 @@
 # 工作区目录用途
 
-2026-10-05 整理后的日常入口。目录归属按源码、作者来源、实际引用与验证任务确认；未导入 Unity 或年代较早不等于弃用。具体移动和核验见[本批回执](archive/FOLDER_ORGANIZATION_20261005.md)。
+2026-10-07文档再次精简后的日常入口。目录归属按源码、作者来源、实际引用与验证任务确认；未导入 Unity 或年代较早不等于弃用。目录移动见[10-05回执](archive/FOLDER_ORGANIZATION_20261005.md)，本次文档整合和证据取舍见[10-07回执](archive/DOCUMENT_CONSOLIDATION_20261007.md)。
 
 ## 仓库根目录
 
@@ -10,8 +10,8 @@
 | `tools/` | 依赖准备、纯规则检查、联机矩阵与美术重建入口；分类见[工具索引](../tools/README.md) |
 | `experiments/` | 独立实验的唯一可编辑来源、图集重建来源和用户成果；见[实验索引](../experiments/README.md) |
 | `docs/` | 当前合同、配置和操作说明；旧方案、过程、审查和周报归 `archive/` |
-| `docs/evidence/` | 当前矿层机器摘要；新批次可继续写入 |
-| `docs/archive/evidence/` | 历史机器证据，原始 JSON、XML、图像及日志字节保持 |
+| `docs/evidence/` | 当前矿层、主角及地形／工作台机器摘要；新批次按实际用途写入 |
+| `docs/archive/evidence/` | 仍有用途的历史来源、框架和待验记录；保留文件字节保持，重复旧证据按整理范围移除 |
 | `docs/archive/reports/` | 按原日期保存的周报，旧版本结论不作为当前验收 |
 | `docs/third-party/` | 许可、第三方来源与声明 |
 | `artifacts/` | Player、原始验证报告、日志、截图、隔离测试存档及本机操作回执；不提交 |

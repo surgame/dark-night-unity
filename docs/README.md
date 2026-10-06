@@ -1,6 +1,6 @@
 # Dark Nights 文档索引
 
-当前本地 `main` 已集成原生矿层与 `ft-20261006-terrain-debug-integration`，协议25／存档v19／AMP1 schema2。这里保留长期合同、日常入口与当前实现；旧方案、过程记录和周报统一从[历史索引](archive/README.md)进入。不同日期和 Player 的测试结果不能相互替代。
+当前本地 `main` 已集成原生矿层与 `ft-20261006-terrain-debug-integration`，协议25／存档v19／AMP1 schema2。这里保留长期合同、日常入口与当前实现；历史过程以主题摘要为入口，操作、来源、未完成验收和周报从[归档索引](archive/README.md)进入。不同日期和 Player 的测试结果不能相互替代。
 
 ## 当前工作
 
@@ -37,13 +37,15 @@
 
 ## 历史与证据
 
-- [历史索引](archive/README.md)：已替代候选、实施计划、审查、验收过程和周报。
+- [归档索引](archive/README.md)：4份历史摘要，以及仍有用途的专题、审查、未完成验收和周报。
 - [当前矿层机器证据](evidence/mineral-map-migration-20261005.json)：保留原始结果与输入身份。
 - [主角输入与展示修复证据](evidence/hero-input-presentation-20261005.json)：69项定向检查、编译结果与源码身份；不代表当前 Player 联机或手感验收。
 - [地形调试整合证据](evidence/terrain-grid-debug-integration-20261006.json)：两层只读检查、正式Host、Scene定位、退休释放与可重现补丁；未构建Player。
 - [工作台双网格证据](evidence/cave-wall-grid-modes-20261006.json)：拆填默认逻辑、半格拾取、自由切换与实际画面；原未保存草稿保留。
 - [工作台网格快捷键证据](evidence/cave-wall-grid-shortcuts-20261006.json)：1／2与小键盘切换、按钮高亮、字段与拖动保护、最小窗口布局。
 - [工作台保存与Modifier状态证据](evidence/cave-wall-modifier-save-20261006.json)：顶部保存、Ctrl+S、启停卡片、保存重开与草稿保护。
-- [历史机器证据目录](archive/evidence/)：旧 JSON、XML、截图及日志，字节保持。
+- [历史机器证据目录](archive/evidence/)：按当前引用与用途保留的来源、框架、操作和待验记录；重复旧证据已按本次整理范围移除。
 - [第三方声明](third-party/)：持续保留许可与来源。
 - [2026-10-05 整理回执](archive/FOLDER_ORGANIZATION_20261005.md)：移动清单、保留项目与验证。
+
+- [2026-10-07精简回执](archive/DOCUMENT_CONSOLIDATION_20261007.md)：归档合并、旧证据移除、保护范围和Git恢复入口。

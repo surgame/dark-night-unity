@@ -1,0 +1,31 @@
+# 项目演进摘要
+
+2026-10-07 整合根README、开发计划、架构、联机、存档、场景、地形和工作台的重复历史快照。现行版本与完成状态始终以[开发执行计划](../DEVELOPMENT.md)为准。
+
+## 已集成的主要切片
+
+| 时段 | 项目演进 | 继续保留的查阅入口 |
+| --- | --- | --- |
+| 2026-09-10～13 | Godot规则与原生资源迁移、可信会话、YYGC统一对象、旧模型退出及有界投影 | [迁移摘要](MIGRATION_HISTORY.md)、[YYGC账本](../YYGC_CHANGES.md)、[回归映射](YYGC_UNIFIED_TEST_COVERAGE.md) |
+| 2026-09-14～16 | Linear画面校准、原生主视图、结果UI、主角输入及默认专属worker | [表现摘要](PRESENTATION_HISTORY.md)、[Player指南](../PLAYER_GUIDE.md) |
+| 2026-09-17～22 | 随机地图、手采／恢复、洞穴工作台、远征营地、独立岩层、三层背景和可步入飞船 | [地形摘要](TERRAIN_HISTORY.md)、[飞船记录](WALKABLE_EXPEDITION_SHIP.md) |
+| 2026-09-24～29 | 局部地图联网、太空到星球流程、原地安全着陆、交易装备和冲刺 | [航程实现](SPACE_TO_PLANET_IMPLEMENTATION.md)、[航程验收](SPACE_TO_PLANET_ACCEPTANCE.md)、[交易验收](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md) |
+| 2026-09-30～10-03 | 采矿网格、Definition能力、工作台、地形Modifier、氧气移除与现有背景衔接 | [工具合同](../TOOL_DEFINITION_HARVESTING.md)、[氧气记录](OXYGEN_REMOVAL_VALIDATION.md)、[工作台](../EDITOR_WORKBENCH.md) |
+| 2026-10-04～05 | 内嵌矿从逐床状态迁到原生地图、墙后发现、两层局部流；主角跳跃发送与Host展示修复 | [现行矿层实现](../MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)、[执行状态](../DEVELOPMENT.md) |
+| 2026-10-06～07 | 地形网格检查、Cave Wall Tuner双网格／快捷键、草稿保存与Modifier启停展示集成到main | [地形调试操作](../TERRAIN_GRID_DEBUGGER.md)、[执行状态](../DEVELOPMENT.md) |
+
+2026-10-07集成保留已保存的WorldSession入口走道Modifier关闭配置，除该开关外配置语义不变；合并只核对Git差异和引用，未重跑Unity或构建Player。本地main当前协议25／存档v19／AMP1 schema2，Editor6000.4.9f1。
+
+## 仍有效的决策与边界
+
+游戏以2–4人合作、共享营地为基础，正式默认入口为Bootstrap→太空船→星球远征；旧营地和独立工作台是开发／回归入口。日常Unity宿主只有Game，旧基线与参考项目不作导入、构建和运行目录。
+
+所有业务由YYGC对象／会话唯一权威写入；客户端及Host表现读取冻结副本。旧整数身份、旧运行模型和历史存档成功导入不再是产品要求；原始素材、冻结规则及用户旧存档继续保护。当前身份、目录、权限、存档和框架授权分别以长期合同与AGENTS.md为准。
+
+前台性能由用户明确暂缓；IL2CPP需单独授权，双机器需实际设备。后台容量、单层小样、隐藏截图、测试调度成功或旧Player的通过数均不能替代当前验收。最终弱网矩阵、主角手感、改键、洞室／矿工路线和二次完整航程仍按现行执行状态核销。
+
+2026-10-05目录整理将311个临时文件约48MiB集中移入待清理，归档不释放空间、不授权永久删除；[原整理回执](FOLDER_ORGANIZATION_20261005.md)继续保留。此次仅精简仓库文档和选定旧证据，未整理这些产物、.codex数据或其他聊天工作树。
+
+## 历史原文
+
+周报、可操作说明、美术来源、框架逐文件账本、未完成验收和清理清单仍在[归档索引](README.md)。已整合的全文及重复机器摘要不再常驻工作树；从[2026-10-07整理回执](DOCUMENT_CONSOLIDATION_20261007.md)列出的Git基线和旧路径恢复，不把已移除文件描述为仍在目录中。

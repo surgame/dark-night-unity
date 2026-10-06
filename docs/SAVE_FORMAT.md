@@ -2,7 +2,7 @@
 
 2026-10-05 [原生矿层](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)采用v19／协议25。`terrain.mineral_map`保存规则指纹及61440格最终矿种／耐久／储量的有界压缩载荷；初始静态矿床元数据另外压缩，旧`mineral_deposits`必须为空。最终空格覆盖初始矿格，解码及候选恢复严格校验，旧档保留且不自动迁移。全范围夹具完整717985字节，Editor受损／采空／无效恢复通过；当前同一Mono正常两人／四人及弱网两人的真实写盘、加载与重启恢复通过。
 
-历史版本、测试时间线与迁移前全文见[历史快照](archive/SAVE_FORMAT_HISTORY_20261005.md)。当前矿层合同优先以[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)为准；下述通用会话合同需结合现行两层地图路径阅读。
+版本演进见[项目摘要](archive/PROJECT_HISTORY.md)，架构来源见[迁移摘要](archive/MIGRATION_HISTORY.md)。当前矿层合同优先以[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)为准；下述通用会话合同需结合现行两层地图路径阅读。
 
 上述写盘／恢复数字属于矿层初轮产物。长槽位路径修复后的最终 Mono 矩阵尚未完成，状态见[开发执行计划](DEVELOPMENT.md)。当前入口仅接受v19，旧格式拒绝读取并保留旧文件。
 
@@ -37,7 +37,7 @@ SaveContentFingerprint 直接使用本次会话的 GameCatalog 与经过校验�
 
 规则与布局使用二进制编码域 dark-nights.rules.v5／dark-nights.layout.v2，纳入 hero_control 和有序平台定义：小端整数、IEEE 754 float/double、UTF-8 字符串及显式集合长度。字典按 Ordinal Key 排序，布局和敌人序列保留顺序。这两个域标记描述摘要编码，格式版本仍为 v19。
 
-identity_sha256 对按 Ordinal 排序的 definitions／placements 对象做紧凑 JSON UTF-8 SHA-256，值来自实际加载定义和场景放置关系；v19 的正式矿床不再创建实体身份，旧动态矿床规则仅保留在历史快照中。`equipment_sha256` 校验手持装备配置。新增格式字段或修改规范编码须明确升级合同。摘要用于内容一致性，不是文件签名，也不能替代协议25的完整握手摘要。
+identity_sha256 对按 Ordinal 排序的 definitions／placements 对象做紧凑 JSON UTF-8 SHA-256，值来自实际加载定义和场景放置关系；v19 的正式矿床不再创建实体身份，旧动态矿床规则见[地形历史摘要](archive/TERRAIN_HISTORY.md)，当前不再采用。`equipment_sha256` 校验手持装备配置。新增格式字段或修改规范编码须明确升级合同。摘要用于内容一致性，不是文件签名，也不能替代协议25的完整握手摘要。
 
 ## 保存与恢复顺序
 

@@ -2,6 +2,32 @@
 
 2026-10-03。按用户恢复验证并允许转用 Local 的指示，在 `ref-20261003-remove-oxygen` 串行使用现有 Unity 6000.4.9f1 缓存完成后台验证。协议 **23**／存档 **v16**／AMP1 schema **2**。**验证已执行，整批未通过**：氧气专项、资源和常规双进程链路通过；弱网仍失败，修复延后至完整游戏弱网验收。两项旧远征路线用例已按用户要求移除，当前角色矿房交互／矿工采集交货待业务实施。历史诊断见[失败分析](OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。YYGC未修改，候选分支此前已推送，本次合入本地main；按最新约束未推送主分支。
 
+## 移除范围（2026-10-07合并原执行说明）
+
+| 职责 | 修改结果 | 主要文件 |
+| --- | --- | --- |
+| 远征规则 | 删除耗氧、补氧、缺氧扣血、缺氧死亡登船／丢货；删除初始化和复活填氧 | ExpeditionOperations、ObjectCampCommands |
+| 设备与矿工 | 删除氧气站及额外站部署、OxygenAt、RequestRelay、低氧返程、强制氧气返船与氧气撤收优先级 | ExpeditionDevices |
+| 配置 | 删除 buildings.oxygen、OxygenSeconds、OxygenRadius；通用 RelayRange 改为 PowerLinkRange，仍为360 | balance.json、ExpeditionDefinition、GameCatalogJson、SaveContentFingerprint |
+| 权威与数据合同 | 删除 Oxygen 字段及捕获、恢复、网络投影、JSON和校验，不留下停用字段 | ActorState、ExpeditionActorData、ExpeditionMapping、ExpeditionActorWire、ExpeditionSaveJson、ExpeditionValidator |
+| 命令及表现 | 删除 relay 的许可、分派、HUD命令、两套 Prefab按钮及氧气显示；船HUD16项、远征面板11项 | SessionOperations、SessionExpeditionControl、ExpeditionHud、ExpeditionPanel、ShipSceneAssetSetup、ShipHud.prefab、Expedition.prefab |
+| 正式资源 | 移除 DefinitionDatabase 与 Addressables 的氧气注册；资产原样移出Assets，保留GUID、人工内容和源图 | [资源退役清单](retired-assets/README.md) |
+| 制作及回归入口 | 首版安装器不再创建氧气站／中继；诊断不再读取氧气；相关构造调用调整 | tools/expedition/ExpeditionInstall.cs、ShipDiagnostic、PlanetFlowRegression |
+| 原死亡回归 | 缺氧死亡用例改为通过现有通用伤害／生命周期触发战斗死亡，保留结算失败、复活、写盘和移动断言；已更新并执行通过 | ExpeditionRecoveryTests、JourneyWalkwayTests |
+| 兼容界限 | 协议22客户端及v15存档不兼容；不迁移、不删除用户旧档。依赖锁中游戏版本同步，框架提交及补丁哈希不变 | SessionAuthority、SessionSnapshot、ObjectWorldSaveJson、tools/grid-business/dependency.lock.json |
+
+所有业务继续由原 YYGC Behaviour／State 拥有，未新增规则总开关、空实现、插件调度或另一套状态系统。以后重新加入氧气应依据新玩法定义自己的状态与规则边界，再接入现有权威事务、投影和存档；本次提交与退役资产可追溯旧实现，但不建议整段直接还原。
+
+## 保留行为及可见影响
+
+- 仓储、炮塔、灯相对飞船的部署坐标继续为-50、+30、+110；功耗仍为1、4、1，供电预算仍为12。
+- 氧气站删除后释放原3点功耗，船员舱额外站也不再消耗3点。已供电设备每台贡献0.15的风险倍率仍保留，少一／两站会相应减少0.15／0.30；实际部署期间的贡献随供电阶段变化。
+- 船员舱继续提供矿工；货舱、机器人舱、侦察机、搬运、供电、满包卸货、撤收、登船和正常／紧急起飞继续使用原规则。矿工无有效矿床时的卸货路径也保留。
+- 敌人伤害及“全部所属玩家死亡→Settle→ResetDock／船内恢复”仍是独立业务，所以以后受战斗伤害仍可能回船。移除氧气不能等同于删除所有失败返航。
+- 风险达到阈值生成敌人的规则仍保留，旧默认阈值90未改。验证“长时间不因氧气回船”时应隔离敌人影响，另行验证战斗死亡。
+- 已发现的独立问题：结算后ExpeditionPhase=4但Journey仍为Landed，再次出发入口可能无法重新推进。此问题在移除前已存在，本切片未修；不能宣称再次远征已通过。
+- 原始氧气图像及历史生成脚本继续作为资料保留，不注册为氧气设备。退役Definition不再被Unity导入，避免不存在的RuleKey造成作者配置错误。
+
 ## 结果
 
 | 检查 | 结果 | 证据及边界 |

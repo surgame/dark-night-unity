@@ -6,7 +6,7 @@
 
 2026-10-05 [原生矿层迁移](docs/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)继续当前 `ft-20261004-embedded-minerals`：协议25／存档v19／AMP1 schema2；矿格唯一状态归ARDMap业务存储，正式矿床实体退出，客户端前景与矿层局部订阅／加载。按用户暂定玩法，拆前景墙发现部分矿床而不伤矿物。首轮39项失败已复测，影响Editor105/105及真实副本组合画面通过，同一Mono正常两人30/30、四人38/38、弱网两人30/30通过；两层局部换区与静态背景保留已验，专项前台性能等未完成，整批未交付。Unity CLI已可后台编译／测试／截图／构建，本轮不使用Computer Use。YYGC未修改／升级，不能把旧Player数字当作本候选验收。
 
-2026-10-04 [内嵌矿开发检查点](docs/archive/EMBEDDED_MINERAL_LAYER_IMPLEMENTATION.md)位于 `ft-20261004-embedded-minerals`，干净 main 基线 `b705709`；既有工作台和方案已先集成。协议24／存档v18／AMP1 schema2，YYGC未改。多格矿床权威、独立AnyRuleD矿层、专用投影与保存已实施；受影响Editor245/245、Mono正常两人24/24及四人30/30。弱网初始Ready失败，正式组合画面存在矿层遮挡，排序诊断未导入；本候选仍未交付，后续先解决UI弹窗与组合渲染门槛，不能把旧构建或单层小样当作当前最终验收。
+2026-10-04 [内嵌矿开发检查点](docs/archive/TERRAIN_HISTORY.md)位于 `ft-20261004-embedded-minerals`，干净 main 基线 `b705709`；既有工作台和方案已先集成。协议24／存档v18／AMP1 schema2，YYGC未改。多格矿床权威、独立AnyRuleD矿层、专用投影与保存已实施；受影响Editor245/245、Mono正常两人24/24及四人30/30。弱网初始Ready失败，正式组合画面存在矿层遮挡，排序诊断未导入；本候选仍未交付，后续先解决UI弹窗与组合渲染门槛，不能把旧构建或单层小样当作当前最终验收。
 
 2026-10-03 氧气移除分支ref-20261003-remove-oxygen已合入本地main，基线baedc15，协议 **23**／存档 **v16**／AMP1 schema **2**。氧气业务、氧气站、中继命令及状态合同完整退出，YYGC未修改；已转Local后台验证，原Editor119/121、资源12/12、正常Mono双进程130/130；两项未实现玩法的旧路线用例已移除，本次剩余远征回归6/6，历史失败保留。弱网仍失败并延后修复，整批未通过。见[验证记录](docs/archive/OXYGEN_REMOVAL_VALIDATION.md)与[失败分析](docs/archive/OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。下方历史计数不代表本候选。
 
@@ -18,23 +18,23 @@
 
 2026-09-22 当前候选为[独立岩层与三层背景](docs/archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)，分支 `codex/static-cave-background`，协议 **13**／存档 **v9**。用户明确允许脱离旧素材／场景；`Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` 与同目录 `RandomCave.unity`（2026-09-23 保留 GUID 从 StrataCave 资源目录移入统一工作台，见[场景索引](docs/SCENES.md)）使用独立 AnyRuleD 规则和同源 H5 岩壁、背景算法，保留 YYGC 权威与真实坡形碰撞。原生密度统一为 8px／格，矿粒与矿光暂时隐藏、矿床玩法保留。正式远征用 `--dn-contour-static` 试用；旧风格默认保留。前台性能、IL2CPP 和双机器不宣称通过，本批证据优先于下方历史切片。 外轮廓为独立可配置的六方案，当前 HybridB／OUTLINE-0921／3px／20px／2px、岩块 4px；仅修饰表现，权威碰撞保持原坡形。
 
-2026-09-21 当前切片为[远征营地 Demo](docs/archive/EXPEDITION_CAMP_DELIVERY.md)，协议 **12**／存档 **v8**，分支 `codex/expedition-camp-plan`。正式默认入口已切换紧凑洞穴远征；背景墙矿物、氧气货袋、设备搬运／矿工、风险撤收和原子结算已有首轮实现。旧 `Tomb` 洞口和指令圈运行链退出；以下日期记录仅代表历史切片。当前 Mono 常规／弱网四进程各 35/35，Editor 合并 213/214、远征 8/8、Core 1048/1048；按钮主题 1 项失败、全路线与前台性能等边界见本轮证据，不宣称全部产品目标完成。
+2026-09-21 当前切片为[远征营地 Demo](docs/archive/TERRAIN_HISTORY.md)，协议 **12**／存档 **v8**，分支 `codex/expedition-camp-plan`。正式默认入口已切换紧凑洞穴远征；背景墙矿物、氧气货袋、设备搬运／矿工、风险撤收和原子结算已有首轮实现。旧 `Tomb` 洞口和指令圈运行链退出；以下日期记录仅代表历史切片。当前 Mono 常规／弱网四进程各 35/35，Editor 合并 213/214、远征 8/8、Core 1048/1048；按钮主题 1 项失败、全路线与前台性能等边界见本轮证据，不宣称全部产品目标完成。
 
-2026-09-20 最新地图切片为[洞穴地图工作台](docs/archive/CAVE_WORKSHOP.md)：`CaveExploration` 已接入 gpt-image-2.5 岩层源、新 DualGrid 样式、12 种坡形及匹配权威运动、暗后壁与冷暖光、临时手采／爆破。默认碰撞行走，Tab 切换观察。正式协议 11／存档 v7 不变，正式开局和洞穴存档尚未接入；100 种子隐藏图与 96 洞室落地不代表全路线能力可达。当前实测与边界以本页链接中的新证据为准，下方为历史切片。
+2026-09-20 最新地图切片为[洞穴地图工作台](docs/archive/TERRAIN_HISTORY.md)：`CaveExploration` 已接入 gpt-image-2.5 岩层源、新 DualGrid 样式、12 种坡形及匹配权威运动、暗后壁与冷暖光、临时手采／爆破。默认碰撞行走，Tab 切换观察。正式协议 11／存档 v7 不变，正式开局和洞穴存档尚未接入；100 种子隐藏图与 96 洞室落地不代表全路线能力可达。当前实测与边界以本页链接中的新证据为准，下方为历史切片。
 
-2026-09-20 新实验分支 `codex/cave-exploration-art` 合入 main `6b7b74c` 的手持装备，保留地图手采、矿床与恢复；协议 **11**／存档 **v7**。新增[天然洞穴技术原型](docs/archive/CAVE_EXPLORATION_ART.md)：10–13 个不规则洞室、双入口、回环与部分掩埋通路，独立 Debug 场景可 Play。**新像素美术、独立斜面块与匹配碰撞仍未完成**，当前旧图集只作技术预览；完整游戏策划未扩入本轮。以下记录均为各自历史切片，不替代本批证据。
+2026-09-20 新实验分支 `codex/cave-exploration-art` 合入 main `6b7b74c` 的手持装备，保留地图手采、矿床与恢复；协议 **11**／存档 **v7**。新增[天然洞穴技术原型](docs/archive/TERRAIN_HISTORY.md)：10–13 个不规则洞室、双入口、回环与部分掩埋通路，独立 Debug 场景可 Play。**新像素美术、独立斜面块与匹配碰撞仍未完成**，当前旧图集只作技术预览；完整游戏策划未扩入本轮。以下记录均为各自历史切片，不替代本批证据。
 
-2026-09-19 当前切片为[手采地图验收收口](docs/archive/MAP_PLAN_EXECUTION.md)，分支 `codex/map-plan-execution`：协议 10／存档 v6；钻机、无人机、自动采矿和自动物流整链已从产品代码、资源与本轮门槛删除。主 Editor 完整 196/196、Core 1048/1048、Terrain 24 向量／100 seed、ArchitectureGuard 372/12/0、Mono 启动 6/6；同一 Mono 正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 18/18，覆盖 Host、Client、LateJoin、Reconnect、幂等、局部刷新与真实写盘重启恢复。M6 比例、前台性能、IL2CPP、双机器和真正新机器依赖恢复仍待后续；不把这些边界写成已完成。
+2026-09-19 当前切片为[手采地图验收收口](docs/archive/TERRAIN_HISTORY.md)，分支 `codex/map-plan-execution`：协议 10／存档 v6；钻机、无人机、自动采矿和自动物流整链已从产品代码、资源与本轮门槛删除。主 Editor 完整 196/196、Core 1048/1048、Terrain 24 向量／100 seed、ArchitectureGuard 372/12/0、Mono 启动 6/6；同一 Mono 正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 18/18，覆盖 Host、Client、LateJoin、Reconnect、幂等、局部刷新与真实写盘重启恢复。M6 比例、前台性能、IL2CPP、双机器和真正新机器依赖恢复仍待后续；不把这些边界写成已完成。
 
-2026-09-17 新增[独立随机地图 Debug Bootstrap](docs/archive/TERRAIN_DEBUG_BOOTSTRAP.md)：通过 `Dark Nights/Debug/打开随机地图 Bootstrap` 直接 Play，原始 8 房间／7 通道蓝图没有正式营地的 72 列平地覆盖；本地观察角色 WASD 穿墙飞行、近距离可调镜头、参数实时重建。原 Pinewatch 及正式 Bootstrap 保留。本批 Editor 地图 11/11、实际 Play 22/22，独立 Mono 已构建与启动；隐藏 Player 黑图不计视觉通过，画面证据来自 Editor Play。正式协议、存档、YYGC 与 M5 边界不变。
+2026-09-17 新增[独立随机地图 Debug Bootstrap](docs/archive/TERRAIN_HISTORY.md)：通过 `Dark Nights/Debug/打开随机地图 Bootstrap` 直接 Play，原始 8 房间／7 通道蓝图没有正式营地的 72 列平地覆盖；本地观察角色 WASD 穿墙飞行、近距离可调镜头、参数实时重建。原 Pinewatch 及正式 Bootstrap 保留。本批 Editor 地图 11/11、实际 Play 22/22，独立 Mono 已构建与启动；隐藏 Player 黑图不计视觉通过，画面证据来自 Editor Play。正式协议、存档、YYGC 与 M5 边界不变。
 
-2026-09-17 最新切片为[正式随机灰松谷](docs/archive/RANDOM_PINEWATCH.md)，分支 `codex/feature-dualgrid-game-start`：默认随机模板为 `Res/Scenes/RandomPinewatch/Pinewatch.unity`，原 Pinewatch 场景保持；选择地图后台生成，正式协议 9／存档 v4，YYGC 仍锁定 `12b253c`。地图权威状态随 ObjectSession 生命周期，完整地图与表现共同门控 Ready；主角按权威格子碰撞，存档保存最终格子。AnyRules 隔离包增加有界 128 块预算补丁及哈希锁；不修改用户 YYGC master。本批结果见[证据](docs/archive/evidence/random-pinewatch-2026-09-17.json)，不把下方旧构建计数当作新批验收。
+2026-09-17 最新切片为[正式随机灰松谷](docs/archive/TERRAIN_HISTORY.md)，分支 `codex/feature-dualgrid-game-start`：默认随机模板为 `Res/Scenes/RandomPinewatch/Pinewatch.unity`，原 Pinewatch 场景保持；选择地图后台生成，正式协议 9／存档 v4，YYGC 仍锁定 `12b253c`。地图权威状态随 ObjectSession 生命周期，完整地图与表现共同门控 Ready；主角按权威格子碰撞，存档保存最终格子。AnyRules 隔离包增加有界 128 块预算补丁及哈希锁；不修改用户 YYGC master。本批结果见[证据](docs/archive/evidence/random-pinewatch-2026-09-17.json)，不把下方旧构建计数当作新批验收。
 
 2026-09-17 Bootstrap 修复后的当前 YYGC 锁定为 `12b253c`（基于下方输入提交 `0c7cec0`），隔离修复位于 `D:/Developer/YYGC-worktrees/network-command-script-resolution`。全局命令注册表包含地形命令 Tag 3，旧三个游戏 Tag 不变；当前修复 Mono 为 `artifacts/bootstrap-registry/player-mono`，新增 Editor 2/2、启动 6/6、双进程会话 13/13 和实际菜单／开局画面通过。详见[改动账本](docs/YYGC_CHANGES.md)及[验证证据](docs/archive/evidence/bootstrap-registry-2026-09-17.json)，历史大矩阵不计入本批。
 
 先读 [README](README.md)、[现行文档索引](docs/README.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。早期移植、YYGC 统一重构、Linear 世界表现与受限清理按[历史文档索引](docs/archive/README.md)追溯；旧协议、旧构建和后台容量结果不代表当前版本或前台性能已验收。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现；前台性能由用户明确暂缓，IL2CPP／双机器仍待条件。
 
-2026-09-16 当前切片为[主角操控与 YYGC 输入联合执行](docs/archive/HERO_INPUT_EXECUTION.md)：协议 8／存档 v3；YYGC 输入提交 `0c7cec0` 位于隔离 `D:/Developer/YYGC-worktrees/input-actions`，准备脚本已锁定。默认产品入口固定为主角操控：每个有权限的玩家首次 Ready 由服务端新建一名专属 `worker`，不占用场景现有闲置村民；重复 Ready 不增员，加载优先恢复仍带手动标记的已保存主角，重连上线生成新人，SharedCamp 恢复同一专属人物。顶部主角工具栏和营地建造、训练、招募、修缮入口暂时隐藏，快捷键继续生效；旧营地后端、工具栏与 `--dn-camp-mode` 仅为开发回归保留。另一个会话的 `D:/Developer/YYGC` master／AnyRule 工作区不能代为切换、清理或合并。新增跟进受影响 Editor／Play 20/20，累计 178 个不同用例按影响合并通过；当前 Mono 为 `artifacts/hero-input/player-mono-generated-villager-r2`，本机独立 Host＋客户端及实际 UI 捕获 39/39。历史 350／155 项与输入 Sample 34 项只保留原构建身份；不把这些结果写成前台性能、IL2CPP、双机器或 M5 全部完成。
+2026-09-16 当前切片为[主角操控与 YYGC 输入联合执行](docs/archive/PRESENTATION_HISTORY.md)：协议 8／存档 v3；YYGC 输入提交 `0c7cec0` 位于隔离 `D:/Developer/YYGC-worktrees/input-actions`，准备脚本已锁定。默认产品入口固定为主角操控：每个有权限的玩家首次 Ready 由服务端新建一名专属 `worker`，不占用场景现有闲置村民；重复 Ready 不增员，加载优先恢复仍带手动标记的已保存主角，重连上线生成新人，SharedCamp 恢复同一专属人物。顶部主角工具栏和营地建造、训练、招募、修缮入口暂时隐藏，快捷键继续生效；旧营地后端、工具栏与 `--dn-camp-mode` 仅为开发回归保留。另一个会话的 `D:/Developer/YYGC` master／AnyRule 工作区不能代为切换、清理或合并。新增跟进受影响 Editor／Play 20/20，累计 178 个不同用例按影响合并通过；当前 Mono 为 `artifacts/hero-input/player-mono-generated-villager-r2`，本机独立 Host＋客户端及实际 UI 捕获 39/39。历史 350／155 项与输入 Sample 34 项只保留原构建身份；不把这些结果写成前台性能、IL2CPP、双机器或 M5 全部完成。
 
 ## 范围与工作区
 

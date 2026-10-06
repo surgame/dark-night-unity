@@ -2,7 +2,7 @@
 
 2026-10-05 [原生矿层候选](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：YYGC会话生命周期托管独立 ARDMap，GridBusinessStateStore 唯一拥有矿格耐久／储量；初始矿床为静态元数据，正式运行无逐矿床对象或逐格NetworkObject。前景与矿层均采用局部只读副本与AnyRuleD页面，换区保留静态背景宿主；普通采集组合一层地图与角色状态，拆墙保留后面的矿物。游戏协议25／存档v19／AMP1 schema2。
 
-历史版本、测试时间线与迁移前全文见[历史快照](archive/ARCHITECTURE_HISTORY_20261005.md)。当前矿层合同优先以[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)为准；下述通用会话合同需结合现行两层地图路径阅读。
+版本演进见[项目摘要](archive/PROJECT_HISTORY.md)，架构来源见[迁移摘要](archive/MIGRATION_HISTORY.md)。当前矿层合同优先以[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)为准；下述通用会话合同需结合现行两层地图路径阅读。
 
 ## 唯一状态归属
 
@@ -24,7 +24,7 @@
 
 ObjectSession 只组合能力、上下文、资源租约和对象索引，不保存第二套经济／实体状态。SessionEntityIndex 只引用 YYGC 对象。旧 GameSession、WorldState、Entity、Commands／Systems 运行链及过渡 SessionWorld 已删除。
 
-旧指令圈的实现过程见[历史快照](archive/ARCHITECTURE_HISTORY_20261005.md)；当前正式远征入口与实际操作以[Player 指南](PLAYER_GUIDE.md)为准。
+旧指令圈的实现过程见[表现摘要](archive/PRESENTATION_HISTORY.md)；当前正式远征入口与实际操作以[Player 指南](PLAYER_GUIDE.md)为准。
 
 所有可写 State 使用 YYGC 会话权限。网络 DTO、ScriptableObject、展示副本和客户端 Behaviour 不成为另一份权威模型。单对象 State 的变化不自行发送个体 RPC。
 
@@ -81,7 +81,7 @@ SessionClock 累积未缩放时间，以 60 Hz 调用 SessionAuthority。命令�
 
 Host 与客户端使用同一验证入口；服务器从 NetworkCommandContext 取得连接身份。请求中的玩家 ID、资源和伤害不能构成授权。SharedCamp／HostOnly 与 PolicyRevision 在执行点检查，包含建造自动派工和训练；已生效任务继续。加载保持房间策略。
 
-正式游戏为协议 8，YYGC 定义 wire 为 GuidV2，两者是不同版本概念。握手在业务载荷解析前拒绝旧协议 7／6／5，并校验规则、布局、定义和生成注册摘要。完整投影携带 EntityId、DefinitionGuid、放置关系、epoch／revision、实体与在飞箭矢；真实副本应用完成后才 Ready。投影使用有界原始／GZip 封套，解封后仍执行完整 MemoryPack 和规则校验，见[性能修正](archive/YYGC_UNIFIED_PERFORMANCE.md)。继续复用 Gateway／Sender／Processor、StatefulBehaviour／StateSynchronizer，不新建并行传输栈。
+正式游戏为协议25，YYGC定义wire为GuidV2，两者是不同版本概念。握手在业务载荷解析前拒绝不匹配协议，并校验规则、布局、定义和生成注册摘要。完整投影携带 EntityId、DefinitionGuid、放置关系、epoch／revision、实体与在飞箭矢；真实副本应用完成后才 Ready。投影使用有界原始／GZip 封套，解封后仍执行完整 MemoryPack 和规则校验，历史修正见[迁移摘要](archive/MIGRATION_HISTORY.md)。继续复用 Gateway／Sender／Processor、StatefulBehaviour／StateSynchronizer，不新建并行传输栈。
 
 ## 场景对象与展示生命周期
 
@@ -95,7 +95,7 @@ SessionEntityViews 只按当前 epoch／EntityId 分发展示：Host 查询权�
 
 ## 主角与输入
 
-2026-09-16 的[联合切片](archive/HERO_INPUT_EXECUTION.md)将旧决策原序提取为 AutomaticActorControlBehaviour，通过 IAutomaticActorControl 装配；HeroControlBehaviour、HeroMotionBehaviour、HeroInventoryBehaviour 共用 ActorState。ActorBehaviour 每步只选择一种决策入口，共享行动时钟、移动数值、工作与战斗结算。
+2026-09-16 的[联合切片](archive/PRESENTATION_HISTORY.md)将旧决策原序提取为 AutomaticActorControlBehaviour，通过 IAutomaticActorControl 装配；HeroControlBehaviour、HeroMotionBehaviour、HeroInventoryBehaviour 共用 ActorState。ActorBehaviour 每步只选择一种决策入口，共享行动时钟、移动数值、工作与战斗结算。
 
 GameInputActions 缓存原生 PlayerInput.actions；YYInputActionService 只接线动作组与 Interaction Sessions。View 的 HeroInputSampler 保存渲染输入边沿、30 Hz 限速和 10 Hz 保活，并输出冻结 Packet；Entry 的 HeroPlayerController 装配本地角色上下文并发送意图，PinewatchStage 从冻结副本与已插值外观选择镜头目标。SetReadyCommand 传递本地默认主角偏好；SessionHeroControl 从可信连接请求 ObjectSession 创建新村民，并显式分开默认候选选择、占用操作、输入校验及写入。重复 Ready 复用当前占用，HostOnly 恢复复用连接记录的专属 ID；加载后只有仍标记为手动主角的保存对象可恢复，ID 碰撞到普通闲置角色时改为新建，真正重连也创建新人。30 个服务端 tick 无输入归零。此职责重构未改变 ObjectsV2 的 ActorState 所有权，也未引入第二套输入对象或命令链。
 
@@ -127,4 +127,4 @@ Addressables 通过条目／分组管理，不要求资源目录叫 Addressables
 
 U4 完成正式接线，U5 完成旧模型退出与回归迁移；U6 `4e3798f` 的同一 Mono 已通过多人、活跃恢复、九组弱网、三夜、容量时效及 240 秒后台观察。首轮无旧 Library 的构建和后续复用缓存的构建分别保留来源。`a4a5450` 已完成本机 Linear 固定世界画面对照，普通前台性能按用户选择暂缓；Mono、IL2CPP、双机器 LAN 分别记录，不把同型号 GPU 的本机结果写成最终全平台或跨物理 GPU 验收。
 
-允许针对实证缺口更新 YYGC，先在隔离 checkout 验证，锁定可复现输入并维护[逐文件账本](YYGC_CHANGES.md)。框架历史长文件不在本次全面拆分范围。暂不增加锁步、回滚、ECS、房主迁移、专服集群或未经测量的拆流。
+2026-10-03起，修改YYGC源码、补丁或锁定版本必须先取得用户对具体范围的明确同意；获批后在隔离checkout验证，锁定可复现输入并维护[逐文件账本](YYGC_CHANGES.md)。框架历史长文件不在本次全面拆分范围。暂不增加锁步、回滚、ECS、房主迁移、专服集群或未经测量的拆流。

@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发执行计划
 
-2026-10-07，地形调试与工作台改进按用户要求从 `ft-20261006-terrain-debug-integration` 集成到本地 `main`；原生矿层成果已于2026-10-05集成。协议 **25**／存档 **v19**／AMP1 schema **2**，Editor **6000.4.9f1**。本页只列当前执行状态；早期评估、M0–M6 估算与历次实现过程保存在[开发历史快照](archive/DEVELOPMENT_HISTORY_20261005.md)。
+2026-10-07，地形调试与工作台改进按用户要求从 `ft-20261006-terrain-debug-integration` 集成到本地 `main`；原生矿层成果已于2026-10-05集成。协议 **25**／存档 **v19**／AMP1 schema **2**，Editor **6000.4.9f1**。本页只列当前执行状态；早期迁移、M0–M6及历次实现已整合为[项目演进摘要](archive/PROJECT_HISTORY.md)，完整原文从整理回执所列Git基线恢复。
 
 本次集成保存了工作区已有的 `WorldSession.asset` 入口走道Modifier关闭配置。托管引用4项完整，核对除 `EntranceWalkwayModifierConfig.Enabled` 从1变0外配置数据不变，引用ID与顺序变化来自已有序列化结果。本次只做Git集成、差异和引用核对，沿用下方原批次证据；未重跑Unity、构建Player或新增联机验收结论。
 
@@ -42,4 +42,4 @@ YYGC 与 `.deps` 源码、补丁和锁定版本修改必须先获具体授权。
 
 ## 目录与归档
 
-当前目录用途见[工作区说明](WORKSPACE.md)。旧方案与过程归 `docs/archive/`，机器证据按当前／历史索引保留。确认不用的临时产物统一移动到 `artifacts/待清理/YYYYMMDD-任务名/` 并写清单；归档只集中保留，不释放空间或授权永久删除。
+当前目录用途见[工作区说明](WORKSPACE.md)。旧方案与过程归 `docs/archive/`，机器证据按当前用途保留；已整合的重复过程和移除证据见[精简回执](archive/DOCUMENT_CONSOLIDATION_20261007.md)。确认不用的临时产物统一移动到 `artifacts/待清理/YYYYMMDD-任务名/` 并写清单；归档只集中保留，不释放空间或授权永久删除。

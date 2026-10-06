@@ -13,9 +13,9 @@
 | [快速上手](docs/QUICK_START.md)、[Player 指南](docs/PLAYER_GUIDE.md) | 依赖准备、试玩和专项检查 |
 | [场景索引](docs/SCENES.md)、[工作台](docs/EDITOR_WORKBENCH.md) | 正式入口、预览、回归与参考 |
 | [Unity CLI](docs/UNITY_CLI_WORKFLOW.md) | 当前 Local 的后台 Editor 通道 |
-| [历史索引](docs/archive/README.md) | 旧方案、过程、周报及冻结证据 |
+| [历史索引](docs/archive/README.md) | 历史摘要、保留专题、周报及必要来源 |
 | [协作约定](AGENTS.md) | 工作区、框架修改授权、分支与验收规则 |
 
 `Game/` 是唯一日常 Unity 宿主。依赖通过锁定配置接入，见[依赖说明](docs/DEPENDENCIES.md)；源码与作者资源位于 `Game/Assets/DarkNights/Scripts` 和 `Res`。
 
-2026-10-05 已整理文档与可确认的临时产物，详见[整理回执](docs/archive/FOLDER_ORGANIZATION_20261005.md)。旧根 README 的时间线与最初评估输入保存在[历史快照](docs/archive/PROJECT_CHANGELOG_20261005.md)。
+2026-10-07 已将重复归档说明整合为4份主题摘要，并移除部分旧实现证据，见[精简回执](docs/archive/DOCUMENT_CONSOLIDATION_20261007.md)。项目演进见[历史摘要](docs/archive/PROJECT_HISTORY.md)；2026-10-05临时产物归档仍见[原整理回执](docs/archive/FOLDER_ORGANIZATION_20261005.md)。
