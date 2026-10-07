@@ -23,7 +23,7 @@
             <ui:Button name="buy-pistol" class="buy-button" text="手枪" />
             <ui:Button name="buy-pickaxe" class="buy-button" text="矿镐" />
             <ui:Button name="buy-jetpack" class="buy-button" text="喷气背包" />
-            <ui:Label class="shop-note" text="装备归当前主角；购买与库存保留，使用效果暂未开放。" />
+            <ui:Label class="shop-note" text="装备归当前主角；购买后可使用，船舱内暂停手持攻击。" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

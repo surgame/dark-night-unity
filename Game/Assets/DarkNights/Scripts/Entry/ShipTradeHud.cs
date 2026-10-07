@@ -101,6 +101,12 @@ namespace DarkNights.Entry
                 expedition.Journey.Phase is JourneyPhase.Descent or JourneyPhase.Landed ?
                     (ship.PilotId == actor.Id ? "E 离开驾驶位" : ship.PilotId == 0 ? "E 接管驾驶" : "驾驶位已占用") :
                     "航行中，请等待到达";
+            if (gameplay && !nearShop && !atCockpit && !ShopOpen && actor != null)
+            {
+                if (!string.IsNullOrEmpty(hero.MiningHint)) prompt = hero.MiningHint;
+                else if (actor.Charging) prompt = "蓄力 " + actor.ChargeSeconds.ToString("F1") + "s · 松开左键投掷";
+                else prompt = "鼠标瞄准 · 左键使用 · 1–4 切换 · Shift 加速 · " + hero.JumpBindingLabel + " 跳跃／喷气";
+            }
             panel.Present(actor, frame?.World.Camp.Credits ?? 0, cargo?.Iron ?? 0, cargo?.Gold ?? 0,
                 catalog.Balance.HeroControl.FuelSeconds, catalog.Balance.Expedition.Trade, prompt,
                 gameplay && actor != null);

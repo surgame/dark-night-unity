@@ -88,7 +88,7 @@ namespace DarkNights.Tests
         });
 
         [UnityTest]
-        public IEnumerator PurchaseInventoryAndCreditsRestoreWithoutEnablingEquipment() => UniTask.ToCoroutine(async () =>
+        public IEnumerator PurchaseInventoryCreditsAndUsableJetpackRestore() => UniTask.ToCoroutine(async () =>
         {
             using var scope = await UnifiedSessionScope.Create();
             var world = await Create(scope);
@@ -108,8 +108,8 @@ namespace DarkNights.Tests
             }
             var purchased = hero.CaptureState();
             Assert.That(purchased.JetpackOwned, Is.True);
-            Assert.That(purchased.JetpackEquipped, Is.False);
-            Assert.That(purchased.JetpackFuel, Is.Zero);
+            Assert.That(purchased.JetpackEquipped, Is.True);
+            Assert.That(purchased.JetpackFuel, Is.EqualTo(world.Catalog.Balance.HeroControl.FuelSeconds));
             Assert.That(world.Economy.CaptureState().Credits,
                 Is.EqualTo(balance - world.Catalog.Balance.Expedition.Trade.PickaxePrice - world.Catalog.Balance.Expedition.Trade.JetpackPrice));
             string saved = world.SaveCodec.Serialize(world.CaptureWorld());
@@ -118,13 +118,14 @@ namespace DarkNights.Tests
             var restored = Hero(world, 0).CaptureState();
             Assert.That(restored.Slot0, Is.EqualTo(purchased.Slot0));
             Assert.That(restored.JetpackOwned, Is.True);
-            Assert.That(restored.JetpackEquipped, Is.False);
+            Assert.That(restored.JetpackEquipped, Is.True);
+            Assert.That(restored.JetpackFuel, Is.EqualTo(purchased.JetpackFuel));
             Assert.That(world.Economy.CaptureState().Credits, Is.EqualTo(credits));
-            var equipped = JObject.Parse(saved); equipped["world"]["actors"][0]["jetpack_equipped"] = true;
-            Assert.Throws<FormatException>(() => world.SaveCodec.Parse(equipped.ToString()));
+            var invalidFuel = JObject.Parse(saved); invalidFuel["world"]["actors"][0]["jetpack_fuel"] = 900;
+            Assert.Throws<FormatException>(() => world.SaveCodec.Parse(invalidFuel.ToString()));
             var npc = JObject.Parse(saved); npc["world"]["actors"][0]["manual_control"] = false;
             Assert.Throws<FormatException>(() => world.SaveCodec.Parse(npc.ToString()));
-            var old = JObject.Parse(saved); old["format_version"] = 19;
+            var old = JObject.Parse(saved); old["format_version"] = 20;
             Assert.Throws<FormatException>(() => world.SaveCodec.Parse(old.ToString()));
         });
 
@@ -158,7 +159,7 @@ namespace DarkNights.Tests
             Assert.That(world.CaptureView().Expedition.Journey.Phase, Is.EqualTo(JourneyPhase.Landed));
         });
 
-        private static async UniTask<ObjectSession> Create(UnifiedSessionScope scope)
+        internal static async UniTask<ObjectSession> Create(UnifiedSessionScope scope)
         {
             var config = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
                 .SharedConfigs.OfType<ExpeditionFlowConfig>().Single();

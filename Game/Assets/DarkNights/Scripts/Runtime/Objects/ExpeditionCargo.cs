@@ -15,7 +15,6 @@ namespace DarkNights.Runtime.Objects
                 throw new InvalidOperationException("采集资源或接收容量不合法。");
             if (!actor.World.IsExpedition) { actor.World.Economy.AddResource(resource, amount); return; }
             var state = actor.Edit(); if (resource == "gold") state.CargoGold += amount; else state.CargoIron += amount;
-            actor.World.Camp.Edit().ExpeditionRisk += 2 * amount;
         }
         internal static int Transfer(ActorBehaviour actor, BuildingBehaviour device, int capacity)
         {

@@ -23,7 +23,7 @@ namespace DarkNights.Tests
     {
         private const string SceneKey = "DarkNights.ShipTradePlay.Scene";
         private static EditorWindow Game => EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView"));
-        private static string Output => Path.GetFullPath("../artifacts/ground-baseline-20261007/presentation");
+        private static string Output => Path.GetFullPath("../artifacts/equipment-restore-20261007/presentation");
 
         [Test]
         public void RestoredBuildSettingsAreNotRewrittenWhileLocked()
@@ -75,6 +75,17 @@ namespace DarkNights.Tests
         }
 
         [UnityTest]
+        public IEnumerator EquipmentRendersAndUsesRealInput()
+        {
+            SessionState.SetString(SceneKey, EditorSceneManager.GetActiveScene().path);
+            EditorSceneManager.OpenScene(Editor.EnvironmentValidation.ScenePath);
+            Game.Focus();
+            yield return new EnterPlayMode();
+            yield return UniTask.ToCoroutine(() => EquipmentInputPlayProbe.StartAndVerify(Output));
+            yield return new ExitPlayMode();
+        }
+
+        [UnityTest]
         public IEnumerator ShopRendersBuysAndReleasesInput()
         {
             SessionState.SetString(SceneKey, EditorSceneManager.GetActiveScene().path);
@@ -91,6 +102,8 @@ namespace DarkNights.Tests
             if (Application.isPlaying)
             {
                 if (Keyboard.current != null) InputSystem.QueueStateEvent(Keyboard.current, new KeyboardState());
+                if (Mouse.current != null) InputSystem.QueueStateEvent(Mouse.current,
+                    new MouseState { position = Mouse.current.position.ReadValue() });
                 yield return new ExitPlayMode();
             }
             string previous = SessionState.GetString(SceneKey, "");
@@ -152,9 +165,12 @@ namespace DarkNights.Tests
             Submit(root.Q<Button>("buy-jetpack"));
             await Until(() => hero.Current.JetpackOwned, "购买喷气背包反馈");
             Assert.That(network.Client.Replica.Current.World.Camp.Credits, Is.EqualTo(12));
-            Assert.That(root.Q<Label>("jetpack").text, Does.Contain("已购买（暂未开放使用）"));
-            Assert.That(hero.Current.JetpackEquipped, Is.False);
-            Assert.That(hero.Current.JetpackFuel, Is.Zero);
+            Assert.That(root.Q<Label>("jetpack").text, Is.EqualTo("喷气背包"));
+            Assert.That(hero.Current.JetpackEquipped, Is.True);
+            Assert.That(hero.Current.JetpackFuel, Is.GreaterThan(0));
+            Submit(root.Q<Button>("buy-pistol"));
+            await Until(() => hero.Current.Slot1 == 1, "购买手枪反馈");
+            Assert.That(network.Client.Replica.Current.World.Camp.Credits, Is.EqualTo(2));
 
             var hud = (DarkNights.View.CampHudBehaviour)typeof(SessionUiController).GetField("hud",
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(ui);

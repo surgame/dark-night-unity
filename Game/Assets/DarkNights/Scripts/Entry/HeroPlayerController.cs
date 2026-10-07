@@ -127,9 +127,9 @@ namespace DarkNights.Entry
                     shown == null ? (float?)null : shown.transform.position.y * EntityView.PixelsPerUnit);
             }
 #endif
-            mining.Hide();
+            mining.Sample(controls, Current, network.Client.Replica.Current, pendingItem >= 0);
             if (sampler.Sample(controls, Current, network.Client.Replica.Current, entities, pendingItem >= 0,
-                Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet)) Send(packet).Forget();
+                Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet, mining.Target, mining.HandHeight)) Send(packet).Forget();
             if (sampler.SelectedItem >= 0) SelectItem(sampler.SelectedItem).Forget();
         }
 

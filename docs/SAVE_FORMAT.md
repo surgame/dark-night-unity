@@ -1,21 +1,21 @@
-# Unity 世界存档 v20（地面基础玩法）
+# Unity 世界存档 v21（地面装备玩法）
 
-2026-10-07[地面基础玩法](GROUND_GAMEPLAY_BASELINE.md)使用v20／协议26，独立 `Saves/v20` 槽位；旧档保留且不迁移。已有JSON映射形状保留，基础会话拒绝NPC、工位、弹道、启用的装备效果、货物、任务、风险、探索计时、舱段和结算状态。只保留主角、飞船、库存／信用点及最终两层地图；星球本地飞行可保存。下面矿层初轮通过数属于v19历史产物。
+2026-10-07[地面基础玩法](GROUND_GAMEPLAY_BASELINE.md)使用v21／协议27，独立 `Saves/v21` 槽位；旧档保留且不迁移。已有JSON映射形状保留，基础会话允许合法装备动作／燃料／炸药数量、手持投射物及个人货袋；仍拒绝NPC、工位、旧箭矢、自动任务、风险、探索计时、船仓货物、舱段和结算状态。保留主角、飞船、库存／信用点和最终两层地图；星球本地飞行可保存。下面矿层初轮通过数属于v19历史产物。
 
 2026-10-05 [原生矿层](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)采用v19／协议25。`terrain.mineral_map`保存规则指纹及61440格最终矿种／耐久／储量的有界压缩载荷；初始静态矿床元数据另外压缩，旧`mineral_deposits`必须为空。最终空格覆盖初始矿格，解码及候选恢复严格校验，旧档保留且不自动迁移。全范围夹具完整717985字节，Editor受损／采空／无效恢复通过；当前同一Mono正常两人／四人及弱网两人的真实写盘、加载与重启恢复通过。
 
 版本演进见[项目摘要](archive/PROJECT_HISTORY.md)，架构来源见[迁移摘要](archive/MIGRATION_HISTORY.md)。当前矿层合同优先以[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)为准；下述通用会话合同需结合现行两层地图路径阅读。
 
-上述写盘／恢复数字属于矿层初轮产物。长槽位路径修复后的最终Mono矩阵尚未完成，状态见[开发执行计划](DEVELOPMENT.md)。当前入口仅接受v20，旧格式拒绝读取并保留旧文件。
+上述写盘／恢复数字属于矿层初轮产物。长槽位路径修复后的最终Mono矩阵尚未完成，状态见[开发执行计划](DEVELOPMENT.md)。当前入口仅接受v21，旧格式拒绝读取并保留旧文件。
 
 ## 文件合同
 
-无 BOM 的 UTF-8 JSON，上限 **4,000,000 字节**，解析深度32。v20根对象严格只有8个字段：
+无 BOM 的 UTF-8 JSON，上限 **4,000,000 字节**，解析深度32。v21根对象严格只有8个字段：
 
-| 字段 | v20合同 |
+| 字段 | v21合同 |
 |---|---|
 | format | dark-nights.world |
-| format_version | 整数20 |
+| format_version | 整数21 |
 | random_algorithm | SimulationRandom.Algorithm，当前为 godot-pcg32-clz-f32-v1 |
 | rules_sha256 | 实际只读 GameCatalog 的规范化 SHA-256 |
 | layout_sha256 | 实际场景导出 LevelLayout 的规范化 SHA-256 |
@@ -29,7 +29,7 @@ world 包含 level_id、terrain、expedition、economy、wave、elapsed、speed�
 
 actors 的运动与装备字段包括 height、vertical_speed、support_platform、ignored_platform、drop_remaining、manual_control、selected_item、selection_revision、jetpack_equipped、jetpack_fuel、explosive_charges；这不是当前 Actor 的完整字段清单。高度以原地面为零、向上为正；随机模板允许负高度至底部基岩顶面 -2416，支撑 0 表示权威地图支撑，-1 为空中；固定模板的正数表示场景平台 ID。支撑关系、范围、燃料和库存数量必须合法。
 
-正式v20的 `world.mineral_deposits` 必须为空。最终矿格数据来自 `terrain.mineral_map`；`terrain.deposits`是压缩的初始静态元数据，不能据它重新生成最终矿格。前景 `damage` 与矿层最终值分别保存，完整候选一起校验后替换。
+正式v21的 `world.mineral_deposits` 必须为空。最终矿格数据来自 `terrain.mineral_map`；`terrain.deposits`是压缩的初始静态元数据，不能据它重新生成最终矿格。前景 `damage` 与矿层最终值分别保存，完整候选一起校验后替换。
 
 文件不包含相机、选区、epoch、连接代次、FishNet 身份或房间共享策略；也不保存 ControllerSlot、ControllerGeneration、ControlLease、默认人物偏好、输入序号和按钮意图。恢复后的手动角色保留姿态、手动标记与装备；新 epoch 完整投影 Ready 后，服务端只接回这些已保存主角。连接仍记录的专属 ID 若指向不带手动标记的普通闲置村民，必须视为不可恢复并新建默认村民；旧连接所有权和输入不会恢复或重放。
 
@@ -37,13 +37,13 @@ actors 的运动与装备字段包括 height、vertical_speed、support_platform
 
 SaveContentFingerprint 直接使用本次会话的 GameCatalog 与经过校验的 LevelLayout。规则覆盖配置名称、说明、资源、单位／建筑／工位参数、关卡 seed 和有序波次；布局覆盖边界、地面、出生点与按出生顺序排列的放置记录，排除本地 CameraX。
 
-规则与布局使用二进制编码域 dark-nights.rules.v5／dark-nights.layout.v2，纳入 hero_control 和有序平台定义：小端整数、IEEE 754 float/double、UTF-8 字符串及显式集合长度。字典按 Ordinal Key 排序，布局和敌人序列保留顺序。这两个域标记描述摘要编码，当前格式版本为v20。
+规则与布局使用二进制编码域 dark-nights.rules.v5／dark-nights.layout.v2，纳入 hero_control 和有序平台定义：小端整数、IEEE 754 float/double、UTF-8 字符串及显式集合长度。字典按 Ordinal Key 排序，布局和敌人序列保留顺序。这两个域标记描述摘要编码，当前格式版本为v21。
 
-identity_sha256 对按 Ordinal 排序的 definitions／placements 对象做紧凑JSON UTF-8 SHA-256，值来自实际加载定义和场景放置关系；正式矿床不创建实体身份，旧动态矿床规则见[地形历史摘要](archive/TERRAIN_HISTORY.md)。`equipment_sha256`校验装备配置。新增格式字段或修改规范编码须明确升级合同。摘要用于内容一致性，不是文件签名，也不能替代协议26的完整握手摘要。
+identity_sha256 对按 Ordinal 排序的 definitions／placements 对象做紧凑JSON UTF-8 SHA-256，值来自实际加载定义和场景放置关系；正式矿床不创建实体身份，旧动态矿床规则见[地形历史摘要](archive/TERRAIN_HISTORY.md)。`equipment_sha256`校验装备配置。新增格式字段或修改规范编码须明确升级合同。摘要用于内容一致性，不是文件签名，也不能替代协议27的完整握手摘要。
 
 ## 保存与恢复顺序
 
-GameSaveStore注入专用目录与本局ObjectWorldSaveJson，构造无磁盘写入。正式入口使用独立v20子目录，提供槽位0–9，文件名为slot-00.dnsave.json至slot-09.dnsave.json；客户端不能提交任意文件路径。
+GameSaveStore注入专用目录与本局ObjectWorldSaveJson，构造无磁盘写入。正式入口使用独立v21子目录，提供槽位0–9，文件名为slot-00.dnsave.json至slot-09.dnsave.json；客户端不能提交任意文件路径。
 
 1. 权威端在模拟边界通过 ObjectSnapshotMapper 捕获全部 Behaviour State 的冻结副本。
 2. 后台 Save 校验并编码，写同目录唯一临时文件，Flush(true) 后关闭句柄。

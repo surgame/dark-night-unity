@@ -1,0 +1,371 @@
+{
+  "date": "2026-10-07",
+  "branch": "ref-20261007-ground-gameplay-baseline",
+  "base_commit": "013be064769eea499df497085bf51801a3b9864f",
+  "protocol": 27,
+  "save_version": 21,
+  "amp1_schema": 2,
+  "unity": "6000.4.9f1",
+  "yygc_modified": false,
+  "scope": [
+    "mining cursor/target/durability/range HUD",
+    "pickaxe swing and authorized harvest",
+    "pistol/bomb/handheld projectiles",
+    "usable jetpack"
+  ],
+  "bomb_choice": "Restore existing bomb operation chain; no new purchase item, price or amount",
+  "still_disabled": [
+    "NPC/automatic combat",
+    "threat spawning/risk",
+    "automatic logistics",
+    "unload/sale",
+    "ship upgrades",
+    "recall/settlement",
+    "camp operations"
+  ],
+  "compile": {
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "editor": {
+    "unique_passed": 53,
+    "failed": 0,
+    "cases": {
+      "DarkNights.Tests.GroundEquipmentTests.PickaxeDamagesGroundAndPersonalCargoRestoresWithoutRisk": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.460726"
+      },
+      "DarkNights.Tests.GroundEquipmentTests.PurchasedJetpackConsumesFuelAndAirborneStateRestores": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.163784"
+      },
+      "DarkNights.Tests.GroundEquipmentTests.PurchasedPistolFiresOnceAndProjectileRestoresAndExpires": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.165364"
+      },
+      "DarkNights.Tests.GroundEquipmentTests.SavedBombCanThrowRestoreExplodeAndRemainBounded": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.195335"
+      },
+      "DarkNights.Tests.GroundSessionTests.FourPlayersSpawnOutsideAndIdleWithoutOldGameplay": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.346391"
+      },
+      "DarkNights.Tests.GroundSessionTests.GroundShipCanTakeOffFlySaveAndLand": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.326460"
+      },
+      "DarkNights.Tests.GroundSessionTests.OldCommandsAndHeldUseCannotChangeGameplay": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.164340"
+      },
+      "DarkNights.Tests.GroundSessionTests.PurchaseInventoryCreditsAndUsableJetpackRestore": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.169913"
+      },
+      "DarkNights.Tests.HeroBombTests.GroundAdhesionAndFuseSurviveAtomicSaveRestore": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.143653"
+      },
+      "DarkNights.Tests.HeroBombTests.LongerChargeProducesHigherThrowSpeed": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.031103"
+      },
+      "DarkNights.Tests.HeroBombTests.SelectionAndPauseCancelCharge": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.029401"
+      },
+      "DarkNights.Tests.HeroBombTests.ThrowConsumesOneChargeAndEmptyInventoryCannotStartCharging": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.029775"
+      },
+      "DarkNights.Tests.HeroBombTests.TimeoutAndExplicitCancelNeverThrow": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.101854"
+      },
+      "DarkNights.Tests.HeroCombatTests.NonfiniteAimAndOtherConnectionCannotFire": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.029580"
+      },
+      "DarkNights.Tests.HeroCombatTests.RepeatedFireReusesBoundedSlotsAndRetiresExpiredShots": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.034341"
+      },
+      "DarkNights.Tests.HeroCombatTests.ShortClickHitsOnceAndDuplicateInputCannotFireAgain": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.041642"
+      },
+      "DarkNights.Tests.HeroInputSamplerTests.BlockedPressCannotLeakIntoRestoredControl": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.005898"
+      },
+      "DarkNights.Tests.HeroInputSamplerTests.DirectionChangeWithoutJumpStillWaitsForThirtyHertzInterval": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000357"
+      },
+      "DarkNights.Tests.HeroInputSamplerTests.ShortPressBypassesSendIntervalAndIsNotResentByHeartbeat": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000436"
+      },
+      "DarkNights.Tests.HeroRecoveryTests.AirborneRecoveryKeepsMotionAndEquipmentButReleasesOwnership": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.038390"
+      },
+      "DarkNights.Tests.HeroRecoveryTests.InvalidMotionOrFuelCannotReplaceCurrentWorld": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.021687"
+      },
+      "DarkNights.Tests.HeroRecoveryTests.NativeProjectionCarriesFrozenVerticalAndInventoryState": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.100461"
+      },
+      "DarkNights.Tests.MiningInputTests.BedrockCannotBeMined": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.074574"
+      },
+      "DarkNights.Tests.MiningInputTests.BeyondSharedReachForgedTargetCannotDamage": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.059265"
+      },
+      "DarkNights.Tests.MiningInputTests.CustomToolReachControlsSurfaceAndHit": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.101911"
+      },
+      "DarkNights.Tests.MiningInputTests.DisabledDepositForgedTargetCannotDamageOrReward": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.102587"
+      },
+      "DarkNights.Tests.MiningInputTests.EmptyCellHasNoEffectAndExplainsWhy": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.059696"
+      },
+      "DarkNights.Tests.MiningInputTests.HardRockCanBeDamaged": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.102748"
+      },
+      "DarkNights.Tests.MiningInputTests.MineralDepositClickDamagesBeforeHarvest": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.095383"
+      },
+      "DarkNights.Tests.MiningInputTests.OreClickDamagesBeforeReward": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.101430"
+      },
+      "DarkNights.Tests.MiningInputTests.PreviouslyPreviewOnlyWallCanBeDamaged": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.097991"
+      },
+      "DarkNights.Tests.MiningInputTests.ProtectedOreCanBeDamaged": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.101826"
+      },
+      "DarkNights.Tests.MiningInputTests.SharedReachBoundaryCanBeDamaged": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.060841"
+      },
+      "DarkNights.Tests.MiningInputTests.SoftRockClickDamagesOnlyTargetAndRejectsDuplicate": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.060984"
+      },
+      "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(-17,-42)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000318"
+      },
+      "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(0,0)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000084"
+      },
+      "DarkNights.Tests.MiningSelectorTests.CentersRoundTripToAuthorityCells(18,-80)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000076"
+      },
+      "DarkNights.Tests.MiningSelectorTests.DepositMiningRequirementsRoundTripAndFreeze(1)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.009935"
+      },
+      "DarkNights.Tests.MiningSelectorTests.DepositMiningRequirementsRoundTripAndFreeze(2)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000148"
+      },
+      "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(1,1.0f)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.018715"
+      },
+      "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(1,2.0f)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000952"
+      },
+      "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(2,1.0f)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.001300"
+      },
+      "DarkNights.Tests.MiningSelectorTests.GridHasBrightCenterAndFadedNonBlockingSurround(2,2.0f)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.001229"
+      },
+      "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(-8.01f,-1)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000322"
+      },
+      "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(-8.0f,0)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000094"
+      },
+      "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(7.99f,0)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000081"
+      },
+      "DarkNights.Tests.MiningSelectorTests.HorizontalEdgesUseCenteredCells(8.0f,1)": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000075"
+      },
+      "DarkNights.Tests.MiningSelectorTests.ReachIncludesBoundaryButNotNextCell": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000191"
+      },
+      "DarkNights.Tests.MiningSelectorTests.ReachIsFrozenAndChangesToolFingerprint": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000291"
+      },
+      "DarkNights.Tests.MiningSelectorTests.StandingBesideOrAboveCellUsesSurfaceReachInsteadOfCenter": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000170"
+      },
+      "DarkNights.Tests.MiningSelectorTests.ToolTargetsAndMaterialsAreFrozenAndFingerprintChanges": {
+        "result": "Passed",
+        "receipt": "equipment-restore-unit-r1",
+        "duration": "0.000377"
+      },
+      "DarkNights.Tests.ShipTradePlayTests.EquipmentRendersAndUsesRealInput": {
+        "result": "Passed",
+        "receipt": "equipment-restore-hint-r1",
+        "duration": "25.823802"
+      },
+      "DarkNights.Tests.ShipTradePlayTests.ShopRendersBuysAndReleasesInput": {
+        "result": "Passed",
+        "receipt": "equipment-restore-ui-r2",
+        "duration": "21.710783"
+      }
+    }
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 747,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "memory": {
+    "state": "completed",
+    "samples": 1799,
+    "peak_private_gib": 4.589870452880859,
+    "minimum_free_ram_gib": 11.164318084716797,
+    "minimum_free_commit_gib": 4.1123046875,
+    "limits": {
+      "editor_private_gib": 8,
+      "minimum_free_ram_gib": 6,
+      "minimum_free_commit_gib": 4
+    }
+  },
+  "failures_retained": [
+    "compile-status-r1.json",
+    "compile-status-r3.json",
+    "artifacts/terrain-final-20260926/equipment-restore-ui-r1.xml"
+  ],
+  "ui_first_failure": "The mining probe changed the route back to the shop. Separate fresh-session equipment and shop tests passed.",
+  "player_build": {
+    "performed": false,
+    "reason": "Limited commit headroom after prior OOM incidents; no high-memory build started"
+  },
+  "independent_player_network": {
+    "performed": false,
+    "pending": [
+      "Mono 2/4 players",
+      "normal/weak network"
+    ]
+  },
+  "il2cpp": {
+    "performed": false,
+    "reason": "Requires explicit backend authorization"
+  },
+  "presentation": [
+    "artifacts/equipment-restore-20261007/presentation/mining-cursor.png",
+    "artifacts/equipment-restore-20261007/presentation/shop-1280x800.png",
+    "artifacts/equipment-restore-20261007/presentation/shop-1600x900.png",
+    "artifacts/equipment-restore-20261007/presentation/shop-1920x1080.png"
+  ],
+  "source_sha256": {
+    "Game/Assets/DarkNights/Res/UI/ShipEquipment/ShipEquipment.uxml": "7e4a6b803f58f70f3ca021f6a5fa8236e83770f79d196803ad7e41470f6ab044",
+    "Game/Assets/DarkNights/Scripts/Core/Save/ExpeditionValidator.cs": "d9456a0f16fd59758e45155903f099da980f374181186838ed1bcfa862a1ca23",
+    "Game/Assets/DarkNights/Scripts/Core/Save/SessionSnapshot.cs": "9d093af21ba9c430b5fed66e0038ae37b776e2057e8a71ae6facb2648a346eff",
+    "Game/Assets/DarkNights/Scripts/Core/Save/SnapshotValidator.cs": "28f3ae6412531ee0ad7769bccf5c868d4a6802e4c3bb7a309ef6d7d16d9bb224",
+    "Game/Assets/DarkNights/Scripts/Entry/HeroMiningPointer.cs": "0a80fbf68a4204854cb58d2c1e1f82a6b03b7cf246dc6e107294d575e582b1f4",
+    "Game/Assets/DarkNights/Scripts/Entry/HeroPlayerController.cs": "2bb34c328f92a7dbcbca3f47823648fc76327ac980b3ce93182ee35253aa9cdb",
+    "Game/Assets/DarkNights/Scripts/Entry/ShipEquipmentPanel.cs": "3d768d523a1f676d6d07b48f8df9059e91dc6f277689e4d4994c166c34ac87d0",
+    "Game/Assets/DarkNights/Scripts/Entry/ShipTradeHud.cs": "3ee02c701282e4614187a2257729d9da3823d435908ea83b5942400015e0e431",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionCargo.cs": "b61579d5b620d50ed3fea4ff1369d227bc6832e6532eac82b427e7accdf1eacc",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs": "eae138058ff0d0c1e0e80686e64ec62bd3379f8ff14bc99e96e201a782045447",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroControlBehaviour.cs": "bbd1e053bca72482bf80dbfe466f5e2a407e0a17be1e372206abbfc5f59a58ae",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs": "58cdd91ba78e556622079e4812cd66ded27d338d246186c72004466b046e3ac4",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipRampTransition.cs": "294e2150885950b08a8de1d8817ded53ba0c20e3326ee0a006a3acef02eb8425",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipTradeService.cs": "ec31712e7fc0b7576802b2558d6075eec5535c17c339fcf0d726fc971acbc030",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs": "c4e55b3ee6b64eac690daadb60ffbdb749e10491e5c7bfd3c0622c309c5476a7",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs": "c6890db4b57b68712cae72feb49e83493f33fd4599dc4243c33d28031ccb2b19",
+    "Game/Assets/DarkNights/Scripts/Tests/EquipmentInputPlayProbe.cs": "60bcbddb0bbca0d9f56b99c60a5e459af244aeca7f7a2829e2bf8319f83817e9",
+    "Game/Assets/DarkNights/Scripts/Tests/GroundEquipmentTests.cs": "0b85cfe120f4ae8cc634cf6e3d3907bfec232fa2029276e0e54d8aa5852107c4",
+    "Game/Assets/DarkNights/Scripts/Tests/GroundSessionTests.cs": "300d61a7228322502939dd2edc6735a87770a46146fd5245903f16e374833199",
+    "Game/Assets/DarkNights/Scripts/Tests/ShipTradePlayTests.cs": "0d9b601335bfc7620e34b9b850341bd976cc723ce58d39ef0b5ea153605a57db",
+    "tools/ground-baseline/test_network.py": "2d7ddfaca6b192147fcc66d4f757831838e8136504bc6a824552634dba4464bc"
+  }
+}

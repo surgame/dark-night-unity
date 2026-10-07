@@ -51,7 +51,7 @@ namespace DarkNights.Runtime.Objects
             var motion = owner.Object.GetBehaviour<HeroMotionBehaviour>() ??
                 throw new InvalidOperationException("Boarded actor is missing hero motion capability.");
             motion.Tick(delta, false, false, actor.JumpHeld, inputPrepared: true);
-            actor.JetpackFuel = 0;
+            HeroEquipment.Tick(owner, delta);
             leftCabin = true;
             return true;
         }

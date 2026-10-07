@@ -74,9 +74,8 @@ namespace DarkNights.Runtime.Objects
             var edited = hero.Edit();
             if (item.Jetpack)
             {
-                edited.JetpackOwned = true;
-                edited.JetpackEquipped = false;
-                edited.JetpackFuel = 0;
+                edited.JetpackOwned = edited.JetpackEquipped = true;
+                edited.JetpackFuel = world.Catalog.Balance.HeroControl.FuelSeconds;
                 edited.InventoryRevision = checked(edited.InventoryRevision + 1);
             }
             else if (!HeroInventoryBehaviour.Give(edited, definition.Guid.ToString()))

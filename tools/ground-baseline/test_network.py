@@ -43,8 +43,8 @@ class GroundRun(NetworkRun):
         self.record("duplicate purchase does not charge twice", world(self.ready("host"))["Camp"]["Credits"] == balance - 14)
         for role in self.roles:
             r = self.ready(role)
-            self.record(role + " jetpack effect remains disabled", all(not a["JetpackEquipped"] and
-                        a["JetpackFuel"] == 0 for a in world(r)["Actors"]))
+            self.record(role + " purchased jetpack is usable", all(a["JetpackEquipped"] == a["JetpackOwned"] and
+                        (a["JetpackFuel"] > 0 if a["JetpackOwned"] else a["JetpackFuel"] == 0) for a in world(r)["Actors"]))
         for command in ("depart", "unload", "board", "recall", "launch", "emergency", "robot", "cargo", "crew", "mine", "resupply", "deploy"):
             self.personal(self.driver, command, "InvalidRequest", "retired " + command + " rejected")
         for operation in ("Recruit", "StartNight", "SelectDestination", "CancelJourney", "SellCarriedOre", "UseHeroItem"):
@@ -56,7 +56,7 @@ class GroundRun(NetworkRun):
         time.sleep(1.5)
         for role in self.roles:
             self.send(role, operation="input-stop")
-        self.assert_baseline("held use has no combat or rewards")
+        self.assert_baseline("held empty-target pickaxe does not enable old expedition gameplay")
         self.capture("ground-baseline")
 
     def buy(self, role, key):
@@ -146,7 +146,7 @@ def main():
     args.interactive = False
     args.keep_open = None
     args.keep_seconds = 3600
-    args.save_version = 20
+    args.save_version = 21
     args.output_root = Path(__file__).resolve().parents[2] / "artifacts/ground-baseline-20261007"
     args.phase_hook = False
     args.skip_restarts = False

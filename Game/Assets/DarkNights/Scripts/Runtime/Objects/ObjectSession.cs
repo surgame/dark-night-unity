@@ -235,6 +235,7 @@ namespace DarkNights.Runtime.Objects
                     if (Camp.Read().Mode != SessionMode.Playing) return true;
                     actor.Tick(delta);
                 }
+                Projectiles.Tick(delta);
                 return true;
             });
         }

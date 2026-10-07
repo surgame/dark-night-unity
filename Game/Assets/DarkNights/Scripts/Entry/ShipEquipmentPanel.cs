@@ -59,7 +59,7 @@ namespace DarkNights.Entry
             ShipTradeDefinition prices, string interaction, bool active)
         {
             Root.style.display = active ? DisplayStyle.Flex : DisplayStyle.None;
-            credits.OnNext("信用点 " + balance + "  ·  装备库存");
+            credits.OnNext("信用点 " + balance + "  ·  货袋 铁 " + iron + " / 金 " + gold);
             hint.OnNext(interaction);
             int[] items = { actor?.Slot0 ?? 0, actor?.Slot1 ?? 0, actor?.Slot2 ?? 0, actor?.Slot3 ?? 0 };
             for (int i = 0; i < slots.Length; i++)
@@ -68,7 +68,7 @@ namespace DarkNights.Entry
                 slots[i].OnNext((actor?.SelectedItem == i ? "▶ " : "") + (i + 1) + "  " + name);
             }
             bool owned = actor?.JetpackOwned == true;
-            jetpack.text = owned ? "喷气背包 · 已购买（暂未开放使用）" : "喷气背包 · 未购买";
+            jetpack.text = owned ? "喷气背包" : "喷气背包 · 未购买";
             float ratio = owned && fuelCapacity > 0 ? Mathf.Clamp01((float)(actor.JetpackFuel / fuelCapacity)) : 0;
             for (int i = 0; i < fuelTicks.Length; i++)
                 fuelTicks[i].style.opacity = owned && i < Mathf.CeilToInt(ratio * fuelTicks.Length) ? 1f : .18f;

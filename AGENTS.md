@@ -1,6 +1,6 @@
 # Dark Nights Unity 开发约定
 
-2026-10-07 地面玩法收敛候选为 `ref-20261007-ground-gameplay-baseline`，协议26／存档v20／AMP1 schema2；直接地面开局，保留购买、驾驶／起飞／降落，其余玩法暂退正式运行。F10验证发生两次中文缺字警告自反馈OOM，已由游戏侧有界日志与运行时中文回退修复；详见[玩法范围](docs/GROUND_GAMEPLAY_BASELINE.md)和[事故记录](docs/UNITY_MEMORY_INCIDENT_20261007.md)。本候选Editor结果不能借用旧Player联机计数，YYGC未修改／升级。
+2026-10-07 地面玩法收敛候选为 `ref-20261007-ground-gameplay-baseline`，现按用户追加确认保留矿镐光标／提示、挥镐采集与收益、手枪／爆破／手持投射物和喷气背包的可操作入口；协议27／存档v21／AMP1 schema2。炸药只恢复已有道具操作链，不新增购买商品或价格。直接地面开局、购买、驾驶／起飞／降落继续保留；NPC、警戒刷怪、物流、出售、升级、远征结算和营地修改仍暂停。F10的缺字反馈OOM已由有界日志和中文回退修复，独立内存门控继续适用。见[玩法范围](docs/GROUND_GAMEPLAY_BASELINE.md)和[事故记录](docs/UNITY_MEMORY_INCIDENT_20261007.md)。新候选不能借用旧Player联机计数，YYGC未修改／升级。
 
 2026-10-07 按用户要求将 `ft-20261006-terrain-debug-integration` 合入本地 `main`，包含地形网格调试整合、工作台双网格与快捷键、草稿保存及Modifier启停展示。保留本地已保存的 `WorldSession` 入口走道Modifier关闭配置，核对托管引用完整，除该开关外配置语义不变。既有Editor及画面证据见[执行状态](docs/DEVELOPMENT.md)；本次合并未重跑Unity或构建Player，不增加验收结论。协议25／存档v19／AMP1 schema2不变，既有获批YYGC补丁随分支集成，本次未新增框架修改／升级。
 

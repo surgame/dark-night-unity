@@ -6,7 +6,7 @@ using DarkNights.Core.Logic.Terrain;
 namespace DarkNights.Runtime.Objects
 {
     /// <summary>
-    /// 地面会话的主角与飞船调度入口；经济、NPC、警戒、设备及返航结算已退出运行。
+    /// 地面会话的主角、手持投射物与飞船调度入口；经济、NPC、警戒、设备及返航结算已退出运行。
     /// 保留规则和船体引用供购买及驾驶复用，持久状态仍归原有 YYGC Behaviour。
     /// </summary>
     public sealed class ExpeditionOperations
@@ -29,6 +29,7 @@ namespace DarkNights.Runtime.Objects
                 world.Ship.Tick(delta);
                 foreach (var actor in world.Index.Actors.Where(a => a.Read().ManualControl).ToArray())
                     actor.Tick(delta);
+                world.Projectiles.Tick(delta);
                 return true;
             });
         }
