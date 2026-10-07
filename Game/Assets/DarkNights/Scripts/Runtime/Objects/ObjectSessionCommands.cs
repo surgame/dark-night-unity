@@ -13,6 +13,7 @@ namespace DarkNights.Runtime.Objects
     {
         internal static bool Valid(ObjectSession session, SessionRequest request)
         {
+            if (SessionDeveloperOperations.IsOperation(request.Operation)) return SessionDeveloperOperations.ValidShape(request);
             if (request.Operation is SessionOperation.IssueOrders or SessionOperation.PlaceBuilding or
                 SessionOperation.TrainActors or SessionOperation.Recruit or SessionOperation.Repair or SessionOperation.StartNight or
                 SessionOperation.SelectDestination or SessionOperation.CancelJourney or SessionOperation.SellCarriedOre or
@@ -65,6 +66,9 @@ namespace DarkNights.Runtime.Objects
         internal static int Apply(ObjectSession session, SessionRequest request, out int id)
         {
             id = 0;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (SessionDeveloperOperations.IsOperation(request.Operation)) return session.Developer.Apply(request, out id);
+#endif
             switch (request.Operation)
             {
                 case SessionOperation.IssueOrders:

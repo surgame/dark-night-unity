@@ -1,0 +1,38 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="Objects.uss" />
+    <ui:VisualElement name="objectsRoot" class="dn-objects-panel">
+        <ui:VisualElement class="dn-objects-toolbar">
+            <ui:TextField name="search" label="搜索" class="dn-objects-search" />
+            <ui:DropdownField name="target" label="目标" class="dn-objects-target" />
+            <ui:Toggle name="godMode" label="上帝模式" />
+        </ui:VisualElement>
+        <ui:ListView name="objectGrid" class="dn-objects-grid" />
+        <ui:Label name="definitionCount" class="rdh-muted" />
+        <ui:VisualElement class="dn-objects-selection">
+            <ui:VisualElement class="dn-objects-selected-info">
+                <ui:Label name="selectedName" />
+                <ui:Label name="selectedKey" class="rdh-muted" />
+                <ui:Label name="selectedStatus" class="rdh-muted" />
+            </ui:VisualElement>
+            <ui:IntegerField name="quantity" label="数量" value="1" class="dn-objects-quantity" />
+            <ui:DropdownField name="instance" class="dn-objects-instance" />
+            <ui:Button name="addObject" class="rdh-primary" text="添加" />
+            <ui:Button name="removeObject" class="rdh-danger" text="移除" />
+        </ui:VisualElement>
+        <ui:VisualElement class="dn-objects-equipment-title">
+            <ui:Label text="持有装备" />
+            <ui:Label name="equipmentTarget" class="rdh-muted" />
+        </ui:VisualElement>
+        <ui:VisualElement class="dn-objects-slots">
+            <ui:VisualElement class="dn-objects-slot"><ui:Label text="槽位 1" class="rdh-muted" /><ui:Label name="slot0" text="空槽位" /><ui:Button name="removeSlot0" class="rdh-danger" text="移除" /></ui:VisualElement>
+            <ui:VisualElement class="dn-objects-slot"><ui:Label text="槽位 2" class="rdh-muted" /><ui:Label name="slot1" text="空槽位" /><ui:Button name="removeSlot1" class="rdh-danger" text="移除" /></ui:VisualElement>
+            <ui:VisualElement class="dn-objects-slot"><ui:Label text="槽位 3" class="rdh-muted" /><ui:Label name="slot2" text="空槽位" /><ui:Button name="removeSlot2" class="rdh-danger" text="移除" /></ui:VisualElement>
+            <ui:VisualElement class="dn-objects-slot"><ui:Label text="槽位 4" class="rdh-muted" /><ui:Label name="slot3" text="空槽位" /><ui:Button name="removeSlot3" class="rdh-danger" text="移除" /></ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement class="dn-objects-jetpack">
+            <ui:Label text="喷气背包" /><ui:Label name="jetpackStatus" class="rdh-muted" />
+            <ui:Button name="removeJetpack" class="rdh-danger" text="移除" />
+        </ui:VisualElement>
+        <ui:Foldout text="最近操作"><ui:Label name="recentActions" class="rdh-muted" /></ui:Foldout>
+    </ui:VisualElement>
+</ui:UXML>

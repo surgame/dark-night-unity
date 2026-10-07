@@ -58,6 +58,11 @@ namespace DarkNights.Runtime.Objects
         public ExpeditionDevices ExpeditionDevices { get; }
         public ExpeditionThreat ExpeditionThreat { get; }
         internal ShipTradeService Trade { get; }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        internal ObjectDeveloperControl Developer { get; }
+        /// <summary>Host 调试 UI 的只读权限查询；不泄露任何玩法状态，加载后的新 epoch 自动失效。</summary>
+        public bool DeveloperModeEnabled(int epoch) => Developer.EnabledFor(epoch);
+#endif
         public bool Paused => Camp.Read().Paused;
         public int Speed => Camp.Read().Speed;
         public double Elapsed => Camp.Read().Elapsed;
@@ -90,6 +95,9 @@ namespace DarkNights.Runtime.Objects
             ExpeditionDevices = new ExpeditionDevices(this);
             ExpeditionThreat = new ExpeditionThreat(this);
             Trade = new ShipTradeService(this);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Developer = new ObjectDeveloperControl(this);
+#endif
         }
 
         public void Prepare(ObjectInstance sessionOwner, IReadOnlyList<ObjectPlacement> placements, QuickTestPreset quickTest = null)

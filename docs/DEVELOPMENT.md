@@ -1,5 +1,7 @@
 # Dark Nights Unity 开发执行计划
 
+2026-10-08：`ref-20261008-runtime-debug-hub-uitk` 隔离候选完成 UITK Debug Hub、物体网格、原持有装备区与房主免付费事务。候选协议29／存档v21／AMP1 schema2；与手电筒候选协议28区分。本批仅静态编译和源码合同核验，无 Unity 导入、Play、测试运行或 Player；未合入 Local/main。见[实现记录](RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md)与[面板规范](RUNTIME_DEBUG_HUB_SPEC.md)。
+
 2026-10-07，当前地面基础玩法候选为 `ref-20261007-ground-gameplay-baseline`，协议 **27**／存档 **v21**／AMP1 schema **2**，Editor **6000.4.9f1**。原生矿层及地形调试此前已集成本地main。早期迁移、M0–M6及历次实现已整合为[项目演进摘要](archive/PROJECT_HISTORY.md)，完整原文从整理回执所列Git基线恢复。
 
 本次集成保存了工作区已有的 `WorldSession.asset` 入口走道Modifier关闭配置。托管引用4项完整，核对除 `EntranceWalkwayModifierConfig.Enabled` 从1变0外配置数据不变，引用ID与顺序变化来自已有序列化结果。本次只做Git集成、差异和引用核对，沿用下方原批次证据；未重跑Unity、构建Player或新增联机验收结论。

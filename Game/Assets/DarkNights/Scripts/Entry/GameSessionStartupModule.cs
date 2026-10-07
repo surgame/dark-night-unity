@@ -86,6 +86,10 @@ namespace DarkNights.Entry
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiStarted");
             await ui.Initialize(network, catalog, stage, entities, layout.Expedition);
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiReady");
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            DebugObjectHub.Install(network);
+            QuickTestHub.Install(network, ui, layout.Expedition);
+#endif
             ConsoleSystem console = UnityEngine.Object.FindAnyObjectByType<ConsoleSystem>();
             if (console != null)
             {

@@ -71,15 +71,8 @@ namespace DarkNights.Runtime.Objects
             if (item.Jetpack ? state.JetpackOwned :
                 Enumerable.Range(0, 4).Any(slot => HeroInventoryBehaviour.Slot(state, slot) == definition.Guid.ToString())) return 0;
             if (!item.Jetpack && state.Slot0 != "" && state.Slot1 != "" && state.Slot2 != "" && state.Slot3 != "") return 0;
-            var edited = hero.Edit();
-            if (item.Jetpack)
-            {
-                edited.JetpackOwned = edited.JetpackEquipped = true;
-                edited.JetpackFuel = world.Catalog.Balance.HeroControl.FuelSeconds;
-                edited.InventoryRevision = checked(edited.InventoryRevision + 1);
-            }
-            else if (!HeroInventoryBehaviour.Give(edited, definition.Guid.ToString()))
-                throw new InvalidOperationException("已验证的装备槽写入失败。");
+            if (!HeroInventoryTransactions.Give(world, hero, definition))
+                throw new InvalidOperationException("已验证的装备写入失败。");
             world.Economy.Edit().Credits = balance - price;
             world.Notify("已购买 " + definition.Name + "。");
             return 1;
