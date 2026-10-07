@@ -1,5 +1,7 @@
 # Smart Console 与游戏日志
 
+2026-10-07：消息和横幅继续只写入Console，但统一使用Gameplay／Info。`PresentationEvent.Warning`表示玩家需要注意的游戏事件，只选择橙色`#F2B66D`；普通消息和横幅为青蓝色`#83CBEA`。例如“开采声引来了洞穴游荡者。”是正常玩法提醒，不再触发Unity／Smart Console的Warning分类。颜色通过现有富文本显示，不修改YYGC或插件分类配置；寻路诊断等真正运行警告保留原等级。本次编译0错误／0警告，临时Editor预览场景中核验真实HUD入口的三种消息均为Log、Smart Console消息Prefab的实际字形颜色正确、HUD容器隐藏；运行Play探针未完成，不能计作正式游戏Play或Player验收。结果在`artifacts/game-notice-logging-20261007/`，中间探针统一归档到待清理目录。
+
 2026-09-29 后续调整：远征常驻按钮块已移入 **F1 → 远征** 调试页，正式驾驶台改为 E 交互；Smart Console 仍用 F10。[最新入口](archive/RUNTIME_DEBUG_HUB.md)。
 
 2026-09-29 更新：消息和横幅仅写入 YYLogger → Smart Console，不再同时弹出 HUD。连接状态、Session 提示、航程确认／超时、主角操作反馈和改键结果也写入日志；按值变化记录的状态不逐帧刷屏。F10 开关不变。沿用 `SC.Prefs.asset` 的分类色：普通日志灰白，Warning 黄色，Error／Exception 红色，命令蓝色。正式远征操作面板及库存、阶段、操作说明仍是主流程界面，不属于消息日志。后续选择性恢复横幅时，应在现有冻结 `PresentationEvent` 消费入口实施筛选。本批验证见[修复记录](archive/SESSION_INPUT_FEEDBACK.md)。

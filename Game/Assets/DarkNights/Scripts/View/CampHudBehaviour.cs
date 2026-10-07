@@ -82,10 +82,11 @@ namespace DarkNights.View
             toastPanel.gameObject.SetActive(false);
         }
 
+        /// <summary>将玩家提示记为 Info；warning 只选择游戏提醒的橙色，不代表运行诊断警告。</summary>
         public void ShowMessage(string value, bool warning = true, double remaining = 5)
         {
-            if (warning) YYLogger.LogWarning("界面提示: " + value, LoggingChannel.Gameplay);
-            else YYLogger.LogInfo("界面提示: " + value, LoggingChannel.Gameplay);
+            string color = warning ? "F2B66D" : "83CBEA";
+            YYLogger.LogInfo($"<color=#{color}>界面提示: {value}</color>", LoggingChannel.Gameplay);
             ResetMessages();
         }
 
@@ -99,7 +100,7 @@ namespace DarkNights.View
             if (value.Type == "message") ShowMessage(value.Text, value.Warning, Math.Max(0, 5 - age));
             else if (value.Type == "banner")
             {
-                YYLogger.LogInfo("会话横幅: " + value.Text + " · " + value.Detail, LoggingChannel.Gameplay);
+                YYLogger.LogInfo($"<color=#83CBEA>会话横幅: {value.Text} · {value.Detail}</color>", LoggingChannel.Gameplay);
                 ResetMessages();
             }
         }

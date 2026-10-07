@@ -118,9 +118,9 @@ namespace DarkNights.Tests
             var hud = (DarkNights.View.CampHudBehaviour)typeof(SessionUiController).GetField("hud",
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(ui);
             Assert.That(hud, Is.Not.Null);
-            LogAssert.Expect(LogType.Warning, "[Gameplay] 界面提示: SESSION_FEEDBACK_WARNING_TEST");
+            LogAssert.Expect(LogType.Log, "[Gameplay] <color=#F2B66D>界面提示: SESSION_FEEDBACK_WARNING_TEST</color>");
             hud.ShowMessage("SESSION_FEEDBACK_WARNING_TEST");
-            LogAssert.Expect(LogType.Log, "[Gameplay] 会话横幅: SESSION_BANNER_TEST · detail");
+            LogAssert.Expect(LogType.Log, "[Gameplay] <color=#83CBEA>会话横幅: SESSION_BANNER_TEST · detail</color>");
             hud.PresentEvent(new DarkNights.Core.ViewData.PresentationEvent(1, 0, "banner", "SESSION_BANNER_TEST", "detail"), 0);
             await UniTask.Yield();
             var toast = typeof(DarkNights.View.CampHudBehaviour).GetField("toastPanel",

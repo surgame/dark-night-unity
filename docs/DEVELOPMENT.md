@@ -6,6 +6,8 @@
 
 ## 当前实现
 
+2026-10-07 游戏消息日志修复：将HUD消息及横幅的游戏提醒标记与日志等级分开，统一Gameplay／Info；危险提醒用橙色、普通信息和横幅用青蓝色，Console输出与隐藏HUD容器的合同保持。编译0错误／0警告，临时Editor预览场景核验三个实际HUD调用、Log类型及Smart Console消息Prefab字形颜色通过；Play探针未完成，不增加正式Play、Player或联机验收结论。见[日志记录](SMART_CONSOLE_INTEGRATION.md)。协议25／存档v19／AMP1 schema2与YYGC保持。
+
 2026-10-07 已整理 [F1游戏逻辑清单与移除评估](F1_GAMEPLAY_INVENTORY.md)，覆盖正式远征页16个操作、面板背后的自动玩法、旧营地依赖，以及逐项添加内容所需的最小基线。当前仅完成清单与建议，尚未移除玩法，保留范围待决定；本批未运行Unity、测试或Player构建，协议25／存档v19／AMP1 schema2和YYGC依赖不变。
 
 2026-10-07 Bootstrap启动修复位于 `fix-20261007-bootstrap-preload`：现有UniTask并发预加载对象与六个UGUI模板，实例装配顺序保持；失败／取消等待全部请求收尾并释放晚成功租约。相同0.1秒模拟延迟下，Editor进入Play至首次菜单Canvas渲染准备三次均值6.114秒→3.318秒，减少2.797秒（约45.7%）；CPU渲染边界及热缓存条件见[实施记录](BOOTSTRAP_STARTUP_OPTIMIZATION.md)。定向Editor50/50、架构741／16／0、正式菜单帮助与Host Ready、退出残留0通过；YYGC、依赖、场景与人工资产未改，没有新增Player或联机矩阵结论。
