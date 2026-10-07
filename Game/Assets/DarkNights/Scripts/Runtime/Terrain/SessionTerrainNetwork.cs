@@ -75,7 +75,7 @@ namespace DarkNights.Runtime.Terrain
         public SessionTerrainNetwork(NetworkManager manager, SessionNetwork network, ARDMapDefinition definition, bool expedition = false, string styleIdentity = "")
         {
             this.expedition = expedition;
-            if (expedition) SelectionStatus = "太空远征 · 进入船舱后在驾驶台选择星球";
+            if (expedition) SelectionStatus = "星球地面 · 开局直接进入地面地图";
             this.manager = manager; this.network = network;
             this.definition = definition; rules = TerrainProfileConfig.Resolve().Freeze(definition);
             gameplay = rules.Business.Gameplay; using (var hash = System.Security.Cryptography.SHA256.Create())
@@ -100,20 +100,18 @@ namespace DarkNights.Runtime.Terrain
             var watch = Stopwatch.StartNew();
             var flow = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")
                 .SharedConfigs.Find(c => c is DarkNights.Runtime.Objects.ExpeditionFlowConfig) as DarkNights.Runtime.Objects.ExpeditionFlowConfig;
-            bool orbit = expedition && flow?.Enabled == true && quickTest == null;
             var caveMap = expedition ? flow?.FreezeCaveMap() ?? throw new InvalidOperationException("远征缺少共用洞穴地图配置。") : null;
-            var groundPlanet = expedition && !orbit ? quickTest?.Planet ?? flow.PreviewPlanet() : null;
-            var terrainModifiers = expedition && !orbit ? flow.FreezeModifiers() : null;
-            generation = Task.Run(() => orbit ? PlanetTerrainGenerator.Space(id) :
-                expedition ? PlanetTerrainGenerator.GenerateCandidate(groundPlanet, seed, id, caveMap,
+            var groundPlanet = expedition ? quickTest?.Planet ?? flow.PreviewPlanet() : null;
+            if (quickTest == null && !string.IsNullOrEmpty(groundPlanet?.Seed)) seed = groundPlanet.Seed;
+            var terrainModifiers = expedition ? flow.FreezeModifiers() : null;
+            generation = Task.Run(() => expedition ? PlanetTerrainGenerator.GenerateCandidate(groundPlanet, seed, id, caveMap,
                     pipeline: terrainModifiers) : PlayableTerrainGenerator.Generate(seed, id));
             try
             {
                 var result = await generation;
                 if (disposed || version != selectionVersion) throw new OperationCanceledException("地图生成已取消。");
                 selected = result; selectedPresetId = quickTest?.Id ?? ""; GenerationMilliseconds = watch.ElapsedMilliseconds;
-                SelectionStatus = orbit ? "太空船舱已准备 · 开房后靠近驾驶台选择星球" :
-                    "已选择" + (expedition ? "洞穴远征" : "灰松谷") + " · 种子 " + seed.Substring(0, Math.Min(12, seed.Length)) + " · 点击地图可重新生成";
+                SelectionStatus = "已选择" + (expedition ? "星球地面" : "灰松谷") + " · 种子 " + seed.Substring(0, Math.Min(12, seed.Length)) + " · 点击地图可重新生成";
                 UnityEngine.Debug.Log("DARK_NIGHTS_MAP_GENERATED seed=" + seed + " milliseconds=" + GenerationMilliseconds);
             }
             finally { generation = null; }

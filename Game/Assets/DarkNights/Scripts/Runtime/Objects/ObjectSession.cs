@@ -138,6 +138,11 @@ namespace DarkNights.Runtime.Objects
                 entity.Object.Activate();
                 entity.Object.gameObject.SetActive(true);
             }
+            if (IsExpedition && Flow.Enabled && Terrain.Seed != Core.Logic.Terrain.PlanetTerrainGenerator.SpaceSeed)
+            {
+                Mutations.Run(() => { GroundSessionSetup.Prepare(this); return true; });
+                persistence.CaptureInitial();
+            }
             if (quickTest != null)
             {
                 Mutations.Run(() => { quickTest.Apply(this); return true; });
@@ -225,16 +230,11 @@ namespace DarkNights.Runtime.Objects
             Mutations.Run(() =>
             {
                 double delta = Camp.BeginStep(seconds);
-                Economy.Tick(delta);
-                foreach (BuildingBehaviour building in Index.Buildings.ToArray()) building.Tick(delta);
-                foreach (ActorBehaviour actor in Index.Actors.ToArray())
+                foreach (ActorBehaviour actor in Index.Actors.Where(a => a.Read().ManualControl).ToArray())
                 {
                     if (Camp.Read().Mode != SessionMode.Playing) return true;
                     actor.Tick(delta);
                 }
-                foreach (WorksiteBehaviour site in Index.Worksites.ToArray()) site.Tick(delta);
-                Projectiles.Tick(delta);
-                if (Camp.Read().Mode == SessionMode.Playing) Waves.Tick(delta);
                 return true;
             });
         }

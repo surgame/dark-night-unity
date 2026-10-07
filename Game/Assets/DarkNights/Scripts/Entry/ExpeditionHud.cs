@@ -25,7 +25,6 @@ namespace DarkNights.Entry
         private long journeySequence;
         private CommandFeedback earlyFeedback;
         private float requestTime;
-        private float emergencyConfirmation = -1;
         private string lastJourneyError = "";
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         private ExpeditionDebugPanel debugPanel;
@@ -95,32 +94,10 @@ namespace DarkNights.Entry
                 { picker.Open(); return; }
                 if (journey?.Enabled == true && operation == "cancel-flight" && journey.Phase == JourneyPhase.Preparing)
                 { SendJourney(true, journey.PlanetId); return; }
-                if (operation == "emergency" && Time.unscaledTime > emergencyConfirmation)
-                {
-                    emergencyConfirmation = Time.unscaledTime + 4;
-                    YYLogger.LogWarning("再次点击紧急起飞确认损失；4 秒后取消确认。", LoggingChannel.Gameplay);
-                    return;
-                }
-                emergencyConfirmation = -1;
-                bool personal = operation is "unload" or "board" or "mine" or "pilot" or "takeoff" or "land" or "cancel-flight" or "deploy";
+                if (operation is not ("pilot" or "takeoff" or "land" or "cancel-flight")) return;
                 var actor = frame.World.Actors.FirstOrDefault(a => a.ControllerSlot == client.PlayerSlot);
-                int target = 0;
-                var minerals = network.Terrain?.Minerals;
-                if (operation == "mine" && actor != null && minerals?.DataReady == true)
-                {
-                    double nearest = double.MaxValue;
-                    var region = minerals.Region;
-                    for (int v = region.MinV; v < region.MaxVExclusive; v++) for (int u = region.MinU; u < region.MaxUExclusive; u++)
-                    {
-                        var cell = new AnyRules.Next.CellCoord(u, v);
-                        if (!minerals.Replica.Read(cell).TryGetCell(out var ore) || ore.IsEmpty ||
-                            !network.Terrain.Replica.Read(cell).TryGetCell(out var wall) || !wall.IsEmpty) continue;
-                        double distance = Math.Abs((u + .5f) * 16 - actor.X) + Math.Abs(632 + (v - .5f) * 16 - actor.Height);
-                        if (distance < nearest) { nearest = distance; target = DarkNights.Core.Config.Terrain.MineralTaskTarget.Encode(u, v); }
-                    }
-                }
-                await client.Send(SessionOperation.Expedition, personal && actor != null ? new[] { actor.Id } : null,
-                    target: target, kind: operation, controlLease: personal ? actor?.ControlLease ?? 0 : 0);
+                if (actor == null) return;
+                await client.Send(SessionOperation.Expedition, new[] { actor.Id }, kind: operation, controlLease: actor.ControlLease);
             }
             catch (Exception e) { Debug.LogException(e); }
         }
@@ -183,7 +160,7 @@ namespace DarkNights.Entry
             private readonly Action<string> submit;
             private YYInteractionSessionHandle modal;
             private Vector2 scroll;
-            public string Title => "远征";
+            public string Title => "飞船";
             public int SortOrder => 200;
 
             internal ExpeditionDebugPanel(ExpeditionPanel source, Action<string> submit)

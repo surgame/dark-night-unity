@@ -1,5 +1,7 @@
 # Dark Nights 合作联机设计
 
+2026-10-07[地面基础玩法候选](GROUND_GAMEPLAY_BASELINE.md)使用协议26／存档v20／AMP1 schema2。可信连接、共享策略、控制租约、Ready、地图局部副本、重连和epoch合同保留；只开放主角控制、购买、飞船4条操作以及会话生命周期请求。下述营地、采矿、战斗和航程操作属于保留的历史设计，当前服务端拒绝它们；当前联机验收边界见[执行状态](DEVELOPMENT.md)。
+
 2026-10-05 [原生矿层候选](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)使用协议25／存档v19／AMP1 schema2：矿格退出完整对象投影，独立游戏广播复用原生兴趣服务及副本；最多160×160格可信区域，Ready前使用船体，取得槽位后跟随角色。当前世界和流代次隔离，新区域完整区块到达后才加载，未知格不视为空。前景与矿层共用可信区域合同，通过不同消息类型隔离流；同一Mono正常两人30/30、四人38/38、弱网两人30/30通过，不沿用下方旧Player。
 
 版本演进见[项目摘要](archive/PROJECT_HISTORY.md)，架构来源见[迁移摘要](archive/MIGRATION_HISTORY.md)。当前矿层合同优先以[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)为准；下述通用会话合同需结合现行两层地图路径阅读。

@@ -33,7 +33,7 @@ namespace DarkNights.Entry
         private YYInteractionSessionHandle modal;
         private GameCatalog catalog;
         private int shipId;
-        private bool nearSale, nearShop;
+        private bool nearShop;
         private int epoch, actorId, controlLease;
         private long connection;
         public bool ShopOpen => panel?.ShopOpen == true;
@@ -73,7 +73,7 @@ namespace DarkNights.Entry
             var expedition = frame?.World.Expedition;
             var ship = expedition?.Ship;
             shipId = ship?.Id ?? 0;
-            nearSale = nearShop = false;
+            nearShop = false;
             if (gameplay && actor != null && ship != null && ship.PilotId == 0 &&
                 ship.Phase is 0 or 3 && ship.DoorClock == 0 &&
                 expedition.Crew.Any(value => value.Id == actor.Id && value.Boarded))
@@ -89,14 +89,12 @@ namespace DarkNights.Entry
                         if (config == null) continue;
                         bool nearby = Math.Abs(actor.X - body.X - anchor.transform.localPosition.x * 100) <= config.Radius &&
                             Math.Abs(actor.Height - shipDevice.Height - anchor.transform.localPosition.y * 100) <= config.Radius;
-                        if (config.Service == "sale") nearSale = nearby;
                         if (config.Service == "shop") nearShop = nearby;
                     }
             }
             var cargo = expedition?.Crew.FirstOrDefault(value => value.Id == actor?.Id);
-            string prompt = nearShop ? "E 打开装备商店" : nearSale ? "E 出售身上矿石" : "Shift 加速 · 1–4 切换装备";
-            if (!nearShop && !nearSale && gameplay && hero.MiningHint.Length != 0) prompt = hero.MiningHint;
-            bool atCockpit = !nearShop && !nearSale && gameplay && expedition?.Journey?.Enabled == true &&
+            string prompt = nearShop ? "E 打开装备商店" : "Shift 加速 · 空格跳跃 · F1 飞船操作";
+            bool atCockpit = !nearShop && gameplay && expedition?.Journey?.Enabled == true &&
                 JourneyPresentationRules.AtCockpit(frame.World, network.Client.PlayerSlot);
             if (atCockpit) prompt = expedition.Journey.Phase == JourneyPhase.Orbit ? "E 选择目的地" :
                 expedition.Journey.Phase == JourneyPhase.Preparing ? "E 取消航程" :
@@ -110,8 +108,6 @@ namespace DarkNights.Entry
                 !panel.AttachedAndVisible)) Close();
             if (!gameplay || actor == null || panel.ShopOpen || !actions.ReadHero().InteractPressed) return;
             if (nearShop) Open();
-            else if (nearSale && cargo != null && cargo.Iron + cargo.Gold > 0)
-                Sell(actor, cargo).Forget();
             else if (atCockpit) CockpitRequested?.Invoke();
         }
 
@@ -136,13 +132,6 @@ namespace DarkNights.Entry
             ActorViewData actor = hero.Current;
             if (!nearShop || actor == null || !panel.ShopOpen) return;
             Purchase(actor, key).Forget();
-        }
-
-        private async UniTask Sell(ActorViewData actor, ExpeditionActorData cargo)
-        {
-            try { await network.Client.Send(SessionOperation.SellCarriedOre, new[] { actor.Id }, shipId,
-                cargo.Gold, "sale", cargo.Iron, actor.ControlLease); }
-            catch (Exception error) { Debug.LogException(error); }
         }
 
         private async UniTask Purchase(ActorViewData actor, string key)

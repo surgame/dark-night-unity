@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using DarkNights.Entry;
 using DarkNights.Runtime.Network;
@@ -22,7 +23,7 @@ namespace DarkNights.Tests
     {
         private const string SceneKey = "DarkNights.ShipTradePlay.Scene";
         private static EditorWindow Game => EditorWindow.GetWindow(typeof(EditorWindow).Assembly.GetType("UnityEditor.GameView"));
-        private static string Output => Path.GetFullPath("../artifacts/session-input-feedback-20260929");
+        private static string Output => Path.GetFullPath("../artifacts/ground-baseline-20261007/presentation");
 
         [Test]
         public void RestoredBuildSettingsAreNotRewrittenWhileLocked()
@@ -36,6 +37,41 @@ namespace DarkNights.Tests
                 System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
             Assert.That(restore, Is.Not.Null);
             Assert.DoesNotThrow(() => restore.Invoke(null, new object[] { path, bytes }));
+        }
+
+        [UnityTest]
+        public IEnumerator ConsoleChineseLogsStayBounded()
+        {
+            SessionState.SetString(SceneKey, EditorSceneManager.GetActiveScene().path);
+            EditorSceneManager.OpenScene(Editor.EnvironmentValidation.ScenePath);
+            Game.Focus();
+            yield return new EnterPlayMode();
+            yield return UniTask.ToCoroutine(VerifyConsole);
+            yield return new ExitPlayMode();
+        }
+
+        private static async UniTask VerifyConsole()
+        {
+            SmartConsoleLogBridge bridge = null;
+            await Until(() => (bridge = UnityEngine.Object.FindAnyObjectByType<SmartConsoleLogBridge>()) != null,
+                "有界控制台日志接入");
+            bool initiallyBlocked = YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.GameplayActions);
+            Debug.Log("控制台中文验证：地图地形、主角移动、跳跃、镜头、联机与保存恢复。");
+            for (int i = 0; i < 3; i++)
+            {
+                await KeyPress(Key.F10);
+                await UniTask.Delay(1000);
+                Assert.That(bridge.Rendered, Is.LessThanOrEqualTo(SmartConsoleLogBridge.MaximumRendered));
+                Assert.That(bridge.Queued, Is.LessThanOrEqualTo(SmartConsoleLogBridge.MaximumQueued));
+                var text = bridge.GetComponentsInChildren<TMPro.TMP_Text>(true).FirstOrDefault(t => t.text.Contains("控制台中文验证"));
+                Assert.That(text, Is.Not.Null, "中文日志必须进入可见面板");
+                Assert.That(text.font.HasCharacter('中', true, true), Is.True, "中文日志必须有回退字形");
+                await KeyPress(Key.F10);
+            }
+            Assert.That(bridge.SuppressedFontWarnings, Is.Zero, "字体修复后不应再产生面板缺字警告");
+            Assert.That(bridge.Dropped, Is.Zero, "短时验证不应出现日志风暴");
+            Assert.That(YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.GameplayActions),
+                Is.EqualTo(initiallyBlocked), "关闭控制台必须保留原菜单的模态状态");
         }
 
         [UnityTest]
@@ -79,6 +115,9 @@ namespace DarkNights.Tests
             Assert.That(document.panelSettings.themeStyleSheet, Is.Not.Null);
             ui.ActivateButton("MainMenu", "NewGame");
             await Until(() => network.Client.Ready && hero.Current != null && ui.Page.Length == 0, "Host Ready");
+            Assert.That(network.Client.Replica.Current.World.Expedition.Journey.Phase,
+                Is.EqualTo(DarkNights.Core.ViewData.JourneyPhase.Landed));
+            Assert.That(network.Client.Replica.Current.World.Expedition.Crew.Single(c => c.Id == hero.Current.Id).Boarded, Is.False);
             var root = document.rootVisualElement;
             await Until(() => root.Q<Label>("credits").worldBound.width > 100, "装备 HUD 完成布局");
             Assert.That(root.worldBound.height, Is.GreaterThan(100));
@@ -113,7 +152,9 @@ namespace DarkNights.Tests
             Submit(root.Q<Button>("buy-jetpack"));
             await Until(() => hero.Current.JetpackOwned, "购买喷气背包反馈");
             Assert.That(network.Client.Replica.Current.World.Camp.Credits, Is.EqualTo(12));
-            Assert.That(root.Q<Label>("jetpack").text, Is.EqualTo("喷气背包"));
+            Assert.That(root.Q<Label>("jetpack").text, Does.Contain("已购买（暂未开放使用）"));
+            Assert.That(hero.Current.JetpackEquipped, Is.False);
+            Assert.That(hero.Current.JetpackFuel, Is.Zero);
 
             var hud = (DarkNights.View.CampHudBehaviour)typeof(SessionUiController).GetField("hud",
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).GetValue(ui);
@@ -151,6 +192,7 @@ namespace DarkNights.Tests
             Assert.That(YYInteractionSessionService.Instance.IsBlocked(YYInteractionBlockFlags.GameplayActions), Is.True);
             await KeyPress(Key.F10);
             AssertUnlocked();
+            await Walk(hero, target);
             await KeyPress(Key.E);
             await Until(() => trade.ShopOpen, "重复打开商店");
             await KeyPress(Key.Escape);

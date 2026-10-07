@@ -1,10 +1,10 @@
 # Dark Nights · Unity
 
-当前本地 `main` 已集成原生矿层与 `ft-20261006-terrain-debug-integration` 的地形调试、工作台网格及保存改进：游戏协议 **25**、存档 **v19**、AMP1 schema **2**，Unity Editor 锁定 **6000.4.9f1**。默认从 Bootstrap 进入太空船与星球远征，2–4 人合作；旧营地保留专项回归入口。
+当前开发候选 `ref-20261007-ground-gameplay-baseline` 收敛到地图地形、主角移动／跳跃、镜头、联机与基础保存恢复，并保留购买及可操作的飞船驾驶、起飞、降落。开局直接在星球地面；其他玩法暂时退出运行。游戏协议 **26**、存档 **v20**、AMP1 schema **2**，Unity Editor 锁定 **6000.4.9f1**，见[实施与边界](docs/GROUND_GAMEPLAY_BASELINE.md)。
 
-矿物采用会话托管的独立 AnyRuleD 地图，矿格耐久与储量只有一个权威所有者。拆前景墙只露出对应矿格，采空与恢复由地图保存；客户端前景与矿层均局部订阅、加载。实现与验收边界见[当前矿层记录](docs/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
+地形与原生矿层仍由会话托管的 AnyRuleD 地图拥有，客户端分别局部订阅和加载；本候选暂停采集、战斗和装备使用。作者资产、离线制作工具和暂退实现保留。原矿层历史实现见[记录](docs/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
 
-后续弱网补测的最终 Player 矩阵仍有未完成组，不能将前一构建的通过数作为最终矩阵结论。当前状态见[开发执行计划](docs/DEVELOPMENT.md)。专项前台性能、最终手感、IL2CPP 与双机器等门槛仍按各自证据记录。
+本轮验证发生F10缺字警告反馈引起的Unity内存耗尽，现已加入有界日志、中文回退和独立内存保护，见[事故记录](docs/UNITY_MEMORY_INCIDENT_20261007.md)。当前状态见[开发执行计划](docs/DEVELOPMENT.md)。旧Player结果不能代替本候选；前台性能、最终手感、IL2CPP与双机器仍按各自证据记录。
 
 | 入口 | 内容 |
 | --- | --- |

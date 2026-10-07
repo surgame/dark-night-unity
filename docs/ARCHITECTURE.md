@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-10-07[地面基础玩法候选](GROUND_GAMEPLAY_BASELINE.md)采用协议26／存档v20。保持同一YYGC对象、会话、地图和冻结副本路线；正式每步只推进主角运动、飞船及基础会话时间，购买单独通过可信请求结算。下表的经济／波次／战斗／工作能力实现仍保留，但其自动推进及旧命令已退出正式运行；后续恢复须按独立玩法切片验收。
+
 2026-10-05 [原生矿层候选](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：YYGC会话生命周期托管独立 ARDMap，GridBusinessStateStore 唯一拥有矿格耐久／储量；初始矿床为静态元数据，正式运行无逐矿床对象或逐格NetworkObject。前景与矿层均采用局部只读副本与AnyRuleD页面，换区保留静态背景宿主；普通采集组合一层地图与角色状态，拆墙保留后面的矿物。游戏协议25／存档v19／AMP1 schema2。
 
 版本演进见[项目摘要](archive/PROJECT_HISTORY.md)，架构来源见[迁移摘要](archive/MIGRATION_HISTORY.md)。当前矿层合同优先以[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)为准；下述通用会话合同需结合现行两层地图路径阅读。

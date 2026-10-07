@@ -1,20 +1,24 @@
 # Dark Nights Unity 开发执行计划
 
-2026-10-07，地形调试与工作台改进按用户要求从 `ft-20261006-terrain-debug-integration` 集成到本地 `main`；原生矿层成果已于2026-10-05集成。协议 **25**／存档 **v19**／AMP1 schema **2**，Editor **6000.4.9f1**。本页只列当前执行状态；早期迁移、M0–M6及历次实现已整合为[项目演进摘要](archive/PROJECT_HISTORY.md)，完整原文从整理回执所列Git基线恢复。
+2026-10-07，当前地面基础玩法候选为 `ref-20261007-ground-gameplay-baseline`，协议 **26**／存档 **v20**／AMP1 schema **2**，Editor **6000.4.9f1**。原生矿层及地形调试此前已集成本地main。早期迁移、M0–M6及历次实现已整合为[项目演进摘要](archive/PROJECT_HISTORY.md)，完整原文从整理回执所列Git基线恢复。
 
 本次集成保存了工作区已有的 `WorldSession.asset` 入口走道Modifier关闭配置。托管引用4项完整，核对除 `EntranceWalkwayModifierConfig.Enabled` 从1变0外配置数据不变，引用ID与顺序变化来自已有序列化结果。本次只做Git集成、差异和引用核对，沿用下方原批次证据；未重跑Unity、构建Player或新增联机验收结论。
 
 ## 当前实现
 
+2026-10-07 已按用户确认完成[地面玩法收敛](GROUND_GAMEPLAY_BASELINE.md)：开局落在星球地面，保留购买、库存和可操作的驾驶／起飞／降落；采集、战斗、NPC、物流、远征计时／警戒／结算和营地修改暂退运行。协议26／存档v20拒绝旧格式，作者资产和暂退实现保留。当前编译无错误、31个不同Editor检查按影响合并通过（地面会话4、输入／跳跃19、日志队列／过滤6、短时F10 1、正式商店UI 1），架构745文件／16自测／0命中。正式UI包含真实Host Ready、地面出生、键盘行走、购买、三种分辨率、F10、模态释放和断线。
+
+该验证发生两次F10中文缺字警告反馈OOM，原失败与失去回执的批次保留。游戏侧现有界转入日志、运行时CJK回退和独立每秒内存保护，短时探针及正式商店测试已完成；当前系统提交余量约6–8 GiB，暂未启动高内存Mono构建或独立进程2人／4人正常／弱网矩阵。联机保留实现且真实YYGC四连接Editor验证通过，不宣称独立Player联机通过；IL2CPP与双机器未验。见[事故与保护](UNITY_MEMORY_INCIDENT_20261007.md)和本批机器证据 `docs/evidence/ground-gameplay-baseline-20261007.json`。
+
 2026-10-07 游戏消息日志修复：将HUD消息及横幅的游戏提醒标记与日志等级分开，统一Gameplay／Info；危险提醒用橙色、普通信息和横幅用青蓝色，Console输出与隐藏HUD容器的合同保持。编译0错误／0警告，临时Editor预览场景核验三个实际HUD调用、Log类型及Smart Console消息Prefab字形颜色通过；Play探针未完成，不增加正式Play、Player或联机验收结论。见[日志记录](SMART_CONSOLE_INTEGRATION.md)。协议25／存档v19／AMP1 schema2与YYGC保持。
 
-2026-10-07 已整理 [F1游戏逻辑清单与移除评估](F1_GAMEPLAY_INVENTORY.md)，覆盖正式远征页16个操作、面板背后的自动玩法、旧营地依赖，以及逐项添加内容所需的最小基线。当前仅完成清单与建议，尚未移除玩法，保留范围待决定；本批未运行Unity、测试或Player构建，协议25／存档v19／AMP1 schema2和YYGC依赖不变。
+2026-10-07初版 [F1游戏逻辑清单与移除评估](F1_GAMEPLAY_INVENTORY.md)覆盖原远征页16个操作、面板背后自动玩法和旧营地依赖；清单提交 `5d04930` 当时仅含整理，协议25／存档v19不变。用户随后确认的实施及本轮验证以上述地面玩法候选为准。
 
 2026-10-07 Bootstrap启动修复位于 `fix-20261007-bootstrap-preload`：现有UniTask并发预加载对象与六个UGUI模板，实例装配顺序保持；失败／取消等待全部请求收尾并释放晚成功租约。相同0.1秒模拟延迟下，Editor进入Play至首次菜单Canvas渲染准备三次均值6.114秒→3.318秒，减少2.797秒（约45.7%）；CPU渲染边界及热缓存条件见[实施记录](BOOTSTRAP_STARTUP_OPTIMIZATION.md)。定向Editor50/50、架构741／16／0、正式菜单帮助与Host Ready、退出残留0通过；YYGC、依赖、场景与人工资产未改，没有新增Player或联机矩阵结论。
 
 2026-10-06 地形调试整合原分支为 `ft-20261006-terrain-debug-integration`，已于2026-10-07合入本地 `main`：AnyRuleD菜单统一到YY，正式前景／矿层绑定只读网格检查；工作台Play页面可选择地图并打开同一窗口。该批Editor编译无错误、真实两层宿主回归1/1、Bootstrap Host地图就绪与四角检查、退休释放通过，Scene Shift实点(88,-71)及600×800窗口截图通过，架构732／16／0；没有新增Player或联机矩阵结论。YYGC两个Editor文件的具体授权、锁定补丁及20项重建记录见[账本](YYGC_CHANGES.md)和[操作说明](TERRAIN_GRID_DEBUGGER.md)。
 
-正式开局沿 Bootstrap → 太空船 → 星球远征。主角、装备、船体、经济等业务状态归对应 YYGC Behaviour；前景与矿层由会话托管的原生地图拥有。游戏协议、装备身份、存档与两层 Ready 联合校验。矿床实体退出正式运行，初始矿床信息只作静态元数据。
+当前正式开局沿 Bootstrap → 星球地面，主角、库存和船体状态继续归所属YYGC Behaviour；前景和矿层由会话托管的原生地图拥有。协议、装备身份、存档和两层Ready联合校验。下述采矿实现及旧矩阵是本次暂停前的历史记录，不作为基础玩法当前入口或验收门槛。
 
 拆墙露出对应矿格而不伤矿物；采矿检查前景遮挡、装备、距离、地图代次及格内容版本，耐久、储量和奖励沿用现有事务。客户端两层分别局部订阅、加载和显示，换区保留静态背景。具体实现、覆盖和未验边界见[原生矿层记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
 

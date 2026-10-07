@@ -8,13 +8,13 @@ using DarkNights.Core.ViewData;
 namespace DarkNights.Core.Save
 {
     /// <summary>
-    /// 一局完整的 v17 冻结恢复合同，包含格耐久与矿床采集进度，复制集合并保持明确的定义与放置身份。
+    /// 一局完整的 v20 冻结恢复合同，保存地图、角色、购买库存与保留的船体，复制集合并保持明确的定义与放置身份。
     /// 仅保存玩法状态，不保存本地镜头、选择或房间权限；完整验证后才允许替换活动对象。
     /// </summary>
     public sealed class SessionSnapshot
     {
         public ExpeditionViewData Expedition { get; }
-        public const int CurrentVersion = 19;
+        public const int CurrentVersion = 20;
         public int SchemaVersion { get; }
         public Config.Terrain.PlayableTerrain Terrain { get; }
         public string LevelId { get; }

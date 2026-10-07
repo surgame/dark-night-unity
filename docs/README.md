@@ -1,10 +1,12 @@
 # Dark Nights 文档索引
 
-当前本地 `main` 已集成原生矿层与 `ft-20261006-terrain-debug-integration`，协议25／存档v19／AMP1 schema2。这里保留长期合同、日常入口与当前实现；历史过程以主题摘要为入口，操作、来源、未完成验收和周报从[归档索引](archive/README.md)进入。不同日期和 Player 的测试结果不能相互替代。
+当前地面玩法收敛候选为 `ref-20261007-ground-gameplay-baseline`，协议26／存档v20／AMP1 schema2。这里保留长期合同、日常入口与当前实现；历史过程以主题摘要为入口，操作、来源、未完成验收和周报从[归档索引](archive/README.md)进入。不同日期和Player的测试结果不能相互替代。
 
 ## 当前工作
 
-- [F1游戏逻辑清单与移除评估](F1_GAMEPLAY_INVENTORY.md)：16个远征操作、自动玩法及可控开发起点；仅整理方案，尚未移除。
+- [地面基础玩法收敛](GROUND_GAMEPLAY_BASELINE.md)：直接地面开局、购买与飞船操作保留，其他玩法退出运行。
+- [Unity内存事故与保护](UNITY_MEMORY_INCIDENT_20261007.md)：F10缺字警告反馈、修复和单批验证内存门控。
+- [F1游戏逻辑清单与移除评估](F1_GAMEPLAY_INVENTORY.md)：原16个远征操作、自动玩法及初版移除评估。
 - [Bootstrap启动修复](BOOTSTRAP_STARTUP_OPTIMIZATION.md)：UniTask并发预加载、失败收尾及同配置菜单计时；本轮未构建Player。
 - [开发执行计划](DEVELOPMENT.md)：当前完成情况、最终弱网矩阵与剩余门槛。
 - [原生矿层实现](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：矿格唯一状态、墙后发现、局部副本、保存恢复及本批证据。
@@ -16,7 +18,7 @@
 | --- | --- |
 | [技术架构](ARCHITECTURE.md) | 状态归属、程序集、装配和事务 |
 | [联机设计](MULTIPLAYER.md) | 可信连接、权限、Ready、epoch 与恢复 |
-| [存档格式](SAVE_FORMAT.md) | 当前 v19 格式、严格校验和原子保存 |
+| [存档格式](SAVE_FORMAT.md) | 当前v20格式、基础玩法约束和原子保存 |
 | [依赖说明](DEPENDENCIES.md) | 锁定版本与准备入口 |
 | [YYGC 改动账本](YYGC_CHANGES.md) | 框架授权、逐项差异与验证边界 |
 
@@ -38,6 +40,8 @@
 | [目录用途](WORKSPACE.md) | 所有主要文件夹的用途和保留依据 |
 
 ## 历史与证据
+
+- [地面基础玩法与内存保护证据](evidence/ground-gameplay-baseline-20261007.json)：31个不同Editor检查、架构、正式UI和修复后1018次内存采样；Player矩阵待验。
 
 - [归档索引](archive/README.md)：4份历史摘要，以及仍有用途的专题、审查、未完成验收和周报。
 - [当前矿层机器证据](evidence/mineral-map-migration-20261005.json)：保留原始结果与输入身份。

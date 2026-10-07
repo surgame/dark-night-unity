@@ -21,7 +21,8 @@ namespace DarkNights.Runtime.Objects
             float dt = (float)delta;
             int horizontal = pilot?.Horizontal ?? 0;
             int vertical = pilot == null ? 0 : (pilot.JumpHeld ? 1 : 0) - (pilot.DropPending ? 1 : 0);
-            float targetY = world.Flow.Enabled && pilot != null && vertical == 0 ? -Rules.IdleDescentSpeed : vertical * Rules.VerticalSpeed;
+            bool descent = world.Flow.Enabled && world.Flow.Phase == Core.ViewData.JourneyPhase.Descent;
+            float targetY = descent && pilot != null && vertical == 0 ? -Rules.IdleDescentSpeed : vertical * Rules.VerticalSpeed;
             s.ShipVelocityX = Mathf.MoveTowards(s.ShipVelocityX, horizontal * Rules.HorizontalSpeed, Rules.Acceleration * dt);
             s.ShipVelocityY = Mathf.MoveTowards(s.ShipVelocityY, targetY, Rules.Acceleration * dt);
             // 碰撞后的清零不能把高速接地伪装成满足安全速度，持续加速下降时也必须先松手减速。
@@ -41,7 +42,7 @@ namespace DarkNights.Runtime.Objects
                 }
             }
             Carry(s.X - oldX, s.Height - oldH);
-            return world.Flow.Enabled && pilot != null && safeApproach && Land();
+            return descent && pilot != null && safeApproach && Land();
         }
 
         internal bool Land()

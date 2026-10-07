@@ -13,8 +13,12 @@ namespace DarkNights.Runtime.Objects
     {
         internal static bool Valid(ObjectSession session, SessionRequest request)
         {
-            if (session.IsExpedition && request.Operation is SessionOperation.IssueOrders or SessionOperation.PlaceBuilding or
-                SessionOperation.TrainActors or SessionOperation.Recruit or SessionOperation.Repair or SessionOperation.StartNight) return false;
+            if (request.Operation is SessionOperation.IssueOrders or SessionOperation.PlaceBuilding or
+                SessionOperation.TrainActors or SessionOperation.Recruit or SessionOperation.Repair or SessionOperation.StartNight or
+                SessionOperation.SelectDestination or SessionOperation.CancelJourney or SessionOperation.SellCarriedOre or
+                SessionOperation.UseHeroItem) return false;
+            if (request.Operation == SessionOperation.Expedition &&
+                request.Kind is not ("pilot" or "takeoff" or "land" or "cancel-flight")) return false;
             foreach (int id in request.ActorIds)
             {
                 ActorBehaviour actor = session.Index.Find<ActorBehaviour>(id);

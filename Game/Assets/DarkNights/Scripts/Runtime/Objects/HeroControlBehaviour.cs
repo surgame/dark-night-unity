@@ -18,8 +18,9 @@ namespace DarkNights.Runtime.Objects
         internal bool Tick(double delta)
         {
             ActorState state = actor.Edit();
+            state.JetpackEquipped = false; state.JetpackFuel = 0; state.ExplosiveCharges = 0;
             HeroJumpMotion.Sample(state, state.ManualControl && state.JumpPending, delta);
-            if (actor.World.Ship.Cabin.Player(actor, delta)) return true;
+            if (actor.World.Ship.Cabin.Player(actor, delta)) { state.JetpackFuel = 0; return true; }
             bool manual = state.ManualControl;
             if (!manual && state.Height == 0 && state.SupportPlatform == 0) return false;
             bool jump = manual && state.JumpPending;
@@ -39,14 +40,14 @@ namespace DarkNights.Runtime.Objects
                 state.Walking = true;
             }
             motion.Tick(delta, jump, drop || (!manual && state.SupportPlatform > 0), manual && state.JumpHeld, terrainTarget, true);
+            state.JetpackFuel = 0;
             if (manual && state.Horizontal != 0) state.Walking = Math.Abs(state.X - previousX) > .001f;
-            HeroEquipment.Tick(actor, delta);
+            HeroEquipment.Cancel(state);
             if (!manual) return true;
             if (state.Height > 0 && (state.Activity == ActorActivity.Work || state.Activity == ActorActivity.Build))
                 actor.World.Work.Clear(actor);
             if (!state.UseHeld && (state.Activity == ActorActivity.Work || state.Activity == ActorActivity.Build))
                 actor.World.Work.Clear(actor);
-            if (state.Activity == ActorActivity.Attack) combat.TickManualAttack(delta, state.UseHeld);
             return true;
         }
 

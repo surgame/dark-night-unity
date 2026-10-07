@@ -194,9 +194,8 @@ namespace DarkNights.Entry
             {
                 string action = intent.Action;
                 if (await hero.HandleAction(action)) return;
-                if (actions.HeroMode && (action.StartsWith("Build", StringComparison.Ordinal) ||
-                    action.StartsWith("Train", StringComparison.Ordinal) || action == "Orders"))
-                { hud.ShowMessage("当前默认主角操控，旧营地操控入口暂时隐藏。"); return; }
+                if (action.StartsWith("Build", StringComparison.Ordinal) || action.StartsWith("Train", StringComparison.Ordinal) ||
+                    action is "Orders" or "Recruit" or "Repair" or "Night") return;
                 if (action == "SelectMap") { await network.Terrain.SelectNew(); return; }
                 if (action == "Slot") { saveSlot = (saveSlot + 1) % 10; return; }
                 if (action == "Quit") { network.Disconnect(); Application.Quit(); return; }

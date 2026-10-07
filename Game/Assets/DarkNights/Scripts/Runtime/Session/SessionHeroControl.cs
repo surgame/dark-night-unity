@@ -189,26 +189,8 @@ namespace DarkNights.Runtime.Session
         {
             state.LastInputSequence = input.Sequence; state.LastInputTick = tick;
             state.Horizontal = input.Horizontal; state.JumpHeld = input.JumpHeld; state.SprintHeld = input.SprintHeld;
-            if (input.CancelUse || input.SelectionRevision != state.SelectionRevision)
-            { state.AimAngle = input.AimAngle; HeroEquipment.Cancel(state); }
-            else
-            {
-                bool preservePressedTarget = state.UsePressed && world.Resources.Equipment.Mining(HeroInventoryBehaviour.Slot(state, state.SelectedItem)) != null;
-                state.UseHeld = input.UseHeld;
-                state.UsePressed |= input.UsePressed;
-                state.UseReleased |= input.UseReleased;
-                if (!preservePressedTarget)
-                {
-                    state.AimAngle = input.AimAngle;
-                    state.MiningWorldId = input.Mining.WorldId;
-                    state.MiningMapEpoch = input.Mining.MapEpoch;
-                    state.MiningU = input.Mining.U; state.MiningV = input.Mining.V;
-                    state.MiningTileId = input.Mining.TileId; state.MiningFlags = input.Mining.Flags;
-                    state.MiningTargetKind = input.Mining.Kind; state.MiningEntityId = input.Mining.EntityId;
-                    state.MiningContentVersion = input.Mining.ContentVersion;
-                    state.MiningMineralContentVersion = input.Mining.MineralContentVersion;
-                }
-            }
+            state.AimAngle = input.AimAngle;
+            HeroEquipment.Cancel(state);
             state.JumpPending |= input.JumpPressed;
 #if UNITY_EDITOR
             Terrain.TerrainJumpTrace.Received(world.Terrain?.Map, state, input, tick);

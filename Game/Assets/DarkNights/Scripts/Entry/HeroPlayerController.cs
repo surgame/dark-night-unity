@@ -59,7 +59,7 @@ namespace DarkNights.Entry
             entities = visuals;
             mining = new HeroMiningPointer(session, scene, panel, catalog);
             sampler = new HeroInputSampler(scene.SceneCamera, mining.HandHeight);
-            campControlEnabled = System.Environment.GetCommandLineArgs().Contains("--dn-camp-mode");
+            campControlEnabled = false;
             replayOnly = System.Environment.GetCommandLineArgs().Contains("--dn-role") &&
                 System.Environment.GetCommandLineArgs().Contains("--dn-input-replay");
             preferHero = !campControlEnabled;
@@ -127,11 +127,10 @@ namespace DarkNights.Entry
                     shown == null ? (float?)null : shown.transform.position.y * EntityView.PixelsPerUnit);
             }
 #endif
-            mining.Sample(controls, Current, network.Client.Replica.Current, pendingItem >= 0);
+            mining.Hide();
             if (sampler.Sample(controls, Current, network.Client.Replica.Current, entities, pendingItem >= 0,
-                Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet, mining.Target, mining.HandHeight)) Send(packet).Forget();
+                Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet)) Send(packet).Forget();
             if (sampler.SelectedItem >= 0) SelectItem(sampler.SelectedItem).Forget();
-            if (sampler.UseItemRequested) Use().Forget();
         }
 
         private void SampleModeToggle()
@@ -201,17 +200,6 @@ namespace DarkNights.Entry
             StopInput(); pendingItem = index;
             try { selectionRequest = await network.Client.Send(SessionOperation.SelectHeroItem, new[] { Current.Id }, value: index, controlLease: Current.ControlLease); }
             catch (Exception error) { pendingItem = -1; notice = error.Message; }
-        }
-
-        private async UniTask Use()
-        {
-            if (Current == null) return;
-            try
-            {
-                await network.Client.Send(SessionOperation.UseHeroItem, new[] { Current.Id }, target: 0,
-                    kind: "pickaxe", value: Current.SelectionRevision, controlLease: Current.ControlLease);
-            }
-            catch (Exception error) { notice = error.Message; }
         }
 
         private async UniTask Send(HeroInputSampler.Packet packet)

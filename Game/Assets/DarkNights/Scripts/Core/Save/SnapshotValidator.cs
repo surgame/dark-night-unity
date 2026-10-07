@@ -64,6 +64,11 @@ namespace DarkNights.Core.Save
             if ((s.Expedition != null) != (s.Terrain?.Expedition == true)) return "远征合同与地图不一致";
             if (s.Expedition != null)
             {
+                if (s.Worksites.Count != 0 || s.Projectiles.Count != 0 || s.Actors.Any(a =>
+                    a.Kind != "worker" || a.Enemy || !a.ManualControl || a.TargetId != 0 ||
+                    a.JetpackEquipped || a.JetpackFuel != 0 || a.ExplosiveCharges != 0 ||
+                    a.HitPending || a.ForcedAttack || a.EquipmentAction != 0 || a.EquipmentActionDuration != 0))
+                    return "地面基础会话不能恢复NPC、战斗或装备使用状态";
                 string extra = ExpeditionValidator.Validate(s.Expedition, s.Actors.Select(a => a.Id).ToArray(),
                     s.Buildings.Select(b => b.Id).ToArray(), s.MineralDeposits.Select(w => w.Id).ToArray(), catalog.Balance.Expedition);
                 if (extra.Length != 0) return extra;

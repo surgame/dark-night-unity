@@ -53,11 +53,7 @@ namespace DarkNights.Runtime.Objects
         {
             if (session.Camp.Read().Mode != SessionMode.Playing) return null;
             if (session.IsExpedition)
-            {
-                var a = session.Lifecycle.SpawnActor("worker", session.Expedition.Ship.X - 184);
-                if (session.Flow?.Enabled == true || !session.Ship.Docked) session.Ship.Cabin.Place(a);
-                return a;
-            }
+                return GroundSessionSetup.SpawnHero(session);
             BuildingBehaviour tavern = session.Index.Buildings.LastOrDefault(b => b.RuleKey == "tavern" && b.IsComplete);
             return tavern == null ? null : SpawnResident(tavern);
         }

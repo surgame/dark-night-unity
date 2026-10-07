@@ -39,8 +39,7 @@ namespace DarkNights.Entry
         public async UniTask InitializeAsync(AppStartupContext context, CancellationToken cancellationToken)
         {
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("SceneStarted");
-            const string defaultScene = GameScenePaths.StaticCamp;
-            string scenePath = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-camp-mode") >= 0 ? defaultScene : Terrain.RandomLevelEntry.ExpeditionScenePath;
+            string scenePath = Terrain.RandomLevelEntry.ExpeditionScenePath;
 #if UNITY_EDITOR
             scenePath = UnityEditor.SessionState.GetString("DarkNights.PlayScene", scenePath);
 #endif
@@ -71,9 +70,7 @@ namespace DarkNights.Entry
             ObjectPlacement[] placements = entries.Select(p => new ObjectPlacement(p.PlacementKey, definitions.GetRequired(p.Kind),
                 p.X, p.Variant, p.Name, placementsByKey[p.PlacementKey].Loader)).ToArray();
             foreach (ScenePlacement placement in placementsByKey.Values) placement.gameObject.SetActive(false);
-            var required = catalog.Balance.Buildings.Keys.Concat(catalog.Balance.Worksites.Keys).Concat(catalog.Balance.Units.Keys);
-            if (definitions.FindOptional(MineralDepositRuleConfig.Rule) != null)
-                required = required.Concat(new[] { MineralDepositRuleConfig.Rule });
+            var required = new[] { "worker", "ship" };
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("WorldResourcesStarted");
             ObjectSessionResources resources = await ObjectSessionResources.Prepare(required.Select(definitions.GetRequired).ToArray(), cancellationToken);
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("WorldResourcesReady");
@@ -89,12 +86,10 @@ namespace DarkNights.Entry
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiStarted");
             await ui.Initialize(network, catalog, stage, entities, layout.Expedition);
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiReady");
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-            QuickTestHub.Install(network, ui, layout.Expedition);
-#endif
             ConsoleSystem console = UnityEngine.Object.FindAnyObjectByType<ConsoleSystem>();
             if (console != null)
             {
+                console.gameObject.AddComponent<SmartConsoleLogBridge>().Initialize(console);
                 YYInteractionSessionHandle consoleModal = null;
                 console.OnActivate += () => consoleModal = YYInteractionSessionService.Instance.Begin(new YYInteractionSessionDescriptor
                 {

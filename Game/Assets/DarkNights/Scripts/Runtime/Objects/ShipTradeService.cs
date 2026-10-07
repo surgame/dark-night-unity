@@ -46,19 +46,7 @@ namespace DarkNights.Runtime.Objects
 
         internal int Sell(ActorBehaviour hero, int shipId, int expectedIron, int expectedGold)
         {
-            if (!Near(hero, shipId, "sale")) return 0;
-            var actor = hero.Read();
-            if (actor.CargoIron != expectedIron || actor.CargoGold != expectedGold ||
-                expectedIron < 0 || expectedGold < 0 || expectedIron + expectedGold == 0) return 0;
-            var trade = world.Catalog.Balance.Expedition.Trade;
-            long income = trade.SaleValue(expectedIron, expectedGold);
-            int balance = world.Economy.Read().Credits;
-            if (income > MaximumCredits - balance) return 0;
-            var cargo = hero.Edit();
-            cargo.CargoIron = cargo.CargoGold = 0;
-            world.Economy.Edit().Credits = balance + (int)income;
-            world.Notify("已出售矿石，获得 " + income + " 信用点。");
-            return expectedIron + expectedGold;
+            return 0;
         }
 
         internal int Buy(ActorBehaviour hero, int shipId, string itemKey, int expectedRevision)
@@ -79,13 +67,6 @@ namespace DarkNights.Runtime.Objects
             };
             int balance = world.Economy.Read().Credits;
             if (price < 0 || balance < price) return 0;
-            if (world.Resources.Equipment.Mining(definition.Guid.ToString()) == null && balance - price < trade.PickaxePrice &&
-                !world.Index.Actors.Any(actor => !actor.Enemy && actor.Hp > 0 &&
-                    Enumerable.Range(0, 4).Any(slot => world.Resources.Equipment.Mining(HeroInventoryBehaviour.Slot(actor.Read(), slot)) != null)))
-            {
-                world.Notify("需预留购买矿镐的信用点。");
-                return 0;
-            }
             var state = hero.Read();
             if (item.Jetpack ? state.JetpackOwned :
                 Enumerable.Range(0, 4).Any(slot => HeroInventoryBehaviour.Slot(state, slot) == definition.Guid.ToString())) return 0;
@@ -93,8 +74,9 @@ namespace DarkNights.Runtime.Objects
             var edited = hero.Edit();
             if (item.Jetpack)
             {
-                edited.JetpackOwned = edited.JetpackEquipped = true;
-                edited.JetpackFuel = world.Catalog.Balance.HeroControl.FuelSeconds;
+                edited.JetpackOwned = true;
+                edited.JetpackEquipped = false;
+                edited.JetpackFuel = 0;
                 edited.InventoryRevision = checked(edited.InventoryRevision + 1);
             }
             else if (!HeroInventoryBehaviour.Give(edited, definition.Guid.ToString()))

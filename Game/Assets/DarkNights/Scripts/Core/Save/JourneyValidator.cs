@@ -78,7 +78,8 @@ namespace DarkNights.Core.Save
             var ship = d.Ship;
             if (ship == null) return "航程缺少飞船";
             if (journey.Phase == JourneyPhase.Landed)
-                return ship.Phase == 0 && d.Phase != 0 ? "" : "着陆阶段与远征状态不一致";
+                return d.Phase == 0 && (ship.Phase < 2 || d.Crew.All(a => a.Boarded))
+                    ? "" : "星球地面与飞船乘员状态不一致";
             if (ship.Phase != 3 || d.Phase != 0 || d.Crew.Any(a => !a.Boarded)) return "航行期间舱门、船员或地面状态无效";
             if (journey.Phase != JourneyPhase.Descent && (ship.VelocityX != 0 || ship.VelocityY != 0))
                 return "未就绪航程仍存在推力";
