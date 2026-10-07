@@ -4,6 +4,7 @@
 
 ## 当前工作
 
+- [F1游戏逻辑清单与移除评估](F1_GAMEPLAY_INVENTORY.md)：16个远征操作、自动玩法及可控开发起点；仅整理方案，尚未移除。
 - [Bootstrap启动修复](BOOTSTRAP_STARTUP_OPTIMIZATION.md)：UniTask并发预加载、失败收尾及同配置菜单计时；本轮未构建Player。
 - [开发执行计划](DEVELOPMENT.md)：当前完成情况、最终弱网矩阵与剩余门槛。
 - [原生矿层实现](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：矿格唯一状态、墙后发现、局部副本、保存恢复及本批证据。
