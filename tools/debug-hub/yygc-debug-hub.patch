@@ -35,6 +35,48 @@ index 95c7e50..c741bc1 100644
      }
  }
  #endif
+diff --git a/Runtime/Debugging/Resources.meta b/Runtime/Debugging/Resources.meta
+new file mode 100644
+index 0000000..aa0c8e7
+--- /dev/null
++++ b/Runtime/Debugging/Resources.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: 982519f47e4511d49b2cd3c58c19882b
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+diff --git a/Runtime/Debugging/Resources/YYGC.meta b/Runtime/Debugging/Resources/YYGC.meta
+new file mode 100644
+index 0000000..eea1d0d
+--- /dev/null
++++ b/Runtime/Debugging/Resources/YYGC.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: 08fe8049cc38b0b438ca2f651f69240b
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+diff --git a/Runtime/Debugging/Resources/YYGC/Debugging.meta b/Runtime/Debugging/Resources/YYGC/Debugging.meta
+new file mode 100644
+index 0000000..7de4abe
+--- /dev/null
++++ b/Runtime/Debugging/Resources/YYGC/Debugging.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: a3cb99ef2d7d3974abd01e8c36355abb
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
 diff --git a/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss
 new file mode 100644
 index 0000000..21871a0
@@ -68,6 +110,24 @@ index 0000000..21871a0
 +.rdh-panel .unity-text-field__input { color: #e4e9ed; }
 +.rdh-action-row { flex-direction: row; flex-wrap: wrap; margin-top: 12px; }
 +.rdh-action-row Button { margin-right: 8px; margin-bottom: 8px; }
+diff --git a/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss.meta b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss.meta
+new file mode 100644
+index 0000000..2e8e801
+--- /dev/null
++++ b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss.meta
+@@ -0,0 +1,12 @@
++fileFormatVersion: 2
++guid: 2120ff24fb49edb41aa33556ffd16eb0
++ScriptedImporter:
++  internalIDToNameTable: []
++  externalObjects: {}
++  serializedVersion: 2
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
++  script: {fileID: 12385, guid: 0000000000000000e000000000000000, type: 0}
++  disableValidation: 0
++  unsupportedSelectorAction: 0
 diff --git a/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml
 new file mode 100644
 index 0000000..a0e89c2
@@ -89,6 +149,22 @@ index 0000000..a0e89c2
 +        </ui:VisualElement>
 +    </ui:VisualElement>
 +</ui:UXML>
+diff --git a/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml.meta b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml.meta
+new file mode 100644
+index 0000000..bee0b15
+--- /dev/null
++++ b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml.meta
+@@ -0,0 +1,10 @@
++fileFormatVersion: 2
++guid: 73e4440e345d4d343bf6f102a2ea3be6
++ScriptedImporter:
++  internalIDToNameTable: []
++  externalObjects: {}
++  serializedVersion: 2
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
++  script: {fileID: 13804, guid: 0000000000000000e000000000000000, type: 0}
 diff --git a/Runtime/Debugging/RuntimeDebugHub.cs b/Runtime/Debugging/RuntimeDebugHub.cs
 index b3c60f2..807ef89 100644
 --- a/Runtime/Debugging/RuntimeDebugHub.cs
@@ -676,6 +752,15 @@ index 0000000..d357dd7
 +    }
 +}
 +#endif
+diff --git a/Runtime/Debugging/RuntimeDebugHubView.cs.meta b/Runtime/Debugging/RuntimeDebugHubView.cs.meta
+new file mode 100644
+index 0000000..8c8cd6b
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugHubView.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 7b819ac7b38f80f4b9a23105f1ca89c0
+\ No newline at end of file
 diff --git a/Runtime/Debugging/RuntimeDebugPanelContext.cs b/Runtime/Debugging/RuntimeDebugPanelContext.cs
 index c19841b..fd0d0a4 100644
 --- a/Runtime/Debugging/RuntimeDebugPanelContext.cs
@@ -736,6 +821,15 @@ index 0000000..7582d98
 +    }
 +}
 +#endif
+diff --git a/Runtime/Debugging/RuntimeDebugPanelDescriptor.cs.meta b/Runtime/Debugging/RuntimeDebugPanelDescriptor.cs.meta
+new file mode 100644
+index 0000000..1b5c2b4
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugPanelDescriptor.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: ab5b8184cce7df541a5103c2f72638ec
+\ No newline at end of file
 diff --git a/Runtime/Debugging/RuntimeDebugPanelRegistration.cs b/Runtime/Debugging/RuntimeDebugPanelRegistration.cs
 new file mode 100644
 index 0000000..dd48f48
@@ -799,6 +893,15 @@ index 0000000..dd48f48
 +    }
 +}
 +#endif
+diff --git a/Runtime/Debugging/RuntimeDebugPanelRegistration.cs.meta b/Runtime/Debugging/RuntimeDebugPanelRegistration.cs.meta
+new file mode 100644
+index 0000000..1230eb8
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugPanelRegistration.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: f1365effe993c3c4d8800380e5eeb0f5
+\ No newline at end of file
 diff --git a/Runtime/Debugging/RuntimeDebugPanelRegistry.cs b/Runtime/Debugging/RuntimeDebugPanelRegistry.cs
 new file mode 100644
 index 0000000..f58458a
@@ -839,3 +942,12 @@ index 0000000..f58458a
 +    }
 +}
 +#endif
+diff --git a/Runtime/Debugging/RuntimeDebugPanelRegistry.cs.meta b/Runtime/Debugging/RuntimeDebugPanelRegistry.cs.meta
+new file mode 100644
+index 0000000..f37ee9a
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugPanelRegistry.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: acb61a3fb99c24240b52e452e254a5a3
+\ No newline at end of file

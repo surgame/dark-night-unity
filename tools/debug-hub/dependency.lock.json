@@ -4,10 +4,10 @@
   "base_patch": "../grid-business/yygc.patch",
   "base_patch_sha256": "58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb",
   "patch": "yygc-debug-hub.patch",
-  "patch_sha256": "081456b98c116b352addd1d852414c59acf3d26aa9928a212936af6eb599b67a",
+  "patch_sha256": "64490b4dabd9249aba2483709df9aafad93d96ee3e39f978cc7ba9b24b0d8a4b",
   "destination": ".deps/YYGC-grid-business",
   "game_protocol": 29,
   "save_version": 21,
   "map_protocol": 2,
-  "validation": "STATIC_CSHARP_ONLY; Unity import, runtime and Player NOT_RUN"
+  "validation": "SOURCE_SAME; Unity generated metadata preserved; pre-merge main-menu and Objects page smoke only"
 }
