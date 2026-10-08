@@ -1,6 +1,10 @@
 # Dark Nights Unity 开发执行计划
 
+2026-10-09 已按用户要求将 Runtime Debug Hub UITK 候选合入 `ft-20261008-flashlight-lighting`，统一协议 **30**／存档 **v22**／AMP1 schema **2**。保留手电控制、局部照明、地形加载修复及调试物体网格和房主操作。合并验证与工作树保全结果见[集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md)；旧候选和旧 Player 结果不计入本次合并验收。
+
 2026-10-08 手电候选位于 `ft-20261008-flashlight-lighting`，协议28／存档v22／AMP1 schema2。正式工具、权威开关、独立照明方向、局部 GPU 光照与可调墙内上限已实现；编译和架构通过，原生资产已安装。定向测试和画面状态见[实施记录](FLASHLIGHT_IMPLEMENTATION_20261008.md)，不借用旧 Player 计数。按用户要求仅做简单快速验证，其余由用户人工验收；YYGC未修改／升级。
+
+2026-10-08：`ref-20261008-runtime-debug-hub-uitk` 隔离候选完成 UITK Debug Hub、物体网格、原持有装备区与房主免付费事务。候选协议29／存档v21／AMP1 schema2；与手电筒候选协议28区分。本批仅静态编译和源码合同核验，无 Unity 导入、Play、测试运行或 Player；未合入 Local/main。见[实现记录](RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md)与[面板规范](RUNTIME_DEBUG_HUB_SPEC.md)。
 
 2026-10-07，当前地面基础玩法候选为 `ref-20261007-ground-gameplay-baseline`，协议 **27**／存档 **v21**／AMP1 schema **2**，Editor **6000.4.9f1**。原生矿层及地形调试此前已集成本地main。早期迁移、M0–M6及历次实现已整合为[项目演进摘要](archive/PROJECT_HISTORY.md)，完整原文从整理回执所列Git基线恢复。
 

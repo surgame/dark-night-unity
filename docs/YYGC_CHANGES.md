@@ -1,5 +1,43 @@
 # YYGC 修改授权与改动账本
 
+## 2026-10-09：按用户请求集成现成 Debug Hub 候选
+
+将获批候选的九项 Debugging 源码／资源（具体名单沿用下方2026-10-08表）接入 Local `.deps/YYGC-grid-business`；没有修改其源码行为。追加下表9个自动元数据文件到原Debugging补丁。基线fee1864及既有网格补丁不变，新的overlay SHA-256为 `64490b4dabd9249aba2483709df9aafad93d96ee3e39f978cc7ba9b24b0d8a4b`。
+
+| 文件 | 原因 | 落点与验证 |
+| --- | --- | --- |
+| `Runtime/Debugging/Resources.meta` | Unity首次导入生成；保存GUID及原导入设置 | Local锁定依赖及Debugging补丁；候选逐项一致 |
+| `Runtime/Debugging/Resources/YYGC.meta` | Unity首次导入生成；保存GUID及原导入设置 | Local锁定依赖及Debugging补丁；候选逐项一致 |
+| `Runtime/Debugging/Resources/YYGC/Debugging.meta` | Unity首次导入生成；保存GUID及原导入设置 | Local锁定依赖及Debugging补丁；候选逐项一致 |
+| `Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss.meta` | Unity首次导入生成；保存GUID及原导入设置 | Local锁定依赖及Debugging补丁；候选逐项一致 |
+| `Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml.meta` | Unity首次导入生成；保存GUID及原导入设置 | Local锁定依赖及Debugging补丁；候选逐项一致 |
+| `Runtime/Debugging/RuntimeDebugHubView.cs.meta` | Unity首次导入生成；保存GUID及原导入设置 | Local锁定依赖及Debugging补丁；候选逐项一致 |
+| `Runtime/Debugging/RuntimeDebugPanelDescriptor.cs.meta` | Unity首次导入生成；保存GUID及原导入设置 | Local锁定依赖及Debugging补丁；候选逐项一致 |
+| `Runtime/Debugging/RuntimeDebugPanelRegistration.cs.meta` | Unity首次导入生成；保存GUID及原导入设置 | Local锁定依赖及Debugging补丁；候选逐项一致 |
+| `Runtime/Debugging/RuntimeDebugPanelRegistry.cs.meta` | Unity首次导入生成；保存GUID及原导入设置 | Local锁定依赖及Debugging补丁；候选逐项一致 |
+
+18个源码／元数据与候选一致，Editor7、Development5、Release5个程序集静态编译均0错误，协议30／存档v22／AMP1 schema2。未运行合并版Play、测试或Player。用户YYGC主工作区既有RuntimeDebugHub.cs修改保留，未切换或覆盖。移除旧游戏worktree前保全原依赖副本与正式证据；过程见[集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md)。
+
+## 2026-10-08：Runtime Debug Hub UITK 重构候选
+
+按本聊天的具体 Debugging 规范和“完成重构、只做静态编译”要求实施。落点仅为 `ref-20261008-runtime-debug-hub-uitk` 的隔离 `.deps/YYGC-grid-business`，未修改／切换用户 YYGC master、Local依赖或其已有 RuntimeDebugHub.cs 工作。没有升级框架提交／包版本，没有改动其他子系统。新工具资源的 .meta 留待正常Unity导入。
+
+| 框架相对文件 | 原因与最终行为 | 验证 |
+| --- | --- | --- |
+| `Runtime/Debugging/RuntimeDebugHub.cs` | IMGUI退出；稳定注册、F1、UITK文档、单一Interaction租约及异常收尾 | 三种条件静态编译通过；运行待验 |
+| `Runtime/Debugging/IRuntimeDebugPanel.cs` | Draw改为保留视图、激活取消、停用及释放；游戏旧提供者同步迁移 | 游戏全部调用者编译通过 |
+| `Runtime/Debugging/RuntimeDebugPanelContext.cs` | GUIStyle退出；只提供关闭与有界反馈 | 静态编译通过 |
+| `Runtime/Debugging/RuntimeDebugPanelDescriptor.cs` | 稳定ID、标题、排序、有限正数参考尺寸 | 静态编译通过 |
+| `Runtime/Debugging/RuntimeDebugPanelRegistration.cs` | 懒创建、失败可重试、每次激活CTS及幂等释放 | 静态编译通过；生命周期待验 |
+| `Runtime/Debugging/RuntimeDebugPanelRegistry.cs` | ID判重、排序和注册对象代次比较 | 静态编译通过；注册行为待验 |
+| `Runtime/Debugging/RuntimeDebugHubView.cs` | 沿用UIPanel/DI绑定；共享导航、内容、拖动与尺寸 | 静态编译通过；真实画面待验 |
+| `Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml` | 通用窗口模板、可滚动内容和状态 | XML／控件源码检查通过；Unity导入待验 |
+| 同目录 `RuntimeDebugHub.uss` | Flex及有作用域主题、输入、普通／危险按钮 | 子集源码检查通过；Unity导入待验 |
+
+可重建来源是 `tools/debug-hub/yygc-debug-hub.patch` 与同目录锁。基线仍为 `fee18645c997ed7529c4592917de6c412033c84e`，既有网格补丁SHA `58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb` 不变；新增Debugging补丁SHA为 `081456b98c116b352addd1d852414c59acf3d26aa9928a212936af6eb599b67a`。干净基线重建9/9文件一致，准备入口幂等通过。原网格准备脚本在完成原补丁后串行应用Debugging overlay，拒绝锁不匹配和未知文件差异。
+
+最终编译：Editor七程序集、Development五程序集、Release五程序集均0错误；源码输入哈希已核对。候选协议29／存档v21／AMP1 schema2；没有Unity导入、Play、测试执行、Player或联机验收，不借用其他切片的通过数。详见[实现记录](RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md)与[静态证据](evidence/runtime-debug-hub-20261008.json)。
+
 ## 2026-10-06：获批地形调试入口整合
 
 用户明确批准本次两个 AnyRuleD Editor 文件、对应检查、隔离候选及可重现补丁接入。修改落在游戏已锁定的隔离检出 `.deps/YYGC-grid-business`，保留其已有修改；没有切换、清理或写入用户 `D:/Developer/YYGC` 主仓库。

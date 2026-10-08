@@ -1,5 +1,7 @@
 # 手电与洞穴照明候选
 
+2026-10-09：本候选已集成到 `ft-20261008-flashlight-lighting`，当前协议30／存档v22。下方日期及计数保留各自历史输入身份，当前结果见[集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md)。
+
 分支：`ft-20261008-flashlight-lighting`。协议 **28**，存档 **v22**，AMP1 schema **2**；Unity 6000.4.9f1、Linear、锁定 YYGC 均保持。未创建 worktree，未修改或升级 YYGC。保留进入任务时已有的局部地形加载修复及其他会话文件。
 
 ## 已实现

@@ -87,6 +87,10 @@ namespace DarkNights.Entry
             await ui.Initialize(network, catalog, stage, entities, layout.Expedition);
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiReady");
             if (terrainEntry != null) network.gameObject.AddComponent<HeroLightPresentation>().Initialize(network, entities, ui.Actions, terrainEntry);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            DebugObjectHub.Install(network);
+            QuickTestHub.Install(network, ui, layout.Expedition);
+#endif
             ConsoleSystem console = UnityEngine.Object.FindAnyObjectByType<ConsoleSystem>();
             if (console != null)
             {

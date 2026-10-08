@@ -1,5 +1,7 @@
 # Dark Nights 文档索引
 
+2026-10-09 已按用户要求将 Runtime Debug Hub UITK 候选合入 `ft-20261008-flashlight-lighting`，统一协议 **30**／存档 **v22**／AMP1 schema **2**。保留手电控制、局部照明、地形加载修复及调试物体网格和房主操作。合并验证与工作树保全结果见[集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md)；旧候选和旧 Player 结果不计入本次合并验收。
+
 当前地面玩法收敛候选为 `ref-20261007-ground-gameplay-baseline`，协议27／存档v21／AMP1 schema2。这里保留长期合同、日常入口与当前实现；历史过程以主题摘要为入口，操作、来源、未完成验收和周报从[归档索引](archive/README.md)进入。不同日期和Player的测试结果不能相互替代。
 
 ## 当前工作
@@ -7,6 +9,8 @@
 - [手电与洞穴照明候选](FLASHLIGHT_IMPLEMENTATION_20261008.md)：新分支、YYGC 工具、协议28／存档v22、局部光照、可控墙内羽化与人工验收表。
 
 - [局部换区缺墙与闪底色](TERRAIN_STREAMING_FIX_20261007.md)：现场原因、游戏侧修复候选、内存门控停止与待验项。
+
+- [Runtime Debug Hub 重构](RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md)：UITK 宿主、物体网格与原装备区、房主免付费操作；隔离候选，仅静态编译。
 
 - [地面基础玩法收敛](GROUND_GAMEPLAY_BASELINE.md)：直接地面开局、购买、手持装备与飞船操作保留，其余玩法暂停。
 - [Unity内存事故与保护](UNITY_MEMORY_INCIDENT_20261007.md)：F10缺字警告反馈、修复和单批验证内存门控。
@@ -22,8 +26,8 @@
 | --- | --- |
 | [技术架构](ARCHITECTURE.md) | 状态归属、程序集、装配和事务 |
 | [联机设计](MULTIPLAYER.md) | 可信连接、权限、Ready、epoch 与恢复 |
-| [Runtime Debug Hub 接入规范](RUNTIME_DEBUG_HUB_SPEC.md) | UITK 容器、面板注册与生命周期、物体列表及拟议框架迁移范围 |
-| [存档格式](SAVE_FORMAT.md) | 当前v21格式、装备／个人货袋约束和原子保存 |
+| [Runtime Debug Hub 接入规范](RUNTIME_DEBUG_HUB_SPEC.md) | 稳定注册、面板生命周期、USS 规范与物体网格合同 |
+| [存档格式](SAVE_FORMAT.md) | 当前v22格式、装备／个人货袋约束和原子保存 |
 | [依赖说明](DEPENDENCIES.md) | 锁定版本与准备入口 |
 | [YYGC 改动账本](YYGC_CHANGES.md) | 框架授权、逐项差异与验证边界 |
 

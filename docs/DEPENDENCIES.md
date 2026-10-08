@@ -1,5 +1,9 @@
 # Unity 与 YYGC 依赖准备
 
+2026-10-09现行手电／DebugHub集成使用Local锁定路径 `.deps/YYGC-grid-business`：原网格补丁加Debugging overlay（含首次导入meta），协议30／存档v22。临时试运行的worktree包地址已撤除；本批只静态编译，见[集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md)。
+
+2026-10-08 Runtime Debug Hub 隔离候选：在既有网格补丁后增加 `tools/debug-hub/yygc-debug-hub.patch`，摘要及前置补丁锁见同目录 `dependency.lock.json`。原准备入口 `tools/grid-business/prepare-dependency.ps1` 串行应用两份补丁，拒绝未知差异；基线、包版本和UPM路径不变。只修改候选 `.deps` 的 Debugging 范围，不改用户 YYGC 主仓库／Local 依赖。静态编译通过，Unity 导入及新增 .meta 生成待正常接入；见[本批记录](RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md)。
+
 2026-10-06 按具体授权整合 AnyRuleD 地形调试入口。YYGC基线、UPM路径与包版本不变；`tools/grid-business/yygc.patch` SHA-256更新为 `58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb`，既有18项补丁保留，新增两个Editor文件。最终干净基线重建20/20与当前隔离源码一致，准备脚本幂等通过；编译、双层检查及边界见[YYGC账本](YYGC_CHANGES.md)和[地形网格检查](TERRAIN_GRID_DEBUGGER.md)。下方旧哈希属于对应历史批次。
 
 2026-10-03 工作台导航修正已按用户具体授权接入。YYGC基线仍为 `fee18645c997ed7529c4592917de6c412033c84e`，`tools/grid-business/yygc.patch` SHA-256更新为 `7b16e941cd7cc119e22b531678584103c697c6b5456b637658cdd0915a039811`；锁文件单独记录Editor工坊验收，不把原有 `validation: NOT_RUN` 的整体运行边界改成通过。干净基线重建18项与当前依赖一致，准备脚本幂等通过。两个工坊文件只改变导航／刷新语义，保留显式同步、保存和Undo；具体文件、隔离落点及测试见[YYGC账本](YYGC_CHANGES.md)。UPM路径、manifest、包版本、游戏协议23／存档v16／AMP1 schema2不变。

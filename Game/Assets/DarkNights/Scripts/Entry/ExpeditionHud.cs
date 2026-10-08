@@ -27,7 +27,7 @@ namespace DarkNights.Entry
         private float requestTime;
         private string lastJourneyError = "";
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        private ExpeditionDebugPanel debugPanel;
+        private IDisposable debugRegistration;
 #endif
         public void Initialize(SessionNetwork network, ExpeditionPanel panel)
         {
@@ -36,8 +36,7 @@ namespace DarkNights.Entry
             picker.Initialize(panel, YYInteractionSessionService.Instance, SelectDestination);
             network.Client.Feedback += OnFeedback;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            debugPanel = new ExpeditionDebugPanel(panel, Submit);
-            RuntimeDebugHub.RegisterPanel(debugPanel);
+            RegisterDebugPanel();
 #endif
         }
         private void Update()
@@ -73,14 +72,14 @@ namespace DarkNights.Entry
         private void OnEnable()
         {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            if (debugPanel != null) RuntimeDebugHub.RegisterPanel(debugPanel);
+            if (panel != null) RegisterDebugPanel();
 #endif
         }
         private void OnDisable()
         {
             picker?.Close();
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            debugPanel?.Dispose();
+            debugRegistration?.Dispose(); debugRegistration = null;
 #endif
         }
         private async void Submit(string operation)
@@ -145,75 +144,18 @@ namespace DarkNights.Entry
         private void OnDestroy()
         {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            debugPanel?.Dispose();
+            debugRegistration?.Dispose(); debugRegistration = null;
 #endif
             if (network != null) network.Client.Feedback -= OnFeedback;
             if (picker != null) Destroy(picker);
         }
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-        /// <summary>RuntimeDebugHub 的远征页；复用原生面板的冻结展示和按钮许可，激活时租用本地输入，退出或卸载时释放。</summary>
-        private sealed class ExpeditionDebugPanel : IRuntimeDebugPanel, IRuntimeDebugPanelSizeProvider,
-            IRuntimeDebugPanelLifecycle, IDisposable
+        private void RegisterDebugPanel()
         {
-            private readonly ExpeditionPanel source;
-            private readonly Action<string> submit;
-            private YYInteractionSessionHandle modal;
-            private Vector2 scroll;
-            public string Title => "飞船";
-            public int SortOrder => 200;
-
-            internal ExpeditionDebugPanel(ExpeditionPanel source, Action<string> submit)
-            { this.source = source; this.submit = submit; }
-
-            public Vector2 GetPreferredSize() => new Vector2(480, 440);
-
-            public void Draw(RuntimeDebugPanelContext context)
-            {
-                if (source == null || !source.DebugAvailable)
-                { GUILayout.Label("进入远征会话后可查看状态与调试操作。", context.LabelStyle); return; }
-                if (modal?.Session?.IsActive != true) OnRuntimeDebugPanelActivated();
-                bool enabled = GUI.enabled;
-                scroll = GUILayout.BeginScrollView(scroll);
-                try
-                {
-                    GUILayout.Label(source.Status.text, context.LabelStyle);
-                    GUILayout.Space(12);
-                    for (int i = 0; i < source.Actions.Length; i++)
-                    {
-                        var action = source.Actions[i];
-                        if (!action.gameObject.activeSelf) continue;
-                        GUI.enabled = enabled && modal?.Session?.IsActive == true && action.interactable;
-                        if (GUILayout.Button(source.ActionLabel(i), context.ButtonStyle, GUILayout.Height(28)))
-                        {
-                            string command = source.Commands[i];
-                            // 导航页使用自己的模态，先关闭 Hub，避免两层窗口互相遮挡或占用输入。
-                            if (command == "pilot") RuntimeDebugHub.Toggle();
-                            submit(command);
-                        }
-                    }
-                }
-                finally { GUI.enabled = enabled; GUILayout.EndScrollView(); }
-            }
-
-            public void OnRuntimeDebugPanelActivated()
-            {
-                if (modal?.Session?.IsActive == true) return;
-                OnRuntimeDebugPanelDeactivated();
-                var sessions = YYInteractionSessionService.Instance;
-                if (sessions != null) sessions.TryBegin(new YYInteractionSessionDescriptor
-                {
-                    Kind = "dark_nights.expedition_debug", Owner = nameof(ExpeditionDebugPanel), Priority = 60,
-                    Blocks = YYInteractionBlockFlags.All
-                }, out modal);
-            }
-
-            public void OnRuntimeDebugPanelDeactivated() { modal?.Dispose(); modal = null; }
-            public void Dispose()
-            {
-                RuntimeDebugHub.UnregisterPanel(this);
-                OnRuntimeDebugPanelDeactivated();
-            }
+            if (debugRegistration == null) debugRegistration = RuntimeDebugHub.RegisterPanel(
+                new RuntimeDebugPanelDescriptor("dark_nights.ship", "飞船", 200),
+                () => new ExpeditionDebugPanel(panel, Submit));
         }
 #endif
     }

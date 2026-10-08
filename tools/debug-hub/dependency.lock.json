@@ -1,0 +1,13 @@
+{
+  "repository": "YYGC",
+  "base_commit": "fee18645c997ed7529c4592917de6c412033c84e",
+  "base_patch": "../grid-business/yygc.patch",
+  "base_patch_sha256": "58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb",
+  "patch": "yygc-debug-hub.patch",
+  "patch_sha256": "64490b4dabd9249aba2483709df9aafad93d96ee3e39f978cc7ba9b24b0d8a4b",
+  "destination": ".deps/YYGC-grid-business",
+  "game_protocol": 30,
+  "save_version": 22,
+  "map_protocol": 2,
+  "validation": "Merged Editor 7/7 + Development 5/5 + Release 5/5 static compile; merged Unity Play/Player NOT_RUN"
+}
