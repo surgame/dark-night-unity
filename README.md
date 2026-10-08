@@ -1,5 +1,7 @@
 # Dark Nights · Unity
 
+2026-10-09 本分支已接入[可复用照明与手电道具](docs/REUSABLE_LIGHTING_20261009.md)：共用环境照明／目标补光Prefab及头部挂载变体，手电进入四格库存、占一格，切工具后继续照明。当前协议 **31**／存档 **v23**／AMP1 schema **2**；专项10/10及正式Bootstrap短时探针1/1通过，扩展回归3个旧玩法失败留账，YYGC保持。
+
 2026-10-09 已按用户要求将 Runtime Debug Hub UITK 候选合入 `ft-20261008-flashlight-lighting`，统一协议 **30**／存档 **v22**／AMP1 schema **2**。保留手电控制、局部照明、地形加载修复及调试物体网格和房主操作。合并验证与工作树保全结果见[集成记录](docs/RUNTIME_DEBUG_HUB_MERGE_20261009.md)；旧候选和旧 Player 结果不计入本次合并验收。
 
 2026-10-08 新候选 `ft-20261008-flashlight-lighting` 接入正式手电与局部洞穴照明，协议 **28**／存档 **v22**／AMP1 schema **2**；沿用下方地面玩法范围。当前验证边界和人工验收表见[实施记录](docs/FLASHLIGHT_IMPLEMENTATION_20261008.md)。YYGC保持锁定版本。

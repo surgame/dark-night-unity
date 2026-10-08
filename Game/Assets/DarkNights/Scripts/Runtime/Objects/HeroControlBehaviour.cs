@@ -14,7 +14,6 @@ namespace DarkNights.Runtime.Objects
         [Inject] private ActorBehaviour actor;
         [Inject] private HeroMotionBehaviour motion;
         [Inject] private ActorCombatBehaviour combat;
-        [Inject(Optional = true)] private HeroLightBehaviour light;
 
         internal bool Tick(double delta)
         {
@@ -64,7 +63,6 @@ namespace DarkNights.Runtime.Objects
             state.ControllerSlot = slot; state.ControllerGeneration = generation;
             state.ControlLease = checked(state.ControlLease + 1);
             ResetInput(state);
-            light?.EnsureEquipped();
         }
 
         internal void Release()

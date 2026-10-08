@@ -30,8 +30,20 @@ namespace DarkNights.Runtime.Objects
             if (bomb && current.ExplosiveCharges > 1000 - quantity) return false;
             var edited = hero.Edit();
             if (!owned && !HeroInventoryBehaviour.Give(edited, guid)) return false;
+            if (item.Handheld != HeroEquipmentKind.Flashlight &&
+                world.Resources.Equipment.Kind(HeroInventoryBehaviour.Slot(current, current.SelectedItem)) == HeroEquipmentKind.Flashlight)
+            {
+                HeroEquipment.Cancel(edited); edited.EquipmentAction = 0;
+                edited.SelectedItem = Enumerable.Range(0, 4).Single(slot => HeroInventoryBehaviour.Slot(edited, slot) == guid);
+                edited.SelectionRevision = checked(edited.SelectionRevision + 1);
+            }
             if (owned) edited.InventoryRevision = checked(edited.InventoryRevision + 1);
             if (bomb) edited.ExplosiveCharges += quantity;
+            if (world.Resources.Equipment.HasLight(guid))
+            {
+                edited.LightDefinition = guid; edited.LightEnabled = true;
+                edited.LightAimAngle = edited.Face < 0 ? 180 : 0;
+            }
             return true;
         }
         internal static bool Remove(ObjectSession world, ActorBehaviour hero, ObjectDefinition definition)
@@ -51,6 +63,10 @@ namespace DarkNights.Runtime.Objects
             if (slot == 0) edited.Slot0 = ""; else if (slot == 1) edited.Slot1 = "";
             else if (slot == 2) edited.Slot2 = ""; else edited.Slot3 = "";
             if (item.Handheld == HeroEquipmentKind.Bomb) edited.ExplosiveCharges = 0;
+            if (edited.LightDefinition == guid)
+            {
+                edited.LightDefinition = ""; edited.LightEnabled = false;
+            }
             if (edited.SelectedItem == slot)
             {
                 HeroEquipment.Cancel(edited); edited.EquipmentAction = 0;

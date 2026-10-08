@@ -3,8 +3,8 @@ using System.Globalization;
 
 namespace DarkNights.Core.Config
 {
-    /// <summary>手电定义的冻结照明能力，距离以地图格计；不拥有装备、开关或渲染资源。</summary>
-    public sealed class FlashlightRules
+    /// <summary>通用环境光源的冻结视觉参数，距离以地图格计；不拥有装备、开关或渲染资源。</summary>
+    public sealed class LightEmissionRules
     {
         public float Range { get; }
         public float Cone { get; }
@@ -15,7 +15,7 @@ namespace DarkNights.Core.Config
         public float Green { get; }
         public float Blue { get; }
 
-        public FlashlightRules(float range, float cone, float intensity, float nearRange,
+        public LightEmissionRules(float range, float cone, float intensity, float nearRange,
             float nearIntensity, float red, float green, float blue)
         {
             if (!Valid(range, 2, 24) || !Valid(cone, 20, 150) || !Valid(intensity, 0, 4) ||

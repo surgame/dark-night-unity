@@ -12,7 +12,7 @@ namespace DarkNights.Runtime.Objects
         private readonly Dictionary<string, ObjectDefinition> definitions = new Dictionary<string, ObjectDefinition>(StringComparer.Ordinal);
         private readonly Dictionary<string, HeroEquipmentKind> kinds = new Dictionary<string, HeroEquipmentKind>(StringComparer.Ordinal);
         private readonly Dictionary<string, MiningToolRules> tools = new Dictionary<string, MiningToolRules>(StringComparer.Ordinal);
-        private readonly Dictionary<string, FlashlightRules> lights = new Dictionary<string, FlashlightRules>(StringComparer.Ordinal);
+        private readonly HashSet<string> lights = new HashSet<string>(StringComparer.Ordinal);
         public string Fingerprint { get; }
         public IReadOnlyList<ObjectDefinition> MiningDefinitions { get; }
         public IReadOnlyList<ObjectDefinition> LightDefinitions { get; }
@@ -38,7 +38,9 @@ namespace DarkNights.Runtime.Objects
                 if ((light != null) != emits) throw new InvalidOperationException("手电必须同时声明配置和 Behaviour：" + definition.Key);
                 if (light != null)
                 {
-                    lights.Add(guid, light.Freeze()); illumination.Add(definition);
+                    if (item == null || item.Handheld != HeroEquipmentKind.Flashlight)
+                        throw new InvalidOperationException("照明道具必须占用库存格：" + definition.Key);
+                    lights.Add(guid); illumination.Add(definition);
                     if (light.Starter)
                     {
                         if (StarterLight != "") throw new InvalidOperationException("初始手电 Definition 必须唯一。");
@@ -55,7 +57,7 @@ namespace DarkNights.Runtime.Objects
                         if (target.Resolve(database)?.SharedConfigs.OfType<MineralDepositRuleConfig>().SingleOrDefault() == null)
                             throw new InvalidOperationException("工具引用了非矿床 Definition。");
                 }
-                identity.Add(guid + ":" + item?.RuleKey + ":" + item?.Handheld + ":" + item?.Jetpack + ":" + (config?.Fingerprint() ?? "") + ":" + light?.Starter + ":" + light?.Freeze().Fingerprint);
+                identity.Add(guid + ":" + item?.RuleKey + ":" + item?.Handheld + ":" + item?.Jetpack + ":" + (config?.Fingerprint() ?? "") + ":" + light?.Starter);
             }
             MiningDefinitions = mining.AsReadOnly();
             LightDefinitions = illumination.AsReadOnly();
@@ -64,7 +66,7 @@ namespace DarkNights.Runtime.Objects
 
         public ObjectDefinition Resolve(string guid) => !string.IsNullOrEmpty(guid) && definitions.TryGetValue(guid, out var value) ? value : null;
         public MiningToolRules Mining(string guid) => !string.IsNullOrEmpty(guid) && tools.TryGetValue(guid, out var value) ? value : null;
-        public FlashlightRules Light(string guid) => !string.IsNullOrEmpty(guid) && lights.TryGetValue(guid, out var value) ? value : null;
+        public bool HasLight(string guid) => !string.IsNullOrEmpty(guid) && lights.Contains(guid);
         public HeroEquipmentKind Kind(string guid) => !string.IsNullOrEmpty(guid) && kinds.TryGetValue(guid, out var value) ? value : HeroEquipmentKind.Empty;
         public bool CanEquip(string guid) => Resolve(guid) != null && Kind(guid) != HeroEquipmentKind.Empty;
     }

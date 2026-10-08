@@ -34,6 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8702469853946652771}
+  - {fileID: 2948313242561354470}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2098456080306547164
@@ -96,7 +97,7 @@ MonoBehaviour:
   _colliders2D: []
   emitter: {fileID: 8702469853946652771}
   body: {fileID: 3168884530909005914}
-  lightingShader: {fileID: 7200000, guid: 02170dae5e9339640955ec044c39fa27, type: 3}
+  effect: {fileID: 7242856909744588300}
 --- !u!212 &3168884530909005914
 SpriteRenderer:
   serializedVersion: 2
@@ -187,3 +188,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3996912639668868864}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &8845902407771062773
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3996912639668868864}
+    m_Modifications:
+    - target: {fileID: 100434685180569955, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+      propertyPath: m_Name
+      value: LightEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+--- !u!4 &2948313242561354470 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+  m_PrefabInstance: {fileID: 8845902407771062773}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7242856909744588300 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2180092566517106681, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+  m_PrefabInstance: {fileID: 8845902407771062773}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c06175333301c94c98bdb6dd7163f40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Lighting.LightEffect

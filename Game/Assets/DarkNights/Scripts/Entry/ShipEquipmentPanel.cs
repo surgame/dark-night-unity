@@ -64,7 +64,7 @@ namespace DarkNights.Entry
             int[] items = { actor?.Slot0 ?? 0, actor?.Slot1 ?? 0, actor?.Slot2 ?? 0, actor?.Slot3 ?? 0 };
             for (int i = 0; i < slots.Length; i++)
             {
-                string name = items[i] switch { 1 => "手枪", 2 => "矿镐", 3 => "炸药", _ => "空" };
+                string name = items[i] switch { 1 => "手枪", 2 => "矿镐", 3 => "炸药", 4 => "手电筒", _ => "空" };
                 slots[i].OnNext((actor?.SelectedItem == i ? "▶ " : "") + (i + 1) + "  " + name);
             }
             bool owned = actor?.JetpackOwned == true;

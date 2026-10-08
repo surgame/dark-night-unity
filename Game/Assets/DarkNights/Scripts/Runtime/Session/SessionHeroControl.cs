@@ -67,6 +67,7 @@ namespace DarkNights.Runtime.Session
                 {
                     ActorBehaviour created = world.Commands.SpawnDefaultResident();
                     created?.Object.GetBehaviour<HeroControlBehaviour>().Claim(connection.PlayerSlot, connection.Generation);
+                    created?.Object.GetBehaviour<HeroLightBehaviour>()?.GiveStarter();
                     return created;
                 });
             }

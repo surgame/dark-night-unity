@@ -1,5 +1,7 @@
 # Dark Nights Unity 技术架构
 
+2026-10-09 [可复用照明](REUSABLE_LIGHTING_20261009.md)将业务道具与View光效分开：手电持有及开关仍归ActorState，四格库存为持有依据；LightEffect组合环境光源与指定精灵补光，Entry桥接冻结副本，游戏相机共享有界光场。共用Prefab及头部变体不拥有权威状态或独立全屏缓存。协议31／存档v23／AMP1 schema2，YYGC保持。
+
 2026-10-07[地面基础玩法候选](GROUND_GAMEPLAY_BASELINE.md)采用协议27／存档v21。保持同一YYGC对象、会话、地图和冻结副本路线；正式每步推进主角运动／装备、手持投射物、飞船及基础会话时间，购买单独通过可信请求结算。下表的经济／波次／战斗／工作能力实现仍保留，但其自动推进及旧命令已退出正式运行；后续恢复须按独立玩法切片验收。
 
 2026-10-05 [原生矿层候选](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)：YYGC会话生命周期托管独立 ARDMap，GridBusinessStateStore 唯一拥有矿格耐久／储量；初始矿床为静态元数据，正式运行无逐矿床对象或逐格NetworkObject。前景与矿层均采用局部只读副本与AnyRuleD页面，换区保留静态背景宿主；普通采集组合一层地图与角色状态，拆墙保留后面的矿物。游戏协议25／存档v19／AMP1 schema2。

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using DarkNights.View.Lighting;
 using YY.Features.Players.View;
 
 namespace DarkNights.View
@@ -9,12 +10,22 @@ namespace DarkNights.View
     {
         [SerializeField] private Transform emitter;
         [SerializeField] private SpriteRenderer body;
-        [SerializeField] private ComputeShader lightingShader;
-        public ComputeShader LightingShader => lightingShader;
+        [SerializeField] private LightEffect effect;
+        public LightEffect Effect => effect;
         private bool angleKnown;
         public float DisplayedAngle { get; private set; }
         public Vector3 EmitterPosition => emitter != null ? emitter.position :
             throw new InvalidOperationException("手电缺少显式灯口绑定。");
+
+        public void BindLight(UnityEngine.Object context, Transform mount, Transform fillAnchor, SpriteRenderer[] receivers)
+        {
+            if (effect == null || emitter == null || body == null) throw new InvalidOperationException("手电必须绑定通用光效与道具外观。");
+            var all = new SpriteRenderer[receivers.Length + 1];
+            Array.Copy(receivers, all, receivers.Length); all[receivers.Length] = body;
+            effect.Bind(context, mount, fillAnchor, all); effect.Environment.Bind(mount, emitter);
+        }
+
+        public void SetLight(bool enabled) { effect.SetOn(enabled); }
 
         public void Present(float angle, bool visible, bool immediate = true)
         {
@@ -25,6 +36,10 @@ namespace DarkNights.View
             transform.rotation = Quaternion.Euler(0, 0, DisplayedAngle);
             body.enabled = visible;
         }
-        private void OnDisable() => angleKnown = false;
+        protected override void OnDisable()
+        {
+            angleKnown = false;
+            base.OnDisable();
+        }
     }
 }

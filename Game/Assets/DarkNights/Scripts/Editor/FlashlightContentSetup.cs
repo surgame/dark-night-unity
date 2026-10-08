@@ -65,8 +65,9 @@ namespace DarkNights.Editor
                 File.WriteAllText(HeroInputAssetSetup.Path,input.ToJson());
                 AssetDatabase.ImportAsset(HeroInputAssetSetup.Path);
             }
+            ReusableLightContentSetup.Install();
             EditorUtility.SetDirty(database); AssetDatabase.SaveAssets(); Validate();
-            Debug.Log("DARK_NIGHTS_FLASHLIGHT_INSTALLED protocol=28 save=22");
+            Debug.Log("DARK_NIGHTS_FLASHLIGHT_INSTALLED protocol=31 save=23");
         }
 
         public static void Validate()
@@ -78,12 +79,13 @@ namespace DarkNights.Editor
                 throw new InvalidOperationException("手电 Definition 合同不完整。");
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
             var view = prefab != null ? prefab.GetComponent<FlashlightView>() : null;
-            if (view == null || view.Owner == null || view.LightingShader == null ||
+            if (view == null || view.Owner == null || view.Effect == null ||
                 definition.PrefabRef.AssetGUID != AssetDatabase.AssetPathToGUID(PrefabPath))
                 throw new InvalidOperationException("手电 PrefabRef／视图／计算资源缺失。");
             NativeObjectContracts.RequireGenerated(typeof(FlashlightToolBehaviour));
             NativeObjectContracts.RequireGenerated(typeof(HeroLightBehaviour));
-            definition.SharedConfigs.OfType<FlashlightToolConfig>().Single().Freeze();
+            view.Effect.Validate();
+            definition.SharedConfigs.OfType<EquipmentItemConfig>().Single().Validate();
         }
 
         private static void Create(ObjectDefinitionDatabase database)
@@ -119,7 +121,6 @@ namespace DarkNights.Editor
                 NativePrefabBuilder.SetReference(instance,"_view",view);
                 NativePrefabBuilder.SetReference(initializer,"_objectInstance",instance);
                 NativePrefabBuilder.SetReference(view,"body",body); NativePrefabBuilder.SetReference(view,"emitter",emitter);
-                NativePrefabBuilder.SetReference(view,"lightingShader",AssetDatabase.LoadAssetAtPath<ComputeShader>("Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.compute"));
                 view.ForceRefreshAllReferences(); PrefabUtility.SaveAsPrefabAsset(root,PrefabPath);
             }
             finally { UnityEngine.Object.DestroyImmediate(root); }
@@ -127,6 +128,7 @@ namespace DarkNights.Editor
             definition.Name = "手电筒"; definition.Type = ObjectType.Tool; definition.NetType = NetworkType.Local;
             definition.PrefabRef = new AssetReferenceGameObject(AssetDatabase.AssetPathToGUID(PrefabPath));
             definition.SharedConfigs.Add(new FlashlightToolConfig()); definition.BehaviourTypes.Add(typeof(FlashlightToolBehaviour).FullName);
+            definition.SharedConfigs.Add(new EquipmentItemConfig { Handheld = DarkNights.Core.Config.HeroEquipmentKind.Flashlight });
             AssetDatabase.CreateAsset(definition,DefinitionPath);
             definition.EditorSetIdentity(DefinitionIdentityAuthoring.ReadAssetGuid(definition),"item.flashlight",false);
             database.AddDefinition(definition);

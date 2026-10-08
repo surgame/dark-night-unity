@@ -38,6 +38,7 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.FlashlightToolBehaviour
   SharedConfigs:
   - rid: 4004706298544259164
+  - rid: 4004706321636261888
   references:
     version: 2
     RefIds:
@@ -45,11 +46,9 @@ MonoBehaviour:
       type: {class: FlashlightToolConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         Starter: 1
-        Range: 14
-        Cone: 90
-        Intensity: 1.35
-        NearRange: 2.2
-        NearIntensity: 0.55
-        Red: 1
-        Green: 0.88
-        Blue: 0.69
+    - rid: 4004706321636261888
+      type: {class: EquipmentItemConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        RuleKey: 
+        Jetpack: 0
+        Handheld: 4

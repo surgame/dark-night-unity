@@ -19,14 +19,16 @@ namespace DarkNights.Entry
         private GameInputActions input;
         private Terrain.RandomLevelEntry terrain;
         private readonly Dictionary<int,(ActorView Actor,FlashlightView Tool)> tools = new Dictionary<int,(ActorView,FlashlightView)>();
-        private readonly List<FlashlightEmitterData> emitters = new List<FlashlightEmitterData>(16);
+        private readonly List<LightEmitterData> emitters = new List<LightEmitterData>(16);
+        private readonly List<LightEffect> effects = new List<LightEffect>(16);
+        private readonly LightFillComposer fills = new LightFillComposer();
         private readonly List<Task> retiring = new List<Task>();
         private readonly HashSet<int> wanted = new HashSet<int>();
         private ExplorationLightField field;
         private View.Terrain.CaveVisualSource boundSource;
         private int epoch;
         private bool failed;
-        private static readonly FlashlightRules DeviceLight = new FlashlightRules(8.375f,90,.45f,.25f,0,1,.78f,.48f);
+        private static readonly LightEmissionRules DeviceLight = new LightEmissionRules(8.375f,90,.45f,.25f,0,1,.78f,.48f);
         public ExplorationLightSettings Settings => field?.Settings;
         public int SourceCount => field?.SourceCount ?? 0;
         public Task Retirement { get; private set; } = Task.CompletedTask;
@@ -63,8 +65,8 @@ namespace DarkNights.Entry
                 var actor = entities.Visual(observed.Id) as ActorView;
                 var displayed = (entities.Presentation(observed.Id) as ActorPresentationBehaviour)?.Current ?? observed;
                 if (actor == null || displayed.LightDefinition == "" || displayed.Hp <= 0) continue;
-                var rules = network.ObjectResources.Equipment.Light(displayed.LightDefinition);
-                if (rules == null || actor.LightAnchor == null) throw new InvalidOperationException("角色手电能力或明确挂点缺失。");
+                if (!network.ObjectResources.Equipment.HasLight(displayed.LightDefinition) || actor.LightAnchor == null)
+                    throw new InvalidOperationException("角色照明道具能力或明确挂点缺失。");
                 wanted.Add(displayed.Id);
                 if (!tools.TryGetValue(displayed.Id,out var binding) || binding.Actor != actor || binding.Tool.Owner.Definition.Guid.ToString() != displayed.LightDefinition)
                 {
@@ -74,13 +76,13 @@ namespace DarkNights.Entry
                     try
                     {
                         var tool = created as FlashlightView ?? throw new InvalidOperationException("手电主视图类型非法。");
-                        if (tool.Owner.GetBehaviour<FlashlightToolBehaviour>()?.Rules == null) throw new InvalidOperationException("手电 Behaviour 未装配。");
+                        if (tool.Owner.GetBehaviour<FlashlightToolBehaviour>()?.Ready != true) throw new InvalidOperationException("手电 Behaviour 未装配。");
                         tool.transform.localPosition = Vector3.zero; tool.transform.localScale = Vector3.one;
                         tool.Owner.Activate(); binding = (actor,tool); tools.Add(displayed.Id,binding);
+                        tool.BindLight(this, actor.LightAnchor, actor.LightFillAnchor, actor.LightTargets);
                     }
                     catch { EntityViewFactory.Release(created); throw; }
                 }
-                field = field ?? new ExplorationLightField(binding.Tool.LightingShader,Core.Logic.Lighting.LightWallDistance.Build);
                 float angle = displayed.LightAimAngle;
                 bool local = displayed.ControllerSlot == network.Client.PlayerSlot && displayed.ControlLease > 0;
                 if (local && input.HeroMode && !frame.Paused && input.ReadHero().Allowed)
@@ -93,13 +95,19 @@ namespace DarkNights.Entry
                 bool boarded = false;
                 if (frame.World.Expedition != null) foreach (var crew in frame.World.Expedition.Crew)
                     if (crew.Id == displayed.Id) { boarded = crew.Boarded; break; }
-                if (displayed.LightEnabled && !boarded)
-                    emitters.Add(new FlashlightEmitterData(SafeEmitter(preview,actor.LightAnchor.position,binding.Tool.EmitterPosition),
-                        angle,rules,nearPosition:actor.transform.position+Vector3.up*.22f));
+                binding.Tool.SetLight(displayed.LightEnabled && !boarded);
             }
             var removed = new List<int>();
             foreach (int id in tools.Keys) if (!wanted.Contains(id)) removed.Add(id);
             foreach (int id in removed) Remove(id);
+            LightEffect.Collect(this, camera, effects);
+            foreach (var effect in effects)
+            {
+                field = field ?? new ExplorationLightField(effect.Environment.LightingShader, Core.Logic.Lighting.LightWallDistance.Build);
+                if (effect.IsOn && effect.Environment.isActiveAndEnabled) emitters.Add(effect.Environment.Sample(preview));
+            }
+            fills.Apply(effects, field?.Settings.NearStrength ?? 1,
+                new Vector2(preview.transform.lossyScale.x, preview.transform.lossyScale.y));
             AddDeviceLights(frame.World);
             field?.Render(camera,preview,emitters);
         }
@@ -113,7 +121,7 @@ namespace DarkNights.Entry
                 foreach (var device in world.Expedition.Devices)
                     if (device.Id == building.Id && device.Powered && entities.Visual(building.Id) is EntityView visual)
                     {
-                        emitters.Add(new FlashlightEmitterData(visual.transform.position+Vector3.up*.16f,0,DeviceLight,false));
+                        emitters.Add(new LightEmitterData(visual.transform.position+Vector3.up*.16f,0,DeviceLight,false));
                     }
             }
         }
@@ -123,27 +131,13 @@ namespace DarkNights.Entry
             if (!tools.TryGetValue(id,out var binding)) return;
             tools.Remove(id); EntityViewFactory.Release(binding.Tool);
         }
-        private static Vector3 SafeEmitter(View.Terrain.TerrainPreview preview,Vector3 mount,Vector3 emitter)
-        {
-            Vector3 previous=mount;
-            for (int n=0;n<=8;n++)
-            {
-                Vector3 sample=Vector3.Lerp(mount,emitter,n/8f);
-                Vector3 local=preview.transform.InverseTransformPoint(sample);
-                float x=local.x+.5f,y=-local.y+.5f;
-                byte cell=preview.LightingSource.LightingCell(Mathf.FloorToInt(x),Mathf.FloorToInt(y));
-                if ((cell&128)==0 || (cell&64)!=0 && Core.Logic.Terrain.TerrainShapeGeometry.Contains(
-                    (Core.Config.Terrain.TerrainCellShape)(cell&15),x-Mathf.Floor(x),1-(y-Mathf.Floor(y)))) return previous;
-                previous=sample;
-            }
-            return previous;
-        }
         private void ClearTools()
         { foreach (var binding in tools.Values) EntityViewFactory.Release(binding.Tool); tools.Clear(); }
         private void OnDisable()
         {
             RenderPipelineManager.beginCameraRendering -= BeginCamera;
             ClearTools(); boundSource = null; ExplorationLightField.Suspend();
+            fills.Clear(); effects.Clear();
             if (field != null) retiring.Add(field.RetireAsync()); field = null;
             Retirement = RetirePendingAsync();
         }

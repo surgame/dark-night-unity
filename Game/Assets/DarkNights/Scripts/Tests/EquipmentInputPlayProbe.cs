@@ -91,8 +91,8 @@ namespace DarkNights.Tests
                 network.Terrain.Replica.Query(cell).State.Durability < durability, "矿镐实际修改对应地形耐久");
             Assert.That(network.Client.Replica.Current.World.Expedition.Risk, Is.Zero);
 
-            await PressKey(Key.Digit2);
-            await Until(() => hero.Current.SelectedItem == 1, "数字键切换手枪");
+            await PressKey(Key.Digit3);
+            await Until(() => hero.Current.SelectedItem == 2, "数字键切换手枪");
             await Aim(stage.SceneCamera, hero, -80, 9);
             await MousePress(true);
             await Until(() => hero.Current.EquipmentCooldown > 0, "真实左键手枪射击");

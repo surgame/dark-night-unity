@@ -19,8 +19,8 @@ namespace DarkNights.Tests
         [Test]
         public void InvalidLightRulesRejectNonfiniteAndOutOfRange()
         {
-            Assert.Throws<ArgumentException>(()=>new FlashlightRules(float.NaN,90,1,2,.5f,1,1,1));
-            Assert.Throws<ArgumentException>(()=>new FlashlightRules(14,180,1,2,.5f,1,1,1));
+            Assert.Throws<ArgumentException>(()=>new LightEmissionRules(float.NaN,90,1,2,.5f,1,1,1));
+            Assert.Throws<ArgumentException>(()=>new LightEmissionRules(14,180,1,2,.5f,1,1,1));
         }
 
         [Test]
@@ -47,10 +47,11 @@ namespace DarkNights.Tests
         [UnityTest]
         public IEnumerator AuthorityToggleSaveAndWireUseTheSameActorState() => UniTask.ToCoroutine(async ()=>
         {
-            using var fixture=await HeroTestSession.Create();
-            fixture.Command(SessionOperation.ClaimHero);
+            using var fixture=await HeroTestSession.Create(true);
             var actor=fixture.World.CaptureView().Actors.Single(a=>a.Id==fixture.ActorId);
             Assert.That(actor.LightDefinition,Is.Not.Empty); Assert.That(actor.LightEnabled,Is.True);
+            Assert.That(new[] { fixture.State.Slot0, fixture.State.Slot1, fixture.State.Slot2, fixture.State.Slot3 },
+                Does.Contain(actor.LightDefinition));
             var request=new SessionRequest(SessionOperation.SetHeroLight,SessionAuthority.ProtocolVersion,
                 fixture.Authority.Epoch,fixture.Authority.PolicyRevision,100,new[] {fixture.ActorId},
                 value:0,controlLease:fixture.State.ControlLease);
@@ -67,7 +68,7 @@ namespace DarkNights.Tests
         [UnityTest]
         public IEnumerator UnownedToggleCannotChangeLight() => UniTask.ToCoroutine(async ()=>
         {
-            using var fixture=await HeroTestSession.Create(); fixture.Command(SessionOperation.ClaimHero);
+            using var fixture=await HeroTestSession.Create(true);
             var request=new SessionRequest(SessionOperation.SetHeroLight,SessionAuthority.ProtocolVersion,
                 fixture.Authority.Epoch,fixture.Authority.PolicyRevision,100,new[] {fixture.ActorId},
                 value:0,controlLease:fixture.State.ControlLease);

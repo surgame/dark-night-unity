@@ -138,7 +138,7 @@ namespace DarkNights.Tests
             var font = root.Q<Label>("credits").resolvedStyle.unityFontDefinition.fontAsset;
             Assert.That(font, Is.Not.Null, "UI Toolkit 必须使用 TextCore 字体而非 UGUI 的动态 Font 图集");
             Assert.That(font.HasCharacter('矿', true, true), Is.True, "中文商品必须有可渲染字形");
-            Assert.That(hero.Current.Slot0, Is.Zero);
+            Assert.That(hero.Current.Slot0, Is.EqualTo(4));
             Assert.That(hero.Current.JetpackOwned, Is.False);
             var picked = root.panel.Pick(new Vector2(root.worldBound.center.x, root.worldBound.height * .2f));
             Assert.That(picked == null || !root.Contains(picked), Is.True, "透明全屏容器不能挡住游戏指针");
@@ -159,7 +159,7 @@ namespace DarkNights.Tests
             await KeyPress(Key.A, .25f);
             Assert.That(hero.Current.X, Is.EqualTo(stopped).Within(1), "商店打开时不移动");
             Submit(root.Q<Button>("buy-pickaxe"));
-            await Until(() => hero.Current.Slot0 == 2, "购买矿镐反馈");
+            await Until(() => hero.Current.Slot1 == 2, "购买矿镐反馈");
             Assert.That(network.Client.Replica.Current.World.Camp.Credits, Is.EqualTo(26));
             Assert.That(root.Q<Button>("buy-pickaxe").enabledSelf, Is.False);
             Submit(root.Q<Button>("buy-jetpack"));

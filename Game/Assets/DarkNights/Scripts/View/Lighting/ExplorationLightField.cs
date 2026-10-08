@@ -35,7 +35,7 @@ namespace DarkNights.View.Lighting
             bounce = new ComputeBuffer(Capacity, sizeof(float) * 4);
         }
 
-        public void Render(Camera camera, TerrainPreview preview, IReadOnlyList<FlashlightEmitterData> emitters)
+        public void Render(Camera camera, TerrainPreview preview, IReadOnlyList<LightEmitterData> emitters)
         {
             if (retired || camera == null || preview?.LightingSource == null) { Suspend(); return; }
             var known = preview.LightingLoadedBounds;

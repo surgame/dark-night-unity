@@ -36,7 +36,8 @@ namespace DarkNights.Tests
                 var hero = Hero(world, slot).CaptureState();
                 Assert.That(hero.Boarded, Is.False);
                 Assert.That(hero.Height, Is.EqualTo(Ship(world).CaptureState().DockHeight).Within(2));
-                Assert.That(hero.Slot0, Is.Empty);
+                Assert.That(hero.Slot0, Is.EqualTo(hero.LightDefinition));
+                Assert.That(hero.LightDefinition, Is.Not.Empty);
                 Assert.That(hero.JetpackEquipped, Is.False);
             }
             for (int i = 0; i < 3600; i++) authority.Tick();

@@ -83,7 +83,7 @@ namespace DarkNights.Runtime.Network
                     a.ControllerSlot >= -1 && a.ControllerSlot <= 3 && (a.ControllerSlot < 0 || (a.ManualControl && !a.Enemy)) &&
                     Finite(a.JetpackFuel) && a.JetpackFuel >= 0 && a.JetpackFuel <= (catalog.Balance.HeroControl?.FuelSeconds ?? 0) &&
                     a.ExplosiveCharges >= 0 && a.ExplosiveCharges <= 1000 && a.InventoryRevision >= 0 &&
-                    new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.All(item => item >= 0 && item <= 3) &&
+                    new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.All(item => item >= 0 && item <= 4) &&
                     EquipmentSlots(a) &&
                     (!a.JetpackEquipped || a.JetpackOwned) && (a.JetpackOwned || a.JetpackFuel == 0));
                 Require(Finite(a.AimAngle) && Math.Abs(a.AimAngle) <= 180 && Finite(a.EquipmentCooldown) && a.EquipmentCooldown >= 0 && a.EquipmentCooldown <= 5 &&
@@ -183,6 +183,7 @@ namespace DarkNights.Runtime.Network
             }
             if (!Finite(actor.LightAimAngle) || Math.Abs(actor.LightAimAngle) > 180 || actor.LightDefinition == null) return false;
             if (actor.LightDefinition == "") return !actor.LightEnabled;
+            if (!identities.Contains(actor.LightDefinition)) return false;
             if (!Guid.TryParseExact(actor.LightDefinition, "N", out var identity) || identity == Guid.Empty || actor.LightDefinition != identity.ToString("N")) return false;
             var light = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance?.ResolveDefinition(actor.LightDefinition, 0);
             return light?.SharedConfigs.OfType<Objects.FlashlightToolConfig>().SingleOrDefault() != null &&

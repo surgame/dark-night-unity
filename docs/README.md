@@ -1,10 +1,14 @@
 # Dark Nights 文档索引
 
+2026-10-09 当前[可复用照明与手电道具](REUSABLE_LIGHTING_20261009.md)使用协议 **31**／存档 **v23**／AMP1 schema **2**；共用光效、头部变体与背包占格已实现。专项10/10及Bootstrap短时探针1/1通过，扩展旧玩法失败保留；下方合并和历史切片保持原输入身份。
+
 2026-10-09 已按用户要求将 Runtime Debug Hub UITK 候选合入 `ft-20261008-flashlight-lighting`，统一协议 **30**／存档 **v22**／AMP1 schema **2**。保留手电控制、局部照明、地形加载修复及调试物体网格和房主操作。合并验证与工作树保全结果见[集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md)；旧候选和旧 Player 结果不计入本次合并验收。
 
 当前地面玩法收敛候选为 `ref-20261007-ground-gameplay-baseline`，协议27／存档v21／AMP1 schema2。这里保留长期合同、日常入口与当前实现；历史过程以主题摘要为入口，操作、来源、未完成验收和周报从[归档索引](archive/README.md)进入。不同日期和Player的测试结果不能相互替代。
 
 ## 当前工作
+
+- [可复用照明与手电道具](REUSABLE_LIGHTING_20261009.md)：共用效果Prefab、环境光／指定对象补光、头部挂载、四格库存和本批验证边界。
 
 - [手电与洞穴照明候选](FLASHLIGHT_IMPLEMENTATION_20261008.md)：新分支、YYGC 工具、协议28／存档v22、局部光照、可控墙内羽化与人工验收表。
 
@@ -27,7 +31,7 @@
 | [技术架构](ARCHITECTURE.md) | 状态归属、程序集、装配和事务 |
 | [联机设计](MULTIPLAYER.md) | 可信连接、权限、Ready、epoch 与恢复 |
 | [Runtime Debug Hub 接入规范](RUNTIME_DEBUG_HUB_SPEC.md) | 稳定注册、面板生命周期、USS 规范与物体网格合同 |
-| [存档格式](SAVE_FORMAT.md) | 当前v22格式、装备／个人货袋约束和原子保存 |
+| [存档格式](SAVE_FORMAT.md) | 当前v23格式、库存／照明引用约束和原子保存 |
 | [依赖说明](DEPENDENCIES.md) | 锁定版本与准备入口 |
 | [YYGC 改动账本](YYGC_CHANGES.md) | 框架授权、逐项差异与验证边界 |
 

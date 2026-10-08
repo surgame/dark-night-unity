@@ -59,6 +59,9 @@ Shader "Dark Nights/Camp Sprite"
             float4 _DNCampAmbient;
             float4 _DNCampLights[7];
             float4 _DNCampLightColors[7];
+            float _DNLocalFillCount;
+            float4 _DNLocalFillOrigins[4];
+            float4 _DNLocalFillColors[4];
 
             Varyings vert(Attributes input)
             {
@@ -83,7 +86,15 @@ Shader "Dark Nights/Camp Sprite"
                 half4 c = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv) * i.color;
                 if (_DNLightingActive > .5)
                 {
-                    c.rgb *= DNIrradiance(i.world,float3(0,0,1)); c.rgb *= c.a; return c;
+                    float3 fill = 0;
+                    for (int n = 0; n < min(4, (int)_DNLocalFillCount); n++)
+                    {
+                        float distance = length((i.world - _DNLocalFillOrigins[n].xy) / max(float2(.001,.001), _DNLocalFillOrigins[n].zw));
+                        float weight = pow(saturate(1 - distance), 1.1);
+                        fill += weight * _DNLocalFillColors[n].rgb * _DNLocalFillColors[n].w;
+                    }
+                    c.rgb *= DNIrradiance(i.world,float3(0,0,1)) + min(fill, float3(2,2,2));
+                    c.rgb *= c.a; return c;
                 }
                 c.rgb *= lerp(float3(1,1,1), _DNCampAmbient.rgb, _UseGlobalAmbient);
                 float3 light = 0;

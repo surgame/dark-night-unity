@@ -6,6 +6,7 @@ namespace DarkNights.Core.Config
         Empty = 0,
         Pistol = 1,
         Pickaxe = 2,
-        Bomb = 3
+        Bomb = 3,
+        Flashlight = 4
     }
 }

@@ -54,7 +54,7 @@ namespace DarkNights.Tests
             Walk(authority, host, hero, Ship(world).X + ShipGeometry.RampToe - 64);
             var map = world.Terrain.Map;
             var state = hero.CaptureState();
-            var tool = world.Resources.Equipment.Mining(state.Slot0);
+            var tool = world.Resources.Equipment.Mining(state.Slot1);
             Assert.That(TerrainMiningQuery.FirstSurface(map, state.X, state.Height + tool.HandHeight,
                 0, -1, tool.Reach, out var cell, out _), Is.True);
             var value = map.Read(cell).Cell;
@@ -110,7 +110,8 @@ namespace DarkNights.Tests
             var host = Connect(authority, 0); var hero = Hero(world, 0);
             var saved = JObject.Parse(world.SaveCodec.Serialize(world.CaptureWorld()));
             var actor = saved["world"]["actors"].OfType<JObject>().Single(a => (int)a["id"] == hero.Id);
-            actor["slot_0"] = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item.bomb").Guid.ToString();
+            actor["slot_1"] = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item.bomb").Guid.ToString();
+            actor["selected_item"] = 1;
             actor["inventory_revision"] = 1; actor["explosive_charges"] = 3;
             world.Restore(saved.ToString());
             Assert.That(authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true), Is.True);
