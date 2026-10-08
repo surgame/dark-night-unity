@@ -47,6 +47,9 @@ namespace DarkNights.Runtime.Network
         public int ControllerSlot { get; set; } = -1;
         public int ControlLease { get; set; }
 
+        public string LightDefinition { get; set; } = "";
+        public bool LightEnabled { get; set; }
+        public float LightAimAngle { get; set; }
         public float AimAngle { get; set; }
         public double EquipmentCooldown { get; set; }
         public double EquipmentAction { get; set; }
@@ -85,6 +88,7 @@ namespace DarkNights.Runtime.Network
             ExplosiveCharges = value.ExplosiveCharges,
             ControllerSlot = value.ControllerSlot,
             ControlLease = value.ControlLease,
+            LightDefinition = value.LightDefinition, LightEnabled = value.LightEnabled, LightAimAngle = value.LightAimAngle,
             AimAngle = value.AimAngle,
             EquipmentCooldown = value.EquipmentCooldown,
             EquipmentAction = value.EquipmentAction,
@@ -119,6 +123,6 @@ namespace DarkNights.Runtime.Network
             ControllerSlot,
             ControlLease, ExplosiveCharges, AimAngle, EquipmentCooldown, EquipmentAction, EquipmentActionDuration, Charging, ChargeSeconds,
             InventoryRevision, Slot0, Slot1, Slot2, Slot3, JetpackOwned,
-            Slot0Definition, Slot1Definition, Slot2Definition, Slot3Definition);
+            Slot0Definition, Slot1Definition, Slot2Definition, Slot3Definition, LightDefinition, LightEnabled, LightAimAngle);
     }
 }

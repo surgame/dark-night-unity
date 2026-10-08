@@ -9,6 +9,6 @@ namespace DarkNights.Runtime.Session
         IssueOrders, PlaceBuilding, TrainActors, Recruit, Repair,
         SetPaused, SetSpeed, StartNight, SetControlMode, BeginLoad, Save, Restart,
         ClaimHero, ReleaseHero, SelectHeroItem, UseHeroItem, Expedition, SelectDestination, CancelJourney,
-        SellCarriedOre, BuyEquipment
+        SellCarriedOre, BuyEquipment, SetHeroLight
     }
 }

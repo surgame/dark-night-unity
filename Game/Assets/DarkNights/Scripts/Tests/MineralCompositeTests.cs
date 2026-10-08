@@ -88,15 +88,22 @@ namespace DarkNights.Tests
                 while ((!view.Ready || view.MineralInputBatches < 1) && view.LastError == null && EditorApplication.timeSinceStartup < deadline)
                 { view.SetMineralReplica(replica, region, true); view.TickFromEditor(); camera.Render(); await UniTask.Yield(); }
                 Assert.That(view.LastError, Is.Null); Assert.That(view.Ready, Is.True);
+                AssertRockCacheMatches(view);
                 Assert.That(view.LoadedTerrainChunks, Is.EqualTo(25));
                 int backgroundBuilds = view.BackgroundBuildCount;
                 foreach (var destination in new[] { SessionMapRegion.Around(4000, -1200), region })
                 {
                     foregroundStream.Subscribe(MineralRegionReadiness.Subscription(destination, foregroundMap.Descriptor.Bounds)); FlushForeground();
+                    view.TickFromEditor();
+                    Assert.That(view.RefreshingReplica, Is.True, "保留旧画面时仍须等待新流的完整基线，不能提前确认 Ready。");
+                    Assert.That(view.Ready, Is.False);
+                    Assert.That(root.transform.Find("Cave distant wall").gameObject.activeInHierarchy, Is.True,
+                        "同世界换区不能隐藏背景并露出相机底色。");
                     view.SetReplicaRegion(foregroundReplica, destination, true);
                     while (!view.Ready && view.LastError == null && EditorApplication.timeSinceStartup < deadline)
                     { view.TickFromEditor(); camera.Render(); await UniTask.Yield(); }
                     Assert.That(view.LastError, Is.Null); Assert.That(view.Ready, Is.True);
+                    AssertRockCacheMatches(view);
                     Assert.That(view.LoadedTerrainChunks, Is.LessThanOrEqualTo(25));
                     Assert.That(view.BackgroundBuildCount, Is.EqualTo(backgroundBuilds), "局部区换代不得重建静态背景。");
                 }
@@ -144,5 +151,16 @@ namespace DarkNights.Tests
 
         private static void Capture(Camera camera, RenderTexture target, Texture2D image)
         { camera.Render(); RenderTexture.active = target; image.ReadPixels(new Rect(0, 0, 512, 320), 0, 0); image.Apply(); }
+
+        private static void AssertRockCacheMatches(TerrainPreview view)
+        {
+            var visual = TerrainVisualTestScope.Read<CaveVisualSource>(view, "caveSource");
+            var rock = TerrainVisualTestScope.Read<object>(visual, "localRockSurface");
+            var geometry = TerrainVisualTestScope.Read<object>(rock, "geometry");
+            var cells = TerrainVisualTestScope.Read<Color32[]>(visual, "cells");
+            CollectionAssert.AreEqual(cells.Select(c => c.r).ToArray(), TerrainVisualTestScope.Read<byte[]>(geometry, "materials"),
+                "后加载的前景格也必须进入岩壁烘焙缓存，不能保留洞穴下方的空白条带。");
+            CollectionAssert.AreEqual(cells.Select(c => c.g).ToArray(), TerrainVisualTestScope.Read<byte[]>(geometry, "shapes"));
+        }
     }
 }

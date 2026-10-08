@@ -33,7 +33,7 @@ namespace DarkNights.View
         private static string Label(InputAction action) => action.name switch
         {
             "Move" => "移动", "Jump" => "跳跃", "Crouch" => "下落／驾驶下降", "Sprint" => "加速", "Interact" => "交互",
-            "Attack" => "使用道具", "Item1" => "道具 1", "Item2" => "道具 2",
+            "ToggleLight" => "手电开关", "Attack" => "使用道具", "Item1" => "道具 1", "Item2" => "道具 2",
             "Item3" => "道具 3", "Item4" => "道具 4", "ToggleMode" => "切换模式",
             "Select" => "选择", "Orders" => "指令", "Append" => "追加选择",
             "Pan" => "拖动镜头", "Pause" => "暂停", "Help" => "帮助",

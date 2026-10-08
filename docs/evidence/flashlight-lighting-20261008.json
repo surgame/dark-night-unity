@@ -1,0 +1,251 @@
+{
+  "branch": "ft-20261008-flashlight-lighting",
+  "protocol": 28,
+  "save_version": 22,
+  "amp1_schema": 2,
+  "yygc_modified": false,
+  "editor_compile_errors": 0,
+  "editor_tests": {
+    "status": "completed",
+    "duration": 0.6,
+    "summary": {
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "results": [
+      {
+        "FullName": "DarkNights.Tests.FlashlightTests.AuthorityToggleSaveAndWireUseTheSameActorState",
+        "Status": "Passed",
+        "Duration": 0.2583422,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.FlashlightTests.InvalidLightRulesRejectNonfiniteAndOutOfRange",
+        "Status": "Passed",
+        "Duration": 0.0033222,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.FlashlightTests.NativeFlashlightAssetAndGeneratedBindingsAreComplete",
+        "Status": "Passed",
+        "Duration": 0.0001558,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.FlashlightTests.RetiredGeometryCancelsBeforePublishing",
+        "Status": "Passed",
+        "Duration": 0.0008978,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.FlashlightTests.UnknownAndThickWallsStayOpaqueInDistanceCache",
+        "Status": "Passed",
+        "Duration": 0.0016651,
+        "Message": null,
+        "StackTrace": null
+      },
+      {
+        "FullName": "DarkNights.Tests.FlashlightTests.UnownedToggleCannotChangeLight",
+        "Status": "Passed",
+        "Duration": 0.0246481,
+        "Message": null,
+        "StackTrace": null
+      }
+    ]
+  },
+  "gpu_probe": {
+    "passed": true,
+    "scope": "Actual Unity compute shader; small geometric probe, not a game screenshot",
+    "results": [
+      {
+        "mode": "hard",
+        "front": 1.06054688,
+        "wall": 0.324951172,
+        "behind_thick_wall": 0.0,
+        "near_body": 0.233764648,
+        "wall_depth": 0.375,
+        "changed_corner_pixels": 0
+      },
+      {
+        "mode": "soft",
+        "front": 1.06054688,
+        "wall": 0.324707031,
+        "behind_thick_wall": 0.0,
+        "near_body": 0.233764648,
+        "wall_depth": 0.375,
+        "changed_corner_pixels": 172
+      },
+      {
+        "mode": "zero-wall",
+        "front": 1.06054688,
+        "wall": 0.0,
+        "behind_thick_wall": 0.0,
+        "near_body": 0.233764648,
+        "wall_depth": 0.0,
+        "changed_corner_pixels": 0
+      }
+    ]
+  },
+  "full_game_visual_validation": "not_completed_memory_guard_stopped_play",
+  "player_build": "not_requested",
+  "manual_acceptance": "pending_user",
+  "memory_records": {
+    "memory": {
+      "state": "breach",
+      "samples": 69,
+      "peak_private_gib": 4.25567626953125,
+      "minimum_free_ram_gib": 7.210742950439453,
+      "minimum_free_commit_gib": 3.8745765686035156,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    },
+    "memory-preassets": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.026500701904297,
+      "minimum_free_ram_gib": 8.875740051269531,
+      "minimum_free_commit_gib": 7.004814147949219,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    },
+    "memory-precompile": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.0629730224609375,
+      "minimum_free_ram_gib": 12.960502624511719,
+      "minimum_free_commit_gib": 7.2972564697265625,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    },
+    "memory-pregpu": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.266319274902344,
+      "minimum_free_ram_gib": 10.548805236816406,
+      "minimum_free_commit_gib": 8.176643371582031,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    },
+    "memory-preplay": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.098194122314453,
+      "minimum_free_ram_gib": 8.406646728515625,
+      "minimum_free_commit_gib": 4.831031799316406,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    },
+    "memory-r2": {
+      "state": "breach",
+      "samples": 9,
+      "peak_private_gib": 4.162326812744141,
+      "minimum_free_ram_gib": 6.654609680175781,
+      "minimum_free_commit_gib": 3.848480224609375,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    },
+    "memory-r3": {
+      "state": "completed",
+      "samples": 600,
+      "peak_private_gib": 4.190982818603516,
+      "minimum_free_ram_gib": 8.580982208251953,
+      "minimum_free_commit_gib": 6.403327941894531,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    },
+    "memory-r4": {
+      "state": "breach",
+      "samples": 3,
+      "peak_private_gib": 4.235584259033203,
+      "minimum_free_ram_gib": 8.06711196899414,
+      "minimum_free_commit_gib": 3.9467697143554688,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    },
+    "memory-recovered": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.153728485107422,
+      "minimum_free_ram_gib": 10.018287658691406,
+      "minimum_free_commit_gib": 8.315223693847656,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    },
+    "memory-gpu": {
+      "state": "completed",
+      "samples": 300,
+      "peak_private_gib": 4.351894378662109,
+      "minimum_free_ram_gib": 10.071815490722656,
+      "minimum_free_commit_gib": 7.508232116699219,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    }
+  },
+  "source_hashes": {
+    "Game/Assets/DarkNights/Scripts/Editor/FlashlightContentSetup.cs": "e99ead9435e524d285cc777f65cdcb7e4ce094a55b509f291cc716b59148ec7a",
+    "Game/Assets/DarkNights/Scripts/Entry/HeroLightPresentation.cs": "0c99789bf4636cf41d59b155dc540eb5250d5b0c076789c6beb319757a755438",
+    "Game/Assets/DarkNights/Scripts/Tests/FlashlightTests.cs": "c9c48e82976120578b4802bac6cf47ad8676b6078af6619fa2f76bd5b802f211",
+    "Game/Assets/DarkNights/Scripts/View/FlashlightView.cs": "fa959ba36d7fd084dacd5ce640699caba3f60c9886bdcfc87e7a473bca53e716",
+    "Game/Assets/DarkNights/Scripts/Core/Config/FlashlightRules.cs": "766fc4d93440773d6888f727ee9bbcea592fee2a3679ac4a36444ffc33c84897",
+    "Game/Assets/DarkNights/Scripts/Core/ViewData/LightGeometrySnapshot.cs": "f94eaf34f7d3fcf700c65def11139b1dd00fecbc780dab915e2b43bf0e5b7f3a",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Lighting/LightWallDistance.cs": "07fbd1c7b459e81f5d97d428cef3b3a8223077f54216d90bb025f94aa1cf2438",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugWindow.cs": "a89da00014b404d949fc3862a5402fdc515db6aff351dac88adbe8889f512a86",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/FlashlightToolBehaviour.cs": "87e6c7898ffbfe83841baa91b90968a4f6578d2777018a68eea2a4a61fe0b6a6",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/FlashlightToolConfig.cs": "2a48b68e05e0f640e9c5661499e6eb07c4384e0044486a2f2213f5e097e9e889",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroLightBehaviour.cs": "3d64d1edd9cfdbefbeaf39d0ae227742ca38c3b6fc8f5c2c5cbacf4f24b3061a",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightField.cs": "f94bed8b63142e00ba410817a11b3fdc4c57a23423d8ed8bd70c846e1c141874",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightSettings.cs": "43bc4ee743b2ef23b823127fc4faabac414b19ac4665973fb9146925e703416a",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/FlashlightEmitterData.cs": "506c2ae914e66b84cea98350cffed2f607ce082bf94baf2b0008af8ac98f5262",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightGeometryCache.cs": "8716aa4729225f4d90d116f95b39892b112fb5c72aec97268d27a8afc1724ec0"
+  },
+  "previous_work_preserved": [
+    "terrain-streaming-fix",
+    "TextMesh Pro resources",
+    "docs/RUNTIME_DEBUG_HUB_SPEC.md"
+  ],
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 763,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "editor_tests_source_scope": "6/6 tests cover authority/save/config/geometry. Subsequent display-only refinements compiled; those tests were not needlessly repeated."
+}

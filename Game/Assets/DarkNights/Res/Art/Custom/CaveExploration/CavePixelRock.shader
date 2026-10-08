@@ -23,18 +23,20 @@ Shader "DarkNights/CavePixelRock"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma target 3.5
             #include "UnityCG.cginc"
+            #include "Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.hlsl"
             sampler2D _MainTex, _RockTex, _CaveMap, _CaveLight, _OreMap;
             sampler2D _StrataNear, _StrataMiddle, _StrataDeep;
             float4 _StrataPage, _StrataEnabled;
             float4x4 _MapWorldToLocal;
             float _Background;
             struct Input { float4 vertex:POSITION; float2 uv:TEXCOORD0; };
-            struct Output { float4 vertex:SV_POSITION; float2 p:TEXCOORD0; float2 uv:TEXCOORD1; };
+            struct Output { float4 vertex:SV_POSITION; float2 p:TEXCOORD0; float2 uv:TEXCOORD1; float2 world:TEXCOORD2; };
             Output vert(Input v)
             {
                 Output o; o.vertex=UnityObjectToClipPos(v.vertex);
-                o.uv=v.uv; o.p=mul(_MapWorldToLocal,mul(unity_ObjectToWorld,v.vertex)).xy; return o;
+                o.uv=v.uv; o.world=mul(unity_ObjectToWorld,v.vertex).xy; o.p=mul(_MapWorldToLocal,mul(unity_ObjectToWorld,v.vertex)).xy; return o;
             }
             float4 data(float2 p)
             {
@@ -93,6 +95,7 @@ Shader "DarkNights/CavePixelRock"
                     float2 shard=frac(p*2+floor(p.y)*.31);
                     float crystal=step(abs(shard.x-.5)*1.8+abs(shard.y-.5),.43);
                     color+=ore.g*crystal*oreColor;
+                    if (_DNLightingActive>.5) color=lerp(float3(.055,.047,.040),color,sky)*DNIrradiance(i.world,float3(0,0,1));
                     return float4(color,1);
                 }
                 clip(solid(p)-.5);
@@ -109,6 +112,13 @@ Shader "DarkNights/CavePixelRock"
                 if(c.r==1)color*=float3(1.22,.89,.66);
                 if(c.r==8)color*=.5;
                 color+=ore.g*oreColor*(.16+.12*step(.72,hash(floor(p*12))));
+                if (_DNLightingActive>.5)
+                {
+                    color=tex*(.16+broad*.18+edge*.65);
+                    if(c.r==1) color*=float3(1.22,.89,.66);
+                    if(c.r==8) color*=.5;
+                    color*=DNIrradiance(i.world,float3(0,0,1));
+                }
                 return float4(color,1);
             }
             ENDHLSL

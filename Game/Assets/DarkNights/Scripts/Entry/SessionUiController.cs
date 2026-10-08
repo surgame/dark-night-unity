@@ -46,6 +46,7 @@ namespace DarkNights.Entry
         private bool continuePending;
         private string storageStatus = "";
         public CampInput Input => input;
+        public GameInputActions Actions => actions;
         public string Page => page;
         public void BindCockpit(Action interact) { if (trade != null) trade.CockpitRequested = interact; }
         public void PresentEvent(PresentationEvent value, double age) => hud.PresentEvent(value, age);

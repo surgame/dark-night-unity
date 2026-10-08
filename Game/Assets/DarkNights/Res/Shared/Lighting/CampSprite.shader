@@ -24,6 +24,7 @@ Shader "Dark Nights/Camp Sprite"
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #pragma target 3.5
             #pragma multi_compile_instancing
             #pragma multi_compile _ SKINNED_SPRITE
 
@@ -54,6 +55,7 @@ Shader "Dark Nights/Camp Sprite"
                 float _VertexColorIsGamma;
             CBUFFER_END
 
+            #include "Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.hlsl"
             float4 _DNCampAmbient;
             float4 _DNCampLights[7];
             float4 _DNCampLightColors[7];
@@ -79,6 +81,10 @@ Shader "Dark Nights/Camp Sprite"
             half4 frag(Varyings i) : SV_Target
             {
                 half4 c = SAMPLE_TEXTURE2D(_MainTex, sampler_MainTex, i.uv) * i.color;
+                if (_DNLightingActive > .5)
+                {
+                    c.rgb *= DNIrradiance(i.world,float3(0,0,1)); c.rgb *= c.a; return c;
+                }
                 c.rgb *= lerp(float3(1,1,1), _DNCampAmbient.rgb, _UseGlobalAmbient);
                 float3 light = 0;
                 for (int n = 0; n < 7; n++)

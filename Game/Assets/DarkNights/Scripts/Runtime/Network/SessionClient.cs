@@ -152,7 +152,7 @@ namespace DarkNights.Runtime.Network
         }
 
         public ValueTask SendInput(int actor, int lease, int horizontal, bool jumpHeld, bool useHeld,
-            bool jumpPressed = false, bool dropPressed = false, float aimAngle = 0, int selectionRevision = 0, bool usePressed = false, bool useReleased = false, bool cancelUse = false, bool sprintHeld = false, HeroMiningTarget mining = default)
+            bool jumpPressed = false, bool dropPressed = false, float aimAngle = 0, int selectionRevision = 0, bool usePressed = false, bool useReleased = false, bool cancelUse = false, bool sprintHeld = false, HeroMiningTarget mining = default, float lightAimAngle = 0)
         {
             var frame = Replica.Current;
             if (!Ready || endpoint == null || frame == null) return default;
@@ -164,7 +164,7 @@ namespace DarkNights.Runtime.Network
                 SenderObjectId = endpoint.ObjectId, Protocol = SessionAuthority.ProtocolVersion,
                 Epoch = frame.Epoch, PolicyRevision = frame.PolicyRevision, ActorId = actor, ControlLease = lease,
                 InputSequence = ++inputSequence, ObservedTick = frame.ServerTick, Horizontal = horizontal,
-                JumpHeld = jumpHeld, UseHeld = useHeld, JumpPressed = jumpPressed, DropPressed = dropPressed, SprintHeld = sprintHeld, AimAngle = aimAngle, SelectionRevision = selectionRevision, UsePressed = usePressed, UseReleased = useReleased, CancelUse = cancelUse,
+                JumpHeld = jumpHeld, UseHeld = useHeld, JumpPressed = jumpPressed, DropPressed = dropPressed, SprintHeld = sprintHeld, LightAimAngle = lightAimAngle, AimAngle = aimAngle, SelectionRevision = selectionRevision, UsePressed = usePressed, UseReleased = useReleased, CancelUse = cancelUse,
                 MiningWorldId = mining.WorldId, MiningMapEpoch = mining.MapEpoch, MiningU = mining.U,
                 MiningV = mining.V, MiningTileId = mining.TileId, MiningFlags = mining.Flags,
                 MiningTargetKind = mining.Kind, MiningEntityId = mining.EntityId, MiningContentVersion = mining.ContentVersion,
@@ -205,7 +205,7 @@ namespace DarkNights.Runtime.Network
                 SenderObjectId = endpoint.ObjectId, Protocol = request.Protocol, Epoch = request.Epoch,
                 PolicyRevision = request.PolicyRevision, ActorId = request.ActorId, ControlLease = request.ControlLease,
                 InputSequence = request.Sequence, ObservedTick = request.ObservedTick, Horizontal = request.Horizontal,
-                JumpHeld = request.JumpHeld, UseHeld = request.UseHeld, JumpPressed = request.JumpPressed, DropPressed = request.DropPressed, SprintHeld = request.SprintHeld, AimAngle = request.AimAngle, SelectionRevision = request.SelectionRevision, UsePressed = request.UsePressed, UseReleased = request.UseReleased, CancelUse = request.CancelUse,
+                JumpHeld = request.JumpHeld, UseHeld = request.UseHeld, JumpPressed = request.JumpPressed, DropPressed = request.DropPressed, SprintHeld = request.SprintHeld, LightAimAngle = request.LightAimAngle, AimAngle = request.AimAngle, SelectionRevision = request.SelectionRevision, UsePressed = request.UsePressed, UseReleased = request.UseReleased, CancelUse = request.CancelUse,
                 MiningWorldId = request.Mining.WorldId, MiningMapEpoch = request.Mining.MapEpoch, MiningU = request.Mining.U,
                 MiningV = request.Mining.V, MiningTileId = request.Mining.TileId, MiningFlags = request.Mining.Flags,
                 MiningTargetKind = request.Mining.Kind, MiningEntityId = request.Mining.EntityId, MiningContentVersion = request.Mining.ContentVersion,

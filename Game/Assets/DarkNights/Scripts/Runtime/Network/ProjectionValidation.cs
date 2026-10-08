@@ -181,7 +181,12 @@ namespace DarkNights.Runtime.Network
                 var config = definition?.SharedConfigs.OfType<Objects.EquipmentItemConfig>().SingleOrDefault();
                 if (config == null || config.Jetpack || (int)config.Handheld != kinds[index]) return false;
             }
-            return true;
+            if (!Finite(actor.LightAimAngle) || Math.Abs(actor.LightAimAngle) > 180 || actor.LightDefinition == null) return false;
+            if (actor.LightDefinition == "") return !actor.LightEnabled;
+            if (!Guid.TryParseExact(actor.LightDefinition, "N", out var identity) || identity == Guid.Empty || actor.LightDefinition != identity.ToString("N")) return false;
+            var light = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance?.ResolveDefinition(actor.LightDefinition, 0);
+            return light?.SharedConfigs.OfType<Objects.FlashlightToolConfig>().SingleOrDefault() != null &&
+                light.BehaviourTypes.Contains(typeof(Objects.FlashlightToolBehaviour).FullName);
         }
 
         private static void Position(double x, LevelLayout layout) => Require(Finite(x) && x >= -100 && x <= layout.WorldWidth + 100);

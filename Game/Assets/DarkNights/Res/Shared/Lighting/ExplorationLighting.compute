@@ -1,0 +1,96 @@
+#pragma kernel ResolveSources
+#pragma kernel Illuminate
+#include "ExplorationOcclusion.hlsl"
+
+RWTexture2D<float4> _DNLightOutput;
+RWTexture2D<float4> _DNDirectionOutput;
+RWStructuredBuffer<float4> _DNBounceSources;
+float4 _DNLightRect;
+float4 _DNTargetSize;
+float4 _DNLightPositions[16]; // grid origin, range, cone cosine
+float4 _DNLightDirections[16]; // direction, near range, near strength
+float4 _DNLightColors[16]; // linear color, direct intensity
+float4 _DNLightNearOrigins[16];
+float _DNBounceStrength;
+int _DNLightCount;
+
+[numthreads(16,1,1)]
+void ResolveSources(uint3 id : SV_DispatchThreadID)
+{
+    uint n = id.x;
+    _DNBounceSources[n] = 0;
+    if (n >= (uint)_DNLightCount) return;
+    float2 origin = _DNLightPositions[n].xy, direction = _DNLightDirections[n].xy;
+    if (DNSolid(origin)) return;
+    int steps = min(192,(int)ceil(_DNLightPositions[n].z*8));
+    for (int i=1;i<=steps;i++)
+    {
+        float2 p=origin+direction*(i*.125);
+        if (!DNKnown(p)) return;
+        if (DNSolid(p))
+        {
+            _DNBounceSources[n]=float4(p-direction*.25, saturate(1-i*.125/_DNLightPositions[n].z),1);
+            return;
+        }
+    }
+}
+
+[numthreads(8,8,1)]
+void Illuminate(uint3 id : SV_DispatchThreadID)
+{
+    if (any(id.xy >= (uint2)_DNTargetSize.xy)) return;
+    float2 p=_DNLightRect.xy+(id.xy+.5)/_DNTargetSize.xy*_DNLightRect.zw;
+    float3 energy=0;
+    float2 moment=0;
+    float weight=0;
+    bool solid=DNSolid(p);
+    for (int n=0;n<_DNLightCount;n++)
+    {
+        float2 origin=_DNLightPositions[n].xy, delta=p-origin;
+        float d=length(delta), range=_DNLightPositions[n].z;
+        if (d>range && d>_DNLightDirections[n].z) continue;
+        float2 forward=_DNLightDirections[n].xy;
+        float cone=dot(delta/max(d,.001),forward);
+        float cutoff=_DNLightPositions[n].w;
+        float beam=cutoff<-.9 ? 1 : smoothstep(cutoff,cutoff+max(.0001,_DNShadowSettings.w),cone);
+        float direct=beam*pow(saturate(1-d/range),1.15)*_DNLightColors[n].w;
+        float2 nearOrigin=_DNLightNearOrigins[n].xy;
+        float nearDistance=distance(p,nearOrigin);
+        float near=pow(saturate(1-nearDistance/max(_DNLightDirections[n].z,.001)),1.1)*_DNLightDirections[n].w;
+        float visibility=0;
+        if (_DNShadowSettings.x<=0) visibility=DNVisibility(origin,p,_DNShadowSettings.y);
+        else
+        {
+            float2 perpendicular=float2(-forward.y,forward.x)*_DNShadowSettings.x;
+            for (int s=-2;s<=2;s++)
+                visibility+=DNVisibility(origin+perpendicular*(s*.5),p,_DNShadowSettings.y)*(3-abs(s))/9;
+        }
+        float contribution=direct*visibility;
+        if (near>0)
+        {
+            float nearVisibility=DNVisibility(nearOrigin,p,_DNShadowSettings.y);
+            if (_DNShadowSettings.x>0)
+            {
+                float radius=_DNShadowSettings.x*.5;
+                nearVisibility=(nearVisibility*4+DNVisibility(nearOrigin+float2(radius,0),p,_DNShadowSettings.y)+
+                    DNVisibility(nearOrigin-float2(radius,0),p,_DNShadowSettings.y)+
+                    DNVisibility(nearOrigin+float2(0,radius),p,_DNShadowSettings.y)+
+                    DNVisibility(nearOrigin-float2(0,radius),p,_DNShadowSettings.y))/8;
+            }
+            contribution+=near*nearVisibility;
+        }
+        float4 bounce=_DNBounceSources[n];
+        if (bounce.w>0 && _DNBounceStrength>0)
+        {
+            float radius=2.5;
+            float reflected=pow(saturate(1-distance(p,bounce.xy)/radius),2)*bounce.z*_DNBounceStrength;
+            contribution+=reflected*DNVisibility(bounce.xy,p,_DNShadowSettings.y);
+        }
+        energy+=_DNLightColors[n].rgb*contribution;
+        moment-=delta/max(d,.001)*contribution;
+        weight+=contribution;
+    }
+    if (solid) energy=min(energy,_DNShadowSettings.z);
+    _DNLightOutput[id.xy]=float4(energy,solid?1:0);
+    _DNDirectionOutput[id.xy]=float4(moment.x/max(weight,.001),-moment.y/max(weight,.001),0,weight);
+}

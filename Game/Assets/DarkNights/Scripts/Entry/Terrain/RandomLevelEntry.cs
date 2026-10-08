@@ -21,6 +21,7 @@ namespace DarkNights.Entry.Terrain
         private RandomLevelTemplate template;
         private PinewatchStage stage;
         private TerrainPreview view;
+        public TerrainPreview Preview => view;
         private JourneyEnvironment environment;
         private ChunkReplicaStateMachine subscribedReplica;
         private WorldIdentity world;
@@ -29,7 +30,7 @@ namespace DarkNights.Entry.Terrain
         private bool presenting;
         private AnyRules.Next.Authoring.ARDMapDefinition definition;
         private CaveTerrainStyle style;
-        public static void Install(SessionNetwork network, RandomLevelTemplate template, PinewatchStage stage)
+        public static RandomLevelEntry Install(SessionNetwork network, RandomLevelTemplate template, PinewatchStage stage)
         {
             var entry = network.gameObject.AddComponent<RandomLevelEntry>();
             entry.network = network; entry.template = template; entry.stage = stage; stage.RandomTerrain = true;
@@ -46,6 +47,7 @@ namespace DarkNights.Entry.Terrain
             if (template.Expedition && entry.style.Background == null)
                 throw new InvalidOperationException("正式远征缺少洞穴背景层配置。");
             network.Terrain = new SessionTerrainNetwork(InstanceFinder.NetworkManager, network, entry.definition, template.Expedition, entry.style?.VisualIdentity ?? "");
+            return entry;
         }
         private void Update()
         {

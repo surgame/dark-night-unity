@@ -25,18 +25,21 @@ Shader "DarkNights/CaveStrata"
             #pragma fragment frag
             #pragma target 3.5
             #include "UnityCG.cginc"
+            #include "Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.hlsl"
             sampler2D _RockSurface, _CaveLight;
             float4x4 _MapWorldToLocal;
             float _Background, _Ambient;
             struct Input { float4 vertex:POSITION; };
-            struct Output { float4 vertex:SV_POSITION; float2 p:TEXCOORD0; };
+            struct Output { float4 vertex:SV_POSITION; float2 p:TEXCOORD0; float2 world:TEXCOORD1; };
             Output vert(Input v)
             {
                 Output o; o.vertex=UnityObjectToClipPos(v.vertex);
+                o.world=mul(unity_ObjectToWorld,v.vertex).xy;
                 o.p=mul(_MapWorldToLocal,mul(unity_ObjectToWorld,v.vertex)).xy; return o;
             }
-            float3 lit(float3 color,float2 light)
+            float3 lit(float3 color,float2 light,float2 world,float3 normal)
             {
+                if (_DNLightingActive>.5) return color*DNIrradiance(world,normal);
                 return color*min(1.15,_Ambient+light.r*.65+light.g*.4)+
                     float3(.083,.036,.007)*light.r+float3(.009,.036,.06)*light.g;
             }
@@ -45,15 +48,18 @@ Shader "DarkNights/CaveStrata"
                 float2 cell=float2(i.p.x,-i.p.y)+.5;
                 float2 uv=(floor(cell*8)+.5)/float2(2560,1536);
                 float4 rock=tex2D(_RockSurface,uv);
+                float dx=dot(tex2D(_RockSurface,uv+float2(1.0/2560,0)).rgb-tex2D(_RockSurface,uv-float2(1.0/2560,0)).rgb,float3(.2126,.7152,.0722));
+                float dy=dot(tex2D(_RockSurface,uv+float2(0,1.0/1536)).rgb-tex2D(_RockSurface,uv-float2(0,1.0/1536)).rgb,float3(.2126,.7152,.0722));
+                float3 normal=normalize(float3(-dx*2,dy*2,1));
                 float2 light=tex2D(_CaveLight,cell/float2(320,192)).rg;
                 if(_Background<.5 || _Background>1.5)
                 {
-                    clip(rock.a-.5); return float4(lit(rock.rgb,light),1);
+                    clip(rock.a-.5); return float4(lit(rock.rgb,light,i.world,normal),1);
                 }
                 // 独立地下工作台的固定底板；航程使用分层素材，不启用该底板。
                 float3 color=GammaToLinearSpace(float3(40,31,23)/255);
                 color=lerp(color,rock.rgb,step(.5,rock.a));
-                return float4(lit(color,light),1);
+                return float4(lit(color,light,i.world,normal),1);
             }
             ENDHLSL
         }

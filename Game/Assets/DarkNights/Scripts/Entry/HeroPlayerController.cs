@@ -130,6 +130,7 @@ namespace DarkNights.Entry
             mining.Sample(controls, Current, network.Client.Replica.Current, pendingItem >= 0);
             if (sampler.Sample(controls, Current, network.Client.Replica.Current, entities, pendingItem >= 0,
                 Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet, mining.Target, mining.HandHeight)) Send(packet).Forget();
+            if (sampler.LightToggle) ToggleLight().Forget();
             if (sampler.SelectedItem >= 0) SelectItem(sampler.SelectedItem).Forget();
         }
 
@@ -194,6 +195,14 @@ namespace DarkNights.Entry
             catch (Exception error) { notice = error.Message; }
         }
 
+        private async UniTask ToggleLight()
+        {
+            if (Current == null || Current.LightDefinition == "") return;
+            try { await network.Client.Send(SessionOperation.SetHeroLight, new[] { Current.Id },
+                value: Current.LightEnabled ? 0 : 1, controlLease: Current.ControlLease); }
+            catch (Exception error) { notice = error.Message; }
+        }
+
         private async UniTask SelectItem(int index)
         {
             if (Current == null || index == Current.SelectedItem || pendingItem == index) return;
@@ -208,7 +217,7 @@ namespace DarkNights.Entry
             {
                 await network.Client.SendInput(actorId, lease, packet.Direction, packet.JumpHeld, packet.UseHeld,
                     packet.JumpPressed, packet.DropPressed, packet.Aim, packet.SelectionRevision,
-                    packet.UsePressed, packet.UseReleased, packet.CancelUse, packet.SprintHeld, packet.Mining);
+                    packet.UsePressed, packet.UseReleased, packet.CancelUse, packet.SprintHeld, packet.Mining, packet.LightAim);
             }
             catch (Exception error) { notice = error.Message; }
         }

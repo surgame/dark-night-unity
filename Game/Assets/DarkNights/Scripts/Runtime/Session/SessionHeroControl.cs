@@ -15,7 +15,7 @@ namespace DarkNights.Runtime.Session
         internal SessionHeroControl(ObjectSession world) { this.world = world; }
         internal static bool IsOperation(SessionOperation operation) => operation == SessionOperation.ClaimHero ||
             operation == SessionOperation.ReleaseHero || operation == SessionOperation.SelectHeroItem ||
-            operation == SessionOperation.UseHeroItem || operation == SessionOperation.Expedition ||
+            operation == SessionOperation.UseHeroItem || operation == SessionOperation.SetHeroLight || operation == SessionOperation.Expedition ||
             operation == SessionOperation.SelectDestination || operation == SessionOperation.CancelJourney ||
             operation == SessionOperation.SellCarriedOre || operation == SessionOperation.BuyEquipment;
 
@@ -93,6 +93,7 @@ namespace DarkNights.Runtime.Session
                     return ApplyClaim(connection, request.ActorIds[0]);
                 case SessionOperation.ReleaseHero:
                 case SessionOperation.SelectHeroItem:
+                case SessionOperation.SetHeroLight:
                 case SessionOperation.UseHeroItem:
                     return ApplyOwned(connection, request);
                 default:
@@ -132,6 +133,8 @@ namespace DarkNights.Runtime.Session
                     return 1;
                 }
                 if (world.Paused || world.IsExpedition && actor.Read().Boarded) return 0;
+                if (request.Operation == SessionOperation.SetHeroLight)
+                    return actor.Object.GetBehaviour<HeroLightBehaviour>()?.SetEnabled(request.Value == 1) == true ? 1 : 0;
                 var inventory = actor.Object.GetBehaviour<HeroInventoryBehaviour>();
                 if (inventory == null) return 0;
                 switch (request.Operation)
@@ -181,13 +184,15 @@ namespace DarkNights.Runtime.Session
                     input.Mining.MapEpoch != map.World.Epoch ||
                     !map.Descriptor.Bounds.Contains(new AnyRules.Next.CellCoord(input.Mining.U, input.Mining.V))) return false;
             }
-            return !float.IsNaN(input.AimAngle) && !float.IsInfinity(input.AimAngle) &&
+            return !float.IsNaN(input.LightAimAngle) && !float.IsInfinity(input.LightAimAngle) && Math.Abs(input.LightAimAngle) <= 180 &&
+                !float.IsNaN(input.AimAngle) && !float.IsInfinity(input.AimAngle) &&
                 Math.Abs(input.AimAngle) <= 180 && input.SelectionRevision >= 0;
         }
 
         private void ApplyInput(ActorState state, int actorId, HeroInputRequest input, long tick)
         {
             state.LastInputSequence = input.Sequence; state.LastInputTick = tick;
+            state.LightAimAngle = input.LightAimAngle;
             state.Horizontal = input.Horizontal; state.JumpHeld = input.JumpHeld; state.SprintHeld = input.SprintHeld;
             if (input.CancelUse || input.SelectionRevision != state.SelectionRevision)
             { state.AimAngle = input.AimAngle; HeroEquipment.Cancel(state); }

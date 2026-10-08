@@ -4,6 +4,10 @@
 
 ## 当前工作
 
+- [手电与洞穴照明候选](FLASHLIGHT_IMPLEMENTATION_20261008.md)：新分支、YYGC 工具、协议28／存档v22、局部光照、可控墙内羽化与人工验收表。
+
+- [局部换区缺墙与闪底色](TERRAIN_STREAMING_FIX_20261007.md)：现场原因、游戏侧修复候选、内存门控停止与待验项。
+
 - [地面基础玩法收敛](GROUND_GAMEPLAY_BASELINE.md)：直接地面开局、购买、手持装备与飞船操作保留，其余玩法暂停。
 - [Unity内存事故与保护](UNITY_MEMORY_INCIDENT_20261007.md)：F10缺字警告反馈、修复和单批验证内存门控。
 - [F1游戏逻辑清单与移除评估](F1_GAMEPLAY_INVENTORY.md)：原16个远征操作、自动玩法及初版移除评估。
@@ -18,6 +22,7 @@
 | --- | --- |
 | [技术架构](ARCHITECTURE.md) | 状态归属、程序集、装配和事务 |
 | [联机设计](MULTIPLAYER.md) | 可信连接、权限、Ready、epoch 与恢复 |
+| [Runtime Debug Hub 接入规范](RUNTIME_DEBUG_HUB_SPEC.md) | UITK 容器、面板注册与生命周期、物体列表及拟议框架迁移范围 |
 | [存档格式](SAVE_FORMAT.md) | 当前v21格式、装备／个人货袋约束和原子保存 |
 | [依赖说明](DEPENDENCIES.md) | 锁定版本与准备入口 |
 | [YYGC 改动账本](YYGC_CHANGES.md) | 框架授权、逐项差异与验证边界 |

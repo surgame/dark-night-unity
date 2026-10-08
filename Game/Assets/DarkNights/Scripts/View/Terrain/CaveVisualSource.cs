@@ -43,6 +43,28 @@ namespace DarkNights.View.Terrain
         public int BackgroundResidentPages => staticBackground?.ResidentPages ?? 0;
         public Material Material { get; }
         public Texture LightTexture => light;
+        public Texture LightingGeometry => map;
+        public long GeometryRevision { get; private set; }
+        public byte LightingCell(int u, int row)
+        {
+            if (u < 0 || u >= W || row < 0 || row >= H) return 0;
+            var cell = cells[row * W + u];
+            return (byte)((cell.a != 0 ? 128 : 0) | (cell.r != 0 ? 64 : 0) | cell.g);
+        }
+
+        /// <summary>复制已装载的局部格供后台纯计算；数组独占，未知格保持未知，不把美术边界当作碰撞。</summary>
+        public DarkNights.Core.ViewData.LightGeometrySnapshot CaptureLightGeometry(RectInt bounds)
+        {
+            var result = new byte[bounds.width * bounds.height];
+            for (int y = 0; y < bounds.height; y++) for (int x = 0; x < bounds.width; x++)
+            {
+                int u = bounds.x + x, row = bounds.y + y;
+                if (u < 0 || u >= W || row < 0 || row >= H) continue;
+                var cell = cells[row * W + u];
+                result[y * bounds.width + x] = (byte)((cell.a != 0 ? 128 : 0) | (cell.r != 0 ? 64 : 0) | cell.g);
+            }
+            return new DarkNights.Core.ViewData.LightGeometrySnapshot(bounds.width, bounds.height, result);
+        }
 
         public CaveVisualSource(IMapChunkSource source, CaveTerrainStyle style, TileCatalog catalog, Transform parent,
             DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null, bool surfaceSky = false)
@@ -87,12 +109,13 @@ namespace DarkNights.View.Terrain
         {
             MapChunkData data = await source.LoadAsync(descriptor, coordinate, cancellation);
             chunkSize = descriptor.ChunkSize;
+            var changed = new List<int>(chunkSize * chunkSize);
             for (int y = 0; y < chunkSize; y++) for (int x = 0; x < chunkSize; x++)
             {
-                int u = coordinate.U * chunkSize + x, row = -(coordinate.V * chunkSize + y);
-                if (u < 0 || u >= W || row < 0 || row >= H) continue;
-                cells[row * W + u] = ToColor(data.Cells[y * chunkSize + x]); MarkPage(mapPages, u, row);
+                ApplyCell(new CellCoord(coordinate.U * chunkSize + x, coordinate.V * chunkSize + y),
+                    data.Cells[y * chunkSize + x], changed);
             }
+            RefreshChangedCells(changed);
             return data;
         }
         public void ApplyInput(MapInputBatch batch)
@@ -104,7 +127,13 @@ namespace DarkNights.View.Terrain
                 for (int i = 0; i < snapshot.Cells.Count; i++)
                     ApplyCell(new CellCoord(snapshot.Coordinate.U * chunkSize + i % chunkSize,
                         snapshot.Coordinate.V * chunkSize + i / chunkSize), snapshot.Cells[i], changed);
+            RefreshChangedCells(changed);
+        }
+        /// <summary>装载和增量走同一失效入口；首次装载由 Flush 初始化，后加载区块也必须同步岩壁与柔光缓存。</summary>
+        private void RefreshChangedCells(List<int> changed)
+        {
             if (changed.Count == 0) return;
+            GeometryRevision++;
             if (rockInitialized) { localRockSurface?.ApplyChanges(cells, changed); rockSurface?.Replace(cells); }
             if (localRockSurface != null) foreach (int index in changed) terrainLightChanges.Add(index);
             else lightFullDirty = true;

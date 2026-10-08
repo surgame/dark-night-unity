@@ -79,13 +79,14 @@ namespace DarkNights.Entry
                 stage.RuntimeGroup("Unbound Entities"), debugHeroSpeed);
             if (debugHeroSpeed > 1) Debug.Log("DARK_NIGHTS_DEBUG_HERO_SPEED multiplier=" + debugHeroSpeed);
             stage.Initialize(layout);
-            if (randomLevel != null) Terrain.RandomLevelEntry.Install(network, randomLevel, stage);
+            var terrainEntry = randomLevel != null ? Terrain.RandomLevelEntry.Install(network, randomLevel, stage) : null;
             var entities = network.gameObject.AddComponent<SessionEntityViews>();
             entities.Initialize(network.Client, catalog, stage, network);
             var ui = network.gameObject.AddComponent<SessionUiController>();
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiStarted");
             await ui.Initialize(network, catalog, stage, entities, layout.Expedition);
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiReady");
+            if (terrainEntry != null) network.gameObject.AddComponent<HeroLightPresentation>().Initialize(network, entities, ui.Actions, terrainEntry);
             ConsoleSystem console = UnityEngine.Object.FindAnyObjectByType<ConsoleSystem>();
             if (console != null)
             {

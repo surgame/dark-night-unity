@@ -44,6 +44,7 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.HeroControlBehaviour
   - DarkNights.Runtime.Objects.HeroMotionBehaviour
   - DarkNights.Runtime.Objects.HeroInventoryBehaviour
+  - DarkNights.Runtime.Objects.HeroLightBehaviour
   SharedConfigs:
   - rid: 6961529563483734165
   - rid: 6961529563483734805

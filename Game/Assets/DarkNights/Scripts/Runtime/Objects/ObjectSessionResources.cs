@@ -32,7 +32,7 @@ namespace DarkNights.Runtime.Objects
             try
             {
                 result.Equipment = new EquipmentDefinitionCatalog(ObjectDefinitionDatabase.Instance);
-                ObjectDefinition[] all = definitions.Concat(result.Equipment.MiningDefinitions).Distinct().ToArray();
+                ObjectDefinition[] all = definitions.Concat(result.Equipment.MiningDefinitions).Concat(result.Equipment.LightDefinitions).Distinct().ToArray();
                 PreparedObjectDefinition[] leases = await StartupResourceBatch.Load(all,
                     ObjectInstanceFactory.PrepareAsync, cancellationToken);
                 int stored = 0;

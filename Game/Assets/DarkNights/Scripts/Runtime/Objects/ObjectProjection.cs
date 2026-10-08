@@ -51,7 +51,7 @@ namespace DarkNights.Runtime.Objects
                 a.Height, a.VerticalSpeed, a.SupportPlatform, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ControllerSlot, a.ControlLease, a.ExplosiveCharges, a.PickaxeSwingActive ? a.PickaxeSwingAim : a.AimAngle, a.EquipmentCooldown, a.EquipmentAction, a.EquipmentActionDuration, a.Charging, a.ChargeSeconds,
                 a.InventoryRevision, (int)session.Resources.Equipment.Kind(a.Slot0), (int)session.Resources.Equipment.Kind(a.Slot1),
                 (int)session.Resources.Equipment.Kind(a.Slot2), (int)session.Resources.Equipment.Kind(a.Slot3), a.JetpackOwned,
-                a.Slot0, a.Slot1, a.Slot2, a.Slot3);
+                a.Slot0, a.Slot1, a.Slot2, a.Slot3, a.LightDefinition, a.LightEnabled, a.LightAimAngle);
         }
     }
 }

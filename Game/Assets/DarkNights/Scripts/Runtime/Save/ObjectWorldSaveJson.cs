@@ -126,6 +126,13 @@ namespace DarkNights.Runtime.Save
                     if (config == null || config.Jetpack) throw new FormatException("装备槽引用了未知或不可持有的 Definition。");
                     config.Validate();
                 }
+            foreach (var actor in snapshot.Actors.Where(value => value.LightDefinition != ""))
+            {
+                var light = GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance?.ResolveDefinition(actor.LightDefinition, 0);
+                if (light?.SharedConfigs.OfType<Objects.FlashlightToolConfig>().SingleOrDefault() == null ||
+                    !light.BehaviourTypes.Contains(typeof(Objects.FlashlightToolBehaviour).FullName))
+                    throw new FormatException("手电引用了无照明能力的 Definition。");
+            }
             var kinds = snapshot.Actors.Select(a => (a.Id, a.Kind)).Concat(snapshot.Buildings.Select(b => (b.Id, b.Kind)))
                 .Concat(snapshot.Worksites.Select(w => (w.Id, w.Kind)))
                 .Concat(snapshot.MineralDeposits.Select(value => (value.Id, Kind: "mineral-deposit"))).ToDictionary(p => p.Id, p => p.Kind);

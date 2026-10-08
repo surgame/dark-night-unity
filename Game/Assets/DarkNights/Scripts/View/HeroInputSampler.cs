@@ -16,16 +16,16 @@ namespace DarkNights.View
         {
             public readonly int Direction;
             public readonly bool JumpHeld, UseHeld, JumpPressed, DropPressed, SprintHeld;
-            public readonly float Aim;
+            public readonly float Aim, LightAim;
             public readonly int SelectionRevision;
             public readonly bool UsePressed, UseReleased, CancelUse;
             public readonly HeroMiningTarget Mining;
 
             internal Packet(int direction, bool jumpHeld, bool useHeld, bool jumpPressed, bool dropPressed,
-                float aim, int selectionRevision, bool usePressed, bool useReleased, bool cancelUse, bool sprintHeld = false, HeroMiningTarget mining = default)
+                float aim, int selectionRevision, bool usePressed, bool useReleased, bool cancelUse, bool sprintHeld = false, HeroMiningTarget mining = default, float lightAim = 0)
             {
                 Direction = direction; JumpHeld = jumpHeld; UseHeld = useHeld;
-                JumpPressed = jumpPressed; DropPressed = dropPressed; Aim = aim;
+                JumpPressed = jumpPressed; DropPressed = dropPressed; Aim = aim; LightAim = lightAim;
                 SprintHeld = sprintHeld;
                 SelectionRevision = selectionRevision; UsePressed = usePressed;
                 Mining = mining;
@@ -40,7 +40,9 @@ namespace DarkNights.View
         private int sentDirection;
         private double nextSend, heartbeat;
         private HeroMiningTarget sentMining, pressedMining;
-        private float pressedAim;
+        private float pressedAim, lightAim, sentLightAim;
+        public float LightAim => lightAim;
+        public bool LightToggle { get; private set; }
         private bool miningPressPending;
         public int SelectedItem { get; private set; } = -1;
         public bool UseItemRequested { get; private set; }
@@ -65,7 +67,7 @@ namespace DarkNights.View
             sentMining = pressedMining = default; miningPressPending = false;
             equipment.Cancel();
             return new Packet(0, false, false, false, false, equipment.Aim, selectionRevision,
-                equipment.Pressed, equipment.Released, equipment.Cancelled);
+                equipment.Pressed, equipment.Released, equipment.Cancelled, lightAim: lightAim);
         }
 
         public bool Sample(GameInputActions.HeroFrame controls, ActorViewData actor, SessionViewData frame, IEntityVisuals visuals,
@@ -92,7 +94,14 @@ namespace DarkNights.View
             SelectedItem = allowed && !aboard ? controls.ItemPressed : -1;
             UseItemRequested = false;
 
-            bool changed = direction != sentDirection || jump != sentJump || sprint != sentSprint || equipment.Held != sentUse ||
+            LightToggle = allowed && !aboard && controls.LightToggle;
+            if (allowed && camera != null)
+            {
+                Vector3 lightDirection = camera.ScreenToWorldPoint(new Vector3(controls.Pointer.x, controls.Pointer.y,
+                    camera.WorldToScreenPoint(Vector3.zero).z)) - ((visuals.Visual(actor.Id) as ActorView)?.LightAnchor?.position ?? hand + Vector3.up * .32f);
+                if (lightDirection.sqrMagnitude > .0001f) lightAim = Mathf.Atan2(lightDirection.y, lightDirection.x) * Mathf.Rad2Deg;
+            }
+            bool changed = Mathf.Abs(Mathf.DeltaAngle(sentLightAim, lightAim)) > 1 || direction != sentDirection || jump != sentJump || sprint != sentSprint || equipment.Held != sentUse ||
                 jumpPending || dropPending != sentDrop || (!pilot && dropPending) || equipment.Changed || !sentMining.Equals(mining);
             if ((!jumpPending && now < nextSend) || (!changed && now < heartbeat))
             {
@@ -103,8 +112,9 @@ namespace DarkNights.View
             packet = new Packet(direction, jump, equipment.Held, jumpPending, dropPending,
                 equipment.Pressed && miningPressPending ? pressedAim : equipment.Aim,
                 actor.SelectionRevision, equipment.Pressed, equipment.Released, equipment.Cancelled, sprint,
-                equipment.Pressed && miningPressPending ? pressedMining : mining);
+                equipment.Pressed && miningPressPending ? pressedMining : mining, lightAim);
             equipment.Consume();
+            sentLightAim = lightAim;
             sentMining = packet.Mining;
             pressedMining = default; miningPressPending = false;
             sentDirection = direction; sentJump = jump; sentSprint = sprint; sentUse = packet.UseHeld; sentDrop = dropPending;

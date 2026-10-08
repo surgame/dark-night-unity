@@ -49,6 +49,7 @@ namespace DarkNights.Runtime.Objects
                 case SessionOperation.ClaimHero:
                 case SessionOperation.ReleaseHero:
                 case SessionOperation.SelectHeroItem:
+                case SessionOperation.SetHeroLight:
                 case SessionOperation.UseHeroItem:
                 case SessionOperation.Recruit:
                 case SessionOperation.StartNight:

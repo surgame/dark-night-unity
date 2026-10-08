@@ -14,6 +14,8 @@ namespace DarkNights.View
         [SerializeField] private HandheldView handheld;
         [SerializeField] private SpriteRenderer shadow;
         [SerializeField] private Transform facing;
+        [SerializeField] private Transform lightAnchor;
+        public Transform LightAnchor => lightAnchor;
         [SerializeField] private Transform poseRoot;
         [SerializeField] private SpriteRenderer clothing;
         [SerializeField] private PoseClip[] clips = Array.Empty<PoseClip>();

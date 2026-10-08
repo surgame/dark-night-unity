@@ -62,6 +62,8 @@ namespace DarkNights.Core.Save
                 if (!Number(a.ActionTime, 0, 1000000) || !Number(a.AttackClock, 0, 10) ||
                     !Number(a.Windup, -1, 10) || !Number(a.AiClock, -1, 1))
                     return "单位攻击计时无效";
+                if (a.LightDefinition == null || a.LightEnabled && a.LightDefinition == "" ||
+                    a.LightDefinition != "" && (!Guid.TryParseExact(a.LightDefinition, "N", out var lightGuid) || lightGuid == Guid.Empty || a.LightDefinition != lightGuid.ToString("N"))) return "手电 Definition 非法。";
                 if (!Number(a.AimAngle, -180, 180) || !Number(a.EquipmentCooldown, 0, 5) || !Number(a.EquipmentAction, 0, 5) || !Number(a.EquipmentActionDuration, 0, 5))
                     return "道具动作或冷却无效";
                 var hero = c.Catalog.Balance.HeroControl;

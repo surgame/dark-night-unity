@@ -1,0 +1,5 @@
+.light-panel { padding: 12px; flex-grow: 1; }
+.status { white-space: normal; margin-bottom: 12px; }
+.preset-row { flex-direction: row; margin-bottom: 12px; }
+.preset-row > Button { flex-grow: 1; margin-right: 4px; }
+Slider { margin-top: 6px; }
