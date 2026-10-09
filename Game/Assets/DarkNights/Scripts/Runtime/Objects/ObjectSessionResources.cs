@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DarkNights.Runtime.Framework;
 using GameCore.Objects.Definition;
 using GameCore.Objects.Runner;
 using UnityEngine;
@@ -31,12 +32,19 @@ namespace DarkNights.Runtime.Objects
             try
             {
                 result.Equipment = new EquipmentDefinitionCatalog(ObjectDefinitionDatabase.Instance);
-                foreach (ObjectDefinition definition in definitions.Concat(result.Equipment.MiningDefinitions).Distinct())
+                ObjectDefinition[] all = definitions.Concat(result.Equipment.MiningDefinitions).Concat(result.Equipment.LightDefinitions).Distinct().ToArray();
+                PreparedObjectDefinition[] leases = await StartupResourceBatch.Load(all,
+                    ObjectInstanceFactory.PrepareAsync, cancellationToken);
+                int stored = 0;
+                try
                 {
-                    cancellationToken.ThrowIfCancellationRequested();
-                    var lease = await ObjectInstanceFactory.PrepareAsync(definition, cancellationToken);
-                    try { result.prepared.Add(definition.Guid.ToString(), lease); }
-                    catch { lease.Dispose(); throw; }
+                    for (; stored < leases.Length; stored++)
+                        result.prepared.Add(all[stored].Guid.ToString(), leases[stored]);
+                }
+                catch
+                {
+                    for (int i = stored; i < leases.Length; i++) leases[i].Dispose();
+                    throw;
                 }
                 result.Definitions = definitions.ToArray();
                 return result;

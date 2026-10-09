@@ -52,7 +52,6 @@ namespace DarkNights.Runtime.Network
             Authority = new SessionAuthority(simulation);
             clock = new SessionClock(Authority);
             Storage = new SessionStorage(Authority, saves);
-            if (simulation.IsExpedition) simulation.Expedition.CommitSave = snapshot => saves.Save(GameSaveStore.SlotCount - 1, snapshot);
             if (measure) { Measurements = new SessionMeasurements(); clock.MeasureStep = Measurements.Step; }
             try { Publish(); }
             catch { Dispose(); throw; }

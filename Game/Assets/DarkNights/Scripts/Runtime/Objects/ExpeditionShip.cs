@@ -37,21 +37,18 @@ namespace DarkNights.Runtime.Objects
                     world.Notify(world.Flow.Enabled ? "已进入驾驶位：A/D 平移，空格上升，S 加速下降；松手缓降，安全接地后原地着陆。" :
                         "已进入驾驶位：A/D 平移，空格上升，S 下降；松开悬停，低速接近降落区后着陆。"); return 1;
                 case "takeoff":
-                    if (world.Flow.Enabled) return 0;
+                    if (world.Flow.Enabled && world.Flow.Phase != JourneyPhase.Landed) return 0;
                     if (s.PilotId != hero.Id || s.ShipPhase != 0 || world.Camp.Read().ExpeditionPhase is not (0 or 1 or 4)) return 0;
                     s.ShipPhase = 1; s.ShipDoorClock = 0;
-                    world.Notify("收舱中：工人、机器人、无人机及设备归队后才会关闭坡道。玩家请走入舱内。"); return 1;
+                    world.Notify("收舱中：所有玩家进入船内后关闭坡道；空格上升、S下降、A/D平移。"); return 1;
                 case "cancel-flight":
                     if (s.PilotId != hero.Id || s.ShipPhase is not (1 or 2)) return 0;
                     s.ShipPhase = 0; s.ShipDoorClock = 0; return 1;
                 case "land":
-                    if (world.Flow.Enabled) return 0;
+                    if (world.Flow.Enabled && world.Flow.Phase != JourneyPhase.Landed) return 0;
                     if (s.PilotId != hero.Id || s.ShipPhase != 3 || !flight.Land()) return 0;
                     world.Flow.Landed();
                     world.Notify("着陆完成，坡道已展开；可离开驾驶位步行下船。"); return 1;
-                case "deploy":
-                    if (s.PilotId != hero.Id || !Docked || world.Camp.Read().ExpeditionPhase != 1) return 0;
-                    world.ExpeditionDevices.BeginDeployment(); return 1;
                 default: return 0;
             }
         }
@@ -81,7 +78,7 @@ namespace DarkNights.Runtime.Objects
             }
             if (s.ShipPhase == 3)
             {
-                if (!world.Flow.Enabled || world.Flow.Phase == JourneyPhase.Descent)
+                if (!world.Flow.Enabled || world.Flow.Phase is JourneyPhase.Descent or JourneyPhase.Landed)
                 {
                     if (flight.Tick(delta, pilot?.Read())) CompleteLanding(pilot);
                 }

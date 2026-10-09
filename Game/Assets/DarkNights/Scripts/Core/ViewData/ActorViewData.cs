@@ -40,6 +40,9 @@ namespace DarkNights.Core.ViewData
         public int ControllerSlot { get; }
         public int ControlLease { get; }
 
+        public string LightDefinition { get; }
+        public bool LightEnabled { get; }
+        public float LightAimAngle { get; }
         public float AimAngle { get; }
         public double EquipmentCooldown { get; }
         public double EquipmentAction { get; }
@@ -79,7 +82,7 @@ namespace DarkNights.Core.ViewData
             bool charging = false,
             double chargeSeconds = 0, int inventoryRevision = 0,
             int slot0 = 0, int slot1 = 0, int slot2 = 0, int slot3 = 0, bool jetpackOwned = false,
-            string slot0Definition = "", string slot1Definition = "", string slot2Definition = "", string slot3Definition = "")
+            string slot0Definition = "", string slot1Definition = "", string slot2Definition = "", string slot3Definition = "", string lightDefinition = "", bool lightEnabled = false, float lightAimAngle = 0)
         {
             Id = id;
             Kind = kind;
@@ -110,6 +113,8 @@ namespace DarkNights.Core.ViewData
             ControllerSlot = controllerSlot;
             ControlLease = controlLease;
             ExplosiveCharges = explosiveCharges;
+            LightDefinition = lightDefinition; LightEnabled = lightEnabled;
+            LightAimAngle = lightAimAngle;
             AimAngle = aimAngle;
             EquipmentCooldown = equipmentCooldown;
             EquipmentAction = equipmentAction;

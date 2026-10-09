@@ -21,7 +21,7 @@ MonoBehaviour:
   legacyAllocationPending: 
   Type: 400
   Name: lamp
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 21efa1ffc433b3142b7f69e507bd7150, type: 3}
   Describe: 
   MaxStack: 1
   ItemLevel: 1

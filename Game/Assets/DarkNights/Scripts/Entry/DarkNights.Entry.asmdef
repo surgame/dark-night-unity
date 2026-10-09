@@ -10,6 +10,7 @@
     "FishNet.Runtime",
     "UniTask",
     "Unity.ugui",
+    "Unity.TextMeshPro",
     "Unity.InputSystem",
     "AnyRules.Core",
     "AnyRules.Authoring",

@@ -12,6 +12,7 @@ namespace DarkNights.Core.ViewData
         public string Text { get; }
         public string Detail { get; }
         public float Volume { get; }
+        /// <summary>玩家需要注意的游戏提醒标记；客户端用颜色区分，不映射为引擎日志 Warning。</summary>
         public bool Warning { get; }
         public VisualCue Cue { get; }
 

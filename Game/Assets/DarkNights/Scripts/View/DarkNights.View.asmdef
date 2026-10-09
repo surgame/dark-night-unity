@@ -6,6 +6,7 @@
     "GameCore.Runtime",
     "Unity.ugui",
     "Unity.InputSystem",
+    "Unity.RenderPipelines.Universal.2D.Runtime",
     "AnyRules.Core",
     "AnyRules.MapProtocol",
     "AnyRules.Authoring",

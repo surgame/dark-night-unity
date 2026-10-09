@@ -122,6 +122,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8597775573524335846}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1611659384088098452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8521569242737134169}
+  m_Layer: 0
+  m_Name: Light Fill Anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8521569242737134169
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611659384088098452}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8597775573524335846}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2195420030596514498
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,6 +464,37 @@ Transform:
   - {fileID: 4113519327618763978}
   m_Father: {fileID: 3931852114948893059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4966243204962313312
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7072277462307839280}
+  m_Layer: 0
+  m_Name: Light Anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7072277462307839280
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966243204962313312}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.08, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8597775573524335846}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5366068904033766649
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +564,8 @@ Transform:
   - {fileID: 4273623822608556627}
   - {fileID: 2089696446007035473}
   - {fileID: 3632647558711493558}
+  - {fileID: 7072277462307839280}
+  - {fileID: 8521569242737134169}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &649505292591762061
@@ -618,9 +682,17 @@ MonoBehaviour:
       baseColor: {r: 1, g: 1, b: 1, a: 1}
     - renderer: {fileID: 7073023052566576789}
       baseColor: {r: 1, g: 1, b: 1, a: 1}
+  expeditionUnit: {fileID: 0}
   handheld: {fileID: 4509950248340051158}
   shadow: {fileID: 6685160183541451119}
   facing: {fileID: 283239043332556437}
+  lightAnchor: {fileID: 7072277462307839280}
+  lightFillAnchor: {fileID: 8521569242737134169}
+  lightTargets:
+  - {fileID: 4978949647261299557}
+  - {fileID: 7073023052566576789}
+  - {fileID: 7234762824370364557}
+  - {fileID: 6374070867801711368}
   poseRoot: {fileID: 3931852114948893059}
   clothing: {fileID: 7073023052566576789}
   clips:

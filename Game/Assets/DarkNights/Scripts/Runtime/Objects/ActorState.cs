@@ -58,6 +58,9 @@ namespace DarkNights.Runtime.Objects
         public int ExplosiveCharges { get; internal set; }
         public long LastTerrainActionTick { get; internal set; } = -1000;
         public float AimAngle { get; internal set; }
+        public string LightDefinition { get; internal set; } = "";
+        public bool LightEnabled { get; internal set; }
+        public float LightAimAngle { get; internal set; }
         public double EquipmentCooldown { get; internal set; }
         public double EquipmentAction { get; internal set; }
         public double EquipmentActionDuration { get; internal set; }

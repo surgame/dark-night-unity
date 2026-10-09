@@ -46,7 +46,6 @@ namespace DarkNights.Runtime.Objects
                 actor.World.Work.Clear(actor);
             if (!state.UseHeld && (state.Activity == ActorActivity.Work || state.Activity == ActorActivity.Build))
                 actor.World.Work.Clear(actor);
-            if (state.Activity == ActorActivity.Attack) combat.TickManualAttack(delta, state.UseHeld);
             return true;
         }
 

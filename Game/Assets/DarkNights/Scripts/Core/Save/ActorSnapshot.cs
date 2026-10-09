@@ -46,6 +46,9 @@ namespace DarkNights.Core.Save
         public double JetpackFuel { get; }
         public int ExplosiveCharges { get; }
 
+        public string LightDefinition { get; }
+        public bool LightEnabled { get; }
+        public float LightAimAngle { get; }
         public float AimAngle { get; }
         public double EquipmentCooldown { get; }
         public double EquipmentAction { get; }
@@ -84,7 +87,7 @@ namespace DarkNights.Core.Save
             double equipmentCooldown = 0,
             double equipmentAction = 0,
             double equipmentActionDuration = 0, int inventoryRevision = 0,
-            string slot0 = "", string slot1 = "", string slot2 = "", string slot3 = "", bool jetpackOwned = false)
+            string slot0 = "", string slot1 = "", string slot2 = "", string slot3 = "", bool jetpackOwned = false, string lightDefinition = "", bool lightEnabled = false)
         {
             Id = id;
             Kind = kind;
@@ -117,6 +120,8 @@ namespace DarkNights.Core.Save
             JetpackEquipped = jetpackEquipped;
             JetpackFuel = jetpackFuel;
             ExplosiveCharges = explosiveCharges;
+            LightDefinition = lightDefinition; LightEnabled = lightEnabled;
+            LightAimAngle = face < 0 ? 180 : 0;
             AimAngle = aimAngle;
             EquipmentCooldown = equipmentCooldown;
             EquipmentAction = equipmentAction;

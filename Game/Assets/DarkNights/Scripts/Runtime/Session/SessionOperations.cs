@@ -10,7 +10,7 @@ namespace DarkNights.Runtime.Session
     /// </summary>
     internal static class SessionOperations
     {
-        internal static bool HostRequired(SessionOperation operation) => operation >= SessionOperation.SetPaused && operation <= SessionOperation.Restart;
+        internal static bool HostRequired(SessionOperation operation) => (operation >= SessionOperation.SetPaused && operation <= SessionOperation.Restart) || SessionDeveloperOperations.IsOperation(operation);
 
         internal static SessionResultCode ValidateEnvelope(bool closed, bool activeConnection, int epoch, SessionRequest request)
         {
@@ -27,6 +27,7 @@ namespace DarkNights.Runtime.Session
             if (r == null || r.Sequence <= 0 || r.PolicyRevision < 0 ||
                 !Enum.IsDefined(typeof(SessionOperation), r.Operation) || float.IsNaN(r.X) || float.IsInfinity(r.X) ||
                 r.TargetId < 0 || r.ActorIds.Any(id => id <= 0)) return false;
+            if (SessionDeveloperOperations.IsOperation(r.Operation)) return SessionDeveloperOperations.ValidShape(r);
             if (r.Operation is SessionOperation.SelectDestination or SessionOperation.CancelJourney)
                 return r.ActorIds.Count == 1 && r.TargetId > 0 && r.X == 0 && r.ControlLease > 0 && r.Value >= 0 &&
                     (r.Operation == SessionOperation.SelectDestination ? r.Kind.Length > 0 : r.Kind.Length == 0);
@@ -40,6 +41,9 @@ namespace DarkNights.Runtime.Session
                 return r.ActorIds.Count == 1 && r.ControlLease > 0 && r.TargetId > 0 &&
                     r.X == 0 && r.Value >= 0 &&
                     (r.Kind == "pistol" || r.Kind == "pickaxe" || r.Kind == "jetpack");
+            if (r.Operation == SessionOperation.SetHeroLight)
+                return r.ActorIds.Count == 1 && r.ControlLease > 0 && r.TargetId == 0 &&
+                    r.X == 0 && r.Kind.Length == 0 && (r.Value == 0 || r.Value == 1);
             if (SessionHeroControl.IsOperation(r.Operation))
                 return r.ActorIds.Count == 1 && r.X == 0 &&
                     (r.Operation == SessionOperation.ClaimHero ? r.ControlLease == 0 : r.ControlLease > 0) &&

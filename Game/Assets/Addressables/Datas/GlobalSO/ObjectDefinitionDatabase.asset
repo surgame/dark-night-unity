@@ -56,6 +56,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f739a1d69023de54b8b90e2061afd135, type: 2}
   - {fileID: 11400000, guid: 294d82a2cd30136498ccd9588ed7b885, type: 2}
   - {fileID: 11400000, guid: f6964b57649590e438fc69e4ddc77f8a, type: 2}
+  - {fileID: 11400000, guid: b4323e86cb0d5d5498f16cfc341fa380, type: 2}
   registryServerUrl: https://ID-REGISTRY/id-registry
   projectName: DNights
   identityMode: 1

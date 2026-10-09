@@ -59,7 +59,7 @@ namespace DarkNights.Entry
             entities = visuals;
             mining = new HeroMiningPointer(session, scene, panel, catalog);
             sampler = new HeroInputSampler(scene.SceneCamera, mining.HandHeight);
-            campControlEnabled = System.Environment.GetCommandLineArgs().Contains("--dn-camp-mode");
+            campControlEnabled = false;
             replayOnly = System.Environment.GetCommandLineArgs().Contains("--dn-role") &&
                 System.Environment.GetCommandLineArgs().Contains("--dn-input-replay");
             preferHero = !campControlEnabled;
@@ -130,8 +130,8 @@ namespace DarkNights.Entry
             mining.Sample(controls, Current, network.Client.Replica.Current, pendingItem >= 0);
             if (sampler.Sample(controls, Current, network.Client.Replica.Current, entities, pendingItem >= 0,
                 Time.unscaledTimeAsDouble, out HeroInputSampler.Packet packet, mining.Target, mining.HandHeight)) Send(packet).Forget();
+            if (sampler.LightToggle) ToggleLight().Forget();
             if (sampler.SelectedItem >= 0) SelectItem(sampler.SelectedItem).Forget();
-            if (sampler.UseItemRequested) Use().Forget();
         }
 
         private void SampleModeToggle()
@@ -195,6 +195,14 @@ namespace DarkNights.Entry
             catch (Exception error) { notice = error.Message; }
         }
 
+        private async UniTask ToggleLight()
+        {
+            if (Current == null || Current.LightDefinition == "") return;
+            try { await network.Client.Send(SessionOperation.SetHeroLight, new[] { Current.Id },
+                value: Current.LightEnabled ? 0 : 1, controlLease: Current.ControlLease); }
+            catch (Exception error) { notice = error.Message; }
+        }
+
         private async UniTask SelectItem(int index)
         {
             if (Current == null || index == Current.SelectedItem || pendingItem == index) return;
@@ -203,24 +211,13 @@ namespace DarkNights.Entry
             catch (Exception error) { pendingItem = -1; notice = error.Message; }
         }
 
-        private async UniTask Use()
-        {
-            if (Current == null) return;
-            try
-            {
-                await network.Client.Send(SessionOperation.UseHeroItem, new[] { Current.Id }, target: 0,
-                    kind: "pickaxe", value: Current.SelectionRevision, controlLease: Current.ControlLease);
-            }
-            catch (Exception error) { notice = error.Message; }
-        }
-
         private async UniTask Send(HeroInputSampler.Packet packet)
         {
             try
             {
                 await network.Client.SendInput(actorId, lease, packet.Direction, packet.JumpHeld, packet.UseHeld,
                     packet.JumpPressed, packet.DropPressed, packet.Aim, packet.SelectionRevision,
-                    packet.UsePressed, packet.UseReleased, packet.CancelUse, packet.SprintHeld, packet.Mining);
+                    packet.UsePressed, packet.UseReleased, packet.CancelUse, packet.SprintHeld, packet.Mining, packet.LightAim);
             }
             catch (Exception error) { notice = error.Message; }
         }

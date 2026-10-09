@@ -26,7 +26,8 @@ namespace DarkNights.View
                 SpriteRenderer renderer = targets[i].Renderer;
                 if (renderer == null) throw new InvalidOperationException("Tint target contains a missing renderer.");
                 Color applied = renderer == accent ? accentTint : tint;
-                renderer.color = targets[i].BaseColor * applied * ambient;
+                Color illumination = Shader.GetGlobalFloat("_DNLightingReady") > .5f ? Color.white : ambient;
+                renderer.color = targets[i].BaseColor * applied * illumination;
             }
         }
     }

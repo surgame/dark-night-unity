@@ -69,6 +69,7 @@ namespace DarkNights.Runtime.Objects
                 if (!HeroInventoryBehaviour.Give(state, definition.Guid.ToString()))
                     throw new InvalidOperationException("快速测试矿镐装备失败。");
                 state.SelectedItem = 0; state.AimAngle = aim;
+                hero.Object.GetBehaviour<HeroLightBehaviour>()?.GiveStarter();
             }
             world.Notify("矿镐快速测试已准备：已着陆、人在舱外；返回主菜单可启动干净的新测试局。");
         }

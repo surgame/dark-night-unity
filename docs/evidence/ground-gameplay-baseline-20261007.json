@@ -1,0 +1,283 @@
+{
+  "date": "2026-10-07",
+  "branch": "ref-20261007-ground-gameplay-baseline",
+  "base_commit": "7aa4afc0fe76dcef40eebcb953a985b3396e2907",
+  "protocol": 26,
+  "save_version": 20,
+  "amp1_schema": 2,
+  "unity": "6000.4.9f1",
+  "yygc_modified": false,
+  "compile": {
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "editor": {
+    "unique_passed": 31,
+    "failed": 0,
+    "cases": {
+      "DarkNights.Tests.GroundSessionTests.FourPlayersSpawnOutsideAndIdleWithoutOldGameplay": {
+        "result": "Passed",
+        "receipt": "ground-final-r1",
+        "duration": "0.619780"
+      },
+      "DarkNights.Tests.GroundSessionTests.GroundShipCanTakeOffFlySaveAndLand": {
+        "result": "Passed",
+        "receipt": "ground-flight-restore-r1",
+        "duration": "0.684361"
+      },
+      "DarkNights.Tests.GroundSessionTests.OldCommandsAndHeldUseCannotChangeGameplay": {
+        "result": "Passed",
+        "receipt": "ground-final-r1",
+        "duration": "0.226582"
+      },
+      "DarkNights.Tests.GroundSessionTests.PurchaseInventoryAndCreditsRestoreWithoutEnablingEquipment": {
+        "result": "Passed",
+        "receipt": "ground-final-r1",
+        "duration": "0.181636"
+      },
+      "DarkNights.Tests.HeroInputSamplerTests.BlockedPressCannotLeakIntoRestoredControl": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.011185"
+      },
+      "DarkNights.Tests.HeroInputSamplerTests.DirectionChangeWithoutJumpStillWaitsForThirtyHertzInterval": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000549"
+      },
+      "DarkNights.Tests.HeroInputSamplerTests.ShortPressBypassesSendIntervalAndIsNotResentByHeartbeat": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000556"
+      },
+      "DarkNights.Tests.SmartConsoleLogBridgeTests.ApplicationLogQueueDropsOldestAndRemainsBounded": {
+        "result": "Passed",
+        "receipt": "ground-console-probe-r1",
+        "duration": "0.002048"
+      },
+      "DarkNights.Tests.SmartConsoleLogBridgeTests.OnlyConsoleMissingGlyphWarningsAreFiltered(\"The character with Unicode value \\\\u5168 was not found in [LogText]\",True)": {
+        "result": "Passed",
+        "receipt": "ground-console-probe-r1",
+        "duration": "0.000930"
+      },
+      "DarkNights.Tests.SmartConsoleLogBridgeTests.OnlyConsoleMissingGlyphWarningsAreFiltered(\"The character with Unicode value \\\\u5168 was not found in [AutocompleteText]\",True)": {
+        "result": "Passed",
+        "receipt": "ground-console-probe-r1",
+        "duration": "0.000064"
+      },
+      "DarkNights.Tests.SmartConsoleLogBridgeTests.OnlyConsoleMissingGlyphWarningsAreFiltered(\"The character with Unicode value \\\\u5168 was not found in [ShopTitle]\",False)": {
+        "result": "Passed",
+        "receipt": "ground-console-probe-r1",
+        "duration": "0.000053"
+      },
+      "DarkNights.Tests.SmartConsoleLogBridgeTests.OnlyConsoleMissingGlyphWarningsAreFiltered(\"Ordinary warning [LogText]\",False)": {
+        "result": "Passed",
+        "receipt": "ground-console-probe-r1",
+        "duration": "0.000050"
+      },
+      "DarkNights.Tests.SmartConsoleLogBridgeTests.OnlyConsoleMissingGlyphWarningsAreFiltered(null,False)": {
+        "result": "Passed",
+        "receipt": "ground-console-probe-r1",
+        "duration": "0.000051"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.AirPressExpiresWithoutGrantingAnotherJump": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.002057"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.FallingAcrossGapEstablishesSupportInTheContactStep": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000425"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.FixedStrategyIgnoresReleaseAndHoldStrategyPreservesFullJumpMaximum": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.001349"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.JetpackWaitsForOrdinaryAscentAndDoesNotClampTheSecondStep": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000357"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.LandingConsumesEarlyPressOnce": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000516"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.RepeatedSlopePressesKeepHorizontalProgress(False)": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.001104"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.RepeatedSlopePressesKeepHorizontalProgress(True)": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000702"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.SteepSprintRecontactsBeforeWorldVerticalApex": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000634"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.UphillJumpContinuesWithoutZeroHorizontalSteps(0.5f,False,False)": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000776"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.UphillJumpContinuesWithoutZeroHorizontalSteps(0.5f,True,False)": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000411"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.UphillJumpContinuesWithoutZeroHorizontalSteps(1.0f,False,False)": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000363"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.UphillJumpContinuesWithoutZeroHorizontalSteps(1.0f,True,False)": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000413"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.UphillJumpContinuesWithoutZeroHorizontalSteps(0.5f,False,True)": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000303"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.UphillJumpContinuesWithoutZeroHorizontalSteps(0.5f,True,True)": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000343"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.UphillJumpContinuesWithoutZeroHorizontalSteps(1.0f,False,True)": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000343"
+      },
+      "DarkNights.Tests.TerrainJumpFlowTests.UphillJumpContinuesWithoutZeroHorizontalSteps(1.0f,True,True)": {
+        "result": "Passed",
+        "receipt": "ground-console-unit-r1",
+        "duration": "0.000384"
+      },
+      "DarkNights.Tests.ShipTradePlayTests.ConsoleChineseLogsStayBounded": {
+        "result": "Passed",
+        "receipt": "ground-console-probe-r2",
+        "duration": "14.615792"
+      },
+      "DarkNights.Tests.ShipTradePlayTests.ShopRendersBuysAndReleasesInput": {
+        "result": "Passed",
+        "receipt": "ground-final-r1",
+        "duration": "21.151469"
+      }
+    }
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 745,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "memory": {
+    "state": "completed",
+    "samples": 1018,
+    "peak_private_gib": 4.515186309814453,
+    "minimum_free_ram_gib": 10.329578399658203,
+    "minimum_free_commit_gib": 5.189765930175781,
+    "limits": {
+      "editor_private_gib": 8,
+      "minimum_free_ram_gib": 6,
+      "minimum_free_commit_gib": 4
+    }
+  },
+  "crash_analysis": "artifacts/ground-baseline-20261007/memory/crash-analysis.json",
+  "earlier_failures_retained": [
+    "editor-tests-r1.json",
+    "editor-tests-r2-stale-compilation.json",
+    "editor-tests-r3.json",
+    "ground-console-unit-r1.xml",
+    "ground-console-probe-r1.xml",
+    "ground-ui-r3.xml"
+  ],
+  "oom_incomplete_runs": [
+    "native ShopRendersBuysAndReleasesInput (crash, no final verdict)",
+    "ground-ui-input-r2 (crash, no final verdict)"
+  ],
+  "player_build": {
+    "performed": false,
+    "reason": "Current commit headroom about 6-8 GiB; no high-memory build after OOM incidents"
+  },
+  "independent_network": {
+    "performed": false,
+    "pending": [
+      "Mono 2/4 players",
+      "normal/weak",
+      "late join/reconnect/epoch/disk restart"
+    ]
+  },
+  "il2cpp": {
+    "performed": false,
+    "reason": "Requires explicit authorization"
+  },
+  "presentation": [
+    "artifacts/ground-baseline-20261007/presentation/shop-1280x800.png",
+    "artifacts/ground-baseline-20261007/presentation/shop-1600x900.png",
+    "artifacts/ground-baseline-20261007/presentation/shop-1920x1080.png"
+  ],
+  "source_sha256": {
+    "Game/Assets/DarkNights/Res/UI/ShipEquipment/ShipEquipment.uxml": "4eb43f5ae676b7063fe722aec28db161cad0f5250da3c078c433844b0831d1bf",
+    "Game/Assets/DarkNights/Scripts/Core/Save/ExpeditionShipValidator.cs": "3db6c3f83369493c0422ccce0396d8a985c56bab7d9183c1d22cc9c2f556466a",
+    "Game/Assets/DarkNights/Scripts/Core/Save/ExpeditionValidator.cs": "eea0afeaa615271fb8a9fadf3a278fa4259eb10513df82f2230f603e33e2e87b",
+    "Game/Assets/DarkNights/Scripts/Core/Save/JourneyValidator.cs": "3a6773f2641f141ac1bed1b105c692bf4610edef5dd05e21360e8cc1384d86ee",
+    "Game/Assets/DarkNights/Scripts/Core/Save/SessionSnapshot.cs": "e59a120dbf23b7faa8055f8a613eae6fbde20e5bc033d99198e507e3a51aa223",
+    "Game/Assets/DarkNights/Scripts/Core/Save/SnapshotValidator.cs": "30e45420103ed17eb89c6ba4f258741091a07a3a5b8fdeec95624a25bced85bf",
+    "Game/Assets/DarkNights/Scripts/Entry/DarkNights.Entry.asmdef": "03e231a6baa2904905e94a5e649d0142caa3b359da521286be8be4e2c2bcf3b8",
+    "Game/Assets/DarkNights/Scripts/Entry/ExpeditionHud.cs": "0d83acbae3627efcdd0ee7f31910acefbe867926d6bd1c21305803e9025eaaee",
+    "Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs": "4cf61d665ecb12e88e415fbff4b882a4394496d49c88b1d66579cb1bc246392a",
+    "Game/Assets/DarkNights/Scripts/Entry/HeroPlayerController.cs": "57a58f1c0f422fa9c61fd5370919f6f87531c2f89b7fff5fa8487e26bcba7f69",
+    "Game/Assets/DarkNights/Scripts/Entry/SessionUiController.cs": "7ab6b8f9524d15f1d65eb32e87c6b5d5deeea61b0e9eb8f3e26b9f594abe761b",
+    "Game/Assets/DarkNights/Scripts/Entry/ShipEquipmentPanel.cs": "9aa4f47802b4e6bade8ee5c776867490c0498c82858cdd40f650d26fca786220",
+    "Game/Assets/DarkNights/Scripts/Entry/ShipTradeHud.cs": "06a698281abf5facef647b7234842373bc0e9324d0c978d332f81db73e67bedb",
+    "Game/Assets/DarkNights/Scripts/Entry/SmartConsoleLogBridge.cs": "10501d26484bf45cd93b9d73ffc826ff3f60f33ca48341300462ba075cf46777",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionServer.cs": "2fa676d65e822f225d770c66ad9f8501788aa42d5e698b284a5cfcb1a8381331",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs": "11d18ff3581dd699b911ce7c1cb0733f9292422053d195122d09bf3d4f48a1ad",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionShip.cs": "36cb77dc2b54e97352f43426a7aadaa9a5c9890a59c1ec44ae29ab8fe23c5174",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GroundSessionSetup.cs": "1ab46cd2bc0005338af6edd9fd438684d899ee24128c2e8fe785f62905afa9fc",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroControlBehaviour.cs": "bce2d6a023b36cc2431fe96b98a74642201a7c0363ff0fc472e12902aabd5abb",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectCampCommands.cs": "7437053c15fe1944330da3977168e73f8cd828b566658480650eee935ae3c8f0",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs": "6035dcc2bde1ed2fb54de0638ba029c6ca46ddc50fce6d9a8071408ca39fa00b",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionCommands.cs": "adee42feaa3ce4f874c6ecad57fe6c9b95e213987a0e52b63a3c5bbc1afda525",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipFlightMotion.cs": "49d0c2b30eae1490abf94325d48d8fbdf7cb3672c50cc0e4f4088bc444e24ad2",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipRampTransition.cs": "8c825fe2dcc0cdb494367033a0f6747d6b51a6f00ccd62c1cebe94baf4318c75",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipTradeService.cs": "195dbc7ba643a4a838b73c77d856ae08b9d4128a0d5b49824466bbbf283d09d8",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs": "4d54b717813384b9d91a182fb1b907459a8294d49c7f7c2af63328e549f13d24",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionExpeditionControl.cs": "e1756bf241d34f0a747af8c8306d71300c85a3cc521aeda8e0a73257b2d41f80",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs": "0581bb5f4629e817baab101b621e5d8448b9ded6f95d15330b2233ef77003594",
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/SessionTerrainNetwork.cs": "3adee1823fe9a11016f5864a72e0bba5cc5cb8c99b13397e2fab705910ba1cd4",
+    "Game/Assets/DarkNights/Scripts/Tests/DarkNights.Tests.asmdef": "3479fb12d9b5dfca71888504486bdfe761fff9d2cb1ca34218409b3a704912f1",
+    "Game/Assets/DarkNights/Scripts/Tests/GroundSessionTests.cs": "c9fc08fab1696e5c707eeea1275a9c9bd50471b958b20c0674dd6f83d6573d2a",
+    "Game/Assets/DarkNights/Scripts/Tests/ShipTradePlayTests.cs": "6676b60d035d7999cef0152aa468cc3dc5830e7862a66c1f7279f74636ee6161",
+    "Game/Assets/DarkNights/Scripts/Tests/SmartConsoleLogBridgeTests.cs": "82c3ff2c1932a3da71e0cedbd35a272ed6e15a8f66040a73c1f7bc031487bfc9",
+    "Game/Assets/DarkNights/Scripts/View/ExpeditionPanel.cs": "cd3fadf87a8634171652cb2764da42aa9c918e765fb1c7aeae61d32b0868a615",
+    "tools/ground-baseline/test_network.py": "775c874034a4d1a3b07d5a03f824ebc8b1f53ab8c94c8be9eed25d3a4cb3defd",
+    "tools/ground-baseline/watch_memory.py": "9d6e90776bb487e597b406cec79b1c5c5ce54242f6ade1ad5952ebe932543f29"
+  },
+  "flight_restore": {
+    "performed": true,
+    "receipt": "artifacts/terrain-final-20260926/ground-flight-restore-r1.summary.json",
+    "memory": {
+      "state": "completed",
+      "samples": 136,
+      "peak_private_gib": 4.475429534912109,
+      "minimum_free_ram_gib": 13.275691986083984,
+      "minimum_free_commit_gib": 7.4304656982421875,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    }
+  }
+}

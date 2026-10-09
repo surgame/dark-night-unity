@@ -1,0 +1,953 @@
+diff --git a/Runtime/Debugging/IRuntimeDebugPanel.cs b/Runtime/Debugging/IRuntimeDebugPanel.cs
+index 95c7e50..c741bc1 100644
+--- a/Runtime/Debugging/IRuntimeDebugPanel.cs
++++ b/Runtime/Debugging/IRuntimeDebugPanel.cs
+@@ -1,24 +1,15 @@
+ #if UNITY_EDITOR || DEVELOPMENT_BUILD
+-using UnityEngine;
+-
++using System;
++using System.Threading;
++using UnityEngine.UIElements;
+ namespace GameCore.Debugging
+ {
+-    public interface IRuntimeDebugPanel
++    /// <summary>调试页的保留式视图契约；宿主创建一次视图，激活期间订阅数据，注销时最终释放。</summary>
++    public interface IRuntimeDebugPanel : IDisposable
+     {
+-        string Title { get; }
+-        int SortOrder { get; }
+-        void Draw(RuntimeDebugPanelContext context);
+-    }
+-
+-    public interface IRuntimeDebugPanelSizeProvider
+-    {
+-        Vector2 GetPreferredSize();
+-    }
+-
+-    public interface IRuntimeDebugPanelLifecycle
+-    {
+-        void OnRuntimeDebugPanelActivated();
+-        void OnRuntimeDebugPanelDeactivated();
++        VisualElement CreateView(RuntimeDebugPanelContext context);
++        void OnActivated(CancellationToken cancellationToken);
++        void OnDeactivated();
+     }
+ }
+ #endif
+diff --git a/Runtime/Debugging/Resources.meta b/Runtime/Debugging/Resources.meta
+new file mode 100644
+index 0000000..aa0c8e7
+--- /dev/null
++++ b/Runtime/Debugging/Resources.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: 982519f47e4511d49b2cd3c58c19882b
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+diff --git a/Runtime/Debugging/Resources/YYGC.meta b/Runtime/Debugging/Resources/YYGC.meta
+new file mode 100644
+index 0000000..eea1d0d
+--- /dev/null
++++ b/Runtime/Debugging/Resources/YYGC.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: 08fe8049cc38b0b438ca2f651f69240b
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+diff --git a/Runtime/Debugging/Resources/YYGC/Debugging.meta b/Runtime/Debugging/Resources/YYGC/Debugging.meta
+new file mode 100644
+index 0000000..7de4abe
+--- /dev/null
++++ b/Runtime/Debugging/Resources/YYGC/Debugging.meta
+@@ -0,0 +1,8 @@
++fileFormatVersion: 2
++guid: a3cb99ef2d7d3974abd01e8c36355abb
++folderAsset: yes
++DefaultImporter:
++  externalObjects: {}
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
+diff --git a/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss
+new file mode 100644
+index 0000000..21871a0
+--- /dev/null
++++ b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss
+@@ -0,0 +1,27 @@
++.rdh-root { position: absolute; left: 0; top: 0; right: 0; bottom: 0; color: #e4e9ed; font-size: 14px; }
++.rdh-hidden { display: none; }
++.rdh-window { position: absolute; left: 30px; top: 24px; width: 720px; max-width: 95%; max-height: 94%; background-color: #202327; border-width: 1px; border-color: #424950; border-radius: 9px; overflow: hidden; }
++.rdh-header { flex-direction: row; align-items: center; padding: 12px 14px; background-color: #292d32; border-bottom-width: 1px; border-bottom-color: #424950; }
++.rdh-title { font-size: 16px; margin-right: 10px; }
++.rdh-keycap { color: #acb6bf; font-size: 12px; padding: 2px 6px; border-width: 1px; border-color: #424950; border-radius: 4px; }
++.rdh-close { margin-left: auto; width: 28px; background-color: #292d32; border-width: 0; color: #e4e9ed; }
++.rdh-navigation { flex-direction: row; flex-wrap: wrap; padding: 0 14px; border-bottom-width: 1px; border-bottom-color: #424950; }
++.rdh-tab { margin: 0 18px 0 0; padding: 10px 0; background-color: #202327; color: #e4e9ed; border-width: 0; border-bottom-width: 2px; border-bottom-color: #202327; border-radius: 0; }
++.rdh-tab.rdh-selected { border-bottom-color: #92d7df; color: #92d7df; }
++.rdh-content { flex-grow: 1; flex-shrink: 1; min-height: 0; }
++.rdh-panel { flex-grow: 1; flex-shrink: 1; min-height: 0; padding: 14px; }
++.rdh-status { padding: 9px 14px; font-size: 12px; background-color: #292d32; border-top-width: 1px; border-top-color: #424950; white-space: normal; }
++.rdh-panel Button { min-height: 30px; padding: 5px 10px; margin: 0; background-color: #292d32; color: #e4e9ed; border-width: 1px; border-color: #424950; border-radius: 5px; }
++.rdh-panel Button:hover { background-color: #33383e; }
++.rdh-panel Button:disabled { opacity: 0.4; }
++.rdh-panel .rdh-primary { background-color: #92d7df; color: #162c30; border-color: #92d7df; }
++.rdh-panel .rdh-primary:hover { background-color: #a8e4eb; }
++.rdh-panel .rdh-danger { background-color: #462d32; color: #ffacac; border-color: #462d32; }
++.rdh-panel .rdh-danger:hover { background-color: #57373d; }
++.rdh-panel .rdh-muted { color: #acb6bf; font-size: 12px; }
++.rdh-panel .unity-base-field { margin: 0; }
++.rdh-panel .unity-base-field__input { background-color: #292d32; color: #e4e9ed; border-width: 1px; border-color: #424950; border-radius: 5px; min-height: 30px; padding: 5px 8px; }
++.rdh-panel .unity-base-field__label { min-width: 0; color: #acb6bf; margin-right: 8px; }
++.rdh-panel .unity-text-field__input { color: #e4e9ed; }
++.rdh-action-row { flex-direction: row; flex-wrap: wrap; margin-top: 12px; }
++.rdh-action-row Button { margin-right: 8px; margin-bottom: 8px; }
+diff --git a/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss.meta b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss.meta
+new file mode 100644
+index 0000000..2e8e801
+--- /dev/null
++++ b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uss.meta
+@@ -0,0 +1,12 @@
++fileFormatVersion: 2
++guid: 2120ff24fb49edb41aa33556ffd16eb0
++ScriptedImporter:
++  internalIDToNameTable: []
++  externalObjects: {}
++  serializedVersion: 2
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
++  script: {fileID: 12385, guid: 0000000000000000e000000000000000, type: 0}
++  disableValidation: 0
++  unsupportedSelectorAction: 0
+diff --git a/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml
+new file mode 100644
+index 0000000..a0e89c2
+--- /dev/null
++++ b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml
+@@ -0,0 +1,15 @@
++<ui:UXML xmlns:ui="UnityEngine.UIElements">
++    <ui:Style src="RuntimeDebugHub.uss" />
++    <ui:VisualElement name="debugHubRoot" class="rdh-root rdh-hidden" picking-mode="Ignore">
++        <ui:VisualElement name="window" class="rdh-window">
++            <ui:VisualElement name="header" class="rdh-header">
++                <ui:Label class="rdh-title" text="开发者工具" />
++                <ui:Label class="rdh-keycap" text="F1" />
++                <ui:Button name="closeButton" class="rdh-close" text="×" />
++            </ui:VisualElement>
++            <ui:VisualElement name="navigation" class="rdh-navigation" />
++            <ui:ScrollView name="contentHost" class="rdh-content" mode="Vertical" />
++            <ui:Label name="status" class="rdh-status" text="" />
++        </ui:VisualElement>
++    </ui:VisualElement>
++</ui:UXML>
+diff --git a/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml.meta b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml.meta
+new file mode 100644
+index 0000000..bee0b15
+--- /dev/null
++++ b/Runtime/Debugging/Resources/YYGC/Debugging/RuntimeDebugHub.uxml.meta
+@@ -0,0 +1,10 @@
++fileFormatVersion: 2
++guid: 73e4440e345d4d343bf6f102a2ea3be6
++ScriptedImporter:
++  internalIDToNameTable: []
++  externalObjects: {}
++  serializedVersion: 2
++  userData: 
++  assetBundleName: 
++  assetBundleVariant: 
++  script: {fileID: 13804, guid: 0000000000000000e000000000000000, type: 0}
+diff --git a/Runtime/Debugging/RuntimeDebugHub.cs b/Runtime/Debugging/RuntimeDebugHub.cs
+index b3c60f2..807ef89 100644
+--- a/Runtime/Debugging/RuntimeDebugHub.cs
++++ b/Runtime/Debugging/RuntimeDebugHub.cs
+@@ -1,405 +1,139 @@
+ #if UNITY_EDITOR || DEVELOPMENT_BUILD
+ using System;
+-using System.Collections.Generic;
++using System.Linq;
++using GameCore.Interactions;
+ using UnityEngine;
++using UnityEngine.TextCore.Text;
++using UnityEngine.UIElements;
+ #if ENABLE_INPUT_SYSTEM
+ using UnityEngine.InputSystem;
+ #endif
+-
+ namespace GameCore.Debugging
+ {
++    /// <summary>运行时调试宿主；统一稳定注册、单一 F1 路由、UITK 窗口和输入租约，不拥有游戏状态。</summary>
+     [AddComponentMenu("YYGC/Debugging/Runtime Debug Hub")]
+     public sealed class RuntimeDebugHub : MonoBehaviour
+     {
+-        private const int WindowId = 20240624;
+-        private static readonly List<IRuntimeDebugPanel> Panels = new();
+-        private static RuntimeDebugHub _instance;
+-
+-        private readonly RuntimeDebugPanelContext _context = new();
+-        private bool _showWindow;
+-        private Rect _windowRect = new Rect(30, 30, 420, 460);
+-        private int _selectedPanelIndex;
+-        private IRuntimeDebugPanel _activePanel;
+-
+-        private Texture2D _windowBgTex;
+-        private Texture2D _buttonNormalBgTex;
+-        private Texture2D _buttonHoverBgTex;
+-        private Texture2D _buttonActiveBgTex;
+-        private Texture2D _inputBgTex;
+-        private Texture2D _boxBgTex;
+-
+-        private GUIStyle _windowStyle;
+-        private GUIStyle _tabStyle;
+-        private GUIStyle _activeTabStyle;
+-        private GUIStyle _headerStyle;
+-
+-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+-        private static void InitializeOnLoad()
+-        {
+-            EnsureInstance();
+-        }
+-
+-        public static void RegisterPanel(IRuntimeDebugPanel panel)
+-        {
+-            if (panel == null)
+-            {
+-                return;
+-            }
+-
+-            if (Panels.Exists(existing => existing.GetType() == panel.GetType()))
+-            {
+-                return;
+-            }
+-
+-            Panels.Add(panel);
+-            Panels.Sort((left, right) =>
+-            {
+-                int order = left.SortOrder.CompareTo(right.SortOrder);
+-                return order != 0
+-                    ? order
+-                    : string.Compare(left.Title, right.Title, StringComparison.Ordinal);
+-            });
+-        }
+-
+-        public static void UnregisterPanel(IRuntimeDebugPanel panel)
+-        {
+-            if (_instance != null && ReferenceEquals(_instance._activePanel, panel))
+-            {
+-                _instance.DeactivateActivePanel();
+-            }
+-
+-            Panels.Remove(panel);
+-        }
+-
+-        public static void Toggle()
+-        {
+-            var instance = EnsureInstance();
+-            instance._showWindow = !instance._showWindow;
+-            if (instance._showWindow)
+-            {
+-                instance.SyncActivePanel();
+-            }
+-            else
+-            {
+-                instance.DeactivateActivePanel();
+-            }
++        private static RuntimeDebugPanelRegistry registry = new RuntimeDebugPanelRegistry();
++        private static RuntimeDebugHub instance;
++        private RuntimeDebugHubView view;
++        private RuntimeDebugPanelRegistration active;
++        private RuntimeDebugPanelContext context;
++        private PanelSettings settings;
++        private FontAsset font;
++        private YYInteractionSessionHandle modal;
++        private bool visible;
++        private string selectedId = "";
++        public static bool IsOpen => instance != null && instance.visible;
++        public static IDisposable RegisterPanel(RuntimeDebugPanelDescriptor descriptor, Func<IRuntimeDebugPanel> factory)
++        { EnsureInstance(); return registry.Register(descriptor, factory); }
++        public static void Toggle() { var host = EnsureInstance(); host.SetOpen(!host.visible); }
++        public static void Close() { if (instance != null) instance.SetOpen(false); }
++        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
++        private static void Reset()
++        {
++            if (instance != null) { instance.SetOpen(false); Destroy(instance.gameObject); }
++            registry.Dispose(); registry = new RuntimeDebugPanelRegistry(); instance = null;
+         }
+-
+         private static RuntimeDebugHub EnsureInstance()
+         {
+-            if (_instance != null)
+-            {
+-                return _instance;
+-            }
+-
+-            var existing = FindAnyObjectByType<RuntimeDebugHub>();
+-            if (existing != null)
+-            {
+-                _instance = existing;
+-                return _instance;
+-            }
+-
+-            var go = new GameObject("[RuntimeDebugHub]");
+-            DontDestroyOnLoad(go);
+-            _instance = go.AddComponent<RuntimeDebugHub>();
+-            return _instance;
++            if (instance != null) return instance;
++            var host = new GameObject("[RuntimeDebugHub]"); DontDestroyOnLoad(host);
++            instance = host.AddComponent<RuntimeDebugHub>(); return instance;
+         }
+-
+         private void Awake()
+         {
+-            if (_instance != null && _instance != this)
+-            {
+-                Destroy(gameObject);
+-                return;
+-            }
+-
+-            _instance = this;
+-            DontDestroyOnLoad(gameObject);
++            if (instance != null && instance != this) { Destroy(gameObject); return; }
++            instance = this; DontDestroyOnLoad(gameObject); registry.Changed += Refresh;
+         }
+-
+         private void Update()
+         {
+-            if (IsTogglePressed())
+-            {
+-                _showWindow = !_showWindow;
+-                if (_showWindow)
+-                {
+-                    SyncActivePanel();
+-                }
+-                else
+-                {
+-                    DeactivateActivePanel();
+-                }
+-            }
+-        }
+-
+-        private static bool IsTogglePressed()
+-        {
+ #if ENABLE_INPUT_SYSTEM
+-            var keyboard = Keyboard.current;
+-            if (keyboard != null &&
+-                (keyboard.backquoteKey.wasPressedThisFrame || keyboard.f1Key.wasPressedThisFrame))
+-            {
+-                return true;
+-            }
++            if (Keyboard.current?.f1Key.wasPressedThisFrame == true) Toggle();
++#elif ENABLE_LEGACY_INPUT_MANAGER
++            if (Input.GetKeyDown(KeyCode.F1)) Toggle();
+ #endif
+-
+-#if ENABLE_LEGACY_INPUT_MANAGER || !UNITY_2020_3_OR_NEWER
+-            return Input.GetKeyDown(KeyCode.BackQuote) || Input.GetKeyDown(KeyCode.F1);
+-#else
+-            return false;
+-#endif
+-        }
+-
+-        private void OnGUI()
+-        {
+-            if (!_showWindow)
+-            {
+-                return;
+-            }
+-
+-            InitStyles();
+-            ApplyCurrentPanelSize();
+-            SyncActivePanel();
+-            _windowRect = GUILayout.Window(WindowId, _windowRect, DrawWindow, GUIContent.none, _windowStyle);
++            if (visible && view != null) view.Root.SetEnabled(modal?.Session?.IsActive == true);
+         }
+-
+-        private void DrawWindow(int windowId)
++        private void EnsureView()
+         {
+-            GUILayout.Label("Runtime Debug Hub [ ` / F1 ]", _headerStyle);
+-
+-            if (Panels.Count == 0)
++            if (view != null) return;
++            var template = Resources.Load<VisualTreeAsset>("YYGC/Debugging/RuntimeDebugHub");
++            if (template == null) throw new InvalidOperationException("缺少 RuntimeDebugHub UXML 资源。");
++            var existing = Resources.FindObjectsOfTypeAll<PanelSettings>().FirstOrDefault(value => value.themeStyleSheet != null);
++            settings = existing != null ? Instantiate(existing) : ScriptableObject.CreateInstance<PanelSettings>();
++            settings.name = "RuntimeDebugHub Settings"; settings.sortingOrder = 2000;
++            settings.scaleMode = PanelScaleMode.ScaleWithScreenSize; settings.referenceResolution = new Vector2Int(1280, 800);
++            var document = gameObject.AddComponent<UIDocument>(); document.panelSettings = settings;
++            var next = new RuntimeDebugHubView();
++            try
+             {
+-                GUILayout.Label("<color=#ffcc00>没有已注册的调试面板。</color>", _context.LabelStyle);
+-                GUI.DragWindow(new Rect(0, 0, _windowRect.width, 36));
+-                return;
++                next.Initialize(template, document.rootVisualElement);
++                font = FontAsset.CreateFontAsset("Microsoft YaHei", "Regular", 48);
++                if (font != null) next.Root.style.unityFontDefinition = FontDefinition.FromSDFFont(font);
++                next.Closed += Close; next.Selected += Select;
++                context = new RuntimeDebugPanelContext(Close, next.Report); next.SetVisible(false); view = next;
+             }
+-
+-            _selectedPanelIndex = Mathf.Clamp(_selectedPanelIndex, 0, Panels.Count - 1);
+-
+-            GUILayout.BeginHorizontal();
+-            for (int i = 0; i < Panels.Count; i++)
++            catch
+             {
+-                GUIStyle style = i == _selectedPanelIndex ? _activeTabStyle : _tabStyle;
+-                if (GUILayout.Button(Panels[i].Title, style, GUILayout.Height(26)))
+-                {
+-                    _selectedPanelIndex = i;
+-                    ApplyCurrentPanelSize();
+-                    SyncActivePanel();
+-                }
++                next.Root?.RemoveFromHierarchy();
++                try { next.Dispose(); } catch (Exception error) { Debug.LogException(error); }
++                Destroy(document); if (font != null) Destroy(font); if (settings != null) Destroy(settings);
++                font = null; settings = null; throw;
+             }
+-            GUILayout.EndHorizontal();
+-
+-            GUILayout.Space(10);
+-
+-            GUILayout.BeginVertical(_context.BoxStyle);
+-            Panels[_selectedPanelIndex].Draw(_context);
+-            GUILayout.EndVertical();
+-
+-            GUI.DragWindow(new Rect(0, 0, _windowRect.width, 36));
+         }
+-
+-        private void SyncActivePanel()
++        private void SetOpen(bool value)
+         {
+-            var currentPanel = CurrentPanel;
+-            if (ReferenceEquals(_activePanel, currentPanel))
++            if (visible == value) return;
++            if (!value)
+             {
++                visible = false;
++                try { Deactivate(); }
++                finally { modal?.Dispose(); modal = null; view?.SetVisible(false); }
+                 return;
+             }
+-
+-            DeactivateActivePanel();
+-            _activePanel = currentPanel;
+-
+-            if (_activePanel is IRuntimeDebugPanelLifecycle lifecycle)
+-            {
+-                lifecycle.OnRuntimeDebugPanelActivated();
+-            }
+-        }
+-
+-        private void DeactivateActivePanel()
+-        {
+-            if (_activePanel is IRuntimeDebugPanelLifecycle lifecycle)
+-            {
+-                lifecycle.OnRuntimeDebugPanelDeactivated();
+-            }
+-
+-            _activePanel = null;
+-        }
+-
+-        private void ApplyCurrentPanelSize()
+-        {
+-            Vector2 size = ResolvePreferredSize(CurrentPanel);
+-            _windowRect.width = Mathf.Max(260f, size.x);
+-            _windowRect.height = Mathf.Max(180f, size.y);
+-
+-            float maxX = Mathf.Max(0f, Screen.width - _windowRect.width);
+-            float maxY = Mathf.Max(0f, Screen.height - _windowRect.height);
+-            _windowRect.x = Mathf.Clamp(_windowRect.x, 0f, maxX);
+-            _windowRect.y = Mathf.Clamp(_windowRect.y, 0f, maxY);
+-        }
+-
+-        private IRuntimeDebugPanel CurrentPanel
+-        {
+-            get
++            try
+             {
+-                if (Panels.Count == 0)
++                EnsureView(); var service = YYInteractionSessionService.Instance;
++                if (service == null || !service.TryBegin(new YYInteractionSessionDescriptor
+                 {
+-                    return null;
+-                }
+-
+-                _selectedPanelIndex = Mathf.Clamp(_selectedPanelIndex, 0, Panels.Count - 1);
+-                return Panels[_selectedPanelIndex];
++                    Kind = "yygc.runtime_debug_hub", Owner = nameof(RuntimeDebugHub), Priority = 150,
++                    Blocks = YYInteractionBlockFlags.All, ConflictPolicy = YYInteractionConflictPolicy.SuspendLowerPriority
++                }, out modal)) return;
++                visible = true; view.SetVisible(true); Refresh();
+             }
++            catch (Exception error) { SetOpen(false); Debug.LogException(error); }
+         }
+-
+-        private static Vector2 ResolvePreferredSize(IRuntimeDebugPanel panel)
++        private void Select(RuntimeDebugPanelRegistration entry) { selectedId = entry.Descriptor.Id; Refresh(); }
++        private void Refresh()
+         {
+-            if (panel is IRuntimeDebugPanelSizeProvider sizeProvider)
++            if (view == null) return;
++            var entries = registry.Entries;
++            var selected = entries.FirstOrDefault(p => p.Descriptor.Id == selectedId) ?? entries.FirstOrDefault();
++            selectedId = selected?.Descriptor.Id ?? ""; view.PresentNavigation(entries, selectedId);
++            if (!visible || ReferenceEquals(active, selected)) return;
++            Deactivate();
++            if (selected == null) { view.PresentContent(null); view.Report("暂无调试页"); return; }
++            try
+             {
+-                return sizeProvider.GetPreferredSize();
++                active = selected; view.SetPreferredSize(selected.Descriptor.PreferredSize);
++                view.PresentContent(selected.Activate(context)); view.Report("");
+             }
+-
+-            return new Vector2(420f, 460f);
++            catch (Exception error) { Deactivate(); view.Report("面板加载失败：" + selectedId); Debug.LogException(error); }
+         }
+-
+-        private void InitStyles()
++        private void Deactivate()
+         {
+-            if (_windowStyle != null)
+-            {
+-                return;
+-            }
+-
+-            _windowBgTex = CreatePureColorTexture(new Color(0.05f, 0.05f, 0.05f, 0.78f));
+-            _boxBgTex = CreatePureColorTexture(new Color(0.14f, 0.14f, 0.16f, 0.68f));
+-            _inputBgTex = CreatePureColorTexture(new Color(0.02f, 0.02f, 0.02f, 0.92f));
+-            _buttonNormalBgTex = CreatePureColorTexture(new Color(0.2f, 0.22f, 0.26f, 0.94f));
+-            _buttonHoverBgTex = CreatePureColorTexture(new Color(0.28f, 0.32f, 0.4f, 0.94f));
+-            _buttonActiveBgTex = CreatePureColorTexture(new Color(0.14f, 0.15f, 0.18f, 0.94f));
+-
+-            _windowStyle = new GUIStyle
+-            {
+-                normal = { background = _windowBgTex },
+-                onNormal = { background = _windowBgTex },
+-                padding = new RectOffset(16, 16, 16, 16)
+-            };
+-
+-            _context.BoxStyle = new GUIStyle(GUI.skin.box)
+-            {
+-                normal = { background = _boxBgTex },
+-                border = new RectOffset(2, 2, 2, 2),
+-                padding = new RectOffset(10, 10, 8, 8),
+-                margin = new RectOffset(0, 0, 4, 4)
+-            };
+-
+-            _context.ButtonStyle = new GUIStyle(GUI.skin.button)
+-            {
+-                normal =
+-                {
+-                    background = _buttonNormalBgTex,
+-                    textColor = new Color(0.9f, 0.9f, 0.9f, 1f)
+-                },
+-                hover =
+-                {
+-                    background = _buttonHoverBgTex,
+-                    textColor = Color.white
+-                },
+-                active =
+-                {
+-                    background = _buttonActiveBgTex,
+-                    textColor = Color.white
+-                },
+-                border = new RectOffset(2, 2, 2, 2),
+-                margin = new RectOffset(2, 2, 2, 2),
+-                padding = new RectOffset(6, 6, 6, 6),
+-                alignment = TextAnchor.MiddleCenter,
+-                fontSize = 12
+-            };
+-
+-            _context.InputStyle = new GUIStyle(GUI.skin.textField)
+-            {
+-                normal =
+-                {
+-                    background = _inputBgTex,
+-                    textColor = Color.white
+-                },
+-                focused =
+-                {
+-                    background = _inputBgTex,
+-                    textColor = new Color(0.4f, 0.8f, 1f, 1f)
+-                },
+-                border = new RectOffset(1, 1, 1, 1),
+-                padding = new RectOffset(6, 6, 2, 2),
+-                alignment = TextAnchor.MiddleLeft
+-            };
+-
+-            _context.LabelStyle = new GUIStyle(GUI.skin.label)
+-            {
+-                normal = { textColor = new Color(0.85f, 0.88f, 0.92f, 1f) },
+-                richText = true,
+-                fontSize = 12
+-            };
+-
+-            _context.MiniLabelStyle = new GUIStyle(_context.LabelStyle)
+-            {
+-                fontSize = 10,
+-                wordWrap = true,
+-                normal = { textColor = new Color(0.62f, 0.68f, 0.74f, 1f) },
+-                margin = new RectOffset(2, 2, 0, 2)
+-            };
+-
+-            _headerStyle = new GUIStyle(_context.LabelStyle)
+-            {
+-                fontSize = 13,
+-                fontStyle = FontStyle.Bold,
+-                alignment = TextAnchor.MiddleCenter,
+-                margin = new RectOffset(0, 0, 0, 12),
+-                normal = { textColor = new Color(0.45f, 0.75f, 1f, 1f) }
+-            };
+-
+-            _context.HeaderStyle = _headerStyle;
+-            _tabStyle = new GUIStyle(_context.ButtonStyle);
+-            _activeTabStyle = new GUIStyle(_context.ButtonStyle)
+-            {
+-                normal =
+-                {
+-                    background = _buttonHoverBgTex,
+-                    textColor = Color.white
+-                },
+-                fontStyle = FontStyle.Bold
+-            };
+-        }
+-
+-        private static Texture2D CreatePureColorTexture(Color color)
+-        {
+-            Texture2D tex = new Texture2D(1, 1);
+-            tex.SetPixel(0, 0, color);
+-            tex.Apply();
+-            return tex;
++            var previous = active; active = null;
++            try { previous?.Deactivate(); }
++            catch (Exception error) { Debug.LogException(error); }
++            finally { view?.PresentContent(null); }
+         }
+-
++        private void OnDisable() => SetOpen(false);
+         private void OnDestroy()
+         {
+-            DeactivateActivePanel();
+-
+-            if (_instance == this)
+-            {
+-                _instance = null;
+-            }
+-
+-            DestroyIfExists(_windowBgTex);
+-            DestroyIfExists(_boxBgTex);
+-            DestroyIfExists(_inputBgTex);
+-            DestroyIfExists(_buttonNormalBgTex);
+-            DestroyIfExists(_buttonHoverBgTex);
+-            DestroyIfExists(_buttonActiveBgTex);
+-        }
+-
+-        private static void DestroyIfExists(UnityEngine.Object obj)
+-        {
+-            if (obj != null)
+-            {
+-                Destroy(obj);
+-            }
++            registry.Changed -= Refresh; SetOpen(false); view?.Dispose();
++            if (font != null) Destroy(font); if (settings != null) Destroy(settings);
++            if (instance == this) instance = null;
+         }
+     }
+ }
+diff --git a/Runtime/Debugging/RuntimeDebugHubView.cs b/Runtime/Debugging/RuntimeDebugHubView.cs
+new file mode 100644
+index 0000000..d357dd7
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugHubView.cs
+@@ -0,0 +1,80 @@
++#if UNITY_EDITOR || DEVELOPMENT_BUILD
++using System;
++using GameCore.Objects.Runner.DI;
++using GameCore.UI;
++using UnityEngine;
++using UnityEngine.UIElements;
++namespace GameCore.Debugging
++{
++    /// <summary>通用 UITK 窗口视图；主题和内容挂载归 Hub，拖动只改变窗口变换，不参与业务状态。</summary>
++    internal sealed class RuntimeDebugHubView : UIPanel
++    {
++        private VisualElement window, navigation, content;
++        private Label status;
++        private Vector2 dragOrigin, windowOrigin;
++        private bool dragging;
++        internal event Action Closed;
++        internal event Action<RuntimeDebugPanelRegistration> Selected;
++        internal void Initialize(VisualTreeAsset template, VisualElement host)
++        { var tree = template.CloneTree(); host.Add(tree); Bind(tree, DIContainer.Root); }
++        protected override void OnBind()
++        {
++            Root.AddToClassList("rdh-root"); Root.pickingMode = PickingMode.Ignore;
++            Root.Q("debugHubRoot").RemoveFromClassList("rdh-hidden");
++            window = Root.Q("window"); navigation = Root.Q("navigation"); content = Root.Q("contentHost");
++            status = Root.Q<Label>("status"); Root.Q<Button>("closeButton").clicked += Close;
++            var header = Root.Q("header");
++            header.RegisterCallback<PointerDownEvent>(StartDrag);
++            header.RegisterCallback<PointerMoveEvent>(Drag);
++            header.RegisterCallback<PointerUpEvent>(StopDrag);
++            Root.RegisterCallback<GeometryChangedEvent>(GeometryChanged);
++        }
++        internal void PresentNavigation(RuntimeDebugPanelRegistration[] entries, string selectedId)
++        {
++            navigation.Clear();
++            foreach (var entry in entries)
++            {
++                var button = new Button(() => Selected?.Invoke(entry)) { text = entry.Descriptor.Title };
++                button.AddToClassList("rdh-tab"); button.EnableInClassList("rdh-selected", entry.Descriptor.Id == selectedId);
++                navigation.Add(button);
++            }
++        }
++        internal void PresentContent(VisualElement view) { content.Clear(); if (view != null) content.Add(view); }
++        internal void SetPreferredSize(Vector2 size)
++        { window.style.width = Mathf.Max(320, size.x); window.style.height = Mathf.Max(240, size.y); }
++        internal void Report(string value) => status.text = value ?? "";
++        internal void SetVisible(bool visible)
++        { if (!visible) dragging = false; Root.EnableInClassList("rdh-hidden", !visible); }
++        private void Close() => Closed?.Invoke();
++        private void GeometryChanged(GeometryChangedEvent value) => Root.EnableInClassList("rdh-compact", Root.worldBound.width < 700);
++        private void StartDrag(PointerDownEvent value)
++        {
++            var target = value.target as VisualElement;
++            if (value.button != 0 || target is Button || target?.GetFirstAncestorOfType<Button>() != null) return;
++            dragging = true; dragOrigin = value.position;
++            windowOrigin = new Vector2(window.resolvedStyle.translate.x, window.resolvedStyle.translate.y);
++            ((VisualElement)value.currentTarget).CapturePointer(value.pointerId); value.StopPropagation();
++        }
++        private void Drag(PointerMoveEvent value)
++        {
++            if (!dragging) return;
++            Vector2 position = windowOrigin + (Vector2)value.position - dragOrigin;
++            position.x = Mathf.Clamp(position.x, -20, Mathf.Max(-20, Root.worldBound.width - window.layout.width - 30));
++            position.y = Mathf.Clamp(position.y, -20, Mathf.Max(-20, Root.worldBound.height - window.layout.height - 24));
++            window.style.translate = new Translate(position.x, position.y); value.StopPropagation();
++        }
++        private void StopDrag(PointerUpEvent value)
++        { dragging = false; ((VisualElement)value.currentTarget).ReleasePointer(value.pointerId); }
++        protected override void OnDispose()
++        {
++            Root.Q<Button>("closeButton").clicked -= Close;
++            var header = Root.Q("header");
++            header.UnregisterCallback<PointerDownEvent>(StartDrag);
++            header.UnregisterCallback<PointerMoveEvent>(Drag);
++            header.UnregisterCallback<PointerUpEvent>(StopDrag);
++            Root.UnregisterCallback<GeometryChangedEvent>(GeometryChanged);
++            Root.RemoveFromHierarchy(); Closed = null; Selected = null;
++        }
++    }
++}
++#endif
+diff --git a/Runtime/Debugging/RuntimeDebugHubView.cs.meta b/Runtime/Debugging/RuntimeDebugHubView.cs.meta
+new file mode 100644
+index 0000000..8c8cd6b
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugHubView.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 7b819ac7b38f80f4b9a23105f1ca89c0
+\ No newline at end of file
+diff --git a/Runtime/Debugging/RuntimeDebugPanelContext.cs b/Runtime/Debugging/RuntimeDebugPanelContext.cs
+index c19841b..fd0d0a4 100644
+--- a/Runtime/Debugging/RuntimeDebugPanelContext.cs
++++ b/Runtime/Debugging/RuntimeDebugPanelContext.cs
+@@ -1,16 +1,16 @@
+ #if UNITY_EDITOR || DEVELOPMENT_BUILD
+-using UnityEngine;
+-
++using System;
+ namespace GameCore.Debugging
+ {
++    /// <summary>面板的最小宿主上下文；只提供关闭和有界反馈，不暴露权威状态或任意业务执行器。</summary>
+     public sealed class RuntimeDebugPanelContext
+     {
+-        public GUIStyle HeaderStyle { get; internal set; }
+-        public GUIStyle LabelStyle { get; internal set; }
+-        public GUIStyle MiniLabelStyle { get; internal set; }
+-        public GUIStyle ButtonStyle { get; internal set; }
+-        public GUIStyle InputStyle { get; internal set; }
+-        public GUIStyle BoxStyle { get; internal set; }
++        private readonly Action close;
++        private readonly Action<string> feedback;
++        internal RuntimeDebugPanelContext(Action close, Action<string> feedback)
++        { this.close = close; this.feedback = feedback; }
++        public void Close() => close();
++        public void Report(string text) => feedback(text == null ? "" : text.Substring(0, Math.Min(text.Length, 256)));
+     }
+ }
+ #endif
+diff --git a/Runtime/Debugging/RuntimeDebugPanelDescriptor.cs b/Runtime/Debugging/RuntimeDebugPanelDescriptor.cs
+new file mode 100644
+index 0000000..7582d98
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugPanelDescriptor.cs
+@@ -0,0 +1,25 @@
++#if UNITY_EDITOR || DEVELOPMENT_BUILD
++using System;
++using UnityEngine;
++namespace GameCore.Debugging
++{
++    /// <summary>调试页的稳定身份与窗口偏好；ID 独立于标题及实现类型，注册后不可修改。</summary>
++    public sealed class RuntimeDebugPanelDescriptor
++    {
++        public string Id { get; }
++        public string Title { get; }
++        public int SortOrder { get; }
++        public Vector2 PreferredSize { get; }
++        public RuntimeDebugPanelDescriptor(string id, string title, int sortOrder = 0, Vector2 preferredSize = default)
++        {
++            if (string.IsNullOrWhiteSpace(id) || id.Length > 128 || string.IsNullOrWhiteSpace(title))
++                throw new ArgumentException("调试页必须有稳定 ID 和标题。");
++            Id = id; Title = title; SortOrder = sortOrder;
++            PreferredSize = preferredSize == default ? new Vector2(720, 600) : preferredSize;
++            if (float.IsNaN(PreferredSize.x) || float.IsNaN(PreferredSize.y) || float.IsInfinity(PreferredSize.x) ||
++                float.IsInfinity(PreferredSize.y) || PreferredSize.x <= 0 || PreferredSize.y <= 0)
++                throw new ArgumentException("调试页参考尺寸必须为有限正数。", nameof(preferredSize));
++        }
++    }
++}
++#endif
+diff --git a/Runtime/Debugging/RuntimeDebugPanelDescriptor.cs.meta b/Runtime/Debugging/RuntimeDebugPanelDescriptor.cs.meta
+new file mode 100644
+index 0000000..1b5c2b4
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugPanelDescriptor.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: ab5b8184cce7df541a5103c2f72638ec
+\ No newline at end of file
+diff --git a/Runtime/Debugging/RuntimeDebugPanelRegistration.cs b/Runtime/Debugging/RuntimeDebugPanelRegistration.cs
+new file mode 100644
+index 0000000..dd48f48
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugPanelRegistration.cs
+@@ -0,0 +1,57 @@
++#if UNITY_EDITOR || DEVELOPMENT_BUILD
++using System;
++using System.Threading;
++using UnityEngine.UIElements;
++namespace GameCore.Debugging
++{
++    /// <summary>一次注册及懒创建视图的所有者；句柄只影响本代注册，激活取消和最终释放均幂等。</summary>
++    internal sealed class RuntimeDebugPanelRegistration : IDisposable
++    {
++        private readonly Func<IRuntimeDebugPanel> factory;
++        private readonly Action<RuntimeDebugPanelRegistration> unregister;
++        private IRuntimeDebugPanel panel;
++        private VisualElement root;
++        private CancellationTokenSource activation;
++        private bool disposed;
++        internal RuntimeDebugPanelDescriptor Descriptor { get; }
++        internal RuntimeDebugPanelRegistration(RuntimeDebugPanelDescriptor descriptor,
++            Func<IRuntimeDebugPanel> factory, Action<RuntimeDebugPanelRegistration> unregister)
++        { Descriptor = descriptor; this.factory = factory; this.unregister = unregister; }
++        internal VisualElement Activate(RuntimeDebugPanelContext context)
++        {
++            if (disposed) throw new ObjectDisposedException(Descriptor.Id);
++            if (panel == null)
++            {
++                try
++                {
++                    panel = factory() ?? throw new InvalidOperationException("空调试页：" + Descriptor.Id);
++                    root = panel.CreateView(context) ?? throw new InvalidOperationException("调试页没有视图：" + Descriptor.Id);
++                    root.AddToClassList("rdh-panel");
++                }
++                catch { try { panel?.Dispose(); } finally { panel = null; root = null; } throw; }
++            }
++            if (activation == null)
++            {
++                activation = new CancellationTokenSource();
++                try { panel.OnActivated(activation.Token); }
++                catch { Deactivate(); throw; }
++            }
++            return root;
++        }
++        internal void Deactivate()
++        {
++            if (activation == null) return;
++            var previous = activation; activation = null;
++            try { previous.Cancel(); panel?.OnDeactivated(); }
++            finally { previous.Dispose(); root?.RemoveFromHierarchy(); }
++        }
++        public void Dispose()
++        {
++            if (disposed) return;
++            disposed = true;
++            try { unregister(this); }
++            finally { try { Deactivate(); } finally { panel?.Dispose(); panel = null; root = null; } }
++        }
++    }
++}
++#endif
+diff --git a/Runtime/Debugging/RuntimeDebugPanelRegistration.cs.meta b/Runtime/Debugging/RuntimeDebugPanelRegistration.cs.meta
+new file mode 100644
+index 0000000..1230eb8
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugPanelRegistration.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: f1365effe993c3c4d8800380e5eeb0f5
+\ No newline at end of file
+diff --git a/Runtime/Debugging/RuntimeDebugPanelRegistry.cs b/Runtime/Debugging/RuntimeDebugPanelRegistry.cs
+new file mode 100644
+index 0000000..f58458a
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugPanelRegistry.cs
+@@ -0,0 +1,34 @@
++#if UNITY_EDITOR || DEVELOPMENT_BUILD
++using System;
++using System.Collections.Generic;
++using System.Linq;
++namespace GameCore.Debugging
++{
++    /// <summary>Hub 的注册作用域；按稳定 ID 判重和排序，旧句柄不能移除后续同名注册。</summary>
++    internal sealed class RuntimeDebugPanelRegistry : IDisposable
++    {
++        private readonly Dictionary<string, RuntimeDebugPanelRegistration> entries =
++            new Dictionary<string, RuntimeDebugPanelRegistration>(StringComparer.Ordinal);
++        internal event Action Changed;
++        internal RuntimeDebugPanelRegistration[] Entries => entries.Values.OrderBy(p => p.Descriptor.SortOrder)
++            .ThenBy(p => p.Descriptor.Id, StringComparer.Ordinal).ToArray();
++        internal IDisposable Register(RuntimeDebugPanelDescriptor descriptor, Func<IRuntimeDebugPanel> factory)
++        {
++            if (descriptor == null || factory == null) throw new ArgumentNullException(nameof(descriptor));
++            if (entries.ContainsKey(descriptor.Id)) throw new InvalidOperationException("重复调试页 ID：" + descriptor.Id);
++            var entry = new RuntimeDebugPanelRegistration(descriptor, factory, Remove);
++            entries.Add(descriptor.Id, entry); Changed?.Invoke(); return entry;
++        }
++        private void Remove(RuntimeDebugPanelRegistration entry)
++        {
++            if (!entries.TryGetValue(entry.Descriptor.Id, out var current) || !ReferenceEquals(current, entry)) return;
++            entries.Remove(entry.Descriptor.Id); Changed?.Invoke();
++        }
++        public void Dispose()
++        {
++            foreach (var entry in Entries) entry.Dispose();
++            entries.Clear(); Changed = null;
++        }
++    }
++}
++#endif
+diff --git a/Runtime/Debugging/RuntimeDebugPanelRegistry.cs.meta b/Runtime/Debugging/RuntimeDebugPanelRegistry.cs.meta
+new file mode 100644
+index 0000000..f37ee9a
+--- /dev/null
++++ b/Runtime/Debugging/RuntimeDebugPanelRegistry.cs.meta
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: acb61a3fb99c24240b52e452e254a5a3
+\ No newline at end of file

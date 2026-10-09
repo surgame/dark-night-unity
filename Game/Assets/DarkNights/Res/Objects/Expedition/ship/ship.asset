@@ -21,7 +21,7 @@ MonoBehaviour:
   legacyAllocationPending: 
   Type: 400
   Name: ship
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 78c3330fa30ddb643a7ab0ccbda3c672, type: 3}
   Describe: 
   MaxStack: 1
   ItemLevel: 1

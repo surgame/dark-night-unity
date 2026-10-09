@@ -21,7 +21,7 @@ MonoBehaviour:
   legacyAllocationPending: 
   Type: 700
   Name: hauler
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: d2131551ef0b29f4796ad9d5424aa71d, type: 3}
   Describe: 
   MaxStack: 1
   ItemLevel: 1

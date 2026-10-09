@@ -83,12 +83,12 @@ namespace DarkNights.Tests
             Walk(authority, host, hero, ship.X + 32);
             var pack = new SessionRequest(SessionOperation.BuyEquipment, SessionAuthority.ProtocolVersion,
                 authority.Epoch, authority.PolicyRevision, 1, new[] { hero.Id }, targetId: ship.Id,
-                kind: "jetpack", value: 0, controlLease: hero.CaptureState().ControlLease);
+                kind: "jetpack", value: hero.CaptureState().InventoryRevision, controlLease: hero.CaptureState().ControlLease);
             Assert.That(Execute(authority, host, pack), Is.EqualTo(SessionResultCode.NoEffect));
             Assert.That(world.Economy.CaptureState().Credits, Is.EqualTo(14));
             var pickaxe = new SessionRequest(SessionOperation.BuyEquipment, SessionAuthority.ProtocolVersion,
                 authority.Epoch, authority.PolicyRevision, 2, new[] { hero.Id }, targetId: ship.Id,
-                kind: "pickaxe", value: 0, controlLease: hero.CaptureState().ControlLease);
+                kind: "pickaxe", value: hero.CaptureState().InventoryRevision, controlLease: hero.CaptureState().ControlLease);
             Assert.That(Execute(authority, host, pickaxe), Is.EqualTo(SessionResultCode.Applied));
             Assert.That(world.Economy.CaptureState().Credits, Is.EqualTo(10));
         });
@@ -104,15 +104,15 @@ namespace DarkNights.Tests
             Assert.That(world.Economy.CaptureState().Credits, Is.EqualTo(30));
             var remote = new SessionRequest(SessionOperation.BuyEquipment, SessionAuthority.ProtocolVersion,
                 authority.Epoch, authority.PolicyRevision, 1, new[] { hero.Id }, targetId: ship.Id,
-                kind: "pickaxe", value: 0, controlLease: hero.CaptureState().ControlLease);
+                kind: "pickaxe", value: hero.CaptureState().InventoryRevision, controlLease: hero.CaptureState().ControlLease);
             Assert.That(Execute(authority, host, remote), Is.EqualTo(SessionResultCode.NoEffect));
             Walk(authority, host, hero, ship.X + 32);
             var buy = new SessionRequest(SessionOperation.BuyEquipment, SessionAuthority.ProtocolVersion,
                 authority.Epoch, authority.PolicyRevision, 2, new[] { hero.Id }, targetId: ship.Id,
-                kind: "pickaxe", value: 0, controlLease: hero.CaptureState().ControlLease);
+                kind: "pickaxe", value: hero.CaptureState().InventoryRevision, controlLease: hero.CaptureState().ControlLease);
             Assert.That(Execute(authority, host, buy), Is.EqualTo(SessionResultCode.Applied));
-            Assert.That(hero.CaptureState().Slot0, Is.EqualTo(GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item.pickaxe").Guid.ToString()));
-            Assert.That(hero.CaptureState().InventoryRevision, Is.EqualTo(1));
+            Assert.That(hero.CaptureState().Slot1, Is.EqualTo(GameCore.Objects.Definition.ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item.pickaxe").Guid.ToString()));
+            Assert.That(hero.CaptureState().InventoryRevision, Is.EqualTo(2));
             Assert.That(world.Economy.CaptureState().Credits, Is.EqualTo(26));
             Assert.That(authority.Submit(host, buy).Code, Is.EqualTo(SessionResultCode.Applied));
             Assert.That(world.Economy.CaptureState().Credits, Is.EqualTo(26));

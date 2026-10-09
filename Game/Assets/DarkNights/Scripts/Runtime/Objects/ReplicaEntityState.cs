@@ -47,6 +47,7 @@ namespace DarkNights.Runtime.Objects
                     Height = value.Height, VerticalSpeed = value.VerticalSpeed, SupportPlatform = value.SupportPlatform, ManualControl = value.ManualControl, SelectedItem = value.SelectedItem, SelectionRevision = value.SelectionRevision, JetpackEquipped = value.JetpackEquipped, JetpackFuel = value.JetpackFuel, ControllerSlot = value.ControllerSlot, ControlLease = value.ControlLease, AimAngle = value.AimAngle, EquipmentCooldown = value.EquipmentCooldown, EquipmentAction = value.EquipmentAction, EquipmentActionDuration = value.EquipmentActionDuration, Charging = value.Charging, ChargeSeconds = value.ChargeSeconds,
                     ExplosiveCharges = value.ExplosiveCharges,
                     InventoryRevision = value.InventoryRevision,
+                    LightDefinition = value.LightDefinition, LightEnabled = value.LightEnabled, LightAimAngle = value.LightAimAngle,
                     Slot0 = value.Slot0Definition, Slot1 = value.Slot1Definition, Slot2 = value.Slot2Definition, Slot3 = value.Slot3Definition,
                     JetpackOwned = value.JetpackOwned
                 };

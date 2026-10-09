@@ -46,6 +46,7 @@ namespace DarkNights.Entry
         private bool continuePending;
         private string storageStatus = "";
         public CampInput Input => input;
+        public GameInputActions Actions => actions;
         public string Page => page;
         public void BindCockpit(Action interact) { if (trade != null) trade.CockpitRequested = interact; }
         public void PresentEvent(PresentationEvent value, double age) => hud.PresentEvent(value, age);
@@ -73,7 +74,8 @@ namespace DarkNights.Entry
             // Existing framework root owns the scaler; formal UI preserves source pixel sizes at each viewport.
             UGUIManager.Instance.GetComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
             UGUIManager.Instance.GetComponent<Canvas>().pixelPerfect = true;
-            foreach (string name in new[] { "Chrome", "MainMenu", "PauseMenu", "Help", "Result", "Hero" })
+            using var resources = await DarkNights.Runtime.Framework.SessionUiResources.Prepare(this.GetCancellationTokenOnDestroy());
+            foreach (string name in DarkNights.Runtime.Framework.SessionUiResources.PanelNames)
             {
                 var definition = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("ui." + name.ToLowerInvariant());
                 ObjectInstance panel = await UGUIManager.Instance.CreatePanelInstanceAsync(definition);
@@ -105,6 +107,7 @@ namespace DarkNights.Entry
             View("MainMenu").Get<Button>("Map").gameObject.SetActive(network.Terrain != null);
             initialized = true;
             Switch("MainMenu");
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("MenuActivated");
         }
 
         internal void SamplePresentation()
@@ -192,9 +195,8 @@ namespace DarkNights.Entry
             {
                 string action = intent.Action;
                 if (await hero.HandleAction(action)) return;
-                if (actions.HeroMode && (action.StartsWith("Build", StringComparison.Ordinal) ||
-                    action.StartsWith("Train", StringComparison.Ordinal) || action == "Orders"))
-                { hud.ShowMessage("当前默认主角操控，旧营地操控入口暂时隐藏。"); return; }
+                if (action.StartsWith("Build", StringComparison.Ordinal) || action.StartsWith("Train", StringComparison.Ordinal) ||
+                    action is "Orders" or "Recruit" or "Repair" or "Night") return;
                 if (action == "SelectMap") { await network.Terrain.SelectNew(); return; }
                 if (action == "Slot") { saveSlot = (saveSlot + 1) % 10; return; }
                 if (action == "Quit") { network.Disconnect(); Application.Quit(); return; }

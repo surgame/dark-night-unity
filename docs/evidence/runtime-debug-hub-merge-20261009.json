@@ -1,0 +1,114 @@
+{
+  "date": "2026-10-09",
+  "branch": "ft-20261008-flashlight-lighting",
+  "parents": [
+    "123f5b8",
+    "d2c7895"
+  ],
+  "protocol": 30,
+  "save_version": 22,
+  "map_schema": 2,
+  "compilation": [
+    {
+      "variant": "editor",
+      "assemblies": 7,
+      "errors": 0,
+      "warnings": 43
+    },
+    {
+      "variant": "development",
+      "assemblies": 5,
+      "errors": 0,
+      "warnings": 31
+    },
+    {
+      "variant": "release",
+      "assemblies": 5,
+      "errors": 0,
+      "warnings": 31
+    }
+  ],
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 772,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "ordinary_operation_numbers_preserved": {
+    "IssueOrders": 0,
+    "PlaceBuilding": 1,
+    "TrainActors": 2,
+    "Recruit": 3,
+    "Repair": 4,
+    "SetPaused": 5,
+    "SetSpeed": 6,
+    "StartNight": 7,
+    "SetControlMode": 8,
+    "BeginLoad": 9,
+    "Save": 10,
+    "Restart": 11,
+    "ClaimHero": 12,
+    "ReleaseHero": 13,
+    "SelectHeroItem": 14,
+    "UseHeroItem": 15,
+    "Expedition": 16,
+    "SelectDestination": 17,
+    "CancelJourney": 18,
+    "SellCarriedOre": 19,
+    "BuyEquipment": 20,
+    "SetHeroLight": 21
+  },
+  "game_metas_preserved": 15,
+  "framework_files_equal": 18,
+  "source_hashes_match_final": true,
+  "merged_play_tests": "NOT_RUN",
+  "player": "NOT_BUILT",
+  "cleanup": {
+    "completed": true,
+    "source_worktree_removed": "C:\\Users\\Jobscn\\.codex\\worktrees\\debug-hub-uitk\\unity-projects",
+    "branch_removed": "ref-20261008-runtime-debug-hub-uitk",
+    "merged_head": "3ed2adb2acac6e9c8694256072500a7db6378c0f",
+    "preserved": [
+      {
+        "source": "C:\\Users\\Jobscn\\.codex\\worktrees\\debug-hub-uitk\\unity-projects\\artifacts\\debug-hub-20261008",
+        "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\debug-hub-original-20261008",
+        "bytes": 229237815,
+        "reason": "正式证据；持续保留",
+        "moved": true
+      },
+      {
+        "source": "C:\\Users\\Jobscn\\.codex\\worktrees\\debug-hub-uitk\\unity-projects\\.deps\\YYGC-grid-business",
+        "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\debug-hub-original-20261008\\framework\\YYGC-grid-business",
+        "bytes": 46724689,
+        "reason": "原获批依赖副本；持续保留",
+        "moved": true
+      },
+      {
+        "source": "C:\\Users\\Jobscn\\.codex\\worktrees\\debug-hub-uitk\\unity-projects\\artifacts\\待清理",
+        "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261009-debug-hub-worktree\\artifacts\\待清理",
+        "bytes": 686396233,
+        "reason": "原任务已归档的待清理产物；未授权永久删除",
+        "moved": true,
+        "initial_plain_path_count": 3316,
+        "long_path_content_addressed_references_verified": 394
+      }
+    ],
+    "partial_copy": {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\debug-hub-original-20261008\\framework\\YYGC-grid-business",
+      "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261009-debug-hub-worktree\\incomplete-framework-copy",
+      "bytes": 46715469,
+      "reason": "首次跨盘移动的长路径失败复制；源依赖未被删除；保留诊断副本",
+      "moved": true
+    },
+    "framework_registration_repaired": true,
+    "user_framework_source_unchanged": true,
+    "protected_stashes_retained": true,
+    "app_attach_error": "This worktree is owned by another task; Git fallback used after preservation",
+    "remaining_worktrees": "worktree D:/Developer/MiniGames/Dark Nights/unity-projects\nHEAD 3ed2adb2acac6e9c8694256072500a7db6378c0f\nbranch refs/heads/ft-20261008-flashlight-lighting\n\nworktree C:/Users/Jobscn/.codex/worktrees/downward-rock-edges/unity-projects\nHEAD f178ed42e3cd2ad440e75a7a57582a995c838a4b\nbranch refs/heads/ft-20260922-downward-rock-edges",
+    "long_path_repair": "Same shutil.move workflow; extended-length Windows paths; no registry or system setting changes",
+    "all_moved_content_verified": true,
+    "content_addressed_reference_verification": 394
+  },
+  "reports": "artifacts/debug-hub-merge-20261009"
+}

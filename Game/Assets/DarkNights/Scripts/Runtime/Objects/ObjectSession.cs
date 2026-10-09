@@ -58,6 +58,11 @@ namespace DarkNights.Runtime.Objects
         public ExpeditionDevices ExpeditionDevices { get; }
         public ExpeditionThreat ExpeditionThreat { get; }
         internal ShipTradeService Trade { get; }
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        internal ObjectDeveloperControl Developer { get; }
+        /// <summary>Host 调试 UI 的只读权限查询；不泄露任何玩法状态，加载后的新 epoch 自动失效。</summary>
+        public bool DeveloperModeEnabled(int epoch) => Developer.EnabledFor(epoch);
+#endif
         public bool Paused => Camp.Read().Paused;
         public int Speed => Camp.Read().Speed;
         public double Elapsed => Camp.Read().Elapsed;
@@ -90,6 +95,9 @@ namespace DarkNights.Runtime.Objects
             ExpeditionDevices = new ExpeditionDevices(this);
             ExpeditionThreat = new ExpeditionThreat(this);
             Trade = new ShipTradeService(this);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            Developer = new ObjectDeveloperControl(this);
+#endif
         }
 
         public void Prepare(ObjectInstance sessionOwner, IReadOnlyList<ObjectPlacement> placements, QuickTestPreset quickTest = null)
@@ -137,6 +145,11 @@ namespace DarkNights.Runtime.Objects
             {
                 entity.Object.Activate();
                 entity.Object.gameObject.SetActive(true);
+            }
+            if (IsExpedition && Flow.Enabled && Terrain.Seed != Core.Logic.Terrain.PlanetTerrainGenerator.SpaceSeed)
+            {
+                Mutations.Run(() => { GroundSessionSetup.Prepare(this); return true; });
+                persistence.CaptureInitial();
             }
             if (quickTest != null)
             {
@@ -225,16 +238,12 @@ namespace DarkNights.Runtime.Objects
             Mutations.Run(() =>
             {
                 double delta = Camp.BeginStep(seconds);
-                Economy.Tick(delta);
-                foreach (BuildingBehaviour building in Index.Buildings.ToArray()) building.Tick(delta);
-                foreach (ActorBehaviour actor in Index.Actors.ToArray())
+                foreach (ActorBehaviour actor in Index.Actors.Where(a => a.Read().ManualControl).ToArray())
                 {
                     if (Camp.Read().Mode != SessionMode.Playing) return true;
                     actor.Tick(delta);
                 }
-                foreach (WorksiteBehaviour site in Index.Worksites.ToArray()) site.Tick(delta);
                 Projectiles.Tick(delta);
-                if (Camp.Read().Mode == SessionMode.Playing) Waves.Tick(delta);
                 return true;
             });
         }

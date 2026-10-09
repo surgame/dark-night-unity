@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-07",
+  "branch": "ref-20261007-ground-gameplay-baseline",
+  "candidateStatus": "implemented-awaiting-unity-validation",
+  "protocol": 27,
+  "saveVersion": 21,
+  "ampSchema": 2,
+  "editor": "6000.4.9f1",
+  "editorPid": 30816,
+  "frameworkChanged": false,
+  "authorAssetsChanged": false,
+  "observations": {
+    "localCamera": [140.93, -122.21],
+    "worldBounds": [0, -191, 320, 192],
+    "loadedRegion": [64, -191, 160, 159],
+    "rockMaterialCacheMismatches": 17903,
+    "solidRowsAtColumn140WithEmptyRockGeometry": [135, 150, 180, 191],
+    "wholeMapHiddenOnRegionReplacement": true,
+    "temporaryLiveCacheRebuildCountedAsAcceptance": false
+  },
+  "validation": {
+    "diffCheckPassed": true,
+    "architecture": {"files": 748, "selfTests": 16, "errors": 0},
+    "finalCandidateUnityCompilation": "pending",
+    "newCacheTestCases": {"count": 2, "status": "not-run"},
+    "extendedCompositeTest": "not-run",
+    "continuousRegionMovementVisualCheck": "pending",
+    "newPlayerBuilds": 0,
+    "newIndependentMultiplayerAcceptance": false
+  },
+  "memory": {
+    "state": "breach",
+    "samples": 315,
+    "peakPrivateGiB": 4.823699951171875,
+    "minimumFreeRamGiB": 11.985092163085938,
+    "minimumFreeCommitGiB": 3.9513397216796875,
+    "breachUtc": "2026-10-07T09:06:33.067558+00:00",
+    "thresholdFreeCommitGiB": 4,
+    "editorPlayStopped": true,
+    "otherApplicationsStopped": false,
+    "unityValidationBatchesSubmittedAfterBreach": 0
+  },
+  "outputs": {
+    "formalDiagnostics": "artifacts/terrain-streaming-20261007",
+    "archivedTemporaryFiles": "artifacts/待清理/20261007-terrain-streaming",
+    "archivedItems": 9,
+    "archivedBytes": 767615,
+    "spaceReleaseClaimed": false
+  }
+}

@@ -4,21 +4,24 @@ using GameCore.Objects.Behaviours.Interfaces;
 
 namespace DarkNights.Runtime.Objects
 {
-    /// <summary>可购买装备 Definition 的能力身份；价格由 balance 的 Trade 规则唯一提供。</summary>
+    /// <summary>库存道具 Definition 的能力身份；空商品键允许仅配发的道具，价格仍唯一归 Trade 规则。</summary>
     [Serializable]
     public sealed class EquipmentItemConfig : IConfigData
     {
-        public string Name => "可购买装备";
+        public string Name => "库存道具";
         public string RuleKey = "";
         public bool Jetpack;
         public HeroEquipmentKind Handheld;
 
         public void Validate()
         {
-            if (RuleKey != "pistol" && RuleKey != "pickaxe" && RuleKey != "jetpack" && RuleKey != "bomb" ||
-                Jetpack != (RuleKey == "jetpack") ||
-                (!Jetpack && Handheld == HeroEquipmentKind.Empty) ||
-                Jetpack && Handheld != HeroEquipmentKind.Empty)
+            if (RuleKey == "" && !Jetpack && Handheld == HeroEquipmentKind.Flashlight) return;
+            HeroEquipmentKind expected = RuleKey switch
+            {
+                "pistol" => HeroEquipmentKind.Pistol, "pickaxe" => HeroEquipmentKind.Pickaxe,
+                "bomb" => HeroEquipmentKind.Bomb, "jetpack" => HeroEquipmentKind.Empty, _ => (HeroEquipmentKind)(-1)
+            };
+            if (expected != Handheld || Jetpack != (RuleKey == "jetpack"))
                 throw new InvalidOperationException("装备定义的能力身份无效。");
         }
     }

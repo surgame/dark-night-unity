@@ -75,7 +75,7 @@ namespace DarkNights.View
         }
         private static string Slot(ActorViewData actor, int index, int item) =>
             (actor?.SelectedItem == index ? "▶ " : "") + (index + 1) + " " +
-            (item switch { 1 => "手枪", 2 => "矿镐", 3 => "炸药 · " + (actor?.ExplosiveCharges ?? 0), _ => "空" });
+            (item switch { 1 => "手枪", 2 => "矿镐", 3 => "炸药 · " + (actor?.ExplosiveCharges ?? 0), 4 => "手电筒", _ => "空" });
         [UGUIOnClick("Toggle")] private void OnToggle() => Raise("HeroToggle");
         [UGUIOnClick("Item1")] private void OnItem1() => Raise("HeroItem0");
         [UGUIOnClick("Item2")] private void OnItem2() => Raise("HeroItem1");

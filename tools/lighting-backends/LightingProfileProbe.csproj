@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ProfileProbe.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Core/Config/LightEmissionRules.cs" />
+    <Compile Include="../../Game/Assets/DarkNights/Scripts/Core/Logic/Lighting/LightBeamProfile.cs" />
+  </ItemGroup>
+</Project>

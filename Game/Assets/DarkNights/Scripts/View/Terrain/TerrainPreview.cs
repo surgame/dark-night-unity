@@ -20,6 +20,8 @@ namespace DarkNights.View.Terrain
         /// <summary>航程地表启用天际线透明背景；独立洞穴工作台保留其完整背景预览。</summary>
         public bool SurfaceSky;
         private CaveVisualSource caveSource;
+        public CaveVisualSource LightingSource => awaitingBaseline ? null : caveSource;
+        public GridBounds LightingLoadedBounds => regionLoader?.Loaded ?? controller?.Descriptor.Bounds ?? default;
         private MineralLayerPresentation minerals;
         private MineralReplicaPresentation mineralReplica;
         public bool UseMineralReplica;
@@ -53,7 +55,8 @@ namespace DarkNights.View.Terrain
         public ulong InstalledSourceCommit { get; private set; }
         public ulong PresentedInputGeneration { get; private set; }
         public ulong PresentedSourceCommit { get; private set; }
-        public bool RefreshingReplica => loading || regionLoader?.Loading == true || awaitingBaseline || inputQueue.HasPending;
+        public bool RefreshingReplica => loading || regionLoader?.Loading == true || awaitingBaseline ||
+            replicaSource?.WaitingForBaseline == true || inputQueue.HasPending;
         public Exception LastError { get; private set; }
         private bool IsPresentationStable => LastError == null && controller != null && !RefreshingReplica &&
             (caveSource?.BackgroundReady ?? true) && !controller.HasPendingPresentationWork;
@@ -68,6 +71,7 @@ namespace DarkNights.View.Terrain
             {
                 if (LastError != null) return "错误：" + LastError.Message;
                 if (controller == null || loading) return "初始地图装载";
+                if (regionLoader?.Loading == true || replicaSource?.WaitingForBaseline == true) return "等待局部区域完整基线";
                 if (awaitingBaseline) return "等待完整基线";
                 if (inputQueue.HasPending) return "待安装变化格";
                 if (controller.HasPendingPresentationWork) return "Dual Grid 规则/资源处理中";
@@ -146,7 +150,7 @@ namespace DarkNights.View.Terrain
                 result.Root.AddComponent<GridDebugView>().Bind(result.Debugger);
 #endif
                 inputQueue.Configure(result.Descriptor);
-                regionLoader = new TerrainReplicaRegion(result, replicaSource, HideForBaseline, own.Token);
+                regionLoader = new TerrainReplicaRegion(result, replicaSource, own.Token);
                 await regionLoader.Initialize(LocalRegion.IsValid ? LocalRegion : result.Descriptor.Bounds, replicaSource?.Replica);
                 if (own.IsCancellationRequested) return;
                 if (!UseMineralReplica && CaveStyle?.MineralDefinition != null)
@@ -271,7 +275,9 @@ namespace DarkNights.View.Terrain
                 (generation, commit) => { PresentedInputGeneration = generation; PresentedSourceCommit = commit; });
         }
         private void Fail(Exception error) { LastError = error; Debug.LogException(error, this); }
-        private async void OnDisable()
+        public Task Retirement { get; private set; } = Task.CompletedTask;
+        private void OnDisable() => Retirement = RetireAsync();
+        private async Task RetireAsync()
         {
             drawReceipt?.Dispose(); drawReceipt = null;
             if (inputSource != null) inputSource.InputChanged -= OnInputChanged;
@@ -280,9 +286,11 @@ namespace DarkNights.View.Terrain
             inputQueue.Clear(); loading = awaitingBaseline = false;
             var old = controller; controller = null; visible = default;
             var oldMinerals = minerals; minerals = null;
+            var oldReplica = mineralReplica; mineralReplica = null;
+            var oldSource = caveSource; caveSource = null;
             if (oldMinerals != null) await oldMinerals.RetireAsync();
-            if (mineralReplica != null) await mineralReplica.RetireAsync(); mineralReplica = null;
-            caveSource?.Dispose(); caveSource = null;
+            if (oldReplica != null) await oldReplica.RetireAsync();
+            oldSource?.Dispose();
             if (old != null) await old.DisposeAsync();
         }
     }

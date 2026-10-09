@@ -376,6 +376,8 @@ Transform:
   - {fileID: 2334709396799230876}
   - {fileID: 8380642201689364552}
   - {fileID: 2682592707559799102}
+  - {fileID: 8858614487924727669}
+  - {fileID: 4669116070597661635}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &475718986849532414
@@ -495,9 +497,18 @@ MonoBehaviour:
       baseColor: {r: 1, g: 1, b: 1, a: 1}
     - renderer: {fileID: 6565149236758346090}
       baseColor: {r: 1, g: 1, b: 1, a: 1}
+  expeditionUnit: {fileID: 0}
   handheld: {fileID: 8413988327263444243}
   shadow: {fileID: 3395434714335104598}
   facing: {fileID: 8026314874317112250}
+  lightAnchor: {fileID: 8858614487924727669}
+  lightFillAnchor: {fileID: 4669116070597661635}
+  lightTargets:
+  - {fileID: 3987759906951500386}
+  - {fileID: 8184834197805950709}
+  - {fileID: 6565149236758346090}
+  - {fileID: 3329840607100168520}
+  - {fileID: 1308240407407160013}
   poseRoot: {fileID: 6310702245932548570}
   clothing: {fileID: 0}
   clips:
@@ -677,6 +688,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2518638115553208049}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8452859906152719058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4669116070597661635}
+  m_Layer: 0
+  m_Name: Light Fill Anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4669116070597661635
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8452859906152719058}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2518638115553208049}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8529998272399871323
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,6 +844,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &9039826072064270017
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8858614487924727669}
+  m_Layer: 0
+  m_Name: Light Anchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8858614487924727669
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9039826072064270017}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.08, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2518638115553208049}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8655817413829956324
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ MonoBehaviour:
   legacyAllocationPending: 
   Type: 700
   Name: Archer
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 61c21a6c2d47d794993e58018dfc09af, type: 3}
   Describe: 
   MaxStack: 1
   ItemLevel: 1
@@ -44,6 +44,7 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.HeroControlBehaviour
   - DarkNights.Runtime.Objects.HeroMotionBehaviour
   - DarkNights.Runtime.Objects.HeroInventoryBehaviour
+  - DarkNights.Runtime.Objects.HeroLightBehaviour
   SharedConfigs:
   - rid: 6961529563483734165
   - rid: 6961529563483734805

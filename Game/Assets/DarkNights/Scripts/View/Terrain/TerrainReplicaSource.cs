@@ -28,13 +28,22 @@ namespace DarkNights.View.Terrain
             }
         }
         internal ChunkReplicaStateMachine Replica => source as ChunkReplicaStateMachine;
-        /// <summary>原生装卸前退休已跟踪区块；新输入代次显式清空旧源身份，随后只发布新加载区域的完整基线。</summary>
-        internal void ForgetLoadedRegion()
+        internal bool WaitingForBaseline => requiresFreshBaseline;
+        /// <summary>同世界换区仅跟踪目标范围的区块；旧画面保留到完整新基线到达，撤权和断线仍显式退休。</summary>
+        internal void PrepareRegion(GridBounds region)
         {
-            fingerprints.Clear(); inputGeneration = checked(inputGeneration + 1); lastSourceCommit = 0; requiresFreshBaseline = true;
+            var removed = new List<ChunkCoord>();
+            foreach (var coordinate in fingerprints.Keys)
+            {
+                int size = descriptor.ChunkSize;
+                long u = (long)coordinate.U * size, v = (long)coordinate.V * size;
+                if (u >= region.MaxUExclusive || v >= region.MaxVExclusive ||
+                    u + size <= region.MinU || v + size <= region.MinV) removed.Add(coordinate);
+            }
+            foreach (var coordinate in removed) fingerprints.Remove(coordinate);
+            inputGeneration = checked(inputGeneration + 1); lastSourceCommit = 0; requiresFreshBaseline = true;
             if (source is ChunkReplicaStateMachine replica)
             { sourceSession = replica.Session; streamGeneration = replica.Generation; streamIdentityKnown = true; }
-            InputChanged?.Invoke(new MapInputBatch(descriptor.World, inputGeneration, sourceSession, streamGeneration, 0, MapInputBatchKind.Reset));
         }
 
         public void PublishInitialBaseline()
@@ -65,6 +74,13 @@ namespace DarkNights.View.Terrain
         public void NotifyChanged(MapReplicaChange transition)
         {
             if (transition == null) throw new ArgumentNullException(nameof(transition));
+            if (transition.Kind == MapReplicaChangeKind.WorldReset && descriptor != null &&
+                transition.World.Equals(descriptor.World) && streamIdentityKnown && transition.Session == sourceSession)
+            {
+                inputGeneration = checked(inputGeneration + 1); lastSourceCommit = 0; requiresFreshBaseline = true;
+                streamGeneration = transition.StreamGeneration;
+                return;
+            }
             if (transition.Kind == MapReplicaChangeKind.WorldReset || transition.Kind == MapReplicaChangeKind.VisibilityRevoked ||
                 transition.Kind == MapReplicaChangeKind.Disconnected)
             {

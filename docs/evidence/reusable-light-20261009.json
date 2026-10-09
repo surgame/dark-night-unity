@@ -1,0 +1,284 @@
+{
+  "date_local": "2026-10-09",
+  "branch": "ft-20261008-flashlight-lighting",
+  "protocol": 31,
+  "save_version": 23,
+  "amp_schema": 2,
+  "unity": "6000.4.9f1",
+  "yygc_modified_or_upgraded": false,
+  "features": [
+    "shared LightEffect prefab",
+    "environment emission and target-only local fill",
+    "head mount prefab variant",
+    "inventory flashlight",
+    "mirror and grid scale support"
+  ],
+  "editor_compile": {
+    "errors": 0,
+    "warnings": 0,
+    "report": "artifacts/reusable-light-20261009/compile-editor-r9.json"
+  },
+  "static_compilation": {
+    "editor": {
+      "variant": "editor",
+      "compiler_sdk": "8.0.409",
+      "report": "artifacts/reusable-light-20261009/current-editor/compile.json",
+      "assemblies": [
+        {
+          "name": "GameCore.Runtime",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 29
+        },
+        {
+          "name": "DarkNights.Core",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Runtime",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.View",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Entry",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 1
+        },
+        {
+          "name": "DarkNights.Editor",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 7
+        },
+        {
+          "name": "DarkNights.Tests",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 7
+        }
+      ]
+    },
+    "development": {
+      "variant": "development",
+      "compiler_sdk": "8.0.409",
+      "report": "artifacts/reusable-light-20261009/current-development/compile.json",
+      "assemblies": [
+        {
+          "name": "GameCore.Runtime",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 29
+        },
+        {
+          "name": "DarkNights.Core",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Runtime",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.View",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Entry",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 1
+        }
+      ]
+    },
+    "release": {
+      "variant": "release",
+      "compiler_sdk": "8.0.409",
+      "report": "artifacts/reusable-light-20261009/current-release/compile.json",
+      "assemblies": [
+        {
+          "name": "GameCore.Runtime",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 29
+        },
+        {
+          "name": "DarkNights.Core",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Runtime",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.View",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Entry",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 1
+        }
+      ]
+    }
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 779,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "tests": {
+    "batches": [
+      {
+        "id": "reusable-light-editor-20261009",
+        "passed": 30,
+        "failed": 5,
+        "report": "artifacts/reusable-light-20261009/reusable-light-editor-20261009.xml"
+      },
+      {
+        "id": "reusable-light-editor-r2-20261009",
+        "passed": 10,
+        "failed": 0,
+        "report": "artifacts/reusable-light-20261009/reusable-light-editor-r2-20261009.xml"
+      },
+      {
+        "id": "reusable-light-final-20261009",
+        "passed": 10,
+        "failed": 1,
+        "report": "artifacts/reusable-light-20261009/reusable-light-final-20261009.xml"
+      },
+      {
+        "id": "reusable-light-play-r2-20261009",
+        "passed": 0,
+        "failed": 1,
+        "report": "artifacts/reusable-light-20261009/reusable-light-play-r2-20261009.xml"
+      },
+      {
+        "id": "reusable-light-final-r3-20261009",
+        "passed": 10,
+        "failed": 1,
+        "report": "artifacts/reusable-light-20261009/reusable-light-final-r3-20261009.xml"
+      },
+      {
+        "id": "reusable-light-play-r4-20261009",
+        "passed": 1,
+        "failed": 0,
+        "report": "artifacts/reusable-light-20261009/reusable-light-play-r4-20261009.xml"
+      },
+      {
+        "id": "reusable-light-verified-20261009",
+        "passed": 11,
+        "failed": 0,
+        "report": "artifacts/reusable-light-20261009/reusable-light-verified-20261009.xml"
+      }
+    ],
+    "final_specialist_batch": {
+      "passed": 11,
+      "failed": 0
+    },
+    "unique_passed": 33,
+    "remaining_legacy_failures": {
+      "DarkNights.Tests.HeroRecoveryTests.DeathRemovesPossessionWithoutAnOrphanedPlayerIndex": {
+        "result": "Failed",
+        "batch": "reusable-light-editor-20261009",
+        "message": "  Expected: null\n  But was:  <DarkNights.Runtime.Objects.ActorBehaviour>\n"
+      },
+      "DarkNights.Tests.ShipTradeTests.ShopAndSaleUseLeasePositionAndAtomicState": {
+        "result": "Failed",
+        "batch": "reusable-light-editor-20261009",
+        "message": "  Expected: True\n  But was:  False\n"
+      },
+      "DarkNights.Tests.ShipTradeTests.ShopReservesFirstPickaxeBudget": {
+        "result": "Failed",
+        "batch": "reusable-light-editor-20261009",
+        "message": "  Expected: NoEffect\n  But was:  Applied\n"
+      }
+    },
+    "all_tests_passed": false
+  },
+  "memory": {
+    "memory": {
+      "state": "completed",
+      "samples": 677,
+      "peak_private_gib": 4.491809844970703,
+      "minimum_free_ram_gib": 10.73712158203125,
+      "minimum_free_commit_gib": 4.473297119140625,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    },
+    "memory-editor": {
+      "state": "breach",
+      "samples": 5,
+      "peak_private_gib": 4.06732177734375,
+      "minimum_free_ram_gib": 8.83047866821289,
+      "minimum_free_commit_gib": 3.2292823791503906,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    },
+    "memory-tests": {
+      "state": "completed",
+      "samples": 2175,
+      "peak_private_gib": 4.720211029052734,
+      "minimum_free_ram_gib": 9.25191879272461,
+      "minimum_free_commit_gib": 4.272216796875,
+      "limits": {
+        "editor_private_gib": 8,
+        "minimum_free_ram_gib": 6,
+        "minimum_free_commit_gib": 4
+      }
+    }
+  },
+  "archive": {
+    "root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261009-reusable-light",
+    "count": 144,
+    "archived_bytes": 602706964.0,
+    "released_bytes": 0,
+    "d_free_bytes": 120979480576
+  },
+  "moved_script_guids_preserved": {
+    "Core/Config/FlashlightRules": true,
+    "View/Lighting/FlashlightEmitterData": true
+  },
+  "source_manifest": "artifacts/reusable-light-20261009/source-manifest.json",
+  "images": [
+    "artifacts/reusable-light-20261009/local-fill-on.png",
+    "artifacts/reusable-light-20261009/local-fill-off.png",
+    "artifacts/reusable-light-20261009/bootstrap-light-on.png",
+    "artifacts/reusable-light-20261009/bootstrap-light-off.png"
+  ],
+  "boundaries": [
+    "no new Player build",
+    "no independent multiplayer processes",
+    "no IL2CPP",
+    "no long-term performance acceptance"
+  ]
+}

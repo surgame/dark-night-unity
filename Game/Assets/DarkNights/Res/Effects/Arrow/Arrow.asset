@@ -21,7 +21,7 @@ MonoBehaviour:
   legacyAllocationPending: 
   Type: 0
   Name: Arrow
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 5467481fb03b49048a3082465bd41e28, type: 3}
   Describe: 
   MaxStack: 1
   ItemLevel: 1

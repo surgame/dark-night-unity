@@ -45,7 +45,7 @@ namespace DarkNights.Runtime.Save
                 Boolean(v["jetpack_equipped"]),
                 Number(v["jetpack_fuel"]), Integer(v["explosive_charges"]), (float)Number(v["aim_angle"]), Number(v["equipment_cooldown"]), Number(v["equipment_action"]), Number(v["equipment_action_duration"]),
                 Integer(v["inventory_revision"]), Text(v["slot_0"]), Text(v["slot_1"]),
-                Text(v["slot_2"]), Text(v["slot_3"]), Boolean(v["jetpack_owned"]));
+                Text(v["slot_2"]), Text(v["slot_3"]), Boolean(v["jetpack_owned"]), Text(v["light_definition"]), Boolean(v["light_enabled"]));
         }
 
         public static JObject Write(ActorSnapshot v) => new JObject
@@ -82,6 +82,7 @@ namespace DarkNights.Runtime.Save
             ["jetpack_equipped"] = v.JetpackEquipped,
             ["jetpack_fuel"] = v.JetpackFuel,
             ["explosive_charges"] = v.ExplosiveCharges,
+            ["light_definition"] = v.LightDefinition, ["light_enabled"] = v.LightEnabled,
             ["aim_angle"] = v.AimAngle,
             ["equipment_cooldown"] = v.EquipmentCooldown,
             ["equipment_action"] = v.EquipmentAction,

@@ -10,14 +10,14 @@ using UnityEngine;
 namespace DarkNights.Entry
 {
     /// <summary>
-    /// 主菜单专属快速测试宿主；按状态变化注册 Hub 页，绘制只排队一次启动，Update 串行处理。
+    /// 主菜单专属快速测试宿主；按状态变化注册 Hub 页，点击只排队一次启动，Update 串行处理。
     /// 使用主菜单原有模态，离开、失败和卸载释放面板，不持有权威世界或修改普通开局。
     /// </summary>
     public sealed class QuickTestHub : MonoBehaviour
     {
         private SessionNetwork network;
         private SessionUiController ui;
-        private QuickTestPanel panel;
+        private IDisposable registration;
         private bool registered, requested, launching;
         public bool Available => ui != null && ui.Page == "MainMenu" && network != null && network.CanStartSession &&
             network.Client.Replica.Current == null && network.Terrain != null && !network.Terrain.Selecting && !requested && !launching;
@@ -26,8 +26,8 @@ namespace DarkNights.Entry
         public static void Install(SessionNetwork network, SessionUiController ui, bool expedition)
         {
             if (!expedition) return;
-            var hub = network.gameObject.AddComponent<QuickTestHub>();
-            hub.network = network; hub.ui = ui; hub.panel = new QuickTestPanel(hub);
+            var hub = network.GetComponent<QuickTestHub>() ?? network.gameObject.AddComponent<QuickTestHub>();
+            hub.network = network; hub.ui = ui;
         }
         public bool RequestLaunch()
         {
@@ -39,8 +39,8 @@ namespace DarkNights.Entry
             bool visible = Available;
             if (visible != registered)
             {
-                if (visible) RuntimeDebugHub.RegisterPanel(panel);
-                else RuntimeDebugHub.UnregisterPanel(panel);
+                if (visible) registration = RuntimeDebugHub.RegisterPanel(new RuntimeDebugPanelDescriptor("dark_nights.quick_test", "快速测试", -100), () => new QuickTestPanel(this));
+                else { registration?.Dispose(); registration = null; }
                 registered = visible;
             }
             if (requested) { requested = false; Launch(); }
@@ -61,7 +61,7 @@ namespace DarkNights.Entry
         }
         private void OnDisable()
         {
-            if (panel != null) RuntimeDebugHub.UnregisterPanel(panel);
+            registration?.Dispose(); registration = null;
             registered = requested = false;
         }
     }

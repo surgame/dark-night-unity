@@ -1,0 +1,134 @@
+{
+  "date": "2026-10-09",
+  "branch": "ft-20261009-aperture-lighting-backends",
+  "input_head": "a00508b",
+  "protocol": 31,
+  "save": 23,
+  "yygc_modified": false,
+  "project_settings_modified": false,
+  "core_profile_checks": 12,
+  "core_profile_passed": 12,
+  "unity_imported_candidate": false,
+  "shader_probe_started": false,
+  "play_started": false,
+  "player_built": false,
+  "scopes": {
+    "release": {
+      "checks": [
+        {
+          "name": "DarkNights.Core",
+          "reused_from": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-backends-20261009\\static-release",
+          "exit_code": 0
+        },
+        {
+          "name": "DarkNights.Runtime",
+          "reused_from": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-backends-20261009\\static-release",
+          "exit_code": 0
+        },
+        {
+          "name": "DarkNights.View",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Entry",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 1
+        }
+      ],
+      "minimum_commit_gib": 4.161197662353516,
+      "passed": true
+    },
+    "development": {
+      "checks": [
+        {
+          "name": "DarkNights.Core",
+          "reused_from": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-backends-20261009\\static-development",
+          "exit_code": 0
+        },
+        {
+          "name": "DarkNights.Runtime",
+          "reused_from": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-backends-20261009\\static-development",
+          "exit_code": 0
+        },
+        {
+          "name": "DarkNights.View",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Entry",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 1
+        }
+      ],
+      "minimum_commit_gib": 4.180412292480469,
+      "passed": true
+    },
+    "editor": {
+      "checks": [
+        {
+          "name": "DarkNights.Core",
+          "reused_from": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-backends-20261009\\static-editor",
+          "exit_code": 0
+        },
+        {
+          "name": "DarkNights.Runtime",
+          "reused_from": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-backends-20261009\\static-editor",
+          "exit_code": 0
+        },
+        {
+          "name": "DarkNights.View",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Entry",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 1
+        },
+        {
+          "name": "DarkNights.Editor",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 7
+        },
+        {
+          "name": "DarkNights.Tests",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 7
+        },
+        {
+          "name": "architecture",
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        }
+      ],
+      "minimum_commit_gib": 4.026115417480469,
+      "passed": true
+    }
+  },
+  "pending": [
+    "Unity first import and new metas",
+    "Actual shader compilation",
+    "LightingBackendTests",
+    "Bootstrap private/URP/private switch",
+    "Map changes and resource retirement",
+    "Gameplay screenshots"
+  ],
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 17,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  }
+}

@@ -5,6 +5,7 @@ $ErrorActionPreference = "Stop"
 [Console]::OutputEncoding = [Text.UTF8Encoding]::new()
 $root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot "../.."))
 $target = [IO.Path]::GetFullPath((Join-Path $root ".deps/YYGC-grid-business"))
+$overlay = Join-Path $root "tools/debug-hub/prepare-overlay.ps1"
 $base = "fee18645c997ed7529c4592917de6c412033c84e"
 $patch = Join-Path $PSScriptRoot "yygc.patch"
 $lock = Get-Content -LiteralPath (Join-Path $PSScriptRoot "dependency.lock.json") -Raw | ConvertFrom-Json
@@ -23,6 +24,7 @@ if ($LASTEXITCODE -ne 0 -or $head -ne $base) { throw "已有依赖的基线不�
 & git -C $target apply --reverse --check $patch 2>$null
 if ($LASTEXITCODE -eq 0) {
     Write-Host "网格业务补丁已经应用；未编译、构建或启动 Unity。"
+    if (Test-Path -LiteralPath $overlay) { & $overlay -DependencyPath $target }
     exit 0
 }
 $status = & git -C $target status --porcelain
@@ -30,3 +32,4 @@ if ($LASTEXITCODE -ne 0 -or $status) { throw "依赖包含不匹配的本地修�
 & git -C $target apply $patch
 if ($LASTEXITCODE -ne 0) { throw "应用依赖补丁失败，保留现场。" }
 Write-Host "网格业务依赖已准备：$base + yygc.patch。未编译、构建或启动 Unity。"
+if (Test-Path -LiteralPath $overlay) { & $overlay -DependencyPath $target }

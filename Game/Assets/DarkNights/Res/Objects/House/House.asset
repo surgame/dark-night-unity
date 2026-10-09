@@ -21,7 +21,7 @@ MonoBehaviour:
   legacyAllocationPending: 
   Type: 400
   Name: House
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 9dd19447aa5c4a3418c4a46c49c01dd7, type: 3}
   Describe: 
   MaxStack: 1
   ItemLevel: 1

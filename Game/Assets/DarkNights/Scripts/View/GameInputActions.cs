@@ -23,7 +23,7 @@ namespace DarkNights.View
             public readonly float Move;
             public readonly Vector2 Pointer;
             public readonly bool Allowed, JumpHeld, JumpPressed, DropHeld, DropPressed, SprintHeld, InteractPressed;
-            public readonly bool UseAllowed, UseHeld, UsePressed, UseReleased;
+            public readonly bool UseAllowed, UseHeld, UsePressed, UseReleased, LightToggle;
             public readonly int ItemPressed;
 
             internal HeroFrame(GameInputActions source)
@@ -36,6 +36,7 @@ namespace DarkNights.View
                 DropPressed = Allowed && source.CanRead(source.drop) && source.drop.WasPressedThisFrame();
                 SprintHeld = Allowed && source.CanRead(source.sprint) && source.sprint.IsPressed();
                 InteractPressed = Allowed && source.Pressed(source.interact);
+                LightToggle = Allowed && source.Pressed(source.lightToggle);
                 UseAllowed = Allowed && source.CanRead(source.useItem);
                 UseHeld = UseAllowed && source.useItem.IsPressed();
                 UsePressed = UseAllowed && source.useItem.WasPressedThisFrame();
@@ -98,7 +99,7 @@ namespace DarkNights.View
         private readonly List<RaycastResult> hits = new List<RaycastResult>();
         private InputActionMap camp, hero;
         private InputAction point, menu, scroll, move, jump, drop, sprint, interact, useItem;
-        private InputAction item1, item2, item3, item4, heroToggle, campToggle;
+        private InputAction item1, item2, item3, item4, heroToggle, campToggle, lightToggle;
         private InputAction cameraMove, select, orders, append, pan, panDelta;
         private InputAction pause, help, save, load, home, guards, idle;
         private bool ready, deviceLost, rebinding, menuSuppressed;
@@ -129,6 +130,7 @@ namespace DarkNights.View
             sprint = hero.FindAction("Sprint", true); interact = hero.FindAction("Interact", true);
             item1 = hero.FindAction("Item1", true); item2 = hero.FindAction("Item2", true);
             item3 = hero.FindAction("Item3", true); item4 = hero.FindAction("Item4", true);
+            lightToggle = hero.FindAction("ToggleLight", true);
             heroToggle = hero.FindAction("ToggleMode", true); campToggle = camp.FindAction("ToggleMode", true);
             cameraMove = camp.FindAction("Move", true); select = camp.FindAction("Select", true);
             orders = camp.FindAction("Orders", true); append = camp.FindAction("Append", true);
@@ -238,7 +240,7 @@ namespace DarkNights.View
 
         private bool Rebindable(InputAction action) => action != null &&
             (action == move || action == jump || action == drop || action == sprint || action == interact || action == useItem ||
-             action == item1 || action == item2 || action == item3 || action == item4 || action == heroToggle ||
+             action == item1 || action == item2 || action == item3 || action == item4 || action == heroToggle || action == lightToggle ||
              action == cameraMove || action == select || action == orders || action == append || action == pan ||
              action == pause || action == help || action == save || action == load || action == home ||
              action == guards || action == idle || action == campToggle);

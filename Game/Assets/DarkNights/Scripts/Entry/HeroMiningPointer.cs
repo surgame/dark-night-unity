@@ -47,7 +47,7 @@ namespace DarkNights.Entry
             if (!controls.Allowed || !controls.UseAllowed || selectionPending || !network.Client.Ready ||
                 terrain?.DataReady != true || !terrain.PresentationReady || actor == null || actor.Hp <= 0 ||
                 frame == null || frame.Paused || aboard || tool == null ||
-                frame.World.Expedition != null && frame.World.Expedition.Phase != 1 && frame.World.Expedition.Phase != 2 ||
+                frame.World.Expedition != null && frame.World.Expedition.Phase != 0 ||
                 frame.HostOnly && network.Client.PlayerSlot != 0 || !stage.SceneCamera.pixelRect.Contains(controls.Pointer)) return;
             Vector3 point = stage.SceneCamera.ScreenToWorldPoint(new Vector3(controls.Pointer.x, controls.Pointer.y,
                 stage.SceneCamera.WorldToScreenPoint(Vector3.zero).z));
@@ -83,9 +83,11 @@ namespace DarkNights.Entry
                 blocked = minerals.Rules.BlockReason(tool, minerals.Replica.Read(cell).Cell.TileId);
             }
             bool capacity = cargo == null || cargo.Iron + cargo.Gold + amount <= catalog.Balance.Expedition.BagCapacity;
-            if (blocked.Length == 0 && durability <= damage && !capacity) blocked = "完成采集需要货袋空间，请先卸货";
+            if (blocked.Length == 0 && durability <= damage && !capacity) blocked = "个人货袋已满，当前无法继续收取矿物";
             valid = blocked.Length == 0;
-            Hint = valid ? (value.IsEmpty ? "矿床采集" : "岩壁耐久") + " " + durability + "/" + maximum + " · 左键／按住采集" : blocked;
+            string range = " · 距离 " + distance.ToString("F0") + "/" + reach.ToString("F0");
+            Hint = valid ? (value.IsEmpty ? "矿床采集" : "岩壁耐久") + " " + durability + "/" + maximum +
+                range + " · 左键／按住采集" : blocked + range;
             if (valid) Target = new HeroMiningTarget(map.World.WorldId.ToString().Replace("-", ""), map.World.Epoch,
                 cell.U, cell.V, value.TileId, value.Flags,
                 value.IsEmpty ? HeroMiningTargetKind.MineralDeposit : HeroMiningTargetKind.Foreground,

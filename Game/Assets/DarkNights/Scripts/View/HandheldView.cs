@@ -69,7 +69,7 @@ namespace DarkNights.View
                 angle = actor.Charging ? 115 : remaining > 0 ? -25 : -40;
             pivot.localRotation = Quaternion.Euler(0, 0, angle);
             pivot.localPosition = new Vector3(0.015f - recoil * .02f, .09f, 0);
-            item.color = arm.color = ambient;
+            item.color = arm.color = Shader.GetGlobalFloat("_DNLightingReady") > .5f ? Color.white : ambient;
             flash.enabled = itemIndex == 0 && remaining > .07;
             flash.color = Color.white;
         }

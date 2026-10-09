@@ -38,8 +38,8 @@ namespace DarkNights.Entry
 
         public async UniTask InitializeAsync(AppStartupContext context, CancellationToken cancellationToken)
         {
-            const string defaultScene = GameScenePaths.StaticCamp;
-            string scenePath = Array.IndexOf(System.Environment.GetCommandLineArgs(), "--dn-camp-mode") >= 0 ? defaultScene : Terrain.RandomLevelEntry.ExpeditionScenePath;
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("SceneStarted");
+            string scenePath = Terrain.RandomLevelEntry.ExpeditionScenePath;
 #if UNITY_EDITOR
             scenePath = UnityEditor.SessionState.GetString("DarkNights.PlayScene", scenePath);
 #endif
@@ -55,6 +55,7 @@ namespace DarkNights.Entry
                 scene = SceneManager.GetSceneByPath(scenePath);
             }
             GameCatalog catalog = context.Resolve<GameCatalog>();
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("SceneReady");
             var authoring = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
             LevelLayout layout = authoring.CreateLayout(catalog, DefinitionRuleIndex.RuleKey);
             var randomLevel = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<DarkNights.View.Terrain.RandomLevelTemplate>(true)).SingleOrDefault();
@@ -69,26 +70,31 @@ namespace DarkNights.Entry
             ObjectPlacement[] placements = entries.Select(p => new ObjectPlacement(p.PlacementKey, definitions.GetRequired(p.Kind),
                 p.X, p.Variant, p.Name, placementsByKey[p.PlacementKey].Loader)).ToArray();
             foreach (ScenePlacement placement in placementsByKey.Values) placement.gameObject.SetActive(false);
-            var required = catalog.Balance.Buildings.Keys.Concat(catalog.Balance.Worksites.Keys).Concat(catalog.Balance.Units.Keys);
-            if (definitions.FindOptional(MineralDepositRuleConfig.Rule) != null)
-                required = required.Concat(new[] { MineralDepositRuleConfig.Rule });
+            var required = new[] { "worker", "ship" };
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("WorldResourcesStarted");
             ObjectSessionResources resources = await ObjectSessionResources.Prepare(required.Select(definitions.GetRequired).ToArray(), cancellationToken);
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("WorldResourcesReady");
             float debugHeroSpeed = DebugHeroSpeedMultiplier();
             network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements,
                 stage.RuntimeGroup("Unbound Entities"), debugHeroSpeed);
             if (debugHeroSpeed > 1) Debug.Log("DARK_NIGHTS_DEBUG_HERO_SPEED multiplier=" + debugHeroSpeed);
             stage.Initialize(layout);
-            if (randomLevel != null) Terrain.RandomLevelEntry.Install(network, randomLevel, stage);
+            var terrainEntry = randomLevel != null ? Terrain.RandomLevelEntry.Install(network, randomLevel, stage) : null;
             var entities = network.gameObject.AddComponent<SessionEntityViews>();
             entities.Initialize(network.Client, catalog, stage, network);
             var ui = network.gameObject.AddComponent<SessionUiController>();
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiStarted");
             await ui.Initialize(network, catalog, stage, entities, layout.Expedition);
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiReady");
+            if (terrainEntry != null) network.gameObject.AddComponent<HeroLightPresentation>().Initialize(network, entities, ui.Actions, terrainEntry);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
+            DebugObjectHub.Install(network);
             QuickTestHub.Install(network, ui, layout.Expedition);
 #endif
             ConsoleSystem console = UnityEngine.Object.FindAnyObjectByType<ConsoleSystem>();
             if (console != null)
             {
+                console.gameObject.AddComponent<SmartConsoleLogBridge>().Initialize(console);
                 YYInteractionSessionHandle consoleModal = null;
                 console.OnActivate += () => consoleModal = YYInteractionSessionService.Instance.Begin(new YYInteractionSessionDescriptor
                 {
@@ -110,6 +116,7 @@ namespace DarkNights.Entry
             Application.runInBackground = true;
             Application.targetFrameRate = 60;
             Debug.Log("DARK_NIGHTS_SESSION_AVAILABLE protocol=" + DarkNights.Runtime.Session.SessionAuthority.ProtocolVersion + " level=" + catalog.Level.Id);
+            DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("SessionAvailable");
         }
 
         public static float DebugHeroSpeedMultiplier()

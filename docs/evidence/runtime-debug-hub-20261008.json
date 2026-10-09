@@ -1,0 +1,206 @@
+{
+  "date": "2026-10-08",
+  "branch": "ref-20261008-runtime-debug-hub-uitk",
+  "base_commit": "dfc523b018d182d7f2e4f51409a705af0cf68126",
+  "requirement": "Object grid; preserve four held-equipment slots, independent jetpack, recent actions; no intro",
+  "game_protocol": 29,
+  "save_version": 21,
+  "map_protocol": 2,
+  "scope": "static C# compilation only; no Unity import, test execution, Play, Player or integration",
+  "compilation": [
+    {
+      "variant": "editor",
+      "assemblies": [
+        {
+          "name": "GameCore.Runtime",
+          "sources": 208,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 29
+        },
+        {
+          "name": "DarkNights.Core",
+          "sources": 146,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Runtime",
+          "sources": 228,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.View",
+          "sources": 95,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Entry",
+          "sources": 41,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 1
+        },
+        {
+          "name": "DarkNights.Editor",
+          "sources": 110,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 7
+        },
+        {
+          "name": "DarkNights.Tests",
+          "sources": 136,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 5
+        }
+      ]
+    },
+    {
+      "variant": "development",
+      "assemblies": [
+        {
+          "name": "GameCore.Runtime",
+          "sources": 208,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 29
+        },
+        {
+          "name": "DarkNights.Core",
+          "sources": 146,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Runtime",
+          "sources": 228,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.View",
+          "sources": 95,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Entry",
+          "sources": 41,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 1
+        }
+      ]
+    },
+    {
+      "variant": "release",
+      "assemblies": [
+        {
+          "name": "GameCore.Runtime",
+          "sources": 208,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 29
+        },
+        {
+          "name": "DarkNights.Core",
+          "sources": 146,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Runtime",
+          "sources": 228,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.View",
+          "sources": 95,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 0
+        },
+        {
+          "name": "DarkNights.Entry",
+          "sources": 41,
+          "exit_code": 0,
+          "errors": 0,
+          "warnings": 1
+        }
+      ]
+    }
+  ],
+  "source_hash_match": true,
+  "source_checks": {
+    "uxml_templates": 2,
+    "changed_csharp_files": 26,
+    "max_lines": 299,
+    "unity_import": "NOT_RUN"
+  },
+  "framework_patch": {
+    "repository": "YYGC",
+    "base_commit": "fee18645c997ed7529c4592917de6c412033c84e",
+    "base_patch": "../grid-business/yygc.patch",
+    "base_patch_sha256": "58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb",
+    "patch": "yygc-debug-hub.patch",
+    "patch_sha256": "081456b98c116b352addd1d852414c59acf3d26aa9928a212936af6eb599b67a",
+    "destination": ".deps/YYGC-grid-business",
+    "game_protocol": 29,
+    "save_version": 21,
+    "map_protocol": 2,
+    "validation": "STATIC_CSHARP_ONLY; Unity import, runtime and Player NOT_RUN"
+  },
+  "framework_reconstruction": "9/9 canonical source files match",
+  "local_other_task_branch": "ft-20261008-flashlight-lighting",
+  "integration_overlap_paths": [
+    "Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionCommands.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperation.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperations.cs",
+    "docs/DEVELOPMENT.md",
+    "docs/README.md"
+  ],
+  "pending": [
+    "Unity-generated .meta for new scripts/assets/directories",
+    "Unity UXML/USS import, fonts and visual layout",
+    "Runtime/manual checks listed in implementation document"
+  ],
+  "compiler_logs": "artifacts/debug-hub-20261008/final-{editor,development,release}/",
+  "source_files_sha256": {
+    "Game\\Assets\\DarkNights\\Res\\UI\\DebugHub\\Resources\\DarkNights\\Debugging\\Objects.uss": "03c470d3deaa1327dc204e27e87bb84543cd9aead28998ff287f60190eecd461",
+    "Game\\Assets\\DarkNights\\Res\\UI\\DebugHub\\Resources\\DarkNights\\Debugging\\Objects.uxml": "eefa9d30afa5cad4d7967b9ad11cf6a6e87759ea564cf487accc725d312dc54a",
+    "Game\\Assets\\DarkNights\\Scripts\\Entry\\DebugHeldEquipment.cs": "61c478bb1fc917843acbf2ae819d9314c25cd7fd69e785bb9c90f37cb8d18569",
+    "Game\\Assets\\DarkNights\\Scripts\\Entry\\DebugObjectCatalog.cs": "912a68bd10356f9c25b3dc3f71188667c13cdf1d536979e1de65e8656a5eacd9",
+    "Game\\Assets\\DarkNights\\Scripts\\Entry\\DebugObjectGrid.cs": "ace1edcd729570f0477512af1b70d9d010ee6110808a9464f3cb04b553b0fd57",
+    "Game\\Assets\\DarkNights\\Scripts\\Entry\\DebugObjectHub.cs": "dde2a2c0c50edfe64de4bbe4f54cb2c9b05f650b86b86faa09fbc67477f4e3f8",
+    "Game\\Assets\\DarkNights\\Scripts\\Entry\\DebugObjectPanel.cs": "3fe3e55dccc1d78f62ccb1b0bedbaf47bbb22415f11288d7951a12ae49d88c8a",
+    "Game\\Assets\\DarkNights\\Scripts\\Entry\\ExpeditionDebugPanel.cs": "ffae11f5d4323b034d785f826cde745aced00f412fc700bbd721f4c1619be082",
+    "Game\\Assets\\DarkNights\\Scripts\\Entry\\ExpeditionHud.cs": "cdcb8f86d0cd9d4fd574a26458cd3356b0013593b6c5ed3fb49418466d611271",
+    "Game\\Assets\\DarkNights\\Scripts\\Entry\\GameSessionStartupModule.cs": "10257b73656798669a64cf5a152ff4b2754d054139e3b8acf74a9161e6741618",
+    "Game\\Assets\\DarkNights\\Scripts\\Entry\\QuickTestHub.cs": "a3aea0dd9aff5cb30110c056181c03606b6473c7f5e642313c44dae7763088f9",
+    "Game\\Assets\\DarkNights\\Scripts\\Entry\\QuickTestPanel.cs": "78c7934811ed50f62c5d57fea744184a282882da66735e7e4ed2c35ce4688072",
+    "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroInventoryTransactions.cs": "28a7fba8b2c8571b5418fa9dac79d7c940be280b31578afb6dd32852d53038ee",
+    "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ObjectDeveloperControl.cs": "a242fb78024fddcdfde94ef7fa6188aab960a47270ecc1637d6910a6311576fa",
+    "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ObjectSession.cs": "99d6662c56290b133a5c0ab522afdefe1a04e64e9695dafe954b67b278e7d0ee",
+    "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ObjectSessionCommands.cs": "b09c6e1e9c5aa8d9140c710771cc962c1f639a07ace84fd7877a7629c114b12e",
+    "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ShipTradeService.cs": "8678400d0b622bb01c563d4e0e996bc0c3bd08a6bc03174f5297e0d0dcd45e89",
+    "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Session\\SessionAuthority.cs": "666878607e2ecf5b2fd1387e9f6eb0ae59fc04553991df4ccd31063021ca79d7",
+    "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Session\\SessionDeveloperOperations.cs": "f90c1917ac4754bd9feed1a043b03bd86c165a86b99c3eea376ddd17bd445466",
+    "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Session\\SessionOperation.cs": "43f36bf3ef1cbe2d2947da1eca008627e32943cb36710b2999c7f279fd592a81",
+    "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Session\\SessionOperations.cs": "0d07b717179d9eccb8bc8bf330718b99573789fced8643eb368f2636fca083c8"
+  }
+}

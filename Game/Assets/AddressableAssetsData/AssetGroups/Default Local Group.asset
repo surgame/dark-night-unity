@@ -195,6 +195,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c024a22f0a225cf44bead407ae73a65f
+    m_Address: dark_nights.item.flashlight
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c07f1287655d3ba4bbe4bc2bccf1936f
     m_Address: dark_nights.effect.arrow
     m_ReadOnly: 0
@@ -259,7 +264,6 @@ MonoBehaviour:
     m_Address: dark_nights.ship.expedition.scout-drone
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f32054fedcf949b4c81637b7b4e734fd
     m_Address: dark_nights.effect.floating

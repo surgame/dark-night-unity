@@ -13,8 +13,13 @@ namespace DarkNights.Runtime.Objects
     {
         internal static bool Valid(ObjectSession session, SessionRequest request)
         {
-            if (session.IsExpedition && request.Operation is SessionOperation.IssueOrders or SessionOperation.PlaceBuilding or
-                SessionOperation.TrainActors or SessionOperation.Recruit or SessionOperation.Repair or SessionOperation.StartNight) return false;
+            if (SessionDeveloperOperations.IsOperation(request.Operation)) return SessionDeveloperOperations.ValidShape(request);
+            if (request.Operation is SessionOperation.IssueOrders or SessionOperation.PlaceBuilding or
+                SessionOperation.TrainActors or SessionOperation.Recruit or SessionOperation.Repair or SessionOperation.StartNight or
+                SessionOperation.SelectDestination or SessionOperation.CancelJourney or SessionOperation.SellCarriedOre or
+                SessionOperation.UseHeroItem) return false;
+            if (request.Operation == SessionOperation.Expedition &&
+                request.Kind is not ("pilot" or "takeoff" or "land" or "cancel-flight")) return false;
             foreach (int id in request.ActorIds)
             {
                 ActorBehaviour actor = session.Index.Find<ActorBehaviour>(id);
@@ -45,6 +50,7 @@ namespace DarkNights.Runtime.Objects
                 case SessionOperation.ClaimHero:
                 case SessionOperation.ReleaseHero:
                 case SessionOperation.SelectHeroItem:
+                case SessionOperation.SetHeroLight:
                 case SessionOperation.UseHeroItem:
                 case SessionOperation.Recruit:
                 case SessionOperation.StartNight:
@@ -61,6 +67,9 @@ namespace DarkNights.Runtime.Objects
         internal static int Apply(ObjectSession session, SessionRequest request, out int id)
         {
             id = 0;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (SessionDeveloperOperations.IsOperation(request.Operation)) return session.Developer.Apply(request, out id);
+#endif
             switch (request.Operation)
             {
                 case SessionOperation.IssueOrders:
