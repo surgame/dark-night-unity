@@ -6,7 +6,7 @@
             <ui:DropdownField name="target" label="目标" class="dn-objects-target" />
             <ui:Toggle name="godMode" label="上帝模式" />
         </ui:VisualElement>
-        <ui:ListView name="objectGrid" class="dn-objects-grid" />
+        <ui:VisualElement name="objectGrid" class="dn-objects-grid" />
         <ui:Label name="definitionCount" class="rdh-muted" />
         <ui:VisualElement class="dn-objects-selection">
             <ui:VisualElement class="dn-objects-selected-info">

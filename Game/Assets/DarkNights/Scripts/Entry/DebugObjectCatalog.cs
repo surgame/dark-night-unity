@@ -12,7 +12,14 @@ namespace DarkNights.Entry
     internal static class DebugObjectCatalog
     {
         internal static ObjectDefinition[] Definitions() => ObjectDefinitionDatabase.Instance.Definitions
-            .Where(value => value != null && !value.Guid.IsEmpty).OrderBy(value => value.Name, StringComparer.Ordinal).ToArray();
+            .Where(IsObject).OrderBy(value => value.Name, StringComparer.Ordinal).ToArray();
+        internal static bool IsObject(ObjectDefinition definition)
+        {
+            if (definition == null || definition.Guid.IsEmpty) return false;
+            return definition.SharedConfigs.Any(value => value is EquipmentItemConfig || value is ActorRuleConfig ||
+                value is BuildingRuleConfig || value is WorksiteRuleConfig || value is MineralDepositRuleConfig) ||
+                IsProjectile(definition) || definition.Key == "effect.arrow";
+        }
         internal static ObjectDefinition Equipment(string guid) => ObjectDefinitionDatabase.Instance.Definitions
             .FirstOrDefault(value => value != null && value.Guid.ToString() == guid);
         internal static EquipmentItemConfig Item(ObjectDefinition definition) => definition?.SharedConfigs.OfType<EquipmentItemConfig>().SingleOrDefault();
@@ -24,6 +31,7 @@ namespace DarkNights.Entry
         {
             if (Item(definition) != null) return "装备";
             if (IsProjectile(definition)) return "投射物";
+            if (definition.Key == "effect.arrow") return "投射物 · 暂停";
             if (definition.BehaviourTypes.Contains(typeof(ActorBehaviour).FullName)) return "单位 · 受限";
             return "只读 / 暂停";
         }

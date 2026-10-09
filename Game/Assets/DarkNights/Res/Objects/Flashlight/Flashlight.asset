@@ -21,7 +21,7 @@ MonoBehaviour:
   legacyAllocationPending: 
   Type: 200
   Name: "\u624B\u7535\u7B52"
-  Icon: {fileID: 0}
+  Icon: {fileID: -2638390803197812687, guid: 247bca750628b8e4eb9115de2c658aa0, type: 3}
   Describe: 
   MaxStack: 1
   ItemLevel: 1

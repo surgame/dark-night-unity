@@ -21,7 +21,7 @@ MonoBehaviour:
   legacyAllocationPending: 
   Type: 400
   Name: Tower
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 9c37bad5d8949284bb2ecee38fe82c50, type: 3}
   Describe: 
   MaxStack: 1
   ItemLevel: 1

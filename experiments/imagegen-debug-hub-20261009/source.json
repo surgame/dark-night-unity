@@ -1,0 +1,30 @@
+{
+  "source": "experiments\\imagegen-debug-hub-20261009\\jetpack-source.png",
+  "source_sha256": "7f4eff6d6171c18232cde14ad589ca19eb93a249e6a0fafc5ec5f9ed14c9c88f",
+  "derived": "Game\\Assets\\DarkNights\\Res\\UI\\DebugHub\\Icons\\Jetpack.png",
+  "sha256": "851de28f7588367edba1b4cca32d3423a6f32a5bb8b565a13580b74e50a0d2e4",
+  "size": [
+    32,
+    32
+  ],
+  "alpha": "binary",
+  "palette_limit": 24,
+  "resize": "nearest",
+  "source_bounds": [
+    175,
+    71,
+    1124,
+    1186
+  ],
+  "model": "gpt-image-2.5",
+  "provider": "1qq",
+  "base_url": "https://sub.1qq.xyz/v1",
+  "requested_size": "1024x1024",
+  "actual_source_size": [
+    1254,
+    1254
+  ],
+  "prompt": "experiments/imagegen-debug-hub-20261009/prompt.txt",
+  "quality": "medium",
+  "generation_seconds": 51.7
+}

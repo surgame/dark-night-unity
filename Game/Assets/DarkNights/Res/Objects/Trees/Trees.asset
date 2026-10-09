@@ -21,7 +21,7 @@ MonoBehaviour:
   legacyAllocationPending: 
   Type: 601
   Name: Trees
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 3eed721126e480245ab83c3b724bbd83, type: 3}
   Describe: 
   MaxStack: 1
   ItemLevel: 1

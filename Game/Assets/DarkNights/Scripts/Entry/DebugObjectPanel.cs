@@ -21,6 +21,8 @@ namespace DarkNights.Entry
         private VisualElement root;
         private DebugObjectGrid grid;
         private DebugHeldEquipment equipment;
+        private VisualElement themedRoot;
+        private StyleSheet theme;
         private ObjectDefinition[] definitions;
         private ObjectDefinition selected;
         private TextField search;
@@ -51,12 +53,14 @@ namespace DarkNights.Entry
             search = root.Q<TextField>("search"); target = root.Q<DropdownField>("target");
             instance = root.Q<DropdownField>("instance"); quantity = root.Q<IntegerField>("quantity"); mode = root.Q<Toggle>("godMode");
             add = root.Q<Button>("addObject"); remove = root.Q<Button>("removeObject");
-            grid = new DebugObjectGrid(root.Q<ListView>("objectGrid"), Select);
+            grid = new DebugObjectGrid(root.Q("objectGrid"), Select);
+            theme = Resources.Load<StyleSheet>("DarkNights/Debugging/HubTheme");
+            root.RegisterCallback<AttachToPanelEvent>(AttachTheme);
             equipment = new DebugHeldEquipment(root, RemoveEquipment);
             search.RegisterValueChangedCallback(Search); target.RegisterValueChangedCallback(Target);
             mode.RegisterValueChangedCallback(Mode); add.clicked += Add; remove.clicked += Remove;
             refresh = root.schedule.Execute(Present).Every(150); refresh.Pause();
-            Select(definitions.FirstOrDefault(value => DebugObjectCatalog.Item(value) != null) ?? definitions.FirstOrDefault());
+            Select(definitions.FirstOrDefault(value => DebugObjectCatalog.Item(value) != null && value.Icon != null) ?? definitions.FirstOrDefault());
             return root;
         }
         private void Select(ObjectDefinition definition)
@@ -67,13 +71,27 @@ namespace DarkNights.Entry
             Filter(); Present();
         }
         private void Search(ChangeEvent<string> value) => Filter();
+        private void AttachTheme(AttachToPanelEvent value)
+        {
+            if (theme == null || root.panel == null || themedRoot != null) return;
+            themedRoot = root.panel.visualTree;
+            themedRoot.AddToClassList("dn-debug-hub");
+            themedRoot.styleSheets.Add(theme);
+        }
         private void Filter()
         {
-            string text = search.value ?? "";
+            string text = (search.value ?? "").Trim();
             var values = definitions.Where(value => (value.Name ?? "").IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0 ||
                 (value.Key ?? "").IndexOf(text, StringComparison.OrdinalIgnoreCase) >= 0).ToArray();
+            if (selected != null && !values.Contains(selected))
+            {
+                selected = null;
+                root.Q<Label>("selectedName").text = "请选择物体";
+                root.Q<Label>("selectedKey").text = "";
+                Present();
+            }
             grid.SetDefinitions(values, selected?.Guid.ToString() ?? "");
-            root.Q<Label>("definitionCount").text = values.Length + " / " + definitions.Length;
+            root.Q<Label>("definitionCount").text = values.Length == 0 ? "没有匹配的物体" : values.Length + " / " + definitions.Length + " 个物体";
         }
         private void Target(ChangeEvent<string> value) => Present();
         private void Mode(ChangeEvent<bool> value)
@@ -184,6 +202,8 @@ namespace DarkNights.Entry
         public void Dispose()
         {
             OnDeactivated(); grid?.Dispose();
+            root?.UnregisterCallback<AttachToPanelEvent>(AttachTheme);
+            if (themedRoot != null) { themedRoot.styleSheets.Remove(theme); themedRoot.RemoveFromClassList("dn-debug-hub"); }
             search?.UnregisterValueChangedCallback(Search); target?.UnregisterValueChangedCallback(Target); mode?.UnregisterValueChangedCallback(Mode);
             if (add != null) add.clicked -= Add; if (remove != null) remove.clicked -= Remove;
             root?.Clear(); history.Clear();

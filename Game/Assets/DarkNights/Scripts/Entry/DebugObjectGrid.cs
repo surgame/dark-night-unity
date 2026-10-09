@@ -1,74 +1,71 @@
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using GameCore.Objects.Definition;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace DarkNights.Entry
 {
-    /// <summary>按行虚拟化的物体网格；列数随实际宽度变化，复用按钮读取当前绑定定义，筛选不会遗留旧点击目标。</summary>
+    /// <summary>
+    /// 固定尺寸、自动换行的物体图标网格；滚动由 Hub 负责，只有实际选中按钮获得高亮。
+    /// 筛选只重建当前少量定义的按钮，点击捕获该定义，避免行复用遗留旧目标。
+    /// </summary>
     internal sealed class DebugObjectGrid : IDisposable
     {
-        private readonly ListView list;
+        private readonly VisualElement root;
         private readonly Action<ObjectDefinition> select;
         private ObjectDefinition[] definitions = Array.Empty<ObjectDefinition>();
-        private string selectedGuid = "";
-        private int columns = 4;
-        internal DebugObjectGrid(ListView list, Action<ObjectDefinition> select)
+        internal DebugObjectGrid(VisualElement root, Action<ObjectDefinition> select)
         {
-            this.list = list; this.select = select;
-            list.fixedItemHeight = 86; list.virtualizationMethod = CollectionVirtualizationMethod.FixedHeight;
-            list.selectionType = SelectionType.None; list.makeItem = MakeRow; list.bindItem = BindRow;
-            list.unbindItem = UnbindRow;
-            list.RegisterCallback<GeometryChangedEvent>(Resize);
+            this.root = root;
+            this.select = select;
         }
-        private VisualElement MakeRow()
+        internal void SetDefinitions(ObjectDefinition[] values, string selectedGuid)
         {
-            var row = new VisualElement(); row.AddToClassList("dn-objects-grid-row");
-            for (int index = 0; index < columns; index++)
+            if (!SameDefinitions(values))
             {
-                var button = new Button(); button.AddToClassList("dn-objects-tile");
-                var icon = new Image { name = "icon" }; icon.AddToClassList("dn-objects-icon"); button.Add(icon);
-                var name = new Label { name = "name" }; name.AddToClassList("dn-objects-name"); button.Add(name);
-                var state = new Label { name = "state" }; state.AddToClassList("rdh-muted"); button.Add(state);
-                button.clicked += () => { if (button.userData is ObjectDefinition definition) select(definition); };
-                row.Add(button);
+                definitions = values;
+                root.Clear();
+                foreach (var definition in definitions) root.Add(CreateButton(definition));
             }
-            return row;
+            foreach (var child in root.Children())
+                child.EnableInClassList("dn-objects-selected",
+                    ((ObjectDefinition)child.userData).Guid.ToString() == selectedGuid);
         }
-        private void BindRow(VisualElement row, int rowIndex)
+        private bool SameDefinitions(ObjectDefinition[] values)
         {
-            for (int column = 0; column < row.childCount; column++)
+            if (values.Length != definitions.Length) return false;
+            for (int index = 0; index < values.Length; index++)
+                if (values[index] != definitions[index]) return false;
+            return true;
+        }
+        private Button CreateButton(ObjectDefinition definition)
+        {
+            var button = new Button(() => select(definition))
             {
-                int index = rowIndex * columns + column;
-                var button = (Button)row[column]; var definition = index < definitions.Length ? definitions[index] : null;
-                button.userData = definition; button.EnableInClassList("dn-objects-empty-tile", definition == null);
-                button.Q<Label>("name").text = definition?.Name ?? "";
-                button.Q<Label>("state").text = definition == null ? "" : DebugObjectCatalog.Status(definition);
-                button.Q<Image>("icon").sprite = definition?.Icon;
-                button.EnableInClassList("dn-objects-selected", definition != null && definition.Guid.ToString() == selectedGuid);
+                userData = definition,
+                tooltip = definition.Name + "\n" + definition.Key + "\n" + DebugObjectCatalog.Status(definition)
+            };
+            button.AddToClassList("dn-objects-tile");
+            if (definition.Icon != null)
+            {
+                var icon = new Image { sprite = definition.Icon, scaleMode = ScaleMode.ScaleToFit, pickingMode = PickingMode.Ignore };
+                icon.AddToClassList("dn-objects-icon");
+                button.Add(icon);
             }
-        }
-        internal void SetDefinitions(ObjectDefinition[] values, string guid)
-        {
-            definitions = values; selectedGuid = guid;
-            list.itemsSource = Enumerable.Range(0, (values.Length + columns - 1) / columns).ToList(); list.RefreshItems();
-        }
-        private void UnbindRow(VisualElement row, int index)
-        {
-            foreach (var child in row.Children())
-            { child.userData = null; child.Q<Image>("icon").sprite = null; }
-        }
-        private void Resize(GeometryChangedEvent value)
-        {
-            int next = Math.Max(1, Math.Min(6, (int)(value.newRect.width / 150)));
-            if (columns == next) return; columns = next; list.Rebuild(); SetDefinitions(definitions, selectedGuid);
+            else
+            {
+                var missing = new Label("?") { pickingMode = PickingMode.Ignore };
+                missing.AddToClassList("dn-objects-missing-icon");
+                button.Add(missing);
+                button.tooltip += "\n图标待补";
+            }
+            return button;
         }
         public void Dispose()
         {
-            list.UnregisterCallback<GeometryChangedEvent>(Resize); list.itemsSource = null;
-            list.makeItem = null; list.bindItem = null; list.unbindItem = null;
+            root.Clear();
+            definitions = Array.Empty<ObjectDefinition>();
         }
     }
 }

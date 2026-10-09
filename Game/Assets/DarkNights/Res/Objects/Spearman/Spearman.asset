@@ -21,7 +21,7 @@ MonoBehaviour:
   legacyAllocationPending: 
   Type: 700
   Name: Spearman
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: e309e7b31db6aeb4393d106d46fc5e2d, type: 3}
   Describe: 
   MaxStack: 1
   ItemLevel: 1

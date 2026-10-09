@@ -1,0 +1,46 @@
+.dn-debug-hub .rdh-content > .unity-scroll-view__content-viewport { flex-grow: 1; }
+.dn-debug-hub .unity-scroller--vertical { width: 8px; min-width: 8px; margin: 3px 3px 3px 0; background-color: #202327; }
+.dn-debug-hub .unity-scroller--horizontal { height: 8px; min-height: 8px; }
+.dn-debug-hub .unity-scroller .unity-scroller__slider { margin: 0; min-width: 0; min-height: 0; }
+.dn-debug-hub .unity-scroller--vertical .unity-scroller__slider { width: 8px; }
+.dn-debug-hub .unity-scroller--horizontal .unity-scroller__slider { height: 8px; }
+.dn-debug-hub .unity-scroller .unity-base-slider__input { padding: 0; border-width: 0; min-width: 0; min-height: 0; }
+.dn-debug-hub .unity-scroller .unity-scroller__low-button,
+.dn-debug-hub .unity-scroller .unity-scroller__high-button { display: none; }
+.dn-debug-hub .unity-scroller .unity-base-slider__tracker { border-width: 0; background-color: #202327; }
+.dn-debug-hub .unity-scroller .unity-base-slider__dragger-border { display: none; }
+.dn-debug-hub .unity-scroller .unity-base-slider__dragger { min-width: 6px; min-height: 18px; background-color: #56616b; border-width: 0; border-radius: 4px; }
+.dn-debug-hub .unity-scroller--vertical .unity-base-slider__dragger { width: 6px; margin: 0; left: 1px; }
+.dn-debug-hub .unity-scroller .unity-base-slider__dragger:hover { background-color: #7b8994; }
+.dn-debug-hub .unity-scroller .unity-base-slider__dragger:active { background-color: #92d7df; }
+.dn-debug-hub .rdh-panel .unity-base-text-field__input:focus,
+.dn-debug-hub .rdh-panel .unity-base-popup-field__input:focus { border-color: #92d7df; }
+.dn-debug-hub .rdh-panel .unity-base-popup-field__input:hover { background-color: #33383e; }
+.dn-debug-hub .rdh-panel .unity-base-popup-field__text { color: #e4e9ed; margin: 0; }
+.dn-debug-hub .rdh-panel .unity-base-popup-field__arrow { width: 12px; height: 12px; -unity-background-image-tint-color: #acb6bf; }
+.dn-debug-hub .rdh-panel Label { margin: 0; padding: 0; }
+.dn-debug-hub .rdh-panel .unity-base-field__label { margin-right: 8px; }
+.dn-debug-hub .rdh-panel .unity-toggle { flex-shrink: 0; align-items: center; }
+.dn-debug-hub .rdh-panel .unity-toggle__input { min-height: 18px; padding: 0; background-color: transparent; border-width: 0; }
+.dn-debug-hub .rdh-panel .unity-toggle__checkmark { width: 16px; height: 16px; border-width: 1px; border-color: #62878d; border-radius: 3px; background-color: #292d32; -unity-background-image-tint-color: #162c30; }
+.dn-debug-hub .rdh-panel .unity-toggle__input:checked > .unity-toggle__checkmark { background-color: #92d7df; border-color: #92d7df; }
+.dn-debug-hub .rdh-panel .unity-toggle__input:hover > .unity-toggle__checkmark,
+.dn-debug-hub .rdh-panel .unity-toggle:focus > .unity-toggle__input > .unity-toggle__checkmark { border-color: #92d7df; }
+.dn-debug-hub .rdh-panel .unity-foldout { margin: 0; }
+.dn-debug-hub .rdh-panel .unity-foldout__toggle { margin: 0; padding: 5px 0; }
+.dn-debug-hub .rdh-panel .unity-foldout__toggle > .unity-toggle__input { border-width: 0; background-color: transparent; }
+.dn-debug-hub .rdh-panel .unity-foldout__toggle .unity-toggle__checkmark { width: 12px; height: 12px; border-width: 0; background-color: transparent; -unity-background-image-tint-color: #acb6bf; }
+.dn-debug-hub .rdh-panel .unity-foldout__toggle > .unity-toggle__input:checked > .unity-toggle__checkmark { background-color: transparent; border-width: 0; -unity-background-image-tint-color: #acb6bf; }
+.dn-debug-hub .rdh-panel .dn-objects-jetpack > Label { margin-right: 8px; }
+.dn-debug-hub .rdh-panel .unity-foldout__content { margin-left: 18px; }
+.dn-debug-hub .rdh-panel .unity-base-field:disabled { opacity: 0.45; }
+.dn-debug-hub .rdh-panel Button:focus { border-color: #92d7df; }
+.dn-debug-hub .rdh-panel .rdh-danger:focus { border-color: #ffacac; }
+.dn-debug-hub .rdh-tab:hover,
+.dn-debug-hub .rdh-close:hover { background-color: #33383e; }
+.dn-debug-hub .rdh-tab:focus { border-bottom-color: #62878d; }
+.dn-debug-hub .rdh-tab.rdh-selected:focus { border-bottom-color: #92d7df; }
+.dn-debug-hub .unity-base-dropdown__container { background-color: #292d32; border-width: 1px; border-color: #56616b; border-radius: 5px; }
+.dn-debug-hub .unity-base-dropdown__item { color: #e4e9ed; padding: 5px 8px; }
+.dn-debug-hub .unity-base-dropdown__item:hover,
+.dn-debug-hub .unity-base-dropdown__item:checked { background-color: #273e43; color: #92d7df; }

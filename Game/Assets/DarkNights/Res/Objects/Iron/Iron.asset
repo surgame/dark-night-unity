@@ -21,7 +21,7 @@ MonoBehaviour:
   legacyAllocationPending: 
   Type: 601
   Name: Iron
-  Icon: {fileID: 0}
+  Icon: {fileID: 21300000, guid: c779dd58bcf6e22498c17f13363e81f1, type: 3}
   Describe: 
   MaxStack: 1
   ItemLevel: 1

@@ -1,14 +1,14 @@
-.dn-objects-panel { flex-grow: 1; min-height: 0; }
+.dn-objects-panel { flex-shrink: 0; }
 .dn-objects-toolbar { flex-direction: row; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
 .dn-objects-search { flex-grow: 1; flex-basis: 170px; margin-right: 12px; }
 .dn-objects-target { width: 190px; margin-right: 12px; }
-.dn-objects-grid { height: 258px; flex-shrink: 1; min-height: 86px; }
-.dn-objects-grid-row { flex-direction: row; height: 86px; }
-.rdh-panel .dn-objects-tile { flex-grow: 1; flex-basis: 0; height: 80px; margin: 0 6px 6px 0; padding: 6px; align-items: center; }
-.dn-objects-icon { width: 22px; height: 22px; margin-bottom: 3px; }
-.dn-objects-name { font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dn-objects-grid { flex-direction: row; flex-wrap: wrap; flex-shrink: 0; margin-bottom: 2px; }
+.rdh-panel .dn-objects-tile { width: 48px; height: 48px; flex-shrink: 0; margin: 0 6px 6px 0; padding: 0; align-items: center; justify-content: center; }
+.dn-objects-icon { width: 32px; height: 32px; }
+.dn-objects-missing-icon { color: #acb6bf; font-size: 22px; }
+.rdh-panel .dn-objects-tile:focus { border-color: #62878d; }
 .rdh-panel .dn-objects-tile.dn-objects-selected { background-color: #273e43; border-color: #92d7df; }
-.dn-objects-empty-tile { visibility: hidden; }
+.rdh-panel .dn-objects-tile.dn-objects-selected:hover { background-color: #304b51; }
 .dn-objects-selection { flex-direction: row; flex-wrap: wrap; align-items: center; margin-top: 10px; margin-bottom: 14px; }
 .dn-objects-selected-info { flex-grow: 1; flex-basis: 140px; margin-right: 10px; }
 .dn-objects-quantity { width: 96px; margin-right: 10px; }

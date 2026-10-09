@@ -1,0 +1,307 @@
+{
+  "date": "2026-10-09",
+  "branch": "fix-20261009-debug-hub-icons",
+  "base_commit": "b9c644886c66021637a64c6861d3683aff4368e2",
+  "protocol": 31,
+  "save_version": 23,
+  "amp1_schema": 2,
+  "yygc_modified": false,
+  "dependencies_changed": false,
+  "asset_changes": {
+    "definitions": 30,
+    "only_field": "Icon",
+    "existing_sources": 29,
+    "generated_sources": 1
+  },
+  "unity_editor": "6000.4.9f1",
+  "editor_compile": {
+    "completed": true,
+    "errors": 0
+  },
+  "architecture": {
+    "passed": true,
+    "handwrittenFiles": 779,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "static_compiles": {
+    "development": [
+      {
+        "name": "GameCore.Runtime",
+        "errors": 0,
+        "warnings": 29
+      },
+      {
+        "name": "DarkNights.Core",
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.Runtime",
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.View",
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.Entry",
+        "errors": 0,
+        "warnings": 1
+      }
+    ],
+    "release": [
+      {
+        "name": "GameCore.Runtime",
+        "errors": 0,
+        "warnings": 29
+      },
+      {
+        "name": "DarkNights.Core",
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.Runtime",
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.View",
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.Entry",
+        "errors": 0,
+        "warnings": 1
+      }
+    ]
+  },
+  "panel_checks": {
+    "passed": 19,
+    "checks": [
+      "30 physical definitions",
+      "command excluded",
+      "UI and services excluded",
+      "no row selection container",
+      "one Hub scroll view",
+      "30 definitions have icons",
+      "icon only tiles without placeholders",
+      "Key search finds pickaxe",
+      "hidden selection cleared",
+      "filtered button selects current definition",
+      "only one selected tile",
+      "tooltip carries identity and capability",
+      "name search keeps matching selection",
+      "trimmed case insensitive search",
+      "empty result has no hidden target",
+      "empty result actions disabled",
+      "clearing search restores catalog with correct target",
+      "game theme attached to Hub panel",
+      "thin vertical scroller"
+    ],
+    "selected": "item.pickaxe",
+    "missingIcons": 0
+  },
+  "layouts": {
+    "720": {
+      "passed": 4,
+      "width": 720.6583,
+      "gridWidth": 680.0058,
+      "columns": 12,
+      "tile": "(x:0.00, y:0.00, width:48.04, height:48.04)",
+      "draggerWidth": 6.46746826,
+      "selected": "item.pickaxe"
+    },
+    "480": {
+      "passed": 4,
+      "width": 480.4389,
+      "gridWidth": 439.786377,
+      "columns": 8,
+      "tile": "(x:0.00, y:0.00, width:48.04, height:48.04)",
+      "draggerWidth": 6.46746826,
+      "selected": "item.pickaxe"
+    },
+    "320": {
+      "passed": 4,
+      "width": 320.6006,
+      "gridWidth": 279.948029,
+      "columns": 5,
+      "tile": "(x:0.00, y:0.00, width:48.04, height:48.04)",
+      "draggerWidth": 6.46743774,
+      "selected": "item.pickaxe"
+    }
+  },
+  "equipment_actions": {
+    "add": {
+      "slots": [
+        "b4323e86cb0d5d5498f16cfc341fa380",
+        "f739a1d69023de54b8b90e2061afd135",
+        "",
+        ""
+      ],
+      "selected": "item.pickaxe",
+      "feedback": "已完成 · 1\n已完成 · 1",
+      "enabled": true
+    },
+    "remove": {
+      "slots": [
+        "b4323e86cb0d5d5498f16cfc341fa380",
+        "",
+        "",
+        ""
+      ],
+      "feedback": "已完成 · 1\n已完成 · 1\n已完成 · 1"
+    },
+    "input": "UITK Toggle and Button callbacks, original client request and server feedback"
+  },
+  "lifecycle": {
+    "theme": true,
+    "selected": "item.pickaxe",
+    "selectedTiles": 1,
+    "icons": 30,
+    "pixelFilter": "Point",
+    "mipmaps": false,
+    "compression": "Uncompressed"
+  },
+  "final_style": {
+    "foldoutBackground": "RGBA(0.000, 0.000, 0.000, 0.000)",
+    "jetpackLabelSpacing": 8.315289,
+    "theme": true,
+    "hierarchy": [
+      "unity-base-field__input",
+      "unity-toggle__input",
+      "unity-foldout__input"
+    ]
+  },
+  "console_errors": {
+    "total": 0,
+    "returned": 0,
+    "logs": []
+  },
+  "console_warnings": [
+    "[Logger] LoggerSettings asset not found in Resources. Logging will use defaults."
+  ],
+  "memory": {
+    "batches": [
+      {
+        "state": "completed",
+        "samples": 1080,
+        "peak_private_gib": 4.712924957275391,
+        "minimum_free_ram_gib": 11.275856018066406,
+        "minimum_free_commit_gib": 6.6867523193359375,
+        "limits": {
+          "editor_private_gib": 8,
+          "minimum_free_ram_gib": 6,
+          "minimum_free_commit_gib": 4
+        }
+      },
+      {
+        "state": "completed",
+        "samples": 240,
+        "peak_private_gib": 4.699455261230469,
+        "minimum_free_ram_gib": 11.84521484375,
+        "minimum_free_commit_gib": 6.549495697021484,
+        "limits": {
+          "editor_private_gib": 8,
+          "minimum_free_ram_gib": 6,
+          "minimum_free_commit_gib": 4
+        }
+      },
+      {
+        "state": "completed",
+        "samples": 107,
+        "peak_private_gib": 4.780097961425781,
+        "minimum_free_ram_gib": 11.210968017578125,
+        "minimum_free_commit_gib": 5.664703369140625,
+        "limits": {
+          "editor_private_gib": 8,
+          "minimum_free_ram_gib": 6,
+          "minimum_free_commit_gib": 4
+        }
+      }
+    ],
+    "samples": 1427,
+    "peak_private_gib": 4.780097961425781,
+    "minimum_free_ram_gib": 11.210968017578125,
+    "minimum_free_commit_gib": 5.664703369140625
+  },
+  "images": {
+    "generation": {
+      "source": "experiments\\imagegen-debug-hub-20261009\\jetpack-source.png",
+      "source_sha256": "7f4eff6d6171c18232cde14ad589ca19eb93a249e6a0fafc5ec5f9ed14c9c88f",
+      "derived": "Game\\Assets\\DarkNights\\Res\\UI\\DebugHub\\Icons\\Jetpack.png",
+      "sha256": "851de28f7588367edba1b4cca32d3423a6f32a5bb8b565a13580b74e50a0d2e4",
+      "size": [
+        32,
+        32
+      ],
+      "alpha": "binary",
+      "palette_limit": 24,
+      "resize": "nearest",
+      "source_bounds": [
+        175,
+        71,
+        1124,
+        1186
+      ],
+      "model": "gpt-image-2.5",
+      "provider": "1qq",
+      "base_url": "https://sub.1qq.xyz/v1",
+      "requested_size": "1024x1024",
+      "actual_source_size": [
+        1254,
+        1254
+      ],
+      "prompt": "experiments/imagegen-debug-hub-20261009/prompt.txt",
+      "quality": "medium",
+      "generation_seconds": 51.7
+    },
+    "screenshots": [
+      {
+        "path": "artifacts/debug-hub-icons-20261009/screenshots/equipment-bottom.png",
+        "sha256": "3792b91464d8cd08fa75b1a897426704d5dff3c197b608fcfdebb6fe396709a6"
+      },
+      {
+        "path": "artifacts/debug-hub-icons-20261009/screenshots/final.png",
+        "sha256": "9b0b7ca021f45dd56bfb346598beafdf99ced496980c79718418035ab6241ea2"
+      },
+      {
+        "path": "artifacts/debug-hub-icons-20261009/screenshots/full-panel-final.png",
+        "sha256": "5c643580ac61da9266d66b11a9e0fc29bdffe6c3756526fdcd2cae1f5f95ec23"
+      },
+      {
+        "path": "artifacts/debug-hub-icons-20261009/screenshots/narrow320.png",
+        "sha256": "5153770877625bd50fa1cf2b74119cfba254e61f07ef612f19aabcbbf7c16e9e"
+      },
+      {
+        "path": "artifacts/debug-hub-icons-20261009/screenshots/narrow480.png",
+        "sha256": "7d038d6178ceea64c35f81950089d9f248de7ce24bb4b85ee84c737506f163cc"
+      }
+    ]
+  },
+  "archive": {
+    "path": "artifacts/待清理/20261009-debug-hub-icons",
+    "bytes": 298315728,
+    "released_bytes": 0,
+    "free_d_gib_after": 112.4
+  },
+  "limitations": [
+    "No new Player build, IL2CPP, independent multiplayer or long duration/performance acceptance.",
+    "Full panel screenshot uses temporary height 700; normal height remains 600 with Hub scrolling.",
+    "Static builds retain 29 pre-existing framework and one pre-existing Entry obsolescence warning."
+  ],
+  "source_sha256": {
+    "Game/Assets/DarkNights/Scripts/Entry/DebugObjectGrid.cs": "354e7e1ad49386c5f88459a96dc3f3be48eb848173bd8fd17c8ff387a019c37f",
+    "Game/Assets/DarkNights/Scripts/Entry/DebugObjectCatalog.cs": "41798bad50a337f4ed70987524275f697f2610c9f67baf7290d96a85fd30e4c0",
+    "Game/Assets/DarkNights/Scripts/Entry/DebugObjectPanel.cs": "1be7fff7340b5fce7dd9135fdbd815e9f01467a83113f1d8328384b72d24a52e",
+    "Game/Assets/DarkNights/Res/UI/DebugHub/Resources/DarkNights/Debugging/Objects.uss": "16de156bf49034eeea79738b2431ca93e72a8df8856f2cdcb77bee552d9ad53c",
+    "Game/Assets/DarkNights/Res/UI/DebugHub/Resources/DarkNights/Debugging/Objects.uxml": "ddf66e3bfcc6fc2de865fc152b18c19c2e3d692ed287b6156346b055248a996e",
+    "Game/Assets/DarkNights/Res/UI/DebugHub/Resources/DarkNights/Debugging/HubTheme.uss": "463d91baa501275da014dbe90b01bf46f2405cb7486e60f0799b704c860fd320",
+    "Game/Assets/DarkNights/Res/UI/DebugHub/Icons/Jetpack.png": "851de28f7588367edba1b4cca32d3423a6f32a5bb8b565a13580b74e50a0d2e4"
+  }
+}
