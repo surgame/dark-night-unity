@@ -8,4 +8,4 @@ Build: `Dark Nights > Samples > LAN > Build Windows Player`.
 
 This is an isolated sample scene, not the Dark Nights game. Do not load it alongside the formal Bootstrap. Native Prefabs remain editable; Create Initial Assets refuses to overwrite Content. Remove this folder to remove the sample. The project's FishNet default prefab list excludes this folder.
 
-Chinese setup, framework decisions, constraints and verified test evidence: [docs/LAN_SAMPLE.md](../../../../docs/LAN_SAMPLE.md).
+Chinese setup, framework decisions, constraints and verified test evidence: [docs/samples/LAN_SAMPLE.md](../../../../docs/samples/LAN_SAMPLE.md).

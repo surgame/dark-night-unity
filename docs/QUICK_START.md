@@ -1,70 +1,50 @@
-# 人工开发 Quick start
+# 开发快速上手
 
-`Game/` 使用 Unity `6000.4.9f1` 和 **Linear** 色彩空间。正式入口继续使用 Bootstrap；游戏操作、当前 Player 和复跑条件见 [Player 指南](PLAYER_GUIDE.md)。独立模板位于 `Assets/Samples/LanCoop/Content/LanCoop.unity`，只作为 [LAN Sample](LAN_SAMPLE.md) 对照。
-
-当前本地main为协议25／存档v19／AMP1 schema2，正式入口从Bootstrap进入太空船与星球远征。矿层和近期地形／主角修复已集成，当前源码的最终Player联机与手感仍待验；实际状态见[开发执行计划](DEVELOPMENT.md)，已替代构建从[项目演进摘要](archive/PROJECT_HISTORY.md)追溯。
-
-## 先读什么
-
-1. 读[项目 README](../README.md)确认当前状态、范围与联机假设。
-2. 读[现行矿层实现](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)和[LAN Sample](LAN_SAMPLE.md)，需要追溯早期架构时再读[迁移摘要](archive/MIGRATION_HISTORY.md)及[YYGC 能力复评](archive/YYGC_REASSESSMENT.md)。
-3. 读[技术架构](ARCHITECTURE.md)的程序集表，再读[联机设计](MULTIPLAYER.md)的权限和请求流水线。
-4. 按[开发执行计划](DEVELOPMENT.md)核对本批未验边界；[原生表现与M5摘要](archive/PRESENTATION_HISTORY.md)仅作历史追溯。
+本页是已有工程的最短开发路线。Game为唯一Unity宿主；当前开放范围、版本、源码及待验先读[项目入口](../README.md)、[文档索引](README.md)和[执行状态](DEVELOPMENT.md)。正式从Bootstrap进入星球地面，试玩操作见[Player指南](PLAYER_GUIDE.md)。
 
 ## 准备已有工程
 
-1. 在当前工作分支核对 Git 状态与 C／D 可用空间，确认已有编辑和产物保留范围；历史受限清理记录见[清理清单](archive/STAGE_CLEANUP_INVENTORY.md)。
-2. 需要建立或核对依赖时，依次运行 `pwsh -File tools/prepare-lan-sample.ps1` 与 `pwsh -File tools/prepare-fishnet.ps1`。它们准备 `.deps/YYGC-unified`／`.deps/FishNet` 的锁定输入和补丁；发现未知改动时应保留并检查，不重置用户维护的 `D:\Developer\YYGC`。
-3. 用 `6000.4.9f1` 打开 `Game/`，复用已有导入缓存；依赖以提交的 `Packages/manifest.json`、`packages-lock.json` 和 [依赖说明](DEPENDENCIES.md)为准。不要另复制整个 Library。
-4. 等本批脚本编译就绪后，再执行依赖它们的资源操作或测试。正式 Prefab、场景、注册源和 Addressables 配置已经存在；普通导入／构建不运行资源初始化脚本。
+1. 在仓库根核对Git分支和未提交修改，保留用户／其他会话编辑；检查C／D磁盘余量和[工作区归属](WORKSPACE.md)。
+2. 对照manifest、packages-lock和[依赖说明](DEPENDENCIES.md)。缺少当前锁定输入时依次运行 `pwsh -NoProfile -File tools/grid-business/prepare-dependency.ps1` 与 `pwsh -NoProfile -File tools/prepare-fishnet.ps1`；未知改动不重置，不改用户框架工作区。
+3. 用锁定6000.4.9f1打开Game，复用Local已有Library和单一Editor，Linear及现有管线保持。不另复制／链接缓存或并行导入。
+4. 等本批必要导入／脚本编译就绪。正式Prefab、场景、Definition、注册及Addressables已存在，普通导入／构建不执行Initialize Environment、Install Initial或一次性校准覆盖作者资产。
+5. 获准且通过内存／磁盘门控后，短时从 `Game/Assets/Scenes/Bootstrap.unity` 进入本机Host，按当前切片检查就绪、地面主角和实际操作；不是每次文档／静态修改都启动Play。
 
-早期环境创建步骤属于已完成的 M0／M1，见[开发记录](DEVELOPMENT.md)。不要重新运行 `Initialize Environment`、`Install Initial` 或一次性资源校准来覆盖人工资产。原 GUID、Prefab overrides 和唯一场景布局继续保留。
+当前照明后端首次导入、Shader和画面仍待验，开项目或静态编译成功不等于完成这些检查。测试及构建的有限操作入口见[CLI流程](UNITY_CLI_WORKFLOW.md)。
 
-## 从现有代码理解规则
+## 从当前路径理解实现
 
-先沿当前 Unity 实现阅读；以下路径均已存在，相对于 `Game/Assets/DarkNights/Scripts`。Godot `../projects` 仅作为冻结规则和表现参考，不用于日常构建或继续开发。
+路径相对 `Game/Assets/DarkNights/Scripts`；旧Godot基线只用于冻结规则／作者来源。
 
 | 顺序 | 入口 | 重点 |
-|---|---|---|
-| 1 | [SessionAuthority](../Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs) | 可信连接、权限、策略版本、去重与请求执行 |
-| 2 | [ObjectSession](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs) | 组合 YYGC 能力、对象索引和生命周期，不另持有运行世界 |
-| 3 | [CampSimulationBehaviour](../Game/Assets/DarkNights/Scripts/Runtime/Objects/CampSimulationBehaviour.cs) | 会话模拟状态；个体状态归各自 Behaviour／State |
-| 4 | [ObjectConstruction](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectConstruction.cs) | 放置校验、支付与创建事务；工位分配见同目录 ObjectWorkOrders |
-| 5 | [ObjectReplica](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectReplica.cs) | 客户端只读对象副本，与权威业务状态分离 |
-| 6 | [ObjectSnapshotMapper](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSnapshotMapper.cs) | 从所属状态捕获冻结存档；恢复由 ObjectWorldRestore 处理 |
+| --- | --- | --- |
+| 1 | Entry/GameSessionStartupModule | Bootstrap准备、会话装配及资源所有权 |
+| 2 | Runtime/Session/SessionAuthority | 可信连接、策略／租约、请求及去重 |
+| 3 | Runtime/Objects/ObjectSession | 组合YYGC能力与对象索引，不另持有运行世界 |
+| 4 | Runtime/Objects/HeroInventoryBehaviour及ShipTradeService | 真实持有、购买、支付及装备短事务 |
+| 5 | Runtime/Objects/Hero*能力及地形／矿层入口 | 主角输入、动作、权威地图修改与货袋 |
+| 6 | Runtime/Objects/ObjectSnapshotMapper及ObjectWorldRestore | 冻结捕获、候选准备和原子恢复 |
+| 7 | View／Entry的展示和照明接线 | 只读副本、视图／镜头、后端及生命周期 |
 
-跟一次“选中工人→放置住宅”的链路：本地输入形成明确请求参数，经 YYGC 命令链进入 SessionAuthority，再由 ObjectSessionCommands 调用所属能力。支付和创建在权威端执行；选择、预览与镜头属于本地表现。不要把已退出的 GameSession／WorldState 或独立 Core 实体重新接回运行入口。
+跟一次“E打开商店→购买矿镐”：本地交互形成明确请求，经既有YYGC链进入SessionAuthority，服务端验证权限、位置、价格及库存，在同一事务支付／装配；客户端从回执与冻结投影更新界面。采集再沿真实装备能力及目标地图事务处理。旧住宅建造、训练和自动矿工不作为当前入门操作。
 
-## 根据任务找到当前 Unity 目录
+## 按任务找到职责
 
-路径相对于 `Game/Assets/DarkNights`。Scripts 为代码区，Res 为资源区，完整状态归属见[技术架构](ARCHITECTURE.md)。
+| 任务 | 目录／合同 |
+| --- | --- |
+| 对象状态、装配或程序集 | Runtime/Objects、Framework及[架构](ARCHITECTURE.md) |
+| 权限、输入、同步、Ready、重连 | Runtime/Session、Network；View/GameInputActions及Entry接线；[联机](MULTIPLAYER.md) |
+| 工具参数／目标匹配 | Res/Objects所属Definition；[工具能力](TOOL_DEFINITION_HARVESTING.md) |
+| 地图生成、坡形、矿层、装卸 | Runtime地形适配及纯Core算法；[地图合同](TERRAIN_GENERATION.md) |
+| 照明／材质／挂点 | Res/Shared/Lighting及对象Prefab、View、Entry；[照明](LIGHTING.md) |
+| UI、场景、草稿与作者资源 | Res所属目录及原生工具；[工作台](EDITOR_WORKBENCH.md) |
+| 保存格式和关系 | Core/Save、Runtime/Save及Objects捕获／恢复；[文件合同](SAVE_FORMAT.md) |
+| 框架通用缺口 | 先只读调查并列具体文件／原因／落点／验证，按AGENTS取得范围同意 |
 
-| 开发任务 | 归属 |
-|---|---|
-| 改成本、伤害、建造时间 | Res/Config 的 JSON；Scripts/Core 只读 |
-| 改采集、训练、攻击规则 | Scripts/Runtime/Objects 中所属 Behaviour／能力与 Unity 规则回归；纯计算才放 Core/Logic |
-| 新增一种玩家命令 | Scripts/Runtime/Session、Runtime/Network 和所属 Objects 能力；验证可信来源、权限、参数和去重 |
-| 关闭共同操作／调整房间控制权限 | Runtime/Session 的 SessionAuthority 统一校验 PolicyRevision 和共享策略；枚举位于 Core/Logic/State；直接命令、自动派工和训练共用校验 |
-| 改同步频率、加入或重连 | Scripts/Runtime/Network，不能改客户端 HP 算法 |
-| 换图、动画、角色锚点 | Res/Objects 下所属对象目录；原图引用 Res/Art/Original，改图放 Res/Art/Custom；在 ArtReview 检查 |
-| 调 HUD 布局 | Res/UI/HUD；动态显示代码在 Scripts/View |
-| 排查资源加载、对象装配与组件绑定 | Scripts/Runtime/Framework、Scripts/View 及 Res 中所属对象的 Definition／Prefab；不靠 GetComponent 兜底缺失绑定 |
-| 改初始摆放 | Res/Scenes/Pinewatch/Pinewatch.unity；正式 Prefab 直接放在 Buildings／Worksites／Actors 分组，Hierarchy 顺序就是创建顺序；ScenePlacement 只保存自动身份和实例初值，Loader 提供 Definition 并接管原对象 |
-| 改保存格式 | Core/Save 冻结合同＋Runtime/Save 文件边界＋Runtime/Objects 捕获／恢复；当前仅 v3，不要求旧档迁移 |
-| 改主角操控／默认人物 | Entry/HeroPlayerController、Runtime/Session/SessionHeroControl、Runtime/Network/SetReadyCommand、View/GameInputActions 与 Runtime/Objects/Hero*Behaviour；保持原生 Player 动作名称和服务端唯一分配 |
-| 学习 YYGC 输入 | `Assets/Samples/YYGCInputActions/Content/InputActions.unity` 与同目录上层 README；框架源在 `Samples~/InputActions` |
-| 改YYGC通用代码 | 独立框架checkout，先确认必要范围与工作区状态 |
+Core仅纯计算和冻结合同，业务不迁回旧Core运行世界。C#9、.NET Standard 2.1、中文summary及手写单文件300行上限见[AGENTS](../AGENTS.md)。
 
-## 当前可以运行的命令
+## 首批检查与交付
 
-在 `unity-projects` 下：
+按影响安排规则／架构、Editor、场景／Prefab、独立Host＋Client及真实文件恢复；暂停业务的旧矩阵不自动加入。需要新Player时默认Mono，每配置只构建一次并复用完整产物。源码／依赖／配置不同则旧Player通过数不能替代；IL2CPP、前台性能和双机器按各自条件。
 
-```powershell
-git status --short
-git log -1 --oneline
-python tools/measure-stage-storage.py --output artifacts/storage-review
-```
-
-这些命令读取状态和盘点空间，不启动 Unity／Player 或执行删除。原始评估与冻结夹具保留；不重生成旧期望来掩盖差异。
-
-历史规则／Editor 覆盖见[回归映射](archive/YYGC_UNIFIED_TEST_COVERAGE.md)；当前试玩入口见[飞船切片](archive/WALKABLE_EXPEDITION_SHIP.md)，旧 Player 复跑参数见[主角与输入联合执行](archive/PRESENTATION_HISTORY.md)。只验证受本批改动影响的范围；输入未变时复用已通过证据。新构建输出到新的空目录，后续脚本显式传入 `-PlayerPath`，避免使用历史默认产物。手写 C# 遵守 C# 9／.NET Standard 2.1、中文 XML summary 和 300 行上限。
+只提交本次授权源码／配置／文档及meta，不提交缓存、用户存档、密钥或本机设置，不推送远端。产物归属及保全见WORKSPACE。日常操作通过CLI串行，不因超时重发已经消费的请求；文档修改只报告文档核验。

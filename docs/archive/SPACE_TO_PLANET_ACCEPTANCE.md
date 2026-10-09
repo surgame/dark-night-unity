@@ -32,7 +32,7 @@
 
 构建前候选记录：Unity `6000.4.9f1`、协议 **15**、存档 **v11**、提交 `4f270dcc83df9be56d9daaed3786c0bcb247aa42` 及当时未提交源码清单；框架记录 `0b1fad66b904808dd8803b6601ab82dac76e4927`。这是 r1 构建输入快照；r2 独立报告保存实际 Player/程序集哈希，不把源提交号作为含未提交改动产物的唯一身份。[I] [N3]
 
-正式机器可读映射、324 个去重用例、原始绝对路径、专项源码哈希和 UI 步骤摘录见[当前证据映射](evidence/space-planet-flow-acceptance-current.json)。原 [17:22 初始状态快照](../../artifacts/space-planet-flow/acceptance-current-evidence.json) 保持不改写。
+正式机器可读映射、324 个去重用例、原始绝对路径、专项源码哈希和 UI 步骤摘录见[当前证据映射](evidence/space-planet-flow-acceptance-current.json)。原17:22初始快照路径 `artifacts/space-planet-flow/acceptance-current-evidence.json` 保留为来源；本次检查时已不在原位置，查阅入口使用上方保留的机器映射，不重生成或改写原快照。
 
 ## 实现范围与设计差异
 

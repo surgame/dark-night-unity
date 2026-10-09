@@ -1,75 +1,47 @@
-# Dark Nights Unity 开发执行计划
+# Dark Nights Unity 开发执行状态
 
-2026-10-09按用户要求将[灯口截面与可切换照明后端](LIGHTING_BACKENDS_20261009.md)集成本地 `main`，保留现行协作约定和共同基线已有成果；系统最低提交余量改为8 GiB。Core灯口探针12/12及三配置静态编译／受影响架构通过，真实Unity导入meta、Shader、Editor专项测试、双后端切换和画面仍待验；本次Git集成没有新增Unity／Player通过结论。协议31／存档v23／AMP1 schema2及YYGC不变。
+本页统一维护当前源码身份、完成边界和待验队列。玩法范围见[地面基础玩法](GROUND_GAMEPLAY_BASELINE.md)，字段与依赖分别查长期合同；原批次过程和失败从[归档索引](archive/README.md)追溯。
 
-2026-10-09 [Debug Hub 物体面板改造](DEBUG_HUB_ICON_PANEL_20261009.md)位于 `fix-20261009-debug-hub-icons`，协议31／存档v23／AMP1 schema2保持。整行ListView退出，固定48×48／图标32px自动换行，Hub单一滚动；按业务配置及显式投射物身份筛出30个物体，全部有图标。正式Bootstrap Host的19项面板检查、720／480／320宽度布局、矿镐添加和槽位移除、切页及重开通过；真实Editor编译无错误，Development／Release静态编译无错误，已有弃用警告单独留账。游戏侧主题覆盖，无YYGC、依赖、Player或联机矩阵变更；本批产物与边界见实施记录。
+## 当前输入与完成边界
 
-2026-10-09 [可复用照明与手电道具](REUSABLE_LIGHTING_20261009.md)已在当前分支完成：光效拆为共用环境照明和目标补光Prefab，提供头部挂载变体；手电占一个库存格，移除清理、恢复不重新配发、切工具持续照明均接入。当前协议 **31**／存档 **v23**／AMP1 schema **2**。真实Editor编译0错误／0警告，专项10/10与正式Bootstrap探针1/1；按影响合并33个不同用例通过，3个依赖暂停／未实现旧业务的失败保留。无新增Player或独立进程联机结论，YYGC保持。详细证据、内存停止及中间产物保全见实施记录。
+截至2026-10-09，照明灯口／可切换后端源码已集成本地main，包含此前地面玩法、手电库存化和Debug Hub图标成果。游戏协议 **31**，存档 **v23**，AMP1 schema **2**；Unity锁定 **6000.4.9f1**，Linear、URP及YYGC锁定依赖保持。实际常量位于 `SessionAuthority.ProtocolVersion`、`SessionSnapshot.CurrentVersion`，依赖以manifest、packages-lock和补丁锁为准。分支切换、源码合入及静态编译不代表真实Unity导入或当前Player验收完成。
 
-2026-10-09 已按用户要求将 Runtime Debug Hub UITK 候选合入 `ft-20261008-flashlight-lighting`，统一协议 **30**／存档 **v22**／AMP1 schema **2**。保留手电控制、局部照明、地形加载修复及调试物体网格和房主操作。合并验证与工作树保全结果见[集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md)；旧候选和旧 Player 结果不计入本次合并验收。
+本次顶层文档整理在 `docs-20261009-document-responsibilities` 进行，只更新Markdown及既有HTML中的必要导航。本轮没有修改源码、人工资产、协议／存档／依赖锁、YYGC、Player或冻结证据，没有运行Unity编译、测试、Play或构建。
 
-2026-10-08 手电候选位于 `ft-20261008-flashlight-lighting`，协议28／存档v22／AMP1 schema2。正式工具、权威开关、独立照明方向、局部 GPU 光照与可调墙内上限已实现；编译和架构通过，原生资产已安装。定向测试和画面状态见[实施记录](FLASHLIGHT_IMPLEMENTATION_20261008.md)，不借用旧 Player 计数。按用户要求仅做简单快速验证，其余由用户人工验收；YYGC未修改／升级。
+| 当前已接入的内容 | 最近证据与实际边界 |
+| --- | --- |
+| 地面开局、购买、主角／装备／飞船入口 | 原协议27／v21批次：51项定向Editor＋2项正式UI共53个不同用例通过；[装备证据](evidence/equipment-restore-20261007.json)。不代表后续协议31的独立Player已验 |
+| 原生矿层与两层局部流 | 初轮协议25／v19的Editor、组合画面及指定Mono结果保留在[原记录](archive/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)；当前状态、网络和文件合同已分别承接 |
+| 手电进入四格库存、共用光效与目标补光 | 原批次专项10/10＋Bootstrap短时探针1/1；按影响合并33个不同用例通过，3个旧业务失败留账；[证据](evidence/reusable-light-20261009.json)。没有本批独立Player或长期性能结论 |
+| Debug Hub图标物体页 | 原批次19项Host面板检查、720／480／320宽度、矿镐添加及槽位移除通过；[证据](evidence/debug-hub-icon-panel-20261009.json)。不覆盖完整生命周期与跨进程调试矩阵 |
+| 有限灯口及PrivateField／Urp2D后端 | Core灯口探针12/12、三个配置静态编译及受影响架构通过；真实Unity、Shader与双后端画面仍待验；[证据](evidence/lighting-backends-20261009.json) |
+| F10有界日志及中文回退 | 地面批次队列／过滤6项、中文F10探针1项、正式商店UI1项通过；[证据](evidence/ground-gameplay-baseline-20261007.json)。原两次OOM与失回执批次保留 |
 
-2026-10-08：`ref-20261008-runtime-debug-hub-uitk` 隔离候选完成 UITK Debug Hub、物体网格、原持有装备区与房主免付费事务。候选协议29／存档v21／AMP1 schema2；与手电筒候选协议28区分。本批仅静态编译和源码合同核验，无 Unity 导入、Play、测试运行或 Player；未合入 Local/main。见[实现记录](RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md)与[面板规范](RUNTIME_DEBUG_HUB_SPEC.md)。
+以上结果各自保留源码、日期、配置、报告及Player身份，不相加成当前候选总通过数。当前没有覆盖协议31／v23及新照明后端的完整独立Player验收记录。
 
-2026-10-07，当前地面基础玩法候选为 `ref-20261007-ground-gameplay-baseline`，协议 **27**／存档 **v21**／AMP1 schema **2**，Editor **6000.4.9f1**。原生矿层及地形调试此前已集成本地main。早期迁移、M0–M6及历次实现已整合为[项目演进摘要](archive/PROJECT_HISTORY.md)，完整原文从整理回执所列Git基线恢复。
+## 当前待验队列
 
-本次集成保存了工作区已有的 `WorldSession.asset` 入口走道Modifier关闭配置。托管引用4项完整，核对除 `EntranceWalkwayModifierConfig.Enabled` 从1变0外配置数据不变，引用ID与顺序变化来自已有序列化结果。本次只做Git集成、差异和引用核对，沿用下方原批次证据；未重跑Unity、构建Player或新增联机验收结论。
+| 项目 | 仍需完成的检查 | 前置条件／原始入口 |
+| --- | --- | --- |
+| 照明后端导入 | 新脚本／HLSL首次导入及meta、真实Unity／Shader编译、`LightingBackendTests`、模板provider持久化复核 | 同一Local Editor、编译及内存门控；[后端原记录](archive/LIGHTING_BACKENDS_20261009.md) |
+| 双后端画面与释放 | Bootstrap中Private→URP→Private，地图更换、非游戏相机、失败后切换、灯／纹理／遮挡退休和真实组合画面 | 上项通过后短时探针；私有墙内补光／反射与URP能力分别验，不能视作逐像素同效果 |
+| 局部换区修复 | 最终源码Unity编译、两项新增缓存回归、扩展组合用例；原位置、横向／深入连续换区的缺墙及闪底色复验 | [诊断与停止记录](archive/TERRAIN_STREAMING_FIX_20261007.md)、[证据](evidence/terrain-streaming-fix-20261007.json)；不借用别批GPU探针或启动成功核销画面 |
+| Debug Hub边界 | 注册代次／同名旧句柄／失败页、关闭Domain Reload；动作中移除、批量上限、普通Client及旧epoch／库存版本／重复序号拒绝 | [原人工清单](archive/RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md#关键人工测试项)；已验基本图标操作保留，其余逐项核销 |
+| 当前联机与存档 | 同一新Mono的2人／4人、正常／弱网，支付竞争、Host单次执行、权限、Ready、晚加入／重连、暂停、epoch；装备／手电／两层地图真实写盘、加载和重启恢复 | 按当前开放玩法套用[联机验收](MULTIPLAYER.md#联机验收重点)及[存档检查](SAVE_FORMAT.md#验证要求)，每个配置构建一次复用 |
+| 操作与可见性 | 正常速度下主角坡沿／跳跃、改键、洞室通行；照明方向／身体可读性、厚墙／坡形、挖墙／爆破／换区更新及多光源 | [照明人工检查](LIGHTING.md#人工检查)、[工作台诊断](EDITOR_WORKBENCH.md#主角地面诊断)；不以后台或离屏小样签署最终手感 |
 
-## 当前实现
+监控入口为 `tools/ground-baseline/watch_memory.py`。本机停止线为Editor私有8 GiB、可用RAM6 GiB、系统提交余量8 GiB；构建另留预计分配余量。此前4 GiB门控下的样本仍按原批次保存。门控或编译失败后停止本任务后续批次，不结束其他应用；流程见[Unity CLI](UNITY_CLI_WORKFLOW.md#内存门控)。
 
-2026-10-07 [局部换区缺墙／闪底色修复候选](TERRAIN_STREAMING_FIX_20261007.md)：运行中确认17,903个格子与岩壁缓存不一致，后加载格现走同一缓存失效入口；同世界换区保留背景及重叠页面，以完整新基线确认Ready。静态架构748／16／0、差异检查通过。独立监控在系统提交余量3.951 GiB时按4 GiB停止线退出Play，之后未提交Unity验证批次；最终编译、新增回归和连续换区画面待验，不宣称修复视觉通过。协议27／存档v21／AMP1 schema2、YYGC及作者资源不变。
+## 历史失败与挂起项
 
-2026-10-07用户追加确认：矿镐光标／目标／耐久／距离提示、挥镐采集及收益、手枪／爆破／手持投射物、喷气背包全部保留可操作入口。现已恢复本地采样、可信使用输入、装备步骤、有界投射物推进及合法装备／个人货袋恢复；采矿不再增加警戒。目标／耐久／距离提示接入当前可见装备HUD，船内继续禁用手持攻击。炸药按用户选择只恢复已有操作链，不新增商品、价格或数量；NPC、刷怪、物流、出售、升级、返航结算和旧营地仍暂停。
+- 可复用照明扩展回归仍有3个旧用例失败：`DeathRemovesPossessionWithoutAnOrphanedPlayerIndex`依赖暂停的StartNight刷怪，`ShopAndSaleUseLeasePositionAndAtomicState`依赖暂停出售，`ShopReservesFirstPickaxeBudget`依赖未实现预算规则。原失败和前后复验保留，不将全部回归写成通过。[原记录](archive/REUSABLE_LIGHTING_20261009.md)。
+- 2026-10-05最终Mono为 `artifacts/map-state/player-mono-20261005-083543-43792d9e/DarkNights.exe`，身份在 `artifacts/weak-network-completion-20261005/final-player-source-manifest.json`。原16组矩阵未完成：四人采矿弱网38/38、两人采矿弱网中断，其余不能搬用旧产物计数。该Player早于主角输入／Host展示及后续玩法／照明变更；[补测过程](archive/WEAK_NETWORK_VALIDATION_COMPLETION_20261005.md)继续保留，不能作为当前候选的验收产物。
+- 矿工完整路线、设备物流、出售／返航结算、二次完整太空航程及旧营地全局矩阵随对应玩法恢复再安排。挂起不等于已通过或删除失败，不因旧清单自动恢复业务。
+- 前台性能按用户暂缓边界保持待验；后台容量、启动成功和隐藏小样不替代。IL2CPP主动生成／覆盖／验证需用户明确后端授权；双机器LAN需要实际第二台设备，本机多进程不替代。
+- 手持装备旧批次的未完成人工／池化／联机项目、工具能力弱网重连失败、地形工作台可见页失败和美术来源均保留在[归档索引](archive/README.md)，继续前须核对当前适用范围和输入身份。
 
-本次恢复使用协议27／存档v21／AMP1 schema2，旧文件保留。编译无错误，51项定向Editor和2项正式UI共53个不同用例按影响合并通过，架构747文件／16自测／0命中。真实UI验证新局购买、步行下船、采集框和可见提示、鼠标挥镐及实际地形伤害、数字键切枪射击、喷气消耗及落地，并复验商店、F10、模态和断线。首轮混合UI测试挖掉返回路线后在回商店失败，现分成独立新局；失败和编译修复记录保留，不增加重复通过数。证据见 `docs/evidence/equipment-restore-20261007.json`。独立内存监控覆盖本批；未构建新Mono／IL2CPP，也没有新增独立进程联机结论，YYGC及作者资产未改。
+## 执行与文档维护
 
-本批1799次内存采样中Editor私有内存最高4.590 GiB、可用RAM最低11.164 GiB、提交余量最低4.112 GiB，未越界；最终已退出Play，监控结束。提交余量曾接近停止边界，后续构建仍需单独检查额外余量。
+只重跑失败、受新输入影响或有新证据的阶段。每批先检查磁盘及内存，复用Local的单一Editor和当前缓存，串行导入、生成、编译及构建；保留任务ID、完成标记、退出码和原始报告。历史成功不能替代当前源／配置／Player身份。产物按[工作区保全流程](WORKSPACE.md#阶段产物盘点与保全)处理。
 
-2026-10-07首批提交013be06完成[地面玩法收敛](GROUND_GAMEPLAY_BASELINE.md)：开局落在星球地面，保留购买、库存和可操作的驾驶／起飞／降落；采集、战斗、NPC、物流、远征计时／警戒／结算和营地修改暂退运行。协议26／存档v20拒绝旧格式，作者资产和暂退实现保留。当前编译无错误、31个不同Editor检查按影响合并通过（地面会话4、输入／跳跃19、日志队列／过滤6、短时F10 1、正式商店UI 1），架构745文件／16自测／0命中。正式UI包含真实Host Ready、地面出生、键盘行走、购买、三种分辨率、F10、模态释放和断线。
-
-该验证发生两次F10中文缺字警告反馈OOM，原失败与失去回执的批次保留。游戏侧现有界转入日志、运行时CJK回退和独立每秒内存保护，短时探针及正式商店测试已完成；当前系统提交余量约6–8 GiB，暂未启动高内存Mono构建或独立进程2人／4人正常／弱网矩阵。联机保留实现且真实YYGC四连接Editor验证通过，不宣称独立Player联机通过；IL2CPP与双机器未验。见[事故与保护](UNITY_MEMORY_INCIDENT_20261007.md)和本批机器证据 `docs/evidence/ground-gameplay-baseline-20261007.json`。
-
-2026-10-07 游戏消息日志修复：将HUD消息及横幅的游戏提醒标记与日志等级分开，统一Gameplay／Info；危险提醒用橙色、普通信息和横幅用青蓝色，Console输出与隐藏HUD容器的合同保持。编译0错误／0警告，临时Editor预览场景核验三个实际HUD调用、Log类型及Smart Console消息Prefab字形颜色通过；Play探针未完成，不增加正式Play、Player或联机验收结论。见[日志记录](SMART_CONSOLE_INTEGRATION.md)。协议25／存档v19／AMP1 schema2与YYGC保持。
-
-2026-10-07初版 [F1游戏逻辑清单与移除评估](F1_GAMEPLAY_INVENTORY.md)覆盖原远征页16个操作、面板背后自动玩法和旧营地依赖；清单提交 `5d04930` 当时仅含整理，协议25／存档v19不变。用户随后确认的实施及本轮验证以上述地面玩法候选为准。
-
-2026-10-07 Bootstrap启动修复位于 `fix-20261007-bootstrap-preload`：现有UniTask并发预加载对象与六个UGUI模板，实例装配顺序保持；失败／取消等待全部请求收尾并释放晚成功租约。相同0.1秒模拟延迟下，Editor进入Play至首次菜单Canvas渲染准备三次均值6.114秒→3.318秒，减少2.797秒（约45.7%）；CPU渲染边界及热缓存条件见[实施记录](BOOTSTRAP_STARTUP_OPTIMIZATION.md)。定向Editor50/50、架构741／16／0、正式菜单帮助与Host Ready、退出残留0通过；YYGC、依赖、场景与人工资产未改，没有新增Player或联机矩阵结论。
-
-2026-10-06 地形调试整合原分支为 `ft-20261006-terrain-debug-integration`，已于2026-10-07合入本地 `main`：AnyRuleD菜单统一到YY，正式前景／矿层绑定只读网格检查；工作台Play页面可选择地图并打开同一窗口。该批Editor编译无错误、真实两层宿主回归1/1、Bootstrap Host地图就绪与四角检查、退休释放通过，Scene Shift实点(88,-71)及600×800窗口截图通过，架构732／16／0；没有新增Player或联机矩阵结论。YYGC两个Editor文件的具体授权、锁定补丁及20项重建记录见[账本](YYGC_CHANGES.md)和[操作说明](TERRAIN_GRID_DEBUGGER.md)。
-
-当前正式开局沿 Bootstrap → 星球地面，主角、库存和船体状态继续归所属YYGC Behaviour；前景和矿层由会话托管的原生地图拥有。协议、装备身份、存档和两层Ready联合校验。下述采矿实现及旧矩阵是本次暂停前的历史记录，不作为基础玩法当前入口或验收门槛。
-
-拆墙露出对应矿格而不伤矿物；采矿检查前景遮挡、装备、距离、地图代次及格内容版本，耐久、储量和奖励沿用现有事务。客户端两层分别局部订阅、加载和显示，换区保留静态背景。具体实现、覆盖和未验边界见[原生矿层记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
-
-## 验证状态与待完成项
-
-2026-10-06 同分支追加 Cave Wall Tuner 双网格叠图与逻辑格笔刷对齐；拆／填默认逻辑，可手动切换渲染网格。定向5/5、实际填／拆各只修改一个预期逻辑格、两种网格与最小窗口截图通过，编译无错误、架构734／16／0。原窗口的未保存草稿保留，验证使用独立临时窗口并关闭；作者资源、配置和YYGC未改，不新增Player／联机矩阵通过数。见[记录](evidence/cave-wall-grid-modes-20261006.json)。
-
-同日追加 Cave Wall Tuner 的1／2逻辑／渲染网格快捷键（支持小键盘），工具栏按钮按当前模式高亮，画布同步提示；隐藏网格可由快捷键或按钮重新开启。字段输入、鼠标拖动与航程示意受到保护。编译无错误，原网格回归5/5、窗口事件23项检查及1000×720／800×520布局通过；原未保存草稿保留，临时窗口已释放。作者资源、YYGC、协议与存档未改。见[快捷键证据](evidence/cave-wall-grid-shortcuts-20261006.json)。
-
-同日修复 Cave Wall Tuner 草稿保存入口：顶部“保存全部”和Ctrl+S统一保存地图、航程及表现，Modifiers启停采用常显状态卡片与启用计数；保存结果不再被每帧渲染状态覆盖。编译无错误，保存／重读／冲突与既有作者合同19/19，实际窗口的开关、输入字段内Ctrl+S、保存按钮及关闭重开通过，1000×720／800×520布局已检查。原窗口草稿保留，作者资源与YYGC未改，未构建Player。见[记录](evidence/cave-wall-modifier-save-20261006.json)。
-
-矿层初轮已记录受影响 Editor 105/105、组合画面，以及对应 Mono 正常两人30/30、四人38/38、弱网两人30/30；这些只代表该批产物。后续周报补测修复了合法长槽位路径导致临时文件越界的问题，并构建最终 Mono。
-
-后续已保存的合并 Editor 记录为608个不同用例通过，存档修复受影响20/20；Core1048/1048、纯航程1903/1903及其他定向结果以[补测过程记录](archive/WEAK_NETWORK_VALIDATION_COMPLETION_20261005.md)和原始报告为准。本次目录整理没有重跑或新增游戏通过计数。
-
-本次集成另包含主角地面与跳跃诊断工具、跳跃边沿立即发送，以及 Host 本地主角在权威模拟后的即时冻结展示。最新编译无错误，定向检查主角35/35、展示28/28、记录器6/6；提交前核对修复源码SHA-256与[原始验证记录](evidence/hero-input-presentation-20261005.json)一致。提交前另跑Core1048/1048、架构守卫731个手写文件／16项自测／0命中，两个改动Python驱动语法通过，报告保留在 `artifacts/commit-main-20261005/`。本次未重建Player，实际坡沿手感、独立进程与远端客户端验证仍待完成；协议、存档及YYGC依赖未改变。
-
-最终 Mono 为 `artifacts/map-state/player-mono-20261005-083543-43792d9e/DarkNights.exe`，源／DLL 身份在 `artifacts/weak-network-completion-20261005/final-player-source-manifest.json`。最终16组矩阵尚未完成；已存在该产物四人采矿弱网38/38报告，另有两人采矿弱网中断状态，不能将旧产物的装备／航程通过数搬入最终矩阵。整理时没有发现运行中的 Python 测试或游戏 Player，未重新启动矩阵。
-
-上述Mono早于本次主角输入与展示修复，其通过数不能作为当前 `main` 的Player验收结果。
-
-下一轮按同一产物的实际结果核销采矿、装备交易和航程两人／四人、正常／弱网及 Host／Client 驾驶组。保留所有失败报告；只重跑未完成或受修复影响的组。完成后重新生成最终汇总并更新本页，不将进程启动或调度提交当成通过。
-
-专项前台性能、最终操作手感、改键体验、洞室通行、矿工完整路线和结算后二次航程仍须分别验收。IL2CPP 需要用户明确后端授权，双机器需要实际设备。不同目的地竞争因当前只有一颗可用星球而不适用，同目的地及非法目的地仍验证。
-
-## 执行方式
-
-复用 Local 的单一 Unity 通道，通过[Unity CLI](UNITY_CLI_WORKFLOW.md)提交有限批次。编译、导入和构建串行；每个有新增输入的 Mono 配置构建一次，复用同一产物验证。长任务写日志，保存任务身份、退出码和原子结果；失败仅处理受影响阶段。
-
-YYGC 与 `.deps` 源码、补丁和锁定版本修改必须先获具体授权。当前矿层迁移与本次整理没有修改框架。新分支与提交遵循 [AGENTS.md](../AGENTS.md) 的日期命名和中文提交规范。
-
-## 目录与归档
-
-当前目录用途见[工作区说明](WORKSPACE.md)。旧方案与过程归 `docs/archive/`，机器证据按当前用途保留；已整合的重复过程和移除证据见[精简回执](archive/DOCUMENT_CONSOLIDATION_20261007.md)。确认不用的临时产物统一移动到 `artifacts/待清理/YYYYMMDD-任务名/` 并写清单；归档只集中保留，不释放空间或授权永久删除。
+完成状态只在本页更新；稳定规则进所属合同，实际操作进指南，实施与失败进归档。顶层整理映射、Git恢复基线和文档核验见[整理记录](archive/README.md#2026-10-09顶层职责整理)。

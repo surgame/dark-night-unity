@@ -13,7 +13,7 @@
 - Mono 路径：`artifacts/map-state/player-mono-20260929-193510-e4a28d7f/DarkNights.exe`。Unity BuildPipeline 实际返回 Success；收尾脚本再次写入已恢复且被映射的设置文件曾报 IO 1224，两个 ProjectSettings 文件核对无本批残留变更。现跳过字节相同的写入，补有锁文件回归。没有为这个 Editor 收尾修复重复构建 Player。
 - ArchitectureGuard 检查存在 16 条既有问题；对提交基线与当前源码分别运行后错误列表相同，本批未新增。YYGC `fee18645c997ed7529c4592917de6c412033c84e` 未修改；现有 manifest 仍指向本机 YYGC 路径，不代表新机器依赖恢复已验收。
 
-当前证据与原始结果索引见 [修复摘要](evidence/ship-shop-fix-20260929.json)。人工操作步骤见[玩家说明](../PLAYER_GUIDE.md#ship-trade-quick-check)。
+当前证据与原始结果索引见 [修复摘要](evidence/ship-shop-fix-20260929.json)。现行购买／驾驶操作见[玩家说明](../PLAYER_GUIDE.md#购买与飞船)；本批旧操作原文可从[顶层整理基线](README.md#2026-10-09顶层职责整理)恢复，出售及太空步骤不作为当前入口。
 
 边界：Player 的四格 HUD／中文及鼠标菜单已现场观察；Computer Use 注入的 E 和 Esc 均未被该 Player 接收，不能将该次尝试记为实际 Player 键盘交互通过。E／Esc 的自动回归来自正式 Editor Play 输入链。实际手感、下船采矿再返回出售、完整航程、弱网、四人、IL2CPP、双机器和前台性能仍待对应验收，不能用本批结果替代。
 

@@ -264,4 +264,4 @@ A–B 优先形成最短可玩纵切，D 与配置模型同步完善，不先搭
 
 本轮仅阅读游戏及实际引用的 YYGC 源码，形成此设计与文档索引入口。未修改游戏代码、资源、依赖或用户正在进行的地形工作台改动，未启动 Unity、生成素材或构建 Player；无本方案的运行／联网通过声明，也没有新建待清理构建产物。
 
-相关当前合同：[技术架构](../ARCHITECTURE.md)、[联机设计](../MULTIPLAYER.md)、[可步入飞船](WALKABLE_EXPEDITION_SHIP.md)、[地图联网](MAP_STATE_NETWORKING.md)、[场景与当前未验边界](../SCENES.md)。
+相关当前合同：[技术架构](../ARCHITECTURE.md)、[联机设计](../MULTIPLAYER.md)、[可步入飞船](WALKABLE_EXPEDITION_SHIP.md)、[地图联网](MAP_STATE_NETWORKING.md)、[场景与当前未验边界](SCENES.md)。

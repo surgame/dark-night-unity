@@ -1,4 +1,19 @@
-# YYGC 修改授权与改动账本
+# YYGC修改授权与改动账本
+
+本页保留具体授权、逐文件修改、补丁来源及原验证边界，不承担当前游戏进度。准备流程见[依赖说明](DEPENDENCIES.md)，当前源码／验收见[执行状态](DEVELOPMENT.md)。2026-10-03起新框架修改须用户明确具体范围，历史授权不扩大本次许可。
+
+## 现行锁定入口
+
+| 项目 | 依据 |
+| --- | --- |
+| 当前基线与目标 | tools/grid-business/dependency.lock.json；fee18645c997ed7529c4592917de6c412033c84e → .deps/YYGC-grid-business |
+| 基础补丁与overlay | tools/grid-business/yygc.patch，再tools/debug-hub/yygc-debug-hub.patch，完整摘要取实际锁 |
+| 最近框架变更 | 下方10-09集成、10-08Debugging、10-06AnyRuleD入口及10-03Workshop条目 |
+| 较早授权定位 | [输入](#hero-input)、[U2](#unified-u2)、[场景定义](#scene-definitions)、[Workshop](#workshop-display)及按日期条目 |
+
+以下记录均保留其原分支、协议、静态／Unity／Player身份及授权范围；旧“当前”、候选或未完成表述只属于该条目的历史时点。游戏侧未改框架的批次保留为审计边界，不能据此自行修改YYGC／.deps源码、补丁或升级依赖。
+
+本轮文档整理只增加导航并更新文档引用，没有修改框架或依赖锁，逐项原记录继续保留。
 
 ## 2026-10-09：按用户请求集成现成 Debug Hub 候选
 
@@ -16,7 +31,7 @@
 | `Runtime/Debugging/RuntimeDebugPanelRegistration.cs.meta` | Unity首次导入生成；保存GUID及原导入设置 | Local锁定依赖及Debugging补丁；候选逐项一致 |
 | `Runtime/Debugging/RuntimeDebugPanelRegistry.cs.meta` | Unity首次导入生成；保存GUID及原导入设置 | Local锁定依赖及Debugging补丁；候选逐项一致 |
 
-18个源码／元数据与候选一致，Editor7、Development5、Release5个程序集静态编译均0错误，协议30／存档v22／AMP1 schema2。未运行合并版Play、测试或Player。用户YYGC主工作区既有RuntimeDebugHub.cs修改保留，未切换或覆盖。移除旧游戏worktree前保全原依赖副本与正式证据；过程见[集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md)。
+18个源码／元数据与候选一致，Editor7、Development5、Release5个程序集静态编译均0错误，协议30／存档v22／AMP1 schema2。未运行合并版Play、测试或Player。用户YYGC主工作区既有RuntimeDebugHub.cs修改保留，未切换或覆盖。移除旧游戏worktree前保全原依赖副本与正式证据；过程见[集成记录](archive/RUNTIME_DEBUG_HUB_MERGE_20261009.md)。
 
 ## 2026-10-08：Runtime Debug Hub UITK 重构候选
 
@@ -36,7 +51,7 @@
 
 可重建来源是 `tools/debug-hub/yygc-debug-hub.patch` 与同目录锁。基线仍为 `fee18645c997ed7529c4592917de6c412033c84e`，既有网格补丁SHA `58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb` 不变；新增Debugging补丁SHA为 `081456b98c116b352addd1d852414c59acf3d26aa9928a212936af6eb599b67a`。干净基线重建9/9文件一致，准备入口幂等通过。原网格准备脚本在完成原补丁后串行应用Debugging overlay，拒绝锁不匹配和未知文件差异。
 
-最终编译：Editor七程序集、Development五程序集、Release五程序集均0错误；源码输入哈希已核对。候选协议29／存档v21／AMP1 schema2；没有Unity导入、Play、测试执行、Player或联机验收，不借用其他切片的通过数。详见[实现记录](RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md)与[静态证据](evidence/runtime-debug-hub-20261008.json)。
+最终编译：Editor七程序集、Development五程序集、Release五程序集均0错误；源码输入哈希已核对。候选协议29／存档v21／AMP1 schema2；没有Unity导入、Play、测试执行、Player或联机验收，不借用其他切片的通过数。详见[实现记录](archive/RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md)与[静态证据](evidence/runtime-debug-hub-20261008.json)。
 
 ## 2026-10-06：获批地形调试入口整合
 
@@ -49,11 +64,11 @@
 
 游戏侧只在 Editor 给 `TerrainPreview`、`MineralLayerView` 绑定原生 `GridDebugView`，新回归位于 `TerrainGridDebugIntegrationTests.cs`。框架补丁仍以 `fee18645c997ed7529c4592917de6c412033c84e` 为基线，`tools/grid-business/yygc.patch` SHA-256为 `58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb`；既有18项保留，追加两个Editor文件，最终干净基线重建20/20与当前源码一致，准备脚本幂等通过。
 
-最终编译完成且无错误，架构732文件／16自测／0命中。首轮新测试断言编译错误、SceneHandle排序失败及Play退出时短暂残留的退休控制器均保留记录并修复；最终退休回归通过。后台Scene未绘制的尝试保留；随后受控聚焦Editor，真实Scene Shift事件在缩放宿主中选中(88,-71)，600×800窗口截图通过布局核对。未构建Player、升级YYGC或更改规则／渲染算法；游戏协议25／存档v19／AMP1 schema2不变。本批记录见[地形检查说明](TERRAIN_GRID_DEBUGGER.md)及 `artifacts/terrain-debug-integration-20261006/`。
+最终编译完成且无错误，架构732文件／16自测／0命中。首轮新测试断言编译错误、SceneHandle排序失败及Play退出时短暂残留的退休控制器均保留记录并修复；最终退休回归通过。后台Scene未绘制的尝试保留；随后受控聚焦Editor，真实Scene Shift事件在缩放宿主中选中(88,-71)，600×800窗口截图通过布局核对。未构建Player、升级YYGC或更改规则／渲染算法；游戏协议25／存档v19／AMP1 schema2不变。本批记录见[地形检查说明](archive/TERRAIN_GRID_DEBUGGER.md)及 `artifacts/terrain-debug-integration-20261006/`。
 
 ## 2026-10-05 原生矿层游戏侧接线
 
-本批没有修改YYGC、AnyRules、`.deps`源码／补丁或升级锁定版本。原生前景 `MapWireMessage` 与独立 `MineralMapWireMessage`／序列化，以及 `NativeMapTransport<TWire>` 位于游戏Runtime，复用现有MapInterestService、MapProtocol及ChunkReplicaStateMachine。记录的373项框架文件哈希复核0项变化；当前限制及验证见[实现记录](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
+本批没有修改YYGC、AnyRules、`.deps`源码／补丁或升级锁定版本。原生前景 `MapWireMessage` 与独立 `MineralMapWireMessage`／序列化，以及 `NativeMapTransport<TWire>` 位于游戏Runtime，复用现有MapInterestService、MapProtocol及ChunkReplicaStateMachine。记录的373项框架文件哈希复核0项变化；当前限制及验证见[实现记录](archive/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
 
 ## 2026-10-03：获批 Workshop 导航修正
 

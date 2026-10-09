@@ -11,9 +11,9 @@
 | 2026-09-17～22 | 随机地图、手采／恢复、洞穴工作台、远征营地、独立岩层、三层背景和可步入飞船 | [地形摘要](TERRAIN_HISTORY.md)、[飞船记录](WALKABLE_EXPEDITION_SHIP.md) |
 | 2026-09-24～29 | 局部地图联网、太空到星球流程、原地安全着陆、交易装备和冲刺 | [航程实现](SPACE_TO_PLANET_IMPLEMENTATION.md)、[航程验收](SPACE_TO_PLANET_ACCEPTANCE.md)、[交易验收](SHIP_TRADE_EQUIPMENT_ACCEPTANCE.md) |
 | 2026-09-30～10-03 | 采矿网格、Definition能力、工作台、地形Modifier、氧气移除与现有背景衔接 | [工具合同](../TOOL_DEFINITION_HARVESTING.md)、[氧气记录](OXYGEN_REMOVAL_VALIDATION.md)、[工作台](../EDITOR_WORKBENCH.md) |
-| 2026-10-04～05 | 内嵌矿从逐床状态迁到原生地图、墙后发现、两层局部流；主角跳跃发送与Host展示修复 | [现行矿层实现](../MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)、[执行状态](../DEVELOPMENT.md) |
-| 2026-10-06～07 | 地形网格检查、Cave Wall Tuner双网格／快捷键、草稿保存与Modifier启停展示集成到main | [地形调试操作](../TERRAIN_GRID_DEBUGGER.md)、[执行状态](../DEVELOPMENT.md) |
-| 2026-10-07～09 | 地面玩法收敛与装备入口恢复、日志／内存保护、手电和可复用库存照明、Runtime Debug Hub合并及物体图标面板 | [地面范围](../GROUND_GAMEPLAY_BASELINE.md)、[照明合同与证据](../REUSABLE_LIGHTING_20261009.md)、[Debug Hub集成](../RUNTIME_DEBUG_HUB_MERGE_20261009.md)、[图标面板](../DEBUG_HUB_ICON_PANEL_20261009.md) |
+| 2026-10-04～05 | 内嵌矿从逐床状态迁到原生地图、墙后发现、两层局部流；主角跳跃发送与Host展示修复 | [矿层合同](../TERRAIN_GENERATION.md)、[执行状态](../DEVELOPMENT.md) |
+| 2026-10-06～07 | 地形网格检查、Cave Wall Tuner双网格／快捷键、草稿保存与Modifier启停展示集成到main | [地形调试操作](../EDITOR_WORKBENCH.md#运行地图与网格检查)、[执行状态](../DEVELOPMENT.md) |
+| 2026-10-07～09 | 地面玩法收敛与装备入口恢复、日志／内存保护、手电和可复用库存照明、Runtime Debug Hub合并及物体图标面板 | [地面范围](../GROUND_GAMEPLAY_BASELINE.md)、[照明合同](../LIGHTING.md)及[原证据](REUSABLE_LIGHTING_20261009.md)、[Debug Hub集成](RUNTIME_DEBUG_HUB_MERGE_20261009.md)、[图标面板](DEBUG_HUB_ICON_PANEL_20261009.md) |
 
 2026-10-07该次集成保留已保存的WorldSession入口走道Modifier关闭配置，除该开关外配置语义不变；合并只核对Git差异和引用，未重跑Unity或构建Player。当时本地main为协议25／存档v19／AMP1 schema2，Editor6000.4.9f1；后续状态查开发执行计划，不沿用此批次版本。
 
@@ -32,3 +32,9 @@
 周报、可操作说明、美术来源、框架逐文件账本、未完成验收和清理清单仍在[归档索引](README.md)。已整合的全文及重复机器摘要不再常驻工作树；从[2026-10-07整理回执](DOCUMENT_CONSOLIDATION_20261007.md)列出的Git基线和旧路径恢复，不把已移除文件描述为仍在目录中。
 
 AGENTS中移出的20段阶段记录及仍有效约束的承接，见[2026-10-09协作约定整理回执](AGENTS_CONSOLIDATION_20261009.md)；完整原文保留在该回执列出的Git基线。
+
+## 顶层合同与过程分离
+
+2026-10-09按用户批准的32份逐篇清单将顶层收敛为17份现行入口，现行范围、对象／地图、权限、文件、工具、照明、操作和依赖账本各自有承接；15份过程及独立样板退出顶层。原Bootstrap并发准备、工具能力、地面装备／日志、矿层及照明的原计数／失败保留在对应机器证据和Git基线，当前状态统一DEVELOPMENT。
+
+完整移动／承接、未完成项与原文恢复见[整理记录](README.md#2026-10-09顶层职责整理)。本次只核验文档，没有新增Unity或Player通过结论。

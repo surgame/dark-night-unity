@@ -1,5 +1,7 @@
 # Debug Hub 与手电筒分支集成
 
+> 本页保留原批次日期、源码／Player身份、协议和实际验证结果。2026-10-09整合后，现行职责由[合同／操作入口](../DEVELOPMENT.md)承接；未完成项查[当前执行状态](../DEVELOPMENT.md)。归档不核销待验或借用旧通过数。
+
 2026-10-09，按用户要求将 `ref-20261008-runtime-debug-hub-uitk` 合入 `ft-20261008-flashlight-lighting`。手电筒原未提交工作先从受保护 stash 完整恢复，并保存为 `123f5b8`；调试候选与首次导入元数据保存为 `d2c7895`。合并保留两个历史父链，不改本地 main，不推送。
 
 ## 合并合同
@@ -12,7 +14,7 @@
 
 ## 依赖落点与资源
 
-现有获批 Debugging 改动通过原准备脚本接入 Local `.deps/YYGC-grid-business`。框架基线仍为 `fee18645c997ed7529c4592917de6c412033c84e`，既有网格补丁完整保留；Debugging 补丁只补入9个 Unity 自动生成的 `.meta`，没有新增框架源码行为。新补丁 SHA-256为 `64490b4dabd9249aba2483709df9aafad93d96ee3e39f978cc7ba9b24b0d8a4b`，输入文件和原因见 [YYGC账本](YYGC_CHANGES.md)。15个游戏资源元数据与首次导入原件逐字节一致；18个框架源码／元数据与候选一致（只规范化文本行尾作比较）。
+现有获批 Debugging 改动通过原准备脚本接入 Local `.deps/YYGC-grid-business`。框架基线仍为 `fee18645c997ed7529c4592917de6c412033c84e`，既有网格补丁完整保留；Debugging 补丁只补入9个 Unity 自动生成的 `.meta`，没有新增框架源码行为。新补丁 SHA-256为 `64490b4dabd9249aba2483709df9aafad93d96ee3e39f978cc7ba9b24b0d8a4b`，输入文件和原因见 [YYGC账本](../YYGC_CHANGES.md)。15个游戏资源元数据与首次导入原件逐字节一致；18个框架源码／元数据与候选一致（只规范化文本行尾作比较）。
 
 用户 `D:/Developer/YYGC` 主工作区既有 `Runtime/Debugging/RuntimeDebugHub.cs` 修改保留；不切分支、不重置、不覆盖。本次依赖接入授权来自用户对现成 worktree 成果的合并请求，范围保持原 Debugging 候选及生成元数据。
 

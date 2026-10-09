@@ -1,164 +1,68 @@
-# Unity 与 YYGC 依赖准备
+# Unity与YYGC依赖准备
 
-2026-10-09现行手电／DebugHub集成使用Local锁定路径 `.deps/YYGC-grid-business`：原网格补丁加Debugging overlay（含首次导入meta），协议30／存档v22。临时试运行的worktree包地址已撤除；本批只静态编译，见[集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md)。
+本页描述现行可重现输入及准备入口，版本与执行结果见[DEVELOPMENT](DEVELOPMENT.md)。最终来源为 `Game/Packages/manifest.json`、`packages-lock.json`、NuGet配置、准备脚本及其补丁锁；历史接入和授权见[YYGC账本](YYGC_CHANGES.md)，不按旧阶段段落选择依赖版本。
 
-2026-10-08 Runtime Debug Hub 隔离候选：在既有网格补丁后增加 `tools/debug-hub/yygc-debug-hub.patch`，摘要及前置补丁锁见同目录 `dependency.lock.json`。原准备入口 `tools/grid-business/prepare-dependency.ps1` 串行应用两份补丁，拒绝未知差异；基线、包版本和UPM路径不变。只修改候选 `.deps` 的 Debugging 范围，不改用户 YYGC 主仓库／Local 依赖。静态编译通过，Unity 导入及新增 .meta 生成待正常接入；见[本批记录](RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md)。
+## 当前输入
 
-2026-10-06 按具体授权整合 AnyRuleD 地形调试入口。YYGC基线、UPM路径与包版本不变；`tools/grid-business/yygc.patch` SHA-256更新为 `58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb`，既有18项补丁保留，新增两个Editor文件。最终干净基线重建20/20与当前隔离源码一致，准备脚本幂等通过；编译、双层检查及边界见[YYGC账本](YYGC_CHANGES.md)和[地形网格检查](TERRAIN_GRID_DEBUGGER.md)。下方旧哈希属于对应历史批次。
+| 项目 | 锁定配置及职责 |
+| --- | --- |
+| Unity Editor | ProjectVersion锁定6000.4.9f1，Linear，C#9／.NET Standard 2.1 |
+| YYGC | com.tsgame.gamecore 0.3.0-preview.1；UPM为 `file:../../.deps/YYGC-grid-business` |
+| YYGC源码基线 | `fee18645c997ed7529c4592917de6c412033c84e`，原网格补丁再串行Debugging overlay |
+| AnyRuleD四包 | 同一 `.deps/YYGC-grid-business/AnyRuleD~/Packages/` 下anyrules、networking、fishnet及yygc，不混入外部脏工作区 |
+| FishNet | `file:../../.deps/FishNet/Assets/FishNet`，tools/prepare-fishnet.ps1锁定来源及既有生命周期补丁 |
+| Addressables／Input System | 2.10.1／1.19.0，声明于manifest与lock |
+| URP／UGUI | 17.4.0／2.0.0及宿主TMP，沿现有管线和主题 |
+| Newtonsoft JSON | com.unity.nuget.newtonsoft-json 3.2.2，Runtime显式字段映射，Core无JSON依赖 |
+| Pipeline | com.unity.pipeline 0.6.0-exp.1，连接已打开Editor；机器级CLI另核对实际版本 |
+| UniTask／R3／MemoryPack／ZLinq | UPM固定tag 2.5.11／1.3.1／1.21.4／1.5.6；NuGet及生成器输入按提交配置核对 |
+| VitalRouter | 原2.7.1固定源码wait-all修正及DLL来源保留，不由普通恢复悄悄换回未修正版 |
+| Odin／DOTween／Smart Console | 既有导入payload、许可及元数据保留；不是可随意清理的普通缓存 |
 
-2026-10-03 工作台导航修正已按用户具体授权接入。YYGC基线仍为 `fee18645c997ed7529c4592917de6c412033c84e`，`tools/grid-business/yygc.patch` SHA-256更新为 `7b16e941cd7cc119e22b531678584103c697c6b5456b637658cdd0915a039811`；锁文件单独记录Editor工坊验收，不把原有 `validation: NOT_RUN` 的整体运行边界改成通过。干净基线重建18项与当前依赖一致，准备脚本幂等通过。两个工坊文件只改变导航／刷新语义，保留显式同步、保存和Undo；具体文件、隔离落点及测试见[YYGC账本](YYGC_CHANGES.md)。UPM路径、manifest、包版本、游戏协议23／存档v16／AMP1 schema2不变。
+YYGC package.json的Unity声明与宿主锁定Editor是不同概念，不能仅凭预览版本号假定兼容。完整依赖与原素材来源保留在[历史评估证据](archive/evidence/assessment-2026-09-10.json)、[样板依赖证据](archive/evidence/lan-sample-dependencies.json)和[第三方声明](third-party/)。
 
-2026-10-03 氧气移除候选仅更新游戏协议23／存档v16（含grid-business锁中的游戏版本记录），YYGC锁定提交、补丁哈希、UPM配置和AMP1 schema保持。薄worktree未恢复依赖或启动Unity；后续验证按现有锁定入口准备，不因本切片升级或修改YYGC。具体修改YYGC需先取得用户同意，见[AGENTS](../AGENTS.md)。
+## 锁与准备入口
 
-2026-09-24 地图联网候选：游戏在 `ref-20260924-map-state-networking` 使用 YYGC 隔离提交 `e07e9a9e3e36cdbae1e0d39ec07aea555e95fbad` 的四个 AnyRuleD 包。先运行 `pwsh -NoProfile -File tools/prepare-map-packages.ps1 -FrameworkPath 'D:/Developer/YYGC-worktrees/map-state-networking'`，脚本从锁定提交归档到忽略的 `.deps/AnyRules-map-state-e07e9a9` 并校验 462 个文件；`Game/Packages/manifest.json` 与 `packages-lock.json` 指向同一提取。旧补丁式脚本已另存 `tools/prepare-map-packages-legacy.ps1`。YYGC 主检出无需切换，新增包及未验边界见[改动账本](YYGC_CHANGES.md)。
+| 文件／入口 | 作用 |
+| --- | --- |
+| `tools/grid-business/dependency.lock.json`／yygc.patch | YYGC基线、网格补丁摘要、目标及原批次核验 |
+| `tools/debug-hub/dependency.lock.json`／yygc-debug-hub.patch | 前置补丁摘要、Debugging overlay、首次导入meta和原批次静态验证 |
+| `tools/grid-business/prepare-dependency.ps1` | 核对基线／补丁、拒绝未知修改，串行应用基础补丁与overlay |
+| `tools/prepare-fishnet.ps1` | 精确恢复FishNet锁定输入，保留用户原工作区 |
 
-本开发分支的 M0 复现入口固定到 YYGC `12b253c6bdd262feb860ab905b9e56e940ec9c40`。`tools/prepare-lan-sample.ps1` 优先使用本机 `D:\Developer\YYGC`，该路径不存在时回退到远端 `git@github.com:surgame/YYGC.git`；也可显式传入 `-FrameworkPath` 或 `-Repository`。脚本不会覆盖已有 `.deps/YYGC-unified`，发现未知差异会停止并要求保留检查。
-2026-09-20 手持装备批次：AnyRules 本地包路径改为 `.deps/AnyRules-locked-aa450a7/AnyRuleD~/Packages/…`，现在可执行 `tools/prepare-map-packages-legacy.ps1` 复现。版本仍锁 `aa450a7` 加原三份补丁，442 文件哈希一致；本机原 `.deps/AnyRules` 有两处漂移，保留待用户处置。YYGC 仍为 `12b253c`，无框架源码升级。详见[账本](YYGC_CHANGES.md)。
+需要补齐现行依赖时，在仓库根目录按当前锁执行：
 
-2026-09-17 当前 YYGC 锁定更新为 **`12b253c6bdd262feb860ab905b9e56e940ec9c40`**：修复 Unity 将同文件结果结构体识别成命令脚本主类型、导致 Bootstrap 漏注册地形命令的问题。原输入功能与宿主补丁保持，包路径不变；修复在隔离分支验证，用户 master 未切换。见[改动账本](YYGC_CHANGES.md)。下段 `0c7cec0` 为上一批输入身份。
+```powershell
+pwsh -NoProfile -File tools/grid-business/prepare-dependency.ps1
+pwsh -NoProfile -File tools/prepare-fishnet.ps1
+```
 
-2026-09-16 当前 YYGC 锁定 **`0c7cec00b7a7f9cec0287bb56d0af9fc45c9d143`**，由 `tools/prepare-lan-sample.ps1` 准备并精确验证。输入补丁及 Sample 在独立 `codex/input-actions` 分支提交，用户框架 master 的 AnyRule 插件工作区不变。原有七份 tracked 补丁和两个友元文件按字节保留，manifest／packages-lock 的 `.deps/YYGC-unified` 路径不变；并未把插件实验顺带引入游戏。详见[逐文件账本](YYGC_CHANGES.md#hero-input)。下文日期较早的版本为历史记录。
+准备现有锁定输入属于使用已锁定依赖；若检查发现未知差异、基线不匹配或本地维护内容，保留现场并调查，不reset、覆盖或混入用户YYGC／AnyRule工作区。上述准备不表示Unity编译、Player或新补丁行为已验收。
 
-2026-09-13 U2 当前锁定 `0305eb74bbc2677a3d9025f684d8ded16481be4a`；准备脚本精确核验 `.deps/YYGC-unified` 与既有补丁通过，UPM manifest／lock 路径不变。网络会话上下文、批量状态提交和注册校验修正已通过真实 Play、正式 Mono 三进程 26/26、Mono 装配 14/14 及独立四进程 Sample 30/30，见 [U2 账本](YYGC_CHANGES.md#unified-u2)。下文保留历史版本记录。
+锁中的game_protocol／save_version及validation还保留制作批次信息，不能代替运行源码常量或当前DEVELOPMENT。文档整理没有修改锁字段、补丁或框架；若需改变锁语义／接入，按AGENTS另明确范围。基线和补丁完整SHA及逐文件原因在账本和实际锁文件，不在多份指南复制维护。
 
-2026-09-13 场景入口修复：当前锁定 `ccd61e01f15332b1197cfa5ee72af8777c4a0b49`。Loader、GUID 拖拽与分类增补已编译，回归等待用户确认；完整文件清单见[账本](YYGC_CHANGES.md#scene-definitions)。既有隔离路径与补丁保留，下方 2026-09-12 记录为历史版本。
+## 运行库与生成器
 
-2026-09-12 恢复批次新增：先运行 `tools/prepare-fishnet.ps1`，UPM 从 `.deps/FishNet/Assets/FishNet` 使用原 4.7.2 提交 `de19b5d66459f60400ffd0edc443c4da173a01e7` 和两行分片生命周期修补；源码、补丁与失败证据见[恢复接入](archive/MIGRATION_HISTORY.md)。不改 Library 缓存或用户框架仓库。`tools/prepare-lan-sample.ps1` 仍负责 YYGC 的已有两项正式 UI 修正及此前 Sample 隔离补丁。
+Core只存纯计算、只读配置和冻结合同，不引用Unity、GameCore、网络库、JSON或文件系统。Runtime用JObject显式转冻结类型；64位RNG及snake_case字段按存档合同处理，不默认使用.NET8 JSON API或加载net8.0游戏程序集。
 
-2026-09-11 核对：当前 `Game/Packages` 通过 `tools/prepare-lan-sample.ps1` 使用 YYGC 提交 `10b8f0ef6a5ed965ebd473dbcbe4a0dd795379c4` 的 `.deps/YYGC`，原框架仓库只读。另含样板程序集访问补丁和框架要求的 VitalRouter wait-all 修正版。来源、恢复方法和 SHA-256 见 [LAN Sample](LAN_SAMPLE.md) 与[依赖证据](archive/evidence/lan-sample-dependencies.json)。正式接入计划见[移植方案](archive/MIGRATION_HISTORY.md)，旧环境操作记录保存在[评估状态](archive/MIGRATION_HISTORY.md)。
+沿锁定ViewBinding、DI、BehaviourRegistry、NetworkCommand／StateData及Singleton生成器和类型注册。生成DLL、RoslynAnalyzer标签、作用域／平台导入、`.meta`和已批准宿主补丁都是构建输入；不能手改Library/Bee输出。需要重建生成器先核对来源及AfterBuild复制目标，框架源码／补丁升级仍需具体授权。
 
-2026-09-12 Workshop 修复：当前锁定更新为 `516f76c4fe062fa82384f7b91ac46c453abbe80d`，仅增加 Editor 展示／搜索及身份指南说明。先在隔离依赖验证，再将同一提交快进到用户 YYGC 仓库；原运行补丁继续由准备脚本精确校验。UPM manifest／lock 的本地包路径保持不变，完整提交锁定位于准备脚本。逐文件变更与 Editor 验证见[账本](YYGC_CHANGES.md#workshop-display)及[证据](archive/evidence/workshop-display-2026-09-12.json)，本批不新增 Player 或联机验收结论。
-
-本文件记录 Unity 宿主的实际依赖与剩余核验项；可运行的 manifest、lock、NuGet 配置和包缓存位于 `Game/`。
-
-## Editor、C# 与运行库
-
-| 项目 | 已查到的事实 | 接入要求 |
-|---|---|---|
-| YYGC UPM | `com.tsgame.gamecore`；当前 `0.3.0-preview.1`，提交 `12b253c`；unity=`6000.2`，unityRelease=`35f1` | 未发布预览；沿用锁定提交和补丁，不能只按版本号假定兼容 |
-| 本机 Editor | `D:\Program Files\Unity 6000.4.9f1\Editor\Unity.exe`，ProductVersion=`6000.4.9f1 (f7258d6eebbe)` | 已用于导入、编译和 Windows Player 构建探针 |
-| C# | Unity 6.2 官方文档为 Roslyn / C# 9.0 | 使用块级 namespace、普通构造、显式集合初始化 |
-| API Compatibility | 官方支持 .NET Standard 2.1 或 .NET Framework 4.8；默认前者 | 新代码以 .NET Standard 2.1 为边界；不能加载 net8.0 游戏程序集代替迁移 |
-| Godot 输入工程 | Godot.NET.Sdk/4.7.2，net8.0，LangVersion=12 | 主构造、集合表达式、required、部分 JSON API 需要替换 |
-| 发布目标 | 首版 Windows x64；Sample 已有 Mono / IL2CPP Release＋High 裁剪证据 | 正式新 DTO、Behaviour、UGUI 与存档仍需对应 Player 验收；其他平台另估 |
-
-官方依据于 2026-09-10读取：[C# 编译器与语言版本](https://docs.unity3d.com/6000.2/Documentation/Manual/csharp-compiler.html)、[API 兼容级别](https://docs.unity3d.com/6000.2/Documentation/Manual/dotnet-profile-support.html)。文档也指出 init/record 需要正确的 IsExternalInit 类型，Unity 自身序列化不支持把 record 当作序列化类型。网络 DTO 的 MemoryPack 支持与 Unity Inspector 序列化是不同机制。
-
-早期包内遗留 `1.0.0`，后经 `0.2.3` 调整到当前预览版本；历史与发布约定见 [YYGC 版本管理](<D:/Developer/YYGC/Documentation~/VERSIONING.md>)。不能根据旧评估中的包版本推断当前接口状态。
-
-当前 manifest 使用 `file:../../.deps/YYGC`，准备脚本校验上述提交。GUID / Key、旧 ID 兼容和显式迁移已在锁定框架中实现，接法见[定义身份指南](<D:/Developer/YYGC/Documentation~/DEFINITION_IDENTITY.md>)。正式新资源用 DefinitionReference 和正式 Key；Dark Nights 当前正式 Windows 构建采用 GuidFirst／GuidV2，网络定义不再分配或读取旧 ID。YYGC 的废弃旧 ID 字段仅由框架为其他项目保留，正式项目通过 Editor／Runtime 守卫拒绝；独立 LAN Sample 仍是 LegacyV1 对照样板。
-
-## 正式配置解析依赖
-
-2026-09-11 首批实施将 `com.unity.nuget.newtonsoft-json` **3.2.2** 从间接依赖提升为 manifest 的显式依赖，lock 深度变为 0，实际包版本及 DLL 没有升级。包内 Newtonsoft.Json 为 13.0.2。Runtime 使用 JObject 显式转换为只读 Core 类型，不使用动态类型恢复或依赖反射构造，Core 不引用 Newtonsoft 或 Unity。旧档解析尚未迁移，不能将配置 seed 的 64 位通过等同于旧档／随机序列兼容。
-
-正式 Mono 宿主首次启动发现：`StateDataTypeStartupModule`／`NetworkCommandStartupModule` 的开发版完整性检查仍发现 Sample 类型，与此前生成器排除 Sample 的规则不一致。新增 [启动校验补丁](../tools/lan-framework-patch/ExcludeSampleFromStartupValidation.patch)，只排除 `DarkNights.Samples.LanCoop.Runtime`，所有正式类型仍须注册。补丁仅作用于 `.deps/YYGC`，未修改用户框架仓库；准备脚本接受干净锁定提交、原有精确补丁或完整新补丁，未知修改仍拒绝覆盖。Sample 没有反向接入正式 AppStartup。
+UPM lock不单独覆盖NuGet、VitalRouter修正DLL或既有插件payload。普通NuGet恢复后核对固定输入和多版本程序集警告；未知DLL不覆盖，实际兼容性按当前组合验证。精确字段、类型注册及AOT入口必须明确，不能用整程序集preserve=all掩盖未定位问题。
 
 ## 官方 Unity MCP 开发工具
 
-2026-09-11 已接入 **Unity CLI 1.0.0-beta.9 + com.unity.pipeline 0.6.0-exp.1**，Editor 保持 `6000.4.9f1`。官方文档与实际包声明最低 Unity `6000.0`。已通过 UPM 导入、脚本编译、MCP stdio 握手、149 项工具发现、场景／Console／运行设置读取与域重载后重连。[验证摘要](archive/evidence/unity-mcp-2026-09-11.json)
+本工程沿机器级Unity CLI及锁定Pipeline连接Local单一Editor，命令／任务续接见[Unity CLI](UNITY_CLI_WORKFLOW.md)。Pipeline包含Runtime／Roslyn DLL，enableInBuilds=false仅表示Player服务未启用，不承诺所有DLL已剔除。已有Sample证据不能签署正式AppStartup／Addressables或发布体积。
 
-官方已弃用 AI Assistant 包内旧 MCP server，当前入口为 `unity mcp`，通过 Pipeline 连接本地 Editor，不要求 Unity AI 订阅。CLI／Pipeline 仍为 beta／experimental。[官方迁移说明](https://docs.unity.com/en-us/unity-cli/replace-mcp-server-unity-cli)、[Pipeline 版本要求](https://docs.unity.com/en-us/unity-production-pipeline/local-tools-cli/unity-pipeline-package)
+新机器先核对Editor、提交配置及现行依赖入口，再按所选CLI版本配置连接。日常不运行强制升级或重新安装Pipeline；机器代理、Codex本机配置及个人路径不进入项目。TLS／UPM网络受限的原处理留在历史Git基线，不关闭TLS或复制脏Library绕过恢复。
 
-另一台 Windows 开发机先恢复隔离 YYGC，再配置并打开 Game：
+## 独立样板与历史接入
 
-```powershell
-pwsh -NoProfile -File tools/prepare-lan-sample.ps1
-winget install --id Unity.CLI --exact --version 1.0.0.20009 --source winget
-# 重新打开终端；MSIX 1.0.0.20009 对应 CLI 1.0.0-beta.9。
-unity --version
-unity pipeline install --project-path ./Game --package-version 0.6.0-exp.1
-unity mcp configure codex --project-path ./Game
-# 用锁定 Editor 打开 Game，等导入编译完成，再检查：
-unity pipeline list --format json
-unity command editor_status --project-path ./Game --format json
-unity command get_console_logs --severity error --project-path ./Game --format json
-```
+[LAN Sample](samples/LAN_SAMPLE.md)及其旧prepare-lan-sample路线用于明确的独立模板输入，不作为当前Game的默认依赖步骤。旧 `.deps/YYGC`／YYGC-unified／AnyRules隔离目录、M0–M5及历次framework提交继续保留来源，不把多个旧“当前版本”并列为现行方案。
 
-Pipeline 由 manifest／lock 固定，不日常执行 `--force` 升级。CLI 是机器级工具，MSIX 后续可能更新，复验时记录实际版本。本机 Codex 用户配置新增 `mcp_servers.unity`，以 stdio 启动 CLI 并固定 Game 路径；个人路径不进入仓库。已有客户端可能需要重新加载配置或重启应用。本次由独立 stdio 探针验证，不等同于当前任务已经热加载新工具。
+旧Sample排除、友元访问、VitalRouter、场景Loader、输入和地图补丁的授权／逐文件结果由YYGC账本及原证据承接。原文可从[顶层整理基线](archive/README.md#2026-10-09顶层职责整理)恢复；历史IL2CPP通过不授权新一轮后端构建。
 
-重载时发现 YYGC 全局扫描误收集独立 LAN Sample，生成文件报 `CS0400`。准备脚本现应用 `tools/lan-framework-patch/ExcludeSampleFromGlobalRegistry.patch`，仅在 `.deps/YYGC` 两个 Editor 扫描器排除 `DarkNights.Samples.LanCoop.Runtime` 程序集，保留 Sample 固定注册。自动改写的四个注册／生成文件已恢复基线，没有手改生成结果；修正后编译 `failed=false`、`errors=[]`，再次域重载后全局注册表无改动。补丁已验证干净基线应用及重复准备，未知差异仍拒绝覆盖。用户维护的 YYGC 仓库未修改。
+## 变更与核验
 
-新增依赖组合还完成 Windows Mono Development 和 IL2CPP Release／High 裁剪构建；两个后端各自的 Host＋3 客户端基础与真实 UDP 弱网检查均为 30/30，总计 120 项通过。通过官方 CLI 的 `menu` 调用现有 SampleBuilder，构建只包含 Sample 场景。构建临时改动的 ProjectSettings 已恢复，正式资源和注册表没有差异；新证据单独记录，不覆盖旧冻结结果。
+依赖变更提交manifest／packages-lock、ProjectVersion、准备输入及正常生成meta，不提交.deps、Library、密钥和本机配置。修改YYGC源码／补丁／版本及接入须事先具体授权；未知漂移不自动修复。
 
-兼容性边界：
-
-- Pipeline 包含 Runtime 与 Roslyn DLL，不能称为纯 Editor 包。`enableInBuilds=false` 表示 Player 运行服务未启用，不代表所有 DLL 均被排除出 Player。
-- 导入有 `System.Collections.Immutable` 8.0／现有 NuGet 6.0、`System.Runtime.CompilerServices.Unsafe` 4.0.4／Collections 6.0 重复程序集选择警告。Editor、eval 与上述两种 Player 均通过本轮检查；正式 AppStartup／Addressables、新 DTO 组合和发布体积仍待 M0 验收，不能扩大 Sample 证据范围。
-- 测试发现仅返回 Addressables 文档占位测试，未将其执行当作游戏测试。本次未运行正式玩法测试、Editor PlayMode 测试或美术编辑验收。
-- MCP 沿用 YYGC 绑定、生成及资源合同，不绕过 ObjectDefinition 装配，不替代人工美术维护与独立进程验收，不启用 Player 的 Pipeline 服务。
-
-## 第三方依赖清单
-
-YYGC 的 package.json 未声明 dependencies。以下依赖由 Unity 宿主显式提供；UPM / NuGet 清单和 Sample 的补丁、DLL 证据共同构成当前可重现输入。
-
-| 依赖 | 证据／用途 | M0 接入结果 |
-|---|---|---|
-| FishNet | FishNet.Runtime、NetworkBehaviour、RPC、自定义 serializer | UPM Git `4.7.2`；Sample 原生网络 Prefab 与多进程通过，正式注册待 M2 |
-| UniTask | UniTask、UniTask.Addressables、Editor 引用 | UPM Git `2.5.11`，编译通过 |
-| Addressables / ResourceManager | PrefabRef、FastInstantiator、定义数据库 | Unity 包 `2.10.1`，编译和 Player 构建通过 |
-| Input System | Runtime asmdef、重绑定与设置存储 | Unity 包 `1.19.0`，项目 activeInputHandler=1；YYGC UGUI 启动与 Editor 创建器已切换 `InputSystemUIInputModule` |
-| URP / Core RP | Runtime asmdef、框架 renderer/shader | Unity 包 `17.4.0`，Windows Player 构建通过 |
-| UGUI / TextMeshPro | Unity.ugui、Unity.TextMeshPro | Unity 包 `2.0.0` 及宿主内置 TMP，编译通过 |
-| R3 | 状态流、UI；测试引用 R3.Unity/Editor | UPM Git `1.3.1` + NuGet `R3 1.3.1`，编译通过 |
-| VitalRouter | 命令路由、过滤器、CommandPool | 基于 `2.7.1` 固定源码构建 wait-all 修正版；NuGet 恢复后须核对 DLL，不能悄悄换回原版 |
-| MemoryPack | 网络与存档 serializer、Tests 的 MemoryPack.Core.dll | UPM Git `1.21.4` + NuGet `MemoryPack/Core/Generator 1.21.4`，编译通过 |
-| ZLinq | 对象视图和状态集合 | UPM Git `1.5.6` + NuGet `1.5.6`，编译通过 |
-| Odin Inspector | 多处属性，Editor asmdef 的 Addressables 模块 | 使用本机已有插件 payload，YYGC Editor/Runtime 编译通过；提交前需确认插件授权 |
-| DOTween | LightBlockControl/LightBlockRenderer 的 `DG.Tweening` | 使用本机已有 `DOTween.dll`，编译通过 |
-
-`YY.Pools.Collections`、YYSingleton、GenericTypePool 是框架内源码，不列作缺失的外部包。选择不使用某项功能也不会自动解除其在主程序集内的编译依赖；需要时只做有边界的程序集隔离。
-
-环境基线已完成编译、Addressables 内容构建和 Player 启动。Sample 在当前依赖组合中另完成 Mono / IL2CPP 及多进程验证；正式 Bootstrap 的新组合仍需 M0 重验。另一台开发机通过准备脚本建立同一相对 `.deps/YYGC`，不修改 manifest 为个人绝对路径。Odin Inspector 与 DOTween 是已有插件，不属于 NuGet。
-
-## 已随框架提供的生成器
-
-| DLL | 同仓库源码工程 | 备注 |
-|---|---|---|
-| Editor/Plugins/YYGC.ViewBinding.Generator.dll | 有 | 视图与 UGUI 绑定；Roslyn 4.3.0 / netstandard2.0 / C# 9 |
-| Editor/Plugins/YYGC.DependencyInjection.Generator.dll | 有 | DI 生成；同上，另有 CodeFix 依赖 |
-| Editor/Plugins/YYGC.BehaviourRegistry.Generator.dll | 有 | Behaviour 注册；Roslyn 4.3.0 / netstandard2.0 / C# 9 |
-| Runtime/NetworkCommands/SourceGenerators/YYGame.NetworkCommand.Generator.dll | 未找到 | 冻结 DLL 与 .meta；取得可重建来源后再升级 |
-| Runtime/Objects/NetworkStates/SourceGenerators/YYGame.StateDataNoMemPack.Generator.dll | 未找到 | 不能从名字推断完整 MemoryPack/AOT 支持，需编译与往返探针 |
-| Runtime/YYPlugins/YYSingleton/SourceGenerators/GenInstance/YYSingletonInstanceGenerator.dll | 未找到 | 同上 |
-
-精确 SHA-256 位于[证据](archive/evidence/assessment-2026-09-10.json)的 `bundled_dlls`。生成器 DLL 的 RoslynAnalyzer 标签、平台导入设置和程序集作用域也属于构建输入。
-
-ViewBinding 与 DI 工程的 AfterBuild 会复制 DLL 回框架目录；本轮没有运行这些构建。后续仅在隔离 checkout 构建，避免覆盖用户工作区。纯 Core 不引用 GameCore，必须确认框架生成器不会向 Core 注入引擎代码。
-
-## 包接入策略
-
-1. 保持准备脚本锁定的 YYGC `ccd61e0`、Editor `6000.4.9f1` 与现有包版本；新机器先运行准备脚本，日常准备不修改原框架工作区。
-2. 新增正式 Runtime / View Behaviour 后，验证生成器对内部成员的访问；当前 `SampleAssemblyAccess.cs` 只授权 Sample Runtime，不能直接当作正式程序集补丁。必要修正在隔离 checkout 中完成并记录输入。
-3. 为正式命令、状态的具体类型保留可用于 IL2CPP 的注册入口，校验集合复制和归池。类型 Tag、Behaviour 顺序和定义目录进入握手摘要，正式表不引用 Sample 的测试 ID。
-4. 保留 VitalRouter 修正的源码版本、补丁和 DLL 哈希；普通 NuGet 恢复可能换回原版，依赖预检应能识别。UPM lock 单独不代表完整输入。
-5. 正式 AppStartup 使用现有资源；把 `DarkNightsEnvironmentSetup.BuildAddressablesContent()` 与会保存场景／Prefab 的 `Initialize()` 分离，再接入日常构建。
-6. 提交 manifest / lock、ProjectVersion、`.meta` 及准备脚本。今后采用已核实的稳定包来源时整体更新并重验，不编造远端 URL，不把 `.deps` 缓存提交。
-
-## JSON、存档与素材
-
-Core 不持有 JSON 库或磁盘依赖。保留现有 JSON 的 snake_case、浮点与 64 位随机状态语义，解析与严格字段校验在 Runtime 的内容／存档入口完成。
-
-现有 Content 使用 System.Collections.Immutable，不能默认它随 Unity 的 API profile 一并提供。迁移时可用只读接口和防御性复制保留定义不可变性；若保留该库，则明确锁定兼容版本，避免向外暴露可修改的共享集合。
-
-M0 选择 Unity 可用且版本固定的 JSON 库；优先复用宿主已验证依赖，否则验证兼容的 System.Text.Json 版本及生成／裁剪路径。`JsonNamingPolicy.SnakeCaseLower` 来自现有 .NET 8 使用方式，不能默认可用；可采用显式字段映射。换库不能跳过缺字段、非法 enum、非有限值和双向关系校验。
-
-551 项原素材共 2,010,712 字节（约 1.92 MiB），当前规模无需为它们额外引入 LFS。新大文件进入前按实际体积评估。原始素材、帧序、原点与来源清单保留，Unity 额外生成的 .meta 正常纳入 Git。
-
-## 正式接入收口的退出条件
-
-基础环境与 Sample 已完成；[复评 R01–R03](archive/YYGC_REASSESSMENT.md)保留旧问题来源。正式接入需验证本次新增程序集、类型与宿主组合，不重复宣称旧问题仍未修复。
-
-- Editor 补丁、API profile、依赖版本、框架 commit 和生成器都可重现。
-- 全新目录导入成功，Runtime 没有 Editor 类型泄漏。
-- 正式生成器样例、集合 DTO 往返与类型注册可用，Mono / IL2CPP Player 构建并能启动。
-- Addressables 的本地基线 Prefab 和 AppStartup 根已可构建并由 Player 启动；具体游戏 Prefab、UGUI 内容和对象定义仍待补齐。
-- 正式构建不会执行会保存资源的环境初始化；框架补丁来源完整，用户工作区差异不暗中混入依赖。
-
-未满足这些条件时继续做独立的 Core/协议设计，但不宣称 Unity 集成或构建已经通过。
-
-## M5 干净导入补充（2026-09-12）
-
-独立 Git clone 从无 Library／Temp／UserSettings 的目录恢复依赖，Core 1355、Editor 55 全部通过。首次导入删除了 13 个孤立 `.pdb.meta`／`.mdb.meta`：对应可选调试符号本来就未提交。现让符号及其元数据一致忽略，保留本机符号文件，不改变任何正式资源 GUID；NuGet.config 的既有 GUID 保留，并提交 Unity／NuGetForUnity 实际生成的完整导入配置。
-
-本机 GitHub 直连失败；独立 Git 经现有系统代理可拉取，但 UPM 子进程仍遇到 TLS 握手错误。使用仅作用于该次 Editor 的 Git 配置文件（HTTP 代理与 HTTP/1.1）并给 UPM 传入 HTTP_PROXY／HTTPS_PROXY 后，五个 Git 包正常恢复。没有关闭 TLS 校验、修改全局 Git 配置、改锁版本或复制旧 Library。具体代理地址是机器设置，不作为项目依赖；网络受限机器参考[Unity 网络配置](https://docs.unity3d.com/6000.0/Documentation/Manual/upm-config-network.html)。FishNet 首次网络失败后从本机已验证 Git 对象缓存克隆同一提交，再独立应用已提交补丁；未复制脏工作树。
+实际验收按受影响Editor导入、生成器／DTO往返、Addressables、当前Mono独立运行和联机配置安排，构建不运行会保存人工资产的初始化。新Editor／管线／平台／大批导入变化先评估Local缓存失效，遵循单一通道和[内存保护](UNITY_CLI_WORKFLOW.md#内存门控)。

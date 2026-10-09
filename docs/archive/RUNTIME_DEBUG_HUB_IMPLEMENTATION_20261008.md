@@ -1,5 +1,7 @@
 # Runtime Debug Hub 重构实现记录
 
+> 本页保留原批次日期、源码／Player身份、协议和实际验证结果。2026-10-09整合后，现行职责由[合同／操作入口](../RUNTIME_DEBUG_HUB_SPEC.md)承接；未完成项查[当前执行状态](../DEVELOPMENT.md)。归档不核销待验或借用旧通过数。
+
 2026-10-09：本候选已集成到 `ft-20261008-flashlight-lighting`，当前协议30／存档v22。下方日期及计数保留各自历史输入身份，当前结果见[集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md)。
 
 2026-10-08，隔离分支 `ref-20261008-runtime-debug-hub-uitk`，基线 `dfc523b018d182d7f2e4f51409a705af0cf68126`。本批按用户要求完成开发与静态编译，没有 Unity 导入、Play、测试执行或 Player 构建，尚未集成 Local/main。
@@ -24,7 +26,7 @@ F1、窗口导航、拖动、主题和 Interaction Session 由 Hub 管理。隐�
 
 Resources只用于开发工具的自带模板，未登记为Addressable；视图绑定复用 UIPanel 和 DIContainer.Root。PanelSettings克隆现有有效主题，中文沿用既有船内UI的TextCore字体方式。反馈最多256字符，最近操作最多4条，请求超时12秒只提示、不自动重发。异步完成校验页面代次、连接代次和epoch。
 
-新增模块的接入方式及生命周期见[规范](RUNTIME_DEBUG_HUB_SPEC.md)。本次没有另建 DI、对象状态、日志控制台或网络通道。
+新增模块的接入方式及生命周期见[规范](../RUNTIME_DEBUG_HUB_SPEC.md)。本次没有另建 DI、对象状态、日志控制台或网络通道。
 
 ## 命令、协议和依赖
 
@@ -34,7 +36,7 @@ Resources只用于开发工具的自带模板，未登记为Addressable；视图
 
 框架基线及UPM版本／路径不变。既有 `tools/grid-business/yygc.patch` 保留，再应用 `tools/debug-hub/yygc-debug-hub.patch`，SHA-256为 `081456b98c116b352addd1d852414c59acf3d26aa9928a212936af6eb599b67a`。原准备入口已接入两阶段锁验证与幂等应用，未知差异拒绝覆盖。
 
-逐项框架文件、原因及验证见 [YYGC账本](YYGC_CHANGES.md)。框架源码改动只在本候选 `.deps/YYGC-grid-business`；用户YYGC主仓库、Local依赖和正在运行的Unity未被写入／切换。
+逐项框架文件、原因及验证见 [YYGC账本](../YYGC_CHANGES.md)。框架源码改动只在本候选 `.deps/YYGC-grid-business`；用户YYGC主仓库、Local依赖和正在运行的Unity未被写入／切换。
 
 ## 静态结果与边界
 
@@ -50,7 +52,7 @@ Resources只用于开发工具的自带模板，未登记为Addressable；视图
 
 新增脚本、资源及目录的 `.meta` 等待首次正常Unity导入生成，不人工分配GUID；已有资产及元数据未移动或重建。接入时需将生成的meta加入候选提交。
 
-最终日志为 `artifacts/debug-hub-20261008/final-editor/`、`final-development/`、`final-release/`；源码和重建摘要位于同任务目录。正式机器记录见[证据](evidence/runtime-debug-hub-20261008.json)。早期编译和被替代的产物移入 `artifacts/待清理/20261008-debug-hub-static/`，未永久删除，归档不计释放空间。
+最终日志为 `artifacts/debug-hub-20261008/final-editor/`、`final-development/`、`final-release/`；源码和重建摘要位于同任务目录。正式机器记录见[证据](../evidence/runtime-debug-hub-20261008.json)。早期编译和被替代的产物移入 `artifacts/待清理/20261008-debug-hub-static/`，未永久删除，归档不计释放空间。
 
 ## 并行开发与后续集成
 

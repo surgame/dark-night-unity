@@ -1,5 +1,7 @@
 # 局部换区缺墙与闪底色修复候选
 
+> 本页保留原批次日期、源码／Player身份、协议和实际验证结果。2026-10-09整合后，现行职责由[合同／操作入口](../TERRAIN_GENERATION.md#局部装载与换区)承接；未完成项查[当前执行状态](../DEVELOPMENT.md)。归档不核销待验或借用旧通过数。
+
 2026-10-07，当前 `ref-20261007-ground-gameplay-baseline`，协议27／存档v21／AMP1 schema2。用户在正在运行的 Editor 中报告下层缺墙及新地图分片加载闪背景色。本次只改游戏侧表现与定向回归；YYGC、锁定依赖、地图生成、权威碰撞、作者资源和保存合同未改。
 
 ## 已确认原因
@@ -26,4 +28,4 @@
 
 需在恢复足够系统提交余量后另开有内存保护的验证批次。第一步编译并短时运行定向缓存与真实组合用例，通过后复验正常Host的连续换区和原截图位置；不重建旧Player或宣称联机／IL2CPP通过。
 
-正式诊断数据、监控及静态报告保留于 `artifacts/terrain-streaming-20261007/`，机器摘要见[证据](evidence/terrain-streaming-fix-20261007.json)。临时诊断脚本和导入到Assets的截图已归档到 `artifacts/待清理/20261007-terrain-streaming/`，9项合计767,615字节，逐项绝对路径、原因与后续条件见其中的`清单.md`；归档不计作释放空间。
+正式诊断数据、监控及静态报告保留于 `artifacts/terrain-streaming-20261007/`，机器摘要见[证据](../evidence/terrain-streaming-fix-20261007.json)。临时诊断脚本和导入到Assets的截图已归档到 `artifacts/待清理/20261007-terrain-streaming/`，9项合计767,615字节，逐项绝对路径、原因与后续条件见其中的`清单.md`；归档不计作释放空间。

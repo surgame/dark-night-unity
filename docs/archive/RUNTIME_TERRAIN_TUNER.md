@@ -1,6 +1,8 @@
 # 运行时洞穴工作台
 
-2026-10-06 跟随 Cave Wall Tuner 增加逻辑／渲染网格自由切换。“拆格／填格”选中时默认开启逻辑网格，地图页与显示页共享当前选择；同一工具下手动选择渲染网格会保持。笔刷仍只操作逻辑格，渲染网格仅供查看四角组成。运行场景原 `MapTool` 序列化名称通过 `FormerlySerializedAs` 保留，没有重写人工场景或Prefab。本批Editor定向5/5及编辑态实际拆填／截图通过；未新增Play或Player验收计数。见[机器记录](evidence/cave-wall-grid-modes-20261006.json)。
+> 本页保留原批次日期、源码／Player身份、协议和实际验证结果。2026-10-09整合后，现行职责由[合同／操作入口](../EDITOR_WORKBENCH.md#play预览与调参)承接；未完成项查[当前执行状态](../DEVELOPMENT.md)。归档不核销待验或借用旧通过数。
+
+2026-10-06 跟随 Cave Wall Tuner 增加逻辑／渲染网格自由切换。“拆格／填格”选中时默认开启逻辑网格，地图页与显示页共享当前选择；同一工具下手动选择渲染网格会保持。笔刷仍只操作逻辑格，渲染网格仅供查看四角组成。运行场景原 `MapTool` 序列化名称通过 `FormerlySerializedAs` 保留，没有重写人工场景或Prefab。本批Editor定向5/5及编辑态实际拆填／截图通过；未新增Play或Player验收计数。见[机器记录](../evidence/cave-wall-grid-modes-20261006.json)。
 
 2026-09-26。`ReferenceChamber` 与 `RandomCave` 的 Play 左栏接入 Cave Wall Tuner 调参和拆填能力，独立 Editor 窗口继续保留。通过 `Dark Nights / Terrain` 打开新版场景；场景位置及正式远征接入关系见[场景索引](SCENES.md)。本批无需新增美术素材。
 
@@ -33,8 +35,8 @@ Player 不引用 Editor API，也不显示写入工程资产的按钮。此次�
 
 ## 验证
 
-Unity 6000.4.9f1 编译通过；按受影响用例的最新结果合并 **35/35 通过**。首批 33 通过、2 个 Play 用例在临时 GameView 尺寸清理阶段报错；修正绝对索引并恢复先前残留后，重跑布局／草稿与两个 Play 用例 **13/13 通过**。保留[首批原始 XML](archive/evidence/runtime-terrain-tuner-20260926/initial-suite.xml)、[最终受影响 XML](archive/evidence/runtime-terrain-tuner-20260926/final-affected.xml)和[摘要](archive/evidence/runtime-terrain-tuner-20260926/summary.json)，不把两批计数直接相加。
+Unity 6000.4.9f1 编译通过；按受影响用例的最新结果合并 **35/35 通过**。首批 33 通过、2 个 Play 用例在临时 GameView 尺寸清理阶段报错；修正绝对索引并恢复先前残留后，重跑布局／草稿与两个 Play 用例 **13/13 通过**。保留[首批原始 XML](evidence/runtime-terrain-tuner-20260926/initial-suite.xml)、[最终受影响 XML](evidence/runtime-terrain-tuner-20260926/final-affected.xml)和[摘要](evidence/runtime-terrain-tuner-20260926/summary.json)，不把两批计数直接相加。
 
-覆盖固定与随机场景实际 Play、确实改变格子后的样式刷新、源资产不变、撤销重做／取消、源文件及字段冲突、保护格、六组分辨率布局和命中坐标（640×360 至 3840×2160）。实际画面检查包含[五页中的岩壁页](archive/evidence/runtime-terrain-tuner-20260926/tab-1.png)、[大字号窄栏](archive/evidence/runtime-terrain-tuner-20260926/large-ui-narrow-panel.png)、[640×360](archive/evidence/runtime-terrain-tuner-20260926/640x360-rock.png)、[全图镜头](archive/evidence/runtime-terrain-tuner-20260926/640x360-fit-map.png)和[1280×720 随机场景](archive/evidence/runtime-terrain-tuner-20260926/1280x720-random.png)。小窗口至少保留 480 逻辑像素高度，避免放大后正文只剩子页按钮；显示页也不再把全图距离截回 100。
+覆盖固定与随机场景实际 Play、确实改变格子后的样式刷新、源资产不变、撤销重做／取消、源文件及字段冲突、保护格、六组分辨率布局和命中坐标（640×360 至 3840×2160）。实际画面检查包含[五页中的岩壁页](evidence/runtime-terrain-tuner-20260926/tab-1.png)、[大字号窄栏](evidence/runtime-terrain-tuner-20260926/large-ui-narrow-panel.png)、[640×360](evidence/runtime-terrain-tuner-20260926/640x360-rock.png)、[全图镜头](evidence/runtime-terrain-tuner-20260926/640x360-fit-map.png)和[1280×720 随机场景](evidence/runtime-terrain-tuner-20260926/1280x720-random.png)。小窗口至少保留 480 逻辑像素高度，避免放大后正文只剩子页按钮；显示页也不再把全图距离截回 100。
 
-ArchitectureGuard 检查 520 个手写文件、12 项自测；[提交前源码](archive/evidence/runtime-terrain-tuner-20260926/architecture-baseline.json)与[当前源码](archive/evidence/runtime-terrain-tuner-20260926/architecture-current.json)均报相同 10 项既有问题，没有新增错误，但不能写成全库通过。本批未新增 Player 构建，未改联机链；历史地图可见页两项失败，以及前台性能、IL2CPP、双机器边界继续按[场景索引](SCENES.md)保留。
+ArchitectureGuard 检查 520 个手写文件、12 项自测；[提交前源码](evidence/runtime-terrain-tuner-20260926/architecture-baseline.json)与[当前源码](evidence/runtime-terrain-tuner-20260926/architecture-current.json)均报相同 10 项既有问题，没有新增错误，但不能写成全库通过。本批未新增 Player 构建，未改联机链；历史地图可见页两项失败，以及前台性能、IL2CPP、双机器边界继续按[场景索引](SCENES.md)保留。

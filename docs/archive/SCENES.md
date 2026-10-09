@@ -1,5 +1,7 @@
 # Unity 场景索引
 
+> 本页保留原批次日期、源码／Player身份、协议和实际验证结果。2026-10-09整合后，现行职责由[合同／操作入口](../EDITOR_WORKBENCH.md#场景目录)承接；未完成项查[当前执行状态](../DEVELOPMENT.md)。归档不核销待验或借用旧通过数。
+
 日常从工作台打开正式入口、预览和参考；完整玩法从 Bootstrap 装配。工作台保留14个场景／资料入口，资产盘点仍为16个场景；静态和随机营地用于专项回归。
 
 ## 当前场景路径（2026-10-02 整理后）
@@ -28,4 +30,4 @@
 Build Settings 当前为 Bootstrap、StaticCampRegression、RandomCampRegression、Expedition 4 项，与 `GamePlayerBuild` 的显式列表一致。游戏入口路径由 `GameScenePaths`、`RandomLevelEntry` 管理，参考／预览／测试／退役路径由 `TerrainScenePaths` 管理。
 
 
-场景演进见[项目摘要](archive/PROJECT_HISTORY.md)，原迁移列表可从Git历史恢复，快速局操作见[归档操作记录](archive/QUICK_TEST_SCENES.md)。本次整理未移动场景、Prefab 或作者资源。
+场景演进见[项目摘要](PROJECT_HISTORY.md)，原迁移列表可从Git历史恢复，快速局操作见[归档操作记录](QUICK_TEST_SCENES.md)。本次整理未移动场景、Prefab 或作者资源。

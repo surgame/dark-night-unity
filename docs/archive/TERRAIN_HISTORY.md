@@ -1,6 +1,6 @@
 # 地图、洞穴与矿层历史摘要
 
-2026-10-07 整合旧随机地图、洞穴原型、远征营地、静态背景方案、Modifier早期过程及已被原生矿层替代的方案。当前入口以[场景索引](../SCENES.md)、[地图与地形](../TERRAIN_GENERATION.md)、[工作台](../EDITOR_WORKBENCH.md)为准。
+2026-10-07 整合旧随机地图、洞穴原型、远征营地、静态背景方案、Modifier早期过程及已被原生矿层替代的方案。当前入口以[场景目录](../EDITOR_WORKBENCH.md#场景目录)、[地图与地形](../TERRAIN_GENERATION.md)、[工作台](../EDITOR_WORKBENCH.md)为准。
 
 ## 地图与洞穴路线
 
@@ -28,7 +28,7 @@
 
 2026-10-04协议24／v18检查点使用独立AnyRuleD矿层表现，但矿格耐久／余量仍由逐床对象持有，通过完整对象投影同步。它完成过受影响Editor245项、同一Mono正常两人24项／四人30项；弱网初次Ready失败，正式组合背景遮住矿格，单层小样与弱颜色差断言不能计为正式呈现通过。
 
-2026-10-05迁移为协议25／v19：YYGC会话生命周期托管独立ARDMap，GridBusinessStateStore唯一拥有矿格业务状态；逐矿床实体退出正式运行，初始床信息仅为静态元数据。前景与矿层各自局部订阅／加载，未知格不能当作空格；墙后发现保留矿物。实际状态、事务、Ready、保存及修正结果见[现行矿层实现](../MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
+2026-10-05迁移为协议25／v19：YYGC会话生命周期托管独立ARDMap，GridBusinessStateStore唯一拥有矿格业务状态；逐矿床实体退出正式运行，初始床信息仅为静态元数据。前景与矿层各自局部订阅／加载，未知格不能当作空格；墙后发现保留矿物。实际状态、事务、Ready、保存及修正结果见[矿层合同](../TERRAIN_GENERATION.md)。
 
 旧方案中的按床身份、矿床DTO和整层状态发送不作为后续实现模板。五种矿材的规则／图集合同及当前静态配置来源仍保留；具体源资源不因旧实体退出而删除。正式采集必须验证遮挡、装备、距离、地图代次、内容版本及容量，奖励在同一事务内结算。
 
@@ -38,6 +38,6 @@
 
 地图局部网络路径、Modifier阶段及固定草稿／航程制作细节继续保留在[地图联网](MAP_STATE_NETWORKING.md)、[Modifier管线](TERRAIN_GENERATION_MODIFIER_PIPELINE.md)、[生成统一](CAVE_GENERATION_ALIGNMENT.md)、[航程工作台](TUNER_JOURNEY_WORKBENCH.md)。即时刷新仍有独立[实施记录](IMMEDIATE_TERRAIN_REFRESH_EXECUTION.md)及[Local验证边界](CAVE_TUNER_LOCAL_VALIDATION_20260926.md)，未完成项不因归档合并核销。
 
-早期工作台聚合与快速测试评估已由当前[操作说明](../EDITOR_WORKBENCH.md)、[快速场景说明](QUICK_TEST_SCENES.md)和[场景索引](../SCENES.md)接替。地形调试、双网格／快捷键、草稿保存和Modifier状态的近期证据继续保留在当前文档索引。
+早期工作台聚合与快速测试评估已由当前[操作说明](../EDITOR_WORKBENCH.md)、[快速场景说明](QUICK_TEST_SCENES.md)和[场景目录](../EDITOR_WORKBENCH.md#场景目录)接替。地形调试、双网格／快捷键、草稿保存和Modifier状态的近期证据继续保留在当前文档索引。
 
 氧气专项的移除范围已合入[氧气移除记录](OXYGEN_REMOVAL_VALIDATION.md)。战斗死亡、结算后二次完整航程、矿工路线、实际洞室通行、前台性能及不同后端的边界均保持，详见[当前执行状态](../DEVELOPMENT.md)。旧过程及移除证据的恢复入口见[整理回执](DOCUMENT_CONSOLIDATION_20261007.md)。

@@ -21,23 +21,23 @@ git show a00508bb92e3defeacd91385b4fe3f3dd5a42268:AGENTS.md
 
 | 审阅编号／原行 | 原记录日期与内容 | 承接入口 |
 | --- | --- | --- |
-| 001／L3 | 10-09 可复用照明、四格库存和本批验证 | [照明记录](../REUSABLE_LIGHTING_20261009.md)、[执行状态](../DEVELOPMENT.md) |
-| 002／L5 | 10-09 Debug Hub与手电合并 | [集成记录](../RUNTIME_DEBUG_HUB_MERGE_20261009.md) |
-| 003／L7 | 10-07 地面范围、装备恢复及内存保护 | [当前范围](../GROUND_GAMEPLAY_BASELINE.md)、[内存事故](../UNITY_MEMORY_INCIDENT_20261007.md) |
+| 001／L3 | 10-09 可复用照明、四格库存和本批验证 | [照明记录](REUSABLE_LIGHTING_20261009.md)、[执行状态](../DEVELOPMENT.md) |
+| 002／L5 | 10-09 Debug Hub与手电合并 | [集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md) |
+| 003／L7 | 10-07 地面范围、装备恢复及内存保护 | [当前范围](../GROUND_GAMEPLAY_BASELINE.md)、[内存事故](UNITY_MEMORY_INCIDENT_20261007.md) |
 | 004／L9 | 10-07 地形调试集成及已有Modifier配置 | [执行状态](../DEVELOPMENT.md)、[项目摘要](PROJECT_HISTORY.md) |
 | 005／L11 | 10-05 矿层集成与主角跳跃／Host展示修复 | [执行状态](../DEVELOPMENT.md)、[原证据](../evidence/hero-input-presentation-20261005.json) |
-| 006／L13 | 10-05 原生矿层迁移、两层局部流与初轮计数 | [矿层实现](../MINERAL_MAP_MIGRATION_IMPLEMENTATION.md) |
+| 006／L13 | 10-05 原生矿层迁移、两层局部流与初轮计数 | [矿层实现](MINERAL_MAP_MIGRATION_IMPLEMENTATION.md) |
 | 007／L15 | 10-04 内嵌矿检查点及初轮失败 | [地形历史](TERRAIN_HISTORY.md) |
 | 008／L17 | 10-03 氧气移除与失败边界 | [验证记录](OXYGEN_REMOVAL_VALIDATION.md)、[失败分析](OXYGEN_REMOVAL_FAILURE_ANALYSIS.md) |
 | 009／L19 | 09-28 原地安全着陆候选 | [航程验收](SPACE_TO_PLANET_ACCEPTANCE.md) |
 | 010／L21 | 09-27 太空到星球流程与原Player结论 | [航程实现](SPACE_TO_PLANET_IMPLEMENTATION.md)、[验收](SPACE_TO_PLANET_ACCEPTANCE.md) |
 | 011／L23 | 09-22 可步入飞船及原生素材 | [飞船记录](WALKABLE_EXPEDITION_SHIP.md) |
-| 012／L25 | 09-22 岩层／三层背景，09-23场景移动补注 | [独立背景](STATIC_CAVE_BACKGROUND_EXECUTION.md)、[场景索引](../SCENES.md) |
+| 012／L25 | 09-22 岩层／三层背景，09-23场景移动补注 | [独立背景](STATIC_CAVE_BACKGROUND_EXECUTION.md)、[场景索引](SCENES.md) |
 | 013／L27 | 09-21 远征营地Demo | [地形历史](TERRAIN_HISTORY.md) |
 | 014／L29 | 09-20 洞穴工作台、坡形与隐藏连通边界 | [地形历史](TERRAIN_HISTORY.md)、[视觉目标](CAVE_EXPLORATION_TARGETS.md) |
 | 015／L31 | 09-20 天然洞穴原型及当时未完成事项 | [地形历史](TERRAIN_HISTORY.md) |
 | 016／L33 | 09-19 手采地图收口及旧自动玩法退出 | [地形历史](TERRAIN_HISTORY.md) |
-| 017／L35 | 09-17 独立随机地图Debug Bootstrap | [地形历史](TERRAIN_HISTORY.md)、[场景索引](../SCENES.md) |
+| 017／L35 | 09-17 独立随机地图Debug Bootstrap | [地形历史](TERRAIN_HISTORY.md)、[场景索引](SCENES.md) |
 | 018／L37 | 09-17 正式随机灰松谷及旧依赖补丁 | [地形历史](TERRAIN_HISTORY.md)、[YYGC账本](../YYGC_CHANGES.md) |
 | 019／L39 | 09-17 Bootstrap注册修复及旧YYGC锁定 | [YYGC账本](../YYGC_CHANGES.md)、[原证据](evidence/bootstrap-registry-2026-09-17.json) |
 | 020／L43 | 09-16 主角输入、Ready专属人物与恢复 | [表现历史](PRESENTATION_HISTORY.md)、[现行架构](../ARCHITECTURE.md#主角与输入)、[联机合同](../MULTIPLAYER.md) |
@@ -49,14 +49,14 @@ git show a00508bb92e3defeacd91385b4fe3f3dd5a42268:AGENTS.md
 | 021／L41 | 阅读入口改为基础文档必读、架构／联机按改动触发；移出旧15类完成声明，不取消历史验收边界 | AGENTS「现行范围」；[DEVELOPMENT](../DEVELOPMENT.md) |
 | 022–030／L47–55 | 保留产品目标、外部目录保护、具体YYGC授权、锁定依赖、旧数据边界、行为／素材保护和Linear；移出旧迁移阶段及备份例子 | AGENTS「范围／工作区／YYGC／联机／美术」；[架构](../ARCHITECTURE.md)、[账本](../YYGC_CHANGES.md) |
 | 031／L59–62 | 四条合并；保留分类、创建本地日期、重名处理、长期分支／旧命名例外 | AGENTS「Git分支与提交」 |
-| 032–034／L68 | 拆清内存阈值、构建额外余量和日志／失回执保护，保留8／6／4GiB数值与独立监控 | AGENTS「内存与故障门控」；[事故与保护](../UNITY_MEMORY_INCIDENT_20261007.md) |
+| 032–034／L68 | 拆清内存阈值、构建额外余量和日志／失回执保护，保留8／6／4GiB数值与独立监控 | AGENTS「内存与故障门控」；[事故与保护](UNITY_MEMORY_INCIDENT_20261007.md) |
 | 035–040／L72–77 | 保留薄树、缓存禁令、checkpoint、移交不授权集成、缓存变化选择；将操作步骤迁入手册，澄清移除工作树不授权删除产物 | AGENTS「用户要求worktree时」；[Local流程](../UNITY_CLI_WORKFLOW.md#薄-worktree-与-local-验证) |
 | 041–048、053／L79–86、91 | 合并批次准备、读取复用、导入／编译屏障、一次触发、串行、结果格式和按影响复测 | AGENTS「批量操作／验证」；[有限批次](../UNITY_CLI_WORKFLOW.md#有限批次与依赖屏障) |
 | 049–051／L87–89 | 保留磁盘门控、禁止删除、唯一待清理路径、清单、失败留原位与保护例外；盘点字段和步骤由现有手册承接 | AGENTS「磁盘与产物保全」；[保全流程](../WORKSPACE.md#阶段产物盘点与保全) |
 | 052／L90 | 原样保留Mono默认及主动生成／覆盖／验证IL2CPP须事先明确确认；获批后一次构建复用、后端分别记录 | AGENTS「验证与交付」 |
-| 054–066／L95–107 | 保留C#9／框架、程序集／目录、300行硬上限、中文summary、partial和生成物边界；旧Core退出改成当前不变量，Sample／R3／VitalRouter仍保例外 | AGENTS「代码／联机」；[架构](../ARCHITECTURE.md)、[LAN Sample](../LAN_SAMPLE.md) |
+| 054–066／L95–107 | 保留C#9／框架、程序集／目录、300行硬上限、中文summary、partial和生成物边界；旧Core退出改成当前不变量，Sample／R3／VitalRouter仍保例外 | AGENTS「代码／联机」；[架构](../ARCHITECTURE.md)、[LAN Sample](../samples/LAN_SAMPLE.md) |
 | 067–076／L111–120 | 保留唯一权威、冻结副本、可信连接／Host同链、控制策略、60Hz／暂停、身份／epoch和异步快照边界及不默认扩架构 | AGENTS「权威状态与联机」；[MULTIPLAYER](../MULTIPLAYER.md) |
-| 077–091／L124–138 | 保留指定生图provider、低像素制作／真实坡形、原生Prefab／人工来源保护、绑定禁兜底、规则唯一源、预览隔离和meta／提交边界；移出固定素材数量与旧场景入口语境 | AGENTS「Prefab、美术与内容」；[架构](../ARCHITECTURE.md)、[场景](../SCENES.md)、[依赖](../DEPENDENCIES.md)、[视觉目标](CAVE_EXPLORATION_TARGETS.md) |
+| 077–091／L124–138 | 保留指定生图provider、低像素制作／真实坡形、原生Prefab／人工来源保护、绑定禁兜底、规则唯一源、预览隔离和meta／提交边界；移出固定素材数量与旧场景入口语境 | AGENTS「Prefab、美术与内容」；[架构](../ARCHITECTURE.md)、[场景](SCENES.md)、[依赖](../DEPENDENCIES.md)、[视觉目标](CAVE_EXPLORATION_TARGETS.md) |
 | 092–097／L142–147 | 保留按影响验证、独立进程、冻结夹具、真实编辑／Player验收、待验区分和不推送；完整矩阵按当前范围触发 | AGENTS「验证／Git」；[联机验收](../MULTIPLAYER.md#联机验收重点)、[执行状态](../DEVELOPMENT.md) |
 | 098–100／L151–158 | 合并中文提交type／scope、正文／真实换行、验证与版本影响、UTF8消息文件、暂存范围；移出GameVS参照路径与示例SHA | AGENTS「Git分支与提交」 |
 

@@ -1,6 +1,8 @@
 # F1 游戏逻辑清单与移除评估
 
-2026-10-07初版清单针对Bootstrap默认远征入口，源码基线为 `2079cdc`；协议25／存档v19／AMP1 schema2。下文保留该基线的16项玩法清单与移除评估。用户随后确认保留地面开局、购买以及可操作的起飞／降落／驾驶，其余暂停；当前实施范围、协议26／存档v20和验证边界见[地面基础玩法收敛](GROUND_GAMEPLAY_BASELINE.md)。
+> 本页保留原批次日期、源码／Player身份、协议和实际验证结果。2026-10-09整合后，现行职责由[合同／操作入口](../GROUND_GAMEPLAY_BASELINE.md)承接；未完成项查[当前执行状态](../DEVELOPMENT.md)。归档不核销待验或借用旧通过数。
+
+2026-10-07初版清单针对Bootstrap默认远征入口，源码基线为 `2079cdc`；协议25／存档v19／AMP1 schema2。下文保留该基线的16项玩法清单与移除评估。用户随后确认保留地面开局、购买以及可操作的起飞／降落／驾驶，其余暂停；当前实施范围、协议26／存档v20和验证边界见[地面基础玩法收敛](../GROUND_GAMEPLAY_BASELINE.md)。
 
 F1 的“远征”页配置了16个操作，连接着航程、船体、货物、舱段升级、NPC派工与远征结算。部分逻辑会在面板关闭时自动执行。要得到可控的开发起点，需要同时调整会话装配、自动推进、命令、展示和存档，单独隐藏按钮无法达到这个目标。
 
@@ -12,9 +14,9 @@ F1 的“远征”页配置了16个操作，连接着航程、船体、货物、
 | 快速测试 | 远征模式的主菜单，尚未开局且网络可启动 | 直接启动“已着陆 · 矿镐”新局。开始游戏后注销这张页；不是开局后常驻的玩法。 |
 | 离线地图工作台 | 独立地形Debug场景 | `TerrainDebugPanel` 自己响应F1，含地图、岩壁、背景、显示、状态。它不属于正式会话的“远征”页，应单独决定是否保留。 |
 
-正式场景引用 [ShipHud](../Game/Assets/DarkNights/Res/Objects/ExpeditionShip/ShipHud.prefab)，包含16个命令。旧 [Expedition模板](../Game/Assets/DarkNights/Res/UI/Expedition/Expedition.prefab)只有11个命令，不能据此漏掉驾驶等5项。F1开关及通用窗口属于YYGC；游戏侧负责注册自己的页。
+正式场景引用 [ShipHud](../../Game/Assets/DarkNights/Res/Objects/ExpeditionShip/ShipHud.prefab)，包含16个命令。旧 [Expedition模板](../../Game/Assets/DarkNights/Res/UI/Expedition/Expedition.prefab)只有11个命令，不能据此漏掉驾驶等5项。F1开关及通用窗口属于YYGC；游戏侧负责注册自己的页。
 
-来源：[页注册及提交](../Game/Assets/DarkNights/Scripts/Entry/ExpeditionHud.cs)、[快速测试宿主](../Game/Assets/DarkNights/Scripts/Entry/QuickTestHub.cs)、[离线工作台](../Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainDebugPanel.cs)。
+来源：[页注册及提交](../../Game/Assets/DarkNights/Scripts/Entry/ExpeditionHud.cs)、[快速测试宿主](../../Game/Assets/DarkNights/Scripts/Entry/QuickTestHub.cs)、[离线工作台](../../Game/Assets/DarkNights/Scripts/Entry/Terrain/TerrainDebugPanel.cs)。
 
 ## 远征页全部16个操作
 
@@ -41,7 +43,7 @@ F1 的“远征”页配置了16个操作，连接着航程、船体、货物、
 
 正常安全着陆会立即开启探索，因此舱段升级和补充损失虽然显示，仍可能因阶段条件不可执行。当前页面保留了新旧流程的条件组合。
 
-来源：[显示条件](../Game/Assets/DarkNights/Scripts/View/ExpeditionPanel.cs)、[可信连接授权](../Game/Assets/DarkNights/Scripts/Runtime/Session/SessionExpeditionControl.cs)、[远征事务](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs)、[驾驶及试飞](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionShip.cs)。
+来源：[显示条件](../../Game/Assets/DarkNights/Scripts/View/ExpeditionPanel.cs)、[可信连接授权](../../Game/Assets/DarkNights/Scripts/Runtime/Session/SessionExpeditionControl.cs)、[远征事务](../../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs)、[驾驶及试飞](../../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionShip.cs)。
 
 ## 面板背后自动运行的内容
 
@@ -59,7 +61,7 @@ F1 的“远征”页配置了16个操作，连接着航程、船体、货物、
 
 旧营地另保留招募、生产、建造、训练、修缮、夜袭及胜负逻辑。它们不属于当前F1远征按钮；默认远征调度也不会运行整套旧营地Tick，但仍被会话装配、命令、资源和存档引用。若目标是只保留基础开发环境，应列入扩展移除范围。氧气业务已在此前移除，不列作当前待删除内容。
 
-来源：[默认启动装配](../Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs)、[会话能力要求](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs)、[NPC与设备](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionDevices.cs)、[警戒敌人](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionThreat.cs)、[交易事务](../Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipTradeService.cs)。
+来源：[默认启动装配](../../Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs)、[会话能力要求](../../Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs)、[NPC与设备](../../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionDevices.cs)、[警戒敌人](../../Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionThreat.cs)、[交易事务](../../Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipTradeService.cs)。
 
 ## 建议的可控起点
 
@@ -93,7 +95,7 @@ F1 的“远征”页配置了16个操作，连接着航程、船体、货物、
 
 两种开关不足以构成精简：将 `ExpeditionFlowConfig.Enabled` 设为false会返回旧远征流程；使用 `--dn-camp-mode` 会进入旧营地。把舱段值归零也不会撤除设备、警戒和结算调度。
 
-F1通用Hub属于YYGC，当前会自动创建窗口。游戏侧注销页可以移除业务入口；若还要求彻底取消框架F1窗口，应另列具体框架文件及方案，按 [YYGC授权约定](../AGENTS.md)取得该范围同意。本清单不涉及框架修改或升级。
+F1通用Hub属于YYGC，当前会自动创建窗口。游戏侧注销页可以移除业务入口；若还要求彻底取消框架F1窗口，应另列具体框架文件及方案，按 [YYGC授权约定](../../AGENTS.md)取得该范围同意。本清单不涉及框架修改或升级。
 
 ## 后续实施和验收建议
 

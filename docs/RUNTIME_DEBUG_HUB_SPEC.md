@@ -1,113 +1,90 @@
-# Runtime Debug Hub 接入规范
+# Runtime Debug Hub接入规范
 
-2026-10-09 物体页最新合同：48×48纯图标格、32px图标、6px间距、单格选择，按业务身份筛选真实物体；移除行ListView，由Hub统一滚动。名称／Key／能力状态放在悬停提示及选中信息区，搜索隐藏选中项时清空选择。游戏侧 `HubTheme.uss` 适配Hub专属Panel的内部控件，不修改YYGC共享源码。当前实际Host界面及验证见[物体面板记录](DEBUG_HUB_ICON_PANEL_20261009.md)，下方静态编译说明属于原候选。
-
-2026-10-09：本候选已集成到 `ft-20261008-flashlight-lighting`，当前协议30／存档v22。下方日期及计数保留各自历史输入身份，当前结果见[集成记录](RUNTIME_DEBUG_HUB_MERGE_20261009.md)。
-
-2026-10-08。本规范对应 `ref-20261008-runtime-debug-hub-uitk` 候选。Runtime Debug Hub 已从 IMGUI 改为 UI Toolkit；本批完成源码和静态编译，Unity 导入、实际画面和运行行为尚未验证。实现与验收边界见[开发记录](RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md)。
-
-## 已确认的界面需求
-
-最新用户变更：**上半部分采用 grid 物体网格，下半部分保持原预览的持有装备区**。这一需求替代之前的表格／逐行物体列表方案。
-
-- 页面标题为“物体”；不使用“道具发放”，不写玩家式简介。
-- 网格收录具备装备、单位、建筑、工位或矿床配置的有效定义，以及显式登记的真实投射物；排除UI、音频、会话、连接、服务、漂浮文字及指令圈。运行目录不按Key前缀猜测业务身份；名称／Key搜索忽略大小写与首尾空白，图标引用来自定义。
-- 点击网格块选择定义，统一操作区显示目标、数量、明确的实例身份以及添加／移除按钮。
-- 下方保留四个持有装备槽、独立喷气背包及最近操作；保持原开发者工具的深色、青色强调和危险按钮风格。
-- 暂停玩法中的真实物体和受保护物体继续显示，能力不足时使用短状态。调试页不自动恢复 NPC、刷怪、物流、营地修改或出售等暂停业务。
+本页维护当前F1面板注册、生命周期、界面和房主调试操作。实际完成情况见[执行状态](DEVELOPMENT.md)，框架具体授权／补丁见[YYGC账本](YYGC_CHANGES.md)。历史候选中的ListView行网格及隔离静态编译声明不作为现行合同。
 
 ## 容器和面板职责
 
-| 所有者 | 职责 |
+| 所有者 | 唯一职责 |
 | --- | --- |
-| Hub | 注册、排序、导航、F1、窗口拖动与尺寸、统一输入租约、共享主题、面板异常边界 |
-| 面板 | 本模块控件、冻结副本展示、局部筛选和选择、显式操作参数、回执 |
-| 游戏权威入口 | 可信连接、房主权限、Ready、epoch、协议、策略版本、序号去重 |
-| 所属业务 Behaviour | 库存及物体可变状态、事务、不变量、资源释放 |
+| Hub | 注册／排序／导航、F1、窗口拖动／尺寸、统一输入租约、共享主题及异常边界 |
+| 面板 | 本模块控件、冻结副本、局部搜索／选择、明确参数与回执 |
+| 游戏权威入口 | 可信连接、房主开发权限、Ready、epoch、协议、策略和去重 |
+| 所属Behaviour | 库存／对象可变状态、事务及资源释放 |
 
-正式入口只有一个 F1 Hub。框架不引用 Dark Nights、玩家业务、网络适配或地图规则；业务依赖通过面板工厂传入。不新建 DI、事件框架、通用脚本执行器或第二套对象状态。
+正式F1只有一个Hub；框架不引用Dark Nights业务／地图／网络适配。面板工厂接收现有依赖，不新建DI、事件总线、通用脚本执行器或第二套对象状态。F10继续归已有Smart Console，日志链见[架构](ARCHITECTURE.md#本地照明与有界日志)。
 
 ## 注册合同
 
-| API | 内容 |
+| API | 合同 |
 | --- | --- |
-| `RuntimeDebugPanelDescriptor` | 不可变 `Id`、`Title`、`SortOrder`、`PreferredSize`；默认参考尺寸720×600 |
-| `RuntimeDebugHub.RegisterPanel(descriptor, factory)` | 返回 `IDisposable` 注册句柄；首次激活才创建面板及视图 |
-| `IRuntimeDebugPanel.CreateView(context)` | 返回唯一 VisualElement 根；成功后同一实例只创建一次 |
-| `OnActivated(CancellationToken)` | 本次激活的订阅、调度和取消范围 |
-| `OnDeactivated()` | 幂等停止订阅、调度和局部交互 |
-| `Dispose()` | 最终释放；不得重新激活 |
-| `RuntimeDebugPanelContext` | `Close()` 和有界 `Report(string)`；不授予业务权限 |
+| RuntimeDebugPanelDescriptor | 不可变Id、Title、SortOrder、PreferredSize，默认参考720×600 |
+| RuntimeDebugHub.RegisterPanel(descriptor, factory) | 返回IDisposable句柄，首次激活才创建面板／视图 |
+| IRuntimeDebugPanel.CreateView(context) | 唯一VisualElement根，同实例成功后只创建一次 |
+| OnActivated(CancellationToken) | 本次激活订阅／调度和取消范围 |
+| OnDeactivated() | 幂等停止订阅、调度和局部交互 |
+| Dispose() | 最终释放后不再激活 |
+| RuntimeDebugPanelContext | Close与有界Report，不授予业务权限 |
 
-1. ID 使用稳定业务标识，例如 `dark_nights.objects`、`dark_nights.ship`；标题及类型不是身份。同类型可注册不同 ID。
-2. 按 SortOrder、ID 排序；选中项按 ID 保持。重复 ID 明确抛错，调用者保存句柄并避免重复启动注册。
-3. 句柄只注销本次注册，释放幂等；旧句柄不能注销同名新注册。
-4. 沿用现有会话装配。禁用和卸载时释放句柄；不每帧扫描类型或自动发现面板。
-5. 注销当前页先停用并切到有效页。创建或激活失败不会破坏导航、关闭和其他页；重新进入失败页可再次创建。
-6. 正常顺序为注册、CreateView、激活、停用、再次激活、最终释放。未打开的页面不因注销而实例化。
+稳定Id如dark_nights.objects／ship，与标题、类型分开；同类型可有多个Id。按SortOrder再Id排序，选择按Id保持；重复Id明确失败。旧句柄不能注销同名新注册，未打开页面不因注销而实例化。
 
-接入示例：
+正常顺序注册→CreateView→激活→停用→再激活→最终释放。注销活动页先停用并切有效页；创建／激活失败保留导航与关闭，重新进入失败页可重新创建。SubsystemRegistration清理旧注册及宿主，覆盖关闭Domain Reload的再次进入；具体运行回归仍按待验队列记录。
 
 ```csharp
 registration = RuntimeDebugHub.RegisterPanel(
     new RuntimeDebugPanelDescriptor("dark_nights.example", "诊断", 300),
     () => new ExampleDebugPanel(existingService));
-// 模块禁用／退出时：registration?.Dispose(); registration = null;
+// 所属模块退出时幂等释放registration。
 ```
 
 ## 生命周期和输入
 
-Hub 独占一次 Interaction Session 租约，优先级150、SuspendLowerPriority、阻断玩法输入；关闭、停用或销毁均释放。各面板不重复取得 Hub 租约。F10 继续归已有 Smart Console。
+Hub独占一次Interaction Session租约，优先级150、SuspendLowerPriority并阻断玩法输入；面板不重复取得Hub租约。关闭、禁用、异常或销毁释放。切页先取消旧激活令牌并停用，隐藏页停止150 ms调度及回执订阅；关闭窗口不撤销已经提交的权威操作。
 
-切页先取消激活令牌并停用旧页，再激活新页；隐藏页停止150ms UI调度及回执订阅。关闭窗口不撤销已经提交的权威操作。异步回调须核验激活代次及 epoch，旧回执不能写入新页面状态。
+搜索、选择和滚动属于本地面板。异步回调核验页面代次、连接代次及epoch，旧回执不写新页。上帝授权只归当前服务端会话epoch，不写EditorPrefs或玩法存档。状态文本最多256字符、最近操作最多4条，不捕获自身渲染警告。
 
-搜索、选择及滚动位置是面板本地状态。上帝模式授权只归当前服务端会话 epoch，不写 EditorPrefs 或玩法存档。SubsystemRegistration 清理旧注册与宿主，覆盖关闭 Domain Reload 的重新进入场景；真实行为仍待人工验证。
+## 物体页界面
 
-## UXML、USS 与资源
+上方为纯图标物体网格，下方保留四槽装备、独立喷气背包和最近操作。页面名“物体”，名称／Key／能力放悬停提示和选中信息区。
+
+- 单格48×48，图标32 px，间距6 px，按宽度Flex换行，单格选择；不存在86高的虚拟化ListView行。Hub负责唯一滚动，面板不叠第二层ScrollView。
+- 收录有效装备、单位、建筑、工位、矿床及明确登记的真实投射物；排除UI、音频、连接、服务、漂浮文字和指令圈。不按Key前缀猜业务身份。
+- 搜索名称／Key忽略大小写及首尾空白；筛选隐藏所选项就清选择。操作始终读取当前绑定GUID／角色／明确实例，不能复用旧下标。
+- 图标来自定义Sprite，复用已有静态帧及作者来源，不预加载全部Prefab。缺能力／暂停／受保护对象仍可查看，以短状态说明限制。
 
 ```text
 UIDocument
-└── debugHubRoot / rdh-root
-    └── window / rdh-window
-        ├── header
-        ├── navigation
-        ├── contentHost
-        │   └── objectsRoot / dn-objects-panel
-        │       ├── 搜索、目标、上帝模式
-        │       ├── ListView objectGrid（虚拟化网格行）
-        │       ├── 选中定义和操作
-        │       ├── 四个持有装备槽
-        │       ├── 独立喷气背包
-        │       └── 最近操作
-        └── status
+└── Hub窗口
+    ├── header / navigation
+    ├── contentHost
+    │   └── objectsRoot
+    │       ├── 搜索、角色目标、上帝模式
+    │       ├── VisualElement objectGrid：48×48图标格
+    │       ├── 选中信息和明确操作参数
+    │       ├── 四个装备槽、独立喷气背包
+    │       └── 最近操作
+    └── status
 ```
 
-- UXML 声明 UnityEngine.UIElements、引用相邻 USS、只有一个顶层容器，不写行内 style；name 使用 camelCase，class 使用 kebab-case。
-- 共享主题使用 `rdh-`，游戏物体样式使用 `dn-objects-`；原生 Button、输入框、Foldout 的子控件也按明确作用域适配。
-- 使用 Flexbox、子元素 margin 和几何事件；不使用 CSS Grid、gap、阴影、filter、calc、媒体查询或结构伪类。几何尺寸和拖动位置由宿主管理，颜色及正常布局由 USS 管理。
-- 网格通过 ListView 固定86单位行高虚拟化，每行用 Flex 排列1–6个块。宽度改变才重建列结构；筛选与选择刷新绑定。按钮始终读取当前绑定 GUID，解绑清除身份及图标，回调只在构建时添加。
-- 图标复用现有定义的 Sprite，不预加载所有对象 Prefab。使用 TextCore FontAsset；中文字体与既有船内 UI 一样采用 Microsoft YaHei 动态装配。
-- 宿主克隆已加载的有效 PanelSettings 主题；没有现有主题时使用独立设置及容器 USS。窗口上限受屏幕百分比约束。
-- 通用 UXML/USS 位于包内 `Runtime/Debugging/Resources/YYGC/Debugging/`，游戏模板位于 `Res/UI/DebugHub/Resources/DarkNights/Debugging/`。这些模板是随开发工具打包的 Resources 资源，**不是 Addressable 资源**；不重复登记 Addressables。Hub 视图沿用 UIPanel.Bind 和 DIContainer.Root，不新增资产加载框架。
-- 静态 XML／USS 子集检查仅核验源码结构；Unity 导入、中文、主题、弹出控件和实际布局仍需 Editor 查看。新增资产与脚本的 .meta 留待该候选首次正常 Unity 导入生成；不人工分配 GUID，已有 GUID 保留。
+## UXML、USS与资源
+
+UXML声明UIElements，引用相邻USS，单根容器，不写行内style；name为camelCase，class为kebab-case。共享样式rdh-，游戏物体样式dn-objects-。Flex、margin和几何事件负责布局，不用CSS Grid、gap、阴影、filter、calc、媒体查询或结构伪类。
+
+游戏HubTheme.uss限定Hub专属Panel，适配Button、输入框、Foldout、Dropdown和ScrollView内部控件，不修改YYGC共享源码。窗口位置／尺寸由Hub管理，颜色和正常布局由USS负责；上限受屏幕百分比约束。PanelSettings克隆有效主题或使用独立设置，中文使用TextCore及已有船内UI的Microsoft YaHei装配方式。
+
+框架模板在包内 `Runtime/Debugging/Resources/YYGC/Debugging/`，游戏模板在 `Res/UI/DebugHub/Resources/DarkNights/Debugging/`；这是既有开发工具Resources模板，非Addressable，不重复登记。视图沿UIPanel.Bind和DIContainer.Root，不另建加载框架。新meta交Unity，人工UXML／USS／Theme／Prefab不由普通启动覆盖。
 
 ## 物体与权威操作
 
-当前开放装备免付费添加／移除及手持子弹生成／明确实例移除。手枪、矿镐和炸弹进入原四槽库存；喷气背包是独立能力。炸弹支持1–100批量，库存仍受1000总数上限约束；普通装备只添加一个。并未新增炸弹商品或售价。
+当前允许合法装备免付费添加／移除，手持子弹生成及明确实例移除。手枪、矿镐、炸弹、手电走原四槽，喷气背包独立；炸弹批量1–100、库存总数1000上限，普通装备一次一个。不会新增炸弹／手电商品、给钱或改变普通商店扣款。
 
-其他定义仍列在网格，当前操作为只读／暂停。后续开放世界对象生成时，需提供该模块的准备资源、创建、移除和引用清理处理器，不能直接 Instantiate 表现 Prefab 或自动解除玩法范围限制。唯一飞船、当前主角及业务服务对象必须保护。
+可信房主在开发会话启用上帝模式且取得回执后操作。命令编号1000–1004与普通玩法分开，非开发构建参数入口拒绝调试请求。沿SessionClient／SessionAuthority、YYGC命令及同一初始化事务，核验Ready、协议、策略、epoch、序号和库存版本。
 
-- 只允许可信房主连接；SharedCamp 不授予开发者权限。非开发构建参数入口直接拒绝调试请求。
-- 使用原 SessionClient、SessionAuthority 和 YYGC 命令通道；开发命令编号1000–1004与普通玩法分开。
-- 切换上帝模式需服务端回执；授权不越过 epoch。请求携带明确 GUID、ActorId／实例ID、数量及库存版本，不使用全局选中对象代替请求参数。
-- 商店和调试共用库存初始化事务；普通商店继续验证距离、价格、余额并扣款。调试不给钱，也不经过经济扣款。
-- 装备移除清理所选动作、蓄力和采矿工具引用；炸弹清数量，喷气背包清燃料。投射物通过原权威数组移除，不单独销毁表现。
-- 多实例必须明确选择。目标消失或库存版本过期由服务端拒绝；未确认请求锁定操作，12秒超时后给出状态且不自动重发。
+移除装备清所选动作、矿镐缓存、炸弹蓄力／数量或喷气燃料；移除手电另清照明引用／开关。投射物从原权威数组移除，不直接销毁表现。多实例必须明确选择；目标消失或版本过期拒绝。未确认请求锁定操作，12秒超时提示状态，不自动重发。
 
-## 反馈、验证与范围
+其他定义仍只读／暂停；世界对象开放需所属模块准备、创建、移除及关系清理入口，不直接InstantiatePrefab或解除暂停范围。唯一飞船、当前主角及业务服务对象受保护。
 
-状态文本至多256字符，最近操作至多4条。隐藏页无调度，不捕获自己的渲染警告；日志继续使用已有有界链。面板只读取冻结副本，不复制另一份世界。
+## 验证要求
 
-本批用户明确要求仅静态编译。使用隔离分支和只读 Local 引用，不启动 Unity、Play、Editor测试或Player；不切换、合并或覆盖另一个开发对话及 YYGC 主仓库。正式非开发源码、开发源码及 Editor 源码分别编译；这不等同于对应 Player 已构建或运行。
+核对注册／旧句柄／Domain Reload、失败页和租约释放；宽度改变／筛选／换主角的绑定身份；动作中移除、满槽／重复／批量限制；普通Client、旧epoch／版本和重复序号；Host→Client、晚加入／重连及保存恢复。实际UXML／USS导入、中文、弹出控件和布局需Editor检查，XML静态语法不代替运行画面。
 
-后续验证重点为注册代次／Domain Reload、网格复用身份、装备动作取消、房主与旧 epoch 拒绝、去重和联机副本一致性。关键人工项目及逐项框架差异见实现记录和 [YYGC账本](YYGC_CHANGES.md)。框架范围限定 Debugging 内容器、契约、描述、注册表、视图、资源及对应可重建补丁；既有其他补丁继续保留。
+原候选、合并和图标批次证据分别保留在[重构记录](archive/RUNTIME_DEBUG_HUB_IMPLEMENTATION_20261008.md)、[集成记录](archive/RUNTIME_DEBUG_HUB_MERGE_20261009.md)和[图标记录](archive/DEBUG_HUB_ICON_PANEL_20261009.md)。仅当前执行状态核销未完成验收，不借用旧测试数字。

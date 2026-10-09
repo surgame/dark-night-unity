@@ -1,5 +1,7 @@
 # 原生矿层实现与测试
 
+> 本页保留原批次日期、源码／Player身份、协议和实际验证结果。2026-10-09整合后，现行职责由[合同／操作入口](../TERRAIN_GENERATION.md)承接；未完成项查[当前执行状态](../DEVELOPMENT.md)。归档不核销待验或借用旧通过数。
+
 本候选在 `ft-20261004-embedded-minerals` 当前分支开发。矿床已经切换为会话拥有的独立 AnyRuleD 地图，正式运行不再创建矿床 ObjectInstance。游戏协议25、存档v19、AMP1 schema2。本轮功能回归通过；专项前台性能及下述场景边界未验，完整方案尚未最终交付。
 
 ## 实现事实
@@ -69,9 +71,9 @@ Mono目录：`artifacts/map-state/player-mono-20261005-070310-e50f9fbd/`。该Pl
 | 采空前后组合绘制 | 1311个明显变化像素；已查看本候选独立Player诊断截图 |
 | 框架改动审计 | 已记录373文件，0项变化 |
 
-机器摘要见[当前证据](evidence/mineral-map-migration-20261005.json)。弱网中继实际接收15123个UDP包，丢弃745个、转发14378个；本轮没有四人弱网或双机器结论。完整矿工路线、分散区域与专项性能边界见上文。
+机器摘要见[当前证据](../evidence/mineral-map-migration-20261005.json)。弱网中继实际接收15123个UDP包，丢弃745个、转发14378个；本轮没有四人弱网或双机器结论。完整矿工路线、分散区域与专项性能边界见上文。
 
-Unity CLI操作次数和具体命令记录见[后台流程](UNITY_CLI_WORKFLOW.md)。全部验证通过CLI、现有Editor工具和Player脚本完成，Computer Use为0；Editor仍保持Bootstrap且不在Play。
+Unity CLI操作次数和具体命令记录见[后台流程](../UNITY_CLI_WORKFLOW.md)。全部验证通过CLI、现有Editor工具和Player脚本完成，Computer Use为0；Editor仍保持Bootstrap且不在Play。
 
 中间探针bin/obj、临时CLI截图及本轮Python字节码共1961257字节已集中保留到`artifacts/待清理/20261005-mineral-map-migration/`，没有删除或释放空间。最终Player、所有失败历史、日志、图像及测试存档保留，D盘阶段结束可用约15.81 GB。
 
@@ -92,4 +94,4 @@ python tools/embedded-minerals/test_network.py --player '<同一Mono绝对路径
 python tools/embedded-minerals/test_network.py --player '<同一Mono绝对路径>/DarkNights.exe' --clients 1 --background --weak --port 29540 --output-root artifacts/mineral-map-migration-20261005/network
 ```
 
-串行复用同一构建。弱网为200 ms RTT、5% loss、25 ms jitter，Ready前置失败停止后续步骤。`--background`减少窗口抢焦点，仍使用图形和实际相机回执。后台开发见[Unity CLI工作流程](UNITY_CLI_WORKFLOW.md)。
+串行复用同一构建。弱网为200 ms RTT、5% loss、25 ms jitter，Ready前置失败停止后续步骤。`--background`减少窗口抢焦点，仍使用图形和实际相机回执。后台开发见[Unity CLI工作流程](../UNITY_CLI_WORKFLOW.md)。

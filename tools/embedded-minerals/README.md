@@ -12,4 +12,6 @@ python tools/embedded-minerals/test_network.py --player '<同一Mono Player绝�
 
 图形窗口用于真实相机回执。自动截图仅作诊断；规则／矿层小样、正式组合画面与最终美术分别验收。该检查不覆盖全矿工路线、全航程弱网、前台性能、IL2CPP 或双机器。
 
-2026-10-05当前候选为 `artifacts/map-state/player-mono-20261005-070310-e50f9fbd/DarkNights.exe`：两层局部流，正常两人30/30、四人38/38及弱网两人30/30。输入观察等待命令实际消费，退出按客户端先于房主；保留首次退出时回放异常和旧全图弱网Ready失败。证据见[实现记录](../../docs/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
+2026-10-05原批次候选为 `artifacts/map-state/player-mono-20261005-070310-e50f9fbd/DarkNights.exe`：两层局部流，正常两人30/30、四人38/38及弱网两人30/30。输入观察等待命令实际消费，退出按客户端先于房主；保留首次退出时回放异常和旧全图弱网Ready失败。证据见[实现记录](../../docs/archive/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。
+
+当前开放玩法、源／Player身份和未完成矩阵见[地形合同](../../docs/TERRAIN_GENERATION.md)与[执行状态](../../docs/DEVELOPMENT.md)。上述旧Player不代表后续装备、手电或照明后端验收。

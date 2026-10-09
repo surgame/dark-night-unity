@@ -8,4 +8,4 @@ dotnet run --project tools/MineralMapProbe/MineralMapProbe.csproj -- artifacts/m
 
 首次8/8结果保留在上述证据路径。`.cs.fixture`是P0开发构建的显式双层FishNet入口备份，不编入正式游戏；旧P0 Player的9/9只证明传输接线前置。`test_transport.py`须配合含该入口的旧探针Player，不能针对当前正式Player运行或作为正式采集验收。
 
-正式Player使用 `tools/embedded-minerals/test_network.py`，当前Editor回归与玩法见[矿层实现记录](../../docs/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。工具bin／obj是可重建中间产物，结束后按AGENTS.md归档，不提交。
+正式Player使用 `tools/embedded-minerals/test_network.py`，当前玩法及验收见[地形合同](../../docs/TERRAIN_GENERATION.md)和[执行状态](../../docs/DEVELOPMENT.md)，原批次见[矿层实现记录](../../docs/archive/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)。工具bin／obj是可重建中间产物，结束后按AGENTS.md归档，不提交。

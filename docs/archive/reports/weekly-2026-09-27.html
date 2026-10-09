@@ -45,7 +45,7 @@ html[data-theme=light]{--bg:#f0f3f6;--panel:#fff;--panel2:#e8edf3;--text:#192837
   <article class="panel"><div class="panel-title"><h3>本周交付增量</h3><span class="badge good">实现 + 分批验证</span></div><ul class="list">
    <li><strong>远征营地首轮闭环</strong><p>氧气、货袋、四设备展开、矿工交货、风险撤收、原子结算与三舱段升级已落地；同一旧 Demo Mono 的正常／弱网四人各 35/35。<a class="ref" href="../TERRAIN_HISTORY.md">[S1]</a></p></li>
    <li><strong>飞船成为可进入、可驾驶的空间</strong><p>船内走动、唯一驾驶席、机器人与侦察机归队已接入。09.22 同构建三进程正常／弱网各 28/28。<a class="ref" href="../WALKABLE_EXPEDITION_SHIP.md">[S2]</a></p></li>
-   <li><strong>地图生产与同步基础继续完善</strong><p>岩层与三层背景进入正式远征，地图增量改为最终变化格，工作台合并验证 35/35；即时刷新仍有两项失败。<a class="ref" href="../MAP_STATE_NETWORKING.md">[S3]</a><a class="ref" href="../../RUNTIME_TERRAIN_TUNER.md">[S4]</a><a class="ref" href="../../SCENES.md">[S5]</a></p></li>
+   <li><strong>地图生产与同步基础继续完善</strong><p>岩层与三层背景进入正式远征，地图增量改为最终变化格，工作台合并验证 35/35；即时刷新仍有两项失败。<a class="ref" href="../MAP_STATE_NETWORKING.md">[S3]</a><a class="ref" href="../RUNTIME_TERRAIN_TUNER.md">[S4]</a><a class="ref" href="../SCENES.md">[S5]</a></p></li>
    <li><strong>太空 → 星球航程合入 main</strong><p>选星球、后台生成、到达同步、缓降、自动着陆和下船可运行；Editor 航程 53/53，Mono／IL2CPP 均有多人证据。<a class="ref" href="../SPACE_TO_PLANET_ACCEPTANCE.md">[S6]</a></p></li>
   </ul></article>
   <article class="panel"><div class="panel-title"><h3>对项目目标的影响</h3><span class="badge warn">分析判断</span></div><ul class="list">
@@ -109,22 +109,22 @@ html[data-theme=light]{--bg:#f0f3f6;--panel:#fff;--panel2:#e8edf3;--text:#192837
 "use strict";
 const sources=[
  ['S0','远征营地进阶玩法策划案','file:///D:/Downloads/dark_nights_expedition_camp_design.html','产品目标、七项 Demo 必须项、五档成长阶段与单局时长目标。'],
- ['S1','09.21 远征营地交付记录','../archive/EXPEDITION_CAMP_DELIVERY.md','三舱段、四设备、矿工、中继、风险、撤收与结算；同一保存世界再次出发的限制。'],
- ['S2','09.22 可步入远征飞船','../archive/WALKABLE_EXPEDITION_SHIP.md','50 张原生素材、船舱、驾驶席、机器人和侦察机；三进程正常／弱网证据。'],
+ ['S1','09.21 远征营地历史摘要','../TERRAIN_HISTORY.md','三舱段、四设备、矿工、中继、风险、撤收与结算；同一保存世界再次出发的限制。'],
+ ['S2','09.22 可步入远征飞船','../WALKABLE_EXPEDITION_SHIP.md','50 张原生素材、船舱、驾驶席、机器人和侦察机；三进程正常／弱网证据。'],
  ['S3','09.24 地图联网重构','../MAP_STATE_NETWORKING.md','最终锁地图循环 17/17；旧锁完整矩阵与最终锁验证区分。'],
  ['S4','09.26 运行时洞穴工作台','../RUNTIME_TERRAIN_TUNER.md','受影响用例合并 35/35，固定／随机真实 Play，小窗检查。'],
  ['S5','场景索引与地形状态','../SCENES.md','正式 StrataCave、LocalV2 接入；地形专项 32/2，运行对象分组边界。'],
  ['S6','太空到星球验收清单','../SPACE_TO_PLANET_ACCEPTANCE.md','以 09.27 最终合入节为准；09.26 的 72 项快照已过时。四人计数按下方原始报告校正。'],
  ['S7','太空到星球实现记录','../SPACE_TO_PLANET_IMPLEMENTATION.md','单向航程、指定泊位、返太空缺口与 09.28 坡道修复 44/44。'],
- ['S8','开发执行计划','../DEVELOPMENT.md','输入与改键的未验证边界；当前工程阶段及历史记录。'],
- ['S9','架构与联机合同','../ARCHITECTURE.md','权威状态归 YYGC 业务 State；展示只读，保留同一会话业务入口。'],
- ['S10','联机设计','../MULTIPLAYER.md','SharedCamp、HostOnly、Ready、epoch、去重、恢复与多进程验收要求。'],
+ ['S8','开发执行计划','../../DEVELOPMENT.md','输入与改键的未验证边界；当前工程阶段及历史记录。'],
+ ['S9','架构与联机合同','../../ARCHITECTURE.md','权威状态归 YYGC 业务 State；展示只读，保留同一会话业务入口。'],
+ ['S10','联机设计','../../MULTIPLAYER.md','SharedCamp、HostOnly、Ready、epoch、去重、恢复与多进程验收要求。'],
  ['E1','地形原始结果摘要','../evidence/terrain-local-validation-20260926.json','32 通过、2 失败；本报告读取原始摘要。'],
- ['N1','Mono r3 正常双进程原始报告','../../artifacts/space-planet-flow/network-20260927-034111-980393-mono-normal-2p-client/result.json','passed=true；127 条检查；visual_acceptance=false。'],
- ['N2','IL2CPP r4 正常双进程原始报告','../../artifacts/space-planet-flow/network-20260927-034429-628910-il2cpp-normal-2p-client/result.json','passed=true；127 条检查；visual_acceptance=false。'],
- ['N3','IL2CPP r4 弱网四人／来宾驾驶','../../artifacts/space-planet-flow/network-20260927-035821-536578-il2cpp-weak-4p-client/result.json','passed=true；171 条检查；此数与验收摘要的对应顺序不同。'],
- ['N4','IL2CPP r4 正常四人／房主驾驶','../../artifacts/space-planet-flow/network-20260927-040651-983329-il2cpp-normal-4p-host/result.json','passed=true；163 条检查；此数与验收摘要的对应顺序不同。'],
- ['N5','IL2CPP r4 弱网四人／房主驾驶','../../artifacts/space-planet-flow/network-20260927-041126-989292-il2cpp-weak-4p-host/result.json','passed=true；169 条检查；visual_acceptance=false。']
+ ['N1','Mono r3 正常双进程原始报告索引','../SPACE_TO_PLANET_ACCEPTANCE.md#本页证据引用','passed=true；127 条检查；visual_acceptance=false。 原始 result.json 在本轮检查时已不在原位置；链接指保留的原验收记录，原路径：artifacts/space-planet-flow/network-20260927-034111-980393-mono-normal-2p-client/result.json。'],
+ ['N2','IL2CPP r4 正常双进程原始报告索引','../SPACE_TO_PLANET_ACCEPTANCE.md#本页证据引用','passed=true；127 条检查；visual_acceptance=false。 原始 result.json 在本轮检查时已不在原位置；链接指保留的原验收记录，原路径：artifacts/space-planet-flow/network-20260927-034429-628910-il2cpp-normal-2p-client/result.json。'],
+ ['N3','IL2CPP r4 弱网四人／来宾驾驶索引','../SPACE_TO_PLANET_ACCEPTANCE.md#本页证据引用','passed=true；171 条检查；此数与验收摘要的对应顺序不同。 原始 result.json 在本轮检查时已不在原位置；链接指保留的原验收记录，原路径：artifacts/space-planet-flow/network-20260927-035821-536578-il2cpp-weak-4p-client/result.json。'],
+ ['N4','IL2CPP r4 正常四人／房主驾驶索引','../SPACE_TO_PLANET_ACCEPTANCE.md#本页证据引用','passed=true；163 条检查；此数与验收摘要的对应顺序不同。 原始 result.json 在本轮检查时已不在原位置；链接指保留的原验收记录，原路径：artifacts/space-planet-flow/network-20260927-040651-983329-il2cpp-normal-4p-host/result.json。'],
+ ['N5','IL2CPP r4 弱网四人／房主驾驶索引','../SPACE_TO_PLANET_ACCEPTANCE.md#本页证据引用','passed=true；169 条检查；visual_acceptance=false。 原始 result.json 在本轮检查时已不在原位置；链接指保留的原验收记录，原路径：artifacts/space-planet-flow/network-20260927-041126-989292-il2cpp-weak-4p-host/result.json。']
 ];
 const days=[
  ['09.21','营地 Demo','从手采到第一次升级','正式入口切为紧凑洞穴远征，接通氧气货袋、四设备展开、矿工交货、风险撤收与原子结算。','常规／弱网四进程各 35/35；首次循环时长、深区全路线和正式美术仍待验。','S1'],

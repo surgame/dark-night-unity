@@ -1,45 +1,53 @@
-# 工具 Definition 与采集能力
+# 工具Definition、装备与采集能力
 
-2026-10-02 实施于当前 Local 基线，沿用 YYGC 锁定依赖；本批没有修改框架源码。游戏协议 **22**，世界存档 **v15**，地图 AMP1 schema **2**。旧存档保留，当前入口拒绝旧格式，不自动迁移或删除。
+本页维护静态工具能力、装备身份、动作与权威采集的关系。前景／矿层状态见[地形合同](TERRAIN_GENERATION.md)，文件字段见[存档合同](SAVE_FORMAT.md)，操作和当前验收分别见Player指南及执行状态。旧独立矿床实例与暂停自动矿工不是正式运行模板。
 
 ## 人工配置
 
-2026-10-03 当前入口：`Dark Nights / 工作台 → 对象与装备`，点击矿镐／矿床快捷目标进入原生 YYGC Definition Workshop。主工作台只保留采集装配与目标匹配辅助区；也可在 Project 中双击对应资产进入原生工坊。
+从 `Dark Nights → 工作台 → 对象与装备` 打开原生YYGC Definition Workshop，也可Project双击定义。游戏侧采集辅助区只校验装配／白名单／匹配，不提供第二套配置编辑或保存。
 
-- 正式矿镐：`Game/Assets/DarkNights/Res/Objects/ShipTrade/item-pickaxe.asset`。`BehaviourTypes` 装配 `MiningToolBehaviour`；`SharedConfigs / 工具采集能力` 保存 `MiningToolConfig`。
-- `Targets` 设置支持前景岩壁、独立矿床或二者。当前正式矿镐只支持前景岩壁，保持上一轮“不与隐藏矿床交互”的产品行为。
-- `AllMaterials=true` 支持所有目标材料；关闭后只接受 `Materials` 中的稳定 Key。前景使用 AnyRuleD 材料 Key（如 slate、iron、gold），矿床使用其实际材料／资源身份（当前 iron、gold）。关闭且列表为空表示不支持任何材料。
-- `Deposits` 为可选矿床 Definition 引用白名单；空列表表示所有矿床定义。只在 `Targets` 包含独立矿床时参与判断。多个矿床共享 Definition 时，使用 Materials 区分材料，不按实例 ID 配置静态能力。
-- `Level` 与矿床的 `RequiredMiningLevel` 比较。当前数值：Damage=10，Reach=64，HandHeight=36，Seconds=0.48，ImpactFraction=0.6。Reach 在原生界面显示为“吸附与挥砍距离”，两者共用；本次从48扩大至64（4格）的原因和验证见[统一距离记录](archive/PICKAXE_UNIFIED_REACH.md)。
-- 矿床资产：`Game/Assets/DarkNights/Res/Objects/MineralDeposit/MineralDeposit.asset`。矿床只配置最低采集等级、耐久、产量和材料；原 `AllowPickaxeHarvest` 已退出。
+| 配置 | 用途与边界 |
+| --- | --- |
+| 正式矿镐 `Res/Objects/ShipTrade/item-pickaxe.asset` | BehaviourTypes装配MiningToolBehaviour，SharedConfigs保存MiningToolConfig |
+| Targets | Foreground=1、MineralDeposit=2，当前矿镐为3；支持前景及露出的矿层目标，不表示允许隔墙采矿 |
+| AllMaterials／Materials | 全支持或按稳定材料Key白名单；关闭且列表为空表示不支持任何材料 |
+| Deposits | 可选矿床Definition引用白名单，空列表表示所有定义；由初始静态元数据匹配，不按实例ID声明能力 |
+| Level／RequiredMiningLevel | 工具等级与目标静态需求匹配；能力通过仍须距离、遮挡、版本和容量验证 |
+| Damage／Reach／HandHeight／Seconds／ImpactFraction | 当前作者值10／64／36／0.48／0.6；吸附与挥砍共用Reach，64逻辑像素为4玩法格 |
+| 矿床Definition | 保留材料、等级、耐久、产量及来源；不拥有当前最终矿格状态，AllowPickaxeHarvest旧开关已退出 |
 
-例如，要让某把镐只采铁矿床：在该工具 Definition 中启用 MineralDeposit，关闭 AllMaterials，Materials 填 iron；如还需限制矿床类型，在 Deposits 中选择对应 Definition。支持岩壁且限制材料时须同时列出需要的岩壁材料 Key。匹配预览使用与游戏同一纯匹配函数，但不替代距离、遮挡、权限和容量校验。
+例如仅采铁矿层：启用MineralDeposit，关闭AllMaterials，Materials填iron，需要限制特定来源时选择Deposits定义。还需采岩壁则启用Foreground并列出相应Key。前景采用AnyRuleD材料身份，矿层来自其冻结资源／材料规则。
 
-在采集辅助区检查装配、白名单与匹配；编辑与保存统一由原生 Workshop 执行，不编译地形或创建新地形目录。新会话加载冻结规则。地形业务工作台的工具页改为此入口；地形作者数据仍走原有独立编译流程。
+退出Play再编辑，校验／保存归Workshop，新会话读取冻结规则；工具配置不编译地形或创建地图目录。只读匹配预览复用MiningToolRules，但不能替代真实输入及服务端采集。原距离调整及工具批次来源见[统一距离](archive/PICKAXE_UNIFIED_REACH.md)、[工具机器记录](archive/evidence/tool-definition-harvesting-20261002.json)。
 
 ## 状态与装配合同
 
-工具能力通过 RequireConfig／Inject、生成注册和 YYGC ObjectInstance 装配。角色装备槽的唯一权威值为 canonical Definition GUID；Runtime 通过冻结目录解析对应 Definition，Core／存档／线缆只保存引擎无关的 GUID 字符串。视觉枚举仅由目录派生，两个同外观工具可同时拥有不同身份。
+工具沿YYGC RequireConfig／Inject、生成注册、Definition、ObjectInstance和主视图装配。库存槽唯一权威值为canonical Definition GUID；Runtime冻结目录解析定义，Core／存档／线缆只保存引擎无关GUID字符串。视觉枚举由目录派生，相同外观可以有不同定义身份。
 
-ObjectSessionResources 在启动时冻结装备目录并预加载采集工具。角色装备能力缓存只持有当前工具对象引用，不复制背包状态；换装、恢复、角色退池和会话退休释放对应装配。工具无独立耐久状态；动作计时与装备选择仍归 ActorState。
+ObjectSessionResources启动冻结装备目录并预加载；角色能力缓存只持有当前工具引用，不复制背包状态。换装、角色退池、加载及会话退休释放原装配。工具没有新增独立耐久，动作计时、选择版本、货袋及装备可变状态仍归ActorState。
 
-选取和服务端执行共享 MiningToolRules.BlockReason，比较目标类别、实际材料、采集等级和可选矿床定义。客户端只消费冻结装备目录与展示投影；服务端从自己的装备槽解析工具，不接受客户端声明的伤害或工具能力。
+新增定义由正常Unity导入meta及现有Definition身份入口登记，已有GUID、Prefab和素材保留。炸弹沿既有item.bomb身份与原数值，不新增商品或价格。作者定义能力与商品规则分开，不因网格收录而开放购买或生成。
 
-每轮动作冻结工具身份、选择版本、目标身份与瞄准角；换装取消待命中动作。矿床 Behaviour 最终匹配并修改自身耐久／存量；岩壁仍由现有 ARDMap 权威事务修改，不创建逐格对象。收益与目标修改沿用现有同一事务。
+## 目标、动作与事务
 
-矿镐参数已从会话 HandheldConfig 移除；会话仍管理原有枪弹、炸弹及投射物状态。既有自动矿工伤害标定复用默认工具的冻结伤害，不受玩家工具目标白名单限制。独立地图工作台明确使用默认工具配置。
+选取和服务端执行共享MiningToolRules.BlockReason，比较目标类型、实际材料、等级及可选来源定义；服务端从真实装备槽解析能力，不接受客户端自报伤害／工具权限。
 
-既有炸弹装备补齐独立 `item.bomb` 身份；定义复用已有 Prefab 引用，未添加新玩法或改动原炸弹数值。新资产通过 Unity 创建 meta 和 YYGC 的显式副本身份入口注册；现有工具、矿床及 Prefab GUID 保持。
+每轮冻结工具身份、选择版本、目标及瞄准角。落镐时重新验证目标和地图代次／内容版本；失效不改打后一层，下一轮才重新选择。换装、取消、死亡、登船、权限撤销、输入超时及世界退休撤销未命中动作。
 
-## 验证与边界
+前景耐久和矿层耐久／储量均由所属原生地图权威事务修改，不创建逐格或逐矿床对象。奖励与角色货袋同一短事务结算，最后一份竞争和重发输入不重复发收益。前景遮挡、未知格及距离规则见[采集事务](TERRAIN_GENERATION.md#采集事务)。
 
-- 六个程序集独立源码编译通过，Local Unity 导入／编译通过；剥离其他未提交改动后的暂存树六个程序集也独立编译通过。
-- Editor 按影响合并 **62/62 个不同用例**。首轮 58/62，修正既有初始装备／空挥语义夹具及新增临时定义夹具后 61/62；最后一个恢复夹具保存稳定 actor ID 后专项 1/1。原失败报告保留，不合并为一次完整矩阵通过。
-- 新增真实 YYGC 用例验证第二个工具 Definition 装配不同能力、冻结配置、同视觉类型不同装备身份、保存恢复和换装取消；实际采矿与去重由 MiningInputTests 覆盖。
-- 单一 Mono 产物正常网络 Host＋Client **27/27**：购买、非法位置、重复支付、并发支付、暂停、晚加入、重连、canonical 装备身份以及实际写盘重启恢复。
-- Core 回归 **1046/1048**，两项仍断言旧软岩／保护格规则；保留失败，不修改冻结规则证据来消除差异。
-- ArchitectureGuard **20 项既有错误**，新增类型未新增守卫错误；其中 ObjectSession 超长、HeroInputSampler 内嵌类型仍是既有留账，不能宣称全局守卫通过。
+自动矿工伤害标定的历史适配和独立工作台默认工具来源继续保留，暂停自动派工不因工具配置编辑而恢复。手持枪弹／炸药／投射物沿原会话能力，不把动画或碰撞回调当伤害结算。
 
-弱网（200 ms RTT＋5% loss＋25 ms jitter）前段检查通过，但断开后立即重连未重新 Ready，100 秒后超时；报告包含 18 项通过检查（含退出后的日志检查），本批弱网整体失败。服务端已释放旧控制租约，新传输连接随后建立又被远端关闭；尚不能归因为工具身份或能力规则，不通过重复重跑掩盖此失败。弱网与各产物哈希见本批机器摘要。Player 中实际采矿、第二工具跨进程能力差异、四人、IL2CPP、双机器、完整人工画面和前台性能不计为通过。旧日期的构建结果不替代本批。
+## 装备与照明关系
 
-证据根：`artifacts/tool-definition-harvesting-20261002/`；正式机器摘要：`docs/archive/evidence/tool-definition-harvesting-20261002.json`。编译中间产物统一保留到 `artifacts/待清理/20261002-tool-definition-harvesting/`，不永久删除，不计作释放空间。
+正式四格库存包含手枪、矿镐、炸弹及手电等实际持有定义；数量、重复、容量、选择和移除由同一库存事务验证。喷气背包为独立能力，不占四格，装备／燃料仍归角色状态。
+
+新角色仅创建时配发一件手电，占一格；接管或恢复不重新配发已移除手电。快速测试先给矿镐再配手电，保留矿镐槽位。照明引用必须指向实际库存道具，移除清引用／开关并释放实例。切矿镐／枪照明继续，F走可信控制入口；选择手电时获取其他手持工具可切到新工具，照明保持。
+
+手电商品键为空，配发或现有房主调试添加；不新增帽子、电池、掉落或价格。光效只消费冻结持有、开关与方向，详细复用和本地后端见[照明合同](LIGHTING.md)。
+
+## 验证边界
+
+当前源码／Player验收只在[执行状态](DEVELOPMENT.md)登记。2026-10-02工具批次62个不同Editor及指定Mono正常网络27项、弱网重连失败、Core两项旧断言和架构既有问题保留在原机器记录与Git基线，不据此签署当前四人、第二工具跨进程或照明恢复通过。
+
+当前需按影响覆盖真实不同能力Definition装配、同视觉不同身份、持有关系、切换／移除取消、最后一份竞争、去重、保存与新epoch恢复；正式手感及跨进程不以只读匹配窗口替代。

@@ -29,7 +29,7 @@
 
 ## 内存与故障门控
 
-- 每批 Play／测试／构建前检查磁盘、Editor 私有内存、可用物理内存和系统提交余量；复用单一 Editor，先短时探针再扩大。独立监控入口为 `tools/ground-baseline/watch_memory.py`，用法与事故见[内存保护](docs/UNITY_MEMORY_INCIDENT_20261007.md)。
+- 每批 Play／测试／构建前检查磁盘、Editor 私有内存、可用物理内存和系统提交余量；复用单一 Editor，先短时探针再扩大。独立监控入口为 `tools/ground-baseline/watch_memory.py`，用法见[内存门控](docs/UNITY_CLI_WORKFLOW.md#内存门控)，事故见[原记录](docs/archive/UNITY_MEMORY_INCIDENT_20261007.md)。
 - 本机 32 GiB 默认停止边界如下；触发即记录并停止本任务 Play，不再提交下一批。硬件或实测工作集改变时重新评估。
 
 | 指标 | 停止条件 |
@@ -83,7 +83,7 @@
 - 模拟默认 60 Hz，倍速仅一个入口生效；暂停时网络、心跳、重连和 UI 继续，不用 `Time.timeScale = 0` 停整个服务进程。业务、定义、放置、网络和连接身份分开；使用 DefinitionReference／GuidFirst／GuidV2，加载增加 epoch 并拒绝旧世界命令／快照。
 - 快照深度冻结，异步发送／插值／存档不持有已归池状态；SessionScope 不跨 await／线程。正式游戏不恢复 Godot／Unity旧档、旧协议或 Kind／整数兼容；新格式严格校验、保存恢复与原子性仍需验收，Sample LegacyV1及框架其他使用者另保边界。
 - 联机复用 Gateway／Sender／Processor、类型注册／序列化与 StatefulBehaviour／StateSynchronizer，游戏只补权限、去重、投影、Ready、epoch和恢复，输入互斥复用 Interaction Sessions。先验可靠完整投影，测量后再分块／拆流；后备适配须有现有路径不足的具体证据，框架修改仍须事先授权。调查来源见[能力复评](docs/archive/YYGC_REASSESSMENT.md)。
-- 不默认引入锁步、回滚、ECS、并行模拟、每实体 NetworkTransform、房主迁移或专服集群，增加前给出具体需求与测量依据。独立模板遵循 [LAN Sample](docs/LAN_SAMPLE.md)，正式代码不反向引用或覆盖样板原生资产；R3用于必要订阅／生命周期，VitalRouter仅保YYGC必需适配，新业务路由／过滤器先说明必要性与调试路径，不为模板预建Steam／Lobby／多transport抽象。
+- 不默认引入锁步、回滚、ECS、并行模拟、每实体 NetworkTransform、房主迁移或专服集群，增加前给出具体需求与测量依据。独立模板遵循 [LAN Sample](docs/samples/LAN_SAMPLE.md)，正式代码不反向引用或覆盖样板原生资产；R3用于必要订阅／生命周期，VitalRouter仅保YYGC必需适配，新业务路由／过滤器先说明必要性与调试路径，不为模板预建Steam／Lobby／多transport抽象。
 
 ## Prefab、美术与内容
 
@@ -93,7 +93,7 @@
 - 最终资产统一像素密度、调色板、透明边缘和拼接合同，在原生尺寸／真实镜头检查团块、重复、共边、过渡和斜面；视觉坡形对应独立形状与权威碰撞，不以圆角／阶梯冒充。源图保留来源／重建关系，不覆盖人工源；固定洞穴样板到随机推广的专项计划见[视觉与空间目标](docs/archive/CAVE_EXPLORATION_TARGETS.md)，隐藏连通／旧图集不代表视觉或真实通行验收。
 - 专用资源归 `Res/Objects`／对应面板，共用归 `Res/Shared`，原始源只保存一份；Original／Custom 分开并保留来源／SHA-256，最近邻采样、关闭不需的有损压缩，坐标／原点／帧序按来源合同转换。来源数量见[依赖说明](docs/DEPENDENCIES.md)，不写成固定总素材上限。
 - 通过 DefinitionReference／ObjectDefinition.PrefabRef 和既有绑定／注入／生成注册装配，检查键／类型／引用与池化／释放；不以 GetComponent、节点名或子索引兜底缺失绑定。Addressables 用条目／分组注册，不用特殊 Resources 目录存放其资源；保留现有配置位置，路径／Address／Label／定义身份分开，合同见[架构](docs/ARCHITECTURE.md#装配能力和事务)。
-- 正式对象／UI使用原生Prefab，场景编辑态可查看布局与外观，不退为空节点＋全局创建脚本；具体场景用途见[场景索引](docs/SCENES.md)。人工Prefab／AnimationClip／场景／Theme不被初始化、导入或构建覆盖；初始化只在指定空目录输出首版。场景是布局唯一可编辑来源，派生数据可追溯且不反写；balance／波次JSON是规则唯一源，Definition不重复HP／成本／实例进度。
+- 正式对象／UI使用原生Prefab，场景编辑态可查看布局与外观，不退为空节点＋全局创建脚本；具体场景用途见[场景目录](docs/EDITOR_WORKBENCH.md#场景目录)。人工Prefab／AnimationClip／场景／Theme不被初始化、导入或构建覆盖；初始化只在指定空目录输出首版。场景是布局唯一可编辑来源，派生数据可追溯且不反写；balance／波次JSON是规则唯一源，Definition不重复HP／成本／实例进度。
 - 角色根对齐脚底，ArtOffset／Facing／StatusAnchor／SelectionAnchor与玩法占地分离；动画／物理碰撞不结算伤害。Editor预览只表现，不启动会话／网络、不用业务RNG、不访问玩家存档。提交 `.meta`、manifest／packages-lock、ProjectSettings，启用文本序列化／Visible Meta Files；Library、用户存档、本机配置、密钥和依赖缓存不提交。
 
 ## 验证与交付
