@@ -31,6 +31,7 @@ namespace DarkNights.Editor
             var database = ObjectDefinitionDatabase.Instance;
             foreach (var actor in database.Definitions.Where(value => value != null &&
                 value.BehaviourTypes.Contains(typeof(HeroControlBehaviour).FullName))) ConfigureActor(actor);
+            Lighting.LightingBackendContentSetup.Install();
             AssetDatabase.SaveAssets(); Validate();
         }
 

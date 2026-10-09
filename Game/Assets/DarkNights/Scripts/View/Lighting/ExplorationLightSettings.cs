@@ -6,6 +6,8 @@ namespace DarkNights.View.Lighting
     [Serializable]
     public sealed class ExplorationLightSettings
     {
+        public LightingBackendKind Backend = LightingBackendKind.PrivateField;
+        public float ApertureScale = 1;
         public bool SoftShadows = true;
         public float Ambient = .24f;
         public float Softness = .22f;

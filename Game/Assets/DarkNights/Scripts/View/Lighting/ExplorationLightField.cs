@@ -8,7 +8,7 @@ using UnityEngine.Rendering;
 namespace DarkNights.View.Lighting
 {
     /// <summary>一台游戏相机拥有的局部 GPU 照明；只使用冻结光源和已确认格，资源退休可等待，不参与模拟。</summary>
-    public sealed class ExplorationLightField
+    public sealed class ExplorationLightField : IEnvironmentLightBackend
     {
         private const int Capacity = 16, Width = 384, Height = 216;
         private readonly ComputeShader shader;
@@ -17,15 +17,18 @@ namespace DarkNights.View.Lighting
         private readonly LightGeometryCache geometry;
         private readonly Vector4[] positions = new Vector4[Capacity], directions = new Vector4[Capacity], colors = new Vector4[Capacity];
         private readonly Vector4[] nearOrigins = new Vector4[Capacity];
+        private readonly Vector4[] apertures = new Vector4[Capacity];
         private readonly int resolve, illuminate;
         private bool retired;
         private Task retirement;
-        public ExplorationLightSettings Settings { get; } = new ExplorationLightSettings();
+        public ExplorationLightSettings Settings { get; }
         public int SourceCount { get; private set; }
         public bool GeometryReady => geometry.Ready;
 
-        public ExplorationLightField(ComputeShader template, Func<Core.ViewData.LightGeometrySnapshot,Func<bool>,float[]> calculator)
+        public ExplorationLightField(ComputeShader template, Func<Core.ViewData.LightGeometrySnapshot,Func<bool>,float[]> calculator,
+            ExplorationLightSettings settings = null)
         {
+            Settings = settings ?? new ExplorationLightSettings();
             if (template == null || !SystemInfo.supportsComputeShaders)
                 throw new InvalidOperationException("当前 GPU 或手电 Prefab 缺少计算光照能力。");
             geometry = new LightGeometryCache(calculator);
@@ -59,6 +62,7 @@ namespace DarkNights.View.Lighting
                     emitter.Directional ? Mathf.Cos(Mathf.Clamp(rule.Cone+Settings.ConeOffset,20,150)*.5f*Mathf.Deg2Rad) : -1);
                 Vector3 near = matrix.MultiplyPoint3x4(emitter.NearPosition);
                 nearOrigins[n] = new Vector4(near.x+.5f,-near.y+.5f,0,0);
+                apertures[n] = new Vector4(emitter.Directional ? rule.ApertureWidth * Mathf.Clamp(Settings.ApertureScale, 0, 4) * .5f : 0, 0, 0, 0);
                 directions[n] = new Vector4(forward.x,-forward.y,rule.NearRange,rule.NearIntensity*Mathf.Clamp(Settings.NearStrength,0,2));
                 var linear = new Color(rule.Red,rule.Green,rule.Blue,1).linear;
                 colors[n] = new Vector4(linear.r,linear.g,linear.b,rule.Intensity*Mathf.Clamp(Settings.IntensityScale,0,2));
@@ -71,6 +75,7 @@ namespace DarkNights.View.Lighting
             shader.SetInt("_DNLightCount",SourceCount); shader.SetFloat("_DNBounceStrength",Mathf.Clamp(Settings.Bounce,0,.4f));
             shader.SetVectorArray("_DNLightPositions",positions); shader.SetVectorArray("_DNLightDirections",directions); shader.SetVectorArray("_DNLightColors",colors);
             shader.SetVectorArray("_DNLightNearOrigins",nearOrigins);
+            shader.SetVectorArray("_DNLightApertures",apertures);
             shader.SetTexture(resolve,"_DNLightCells",source.LightingGeometry);
             shader.SetTexture(illuminate,"_DNLightCells",source.LightingGeometry);
             shader.SetBuffer(resolve,"_DNBounceSources",bounce); shader.SetBuffer(illuminate,"_DNBounceSources",bounce);
@@ -88,10 +93,12 @@ namespace DarkNights.View.Lighting
             Shader.SetGlobalFloat("_DNLightingAmbient",Mathf.Clamp01(Settings.Ambient));
             Shader.SetGlobalFloat("_DNRelief",Mathf.Clamp01(Settings.Relief)); Shader.SetGlobalFloat("_DNLightingActive",1);
             Shader.SetGlobalFloat("_DNLightingReady",1);
+            Shader.SetGlobalFloat("_DNLightingBackend",1);
         }
 
         public static void Suspend()
         { Shader.SetGlobalFloat("_DNLightingActive",0); Shader.SetGlobalFloat("_DNLightingReady",0); }
+        void IEnvironmentLightBackend.Suspend() => Suspend();
 
         public Task RetireAsync()
         {

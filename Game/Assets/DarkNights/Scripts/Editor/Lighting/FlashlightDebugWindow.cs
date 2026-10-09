@@ -21,10 +21,14 @@ namespace DarkNights.Editor.Lighting
             var tree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>(Root+"FlashlightDebug.uxml");
             tree.CloneTree(rootVisualElement);
             status = rootVisualElement.Q<Label>("status");
+            var backend = rootVisualElement.Q<EnumField>("backend");
+            backend.Init(LightingBackendKind.PrivateField);
+            backend.RegisterValueChangedCallback(e => { if (Settings != null) Settings.Backend = (LightingBackendKind)e.newValue; });
             rootVisualElement.Q<Toggle>("soft").RegisterValueChangedCallback(e => { if (Settings != null) Settings.SoftShadows = e.newValue; });
             Bind("ambient",()=>Settings.Ambient,v=>Settings.Ambient=v);
             Bind("softness",()=>Settings.Softness,v=>Settings.Softness=v);
             Bind("coneFeather",()=>Settings.ConeFeather,v=>Settings.ConeFeather=v);
+            Bind("aperture",()=>Settings.ApertureScale,v=>Settings.ApertureScale=v);
             Bind("wallDepth",()=>Settings.WallDepth,v=>Settings.WallDepth=v);
             Bind("wallStrength",()=>Settings.WallStrength,v=>Settings.WallStrength=v);
             Bind("near",()=>Settings.NearStrength,v=>Settings.NearStrength=v);
@@ -54,7 +58,10 @@ namespace DarkNights.Editor.Lighting
             rootVisualElement.Q<VisualElement>("controls").SetEnabled(settings!=null);
             if (settings==null) return;
             rootVisualElement.Q<Toggle>("soft").SetValueWithoutNotify(settings.SoftShadows);
+            rootVisualElement.Q<EnumField>("backend").SetValueWithoutNotify(settings.Backend);
+            rootVisualElement.Q<VisualElement>("private-controls").SetEnabled(settings.Backend == LightingBackendKind.PrivateField);
             Set("ambient",settings.Ambient); Set("softness",settings.Softness); Set("coneFeather",settings.ConeFeather);
+            Set("aperture",settings.ApertureScale);
             Set("wallDepth",settings.WallDepth); Set("wallStrength",settings.WallStrength); Set("near",settings.NearStrength);
             Set("bounce",settings.Bounce); Set("relief",settings.Relief);
             Set("range",settings.RangeScale); Set("cone",settings.ConeOffset); Set("intensity",settings.IntensityScale);

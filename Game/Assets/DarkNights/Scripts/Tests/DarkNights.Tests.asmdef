@@ -1,6 +1,7 @@
 {
   "name": "DarkNights.Tests",
   "references": [
+    "Unity.RenderPipelines.Universal.2D.Runtime",
     "DarkNights.Core",
     "DarkNights.Runtime",
     "DarkNights.View",

@@ -65,9 +65,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Lighting.LightEnvironmentEmitter
   emitter: {fileID: 3767062631218077902}
   lightingShader: {fileID: 7200000, guid: 02170dae5e9339640955ec044c39fa27, type: 3}
+  urpLightTemplate: {fileID: 6314719519295837112, guid: f44e3cb5f8e4e7a4dba938df1f015f80, type: 3}
+  urpShadowTemplate: {fileID: 6355509044824381544, guid: 34c79a4a8f11d44488a653b54761c548, type: 3}
   directional: 1
   range: 14
   cone: 90
+  apertureWidth: 0.375
   intensity: 1.35
   nearRange: 2.2
   nearIntensity: 0

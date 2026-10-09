@@ -20,12 +20,15 @@ Shader "DarkNights/CaveStrata"
         Cull Off ZWrite Off Blend SrcAlpha OneMinusSrcAlpha
         Pass
         {
+            Tags { "LightMode"="Universal2D" }
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
             #pragma target 3.5
-            #include "UnityCG.cginc"
-            #include "Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Core2D.hlsl"
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
+            #include_with_pragmas "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/ShapeLightShared.hlsl"
+            #include "Assets/DarkNights/Res/Shared/Lighting/LightingSurface.hlsl"
             sampler2D _RockSurface, _CaveLight;
             float4x4 _MapWorldToLocal;
             float _Background, _Ambient;
@@ -33,13 +36,13 @@ Shader "DarkNights/CaveStrata"
             struct Output { float4 vertex:SV_POSITION; float2 p:TEXCOORD0; float2 world:TEXCOORD1; };
             Output vert(Input v)
             {
-                Output o; o.vertex=UnityObjectToClipPos(v.vertex);
+                Output o; o.vertex=TransformObjectToHClip(v.vertex.xyz);
                 o.world=mul(unity_ObjectToWorld,v.vertex).xy;
                 o.p=mul(_MapWorldToLocal,mul(unity_ObjectToWorld,v.vertex)).xy; return o;
             }
             float3 lit(float3 color,float2 light,float2 world,float3 normal)
             {
-                if (_DNLightingActive>.5) return color*DNIrradiance(world,normal);
+                if (_DNLightingActive>.5) return DNShade(float4(color,1),world,normal,float4(1,1,1,1)).rgb;
                 return color*min(1.15,_Ambient+light.r*.65+light.g*.4)+
                     float3(.083,.036,.007)*light.r+float3(.009,.036,.06)*light.g;
             }
@@ -57,10 +60,21 @@ Shader "DarkNights/CaveStrata"
                     clip(rock.a-.5); return float4(lit(rock.rgb,light,i.world,normal),1);
                 }
                 // 独立地下工作台的固定底板；航程使用分层素材，不启用该底板。
-                float3 color=GammaToLinearSpace(float3(40,31,23)/255);
+                float3 color=SRGBToLinear(float3(40,31,23)/255);
                 color=lerp(color,rock.rgb,step(.5,rock.a));
                 return float4(lit(color,light,i.world,normal),1);
             }
+            ENDHLSL
+        }
+        Pass
+        {
+            Tags { "LightMode"="NormalsRendering" }
+            HLSLPROGRAM
+            #pragma vertex DNNormalVertex
+            #pragma fragment DNNormalFragment
+            #pragma target 3.5
+            #define DN_NORMAL_STRATA
+            #include "Assets/DarkNights/Res/Shared/Lighting/TerrainNormals.hlsl"
             ENDHLSL
         }
     }

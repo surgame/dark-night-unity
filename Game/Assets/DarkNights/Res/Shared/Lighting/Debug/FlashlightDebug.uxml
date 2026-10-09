@@ -3,6 +3,8 @@
   <ui:VisualElement class="light-panel">
     <ui:Label name="status" class="status" text="进入正式游戏后可调参。" />
     <ui:VisualElement name="controls">
+      <ui:EnumField name="backend" label="照明后端" />
+      <ui:Label text="URP 模式使用原生灯光与阴影；墙内羽化和有限反射仅用于私有光场。" />
       <ui:VisualElement class="preset-row">
         <ui:Button name="bright" text="明亮" /><ui:Button name="balanced" text="平衡" />
         <ui:Button name="dark" text="偏暗" /><ui:Button name="zero" text="零环境光" />
@@ -11,11 +13,14 @@
       <ui:Slider name="ambient" label="环境底光" low-value="0" high-value="0.6" show-input-field="true" />
       <ui:Slider name="softness" label="阴影柔度（格）" low-value="0" high-value="0.75" show-input-field="true" />
       <ui:Slider name="coneFeather" label="光束边缘渐变" low-value="0" high-value="0.25" show-input-field="true" />
+      <ui:Slider name="aperture" label="灯口截面宽度倍率" low-value="0" high-value="4" show-input-field="true" />
+      <ui:VisualElement name="private-controls">
       <ui:Slider name="wallDepth" label="墙内最大深度（格）" low-value="0" high-value="1" show-input-field="true" />
       <ui:Slider name="wallStrength" label="墙内补光上限" low-value="0" high-value="1" show-input-field="true" />
       <ui:Slider name="near" label="近身散光倍率" low-value="0" high-value="2" show-input-field="true" />
       <ui:Slider name="bounce" label="有限反射补光" low-value="0" high-value="0.4" show-input-field="true" />
       <ui:Slider name="relief" label="岩壁受光层次" low-value="0" high-value="1" show-input-field="true" />
+      </ui:VisualElement>
       <ui:Slider name="range" label="照射距离倍率" low-value="0.25" high-value="1.5" show-input-field="true" />
       <ui:Slider name="cone" label="光束角度偏移（度）" low-value="-50" high-value="60" show-input-field="true" />
       <ui:Slider name="intensity" label="直射强度倍率" low-value="0" high-value="2" show-input-field="true" />

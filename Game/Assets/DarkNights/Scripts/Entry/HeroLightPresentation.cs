@@ -24,34 +24,38 @@ namespace DarkNights.Entry
         private readonly LightFillComposer fills = new LightFillComposer();
         private readonly List<Task> retiring = new List<Task>();
         private readonly HashSet<int> wanted = new HashSet<int>();
-        private ExplorationLightField field;
+        private readonly ExplorationLightSettings settings = new ExplorationLightSettings();
+        private EnvironmentLighting field;
         private View.Terrain.CaveVisualSource boundSource;
         private int epoch;
         private bool failed;
+        private LightingBackendKind? failedBackend;
         private static readonly LightEmissionRules DeviceLight = new LightEmissionRules(8.375f,90,.45f,.25f,0,1,.78f,.48f);
-        public ExplorationLightSettings Settings => field?.Settings;
+        public ExplorationLightSettings Settings => settings;
         public int SourceCount => field?.SourceCount ?? 0;
         public Task Retirement { get; private set; } = Task.CompletedTask;
 
         public void Initialize(SessionNetwork session, SessionEntityViews views, GameInputActions actions, Terrain.RandomLevelEntry entry)
         {
             network = session; entities = views; input = actions; terrain = entry;
+            settings.Backend = EnvironmentLighting.InitialBackend(System.Environment.GetCommandLineArgs());
             RenderPipelineManager.beginCameraRendering += BeginCamera;
         }
 
         private void BeginCamera(ScriptableRenderContext context, Camera camera)
         {
             var preview = terrain?.Preview;
-            if (preview == null || camera != preview.ViewCamera) { Shader.SetGlobalFloat("_DNLightingActive",0); return; }
-            if (failed || !network.Client.Ready) { ExplorationLightField.Suspend(); return; }
+            if (failed && field?.Settings.Backend != failedBackend) failed = false;
+            if (preview == null || camera != preview.ViewCamera) { field?.Suspend(); return; }
+            if (failed || !network.Client.Ready) { field?.Suspend(); return; }
             try { Present(camera,preview); }
-            catch (Exception error) { failed = true; ExplorationLightField.Suspend(); Debug.LogException(error,this); }
+            catch (Exception error) { failed = true; failedBackend = field?.Settings.Backend; field?.Suspend(); Debug.LogException(error,this); }
         }
 
         private void Present(Camera camera, View.Terrain.TerrainPreview preview)
         {
             var frame = network.Client.Replica.Current;
-            if (frame == null || preview.LightingSource == null) { ExplorationLightField.Suspend(); return; }
+            if (frame == null || preview.LightingSource == null) { field?.Suspend(); return; }
             if (epoch != frame.Epoch) { ClearTools(); epoch = frame.Epoch; }
             if (boundSource != preview.LightingSource)
             {
@@ -103,7 +107,8 @@ namespace DarkNights.Entry
             LightEffect.Collect(this, camera, effects);
             foreach (var effect in effects)
             {
-                field = field ?? new ExplorationLightField(effect.Environment.LightingShader, Core.Logic.Lighting.LightWallDistance.Build);
+                field = field ?? new EnvironmentLighting(effect.Environment, Core.Logic.Lighting.LightWallDistance.Build,
+                    Core.Logic.Lighting.LightBeamProfile.Evaluate, settings);
                 if (effect.IsOn && effect.Environment.isActiveAndEnabled) emitters.Add(effect.Environment.Sample(preview));
             }
             fills.Apply(effects, field?.Settings.NearStrength ?? 1,

@@ -1,6 +1,7 @@
 using System;
 using DarkNights.Core.Config;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace DarkNights.View.Lighting
 {
@@ -9,9 +10,12 @@ namespace DarkNights.View.Lighting
     {
         [SerializeField] private Transform emitter;
         [SerializeField] private ComputeShader lightingShader;
+        [SerializeField] private Light2D urpLightTemplate;
+        [SerializeField] private ShadowCaster2D urpShadowTemplate;
         [SerializeField] private bool directional = true;
         [SerializeField, Range(2, 24)] private float range = 14;
         [SerializeField, Range(20, 150)] private float cone = 90;
+        [SerializeField, Range(0, 2)] private float apertureWidth = .375f;
         [SerializeField, Range(0, 4)] private float intensity = 1.35f;
         [SerializeField, Range(.25f, 5)] private float nearRange = 2.2f;
         [SerializeField, Range(0, 2)] private float nearIntensity;
@@ -20,12 +24,14 @@ namespace DarkNights.View.Lighting
         private Transform boundEmitter;
         private LightEmissionRules rules;
         public ComputeShader LightingShader => lightingShader;
+        public Light2D UrpLightTemplate => urpLightTemplate;
+        public ShadowCaster2D UrpShadowTemplate => urpShadowTemplate;
         public Transform Emitter => emitter;
 
         public void Bind(Transform occlusionAnchor, Transform mouth = null) { mount = occlusionAnchor; boundEmitter = mouth; }
         public void Unbind() { mount = null; boundEmitter = null; }
         public LightEmissionRules Freeze() => new LightEmissionRules(range, cone, intensity,
-            nearRange, nearIntensity, color.r, color.g, color.b);
+            nearRange, nearIntensity, color.r, color.g, color.b, apertureWidth);
         private void OnEnable() { rules = Freeze(); }
         private void OnValidate() { rules = null; }
 
