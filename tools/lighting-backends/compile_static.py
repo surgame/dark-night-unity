@@ -26,7 +26,7 @@ output = args.output.resolve()
 if not output.is_relative_to(local / 'artifacts') or output.exists():
     raise SystemExit('Use a fresh Local artifacts directory')
 output.mkdir(parents=True)
-spec = importlib.util.spec_from_file_location('dn_memory_shapes', local / 'tools/ground-baseline/watch_memory.py')
+spec = importlib.util.spec_from_file_location('dn_memory_shapes', repo / 'tools/ground-baseline/watch_memory.py')
 memory_types = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(memory_types)
 psapi = ctypes.WinDLL('psapi', use_last_error=True)
@@ -40,6 +40,7 @@ handle = kernel.OpenProcess(0x410, False, args.editor_pid)
 if not handle:
     raise SystemExit('Editor PID no longer exists')
 report = {'variant': args.variant, 'scope': 'static C#; no Unity import, Play, shaders or Player', 'checks': [], 'memory': []}
+report['limits'] = dict(memory_types.LIMITS)
 report['sources'] = {str(path.relative_to(repo)): hashlib.sha256(path.read_bytes()).hexdigest()
                      for path in (repo / 'Game/Assets/DarkNights/Scripts').rglob('*.cs')}
 
@@ -62,7 +63,7 @@ def save():
 
 def run(command, name, reserve=.3):
     before = sample()
-    if before['commit_gib'] < 4 + reserve or before['available_gib'] < 6 or before['editor_private_gib'] > 8:
+    if memory_types.memory_breach(before['editor_private_gib'], before['available_gib'], before['commit_gib'], reserve):
         report['stopped'] = 'memory gate before ' + name
         save()
         raise SystemExit(2)
@@ -70,7 +71,7 @@ def run(command, name, reserve=.3):
         process = subprocess.Popen(command, cwd=local / 'Game', stdout=log, stderr=subprocess.STDOUT)
         while process.poll() is None:
             state = sample()
-            if state['commit_gib'] < 4 or state['available_gib'] < 6 or state['editor_private_gib'] > 8:
+            if memory_types.memory_breach(state['editor_private_gib'], state['available_gib'], state['commit_gib']):
                 process.terminate()
                 process.wait(timeout=10)
                 report['stopped'] = 'memory gate during ' + name

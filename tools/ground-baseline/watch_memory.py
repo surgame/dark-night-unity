@@ -10,6 +10,16 @@ import subprocess
 import time
 
 
+LIMITS = {"editor_private_gib": 8, "minimum_free_ram_gib": 6, "minimum_free_commit_gib": 8}
+
+
+def memory_breach(private_gib, free_ram_gib, free_commit_gib, reserve_gib=0):
+    """共享停止边界；批次启动可额外保留预计分配量，不降低基础提交余量。"""
+    return (private_gib >= LIMITS["editor_private_gib"]
+            or free_ram_gib < LIMITS["minimum_free_ram_gib"]
+            or free_commit_gib < LIMITS["minimum_free_commit_gib"] + reserve_gib)
+
+
 class Performance(c.Structure):
     _fields_ = [("size", w.DWORD), ("commit", c.c_size_t), ("limit", c.c_size_t),
                 ("peak", c.c_size_t), ("physical", c.c_size_t), ("available", c.c_size_t),
@@ -78,7 +88,7 @@ def main():
                 log.write(json.dumps(sample) + "\n")
                 log.flush()
                 # 32 GiB 主机保留明确余量，远早于本次 16.7 GiB/92% 的事故点。
-                if sample["private_gib"] >= 8 or sample["free_ram_gib"] < 6 or sample["free_commit_gib"] < 4:
+                if memory_breach(sample["private_gib"], sample["free_ram_gib"], sample["free_commit_gib"]):
                     state = "breach"
                     (args.output / "breach.json").write_text(json.dumps(sample, indent=2), encoding="utf-8")
                     try:
@@ -97,7 +107,7 @@ def main():
         kernel.CloseHandle(handle)
         summary = {"state": state, "samples": samples, "peak_private_gib": peak,
                    "minimum_free_ram_gib": minimum_ram, "minimum_free_commit_gib": minimum_commit,
-                   "limits": {"editor_private_gib": 8, "minimum_free_ram_gib": 6, "minimum_free_commit_gib": 4}}
+                   "limits": dict(LIMITS)}
         (args.output / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
         print(json.dumps(summary))
     return 2 if state == "breach" else 0

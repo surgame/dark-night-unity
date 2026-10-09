@@ -1,6 +1,6 @@
 // Unity CLI eval_file：候选Shader的有限离屏探针，不进入正式Play，不保存场景。
-var worktree = "C:/Users/Jobscn/.codex/worktrees/aperture-lighting-backends/unity-projects/Game/";
-var output = System.IO.Path.GetFullPath("../artifacts/lighting-backends-20261009/shader-probe");
+var sourceProject = System.IO.Path.GetDirectoryName(UnityEngine.Application.dataPath).Replace('\\', '/') + "/";
+var output = System.IO.Path.GetFullPath(System.IO.Path.Combine(sourceProject, "../artifacts/lighting-backends-20261009/shader-probe"));
 System.IO.Directory.CreateDirectory(output);
 var monitor = System.IO.Path.Combine(output, "memory", "breach.json");
 var owned = new System.Collections.Generic.List<UnityEngine.Object>();
@@ -14,8 +14,8 @@ try
         "Assets/DarkNights/Res/Art/Custom/CaveExploration/CavePixelRock.shader" })
     {
         if (System.IO.File.Exists(monitor)) throw new System.OperationCanceledException("内存门控停止Shader探针。");
-        string text = System.IO.File.ReadAllText(worktree + path);
-        text = text.Replace("\"Assets/DarkNights/Res/Shared/Lighting/", "\"" + worktree + "Assets/DarkNights/Res/Shared/Lighting/");
+        string text = System.IO.File.ReadAllText(sourceProject + path);
+        text = text.Replace("\"Assets/DarkNights/Res/Shared/Lighting/", "\"" + sourceProject + "Assets/DarkNights/Res/Shared/Lighting/");
         text = text.Replace("Shader \"", "Shader \"LightingProbe/");
         var shader = UnityEditor.ShaderUtil.CreateShaderAsset(text, false); owned.Add(shader);
         var material = new UnityEngine.Material(shader); owned.Add(material);
