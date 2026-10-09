@@ -74,3 +74,4 @@
 - [2026-10-05 整理回执](archive/FOLDER_ORGANIZATION_20261005.md)：移动清单、保留项目与验证。
 
 - [2026-10-07精简回执](archive/DOCUMENT_CONSOLIDATION_20261007.md)：归档合并、旧证据移除、保护范围和Git恢复入口。
+- [协作约定整理回执](archive/AGENTS_CONSOLIDATION_20261009.md)：AGENTS长期约束、20段历史承接、操作细则迁移及原文Git恢复入口；仅文档核验。

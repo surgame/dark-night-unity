@@ -1,158 +1,111 @@
 # Dark Nights Unity 开发约定
 
-2026-10-09 当前手电分支接入[可复用照明与库存道具](docs/REUSABLE_LIGHTING_20261009.md)，协议 **31**／存档 **v23**／AMP1 schema **2**。光效为共享环境照明／目标补光Prefab，提供头部挂载变体；手电占四格库存之一，切工具持续照明，移除关闭并释放，恢复不重新配发。真实Editor编译0错误／0警告，专项10/10及Bootstrap短时探针1/1；影响合并33个不同用例通过，3个旧业务失败保留。没有本批Player联机或长期验收，YYGC保持；本机提交余量停止及产物保全见实施记录。
+## 现行范围与阅读入口
 
-2026-10-09 已按用户要求将 `ref-20261008-runtime-debug-hub-uitk` 合入 `ft-20261008-flashlight-lighting`，当前协议 **30**／存档 **v22**／AMP1 schema **2**。保留手电独立控制／局部照明、既有地形加载修复及UITK物体网格／房主调试事务。旧普通操作编号保留、Debug1000–1004独立；现有Debugging补丁及首次导入meta已接入Local锁定依赖，用户YYGC主工作区及其已有修改未变。静态编译Editor7／Development5／Release5均0错误、架构772／16／0；没有合并版Play／Player或联机验收，不能借用此前协议29画面。旧游戏分支及worktree已安全移除，证据、依赖和待清理产物保全路径见[集成记录](docs/RUNTIME_DEBUG_HUB_MERGE_20261009.md)。
+- 游戏为 Dark Nights，灰松谷一个关卡，2–4 人合作、共享营地。当前开放／暂停玩法以[地面基础玩法范围](docs/GROUND_GAMEPLAY_BASELINE.md)和后续获批切片为准；旧代码、历史完成记录或共享营地目标不授权恢复暂停玩法。
+- 开始任务先读 [README](README.md)、[现行文档索引](docs/README.md)和[开发执行计划](docs/DEVELOPMENT.md)。修改代码／状态／对象装配时读[技术架构](docs/ARCHITECTURE.md)，涉及权限／同步／恢复时读[联机设计](docs/MULTIPLAYER.md)及[存档合同](docs/SAVE_FORMAT.md)；专项文档按索引进入。
+- 当前协议、存档和依赖查对应合同、锁定配置与执行状态；阶段历史从[归档索引](docs/archive/README.md)追溯。历史协议、构建和通过数不能证明当前候选或前台性能通过。
 
-2026-10-07 地面玩法收敛候选为 `ref-20261007-ground-gameplay-baseline`，现按用户追加确认保留矿镐光标／提示、挥镐采集与收益、手枪／爆破／手持投射物和喷气背包的可操作入口；协议27／存档v21／AMP1 schema2。炸药只恢复已有道具操作链，不新增购买商品或价格。直接地面开局、购买、驾驶／起飞／降落继续保留；NPC、警戒刷怪、物流、出售、升级、远征结算和营地修改仍暂停。F10的缺字反馈OOM已由有界日志和中文回退修复，独立内存门控继续适用。见[玩法范围](docs/GROUND_GAMEPLAY_BASELINE.md)和[事故记录](docs/UNITY_MEMORY_INCIDENT_20261007.md)。新候选不能借用旧Player联机计数，YYGC未修改／升级。
+## 工作区与成果保护
 
-2026-10-07 按用户要求将 `ft-20261006-terrain-debug-integration` 合入本地 `main`，包含地形网格调试整合、工作台双网格与快捷键、草稿保存及Modifier启停展示。保留本地已保存的 `WorldSession` 入口走道Modifier关闭配置，核对托管引用完整，除该开关外配置语义不变。既有Editor及画面证据见[执行状态](docs/DEVELOPMENT.md)；本次合并未重跑Unity或构建Player，不增加验收结论。协议25／存档v19／AMP1 schema2不变，既有获批YYGC补丁随分支集成，本次未新增框架修改／升级。
+- `Game/` 是唯一日常 Unity 宿主。`../projects` 是已提交的游戏基线，`../reference projects` 是研究／素材来源；日常导入、构建和运行独立于这两个目录。详细归属见[工作区说明](docs/WORKSPACE.md)。
+- 保留用户和其他会话已有修改、未保存场景／草稿、原始素材、资源 GUID、冻结夹具、失败报告、正式证据及仍需复用的 Player。不能代为切换、覆盖、清理或合并其他会话的 YYGC／AnyRule 工作区。
+- 不擅改既有数值、布局、波次、素材字节、文字或攻击时机；联机必要的权限和会话语义变化单独记录并验证。不自动删除用户旧存档。
 
-2026-10-05 按用户要求将 `ft-20261004-embedded-minerals` 开发成果集成到本地 `main`，协议25／存档v19／AMP1 schema2不变。另提交主角地面诊断、跳跃边沿立即发送及Host即时冻结展示；最新编译无错误、定向Editor69/69，提交前Core1048/1048、架构731文件／16自测／0命中。旧Mono早于本次主角修复，当前Player联机、实际坡沿手感及其余门槛仍待验，不宣称整批交付。YYGC未修改／升级，见[执行状态](docs/DEVELOPMENT.md)与[主角修复证据](docs/evidence/hero-input-presentation-20261005.json)。
+## YYGC 授权与锁定依赖
 
-2026-10-05 [原生矿层迁移](docs/MINERAL_MAP_MIGRATION_IMPLEMENTATION.md)继续当前 `ft-20261004-embedded-minerals`：协议25／存档v19／AMP1 schema2；矿格唯一状态归ARDMap业务存储，正式矿床实体退出，客户端前景与矿层局部订阅／加载。按用户暂定玩法，拆前景墙发现部分矿床而不伤矿物。首轮39项失败已复测，影响Editor105/105及真实副本组合画面通过，同一Mono正常两人30/30、四人38/38、弱网两人30/30通过；两层局部换区与静态背景保留已验，专项前台性能等未完成，整批未交付。Unity CLI已可后台编译／测试／截图／构建，本轮不使用Computer Use。YYGC未修改／升级，不能把旧Player数字当作本候选验收。
+- **2026-10-03 起，修改 YYGC 必须先取得用户对具体范围的明确同意。** 覆盖 `D:/Developer/YYGC`、隔离 checkout／worktree、本机 `.deps/` 内框架源码与补丁，以及版本升级／补丁接入；隔离验证不豁免。此规则替代 2026-09-12／13 的一般授权，历史许可、游戏任务和框架缺陷均不构成本次许可。
+- 未获同意可继续只读调查、游戏侧实现和可审查方案。确需修改时先说明缺口、拟改文件、原因、依赖／影响、落点和验证计划；已获批范围连续完成，超范围重新取得同意。使用已锁定 YYGC、生成游戏侧绑定和修改游戏业务不属于框架源码修改。
+- 获批后优先隔离验证，不清理或覆盖用户改动；完成后逐项列出框架修改文件、原因、落点和验证结果，维护 [YYGC 改动账本](docs/YYGC_CHANGES.md)。不因框架限制长期保留两套对象／状态模型，不全面拆分框架历史长文件。
+- 通过 UPM 和可重现锁定配置接入；实验修正使用隔离 checkout，提交依赖配置与锁文件，不提交 `.deps/`。准备方式和补丁来源见[依赖说明](docs/DEPENDENCIES.md)。
 
-2026-10-04 [内嵌矿开发检查点](docs/archive/TERRAIN_HISTORY.md)位于 `ft-20261004-embedded-minerals`，干净 main 基线 `b705709`；既有工作台和方案已先集成。协议24／存档v18／AMP1 schema2，YYGC未改。多格矿床权威、独立AnyRuleD矿层、专用投影与保存已实施；受影响Editor245/245、Mono正常两人24/24及四人30/30。弱网初始Ready失败，正式组合画面存在矿层遮挡，排序诊断未导入；本候选仍未交付，后续先解决UI弹窗与组合渲染门槛，不能把旧构建或单层小样当作当前最终验收。
+## Git 分支与提交
 
-2026-10-03 氧气移除分支ref-20261003-remove-oxygen已合入本地main，基线baedc15，协议 **23**／存档 **v16**／AMP1 schema **2**。氧气业务、氧气站、中继命令及状态合同完整退出，YYGC未修改；已转Local后台验证，原Editor119/121、资源12/12、正常Mono双进程130/130；两项未实现玩法的旧路线用例已移除，本次剩余远征回归6/6，历史失败保留。弱网仍失败并延后修复，整批未通过。见[验证记录](docs/archive/OXYGEN_REMOVAL_VALIDATION.md)与[失败分析](docs/archive/OXYGEN_REMOVAL_FAILURE_ANALYSIS.md)。下方历史计数不代表本候选。
+- 2026-09-22 起，新工作分支（含实验／worktree）使用 `分类-YYYYMMDD-简短英文主题`，日期取创建当天本地日期，主题用小写短横线；不使用 `codex/` 或额外层级。分类为 `ft` 功能／地图／素材、`fix` 修复、`ref` 重构、`docs` 文档、`test` 验证、`chore` 维护、`exp` 探索，同一目的保持一致。
+- 创建前检查重名，冲突时增加有意义的主题限定，不覆盖已有分支。长期分支和历史分支不批量改名，旧命名不作为新分支模板。
+- 2026-10-04 起，提交标题用 `type(scope): 中文概要`；scope 为明确模块，可用中文或技术名，跨模块无需限定时用 `type: 中文概要`。type 为 `feat/fix/refactor/perf/docs/test/chore`，与分支分类分别选择；不改写历史提交。
+- 标题／正文用中文，技术名称、路径和前缀保留原文，标题正文空一行并保留真实换行。正文说明问题、目的、结果和重要变化；复杂提交可按 `### feat/fix/refactor/docs: ...` 等分节，简单提交不凑空小节。记录验证、未通过／未执行项及协议／存档／依赖影响。
+- 多行消息优先写 UTF-8 文件并用 `git commit --file`。提交前检查暂存差异，只提交当前仓库内本次授权成果，不推送远端；文档改动仅报告文档核验。
 
-2026-09-28 原地着陆源码候选位于 `fix-20260928-free-ship-landing`：星球降落改为当前安全位置原地着陆，游戏协议 **16**／存档 **v11**。下方协议 15 的 Editor、Mono 和 IL2CPP 数字属于原泊位规则的已验构建，不代表本候选通过；验证状态见[验收清单](docs/archive/SPACE_TO_PLANET_ACCEPTANCE.md)。
+## 内存与故障门控
 
-2026-09-27 当前切片为[太空到星球流程](docs/archive/SPACE_TO_PLANET_IMPLEMENTATION.md)，分支 `ft-20260926-space-planet-flow` 已合入 `main`，协议 **15**／存档 **v11**。太空船内步行、驾驶台选星球、过场、后台生成、到达同步、缓降与自动着陆下船已实现；航程 Editor 53/53，Mono r3 双进程 127/127，IL2CPP r4 双进程及三组四人通过。YYGC 框架改动已合入 YYGC `master` `fee1864`。人工画面、逐阶段晚加入、前台性能和双机器仍待验收，详见[验收清单](docs/archive/SPACE_TO_PLANET_ACCEPTANCE.md)，不宣称最终交付。
+- 每批 Play／测试／构建前检查磁盘、Editor 私有内存、可用物理内存和系统提交余量；复用单一 Editor，先短时探针再扩大。独立监控入口为 `tools/ground-baseline/watch_memory.py`，用法与事故见[内存保护](docs/UNITY_MEMORY_INCIDENT_20261007.md)。
+- 本机 32 GiB 默认停止边界如下；触发即记录并停止本任务 Play，不再提交下一批。硬件或实测工作集改变时重新评估。
 
-2026-09-22 本分支已接入[可步入远征飞船](docs/archive/WALKABLE_EXPEDITION_SHIP.md)，`ft-20260922-walkable-expedition-ship`，协议 **14**／存档 **v10**。支持船内步行、唯一驾驶席、泊位附近试飞、搬运机器人与侦察机出舱归队；远征默认应用当前 StrataCave 岩层与三层背景。50 张原生素材导入检查 200/200，新增飞船／远征用例 24/24，同一 Mono 正常／弱网三进程各 28/28，Core 1048/1048；Editor 按影响合并 235/236，既有按钮主题 1 项失败留账。实际画面和本批证据见实现说明，不宣称全洞穴航行、异地降落、前台性能、IL2CPP 或双机器通过。
+| 指标 | 停止条件 |
+| --- | --- |
+| Editor 私有内存 | 达到 8 GiB |
+| 可用物理内存 | 低于 6 GiB |
+| 系统提交余量 | 低于 4 GiB |
 
-2026-09-22 当前候选为[独立岩层与三层背景](docs/archive/STATIC_CAVE_BACKGROUND_EXECUTION.md)，分支 `codex/static-cave-background`，协议 **13**／存档 **v9**。用户明确允许脱离旧素材／场景；`Res/Scenes/Workbenches/Terrain/ReferenceChamber.unity` 与同目录 `RandomCave.unity`（2026-09-23 保留 GUID 从 StrataCave 资源目录移入统一工作台，见[场景索引](docs/SCENES.md)）使用独立 AnyRuleD 规则和同源 H5 岩壁、背景算法，保留 YYGC 权威与真实坡形碰撞。原生密度统一为 8px／格，矿粒与矿光暂时隐藏、矿床玩法保留。正式远征用 `--dn-contour-static` 试用；旧风格默认保留。前台性能、IL2CPP 和双机器不宣称通过，本批证据优先于下方历史切片。 外轮廓为独立可配置的六方案，当前 HybridB／OUTLINE-0921／3px／20px／2px、岩块 4px；仅修饰表现，权威碰撞保持原坡形。
+- 同步构建可能不响应停止 Play，启动前须另外预留构建余量；不足时记录待验，不反复重试或结束其他应用。
+- 日志显示／队列必须有界，避免捕获自己的渲染警告。丢失测试回执先排查崩溃、日志反馈和任务是否已执行，不能直接重发。
 
-2026-09-21 当前切片为[远征营地 Demo](docs/archive/TERRAIN_HISTORY.md)，协议 **12**／存档 **v8**，分支 `codex/expedition-camp-plan`。正式默认入口已切换紧凑洞穴远征；背景墙矿物、氧气货袋、设备搬运／矿工、风险撤收和原子结算已有首轮实现。旧 `Tomb` 洞口和指令圈运行链退出；以下日期记录仅代表历史切片。当前 Mono 常规／弱网四进程各 35/35，Editor 合并 213/214、远征 8/8、Core 1048/1048；按钮主题 1 项失败、全路线与前台性能等边界见本轮证据，不宣称全部产品目标完成。
+## 用户要求 worktree 时
 
-2026-09-20 最新地图切片为[洞穴地图工作台](docs/archive/TERRAIN_HISTORY.md)：`CaveExploration` 已接入 gpt-image-2.5 岩层源、新 DualGrid 样式、12 种坡形及匹配权威运动、暗后壁与冷暖光、临时手采／爆破。默认碰撞行走，Tab 切换观察。正式协议 11／存档 v7 不变，正式开局和洞穴存档尚未接入；100 种子隐藏图与 96 洞室落地不代表全路线能力可达。当前实测与边界以本页链接中的新证据为准，下方为历史切片。
-
-2026-09-20 新实验分支 `codex/cave-exploration-art` 合入 main `6b7b74c` 的手持装备，保留地图手采、矿床与恢复；协议 **11**／存档 **v7**。新增[天然洞穴技术原型](docs/archive/TERRAIN_HISTORY.md)：10–13 个不规则洞室、双入口、回环与部分掩埋通路，独立 Debug 场景可 Play。**新像素美术、独立斜面块与匹配碰撞仍未完成**，当前旧图集只作技术预览；完整游戏策划未扩入本轮。以下记录均为各自历史切片，不替代本批证据。
-
-2026-09-19 当前切片为[手采地图验收收口](docs/archive/TERRAIN_HISTORY.md)，分支 `codex/map-plan-execution`：协议 10／存档 v6；钻机、无人机、自动采矿和自动物流整链已从产品代码、资源与本轮门槛删除。主 Editor 完整 196/196、Core 1048/1048、Terrain 24 向量／100 seed、ArchitectureGuard 372/12/0、Mono 启动 6/6；同一 Mono 正常网络与 `200 ms RTT + 5% loss + 25 ms jitter` 各 18/18，覆盖 Host、Client、LateJoin、Reconnect、幂等、局部刷新与真实写盘重启恢复。M6 比例、前台性能、IL2CPP、双机器和真正新机器依赖恢复仍待后续；不把这些边界写成已完成。
-
-2026-09-17 新增[独立随机地图 Debug Bootstrap](docs/archive/TERRAIN_HISTORY.md)：通过 `Dark Nights/Debug/打开随机地图 Bootstrap` 直接 Play，原始 8 房间／7 通道蓝图没有正式营地的 72 列平地覆盖；本地观察角色 WASD 穿墙飞行、近距离可调镜头、参数实时重建。原 Pinewatch 及正式 Bootstrap 保留。本批 Editor 地图 11/11、实际 Play 22/22，独立 Mono 已构建与启动；隐藏 Player 黑图不计视觉通过，画面证据来自 Editor Play。正式协议、存档、YYGC 与 M5 边界不变。
-
-2026-09-17 最新切片为[正式随机灰松谷](docs/archive/TERRAIN_HISTORY.md)，分支 `codex/feature-dualgrid-game-start`：默认随机模板为 `Res/Scenes/RandomPinewatch/Pinewatch.unity`，原 Pinewatch 场景保持；选择地图后台生成，正式协议 9／存档 v4，YYGC 仍锁定 `12b253c`。地图权威状态随 ObjectSession 生命周期，完整地图与表现共同门控 Ready；主角按权威格子碰撞，存档保存最终格子。AnyRules 隔离包增加有界 128 块预算补丁及哈希锁；不修改用户 YYGC master。本批结果见[证据](docs/archive/evidence/random-pinewatch-2026-09-17.json)，不把下方旧构建计数当作新批验收。
-
-2026-09-17 Bootstrap 修复后的当前 YYGC 锁定为 `12b253c`（基于下方输入提交 `0c7cec0`），隔离修复位于 `D:/Developer/YYGC-worktrees/network-command-script-resolution`。全局命令注册表包含地形命令 Tag 3，旧三个游戏 Tag 不变；当前修复 Mono 为 `artifacts/bootstrap-registry/player-mono`，新增 Editor 2/2、启动 6/6、双进程会话 13/13 和实际菜单／开局画面通过。详见[改动账本](docs/YYGC_CHANGES.md)及[验证证据](docs/archive/evidence/bootstrap-registry-2026-09-17.json)，历史大矩阵不计入本批。
-
-先读 [README](README.md)、[现行文档索引](docs/README.md)、[开发执行计划](docs/DEVELOPMENT.md)、[技术架构](docs/ARCHITECTURE.md) 和[联机设计](docs/MULTIPLAYER.md)。早期移植、YYGC 统一重构、Linear 世界表现与受限清理按[历史文档索引](docs/archive/README.md)追溯；旧协议、旧构建和后台容量结果不代表当前版本或前台性能已验收。正式玩法、15 类原生对象、UI、四人联机和恢复主体已有实现；前台性能由用户明确暂缓，IL2CPP／双机器仍待条件。
-
-2026-09-16 当前切片为[主角操控与 YYGC 输入联合执行](docs/archive/PRESENTATION_HISTORY.md)：协议 8／存档 v3；YYGC 输入提交 `0c7cec0` 位于隔离 `D:/Developer/YYGC-worktrees/input-actions`，准备脚本已锁定。默认产品入口固定为主角操控：每个有权限的玩家首次 Ready 由服务端新建一名专属 `worker`，不占用场景现有闲置村民；重复 Ready 不增员，加载优先恢复仍带手动标记的已保存主角，重连上线生成新人，SharedCamp 恢复同一专属人物。顶部主角工具栏和营地建造、训练、招募、修缮入口暂时隐藏，快捷键继续生效；旧营地后端、工具栏与 `--dn-camp-mode` 仅为开发回归保留。另一个会话的 `D:/Developer/YYGC` master／AnyRule 工作区不能代为切换、清理或合并。新增跟进受影响 Editor／Play 20/20，累计 178 个不同用例按影响合并通过；当前 Mono 为 `artifacts/hero-input/player-mono-generated-villager-r2`，本机独立 Host＋客户端及实际 UI 捕获 39/39。历史 350／155 项与输入 Sample 34 项只保留原构建身份；不把这些结果写成前台性能、IL2CPP、双机器或 M5 全部完成。
-
-## 范围与工作区
-
-- 游戏名称为 Dark Nights，当前内容为灰松谷一个关卡。2–4 人合作、共享营地已确认。联机入口与托管方式的估算假设见 README。
-- `../projects` 是已提交的游戏基线，`../reference projects` 是研究与素材来源。Unity 的日常导入、构建和运行必须独立于这两个目录。
-- `D:\Developer\YYGC` 是用户维护的框架仓库。**2026-10-03 起，修改 YYGC 必须事先获得用户对具体改动范围的明确同意。** 本规则替代 2026-09-12／2026-09-13 的“必要时更新／针对能力限制或 BUG 升级适配”一般授权；不得将历史授权、游戏任务授权或框架缺陷视为本次修改许可。约束覆盖 YYGC 主仓库、隔离 checkout／worktree、本机 `.deps/` 内的框架源码及补丁，以及 YYGC 版本升级或补丁接入；隔离验证不豁免事先同意。未经同意仅做只读调查、游戏侧实现和可审查的改动方案；确需改框架时，先说明具体缺口、拟改文件、原因、依赖与影响、落点和验证计划，再取得同意。已获批范围内连续完成，不逐步重复确认；超出该范围需重新取得同意。
-- 获准修改 YYGC 后，优先在隔离 checkout 中验证，保留用户已有改动，不代为清理或覆盖。不因框架限制长期保留两套游戏对象／状态系统。游戏继续使用可重现的锁定依赖；完成后必须逐项列出 YYGC 的修改文件、原因、落点与验证结果，维护 [YYGC 改动账本](docs/YYGC_CHANGES.md)。历史记录中的 UGUIManager 暂存和 IDRegistry 备份不代表当前仍有这些差异。使用现有锁定 YYGC、生成游戏侧绑定和修改游戏侧业务不属于框架源码修改。
-- 2026-09-13 已实施 YYGC 统一对象路线，分支为 `codex/yygc-unified-object-migration`：运行实体与实例状态归 YYGC ObjectInstance／业务 Behaviour，Core 只保留纯算法、只读配置和数据合同。U5 已删除旧实体、旧世界及过渡入口，不重新引入并行运行模型；U6 最终验收完成前不宣称整个迁移已交付。
-- 本次无需旧数据适配：正式游戏不再要求 Godot 旧档、Unity v1 存档、协议 6／5 客户端或旧 Kind／整数身份兼容；旧入口已退出。新格式自身的保存恢复、严格校验和原子性仍必须验收。保留当前人工资产、资源 GUID 和冻结玩法证据，不自动删除用户旧存档；独立 Sample 和 YYGC 其他使用者的兼容边界另行保留。
-- 框架接入通过 UPM 和锁定版本完成。实验性修正使用隔离 checkout；本机 `.deps/` 不提交，取得稳定版本后提交可重现的依赖配置与锁文件。
-- 不擅自改变既有数值、布局、波次、素材字节、文字或攻击时机。联机需要改变的权限和会话语义单独记录并验证。
-- 用户于 2026-09-14 明确要求使用 Linear 色彩空间。纹理与作者颜色进入线性照明和混合；Godot OpenGL Compatibility 参考的 Gamma 色差单独记录，不为逐像素追平而改成 Gamma 或在纹理乘色前反向编码。
-
-## Git 分支命名
-
-- 2026-09-22 起，所有新建工作分支（含临时实验及 worktree 分支）必须采用 `分类-YYYYMMDD-分支名`，例如 `ft-20260922-static-cave-background`。本仓库不使用默认的 `codex/` 前缀或其他额外层级。
-- 分类按主要目的选择：`ft` 功能／地图／素材开发，`fix` 缺陷修复，`ref` 重构，`docs` 文档，`test` 测试验证，`chore` 工程维护，`exp` 探索实验；同一目的保持分类一致。
-- 日期取分支创建当天的本地日期，使用八位 `YYYYMMDD`；分支名使用简短、明确的小写英文短横线名称，说明具体工作内容。创建前先检查重名，重名时增加有意义的主题限定，不覆盖已有分支。
-- `main` 等长期分支保持原名；历史分支及本文历史记录中的旧命名不作为新分支模板，不自动批量改名。
+- 默认“薄 worktree 开发＋Local 单一 Unity 验收通道”；只有用户同时明确要求独立 Editor／缓存／并行验收时才另作安排。不因实验可能放弃而提前生成完整缓存。
+- 薄 worktree 不启动 Unity，不生成、复制、硬链接或目录联接 `Library/Temp/Logs/obj`、构建输出和 `artifacts`，`.worktreeinclude` 排除这些路径。仅静态检查需要时准备最小锁定依赖；禁止多个检出共享／链接同一 Library 或并发写入缓存。
+- 先完成实现、静态检查和可恢复 checkpoint，再把同批候选移交 Local 验证，复用现有 Library 和单一写入通道。移交前后核对分支、未提交修改及 Editor／Player 进程；checkpoint／移交不代表 merge、rebase、cherry-pick 或交付授权。
+- Editor／包清单／关键 ProjectSettings／平台后端／管线／大批导入设置变化，先报告 Local 缓存失效风险，未经用户明确选择不升级为第二套完整工作区。弃用实验移回原树，再按授权与可恢复性归档或移除；产物仍按下述保全规则处理。确需独立 Unity 验收只留一个长期验证树并串行使用 Editor。详步见[Unity CLI 流程](docs/UNITY_CLI_WORKFLOW.md#薄-worktree-与-local-验证)。
 
 <a id="execution-efficiency"></a>
 
 ## 执行效率与批量操作
 
-- 2026-10-07 用户明确要求避免验证期间Unity超大内存占用再次影响其他应用。每批Play／测试／构建前除磁盘外还检查Editor私有内存、系统可用物理内存及提交余量；复用单一Editor，先短时探针再扩大范围。本机32 GiB默认采用Editor私有8 GiB、可用RAM至少6 GiB、提交余量至少4 GiB的停止边界，用独立监控记录并停止本任务Play，越界后不继续提交批次。同步构建可能不响应停止Play，启动前须另留构建余量；没有余量时记录待验，不反复重试或结束其他应用。硬件或测得工作集改变时重新评估阈值。日志UI必须有显示／队列上限并避免捕获自己的渲染警告；丢失测试回执时先排查崩溃和日志反馈，不能直接重发。当前有限监控入口为 `tools/ground-baseline/watch_memory.py`。
+- 按可验证功能切片或同类资源批次汇总输入、依赖顺序、输出和验收项。独立查询合并读取，已取得的信息按需复用；没有变化或新疑点时不重复全文读取／枚举工具／输出全日志。已授权范围连续完成，只集中询问必要信息、超范围或未获准不可逆操作。
+- 同批代码、程序集和文本资源先集中写入，再统一导入／刷新；自动导入已完成不追加刷新。新 `.meta` 由 Unity 生成，移动现有资产保留 `.meta`／GUID，不随意重建或分配身份。
+- Prefab／Definition／绑定／Addressables 批量操作等待脚本编译和资源导入就绪；暂停导入时不等待编译、不读取未导入资源，异常释放暂停。初始化仅写指定空目录，批处理不放宽人工资源保护。
+- 每个依赖就绪的逻辑批次只主动触发一次；必要导入、生成后编译和域重载不算重复。不跳过依赖屏障，不为凑一次调用新建通用调度框架。同一 Editor 的写入、生成、编译和构建串行。
+- 长任务保留任务 ID，优先完成通知／原子结果；初始有界等待或通常 20–30 秒检查后，状态不变即退避，稳定长任务最多每 60 秒做一次小状态检查，单次阻塞不超过 60 秒。不因超时重启，不重复读取全量日志或发送未变化进度；后台执行如实说明自动续接边界。
+- 批次返回完成／失败项、关键计数、退出码和日志／产物路径，详细输出落文件。结束集中核对差异、引用和输出完整性；额外刷新／生成／编译／构建须有新增输入或失败原因。详步见[有限批次流程](docs/UNITY_CLI_WORKFLOW.md#有限批次与依赖屏障)。
 
-### 用户明确要求 Worktree 时的低成本 Unity 流程
+## 磁盘与产物保全
 
-- 用户明确强调使用 worktree 时，除非同时要求各 worktree 独立启动 Unity、并行 Editor 验收或独立缓存，默认采用“薄 worktree 开发＋Local 单一 Unity 验收通道”。worktree 用于隔离代码、文档、配置和文本资源改动，不因任务最终可能放弃而提前支付完整 Unity 缓存成本。
-- 薄 worktree 不启动 Unity，不生成、复制、硬链接或目录联接 `Library`、`Temp`、`Logs`、`obj`、构建输出和 `artifacts`；`.worktreeinclude` 不得包含这些路径。只有非 Unity 检查确实需要时才准备最小锁定依赖，不复制整套导入缓存。共享或链接同一 `Library` 给多个检出、并发 Editor 写入同一缓存均禁止。
-- 在薄 worktree 先完成实现、静态检查和不依赖 Unity 导入的验证，并建立可恢复的临时 checkpoint；checkpoint 或临时分支不代表必须合并。需要 Editor 编译、PlayMode、场景／Prefab 保存重开、Player 构建或画面验收时，先合并同批候选验证项，再通过 Codex“移交到 Local”把聊天与代码状态带到本地检出，复用 Local 现有 `Library`，同一时间只运行一个 Unity 写入／构建通道。
-- 移交是借用 Local 环境进行验证，不构成 merge、rebase、cherry-pick 或交付授权。通过后按原任务目标决定是否集成；未采用的实验移交回原 worktree 后归档或删除，不为保留 Unity 缓存而留下完整工作副本。移交前后检查当前分支、未提交改动和 Editor／Player 进程，不能覆盖其他会话或用户工作。
-- 若候选修改 Unity Editor 版本、`Packages/manifest.json`／`packages-lock.json`、关键 `ProjectSettings`、目标平台／Scripting Backend、渲染管线或大批资源导入设置，先报告 Local 缓存失效与反复重导入风险；未经用户明确选择，不把薄 worktree 升级为第二套完整 Unity 工作区。确需独立 Unity 验收时只保留一个长期验证 worktree，并继续串行使用其中的 Editor。
-- Local 中的 Unity 长任务仍按一次触发原则组合为有限批次：完整输出写日志，前台只保留任务 ID、阶段、完成标记、退出码和摘要路径；首次有界等待后退避到最多每 60 秒一次的极小状态检查，未变化不读取全量日志、不发送重复进度、不重启任务。优先使用完成通知或原子结果文件；需要完全避免模型守候时，可后台运行并在完成后由用户或后续任务恢复，但必须如实说明自动续接边界。
+- 每阶段开始及编译／构建前检查相关磁盘余量，结束盘点中间产物。空间不足说明缺口并暂停下一高空间步骤；复用当前 Library 和后续所需 Player，不复制整套导入缓存。
+- 待清理产物不得直接删除、清空或裁剪。仅移动已确认不用、归属明确、无活动进程或保留引用的产物；保护共享缓存、脏依赖、唯一来源、作者资源、未保存备份、冻结夹具、正式／失败证据、用户成果和后续验收产物。`.codex` 数据遵循个人专门规则，不套用本工程路径。
+- 统一保全到 `artifacts/待清理/YYYYMMDD-任务名/`，保留原相对结构并写 `清单.md`，记录原／目标绝对路径、体积、产生任务、原因和后续条件；不覆盖旧目录。归档不是释放空间或永久删除许可。不能移动时留原位记录阻碍，不换工具、删父目录或删除绕过；永久删除需用户另行明确具体清单。完整盘点／路径核验见[产物保全流程](docs/WORKSPACE.md#阶段产物盘点与保全)。
 
-- 以一个可验证的功能切片或同类资源批次组织工作。执行前汇总已知输入、依赖顺序、输出和验收项；能够一起准备、一起执行的操作必须合并，避免逐文件、逐资源发起工具请求。批次保持可审查，不把整个移植合成难以定位失败的大任务。
-- 已授权范围内连续完成准备、修改、生成和验证，不逐步向用户请求“继续”或重复确认。只有必须由用户补充的必要信息、超出授权范围或尚未获准的不可逆操作，才集中提出所需问题。
-- 独立查询合并读取；同一任务已取得的文档、工具 schema、路径和状态按需复用。文件未变且没有新疑点时，不反复全文读取、枚举全部工具或输出完整日志；优先定向搜索、差异、摘要和失败上下文。
-- 同批代码、程序集声明和可直接落盘的资源先集中写入，再统一触发所需导入／刷新，让 Unity 批量生成新增文件及目录的 `.meta`。不得每写一个文件就启动 Editor、刷新或重编译；自动导入已完成时复用结果，不叠加手动刷新。已有资产移动保留 `.meta`／GUID；不得为提速重建已有 `.meta`、随意分配 GUID 或绕过 Unity 的资源引用检查。
-- 同批 Prefab、ObjectDefinition、绑定及 Addressable 条目，依赖已就绪时通过已有批量工具或一个有限的 Editor 操作顺序完成，集中保存、生成和检查。新增脚本必须先编译就绪，依赖导入结果的步骤必须等待结果；批处理暂停导入期间不得等待编译或读取尚未导入的资源，异常必须释放暂停状态。初始化仍只输出到指定空目录，批处理不放宽人工资源保护。
-- “一次触发”指每个依赖已就绪的逻辑批次只主动提交一次；Unity 内部必要的导入、生成源码再编译及域重载不算重复请求。可由现有任务入口自动续接的步骤一起编排，不依赖 AI 多轮对话逐步驱动；不为凑成一次调用新建通用调度框架，也不跳过真实依赖屏障。
-- 同一 Editor 的写入、生成、编译和构建串行执行，不用多个 MCP／CLI 请求竞争状态。长任务只提交一次，保留任务 ID，采用完成通知或有界等待；需轮询时通常间隔 20–30 秒，未变化则退避，单次阻塞等待不超过 60 秒。状态未变不重复取全量日志，不因等待超时重新启动仍在运行的任务。
-- 按改动影响一次安排完整验证矩阵，每个后端／配置构建一次，再复用同一产物执行对应场景和基础／弱网检查。明确前置条件与失败即停规则；失败只修正并重跑受影响阶段。已通过检查只有在输入、配置或相关依赖变化，或出现新证据时才重跑，不以节省交互为由减少必要验收。
-- 每阶段开始和编译／构建前检查相关磁盘剩余空间；阶段完成时盘点本阶段可重建的中间编译产物、过期验证副本和不再使用的 Player 构建缓存，**不得直接删除、清空或裁剪这些待清理产物**，全部按下条归档到统一待清理目录，并记录归档体积与实际剩余空间。归档只是集中保留，不计作释放磁盘空间。复用当前 Editor 导入缓存和后续验收需要的同一 Player，避免复制整套 Library；保留源码、人工资源、未保存场景备份、冻结夹具及正式报告。归档前核验绝对路径、链接、归属和活动进程；不得移动正在使用、被保留成果引用或来源不明的内容。空间不足时说明缺少的空间并暂停下一批高空间步骤，不直接删除产物。
-- 中间产物盘点覆盖依赖解包、生成器 bin／obj、原生调试副本、测试存档、日志、截图和报告生成的中间文件。父子目录不得重复计入体积。共享缓存、带本地修改的依赖、唯一源文件、后续验收产物、最终 Player、正式证据、用户成果及归属不明内容不得作为待清理产物移动；`.codex` 数据按其专门规则处理，不适用本工程归档路径。
-- 所有已确认可移出工作区的待清理产物，统一移动到仓库根目录 `artifacts/待清理/YYYYMMDD-任务名/`，不再按任务选择不同的外部输出根。保留源目录相对结构，并在任务目录内写 `清单.md`，记录每项的原绝对路径、目标绝对路径、体积、产生任务、归档原因和后续处理条件；目标已存在时使用不冲突的任务目录名，不覆盖旧产物。因占用、权限、策略或其他原因不能移动时，留在原处并在清单／交付说明中记录绝对路径、体积、阻碍原因和后续条件；不得改用删除、换工具重试或删父目录绕过。该统一目录只用于保留待处理产物，不代表自动授权永久删除；用户另行明确指定删除清单前，不永久删除其中内容。
-- Player 构建默认优先使用 Mono 进行快速可运行验证。未经用户明确确认，不主动生成、覆盖或验证 IL2CPP Player；需要 IL2CPP 时先报告原因、范围和预计产物，再等待确认。确认后每个受影响配置只构建一次，并复用同一 IL2CPP 产物完成对应检查；Mono 通过不代表 IL2CPP 已验收，通过状态必须分别记录。
-- 批量入口返回成功／失败、完成及失败项、关键计数和日志／产物路径；详细输出落文件，需要定位时再读取。批次完成后集中检查差异、引用和输出完整性；额外触发刷新、生成、重编译或构建时说明新增输入或失败原因，不把重复调用本身当作进展。
+## 代码与程序集
 
-## 代码与结构
-
-- Editor 沿用已锁定的 `6000.4.9f1`；游戏代码兼容 C# 9 和 .NET Standard 2.1。不能把 Godot 的 C# 12／.NET 8 配置直接带入。
-- 职责目录与程序集按架构文档执行。Core 不引用 Unity、Godot、GameCore、FishNet、R3、VitalRouter、文件系统或表现资源；引擎、网络与存储适配放 Runtime。
-- 正式代码放 `Assets/DarkNights/Scripts`，资源放 `Assets/DarkNights/Res`；采用 Core、Runtime、View、Entry 四个运行程序集，以及隔离的 Editor/Tests。View、Entry 分别承担原方案 Presentation、Bootstrap 的职责；不改现有 Bootstrap 场景或 Sample 类型名。不要为每个小文件再建一层服务接口或一个程序集。
-- 代码目录使用 Config、Logic、ViewData、Save、Network 等直观名称，具体归属见架构文档；Scripts/Res 不加入命名空间。ViewData 仅为展示副本；现有 Core/Logic 世界按统一重构阶段退出，目标业务 Behaviour／State 放 Runtime/Objects，Core/Logic 仅留纯计算。不预建空目录和占位类型。
-- 文件名与主要类型一致，命名空间与职责目录一致，根命名空间 `DarkNights`。不建立无限扩张的 Manager/Utils 汇总文件。
-- 手写 C# 目标 150–250 行，硬上限 300 行，包含空行与注释；一文件一个主要命名类型。按职责拆分，不压缩语句或用多个 partial 文件绕过上限。
-- YYGC／MemoryPack／绑定生成器要求的类型可以 `partial`，但每个类型仍只有一份手写主体。生成输出放明确目录，记录输入和重建方式；不手改生成结果。
-- 每个类、record、struct、enum、interface 添加中等详尽中文 XML summary，说明职责、状态归属以及关键生命周期／不变量。注释不逐行翻译代码。
-- C# 9 使用块级 namespace、普通构造函数和显式集合初始化；不能使用文件级 namespace、required、主构造函数、C# 12 集合表达式。
-- 不复制整个 Godot 数学库或建立通用引擎抽象。只迁移实际使用的坐标、数学和可恢复随机数能力。
-- 沿用 YYGC 现有启动、DI、视图、资源与 UI 接口，不另造并列的 DI 容器或全局事件框架。框架本身的历史长文件不在本次全面拆分范围内。
-- 联机实现先读 [YYGC能力复评](docs/archive/YYGC_REASSESSMENT.md)。优先修正并复用 Gateway/Sender/Processor、类型注册/序列化和会话 StatefulBehaviour/StateSynchronizer；游戏仅补权限、业务去重、投影、Ready、epoch和恢复。先验证可靠完整投影，测量后决定分块/拆流；局部后备网络适配必须有现有路径无法满足需求的具体证据。本地输入互斥复用 Interaction Sessions。
-- 独立联机模板遵循 [LAN Sample 规范](docs/LAN_SAMPLE.md)：样板放 `Assets/Samples/LanCoop`，正式代码不反向引用；构建不覆盖样板原生资产。必要的 R3 用于状态订阅及生命周期；VitalRouter 只保留 YYGC 命令链必需的显式适配，新增业务路由／过滤器必须先说明具体必要性和调试路径。不要为模板预建 Steam、Lobby、多 transport 或房主迁移抽象。
+- Editor 沿用锁定的 `6000.4.9f1`，代码使用 C# 9／.NET Standard 2.1：块级 namespace、普通构造、显式集合初始化，不用文件级 namespace、required、主构造和 C# 12 集合表达式。
+- 正式源码／资源位于 `Game/Assets/DarkNights/Scripts`／`Res`；运行程序集为 Core、Runtime、View、Entry，Editor／Tests 隔离且不进入 Player。不改现有 Bootstrap 场景或 Sample 类型名，不为小文件新增接口／程序集／占位目录。
+- Core 仅纯计算、只读配置和冻结数据合同，不依赖 Unity／Godot／GameCore／FishNet／R3／VitalRouter／文件系统／表现资源；适配归 Runtime，业务 Behaviour／State 归 Runtime/Objects，ViewData 仅展示副本，不恢复 Core/Logic 世界。具体职责按[架构](docs/ARCHITECTURE.md#程序集与目录)。
+- 文件名、主要类型、职责目录及 namespace 对应，根 `DarkNights`，Scripts／Res 不加入 namespace；不建无限 Manager／Utils 汇总，不复制整个 Godot 数学库或预建通用引擎抽象，只补实际需要的算法／可恢复随机数。
+- 手写 C# 目标 150–250 行，含空行注释硬上限 300 行，一文件一个主要命名类型；按职责拆分，不压缩语句或用 partial 绕过上限。生成器必要 partial 仍只有一份手写主体，生成输出记录输入／目录／重建方式，不手改。
+- 每个类、record、struct、enum、interface 有中等详尽中文 XML summary，说明职责、状态归属和生命周期／不变量，不逐行翻译代码。沿用 YYGC 启动、DI、视图、资源和 UI，不另建 DI 容器或全局事件框架。
 
 ## 权威状态与联机
 
-- 经济、生产、单位 AI、伤害、箭矢、波次、胜负和随机数都只有一个权威写入者。状态由所属 YYGC 业务 Behaviour／实例 State 拥有；ObjectSession 组合会话能力，索引只引用对象，不另存一份状态。GameSession／WorldState 旧运行类型已删除。
-- 客户端及 Host 的表现只读取冻结展示副本。StatefulBehaviour 接管权威状态时必须撤除旧状态所有者；网络 DTO、ScriptableObject 和展示副本不能再自行结算经济／HP。
-- 业务命令带明确 EntityId 和参数，不能读取一个全局 SelectedIds／BuildKind 来代替请求参数。镜头、选择、悬停与建造预览属于各客户端。
-- 身份从服务端连接上下文取得。请求中的 PlayerId、SenderObjectId、资源数量和伤害值都不构成授权；服务端验证共享营地权限、合法目标、范围、版本、序号和支付。
-- Host 使用同一个验证与命令处理入口，保证一次输入只执行一次。客户端可以显示待确认反馈，不先结算支付或伤害。
-- 共享控制使用会话级 SharedCamp / HostOnly 策略，服务端统一校验；关闭时同时限制直接命令、建造自动派工和训练等营地修改。切换增加 PolicyRevision，拒绝旧策略未执行请求，已生效任务继续；不通过转移小人的 FishNet 所有权实现。
-- 模拟默认 60 Hz，倍速只在一个入口生效。暂停时网络、心跳、重连与 UI 继续运行；不用 `Time.timeScale = 0` 停掉整个服务进程。
-- 稳定实体 ID、规则引用、场景放置键、YYGC Guid / Key、FishNet ObjectId、玩家连接 ID 分开。正式游戏已使用 DefinitionReference 与 GuidFirst／GuidV2；新重构不恢复旧整数兼容，独立 Sample 的 LegacyV1 单独保留。载入世界增加 epoch，拒绝旧世界命令和快照，保持当前房间控制模式。
-- 快照是冻结数据；异步发送、插值、存档不能持有已归还池的状态引用。不要让 SessionScope 跨 await 或线程。
-- 不默认采用锁步、回滚、ECS、并行模拟、每实体 NetworkTransform、房主迁移或专服集群。增加这些方案前给出具体需求和测量依据。
+- 所有业务／RNG只有一个权威写入者，状态由所属 YYGC Behaviour／实例 State 或会话托管的原生地图唯一拥有；ObjectSession 只组合能力，索引只引用对象。禁止恢复旧 GameSession／WorldState／实体世界或并行运行模型。
+- Host 与客户端表现只读冻结副本；StatefulBehaviour 接管时撤除旧所有者，DTO／ScriptableObject／表现不能结算经济、HP或伤害。命令携带明确 EntityId／参数，不读全局 SelectedIds／BuildKind 代替请求；镜头、选择、悬停和预览属于各客户端。
+- 身份取可信服务端连接，请求中的 PlayerId／SenderObjectId／资源／伤害不构成授权；执行点验证权限、目标、范围、版本、序号和支付。Host 走同一验证／处理入口，一次输入只执行一次；客户端只显示待确认反馈，不先支付或结算伤害。
+- SharedCamp／HostOnly 在会话层统一校验，覆盖直接命令、自动派工和训练；切换增加 PolicyRevision，拒绝旧策略未执行请求，已生效任务继续，不靠转移 FishNet 所有权实现。加载保持当前房间策略。
+- 模拟默认 60 Hz，倍速仅一个入口生效；暂停时网络、心跳、重连和 UI 继续，不用 `Time.timeScale = 0` 停整个服务进程。业务、定义、放置、网络和连接身份分开；使用 DefinitionReference／GuidFirst／GuidV2，加载增加 epoch 并拒绝旧世界命令／快照。
+- 快照深度冻结，异步发送／插值／存档不持有已归池状态；SessionScope 不跨 await／线程。正式游戏不恢复 Godot／Unity旧档、旧协议或 Kind／整数兼容；新格式严格校验、保存恢复与原子性仍需验收，Sample LegacyV1及框架其他使用者另保边界。
+- 联机复用 Gateway／Sender／Processor、类型注册／序列化与 StatefulBehaviour／StateSynchronizer，游戏只补权限、去重、投影、Ready、epoch和恢复，输入互斥复用 Interaction Sessions。先验可靠完整投影，测量后再分块／拆流；后备适配须有现有路径不足的具体证据，框架修改仍须事先授权。调查来源见[能力复评](docs/archive/YYGC_REASSESSMENT.md)。
+- 不默认引入锁步、回滚、ECS、并行模拟、每实体 NetworkTransform、房主迁移或专服集群，增加前给出具体需求与测量依据。独立模板遵循 [LAN Sample](docs/LAN_SAMPLE.md)，正式代码不反向引用或覆盖样板原生资产；R3用于必要订阅／生命周期，VitalRouter仅保YYGC必需适配，新业务路由／过滤器先说明必要性与调试路径，不为模板预建Steam／Lobby／多transport抽象。
 
 ## Prefab、美术与内容
 
-- 用户于 2026-09-20 明确指定：本项目需要 AI 生图时，使用 [imagegen-codex-provider](C:/Users/Jobscn/.codex/skills/imagegen-codex-provider/SKILL.md) 替代内置 imagegen 路径，通过已配置 provider 的 gpt-image 模型执行，遵循该技能当前模型及调用规范。这一工具选择已获授权，不再因缺少内置工具重复询问是否允许使用配置 API；具体生图仍须属于当次任务范围，评估任务不自动变成批量生图任务。
-- 每批素材制作前必须评估生图必要性，记录目标原生像素尺寸、用途、共边／透明／形状精度要求、选用方式及理由。16×16／32×32 等低像素地形、DualGrid 掩码、斜面和碰撞轮廓优先采用可控的像素绘制与确定性图集工具；需要风格探索、大块岩层、远景或装饰源图时才考虑生图。不得把大图缩小、像素化滤镜或模型输出网格直接当成合格像素 tile。
-- 生图源只作为可编辑美术输入，最终像素资产必须统一像素密度、调色板、透明边缘及拼接合同；按原生尺寸和实际游戏镜头检查像素团块、重复纹理、共边、材质过渡与斜面衔接。视觉斜面必须对应独立形状和权威碰撞，不能用方块圆角／阶梯冒充。新源图和派生资源保留来源及重建关系，不覆盖人工源文件。
-- 洞穴参考图的差异和下一批目标见[洞穴视觉与空间目标](docs/archive/CAVE_EXPLORATION_TARGETS.md)。先完成固定洞穴样板的美术、空间与真实角色通行，再推广到随机生成；隐藏拓扑连通和旧测试图集通过不代表参考风格验收通过。
-- 资源按对象／面板归组：`Res/Objects/Worker` 等目录集中所属 ObjectDefinition、Prefab、专用动画和材质；UI 同理。共用资源才放 Res/Shared，原始素材只保存一份，不因对象归组重复复制。
-- Addressables 不要求游戏资源目录叫 Addressable／Addressables；Res 是项目约定，不自动注册资源。通过 Addressable 条目与分组管理加载，不使用特殊 Resources 目录存放 Addressable 资源。保留现有 AddressableAssetsData 配置位置，物理目录、分组、Address／Label 与 YYGC 定义身份分开。
-- 正式对象通过 DefinitionReference 和 YYGC 定义／创建入口，由 ObjectDefinition.PrefabRef 驱动 Addressables；沿用组件绑定、注入与生成注册。检查绑定键、类型、引用及装配／池化／释放时机，不以 GetComponent、节点名或子节点索引兜底缺失绑定，不手改生成结果。详细合同见移植方案。
-- 角色、建筑、工位、特效和 UI 使用原生 Prefab；Pinewatch 场景在未进入 Play 时能看到布局与外观。正式场景不得回退为一个空节点加全局创建脚本。
-- Prefab、AnimationClip、场景和 Theme 等正式资源由人工维护；迁移脚本只在指定空目录输出首版样板，普通导入／构建不得覆盖美术编辑。
-- 场景初始布局只有一份可编辑来源。派生关卡数据可在构建时生成，但必须能追溯到场景标记且不能反向覆盖它。
-- balance/波次 JSON 保持规则唯一来源。ObjectDefinition 的共享配置保存内容映射和表现设置，不重复维护 HP、成本或实例进度。
-- 角色根对齐脚底，ArtOffset、Facing、StatusAnchor、SelectionAnchor 与玩法占地分离；动画和物理碰撞不能结算游戏伤害。
-- 原始 551 项素材放 Res/Art/Original，保持来源和 SHA-256；改图放 Res/Art/Custom。最近邻采样、关闭不需要的有损压缩，按适配方案转换坐标、原点和动画帧序。
-- Editor 预览只产生表现，不启动网络或会话，不使用游戏随机数，不访问玩家存档。Editor API 和测试代码不得进入 Player 程序集。
-- `.meta`、`Packages/manifest.json`、`Packages/packages-lock.json`、`ProjectSettings/` 提交；Library、用户存档、本机配置、密钥、依赖缓存不提交。Unity 场景启用文本序列化与 Visible Meta Files。
+- 2026-09-14 用户指定 Linear：纹理与作者颜色进入线性照明／混合；不为追平 Godot Gamma 色差改回 Gamma 或在纹理乘色前反向编码，色差单独记录。
+- 2026-09-20 用户指定 AI 生图使用 [imagegen-codex-provider](C:/Users/Jobscn/.codex/skills/imagegen-codex-provider/SKILL.md) 和已配置 provider 的 gpt-image 模型，按技能当前调用规范；工具选择已授权，不重复询问配置 API 许可。具体生图仍限当次任务，评估不自动转为批量生图。
+- 制作前记录原生尺寸、用途、共边／透明／形状精度及方式理由。16×16／32×32 等低像素 tile、DualGrid 掩码、斜面／碰撞优先确定性像素工具；风格探索／大块源图才考虑生图，缩小大图、像素滤镜或模型网格不直接算合格 tile。
+- 最终资产统一像素密度、调色板、透明边缘和拼接合同，在原生尺寸／真实镜头检查团块、重复、共边、过渡和斜面；视觉坡形对应独立形状与权威碰撞，不以圆角／阶梯冒充。源图保留来源／重建关系，不覆盖人工源；固定洞穴样板到随机推广的专项计划见[视觉与空间目标](docs/archive/CAVE_EXPLORATION_TARGETS.md)，隐藏连通／旧图集不代表视觉或真实通行验收。
+- 专用资源归 `Res/Objects`／对应面板，共用归 `Res/Shared`，原始源只保存一份；Original／Custom 分开并保留来源／SHA-256，最近邻采样、关闭不需的有损压缩，坐标／原点／帧序按来源合同转换。来源数量见[依赖说明](docs/DEPENDENCIES.md)，不写成固定总素材上限。
+- 通过 DefinitionReference／ObjectDefinition.PrefabRef 和既有绑定／注入／生成注册装配，检查键／类型／引用与池化／释放；不以 GetComponent、节点名或子索引兜底缺失绑定。Addressables 用条目／分组注册，不用特殊 Resources 目录存放其资源；保留现有配置位置，路径／Address／Label／定义身份分开，合同见[架构](docs/ARCHITECTURE.md#装配能力和事务)。
+- 正式对象／UI使用原生Prefab，场景编辑态可查看布局与外观，不退为空节点＋全局创建脚本；具体场景用途见[场景索引](docs/SCENES.md)。人工Prefab／AnimationClip／场景／Theme不被初始化、导入或构建覆盖；初始化只在指定空目录输出首版。场景是布局唯一可编辑来源，派生数据可追溯且不反写；balance／波次JSON是规则唯一源，Definition不重复HP／成本／实例进度。
+- 角色根对齐脚底，ArtOffset／Facing／StatusAnchor／SelectionAnchor与玩法占地分离；动画／物理碰撞不结算伤害。Editor预览只表现，不启动会话／网络、不用业务RNG、不访问玩家存档。提交 `.meta`、manifest／packages-lock、ProjectSettings，启用文本序列化／Visible Meta Files；Library、用户存档、本机配置、密钥和依赖缓存不提交。
 
-## 验证与完成
+## 验证与交付
 
-- 运行与改动相匹配的规则、场景或联机检查；不为文档修改伪造 Unity 构建通过记录。
-- 联机验证包含独立进程中的 Host＋客户端。Host 单窗口、单个状态序列化测试不能替代联机验收。
-- 核验并发扣款、共享工位、重发去重、非法目标、初始快照、晚加入、重连、丢包乱序、暂停、加载 epoch 和 Host 单次执行。
-- 原玩法和旧档夹具是冻结证据，不用当前结果重生成来掩盖差异。旧档读取成功不再是统一重构的验收要求；仍有效的布局、规则、RNG 和时序断言迁到新对象入口，新格式完整恢复单独验收。跨引擎规则一致性与跨 GPU 画面近似分别验收。
-- 美术相关变更完成 Prefab 编辑、保存、重开和运行检查；发布相关变更完成实际 Player 构建并在独立进程运行。
-- 保持文档的“已完成／计划／待验证”清晰，更新执行状态、依赖和验证证据。提交前查看差异，提交当前仓库内的本次成果，不推送远端。
+- 按改动影响一次安排规则／场景／联机矩阵及前置条件、失败即停边界，每个获批后端／配置构建一次复用；只重跑失败、受改动影响或有新证据的阶段，不以减少交互省略必要验收。
+- Player 默认 Mono；未经用户明确确认不主动生成、覆盖或验证 IL2CPP。确需时先报告原因、范围和预计产物，获批后每个受影响配置只构建一次复用；两后端结论分别记录。
+- 联机验收包含独立进程 Host＋客户端，Host单窗口／状态序列化不能替代。按影响覆盖支付竞争、权限／非法目标、去重、Ready、晚加入／重连、弱网乱序、暂停、epoch与Host单次执行；详矩阵见[联机验收](docs/MULTIPLAYER.md#联机验收重点)和执行状态，暂停玩法不自动成为当前运行验收项。
+- 原玩法／旧档夹具是冻结证据，不用当前结果重生成掩盖差异；有效布局／规则／RNG／时序断言迁到当前入口，新格式完整恢复单独验收。跨引擎规则与跨GPU画面分别验收；美术修改检查Prefab编辑、保存、重开和运行，发布修改实际构建Player并独立运行。
+- 明确“完成／计划／待验”及源码／配置／依赖／Player身份，保留失败；文档修改不伪造Unity／Player通过。前台性能按用户暂缓边界、双机器按实际设备单独记录，后台容量、启动成功、单层小样或隐藏黑图不替代当前验收。
 
-## Git 提交消息（沿用 GameVS）
+## 本文件维护
 
-2026-10-04 按用户要求，参考 `D:/Developer/GameVS` 的规范化提交记录（如 `bee247eb4`、`651f0c4fc`、`233c122ff`），从本次新提交起统一使用以下格式；不自动改写历史提交。
-
-- 标题采用 `type(scope): 中文概要`；`scope` 为明确的模块或系统名，可用中文或已有技术名称。跨模块且无需限定范围时可用 `type: 中文概要`。
-- `type` 按主要目的选择：`feat` 新功能、`fix` 修复、`refactor` 重构、`perf` 性能、`docs` 文档、`test` 测试、`chore` 工程维护；提交类型与分支分类分别选择。
-- 标题与正文说明使用中文，技术名称、路径和类型前缀保留原文。标题与正文之间空一行，保留真实换行。
-- 正文先用短段说明具体问题、改动目的和结果，再列出重要变化。复杂提交按 GameVS 的 `### feat: ...`、`### fix: ...`、`### refactor: ...`、`### docs: ...` 等小节组织，每节用条目说明对应变化；简单提交可以只用概要和少量条目，不凑空小节。
-- 行为变更在正文记录相关验证结果、未通过或未执行项，以及必要的协议／存档／依赖影响。仅文档变更如实记录文档检查，不套用历史构建通过数字。
-- 多行消息优先写入临时 UTF-8 文本文件并使用 `git commit --file`，提交前检查暂存差异，只包含本次授权成果。
+- 只保留长期约束、触发条件、硬门槛和专题链接，不追加阶段日志、旧协议、分支SHA和测试计数。最新状态写 DEVELOPMENT，业务／操作细节写对应现行合同，历史由归档索引承接。
+- 一条表达一类约束；重复规则合并，日期用于追溯授权／偏好而非自动失效。移出前确认承接文档完整，授权／禁止事项在本文件保留摘要，不因精简降低边界。
+- 本轮迁移映射与原文恢复入口见[协作约定整理回执](docs/archive/AGENTS_CONSOLIDATION_20261009.md)。
