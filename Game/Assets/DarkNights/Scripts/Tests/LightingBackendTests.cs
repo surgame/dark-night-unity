@@ -48,12 +48,12 @@ namespace DarkNights.Tests
         public void NativeTemplatesAreBoundAndUseNormalMapsWithoutGameplayCollisions()
         {
             Editor.Lighting.LightingBackendContentSetup.Validate();
-            var root = AssetDatabase.LoadAssetAtPath<GameObject>(Editor.ReusableLightContentSetup.EffectPath);
-            var environment = root.GetComponent<LightEnvironmentEmitter>();
-            Assert.That(environment.Freeze().ApertureWidth, Is.EqualTo(.375f));
-            Assert.That(environment.UrpLightTemplate.normalMapQuality, Is.EqualTo(Light2D.NormalMapQuality.Accurate));
-            Assert.That(environment.UrpLightTemplate.normalMapDistance, Is.EqualTo(3));
-            var data = new SerializedObject(environment.UrpShadowTemplate);
+            var preset = AssetDatabase.LoadAssetAtPath<LightProfile>(Editor.Lighting.LightProfileMigration.FlashlightPath);
+            var scene = AssetDatabase.LoadAssetAtPath<SceneLightingProfile>(Editor.Lighting.LightProfileMigration.ScenePath);
+            Assert.That(preset.Freeze().Rules.ApertureWidth, Is.EqualTo(.375f));
+            Assert.That(scene.UrpLightTemplate.normalMapQuality, Is.EqualTo(Light2D.NormalMapQuality.Accurate));
+            Assert.That(scene.UrpLightTemplate.normalMapDistance, Is.EqualTo(3));
+            var data = new SerializedObject(scene.UrpShadowTemplate);
             Assert.That(data.FindProperty("m_ShadowShape2DProvider").managedReferenceValue, Is.Not.Null,
                 "Player 不会自动选择 provider，模板必须已经持久化 Collider 来源。");
         }
@@ -71,8 +71,8 @@ namespace DarkNights.Tests
                 Assert.That(cookie.Sprite, Is.SameAs(first), "移动和转向不能重建形状纹理。");
                 Assert.That(first.texture.GetPixel(120, 128).r, Is.Zero, "灯口背后不能发直射光。");
                 Assert.That(first.texture.GetPixel(130, 128).r, Is.GreaterThan(0));
-                settings.ApertureScale = 2;
-                cookie.Update(new LightEmitterData(Vector3.zero, 0, rules), settings);
+                var wider = new LightEmissionRules(14, 90, 1, 2, 0, 1, 1, 1, .75f);
+                cookie.Update(new LightEmitterData(Vector3.zero, 0, wider), settings);
                 Assert.That(cookie.Sprite, Is.Not.SameAs(first));
             }
             finally { cookie.Dispose(); }

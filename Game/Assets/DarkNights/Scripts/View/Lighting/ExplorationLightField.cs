@@ -18,6 +18,7 @@ namespace DarkNights.View.Lighting
         private readonly Vector4[] positions = new Vector4[Capacity], directions = new Vector4[Capacity], colors = new Vector4[Capacity];
         private readonly Vector4[] nearOrigins = new Vector4[Capacity];
         private readonly Vector4[] apertures = new Vector4[Capacity];
+        private readonly Vector4[] shadows = new Vector4[Capacity];
         private readonly int resolve, illuminate;
         private bool retired;
         private Task retirement;
@@ -58,17 +59,17 @@ namespace DarkNights.View.Lighting
                 var emitter = emitters[n]; var rule = emitter.Rules;
                 Vector3 local = matrix.MultiplyPoint3x4(emitter.Position);
                 Vector3 forward = matrix.MultiplyVector(new Vector3(Mathf.Cos(emitter.Angle*Mathf.Deg2Rad), Mathf.Sin(emitter.Angle*Mathf.Deg2Rad),0)).normalized;
-                positions[n] = new Vector4(local.x+.5f,-local.y+.5f,Mathf.Clamp(rule.Range*Settings.RangeScale,2,24),
-                    emitter.Directional ? Mathf.Cos(Mathf.Clamp(rule.Cone+Settings.ConeOffset,20,150)*.5f*Mathf.Deg2Rad) : -1);
+                positions[n] = new Vector4(local.x+.5f,-local.y+.5f,rule.Range,
+                    emitter.Directional ? Mathf.Cos(rule.Cone*.5f*Mathf.Deg2Rad) : -1);
                 Vector3 near = matrix.MultiplyPoint3x4(emitter.NearPosition);
                 nearOrigins[n] = new Vector4(near.x+.5f,-near.y+.5f,0,0);
-                apertures[n] = new Vector4(emitter.Directional ? rule.ApertureWidth * Mathf.Clamp(Settings.ApertureScale, 0, 4) * .5f : 0, 0, 0, 0);
-                directions[n] = new Vector4(forward.x,-forward.y,rule.NearRange,rule.NearIntensity*Mathf.Clamp(Settings.NearStrength,0,2));
+                apertures[n] = new Vector4(emitter.Directional ? rule.ApertureWidth * .5f : 0, 0, 0, 0);
+                shadows[n] = new Vector4(rule.SoftShadows ? rule.Softness : 0, rule.ConeFeather, 0, 0);
+                directions[n] = new Vector4(forward.x,-forward.y,rule.NearRange,rule.NearIntensity);
                 var linear = new Color(rule.Red,rule.Green,rule.Blue,1).linear;
-                colors[n] = new Vector4(linear.r,linear.g,linear.b,rule.Intensity*Mathf.Clamp(Settings.IntensityScale,0,2));
+                colors[n] = new Vector4(linear.r,linear.g,linear.b,rule.Intensity);
             }
-            var shadow = new Vector4(Settings.SoftShadows ? Mathf.Clamp(Settings.Softness,0,.75f) : 0,
-                Mathf.Clamp(Settings.WallDepth,0,1),Mathf.Clamp01(Settings.WallStrength),Mathf.Clamp(Settings.ConeFeather,0,.25f));
+            var shadow = new Vector4(0, Mathf.Clamp(Settings.WallDepth,0,1),Mathf.Clamp01(Settings.WallStrength),0);
             shader.SetVector("_DNKnownBounds",new Vector4(bounds.x,bounds.y,bounds.width,bounds.height));
             shader.SetVector("_DNShadowSettings",shadow); shader.SetVector("_DNLightRect",area);
             shader.SetVector("_DNTargetSize",new Vector4(Width,Height,0,0));
@@ -76,6 +77,7 @@ namespace DarkNights.View.Lighting
             shader.SetVectorArray("_DNLightPositions",positions); shader.SetVectorArray("_DNLightDirections",directions); shader.SetVectorArray("_DNLightColors",colors);
             shader.SetVectorArray("_DNLightNearOrigins",nearOrigins);
             shader.SetVectorArray("_DNLightApertures",apertures);
+            shader.SetVectorArray("_DNLightShadows",shadows);
             shader.SetTexture(resolve,"_DNLightCells",source.LightingGeometry);
             shader.SetTexture(illuminate,"_DNLightCells",source.LightingGeometry);
             shader.SetBuffer(resolve,"_DNBounceSources",bounce); shader.SetBuffer(illuminate,"_DNBounceSources",bounce);

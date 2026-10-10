@@ -1,0 +1,59 @@
+{
+  "date_local": "2026-10-10",
+  "branch": "ref-20261009-light-profile-config",
+  "scope": "Game-side lighting slider Undo/Redo gesture boundaries",
+  "user_report": "A held slider drag from the middle to the left produces many intermediate undo steps",
+  "runtime_reproduced_this_batch": false,
+  "source_findings": [
+    "FlashlightDebugUndo recorded an initial snapshot but did not collapse additional native records at gesture completion",
+    "The workshop uses an Odin PropertyTree with Undo enabled; the lighting drawer also synchronizes smart values",
+    "The drawer previously ended gestures on every Ignore event without checking mouse capture",
+    "The debug slider observer previously ended on any descendant capture-out event"
+  ],
+  "source_complete": true,
+  "changes": [
+    "Remember the first modification's native Undo group and flush/collapse records at gesture completion",
+    "Seal each gesture before a subsequent edit or a change of target asset/control",
+    "Complete workshop gestures at the end of the property tree's current GUI frame",
+    "Use mouse-up and actual hot-control loss; Ignore with retained capture no longer ends a drag",
+    "Filter debug slider completion by active pointer and relevant capture owner; handle pointer cancellation"
+  ],
+  "source_before": "artifacts/light-slider-undo-20261010/source-before",
+  "memory_preflight": "artifacts/light-slider-undo-20261010/memory-preflight/summary.json",
+  "memory": {
+    "editor_pid": 35548,
+    "editor_private_gib": 4.3039703369140625,
+    "available_ram_gib": 12.49234390258789,
+    "commit_headroom_gib": 6.2805023193359375,
+    "minimum_commit_headroom_gib": 8,
+    "gate_passed": false
+  },
+  "validation": {
+    "source_and_diff_review": "artifacts/light-slider-undo-20261010/source-review.json",
+    "static_compile_executed": false,
+    "unity_refresh_or_compile_triggered": false,
+    "unity_tests_executed": false,
+    "play_executed": false,
+    "player_build_executed": false,
+    "passed_tests_this_batch": 0,
+    "affected_fixtures": ["FlashlightDebugUndoTests", "FlashlightDebugWindowTests", "LightInlineConfigurationTests"],
+    "regressions_updated_not_executed": [
+      "Native property-tree records within a drag collapse without merging earlier edits",
+      "Consecutive drags each keep their own release value",
+      "Changing assets during a gesture preserves independent asset histories",
+      "Actual debug slider left drag across frames/refresh with an additional native record"
+    ],
+    "pending": [
+      "Static and Unity compilation after a fresh batch passes memory gating",
+      "Affected native Undo, window and Definition override tests",
+      "Actual workshop and debug-panel left drag followed by one Undo and one Redo",
+      "Two consecutive drags, release outside the slider, capture cancellation and no-change click",
+      "Native Edit menu and keyboard history with Definition overrides and shared preset editing"
+    ]
+  },
+  "gameplay_contract_changed": false,
+  "protocol_or_save_format_changed": false,
+  "yygc_or_dependencies_changed": false,
+  "native_author_assets_changed": false,
+  "api_reference": "https://docs.unity3d.com/6000.4/Documentation/ScriptReference/Undo.CollapseUndoOperations.html"
+}

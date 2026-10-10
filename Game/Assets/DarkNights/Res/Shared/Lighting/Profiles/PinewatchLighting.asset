@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 599a66726de8e3946aeb231f2a402c54, type: 3}
+  m_Name: PinewatchLighting
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Lighting.SceneLightingProfile
+  LightingShader: {fileID: 7200000, guid: 02170dae5e9339640955ec044c39fa27, type: 3}
+  UrpLightTemplate: {fileID: 6314719519295837112, guid: f44e3cb5f8e4e7a4dba938df1f015f80, type: 3}
+  UrpShadowTemplate: {fileID: 6355509044824381544, guid: 34c79a4a8f11d44488a653b54761c548, type: 3}
+  Settings:
+    Backend: 0
+    Ambient: 0.1
+    WallDepth: 0.375
+    WallStrength: 0.65
+    Bounce: 0.12
+    Relief: 0.22
+  DevicePreset: {fileID: 11400000, guid: 4307b9a5ae283f942b51906d32245350, type: 2}
+  DefaultEffectTemplate: {fileID: 2180092566517106681, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}

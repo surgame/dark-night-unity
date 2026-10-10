@@ -25,7 +25,6 @@ namespace DarkNights.View.Terrain
         private MineralLayerPresentation minerals;
         private MineralReplicaPresentation mineralReplica;
         public bool UseMineralReplica;
-        private bool mineralPresented;
         private ARDMapController controller;
         private CancellationTokenSource lifetime;
         private TerrainReplicaSource replicaSource;
@@ -61,7 +60,7 @@ namespace DarkNights.View.Terrain
         private bool IsPresentationStable => LastError == null && controller != null && !RefreshingReplica &&
             (caveSource?.BackgroundReady ?? true) && !controller.HasPendingPresentationWork;
         public bool Ready => IsPresentationStable && PresentedInputGeneration == InstalledInputGeneration &&
-            PresentedSourceCommit == InstalledSourceCommit && (minerals?.Ready ?? true) && (!UseMineralReplica || mineralPresented);
+            PresentedSourceCommit == InstalledSourceCommit && (minerals?.Ready ?? true) && (!UseMineralReplica || mineralReplica?.Ready == true);
         /// <summary>只读绘制请求；不会推进 Ready 或跳过真实相机回执。</summary>
         public bool NeedsPresentationDraw => IsPresentationStable && !Ready;
         /// <summary>诊断等待阶段，不参与网络授权或调度。</summary>
@@ -76,7 +75,7 @@ namespace DarkNights.View.Terrain
                 if (inputQueue.HasPending) return "待安装变化格";
                 if (controller.HasPendingPresentationWork) return "Dual Grid 规则/资源处理中";
                 if (!(caveSource?.BackgroundReady ?? true)) return "岩壁/背景烘焙中（" + RefreshPath + "）";
-                if (UseMineralReplica && !mineralPresented) return "矿层：" + mineralReplica?.WaitReason;
+                if (UseMineralReplica && mineralReplica?.Ready != true) return "矿层：" + mineralReplica?.WaitReason;
                 return Ready ? "已绘制" : "等待相机完成回执";
             }
         }
@@ -185,7 +184,7 @@ namespace DarkNights.View.Terrain
             if (controller == null || CaveStyle?.MineralDefinition == null) return;
             mineralReplica = mineralReplica ?? new MineralReplicaPresentation(transform, CaveStyle.MineralDefinition, ViewCamera,
                 caveSource?.LightTexture, CaveStyle.Background?.BackgroundAmbient ?? .36f);
-            mineralReplica.Present(replica, region, dataReady); mineralPresented |= mineralReplica.Ready;
+            mineralReplica.Present(replica, region, dataReady);
             if (mineralReplica.LastError != null) Fail(mineralReplica.LastError);
         }
         public void SetDevices(DarkNights.Core.ViewData.WorldViewData world)

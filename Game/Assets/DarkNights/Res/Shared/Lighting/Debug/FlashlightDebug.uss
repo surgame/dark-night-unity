@@ -3,3 +3,21 @@
 .preset-row { flex-direction: row; margin-bottom: 12px; }
 .preset-row > Button { flex-grow: 1; margin-right: 4px; }
 Slider { margin-top: 6px; }
+
+.override-row { flex-direction: row; align-items: center; margin-bottom: 3px; }
+.override-indicator {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    border-width: 0;
+    background-color: transparent;
+    align-items: center;
+    justify-content: center;
+}
+.override-dot { width: 6px; height: 6px; border-radius: 3px; visibility: hidden; }
+.is-overridden .override-dot { visibility: visible; background-color: #4099ff; }
+.override-indicator:hover { background-color: rgba(64, 153, 255, 0.15); }
+.override-value { flex-grow: 1; min-width: 0; }
+.is-overridden .unity-base-field__label { -unity-font-style: bold; }

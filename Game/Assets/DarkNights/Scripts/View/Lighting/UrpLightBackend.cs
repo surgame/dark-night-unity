@@ -61,9 +61,9 @@ namespace DarkNights.View.Lighting
                 Vector3 local = preview.transform.InverseTransformVector(new Vector3(Mathf.Cos(source.Angle * Mathf.Deg2Rad), Mathf.Sin(source.Angle * Mathf.Deg2Rad), 0));
                 slot.Light.transform.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(local.y, local.x) * Mathf.Rad2Deg);
                 slot.Light.color = new Color(source.Rules.Red, source.Rules.Green, source.Rules.Blue);
-                slot.Light.intensity = source.Rules.Intensity * Mathf.Clamp(settings.IntensityScale, 0, 2);
+                slot.Light.intensity = source.Rules.Intensity;
                 slot.Light.shadowsEnabled = true; slot.Light.shadowIntensity = 1;
-                slot.Light.shadowSoftness = settings.SoftShadows ? Mathf.Clamp(settings.Softness, 0, .75f) : 0;
+                slot.Light.shadowSoftness = source.Rules.SoftShadows ? source.Rules.Softness : 0;
             }
             UpdateNear(preview, emitters);
             shadows.Update(preview);
@@ -95,7 +95,7 @@ namespace DarkNights.View.Lighting
             for (int n = 0; n < SourceCount; n++)
             {
                 var source = emitters[n];
-                float strength = source.Rules.NearIntensity * Mathf.Clamp(settings.NearStrength, 0, 2);
+                float strength = source.Rules.NearIntensity;
                 if (strength <= 0 || !CanEmit(preview, source.NearPosition))
                 { if (n < nearLights.Count) nearLights[n].Light.gameObject.SetActive(false); continue; }
                 while (nearLights.Count <= n)
@@ -108,7 +108,7 @@ namespace DarkNights.View.Lighting
                 slot.Light.lightCookieSprite = slot.Cookie.Sprite;
                 slot.Light.transform.position = source.NearPosition; slot.Light.transform.localRotation = Quaternion.identity;
                 slot.Light.color = new Color(source.Rules.Red, source.Rules.Green, source.Rules.Blue);
-                slot.Light.shadowSoftness = settings.SoftShadows ? Mathf.Clamp(settings.Softness, 0, .75f) : 0;
+                slot.Light.shadowSoftness = source.Rules.SoftShadows ? source.Rules.Softness : 0;
                 slot.Light.intensity = strength; slot.Light.gameObject.SetActive(true);
             }
             for (int n = SourceCount; n < nearLights.Count; n++) nearLights[n].Light.gameObject.SetActive(false);

@@ -79,12 +79,12 @@ namespace DarkNights.Editor
                 throw new InvalidOperationException("手电 Definition 合同不完整。");
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(PrefabPath);
             var view = prefab != null ? prefab.GetComponent<FlashlightView>() : null;
-            if (view == null || view.Owner == null || view.Effect == null ||
+            if (view == null || view.Owner == null || view.Emitter == null ||
                 definition.PrefabRef.AssetGUID != AssetDatabase.AssetPathToGUID(PrefabPath))
-                throw new InvalidOperationException("手电 PrefabRef／视图／计算资源缺失。");
+                throw new InvalidOperationException("手电 PrefabRef／视图／灯口绑定缺失。");
             NativeObjectContracts.RequireGenerated(typeof(FlashlightToolBehaviour));
             NativeObjectContracts.RequireGenerated(typeof(HeroLightBehaviour));
-            view.Effect.Validate();
+            Lighting.LightProfileMigration.Validate();
             definition.SharedConfigs.OfType<EquipmentItemConfig>().Single().Validate();
         }
 

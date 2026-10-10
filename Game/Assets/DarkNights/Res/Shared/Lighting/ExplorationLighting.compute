@@ -13,6 +13,7 @@ float4 _DNLightDirections[16]; // direction, near range, near strength
 float4 _DNLightColors[16]; // linear color, direct intensity
 float4 _DNLightNearOrigins[16];
 float4 _DNLightApertures[16]; // 灯口半宽，与锥角和阴影柔度独立
+float4 _DNLightShadows[16]; // 单灯阴影柔度、光束边缘
 float _DNBounceStrength;
 int _DNLightCount;
 
@@ -54,14 +55,15 @@ void Illuminate(uint3 id : SV_DispatchThreadID)
         float2 forward=_DNLightDirections[n].xy;
         float cutoff=_DNLightPositions[n].w;
         float aperture = _DNLightApertures[n].x;
-        float beam=DNBeam(delta,forward,cutoff,aperture,_DNShadowSettings.w);
+        float softness = _DNLightShadows[n].x;
+        float beam=DNBeam(delta,forward,cutoff,aperture,_DNLightShadows[n].y);
         float direct=beam*pow(saturate(1-d/range),1.15)*_DNLightColors[n].w;
         float2 nearOrigin=_DNLightNearOrigins[n].xy;
         float nearDistance=distance(p,nearOrigin);
         float near=pow(saturate(1-nearDistance/max(_DNLightDirections[n].z,.001)),1.1)*_DNLightDirections[n].w;
         float visibility=0;
         float2 perpendicular=float2(-forward.y,forward.x);
-        if (direct>0 && _DNShadowSettings.x<=0)
+        if (direct>0 && softness<=0)
         {
             float2 mouth = origin + perpendicular * clamp(dot(delta,perpendicular),-aperture,aperture);
             // 灯口加宽不允许把发光点挪过挡墙；未知区和贴墙继续保守拒绝。
@@ -69,7 +71,7 @@ void Illuminate(uint3 id : SV_DispatchThreadID)
         }
         else if (direct>0)
         {
-            float radius=max(aperture,_DNShadowSettings.x);
+            float radius=max(aperture,softness);
             for (int s=-2;s<=2;s++)
             {
                 float2 mouth=origin+perpendicular*(s*.5)*radius;
@@ -80,9 +82,9 @@ void Illuminate(uint3 id : SV_DispatchThreadID)
         if (near>0)
         {
             float nearVisibility=DNVisibility(nearOrigin,p,_DNShadowSettings.y);
-            if (_DNShadowSettings.x>0)
+            if (softness>0)
             {
-                float radius=_DNShadowSettings.x*.5;
+                float radius=softness*.5;
                 nearVisibility=(nearVisibility*4+DNVisibility(nearOrigin+float2(radius,0),p,_DNShadowSettings.y)+
                     DNVisibility(nearOrigin-float2(radius,0),p,_DNShadowSettings.y)+
                     DNVisibility(nearOrigin+float2(0,radius),p,_DNShadowSettings.y)+

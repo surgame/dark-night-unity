@@ -24,21 +24,68 @@ namespace DarkNights.Entry
         private readonly LightFillComposer fills = new LightFillComposer();
         private readonly List<Task> retiring = new List<Task>();
         private readonly HashSet<int> wanted = new HashSet<int>();
-        private readonly ExplorationLightSettings settings = new ExplorationLightSettings();
+        private LightProfileResources profiles;
+        private SceneLightingProfile sceneLighting;
+        private SceneLightingProfile debugScene;
+        private SceneLightingProfile renderedScene;
+        private UnityEngine.Object debugSceneOwner;
+        private string debugSceneKey;
+        private SceneLightingProfile EffectiveScene => debugSceneOwner != null && debugScene != null ? debugScene : sceneLighting;
+        private LightProfileSnapshot deviceLight;
+        private LightProfile devicePreset;
+        private int deviceRevision;
         private EnvironmentLighting field;
         private View.Terrain.CaveVisualSource boundSource;
         private int epoch;
         private bool failed;
         private LightingBackendKind? failedBackend;
-        private static readonly LightEmissionRules DeviceLight = new LightEmissionRules(8.375f,90,.45f,.25f,0,1,.78f,.48f);
-        public ExplorationLightSettings Settings => settings;
+        public ExplorationLightSettings Settings => EffectiveScene != null ? EffectiveScene.Settings : null;
+        public SceneLightingProfile LightingProfile => sceneLighting;
         public int SourceCount => field?.SourceCount ?? 0;
+        public int WorldEpoch => epoch;
         public Task Retirement { get; private set; } = Task.CompletedTask;
+
+        public void SetDebugScene(UnityEngine.Object owner, SceneLightingProfile value)
+        {
+            if (owner == null) throw new ArgumentNullException(nameof(owner));
+            if (value == null)
+            {
+                if (debugSceneOwner != owner) return;
+                debugSceneOwner = null; debugScene = null; debugSceneKey = null;
+            }
+            else
+            {
+                if (debugSceneOwner != null && debugSceneOwner != owner) throw new InvalidOperationException("当前照明已被其他调试草稿使用。");
+                string key = JsonUtility.ToJson(value.Settings);
+                if (debugSceneOwner == owner && debugScene == value && debugSceneKey == key) return;
+                debugSceneOwner = owner; debugScene = value; debugSceneKey = key;
+            }
+            field?.Suspend(); failed = false;
+        }
+
+        public void Own(LightProfileResources resources, SceneLightingProfile configuration)
+        {
+            if (profiles != null || resources == null || configuration == null) throw new InvalidOperationException("照明资源所有权只能移交一次。");
+            profiles = resources; sceneLighting = configuration;
+        }
+
+        public void RefreshLightingAssets(Func<string, LightProfile> authorResolver)
+        {
+            if (profiles == null || network == null) return;
+            profiles.Invalidate(); deviceLight = null; failed = false;
+            foreach (var definition in network.ObjectResources.Equipment.LightDefinitions)
+            {
+                var config = LightProfileResources.RequireConfig(definition);
+                if (!LightProfileResources.HasPreset(config)) continue;
+                var preset = authorResolver(config.Profile.AssetGUID);
+                if (preset != null) profiles.SetEditorPreset(config.Profile.AssetGUID, preset);
+            }
+        }
 
         public void Initialize(SessionNetwork session, SessionEntityViews views, GameInputActions actions, Terrain.RandomLevelEntry entry)
         {
             network = session; entities = views; input = actions; terrain = entry;
-            settings.Backend = EnvironmentLighting.InitialBackend(System.Environment.GetCommandLineArgs());
+            if (profiles == null || sceneLighting == null) throw new InvalidOperationException("场景照明资源尚未准备。");
             RenderPipelineManager.beginCameraRendering += BeginCamera;
         }
 
@@ -57,10 +104,11 @@ namespace DarkNights.Entry
             var frame = network.Client.Replica.Current;
             if (frame == null || preview.LightingSource == null) { field?.Suspend(); return; }
             if (epoch != frame.Epoch) { ClearTools(); epoch = frame.Epoch; }
-            if (boundSource != preview.LightingSource)
+            if (boundSource != preview.LightingSource || renderedScene != EffectiveScene)
             {
                 if (field != null) retiring.Add(field.RetireAsync());
                 field = null; boundSource = preview.LightingSource;
+                renderedScene = EffectiveScene;
             }
             retiring.RemoveAll(task => task.IsCompletedSuccessfully);
             emitters.Clear(); wanted.Clear();
@@ -83,10 +131,11 @@ namespace DarkNights.Entry
                         if (tool.Owner.GetBehaviour<FlashlightToolBehaviour>()?.Ready != true) throw new InvalidOperationException("手电 Behaviour 未装配。");
                         tool.transform.localPosition = Vector3.zero; tool.transform.localScale = Vector3.one;
                         tool.Owner.Activate(); binding = (actor,tool); tools.Add(displayed.Id,binding);
-                        tool.BindLight(this, actor.LightAnchor, actor.LightFillAnchor, actor.LightTargets);
                     }
                     catch { EntityViewFactory.Release(created); throw; }
                 }
+                binding.Tool.BindLight(profiles.Resolve(binding.Tool.Owner.Definition), this,
+                    actor.LightAnchor, actor.LightFillAnchor, actor.LightTargets);
                 float angle = displayed.LightAimAngle;
                 bool local = displayed.ControllerSlot == network.Client.PlayerSlot && displayed.ControlLease > 0;
                 if (local && input.HeroMode && !frame.Paused && input.ReadHero().Allowed)
@@ -105,13 +154,13 @@ namespace DarkNights.Entry
             foreach (int id in tools.Keys) if (!wanted.Contains(id)) removed.Add(id);
             foreach (int id in removed) Remove(id);
             LightEffect.Collect(this, camera, effects);
+            field = field ?? new EnvironmentLighting(EffectiveScene, Core.Logic.Lighting.LightWallDistance.Build,
+                Core.Logic.Lighting.LightBeamProfile.Evaluate, EnvironmentLighting.BackendOverride(System.Environment.GetCommandLineArgs()));
             foreach (var effect in effects)
             {
-                field = field ?? new EnvironmentLighting(effect.Environment, Core.Logic.Lighting.LightWallDistance.Build,
-                    Core.Logic.Lighting.LightBeamProfile.Evaluate, settings);
-                if (effect.IsOn && effect.Environment.isActiveAndEnabled) emitters.Add(effect.Environment.Sample(preview));
+                if (effect.IsOn && effect.EnvironmentEnabled && effect.Environment.isActiveAndEnabled) emitters.Add(effect.Environment.Sample(preview));
             }
-            fills.Apply(effects, field?.Settings.NearStrength ?? 1,
+            fills.Apply(effects, 1,
                 new Vector2(preview.transform.lossyScale.x, preview.transform.lossyScale.y));
             AddDeviceLights(frame.World);
             field?.Render(camera,preview,emitters);
@@ -120,13 +169,19 @@ namespace DarkNights.Entry
         private void AddDeviceLights(Core.ViewData.WorldViewData world)
         {
             if (world.Expedition == null) return;
+            if (deviceLight == null || devicePreset != EffectiveScene.DevicePreset || deviceRevision != EffectiveScene.DevicePreset.Revision)
+            {
+                devicePreset = EffectiveScene.DevicePreset; deviceRevision = devicePreset.Revision;
+                deviceLight = devicePreset.Freeze();
+            }
             foreach (var building in world.Buildings)
             {
                 if (building.Kind != "ship" && building.Kind != "lamp") continue;
                 foreach (var device in world.Expedition.Devices)
                     if (device.Id == building.Id && device.Powered && entities.Visual(building.Id) is EntityView visual)
                     {
-                        emitters.Add(new LightEmitterData(visual.transform.position+Vector3.up*.16f,0,DeviceLight,false));
+                        if (deviceLight.EnvironmentEnabled)
+                            emitters.Add(new LightEmitterData(visual.transform.position+Vector3.up*.16f,0,deviceLight.Rules,deviceLight.Directional));
                     }
             }
         }
@@ -142,14 +197,17 @@ namespace DarkNights.Entry
         {
             RenderPipelineManager.beginCameraRendering -= BeginCamera;
             ClearTools(); boundSource = null; ExplorationLightField.Suspend();
+            debugSceneOwner = null; debugScene = null; debugSceneKey = null; renderedScene = null;
             fills.Clear(); effects.Clear();
             if (field != null) retiring.Add(field.RetireAsync()); field = null;
-            Retirement = RetirePendingAsync();
+            var resources = profiles; profiles = null;
+            Retirement = RetirePendingAsync(resources);
         }
-        private async Task RetirePendingAsync()
+        private async Task RetirePendingAsync(LightProfileResources resources)
         {
             try { await Task.WhenAll(retiring); }
             catch (Exception error) { Debug.LogException(error); }
+            finally { resources?.Dispose(); }
         }
     }
 }

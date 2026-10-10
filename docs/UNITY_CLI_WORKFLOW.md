@@ -39,7 +39,9 @@ caller／skill位于command和具体子命令之间。run_tests的名称过滤�
 
 ## 内存门控
 
-每批Play／测试／构建先查磁盘、目标Editor私有内存、可用物理内存和系统提交余量。32 GiB本机阈值由[AGENTS](../AGENTS.md#内存与故障门控)及 `tools/ground-baseline/watch_memory.py` 的LIMITS维护：Editor达到8 GiB、RAM低于6 GiB、提交余量低于8 GiB停止。构建另预留阶段预计分配量；不足记录待验，不重复尝试或结束其他应用。
+每批Play／测试／构建先查磁盘、目标Editor私有内存、可用物理内存和系统提交余量。2026-10-10按用户要求放宽为避免系统耗尽，由[AGENTS](../AGENTS.md#内存与故障门控)及 `tools/ground-baseline/watch_memory.py` 的LIMITS维护：Editor私有内存仅记录，不设固定上限；可用RAM或系统提交余量低于1 GiB停止。构建另预留阶段预计分配量；不足记录待验，不重复尝试或结束其他应用。
+
+系统提交余量是Windows提交上限减去已提交内存；上限由物理内存和分页文件共同支持。它不是剩余物理内存，两项需分别观察。1 GiB是防止完全耗尽前无法响应的应急缓冲，不保证突发大分配或阻塞主线程时一定能及时停止。
 
 先通过unity status核对当前PID和Game项目，用独立监控先单次采样，再覆盖一批短时验证。示例中PID必须来自本批status，输出为本任务新目录：
 
@@ -48,9 +50,9 @@ python tools/ground-baseline/watch_memory.py --pid <本批EditorPID> --project G
 python tools/ground-baseline/watch_memory.py --pid <本批EditorPID> --project Game --output artifacts/<任务>/memory --seconds 1800
 ```
 
-监控每秒采样，越界写breach.json并请求停止本项目Play，随后禁止新批次；不会杀其他应用。响应依赖Editor，同步BuildPipeline可能不响应停止Play，所以启动前余量和短探针是必要前置。
+单次预检（`--once`）只采样、写报告并以退出码2报告越界，不发送停止Play命令。持续监控每秒采样，越界写breach.json并请求停止本项目Play，随后禁止新批次；不会杀其他应用。响应依赖Editor，同步BuildPipeline可能不响应停止Play，所以启动前余量和短探针是必要前置。
 
-F10先用有界队列／过滤用例、一条中文日志和三次开关验证，不重造日志风暴；通过后才扩展一批UI或其他场景。失去测试回执先排查崩溃、日志反馈和请求执行状态，不能直接重发。原2026-10-07两次OOM、历史4 GiB停止线和采样见[事故记录](archive/UNITY_MEMORY_INCIDENT_20261007.md)；当前门控为8 GiB，不改写原批次结论。
+F10先用有界队列／过滤用例、一条中文日志和三次开关验证，不重造日志风暴；通过后才扩展一批UI或其他场景。失去测试回执先排查崩溃、日志反馈和请求执行状态，不能直接重发。原2026-10-07两次OOM、历史4 GiB停止线和采样见[事故记录](archive/UNITY_MEMORY_INCIDENT_20261007.md)；历史8／6／4及8／6／8 GiB样本和停止记录保持，不作为现行门控。
 
 ## 有限批次与依赖屏障
 

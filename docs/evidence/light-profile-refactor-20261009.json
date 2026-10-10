@@ -1,0 +1,138 @@
+{
+  "branch": "ref-20261009-light-profile-config",
+  "state": "source_ready_native_validation_pending",
+  "scope": [
+    "LightProfile preset and per-field Definition overrides",
+    "automatic effect attachment and lease lifecycle",
+    "native asset Undo and authoring UI",
+    "explicit GUID-preserving asset migration"
+  ],
+  "static_architecture": {
+    "passed": true,
+    "handwritten_files": 816,
+    "guard_self_tests": 16,
+    "errors": 0,
+    "report": "artifacts/light-profile-refactor-20261009/architecture-inline-contract.json"
+  },
+  "source_checks": "artifacts/light-profile-refactor-20261009/source-verification-inline.json",
+  "tests_written": {
+    "FlashlightDebugUndoTests": {
+      "test_cases_written": 4,
+      "executed": false
+    },
+    "FlashlightDebugWindowTests": {
+      "test_cases_written": 14,
+      "executed": false
+    },
+    "LightProfileTests": {
+      "test_cases_written": 7,
+      "executed": false
+    },
+    "LightInlineConfigurationTests": {
+      "test_cases_written": 6,
+      "executed": false
+    }
+  },
+  "unity_tests_executed": false,
+  "native_migration_executed": false,
+  "player_built": false,
+  "manual_editor_compilation_executed": false,
+  "yygc_source_changed": false,
+  "protocol": 31,
+  "save_format": 23,
+  "memory_latest": {
+    "editor_pid": 10464,
+    "editor_private_gib": 4.807392120361328,
+    "available_ram_gib": 6.399135589599609,
+    "system_commit_headroom_gib": 4.447292327880859,
+    "minimum_commit_headroom_gib": 8,
+    "report": "artifacts/light-profile-refactor-20261009/preflight-optional-profile-final/summary.json"
+  },
+  "preexisting_user_change": {
+    "path": "Game/Assets/DarkNights/Res/Objects/ShipTrade/item-jetpack.asset",
+    "sha256": "f02c676116edec59a206e7f706b1ddc895d4987213e569785253c5ecafeedc61",
+    "included_in_task": false
+  },
+  "source_sha256": {
+    "Game/Assets/DarkNights/Res/Shared/Lighting/Debug/FlashlightDebug.uss": "98f9e796b516aed1b3ea3a6a1e3b63a9a3eed543cf4f7337ee036e7e1956686a",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/Debug/FlashlightDebug.uxml": "3528c13786e7088afd37e7a0fa491c74b82815c4a7f1d16ba1ae49ef475aa794",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.compute": "4f73cfa890c89c7036b1a19d22834ceca94b2bf5aaa06e3b12c0090b4fe43831",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightEmissionRules.cs": "c11e7a50b76009fb9fb917980cb24dc5b197fb932db820fc873496dd686f407d",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightOverrideMask.cs": "d459ce03abfa637a82e07fc830f95aa5d8572ee598e4d49b1519e2d77091f13d",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightProfileDefaults.cs": "6e53c40d492742096b8301a44b6f9be2c1c4bad703c4f7fc7f8c28b9de149b9e",
+    "Game/Assets/DarkNights/Scripts/Editor/FlashlightContentSetup.cs": "cf2beb5e68bee1fd2b6dadf529976ee2c40e3c667115d6042f4f0d5dccc10513",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugSliderGesture.cs": "5f908a2cb218188a7f5c236e55d1d0d87f1b77db1a72a91695277381a9415e08",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugUndo.cs": "71ce0e6bc25cc965b9496353a02f21f5aa19a2fa89d6ee6f8e60d6dee76f6893",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugWindow.cs": "43b8784dfcbb8dfbb43210bfac091c045364cfe22d69ed24058a3a8519c1f854",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightToolConfigDrawer.cs": "28bd8ae68961110a5986f2c7382a00529bafa2ea54f8877fdc953d0c6e0dbcb6",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LegacyLightProfileReader.cs": "c3daecdb5ebae77aed8b2d7f53d2326a0fa60f2af1f6c77bd9bd901f540ceda9",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightDefinitionEditor.cs": "0fd09f3a803c2736aeb86aef3d9adbe2d2ed1df611645aba2ce5ca6a98b1cf93",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightEffectPreview.cs": "72be40b674d9a3252295f82be1b7a096085abecc794bacdfef740a62c2e7c786",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightMountPanel.cs": "b87ddaeddfec0d22b2464fe32730580392c0ed767a82de9e055dca07d991c212",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightOverridePanel.cs": "27ff791a6d0b7dbbcba87b6a99dd76ea981a85e242092d6d7d03b2eddd14e9c8",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightParameterSchema.cs": "714e6b98df90b566f122556d72ae04da56522113be159d77bde848ef64723a74",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightProfileMigration.cs": "f81d590276b446cffb538b61a43a2c0ba96fa4adc261d84bbecf14c1bd48da92",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightingBackendContentSetup.cs": "2a0e0b3845ef6d52ca948ff046c59397d98a70484f50ce06ac2f8b137ee91130",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightingEditorRefresh.cs": "20cfcb45b4e452927d5c9a45b97e8ac2e7f33a5271cdd8487f3c64d4db70ca4a",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/SceneLightingPanel.cs": "1415ad7bb7427ba436998ddaf66eee699e78a06c9b833ff0bf30f96e3355b40b",
+    "Game/Assets/DarkNights/Scripts/Editor/ReusableLightContentSetup.cs": "eb43343e4f7f9f08912181930c9cbfe1c733d87c114f2d30f8f367af6a1b2f6b",
+    "Game/Assets/DarkNights/Scripts/Entry/DarkNights.Entry.asmdef": "8fb8a263b0af0407c510a37310959019e2f71a9fd9c3b84e66c1bb0a78a77314",
+    "Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs": "fdf4aaa3816e4f3b7bad4446fd1617bee17221fd46d18b68c4038c20fd61f395",
+    "Game/Assets/DarkNights/Scripts/Entry/HeroLightPresentation.cs": "f87682cc5beb8a8df7e5864f2ec9b9b3e2aac316d9fbb0a70b6cc965fc541147",
+    "Game/Assets/DarkNights/Scripts/Entry/LightProfileLease.cs": "86c9468f8655a99196e2486a251c5087190180e98c4819f4668f2bcba74cc9a3",
+    "Game/Assets/DarkNights/Scripts/Entry/LightProfileResolver.cs": "227c38ac76bb1314d6f78c9ee2a0b65bbdafd50cdd63943e9de461b123514004",
+    "Game/Assets/DarkNights/Scripts/Entry/LightProfileResources.cs": "98f640fca8ed25d6a55d5cb3547ba604e3a62b8de5132b8f18adf28ed5f41c86",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/FlashlightToolConfig.cs": "dd4d769ab475fe7e014ec52b2dcdcafbd20588563fe1119ae5584e0db61cc78f",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/LightConfigurationAttribute.cs": "bfa0ba8474e35a8f44a50bd5011ccfa1432ace9e6585b7b89dfb14b07beaf93f",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/LightOverrides.cs": "af921a29d31cb94bba6bd54eaffa0ac77620e79d0c48f68e22f8f67a586d9911",
+    "Game/Assets/DarkNights/Scripts/Tests/FlashlightDebugUndoTests.cs": "13bd5870bcdddc2dd23a0cc0ba34cd433026bb9a50fbbc1d51ef718c59e2e222",
+    "Game/Assets/DarkNights/Scripts/Tests/FlashlightDebugWindowTests.cs": "45fc22ae0d7c1fe59c7a72dc468637b5bc9ddf8b56f31f669d864a83ae63d173",
+    "Game/Assets/DarkNights/Scripts/Tests/LightInlineConfigurationTests.cs": "8c351deaac86cea23d2f556cba4c10e5e3075f225dc2619e9524f2be5f5bd938",
+    "Game/Assets/DarkNights/Scripts/Tests/LightProfileTests.cs": "152f6abb046a9d53a267cc75c0c8e51b6b42cbf854e4d93b328bcce0d542b4bf",
+    "Game/Assets/DarkNights/Scripts/Tests/LightingBackendTests.cs": "6da2488a42f1af9d547612f507aca5fd2072f06683dbea16f539876e93332468",
+    "Game/Assets/DarkNights/Scripts/Tests/ReusableLightPlayTests.cs": "4c27a4d1881dbcf3ae021ceb432d6bfbe90cea7a3c0b413d1ed19fb5af52a2c3",
+    "Game/Assets/DarkNights/Scripts/Tests/ReusableLightTests.cs": "ef93214d2112199134a469ad20bed73f2346416efbe4b3063999d80d7d37db8e",
+    "Game/Assets/DarkNights/Scripts/View/FlashlightView.cs": "b8e21f0c186b519102d6cfce80ab16857ae3e56547f34d6c2b97a0defe2b3414",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/EnvironmentLighting.cs": "55c25c3b4b61beacfd0cd3359ca1a24c1218eafc97c05db5deaa66305ddb01e6",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightField.cs": "41132de5a8523a18d4d0037f8c9d1ac6e490e4055fcf41d26c4b520049f2f03f",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightSettings.cs": "3de11c2c40c78b4caec919cbd057be662ee3db3d7130260d16af190a4a89d514",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightEffect.cs": "63cc0bf8f9b6c5dfd61d238d4bca318603d24274fe36f5c74f6bc2374909ed2d",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightEffectBinding.cs": "85a60a3b9ff2dbecda4548d8a6ddbb24b955ed4e8e594b5017a7864886e8dc9e",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightEnvironmentEmitter.cs": "71568feedad8418ebfd87cfb3f5e09367079d6f5f6a168128507db2f45ad11b0",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightFillComposer.cs": "47b28bb1c765e92ac2fcc8941a0b068b8de162160e86c8d6abdd57f5ba9cfcac",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightProfile.cs": "c8317a9f486b4ddc1eb725cc533ac72990e11b5a86728b4e38402b604f1c39e7",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightProfileSnapshot.cs": "94154fb2ce78bf3bc9152b479701587e74cf37efea88ce2b3264a4b2906caa18",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LocalLightFill.cs": "7215894f5c2510d4df1cb74b7bd9da3343f603056d5ce4d02638e87df528021b",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/SceneLightingProfile.cs": "628c8512e730ff66e1b494ac043ec571b645f99d378ad3df0d039bdf7a124d48",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/UrpLightBackend.cs": "91978e831fcc86fdc00b48ba0e341a002dfb5bc2e3cc946fa353e893eefad263",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/UrpLightCookie.cs": "eb2020b05ff24706f1667407ba9899b42e68eae2c95105ddcbc6ae3658b837a5",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/RandomLevelTemplate.cs": "4dc75875bbc7cb14a32874dab3853e1441d53ebfad8eb7ce04674be3e73f7fe8"
+  },
+  "checkpoint": "artifacts/light-profile-refactor-20261009/source-checkpoint-inline/",
+  "original_author_baseline": "artifacts/light-profile-refactor-20261009/author-baseline/",
+  "pending": [
+    "latest test/script import completion and compiler receipts",
+    "native asset migration including SceneLightingProfile.DefaultEffectTemplate",
+    "Definition workshop GUI controls and native Undo, preset following and persistence",
+    "31 authoring cases plus affected lighting regressions",
+    "short Bootstrap, both rendering backends and lifecycle/resource retirement"
+  ],
+  "resume": "fresh memory gate; same Local Editor; serial compilation then asset migration then tests; no Player build",
+  "automatic_import_errors": "artifacts/light-profile-refactor-20261009/automatic-import-errors.json",
+  "automatic_import_compile_pass_confirmed": false,
+  "repaired_compile_errors": [
+    "CS0104 LightingEditorRefresh.cs: qualify UnityEngine.Object",
+    "CS1061 LightingBackendContentSetup.cs: renderer resources moved to SceneLightingProfile"
+  ],
+  "automatic_compile_observation": "artifacts/light-profile-refactor-20261009/automatic-compile-observation-resume.json",
+  "resume_turn_action": "Read-only gate and existing compiler observation; migration/tests/Play/build not started because commit headroom remains below 8 GiB.",
+  "definition_panel_fix": "artifacts/light-profile-refactor-20261009/definition-panel-fix.json",
+  "previous_source_automatic_compilation_passed": true,
+  "profile_optional": true,
+  "native_readonly_inspections": [
+    "artifacts/light-profile-refactor-20261009/definition-overrides-inspection.json",
+    "artifacts/light-profile-refactor-20261009/inline-definition-inspection.json"
+  ],
+  "authoring_contract": "docs/LIGHTING.md#光照配置制作规范",
+  "conditional_followup_task": "Not created: builtin defaults, profile inheritance and per-field object overrides implemented in current source; validation remains in this task."
+}

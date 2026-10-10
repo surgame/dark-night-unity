@@ -11,5 +11,6 @@ namespace DarkNights.View.Terrain
         public CaveTerrainStyle StaticBackgroundStyle;
         public ARDMapDefinition ContourDefinition;
         public bool Expedition;
+        public Lighting.SceneLightingProfile Lighting;
     }
 }

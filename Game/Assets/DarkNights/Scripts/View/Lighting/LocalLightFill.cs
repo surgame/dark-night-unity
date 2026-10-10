@@ -8,9 +8,9 @@ namespace DarkNights.View.Lighting
     {
         [SerializeField] private Transform origin;
         [SerializeField] private SpriteRenderer[] targets = Array.Empty<SpriteRenderer>();
-        [SerializeField, Range(.25f, 5), Tooltip("半径以当前地图格计，由相机换算为世界距离。")] private float radius = 2.2f;
-        [SerializeField, Range(0, 2)] private float intensity = .55f;
-        [SerializeField] private Color color = new Color(1, .88f, .69f, 1);
+        private float radius;
+        private float intensity;
+        private Color color;
         private Transform boundOrigin;
         private SpriteRenderer[] boundTargets;
         public SpriteRenderer[] Targets => boundTargets ?? targets;
@@ -18,6 +18,10 @@ namespace DarkNights.View.Lighting
         public Vector4 Energy
         {
             get { Color linear = color.linear; return new Vector4(linear.r, linear.g, linear.b, intensity); }
+        }
+        public void Apply(float range, float strength, Color tint)
+        {
+            radius = range; intensity = strength; color = tint;
         }
         private Vector3 Position => (boundOrigin != null ? boundOrigin : origin).position;
         public void Bind(Transform anchor, SpriteRenderer[] receivers)
@@ -29,9 +33,7 @@ namespace DarkNights.View.Lighting
         public void Unbind() { boundOrigin = null; boundTargets = null; }
         public void Validate()
         {
-            if (origin == null || Array.Exists(targets, value => value == null) ||
-                !float.IsFinite(radius) || radius < .25f || radius > 5 ||
-                !float.IsFinite(intensity) || intensity < 0 || intensity > 2)
+            if (origin == null || Array.Exists(targets, value => value == null))
                 throw new InvalidOperationException("局部补光作者绑定或参数无效。");
         }
     }

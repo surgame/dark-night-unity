@@ -28,7 +28,7 @@ namespace DarkNights.View.Lighting
             foreach (var buffer in buffers.Values) buffer.Count = 0;
             foreach (var effect in sources)
             {
-                if (!effect.IsOn || !effect.LocalFill.isActiveAndEnabled) continue;
+                if (!effect.IsOn || !effect.LocalFillEnabled || !effect.LocalFill.isActiveAndEnabled) continue;
                 var fill = effect.LocalFill;
                 foreach (var receiver in fill.Targets)
                 {

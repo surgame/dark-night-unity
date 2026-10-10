@@ -53,7 +53,7 @@ namespace DarkNights.Tests
                 RenderPipeline.SubmitRenderRequest(stage.SceneCamera, new RenderPipeline.StandardRequest { destination = target });
                 if (name == null) return;
                 RenderTexture.active = target; pixels.ReadPixels(new Rect(0, 0, 640, 360), 0, 0); pixels.Apply();
-                File.WriteAllBytes("../artifacts/reusable-light-20261009/" + name + ".png", pixels.EncodeToPNG());
+                File.WriteAllBytes("../artifacts/light-profile-refactor-20261009/" + name + ".png", pixels.EncodeToPNG());
             }
             try
             {

@@ -18,6 +18,8 @@ namespace DarkNights.View.Terrain
         private DirectAssetService assets;
         private Material material;
         private ITerrainInputSource source;
+        private TerrainReplicaSource replicaSource;
+        private TerrainReplicaRegion regionLoader;
         private Camera sceneCamera;
         private CancellationTokenSource lifetime;
         private GridBounds visible, loadedRegion;
@@ -31,9 +33,10 @@ namespace DarkNights.View.Terrain
         public long InputBatches { get; private set; }
         public ulong InstalledCommit => installed;
         public ulong PresentedCommit => presented;
-        public bool Loading => loading;
+        public bool Loading => loading || regionLoader?.Loading == true;
         public Task Retirement { get; private set; } = Task.CompletedTask;
-        private bool Stable => LastError == null && controller != null && !loading && baseline &&
+        private bool Stable => LastError == null && controller != null && !Loading && baseline &&
+            replicaSource?.WaitingForBaseline != true &&
             !queue.HasPending && !controller.HasPendingPresentationWork;
         public string WaitReason => "loading=" + loading + " baseline=" + baseline + " queue=" + queue.HasPending +
             " builds=" + BuiltPages + " pending=" + (controller?.HasPendingPresentationWork ?? false) +
@@ -56,7 +59,7 @@ namespace DarkNights.View.Terrain
             var own = lifetime = new CancellationTokenSource();
             var token = own.Token;
             LastError = null; installed = presented = 0; visible = default; baseline = false; hasPresented = false; InputBatches = 0;
-            loading = true; source = input; sceneCamera = viewCamera;
+            loading = true; source = input; replicaSource = input as TerrainReplicaSource; sceneCamera = viewCamera;
             Hook(); source.InputChanged += Changed;
             try
             {
@@ -82,7 +85,8 @@ namespace DarkNights.View.Terrain
                 next.Root.AddComponent<GridDebugView>().Bind(next.Debugger);
 #endif
                 loadedRegion = region ?? descriptor.Bounds;
-                await next.LoadRegionAsync(loadedRegion, token);
+                regionLoader = new TerrainReplicaRegion(next, replicaSource, token);
+                await regionLoader.Initialize(loadedRegion, replicaSource?.Replica);
                 if (own != lifetime || token.IsCancellationRequested) return;
                 source.PublishInitialBaseline(); loading = false;
                 Tick();
@@ -99,9 +103,16 @@ namespace DarkNights.View.Terrain
         }
 
         private void Update() => Tick();
+        /// <summary>完整目标副本就绪后在原宿主装卸局部区；等待期间保留旧页，绘制回执不会沿用旧代次。</summary>
+        public void SetReplicaRegion(AnyRules.Next.Networking.ChunkReplicaStateMachine replica, GridBounds region, bool ready)
+        {
+            if (replicaSource == null) return;
+            regionLoader?.Present(replica, region, ready);
+            if (regionLoader?.LastError != null) Fail(regionLoader.LastError);
+        }
         public void Tick()
         {
-            if (controller == null || loading || LastError != null) return;
+            if (controller == null || Loading || LastError != null) return;
             try
             {
                 if (queue.TryDequeue(out var batch))
@@ -118,7 +129,8 @@ namespace DarkNights.View.Terrain
 
         private void Visibility()
         {
-            if (sceneCamera == null || !baseline) return;
+            if (sceneCamera == null || !baseline || replicaSource?.WaitingForBaseline == true) return;
+            loadedRegion = regionLoader?.Loaded ?? loadedRegion;
             var next = TerrainViewport.Capture(controller.Descriptor, transform, sceneCamera);
             next = TerrainViewport.Limit(next, loadedRegion, controller.Descriptor);
             if (next.Equals(visible)) return;
@@ -166,7 +178,8 @@ namespace DarkNights.View.Terrain
                 RenderPipelineManager.endCameraRendering -= EndPipeline; hooked = false;
             }
             if (source != null) source.InputChanged -= Changed;
-            source = null; sceneCamera = null; drawing = false; baseline = false; hasPresented = false; visible = default; loading = false;
+            source = null; replicaSource = null; regionLoader = null; sceneCamera = null;
+            drawing = false; baseline = false; hasPresented = false; visible = default; loading = false;
             lifetime?.Cancel(); queue.Clear();
             await opening;
             lifetime?.Dispose(); lifetime = null;

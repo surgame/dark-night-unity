@@ -655,6 +655,7 @@ MonoBehaviour:
   StaticBackgroundStyle: {fileID: 11400000, guid: b8f1f94057451ec459e1bac28aba1c8a, type: 2}
   ContourDefinition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
   Expedition: 1
+  Lighting: {fileID: 11400000, guid: 3a6e771a82d12b2429a3d3ea9d34b641, type: 2}
 --- !u!1 &238113022
 GameObject:
   m_ObjectHideFlags: 0

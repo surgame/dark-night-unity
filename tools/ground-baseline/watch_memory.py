@@ -10,12 +10,13 @@ import subprocess
 import time
 
 
-LIMITS = {"editor_private_gib": 8, "minimum_free_ram_gib": 6, "minimum_free_commit_gib": 8}
+LIMITS = {"editor_private_gib": None, "minimum_free_ram_gib": 1, "minimum_free_commit_gib": 1}
 
 
 def memory_breach(private_gib, free_ram_gib, free_commit_gib, reserve_gib=0):
-    """共享停止边界；批次启动可额外保留预计分配量，不降低基础提交余量。"""
-    return (private_gib >= LIMITS["editor_private_gib"]
+    """接近系统耗尽时停止；Editor 私有内存默认只记录，启动可额外预留预计分配量。"""
+    editor_limit = LIMITS["editor_private_gib"]
+    return (editor_limit is not None and private_gib >= editor_limit
             or free_ram_gib < LIMITS["minimum_free_ram_gib"]
             or free_commit_gib < LIMITS["minimum_free_commit_gib"] + reserve_gib)
 
@@ -41,7 +42,7 @@ def main():
     parser.add_argument("--project", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--seconds", type=int, default=1800)
-    parser.add_argument("--once", action="store_true")
+    parser.add_argument("--once", action="store_true", help="只读预检；余量不足也不退出已有 Play")
     args = parser.parse_args()
     cli = shutil.which("unity")
     if not cli:
@@ -87,10 +88,12 @@ def main():
                 minimum_commit = min(minimum_commit, sample["free_commit_gib"])
                 log.write(json.dumps(sample) + "\n")
                 log.flush()
-                # 32 GiB 主机保留明确余量，远早于本次 16.7 GiB/92% 的事故点。
+                # 只在系统接近耗尽时停止；单次预检不接管用户已有 Play。
                 if memory_breach(sample["private_gib"], sample["free_ram_gib"], sample["free_commit_gib"]):
                     state = "breach"
                     (args.output / "breach.json").write_text(json.dumps(sample, indent=2), encoding="utf-8")
+                    if args.once:
+                        break
                     try:
                         stopped = subprocess.run([cli, "command", "--caller", "plugin", "--skill", "unity-cli",
                                                   "editor_stop", "--project-path", str(args.project), "--json"],
@@ -107,7 +110,7 @@ def main():
         kernel.CloseHandle(handle)
         summary = {"state": state, "samples": samples, "peak_private_gib": peak,
                    "minimum_free_ram_gib": minimum_ram, "minimum_free_commit_gib": minimum_commit,
-                   "limits": dict(LIMITS)}
+                   "limits": dict(LIMITS), "read_only": args.once}
         (args.output / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
         print(json.dumps(summary))
     return 2 if state == "breach" else 0

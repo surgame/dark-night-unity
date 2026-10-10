@@ -78,7 +78,8 @@ namespace DarkNights.Tests
             view.LocalRegion = region;
             var source = new TerrainReplicaSource(foregroundReplica);
             foregroundReplica.Applied += view.NotifyReplicaChanged;
-            string evidence = Path.GetFullPath("../artifacts/mineral-map-migration-20261005/composite");
+            string evidence = Path.GetFullPath("../artifacts/mineral-composite/" + DateTime.Now.ToString("yyyyMMdd-HHmmss") +
+                "-" + Guid.NewGuid().ToString("N").Substring(0, 8));
             Directory.CreateDirectory(evidence);
             try
             {
@@ -91,21 +92,43 @@ namespace DarkNights.Tests
                 AssertRockCacheMatches(view);
                 Assert.That(view.LoadedTerrainChunks, Is.EqualTo(25));
                 int backgroundBuilds = view.BackgroundBuildCount;
+                var staticBackground = TerrainVisualTestScope.Read<object>(TerrainVisualTestScope.Read<CaveVisualSource>(view, "caveSource"), "staticBackground");
+                var backgroundPages = TerrainVisualTestScope.Read<IDictionary>(staticBackground, "pages");
+                var initialBackgroundPages = new Dictionary<object, object>();
+                foreach (DictionaryEntry page in backgroundPages) initialBackgroundPages.Add(page.Key, page.Value);
+                var mineralHost = root.GetComponentInChildren<MineralLayerView>();
                 foreach (var destination in new[] { SessionMapRegion.Around(4000, -1200), region })
                 {
+                    stream.Subscribe(MineralRegionReadiness.Subscription(destination, mineralMap.Descriptor.Bounds)); Flush();
+                    view.SetMineralReplica(replica, destination, false);
+                    Assert.That(view.Ready, Is.False, "新矿层区域数据未确认时不能沿用旧Ready。");
+                    Assert.That(root.GetComponentInChildren<MineralLayerView>(), Is.SameAs(mineralHost),
+                        "同世界矿层换代必须保留原宿主，不能出现整层销毁空窗。");
+                    Assert.That(mineralHost.gameObject.activeInHierarchy, Is.True);
                     foregroundStream.Subscribe(MineralRegionReadiness.Subscription(destination, foregroundMap.Descriptor.Bounds)); FlushForeground();
                     view.TickFromEditor();
                     Assert.That(view.RefreshingReplica, Is.True, "保留旧画面时仍须等待新流的完整基线，不能提前确认 Ready。");
                     Assert.That(view.Ready, Is.False);
                     Assert.That(root.transform.Find("Cave distant wall").gameObject.activeInHierarchy, Is.True,
                         "同世界换区不能隐藏背景并露出相机底色。");
+                    // 与正式角色兴趣范围一致：目标基线到达后镜头随目标区移动，返回时恢复原矿格取景。
+                    camera.transform.position = root.transform.TransformPoint(new Vector3(
+                        destination.Equals(region) ? 88 : destination.MinU + destination.Width * .5f,
+                        destination.Equals(region) ? -71 : destination.MinV + destination.Height * .5f, -60));
                     view.SetReplicaRegion(foregroundReplica, destination, true);
+                    view.SetMineralReplica(replica, destination, true);
                     while (!view.Ready && view.LastError == null && EditorApplication.timeSinceStartup < deadline)
-                    { view.TickFromEditor(); camera.Render(); await UniTask.Yield(); }
+                    { view.SetMineralReplica(replica, destination, true); view.TickFromEditor(); camera.Render(); await UniTask.Yield(); }
                     Assert.That(view.LastError, Is.Null); Assert.That(view.Ready, Is.True);
+                    Assert.That(root.GetComponentInChildren<MineralLayerView>(), Is.SameAs(mineralHost));
                     AssertRockCacheMatches(view);
                     Assert.That(view.LoadedTerrainChunks, Is.LessThanOrEqualTo(25));
-                    Assert.That(view.BackgroundBuildCount, Is.EqualTo(backgroundBuilds), "局部区换代不得重建静态背景。");
+                    Assert.That(TerrainVisualTestScope.Read<object>(TerrainVisualTestScope.Read<CaveVisualSource>(view, "caveSource"), "staticBackground"),
+                        Is.SameAs(staticBackground), "局部换区不得重建静态背景缓存。");
+                    foreach (var page in initialBackgroundPages)
+                        Assert.That(backgroundPages[page.Key], Is.SameAs(page.Value), "已有背景页必须复用，不能因流换代重新烘焙。");
+                    // 镜头进入远区允许首次构建新页；构建增量只能等于新增页数，返回原区不得重烘旧页。
+                    Assert.That(view.BackgroundBuildCount, Is.EqualTo(backgroundBuilds + backgroundPages.Count - initialBackgroundPages.Count));
                 }
                 Assert.That(foregroundReplica.Read(new CellCoord(280, -150)).State, Is.EqualTo(GridSampleState.Unknown));
                 Capture(camera, target, image); var before = image.GetPixels32();
@@ -139,6 +162,10 @@ namespace DarkNights.Tests
                 var samples = string.Join(",", sweep.Select(pair => "\"" + pair.Key + "\":" + pair.Value.Zip(after, Difference).Count(value => value > 20)));
                 File.WriteAllText(Path.Combine(evidence, "pixels.json"), "{\"changedPixels\":" + changed + ",\"visiblePixels\":" + visible + ",\"orderSweep\":{" + samples + "}}");
                 Assert.That(visible, Is.GreaterThan(10), "矿层必须在组合画面中清晰可辨，不能把1级颜色变化记为画面通过");
+                stream.Revoke(); Flush();
+                Assert.That(mineralHost == null || !mineralHost.gameObject.activeInHierarchy, Is.True,
+                    "撤权仍须立即撤除矿层，不能保留旧授权画面。");
+                Assert.That(view.Ready, Is.False, "撤权后不能沿用矿层已绘制的Ready。");
             }
             finally
             {

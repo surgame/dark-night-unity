@@ -25,10 +25,10 @@ namespace DarkNights.View.Lighting
 
         public void Update(LightEmitterData source, ExplorationLightSettings settings, bool near = false)
         {
-            float range = near ? source.Rules.NearRange : Mathf.Clamp(source.Rules.Range * settings.RangeScale, 2, 24);
-            float cone = Mathf.Clamp(source.Rules.Cone + settings.ConeOffset, 20, 150);
-            float aperture = source.Rules.ApertureWidth * Mathf.Clamp(settings.ApertureScale, 0, 4);
-            float feather = Mathf.Clamp(settings.ConeFeather, 0, .25f);
+            float range = near ? source.Rules.NearRange : source.Rules.Range;
+            float cone = source.Rules.Cone;
+            float aperture = source.Rules.ApertureWidth;
+            float feather = source.Rules.ConeFeather;
             var shape = new Vector4(range, cone, aperture, feather);
             bool directional = source.Directional && !near;
             if (Sprite != null && installed == shape && installedDirectional == directional && installedNear == near) return;

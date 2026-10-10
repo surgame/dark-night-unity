@@ -97,7 +97,6 @@ MonoBehaviour:
   _colliders2D: []
   emitter: {fileID: 8702469853946652771}
   body: {fileID: 3168884530909005914}
-  effect: {fileID: 7242856909744588300}
 --- !u!212 &3168884530909005914
 SpriteRenderer:
   serializedVersion: 2
@@ -182,7 +181,7 @@ Transform:
   m_GameObject: {fileID: 4038718831224956529}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 0, z: 0}
+  m_LocalPosition: {x: 0.034, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -250,14 +249,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5920111567332219667, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
   m_PrefabInstance: {fileID: 8845902407771062773}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7242856909744588300 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2180092566517106681, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
-  m_PrefabInstance: {fileID: 8845902407771062773}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c06175333301c94c98bdb6dd7163f40, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Lighting.LightEffect

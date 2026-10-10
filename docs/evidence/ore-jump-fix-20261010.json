@@ -1,0 +1,177 @@
+{
+  "date": "2026-10-10",
+  "branch": "ref-20261009-light-profile-config",
+  "baseHead": "cb08cb15fa69df3d049f6042383adc53ca46158a",
+  "status": "实现完成、Unity编译通过、指定Editor回归和原位置跳跃复验通过",
+  "identity": {
+    "unity": "6000.4.9f1",
+    "editorPid": 35548,
+    "viewMvid": "9f43ef0f-7518-4bdc-9d1d-51e2e769dcaa",
+    "protocol": 31,
+    "saveVersion": 23,
+    "worldId": "c23e8912082c4971a5c55ca36a3a417e",
+    "restoredEpoch": 2
+  },
+  "files": {
+    "Game/Assets/DarkNights/Scripts/View/Terrain/MineralReplicaPresentation.cs": {
+      "sha256": "43a447e25be35ab43045e3ec77cb001194f1c85b4e744363e93ecc85c67e9b61",
+      "lines": 75
+    },
+    "Game/Assets/DarkNights/Scripts/View/Terrain/MineralLayerView.cs": {
+      "sha256": "acbd74a8c0738941ce66db6948b9d1829a41a98972ec5c0ee4fc144baf89a3b0",
+      "lines": 201
+    },
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainReplicaRegion.cs": {
+      "sha256": "2eedb566157b56663a669a0283a150b058b5f938c7066406dfe7556d99c8fa1c",
+      "lines": 64
+    },
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPreview.cs": {
+      "sha256": "3e136936f9246406a36fffb095c46bd545e3199079cc060113944a4d841da9f6",
+      "lines": 296
+    },
+    "Game/Assets/DarkNights/Scripts/Tests/MineralCompositeTests.cs": {
+      "sha256": "43c89a0e4f4a6e2846ee5cc02bc21e7f9c22b08b4125e3246f2698dd8c4d9d29",
+      "lines": 193
+    }
+  },
+  "dependencyLocks": {
+    "Game/Packages/manifest.json": "5ddb149d97a4310ebd4a5813fa9485a2ae59ab5fb6804b1c637ce85c65e528e4",
+    "Game/Packages/packages-lock.json": "fd002144c90a2019e08e7647511406c62d754a44efa16a5116f97bd4cfbd9e39"
+  },
+  "changes": [
+    "同世界同源Generation变化不销毁矿层宿主，复用TerrainReplicaRegion先加载新增区块再卸载退出区块",
+    "矿层等待完整新基线或区域装载时不确认Ready，TerrainPreview不再用逻辑或累积旧矿层就绪位",
+    "撤权、断线、换世界或源会话变化仍立即退休；编辑态销毁动态矿层使用DestroyImmediate",
+    "组合回归同时切换前景和矿层、跟随目标区取景，检查旧背景页实例复用及仅为新增页构建；证据目录每次运行独立"
+  ],
+  "regression": {
+    "status": "completed",
+    "duration": 3.88,
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "results": [
+      {
+        "FullName": "DarkNights.Tests.MineralCompositeTests.ExposedMineralChangesActualCompositePixels",
+        "Status": "Passed",
+        "Duration": 3.5470456,
+        "Message": null,
+        "StackTrace": null
+      }
+    ]
+  },
+  "distinctPassedTests": 1,
+  "manualPositionProbe": {
+    "samples": 410,
+    "sourceCommits": [
+      71
+    ],
+    "generations": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "hosts": [
+      -65216
+    ],
+    "missingHostFrames": 0,
+    "heightRange": [
+      -400.0,
+      -361.599945
+    ],
+    "finalActor": {
+      "Id": 2,
+      "X": 1412.96631,
+      "Height": -400.0,
+      "VerticalSpeed": 0.0
+    },
+    "finalReady": true,
+    "finalPreviewReady": true,
+    "visiblePagesWithoutOutput": 0,
+    "notReadyFrames": 101
+  },
+  "probeCompletion": {
+    "samples": 410,
+    "captures": 3,
+    "airborne": true,
+    "landed": true,
+    "missingCaptured": false,
+    "jumpSent": true,
+    "jumps": 3,
+    "error": null
+  },
+  "restoredCheckpoint": {
+    "epoch": 2,
+    "Id": 2,
+    "X": 1412.96631,
+    "Height": -400.0,
+    "world": "c23e8912082c4971a5c55ca36a3a417e",
+    "viewAssembly": "9f43ef0f-7518-4bdc-9d1d-51e2e769dcaa"
+  },
+  "memory": {
+    "implementation": {
+      "state": "completed",
+      "samples": 1666,
+      "peak_private_gib": 5.0474700927734375,
+      "minimum_free_ram_gib": 9.679939270019531,
+      "minimum_free_commit_gib": 4.210468292236328,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": false
+    },
+    "play": {
+      "state": "completed",
+      "samples": 336,
+      "peak_private_gib": 5.233055114746094,
+      "minimum_free_ram_gib": 9.68813705444336,
+      "minimum_free_commit_gib": 4.333213806152344,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": false
+    }
+  },
+  "preservedFailures": [
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ore-jump-fix-20261010\\test-first-failure.json",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ore-jump-fix-20261010\\test-diagnostic-failure.json",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ore-jump-fix-20261010\\test-camera-fixture-failure.json",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ore-jump-fix-20261010\\test-cache-enumeration-failure.json",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ore-jump-fix-20261010\\test-editmode-retirement-failure.json",
+    "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ore-jump-fix-20261010\\restore-result.json"
+  ],
+  "failureContext": [
+    "前两次背景断言失败定位为夹具订阅与镜头不同步",
+    "镜头同步后允许构建首次进入的新背景页，断言改为旧实例保留且构建增量只等于新增页数",
+    "缓存反射字典枚举类型错误已修正",
+    "新增撤权检查暴露编辑态Destroy错误，游戏侧退休路径按运行状态选择销毁方式",
+    "首次Play进入后的恢复请求遇域重载通信中断；核对未开房且无恢复回执后在同Editor续接，成功恢复原会话"
+  ],
+  "notRun": [
+    "Player构建及独立进程联机/弱网矩阵",
+    "此前其他地形和照明待验范围",
+    "先前静态相机页差集疑点的独立复验"
+  ],
+  "protectedScope": {
+    "yygcSourceModified": false,
+    "protocolSaveDependencyChanged": false,
+    "authorAssetsModified": false,
+    "existingUserSaveOverwritten": false,
+    "checkpointPath": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ore-jump-fix-20261010\\session-checkpoint\\slot-00.dnsave.json",
+    "editorLeftPlaying": true,
+    "newCommits": false
+  },
+  "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ore-jump-fix-20261010"
+}

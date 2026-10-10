@@ -37,18 +37,42 @@ MonoBehaviour:
   BehaviourTypes:
   - DarkNights.Runtime.Objects.FlashlightToolBehaviour
   SharedConfigs:
-  - rid: 4004706298544259164
+  - rid: 4004706354978619618
   - rid: 4004706321636261888
   references:
     version: 2
     RefIds:
-    - rid: 4004706298544259164
-      type: {class: FlashlightToolConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
-      data:
-        Starter: 1
     - rid: 4004706321636261888
       type: {class: EquipmentItemConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         RuleKey: 
         Jetpack: 0
         Handheld: 4
+    - rid: 4004706354978619618
+      type: {class: FlashlightToolConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        Starter: 1
+        Profile:
+          m_AssetGUID: 
+          m_SubObjectName: 
+          m_SubObjectType: 
+          m_SubObjectGUID: 
+          m_EditorAssetChanged: 0
+        Overrides:
+          Mask: 9336
+          EnvironmentEnabled: 1
+          LocalFillEnabled: 1
+          Directional: 1
+          Range: 24
+          Cone: 46.2
+          ApertureWidth: 0.967
+          Intensity: 2.78
+          Color: {r: 1, g: 0.88, b: 0.69, a: 1}
+          SoftShadows: 1
+          Softness: 0.22
+          ConeFeather: 0.119
+          NearRange: 2.2
+          NearIntensity: 0
+          FillRadius: 5
+          FillIntensity: 0.55
+          FillColor: {r: 1, g: 0.88, b: 0.69, a: 1}

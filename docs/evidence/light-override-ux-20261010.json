@@ -1,0 +1,47 @@
+{
+  "date_local": "2026-10-10",
+  "branch": "ref-20261009-light-profile-config",
+  "scope": "Game-side lighting authoring UI and atomic per-field override editing",
+  "source_complete": true,
+  "behavior": [
+    "Definition workshop and debug panel allow direct editing of inherited values",
+    "Actual changes set only the edited field's mask and value in one Undo operation",
+    "Blue dots mark overrides; clicking the dot or the row's context menu reverts that field",
+    "Unmodified and reverted fields continue following the selected preset or builtin defaults",
+    "Selecting or clearing a preset preserves existing overrides and Starter",
+    "Same-value edits do not create overrides or discard the native redo branch",
+    "Shared preset editing retains its separate asset target"
+  ],
+  "source_before": "artifacts/light-override-ux-20261010/source-before",
+  "memory_preflight": "artifacts/light-override-ux-20261010/memory-preflight/summary.json",
+  "memory": {
+    "editor_pid": 35548,
+    "editor_private_gib": 4.120491027832031,
+    "available_ram_gib": 11.812938690185547,
+    "commit_headroom_gib": 6.303852081298828,
+    "minimum_commit_headroom_gib": 8,
+    "gate_passed": false
+  },
+  "validation": {
+    "source_and_diff_review": "artifacts/light-override-ux-20261010/source-review.json",
+    "static_compile_executed": false,
+    "unity_refresh_or_compile_triggered": false,
+    "unity_tests_executed": false,
+    "play_executed": false,
+    "player_build_executed": false,
+    "affected_test_fixture": "DarkNights.Tests.LightInlineConfigurationTests",
+    "different_tests_in_fixture": 10,
+    "passed_tests_this_batch": 0,
+    "pending": [
+      "Static and Unity compilation after a new batch passes memory gating",
+      "LightInlineConfigurationTests and affected native Undo/window regression fixtures",
+      "Workshop and debug UI appearance in both Editor themes",
+      "Actual slider/toggle/color edit, blue-dot click, row context menu and whole-drag Undo/Redo",
+      "Profile updates/switching/clearing and Definition save/reopen with existing override masks"
+    ]
+  },
+  "gameplay_contract_changed": false,
+  "protocol_or_save_format_changed": false,
+  "yygc_or_dependencies_changed": false,
+  "native_author_assets_changed": false
+}

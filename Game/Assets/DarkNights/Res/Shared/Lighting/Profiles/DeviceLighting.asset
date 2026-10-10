@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28b3500da0f7d1d448e8465a79555234, type: 3}
+  m_Name: DeviceLighting
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Lighting.LightProfile
+  Template: {fileID: 2180092566517106681, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+  EnvironmentEnabled: 1
+  LocalFillEnabled: 0
+  Directional: 0
+  Range: 8.375
+  Cone: 90
+  ApertureWidth: 0
+  Intensity: 0.45
+  Color: {r: 1, g: 0.78, b: 0.48, a: 1}
+  SoftShadows: 1
+  Softness: 0.22
+  ConeFeather: 0.045
+  NearRange: 0.25
+  NearIntensity: 0
+  FillRadius: 2.2
+  FillIntensity: 0.55
+  FillColor: {r: 1, g: 0.88, b: 0.69, a: 1}

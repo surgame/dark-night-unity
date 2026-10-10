@@ -59,6 +59,12 @@ namespace DarkNights.Entry
             var authoring = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
             LevelLayout layout = authoring.CreateLayout(catalog, DefinitionRuleIndex.RuleKey);
             var randomLevel = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<DarkNights.View.Terrain.RandomLevelTemplate>(true)).SingleOrDefault();
+            if (randomLevel != null)
+            {
+                if (randomLevel.Lighting == null) throw new InvalidOperationException("关卡模板缺少场景光照配置：" + scenePath
+                    + "。请在编辑器执行 Dark Nights/Tools/修复关卡光照配置，补齐并保存引用。");
+                randomLevel.Lighting.Validate();
+            }
             if (randomLevel != null && !randomLevel.Expedition) layout = DarkNights.Core.Logic.Terrain.PlayableTerrainGenerator.Layout(layout);
             var network = context.GetOrCreateChild("Dark Nights Session").gameObject.AddComponent<SessionNetwork>();
             context.Register(network);
@@ -73,6 +79,14 @@ namespace DarkNights.Entry
             var required = new[] { "worker", "ship" };
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("WorldResourcesStarted");
             ObjectSessionResources resources = await ObjectSessionResources.Prepare(required.Select(definitions.GetRequired).ToArray(), cancellationToken);
+            HeroLightPresentation lighting = null;
+            if (randomLevel != null)
+            {
+                LightProfileResources presets;
+                try { presets = await LightProfileResources.Prepare(resources.Equipment.LightDefinitions, randomLevel.Lighting.DefaultEffectTemplate, cancellationToken); }
+                catch { resources.Dispose(); throw; }
+                lighting = network.gameObject.AddComponent<HeroLightPresentation>(); lighting.Own(presets, randomLevel.Lighting);
+            }
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("WorldResourcesReady");
             float debugHeroSpeed = DebugHeroSpeedMultiplier();
             network.Initialize(InstanceFinder.NetworkManager, catalog, layout, resources, placements,
@@ -86,7 +100,7 @@ namespace DarkNights.Entry
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiStarted");
             await ui.Initialize(network, catalog, stage, entities, layout.Expedition);
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("UiReady");
-            if (terrainEntry != null) network.gameObject.AddComponent<HeroLightPresentation>().Initialize(network, entities, ui.Actions, terrainEntry);
+            if (terrainEntry != null) lighting.Initialize(network, entities, ui.Actions, terrainEntry);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             DebugObjectHub.Install(network);
             QuickTestHub.Install(network, ui, layout.Expedition);

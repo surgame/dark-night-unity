@@ -1,0 +1,83 @@
+{
+  "date_local": "2026-10-10",
+  "branch": "ref-20261009-light-profile-config",
+  "head": "cb08cb15fa69df3d049f6042383adc53ca46158a",
+  "user_report": "AppStartup Dark Nights session assembly failed: level template missing scene lighting configuration, GameSessionStartupModule.cs:64",
+  "cause": "The persistent lighting refactor required RandomLevelTemplate.Lighting before runtime assembly, but scene configuration assets and both serialized scene references had not been migrated.",
+  "related_to_recent_lighting_refactor": true,
+  "resource_repair_complete": true,
+  "source_fix_complete": true,
+  "repair": {
+    "created_assets": [
+      "Game/Assets/DarkNights/Res/Shared/Lighting/Profiles/DeviceLighting.asset",
+      "Game/Assets/DarkNights/Res/Shared/Lighting/Profiles/PinewatchLighting.asset"
+    ],
+    "bound_scenes": [
+      "Assets/DarkNights/Res/Scenes/Expedition/Expedition.unity",
+      "Assets/DarkNights/Res/Scenes/Regression/Camp/RandomCampRegression.unity"
+    ],
+    "editor_api_receipt": "artifacts/lighting-startup-fix-20261010/repair-result.json",
+    "reproducible_scoped_editor_code": "artifacts/lighting-startup-fix-20261010/repair-scenes.csharp.txt",
+    "asset_creation_method": "Unity AssetDatabase; scene bindings through EditorSceneManager, no direct asset YAML writes",
+    "metadata": "Unity generated asset and folder metadata",
+    "device_parameters": "Existing device lamp constants: range 8.375, intensity 0.45, near range 0.25, warm color (1,0.78,0.48)",
+    "scene_parameters": "Existing ExplorationLightSettings defaults",
+    "preserved": "Flashlight Definition and Prefab hashes unchanged; scene layout retained; Unity additionally serialized two previously omitted null fields in the regression template",
+    "source_changes": [
+      "Independent explicit RepairSceneLighting menu entry only fills missing assets/references",
+      "Reuse existing valid device/scene configurations and preserve custom scene references",
+      "Full migration can continue after scene-only repair; previously selected Definition presets also complete missing scene bindings",
+      "Reject dirty scenes, Prefab Stage, wrong asset types and incomplete flashlight candidates; do not save unchanged scenes",
+      "Keep strict startup validation and add scene path plus actionable repair guidance"
+    ]
+  },
+  "source_before": "artifacts/lighting-startup-fix-20261010/source-before",
+  "task_only_diff": "artifacts/lighting-startup-fix-20261010/change.patch",
+  "memory_preflight": "artifacts/lighting-startup-fix-20261010/memory-preflight/summary.json",
+  "memory": {
+    "state": "breach",
+    "samples": 1,
+    "peak_private_gib": 4.663417816162109,
+    "minimum_free_ram_gib": 9.908252716064453,
+    "minimum_free_commit_gib": 4.764705657958984,
+    "limits": {
+      "editor_private_gib": 8,
+      "minimum_free_ram_gib": 6,
+      "minimum_free_commit_gib": 8
+    }
+  },
+  "validation": {
+    "source_diff_and_reference_review": "artifacts/lighting-startup-fix-20261010/source-review.json",
+    "git_diff_check_passed": true,
+    "persisted_reference_receipt": "artifacts/lighting-startup-fix-20261010/reference-check.json",
+    "persisted_scenes_reloaded_and_configs_validated": true,
+    "flashlight_no_preset_resolution_valid": true,
+    "author_flashlight_definition_and_prefab_bytes_preserved": true,
+    "active_scene_restored_to_bootstrap": true,
+    "static_or_unity_compile_triggered": false,
+    "final_source_compilation": "pending; source newer than currently loaded assemblies and RepairSceneLighting not yet loaded",
+    "assembly_observation": [
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Editor.dll",
+        "last_write_utc": "2026-10-10T09:15:41.348687+00:00"
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Entry.dll",
+        "last_write_utc": "2026-10-10T09:15:40.474006+00:00"
+      }
+    ],
+    "unity_tests_executed": false,
+    "play_or_startup_probe_executed": false,
+    "player_build_or_run_executed": false,
+    "passed_tests_this_batch": 0,
+    "pending": [
+      "Compile final source after memory gate permits a fresh validation batch",
+      "From Bootstrap, start the default Expedition scene; the scene lighting missing-configuration error should no longer occur",
+      "When explicitly testing the repair menu, repeated repair should preserve existing assets and custom references, and dirty scenes/Prefab Stage should stop it"
+    ]
+  },
+  "runtime_asset_creation_or_debugger_autosave_added": false,
+  "gameplay_protocol_or_save_format_changed": false,
+  "yygc_or_dependency_lock_modified": false,
+  "committed_or_pushed": false
+}

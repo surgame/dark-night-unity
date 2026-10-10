@@ -20,16 +20,7 @@ namespace DarkNights.Editor.Lighting
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)
                 throw new InvalidOperationException("退出 Play 并等待编译完成后安装照明后端。");
             EnsureTemplates(LightPath, ShadowPath);
-            var contents = PrefabUtility.LoadPrefabContents(ReusableLightContentSetup.EffectPath);
-            try
-            {
-                var emitter = contents.GetComponent<LightEnvironmentEmitter>();
-                NativePrefabBuilder.SetReference(emitter, "urpLightTemplate", AssetDatabase.LoadAssetAtPath<GameObject>(LightPath).GetComponent<Light2D>());
-                NativePrefabBuilder.SetReference(emitter, "urpShadowTemplate", AssetDatabase.LoadAssetAtPath<GameObject>(ShadowPath).GetComponent<ShadowCaster2D>());
-                PrefabUtility.SaveAsPrefabAsset(contents, ReusableLightContentSetup.EffectPath);
-            }
-            finally { PrefabUtility.UnloadPrefabContents(contents); }
-            AssetDatabase.SaveAssets(); Validate();
+            LightProfileMigration.Apply(); Validate();
         }
 
         public static void EnsureTemplates(string lightPath, string shadowPath)
@@ -76,9 +67,9 @@ namespace DarkNights.Editor.Lighting
             var collider = shadow != null ? shadow.GetComponent<PolygonCollider2D>() : null;
             if (light == null || light.normalMapQuality == Light2D.NormalMapQuality.Disabled || collider == null || !collider.isTrigger || collider.excludeLayers.value != ~0)
                 throw new InvalidOperationException("URP 后端模板缺少法线受光或隔离的遮挡几何来源。");
-            var effect = AssetDatabase.LoadAssetAtPath<GameObject>(ReusableLightContentSetup.EffectPath).GetComponent<LightEffect>();
-            if (effect.Environment.UrpLightTemplate != light || effect.Environment.UrpShadowTemplate != shadow)
-                throw new InvalidOperationException("共用光效没有绑定本批 URP 后端模板。");
+            var profile = AssetDatabase.LoadAssetAtPath<SceneLightingProfile>(LightProfileMigration.ScenePath);
+            if (profile == null || profile.UrpLightTemplate != light || profile.UrpShadowTemplate != shadow)
+                throw new InvalidOperationException("场景光照配置没有绑定当前后端模板。");
         }
     }
 }

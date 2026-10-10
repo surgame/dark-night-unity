@@ -7,7 +7,7 @@ using AnyRules.Next.Unity;
 
 namespace DarkNights.View.Terrain
 {
-    /// <summary>同世界前景的局部装卸；先装入完整目标区再退休退出区块，保留重叠页面与背景，输入身份由完整基线切换。</summary>
+    /// <summary>同世界前景和矿层共用的局部装卸；先装入完整目标区再退休退出区块，保留重叠页面，输入身份由完整基线切换。</summary>
     internal sealed class TerrainReplicaRegion
     {
         private readonly ARDMapController controller;

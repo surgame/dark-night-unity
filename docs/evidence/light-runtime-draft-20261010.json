@@ -1,0 +1,117 @@
+{
+  "date_local": "2026-10-10",
+  "branch": "ref-20261009-light-profile-config",
+  "head": "cb08cb15fa69df3d049f6042383adc53ca46158a",
+  "scope": "Game-side flashlight runtime/preview draft; explicit confirmed asset persistence only",
+  "source_complete": true,
+  "changes": [
+    "Share LightOverrides, parameter schema and LightProfileResolver between persistent workshop and transient debugger",
+    "Overlay frozen draft values on one selected live FlashlightView without changing authority, other tools or assets",
+    "Clone scene settings for local presentation and preview mount pose independently of Prefab Stage author objects",
+    "Show per-field temporary blue dots; revert follows the current persistent baseline",
+    "Bound independent temporary history to 128 gestures; slider pointer-down through release is one entry",
+    "Confirm target path, fields and impact before writing Definition, shared preset, scene settings or explicit Prefab Emitter",
+    "Merge modified fields into latest source; only an explicitly changed preset reference is written",
+    "Successful confirmed save checkpoints temporary history while preserving other pending scopes",
+    "Discard on close, target changes, script reload, Play transitions, instance retirement and world retirement; restore pooled mount pose"
+  ],
+  "source_before": "artifacts/light-runtime-draft-20261010/source-before",
+  "task_only_diff": "artifacts/light-runtime-draft-20261010/change.patch",
+  "memory_preflight": "artifacts/light-runtime-draft-20261010/memory-preflight/summary.json",
+  "memory": {
+    "state": "breach",
+    "samples": 1,
+    "peak_private_gib": 4.360603332519531,
+    "minimum_free_ram_gib": 12.787097930908203,
+    "minimum_free_commit_gib": 7.979244232177734,
+    "limits": {
+      "editor_private_gib": 8,
+      "minimum_free_ram_gib": 6,
+      "minimum_free_commit_gib": 8
+    }
+  },
+  "validation": {
+    "source_review": "artifacts/light-runtime-draft-20261010/source-review.json",
+    "source_diff_and_uxml_reference_checks_passed": true,
+    "static_compile_triggered": false,
+    "unity_refresh_or_compile_triggered": false,
+    "automatic_import": {
+      "four_new_script_metas_generated": true,
+      "metas": [
+        {
+          "path": "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugDraft.cs.meta",
+          "sha256": "2614f10fff0ef6d5b0e3dd32cbb2bb9acca3344d5fe5dc1ebc890391db0bcd3f",
+          "source": "Unity automatic import"
+        },
+        {
+          "path": "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugSave.cs.meta",
+          "sha256": "cb5ba81108ffdab403faa2755b23319bb5a30d35ab4f308e97fa663853305b5a",
+          "source": "Unity automatic import"
+        },
+        {
+          "path": "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugScenePreview.cs.meta",
+          "sha256": "789f6a1ca634b955b59153173cad2550712dcbd67b98c0c11580a9ad0218ff7b",
+          "source": "Unity automatic import"
+        },
+        {
+          "path": "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugHistory.cs.meta",
+          "sha256": "68f79544a4abd28314f8a804e04912fcc8f2641da09ae47a6b944d8f5a0062ae",
+          "source": "Unity automatic import"
+        }
+      ]
+    },
+    "automatic_compilation": {
+      "status": "intermediate_candidate_loaded; final_candidate_pending",
+      "editor_observation": "artifacts/light-runtime-draft-20261010/editor-observation.json",
+      "editor_log_excerpt": "artifacts/light-runtime-draft-20261010/editor-log-excerpt.txt",
+      "observed": {
+        "playing": false,
+        "compiling": false,
+        "updating": false,
+        "editorAssembly": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Editor.dll",
+        "draftLoaded": true,
+        "historyLoaded": true,
+        "latestDraftField": false,
+        "latestSceneField": false
+      },
+      "assemblies": [
+        {
+          "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Editor.dll",
+          "last_write_utc": "2026-10-10T08:15:58.166604+00:00",
+          "bytes": 482304
+        },
+        {
+          "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Entry.dll",
+          "last_write_utc": "2026-10-10T08:05:40.681618+00:00",
+          "bytes": 235008
+        },
+        {
+          "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.View.dll",
+          "last_write_utc": "2026-10-10T08:05:40.029841+00:00",
+          "bytes": 302080
+        }
+      ],
+      "final_source_loaded": false,
+      "historical_errors_preserved": "During automatic import, panel/window constructor changes were temporarily incomplete; later intermediate assembly loaded. Final draft/runtime source edits postdate that assembly.",
+      "warnings_addressed_in_source": "New object inventory calls use Unity 6000.4 overloads without deprecated sort-mode parameter."
+    },
+    "unity_tests_executed": false,
+    "play_executed": false,
+    "player_build_or_run_executed": false,
+    "passed_tests_this_batch": 0,
+    "existing_window_cases_adapted_not_executed": 14,
+    "pending_operations_and_expected_results": "docs/LIGHTING.md#人工检查",
+    "pending": [
+      "Compile final candidate after a fresh batch passes memory gate; latest observation confirms final fields are not loaded yet",
+      "Run only explicitly authorized tests; existing window fixture source was adapted but not executed",
+      "Actual A/B instance isolation, per-field baseline following and confirmed/cancelled asset persistence",
+      "Held leftward drag one Undo/Redo, consecutive gestures and history boundaries",
+      "Scene backend preview, mount pose, dirty Prefab Stage refusal and external author updates",
+      "Window/target/Play/world/pool lifecycle cleanup"
+    ]
+  },
+  "gameplay_protocol_or_save_format_changed": false,
+  "yygc_or_dependencies_changed": false,
+  "native_author_definition_profile_prefab_scene_written_this_task": false,
+  "committed_or_pushed": false
+}

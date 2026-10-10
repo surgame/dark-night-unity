@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-09",
+  "branch": "fix-20261009-flashlight-undo",
+  "input_head": "cb08cb15fa69df3d049f6042383adc53ca46158a",
+  "unity": "6000.4.9f1",
+  "state": "source-ready-validation-blocked",
+  "scope": "手电光照调试窗口原生 Undo/Redo",
+  "protocol_changed": false,
+  "save_changed": false,
+  "dependencies_changed": false,
+  "yygc_modified": false,
+  "player_built": false,
+  "explicit_unity_compile_run": false,
+  "unity_tests_run": false,
+  "tests_written": 30,
+  "gate": {
+    "state": "breach",
+    "samples": 1,
+    "peak_private_gib": 5.028156280517578,
+    "minimum_free_ram_gib": 11.305683135986328,
+    "minimum_free_commit_gib": 5.370250701904297,
+    "limits": {
+      "editor_private_gib": 8,
+      "minimum_free_ram_gib": 6,
+      "minimum_free_commit_gib": 8
+    }
+  },
+  "gate_action": "独立监控请求停止原有 Play；停止本任务后续 Unity 编译、测试与 Play 批次，不重试或结束其他应用",
+  "preflight_disk_free_gib": {
+    "C": 8.247767448425293,
+    "D": 104.1208028793335
+  },
+  "static_architecture": {
+    "passed": true,
+    "handwrittenFiles": 793,
+    "selfTests": 16,
+    "errors": [],
+    "scope": "Formal Scripts only; external API compilation verified separately by Unity and CoreBuild"
+  },
+  "artifacts_root": "D:/Developer/MiniGames/Dark Nights/unity-projects/artifacts/flashlight-undo-20261009",
+  "pending": [
+    "同一 Local Editor 的候选导入/meta 完整性及 Unity 编译",
+    "DarkNights.Tests.FlashlightDebugUndoTests 与 FlashlightDebugWindowTests，共 30 个用例",
+    "正式 Play 下全部参数、完整拖动与预设一次撤销，控件与真实光效同步",
+    "窗口焦点 Ctrl+Z/Ctrl+Y/Ctrl+Shift+Z 与 Editor Edit 菜单",
+    "连续 Undo/Redo、撤销后新编辑、无变化编辑不清空 Redo",
+    "窗口关闭重开、Play 进出、目标/Settings 实例更换、退休与关闭 Domain Reload"
+  ],
+  "boundaries": [
+    "关闭窗口清理本窗口历史但保留当前临时参数；重开以该值为基线",
+    "同一组件重新初始化或退休由 DebugSettingsRevision 标识",
+    "外部入口调参建立新基线，旧窗口历史失效",
+    "原有未跟踪照明 meta 与外部 item-jetpack.asset 修改保持原状",
+    "未改变默认光效、人工资产、Definition/Prefab、权威业务状态、协议、存档或 YYGC"
+  ],
+  "source_sha256": {
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugWindow.cs": "1b01f6e8057b7efd6dc82c4f3b49a517b9734e94fb0991e0a1dd8ca8ab68d1eb",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugUndo.cs": "0499c52bbc7afee98854e32b3fefc412bd4b8490cbcb1eed228dc1db5644e73c",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugSliderGesture.cs": "5f908a2cb218188a7f5c236e55d1d0d87f1b77db1a72a91695277381a9415e08",
+    "Game/Assets/DarkNights/Scripts/Entry/HeroLightPresentation.cs": "0865dc0ab8b4d9cb52e2039b3dc61fd2667befa886f22699e2a63194dfe58c6d",
+    "Game/Assets/DarkNights/Scripts/Tests/FlashlightDebugUndoTests.cs": "a57de5b2f3c56292b7f6200674e4c42cef3c8605c64ae09c6c1cef0d5b7ed31f",
+    "Game/Assets/DarkNights/Scripts/Tests/FlashlightDebugWindowTests.cs": "1c8c0e2890c40d81a0e971baa3fb52303aa40d83efc82001196efc0207886357"
+  },
+  "pending_meta_paths": [
+    "Game/Assets/DarkNights/Scripts/Tests/FlashlightDebugUndoTests.cs.meta",
+    "Game/Assets/DarkNights/Scripts/Tests/FlashlightDebugWindowTests.cs.meta"
+  ],
+  "checkpoint_root": "D:/Developer/MiniGames/Dark Nights/unity-projects/artifacts/flashlight-undo-20261009/source-checkpoint",
+  "git_delivery": "当前候选留在本地修复分支，尚未提交或推送；新测试的 meta 等正常 Unity 导入，门控未解除不主动导入/编译"
+}

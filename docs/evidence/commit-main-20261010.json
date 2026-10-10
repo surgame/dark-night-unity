@@ -1,0 +1,91 @@
+{
+  "date_local": "2026-10-10",
+  "branch": "ref-20261009-light-profile-config",
+  "base_head": "cb08cb15fa69df3d049f6042383adc53ca46158a",
+  "scope": "汇总既有未提交成果，提交后合入main并普通推送；不修改YYGC或依赖锁",
+  "initial_candidate": {
+    "candidate_count": 129,
+    "modified_count": 42,
+    "untracked_count": 87,
+    "total_bytes": 898460
+  },
+  "content": [
+    "持久光照配置、Definition逐项覆盖与自动装配",
+    "工坊Undo、调试台临时草稿与明确保存入口",
+    "正式与回归关卡场景光照引用",
+    "矿层同位置跳跃闪隐修复与既有定向证据",
+    "1 GiB内存门控及默认仅编译的协作约定",
+    "保留现有手电参数、灯口偏移与喷气背包图标引用调整"
+  ],
+  "validation": {
+    "static_csharp": [
+      {
+        "name": "DarkNights.Core",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.Runtime",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.View",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 1
+      },
+      {
+        "name": "DarkNights.Entry",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 1
+      },
+      {
+        "name": "DarkNights.Editor",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 9
+      },
+      {
+        "name": "DarkNights.Tests",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 7
+      }
+    ],
+    "errors": 0,
+    "warnings": 18,
+    "source_hashes_match_compiled_inputs": true,
+    "new_meta_pairs_and_guids_valid": true,
+    "new_asset_guids_resolve": true,
+    "candidate_json_parses": true,
+    "git_diff_check_passed": true,
+    "unity_refresh_or_compile_triggered": false,
+    "tests_executed": false,
+    "play_or_player_build_triggered": false
+  },
+  "memory_preflight": {
+    "state": "completed",
+    "samples": 1,
+    "peak_private_gib": 5.367259979248047,
+    "minimum_free_ram_gib": 12.370166778564453,
+    "minimum_free_commit_gib": 4.756870269775391,
+    "limits": {
+      "editor_private_gib": null,
+      "minimum_free_ram_gib": 1,
+      "minimum_free_commit_gib": 1
+    },
+    "read_only": true
+  },
+  "reports": "artifacts/commit-main-20261010",
+  "protected": {
+    "yygc_modified": false,
+    "protocol_save_dependency_locks_changed": false,
+    "user_play_or_unsaved_scenes_touched": false,
+    "existing_evidence_preserved": true
+  },
+  "pending": "docs/DEVELOPMENT.md#当前待验队列"
+}

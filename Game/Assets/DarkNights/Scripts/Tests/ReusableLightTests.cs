@@ -49,7 +49,9 @@ namespace DarkNights.Tests
                 }
                 var lit = Receiver("bound", -.75f); Receiver("unbound", .75f);
                 var effectRoot = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Editor.ReusableLightContentSetup.EffectPath), root.transform);
-                var effect = effectRoot.GetComponent<LightEffect>(); effect.Bind(camera, lit.transform, lit.transform, new[] { lit });
+                var effect = effectRoot.GetComponent<LightEffect>();
+                effect.Apply(AssetDatabase.LoadAssetAtPath<LightProfile>(Editor.Lighting.LightProfileMigration.FlashlightPath).Freeze());
+                effect.Bind(camera, lit.transform, lit.transform, new[] { lit }); effect.SetOn(true);
                 Shader.SetGlobalFloat("_DNLightingActive", 1); Shader.SetGlobalFloat("_DNLightingAmbient", .08f);
                 Shader.SetGlobalVector("_DNKnownBounds", Vector4.zero);
                 Color Read(int x)
@@ -61,11 +63,11 @@ namespace DarkNights.Tests
                 composer.Apply(new[] { effect }, 1);
                 Color illuminated = Read(48), unbound = pixels.GetPixel(80, 32);
                 Assert.That(illuminated.r, Is.GreaterThan(unbound.r + .15f));
-                System.IO.File.WriteAllBytes("../artifacts/reusable-light-20261009/local-fill-on.png", pixels.EncodeToPNG());
+                System.IO.File.WriteAllBytes("../artifacts/light-profile-refactor-20261009/local-fill-on.png", pixels.EncodeToPNG());
                 effect.SetOn(false); composer.Apply(new[] { effect }, 1);
                 Color off = Read(48);
                 Assert.That(off.r, Is.EqualTo(unbound.r).Within(.02));
-                System.IO.File.WriteAllBytes("../artifacts/reusable-light-20261009/local-fill-off.png", pixels.EncodeToPNG());
+                System.IO.File.WriteAllBytes("../artifacts/light-profile-refactor-20261009/local-fill-off.png", pixels.EncodeToPNG());
             }
             finally
             {
@@ -98,7 +100,8 @@ namespace DarkNights.Tests
             {
                 var receiver = head.AddComponent<SpriteRenderer>(); var other = spare.AddComponent<SpriteRenderer>();
                 var camera = cameraRoot.AddComponent<Camera>(); var effect = child.GetComponent<LightEffect>();
-                effect.Bind(camera, head.transform, head.transform, new[] { receiver });
+                effect.Apply(AssetDatabase.LoadAssetAtPath<LightProfile>(Editor.Lighting.LightProfileMigration.FlashlightPath).Freeze());
+                effect.Bind(camera, head.transform, head.transform, new[] { receiver }); effect.SetOn(true);
                 head.transform.position = new Vector3(3, 4, 0); head.transform.rotation = Quaternion.Euler(0, 0, 90);
                 var source = effect.Environment.Sample(null);
                 Assert.That(source.Position, Is.EqualTo(effect.Environment.Emitter.position));
