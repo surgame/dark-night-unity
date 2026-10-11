@@ -21,6 +21,7 @@ namespace DarkNights.Core.Logic.Terrain
         {
             if (settings == null) throw new ArgumentNullException(nameof(settings));
             var s = settings.CopyValidated();
+            if (s.MineMap != null) return MineMapGenerator.Generate(s);
             if (s.ResourceProfile == TerrainGenerationSettings.CaveExplorationProfile)
                 return CaveExplorationGenerator.Generate(s);
             var b = new TerrainGenerationBuffer();

@@ -10,6 +10,8 @@ namespace DarkNights.Editor.Terrain
         internal static string For(ExpeditionFlowConfig config, PlanetPreset planet)
         {
             var text = new StringBuilder(JsonUtility.ToJson(config.CaveMap));
+            if (config.MineMap != null)
+                text.Append("|mine-map-v1|").Append(JsonUtility.ToJson(config.MineMap.Freeze()));
             if (planet == null) return text.Append("|no-planet").ToString();
             text.Append('|').Append(planet.DockColumn).Append('|').Append(planet.DockRow).Append('|').Append(planet.LandingWidth);
             foreach (var item in config.CopyModifiers())

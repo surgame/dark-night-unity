@@ -1,0 +1,388 @@
+{
+  "prototype": "mine-concept-pack-v0.4",
+  "createdAt": "2026-10-11T07:17:58.858Z",
+  "implementation": "3 concept maps integrated; one map source per file; automatic registry and source discovery; offline single HTML and split-file local development entry.",
+  "defaultMap": "folded",
+  "maps": [
+    {
+      "id": "baseline",
+      "title": "原版下探洞网",
+      "kind": "baseline"
+    },
+    {
+      "id": "forks",
+      "title": "分层岔洞",
+      "kind": "network",
+      "stats": {
+        "rooms": 15,
+        "junctions": 6,
+        "deadEnds": 6,
+        "loops": 1,
+        "surface": 4,
+        "buried": 32,
+        "nests": 3
+      }
+    },
+    {
+      "id": "maze",
+      "title": "折返迷宫",
+      "kind": "network",
+      "stats": {
+        "rooms": 20,
+        "junctions": 9,
+        "deadEnds": 6,
+        "loops": 4,
+        "surface": 6,
+        "buried": 41,
+        "nests": 3
+      }
+    },
+    {
+      "id": "hive",
+      "title": "蜂巢洞网",
+      "kind": "network",
+      "stats": {
+        "rooms": 20,
+        "junctions": 12,
+        "deadEnds": 2,
+        "loops": 7,
+        "surface": 6,
+        "buried": 40,
+        "nests": 1
+      }
+    },
+    {
+      "id": "erosion",
+      "title": "侵蚀长廊",
+      "kind": "natural",
+      "stats": {
+        "rooms": 8,
+        "junctions": 2,
+        "deadEnds": 2,
+        "loops": 0,
+        "surface": 8,
+        "buried": 14,
+        "nests": 2,
+        "prebuiltLadders": 0
+      }
+    },
+    {
+      "id": "rift",
+      "title": "裂谷竖井",
+      "kind": "natural",
+      "stats": {
+        "rooms": 9,
+        "junctions": 3,
+        "deadEnds": 3,
+        "loops": 0,
+        "surface": 9,
+        "buried": 15,
+        "nests": 2,
+        "prebuiltLadders": 0
+      }
+    },
+    {
+      "id": "karst",
+      "title": "溶洞回环",
+      "kind": "natural",
+      "stats": {
+        "rooms": 8,
+        "junctions": 3,
+        "deadEnds": 1,
+        "loops": 1,
+        "surface": 8,
+        "buried": 14,
+        "nests": 2,
+        "prebuiltLadders": 0
+      }
+    },
+    {
+      "id": "folded",
+      "title": "折返洞网",
+      "kind": "cave",
+      "stats": {
+        "rooms": 16,
+        "junctions": 5,
+        "deadEnds": 5,
+        "loops": 1,
+        "surface": 5,
+        "buried": 28,
+        "nests": 2,
+        "prebuiltLadders": 0,
+        "clues": 3,
+        "sealedPassages": 1
+      }
+    },
+    {
+      "id": "shaft-loop",
+      "title": "环绕竖井",
+      "kind": "cave",
+      "stats": {
+        "rooms": 13,
+        "junctions": 3,
+        "deadEnds": 2,
+        "loops": 2,
+        "surface": 5,
+        "buried": 24,
+        "nests": 2,
+        "prebuiltLadders": 0,
+        "clues": 4,
+        "sealedPassages": 2
+      }
+    },
+    {
+      "id": "vein-maze",
+      "title": "断脉迷宫",
+      "kind": "cave",
+      "stats": {
+        "rooms": 16,
+        "junctions": 5,
+        "deadEnds": 4,
+        "loops": 2,
+        "surface": 4,
+        "buried": 30,
+        "nests": 2,
+        "prebuiltLadders": 0,
+        "clues": 4,
+        "sealedPassages": 3
+      }
+    }
+  ],
+  "candidate": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\dist\\index.html",
+      "bytes": 123202,
+      "sha256": "BD10A104CA29C43FDCE35532F74AC6EB5CC43CA1D8673C5928202FFFD186DE14"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\dev.html",
+      "bytes": 10634,
+      "sha256": "B66224881B6D633A124525D36C70AAD09FD406B62C531689762949E2FA3C5ADA"
+    }
+  ],
+  "runtimeFiles": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\map.js",
+      "bytes": 2958,
+      "sha256": "A4869C674320F9539B66B74468EE848CECDAA4B4185F70FE534BD17E70B3ACDC"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\map-registry.js",
+      "bytes": 989,
+      "sha256": "664EF4A744C4EB973392B4EB908E18B9C368A1EB3AC476E8A2C07D86429A9C2C"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\network-terrain.js",
+      "bytes": 5082,
+      "sha256": "582EDC7D11B8FCD329C27D5BDD940B868F69BC4388F34F13F58201DAC19AD150"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\natural-terrain.js",
+      "bytes": 4645,
+      "sha256": "7662E328687EAF4E128DAB5908CDFFE002B993A063941ACE3C1FFD5626EB7C27"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\natural-content.js",
+      "bytes": 1811,
+      "sha256": "CFEE60AC4183BF0905CE69B870C7ABEA437CD93D4604565790DD9FB9CD530CFC"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\cave-shape.js",
+      "bytes": 1953,
+      "sha256": "C440CDD861F2945163D8FCD405D11B8F7328AC56680F6011F7DAA250E653209C"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\cave-terrain.js",
+      "bytes": 3657,
+      "sha256": "DBFE6CE1FF1AF8BCDD933D1C95A394FAB7D3323D666B38E070FACECA13DE51C3"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\cave-content.js",
+      "bytes": 1817,
+      "sha256": "6139EC2E1A8701DCB9450E21CFDD98141BB612D3F9B76C44E04919357B2FC98E"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\maps\\01-baseline.js",
+      "bytes": 4668,
+      "sha256": "8DD1B4454680E982BB58E715646EACB092F4916228F6A64CA1D0A32292460B1E"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\maps\\02-forks.js",
+      "bytes": 617,
+      "sha256": "3896E5709A93EA5886160D774B6EB6BAC70DB2454B44F46AB643BEAC5D45700E"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\maps\\03-maze.js",
+      "bytes": 745,
+      "sha256": "ECB96AF1193C4F6B91121E9AD155909E9312AE1350F2CF2546192C6BDFD4D9E8"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\maps\\04-hive.js",
+      "bytes": 760,
+      "sha256": "E04869AC116CADBC38F8CC873CB454FC4D544EEFAE3CACB33E45D5518947C474"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\maps\\05-erosion.js",
+      "bytes": 669,
+      "sha256": "C2A367CF07FBD4AC0CFFEC760B9B27D009D78AA666315EA9EAB6892AFAC199F4"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\maps\\06-rift.js",
+      "bytes": 676,
+      "sha256": "EB62C7C4EEAAEF511F25FE79E7F986EFC20529EAED1D4E723B8A50798DF14863"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\maps\\07-karst.js",
+      "bytes": 690,
+      "sha256": "7C4906E20F0B1CDEFA344C3D0D30BC3A0CA7EF72C9E3A29045D80D587973C1DE"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\maps\\08-folded.js",
+      "bytes": 3943,
+      "sha256": "B3FC2887837EE9F76D65024E3C91129595BF434AE73766B5D88E384E4EAED7E6"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\maps\\09-shaft-loop.js",
+      "bytes": 3642,
+      "sha256": "BDC08BB369BA881F0C64F72B7AAA6CD31A1A7EC65988B57E866348EF37FB20F1"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\maps\\10-vein-maze.js",
+      "bytes": 4186,
+      "sha256": "420C430D8522BD3ED444BC387B363FA289839D308EA787A0A69B041EEFE53F53"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\excavation.js",
+      "bytes": 2947,
+      "sha256": "075E4FCBBE31A9DA672424DBA9C2FEDDA10EE946CD3AE5D441B39521F4C63FEE"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\ladder-kit.js",
+      "bytes": 3253,
+      "sha256": "C53B4A299CFC9CC16137045C5DD45019395122981D5D76241983E1AE5ABB77DE"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\clue-events.js",
+      "bytes": 758,
+      "sha256": "CBD99806C9B2C6466ACB5FF3D094B4DFE15AA3E98EE88924669D5D20935CA6AF"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\simulation.js",
+      "bytes": 15499,
+      "sha256": "17E82A5667AC2DACA1E9EE7C585305670E7028DCE464C3BFA67F776B64FD7B7E"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\rendering.js",
+      "bytes": 18666,
+      "sha256": "6EBEFBB024A8408AF34B52161C2D3426DA5340CDEBA6464876C5FC7D0073541B"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\app.js",
+      "bytes": 14107,
+      "sha256": "5592178C26C877BCFCB9D9BF9845A196DBDDEC6B5A99EC406CB2AEE1F39E2A76"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\shell.html",
+      "bytes": 9548,
+      "sha256": "147E9B6A609401499F303362F09637ACB83A027CB8B5BCFBE648AF3E77B30FA5"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\src\\style.css",
+      "bytes": 14925,
+      "sha256": "A4EF4043F060CFB89A7065152743FF55E1D29C76B8D691FF6E2006F68907175A"
+    }
+  ],
+  "buildSources": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\build.mjs",
+      "bytes": 2108,
+      "sha256": "4584DF6154E3F2F335FE3C756B9BBAE31F6CBCE3CEBEFFC9E3DF3FA13DFFD5E0"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\source-files.mjs",
+      "bytes": 577,
+      "sha256": "3E1F128ABC78054C35C19B665186495D6F0C12D09E26E71ECC5927D2AD063EE3"
+    }
+  ],
+  "preserved": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\dist\\baseline-v0.1.html",
+      "bytes": 64980,
+      "sha256": "33762475B9597CF0755D50D657F9BB4A047A3261E567E6916D964ED475DBAD3B"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\dist\\map-pack-v0.2.html",
+      "bytes": 84715,
+      "sha256": "C0215DCFFAD8E84E86ADFF1A56C5B51D672B450188F9AD4D6DA0C2256148A69E"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mine-level-h5\\dist\\natural-caves-v0.3.html",
+      "bytes": 99230,
+      "sha256": "3E9A4C8422A41C70012293C64CA460F323E857596C4770E3029CDBA88B0CD138"
+    }
+  ],
+  "checks": {
+    "syntaxAndSpawnAllMaps": "passed",
+    "bundledCodeMatchesSources": "passed",
+    "splitEntryMatchesSourceOrder": "passed",
+    "offlineNoExternalDependencies": "passed",
+    "conceptGroups": 36,
+    "conceptWalkLegs": 128,
+    "conceptShafts": 17,
+    "baselineChecks": 21,
+    "legacyNetworkWalkLegs": 128,
+    "oldNaturalChecks": 69,
+    "ui": "10 groups of mock DOM/Canvas wiring, including 3 new map clues/export; not real browser input or screenshots"
+  },
+  "reports": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mine-concept-pack-20261011\\concept-final.json",
+      "bytes": 5359,
+      "sha256": "54A061F9BFA4ADF5D1E3D1FDB0B1F95F5CC91FF03069E839B135A779D6120678"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mine-concept-pack-20261011\\ui-wiring-final.json",
+      "bytes": 3120,
+      "sha256": "8D8E3E0CE5B292380615458B5E570B5FF3E117D768D904B24B891FE1B4580A49"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mine-concept-pack-20261011\\baseline-compatibility-final.json",
+      "bytes": 2409,
+      "sha256": "F2A842973BBA84CC83EDBFBE6DE9996B3A82577E6D09FFD5649C0EBAF6BC5AF4"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mine-concept-pack-20261011\\network-compatibility-final.json",
+      "bytes": 1192,
+      "sha256": "E0F1E4D4175F80A0A0A384FC939765ACD0FE36E195BB367A980BEB006C0D83C3"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mine-concept-pack-20261011\\natural-compatibility-final.json",
+      "bytes": 8025,
+      "sha256": "8A31BB7854CDDDAE89EB42C2687230D4BF1244C261687563C52FDE49869A3737"
+    }
+  ],
+  "geometry": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mine-concept-pack-20261011\\geometry.json",
+      "bytes": 73244,
+      "sha256": "8EAE09A95E7E6F7E77AB35B38D4DB4B12A92C592D1491B0D24D04A67B80034B2"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mine-concept-pack-20261011\\concept-geometry.png",
+      "bytes": 71194,
+      "sha256": "EBF799BF3324D579365077D82D514181339DAB3FA46B349BFCA59812DFE80FD9"
+    }
+  ],
+  "retainedFailures": 9,
+  "boundaries": [
+    "H5 actual physics/transactions in VM; geometry pixels inspected.",
+    "Real browser visuals, mouse/keyboard handfeel, touch and performance remain unverified. File-URL browser access restriction was not bypassed.",
+    "No Unity editor, play, build, YYGC, author asset, protocol, save or locked dependency changes."
+  ],
+  "changes": [
+    "Rooms and corridors implement folded/shaft loop/vein maze relations with mid-route branches, sealed adjacent caves and player-built shafts.",
+    "Shared flashlight aim now serves both rendering and clue observation; lamp persists across tool switches.",
+    "Earlier unsafe slope/room overlaps, entry cliffs and shaft overlap were corrected; all intermediate failure records retained.",
+    "Prior 7 layouts retained, with v0.1/v0.2/v0.3 single-file bytes verified unchanged."
+  ]
+}

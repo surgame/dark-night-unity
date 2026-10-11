@@ -64,6 +64,7 @@ MonoBehaviour:
           Amplitude: 1
           OreDensity: 1
           ResourceProfile: cave-exploration
+        MineMap: {fileID: -7265415908296928465, guid: 2da67708529a30f4dbfc5d0ed75b2f0a, type: 3}
         Planets:
         - Id: grey-pine
           DisplayName: "\u7070\u677E\u661F"

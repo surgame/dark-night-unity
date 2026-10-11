@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-11",
+  "scope": "Five authored Unity maps and existing mining/flashlight; initial Editor runtime only",
+  "developmentBranch": "docs-20261011-mine-map-expansion-plan",
+  "localBranch": "ft-20261011-mine-map-expansion",
+  "unity": "6000.4.9f1",
+  "protocol": 31,
+  "saveVersion": 23,
+  "worldGrid": [320, 192],
+  "mineGrid": [264, 156],
+  "baseGrid": [132, 78],
+  "tilePixels": 16,
+  "offset": [40, 32],
+  "maps": ["rift-expanded", "karst-expanded", "folded-expanded", "shaft-loop-expanded", "vein-maze-expanded"],
+  "checks": {
+    "staticAssemblies": 6,
+    "editorCompilation": "passed",
+    "importedMapAssets": 5,
+    "editorTests": {"total": 8, "passed": 8, "failed": 0},
+    "initialRuntime": {"hostReady": true, "foregroundReady": true, "mineralsReady": true, "presentationReady": true, "deposits": 53, "hero": true, "flashlightEnabled": true, "isolatedPreset": "landed-pickaxe"}
+  },
+  "output": "D:/Developer/MiniGames/Dark Nights/unity-projects/artifacts/mine-map-expansion-20261011",
+  "tests": "tests-final.json",
+  "runtime": "runtime-01/result.json",
+  "image": "runtime-01/game.png",
+  "checkpoint": "checkpoint-01",
+  "retainedFailures": ["geometry-01", "geometry-02", "geometry-03", "geometry-04", "visual-attempt-01.json", "visual-01/qualification.json"],
+  "memory": {"minimumCommitGiB": 0.7096939086914062, "minimumFreeRamGiB": 5.974033355712891, "playStopped": true, "gateGiB": 1, "monitor": "memory-monitor-01/summary.json"},
+  "notValidated": ["complete traversal", "ladder routes", "full mining/return loop", "five distinct final Tuner screenshots", "Player", "cross-process networking", "foreground performance"],
+  "notRestored": ["ladders", "clue interactions", "hidden nests", "H5 deposit economy"],
+  "notes": ["First visual batch captured the previous map five times; failed evidence retained and preview rebuild identity corrected with an Editor regression.", "Final source required one explicit AssetDatabase refresh after loaded reflection proved the preview regression was absent; actual final tests then passed 8/8.", "No YYGC, dependency locks, Bootstrap scene, source artwork or user saves modified. Original Local H5 edits are retained separately."]
+}

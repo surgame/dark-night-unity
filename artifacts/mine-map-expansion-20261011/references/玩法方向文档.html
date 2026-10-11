@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Dark Nights｜矿洞探索与怪物生态 · 玩法方向文档 v0.1</title>
+<style>
+:root{--bg:#f5f7f9;--paper:#fff;--ink:#222c36;--muted:#657584;--accent:#176e77;--accent-light:#e8f3f3;--line:#dfe5e8;--soft:#f6f9fa;--navwidth:238px;--shadow:0 7px 22px rgba(20,43,52,.06)}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:30px}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.78 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei","PingFang SC",sans-serif;letter-spacing:.005em}a{color:var(--accent)}.layout{display:grid;grid-template-columns:var(--navwidth) minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;background:#f8fafb;border-right:1px solid var(--line);padding:32px 19px 24px}.logo{font-size:13px;font-weight:850;letter-spacing:.14em;color:var(--accent);margin:0 0 4px 7px}.sublogo{font-size:12px;color:var(--muted);margin:0 0 27px 7px}.sidebar nav{display:grid;gap:3px}.sidebar nav a{text-decoration:none;display:flex;align-items:center;gap:9px;color:#445767;font-size:13px;padding:8px 10px;border-radius:9px;line-height:1.4}.sidebar nav a:hover,.sidebar nav a:focus{background:var(--accent-light);color:var(--accent)}.nav-count{font-size:10px;letter-spacing:.05em;color:#8c9aa5;font-variant-numeric:tabular-nums}.side-foot{border-top:1px solid var(--line);margin-top:28px;padding:17px 9px 0;color:var(--muted);font-size:11px;line-height:1.8}.main{padding:38px clamp(20px,5vw,90px) 90px;max-width:1220px;width:100%;margin:auto}.topline{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:21px}.eyebrow{font-size:12px;letter-spacing:.13em;font-weight:800;color:var(--accent)}.status{font-size:11px;color:#576d78;border:1px solid #cddadd;background:#fff;border-radius:100px;padding:3px 10px}.flow{background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:19px 21px;margin-bottom:23px}.flow-title{font-size:12px;color:var(--muted);font-weight:700;margin-bottom:10px}.flow-steps{display:flex;flex-wrap:wrap;align-items:center;gap:7px}.chip{display:inline-flex;align-items:center;justify-content:center;background:var(--accent-light);color:#1c626a;border:1px solid #d3e5e5;padding:7px 12px;border-radius:8px;font-size:12px;font-weight:700}.arrow{color:#829aa1;font-size:16px}.content{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:clamp(22px,4.5vw,54px) clamp(20px,5vw,67px)}h1{font-size:clamp(27px,3.5vw,35px);line-height:1.3;letter-spacing:-.02em;margin:0 0 17px;font-weight:830}h2{font-size:21px;line-height:1.4;margin:43px 0 17px;border-top:1px solid var(--line);padding-top:32px;scroll-margin-top:16px;letter-spacing:-.012em}h2:first-of-type{margin-top:34px}h3{font-size:16px;margin:26px 0 10px}p{margin:10px 0 14px}strong{font-weight:750;color:#192d34}blockquote{margin:0 0 25px;background:var(--soft);border-left:3px solid #75aaad;padding:11px 17px;color:var(--muted);font-size:13px;border-radius:0 9px 9px 0}blockquote p{margin:3px 0}ol,ul{padding-left:1.5rem;margin:13px 0 20px}li{padding-left:3px;margin:7px 0}li::marker{color:#2d858a}table{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0 23px;line-height:1.68}thead{background:#edf3f5}th{text-align:left;font-size:12px;color:#344e5a;font-weight:760}th,td{border-bottom:1px solid var(--line);padding:11px 12px;vertical-align:top}tbody tr:nth-child(even){background:#fbfcfc}tbody tr:hover{background:#f1f7f7}table strong{white-space:normal}hr{border:0;border-top:1px solid var(--line);margin:35px 0 20px}blockquote:first-of-type{font-size:12px}.footnote{font-size:12px;color:var(--muted);margin:24px 0;text-align:right}.actions{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 16px}.actions button{border:1px solid var(--line);background:#fff;color:#48636c;border-radius:8px;cursor:pointer;padding:7px 12px;font:inherit;font-size:12px}.actions button:hover{border-color:#8ba9ab;color:var(--accent)}.smallnote{color:var(--muted);font-size:12px}.backtop{position:fixed;bottom:23px;right:23px;text-decoration:none;background:var(--accent);color:#fff;border-radius:100px;box-shadow:0 4px 14px #223c4233;padding:7px 13px;font-size:12px}.backtop:hover{background:#12535b}::selection{background:#c4e5e4;color:#163c44}::-webkit-scrollbar{width:9px}::-webkit-scrollbar-thumb{background:#ccd8dc;border-radius:10px}
+@media(max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}.main,.content{min-width:0;max-width:100%}.sidebar{position:static;height:auto;padding:13px 18px;border-right:0;border-bottom:1px solid var(--line)}.logo{display:inline;margin-right:10px}.sublogo{display:inline}.sidebar nav{display:flex;overflow-x:auto;gap:3px;margin-top:11px;white-space:nowrap}.sidebar nav a{flex:0 0 auto}.side-foot{display:none}.main{padding:24px 14px 55px}.content{border-radius:12px}table{display:block;overflow-x:auto;white-space:normal}th,td{min-width:110px}.flow-steps{gap:5px}.chip{padding:5px 8px}}@media print{body{background:#fff;color:#000;font-size:11pt}.layout{display:block}.sidebar,.topline,.actions,.backtop,.flow{display:none!important}.main{padding:0;max-width:none}.content{border:0;box-shadow:none;padding:0}h1{font-size:23pt}h2{font-size:16pt;page-break-after:avoid}h3{page-break-after:avoid}table{font-size:9pt;page-break-inside:auto}tr{page-break-inside:avoid}thead{display:table-header-group}a{color:inherit;text-decoration:none}}
+</style>
+</head>
+<body id="top"><div class="layout"><aside class="sidebar" aria-label="文档目录"><div class="logo">DARK NIGHTS</div><div class="sublogo">GAMEPLAY DIRECTION / v0.1</div><nav aria-label="章节跳转">
+<a href="#section-01"><span class="nav-count">01</span><span>方向结论</span></a>
+<a href="#section-02"><span class="nav-count">02</span><span>三级核心循环</span></a>
+<a href="#section-03"><span class="nav-count">03</span><span>矿洞的空间设计</span></a>
+<a href="#section-04"><span class="nav-count">04</span><span>矿物与开采设计</span></a>
+<a href="#section-05"><span class="nav-count">05</span><span>怪物设计原则与组合</span></a>
+<a href="#section-06"><span class="nav-count">06</span><span>环境、合作和装备成长</span></a>
+<a href="#section-07"><span class="nav-count">07</span><span>原型范围与验证顺序</span></a>
+<a href="#section-08"><span class="nav-count">08</span><span>风险、边界及待决策事项</span></a>
+</nav><div class="side-foot">2026-10-10 · 玩法方向草案<br>轻量文稿、离线可阅读、可打印</div></aside><main class="main"><div class="topline"><span class="eyebrow">GAME DESIGN NOTE</span><span class="status">讨论版本 · 未锁定数值</span></div><div class="flow"><div class="flow-title">远征主循环</div><div class="flow-steps"><span class="chip">观察线索</span><span class="arrow">→</span><span class="chip">选择路线</span><span class="arrow">→</span><span class="chip">发现采矿</span><span class="arrow">→</span><span class="chip">应对风险</span><span class="arrow">→</span><span class="chip">撤收交易</span><span class="arrow">→</span><span class="chip">装备成长</span></div></div><div class="actions"><span class="smallnote">聚焦矿洞，不预设复杂基地与飞船玩法</span><button type="button" onclick="window.print()">打印 / 保存 PDF</button></div><article class="content">
+<h1>Dark Nights｜矿洞探索与怪物生态：玩法方向文档</h1>
+<blockquote>
+<p><strong>版本</strong>：v0.1 · 2026-10-10<br/>
+<strong>定位</strong>：玩法方向草案，供原型验证；不是最终策划案或技术实施规范。<br/>
+<strong>适用范围</strong>：以 2–4 人合作为重点，保留单人可完成主流程的可能性。</p>
+</blockquote>
+<h2 id="section-01">01｜方向结论</h2>
+<p><strong>核心主张：让矿洞成为游戏主角。</strong> 玩家因未知而进入矿洞，凭线索发现资源，用工具取得收获，在环境和怪物干扰下决定继续深入还是带矿撤退。怪物的职责是改变采矿与撤离决策，而非把游戏变为高频清怪或纯恐怖体验。</p>
+<ul>
+<li><strong>乐趣排序</strong>：探索与发现 ＞ 开采与收获 ＞ 风险、意外及自然合作；不把比例视为硬性时间配额。</li>
+<li><strong>怪物定位</strong>：少量、有鲜明行为、可预判且可反制；普通怪制造干扰，少数强敌改变路线与收益取舍。</li>
+<li><strong>地图形态</strong>：半开放洞网、分层洞室、环路和隐藏矿室；独立矿物可采，指定岩层才能爆破，不回到任意自由挖空地形。</li>
+<li><strong>范围收敛</strong>：当前不以基地建设、自由驾驶降落、船体 DIY、自动化流水线、职业分工或完整战斗系统为前置条件。</li>
+</ul>
+<p><strong>一句话体验目标：</strong> “我们沿着线索找到了意想不到的矿，差点没能把它带回来。”</p>
+<h2 id="section-02">02｜三级核心循环</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">尺度</th>
+<th scope="col">玩家行为</th>
+<th scope="col">必须提供的反馈</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>瞬时（10–60 秒）</strong></td>
+<td>观察异常 → 判断路径／工具 → 挖掘／采集 → 获得反馈或新线索</td>
+<td>操作手感清晰；奖励可见；未知有进一步指向</td>
+</tr>
+<tr>
+<td><strong>单次远征（测试以约 12–15 分钟起步）</strong></td>
+<td>进入洞网 → 发现矿室 → 采矿／搬运 → 遭遇意外 → 判断继续或撤离</td>
+<td>有可讲述的发现、有收益取舍、有撤收决定</td>
+</tr>
+<tr>
+<td><strong>跨远征</strong></td>
+<td>撤离 → 到交易地点出售／交付 → 购买装备 → 选择下次探索目标</td>
+<td>新装备打开新的探索方式，不仅提高数字</td>
+</tr>
+</tbody>
+</table>
+<p><strong>边界</strong>：飞船当前只承担出发、撤收和装备准备的入口；是否必须前往另一颗星球交差、何时进行收益结算，作为独立经济设计问题留待确认，不应反向拖慢矿洞原型。</p>
+<h2 id="section-03">03｜矿洞的空间设计</h2>
+<p>采用<strong>“可信主路 + 2–3 条分支 + 少量可发现捷径”</strong>的半开放结构。玩家通常知道如何前进，却不能一眼看透所有资源和出口。</p>
+<ol>
+<li><strong>安全起步区</strong>：让基础装备玩家尽快发现第一笔矿与一条明显通路，不把开局做成迷路测试。</li>
+<li><strong>差异化岔路</strong>：显眼但普通的矿、伴有危险迹象的富矿线索、暂时够不着的空间，分别提供安全与收益取舍。</li>
+<li><strong>可推断的隐藏洞室</strong>：墙面晶脉、裂缝漏光、回声、岩粉等线索与真实隐藏内容绑定，不能主要靠盲猜。</li>
+<li><strong>有限地形改造</strong>：爆破特定阻挡物以进入隐藏洞室或打通近路；普通地形保留预设轮廓。开采作用于独立矿物对象。</li>
+<li><strong>回程不应全是重走</strong>：通路尽量形成环、可解锁捷径；已清理区域原则上不无限刷敌，让团队感受到路线被经营过。</li>
+</ol>
+<p><strong>生成原则</strong>：先布局目的地、风险和主通路，再生成对应线索与地形伪装。随机性改变发现过程，不应让关键路线不可达，也不应让隐蔽线索成为随机装饰。</p>
+<h2 id="section-04">04｜矿物与开采设计</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">类型</th>
+<th scope="col">主要体验</th>
+<th scope="col">设计约束</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>散矿</strong></td>
+<td>低门槛的即时收获；保证持续正反馈</td>
+<td>拾取快，不造成频繁搬运劳动</td>
+</tr>
+<tr>
+<td><strong>矿脉矿簇</strong></td>
+<td>顺着痕迹追踪矿床；发现本身有成就感</td>
+<td>线索指向真实矿物，开采反馈明确</td>
+</tr>
+<tr>
+<td><strong>隐藏富矿室</strong></td>
+<td>一次明显的“赚到了”时刻</td>
+<td>有发现成本，可安全也可危险；不是每次必刷强怪</td>
+</tr>
+<tr>
+<td><strong>少量大型贵重矿</strong></td>
+<td>收益与携带负担之间的选择</td>
+<td>允许丢弃和之后追回；不能让所有矿都变成拖运任务</td>
+</tr>
+</tbody>
+</table>
+<p>可以尝试<strong>常规开采／快速开采</strong>：后者更快但更响，只有附近存在感震生物时才构成额外风险。噪音是可理解的局部事件，不是无条件召唤怪物的全局进度条。</p>
+<p>奖励分布可向可发现的集中矿藏倾斜，散矿仍承担起步与沿途回报；具体价值比例应由试玩数据决定，暂不锁定。</p>
+<h2 id="section-05">05｜怪物设计原则与组合</h2>
+<h3>怪物应当做什么</h3>
+<p><strong>让玩家改变计划，而非只是扣血。</strong> 每一种怪物至少回答一个问题：它因什么出现？玩家如何提前察觉？有哪些非战斗反制？失败损失什么？威胁何时结束？</p>
+<p>采用四条约束：<strong>有前兆、可反制、有活动边界、结果可恢复</strong>。可用视觉动作与声音双重提示危险，避免只靠惊吓和暗处突袭。</p>
+<table>
+<thead>
+<tr>
+<th scope="col">生物（工作名）</th>
+<th scope="col">行为触发与前兆</th>
+<th scope="col">玩家选择</th>
+<th scope="col">承担的玩法作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>偷矿兽</strong>（弱）</td>
+<td>被掉落的发光矿物吸引；靠近时有轻快动作与叫声</td>
+<td>追赶、拦截、诱饵；矿物可追回</td>
+<td>低压力骚扰、多人趣事</td>
+</tr>
+<tr>
+<td><strong>岩鸣虫</strong>（中）</td>
+<td>附近持续开采／爆破造成震动；先有敲击、岩壁颤动</td>
+<td>停工、转移、引开、击退</td>
+<td>影响“挖还是走”的决定</td>
+</tr>
+<tr>
+<td><strong>晶巢守卫</strong>（强）</td>
+<td>靠近富矿巢穴并突破警戒；有可见领地迹象</td>
+<td>绕行、声东击西、协作、正面应对</td>
+<td>富矿的风险／回报取舍</td>
+</tr>
+<tr>
+<td><strong>深层巡猎者</strong>（稀有，后续）</td>
+<td>出现在高风险深层路线；远处有持续可识别的脚步／轮廓</td>
+<td>提前开路、躲避、舍弃重物、撤退</td>
+<td>少量高记忆点的撤离高潮</td>
+</tr>
+</tbody>
+</table>
+<h3>数量与威胁节奏（仅供第一轮调参）</h3>
+<ul>
+<li><strong>约 15 分钟远征</strong>：尝试安排 <strong>2–4 次有意义的危险遭遇</strong>，而非持续交战；这不是强制刷怪指标。</li>
+<li><strong>同区域活跃普通敌人</strong>通常 <strong>1–3 只</strong>；强敌 <strong>0–1 只</strong>，更多与可选的高价值区域绑定。</li>
+<li>怪物主要由<strong>巢穴、领地、噪声和探索位置</strong>触发；<strong>不因时间流逝无限刷怪</strong>。</li>
+<li>普通怪侧重干扰、掉落或短暂受伤；强敌允许迫使撤退，但必须提供读得懂的攻击前摇和逃生窗口。</li>
+<li><strong>战斗是解决方案之一</strong>，但不应成为每次采矿前的必做清场任务。恐惧是调味，不是游戏承诺。</li>
+</ul>
+<p><strong>注意</strong>：不是每个富矿室都有敌人。安全获得一笔意外之财，同样应是玩家会期待的事件。</p>
+<h2 id="section-06">06｜环境、合作和装备成长</h2>
+<p><strong>环境优先于怪物堆量。</strong> 利用深坑、竖井、裂岩、狭窄通道、声源传播、特殊矿石影响等简单规则产生变化；不优先增加氧气、燃料、散热等长期维护负担。以后可用“每颗星球一种环境规则 + 一类代表性生物 + 一种特殊矿物”构建差异。</p>
+<p><strong>合作自然出现</strong>：队友标记线索、提供照明、引走守卫、互相营救、协助搬运。避免职业锁定或必须多人同时触发的门槛；单人可完成基本目标，多人提升效率、减少风险并制造意外。</p>
+<p><strong>升级重点是能力解锁</strong>，而不是单纯增加采矿百分比：</p>
+<table>
+<thead>
+<tr>
+<th scope="col">装备方向</th>
+<th scope="col">带来的新选择</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>简易探测器</td>
+<td>更容易判断隐蔽矿脉方向，但不直接透视全地图</td>
+</tr>
+<tr>
+<td>绳索／抓钩</td>
+<td>穿越竖井、返回深坑，可能连接新的路线</td>
+</tr>
+<tr>
+<td>改良采矿工具</td>
+<td>开采更坚硬的独立矿物，获得更大开采效率</td>
+</tr>
+<tr>
+<td>特种炸药</td>
+<td>处理明确标识的可爆破障碍，开辟支路和捷径</td>
+</tr>
+<tr>
+<td>搬运辅助</td>
+<td>让少量大型矿物从“难以带走”变成“值得规划运输”</td>
+</tr>
+</tbody>
+</table>
+<h2 id="section-07">07｜原型范围与验证顺序</h2>
+<h3>P0：证明“找矿 → 挖矿 → 遇到干扰 → 带回去”有趣</h3>
+<p>用 <strong>3–4 个联通洞室、2 类矿物、1 类可信线索、1 种对开采有反应的怪物、1 条可爆破捷径、1 项能力升级</strong>，做出完整的最小循环。先不追求丰富素材和多星球内容。</p>
+<p><strong>通过信号</strong>：玩家知道为什么找到矿；至少有一次主动选择路线或开采策略；遭遇怪物后能通过行动挽回局面；返回时感受到收获，而非纯粹赶路。</p>
+<h3>P1：验证小队合作与重复可玩性</h3>
+<p>扩展到 <strong>6–8 个洞室、3 类矿、3 种怪物行为、2 类线索、少量大型矿与可选高风险分支</strong>，重点测试 2 人和 4 人小队，以及单人兜底体验。</p>
+<h3>P2：待 P1 成立后再考虑</h3>
+<p>稀有大型威胁、更多星球生态、复杂地形互动、运输工具和更丰富的装备链。不要以这些系统掩盖 P0 的薄弱环节。</p>
+<h3>试玩记录什么</h3>
+<table>
+<thead>
+<tr>
+<th scope="col">观察项</th>
+<th scope="col">要回答的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>首次有价值发现所需时间</td>
+<td>前几分钟是否已经出现好奇和回报？</td>
+</tr>
+<tr>
+<td>线索被发现及正确理解的比例</td>
+<td>玩家是观察推理，还是盲目试错？</td>
+</tr>
+<tr>
+<td>一局中的真实取舍</td>
+<td>有几次自行决定绕路、冒险、丢矿或撤离？</td>
+</tr>
+<tr>
+<td>遭遇后的行为</td>
+<td>玩家会因怪物改变策略，还是只想尽快把它清除？</td>
+</tr>
+<tr>
+<td>空转时间</td>
+<td>是否有大量迷路、来回搬运、等队友、无效战斗？</td>
+</tr>
+<tr>
+<td>复盘故事</td>
+<td>玩家会说“发现了什么、怎么带回来的”，还是只记得怪物数量？</td>
+</tr>
+</tbody>
+</table>
+<p><strong>评估方式</strong>：记录行为录像、事件日志和一次简短复盘；不要只看问卷评分。遭遇次数与时长都是<strong>试验假设</strong>，不应过早变成固定 KPI。</p>
+<h2 id="section-08">08｜风险、边界及待决策事项</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">可能跑偏的方向</th>
+<th scope="col">应对原则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>怪物频率过高，采矿不断被打断</td>
+<td>保留稳定安全区，让危险局部化、可读、可控制</td>
+</tr>
+<tr>
+<td>地质线索太模糊，寻找变成猜墙</td>
+<td>先生成奖励，再生成可靠线索；小范围试玩验证阅读率</td>
+</tr>
+<tr>
+<td>搬运比发现矿石还费时</td>
+<td>普通矿自动／快速拾取，大矿只作为少量特殊事件</td>
+</tr>
+<tr>
+<td>返程过远，重复路径形成体力劳动</td>
+<td>预设环路、少量捷径、清理后相对稳定的返回通道</td>
+</tr>
+<tr>
+<td>武器和战斗数值不断膨胀</td>
+<td>把怪物做成环境问题，不把击杀作为默认目标</td>
+</tr>
+<tr>
+<td>地图可随意挖穿，结构设计失效</td>
+<td>独立矿物开采 + 指定岩层爆破，保留洞室拓扑</td>
+</tr>
+</tbody>
+</table>
+<p><strong>当前不决策</strong>：交差是否必须跨星球、失败后矿物与装备的损失规则、是否有全局时间压力、复杂怪物战斗、自动化开采、长期基地建设。</p>
+<p><strong>版本约束</strong>：本文件仅描述玩法方向。新地图和矿洞机制应作为可独立测试的实验方案推进，不直接覆盖或淘汰既有地图分支和素材。</p>
+<hr/>
+<h3>最终判断</h3>
+<p>先把 <strong>“玩家看到了线索、找到了秘密、挖出了值钱的东西，并且在意外里把战利品带回去”</strong> 这一个体验打磨成立。等这个循环稳定有趣，再决定需要多少怪物、多少星球和多少外围系统。</p>
+
+</article><p class="footnote">Dark Nights · Mine Exploration / Direction Document v0.1</p></main></div><a class="backtop" href="#top" aria-label="返回顶部">↑ 顶部</a></body></html>

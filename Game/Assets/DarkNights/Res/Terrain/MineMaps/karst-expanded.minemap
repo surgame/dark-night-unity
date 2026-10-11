@@ -1,0 +1,710 @@
+{
+  "SchemaVersion": 1,
+  "Id": "karst-expanded",
+  "Title": "07 溶洞回环 · 扩展",
+  "SourceHash": "5109671c4ca65b4011b70a11cb58a3115cad368b216ee79139f3802f1f339592",
+  "BaseRuns": "1:1066,0:9,1:14,0:1,1:1,0:1,1:103,0:15,1:10,0:5,1:100,0:19,1:5,0:9,1:97,0:22,1:1,0:13,1:96,0:36,1:96,0:39,1:93,0:42,1:90,0:48,1:106,0:28,1:107,0:9,1:5,0:15,1:106,0:6,1:6,2:3,1:3,0:10,1:107,0:8,1:1,2:3,1:5,0:9,1:107,2:1,0:13,1:4,0:8,1:106,2:2,0:14,1:4,0:7,1:105,2:3,1:1,0:14,1:4,0:7,1:108,0:15,1:4,0:5,1:113,0:12,1:4,0:4,1:115,0:11,1:3,0:5,1:115,0:11,1:3,0:6,1:115,0:9,1:3,0:6,1:116,0:9,1:3,0:6,1:115,0:9,1:3,0:7,1:114,0:10,1:3,0:8,1:1,0:1,1:109,2:1,0:10,1:3,0:11,1:107,2:2,0:11,1:1,0:12,1:106,2:3,0:24,1:110,0:22,1:112,0:21,1:113,0:20,1:114,0:3,1:3,0:12,1:121,0:12,1:122,0:11,1:122,0:10,1:19,0:4,1:101,0:10,1:16,0:5,1:1,0:1,1:3,0:1,1:95,2:2,0:8,1:16,0:12,1:94,2:3,0:9,1:13,0:13,1:94,2:3,1:1,0:9,1:9,0:16,1:99,0:8,1:9,0:16,1:100,0:9,1:4,0:1,1:1,0:4,1:3,0:8,1:103,0:18,1:6,0:1,2:2,1:106,0:20,1:3,2:3,1:108,0:21,2:3,1:110,0:20,1:113,0:21,1:5,0:5,1:103,0:19,1:3,0:8,1:103,0:30,1:104,0:29,1:105,0:28,1:106,0:27,1:107,0:25,1:108,2:1,0:23,1:108,2:3,1:3,0:18,1:108,2:3,1:6,0:15,1:124,0:8,1:125,2:1,0:6,1:125,2:2,0:5,1:125,2:3,1:1,0:3,1:131,0:1,1:1587",
+  "BaseWidth": 132,
+  "BaseHeight": 78,
+  "Width": 264,
+  "Height": 156,
+  "OffsetX": 40,
+  "OffsetY": 32,
+  "Seams": [
+    120,
+    58,
+    12,
+    20
+  ],
+  "Rooms": [
+    {
+      "Id": "base/camp",
+      "Name": "飞船入口",
+      "X": 14,
+      "Floor": 16,
+      "Radius": 11,
+      "Height": 5,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/cavern-0",
+      "Name": "碎岩拱厅",
+      "X": 36,
+      "Floor": 21,
+      "Radius": 6,
+      "Height": 11,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/cavern-1",
+      "Name": "晶脉弯洞",
+      "X": 58,
+      "Floor": 32,
+      "Radius": 6,
+      "Height": 13,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/cavern-2",
+      "Name": "回声岩腔",
+      "X": 81,
+      "Floor": 42,
+      "Radius": 6,
+      "Height": 10,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/cavern-3",
+      "Name": "深层矿庭",
+      "X": 106,
+      "Floor": 59,
+      "Radius": 6,
+      "Height": 13,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/cavern-4",
+      "Name": "尽头金矿",
+      "X": 123,
+      "Floor": 63,
+      "Radius": 6,
+      "Height": 11,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/upper-0",
+      "Name": "高处侧洞 1",
+      "X": 109,
+      "Floor": 47,
+      "Radius": 6,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/upper-loop",
+      "Name": "岩柱上层曲道",
+      "X": 47,
+      "Floor": 18,
+      "Radius": 12,
+      "Height": 14,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "relay",
+      "Name": "新岩腔入口",
+      "X": 147,
+      "Floor": 78,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "west",
+      "Name": "偏左矿庭",
+      "X": 174,
+      "Floor": 84,
+      "Radius": 5,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "pillar",
+      "Name": "右侧岩柱",
+      "X": 198,
+      "Floor": 100,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "court",
+      "Name": "下层岩腔",
+      "X": 225,
+      "Floor": 110,
+      "Radius": 5,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "rim",
+      "Name": "远端接点",
+      "X": 254,
+      "Floor": 120,
+      "Radius": 5,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "bend",
+      "Name": "下层环转角",
+      "X": 226,
+      "Floor": 134,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "deep-relay",
+      "Name": "深部环口",
+      "X": 196,
+      "Floor": 142,
+      "Radius": 5,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "deep",
+      "Name": "最后矿庭",
+      "X": 254,
+      "Floor": 148,
+      "Radius": 5,
+      "Height": 6,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "upper",
+      "Name": "新上层曲道",
+      "X": 202,
+      "Floor": 86,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": true,
+      "BuriedOre": true
+    },
+    {
+      "Id": "high",
+      "Name": "高洞岩台",
+      "X": 232,
+      "Floor": 84,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "neighbor",
+      "Name": "薄岩邻厅",
+      "X": 242,
+      "Floor": 100,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "blind",
+      "Name": "旧矿屑尽头",
+      "X": 165,
+      "Floor": 104,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "return",
+      "Name": "回环西口",
+      "X": 159,
+      "Floor": 136,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "seal",
+      "Name": "挖墙回程口",
+      "X": 143,
+      "Floor": 114,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "blind-deep",
+      "Name": "深层侧洞",
+      "X": 180,
+      "Floor": 151,
+      "Radius": 3,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "wind",
+      "Name": "中段风庭",
+      "X": 177,
+      "Floor": 119,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    }
+  ],
+  "Paths": [
+    {
+      "Id": "entry",
+      "From": "base/cavern-4",
+      "To": "relay",
+      "Points": [
+        128,
+        66,
+        137,
+        76,
+        147,
+        78
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "west-path",
+      "From": "relay",
+      "To": "west",
+      "Points": [
+        147,
+        78,
+        162,
+        85,
+        174,
+        84
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "pillar-path",
+      "From": "west",
+      "To": "pillar",
+      "Points": [
+        174,
+        84,
+        184,
+        97,
+        198,
+        100
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "court-path",
+      "From": "pillar",
+      "To": "court",
+      "Points": [
+        198,
+        100,
+        211,
+        109,
+        225,
+        110
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "rim-path",
+      "From": "court",
+      "To": "rim",
+      "Points": [
+        225,
+        110,
+        241,
+        121,
+        254,
+        120
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "bend-path",
+      "From": "rim",
+      "To": "bend",
+      "Points": [
+        254,
+        120,
+        239,
+        133,
+        226,
+        134
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "deep-relay-path",
+      "From": "bend",
+      "To": "deep-relay",
+      "Points": [
+        226,
+        134,
+        211,
+        143,
+        196,
+        142
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "deep-path",
+      "From": "deep-relay",
+      "To": "deep",
+      "Points": [
+        196,
+        142,
+        225,
+        147,
+        254,
+        148
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "upper-court",
+      "From": "upper",
+      "To": "high",
+      "Points": [
+        202,
+        86,
+        219,
+        85,
+        232,
+        84
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "upper-return",
+      "From": "high",
+      "To": "court",
+      "Points": [
+        232,
+        84,
+        243,
+        100,
+        225,
+        110
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "neighbor-seal",
+      "From": "court",
+      "To": "neighbor",
+      "Points": [
+        225,
+        110,
+        242,
+        100
+      ],
+      "SealX": 236
+    },
+    {
+      "Id": "blind-path",
+      "From": "pillar",
+      "To": "blind",
+      "Points": [
+        198,
+        100,
+        183,
+        105,
+        165,
+        104
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "west-return",
+      "From": "deep-relay",
+      "To": "return",
+      "Points": [
+        196,
+        142,
+        175,
+        139,
+        159,
+        136
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "seal-return",
+      "From": "return",
+      "To": "seal",
+      "Points": [
+        159,
+        136,
+        143,
+        114
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "return-relay",
+      "From": "seal",
+      "To": "relay",
+      "Points": [
+        143,
+        114,
+        156,
+        96,
+        147,
+        78
+      ],
+      "SealX": 149
+    },
+    {
+      "Id": "deep-blind",
+      "From": "return",
+      "To": "blind-deep",
+      "Points": [
+        159,
+        136,
+        171,
+        151,
+        180,
+        151
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "wind-branch",
+      "From": "pillar",
+      "To": "wind",
+      "Points": [
+        198,
+        100,
+        186,
+        118,
+        177,
+        119
+      ],
+      "SealX": -1
+    }
+  ],
+  "Shafts": [
+    {
+      "Id": "new-loop-shaft",
+      "Lower": "pillar",
+      "Upper": "upper",
+      "X": 204,
+      "Top": 86,
+      "Bottom": 100,
+      "Side": -1
+    }
+  ],
+  "BaseOres": [
+    {
+      "Id": "karst-ore-0",
+      "Kind": "iron",
+      "X": 15,
+      "Y": 15,
+      "Capacity": 3,
+      "Buried": false
+    },
+    {
+      "Id": "karst-ore-1",
+      "Kind": "iron",
+      "X": 36,
+      "Y": 21,
+      "Capacity": 4,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-2",
+      "Kind": "iron",
+      "X": 37,
+      "Y": 22,
+      "Capacity": 4,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-3",
+      "Kind": "iron",
+      "X": 40,
+      "Y": 23,
+      "Capacity": 3,
+      "Buried": false
+    },
+    {
+      "Id": "karst-ore-4",
+      "Kind": "iron",
+      "X": 58,
+      "Y": 32,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-5",
+      "Kind": "iron",
+      "X": 59,
+      "Y": 33,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-6",
+      "Kind": "iron",
+      "X": 62,
+      "Y": 34,
+      "Capacity": 3,
+      "Buried": false
+    },
+    {
+      "Id": "karst-ore-7",
+      "Kind": "gold",
+      "X": 81,
+      "Y": 43,
+      "Capacity": 6,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-8",
+      "Kind": "gold",
+      "X": 82,
+      "Y": 44,
+      "Capacity": 6,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-9",
+      "Kind": "gold",
+      "X": 85,
+      "Y": 45,
+      "Capacity": 3,
+      "Buried": false
+    },
+    {
+      "Id": "karst-ore-10",
+      "Kind": "gold",
+      "X": 106,
+      "Y": 59,
+      "Capacity": 4,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-11",
+      "Kind": "gold",
+      "X": 107,
+      "Y": 60,
+      "Capacity": 4,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-12",
+      "Kind": "gold",
+      "X": 110,
+      "Y": 58,
+      "Capacity": 3,
+      "Buried": false
+    },
+    {
+      "Id": "karst-ore-13",
+      "Kind": "gold",
+      "X": 123,
+      "Y": 63,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-14",
+      "Kind": "gold",
+      "X": 124,
+      "Y": 64,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-15",
+      "Kind": "gold",
+      "X": 127,
+      "Y": 64,
+      "Capacity": 3,
+      "Buried": false
+    },
+    {
+      "Id": "karst-ore-16",
+      "Kind": "gold",
+      "X": 109,
+      "Y": 46,
+      "Capacity": 5,
+      "Buried": false
+    },
+    {
+      "Id": "karst-ore-17",
+      "Kind": "gold",
+      "X": 112,
+      "Y": 48,
+      "Capacity": 6,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-18",
+      "Kind": "gold",
+      "X": 113,
+      "Y": 49,
+      "Capacity": 6,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-19",
+      "Kind": "gold",
+      "X": 41,
+      "Y": 16,
+      "Capacity": 5,
+      "Buried": false
+    },
+    {
+      "Id": "karst-ore-20",
+      "Kind": "gold",
+      "X": 44,
+      "Y": 18,
+      "Capacity": 6,
+      "Buried": true
+    },
+    {
+      "Id": "karst-ore-21",
+      "Kind": "gold",
+      "X": 45,
+      "Y": 19,
+      "Capacity": 6,
+      "Buried": true
+    }
+  ]
+}

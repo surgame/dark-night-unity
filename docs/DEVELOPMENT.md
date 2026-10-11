@@ -4,6 +4,8 @@
 
 ## 当前输入与完成边界
 
+2026-10-11，五张作者关卡矿洞（06 裂谷、07 溶洞回环、08 折返、09 环绕竖井、10 断脉迷宫）接入正式 Unity。每图以 132×78 格基线增加洞段至 264×156 格，按原生 16 像素格嵌入既有 320×192 权威地图；`.minemap` 为唯一作者源。WorldSession 默认选择折返扩展图，Tuner 的关卡矿洞字段可换图或置空恢复随机；正式矿层、采集、手电及局部流沿用。六程序集静态编译、真实 Unity 编译、五图导入及 8 项定向 Editor 检查通过；Bootstrap 的隔离快速 Host 已 Ready，前景／矿层实绘就绪、53 个矿床和带手电主角确认，运行截图已检查。只完成初步运行，未签署全图通行、采集全闭环、Player 或跨进程验收；梯具、痕迹交互及隐藏巢穴不在本轮恢复。监控曾记录系统提交余量 0.71 GiB，最终退出本任务 Play；失败与原截图保留。成果由 `docs-20261011-mine-map-expansion-plan` 提交后移交主工程独立 `ft-20261011-mine-map-expansion` 分支。协议 31／存档 v23／锁定依赖保持，选择新图改变内容指纹，旧地图和用户存档不重生成。[本轮回执](evidence/mine-map-expansion-20261011.json)。
+
 2026-10-10，本轮提交与主分支集成候选汇总工作区的持久光照配置、临时调试草稿／Undo、场景光照引用修复、矿层跳跃闪隐修复及1 GiB内存门控调整。6个游戏侧C#程序集静态编译全部通过，0错误、18警告；新增资产与meta配对、GUID和JSON完整性核对通过。未触发Unity刷新、额外测试、Play或Player构建，不扩大此前定向验证结论；真实Unity／Shader及人工验收待项继续保留。[本轮核对](evidence/commit-main-20261010.json)。
 
 截至2026-10-09，照明灯口／可切换后端源码已集成本地main，包含此前地面玩法、手电库存化和Debug Hub图标成果。游戏协议 **31**，存档 **v23**，AMP1 schema **2**；Unity锁定 **6000.4.9f1**，Linear、URP及YYGC锁定依赖保持。实际常量位于 `SessionAuthority.ProtocolVersion`、`SessionSnapshot.CurrentVersion`，依赖以manifest、packages-lock和补丁锁为准。分支切换、源码合入及静态编译不代表真实Unity导入或当前Player验收完成。

@@ -1,0 +1,930 @@
+{
+  "SchemaVersion": 1,
+  "Id": "vein-maze-expanded",
+  "Title": "10 断脉迷宫 · 扩展",
+  "SourceHash": "a3a06fe018408503cdc473d7bfda3e3511a7efd18296422f8755d56d114092c3",
+  "BaseRuns": "1:992,0:5,1:69,0:9,1:47,0:9,1:64,0:15,1:44,0:9,1:62,0:19,1:42,0:10,1:59,0:22,1:41,0:10,1:59,0:23,1:37,0:13,1:59,0:25,1:35,0:13,1:59,0:26,1:3,0:4,1:27,0:3,1:6,2:3,0:1,1:59,0:27,1:1,0:9,1:23,0:3,1:6,2:3,1:82,0:15,1:23,0:3,1:6,2:3,1:83,0:15,1:22,0:3,1:93,0:19,1:17,0:3,1:94,0:20,1:15,0:3,1:95,0:23,1:7,0:3,1:1,0:3,1:26,2:2,1:7,0:3,1:58,0:23,1:3,0:10,1:26,2:2,1:4,0:7,1:57,0:1,1:5,2:3,1:1,0:29,1:6,0:10,1:6,0:1,2:2,0:11,1:63,2:3,1:4,0:49,2:2,0:12,1:62,2:3,1:7,0:46,2:2,0:12,1:74,0:44,2:2,0:12,1:78,0:40,2:2,0:12,1:81,0:37,2:2,0:12,1:81,0:1,1:4,2:3,1:4,0:15,1:7,0:3,1:5,0:1,1:4,2:3,0:1,1:86,2:3,1:4,0:3,1:19,0:3,1:10,2:3,1:87,2:3,1:4,0:3,1:19,0:3,1:10,2:3,1:94,0:3,1:19,0:3,1:107,0:3,1:19,0:3,1:107,0:3,1:19,0:3,1:62,0:3,1:16,0:4,1:22,0:5,1:17,0:3,1:3,0:4,1:40,0:4,1:8,0:7,1:13,0:7,1:21,0:7,1:15,0:3,1:1,0:7,1:38,0:20,1:9,0:2,1:2,0:14,1:6,0:15,1:1,0:4,1:10,0:12,1:37,0:79,1:4,0:15,1:33,0:99,1:33,0:99,1:33,0:102,1:30,0:102,1:30,0:1,1:4,2:3,1:1,2:3,1:1,0:1,1:4,2:3,0:9,1:3,0:1,1:4,2:3,0:1,1:6,0:14,1:4,2:3,0:1,1:4,0:10,1:3,0:1,1:4,2:3,0:1,1:3,0:3,1:35,2:3,1:1,0:3,1:6,2:3,1:17,2:3,1:18,0:3,1:4,2:3,1:23,2:3,1:4,0:3,1:35,2:3,1:1,0:3,1:6,2:3,1:17,2:3,1:18,0:3,1:4,2:3,1:23,2:3,1:4,0:3,1:39,0:3,1:47,0:3,1:37,0:3,1:39,0:3,1:47,0:3,1:37,0:3,1:39,0:3,1:47,0:3,1:37,0:3,1:36,0:6,1:47,0:3,1:7,0:5,1:8,0:4,1:13,0:3,1:10,0:4,1:20,0:8,1:40,0:5,1:2,0:3,1:6,0:7,1:5,0:7,1:12,0:3,1:9,0:7,1:18,0:8,1:39,0:7,1:1,0:5,1:4,0:9,1:3,0:8,1:11,0:3,1:1,0:15,1:17,0:9,1:39,0:38,1:10,0:20,1:16,0:9,1:38,0:39,1:10,0:20,1:16,0:9,1:38,0:40,1:9,0:20,1:16,0:9,1:38,0:41,1:8,0:23,1:13,0:9,1:38,0:41,1:8,0:23,1:13,0:1,1:4,2:3,1:39,0:1,1:4,2:2,0:2,1:3,0:2,1:3,0:1,1:4,2:3,0:1,1:1,0:5,1:2,2:3,0:5,1:1,2:2,1:15,0:1,1:4,2:3,1:1,0:3,1:18,2:3,1:44,2:3,1:14,2:3,1:9,2:3,1:2,0:4,2:2,1:20,2:3,1:1,0:3,1:18,2:3,1:44,2:3,1:14,2:3,1:9,2:3,1:2,0:4,2:2,1:20,2:3,1:1,0:3,1:100,0:3,2:2,1:24,0:3,1:101,0:2,2:2,1:24,0:3,1:101,0:2,2:2,0:1,1:5,0:4,1:14,0:3,1:102,0:1,2:2,0:1,1:3,0:7,1:13,0:3,1:103,2:2,0:1,1:2,0:9,1:12,0:3,1:104,0:18,1:7,0:3,1:104,0:28,1:105,0:27,1:106,0:26,1:106,0:26,1:107,0:25,1:107,0:1,1:5,2:3,1:1,0:1,1:127,2:3,1:129,2:3,1:681",
+  "BaseWidth": 132,
+  "BaseHeight": 78,
+  "Width": 264,
+  "Height": 156,
+  "OffsetX": 40,
+  "OffsetY": 32,
+  "Seams": [
+    102,
+    64,
+    30,
+    14
+  ],
+  "Rooms": [
+    {
+      "Id": "base/camp",
+      "Name": "飞船入口",
+      "X": 14,
+      "Floor": 16,
+      "Radius": 11,
+      "Height": 5,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/shallow",
+      "Name": "入口试采",
+      "X": 36,
+      "Floor": 22,
+      "Radius": 5,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/first",
+      "Name": "第一岔口",
+      "X": 60,
+      "Floor": 28,
+      "Radius": 4,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/upper",
+      "Name": "上方侧洞",
+      "X": 72,
+      "Floor": 14,
+      "Radius": 4,
+      "Height": 5,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/second",
+      "Name": "矿屑岔口",
+      "X": 43,
+      "Floor": 42,
+      "Radius": 4,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/third",
+      "Name": "第二岔口",
+      "X": 71,
+      "Floor": 42,
+      "Radius": 4,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/fourth",
+      "Name": "第三岔口",
+      "X": 97,
+      "Floor": 42,
+      "Radius": 4,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/side",
+      "Name": "侧脉洞",
+      "X": 23,
+      "Floor": 42,
+      "Radius": 4,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/blind",
+      "Name": "矿屑尽头",
+      "X": 10,
+      "Floor": 42,
+      "Radius": 4,
+      "Height": 5,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/buried",
+      "Name": "墙后空腔",
+      "X": 13,
+      "Floor": 56,
+      "Radius": 4,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/deep-fork",
+      "Name": "下层岔洞",
+      "X": 77,
+      "Floor": 56,
+      "Radius": 4,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/dead",
+      "Name": "遗迹盲洞",
+      "X": 60,
+      "Floor": 56,
+      "Radius": 4,
+      "Height": 5,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/wet",
+      "Name": "湿痕侧洞",
+      "X": 89,
+      "Floor": 56,
+      "Radius": 4,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/neighbor",
+      "Name": "隔墙邻洞",
+      "X": 102,
+      "Floor": 28,
+      "Radius": 4,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/bend",
+      "Name": "深层转角",
+      "X": 120,
+      "Floor": 56,
+      "Radius": 4,
+      "Height": 6,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "base/core",
+      "Name": "深部矿庭",
+      "X": 108,
+      "Floor": 70,
+      "Radius": 5,
+      "Height": 7,
+      "Base": true,
+      "SurfaceOre": false,
+      "BuriedOre": false
+    },
+    {
+      "Id": "entry",
+      "Name": "新中层入口",
+      "X": 132,
+      "Floor": 82,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "first",
+      "Name": "断脉岔口",
+      "X": 154,
+      "Floor": 86,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "lower",
+      "Name": "新井底",
+      "X": 174,
+      "Floor": 100,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "second",
+      "Name": "第二迷宫单元",
+      "X": 192,
+      "Floor": 104,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "third",
+      "Name": "岩柱定位庭",
+      "X": 216,
+      "Floor": 118,
+      "Radius": 5,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "rim",
+      "Name": "远端矿庭",
+      "X": 254,
+      "Floor": 122,
+      "Radius": 5,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "turn",
+      "Name": "深层折角",
+      "X": 234,
+      "Floor": 136,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "court",
+      "Name": "回声整顿庭",
+      "X": 196,
+      "Floor": 140,
+      "Radius": 5,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "deep",
+      "Name": "最后金矿庭",
+      "X": 254,
+      "Floor": 148,
+      "Radius": 5,
+      "Height": 6,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "blind-one",
+      "Name": "矿屑尽头",
+      "X": 148,
+      "Floor": 100,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "hidden-one",
+      "Name": "近邻封岩洞",
+      "X": 191,
+      "Floor": 84,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "high",
+      "Name": "上方斜洞",
+      "X": 220,
+      "Floor": 102,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": true,
+      "BuriedOre": true
+    },
+    {
+      "Id": "blind-two",
+      "Name": "旧痕盲洞",
+      "X": 169,
+      "Floor": 120,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "neighbor",
+      "Name": "深层邻洞",
+      "X": 245,
+      "Floor": 104,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "west",
+      "Name": "回程下洞",
+      "X": 157,
+      "Floor": 138,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "return",
+      "Name": "回程中洞",
+      "X": 140,
+      "Floor": 116,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "short",
+      "Name": "湿痕接点",
+      "X": 158,
+      "Floor": 104,
+      "Radius": 4,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    },
+    {
+      "Id": "blind-deep",
+      "Name": "最后侧缝",
+      "X": 172,
+      "Floor": 151,
+      "Radius": 3,
+      "Height": 5,
+      "Base": false,
+      "SurfaceOre": false,
+      "BuriedOre": true
+    }
+  ],
+  "Paths": [
+    {
+      "Id": "entry-route",
+      "From": "base/core",
+      "To": "entry",
+      "Points": [
+        107,
+        70,
+        120,
+        78,
+        132,
+        82
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "first-path",
+      "From": "entry",
+      "To": "first",
+      "Points": [
+        132,
+        82,
+        144,
+        87,
+        154,
+        86
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "second-path",
+      "From": "lower",
+      "To": "second",
+      "Points": [
+        174,
+        100,
+        182,
+        105,
+        192,
+        104
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "third-path",
+      "From": "second",
+      "To": "third",
+      "Points": [
+        192,
+        104,
+        204,
+        117,
+        216,
+        118
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "rim-path",
+      "From": "third",
+      "To": "rim",
+      "Points": [
+        216,
+        118,
+        236,
+        123,
+        254,
+        122
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "turn-path",
+      "From": "rim",
+      "To": "turn",
+      "Points": [
+        254,
+        122,
+        243,
+        136,
+        234,
+        136
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "court-path",
+      "From": "turn",
+      "To": "court",
+      "Points": [
+        234,
+        136,
+        216,
+        142,
+        196,
+        140
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "deep-path",
+      "From": "court",
+      "To": "deep",
+      "Points": [
+        196,
+        140,
+        226,
+        145,
+        254,
+        148
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "first-blind",
+      "From": "lower",
+      "To": "blind-one",
+      "Points": [
+        174,
+        100,
+        161,
+        102,
+        148,
+        100
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "hidden-first",
+      "From": "first",
+      "To": "hidden-one",
+      "Points": [
+        154,
+        86,
+        173,
+        87,
+        191,
+        84
+      ],
+      "SealX": 183
+    },
+    {
+      "Id": "high-branch",
+      "From": "third",
+      "To": "high",
+      "Points": [
+        216,
+        118,
+        220,
+        112,
+        227,
+        102,
+        220,
+        102
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "second-blind",
+      "From": "second",
+      "To": "blind-two",
+      "Points": [
+        192,
+        104,
+        180,
+        118,
+        169,
+        120
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "neighbor-seal",
+      "From": "rim",
+      "To": "neighbor",
+      "Points": [
+        254,
+        122,
+        245,
+        104
+      ],
+      "SealX": 249
+    },
+    {
+      "Id": "west-path",
+      "From": "court",
+      "To": "west",
+      "Points": [
+        196,
+        140,
+        177,
+        142,
+        157,
+        138
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "return-path",
+      "From": "west",
+      "To": "return",
+      "Points": [
+        157,
+        138,
+        140,
+        116
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "short-path",
+      "From": "return",
+      "To": "short",
+      "Points": [
+        140,
+        116,
+        150,
+        105,
+        158,
+        104
+      ],
+      "SealX": -1
+    },
+    {
+      "Id": "shortcut",
+      "From": "short",
+      "To": "lower",
+      "Points": [
+        158,
+        104,
+        174,
+        100
+      ],
+      "SealX": 165
+    },
+    {
+      "Id": "deep-blind",
+      "From": "west",
+      "To": "blind-deep",
+      "Points": [
+        157,
+        138,
+        166,
+        151,
+        172,
+        151
+      ],
+      "SealX": -1
+    }
+  ],
+  "Shafts": [
+    {
+      "Id": "new-middle-shaft",
+      "Lower": "lower",
+      "Upper": "first",
+      "X": 164,
+      "Top": 86,
+      "Bottom": 100,
+      "Side": -1
+    }
+  ],
+  "BaseOres": [
+    {
+      "Id": "vein-maze-ore-0",
+      "Kind": "iron",
+      "X": 15,
+      "Y": 15,
+      "Capacity": 3,
+      "Buried": false
+    },
+    {
+      "Id": "vein-maze-ore-1",
+      "Kind": "iron",
+      "X": 37,
+      "Y": 23,
+      "Capacity": 4,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-2",
+      "Kind": "iron",
+      "X": 38,
+      "Y": 24,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-3",
+      "Kind": "iron",
+      "X": 35,
+      "Y": 21,
+      "Capacity": 3,
+      "Buried": false
+    },
+    {
+      "Id": "vein-maze-ore-4",
+      "Kind": "iron",
+      "X": 61,
+      "Y": 29,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-5",
+      "Kind": "iron",
+      "X": 62,
+      "Y": 30,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-6",
+      "Kind": "iron",
+      "X": 73,
+      "Y": 15,
+      "Capacity": 6,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-7",
+      "Kind": "iron",
+      "X": 74,
+      "Y": 16,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-8",
+      "Kind": "iron",
+      "X": 71,
+      "Y": 13,
+      "Capacity": 3,
+      "Buried": false
+    },
+    {
+      "Id": "vein-maze-ore-9",
+      "Kind": "iron",
+      "X": 44,
+      "Y": 43,
+      "Capacity": 4,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-10",
+      "Kind": "iron",
+      "X": 45,
+      "Y": 44,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-11",
+      "Kind": "iron",
+      "X": 72,
+      "Y": 43,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-12",
+      "Kind": "iron",
+      "X": 73,
+      "Y": 44,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-13",
+      "Kind": "iron",
+      "X": 98,
+      "Y": 43,
+      "Capacity": 6,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-14",
+      "Kind": "iron",
+      "X": 99,
+      "Y": 44,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-15",
+      "Kind": "iron",
+      "X": 24,
+      "Y": 43,
+      "Capacity": 4,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-16",
+      "Kind": "iron",
+      "X": 25,
+      "Y": 44,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-17",
+      "Kind": "iron",
+      "X": 11,
+      "Y": 43,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-18",
+      "Kind": "iron",
+      "X": 12,
+      "Y": 44,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-19",
+      "Kind": "iron",
+      "X": 9,
+      "Y": 41,
+      "Capacity": 3,
+      "Buried": false
+    },
+    {
+      "Id": "vein-maze-ore-20",
+      "Kind": "gold",
+      "X": 14,
+      "Y": 57,
+      "Capacity": 6,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-21",
+      "Kind": "gold",
+      "X": 15,
+      "Y": 58,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-22",
+      "Kind": "gold",
+      "X": 78,
+      "Y": 57,
+      "Capacity": 4,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-23",
+      "Kind": "gold",
+      "X": 79,
+      "Y": 58,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-24",
+      "Kind": "gold",
+      "X": 61,
+      "Y": 57,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-25",
+      "Kind": "gold",
+      "X": 62,
+      "Y": 58,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-26",
+      "Kind": "gold",
+      "X": 90,
+      "Y": 57,
+      "Capacity": 6,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-27",
+      "Kind": "gold",
+      "X": 91,
+      "Y": 58,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-28",
+      "Kind": "iron",
+      "X": 103,
+      "Y": 29,
+      "Capacity": 4,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-29",
+      "Kind": "iron",
+      "X": 104,
+      "Y": 30,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-30",
+      "Kind": "gold",
+      "X": 121,
+      "Y": 57,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-31",
+      "Kind": "gold",
+      "X": 122,
+      "Y": 58,
+      "Capacity": 5,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-32",
+      "Kind": "gold",
+      "X": 109,
+      "Y": 71,
+      "Capacity": 6,
+      "Buried": true
+    },
+    {
+      "Id": "vein-maze-ore-33",
+      "Kind": "gold",
+      "X": 110,
+      "Y": 72,
+      "Capacity": 5,
+      "Buried": true
+    }
+  ]
+}

@@ -37,6 +37,7 @@ namespace DarkNights.Editor.Terrain
         {
             DrawFields(() =>
             {
+                Field("Config.MineMap", "关卡矿洞（空为随机洞穴）");
                 Field("Config.CaveMap.Seed", "预览／复现种子");
                 var amplitude = serialized.FindProperty("Config.CaveMap.Amplitude");
                 amplitude.doubleValue = EditorGUILayout.Slider("地表起伏", (float)amplitude.doubleValue, .3f, 1.6f);

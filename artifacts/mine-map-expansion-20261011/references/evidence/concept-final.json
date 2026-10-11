@@ -1,0 +1,216 @@
+{
+  "prototype": "mine-concept-pack-v0.4",
+  "passed": 36,
+  "checks": [
+    {
+      "map": "folded",
+      "check": "零预搭梯／中段岔口／埋矿和巢穴覆盖／重开独立状态",
+      "stats": {
+        "rooms": 16,
+        "junctions": 5,
+        "deadEnds": 5,
+        "loops": 1,
+        "surface": 5,
+        "buried": 28,
+        "nests": 2,
+        "prebuiltLadders": 0,
+        "clues": 3,
+        "sealedPassages": 1
+      }
+    },
+    {
+      "map": "folded",
+      "check": "入口到深部并原路返回，使用开局梯具／无升级",
+      "ladders": 2
+    },
+    {
+      "map": "folded",
+      "check": "深部通过不同支线返回入口，仍使用初始梯具",
+      "ladders": 3
+    },
+    {
+      "map": "folded",
+      "check": "全部步行段双向实际运动",
+      "legs": 42
+    },
+    {
+      "map": "folded",
+      "check": "upper-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "folded",
+      "check": "middle-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "folded",
+      "check": "wind-shaft 自建攀爬／跳离／回收",
+      "length": 12
+    },
+    {
+      "map": "folded",
+      "check": "high-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "folded",
+      "check": "deep-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "folded",
+      "check": "各线索有可观察落脚点／观察不重复计数",
+      "clues": 3
+    },
+    {
+      "map": "folded",
+      "check": "封岩真实可拆／拆岩不发矿／巢穴前兆与一次生成"
+    },
+    {
+      "map": "shaft-loop",
+      "check": "零预搭梯／中段岔口／埋矿和巢穴覆盖／重开独立状态",
+      "stats": {
+        "rooms": 13,
+        "junctions": 3,
+        "deadEnds": 2,
+        "loops": 2,
+        "surface": 5,
+        "buried": 24,
+        "nests": 2,
+        "prebuiltLadders": 0,
+        "clues": 4,
+        "sealedPassages": 2
+      }
+    },
+    {
+      "map": "shaft-loop",
+      "check": "入口到深部并原路返回，使用开局梯具／无升级",
+      "ladders": 2
+    },
+    {
+      "map": "shaft-loop",
+      "check": "深部通过不同支线返回入口，仍使用初始梯具",
+      "ladders": 3
+    },
+    {
+      "map": "shaft-loop",
+      "check": "全部步行段双向实际运动",
+      "legs": 38
+    },
+    {
+      "map": "shaft-loop",
+      "check": "upper-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "shaft-loop",
+      "check": "left-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "shaft-loop",
+      "check": "lower-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "shaft-loop",
+      "check": "right-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "shaft-loop",
+      "check": "hidden-return 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "shaft-loop",
+      "check": "各线索有可观察落脚点／观察不重复计数",
+      "clues": 4
+    },
+    {
+      "map": "shaft-loop",
+      "check": "封岩真实可拆／拆岩不发矿／巢穴前兆与一次生成"
+    },
+    {
+      "map": "vein-maze",
+      "check": "零预搭梯／中段岔口／埋矿和巢穴覆盖／重开独立状态",
+      "stats": {
+        "rooms": 16,
+        "junctions": 5,
+        "deadEnds": 4,
+        "loops": 2,
+        "surface": 4,
+        "buried": 30,
+        "nests": 2,
+        "prebuiltLadders": 0,
+        "clues": 4,
+        "sealedPassages": 3
+      }
+    },
+    {
+      "map": "vein-maze",
+      "check": "入口到深部并原路返回，使用开局梯具／无升级",
+      "ladders": 3
+    },
+    {
+      "map": "vein-maze",
+      "check": "深部通过不同支线返回入口，仍使用初始梯具",
+      "ladders": 4
+    },
+    {
+      "map": "vein-maze",
+      "check": "全部步行段双向实际运动",
+      "legs": 48
+    },
+    {
+      "map": "vein-maze",
+      "check": "upper-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "vein-maze",
+      "check": "middle-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "vein-maze",
+      "check": "upper-loop-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "vein-maze",
+      "check": "buried-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "vein-maze",
+      "check": "dead-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "vein-maze",
+      "check": "core-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "vein-maze",
+      "check": "deep-shaft 自建攀爬／跳离／回收",
+      "length": 14
+    },
+    {
+      "map": "vein-maze",
+      "check": "各线索有可观察落脚点／观察不重复计数",
+      "clues": 4
+    },
+    {
+      "map": "vein-maze",
+      "check": "封岩真实可拆／拆岩不发矿／巢穴前兆与一次生成"
+    },
+    {
+      "check": "地图扩展注册／重复和未知生成器拒绝",
+      "sources": 18
+    }
+  ],
+  "scope": "Actual H5 movement, ladder/excavation/clue transactions; no real browser or Unity acceptance."
+}

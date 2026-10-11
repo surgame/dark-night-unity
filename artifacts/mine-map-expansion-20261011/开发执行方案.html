@@ -1,0 +1,92 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dark Nights 矿洞地图扩展开发执行方案</title><style>*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:24px}body{margin:0;background:#f3f6f7;color:#23323b;font:15px/1.85 "Segoe UI","Microsoft YaHei",sans-serif}a{color:#176970}nav a{display:block;text-decoration:none;padding:7px 10px;border-radius:6px;font-size:13px;line-height:1.6}nav a:hover{background:#e4efef}.layout{display:grid;grid-template-columns:220px minmax(0,1fr);max-width:1500px;margin:auto}.sidebar{position:sticky;top:0;height:100vh;overflow:auto;padding:30px 20px;border-right:1px solid #d9e2e6;background:#f7f9fa}.brand{letter-spacing:.12em;color:#176970;font-size:13px;font-weight:750}.sub{font-size:12px;color:#657580;margin:10px 0 22px}.main{min-width:0;padding:30px clamp(18px,4vw,56px) 60px}.actions{display:flex;gap:16px;justify-content:space-between;align-items:center;margin-bottom:18px;font-size:12px;color:#647580}.actions button{background:white;border:1px solid #cbdadc;color:#176970;border-radius:6px;padding:7px 12px;cursor:pointer}.paper{background:white;border:1px solid #d9e2e6;border-radius:12px;padding:clamp(22px,4vw,45px);box-shadow:0 6px 25px #19334008}h1{font-size:30px;line-height:1.35;margin:0 0 22px}h2{font-size:21px;line-height:1.5;margin:38px 0 16px;padding-top:24px;border-top:1px solid #dfe6e9}h3{font-size:17px;margin:24px 0 10px}p{margin:12px 0 18px;overflow-wrap:anywhere}li{margin:8px 0}ul,ol{padding-left:25px}.table-wrap{overflow:auto;margin:18px 0 25px}table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.75}th,td{border-bottom:1px solid #dce5e8;text-align:left;vertical-align:top;padding:10px 12px;min-width:92px;overflow-wrap:anywhere}th{background:#edf4f4;color:#28525a;font-weight:650}tbody tr:nth-child(even){background:#fbfcfd}pre{overflow:auto;line-height:1.65;font-size:13px;background:#f3f6f7;border:1px solid #dce5e8;padding:17px;border-radius:6px}code{font-family:Consolas,"Microsoft YaHei",monospace}.foot{font-size:12px;color:#657780;margin-top:24px}@media(max-width:850px){.layout{display:block}.sidebar{position:static;height:auto;border-right:0;border-bottom:1px solid #d9e2e6;padding:15px}.sub{margin:6px 0 12px}nav{display:flex;gap:3px;overflow:auto}nav a{flex-shrink:0;white-space:nowrap}.main{padding:18px 12px 40px}h1{font-size:25px}.paper{padding:22px 18px}}@media print{body{background:white;font-size:11pt}.layout{display:block}.sidebar,.actions{display:none}.main,.paper{padding:0;border:0;box-shadow:none}h1{font-size:22pt}h2{font-size:16pt;break-after:avoid}h3{break-after:avoid}table{font-size:9pt}.table-wrap{overflow:visible}tr{break-inside:avoid}a{color:inherit}pre{white-space:pre-wrap}}</style></head><body><div class="layout"><aside class="sidebar"><div class="brand">DARK NIGHTS</div><div class="sub">地图扩展开发方案<br>2026年10月11日</div><nav><a href="#section-2">一 开发范围和成果目录</a>
+<a href="#section-3">二 地图扩展的尺寸与尺度</a>
+<a href="#section-4">三 五张基线地图与扩展设计</a>
+<a href="#section-10">四 关卡节奏和现场线索</a>
+<a href="#section-11">五 可扩展地图的实现路线</a>
+<a href="#section-12">六 大地图的渲染与资源约束</a>
+<a href="#section-13">七 开发切片与执行顺序</a>
+<a href="#section-14">八 验收标准和试玩记录</a>
+<a href="#section-20">九 成果保护与后续边界</a></nav></aside><main class="main"><div class="actions"><span>方案已完成　扩展实现待执行</span><button onclick="window.print()">打印或保存PDF</button></div><article class="paper"><h1 id="section-1">Dark Nights 矿洞地图扩展开发执行方案</h1>
+<p>版本 1.0，2026年10月11日。继续开发独立离线 H5 地图实验，以现有 06–10 号地图为基础制作五张扩展图。宽度和总高度分别由 132×78 格增加到 264×156 格，格子、角色、运动和手电保持现有尺度，通过增加洞段、岔路、隐藏空间和回程连接形成更完整的关卡。</p>
+<p>本轮交付开发执行方案、扩展合同和只读基线资料；扩展地图及共用代码尚待实施。先完成一张折返洞网的完整闭环，再按同一接口制作其余四张图。每张图必须既能浅入取矿，也能深入探索并撤回；地图变大不要求玩家每次走到最底部。</p>
+<h2 id="section-2">一 开发范围和成果目录</h2>
+<p>此次实验在新的薄 worktree 和专属目录内开展。入口、地图源码、测试、构建脚本、试玩记录和失败资料都留在同一目录，形成可单独复制与重建的实验包。</p>
+<div class="table-wrap"><table><thead><tr><th>项目</th><th>位置或要求</th></tr></thead><tbody><tr><td>worktree</td><td>C:/Users/Jobscn/.codex/worktrees/mine-map-expansion-plan/unity-projects</td></tr><tr><td>分支</td><td>docs-20261011-mine-map-expansion-plan</td></tr><tr><td>本次唯一成果根目录</td><td>artifacts/mine-map-expansion-20261011</td></tr><tr><td>当前方案</td><td>开发执行方案.md 和同名离线 HTML</td></tr><tr><td>地图与扩展接口</td><td>地图扩展合同.md 和同名离线 HTML</td></tr><tr><td>已固定的输入</td><td>references/h5-v0.4、references/evidence、references/玩法方向文档.html</td></tr><tr><td>计划中的开发目录</td><td>prototype/src、prototype/tools、prototype/tests</td></tr><tr><td>计划中的试玩入口</td><td>prototype/dev.html、prototype/dist/index.html</td></tr><tr><td>计划中的验收输出</td><td>evidence/批次名，包含报告、图片、失败和文件身份</td></tr><tr><td>完成状态与批次账本</td><td>STATUS.md，逐切片更新，旧失败保持原记录</td></tr></tbody></table></div>
+<p>原试玩目录仍保留在 D:/Developer/MiniGames/Dark Nights/unity-projects/experiments/mine-level-h5。本次采用复制和 SHA256 清单固定输入，不移动、覆盖或清理旧源码与证据。新 worktree 的 Git 基准提交不包含此前未提交的 H5 内容，实际原型输入身份以 <a href="references/baseline-manifest.json">基线清单</a> 为准。</p>
+<p>本轮按用户指定，将这个独立实验的文稿和开发包集中放入 artifacts；不复制 Unity 的 Library、Temp、Logs、obj、依赖缓存或 Player，不启动第二个 Editor。正式 Unity 地图、联机、存档、YYGC 与依赖锁不在本方案实施范围。原方向文档作为设计参考，其中的其他经济、怪物与合作规划不扩大本轮范围。</p>
+<h2 id="section-3">二 地图扩展的尺寸与尺度</h2>
+<p>“扩展两倍”按每个空间轴的最终尺寸为原来两倍执行。二维面积因此变为原来的四倍。新增区域必须有可达的玩法内容，不能仅增加空白边界，也不能放大旧坐标、岩台、角色或光照半径来制造地图变大的效果。</p>
+<div class="table-wrap"><table><thead><tr><th>项目</th><th>现有 H5</th><th>扩展目标</th></tr></thead><tbody><tr><td>网格宽度</td><td>132 格</td><td>264 格</td></tr><tr><td>网格总高度</td><td>78 格</td><td>156 格</td></tr><tr><td>格子数量</td><td>10,296</td><td>41,184</td></tr><tr><td>格子边长</td><td>24 px</td><td>24 px</td></tr><tr><td>世界尺寸</td><td>3,168×1,872 px</td><td>6,336×3,744 px</td></tr><tr><td>角色碰撞尺寸</td><td>16×30 px</td><td>保持</td></tr><tr><td>步行与冲刺</td><td>165／245 px/s</td><td>保持</td></tr><tr><td>跳跃初速度与重力</td><td>向上432 px/s／向下1,070 px/s²</td><td>保持</td></tr><tr><td>手电主照距</td><td>336 px，即 14 格</td><td>保持</td></tr><tr><td>单架梯长与初始梯具</td><td>2–14 格，四套</td><td>保持</td></tr><tr><td>正常游戏镜头</td><td>当前视口与跟随距离</td><td>保持，不用缩远镜头代替新增空间</td></tr></tbody></table></div>
+<p>表中的运动数值仅为现有 H5 基线，不替代正式 Unity 平衡设置。跳跃一行的 432 px/s 为向上初速度幅值，1,070 px/s² 为向下重力。</p>
+<p>原有主体优先保持原坐标与局部洞宽，旧深部出口改为进入新区域的中段接点。默认新增内容主要位于 x≥132 或 y≥78 的新边界内，并通过少量明确的接缝连接旧区。必要的接缝改动逐格登记；不整体拉伸基线。</p>
+<p>五张图都应有可达洞段进入最右侧区域 x≥240 和深层区域 floor≥138，最右落脚点建议落在252–258格，最深可达落脚点建议落在140–148格，保留边界岩层。这里的坐标是布局目标，不要求每张主路都走到最右边。横向可达跨度和从入口到最深可达点的实际落差还需分别达到自身基线的至少两倍，避免用大画布包住一条小路线。</p>
+<p>主路、可选支线或接通后的捷径应在右侧新增区和下方新增区各产生至少两个有目的的洞室。新增洞室用于分岔、矿庭、观察、回程接点或隐藏发现；不把洞室数与矿量机械乘四，也不要求行走时间恰好翻倍。</p>
+<p>M 结构全览和选图缩略图可以按画布尺寸适配完整地图；正常游戏中的格子、角色、手电和物理尺度不变。</p>
+<h2 id="section-4">三 五张基线地图与扩展设计</h2>
+<p>下表中的现有数量来自 v0.4 基线，扩展数量是首轮设计目标。洞室数量用于控制节奏，不作为填充空白的任务指标。</p>
+<div class="table-wrap"><table><thead><tr><th>基线地图</th><th>现有洞室／岔口／回环</th><th>扩展洞室目标</th><th>要保留的识别特征</th><th>新区域的主要作用</th></tr></thead><tbody><tr><td>06 裂谷竖井</td><td>9／3／0</td><td>18–22</td><td>窄缝与大裂谷交替，高处矿台，主洞徒步可往返</td><td>增加第二段裂谷、层叠侧洞与跨层回程</td></tr><tr><td>07 溶洞回环</td><td>8／3／1</td><td>18–24</td><td>弯曲主洞、岩柱上方支路，玩家搭梯接出回环</td><td>新增下层环与侧向岩腔，形成多个局部回程</td></tr><tr><td>08 折返洞网</td><td>16／5／1</td><td>30–36</td><td>先左折再深入，中段回风，高洞与断脉封岩</td><td>新增第二次折返与贯穿中深部的回程连接</td></tr><tr><td>09 环绕竖井</td><td>13／3／2</td><td>26–32</td><td>岩柱遮挡左右路线，两路深部汇合，中央暗腔</td><td>多层围绕岩柱推进，下层再分流和汇合</td></tr><tr><td>10 断脉迷宫</td><td>16／5／2</td><td>32–40</td><td>连续小岔、尽头侧洞、隔墙邻洞、挖开短路</td><td>在新中层与深层增加可辨认的局部迷宫单元</td></tr></tbody></table></div>
+<h3 id="section-5">06 裂谷竖井扩展</h3>
+<p>原主洞末端接入右侧碎岩过渡厅，再到新裂谷的观察口。主路以短坡和洞庭继续下探，保持基础装备无梯、无喷气也能原路返回。落差明显的探索支线拆成长度不超过14格的井段，井段之间有能站稳、观察和重新搭梯的偏置岩台。</p>
+<p>每个新裂谷口至少给出两个不同诱因：上方漏光提示高洞，侧壁晶脉提示可挖岩层，下方风痕提示下一处落脚点。不要把全部线索放在主路最底端。新深部通过一处可发现的侧路回接较早的洞厅，初步目标为1–2个局部回环。</p>
+<p>新增内容以拉开观察距离和层叠支线为主，不做一条连续28格的大井，也不把旧9／14／12格井长翻倍。</p>
+<h3 id="section-6">07 溶洞回环扩展</h3>
+<p>保留原上层回环，在其后加入宽窄交替的岩腔组。新主路先穿过一个偏左矿庭，再绕过右侧岩柱进入下层。新增回环分别服务于中段和深部，避免一条早期捷径立即绕过全部新内容。</p>
+<p>环路两端都要有可辨认的接点，一端给出气流、旧矿屑或漏光，另一端在经过后可以认出“这里刚才看过”。至少一个回环由玩家搭梯接通，另一个可以通过挖开薄岩接通。基岩仍限制自由挖穿。</p>
+<p>主路保持无梯往返。单次选择一条替代回程，初始四套梯具应足够；探索所有可选高洞可以回收梯子或回入口补给。</p>
+<h3 id="section-7">08 折返洞网扩展</h3>
+<p>作为第一个实施样板。旧深部矿庭作为中段整顿点，其后先向右进入新岩缝，再向左下折返到第二矿庭，之后绕行到真正的深部。沿途至少设置三处有不同选择的中段岔口，避免新增部分又成为单一路径向右下延伸。</p>
+<p>新岔口分别提供高处未见全貌的洞口、被薄岩隔开的邻洞和可以接回较早矿庭的风道。第二回程应重新利用经过的节点，使玩家能感受到自己搭的路线确实改变撤离。</p>
+<p>主路建议使用三套梯具，其中包括原主路的两套。新增主要落差由短坡、洞庭和一段可搭梯的井承担，避免每增加一层都必须多消耗梯具。另一条回程最多再占用一套。</p>
+<h3 id="section-8">09 环绕竖井扩展</h3>
+<p>保留旧岩柱左右路线和暗腔，在下层汇合处接入第二组岩柱与侧厅。左右路线可以在不同高度相互看见痕迹，但不能直接看见对面的整段出口。局部窗口只提供方向和期待，不自动揭示完整路线。</p>
+<p>新中层先分流，再在深部矿庭汇合。中途加入一个与原暗腔不同的封岩邻室，奖励观察和试挖。新回程应连回旧右侧或中段，而不是在地图底部放一个不经探索即可直达入口的传送点。</p>
+<p>主路建议三套梯具，至少一条替代回程在初始四套内完成。中央实岩保持连续，避免相邻通路合流后失去“绕过看不见的另一侧”的感受。</p>
+<h3 id="section-9">10 断脉迷宫扩展</h3>
+<p>扩展为多个短而可辨认的迷宫单元。每个单元包含一个主岔口、一条有发现价值的尽头和一处隔墙可推断的邻洞；经过两个单元后给一个容易认出的矿庭或岩柱，帮助玩家重新定位。</p>
+<p>新增分岔不能只表现为更多同高横道。组合短上坡、下井、封岩侧室和绕行出口，让支线在空间方向与诱因上有差异。外形采用偏置拱厅、斜向短坡和不同洞宽，避免规则楼层网格。</p>
+<p>主路最多需要四套同时保留的梯具。第二回程优先通过挖开的短路与已有梯子完成；如需回收再搭，必须在站稳的落脚点回收，并验证拆掉旧梯之后仍有实际路线返回入口。不能把“累计搭建不超过四架”误当成库存合同：允许回收后重复搭建，但不能凭空获得梯具。</p>
+<h2 id="section-10">四 关卡节奏和现场线索</h2>
+<p>把路线按体验分成四段，分界由地图数据定义，不继续套用全局固定的23／45格阈值。第一段尽快给矿和明确回程；第二段让玩家认出至少一处可选择的支线；第三段组合落差、遮挡和挖墙发现；第四段给更深收获与需要记住的退路。</p>
+<p>浅入仍能完成“找到表面矿—采集—带回入口”的闭环。深部的难度来自看不清的空间、相邻但未接通的洞室、梯具安排、回程选择和局部巢穴，不靠整体提速、扩大怪物数量或增加倒计时。</p>
+<p>每个主要新岔口至少有一种可以从可达落脚点观察的线索。每个隐藏房间和重要短路都记录对应的线索与真实目标。线索可以提示“可能通向另一处洞”，但不能在没有目标的地方凭空发光或给出虚假的安全保证。</p>
+<p>表面矿和墙后矿继续分开。新增区的多数矿簇藏在可挖岩层，试挖一层后逐步发现；不直接渲染墙后的矿种或巢穴。可挖局部矿袋初步维持三格深，普通基岩不可挖；进入更深位置靠路线连接，不靠把矿袋深度翻倍。</p>
+<p>隐藏巢穴仍只在覆盖格被拆除时一次揭露，保留1.8秒活动前兆和局部干扰。试采区不设必须触发的巢穴。矿庭之间留出观察与避让空间，固定巢穴数量按地形和退路配置，不按面积四倍增加。</p>
+<h2 id="section-11">五 可扩展地图的实现路线</h2>
+<p>每张扩展图独占一个定义文件，地图发现、菜单、缩略图、构建和测试从同一份登记清单加载。新增第六张扩展图时，只需添加定义及验证路线，再执行构建；不为新图修改输入、HUD、物理或手电文件。</p>
+<p>完整字段与编译顺序见 <a href="地图扩展合同.html">地图扩展合同</a>。关键实施要求如下：</p>
+<ol><li>世界尺寸、出生点、地段、房间、通路、竖井、封岩、矿袋、巢穴、线索和验证路线归地图定义。格子尺寸与现有工具规则归共用规则。</li><li>地图实例持有自己的 cols、rows、pixelWidth、pixelHeight 和 tiles。碰撞、射线、索引、相机、内容器、缩略图与测试都读对应实例；生成菜单中的另一张图不能改变正在玩的地图尺寸。</li><li>支持“只读基线段＋新增洞网段”的构造。06／07 的轮廓输入和08–10的洞网输入可以保留各自写法，最终编译成同一个地图实例；不运行两套可变的地形状态。</li><li>原图嵌入新画布时保持24像素格与原坐标。基线保护区只允许在声明的接缝改动。新增房间、出口、线索和内容 ID 采用地图内唯一命名。</li><li>竖井长度仍为2–14格，长距离下降由多段地形和落脚点组成。每次搭建、跳离、回收都经过当前实际碰撞与库存检查。</li><li>验证路线跟着地图保存，覆盖入口到新深部、原路返回和一条不同回程。可选封岩按真实挖掘打开；需要回收梯子时记录具体梯子和落脚点。</li><li>路线连通统计只是设计辅助。交付之前仍需用现有运动、跳跃、梯子和挖掘逻辑逐段验证实际通行。</li></ol>
+<div class="table-wrap"><table><thead><tr><th>现有模块</th><th>需要处理的具体问题</th><th>计划落点</th></tr></thead><tbody><tr><td>map.js</td><td>cols／rows为全局132／78；区域阈值固定</td><td>prototype/src/map-grid.js、地图实例尺寸与数据地段</td></tr><tr><td>cave-shape.js、cave-terrain.js、cave-content.js</td><td>世界索引读全局尺寸；部分房间上限固定125／72</td><td>按实例边界计算，保留跳跃与梯长约束</td></tr><tr><td>natural-terrain.js、natural-content.js</td><td>主洞遍历终点128，高洞右界129，原回环点内置</td><td>保留基线编译，扩展段与回环输入由数据声明</td></tr><tr><td>map-registry.js、source-files.mjs</td><td>已能发现每图源码，但缺少尺寸与基线接缝合同</td><td>增加定义校验和只读基线模板，加载顺序共用</td></tr><tr><td>simulation.js、ladder-kit.js、excavation.js</td><td>出生／救援与边界依赖固定世界；库存测试看累计次数</td><td>出生读地图定义，边界读实例；按库存与在场梯数验证</td></tr><tr><td>rendering.js</td><td>全世界Canvas缓存；全览按每格7像素、标签位置固定</td><td>视口分块缓存，全览与标签按当前实例适配</td></tr><tr><td>app.js、build.mjs、现有测试</td><td>UI发现已自动，构建出生点与部分断言固定</td><td>自动发现扩展图，验证定义出生点，测试参数随地图</td></tr></tbody></table></div>
+<p>本次代码全部计划落在专属目录的 prototype 内，不回写旧 experiments 或正式 Game。重用基线代码通过复制后建立来源清单；references 始终只读。</p>
+<h2 id="section-12">六 大地图的渲染与资源约束</h2>
+<p>尺寸四倍会先影响背景缓存。现有3168×1872像素单张 RGBA 缓存约22.62 MiB；直接改为6336×3744约90.49 MiB，尚未计入浏览器备份和其他画布。这个计算说明要调整缓存方式，不能据此声称当前浏览器已经测得该内存。</p>
+<p>背景按32×32格分块，按视口和少量邻块绘制，局部挖掘只标记受影响的块及相邻边缘。首轮采用最多16个常驻块的有界缓存。每块若包含四周一格边缘，画布为816×816像素，16块原始 RGBA 合计约40.64 MiB；实际开销通过后续浏览器记录。</p>
+<p>地图切换释放上一局的绘制缓存，选图缩略图直接从地形数据绘制，不提前烘焙五张大图。光照继续按336像素局部射线计算，颗粒、事件、沿途记事保持有界。</p>
+<p>优先修正尺寸、局部失效和缓存上限，不引入 WebGL、新渲染引擎、网络依赖或通用资源管理框架。小地图与大地图共用同一条绘制路径。</p>
+<h2 id="section-13">七 开发切片与执行顺序</h2>
+<p>下列状态仅反映本次方案包。S0为本轮固定资料；S1–S6均是待实施任务。每个切片先完成有限实现与静态核对，再按授权执行对应最小验证，不把旧版通过记录计入扩展版。</p>
+<div class="table-wrap"><table><thead><tr><th>切片</th><th>输入与实施工作</th><th>交付物</th><th>完成条件</th><th>当前状态</th></tr></thead><tbody><tr><td>S0 固定基线</td><td>保存当前H5源码、06–10定义、试玩入口与方向文档；记录SHA和旧验证边界</td><td>references、清单、方案和合同</td><td>快照字节与源一致；原工作区保留；新薄树无Unity缓存</td><td>本轮完成</td></tr><tr><td>S1 世界尺寸</td><td>建立按实例的尺寸与出生合同；清除125／128／72等世界上限，保留工具局部约束；全览和分块绘制适配</td><td>prototype/src共用模块、尺寸核对用例</td><td>不同尺寸实例并存不串图；原格子／运动／手电尺度一致；缓存有上限</td><td>待实施</td></tr><tr><td>S2 地图编译和验证接口</td><td>只读基线模板、扩展段、接缝、地段、ID和内容校验；完善搭梯／回收测试步骤</td><td>地图模板、构建脚本、路线核对工具</td><td>非法引用和接缝越权被拒绝；同一地形实例供物理与绘制使用；新增定义能自动接入</td><td>待实施</td></tr><tr><td>S3 折返样板</td><td>先完成08扩展图，包含新深部、连续岔口、封岩邻洞和另一回程</td><td>08-folded-expanded.js、对应有限证据</td><td>264×156真实扩展；三套主路、另一回程四套以内；浅入和深探都能交矿</td><td>待实施</td></tr><tr><td>S4 岩柱与迷宫</td><td>用同一接口制作09和10；核对中央岩柱、隔墙邻洞、回收梯具后的路线</td><td>09、10定义与各自证据</td><td>各自原路和第二回程成立；没有假分岔、无梯具软锁或不受控交叠</td><td>待实施</td></tr><tr><td>S5 自然洞型</td><td>制作06和07扩展图；保持旧主洞自然轮廓、无梯往返和局部环路</td><td>06、07定义与各自证据</td><td>主路零梯无升级可撤回；竖井多段有落脚；回环两端真实接通</td><td>待实施</td></tr><tr><td>S6 试玩包</td><td>汇总五图菜单、分文件入口、离线单文件、导出指标、操作与地图编辑说明</td><td>prototype/dev.html、dist/index.html、使用说明与汇总证据</td><td>构建可重现，源与包一致；五图各自报告完整；真实浏览器结果单独列明</td><td>待实施</td></tr></tbody></table></div>
+<p>首次开发从 S1 开始，不同时重写五张地图。S3通过之后冻结第一张扩展图的候选身份，再将数据合同用于S4和S5。地图数量增加不触发重复烘焙、重复生成旧证据或恢复正式游戏暂停玩法。</p>
+<p>每个实施批次在 evidence 下使用新的目录，保存源码身份、改动文件、命令、退出码、通过／失败项和实际完成边界。新失败保留原报告，修正后出具新的结果。STATUS.md只汇总当前状态并链接证据。</p>
+<p>开发时在 prototype 目录执行后续提供的构建和检查命令。构建器只写 prototype/dev.html、prototype/dist 和本批 evidence，不能以旧目录为默认输出，也不能运行 references 内的构建脚本。</p>
+<h2 id="section-14">八 验收标准和试玩记录</h2>
+<h3 id="section-15">尺寸与基础尺度</h3>
+<p>五张扩展图均为264×156格。地图定义、实例、碰撞索引、相机和全览使用同一尺寸；边界没有越界读写。正常游戏保留24像素格、角色碰撞、跳跃与速度、2–14格梯长和14格手电照距。生成缩略图不改变当前实例。</p>
+<p>检查基线保护区在接缝外的地形和内容保持原尺度，记录新增洞室、通路、竖井和封岩位置。真实可达区域达到本方案的右侧、深层与跨度要求；仅画布变大不能通过。</p>
+<h3 id="section-16">路线与梯具</h3>
+<p>从入口实际移动到新深部，再原路返回并交矿；另一次从入口完整下探后经第二回程返回。主路测试不购买喷气辅助，不跳过障碍，不瞬移到后续节点，不增加初始梯具。</p>
+<p>06／07主路无梯；08／09主路设计目标三套，10最多四套。第二回程使用初始四套或通过实际站稳回收复用完成。逐步记账“随身梯具＋在场自建梯”，没有购买时总量始终为四；不以累计搭建次数判断库存。额外可选高洞允许另行回收或入口补给，并记录是否补给。</p>
+<p>每个竖井分别核对上搭／下搭、攀爬、梯顶跳离、站稳回收，以及矿袋挖空后的脱离。主路完整检查不能由逐段起点安放的结果替代；单段起点核对只用于定位问题。</p>
+<h3 id="section-17">分岔与现场发现</h3>
+<p>五图每张新增至少三处有可达支路的中段岔口，至少两条真正尽头支路，至少一处有对应线索的封岩邻洞。07／08／09／10至少有一条可验证的第二回程；06新增局部绕回通路，主洞仍能徒步返回。</p>
+<p>线索具有真实目标、可观察落脚点及遮挡关系；观察不会重复计数。未挖开时不显示矿种与巢穴，挖墙不直接奖励矿，揭露后才可开采；巢穴只生成一次，保留前兆和退开空间。</p>
+<p>新增矿袋、封岩和巢穴逐格核对，尤其关注旧深部接缝、新竖井上口、坡道与拱厅交叠。邻洞看起来很近，不代表可以穿过中间基岩。</p>
+<h3 id="section-18">离线入口与性能</h3>
+<p>分文件入口直接加载普通本地脚本和CSS，单文件入口内嵌同一份源码；两者不依赖fetch、ES Module、CDN、服务器或账号。新增地图文件后重建即出现在选择器，地图数量和全览自适应。</p>
+<p>检查五图切换、重新开局、嵌套暂停、工具切换后手电、结构全览、补给、导出和局部挖掘重绘。替身DOM／Canvas检查只能证明接线与有限绘制调用，实际键鼠、画面可读性、触屏与性能由真实浏览器另行记录。</p>
+<p>记录浏览器、视口、地图候选SHA、进入新区域和挖掘时的帧耗时、常驻缓存数与内存。任何超过缓存上限的场景都要查明并修正。没有实测之前不把上面的理论RGBA估算写成实测通过。</p>
+<h3 id="section-19">本局记录与比较方法</h3>
+<p>在现有事件基础上增加：基线身份、扩展版地图ID／版本、到达地段、最深深度、最右可达位置、新岔口访问、封岩打通、观察线索、梯具库存／回收、选用回程和各阶段用时。导出只写用户主动保存的试玩文件，不访问正式游戏存档。</p>
+<p>第一轮先盲玩08，再比较09和10的中段选择，最后比较06和07的自然洞型。重点反馈“哪个岔口让人想探索”“线索是否看得见但看不透”“何时想撤退”“回程是否因挖墙或搭梯而改变”，不只比较走到底的时间。</p>
+<h2 id="section-20">九 成果保护与后续边界</h2>
+<p>artifacts默认被仓库忽略，本包按用户本轮指定保存在新worktree内。普通Git状态为空不代表没有本地成果；本轮没有提交、推送、合并或归档worktree。后续checkpoint应记录被忽略成果的独立保全方式与校验清单，不把仅含Git快照的归档当作已保存整个忽略目录。</p>
+<p>当前完成的是方案和基线包。扩展地图、尺寸改造、渲染改造及本节验收尚未实施。旧v0.4的路线和接线结果仅用于理解起点，不能证明扩展版通过。将来若接入正式Unity，另按地图、照明、联机和存档合同规划游戏侧切片，不由这个H5方案直接修改YYGC或恢复其他暂停玩法。</p></article><p class="foot">本地离线文档。五张扩展图按本方案逐切片实施；旧试玩和旧证据以各自版本为限。</p></main></div></body></html>

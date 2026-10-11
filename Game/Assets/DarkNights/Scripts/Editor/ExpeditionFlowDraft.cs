@@ -69,6 +69,7 @@ namespace DarkNights.Editor
                     PreparationTimeoutSeconds = source.PreparationTimeoutSeconds,
                     ArrivalTimeoutSeconds = source.ArrivalTimeoutSeconds,
                     CaveMap = source.CaveMap == null ? null : Clone(source.CaveMap),
+                    MineMap = source.MineMap,
                     Planets = source.Planets?.Select(planet => planet == null ? null : Clone(planet)).ToList(),
                     ModifierSchemaVersion = 1,
                     Modifiers = source.CopyModifiers()

@@ -1,0 +1,151 @@
+{
+  "prototype": "mine-concept-pack-v0.4",
+  "initialization": "passed",
+  "layoutSwitch": "passed",
+  "nestedPauseAndHelp": "passed",
+  "blueprintAndSpoilers": "passed",
+  "ladderToolAndLamp": "passed",
+  "ladderSupplyAndCap": "passed",
+  "reportLadderFields": "passed",
+  "conceptMapCluesAndExport": "passed",
+  "conceptMaps": 3,
+  "dynamicTerrainDrawingCalls": "passed",
+  "boundedJournal": "passed",
+  "drawingCalls": 428604,
+  "layouts": [
+    {
+      "id": "baseline",
+      "title": "原版下探洞网"
+    },
+    {
+      "id": "forks",
+      "title": "分层岔洞",
+      "stats": {
+        "rooms": 15,
+        "junctions": 6,
+        "deadEnds": 6,
+        "loops": 1,
+        "surface": 4,
+        "buried": 32,
+        "nests": 3
+      }
+    },
+    {
+      "id": "maze",
+      "title": "折返迷宫",
+      "stats": {
+        "rooms": 20,
+        "junctions": 9,
+        "deadEnds": 6,
+        "loops": 4,
+        "surface": 6,
+        "buried": 41,
+        "nests": 3
+      }
+    },
+    {
+      "id": "hive",
+      "title": "蜂巢洞网",
+      "stats": {
+        "rooms": 20,
+        "junctions": 12,
+        "deadEnds": 2,
+        "loops": 7,
+        "surface": 6,
+        "buried": 40,
+        "nests": 1
+      }
+    },
+    {
+      "id": "erosion",
+      "title": "侵蚀长廊",
+      "stats": {
+        "rooms": 8,
+        "junctions": 2,
+        "deadEnds": 2,
+        "loops": 0,
+        "surface": 8,
+        "buried": 14,
+        "nests": 2,
+        "prebuiltLadders": 0
+      }
+    },
+    {
+      "id": "rift",
+      "title": "裂谷竖井",
+      "stats": {
+        "rooms": 9,
+        "junctions": 3,
+        "deadEnds": 3,
+        "loops": 0,
+        "surface": 9,
+        "buried": 15,
+        "nests": 2,
+        "prebuiltLadders": 0
+      }
+    },
+    {
+      "id": "karst",
+      "title": "溶洞回环",
+      "stats": {
+        "rooms": 8,
+        "junctions": 3,
+        "deadEnds": 1,
+        "loops": 1,
+        "surface": 8,
+        "buried": 14,
+        "nests": 2,
+        "prebuiltLadders": 0
+      }
+    },
+    {
+      "id": "folded",
+      "title": "折返洞网",
+      "stats": {
+        "rooms": 16,
+        "junctions": 5,
+        "deadEnds": 5,
+        "loops": 1,
+        "surface": 5,
+        "buried": 28,
+        "nests": 2,
+        "prebuiltLadders": 0,
+        "clues": 3,
+        "sealedPassages": 1
+      }
+    },
+    {
+      "id": "shaft-loop",
+      "title": "环绕竖井",
+      "stats": {
+        "rooms": 13,
+        "junctions": 3,
+        "deadEnds": 2,
+        "loops": 2,
+        "surface": 5,
+        "buried": 24,
+        "nests": 2,
+        "prebuiltLadders": 0,
+        "clues": 4,
+        "sealedPassages": 2
+      }
+    },
+    {
+      "id": "vein-maze",
+      "title": "断脉迷宫",
+      "stats": {
+        "rooms": 16,
+        "junctions": 5,
+        "deadEnds": 4,
+        "loops": 2,
+        "surface": 4,
+        "buried": 30,
+        "nests": 2,
+        "prebuiltLadders": 0,
+        "clues": 4,
+        "sealedPassages": 3
+      }
+    }
+  ],
+  "scope": "Mock DOM/Canvas wiring; no browser screenshots or real input/visual acceptance."
+}
