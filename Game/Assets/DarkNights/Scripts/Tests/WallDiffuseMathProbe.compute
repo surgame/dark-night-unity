@@ -1,0 +1,10 @@
+#pragma kernel Probe
+#include "Assets/DarkNights/Res/Shared/Lighting/WallDiffuseCompose.hlsl"
+StructuredBuffer<float4> _Inputs;
+RWStructuredBuffer<float4> _Results;
+[numthreads(1,1,1)]
+void Probe(uint3 id:SV_DispatchThreadID)
+{
+    float4 a=_Inputs[id.x*2], b=_Inputs[id.x*2+1];
+    _Results[id.x]=float4(DNIntegrateLinear(a.x,a.y,a.z,a.w,b.x,b.y),DNPositiveExcess(b.z,b.w),0,0);
+}

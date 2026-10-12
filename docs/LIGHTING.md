@@ -48,6 +48,30 @@ PrivateField的环境底光、定向直射、近身散光和有限反射分开�
 
 原近身补光2.2格／0.55转入指定对象补光，环境近身散光默认0，避免重复计入光场。每精灵最多合成4个局部补光贡献，保留其他材质属性；关闭或退休清理贡献，MaterialPropertyBlock首次主线程合成时创建。
 
+## 墙段连续漫反射
+
+PrivateField 的 `BounceMode` 为互斥的 `LegacyPoint=0`、`Off=1`、`Continuous=2`。缺少新字段的旧资产保持 LegacyPoint；旧 `Bounce` 仅用于单点模式。Off 不捕获新边界、不上传候选、不执行 Profile 或返光遮挡；Continuous 的零增益／零深度也走直接光路径。URP 2D 保留原行为，调试面板明确提示能力差异。
+
+| 连续模式参数 | 首版默认值 | 合同 |
+| --- | --- | --- |
+| DiffuseGain | 1.0 | 乘同灯真实入射；Intensity=0 不产生新增返光 |
+| DiffuseNearDistance / DiffuseFarDistance | 1.5 / 6.0 格 | 以入射质量加权的真实灯口距离计算，远端必须大于近端 |
+| DiffuseMaxReach | 3.2 格 | 法向深度乘平滑距离门控 |
+| DiffuseLateralSpread | 0.65 | 沿墙扩展随受光长度、离墙距离变化 |
+| DiffuseVisibilityProbes | 2，最多4 | 仅近似可见性，不参与亮度 profile 或无遮挡光形 |
+
+Entry 注入纯 `LightBoundaryBuilder`。冻结格经 `TerrainShapeGeometry` 提取整格、12 种坡面／天花板的真实外露边，仅保留朝向已知空气的边；共线同向连续边在建八格空间索引前合并，门洞／转角分段。源实例、源退休标志、缓存生命周期／代次、加载区域和 GeometryRevision 共同约束后台安装；移动和转灯不重新捕获地图。整图工作台仍仅冻结相机附近至多128×128格，正常局部流沿用已加载区域。
+
+同源地图更新时暂留旧边界并后台重算；每帧 Profile 使用当前 GPU 格再次验证墙内／空气侧和入射遮挡，挖掉或未知的旧边立即失去照度，未变化的边保持可用。换源立即撤除缓存；世界 epoch 变化和后端切换退休旧光场，迟到任务不安装。无需改变地图同步协议或恢复业务状态。
+
+每灯最多64个空间候选，先按真实圆形照距和有限灯口锥束裁剪长墙，再由实际入射照度积分选最多两段物理墙面。每段33个节点、32个线性区间，投影阴影保留零照度区。新反光路径使用有界格 DDA 与格内坡形线段解析相交，遇到未知格或中途岩体拒绝。容量溢出按长度／距离的保守质量排序保留，丢弃数独立记录。
+
+局部亮度由线性 profile 乘三角核的精确区间积分产生；未被局部支持覆盖时为零。按同灯直射与近身贡献 `D` 计算平滑正余量，再对两墙段作有界、交换对称融合，最终一次乘同灯 Linear 色。返光不写方向 moment，Relief 只按直接光的亮度占比作用；墙内／高亮上限采用统一 RGB 缩放。低分辨率重建仅合成同侧且短路径无遮挡的样本，薄坡角不依赖中点采样。
+
+新字段全部进入场景临时草稿、白名单保存与临时 Undo/Redo。显式迁移入口 `Dark Nights → Tools → 启用灰松谷连续墙面漫反射` 只改 PinewatchLighting 的模式，保留 GUID、其他作者值并写迁移前备份；导入和启动不自动迁移。回退显式设为 LegacyPoint 或 Off。
+
+有限验收入口为 `WallDiffuseAcceptance.Start(新的批次标识)`，需空闲单一 Editor、内存门控和独立产物目录。A0 使用保留的仓库旧 Shader；A1 为开发专用四区间常量 profile，B 为32区间连续 profile，Off 不运行新准备。GPU CustomSampler 分别记录 Profile、Select、积分合成与照明总成本；查询计数单独采样，避免原子计数污染性能值。CPU 记录冻结、worker、候选准备、上传和提交；分配使用带已知分配正向自检的 Unity GC.Alloc 记录器，事件为零才记0字节，有事件时保留事件数而不伪造字节。Mono 的 GetAllocatedBytesForCurrentThread 在本环境返回无效零值，不作通过证据。冷资源帧、地形／区域失效的重建分配与无失效稳态分开。实际结果、失败及尚未覆盖的前台／动态矩阵见 DEVELOPMENT 和本批证据，不从本合同推导验收通过。
+
 ## 后端合同与切换
 
 EnvironmentLighting读取关卡 SceneLightingProfile 并管理后端生命周期；IEnvironmentLightBackend消费相机、已加载地形和同帧LightEmitterData。Core纯计算由Entry通过有限委托注入View，照明后端不访问权威业务状态。

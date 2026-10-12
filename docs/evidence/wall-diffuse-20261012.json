@@ -1,0 +1,653 @@
+{
+  "date": "2026-10-12",
+  "baseline": "0c3aa7723194d3b35cf98dd3c4a4f2f9b9a98c1c",
+  "branch": "ft-20261012-wall-diffuse-light",
+  "unity": "6000.4.9f1",
+  "gpu": "NVIDIA GeForce RTX 5060 Ti",
+  "api": "Direct3D12",
+  "implementation": "Complete; Pinewatch explicit Continuous migration",
+  "unity_tests": {
+    "total": 26,
+    "passed": 26,
+    "failed": 0,
+    "skipped": 0,
+    "inconclusive": 0
+  },
+  "implementation_checkpoint": "95eebb7",
+  "static_compile": [
+    {
+      "name": "DarkNights.Core",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "name": "DarkNights.Runtime",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "name": "DarkNights.View",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 1
+    },
+    {
+      "name": "DarkNights.Entry",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 1
+    },
+    {
+      "name": "DarkNights.Editor",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 9
+    },
+    {
+      "name": "DarkNights.Tests",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 7
+    },
+    {
+      "name": "architecture",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 0
+    }
+  ],
+  "materials": {
+    "passed": true,
+    "scope": "Actual Unity Shader compiler, private/URP variants and normals passes; no game Play",
+    "shaders": [
+      {
+        "path": "Assets/DarkNights/Res/Shared/Lighting/CampSprite.shader",
+        "passes": 2,
+        "errors": []
+      },
+      {
+        "path": "Assets/DarkNights/Res/Art/Custom/CaveContourStatic/CaveStrata.shader",
+        "passes": 2,
+        "errors": []
+      },
+      {
+        "path": "Assets/DarkNights/Res/Art/Custom/CaveEntranceLayers/CaveBackgroundLayer.shader",
+        "passes": 2,
+        "errors": []
+      },
+      {
+        "path": "Assets/DarkNights/Res/Art/Custom/CaveExploration/CavePixelRock.shader",
+        "passes": 2,
+        "errors": []
+      }
+    ]
+  },
+  "steady": {
+    "complete": true,
+    "error": null,
+    "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\wall-diffuse-20261012\\acceptance-coherent\\result.json",
+    "samples": 1152,
+    "groups": [
+      {
+        "lights": 1,
+        "motion": "rotate",
+        "paired_gpu_delta_p95_ms": {
+          "A0": 0.304512,
+          "A1": 0.003328,
+          "Off": 0.343936
+        },
+        "prepare_p95_ms": 0.0246,
+        "gc_method": "Unity GC.Alloc, validated positive control",
+        "gc_events_max": 0,
+        "gpu_valid": true
+      },
+      {
+        "lights": 1,
+        "motion": "static",
+        "paired_gpu_delta_p95_ms": {
+          "A0": 0.25216,
+          "A1": 0.003968,
+          "Off": 0.283904
+        },
+        "prepare_p95_ms": 0.0274,
+        "gc_method": "Unity GC.Alloc, validated positive control",
+        "gc_events_max": 0,
+        "gpu_valid": true
+      },
+      {
+        "lights": 2,
+        "motion": "rotate",
+        "paired_gpu_delta_p95_ms": {
+          "A0": 0.269184,
+          "A1": 0.008192,
+          "Off": 0.346624
+        },
+        "prepare_p95_ms": 0.0285,
+        "gc_method": "Unity GC.Alloc, validated positive control",
+        "gc_events_max": 0,
+        "gpu_valid": true
+      },
+      {
+        "lights": 2,
+        "motion": "static",
+        "paired_gpu_delta_p95_ms": {
+          "A0": 0.221568,
+          "A1": 0.00768,
+          "Off": 0.287616
+        },
+        "prepare_p95_ms": 0.0295,
+        "gc_method": "Unity GC.Alloc, validated positive control",
+        "gc_events_max": 0,
+        "gpu_valid": true
+      },
+      {
+        "lights": 4,
+        "motion": "rotate",
+        "paired_gpu_delta_p95_ms": {
+          "A0": 0.234624,
+          "A1": 0.01216,
+          "Off": 0.36352
+        },
+        "prepare_p95_ms": 0.0356,
+        "gc_method": "Unity GC.Alloc, validated positive control",
+        "gc_events_max": 0,
+        "gpu_valid": true
+      },
+      {
+        "lights": 4,
+        "motion": "static",
+        "paired_gpu_delta_p95_ms": {
+          "A0": 0.179456,
+          "A1": 0.016768,
+          "Off": 0.297856
+        },
+        "prepare_p95_ms": 0.0347,
+        "gc_method": "Unity GC.Alloc, validated positive control",
+        "gc_events_max": 0,
+        "gpu_valid": true
+      },
+      {
+        "lights": 16,
+        "motion": "rotate",
+        "paired_gpu_delta_p95_ms": {
+          "A0": -0.156544,
+          "A1": 0.040192,
+          "Off": -0.084096
+        },
+        "prepare_p95_ms": 0.076,
+        "gc_method": "Unity GC.Alloc, validated positive control",
+        "gc_events_max": 0,
+        "gpu_valid": true
+      },
+      {
+        "lights": 16,
+        "motion": "static",
+        "paired_gpu_delta_p95_ms": {
+          "A0": -0.138112,
+          "A1": 0.018944,
+          "Off": 0.065152
+        },
+        "prepare_p95_ms": 0.0726,
+        "gc_method": "Unity GC.Alloc, validated positive control",
+        "gc_events_max": 0,
+        "gpu_valid": true
+      }
+    ],
+    "cold_resource_frames": [
+      {
+        "map": "rift-expanded",
+        "coldResourceFrame": 0,
+        "cpuIncludingCameraMs": 7.0271,
+        "gcEvents": 157,
+        "gpuNs": 0,
+        "freezeMs": 0.0387,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "rift-expanded",
+        "coldResourceFrame": 1,
+        "cpuIncludingCameraMs": 0.3912,
+        "gcEvents": 35,
+        "gpuNs": 0,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "rift-expanded",
+        "coldResourceFrame": 2,
+        "cpuIncludingCameraMs": 1.4159,
+        "gcEvents": 36,
+        "gpuNs": 180992,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "rift-expanded",
+        "coldResourceFrame": 3,
+        "cpuIncludingCameraMs": 0.3255,
+        "gcEvents": 35,
+        "gpuNs": 69888,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "karst-expanded",
+        "coldResourceFrame": 0,
+        "cpuIncludingCameraMs": 1.8372,
+        "gcEvents": 80,
+        "gpuNs": 0,
+        "freezeMs": 0.0326,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "karst-expanded",
+        "coldResourceFrame": 1,
+        "cpuIncludingCameraMs": 0.3153,
+        "gcEvents": 35,
+        "gpuNs": 0,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "karst-expanded",
+        "coldResourceFrame": 2,
+        "cpuIncludingCameraMs": 0.3031,
+        "gcEvents": 35,
+        "gpuNs": 68864,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "karst-expanded",
+        "coldResourceFrame": 3,
+        "cpuIncludingCameraMs": 0.3093,
+        "gcEvents": 36,
+        "gpuNs": 62464,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "folded-expanded",
+        "coldResourceFrame": 0,
+        "cpuIncludingCameraMs": 2.2713,
+        "gcEvents": 80,
+        "gpuNs": 0,
+        "freezeMs": 0.0546,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "folded-expanded",
+        "coldResourceFrame": 1,
+        "cpuIncludingCameraMs": 0.3416,
+        "gcEvents": 35,
+        "gpuNs": 0,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "folded-expanded",
+        "coldResourceFrame": 2,
+        "cpuIncludingCameraMs": 0.3074,
+        "gcEvents": 35,
+        "gpuNs": 48896,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "folded-expanded",
+        "coldResourceFrame": 3,
+        "cpuIncludingCameraMs": 0.2811,
+        "gcEvents": 35,
+        "gpuNs": 710144,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "shaft-loop-expanded",
+        "coldResourceFrame": 0,
+        "cpuIncludingCameraMs": 1.6412,
+        "gcEvents": 80,
+        "gpuNs": 0,
+        "freezeMs": 0.0315,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "shaft-loop-expanded",
+        "coldResourceFrame": 1,
+        "cpuIncludingCameraMs": 0.3525,
+        "gcEvents": 35,
+        "gpuNs": 0,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "shaft-loop-expanded",
+        "coldResourceFrame": 2,
+        "cpuIncludingCameraMs": 0.3048,
+        "gcEvents": 35,
+        "gpuNs": 46848,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "shaft-loop-expanded",
+        "coldResourceFrame": 3,
+        "cpuIncludingCameraMs": 0.3147,
+        "gcEvents": 36,
+        "gpuNs": 44544,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "vein-maze-expanded",
+        "coldResourceFrame": 0,
+        "cpuIncludingCameraMs": 1.9674,
+        "gcEvents": 80,
+        "gpuNs": 0,
+        "freezeMs": 0.0323,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "vein-maze-expanded",
+        "coldResourceFrame": 1,
+        "cpuIncludingCameraMs": 0.4035,
+        "gcEvents": 35,
+        "gpuNs": 0,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "vein-maze-expanded",
+        "coldResourceFrame": 2,
+        "cpuIncludingCameraMs": 0.3542,
+        "gcEvents": 35,
+        "gpuNs": 50176,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "vein-maze-expanded",
+        "coldResourceFrame": 3,
+        "cpuIncludingCameraMs": 0.3433,
+        "gcEvents": 36,
+        "gpuNs": 153088,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      }
+    ]
+  },
+  "dynamic": {
+    "complete": false,
+    "error": "System.InvalidOperationException: 没有取得本次调度的有效 GPU 回执。\r\n  at DarkNights.Editor.Lighting.WallDiffuseAcceptance+<Run>d__22.MoveNext () [0x00e59] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\WallDiffuseAcceptance.cs:189 \r\n  at DarkNights.Editor.Lighting.WallDiffuseAcceptance.Tick () [0x0002d] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\WallDiffuseAcceptance.cs:67 ",
+    "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\wall-diffuse-20261012\\acceptance-dynamic-delivery\\result.json",
+    "samples": 18,
+    "groups": [],
+    "cold_resource_frames": [
+      {
+        "map": "folded-expanded",
+        "coldResourceFrame": 0,
+        "cpuIncludingCameraMs": 6.9126,
+        "gcEvents": 157,
+        "gpuNs": 0,
+        "freezeMs": 0.0387,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "folded-expanded",
+        "coldResourceFrame": 1,
+        "cpuIncludingCameraMs": 0.3424,
+        "gcEvents": 35,
+        "gpuNs": 0,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "folded-expanded",
+        "coldResourceFrame": 2,
+        "cpuIncludingCameraMs": 1.3388,
+        "gcEvents": 36,
+        "gpuNs": 152320,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      },
+      {
+        "map": "folded-expanded",
+        "coldResourceFrame": 3,
+        "cpuIncludingCameraMs": 0.292,
+        "gcEvents": 35,
+        "gpuNs": 72192,
+        "freezeMs": 0.0,
+        "scope": "Fresh resource/cache; Shader compiler already warm"
+      }
+    ]
+  },
+  "scope": "Actual Editor GPU, isolated terrain and Bootstrap; no Player or foreground performance signoff",
+  "scene_profile_guid": "3a6e771a82d12b2429a3d3ea9d34b641",
+  "new_gpu_buffer_bytes": 222860,
+  "runtime": [
+    {
+      "ready": false,
+      "hosting": false,
+      "active": 0.0,
+      "lightRoots": 0,
+      "presentationExists": true,
+      "retired": true
+    },
+    {
+      "feature": true,
+      "count": 8,
+      "values": [
+        {
+          "cpuFrameTime": 4.2737,
+          "gpuFrameTime": 0.15872,
+          "cpuMainThreadFrameTime": 2.087,
+          "cpuRenderThreadFrameTime": 0.5568
+        },
+        {
+          "cpuFrameTime": 4.0562,
+          "gpuFrameTime": 0.15872,
+          "cpuMainThreadFrameTime": 1.9446,
+          "cpuRenderThreadFrameTime": 0.5338
+        },
+        {
+          "cpuFrameTime": 4.5957,
+          "gpuFrameTime": 0.159232,
+          "cpuMainThreadFrameTime": 1.9725,
+          "cpuRenderThreadFrameTime": 0.5996
+        },
+        {
+          "cpuFrameTime": 4.5288,
+          "gpuFrameTime": 0.156416,
+          "cpuMainThreadFrameTime": 2.1241,
+          "cpuRenderThreadFrameTime": 0.5444
+        },
+        {
+          "cpuFrameTime": 4.2168,
+          "gpuFrameTime": 0.16,
+          "cpuMainThreadFrameTime": 2.0867,
+          "cpuRenderThreadFrameTime": 0.5781
+        },
+        {
+          "cpuFrameTime": 4.2732,
+          "gpuFrameTime": 0.16,
+          "cpuMainThreadFrameTime": 2.1417,
+          "cpuRenderThreadFrameTime": 0.4682
+        },
+        {
+          "cpuFrameTime": 4.2652,
+          "gpuFrameTime": 0.158976,
+          "cpuMainThreadFrameTime": 2.1038,
+          "cpuRenderThreadFrameTime": 0.5148
+        },
+        {
+          "cpuFrameTime": 4.2271,
+          "gpuFrameTime": 0.157696,
+          "cpuMainThreadFrameTime": 2.0557,
+          "cpuRenderThreadFrameTime": 0.5034
+        }
+      ]
+    },
+    {
+      "utc": "2026-10-12T12:34:56.9191607Z",
+      "ready": true,
+      "hosting": true,
+      "sources": 2,
+      "epoch": 1,
+      "backend": "ExplorationLightField",
+      "settings": "{\"Backend\":0,\"Ambient\":0.10000000149011612,\"WallDepth\":0.375,\"WallStrength\":0.6499999761581421,\"Bounce\":0.11999999731779099,\"Relief\":0.2199999988079071,\"BounceMode\":2,\"DiffuseGain\":1.0,\"DiffuseNearDistance\":1.5,\"DiffuseFarDistance\":6.0,\"DiffuseMaxReach\":3.200000047683716,\"DiffuseLateralSpread\":0.6499999761581421,\"DiffuseVisibilityProbes\":2}",
+      "failed": false,
+      "buildCount": 1,
+      "candidates": 1,
+      "bufferBytes": 222860,
+      "workerMs": 8.7864,
+      "sourceRevision": 25,
+      "cameraPosition": [
+        5.113333,
+        0.206133336,
+        -10.0
+      ]
+    },
+    {
+      "utc": "2026-10-12T12:37:10.7794695Z",
+      "ready": true,
+      "hosting": true,
+      "sources": 2,
+      "epoch": 1,
+      "backend": "ExplorationLightField",
+      "settings": "{\"Backend\":0,\"Ambient\":0.10000000149011612,\"WallDepth\":0.375,\"WallStrength\":0.6499999761581421,\"Bounce\":0.11999999731779099,\"Relief\":0.2199999988079071,\"BounceMode\":2,\"DiffuseGain\":1.0,\"DiffuseNearDistance\":1.5,\"DiffuseFarDistance\":6.0,\"DiffuseMaxReach\":3.200000047683716,\"DiffuseLateralSpread\":0.6499999761581421,\"DiffuseVisibilityProbes\":2}",
+      "failed": false,
+      "buildCount": 1,
+      "candidates": 1,
+      "bufferBytes": 222860,
+      "workerMs": 6.6134,
+      "sourceRevision": 25,
+      "cameraPosition": [
+        5.113333,
+        0.206133336,
+        -10.0
+      ]
+    },
+    {
+      "utc": "2026-10-12T12:40:28.9310849Z",
+      "ready": true,
+      "hosting": true,
+      "sources": 2,
+      "epoch": 1,
+      "backend": "ExplorationLightField",
+      "settings": "{\"Backend\":0,\"Ambient\":0.10000000149011612,\"WallDepth\":0.375,\"WallStrength\":0.6499999761581421,\"Bounce\":0.11999999731779099,\"Relief\":0.2199999988079071,\"BounceMode\":2,\"DiffuseGain\":1.0,\"DiffuseNearDistance\":1.5,\"DiffuseFarDistance\":6.0,\"DiffuseMaxReach\":3.200000047683716,\"DiffuseLateralSpread\":0.6499999761581421,\"DiffuseVisibilityProbes\":2}",
+      "failed": false,
+      "buildCount": 1,
+      "candidates": 1,
+      "bufferBytes": 222860,
+      "workerMs": 6.0464,
+      "sourceRevision": 25,
+      "cameraPosition": [
+        5.113333,
+        0.206133336,
+        -10.0
+      ]
+    },
+    {
+      "utc": "2026-10-12T12:35:49.6337469Z",
+      "ready": true,
+      "hosting": true,
+      "sources": 2,
+      "epoch": 1,
+      "backend": "UrpLightBackend",
+      "settings": "{\"Backend\":1,\"Ambient\":0.10000000149011612,\"WallDepth\":0.375,\"WallStrength\":0.6499999761581421,\"Bounce\":0.11999999731779099,\"Relief\":0.2199999988079071,\"BounceMode\":2,\"DiffuseGain\":1.0,\"DiffuseNearDistance\":1.5,\"DiffuseFarDistance\":6.0,\"DiffuseMaxReach\":3.200000047683716,\"DiffuseLateralSpread\":0.6499999761581421,\"DiffuseVisibilityProbes\":2}",
+      "failed": false,
+      "buildCount": null,
+      "candidates": null,
+      "bufferBytes": null,
+      "workerMs": null,
+      "sourceRevision": 25,
+      "cameraPosition": [
+        5.113333,
+        0.206133336,
+        -10.0
+      ]
+    }
+  ],
+  "failed_evidence_retained": [
+    "shader-d1-failed.json",
+    "tests-d1-failed.json",
+    "tests-d2.json",
+    "tests-d4.json",
+    "acceptance-d1",
+    "acceptance-d2",
+    "material-probe",
+    "acceptance-gc",
+    "acceptance-final",
+    "acceptance-fenced",
+    "acceptance-dynamic-fenced",
+    "acceptance-dynamic-coherent",
+    "acceptance-dynamic-delivery"
+  ],
+  "pending": [
+    "Foreground game performance and full-game visual judgment",
+    "Dynamic paired GPU timing: valid receipt unavailable on some dispatches despite bounded wait; do not sign off budgets",
+    "Independent Player/remote machine",
+    "Pointer gesture and save/cancel UI interactions",
+    "Allocations during geometry/region cache rebuild; zero-GC budget only verified in steady state",
+    "Cold Shader compilation timing; resource cold frames are recorded separately"
+  ],
+  "protocol_save_dependency_changes": false,
+  "source_hashes": {
+    "Game/Assets/DarkNights/Res/Shared/Lighting/CampSprite.shader": "c550805fe151b818e2a2c79d13717cf825e58bbf73e3133750801f34ae7c23c8",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.compute": "578caddbd30ab169f58d46cf1cb5f1e07208743634ebe77e8181b2c3cb611c8c",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.hlsl": "2df13d902d89c20a33d891f62ace079995235e6ec46827d6424ee58b08ac1dd3",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/Profiles/PinewatchLighting.asset": "ab7c035f24ec7f0af21b17e0e25565f58c936d1c52cb0d0abcacbd1cab6502aa",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseCompose.hlsl": "c60a8fb5167a7cdedf8f32f511363cb88c331c4fd0b16409cdde2f60ab6f13b2",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseCompose.hlsl.meta": "416030004f455fa27781364b64e41f0d55f6797a8b7acf15e6fce07e1086d287",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffusePrepare.hlsl": "a703d8424ed646cedd7970f0bc58de4cd15a2243ca91cb34629719c7ffb66eec",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffusePrepare.hlsl.meta": "f392e1dccc3fdabf575e1b37a866623a358973c1452a91c64a08750de59ef854",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseProfile.hlsl": "a9f025e1b95ea3b6e971d9e7c411af78f36fae19cf67c7a87de681ea4f2ba483",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseProfile.hlsl.meta": "857416cae1dcb868f94e3be45efafe942cd5c74c6b2fc0b02db2611873735d72",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseVisibility.hlsl": "287a12ed8315c1f1535504af046ff07bdc20a25e4ddfeb9a27cb1b0c3c0b6433",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseVisibility.hlsl.meta": "5ff7cc2ecf89ef6abfd6771b29fd74415d69c61ddf7e94a35e9d62ed10cf73ea",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Lighting/LightBoundaryBuilder.cs": "759023e124c51aa8970b045fbe477fd6f4b4e732eb4425c559019062c70efec9",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Lighting/LightBoundaryBuilder.cs.meta": "fe1960f3492c8136a8368725ae8de3168a21ff13e8554be777fc75c887c8f6d9",
+    "Game/Assets/DarkNights/Scripts/Core/ViewData/LightBoundarySnapshot.cs": "98eb8dbd388e67e2d193acf8f46057393165c31ddb3ca65d2d6d608a396c4899",
+    "Game/Assets/DarkNights/Scripts/Core/ViewData/LightBoundarySnapshot.cs.meta": "889c31cc3843803c463151f0743b1fdc1a83b4d8db88c55cfd262eaef16d794f",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugSave.cs": "24ae602c494117678166ef3113383fcbd159cdf605dec3fe1e23b70b401cb198",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/SceneLightingPanel.cs": "4688b84dd3bc32ee3662748586a8aa6baf59f769b0d122441dfaefde350588d9",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/WallDiffuseAcceptance.cs": "219a513639497d9ea1d2d1ad9bdb4831081dd39cd061de63f52e49aa9037ff62",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/WallDiffuseAcceptance.cs.meta": "74e10acd3980039195b9c090e64117551c36880f48298f39e6852350706236e2",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/WallDiffuseMigration.cs": "42bd5bdd5185a5a5e95499093203bcc42bd51d5461564b90d3f018ebf50968e3",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/WallDiffuseMigration.cs.meta": "000cecc8f89fed1af18d79247990aca3c2fa8f6b22f33f5f536ac9694b815610",
+    "Game/Assets/DarkNights/Scripts/Entry/HeroLightPresentation.cs": "325b66a3b37dfd57c062c9aa1e843780c6b0b9a124f060e3b1fb085b2030b26a",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseCacheTests.cs": "82cc282e926b89fe998243f907b0b8a0d5c515a4c9f4f14bfd6b1e21f01e356f",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseCacheTests.cs.meta": "d12c50f0a4b868c39c0d3d699deaa784096f3c943d4b677284a2080a00b556c6",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseGeometryTests.cs": "1c8018405764dddf3f2bd003f01a74ac258455f4a1eab1dbe233b5b3a175c002",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseGeometryTests.cs.meta": "b29f8aa546005e2d47759c7baf1d8ff8e66797963fed3d4ea33ef8e30bdeeb75",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseGpuFixture.cs": "3137915c171515de3a4dc2c9afc7839a354a42cbe3e0d114b3dfbfa424e09bd1",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseGpuFixture.cs.meta": "b72efb522873fc1a767941d9ccad2fa1d4ce50d5eade9be8a445de0e63a6fa96",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseLegacyBaseline.compute": "be15bd02099d3ca14f147273e06a351f3055922f2f5b229615f3e1d0793ec23e",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseLegacyBaseline.compute.meta": "5b3acd66bf04e0cafe2ebf52df07b7462dc93b3bd02dd0250ba8a955be1bc26c",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseMathProbe.compute": "5e8110f096b6a4c0ff0429ad598034fff1d61199d5530a739da731a76f469fbc",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseMathProbe.compute.meta": "6e2429848b64ea27bb6e557eedea3a4433445412e25c0199d490622140f75f17",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseMathTests.cs": "18f745e9b1d0831f40ebb81a9a6806fcfed0567331af6e4ce59b45d130fadb21",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseMathTests.cs.meta": "a06efec51fc7c95602b44f42d5efaadf9b3a2686096f0dde16aa38bd4370a869",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseRenderTests.cs": "69ca3c7af5d3dcd526c211123161b16ea8684b770883f385b27fe9307a1508f6",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseRenderTests.cs.meta": "71918f84bb13ffd498ef453182f5d6f2464d5eb87c06974deb700c3e129da672",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/EnvironmentLighting.cs": "e2bb0bfa27b3b06e295caf38474fec9bcdb14f20b567695c03b8b4eea221f712",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightField.cs": "b67709d8c4d4e933076f9d345cc946448223f56eca90a8c0d6ae7dcb645fbf15",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightSettings.cs": "afe9bec89b5749c0677a4c019ef5dd447c31e9e0067f3fe52fbff7065277c3f8",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightBounceMode.cs": "d02b30234525f0af19967c32fe9a7937bfb8250bb160656af3d6d94dee5ef59c",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightBounceMode.cs.meta": "04636731259d025b3f6f5e70d0a44587053c096a0ecdc6e411f02caf8a6b91da",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightBoundaryCache.cs": "a4b9000083ce735a9491357313140a6d239ac6b116e7de69d3d8d4eb17b281a3",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightBoundaryCache.cs.meta": "d45ddeef1cfd1a2be89eb6aa9c02b06e20dde330f9d8405b6468db5d809e7cdc",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightGeometryCache.cs": "b182e5933080ca963ca91cdcc1a670ddb7d334f79aaecd4ec3769703ff73ea5f",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/WallDiffuseResources.cs": "e67a61f25778f48ecb88e3153664355013055c827c5f5f4dfb5a587ab7036060",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/WallDiffuseResources.cs.meta": "b6dc230524fa9c3d2f4af116e2d771463988e79ac414c94cc9cd7553b7e46e98",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveVisualSource.cs": "fe6f88f5d472baca8e195b38bb26f35d7b9188b6e2130dd4b91fde6a278518d9",
+    "docs/DEVELOPMENT.md": "d0ac7c72f955b0673db8bbabcbcc6197433833fda3ffef2cdca0204607a73195",
+    "docs/LIGHTING.md": "fd3cd6bfdd93599db247dc07799e4951f8ed6c2e3b79c7d4d6cd403f2da62b5c",
+    "tools/wall-diffuse/baseline.cs": "2bad0b2bc9424c1ffee859d2406222f3e1fe00ab2e5e4860ce684f09f9ec6cdb",
+    "tools/wall-diffuse/material_probe.cs": "d613ec8f4ebc8015cc9530d9ce8582dae5b6f7e3c40f190c161058b35ea35ce7",
+    "tools/wall-diffuse/report.py": "231d825b1b8f244d5b886881f9669db69f1c66f18feed98cb87de7b11aa113e6",
+    "tools/wall-diffuse/runtime_snapshot.cs": "d5212404079e936d4063fb4b3f59dc6c36530cd239552763b1e5af22e8ff2939"
+  }
+}

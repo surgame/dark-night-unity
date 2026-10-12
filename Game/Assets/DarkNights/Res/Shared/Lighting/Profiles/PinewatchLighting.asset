@@ -22,5 +22,12 @@ MonoBehaviour:
     WallStrength: 0.65
     Bounce: 0.12
     Relief: 0.22
+    BounceMode: 2
+    DiffuseGain: 1
+    DiffuseNearDistance: 1.5
+    DiffuseFarDistance: 6
+    DiffuseMaxReach: 3.2
+    DiffuseLateralSpread: 0.65
+    DiffuseVisibilityProbes: 2
   DevicePreset: {fileID: 11400000, guid: 4307b9a5ae283f942b51906d32245350, type: 2}
   DefaultEffectTemplate: {fileID: 2180092566517106681, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
