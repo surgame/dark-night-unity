@@ -7,5 +7,6 @@
 | [ore-dualgrid-v1](ore-dualgrid-v1/README.md) | 五矿的原生像素图集、规则合同、重建脚本与预览来源；当前矿层仍保留相关作者图集 |
 | [aseprite-pixel-crew](aseprite-pixel-crew/README.md) | Aseprite 分层角色源、动作与离线预览，独立实验成果 |
 | [blender-pixel-crew](blender-pixel-crew/README.md) | 已停止造型扩展的 Blender 技术实验；保留模型、原帧与用户成果，不计正式美术验收 |
+| [mine-level-h5](mine-level-h5/README.md) | 十图对比的独立离线 H5；新增折返洞网、环绕竖井、断脉迷宫，配岩壁线索、手电、玩家搭梯、墙后矿和隐藏巢穴；每图独立定义，另有分文件调试入口 |
 
 正式资源与实验来源的关系见[目录说明](../docs/WORKSPACE.md)，历史美术记录从[归档索引](../docs/archive/README.md)进入。
