@@ -134,7 +134,6 @@ Shader "Dark Nights/Camp Sprite"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Core2D.hlsl"
             struct Attributes { COMMON_2D_NORMALS_INPUTS half4 color : COLOR; UNITY_SKINNED_VERTEX_INPUTS };
             struct Varyings { COMMON_2D_NORMALS_OUTPUTS half4 color : COLOR; };
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/2DCommon.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/2D/Include/Normals2DCommon.hlsl"
             CBUFFER_START(UnityPerMaterial)
                 half4 _Color;

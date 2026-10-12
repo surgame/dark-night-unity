@@ -17,6 +17,7 @@ namespace DarkNights.View.Lighting
         private ShadowCaster2D shadowTemplate;
         private readonly Func<Core.ViewData.LightGeometrySnapshot, Func<bool>, float[]> wallCalculator;
         private readonly Func<float, float, float, float, float, float, bool, float> profile;
+        private readonly Func<Core.ViewData.LightGeometrySnapshot, Func<bool>, Core.ViewData.LightBoundarySnapshot> boundaryBuilder;
         private readonly List<Task> retiring = new List<Task>();
         private IEnvironmentLightBackend backend;
         private LightingBackendKind? installed;
@@ -29,6 +30,10 @@ namespace DarkNights.View.Lighting
                 settings.Backend = selectedOverride ?? source.Backend;
                 settings.Ambient = source.Ambient; settings.WallDepth = source.WallDepth;
                 settings.WallStrength = source.WallStrength; settings.Bounce = source.Bounce; settings.Relief = source.Relief;
+                settings.BounceMode = source.BounceMode; settings.DiffuseGain = source.DiffuseGain;
+                settings.DiffuseNearDistance = source.DiffuseNearDistance; settings.DiffuseFarDistance = source.DiffuseFarDistance;
+                settings.DiffuseMaxReach = source.DiffuseMaxReach; settings.DiffuseLateralSpread = source.DiffuseLateralSpread;
+                settings.DiffuseVisibilityProbes = source.DiffuseVisibilityProbes;
                 return settings;
             }
         }
@@ -37,10 +42,12 @@ namespace DarkNights.View.Lighting
         public EnvironmentLighting(SceneLightingProfile source,
             Func<Core.ViewData.LightGeometrySnapshot, Func<bool>, float[]> calculator,
             Func<float, float, float, float, float, float, bool, float> beamProfile,
-            LightingBackendKind? backendOverride = null)
+            LightingBackendKind? backendOverride = null,
+            Func<Core.ViewData.LightGeometrySnapshot, Func<bool>, Core.ViewData.LightBoundarySnapshot> boundaries = null)
         {
             wallCalculator = calculator ?? throw new ArgumentNullException(nameof(calculator));
             profile = beamProfile ?? throw new ArgumentNullException(nameof(beamProfile));
+            boundaryBuilder = boundaries;
             configuration = source ?? throw new ArgumentNullException(nameof(source)); source.Validate(); selectedOverride = backendOverride;
         }
 
@@ -71,7 +78,7 @@ namespace DarkNights.View.Lighting
                 backend = null; installed = null;
                 shader = configuration.LightingShader; lightTemplate = configuration.UrpLightTemplate; shadowTemplate = configuration.UrpShadowTemplate;
                 if (Settings.Backend == LightingBackendKind.PrivateField)
-                    backend = new ExplorationLightField(shader, wallCalculator, Settings);
+                    backend = new ExplorationLightField(shader, wallCalculator, Settings, boundaryBuilder);
                 else backend = new UrpLightBackend(lightTemplate, shadowTemplate, Settings, profile);
                 installed = Settings.Backend;
             }

@@ -45,6 +45,7 @@ namespace DarkNights.View.Terrain
         public Texture LightTexture => light;
         public Texture LightingGeometry => map;
         public long GeometryRevision { get; private set; }
+        public bool IsRetired { get; private set; }
         public byte LightingCell(int u, int row)
         {
             if (u < 0 || u >= W || row < 0 || row >= H) return 0;
@@ -191,6 +192,8 @@ namespace DarkNights.View.Terrain
         public void TickBackground() { staticBackground?.Tick(); rockSurface?.Tick(); localRockSurface?.Tick(); }
         public void Dispose()
         {
+            if (IsRetired) return;
+            IsRetired = true; GeometryRevision++;
             staticBackground?.Dispose(); rockSurface?.Dispose(); localRockSurface?.Dispose();
             map.Release(); light.Release();
             foreach (var value in new UnityEngine.Object[] { backdrop, mesh, Material, background, map, light, oreMap, mapUpload, lightUpload })

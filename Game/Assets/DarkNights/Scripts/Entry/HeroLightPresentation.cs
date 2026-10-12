@@ -103,7 +103,12 @@ namespace DarkNights.Entry
         {
             var frame = network.Client.Replica.Current;
             if (frame == null || preview.LightingSource == null) { field?.Suspend(); return; }
-            if (epoch != frame.Epoch) { ClearTools(); epoch = frame.Epoch; }
+            if (epoch != frame.Epoch)
+            {
+                ClearTools(); epoch = frame.Epoch;
+                if (field != null) retiring.Add(field.RetireAsync());
+                field = null; boundSource = null;
+            }
             if (boundSource != preview.LightingSource || renderedScene != EffectiveScene)
             {
                 if (field != null) retiring.Add(field.RetireAsync());
@@ -155,7 +160,8 @@ namespace DarkNights.Entry
             foreach (int id in removed) Remove(id);
             LightEffect.Collect(this, camera, effects);
             field = field ?? new EnvironmentLighting(EffectiveScene, Core.Logic.Lighting.LightWallDistance.Build,
-                Core.Logic.Lighting.LightBeamProfile.Evaluate, EnvironmentLighting.BackendOverride(System.Environment.GetCommandLineArgs()));
+                Core.Logic.Lighting.LightBeamProfile.Evaluate, EnvironmentLighting.BackendOverride(System.Environment.GetCommandLineArgs()),
+                Core.Logic.Lighting.LightBoundaryBuilder.Build);
             foreach (var effect in effects)
             {
                 if (effect.IsOn && effect.EnvironmentEnabled && effect.Environment.isActiveAndEnabled) emitters.Add(effect.Environment.Sample(preview));

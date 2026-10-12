@@ -1,6 +1,7 @@
 #ifndef DN_EXPLORATION_LIGHTING
 #define DN_EXPLORATION_LIGHTING
 #include "ExplorationOcclusion.hlsl"
+#include "WallDiffuseVisibility.hlsl"
 Texture2D<float4> _DNLightField;
 Texture2D<float4> _DNLightDirection;
 Texture2D<float> _DNWallDistance;
@@ -22,6 +23,7 @@ float3 DNIrradiance(float2 world,float3 normal)
     float2 p=DNGrid(world);
     float2 uv=(p-_DNLightRect.xy)/max(_DNLightRect.zw,.001);
     float3 energy=0;
+    float4 directional=0;
     if (all(uv>=0) && all(uv<=1) && DNKnown(p))
     {
         // 按几何分隔插值：墙内补光不会因滤波扩散到墙后的空气。
@@ -35,22 +37,25 @@ float3 DNIrradiance(float2 world,float3 normal)
         {
             int2 index=clamp(base+int2(x,y),int2(0,0),int2(width-1,height-1));
             float2 q=_DNLightRect.xy+(index+.5)/float2(width,height)*_DNLightRect.zw;
-            if (DNSolid(q)!=solid || (!solid && DNSolid((q+p)*.5))) continue;
+            if (DNExactSameSide(q,p,solid)<=0) continue;
             float w=(x==0?1-fraction.x:fraction.x)*(y==0?1-fraction.y:fraction.y);
-            energy+=_DNLightField.Load(int3(index,0)).rgb*w; total+=w;
+            energy+=_DNLightField.Load(int3(index,0)).rgb*w;
+            directional+=_DNLightDirection.Load(int3(index,0))*w; total+=w;
         }
         energy/=max(total,.001);
+        directional/=max(total,.001);
         if (solid)
         {
             float2 duv=(p-_DNDistanceRect.xy)/max(_DNDistanceRect.zw,.001);
             float depth=_DNWallDistance.SampleLevel(sampler_DNWallDistance,duv,0);
             if (_DNShadowSettings.y<=0 || depth>_DNShadowSettings.y) energy=0;
-            energy=min(energy,_DNShadowSettings.z);
+            energy*=min(1,_DNShadowSettings.z/max(max(energy.r,energy.g),max(energy.b,.000001)));
         }
-        float2 direction=_DNLightDirection.SampleLevel(sampler_DNLightDirection,uv,0).xy;
+        float2 direction=directional.xy;
         float diffuse=saturate(dot(normalize(normal),normalize(float3(direction,.7))));
-        energy*=lerp(1,.55+.65*diffuse,_DNRelief);
-        if (solid) energy=min(energy,_DNShadowSettings.z);
+        float directFraction=saturate(directional.z/max(directional.w,.000001));
+        energy*=1+directFraction*(lerp(1,.55+.65*diffuse,_DNRelief)-1);
+        if (solid) energy*=min(1,_DNShadowSettings.z/max(max(energy.r,energy.g),max(energy.b,.000001)));
     }
     return _DNLightingAmbient+energy;
 }

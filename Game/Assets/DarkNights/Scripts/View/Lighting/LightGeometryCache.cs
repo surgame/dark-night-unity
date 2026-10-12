@@ -51,6 +51,11 @@ namespace DarkNights.View.Lighting
             }
             if (pending != null || source == null || (Texture != null && current == requestedSource &&
                 installedRevision == source.GeometryRevision && installedBounds == bounds)) return;
+            Schedule(source, bounds);
+        }
+
+        private void Schedule(CaveVisualSource source, RectInt bounds)
+        {
             var snapshot = source.CaptureLightGeometry(bounds);
             requestedBounds = bounds; requestedSource = source; requestedRevision = source.GeometryRevision;
             CancellationToken token = lifetime.Token;

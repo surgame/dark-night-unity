@@ -1,5 +1,8 @@
 #pragma kernel ResolveSources
 #pragma kernel Illuminate
+#pragma kernel IlluminateDiffuse DN_CONTINUOUS DN_QUERY_COUNTERS
+#pragma kernel PrepareWallProfiles DN_QUERY_COUNTERS
+#pragma kernel SelectWallProfiles
 #include "ExplorationOcclusion.hlsl"
 #include "LightBeamProfile.hlsl"
 
@@ -16,6 +19,10 @@ float4 _DNLightApertures[16]; // 灯口半宽，与锥角和阴影柔度独立
 float4 _DNLightShadows[16]; // 单灯阴影柔度、光束边缘
 float _DNBounceStrength;
 int _DNLightCount;
+#include "WallDiffusePrepare.hlsl"
+#ifdef DN_CONTINUOUS
+#include "WallDiffuseCompose.hlsl"
+#endif
 
 [numthreads(16,1,1)]
 void ResolveSources(uint3 id : SV_DispatchThreadID)
@@ -42,8 +49,12 @@ void ResolveSources(uint3 id : SV_DispatchThreadID)
 void Illuminate(uint3 id : SV_DispatchThreadID)
 {
     if (any(id.xy >= (uint2)_DNTargetSize.xy)) return;
+#ifdef DN_QUERY_COUNTERS
+    if(_DNDiffuseCountQueries!=0) InterlockedAdd(_DNDiffuseQueries[2],1);
+#endif
     float2 p=_DNLightRect.xy+(id.xy+.5)/_DNTargetSize.xy*_DNLightRect.zw;
     float3 energy=0;
+    float3 directEnergy=0;
     float2 moment=0;
     float weight=0;
     bool solid=DNSolid(p);
@@ -51,7 +62,12 @@ void Illuminate(uint3 id : SV_DispatchThreadID)
     {
         float2 origin=_DNLightPositions[n].xy, delta=p-origin;
         float d=length(delta), range=_DNLightPositions[n].z;
-        if (d>range && d>_DNLightDirections[n].z) continue;
+        float nearDistance=distance(p,_DNLightNearOrigins[n].xy);
+        bool supported=d<=range || nearDistance<=_DNLightDirections[n].z;
+#ifdef DN_CONTINUOUS
+        supported=supported || d<=_DNDiffuseSettings.z+_DNDiffuseSettings.w*1.7;
+#endif
+        if (!supported) continue;
         float2 forward=_DNLightDirections[n].xy;
         float cutoff=_DNLightPositions[n].w;
         float aperture = _DNLightApertures[n].x;
@@ -59,7 +75,6 @@ void Illuminate(uint3 id : SV_DispatchThreadID)
         float beam=DNBeam(delta,forward,cutoff,aperture,_DNLightShadows[n].y);
         float direct=beam*pow(saturate(1-d/range),1.15)*_DNLightColors[n].w;
         float2 nearOrigin=_DNLightNearOrigins[n].xy;
-        float nearDistance=distance(p,nearOrigin);
         float near=pow(saturate(1-nearDistance/max(_DNLightDirections[n].z,.001)),1.1)*_DNLightDirections[n].w;
         float visibility=0;
         float2 perpendicular=float2(-forward.y,forward.x);
@@ -93,17 +108,29 @@ void Illuminate(uint3 id : SV_DispatchThreadID)
             contribution+=near*nearVisibility;
         }
         float4 bounce=_DNBounceSources[n];
+#ifndef DN_CONTINUOUS
         if (bounce.w>0 && _DNBounceStrength>0)
         {
             float radius=2.5;
             float reflected=pow(saturate(1-distance(p,bounce.xy)/radius),2)*bounce.z*_DNBounceStrength;
             contribution+=reflected*DNVisibility(bounce.xy,p,_DNShadowSettings.y);
         }
+#endif
+        float directContribution=contribution;
+        directEnergy+=_DNLightColors[n].rgb*directContribution;
+#ifdef DN_CONTINUOUS
+        contribution+=DNWallDiffuse(n,p,directContribution);
+#endif
         energy+=_DNLightColors[n].rgb*contribution;
-        moment-=delta/max(d,.001)*contribution;
-        weight+=contribution;
+        moment-=delta/max(d,.001)*directContribution;
+        weight+=directContribution;
     }
-    if (solid) energy=min(energy,_DNShadowSettings.z);
+    float scale=solid?min(1,_DNShadowSettings.z/max(max(energy.r,energy.g),max(energy.b,.000001))):1;
+    energy*=scale; directEnergy*=scale;
     _DNLightOutput[id.xy]=float4(energy,solid?1:0);
-    _DNDirectionOutput[id.xy]=float4(moment.x/max(weight,.001),-moment.y/max(weight,.001),0,weight);
+    float3 luminance=float3(.2126,.7152,.0722);
+    _DNDirectionOutput[id.xy]=float4(moment.x/max(weight,.001),-moment.y/max(weight,.001),dot(directEnergy,luminance),dot(energy,luminance));
 }
+
+[numthreads(8,8,1)]
+void IlluminateDiffuse(uint3 id : SV_DispatchThreadID) { Illuminate(id); }
