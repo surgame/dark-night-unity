@@ -25,6 +25,9 @@ namespace DarkNights.Tests
         public Vector2 Forward = Vector2.right;
         public float Cone = .7071068f, NearRange, Range = 14;
         public bool ReverseOrder, ReverseCandidates;
+        public View.Lighting.WallDiffuseShape Shape;
+        public bool MatchIncident;
+        public float CornerRadius = .8f;
 
         public WallDiffuseGpuFixture(Func<int, int, byte> cell)
         {
@@ -38,7 +41,7 @@ namespace DarkNights.Tests
             Cells.Apply(); Light = Target(); Direction = Target(); read = new Texture2D(Size, Size, TextureFormat.RGBAFloat, false, true);
             bounce = new ComputeBuffer(16, 16); candidates = new ComputeBuffer(16 * 64, 32);
             candidateProfiles = new ComputeBuffer(16 * 64, 48); candidateNodes = new ComputeBuffer(16 * 64 * 33, 4);
-            profiles = new ComputeBuffer(32, 48); nodes = new ComputeBuffer(32 * 33, 4);
+            profiles = new ComputeBuffer(128, 48); nodes = new ComputeBuffer(128 * 33, 4);
         }
 
         public void Dispatch(bool continuous, bool legacy = false)
@@ -69,6 +72,8 @@ namespace DarkNights.Tests
             Shader.SetVectorArray("_DNWallCandidateCounts", counts);
             Shader.SetVector("_DNDiffuseSettings", new Vector4(Gain, 1.5f, 6, 3.2f)); Shader.SetFloat("_DNDiffuseSpread", .65f);
             Shader.SetInt("_DNDiffuseProbes", Probes); Shader.SetInt("_DNDiffuseBenchmark", Benchmark);
+            Shader.SetInt("_DNDiffuseShape", (int)Shape); Shader.SetInt("_DNDiffuseMatchIncident", MatchIncident ? 1 : 0);
+            Shader.SetFloat("_DNDiffuseCornerRadius", CornerRadius);
             Shader.SetInt("_DNDiffuseCountQueries", 0);
             if (continuous)
             {
@@ -78,6 +83,8 @@ namespace DarkNights.Tests
                 Shader.SetBuffer(prepare, "_DNDiffuseQueries", queryCounters);
                 Shader.SetBuffer(prepare, "_DNCandidateProfiles", candidateProfiles); Shader.SetBuffer(prepare, "_DNCandidateNodes", candidateNodes);
                 Shader.SetBuffer(select, "_DNCandidateProfiles", candidateProfiles); Shader.SetBuffer(select, "_DNCandidateNodes", candidateNodes);
+                Shader.SetBuffer(select, "_DNWallCandidates", candidates); Shader.SetTexture(select, "_DNLightCells", Cells);
+                Shader.SetBuffer(select, "_DNDiffuseQueries", queryCounters);
                 Shader.SetBuffer(select, "_DNWallProfiles", profiles); Shader.SetBuffer(select, "_DNWallNodes", nodes);
                 Shader.Dispatch(prepare, 1, 16, 1); Shader.Dispatch(select, 1, 1, 1);
             }
@@ -107,14 +114,14 @@ namespace DarkNights.Tests
         public Color At(Color[] pixels, float x, float y) => pixels[Mathf.FloorToInt(y / Grid * Size) * Size + Mathf.FloorToInt(x / Grid * Size)];
         public Vector4[] Profiles()
         {
-            var data = new Profile[32]; profiles.GetData(data); var flat = new Vector4[96];
+            var data = new Profile[128]; profiles.GetData(data); var flat = new Vector4[384];
             for (int i = 0; i < data.Length; i++) { flat[i * 3] = data[i].Frame; flat[i * 3 + 1] = data[i].Shape; flat[i * 3 + 2] = data[i].Stats; }
             return flat;
         }
-        public float[] NodesData() { var data = new float[32 * 33]; nodes.GetData(data); return data; }
+        public float[] NodesData() { var data = new float[128 * 33]; nodes.GetData(data); return data; }
         public void UploadProfiles(Vector4[] data, float[] values)
         {
-            var packed = new Profile[32];
+            var packed = new Profile[128];
             for (int i = 0; i < packed.Length; i++) packed[i] = new Profile { Frame = data[i * 3], Shape = data[i * 3 + 1], Stats = data[i * 3 + 2] };
             profiles.SetData(packed); nodes.SetData(values);
         }

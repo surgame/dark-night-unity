@@ -99,8 +99,9 @@ namespace DarkNights.Tests
                 gpu.Count = 4; gpu.Dispatch(true); var profiles = gpu.Profiles();
                 for (int light = 0; light < 4; light++)
                 {
-                    Assert.That(profiles[light * 6 + 1].z, Is.GreaterThan(0));
-                    Assert.That(profiles[light * 6 + 4].z, Is.Zero, "同一物理墙不能选两次。");
+                    Assert.That(profiles[light * 24 + 1].z, Is.GreaterThan(0));
+                    for (int slot = 1; slot < 8; slot++)
+                        Assert.That(profiles[light * 24 + slot * 3 + 1].z, Is.Zero, "同一物理墙不能选两次。");
                 }
             }
         }

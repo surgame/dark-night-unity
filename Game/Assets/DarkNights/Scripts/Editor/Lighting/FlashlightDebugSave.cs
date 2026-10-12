@@ -18,7 +18,8 @@ namespace DarkNights.Editor.Lighting
     public static class FlashlightDebugSave
     {
         public static readonly string[] SceneFields = { "Backend", "Ambient", "WallDepth", "WallStrength", "Bounce", "Relief",
-            "BounceMode", "DiffuseGain", "DiffuseNearDistance", "DiffuseFarDistance", "DiffuseMaxReach", "DiffuseLateralSpread", "DiffuseVisibilityProbes" };
+            "BounceMode", "DiffuseShape", "DiffuseMatchIncident", "DiffuseCornerRadius", "DiffuseGain", "DiffuseNearDistance",
+            "DiffuseFarDistance", "DiffuseMaxReach", "DiffuseLateralSpread", "DiffuseVisibilityProbes" };
 
         private static bool Confirm(UnityEngine.Object target, string fields, string impact)
         {

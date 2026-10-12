@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-13",
+  "baseline": "92dcb92",
+  "branch": "fix-20261013-wall-diffuse-corners",
+  "implementation": "game-side repair candidate complete; final compilation pending memory gate",
+  "unity": "6000.4.9f1",
+  "editor_pid": 13764,
+  "changes": [
+    "受光范围裁出后重新采样33节点入射",
+    "每灯两个相邻组／每组最多四条真实墙边，共端点连接及圆滑覆盖",
+    "WallBand／SoftBlob切换；径向连续密度积分",
+    "可选匹配主光入射亮度；角度仍用于质量和测距",
+    "最近表面与内部探针，遮挡按距离加权",
+    "仅目标墙薄表层允许返光，墙后／未知区拒绝",
+    "场景草稿、保存白名单和Undo接线"
+  ],
+  "defaults": {
+    "DiffuseShape": "WallBand",
+    "DiffuseMatchIncident": false,
+    "DiffuseCornerRadius": 0.8,
+    "existing_asset_values": "unchanged"
+  },
+  "verification": {
+    "source_review": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\wall-diffuse-corners-20261013\\source-review.json",
+    "intermediate_unity_compile": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\wall-diffuse-corners-20261013\\compile.json",
+    "intermediate_compile_has_errors": false,
+    "intermediate_shader_warning_count": 5,
+    "final_candidate_compiled": false,
+    "final_compilation_blocker": "final-preflight: system free commit 0.8122 GiB < 1 GiB",
+    "memory_reports": [
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\wall-diffuse-corners-20261013\\after-import\\summary.json",
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\wall-diffuse-corners-20261013\\before-compile\\summary.json",
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\wall-diffuse-corners-20261013\\before-import\\summary.json",
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\wall-diffuse-corners-20261013\\before-shader-repair\\summary.json",
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\wall-diffuse-corners-20261013\\final-preflight\\summary.json",
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\wall-diffuse-corners-20261013\\preflight\\summary.json"
+    ],
+    "tests": "not run; regression source added/updated",
+    "play": "not entered",
+    "player": "not built or run",
+    "performance": "not measured; previous two-wall evidence does not validate new budget"
+  },
+  "pending": [
+    "最终候选Unity／Shader编译",
+    "横墙接45度／缓坡及凹凸角的光场连续性",
+    "WallBand与SoftBlob的实际范围／亮心／矿层观感",
+    "亮度匹配开关与Gain对比",
+    "薄墙、未知区、挖墙与切区无漏光／旧光",
+    "调试台临时Undo、保存及重开",
+    "本候选前台性能与GPU成本"
+  ],
+  "protocol": 31,
+  "save_format": 23,
+  "yygc_changed": false,
+  "dependencies_changed": false,
+  "asset_sources_modified": false,
+  "sources_sha256": {
+    "Game/Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.compute": "b27b5fcbc2b061450a08e527e4f2b52854859c84ccce8f987c5a7207016020cd",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseCompose.hlsl": "8538fd2efc648431366489b71b213d1f68dc55399fd13d8a6f5de61a1a10341e",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffusePrepare.hlsl": "84225b5c86cd1f5f13e1a8ea410af36281f2434235cd09beeafbf7e49dbbbd1c",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseProfile.hlsl": "398b1e59e86796814c4d8e276176f9981d3dc3406d3f4c08ff7610e6ae5f6c30",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseShape.hlsl": "62cc7454c14aa99720f562c16f670d2f47dbe03bf26aeb98344ac956dcfcc5cc",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseShape.hlsl.meta": "f17df08fe1726de949bfd8bfb540c632031f933058553b3bc90087197b8b88a3",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseVisibility.hlsl": "dcaa9d22124f0e9a2d62bfd058693549bbe4fa76bf11b6519354423632b66859",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugSave.cs": "298bc1742bb09638f7f8e1bb12ccedc767e73f4b744ef07bc98cdae6f8358449",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/SceneLightingPanel.cs": "499d65add746fe0446fb8614377b604c95554aa419b740f4649838ca78d82f92",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseCornerTests.cs": "0e4a2c9af097af6b613012944668542b09eb2a0041be48feecd06fa9e444b07b",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseCornerTests.cs.meta": "441aabc5cd051f5f0a1e7e98d71e9fb529b2f92cd962031e804591bf92721578",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseGpuFixture.cs": "7d9b7153899536e3028a4576f88c72a77f58d7e117411cc316e645d1a7704dba",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseRenderTests.cs": "1ca166336ca5ea09182e5342b37fbf40ba8549d31d8c76f517bb47dc0e4a3b03",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/EnvironmentLighting.cs": "1618324fe70244e8c75f97530383f9d015588735a1297b39d564e80dd50ed076",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightSettings.cs": "ce5eba9673d23a05b4a9dcff675ff8f4a9f40b7c6cd2223a3ad73f9288308bdf",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/WallDiffuseResources.cs": "30db51b0862c33e9bbbf8ad751a785b46c28d1fde4f6da06de45b8dc1ff71be2",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/WallDiffuseShape.cs": "fdc6a9021cb36f2bb7d44a952da5a0a37d45737895352aa26eb8bfc0480699fe",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/WallDiffuseShape.cs.meta": "1734a3ff3e1a9b4baf70b1f108814ad5678b96b54c5278204f1593e402fb85b2",
+    "docs/DEVELOPMENT.md": "78ec1f231e4ef692f66563cd915382378fc9c7f6bbde4a71fede47b7df2d2775",
+    "docs/LIGHTING.md": "08e8784dedc5479d8daf143393ba160047e5599a9fea7bd5a9bc25769dc93e06"
+  }
+}

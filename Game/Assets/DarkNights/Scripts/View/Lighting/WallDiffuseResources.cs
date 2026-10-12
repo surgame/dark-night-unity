@@ -9,10 +9,10 @@ using UnityEngine.Profiling;
 
 namespace DarkNights.View.Lighting
 {
-    /// <summary>连续漫反射的固定容量 GPU 资源；主线程裁剪空间候选，GPU 选两物理段，节点不作为点光源，关闭后资源可退休。</summary>
+    /// <summary>连续漫反射的固定容量 GPU 资源；GPU 选两个相邻受光组，每组最多四段，节点只描述密度，关闭后资源可退休。</summary>
     public sealed class WallDiffuseResources
     {
-        public const int Lights = 16, CandidatesPerLight = 64, Nodes = 33, SegmentsPerLight = 2;
+        public const int Lights = 16, CandidatesPerLight = 64, Nodes = 33, SegmentsPerLight = 8;
         private readonly LightBoundaryCache cache;
         private readonly Candidate[] candidates = new Candidate[Lights * CandidatesPerLight];
         private readonly Vector4[] counts = new Vector4[Lights];
@@ -79,11 +79,17 @@ namespace DarkNights.View.Lighting
             shader.SetVector("_DNDiffuseSettings", new Vector4(settings.DiffuseGain, settings.DiffuseNearDistance, settings.DiffuseFarDistance, settings.DiffuseMaxReach));
             shader.SetFloat("_DNDiffuseSpread", settings.DiffuseLateralSpread);
             shader.SetInt("_DNDiffuseProbes", settings.DiffuseVisibilityProbes);
+            shader.SetInt("_DNDiffuseShape", (int)settings.DiffuseShape);
+            shader.SetInt("_DNDiffuseMatchIncident", settings.DiffuseMatchIncident ? 1 : 0);
+            shader.SetFloat("_DNDiffuseCornerRadius", settings.DiffuseCornerRadius);
             shader.SetBuffer(prepare, "_DNWallCandidates", candidateBuffer);
             shader.SetBuffer(prepare, "_DNCandidateProfiles", candidateProfiles); shader.SetBuffer(prepare, "_DNCandidateNodes", candidateNodes);
             shader.SetTexture(prepare, "_DNLightCells", source.LightingGeometry);
             shader.SetBuffer(prepare, "_DNDiffuseQueries", queryCounters);
             shader.SetBuffer(select, "_DNCandidateProfiles", candidateProfiles); shader.SetBuffer(select, "_DNCandidateNodes", candidateNodes);
+            shader.SetBuffer(select, "_DNWallCandidates", candidateBuffer);
+            shader.SetTexture(select, "_DNLightCells", source.LightingGeometry);
+            shader.SetBuffer(select, "_DNDiffuseQueries", queryCounters);
             shader.SetBuffer(select, "_DNWallProfiles", profiles); shader.SetBuffer(select, "_DNWallNodes", nodes);
             commands.SetComputeIntParam(shader, "_DNDiffuseQueryStage", 0);
             commands.BeginSample(profileSampler); commands.DispatchCompute(shader, prepare, 1, Lights, 1); commands.EndSample(profileSampler);

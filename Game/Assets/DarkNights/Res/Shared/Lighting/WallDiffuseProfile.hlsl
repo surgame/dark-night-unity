@@ -2,18 +2,21 @@
 #define DN_WALL_DIFFUSE_PROFILE
 #define DN_WALL_CANDIDATES 64
 #define DN_WALL_NODES 33
+#define DN_WALL_SELECTED 8
 struct DNWallCandidate { float4 ends; float4 normal; };
 struct DNWallProfile
 {
     float4 frame; // start.xy, unit tangent.xy
     float4 shape; // air normal.xy, lit length, normal reach
-    float4 stats; // mean incident, distance fade, quality integral, reserved
+    float4 stats; // mean incident, distance fade, quality integral, joined endpoint flags
 };
 RWStructuredBuffer<DNWallProfile> _DNWallProfiles;
 RWStructuredBuffer<float> _DNWallNodes;
 float4 _DNDiffuseSettings; // Gain / Near / Far / MaxReach
 float _DNDiffuseSpread;
 int _DNDiffuseProbes;
+int _DNDiffuseShape, _DNDiffuseMatchIncident;
+float _DNDiffuseCornerRadius;
 int _DNDiffuseBenchmark; // 开发 A1 四区间常量分布，不进入场景配置。
 
 // 线性照度乘线性三角核的精确区间积分；权重分母包含暗段与端点外的零照度支持域。

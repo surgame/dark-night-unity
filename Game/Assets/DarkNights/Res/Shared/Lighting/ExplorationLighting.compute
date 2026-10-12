@@ -2,7 +2,7 @@
 #pragma kernel Illuminate
 #pragma kernel IlluminateDiffuse DN_CONTINUOUS DN_QUERY_COUNTERS
 #pragma kernel PrepareWallProfiles DN_QUERY_COUNTERS
-#pragma kernel SelectWallProfiles
+#pragma kernel SelectWallProfiles DN_QUERY_COUNTERS
 #include "ExplorationOcclusion.hlsl"
 #include "LightBeamProfile.hlsl"
 
@@ -45,8 +45,7 @@ void ResolveSources(uint3 id : SV_DispatchThreadID)
     }
 }
 
-[numthreads(8,8,1)]
-void Illuminate(uint3 id : SV_DispatchThreadID)
+void DNIlluminate(uint3 id)
 {
     if (any(id.xy >= (uint2)_DNTargetSize.xy)) return;
 #ifdef DN_QUERY_COUNTERS
@@ -133,4 +132,7 @@ void Illuminate(uint3 id : SV_DispatchThreadID)
 }
 
 [numthreads(8,8,1)]
-void IlluminateDiffuse(uint3 id : SV_DispatchThreadID) { Illuminate(id); }
+void Illuminate(uint3 id : SV_DispatchThreadID) { DNIlluminate(id); }
+
+[numthreads(8,8,1)]
+void IlluminateDiffuse(uint3 id : SV_DispatchThreadID) { DNIlluminate(id); }

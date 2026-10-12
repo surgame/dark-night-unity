@@ -29,11 +29,25 @@ namespace DarkNights.Editor.Lighting
             mode.RegisterValueChangedCallback(evt => Write("BounceMode", (LightBounceMode)evt.newValue));
             Root.Add(mode); synchronize.Add(() => mode.SetValueWithoutNotify(draft.Settings.BounceMode));
             Root.Add(capability); synchronize.Add(() => capability.text = draft.Settings.Backend == LightingBackendKind.Urp2D ?
-                "URP 2D 保留原行为，不支持墙内限深及墙段连续漫反射。" : "PrivateField：连续墙段、同灯同色融合；旧反射强度仅用于 LegacyPoint。");
+                "URP 2D 保留原行为，不支持墙内限深及墙段连续漫反射。" :
+                draft.Settings.DiffuseShape == WallDiffuseShape.SoftBlob ? "柔光团：最大范围控制半径，沿墙扩展仅用于 WallBand；旧反射强度仅用于 LegacyPoint。" :
+                "沿墙扩散：相邻受光墙面圆滑连接；旧反射强度仅用于 LegacyPoint。");
             foreach (string name in FlashlightDebugSave.SceneFields.Skip(1))
             {
                 if (name == "BounceMode") continue;
                 var member = typeof(ExplorationLightSettings).GetField(name);
+                if (member.FieldType.IsEnum)
+                {
+                    var shape = new EnumField(Label(name), (Enum)member.GetValue(draft.Settings)) { name = name };
+                    shape.RegisterValueChangedCallback(evt => Write(name, evt.newValue));
+                    Root.Add(shape); synchronize.Add(() => shape.SetValueWithoutNotify((Enum)member.GetValue(draft.Settings))); continue;
+                }
+                if (member.FieldType == typeof(bool))
+                {
+                    var match = new Toggle(Label(name)) { name = name };
+                    match.RegisterValueChangedCallback(evt => Write(name, evt.newValue));
+                    Root.Add(match); synchronize.Add(() => match.SetValueWithoutNotify((bool)member.GetValue(draft.Settings))); continue;
+                }
                 var range = (RangeAttribute)member.GetCustomAttributes(typeof(RangeAttribute), false).Single();
                 if (member.FieldType == typeof(int))
                 {
@@ -75,9 +89,12 @@ namespace DarkNights.Editor.Lighting
                 case "WallStrength": return "墙内补光上限";
                 case "Bounce": return "有限反射补光";
                 case "DiffuseGain": return "墙面漫反射增益";
+                case "DiffuseShape": return "漫反射形状（WallBand 沿墙／SoftBlob 柔光团）";
+                case "DiffuseMatchIncident": return "匹配主光入射亮度（不额外按斜照压暗）";
+                case "DiffuseCornerRadius": return "相邻墙面连接半径（格，0关闭）";
                 case "DiffuseNearDistance": return "漫反射近距离（格）";
                 case "DiffuseFarDistance": return "漫反射关闭距离（格）";
-                case "DiffuseMaxReach": return "漫反射最大法向深度（格）";
+                case "DiffuseMaxReach": return "漫反射最大范围／法向深度（格）";
                 case "DiffuseLateralSpread": return "漫反射沿墙扩展";
                 case "DiffuseVisibilityProbes": return "每墙段遮挡探针";
                 default: return "岩壁受光层次";
