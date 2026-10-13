@@ -6,6 +6,8 @@ tools/CoreRegression/Fixtures/*.json -text whitespace=cr-at-eol
 tools/terrain-modifiers/reference/*.js -text whitespace=cr-at-eol
 docs/archive/evidence/terrain-modifiers-2026-09-22/* -text whitespace=cr-at-eol
 docs/archive/evidence/terrain-scene-catalog-20260926.xml -text whitespace=cr-at-eol
+# Preserve the user-provided expedition design source bytes and Markdown hard breaks.
+docs/archive/MINE_EXPEDITION_DESIGN_20261013.md -text whitespace=cr-at-eol,-blank-at-eol
 docs/archive/evidence/runtime-terrain-tuner-20260926/*.xml -text whitespace=cr-at-eol
 docs/archive/evidence/ship-shop-fix-20260929/*.xml -text whitespace=cr-at-eol
 # Preserve raw Unity build diagnostics, including emitted trailing spaces.

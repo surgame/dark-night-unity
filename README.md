@@ -5,6 +5,7 @@ Dark Nights 为灰松谷单关卡、2–4人合作游戏。日常 Unity 宿主�
 | 要做的事 | 阅读入口 |
 | --- | --- |
 | 确认当前源码、验证状态和下一项工作 | [开发执行状态](docs/DEVELOPMENT.md) |
+| 查看阶段目标、模块分工和长期计划 | [矿洞远征核心闭环目标](docs/EXPEDITION_CORE_LOOP_GOALS.md)、[长期模块计划](docs/ROADMAP.md) |
 | 查找合同或操作说明 | [文档索引](docs/README.md) |
 | 准备已有工程并开始开发 | [快速上手](docs/QUICK_START.md)、[依赖说明](docs/DEPENDENCIES.md) |
 | 试玩、连接房间和使用存档 | [Player指南](docs/PLAYER_GUIDE.md) |

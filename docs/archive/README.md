@@ -36,6 +36,7 @@
 
 | 主题 | 原记录 |
 | --- | --- |
+| 矿洞远征方向 | [2026-10-13用户策划原文v1.0](MINE_EXPEDITION_DESIGN_20261013.md)，保留原字节；后续决定由[CL阶段目标](../EXPEDITION_CORE_LOOP_GOALS.md)承接，原文不作为执行指令或完成证明 |
 | 框架／对象 | [YYGC能力复评](YYGC_REASSESSMENT.md)、[覆盖映射](YYGC_UNIFIED_TEST_COVERAGE.md)、[Definition场景放置](SCENE_DEFINITIONS.md)、[导航授权](WORKSHOP_NAVIGATION_FIX_PROPOSAL.md) |
 | 飞船／装备 | [可步入飞船](WALKABLE_EXPEDITION_SHIP.md)、[航程设计](SPACE_TO_PLANET_FLOW_DESIGN.md)与[实施](SPACE_TO_PLANET_IMPLEMENTATION.md)、[交易设计](SHIP_TRADE_EQUIPMENT_DESIGN.md)、[手持装备来源](HERO_HANDHELD_EQUIPMENT.md)、[会话反馈](SESSION_INPUT_FEEDBACK.md) |
 | 主角／采矿 | [比例调整](HERO_MOVEMENT_SCALE.md)、[坡面运动](SLOPE_JUMP_FLOW.md)、[采矿网格](MINING_GRID_EXECUTION.md)、[统一距离](PICKAXE_UNIFIED_REACH.md) |
