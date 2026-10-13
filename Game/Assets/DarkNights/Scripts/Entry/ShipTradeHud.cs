@@ -58,7 +58,7 @@ namespace DarkNights.Entry
             panel.Root.style.unityFontDefinition = FontDefinition.FromSDFFont(font);
             panel.BuyRequested += Buy;
             panel.Closed += ReleaseModal;
-            panel.Present(null, 0, 0, 0, rules.Balance.HeroControl.FuelSeconds,
+            panel.Present(null, 0, 0, 0,
                 rules.Balance.Expedition.Trade, "", false);
         }
 
@@ -105,10 +105,10 @@ namespace DarkNights.Entry
             {
                 if (!string.IsNullOrEmpty(hero.MiningHint)) prompt = hero.MiningHint;
                 else if (actor.Charging) prompt = "蓄力 " + actor.ChargeSeconds.ToString("F1") + "s · 松开左键投掷";
-                else prompt = "鼠标瞄准 · 左键使用 · 1–4 切换 · Shift 加速 · " + hero.JumpBindingLabel + " 跳跃／喷气";
+                else prompt = "鼠标瞄准 · 左键使用 · 1–4 切换 · Shift 加速 · " + hero.JumpBindingLabel + " 跳跃";
             }
             panel.Present(actor, frame?.World.Camp.Credits ?? 0, cargo?.Iron ?? 0, cargo?.Gold ?? 0,
-                catalog.Balance.HeroControl.FuelSeconds, catalog.Balance.Expedition.Trade, prompt,
+                catalog.Balance.Expedition.Trade, prompt,
                 gameplay && actor != null);
             if (panel.ShopOpen && (!gameplay || !nearShop || modal?.Session?.IsActive != true ||
                 !panel.AttachedAndVisible)) Close();

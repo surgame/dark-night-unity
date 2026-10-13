@@ -25,16 +25,11 @@ namespace DarkNights.Editor.Lighting
             var backend = new EnumField("渲染后端", draft.Settings.Backend) { name = "Backend" };
             backend.RegisterValueChangedCallback(evt => Write("Backend", (LightingBackendKind)evt.newValue));
             Root.Add(backend); synchronize.Add(() => backend.SetValueWithoutNotify(draft.Settings.Backend));
-            var mode = new EnumField("墙面返光模式", draft.Settings.BounceMode) { name = "BounceMode" };
-            mode.RegisterValueChangedCallback(evt => Write("BounceMode", (LightBounceMode)evt.newValue));
-            Root.Add(mode); synchronize.Add(() => mode.SetValueWithoutNotify(draft.Settings.BounceMode));
             Root.Add(capability); synchronize.Add(() => capability.text = draft.Settings.Backend == LightingBackendKind.Urp2D ?
-                "URP 2D 保留原行为，不支持墙内限深及墙段连续漫反射。" :
-                draft.Settings.DiffuseShape == WallDiffuseShape.SoftBlob ? "柔光团：最大范围控制半径，沿墙扩展仅用于 WallBand；旧反射强度仅用于 LegacyPoint。" :
-                "沿墙扩散：相邻受光墙面圆滑连接；旧反射强度仅用于 LegacyPoint。");
+                "URP 2D 不支持墙内限深与单灯连续漫反射；返光参数在手电配置中编辑。" :
+                "场景只控制共享墙体受光规则；返光模式和光形在手电配置中编辑。");
             foreach (string name in FlashlightDebugSave.SceneFields.Skip(1))
             {
-                if (name == "BounceMode") continue;
                 var member = typeof(ExplorationLightSettings).GetField(name);
                 if (member.FieldType.IsEnum)
                 {
@@ -62,8 +57,15 @@ namespace DarkNights.Editor.Lighting
                 slider.AddManipulator(new FlashlightDebugSliderGesture(() => undo.BeginGesture("scene" + name), undo.EndGesture));
                 Root.Add(slider); synchronize.Add(() => slider.SetValueWithoutNotify((float)member.GetValue(draft.Settings)));
             }
-            foreach (var item in new[] { ("明亮", .32f), ("平衡", .24f), ("偏暗", .1f), ("零环境光", 0f) })
-                Root.Add(new Button(() => Write("Ambient", item.Item2)) { text = item.Item1 });
+            var ambient = new PopupField<string>("底光快捷值",
+                new List<string> { "自定义", "明亮 · 0.32", "平衡 · 0.24", "偏暗 · 0.10", "零底光 · 0" }, 0);
+            ambient.RegisterValueChangedCallback(evt =>
+            { int index = ambient.choices.IndexOf(evt.newValue); if (index > 0) Write("Ambient", new[] { .32f, .24f, .1f, 0f }[index - 1]); });
+            Root.Add(ambient); synchronize.Add(() =>
+            {
+                int index = Array.FindIndex(new[] { .32f, .24f, .1f, 0f }, value => Mathf.Approximately(value, draft.Settings.Ambient));
+                ambient.SetValueWithoutNotify(ambient.choices[index < 0 ? 0 : index + 1]);
+            });
         }
 
         private void Write(string name, object value)
@@ -73,7 +75,7 @@ namespace DarkNights.Editor.Lighting
             var candidate = JsonUtility.FromJson<ExplorationLightSettings>(JsonUtility.ToJson(draft.Settings));
             member.SetValue(candidate, value);
             try { candidate.Validate(); }
-            catch (ArgumentException) { capability.text = "距离必须满足远端大于近端；参数须在合法范围内。"; return; }
+            catch (ArgumentException) { capability.text = "场景参数须在合法范围内。"; return; }
             undo.Change(draft, "scene" + name, "修改场景光照临时参数", () => draft.Settings = candidate);
             changed();
             Refresh();
@@ -87,16 +89,6 @@ namespace DarkNights.Editor.Lighting
                 case "Ambient": return "环境底光";
                 case "WallDepth": return "墙内最大深度（格）";
                 case "WallStrength": return "墙内补光上限";
-                case "Bounce": return "有限反射补光";
-                case "DiffuseGain": return "墙面漫反射增益";
-                case "DiffuseShape": return "漫反射形状（WallBand 沿墙／SoftBlob 柔光团）";
-                case "DiffuseMatchIncident": return "匹配主光入射亮度（不额外按斜照压暗）";
-                case "DiffuseCornerRadius": return "相邻墙面连接半径（格，0关闭）";
-                case "DiffuseNearDistance": return "漫反射近距离（格）";
-                case "DiffuseFarDistance": return "漫反射关闭距离（格）";
-                case "DiffuseMaxReach": return "漫反射最大范围／法向深度（格）";
-                case "DiffuseLateralSpread": return "漫反射沿墙扩展";
-                case "DiffuseVisibilityProbes": return "每墙段遮挡探针";
                 default: return "岩壁受光层次";
             }
         }

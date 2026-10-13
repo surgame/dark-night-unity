@@ -11,27 +11,11 @@ namespace DarkNights.View.Lighting
         [Range(0, 1)] public float Ambient = .24f;
         [Range(0, 1)] public float WallDepth = .375f;
         [Range(0, 1)] public float WallStrength = .65f;
-        [Range(0, .4f)] public float Bounce = .12f;
         [Range(0, 1)] public float Relief = .22f;
-        public LightBounceMode BounceMode = LightBounceMode.LegacyPoint;
-        public WallDiffuseShape DiffuseShape = WallDiffuseShape.WallBand;
-        public bool DiffuseMatchIncident;
-        [Range(0, 2)] public float DiffuseCornerRadius = .8f;
-        [Range(0, 2)] public float DiffuseGain = 1;
-        [Range(0, 6)] public float DiffuseNearDistance = 1.5f;
-        [Range(.1f, 14)] public float DiffuseFarDistance = 6;
-        [Range(0, 6)] public float DiffuseMaxReach = 3.2f;
-        [Range(0, 2)] public float DiffuseLateralSpread = .65f;
-        [Range(2, 4)] public int DiffuseVisibilityProbes = 2;
-
         public void Validate()
         {
             if (!Enum.IsDefined(typeof(LightingBackendKind), Backend) || !Valid(Ambient, 0, 1) ||
-                !Valid(WallDepth, 0, 1) || !Valid(WallStrength, 0, 1) || !Valid(Bounce, 0, .4f) || !Valid(Relief, 0, 1) ||
-                !Enum.IsDefined(typeof(LightBounceMode), BounceMode) || !Enum.IsDefined(typeof(WallDiffuseShape), DiffuseShape) ||
-                !Valid(DiffuseCornerRadius, 0, 2) || !Valid(DiffuseGain, 0, 2) ||
-                !Valid(DiffuseNearDistance, 0, 6) || !Valid(DiffuseFarDistance, .1f, 14) || DiffuseFarDistance <= DiffuseNearDistance ||
-                !Valid(DiffuseMaxReach, 0, 6) || !Valid(DiffuseLateralSpread, 0, 2) || DiffuseVisibilityProbes < 2 || DiffuseVisibilityProbes > 4)
+                !Valid(WallDepth, 0, 1) || !Valid(WallStrength, 0, 1) || !Valid(Relief, 0, 1))
                 throw new ArgumentException("场景光照参数无效。");
         }
 

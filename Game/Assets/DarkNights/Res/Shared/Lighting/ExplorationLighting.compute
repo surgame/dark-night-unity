@@ -1,4 +1,5 @@
 #pragma kernel ResolveSources
+#pragma kernel ResolveApertures
 #pragma kernel Illuminate
 #pragma kernel IlluminateDiffuse DN_CONTINUOUS DN_QUERY_COUNTERS
 #pragma kernel PrepareWallProfiles DN_QUERY_COUNTERS
@@ -9,6 +10,7 @@
 RWTexture2D<float4> _DNLightOutput;
 RWTexture2D<float4> _DNDirectionOutput;
 RWStructuredBuffer<float4> _DNBounceSources;
+RWStructuredBuffer<float> _DNApertureVisibility;
 float4 _DNLightRect;
 float4 _DNTargetSize;
 float4 _DNLightPositions[16]; // grid origin, range, cone cosine
@@ -17,7 +19,6 @@ float4 _DNLightColors[16]; // linear color, direct intensity
 float4 _DNLightNearOrigins[16];
 float4 _DNLightApertures[16]; // 灯口半宽，与锥角和阴影柔度独立
 float4 _DNLightShadows[16]; // 单灯阴影柔度、光束边缘
-float _DNBounceStrength;
 int _DNLightCount;
 #include "WallDiffusePrepare.hlsl"
 #ifdef DN_CONTINUOUS
@@ -25,11 +26,28 @@ int _DNLightCount;
 #endif
 
 [numthreads(16,1,1)]
+void ResolveApertures(uint3 id : SV_DispatchThreadID)
+{
+    int n=id.x;
+    if(n>=_DNLightCount) return;
+    float2 origin=_DNLightPositions[n].xy, forward=_DNLightDirections[n].xy;
+    float2 perpendicular=float2(-forward.y,forward.x);
+    float softness=_DNLightShadows[n].x, radius=max(_DNLightApertures[n].x,softness);
+    for(int s=-2;s<=2;s++)
+    {
+        float2 mouth=origin+perpendicular*(s*.5)*radius;
+        bool needed=softness>0 && _DNLightColors[n].w>0;
+        _DNApertureVisibility[n*10+s+2]=needed?DNVisibility(origin,mouth,0):0;
+        _DNApertureVisibility[n*10+s+7]=needed?DNExactVisibility(origin,mouth):0;
+    }
+}
+
+[numthreads(16,1,1)]
 void ResolveSources(uint3 id : SV_DispatchThreadID)
 {
     uint n = id.x;
     _DNBounceSources[n] = 0;
-    if (n >= (uint)_DNLightCount) return;
+    if (n >= (uint)_DNLightCount || (int)_DNLightBounce[n].x!=0 || _DNLightBounce[n].y<=0) return;
     float2 origin = _DNLightPositions[n].xy, direction = _DNLightDirections[n].xy;
     if (DNSolid(origin)) return;
     int steps = min(192,(int)ceil(_DNLightPositions[n].z*8));
@@ -64,7 +82,7 @@ void DNIlluminate(uint3 id)
         float nearDistance=distance(p,_DNLightNearOrigins[n].xy);
         bool supported=d<=range || nearDistance<=_DNLightDirections[n].z;
 #ifdef DN_CONTINUOUS
-        supported=supported || d<=_DNDiffuseSettings.z+_DNDiffuseSettings.w*1.7;
+        supported=supported || ((int)_DNLightBounce[n].x==2 && _DNDiffuseSettings[n].x>0 && d<=_DNDiffuseSettings[n].z+_DNDiffuseSettings[n].w*1.7);
 #endif
         if (!supported) continue;
         float2 forward=_DNLightDirections[n].xy;
@@ -89,7 +107,7 @@ void DNIlluminate(uint3 id)
             for (int s=-2;s<=2;s++)
             {
                 float2 mouth=origin+perpendicular*(s*.5)*radius;
-                visibility+=DNVisibility(origin,mouth,0)*DNVisibility(mouth,p,_DNShadowSettings.y)*(3-abs(s))/9;
+                visibility+=_DNApertureVisibility[n*10+s+2]*DNVisibility(mouth,p,_DNShadowSettings.y)*(3-abs(s))/9;
             }
         }
         float contribution=direct*visibility;
@@ -107,14 +125,12 @@ void DNIlluminate(uint3 id)
             contribution+=near*nearVisibility;
         }
         float4 bounce=_DNBounceSources[n];
-#ifndef DN_CONTINUOUS
-        if (bounce.w>0 && _DNBounceStrength>0)
+        if ((int)_DNLightBounce[n].x==0 && bounce.w>0 && _DNLightBounce[n].y>0)
         {
             float radius=2.5;
-            float reflected=pow(saturate(1-distance(p,bounce.xy)/radius),2)*bounce.z*_DNBounceStrength;
+            float reflected=pow(saturate(1-distance(p,bounce.xy)/radius),2)*bounce.z*_DNLightBounce[n].y;
             contribution+=reflected*DNVisibility(bounce.xy,p,_DNShadowSettings.y);
         }
-#endif
         float directContribution=contribution;
         directEnergy+=_DNLightColors[n].rgb*directContribution;
 #ifdef DN_CONTINUOUS

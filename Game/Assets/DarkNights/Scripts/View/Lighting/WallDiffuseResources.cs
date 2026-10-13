@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using DarkNights.Core.Config;
 using DarkNights.Core.ViewData;
 using DarkNights.View.Terrain;
 using UnityEngine;
@@ -14,11 +15,15 @@ namespace DarkNights.View.Lighting
     {
         public const int Lights = 16, CandidatesPerLight = 64, Nodes = 33, SegmentsPerLight = 8;
         private readonly LightBoundaryCache cache;
+        private readonly WallDiffusePreparationCache preparation = new WallDiffusePreparationCache();
         private readonly Candidate[] candidates = new Candidate[Lights * CandidatesPerLight];
         private readonly Vector4[] counts = new Vector4[Lights];
         private readonly float[] scores = new float[CandidatesPerLight];
         private int[] visited = Array.Empty<int>();
         private int stamp;
+        private Texture boundGeometry;
+        private int boundKernel = -1;
+        private bool queryFlagReady, queriesEnabled;
         private LightBoundarySnapshot indexed;
         private readonly ComputeBuffer candidateBuffer, candidateProfiles, candidateNodes, profiles, nodes;
         private readonly int prepare, select;
@@ -34,8 +39,12 @@ namespace DarkNights.View.Lighting
         public double FreezeMilliseconds => cache.FreezeMilliseconds;
         public double UploadMilliseconds { get; private set; }
         public double PrepareMilliseconds { get; private set; }
+        public double BoundaryTickMilliseconds { get; private set; }
+        public double CandidateMilliseconds { get; private set; }
         public long BufferBytes => Lights * CandidatesPerLight * (32 + 48 + Nodes * 4) + Lights * SegmentsPerLight * (48 + Nodes * 4) + 12;
         public long UploadedBytes { get; private set; }
+        public int PreparationCount { get; private set; }
+        public bool Settled => cache.Settled;
 
         public WallDiffuseResources(ComputeShader shader, Func<LightGeometrySnapshot, Func<bool>, LightBoundarySnapshot> builder)
         {
@@ -46,60 +55,73 @@ namespace DarkNights.View.Lighting
             profiles = new ComputeBuffer(Lights * SegmentsPerLight, 48);
             nodes = new ComputeBuffer(Lights * SegmentsPerLight * Nodes, 4);
             prepare = shader.FindKernel("PrepareWallProfiles"); select = shader.FindKernel("SelectWallProfiles");
+            shader.SetBuffer(prepare, "_DNWallCandidates", candidateBuffer);
+            shader.SetBuffer(prepare, "_DNCandidateProfiles", candidateProfiles); shader.SetBuffer(prepare, "_DNCandidateNodes", candidateNodes);
+            shader.SetBuffer(prepare, "_DNDiffuseQueries", queryCounters);
+            shader.SetBuffer(select, "_DNCandidateProfiles", candidateProfiles); shader.SetBuffer(select, "_DNCandidateNodes", candidateNodes);
+            shader.SetBuffer(select, "_DNWallCandidates", candidateBuffer); shader.SetBuffer(select, "_DNDiffuseQueries", queryCounters);
+            shader.SetBuffer(select, "_DNWallProfiles", profiles); shader.SetBuffer(select, "_DNWallNodes", nodes);
         }
 
         public void Prepare(ComputeShader shader, CommandBuffer commands, CaveVisualSource source, RectInt bounds,
-            Vector4[] positions, Vector4[] directions, Vector4[] apertures, int count, ExplorationLightSettings settings, bool countQueries = false)
+            Vector4[] positions, Vector4[] directions, Vector4[] apertures, Vector4[] colors, Vector4[] shadows,
+            int count, LightBounceRules[] rules, bool countQueries = false, int benchmark = 0)
         {
             long start = System.Diagnostics.Stopwatch.GetTimestamp();
             cache.Tick(source, bounds);
+            BoundaryTickMilliseconds = (System.Diagnostics.Stopwatch.GetTimestamp() - start) * 1000.0 / System.Diagnostics.Stopwatch.Frequency;
             var snapshot = cache.Snapshot;
+            if (!queryFlagReady || queriesEnabled != countQueries)
+            { shader.SetInt("_DNDiffuseCountQueries", countQueries ? 1 : 0); queriesEnabled = countQueries; queryFlagReady = true; }
+            UploadedBytes = 0; UploadMilliseconds = 0; CandidateMilliseconds = 0;
+            if (!countQueries && preparation.Matches(source, snapshot, bounds, positions, directions, apertures, colors, shadows, rules, count, benchmark))
+            {
+                PrepareMilliseconds = (System.Diagnostics.Stopwatch.GetTimestamp() - start) * 1000.0 / System.Diagnostics.Stopwatch.Frequency;
+                return;
+            }
             if (indexed != snapshot)
             { indexed = snapshot; visited = snapshot == null ? Array.Empty<int>() : new int[snapshot.Count]; }
             CandidateCount = 0; DroppedCount = 0;
             Profiler.BeginSample("DN.Diffuse.Candidates");
+            long candidateStart = System.Diagnostics.Stopwatch.GetTimestamp();
             try
             {
                 for (int n = 0; n < Lights; n++)
                 {
-                    int found = snapshot != null && n < count && positions[n].w > -.9f && settings.DiffuseGain > 0 ?
-                        Query(snapshot, cache.Bounds, positions[n], directions[n], apertures[n].x, n, settings.DiffuseFarDistance) : 0;
+                    int found = snapshot != null && n < count && WallDiffusePreparationCache.Enabled(positions[n], colors[n], rules[n]) ?
+                        Query(snapshot, cache.Bounds, positions[n], directions[n], apertures[n].x, n, rules[n].DiffuseFarDistance) : 0;
                     counts[n] = new Vector4(found, 0, 0, 0); CandidateCount += found;
                 }
             }
             finally { Profiler.EndSample(); }
+            CandidateMilliseconds = (System.Diagnostics.Stopwatch.GetTimestamp() - candidateStart) * 1000.0 / System.Diagnostics.Stopwatch.Frequency;
             Profiler.BeginSample("DN.Diffuse.Upload");
             long uploadStart = System.Diagnostics.Stopwatch.GetTimestamp();
-            try { candidateBuffer.SetData(candidates); UploadedBytes = candidates.Length * 32; }
+            try { candidateBuffer.SetData(candidates, 0, 0, count * CandidatesPerLight); UploadedBytes = count * CandidatesPerLight * 32; }
             finally { Profiler.EndSample(); }
             UploadMilliseconds = (System.Diagnostics.Stopwatch.GetTimestamp() - uploadStart) * 1000.0 / System.Diagnostics.Stopwatch.Frequency;
-            shader.SetInt("_DNDiffuseCountQueries", countQueries ? 1 : 0);
             if (countQueries) queryCounters.SetData(emptyCounters);
             shader.SetVectorArray("_DNWallCandidateCounts", counts);
-            shader.SetVector("_DNDiffuseSettings", new Vector4(settings.DiffuseGain, settings.DiffuseNearDistance, settings.DiffuseFarDistance, settings.DiffuseMaxReach));
-            shader.SetFloat("_DNDiffuseSpread", settings.DiffuseLateralSpread);
-            shader.SetInt("_DNDiffuseProbes", settings.DiffuseVisibilityProbes);
-            shader.SetInt("_DNDiffuseShape", (int)settings.DiffuseShape);
-            shader.SetInt("_DNDiffuseMatchIncident", settings.DiffuseMatchIncident ? 1 : 0);
-            shader.SetFloat("_DNDiffuseCornerRadius", settings.DiffuseCornerRadius);
-            shader.SetBuffer(prepare, "_DNWallCandidates", candidateBuffer);
-            shader.SetBuffer(prepare, "_DNCandidateProfiles", candidateProfiles); shader.SetBuffer(prepare, "_DNCandidateNodes", candidateNodes);
-            shader.SetTexture(prepare, "_DNLightCells", source.LightingGeometry);
-            shader.SetBuffer(prepare, "_DNDiffuseQueries", queryCounters);
-            shader.SetBuffer(select, "_DNCandidateProfiles", candidateProfiles); shader.SetBuffer(select, "_DNCandidateNodes", candidateNodes);
-            shader.SetBuffer(select, "_DNWallCandidates", candidateBuffer);
-            shader.SetTexture(select, "_DNLightCells", source.LightingGeometry);
-            shader.SetBuffer(select, "_DNDiffuseQueries", queryCounters);
-            shader.SetBuffer(select, "_DNWallProfiles", profiles); shader.SetBuffer(select, "_DNWallNodes", nodes);
+            if (boundGeometry != source.LightingGeometry)
+            {
+                shader.SetTexture(prepare, "_DNLightCells", source.LightingGeometry);
+                shader.SetTexture(select, "_DNLightCells", source.LightingGeometry); boundGeometry = source.LightingGeometry;
+            }
             commands.SetComputeIntParam(shader, "_DNDiffuseQueryStage", 0);
-            commands.BeginSample(profileSampler); commands.DispatchCompute(shader, prepare, 1, Lights, 1); commands.EndSample(profileSampler);
+            commands.BeginSample(profileSampler); commands.DispatchCompute(shader, prepare, 1, count, 1); commands.EndSample(profileSampler);
             commands.BeginSample(selectSampler); commands.DispatchCompute(shader, select, 1, 1, 1); commands.EndSample(selectSampler);
             commands.SetComputeIntParam(shader, "_DNDiffuseQueryStage", 1);
+            preparation.Remember(source, snapshot, bounds, positions, directions, apertures, colors, shadows, rules, count, benchmark);
+            PreparationCount++;
             PrepareMilliseconds = (System.Diagnostics.Stopwatch.GetTimestamp() - start) * 1000.0 / System.Diagnostics.Stopwatch.Frequency;
         }
 
         public void Bind(ComputeShader shader, int kernel)
-        { shader.SetBuffer(kernel, "_DNWallProfiles", profiles); shader.SetBuffer(kernel, "_DNWallNodes", nodes); shader.SetBuffer(kernel, "_DNDiffuseQueries", queryCounters); }
+        {
+            if (boundKernel == kernel) return;
+            shader.SetBuffer(kernel, "_DNWallProfiles", profiles); shader.SetBuffer(kernel, "_DNWallNodes", nodes);
+            shader.SetBuffer(kernel, "_DNDiffuseQueries", queryCounters); boundKernel = kernel;
+        }
         public uint[] ReadQueryCounts() { var result = new uint[3]; queryCounters.GetData(result); return result; }
 
         private int Query(LightBoundarySnapshot snapshot, RectInt bounds, Vector4 origin, Vector4 forward, float aperture, int light, float far)

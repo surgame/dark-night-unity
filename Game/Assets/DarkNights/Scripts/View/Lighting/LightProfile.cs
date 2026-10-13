@@ -12,6 +12,17 @@ namespace DarkNights.View.Lighting
     public sealed class LightProfile : ScriptableObject
     {
         public LightEffect Template;
+        public LightBounceMode BounceMode = LightProfileDefaults.BounceMode;
+        [Range(0, .4f)] public float Bounce = LightProfileDefaults.Bounce;
+        public WallDiffuseShape DiffuseShape = LightProfileDefaults.DiffuseShape;
+        public bool DiffuseMatchIncident = LightProfileDefaults.DiffuseMatchIncident;
+        [Range(0, 2)] public float DiffuseCornerRadius = LightProfileDefaults.DiffuseCornerRadius;
+        [Range(0, 2)] public float DiffuseGain = LightProfileDefaults.DiffuseGain;
+        [Range(0, 6)] public float DiffuseNearDistance = LightProfileDefaults.DiffuseNearDistance;
+        [Range(.1f, 14)] public float DiffuseFarDistance = LightProfileDefaults.DiffuseFarDistance;
+        [Range(0, 6)] public float DiffuseMaxReach = LightProfileDefaults.DiffuseMaxReach;
+        [Range(0, 2)] public float DiffuseLateralSpread = LightProfileDefaults.DiffuseLateralSpread;
+        [Range(2, 4)] public int DiffuseVisibilityProbes = LightProfileDefaults.DiffuseVisibilityProbes;
         public bool EnvironmentEnabled = LightProfileDefaults.EnvironmentEnabled;
         public bool LocalFillEnabled = LightProfileDefaults.LocalFillEnabled;
         public bool Directional = LightProfileDefaults.Directional;
@@ -37,7 +48,8 @@ namespace DarkNights.View.Lighting
             Template.ValidateStructure();
             return new LightProfileSnapshot(Template, EnvironmentEnabled, LocalFillEnabled, Directional,
                 new LightEmissionRules(Range, Cone, Intensity, NearRange, NearIntensity,
-                    Color.r, Color.g, Color.b, ApertureWidth, SoftShadows, Softness, ConeFeather),
+                    Color.r, Color.g, Color.b, ApertureWidth, SoftShadows, Softness, ConeFeather,
+                    new LightBounceRules(BounceMode, Bounce, DiffuseShape, DiffuseMatchIncident, DiffuseCornerRadius, DiffuseGain, DiffuseNearDistance, DiffuseFarDistance, DiffuseMaxReach, DiffuseLateralSpread, DiffuseVisibilityProbes)),
                 FillRadius, FillIntensity, FillColor);
         }
     }

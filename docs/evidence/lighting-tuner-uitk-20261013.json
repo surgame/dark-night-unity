@@ -1,0 +1,236 @@
+{
+  "date": "2026-10-13",
+  "status": "implemented_and_compiled_manual_acceptance_pending",
+  "workspace": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects",
+  "worktree_created": false,
+  "branch": "fix-20261013-wall-diffuse-corners",
+  "head": "ebe38399d7275158249310b41d44cd5c020266e5",
+  "editor": {
+    "version": "6000.4.9f1",
+    "pid": 21920
+  },
+  "scope": [
+    "Editor UITK navigation and grouped controls",
+    "single save transaction and local named history",
+    "real terrain and passive prefab visual preview",
+    "camera and shader binding isolation",
+    "readonly terrain stage access and optional output size"
+  ],
+  "modified_or_added_files": [
+    {
+      "path": "Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\Debug\\FlashlightDebug.uss",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\Debug\\FlashlightDebug.uss",
+      "sha256": "62C783D95245C69A1706A1B21E79B241477CCA22E7C87F055CC7622F4E70C489",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\Debug\\FlashlightDebug.uxml",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\Debug\\FlashlightDebug.uxml",
+      "sha256": "AF1051523460FE844C3B78AFF7EA90D136E7409D0DD9442BC1002404718E0947",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugDraft.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugDraft.cs",
+      "sha256": "AA5A4020D0B26F2150181801E22A8B4AC073CB21F0EE8570AC18782F21F3900F",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugHistory.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugHistory.cs",
+      "sha256": "D2E51F1ED5162717A3F5BEAA879B9418BFFC7CB6EE4EB8A093B5688244A858DA",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugNavigation.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugNavigation.cs",
+      "sha256": "D3DE151C3298851D1D65A51BFCC8DAC79C0D984592F0EDC16DE9A734D5BA35C2",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugRecord.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugRecord.cs",
+      "sha256": "370E9D630C0B33CCBA366D43670A62701F9B0124461EF8350856AF0470D7A88B",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugRecordsPanel.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugRecordsPanel.cs",
+      "sha256": "86415ADCE18B3BD9CE1D37FB13E3A88DF3646E4C0DFB6FEEFFFD5B081E7228A3",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugRecordStore.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugRecordStore.cs",
+      "sha256": "A13306DB008C4B9A0F9F6B99F02ED7B6C0610E71866DA82E47EAC80D0630794A",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugSave.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugSave.cs",
+      "sha256": "E351F50CF2639A2134C77E74AB74749A72ACABB5181E4F66F7DD9873084FE8B4",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugSaveBatch.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugSaveBatch.cs",
+      "sha256": "CD2CC72EC88E80B8E0EAFD4E33B2B912B66AB27EAEA66C15113ECC44E717135C",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugSources.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugSources.cs",
+      "sha256": "A0B2A6BB5EDFB3A6DD13C7F48510A96B175C70A458B8F597E7D4D1713E7345B9",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugUndo.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugUndo.cs",
+      "sha256": "D53A640FE3A290814F6C900E6A6C9C912689268D5CDFB10090E0C8E006A26EFD",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugWindow.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightDebugWindow.cs",
+      "sha256": "BF05F1227C63CB4045E2411AD5367D62D5968D149198E4C6E0F005C4FE8D4399",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewActor.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewActor.cs",
+      "sha256": "505DC9F2114B8F7136906049B00E9AC005BD8A1D79DB99A0115984A92395927E",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewDraft.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewDraft.cs",
+      "sha256": "7CE28D584EDF154773A1C89D771894F87553891F3A87C109DD02DD4FBCDF75BE",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewGlobals.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewGlobals.cs",
+      "sha256": "931E9564C1E0C099BB7745BAD5C10669C3B72909FFD8F0E585B6CA6BA9AAC92D",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewPane.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewPane.cs",
+      "sha256": "3316D07E75B0CEB4DB9DF72CD778D98346E61FF2C03B78ADA1C1414609AFCEE3",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewPick.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewPick.cs",
+      "sha256": "BFC1B0C52BFF31B19A7EC4ACFD279C51746530A07599AC011D7F43C13712B8E7",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewSettings.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewSettings.cs",
+      "sha256": "5015850DAD390C481BD2917504CC7A1C068FA40851BA69446ACC6967F43DB0F3",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewStage.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewStage.cs",
+      "sha256": "8FEBF0D0E929A8A52D5737809110959D1B4D1C8A06F2D36C82D71911D1A1539F",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\LightMountPanel.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\LightMountPanel.cs",
+      "sha256": "657F925C17B320EC398DF426F1F22B8912EB6C39ECB0D4B34BE6A40632ADAF44",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\LightOverridePanel.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\LightOverridePanel.cs",
+      "sha256": "7F54A3E457FF14101BEF0158F0ACDE2B38FF02017BA319557A524BAE6138ED84",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\LightParameterSchema.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\LightParameterSchema.cs",
+      "sha256": "1F8DAC84F064B40013DFB509AF37446B34E3E38D33ABE5E29F2E47447F6A84DD",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\SceneLightingPanel.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\SceneLightingPanel.cs",
+      "sha256": "79B3E59B4B04FBEB3052AEE795F33E72EC10CFA02D8897A197592CD9BE3966E9",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainStylePreviewStage.cs",
+      "absolute": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainStylePreviewStage.cs",
+      "sha256": "A7B1D4FD790097B619A60437EB2B07509672A9D9B1518430CC1811E3EE092768",
+      "meta": true
+    }
+  ],
+  "protected_assets_and_shader_unchanged": [
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Flashlight/Flashlight.asset",
+      "sha256": "B546BBC08E3375AC86AE49B28189C532155772814C616F99FDA3937892A56D70"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Flashlight/Flashlight.prefab",
+      "sha256": "475E79C987BD65F314DCAB8ED27769FFFF3A7543D5BADAE11CF51EA7BF8786BA"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/Worker/Worker.prefab",
+      "sha256": "D01EEA29AFE4105CF5611FF4FB0AA706ED24DB2E97F8A60FA859A2B1A76A52BC"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Shared/Lighting/Profiles/DeviceLighting.asset",
+      "sha256": "8C957EE214EAE1B324B8E528037D531B7CBE76873680A5CC5FA5F3A2D87DD3AB"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Shared/Lighting/Profiles/PinewatchLighting.asset",
+      "sha256": "D921E411A12B71253E2B064A2C9635F86FD090F49066ACD02E48820105AC9F03"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.compute",
+      "sha256": "26611EFD6BBD01DBE2674BA235684E643DDFF9426541277A44AE7F35C4816763"
+    }
+  ],
+  "unity_compilation": {
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "static_compilation": {
+    "errors": 0,
+    "warnings": 9,
+    "warnings_scope": "pre-existing unrelated Editor warnings",
+    "final_camera_callback_check": "Unity final compilation"
+  },
+  "loaded_ui": {
+    "assembly": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Editor.dll",
+    "missing": [],
+    "styleErrors": false,
+    "styleWarnings": false,
+    "playing": false,
+    "compiling": false,
+    "sceneDirty": false,
+    "previewScenes": 1
+  },
+  "not_run": [
+    "EditMode/PlayMode tests",
+    "Play probes",
+    "UI save/rollback/replay manual acceptance",
+    "actual right-hand preview image inspection",
+    "lighting performance batches",
+    "Player build/run"
+  ],
+  "pending": [
+    "all-category save and cancel",
+    "external same-field conflict and dirty Prefab Stage rejection",
+    "save failure restoration and draft retention",
+    "close/reopen and named history replay",
+    "rotation/position/room/camera and saved comparison",
+    "PrivateField/URP visual checks and runtime camera isolation"
+  ],
+  "intermediate_outputs_preserved": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-tuner-uitk-20261013",
+  "unity_channel": "idle and available for lighting validation after this implementation"
+}

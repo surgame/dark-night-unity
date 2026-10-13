@@ -10,8 +10,13 @@ namespace DarkNights.Core.Logic.Terrain
         public ContourBackgroundGenerator(BackgroundContourSettings settings = null)
         { this.settings = settings ?? new BackgroundContourSettings(); }
         public string Identity => settings.Identity;
+        public int RegionHalo => (int)Math.Ceiling(Math.Max(settings.NearWidth * .7,
+            Math.Max(settings.MiddleWidth * 1.9, settings.DeepWidth * 3.2))) + 64;
         public ICaveBackgroundLayout Build(BackgroundBakeDescriptor source, CaveOutlineSettings outline,
             Action checkpoint = null, int decorationStartRow = 43)
             => BackgroundContourBaker.Build(source, checkpoint, outline, settings, decorationStartRow);
+        public ICaveBackgroundLayout BuildRegion(BackgroundBakeDescriptor source, int left, int top, int width, int height,
+            CaveOutlineSettings outline, Action checkpoint = null, int decorationStartRow = 43)
+            => BackgroundContourBaker.BuildRegion(source, left, top, width, height, checkpoint, outline, settings, decorationStartRow);
     }
 }

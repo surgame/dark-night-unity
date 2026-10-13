@@ -27,6 +27,7 @@
 | [地图与地形](TERRAIN_GENERATION.md) | 两层权威地图、生成、碰撞、装卸和采集 |
 | [工具Definition与采集能力](TOOL_DEFINITION_HARVESTING.md) | 工具配置、目标匹配、装备身份与动作事务 |
 | [照明](LIGHTING.md) | 光效复用、后端、材质、挂载和本地资源生命周期 |
+| [手电返光优化后续目标](LIGHTING_PRUNING_FOLLOWUP.md) | 剪枝及复用、GPU／至少四人性能、候选预算与性价比评估；用户暂缓，已列入CL阶段待验 |
 | [Debug Hub规范](RUNTIME_DEBUG_HUB_SPEC.md) | 面板注册、界面、输入和调试操作合同 |
 | [依赖说明](DEPENDENCIES.md) | 现行依赖来源、锁定配置和准备入口 |
 | [YYGC改动账本](YYGC_CHANGES.md) | 具体授权、逐文件差异、补丁来源及验证边界 |

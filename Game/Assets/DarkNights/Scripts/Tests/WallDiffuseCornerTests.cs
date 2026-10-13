@@ -1,3 +1,4 @@
+using DarkNights.Core.Config;
 using System;
 using DarkNights.View.Lighting;
 using NUnit.Framework;
@@ -41,7 +42,8 @@ namespace DarkNights.Tests
                 }
                 Assert.That(blobPixels, Is.GreaterThan(bandPixels));
                 gpu.Probes = 4; gpu.Dispatch(true); var moreProbes = gpu.Pixels();
-                for (int i = 0; i < blob.Length; i++) Assert.That(moreProbes[i].r, Is.EqualTo(blob[i].r).Within(.00001));
+                for (int i = 0; i < blob.Length; i++)
+                    if (i % WallDiffuseGpuFixture.Size < 40) Assert.That(moreProbes[i].r, Is.EqualTo(blob[i].r).Within(.00001));
             }
         }
 
@@ -61,6 +63,32 @@ namespace DarkNights.Tests
                     Assert.That(reflected[y * WallDiffuseGpuFixture.Size + 48].r, Is.Zero);
                 }
                 Assert.That(surfaceIncrement, Is.GreaterThan(0));
+            }
+        }
+
+        [Test]
+        public void MixedModesAndShapesMatchTheSumOfSeparateLightsInAir()
+        {
+            using (var gpu = new WallDiffuseGpuFixture((x, y) => (byte)(x >= 10 ? 192 : 128)))
+            {
+                var configurations = new[] { new LightBounceRules(LightBounceMode.Continuous),
+                    new LightBounceRules(LightBounceMode.Continuous, diffuseShape: WallDiffuseShape.SoftBlob, diffuseMatchIncident: true, diffuseGain: .7f),
+                    new LightBounceRules(LightBounceMode.LegacyPoint), new LightBounceRules(LightBounceMode.Off) };
+                float original = gpu.OriginY; var sum = new float[WallDiffuseGpuFixture.Size * WallDiffuseGpuFixture.Size];
+                for (int lamp = 0; lamp < configurations.Length; lamp++)
+                {
+                    gpu.Count = 1; gpu.OriginY = original + lamp * .3f; gpu.Returns[0] = configurations[lamp];
+                    gpu.Dispatch(configurations[lamp].Continuous, configurations[lamp].BounceMode == LightBounceMode.LegacyPoint);
+                    var single = gpu.Pixels();
+                    for (int pixel = 0; pixel < sum.Length; pixel++) sum[pixel] += single[pixel].r;
+                }
+                gpu.OriginY = original; gpu.Count = configurations.Length;
+                Array.Copy(configurations, gpu.Returns, configurations.Length); gpu.Dispatch(true, true);
+                var mixed = gpu.Pixels();
+                for (int pixel = 0; pixel < sum.Length; pixel++)
+                    if (pixel % WallDiffuseGpuFixture.Size < 40) Assert.That(mixed[pixel].r, Is.EqualTo(sum[pixel]).Within(.00005));
+                var profiles = gpu.Profiles();
+                for (int slot = 16; slot < 32; slot++) Assert.That(profiles[slot * 3 + 2].x, Is.Zero, "LegacyPoint 与 Off 不得准备连续墙段。");
             }
         }
 

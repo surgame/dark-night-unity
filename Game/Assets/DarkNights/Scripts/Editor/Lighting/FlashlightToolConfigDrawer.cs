@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DarkNights.Core.Config;
 using DarkNights.Runtime.Objects;
 using DarkNights.View.Lighting;
 using GameCore.Objects.Definition;
@@ -40,8 +41,11 @@ namespace DarkNights.Editor.Lighting
                 EditorGUILayout.HelpBox(preset != null
                     ? "直接修改参数即可覆盖；蓝点表示物体覆盖，其他项跟随预设。点蓝点或右键可恢复跟随预设。"
                     : "未引用预设：使用内置默认光照。直接修改即可覆盖；点蓝点或右键可恢复默认值。", MessageType.None);
+                var mode = (LightBounceMode)ReadValue(candidate.Overrides, preset, "BounceMode");
+                var shape = (WallDiffuseShape)ReadValue(candidate.Overrides, preset, "DiffuseShape");
                 foreach (var field in LightParameterSchema.Fields)
                 {
+                    if (!LightParameterSchema.IsVisible(field.Name, mode, shape)) continue;
                     var mask = LightParameterSchema.Mask(field.Name);
                     bool overridden = candidate.Overrides.Has(mask);
                     var row = EditorGUILayout.GetControlRect();
@@ -54,12 +58,15 @@ namespace DarkNights.Editor.Lighting
                     }
                     var member = typeof(LightOverrides).GetField(field.Name);
                     object value = overridden ? member.GetValue(candidate.Overrides) : LightDefinitionEditor.InheritedValue(preset, field.Name);
-                    var content = new GUIContent(field.Label, overridden ? "已覆盖：仅修改当前物体。" : "跟随来源；直接修改即可覆盖当前物体。");
+                    var content = new GUIContent(LightParameterSchema.Label(field.Name, field.Label, shape),
+                        (overridden ? "已覆盖：仅修改当前物体。" : "跟随来源；直接修改即可覆盖当前物体。") + LightParameterSchema.Hint(field.Name));
                     var control = new Rect(row.x + 18, row.y, row.width - 18, row.height);
                     using (var change = new EditorGUI.ChangeCheckScope())
                     {
                         object edited;
                         if (member.FieldType == typeof(float)) edited = EditorGUI.Slider(control, content, (float)value, field.Low, field.High);
+                        else if (member.FieldType.IsEnum) edited = EditorGUI.EnumPopup(control, content, (Enum)value);
+                        else if (member.FieldType == typeof(int)) edited = EditorGUI.IntSlider(control, content, (int)value, (int)field.Low, (int)field.High);
                         else if (member.FieldType == typeof(bool)) edited = EditorGUI.Toggle(control, content, (bool)value);
                         else edited = EditorGUI.ColorField(control, content, (Color)value);
                         if (change.changed && !Equals(value, edited))
@@ -69,7 +76,12 @@ namespace DarkNights.Editor.Lighting
                         }
                     }
                 }
-                if (LightDefinitionEditor.Apply(owner, candidate, undo)) Synchronize();
+                if (LightDefinitionEditor.Apply(owner, candidate, undo))
+                {
+                    Synchronize();
+                    if (mode != (LightBounceMode)ReadValue(candidate.Overrides, preset, "BounceMode") ||
+                        shape != (WallDiffuseShape)ReadValue(candidate.Overrides, preset, "DiffuseShape")) GUIUtility.ExitGUI();
+                }
                 if (GUILayout.Button("打开光照配置调试台")) FlashlightDebugWindow.Open(owner);
             }
             catch (ExitGUIException) { throw; }
@@ -92,6 +104,10 @@ namespace DarkNights.Editor.Lighting
                 }
             }
         }
+
+        private static object ReadValue(LightOverrides values, LightProfile preset, string name) =>
+            values.Has(LightParameterSchema.Mask(name)) ? typeof(LightOverrides).GetField(name).GetValue(values)
+                : LightDefinitionEditor.InheritedValue(preset, name);
 
         private static bool DrawIndicator(Rect rect, bool overridden, bool hasPreset)
         {

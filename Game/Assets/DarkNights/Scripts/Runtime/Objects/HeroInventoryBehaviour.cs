@@ -8,7 +8,7 @@ namespace DarkNights.Runtime.Objects
 {
     /// <summary>
     /// 四格装备的稳定 Definition 身份与当前工具装配入口；背包状态归 ActorState，工具缓存仅持有 YYGC 对象引用。
-    /// 手枪、矿镐、炸弹使用同一主角输入流；喷气背包作为独立的已购买能力。
+    /// 手枪、矿镐、炸弹使用同一主角输入流；喷气暂退，已有独立能力字段只供保存关系保留。
     /// </summary>
     public sealed partial class HeroInventoryBehaviour : PooledBehaviour
     {

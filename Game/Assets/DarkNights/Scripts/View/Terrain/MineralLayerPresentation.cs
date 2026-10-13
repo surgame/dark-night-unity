@@ -27,8 +27,9 @@ namespace DarkNights.View.Terrain
             view = root.AddComponent<MineralLayerView>();
         }
 
-        public Task OpenAsync(ARDMapDefinition definition, Camera camera, WorldIdentity world, Texture light, float ambient, int sortingOrder)
-            => view.OpenAsync(definition, source, camera, world, lights: light, ambient: ambient, sortingOrder: sortingOrder);
+        public Task OpenAsync(ARDMapDefinition definition, Camera camera, WorldIdentity world, Texture light, float ambient, int sortingOrder,
+            GridBounds? region = null)
+            => view.OpenAsync(definition, source, camera, world, lights: light, ambient: ambient, sortingOrder: sortingOrder, region: region);
 
         public void Replace(IReadOnlyList<MineralDepositViewData> minerals)
         {

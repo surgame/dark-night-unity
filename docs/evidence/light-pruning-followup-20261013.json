@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-13",
+  "status": "Unity handoff; final verification incomplete",
+  "branch": "fix-20261013-wall-diffuse-corners",
+  "editor": {
+    "version": "6000.4.9f1",
+    "pid": 21920,
+    "playing": false,
+    "scene": "Assets/Scenes/Bootstrap.unity",
+    "dirty": false
+  },
+  "implemented": [
+    "per-batch memory gate and Windows-safe heartbeat",
+    "fixed GPU resource binding reuse",
+    "segmented timing and identical input barriers",
+    "EditMode resource retirement",
+    "runtime invalidation regression",
+    "compiled foreground Bootstrap instrumentation"
+  ],
+  "validation": {
+    "runtime_regression": "83/83; runtime candidate before later measurement-tool changes",
+    "gpu_gate_simulation": "5/5",
+    "png_pairs": 10,
+    "png_max_difference": 0,
+    "frozen_baseline_hashes": "preserved",
+    "latest_tool_compile": "passed",
+    "player": "not built",
+    "foreground": "not started"
+  },
+  "batches": {
+    "v10": "intermediate 320 samples; CPU tail still present",
+    "v11": "monitor replacement failure, excluded",
+    "v14": "monitor replacement failure, excluded",
+    "v15": "complete 1600 samples, 371 GPU pairs; some cases only 3 pairs, overall performance not accepted",
+    "v16": "compile prerequisite failed; old assembly ran briefly, excluded",
+    "v17": "stopped for recorder investigation, excluded",
+    "v18": "natural completion; 256 samples; region missing 0/64, static 42/64, rotate 52/64, dig 63/64; timing not accepted"
+  },
+  "handoff": "artifacts/light-pruning-20261013/unity-handoff.json",
+  "source_identity": "artifacts/light-pruning-20261013/resume-handoff-source-identity.json",
+  "remaining": [
+    "GPU receipt lifecycle/frame completion investigation",
+    "sufficient paired samples and CPU/GPU tail verification",
+    "actual foreground Bootstrap run",
+    "final delivery identity and evidence"
+  ],
+  "protected": {
+    "author_values": "unchanged from initial dirty workspace",
+    "YYGC": "unchanged",
+    "protocol": "unchanged",
+    "save_format": "unchanged",
+    "dependencies": "unchanged",
+    "other_sessions": "CL-00 and UITK console work preserved"
+  },
+  "artifacts": "All raw, failed, partial and completed batches preserved in artifacts/light-pruning-20261013/resume-*; no cleanup"
+}

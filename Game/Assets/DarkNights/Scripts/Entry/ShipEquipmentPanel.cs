@@ -3,12 +3,11 @@ using DarkNights.Core.Config;
 using DarkNights.Core.ViewData;
 using GameCore.UI;
 using R3;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace DarkNights.Entry
 {
-    /// <summary>船内四格装备与独立喷气能力的 YYGC UIToolkit 面板；只订阅冻结副本并发送购买意图。</summary>
+    /// <summary>船内四格装备的 YYGC UIToolkit 面板；只订阅冻结副本并发送有效商品的购买意图，喷气暂退。</summary>
     [UIAsset("dark_nights.ui.ship_equipment")]
     public sealed class ShipEquipmentPanel : UIPanel
     {
@@ -16,10 +15,8 @@ namespace DarkNights.Entry
         private readonly Subject<string> hint = new Subject<string>();
         private readonly Subject<string>[] slots =
             { new Subject<string>(), new Subject<string>(), new Subject<string>(), new Subject<string>() };
-        private readonly VisualElement[] fuelTicks = new VisualElement[16];
         private VisualElement shop;
-        private Label jetpack;
-        private Button pistol, pickaxe, pack;
+        private Button pistol, pickaxe;
         public event Action<string> BuyRequested;
         public event Action Closed;
         public bool ShopOpen { get; private set; }
@@ -37,25 +34,14 @@ namespace DarkNights.Entry
             for (int i = 0; i < slots.Length; i++)
                 Disposables.Add(slots[i].BindText(Root.Q<Label>("slot" + i)));
             shop = Root.Q<VisualElement>("shop");
-            jetpack = Root.Q<Label>("jetpack");
-            var ring = Root.Q<VisualElement>("fuel-ring");
-            for (int i = 0; i < fuelTicks.Length; i++)
-            {
-                float angle = i * Mathf.PI * 2 / fuelTicks.Length;
-                var tick = new VisualElement { name = "fuel-tick-" + i };
-                tick.AddToClassList("fuel-tick");
-                tick.style.left = 24 + Mathf.Sin(angle) * 19;
-                tick.style.top = 24 - Mathf.Cos(angle) * 19;
-                ring.Add(tick); fuelTicks[i] = tick;
-            }
             pistol = Root.Q<Button>("buy-pistol"); pickaxe = Root.Q<Button>("buy-pickaxe");
-            pack = Root.Q<Button>("buy-jetpack");
-            pistol.clicked += BuyPistol; pickaxe.clicked += BuyPickaxe; pack.clicked += BuyPack;
+            Root.Q<Button>("buy-jetpack").SetEnabled(false);
+            pistol.clicked += BuyPistol; pickaxe.clicked += BuyPickaxe;
             Root.Q<Button>("close").clicked += Close;
             SetShop(false);
         }
 
-        public void Present(ActorViewData actor, int balance, int iron, int gold, double fuelCapacity,
+        public void Present(ActorViewData actor, int balance, int iron, int gold,
             ShipTradeDefinition prices, string interaction, bool active)
         {
             Root.style.display = active ? DisplayStyle.Flex : DisplayStyle.None;
@@ -67,17 +53,10 @@ namespace DarkNights.Entry
                 string name = items[i] switch { 1 => "手枪", 2 => "矿镐", 3 => "炸药", 4 => "手电筒", _ => "空" };
                 slots[i].OnNext((actor?.SelectedItem == i ? "▶ " : "") + (i + 1) + "  " + name);
             }
-            bool owned = actor?.JetpackOwned == true;
-            jetpack.text = owned ? "喷气背包" : "喷气背包 · 未购买";
-            float ratio = owned && fuelCapacity > 0 ? Mathf.Clamp01((float)(actor.JetpackFuel / fuelCapacity)) : 0;
-            for (int i = 0; i < fuelTicks.Length; i++)
-                fuelTicks[i].style.opacity = owned && i < Mathf.CeilToInt(ratio * fuelTicks.Length) ? 1f : .18f;
             pistol.text = "手枪 · " + prices.PistolPrice;
             pickaxe.text = "矿镐 · " + prices.PickaxePrice;
-            pack.text = "喷气背包 · " + prices.JetpackPrice;
             pistol.SetEnabled(balance >= prices.PistolPrice && Array.IndexOf(items, 1) < 0 && Array.IndexOf(items, 0) >= 0);
             pickaxe.SetEnabled(balance >= prices.PickaxePrice && Array.IndexOf(items, 2) < 0 && Array.IndexOf(items, 0) >= 0);
-            pack.SetEnabled(balance >= prices.JetpackPrice && !owned);
         }
 
         public void SetShop(bool visible)
@@ -89,11 +68,10 @@ namespace DarkNights.Entry
 
         private void BuyPistol() => BuyRequested?.Invoke("pistol");
         private void BuyPickaxe() => BuyRequested?.Invoke("pickaxe");
-        private void BuyPack() => BuyRequested?.Invoke("jetpack");
         private void Close() { SetShop(false); Closed?.Invoke(); }
         protected override void OnDispose()
         {
-            pistol.clicked -= BuyPistol; pickaxe.clicked -= BuyPickaxe; pack.clicked -= BuyPack;
+            pistol.clicked -= BuyPistol; pickaxe.clicked -= BuyPickaxe;
             Root.Q<Button>("close").clicked -= Close;
             BuyRequested = null; Closed = null;
             credits.Dispose(); hint.Dispose();

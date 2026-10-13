@@ -13,6 +13,17 @@ MonoBehaviour:
   m_Name: DeviceLighting
   m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Lighting.LightProfile
   Template: {fileID: 2180092566517106681, guid: 32a564042a73e9c48bed4074dc75f29a, type: 3}
+  BounceMode: 2
+  Bounce: 0.12
+  DiffuseShape: 0
+  DiffuseMatchIncident: 0
+  DiffuseCornerRadius: 0.8
+  DiffuseGain: 1
+  DiffuseNearDistance: 1.5
+  DiffuseFarDistance: 6
+  DiffuseMaxReach: 3.2
+  DiffuseLateralSpread: 0.65
+  DiffuseVisibilityProbes: 2
   EnvironmentEnabled: 1
   LocalFillEnabled: 0
   Directional: 0

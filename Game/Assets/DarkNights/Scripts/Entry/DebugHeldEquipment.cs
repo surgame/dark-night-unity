@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace DarkNights.Entry
 {
-    /// <summary>原四格持有装备及独立喷气能力的展示区；保留槽位布局，移除按钮发送定义身份而不改本地库存。</summary>
+    /// <summary>四格持有装备及暂退喷气历史数据的展示区；保留槽位布局，移除按钮发送定义身份而不改本地库存。</summary>
     internal sealed class DebugHeldEquipment
     {
         private readonly VisualElement root;
@@ -34,7 +34,7 @@ namespace DarkNights.Entry
                 button.SetEnabled(allowed && held[index] != null); button.EnableInClassList("rdh-hidden", held[index] == null);
             }
             jetpack = actor?.JetpackOwned == true ? ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item.jetpack") : null;
-            root.Q<Label>("jetpackStatus").text = jetpack == null ? "未持有 · 独立能力" : "已装备 · 燃料 " + actor.JetpackFuel.ToString("0.0");
+            root.Q<Label>("jetpackStatus").text = jetpack == null ? "暂退 · 未持有" : "暂退 · 历史持有 · 燃料 " + actor.JetpackFuel.ToString("0.0");
             root.Q<Button>("removeJetpack").SetEnabled(allowed && jetpack != null);
             root.Q<Button>("removeJetpack").EnableInClassList("rdh-hidden", jetpack == null);
         }

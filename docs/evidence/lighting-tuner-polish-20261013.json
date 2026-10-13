@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-13",
+  "scope": "UITK lighting tuner readability, camera navigation and local preparation",
+  "branch": "fix-20261013-wall-diffuse-corners",
+  "editor": "6000.4.9f1 / PID21920 / Local",
+  "worktree": false,
+  "sources": [
+    {
+      "path": "Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\Debug\\FlashlightDebug.uss",
+      "sha256": "153d0eabcb4305185711cee755787b58088bf52d4c31252b7865cee5580eca37",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\Debug\\FlashlightDebug.uxml",
+      "sha256": "97572d895e6e1795e9b26896b1698bda7cf65024f2ac53ecff279d70a2694809",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\BackgroundContourBaker.cs",
+      "sha256": "b22a2de2eebd34f036b0e179b4192f8df15ce3b973cda0b1ef0c7f8822317bee",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\BackgroundRegionLayout.cs",
+      "sha256": "34b5b961c6ed8c732b03c95257146ccd0d318a894ee170575867be187095337c",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\ContourBackgroundGenerator.cs",
+      "sha256": "c2c6408b3e22752a46cf747c1bcf5b0968e3621669fe28131342bf18eed7af0e",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewNavigation.cs",
+      "sha256": "bfda91f34703cde1cefcd8ee492dd42f06a98e1d734997f6f96569f7188a01dd",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewPane.cs",
+      "sha256": "e8ee84aefdea34cf6a87f7229b2ec53b4e54f0fb2cff8b57d8132da81892047b",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewPick.cs",
+      "sha256": "81f465c1c375df9127341d61ea213a9755f1471e50f3745c46873f420c45c5ef",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewRegion.cs",
+      "sha256": "20968bb6249353994723120900e16544164d1fb619c38bd63a3639c01ca61f64",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewSettings.cs",
+      "sha256": "8c14bbb4c727c8ea2705ee17f50e4a29ee3cbe17632d526384da4e92aa23f0d1",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Lighting\\FlashlightPreviewStage.cs",
+      "sha256": "1e875779ef3a31741a634bc0f731d7f281e027201215e96c9460449539603f54",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainPreviewChunkSource.cs",
+      "sha256": "d417a693d82e6963307668ef8305d4b34952df2cb0630f24f5465d85bc2a450e",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainStylePreviewStage.cs",
+      "sha256": "b4f924be4a8cc3fe48a3335d5583991c90fe36c476076954c1256b87c541a928",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\View\\Terrain\\CaveBackgroundCache.cs",
+      "sha256": "8b936e0aa87b0f02f8fbd998913833e436125e70cc96857103eb3990d8bae46d",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\View\\Terrain\\CaveVisualSource.cs",
+      "sha256": "2c6ad4ddd7b66cc9b66775e014b2045e4d9dcc9b57107490e0a0a174b3f3b8d9",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\View\\Terrain\\MineralLayerPresentation.cs",
+      "sha256": "0959db923825d0260b07a60e9be4dff948bc648912123a2bf9317a830fc48657",
+      "meta": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\View\\Terrain\\TerrainPreview.cs",
+      "sha256": "ad0d98ae99b8cdfb537567e733ba95427c927e1161f4f6f9195b370814292f8e",
+      "meta": true
+    }
+  ],
+  "static_compile": "artifacts/lighting-tuner-polish-20261013/static-06/result.json",
+  "native_compile": "artifacts/lighting-tuner-polish-20261013/compile-status-04.json",
+  "style_readback": "artifacts/lighting-tuner-polish-20261013/ui-final-04.json",
+  "memory_gate": "artifacts/lighting-tuner-polish-20261013/memory-before-import-04",
+  "draft_restore": "artifacts/lighting-tuner-polish-20261013/live-restored-04.json",
+  "observations": {
+    "theme": "Light Editor / dark tuner",
+    "label_size": 14,
+    "label_weight": "Bold",
+    "local_chunks": 12,
+    "background_pages": 4,
+    "camera_half_height": 8
+  },
+  "boundaries": [
+    "No tests, Play or Player build",
+    "No timing or performance verdict",
+    "No automatic author-asset save, YYGC edit or dependency change",
+    "Local preview background uses authored parameters with LocalV2; LegacyV1 pixel equivalence is not claimed",
+    "Main game and full terrain workbench keep default background path",
+    "Logical authored blueprint and fixed shader texture address spaces remain; rendered pages are local"
+  ],
+  "pending": [
+    "Middle-drag, wheel anchoring, capture loss, undo/redo",
+    "Save and replay camera offset; legacy record defaults",
+    "Cross-region seams and retirement",
+    "Five maps, both Editor themes and narrow layouts",
+    "Load time measurements"
+  ],
+  "preservation": "Task inputs, failed static/reference compilation and window-missing restore receipts retained; no cleanup"
+}

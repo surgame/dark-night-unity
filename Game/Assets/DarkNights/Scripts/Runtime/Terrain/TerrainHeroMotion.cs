@@ -10,6 +10,7 @@ namespace DarkNights.Runtime.Terrain
     /// <summary>
     /// 主角按权威逻辑格执行有界分步碰撞；身体占据和落地共用完整宽度的形状查询。
     /// 浅层脚底重叠只在下降或静止且净空有效时恢复；位置、速度和支撑仍只写 ActorState。
+    /// 默认仅基础跳跃；历史喷气仅供离线工作台显式启用，不由保存的持有标记自动恢复。
     /// </summary>
     public static class TerrainHeroMotion
     {
@@ -53,7 +54,8 @@ namespace DarkNights.Runtime.Terrain
             }
         }
         public static void Tick(IReadOnlyGrid map, ActorState state, HeroControlDefinition rules, double delta, bool jump, bool thrust,
-            float? maximumHeight = null, float? targetX = null, HeroJumpStrategy? jumpStrategy = null, bool inputPrepared = false)
+            float? maximumHeight = null, float? targetX = null, HeroJumpStrategy? jumpStrategy = null, bool inputPrepared = false,
+            bool jetpack = false)
         {
             if (!inputPrepared) HeroJumpMotion.Sample(state, jump, delta);
 #if UNITY_EDITOR
@@ -70,12 +72,12 @@ namespace DarkNights.Runtime.Terrain
             bool started = HeroJumpMotion.TryStart(state, rules, grounded);
             if (started) grounded = false;
             if (grounded) state.VerticalSpeed = 0;
-            else HeroJumpMotion.Accelerate(state, rules, delta, thrust, jumpStrategy);
+            else HeroJumpMotion.Accelerate(state, rules, delta, thrust, jumpStrategy, jetpack);
             float from = state.Height, target = Math.Clamp(from + state.VerticalSpeed * (float)delta, PlayableTerrain.MinimumHeight, ceiling);
             float distance = (targetX ?? state.X) - state.X;
             if (started) distance = TerrainBodySweep.LaunchDistance(map, state, distance, target - from);
             grounded = TerrainBodySweep.Move(map, state, distance, target - from, grounded);
-            if (grounded) HeroJumpMotion.Land(state, rules, delta);
+            if (grounded) HeroJumpMotion.Land(state, rules, delta, recoverFuel: jetpack);
             else state.SupportPlatform = -1;
             if (state.Height >= ceiling || state.Height <= PlayableTerrain.MinimumHeight)
             { state.VerticalSpeed = 0; state.JumpAscending = false; }

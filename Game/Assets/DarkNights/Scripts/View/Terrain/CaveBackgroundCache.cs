@@ -32,7 +32,7 @@ namespace DarkNights.View.Terrain
         public bool Ready => !disposed && layout != null && visible.All(pages.ContainsKey);
 
         public CaveBackgroundCache(BackgroundBakeDescriptor source, CaveBackgroundStyle style, Material wall, Transform parent,
-            CaveOutlineSettings outline = null, int decorationStartRow = 43, bool surfaceSky = false)
+            CaveOutlineSettings outline = null, int decorationStartRow = 43, bool surfaceSky = false, GridBounds localRegion = default)
         {
             if (source == null) throw new InvalidOperationException("静态背景缺少初始参考；禁止从当前格子重建。");
             if (style.ContentHash != BackgroundBakeDescriptor.StyleContentHash) throw new InvalidOperationException("静态背景样式内容身份不匹配。");
@@ -40,9 +40,26 @@ namespace DarkNights.View.Terrain
             bool withEntrance = surfaceSky;
             int rimReach = style.EntranceRimReach * 8, rearDepth = style.EntranceRearDepth * 8;
             var generator = style.CaptureGenerator(); var modifiers = style.CaptureModifiers();
+            if (localRegion.IsValid && (!(generator is ContourBackgroundGenerator) || surfaceSky))
+                throw new NotSupportedException("局部调参预览只支持当前洞穴轮廓背景，不回退整图求解。");
             var token = cancellation.Token;
             layoutTask = Task.Run<ICaveBackgroundLayout>(() =>
             {
+                if (localRegion.IsValid)
+                {
+                    var contour = (ContourBackgroundGenerator)generator;
+                    int halo = ((contour.RegionHalo + BackgroundRegionLayout.RequiredHalo(modifiers) + 7) / 8) * 8;
+                    int targetLeft = localRegion.MinU * 8, targetTop = Math.Max(0, (1 - (int)localRegion.MaxVExclusive) * 8);
+                    int targetRight = (int)localRegion.MaxUExclusive * 8, targetBottom = Math.Min(source.Height * 8, (1 - localRegion.MinV) * 8);
+                    int left = Math.Max(0, targetLeft - halo), top = Math.Max(0, targetTop - halo);
+                    int right = Math.Min(source.Width * 8, targetRight + halo);
+                    int bottom = Math.Min(source.Height * 8, targetBottom + halo);
+                    bottom = Math.Min(source.Height * 8, (bottom + 7) / 8 * 8);
+                    var local = contour.BuildRegion(source, left, top, right - left, bottom - top, outline,
+                        token.ThrowIfCancellationRequested, decorationStartRow);
+                    return new BackgroundRegionLayout(local, left, top, targetLeft, targetTop, targetRight - targetLeft, targetBottom - targetTop,
+                        source.Width * 8, source.Height * 8, decorationStartRow * 8, modifiers, source.LayoutSeed, token.ThrowIfCancellationRequested);
+                }
                 var result = new ModifiedBackgroundLayout(generator.Build(source, outline, token.ThrowIfCancellationRequested, decorationStartRow),
                     modifiers, source.LayoutSeed, token.ThrowIfCancellationRequested);
                 if (withEntrance) entrance = new CaveEntranceBackdrop(source, result, rimReach, rearDepth, token.ThrowIfCancellationRequested);

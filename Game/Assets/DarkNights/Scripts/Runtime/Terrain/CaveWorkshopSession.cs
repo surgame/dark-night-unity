@@ -39,7 +39,7 @@ namespace DarkNights.Runtime.Terrain
             Map = new TerrainMapAuthority(context, blueprint, catalog, new WorldIdentity(StableGuid.Parse(Guid.NewGuid().ToString("N")), 1),
                 terrainRules, tools);
             Edits = new WorkshopTerrainEdits(Map, blueprint);
-            actor = new ActorState { ManualControl = true, JetpackOwned = true, JetpackEquipped = true,
+            actor = new ActorState { ManualControl = true, JetpackOwned = true, JetpackEquipped = false,
                 JetpackFuel = rules.FuelSeconds, SupportPlatform = -1 };
             Teleport(blueprint.Rooms[0].X, -blueprint.Rooms[0].Y);
         }
@@ -53,7 +53,7 @@ namespace DarkNights.Runtime.Terrain
         public void Tick(float horizontal, bool jump, bool held, float seconds, bool sprint = false)
         {
             TerrainHeroMotion.Tick(Map, actor, rules, seconds, jump, held,
-                targetX: actor.X + horizontal * rules.MoveSpeed(sprint) * seconds, jumpStrategy: JumpStrategy);
+                targetX: actor.X + horizontal * rules.MoveSpeed(sprint) * seconds, jumpStrategy: JumpStrategy, jetpack: JetpackEnabled);
         }
         public bool Edit(float x, float y, bool explode)
         {

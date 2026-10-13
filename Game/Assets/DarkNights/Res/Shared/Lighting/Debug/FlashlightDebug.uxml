@@ -1,29 +1,73 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
   <ui:Style src="FlashlightDebug.uss" />
-  <ui:ScrollView class="light-panel">
-    <ui:Label name="status" class="status" />
-    <uie:ObjectField name="definition" label="物体 Definition" />
-    <uie:ObjectField name="profile" label="LightProfile 预设" />
-    <uie:ObjectField name="runtimeTool" label="运行手电实例" />
-    <ui:Button name="chooseRuntime" text="选择当前运行中的手电" />
-    <ui:VisualElement class="preset-row">
-      <ui:Button name="saveDefinition" text="确认保存到 Definition" />
-      <ui:Button name="saveProfile" text="确认保存到共享预设" />
-      <ui:Button name="openProfile" text="定位预设" />
+  <ui:VisualElement class="lighting-workbench">
+    <ui:VisualElement class="workbench-header">
+      <ui:Label text="光照调参台" class="workbench-title" />
+      <ui:Label name="targetTitle" class="workbench-subtitle" />
+      <ui:Label text="临时草稿 · 统一保存" class="workbench-subtitle" />
     </ui:VisualElement>
-    <ui:Button name="resetRuntime" text="撤掉单灯临时覆盖" />
-    <ui:VisualElement class="preset-row">
-      <ui:Button name="undoRuntime" text="撤销临时调整" />
-      <ui:Button name="redoRuntime" text="重做临时调整" />
+    <ui:VisualElement class="workbench-body">
+      <ui:VisualElement class="navigation-rail">
+        <ui:Button name="navBeam" text="光束" tooltip="主光、照距、颜色、柔影与边缘" class="navigation-button" />
+        <ui:Button name="navBounce" text="返光" tooltip="墙面返光模式、光形、空间与距离门控" class="navigation-button" />
+        <ui:Button name="navFill" text="补光" tooltip="环境散光与指定对象补光" class="navigation-button" />
+        <ui:VisualElement class="navigation-separator" />
+        <ui:Button name="navScene" text="场景" tooltip="后端、环境底光与共享墙体受光规则" class="navigation-button" />
+        <ui:Button name="navMount" text="灯口" tooltip="灯口的局部位置、旋转与缩放" class="navigation-button" />
+        <ui:VisualElement class="navigation-spacer" />
+        <ui:Button name="navPreset" text="来源" tooltip="编辑对象、预设来源、运行实例与单灯保存目标" class="navigation-button" />
+        <ui:Button name="navHistory" text="历史" tooltip="命名、重放已保存的完整调试记录" class="navigation-button" />
+      </ui:VisualElement>
+      <ui:ScrollView class="parameter-column">
+        <ui:VisualElement name="pageBeam" class="parameter-page">
+          <ui:Label text="光束与柔影" class="page-title" /><ui:Label text="单灯 · 主光形状、亮度、遮挡和边缘" class="page-hint" />
+          <ui:VisualElement name="beamParameters" />
+        </ui:VisualElement>
+        <ui:VisualElement name="pageBounce" class="parameter-page is-hidden">
+          <ui:Label text="墙面返光" class="page-title" /><ui:Label text="单灯 · 模式与光形独立于场景共享规则；隐藏项保留数值与覆盖。" class="page-hint" />
+          <ui:VisualElement name="bounceParameters" />
+        </ui:VisualElement>
+        <ui:VisualElement name="pageFill" class="parameter-page is-hidden">
+          <ui:Label text="散光与对象补光" class="page-title" /><ui:Label text="单灯 · 环境散光和指定精灵补光分开控制" class="page-hint" />
+          <ui:VisualElement name="fillParameters" />
+        </ui:VisualElement>
+        <ui:VisualElement name="pageScene" class="parameter-page is-hidden">
+          <ui:Label text="场景受光规则" class="page-title" /><ui:Label name="sceneLightingHint" text="后端、环境底光与共享墙体规则。返光模式和光形在返光页编辑。" class="page-hint" />
+          <uie:ObjectField name="sceneProfile" label="场景配置" /><ui:VisualElement name="sceneParameters" />
+        </ui:VisualElement>
+        <ui:VisualElement name="pageMount" class="parameter-page is-hidden">
+          <ui:Label text="灯口挂载" class="page-title" /><ui:Label text="Prefab · 仅修改明确绑定 Emitter；预览人物位置在右侧调整。" class="page-hint" />
+          <ui:VisualElement name="mount" />
+        </ui:VisualElement>
+        <ui:VisualElement name="pagePreset" class="parameter-page is-hidden">
+          <ui:Label text="来源与保存目标" class="page-title" /><ui:Label text="来源负责继承；保存目标负责写入。选择预设不保存资产，单灯覆盖与其他草稿保留。" class="page-hint" />
+          <ui:Label text="编辑对象" class="light-group-heading" /><uie:ObjectField name="definition" label="物体 Definition" />
+          <ui:Label text="单灯参数来源" class="light-group-heading" /><uie:ObjectField name="profile" label="LightProfile 预设" />
+          <ui:Label text="内置默认／预设 → Definition 覆盖 → 本轮草稿。" class="page-hint" />
+          <ui:VisualElement name="saveTarget" /><ui:Label name="saveTargetHint" class="page-hint" />
+          <ui:Label text="本机运行绑定" class="light-group-heading" /><uie:ObjectField name="runtimeTool" label="运行手电实例" />
+          <ui:Button name="chooseRuntime" text="选择当前运行中的手电" />
+          <ui:Label text="独立预览不需要 Play；绑定运行实例仅调整该本机手电。" class="page-hint" />
+        </ui:VisualElement>
+        <ui:VisualElement name="pageHistory" class="parameter-page is-hidden">
+          <ui:Label text="已保存的调试记录" class="page-title" /><ui:Label text="保存全部会新增命名记录。载入只恢复草稿与右侧预览，不自动写回作者资产；旧记录不覆盖。" class="page-hint" />
+          <ui:VisualElement name="records" />
+        </ui:VisualElement>
+      </ui:ScrollView>
+      <ui:VisualElement class="preview-column">
+        <ui:Label text="真实游戏画面预览" class="page-title" /><ui:VisualElement name="previewControls" />
+        <ui:Image name="previewImage" class="preview-screen" focusable="true" /><ui:Label name="previewStatus" class="page-hint" />
+        <ui:ScrollView class="preview-options">
+          <ui:VisualElement name="previewPose" />
+          <ui:Label text="左键定位人物 · 中键拖拽平移 · 滚轮缩放。镜头偏移归零可回到人物；地图格 Y 向下。" class="page-hint" />
+          <ui:VisualElement name="previewRecord" />
+        </ui:ScrollView>
+      </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="parameters" />
-    <ui:Foldout text="灯口临时调整（确认保存才写入 Prefab）" value="true">
-      <ui:VisualElement name="mount" />
-    </ui:Foldout>
-    <ui:Foldout text="场景光照临时调整" value="false">
-      <uie:ObjectField name="sceneProfile" label="场景光照配置" />
-      <ui:VisualElement name="sceneParameters" />
-      <ui:Button name="saveSceneProfile" text="确认保存到场景光照资产" />
-    </ui:Foldout>
-  </ui:ScrollView>
+    <ui:Label name="status" class="workbench-status" />
+    <ui:VisualElement class="workbench-footer">
+      <ui:Button name="undoRuntime" text="撤销" tooltip="Ctrl+Z：撤销临时调整" /><ui:Button name="redoRuntime" text="重做" tooltip="Ctrl+Y / Ctrl+Shift+Z：重做临时调整" />
+      <ui:Label name="dirtySummary" class="dirty-summary" /><ui:Button name="saveAll" text="保存全部 · Ctrl+S" class="primary-button" />
+    </ui:VisualElement>
+  </ui:VisualElement>
 </ui:UXML>

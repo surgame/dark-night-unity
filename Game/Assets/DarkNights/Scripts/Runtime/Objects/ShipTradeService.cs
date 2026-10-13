@@ -54,7 +54,7 @@ namespace DarkNights.Runtime.Objects
             if (!Near(hero, shipId, "shop") || hero.Read().InventoryRevision != expectedRevision) return 0;
             ObjectDefinition definition = ObjectDefinitionDatabase.Instance?.GetDefinitionByKey("item." + itemKey);
             EquipmentItemConfig item = definition?.SharedConfigs.OfType<EquipmentItemConfig>().SingleOrDefault();
-            if (item == null) return 0;
+            if (item == null || item.Jetpack) return 0;
             item.Validate();
             if (definition.Guid.IsEmpty || definition.PrefabRef == null || world.Resources.Equipment.Resolve(definition.Guid.ToString()) != definition) return 0;
             var trade = world.Catalog.Balance.Expedition.Trade;
@@ -62,15 +62,13 @@ namespace DarkNights.Runtime.Objects
             {
                 "pistol" => trade.PistolPrice,
                 "pickaxe" => trade.PickaxePrice,
-                "jetpack" => trade.JetpackPrice,
                 _ => -1
             };
             int balance = world.Economy.Read().Credits;
             if (price < 0 || balance < price) return 0;
             var state = hero.Read();
-            if (item.Jetpack ? state.JetpackOwned :
-                Enumerable.Range(0, 4).Any(slot => HeroInventoryBehaviour.Slot(state, slot) == definition.Guid.ToString())) return 0;
-            if (!item.Jetpack && state.Slot0 != "" && state.Slot1 != "" && state.Slot2 != "" && state.Slot3 != "") return 0;
+            if (Enumerable.Range(0, 4).Any(slot => HeroInventoryBehaviour.Slot(state, slot) == definition.Guid.ToString())) return 0;
+            if (state.Slot0 != "" && state.Slot1 != "" && state.Slot2 != "" && state.Slot3 != "") return 0;
             if (!HeroInventoryTransactions.Give(world, hero, definition))
                 throw new InvalidOperationException("已验证的装备写入失败。");
             world.Economy.Edit().Credits = balance - price;

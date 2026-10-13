@@ -44,10 +44,10 @@ namespace DarkNights.Runtime.Objects
             state.JetpackFuel = Math.Max(0, state.JetpackFuel - delta);
         }
 
-        public static void Land(ActorState state, HeroControlDefinition rules, double delta, int support = 0)
+        public static void Land(ActorState state, HeroControlDefinition rules, double delta, int support = 0, bool recoverFuel = true)
         {
             state.VerticalSpeed = 0; state.SupportPlatform = support; state.JumpAscending = false;
-            if (state.JetpackOwned)
+            if (recoverFuel && state.JetpackOwned)
                 state.JetpackFuel = Math.Min(rules.FuelSeconds, state.JetpackFuel + rules.FuelRecovery * delta);
         }
 

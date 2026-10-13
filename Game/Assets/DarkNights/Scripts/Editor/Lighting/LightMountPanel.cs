@@ -19,17 +19,18 @@ namespace DarkNights.Editor.Lighting
         private GameObject previewAnchor;
         public VisualElement Root { get; } = new VisualElement();
 
-        public LightMountPanel(FlashlightDebugDraft draft, FlashlightDebugUndo undo, Action save)
+        public LightMountPanel(FlashlightDebugDraft draft, FlashlightDebugUndo undo, Action save = null)
         {
             this.draft = draft; this.undo = undo;
             Root.Add(new Label("只调整运行实例／临时预览；确认保存后才写入物体 Prefab。"));
             Root.Add(new Button(OpenPrefab) { text = "打开物体 Prefab 查看预览" });
             Root.Add(position); Root.Add(rotation); Root.Add(scale);
+            Root.Query<FloatField>().ForEach(field => field.isDelayed = true);
             position.RegisterValueChangedCallback(evt => { draft.WriteMount("position", evt.newValue, undo); Refresh(); });
             rotation.RegisterValueChangedCallback(evt => { draft.WriteMount("rotation", evt.newValue, undo); Refresh(); });
             scale.RegisterValueChangedCallback(evt => { draft.WriteMount("scale", evt.newValue, undo); Refresh(); });
-            Root.Add(new Button(() => { draft.ResetMount(undo); Refresh(); }) { text = "撤掉临时灯口调整" });
-            Root.Add(new Button(save) { text = "确认保存灯口到 Prefab" });
+            Root.AddManipulator(new ContextualMenuManipulator(evt => evt.menu.AppendAction("撤掉灯口临时调整", _ => { draft.ResetMount(undo); Refresh(); },
+                draft.HasMountChanges ? DropdownMenuAction.Status.Normal : DropdownMenuAction.Status.Disabled)));
             Refresh();
         }
 

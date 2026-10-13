@@ -75,29 +75,77 @@ namespace DarkNights.Tests
         });
 
         [UnityTest]
-        public IEnumerator PurchasedJetpackConsumesFuelAndAirborneStateRestores() => UniTask.ToCoroutine(async () =>
+        public IEnumerator RetiredJetpackRejectsPurchaseAndDeveloperGiveWithoutPayment() => UniTask.ToCoroutine(async () =>
         {
             using var scope = await UnifiedSessionScope.Create();
             var world = await GroundSessionTests.Create(scope);
             using var authority = new SessionAuthority(world);
             var host = Connect(authority, 0); var hero = Hero(world, 0);
-            Buy(world, authority, host, hero, "jetpack");
+            Walk(authority, host, hero, Ship(world).X + 32);
+            var before = hero.CaptureState();
+            int credits = world.Economy.CaptureState().Credits;
+            var buy = new SessionRequest(SessionOperation.BuyEquipment, SessionAuthority.ProtocolVersion,
+                authority.Epoch, authority.PolicyRevision, 10001, new[] { hero.Id }, targetId: Ship(world).Id,
+                kind: "jetpack", value: before.InventoryRevision, controlLease: before.ControlLease);
+            Assert.That(JourneyScenario.Execute(authority, host, buy), Is.EqualTo(SessionResultCode.InvalidRequest));
+            var enable = new SessionRequest(SessionOperation.DebugSetEnabled, SessionAuthority.ProtocolVersion,
+                authority.Epoch, authority.PolicyRevision, 10002, value: 1);
+            Assert.That(JourneyScenario.Execute(authority, host, enable), Is.EqualTo(SessionResultCode.Applied));
+            var give = new SessionRequest(SessionOperation.DebugGiveEquipment, SessionAuthority.ProtocolVersion,
+                authority.Epoch, authority.PolicyRevision, 10003, new[] { hero.Id }, x: 1,
+                kind: ObjectDefinitionDatabase.Instance.GetDefinitionByKey("item.jetpack").Guid.ToString(),
+                value: before.InventoryRevision);
+            Assert.That(JourneyScenario.Execute(authority, host, give), Is.EqualTo(SessionResultCode.NoEffect));
+            Assert.That(hero.CaptureState().JetpackOwned, Is.False);
+            Assert.That(hero.CaptureState().InventoryRevision, Is.EqualTo(before.InventoryRevision));
+            Assert.That(world.Economy.CaptureState().Credits, Is.EqualTo(credits));
+            AssertQuiet(world);
+        });
+
+        [UnityTest]
+        public IEnumerator SavedJetpackStaysDormantAndMatchesOrdinaryJumpAfterRestore() => UniTask.ToCoroutine(async () =>
+        {
+            using var scope = await UnifiedSessionScope.Create();
+            var world = await GroundSessionTests.Create(scope);
+            using var authority = new SessionAuthority(world);
+            var host = Connect(authority, 0); var hero = Hero(world, 0);
             Walk(authority, host, hero, Ship(world).X + ShipGeometry.RampToe - 64);
-            float ground = hero.CaptureState().Height;
+            var saved = JObject.Parse(world.SaveCodec.Serialize(world.CaptureWorld()));
+            var actor = saved["world"]["actors"].OfType<JObject>().Single(a => (int)a["id"] == hero.Id);
+            actor["jetpack_owned"] = true; actor["jetpack_equipped"] = true; actor["jetpack_fuel"] = .75;
+            world.Restore(saved.ToString());
+            Assert.That(authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true), Is.True);
+            hero = Hero(world, 0);
+            var heights = new float[90]; var speeds = new float[90];
+            float ground = hero.CaptureState().Height, peak = ground;
             for (int i = 0; i < 90; i++)
             {
                 Assert.That(authority.SubmitInput(host, Packet(authority, hero, jump: true, jumpPressed: i == 0)), Is.True);
                 authority.Tick();
+                var state = hero.CaptureState();
+                heights[i] = state.Height; speeds[i] = state.VerticalSpeed;
+                peak = Math.Max(peak, state.Height);
+                Assert.That(state.JetpackFuel, Is.EqualTo(.75));
             }
-            var flying = hero.CaptureState();
-            Assert.That(flying.JetpackEquipped, Is.True);
-            Assert.That(flying.JetpackFuel, Is.LessThan(world.Catalog.Balance.HeroControl.FuelSeconds));
-            Assert.That(flying.Height, Is.GreaterThan(ground + 8));
+            Assert.That(peak, Is.GreaterThan(ground + 8));
+            Assert.That(hero.CaptureState().Height, Is.EqualTo(ground).Within(.01));
             world.Restore(world.SaveCodec.Serialize(world.CaptureWorld()));
             var restored = Hero(world, 0).CaptureState();
-            Assert.That(restored.Height, Is.EqualTo(flying.Height));
-            Assert.That(restored.JetpackFuel, Is.EqualTo(flying.JetpackFuel));
+            Assert.That(restored.JetpackOwned, Is.True);
             Assert.That(restored.JetpackEquipped, Is.True);
+            Assert.That(restored.JetpackFuel, Is.EqualTo(.75));
+            actor["jetpack_owned"] = false; actor["jetpack_equipped"] = false; actor["jetpack_fuel"] = 0;
+            world.Restore(saved.ToString());
+            Assert.That(authority.AcknowledgeReady(host, authority.Epoch, authority.Revision, true), Is.True);
+            hero = Hero(world, 0);
+            for (int i = 0; i < heights.Length; i++)
+            {
+                Assert.That(authority.SubmitInput(host, Packet(authority, hero, jump: true, jumpPressed: i == 0)), Is.True);
+                authority.Tick();
+                var state = hero.CaptureState();
+                Assert.That(state.Height, Is.EqualTo(heights[i]).Within(.001));
+                Assert.That(state.VerticalSpeed, Is.EqualTo(speeds[i]).Within(.001));
+            }
             AssertQuiet(world);
         });
 

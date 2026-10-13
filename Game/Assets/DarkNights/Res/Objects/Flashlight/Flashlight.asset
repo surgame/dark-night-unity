@@ -37,7 +37,7 @@ MonoBehaviour:
   BehaviourTypes:
   - DarkNights.Runtime.Objects.FlashlightToolBehaviour
   SharedConfigs:
-  - rid: 4004706354978619618
+  - rid: 4004706419553337433
   - rid: 4004706321636261888
   references:
     version: 2
@@ -48,7 +48,7 @@ MonoBehaviour:
         RuleKey: 
         Jetpack: 0
         Handheld: 4
-    - rid: 4004706354978619618
+    - rid: 4004706419553337433
       type: {class: FlashlightToolConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         Starter: 1
@@ -59,7 +59,18 @@ MonoBehaviour:
           m_SubObjectGUID: 
           m_EditorAssetChanged: 0
         Overrides:
-          Mask: 9336
+          Mask: 134161528
+          BounceMode: 2
+          Bounce: 0.12
+          DiffuseShape: 1
+          DiffuseMatchIncident: 1
+          DiffuseCornerRadius: 2
+          DiffuseGain: 2
+          DiffuseNearDistance: 5
+          DiffuseFarDistance: 6
+          DiffuseMaxReach: 4.69
+          DiffuseLateralSpread: 0.65
+          DiffuseVisibilityProbes: 2
           EnvironmentEnabled: 1
           LocalFillEnabled: 1
           Directional: 1

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using AnyRules.Next;
 using AnyRules.Next.Authoring;
+using AnyRules.Next.Unity;
 using DarkNights.Core.Config.Terrain;
 using DarkNights.View.Terrain;
 using UnityEditor;
@@ -14,6 +16,7 @@ namespace DarkNights.Editor.Terrain
     public sealed class TerrainStylePreviewStage : IDisposable
     {
         private const int PixelWidth = 2560, PixelHeight = 1536;
+        private readonly int outputWidth, outputHeight;
         private Scene scene;
         private GameObject root;
         private Camera camera;
@@ -34,13 +37,23 @@ namespace DarkNights.Editor.Terrain
         public int RockBuildCount => terrain != null ? terrain.RockBuildCount : 0;
         public int LastChangedChunkCount => terrain != null ? terrain.LastChangedChunkCount : 0;
         public long RefreshBatchCount => terrain != null ? terrain.RefreshBatchCount : 0;
+        public Camera Camera => camera;
+        public TerrainPreview Terrain => terrain;
+        public Scene PreviewScene => scene;
+
+        public TerrainStylePreviewStage(int width = PixelWidth, int height = PixelHeight)
+        {
+            if (width < 64 || height < 64 || width > PixelWidth || height > PixelHeight) throw new ArgumentOutOfRangeException("预览输出尺寸无效。");
+            outputWidth = width; outputHeight = height;
+        }
 
         public void Open(TerrainMapAsset map, TerrainBlueprint blueprint, CaveTerrainStyle style,
             TerrainStyleDrafts drafts, byte[] materials, byte[] shapes, BackgroundBakeDescriptor reference)
             => Open(map.Definition, blueprint, style, drafts, materials, shapes, reference);
 
         public void Open(ARDMapDefinition definition, TerrainBlueprint blueprint, CaveTerrainStyle style,
-            TerrainStyleDrafts drafts, byte[] materials, byte[] shapes, BackgroundBakeDescriptor reference)
+            TerrainStyleDrafts drafts, byte[] materials, byte[] shapes, BackgroundBakeDescriptor reference,
+            GridBounds localRegion = default, Vector3? cameraPosition = null, float cameraSize = 96)
         {
             Dispose();
             if (definition == null || blueprint == null || style == null || drafts == null)
@@ -53,23 +66,25 @@ namespace DarkNights.Editor.Terrain
                 var cameraObject = new GameObject("Cave Wall Tuner Camera") { hideFlags = HideFlags.HideAndDontSave };
                 SceneManager.MoveGameObjectToScene(cameraObject, scene);
                 cameraObject.transform.SetParent(root.transform, false);
-                cameraObject.transform.localPosition = new Vector3(160, -96, -10);
+                cameraObject.transform.localPosition = cameraPosition ?? new Vector3(160, -96, -10);
                 camera = cameraObject.AddComponent<Camera>();
-                camera.orthographic = true; camera.orthographicSize = 96; camera.aspect = 5f / 3f;
+                camera.orthographic = true; camera.orthographicSize = cameraSize; camera.aspect = (float)outputWidth / outputHeight;
                 camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = new Color(.1f, .16f, .16f);
                 // Camera.Render 在 Editor 中默认可能跨已加载 Scene 绘制；限制为本预览场景，避免带入游戏角色。
                 camera.overrideSceneCullingMask = EditorSceneManager.GetSceneCullingMask(scene);
                 camera.allowMSAA = false; camera.allowHDR = false; camera.enabled = false;
-                target = new RenderTexture(PixelWidth, PixelHeight, 24, RenderTextureFormat.ARGB32,
+                target = new RenderTexture(outputWidth, outputHeight, 24, RenderTextureFormat.ARGB32,
                     RenderTextureReadWrite.Default)
                 { name = "Cave Wall Tuner Runtime Output", filterMode = FilterMode.Point, hideFlags = HideFlags.HideAndDontSave };
                 target.Create(); camera.targetTexture = target;
                 terrain = root.AddComponent<TerrainPreview>(); transientStyle = BuildStyle(style, drafts);
                 transientBackground = transientStyle.Background; terrain.CaveStyle = transientStyle;
                 terrain.ViewCamera = camera;
+                terrain.LocalRegion = localRegion; terrain.LocalPreviewBackground = localRegion.IsValid;
                 Source = new TerrainBlueprintSource(blueprint, definition.LoadGameplayCatalog().Tiles);
                 if (materials != null && shapes != null) Source.ReplaceCells(materials, shapes);
-                try { terrain.ShowBlueprint(definition, blueprint, Source, reference); }
+                IMapChunkSource input = localRegion.IsValid ? (IMapChunkSource)new TerrainPreviewChunkSource(Source) : Source;
+                try { terrain.ShowBlueprint(definition, blueprint, input, reference); }
                 finally { DestroyTransientStyle(); }
                 renderedRevision = -1;
             }

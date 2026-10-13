@@ -29,13 +29,7 @@ namespace DarkNights.View.Lighting
                 var source = configuration.Settings;
                 settings.Backend = selectedOverride ?? source.Backend;
                 settings.Ambient = source.Ambient; settings.WallDepth = source.WallDepth;
-                settings.WallStrength = source.WallStrength; settings.Bounce = source.Bounce; settings.Relief = source.Relief;
-                settings.BounceMode = source.BounceMode; settings.DiffuseGain = source.DiffuseGain;
-                settings.DiffuseShape = source.DiffuseShape; settings.DiffuseMatchIncident = source.DiffuseMatchIncident;
-                settings.DiffuseCornerRadius = source.DiffuseCornerRadius;
-                settings.DiffuseNearDistance = source.DiffuseNearDistance; settings.DiffuseFarDistance = source.DiffuseFarDistance;
-                settings.DiffuseMaxReach = source.DiffuseMaxReach; settings.DiffuseLateralSpread = source.DiffuseLateralSpread;
-                settings.DiffuseVisibilityProbes = source.DiffuseVisibilityProbes;
+                settings.WallStrength = source.WallStrength; settings.Relief = source.Relief;
                 return settings;
             }
         }

@@ -56,7 +56,6 @@ namespace DarkNights.Runtime.Objects
         public ExpeditionShip Ship { get; }
         public ExpeditionOperations Expedition { get; }
         public ExpeditionDevices ExpeditionDevices { get; }
-        public ExpeditionThreat ExpeditionThreat { get; }
         internal ShipTradeService Trade { get; }
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
         internal ObjectDeveloperControl Developer { get; }
@@ -93,7 +92,6 @@ namespace DarkNights.Runtime.Objects
             Expedition = new ExpeditionOperations(this);
             Ship = new ExpeditionShip(this);
             ExpeditionDevices = new ExpeditionDevices(this);
-            ExpeditionThreat = new ExpeditionThreat(this);
             Trade = new ShipTradeService(this);
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             Developer = new ObjectDeveloperControl(this);

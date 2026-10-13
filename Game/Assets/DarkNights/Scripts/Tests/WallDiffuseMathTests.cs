@@ -1,5 +1,8 @@
+using DarkNights.Core.Config;
 using System;
+using System.Linq;
 using DarkNights.Editor.Lighting;
+using DarkNights.Runtime.Objects;
 using DarkNights.View.Lighting;
 using NUnit.Framework;
 using UnityEditor;
@@ -7,7 +10,7 @@ using UnityEngine;
 
 namespace DarkNights.Tests
 {
-    /// <summary>独立数值积分 oracle 对照实际 HLSL 函数；同时验证旧配置默认模式、新字段保存白名单和距离合法性。</summary>
+    /// <summary>独立数值积分 oracle 对照实际 HLSL 函数；验证单灯默认返光、覆盖字段序列化、距离合法性及临时撤销，不写作者资产。</summary>
     public sealed class WallDiffuseMathTests
     {
         [Test]
@@ -43,28 +46,35 @@ namespace DarkNights.Tests
         [Test]
         public void MissingNewFieldsStayLegacyAndAllFieldsRoundTrip()
         {
-            var old = JsonUtility.FromJson<ExplorationLightSettings>("{\"Ambient\":0.1,\"Bounce\":0.12}");
-            Assert.That(old.BounceMode, Is.EqualTo(LightBounceMode.LegacyPoint)); old.Validate();
+            var old = new LightOverrides();
+            JsonUtility.FromJsonOverwrite("{\"Range\":18}", old);
+            Assert.That(old.BounceMode, Is.EqualTo(LightBounceMode.LegacyPoint));
             old.BounceMode = LightBounceMode.Continuous; old.DiffuseGain = .75f; old.DiffuseVisibilityProbes = 4;
-            var roundTrip = JsonUtility.FromJson<ExplorationLightSettings>(JsonUtility.ToJson(old));
-            foreach (var field in typeof(ExplorationLightSettings).GetFields())
+            var roundTrip = JsonUtility.FromJson<LightOverrides>(JsonUtility.ToJson(old));
+            foreach (var field in typeof(LightOverrides).GetFields().Where(field => field.Name != "Mask"))
             {
-                Assert.That(FlashlightDebugSave.SceneFields, Does.Contain(field.Name));
+                Assert.That(LightParameterSchema.Fields.Select(item => item.Name), Does.Contain(field.Name));
                 Assert.That(field.GetValue(roundTrip), Is.EqualTo(field.GetValue(old)));
             }
             roundTrip.DiffuseFarDistance = roundTrip.DiffuseNearDistance;
-            Assert.Throws<ArgumentException>(() => roundTrip.Validate());
+            Assert.Throws<ArgumentException>(() => new LightBounceRules(diffuseNearDistance: roundTrip.DiffuseNearDistance, diffuseFarDistance: roundTrip.DiffuseFarDistance));
+            foreach (var field in typeof(ExplorationLightSettings).GetFields())
+                Assert.That(FlashlightDebugSave.SceneFields, Does.Contain(field.Name));
+            Assert.That(FlashlightDebugSave.SceneFields, Does.Not.Contain("BounceMode"));
         }
 
         [Test]
-        public void SceneDraftUndoesAndRedoesNewModeAndIntegerProbeCount()
+        public void LightDraftUndoesAndRedoesNewModeAndIntegerProbeCount()
         {
-            var draft = ScriptableObject.CreateInstance<SceneLightingProfile>(); var history = new FlashlightDebugUndo(new FlashlightDebugHistory());
+            var draft = ScriptableObject.CreateInstance<FlashlightDebugDraft>(); var history = new FlashlightDebugUndo(new FlashlightDebugHistory());
             try
             {
-                history.Change(draft, "diffuse", "连续光测试", () => { draft.Settings.BounceMode = LightBounceMode.Continuous; draft.Settings.DiffuseVisibilityProbes = 4; });
-                history.UndoTemporary(); Assert.That(draft.Settings.BounceMode, Is.EqualTo(LightBounceMode.LegacyPoint));
-                history.RedoTemporary(); Assert.That(draft.Settings.DiffuseVisibilityProbes, Is.EqualTo(4));
+                history.Change(draft, "diffuse", "连续光测试", () => { draft.Values.BounceMode = LightBounceMode.Continuous; draft.Values.DiffuseVisibilityProbes = 4;
+                    draft.Values.Mask = LightOverrideMask.BounceMode | LightOverrideMask.DiffuseVisibilityProbes; });
+                history.UndoTemporary(); Assert.That(draft.Values.BounceMode, Is.EqualTo(LightBounceMode.LegacyPoint));
+                Assert.That(draft.Values.Mask, Is.EqualTo(LightOverrideMask.None));
+                history.RedoTemporary(); Assert.That(draft.Values.DiffuseVisibilityProbes, Is.EqualTo(4));
+                Assert.That(draft.Values.Has(LightOverrideMask.DiffuseVisibilityProbes), Is.True);
             }
             finally { history.ClearTemporary(); UnityEngine.Object.DestroyImmediate(draft); }
         }

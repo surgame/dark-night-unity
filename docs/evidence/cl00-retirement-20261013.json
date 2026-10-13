@@ -1,0 +1,311 @@
+{
+  "module": "CL-00",
+  "date": "2026-10-13",
+  "state": "implementation_complete_compile_passed_acceptance_pending",
+  "workspace": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects",
+    "branch": "fix-20261013-wall-diffuse-corners",
+    "base_head": "ebe38399d7275158249310b41d44cd5c020266e5",
+    "committed": false,
+    "existing_changes_snapshot": "artifacts/cl00-retirement-20261013/input-workspace.json",
+    "concurrent_lighting_work_preserved": true
+  },
+  "decisions": {
+    "Q05": "菜单、存取档入口与飞船关卡选择循环保持现状；不以继续同一局／开始新局预设入口",
+    "Q06": "用户称Q07的危险照明表述按内容归本项，倾向危险描述但暂不修改",
+    "Q07": "仅撤旧消费式警戒装配，保留零值合同；新计时、暂停及反馈待设计"
+  },
+  "implementation": [
+    "喷气购买请求形状与权威交易拒绝，不支付",
+    "库存Give拒绝喷气，包含开发者请求",
+    "正式地面、平台与船舱运动无喷气及燃料恢复",
+    "现有合法v23喷气数据沿原映射捕获／恢复，不清零或迁移",
+    "商店按钮及燃料HUD隐藏，不绑定喷气购买事件",
+    "调试定义保持可读、添加禁用，历史持有可由房主显式移除",
+    "ObjectSession撤出ExpeditionThreat，保留历史源码和规则来源",
+    "离线工作台默认无喷气，仅显式历史预览可启用"
+  ],
+  "validation": {
+    "editor_version": "6000.4.9f1",
+    "editor_pid": 21920,
+    "cli_version": "1.0.0-beta.6",
+    "explicit_compile_requests": 1,
+    "compile_status": {
+      "status": "up_to_date",
+      "failed": false,
+      "errors": []
+    },
+    "errors": 0,
+    "warnings": 0,
+    "compiled_shape": {
+      "playing": false,
+      "compiling": false,
+      "updating": false,
+      "protocol": 31,
+      "saveVersion": 23,
+      "threatDetached": true,
+      "equipmentPanelParameterCount": 7,
+      "motionJetpackDefault": false,
+      "stylesheetLoaded": true,
+      "stylesheetImportErrors": false,
+      "stylesheetImportWarnings": false,
+      "assemblies": [
+        {
+          "name": "DarkNights.Tests",
+          "output": "Library/ScriptAssemblies/DarkNights.Tests.dll",
+          "writtenUtc": "2026-10-13T05:30:04.119777Z"
+        },
+        {
+          "name": "DarkNights.Core",
+          "output": "Library/ScriptAssemblies/DarkNights.Core.dll",
+          "writtenUtc": "2026-10-12T19:41:23.8132058Z"
+        },
+        {
+          "name": "DarkNights.Runtime",
+          "output": "Library/ScriptAssemblies/DarkNights.Runtime.dll",
+          "writtenUtc": "2026-10-13T05:28:25.3496349Z"
+        },
+        {
+          "name": "DarkNights.Editor",
+          "output": "Library/ScriptAssemblies/DarkNights.Editor.dll",
+          "writtenUtc": "2026-10-13T05:28:28.1444655Z"
+        },
+        {
+          "name": "DarkNights.Samples.LanCoop.Editor",
+          "output": "Library/ScriptAssemblies/DarkNights.Samples.LanCoop.Editor.dll",
+          "writtenUtc": "2026-10-08T18:54:12.7561105Z"
+        },
+        {
+          "name": "DarkNights.View",
+          "output": "Library/ScriptAssemblies/DarkNights.View.dll",
+          "writtenUtc": "2026-10-13T05:28:24.4141044Z"
+        },
+        {
+          "name": "DarkNights.Entry",
+          "output": "Library/ScriptAssemblies/DarkNights.Entry.dll",
+          "writtenUtc": "2026-10-13T05:28:25.6604013Z"
+        },
+        {
+          "name": "DarkNights.Samples.LanCoop.Runtime",
+          "output": "Library/ScriptAssemblies/DarkNights.Samples.LanCoop.Runtime.dll",
+          "writtenUtc": "2026-10-08T18:54:12.7561105Z"
+        },
+        {
+          "name": "DarkNights.Samples.LanCoop.Core",
+          "output": "Library/ScriptAssemblies/DarkNights.Samples.LanCoop.Core.dll",
+          "writtenUtc": "2026-09-25T16:23:05.5456743Z"
+        },
+        {
+          "name": "DarkNights.Samples.LanCoop.Bootstrap",
+          "output": "Library/ScriptAssemblies/DarkNights.Samples.LanCoop.Bootstrap.dll",
+          "writtenUtc": "2026-10-08T18:54:12.6356532Z"
+        },
+        {
+          "name": "DarkNights.Samples.LanCoop.Presentation",
+          "output": "Library/ScriptAssemblies/DarkNights.Samples.LanCoop.Presentation.dll",
+          "writtenUtc": "2026-09-25T16:23:05.6908944Z"
+        }
+      ]
+    },
+    "stylesheet_import_passed": true,
+    "regression_sources_updated_but_not_run": [
+      "GroundEquipmentTests.RetiredJetpackRejectsPurchaseAndDeveloperGiveWithoutPayment",
+      "GroundEquipmentTests.SavedJetpackStaysDormantAndMatchesOrdinaryJumpAfterRestore",
+      "GroundSessionTests.PurchaseInventoryCreditsRestoreWithoutRetiredJetpack"
+    ],
+    "raw_receipts": "artifacts/cl00-retirement-20261013/",
+    "memory_start": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 6.125362396240234,
+      "minimum_free_ram_gib": 11.082195281982422,
+      "minimum_free_commit_gib": 3.047740936279297,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": true
+    },
+    "memory_compile": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 6.12286376953125,
+      "minimum_free_ram_gib": 11.459373474121094,
+      "minimum_free_commit_gib": 2.6344375610351562,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": true,
+      "ignore_commit_limit": false
+    },
+    "static_document_links": "pass",
+    "diff_check": "pass",
+    "candidate_source_manifest_match": "pass"
+  },
+  "versions": {
+    "protocol": 31,
+    "save": 23,
+    "yygc_changed": false,
+    "dependencies_changed": false,
+    "author_values_changed": false
+  },
+  "source_files": [
+    {
+      "sha256": "b31588dacc8cff25459a2ffd948a4bc447905b1067b0ece5936d8a504ef70891",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperations.cs",
+      "lines": 74
+    },
+    {
+      "sha256": "71f51b6d12528cf4942f4f79b26c65164ba0882c2930bd9eb95d6f5ccf8ac091",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipTradeService.cs",
+      "lines": 79
+    },
+    {
+      "sha256": "9d6aa657b4a83097850abfb680a4d6bb1a084e11fa454785512e3ecbba120721",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroInventoryTransactions.cs",
+      "lines": 74
+    },
+    {
+      "sha256": "4d19b34dd14ad0d7c9ffa9d492b3b563cebbe5ec0e7e8aab9709c949acd8e02d",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroJumpMotion.cs",
+      "lines": 59
+    },
+    {
+      "sha256": "fab6e4509ade467e5c4f6f7149e86e6dec62cf05f5279c2955774e7232613fc6",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainHeroMotion.cs",
+      "lines": 89
+    },
+    {
+      "sha256": "f79ff64a02231333fe2800163d27101d69eed580fb8ea23db79afcabfe6063a1",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroMotionBehaviour.cs",
+      "lines": 71
+    },
+    {
+      "sha256": "e1c56000e1720075ea8494b84d6d35b746490dcef531d1dd9e08e9c9bd8392fd",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipCabinMotion.cs",
+      "lines": 171
+    },
+    {
+      "sha256": "e566445da483bd000cdf6c3f0c28c485042260d8b825b47f8bc9acb904e55cc2",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/CaveWorkshopSession.cs",
+      "lines": 75
+    },
+    {
+      "sha256": "e08c54d5d37da762dbc7148bfa64339bafb1466f860e9f41d4f87443bd1ea1e2",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs",
+      "lines": 297
+    },
+    {
+      "sha256": "3e4184fce55d572816ae0c22cdd7c66fa293da80a93c1225140418e54a7d0a84",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionThreat.cs",
+      "lines": 58
+    },
+    {
+      "sha256": "686b7f032c9576330cdf4d58ce68fd97854829c3672b44f956dfc0ef39440571",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroInventoryBehaviour.cs",
+      "lines": 86
+    },
+    {
+      "sha256": "b9721770164f7115bb5779c8c32d2524d51147fe96457ec5634e47457c63bbdd",
+      "path": "Game/Assets/DarkNights/Scripts/Entry/ShipEquipmentPanel.cs",
+      "lines": 81
+    },
+    {
+      "sha256": "808e8f4bbc3065a6c27559d78d561b354a375539dadb10fb7af78be0f3b1cab7",
+      "path": "Game/Assets/DarkNights/Scripts/Entry/ShipTradeHud.cs",
+      "lines": 165
+    },
+    {
+      "sha256": "7620157d84efa75a046e01c6fe84b9b40609763e32c660420512250c30d596c2",
+      "path": "Game/Assets/DarkNights/Scripts/Entry/DebugObjectCatalog.cs",
+      "lines": 48
+    },
+    {
+      "sha256": "9ee80291e63244cdd269e681c130692de88769fe5be5b3505fc527339ed8d7c1",
+      "path": "Game/Assets/DarkNights/Scripts/Entry/DebugObjectPanel.cs",
+      "lines": 213
+    },
+    {
+      "sha256": "9f36543a56c8f35bc8f61949e285146596c092ea18f4c55c4becc6d9677c908a",
+      "path": "Game/Assets/DarkNights/Scripts/Entry/DebugHeldEquipment.cs",
+      "lines": 43
+    },
+    {
+      "sha256": "f452d88439f07638cc7868b85c688d9098bb305de7967db4c1a7d26816274188",
+      "path": "Game/Assets/DarkNights/Scripts/Tests/GroundEquipmentTests.cs",
+      "lines": 206
+    },
+    {
+      "sha256": "339adc0ce1fa69cbc611f56de37343ed4028e8627646fe33fc33652a94e3da7d",
+      "path": "Game/Assets/DarkNights/Scripts/Tests/GroundSessionTests.cs",
+      "lines": 176
+    },
+    {
+      "sha256": "4e635d155f4d148344cf78fccab112dbffd28b1c5e6dd92bfe798d4fb24823d6",
+      "path": "Game/Assets/DarkNights/Scripts/Tests/TerrainJumpFlowTests.cs",
+      "lines": 156
+    },
+    {
+      "sha256": "72157e526887fbc3605675da933da10d81f1c8e2be2fba46cbbfbc8292820283",
+      "path": "Game/Assets/DarkNights/Res/UI/ShipEquipment/ShipEquipment.uss",
+      "lines": 17
+    }
+  ],
+  "documents": [
+    "AGENTS.md",
+    "docs/DEVELOPMENT.md",
+    "docs/EXPEDITION_CORE_LOOP_GOALS.md",
+    "docs/ROADMAP.md",
+    "docs/GROUND_GAMEPLAY_BASELINE.md",
+    "docs/SAVE_FORMAT.md",
+    "docs/MULTIPLAYER.md",
+    "docs/PLAYER_GUIDE.md",
+    "docs/EDITOR_WORKBENCH.md"
+  ],
+  "preserved_inputs": [
+    {
+      "sha256": "f02c676116edec59a206e7f706b1ddc895d4987213e569785253c5ecafeedc61",
+      "path": "Game/Assets/DarkNights/Res/Objects/ShipTrade/item-jetpack.asset"
+    },
+    {
+      "sha256": "dac635f5503aa8444898d24acb9b612653a1b2cd5611968c7daee349c288c5e2",
+      "path": "Game/Assets/DarkNights/Res/Objects/ShipTrade/item-jetpack.asset.meta"
+    },
+    {
+      "sha256": "7e12b6cf11597b9bb72514e7ccba58532ecb6677db100ab27a4606029356c6ff",
+      "path": "Game/Assets/DarkNights/Res/Config/balance.json"
+    },
+    {
+      "sha256": "5ddb149d97a4310ebd4a5813fa9485a2ae59ab5fb6804b1c637ce85c65e528e4",
+      "path": "Game/Packages/manifest.json"
+    },
+    {
+      "sha256": "fd002144c90a2019e08e7647511406c62d754a44efa16a5116f97bd4cfbd9e39",
+      "path": "Game/Packages/packages-lock.json"
+    },
+    {
+      "sha256": "6c33ef1e3814bd66b79c522ad6aa8410417b523abe79a2f6e110bcfe6e9d6069",
+      "path": "Game/Assets/DarkNights/Scripts/Core/Save/SessionSnapshot.cs"
+    },
+    {
+      "sha256": "47dd7d34233510960d20a3b3ad4768138bdbbd2f1eb18692f9d0700b1f6da15c",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSnapshotMapper.cs"
+    },
+    {
+      "sha256": "7d44079dcef19914bd84b67a2ce1bab3b9abaf33f0817a40526fd943b2614408",
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/SnapshotEntityJson.cs"
+    }
+  ],
+  "pending": [
+    "当前候选专项Editor回归",
+    "真实商店／HUD及调试UI操作",
+    "合法v23喷气数据休眠与文件恢复",
+    "平台／船舱及双人Host＋Client入口与投影",
+    "无喷气矿洞全图通行",
+    "Player构建与独立运行",
+    "模块及阶段用户完成确认"
+  ]
+}

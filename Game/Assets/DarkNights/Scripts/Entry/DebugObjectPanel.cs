@@ -60,7 +60,7 @@ namespace DarkNights.Entry
             search.RegisterValueChangedCallback(Search); target.RegisterValueChangedCallback(Target);
             mode.RegisterValueChangedCallback(Mode); add.clicked += Add; remove.clicked += Remove;
             refresh = root.schedule.Execute(Present).Every(150); refresh.Pause();
-            Select(definitions.FirstOrDefault(value => DebugObjectCatalog.Item(value) != null && value.Icon != null) ?? definitions.FirstOrDefault());
+            Select(definitions.FirstOrDefault(value => DebugObjectCatalog.Item(value)?.Jetpack == false && value.Icon != null) ?? definitions.FirstOrDefault());
             return root;
         }
         private void Select(ObjectDefinition definition)
@@ -137,13 +137,13 @@ namespace DarkNights.Entry
                 Enumerable.Range(0, 4).Any(slot => DebugObjectCatalog.Slot(actor, slot) == selected.Guid.ToString()));
             bool projectile = DebugObjectCatalog.IsProjectile(selected);
             quantity.SetEnabled(allowed && (projectile || item?.RuleKey == "bomb"));
-            add.SetEnabled(allowed && actor != null && (item != null && (!owned || item.RuleKey == "bomb") || projectile));
+            add.SetEnabled(allowed && actor != null && (item != null && !item.Jetpack && (!owned || item.RuleKey == "bomb") || projectile));
             remove.SetEnabled(allowed && (owned || projectile && instances.Count > 0));
             root.Q<Label>("selectedStatus").text = selected == null ? "" : DebugObjectCatalog.Status(selected);
         }
         private void Add()
         {
-            if (!Allowed() || !Enabled() || selected == null || actor == null) return;
+            if (!Allowed() || !Enabled() || selected == null || actor == null || DebugObjectCatalog.Item(selected)?.Jetpack == true) return;
             int count = Math.Max(1, Math.Min(100, quantity.value)); quantity.SetValueWithoutNotify(count);
             if (DebugObjectCatalog.IsProjectile(selected))
                 Send(SessionOperation.DebugSpawnProjectile, selected, value: count);

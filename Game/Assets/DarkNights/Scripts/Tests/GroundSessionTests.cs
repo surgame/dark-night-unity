@@ -89,7 +89,7 @@ namespace DarkNights.Tests
         });
 
         [UnityTest]
-        public IEnumerator PurchaseInventoryCreditsAndUsableJetpackRestore() => UniTask.ToCoroutine(async () =>
+        public IEnumerator PurchaseInventoryCreditsRestoreWithoutRetiredJetpack() => UniTask.ToCoroutine(async () =>
         {
             using var scope = await UnifiedSessionScope.Create();
             var world = await Create(scope);
@@ -98,28 +98,24 @@ namespace DarkNights.Tests
             Walk(authority, host, hero, ship.X + 32);
             Assert.That(hero.CaptureState().Boarded, Is.True);
             int balance = world.Economy.CaptureState().Credits;
-            long sequence = 0;
-            foreach (string item in new[] { "pickaxe", "jetpack" })
-            {
-                var state = hero.CaptureState();
-                var request = new SessionRequest(SessionOperation.BuyEquipment, SessionAuthority.ProtocolVersion,
-                    authority.Epoch, authority.PolicyRevision, ++sequence, new[] { hero.Id }, targetId: ship.Id,
-                    kind: item, value: state.InventoryRevision, controlLease: state.ControlLease);
-                Assert.That(JourneyScenario.Execute(authority, host, request), Is.EqualTo(SessionResultCode.Applied));
-            }
+            var state = hero.CaptureState();
+            var request = new SessionRequest(SessionOperation.BuyEquipment, SessionAuthority.ProtocolVersion,
+                authority.Epoch, authority.PolicyRevision, 1, new[] { hero.Id }, targetId: ship.Id,
+                kind: "pickaxe", value: state.InventoryRevision, controlLease: state.ControlLease);
+            Assert.That(JourneyScenario.Execute(authority, host, request), Is.EqualTo(SessionResultCode.Applied));
             var purchased = hero.CaptureState();
-            Assert.That(purchased.JetpackOwned, Is.True);
-            Assert.That(purchased.JetpackEquipped, Is.True);
-            Assert.That(purchased.JetpackFuel, Is.EqualTo(world.Catalog.Balance.HeroControl.FuelSeconds));
+            Assert.That(purchased.JetpackOwned, Is.False);
+            Assert.That(purchased.JetpackEquipped, Is.False);
+            Assert.That(purchased.JetpackFuel, Is.Zero);
             Assert.That(world.Economy.CaptureState().Credits,
-                Is.EqualTo(balance - world.Catalog.Balance.Expedition.Trade.PickaxePrice - world.Catalog.Balance.Expedition.Trade.JetpackPrice));
+                Is.EqualTo(balance - world.Catalog.Balance.Expedition.Trade.PickaxePrice));
             string saved = world.SaveCodec.Serialize(world.CaptureWorld());
             int credits = world.Economy.CaptureState().Credits;
             world.Restore(saved);
             var restored = Hero(world, 0).CaptureState();
             Assert.That(restored.Slot0, Is.EqualTo(purchased.Slot0));
-            Assert.That(restored.JetpackOwned, Is.True);
-            Assert.That(restored.JetpackEquipped, Is.True);
+            Assert.That(restored.JetpackOwned, Is.False);
+            Assert.That(restored.JetpackEquipped, Is.False);
             Assert.That(restored.JetpackFuel, Is.EqualTo(purchased.JetpackFuel));
             Assert.That(world.Economy.CaptureState().Credits, Is.EqualTo(credits));
             var invalidFuel = JObject.Parse(saved); invalidFuel["world"]["actors"][0]["jetpack_fuel"] = 900;

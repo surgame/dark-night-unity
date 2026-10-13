@@ -88,7 +88,7 @@ namespace DarkNights.Runtime.Objects
             if (grounded)
             {
                 s.Height = floor;
-                if (rules != null) HeroJumpMotion.Land(s, rules, delta);
+                if (rules != null) HeroJumpMotion.Land(s, rules, delta, recoverFuel: false);
                 return;
             }
 
@@ -103,7 +103,7 @@ namespace DarkNights.Runtime.Objects
             if (s.VerticalSpeed <= 0 && nextHeight <= floor)
             {
                 s.Height = floor;
-                if (rules != null) HeroJumpMotion.Land(s, rules, delta);
+                if (rules != null) HeroJumpMotion.Land(s, rules, delta, recoverFuel: false);
             }
             else
             {

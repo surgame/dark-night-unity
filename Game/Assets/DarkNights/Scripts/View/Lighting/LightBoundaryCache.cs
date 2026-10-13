@@ -24,6 +24,7 @@ namespace DarkNights.View.Lighting
         public int DiscardCount { get; private set; }
         public double WorkerMilliseconds { get; private set; }
         public double FreezeMilliseconds { get; private set; }
+        public bool Settled => pending == null;
 
         public LightBoundaryCache(Func<LightGeometrySnapshot, Func<bool>, LightBoundarySnapshot> builder)
         { build = builder ?? throw new ArgumentNullException(nameof(builder)); }

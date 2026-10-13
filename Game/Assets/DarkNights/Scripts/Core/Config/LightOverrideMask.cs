@@ -22,6 +22,17 @@ namespace DarkNights.Core.Config
         NearIntensity = 1 << 12,
         FillRadius = 1 << 13,
         FillIntensity = 1 << 14,
-        FillColor = 1 << 15
+        FillColor = 1 << 15,
+        BounceMode = 1 << 16,
+        Bounce = 1 << 17,
+        DiffuseShape = 1 << 18,
+        DiffuseMatchIncident = 1 << 19,
+        DiffuseCornerRadius = 1 << 20,
+        DiffuseGain = 1 << 21,
+        DiffuseNearDistance = 1 << 22,
+        DiffuseFarDistance = 1 << 23,
+        DiffuseMaxReach = 1 << 24,
+        DiffuseLateralSpread = 1 << 25,
+        DiffuseVisibilityProbes = 1 << 26
     }
 }

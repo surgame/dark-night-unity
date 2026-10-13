@@ -19,6 +19,7 @@ namespace DarkNights.Editor.Lighting
         public void UndoTemporary() => temporary?.Undo();
         public void RedoTemporary() => temporary?.Redo();
         public void ClearTemporary() { EndGesture(); temporary?.Clear(); }
+        public void RemoveTemporary(UnityEngine.Object owner) { EndGesture(); temporary?.Remove(owner); }
 
         public void BeginGesture(string control)
         {

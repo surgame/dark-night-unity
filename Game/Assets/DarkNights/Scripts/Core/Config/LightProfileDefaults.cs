@@ -3,6 +3,17 @@ namespace DarkNights.Core.Config
     /// <summary>无预设时的内置光照制作基线；只有只读数值，预设和物体覆盖共用这些初始值，不拥有实例状态或引擎资源。</summary>
     public static class LightProfileDefaults
     {
+        public const LightBounceMode BounceMode = LightBounceMode.LegacyPoint;
+        public const float Bounce = .12f;
+        public const WallDiffuseShape DiffuseShape = WallDiffuseShape.WallBand;
+        public const bool DiffuseMatchIncident = false;
+        public const float DiffuseCornerRadius = .8f;
+        public const float DiffuseGain = 1;
+        public const float DiffuseNearDistance = 1.5f;
+        public const float DiffuseFarDistance = 6;
+        public const float DiffuseMaxReach = 3.2f;
+        public const float DiffuseLateralSpread = .65f;
+        public const int DiffuseVisibilityProbes = 2;
         public const bool EnvironmentEnabled = true;
         public const bool LocalFillEnabled = true;
         public const bool Directional = true;

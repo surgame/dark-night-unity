@@ -131,11 +131,11 @@ namespace DarkNights.Tests
             var map = TerrainMotionTestMap.Ramp(0);
             var rules = TerrainMotionTestMap.Rules();
             var state = TerrainMotionTestMap.Actor(1480, TerrainMotionTestMap.BaseHeight, true);
-            TerrainHeroMotion.Tick(map, state, rules, Delta, true, true);
-            TerrainHeroMotion.Tick(map, state, rules, Delta, false, true);
+            TerrainHeroMotion.Tick(map, state, rules, Delta, true, true, jetpack: true);
+            TerrainHeroMotion.Tick(map, state, rules, Delta, false, true, jetpack: true);
             Assert.That(state.VerticalSpeed, Is.GreaterThan(140));
             Assert.That(state.JetpackFuel, Is.EqualTo(2));
-            for (int tick = 0; tick < 35; tick++) TerrainHeroMotion.Tick(map, state, rules, Delta, false, true);
+            for (int tick = 0; tick < 35; tick++) TerrainHeroMotion.Tick(map, state, rules, Delta, false, true, jetpack: true);
             Assert.That(state.JetpackFuel, Is.LessThan(2));
             Assert.That(state.VerticalSpeed, Is.GreaterThan(0));
         }

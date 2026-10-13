@@ -29,7 +29,7 @@ world保留level_id、terrain、expedition、economy、wave、elapsed、speed、
 
 actors的姿态／装备包括height、vertical_speed、support_platform、ignored_platform、drop_remaining、manual_control、selected_item、selection_revision、jetpack_equipped／jetpack_fuel、explosive_charges及库存／货袋／照明字段；这是概要，不是完整字段列表。高度原地面为零、向上为正；原随机地图下限和平台支撑关系按当前布局校验。支撑0为权威地图，-1为空中，正数平台身份仅在对应合法布局有效。
 
-四格库存以canonical Definition GUID为持有依据，选中装备、动作、数量和配置指纹必须合法。喷气背包是独立能力，燃料／装备关系仍校验。`light_definition`为规范GUID或空字符串，非空必须指向角色实际库存中的照明道具；没有合法手电不能light_enabled。移除同时清引用和开关，恢复不重新配发已移除手电。方向按角色朝向初始化，光场、调参、渲染缓存和后台任务不保存。
+四格库存以canonical Definition GUID为持有依据，选中装备、动作、数量和配置指纹必须合法。喷气背包暂退，既有独立能力持有／装备／燃料字段继续按原关系校验、捕获与恢复；合法v23数据不清零或迁移，正式运行不据此启用喷气或恢复燃料。`light_definition`为规范GUID或空字符串，非空必须指向角色实际库存中的照明道具；没有合法手电不能light_enabled。移除同时清引用和开关，恢复不重新配发已移除手电。方向按角色朝向初始化，光场、调参、渲染缓存和后台任务不保存。
 
 相机、选择、epoch、策略版本、连接代次、FishNet身份、ControllerSlot／Generation、ControlLease、默认人物偏好、按钮及输入序号不进入文件。恢复后连接只接回仍标记manual_control的合法主角；原专属ID指向普通闲置角色或无可恢复人物时新建默认主角，不恢复旧连接所有权或重放输入。
 

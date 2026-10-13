@@ -54,6 +54,27 @@ namespace DarkNights.Tests
         }
 
         [Test]
+        public void EachLightResolvesIndependentReturnAndFollowsUnoverriddenPresetFields()
+        {
+            preset.BounceMode = LightBounceMode.Continuous; preset.DiffuseGain = .8f;
+            var overrides = new LightOverrides { Mask = LightOverrideMask.DiffuseShape | LightOverrideMask.DiffuseVisibilityProbes | LightOverrideMask.DiffuseMatchIncident,
+                DiffuseShape = WallDiffuseShape.SoftBlob, DiffuseVisibilityProbes = 4, DiffuseMatchIncident = true };
+            var first = LightProfileResolver.Resolve(preset, overrides);
+            var other = LightProfileResolver.Resolve(preset, new LightOverrides { Mask = LightOverrideMask.BounceMode, BounceMode = LightBounceMode.Off });
+            preset.DiffuseGain = 1.4f;
+            var changed = LightProfileResolver.Resolve(preset, overrides);
+            Assert.That(first.Rules.Bounce.DiffuseGain, Is.EqualTo(.8f));
+            Assert.That(changed.Rules.Bounce.DiffuseGain, Is.EqualTo(1.4f));
+            Assert.That(changed.Rules.Bounce.DiffuseShape, Is.EqualTo(WallDiffuseShape.SoftBlob));
+            Assert.That(other.Rules.Bounce.BounceMode, Is.EqualTo(LightBounceMode.Off));
+            Assert.That(other.Rules.Bounce.DiffuseShape, Is.EqualTo(WallDiffuseShape.WallBand));
+            var values = LightProfileResolver.Values(changed);
+            Assert.That(values.DiffuseMatchIncident, Is.True); Assert.That(values.DiffuseVisibilityProbes, Is.EqualTo(4));
+            overrides.Mask &= ~LightOverrideMask.DiffuseShape;
+            Assert.That(LightProfileResolver.Resolve(preset, overrides).Rules.Bounce.DiffuseShape, Is.EqualTo(preset.DiffuseShape));
+        }
+
+        [Test]
         public void DefinitionEnablesOverrideFromPresetAndUndoReturnsToInheritance()
         {
             float inherited = LightDefinitionEditor.Preset(definition).Intensity;

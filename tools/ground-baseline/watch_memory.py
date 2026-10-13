@@ -13,12 +13,12 @@ import time
 LIMITS = {"editor_private_gib": None, "minimum_free_ram_gib": 1, "minimum_free_commit_gib": 1}
 
 
-def memory_breach(private_gib, free_ram_gib, free_commit_gib, reserve_gib=0):
+def memory_breach(private_gib, free_ram_gib, free_commit_gib, reserve_gib=0, ignore_commit_limit=False):
     """接近系统耗尽时停止；Editor 私有内存默认只记录，启动可额外预留预计分配量。"""
     editor_limit = LIMITS["editor_private_gib"]
     return (editor_limit is not None and private_gib >= editor_limit
             or free_ram_gib < LIMITS["minimum_free_ram_gib"]
-            or free_commit_gib < LIMITS["minimum_free_commit_gib"] + reserve_gib)
+            or not ignore_commit_limit and free_commit_gib < LIMITS["minimum_free_commit_gib"] + reserve_gib)
 
 
 class Performance(c.Structure):
@@ -43,6 +43,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--seconds", type=int, default=1800)
     parser.add_argument("--once", action="store_true", help="只读预检；余量不足也不退出已有 Play")
+    parser.add_argument("--ignore-commit-limit", action="store_true", help="仅用于用户明确授权的批次；仍保留物理内存门槛")
     args = parser.parse_args()
     cli = shutil.which("unity")
     if not cli:
@@ -88,8 +89,21 @@ def main():
                 minimum_commit = min(minimum_commit, sample["free_commit_gib"])
                 log.write(json.dumps(sample) + "\n")
                 log.flush()
+                latest = dict(sample, ignore_commit_limit=args.ignore_commit_limit, minimum_free_ram_gib=1)
+                temporary = args.output / "latest.tmp"
+                temporary.write_text(json.dumps(latest), encoding="utf-8")
+                # Windows 的外部只读工具可能短暂持有不允许删除共享的句柄；有界重试，不吞掉持续失败。
+                for attempt in range(20):
+                    try:
+                        temporary.replace(args.output / "latest.json")
+                        break
+                    except PermissionError:
+                        if attempt == 19:
+                            raise
+                        time.sleep(.025)
                 # 只在系统接近耗尽时停止；单次预检不接管用户已有 Play。
-                if memory_breach(sample["private_gib"], sample["free_ram_gib"], sample["free_commit_gib"]):
+                if memory_breach(sample["private_gib"], sample["free_ram_gib"], sample["free_commit_gib"],
+                                 ignore_commit_limit=args.ignore_commit_limit):
                     state = "breach"
                     (args.output / "breach.json").write_text(json.dumps(sample, indent=2), encoding="utf-8")
                     if args.once:
@@ -106,11 +120,15 @@ def main():
                 if args.once:
                     break
                 time.sleep(1)
+    except Exception:
+        state = "failed"
+        raise
     finally:
         kernel.CloseHandle(handle)
         summary = {"state": state, "samples": samples, "peak_private_gib": peak,
                    "minimum_free_ram_gib": minimum_ram, "minimum_free_commit_gib": minimum_commit,
                    "limits": dict(LIMITS), "read_only": args.once}
+        summary["ignore_commit_limit"] = args.ignore_commit_limit
         (args.output / "summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
         print(json.dumps(summary))
     return 2 if state == "breach" else 0

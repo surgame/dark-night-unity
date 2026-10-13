@@ -104,10 +104,11 @@ namespace DarkNights.Editor.Lighting
                     if (EditorApplication.timeSinceStartup > deadline) throw new TimeoutException(stage.Progress);
                     yield return null;
                 }
-                var settings = new ExplorationLightSettings { BounceMode = LightBounceMode.Continuous, Ambient = .1f };
+                var settings = new ExplorationLightSettings { Ambient = .1f };
                 field = new ExplorationLightField(shader, LightWallDistance.Build, settings, LightBoundaryBuilder.Build);
                 baseline = new ExplorationLightField(AssetDatabase.LoadAssetAtPath<ComputeShader>("Assets/DarkNights/Scripts/Tests/WallDiffuseLegacyBaseline.compute"),
                     LightWallDistance.Build, new ExplorationLightSettings());
+                Read<ComputeShader>(baseline, "shader").SetFloat("_DNBounceStrength", .12f);
                 foreach (string name in new[] { "DN.Light.Total", "DN.Diffuse.Profile", "DN.Diffuse.Select", "DN.Diffuse.IntegrateCompose", "DN.Direct.Legacy" }) Recorder.Get(name).enabled = true;
                 Emit(1, 0);
                 for (int i = 0; i < 60; i++)
@@ -120,8 +121,8 @@ namespace DarkNights.Editor.Lighting
                         scope = "Fresh resource/cache; Shader compiler already warm" });
                 }
                 Save(map + "-continuous.png");
-                settings.BounceMode = LightBounceMode.LegacyPoint; Render(); Save(map + "-legacy.png");
-                settings.BounceMode = LightBounceMode.Continuous;
+                bounceMode = LightBounceMode.LegacyPoint; Emit(1, 0); Render(); Save(map + "-legacy.png");
+                bounceMode = LightBounceMode.Continuous; Emit(1, 0);
                 reports.Add(new { map, mouth = new[] { mouth.x, mouth.y }, angle, geometryBuilds = field.DiffuseResources.BuildCount,
                     candidates = field.DiffuseResources.CandidateCount, bufferBytes = field.DiffuseResources.BufferBytes, workerMs = field.DiffuseResources.WorkerMilliseconds });
                 if (map == "folded-expanded")
@@ -133,7 +134,7 @@ namespace DarkNights.Editor.Lighting
                             foreach (string mode in sequence)
                             {
                                 File.WriteAllText(Path.Combine(output, "status.txt"), map + " " + lights + " " + motion + " " + mode);
-                                settings.BounceMode = mode == "A0" ? LightBounceMode.LegacyPoint : mode == "Off" ? LightBounceMode.Off : LightBounceMode.Continuous;
+                                bounceMode = mode == "A0" ? LightBounceMode.LegacyPoint : mode == "Off" ? LightBounceMode.Off : LightBounceMode.Continuous;
                                 field.DiffuseBenchmarkMode = mode == "A1" ? 1 : 0;
                                 if (mode == "B" || mode == "A1")
                                 {
@@ -227,10 +228,11 @@ namespace DarkNights.Editor.Lighting
                 preview.TickFromEditor();
             }
         }
+        private LightBounceMode bounceMode = LightBounceMode.Continuous;
         private void Emit(int count, float turn)
         {
             emitters.Clear();
-            var rules = new LightEmissionRules(14, 90, 1.35f, 2.2f, 0, 1, .9f, .72f, .375f);
+            var rules = new LightEmissionRules(14, 90, 1.35f, 2.2f, 0, 1, .9f, .72f, .375f, bounce: new LightBounceRules(bounceMode));
             for (int i = 0; i < count; i++) emitters.Add(new LightEmitterData(new Vector3(mouth.x - .5f, -mouth.y + .5f, 0), angle + turn + i * 2, rules));
         }
         private void Render() { preview.TickFromEditor(); field.Render(camera, preview, emitters); camera.Render(); }

@@ -22,6 +22,7 @@ namespace DarkNights.View.Lighting
         public Texture2D Texture { get; private set; }
         public RectInt Bounds => installedBounds;
         public bool Ready => Texture != null;
+        public bool Settled => pending == null;
 
         public void Tick(CaveVisualSource source, RectInt bounds)
         {
@@ -38,7 +39,7 @@ namespace DarkNights.View.Lighting
                         int height = bounds.height * LightGeometrySnapshot.SamplesPerCell;
                         if (Texture == null || Texture.width != width || Texture.height != height)
                         {
-                            if (Texture != null) UnityEngine.Object.Destroy(Texture);
+                            if (Texture != null) Release(Texture);
                             Texture = new Texture2D(width, height, TextureFormat.RFloat, false, true)
                             { name = "Local wall intrusion distance", filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp };
                         }
@@ -71,9 +72,15 @@ namespace DarkNights.View.Lighting
             finally
             {
                 pending = null; lifetime.Dispose();
-                if (Texture != null) UnityEngine.Object.Destroy(Texture);
+                if (Texture != null) Release(Texture);
                 Texture = null;
             }
+        }
+
+        private static void Release(UnityEngine.Object value)
+        {
+            if (Application.isPlaying) UnityEngine.Object.Destroy(value);
+            else UnityEngine.Object.DestroyImmediate(value);
         }
     }
 }

@@ -31,6 +31,8 @@ namespace DarkNights.View.Terrain
         private TerrainReplicaRegion regionLoader;
         private TerrainDrawReceipt drawReceipt;
         public GridBounds LocalRegion;
+        /// <summary>局部 Editor 预览限定静态背景求解范围；正式世界与整图地形工作台默认关闭。</summary>
+        public bool LocalPreviewBackground;
         private ITerrainInputSource inputSource;
         private readonly TerrainInputBatchQueue inputQueue = new TerrainInputBatchQueue();
         private GridBounds visible;
@@ -131,16 +133,17 @@ namespace DarkNights.View.Terrain
                 IMapChunkSource mapSource = source;
                 if (CaveStyle != null)
                 {
-                    caveSource = new CaveVisualSource(source, CaveStyle, definition.LoadGameplayCatalog().Tiles, transform, reference, SurfaceSky);
+                    caveSource = new CaveVisualSource(source, CaveStyle, definition.LoadGameplayCatalog().Tiles, transform, reference, SurfaceSky,
+                        LocalPreviewBackground ? LocalRegion : default);
                     mapSource = caveSource;
                 }
                 var profile = caveSource == null ? null : new RenderProfile(defaultMaterial: caveSource.Material);
-                var layers = inputSource == null ? null : new GridLayerConfiguration(GridEditability.ReadOnly,
+                var layers = inputSource == null && !LocalRegion.IsValid ? null : new GridLayerConfiguration(GridEditability.ReadOnly,
                     GridRenderPolicy.LiveRules, GridBusinessCapability.TileTypeOnly);
                 var options = new MapOptions(initialize: false, showOnCreate: false, autoUpdate: false,
                     maximumInitializationCells: 131072, chunkSource: mapSource, parent: transform, world: world,
                     sourceDrivenInputs: inputSource != null, layers: layers, profile: profile,
-                    scheduling: new RenderSchedulingOptions(lagPolicy: RenderLagPolicy.BoundedLag));
+                    scheduling: new RenderSchedulingOptions(maximumSnapshotAgeMilliseconds: LocalPreviewBackground ? 10000 : 100, lagPolicy: RenderLagPolicy.BoundedLag));
                 var result = await ARDMapController.CreateAsync(definition, options, own.Token);
                 if (own.IsCancellationRequested) { await result.DisposeAsync(); return; }
                 controller = result;
@@ -156,7 +159,8 @@ namespace DarkNights.View.Terrain
                 {
                     minerals = new MineralLayerPresentation(CaveStyle.MineralDefinition, transform);
                     await minerals.OpenAsync(CaveStyle.MineralDefinition, ViewCamera, result.Descriptor.World,
-                        caveSource?.LightTexture, CaveStyle.Background?.BackgroundAmbient ?? .36f, MineralLayerView.DefaultSortingOrder);
+                        caveSource?.LightTexture, CaveStyle.Background?.BackgroundAmbient ?? .36f, MineralLayerView.DefaultSortingOrder,
+                        LocalRegion.IsValid ? (GridBounds?)LocalRegion : null);
                     if (own.IsCancellationRequested) return;
                 }
                 inputSource?.PublishInitialBaseline();

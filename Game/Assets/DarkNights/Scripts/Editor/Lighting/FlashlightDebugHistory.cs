@@ -54,5 +54,11 @@ namespace DarkNights.Editor.Lighting
             if (entry.Owner != null) JsonUtility.FromJsonOverwrite(entry.After, entry.Owner);
         }
         public void Clear() { target = null; control = null; before = null; entries.Clear(); cursor = 0; }
+        public void Remove(UnityEngine.Object owner)
+        {
+            End();
+            for (int i = entries.Count - 1; i >= 0; i--)
+                if (entries[i].Owner == owner) { if (i < cursor) cursor--; entries.RemoveAt(i); }
+        }
     }
 }

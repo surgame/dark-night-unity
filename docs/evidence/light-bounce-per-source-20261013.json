@@ -1,0 +1,235 @@
+{
+  "date": "2026-10-13",
+  "timezone": "Asia/Shanghai",
+  "recorded_at": "2026-10-13T03:50:10.498792+08:00",
+  "branch": "fix-20261013-wall-diffuse-corners",
+  "base_commit": "466534ce37f1b6d546189ca8ee506d2f3093ef67",
+  "delivery": "uncommitted working tree",
+  "editor": {
+    "version": "6000.4.9f1",
+    "pid": 13764,
+    "project": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game"
+  },
+  "compilation": [
+    {
+      "batch": "initial",
+      "cli": "unity recompile --project-path Game --timeout 60 --json",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 0
+    },
+    {
+      "batch": "after shader loop/index warning and invalid input handling repairs",
+      "exit_code": 0,
+      "errors": 0,
+      "warnings": 0
+    }
+  ],
+  "compute_import": {
+    "final_messages": [],
+    "initial_warning_count": 8,
+    "initial_warnings": [
+      "integer divides (5)",
+      "potentially uninitialized DNWallLocal",
+      "potentially uninitialized DNWallShape",
+      "potentially uninitialized DNExactWallVisibility"
+    ],
+    "repairs": "Pass lamp index directly; explicit bounded loop compilation; no numerical changes; DDA loop attribute limited to Compute DN_QUERY_COUNTERS"
+  },
+  "surface_import": {
+    "CampSprite": [],
+    "CavePixelRock": [],
+    "CaveBackgroundLayer": [],
+    "CaveStrata": [],
+    "intermediate_warning": "CaveStrata use of potentially uninitialized variable (lit); resolved by limiting DDA loop attribute to Compute"
+  },
+  "uxml_import": true,
+  "play": {
+    "existing_play_exited_with_user_permission": true,
+    "new_play_run": false
+  },
+  "tests": {
+    "run": false,
+    "updated_sources": [
+      "LightProfileTests",
+      "WallDiffuseMathTests",
+      "WallDiffuseCornerTests",
+      "WallDiffuseGpuFixture"
+    ],
+    "status": "not executed"
+  },
+  "player": {
+    "built": false,
+    "run": false
+  },
+  "changes": "Per-light profile/override return parameters and GPU arrays; scene retains Backend/Ambient/WallDepth/WallStrength/Relief",
+  "migration": {
+    "PinewatchLighting.asset": {
+      "unrelated_author_fields_preserved": true,
+      "guid_preserved": true,
+      "backup": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\light-bounce-per-source-20261013\\migration-20261012-194434-439\\PinewatchLighting.asset"
+    },
+    "DeviceLighting.asset": {
+      "unrelated_author_fields_preserved": true,
+      "guid_preserved": true,
+      "backup": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\light-bounce-per-source-20261013\\migration-20261012-194434-439\\DeviceLighting.asset"
+    },
+    "managed_reference_identity": {
+      "before": "4004706354978619618",
+      "after": "4004706401297629301",
+      "reason": "Editor API replaced serialized config; both references updated",
+      "occurrences_match": true
+    },
+    "Flashlight.asset": {
+      "unrelated_author_fields_preserved": true,
+      "guid_preserved": true,
+      "backup": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\light-bounce-per-source-20261013\\migration-20261012-194434-439\\Flashlight.asset"
+    },
+    "LightBounceMode_move": {
+      "guid_preserved": true
+    },
+    "WallDiffuseShape_move": {
+      "guid_preserved": true
+    }
+  },
+  "memory": {
+    "memory-preflight": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 5.77313232421875,
+      "minimum_free_ram_gib": 9.10921859741211,
+      "minimum_free_commit_gib": 5.4278411865234375,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": true
+    },
+    "memory-before-compile": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 5.6918487548828125,
+      "minimum_free_ram_gib": 8.853748321533203,
+      "minimum_free_commit_gib": 5.593772888183594,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": true
+    },
+    "memory-before-repair-compile": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 5.699764251708984,
+      "minimum_free_ram_gib": 8.005241394042969,
+      "minimum_free_commit_gib": 5.042636871337891,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": true
+    },
+    "memory-before-surface-import": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 5.777828216552734,
+      "minimum_free_ram_gib": 8.256160736083984,
+      "minimum_free_commit_gib": 5.5010833740234375,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": true
+    }
+  },
+  "source_sha256": {
+    "Game/Assets/DarkNights/Res/Objects/Flashlight/Flashlight.asset": "260b18cfead351fc639fd6f3272d86964b04790844cc02d9ffbd73a461d25e2d",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/Debug/FlashlightDebug.uxml": "d8462c30c56c949861d237db2983771293e82e085fdba02dce0450b4cdb1dc06",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.compute": "ba5ec420c1ccafece4eb88786b4f4ee10aa6793be6cbdabdf6c0b858ba30eb04",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/Profiles/DeviceLighting.asset": "8c957ee214eae1b324b8e528037d531b7cbe76873680a5cc5fa5f3a2d87dd3ab",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/Profiles/PinewatchLighting.asset": "d921e411a12b71253e2b064a2c9635f86fd090f49066acd02e48820105ac9f03",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseCompose.hlsl": "73bb4cca55526133c64cb4c9e13d469b46135fe8791dc1d18378df1c28788128",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffusePrepare.hlsl": "83c9bd374a41d6d79f3290edd6f19a19dd7aeb664039a3dcc84b1390ff1058d4",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseProfile.hlsl": "32665b4869ba779a76827cd5f8ec21f35f6a116f604ce929f3f1d50cff820278",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseShape.hlsl": "90bfd1cd68c7a4124d9eba4abfe070e903a88ad97a13f4fc5465e14e14f0752f",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseVisibility.hlsl": "2c43a7f4a65ab97ec3600349b16235939d80df577ed0db58642b9c52408b5673",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightEmissionRules.cs": "6ede7463ecd95fa7b88cd2400274a4428b77fa058a2fd8233eaddc8fdf0bceb1",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightOverrideMask.cs": "ce607d0bb0ff14d1d5b1e3e30e60c47979c9bdf8fb1b85054f30541b3c3a101b",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightProfileDefaults.cs": "ae2cb4fbf668d9d6a478269f02c43ee52c65a98a8a582ae8c60056cbc2de9b57",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugSave.cs": "cbf7c5dafa697789fae00e4625c5ca4d9604865153d5d96b02efa4f68de706d5",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightToolConfigDrawer.cs": "7dd16bfc61ed1ed20134388e65e556601ce28a97902edf408204bda384662960",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightOverridePanel.cs": "9059dc0e27b7b7b4086d069ce3def1f89f9ae3fe5f4110db050f4f2afc9578a7",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightParameterSchema.cs": "d1d89a275674a56439b291dedf6aaae2b5e1e26ea12d5a0b50c4014487077d65",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/SceneLightingPanel.cs": "9ec464d00f2ad1caacc858f25955d26f26f3c2f4b447294c03012874ef6d2001",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/WallDiffuseAcceptance.cs": "26bdb80494a2e0fe1a27f92c423c6efab83d6d55f351c1a354c88f3009b8d359",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/WallDiffuseMigration.cs": "5e0ff81137fc3a4689db35fd33f6edb7af8862ae023b3b5d9e7e0cb4c164e382",
+    "Game/Assets/DarkNights/Scripts/Entry/LightProfileResolver.cs": "713279c27725e9955412efc076569dfcee27221b60684329d2ff92f5a1d4d301",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/LightOverrides.cs": "b8c5d468efb09685466cc38e7185e3a4706fccb14530d6b824904a952cff2d56",
+    "Game/Assets/DarkNights/Scripts/Tests/LightProfileTests.cs": "ac7c33704f7218b8cd06c498c6729e54eef02030be37d7e04db5b882bc38a660",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseCornerTests.cs": "b24331a9d5e8fd746b002d0d64f36ba955afdaf1af0a8bcf0fcb962f061e9d66",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseGpuFixture.cs": "6bc00ab9917b1c748e17452e110f079c9b9d3988f061c3db27a5c0567c44e839",
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseMathTests.cs": "7cf4c1b021448bb21ab319acd81e6f8239f5bbce1eb47ab03a30d0d58f86ae12",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/EnvironmentLighting.cs": "b05d38751c552d03ed6801639d48de006c5fba3c27ccc1e30081e193644e195b",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightField.cs": "94db315bcbfc5c555616898cfc1acdf56e9472cf06939af500aa9b61e04eed77",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightSettings.cs": "be4ac80bea1a8125622be14b4344db3d19978bbc84be2ed83990e71285765990",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightProfile.cs": "93eccc23992d3769b49787922e0591ea9bb3281616d511e6f4029a44190d093d",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/WallDiffuseResources.cs": "65df17354d411b388c6a006dca9b8ee5c4e38ac6ab8d7b92e3bbe75116cb30e4",
+    "tools/lighting-backends/compile_static.py": "0b40b874b119669640b5ff7a6aff4cca9e69517d324363bc1e40c90f35548633",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightBounceMode.cs": "0286e5d595b8a5bdcc791994f473b70816a3f142e6fcc0f959748aabfb0f6c03",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightBounceMode.cs.meta": "04636731259d025b3f6f5e70d0a44587053c096a0ecdc6e411f02caf8a6b91da",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightBounceRules.cs": "05f4c36bc842cf63a4f05d325c605076997ea5ac40a401109800ae4992e92078",
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightBounceRules.cs.meta": "11fd697d34dbccba9fce79e19be75717bf5c6ee69cac117d87d6b6cd9b2b69d2",
+    "Game/Assets/DarkNights/Scripts/Core/Config/WallDiffuseShape.cs": "1aa304d9fc00520e8076f9d28885af1bb5b42e486267a04672011bb06d028dfd",
+    "Game/Assets/DarkNights/Scripts/Core/Config/WallDiffuseShape.cs.meta": "1734a3ff3e1a9b4baf70b1f108814ad5678b96b54c5278204f1593e402fb85b2"
+  },
+  "handwritten_cs_line_counts": {
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightEmissionRules.cs": 47,
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightOverrideMask.cs": 38,
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightProfileDefaults.cs": 38,
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugSave.cs": 112,
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightToolConfigDrawer.cs": 142,
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightOverridePanel.cs": 149,
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightParameterSchema.cs": 34,
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/SceneLightingPanel.cs": 89,
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/WallDiffuseAcceptance.cs": 248,
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/WallDiffuseMigration.cs": 88,
+    "Game/Assets/DarkNights/Scripts/Entry/LightProfileResolver.cs": 82,
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/LightOverrides.cs": 45,
+    "Game/Assets/DarkNights/Scripts/Tests/LightProfileTests.cs": 178,
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseCornerTests.cs": 101,
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseGpuFixture.cs": 151,
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseMathTests.cs": 82,
+    "Game/Assets/DarkNights/Scripts/View/Lighting/EnvironmentLighting.cs": 100,
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightField.cs": 192,
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightSettings.cs": 24,
+    "Game/Assets/DarkNights/Scripts/View/Lighting/LightProfile.cs": 56,
+    "Game/Assets/DarkNights/Scripts/View/Lighting/WallDiffuseResources.cs": 170,
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightBounceMode.cs": 10,
+    "Game/Assets/DarkNights/Scripts/Core/Config/LightBounceRules.cs": 59,
+    "Game/Assets/DarkNights/Scripts/Core/Config/WallDiffuseShape.cs": 9
+  },
+  "unchanged_contracts": {
+    "protocol": 31,
+    "save": 23,
+    "yygc_changed": false,
+    "dependency_locks_changed": false
+  },
+  "pending": [
+    "multi-light mixed mode/shape rendering and leak boundaries",
+    "Definition/Profile persistence, inheritance, revert and Undo/Redo GUI",
+    "runtime draft save/cancel/retirement",
+    "GPU/GC/performance under current shader loops and per-light arrays",
+    "Player validation"
+  ],
+  "limitations": "C# compile and compute/UXML import do not prove runtime or rendering acceptance",
+  "artifact_inventory": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\light-bounce-per-source-20261013",
+    "files": 15,
+    "bytes": 36455,
+    "all_retained": true
+  }
+}

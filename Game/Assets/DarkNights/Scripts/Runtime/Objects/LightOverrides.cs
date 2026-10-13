@@ -12,6 +12,17 @@ namespace DarkNights.Runtime.Objects
     public sealed class LightOverrides
     {
         public LightOverrideMask Mask;
+        public LightBounceMode BounceMode = LightProfileDefaults.BounceMode;
+        public float Bounce = LightProfileDefaults.Bounce;
+        public WallDiffuseShape DiffuseShape = LightProfileDefaults.DiffuseShape;
+        public bool DiffuseMatchIncident = LightProfileDefaults.DiffuseMatchIncident;
+        public float DiffuseCornerRadius = LightProfileDefaults.DiffuseCornerRadius;
+        public float DiffuseGain = LightProfileDefaults.DiffuseGain;
+        public float DiffuseNearDistance = LightProfileDefaults.DiffuseNearDistance;
+        public float DiffuseFarDistance = LightProfileDefaults.DiffuseFarDistance;
+        public float DiffuseMaxReach = LightProfileDefaults.DiffuseMaxReach;
+        public float DiffuseLateralSpread = LightProfileDefaults.DiffuseLateralSpread;
+        public int DiffuseVisibilityProbes = LightProfileDefaults.DiffuseVisibilityProbes;
         public bool EnvironmentEnabled = LightProfileDefaults.EnvironmentEnabled;
         public bool LocalFillEnabled = LightProfileDefaults.LocalFillEnabled;
         public bool Directional = LightProfileDefaults.Directional;

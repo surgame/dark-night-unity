@@ -1,0 +1,76 @@
+{
+  "recorded_at": "2026-10-13T11:48:34.018115+08:00",
+  "branch": "fix-20261013-wall-diffuse-corners",
+  "base_commit": "466534ce37f1b6d546189ca8ee506d2f3093ef67",
+  "delivery": "uncommitted incremental UI changes; existing working tree changes preserved",
+  "changes": [
+    "Shared effective mode/shape visibility in Definition workshop and flashlight debug panel",
+    "Hide WallBand-only lateral spread in SoftBlob; retain corner radius used by wall-group selection",
+    "Show Bounce only in LegacyPoint; show Diffuse fields only in Continuous",
+    "Mode-specific reach labels; source-distance labels and tooltips",
+    "Hidden values and override masks retained; inherited and draft values determine visibility"
+  ],
+  "unity": {
+    "version": "6000.4.9f1",
+    "pid": 21920,
+    "compile_errors": 0,
+    "compile_warnings": 0,
+    "uss_import": {
+      "loaded": true,
+      "importedWithErrors": false,
+      "importedWithWarnings": false,
+      "playing": false
+    }
+  },
+  "memory": {
+    "state": "completed",
+    "samples": 1,
+    "peak_private_gib": 4.309123992919922,
+    "minimum_free_ram_gib": 14.246265411376953,
+    "minimum_free_commit_gib": 7.931270599365234,
+    "limits": {
+      "editor_private_gib": null,
+      "minimum_free_ram_gib": 1,
+      "minimum_free_commit_gib": 1
+    },
+    "read_only": true
+  },
+  "verification": {
+    "compile_report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\light-parameter-visibility-20261013\\compile.json",
+    "uss_import_report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\light-parameter-visibility-20261013\\uss-import.json",
+    "tests_run": false,
+    "play_started": false,
+    "player_built": false,
+    "source_review": "shared visibility, mode inheritance, hidden-value preservation and changed-file whitespace reviewed"
+  },
+  "pending": [
+    "Workshop/debug GUI mode switching, preset inheritance/revert, Undo/Redo, save/reopen"
+  ],
+  "unchanged": [
+    "lighting math",
+    "author asset values",
+    "protocol",
+    "save format",
+    "YYGC",
+    "dependency locks"
+  ],
+  "source_sha256": {
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightParameterSchema.cs": "1e2d782c62f9cdd61643d83da2cdf536b8a2a62aa91f3707eb50b4bdd32019dc",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightToolConfigDrawer.cs": "f8ec43c302e22633966bc11c3bbef78208806f2480382af66c2c00bc7dfe2933",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightOverridePanel.cs": "2fba882806e8268eb2fc0c66ece396744dfccac6af27821f70a6d61317027706",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/Debug/FlashlightDebug.uss": "a1a06abf8efd33bc36f9dcdedda6fe62abda71a98e4565007d085f2737452d4b",
+    "docs/LIGHTING.md": "cd10640ce598806e8ea12bf959031bcf039148953e7aec69843fb0ca5901191c",
+    "docs/DEVELOPMENT.md": "fad848715e5f299e3d3dbf8b1514397d2d6aca06764f5de5aa511b9b25f85828"
+  },
+  "handwritten_cs_line_counts": {
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightParameterSchema.cs": 60,
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightToolConfigDrawer.cs": 156,
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightOverridePanel.cs": 158
+  },
+  "artifacts": {
+    "directory": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\light-parameter-visibility-20261013",
+    "files": 4,
+    "bytes": 2090,
+    "retained": true
+  }
+}

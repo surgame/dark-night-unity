@@ -97,6 +97,10 @@ try:
     pure_lines += ['-r:"' + str(path) + '"' for path in refs.glob('*.dll')]
     pure_lines += ['"' + str(path) + '"' for path in [repo / 'tools/lighting-backends/ProfileProbe.cs',
         repo / 'Game/Assets/DarkNights/Scripts/Core/Config/LightEmissionRules.cs',
+        repo / 'Game/Assets/DarkNights/Scripts/Core/Config/LightBounceRules.cs',
+        repo / 'Game/Assets/DarkNights/Scripts/Core/Config/LightBounceMode.cs',
+        repo / 'Game/Assets/DarkNights/Scripts/Core/Config/WallDiffuseShape.cs',
+        repo / 'Game/Assets/DarkNights/Scripts/Core/Config/LightProfileDefaults.cs',
         repo / 'Game/Assets/DarkNights/Scripts/Core/Logic/Lighting/LightBeamProfile.cs']]
     pure_rsp = output / 'profile.rsp'
     pure_rsp.write_text('\n'.join(pure_lines), encoding='utf-8')

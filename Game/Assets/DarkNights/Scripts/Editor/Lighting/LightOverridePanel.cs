@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DarkNights.Core.Config;
 using DarkNights.Runtime.Objects;
 using DarkNights.View.Lighting;
 using GameCore.Objects.Definition;
@@ -17,19 +18,27 @@ namespace DarkNights.Editor.Lighting
         private readonly bool editPreset;
         private readonly FlashlightDebugUndo undo;
         private readonly FlashlightDebugDraft draft;
-        private readonly List<Action> refresh = new List<Action>();
+        private readonly List<Action<LightBounceMode, WallDiffuseShape>> refresh = new List<Action<LightBounceMode, WallDiffuseShape>>();
+        private readonly Label feedback = new Label();
+        private readonly bool categorized;
+        private readonly Dictionary<string, VisualElement> groups = new Dictionary<string, VisualElement>();
+        private readonly Dictionary<string, VisualElement> sections = new Dictionary<string, VisualElement>();
         public VisualElement Root { get; } = new VisualElement();
+        public string Feedback => feedback.text;
+        public VisualElement Group(string name) => groups[name];
 
         public LightOverridePanel(ObjectDefinition owner, LightProfile preset, bool editPreset, FlashlightDebugUndo undo)
         {
             this.owner = owner; this.preset = preset; this.editPreset = editPreset; this.undo = undo;
+            Root.Add(feedback);
             foreach (var field in LightParameterSchema.Fields) Add(field.Name, field.Label, field.Low, field.High);
             Refresh();
         }
 
-        public LightOverridePanel(FlashlightDebugDraft draft, FlashlightDebugUndo undo)
+        public LightOverridePanel(FlashlightDebugDraft draft, FlashlightDebugUndo undo, bool categorized = false)
         {
-            this.draft = draft; this.undo = undo; preset = draft.Preset;
+            this.draft = draft; this.undo = undo; preset = draft.Preset; this.categorized = categorized;
+            Root.Add(feedback);
             foreach (var field in LightParameterSchema.Fields) Add(field.Name, field.Label, field.Low, field.High);
             Refresh();
         }
@@ -37,7 +46,12 @@ namespace DarkNights.Editor.Lighting
         private bool Overridden(string name) => draft != null ? draft.Values.Has(LightParameterSchema.Mask(name))
             : LightDefinitionEditor.Config(owner)?.Overrides.Has(LightParameterSchema.Mask(name)) == true;
 
-        public void Refresh() { foreach (var update in refresh) update(); }
+        public void Refresh()
+        {
+            var mode = (LightBounceMode)Read("BounceMode");
+            var shape = (WallDiffuseShape)Read("DiffuseShape");
+            foreach (var update in refresh) update(mode, shape);
+        }
 
         private object Read(string name)
         {
@@ -50,11 +64,21 @@ namespace DarkNights.Editor.Lighting
 
         private void Write(string name, object value)
         {
-            if (Equals(Read(name), value)) return;
-            if (draft != null) draft.Write(name, value, undo);
-            else if (editPreset)
-                undo.Change(preset, name, "修改光照预设", () => typeof(LightProfile).GetField(name).SetValue(preset, value));
-            else LightDefinitionEditor.SetValue(owner, name, value, undo);
+            try
+            {
+                if (Equals(Read(name), value)) return;
+                if (draft != null) draft.Write(name, value, undo);
+                else if (editPreset)
+                {
+                    var candidate = UnityEngine.Object.Instantiate(preset);
+                    try { typeof(LightProfile).GetField(name).SetValue(candidate, value); candidate.Freeze(); }
+                    finally { UnityEngine.Object.DestroyImmediate(candidate); }
+                    undo.Change(preset, name, "修改光照预设", () => typeof(LightProfile).GetField(name).SetValue(preset, value));
+                }
+                else LightDefinitionEditor.SetValue(owner, name, value, undo);
+                feedback.text = "";
+            }
+            catch (ArgumentException error) { feedback.text = error.Message; }
             Refresh();
         }
 
@@ -95,6 +119,19 @@ namespace DarkNights.Editor.Lighting
                 field = slider;
                 synchronize = () => { float value = (float)Read(name); if (slider.value != value) slider.SetValueWithoutNotify(value); };
             }
+            else if (type.IsEnum)
+            {
+                var choice = new EnumField(label, (Enum)Read(name)) { name = name };
+                choice.RegisterValueChangedCallback(evt => Write(name, evt.newValue)); field = choice;
+                synchronize = () => choice.SetValueWithoutNotify((Enum)Read(name));
+            }
+            else if (type == typeof(int))
+            {
+                var slider = new SliderInt(label, (int)low, (int)high) { name = name, showInputField = true };
+                slider.RegisterValueChangedCallback(evt => Write(name, evt.newValue));
+                slider.AddManipulator(new FlashlightDebugSliderGesture(() => undo.BeginGesture(name), undo.EndGesture));
+                field = slider; synchronize = () => slider.SetValueWithoutNotify((int)Read(name));
+            }
             else if (type == typeof(bool))
             {
                 var toggle = new Toggle(label) { name = name };
@@ -107,17 +144,32 @@ namespace DarkNights.Editor.Lighting
                 color.RegisterValueChangedCallback(evt => Write(name, evt.newValue)); field = color;
                 synchronize = () => color.SetValueWithoutNotify((Color)Read(name));
             }
-            field.AddToClassList("override-value"); row.Add(field); Root.Add(row);
-            refresh.Add(() =>
+            field.AddToClassList("override-value"); row.Add(field); Parent(name).Add(row);
+            refresh.Add((mode, shape) =>
             {
+                row.EnableInClassList("is-hidden", !LightParameterSchema.IsVisible(name, mode, shape));
+                var caption = field.Q<Label>(className: "unity-base-field__label");
+                if (caption != null) caption.text = LightParameterSchema.Label(name, label, shape);
                 bool overridden = Overridden(name);
                 row.EnableInClassList("is-overridden", !editPreset && overridden);
                 indicator.SetEnabled(overridden);
                 indicator.tooltip = overridden ? draft != null ? "运行时临时覆盖；点击恢复持久化配置。" : "已覆盖；点击恢复" + (preset != null ? "跟随预设。" : "内置默认值。") : "跟随来源。";
-                field.tooltip = draft != null ? "修改运行时副本；确认保存前不会写入资产。" : editPreset ? "编辑共享预设，影响所有未覆盖此项的物体。"
-                    : overridden ? "已覆盖：仅修改当前物体。" : "跟随来源；直接修改即可覆盖当前物体。";
+                field.tooltip = (draft != null ? "修改运行时副本；确认保存前不会写入资产。" : editPreset ? "编辑共享预设，影响所有未覆盖此项的物体。"
+                    : overridden ? "已覆盖：仅修改当前物体。" : "跟随来源；直接修改即可覆盖当前物体。") + LightParameterSchema.Hint(name);
                 synchronize();
             });
+        }
+
+        private VisualElement Parent(string name)
+        {
+            if (!categorized) return Root;
+            string group = LightParameterSchema.Group(name), section = LightParameterSchema.Section(name), key = group + section;
+            if (!groups.TryGetValue(group, out var parent)) { parent = new VisualElement(); groups.Add(group, parent); Root.Add(parent); }
+            if (sections.TryGetValue(key, out var found)) return found;
+            VisualElement container;
+            if (section == "高级采样") container = new Foldout { text = section, value = false };
+            else { container = new VisualElement(); var title = new Label(section); title.AddToClassList("light-group-heading"); container.Add(title); }
+            container.AddToClassList("light-parameter-section"); parent.Add(container); sections.Add(key, container); return container;
         }
     }
 }

@@ -30,7 +30,19 @@ namespace DarkNights.Entry
                 value.Has(LightOverrideMask.ApertureWidth) ? value.ApertureWidth : basis.Rules.ApertureWidth,
                 value.Has(LightOverrideMask.SoftShadows) ? value.SoftShadows : basis.Rules.SoftShadows,
                 value.Has(LightOverrideMask.Softness) ? value.Softness : basis.Rules.Softness,
-                value.Has(LightOverrideMask.ConeFeather) ? value.ConeFeather : basis.Rules.ConeFeather);
+                value.Has(LightOverrideMask.ConeFeather) ? value.ConeFeather : basis.Rules.ConeFeather,
+                new LightBounceRules(
+                    value.Has(LightOverrideMask.BounceMode) ? value.BounceMode : basis.Rules.Bounce.BounceMode,
+                    value.Has(LightOverrideMask.Bounce) ? value.Bounce : basis.Rules.Bounce.Bounce,
+                    value.Has(LightOverrideMask.DiffuseShape) ? value.DiffuseShape : basis.Rules.Bounce.DiffuseShape,
+                    value.Has(LightOverrideMask.DiffuseMatchIncident) ? value.DiffuseMatchIncident : basis.Rules.Bounce.DiffuseMatchIncident,
+                    value.Has(LightOverrideMask.DiffuseCornerRadius) ? value.DiffuseCornerRadius : basis.Rules.Bounce.DiffuseCornerRadius,
+                    value.Has(LightOverrideMask.DiffuseGain) ? value.DiffuseGain : basis.Rules.Bounce.DiffuseGain,
+                    value.Has(LightOverrideMask.DiffuseNearDistance) ? value.DiffuseNearDistance : basis.Rules.Bounce.DiffuseNearDistance,
+                    value.Has(LightOverrideMask.DiffuseFarDistance) ? value.DiffuseFarDistance : basis.Rules.Bounce.DiffuseFarDistance,
+                    value.Has(LightOverrideMask.DiffuseMaxReach) ? value.DiffuseMaxReach : basis.Rules.Bounce.DiffuseMaxReach,
+                    value.Has(LightOverrideMask.DiffuseLateralSpread) ? value.DiffuseLateralSpread : basis.Rules.Bounce.DiffuseLateralSpread,
+                    value.Has(LightOverrideMask.DiffuseVisibilityProbes) ? value.DiffuseVisibilityProbes : basis.Rules.Bounce.DiffuseVisibilityProbes));
             return new LightProfileSnapshot(basis.Template,
                 value.Has(LightOverrideMask.EnvironmentEnabled) ? value.EnvironmentEnabled : basis.EnvironmentEnabled,
                 value.Has(LightOverrideMask.LocalFillEnabled) ? value.LocalFillEnabled : basis.LocalFillEnabled,
@@ -46,6 +58,17 @@ namespace DarkNights.Entry
             var rules = value.Rules;
             return new LightOverrides
             {
+                BounceMode = rules.Bounce.BounceMode,
+                Bounce = rules.Bounce.Bounce,
+                DiffuseShape = rules.Bounce.DiffuseShape,
+                DiffuseMatchIncident = rules.Bounce.DiffuseMatchIncident,
+                DiffuseCornerRadius = rules.Bounce.DiffuseCornerRadius,
+                DiffuseGain = rules.Bounce.DiffuseGain,
+                DiffuseNearDistance = rules.Bounce.DiffuseNearDistance,
+                DiffuseFarDistance = rules.Bounce.DiffuseFarDistance,
+                DiffuseMaxReach = rules.Bounce.DiffuseMaxReach,
+                DiffuseLateralSpread = rules.Bounce.DiffuseLateralSpread,
+                DiffuseVisibilityProbes = rules.Bounce.DiffuseVisibilityProbes,
                 EnvironmentEnabled = value.EnvironmentEnabled, LocalFillEnabled = value.LocalFillEnabled,
                 Directional = value.Directional, Range = rules.Range, Cone = rules.Cone,
                 ApertureWidth = rules.ApertureWidth, Intensity = rules.Intensity,

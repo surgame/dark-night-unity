@@ -28,6 +28,9 @@ float DNExactSameSide(float2 origin, float2 target, bool solidSide)
     if(abs(delta.x)<1e-12) next.x=1e20;
     if(abs(delta.y)<1e-12) next.y=1e20;
     float entered=0;
+#ifdef DN_QUERY_COUNTERS
+    [loop]
+#endif
     for(int i=0;i<512;i++)
     {
         float exited=min(1,min(next.x,next.y));
@@ -72,6 +75,9 @@ float DNExactWallVisibility(float2 origin,float2 target)
     float2 next=(edge-origin)/float2(abs(delta.x)>1e-12?delta.x:1e-12,abs(delta.y)>1e-12?delta.y:1e-12);
     if(abs(delta.x)<1e-12) next.x=1e20;
     if(abs(delta.y)<1e-12) next.y=1e20;
+#ifdef DN_QUERY_COUNTERS
+    [loop]
+#endif
     for(int i=0;i<512;i++)
     {
         float exited=min(1,min(next.x,next.y));

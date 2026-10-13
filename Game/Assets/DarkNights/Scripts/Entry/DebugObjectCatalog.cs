@@ -29,7 +29,8 @@ namespace DarkNights.Entry
         { 0 => actor.Slot0Definition, 1 => actor.Slot1Definition, 2 => actor.Slot2Definition, _ => actor.Slot3Definition };
         internal static string Status(ObjectDefinition definition)
         {
-            if (Item(definition) != null) return "装备";
+            var item = Item(definition);
+            if (item != null) return item.Jetpack ? "装备 · 暂退" : "装备";
             if (IsProjectile(definition)) return "投射物";
             if (definition.Key == "effect.arrow") return "投射物 · 暂停";
             if (definition.BehaviourTypes.Contains(typeof(ActorBehaviour).FullName)) return "单位 · 受限";

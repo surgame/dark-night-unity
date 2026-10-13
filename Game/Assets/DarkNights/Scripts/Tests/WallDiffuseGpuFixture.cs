@@ -1,3 +1,4 @@
+using DarkNights.Core.Config;
 using System;
 using DarkNights.Core.Logic.Lighting;
 using DarkNights.Core.ViewData;
@@ -13,9 +14,11 @@ namespace DarkNights.Tests
         public readonly ComputeShader Shader;
         public readonly Texture2D Cells;
         public readonly RenderTexture Light, Direction;
+        public readonly int Width, Height;
         private readonly Texture2D read;
         private readonly ComputeBuffer bounce, candidates, candidateProfiles, candidateNodes, profiles, nodes;
         private readonly ComputeBuffer queryCounters = new ComputeBuffer(3, 4);
+        private readonly ComputeBuffer apertureVisibility = new ComputeBuffer(16 * 10, 4);
         private readonly Vector4[] positions = new Vector4[16], directions = new Vector4[16], colors = new Vector4[16];
         private readonly Vector4[] counts = new Vector4[16], mouths = new Vector4[16], shadows = new Vector4[16];
         private readonly Candidate[] candidateData = new Candidate[16 * 64];
@@ -25,20 +28,24 @@ namespace DarkNights.Tests
         public Vector2 Forward = Vector2.right;
         public float Cone = .7071068f, NearRange, Range = 14;
         public bool ReverseOrder, ReverseCandidates;
-        public View.Lighting.WallDiffuseShape Shape;
+        public Core.Config.WallDiffuseShape Shape;
         public bool MatchIncident;
         public float CornerRadius = .8f;
+        public float Softness, Aperture = .1875f, Feather = .045f, WallDepth = .375f;
+        public bool CountQueries;
+        public readonly LightBounceRules[] Returns = new LightBounceRules[16];
 
-        public WallDiffuseGpuFixture(Func<int, int, byte> cell)
+        public WallDiffuseGpuFixture(Func<int, int, byte> cell, string shaderPath = null, int width = Size, int height = Size)
         {
-            Shader = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ComputeShader>("Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.compute"));
+            Width = width; Height = height;
+            Shader = UnityEngine.Object.Instantiate(AssetDatabase.LoadAssetAtPath<ComputeShader>(shaderPath ?? "Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.compute"));
             Cells = new Texture2D(Grid, Grid, TextureFormat.RGBA32, false, true);
             for (int y = 0; y < Grid; y++) for (int x = 0; x < Grid; x++)
             {
                 byte value = cell(x, y); geometry[y * Grid + x] = value;
                 Cells.SetPixel(x, y, new Color((value & 64) != 0 ? 1 : 0, (value & 15) / 255f, 0, (value & 128) != 0 ? 1 : 0));
             }
-            Cells.Apply(); Light = Target(); Direction = Target(); read = new Texture2D(Size, Size, TextureFormat.RGBAFloat, false, true);
+            Cells.Apply(); Light = Target(); Direction = Target(); read = new Texture2D(Width, Height, TextureFormat.RGBAFloat, false, true);
             bounce = new ComputeBuffer(16, 16); candidates = new ComputeBuffer(16 * 64, 32);
             candidateProfiles = new ComputeBuffer(16 * 64, 48); candidateNodes = new ComputeBuffer(16 * 64 * 33, 4);
             profiles = new ComputeBuffer(128, 48); nodes = new ComputeBuffer(128 * 33, 4);
@@ -52,35 +59,54 @@ namespace DarkNights.Tests
                 positions[n] = new Vector4(OriginX, OriginY + (ReverseOrder ? Count - 1 - n : n) * .3f, Range, Cone);
                 directions[n] = new Vector4(Forward.x, Forward.y, NearRange, NearRange > 0 ? .5f : 0);
                 colors[n] = new Vector4(1, .75f, .45f, Intensity);
-                mouths[n] = new Vector4(.1875f, 0, 0, 0); shadows[n] = new Vector4(0, .045f, 0, 0);
+                mouths[n] = new Vector4(Aperture, 0, 0, 0); shadows[n] = new Vector4(Softness, Feather, 0, 0);
                 int found = 0;
-                if (n < Count) for (int j = 0; j < boundary.Count && found < 64; j++)
+                var returned = Returns[n];
+                if (n < Count && (returned == null || returned.Continuous)) for (int j = 0; j < boundary.Count && found < 64; j++)
                 {
                     var wall = boundary[ReverseCandidates ? boundary.Count - 1 - j : j]; var a = new Vector2(wall.Ax, wall.Ay); var b = new Vector2(wall.Bx, wall.By);
                     if (Vector2.Dot(new Vector2(OriginX - a.x, positions[n].y - a.y), new Vector2(wall.Nx, wall.Ny)) <= 0 ||
-                        !View.Lighting.WallDiffuseResources.Clip(ref a, ref b, new Vector2(OriginX, positions[n].y), Mathf.Min(6, Range), directions[n], Cone, .1875f)) continue;
+                        !View.Lighting.WallDiffuseResources.Clip(ref a, ref b, new Vector2(OriginX, positions[n].y), Mathf.Min(returned?.DiffuseFarDistance ?? 6, Range), directions[n], Cone, Aperture)) continue;
                     candidateData[n * 64 + found] = new Candidate { Ends = new Vector4(a.x, a.y, b.x, b.y), Normal = new Vector4(wall.Nx, wall.Ny, 0, 0) }; found++;
                 }
                 counts[n] = new Vector4(found, 0, 0, 0);
             }
             Shader.SetVector("_DNKnownBounds", new Vector4(0, 0, Grid, Grid)); Shader.SetVector("_DNLightRect", new Vector4(0, 0, Grid, Grid));
-            Shader.SetVector("_DNTargetSize", new Vector4(Size, Size, 0, 0)); Shader.SetVector("_DNShadowSettings", new Vector4(0, .375f, .65f, 0));
-            Shader.SetInt("_DNLightCount", Count); Shader.SetFloat("_DNBounceStrength", legacy ? .12f : 0);
+            Shader.SetVector("_DNTargetSize", new Vector4(Width, Height, 0, 0)); Shader.SetVector("_DNShadowSettings", new Vector4(0, WallDepth, .65f, 0));
+            Shader.SetInt("_DNLightCount", Count);
             Shader.SetVectorArray("_DNLightPositions", positions); Shader.SetVectorArray("_DNLightDirections", directions);
             Shader.SetVectorArray("_DNLightNearOrigins", positions); Shader.SetVectorArray("_DNLightColors", colors);
             Shader.SetVectorArray("_DNLightApertures", mouths); Shader.SetVectorArray("_DNLightShadows", shadows);
             Shader.SetVectorArray("_DNWallCandidateCounts", counts);
-            Shader.SetVector("_DNDiffuseSettings", new Vector4(Gain, 1.5f, 6, 3.2f)); Shader.SetFloat("_DNDiffuseSpread", .65f);
-            Shader.SetInt("_DNDiffuseProbes", Probes); Shader.SetInt("_DNDiffuseBenchmark", Benchmark);
-            Shader.SetInt("_DNDiffuseShape", (int)Shape); Shader.SetInt("_DNDiffuseMatchIncident", MatchIncident ? 1 : 0);
-            Shader.SetFloat("_DNDiffuseCornerRadius", CornerRadius);
-            Shader.SetInt("_DNDiffuseCountQueries", 0);
+            var returns = new Vector4[16]; var options = new Vector4[16]; var modes = new Vector4[16];
+            for (int i = 0; i < 16; i++)
+            {
+                var returned = Returns[i] ?? new LightBounceRules(continuous ? LightBounceMode.Continuous : legacy ? LightBounceMode.LegacyPoint : LightBounceMode.Off,
+                    diffuseShape: Shape, diffuseMatchIncident: MatchIncident, diffuseCornerRadius: CornerRadius, diffuseGain: Gain, diffuseVisibilityProbes: Probes);
+                returns[i] = new Vector4(returned.DiffuseGain, returned.DiffuseNearDistance, returned.DiffuseFarDistance, returned.DiffuseMaxReach);
+                options[i] = new Vector4(returned.DiffuseLateralSpread, returned.DiffuseVisibilityProbes, (int)returned.DiffuseShape, returned.DiffuseMatchIncident ? 1 : 0);
+                modes[i] = new Vector4((int)returned.BounceMode, returned.Bounce, returned.DiffuseCornerRadius, 0);
+            }
+            Shader.SetVectorArray("_DNDiffuseSettings", returns); Shader.SetVectorArray("_DNDiffuseOptions", options);
+            Shader.SetVectorArray("_DNLightBounce", modes); Shader.SetInt("_DNDiffuseBenchmark", Benchmark);
+            Shader.SetInt("_DNDiffuseCountQueries", CountQueries ? 1 : 0);
+            if (CountQueries) queryCounters.SetData(new uint[3]);
+            Shader.SetInt("_DNDiffuseQueryStage", 0);
+            bool cachedAperture = Shader.HasKernel("ResolveApertures");
+            if (cachedAperture)
+            {
+                int apertureKernel = Shader.FindKernel("ResolveApertures");
+                Shader.SetTexture(apertureKernel, "_DNLightCells", Cells);
+                Shader.SetBuffer(apertureKernel, "_DNApertureVisibility", apertureVisibility);
+                Shader.Dispatch(apertureKernel, 1, 1, 1);
+            }
             if (continuous)
             {
                 candidates.SetData(candidateData);
                 int prepare = Shader.FindKernel("PrepareWallProfiles"), select = Shader.FindKernel("SelectWallProfiles");
                 Shader.SetTexture(prepare, "_DNLightCells", Cells); Shader.SetBuffer(prepare, "_DNWallCandidates", candidates);
                 Shader.SetBuffer(prepare, "_DNDiffuseQueries", queryCounters);
+                if (cachedAperture) Shader.SetBuffer(prepare, "_DNApertureVisibility", apertureVisibility);
                 Shader.SetBuffer(prepare, "_DNCandidateProfiles", candidateProfiles); Shader.SetBuffer(prepare, "_DNCandidateNodes", candidateNodes);
                 Shader.SetBuffer(select, "_DNCandidateProfiles", candidateProfiles); Shader.SetBuffer(select, "_DNCandidateNodes", candidateNodes);
                 Shader.SetBuffer(select, "_DNWallCandidates", candidates); Shader.SetTexture(select, "_DNLightCells", Cells);
@@ -88,22 +114,24 @@ namespace DarkNights.Tests
                 Shader.SetBuffer(select, "_DNWallProfiles", profiles); Shader.SetBuffer(select, "_DNWallNodes", nodes);
                 Shader.Dispatch(prepare, 1, 16, 1); Shader.Dispatch(select, 1, 1, 1);
             }
-            else if (legacy)
+            if (legacy)
             {
                 int resolve = Shader.FindKernel("ResolveSources"); Shader.SetTexture(resolve, "_DNLightCells", Cells);
                 Shader.SetBuffer(resolve, "_DNBounceSources", bounce); Shader.Dispatch(resolve, 1, 1, 1);
             }
             int kernel = Shader.FindKernel(continuous ? "IlluminateDiffuse" : "Illuminate");
+            if (cachedAperture) Shader.SetBuffer(kernel, "_DNApertureVisibility", apertureVisibility);
             Shader.SetTexture(kernel, "_DNLightCells", Cells); Shader.SetTexture(kernel, "_DNLightOutput", Light);
             Shader.SetTexture(kernel, "_DNDirectionOutput", Direction); Shader.SetBuffer(kernel, "_DNBounceSources", bounce);
             if (continuous) { Shader.SetBuffer(kernel, "_DNWallProfiles", profiles); Shader.SetBuffer(kernel, "_DNWallNodes", nodes); Shader.SetBuffer(kernel, "_DNDiffuseQueries", queryCounters); }
-            Shader.Dispatch(kernel, Size / 8, Size / 8, 1);
+            Shader.SetInt("_DNDiffuseQueryStage", 1);
+            Shader.Dispatch(kernel, Width / 8, Height / 8, 1);
         }
 
         public Color[] Pixels(bool direction = false)
         {
             var previous = RenderTexture.active;
-            try { RenderTexture.active = direction ? Direction : Light; read.ReadPixels(new Rect(0, 0, Size, Size), 0, 0); read.Apply(); return read.GetPixels(); }
+            try { RenderTexture.active = direction ? Direction : Light; read.ReadPixels(new Rect(0, 0, Width, Height), 0, 0); read.Apply(); return read.GetPixels(); }
             finally { RenderTexture.active = previous; }
         }
         public void SetCurrentCell(int x, int y, byte value)
@@ -125,11 +153,12 @@ namespace DarkNights.Tests
             for (int i = 0; i < packed.Length; i++) packed[i] = new Profile { Frame = data[i * 3], Shape = data[i * 3 + 1], Stats = data[i * 3 + 2] };
             profiles.SetData(packed); nodes.SetData(values);
         }
-        private static RenderTexture Target()
-        { var value = new RenderTexture(Size, Size, 0, RenderTextureFormat.ARGBFloat) { enableRandomWrite = true }; value.Create(); return value; }
+        public uint[] QueryCounts() { var data = new uint[3]; queryCounters.GetData(data); return data; }
+        private RenderTexture Target()
+        { var value = new RenderTexture(Width, Height, 0, RenderTextureFormat.ARGBFloat) { enableRandomWrite = true }; value.Create(); return value; }
         public void Dispose()
         {
-            foreach (var buffer in new[] { bounce, candidates, candidateProfiles, candidateNodes, profiles, nodes, queryCounters }) buffer.Dispose();
+            foreach (var buffer in new[] { bounce, candidates, candidateProfiles, candidateNodes, profiles, nodes, queryCounters, apertureVisibility }) buffer.Dispose();
             Light.Release(); Direction.Release();
             foreach (var obj in new UnityEngine.Object[] { Shader, Cells, Light, Direction, read }) UnityEngine.Object.DestroyImmediate(obj);
         }

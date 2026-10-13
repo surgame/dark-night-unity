@@ -40,7 +40,7 @@ namespace DarkNights.Runtime.Session
             if (r.Operation == SessionOperation.BuyEquipment)
                 return r.ActorIds.Count == 1 && r.ControlLease > 0 && r.TargetId > 0 &&
                     r.X == 0 && r.Value >= 0 &&
-                    (r.Kind == "pistol" || r.Kind == "pickaxe" || r.Kind == "jetpack");
+                    (r.Kind == "pistol" || r.Kind == "pickaxe");
             if (r.Operation == SessionOperation.SetHeroLight)
                 return r.ActorIds.Count == 1 && r.ControlLease > 0 && r.TargetId == 0 &&
                     r.X == 0 && r.Kind.Length == 0 && (r.Value == 0 || r.Value == 1);

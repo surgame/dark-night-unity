@@ -68,7 +68,7 @@ namespace DarkNights.View.Terrain
         }
 
         public CaveVisualSource(IMapChunkSource source, CaveTerrainStyle style, TileCatalog catalog, Transform parent,
-            DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null, bool surfaceSky = false)
+            DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null, bool surfaceSky = false, GridBounds localBackground = default)
         {
             this.source = source;
             string[] keys = { "loam", "slate", "basalt", "copper", "iron", "gold", "moss", "bedrock" };
@@ -104,7 +104,7 @@ namespace DarkNights.View.Terrain
             renderer.sortingOrder = surfaceSky ? style.Background.NearOrder + 1 : -96;
             if (style.Background != null && style.Background.ContourStatic)
                 staticBackground = new CaveBackgroundCache(reference, style.Background, background, parent,
-                    style.ProceduralRock ? style.CaptureOutline() : null, style.DecorationStartRow, surfaceSky);
+                    style.ProceduralRock ? style.CaptureOutline() : null, style.DecorationStartRow, surfaceSky, localBackground);
         }
         public async Task<MapChunkData> LoadAsync(WorldDescriptor descriptor, ChunkCoord coordinate, CancellationToken cancellation)
         {

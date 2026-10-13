@@ -15,13 +15,8 @@ namespace DarkNights.Runtime.Objects
             string guid = definition.Guid.ToString();
             if (world.Resources.Equipment.Resolve(guid) != definition || definition.PrefabRef == null) return false;
             item.Validate(); var current = hero.Read();
-            if (item.Jetpack)
-            {
-                if (current.JetpackOwned || quantity != 1) return false;
-                var state = hero.Edit(); state.JetpackOwned = state.JetpackEquipped = true;
-                state.JetpackFuel = world.Catalog.Balance.HeroControl.FuelSeconds;
-                state.InventoryRevision = checked(state.InventoryRevision + 1); return true;
-            }
+            // 暂退能力不能经商店或开发者添加恢复；已有存档字段仍原样捕获和加载。
+            if (item.Jetpack) return false;
             if (!world.Resources.Equipment.CanEquip(guid)) return false;
             bool bomb = item.Handheld == HeroEquipmentKind.Bomb;
             bool owned = Enumerable.Range(0, 4).Any(slot => HeroInventoryBehaviour.Slot(current, slot) == guid);

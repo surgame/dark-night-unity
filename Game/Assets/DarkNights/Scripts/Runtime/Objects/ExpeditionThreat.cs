@@ -4,7 +4,10 @@ using DarkNights.Core.Config.Terrain;
 
 namespace DarkNights.Runtime.Objects
 {
-    /// <summary>远征警戒驱动的有限敌人与炮塔；只在合法洞穴位置出生，二维射线通过后才结算伤害。</summary>
+    /// <summary>
+    /// 已退场的消费式警戒历史实现，保留原规则来源；正式 ObjectSession 不再装配或调度本类型。
+    /// 新时间威胁不能复用本类型消费风险刷敌的语义，需由CL-03另行确定状态及生命周期。
+    /// </summary>
     public sealed class ExpeditionThreat
     {
         private readonly ObjectSession world;

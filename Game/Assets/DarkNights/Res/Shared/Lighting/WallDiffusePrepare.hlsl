@@ -11,7 +11,7 @@ float2 DNWallIncident(int lamp,float2 hit,float2 normal)
 {
     float2 origin=_DNLightPositions[lamp].xy, delta=hit-origin, forward=_DNLightDirections[lamp].xy;
     float d=length(delta), range=_DNLightPositions[lamp].z;
-    if(d>=range || d>=_DNDiffuseSettings.z || _DNLightColors[lamp].w<=0 || !DNKnown(hit) ||
+    if(d>=range || d>=_DNDiffuseSettings[lamp].z || _DNLightColors[lamp].w<=0 || !DNKnown(hit) ||
         !DNSolid(hit-normal*.003) || DNSolid(hit+normal*.003)) return 0;
     float beam=DNBeam(delta,forward,_DNLightPositions[lamp].w,_DNLightApertures[lamp].x,_DNLightShadows[lamp].y);
     if(beam<=0) return 0;
@@ -26,11 +26,11 @@ float2 DNWallIncident(int lamp,float2 hit,float2 normal)
     else for(int s=-2;s<=2;s++)
     {
         float2 mouth=origin+perpendicular*(s*.5)*max(aperture,softness);
-        visible+=DNExactVisibility(origin,mouth)*DNExactVisibility(mouth,target)*(3-abs(s))/9;
+        visible+=_DNApertureVisibility[lamp*10+s+7]*DNExactVisibility(mouth,target)*(3-abs(s))/9;
     }
     float incident=beam*pow(saturate(1-d/range),1.15)*_DNLightColors[lamp].w*visible;
     float quality=incident*saturate(dot(-delta/max(d,.001),normal));
-    return float2(_DNDiffuseMatchIncident!=0?incident:quality,quality);
+    return float2((int)_DNDiffuseOptions[lamp].w!=0?incident:quality,quality);
 }
 
 [numthreads(64,1,1)]
@@ -72,10 +72,10 @@ void PrepareWallProfiles(uint3 id:SV_DispatchThreadID)
                 distanceSum+=distance(_DNLightPositions[lamp].xy,hit)*value.y*weight;
             }
             float distance=distanceSum/max(qualitySum,1e-6);
-            float fade=1-smoothstep(_DNDiffuseSettings.y,_DNDiffuseSettings.z,distance);
+            float fade=1-smoothstep(_DNDiffuseSettings[lamp].y,_DNDiffuseSettings[lamp].z,distance);
             profile.frame=float4(start,axis/wallLength);
-            profile.shape=float4(wall.normal.xy,litLength,_DNDiffuseSettings.w*fade);
-            float mean=_DNDiffuseMatchIncident!=0?matchedMean/max(qualitySum,1e-6):sum/32;
+            profile.shape=float4(wall.normal.xy,litLength,_DNDiffuseSettings[lamp].w*fade);
+            float mean=(int)_DNDiffuseOptions[lamp].w!=0?matchedMean/max(qualitySum,1e-6):sum/32;
             profile.stats=float4(mean,fade,qualitySum*litLength/32,0);
         }
     }
@@ -85,7 +85,7 @@ void PrepareWallProfiles(uint3 id:SV_DispatchThreadID)
 // 必须有共同物理端点；连接半径只容许受光足迹在该拐点附近连接，不跨门洞或平行薄墙。
 int DNWallJoin(int lamp,int one,int other)
 {
-    if(_DNDiffuseCornerRadius<=0) return 0;
+    if(_DNLightBounce[lamp].z<=0) return 0;
     int a=lamp*64+one,b=lamp*64+other;
     DNWallCandidate ca=_DNWallCandidates[a], cb=_DNWallCandidates[b];
     if(dot(ca.normal.xy,cb.normal.xy)<-.75) return 0;
@@ -96,7 +96,7 @@ int DNWallJoin(int lamp,int one,int other)
         if(distance(joint,next)>.001) continue;
         float da=distance(joint,pa.frame.xy), ea=distance(joint,pa.frame.xy+pa.frame.zw*pa.shape.z);
         float db=min(distance(joint,pb.frame.xy),distance(joint,pb.frame.xy+pb.frame.zw*pb.shape.z));
-        if(min(da,ea)>_DNDiffuseCornerRadius || db>_DNDiffuseCornerRadius) continue;
+        if(min(da,ea)>_DNLightBounce[lamp].z || db>_DNLightBounce[lamp].z) continue;
         float2 air=joint+normalize(ca.normal.xy+cb.normal.xy)*.006;
         if(!DNKnown(air) || DNSolid(air)) continue;
         return da<=ea?1:2;
@@ -139,8 +139,14 @@ void SelectWallProfiles(uint3 id:SV_DispatchThreadID)
                 if(other!=outputSlot && chosen[other]>=0) flags|=DNWallJoin(lamp,chosen[outputSlot],chosen[other]);
             selected.stats.w=flags;
         }
+        float maximum=0;
+        for(int node=0;node<33;node++)
+        {
+            float value=chosen[outputSlot]<0?0:_DNCandidateNodes[source*33+node];
+            _DNWallNodes[target*33+node]=value; maximum=max(maximum,value);
+        }
+        selected.stats.z=maximum;
         _DNWallProfiles[target]=selected;
-        for(int node=0;node<33;node++) _DNWallNodes[target*33+node]=chosen[outputSlot]<0?0:_DNCandidateNodes[source*33+node];
     }
 }
 #endif
