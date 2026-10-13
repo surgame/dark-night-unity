@@ -56,6 +56,12 @@ namespace DarkNights.Entry
             }
             GameCatalog catalog = context.Resolve<GameCatalog>();
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("SceneReady");
+            var lab = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Terrain.GeologyLabEntry>(true)).SingleOrDefault();
+            if (lab != null)
+            {
+                await lab.Initialize(catalog, cancellationToken);
+                return;
+            }
             var authoring = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LevelLayoutAuthoring>(true)).Single();
             LevelLayout layout = authoring.CreateLayout(catalog, DefinitionRuleIndex.RuleKey);
             var randomLevel = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<DarkNights.View.Terrain.RandomLevelTemplate>(true)).SingleOrDefault();

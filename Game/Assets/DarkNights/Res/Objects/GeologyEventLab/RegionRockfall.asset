@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc8652e55004e79a017907c38b6a1b2, type: 3}
+  m_Name: RegionRockfall
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinition
+  Id: 0
+  definitionGuid: e099af38dae94160bbabda89d8cb6d4d
+  key: lab.geology.region
+  keyAliases: []
+  legacyIdAliases: 
+  debugContent: 1
+  legacyAllocationPending: 
+  Type: 0
+  Name: RegionRockfall
+  Icon: {fileID: 0}
+  Describe: 
+  MaxStack: 1
+  ItemLevel: 1
+  NetType: 1
+  PrefabRef:
+    m_AssetGUID: 4175fdeddc8e33b4592138d4aad2caa7
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  Archetype: {fileID: 0}
+  UseMonolithicPooling: 0
+  BehaviourTypes:
+  - DarkNights.Runtime.Objects.GeologyEventBehaviour
+  SharedConfigs:
+  - rid: 4004706419553337472
+  references:
+    version: 2
+    RefIds:
+    - rid: 4004706419553337472
+      type: {class: GeologyEventConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        EventId: region
+        EnterRegion: 1
+        SupportU: 50
+        SupportV: -41
+        RegionU: 68
+        RegionV: -41
+        RegionWidth: 4
+        RegionHeight: 4
+        SourceU: 72
+        SourceV: -36
+        LandingU: 72
+        LandingV: -41
+        Width: 3
+        WarningSeconds: 2
+        FallSeconds: 0.6
+        OccupancyWaitSeconds: 8
+        Material: slate

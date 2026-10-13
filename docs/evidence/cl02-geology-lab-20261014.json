@@ -1,0 +1,174 @@
+{
+  "task": "CL-02 first slice: independent geology gameplay lab",
+  "date": "2026-10-14",
+  "source_thread": "01a136be-89b8-7911-ad74-6a7d4095b9ee",
+  "branch": "ft-20261014-geology-events-lab",
+  "base": "bba3a56e14414ab65eeb3f5229aa40c527e24d17",
+  "unity": {
+    "version": "6000.4.9f1",
+    "pid": 21920,
+    "compilation": "completed",
+    "errors": 0,
+    "warnings": 0
+  },
+  "static_compilation": {
+    "result": "artifacts/cl02-geology-20261014/static-final/result.json",
+    "checks": [
+      {
+        "name": "DarkNights.Core",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.Runtime",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.View",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 1
+      },
+      {
+        "name": "DarkNights.Entry",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 1
+      },
+      {
+        "name": "DarkNights.Editor",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 9
+      },
+      {
+        "name": "DarkNights.Tests",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 12
+      },
+      {
+        "name": "architecture",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 0
+      }
+    ],
+    "identity_note": "Static candidate preceded final warning-window and spawn-ground review; final Unity compilation covers latest source."
+  },
+  "scene": {
+    "path": "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/GameplayLab.unity",
+    "guid": "760f601669d4c624e8911f7176e13bb6",
+    "blocks": 14,
+    "events": 2,
+    "bindings": true,
+    "pixel_ppu": 100,
+    "marker_filter": "Point",
+    "floor_cells": 100,
+    "world_width_pixels": 1600,
+    "saved": true,
+    "bootstrap_dirty": false
+  },
+  "prefab": {
+    "path": "Game/Assets/DarkNights/Res/Objects/GeologyEventLab/GeologyEvent.prefab",
+    "guid": "4175fdeddc8e33b4592138d4aad2caa7",
+    "address": "dark_nights.lab.geology_event"
+  },
+  "not_run": [
+    "7 GeologyEventTests",
+    "Play",
+    "visual / input / save-reopen operation acceptance",
+    "Player build or execution",
+    "multiplayer"
+  ],
+  "unchanged_contracts": {
+    "game_protocol": 31,
+    "save_format": 23,
+    "global_state_registry": true,
+    "YYGC": true,
+    "dependency_locks": true,
+    "formal_mine_maps": true,
+    "formal_world_session_asset": true,
+    "player_scene_list": true
+  },
+  "missing_asset_meta": [],
+  "handwritten_line_counts": {
+    "Game/Assets/DarkNights/Scripts/Core/ViewData/GeologyEventViewData.cs": 12,
+    "Game/Assets/DarkNights/Scripts/Editor/GameSceneWorkbenchCatalog.cs": 39,
+    "Game/Assets/DarkNights/Scripts/Editor/ScenePlaySelection.cs": 55,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabAssets.cs": 94,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabSetup.cs": 116,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabUi.cs": 28,
+    "Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs": 160,
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabBlock.cs": 29,
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEntry.cs": 158,
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEventSlot.cs": 15,
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventBehaviour.cs": 93,
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventConfig.cs": 39,
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventState.cs": 17,
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyLabSession.cs": 104,
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectMutationBatch.cs": 133,
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/GeologyLanding.cs": 71,
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMapAuthority.cs": 204,
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMiningBatch.cs": 77,
+    "Game/Assets/DarkNights/Scripts/Tests/GeologyEventFixture.cs": 89,
+    "Game/Assets/DarkNights/Scripts/Tests/GeologyEventTests.cs": 128,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/GeologyEventView.cs": 33
+  },
+  "game_file_sha256": {
+    "Game/Assets/AddressableAssetsData/AssetGroups/Default Local Group.asset": "e47e35c699207b8818db127c82a52549f2e46a88d9ba828c00403dc471ba9929",
+    "Game/Assets/DarkNights/Res/Objects/GeologyEventLab.meta": "5ab329a1c062f8bec73cbdc8b34f82347c6d8782385a495c898beca44dd87750",
+    "Game/Assets/DarkNights/Res/Objects/GeologyEventLab/CellMarker.png": "db993f2d24618c82972fb8a7bc2c85a44cc6c2f8c34609ca0af3a0e4c34c15a7",
+    "Game/Assets/DarkNights/Res/Objects/GeologyEventLab/CellMarker.png.meta": "0f58ff5e3c1e9f0d8928b83db38fd1466dc5f5db9087d2e1038feeb74d8dc167",
+    "Game/Assets/DarkNights/Res/Objects/GeologyEventLab/GeologyEvent.prefab": "e64000fc268034e3ef9c537402b5388a323134cad4986bc7e2007cec94ee5ba0",
+    "Game/Assets/DarkNights/Res/Objects/GeologyEventLab/GeologyEvent.prefab.meta": "255b363ee491eb8a6070eeb479c77fc30288ed52cb31d3379d3ebef6de2f490f",
+    "Game/Assets/DarkNights/Res/Objects/GeologyEventLab/RegionRockfall.asset": "b58b8481529e5d8675d8c47f8fe07a06c7b4e3232781cddaeff5aa33e4760e06",
+    "Game/Assets/DarkNights/Res/Objects/GeologyEventLab/RegionRockfall.asset.meta": "8f6d40dd2fcc0387ffc099852f2de52f0602029cd578e3b655a1bd54d0e04fac",
+    "Game/Assets/DarkNights/Res/Objects/GeologyEventLab/SupportCollapse.asset": "6359453db0889ea30839f848d978311180459cb276a7442e476acb01b7845f8e",
+    "Game/Assets/DarkNights/Res/Objects/GeologyEventLab/SupportCollapse.asset.meta": "47f615309780e4170607d911ccbd04ec4e7a08a2b2a86b657445ec1db6db096d",
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay.meta": "85495fab435efe1a8a17afe21e69691a91f8220d398af410fc59e723d7c843aa",
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/GameplayLab.unity": "f3bd40e21c56dabb9e8f0838cdac58835082d3bc3aeb065aefbe8e2192515ec5",
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/GameplayLab.unity.meta": "95b046631518714bbb579b3fb29f4fed1016cac43cb539e71fc4dccccc865121",
+    "Game/Assets/DarkNights/Scripts/Core/ViewData/GeologyEventViewData.cs": "34cb46e3261258d1e17fd53841fb2ecd64c1be421e6baae94050d8117791aa9c",
+    "Game/Assets/DarkNights/Scripts/Core/ViewData/GeologyEventViewData.cs.meta": "232b913f5bedcf17f561cd31297d2821c025703fc35844d6bbfc2a2793722bac",
+    "Game/Assets/DarkNights/Scripts/Editor/GameSceneWorkbenchCatalog.cs": "999041a6cfa2c91980b2c7c6b3ad6bc162b32513349e285907ad8fded5ccc88a",
+    "Game/Assets/DarkNights/Scripts/Editor/ScenePlaySelection.cs": "2bf98881d78bab666081f0ba02fccdfd9f4e294f52bdae8bcc6e261e5ec9b52f",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabAssets.cs": "3fdc6f645d22a8b99c8f4f077a113215148cae49eb3575afd38d22cb5c7fb8c7",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabAssets.cs.meta": "f8971c4d62b5da160c45948a7c06e7f21d66754feb1fefdaa818d506804e33db",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabSetup.cs": "764dd35df5d76e7cd4925adb51491d4fb28504c11151246ccf5c56627034fccb",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabSetup.cs.meta": "a49a36bcef3491a42906abe506fdd4284d978725bacf56cffb2e3b5f06456ce8",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabUi.cs": "8be8713a7387e09096b54bbb7a69fde6a622a79ae04ce21cd9e7b19f31abc3cd",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabUi.cs.meta": "8c8418cc7c20f220f473cf874147816b75228393c8c2e4d08c24aec46968c240",
+    "Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs": "2cd2443f153dca5c5356792038987c0e4e160496392cb88264cc176ffd34a8e8",
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabBlock.cs": "db37db10d2aeb54f4221d4bf76e456c5358394f6218d7fb0d1f39785d6df3ffe",
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabBlock.cs.meta": "5bdad98f2ddab7c9cfabb2c27f3f63341631b9569caa0b8bfb0fe200953895ce",
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEntry.cs": "0dafa6bc630cc3fa813af5420411e0433a876d31a29ab931339730cde2bec6e3",
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEntry.cs.meta": "54c284eb03ccd7fc739f772521eb373d8e61aca577a692f09389ae31b0b63cb9",
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEventSlot.cs": "25c924b4aa8b718dcac51b2cb641531df8921e6a12ae5d3643e94db228dc1fd8",
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEventSlot.cs.meta": "38fbebf68b473f8b43160949e4d075825ffa1345afd9cdd1f2d856c8c5bd2ed2",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventBehaviour.cs": "463ef64420acd0707d9055d36a2cb4b5c21bd62b70a77b2de959254ec524037e",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventBehaviour.cs.meta": "725345732ce6327351215f2de13ba61512f4b75c7f3c5f8f32a8bde1e094ad33",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventConfig.cs": "237dc24ed259c4e2bf727aab46ae541c5b4d1014b3fec58463d645b5bb81e36d",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventConfig.cs.meta": "3c8174280acff7b14ee7e62e29f7dcf56ce2749f1ab63ab90fbb36255de7bcd3",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventState.cs": "40b0f9dbcc6ad715ccd73fced614b56df7555e4d2461d80e208d449efd8ac505",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventState.cs.meta": "950c909f434b18c86798fe0984b868776b4d66dbc100881e7858e4d38bafb929",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyLabSession.cs": "8c22a7bcc7854b2f7dfc1c9ba80e687f006f709137e41000765491cbb14ae686",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyLabSession.cs.meta": "ad19258f4ba03e3c58e92b34b77b150a5ac92e341250166d6af14a83eea4b5c9",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectMutationBatch.cs": "2c9ae6873f4e0fb4a245c58b56febc471a66388930d28b4fbf4aa39aaed7593e",
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/GeologyLanding.cs": "f929252672ff1dc844095f7d5542dba1bceb5cc18ba2e240ddaf2f5bf23b4f2c",
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/GeologyLanding.cs.meta": "2cf63b6195c1b8a4d12e5173b78522bfa94e525ef91d0b688e9151612572d984",
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMapAuthority.cs": "e8fd12c93620803b7abdcdc9db481e990c105463bcd44ab4a686c89d6128155a",
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMiningBatch.cs": "18aca7eaeb1d6793b2ac575e69df62a4caf242e3813b015a7848995ef059fe81",
+    "Game/Assets/DarkNights/Scripts/Tests/GeologyEventFixture.cs": "3822c77541edbabd6285d78e97303e20d7d673bce1c201b79617de40ad27a106",
+    "Game/Assets/DarkNights/Scripts/Tests/GeologyEventFixture.cs.meta": "5e4e2e805b7258a29e38475babafd5dcad788f7dc01a9d93800cc7834228d66b",
+    "Game/Assets/DarkNights/Scripts/Tests/GeologyEventTests.cs": "48ba1d9a61816e94e7fce429dfe33ae0d1737d7fba5deeaad10ab8badd2e7c86",
+    "Game/Assets/DarkNights/Scripts/Tests/GeologyEventTests.cs.meta": "6bc5a2ace32de7bd0d392b51d5b073a804c3617117b2750e16dd55788425a685",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/GeologyEventView.cs": "4e7fbe8f3fd760a62251d7acc28067c68894dede9ecce1b0202ec957edaadaf4",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/GeologyEventView.cs.meta": "2985a0fd4b9c74e6a7790447384e09348f2e8c350cbf54a9debe1c46c7c12f73"
+  },
+  "artifacts_bytes": 15937990,
+  "evidence_note": "Compile and read-only references only; no gameplay or full CL-02 acceptance claim."
+}

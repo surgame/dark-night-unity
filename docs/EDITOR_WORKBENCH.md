@@ -39,6 +39,7 @@ CL-00后独立洞穴工作台默认关闭喷气，沿用真实基础跳跃；原
 | 随机营地专项回归 | `DarkNights/Res/Scenes/Regression/Camp/RandomCampRegression.unity` |
 | 单机地图探针 | `DarkNights/Res/Scenes/Tests/Terrain/TerrainTest.unity` |
 | 网络地图探针 | `DarkNights/Res/Scenes/Tests/Terrain/TerrainNetworkTest.unity` |
+| 场景功能开发／CL-02地质样板 | `DarkNights/Res/Scenes/Workbenches/Gameplay/GameplayLab.unity` |
 | 退役八房间调试 | `DarkNights/Res/Scenes/Archive/Terrain/TerrainDebugBootstrap(old).unity` |
 | 退役旧洞穴 | `DarkNights/Res/Scenes/Archive/Terrain/CaveExploration(old).unity` |
 | 退役早期背景 | `DarkNights/Res/Scenes/Archive/Terrain/CaveContourStatic.unity` |
@@ -48,6 +49,14 @@ CL-00后独立洞穴工作台默认关闭喷气，沿用真实基础跳跃；原
 | 第三方Console演示 | `Plugins/EdgarDev/Smart Console/Demo/Demo.unity` |
 
 当前Build Settings及GamePlayerBuild显式列表保留Bootstrap、StaticCampRegression、RandomCampRegression和Expedition；日常入口只有Bootstrap。GameScenePaths／RandomLevelEntry管理正式路径，TerrainScenePaths管理参考／预览／探针／退役路径。营地回归和退役资产不因目录整理被移动或恢复为产品入口。
+
+### 场景功能开发样板
+
+从「Dark Nights → 工作台 → 场景与测试 → 场景功能开发 · 地质事件」或「Dark Nights → 工作台 → 打开场景功能开发样板」打开；打开不自动Play。保存后正常Play由既有ScenePlaySelection转交Bootstrap服务，再初始化独立本地功能会话，不要求进入主菜单开房。场景未加入Player构建列表。
+
+左侧黄色单岩是支撑目标，右侧橙色矩形是进入触发区；顶部显示两个事件的阶段与安全停止原因。移动、跳跃、左键挥镐沿用正式动作／改键，鼠标从实际矿镐手高计算瞄准。前兆抖动／落点闪烁后落石；离开落点才能填入瓦砾，一格高瓦砾可供尝试跳越或清理。Esc暂停／继续本地模拟，暂停不累计事件时间或补发输入。停止并重新Play重置，不保存运行破坏。场景、事件Definition、Prefab均可原生编辑；源岩／落点格与定义须对应，初始化入口仅在指定空目录制作首版，不能覆盖后续作者修改。
+
+待验：分别挖支撑和进入区域，确认前兆可读、源岩不可提前清除、落点占位不填岩；移开后瓦砾落地，矿镐逐格清理后不再触发；从两侧跳越并返回，前兆／落石／占位时暂停恢复，退出／再次Play无遗留对象。地图换代、异常来源、候选回滚及正式挥镐的定向源码见GeologyEventTests，执行结果只在DEVELOPMENT登记。此场景不证明正式矿洞全图返程、伤害、多人或事件存档通过。
 
 ## 编辑态地形与草稿
 

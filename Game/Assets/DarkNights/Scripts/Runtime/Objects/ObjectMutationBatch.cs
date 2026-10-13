@@ -123,7 +123,7 @@ namespace DarkNights.Runtime.Objects
             if (beforeCommit != null) throw new InvalidOperationException("同一对象事务只能组合一张权威地图提交。");
             beforeCommit = action ?? throw new ArgumentNullException(nameof(action));
         }
-        /// <summary>登记本批地图候选；全部对象与地图候选先校验，安装在同一主线程且不发布通知。仅容许既有格子的业务更新与清空。</summary>
+        /// <summary>登记本批地图候选；全部对象与地图候选先校验，安装在同一主线程且不发布通知。采集更新／清空及地质事件预检后的有界空格填岩复用此入口。</summary>
         internal void BeforeMapCommit(Action validate, Action install)
         {
             RequireWriting();

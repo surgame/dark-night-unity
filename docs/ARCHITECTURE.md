@@ -16,6 +16,7 @@
 | 展示帧与客户端副本 | SessionProjector、WorldReplica、ObjectReplica | 深度冻结，无业务写权限 |
 | 相机、选择、悬停、预览、照明缓存 | 各端表现上下文 | 不结算支付、HP、伤害或采矿 |
 | 旧波次、建筑、工位、自动工作能力 | 原所属Behaviour／State | 实现保留，自动推进及旧命令按玩法范围暂停 |
+| 独立功能场景的地质事件 | GeologyEventBehaviour／GeologyEventState | 每事件唯一阶段／时钟；GeologyLabSession只组合对象，瓦砾归同一前景ARDMap；未装配正式地图、联机或文件存储 |
 
 ObjectSession只组合能力、上下文、资源租约和索引，SessionEntityIndex只引用YYGC对象。旧GameSession／WorldState／Core实体运行世界不恢复；DTO、ScriptableObject及ViewData不成为第二份权威状态。
 

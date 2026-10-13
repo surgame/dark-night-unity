@@ -65,6 +65,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4175fdeddc8e33b4592138d4aad2caa7
+    m_Address: dark_nights.lab.geology_event
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 41d7ecce9e18e0043abfb36cfea5a417
     m_Address: dark_nights.object.armored
     m_ReadOnly: 0

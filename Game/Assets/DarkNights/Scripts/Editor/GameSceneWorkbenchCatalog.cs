@@ -18,6 +18,8 @@ namespace DarkNights.Editor
                 "保留编辑时静态参考画面；Play 与地形预览使用同一正式生成配置。"),
             Scene("terrain-test", "专用测试", "DualGrid 单机探针", TerrainScenePaths.TerrainTest, "仅供地图与渲染探针。"),
             Scene("terrain-network", "专用测试", "地图联机探针", TerrainScenePaths.TerrainNetworkTest, "独立地图测试 Player，不运行正式采矿流程。"),
+            Scene("gameplay-lab", "专用测试", "场景功能开发 · 地质事件", Entry.Terrain.GeologyLabEntry.ScenePath,
+                "独立本地功能场景：支撑触发、区域触发、前兆避让与正式矿镐清障；不访问玩家存档或开启网络。"),
             Scene("lan-sample", "独立样例", "LAN 联机样例", "Assets/Samples/LanCoop/Content/LanCoop.unity", "独立框架联机样板。"),
             Scene("input-sample", "独立样例", "输入与重绑定样例", "Assets/Samples/YYGCInputActions/Content/InputActions.unity", "独立输入、重绑定与模态示例。"),
             Scene("console-demo", "独立样例", "Smart Console 演示", "Assets/Plugins/EdgarDev/Smart Console/Demo/Demo.unity", "插件演示，保留原路径。"),

@@ -29,8 +29,10 @@ namespace DarkNights.Runtime.Terrain
         {
             var source = map.Business.Query(cell);
             if (!candidates.TryGetValue(cell, out var value)) return source;
-            return value.Cell.IsEmpty ? new GridBusinessSample(Read(cell), null, null, default, false) :
-                new GridBusinessSample(Read(cell), source.Terrain, source.Definition, value.After, true);
+            if (value.Cell.IsEmpty) return new GridBusinessSample(Read(cell), null, null, default, false);
+            if (!map.Business.Catalog.Gameplay.TryGet(value.Cell.TileId, out var terrain))
+                throw new InvalidOperationException("格子候选缺少地形目录。");
+            return new GridBusinessSample(Read(cell), terrain, map.Business.Catalog.Get(value.Cell.TileId), value.After, true);
         }
         internal bool Damage(CellCoord cell, int damage, out bool destroyed)
         {
@@ -43,10 +45,11 @@ namespace DarkNights.Runtime.Terrain
         }
         internal bool SetResult(CellCoord position, GridCell cell, GridBusinessState state)
         {
-            if (!Read(position).TryGetCell(out var current) || current.IsEmpty) return false;
-            if (!cell.IsEmpty) map.Business.Query(position).Definition.Validate(state);
+            if (!map.Descriptor.Bounds.Contains(position) || !Read(position).TryGetCell(out var current)) return false;
+            if (current.IsEmpty && cell.IsEmpty) return false;
+            if (!cell.IsEmpty) map.Business.Catalog.Get(cell.TileId).Validate(state);
             if (!candidates.TryGetValue(position, out var value))
-                value = (current, current, map.Business.Query(position).State, default);
+                value = (current, current, current.IsEmpty ? default : map.Business.Query(position).State, default);
             candidates[position] = (value.BeforeCell, cell, value.Before, state); return true;
         }
         internal void Notify(GridChangeSet change) => notifications.Add(change);
@@ -54,7 +57,7 @@ namespace DarkNights.Runtime.Terrain
         {
             foreach (var pair in candidates)
                 if ((map.Capabilities & GridCapabilities.Editing) == 0 || !map.Read(pair.Key).TryGetCell(out var cell) || cell != pair.Value.BeforeCell ||
-                    map.Business.Query(pair.Key).State != pair.Value.Before)
+                    !cell.IsEmpty && map.Business.Query(pair.Key).State != pair.Value.Before)
                     throw new InvalidOperationException("格子或耐久候选已被其他写入改变。");
         }
         private void Commit()
@@ -62,7 +65,11 @@ namespace DarkNights.Runtime.Terrain
             using var edit = map.BeginEdit(map.CommitId);
             foreach (var pair in candidates)
                 if (pair.Value.Cell.IsEmpty) edit.ClearTile(pair.Key);
-                else edit.SetBusinessState(pair.Key, pair.Value.After);
+                else
+                {
+                    if (pair.Value.BeforeCell != pair.Value.Cell) edit.SetCell(pair.Key, pair.Value.Cell);
+                    edit.SetBusinessState(pair.Key, pair.Value.After);
+                }
             edit.Commit();
         }
         private void Publish() { completed(); foreach (var change in notifications) publish(change); }
