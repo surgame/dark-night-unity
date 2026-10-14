@@ -19,6 +19,7 @@ namespace DarkNights.View.Lighting
         private readonly LightGeometryCache geometry;
         private readonly Func<Core.ViewData.LightGeometrySnapshot, Func<bool>, Core.ViewData.LightBoundarySnapshot> boundaryBuilder;
         private WallDiffuseResources diffuse;
+        private readonly WallDiffuseFeatherResources feather;
         private readonly CommandBuffer commands = new CommandBuffer { name = "Dark Nights private lighting" };
         private static readonly UnityEngine.Profiling.CustomSampler composeSampler = UnityEngine.Profiling.CustomSampler.Create("DN.Diffuse.IntegrateCompose", true);
         private static readonly UnityEngine.Profiling.CustomSampler directSampler = UnityEngine.Profiling.CustomSampler.Create("DN.Direct.Legacy", true);
@@ -48,6 +49,7 @@ namespace DarkNights.View.Lighting
         public bool GeometrySettled => geometry.Settled;
         public double GeometryTickMilliseconds { get; private set; }
         public WallDiffuseResources DiffuseResources => diffuse;
+        public WallDiffuseFeatherResources FeatherResources => feather;
         public double SubmitMilliseconds { get; private set; }
 
         public ExplorationLightField(ComputeShader template, Func<Core.ViewData.LightGeometrySnapshot,Func<bool>,float[]> calculator,
@@ -60,6 +62,7 @@ namespace DarkNights.View.Lighting
             geometry = new LightGeometryCache(calculator);
             boundaryBuilder = boundaries;
             shader = UnityEngine.Object.Instantiate(template);
+            feather = new WallDiffuseFeatherResources(shader, Width, Height);
             resolve = shader.FindKernel("ResolveSources"); illuminate = shader.FindKernel("Illuminate");
             resolveApertures = shader.HasKernel("ResolveApertures") ? shader.FindKernel("ResolveApertures") : -1;
             prepareProfiles = shader.HasKernel("PrepareWallProfiles") ? shader.FindKernel("PrepareWallProfiles") : -1;
@@ -131,7 +134,8 @@ namespace DarkNights.View.Lighting
             shader.SetVector("_DNKnownBounds",new Vector4(bounds.x,bounds.y,bounds.width,bounds.height));
             shader.SetVector("_DNShadowSettings",shadow); shader.SetVector("_DNLightRect",area);
             if (continuous && illuminateDiffuse < 0) throw new InvalidOperationException("指定 Shader 缺少连续漫反射核。");
-            int lightingKernel = continuous ? illuminateDiffuse : illuminate;
+            bool feathered = continuous && feather.Prepare(bounceRules, positions, colors, SourceCount);
+            int lightingKernel = feathered ? feather.IlluminateKernel : continuous ? illuminateDiffuse : illuminate;
             shader.SetInt("_DNLightCount",SourceCount);
             if (uploadLightData)
             {
@@ -152,6 +156,7 @@ namespace DarkNights.View.Lighting
                 if (resolveApertures >= 0) shader.SetTexture(resolveApertures,"_DNLightCells",source.LightingGeometry);
             }
             // 两个有序批次使用同一图形队列；不等待 CPU 回读，也不启动异步计算队列。
+            if (feathered) feather.Bind(source.LightingGeometry, light, direction, bounce, apertureVisibility);
             commands.Clear();
             var measuredTotal = totalSampler;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -185,7 +190,9 @@ namespace DarkNights.View.Lighting
             var sampler = continuous ? composeSampler : directSampler;
             commands.BeginSample(sampler);
             commands.DispatchCompute(shader, lightingKernel, (Width+7)/8, (Height+7)/8, 1);
-            commands.EndSample(sampler); commands.EndSample(measuredTotal);
+            commands.EndSample(sampler);
+            if (feathered) feather.Record(commands);
+            commands.EndSample(measuredTotal);
             long submitStart = System.Diagnostics.Stopwatch.GetTimestamp();
             Graphics.ExecuteCommandBuffer(commands);
             SubmitMilliseconds = (System.Diagnostics.Stopwatch.GetTimestamp() - submitStart) * 1000.0 / System.Diagnostics.Stopwatch.Frequency;
@@ -224,8 +231,12 @@ namespace DarkNights.View.Lighting
         {
             try
             {
-                try { await geometry.RetireAsync(); }
-                finally { if (diffuse != null) await diffuse.RetireAsync(); }
+                try { await feather.RetireAsync(); }
+                finally
+                {
+                    try { await geometry.RetireAsync(); }
+                    finally { if (diffuse != null) await diffuse.RetireAsync(); }
+                }
             }
             finally
             {

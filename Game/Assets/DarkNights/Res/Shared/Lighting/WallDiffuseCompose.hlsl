@@ -9,27 +9,6 @@ float DNPositiveExcess(float target,float direct)
     if(target<=0 || x<=0) return 0;
     return x<epsilon?x*x/(2*epsilon):x-epsilon*.5;
 }
-// ⑨内部的端部切边外扩；亮侧与墙面沿用原查询，影侧每探针以墙角空气路径替换原射线，不追加查询。
-float DNWallProbeVisibility(int lamp,DNWallProfile wall,float2 p,float2 emitter,float along)
-{
-    float width=_DNLightShadows[lamp].z;
-    float result=0;
-    float end=along<0?0:wall.shape.z;
-    float2 corner=wall.frame.xy+wall.frame.zw*end;
-    float2 ray=corner-emitter;
-    float2 airSide=float2(-ray.y,ray.x)/max(length(ray),1e-6);
-    airSide*=dot(airSide,wall.shape.xy)>=0?1:-1;
-    float shadowDistance=-dot(p-emitter,airSide);
-    if(shadowDistance<=0) result=DNExactVisibility(emitter,p);
-    else if(shadowDistance<width)
-    {
-        float amount=1-smoothstep(0,width,shadowDistance);
-        float2 cornerAir=corner+wall.shape.xy*.003+wall.frame.zw*(along<0?-.003:.003);
-        // 真实格形仍挡墙与未知区域；裁光束形成的假端点若仍在墙中，也不能借它跨墙。
-        result=amount*DNExactVisibility(cornerAir,p);
-    }
-    return result;
-}
 float2 DNWallContribution(int lamp,int index,float2 p,float direct)
 {
     DNWallProfile wall=_DNWallProfiles[index];
@@ -65,16 +44,7 @@ float2 DNWallContribution(int lamp,int index,float2 p,float direct)
         float probeWeight=1/(.04+dot(toPoint,toPoint));
         float visible=0;
         if(probe>0 && at==nearestAt) visible=nearestVisibility;
-        else
-        {
-            [branch] if((int)_DNLightBounce[lamp].w==2)
-            {
-                if(_DNLightShadows[lamp].z>0 && !DNSolid(p) && (along<0 || along>length))
-                    visible=DNWallProbeVisibility(lamp,wall,p,emitter,along);
-                else visible=DNExactWallVisibility(emitter,p);
-            }
-            else visible=DNExactWallVisibility(emitter,p);
-        }
+        else DNExactWallVisibility(emitter,p,visible);
         if(probe==0) nearestVisibility=visible;
         visibility+=visible*probeWeight;
         visibilityWeight+=probeWeight;

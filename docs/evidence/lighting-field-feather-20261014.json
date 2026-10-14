@@ -1,0 +1,236 @@
+{
+  "date": "2026-10-14",
+  "timezone": "Asia/Shanghai",
+  "branch": "fix-20261014-bounce-field-feather",
+  "parent_commit": "ee20cc42fe03182531dbe734e99554418cbd5f0e",
+  "scope": "Game-side complete diffuse field feather; no YYGC, protocol, save or dependency changes",
+  "baseline_checkpoints": [
+    "5a91112",
+    "ee20cc4"
+  ],
+  "clean_before_branch_creation": true,
+  "editor": {
+    "version": "6000.4.9f1",
+    "pid": 19848,
+    "pipeline": "URP",
+    "existing_play_retained": true,
+    "play_started_by_task": false,
+    "active_lighting_backend_observed_after_reload": false,
+    "bootstrap_dirty": false
+  },
+  "memory_preflight": {
+    "state": "completed",
+    "samples": 1,
+    "peak_private_gib": 6.6129302978515625,
+    "minimum_free_ram_gib": 8.84664535522461,
+    "minimum_free_commit_gib": 1.9624481201171875,
+    "limits": {
+      "editor_private_gib": null,
+      "minimum_free_ram_gib": 1,
+      "minimum_free_commit_gib": 1
+    },
+    "read_only": true,
+    "ignore_commit_limit": false
+  },
+  "compilation": {
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "final_compute_messages": [],
+  "loaded_types": {
+    "view": true,
+    "tests": true
+  },
+  "initial_compute_warnings_retained": [
+    {
+      "message": "use of potentially uninitialized variable (DNWallLocal) at kernel IlluminateDiffuse",
+      "severity": "Warning",
+      "file": "Assets/DarkNights/Res/Shared/Lighting/WallDiffuseProfile.hlsl",
+      "line": 47
+    },
+    {
+      "message": "use of potentially uninitialized variable (DNWallLocal) at kernel IlluminateDiffuseFeather",
+      "severity": "Warning",
+      "file": "Assets/DarkNights/Res/Shared/Lighting/WallDiffuseProfile.hlsl",
+      "line": 47
+    },
+    {
+      "message": "use of potentially uninitialized variable (DNExactWallVisibility) at kernel IlluminateDiffuse",
+      "severity": "Warning",
+      "file": "Assets/DarkNights/Res/Shared/Lighting/WallDiffuseVisibility.hlsl",
+      "line": 65
+    },
+    {
+      "message": "use of potentially uninitialized variable (DNExactWallVisibility) at kernel IlluminateDiffuseFeather",
+      "severity": "Warning",
+      "file": "Assets/DarkNights/Res/Shared/Lighting/WallDiffuseVisibility.hlsl",
+      "line": 65
+    }
+  ],
+  "new_kernels": [
+    {
+      "name": "IlluminateDiffuseFeather",
+      "index": 4,
+      "x": 8,
+      "y": 8,
+      "z": 1
+    },
+    {
+      "name": "FeatherHorizontal",
+      "index": 5,
+      "x": 8,
+      "y": 8,
+      "z": 1
+    },
+    {
+      "name": "FeatherCompose",
+      "index": 6,
+      "x": 8,
+      "y": 8,
+      "z": 1
+    }
+  ],
+  "tests": {
+    "cases_written": 7,
+    "executed": false,
+    "visual_probe": false,
+    "player_build": false,
+    "gpu_timings": false,
+    "four_player_verification": false
+  },
+  "implementation": {
+    "extra_filter_dispatches_when_active": 2,
+    "axis_taps": 9,
+    "maximum_groups": 16,
+    "equal_widths_share_group": true,
+    "different_widths_remain_independent": true,
+    "width_zero_uses_original_path": true,
+    "width_units": "grid distance; major 10%-90% Gaussian step transition",
+    "sigma": "width / 2.563103",
+    "linear_rgb": true,
+    "geometry_gate": "each bilinear source texel must have a known air path to target",
+    "wall_surface": "original receive path; excluded from air filtering",
+    "retirement": "GPU fence, or one-pixel readback barrier; no per-frame CPU readback",
+    "active_texture_bytes_per_capacity_layer": 1327104,
+    "maximum_active_texture_bytes": 21233664,
+    "filter_query_count_in_legacy_counters": false
+  },
+  "static_checks": {
+    "git_diff_check": true,
+    "protected_paths_unchanged": true,
+    "csharp_line_limit": 300,
+    "frozen_manifest_files_verified": 38,
+    "frozen_versions": [
+      "v1.0.0",
+      "v1.1.0",
+      "v1.2.0"
+    ]
+  },
+  "candidate_files": {
+    "Game/Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.compute": {
+      "sha256": "e18459c0bd19add113b44689aa8c4d013039239f0b2b994eb3a4e3ce95b3f3ae",
+      "bytes": 7507,
+      "git_blob_with_repository_filters": "c798178d8bb20d9d988217431b3716dd2e5e5899"
+    },
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseCompose.hlsl": {
+      "sha256": "b6e5c493ca25ae5af98283a4080763128737f720eb4f01803cbbbf321e78015d",
+      "bytes": 3616,
+      "git_blob_with_repository_filters": "9a1ebb138178a1790dbc492546534af17cf71169"
+    },
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseFeather.hlsl": {
+      "sha256": "cb6ff30155eaea5130e1e0d26f6d9c5391ad0c0a2d4642ee0aab59c8c83fc80d",
+      "bytes": 3421,
+      "git_blob_with_repository_filters": "75696f64fa84bb2bbeeb2a527fab6a842e92e2a4"
+    },
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseFeather.hlsl.meta": {
+      "sha256": "d46b1390db5476156e64b482df94bd5a6389cb8fa2e4437c10c93757300869e4",
+      "bytes": 161,
+      "git_blob_with_repository_filters": "a031b1b59ea8d84a071468b81ccf0f65c0cd3d63",
+      "guid": "81261269f2c376847a985598e58e8c42"
+    },
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseProfile.hlsl": {
+      "sha256": "5f60c2b736c21995e65dd3218768c08a2cec53682f14f062648350769c72afa4",
+      "bytes": 2464,
+      "git_blob_with_repository_filters": "a78861d63456fe6a9015438eb9689945575cc468"
+    },
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseShape.hlsl": {
+      "sha256": "85ffe05503135d85fc9961dc4d00e7a7c71acc7a38f202b3532cad3224f16650",
+      "bytes": 3229,
+      "git_blob_with_repository_filters": "3d93d78d9d0c64a0d18576e36c98df564f6a58d6"
+    },
+    "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseVisibility.hlsl": {
+      "sha256": "d070f946fe8987ffcedc26b80e107a1f79206b7def50724a4614beb7d92123f7",
+      "bytes": 5051,
+      "git_blob_with_repository_filters": "c7f9e41ef36212aaf0871059cb22f2b7efdecb9e"
+    },
+    "Game/Assets/DarkNights/Scripts/Core/Config/WallDiffuseOcclusionMode.cs": {
+      "sha256": "947a9ba181f33a0ff618b856c7e1c6a925ac73946e88964fc1d767a8b45ad280",
+      "bytes": 551,
+      "git_blob_with_repository_filters": "b4855158c2d1dde4893b234b8886462ddc2e1df6",
+      "lines": 14
+    },
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightOverridePanel.cs": {
+      "sha256": "c065ce3cce40f4d7883c16d9fab1649f693776aae57ab29a753dc067df4a89b9",
+      "bytes": 10461,
+      "git_blob_with_repository_filters": "54a04ac683e53d80b184c5db73e95978a5858e01",
+      "lines": 184
+    },
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightParameterSchema.cs": {
+      "sha256": "696ad6240b8e7616e1366b8f1c673a7f485563809705070b9898448bc1c985ff",
+      "bytes": 6165,
+      "git_blob_with_repository_filters": "340780c0ab2cee82823baf52a6c21cbf0a00936a",
+      "lines": 86
+    },
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseFeatherTests.cs": {
+      "sha256": "910b0a6f3f52abdae1d2e845a1867aa279cfc28f3acc0ab48df1aebaed891e58",
+      "bytes": 9016,
+      "git_blob_with_repository_filters": "a15b0aab14a55d7a69092263bc492128b073047d",
+      "lines": 202
+    },
+    "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseFeatherTests.cs.meta": {
+      "sha256": "782a26a3f5693c47afb1cd85472b2f657d27fb5f80fb259f2f0787034e600fee",
+      "bytes": 59,
+      "git_blob_with_repository_filters": "ea74cc40542d4207af78c82a8c22709d6db71eb4",
+      "guid": "7659ea9fe91fad4448339c24e4a5a925"
+    },
+    "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightField.cs": {
+      "sha256": "f6fafefdc1e3065828b929b3734e17c757c622d93b8c87ea72be5c3607bfe774",
+      "bytes": 17107,
+      "git_blob_with_repository_filters": "0111bc72da67fcacd9fab6f980aa1362be19c3cb",
+      "lines": 261
+    },
+    "Game/Assets/DarkNights/Scripts/View/Lighting/WallDiffuseFeatherResources.cs": {
+      "sha256": "c9d43d00049ed711dd6d1bc98c45d702e4642c9e4e919aa3c2b68da4efef5c1b",
+      "bytes": 8916,
+      "git_blob_with_repository_filters": "bb9a806d37a91d55811d92b468acecfa08e3d149",
+      "lines": 195
+    },
+    "Game/Assets/DarkNights/Scripts/View/Lighting/WallDiffuseFeatherResources.cs.meta": {
+      "sha256": "5fca1d0fce9dc82115d1e7d2caf726ce7f3ce57833f7ebbdb09b21b42447a816",
+      "bytes": 59,
+      "git_blob_with_repository_filters": "0d0c0d85aeae886f8cf3b354cdbfa332dd8bd5b8",
+      "guid": "b4bc1f87f82237f4f84ea04b2a0dd9e5"
+    },
+    "docs/DEVELOPMENT.md": {
+      "sha256": "252ec5f4a047316a026df70b892dac72916cf7ee7068e99f6bfa22728dfdb793",
+      "bytes": 56975,
+      "git_blob_with_repository_filters": "7e891f9c4db8a771bfa42f8ec392f0028b211723"
+    },
+    "docs/LIGHTING.md": {
+      "sha256": "ade4418740bcc7f101885f29dfbb191faf2ecae9b893210023adc5d297529d91",
+      "bytes": 41745,
+      "git_blob_with_repository_filters": "7e92f5c3d44fc00c27044293c98ed556117ba35e"
+    }
+  },
+  "raw_receipt_directory": "artifacts/lighting-field-feather-20261014",
+  "pending": [
+    "right-air cut and circular boundary appearance",
+    "thin walls and unknown geometry",
+    "mixed light rules and colors",
+    "world-width stability across camera scales",
+    "resource growth/retirement in actual session",
+    "seven targeted GPU regressions",
+    "debug undo/record/save and GPU/four-player measurements"
+  ]
+}

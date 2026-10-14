@@ -47,7 +47,8 @@ float2 DNWallShape(int lamp,int index,DNWallProfile wall,float along,float norma
     if((normal>=0 || surface) && abs(normal)<reach && along>-radius && along<length+radius)
     {
         float coverage=DNTriangleCoverage(along,length,radius);
-        float integrated=DNWallLocal(index,wall,along,radius);
+        float integrated=0;
+        DNWallLocal(index,wall,along,radius,integrated);
         band=float2(coverage>1e-6?integrated/coverage:0,coverage*(1-smoothstep(0,reach,abs(normal))));
     }
     int flags=(int)wall.stats.w;

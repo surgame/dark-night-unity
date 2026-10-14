@@ -2,6 +2,9 @@
 #pragma kernel ResolveApertures
 #pragma kernel Illuminate
 #pragma kernel IlluminateDiffuse DN_CONTINUOUS DN_QUERY_COUNTERS
+#pragma kernel IlluminateDiffuseFeather DN_CONTINUOUS DN_QUERY_COUNTERS DN_FIELD_FEATHER
+#pragma kernel FeatherHorizontal DN_FIELD_FILTER DN_FEATHER_HORIZONTAL
+#pragma kernel FeatherCompose DN_FIELD_FILTER
 #pragma kernel PrepareWallProfiles DN_QUERY_COUNTERS
 #pragma kernel SelectWallProfiles DN_QUERY_COUNTERS
 #include "ExplorationOcclusion.hlsl"
@@ -18,9 +21,12 @@ float4 _DNLightDirections[16]; // direction, near range, near strength
 float4 _DNLightColors[16]; // linear color, direct intensity
 float4 _DNLightNearOrigins[16];
 float4 _DNLightApertures[16]; // 灯口半宽，与锥角和阴影柔度独立
-float4 _DNLightShadows[16]; // 单灯阴影柔度、光束边缘、返光切边外扩宽度
+float4 _DNLightShadows[16]; // 单灯阴影柔度、光束边缘、完整返光羽化宽度
 int _DNLightCount;
 #include "WallDiffusePrepare.hlsl"
+#if defined(DN_FIELD_FEATHER) || defined(DN_FIELD_FILTER)
+#include "WallDiffuseFeather.hlsl"
+#endif
 #ifdef DN_CONTINUOUS
 #include "WallDiffuseCompose.hlsl"
 #endif
@@ -75,6 +81,10 @@ void DNIlluminate(uint3 id)
     float2 moment=0;
     float weight=0;
     bool solid=DNSolid(p);
+#ifdef DN_FIELD_FEATHER
+    [loop] for(int group=0;group<_DNFeatherCount;group++)
+        _DNFeatherRaw[int3(id.xy,group)]=float4(0,0,0,solid?0:1);
+#endif
     for (int n=0;n<_DNLightCount;n++)
     {
         float2 origin=_DNLightPositions[n].xy, delta=p-origin;
@@ -134,7 +144,19 @@ void DNIlluminate(uint3 id)
         float directContribution=contribution;
         directEnergy+=_DNLightColors[n].rgb*directContribution;
 #ifdef DN_CONTINUOUS
-        contribution+=DNWallDiffuse(n,p,directContribution);
+        float returned=DNWallDiffuse(n,p,directContribution);
+#ifdef DN_FIELD_FEATHER
+        int group=(int)_DNFeatherGroups[n].x;
+        if(group>=0 && !solid)
+        {
+            float4 raw=_DNFeatherRaw[int3(id.xy,group)];
+            raw.rgb+=_DNLightColors[n].rgb*returned;
+            _DNFeatherRaw[int3(id.xy,group)]=raw;
+        }
+        else contribution+=returned;
+#else
+        contribution+=returned;
+#endif
 #endif
         energy+=_DNLightColors[n].rgb*contribution;
         moment-=delta/max(d,.001)*directContribution;
@@ -152,3 +174,6 @@ void Illuminate(uint3 id : SV_DispatchThreadID) { DNIlluminate(id); }
 
 [numthreads(8,8,1)]
 void IlluminateDiffuse(uint3 id : SV_DispatchThreadID) { DNIlluminate(id); }
+
+[numthreads(8,8,1)]
+void IlluminateDiffuseFeather(uint3 id : SV_DispatchThreadID) { DNIlluminate(id); }

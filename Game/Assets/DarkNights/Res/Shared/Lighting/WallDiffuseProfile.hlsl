@@ -12,7 +12,7 @@ struct DNWallProfile
 };
 RWStructuredBuffer<DNWallProfile> _DNWallProfiles;
 RWStructuredBuffer<float> _DNWallNodes;
-float4 _DNLightBounce[16]; // Mode / Legacy strength / Corner radius / Occlusion rule (0 projected, 1 wall mask, 2 outward feather)
+float4 _DNLightBounce[16]; // Mode / Legacy strength / Corner radius / Occlusion rule (0 projected, 1 wall mask, 2 field feather)
 float4 _DNDiffuseSettings[16]; // Gain / Near / Far / MaxReach
 float4 _DNDiffuseOptions[16]; // Spread / Probes / Shape / Match incident
 int _DNDiffuseBenchmark; // 开发 A1 四区间常量分布，不进入场景配置。
@@ -33,8 +33,9 @@ float DNIntegrateLinear(float x0,float x1,float p0,float p1,float center,float r
     }
     return total;
 }
-float DNWallLocal(int index,DNWallProfile profile,float along,float radius)
+void DNWallLocal(int index,DNWallProfile profile,float along,float radius,out float result)
 {
+    result=0;
     if(_DNDiffuseBenchmark==1)
     {
         float total=0, interval=profile.shape.z/4;
@@ -43,13 +44,14 @@ float DNWallLocal(int index,DNWallProfile profile,float along,float radius)
             float value=_DNWallNodes[index*33+bin*8+4];
             total+=DNIntegrateLinear(bin*interval,(bin+1)*interval,value,value,along,radius);
         }
-        return max(0,total/max(radius,1e-6));
+        result=max(0,total/max(radius,1e-6));
+        return;
     }
     float step=profile.shape.z/32, sum=0;
     int first=max(0,(int)floor((along-radius)/max(step,1e-6)));
     int last=min(31,(int)floor((along+radius)/max(step,1e-6)));
     [loop] for(int j=first;j<=last;j++)
         sum+=DNIntegrateLinear(j*step,(j+1)*step,_DNWallNodes[index*33+j],_DNWallNodes[index*33+j+1],along,radius);
-    return max(0,sum/max(radius,1e-6));
+    result=max(0,sum/max(radius,1e-6));
 }
 #endif

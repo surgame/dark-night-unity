@@ -123,7 +123,7 @@ namespace DarkNights.Editor.Lighting
             }
             else if (type == typeof(WallDiffuseOcclusionMode))
             {
-                var choice = new PopupField<string>(label, new List<string> { "原始切边", "墙体遮罩", "切边向外羽化" }, (int)(WallDiffuseOcclusionMode)Read(name)) { name = name };
+                var choice = new PopupField<string>(label, new List<string> { "原始切边", "墙体遮罩", "完整返光羽化" }, (int)(WallDiffuseOcclusionMode)Read(name)) { name = name };
                 choice.RegisterValueChangedCallback(evt => Write(name, (WallDiffuseOcclusionMode)choice.index));
                 field = choice;
                 synchronize = () => choice.SetValueWithoutNotify(choice.choices[(int)(WallDiffuseOcclusionMode)Read(name)]);

@@ -19,8 +19,8 @@ namespace DarkNights.Editor.Lighting
             ("BounceMode", "墙面返光模式", 0, 0),
             ("Bounce", "单点返光强度（LegacyPoint）", 0, .4f),
             ("DiffuseShape", "漫反射光形（沿墙／柔光团）", 0, 0),
-            ("DiffuseOcclusionMode", "返光遮挡规则（⑨）", 0, 0),
-            ("DiffuseFeatherWidth", "切边向外羽化宽度（格）", 0, 4),
+            ("DiffuseOcclusionMode", "返光遮挡与羽化规则", 0, 0),
+            ("DiffuseFeatherWidth", "完整返光羽化宽度（格）", 0, 4),
             ("DiffuseMatchIncident", "匹配主光入射亮度", 0, 0),
             ("DiffuseCornerRadius", "相邻墙面连接半径（格，0关闭）", 0, 2),
             ("DiffuseGain", "墙面漫反射增益", 0, 2),
@@ -52,8 +52,8 @@ namespace DarkNights.Editor.Lighting
         {
             switch (field)
             {
-                case "DiffuseOcclusionMode": return "原始切边沿用路径遮挡；墙体遮罩只裁岩体中的返光，可能照亮隔墙空气；向外羽化只放宽墙段端部切边。仅 PrivateField／Continuous 生效。";
-                case "DiffuseFeatherWidth": return "在⑨内向阴影侧扩展，不改变圆形半径；默认1.5格，0恢复原切边，最大4格。仍检查墙角至目标的空气路径，不增加探针数或后处理Pass。";
+                case "DiffuseOcclusionMode": return "原始切边沿用路径遮挡；墙体遮罩只裁岩体返光，可能照亮隔墙空气；完整返光羽化统一柔化空气中的圆周和切边，直射及墙表层保持。仅 PrivateField／Continuous 生效。";
+                case "DiffuseFeatherWidth": return "表示高斯阶跃10%—90%的主要过渡跨度，按地图格换算，不随镜头缩放改变。默认1.5格，0严格恢复原切边，最大4格；亮侧略减、暗侧补光，同宽灯共享层，横纵两次几何约束滤波拒绝跨实墙和未知区。";
                 case "DiffuseVisibilityProbes": return "原始切边与向外羽化使用2—4探针；墙体遮罩模式不查询返光路径，隐藏时保留数值。";
                 case "DiffuseCornerRadius": return "两种光形均有效：控制相邻受光墙边分组；WallBand 还用它柔化相连端部。";
                 case "DiffuseMaxReach": return "WallBand 控制离墙深度，SoftBlob 控制径向扩散半径；实际范围还随手电距墙衰减。";
