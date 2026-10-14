@@ -37,12 +37,12 @@ MonoBehaviour:
   BehaviourTypes:
   - DarkNights.Runtime.Objects.FlashlightToolBehaviour
   SharedConfigs:
-  - rid: 1000
+  - rid: 1001
   - rid: 4004706321636261888
   references:
     version: 2
     RefIds:
-    - rid: 1000
+    - rid: 1001
       type: {class: FlashlightToolConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         Starter: 1
@@ -61,7 +61,7 @@ MonoBehaviour:
           DiffuseCornerRadius: 2
           DiffuseGain: 2
           DiffuseNearDistance: 5
-          DiffuseFarDistance: 6
+          DiffuseFarDistance: 14
           DiffuseMaxReach: 4.69
           DiffuseLateralSpread: 0.65
           DiffuseVisibilityProbes: 2
