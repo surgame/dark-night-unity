@@ -324,6 +324,7 @@ namespace YYGC.Generated
             GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Network.SessionStatusState>(17);
             GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.CampSimulationState>(18);
             GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.ExpeditionJourneyState>(19);
+            GenericTypeRegistry<IStateData>.Register<global::DarkNights.Runtime.Objects.GeologyEventState>(20);
         }
     }
 }
