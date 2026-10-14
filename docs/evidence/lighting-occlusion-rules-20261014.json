@@ -1,0 +1,178 @@
+{
+  "recorded_at": "2026-10-14T17:14:49+08:00",
+  "timezone": "Asia/Shanghai",
+  "feature": "PrivateField Continuous返光⑨三规则",
+  "repository_head": "b932c564af177dacb4e5dcdd2f62359cce31bdf6",
+  "branch": "ft-20261014-geology-events-lab",
+  "editor": {
+    "version": "6000.4.9f1",
+    "pid": 19848,
+    "cli": "1.0.0-beta.6",
+    "pipeline": "UniversalRenderPipelineAsset"
+  },
+  "options": [
+    "ProjectedShadow=0 原始切边（默认）",
+    "WallMask=1 墙体遮罩",
+    "OutwardFeather=2 切边向外羽化"
+  ],
+  "feather": {
+    "default_cells": 1.5,
+    "range_cells": [
+      0,
+      4
+    ],
+    "scope": "Wall-segment endpoint shadow side only; one corner-air path replaces each probe query"
+  },
+  "rendering": {
+    "stage": "Existing stage09 visibility in DNWallContribution",
+    "new_passes": 0,
+    "new_render_textures": 0,
+    "new_gpu_buffers": 0,
+    "uniform_slots": [
+      "_DNLightBounce.w",
+      "_DNLightShadows.z"
+    ],
+    "maximum_lights": 16,
+    "final_composition_dispatches_per_camera": 1,
+    "probes": "ProjectedShadow/OutwardFeather retain 2-4 probes; at most one DDA per probe. WallMask skips reflected path DDA.",
+    "cost": "No GPU timing measured; total cost still depends on light count, supported pixels, walls and traversal length."
+  },
+  "compilation": {
+    "csharp_failed": false,
+    "loaded_assemblies": [
+      "DarkNights.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
+      "DarkNights.Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+    ],
+    "shader_messages": [],
+    "dependency_hash": "fdbb286c397de12e41f9437b0b4acc56",
+    "csharp_receipt": "../../artifacts/lighting-occlusion-rules-20261014/shader-import-final-receipt.json",
+    "shader_receipt": "../../artifacts/lighting-occlusion-rules-20261014/shader-final-receipt.json"
+  },
+  "preflight": {
+    "state": "completed",
+    "samples": 1,
+    "peak_private_gib": 4.337383270263672,
+    "minimum_free_ram_gib": 13.479141235351562,
+    "minimum_free_commit_gib": 4.879253387451172,
+    "limits": {
+      "editor_private_gib": null,
+      "minimum_free_ram_gib": 1,
+      "minimum_free_commit_gib": 1
+    },
+    "read_only": true,
+    "ignore_commit_limit": false
+  },
+  "checks": {
+    "source_line_limits_passed": true,
+    "kernel_declarations_dispatches_allocations_unchanged": true,
+    "frozen_offline_files_matching": 38,
+    "git_diff_check_passed": true
+  },
+  "preserved": {
+    "author_assets_not_written": true,
+    "existing_play_still_running": true,
+    "play_enter_exit_commands_issued": false,
+    "no_open_flashlight_debug_window_at_start": true,
+    "preexisting_staged_paths": [
+      "Game/Assets/Addressables/Datas/GlobalSO/StateDataRegistry.asset",
+      "Game/Assets/Scripts/Generated/IStateData.generated.cs"
+    ]
+  },
+  "not_run": [
+    "Editor tests",
+    "Play or visual acceptance probes",
+    "Player build/run",
+    "GPU or multiplayer performance"
+  ],
+  "limitations": [
+    "WallMask can light air beyond another wall; destination occupancy is not source-path visibility.",
+    "OutwardFeather is an endpoint approximation, not arbitrary shadow contour blur or a pixel-identical offline-image reproduction.",
+    "Original slope/flat floor, widths0/.5/1.5/3, thin walls/slopes/ceilings, mixed lights and Undo/revert/record/save-reopen remain for manual acceptance."
+  ],
+  "sources": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Config/WallDiffuseOcclusionMode.cs",
+      "lines": 13,
+      "bytes": 463,
+      "sha256": "11f49c65d8e8e6b97bc1eb3988a9871b4a3a479d98f64ff85e53dedad2a8f758"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Config/WallDiffuseOcclusionMode.cs.meta",
+      "lines": 2,
+      "bytes": 59,
+      "sha256": "9d2acd81b260f973c6f8f5790d16da74fe114c1e0849e9e58bd6003026359d41"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Config/LightBounceRules.cs",
+      "lines": 66,
+      "bytes": 4169,
+      "sha256": "95406b382cfb5805fb22f373063c9e1bed9c5f3e802db708d76b78ac3844ff70"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Config/LightOverrideMask.cs",
+      "lines": 40,
+      "bytes": 1240,
+      "sha256": "f66b236467b9019e14f2875f9d55c2107d66e78a6e9163cc5ed465eb5fc05624"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Config/LightProfileDefaults.cs",
+      "lines": 40,
+      "bytes": 2030,
+      "sha256": "d3b5d952f30e70939a2081075db82d8e78a024ebbd9154e579f0ebd2052265b8"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/LightOverrides.cs",
+      "lines": 47,
+      "bytes": 2857,
+      "sha256": "0b43beecae55c2977e3e0145579764f354ddacdc6ab577263bd10aff80d98cc8"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Lighting/LightProfile.cs",
+      "lines": 60,
+      "bytes": 4141,
+      "sha256": "9691fc7ea5fd43e5bfc20a058b3d6a944f854cc59d2857322f93654f310f0059"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightField.cs",
+      "lines": 250,
+      "bytes": 16453,
+      "sha256": "a0709bb51ffe4981ccf208fb6ea4e2415d274be90516d538279ac2319e20cac7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/LightProfileResolver.cs",
+      "lines": 86,
+      "bytes": 6432,
+      "sha256": "ab1cccba5b0e6383c6b321e54fb82764b83d8d637f299e2c706271ac0974e133"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightParameterSchema.cs",
+      "lines": 86,
+      "bytes": 6043,
+      "sha256": "7e26a0719648e67c50da8d12eca28f91471e2dd089ffce7c834b24e92421f82e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightOverridePanel.cs",
+      "lines": 184,
+      "bytes": 10461,
+      "sha256": "c7a1dcb67f9a75eb76bcf26dee69212c6f17c3c32b7456d13075e782110fd1e7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.compute",
+      "lines": 154,
+      "bytes": 6577,
+      "sha256": "dec5315f0b65348aff1e7e19d0ab2fc8039d5de13814b19fd03548ded8822a41"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseProfile.hlsl",
+      "lines": 55,
+      "bytes": 2420,
+      "sha256": "b7264f9710527e2240af6cdd01cfafc0109f5016f7b8565519bf5df72dea9211"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Shared/Lighting/WallDiffuseCompose.hlsl",
+      "lines": 102,
+      "bytes": 4998,
+      "sha256": "5bf5bdc53e7cc0eaafbd5e945f7b27fa4a5e5aa6ff033e347079a8234e1f2612"
+    }
+  ]
+}

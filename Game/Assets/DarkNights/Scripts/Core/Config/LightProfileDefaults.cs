@@ -14,6 +14,8 @@ namespace DarkNights.Core.Config
         public const float DiffuseMaxReach = 3.2f;
         public const float DiffuseLateralSpread = .65f;
         public const int DiffuseVisibilityProbes = 2;
+        public const WallDiffuseOcclusionMode DiffuseOcclusionMode = WallDiffuseOcclusionMode.ProjectedShadow;
+        public const float DiffuseFeatherWidth = 1.5f;
         public const bool EnvironmentEnabled = true;
         public const bool LocalFillEnabled = true;
         public const bool Directional = true;

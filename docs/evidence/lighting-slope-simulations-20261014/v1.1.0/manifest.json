@@ -1,0 +1,37 @@
+{
+  "version": "v1.1.0",
+  "generated_at": "2026-10-14T16:37:37+08:00",
+  "recorded_at": "2026-10-14T16:37:41+08:00",
+  "timezone": "Asia/Shanghai",
+  "input_version": "v1.0.0",
+  "input_manifest_sha256": "fca5979f784b152a800c3c2d2ac3b964afaf115bc2d464fe06016e714303143c",
+  "files": [
+    {
+      "path": "generator-source/generate_skip_step09_v1_1.py",
+      "sha256": "b3211a9b42696d9c81c8f9336ff092a4fb815f2522e379528ba553e98c867475",
+      "bytes": 9259
+    },
+    {
+      "path": "result.json",
+      "sha256": "2f9edadc47bd0a875b8db6205ca0c27ae4c6e5d40fd8119e4048f86b7420ee8f",
+      "bytes": 3598
+    },
+    {
+      "path": "skip-step09-comparison.png",
+      "sha256": "018fefdf64fe1d3cd81e847f546d6b911689f36d196dddce0e0d24d7c887123d",
+      "bytes": 281804
+    },
+    {
+      "path": "skip-step09-components.png",
+      "sha256": "f3e285b03c0b133810980b9cbb76b28f7da352a1225dacb2264bf58b023ddc6c",
+      "bytes": 243152
+    }
+  ],
+  "runtime": {
+    "python": "3.13.8",
+    "numpy": "2.2.6",
+    "matplotlib": "3.10.8",
+    "font": "C:/Windows/Fonts/msyh.ttc"
+  },
+  "rebuild": "Run generator-source/generate_skip_step09_v1_1.py --output <fresh-directory> within the same repository. Frozen v1.0.0 inputs are verified first; existing outputs are never overwritten."
+}

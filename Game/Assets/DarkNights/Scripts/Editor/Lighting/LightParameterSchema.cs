@@ -19,6 +19,8 @@ namespace DarkNights.Editor.Lighting
             ("BounceMode", "墙面返光模式", 0, 0),
             ("Bounce", "单点返光强度（LegacyPoint）", 0, .4f),
             ("DiffuseShape", "漫反射光形（沿墙／柔光团）", 0, 0),
+            ("DiffuseOcclusionMode", "返光遮挡规则（⑨）", 0, 0),
+            ("DiffuseFeatherWidth", "切边向外羽化宽度（格）", 0, 4),
             ("DiffuseMatchIncident", "匹配主光入射亮度", 0, 0),
             ("DiffuseCornerRadius", "相邻墙面连接半径（格，0关闭）", 0, 2),
             ("DiffuseGain", "墙面漫反射增益", 0, 2),
@@ -29,12 +31,15 @@ namespace DarkNights.Editor.Lighting
             ("DiffuseVisibilityProbes", "每墙段遮挡探针", 2, 4)
         };
 
-        public static bool IsVisible(string field, LightBounceMode mode, WallDiffuseShape shape)
+        public static bool IsVisible(string field, LightBounceMode mode, WallDiffuseShape shape,
+            WallDiffuseOcclusionMode occlusion = WallDiffuseOcclusionMode.ProjectedShadow)
         {
             if (field == "Bounce") return mode == LightBounceMode.LegacyPoint;
             if (!field.StartsWith("Diffuse", StringComparison.Ordinal)) return true;
             return mode == LightBounceMode.Continuous &&
-                (field != "DiffuseLateralSpread" || shape == WallDiffuseShape.WallBand);
+                (field != "DiffuseLateralSpread" || shape == WallDiffuseShape.WallBand) &&
+                (field != "DiffuseFeatherWidth" || occlusion == WallDiffuseOcclusionMode.OutwardFeather) &&
+                (field != "DiffuseVisibilityProbes" || occlusion != WallDiffuseOcclusionMode.WallMask);
         }
 
         public static string Label(string field, string fallback, WallDiffuseShape shape)
@@ -47,6 +52,9 @@ namespace DarkNights.Editor.Lighting
         {
             switch (field)
             {
+                case "DiffuseOcclusionMode": return "原始切边沿用路径遮挡；墙体遮罩只裁岩体中的返光，可能照亮隔墙空气；向外羽化只放宽墙段端部切边。仅 PrivateField／Continuous 生效。";
+                case "DiffuseFeatherWidth": return "在⑨内向阴影侧扩展，不改变圆形半径；默认1.5格，0恢复原切边，最大4格。仍检查墙角至目标的空气路径，不增加探针数或后处理Pass。";
+                case "DiffuseVisibilityProbes": return "原始切边与向外羽化使用2—4探针；墙体遮罩模式不查询返光路径，隐藏时保留数值。";
                 case "DiffuseCornerRadius": return "两种光形均有效：控制相邻受光墙边分组；WallBand 还用它柔化相连端部。";
                 case "DiffuseMaxReach": return "WallBand 控制离墙深度，SoftBlob 控制径向扩散半径；实际范围还随手电距墙衰减。";
                 case "DiffuseNearDistance":
@@ -66,6 +74,7 @@ namespace DarkNights.Editor.Lighting
         public static string Section(string field)
         {
             if (field == "DiffuseVisibilityProbes") return "高级采样";
+            if (field == "DiffuseOcclusionMode" || field == "DiffuseFeatherWidth") return "遮挡与切边";
             if (field == "DiffuseMaxReach" || field == "DiffuseCornerRadius" || field == "DiffuseNearDistance" || field == "DiffuseFarDistance" || field == "DiffuseLateralSpread") return "空间与距离门控";
             if (Group(field) == "bounce") return "模式与亮度";
             if (field.StartsWith("Near", StringComparison.Ordinal)) return "环境散光";

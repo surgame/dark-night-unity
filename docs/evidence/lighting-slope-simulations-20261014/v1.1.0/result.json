@@ -1,0 +1,141 @@
+{
+  "version": "v1.1.0",
+  "generated_at": "2026-10-14T16:37:37+08:00",
+  "timezone": "Asia/Shanghai",
+  "input_version": "v1.0.0",
+  "input_manifest_sha256": "fca5979f784b152a800c3c2d2ac3b964afaf115bc2d464fe06016e714303143c",
+  "geometry": {
+    "name": "参考位置",
+    "wall": [
+      [
+        -1,
+        0
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        -6
+      ],
+      [
+        -1,
+        -6
+      ]
+    ],
+    "light": [
+      -0.75,
+      1.1
+    ],
+    "angle": -93.44,
+    "ylim": [
+      -4,
+      3.3
+    ]
+  },
+  "parameters": {
+    "softness": 0.22,
+    "aperture": 0.967,
+    "gain": 2.0,
+    "match": true,
+    "probes": 2,
+    "shape": "SoftBlob",
+    "near_range": 2.2,
+    "near_intensity": 0.0,
+    "ambient": 0.1,
+    "spread": 0.65,
+    "actual_intensity": 2.78,
+    "_fade": 1.0,
+    "_profile": true,
+    "reach": 4.69
+  },
+  "sole_change": "Step09 reflected-light visibility V is fixed to 1; B=U instead of U*V, for both air and wall texels. Final wall receiver limits are still applied.",
+  "retained": [
+    "Original direct lighting and its shadows",
+    "Wall incident preparation and 33 nodes",
+    "Original SoftBlob target/radius/coverage and positive-excess blend",
+    "Distance fade",
+    "WallDepth .375 and WallStrength .65",
+    "Ambient .1, Relief .22, fixed uniform albedo .18 and linear lamp color"
+  ],
+  "checks": {
+    "original_field_matches_v1_0_0_max_error": 0.0,
+    "step09_bypass_identity_error": 0.0,
+    "all_reflection_changes_nonnegative": true,
+    "finite": true,
+    "deep_wall_display_preserves_ambient": true
+  },
+  "statistics": {
+    "affected_previously_dark_air_pixels": 47813,
+    "max_air_reflection_increase": 2.7117985800984505,
+    "mean_increase_in_previously_occluded_supported_air": 0.6910511830836484,
+    "retained_wall_cap": 0.65,
+    "retained_wall_depth": 0.375
+  },
+  "sample_points": [
+    {
+      "position": [
+        -1.25,
+        -1.0
+      ],
+      "direct": 1.2474819436795448,
+      "original_return": 0.0,
+      "without_step09_return": 1.6985093157293347,
+      "original_visibility": 0.0
+    },
+    {
+      "position": [
+        -3.5,
+        -3.5
+      ],
+      "direct": 0.003922434509073408,
+      "original_return": 0.0,
+      "without_step09_return": 0.009927514614507684,
+      "original_visibility": 0.0
+    },
+    {
+      "position": [
+        -0.75,
+        1.1
+      ],
+      "direct": 2.0854427612189226,
+      "original_return": 1.1780981169683724,
+      "without_step09_return": 1.1780981169683724,
+      "original_visibility": 1.0
+    },
+    {
+      "position": [
+        1.8,
+        -1.5
+      ],
+      "direct": 0.0,
+      "original_return": 0.0,
+      "without_step09_return": 1.0800201560445486,
+      "original_visibility": 0.0
+    }
+  ],
+  "limitations": [
+    "Single convex slope CPU approximation, not a Unity frame or reconstructed authored textures.",
+    "Removing reflected visibility permits reflected energy at originally occluded air points. Final wall-depth clipping does not restore missing source-to-receiver occlusion.",
+    "This experiment evaluates the requested bypass only; no performance, multi-lamp or neighboring-cave acceptance is claimed."
+  ],
+  "display": {
+    "rect": [
+      -5.2,
+      3.2,
+      -4.2,
+      3.3
+    ],
+    "width": 672,
+    "height": 600,
+    "albedo": 0.18,
+    "ambient": 0.1,
+    "exposure": 1,
+    "post_blur": false
+  }
+}

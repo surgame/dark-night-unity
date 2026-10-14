@@ -1,0 +1,298 @@
+{
+  "version": "v1.0.0",
+  "title": "原始12步分解与主切面单侧0.5格羽化",
+  "timezone": "Asia/Shanghai",
+  "recorded_at": "2026-10-14T16:35:32+08:00",
+  "original_image_file_write_interval": [
+    "2026-10-14T16:19:57+08:00",
+    "2026-10-14T16:20:00+08:00"
+  ],
+  "time_basis": "Original image file write timestamps observed when freezing; these are not a retrospectively invented generation log. recorded_at is this archival operation.",
+  "source_kind": "Existing delivered images copied byte-for-byte; originals remain in artifacts.",
+  "repository_head_at_archive": "b932c564af177dacb4e5dcdd2f62359cce31bdf6",
+  "repository_branch_at_archive": "ft-20261014-geology-events-lab",
+  "geometry": {
+    "name": "参考位置",
+    "wall": [
+      [
+        -1,
+        0
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        -6
+      ],
+      [
+        -1,
+        -6
+      ]
+    ],
+    "light": [
+      -0.75,
+      1.1
+    ],
+    "angle": -93.44,
+    "ylim": [
+      -4,
+      3.3
+    ]
+  },
+  "parameters": {
+    "softness": 0.22,
+    "aperture": 0.967,
+    "gain": 2.0,
+    "match": true,
+    "probes": 2,
+    "shape": "SoftBlob",
+    "near_range": 2.2,
+    "near_intensity": 0.0,
+    "ambient": 0.1,
+    "spread": 0.65,
+    "actual_intensity": 2.78,
+    "_fade": 1.0,
+    "_profile": true,
+    "reach": 4.69
+  },
+  "source_sha256": {
+    "ExplorationLighting.compute": "26611efd6bbd01dbe2674ba235684e643ddff9426541277a44ae7f35c4816763",
+    "WallDiffusePrepare.hlsl": "ba8530fb69aac40cffe8a01a65cd7fbd05deec424b270d483542e81e761388d9",
+    "WallDiffuseShape.hlsl": "5832dc2483595458fcb5091cae76362dad15fd4f2f269cab7465f2de76048f0b",
+    "WallDiffuseCompose.hlsl": "00c460a039aa5f5b0116f99b7c20d4342ebb5d3aaf3808237900eb984b357a28",
+    "WallDiffuseVisibility.hlsl": "2c43a7f4a65ab97ec3600349b16235939d80df577ed0db58642b9c52408b5673",
+    "ExplorationLighting.hlsl": "2df13d902d89c20a33d891f62ace079995235e6ec46827d6424ee58b08ac1dd3"
+  },
+  "runtime": {
+    "python": "3.13.8",
+    "numpy": "2.2.6",
+    "matplotlib": "3.10.8",
+    "font": "C:/Windows/Fonts/msyh.ttc"
+  },
+  "checks": {
+    "return_formula_max_error": 0.0,
+    "final_field_max_error": 0.0,
+    "finite": true,
+    "prepared_profile_length": 1.118033988749895,
+    "distance_fade": 1.0
+  },
+  "files": [
+    {
+      "path": "images/original-pipeline-stage-01.png",
+      "sha256": "052e96ff79a410ee33dc8b9c74c8335f6973d53e83154c9697db639b39f5c5c4",
+      "bytes": 33736,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-01.png",
+      "original_file_write_time": "2026-10-14T16:19:57+08:00"
+    },
+    {
+      "path": "images/original-pipeline-stage-02.png",
+      "sha256": "cb12c5b8c83335c77885c4c7776124030d3caab0bb198543172dfe6c0c05ebb1",
+      "bytes": 64926,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-02.png",
+      "original_file_write_time": "2026-10-14T16:19:57+08:00"
+    },
+    {
+      "path": "images/original-pipeline-stage-03.png",
+      "sha256": "114ddd6a8fca365e7a7837827da3b33025775e99b130eae8f274f033053adcc5",
+      "bytes": 46637,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-03.png",
+      "original_file_write_time": "2026-10-14T16:19:57+08:00"
+    },
+    {
+      "path": "images/original-pipeline-stage-04.png",
+      "sha256": "67fac5a937623816d1962fc462d89e2d57f5d0773b046bb96b542347bee8d3a9",
+      "bytes": 40749,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-04.png",
+      "original_file_write_time": "2026-10-14T16:19:57+08:00"
+    },
+    {
+      "path": "images/original-pipeline-stage-05.png",
+      "sha256": "cacfe07e87a408de16516996f3adb6fa51bfbeb9b3aa2a69d426156e5cb62b77",
+      "bytes": 80032,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-05.png",
+      "original_file_write_time": "2026-10-14T16:19:57+08:00"
+    },
+    {
+      "path": "images/original-pipeline-stage-06.png",
+      "sha256": "f61838afe2966e2fb21d5c6cfd898709405291e70dc1f580a38ed994d6c46d97",
+      "bytes": 117183,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-06.png",
+      "original_file_write_time": "2026-10-14T16:19:57+08:00"
+    },
+    {
+      "path": "images/original-pipeline-stage-07.png",
+      "sha256": "2276084347463ac8bfdf022ff1cf6e8336c7e4ea5364992a3d73e4d9f1e5f0c0",
+      "bytes": 102240,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-07.png",
+      "original_file_write_time": "2026-10-14T16:19:57+08:00"
+    },
+    {
+      "path": "images/original-pipeline-stage-08.png",
+      "sha256": "f79039ae0ab5d22208e289d55be632096b0ea478ccd5b4ddece0e2415878ed14",
+      "bytes": 160166,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-08.png",
+      "original_file_write_time": "2026-10-14T16:19:58+08:00"
+    },
+    {
+      "path": "images/original-pipeline-stage-09.png",
+      "sha256": "e16723d0020568e279c81a1e5d814c59607e16e94af23d490ff6be23838860f2",
+      "bytes": 37921,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-09.png",
+      "original_file_write_time": "2026-10-14T16:19:58+08:00"
+    },
+    {
+      "path": "images/original-pipeline-stage-10.png",
+      "sha256": "c7668fe473112b63d4b628a8957590468dfb47afbe6c4b72bae95b2276cb5edd",
+      "bytes": 100535,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-10.png",
+      "original_file_write_time": "2026-10-14T16:19:58+08:00"
+    },
+    {
+      "path": "images/original-pipeline-stage-11.png",
+      "sha256": "d2c56624b34e5135482b2436e1aa6aa9307814a3f37ba737c2b4b2a48d546b50",
+      "bytes": 108149,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-11.png",
+      "original_file_write_time": "2026-10-14T16:19:58+08:00"
+    },
+    {
+      "path": "images/original-pipeline-stage-12.png",
+      "sha256": "cb039976d44bd53203f14a98399798cf6210f3d2d4a34c435a62b1c0e1c5badd",
+      "bytes": 145253,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-stage-12.png",
+      "original_file_write_time": "2026-10-14T16:19:58+08:00"
+    },
+    {
+      "path": "images/original-pipeline-page-1.png",
+      "sha256": "4b1f5b9c1eb043d1d3009ef1ca4fd9b58c048794d5a2e5dabceea2f1a6e4fb53",
+      "bytes": 220471,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-page-1.png",
+      "original_file_write_time": "2026-10-14T16:19:58+08:00"
+    },
+    {
+      "path": "images/original-pipeline-page-2.png",
+      "sha256": "ca156e2b561f28ed119f10655c3a0c383f86a58d3125c6555349a85f33a0dc60",
+      "bytes": 515017,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-page-2.png",
+      "original_file_write_time": "2026-10-14T16:19:59+08:00"
+    },
+    {
+      "path": "images/original-pipeline-page-3.png",
+      "sha256": "7993efbcbcabf1078480af12805f61255a966151a546f09f9ec0b43787e29ab4",
+      "bytes": 444522,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-page-3.png",
+      "original_file_write_time": "2026-10-14T16:19:59+08:00"
+    },
+    {
+      "path": "images/one-sided-cut-feather-scene.png",
+      "sha256": "2d8eb0589985146b71cfb7e0af28a902337f43e57899b1d851558660c8982634",
+      "bytes": 222195,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\one-sided-cut-feather-scene.png",
+      "original_file_write_time": "2026-10-14T16:20:00+08:00"
+    },
+    {
+      "path": "images/one-sided-cut-feather-profile.png",
+      "sha256": "7690de60ff913acf9e0c37864f3a843e095b3e51c5880f228efb808f652a5789",
+      "bytes": 46691,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\one-sided-cut-feather-profile.png",
+      "original_file_write_time": "2026-10-14T16:19:59+08:00"
+    },
+    {
+      "path": "generator-source/render_original_light_pipeline.py",
+      "sha256": "eb2fedd193a23d311631c536c719d55afab89f0888691a1d273b9929bbf0c508",
+      "bytes": 17025,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\render_original_light_pipeline.py",
+      "original_file_write_time": "2026-10-14T16:19:53+08:00"
+    },
+    {
+      "path": "generator-source/stress_h_parameters.py",
+      "sha256": "b21f2884cb0a1cb883c66d745f40bada75ef375c20bde6e6919382c7cbc4f051",
+      "bytes": 12068,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\stress_h_parameters.py",
+      "original_file_write_time": "2026-10-14T15:00:29+08:00"
+    },
+    {
+      "path": "generator-source/tune_existing_parameters.py",
+      "sha256": "8cfe4d328a3bb11861f0918cc2f5da25a1570935db28bdc302c2d2cd9ceff18c",
+      "bytes": 15179,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\tune_existing_parameters.py",
+      "original_file_write_time": "2026-10-14T14:42:15+08:00"
+    },
+    {
+      "path": "generator-source/simulate_slope.py",
+      "sha256": "aeaa4c0b523386fb279f8e9d0ed05a8d7c12e55a27bf40b2087275196029ccdd",
+      "bytes": 14428,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\simulate_slope.py",
+      "original_file_write_time": "2026-10-14T13:40:30+08:00"
+    },
+    {
+      "path": "reports/original-pipeline-result.json",
+      "sha256": "2138402c0cb8bea699dede7f7b9ce34dd209c52d453e832c8b10c936514f8746",
+      "bytes": 7193,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-result.json",
+      "original_file_write_time": "2026-10-14T16:20:00+08:00"
+    },
+    {
+      "path": "reports/one-sided-cut-feather-scene-result.json",
+      "sha256": "10286a045a0e8dd0014cc2e574188ffccb30339d0e046bebe6a695002fbd2eea",
+      "bytes": 322,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\one-sided-cut-feather-scene-result.json",
+      "original_file_write_time": "2026-10-14T16:20:00+08:00"
+    },
+    {
+      "path": "reports/original-pipeline-explanation.md",
+      "sha256": "b666c9e14a1d87a25a6d7c7f21ff50f60a15dd916f766b6932a09bc196e6a59c",
+      "bytes": 2248,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-analysis-20261014\\original-pipeline-explanation.md",
+      "original_file_write_time": "2026-10-14T16:20:00+08:00"
+    },
+    {
+      "path": "game-source/ExplorationLighting.compute",
+      "sha256": "26611efd6bbd01dbe2674ba235684e643ddff9426541277a44ae7f35c4816763",
+      "bytes": 6550,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\ExplorationLighting.compute",
+      "original_file_write_time": "2026-10-14T01:04:17+08:00"
+    },
+    {
+      "path": "game-source/WallDiffusePrepare.hlsl",
+      "sha256": "ba8530fb69aac40cffe8a01a65cd7fbd05deec424b270d483542e81e761388d9",
+      "bytes": 7108,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\WallDiffusePrepare.hlsl",
+      "original_file_write_time": "2026-10-14T01:04:17+08:00"
+    },
+    {
+      "path": "game-source/WallDiffuseShape.hlsl",
+      "sha256": "5832dc2483595458fcb5091cae76362dad15fd4f2f269cab7465f2de76048f0b",
+      "bytes": 3207,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\WallDiffuseShape.hlsl",
+      "original_file_write_time": "2026-10-14T01:04:17+08:00"
+    },
+    {
+      "path": "game-source/WallDiffuseCompose.hlsl",
+      "sha256": "00c460a039aa5f5b0116f99b7c20d4342ebb5d3aaf3808237900eb984b357a28",
+      "bytes": 3445,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\WallDiffuseCompose.hlsl",
+      "original_file_write_time": "2026-10-14T01:04:17+08:00"
+    },
+    {
+      "path": "game-source/WallDiffuseVisibility.hlsl",
+      "sha256": "2c43a7f4a65ab97ec3600349b16235939d80df577ed0db58642b9c52408b5673",
+      "bytes": 5025,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\WallDiffuseVisibility.hlsl",
+      "original_file_write_time": "2026-10-14T01:04:17+08:00"
+    },
+    {
+      "path": "game-source/ExplorationLighting.hlsl",
+      "sha256": "2df13d902d89c20a33d891f62ace079995235e6ec46827d6424ee58b08ac1dd3",
+      "bytes": 2584,
+      "original_absolute_path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Shared\\Lighting\\ExplorationLighting.hlsl",
+      "original_file_write_time": "2026-10-14T01:04:17+08:00"
+    }
+  ],
+  "rebuild": "Use the frozen generator-source modules with a fresh output directory; set render_original_light_pipeline.OUT to that directory and ROOT to the repository before calling main(). Do not run main with its default archived output path."
+}

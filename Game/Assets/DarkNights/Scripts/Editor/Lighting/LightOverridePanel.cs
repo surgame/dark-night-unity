@@ -18,7 +18,8 @@ namespace DarkNights.Editor.Lighting
         private readonly bool editPreset;
         private readonly FlashlightDebugUndo undo;
         private readonly FlashlightDebugDraft draft;
-        private readonly List<Action<LightBounceMode, WallDiffuseShape>> refresh = new List<Action<LightBounceMode, WallDiffuseShape>>();
+        private readonly List<Action<LightBounceMode, WallDiffuseShape, WallDiffuseOcclusionMode>> refresh =
+            new List<Action<LightBounceMode, WallDiffuseShape, WallDiffuseOcclusionMode>>();
         private readonly Label feedback = new Label();
         private readonly bool categorized;
         private readonly Dictionary<string, VisualElement> groups = new Dictionary<string, VisualElement>();
@@ -50,7 +51,8 @@ namespace DarkNights.Editor.Lighting
         {
             var mode = (LightBounceMode)Read("BounceMode");
             var shape = (WallDiffuseShape)Read("DiffuseShape");
-            foreach (var update in refresh) update(mode, shape);
+            var occlusion = (WallDiffuseOcclusionMode)Read("DiffuseOcclusionMode");
+            foreach (var update in refresh) update(mode, shape, occlusion);
         }
 
         private object Read(string name)
@@ -119,6 +121,13 @@ namespace DarkNights.Editor.Lighting
                 field = slider;
                 synchronize = () => { float value = (float)Read(name); if (slider.value != value) slider.SetValueWithoutNotify(value); };
             }
+            else if (type == typeof(WallDiffuseOcclusionMode))
+            {
+                var choice = new PopupField<string>(label, new List<string> { "原始切边", "墙体遮罩", "切边向外羽化" }, (int)(WallDiffuseOcclusionMode)Read(name)) { name = name };
+                choice.RegisterValueChangedCallback(evt => Write(name, (WallDiffuseOcclusionMode)choice.index));
+                field = choice;
+                synchronize = () => choice.SetValueWithoutNotify(choice.choices[(int)(WallDiffuseOcclusionMode)Read(name)]);
+            }
             else if (type.IsEnum)
             {
                 var choice = new EnumField(label, (Enum)Read(name)) { name = name };
@@ -145,9 +154,9 @@ namespace DarkNights.Editor.Lighting
                 synchronize = () => color.SetValueWithoutNotify((Color)Read(name));
             }
             field.AddToClassList("override-value"); row.Add(field); Parent(name).Add(row);
-            refresh.Add((mode, shape) =>
+            refresh.Add((mode, shape, occlusion) =>
             {
-                row.EnableInClassList("is-hidden", !LightParameterSchema.IsVisible(name, mode, shape));
+                row.EnableInClassList("is-hidden", !LightParameterSchema.IsVisible(name, mode, shape, occlusion));
                 var caption = field.Q<Label>(className: "unity-base-field__label");
                 if (caption != null) caption.text = LightParameterSchema.Label(name, label, shape);
                 bool overridden = Overridden(name);

@@ -23,6 +23,8 @@ namespace DarkNights.View.Lighting
         [Range(0, 6)] public float DiffuseMaxReach = LightProfileDefaults.DiffuseMaxReach;
         [Range(0, 2)] public float DiffuseLateralSpread = LightProfileDefaults.DiffuseLateralSpread;
         [Range(2, 4)] public int DiffuseVisibilityProbes = LightProfileDefaults.DiffuseVisibilityProbes;
+        public WallDiffuseOcclusionMode DiffuseOcclusionMode = LightProfileDefaults.DiffuseOcclusionMode;
+        [Range(0, 4)] public float DiffuseFeatherWidth = LightProfileDefaults.DiffuseFeatherWidth;
         public bool EnvironmentEnabled = LightProfileDefaults.EnvironmentEnabled;
         public bool LocalFillEnabled = LightProfileDefaults.LocalFillEnabled;
         public bool Directional = LightProfileDefaults.Directional;
@@ -49,7 +51,9 @@ namespace DarkNights.View.Lighting
             return new LightProfileSnapshot(Template, EnvironmentEnabled, LocalFillEnabled, Directional,
                 new LightEmissionRules(Range, Cone, Intensity, NearRange, NearIntensity,
                     Color.r, Color.g, Color.b, ApertureWidth, SoftShadows, Softness, ConeFeather,
-                    new LightBounceRules(BounceMode, Bounce, DiffuseShape, DiffuseMatchIncident, DiffuseCornerRadius, DiffuseGain, DiffuseNearDistance, DiffuseFarDistance, DiffuseMaxReach, DiffuseLateralSpread, DiffuseVisibilityProbes)),
+                    new LightBounceRules(BounceMode, Bounce, DiffuseShape, DiffuseMatchIncident, DiffuseCornerRadius, DiffuseGain,
+                        DiffuseNearDistance, DiffuseFarDistance, DiffuseMaxReach, DiffuseLateralSpread, DiffuseVisibilityProbes,
+                        DiffuseOcclusionMode, DiffuseFeatherWidth)),
                 FillRadius, FillIntensity, FillColor);
         }
     }

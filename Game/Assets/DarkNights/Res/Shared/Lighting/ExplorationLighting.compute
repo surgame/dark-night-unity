@@ -18,7 +18,7 @@ float4 _DNLightDirections[16]; // direction, near range, near strength
 float4 _DNLightColors[16]; // linear color, direct intensity
 float4 _DNLightNearOrigins[16];
 float4 _DNLightApertures[16]; // 灯口半宽，与锥角和阴影柔度独立
-float4 _DNLightShadows[16]; // 单灯阴影柔度、光束边缘
+float4 _DNLightShadows[16]; // 单灯阴影柔度、光束边缘、返光切边外扩宽度
 int _DNLightCount;
 #include "WallDiffusePrepare.hlsl"
 #ifdef DN_CONTINUOUS

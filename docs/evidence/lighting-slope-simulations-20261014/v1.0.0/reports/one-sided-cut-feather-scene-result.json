@@ -1,0 +1,8 @@
+{
+  "width_cells": 0.5,
+  "all_reflection_changes_nonnegative": true,
+  "outside_band_max_error": 0.0,
+  "fully_visible_max_error": 0.0,
+  "wall_max_error": 0.0,
+  "scope": "Only the dominant endpoint shadow cut is expanded, using signed ray distance and an air-path guard; no source projection or radial change."
+}

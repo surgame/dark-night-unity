@@ -17,6 +17,8 @@ namespace DarkNights.Core.Config
         public float DiffuseMaxReach { get; }
         public float DiffuseLateralSpread { get; }
         public int DiffuseVisibilityProbes { get; }
+        public WallDiffuseOcclusionMode DiffuseOcclusionMode { get; }
+        public float DiffuseFeatherWidth { get; }
         public bool Continuous => BounceMode == LightBounceMode.Continuous && DiffuseGain > 0 && DiffuseMaxReach > 0;
 
         public LightBounceRules(
@@ -30,9 +32,12 @@ namespace DarkNights.Core.Config
             float diffuseFarDistance = LightProfileDefaults.DiffuseFarDistance,
             float diffuseMaxReach = LightProfileDefaults.DiffuseMaxReach,
             float diffuseLateralSpread = LightProfileDefaults.DiffuseLateralSpread,
-            int diffuseVisibilityProbes = LightProfileDefaults.DiffuseVisibilityProbes)
+            int diffuseVisibilityProbes = LightProfileDefaults.DiffuseVisibilityProbes,
+            WallDiffuseOcclusionMode diffuseOcclusionMode = LightProfileDefaults.DiffuseOcclusionMode,
+            float diffuseFeatherWidth = LightProfileDefaults.DiffuseFeatherWidth)
         {
             if (!Enum.IsDefined(typeof(LightBounceMode), bounceMode) || !Enum.IsDefined(typeof(WallDiffuseShape), diffuseShape) ||
+                !Enum.IsDefined(typeof(WallDiffuseOcclusionMode), diffuseOcclusionMode) || !Valid(diffuseFeatherWidth, 0, 4) ||
                 !Valid(bounce, 0, .4f) || !Valid(diffuseCornerRadius, 0, 2) || !Valid(diffuseGain, 0, 2) ||
                 !Valid(diffuseNearDistance, 0, 6) || !Valid(diffuseFarDistance, .1f, 14) || diffuseFarDistance <= diffuseNearDistance ||
                 !Valid(diffuseMaxReach, 0, 6) || !Valid(diffuseLateralSpread, 0, 2) || diffuseVisibilityProbes < 2 || diffuseVisibilityProbes > 4)
@@ -48,12 +53,14 @@ namespace DarkNights.Core.Config
             DiffuseMaxReach = diffuseMaxReach;
             DiffuseLateralSpread = diffuseLateralSpread;
             DiffuseVisibilityProbes = diffuseVisibilityProbes;
+            DiffuseOcclusionMode = diffuseOcclusionMode;
+            DiffuseFeatherWidth = diffuseFeatherWidth;
         }
 
         public string Fingerprint => string.Join(",", Array.ConvertAll(new[]
-        { Bounce, DiffuseCornerRadius, DiffuseGain, DiffuseNearDistance, DiffuseFarDistance, DiffuseMaxReach, DiffuseLateralSpread },
+        { Bounce, DiffuseCornerRadius, DiffuseGain, DiffuseNearDistance, DiffuseFarDistance, DiffuseMaxReach, DiffuseLateralSpread, DiffuseFeatherWidth },
             value => value.ToString("R", CultureInfo.InvariantCulture))) + "," + (int)BounceMode + "," + (int)DiffuseShape +
-            "," + DiffuseMatchIncident + "," + DiffuseVisibilityProbes;
+            "," + DiffuseMatchIncident + "," + DiffuseVisibilityProbes + "," + (int)DiffuseOcclusionMode;
         private static bool Valid(float value, float low, float high) => float.IsFinite(value) && value >= low && value <= high;
     }
 }

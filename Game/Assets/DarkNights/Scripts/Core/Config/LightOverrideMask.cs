@@ -33,6 +33,8 @@ namespace DarkNights.Core.Config
         DiffuseFarDistance = 1 << 23,
         DiffuseMaxReach = 1 << 24,
         DiffuseLateralSpread = 1 << 25,
-        DiffuseVisibilityProbes = 1 << 26
+        DiffuseVisibilityProbes = 1 << 26,
+        DiffuseOcclusionMode = 1 << 27,
+        DiffuseFeatherWidth = 1 << 28
     }
 }

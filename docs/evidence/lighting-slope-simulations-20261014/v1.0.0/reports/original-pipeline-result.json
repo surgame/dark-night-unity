@@ -1,0 +1,195 @@
+{
+  "scope": "Current-original algorithm stages only; unchanged convex slope, standing/aim and parameters. CPU approximation, not captured game intermediate textures.",
+  "geometry": {
+    "name": "参考位置",
+    "wall": [
+      [
+        -1,
+        0
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        -6
+      ],
+      [
+        -1,
+        -6
+      ]
+    ],
+    "light": [
+      -0.75,
+      1.1
+    ],
+    "angle": -93.44,
+    "ylim": [
+      -4,
+      3.3
+    ]
+  },
+  "parameters": {
+    "softness": 0.22,
+    "aperture": 0.967,
+    "gain": 2.0,
+    "match": true,
+    "probes": 2,
+    "shape": "SoftBlob",
+    "near_range": 2.2,
+    "near_intensity": 0.0,
+    "ambient": 0.1,
+    "spread": 0.65,
+    "actual_intensity": 2.78,
+    "_fade": 1.0,
+    "_profile": true,
+    "reach": 4.69
+  },
+  "profile": {
+    "start": [
+      -1.0,
+      0.0
+    ],
+    "length": 1.118033988749895,
+    "nodes": [
+      1.973352148274514,
+      1.9755228344475992,
+      1.9776257930846473,
+      1.9796569225728387,
+      1.9816119455819259,
+      1.9834864227869273,
+      1.9852757719813297,
+      1.9869752932468332,
+      1.9885802007582318,
+      1.990085661651322,
+      1.991486842158106,
+      1.9927789609117543,
+      1.9939573489454172,
+      1.9950175154650422,
+      1.9959552179895474,
+      1.9967665349568722,
+      1.9974479384377961,
+      1.9979963642346126,
+      1.9984092764236472,
+      1.9986847233770135,
+      1.9988213825013084,
+      1.998818591366327,
+      1.9986763635433402,
+      1.976327192239687,
+      1.893770518290981,
+      1.7376384515958585,
+      1.4935770698467108,
+      1.1543951196933444,
+      0.7366845104058909,
+      0.3074262736646018,
+      0.020293123248657993,
+      0.0,
+      0.0
+    ],
+    "mean": 1.9174785064970445,
+    "weighted_wall_distance": 0.9369112835841151
+  },
+  "stages": [
+    {
+      "number": 1,
+      "title": "① 输入：墙形、灯口和朝向",
+      "explanation": "L=(-0.75,1.1)，向下93.44°；红虚线是未遮挡光束外边界。",
+      "image": "original-pipeline-stage-01.png"
+    },
+    {
+      "number": 2,
+      "title": "② 灯口光束＋距离衰减（未遮挡）",
+      "explanation": "按原灯口宽0.967、锥角46.2°、强度2.78、照距24计算；暂不测试墙体。",
+      "image": "original-pipeline-stage-02.png"
+    },
+    {
+      "number": 3,
+      "title": "③ 直射遮挡后：D",
+      "explanation": "原五个灯口采样做遮挡；部分直射从左端绕出，另一部分落在斜面。NearIntensity=0。",
+      "image": "original-pipeline-stage-03.png"
+    },
+    {
+      "number": 4,
+      "title": "④ 受光墙段：裁取后存33个入射节点",
+      "explanation": "准备阶段按同一光束公式另算墙面入射，裁出受光首尾，再重新采样33节点；不是33盏点光。",
+      "image": "original-pipeline-stage-04.png"
+    },
+    {
+      "number": 5,
+      "title": "⑤ 积分入射密度，得到返光目标：T",
+      "explanation": "SoftBlob用径向核积分节点间的连续密度，取局部照度I；匹配模式T=2*(0.8I+0.2M)。",
+      "image": "original-pipeline-stage-05.png"
+    },
+    {
+      "number": 6,
+      "title": "⑥ 圆形核的覆盖／距离衰减：C",
+      "explanation": "C来自径向核权重积分，R=4.69格。本场景距离门控F=1；圆形外围已经连续归零。",
+      "image": "original-pipeline-stage-06.png"
+    },
+    {
+      "number": 7,
+      "title": "⑦ 扣除已有直射，得到正余量：E",
+      "explanation": "E=DNPositiveExcess(T,D)，近似max(T-D,0)，零附近有小过渡；因此直射区会出现补光缺口。",
+      "image": "original-pipeline-stage-07.png"
+    },
+    {
+      "number": 8,
+      "title": "⑧ 遮挡前返光：U＝E×C×F",
+      "explanation": "U=E*C*F。到这一步尚未使用返光遮挡，可见圆润原光团与直射扣除的形状。",
+      "image": "original-pipeline-stage-08.png"
+    },
+    {
+      "number": 9,
+      "title": "⑨ 探针可见性：V（此处产生硬切）",
+      "explanation": "两探针按距离加权求V；角落中两探针钳到同一端点，退化成一条硬阴影射线。",
+      "image": "original-pipeline-stage-09.png"
+    },
+    {
+      "number": 10,
+      "title": "⑩ 遮挡后返光：B＝U×V",
+      "explanation": "U乘V。V从1跳至0时，原本非零的U被直接切断；切面在此进入实际返光。",
+      "image": "original-pipeline-stage-10.png"
+    },
+    {
+      "number": 11,
+      "title": "11 直射＋返光，限制墙内亮度",
+      "explanation": "本模型只有一条受光墙段，八槽融合退化为B；加D后，岩体RGB最大通道限制到0.65。",
+      "image": "original-pipeline-stage-11.png"
+    },
+    {
+      "number": 12,
+      "title": "12 加底光、材质和法线后的显示示意",
+      "explanation": "游戏写384x216光场，再按几何约束插值、限制墙表层、按直射占比处理Relief，最后加底光乘材质。此图用高精度场和均匀材质示意。",
+      "image": "original-pipeline-stage-12.png"
+    }
+  ],
+  "checks": {
+    "return_formula_max_error": 0.0,
+    "final_field_max_error": 0.0,
+    "finite": true,
+    "prepared_profile_length": 1.118033988749895,
+    "distance_fade": 1.0
+  },
+  "source_sha256": {
+    "ExplorationLighting.compute": "26611efd6bbd01dbe2674ba235684e643ddff9426541277a44ae7f35c4816763",
+    "WallDiffusePrepare.hlsl": "ba8530fb69aac40cffe8a01a65cd7fbd05deec424b270d483542e81e761388d9",
+    "WallDiffuseShape.hlsl": "5832dc2483595458fcb5091cae76362dad15fd4f2f269cab7465f2de76048f0b",
+    "WallDiffuseCompose.hlsl": "00c460a039aa5f5b0116f99b7c20d4342ebb5d3aaf3808237900eb984b357a28",
+    "WallDiffuseVisibility.hlsl": "2c43a7f4a65ab97ec3600349b16235939d80df577ed0db58642b9c52408b5673",
+    "ExplorationLighting.hlsl": "2df13d902d89c20a33d891f62ace079995235e6ec46827d6424ee58b08ac1dd3"
+  },
+  "limitations": [
+    "Analytic convex intersection replaces game grid DDA and fixed-step direct traversal.",
+    "One selected reflecting wall segment; the eight-wall merge is the identity in this example, and there is one lamp.",
+    "Stages are logical quantities computed for illustration. Several exist only in registers in the game, not as separate textures/passes.",
+    "High-resolution scalar fields show the existing formulas, not the game's 384x216 half-float storage/reconstruction.",
+    "Final display uses uniform albedo .18, a flat normal, analytic wall depth and no authored textures; real normal maps and exact material reconstruction are not reproduced.",
+    "Local-fill affects explicitly bound sprites, not this environment field; the zero near-intensity and continuous mode skip near/legacy branches.",
+    "One-sided feather profile is a proposed mask function only. It is not applied in any of the twelve original-stage images; boundary-distance construction and wall barriers remain implementation work."
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "version": "v1.2.0",
+  "generated_at": "2026-10-14T16:42:40+08:00",
+  "timezone": "Asia/Shanghai",
+  "geometry": {
+    "name": "参考位置",
+    "wall": [
+      [
+        -1,
+        0
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        5,
+        1
+      ],
+      [
+        5,
+        -6
+      ],
+      [
+        -1,
+        -6
+      ]
+    ],
+    "light": [
+      -0.75,
+      1.1
+    ],
+    "angle": -93.44,
+    "ylim": [
+      -4,
+      3.3
+    ]
+  },
+  "parameters": {
+    "softness": 0.22,
+    "aperture": 0.967,
+    "gain": 2.0,
+    "match": true,
+    "probes": 2,
+    "shape": "SoftBlob",
+    "near_range": 2.2,
+    "near_intensity": 0.0,
+    "ambient": 0.1,
+    "spread": 0.65,
+    "actual_intensity": 2.78,
+    "_fade": 1.0,
+    "_profile": true,
+    "reach": 4.69
+  },
+  "formula": "Reflected B(p)=U(p)*M(p), where M=1 for known air and M=0 for actual rock/unknown; original direct D is computed and shaded separately.",
+  "change_from_v1_1_0": "Restore an explicit destination wall mask on reflected energy; do not restore source-to-receiver ray visibility or its projected cutoff.",
+  "retained": [
+    "Original direct light and its shadows including wall-surface direct contribution",
+    "Wall incident preparation and original radial reflection distribution",
+    "Wall-depth .375 and wall-strength .65 final limits",
+    "Fixed ambient, relief, uniform albedo and exposure"
+  ],
+  "checks": {
+    "wall_reflected_energy_max": 0.0,
+    "air_difference_vs_v1_1_0_max": 0.0,
+    "raw_wall_energy_matches_direct_max_error": 0.0,
+    "original_return_matches_frozen_reference_error": 0.0,
+    "finite": true
+  },
+  "consequences": [
+    "In this same scene, all air reflected values match v1.1.0 exactly; the difference is reflected energy inside rock is zero.",
+    "Direct illumination on walls remains. Indirect illumination inside wall material is intentionally zero in this variant; preserving a separate wall indirect layer would be a different variant.",
+    "A destination rock mask does not encode visibility from the original reflected source. Air on the far side of thin/other walls may still receive the radial field; this scene is not a neighboring-cave or multi-light acceptance."
+  ],
+  "limitations": [
+    "One convex slope and one selected reflecting wall in a CPU approximation; no authored texture, full material normals, Unity execution or GPU timing.",
+    "The known map domain is assumed for the whole pictured rectangle; production unknown-cell rejection is described, not exercised here."
+  ],
+  "input_manifest_sha256": {
+    "v1.0.0": "fca5979f784b152a800c3c2d2ac3b964afaf115bc2d464fe06016e714303143c",
+    "v1.1.0": "366b6eece053ff533d978273f5cf36d63e6cc935d88a7121c81eae17937e8f48"
+  }
+}

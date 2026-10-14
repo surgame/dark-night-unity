@@ -23,6 +23,8 @@ namespace DarkNights.Runtime.Objects
         public float DiffuseMaxReach = LightProfileDefaults.DiffuseMaxReach;
         public float DiffuseLateralSpread = LightProfileDefaults.DiffuseLateralSpread;
         public int DiffuseVisibilityProbes = LightProfileDefaults.DiffuseVisibilityProbes;
+        public WallDiffuseOcclusionMode DiffuseOcclusionMode = LightProfileDefaults.DiffuseOcclusionMode;
+        public float DiffuseFeatherWidth = LightProfileDefaults.DiffuseFeatherWidth;
         public bool EnvironmentEnabled = LightProfileDefaults.EnvironmentEnabled;
         public bool LocalFillEnabled = LightProfileDefaults.LocalFillEnabled;
         public bool Directional = LightProfileDefaults.Directional;

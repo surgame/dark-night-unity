@@ -1,0 +1,39 @@
+{
+  "version": "v1.2.0",
+  "generated_at": "2026-10-14T16:42:40+08:00",
+  "recorded_at": "2026-10-14T16:42:44+08:00",
+  "timezone": "Asia/Shanghai",
+  "input_manifest_sha256": {
+    "v1.0.0": "fca5979f784b152a800c3c2d2ac3b964afaf115bc2d464fe06016e714303143c",
+    "v1.1.0": "366b6eece053ff533d978273f5cf36d63e6cc935d88a7121c81eae17937e8f48"
+  },
+  "files": [
+    {
+      "path": "generator-source/generate_wall_mask_v1_2.py",
+      "sha256": "9dbad7d46a792f153304b08bcd97a4ebc0ffca37129765662012194c888967b7",
+      "bytes": 7958
+    },
+    {
+      "path": "result.json",
+      "sha256": "2a69fa8d5370e4676c199860e7345637c43086cb570400d52234b6c4f2139f8c",
+      "bytes": 2830
+    },
+    {
+      "path": "wall-mask-comparison.png",
+      "sha256": "b0e381713c2d91d6315ce401f070fd1c1af718a1946cc3192e8e9d385d3492b4",
+      "bytes": 277444
+    },
+    {
+      "path": "wall-mask-components.png",
+      "sha256": "1529d954bebdbaa12f92309843f00d222c97251d000b1345068bc5ad314521bd",
+      "bytes": 241632
+    }
+  ],
+  "runtime": {
+    "python": "3.13.8",
+    "numpy": "2.2.6",
+    "matplotlib": "3.10.8",
+    "font": "C:/Windows/Fonts/msyh.ttc"
+  },
+  "rebuild": "Run generator-source/generate_wall_mask_v1_2.py --output <fresh-directory> in the same repository; existing outputs are refused and frozen inputs are verified."
+}

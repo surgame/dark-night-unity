@@ -1,0 +1,53 @@
+{
+  "verified_at": "2026-10-14T16:49:56+08:00",
+  "timezone": "Asia/Shanghai",
+  "scope": "Offline evidence/documentation only; no Unity compilation, Play, Player, GPU timing or gameplay acceptance.",
+  "versions": [
+    {
+      "version": "v1.0.0",
+      "manifest_sha256": "fca5979f784b152a800c3c2d2ac3b964afaf115bc2d464fe06016e714303143c",
+      "files": 30,
+      "bytes": 2582805,
+      "generated_at": null,
+      "recorded_at": "2026-10-14T16:35:32+08:00"
+    },
+    {
+      "version": "v1.1.0",
+      "manifest_sha256": "366b6eece053ff533d978273f5cf36d63e6cc935d88a7121c81eae17937e8f48",
+      "files": 4,
+      "bytes": 537813,
+      "generated_at": "2026-10-14T16:37:37+08:00",
+      "recorded_at": "2026-10-14T16:37:41+08:00"
+    },
+    {
+      "version": "v1.2.0",
+      "manifest_sha256": "d730149cf79ed676479493273a754d287e62f91127d0673c301720857c50d8f2",
+      "files": 4,
+      "bytes": 529864,
+      "generated_at": "2026-10-14T16:42:40+08:00",
+      "recorded_at": "2026-10-14T16:42:44+08:00"
+    }
+  ],
+  "frozen_game_source_hashes_still_matching": 6,
+  "python_sources_parsed": 7,
+  "reproduce_sha256": "3e6bcc7dbe32d37f40cbfa564656af522c55ed7b8cc753f1b66854df9093a503",
+  "relative_document_links_checked": 20,
+  "replay": {
+    "version": "v1.2.0",
+    "result": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\lighting-slope-replay-v1.2.0-record-check\\result.json",
+    "generated_at": "2026-10-14T16:47:29+08:00",
+    "formula_inputs_and_checks_match": true,
+    "checks": {
+      "wall_reflected_energy_max": 0.0,
+      "air_difference_vs_v1_1_0_max": 0.0,
+      "raw_wall_energy_matches_direct_max_error": 0.0,
+      "original_return_matches_frozen_reference_error": 0.0,
+      "finite": true
+    }
+  },
+  "git_diff_check_passed": true,
+  "preexisting_staged_paths_untouched": [
+    "Game/Assets/Addressables/Datas/GlobalSO/StateDataRegistry.asset",
+    "Game/Assets/Scripts/Generated/IStateData.generated.cs"
+  ]
+}

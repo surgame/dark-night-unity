@@ -39,3 +39,5 @@ Game/Assets/DarkNights/Res/Art/Original/manifest.json -text whitespace=cr-at-eol
 *.ttf binary
 *.otf binary
 *.dll binary
+# Frozen lighting simulations retain the bytes recorded in their SHA-256 manifests.
+docs/evidence/lighting-slope-simulations-20261014/** -text whitespace=cr-at-eol,-blank-at-eol

@@ -112,7 +112,7 @@ namespace DarkNights.View.Lighting
                 bounceRules[n] = returned;
                 continuous |= returned.Continuous && emitter.Directional && rule.Intensity > 0;
                 legacy |= returned.BounceMode == LightBounceMode.LegacyPoint && returned.Bounce > 0;
-                uploadLightData |= Replace(bounceOptions, n, new Vector4((int)returned.BounceMode, returned.Bounce, returned.DiffuseCornerRadius, 0));
+                uploadLightData |= Replace(bounceOptions, n, new Vector4((int)returned.BounceMode, returned.Bounce, returned.DiffuseCornerRadius, (int)returned.DiffuseOcclusionMode));
                 uploadLightData |= Replace(diffuseSettings, n, new Vector4(returned.DiffuseGain, returned.DiffuseNearDistance, returned.DiffuseFarDistance, returned.DiffuseMaxReach));
                 uploadLightData |= Replace(diffuseOptions, n, new Vector4(returned.DiffuseLateralSpread, returned.DiffuseVisibilityProbes, (int)returned.DiffuseShape, returned.DiffuseMatchIncident ? 1 : 0));
                 Vector3 local = matrix.MultiplyPoint3x4(emitter.Position);
@@ -122,7 +122,7 @@ namespace DarkNights.View.Lighting
                 Vector3 near = matrix.MultiplyPoint3x4(emitter.NearPosition);
                 uploadLightData |= Replace(nearOrigins, n, new Vector4(near.x+.5f,-near.y+.5f,0,0));
                 uploadLightData |= Replace(apertures, n, new Vector4(emitter.Directional ? rule.ApertureWidth * .5f : 0, 0, 0, 0));
-                uploadLightData |= Replace(shadows, n, new Vector4(rule.SoftShadows ? rule.Softness : 0, rule.ConeFeather, 0, 0));
+                uploadLightData |= Replace(shadows, n, new Vector4(rule.SoftShadows ? rule.Softness : 0, rule.ConeFeather, returned.DiffuseFeatherWidth, 0));
                 uploadLightData |= Replace(directions, n, new Vector4(forward.x,-forward.y,rule.NearRange,rule.NearIntensity));
                 var linear = new Color(rule.Red,rule.Green,rule.Blue,1).linear;
                 uploadLightData |= Replace(colors, n, new Vector4(linear.r,linear.g,linear.b,rule.Intensity));

@@ -12,7 +12,7 @@ struct DNWallProfile
 };
 RWStructuredBuffer<DNWallProfile> _DNWallProfiles;
 RWStructuredBuffer<float> _DNWallNodes;
-float4 _DNLightBounce[16]; // Mode / Legacy strength / Corner radius
+float4 _DNLightBounce[16]; // Mode / Legacy strength / Corner radius / Occlusion rule (0 projected, 1 wall mask, 2 outward feather)
 float4 _DNDiffuseSettings[16]; // Gain / Near / Far / MaxReach
 float4 _DNDiffuseOptions[16]; // Spread / Probes / Shape / Match incident
 int _DNDiffuseBenchmark; // 开发 A1 四区间常量分布，不进入场景配置。
