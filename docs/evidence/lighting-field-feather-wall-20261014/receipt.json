@@ -1,0 +1,107 @@
+{
+  "state": "completed",
+  "renderer": "Unity URP / FlashlightPreviewStage / formal terrain and ExplorationLightField",
+  "map": "folded-expanded",
+  "wall": [
+    [
+      95,
+      61
+    ],
+    [
+      97,
+      60
+    ]
+  ],
+  "emitter_grid": [
+    95.04693,
+    59.557476
+  ],
+  "angle": -92.46796,
+  "width": 1.5,
+  "size": [
+    1024,
+    640
+  ],
+  "actor_grid": [
+    95.056076,
+    59.8451729
+  ],
+  "camera_grid": [
+    95.8,
+    63
+  ],
+  "seconds": 3.2052666999989,
+  "source_commit": "ab829f012b8768f0d6cb83ca4e5c6ebaada7035a",
+  "date": "2026-10-14",
+  "editor": {
+    "version": "6000.4.9f1",
+    "pid": 19848,
+    "pipeline": "URP"
+  },
+  "kind": "实际Unity离屏渲染，复用正式地形、材质、人物视觉和光照后端；不是Player或前台Game视图截图，也不是离线数值模拟。",
+  "images": [
+    {
+      "file": "wall-original-cut.png",
+      "bytes": 129683,
+      "sha256": "6de0d903b9cae261a7f6f661342ff0d4cd9db68613be15c72c611d5e06898104"
+    },
+    {
+      "file": "wall-complete-feather-1.5.png",
+      "bytes": 144331,
+      "sha256": "98da1b15e131fb103ae7daaaa4ac9cfa12c1d4fc79deca70f4841616914b53ff"
+    }
+  ],
+  "observations": [
+    "两侧空气切线均出现渐变，真实墙体轮廓保持可见。",
+    "羽化图可见条带，画质验收未通过；需继续核对滤波采样间隔及梯度连续性。"
+  ],
+  "validation": {
+    "specific_wall_capture": "completed",
+    "visual_acceptance": "not_passed_banding_visible",
+    "gpu_regression_tests_run": false,
+    "player_build": false,
+    "gpu_timings": false
+  },
+  "preflight": {
+    "state": "completed",
+    "samples": 1,
+    "peak_private_gib": 6.6598052978515625,
+    "minimum_free_ram_gib": 8.179023742675781,
+    "minimum_free_commit_gib": 3.0502357482910156,
+    "limits": {
+      "editor_private_gib": null,
+      "minimum_free_ram_gib": 1,
+      "minimum_free_commit_gib": 1
+    },
+    "read_only": true,
+    "ignore_commit_limit": false
+  },
+  "after_capture": {
+    "state": "completed",
+    "samples": 1,
+    "peak_private_gib": 6.99810791015625,
+    "minimum_free_ram_gib": 7.6820526123046875,
+    "minimum_free_commit_gib": 2.797008514404297,
+    "limits": {
+      "editor_private_gib": null,
+      "minimum_free_ram_gib": 1,
+      "minimum_free_commit_gib": 1
+    },
+    "read_only": true,
+    "ignore_commit_limit": false
+  },
+  "post_render_state": {
+    "playing": true,
+    "activeScene": "Assets/Scenes/Bootstrap.unity",
+    "sceneDirty": false,
+    "shaderMessages": [],
+    "temporaryCameras": [],
+    "definitionDirty": false
+  },
+  "first_cli_attempt": {
+    "file": "capture-wall.csx",
+    "result": "rejected_before_execution",
+    "reason": "eval_file requires .cs extension"
+  },
+  "artifacts": "artifacts/lighting-field-feather-wall-capture-20261014"
+}
