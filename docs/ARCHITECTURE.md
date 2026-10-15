@@ -98,4 +98,10 @@ YYLogger沿用General／Runner／Network／Gameplay通道。业务消息和横�
 
 保留Bootstrap、原Prefab、动画、场景布局、人工覆盖、GUID、规则来源和原始素材。专用资源归Res/Objects，共用归Res/Shared，Original与Custom分开。Addressables的条目／分组和物理目录分离；Debug Hub开发模板的既有Resources加载例外见其专项规范。
 
+### 效果资源归属
+
+2026-10-15用户要求效果目录归一。可复用／独立效果的Prefab、Definition、粒子材质及新制贴图统一在 `Res/Effects/<效果类别>`；Arrow、Floating、Command、Audio、Ballistic、Geology沿同一根目录。Geology的原生粒子为 `Geology/Debris.prefab`，对应事件Prefab、局部Definition及编辑标记归 `Geology/Event`，碎岩／尘雾／石粒纹理和材质就近保留一份。当前混合版的有限接触计算只在冻结配置时生成私有只读轨迹，最终轮廓推导同一前景的整格包络；View按权威时间采样，落地网格按实际占用位图裁切。效果不拥有地形、伤害、奖励或持续物理状态，整格保守包络不等于颗粒像素级碰撞。
+
+对象造型和作者原始美术／音频输入继续由原来源目录唯一保存，效果通过引用复用；不能为归一目录复制同份源文件。已有资产改归属使用AssetDatabase搬移并保留meta／GUID、Address及Definition身份，校对生成入口路径、嵌套Prefab和资产引用，不用初始化重建覆盖用户修改。
+
 仅指定空目录可执行首次初始化。框架修改、升级和补丁接入按AGENTS取得具体范围授权，逐文件记录[YYGC账本](YYGC_CHANGES.md)；不默认增加锁步、回滚、ECS、房主迁移或未经测量的拆流。

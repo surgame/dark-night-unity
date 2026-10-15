@@ -24,6 +24,7 @@ namespace DarkNights.Editor
     {
         public const string Art = "Assets/DarkNights/Res/Art/Custom/Handheld";
         public const string Root = "Assets/DarkNights/Res/Objects/Handheld";
+        public const string EffectRoot = "Assets/DarkNights/Res/Effects/Ballistic";
 
         public static void Install()
         {
@@ -134,6 +135,7 @@ namespace DarkNights.Editor
 
         private static void CreateBallistic(Material material)
         {
+            if (!AssetDatabase.IsValidFolder(EffectRoot)) AssetDatabase.CreateFolder("Assets/DarkNights/Res/Effects", "Ballistic");
             var root = new GameObject("Ballistic");
             try
             {
@@ -150,12 +152,12 @@ namespace DarkNights.Editor
                 SetArray(data, "explosion", Enumerable.Range(0, 4).Select(i => (UnityEngine.Object)ArtSprite("Explosion" + i)).ToArray());
                 data.ApplyModifiedPropertiesWithoutUndo();
                 owner.EditorSetBindings(new[] { new ViewComponentBinding("ballistic", effect) }, false); owner.ForceRefreshAllReferences();
-                string path = Root + "/Ballistic.prefab";
+                string path = EffectRoot + "/Ballistic.prefab";
                 PrefabUtility.SaveAsPrefabAsset(root, path);
                 var definition = ScriptableObject.CreateInstance<ObjectDefinition>();
                 definition.Name = "主角池化投射物"; definition.NetType = NetworkType.Local;
                 definition.PrefabRef = new AssetReferenceGameObject(AssetDatabase.AssetPathToGUID(path));
-                AssetDatabase.CreateAsset(definition, Root + "/Ballistic.asset");
+                AssetDatabase.CreateAsset(definition, EffectRoot + "/Ballistic.asset");
                 definition.EditorSetIdentity(DefinitionIdentityAuthoring.ReadAssetGuid(definition), "effect.ballistic", false);
                 EditorUtility.SetDirty(definition);
                 var database = AssetDatabase.LoadAssetAtPath<ObjectDefinitionDatabase>("Assets/Addressables/Datas/GlobalSO/ObjectDefinitionDatabase.asset");

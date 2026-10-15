@@ -12,15 +12,17 @@ namespace DarkNights.View.Terrain
     public sealed class TerrainReplicaSource : ITerrainInputSource
     {
         private readonly IReadOnlyGrid source;
+        private readonly Func<CellCoord, GridCell, GridCell> projectCell;
         private readonly Dictionary<ChunkCoord, ulong> fingerprints = new Dictionary<ChunkCoord, ulong>();
         private WorldDescriptor descriptor;
         private ulong inputGeneration = 1, lastSourceCommit, sourceSession, streamGeneration;
         private bool streamIdentityKnown, requiresFreshBaseline;
         public event Action<MapInputBatch> InputChanged;
 
-        public TerrainReplicaSource(IReadOnlyGrid source)
+        public TerrainReplicaSource(IReadOnlyGrid source, Func<CellCoord, GridCell, GridCell> projectCell = null)
         {
             this.source = source ?? throw new ArgumentNullException(nameof(source));
+            this.projectCell = projectCell;
             if (source is ChunkReplicaStateMachine state)
             {
                 descriptor = state.Descriptor; sourceSession = state.Session; streamGeneration = state.Generation;
@@ -112,7 +114,7 @@ namespace DarkNights.View.Terrain
                 if (!descriptor.Bounds.Contains(position)) continue;
                 if (!fingerprints.ContainsKey(GridMath.ChunkOf(position, descriptor.ChunkSize))) continue;
                 if (!source.Read(position).TryGetCell(out var value)) { RequestCompleteBaseline(transition.Commit); return; }
-                cells.Add(new MapInputCell(position, value));
+                cells.Add(new MapInputCell(position, Project(position, value)));
             }
             var snapshots = new List<MapInputChunk>(transition.SnapshotChunks.Count);
             foreach (var coordinate in transition.SnapshotChunks)
@@ -162,9 +164,13 @@ namespace DarkNights.View.Terrain
                 var position = new CellCoord(checked(coordinate.U * size + x), checked(coordinate.V * size + y));
                 if (!descriptor.Bounds.Contains(position)) continue;
                 if (!source.Read(position).TryGetCell(out cells[y * size + x])) { snapshot = null; return false; }
+                cells[y * size + x] = Project(position, cells[y * size + x]);
             }
             snapshot = new MapInputChunk(coordinate, cells); return true;
         }
+
+        // 可选投影只改变冻结表现输入；Unknown、提交身份及权威地图均不受影响。
+        private GridCell Project(CellCoord position, GridCell cell) => projectCell == null ? cell : projectCell(position, cell);
 
         private bool IsCompleteSnapshotSet(IReadOnlyList<MapInputChunk> snapshots)
         {

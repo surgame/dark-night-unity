@@ -23,6 +23,7 @@ namespace DarkNights.Runtime.Objects
         public ObjectInstance HeroObject => hero?.Object;
         public IReadOnlyList<GeologyEventBehaviour> Events => events.AsReadOnly();
         public bool Paused => World.Paused;
+        public double SimulationTime => World.Camp.Read().Elapsed;
 
         public GeologyLabSession(ObjectSession world, float spawnX, float spawnHeight)
         {

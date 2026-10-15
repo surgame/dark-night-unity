@@ -1,0 +1,121 @@
+{
+  "task": "CL02 mixed rubble actual Gameplay probe and manual handoff",
+  "date": "2026-10-15",
+  "status": "automatic validation ended at user request; remaining validation handed to human",
+  "authorizations": {
+    "memory_override": "无视内存限制直接测试",
+    "override_scope": "this CL02 batch only; telemetry recorded, both stop thresholds disabled without changing project rules",
+    "wrap_up": "可以收尾，列出剩余待验，剩下部分转人工验证。"
+  },
+  "identity": {
+    "implementation_evidence": "docs/evidence/cl02-mixed-unity-20261015.json",
+    "source_asset_hashes_matched": 70,
+    "unity": "6000.4.9f1",
+    "pid": 37720,
+    "test_scene": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/Validation/CL02Mixed-231710.unity",
+    "test_scene_copy_preserved": true,
+    "source_snapshot_backup": "artifacts/cl02-mixed-unity-20261015/CL02Mixed-231710.unity"
+  },
+  "passed_actual_gameplay": {
+    "event": "support mining trigger",
+    "report": "artifacts/cl02-mixed-unity-20261015/play-231727/result.json",
+    "result": {
+      "native_cave_ready": true,
+      "two_real_cave_fragments": true,
+      "nine_source_cells": true,
+      "real_mouse_pickaxe_trigger": true,
+      "pause_freezes_event_and_particles": true,
+      "ceiling_detaches_before_landing": true,
+      "settled_pile_on_authoritative_map": true,
+      "independent_fragments_visible": true,
+      "dust_and_chips_emitted": true,
+      "peak_dust": 69,
+      "peak_chips": 49,
+      "captured_fall_frames": 80,
+      "real_mouse_pickaxe_clears_rubble": true,
+      "particles_expire": true,
+      "error": null,
+      "completed": true,
+      "success": true,
+      "unity": "6000.4.9f1"
+    },
+    "gameview_pixels": [
+      1280,
+      720
+    ],
+    "fall_frames": 80,
+    "animation": "artifacts/cl02-mixed-unity-20261015/gameplay-support-collapse.gif",
+    "last_settled_screenshot_limitation": "final deferred screenshot raced with restored GameView size (1536x773); excluded from animation and visual acceptance"
+  },
+  "failures_preserved": {
+    "initial_start": "unsaved-scene guard cancelled first Play; later used saved copy, original draft retained",
+    "followup_attempts": [
+      {
+        "directory": "artifacts\\cl02-mixed-unity-20261015\\play-232422",
+        "result": {
+          "error": "System.InvalidOperationException: 当前不是GameplayLab。\r\n  at DarkNights.Editor.Terrain.GeologyPlayProbe.Run (System.Int32 eventIndex) [0x001f5] in D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\GeologyPlayProbe.cs:46 ",
+          "completed": true,
+          "success": false,
+          "unity": "6000.4.9f1"
+        }
+      },
+      {
+        "directory": "artifacts\\cl02-mixed-unity-20261015\\clearance-232505-0",
+        "result": {
+          "completed": true,
+          "success": false,
+          "error": "System.InvalidOperationException: Settled event required for full clearance.\r\n  at PipelineEvaluation.PipelineEval_4c6ff2c4+<>c__DisplayClass0_0.<Execute>b__0 () [0x001ef] in <d84c4ebee9974eae907f485ec7d7ab31>:0 "
+        }
+      }
+    ],
+    "interpretation": "repeat probe did not find the active initialized scene at startup; full clearance prerequisite then failed. No whole-pile clearance or region-trigger pass is claimed.",
+    "unexpected_play_exit": "Play was found stopped between the first probe and added clearance; cause not established, no crash or memory threshold stop was recorded"
+  },
+  "manual_remaining": [
+    "second cave fragment: real keyboard entry trigger, warning and complete fall/settlement",
+    "whole pile: actual obstruction before mining, all23/24 regions cleared, real movement through afterward",
+    "collision at outer edges and transparent gaps; pickaxe targeting and visual removal; floating upper fragments after lower regions mined",
+    "human visual review in actual camera: large/medium/small scale, wall palette, falling rhythm, dust/chips and weight",
+    "pause/resume during fall and landing; actor occupancy wait/8-second timeout; changed source/path, safe retirement and no repeated trigger",
+    "after user resolves original draft: save/reopen scene and check both event/prefab/particle bindings"
+  ],
+  "not_implemented_or_integrated": [
+    "actual damage/death rules",
+    "formal cave event placement",
+    "network synchronization and save/recovery for events"
+  ],
+  "restored_editor": {
+    "playing": false,
+    "original": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/GameplayLab.unity",
+    "originalStillUnsaved": true,
+    "sceneCount": 1,
+    "closedCopies": [
+      "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/Validation/CL02Mixed-231710.unity"
+    ],
+    "temporaryInputDevices": [],
+    "draftSpawn": 784.0,
+    "closed_path_source": "play-copy.json; original close receipt sampled Scene.path after invalidation"
+  },
+  "memory": {
+    "state": "completed",
+    "samples": 763,
+    "peak_private_gib": 5.206878662109375,
+    "minimum_free_ram_gib": 6.0259246826171875,
+    "minimum_free_commit_gib": 4.97113037109375,
+    "limits": {
+      "editor_private_gib": null,
+      "minimum_free_ram_gib": 0,
+      "minimum_free_commit_gib": 0
+    },
+    "read_only": false,
+    "ignore_commit_limit": true
+  },
+  "preservation": {
+    "original_scene_unsaved": true,
+    "temporary_input_devices": [],
+    "background_monitor_stopped": true,
+    "test_copy_saved_and_closed": true,
+    "cleanup": "none; all failures and outputs retained",
+    "automatic_tests_player_build_after_wrap_up": false
+  }
+}

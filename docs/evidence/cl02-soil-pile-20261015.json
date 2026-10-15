@@ -1,0 +1,396 @@
+{
+  "task": "CL-02 soil pile revision after user rejected native wall-block landing",
+  "date": "2026-10-15",
+  "unity": "6000.4.9f1",
+  "editor_pid": 37720,
+  "branch": "fix-20261015-collapse-gravity-pile",
+  "base_head": "dcc88d8c2edd2c721c643a203326985e7ab16876",
+  "scope": "existing GameplayLab cave fragments; native soil pile appearance and matching slope collision; offline only",
+  "design": {
+    "texture_pixels": [
+      80,
+      48
+    ],
+    "method": "deterministic native pixel texture, continuous soil with sparse pebbles; no internal tile borders",
+    "actual_pile_pixels": [
+      80,
+      40
+    ],
+    "regions_by_row": [
+      5,
+      3,
+      1
+    ],
+    "shapes": [
+      "Rise",
+      "Full",
+      "Full",
+      "Full",
+      "Fall",
+      "Rise",
+      "Full",
+      "Fall",
+      "RiseLow"
+    ],
+    "authority": "same TerrainMapAuthority durability and collision; no second writable map",
+    "presentation": "frozen occupied mask; optional terrain presentation projection suppresses event-owned wall art only",
+    "clearing": "existing pickaxe; shape and mask follow actual cells",
+    "secondary_settlement": false,
+    "hard_uncrossable_wall_guarantee": false
+  },
+  "compilation": {
+    "success": true,
+    "command": "recompile",
+    "data": {
+      "status": "completed",
+      "compiling": false,
+      "failed": false,
+      "compilationFailed": null,
+      "errors": [],
+      "warnings": [],
+      "summary": {
+        "errors": 0,
+        "warnings": 0
+      }
+    }
+  },
+  "resource_inspection": {
+    "saved_prefab_reopened": true,
+    "stopped": true,
+    "scene": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/GameplayLab.unity",
+    "existing_scene_unsaved": true,
+    "native_scene_bindings": true,
+    "event_prefab_guid": "4175fdeddc8e33b4592138d4aad2caa7",
+    "soil_prefab_guid": "76f701a3c2984204ea97c5adf69c3019",
+    "initial_pile_hidden": true,
+    "native_mesh": "Assets/DarkNights/Res/Effects/Geology/SoilPreview.asset",
+    "mesh_vertices": 736,
+    "actual_width_pixels": 80.0,
+    "actual_height_pixels": 40.0,
+    "texture_path": "Assets/DarkNights/Res/Effects/Geology/Soil.png",
+    "texture_width": 80,
+    "texture_height": 48,
+    "filter": "Point",
+    "compression": "Uncompressed",
+    "mipmaps": false,
+    "material_shader": "Universal Render Pipeline/2D/Sprite-Unlit-Default",
+    "dependencies": [
+      "Assets/DarkNights/Res/Effects/Geology/Chip.png",
+      "Assets/DarkNights/Res/Effects/Geology/Rock3.png",
+      "Assets/DarkNights/Res/Effects/Geology/SoilPreview.asset",
+      "Assets/DarkNights/Res/Effects/Geology/Soil.png",
+      "Assets/DarkNights/Res/Effects/Geology/Dust.mat",
+      "Assets/DarkNights/Res/Effects/Geology/Dust.png",
+      "Assets/DarkNights/Res/Effects/Geology/Soil.mat",
+      "Assets/DarkNights/Res/Effects/Geology/Event/CellMarker.png",
+      "Assets/DarkNights/Res/Effects/Geology/Debris.prefab",
+      "Assets/DarkNights/Res/Effects/Geology/RubblePile.prefab",
+      "Assets/DarkNights/Res/Effects/Geology/Rock0.png",
+      "Assets/DarkNights/Res/Effects/Geology/Chips.mat",
+      "Assets/DarkNights/Res/Effects/Geology/Rock1.png",
+      "Assets/DarkNights/Res/Effects/Geology/Rock2.png",
+      "Assets/DarkNights/Res/Effects/Geology/Event/GeologyEvent.prefab"
+    ],
+    "limitations": "resource inspection only; no Play, tests, scene save/reopen, Player or multiplayer"
+  },
+  "preview": {
+    "path": "artifacts/cl02-collapse-20261015/soil-asset-preview-v3.png",
+    "kind": "isolated native prefab resource preview; NOT gameplay screenshot",
+    "earlier_previews_preserved": [
+      "soil-asset-preview.png",
+      "soil-asset-preview-v2.png"
+    ],
+    "note": "first square crest rejected; derived mesh GPU buffer updated explicitly for final preview"
+  },
+  "memory": {
+    "preflight": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.882080078125,
+      "minimum_free_ram_gib": 9.15960693359375,
+      "minimum_free_commit_gib": 8.768081665039062,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": true,
+      "ignore_commit_limit": false
+    },
+    "previous_breach_preserved": "artifacts/cl02-collapse-20261015/memory-monitor/breach.json",
+    "no_new_play_or_test_batch": true
+  },
+  "validation": {
+    "compile": "passed",
+    "native_prefab_reopen": "passed",
+    "resource_preview_inspected": true,
+    "meta_completeness_and_unique_geology_guids": true,
+    "source_line_cap": true,
+    "scene_save_reopen": "not performed; existing unsaved scene preserved",
+    "gameplay_play": "not run for soil revision; previous memory gate",
+    "tests": "existing geometry and transaction assertions updated and compiled; not run",
+    "player_multiplayer": "not run"
+  },
+  "previous_candidate": {
+    "evidence": "docs/evidence/cl02-collapse-experience-20261015.json",
+    "warning": "previous Play recordings and intermediate 10/10 tests do not validate this soil revision"
+  },
+  "remaining": [
+    "both triggers in actual GameplayLab",
+    "slope movement, jump over and blockage feel",
+    "partial and full pickaxe clearance; mask and wall projection agreement",
+    "soil-to-floor edge and lighting occlusion",
+    "scene save/reopen after user resolves existing unsaved edits",
+    "secondary settlement after lower regions mined is not implemented",
+    "formal maps, damage, multiplayer, restore and noise remain out of scope"
+  ],
+  "sources": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/GeologyEventViewData.cs",
+      "bytes": 649,
+      "sha256": "148d09815f5afb33d496765e3436852956db173d4685d2d76901fa7b53781db2"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventConfig.cs",
+      "bytes": 4187,
+      "sha256": "64fadb7afc77a3c2e0ecc8bc3aebf116bbc88ebe7b0d405ec5fef60bf7a365b2"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventBehaviour.cs",
+      "bytes": 6514,
+      "sha256": "48dc27e626a1f7f76bf864411e2c2a9d62575c75d99b456335fcc8c7d0067663"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/GeologyLanding.cs",
+      "bytes": 5628,
+      "sha256": "fae96b0e77a6ebc6db296f770025859a8fd5034aed3b51d829faacc2f3ebaf9b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainMapAuthority.cs",
+      "bytes": 14243,
+      "sha256": "89b2816d1639ff747e1c0b28f492e582f23dbaf62244dd098424efaf98e0cdf3"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEntry.cs",
+      "bytes": 10941,
+      "sha256": "a5f76577aca16ccc91c44a1ddc890e7f1f79199f05178d9f96edd36ac7707c07"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainReplicaSource.cs",
+      "bytes": 12016,
+      "sha256": "295b1d433259de7f97affecb317e336967c6f61ae91ffb76df656b316316b629"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/GeologyEventView.cs",
+      "bytes": 3569,
+      "sha256": "46d385052dace8d7612ed1ac064ab3ddc43be44132daaa58281bbdd6339da466"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/GeologyPileView.cs",
+      "bytes": 5702,
+      "sha256": "80247fc441c9d9b6718964149f3c74898d796a1bdbb7007356e1042e97ff10ac"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologySoilAssets.cs",
+      "bytes": 6223,
+      "sha256": "40fe4efefc0689d10278fa588f5f5c9cb8ac7f35e0c7cc89abd9d6c8f030d054"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyCollapseAssets.cs",
+      "bytes": 7866,
+      "sha256": "0607a05a76b16b65e91a9ba0f512b110b1d33ab44921052f711e17b504f43db6"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/GeologyMotionTests.cs",
+      "bytes": 2604,
+      "sha256": "b72809a389a21f53d548b0481b75800fc76b87b2afa3c55454cd5977c33edca0"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/GeologyEventTests.cs",
+      "bytes": 7796,
+      "sha256": "6ab7d0fe96ccfe3290b1b671d1d2b1456f198a0d9788a96f4d65fe1dd292cf0b"
+    }
+  ],
+  "geology_assets": [
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Chip.png",
+      "bytes": 84,
+      "sha256": "bb416e6cfe08a7f3e35257c8935016d4905ddb3e665dc139a0b7d558925c5c7c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Chip.png.meta",
+      "bytes": 3234,
+      "sha256": "79384b2a688791bdfb3820338211fffb5d557ac160c3aef043f47eaa554cb3c0"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Chips.mat",
+      "bytes": 2650,
+      "sha256": "8594d6fa949ab09a4ebd948215360a2fffe0791aafd267302f2b3089ea4caa09"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Chips.mat.meta",
+      "bytes": 188,
+      "sha256": "58dcf0be389faae8fde25f3d2d48847413fd900800168781efd2023600edd531"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Debris.prefab",
+      "bytes": 235677,
+      "sha256": "22e585cd5f9f5f111302629e23415fb64c2af0fa971e7ef7da166b3c69e4ecb7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Debris.prefab.meta",
+      "bytes": 154,
+      "sha256": "3550f208f1bdc1f98a8b7e978242ff1eaf5a998a4decd4f1edd333e9c0bc2b46"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Dust.mat",
+      "bytes": 2649,
+      "sha256": "009ad7820bf6e716c04dd2a8067d2249471030e162d23c24fe708a0123e52865"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Dust.mat.meta",
+      "bytes": 188,
+      "sha256": "b8c7a5272d0bb54347bb6ea1cd4035f1bf5c97bc6f71fbdb06d1a3b3d08ee46c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Dust.png",
+      "bytes": 198,
+      "sha256": "602712fda0ec503c3c1e03130db4beca39dce8485f114259473df3bbe2b2ba76"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Dust.png.meta",
+      "bytes": 3233,
+      "sha256": "bf3915d0105a39b74fb07643ac70950d6cc951d6e56c21e2f99f2ea8eac439df"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Event/CellMarker.png",
+      "bytes": 91,
+      "sha256": "db993f2d24618c82972fb8a7bc2c85a44cc6c2f8c34609ca0af3a0e4c34c15a7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Event/CellMarker.png.meta",
+      "bytes": 3251,
+      "sha256": "0f58ff5e3c1e9f0d8928b83db38fd1466dc5f5db9087d2e1038feeb74d8dc167"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Event/GeologyEvent.prefab",
+      "bytes": 76470,
+      "sha256": "e00f6c4d5483d5a3a4f286d10fd4207a502128149a10cd8435ea65f1ad338200"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Event/GeologyEvent.prefab.meta",
+      "bytes": 154,
+      "sha256": "255b363ee491eb8a6070eeb479c77fc30288ed52cb31d3379d3ebef6de2f490f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Event/RegionRockfall.asset",
+      "bytes": 1703,
+      "sha256": "867c6f2907cf069d1f2fc0c8fc6b2aa3fc5e3fc57861f9b20dc94d453dde7eac"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Event/RegionRockfall.asset.meta",
+      "bytes": 189,
+      "sha256": "8f6d40dd2fcc0387ffc099852f2de52f0602029cd578e3b655a1bd54d0e04fac"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Event/SupportCollapse.asset",
+      "bytes": 1707,
+      "sha256": "7f71a5a511661ad1926c72a5a819d6c5e0c32e6fe8db3b7f1a8649766af36b07"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Event/SupportCollapse.asset.meta",
+      "bytes": 189,
+      "sha256": "47f615309780e4170607d911ccbd04ec4e7a08a2b2a86b657445ec1db6db096d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Event.meta",
+      "bytes": 172,
+      "sha256": "5ab329a1c062f8bec73cbdc8b34f82347c6d8782385a495c898beca44dd87750"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Rock0.png",
+      "bytes": 303,
+      "sha256": "e6950cac05e0a59b6bc4dc8aa415459b10adb7a66834a3a79ca3e2d491da90dd"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Rock0.png.meta",
+      "bytes": 3236,
+      "sha256": "0edb0b9cd8312de5de665b965f4ab0f7b86c7b90a418fd21e5c560d0d0ec7281"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Rock1.png",
+      "bytes": 314,
+      "sha256": "4fb3ae7c409307d4e3c22dac48ce5b1de8424f468e15bc8654f4bb3b1e5e3d0d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Rock1.png.meta",
+      "bytes": 3236,
+      "sha256": "f88161cda398b06a098acb73de95454d99e90608ad11fd1ad4e051e62027a0e9"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Rock2.png",
+      "bytes": 330,
+      "sha256": "7fb36221506b9fdf380fa7069f35ad838ffa6f01a968c217fcbdae7a2d888d46"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Rock2.png.meta",
+      "bytes": 3239,
+      "sha256": "7b7609a3a46c47594f9007972564d20580ad2448de5bf8aa80354125115261d8"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Rock3.png",
+      "bytes": 301,
+      "sha256": "b23682e213d1844a84360de892d7e9b5530b22bd96447d4d4b545b2d229d1cd4"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Rock3.png.meta",
+      "bytes": 3236,
+      "sha256": "2cab2a5f28609e894eaf7efcd760e8c626e94b0ce1e0b10a705ffb5b588fbdc5"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/RubblePile.prefab",
+      "bytes": 3199,
+      "sha256": "fd15e51a4ee65b415f0324b1fefede99513d8c6d9fc2347e00223796d8a884b6"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/RubblePile.prefab.meta",
+      "bytes": 154,
+      "sha256": "f5686cce149d5634691de10234b8cbef4fb7fc456554aa3a5af9e6d8f3a9ed80"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Soil.mat",
+      "bytes": 1164,
+      "sha256": "b2010b7edee5dcd6eee5c5e28bde770db5c0813617578a41b2ecfed1383dd749"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Soil.mat.meta",
+      "bytes": 188,
+      "sha256": "5aec11b23ce9b737a9803591ea3d14ccce931f27c0cfa1e79b631b56edf6efd7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Soil.png",
+      "bytes": 5470,
+      "sha256": "c73fa888f2919931b8f9ad2857a05e2832edc9ef9504cca74f3345813340d4a3"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/Soil.png.meta",
+      "bytes": 3233,
+      "sha256": "34226c5442c336765dca578710e1bb2ff2744a185929111e122205943dde9a03"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/SoilPreview.asset",
+      "bytes": 43182,
+      "sha256": "574b5147536d390be24b38b88553248566366e14a81b80f807d4544a3237f8bc"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Effects/Geology/SoilPreview.asset.meta",
+      "bytes": 188,
+      "sha256": "fbd64a57e6c292a7cf61a96731c297a8fc533d7a0c9d671db259ab4f62496975"
+    }
+  ],
+  "artifacts": {
+    "files": 176,
+    "bytes": 27363525,
+    "cleanup": "none"
+  }
+}

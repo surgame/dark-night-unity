@@ -21,7 +21,7 @@ namespace DarkNights.Editor.Terrain
             labelRect.offsetMin = new Vector2(20, 10); labelRect.offsetMax = new Vector2(-20, -10);
             var text = label.GetComponent<UnityEngine.UI.Text>(); text.font = AssetDatabase.LoadAssetAtPath<Font>(NativeUiSetup.Root + "/Shared/UIFont.fontsettings");
             text.fontSize = 20; text.color = new Color(.92f, .94f, .96f); text.raycastTarget = false;
-            text.text = "场景功能开发 · 地质事件\n左：挖断黄色支撑岩触发；右：进入橙色区域触发。\n前兆后避让；落地后用矿镐清障。基础跳跃可越过一格瓦砾。\n移动／跳跃／左键沿用正式改键，Esc暂停，重新Play重置。";
+            text.text = "矿洞局部塌方\n挖断支撑岩／进入触发区；避让坠石，落地后用矿镐清障。\n移动／跳跃／左键沿用正式改键，Esc暂停，重新Play重置。";
             return text;
         }
     }

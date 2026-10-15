@@ -1,0 +1,110 @@
+{
+  "task": "CL02 iterative particle design: larger rocks, 60 percent reduction, square shape, then mixed sizes with wall palette",
+  "date": "2026-10-15",
+  "status": "mixed concept complete for user review; no new Unity implementation",
+  "iterations": [
+    "four initial particle concepts",
+    "larger irregular heavy blocks; user found too large",
+    "heavy dimensions reduced by 60 percent to 40 percent, square and irregular comparison; user said effect good",
+    "current request: combine large/small particles and previous motion layers; closer wall colors"
+  ],
+  "current": {
+    "fragment": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13f6e-8b1d-73f1-b99e-b65e18d61b10\\collapse-mixed-rocks.html",
+    "bytes": 360509,
+    "sha256": "0cc51d94b5822a1ab86b90a9f41ae2395a88680a8d34fa2da5a052e38e84c551",
+    "default_composition": "mixed",
+    "same_palette_control": "square only",
+    "sizes_preview_pixels": {
+      "large": {
+        "count": 4,
+        "range": [
+          18,
+          22
+        ]
+      },
+      "medium": {
+        "count": 12,
+        "range": [
+          9,
+          15
+        ]
+      },
+      "small": {
+        "count": 10,
+        "range": [
+          4,
+          8
+        ]
+      },
+      "fine_grains": {
+        "count": 72,
+        "range": [
+          1,
+          3
+        ]
+      }
+    },
+    "shape": "mostly square with some angular irregular clods",
+    "collision": "independent bounded rigid particle approximation; rotated box contact for square pairs",
+    "formation": "no prescribed triangle or filled mound silhouette; particles collide, roll and settle",
+    "layers": [
+      "precursor shedding",
+      "staggered lateral ceiling segments",
+      "larger blocks with fine soil stream",
+      "impact chips and ground dust"
+    ],
+    "palette": {
+      "reference": "existing cave wall and lit floor pixels",
+      "sample_median_rgb": [
+        56,
+        39,
+        22
+      ],
+      "sample_lit_rgb": [
+        83,
+        60,
+        35
+      ],
+      "rock": [
+        "#584027",
+        "#4e3822",
+        "#62482d",
+        "#47331f"
+      ],
+      "dust": "#725536"
+    }
+  },
+  "verification": {
+    "report": "artifacts/cl02-heavy-rocks-20261015/mixed-browser-verification.json",
+    "compositions": 2,
+    "widths": [
+      320,
+      360,
+      736
+    ],
+    "play_pause_scrub_switch": true,
+    "browser_errors": [],
+    "choice_state_and_followup": "local stub only; no actual user choice or external message sent",
+    "native_sources_and_assets_unchanged": 48,
+    "native_mismatches": []
+  },
+  "scope": {
+    "background": "prior GameView still as context; all motion is concept simulation",
+    "unity_commands": false,
+    "play_tests_build": false,
+    "unsaved_scene": "untouched",
+    "damage_death_rules": "not implemented by visual wording",
+    "next": "user review; selected Unity effects to stay under Res/Effects/Geology"
+  },
+  "preserved_fragments": [
+    "collapse-particle-options.html",
+    "collapse-heavy-rocks.html",
+    "collapse-square-rocks.html"
+  ],
+  "artifacts": {
+    "directory": "artifacts/cl02-heavy-rocks-20261015",
+    "current_screenshots": "mixed-preview-*.png",
+    "earlier_square_named_screenshots": "temporary render captures reused for wall-color control; original square fragment and original browser report retained",
+    "cleanup": "none"
+  }
+}

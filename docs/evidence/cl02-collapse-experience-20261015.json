@@ -1,0 +1,274 @@
+{
+  "task": "CL-02 collapse gravity, rubble and particles in existing authored cave fragments",
+  "date": "2026-10-15",
+  "branch": "fix-20261015-collapse-gravity-pile",
+  "base_head": "dcc88d8c2edd2c721c643a203326985e7ab16876",
+  "unity": "6000.4.9f1",
+  "editor_pid": 37720,
+  "scope": "GameplayLab derives two existing mine-map baseline fragments; formal five maps unchanged; offline only",
+  "design": {
+    "source_cells": 9,
+    "source_shape": [
+      3,
+      3
+    ],
+    "rubble_rows": [
+      5,
+      3,
+      1
+    ],
+    "gravity_pixels_per_second_squared": 320,
+    "stagger_seconds": 0.045,
+    "textures": {
+      "rock": [
+        16,
+        16
+      ],
+      "dust": [
+        12,
+        12
+      ],
+      "chip": [
+        2,
+        2
+      ]
+    },
+    "texture_method": "deterministic native pixel drawing; no source art overwritten",
+    "texture_filter": "Point",
+    "particles_per_system_limit": 256,
+    "particle_systems_per_event": 2,
+    "damage": false,
+    "secondary_rubble_settlement_after_mining": false
+  },
+  "play": {
+    "support": {
+      "path": "artifacts/cl02-collapse-20261015/play-203747/result.json",
+      "result": {
+        "native_cave_ready": true,
+        "two_real_cave_fragments": true,
+        "nine_source_cells": true,
+        "real_mouse_pickaxe_trigger": true,
+        "pause_freezes_event_and_particles": true,
+        "ceiling_detaches_before_landing": true,
+        "nine_cell_pile_on_authoritative_map": true,
+        "independent_fragments_visible": true,
+        "dust_and_chips_emitted": true,
+        "peak_dust": 70,
+        "peak_chips": 49,
+        "captured_fall_frames": 34,
+        "real_mouse_pickaxe_clears_rubble": true,
+        "particles_expire": true,
+        "error": null,
+        "completed": true,
+        "success": true,
+        "unity": "6000.4.9f1"
+      },
+      "resolution": [
+        1536,
+        773
+      ],
+      "pixel_warning": "odd GameView resolution shown in first recording"
+    },
+    "region": {
+      "path": "artifacts/cl02-collapse-20261015/play-204156/result.json",
+      "result": {
+        "native_cave_ready": true,
+        "two_real_cave_fragments": true,
+        "nine_source_cells": true,
+        "real_keyboard_region_trigger": true,
+        "pause_freezes_event_and_particles": true,
+        "ceiling_detaches_before_landing": true,
+        "nine_cell_pile_on_authoritative_map": true,
+        "independent_fragments_visible": true,
+        "dust_and_chips_emitted": true,
+        "peak_dust": 70,
+        "peak_chips": 49,
+        "captured_fall_frames": 31,
+        "real_mouse_pickaxe_clears_rubble": true,
+        "particles_expire": true,
+        "error": null,
+        "completed": true,
+        "success": true,
+        "unity": "6000.4.9f1"
+      },
+      "resolution": [
+        1280,
+        720
+      ]
+    },
+    "gif": "artifacts/cl02-collapse-20261015/collapse-play.gif",
+    "notes": [
+      "Real mouse attack and real keyboard movement use existing GameInputActions.",
+      "Each scene run checks one actual pickaxe-cleared rubble cell; full nine-cell clearing covered by intermediate Editor regression.",
+      "Final Runtime behavior was exercised; subsequent changes were Editor asset path changes, relocation and restoration of test spawn.",
+      "Screenshots and GIF are from actual GameView, not a separate offscreen visual model."
+    ]
+  },
+  "compilation": {
+    "path": "artifacts/cl02-collapse-20261015/compile-final.json",
+    "errors": 0,
+    "warnings": 0
+  },
+  "editor_regression": {
+    "summary": {
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "inconclusive": 0
+    },
+    "path": "artifacts/cl02-collapse-20261015/tests-result-2-final.json",
+    "identity_boundary": "Intermediate candidate; not rerun after final trajectory clearance/path changes and asset relocation. Initial fixture failures retained."
+  },
+  "memory": {
+    "monitor_result": {
+      "state": "breach",
+      "samples": 711,
+      "peak_private_gib": 4.590526580810547,
+      "minimum_free_ram_gib": 7.0339202880859375,
+      "minimum_free_commit_gib": 0.8695602416992188,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": false,
+      "ignore_commit_limit": false
+    },
+    "breach": {
+      "utc": "2026-10-15T12:30:34.231252+00:00",
+      "pid": 37720,
+      "private_gib": 4.314510345458984,
+      "working_gib": 2.8499183654785156,
+      "free_ram_gib": 7.0339202880859375,
+      "free_commit_gib": 0.8695602416992188
+    },
+    "later_play_preflights": [
+      "artifacts/cl02-collapse-20261015/memory-play-3/summary.json",
+      "artifacts/cl02-collapse-20261015/memory-play-region/summary.json"
+    ],
+    "execution_deviation": "Monitor breach was not read promptly; subsequent Play batches followed recovered one-shot preflights. This does not count as continuous monitor acceptance. On discovery, Play was stopped and no further runtime/test batches were run."
+  },
+  "effects_root": "Game/Assets/DarkNights/Res/Effects",
+  "moves": [
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\GeologyEventLab",
+      "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Effects\\Geology\\Event",
+      "guid": "477ebc1b19ae25d4087e1f8c3a613596",
+      "files": 8,
+      "bytes_unchanged": true
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Handheld\\Ballistic.prefab",
+      "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Effects\\Ballistic\\Ballistic.prefab",
+      "guid": "6658e6194affc3248b530bfc49ce5534",
+      "files": 1,
+      "bytes_unchanged": true
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Handheld\\Ballistic.asset",
+      "target": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Effects\\Ballistic\\Ballistic.asset",
+      "guid": "97d3f45214541724481f11bbb0ad90a1",
+      "files": 1,
+      "bytes_unchanged": true
+    }
+  ],
+  "final_references": {
+    "playing": false,
+    "compiling": false,
+    "failed": false,
+    "scene": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/GameplayLab.unity",
+    "dirty": false,
+    "spawn": 784.0,
+    "blocks": 129,
+    "fragments": 24,
+    "dust": true,
+    "chips": true,
+    "eventPaths": [
+      "Assets/DarkNights/Res/Effects/Geology/Event/SupportCollapse.asset",
+      "Assets/DarkNights/Res/Effects/Geology/Event/RegionRockfall.asset"
+    ],
+    "ballistic": true,
+    "effects": [
+      "Assets/DarkNights/Res/Effects/Geology/Chip.png",
+      "Assets/DarkNights/Res/Effects/Geology/Rock3.png",
+      "Assets/DarkNights/Res/Effects/Geology/Dust.mat",
+      "Assets/DarkNights/Res/Effects/Geology/Dust.png",
+      "Assets/DarkNights/Res/Effects/Geology/Event/CellMarker.png",
+      "Assets/DarkNights/Res/Effects/Geology/Debris.prefab",
+      "Assets/DarkNights/Res/Effects/Geology/Chips.mat",
+      "Assets/DarkNights/Res/Effects/Geology/Rock0.png",
+      "Assets/DarkNights/Res/Effects/Geology/Rock1.png",
+      "Assets/DarkNights/Res/Effects/Geology/Rock2.png",
+      "Assets/DarkNights/Res/Effects/Geology/Event/GeologyEvent.prefab"
+    ],
+    "saved": true
+  },
+  "protected": [
+    "Existing dirty generated IStateData source left unowned",
+    "Concurrent CL-04 assets and shared ledger row preserved",
+    "No YYGC or dependency lock modifications",
+    "No formal map edits",
+    "No user save access or deletion"
+  ],
+  "remaining": [
+    "Full candidate regression after resource relocation, with fresh memory gate and active monitoring",
+    "Full rubble clearing and return route in final scene identity",
+    "Secondary settlement after digging lower rubble cells",
+    "Formal map integration, damage, noise budget, networking and save/recovery",
+    "User visual review; CL stage remains active"
+  ],
+  "file_sha256": {
+    "Game/Assets/DarkNights/Scripts/Editor/HandheldContentSetup.cs": "6fd2f03e85b28b6a424a3f750581955e1dd384b0cc28681e37b3dc9cf969f9ec",
+    "Game/Assets/DarkNights/Scripts/Tests/GeologyEventFixture.cs": "2c038cc7e1463467e8dd4a8c500d2ff17b7961313012bb05d7f04c208880a9f7",
+    "Game/Assets/DarkNights/Scripts/Tests/GeologyEventTests.cs": "1bd050dc812a5273768e5c12c8579db7dd015e36f6b15ecbbcf3fa028121a632",
+    "Game/Assets/DarkNights/Scripts/Tests/GeologyMotionTests.cs": "cfa2e541eaf119b3e4ce9371dba7f877809d5fdbe9b386f068fe1dbcf7dd9423",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/GeologyDebrisView.cs": "58f04026a86d3d0cbfe1d86c3f19cd39efa0f14b0a1edce556332805c39ddec5",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/GeologyEventView.cs": "8509325e014082700cd79d43f57b45376f766f65ee5c9335cd25ae45b508b222",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventBehaviour.cs": "6a6c36f7cae8fe0065f7df4be640059ef088698b1dd63d08e945adad63c51e87",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventConfig.cs": "264947e68b45c789416b3ae480a8dab00b31b2a12cbd73d2ef53828d521fcab9",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyLabSession.cs": "c763c0b2c1628103190a2101feab603c21907e234bf560774f8a3d92047b7301",
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/GeologyLanding.cs": "b2d74715149e241f2b54a46b4e5dd17beaddab645ccb884daaeba0d0f956483e",
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEntry.cs": "2dd2c529579d996fe5cde0c189c83cd90c7c42551c5a3a3dd03e2fb20a5a0467",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyCaveSceneSetup.cs": "ec18d337cbd6fd4d604910e19a1d25f8d29273752c0b742541adde3f2d40b7dc",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyCollapseAssets.cs": "9ca6c116cfb377102d0c3ddb846f6943ef62d19ab15a0d588406e76ed986c91f",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabAssets.cs": "36219205fc67aafce729e1f95bdcbc3c146f2e2a1fba5c5492e1063af6f7455b",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabSetup.cs": "01733eecfb47f20811c81c9d88c666b0e77d34ebab42c6decb2b928c6c412c58",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabUi.cs": "baf699a783036d8a2a86e49960752e9d4eef6e95007143bb401b95f0b124b0d0",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyPlayProbe.cs": "a9293c620ec9b50c58948aab27d86c635177d91b5a4b978f79ea0854020a3994",
+    "Game/Assets/DarkNights/Scripts/Core/ViewData/FallingRockViewData.cs": "4877b9449d66c9cbad479313d4ac8e597867a958c6b09760a05066ea48d9e6a8",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Chip.png": "bb416e6cfe08a7f3e35257c8935016d4905ddb3e665dc139a0b7d558925c5c7c",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Chip.png.meta": "79384b2a688791bdfb3820338211fffb5d557ac160c3aef043f47eaa554cb3c0",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Chips.mat": "8594d6fa949ab09a4ebd948215360a2fffe0791aafd267302f2b3089ea4caa09",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Chips.mat.meta": "58dcf0be389faae8fde25f3d2d48847413fd900800168781efd2023600edd531",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Debris.prefab": "22e585cd5f9f5f111302629e23415fb64c2af0fa971e7ef7da166b3c69e4ecb7",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Debris.prefab.meta": "3550f208f1bdc1f98a8b7e978242ff1eaf5a998a4decd4f1edd333e9c0bc2b46",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Dust.mat": "009ad7820bf6e716c04dd2a8067d2249471030e162d23c24fe708a0123e52865",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Dust.mat.meta": "b8c7a5272d0bb54347bb6ea1cd4035f1bf5c97bc6f71fbdb06d1a3b3d08ee46c",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Dust.png": "602712fda0ec503c3c1e03130db4beca39dce8485f114259473df3bbe2b2ba76",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Dust.png.meta": "bf3915d0105a39b74fb07643ac70950d6cc951d6e56c21e2f99f2ea8eac439df",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event.meta": "5ab329a1c062f8bec73cbdc8b34f82347c6d8782385a495c898beca44dd87750",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Rock0.png": "e6950cac05e0a59b6bc4dc8aa415459b10adb7a66834a3a79ca3e2d491da90dd",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Rock0.png.meta": "0edb0b9cd8312de5de665b965f4ab0f7b86c7b90a418fd21e5c560d0d0ec7281",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Rock1.png": "4fb3ae7c409307d4e3c22dac48ce5b1de8424f468e15bc8654f4bb3b1e5e3d0d",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Rock1.png.meta": "f88161cda398b06a098acb73de95454d99e90608ad11fd1ad4e051e62027a0e9",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Rock2.png": "7fb36221506b9fdf380fa7069f35ad838ffa6f01a968c217fcbdae7a2d888d46",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Rock2.png.meta": "7b7609a3a46c47594f9007972564d20580ad2448de5bf8aa80354125115261d8",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Rock3.png": "b23682e213d1844a84360de892d7e9b5530b22bd96447d4d4b545b2d229d1cd4",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Rock3.png.meta": "2cab2a5f28609e894eaf7efcd760e8c626e94b0ce1e0b10a705ffb5b588fbdc5",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/CellMarker.png": "db993f2d24618c82972fb8a7bc2c85a44cc6c2f8c34609ca0af3a0e4c34c15a7",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/CellMarker.png.meta": "0f58ff5e3c1e9f0d8928b83db38fd1466dc5f5db9087d2e1038feeb74d8dc167",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/GeologyEvent.prefab": "664fcd94c59664ff096847b63f03aae1540cfe3d59dd2c1484f476ef17e1751b",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/GeologyEvent.prefab.meta": "255b363ee491eb8a6070eeb479c77fc30288ed52cb31d3379d3ebef6de2f490f",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/RegionRockfall.asset": "867c6f2907cf069d1f2fc0c8fc6b2aa3fc5e3fc57861f9b20dc94d453dde7eac",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/RegionRockfall.asset.meta": "8f6d40dd2fcc0387ffc099852f2de52f0602029cd578e3b655a1bd54d0e04fac",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/SupportCollapse.asset": "7f71a5a511661ad1926c72a5a819d6c5e0c32e6fe8db3b7f1a8649766af36b07",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/SupportCollapse.asset.meta": "47f615309780e4170607d911ccbd04ec4e7a08a2b2a86b657445ec1db6db096d",
+    "Game/Assets/DarkNights/Res/Effects/Ballistic/Ballistic.asset": "318c24ea1ca93c116e794895e5d397e9aa819e9a9a57eafaddd778d5a50408d9",
+    "Game/Assets/DarkNights/Res/Effects/Ballistic/Ballistic.asset.meta": "7c3db9ea3cabe9067063d053830f3c7a57604eaf5e90e6935604363df999337f",
+    "Game/Assets/DarkNights/Res/Effects/Ballistic/Ballistic.prefab": "c9aa7a059c7ce53ac90cfc190e320ecac0bda39f10e6ff120bc1820e7e621ba8",
+    "Game/Assets/DarkNights/Res/Effects/Ballistic/Ballistic.prefab.meta": "63a71653aae3ace8e4949f54507adb6a10b44d998e084d6dfba9c9f4766c5173",
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/GameplayLab.unity": "d6d4fb38bcf98b1aa128db822f0ed89c1b0d933de54c9723ead9a6bdd3b4033f"
+  },
+  "artifacts_bytes": 27289110
+}

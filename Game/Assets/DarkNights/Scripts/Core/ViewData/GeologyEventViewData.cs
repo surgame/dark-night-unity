@@ -6,7 +6,8 @@ namespace DarkNights.Core.ViewData
         public readonly int Phase;
         public readonly double Clock;
         public readonly string Reason;
-        public GeologyEventViewData(int phase, double clock, string reason)
-        { Phase = phase; Clock = clock; Reason = reason ?? ""; }
+        public readonly uint SoilMask;
+        public GeologyEventViewData(int phase, double clock, string reason, uint soilMask = 0)
+        { Phase = phase; Clock = clock; Reason = reason ?? ""; SoilMask = soilMask; }
     }
 }

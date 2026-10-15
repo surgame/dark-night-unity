@@ -1,0 +1,78 @@
+{
+  "task": "CL02 particle collapse visual alternatives for user selection",
+  "date": "2026-10-15",
+  "status": "four interactive concepts complete; no user selection yet; no new Unity implementation",
+  "fragment": {
+    "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13f6e-8b1d-73f1-b99e-b65e18d61b10\\collapse-particle-options.html",
+    "bytes": 365339,
+    "sha256": "4eeacd22d767db6090f887f1aeb3c610adb344a65b8ba325eaccd53a997f770e"
+  },
+  "variants": [
+    {
+      "name": "松土倾泻",
+      "key": "sand",
+      "intent": "continuous fine grain stream; low dust; broad low loose soil pile"
+    },
+    {
+      "name": "碎岩裹土",
+      "key": "rubble",
+      "intent": "clustered clods break apart in flight; angular rock bounce; thick mixed pile"
+    },
+    {
+      "name": "连锁剥落",
+      "key": "peel",
+      "intent": "progressive ceiling failures; several impact bursts; connected small piles"
+    },
+    {
+      "name": "粉尘涌落",
+      "key": "plume",
+      "intent": "descending dust and debris; strong ground hugging dust fronts; soil revealed after dust clears"
+    }
+  ],
+  "behavior": {
+    "duration_seconds": 7.2,
+    "autoplay": false,
+    "loop": false,
+    "controls": [
+      "host variant carousel",
+      "play/pause",
+      "replay",
+      "timeline scrubbing",
+      "half speed",
+      "user-triggered selection"
+    ],
+    "model": "deterministic concept particle paths with gravity, bounce, deposition and bounded heightfield relaxation; dust emitters",
+    "not_authoritative_gameplay": true
+  },
+  "background": {
+    "path": "artifacts/cl02-collapse-20261015/play-203747/initial.png",
+    "usage": "existing GameView still cropped during rendering as visual context; motion and piles are simulated concepts, not a new Unity capture"
+  },
+  "verification": {
+    "browser": "headless installed Chrome using Playwright; native host carousel next arrows and named picker",
+    "variant_play_pause_scrub_and_choice_cases": 4,
+    "responsive_cases": 12,
+    "widths": [
+      320,
+      360,
+      736
+    ],
+    "javascript_errors": [],
+    "result": "artifacts\\cl02-particle-options-20261015\\browser-verification.json",
+    "selection_test": "local stub; no actual user choice or external message was sent"
+  },
+  "unity": {
+    "source_and_asset_files_checked_unchanged": 48,
+    "mismatches": [],
+    "editor_commands": false,
+    "play_tests_builds": false,
+    "unsaved_scene": "untouched"
+  },
+  "next": "wait for user choice, then remake selected particle and pile design under Res/Effects/Geology; verify actual Gameplay separately",
+  "artifacts": {
+    "directory": "artifacts\\cl02-particle-options-20261015",
+    "files": 30,
+    "bytes": 1854225,
+    "cleanup": "none"
+  }
+}

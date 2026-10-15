@@ -61,7 +61,6 @@ namespace DarkNights.Editor.Terrain
                 lab.InputPlayer = root.AddComponent<PlayerInput>();
                 lab.InputPlayer.actions = AssetDatabase.LoadAssetAtPath<InputActionAsset>("Assets/DarkNights/Res/Input/Gameplay.inputactions");
                 lab.InputPlayer.defaultActionMap = "Player";
-                new GameObject("LabEventSystem", typeof(EventSystem), typeof(InputSystemUIInputModule));
                 lab.Status = GeologyLabUi.Create(root.transform);
                 var blocks = new List<GeologyLabBlock>();
                 Block(blocks, root.transform, sprite, "ProtectedFloor", 0, -42, 100, 1, 8, true);
@@ -83,6 +82,7 @@ namespace DarkNights.Editor.Terrain
                 EditorSceneManager.CloseScene(scene, true);
                 if (previous.IsValid()) SceneManager.SetActiveScene(previous);
             }
+            GeologyCaveSceneSetup.Upgrade();
         }
 
         private static void Block(List<GeologyLabBlock> blocks, Transform parent, Sprite sprite, string name,

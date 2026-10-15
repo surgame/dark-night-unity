@@ -14,7 +14,7 @@ namespace DarkNights.Editor.Terrain
     /// <summary>地质功能样板资源的首版制作；只写指定空目录，创建原生事件Prefab、局部定义及确定性16像素标记。后续作者修改不由初始化覆盖，正式定义数据库保持原样。</summary>
     public static class GeologyLabAssets
     {
-        public const string Root = "Assets/DarkNights/Res/Objects/GeologyEventLab";
+        public const string Root = "Assets/DarkNights/Res/Effects/Geology/Event";
         public const string PrefabPath = Root + "/GeologyEvent.prefab";
 
         public static Sprite Create()

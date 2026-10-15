@@ -7,6 +7,9 @@ using DarkNights.Core.Config.Terrain;
 using DarkNights.Runtime.Objects;
 using DarkNights.Runtime.Terrain;
 using DarkNights.View;
+using DarkNights.View.Terrain;
+using DarkNights.Core.ViewData;
+using AnyRules.Next;
 using GameCore.Interactions;
 using GameCore.Objects.Definition;
 using GameCore.Objects.Runner;
@@ -24,6 +27,7 @@ namespace DarkNights.Entry.Terrain
         public Camera ViewCamera;
         public PlayerInput InputPlayer;
         public UnityEngine.UI.Text Status;
+        public TerrainPreview TerrainView;
         public GeologyLabBlock[] Blocks = Array.Empty<GeologyLabBlock>();
         public GeologyLabEventSlot[] EventSlots = Array.Empty<GeologyLabEventSlot>();
         public float SpawnX = 704, SpawnHeight = -32, ShipX = 192, WorldWidth = 1600;
@@ -41,7 +45,7 @@ namespace DarkNights.Entry.Terrain
         public async UniTask Initialize(GameCatalog catalog, CancellationToken token)
         {
             if (Lab != null || SessionDefinition == null || WorkerDefinition == null || ShipDefinition == null || SessionInstance == null ||
-                ViewCamera == null || InputPlayer == null || Status == null || Blocks.Length == 0 || EventSlots.Length != 2 ||
+                ViewCamera == null || InputPlayer == null || Status == null || TerrainView == null || Blocks.Length == 0 || EventSlots.Length != 2 ||
                 EventSlots.Any(slot => slot == null || slot.Definition == null || slot.Instance == null || slot.View == null) ||
                 EventSlots.Select(slot => slot.Definition.Key).Distinct().Count() != EventSlots.Length)
                 throw new InvalidOperationException("功能场景缺少明确装配或存在重复事件。");
@@ -76,10 +80,14 @@ namespace DarkNights.Entry.Terrain
                     var slot = EventSlots[index];
                     var geology = Lab.BindEvent(slot.Instance, slot.Definition);
                     var config = configurations[index] = geology.Configuration;
-                    slot.View.Bind(new Vector3((config.SourceU + (config.Width - 1) * .5f) * .16f, (PlayableTerrain.OriginY + config.SourceV * 16) / 100, 0),
-                        new Vector3((config.LandingU + (config.Width - 1) * .5f) * .16f, (PlayableTerrain.OriginY + config.LandingV * 16) / 100, 0),
-                        config.WarningSeconds, config.FallSeconds);
+                    slot.View.Bind(Enumerable.Range(0, config.RubbleCount).Select(config.Motion).ToArray(),
+                        Enumerable.Range(0, config.RubbleCount).Select(config.PileShape).ToArray(), config.Collapse);
                 }
+                foreach (var block in Blocks) block.Art.enabled = false;
+                TerrainView.ShowCaveReplica(profile.Definition, (CaveTerrainStyle)profile.CaveStyle,
+                    new TerrainReplicaSource(world.Terrain.Map, ProjectGeologyCell), world.Terrain.Map.World,
+                    new BackgroundBakeDescriptor(world.Terrain.Map.World.WorldId.ToString().Replace("-", ""), "CL02-CAVE", cells, new byte[cells.Length]));
+                world.Terrain.Map.Changed += OnGeologyMapChanged;
                 heroPresentation = Lab.HeroObject.GetBehaviour<ActorPresentationBehaviour>();
                 if (heroPresentation == null) throw new InvalidOperationException("功能场景主角缺少原生表现能力。");
                 heroPresentation.Bind(Lab.Hero.Id, 1, "worker", catalog.Balance.Units["worker"], null);
@@ -125,34 +133,42 @@ namespace DarkNights.Entry.Terrain
             if (Lab == null) return;
             var hero = Lab.Hero;
             heroPresentation.Present(hero, 1, "", hero.X, hero.ActionTime, Color.white);
-            for (int index = 0; index < EventSlots.Length; index++) EventSlots[index].View.Present(Lab.Events[index].Capture());
-            foreach (var block in Blocks)
-                if (!block.Protected && block.Width == 1 && block.Height == 1)
-                {
-                    bool fallingSource = false;
-                    for (int index = 0; index < configurations.Length; index++)
-                    {
-                        var config = configurations[index]; var phase = Lab.Events[index].Capture().Phase;
-                        if (phase >= 1 && phase <= 3 && config.SourceV == block.V && block.U >= config.SourceU && block.U < config.SourceU + config.Width)
-                            fallingSource = true;
-                    }
-                    block.Art.enabled = !fallingSource && Lab.World.Terrain.Map.Read(new AnyRules.Next.CellCoord(block.U, block.V)).TryGetCell(out var cell) && !cell.IsEmpty;
-                }
+            for (int index = 0; index < EventSlots.Length; index++)
+                EventSlots[index].View.Present(Lab.Events[index].Capture(), Lab.SimulationTime);
             var position = ViewCamera.transform.position;
             position.x = Mathf.Clamp(hero.X / 100, 3.2f, WorldWidth / 100 - 3.2f);
             ViewCamera.transform.position = position;
-            string[] phases = { "待触发", "前兆：避让", "落石", "等待落点清空", "瓦砾：矿镐清障", "已清障", "已退休" };
+            string[] phases = { "待触发", "前兆：避让", "落石", "等待落点清空", "土石堆：矿镐清障", "已清障", "已退休" };
             Status.text = "场景功能开发 · 地质事件" + (Lab.Paused ? "（已暂停）" : "") +
                 "\n支撑触发：" + phases[Lab.Events[0].Capture().Phase] + "　区域触发：" + phases[Lab.Events[1].Capture().Phase] +
                 "\n" + Lab.Events[0].Capture().Reason + " " + Lab.Events[1].Capture().Reason +
-                "\n挖左侧黄色支撑岩／进入右侧橙色区域；避让后左键清障。Esc暂停；重新Play重置。";
+                "\n挖左侧低矮支撑岩／进入右侧触发区；避让后左键清障。Esc暂停；重新Play重置。";
         }
 
         private void OnDestroy()
         {
+            if (Lab != null) Lab.World.Terrain.Map.Changed -= OnGeologyMapChanged;
             if (Lab != null) { Lab.Dispose(); Lab = null; }
             SessionInstance?.Release(); resources?.Dispose(); resources = null;
             if (localDefinition != null) Destroy(localDefinition);
+        }
+
+        private void OnGeologyMapChanged(GridChangeSet change) => TerrainView.NotifyReplicaChanged();
+
+        private GridCell ProjectGeologyCell(CellCoord position, GridCell cell)
+        {
+            if (cell.IsEmpty) return cell;
+            for (int index = 0; index < configurations.Length; index++)
+            {
+                var config = configurations[index];
+                int left = config.LandingU + (config.Width - config.RubbleWidth) / 2;
+                if (position.U < left || position.U >= left + config.RubbleWidth ||
+                    position.V < config.LandingV || position.V >= config.LandingV + 6) continue;
+                uint mask = Lab.Events[index].Capture().SoilMask;
+                for (int i = 0; i < config.RubbleCount; i++)
+                    if ((mask & 1u << i) != 0 && config.Landing(i).Equals(position)) return default;
+            }
+            return cell;
         }
     }
 }

@@ -104,7 +104,7 @@
 - 2026-09-20 用户指定 AI 生图使用 [imagegen-codex-provider](C:/Users/Jobscn/.codex/skills/imagegen-codex-provider/SKILL.md) 和已配置 provider 的 gpt-image 模型，按技能当前调用规范；工具选择已授权，不重复询问配置 API 许可。具体生图仍限当次任务，评估不自动转为批量生图。
 - 制作前记录原生尺寸、用途、共边／透明／形状精度及方式理由。16×16／32×32 等低像素 tile、DualGrid 掩码、斜面／碰撞优先确定性像素工具；风格探索／大块源图才考虑生图，缩小大图、像素滤镜或模型网格不直接算合格 tile。
 - 最终资产统一像素密度、调色板、透明边缘和拼接合同，在原生尺寸／真实镜头检查团块、重复、共边、过渡和斜面；视觉坡形对应独立形状与权威碰撞，不以圆角／阶梯冒充。源图保留来源／重建关系，不覆盖人工源；固定洞穴样板到随机推广的专项计划见[视觉与空间目标](docs/archive/CAVE_EXPLORATION_TARGETS.md)，隐藏连通／旧图集不代表视觉或真实通行验收。
-- 专用资源归 `Res/Objects`／对应面板，共用归 `Res/Shared`，原始源只保存一份；Original／Custom 分开并保留来源／SHA-256，最近邻采样、关闭不需的有损压缩，坐标／原点／帧序按来源合同转换。来源数量见[依赖说明](docs/DEPENDENCIES.md)，不写成固定总素材上限。
+- 专用资源归 `Res/Objects`／对应面板，共用归 `Res/Shared`；2026-10-15用户要求独立效果的Prefab、Definition、粒子材质及新制贴图统一到 `Res/Effects/<类别>`，不在对象／实验目录另散建效果目录，具体归属见[架构](docs/ARCHITECTURE.md#效果资源归属)。原始源只保存一份，Original／Custom分开并保留来源／SHA-256；最近邻采样、关闭不需的有损压缩，坐标／原点／帧序按来源合同转换。来源数量见[依赖说明](docs/DEPENDENCIES.md)，不写成固定总素材上限。
 - 通过 DefinitionReference／ObjectDefinition.PrefabRef 和既有绑定／注入／生成注册装配，检查键／类型／引用与池化／释放；不以 GetComponent、节点名或子索引兜底缺失绑定。Addressables 用条目／分组注册，不用特殊 Resources 目录存放其资源；保留现有配置位置，路径／Address／Label／定义身份分开，合同见[架构](docs/ARCHITECTURE.md#装配能力和事务)。
 - 正式对象／UI使用原生Prefab，场景编辑态可查看布局与外观，不退为空节点＋全局创建脚本；具体场景用途见[场景目录](docs/EDITOR_WORKBENCH.md#场景目录)。人工Prefab／AnimationClip／场景／Theme不被初始化、导入或构建覆盖；初始化只在指定空目录输出首版。场景是布局唯一可编辑来源，派生数据可追溯且不反写；balance／波次JSON是规则唯一源，Definition不重复HP／成本／实例进度。
 - 角色根对齐脚底，ArtOffset／Facing／StatusAnchor／SelectionAnchor与玩法占地分离；动画／物理碰撞不结算伤害。Editor预览只表现，不启动会话／网络、不用业务RNG、不访问玩家存档。提交 `.meta`、manifest／packages-lock、ProjectSettings，启用文本序列化／Visible Meta Files；Library、用户存档、本机配置、密钥和依赖缓存不提交。

@@ -16,11 +16,23 @@ namespace DarkNights.Runtime.Objects
         [Inject] private GeologyEventConfig config;
         private GeologyEventConfig frozen;
         public GeologyEventConfig Configuration => frozen?.Freeze();
-        public GeologyEventViewData Capture() => Current == null ? default :
-            new GeologyEventViewData(Current.Phase, Current.Clock, Current.Reason);
+        public GeologyEventViewData Capture()
+        {
+            if (Current == null) return default;
+            uint soil = 0;
+            if (Current.Phase == 4 && frozen != null && Session.Terrain?.Map != null)
+            {
+                var map = Session.Terrain.Map; uint material = map.Tiles.ByKey(frozen.Material);
+                for (int i = 0; i < frozen.RubbleCount; i++)
+                    if (map.Read(frozen.Landing(i)).TryGetCell(out var cell) && cell.TileId == material &&
+                        TerrainShapeGeometry.Decode(cell.Flags) == frozen.PileShape(i)) soil |= 1u << i;
+            }
+            return new GeologyEventViewData(Current.Phase, Current.Clock, Current.Reason, soil);
+        }
         /// <summary>前兆及落石期间声明源岩仍归此事件；本地样板矿镐不能提前挖掉它解除危险，异常外部地形改变仍按安全退休处理。</summary>
         internal bool ReservesSource(CellCoord cell) => frozen != null && Current != null && Current.Phase >= 1 && Current.Phase <= 3 &&
-            cell.V == frozen.SourceV && cell.U >= frozen.SourceU && cell.U < frozen.SourceU + frozen.Width;
+            cell.V >= frozen.SourceV && cell.V < frozen.SourceV + frozen.SourceRows &&
+            cell.U >= frozen.SourceU && cell.U < frozen.SourceU + frozen.Width;
 
         public void Prepare()
         {
@@ -55,18 +67,23 @@ namespace DarkNights.Runtime.Objects
             }
             if (Current.Phase == 4)
             {
-                if (Enumerable.Range(0, frozen.Width).All(i => map.Read(frozen.Landing(i)).TryGetCell(out var cell) && cell.IsEmpty))
+                if (Enumerable.Range(0, frozen.RubbleCount).All(i => map.Read(frozen.Landing(i)).TryGetCell(out var cell) && cell.IsEmpty))
                 { SetPhase(5); Session.Notify("瓦砾已清除，通道恢复。"); }
                 return;
             }
             var state = Edit(); state.Clock += delta;
             if (state.Phase == 1)
             {
-                if (state.Clock >= frozen.WarningSeconds) SetPhase(2);
+                if (state.Clock >= frozen.WarningSeconds)
+                {
+                    string preparation = GeologyLanding.Check(Session, frozen, false);
+                    if (preparation.Length != 0) { Retire(preparation); return; }
+                    GeologyLanding.Detach(Session, frozen); SetPhase(2);
+                }
                 return;
             }
             if (state.Phase == 2 && state.Clock < frozen.FallSeconds) return;
-            string reason = GeologyLanding.Check(Session, frozen, true);
+            string reason = GeologyLanding.Check(Session, frozen, true, detached: true);
             if (reason == "等待角色离开落点")
             {
                 if (state.Phase == 2) { SetPhase(3); Edit().Reason = reason; }
@@ -75,7 +92,7 @@ namespace DarkNights.Runtime.Objects
             }
             if (reason.Length != 0) { Retire(reason); return; }
             GeologyLanding.Stage(Session, frozen); SetPhase(4);
-            Session.Notify("落石已形成瓦砾；矿镐可清理，事件不会再次触发。");
+            Session.Notify("塌落土石形成堵路土堆；矿镐可清理，事件不会再次触发。");
         }
 
         private bool InRegion(ActorBehaviour actor)

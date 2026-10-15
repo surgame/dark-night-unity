@@ -28,6 +28,9 @@ namespace DarkNights.Tests
             try
             {
                 fixture.scope = await UnifiedSessionScope.Create();
+                string root = Editor.Terrain.GeologyLabAssets.Root;
+                var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(root + (region ? "/RegionRockfall.asset" : "/SupportCollapse.asset"));
+                var config = System.Linq.Enumerable.Single(System.Linq.Enumerable.OfType<GeologyEventConfig>(definition.SharedConfigs)).Freeze();
                 var catalog = RuleScenario.Catalog();
                 var layout = new LevelLayout(5120, 0, 0, 5120, 704, 704,
                     new[] { new PlacementDefinition("ship", 192) }, Array.Empty<PlacementDefinition>(), Array.Empty<PlacementDefinition>(),
@@ -35,25 +38,24 @@ namespace DarkNights.Tests
                 var world = fixture.scope.NewWorld(catalog, layout, terrain: candidate =>
                 {
                     var profile = TerrainProfileConfig.Resolve(); var rules = profile.Freeze();
-                    return new SessionTerrain(candidate.Context, rules.Business.Gameplay, Map(), rules, profile.Definition);
+                    return new SessionTerrain(candidate.Context, rules.Business.Gameplay, Map(config), rules, profile.Definition);
                 }, journeyEnabled: false);
                 fixture.Lab = new GeologyLabSession(world, 704, -32);
-                string root = Editor.Terrain.GeologyLabAssets.Root;
                 fixture.eventRoot = (GameObject)PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(Editor.Terrain.GeologyLabAssets.PrefabPath));
-                var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>(root + (region ? "/RegionRockfall.asset" : "/SupportCollapse.asset"));
                 fixture.Event = fixture.Lab.BindEvent(fixture.eventRoot.GetComponent<GameCore.Objects.Runner.ObjectInstance>(), definition);
                 return fixture;
             }
             catch { fixture.Dispose(); throw; }
         }
 
-        internal static PlayableTerrain Map()
+        internal static PlayableTerrain Map(GeologyEventConfig config = null)
         {
             var cells = new byte[320 * 192]; var protection = new bool[cells.Length];
             for (int x = 0; x < 320; x++)
             { cells[191 * 320 + x] = 8; cells[42 * 320 + x] = 8; protection[42 * 320 + x] = true; }
-            cells[41 * 320 + 50] = 2;
-            foreach (int u in new[] { 52, 72 }) for (int i = 0; i < 3; i++) cells[36 * 320 + u + i] = 2;
+            config = config ?? new GeologyEventConfig();
+            cells[-config.SupportV * 320 + config.SupportU] = 2;
+            for (int i = 0; i < config.RockCount; i++) { var cell = config.Source(i); cells[-cell.V * 320 + cell.U] = 2; }
             return new PlayableTerrain(Guid.NewGuid().ToString("N"), "CL02-REGRESSION", cells, protection,
                 new bool[cells.Length], Array.Empty<TerrainRoom>(), Array.Empty<TerrainDepositBlueprint>(), expedition: true);
         }

@@ -37,27 +37,30 @@ MonoBehaviour:
   BehaviourTypes:
   - DarkNights.Runtime.Objects.GeologyEventBehaviour
   SharedConfigs:
-  - rid: 4004706419553337472
+  - rid: 4004706469093834859
   references:
     version: 2
     RefIds:
-    - rid: 4004706419553337472
+    - rid: 4004706469093834859
       type: {class: GeologyEventConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         EventId: region
         EnterRegion: 1
         SupportU: 50
         SupportV: -41
-        RegionU: 68
+        RegionU: 92
         RegionV: -41
         RegionWidth: 4
-        RegionHeight: 4
-        SourceU: 72
-        SourceV: -36
-        LandingU: 72
+        RegionHeight: 5
+        SourceU: 95
+        SourceV: -34
+        LandingU: 95
         LandingV: -41
         Width: 3
+        SourceRows: 3
+        RubbleWidth: 5
+        Gravity: 320
         WarningSeconds: 2
-        FallSeconds: 0.6
+        FragmentDelay: 0.045
         OccupancyWaitSeconds: 8
         Material: slate

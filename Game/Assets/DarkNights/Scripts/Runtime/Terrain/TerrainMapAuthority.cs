@@ -57,12 +57,12 @@ namespace DarkNights.Runtime.Terrain
         }
         internal bool StageMine(CellCoord target) => StageDamage(target, Rules.PickaxeDamage(Read(target).Cell.TileId, pickaxeDamage), out _);
         /// <summary>已通过地质事件占位／支撑预检的空格填岩；仅暂存当前同步对象事务，不提供客户端填格或覆盖既有格子的入口。</summary>
-        internal bool StagePlacement(CellCoord target, uint tile)
+        internal bool StagePlacement(CellCoord target, uint tile, TerrainCellShape shape = TerrainCellShape.Full)
         {
             RequireAuthority();
-            if (!Descriptor.Bounds.Contains(target) || !Rules.CanDamage(tile) ||
+            if ((int)shape > 12 || !Descriptor.Bounds.Contains(target) || !Rules.CanDamage(tile) ||
                 !Read(target).TryGetCell(out var old) || !old.IsEmpty) return false;
-            return transactions.SetResult(target, new GridCell(tile, 0, 0), Rules.Business.Get(tile).DefaultState);
+            return transactions.SetResult(target, new GridCell(tile, 0, TerrainShapeGeometry.Encode(shape, false)), Rules.Business.Get(tile).DefaultState);
         }
         public bool IsSoftRock(CellCoord position)
         {
