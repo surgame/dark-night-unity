@@ -1,0 +1,115 @@
+{
+  "scope": "UI interaction prototype; not Unity generation or gameplay validation",
+  "checks": [
+    {
+      "check": "default selected middle nest active",
+      "passed": true
+    },
+    {
+      "check": "active ceiling updates count and canvas",
+      "passed": true
+    },
+    {
+      "check": "random structure fields editable",
+      "passed": true
+    },
+    {
+      "check": "rooms updates terrain preview",
+      "passed": true
+    },
+    {
+      "check": "loop updates terrain preview",
+      "passed": true
+    },
+    {
+      "check": "sealed updates terrain preview",
+      "passed": true
+    },
+    {
+      "check": "six clickable seed previews",
+      "passed": true
+    },
+    {
+      "check": "sample opens corresponding seed",
+      "passed": true
+    },
+    {
+      "check": "manual edit marks preview stale",
+      "passed": true
+    },
+    {
+      "check": "manual edit preserves prior preview",
+      "passed": true
+    },
+    {
+      "check": "explicit generation applies draft",
+      "passed": true
+    },
+    {
+      "check": "invalid required site blocks candidate",
+      "passed": true
+    },
+    {
+      "check": "required-site save guard",
+      "passed": true
+    },
+    {
+      "check": "drag changes rectangle and checks boundaries",
+      "passed": true
+    },
+    {
+      "check": "rectangle belongs to selected site",
+      "passed": true
+    },
+    {
+      "check": "undo restores previous site edit",
+      "passed": true
+    },
+    {
+      "check": "desktop has no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "dark theme applied",
+      "passed": true
+    },
+    {
+      "check": "second design renders selection",
+      "passed": true
+    },
+    {
+      "check": "360px no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "360px footer remains inside frame",
+      "passed": true
+    },
+    {
+      "check": "320px no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "320px footer remains inside frame",
+      "passed": true
+    },
+    {
+      "check": "no script errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "fragment_sha256": "88abd6c415ecb451b2a1669815ecda01085656877b308b16115c7c6c07b80161",
+  "fragment_bytes": 69714,
+  "date": "2026-10-15",
+  "module": "CL-04",
+  "raw_report": "artifacts/cl04-ui-20261015/final-review.json",
+  "visualization": "C:/Users/Jobscn/.codex/visualizations/2026/10/15/01a13f8a-7d2c-7da2-8439-763039df4ae1/nest-terrain-workbench.html",
+  "not_executed": [
+    "Unity editor implementation",
+    "Unity import/compile",
+    "Unity terrain generation",
+    "Play",
+    "Player build/run"
+  ]
+}
