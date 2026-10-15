@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-15",
+  "kind": "read-only-core-generation-and-browser-demonstration",
+  "gameplayImplementationChanged": false,
+  "source": "Local compiled DarkNights.Core.dll; PlanetTerrainGenerator.GenerateCandidate; no browser generator port",
+  "defaultMap": "folded-expanded",
+  "demonstrationSeed": "STRATA-0922",
+  "dimensions": [
+    320,
+    192
+  ],
+  "cellPixels": 16,
+  "coreSha256": "b10fba0d1ba5e851a20db5085ca2125d6f0ac5237fda937550a1a1337e6fa3f5",
+  "coreLastWriteUtc": "2026-10-15T14:56:18.385854Z",
+  "newerCoreSourcePaths": [],
+  "worldSessionConfigSha256": "95b9622fafe3bc817c66478b6657347b940448ee919c802319d7ceef5370c838",
+  "dock": [
+    36,
+    40
+  ],
+  "landingWidth": 32,
+  "enabledModifierCount": 0,
+  "enabledModifierReason": "WorldSession has one EntranceWalkwayModifierConfig with Enabled=0; explicit empty pipeline matches this saved configuration",
+  "mineralData": "Initial TerrainDepositBlueprint.Cells after final footprint generation; not a live MineralMapSnapshot",
+  "maps": [
+    {
+      "id": "folded-expanded",
+      "authorSourceSha256": "94a7583953c4f244b8437ba88a8111e06d021fc9e6923f674ab03a766666739b",
+      "finalMaterialSha256": "8dc2f553cce7de43a86737931fc97d27fb939e04e15e3d4eb2135820f2f48c91",
+      "rooms": 34,
+      "deposits": 53,
+      "mineralCells": 269,
+      "reserves": 269.0
+    },
+    {
+      "id": "karst-expanded",
+      "authorSourceSha256": "a317c0dbdf509d1a253d8e991d3763def5aece8dc4663f216f06900ce5d53f52",
+      "finalMaterialSha256": "1673e0cfd8031d12abf0d748ed39dec5c805ce35ba3cb8c981d34cbe98065a92",
+      "rooms": 24,
+      "deposits": 39,
+      "mineralCells": 199,
+      "reserves": 199.0
+    },
+    {
+      "id": "rift-expanded",
+      "authorSourceSha256": "8e1729ac6248b18aed7f04a4fe7fdb26c1a162125c18ab837baf16b18641782b",
+      "finalMaterialSha256": "66f175e89132e9ad6b06cbd509caf777da4f4417b385628b99954aa36114af57",
+      "rooms": 22,
+      "deposits": 38,
+      "mineralCells": 192,
+      "reserves": 192.0
+    },
+    {
+      "id": "shaft-loop-expanded",
+      "authorSourceSha256": "c05bb7501f28a8733211896f10ee21c5b2861d838cae7add2602085b39d6f194",
+      "finalMaterialSha256": "b1e1570cccd918068ccd165aa7ddf424485a2cfd64d7cc5a2698b3665d746e92",
+      "rooms": 29,
+      "deposits": 46,
+      "mineralCells": 234,
+      "reserves": 234.0
+    },
+    {
+      "id": "vein-maze-expanded",
+      "authorSourceSha256": "5e6bdd097c23a3a62baef09b7adf7e97cba72efa710d9457e2a4679ff22d9ec8",
+      "finalMaterialSha256": "b03064b011ea06ec25394d2c49845f7e159c45217563d70a70ae5573cd58d45b",
+      "rooms": 34,
+      "deposits": 53,
+      "mineralCells": 273,
+      "reserves": 273.0
+    }
+  ],
+  "browser": {
+    "engine": "Installed Microsoft Edge headless",
+    "assertions": [
+      "fragment below 1 MB",
+      "default config identity",
+      "no Core source timestamp newer than loaded binary",
+      "folded-expanded complete grid",
+      "folded-expanded mineral footprints present",
+      "folded-expanded reserve conservation",
+      "folded-expanded nested footprint coordinates",
+      "karst-expanded complete grid",
+      "karst-expanded mineral footprints present",
+      "karst-expanded reserve conservation",
+      "karst-expanded nested footprint coordinates",
+      "rift-expanded complete grid",
+      "rift-expanded mineral footprints present",
+      "rift-expanded reserve conservation",
+      "rift-expanded nested footprint coordinates",
+      "shaft-loop-expanded complete grid",
+      "shaft-loop-expanded mineral footprints present",
+      "shaft-loop-expanded reserve conservation",
+      "shaft-loop-expanded nested footprint coordinates",
+      "vein-maze-expanded complete grid",
+      "vein-maze-expanded mineral footprints present",
+      "vein-maze-expanded reserve conservation",
+      "vein-maze-expanded nested footprint coordinates",
+      "browser starts on actual default",
+      "map selection updates metrics",
+      "connection layer updates labels",
+      "local footprint view updates",
+      "360 px no horizontal overflow",
+      "320 px no horizontal overflow",
+      "no browser runtime errors"
+    ],
+    "errors": [],
+    "priorLaunchFailure": "Bundled Playwright chromium headless executable absent; reused installed Edge without installing a browser"
+  },
+  "visualizationDirectory": "C:/Users/Jobscn/.codex/visualizations/2026/10/15/01a13fc4-708c-79d2-a201-67a3ea8ba0dd",
+  "fragment": "local-map-baseline.html",
+  "snapshot": "local-terrain-snapshot.json",
+  "exporter": "export-local-terrain.ps1",
+  "limits": [
+    "Fixed demonstration seed; not a running game session snapshot",
+    "Compiled Core plus saved asset inputs; not unsaved Editor drafts",
+    "Schematic colors; not final art or illumination",
+    "Author paths and static cavities do not prove actor movement",
+    "Path-depth tiers, continuous ore veins and nests remain unimplemented",
+    "No Unity launch, compile, Unity tests, Play, Player or YYGC edits"
+  ]
+}
