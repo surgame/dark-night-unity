@@ -1,0 +1,974 @@
+{
+  "module": "CL-04",
+  "date": "2026-10-15",
+  "status": "art-candidates-not-integrated",
+  "method": "native-integer-pixel-authoring; no AI image returned; no downscaling",
+  "image_api": {
+    "requested_model": "gpt-image-2.5",
+    "status": "not-sent-missing-OPENAI_API_KEY-in-auth.json"
+  },
+  "palette": {
+    "outline": "#191714",
+    "shadow": "#28231e",
+    "rock_dark": "#393027",
+    "rock": "#514434",
+    "rock_light": "#706047",
+    "rock_edge": "#918063",
+    "ore_dark": "#69512a",
+    "ore": "#a17b39",
+    "ore_light": "#c3a45a",
+    "ore_glint": "#d9c68a",
+    "skin_dark": "#4c382b",
+    "skin": "#79553a",
+    "skin_light": "#a48055",
+    "skin_edge": "#c3aa78",
+    "shell_dark": "#574831",
+    "shell": "#887149",
+    "shell_light": "#b09868",
+    "ivory": "#d4c39a",
+    "amber_dark": "#a75d2e",
+    "amber": "#df9a48",
+    "amber_light": "#f1cd79",
+    "fiber_dark": "#383a29",
+    "fiber": "#5e6041",
+    "fiber_light": "#85835b"
+  },
+  "frame_count": 25,
+  "frames": [
+    {
+      "group": "ore-mimic",
+      "state": "dormant",
+      "path": "native/ore-mimic/dormant.png",
+      "size": [
+        32,
+        32
+      ],
+      "pivot_top_left": [
+        16,
+        30
+      ],
+      "sheet_rect_top_left": [
+        0,
+        0,
+        32,
+        32
+      ],
+      "opaque_bbox": [
+        3,
+        11,
+        28,
+        30
+      ],
+      "pixel_colors": 9
+    },
+    {
+      "group": "ore-mimic",
+      "state": "warning",
+      "path": "native/ore-mimic/warning.png",
+      "size": [
+        32,
+        32
+      ],
+      "pivot_top_left": [
+        16,
+        30
+      ],
+      "sheet_rect_top_left": [
+        32,
+        0,
+        32,
+        32
+      ],
+      "opaque_bbox": [
+        3,
+        9,
+        28,
+        30
+      ],
+      "pixel_colors": 14
+    },
+    {
+      "group": "ore-mimic",
+      "state": "reveal",
+      "path": "native/ore-mimic/reveal.png",
+      "size": [
+        32,
+        32
+      ],
+      "pivot_top_left": [
+        16,
+        30
+      ],
+      "sheet_rect_top_left": [
+        64,
+        0,
+        32,
+        32
+      ],
+      "opaque_bbox": [
+        2,
+        4,
+        30,
+        30
+      ],
+      "pixel_colors": 16
+    },
+    {
+      "group": "ore-mimic",
+      "state": "crawl_a",
+      "path": "native/ore-mimic/crawl_a.png",
+      "size": [
+        32,
+        32
+      ],
+      "pivot_top_left": [
+        16,
+        30
+      ],
+      "sheet_rect_top_left": [
+        96,
+        0,
+        32,
+        32
+      ],
+      "opaque_bbox": [
+        2,
+        4,
+        30,
+        30
+      ],
+      "pixel_colors": 16
+    },
+    {
+      "group": "ore-mimic",
+      "state": "crawl_b",
+      "path": "native/ore-mimic/crawl_b.png",
+      "size": [
+        32,
+        32
+      ],
+      "pivot_top_left": [
+        16,
+        30
+      ],
+      "sheet_rect_top_left": [
+        128,
+        0,
+        32,
+        32
+      ],
+      "opaque_bbox": [
+        2,
+        5,
+        30,
+        30
+      ],
+      "pixel_colors": 16
+    },
+    {
+      "group": "ore-mimic",
+      "state": "lunge",
+      "path": "native/ore-mimic/lunge.png",
+      "size": [
+        32,
+        32
+      ],
+      "pivot_top_left": [
+        16,
+        30
+      ],
+      "sheet_rect_top_left": [
+        160,
+        0,
+        32,
+        32
+      ],
+      "opaque_bbox": [
+        1,
+        3,
+        31,
+        30
+      ],
+      "pixel_colors": 16
+    },
+    {
+      "group": "ore-mimic",
+      "state": "recoil",
+      "path": "native/ore-mimic/recoil.png",
+      "size": [
+        32,
+        32
+      ],
+      "pivot_top_left": [
+        16,
+        30
+      ],
+      "sheet_rect_top_left": [
+        192,
+        0,
+        32,
+        32
+      ],
+      "opaque_bbox": [
+        1,
+        4,
+        30,
+        30
+      ],
+      "pixel_colors": 16
+    },
+    {
+      "group": "ore-mimic",
+      "state": "fallen",
+      "path": "native/ore-mimic/fallen.png",
+      "size": [
+        32,
+        32
+      ],
+      "pivot_top_left": [
+        16,
+        30
+      ],
+      "sheet_rect_top_left": [
+        224,
+        0,
+        32,
+        32
+      ],
+      "opaque_bbox": [
+        3,
+        9,
+        29,
+        30
+      ],
+      "pixel_colors": 12
+    },
+    {
+      "group": "ambush-grub",
+      "state": "idle_a",
+      "path": "native/ambush-grub/idle_a.png",
+      "size": [
+        32,
+        24
+      ],
+      "pivot_top_left": [
+        16,
+        23
+      ],
+      "sheet_rect_top_left": [
+        0,
+        0,
+        32,
+        24
+      ],
+      "opaque_bbox": [
+        3,
+        6,
+        31,
+        23
+      ],
+      "pixel_colors": 9
+    },
+    {
+      "group": "ambush-grub",
+      "state": "idle_b",
+      "path": "native/ambush-grub/idle_b.png",
+      "size": [
+        32,
+        24
+      ],
+      "pivot_top_left": [
+        16,
+        23
+      ],
+      "sheet_rect_top_left": [
+        32,
+        0,
+        32,
+        24
+      ],
+      "opaque_bbox": [
+        3,
+        6,
+        31,
+        23
+      ],
+      "pixel_colors": 9
+    },
+    {
+      "group": "ambush-grub",
+      "state": "alert",
+      "path": "native/ambush-grub/alert.png",
+      "size": [
+        32,
+        24
+      ],
+      "pivot_top_left": [
+        16,
+        23
+      ],
+      "sheet_rect_top_left": [
+        64,
+        0,
+        32,
+        24
+      ],
+      "opaque_bbox": [
+        3,
+        5,
+        31,
+        23
+      ],
+      "pixel_colors": 11
+    },
+    {
+      "group": "ambush-grub",
+      "state": "crawl_a",
+      "path": "native/ambush-grub/crawl_a.png",
+      "size": [
+        32,
+        24
+      ],
+      "pivot_top_left": [
+        16,
+        23
+      ],
+      "sheet_rect_top_left": [
+        96,
+        0,
+        32,
+        24
+      ],
+      "opaque_bbox": [
+        3,
+        6,
+        31,
+        23
+      ],
+      "pixel_colors": 11
+    },
+    {
+      "group": "ambush-grub",
+      "state": "crawl_b",
+      "path": "native/ambush-grub/crawl_b.png",
+      "size": [
+        32,
+        24
+      ],
+      "pivot_top_left": [
+        16,
+        23
+      ],
+      "sheet_rect_top_left": [
+        128,
+        0,
+        32,
+        24
+      ],
+      "opaque_bbox": [
+        3,
+        6,
+        31,
+        23
+      ],
+      "pixel_colors": 11
+    },
+    {
+      "group": "ambush-grub",
+      "state": "lunge",
+      "path": "native/ambush-grub/lunge.png",
+      "size": [
+        32,
+        24
+      ],
+      "pivot_top_left": [
+        16,
+        23
+      ],
+      "sheet_rect_top_left": [
+        160,
+        0,
+        32,
+        24
+      ],
+      "opaque_bbox": [
+        3,
+        6,
+        31,
+        23
+      ],
+      "pixel_colors": 10
+    },
+    {
+      "group": "ambush-grub",
+      "state": "recoil",
+      "path": "native/ambush-grub/recoil.png",
+      "size": [
+        32,
+        24
+      ],
+      "pivot_top_left": [
+        16,
+        23
+      ],
+      "sheet_rect_top_left": [
+        192,
+        0,
+        32,
+        24
+      ],
+      "opaque_bbox": [
+        3,
+        6,
+        31,
+        23
+      ],
+      "pixel_colors": 10
+    },
+    {
+      "group": "ambush-grub",
+      "state": "fallen",
+      "path": "native/ambush-grub/fallen.png",
+      "size": [
+        32,
+        24
+      ],
+      "pivot_top_left": [
+        16,
+        23
+      ],
+      "sheet_rect_top_left": [
+        224,
+        0,
+        32,
+        24
+      ],
+      "opaque_bbox": [
+        4,
+        13,
+        27,
+        22
+      ],
+      "pixel_colors": 4
+    },
+    {
+      "group": "egg-clutch",
+      "state": "intact",
+      "path": "native/egg-clutch/intact.png",
+      "size": [
+        24,
+        24
+      ],
+      "pivot_top_left": [
+        12,
+        23
+      ],
+      "sheet_rect_top_left": [
+        0,
+        0,
+        24,
+        24
+      ],
+      "opaque_bbox": [
+        2,
+        4,
+        23,
+        23
+      ],
+      "pixel_colors": 9
+    },
+    {
+      "group": "egg-clutch",
+      "state": "pulse",
+      "path": "native/egg-clutch/pulse.png",
+      "size": [
+        24,
+        24
+      ],
+      "pivot_top_left": [
+        12,
+        23
+      ],
+      "sheet_rect_top_left": [
+        24,
+        0,
+        24,
+        24
+      ],
+      "opaque_bbox": [
+        2,
+        4,
+        23,
+        23
+      ],
+      "pixel_colors": 12
+    },
+    {
+      "group": "egg-clutch",
+      "state": "cracked",
+      "path": "native/egg-clutch/cracked.png",
+      "size": [
+        24,
+        24
+      ],
+      "pivot_top_left": [
+        12,
+        23
+      ],
+      "sheet_rect_top_left": [
+        48,
+        0,
+        24,
+        24
+      ],
+      "opaque_bbox": [
+        2,
+        4,
+        23,
+        23
+      ],
+      "pixel_colors": 10
+    },
+    {
+      "group": "egg-clutch",
+      "state": "empty",
+      "path": "native/egg-clutch/empty.png",
+      "size": [
+        24,
+        24
+      ],
+      "pivot_top_left": [
+        12,
+        23
+      ],
+      "sheet_rect_top_left": [
+        72,
+        0,
+        24,
+        24
+      ],
+      "opaque_bbox": [
+        1,
+        4,
+        23,
+        23
+      ],
+      "pixel_colors": 10
+    },
+    {
+      "group": "burrow",
+      "state": "empty",
+      "path": "native/burrow/empty.png",
+      "size": [
+        32,
+        24
+      ],
+      "pivot_top_left": [
+        16,
+        23
+      ],
+      "sheet_rect_top_left": [
+        0,
+        0,
+        32,
+        24
+      ],
+      "opaque_bbox": [
+        2,
+        4,
+        30,
+        23
+      ],
+      "pixel_colors": 9
+    },
+    {
+      "group": "burrow",
+      "state": "occupied",
+      "path": "native/burrow/occupied.png",
+      "size": [
+        32,
+        24
+      ],
+      "pivot_top_left": [
+        16,
+        23
+      ],
+      "sheet_rect_top_left": [
+        32,
+        0,
+        32,
+        24
+      ],
+      "opaque_bbox": [
+        2,
+        4,
+        30,
+        23
+      ],
+      "pixel_colors": 11
+    },
+    {
+      "group": "clues",
+      "state": "scratch",
+      "path": "native/clues/scratch.png",
+      "size": [
+        16,
+        16
+      ],
+      "pivot_top_left": [
+        8,
+        15
+      ],
+      "sheet_rect_top_left": [
+        0,
+        0,
+        16,
+        16
+      ],
+      "opaque_bbox": [
+        2,
+        2,
+        13,
+        13
+      ],
+      "pixel_colors": 3
+    },
+    {
+      "group": "clues",
+      "state": "slime",
+      "path": "native/clues/slime.png",
+      "size": [
+        16,
+        16
+      ],
+      "pivot_top_left": [
+        8,
+        15
+      ],
+      "sheet_rect_top_left": [
+        16,
+        0,
+        16,
+        16
+      ],
+      "opaque_bbox": [
+        1,
+        5,
+        15,
+        15
+      ],
+      "pixel_colors": 3
+    },
+    {
+      "group": "clues",
+      "state": "molt",
+      "path": "native/clues/molt.png",
+      "size": [
+        16,
+        16
+      ],
+      "pivot_top_left": [
+        8,
+        15
+      ],
+      "sheet_rect_top_left": [
+        32,
+        0,
+        16,
+        16
+      ],
+      "opaque_bbox": [
+        2,
+        5,
+        15,
+        15
+      ],
+      "pixel_colors": 5
+    }
+  ],
+  "source_references": [
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Original/sprites/spr_worker_idle/spr_worker_idle_0.png",
+      "sha256": "6caf279335872dd481e4093a9fdb91b65a6dde8e84c7db71e82dc97410c83efc"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Original/sprites/spr_zombie_idle/spr_zombie_idle_0.png",
+      "sha256": "ece0b19e928e962e6070286992cd92c3308e68c0e60a2747facaa0a7296e9503"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Original/sprites/spr_res_iron/spr_res_iron_0.png",
+      "sha256": "aa583f37da3409bbe9861b212fd625a207cd5e372a1f3eb3aef79220e4288050"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Art/Custom/CaveExploration/cave-rock.png",
+      "sha256": "3cc0c45c1494440757d021fbd2c4a568b53494ddcc847d7aab5fafefcb028ee3"
+    },
+    {
+      "path": "experiments/ore-dualgrid-v1/preview/cave-grid-ores-2x.png",
+      "sha256": "16821ad679189df8404958e6e27230900df6260e4365378e5f1cdc0b79941d72"
+    }
+  ],
+  "source_inputs": [
+    {
+      "path": "source/concept-prompt.txt",
+      "sha256": "a7f77af2fabe73b669f3bb8f24431014bf056e6b2acb0fffc268ce2ba5690dec"
+    },
+    {
+      "path": "source/generation-attempt.json",
+      "sha256": "6e36271ba04481bb907b96664dca92bfab56d31f7c916278985c21ce5292a729"
+    },
+    {
+      "path": "source/style-reference.png",
+      "sha256": "dfb966e8924367ec35bd579f6484a9a7833c807e041c9062a233fd2e0f6d714b"
+    }
+  ],
+  "authoring_sources": [
+    {
+      "path": "authoring/build.py",
+      "sha256": "71fca58656db75bf8eb7421cee41e83cd766ce0e112d0221e2e87c9430b62de8"
+    },
+    {
+      "path": "authoring/creatures.py",
+      "sha256": "70d9fd91e85b2c235512290ffe3e6f31d46394c663f1bf8758294fd902758c3d"
+    },
+    {
+      "path": "authoring/palette.py",
+      "sha256": "ab55f65911f342b41bd744e8eb7c018cde4b43e32309225fddf1e78872a9583a"
+    },
+    {
+      "path": "authoring/previews.py",
+      "sha256": "dd06b78de6a1394677000518e0efff1d67cc496a3d53e0a7261f26fd46e17e8c"
+    },
+    {
+      "path": "authoring/props.py",
+      "sha256": "dbbed55ff16bf1eae5c304ff2ef5df53be253b4b17339de1d10b94473356e985"
+    }
+  ],
+  "recommended_import": {
+    "ppu": 100,
+    "filter": "Point",
+    "mipmaps": false,
+    "compression": "None",
+    "wrap": "Clamp",
+    "sRGB": true,
+    "alpha": "binary",
+    "color_space": "Linear project"
+  },
+  "outputs": [
+    {
+      "path": "native/ambush-grub/alert.png",
+      "bytes": 526,
+      "sha256": "873e45da06de4588becbc84cb56202f8359b9368275c3bfe7143eba4922dd194"
+    },
+    {
+      "path": "native/ambush-grub/crawl_a.png",
+      "bytes": 534,
+      "sha256": "8e408bee4fd297cfeac3bb5f627a9ae5bf3bc26e4b97e00156ea5b679f8a2578"
+    },
+    {
+      "path": "native/ambush-grub/crawl_b.png",
+      "bytes": 530,
+      "sha256": "d5079c48454404edf42486779a2c4ec333bee9214d9ecdbae8f4d80cb2ca7973"
+    },
+    {
+      "path": "native/ambush-grub/fallen.png",
+      "bytes": 224,
+      "sha256": "5d7ff17cf22f25bed4e28bd5f4be11a1f1b8577851fd70a5dcf1b61eaeaa091e"
+    },
+    {
+      "path": "native/ambush-grub/idle_a.png",
+      "bytes": 515,
+      "sha256": "89f3da257211bc7227994317af28228ec3260fb0b467d4242ed6611948796ac4"
+    },
+    {
+      "path": "native/ambush-grub/idle_b.png",
+      "bytes": 508,
+      "sha256": "b771c9b1cd25de8ee2d5332ccfed25045c4951e713e360ce5a52371ee8989d84"
+    },
+    {
+      "path": "native/ambush-grub/lunge.png",
+      "bytes": 544,
+      "sha256": "83918eb256992b745c53159954b57a597542ced3aca088c31a4249ea3e03e052"
+    },
+    {
+      "path": "native/ambush-grub/recoil.png",
+      "bytes": 530,
+      "sha256": "011b93303e609db60c6d4ebf4ca7f74cb560924ea48bd021ee8f0f51650f5cb8"
+    },
+    {
+      "path": "native/burrow/empty.png",
+      "bytes": 446,
+      "sha256": "e9652ca81c426922baac08125fe2aae5b330d0f76f9f58646bfb7924f20fa49d"
+    },
+    {
+      "path": "native/burrow/occupied.png",
+      "bytes": 464,
+      "sha256": "344cd117f0d9377f7d8f7758cac70c5de3aa9d2ed49de1e241820d888d224b04"
+    },
+    {
+      "path": "native/clues/molt.png",
+      "bytes": 216,
+      "sha256": "f6dd19ca9fb3897d76ddc096ed74bdce93f814f25cf0d0eabfed96a56e68d521"
+    },
+    {
+      "path": "native/clues/scratch.png",
+      "bytes": 157,
+      "sha256": "eddb8df915856ef8be744bda826b7820fc25f8c9a83f4fc4c9988b74ab3fe915"
+    },
+    {
+      "path": "native/clues/slime.png",
+      "bytes": 165,
+      "sha256": "bdd9cee1e6a8d87a658c0fca65695f0ff1c009879ec97f72556fcb522afc3a88"
+    },
+    {
+      "path": "native/egg-clutch/cracked.png",
+      "bytes": 443,
+      "sha256": "6022fa7835986dc9928b4ac89c4ec808c318debc52c60d8593369208b48bad37"
+    },
+    {
+      "path": "native/egg-clutch/empty.png",
+      "bytes": 457,
+      "sha256": "847473e04700498ac8d6ec5a5047af564bc240ca3efa5ad45c7ee6eb3185855f"
+    },
+    {
+      "path": "native/egg-clutch/intact.png",
+      "bytes": 403,
+      "sha256": "f1339e0057d610e033a04422f92bb8fc2360e4b6ca0041fca5f87603eba136d7"
+    },
+    {
+      "path": "native/egg-clutch/pulse.png",
+      "bytes": 450,
+      "sha256": "cc3252f2d3660f6a492eeb73aea63ca2b24a9e72b992840948873d9f91f58a10"
+    },
+    {
+      "path": "native/ore-mimic/crawl_a.png",
+      "bytes": 756,
+      "sha256": "a2a7b7b095217f95d1d0e923c26632bb005a05173404af97ffe1d531795dde52"
+    },
+    {
+      "path": "native/ore-mimic/crawl_b.png",
+      "bytes": 761,
+      "sha256": "8f59d0312f07818114c7f467588f3f82b8d24de78fa6a7cb7c145950d319c75a"
+    },
+    {
+      "path": "native/ore-mimic/dormant.png",
+      "bytes": 573,
+      "sha256": "00df7154e6182bcf24705ffef0d5e85b12484dd222dc1862673e527ff885b66d"
+    },
+    {
+      "path": "native/ore-mimic/fallen.png",
+      "bytes": 626,
+      "sha256": "d3ecd54891161828ef9694a5327dc0a43c3c75adf1db3bb536bb4905561468d9"
+    },
+    {
+      "path": "native/ore-mimic/lunge.png",
+      "bytes": 790,
+      "sha256": "e6969dfb1cc6e6f026f57373bf5b20f318d09a1b2e2cab9a29fcd89e32c6557c"
+    },
+    {
+      "path": "native/ore-mimic/recoil.png",
+      "bytes": 762,
+      "sha256": "4fa76376753f9f7a9686d885371fbc351b7e8aed35e971fe4039f0c74f25703c"
+    },
+    {
+      "path": "native/ore-mimic/reveal.png",
+      "bytes": 737,
+      "sha256": "d9bb6833463537d2a6a32c207a45faf453c0fb926f16a78f12b7784a1eea6de9"
+    },
+    {
+      "path": "native/ore-mimic/warning.png",
+      "bytes": 608,
+      "sha256": "f6bcd0d761369d13f8529b5e846281d8baa10fc37069034bd6a64efd96324a65"
+    },
+    {
+      "path": "sheets/all-assets-32-cell.png",
+      "bytes": 4629,
+      "sha256": "944162845ef272721dd521ecce0cbcf7b65f5221bfce43221fce1b23e5c05920"
+    },
+    {
+      "path": "sheets/ambush-grub.png",
+      "bytes": 1237,
+      "sha256": "4c0f1a50b608baaa061200ddf2378020135546b37999ac10f7b9c698de68c8f7"
+    },
+    {
+      "path": "sheets/burrow.png",
+      "bytes": 528,
+      "sha256": "fa622fcfb97a1ecda310de88f0fbee6e221aca91f52d3b04d06f63b6b87f2f78"
+    },
+    {
+      "path": "sheets/clues.png",
+      "bytes": 404,
+      "sha256": "c1daa1637e0393fff8831464ed427e4486c41fcee6d3200d4ca9d8030964daa5"
+    },
+    {
+      "path": "sheets/egg-clutch.png",
+      "bytes": 823,
+      "sha256": "b92a5be6695b1ec3858e2201015be31ef637e8cf5ea9bd56366a4b3a35272c3b"
+    },
+    {
+      "path": "sheets/ore-mimic.png",
+      "bytes": 2004,
+      "sha256": "cea687031d7e5af413748fd0d44cc540dd95c0230b43c38a86363d36c456e1c3"
+    },
+    {
+      "path": "sheets/palette.png",
+      "bytes": 163,
+      "sha256": "2af479c60b940a2e93d3fcd3ae0c9f5fe76ca29f7f7fd781bc42d98758bb0dfd"
+    },
+    {
+      "path": "preview/contact-sheet.png",
+      "bytes": 79840,
+      "sha256": "27277426ef1bfd90ecb6fbb2f744bfc07c73dac0303883c4e4b636a1a10b6b9c"
+    },
+    {
+      "path": "preview/index.html",
+      "bytes": 6655,
+      "sha256": "b62e606f8340daf9cdac53b4d705c4fdf21068281054c40214c7ccb97d3d24b9"
+    },
+    {
+      "path": "preview/scale-scene-1x.png",
+      "bytes": 8734,
+      "sha256": "e818caf14f15656d46b901499e06d87c0b77642421dd8fcd0a23b050145d02b9"
+    },
+    {
+      "path": "preview/scale-scene-4x.png",
+      "bytes": 41873,
+      "sha256": "7c7724b3b342895fa1954a4ead366384a1ff50115a1f86eec44589227256018b"
+    },
+    {
+      "path": "preview/states.gif",
+      "bytes": 148265,
+      "sha256": "31ef5c4afb839305934278e617610775b6f770dcf621de92f9778a5e001cba50"
+    },
+    {
+      "path": "editable/ambush-grub.aseprite",
+      "bytes": 3695,
+      "sha256": "d2ed161d0378d45078593a5d364251f41d9327f085170e1308a26d6cddf75867"
+    },
+    {
+      "path": "editable/burrow.aseprite",
+      "bytes": 1646,
+      "sha256": "ee4a15ad843815721fdb2aa2bc42c290aad1ab3fd62a5c0b14df3e94cd34df5d"
+    },
+    {
+      "path": "editable/clues.aseprite",
+      "bytes": 1458,
+      "sha256": "6a1bb315cbe50449de3f93b79bf35691dac3a4995cbd42a1b213b1371c5ffd86"
+    },
+    {
+      "path": "editable/egg-clutch.aseprite",
+      "bytes": 2177,
+      "sha256": "802d30704cf21a17971da6fdc1f49f55d018a3a96d7e00f5ac01be2a73671950"
+    },
+    {
+      "path": "editable/import-native.lua",
+      "bytes": 9079,
+      "sha256": "a52452714cc53344ffb3b2b5c8aa6e680fcda94a155385f4cefc80b6f78628ec"
+    },
+    {
+      "path": "editable/ore-mimic.aseprite",
+      "bytes": 4561,
+      "sha256": "78178e70fc46de8816eab9e8b977b70d1478f8da09a334d046d291cf6215dada"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-15",
+  "scope": "CL-04 native-art checks only; no Unity import or gameplay validation",
+  "frame_count": 25,
+  "palette_opaque_colors": 24,
+  "alpha": "0/255",
+  "transparent_padding": "at least 1 px on every edge",
+  "sheet_frame_equality": "25/25",
+  "ore_mimic_fixed_grounding": "8/8",
+  "aseprite_roundtrip": [
+    {
+      "group": "ore-mimic",
+      "exit_code": 0,
+      "pixels_equal": true,
+      "tags_equal": true,
+      "frames": 8
+    },
+    {
+      "group": "ambush-grub",
+      "exit_code": 0,
+      "pixels_equal": true,
+      "tags_equal": true,
+      "frames": 8
+    },
+    {
+      "group": "egg-clutch",
+      "exit_code": 0,
+      "pixels_equal": true,
+      "tags_equal": true,
+      "frames": 4
+    },
+    {
+      "group": "burrow",
+      "exit_code": 0,
+      "pixels_equal": true,
+      "tags_equal": true,
+      "frames": 2
+    },
+    {
+      "group": "clues",
+      "exit_code": 0,
+      "pixels_equal": true,
+      "tags_equal": true,
+      "frames": 3
+    }
+  ],
+  "issues": [],
+  "manifest_sha256": "058a239ba6d5a8f8a276b1088c8e66742070aa738ad517c01a9981a1e72dd640",
+  "asset_package": "experiments/cl04-creature-art-v1",
+  "raw_report": "artifacts/cl04-art-20261015/final/review.json",
+  "image_api": "gpt-image-2.5 request not sent: missing OPENAI_API_KEY; final assets natively pixel-authored",
+  "not_executed": [
+    "Unity import",
+    "Unity compilation",
+    "Play",
+    "Player build/run",
+    "gameplay validation"
+  ],
+  "review_pending": [
+    "user art direction review",
+    "real-camera lighting and warning readability",
+    "choice of first encounter"
+  ]
+}

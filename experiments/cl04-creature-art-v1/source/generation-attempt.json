@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-15",
+  "provider": "custom",
+  "base_url": "https://sub.1qq.xyz/v1",
+  "model": "gpt-image-2.5",
+  "result": "adapter stopped before API request",
+  "error": "OPENAI_API_KEY missing from auth.json",
+  "prompt": "concept-prompt.txt",
+  "image_returned": false,
+  "final_asset_method": "native integer pixel authoring; not AI-generated"
+}
