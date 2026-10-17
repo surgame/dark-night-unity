@@ -1,0 +1,615 @@
+{
+  "localDate": "2026-10-16",
+  "kind": "CL01-CL04-five-ore-encounter-archetypes-offline-comparison",
+  "scope": "Five independent alternatives at one real map site; formal Game and all old demonstrations unchanged. Not five approved maps or R3 integration.",
+  "sampleProject": "experiments/mining-archetypes-v1/MiningArchetypes.csproj",
+  "sourceFiles": [
+    {
+      "path": "experiments/mining-archetypes-v1/ArchetypeGate.cs",
+      "sha256": "942be41f843a09f7efa2056de71378c9d2674bcf4aba425fb0b11ac8c9b2bafd",
+      "lines": 21
+    },
+    {
+      "path": "experiments/mining-archetypes-v1/ArchetypeMineralCell.cs",
+      "sha256": "6ece9c63037f18d01f3eed50ba6bab29d49571756d4b600ba1b2846c6d634c1f",
+      "lines": 17
+    },
+    {
+      "path": "experiments/mining-archetypes-v1/ArchetypeNest.cs",
+      "sha256": "e027fb3cc1bc680ed58485fdfd3bd2cac3a7c78a66e0629e065550ade409444d",
+      "lines": 28
+    },
+    {
+      "path": "experiments/mining-archetypes-v1/ArchetypeNestPlanner.cs",
+      "sha256": "c8b3fb76e5bb6c413383a0bea9118f3bd0e71773dbf872c32e84e35604f7d537",
+      "lines": 91
+    },
+    {
+      "path": "experiments/mining-archetypes-v1/ArchetypeSite.cs",
+      "sha256": "467e389c91e79d9948a7e56c157f744778ca39011840ec05481a35197a433057",
+      "lines": 65
+    },
+    {
+      "path": "experiments/mining-archetypes-v1/MiningArchetypes.csproj",
+      "sha256": "3c38c8ba3393e42d53252c44328fd476b4f78a6e01b912c92ecd04fd8f9b7670",
+      "lines": 11
+    },
+    {
+      "path": "experiments/mining-archetypes-v1/OreArchetypeShape.cs",
+      "sha256": "c5f34c3333ece564c86af63ea9345341e917517aab2bf72b14e886a3f5b4fbda",
+      "lines": 102
+    },
+    {
+      "path": "experiments/mining-archetypes-v1/Program.cs",
+      "sha256": "5da075c3420ed1189690b826455e637300ec0a342e98d59fd4a6633a82c28a4a",
+      "lines": 146
+    },
+    {
+      "path": "experiments/mining-archetypes-v1/README.md",
+      "sha256": "56574ab5f205845324df08eaae01f39ffafcc20773d91cae6df08fd239b2b274",
+      "lines": 37
+    }
+  ],
+  "sampleAssemblySha256": "b344d0f33a9b68e19f4bce3b84c98bdcc9e0b0a03b97838833e51678f45f1928",
+  "compile": {
+    "command": "dotnet build experiments/mining-archetypes-v1/MiningArchetypes.csproj --nologo -v minimal",
+    "errors": 0,
+    "warnings": 0,
+    "exitCode": 0,
+    "log": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\build.log",
+    "preflight": {
+      "date": "2026-10-16",
+      "kind": "offline-archetype-build",
+      "availableGiB": 9.106285095214844,
+      "commitFreeGiB": 8.109355926513672,
+      "disks": [
+        {
+          "Name": "C",
+          "freeGiB": 9.867828369140625
+        },
+        {
+          "Name": "D",
+          "freeGiB": 100.87067031860352
+        }
+      ],
+      "editorPrivateBytes": [
+        {
+          "Id": 36648,
+          "PrivateMemorySize64": 17768448
+        },
+        {
+          "Id": 43316,
+          "PrivateMemorySize64": 15749120
+        }
+      ]
+    }
+  },
+  "identity": {
+    "core": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Core.dll",
+      "sha256": "b10fba0d1ba5e851a20db5085ca2125d6f0ac5237fda937550a1a1337e6fa3f5"
+    },
+    "config": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\WorldSession\\WorldSession.asset",
+      "sha256": "95b9622fafe3bc817c66478b6657347b940448ee919c802319d7ceef5370c838"
+    },
+    "author": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Terrain\\MineMaps\\rift-expanded.minemap",
+      "sha256": "8e1729ac6248b18aed7f04a4fe7fdb26c1a162125c18ab837baf16b18641782b"
+    }
+  },
+  "seed": "STRATA-0922",
+  "inputSha256": "e6bc1251fb3bb86313f3865b4527096fa779db04337454fe12110f731c9feb3a",
+  "materialSha256": "66f175e89132e9ad6b06cbd509caf777da4f4417b385628b99954aa36114af57",
+  "preserved": [
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\local-map-baseline.html",
+      "sha256": "9542268dbb1168b9e14d377d19cf451a458e3c00c3065733b9f2a3833aa9481b",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-exploration.html",
+      "sha256": "7cb276ebb1378276e0474d4555f01ed3ad32c7ef29420574e0f8adbab8cffb72",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-exploration-snapshot.json",
+      "sha256": "e6bc1251fb3bb86313f3865b4527096fa779db04337454fe12110f731c9feb3a",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\rich-vein-nests.html",
+      "sha256": "ad9bf4866e97054a0409250a5344f1ad2caceab470a1a0ff6681ae1d25d75ce4",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\rich-vein-nests-snapshot.json",
+      "sha256": "85347680414012430fcdb98620b359399ae77edcc345568040d5c3df777f446a",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\rich-vein-nests-lateral\\rich-vein-nests.html",
+      "sha256": "6305fc0df64eb55402531c7f0768a8b87cc4321ced0ae0fd54bd47a2e30282cd",
+      "unchanged": true
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\rich-vein-nests-lateral\\rich-vein-nests-snapshot.json",
+      "sha256": "e189f33f98d930dd041fa9726bb3129a8c2e75f46cddf0f865149f3c985000ab",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\LocalTerrainInput.cs",
+      "sha256": "1891ab6a1a18795c6825a6a175660513f0d948a9943ce527096866306bec14d2",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningExploration.csproj",
+      "sha256": "5d40051bf67f0df14f1eee5b91d93e36548fad5f4fcce4cd0af0ede46ec935d0",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningExplorationGenerator.cs",
+      "sha256": "b37bf19d522a7ab62d9d3e91b9a69863fb0ebc8505039935d47067910234dbc6",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningRoomRole.cs",
+      "sha256": "f36e315b58385f61810e4b526eb4ab7b58fb804aa735dfa840526ebee9593222",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningRouteField.cs",
+      "sha256": "d7e5575c23b7fad46106babe328c12fa2b3026cd9ad05349ff45e7a4f23c2d33",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningVein.cs",
+      "sha256": "5108a4d4abfb2bf116f8d3d58328d76a7a92139224b72b9139d53f36954d8519",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningVeinGrowth.cs",
+      "sha256": "dcdeff2cca6d5f93d7d3179f9b1f7a410512b6995ddaa0229183515af5422fb3",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\Program.cs",
+      "sha256": "40acbc07f71120592180aa896ad6c5e467b1b0b438904521eadbb6c394ff181f",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\README.md",
+      "sha256": "d2af3333c3538d1462f7006ca382d091cc9770dde38a22947f28064cadb66925",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\MiningInput.cs",
+      "sha256": "18dadc231e5a0f4220dda49aac683bfae9820534d0c932a68cae747862b10e3b",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\NestDecision.cs",
+      "sha256": "63e5e80996ced46787a43021ab3156c123815164406d8d68774c58fd4de1efba",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\NestPassResult.cs",
+      "sha256": "499ff7aa1610928ed011857f260031e5bcb8f30944fa6289543813f25f15204d",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\NestPlacement.cs",
+      "sha256": "c08ab4c27c716dc5dc4194e5e31cfd6496712eae40ae916e175658e6c9ed26f9",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\NestPlacementSettings.cs",
+      "sha256": "326d6401ebcd6ac6d94bec1bc230aea0f97b05b3a0ffc82dcf6d32e9c4827c2e",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\NestPocketPlanner.cs",
+      "sha256": "8c7a27cccf4841ef3979cf70a146e9a058332201ccdab0c8fa481ca8e14410fb",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\Program.cs",
+      "sha256": "7ba6169885df38f59b48dfff0e001c4607553c5aac5e3167b67e0d1776761d2f",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\README.md",
+      "sha256": "d3341bdbab77294af9f815e55f090022c30d9bbfa519d3106ed04378e940ba43",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\RichVeinNestPass.cs",
+      "sha256": "b54af30bd0d88c8a954e7a9c84daed5318a5243b0d2fe730a92a8017d0c2d4fe",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\RichVeinNests.csproj",
+      "sha256": "3c38c8ba3393e42d53252c44328fd476b4f78a6e01b912c92ecd04fd8f9b7670",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\VeinInput.cs",
+      "sha256": "65e2bd79d82b1dcf5b933fdd7c6386d01b2affd98ee3a51b6ee8b31c8dea2215",
+      "unchanged": true
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\VeinSideProfile.cs",
+      "sha256": "71e5d3a6c8a3f82f75354f020a4fc46bb73ab656b274c288279bf749b8411f3f",
+      "unchanged": true
+    }
+  ],
+  "spriteAssets": [
+    {
+      "path": "experiments/cl04-creature-art-v1/native/burrow/occupied.png",
+      "sha256": "344cd117f0d9377f7d8f7758cac70c5de3aa9d2ed49de1e241820d888d224b04"
+    },
+    {
+      "path": "experiments/cl04-creature-art-v1/native/egg-clutch/intact.png",
+      "sha256": "f1339e0057d610e033a04422f92bb8fc2360e4b6ca0041fca5f87603eba136d7"
+    },
+    {
+      "path": "experiments/cl04-creature-art-v1/native/ambush-grub/alert.png",
+      "sha256": "873e45da06de4588becbc84cb56202f8359b9368275c3bfe7143eba4922dd194"
+    }
+  ],
+  "generation": {
+    "variants": 5,
+    "checks": [
+      {
+        "id": "branch",
+        "cells": 97,
+        "connected": true,
+        "sourceKept": true,
+        "pocketClosed": true,
+        "mineralGap": true,
+        "floorKept": true,
+        "offExact": true,
+        "earlyReveal": true,
+        "remaining": 166,
+        "gates": 2
+      },
+      {
+        "id": "core",
+        "cells": 102,
+        "connected": true,
+        "sourceKept": true,
+        "pocketClosed": true,
+        "mineralGap": true,
+        "floorKept": true,
+        "offExact": true,
+        "earlyReveal": true,
+        "remaining": 110,
+        "gates": 1
+      },
+      {
+        "id": "strata",
+        "cells": 100,
+        "connected": true,
+        "sourceKept": true,
+        "pocketClosed": true,
+        "mineralGap": true,
+        "floorKept": true,
+        "offExact": true,
+        "earlyReveal": true,
+        "remaining": 178,
+        "gates": 2
+      },
+      {
+        "id": "beads",
+        "cells": 105,
+        "connected": true,
+        "sourceKept": true,
+        "pocketClosed": true,
+        "mineralGap": true,
+        "floorKept": true,
+        "offExact": true,
+        "earlyReveal": true,
+        "remaining": 136,
+        "gates": 1
+      },
+      {
+        "id": "crescent",
+        "cells": 90,
+        "connected": true,
+        "sourceKept": true,
+        "pocketClosed": true,
+        "mineralGap": true,
+        "floorKept": true,
+        "offExact": true,
+        "earlyReveal": true,
+        "remaining": 150,
+        "gates": 2
+      }
+    ],
+    "errors": [],
+    "sha256": "870a4502a031e78caa0d26c655b310a97c9efe93169d724d551ca1efce3d23b4",
+    "bytes": 126154,
+    "originalHash": "66f175e89132e9ad6b06cbd509caf777da4f4417b385628b99954aa36114af57",
+    "inputSha256": "e6bc1251fb3bb86313f3865b4527096fa779db04337454fe12110f731c9feb3a",
+    "exportedUtc": "2026-10-15T18:02:32.0090256+00:00"
+  },
+  "variants": [
+    {
+      "id": "branch",
+      "name": "分叉夹巢",
+      "cells": 97,
+      "budget": {
+        "iron": 120,
+        "gold": 120
+      },
+      "firstReveal": 37,
+      "firstRevealFraction": 0.38144329896907214,
+      "remainingCells": 60,
+      "remainingReserves": 166,
+      "gates": 2,
+      "blueprintCount": 2
+    },
+    {
+      "id": "core",
+      "name": "细脉富核",
+      "cells": 102,
+      "budget": {
+        "iron": 120,
+        "gold": 120
+      },
+      "firstReveal": 59,
+      "firstRevealFraction": 0.5784313725490197,
+      "remainingCells": 43,
+      "remainingReserves": 110,
+      "gates": 1,
+      "blueprintCount": 3
+    },
+    {
+      "id": "strata",
+      "name": "错层夹巢",
+      "cells": 100,
+      "budget": {
+        "iron": 120,
+        "gold": 120
+      },
+      "firstReveal": 31,
+      "firstRevealFraction": 0.31,
+      "remainingCells": 69,
+      "remainingReserves": 178,
+      "gates": 2,
+      "blueprintCount": 3
+    },
+    {
+      "id": "beads",
+      "name": "串珠矿囊",
+      "cells": 105,
+      "budget": {
+        "iron": 120,
+        "gold": 120
+      },
+      "firstReveal": 51,
+      "firstRevealFraction": 0.4857142857142857,
+      "remainingCells": 54,
+      "remainingReserves": 136,
+      "gates": 1,
+      "blueprintCount": 3
+    },
+    {
+      "id": "crescent",
+      "name": "环抱矿弧",
+      "cells": 90,
+      "budget": {
+        "iron": 120,
+        "gold": 120
+      },
+      "firstReveal": 30,
+      "firstRevealFraction": 0.3333333333333333,
+      "remainingCells": 60,
+      "remainingReserves": 150,
+      "gates": 2,
+      "blueprintCount": 2
+    }
+  ],
+  "browser": {
+    "checksPassed": 108,
+    "errors": [],
+    "report": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\browser.json",
+    "visualReview": [
+      "five-panel overview",
+      "branch/core/crescent expanded",
+      "core reveal",
+      "320px single map",
+      "dark overview"
+    ]
+  },
+  "outputs": [
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\beads-cutaway.png",
+      "sha256": "8a878dc84fb487298291ad51fd5362112602fcf09c7851f0ffb959923ec274f3",
+      "bytes": 68459
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\beads-reveal.png",
+      "sha256": "808b4ee84f50c60e25062eceb85346f33326dc63f6247b7e80c8c3c0457e5295",
+      "bytes": 52070
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\branch-cutaway.png",
+      "sha256": "50176bdf252e738749c448b37fef71711f574ef239f8c92ceec00358e67891ef",
+      "bytes": 66765
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\branch-reveal.png",
+      "sha256": "5ad82c1823a7f66a4e7a33b2a9e40218e9c436b210d8cd7a9f582563fd5305c5",
+      "bytes": 51393
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\browser.json",
+      "sha256": "32b74fa9ddb3e58b24a91a1304f705111d83ed5e0c2004ec0a43976c2b4d0fed",
+      "bytes": 3688
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\build-first-failure.log",
+      "sha256": "36a34a7d67394d66f81ddfb2c241f371c096f70d1d3d9bc8a1596ff26de1c2e3",
+      "bytes": 1137
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\build.log",
+      "sha256": "4cd94f5ad3ad38648e32909e1d0fd206011c6a4272c7b6a6f1eada9b2f38330c",
+      "bytes": 461
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\check-browser.cjs",
+      "sha256": "db715207aebe603fed2d71ae20d4e7a48842634e6b3ab0b6c3d48c72413e6cd7",
+      "bytes": 6076
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\core-cutaway.png",
+      "sha256": "3ee5f16df0a004874d4da8b7662079ce8377a0edbaa8015af05adc3babc2cf56",
+      "bytes": 67317
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\core-reveal.png",
+      "sha256": "d06414cc081f42da71d218f7b074b1bed1934046f1cc340b6b5802af81037065",
+      "bytes": 54482
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\crescent-cutaway.png",
+      "sha256": "c7aa2bcc7abad3fd0e4f9972f5afc6c3468a460479abbc9c48f5b7a139bf5584",
+      "bytes": 70023
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\crescent-reveal.png",
+      "sha256": "8b96f1a7ac8d931dc8b2c1e9000b9d1c6c9ca9a9b1a491b0dbb62b8156e3b04f",
+      "bytes": 52347
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\dark.png",
+      "sha256": "7235ce1eb89a5955b0b2e83be85bd95ff4a26925e5c3ea268b79e5ef799a1a98",
+      "bytes": 130288
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\generation-blueprint-failure.log",
+      "sha256": "69095e4673ee8130f94ca24506d6e34d9ffe49db051651ec07e18c8985c6bad2",
+      "bytes": 563
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\generation-first-failure.log",
+      "sha256": "7ea5ee08dda7be4000fc6ebd081a056e1959957c0cc51ed67747feecf6504f19",
+      "bytes": 297
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\generation-run.log",
+      "sha256": "8dcd9aa998f76e21575308c1b7503c28864cacf4a438fc8242ad9d30dd0a229b",
+      "bytes": 946
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\generation-second-failure.log",
+      "sha256": "a10cd49bb19fa018670a116601827e0b18f2edb4bda8ae9fc1b110cba0d9c412",
+      "bytes": 273
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\generation.json",
+      "sha256": "5348f2b76a7532c275dd02f0815bcb57ab0f2a6012a60ff330c090027afe34af",
+      "bytes": 1834
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\mining-archetypes-snapshot.json",
+      "sha256": "870a4502a031e78caa0d26c655b310a97c9efe93169d724d551ca1efce3d23b4",
+      "bytes": 126154
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\mining-archetypes.html",
+      "sha256": "73ac42616a3dbd9cfed89c5402c6d3dafbb060f1f0865ec10719a9c47a69f395",
+      "bytes": 139415
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\mobile.png",
+      "sha256": "8b34de8b7d1c0360a3e8b6a99b8ef2c0e7db803c47d26584fa787845d7f31155",
+      "bytes": 38259
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\overview-grain-first.png",
+      "sha256": "92a62e8152fd9e720d04bf545e57b8c97180c6b675756f843e18eba35bd7868f",
+      "bytes": 142708
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\overview.png",
+      "sha256": "4c93ae0489a3da89a49d8b7e5d8e4cfa1caff8c8938a4b8b2f13ea6d3ef79e53",
+      "bytes": 133335
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\preflight.json",
+      "sha256": "ac6691fd7f0b79047b141d61f095e51cd623baf906ffa3ec139aa43cd33501b3",
+      "bytes": 487
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\preserved-before.json",
+      "sha256": "558db8bccce499911a1d03439ff3002fcee26f80e20c34e8cec776d8852b0834",
+      "bytes": 1664
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\record-evidence.py",
+      "sha256": "6a33cfea6468bd603e7e41c6b784314dcab357fc556d969071c3a0fbb2949129",
+      "bytes": 5233
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\strata-cutaway.png",
+      "sha256": "4618a50fc640b9c07d96c0686319e5c1542fac66aa57a5a6af9372ce5d84d451",
+      "bytes": 72180
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-archetypes\\strata-reveal.png",
+      "sha256": "256347cfe2106d49fe5a54170394d228bf6e1d0081b13a653d2c07ec34e4ad2e",
+      "bytes": 51560
+    }
+  ],
+  "intermediateInventory": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-archetypes-v1\\bin",
+      "files": 12,
+      "bytes": 788788,
+      "disposition": "retained, Git ignored"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-archetypes-v1\\obj",
+      "files": 21,
+      "bytes": 239778,
+      "disposition": "retained, Git ignored"
+    }
+  ],
+  "failedAttemptsRetained": [
+    "build-first-failure.log",
+    "generation-first-failure.log",
+    "generation-second-failure.log",
+    "generation-blueprint-failure.log"
+  ],
+  "repairs": [
+    "Added Config.Terrain namespace",
+    "Bent common stem into adjacent thick real rock; widened fork separation",
+    "Split static deposits into existing 64-cell-bounded blueprints without changing Core contract"
+  ],
+  "notExecuted": [
+    "Unity launch/import/compile",
+    "Unity tests",
+    "Play",
+    "Player build/run",
+    "actor movement validation",
+    "AI/damage/harvest/visibility simulation",
+    "network/save validation"
+  ],
+  "proposedOnly": [
+    "all five recipes and their map distribution",
+    "iron120/gold120 comparative budgets",
+    "fixed excavation sequence including sidewalls",
+    "encounter trigger and actual reaction window"
+  ],
+  "stageComplete": false,
+  "userStageEndConfirmed": false,
+  "documentation": {
+    "linksChecked": 152,
+    "missing": [],
+    "anchorValid": true,
+    "whitespaceCheck": "passed"
+  }
+}

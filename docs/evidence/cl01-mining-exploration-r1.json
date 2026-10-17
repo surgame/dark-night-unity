@@ -1,0 +1,275 @@
+{
+  "startedLocalDate": "2026-10-15",
+  "completedLocalDate": "2026-10-16",
+  "kind": "R1-offline-mining-generation-sample",
+  "scope": "Existing saved Core planet generation geometry plus offline C# mining candidate. Formal Game generation/harvesting unchanged.",
+  "sampleProject": "experiments/mining-exploration-r1/MiningExploration.csproj",
+  "sourceFiles": [
+    {
+      "path": "experiments/mining-exploration-r1/LocalTerrainInput.cs",
+      "sha256": "1891ab6a1a18795c6825a6a175660513f0d948a9943ce527096866306bec14d2",
+      "lines": 65
+    },
+    {
+      "path": "experiments/mining-exploration-r1/MiningExploration.csproj",
+      "sha256": "5d40051bf67f0df14f1eee5b91d93e36548fad5f4fcce4cd0af0ede46ec935d0",
+      "lines": 14
+    },
+    {
+      "path": "experiments/mining-exploration-r1/MiningExplorationGenerator.cs",
+      "sha256": "b37bf19d522a7ab62d9d3e91b9a69863fb0ebc8505039935d47067910234dbc6",
+      "lines": 155
+    },
+    {
+      "path": "experiments/mining-exploration-r1/MiningRoomRole.cs",
+      "sha256": "f36e315b58385f61810e4b526eb4ab7b58fb804aa735dfa840526ebee9593222",
+      "lines": 13
+    },
+    {
+      "path": "experiments/mining-exploration-r1/MiningRouteField.cs",
+      "sha256": "d7e5575c23b7fad46106babe328c12fa2b3026cd9ad05349ff45e7a4f23c2d33",
+      "lines": 107
+    },
+    {
+      "path": "experiments/mining-exploration-r1/MiningVein.cs",
+      "sha256": "5108a4d4abfb2bf116f8d3d58328d76a7a92139224b72b9139d53f36954d8519",
+      "lines": 50
+    },
+    {
+      "path": "experiments/mining-exploration-r1/MiningVeinGrowth.cs",
+      "sha256": "dcdeff2cca6d5f93d7d3179f9b1f7a410512b6995ddaa0229183515af5422fb3",
+      "lines": 61
+    },
+    {
+      "path": "experiments/mining-exploration-r1/Program.cs",
+      "sha256": "40acbc07f71120592180aa896ad6c5e467b1b0b438904521eadbb6c394ff181f",
+      "lines": 153
+    }
+  ],
+  "sampleAssemblySha256": "5225dc56a73a17817a6e8d11e3150e8095784f640dc2ebdeab4d9cb0e80bd963",
+  "compile": {
+    "command": "dotnet build experiments/mining-exploration-r1/MiningExploration.csproj --nologo -v minimal",
+    "errors": 0,
+    "warnings": 0,
+    "log": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r1-build-budget-final.log",
+    "preflight": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r1-compile-final-preflight.json"
+  },
+  "generation": {
+    "map": "rift-expanded",
+    "rooms": 22,
+    "veins": 57,
+    "roadmapSmall": 42,
+    "interiorVeins": 15,
+    "mineralCells": 341,
+    "variants": 42,
+    "fulfilled": 39,
+    "foregroundUnchanged": true,
+    "geometryUnchanged": true,
+    "noOverlap": true,
+    "allHeadsExposed": true,
+    "allBodiesInWall": true,
+    "allBodiesConnected": true,
+    "shallowBelowDeep": true,
+    "allVariantDepthBudgetsMonotonic": true,
+    "dimensions": 61440,
+    "bytes": 73472,
+    "summary": [
+      {
+        "tier": 0,
+        "roadside": 16,
+        "interior": 3,
+        "iron": 90,
+        "gold": 0
+      },
+      {
+        "tier": 1,
+        "roadside": 14,
+        "interior": 5,
+        "iron": 169,
+        "gold": 11
+      },
+      {
+        "tier": 2,
+        "roadside": 12,
+        "interior": 7,
+        "iron": 96,
+        "gold": 264
+      }
+    ],
+    "diagnostics": [
+      "wall; tier=0; target=3; actual=3",
+      "road; tier=0; target=16; actual=16",
+      "wall; tier=1; target=5; actual=5",
+      "road; tier=1; target=14; actual=14",
+      "wall; tier=2; target=7; actual=7",
+      "road; tier=2; target=12; actual=12",
+      "tier=0; planned-reserves=90; actual-reserves=90",
+      "tier=1; planned-reserves=180; actual-reserves=180",
+      "tier=2; planned-reserves=360; actual-reserves=360"
+    ],
+    "identity": {
+      "coreSha256": "b10fba0d1ba5e851a20db5085ca2125d6f0ac5237fda937550a1a1337e6fa3f5",
+      "configSha256": "95b9622fafe3bc817c66478b6657347b940448ee919c802319d7ceef5370c838",
+      "authorSha256": "8e1729ac6248b18aed7f04a4fe7fdb26c1a162125c18ab837baf16b18641782b",
+      "finalMaterialSha256": "66f175e89132e9ad6b06cbd509caf777da4f4417b385628b99954aa36114af57",
+      "exportedUtc": "2026-10-16T00:10:13.5143472+08:00",
+      "miningFootprintSha256": "ce370d02c45c858022cd76e8c96cc25d29e376670398054e042d1d573cf8f7dd"
+    }
+  },
+  "thresholds": [
+    121,
+    262,
+    404
+  ],
+  "browser": {
+    "checks": [
+      "fragment under 1 MB",
+      "foregroundUnchanged",
+      "geometryUnchanged",
+      "noOverlap",
+      "allHeadsExposed",
+      "allBodiesInWall",
+      "allBodiesConnected",
+      "shallowBelowDeep",
+      "allVariantDepthBudgetsMonotonic",
+      "actual author connections exported",
+      "roadside small deposits are more numerous",
+      "foreground matches confirmed R0 source",
+      "base/cavern-0 rich no overlap",
+      "base/cavern-0 quiet no overlap",
+      "base/cavern-1 rich no overlap",
+      "base/cavern-1 quiet no overlap",
+      "base/cavern-2 rich no overlap",
+      "base/cavern-2 quiet no overlap",
+      "base/cavern-3 rich no overlap",
+      "base/cavern-3 quiet no overlap",
+      "base/cavern-4 rich no overlap",
+      "base/cavern-4 quiet no overlap",
+      "base/upper-0 rich no overlap",
+      "base/upper-0 quiet no overlap",
+      "base/upper-1 rich no overlap",
+      "base/upper-1 quiet no overlap",
+      "base/upper-2 rich no overlap",
+      "base/upper-2 quiet no overlap",
+      "relay rich no overlap",
+      "relay quiet no overlap",
+      "observe rich no overlap",
+      "observe quiet no overlap",
+      "court rich no overlap",
+      "court quiet no overlap",
+      "wind rich no overlap",
+      "wind quiet no overlap",
+      "rim rich no overlap",
+      "rim quiet no overlap",
+      "bend rich no overlap",
+      "bend quiet no overlap",
+      "deep-relay rich no overlap",
+      "deep-relay quiet no overlap",
+      "deep rich no overlap",
+      "deep quiet no overlap",
+      "high rich no overlap",
+      "high quiet no overlap",
+      "neighbor rich no overlap",
+      "neighbor quiet no overlap",
+      "blind rich no overlap",
+      "blind quiet no overlap",
+      "return rich no overlap",
+      "return quiet no overlap",
+      "blind-deep rich no overlap",
+      "blind-deep quiet no overlap",
+      "all non-entry author rooms selectable",
+      "rich room changes actual precomputed output",
+      "reveal slider changes real frozen wall footprint display",
+      "reveal cell count updates",
+      "quiet room changes actual output",
+      "route view labels the static-distance limitation",
+      "baseline uses original ore budget",
+      "base/cavern-0 stable room identity",
+      "base/cavern-1 stable room identity",
+      "base/cavern-2 stable room identity",
+      "base/cavern-3 stable room identity",
+      "base/cavern-4 stable room identity",
+      "base/upper-0 stable room identity",
+      "base/upper-1 stable room identity",
+      "base/upper-2 stable room identity",
+      "relay stable room identity",
+      "observe stable room identity",
+      "court stable room identity",
+      "wind stable room identity",
+      "rim stable room identity",
+      "bend stable room identity",
+      "deep-relay stable room identity",
+      "deep stable room identity",
+      "high stable room identity",
+      "neighbor stable room identity",
+      "blind stable room identity",
+      "return stable room identity",
+      "blind-deep stable room identity",
+      "736 px no horizontal overflow",
+      "360 px no horizontal overflow",
+      "320 px no horizontal overflow",
+      "no browser page errors"
+    ],
+    "errors": []
+  },
+  "roomVariants": {
+    "total": 42,
+    "richSupported": 18,
+    "richRejected": [
+      {
+        "roomId": "base/cavern-1",
+        "role": "rich",
+        "fulfilled": false
+      },
+      {
+        "roomId": "base/upper-0",
+        "role": "rich",
+        "fulfilled": false
+      },
+      {
+        "roomId": "neighbor",
+        "role": "rich",
+        "fulfilled": false
+      }
+    ],
+    "quietSupported": 21
+  },
+  "originalR0ForegroundMatched": true,
+  "sourceGeometryPreserved": true,
+  "originalAuthorAndWorldSessionUnchanged": true,
+  "priorBrowserFailure": {
+    "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-exploration-browser-failure-latest.json",
+    "reason": "Derived standalone preview was stale after render refused overwrite; regenerated owned preview with --force; final baseline-budget interaction passed."
+  },
+  "visualization": {
+    "directory": "C:/Users/Jobscn/.codex/visualizations/2026/10/15/01a13fc4-708c-79d2-a201-67a3ea8ba0dd",
+    "fragment": "mining-exploration.html",
+    "snapshot": "mining-exploration-snapshot.json",
+    "browserCheck": "check-mining-exploration.cjs",
+    "screenshots": [
+      "r1-overview.png",
+      "r1-rich-room.png",
+      "r1-reveal.png",
+      "r1-routes.png",
+      "r1-mobile.png",
+      "r1-dark.png"
+    ]
+  },
+  "notPerformed": [
+    "Game source or author asset edits",
+    "Unity launch/import/compile/Play/tests/Player",
+    "YYGC/protocol/save/dependency changes",
+    "Real actor movement/mining/AI/network/save acceptance"
+  ],
+  "outstanding": [
+    "Full baseline room-connection contract",
+    "Legal actor/jump/ladder distance instead of cavity approximation",
+    "Explicit authored room-role areas",
+    "Formal shared generation/harvesting integration",
+    "Ore budget and pace review",
+    "R2 nests and R3 ladders/collapse/full version loading"
+  ],
+  "artifactRetention": "bin/obj and browser/source outputs retained in place for reproduction; no cleanup/moves/deletions performed",
+  "snapshotSha256": "e6bc1251fb3bb86313f3865b4527096fa779db04337454fe12110f731c9feb3a",
+  "depthBudgetCorrection": "One rich-room variant initially exceeded the far-tier reserve budget; cap only the changed rich-vein capacities, reject if minimum footprint cannot fit. Final 42 variants all keep near < middle < far."
+}

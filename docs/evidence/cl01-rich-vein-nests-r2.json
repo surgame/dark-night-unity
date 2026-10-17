@@ -1,0 +1,568 @@
+{
+  "localDate": "2026-10-16",
+  "kind": "R2-pluggable-offline-rich-vein-nest-sample",
+  "scope": "Independent development-time pass consuming preserved R1; no formal Game/Unity integration or runtime encounter implementation.",
+  "sampleProject": "experiments/rich-vein-nests-r2/RichVeinNests.csproj",
+  "sourceFiles": [
+    {
+      "path": "experiments/rich-vein-nests-r2/MiningInput.cs",
+      "sha256": "18dadc231e5a0f4220dda49aac683bfae9820534d0c932a68cae747862b10e3b",
+      "lines": 64
+    },
+    {
+      "path": "experiments/rich-vein-nests-r2/NestDecision.cs",
+      "sha256": "63e5e80996ced46787a43021ab3156c123815164406d8d68774c58fd4de1efba",
+      "lines": 20
+    },
+    {
+      "path": "experiments/rich-vein-nests-r2/NestPassResult.cs",
+      "sha256": "499ff7aa1610928ed011857f260031e5bcb8f30944fa6289543813f25f15204d",
+      "lines": 29
+    },
+    {
+      "path": "experiments/rich-vein-nests-r2/NestPlacement.cs",
+      "sha256": "a05031aa056864f455ab62c2bdc3c52b9de4ce2ca5a9bc47091e6191f2c6b6bc",
+      "lines": 34
+    },
+    {
+      "path": "experiments/rich-vein-nests-r2/NestPlacementSettings.cs",
+      "sha256": "326d6401ebcd6ac6d94bec1bc230aea0f97b05b3a0ffc82dcf6d32e9c4827c2e",
+      "lines": 27
+    },
+    {
+      "path": "experiments/rich-vein-nests-r2/NestPocketPlanner.cs",
+      "sha256": "b83979305608f1bc3dc243d2cdf48255e5bfcff97a5fdb0e8226d65719fcfb2b",
+      "lines": 93
+    },
+    {
+      "path": "experiments/rich-vein-nests-r2/Program.cs",
+      "sha256": "b97f9053ee9aec3f2f0a4908dc9aaf14d4b7584df7044b3dd735ca0a41575d4f",
+      "lines": 142
+    },
+    {
+      "path": "experiments/rich-vein-nests-r2/README.md",
+      "sha256": "3d7f2a55ae2847bd895004ca72ae64e23a7bbb5f216bee3bfdb6d70fa4e210de",
+      "lines": 29
+    },
+    {
+      "path": "experiments/rich-vein-nests-r2/RichVeinNestPass.cs",
+      "sha256": "b54af30bd0d88c8a954e7a9c84daed5318a5243b0d2fe730a92a8017d0c2d4fe",
+      "lines": 68
+    },
+    {
+      "path": "experiments/rich-vein-nests-r2/RichVeinNests.csproj",
+      "sha256": "3c38c8ba3393e42d53252c44328fd476b4f78a6e01b912c92ecd04fd8f9b7670",
+      "lines": 11
+    },
+    {
+      "path": "experiments/rich-vein-nests-r2/VeinInput.cs",
+      "sha256": "65e2bd79d82b1dcf5b933fdd7c6386d01b2affd98ee3a51b6ee8b31c8dea2215",
+      "lines": 32
+    }
+  ],
+  "sampleAssemblySha256": "48ced89f3d15cf2de1073772dbe7c54f47eb384d19f680c6ce6a6315d9cb5ec1",
+  "coreAssemblySha256": "b10fba0d1ba5e851a20db5085ca2125d6f0ac5237fda937550a1a1337e6fa3f5",
+  "compile": {
+    "command": "dotnet build experiments/rich-vein-nests-r2/RichVeinNests.csproj --nologo -v minimal",
+    "errors": 0,
+    "warnings": 0,
+    "exitCode": 0,
+    "log": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-build.log",
+    "preflight": {
+      "date": "2026-10-16",
+      "availableGiB": 8.9033203125,
+      "commitFreeGiB": 8.483230590820312,
+      "diskFreeGiB": [
+        {
+          "drive": "C",
+          "freeGiB": 9.871593475341797
+        },
+        {
+          "drive": "D",
+          "freeGiB": 100.90031433105469
+        }
+      ],
+      "editorPrivateBytes": [],
+      "kind": "R2-offline-dotnet-compile"
+    }
+  },
+  "inputs": {
+    "map": "rift-expanded",
+    "seed": "STRATA-0922",
+    "r1SnapshotSha256": "e6bc1251fb3bb86313f3865b4527096fa779db04337454fe12110f731c9feb3a",
+    "foregroundSha256": "66f175e89132e9ad6b06cbd509caf777da4f4417b385628b99954aa36114af57",
+    "preservedR1Files": [
+      {
+        "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-exploration.html",
+        "sha256": "7cb276ebb1378276e0474d4555f01ed3ad32c7ef29420574e0f8adbab8cffb72",
+        "finalSha256": "7cb276ebb1378276e0474d4555f01ed3ad32c7ef29420574e0f8adbab8cffb72",
+        "unchanged": true
+      },
+      {
+        "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\mining-exploration-snapshot.json",
+        "sha256": "e6bc1251fb3bb86313f3865b4527096fa779db04337454fe12110f731c9feb3a",
+        "finalSha256": "e6bc1251fb3bb86313f3865b4527096fa779db04337454fe12110f731c9feb3a",
+        "unchanged": true
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\LocalTerrainInput.cs",
+        "sha256": "1891ab6a1a18795c6825a6a175660513f0d948a9943ce527096866306bec14d2",
+        "finalSha256": "1891ab6a1a18795c6825a6a175660513f0d948a9943ce527096866306bec14d2",
+        "unchanged": true
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningExploration.csproj",
+        "sha256": "5d40051bf67f0df14f1eee5b91d93e36548fad5f4fcce4cd0af0ede46ec935d0",
+        "finalSha256": "5d40051bf67f0df14f1eee5b91d93e36548fad5f4fcce4cd0af0ede46ec935d0",
+        "unchanged": true
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningExplorationGenerator.cs",
+        "sha256": "b37bf19d522a7ab62d9d3e91b9a69863fb0ebc8505039935d47067910234dbc6",
+        "finalSha256": "b37bf19d522a7ab62d9d3e91b9a69863fb0ebc8505039935d47067910234dbc6",
+        "unchanged": true
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningRoomRole.cs",
+        "sha256": "f36e315b58385f61810e4b526eb4ab7b58fb804aa735dfa840526ebee9593222",
+        "finalSha256": "f36e315b58385f61810e4b526eb4ab7b58fb804aa735dfa840526ebee9593222",
+        "unchanged": true
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningRouteField.cs",
+        "sha256": "d7e5575c23b7fad46106babe328c12fa2b3026cd9ad05349ff45e7a4f23c2d33",
+        "finalSha256": "d7e5575c23b7fad46106babe328c12fa2b3026cd9ad05349ff45e7a4f23c2d33",
+        "unchanged": true
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningVein.cs",
+        "sha256": "5108a4d4abfb2bf116f8d3d58328d76a7a92139224b72b9139d53f36954d8519",
+        "finalSha256": "5108a4d4abfb2bf116f8d3d58328d76a7a92139224b72b9139d53f36954d8519",
+        "unchanged": true
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\MiningVeinGrowth.cs",
+        "sha256": "dcdeff2cca6d5f93d7d3179f9b1f7a410512b6995ddaa0229183515af5422fb3",
+        "finalSha256": "dcdeff2cca6d5f93d7d3179f9b1f7a410512b6995ddaa0229183515af5422fb3",
+        "unchanged": true
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\Program.cs",
+        "sha256": "40acbc07f71120592180aa896ad6c5e467b1b0b438904521eadbb6c394ff181f",
+        "finalSha256": "40acbc07f71120592180aa896ad6c5e467b1b0b438904521eadbb6c394ff181f",
+        "unchanged": true
+      },
+      {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\mining-exploration-r1\\README.md",
+        "sha256": "d2af3333c3538d1462f7006ca382d091cc9770dde38a22947f28064cadb66925",
+        "finalSha256": "d2af3333c3538d1462f7006ca382d091cc9770dde38a22947f28064cadb66925",
+        "unchanged": true
+      }
+    ],
+    "spriteAssets": [
+      {
+        "path": "experiments/cl04-creature-art-v1/native/burrow/occupied.png",
+        "sha256": "344cd117f0d9377f7d8f7758cac70c5de3aa9d2ed49de1e241820d888d224b04",
+        "nativePixels": [
+          32,
+          24
+        ],
+        "pivot": [
+          16,
+          23
+        ]
+      },
+      {
+        "path": "experiments/cl04-creature-art-v1/native/burrow/empty.png",
+        "sha256": "e9652ca81c426922baac08125fe2aae5b330d0f76f9f58646bfb7924f20fa49d",
+        "nativePixels": [
+          32,
+          24
+        ],
+        "pivot": [
+          16,
+          23
+        ]
+      },
+      {
+        "path": "experiments/cl04-creature-art-v1/native/egg-clutch/intact.png",
+        "sha256": "f1339e0057d610e033a04422f92bb8fc2360e4b6ca0041fca5f87603eba136d7",
+        "nativePixels": [
+          24,
+          24
+        ],
+        "pivot": [
+          12,
+          23
+        ]
+      },
+      {
+        "path": "experiments/cl04-creature-art-v1/native/egg-clutch/pulse.png",
+        "sha256": "cc3252f2d3660f6a492eeb73aea63ca2b24a9e72b992840948873d9f91f58a10",
+        "nativePixels": [
+          24,
+          24
+        ],
+        "pivot": [
+          12,
+          23
+        ]
+      },
+      {
+        "path": "experiments/cl04-creature-art-v1/native/egg-clutch/cracked.png",
+        "sha256": "6022fa7835986dc9928b4ac89c4ec808c318debc52c60d8593369208b48bad37",
+        "nativePixels": [
+          24,
+          24
+        ],
+        "pivot": [
+          12,
+          23
+        ]
+      },
+      {
+        "path": "experiments/cl04-creature-art-v1/native/egg-clutch/empty.png",
+        "sha256": "847473e04700498ac8d6ec5a5047af564bc240ca3efa5ad45c7ee6eb3185855f",
+        "nativePixels": [
+          24,
+          24
+        ],
+        "pivot": [
+          12,
+          23
+        ]
+      },
+      {
+        "path": "experiments/cl04-creature-art-v1/native/ambush-grub/idle_a.png",
+        "sha256": "89f3da257211bc7227994317af28228ec3260fb0b467d4242ed6611948796ac4",
+        "nativePixels": [
+          32,
+          24
+        ],
+        "pivot": [
+          16,
+          23
+        ]
+      },
+      {
+        "path": "experiments/cl04-creature-art-v1/native/ambush-grub/alert.png",
+        "sha256": "873e45da06de4588becbc84cb56202f8359b9368275c3bfe7143eba4922dd194",
+        "nativePixels": [
+          32,
+          24
+        ],
+        "pivot": [
+          16,
+          23
+        ]
+      },
+      {
+        "path": "experiments/cl04-creature-art-v1/native/ambush-grub/crawl_a.png",
+        "sha256": "8e408bee4fd297cfeac3bb5f627a9ae5bf3bc26e4b97e00156ea5b679f8a2578",
+        "nativePixels": [
+          32,
+          24
+        ],
+        "pivot": [
+          16,
+          23
+        ]
+      }
+    ],
+    "pixelsPerCell": 16
+  },
+  "generation": {
+    "sourceHash": "e6bc1251fb3bb86313f3865b4527096fa779db04337454fe12110f731c9feb3a",
+    "geometryHash": "66f175e89132e9ad6b06cbd509caf777da4f4417b385628b99954aa36114af57",
+    "preserved": true,
+    "offIdentity": true,
+    "mineralUntouched": true,
+    "originalAirUntouched": true,
+    "pocketsClosed": true,
+    "nonOverlap": true,
+    "floorsValid": true,
+    "stableRepeat": true,
+    "scenes": 43,
+    "spriteCount": 9,
+    "bytes": 476496,
+    "snapshotSha256": "85347680414012430fcdb98620b359399ae77edcc345568040d5c3df777f446a",
+    "exportedUtc": "2026-10-15T16:23:54.9248135+00:00"
+  },
+  "defaultScene": {
+    "scenarios": 43,
+    "mapCount": 1,
+    "nests": 8,
+    "stats": [
+      {
+        "tier": 0,
+        "eligible": 2,
+        "rolled": 1,
+        "placed": 0,
+        "probability": 0.6
+      },
+      {
+        "tier": 1,
+        "eligible": 5,
+        "rolled": 4,
+        "placed": 3,
+        "probability": 0.75
+      },
+      {
+        "tier": 2,
+        "eligible": 6,
+        "rolled": 6,
+        "placed": 5,
+        "probability": 0.9
+      }
+    ],
+    "decisions": [
+      {
+        "veinId": "r1-vein-45395",
+        "tier": 2,
+        "probability": 0.9,
+        "roll": 0.3536626168061048,
+        "reason": "placed"
+      },
+      {
+        "veinId": "r1-vein-45982",
+        "tier": 2,
+        "probability": 0.9,
+        "roll": 0.02313562063500285,
+        "reason": "placed"
+      },
+      {
+        "veinId": "r1-vein-43112",
+        "tier": 2,
+        "probability": 0.9,
+        "roll": 0.30421539256349206,
+        "reason": "space-or-spacing"
+      },
+      {
+        "veinId": "r1-vein-52433",
+        "tier": 2,
+        "probability": 0.9,
+        "roll": 0.5184268222656101,
+        "reason": "placed"
+      },
+      {
+        "veinId": "r1-vein-42806",
+        "tier": 2,
+        "probability": 0.9,
+        "roll": 0.3783489838242531,
+        "reason": "placed"
+      },
+      {
+        "veinId": "r1-vein-55282",
+        "tier": 2,
+        "probability": 0.9,
+        "roll": 0.32826975104399025,
+        "reason": "placed"
+      },
+      {
+        "veinId": "r1-vein-35382",
+        "tier": 1,
+        "probability": 0.75,
+        "roll": 0.6251172309275717,
+        "reason": "placed"
+      },
+      {
+        "veinId": "r1-vein-26386",
+        "tier": 1,
+        "probability": 0.75,
+        "roll": 0.44607360917143524,
+        "reason": "space-or-spacing"
+      },
+      {
+        "veinId": "r1-vein-32812",
+        "tier": 1,
+        "probability": 0.75,
+        "roll": 0.32653821632266045,
+        "reason": "placed"
+      },
+      {
+        "veinId": "r1-vein-32237",
+        "tier": 1,
+        "probability": 0.75,
+        "roll": 0.19474914227612317,
+        "reason": "placed"
+      },
+      {
+        "veinId": "r1-vein-37976",
+        "tier": 1,
+        "probability": 0.75,
+        "roll": 0.9617027137428522,
+        "reason": "roll-empty"
+      },
+      {
+        "veinId": "r1-vein-17357",
+        "tier": 0,
+        "probability": 0.6,
+        "roll": 0.9572785024065524,
+        "reason": "roll-empty"
+      },
+      {
+        "veinId": "r1-vein-25389",
+        "tier": 0,
+        "probability": 0.6,
+        "roll": 0.28251451742835343,
+        "reason": "budget"
+      }
+    ],
+    "parametersAreProposals": true,
+    "parameters": {
+      "probabilities": [
+        0.6,
+        0.75,
+        0.9
+      ],
+      "maximumNests": 8,
+      "minimumReserves": 18,
+      "minimumWallCells": 6,
+      "spacing": 12,
+      "spawnQuota": 2,
+      "pocketSize": [
+        4,
+        3
+      ]
+    }
+  },
+  "browser": {
+    "checksPassed": 122,
+    "errors": [],
+    "report": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\rich-vein-nests-browser.json",
+    "paint": {
+      "bounds": {
+        "width": 704,
+        "height": 1194,
+        "scrollWidth": 704
+      },
+      "loadedSprites": 9,
+      "stage": 2,
+      "view": "cutaway",
+      "fullIframeViewport": true
+    },
+    "visualReview": [
+      "full default cutaway",
+      "reveal",
+      "creature emerging",
+      "whole map",
+      "320px mobile",
+      "dark"
+    ],
+    "captureNote": "First screenshot retained with iframe paint clipping; separate stable-font/two-frame capture after viewport expansion is complete. Generation unchanged."
+  },
+  "outputs": [
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\rich-vein-nests.html",
+      "sha256": "ad9bf4866e97054a0409250a5344f1ad2caceab470a1a0ff6681ae1d25d75ce4",
+      "bytes": 493010
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\rich-vein-nests-snapshot.json",
+      "sha256": "85347680414012430fcdb98620b359399ae77edcc345568040d5c3df777f446a",
+      "bytes": 476496
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\rich-vein-nests-generation.json",
+      "sha256": "be6fce332b934cd026c20c8a3fb4895cc610b0b84e0520aee05b6da8f2179f26",
+      "bytes": 14589
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\rich-vein-nests-browser.json",
+      "sha256": "452d09432d97af2c6592988511389e564b457e4040355bc4c1a4f684a544346c",
+      "bytes": 5248
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-paint-verification.json",
+      "sha256": "e89be34caeeafb347f973bc4ea86d171fc414a1c67561b5ff340952a07334d76",
+      "bytes": 169
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-nest-cutaway.png",
+      "sha256": "5e2a86a7a78c59b089ae6da2606fda700dc4257e175ed099ed441b48183ae4ee",
+      "bytes": 39254
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-nest-cutaway-verified.png",
+      "sha256": "902b509ea63adc4b8aad75dc30085014b237294b4c4e55bbe5ff2966793514d9",
+      "bytes": 61211
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-module-off.png",
+      "sha256": "e8c78cb5d33eccfb494fc722982b502cdfc2a6e032883ff6ea36387eda86fad3",
+      "bytes": 65525
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-exposed-ore.png",
+      "sha256": "3ce6f3736c95f5a87d43ce07e63fdfd5c93472f5500aa3c1be51e9ab518b717a",
+      "bytes": 62491
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-nest-revealed.png",
+      "sha256": "3d8fccec2d5bca4a8b5e54fea10d6e8862bdfeda39f31848c1e5ffbdbffc1907",
+      "bytes": 64596
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-creature-emerging.png",
+      "sha256": "996bac272d54b98346ea91ce70fe3e686db1eb74e78b6423c9a48c768937a61a",
+      "bytes": 64381
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-empty-nest.png",
+      "sha256": "c71fe6fa6455eee556db211bdb16e43c5aa7f767acbafb8873e180a5f95874c3",
+      "bytes": 64189
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-overview.png",
+      "sha256": "364a809a6d1d002c9382271153915a0c1c41dc816e9e46b417013e80049a83b1",
+      "bytes": 97456
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-mobile.png",
+      "sha256": "396535dcab7c10731c826216723caa6ec8697f051c87f54360711852f73b46b4",
+      "bytes": 71139
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\r2-dark.png",
+      "sha256": "2d1fbd294a66aed1cb5c8f96fccc4d15abe9be2454d17b9c56817a484b5b2e57",
+      "bytes": 64471
+    }
+  ],
+  "intermediateInventory": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\bin",
+      "files": 12,
+      "bytes": 796675,
+      "disposition": "retained for reproduction; ignored by Git"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\rich-vein-nests-r2\\obj",
+      "files": 21,
+      "bytes": 250591,
+      "disposition": "retained for reproduction; ignored by Git"
+    }
+  ],
+  "notExecuted": [
+    "Unity launch/import/compile",
+    "Unity tests",
+    "Play",
+    "Player build/run",
+    "runtime AI/damage/harvesting/visibility",
+    "network/save validation"
+  ],
+  "remaining": [
+    "formal generation and approved-map export/load",
+    "author modification bounds",
+    "actor/creature collision and actual discovery window",
+    "finite encounter Behaviour/State and budget integration",
+    "network/save restoration"
+  ],
+  "stageComplete": false,
+  "userStageEndConfirmed": false,
+  "documentation": {
+    "localLinkTargetsChecked": 143,
+    "missing": [],
+    "newAnchorValid": true,
+    "gitDiffWhitespace": "passed"
+  }
+}
