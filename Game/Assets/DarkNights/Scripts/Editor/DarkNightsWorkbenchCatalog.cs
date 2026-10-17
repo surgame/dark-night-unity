@@ -12,7 +12,7 @@ namespace DarkNights.Editor
         internal const string Root = "Assets/DarkNights/Res/";
         internal const string Session = Root + "Objects/WorldSession/WorldSession.asset";
         internal const string ShipTrade = Root + "Objects/ShipTrade/";
-        internal const string Objects = "对象与装备", Journey = "星球与航程", Map = "地图与表现", UI = "界面资源";
+        internal const string Objects = "对象与装备", Journey = "星球与航程", Map = "地图与表现", UI = "界面资源", Diagnostics = "运行诊断";
         internal static IReadOnlyList<(string Id, string Title, string Hint, string Description, string Section)> Tasks { get; } =
             System.Array.AsReadOnly(new[]
             {
@@ -21,6 +21,7 @@ namespace DarkNights.Editor
                 ("map", Map, "地形 · 岩壁 · 背景", "调整地形业务、岩壁样式与背景，在专用工具中预览。", "内容制作"),
                 ("ui", UI, "布局 · 样式 · 主题", "打开界面作者来源，使用原生编辑器维护布局与样式。", "内容制作"),
                 ("scenes", "场景与测试", "正式入口 · 预览 · 样例", "按用途查找场景，直接打开或定位；打开前提示保存，不自动 Play。", "运行与检查"),
+                ("diagnostics", Diagnostics, "光照 · 接触 · 跳跃", "打开现有诊断浮窗；记录、停止、导出与草稿保存继续在原窗口完成。", "运行与检查"),
                 ("maintenance", "工程维护", "安装 · 构建 · 验证", "集中管理低频工程操作，展开分组或使用顶部搜索查找。", "运行与检查")
             });
         internal static IReadOnlyList<DarkNightsWorkbenchEntry> Entries { get; } = System.Array.AsReadOnly(new[]
@@ -51,7 +52,13 @@ namespace DarkNights.Editor
                 "UI Builder、样式、主题与原生 PanelSettings。",
                 "源文件用原生编辑器打开；PanelSettings 单独保存。", "", null,
                 Root + "UI/ShipEquipment/ShipEquipmentPanelSettings.asset", Root + "UI/ShipEquipment/ShipEquipment.uxml",
-                Root + "UI/ShipEquipment/ShipEquipment.uss", Root + "UI/ShipEquipment/ShipEquipmentTheme.tss")
+                Root + "UI/ShipEquipment/ShipEquipment.uss", Root + "UI/ShipEquipment/ShipEquipmentTheme.tss"),
+            new DarkNightsWorkbenchEntry("lighting-debug", DarkNightsWorkbenchEntryKind.Diagnostic, Diagnostics, "手电光照调试",
+                "光束、返光、补光、场景与灯口调参，复用原有光照调参台及草稿。",
+                "原入口：Dark Nights/Debug/手电光照调试；保存仍由调参台明确执行。", "打开光照调参台", Lighting.FlashlightDebugWindow.Open),
+            new DarkNightsWorkbenchEntry("hero-ground-profiler", DarkNightsWorkbenchEntryKind.Diagnostic, Diagnostics, "主角地面接触／跳跃调试",
+                "检查真实运动记录；开始、停止、导出、回看与记录目录集中在原Profiler浮窗。",
+                "原入口：Dark Nights/Debug/主角地面接触／跳跃调试；打开不自动开始录制。", "打开Profiler浮窗", HeroGroundProfilerWindow.Open)
         }.Concat(GameSceneWorkbenchCatalog.Entries).ToArray());
     }
 }

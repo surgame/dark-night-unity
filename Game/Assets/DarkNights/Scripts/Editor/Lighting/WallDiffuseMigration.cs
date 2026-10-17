@@ -16,7 +16,7 @@ namespace DarkNights.Editor.Lighting
     /// <summary>显式迁移灰松谷旧场景返光到手电覆盖和设备预设，保留其他作者值及 GUID。旧 YAML 只读，验证和备份后经 Editor API 保存，普通导入及启动不运行迁移。</summary>
     public static class WallDiffuseMigration
     {
-        [MenuItem("Dark Nights/Tools/迁移灰松谷返光到单灯配置")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Tools/迁移灰松谷返光到单灯配置", "迁移灰松谷返光到单灯配置")]
         public static void Apply()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling || EditorApplication.isUpdating)

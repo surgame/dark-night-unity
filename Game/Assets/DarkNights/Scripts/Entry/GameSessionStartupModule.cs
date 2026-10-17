@@ -68,7 +68,7 @@ namespace DarkNights.Entry
             if (randomLevel != null)
             {
                 if (randomLevel.Lighting == null) throw new InvalidOperationException("关卡模板缺少场景光照配置：" + scenePath
-                    + "。请在编辑器执行 Dark Nights/Tools/修复关卡光照配置，补齐并保存引用。");
+                    + "。请在Dark Nights工作台的工程维护中执行「修复关卡光照配置」，补齐并保存引用。");
                 randomLevel.Lighting.Validate();
             }
             if (randomLevel != null && !randomLevel.Expedition) layout = DarkNights.Core.Logic.Terrain.PlayableTerrainGenerator.Layout(layout);

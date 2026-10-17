@@ -1,0 +1,445 @@
+{
+  "task": "正式游戏菜单统一收拢到现有工作台",
+  "date": "2026-10-17",
+  "unity": "6000.4.9f1",
+  "editor_pid": 4376,
+  "branch": "fix-20261015-collapse-gravity-pile",
+  "result": {
+    "completed": true,
+    "compiled": true,
+    "playing": false,
+    "menus": [
+      {
+        "menuItem": "Dark Nights/工作台",
+        "method": "DarkNights.Editor.DarkNightsWorkbenchWindow.Open"
+      }
+    ],
+    "catalog": [
+      {
+        "id": "objects",
+        "kind": "Tool",
+        "group": "对象与装备",
+        "title": "Definition Workshop"
+      },
+      {
+        "id": "viewer",
+        "kind": "Tool",
+        "group": "对象与装备",
+        "title": "YYGC Viewer"
+      },
+      {
+        "id": "mining",
+        "kind": "Tool",
+        "group": "对象与装备",
+        "title": "采集装配与目标匹配"
+      },
+      {
+        "id": "journey",
+        "kind": "Tool",
+        "group": "星球与航程",
+        "title": "Cave Wall Tuner · 航程设置"
+      },
+      {
+        "id": "rules",
+        "kind": "Editor",
+        "group": "星球与航程",
+        "title": "数值规则"
+      },
+      {
+        "id": "terrain",
+        "kind": "Tool",
+        "group": "地图与表现",
+        "title": "地形业务与耐久"
+      },
+      {
+        "id": "visual",
+        "kind": "Tool",
+        "group": "地图与表现",
+        "title": "Cave Wall Tuner"
+      },
+      {
+        "id": "ui",
+        "kind": "Editor",
+        "group": "界面资源",
+        "title": "飞船装备界面来源"
+      },
+      {
+        "id": "lighting-debug",
+        "kind": "Diagnostic",
+        "group": "运行诊断",
+        "title": "手电光照调试"
+      },
+      {
+        "id": "hero-ground-profiler",
+        "kind": "Diagnostic",
+        "group": "运行诊断",
+        "title": "主角地面接触／跳跃调试"
+      },
+      {
+        "id": "bootstrap",
+        "kind": "Scene",
+        "group": "日常开发",
+        "title": "正式游戏入口"
+      },
+      {
+        "id": "random",
+        "kind": "Scene",
+        "group": "日常开发",
+        "title": "地形预览"
+      },
+      {
+        "id": "expedition",
+        "kind": "Scene",
+        "group": "正式内容",
+        "title": "正式远征内容"
+      },
+      {
+        "id": "reference",
+        "kind": "Scene",
+        "group": "参考对照",
+        "title": "岩层参考画面"
+      },
+      {
+        "id": "terrain-test",
+        "kind": "Scene",
+        "group": "专用测试",
+        "title": "DualGrid 单机探针"
+      },
+      {
+        "id": "terrain-network",
+        "kind": "Scene",
+        "group": "专用测试",
+        "title": "地图联机探针"
+      },
+      {
+        "id": "gameplay-lab",
+        "kind": "Scene",
+        "group": "专用测试",
+        "title": "CL-02 塌方 · 大小混合版"
+      },
+      {
+        "id": "lan-sample",
+        "kind": "Scene",
+        "group": "独立样例",
+        "title": "LAN 联机样例"
+      },
+      {
+        "id": "input-sample",
+        "kind": "Scene",
+        "group": "独立样例",
+        "title": "输入与重绑定样例"
+      },
+      {
+        "id": "console-demo",
+        "kind": "Scene",
+        "group": "独立样例",
+        "title": "Smart Console 演示"
+      },
+      {
+        "id": "sample-template",
+        "kind": "Reference",
+        "group": "编辑器模板",
+        "title": "默认空场景模板"
+      },
+      {
+        "id": "urp-template",
+        "kind": "Reference",
+        "group": "编辑器模板",
+        "title": "URP 2D 场景模板"
+      },
+      {
+        "id": "old-debug",
+        "kind": "Reference",
+        "group": "已退役",
+        "title": "旧八房间地图调试"
+      },
+      {
+        "id": "old-cave",
+        "kind": "Reference",
+        "group": "已退役",
+        "title": "旧天然洞穴实验"
+      },
+      {
+        "id": "old-contour",
+        "kind": "Reference",
+        "group": "已退役",
+        "title": "旧前景与背景对照"
+      }
+    ],
+    "maintenance": [
+      {
+        "id": "command-SurfaceEnvironmentValidation-Run",
+        "group": "专项验证",
+        "title": "地表环境检查"
+      },
+      {
+        "id": "command-MiningToolValidation-Retry",
+        "group": "专项验证",
+        "title": "工具定义定向复测"
+      },
+      {
+        "id": "command-MiningToolValidation-Run",
+        "group": "专项验证",
+        "title": "工具定义检查"
+      },
+      {
+        "id": "command-DarkNightsMenu-VerifySessionLifecycle",
+        "group": "专项验证",
+        "title": "检查会话生命周期"
+      },
+      {
+        "id": "command-DarkNightsMenu-VerifyNativeUi",
+        "group": "专项验证",
+        "title": "检查原生界面运行"
+      },
+      {
+        "id": "command-CaveEntranceArtValidation-RunMenu",
+        "group": "专项验证",
+        "title": "洞口美术检查"
+      },
+      {
+        "id": "command-MiningGridValidation-Retry",
+        "group": "专项验证",
+        "title": "采集网格定向复测"
+      },
+      {
+        "id": "command-MiningGridValidation-Run",
+        "group": "专项验证",
+        "title": "采集网格检查"
+      },
+      {
+        "id": "command-MiningGridRuntimeProbe-Run",
+        "group": "专项验证",
+        "title": "采集网格运行检查"
+      },
+      {
+        "id": "command-ShipTradeQuickRunner-Run",
+        "group": "专项验证",
+        "title": "飞船交易快速检查"
+      },
+      {
+        "id": "command-LightProfileMigration-RepairSceneLighting",
+        "group": "安装与迁移",
+        "title": "修复关卡光照配置"
+      },
+      {
+        "id": "command-DarkNightsMenu-CreateLocalV2TerrainStyle",
+        "group": "安装与迁移",
+        "title": "创建 LocalV2 岩层对照样式"
+      },
+      {
+        "id": "command-DarkNightsMenu-CreateFormalObjects",
+        "group": "安装与迁移",
+        "title": "创建正式对象首版"
+      },
+      {
+        "id": "command-DarkNightsMenu-CreatePinewatchLayout",
+        "group": "安装与迁移",
+        "title": "创建灰松谷初始布局"
+      },
+      {
+        "id": "command-DarkNightsMenu-InitializeEnvironment",
+        "group": "安装与迁移",
+        "title": "初始化项目环境"
+      },
+      {
+        "id": "command-MineralMapContentSetup-Install",
+        "group": "安装与迁移",
+        "title": "升级矿层地图配置"
+      },
+      {
+        "id": "command-DarkNightsMenu-InstallHeroInput",
+        "group": "安装与迁移",
+        "title": "安装主角输入"
+      },
+      {
+        "id": "command-DarkNightsMenu-InstallSessionNetwork",
+        "group": "安装与迁移",
+        "title": "安装会话网络"
+      },
+      {
+        "id": "command-DarkNightsMenu-InstallNativeEffects",
+        "group": "安装与迁移",
+        "title": "安装原生特效首版"
+      },
+      {
+        "id": "command-DarkNightsMenu-InstallNativeEnvironment",
+        "group": "安装与迁移",
+        "title": "安装原生环境首版"
+      },
+      {
+        "id": "command-DarkNightsMenu-InstallNativeUi",
+        "group": "安装与迁移",
+        "title": "安装原生界面首版"
+      },
+      {
+        "id": "command-DarkNightsMenu-InstallNativeArt",
+        "group": "安装与迁移",
+        "title": "安装原生美术首版"
+      },
+      {
+        "id": "command-DarkNightsMenu-InstallShipArt",
+        "group": "安装与迁移",
+        "title": "安装可步入飞船首版"
+      },
+      {
+        "id": "command-DarkNightsMenu-InstallTerrainModifiers",
+        "group": "安装与迁移",
+        "title": "安装地形 Modifier 首版"
+      },
+      {
+        "id": "command-DarkNightsMenu-AddSaveSlots",
+        "group": "安装与迁移",
+        "title": "安装存档槽位"
+      },
+      {
+        "id": "command-DarkNightsMenu-InstallHandheldEquipment",
+        "group": "安装与迁移",
+        "title": "安装手持装备"
+      },
+      {
+        "id": "command-FlashlightContentSetup-Install",
+        "group": "安装与迁移",
+        "title": "安装手电照明切片"
+      },
+      {
+        "id": "command-DarkNightsMenu-InstallPinewatchVisuals",
+        "group": "安装与迁移",
+        "title": "安装灰松谷表现首版"
+      },
+      {
+        "id": "command-LightingBackendContentSetup-Install",
+        "group": "安装与迁移",
+        "title": "安装照明后端资源"
+      },
+      {
+        "id": "command-DarkNightsMenu-InstallMineralDeposit",
+        "group": "安装与迁移",
+        "title": "安装矿床对象"
+      },
+      {
+        "id": "command-ShipTradeContentSetup-Install",
+        "group": "安装与迁移",
+        "title": "安装飞船交易和装备"
+      },
+      {
+        "id": "command-ShipEquipmentUiSetup-Install",
+        "group": "安装与迁移",
+        "title": "安装飞船界面配置"
+      },
+      {
+        "id": "command-CaveEntranceArtSetup-Install",
+        "group": "安装与迁移",
+        "title": "接入现有背景分层绘制"
+      },
+      {
+        "id": "command-DarkNightsMenu-CalibrateUiTheme",
+        "group": "安装与迁移",
+        "title": "校准界面主题"
+      },
+      {
+        "id": "command-DarkNightsMenu-ValidateEnvironment",
+        "group": "安装与迁移",
+        "title": "检查项目环境"
+      },
+      {
+        "id": "command-DarkNightsMenu-RegisterConfiguration",
+        "group": "安装与迁移",
+        "title": "注册初始配置"
+      },
+      {
+        "id": "command-LightProfileMigration-Apply",
+        "group": "安装与迁移",
+        "title": "迁移持久光照配置"
+      },
+      {
+        "id": "command-WallDiffuseMigration-Apply",
+        "group": "安装与迁移",
+        "title": "迁移灰松谷返光到单灯配置"
+      },
+      {
+        "id": "command-DarkNightsMenu-BuildAddressables",
+        "group": "构建",
+        "title": "构建 Addressables 内容"
+      },
+      {
+        "id": "command-DarkNightsMenu-BuildIl2Cpp",
+        "group": "构建",
+        "title": "构建 Windows IL2CPP"
+      },
+      {
+        "id": "command-DarkNightsMenu-BuildMono",
+        "group": "构建",
+        "title": "构建 Windows Mono"
+      },
+      {
+        "id": "command-DarkNightsMenu-BuildMapStateMono",
+        "group": "构建",
+        "title": "构建地图状态 Mono"
+      }
+    ],
+    "diagnosticNavigation": true,
+    "lightButton": true,
+    "groundButton": true,
+    "scene": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "sceneDirty": true
+  },
+  "native_registration": "artifacts/workbench-menu-20261017/registration.json",
+  "menu_policy": "正式游戏仅Dark Nights/工作台；CL02为场景卡片；光照与地面Profiler为运行诊断；低频安装迁移为工程维护。",
+  "maintenance_converted": 6,
+  "diagnostics": 2,
+  "asset_files_unchanged": 35,
+  "source_sha256": {
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsWorkbenchCatalog.cs": "424413746a39f41c02071c8105d4a024ae726f32b0020702348234fb6f984630",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsWorkbenchEntryKind.cs": "f7081bb94bbf76e7577881ac0d8ad39664dd86aea761eb393796b69c5a75011a",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsNativeWorkspace.cs": "e5c9d137a5d63057d594d50663965820473f513807b93f96df15d230bcb5b000",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsWorkbenchCards.cs": "908334320927be1259c9415837300542ced3a1836f64486570a5ad7bc422c431",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsWorkbenchWindow.cs": "1802cb04ee29463b7d5ccbc50372698fb3e7a1c45a451237df65ecd5ce11dcb6",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/GeologyLabSetup.cs": "5ec553e265fd3265c667edc492cb3ea1d4e7c27c87f8f27e909445da99b5e05d",
+    "Game/Assets/DarkNights/Scripts/Editor/HeroGroundProfilerWindow.cs": "7501d1fb2fa0529025ed018a2bf220d308121cc89cadd537838be174eb2db4f1",
+    "Game/Assets/DarkNights/Scripts/Editor/HeroGroundTraceTool.cs": "8f8c74778add095020710f0458d6d96ae435c2a07d4ec453b8917061a72accd5",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/FlashlightDebugWindow.cs": "30758470ed277cf2e7084d610dc79be4c7275d68a31ecac1361b5f1917d2a953",
+    "Game/Assets/DarkNights/Scripts/Editor/ReusableLightContentSetup.cs": "7d9ad930f8b15ffbfb33f706df80ec6fcb0e4215969533e714b74182db694b49",
+    "Game/Assets/DarkNights/Scripts/Editor/FlashlightContentSetup.cs": "4a16cf9f7bf3032854aefa02d7a14bf93fee66d6feaeaf6cc037db9ad9f27f4e",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightingBackendContentSetup.cs": "29b69bc8a4beed0bba7a8531476879af17943b16674cd835b795d18ce9f39b77",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/LightProfileMigration.cs": "1374408f5c15e225b7bb24b52e1a95a34957bcbbf5d9e45f5b809c4c259185c4",
+    "Game/Assets/DarkNights/Scripts/Editor/Lighting/WallDiffuseMigration.cs": "db094ca360b7fea23c0c6819429b887ed158fe25fe35d8082c3f32490928fb56",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/MineralMapContentSetup.cs": "81212da16d82a4dab6641b7c32b7fa9d8d7a2d95e6fe85018013e175c8116f21",
+    "Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs": "b4a873e87285de19e8873cf97c1de5da3c9291b0010e946eac261f9e430acf14",
+    "Game/Assets/DarkNights/Scripts/View/Lighting/UrpLightBackend.cs": "49facf80b1298ee3eda4a9d0d91eb6f68ae9485bd34ac2ec8fb75f139fd4e85d"
+  },
+  "assembly": {
+    "Editor": {
+      "path": "Game/Library/ScriptAssemblies/DarkNights.Editor.dll",
+      "sha256": "5d1a6fb733f4fa69ca83c88c3a031e062794310f191b2f39bdfcf50ae4e31b8a",
+      "modified_epoch": 1792248325.4025307
+    },
+    "Entry": {
+      "path": "Game/Library/ScriptAssemblies/DarkNights.Entry.dll",
+      "sha256": "89afdc5947645159865eb33faa246377762bc58dc1ea2f1288889d718c77f551",
+      "modified_epoch": 1792248614.068046
+    },
+    "View": {
+      "path": "Game/Library/ScriptAssemblies/DarkNights.View.dll",
+      "sha256": "f3ba3e7c3e6cbdb17debfe09c37a5869c8a6c27a110872975c2c75481f87e675",
+      "modified_epoch": 1792248613.3870344
+    }
+  },
+  "not_run": [
+    "Play",
+    "自动测试",
+    "录制",
+    "安装或迁移",
+    "Player构建/运行"
+  ],
+  "preserved": [
+    "场景及Prefab/Definition/贴图/网格字节",
+    "现有工具草稿及场景未保存状态",
+    "独立LAN样板菜单/代码",
+    "YY和第三方菜单",
+    "其他会话已有改动与历史证据"
+  ],
+  "memory": "artifacts/workbench-menu-20261017/memory-final-compile/",
+  "limits": "只证明编译与入口注册/视图引用核对；不作为Play操作或完整GUI验收。",
+  "inspection_failure": "首次只读eval因UQueryExtensions.Q的null重载二义性未执行；显式(string)null后核对通过，无项目源码编译失败。"
+}

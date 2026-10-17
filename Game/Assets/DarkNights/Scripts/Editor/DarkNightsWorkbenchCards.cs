@@ -14,7 +14,7 @@ namespace DarkNights.Editor
             var description = new Label(entry.Description); description.AddToClassList("dn-description"); info.Add(description);
             var action = new Button(activate)
             {
-                text = actionLabel ?? entry.ActionLabel, name = "action-" + entry.Id, tooltip = entry.SaveHint
+                text = actionLabel ?? entry.ActionLabel, name = "action-" + entry.Id, tooltip = entry.SaveHint, userData = entry
             };
             action.AddToClassList("dn-native-action"); action.AddToClassList("dn-primary"); row.Add(action);
             return row;

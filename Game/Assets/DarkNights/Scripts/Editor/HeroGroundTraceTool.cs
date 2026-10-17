@@ -20,7 +20,6 @@ namespace DarkNights.Editor
     [InitializeOnLoad]
     public static class HeroGroundTraceTool
     {
-        private const string Menu = "Dark Nights/Debug/主角地面接触／跳跃调试/";
         private static bool capturing;
         private static HeroGroundTraceBuffer buffer;
         public static int Generation { get; private set; }
@@ -39,7 +38,6 @@ namespace DarkNights.Editor
             AssemblyReloadEvents.beforeAssemblyReload += () => { StopCapture("脚本重载"); buffer.Remember(); };
         }
 
-        [MenuItem(Menu + "开始记录")]
         public static void Start()
         {
             if (!EditorApplication.isPlaying) { Notice = "请先进入Play并操控主角。"; Debug.LogWarning(Notice); return; }
@@ -69,7 +67,6 @@ namespace DarkNights.Editor
             Debug.Log("地面记录已开始：最多7200模拟步（1倍速约2分钟）。停止会保留内存记录，点击导出才生成文件。");
         }
 
-        [MenuItem(Menu + "停止记录")]
         public static void Stop() => StopCapture("用户停止");
 
         /// <summary>浮窗读取当前记录值副本；录制中读运行缓冲，停止后读冻结缓冲，均不产生文件。</summary>
@@ -80,13 +77,11 @@ namespace DarkNights.Editor
             return index >= 0 && index < buffer.Frames.Length;
         }
 
-        [MenuItem(Menu + "打开记录目录")]
         public static void OpenFolder()
         {
             string root = Root(); Directory.CreateDirectory(root); EditorUtility.RevealInFinder(root);
         }
 
-        [MenuItem(Menu + "查看记录状态")]
         public static void Status() => Debug.Log($"地面记录：{(TerrainMotionTrace.Recording ? "记录中" : "已停止")}，{Count}/{TerrainMotionTrace.Capacity}步。最近结果：{LastOutput}");
 
         private static void CheckLimit()
@@ -113,7 +108,6 @@ namespace DarkNights.Editor
             Frames = TerrainMotionTrace.Snapshot(), Inputs = TerrainJumpTrace.Snapshot()
         } : buffer;
 
-        [MenuItem(Menu + "导出记录")]
         public static void Export()
         {
             var snapshot = CurrentSnapshot();

@@ -8,10 +8,10 @@ using UnityEngine;
 
 namespace DarkNights.Editor.Terrain
 {
-    /// <summary>选定大小混合版的定向资源制作；在统一Geology目录首建棕褐色方岩和尘粒，原生Prefab沿用GUID。旧土堆资源保留，不重建场景、不保存用户未保存的布局。</summary>
+    /// <summary>选定大小混合版的定向资源制作；在统一Geology目录首建棕褐色方岩和尘粒，原生Prefab沿用GUID。不再生成退役土堆／旧碎岩，不重建场景或保存用户草稿。</summary>
     public static class GeologyMixedAssets
     {
-        private const string Root = GeologyCollapseAssets.Root;
+        private const string Root = GeologyLabAssets.EffectsRoot;
 
         public static void Upgrade()
         {

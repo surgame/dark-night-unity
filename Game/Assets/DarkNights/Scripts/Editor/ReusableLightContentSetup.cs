@@ -10,7 +10,6 @@ namespace DarkNights.Editor
     {
         public const string EffectPath = "Assets/DarkNights/Res/Shared/Lighting/LightEffect.prefab";
         public const string HeadPath = "Assets/DarkNights/Res/Shared/Lighting/HeadMountedLightEffect.prefab";
-        [MenuItem("Dark Nights/Tools/安装可复用照明与手电道具")]
         public static void Install() => Lighting.LightProfileMigration.Apply();
         public static void Validate()
         {

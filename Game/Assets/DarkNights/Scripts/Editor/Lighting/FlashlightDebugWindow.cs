@@ -44,7 +44,6 @@ namespace DarkNights.Editor.Lighting
         internal bool SharedTarget { get => sharedTarget; set => sharedTarget = value; }
         private bool SceneChanged => sceneDraft != null && JsonUtility.ToJson(sceneDraft.Settings) != JsonUtility.ToJson(originalScene);
 
-        [MenuItem("Dark Nights/Debug/手电光照调试")]
         public static void Open() => Open(Selection.activeObject as ObjectDefinition);
         public static void Open(ObjectDefinition selected)
         {

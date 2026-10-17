@@ -22,14 +22,14 @@ namespace DarkNights.Editor.Lighting
         public const string DevicePath = Root + "/DeviceLighting.asset";
         public const string ScenePath = Root + "/PinewatchLighting.asset";
 
-        [MenuItem("Dark Nights/Tools/修复关卡光照配置")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Tools/修复关卡光照配置", "修复关卡光照配置")]
         public static void RepairSceneLighting()
         {
             CheckEditable();
             BindScenes(EnsureSceneProfile());
         }
 
-        [MenuItem("Dark Nights/Tools/迁移持久光照配置")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Tools/迁移持久光照配置", "迁移持久光照配置")]
         public static void Apply()
         {
             try { Migrate(); }

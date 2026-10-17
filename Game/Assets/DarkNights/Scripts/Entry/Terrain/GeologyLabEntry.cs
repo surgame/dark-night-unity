@@ -15,16 +15,19 @@ using GameCore.Objects.Definition;
 using GameCore.Objects.Runner;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 namespace DarkNights.Entry.Terrain
 {
     /// <summary>独立场景功能开发入口；Bootstrap提供现有YYGC服务，场景原生引用是布局唯一来源。仅创建本地可丢弃会话，固定步长复用正式运动、输入许可和矿镐，不装配网络或文件存储。</summary>
     public sealed class GeologyLabEntry : MonoBehaviour
     {
-        public const string ScenePath = "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/GameplayLab.unity";
+        public const string ScenePath = "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity";
         public ObjectDefinition SessionDefinition, WorkerDefinition, ShipDefinition;
         public ObjectInstance SessionInstance;
         public Camera ViewCamera;
+        /// <summary>可选的运行期像素相机；现行样板在编辑态关闭以保护场景，初始化时启用。历史副本未绑定时沿用其原生组件启用状态。</summary>
+        public PixelPerfectCamera RuntimePixelCamera;
         public PlayerInput InputPlayer;
         public UnityEngine.UI.Text Status;
         public TerrainPreview TerrainView;
@@ -49,6 +52,7 @@ namespace DarkNights.Entry.Terrain
                 EventSlots.Any(slot => slot == null || slot.Definition == null || slot.Instance == null || slot.View == null) ||
                 EventSlots.Select(slot => slot.Definition.Key).Distinct().Count() != EventSlots.Length)
                 throw new InvalidOperationException("功能场景缺少明确装配或存在重复事件。");
+            if (RuntimePixelCamera != null) RuntimePixelCamera.enabled = true;
             ObjectSession world = null;
             try
             {
@@ -93,7 +97,7 @@ namespace DarkNights.Entry.Terrain
                 heroPresentation.Bind(Lab.Hero.Id, 1, "worker", catalog.Balance.Units["worker"], null);
                 actions = gameObject.AddComponent<GameInputActions>();
                 actions.Initialize(InputPlayer, YYInteractionSessionService.Instance); actions.SetHero(true); actions.Present(true);
-                Status.text = "场景功能开发 · 地质事件\n挖断左侧支撑岩／走入右侧橙色区域；避让落点后用矿镐清障。\n移动／跳跃／左键沿用正式改键；Esc暂停／继续。重新Play重置。";
+                Status.text = "CL-02 塌方 · 大小混合版\n挖断起点右侧低矮支撑岩／继续向右进入橙色区域；避让落点后用矿镐清障。\n移动／跳跃／左键沿用正式改键；Esc暂停／继续。停止并重新Play重置。";
             }
             catch
             {
@@ -139,10 +143,10 @@ namespace DarkNights.Entry.Terrain
             position.x = Mathf.Clamp(hero.X / 100, 3.2f, WorldWidth / 100 - 3.2f);
             ViewCamera.transform.position = position;
             string[] phases = { "待触发", "前兆：避让", "落石", "等待落点清空", "土石堆：矿镐清障", "已清障", "已退休" };
-            Status.text = "场景功能开发 · 地质事件" + (Lab.Paused ? "（已暂停）" : "") +
+            Status.text = "CL-02 塌方 · 大小混合版" + (Lab.Paused ? "（已暂停）" : "") +
                 "\n支撑触发：" + phases[Lab.Events[0].Capture().Phase] + "　区域触发：" + phases[Lab.Events[1].Capture().Phase] +
                 "\n" + Lab.Events[0].Capture().Reason + " " + Lab.Events[1].Capture().Reason +
-                "\n挖左侧低矮支撑岩／进入右侧触发区；避让后左键清障。Esc暂停；重新Play重置。";
+                "\n挖起点右侧低岩／继续向右进入触发区；避让后左键清障。Esc暂停；停止并重新Play重置。";
         }
 
         private void OnDestroy()

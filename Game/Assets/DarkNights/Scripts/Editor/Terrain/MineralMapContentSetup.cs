@@ -15,7 +15,7 @@ namespace DarkNights.Editor.Terrain
     /// <summary>显式升级矿层业务目录到地图耐久合同；保留作者纹理、规则与 GUID，仅重建可追溯的编译目录并绑定会话配置。</summary>
     public static class MineralMapContentSetup
     {
-        [MenuItem("Dark Nights/Content/升级矿层地图配置")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Content/升级矿层地图配置", "升级矿层地图配置")]
         public static void Install()
         {
             var definition = MineralLayerAssets.Ensure();

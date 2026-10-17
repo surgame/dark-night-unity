@@ -15,6 +15,7 @@
     "Unity.ugui",
     "Unity.TextMeshPro",
     "Unity.InputSystem",
+    "Unity.RenderPipelines.Universal.2D.Runtime",
     "AnyRules.Core",
     "AnyRules.Authoring",
     "AnyRules.MapProtocol",

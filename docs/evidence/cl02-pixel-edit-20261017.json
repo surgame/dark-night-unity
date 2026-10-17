@@ -1,0 +1,48 @@
+{
+  "task": "CL02刚打开场景被未保存保护误拦截修复",
+  "date": "2026-10-17",
+  "unity": "6000.4.9f1",
+  "editor_pid": 4376,
+  "cause": "URP PixelPerfectCamera编辑态渲染回调自动按Game视口改写Camera.orthographicSize，源文件1.9325，编辑态1.935，导致ScenePlaySelection按真实未保存状态拒绝。",
+  "implementation": [
+    "本场景PixelPerfectCamera编辑态禁用，显式RuntimePixelCamera引用在Initialize时启用",
+    "Entry引用已锁定URP 2D程序集；无依赖版本变更",
+    "ScenePlaySelection及真实草稿保护保持；历史Validation副本保持原字节"
+  ],
+  "native_final": {
+    "completed": true,
+    "path": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "isDirty": false,
+    "playing": false,
+    "compiled": true,
+    "compiling": false,
+    "pipeline": "UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset",
+    "orthographicSize": 1.9325,
+    "pixelBinding": true,
+    "pixelEnabled": false,
+    "assetsPPU": 100,
+    "refResolutionX": 640,
+    "refResolutionY": 360,
+    "grid": "PixelSnapping",
+    "guid": "760f601669d4c624e8911f7176e13bb6"
+  },
+  "source_sha256": {
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEntry.cs": "c7cb37664f14499ba7bd1f62d655a9563120b9b9cb8a5f01844b0576c67e57c3",
+    "Game/Assets/DarkNights/Scripts/Entry/DarkNights.Entry.asmdef": "678058ec61db76f07fa5e4edc162ce55b10e2937c4516d6af1c5ec031e3660fd",
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity": "cb9b322c2eab1e39b93ce1d8d87a82011d57cb4ebd9caec365ff2f6b1e95cbcc",
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity.meta": "95b046631518714bbb579b3fb29f4fed1016cac43cb539e71fc4dccccc865121"
+  },
+  "effect_files_unchanged": 33,
+  "draft_backup": "artifacts/cl02-pixel-edit-20261017/unsaved-before.unity",
+  "original_saved_backup": "artifacts/cl02-pixel-edit-20261017/saved-before.unity",
+  "diff": "artifacts/cl02-pixel-edit-20261017/scene-fix.diff",
+  "inspection_note": "首次保存后Undo延迟标记拦截重开，unsaved-after.unity与已保存场景逐行差异为0；完成Undo记录并保存后重开/重绘/后续帧均干净。",
+  "validation": "Unity编译、场景保存重开和编辑态原生引用/dirty核对完成；不是Play验收。",
+  "not_run": [
+    "Play",
+    "自动测试",
+    "Player",
+    "塌方完整运行验收"
+  ],
+  "memory": "artifacts/cl02-pixel-edit-20261017/memory-preflight/"
+}

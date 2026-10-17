@@ -14,7 +14,7 @@ namespace DarkNights.Editor.Lighting
         public const string LightPath = Root + "UrpEnvironmentLight.prefab";
         public const string ShadowPath = Root + "UrpTerrainShadow.prefab";
 
-        [MenuItem("Dark Nights/Tools/安装照明后端资源")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Tools/安装照明后端资源", "安装照明后端资源")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)

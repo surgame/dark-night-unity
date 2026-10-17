@@ -162,7 +162,8 @@ namespace DarkNights.Editor
             if (workspace == "maintenance") { content.Add(DarkNightsWorkbenchCommands.CreatePanel(Execute)); UpdateAvailability(); return; }
             foreach (var entry in DarkNightsWorkbenchCatalog.Entries.Where(entry => entry.Group == task.Title))
             {
-                if (entry.Kind == DarkNightsWorkbenchEntryKind.Tool) content.Add(ToolRow(entry));
+                if (entry.Kind == DarkNightsWorkbenchEntryKind.Tool || entry.Kind == DarkNightsWorkbenchEntryKind.Diagnostic)
+                    content.Add(ToolRow(entry));
                 else if (entry.Kind == DarkNightsWorkbenchEntryKind.Editor)
                 {
                     sources = new DarkNightsWorkbenchSources(entry, entry.Id == "ui" ? sourcePath : rulesSourcePath,
@@ -217,7 +218,7 @@ namespace DarkNights.Editor
 
         private void Execute(DarkNightsWorkbenchEntry entry)
         {
-            if (entry.Kind != DarkNightsWorkbenchEntryKind.Reference && DarkNightsNativeWorkspace.Blocked) return;
+            if (!DarkNightsNativeWorkspace.CanOpen(entry.Kind)) return;
             try { entry.OpenEditor?.Invoke(); error.style.display = DisplayStyle.None; }
             catch (Exception exception) { ShowError(exception); }
         }
@@ -228,7 +229,9 @@ namespace DarkNights.Editor
         {
             if (status == null) return;
             foreach (var button in rootVisualElement.Query<Button>(className: "dn-native-action").ToList())
-                button.SetEnabled(!DarkNightsNativeWorkspace.Blocked && !button.ClassListContains("dn-missing"));
+                button.SetEnabled((button.userData is DarkNightsWorkbenchEntry entry
+                    ? DarkNightsNativeWorkspace.CanOpen(entry.Kind) : !DarkNightsNativeWorkspace.Blocked) &&
+                    !button.ClassListContains("dn-missing"));
             string active = SceneManager.GetActiveScene().path;
             foreach (string id in new[] { "bootstrap", "expedition", "random", "reference" })
             {
@@ -237,7 +240,8 @@ namespace DarkNights.Editor
                 button.SetEnabled(!DarkNightsNativeWorkspace.Blocked && button.userData is bool exists && exists);
                 button.EnableInClassList("dn-current-scene", active == entry.Assets[0]);
             }
-            status.text = DarkNightsNativeWorkspace.Blocked ? "Play／导入／编译期间暂停项目操作。" :
+            status.text = EditorApplication.isCompiling || EditorApplication.isUpdating ? "导入／编译期间暂停项目操作。" :
+                EditorApplication.isPlayingOrWillChangePlaymode ? "Play期间可打开运行诊断；作者编辑和场景切换暂停。" :
                 "就绪  ·  " + SceneManager.GetActiveScene().name + "  ·  工具以独立浮窗打开";
         }
 

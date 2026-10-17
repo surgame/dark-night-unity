@@ -22,7 +22,7 @@ namespace DarkNights.Editor
         public const string DefinitionPath = Root + "/Flashlight.asset";
         private const string PrefabPath = Root + "/Flashlight.prefab";
 
-        [MenuItem("Dark Nights/Tools/安装手电照明切片")]
+        [DarkNightsWorkbenchCommand("Dark Nights/Tools/安装手电照明切片", "安装手电照明切片")]
         public static void Install()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)

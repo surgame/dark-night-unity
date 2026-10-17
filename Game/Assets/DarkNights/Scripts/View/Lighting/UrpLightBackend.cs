@@ -26,7 +26,7 @@ namespace DarkNights.View.Lighting
             Func<float, float, float, float, float, float, bool, float> beamProfile)
         {
             if (lightTemplate == null || shadowTemplate == null || shadowTemplate.GetComponent<PolygonCollider2D>() == null)
-                throw new InvalidOperationException("URP 回退模板未安装；执行 Dark Nights/Tools/安装照明后端资源。");
+                throw new InvalidOperationException("URP 回退模板未安装；在Dark Nights工作台的工程维护中执行「安装照明后端资源」。");
             template = lightTemplate; settings = parameters; shadows = new UrpTerrainShadows(shadowTemplate);
             profile = beamProfile ?? throw new ArgumentNullException(nameof(beamProfile));
         }

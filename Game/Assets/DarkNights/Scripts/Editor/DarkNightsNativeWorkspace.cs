@@ -17,6 +17,11 @@ namespace DarkNights.Editor
         internal static bool Blocked => EditorApplication.isPlayingOrWillChangePlaymode ||
             EditorApplication.isCompiling || EditorApplication.isUpdating;
 
+        internal static bool CanOpen(DarkNightsWorkbenchEntryKind kind) =>
+            kind == DarkNightsWorkbenchEntryKind.Reference || !Blocked ||
+            kind == DarkNightsWorkbenchEntryKind.Diagnostic &&
+            !EditorApplication.isCompiling && !EditorApplication.isUpdating;
+
         internal static T Open<T>(string title, Vector2 minimum, bool navigationOnly = false) where T : EditorWindow
         {
             if (Blocked && !navigationOnly) throw new InvalidOperationException("请等待导入／编译完成，并退出 Play 后打开编辑器。");
