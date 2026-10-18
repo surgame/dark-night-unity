@@ -1,0 +1,62 @@
+{
+  "task": "沿工作台CL02入口实际启动给用户查看",
+  "date": "2026-10-17",
+  "unity": "6000.4.9f1",
+  "editor_pid": 4376,
+  "branch": "fix-20261015-collapse-gravity-pile",
+  "authorization": "用户要求通过该路径实际启动观察",
+  "path": [
+    "完成Undo并保存仅dirty标记但字节相同的当前场景",
+    "调用工作台gameplay-lab卡片登记OpenEditor动作",
+    "正常editor_play",
+    "ScenePlaySelection写入CL02目标",
+    "Bootstrap初始化CL02本地会话"
+  ],
+  "result": {
+    "completed": true,
+    "playing": true,
+    "initialized": true,
+    "path": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "status": "CL-02 塌方 · 大小混合版\n支撑触发：待触发　区域触发：待触发\n \n挖起点右侧低岩／继续向右进入触发区；避让后左键清障。Esc暂停；停止并重新Play重置。",
+    "hero": 2,
+    "x": 784.0,
+    "pixel": true,
+    "screenshot": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cl02-startup-path-20261017\\gameplay-started.png"
+  },
+  "screenshot": "artifacts/cl02-startup-path-20261017/gameplay-started.png",
+  "screenshot_size": [
+    1537,
+    774
+  ],
+  "visual_note": "有PixelPerfectCamera奇数宽度提示，未认定像素画面通过。角色、矿镐、岩壁和两事件待触发状态可见。",
+  "source_asset_sha256": {
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEntry.cs": "c7cb37664f14499ba7bd1f62d655a9563120b9b9cb8a5f01844b0576c67e57c3",
+    "Game/Assets/DarkNights/Scripts/Entry/DarkNights.Entry.asmdef": "678058ec61db76f07fa5e4edc162ce55b10e2937c4516d6af1c5ec031e3660fd",
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity": "cb9b322c2eab1e39b93ce1d8d87a82011d57cb4ebd9caec365ff2f6b1e95cbcc",
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity.meta": "95b046631518714bbb579b3fb29f4fed1016cac43cb539e71fc4dccccc865121"
+  },
+  "dirty_preflight": "artifacts/cl02-startup-path-20261017/draft-before.unity",
+  "dirty_diff": "artifacts/cl02-startup-path-20261017/draft-before.diff",
+  "dirty_content_diff_lines": 0,
+  "scene_content_unchanged": true,
+  "events": "artifacts/cl02-startup-path-20261017/events.jsonl",
+  "startup_log": "artifacts/cl02-startup-path-20261017/editor-startup.log",
+  "monitor_latest": {
+    "utc": "2026-10-17T15:23:20.756485+00:00",
+    "pid": 4376,
+    "private_gib": 4.787181854248047,
+    "working_gib": 3.0067977905273438,
+    "free_ram_gib": 10.667816162109375,
+    "free_commit_gib": 3.8436737060546875,
+    "ignore_commit_limit": false,
+    "minimum_free_ram_gib": 1
+  },
+  "left_play_running_for_user": true,
+  "monitor_duration_seconds": 1800,
+  "no_source_changes_this_batch": true,
+  "limits": [
+    "只证明保存相同状态后一次正常启动成功",
+    "零内容差异dirty标记再次出现，仍需定位；未证明免保存退出重入稳定",
+    "未触发塌方、完整清障、伤害、联机、恢复或Player"
+  ]
+}

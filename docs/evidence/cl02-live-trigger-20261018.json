@@ -1,0 +1,80 @@
+{
+  "date": "2026-10-18",
+  "task": "CL02用户当前支撑触发与反馈修正",
+  "status": "编译与新版支撑输入触发通过；区域输入未复测",
+  "identity": {
+    "branch": "fix-20261015-collapse-gravity-pile",
+    "unity": "6000.4.9f1",
+    "original_pid": 40364,
+    "candidate_pid": 43416,
+    "hashes": {
+      "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyLabSession.cs": "813415667DD2293188B249E03C632791CD58EC7F35DC4277C631BAA159302D5C",
+      "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEntry.cs": "91F13A8CD9F6BDC816706D87D2DF8E95133693B6BD5096D3B74BD82A90B138D0",
+      "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity": "9CC8771AE026352E6284DC39D2D86ABBF0359A23FDFA1A85D76CF2FC56E808A6"
+    }
+  },
+  "user_state": {
+    "hero_x": 854.8,
+    "support_durability": 10,
+    "maximum": 40,
+    "event_phases": [
+      0,
+      0
+    ],
+    "interpretation": "已有效挖中3击，还剩1击；黄色整块标记与无耐久反馈让操作进度不可见。原触发仍要求支撑真正清空。"
+  },
+  "change": {
+    "view": "沿用现有uGUI状态栏，不新增菜单或按钮；显示40/40与剩余有效击数、是否瞄准、区域方向距离",
+    "state": "只读冻结MiningTarget，命中仍由正式矿镐事务验证",
+    "unchanged": "40耐久／10伤害、支撑破坏和角色入区条件、2秒前兆、落地占位保护、正式地图及YYGC不改"
+  },
+  "validation": {
+    "compile": "重开唯一Editor后自动编译通过，Runtime/Entry DLL更新、MiningTarget属性已加载，Console错误0",
+    "input": "临时Input System鼠标/键盘＋原生Game焦点通知；finally恢复设备、输入设置和逻辑焦点，无OS窗口聚焦",
+    "durability_sequence": [
+      40,
+      30,
+      20,
+      10,
+      0
+    ],
+    "phase_sequence": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "fresh_support_error": null,
+    "last_phase": 4,
+    "soil_mask": 8388607,
+    "landing_regions": 23,
+    "impacts": 26,
+    "terrain_ready": true,
+    "status_text_fits": "preferredHeight93.30小于Rect高度130，截图已目视核对",
+    "screenshot": "artifacts/cl02-live-trigger-20261018/support-pile.png",
+    "physical_mouse_verified": false,
+    "region_input_verified": false
+  },
+  "memory_and_failures": [
+    "原Editor内存低于1GiB后停Play；释放未用资源不足，保全原生场景副本并逐字节核对后重开单一Editor，未关闭其他应用",
+    "delayCall退出未完成且Wait-Process超时；未启动第二Editor。保存完全相同字节后直接Exit成功，返回响应中断为已退出所致；重启前提交余量7.78GiB",
+    "新版支撑批预检提交余量1.82GiB通过，运行最低记录仍高于1GiB；区域批预检0.842GiB未通过",
+    "区域预检与Play串行命令未按退出码截断，误启动后已立即停止；未执行区域输入、不记为验收通过。监控也记录0.941GiB门槛触发"
+  ],
+  "evidence": [
+    "artifacts/cl02-live-trigger-20261018/user-current.json",
+    "artifacts/cl02-live-trigger-20261018/final-hit.json",
+    "artifacts/cl02-live-trigger-20261018/fresh-support.json",
+    "artifacts/cl02-live-trigger-20261018/settled.json",
+    "artifacts/cl02-live-trigger-20261018/before-editor-restart.unity",
+    "artifacts/cl02-live-trigger-20261018/monitor/breach.json"
+  ],
+  "handoff": {
+    "scene": "CL02CollapseLab",
+    "playing": false,
+    "foreground_not_activated": true,
+    "committed": false,
+    "pushed": false,
+    "remaining": "区域实际走入／落地仍待内存允许后或用户人工复测；整堆清障等原人工队列保留"
+  }
+}

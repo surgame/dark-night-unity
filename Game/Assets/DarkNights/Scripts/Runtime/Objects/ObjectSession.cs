@@ -44,6 +44,8 @@ namespace DarkNights.Runtime.Objects
         public EconomyBehaviour Economy { get; private set; }
         public WaveBehaviour Waves { get; private set; }
         public ProjectileBehaviour Projectiles { get; private set; }
+        public TerrainGameplayBehaviour TerrainGameplay { get; private set; }
+        public SessionGeology Geology { get; }
         public ExpeditionJourneyBehaviour Journey { get; private set; }
         public ExpeditionFlowBehaviour Flow { get; private set; }
         public ObjectWorkOrders Work { get; }
@@ -84,6 +86,7 @@ namespace DarkNights.Runtime.Objects
             Context = ObjectSessionContext.CreateAuthority(container, () => !disposed && authority());
             EntityContext = ObjectSessionContext.CreateAuthority(container, () => !disposed && authority());
             Mutations = new ObjectMutationBatch(Context);
+            Geology = new SessionGeology(this);
             Work = new ObjectWorkOrders(this);
             Construction = new ObjectConstruction(this);
             Lifecycle = new ObjectEntityLifecycle(this);
@@ -112,7 +115,8 @@ namespace DarkNights.Runtime.Objects
             Projectiles = owner.GetBehaviour<ProjectileBehaviour>() ?? throw new InvalidOperationException("Missing projectile capability.");
             Journey = owner.GetBehaviour<ExpeditionJourneyBehaviour>();
             Flow = owner.GetBehaviour<ExpeditionFlowBehaviour>();
-            owner.GetBehaviour<TerrainGameplayBehaviour>()?.InitializeSession(this);
+            TerrainGameplay = owner.GetBehaviour<TerrainGameplayBehaviour>();
+            TerrainGameplay?.InitializeSession(this);
             if (IsExpedition && (Journey == null || Flow == null))
                 throw new InvalidOperationException("远征会话缺少航程状态或配置能力。");
             Flow?.InitializeSession(this);
@@ -138,6 +142,7 @@ namespace DarkNights.Runtime.Objects
             Context.Activate();
             EntityContext.Activate();
             Terrain?.Activate();
+            if (Terrain?.Map != null) Mutations.Run(() => { Geology.Replace(Terrain.Capture()); return true; });
             owner.Activate();
             foreach (IEntityBehaviour entity in Index.FreezeOrder())
             {
@@ -222,11 +227,7 @@ namespace DarkNights.Runtime.Objects
         public bool Repair(int id) => Mutations.Run(() => Commands.Repair(id));
         public bool StartNight() => Mutations.Run(Waves.StartNight);
 
-        public void SetTime(bool paused, int speed)
-        {
-            if (speed != 1 && speed != 2) throw new ArgumentOutOfRangeException(nameof(speed));
-            Mutations.Run(() => { Camp.Edit().Paused = paused; Camp.Edit().Speed = speed; return true; });
-        }
+        public void SetTime(bool paused, int speed) => Commands.SetTime(paused, speed);
 
         public void Advance(double seconds)
         {
@@ -266,6 +267,7 @@ namespace DarkNights.Runtime.Objects
             if (Mutations.IsOpen) throw new InvalidOperationException("Cannot retire a session inside a state notification.");
             disposed = true;
             Flow?.ResetPending();
+            Geology.Dispose();
             ObjectInstance[] entities = Index.FreezeOrder().Select(e => e.Object).ToArray();
             Index.Clear();
             EntityContext.Dispose();

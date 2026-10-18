@@ -24,6 +24,7 @@ namespace DarkNights.Runtime.Objects
                 intent.WorldId != map.World.WorldId.ToString().Replace("-", "") || intent.MapEpoch != map.World.Epoch ||
                 !ExpeditionCargo.CanMine(actor)) return false;
             var target = new CellCoord(intent.U, intent.V);
+            if (actor.World.Geology.ReservesSource(target)) return false;
             if (!map.Descriptor.Bounds.Contains(target) || !map.Read(target).TryGetCell(out var cell) ||
                 cell.TileId != intent.TileId || cell.Flags != intent.Flags ||
                 map.ContentVersion(target) != intent.ContentVersion) return false;

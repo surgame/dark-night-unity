@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-18",
+  "task": "CL02触发可用性修复",
+  "status": "实现已落盘；候选最终Play复测被Editor主线程阻塞，待用户处理Unity模态界面",
+  "committed": false,
+  "pushed": false,
+  "unity": "6000.4.9f1",
+  "pid": 4376,
+  "findings": [
+    "修改前支撑事件经Input System注入左键，4次有效命中后正常触发并形成23区瓦砾堆",
+    "旧测试路线进入断层；角色X1469.65时Height=-2330.87，第二事件仍phase0，未进入触发高度",
+    "黄色支撑作者标记在运行初始化中被隐藏"
+  ],
+  "changes": [
+    "独立场景清理连接通道内6排共57格，补10格地面；原129岩段变为125",
+    "显式绑定支撑与区域标记，待触发时显示在地形前，触发后隐藏",
+    "补充按住左键约2秒与Game焦点提示",
+    "工作台切换复用既有CL02逐字节检查，真实草稿仍提示保存"
+  ],
+  "validation": {
+    "entry_compilation": "GeologyLabEntry变更后Unity编译通过；其后两份Editor入口改动因主线程阻塞尚未编译",
+    "static_map": "67格精确差异核对通过，无其他材质／保护格变化，U51..95连续地面及44像素身体净空",
+    "final_play": "未执行，不能认定当前修复候选两条输入触发验收通过",
+    "physical_mouse": "未执行；sky.list_apps/list_windows均返回codex app-server exited before returning response 1",
+    "focus_method": "原生OnGameViewFocus通知＋Input System临时设备，finally恢复；不是OS物理点击"
+  },
+  "evidence": [
+    "artifacts/cl02-trigger-fix-20261017/input-trace.json",
+    "artifacts/cl02-trigger-fix-20261017/region-fresh-trace.json",
+    "artifacts/cl02-trigger-fix-20261017/static-route-check.json",
+    "artifacts/cl02-trigger-fix-20261017/route-edit.json",
+    "artifacts/cl02-trigger-fix-20261017/scene-before-route.unity"
+  ],
+  "failures": [
+    "直接Step诊断在支撑已空后读取业务耐久抛Empty or Unknown has no business state；不能算用户输入验证",
+    "首个作者写入预检因新增空标记序列化字段暂停，确认仅两空字段后继续；原快照保留",
+    "工作台quick-bootstrap按钮事件触发后主线程持续5秒超时，未重发切换；推测保存提示阻塞，系统窗口通道不可用，尚不能直接看见模态框"
+  ],
+  "pending": [
+    "处理Unity阻塞对话框并确认活动场景",
+    "编译后用同一工作台打开CL02",
+    "当前候选分别验证支撑左键触发与向右走进入区域触发",
+    "恢复输入设备／焦点并保留初始可试玩状态"
+  ]
+}

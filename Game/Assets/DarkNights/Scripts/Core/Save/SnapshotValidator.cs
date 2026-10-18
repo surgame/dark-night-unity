@@ -20,6 +20,8 @@ namespace DarkNights.Core.Save
             if (s == null || s.SchemaVersion != SessionSnapshot.CurrentVersion || s.LevelId != catalog.Level.Id)
                 return "存档版本或关卡不匹配";
             if (layout.RandomTerrain != (s.Terrain != null)) return "存档地图类型不匹配";
+            if (s.Terrain != null && s.Terrain.GeologySites.Count != s.Terrain.GeologyProgress.Count)
+                return "塌方事件保存未覆盖静态站点，拒绝从初始地图补回进度";
             if (!Number(s.Elapsed, 0, 1000000) || s.Speed is not (1 or 2))
                 return "时钟状态无效";
             foreach (string text in new[] { s.RngSeed, s.RngState })

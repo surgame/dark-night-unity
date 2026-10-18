@@ -32,6 +32,15 @@ namespace DarkNights.View.Terrain
             landed = new bool[pieces.Length]; previousPhase = -1; shedBeat = -1;
             Pile.Bind(motions, shapes, collapse);
             Debris.ResetEffects();
+            float minimumX = float.MaxValue, maximumX = float.MinValue, minimumY = float.MaxValue, maximumY = float.MinValue;
+            foreach (var rock in rocks)
+            {
+                minimumX = Math.Min(minimumX, rock.SourceX - 8); maximumX = Math.Max(maximumX, rock.SourceX + 8);
+                minimumY = Math.Min(minimumY, rock.SourceY - 8); maximumY = Math.Max(maximumY, rock.SourceY + 8);
+            }
+            Warning.transform.position = new Vector3((minimumX + maximumX) / 200, (minimumY + maximumY) / 200, 0);
+            Warning.transform.localScale = new Vector3((maximumX - minimumX) / 16, (maximumY - minimumY) / 16, 1);
+            Warning.enabled = false;
             Debris.GroundY = float.MaxValue;
             foreach (var rock in rocks) Debris.GroundY = Math.Min(Debris.GroundY, (rock.LandingY - 8) / 100);
             foreach (var fragment in Fragments) fragment.enabled = false;

@@ -22,6 +22,8 @@ namespace DarkNights.Runtime.Network
         public ulong MineralMapEpoch { get; set; }
         public ProjectileWire[] Projectiles { get; set; }
         public EntityIdentityWire[] Identities { get; set; }
+        public NestWire[] Nests { get; set; }
+        public GeologyWire[] Geology { get; set; }
 
         public static WorldWire From(WorldViewData value) => new WorldWire
         {
@@ -34,6 +36,8 @@ namespace DarkNights.Runtime.Network
             MineralWorldId = value.MineralWorldId, MineralMapEpoch = value.MineralMapEpoch,
             Projectiles = value.Projectiles.Select(ProjectileWire.From).ToArray(),
             Identities = value.Identities.Select(EntityIdentityWire.From).ToArray(),
+            Nests = value.Nests.Select(NestWire.From).ToArray(),
+            Geology = value.Geology.Select(GeologyWire.From).ToArray(),
         };
 
         public WorldViewData Freeze() => new WorldViewData(
@@ -43,6 +47,6 @@ namespace DarkNights.Runtime.Network
             Worksites?.Select(item => item?.Freeze()).ToArray(),
             Projectiles?.Select(item => item?.Freeze()).ToArray(),
             Identities?.Select(item => item?.Freeze()).ToArray(), Expedition?.Freeze(), MineralDeposits?.Select(item => item?.Freeze()).ToArray(),
-            MineralWorldId, MineralMapEpoch);
+            MineralWorldId, MineralMapEpoch, Nests?.Select(item => item?.Freeze()).ToArray(), Geology?.Select(item => item?.Freeze()).ToArray());
     }
 }

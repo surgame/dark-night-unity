@@ -34,19 +34,24 @@ namespace DarkNights.Runtime.Objects
             cell.V >= frozen.SourceV && cell.V < frozen.SourceV + frozen.SourceRows &&
             cell.U >= frozen.SourceU && cell.U < frozen.SourceU + frozen.Width;
 
-        public void Prepare()
+        public void Prepare(GeologyEventConfig configuration = null, TerrainGeologyProgress progress = null)
         {
-            frozen = config?.Freeze() ?? throw new InvalidOperationException("地质事件缺少配置。");
+            frozen = (configuration ?? config)?.Freeze() ?? throw new InvalidOperationException("地质事件缺少配置。");
             var map = Session.Terrain?.Map ?? throw new InvalidOperationException("地质事件缺少活动前景地图。");
-            if (!frozen.EnterRegion && (!map.Descriptor.Bounds.Contains(frozen.Support) ||
+            if (progress == null && !frozen.EnterRegion && (!map.Descriptor.Bounds.Contains(frozen.Support) ||
                 !map.Read(frozen.Support).TryGetCell(out var support) || support.IsEmpty || !map.Rules.CanDamage(support.TileId)))
                 throw new InvalidOperationException("支撑触发需要真实可挖岩格。");
             if (!map.Descriptor.Bounds.Contains(new CellCoord(frozen.RegionU, frozen.RegionV)) ||
                 !map.Descriptor.Bounds.Contains(new CellCoord(frozen.RegionU + frozen.RegionWidth - 1, frozen.RegionV + frozen.RegionHeight - 1)))
                 throw new InvalidOperationException("地质事件触发区域越界。");
-            string reason = GeologyLanding.Check(Session, frozen, true);
-            if (reason.Length != 0) throw new InvalidOperationException(reason);
-            PrepareState(new GeologyEventState { WorldId = map.World.WorldId.ToString(), MapEpoch = map.World.Epoch });
+            if (progress == null)
+            {
+                string reason = GeologyLanding.Check(Session, frozen, true);
+                if (reason.Length != 0) throw new InvalidOperationException(reason);
+            }
+            else GeologyRestoreValidation.Validate(Session, frozen, progress);
+            PrepareState(new GeologyEventState { WorldId = map.World.WorldId.ToString(), MapEpoch = map.World.Epoch,
+                Phase = progress?.Phase ?? 0, Clock = progress?.Clock ?? 0, Reason = progress?.Reason ?? "" });
         }
 
         public void Tick(double delta)

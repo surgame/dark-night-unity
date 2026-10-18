@@ -26,6 +26,8 @@ namespace DarkNights.Runtime.Objects
         public TerrainGenerationSettings CaveMap = new TerrainGenerationSettings
         { Seed = "STRATA-0922", ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile };
         public Terrain.MineMapAsset MineMap;
+        public Terrain.ReviewedMineMap ReviewedMap;
+        public GeologyDesignPoint Geology = new GeologyDesignPoint();
         public List<PlanetPreset> Planets = new List<PlanetPreset> { new PlanetPreset() };
         public int ModifierSchemaVersion = 1;
         [SerializeReference] public List<ITerrainGenerationModifierConfig> Modifiers =
@@ -75,6 +77,8 @@ namespace DarkNights.Runtime.Objects
                 foreach (var planet in Planets)
                     builder.Append('|').Append(planet == null ? "<missing>" : JsonUtility.ToJson(planet));
             if (MineMap != null) builder.Append("|mine-map-v1|").Append(JsonUtility.ToJson(MineMap.Freeze()));
+            if (ReviewedMap != null) builder.Append("|reviewed-mine-v1|").Append(ReviewedMap.Fingerprint());
+            builder.Append("|geology-point-v1|").Append(Geology?.Identity ?? "missing");
             builder.Append("|terrain-modifiers-v").Append(ModifierSchemaVersion);
             var entries = EffectiveModifiers();
             builder.Append('|').Append(entries.Count);

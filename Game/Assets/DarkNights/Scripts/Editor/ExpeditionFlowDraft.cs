@@ -70,6 +70,8 @@ namespace DarkNights.Editor
                     ArrivalTimeoutSeconds = source.ArrivalTimeoutSeconds,
                     CaveMap = source.CaveMap == null ? null : Clone(source.CaveMap),
                     MineMap = source.MineMap,
+                    ReviewedMap = source.ReviewedMap,
+                    Geology = source.Geology?.Copy() ?? new GeologyDesignPoint(),
                     Planets = source.Planets?.Select(planet => planet == null ? null : Clone(planet)).ToList(),
                     ModifierSchemaVersion = 1,
                     Modifiers = source.CopyModifiers()

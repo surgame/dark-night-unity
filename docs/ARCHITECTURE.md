@@ -12,6 +12,7 @@
 | 信用点及角色库存、运动、装备动作／货袋 | 所属Economy／Actor／Hero Behaviour及State | 购买、手持使用、采集按现有短事务更新 |
 | 飞船、驾驶、舱门和乘员关系 | 所属ExpeditionShip及能力 | 地面本地飞行；旧航程／结算暂停 |
 | 前景与矿层格、耐久、储量 | SessionTerrain托管ARDMap／GridBusinessStateStore | Host唯一写入；初始矿床信息是静态元数据，不创建逐床对象 |
+| 侧巢与幼虫阶段、姿态、HP | TerrainGameplayBehaviour／TerrainGameplayState | 每图有界单虫记录；静态巢位归冻结地图，业务经原事务提交，不恢复旧NPC世界 |
 | 请求、可信连接、Ready、epoch、策略 | SessionAuthority及网络适配 | 不将连接、租约、请求队列写入存档 |
 | 展示帧与客户端副本 | SessionProjector、WorldReplica、ObjectReplica | 深度冻结，无业务写权限 |
 | 相机、选择、悬停、预览、照明缓存 | 各端表现上下文 | 不结算支付、HP、伤害或采矿 |
@@ -61,6 +62,8 @@ StartupResourceBatch有限并发准备独立对象／UI资源，全部成功后�
 ObjectMutationBatch先完成验证，保存可恢复状态和清理动作；支付、库存、占用及相关对象／地图变化安装后才通知。通知中不重入业务、退休同批对象或加载新世界。失败释放本次资源，不留下半扣款或半装配。采集细节见[地图合同](TERRAIN_GENERATION.md#采集事务)。
 
 ## 调度、权限和网络
+
+正式地图塌方的作者输入沿`ExpeditionFlowDraft.Config.Geology`保存，冻结站点／最终进度分别归Core数据合同，不在Core推进事件。`SessionGeology`仅组合现有`GeologyEventBehaviour`对象引用，状态唯一归`GeologyEventState`，地图仍唯一归`SessionTerrain`。Definition资源、被动表现和权威实例沿现有租约／对象工厂创建与释放；完整静态地图不存本局EntityId／epoch，换图与恢复同事务交换，失败回滚。具体坐标、空间检查和同步保存见[地形合同](TERRAIN_GENERATION.md#cl02-map-integration-handoff)。
 
 SessionClock用未缩放时间以60 Hz调用SessionAuthority，先处理接受顺序的合法请求，再推进当前允许的能力。倍速只在ObjectSession.Advance生效一次；暂停停止业务时间，网络、心跳、请求、UI和存储继续。旧经济生产、波次、工作与营地命令不因能力仍装配而恢复。
 

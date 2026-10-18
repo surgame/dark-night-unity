@@ -1,0 +1,306 @@
+{
+  "clientDate": "2026-10-18",
+  "scope": "CL01／04六种局部出巢与共生离线情境，未接入正式Game",
+  "source": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-orientations-v1\\DirectionalNestCase.cs",
+      "bytes": 2465,
+      "sha256": "9c80fb21837fbfcfb8f2c1ce652cba7c91e1e07872218c4cfa41b8a983b31dec"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-orientations-v1\\DirectionalNestLayouts.cs",
+      "bytes": 5815,
+      "sha256": "c3b6516122072f5207d2032a4a58598ffee7446f21f80093888505e4246462ba"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-orientations-v1\\DirectionalNestValidation.cs",
+      "bytes": 6731,
+      "sha256": "5b126b308ec984b09b51cf148c394989c9ddc5a46f61d5363737ba301d9d03dc"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-orientations-v1\\NestOrientations.csproj",
+      "bytes": 531,
+      "sha256": "3c38c8ba3393e42d53252c44328fd476b4f78a6e01b912c92ecd04fd8f9b7670"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-orientations-v1\\Program.cs",
+      "bytes": 5243,
+      "sha256": "165c4f2e8a0f32d1ebeb80afae973dc9601d3cc4d6b93057df0ae211d9e957d2"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-orientations-v1\\README.md",
+      "bytes": 5083,
+      "sha256": "ab4129fa44857e2c08ee99ef85087967d349d53aaaf694f37cc6bf0c0a4a6b61"
+    }
+  ],
+  "sourceLines": {
+    "DirectionalNestCase.cs": 56,
+    "DirectionalNestLayouts.cs": 92,
+    "DirectionalNestValidation.cs": 113,
+    "Program.cs": 70
+  },
+  "inputIdentity": {
+    "coreSha256": "b10fba0d1ba5e851a20db5085ca2125d6f0ac5237fda937550a1a1337e6fa3f5",
+    "configSha256": "95b9622fafe3bc817c66478b6657347b940448ee919c802319d7ceef5370c838",
+    "authorSha256": "8e1729ac6248b18aed7f04a4fe7fdb26c1a162125c18ab837baf16b18641782b",
+    "finalMaterialSha256": "66f175e89132e9ad6b06cbd509caf777da4f4417b385628b99954aa36114af57",
+    "exportedUtc": "2026-10-15T16:10:13.5143472+00:00",
+    "miningFootprintSha256": "ce370d02c45c858022cd76e8c96cc25d29e376670398054e042d1d573cf8f7dd"
+  },
+  "inputSha256": "3efaf24670a23d9a186584cf06cec3fe24a9a0c4122e0db06a937003490667c0",
+  "cases": [
+    {
+      "id": "roof",
+      "mode": "fall",
+      "head": 19628,
+      "hasNest": true,
+      "oreCells": 15,
+      "stock": 60,
+      "remaining": 36,
+      "groups": [
+        15
+      ],
+      "shell": 3,
+      "pocket": 6,
+      "blueprintCount": 1,
+      "pointPathsValidated": true,
+      "bodyAndToolReachValidated": false,
+      "runtimeImplemented": false
+    },
+    {
+      "id": "low",
+      "mode": "ramp",
+      "head": 37001,
+      "hasNest": true,
+      "oreCells": 16,
+      "stock": 64,
+      "remaining": 40,
+      "groups": [
+        16
+      ],
+      "shell": 4,
+      "pocket": 12,
+      "blueprintCount": 1,
+      "pointPathsValidated": true,
+      "bodyAndToolReachValidated": false,
+      "runtimeImplemented": false
+    },
+    {
+      "id": "turn",
+      "mode": "turn",
+      "head": 45394,
+      "hasNest": true,
+      "oreCells": 20,
+      "stock": 64,
+      "remaining": 44,
+      "groups": [
+        20
+      ],
+      "shell": 3,
+      "pocket": 12,
+      "blueprintCount": 1,
+      "pointPathsValidated": true,
+      "bodyAndToolReachValidated": false,
+      "runtimeImplemented": false
+    },
+    {
+      "id": "side",
+      "mode": "side",
+      "head": 45394,
+      "hasNest": true,
+      "oreCells": 20,
+      "stock": 64,
+      "remaining": 44,
+      "groups": [
+        20
+      ],
+      "shell": 3,
+      "pocket": 7,
+      "blueprintCount": 1,
+      "pointPathsValidated": true,
+      "bodyAndToolReachValidated": false,
+      "runtimeImplemented": false
+    },
+    {
+      "id": "coexist",
+      "mode": "coexist",
+      "head": 45394,
+      "hasNest": true,
+      "oreCells": 38,
+      "stock": 64,
+      "remaining": 52,
+      "groups": [
+        9,
+        9,
+        20
+      ],
+      "shell": 3,
+      "pocket": 12,
+      "blueprintCount": 3,
+      "pointPathsValidated": true,
+      "bodyAndToolReachValidated": false,
+      "runtimeImplemented": false
+    },
+    {
+      "id": "none",
+      "mode": "none",
+      "head": 45394,
+      "hasNest": false,
+      "oreCells": 20,
+      "stock": 64,
+      "remaining": 44,
+      "groups": [
+        20
+      ],
+      "shell": 0,
+      "pocket": 0,
+      "blueprintCount": 1,
+      "pointPathsValidated": true,
+      "bodyAndToolReachValidated": false,
+      "runtimeImplemented": false
+    }
+  ],
+  "compile": {
+    "errors": 0,
+    "warnings": 0,
+    "log": {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-orientations\\build.log",
+      "bytes": 610,
+      "sha256": "b41443faccf9b6bec7d649349b6ff363ed5409886d120d6cbe03aaef7cea4a81"
+    }
+  },
+  "browser": {
+    "checks": 281,
+    "errors": [],
+    "report": {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-orientations\\browser.json",
+      "bytes": 20540,
+      "sha256": "58833377ba9f3ac817dbcdb47967e8351076a2a5a71ebc178c7fb03555594a22"
+    }
+  },
+  "visualInspection": [
+    "roof-layout.png",
+    "roof-motion.png",
+    "low-motion.png",
+    "turn-motion.png",
+    "side-motion.png",
+    "coexist-open.png",
+    "none-motion.png",
+    "mobile.png",
+    "dark.png"
+  ],
+  "files": [
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-orientations\\nest-orientations.html",
+      "bytes": 91325,
+      "sha256": "c4d7a2355baf468d361385e1c1c9b9fd8ce6d3ef9ab0627b686cbe173311912a"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-orientations\\nest-orientations-snapshot.json",
+      "bytes": 75276,
+      "sha256": "55a51f6b69e9be4cbf60c9f645c0b01c10e69d67ac91a23636c73fcdcfe00f54"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-orientations\\generation.json",
+      "bytes": 2607,
+      "sha256": "cc7f7ab90b0c0ea91299107e65823b8e24fec8622a73ca17a0fa47d369ce4fd9"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-orientations\\check-browser.cjs",
+      "bytes": 10011,
+      "sha256": "89338dae2d9626b7af665e1182963dc2eaa7f7cb5ae8e592c44869950a5aa331"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-orientations\\record-evidence.py",
+      "bytes": 5180,
+      "sha256": "899c80d07ae5a2729d39439e425894d52db7558450236a4357b3522b825d3fe8"
+    }
+  ],
+  "preservation": {
+    "files": 89,
+    "changed": [],
+    "manifest": {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-orientations\\preserved-before.json",
+      "bytes": 16946,
+      "sha256": "ec38199e149e2a9a1b76bff1ce1ad986be2289e6b84f9b20939ae5ba3fb59808"
+    }
+  },
+  "environment": {
+    "preflight": {
+      "length": 64,
+      "load": 61,
+      "totalPhys": 34128007168,
+      "availPhys": 13234745344,
+      "totalPageFile": 44028190720,
+      "availPageFile": 7044894720,
+      "totalVirtual": 140737488224256,
+      "availVirtual": 140733070077952,
+      "availExtendedVirtual": 0,
+      "clientDate": "2026-10-18",
+      "preservedFiles": 89
+    },
+    "existingEditors": [
+      {
+        "Id": 23816,
+        "PrivateMemorySize64": 1660592128
+      },
+      {
+        "Id": 30640,
+        "PrivateMemorySize64": 16748544
+      },
+      {
+        "Id": 40548,
+        "PrivateMemorySize64": 1659269120
+      },
+      {
+        "Id": 43416,
+        "PrivateMemorySize64": 4719341568
+      }
+    ],
+    "editorLaunchedOrControlled": false
+  },
+  "failuresRetained": [
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-orientations\\browser-failure-1792272510771.json",
+      "bytes": 19254,
+      "sha256": "440a0417d2722f10aac1736ac52818eb4dc44b25cbdb0863e0aef218f32be00e"
+    }
+  ],
+  "repairs": [
+    "浏览器采样值改为符合0.01步长",
+    "格心悬空改为Core坡形公式脚底贴面",
+    "顶部破壳立即下落，保留世界重力轴，不沿用横向的出虫等待"
+  ],
+  "notRun": [
+    "Unity编译／Play／Unity测试／Player",
+    "全身体碰撞／运动能力／台阶与最大坡度",
+    "采掘距离／梯具／真实采集／AI／伤害",
+    "权威地形与矿层事务／联机／存档恢复"
+  ],
+  "pending": [
+    "用户审阅六情境和首个有限遭遇",
+    "正式尺寸、分布、矿量和时序",
+    "身体／工具距离／运动条件",
+    "正式生成、审核导出与运行加载接入"
+  ],
+  "outputsRetained": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-orientations-v1\\bin",
+      "files": 12,
+      "bytes": 783756
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-orientations-v1\\obj",
+      "files": 21,
+      "bytes": 237818
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-orientations",
+      "files": 28,
+      "bytes": 994692
+    }
+  ],
+  "stageComplete": false,
+  "documentLinksChecked": 225,
+  "handoffCheckpointUpdated": true
+}

@@ -26,6 +26,8 @@ namespace DarkNights.Runtime.Terrain
                 if (!map.Descriptor.Bounds.Contains(source) || !map.Read(source).TryGetCell(out var rock) ||
                     (detached ? !rock.IsEmpty : rock.TileId != tile || rock.Flags != 0))
                     return "松岩或落点已改变";
+                if (world.Terrain.Minerals != null && (!world.Terrain.Minerals.Read(source).TryGetCell(out var mineral) || !mineral.IsEmpty))
+                    return "源岩覆盖矿格";
             }
             for (int index = 0; index < config.RubbleCount; index++)
             {
@@ -40,11 +42,12 @@ namespace DarkNights.Runtime.Terrain
                 if (includeActors && world.Index.Actors.Any(actor => Occupies(actor, landing))) return "等待角色离开落点";
                 if (includeActors && world.Index.Buildings.Any(building => CoversBuilding(building, landing))) return "落点覆盖建筑";
             }
-            if (!PathClear(map, config, sources)) return "落石路径已有结构，事件不穿透岩壁";
+            if (!PathClear(config, position => sources.Contains(position) || map.Read(position).TryGetCell(out var value) && value.IsEmpty))
+                return "落石路径已有结构，事件不穿透岩壁";
             return "";
         }
 
-        private static bool PathClear(TerrainMapAuthority map, GeologyEventConfig config, HashSet<CellCoord> sources)
+        internal static bool PathClear(GeologyEventConfig config, Func<CellCoord, bool> passable)
         {
             var collapse = config.Collapse;
             for (int i = 0; i < collapse.Count; i++)
@@ -60,10 +63,10 @@ namespace DarkNights.Runtime.Terrain
                     float halfY = (float)(Math.Abs(Math.Sin(radians)) * piece.Width + Math.Abs(Math.Cos(radians)) * piece.Height) * .5f - .5f;
                     for (int corner = 0; corner < 4; corner++)
                     {
-                        int u = (int)Math.Floor((x + (corner % 2 == 0 ? -halfX : halfX)) / 16 + .5f);
-                        int v = (int)Math.Floor((y - 632 + (corner < 2 ? -halfY : halfY)) / 16 + .5f);
+                        int u = (int)Math.Floor((x + (corner % 2 == 0 ? -halfX : halfX)) / PlayableTerrain.CellPixels + .5f);
+                        int v = (int)Math.Floor((y - PlayableTerrain.OriginY + (corner < 2 ? -halfY : halfY)) / PlayableTerrain.CellPixels + .5f);
                         var cell = new CellCoord(u, v);
-                        if (!sources.Contains(cell) && (!map.Read(cell).TryGetCell(out var value) || !value.IsEmpty)) return false;
+                        if (!passable(cell)) return false;
                     }
                 }
             }

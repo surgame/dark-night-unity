@@ -38,9 +38,9 @@ namespace DarkNights.Runtime.Objects
             try
             {
                 using var candidate = new ObjectWorldRestore(world, snapshot);
-                candidate.Commit();
+                try { candidate.Commit(map); }
+                finally { if (candidate.Committed) map = null; }
                 world.Flow?.ResetPending();
-                if (map != null) { world.Terrain.Replace(map, snapshot.Terrain); map = null; }
             }
             finally { map?.Dispose(); }
         }

@@ -20,6 +20,8 @@ namespace DarkNights.Runtime.Objects
         private readonly Dictionary<string, PreparedObjectDefinition> prepared =
             new Dictionary<string, PreparedObjectDefinition>(StringComparer.Ordinal);
         private bool disposed;
+        private ObjectDefinition[] geologyDefinitions = Array.Empty<ObjectDefinition>();
+        private readonly HashSet<ObjectView> geologyViews = new HashSet<ObjectView>();
         public IReadOnlyList<ObjectDefinition> Definitions { get; private set; }
         public EquipmentDefinitionCatalog Equipment { get; private set; }
 
@@ -32,7 +34,10 @@ namespace DarkNights.Runtime.Objects
             try
             {
                 result.Equipment = new EquipmentDefinitionCatalog(ObjectDefinitionDatabase.Instance);
-                ObjectDefinition[] all = definitions.Concat(result.Equipment.MiningDefinitions).Concat(result.Equipment.LightDefinitions).Distinct().ToArray();
+                var flow = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")?.SharedConfigs.OfType<ExpeditionFlowConfig>().SingleOrDefault();
+                result.geologyDefinitions = flow?.Geology?.Definition == null ? Array.Empty<ObjectDefinition>() : new[] { flow.Geology.Definition };
+                ObjectDefinition[] all = definitions.Concat(result.Equipment.MiningDefinitions).Concat(result.Equipment.LightDefinitions)
+                    .Concat(result.geologyDefinitions).Distinct().ToArray();
                 PreparedObjectDefinition[] leases = await StartupResourceBatch.Load(all,
                     ObjectInstanceFactory.PrepareAsync, cancellationToken);
                 int stored = 0;
@@ -67,6 +72,29 @@ namespace DarkNights.Runtime.Objects
                 throw new InvalidOperationException("Rule capability is not prepared: " + ruleKey);
         }
 
+        public ObjectDefinition GeologyDefinition(DarkNights.Core.Config.Terrain.TerrainGeologySite site)
+        {
+            var definition = geologyDefinitions.SingleOrDefault(d => d.Guid.ToString() == site.DefinitionGuid);
+            if (definition == null || GeologySiteConfiguration.DefinitionHash(definition) != site.DefinitionHash)
+                throw new InvalidOperationException("塌方Definition未准备或内容身份已变化：" + site.SiteId);
+            return definition;
+        }
+
+        public ObjectView CreateGeologyView(DarkNights.Core.Config.Terrain.TerrainGeologySite site, Transform parent)
+        {
+            var view = Create(GeologyDefinition(site), null, parent);
+            geologyViews.Add(view);
+            return view;
+        }
+
+        public void ReleaseGeologyView(ObjectView view)
+        {
+            if (view == null || !geologyViews.Remove(view)) return;
+            view.gameObject.SetActive(false); view.Owner?.Release();
+            if (Application.isPlaying) UnityEngine.Object.Destroy(view.gameObject);
+            else UnityEngine.Object.DestroyImmediate(view.gameObject);
+        }
+
         public static string Rule(ObjectDefinition definition)
         {
             var configs = definition.SharedConfigs.Where(value => value is ActorRuleConfig ||
@@ -88,6 +116,7 @@ namespace DarkNights.Runtime.Objects
         {
             if (disposed) return;
             disposed = true;
+            foreach (var view in geologyViews.ToArray()) ReleaseGeologyView(view);
             foreach (PreparedObjectDefinition value in prepared.Values) value.Dispose();
             prepared.Clear();
         }

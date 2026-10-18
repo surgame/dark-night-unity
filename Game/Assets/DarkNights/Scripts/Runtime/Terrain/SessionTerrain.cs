@@ -18,6 +18,10 @@ namespace DarkNights.Runtime.Terrain
         private bool[] softRock;
         private TerrainRoom[] rooms;
         private TerrainDepositBlueprint[] deposits;
+        public IReadOnlyList<TerrainNest> InitialNests { get; private set; } = Array.Empty<TerrainNest>();
+        public IReadOnlyList<TerrainNestProgress> InitialNestProgress { get; private set; } = Array.Empty<TerrainNestProgress>();
+        public IReadOnlyList<TerrainGeologySite> GeologySites { get; private set; } = Array.Empty<TerrainGeologySite>();
+        private IReadOnlyList<TerrainGeologyProgress> geologyProgress = Array.Empty<TerrainGeologyProgress>();
         private uint generation;
         public TerrainMapAuthority Map { get; private set; }
         public FrozenTerrainRules Rules { get; }
@@ -72,13 +76,22 @@ namespace DarkNights.Runtime.Terrain
             var previousMap = Map; var previousSeed = Seed; var previousExpedition = Expedition;
             var previousBackground = Background; var previousSoft = softRock;
             var previousRooms = rooms; var previousDeposits = deposits;
+            var previousNests = InitialNests; var previousProgress = InitialNestProgress;
+            var previousGeology = GeologySites; var previousGeologyProgress = geologyProgress;
             Action rollback = () =>
             {
                 Map = previousMap; Seed = previousSeed; Expedition = previousExpedition;
                 Background = previousBackground; softRock = previousSoft; rooms = previousRooms; deposits = previousDeposits;
+                InitialNests = previousNests; InitialNestProgress = previousProgress;
+                GeologySites = previousGeology; geologyProgress = previousGeologyProgress;
             };
             Map = candidate; Seed = data.Seed; Expedition = data.Expedition; Background = data.Background;
             softRock = nextSoft; rooms = nextRooms; deposits = nextDeposits;
+            InitialNests = data.Nests; InitialNestProgress = data.NestProgress;
+            GeologySites = data.GeologySites; geologyProgress = data.GeologyProgress;
+            context.Container.Resolve<ObjectSession>().TerrainGameplay.Edit().Nests = TerrainGameplayBehaviour.Initial(data.Nests, data.NestProgress);
+            try { context.Container.Resolve<ObjectSession>().Geology.Replace(data); }
+            catch { rollback(); throw; }
             return rollback;
         }
         public PlayableTerrain Capture()
@@ -104,7 +117,9 @@ namespace DarkNights.Runtime.Terrain
                     var state = record.State; var material = Map.Query(record.Position).Terrain.Identity.Guid.ToString().Replace("-", "");
                     return new TerrainDamageRecord(record.Position.U, record.Position.V, material, state.Durability, state.Quality,
                         state.RemainingReserves, (int)state.Blocking, state.Occupant.IsEmpty ? "" : state.Occupant.ToString().Replace("-", ""));
-                }).ToArray(), Rules.Fingerprint, Minerals.Capture());
+                }).ToArray(), Rules.Fingerprint, Minerals.Capture(), InitialNests.ToArray(),
+                context.Container.Resolve<ObjectSession>().TerrainGameplay?.CaptureProgress(), GeologySites.ToArray(),
+                context.Container.Resolve<ObjectSession>().Geology.CaptureProgress());
         }
         private void SetStatic(PlayableTerrain data)
         {
@@ -112,6 +127,8 @@ namespace DarkNights.Runtime.Terrain
             Background = data.Background;
             softRock = data.CopySoftRock(); rooms = new List<TerrainRoom>(data.Rooms).ToArray();
             deposits = new List<TerrainDepositBlueprint>(data.Deposits).ToArray();
+            InitialNests = data.Nests; InitialNestProgress = data.NestProgress;
+            GeologySites = data.GeologySites; geologyProgress = data.GeologyProgress;
         }
         public void Dispose() { Map?.Dispose(); Map = null; initial = null; }
     }

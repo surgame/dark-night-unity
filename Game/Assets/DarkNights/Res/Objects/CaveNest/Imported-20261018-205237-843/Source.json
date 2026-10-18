@@ -1,0 +1,30 @@
+{
+  "sourceIdentity": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\burrow/empty.png",
+      "sha256": "e9652ca81c426922baac08125fe2aae5b330d0f76f9f58646bfb7924f20fa49d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\burrow/occupied.png",
+      "sha256": "344cd117f0d9377f7d8f7758cac70c5de3aa9d2ed49de1e241820d888d224b04"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub/alert.png",
+      "sha256": "873e45da06de4588becbc84cb56202f8359b9368275c3bfe7143eba4922dd194"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub/crawl_a.png",
+      "sha256": "8e408bee4fd297cfeac3bb5f627a9ae5bf3bc26e4b97e00156ea5b679f8a2578"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub/crawl_b.png",
+      "sha256": "d5079c48454404edf42486779a2c4ec333bee9214d9ecdbae8f4d80cb2ca7973"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub/fallen.png",
+      "sha256": "5d7ff17cf22f25bed4e28bd5f4be11a1f1b8577851fd70a5dcf1b61eaeaa091e"
+    }
+  ],
+  "layout": "six 32x24 frames horizontally, 100 PPU, foot pivot (16,23); original PNG untouched",
+  "pipeline": "URP 2D"
+}

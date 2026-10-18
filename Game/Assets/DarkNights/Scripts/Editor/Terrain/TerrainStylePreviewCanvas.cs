@@ -120,6 +120,13 @@ namespace DarkNights.Editor.Terrain
                 center.y - image.height * scale * .5f, image.width * scale, image.height * scale);
         }
 
+        internal Rect ImageScreenBounds(Rect canvas, Texture image)
+        {
+            Rect result = ImageBounds(canvas, image);
+            result.position += canvas.position;
+            return result;
+        }
+
         private Vector2Int? CellAt(Vector2 mouse, Rect canvas, Texture image)
         {
             Rect bounds = ImageBounds(canvas, image);

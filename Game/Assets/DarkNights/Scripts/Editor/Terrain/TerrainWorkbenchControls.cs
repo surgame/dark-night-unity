@@ -24,6 +24,7 @@ namespace DarkNights.Editor.Terrain
         public string Section => section;
         public void Bind(TerrainGenerationPreview model) { form?.Dispose(); form = new TerrainPlanetControls(model); }
         public void FocusJourney() { section = "航程设置"; journeyView = false; }
+        public void FocusVeins() { section = "矿脉与巢穴"; journeyView = false; }
 
         public void DrawHeader(Rect area, TerrainGenerationPreview model, TerrainStyleDrafts drafts, Action changed, Action save)
         {
@@ -32,19 +33,20 @@ namespace DarkNights.Editor.Terrain
             if (GUILayout.Button("管理星球", EditorStyles.toolbarButton, GUILayout.Width(75)))
             { catalog = !catalog; section = "星球与降落"; }
             GUILayout.FlexibleSpace();
-            bool dirty = model.HasChanges || drafts.HasChanges;
+            bool dirty = model.HasChanges || drafts.HasChanges || TerrainVeinStudySettings.instance.HasChanges;
             GUILayout.Label(dirty ? "● 草稿未保存" : "✓ 已保存", EditorStyles.miniLabel, GUILayout.Width(90));
             Color original = GUI.backgroundColor;
             if (dirty) GUI.backgroundColor = new Color(.45f, .85f, .67f);
             using (new EditorGUI.DisabledScope(!dirty))
-                if (GUILayout.Button(new GUIContent("保存全部  Ctrl+S", "保存地图、航程与表现草稿，包含 Modifiers 的启用状态。"),
+                if (GUILayout.Button(new GUIContent("保存全部  Ctrl+S", "保存地图、航程、表现草稿及本机矿巢工具预设。"),
                     EditorStyles.toolbarButton, GUILayout.Width(130))) save();
             GUI.backgroundColor = original;
             EditorGUILayout.EndHorizontal(); GUILayout.EndArea();
         }
 
         public void DrawSidebar(TerrainGenerationPreview model, CaveTerrainStyle style, TerrainStyleDrafts drafts,
-            ref ScriptableObject inspected, TerrainMapDraft map, Action changed, Action styleChanged, Action play)
+            ref ScriptableObject inspected, TerrainMapDraft map, Action changed, Action styleChanged, Action play,
+            Action drawVeins = null, Action drawGeology = null)
         {
             if (catalog)
             {
@@ -53,11 +55,25 @@ namespace DarkNights.Editor.Terrain
             }
             if (Fold("地图生成"))
             {
+                if (model.Draft.Config.ReviewedMap != null)
+                    EditorGUILayout.HelpBox("当前画布及正式新局读取冻结联合地图；下面的基础参数用于生成下一版。矿脉与巢穴页可创建新版本，现有存档不重抽。", MessageType.Info);
                 if (map.HasChanges) EditorGUILayout.HelpBox("先取消或重置临时拆填，再修改生成参数。", MessageType.Info);
                 using (new EditorGUI.DisabledScope(map.HasChanges)) form.DrawMap(changed);
                 foreach (var item in model.Diagnostics)
                     EditorGUILayout.LabelField(item.StableId + " · " + item.Stage + " · 改动 " + item.ChangedCells + " 格",
                         EditorStyles.wordWrappedMiniLabel);
+            }
+            EditorGUILayout.Space();
+            if (Fold("矿脉与巢穴"))
+            {
+                if (map.HasChanges) EditorGUILayout.HelpBox("先取消临时拆填；矿巢候选读取当前完整生成地图。", MessageType.Info);
+                using (new EditorGUI.DisabledScope(map.HasChanges)) drawVeins?.Invoke();
+            }
+            EditorGUILayout.Space();
+            if (Fold("塌方设计点"))
+            {
+                if (map.HasChanges) EditorGUILayout.HelpBox("先取消临时拆填；塌方只使用完整联合候选。", MessageType.Info);
+                using (new EditorGUI.DisabledScope(map.HasChanges)) drawGeology?.Invoke();
             }
             EditorGUILayout.Space();
             if (Fold("岩壁与背景"))
@@ -158,7 +174,7 @@ namespace DarkNights.Editor.Terrain
                 (drafts.HasChanges ? "未保存" : "已保存"), EditorStyles.miniLabel, GUILayout.Width(350)); GUILayout.FlexibleSpace();
             using (new EditorGUI.DisabledScope(!model.HasChanges)) if (GUILayout.Button("保存地图与航程", GUILayout.Width(110))) saveWorld();
             using (new EditorGUI.DisabledScope(!drafts.HasChanges)) if (GUILayout.Button("保存表现", GUILayout.Width(80))) saveStyle();
-            using (new EditorGUI.DisabledScope(!model.HasChanges && !drafts.HasChanges)) if (GUILayout.Button("取消修改", GUILayout.Width(80))) cancel();
+            using (new EditorGUI.DisabledScope(!model.HasChanges && !drafts.HasChanges && !TerrainVeinStudySettings.instance.HasChanges)) if (GUILayout.Button("取消修改", GUILayout.Width(80))) cancel();
             EditorGUILayout.EndHorizontal(); EditorGUILayout.LabelField(status, EditorStyles.wordWrappedMiniLabel); GUILayout.EndArea();
         }
 

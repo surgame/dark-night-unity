@@ -11,6 +11,9 @@
 | 修改状态、对象装配或程序集 | [技术架构](ARCHITECTURE.md) |
 | 修改权限、同步、Ready或恢复 | [联机合同](MULTIPLAYER.md)、[存档合同](SAVE_FORMAT.md) |
 | 修改地图、碰撞、矿层或采集 | [地图与地形](TERRAIN_GENERATION.md)、[工具能力](TOOL_DEFINITION_HARVESTING.md) |
+| 审阅CL01／04近壁盲盒矿团与侧巢 | [近壁三候选](TERRAIN_GENERATION.md#cl01-near-wall-mining)、[薄壳动态出没](TERRAIN_GENERATION.md#cl01-nest-breach)、[多方向与矿巢共生](TERRAIN_GENERATION.md#cl01-nest-orientations)、[六情境离线样板](../experiments/nest-orientations-v1/README.md) |
+| 制作矿巢地图及进入新局 | [Cave Wall Tuner制作页](EDITOR_WORKBENCH.md#cl01-vein-tuner)、[正式单图首片](TERRAIN_GENERATION.md#cl01-runtime-joint-map)，支持新版本冻结与新局加载；实际运行验收及完整R3待办见台账 |
+| 制作塌方设计点及查看接入边界 | [Tuner字段与操作](EDITOR_WORKBENCH.md#cl02-map-design-point)、[开发交接与当前合同](TERRAIN_GENERATION.md#cl02-map-integration-handoff)、[独立场景操作](EDITOR_WORKBENCH.md#cl02-collapse-lab) |
 | 修改照明、挂载或受光材质 | [照明合同](LIGHTING.md) |
 | 修改F1面板及房主调试操作 | [Debug Hub规范](RUNTIME_DEBUG_HUB_SPEC.md) |
 | 操作编辑器、场景、预览或诊断工具 | [编辑工作台](EDITOR_WORKBENCH.md) |

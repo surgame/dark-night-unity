@@ -8,7 +8,7 @@ using DarkNights.Runtime.Session;
 namespace DarkNights.Runtime.Objects
 {
     /// <summary>
-    /// 协调招募、训练和修缮的已授权业务请求，所有库存和任务仍归所属 YYGC 状态。
+    /// 协调招募、训练、修缮及会话时间请求，所有库存、任务和暂停倍速仍归所属 YYGC 状态。
     /// 先验证能力及参数再支付，训练保留逐单位部分成功语义，不存储全局选择或队列。
     /// </summary>
     public sealed class ObjectCampCommands
@@ -16,6 +16,12 @@ namespace DarkNights.Runtime.Objects
         private static readonly string[] Names = { "诺拉", "芬恩", "凯伊", "梅芙", "莱恩", "伊芙", "艾洛", "希尔" };
         private readonly ObjectSession session;
         internal ObjectCampCommands(ObjectSession session) { this.session = session; }
+
+        internal void SetTime(bool paused, int speed)
+        {
+            if (speed != 1 && speed != 2) throw new ArgumentOutOfRangeException(nameof(speed));
+            session.Mutations.Run(() => { session.Camp.Edit().Paused = paused; session.Camp.Edit().Speed = speed; return true; });
+        }
 
         internal int Recruit()
         {

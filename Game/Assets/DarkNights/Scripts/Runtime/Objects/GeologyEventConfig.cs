@@ -45,7 +45,8 @@ namespace DarkNights.Runtime.Objects
         public FallingRockViewData Motion(int index)
         {
             var from = Source(index % RockCount); var to = Landing(index);
-            return new FallingRockViewData(from.U * 16, 632 + from.V * 16, to.U * 16, 632 + to.V * 16,
+            return new FallingRockViewData(from.U * PlayableTerrain.CellPixels, PlayableTerrain.OriginY + from.V * PlayableTerrain.CellPixels,
+                to.U * PlayableTerrain.CellPixels, PlayableTerrain.OriginY + to.V * PlayableTerrain.CellPixels,
                 Gravity, index * FragmentDelay);
         }
 
@@ -57,7 +58,11 @@ namespace DarkNights.Runtime.Objects
                 RockCount > RubbleWidth * 2 ||
                 RegionWidth < 1 || RegionWidth > 16 || RegionHeight < 1 || RegionHeight > 16 ||
                 SourceU != LandingU || SourceV <= LandingV || !Finite(WarningSeconds, .5, 10) ||
-                !Finite(OccupancyWaitSeconds, .5, 30))
+                !Finite(OccupancyWaitSeconds, .5, 30) ||
+                SourceU < 0 || SourceU > TerrainGenerationSettings.Width - Width || SourceV <= -TerrainGenerationSettings.Height || SourceV > 1 - SourceRows ||
+                LandingU < 0 || LandingU >= TerrainGenerationSettings.Width || LandingV <= -TerrainGenerationSettings.Height || LandingV > 0 ||
+                SupportU < 0 || SupportU >= TerrainGenerationSettings.Width || SupportV <= -TerrainGenerationSettings.Height || SupportV > 0 ||
+                RegionU < 0 || RegionU > TerrainGenerationSettings.Width - RegionWidth || RegionV <= -TerrainGenerationSettings.Height || RegionV > 1 - RegionHeight)
                 throw new ArgumentException("地质事件身份、区域、瓦砾或时长配置无效。");
             var frozen = (GeologyEventConfig)MemberwiseClone();
             if (frozen.collapse == null)
@@ -66,11 +71,12 @@ namespace DarkNights.Runtime.Objects
                 for (int i = 0; i < initial.Length; i++)
                 {
                     var from = Source(i);
-                    initial[i] = new FallingRockViewData(from.U * 16, 632 + from.V * 16,
-                        LandingU * 16, 632 + LandingV * 16, Gravity, i * FragmentDelay);
+                    initial[i] = new FallingRockViewData(from.U * PlayableTerrain.CellPixels, PlayableTerrain.OriginY + from.V * PlayableTerrain.CellPixels,
+                        LandingU * PlayableTerrain.CellPixels, PlayableTerrain.OriginY + LandingV * PlayableTerrain.CellPixels, Gravity, i * FragmentDelay);
                 }
-                float left = (LandingU + (Width - RubbleWidth) / 2) * 16 - 8;
-                frozen.collapse = RubbleMotionBake.Build(initial, 624 + LandingV * 16, left, left + RubbleWidth * 16);
+                float left = (LandingU + (Width - RubbleWidth) / 2) * PlayableTerrain.CellPixels - PlayableTerrain.CellPixels * .5f;
+                frozen.collapse = RubbleMotionBake.Build(initial, PlayableTerrain.OriginY + (LandingV - .5f) * PlayableTerrain.CellPixels,
+                    left, left + RubbleWidth * PlayableTerrain.CellPixels);
                 frozen.landings = RubbleLandingLayout.Build(frozen.collapse, LandingV).Select(c => new CellCoord(c.U, c.V)).ToArray();
             }
             for (int i = 0; i < frozen.RubbleCount; i++)

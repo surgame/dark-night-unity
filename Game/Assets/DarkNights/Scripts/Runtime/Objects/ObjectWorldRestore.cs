@@ -19,6 +19,7 @@ namespace DarkNights.Runtime.Objects
         private readonly List<ObjectInstance> owned = new List<ObjectInstance>();
         private readonly HashSet<ObjectInstance> retained = new HashSet<ObjectInstance>();
         private bool committed;
+        internal bool Committed => committed;
 
         internal ObjectWorldRestore(ObjectSession session, SessionSnapshot snapshot)
         {
@@ -46,7 +47,7 @@ namespace DarkNights.Runtime.Objects
             catch { Dispose(); throw; }
         }
 
-        internal void Commit()
+        internal void Commit(Terrain.TerrainMapAuthority map = null)
         {
             if (committed) throw new InvalidOperationException("Restore candidate was already committed.");
             SessionEntityIndex previous = session.Index;
@@ -55,8 +56,10 @@ namespace DarkNights.Runtime.Objects
             var oldOwners = oldEntities.Select(e => e.Object).ToArray();
             var oldByOwner = oldEntities.ToDictionary(e => e.Object);
             var replacement = new SessionEntityIndex();
+            var previousMap = session.Terrain?.Map;
             session.Mutations.Run(() =>
             {
+                if (map != null) session.Mutations.OnRollback(session.Terrain.Swap(map, snapshot.Terrain));
                 context.Activate();
                 session.Mutations.OnRollback(() => session.ReplaceEntities(previous, previousContext));
                 foreach (IEntityBehaviour prepared in staged)
@@ -100,9 +103,14 @@ namespace DarkNights.Runtime.Objects
                 session.Projectiles.Edit().CopyFrom(ObjectSnapshotMapper.Projectiles(snapshot, session.Layout.GroundY));
                 session.ReplaceEntities(replacement, context);
                 ExpeditionMapping.Restore(session, snapshot.Expedition);
+                if (session.TerrainGameplay != null)
+                    session.TerrainGameplay.Edit().Nests = TerrainGameplayBehaviour.Initial(snapshot.Terrain?.Nests, snapshot.Terrain?.NestProgress);
                 return true;
             });
             committed = true;
+            if (map != null)
+                try { previousMap?.Dispose(); }
+                catch (Exception error) { UnityEngine.Debug.LogException(error); }
             previousContext.Dispose();
             var adopted = new HashSet<ObjectInstance>(replacement.FreezeOrder().Select(e => e.Object));
             foreach (ObjectInstance old in oldOwners)

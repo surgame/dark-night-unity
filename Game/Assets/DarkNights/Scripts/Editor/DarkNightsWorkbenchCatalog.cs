@@ -45,7 +45,7 @@ namespace DarkNights.Editor
                 "Profile、规则瓦片耐久和离线单格试采。",
                 "编译并应用由原窗口执行，保留草稿和冲突检查。", "编辑地形业务", DarkNightsNativeWorkspace.Terrain, Session),
             new DarkNightsWorkbenchEntry("visual", DarkNightsWorkbenchEntryKind.Tool, Map, "Cave Wall Tuner",
-                "地图生成、岩壁与背景、星球与降落、航程四个折叠组，共用大画布。",
+                "地图生成、矿脉与巢穴、塌方设计点、岩壁与背景、星球与降落、航程共用大画布。",
                 "地图与航程、表现分别保存；拆填仅作临时预览。", "打开星球工作台", DarkNightsNativeWorkspace.Visual,
                 Root + "Terrain/StrataCave/Style.asset", Root + "Terrain/StrataCave/Background.asset"),
             new DarkNightsWorkbenchEntry("ui", DarkNightsWorkbenchEntryKind.Editor, UI, "飞船装备界面来源",

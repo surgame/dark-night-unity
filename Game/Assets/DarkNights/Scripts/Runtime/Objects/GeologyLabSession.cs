@@ -20,6 +20,8 @@ namespace DarkNights.Runtime.Objects
         private ActorBehaviour hero;
         public ObjectSession World { get; }
         public ActorViewData Hero => hero == null ? null : ObjectProjection.CaptureActor(World, hero);
+        /// <summary>当前已采样矿镐目标的冻结值，仅供样板反馈读取；最终命中仍由正式挥镐事务验证。</summary>
+        public HeroMiningTarget MiningTarget => hero == null ? default : HeroMining.InputTarget(hero.Read());
         public ObjectInstance HeroObject => hero?.Object;
         public IReadOnlyList<GeologyEventBehaviour> Events => events.AsReadOnly();
         public bool Paused => World.Paused;

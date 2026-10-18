@@ -1,0 +1,192 @@
+{
+  "clientDate": "2026-10-18",
+  "scope": "CL01／04贴矿薄壳局部破开与动态出没设计演示；未接入正式游戏",
+  "source": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-breach-v1\\BurstNestLayout.cs",
+      "bytes": 6597,
+      "sha256": "c53223fe44419ce76ee996dcc81331c121463ce9a7c652e3e1829394a19492e5"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-breach-v1\\NestBreach.csproj",
+      "bytes": 531,
+      "sha256": "3c38c8ba3393e42d53252c44328fd476b4f78a6e01b912c92ecd04fd8f9b7670"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-breach-v1\\Program.cs",
+      "bytes": 6125,
+      "sha256": "b5a4924e5e2d988bd79075731ab67ed3834e067af8e0116eed2b5e74838bce3d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-breach-v1\\README.md",
+      "bytes": 3927,
+      "sha256": "fb20d1fa830976564643b2d4aca684f729c6b1f34e8033ef06312a8eaa16c282"
+    }
+  ],
+  "sourceLines": {
+    "BurstNestLayout.cs": 110,
+    "Program.cs": 94
+  },
+  "inputIdentity": {
+    "coreSha256": "b10fba0d1ba5e851a20db5085ca2125d6f0ac5237fda937550a1a1337e6fa3f5",
+    "configSha256": "95b9622fafe3bc817c66478b6657347b940448ee919c802319d7ceef5370c838",
+    "authorSha256": "8e1729ac6248b18aed7f04a4fe7fdb26c1a162125c18ab837baf16b18641782b",
+    "finalMaterialSha256": "66f175e89132e9ad6b06cbd509caf777da4f4417b385628b99954aa36114af57",
+    "exportedUtc": "2026-10-15T16:10:13.5143472+00:00",
+    "miningFootprintSha256": "ce370d02c45c858022cd76e8c96cc25d29e376670398054e042d1d573cf8f7dd"
+  },
+  "inputSha256": "3efaf24670a23d9a186584cf06cec3fe24a9a0c4122e0db06a937003490667c0",
+  "layoutAndData": {
+    "sourceIdentity": true,
+    "sameOreFootprint": true,
+    "stock": 64,
+    "remaining": 44,
+    "triggerStep": 6,
+    "shell": 3,
+    "pocket": 7,
+    "oneCellSeal": true,
+    "preBreachClosed": true,
+    "pocketInRock": true,
+    "floorKept": true,
+    "orePreservedByBurst": true,
+    "pathsInClearedCells": true,
+    "bodyClearanceValidated": false,
+    "runtimeImplemented": false
+  },
+  "compile": {
+    "errors": 0,
+    "warnings": 0,
+    "log": {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-breach\\build.log",
+      "bytes": 580,
+      "sha256": "65a4155289e06e3c7656fb5fc9e65866ab7151b04143975e588c8d5658b1141f"
+    }
+  },
+  "browser": {
+    "checks": 126,
+    "errors": [],
+    "report": {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-breach\\browser.json",
+      "bytes": 13032,
+      "sha256": "344cefc1f00a6609f87e653c8f009c704233cabd643c3fddff9bc1622d3fc0ad"
+    }
+  },
+  "visualInspection": [
+    "layout.png",
+    "warning.png",
+    "breach.png",
+    "emergence.png",
+    "retreat.png",
+    "stay.png",
+    "mobile.png",
+    "dark.png"
+  ],
+  "files": [
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-breach\\nest-breach.html",
+      "bytes": 39736,
+      "sha256": "855ff22c5bd8972899b927b302e214e8edf6423767ce2db8213ace89605b40f6"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-breach\\nest-breach-snapshot.json",
+      "bytes": 25430,
+      "sha256": "8646be41a39928b02a33b138d9761be77d6f268ebd6436274b7ad8fc857f0439"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-breach\\generation.json",
+      "bytes": 701,
+      "sha256": "304023da33e0b8caf301c4b54942c38fdef74ef94aa4bfde0e387153eb99cd04"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-breach\\check-browser.cjs",
+      "bytes": 8577,
+      "sha256": "e6b54fec78283156b00eb02b2cf1e3db31a0c536acc6171a8cc3f632925b868d"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-breach\\record-evidence.py",
+      "bytes": 4466,
+      "sha256": "25057da2ff5c088b0f9014325c31ab8ae45a3b3395be8f294f114c84689df943"
+    }
+  ],
+  "preservation": {
+    "files": 82,
+    "changed": [],
+    "manifest": {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-breach\\preserved-before.json",
+      "bytes": 15654,
+      "sha256": "b9a27873148862e6fd803a68cf3498cbf928c4f61804db09ddcdf6a0abc59c33"
+    }
+  },
+  "environment": {
+    "preflight": {
+      "length": 64,
+      "load": 66,
+      "totalPhys": 34128007168,
+      "availPhys": 11565060096,
+      "totalPageFile": 44028190720,
+      "availPageFile": 5542285312,
+      "totalVirtual": 140737488224256,
+      "availVirtual": 140733070077952,
+      "availExtendedVirtual": 0,
+      "clientDate": "2026-10-18",
+      "preservedFiles": 82
+    },
+    "existingEditors": [
+      {
+        "Id": 23816,
+        "PrivateMemorySize64": 1660592128
+      },
+      {
+        "Id": 30640,
+        "PrivateMemorySize64": 16748544
+      },
+      {
+        "Id": 40548,
+        "PrivateMemorySize64": 1659269120
+      },
+      {
+        "Id": 43416,
+        "PrivateMemorySize64": 4718948352
+      }
+    ],
+    "editorLaunchedOrControlled": false
+  },
+  "failuresRetained": [
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-breach\\browser-failure-1792271197903.json",
+      "bytes": 12847,
+      "sha256": "333b33329930e2cd93e71f583b086d09d729b17fd09d8e8a235677890f5465ed"
+    }
+  ],
+  "failureRepair": "宿主回显本地播放快照会停止播放，已忽略自身最近快照回显；播放／暂停／终止及外部恢复通过",
+  "notRun": [
+    "Unity编译／Play／Unity测试／Player",
+    "角色或幼虫身体通行／梯具",
+    "真实采集／AI／伤害",
+    "权威事务／联机／存档恢复"
+  ],
+  "pending": [
+    "用户确认薄壳触发、范围、时延与生物行为",
+    "全图分布与净空",
+    "正式状态与地形事务接入"
+  ],
+  "outputsRetained": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-breach-v1\\bin",
+      "files": 12,
+      "bytes": 779126
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\nest-breach-v1\\obj",
+      "files": 21,
+      "bytes": 227708
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\nest-breach",
+      "files": 21,
+      "bytes": 574930
+    }
+  ],
+  "stageComplete": false,
+  "documentLinksChecked": 214
+}

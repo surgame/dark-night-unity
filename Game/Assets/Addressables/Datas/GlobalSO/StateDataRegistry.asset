@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StateDataRegistry
   m_EditorClassIdentifier: GameCore.Editor::StateDataRegistry
   GeneratedFilePath: Assets/Scripts/Generated/IStateData.generated.cs
-  nextTag: 21
+  nextTag: 22
   Registrations:
   - StateType: {fileID: 11500000, guid: 4e6b714c5e81f114e8f09883a64e5ff7, type: 3}
     Tag: 10
@@ -37,3 +37,5 @@ MonoBehaviour:
     Tag: 19
   - StateType: {fileID: 11500000, guid: 90a55bb89811ada4bbd23a05c63607c2, type: 3}
     Tag: 20
+  - StateType: {fileID: 11500000, guid: 3a0a646189ad92e4a94aa3f977fa04ac, type: 3}
+    Tag: 21

@@ -12,6 +12,8 @@ namespace DarkNights.Editor.Terrain
             var text = new StringBuilder(JsonUtility.ToJson(config.CaveMap));
             if (config.MineMap != null)
                 text.Append("|mine-map-v1|").Append(JsonUtility.ToJson(config.MineMap.Freeze()));
+            if (config.ReviewedMap != null) text.Append("|joint-map-v1|").Append(config.ReviewedMap.Fingerprint());
+            text.Append("|geology-point-v1|").Append(config.Geology?.Identity ?? "missing");
             if (planet == null) return text.Append("|no-planet").ToString();
             text.Append('|').Append(planet.DockColumn).Append('|').Append(planet.DockRow).Append('|').Append(planet.LandingWidth);
             foreach (var item in config.CopyModifiers())

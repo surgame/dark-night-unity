@@ -26,6 +26,8 @@ namespace DarkNights.Editor.Terrain
         private readonly TerrainStylePreviewCanvas preview = new TerrainStylePreviewCanvas();
         private readonly TerrainStylePreviewStage stage = new TerrainStylePreviewStage();
         private readonly TerrainJourneyPreview journey = new TerrainJourneyPreview();
+        private readonly TerrainVeinStudyPreview veins = new TerrainVeinStudyPreview();
+        private readonly TerrainGeologyControls geology = new TerrainGeologyControls();
         private TerrainBlueprint baselineBlueprint;
         private BackgroundBakeDescriptor backgroundReference;
         private string generatedIdentity, observedStyle, failedIdentity, status = "正在生成正式星球预览。";
@@ -46,6 +48,14 @@ namespace DarkNights.Editor.Terrain
             Open(); GetWindow<TerrainStylePreviewWindow>().controls.FocusJourney();
         }
 
+        public static void OpenVeinStudy()
+        {
+            var window = GetWindow<TerrainStylePreviewWindow>();
+            var settings = TerrainVeinStudySettings.instance;
+            Undo.RecordObject(settings, "开启矿巢制作预览"); settings.Enabled = true; EditorUtility.SetDirty(settings);
+            window.controls.FocusVeins(); window.Invalidate();
+        }
+
         public void ImportLegacyDraft(ExpeditionFlowDraft legacy)
         {
             if (mapDraft.HasChanges) throw new InvalidOperationException("先取消临时拆填，再转移旧航程草稿。");
@@ -61,7 +71,7 @@ namespace DarkNights.Editor.Terrain
             controls.Bind(generation);
             if (style == null) style = AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>(Root + "Style.asset");
             if (inspected == null) inspected = style;
-            saveChangesMessage = "地图与航程或表现草稿尚未保存；临时拆填不会写入作者资产。";
+            saveChangesMessage = "地图、航程、表现草稿或矿巢工具预设尚未保存；临时拆填不会写入作者资产。";
             Undo.undoRedoPerformed += RefreshChanges; EditorApplication.update += Tick; Invalidate();
         }
 
@@ -70,7 +80,7 @@ namespace DarkNights.Editor.Terrain
             planetId = generation?.PlanetId;
             EditorApplication.update -= Tick; Undo.undoRedoPerformed -= RefreshChanges;
             preview.Stop(mapDraft.EndStroke); journey.Stop(); resizing = false;
-            stage.Dispose(); controls.Dispose(); generation?.Dispose(false); generation = null;
+            veins.Dispose(); stage.Dispose(); controls.Dispose(); generation?.Dispose(false); generation = null;
         }
 
         private void OnDestroy()
@@ -102,30 +112,46 @@ namespace DarkNights.Editor.Terrain
             var canvas = new Rect(panelWidth + 4, 82, position.width - panelWidth - 4, contentHeight - 82);
             controls.DrawHeader(new Rect(0, 0, position.width, 30), generation, drafts, RefreshChanges,
                 () => Attempt(SaveChanges));
-            controls.DrawCanvasTools(new Rect(canvas.x, 32, canvas.width, 48), preview, ref fillMaterial);
+            bool studyView = controls.Section == "矿脉与巢穴" && veins.Enabled;
+            using (new EditorGUI.DisabledScope(studyView))
+                controls.DrawCanvasTools(new Rect(canvas.x, 32, canvas.width, 48), preview, ref fillMaterial);
             EditorGUI.DrawRect(new Rect(panelWidth, 32, 4, contentHeight), new Color(.25f, .25f, .25f));
             EditorGUIUtility.AddCursorRect(new Rect(panelWidth - 3, 32, 10, contentHeight), MouseCursor.ResizeHorizontal);
             GUILayout.BeginArea(panel);
             scroll = EditorGUILayout.BeginScrollView(scroll);
             float labelWidth = EditorGUIUtility.labelWidth; EditorGUIUtility.labelWidth = 145;
-            try { controls.DrawSidebar(generation, style, drafts, ref inspected, mapDraft, RefreshChanges, Invalidate, journey.Play); }
+            try { controls.DrawSidebar(generation, style, drafts, ref inspected, mapDraft, RefreshChanges, Invalidate,
+                journey.Play, () => veins.DrawControls(generation), () => geology.Draw(generation, Invalidate)); }
             catch (Exception error) { status = error.Message; }
             finally { EditorGUIUtility.labelWidth = labelWidth; EditorGUILayout.EndScrollView(); GUILayout.EndArea(); }
-            if (controls.JourneyView) journey.Draw(canvas, generation.Selected);
+            if (controls.Section == "矿脉与巢穴" && veins.Enabled) veins.Draw(canvas);
+            else if (controls.JourneyView) journey.Draw(canvas, generation.Selected);
             else
             {
+                if (!mapDraft.HasChanges && controls.Section == "塌方设计点" && geology.Picking && Image != null &&
+                    Event.current.type == EventType.MouseDown && Event.current.button == 0 && canvas.Contains(Event.current.mousePosition))
+                {
+                    Rect bounds = preview.ImageScreenBounds(canvas, Image);
+                    Vector2 local = Event.current.mousePosition - bounds.position;
+                    if (bounds.Contains(Event.current.mousePosition)) geology.Pick(generation,
+                        new Vector2Int(Mathf.FloorToInt(local.x / bounds.width * 320 + .5f), Mathf.FloorToInt(local.y / bounds.height * 192 + .5f)), Invalidate);
+                    Event.current.Use();
+                }
                 preview.Input(canvas, Image, (x, y) => mapDraft.Paint(x, y,
                     preview.ActiveTool == TerrainStylePreviewTool.Fill, fillMaterial), InvalidateMap,
                     mapDraft.BeginStroke, mapDraft.EndStroke, mapDraft.Undo, mapDraft.Redo);
                 preview.Draw(canvas, Image, canvasFps, renderMilliseconds,
                     !double.IsPositiveInfinity(due) || (Image != null && !stage.Ready), stage.Progress,
                     controls.LandingMarkers ? generation.Selected : null);
+                if (controls.Section == "塌方设计点" && geology.ShowOverlay && Image != null)
+                    TerrainGeologyOverlay.Draw(canvas, preview.ImageScreenBounds(canvas, Image), generation.Draft.Config.Geology);
             }
-            controls.DrawPreviewBar(new Rect(canvas.x, canvas.yMax + 2, canvas.width, 28), journey,
-                mapDraft, InvalidateMap, () => { mapDraft.Cancel(); InvalidateMap(); });
+            using (new EditorGUI.DisabledScope(studyView))
+                controls.DrawPreviewBar(new Rect(canvas.x, canvas.yMax + 2, canvas.width, 28), journey,
+                    mapDraft, InvalidateMap, () => { mapDraft.Cancel(); InvalidateMap(); });
             controls.DrawFooter(new Rect(0, position.height - 48, position.width, 48), generation, drafts, status,
                 () => Attempt(SaveWorld), () => Attempt(ApplyDrafts), () => Attempt(DiscardChanges));
-            hasUnsavedChanges = generation.HasChanges || drafts.HasChanges;
+            hasUnsavedChanges = generation.HasChanges || drafts.HasChanges || TerrainVeinStudySettings.instance.HasChanges;
         }
 
         private void Attempt(Action action)
@@ -156,20 +182,22 @@ namespace DarkNights.Editor.Terrain
         {
             if (generation.HasChanges) SaveWorld();
             if (drafts.HasChanges) ApplyDrafts();
-            hasUnsavedChanges = generation.HasChanges || drafts.HasChanges;
-            status = "全部草稿已保存；Modifiers 启用状态已写入配置。临时拆填仅用于预览。";
+            if (TerrainVeinStudySettings.instance.HasChanges) TerrainVeinStudySettings.instance.SavePreset();
+            hasUnsavedChanges = generation.HasChanges || drafts.HasChanges || TerrainVeinStudySettings.instance.HasChanges;
+            status = "全部草稿及本机矿巢预设已保存；临时拆填仅用于预览。";
         }
 
         public override void DiscardChanges()
         {
             generation.Cancel(); controls.Bind(generation); drafts.Clear();
-            hasUnsavedChanges = false; status = "地图与航程、表现草稿已取消。"; Invalidate();
+            TerrainVeinStudySettings.instance.DiscardPreset();
+            hasUnsavedChanges = false; status = "地图、航程、表现草稿及矿巢工具预设已取消。"; Invalidate();
         }
 
         private void RefreshChanges()
         {
             if (generation == null) return;
-            hasUnsavedChanges = generation.HasChanges || drafts.HasChanges;
+            hasUnsavedChanges = generation.HasChanges || drafts.HasChanges || TerrainVeinStudySettings.instance.HasChanges;
             if (generatedIdentity != generation.Identity && !mapDraft.HasChanges) Invalidate();
             Repaint();
         }
@@ -205,7 +233,11 @@ namespace DarkNights.Editor.Terrain
             try
             {
                 journey.Tick(generation.Selected); CheckExternalChanges();
+                if (Image == null && baselineBlueprint != null &&
+                    !(controls.Section == "矿脉与巢穴" && veins.Enabled) &&
+                    failedIdentity != generation.Identity && double.IsPositiveInfinity(due)) Invalidate();
                 if (now >= due) RebuildNow();
+                veins.Tick(generation, controls.Section == "矿脉与巢穴");
                 if (Image != null)
                 {
                     bool wasReady = stage.Ready;
@@ -240,6 +272,8 @@ namespace DarkNights.Editor.Terrain
         {
             due = double.PositiveInfinity;
             if (generatedIdentity != generation.Identity) OpenMapSnapshot();
+            if (controls.Section == "矿脉与巢穴" && veins.Enabled)
+            { stage.Dispose(); status = "矿巢制作剖面读取当前完整地图；未创建额外离屏渲染宿主。"; return; }
             if (style == null || baselineBlueprint == null) { status = "正式地图或岩壁样式不可用。"; return; }
             var background = drafts.Draft(drafts.Draft(style).Background);
             if (background != null && background.ContourStatic && background.ContentHash != BackgroundBakeDescriptor.StyleContentHash)

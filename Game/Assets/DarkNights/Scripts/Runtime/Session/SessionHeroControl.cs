@@ -213,6 +213,11 @@ namespace DarkNights.Runtime.Session
                     state.MiningTargetKind = input.Mining.Kind; state.MiningEntityId = input.Mining.EntityId;
                     state.MiningContentVersion = input.Mining.ContentVersion;
                     state.MiningMineralContentVersion = input.Mining.MineralContentVersion;
+                    if (input.Mining.Present && world.Geology.ReservesSource(new AnyRules.Next.CellCoord(input.Mining.U, input.Mining.V)))
+                    {
+                        state.MiningWorldId = null;
+                        state.MiningTargetKind = DarkNights.Core.ViewData.HeroMiningTargetKind.None;
+                    }
                 }
             }
             state.JumpPending |= input.JumpPressed;

@@ -46,12 +46,12 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.TerrainGameplayBehaviour
   SharedConfigs:
   - rid: 6961529734502023168
-  - rid: 4004706249336946894
+  - rid: 4004706540155830383
   - rid: 6961529734502023170
   references:
     version: 2
     RefIds:
-    - rid: 4004706249336946894
+    - rid: 4004706540155830383
       type: {class: ExpeditionFlowConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         Enabled: 1
@@ -65,6 +65,41 @@ MonoBehaviour:
           OreDensity: 1
           ResourceProfile: cave-exploration
         MineMap: {fileID: -7265415908296928465, guid: 2da67708529a30f4dbfc5d0ed75b2f0a, type: 3}
+        ReviewedMap: {fileID: 11400000, guid: 130f612421ccece4da760ff5ad5494df, type: 2}
+        Geology:
+          Enabled: 1
+          SiteId: collapse-01
+          Definition: {fileID: 11400000, guid: 1160a73a74566904a8905206504ab14b, type: 2}
+          Configuration:
+            EventId: collapse-01
+            EnterRegion: 1
+            SupportU: 135
+            SupportV: -60
+            RegionU: 141
+            RegionV: -60
+            RegionWidth: 3
+            RegionHeight: 3
+            SourceU: 137
+            SourceV: -54
+            LandingU: 137
+            LandingV: -60
+            Width: 3
+            SourceRows: 3
+            RubbleWidth: 5
+            Gravity: 320
+            WarningSeconds: 2
+            FragmentDelay: 0.045
+            OccupancyWaitSeconds: 8
+            Material: slate
+          AllowedU: 133
+          AllowedV: -60
+          AllowedWidth: 14
+          AllowedHeight: 12
+          RetreatU: 141
+          RetreatV: -60
+          RetreatWidth: 3
+          RetreatHeight: 3
+          Association: 
         Planets:
         - Id: grey-pine
           DisplayName: "\u7070\u677E\u661F"
@@ -85,8 +120,8 @@ MonoBehaviour:
           SkyColorHex: '#243B55'
         ModifierSchemaVersion: 1
         Modifiers:
-        - rid: 4004706249336946895
-    - rid: 4004706249336946895
+        - rid: 4004706540155830384
+    - rid: 4004706540155830384
       type: {class: EntranceWalkwayModifierConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         Enabled: 0

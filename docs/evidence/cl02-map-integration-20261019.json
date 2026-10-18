@@ -1,0 +1,408 @@
+{
+  "date": "2026-10-19",
+  "scope": "CL02现有地图工作台人工一点；实现与编译完成，运行验收待做",
+  "branch": "fix-20261015-collapse-gravity-pile",
+  "workspace": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects",
+  "editor": {
+    "pid": 38988,
+    "version": "6000.4.9f1",
+    "single_local_channel": true
+  },
+  "ownership": {
+    "existing_dirty_work_preserved": true,
+    "baseline": "artifacts/cl02-map-integration-20261019/status-before.txt",
+    "baseline_patch": "artifacts/cl02-map-integration-20261019/changes-before.patch",
+    "baseline_source_hashes": "artifacts/cl02-map-integration-20261019/source-before.json",
+    "author_input": "ExpeditionFlowConfig.Geology",
+    "static_site": "PlayableTerrain.GeologySites / ReviewedMineMap",
+    "runtime_state": "既有GeologyEventBehaviour / GeologyEventState；SessionGeology只持有引用",
+    "framework_or_dependency_changes": false,
+    "commit_or_push": false
+  },
+  "map": {
+    "map": "Assets/DarkNights/Res/Terrain/StrataCave/JointMaps/20261019-044759-235/JointMine.asset",
+    "ContentSha256": "884f3c52ee1c7f9fe3c5b847fe19ed7a244fb4ae02e761fb75e8dfc85e98ea30",
+    "SourceIdentity": "a8d560acfa9a4d375606ae9561247bcc1112bd03b588e1d1194645388456c908",
+    "Recipe": "joint-thick-veins-side-nests-v1|max=6|nests=True",
+    "sourceCells": 9,
+    "fragments": 26,
+    "clearCells": 25,
+    "site": {
+      "SiteId": "collapse-01",
+      "DefinitionGuid": "e099af38dae94160bbabda89d8cb6d4d",
+      "DefinitionHash": "1f5387f5e43d0ee86585d9244f6f1bfc15735fea3a9adec8833df22a5eca1c8f",
+      "Configuration": "{\"EventId\":\"collapse-01\",\"EnterRegion\":true,\"SupportU\":135,\"SupportV\":-60,\"RegionU\":141,\"RegionV\":-60,\"RegionWidth\":3,\"RegionHeight\":3,\"SourceU\":137,\"SourceV\":-54,\"LandingU\":137,\"LandingV\":-60,\"Width\":3,\"SourceRows\":3,\"RubbleWidth\":5,\"Gravity\":320.0,\"WarningSeconds\":2.0,\"FragmentDelay\":0.045,\"OccupancyWaitSeconds\":8.0,\"Material\":\"slate\"}",
+      "Association": "",
+      "AllowedU": 133,
+      "AllowedV": -60,
+      "AllowedWidth": 14,
+      "AllowedHeight": 12,
+      "RetreatU": 141,
+      "RetreatV": -60,
+      "RetreatWidth": 3,
+      "RetreatHeight": 3
+    },
+    "nests": 1,
+    "deposits": 59,
+    "noStaticWorldId": true,
+    "injectedLoadId": "00000000000000000000000000000002",
+    "sameCandidate": true,
+    "sourceDirty": false,
+    "playing": false,
+    "scene": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "sceneDirty": true,
+    "compiler": {
+      "compiling": false,
+      "failed": false
+    },
+    "prefab": "Assets/DarkNights/Res/Effects/Geology/Event/GeologyEvent.prefab"
+  },
+  "versions": {
+    "static_map": 2,
+    "protocol": 33,
+    "save": 25,
+    "old_files_retained_without_migration": true
+  },
+  "checks": {
+    "materials": true,
+    "shapes": true,
+    "protection": true,
+    "soft_rock": true,
+    "deposits": true,
+    "nests": true,
+    "rooms": true,
+    "seed": true,
+    "no_static_world_id": true,
+    "raw_static_background": true,
+    "one_site": true,
+    "empty_initial_progress": true,
+    "same_candidate": true,
+    "source_saved": true,
+    "not_playing": true,
+    "new_meta_complete": true,
+    "source_line_limit": true
+  },
+  "reference_readback": {
+    "savedPoint": "collapse-01",
+    "savedDefinition": "e099af38dae94160bbabda89d8cb6d4d",
+    "mapSites": 1,
+    "mapProgress": 0,
+    "pointMatches": true,
+    "references": true,
+    "addressGroup": "Default Local Group",
+    "mapAsset": "Assets/DarkNights/Res/Terrain/StrataCave/JointMaps/20261019-044759-235/JointMine.asset",
+    "scene": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "sceneDirty": true,
+    "sourceDirty": false,
+    "playing": false,
+    "compiling": false,
+    "compilationFailed": false,
+    "protocol": 33,
+    "save": 25
+  },
+  "compilation": {
+    "unity_final": {
+      "success": true,
+      "command": "recompile",
+      "data": {
+        "status": "completed",
+        "compiling": false,
+        "failed": false,
+        "compilationFailed": null,
+        "errors": [],
+        "warnings": [],
+        "summary": {
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "static_pass": "artifacts/cl02-map-integration-20261019/compile-01/compile.json",
+    "note": "静态编译先行；后续源码以最终真实Unity编译及下列源码摘要为准。"
+  },
+  "assemblies": [
+    {
+      "path": "Game/Library/ScriptAssemblies/DarkNights.Core.dll",
+      "sha256": "6749914f7c68974613f8a8f53ef6c1439ab9ed109ab063afe0dbf6e819ff41de"
+    },
+    {
+      "path": "Game/Library/ScriptAssemblies/DarkNights.Runtime.dll",
+      "sha256": "978c17e47d2048f4db8f0ee9dc01a47b2c7d2c55c156a263d1a30df87925f22b"
+    },
+    {
+      "path": "Game/Library/ScriptAssemblies/DarkNights.View.dll",
+      "sha256": "ebba178e10039e8bcf43e9e2d6929d19e8159fbec579e22b4aba351881d49e55"
+    },
+    {
+      "path": "Game/Library/ScriptAssemblies/DarkNights.Entry.dll",
+      "sha256": "6d85475cdfa4dbdc6889911540657f5e2360d85b843eba1541054d356e362942"
+    },
+    {
+      "path": "Game/Library/ScriptAssemblies/DarkNights.Editor.dll",
+      "sha256": "b0dbf32acd9bbfe8cf2981712b40b5f6943209fbd621be08625c112ef3fdf4d7"
+    }
+  ],
+  "sources": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/DarkNightsWorkbenchCatalog.cs",
+      "sha256": "b9c778beb490071f4a78181aafbcf1c75a08bd628eb5e918d04641ffa83b9750"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/ExpeditionFlowDraft.cs",
+      "sha256": "9f909da973f5c91d766aea35004619145c76fdd03a576e3fe0e8093c7db37281"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/GeologyEventView.cs",
+      "sha256": "3b8998c1342589447da69b46ad8167f8894f7d61ee714dee06b1f8f85560c377"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ProjectionValidation.cs",
+      "sha256": "9e8ce872005168dd2e893d08923bb9b107eea63f16415a4a148d2372da41562d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/WorldWire.cs",
+      "sha256": "ff9ca44d5095d1e395bf09de98770cb807414dec3c335031cfd9be30d9eb6a80"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowConfig.cs",
+      "sha256": "56dfc1121b1884b46a4e4800f43bb8f3466e77d8a7029e925b273c291931c8bc"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs",
+      "sha256": "e5fc6cf8b4f525d7a4880df4277be6ce02aaeb84cd81fb8315c7efbf12fd8368"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventBehaviour.cs",
+      "sha256": "bbd33fbd0b0a0812e529c90fbd408441a5f2986a01e395da88d131ec0d77a8a6"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventConfig.cs",
+      "sha256": "29dbce9e88a112b8e1d2b996f10a25cc541428d551d42ba0880acd5e8ecc177d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroEquipment.cs",
+      "sha256": "d22e74283144b4661ad4193c9a82a26a05cb709bfbc8ad62dbe639578a95cdb0"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroMining.cs",
+      "sha256": "d2abce8ce71e95d51b2fd1546fe2e543448f4f647411ab2cb8a34e997d8331bf"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectCampCommands.cs",
+      "sha256": "a4027d30196069a64f8b706bd3d8d8418fa881a27b0773880a423b2754a12e35"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectProjection.cs",
+      "sha256": "e0c8a7aef59873d6768e57477ba742bc975b9f0396aced1606acbed6f8ab38e8"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs",
+      "sha256": "7f3aafc9a2491b1c2b8296a37bd5ddd477659355ebdf815caed403268f5d74c1"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionResources.cs",
+      "sha256": "99fecf70a4ff05b3e8abce24c1acb439f00f2a0b083685edd544026e06aa77f0"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/TerrainSaveJson.cs",
+      "sha256": "37e79104e2c73be71cb5e6833f2fb51a772438b90f9013816c7f543dd7896fca"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+      "sha256": "1849685db55b2bf3069e8e7ae98aee74fc2aadb97d15cd44fdd4525b0071694d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs",
+      "sha256": "094cb720ea8ca6697505e3bd01b9d10b12028d9999e70ce00484c01a99be8ef0"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/GeologyLanding.cs",
+      "sha256": "f293bf1bdaca249c3ad7fd953390b42210ae69d489e29bee5465c8cf647aaf5b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/ReviewedMineMap.cs",
+      "sha256": "68ddb3d19767173b3da150f105aa824e08dd105ff7479c0286458fae130b1f4e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/SessionTerrain.cs",
+      "sha256": "7c130af71880626dcdfe704b86833367bcbb7bf2ed806dc33d1fcbd595ee4fad"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEntry.cs",
+      "sha256": "f02aa6fbc49e5efdc019519aedbe9ee75bd497f4442681a7b444690f2f1eb5f7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/RandomLevelEntry.cs",
+      "sha256": "b1f9129422cb2bbd5adbe682c5362c74a15a9de91cef065595e1579fc8e9acb3"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/JointMineContentSetup.cs",
+      "sha256": "a747a4ea2780203908ec052d9c8f9e0f2164cd37af9319dfb743d44bc9fec920"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationIdentity.cs",
+      "sha256": "a8c38a7988eeb69c46247957ed4da5927b176c77eaae5769fcc7e160f957cfb1"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationPreview.cs",
+      "sha256": "aa2398cde4f039087635b12c6c7feff00ee85dc9f5cfc5c5a11e66568162f6de"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewCanvas.cs",
+      "sha256": "1e0d0005563feca71c990600a368b8887399cba2757dca208cd5b80a1ca16cee"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs",
+      "sha256": "d4dacce71ddf2fdf61bf2381b4589fa63ec309fe947504b3766fafa9e3c22347"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainVeinStudyPreview.cs",
+      "sha256": "175002477c58bb5ef79e11325426eab24bbbfa741ea8ed9174646a642427ba55"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchControls.cs",
+      "sha256": "17bfb7f3b806581750d0245f6146774f6a733ad3eff18d8823e351e0ffe83a89"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Save/SessionSnapshot.cs",
+      "sha256": "d9d76f23112d539da8cfc81f6f983391b8233db8a7bf3e5d2de8c58d998fba5e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Save/SnapshotValidator.cs",
+      "sha256": "f5257a87051705e01fbe8251948d0d9293cd0906787bf5be74bcfc572319eabd"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/WorldViewData.cs",
+      "sha256": "123dd18d706519222a4db76534100c53dd899736ecae0fbfaee7b4e62e802008"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/PlayableTerrain.cs",
+      "sha256": "37f87a84f036737734518f0825b60dd803b0e7fb06cc26a4d9eccac57da5d57c"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/GeologyWire.cs",
+      "sha256": "75bb9fdab4a5ed161c87b3e575fb29fe5863fd0b34fc5709d347b458e43011f9"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyDesignPoint.cs",
+      "sha256": "07f09f57c87631b5c43af9a110dad809b1bb1c5bbc4c954a1b0539b0fc21f985"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyRestoreValidation.cs",
+      "sha256": "4b771b085d888f2549c5ec9a74dd0e400ed75db734b688b8682a23f774cef76d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologySiteConfiguration.cs",
+      "sha256": "749226247cef28b26b9b74c469f940e85012ef6bf11fa65cb3d40037fee1714b"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/SessionGeology.cs",
+      "sha256": "2987cd306e61ce6a6e97ef69c74ac286d54847702111270bfc6027af919bf74f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/TerrainGeologySaveJson.cs",
+      "sha256": "3a64cbd2393cea5c9f0dbed6a11722f24b14da1674b059b3f8c127f09e4c51c0"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/GeologyMapDesign.cs",
+      "sha256": "edd9328f2328ee89673c92193656df501cd4023b2c8ad927f6ce732583a42576"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/GeologySiteValidation.cs",
+      "sha256": "a1e1c042c86ae8700742b3b1dbb212d8c365ea634b8605b0ea01f515de66d661"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyPresentation.cs",
+      "sha256": "9a58b18670454d87c715038b41dde9c181c36175e8d47929c5899c35200bc7ba"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGeologyControls.cs",
+      "sha256": "de3f828e71d2092eb4c317b551eaf5ef3874e9737d7cd05ebfb658b24c0a6e33"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGeologyOverlay.cs",
+      "sha256": "bf99d00db946e38c43657a90e6c0e334ee18dd044be127417cbf90834650440e"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/GeologySiteViewData.cs",
+      "sha256": "43cf17dde1b0319d0c90876489fdce0fa34d653f475c1d92de5ae7f833664743"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainGeologyProgress.cs",
+      "sha256": "a665834c2b22652033d8d5d68c4bfb7604ac0f66e65d418404ee8543d2d82fd2"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainGeologySite.cs",
+      "sha256": "5d2b2d22f1cd85f019a5cafde3b649f6a23ac2b81afb69b4322e0fc749532a4f"
+    }
+  ],
+  "saved_assets": [
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+      "sha256": "02f75af17101be6adc9291a427a75a90f666986353d553859d17fba970ba927a"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Terrain/StrataCave/JointMaps/20261019-044759-235/JointMine.asset",
+      "sha256": "22a997676905fee9c3ea3a0a4cf0d426fba2cbee432565118faa29accd7c9508"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Terrain/StrataCave/JointMaps/20261019-044759-235/layout.json",
+      "sha256": "884f3c52ee1c7f9fe3c5b847fe19ed7a244fb4ae02e761fb75e8dfc85e98ea30"
+    }
+  ],
+  "reused_effect_hashes": {
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/RegionRockfall.asset": "867c6f2907cf069d1f2fc0c8fc6b2aa3fc5e3fc57861f9b20dc94d453dde7eac",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/SupportCollapse.asset": "7f71a5a511661ad1926c72a5a819d6c5e0c32e6fe8db3b7f1a8649766af36b07",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/GeologyEvent.prefab": "cd6f5e3639724422418030306278120e2ae12c963923d9f34e3c55d9705093aa"
+  },
+  "geometry_comparison": {
+    "against": "Assets/DarkNights/Res/Terrain/StrataCave/JointMaps/20261018-211454-208/JointMine.asset",
+    "equal_fields": [
+      "materials",
+      "shapes",
+      "protection",
+      "soft_rock",
+      "deposits",
+      "nests",
+      "rooms",
+      "seed"
+    ],
+    "new_veins": 6,
+    "nests": 1,
+    "deposit_metadata_parts": 59,
+    "source_cells": 9,
+    "visible_fragments": 26,
+    "derived_rubble_cells": 25
+  },
+  "retained_attempts": [
+    {
+      "record": "artifacts/cl02-map-integration-20261019/install-point-result.json",
+      "result": "首次人工点因轨迹碰撞被拒绝，未保存为默认图"
+    },
+    {
+      "asset": "Assets/DarkNights/Res/Terrain/StrataCave/JointMaps/20261019-043821-300/JointMine.asset",
+      "result": "格式收敛前中间图，保留原位；不作为当前默认图或交付输入"
+    }
+  ],
+  "authorization_and_limits": {
+    "user_allowed_stop_of_existing_play": true,
+    "existing_play_stopped": true,
+    "new_play_started": false,
+    "automated_tests_run": false,
+    "player_built_or_run": false,
+    "multiplayer_runtime_verified": false,
+    "save_write_restore_verified": false,
+    "scene_dirty_preserved": true,
+    "no_scene_save_or_cleanup": true,
+    "no_stage_completion_claim": true
+  },
+  "pending_manual_validation": [
+    "工作台实际Undo／显式保存／关闭重开及关闭点后还原同一候选",
+    "Bootstrap新游戏进入区域→前兆→落石→25格瓦砾完整清障及边缘表现",
+    "暂停／恢复、源岩新目标及待命中保护、占位等待和安全退休",
+    "独立Host＋客户端、晚加入、换图与退出的可靠投影及资源释放",
+    "各阶段写盘、加载、重启恢复，失败保持旧世界且已清理／退休不复活"
+  ],
+  "operations": "docs/EDITOR_WORKBENCH.md#cl02-map-design-point",
+  "raw_artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cl02-map-integration-20261019"
+}

@@ -22,7 +22,13 @@ namespace DarkNights.Runtime.Objects
             Rules = null;
             base.OnDespawn();
         }
-        internal bool Hit(ActorBehaviour actor, DarkNights.Core.ViewData.HeroMiningTarget target, float aim) =>
-            HeroMining.TryMine(actor, target, aim, Rules);
+        internal bool Hit(ActorBehaviour actor, DarkNights.Core.ViewData.HeroMiningTarget target, float aim)
+        {
+            var state = actor.Read();
+            float radians = aim * (float)System.Math.PI / 180;
+            if (!state.Boarded && state.Hp > 0 && actor.World.TerrainGameplay?.Strike(state.X, state.Height + Rules.HandHeight,
+                (float)System.Math.Cos(radians), (float)System.Math.Sin(radians), Rules.Reach, Rules.Damage) == true) return true;
+            return HeroMining.TryMine(actor, target, aim, Rules);
+        }
     }
 }

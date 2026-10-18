@@ -1,0 +1,84 @@
+{
+  "scope": "CL01/04 Cave Wall Tuner局部制作预览，未接入正式生成／运行",
+  "date": "2026-10-18",
+  "branch": "fix-20261015-collapse-gravity-pile",
+  "implementation": {
+    "editor": "6000.4.9f1",
+    "pid": 38988,
+    "source_sha256": {
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainVeinStudyCanvas.cs": "43ae194a70af20ece8e766c657b129f38ab0064f7b890588ca2503823efed1ba",
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainVeinStudyFrame.cs": "3f671ff11929228ec075b431c65df742bc58b8ab13f089b2c00035fdef50b8d9",
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainVeinStudyPreview.cs": "b479107f2753fd5f1eb6c0f6c007e7c6020aec2b377aff055a66a2477a9e25de",
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainVeinStudySettings.cs": "3b3ce4006d56b984736c008f6d371428b8e85dda5e2d25eefc5f4e958c4c839a",
+      "Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\TerrainVeinShapeMask.cs": "2c6cf79017b8137171eee3c4cb2671f22ee3d0aebf8acec0bd7d613bf77446a7",
+      "Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\TerrainVeinStudyGenerator.cs": "d7f0ca42437d2840cea53dde4fe72285dfbd5949c2fda0656d4207f4efe01cca",
+      "Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\Terrain\\TerrainVeinShape.cs": "09bd31f83bbca927fbb1f3a123e4fbb1159ffbae698ae8c1c348d789d98bd177",
+      "Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\Terrain\\TerrainVeinStudyLayout.cs": "9b69be0ac5319b0ccc0afc741397f82a7e1cd56833beab416e8e6ba7b216d44d",
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainStylePreviewWindow.cs": "cf25798b9b49faecd81525b9348c6a20172b88a0df840a654249d0ba9a17659a",
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainWorkbenchControls.cs": "dd7ef7faec4577e1ca866b3ab80f416155ef23476926e204937e16bf7be2b011",
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainGenerationPreview.cs": "f656280bd9565c9d54ba357220a112187f0d440101610c02b4a36cb1e4aa657b",
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\DarkNightsWorkbenchCatalog.cs": "87019da191ae668e16b0230d29740d8f24069cdc2ec88a8d0e7f6a4dedc41377",
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainVeinStudyCanvas.cs.meta": "905fa04eedde143dcd987eb4f66c7c895c508ed27a7d071f5d6e4b8bb1f9d130",
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainVeinStudyFrame.cs.meta": "231240b0d28f9d5be3fe385b25432efa212a8ab75f6bcea07cfb577d9e28d3bb",
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainVeinStudyPreview.cs.meta": "1465ea54efe64c00046c1680fc8887d625d45dd6ac88a5bb7b9169a06339c57a",
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainVeinStudySettings.cs.meta": "5dd6489df9597a35cea0bf9f992246375db2d026fe79ac6b8ee0cd2bc7e7cf9e",
+      "Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\TerrainVeinShapeMask.cs.meta": "d92827bb358fcbbe6aa0c1a8596fc4231bba806461c09e549954a6962d7cb590",
+      "Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\TerrainVeinStudyGenerator.cs.meta": "a2ce989fc8a077ca37674fe97b02f49b246ed589cf35db10f4e8d840b86bbb72",
+      "Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\Terrain\\TerrainVeinShape.cs.meta": "76e516bccc25274c89993118795259477175c694278d97f11627f37ef53d513a",
+      "Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\Terrain\\TerrainVeinStudyLayout.cs.meta": "4ec0facb188e8c3da9d76abd6b65c392b74eb298e5f4762b4fc2d6229bb7c753"
+    },
+    "new_meta": "8份均由Unity自动导入生成",
+    "assembly_sha256": {
+      "DarkNights.Core.dll": "9a0ae29f780a80bdc4fa88e553aeec5b0795c9a97e3203328b3fa7c2aa38e112",
+      "DarkNights.Editor.dll": "54e4a43bb9e937f7fe0fbb8e9c01ef14f8fe0eed1318c36f78d02ad615182c5f"
+    }
+  },
+  "compile_observation": {
+    "method": "Unity自动导入／编译后的CLI只读查询及类型反射",
+    "compiling": false,
+    "updating": false,
+    "scriptCompilationFailed": false,
+    "OpenVeinStudy_loaded": true,
+    "manual_compile_attempt": "unity recompile在本机不存在，返回unknown command；未执行重试或额外刷新"
+  },
+  "candidate_observation": {
+    "scope": "一次实际生成入口及默认矿形构造的必要候选核对；不是自动测试",
+    "seed": "STRATA-0922",
+    "world_x": 134,
+    "world_y": 44,
+    "site_count": 10,
+    "mineral_cells": 64,
+    "capacity": 256,
+    "shape": "ThickMass",
+    "framework_deposit_constructor": "成功"
+  },
+  "preserved_existing_game_files": [
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "Game/Assets/DarkNights/Scripts/Editor/ScenePlaySelection.cs",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchScenes.cs",
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEntry.cs",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyLabSession.cs"
+  ],
+  "manual_gui": "未打开原生窗口；操作／回放／保存重开待验",
+  "stop_reason": {
+    "gate": "系统提交余量低于AGENTS的1GiB",
+    "free_ram_gib": 4.2144775390625,
+    "free_commit_gib": 0.699310302734375,
+    "editor_private_gib": 4.0240936279296875,
+    "action": "只读预检；停止下一预览批次，不处理其他应用"
+  },
+  "not_executed": [
+    "Unity自动测试",
+    "Play",
+    "Player",
+    "GUI回放与保存重开",
+    "正式生成／矿层替换",
+    "审核导出／加载",
+    "梯具／塌方联合装配",
+    "联机／存档恢复"
+  ],
+  "documentation_links": "五份现行文档链接目标通过；首次回执文件尚未写入导致的三处未解析记录保留",
+  "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ore-nest-tuner-20261018",
+  "cleanup": "全部保留原位，未删除／归档旧产物",
+  "git": "未提交／推送"
+}

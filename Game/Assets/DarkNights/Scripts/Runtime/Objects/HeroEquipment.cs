@@ -70,6 +70,8 @@ namespace DarkNights.Runtime.Objects
         private static void TickPickaxe(ActorBehaviour actor, ActorState state, MiningToolBehaviour tool, string definitionGuid, bool pressed)
         {
             var config = tool.Rules;
+            if (state.PickaxeSwingActive && actor.World.Geology.ReservesSource(new AnyRules.Next.CellCoord(
+                state.PickaxeSwingTarget.U, state.PickaxeSwingTarget.V))) { Cancel(state); return; }
             if (state.PickaxeSwingActive && (state.MiningToolDefinition != definitionGuid ||
                 state.MiningToolSelectionRevision != state.SelectionRevision)) Cancel(state);
             if (state.PickaxeSwingActive)
@@ -83,6 +85,7 @@ namespace DarkNights.Runtime.Objects
                 state.PickaxeSwingActive = false; state.PickaxeSwingTarget = default;
             }
             if (state.EquipmentCooldown > 0 || (!state.UseHeld && !pressed)) return;
+            if (actor.World.Geology.ReservesSource(new AnyRules.Next.CellCoord(state.MiningU, state.MiningV))) return;
             state.PickaxeSwingTarget = HeroMining.InputTarget(state);
             state.MiningToolDefinition = definitionGuid; state.MiningToolSelectionRevision = state.SelectionRevision;
             state.PickaxeSwingAim = state.AimAngle;

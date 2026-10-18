@@ -47,6 +47,7 @@ namespace DarkNights.Runtime.Objects
                 }
                 shot.X = x; shot.Height = h;
                 if (shot.Kind != 1) continue;
+                if (world.TerrainGameplay?.Hit(x, h, shot.Radius, shot.Damage) == true) { shot = default; return; }
                 ActorBehaviour hit = null;
                 foreach (var actor in world.Index.Actors)
                 {
@@ -80,6 +81,16 @@ namespace DarkNights.Runtime.Objects
                 if (!blocked) world.Combat.Damage(actor, damage);
             }
             world.Terrain?.Map.Detonate(x, h, shot.ViewId);
+            foreach (var nest in world.TerrainGameplay?.CaptureView() ?? Array.Empty<Core.ViewData.NestViewData>())
+            {
+                float dx = nest.X - x, dy = nest.Height + 6 - h;
+                if (nest.Phase != 2 || dx * dx + dy * dy > radius * radius) continue;
+                int count = Math.Max(1, (int)Math.Ceiling(Math.Sqrt(dx * dx + dy * dy)));
+                bool blocked = false;
+                for (int i = 1; i < count; i++)
+                    if (Solid(world, x + dx * i / count, h + dy * i / count, 0)) { blocked = true; break; }
+                if (!blocked) world.TerrainGameplay.Hit(nest.X, nest.Height + 6, 0, damage);
+            }
         }
     }
 }

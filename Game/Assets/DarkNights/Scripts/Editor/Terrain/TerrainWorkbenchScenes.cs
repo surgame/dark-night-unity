@@ -19,7 +19,11 @@ namespace DarkNights.Editor.Terrain
                 throw new InvalidOperationException("请先退出 Play。");
             if (AssetDatabase.LoadAssetAtPath<SceneAsset>(path) == null)
                 throw new FileNotFoundException("场景不存在；打开入口不会生成或覆盖场景。", path);
-            if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+            Scene current = SceneManager.GetActiveScene();
+            if (current.isLoaded && current.path == path) return;
+            bool identicalLab = SceneManager.sceneCount == 1 && current.isDirty &&
+                ScenePlaySelection.MatchesSavedGeologyScene(current);
+            if (!identicalLab && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
             EditorSceneManager.OpenScene(path);
         }
 

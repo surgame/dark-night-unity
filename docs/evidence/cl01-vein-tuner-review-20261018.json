@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-18",
+  "scope": "用户要求地图调试台功能复审；候选与帧最小核对，无Play或Player",
+  "source_identity": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainVeinStudyGenerator.cs",
+      "sha256": "D7F0CA42437D2840CEA53DDE4FE72285DFBD5949C2FDA0656D4207F4EFE01CCA"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainVeinStudyCanvas.cs",
+      "sha256": "43AE194A70AF20ECE8E766C657B129F38AB0064F7B890588CA2503823EFED1BA"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs",
+      "sha256": "CF25798B9B49FAECD81525B9348C6A20172B88A0DF840A654249D0BA9A17659A"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchControls.cs",
+      "sha256": "DD7EF7FAEC4577E1CA866B3AB80F416155EF23476926E204937E16BF7BE2B011"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainVeinStudySettings.cs",
+      "sha256": "3B3CE4006D56B984736C008F6D371428B8E85DDA5E2D25EEFC5F4E958C4C839A"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainVeinStudyFrame.cs",
+      "sha256": "3F671FF11929228EC075B431C65DF742BC58B8AB13F089B2C00035FDEF50B8D9"
+    }
+  ],
+  "raw_result": "artifacts/ore-nest-tuner-review-20261018/candidate-result.json",
+  "fixture": "artifacts/ore-nest-tuner-review-20261018/review-candidates.cs",
+  "preflight": {
+    "available_physical_gib": 8.679,
+    "commit_remaining_gib": 8.391,
+    "editor_private_gib": 4.165,
+    "editor_pid": 38988,
+    "editor_version": "6000.4.9f1"
+  },
+  "findings": [
+    {
+      "id": "RVIEW-01",
+      "priority": "P2",
+      "status": "未修复",
+      "basis": "当前默认候选与构造反例实测",
+      "file": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainVeinStudyGenerator.cs",
+      "line": 70,
+      "problem": "选位未覆盖角色起点占地与退路；默认起始身体格为材料2实岩"
+    },
+    {
+      "id": "RVIEW-02",
+      "priority": "P2",
+      "status": "未修复",
+      "basis": "静态调用流核对，未做GUI重现",
+      "file": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs",
+      "line": 261,
+      "problem": "矿巢页更新generatedIdentity后跳过stage.Open；返回普通页时已有Image阻止空图重建兜底，可能沿用旧图"
+    },
+    {
+      "id": "RVIEW-03",
+      "priority": "P2",
+      "status": "未修复",
+      "basis": "静态保存与脏状态调用流核对",
+      "file": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs",
+      "line": 169,
+      "problem": "全局保存与关闭脏状态排除矿巢工具预设，独立保存按钮存在但全局已保存提示可能误导"
+    }
+  ],
+  "verified": [
+    "四矿形64/56/58/69矿格且各256储量",
+    "原生每矿床不超过64格且容量守恒",
+    "切换巢开关不改矿格容量",
+    "原前景字节保持",
+    "3/6/10秒回放帧可构造，属于脚本示意"
+  ],
+  "pending": [
+    "原生GUI完整操作、Undo及保存重开",
+    "完整三栏界面与全图局部联动",
+    "原生洞室用途及路线收益接线",
+    "真实采集、身体运动与碰撞、AI、清理",
+    "多方向原生巢穴",
+    "R3正式地图导出加载、梯具与塌方联合、联机存档"
+  ],
+  "code_modified_in_review": false,
+  "play_or_player_executed": false,
+  "stage_complete": false
+}

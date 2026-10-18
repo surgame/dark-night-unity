@@ -30,6 +30,8 @@ namespace DarkNights.Runtime.Objects
                 foreach (var actor in world.Index.Actors.Where(a => a.Read().ManualControl).ToArray())
                     actor.Tick(delta);
                 world.Projectiles.Tick(delta);
+                world.TerrainGameplay?.Tick(delta);
+                world.Geology.Tick(delta);
                 return true;
             });
         }

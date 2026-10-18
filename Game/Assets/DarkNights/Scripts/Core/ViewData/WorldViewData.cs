@@ -19,6 +19,8 @@ namespace DarkNights.Core.ViewData
         public IReadOnlyList<MineralDepositViewData> MineralDeposits { get; }
         public string MineralWorldId { get; }
         public ulong MineralMapEpoch { get; }
+        public IReadOnlyList<NestViewData> Nests { get; }
+        public IReadOnlyList<GeologySiteViewData> Geology { get; }
         public IReadOnlyList<ProjectileViewData> Projectiles { get; }
         public IReadOnlyList<EntityIdentityData> Identities { get; }
 
@@ -26,10 +28,16 @@ namespace DarkNights.Core.ViewData
             IReadOnlyList<BuildingViewData> buildings, IReadOnlyList<WorksiteViewData> worksites,
             IReadOnlyList<ProjectileViewData> projectiles, IReadOnlyList<EntityIdentityData> identities = null, ExpeditionViewData expedition = null,
             IReadOnlyList<MineralDepositViewData> mineralDeposits = null, string mineralWorldId = "",
-            ulong mineralMapEpoch = 0)
+            ulong mineralMapEpoch = 0, IReadOnlyList<NestViewData> nests = null, IReadOnlyList<GeologySiteViewData> geology = null)
         {
             Expedition = expedition;
             MineralWorldId = mineralWorldId; MineralMapEpoch = mineralMapEpoch;
+            nests = nests ?? Array.Empty<NestViewData>();
+            if (nests.Count > 32) throw new ArgumentException("巢穴投影超过上限。");
+            Nests = Copy(nests, n => n.Id, new HashSet<long>());
+            geology = geology ?? Array.Empty<GeologySiteViewData>();
+            if (geology.Count > 1 || System.Linq.Enumerable.Any(geology, g => g == null)) throw new ArgumentException("塌方投影无效或超过首片一点上限。");
+            Geology = Array.AsReadOnly(System.Linq.Enumerable.ToArray(geology));
             Camp = camp ?? throw new ArgumentNullException(nameof(camp));
             mineralDeposits = mineralDeposits ?? Array.Empty<MineralDepositViewData>();
             if (actors == null || buildings == null || worksites == null || projectiles == null)

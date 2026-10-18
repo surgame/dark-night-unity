@@ -16,6 +16,7 @@ MonoBehaviour:
   Rock: {fileID: 0}
   Background: {fileID: 11400000, guid: 1b99e2e684b842f42907b47f37d9d092, type: 2}
   MineralDefinition: {fileID: 11400000, guid: c0fa1b2e6e4c55742babce5c51cc19a5, type: 2}
+  NestTemplate: {fileID: 4647366406790914275, guid: fa1293afebf6e8d439e547e50b2de9f3, type: 3}
   ProceduralRock: 1
   ImmediateForeground: 1
   SurfaceEnvironment:

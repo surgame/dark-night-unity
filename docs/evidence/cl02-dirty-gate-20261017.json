@@ -1,0 +1,96 @@
+{
+  "task": "修复CL02无内容差异dirty标记阻断并沿工作台按钮启动",
+  "date": "2026-10-17",
+  "unity": "6000.4.9f1",
+  "editor_pid": 4376,
+  "branch": "fix-20261015-collapse-gravity-pile",
+  "scope": [
+    "仅CL02脏标记候选以原生副本和作者源逐字节比对，相同才允许启动",
+    "同一活动场景再次打开为无损保留操作",
+    "真实内容差异/核对失败仍拒绝，不清标记不改作者源"
+  ],
+  "ui_method": "实际工作台VisualElement Button的Clickable.SimulateSingleClick; 不是OS鼠标点击，系统鼠标工具不可用",
+  "button": {
+    "clicked": "workspace-scenes → filter-专用测试 → action-gameplay-lab",
+    "before": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "dirtyBefore": true,
+    "after": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "dirtyAfter": true,
+    "sourceNotSaved": true,
+    "method": "Unity actual Button Clickable.SimulateSingleClick; not OS mouse",
+    "playStart": "Assets/Scenes/Bootstrap.unity"
+  },
+  "guard_check": {
+    "compiled": true,
+    "unchangedAccepted": true,
+    "realDraftRejected": true,
+    "restored": true,
+    "path": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "isDirty": true,
+    "sourceNotSaved": true
+  },
+  "actual_play": {
+    "completed": true,
+    "playing": true,
+    "initialized": true,
+    "path": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "target": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "status": "CL-02 塌方 · 大小混合版\n支撑触发：待触发　区域触发：待触发\n \n挖起点右侧低岩／继续向右进入触发区；避让后左键清障。Esc暂停；停止并重新Play重置。",
+    "pixel": true
+  },
+  "source_scene_and_meta_unchanged": true,
+  "source_scene_sha256": {
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity": "cb9b322c2eab1e39b93ce1d8d87a82011d57cb4ebd9caec365ff2f6b1e95cbcc",
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity.meta": "95b046631518714bbb579b3fb29f4fed1016cac43cb539e71fc4dccccc865121"
+  },
+  "code_sha256": {
+    "Game/Assets/DarkNights/Scripts/Editor/ScenePlaySelection.cs": "a3fda3b6a504c176c250f0b3ead37bebb80e17f2b8c3ec9bf39034b6a007bc89",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchScenes.cs": "40947ddd8a445611347a42c63e3cd6c1b27b2e68db1f428146730b0dbffc82cb"
+  },
+  "screenshot": "artifacts/cl02-dirty-gate-20261017/started.png",
+  "production_log": "artifacts/cl02-dirty-gate-20261017/startup.log",
+  "snapshot_files": [
+    {
+      "path": "artifacts/scene-play-checks/20261017-153832-166-af838da52b154da79a95ce2762e7c35f.unity",
+      "bytes": 437303,
+      "sha256": "cb9b322c2eab1e39b93ce1d8d87a82011d57cb4ebd9caec365ff2f6b1e95cbcc"
+    },
+    {
+      "path": "artifacts/scene-play-checks/20261017-153832-838-c3966cb3a2184742a09e43782048a1f6.unity",
+      "bytes": 437363,
+      "sha256": "6f02b06906aa6178ed1e62f9a47246cec4e403e3cbc20c6591ae71f4c2290406"
+    },
+    {
+      "path": "artifacts/scene-play-checks/20261017-153911-113-96c8c1aa5e1d48e691e3b36beba8951e.unity",
+      "bytes": 437303,
+      "sha256": "cb9b322c2eab1e39b93ce1d8d87a82011d57cb4ebd9caec365ff2f6b1e95cbcc"
+    }
+  ],
+  "monitor_latest": {
+    "utc": "2026-10-17T15:41:55.010007+00:00",
+    "pid": 4376,
+    "private_gib": 4.985622406005859,
+    "working_gib": 3.205120086669922,
+    "free_ram_gib": 10.327644348144531,
+    "free_commit_gib": 2.6675186157226562,
+    "ignore_commit_limit": false,
+    "minimum_free_ram_gib": 1
+  },
+  "left_play_running": true,
+  "validation": [
+    "当前C#编译通过",
+    "原生检查无差异接受/临时真实文字编辑拒绝/恢复原文",
+    "工作台实际按钮打开前后dirty=true",
+    "没有预先保存或清理dirty，生产Play门控放行",
+    "Bootstrap ready且CL02会话初始化，Game画面已检查",
+    "作者场景及meta字节未变化"
+  ],
+  "not_covered": [
+    "OS物理鼠标",
+    "全场景矩阵",
+    "退出重入完整回归",
+    "完整塌方/清障",
+    "联机/存档/Player"
+  ],
+  "artifact_cleanup": "检查副本/失败/草稿及截图全部原位保留，未删除或压缩"
+}

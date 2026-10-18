@@ -40,7 +40,8 @@ namespace DarkNights.Runtime.Objects
                     p.Age, p.Lifetime, p.Kind, p.VelocityX, p.VelocityY, p.Gravity, p.Kind == 3 ? p.BlastRadius : p.Radius, p.Stuck))).ToArray();
             return new WorldViewData(summary, actors, buildings, sites, shots, identities, ExpeditionMapping.Capture(session),
                 Array.Empty<MineralDepositViewData>(),
-                session.Terrain?.Map?.World.WorldId.ToString().Replace("-", "") ?? "", session.Terrain?.Map?.World.Epoch ?? 0);
+                session.Terrain?.Map?.World.WorldId.ToString().Replace("-", "") ?? "", session.Terrain?.Map?.World.Epoch ?? 0,
+                session.TerrainGameplay?.CaptureView(), session.Geology.CaptureView());
         }
 
         internal static ActorViewData CaptureActor(ObjectSession session, ActorBehaviour actor)

@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-18",
+  "task": "CL02环境及标记可见性复核",
+  "status": "编译与工作台场景入口检查通过；运行触发转用户复测",
+  "unity": "6000.4.9f1",
+  "pid": 40364,
+  "project": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game",
+  "scene": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+  "scene_guid": "760f601669d4c624e8911f7176e13bb6",
+  "scene_sha256": "9CC8771AE026352E6284DC39D2D86ABBF0359A23FDFA1A85D76CF2FC56E808A6",
+  "checks": {
+    "first": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "middle": "Assets/Scenes/Bootstrap.unity",
+    "last": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "route": true,
+    "missingScripts": 0,
+    "markerMatches": true,
+    "enabled": true,
+    "markerMaterial": "Universal Render Pipeline/2D/Sprite-Unlit-Default",
+    "alpha": 0.45,
+    "blocks": 125,
+    "bootstrapStart": "Assets/Scenes/Bootstrap.unity",
+    "pixelCameraBound": true,
+    "pixelCameraDisabledInEdit": true,
+    "sceneAsset": "760f601669d4c624e8911f7176e13bb6",
+    "playing": false,
+    "compiling": false
+  },
+  "compile": {
+    "entry_dll_newer_than_source": true,
+    "editor_dll_newer_than_source": true,
+    "current_scripts_loaded": true,
+    "compiler_errors_observed": 0,
+    "extra_compile_not_requested": "重开Editor已自动完成待编译输入；本批后续只改场景材质与位置"
+  },
+  "marker_fix": {
+    "reason": "原受光Sprite-Lit-Default、透明度15%，暗处辨识困难；X中心较触发区偏右0.08单位",
+    "material": "Packages/com.unity.render-pipelines.universal/Runtime/Materials/Sprite-Unlit-Default.mat",
+    "alpha": 0.45,
+    "center": "14.96,0.08,0",
+    "bounds_matches_config": true,
+    "new_assets": 0
+  },
+  "memory": {
+    "preflight": "artifacts/cl02-environment-20261018/preflight",
+    "free_ram_gib": 5.5552215576171875,
+    "free_commit_gib": 0.9744186401367188,
+    "editor_private_gib": 4.160247802734375,
+    "play_not_started": true,
+    "gate": "Free commit below 1GiB",
+    "processes_not_terminated": true
+  },
+  "limitations": [
+    "未执行当前候选Play，不能声明两路径实际触发通过",
+    "工作台使用现有Button的Unity点击事件，不是OS物理鼠标",
+    "Console有一条Package Manager Window获取Unity ID auth code失败；本地脚本与锁定资源检查未被阻断"
+  ],
+  "preservation": [
+    "artifacts/cl02-environment-20261018/before-marker.unity",
+    "artifacts/cl02-trigger-fix-20261017/scene-before-route.unity"
+  ],
+  "handoff": {
+    "editor_scene": "CL02CollapseLab",
+    "playing": false,
+    "selected": "RegionTrigger",
+    "scene_view_framed_for_marker": true,
+    "user_followup": "用户要求后续尽量后台，后续不再主动聚焦Unity，不启动Play或构建",
+    "region_test": "初始局不挖黄色岩，直接向右进入橙色区；若先触发支撑，需先清理瓦砾才能继续走"
+  },
+  "committed": false,
+  "pushed": false
+}

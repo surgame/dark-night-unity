@@ -104,14 +104,19 @@ namespace DarkNights.Runtime.Terrain
             var groundPlanet = expedition ? quickTest?.Planet ?? flow.PreviewPlanet() : null;
             if (quickTest == null && !string.IsNullOrEmpty(groundPlanet?.Seed)) seed = groundPlanet.Seed;
             var terrainModifiers = expedition ? flow.FreezeModifiers() : null;
-            generation = Task.Run(() => expedition ? PlanetTerrainGenerator.GenerateCandidate(groundPlanet, seed, id, caveMap,
-                    pipeline: terrainModifiers) : PlayableTerrainGenerator.Generate(seed, id));
+            if (expedition && quickTest == null && flow.ReviewedMap == null)
+                throw new InvalidOperationException("正式新局缺少冻结联合地图，请先在工作台生成并装配新版本。");
+            if (expedition && quickTest == null && flow.ReviewedMap != null) flow.ReviewedMap.VerifySource(flow);
+            var reviewed = expedition && quickTest == null && flow.ReviewedMap != null ? flow.ReviewedMap.Freeze(id) : null;
+            generation = Task.Run(() => reviewed ?? (expedition ? PlanetTerrainGenerator.GenerateCandidate(groundPlanet, seed, id, caveMap,
+                    pipeline: terrainModifiers) : PlayableTerrainGenerator.Generate(seed, id)));
             try
             {
                 var result = await generation;
                 if (disposed || version != selectionVersion) throw new OperationCanceledException("地图生成已取消。");
                 selected = result; selectedPresetId = quickTest?.Id ?? ""; GenerationMilliseconds = watch.ElapsedMilliseconds;
-                SelectionStatus = "已选择" + (expedition ? "星球地面" : "灰松谷") + " · 种子 " + seed.Substring(0, Math.Min(12, seed.Length)) + " · 点击地图可重新生成";
+                SelectionStatus = reviewed != null ? "已加载联合矿巢地图 · " + reviewed.Seed :
+                    "已选择" + (expedition ? "星球地面" : "灰松谷") + " · 种子 " + seed.Substring(0, Math.Min(12, seed.Length)) + " · 点击地图可重新生成";
                 UnityEngine.Debug.Log("DARK_NIGHTS_MAP_GENERATED seed=" + seed + " milliseconds=" + GenerationMilliseconds);
             }
             finally { generation = null; }

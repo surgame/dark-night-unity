@@ -21,6 +21,8 @@ namespace DarkNights.Entry.Terrain
         private RandomLevelTemplate template;
         private PinewatchStage stage;
         private TerrainPreview view;
+        private NestPresentation nests;
+        private GeologyPresentation geology;
         public TerrainPreview Preview => view;
         private JourneyEnvironment environment;
         private ChunkReplicaStateMachine subscribedReplica;
@@ -81,7 +83,9 @@ namespace DarkNights.Entry.Terrain
                     view = root.AddComponent<TerrainPreview>(); view.UseMineralReplica = style?.MineralDefinition != null; view.ViewCamera = stage.SceneCamera;
                     view.LocalRegion = network.Terrain.Region;
                     view.SurfaceSky = journey?.Enabled == true;
-                    var source = new TerrainReplicaSource(replica);
+                    geology = new GeologyPresentation(network, transform);
+                    geology.Present(frame);
+                    var source = new TerrainReplicaSource(replica, geology.Project);
                     if (style != null) view.ShowCaveReplica(definition, style, source, replica.World, network.Terrain.Background);
                     else view.ShowReplica(definition, source, replica.World, network.Terrain.Background);
                     subscribedReplica = replica;
@@ -91,6 +95,9 @@ namespace DarkNights.Entry.Terrain
                 view.SetReplicaRegion(replica, network.Terrain.Region, network.Terrain.LocalDataReady);
                 view.SetMineralReplica(minerals.Replica, minerals.Region, minerals.DataReady);
                 view.SetDevices(frame.World);
+                if (nests == null) nests = new NestPresentation(style?.NestTemplate, transform);
+                nests.Present(frame.World, network.Terrain);
+                if (geology.Present(frame)) view.NotifyReplicaChanged();
                 if (view.LastError != null) throw view.LastError;
                 network.Terrain.PresentationReady = view.Ready;
             }
@@ -111,6 +118,8 @@ namespace DarkNights.Entry.Terrain
         }
         private void Clear()
         {
+            nests?.Dispose(); nests = null;
+            geology?.Dispose(); geology = null;
             if (subscribedReplica != null) subscribedReplica.Applied -= OnReplicaApplied;
             subscribedReplica = null;
             if (view != null) { view.gameObject.SetActive(false); Destroy(view.gameObject); }

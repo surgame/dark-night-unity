@@ -1,0 +1,258 @@
+{
+  "clientDate": "2026-10-18",
+  "scope": "CL-01／04近壁盲盒离线候选；未接入正式Game",
+  "source": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\near-wall-mining-v1\\CompactNest.cs",
+      "bytes": 3845,
+      "sha256": "e955f91d92d9952df05e78c6d46d75509ff820cd725dbf80b1b4d3bfc6d09803"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\near-wall-mining-v1\\CompactOreVariant.cs",
+      "bytes": 4477,
+      "sha256": "edae3ccad57d222abb9675d6bbac89f7f923c8d73dd53ab34406b7ded2166052"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\near-wall-mining-v1\\NearWallMining.csproj",
+      "bytes": 531,
+      "sha256": "3c38c8ba3393e42d53252c44328fd476b4f78a6e01b912c92ecd04fd8f9b7670"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\near-wall-mining-v1\\NearWallSite.cs",
+      "bytes": 2662,
+      "sha256": "aab779e7f83f489c060cadeded07c56f51c4e448bc5c26a6b140cf47db7d65fe"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\near-wall-mining-v1\\Program.cs",
+      "bytes": 8848,
+      "sha256": "cc32802a484580e112f088bb112b16db394cf358b983cec57d6f03d82eda5877"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\near-wall-mining-v1\\README.md",
+      "bytes": 4001,
+      "sha256": "55e864ff6c6a67cf219e5f2db8a9d95da6d7468612b5a7111c3411d83f6300a1"
+    }
+  ],
+  "sourceLines": {
+    "CompactNest.cs": 75,
+    "CompactOreVariant.cs": 91,
+    "NearWallSite.cs": 59,
+    "Program.cs": 142
+  },
+  "inputIdentity": {
+    "coreSha256": "b10fba0d1ba5e851a20db5085ca2125d6f0ac5237fda937550a1a1337e6fa3f5",
+    "configSha256": "95b9622fafe3bc817c66478b6657347b940448ee919c802319d7ceef5370c838",
+    "authorSha256": "8e1729ac6248b18aed7f04a4fe7fdb26c1a162125c18ab837baf16b18641782b",
+    "finalMaterialSha256": "66f175e89132e9ad6b06cbd509caf777da4f4417b385628b99954aa36114af57",
+    "exportedUtc": "2026-10-15T16:10:13.5143472+00:00",
+    "miningFootprintSha256": "ce370d02c45c858022cd76e8c96cc25d29e376670398054e042d1d573cf8f7dd"
+  },
+  "inputSha256": "e6bc1251fb3bb86313f3865b4527096fa779db04337454fe12110f731c9feb3a",
+  "variants": [
+    {
+      "id": "shallow",
+      "cells": 8,
+      "stock": 16,
+      "depth": 3,
+      "components": [
+        8
+      ],
+      "bridgeCells": 0,
+      "initialVisible": 1,
+      "capacityConserved": true,
+      "mineralsInRock": true,
+      "prefixReachable": true,
+      "sourceKept": true,
+      "contactAction": null,
+      "sideWall": null,
+      "remainingStock": null,
+      "pocketClosed": true,
+      "floorKept": true,
+      "offExact": true,
+      "blueprintCount": 1
+    },
+    {
+      "id": "bulge",
+      "cells": 20,
+      "stock": 64,
+      "depth": 5,
+      "components": [
+        20
+      ],
+      "bridgeCells": 0,
+      "initialVisible": 1,
+      "capacityConserved": true,
+      "mineralsInRock": true,
+      "prefixReachable": true,
+      "sourceKept": true,
+      "contactAction": 8,
+      "sideWall": 2,
+      "remainingStock": 36,
+      "pocketClosed": true,
+      "floorKept": true,
+      "offExact": true,
+      "blueprintCount": 1
+    },
+    {
+      "id": "double",
+      "cells": 21,
+      "stock": 76,
+      "depth": 4,
+      "components": [
+        8,
+        13
+      ],
+      "bridgeCells": 1,
+      "initialVisible": 1,
+      "capacityConserved": true,
+      "mineralsInRock": true,
+      "prefixReachable": true,
+      "sourceKept": true,
+      "contactAction": 10,
+      "sideWall": 3,
+      "remainingStock": 44,
+      "pocketClosed": true,
+      "floorKept": true,
+      "offExact": true,
+      "blueprintCount": 2
+    }
+  ],
+  "compile": {
+    "errors": 0,
+    "warnings": 0,
+    "log": {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\near-wall-mining\\build-refined.log",
+      "bytes": 456,
+      "sha256": "685135357e120d0270acd85263c95cd0106d596fd39980a22bc4ef77306ccd30"
+    },
+    "initialCompileLog": {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\near-wall-mining\\build.log",
+      "bytes": 602,
+      "sha256": "cfe16ac625b3d98357bc0f9ceffa5300cebfc7a7a92015287513e516562fda47"
+    }
+  },
+  "browser": {
+    "checks": 175,
+    "errors": [],
+    "report": {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\near-wall-mining\\browser.json",
+      "bytes": 14152,
+      "sha256": "e097483285e093ac3c46626a3bf60570522f293708e3a5276cdfd44843d83c76"
+    }
+  },
+  "visualInspection": [
+    "overview.png",
+    "heads.png",
+    "opened-side-wall.png",
+    "second-clump.png",
+    "dark.png",
+    "mobile.png"
+  ],
+  "files": [
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\near-wall-mining\\near-wall-mining.html",
+      "bytes": 105953,
+      "sha256": "ce7a701e2c60166ec041e4307fef909076a23dec3333e75b448a13481ee0c371"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\near-wall-mining\\near-wall-mining-snapshot.json",
+      "bytes": 92482,
+      "sha256": "3efaf24670a23d9a186584cf06cec3fe24a9a0c4122e0db06a937003490667c0"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\near-wall-mining\\generation.json",
+      "bytes": 1917,
+      "sha256": "e9b1f0e882bf69b023b6c0127d7a2253c4e9fbc5bef56e79516ec7971ed5b9c8"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\near-wall-mining\\check-browser.cjs",
+      "bytes": 9107,
+      "sha256": "22d2177fcd7f6e2a8a084a27047c844f9bd3412e64c9f65b1a774aac7964238a"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\near-wall-mining\\record-evidence.py",
+      "bytes": 4593,
+      "sha256": "b7504146f4edda61614a5f7273891b3655e973e2eccfb68c271d67dc9f4df80f"
+    }
+  ],
+  "preservation": {
+    "files": 78,
+    "changed": [],
+    "manifest": {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\near-wall-mining\\preserved-before.json",
+      "bytes": 14970,
+      "sha256": "65f3ab178d393cd7e2cdaa8e75fa41a837985af833e47a2960e23a9ef39fbdf7"
+    }
+  },
+  "environment": {
+    "preflight": {
+      "length": 64,
+      "load": 70,
+      "totalPhys": 34128007168,
+      "availPhys": 10081693696,
+      "totalPageFile": 44028190720,
+      "availPageFile": 6695682048,
+      "totalVirtual": 140737488224256,
+      "availVirtual": 140733070077952,
+      "availExtendedVirtual": 0,
+      "clientDate": "2026-10-18",
+      "preservedFiles": 78
+    },
+    "existingEditors": [
+      {
+        "Id": 23816,
+        "PrivateMemorySize64": 1660592128
+      },
+      {
+        "Id": 30640,
+        "PrivateMemorySize64": 16748544
+      },
+      {
+        "Id": 40548,
+        "PrivateMemorySize64": 1659269120
+      },
+      {
+        "Id": 43416,
+        "PrivateMemorySize64": 4717133824
+      }
+    ],
+    "editorLaunchedOrControlled": false
+  },
+  "failureKept": {
+    "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\near-wall-mining\\browser-failure-hidden.json",
+    "reason": "自定义grid样式覆盖hidden，透视时开挖条未隐藏；补充局部hidden规则后通过"
+  },
+  "notRun": [
+    "Unity导入／编译",
+    "Play",
+    "Unity测试",
+    "Player",
+    "角色通行／梯具",
+    "采掘节奏／AI",
+    "联机／恢复"
+  ],
+  "pending": [
+    "用户选定正式配方／尺寸／概率／储量",
+    "全图选位及路线深浅／收益分布",
+    "审核图池及正式运行接入"
+  ],
+  "outputsRetained": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\near-wall-mining-v1\\bin",
+      "files": 12,
+      "bytes": 786650
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\near-wall-mining-v1\\obj",
+      "files": 21,
+      "bytes": 237554
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\15\\01a13fc4-708c-79d2-a201-67a3ea8ba0dd\\near-wall-mining",
+      "files": 22,
+      "bytes": 775046
+    }
+  ],
+  "stageComplete": false,
+  "documentLinksChecked": 206
+}

@@ -17,6 +17,8 @@ namespace DarkNights.Runtime.Save
                 ["world_id"] = data.WorldId, ["seed"] = data.Seed,
                 ["mining_rules"] = data.MiningRulesFingerprint,
                 ["mineral_map"] = MineralMapSaveCodec.Write(data.Minerals),
+                ["nests"] = TerrainNestSaveJson.Layout(data), ["nest_progress"] = TerrainNestSaveJson.Progress(data),
+                ["geology_sites"] = TerrainGeologySaveJson.Sites(data), ["geology_progress"] = TerrainGeologySaveJson.Progress(data),
                 ["damage"] = new JArray(data.Damage.Select(record => new JObject
                 {
                     ["u"] = record.U, ["v"] = record.V, ["material"] = record.MaterialGuid,
@@ -48,7 +50,7 @@ namespace DarkNights.Runtime.Save
         {
             if (token?.Type == JTokenType.Null) return null;
             JObject value = Object(token);
-            if (value.Count != 13) throw new FormatException("地图字段不完整，缺少耐久或采集规则合同。");
+            if (value.Count != 17) throw new FormatException("地图字段不完整，缺少耐久、巢穴、塌方或采集规则合同。");
             byte[] cells = Convert.FromBase64String(Text(value["materials"]));
             byte[] flags = Convert.FromBase64String(Text(value["protection"]));
             byte[] soft = Convert.FromBase64String(Text(value["soft_rock"]));
@@ -63,7 +65,7 @@ namespace DarkNights.Runtime.Save
                 return new TerrainRoom(Text(room["kind"]), Integer(room["x"]), Integer(room["y"]),
                     Integer(room["width"]), Integer(room["height"]), features,
                     Integer(room["deposit_budget"]), Integer(room["soft_rock_radius"]));
-            }, 32).ToArray();
+            }, 80).ToArray();
             var deposits = Array(MineralMapSaveCodec.ReadMetadata(value["deposits"]), item =>
             {
                 JObject deposit = Object(item);
@@ -92,7 +94,9 @@ namespace DarkNights.Runtime.Save
                         return new TerrainDamageRecord(Integer(record["u"]), Integer(record["v"]), Text(record["material"]),
                             Integer(record["durability"]), Integer(record["quality"]), Integer(record["reserves"]),
                             Integer(record["blocking"]), Text(record["occupant"]));
-                    }, TerrainGenerationSettings.Width * TerrainGenerationSettings.Height).ToArray(), Text(value["mining_rules"]), MineralMapSaveCodec.Read(value["mineral_map"]));
+                    }, TerrainGenerationSettings.Width * TerrainGenerationSettings.Height).ToArray(), Text(value["mining_rules"]), MineralMapSaveCodec.Read(value["mineral_map"]),
+                    TerrainNestSaveJson.ReadLayout(value["nests"]), TerrainNestSaveJson.ReadProgress(value["nest_progress"]),
+                    TerrainGeologySaveJson.ReadSites(value["geology_sites"]), TerrainGeologySaveJson.ReadProgress(value["geology_progress"]));
             }
             catch (ArgumentException error) { throw new FormatException("随机地图数据无效。", error); }
         }

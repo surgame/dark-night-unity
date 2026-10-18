@@ -285,6 +285,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa1293afebf6e8d439e547e50b2de9f3
+    m_Address: objects.cave-nest.preview
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fab77cf0d58e1f742887cd94c5ec9ddf
     m_Address: dark_nights.object.mineral_deposit
     m_ReadOnly: 0

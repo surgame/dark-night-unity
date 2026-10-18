@@ -31,6 +31,10 @@ namespace DarkNights.Entry.Terrain
         public PlayerInput InputPlayer;
         public UnityEngine.UI.Text Status;
         public TerrainPreview TerrainView;
+        /// <summary>场景原生测试标记；只展示尚未触发的位置，不参与碰撞、采集或事件结算。历史验证副本可不绑定。</summary>
+        public SpriteRenderer SupportMarker, RegionMarker;
+        /// <summary>显式开启才显示黄色支撑定位标记；默认隐藏，触发后即使调试开启也不显示。</summary>
+        public bool ShowSupportMarker;
         public GeologyLabBlock[] Blocks = Array.Empty<GeologyLabBlock>();
         public GeologyLabEventSlot[] EventSlots = Array.Empty<GeologyLabEventSlot>();
         public float SpawnX = 704, SpawnHeight = -32, ShipX = 192, WorldWidth = 1600;
@@ -44,6 +48,18 @@ namespace DarkNights.Entry.Terrain
         private double accumulator;
         private GameInputActions.HeroFrame input;
         private float aim;
+
+        private void Awake()
+        {
+            foreach (var block in Blocks) if (block != null && block.Art != null) block.Art.enabled = false;
+            if (SupportMarker != null) SupportMarker.enabled = false;
+            if (RegionMarker != null) RegionMarker.enabled = false;
+            foreach (var slot in EventSlots) if (slot != null && slot.View != null)
+            {
+                if (slot.View.Warning != null) slot.View.Warning.enabled = false;
+                foreach (var fragment in slot.View.Fragments) if (fragment != null) fragment.enabled = false;
+            }
+        }
 
         public async UniTask Initialize(GameCatalog catalog, CancellationToken token)
         {
@@ -143,10 +159,40 @@ namespace DarkNights.Entry.Terrain
             position.x = Mathf.Clamp(hero.X / 100, 3.2f, WorldWidth / 100 - 3.2f);
             ViewCamera.transform.position = position;
             string[] phases = { "待触发", "前兆：避让", "落石", "等待落点清空", "土石堆：矿镐清障", "已清障", "已退休" };
+            if (SupportMarker != null) SupportMarker.enabled = ShowSupportMarker && Lab.Events[0].Capture().Phase == 0;
+            if (RegionMarker != null) RegionMarker.enabled = Lab.Events[1].Capture().Phase == 0;
+            string reason = (Lab.Events[0].Capture().Reason + " " + Lab.Events[1].Capture().Reason).Trim();
             Status.text = "CL-02 塌方 · 大小混合版" + (Lab.Paused ? "（已暂停）" : "") +
                 "\n支撑触发：" + phases[Lab.Events[0].Capture().Phase] + "　区域触发：" + phases[Lab.Events[1].Capture().Phase] +
-                "\n" + Lab.Events[0].Capture().Reason + " " + Lab.Events[1].Capture().Reason +
-                "\n挖起点右侧低岩／继续向右进入触发区；避让后左键清障。Esc暂停；停止并重新Play重置。";
+                "\n" + SupportHint() + "　" + RegionHint() +
+                "\n" + (reason.Length > 0 ? reason : !Lab.Paused && !input.Allowed ?
+                    "先点击Game视图获得操作焦点。" : "挖断起点右侧支撑岩或走进橙色区才触发；随后避让／清障。Esc暂停，重新Play重置。");
+        }
+
+        private string SupportHint()
+        {
+            var support = configurations[0].Support;
+            var map = Lab.World.Terrain.Map;
+            if (map.Read(support).Cell.IsEmpty) return "支撑岩已挖断";
+            var target = Lab.MiningTarget;
+            bool aimed = input.UseAllowed && target.Present && target.U == support.U && target.V == support.V;
+            var state = map.Query(support);
+            var tool = Lab.World.Resources.Equipment.Mining(Lab.Hero.Slot0Definition);
+            int damage = Math.Max(1, map.Rules.PickaxeDamage(state.Sample.Cell.TileId, tool.Damage));
+            int hits = (state.State.Durability + damage - 1) / damage;
+            return "支撑岩 " + state.State.Durability + "/" + state.Definition.MaximumDurability +
+                "（还需" + hits + "击）·" + (aimed ? "已瞄准，按住左键" : "未瞄准支撑岩");
+        }
+
+        private string RegionHint()
+        {
+            if (Lab.Events[1].Capture().Phase != 0) return "橙色区域已触发";
+            var region = configurations[1];
+            float left = (region.RegionU - .5f) * PlayableTerrain.CellPixels;
+            float right = left + region.RegionWidth * PlayableTerrain.CellPixels;
+            if (Lab.Hero.X < left) return "橙色区：向右 " + ((left - Lab.Hero.X) / 100).ToString("F1") + "m";
+            if (Lab.Hero.X >= right) return "橙色区：向左 " + ((Lab.Hero.X - right) / 100).ToString("F1") + "m";
+            return "橙色区：请回到通道地面";
         }
 
         private void OnDestroy()

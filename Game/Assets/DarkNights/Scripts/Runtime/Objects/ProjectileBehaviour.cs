@@ -33,7 +33,7 @@ namespace DarkNights.Runtime.Objects
             for (float distance = 1; distance <= config.MuzzleDistance; distance++)
             {
                 float nx = actor.X + dx * distance, nh = actor.Height + config.HandHeight + dy * distance;
-                if (BallisticMotion.Solid(Session, nx, nh, radius) || (!bomb && Session.Index.Actors.Any(a =>
+                if (BallisticMotion.Solid(Session, nx, nh, radius) || (!bomb && Session.TerrainGameplay?.ContainsPoint(nx, nh, radius) == true) || (!bomb && Session.Index.Actors.Any(a =>
                     a.Enemy && a.Hp > 0 && Math.Abs(a.X - nx) <= 5 + radius && nh >= a.Read().Height - radius && nh <= a.Read().Height + 18 + radius))) break;
                 x = nx; h = nh;
             }

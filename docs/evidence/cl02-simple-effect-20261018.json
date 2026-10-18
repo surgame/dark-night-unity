@@ -1,0 +1,98 @@
+{
+  "task": "CL02简单效果收敛与默认隐藏支撑标记",
+  "time": "2026-10-18T03:12:10.9219491+08:00",
+  "scope": "撤回本批专用错齿形状；下沿后续复用普通地图地形轮廓，本批先保留简单效果。",
+  "implemented": [
+    "黄色提示默认隐藏；可显式开启调试，触发后仍隐藏",
+    "状态文字取消对黄色提示的依赖",
+    "恢复本批之前125段布局、3x3源岩及两份Definition原字节；先前路线与入口修复保留"
+  ],
+  "verification": {
+    "compile": {
+      "status": "completed",
+      "failed": false,
+      "errors": []
+    },
+    "native": {
+      "time": "2026-10-18T03:12:10.9219491+08:00",
+      "editor": "6000.4.9f1",
+      "playing": false,
+      "scene": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+      "guid": "760f601669d4c624e8911f7176e13bb6",
+      "nativeSavedCopyMatches": true,
+      "blocks": 125,
+      "missingScripts": 0,
+      "ShowSupportMarker": false,
+      "supportMarkerEnabled": false,
+      "irregularFieldPresent": false,
+      "sourceCellsPresent": true,
+      "events": [
+        {
+          "EventId": "support",
+          "SourceU": 52,
+          "SourceV": -31,
+          "Width": 3,
+          "SourceRows": 3,
+          "RockCount": 9,
+          "RubbleCount": 23,
+          "fragments": 26
+        },
+        {
+          "EventId": "region",
+          "SourceU": 95,
+          "SourceV": -34,
+          "Width": 3,
+          "SourceRows": 3,
+          "RockCount": 9,
+          "RubbleCount": 24,
+          "fragments": 26
+        }
+      ],
+      "entryAssembly": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Entry.dll"
+    },
+    "definitionBytesAndMetaUnchanged": true,
+    "sceneMetaUnchanged": true,
+    "sceneDeltaFromBatchInput": [
+      "SupportMarker SpriteRenderer.enabled: true -> false",
+      "GeologyLabEntry.ShowSupportMarker: false 新增序列化默认值"
+    ]
+  },
+  "runtime": {
+    "newPlayStarted": false,
+    "newPlayerBuild": false,
+    "currentVisualAcceptance": false,
+    "priorSupportInputEvidence": "docs/evidence/cl02-live-trigger-20261018.json",
+    "regionTraversalStillPending": true
+  },
+  "firstVerificationFailure": "最终只读核对脚本首次在未Freeze作者配置时读取Collapse，报“碎岩配置尚未冻结”；未运行游戏或改业务，改用Freeze副本核对后通过，原生保存副本保留。",
+  "deferredCandidate": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cl02-natural-roof-20261018\\deferred-contour-candidate",
+  "previewBoundary": "authoring.json、static-diff.json及editor-preview*属于已撤回试作，包含失败／局部绘制，不作为当前候选的验收依据。",
+  "memoryPreflight": {
+    "state": "completed",
+    "samples": 1,
+    "peak_private_gib": 4.425590515136719,
+    "minimum_free_ram_gib": 9.621952056884766,
+    "minimum_free_commit_gib": 7.829681396484375,
+    "limits": {
+      "editor_private_gib": null,
+      "minimum_free_ram_gib": 1,
+      "minimum_free_commit_gib": 1
+    },
+    "read_only": true,
+    "ignore_commit_limit": false
+  },
+  "sha256": {
+    "Game/Assets/DarkNights/Scripts/Entry/Terrain/GeologyLabEntry.cs": "4ae22c2d9562620d9f1631efedd87ebbe6a34d08a87a39bee132b83b46ef3a87",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventConfig.cs": "ad5fd4b45510d47272d1176be87abca1aba4f4084099e09f7f760638561b1364",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GeologyEventBehaviour.cs": "5c14afb896635aec692eb45f2824868506556286157f4c66f29241a005b0f04e",
+    "Game/Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity": "54122222f2e0fb32fe55a74b1634507295410f50916fcbe47bb2df900ef151eb",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/SupportCollapse.asset": "7f71a5a511661ad1926c72a5a819d6c5e0c32e6fe8db3b7f1a8649766af36b07",
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/RegionRockfall.asset": "867c6f2907cf069d1f2fc0c8fc6b2aa3fc5e3fc57861f9b20dc94d453dde7eac",
+    "Game/Library/ScriptAssemblies/DarkNights.Entry.dll": "1671aa033cd0cc3394d5cda4533904920fe53b7c2199cf0f4120d45b291fe3f1",
+    "Game/Library/ScriptAssemblies/DarkNights.Runtime.dll": "e0414483f19ba976d5bda90ff90c2b71a2448003903b6f91ca036e501d2cdbb9"
+  },
+  "committed": false,
+  "pushed": false,
+  "YYGCChanged": false,
+  "protocolSaveDependencyChanges": false
+}

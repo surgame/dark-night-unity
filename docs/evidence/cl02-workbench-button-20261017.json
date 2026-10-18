@@ -1,0 +1,36 @@
+{
+  "task": "工作台实际按钮路由复核及前批方法澄清",
+  "date": "2026-10-17",
+  "unity": "6000.4.9f1",
+  "editor_pid": 4376,
+  "previous_method": "目录OpenEditor回调+CLI editor_play；未做实际系统点击",
+  "current_method": "Unity UI Toolkit Clickable.SimulateSingleClick on existing workbench navigation/filter/open buttons",
+  "physical_mouse_verified": false,
+  "computer_use_failure": "sky.list_apps returned codex app-server exited before returning response 1; retry and kernel reset/reinitialize failed",
+  "route": {
+    "before": "Assets/Scenes/Bootstrap.unity",
+    "clicked": "action-gameplay-lab",
+    "labels": [
+      "CL-02 塌方 · 大小混合版",
+      "独立塌方测试：26颗大小混合碎岩、尘雾／石粒、落地堆积和正式矿镐清障。两种触发；重新Play重置。",
+      "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity"
+    ],
+    "after": "Assets/DarkNights/Res/Scenes/Workbenches/Gameplay/CL02CollapseLab.unity",
+    "isDirty": false,
+    "start": "Assets/Scenes/Bootstrap.unity",
+    "method": "Unity UI Toolkit Clickable.SimulateSingleClick on actual workbench buttons; not OS mouse"
+  },
+  "no_source_or_scene_content_changes": true,
+  "not_run": [
+    "本批未再次Play",
+    "未触发塌方",
+    "未修改Unity菜单或工具实现"
+  ],
+  "user_clarification_pending": "旧场景是正式远征、GameplayLab名称，还是CL02地图/效果观感？",
+  "map_relationship": "CL02CollapseLab是原GameplayLab保留129岩段/两个矿洞片段后更名，未另造测试地图。",
+  "limitations": "按钮事件验证不能替代系统鼠标点击；尚无用户实际点击路径或旧场景观察的确证。",
+  "preserved_errors": [
+    "Workbench window absent on first follow-up query",
+    "Bootstrap open main-thread timeout; log subsequently confirmed original operation completed before next action"
+  ]
+}

@@ -1,0 +1,528 @@
+{
+  "date": "2026-10-18",
+  "scope": "CL01/04实际游戏侧壁单虫首片；用户选择暂不扣血",
+  "branch": "fix-20261015-collapse-gravity-pile",
+  "editor": {
+    "pid": 38988,
+    "version": "6000.4.9f1"
+  },
+  "compile": {
+    "compiling": false,
+    "updating": false,
+    "failed": false,
+    "playing": false,
+    "protocol": 32,
+    "save": 24,
+    "map_path": "Assets/DarkNights/Res/Terrain/StrataCave/JointMaps/20261018-211454-208/JointMine.asset",
+    "assemblies": [
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Core.dll",
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Runtime.dll",
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.View.dll",
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Entry.dll",
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Editor.dll"
+    ],
+    "state_interfaces": [
+      "GameCore.Objects.NetworkStates.IPooled",
+      "GameCore.Objects.NetworkStates.IStateData",
+      "MemoryPack.IMemoryPackFormatterRegister",
+      "MemoryPack.IMemoryPackable`1[[DarkNights.Runtime.Objects.TerrainGameplayState, DarkNights.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+      "System.IEquatable`1[[DarkNights.Runtime.Objects.TerrainGameplayState, DarkNights.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]"
+    ]
+  },
+  "assemblies": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Core.dll",
+      "sha256": "8e9a9a95560858ec3fde4d0253371ce49d8afa5f99b8897da66797c9ca117cc8"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Runtime.dll",
+      "sha256": "113d6df0c66ceeb790908f4b33554e22d0108a18697d18b937f4a97788d4826e"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.View.dll",
+      "sha256": "4c71d9922ca9133053d9c56c2896df09e2966610a0a87513977dc7f9620fe9c3"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Entry.dll",
+      "sha256": "0b86d004c82fd5d7de80a64895413a222a876232c2bf46e169f08d40a008251d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Editor.dll",
+      "sha256": "cc9902edb933fbff58c0dec98d0374b31b840bf44a017780070c81e5ea373732"
+    }
+  ],
+  "map": {
+    "path": "Assets/DarkNights/Res/Terrain/StrataCave/JointMaps/20261018-211454-208/JointMine.asset",
+    "nests": [
+      {
+        "Id": 1,
+        "U": 153,
+        "Row": 75
+      }
+    ],
+    "rooms": 34,
+    "deposits": 59,
+    "joint": [
+      {
+        "Id": "joint-0-0",
+        "Capacity": 96,
+        "cells": 63
+      },
+      {
+        "Id": "joint-1-0",
+        "Capacity": 128,
+        "cells": 26
+      },
+      {
+        "Id": "joint-2-0",
+        "Capacity": 160,
+        "cells": 9
+      },
+      {
+        "Id": "joint-3-0",
+        "Capacity": 192,
+        "cells": 21
+      },
+      {
+        "Id": "joint-4-0",
+        "Capacity": 224,
+        "cells": 36
+      },
+      {
+        "Id": "joint-5-0",
+        "Capacity": 256,
+        "cells": 23
+      }
+    ],
+    "total": 1315,
+    "seed": "STRATA-0922",
+    "sha256": "2c8d871c4089967d3cb0e529c1410517c37bb2c99379216d13338b2c89b33509"
+  },
+  "references": {
+    "compiling": false,
+    "updating": false,
+    "failed": false,
+    "playing": false,
+    "map_path": "Assets/DarkNights/Res/Terrain/StrataCave/JointMaps/20261018-211454-208/JointMine.asset",
+    "map_sha256": "2c8d871c4089967d3cb0e529c1410517c37bb2c99379216d13338b2c89b33509",
+    "source_sha256": "c46e5d132728e4dcd5ca5e8dc49fa925d52d612466e778c41cee957c55e98d37",
+    "source_dirty": false,
+    "nests": 1,
+    "cells": 437,
+    "capacity": 1315,
+    "rooms": 34,
+    "prefab": "Assets/DarkNights/Res/Objects/CaveNest/Imported-20261018-205237-843/CaveNest.prefab",
+    "sprite_count": 6,
+    "native_size": true,
+    "ppu100": true,
+    "pivots": [
+      {
+        "name": "empty",
+        "x": 16,
+        "y": 1
+      },
+      {
+        "name": "occupied",
+        "x": 16,
+        "y": 1
+      },
+      {
+        "name": "alert",
+        "x": 16,
+        "y": 1
+      },
+      {
+        "name": "crawl_a",
+        "x": 16,
+        "y": 1
+      },
+      {
+        "name": "crawl_b",
+        "x": 16,
+        "y": 1
+      },
+      {
+        "name": "fallen",
+        "x": 16,
+        "y": 1
+      }
+    ],
+    "render_pipeline": "UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset",
+    "layers": {
+      "burrow": -20,
+      "crawler": -10
+    },
+    "protocol": 32,
+    "save": 24
+  },
+  "source_files": [
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/ExpeditionFlowDraft.cs",
+      "sha256": "8caccd7368a6180867ba1c05db55456762cce55e858d5c4fbed52487b0573592",
+      "lines": 91,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/CaveTerrainStyle.cs",
+      "sha256": "1901fae4d621ed8b76e5f348786cf5a2878adb7e510f61aa0ffc6852fdace686",
+      "lines": 45,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Terrain/NestEncounterView.cs",
+      "sha256": "eda49bfe5f8386d1d2154da8cacf8da9d6f08cae35c1c1e471c7b34055a0e1ee",
+      "lines": 34,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/NestWire.cs",
+      "sha256": "9d90e281729543055bd20a4f4316a249ba603bff8c2d429608b4c83cc7b1e39c",
+      "lines": 22,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/ProjectionValidation.cs",
+      "sha256": "6e74dd292cab00ad01f2ce8d2c5310571196c5f7e3c8cfeb62a09f2ebfa11bdc",
+      "lines": 208,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/WorldWire.cs",
+      "sha256": "068c7c97add36b7cdb66b5eb302d39d204093b35d64c87b0a7e0f56e4813811b",
+      "lines": 50,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/BallisticMotion.cs",
+      "sha256": "d66b308508d626603c4c1631d46f7f9b85e4e085d19133f648c95ceaed0fe0d6",
+      "lines": 96,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowConfig.cs",
+      "sha256": "91e36493d5e9fb243c06eb9d22ebaf1d6b50cc8fa5a3013753332cc24af4ff3d",
+      "lines": 143,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs",
+      "sha256": "b90c3d54cde473dd026178e08da1290311c8a4327cb74ac4b1e56fd95a672f06",
+      "lines": 58,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/MiningToolBehaviour.cs",
+      "sha256": "31bb7fea7fd71711bed7d672bb7f7c9f973cd0be27a093221de3e1a5fd5b42f9",
+      "lines": 34,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/NestCrawlerMotion.cs",
+      "sha256": "76dad417d923d50c97be67838c474c3108476c634a15f31c44a52009ff64ee42",
+      "lines": 36,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/NestCrawlerState.cs",
+      "sha256": "ce9529533e8251f17af294056ea5694991b41d49afea380e6c405a921b6f21b8",
+      "lines": 17,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectProjection.cs",
+      "sha256": "d78b65dd81e8e9da2bc1889ed86da022d7e3dd2ee7de058f36c516d2a87b4b6b",
+      "lines": 58,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSession.cs",
+      "sha256": "883fb0fa4c0126ac0d130ff28eaa5d500c754369f7744616cd629cc0e8b26d90",
+      "lines": 299,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionPersistence.cs",
+      "sha256": "3587566c1892e5ce34386b57e394fa6d68b46b4a20d25337c89dffe8f6fc61ec",
+      "lines": 48,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectWorldRestore.cs",
+      "sha256": "ee88b81a848d097c54d7aa634b7690517e8c7c7c0e634df9b438045f41bf577c",
+      "lines": 130,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ProjectileBehaviour.cs",
+      "sha256": "81e377b38a2e106586b5ca300bb05dbb0be71dfe57e7356fbbc10bec46518350",
+      "lines": 89,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/TerrainGameplayBehaviour.cs",
+      "sha256": "28ad4db69dfdf4b666e07fd8b67960879a94c6ae1da6fca86f4ed3aecc52f3db",
+      "lines": 104,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/TerrainGameplayState.cs",
+      "sha256": "048a7855dc8c9f7f5946048db1d055677985a6fcbf74d554024ef9f7e17ef2d1",
+      "lines": 19,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/TerrainNestSaveJson.cs",
+      "sha256": "de97098ae8f578529338f83aef3f2530c0742aa49a553bbd2bdf1465d4705c75",
+      "lines": 30,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/TerrainSaveJson.cs",
+      "sha256": "29e020f186336dbc8b705a9574ed4b0d9ffd5e57f54fea43a267f365bcf3577b",
+      "lines": 102,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+      "sha256": "135e7392f5b68a3adaa6ee71c2de038b8952df76202db810c83e7e1453185a22",
+      "lines": 298,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/ReviewedMineMap.cs",
+      "sha256": "44af68dbe14b25cebda1594e060b4830a11047da177b9c2d3b596b82e99d2a0a",
+      "lines": 69,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/SessionTerrain.cs",
+      "sha256": "f64aa5bd91a12ea93854d6b0733eef68b39e7542bdd9694f95854400a9aff9e0",
+      "lines": 126,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Terrain/SessionTerrainNetwork.cs",
+      "sha256": "ef4b7497e6c3a8ae628d95f51c76d6dda8780f772bbafb4f6c05d95cc6e31c67",
+      "lines": 275,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/NestPresentation.cs",
+      "sha256": "d707a282e96211b882cd8e55f8cca86ba70acfb75aec0e6890934e39fdf6d0ea",
+      "lines": 44,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/RandomLevelEntry.cs",
+      "sha256": "f634af2b7161e08b2fc37bfa4c4d8d793f27978b38015ada4bdd8f245f4ea476",
+      "lines": 126,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/JointMineContentSetup.cs",
+      "sha256": "dc5ffc45f2dc8348eb07f39269364c9f7142f80a443f0c2355109663b997acac",
+      "lines": 50,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationIdentity.cs",
+      "sha256": "8907d88e2b6945954e17d3bf2ee6e97d69c0ba9db371bac5b958f39b1bf24ab2",
+      "lines": 23,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationPreview.cs",
+      "sha256": "e481d2710b3b0f79344b53a0afa9d11e7670d52ac56d7defc6616ba82152aa13",
+      "lines": 86,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs",
+      "sha256": "421580a3cf50c45acd4666933b6ab985cf13b8165be3415b3567cafea8021b2b",
+      "lines": 281,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainVeinStudyPreview.cs",
+      "sha256": "7dd485b88a114a4e26d1f5278ee3efc3475d4879f6e53da75adbd887c49b3725",
+      "lines": 133,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainVeinStudySettings.cs",
+      "sha256": "38101d0eac81a8bcf852a60196e1726646fd449af74bdbbd0f22ca5fd2fea134",
+      "lines": 55,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchControls.cs",
+      "sha256": "83069d0694002bf9d4c34a80390b8267a1f4e47dba3397db9dae7030fdf31c4d",
+      "lines": 177,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Save/SessionSnapshot.cs",
+      "sha256": "0c5566fff4434e4cf9594a3cb73c768d02c0dc841aa461e2a39f1cea13593dde",
+      "lines": 80,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/NestViewData.cs",
+      "sha256": "e707e508898d6f3f7787ecd73c1979bbfd19cf2cc3ab9ef911f9f795af38f2a9",
+      "lines": 25,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/WorldViewData.cs",
+      "sha256": "401f614eda3c3f3721bb9ce805cb5e333b4e2813187b9988ec91b4fac22541b1",
+      "lines": 67,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/JointMineCandidate.cs",
+      "sha256": "7fd68eeba70aca6994278832953bec136f0cdaed10d2bd5ccb2746757a565824",
+      "lines": 62,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/TerrainVeinStudyGenerator.cs",
+      "sha256": "4274c394ac1806fcde2ffb1407e42ea41d93982311e55a9f426ba9751a50ef17",
+      "lines": 91,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/PlayableTerrain.cs",
+      "sha256": "33dafbb7d3f0216c00cdcf1d67e7b7e6a5563baf7ec0f976d7a13fc7bd5887a7",
+      "lines": 127,
+      "new": false
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainNest.cs",
+      "sha256": "7ba3939be8b9d7242e9ce5ee35ef9d8d3f4fb775cf93b90947dc71e64009b213",
+      "lines": 30,
+      "new": true
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainNestProgress.cs",
+      "sha256": "8aaa5de71c4fa05cfcc572b63265b7d3b31e675a18a7665896249de198f8a34f",
+      "lines": 25,
+      "new": true
+    }
+  ],
+  "new_meta_missing": [],
+  "over_300_lines": [],
+  "protected_sources": [
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\ScenePlaySelection.cs",
+      "unchanged_since_start": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainWorkbenchScenes.cs",
+      "unchanged_since_start": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Entry\\Terrain\\GeologyLabEntry.cs",
+      "unchanged_since_start": true
+    },
+    {
+      "path": "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\GeologyLabSession.cs",
+      "unchanged_since_start": true
+    }
+  ],
+  "original_art_preserved": true,
+  "inventory": [
+    {
+      "root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\CaveNest",
+      "files": 9,
+      "bytes": 18598,
+      "action": "保留原位；包括早期候选／失败回执，不清理"
+    },
+    {
+      "root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Terrain\\StrataCave\\JointMaps",
+      "files": 25,
+      "bytes": 1726443,
+      "action": "保留原位；包括早期候选／失败回执，不清理"
+    },
+    {
+      "root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cl01-runtime-mines-20261018",
+      "files": 66,
+      "bytes": 303321,
+      "action": "保留原位；包括早期候选／失败回执，不清理"
+    }
+  ],
+  "play_executed": false,
+  "tests_executed": false,
+  "player_built": false,
+  "yyyframework_modified": false,
+  "git_commit_or_push": false,
+  "stage_complete": false,
+  "fixed_review_findings": [
+    "RVIEW-01 initial clearance expanded to 3x3 with support",
+    "RVIEW-02 stage retirement on study view and frozen identity included",
+    "RVIEW-03 global preset save/close dirty and Undo baseline"
+  ],
+  "pending": [
+    "实际身体通行／采掘与武器清虫",
+    "前兆／追近／暂停及清理后恢复",
+    "独立Host＋Client晚加入与切区／重连／加载",
+    "完整原生三栏UI及全图局部联动",
+    "沿路收益／洞室用途／多方向／梯具／CL02联合／R3剩余"
+  ],
+  "failures_preserved": [
+    "初次ref局部变量捕获编译失败后修复",
+    "Sprite API命名空间错误后修复",
+    "旧32洞室上限导致首候选Freeze失败后对齐80",
+    "Undo帧尾重复置脏后加Flush与只读磁盘一致性核对",
+    "早期空间条件只产生一矿后分离普通矿和侧巢约束"
+  ],
+  "resource_identity": [
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset",
+      "sha256": "63ebd219ca5a61d9809e19e57dcce6a8b7ceea3d81123b0bdf037d9ca90c5d14"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Terrain/StrataCave/Style.asset",
+      "sha256": "495367ddeb5919832147d34219fd4b649392bd54a6abcb692d66ab10a3122b31"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/CaveNest/Imported-20261018-205237-843/CaveNest.prefab",
+      "sha256": "31a9d5578d44318ccf45e6ee33406e9c7b6f74781ab1d562eaeb01ff126e3fbd"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Terrain/StrataCave/JointMaps/20261018-211454-208/JointMine.asset",
+      "sha256": "25878ea8881e9db70968b08022bf84200b89f8ff5732a92631d5d41632a0c584"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/CaveNest/Imported-20261018-205237-843/CaveNest.prefab",
+      "sha256": "31a9d5578d44318ccf45e6ee33406e9c7b6f74781ab1d562eaeb01ff126e3fbd"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/CaveNest/Imported-20261018-205237-843/CaveNest.prefab.meta",
+      "sha256": "9abcd1c869e40b1910b5326405d80f472b0a90f49f146e07642d51cfdcf35bb5"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/CaveNest/Imported-20261018-205237-843/EncounterAtlas.png",
+      "sha256": "5f901df6c01da48bc46644492666715ef7d14ac4715745df2e517429528342e6"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/CaveNest/Imported-20261018-205237-843/EncounterAtlas.png.meta",
+      "sha256": "d3117ddfe2f5b4d1abd27ff48b31e2e5f5b340a0009b936cf0e30469839a0e2f"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/CaveNest/Imported-20261018-205237-843/NestSprite.mat",
+      "sha256": "b2721242b74243610719668f186b5742caca5a46b7a92aabf685c261c527b7a7"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/CaveNest/Imported-20261018-205237-843/NestSprite.mat.meta",
+      "sha256": "7e066c0b1ef024e702de1168fa0a5016a3ae3b57dd828f5c2ed8899ae983f132"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/CaveNest/Imported-20261018-205237-843/Source.json",
+      "sha256": "f5aead71f1ecd762db4c06a0a342adf19d09c044759d449e3153904c15b5ff0d"
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/Objects/CaveNest/Imported-20261018-205237-843/Source.json.meta",
+      "sha256": "a4159b86865490c6b997c29b1f57da7a1d37e7b291fde02df208ac3b12ecd369"
+    }
+  ]
+}

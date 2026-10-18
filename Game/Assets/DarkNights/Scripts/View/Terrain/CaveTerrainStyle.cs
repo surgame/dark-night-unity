@@ -12,6 +12,7 @@ namespace DarkNights.View.Terrain
         public Texture2D Rock;
         public CaveBackgroundStyle Background;
         public AnyRules.Next.Authoring.ARDMapDefinition MineralDefinition;
+        public NestEncounterView NestTemplate;
         public bool ProceduralRock;
         [Tooltip("本修复候选使用有界 LocalV2 前景；关闭可对照原 LegacyV1。视觉签收前不要合并正式美术绑定。")]
         public bool ImmediateForeground = true;
