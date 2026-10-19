@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace DarkNights.Tests
 {
-    /// <summary>照明专项每批独立的只读监控门控；仅忽略获批的提交余量，物理内存不足、监控停止或心跳过期均拒绝新样本，模拟验证不消耗实际内存。</summary>
+    /// <summary>照明专项每批独立的只读监控门控；沿项目统一的可用物理内存口径检查身份、停止和心跳，不读取系统提交余量，模拟验证不消耗实际内存。</summary>
     public static class WallDiffuseBenchmarkGate
     {
         public static void Check(string directory, DateTime now, int editorPid)
@@ -18,7 +18,7 @@ namespace DarkNights.Tests
             // Windows 上监控原子替换文件时，读者必须允许删除共享；内容仍来自打开时的完整旧版或新版。
             using (var stream = new FileStream(heartbeat, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete))
             using (var reader = new StreamReader(stream)) state = JObject.Parse(reader.ReadToEnd());
-            if ((int?)state["pid"] != editorPid || (bool?)state["ignore_commit_limit"] != true ||
+            if ((int?)state["pid"] != editorPid || (string)state["memory_gate"] != "available_physical_only" ||
                 (double?)state["minimum_free_ram_gib"] != 1)
                 throw new OperationCanceledException("监控身份或本专项门槛不匹配。");
             var age = now.ToUniversalTime() - ((DateTime)state["utc"]).ToUniversalTime();

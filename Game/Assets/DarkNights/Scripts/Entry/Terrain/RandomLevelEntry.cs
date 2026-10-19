@@ -97,7 +97,7 @@ namespace DarkNights.Entry.Terrain
                 view.SetDevices(frame.World);
                 if (nests == null) nests = new NestPresentation(style?.NestTemplate, transform);
                 nests.Present(frame.World, network.Terrain);
-                if (geology.Present(frame)) view.NotifyReplicaChanged();
+                if (geology.Present(frame)) view.RequestReplicaProjectionRefresh();
                 if (view.LastError != null) throw view.LastError;
                 network.Terrain.PresentationReady = view.Ready;
             }

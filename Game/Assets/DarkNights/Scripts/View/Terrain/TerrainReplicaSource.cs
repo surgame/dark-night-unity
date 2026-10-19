@@ -16,6 +16,7 @@ namespace DarkNights.View.Terrain
         private readonly Dictionary<ChunkCoord, ulong> fingerprints = new Dictionary<ChunkCoord, ulong>();
         private WorldDescriptor descriptor;
         private ulong inputGeneration = 1, lastSourceCommit, sourceSession, streamGeneration;
+        private ulong projectionAttemptGeneration, projectionAttemptCommit;
         private bool streamIdentityKnown, requiresFreshBaseline;
         public event Action<MapInputBatch> InputChanged;
 
@@ -31,6 +32,23 @@ namespace DarkNights.View.Terrain
         }
         internal ChunkReplicaStateMachine Replica => source as ChunkReplicaStateMachine;
         internal bool WaitingForBaseline => requiresFreshBaseline;
+        internal bool ProjectionRefreshPending { get; private set; }
+
+        /// <summary>正式联机表现合并投影变化；只保留意图，基线齐全且局部装卸对齐后由宿主尝试发布。</summary>
+        internal void RequestProjectionRefresh() => ProjectionRefreshPending = true;
+
+        /// <summary>沿真实源身份重建冻结输入；一次不完整提交只尝试一次，不改变网络游标或将未知格填空。</summary>
+        internal void TryRefreshProjection()
+        {
+            var replica = Replica;
+            if (!ProjectionRefreshPending || requiresFreshBaseline || descriptor == null || replica?.Descriptor == null ||
+                replica.Closed || !descriptor.World.Equals(replica.World) || !streamIdentityKnown ||
+                sourceSession != replica.Session || streamGeneration != replica.Generation) return;
+            if (projectionAttemptGeneration == inputGeneration && projectionAttemptCommit == replica.CommitId) return;
+            projectionAttemptGeneration = inputGeneration; projectionAttemptCommit = replica.CommitId;
+            TryPublishFreshBaseline(replica.CommitId);
+        }
+
         /// <summary>同世界换区仅跟踪目标范围的区块；旧画面保留到完整新基线到达，撤权和断线仍显式退休。</summary>
         internal void PrepareRegion(GridBounds region)
         {
@@ -140,6 +158,7 @@ namespace DarkNights.View.Terrain
             foreach (var snapshot in snapshots)
                 fingerprints[snapshot.Coordinate] = Fingerprint(snapshot.Cells, snapshot.Coordinate, descriptor);
             lastSourceCommit = sourceCommit; requiresFreshBaseline = false;
+            ProjectionRefreshPending = false; projectionAttemptGeneration = 0;
             InputChanged?.Invoke(new MapInputBatch(descriptor.World, inputGeneration, sourceSession, streamGeneration,
                 sourceCommit, MapInputBatchKind.Baseline, snapshotChunks: snapshots));
             return true;

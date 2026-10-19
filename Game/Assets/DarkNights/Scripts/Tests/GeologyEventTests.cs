@@ -117,7 +117,9 @@ namespace DarkNights.Tests
                 fixture.Lab.Step(dx > 32 ? 1 : 0, false, false, frame == 0, true, aim);
             }
             fixture.Tick();
-            for (int i = 0; i < fixture.Config.RubbleCount; i++) Assert.That(map.Read(fixture.Config.Landing(i)).Cell.IsEmpty, Is.True);
+            for (int i = 0; i < fixture.Config.RubbleCount; i++) Assert.That(map.Read(fixture.Config.Landing(i)).Cell.IsEmpty, Is.True,
+                "剩余=" + fixture.Config.Landing(i) + "; hero=" + fixture.Lab.Hero.X + "," + fixture.Lab.Hero.Height +
+                "; target=" + fixture.Lab.MiningTarget);
             Assert.That(fixture.Event.Capture().Phase, Is.EqualTo(5));
             fixture.Tick(180); Assert.That(fixture.Event.Capture().Phase, Is.EqualTo(5));
         });

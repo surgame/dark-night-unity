@@ -1,0 +1,132 @@
+{
+  "date": "2026-10-19",
+  "task": "CL-02 换区塌方投影刷新与相机回执修复",
+  "branch": "fix-20261019-terrain-projection-refresh",
+  "base_head": "4b0e69d915ec9516f43e742751ca7de1cb73fa11",
+  "status": "projection_regressions_and_controlled_play_passed_reported_stall_not_reproduced_manually",
+  "collapse_manual_followup_20261020": {
+    "user_feedback": "没卡半空，下次遇到再找你",
+    "result": "用户从触发区右侧自行触发，本次未复现半空停滞",
+    "prior_root_cause_claim": "撤回作为已确认原因的表述；固定帧与静态裁切是代码事实，但不足以证明此前截图的具体原因",
+    "collapse_production_code_changed": false,
+    "new_automated_validation_started": false,
+    "user_play_stopped_or_reset": false,
+    "automatic_monitor_scheduled": false
+  },
+  "editor": { "version": "6000.4.9f1", "pid": 12116, "scene": "Assets/Scenes/Bootstrap.unity" },
+  "changes": [
+    "正式入口请求合并投影刷新；原无参工作台及诊断入口保持即时严格刷新",
+    "沿当前LocalDataReady和只读区域装卸身份门控消费意图，继续使用原冻结输入队列和框架原子安装",
+    "正常完整基线可一并消费投影；同输入代次和提交的失败捕获不逐帧重扫",
+    "真实相机回执保存最后确认的VisualRevision，同网络提交号的重投影须重新实绘"
+  ],
+  "static_review": {
+    "diff_whitespace_passed": true,
+    "changed_cs_files": 11,
+    "maximum_cs_lines": 300,
+    "existing_framework_paths_retained": true,
+    "yygc_modified": false,
+    "protocol_save_or_dependency_changes": false,
+    "author_asset_changes": false
+  },
+  "compile": {
+    "submitted_requests": 1,
+    "static_compile_executed": false,
+    "unity_compile_executed": true,
+    "unity_compile_passed": true,
+    "status": "completed",
+    "errors": [],
+    "initial_deferral": "原持续内存监控首样提交余量0.598896GiB，触发当时1GiB下限；该次未提交编译，原记录保留",
+    "loaded_editor_assembly_is_candidate": true,
+    "request": "artifacts/terrain-projection-refresh-20261019/ram-only-recompile-request.json",
+    "result": "artifacts/terrain-projection-refresh-20261019/ram-only-recompile-status.json",
+    "editor_final": "artifacts/terrain-projection-refresh-20261019/ram-only-editor-final.json"
+  },
+  "regressions": {
+    "added": [
+      "TerrainReplicaBoundaryTests.ProjectionRefreshSurvivesHelloAndUsesTheLatestCompleteRegion",
+      "TerrainVisualAcceptanceTests.SameSourceCommitRequiresANewCameraReceiptAfterVisualChanges"
+    ],
+    "executed_distinct": 20,
+    "passed_distinct": 19,
+    "failed_distinct": 1,
+    "remaining_failure": "GeologyEventTests.FormalPickaxeClearsRubbleWithoutRearming；原驱动与双向跳跃实验均未清完，未修改生产规则或削弱断言",
+    "runtime_acceptance": "真实Bootstrap审核地图J批通过：正式输入跨区往返、3次远近流换代、正式塌方落地、25格正式挥镐清空并进入Phase5；显式站位夹具不证明自然完整路线、落稳体验或多人",
+    "play_summary": "artifacts/terrain-final-20260926/projection-refresh-20261019-j.summary.json",
+    "play_trace": "artifacts/terrain-projection-validation-20261019/play-382f41637bd04171a16a8f5cc79d3ffb/trace.json",
+    "final_regression_summary": "artifacts/terrain-final-20260926/projection-refresh-20261019-k.summary.json",
+    "failure_evidence_retained": "A至K全部原XML保留；D在测试辅助代码编译失败后错误使用旧程序集，明确不作为当前候选验证。E/F/G订阅等待夹具、H缺少矿镐、I站位枚举不足均已保留，J修正测试驱动后通过。K两项投影回归通过、旧样板清障实验失败；实验驱动已撤回。"
+  },
+  "memory": {
+    "historical_initial_gate": true,
+    "limit_free_commit_gib": 1,
+    "preflight_free_commit_gib": 1.2437515258789062,
+    "before_compile_free_commit_gib": 1.1412506103515625,
+    "after_user_authorized_play_stop_free_commit_gib": 1.2833290100097656,
+    "continuous_first_sample_free_commit_gib": 0.5988960266113281,
+    "continuous_first_sample_free_ram_gib": 8.252479553222656,
+    "monitor_result": "breach",
+    "artifacts": "artifacts/terrain-projection-refresh-20261019",
+    "monitor_stop_result": "Already in edit mode",
+    "user_authorized_stop_play": true,
+    "stopped_other_applications": false
+  },
+  "current_memory_policy": {
+    "user_instruction": "只看剩余内存，不要提交余量指标",
+    "memory_gate": "available_physical_only",
+    "minimum_free_ram_gib": 1,
+    "collects_or_gates_commit_headroom": false,
+    "legacy_ignore_commit_flag": "accepted_no_op",
+    "preflight_free_ram_gib": 11.025001525878906,
+    "monitor_samples": 106,
+    "minimum_observed_free_ram_gib": 8.653850555419922,
+    "monitor_result": "completed",
+    "monitor": "artifacts/terrain-projection-refresh-20261019/ram-only-compile-monitor/summary.json",
+    "python_syntax_checks": 3,
+    "runtime_gate_tests_executed": 5,
+    "windows_pagefile_modified": false,
+    "sources": {
+      "tools/ground-baseline/watch_memory.py": "1fc308aec91ea563e84788789b812d67366074482e4ce5d88b22a7cedef9e03c",
+      "tools/lighting-backends/compile_static.py": "49856d716fd5acdd70583563fde9557d8abf1169e92c029c69fb19ddf5b7f772",
+      "tools/ship-expedition/memory_guard.py": "0f1c6e47c8eb076a343da4d2aac1c597eb4bb933abfffbe52c569f2c3e42dcb6",
+      "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseBenchmarkGate.cs": "00e4cb9867ddb043addafbc95f0f8a310851693ccad14f76f0dcc7f83fc368aa",
+      "Game/Assets/DarkNights/Scripts/Tests/WallDiffuseBenchmarkGateTests.cs": "2f42d6a257cf24a030ed1846b136fe1f8ec496cb35299bee45038d4992487cfd"
+    }
+  },
+  "compiled_assemblies": {
+    "Game/Library/ScriptAssemblies/DarkNights.View.dll": "4b0ba1f2809e324553214156b9478d5d8260d68690c22105434a50776d3b1425",
+    "Game/Library/ScriptAssemblies/DarkNights.Entry.dll": "36083f9016647d1d24fbbba8520fea0e6462f069db07066026f9db1ddd2371be",
+    "Game/Library/ScriptAssemblies/DarkNights.Tests.dll": "3ed442dc81e37062a4cc0186113419e1885895922e9963d4c206a5bac6f3f23c"
+  },
+  "sources": [
+    { "path": "Game/Assets/DarkNights/Scripts/Entry/Terrain/RandomLevelEntry.cs", "lines": 131, "sha256": "9e2bceec492d07674ef728cf9ab47c90152a6dd20a24c609d065a76cffa46ed1" },
+    { "path": "Game/Assets/DarkNights/Scripts/Tests/TerrainReplicaBoundaryTests.cs", "lines": 151, "sha256": "e3b4891fa60c89569801dd438a08f96a52a5853867bd386bcea68809545709d6" },
+    { "path": "Game/Assets/DarkNights/Scripts/Tests/TerrainVisualAcceptanceTests.cs", "lines": 208, "sha256": "7f8ed613e0f50791a0a626266706f520d01269401a6f392f2d32b3ff7291304f" },
+    { "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainDrawReceipt.cs", "lines": 51, "sha256": "149d99f5c7f70366fb626b6e60af30bd3f7a53f4d02796018dd950358c578ffa" },
+    { "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPreview.cs", "lines": 300, "sha256": "9523eb5d6cead85502a7b9c07f9cfdfc699b946ae348749ad701faa529d2fb6b" },
+    { "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainReplicaRegion.cs", "lines": 70, "sha256": "ed52bfe7d13e69470e7ba10172b2212f6ef0db45060102246b8952f9a8dd7da1" },
+    { "path": "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainReplicaSource.cs", "lines": 222, "sha256": "aabe0e808d5510f4f3da67738f537d71c11538581ed9d7231ba6b2997cb410bb" }
+  ],
+  "remaining": [
+    "用户截图暴露的塌方落稳／挖空后支撑重算缺口，只读定位完成，未修改生产塌方规则",
+    "既有独立样板连续输入清障仍失败，不能以显式站位夹具签署自然路线通过",
+    "独立Host＋Client驱动及单次Mono构建入口已准备但未执行；弱网、恢复及前台仍待验"
+  ],
+  "validation": {
+    "production_assemblies_unchanged_from_compiled_candidate": true,
+    "play_test_source_sha256": "cde2f8387e49bba2a7e8b26ee0616d4c96db938348a7b228b05526e5635c7a46",
+    "boundary_test_source_sha256": "ba4c8eb13581974d0d4560f88caf63a2221a80960026ee0c6ec1d34bcf7c9779",
+    "monitors": [
+      { "path": "artifacts/terrain-projection-validation-20261019/memory/summary.json", "state": "completed", "samples": 1560, "minimum_free_ram_gib": 6.194866180419922 },
+      { "path": "artifacts/terrain-projection-validation-20261019/memory-b/summary.json", "state": "completed", "samples": 494, "minimum_free_ram_gib": 6.064098358154297 }
+    ],
+    "collapse_diagnosis": "artifacts/terrain-projection-validation-20261019/collapse-stall-diagnosis.json",
+    "player_build_started": false,
+    "independent_network_started": false
+  },
+  "new_play_started": true,
+  "new_player_started": false,
+  "committed": false,
+  "pushed": false,
+  "stage_completed": false
+}

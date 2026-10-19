@@ -143,6 +143,39 @@ namespace DarkNights.Tests
             camera.Render(); Assert.That(scope.Stage.Ready, Is.True);
         }
 
+        [Test]
+        public void SameSourceCommitRequiresANewCameraReceiptAfterVisualChanges()
+        {
+            var root = new GameObject("Projection camera receipt regression");
+            var camera = root.AddComponent<Camera>(); camera.enabled = false;
+            var target = new RenderTexture(32, 32, 0); camera.targetTexture = target;
+            var type = typeof(TerrainPreview).Assembly.GetType("DarkNights.View.Terrain.TerrainDrawReceipt");
+            var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+            int revision = 1, confirmations = 0;
+            bool stable = true;
+            Func<(ulong, ulong, int)> identity = () => (1, 9, revision);
+            var receipt = (IDisposable)Activator.CreateInstance(type, flags, null,
+                new object[] { (Func<Camera>)(() => camera), (Func<bool>)(() => stable), identity,
+                    (Action<ulong, ulong>)((generation, commit) => { Assert.That(commit, Is.EqualTo(9)); confirmations++; }) }, null);
+            bool Current() => (bool)type.GetProperty("IsCurrent", flags).GetValue(receipt);
+            try
+            {
+                Assert.That(Current(), Is.False);
+                camera.Render(); Assert.That(Current(), Is.True); Assert.That(confirmations, Is.GreaterThan(0));
+                revision++;
+                Assert.That(Current(), Is.False, "同一网络提交号不能复用旧画面的回执。");
+                stable = false; camera.Render(); Assert.That(Current(), Is.False);
+                stable = true; camera.Render(); Assert.That(Current(), Is.True);
+                type.GetMethod("Invalidate", flags).Invoke(receipt, null);
+                Assert.That(Current(), Is.False);
+            }
+            finally
+            {
+                receipt.Dispose(); camera.targetTexture = null;
+                UnityEngine.Object.DestroyImmediate(target); UnityEngine.Object.DestroyImmediate(root);
+            }
+        }
+
         [UnityTest]
         public IEnumerator MeasureActualHotInputToFinalCameraLatency()
         {

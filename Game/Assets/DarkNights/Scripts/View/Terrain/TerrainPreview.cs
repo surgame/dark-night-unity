@@ -57,12 +57,12 @@ namespace DarkNights.View.Terrain
         public ulong PresentedInputGeneration { get; private set; }
         public ulong PresentedSourceCommit { get; private set; }
         public bool RefreshingReplica => loading || regionLoader?.Loading == true || awaitingBaseline ||
-            replicaSource?.WaitingForBaseline == true || inputQueue.HasPending;
+            replicaSource?.WaitingForBaseline == true || replicaSource?.ProjectionRefreshPending == true || inputQueue.HasPending;
         public Exception LastError { get; private set; }
         private bool IsPresentationStable => LastError == null && controller != null && !RefreshingReplica &&
             (caveSource?.BackgroundReady ?? true) && !controller.HasPendingPresentationWork;
-        public bool Ready => IsPresentationStable && PresentedInputGeneration == InstalledInputGeneration &&
-            PresentedSourceCommit == InstalledSourceCommit && (minerals?.Ready ?? true) && (!UseMineralReplica || mineralReplica?.Ready == true);
+        public bool Ready => IsPresentationStable && drawReceipt?.IsCurrent == true &&
+            (minerals?.Ready ?? true) && (!UseMineralReplica || mineralReplica?.Ready == true);
         /// <summary>只读绘制请求；不会推进 Ready 或跳过真实相机回执。</summary>
         public bool NeedsPresentationDraw => IsPresentationStable && !Ready;
         /// <summary>诊断等待阶段，不参与网络授权或调度。</summary>
@@ -74,7 +74,7 @@ namespace DarkNights.View.Terrain
                 if (controller == null || loading) return "初始地图装载";
                 if (regionLoader?.Loading == true || replicaSource?.WaitingForBaseline == true) return "等待局部区域完整基线";
                 if (awaitingBaseline) return "等待完整基线";
-                if (inputQueue.HasPending) return "待安装变化格";
+                if (inputQueue.HasPending || replicaSource?.ProjectionRefreshPending == true) return "待安装变化格";
                 if (controller.HasPendingPresentationWork) return "Dual Grid 规则/资源处理中";
                 if (!(caveSource?.BackgroundReady ?? true)) return "岩壁/背景烘焙中（" + RefreshPath + "）";
                 if (UseMineralReplica && mineralReplica?.Ready != true) return "矿层：" + mineralReplica?.WaitReason;
@@ -83,12 +83,16 @@ namespace DarkNights.View.Terrain
         }
 
         public void NotifyReplicaChanged() => replicaSource?.NotifyChanged();
+        /// <summary>正式联机投影变更保留到局部基线就绪；不改变工作台即时刷新合同。</summary>
+        public void RequestReplicaProjectionRefresh() => replicaSource?.RequestProjectionRefresh();
         public void NotifyReplicaChanged(MapReplicaChange transition)
         { if (!loading && regionLoader?.Loading != true) replicaSource?.NotifyChanged(transition); }
         public void SetReplicaRegion(ChunkReplicaStateMachine replica, GridBounds region, bool ready)
         {
             regionLoader?.Present(replica, region, ready);
             if (regionLoader?.LastError != null) Fail(regionLoader.LastError);
+            if (ready && !loading && regionLoader?.IsCurrent(replica, region) == true)
+                replicaSource?.TryRefreshProjection();
         }
         /// <summary>正式场景与地图工作台共用的完整洞穴表现入口；样式决定前景、背景及各装饰层。</summary>
         public void ShowCaveReplica(ARDMapDefinition definition, CaveTerrainStyle style, IMapChunkSource source,

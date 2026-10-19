@@ -24,6 +24,12 @@ namespace DarkNights.View.Terrain
             await controller.LoadRegionAsync(region, cancellation);
             Loaded = region; session = replica?.Session ?? 0; generation = replica?.Generation ?? 0;
         }
+        /// <summary>只读核对当前完整目标的装卸身份；不授予区域或代替网络完整性门控。</summary>
+        internal bool IsCurrent(ChunkReplicaStateMachine replica, GridBounds region) =>
+            !Loading && LastError == null && !cancellation.IsCancellationRequested && replica?.Descriptor != null &&
+            ReferenceEquals(source?.Replica, replica) && !replica.Closed && controller.World.Equals(replica.World) && session == replica.Session &&
+            generation == replica.Generation && Loaded.Equals(region);
+
         internal void Present(ChunkReplicaStateMachine replica, GridBounds region, bool ready)
         {
             if (Loading || !ready || replica?.Descriptor == null || cancellation.IsCancellationRequested || LastError != null) return;
