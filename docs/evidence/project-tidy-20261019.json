@@ -1,0 +1,290 @@
+{
+  "date": "2026-10-19",
+  "task": "分支合并与中间产物保全",
+  "authorization": "合并飞船／星图及背景墙两条，旧的不要；检查artifacts与生成中间产物，将可移出项放到待清理",
+  "mainBefore": "e35337e6d43316b87177cd14edd479719588e324",
+  "integratedCommits": [
+    "ab06ae08301f0aa28466a2b294162f2808d44126",
+    "526be7e5f4bfa91911c008d997e06f4f61366328"
+  ],
+  "mainAfterIntegration": "526be7e5f4bfa91911c008d997e06f4f61366328",
+  "integration": "本地main快进并推送origin；无源码重写，后续整理提交仅文档与本回执",
+  "removedLocalBranches": [
+    {
+      "ref": "refs/heads/codex/cave-8x8-art-direction",
+      "sha": "3269a2d6a90371e2d5a60669761f5f416c74cc5a",
+      "name": "codex/cave-8x8-art-direction"
+    },
+    {
+      "ref": "refs/heads/codex/spaceship-landing-asset",
+      "sha": "7eb8d642bf499717630cbb6d62b97c6595b3d918",
+      "name": "codex/spaceship-landing-asset"
+    },
+    {
+      "ref": "refs/heads/codex/terrain-retained-probes",
+      "sha": "3a03cea10652777151494599901407ed5db46b4c",
+      "name": "codex/terrain-retained-probes"
+    },
+    {
+      "ref": "refs/heads/fix-20261009-flashlight-undo",
+      "sha": "cb08cb15fa69df3d049f6042383adc53ca46158a",
+      "name": "fix-20261009-flashlight-undo"
+    },
+    {
+      "ref": "refs/heads/fix-20261013-wall-diffuse-corners",
+      "sha": "bba3a56e14414ab65eeb3f5229aa40c527e24d17",
+      "name": "fix-20261013-wall-diffuse-corners"
+    },
+    {
+      "ref": "refs/heads/fix-20261014-bounce-field-feather",
+      "sha": "6d1a9511d0fe569ac5b06c0ba2e7957253a51179",
+      "name": "fix-20261014-bounce-field-feather"
+    },
+    {
+      "ref": "refs/heads/fix-20261015-collapse-gravity-pile",
+      "sha": "e35337e6d43316b87177cd14edd479719588e324",
+      "name": "fix-20261015-collapse-gravity-pile"
+    },
+    {
+      "ref": "refs/heads/fix-20261019-underground-backdrop",
+      "sha": "526be7e5f4bfa91911c008d997e06f4f61366328",
+      "name": "fix-20261019-underground-backdrop"
+    },
+    {
+      "ref": "refs/heads/ft-20261010-mine-level-h5",
+      "sha": "22a4b004b12cd826cacfb37e31dad9383eecda3f",
+      "name": "ft-20261010-mine-level-h5"
+    },
+    {
+      "ref": "refs/heads/ft-20261011-mine-map-expansion",
+      "sha": "0c3aa7723194d3b35cf98dd3c4a4f2f9b9a98c1c",
+      "name": "ft-20261011-mine-map-expansion"
+    },
+    {
+      "ref": "refs/heads/ft-20261012-wall-diffuse-light",
+      "sha": "92dcb925732f8769c7494baf9910c5bc1b6cb580",
+      "name": "ft-20261012-wall-diffuse-light"
+    },
+    {
+      "ref": "refs/heads/ft-20261014-geology-events-lab",
+      "sha": "ee20cc42fe03182531dbe734e99554418cbd5f0e",
+      "name": "ft-20261014-geology-events-lab"
+    },
+    {
+      "ref": "refs/heads/ft-20261019-ship-expedition-navigation",
+      "sha": "ab06ae08301f0aa28466a2b294162f2808d44126",
+      "name": "ft-20261019-ship-expedition-navigation"
+    },
+    {
+      "ref": "refs/heads/ref-20261009-light-profile-config",
+      "sha": "22a4b004b12cd826cacfb37e31dad9383eecda3f",
+      "name": "ref-20261009-light-profile-config"
+    },
+    {
+      "ref": "refs/heads/test-20261005-wall-disappearance-debugger",
+      "sha": "60e8d137fe46b46344f4bd89923cc58d765f080f",
+      "name": "test-20261005-wall-disappearance-debugger"
+    }
+  ],
+  "removedRemoteBranches": [
+    {
+      "ref": "refs/remotes/origin/codex/cave-8x8-art-direction",
+      "sha": "3269a2d6a90371e2d5a60669761f5f416c74cc5a",
+      "name": "codex/cave-8x8-art-direction"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/feature-dualgrid-game-start",
+      "sha": "b96d8dccaefc4d36da56f688dd73927be2914aac",
+      "name": "codex/feature-dualgrid-game-start"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/hero-handheld-equipment",
+      "sha": "9778a98613902d04dcf0ec595a4289ca57b8aa5d",
+      "name": "codex/hero-handheld-equipment"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/id-automation",
+      "sha": "1138cc5ab0decbb5bf1c4a84c7e5073505944e1a",
+      "name": "codex/id-automation"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/map-plan-execution",
+      "sha": "e60e1fb7df37542cb00af887e2e84c44ef4c81e0",
+      "name": "codex/map-plan-execution"
+    },
+    {
+      "ref": "refs/remotes/origin/codex/yygc-unified-object-migration",
+      "sha": "a206c9f5f6adc0b8338479b89d4b624ec01607f3",
+      "name": "codex/yygc-unified-object-migration"
+    },
+    {
+      "ref": "refs/remotes/origin/fix-20260925-cave-tuner-isolated",
+      "sha": "a315e829d0d0453aa92e72a2c895f6cace92f3cd",
+      "name": "fix-20260925-cave-tuner-isolated"
+    },
+    {
+      "ref": "refs/remotes/origin/fix-20260925-terrain-refresh-review",
+      "sha": "6964f57106d2fcfd58bcdf81fdfcd2dbba48d8bb",
+      "name": "fix-20260925-terrain-refresh-review"
+    },
+    {
+      "ref": "refs/remotes/origin/fix-20260926-terrain-final-validation",
+      "sha": "9dc1a39d9357ce4002bfd20edcd11c7e91d010d1",
+      "name": "fix-20260926-terrain-final-validation"
+    },
+    {
+      "ref": "refs/remotes/origin/fix-20261015-collapse-gravity-pile",
+      "sha": "e35337e6d43316b87177cd14edd479719588e324",
+      "name": "fix-20261015-collapse-gravity-pile"
+    },
+    {
+      "ref": "refs/remotes/origin/fix-20261019-underground-backdrop",
+      "sha": "526be7e5f4bfa91911c008d997e06f4f61366328",
+      "name": "fix-20261019-underground-backdrop"
+    },
+    {
+      "ref": "refs/remotes/origin/ft-20260922-terrain-modifiers",
+      "sha": "e204c1dbfc1323c3bc45b948f5c1a6cfa7cddf62",
+      "name": "ft-20260922-terrain-modifiers"
+    },
+    {
+      "ref": "refs/remotes/origin/ft-20260925-immediate-terrain-refresh",
+      "sha": "f50ccf53f71bab09d17c8c24cf9b5ea792acc38e",
+      "name": "ft-20260925-immediate-terrain-refresh"
+    },
+    {
+      "ref": "refs/remotes/origin/ft-20261011-mine-map-expansion",
+      "sha": "0c3aa7723194d3b35cf98dd3c4a4f2f9b9a98c1c",
+      "name": "ft-20261011-mine-map-expansion"
+    },
+    {
+      "ref": "refs/remotes/origin/ft-20261019-ship-expedition-navigation",
+      "sha": "ab06ae08301f0aa28466a2b294162f2808d44126",
+      "name": "ft-20261019-ship-expedition-navigation"
+    },
+    {
+      "ref": "refs/remotes/origin/ref-20260924-map-state-networking",
+      "sha": "68a4552d26fc423557460a06bd7b24fcbbf240e0",
+      "name": "ref-20260924-map-state-networking"
+    },
+    {
+      "ref": "refs/remotes/origin/ref-20261003-remove-oxygen",
+      "sha": "a0ba66ea73319abe2a1ce2f15174e630751781bd",
+      "name": "ref-20261003-remove-oxygen"
+    }
+  ],
+  "keptLocalBranches": [
+    "main",
+    "docs-20261011-mine-map-expansion-plan",
+    "ft-20260922-downward-rock-edges"
+  ],
+  "keptRemoteBranches": [
+    "main",
+    "docs-20261011-mine-map-expansion-plan"
+  ],
+  "gitBackup": {
+    "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\project-tidy-20261019\\branches-before.bundle",
+    "sha256": "C6D219436A5513DDD5DE1BDC3ADF95E85B1902B0D65D13451159A8424029D0D5",
+    "verified": true,
+    "refs": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\project-tidy-20261019\\refs-before.txt"
+  },
+  "inventoryBefore": {
+    "artifactsBytes": 5773248755,
+    "note": "以原始inventory.json的artifacts根行为准；不包括盘点后本任务回执增长"
+  },
+  "movement": {
+    "items": 109,
+    "files": 49478,
+    "bytes": 2922427216,
+    "groups": {
+      "工具与离线样板缓存": {
+        "items": 24,
+        "files": 298,
+        "bytes": 11486202
+      },
+      "旧宿主生成缓存": {
+        "items": 10,
+        "files": 16098,
+        "bytes": 1156804382
+      },
+      "旧宿主重复包": {
+        "items": 75,
+        "files": 33082,
+        "bytes": 1754136632
+      }
+    },
+    "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261019-分支与中间产物整理",
+    "releasedBytes": 0,
+    "manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261019-分支与中间产物整理\\清单.md"
+  },
+  "retained": [
+    "Local Game/Library、Temp、Logs、IDE状态",
+    "所有Player、正式／失败报告、截图、隔离存档及作者输入",
+    "旧宿主Undo／LastBuild／SourceAssetDB、源码快照及独有包",
+    "ArchitectureGuard/bin被现行静态编译脚本直接引用",
+    "Game/Assets五份未跟踪地图、外部worktree、.deps及历史stash"
+  ],
+  "verification": {
+    "passed": true,
+    "movedFilesSha256Checked": 49478,
+    "protectedInputsChecked": 7294,
+    "playerInventoriesUnchanged": [
+      {
+        "path": "artifacts/ship-expedition-20261019/player-final-20261019-164800",
+        "files": 439,
+        "bytes": 207839224,
+        "unchangedInventory": true
+      },
+      {
+        "path": "artifacts/ship-expedition-20261019/player-loop-20261019-160404",
+        "files": 439,
+        "bytes": 207837190,
+        "unchangedInventory": true
+      },
+      {
+        "path": "artifacts/ship-expedition-20261019/player-loop-geology-20261019-163243",
+        "files": 438,
+        "bytes": 207592035,
+        "unchangedInventory": true
+      },
+      {
+        "path": "artifacts/ship-expedition-20261019/player-loop-storage-20261019-163523",
+        "files": 439,
+        "bytes": 207837283,
+        "unchangedInventory": true
+      },
+      {
+        "path": "artifacts/ship-expedition-20261019/player-loop-ticket-20261019-164226",
+        "files": 439,
+        "bytes": 207838442,
+        "unchangedInventory": true
+      },
+      {
+        "path": "artifacts/worktree-launcher/jobs/20261012-043357-d2fb843e95ec71b0/player",
+        "files": 434,
+        "bytes": 206322135,
+        "unchangedInventory": true
+      },
+      {
+        "path": "artifacts/worktree-launcher/players/810544373ceb5524fb9cb8b6d7474f2ea8a499d1a1d5910e122a23970c59732a",
+        "files": 434,
+        "bytes": 206132080,
+        "unchangedInventory": true
+      }
+    ],
+    "identicalPackagesCompared": 75,
+    "originalInputs": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\project-tidy-20261019\\protected-inputs-before.json",
+    "details": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\project-tidy-20261019\\verification.json"
+  },
+  "limitations": [
+    "本轮未运行Unity编译、测试、Play或Player；未把历史通过改写为新验收",
+    "不清空artifacts；保留所有正式／失败证据、Player、源码快照、备份及不明来源",
+    "同盘保全不释放空间，未永久删除或压缩任何产物",
+    "不清理.codex／外部worktree，不修改YYGC／依赖或历史stash，不结束CL阶段"
+  ],
+  "preflightCorrections": [
+    "只读包比较首次受Windows长路径限制而停止，改用Win32长路径前缀后完成，无文件移动",
+    "移动预检首次遇Split-Path参数集错误，在任何移动前停止，修正参数后重新完成预检"
+  ],
+  "evidenceRoot": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\project-tidy-20261019"
+}
