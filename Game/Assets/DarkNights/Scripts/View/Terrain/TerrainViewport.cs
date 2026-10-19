@@ -8,6 +8,20 @@ namespace DarkNights.View.Terrain
     /// <summary>前景与矿层共用的正交相机分页范围和退出页处理；保持原格坐标合同，只改变原生页面可见性，不修改地图。</summary>
     internal static class TerrainViewport
     {
+        /// <summary>先请求基础后壁，再开放新的前景范围；同世界等待期间保留原已显示区域，不重复提交Show。</summary>
+        internal static bool Present(ARDMapController controller, Transform root, Camera camera, GridBounds loaded,
+            CaveVisualSource cave, ref GridBounds visible, ref GridBounds requested)
+        {
+            var next = Limit(Capture(controller.Descriptor, root, camera), loaded, controller.Descriptor);
+            bool changed = !requested.Equals(next);
+            if (changed) { requested = next; cave?.SetVisible(next); }
+            if (!(cave?.BackgroundBaseReady ?? true) || visible.Equals(next)) return changed;
+            HideDifference(controller, visible, next);
+            if (next.IsValid) controller.ShowRegion(next);
+            visible = next;
+            return true;
+        }
+
         internal static GridBounds Capture(WorldDescriptor descriptor, Transform root, Camera camera)
         {
             var bounds = descriptor.Bounds;

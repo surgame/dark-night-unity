@@ -16,7 +16,8 @@ namespace DarkNights.Editor
         private TestRunnerApi api;
         private string output;
         private readonly JArray results = new JArray();
-        public static string Root => Path.GetFullPath("../artifacts/art-layer-entrance-20261003");
+        public static string Root => Path.GetFullPath(SessionState.GetString("DarkNights.Validation.OutputRoot",
+            "../artifacts/art-layer-entrance-20261003"));
         [DarkNightsWorkbenchCommand("Dark Nights/Verify/Cave Entrance Art Tests", "洞口美术检查")]
         public static void RunMenu() => Run();
         public static void Run(string filter = null)

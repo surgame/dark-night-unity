@@ -29,6 +29,10 @@ namespace DarkNights.Tests
             scope.Observe();
             int background = scope.Preview.BackgroundBuildCount;
             long backgroundBytes = scope.Preview.BackgroundUploadedBytes;
+            var cache = TerrainVisualTestScope.Read<object>(scope.Visual, "staticBackground");
+            var pages = TerrainVisualTestScope.Read<IDictionary>(cache, "pages");
+            var originalPages = new Dictionary<object, object>();
+            foreach (DictionaryEntry page in pages) originalPages.Add(page.Key, page.Value);
             scope.SaveImage("tuner-before.png");
             foreach (var point in new[] { new Vector2Int(31, 60), new Vector2Int(32, 64), new Vector2Int(159, 96) })
             {
@@ -56,8 +60,15 @@ namespace DarkNights.Tests
             Assert.That(scope.Changes[0].Changes.Count, Is.EqualTo(64));
             Assert.That(scope.SolvedCells - before, Is.EqualTo(81));
             Assert.That(scope.Changes.All(c => c.Kind == GridChangeKind.SourceInputChanged), Is.True);
-            Assert.That(scope.Preview.BackgroundBuildCount, Is.EqualTo(background));
-            Assert.That(scope.Preview.BackgroundUploadedBytes, Is.EqualTo(backgroundBytes));
+            foreach (var page in originalPages)
+                Assert.That(pages[page.Key], Is.SameAs(page.Value), "已有背景页不因挖填重建");
+            long newBytes = 0;
+            foreach (DictionaryEntry page in pages)
+                if (!originalPages.ContainsKey(page.Key))
+                    newBytes += (long)page.Value.GetType().GetProperty("Bytes").GetValue(page.Value);
+            Assert.That(scope.Preview.BackgroundBuildCount, Is.EqualTo(background + pages.Count - originalPages.Count),
+                "只允许为新揭露页首次准备装饰");
+            Assert.That(scope.Preview.BackgroundUploadedBytes, Is.EqualTo(backgroundBytes + newBytes));
             Assert.That(scope.Controller.UnsavedChunkCount, Is.Zero);
             scope.AssertRockMatchesCpu(new RectInt(1224, 728, 112, 96));
             scope.SaveImage("tuner-after.png");

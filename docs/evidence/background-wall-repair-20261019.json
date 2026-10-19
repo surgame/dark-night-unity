@@ -1,0 +1,261 @@
+{
+  "task": "CL-01地下背景墙连续覆盖与隐藏区域优化",
+  "date": "2026-10-19",
+  "branch": "fix-20261019-underground-backdrop",
+  "base_head": "ab06ae08301f0aa28466a2b294162f2808d44126",
+  "implementation": [
+    "冻结地表以下与旧入口覆盖的并集",
+    "基础页先就绪，装饰按实际遮挡准备",
+    "真实前景Alpha位图与局部提交同步",
+    "颜色／法线背景专用遮挡和Unknown裁切",
+    "全透明装饰免GPU资源及共享纹理预算"
+  ],
+  "source_sha256": {
+    "Game/Assets/DarkNights/Res/Art/Custom/CaveEntranceLayers/CaveBackgroundLayer.shader": "e48280c20b51848219e2a6d7b48c588b4940075ab5eba30633bc8acbff944119",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/TerrainNormals.hlsl": "43f201e4dd9a2e5134a07eaf6c73a1d18149a6f990159a898fa39bbe47e5fefc",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveEntranceBackdrop.cs": "a169e21a6e64905e7e77cbfab487dadaca6440b9ea8e1a97118078e41a6d1ec3",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveBackgroundStreamingTests.cs": "38ae6ecb0f97d61922cfa1a6a773fee04c7d7c598fdfd502c9983f4dab951348",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveBackgroundStreamingTests.cs.meta": "1733c771795ecf9603c4fdc33ded8b41e30fac68de9c8811d1c6317c9840ad6c",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveEntranceArtGpuTests.cs": "8c4b61ce790c214856f60ccee7674b85c1bc01660071b5e976a95d7f37911af2",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveEntranceArtTests.cs": "ee8042e20432e0ce58dc8a46f133b53349d342a3ad04c49844e867e691b230c5",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveForegroundCoverageTests.cs": "ae1211ac0aafbed05514974fc7eb09a6481ba3448431d71ce7bb0e5a9ef953a5",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveForegroundCoverageTests.cs.meta": "0c62d1dcb1ff2ef5520191b5ac3d6ba7f0c777327723f8533133dc0913ad4930",
+    "Game/Assets/DarkNights/Scripts/Tests/MineralCompositeTests.cs": "36535687bffb2098f09c9eed0ad8f42aac7233299d0a693764d86c3758007aca",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundCache.cs": "8cfc859f40d3653594484078017f0d022e7dcf6a9af863f6ea0181f2967c2389",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundPage.cs": "b9d5a4ba1236b1afb9e5d30dd5cc24a6011e05acb32bb698e0fc1458fa56106a",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundStyle.cs": "68a1f5c4618738e13aa791bb8b43619e9dc90348c21b2da9c0a2b2aec4e10f85",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveForegroundCoverage.cs": "562fe9d0ab29a18cd5c45f525030ea46cef81b839dc2414cc88733f579ab8bd3",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveForegroundCoverage.cs.meta": "8ddc1af62a3398a0451d7aab2bc59639ef837e86e319639cd04de9e26db0ebd9",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveLocalRockSurface.cs": "d434756514b98a022defcfb57d9ed48772682495f10b0ce21ee09ce21b83b40b",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveRockSurface.cs": "1d890852448a5028a263167e57b526070cc747f829117ea0c108ec4bc6eaccc1",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveVisualSource.cs": "c6113f38ba87261c5cbecaecc0503044de16f804a0802cbacb3a015ed4f1fd65",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPreview.cs": "7bf18da834c447beb4e941f7fb0fc5f9c474bdac603ef983513394782be83393",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainViewport.cs": "ab0053a79c7cc029a0b55386aef929cf21c3234ea557dafc2edcff8405efb552"
+  },
+  "source_line_counts": {
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveEntranceBackdrop.cs": 99,
+    "Game/Assets/DarkNights/Scripts/Tests/CaveBackgroundStreamingTests.cs": 89,
+    "Game/Assets/DarkNights/Scripts/Tests/CaveEntranceArtGpuTests.cs": 76,
+    "Game/Assets/DarkNights/Scripts/Tests/CaveEntranceArtTests.cs": 130,
+    "Game/Assets/DarkNights/Scripts/Tests/CaveForegroundCoverageTests.cs": 55,
+    "Game/Assets/DarkNights/Scripts/Tests/MineralCompositeTests.cs": 194,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundCache.cs": 194,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundPage.cs": 102,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundStyle.cs": 41,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveForegroundCoverage.cs": 41,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveLocalRockSurface.cs": 206,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveRockSurface.cs": 119,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveVisualSource.cs": 280,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPreview.cs": 296,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainViewport.cs": 62
+  },
+  "unity_generated_meta_guids": {
+    "Game/Assets/DarkNights/Scripts/Tests/CaveBackgroundStreamingTests.cs.meta": "e06178ace439192468e3a1ccddb2a82b",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveForegroundCoverageTests.cs.meta": "9b7a70d2a9ea880498ac5bb2139b6953",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveForegroundCoverage.cs.meta": "e3d950908c191b7419040b4eaa5ce340"
+  },
+  "configuration_and_frozen_contract_sha256": {
+    "Game/Packages/manifest.json": "5ddb149d97a4310ebd4a5813fa9485a2ae59ab5fb6804b1c637ce85c65e528e4",
+    "Game/Packages/packages-lock.json": "fd002144c90a2019e08e7647511406c62d754a44efa16a5116f97bd4cfbd9e39",
+    "Game/ProjectSettings/ProjectVersion.txt": "0ee4b8baf7a4e3760cd3a0c19797a9362ed4e0c9c8ef0f49d8304c1211e511b8",
+    "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/BackgroundBakeDescriptor.cs": "0ade9599d45944f1cefcdffcbbfad953185b2e1681d86ee5a5791e945a893cf3",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs": "b1ddad6dcb05064ffddc4f910faf0ca0a8884b4f8a7605cd383e4502b8eea6bf",
+    "Game/Assets/DarkNights/Scripts/Core/Save/SessionSnapshot.cs": "e2ce8d156e8915e0d653e109cca393d4a00fc22755d3d85ff361ddd78d5c6bfe"
+  },
+  "static_compilation": {
+    "assemblies": [
+      {
+        "name": "DarkNights.Core",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.Runtime",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 0
+      },
+      {
+        "name": "DarkNights.View",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 1
+      },
+      {
+        "name": "DarkNights.Entry",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 1
+      },
+      {
+        "name": "DarkNights.Editor",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 9
+      },
+      {
+        "name": "DarkNights.Tests",
+        "exit_code": 0,
+        "errors": 0,
+        "warnings": 12
+      }
+    ],
+    "matches_final_sources": true,
+    "tests_executed": false
+  },
+  "unity_compilation": {
+    "version": "6000.4.9f1",
+    "result": {
+      "status": "completed",
+      "failed": false,
+      "errors": []
+    },
+    "assemblies": {
+      "Core": {
+        "sha256": "428edcc51d3a96b7c3c010d38a2ce53c4932e090d067eaec90ebd4ec5fa29302",
+        "modified_utc": "2026-10-19T11:09:03.744219+00:00"
+      },
+      "Runtime": {
+        "sha256": "9c7bdadbc5d4aa6dcd7d4e3cf7fb5daf4bbbe9fce411d4c8e279f15f6ca7be06",
+        "modified_utc": "2026-10-19T11:09:11.562478+00:00"
+      },
+      "View": {
+        "sha256": "5b879690095d2be90bccf0b2d827b088b99927970a97c62a8876d0115a1eabaf",
+        "modified_utc": "2026-10-19T11:14:52.598845+00:00"
+      },
+      "Entry": {
+        "sha256": "50007e75de777fd31bd3ccc0d7e023ef474bf453c2b5e3a148d7237cc57e61f9",
+        "modified_utc": "2026-10-19T11:09:11.564644+00:00"
+      },
+      "Editor": {
+        "sha256": "b9ad3b05a983724b713b043461fdc7aefecc7093493d85d9498e5f240abaf606",
+        "modified_utc": "2026-10-19T11:09:14.203883+00:00"
+      },
+      "Tests": {
+        "sha256": "a5834b5c9484d64b07152e814e9675c9c74b0d2aba8cd3232cf6a61c6bc148e7",
+        "modified_utc": "2026-10-19T11:14:54.298346+00:00"
+      }
+    }
+  },
+  "shader_compilation": {
+    "device": "Direct3D12",
+    "pass_compile_requests": 36,
+    "errors": 0,
+    "warnings": 4,
+    "baseline_comparison": [
+      {
+        "shader": "Assets/DarkNights/Res/Art/Custom/CaveEntranceLayers/CaveBackgroundLayer.shader",
+        "baseline_shader": "CaveBackgroundLayer",
+        "same_warning_text_line_and_severity": true,
+        "warnings": 1
+      },
+      {
+        "shader": "Assets/DarkNights/Res/Art/Custom/CaveContourStatic/CaveStrata.shader",
+        "baseline_shader": "CaveStrata",
+        "same_warning_text_line_and_severity": true,
+        "warnings": 2
+      },
+      {
+        "shader": "Assets/DarkNights/Res/Art/Custom/CaveExploration/CavePixelRock.shader",
+        "baseline_shader": "CavePixelRock",
+        "same_warning_text_line_and_severity": true,
+        "warnings": 1
+      }
+    ],
+    "baseline_source_paths": "Transient ShaderUtil source has inline path /; compare warning text, line and severity per shader"
+  },
+  "memory": {
+    "memory-after": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.653697967529297,
+      "minimum_free_ram_gib": 10.427780151367188,
+      "minimum_free_commit_gib": 3.0754165649414062,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": true,
+      "ignore_commit_limit": false
+    },
+    "memory-before": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.743202209472656,
+      "minimum_free_ram_gib": 12.603248596191406,
+      "minimum_free_commit_gib": 4.843814849853516,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": true,
+      "ignore_commit_limit": false
+    },
+    "memory-compile": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.697193145751953,
+      "minimum_free_ram_gib": 12.693756103515625,
+      "minimum_free_commit_gib": 5.408241271972656,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": true,
+      "ignore_commit_limit": false
+    },
+    "memory-final-compile": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.653694152832031,
+      "minimum_free_ram_gib": 11.52071762084961,
+      "minimum_free_commit_gib": 4.611297607421875,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": true,
+      "ignore_commit_limit": false
+    }
+  },
+  "editor_final": {
+    "playing": false,
+    "compiling": false,
+    "updating": false,
+    "scene": "Assets/Scenes/Bootstrap.unity",
+    "dirty": false,
+    "coverageType": true
+  },
+  "checks": {
+    "diff_whitespace": "passed",
+    "new_meta_pairs": "passed",
+    "handwritten_csharp_max_300_lines": "passed",
+    "shader_warning_baseline": "passed"
+  },
+  "preserved_diagnostics": [
+    "shader-compile-response.json: Pipeline主线程5秒超时，原请求结果文件确认完成，未重发",
+    "final-editor-state.json: 只读诊断Shader.HasProperty用法错误，有效状态另存final-editor-ready.json"
+  ],
+  "not_executed": [
+    "新增和既有自动测试",
+    "新Play／运行时画面复现",
+    "Player构建／运行",
+    "双进程／晚加入／存档恢复",
+    "CPU／GPU及前台性能测量"
+  ],
+  "pending_manual": [
+    "浅层连续拆墙及全坡形无露天缝",
+    "窄井／宽谷天空、页边和镜头往返",
+    "塌方／填岩／清障与Unknown边缘",
+    "Private／URP颜色与法线、矿层排序",
+    "同候选四情境性能及多人／恢复"
+  ],
+  "scope": "游戏侧表现；无YYGC、协议／存档字段、依赖锁或作者地图修改；视觉身份参与原地图握手；未提交推送",
+  "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-20261019",
+  "artifacts_bytes": 11693324
+}

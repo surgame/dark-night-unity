@@ -1,0 +1,660 @@
+{
+  "task": "CL-01地下背景墙基础验证",
+  "date": "2026-10-19",
+  "branch": "fix-20261019-underground-backdrop",
+  "base_head": "ab06ae08301f0aa28466a2b294162f2808d44126",
+  "unity": "6000.4.9f1",
+  "editor_pid": 12116,
+  "mode": "EditMode",
+  "result": {
+    "distinct_cases": 44,
+    "latest_passed": 44,
+    "latest_failed": 0,
+    "attempts": 59,
+    "first_attempt_failures_retained": 6
+  },
+  "batches": [
+    {
+      "id": "background-basic-20261019-a",
+      "summary": {
+        "id": "background-basic-20261019-a",
+        "state": "Failed(Child)",
+        "utc": "2026-10-19T11:41:04.9278431Z",
+        "unity": "6000.4.9f1",
+        "passed": 35,
+        "failed": 4,
+        "skipped": 0
+      },
+      "cases": 39,
+      "failures": [
+        {
+          "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(3)",
+          "message": "  后壁继续覆盖到原岩格下方\n  Expected: 255\n  But was:  0\n"
+        },
+        {
+          "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(6)",
+          "message": "  后壁继续覆盖到原岩格下方\n  Expected: 255\n  But was:  0\n"
+        },
+        {
+          "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(10)",
+          "message": "  后壁继续覆盖到原岩格下方\n  Expected: 255\n  But was:  0\n"
+        },
+        {
+          "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(11)",
+          "message": "  后壁继续覆盖到原岩格下方\n  Expected: 255\n  But was:  0\n"
+        }
+      ],
+      "xml": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\background-basic-20261019-a.xml",
+        "bytes": 35836,
+        "sha256": "34d62c6cc7aefadc3256a71051cb6e3c1a1549cf8f5a2f8de70aa2bf75d830f9"
+      }
+    },
+    {
+      "id": "background-basic-20261019-b",
+      "summary": {
+        "id": "background-basic-20261019-b",
+        "state": "Passed",
+        "utc": "2026-10-19T11:45:32.3075485Z",
+        "unity": "6000.4.9f1",
+        "passed": 15,
+        "failed": 0,
+        "skipped": 0
+      },
+      "cases": 15,
+      "failures": [],
+      "xml": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\background-basic-20261019-b.xml",
+        "bytes": 14438,
+        "sha256": "b4033e86a8a19f457dbd80ea2b5e48c15f654b357724d63d4bcaf5d1cfc992b7"
+      }
+    },
+    {
+      "id": "background-basic-20261019-c",
+      "summary": {
+        "id": "background-basic-20261019-c",
+        "state": "Failed(Child)",
+        "utc": "2026-10-19T11:48:21.6996935Z",
+        "unity": "6000.4.9f1",
+        "passed": 1,
+        "failed": 2,
+        "skipped": 0
+      },
+      "cases": 3,
+      "failures": [
+        {
+          "name": "DarkNights.Tests.MineralCompositeTests.ExposedMineralChangesActualCompositePixels",
+          "message": "  矿层必须在组合画面中清晰可辨，不能把1级颜色变化记为画面通过\n  Expected: greater than 10\n  But was:  0\n"
+        },
+        {
+          "name": "DarkNights.Tests.TerrainVisualAcceptanceTests.HotDigFillAnd64CellsUseSparseRulesAndGpuPatches",
+          "message": "  Expected: 23\n  But was:  27\n"
+        }
+      ],
+      "xml": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\background-basic-20261019-c.xml",
+        "bytes": 10457,
+        "sha256": "71f6b66b86b440c305c6a3fd28f515a99ccde689f3ad9d7c7706a0fb73ebfc2b"
+      }
+    },
+    {
+      "id": "background-basic-20261019-d",
+      "summary": {
+        "id": "background-basic-20261019-d",
+        "state": "Passed",
+        "utc": "2026-10-19T11:55:49.5581981Z",
+        "unity": "6000.4.9f1",
+        "passed": 2,
+        "failed": 0,
+        "skipped": 0
+      },
+      "cases": 2,
+      "failures": [],
+      "xml": {
+        "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\background-basic-20261019-d.xml",
+        "bytes": 6437,
+        "sha256": "0b2648b521d86c0842e0d23e9b5a22f191a204b64d344399e9d09526603ec364"
+      }
+    }
+  ],
+  "latest_cases": [
+    {
+      "name": "DarkNights.Tests.CaveBackgroundStreamingTests.OpaquePagePreparesOnlyBaseAndDigReusesItBeforeDecorations",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtGpuTests.IndependentLayersPreserveSkyAndOpaqueShaftAcrossPages(1.0f)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtGpuTests.IndependentLayersPreserveSkyAndOpaqueShaftAcrossPages(0.16f)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.BackdropIsFrozenWhenCurrentTerrainChanges",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.ExistingMasksAndThreeLayerConfigurationRemainBoundToFormalStyles",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(0)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(1)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(2)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(3)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(4)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(5)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(6)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(7)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(8)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(9)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(10)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(11)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.NewlyOpenedFullAndSlopedWallsHaveContinuousBase(12)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.OriginalThreeLayersAreByteIdenticalAndShaftHasAnOpaqueRearWall",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.PagingDoesNotChangeExistingLayersAtEitherAxisOrWorldBoundary",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveEntranceArtTests.WideValleyKeepsSkyAndEmptyMapsDoNotInventUndergroundWalls",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveForegroundCoverageTests.CoverageMatchesForegroundAlphaClipThreshold(127,False)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveForegroundCoverageTests.CoverageMatchesForegroundAlphaClipThreshold(128,True)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveForegroundCoverageTests.CoverageMatchesForegroundAlphaClipThreshold(255,True)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveForegroundCoverageTests.DigAndFillAtFourPageCornerOnlyChangeThoseCommittedPixels",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.CaveForegroundCoverageTests.PartialInitialOutputDoesNotAuthorizeWholePageCulling",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(0)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(1)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(2)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(3)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(4)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(5)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(6)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(7)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(8)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(9)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(10)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(11)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.SurfaceSkyTests.SkylineMatchesFirstOccupiedPixelForEveryShape(12)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-a"
+    },
+    {
+      "name": "DarkNights.Tests.TerrainStreamingCacheTests.LaterChunksHaveTheSameRockGeometryAsInitialChunks(4,-3)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.TerrainStreamingCacheTests.LaterChunksHaveTheSameRockGeometryAsInitialChunks(0,-5)",
+      "result": "Passed",
+      "batch": "background-basic-20261019-b"
+    },
+    {
+      "name": "DarkNights.Tests.CaveBackgroundOcclusionGpuTests.ActualBackgroundShaderRejectsCoveredAndUnknownPixelsOnlyWhenEnabled",
+      "result": "Passed",
+      "batch": "background-basic-20261019-c"
+    },
+    {
+      "name": "DarkNights.Tests.MineralCompositeTests.ExposedMineralChangesActualCompositePixels",
+      "result": "Passed",
+      "batch": "background-basic-20261019-d"
+    },
+    {
+      "name": "DarkNights.Tests.TerrainVisualAcceptanceTests.HotDigFillAnd64CellsUseSparseRulesAndGpuPatches",
+      "result": "Passed",
+      "batch": "background-basic-20261019-d"
+    }
+  ],
+  "fixture_corrections": [
+    "薄坡形部分像素列没有原生实心像素；只要求实际占用列以下连续，其余保持天空。13形状重跑通过。",
+    "挖填允许新揭露页首次准备装饰；已有页对象必须复用、增加构建与字节必须精确等于新页。",
+    "矿物固定旧镜头范围没有任何露矿（实际计数0）；改从同一冻结图实际露矿选位，保留可见性、换区、撤权与CPU/GPU一致性断言。"
+  ],
+  "verified": [
+    "13种原生坡形浅层基础覆盖及13种实际天际线",
+    "前景Alpha 127/128阈值、位图补丁与跨页更新",
+    "完全遮挡页仅准备基础、无装饰纹理，拆墙立即显露基础，填岩停绘，重复挖填与静止无新增上传",
+    "独立实际相机1和0.16缩放、窄井及天空/地下分界",
+    "真实背景Shader颜色输出：已知空白显示，遮挡/Unknown裁剪，关闭选项恢复共享使用者原行为",
+    "实际前景单格挖填/64格改动GPU补丁与CPU一致，分别4/81格依赖，已有背景页复用",
+    "后续装载岩壁缓存与初始同输入一致；矿层换区、采空、撤权及Ready"
+  ],
+  "mineral_fixture": {
+    "focusU": 49,
+    "focusV": -72,
+    "farU": 280,
+    "farV": -150,
+    "exposedCellsAtOldCamera": 0,
+    "exposedCells": 42,
+    "mapHash": "4cc518648886b2ef22ec2b470d3d4858116f90f1b863b2a29f1004fb09727858"
+  },
+  "mineral_pixels": {
+    "changedPixels": 2069,
+    "visiblePixels": 1842,
+    "orderSweep": {
+      "10": 1842,
+      "20": 1842,
+      "30": 1842
+    }
+  },
+  "mineral_artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mineral-composite\\20261019-195535-813c192f",
+  "screenshots": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\images-a\\shaft-existing-0.16.png",
+      "bytes": 31565,
+      "sha256": "8542e5aad92ba04d6231852944aed4c0c2e7a202b8980900491751ca676eea64"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\images-a\\shaft-existing-1.png",
+      "bytes": 31565,
+      "sha256": "8542e5aad92ba04d6231852944aed4c0c2e7a202b8980900491751ca676eea64"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\images-c\\occlusion-revealed.png",
+      "bytes": 533,
+      "sha256": "0994b9acbea5ba5f35410532e25acde81bdefcee39d881208df0e8c3954f5e55"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\images-c\\occlusion-unknown.png",
+      "bytes": 528,
+      "sha256": "9ee23ea4110c0091839a577fa4422bbc6977feaf3ee8bc1acceb7771cdc053ce"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\images-c\\tuner-before.png",
+      "bytes": 3808925,
+      "sha256": "5bc491014b78f06298de750b5f849ad4b04de10729e9ea555b2bc9f3c7356113"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\images-d\\tuner-after.png",
+      "bytes": 3808925,
+      "sha256": "5bc491014b78f06298de750b5f849ad4b04de10729e9ea555b2bc9f3c7356113"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\images-d\\tuner-before.png",
+      "bytes": 3808925,
+      "sha256": "5bc491014b78f06298de750b5f849ad4b04de10729e9ea555b2bc9f3c7356113"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mineral-composite\\20261019-195535-813c192f\\after.png",
+      "bytes": 58559,
+      "sha256": "daeeade422cb45b4e21eea7182e9688cfd6e41a396b523eac5cdb5a237a57936"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mineral-composite\\20261019-195535-813c192f\\before.png",
+      "bytes": 59448,
+      "sha256": "9fd65c8ea18b2af683f8855ebd152ef5cc9361cf0d9fc61a7dff82e8d13a71ba"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mineral-composite\\20261019-195535-813c192f\\order-plus-10.png",
+      "bytes": 59448,
+      "sha256": "9fd65c8ea18b2af683f8855ebd152ef5cc9361cf0d9fc61a7dff82e8d13a71ba"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mineral-composite\\20261019-195535-813c192f\\order-plus-20.png",
+      "bytes": 59448,
+      "sha256": "9fd65c8ea18b2af683f8855ebd152ef5cc9361cf0d9fc61a7dff82e8d13a71ba"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mineral-composite\\20261019-195535-813c192f\\order-plus-30.png",
+      "bytes": 59448,
+      "sha256": "9fd65c8ea18b2af683f8855ebd152ef5cc9361cf0d9fc61a7dff82e8d13a71ba"
+    }
+  ],
+  "visual_review": "已目视核对浅井原生缩放图、Tuner挖填后图及矿物采空前后组合图；未把离屏样本作为完整前台画质或性能验收。",
+  "source_sha256": {
+    "Game/Assets/DarkNights/Res/Art/Custom/CaveEntranceLayers/CaveBackgroundLayer.shader": "e48280c20b51848219e2a6d7b48c588b4940075ab5eba30633bc8acbff944119",
+    "Game/Assets/DarkNights/Res/Shared/Lighting/TerrainNormals.hlsl": "43f201e4dd9a2e5134a07eaf6c73a1d18149a6f990159a898fa39bbe47e5fefc",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveEntranceBackdrop.cs": "a169e21a6e64905e7e77cbfab487dadaca6440b9ea8e1a97118078e41a6d1ec3",
+    "Game/Assets/DarkNights/Scripts/Editor/CaveEntranceArtValidation.cs": "a6b21bfb526691492f3ec7be01bd8516527b57dfd98c762413fa45c49e894e90",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveBackgroundOcclusionGpuTests.cs": "1508c0e0508e1155c4bbaf336187254b5aafda9373f79e7bed13adf5e3d1d855",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveBackgroundOcclusionGpuTests.cs.meta": "9b390519947ebad1b3333857a01968270bc87181e58354f0ff3c43f7efd1f294",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveBackgroundStreamingTests.cs": "38ae6ecb0f97d61922cfa1a6a773fee04c7d7c598fdfd502c9983f4dab951348",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveBackgroundStreamingTests.cs.meta": "1733c771795ecf9603c4fdc33ded8b41e30fac68de9c8811d1c6317c9840ad6c",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveEntranceArtGpuTests.cs": "8c4b61ce790c214856f60ccee7674b85c1bc01660071b5e976a95d7f37911af2",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveEntranceArtTests.cs": "5c5b098cf3f4d03f8a64ca11006423e2dbdd085bb0c5d591388985a2b50aa689",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveForegroundCoverageTests.cs": "ae1211ac0aafbed05514974fc7eb09a6481ba3448431d71ce7bb0e5a9ef953a5",
+    "Game/Assets/DarkNights/Scripts/Tests/CaveForegroundCoverageTests.cs.meta": "0c62d1dcb1ff2ef5520191b5ac3d6ba7f0c777327723f8533133dc0913ad4930",
+    "Game/Assets/DarkNights/Scripts/Tests/MineralCompositeTests.cs": "fb1d344a12833bfc3deab16a29982c5f89f39de04c92879f436f266f650123ef",
+    "Game/Assets/DarkNights/Scripts/Tests/TerrainVisualAcceptanceTests.cs": "bf8da30aaa738953e9f13560ef3f2412efeff782fad9d660265147e214b6887a",
+    "Game/Assets/DarkNights/Scripts/Tests/TerrainVisualTestScope.cs": "65a97b33d56f8a2d4b5e153a0ae5924444f29aa0a4a460e958f906f77e3fd403",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundCache.cs": "8cfc859f40d3653594484078017f0d022e7dcf6a9af863f6ea0181f2967c2389",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundPage.cs": "b9d5a4ba1236b1afb9e5d30dd5cc24a6011e05acb32bb698e0fc1458fa56106a",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundStyle.cs": "68a1f5c4618738e13aa791bb8b43619e9dc90348c21b2da9c0a2b2aec4e10f85",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveForegroundCoverage.cs": "562fe9d0ab29a18cd5c45f525030ea46cef81b839dc2414cc88733f579ab8bd3",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveForegroundCoverage.cs.meta": "8ddc1af62a3398a0451d7aab2bc59639ef837e86e319639cd04de9e26db0ebd9",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveLocalRockSurface.cs": "d434756514b98a022defcfb57d9ed48772682495f10b0ce21ee09ce21b83b40b",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveRockSurface.cs": "1d890852448a5028a263167e57b526070cc747f829117ea0c108ec4bc6eaccc1",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveVisualSource.cs": "c6113f38ba87261c5cbecaecc0503044de16f804a0802cbacb3a015ed4f1fd65",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPreview.cs": "7bf18da834c447beb4e941f7fb0fc5f9c474bdac603ef983513394782be83393",
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainViewport.cs": "ab0053a79c7cc029a0b55386aef929cf21c3234ea557dafc2edcff8405efb552"
+  },
+  "source_line_counts": {
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveEntranceBackdrop.cs": 99,
+    "Game/Assets/DarkNights/Scripts/Editor/CaveEntranceArtValidation.cs": 69,
+    "Game/Assets/DarkNights/Scripts/Tests/CaveBackgroundOcclusionGpuTests.cs": 76,
+    "Game/Assets/DarkNights/Scripts/Tests/CaveBackgroundStreamingTests.cs": 89,
+    "Game/Assets/DarkNights/Scripts/Tests/CaveEntranceArtGpuTests.cs": 76,
+    "Game/Assets/DarkNights/Scripts/Tests/CaveEntranceArtTests.cs": 135,
+    "Game/Assets/DarkNights/Scripts/Tests/CaveForegroundCoverageTests.cs": 55,
+    "Game/Assets/DarkNights/Scripts/Tests/MineralCompositeTests.cs": 204,
+    "Game/Assets/DarkNights/Scripts/Tests/TerrainVisualAcceptanceTests.cs": 175,
+    "Game/Assets/DarkNights/Scripts/Tests/TerrainVisualTestScope.cs": 114,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundCache.cs": 194,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundPage.cs": 102,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundStyle.cs": 41,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveForegroundCoverage.cs": 41,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveLocalRockSurface.cs": 206,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveRockSurface.cs": 119,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveVisualSource.cs": 280,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPreview.cs": 296,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainViewport.cs": 62
+  },
+  "production_unchanged_since_repair_evidence": {
+    "Game/Assets/DarkNights/Res/Art/Custom/CaveEntranceLayers/CaveBackgroundLayer.shader": true,
+    "Game/Assets/DarkNights/Res/Shared/Lighting/TerrainNormals.hlsl": true,
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveEntranceBackdrop.cs": true,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundCache.cs": true,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundPage.cs": true,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveBackgroundStyle.cs": true,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveForegroundCoverage.cs": true,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveForegroundCoverage.cs.meta": true,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveLocalRockSurface.cs": true,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveRockSurface.cs": true,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/CaveVisualSource.cs": true,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainPreview.cs": true,
+    "Game/Assets/DarkNights/Scripts/View/Terrain/TerrainViewport.cs": true
+  },
+  "configuration_and_frozen_contract": {
+    "Game/Packages/manifest.json": {
+      "sha256": "5ddb149d97a4310ebd4a5813fa9485a2ae59ab5fb6804b1c637ce85c65e528e4",
+      "unchanged": true
+    },
+    "Game/Packages/packages-lock.json": {
+      "sha256": "fd002144c90a2019e08e7647511406c62d754a44efa16a5116f97bd4cfbd9e39",
+      "unchanged": true
+    },
+    "Game/ProjectSettings/ProjectVersion.txt": {
+      "sha256": "0ee4b8baf7a4e3760cd3a0c19797a9362ed4e0c9c8ef0f49d8304c1211e511b8",
+      "unchanged": true
+    },
+    "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/BackgroundBakeDescriptor.cs": {
+      "sha256": "0ade9599d45944f1cefcdffcbbfad953185b2e1681d86ee5a5791e945a893cf3",
+      "unchanged": true
+    },
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs": {
+      "sha256": "b1ddad6dcb05064ffddc4f910faf0ca0a8884b4f8a7605cd383e4502b8eea6bf",
+      "unchanged": true
+    },
+    "Game/Assets/DarkNights/Scripts/Core/Save/SessionSnapshot.cs": {
+      "sha256": "e2ce8d156e8915e0d653e109cca393d4a00fc22755d3d85ff361ddd78d5c6bfe",
+      "unchanged": true
+    }
+  },
+  "assemblies": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Core.dll",
+      "bytes": 273920,
+      "sha256": "428edcc51d3a96b7c3c010d38a2ce53c4932e090d067eaec90ebd4ec5fa29302"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Editor.dll",
+      "bytes": 625664,
+      "sha256": "b897701336ddc40c074d2516d7f1a60e63ab55096c10f3598c4f5b142d6830df"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Entry.dll",
+      "bytes": 262144,
+      "sha256": "50007e75de777fd31bd3ccc0d7e023ef474bf453c2b5e3a148d7237cc57e61f9"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Runtime.dll",
+      "bytes": 749568,
+      "sha256": "9c7bdadbc5d4aa6dcd7d4e3cf7fb5daf4bbbe9fce411d4c8e279f15f6ca7be06"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Samples.LanCoop.Bootstrap.dll",
+      "bytes": 10752,
+      "sha256": "ed91e38dbf29f2004085588f4225ed7f544c5ac22c2bf7e2df71b962aedcde0e"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Samples.LanCoop.Core.dll",
+      "bytes": 7680,
+      "sha256": "6a95e8590f38cb69b3a388e3516496dedbb41f8efa01d2ba62f0658b0a53ac9b"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Samples.LanCoop.Editor.dll",
+      "bytes": 13824,
+      "sha256": "cb4887762eb07e8467ac08110c80fa5becfe6ebf1ec499b503c1c8dac228f234"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Samples.LanCoop.Presentation.dll",
+      "bytes": 8192,
+      "sha256": "99f5a9aa5c403941afdeffea335b7ee985fde751f483459896e3b32af5667275"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Samples.LanCoop.Runtime.dll",
+      "bytes": 34816,
+      "sha256": "064a646f0e27cd69737d9f562a46ce9956ad902862ebc6653c46ad8fc8786368"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Tests.dll",
+      "bytes": 1084416,
+      "sha256": "d18f3707b145275fa114698e9a398311de6e8035e7f6c27a99e64c1d25987f86"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.View.dll",
+      "bytes": 346624,
+      "sha256": "5b879690095d2be90bccf0b2d827b088b99927970a97c62a8876d0115a1eabaf"
+    }
+  ],
+  "compile": {
+    "receipt": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019\\recompile-composite-status.json",
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "memory": {
+    "initial": {
+      "state": "breach",
+      "samples": 35,
+      "peak_private_gib": 4.660572052001953,
+      "minimum_free_ram_gib": 9.03274154663086,
+      "minimum_free_commit_gib": 0.8740234375,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": false,
+      "ignore_commit_limit": false
+    },
+    "resumed": {
+      "state": "completed",
+      "samples": 731,
+      "peak_private_gib": 5.112224578857422,
+      "minimum_free_ram_gib": 8.821186065673828,
+      "minimum_free_commit_gib": 0.6090087890625,
+      "limits": {
+        "editor_private_gib": null,
+        "minimum_free_ram_gib": 1,
+        "minimum_free_commit_gib": 1
+      },
+      "read_only": false,
+      "ignore_commit_limit": true
+    },
+    "authorization": "用户明确要求“无视限制直接验证”，仅本批ignore-commit-limit；物理内存1GiB门槛继续，长期规则未修改。",
+    "initial_breach": "首次监控提交余量0.874GiB越界后误提交首批；原样保留并已告知用户。后续获明确覆盖后继续。"
+  },
+  "editor_final": {
+    "playing": false,
+    "compiling": false,
+    "active": "",
+    "outputOverride": "",
+    "scenes": [
+      {
+        "path": "Assets/Scenes/Bootstrap.unity",
+        "dirty": false
+      }
+    ]
+  },
+  "checks": {
+    "diff_whitespace": "passed",
+    "handwritten_max_300_lines": "passed"
+  },
+  "preserved_failures": [
+    "首批4个薄坡形夹具失败",
+    "第三批2个旧组合夹具失败",
+    "cancel-memory-breach.json诊断使用不可用API，未取消任何仍活动任务，原批已结束"
+  ],
+  "not_executed": [
+    "完整Bootstrap实际采掘/塌方回填操作",
+    "两种照明后端颜色与法线运行矩阵",
+    "Player构建或运行",
+    "独立进程联机/晚加入/保存恢复",
+    "CPU/GPU前台性能对比或收益百分比"
+  ],
+  "scope": "游戏侧实现保持修复候选不变，本轮仅新增或修正验证夹具和隔离输出；未提交/推送，模块/阶段未结束。",
+  "artifact_inventory": {
+    "validation_root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\background-wall-validation-20261019",
+    "validation_bytes": 11735674,
+    "mineral_runs": [
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mineral-composite\\20261019-194810-f0b5339a",
+      "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\mineral-composite\\20261019-195535-813c192f"
+    ],
+    "cleanup": "无删除或移动；旧证据、失败和五份原有非默认地图全部保留。"
+  }
+}

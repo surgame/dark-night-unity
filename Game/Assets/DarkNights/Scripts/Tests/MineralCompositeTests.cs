@@ -59,7 +59,13 @@ namespace DarkNights.Tests
                     rules.Business.Gameplay.Definitions.Select(value => value.Identity.Guid).ToArray()),
                 1, _ => true, () => mineralMap.CommitId, () => 1);
             void Flush() { byte[] packet; while ((packet = stream.Dequeue()) != null) replica.ReceivePacket(packet); stream.Acknowledge(replica.CommitId); }
-            var region = SessionMineralNetwork.Around(88 * 16, TerrainMiningGeometry.CenterHeight(-71));
+            var exposed = map.Deposits.SelectMany(deposit => deposit.Cells).Where(cell =>
+                foregroundMap.Read(new CellCoord(cell.U, cell.V)).Cell.IsEmpty &&
+                !mineralMap.Read(new CellCoord(cell.U, cell.V)).Cell.IsEmpty).ToArray();
+            var focus = exposed.First(cell => cell.U >= 48 && cell.U < 272 && cell.V <= -48 && cell.V > -144);
+            int farU = focus.U < 160 ? 280 : 40, farV = focus.V > -96 ? -150 : -40;
+            var farRegion = SessionMapRegion.Around(farU * 16, TerrainMiningGeometry.CenterHeight(farV));
+            var region = SessionMineralNetwork.Around(focus.U * 16, TerrainMiningGeometry.CenterHeight(focus.V));
             stream.Subscribe(MineralRegionReadiness.Subscription(region, mineralMap.Descriptor.Bounds)); Flush();
             foregroundStream.Subscribe(MineralRegionReadiness.Subscription(region, foregroundMap.Descriptor.Bounds)); FlushForeground();
             var scene = EditorSceneManager.NewPreviewScene();
@@ -70,7 +76,7 @@ namespace DarkNights.Tests
             camera.orthographicSize = .96f; camera.allowHDR = false; camera.allowMSAA = false;
             camera.overrideSceneCullingMask = EditorSceneManager.GetSceneCullingMask(scene);
             camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = Color.black;
-            camera.transform.position = root.transform.TransformPoint(new Vector3(88, -71, -60));
+            camera.transform.position = root.transform.TransformPoint(new Vector3(focus.U, focus.V, -60));
             var target = new RenderTexture(512, 320, 16, RenderTextureFormat.ARGB32); target.Create(); camera.targetTexture = target;
             var image = new Texture2D(512, 320, TextureFormat.RGBA32, false);
             var previous = RenderTexture.active;
@@ -81,6 +87,10 @@ namespace DarkNights.Tests
             string evidence = Path.GetFullPath("../artifacts/mineral-composite/" + DateTime.Now.ToString("yyyyMMdd-HHmmss") +
                 "-" + Guid.NewGuid().ToString("N").Substring(0, 8));
             Directory.CreateDirectory(evidence);
+            File.WriteAllText(Path.Combine(evidence, "fixture.json"), Newtonsoft.Json.JsonConvert.SerializeObject(new {
+                focusU = focus.U, focusV = focus.V, farU, farV,
+                exposedCellsAtOldCamera = exposed.Count(cell => Math.Abs(cell.U - 88) < 9.6 && Math.Abs(cell.V + 71) < 6),
+                exposedCells = exposed.Length, mapHash = map.Background.ReferenceHash }));
             try
             {
                 view.ShowCaveReplica(definition, style, source,
@@ -91,13 +101,13 @@ namespace DarkNights.Tests
                 Assert.That(view.LastError, Is.Null); Assert.That(view.Ready, Is.True);
                 AssertRockCacheMatches(view);
                 Assert.That(view.LoadedTerrainChunks, Is.EqualTo(25));
-                int backgroundBuilds = view.BackgroundBuildCount;
+                int backgroundBases = view.LightingSource.BackgroundBaseBuilds;
                 var staticBackground = TerrainVisualTestScope.Read<object>(TerrainVisualTestScope.Read<CaveVisualSource>(view, "caveSource"), "staticBackground");
                 var backgroundPages = TerrainVisualTestScope.Read<IDictionary>(staticBackground, "pages");
                 var initialBackgroundPages = new Dictionary<object, object>();
                 foreach (DictionaryEntry page in backgroundPages) initialBackgroundPages.Add(page.Key, page.Value);
                 var mineralHost = root.GetComponentInChildren<MineralLayerView>();
-                foreach (var destination in new[] { SessionMapRegion.Around(4000, -1200), region })
+                foreach (var destination in new[] { farRegion, region })
                 {
                     stream.Subscribe(MineralRegionReadiness.Subscription(destination, mineralMap.Descriptor.Bounds)); Flush();
                     view.SetMineralReplica(replica, destination, false);
@@ -113,8 +123,8 @@ namespace DarkNights.Tests
                         "同世界换区不能隐藏背景并露出相机底色。");
                     // 与正式角色兴趣范围一致：目标基线到达后镜头随目标区移动，返回时恢复原矿格取景。
                     camera.transform.position = root.transform.TransformPoint(new Vector3(
-                        destination.Equals(region) ? 88 : destination.MinU + destination.Width * .5f,
-                        destination.Equals(region) ? -71 : destination.MinV + destination.Height * .5f, -60));
+                        destination.Equals(region) ? focus.U : destination.MinU + destination.Width * .5f,
+                        destination.Equals(region) ? focus.V : destination.MinV + destination.Height * .5f, -60));
                     view.SetReplicaRegion(foregroundReplica, destination, true);
                     view.SetMineralReplica(replica, destination, true);
                     while (!view.Ready && view.LastError == null && EditorApplication.timeSinceStartup < deadline)
@@ -128,9 +138,10 @@ namespace DarkNights.Tests
                     foreach (var page in initialBackgroundPages)
                         Assert.That(backgroundPages[page.Key], Is.SameAs(page.Value), "已有背景页必须复用，不能因流换代重新烘焙。");
                     // 镜头进入远区允许首次构建新页；构建增量只能等于新增页数，返回原区不得重烘旧页。
-                    Assert.That(view.BackgroundBuildCount, Is.EqualTo(backgroundBuilds + backgroundPages.Count - initialBackgroundPages.Count));
+                    Assert.That(view.LightingSource.BackgroundBaseBuilds, Is.EqualTo(backgroundBases + backgroundPages.Count - initialBackgroundPages.Count),
+                        "只为新页准备基础后壁，装饰按揭露情况独立计数");
                 }
-                Assert.That(foregroundReplica.Read(new CellCoord(280, -150)).State, Is.EqualTo(GridSampleState.Unknown));
+                Assert.That(foregroundReplica.Read(new CellCoord(farU, farV)).State, Is.EqualTo(GridSampleState.Unknown));
                 Capture(camera, target, image); var before = image.GetPixels32();
                 File.WriteAllBytes(Path.Combine(evidence, "before.png"), image.EncodeToPNG());
                 var renderers = root.GetComponentInChildren<MineralLayerView>().GetComponentsInChildren<Renderer>(true);

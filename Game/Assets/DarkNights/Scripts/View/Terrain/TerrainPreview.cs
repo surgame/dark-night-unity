@@ -35,7 +35,7 @@ namespace DarkNights.View.Terrain
         public bool LocalPreviewBackground;
         private ITerrainInputSource inputSource;
         private readonly TerrainInputBatchQueue inputQueue = new TerrainInputBatchQueue();
-        private GridBounds visible;
+        private GridBounds visible, requested;
         private bool awaitingBaseline, loading;
         public int VisualRevision { get; private set; }
         public long BuiltPages => controller?.Renderer?.CommittedBuilds ?? 0;
@@ -256,7 +256,7 @@ namespace DarkNights.View.Terrain
         }
         private void HideForBaseline()
         {
-            awaitingBaseline = true; visible = default; drawReceipt?.Invalidate();
+            awaitingBaseline = true; visible = requested = default; drawReceipt?.Invalidate();
             controller.HideRegion(controller.Descriptor.Bounds);
             caveSource?.SetVisible(default);
             VisualRevision++;
@@ -264,12 +264,8 @@ namespace DarkNights.View.Terrain
         private void UpdateVisible()
         {
             if (ViewCamera == null) return;
-            var next = TerrainViewport.Capture(controller.Descriptor, transform, ViewCamera);
-            next = TerrainViewport.Limit(next, regionLoader?.Loaded ?? controller.Descriptor.Bounds, controller.Descriptor);
-            if (visible.Equals(next)) return;
-            TerrainViewport.HideDifference(controller, visible, next);
-            if (next.IsValid) controller.ShowRegion(next);
-            visible = next; caveSource?.SetVisible(next); VisualRevision++;
+            if (TerrainViewport.Present(controller, transform, ViewCamera,
+                regionLoader?.Loaded ?? controller.Descriptor.Bounds, caveSource, ref visible, ref requested)) VisualRevision++;
         }
         private void EnsureCameraHooks()
         {
@@ -287,7 +283,7 @@ namespace DarkNights.View.Terrain
             inputSource = null; replicaSource = null; regionLoader = null;
             lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null;
             inputQueue.Clear(); loading = awaitingBaseline = false;
-            var old = controller; controller = null; visible = default;
+            var old = controller; controller = null; visible = requested = default;
             var oldMinerals = minerals; minerals = null;
             var oldReplica = mineralReplica; mineralReplica = null;
             var oldSource = caveSource; caveSource = null;

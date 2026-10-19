@@ -32,7 +32,8 @@ namespace DarkNights.Tests
         private bool initialized;
         private readonly HashSet<ulong> presentedTickets = new HashSet<ulong>();
         private long committedSolved;
-        internal static readonly string Output = Path.GetFullPath("../artifacts/terrain-final-20260926");
+        internal static string Output => Path.GetFullPath(SessionState.GetString("DarkNights.Validation.OutputRoot",
+            "../artifacts/terrain-final-20260926"));
         internal TerrainVisualTestScope(bool legacy = false, float budget = 4)
         {
             Map = AssetDatabase.LoadAssetAtPath<TerrainMapAsset>(Root + "ReferenceChamber.asset");

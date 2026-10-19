@@ -41,6 +41,7 @@ namespace DarkNights.View.Terrain
         public bool Ready => fault == null && geometry.Initialized && task == null &&
             visible.All(k => bakedVersions[k] == versions[k]);
         public Exception Fault => fault;
+        internal CaveForegroundCoverage Coverage { get; set; }
 
         public CaveLocalRockSurface(Material material, string seed, CaveTerrainStyle style)
         {
@@ -115,7 +116,8 @@ namespace DarkNights.View.Terrain
                     catch (OperationCanceledException) { DiscardedBatches++; }
                     workIsInteractive = false;
                 }
-                var keys = dirty.Keys.Where(visible.Contains).Where(k => bakedVersions[k] != versions[k]).OrderBy(k => k).ToArray();
+                var keys = dirty.Keys.Where(visible.Contains).Where(k => bakedVersions[k] != versions[k] &&
+                    (Coverage?.CanPresent?.Invoke(k) ?? true)).OrderBy(k => k).ToArray();
                 if (keys.Length == 0) return;
                 var hot = keys.Where(interactive.Contains).ToArray();
                 bool isHot = hot.Length != 0;
@@ -169,6 +171,7 @@ namespace DarkNights.View.Terrain
                     throw new InvalidOperationException("局部上传纹理无法调整尺寸。");
                 upload.LoadRawTextureData(patch.Pixels); upload.Apply(false, false);
                 Graphics.CopyTexture(upload, 0, 0, 0, 0, rect.width, rect.height, texture, 0, 0, rect.x, rect.y);
+                Coverage?.Commit(rect, patch.Pixels);
                 UploadedBytes += patch.Pixels.Length;
                 bakedVersions[patch.Key] = patch.Version;
                 if (patch.Version == versions[patch.Key])

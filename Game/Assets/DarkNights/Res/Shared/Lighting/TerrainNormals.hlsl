@@ -4,6 +4,9 @@
 sampler2D _MainTex, _RockSurface, _CaveMap;
 float4x4 _MapWorldToLocal;
 float _Background;
+#if defined(DN_BACKGROUND_OCCLUSION)
+float _BackgroundOcclusion;
+#endif
 struct Attributes { float3 positionOS : POSITION; float2 uv : TEXCOORD0; };
 struct Varyings { float4 positionCS : SV_POSITION; float2 uv : TEXCOORD0; float2 local : TEXCOORD1; };
 Varyings DNNormalVertex(Attributes input)
@@ -19,6 +22,15 @@ half4 DNNormalFragment(Varyings input) : SV_Target
     // URP 2D 光源的模拟深度朝向相机，使用与原生 Sprite 法线相同的 -Z 朝向。
     float3 normal = float3(0,0,-1);
     float alpha = 1;
+#if defined(DN_BACKGROUND_OCCLUSION)
+    float2 backgroundCell=float2(input.local.x,-input.local.y)+.5;
+    if (_BackgroundOcclusion>.5 && all(backgroundCell>=0) && all(backgroundCell<float2(320,192)))
+    {
+        float2 backgroundUv=(floor(backgroundCell*8)+.5)/float2(2560,1536);
+        clip(tex2D(_CaveMap,backgroundCell/float2(320,192)).a-.5);
+        if (tex2D(_RockSurface,backgroundUv).a>=.5) clip(-1);
+    }
+#endif
 #if defined(DN_NORMAL_STRATA)
     float2 cell = float2(input.local.x,-input.local.y)+.5;
     float2 uv = (floor(cell*8)+.5)/float2(2560,1536);

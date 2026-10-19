@@ -29,6 +29,8 @@ namespace DarkNights.View.Terrain
         private readonly CaveBackgroundCache staticBackground;
         private readonly CaveRockSurface rockSurface;
         private readonly CaveLocalRockSurface localRockSurface;
+        private readonly CaveForegroundCoverage coverage;
+        private readonly int[] knownCells = new int[60];
         private int chunkSize = 32;
         private byte[] deviceLights;
         private bool oreDirty = true, lightFullDirty = true, lightInitialized, rockInitialized;
@@ -41,6 +43,11 @@ namespace DarkNights.View.Terrain
         public int BackgroundBuildCount => staticBackground?.BuildCount ?? 0;
         public long BackgroundUploadedBytes => staticBackground?.UploadedBytes ?? 0;
         public int BackgroundResidentPages => staticBackground?.ResidentPages ?? 0;
+        public bool BackgroundBaseReady => staticBackground?.BaseReady ?? true;
+        public int BackgroundBaseBuilds => staticBackground?.BaseBuildCount ?? 0;
+        public int BackgroundDecorationBuilds => staticBackground?.DecorationBuildCount ?? 0;
+        public int BackgroundOccludedPages => staticBackground?.OccludedPages ?? 0;
+        public long BackgroundResidentBytes => staticBackground?.ResidentBytes ?? 0;
         public Material Material { get; }
         public Texture LightTexture => light;
         public Texture LightingGeometry => map;
@@ -85,11 +92,15 @@ namespace DarkNights.View.Terrain
                 throw new InvalidOperationException("航程地表缺少现有分层背景配置，不能回退深度渐隐。");
             Material.SetFloat("_Ambient", surfaceSky ? style.Background.ForegroundAmbient : .36f);
             var modifiers = style.CaptureModifiers();
+            if (style.ProceduralRock && style.Background != null && style.Background.ContourStatic)
+                coverage = new CaveForegroundCoverage();
             if (style.ProceduralRock && modifiers.SupportsLocalRoundedCluster)
                 localRockSurface = new CaveLocalRockSurface(Material, reference?.LayoutSeed ?? "DN-MATERIAL-0921", style);
             else if (style.ProceduralRock)
                 rockSurface = new CaveRockSurface(Material, reference?.LayoutSeed ?? "DN-MATERIAL-0921", style);
             else Material.SetTexture("_RockTex", style.Rock);
+            if (localRockSurface != null) localRockSurface.Coverage = coverage;
+            if (rockSurface != null) rockSurface.Coverage = coverage;
             oreMap = new Texture2D(W, H, TextureFormat.RGBA32, false, true) { filterMode = FilterMode.Point, wrapMode = TextureWrapMode.Clamp };
             Material.SetTexture("_OreMap", oreMap);
             background = new Material(Material); background.SetFloat("_Background", surfaceSky ? 2 : 1);
@@ -104,7 +115,9 @@ namespace DarkNights.View.Terrain
             renderer.sortingOrder = surfaceSky ? style.Background.NearOrder + 1 : -96;
             if (style.Background != null && style.Background.ContourStatic)
                 staticBackground = new CaveBackgroundCache(reference, style.Background, background, parent,
-                    style.ProceduralRock ? style.CaptureOutline() : null, style.DecorationStartRow, surfaceSky, localBackground);
+                    style.ProceduralRock ? style.CaptureOutline() : null, style.DecorationStartRow, surfaceSky, localBackground,
+                    coverage, key => knownCells[key] == Page * Page);
+            if (coverage != null && staticBackground != null) coverage.CanPresent = staticBackground.CanPresent;
         }
         public async Task<MapChunkData> LoadAsync(WorldDescriptor descriptor, ChunkCoord coordinate, CancellationToken cancellation)
         {
@@ -189,7 +202,11 @@ namespace DarkNights.View.Terrain
             backdrop.SetActive(bounds.IsValid);
             staticBackground?.SetVisible(bounds); rockSurface?.SetVisible(bounds); localRockSurface?.SetVisible(bounds);
         }
-        public void TickBackground() { staticBackground?.Tick(); rockSurface?.Tick(); localRockSurface?.Tick(); }
+        public void TickBackground()
+        {
+            staticBackground?.Tick(); rockSurface?.Tick(); localRockSurface?.Tick();
+            staticBackground?.UpdateOcclusion();
+        }
         public void Dispose()
         {
             if (IsRetired) return;
@@ -204,6 +221,7 @@ namespace DarkNights.View.Terrain
             int u = position.U, row = -position.V;
             if (u < 0 || u >= W || row < 0 || row >= H) return;
             int index = row * W + u; Color32 next = ToColor(cell);
+            if (cells[index].a == 0) knownCells[row / Page * (W / Page) + u / Page]++;
             if (cells[index].a != 0 && cells[index].r == next.r && cells[index].g == next.g) return;
             next.b = cells[index].b; cells[index] = next; changed.Add(index); MarkPage(mapPages, u, row);
         }

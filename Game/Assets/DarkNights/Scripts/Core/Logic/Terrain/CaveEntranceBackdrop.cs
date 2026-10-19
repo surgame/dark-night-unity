@@ -8,6 +8,7 @@ namespace DarkNights.Core.Logic.Terrain
     {
         private readonly ICaveBackgroundLayout layout;
         private readonly int[] tops;
+        private readonly ushort[] skyline;
         private readonly bool empty;
         public CaveEntranceBackdrop(BackgroundBakeDescriptor reference, ICaveBackgroundLayout layout,
             int rimReach = 128, int rearDepth = 80, Action checkpoint = null)
@@ -15,7 +16,7 @@ namespace DarkNights.Core.Logic.Terrain
             this.layout = layout ?? throw new ArgumentNullException(nameof(layout));
             if (reference == null || rimReach < 0 || rimReach > 512 || rearDepth < 16 || rearDepth > 192)
                 throw new ArgumentException("洞口背景定位参数无效。");
-            ushort[] skyline = TerrainVisualCoordinates.SurfaceSkyline(reference);
+            skyline = TerrainVisualCoordinates.SurfaceSkyline(reference);
             if (layout.Width != skyline.Length || layout.Height != reference.Height * 8)
                 throw new ArgumentException("现有背景与初始地图尺寸不一致。");
             int bottom = layout.Height;
@@ -55,7 +56,17 @@ namespace DarkNights.Core.Logic.Terrain
             }
             byte[][] original = BackgroundPageBaker.Bake(layout, left, top, width, height, softness, checkpoint);
             for (int i = 0; i < 3; i++) layers[i] = original[i];
-            layers[3] = new byte[checked(width * height * 4)];
+            layers[3] = BakeBase(left, top, width, height, checkpoint);
+            return layers;
+        }
+
+        /// <summary>只烘焙连续基础墙；与三层装饰分开排队，冻结地表以下始终不透明。</summary>
+        public byte[] BakeBase(int left, int top, int width, int height, Action checkpoint = null)
+        {
+            if (left < 0 || top < 0 || width < 1 || height < 1 || left + width > layout.Width || top + height > layout.Height)
+                throw new ArgumentException("基础后壁分页范围无效。");
+            var pixels = new byte[checked(width * height * 4)];
+            if (empty) return pixels;
             for (int y = 0; y < height; y++)
             {
                 checkpoint?.Invoke();
@@ -67,16 +78,17 @@ namespace DarkNights.Core.Logic.Terrain
                     double n = BackgroundPixelMath.Noise(wx / 26.0, wy / 23.0, 17) * .8 +
                         BackgroundPixelMath.Noise(wx / 8.0 + 91, wy / 10.0 + 91, 17) * .2;
                     double shade = n > .66 ? .73 : n > .36 ? .63 : .53;
-                    layers[3][k] = BackgroundPixelMath.Round((38 + (70 - 38) * shade) * .87);
-                    layers[3][k + 1] = BackgroundPixelMath.Round((29 + (53 - 29) * shade) * .87);
-                    layers[3][k + 2] = BackgroundPixelMath.Round((20 + (38 - 20) * shade) * .87);
-                    layers[3][k + 3] = 255;
+                    pixels[k] = BackgroundPixelMath.Round((38 + (70 - 38) * shade) * .87);
+                    pixels[k + 1] = BackgroundPixelMath.Round((29 + (53 - 29) * shade) * .87);
+                    pixels[k + 2] = BackgroundPixelMath.Round((20 + (38 - 20) * shade) * .87);
+                    pixels[k + 3] = 255;
                 }
             }
-            return layers;
+            return pixels;
         }
         private bool Covered(int x, int y)
         {
+            if (y >= skyline[x]) return true;
             int gx = x / 8 * 8, gy = y / 8 * 8, next = Math.Min(gx + 8, tops.Length - 1);
             int mask = (gy >= tops[gx] ? 1 : 0) | (gy >= tops[next] ? 2 : 0) |
                 (gy + 8 >= tops[gx] ? 4 : 0) | (gy + 8 >= tops[next] ? 8 : 0);

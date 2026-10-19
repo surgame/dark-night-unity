@@ -27,6 +27,39 @@ namespace DarkNights.Tests
             public uint LayoutSeed => 7;
             public bool Solid(int layer, int x, int y) => y > 380 && (x / 16 + layer) % 3 == 0;
         }
+        /// <summary>没有装饰的冻结布局；用于复现原实心墙后缺少任何装饰或入口兜底的浅层区域。</summary>
+        private sealed class BareLayout : ICaveBackgroundLayout
+        {
+            public int Width => 2560;
+            public int Height => 1536;
+            public int Top => 320;
+            public uint LayoutSeed => 7;
+            public bool Solid(int layer, int x, int y) => false;
+        }
+
+        [Test]
+        public void NewlyOpenedFullAndSlopedWallsHaveContinuousBase([Range(0, 12)] int shape)
+        {
+            var cells = new byte[320 * 192]; var shapes = new byte[cells.Length];
+            cells[40 * 320 + 31] = 1; shapes[40 * 320 + 31] = (byte)shape;
+            var reference = new BackgroundBakeDescriptor("cf7a124d6c434c8fa970a397cbe83a21", "NEWLY-OPENED-WALL", cells, shapes);
+            var background = new CaveEntranceBackdrop(reference, new BareLayout());
+            byte[] pixels = background.BakeBase(31 * 8, 39 * 8, 8, 32);
+            var occupiedColumns = new bool[8];
+            for (int y = 0; y < 8; y++) for (int x = 0; x < 8; x++)
+            {
+                Assert.That(pixels[(y * 8 + x) * 4 + 3], Is.Zero, "地表上一格仍是天空");
+                if (TerrainShapeGeometry.Contains((TerrainCellShape)shape, (x + .5f) / 8, 1 - (y + .5f) / 8))
+                {
+                    occupiedColumns[x] = true;
+                    Assert.That(pixels[((8 + y) * 8 + x) * 4 + 3], Is.EqualTo(255), "原始实心像素下方必须有后壁");
+                }
+            }
+            for (int x = 0; x < 8; x++)
+                Assert.That(pixels[(24 * 8 + x) * 4 + 3], Is.EqualTo(occupiedColumns[x] ? 255 : 0),
+                    "有原生实心像素的列连续覆盖，薄坡形未占用的空列保持天空");
+            CollectionAssert.AreEqual(pixels, background.Bake(31 * 8, 39 * 8, 8, 32)[3], "基础独立排队不改变像素");
+        }
         [Test]
         public void ExistingMasksAndThreeLayerConfigurationRemainBoundToFormalStyles()
         {

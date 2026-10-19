@@ -28,6 +28,7 @@ namespace DarkNights.View.Terrain
         private int pendingKey, pendingVersion;
         private bool disposed;
         public int BuildCount { get; private set; }
+        internal CaveForegroundCoverage Coverage { get; set; }
         public bool Ready => materials != null && (geometry == null || geometry.Ready) && visible.All(k => bakedVersions[k] == versions[k]);
         public CaveRockSurface(Material material, string seed, CaveTerrainStyle style)
         {
@@ -85,14 +86,15 @@ namespace DarkNights.View.Terrain
             {
                 if (!task.IsCompleted) return;
                 var pixels = task.GetAwaiter().GetResult(); task = null;
-                if (pendingVersion != versions[pendingKey]) return;
+                if (pendingVersion != versions[pendingKey] || !(Coverage?.CanPresent?.Invoke(pendingKey) ?? true)) return;
                 upload.LoadRawTextureData(pixels); upload.Apply(false, false);
                 Graphics.CopyTexture(upload, 0, 0, 0, 0, 256, 256, texture, 0, 0, pendingKey % 10 * 256, pendingKey / 10 * 256);
+                Coverage?.Commit(CaveLocalRockGeometry.PageRect(pendingKey), pixels);
                 bakedVersions[pendingKey] = pendingVersion; BuildCount++; return;
             }
             foreach (int key in visible.OrderBy(k => k))
             {
-                if (bakedVersions[key] == versions[key]) continue;
+                if (bakedVersions[key] == versions[key] || !(Coverage?.CanPresent?.Invoke(key) ?? true)) continue;
                 pendingKey = key; pendingVersion = versions[key];
                 var ownMaterials = materials; var ownShapes = shapes; var token = cancellation.Token;
                 var field = geometry?.Field;

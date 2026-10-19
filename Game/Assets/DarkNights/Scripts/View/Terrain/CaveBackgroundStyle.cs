@@ -14,7 +14,7 @@ namespace DarkNights.View.Terrain
         public Texture2D SourceMaskAtlas;
         public Shader LayerShader;
         [Range(0, 64), Tooltip("初始岩缘的定位范围；只定位现有背景，不生成透明度过渡。")] public int EntranceRimReach = 16;
-        [Range(2, 24), Tooltip("没有现有点缀轮廓时，地下完整后壁最迟开始的深度。")] public int EntranceRearDepth = 10;
+        [Range(2, 24), Tooltip("窄井入口的既有后壁衔接深度；冻结地表以下始终完整覆盖。")] public int EntranceRearDepth = 10;
         [Range(.2f, 1)] public float ForegroundAmbient = .65f;
         [Range(.2f, 1)] public float BackgroundAmbient = .36f;
         public int FarOrder = -100;
@@ -34,7 +34,7 @@ namespace DarkNights.View.Terrain
         public string VisualIdentity => string.Join("|", ContourStatic, ContentHash, MiddleSoftness, Near, Middle, Deep,
             CaptureGenerator().Identity, CaveModifierAsset.CaptureStack(NearModifiers).Identity,
             CaveModifierAsset.CaptureStack(MiddleModifiers).Identity, CaveModifierAsset.CaptureStack(DeepModifiers).Identity,
-            "existing-layers-entrance-v1", EntranceRimReach, EntranceRearDepth, FarOrder, DeepOrder, MiddleOrder, NearOrder,
+            "continuous-underground-occlusion-v2", EntranceRimReach, EntranceRearDepth, FarOrder, DeepOrder, MiddleOrder, NearOrder,
             ForegroundAmbient.ToString(System.Globalization.CultureInfo.InvariantCulture),
             BackgroundAmbient.ToString(System.Globalization.CultureInfo.InvariantCulture));
     }

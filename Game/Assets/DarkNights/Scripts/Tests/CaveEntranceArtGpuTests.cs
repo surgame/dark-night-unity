@@ -52,13 +52,15 @@ namespace DarkNights.Tests
                     Vector3 point = camera.WorldToScreenPoint(root.transform.TransformPoint(new Vector3(x, .5f - row, 0)));
                     return image.GetPixel((int)point.x, (int)point.y);
                 }
-                Render(); var sky = Pixel(160, 38); var wallPixel = Pixel(160, 65);
+                Render(); var sky = Pixel(160, 38); var wallPixel = Pixel(160, 65); var shallow = Pixel(148, 40.25f);
                 Assert.That(sky.r > 240 && sky.g < 10 && sky.b > 240, Is.True);
                 Assert.That(wallPixel.g, Is.GreaterThan(10));
+                Assert.That(shallow.g, Is.GreaterThan(10), "浅层原岩壁后方也有基础墙");
                 Directory.CreateDirectory(CaveEntranceArtValidation.Root);
                 File.WriteAllBytes(Path.Combine(CaveEntranceArtValidation.Root, "shaft-existing-" + scale.ToString(System.Globalization.CultureInfo.InvariantCulture) + ".png"), image.EncodeToPNG());
                 camera.backgroundColor = Color.blue; Render();
                 Assert.That(Pixel(160, 65), Is.EqualTo(wallPixel), "地下不混入后方天空颜色");
+                Assert.That(Pixel(148, 40.25f), Is.EqualTo(shallow), "浅层揭露后壁不受天空颜色影响");
                 Assert.That(Pixel(160, 38).b, Is.GreaterThan(240)); Assert.That(Pixel(160, 38).r, Is.LessThan(10));
                 foreach (var renderer in renderers.Where(r => r.sortingOrder != -100)) renderer.gameObject.SetActive(false);
                 Render(); Assert.That(Pixel(160, 65).g, Is.GreaterThan(10), "关闭所有点缀层仍有完整地下后壁");
