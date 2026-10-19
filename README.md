@@ -1,6 +1,6 @@
 # Dark Nights · Unity
 
-Dark Nights 为灰松谷单关卡、2–4人合作游戏。日常 Unity 宿主为 `Game/`，从 Bootstrap 进入星球地面。当前开放购买、主角移动／跳跃、采集、手持装备及飞船驾驶；具体开放／暂停边界以[地面基础玩法](docs/GROUND_GAMEPLAY_BASELINE.md)为准。
+Dark Nights 为灰松谷单关卡、2–4人合作游戏。日常 Unity 宿主为 `Game/`，从 Bootstrap 进入星球地面。当前开放购买、主角移动／跳跃、采集、手持装备、船货入舱及固定飞船普通撤离／导航／自动起降；具体开放／暂停边界以[地面基础玩法](docs/GROUND_GAMEPLAY_BASELINE.md)为准。
 
 | 要做的事 | 阅读入口 |
 | --- | --- |

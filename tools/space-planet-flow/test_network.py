@@ -189,6 +189,11 @@ class NetworkRun:
                    "--dn-report", str(self.paths[role]["report"]), "--dn-commands", str(self.paths[role]["commands"])]
         if not self.args.interactive:
             command.append("--dn-input-replay")
+        graphics_api = getattr(self.args, "graphics_api", None)
+        if graphics_api:
+            if graphics_api not in ("d3d11", "d3d12"):
+                raise ValueError("unsupported local graphics API")
+            command.append("-force-" + graphics_api)
         if role == "host" and getattr(self.args, "quick_test", None):
             command.extend(["--dn-quick-test", self.args.quick_test])
         if getattr(self.args, "metrics", False):

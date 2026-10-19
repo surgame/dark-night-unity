@@ -156,6 +156,9 @@ namespace DarkNights.Entry
                         else if (operation == "capture-sample")
                             await SessionPresentationCapture.Save(network, command, Path.GetDirectoryName(reportPath));
                         else if (operation == "ui") network.GetComponent<SessionUiController>().ActivateButton((string)command["panel"], (string)command["key"]);
+                        else if (operation == "navigation-ui") NavigationAutomation.Apply(network, (string)command["key"]);
+                        else if (operation == "capture-frame") ScreenCapture.CaptureScreenshot(Path.Combine(
+                            Path.GetDirectoryName(reportPath), Path.GetFileName((string)command["file"])));
                         else if (operation == "hero-mode")
                             await network.GetComponent<HeroPlayerController>().SetHeroMode((int?)command["value"] != 0);
                         else if (operation == "input-orders")
@@ -233,6 +236,7 @@ namespace DarkNights.Entry
                     ["storageBusy"] = network.Server?.Storage.Busy ?? false,
                     ["storageStatus"] = network.Server?.Storage.Status ?? "",
                     ["uiPage"] = network.GetComponent<SessionUiController>().Page,
+                    ["navigationUI"] = NavigationAutomation.Capture(network),
                     ["selected"] = JArray.FromObject(network.GetComponent<SessionUiController>().Input.Selected),
                     ["entityViews"] = network.GetComponent<SessionEntityViews>().Count,
                     ["effectViews"] = effects.EffectCount, ["arrowViews"] = effects.ArrowCount,

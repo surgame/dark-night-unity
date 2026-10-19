@@ -21,6 +21,7 @@ namespace DarkNights.Runtime.Objects
     {
         public string Name => "太空与星球航程";
         public bool Enabled = true;
+        public NavigationPreset Navigation = new NavigationPreset();
         public float PreparationTimeoutSeconds = 30;
         public float ArrivalTimeoutSeconds = 30;
         public TerrainGenerationSettings CaveMap = new TerrainGenerationSettings
@@ -79,6 +80,7 @@ namespace DarkNights.Runtime.Objects
             if (MineMap != null) builder.Append("|mine-map-v1|").Append(JsonUtility.ToJson(MineMap.Freeze()));
             if (ReviewedMap != null) builder.Append("|reviewed-mine-v1|").Append(ReviewedMap.Fingerprint());
             builder.Append("|geology-point-v1|").Append(Geology?.Identity ?? "missing");
+            builder.Append("|navigation-v1|").Append(Navigation == null ? "missing" : JsonUtility.ToJson(Navigation));
             builder.Append("|terrain-modifiers-v").Append(ModifierSchemaVersion);
             var entries = EffectiveModifiers();
             builder.Append('|').Append(entries.Count);
@@ -126,7 +128,12 @@ namespace DarkNights.Runtime.Objects
             return result;
         }
 
-        public void Validate() { FreezePlanets(); FreezeCaveMap(); FreezeModifiers(); }
+        public void Validate()
+        {
+            var planets = FreezePlanets(); FreezeCaveMap(); FreezeModifiers();
+            if (Navigation == null) throw new InvalidOperationException("航程缺少导航配置。");
+            Navigation.Freeze(planets);
+        }
 
         public string Fingerprint()
         {

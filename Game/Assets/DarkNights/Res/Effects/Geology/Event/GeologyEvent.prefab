@@ -3655,6 +3655,7 @@ GameObject:
   - component: {fileID: 3552916776602040563}
   - component: {fileID: 6173685255614652617}
   - component: {fileID: 360683156233991000}
+  - component: {fileID: 2455285210684993331}
   m_Layer: 0
   m_Name: GeologyEvent
   m_TagString: Untagged
@@ -3780,7 +3781,7 @@ MonoBehaviour:
   - {fileID: 4663827818785914815}
   _meshRenderers: []
   _healthBarWidth: 0.48
-  _initializer: {fileID: 0}
+  _initializer: {fileID: 2455285210684993331}
   _rb: {fileID: 0}
   _colliders: []
   _centerOffset: {x: 0, y: 0}
@@ -3859,6 +3860,19 @@ MonoBehaviour:
   - {fileID: 4663827818785914815}
   Debris: {fileID: 6730549347896544607}
   Pile: {fileID: 7949409537213786864}
+--- !u!114 &2455285210684993331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5962425688815954306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b0c640ab779435093c6b75c32e06a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Runner.LocalObjectInstanceInitializer
+  _objectInstance: {fileID: 6173685255614652617}
 --- !u!1 &6060861631347102743
 GameObject:
   m_ObjectHideFlags: 0

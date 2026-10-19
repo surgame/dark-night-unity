@@ -20,7 +20,8 @@ namespace DarkNights.Runtime.Objects
         {
             var s = Read();
             return s == null || !s.Enabled ? null : new JourneyViewData(s.Enabled, s.JourneyId, s.Revision,
-                s.Phase, s.PlanetId, s.Seed, s.MapId, s.ContentFingerprint, s.PhaseElapsed, s.Error, Session.Flow.Planets);
+                s.Phase, s.PlanetId, s.Seed, s.MapId, s.ContentFingerprint, s.PhaseElapsed, s.Error, Session.Flow.Planets,
+                new JourneyNavigationData(Session.Flow.Navigation, s.StarX, s.StarY, s.RunId, s.SettledRunId, s.LastIncome));
         }
 
         internal void Restore(JourneyViewData value)
@@ -35,6 +36,10 @@ namespace DarkNights.Runtime.Objects
             s.Enabled = value.Enabled; s.JourneyId = value.JourneyId; s.Revision = value.Revision;
             s.Phase = value.Phase; s.PlanetId = value.PlanetId; s.Seed = value.Seed; s.MapId = value.MapId;
             s.ContentFingerprint = value.ContentFingerprint; s.PhaseElapsed = value.PhaseElapsed; s.Error = value.Error;
+            if (value.Navigation == null) throw new FormatException("航程缺少冻结导航资料。");
+            var n = value.Navigation;
+            s.StarX = n.X; s.StarY = n.Y; s.RunId = n.RunId;
+            s.SettledRunId = n.SettledRunId; s.LastIncome = n.LastIncome;
         }
 
         internal void SetPhase(JourneyPhase phase, string error = "")

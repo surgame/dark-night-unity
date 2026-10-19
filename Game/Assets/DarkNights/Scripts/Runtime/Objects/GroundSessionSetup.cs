@@ -23,6 +23,9 @@ namespace DarkNights.Runtime.Objects
             journey.PlanetId = planet.Id;
             journey.MapId = world.Terrain.Map.World.WorldId.ToString().Replace("-", "");
             journey.Seed = world.Terrain.Seed;
+            var node = world.Flow.Navigation.Find(planet.Id);
+            journey.StarX = node.X; journey.StarY = node.Y;
+            journey.RunId = Guid.NewGuid().ToString("N");
             world.Journey.SetPhase(JourneyPhase.Descent);
             world.Ship.Arrive(planet.DockX, planet.DockHeight, 0);
             if (!new ShipFlightMotion(world).Land())

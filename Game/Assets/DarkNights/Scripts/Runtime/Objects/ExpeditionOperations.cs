@@ -6,8 +6,8 @@ using DarkNights.Core.Logic.Terrain;
 namespace DarkNights.Runtime.Objects
 {
     /// <summary>
-    /// 地面会话的主角、手持投射物与飞船调度入口；经济、NPC、警戒、设备及返航结算已退出运行。
-    /// 保留规则和船体引用供购买及驾驶复用，持久状态仍归原有 YYGC Behaviour。
+    /// 会话主角、投射物和固定飞船的调度入口；旧NPC、警戒、设备及返航系统不参与运行。
+    /// 普通航程与交货调用原Journey、船体及Economy，持久状态仍归所属YYGC Behaviour。
     /// </summary>
     public sealed class ExpeditionOperations
     {
@@ -26,6 +26,7 @@ namespace DarkNights.Runtime.Objects
             world.Mutations.Run(() =>
             {
                 double delta = world.Camp.BeginStep(seconds);
+                world.Flow.Tick(delta);
                 world.Ship.Tick(delta);
                 foreach (var actor in world.Index.Actors.Where(a => a.Read().ManualControl).ToArray())
                     actor.Tick(delta);
@@ -48,8 +49,14 @@ namespace DarkNights.Runtime.Objects
             if (world.Terrain.Seed == PlanetTerrainGenerator.SpaceSeed) world.Flow.PrepareOrbit();
         }
 
-        internal int Command(string operation, int target, ActorBehaviour hero) =>
-            operation is "pilot" or "takeoff" or "land" or "cancel-flight" ? world.Ship.Command(operation, hero) : 0;
+        internal int Command(string operation, int target, ActorBehaviour hero)
+        {
+            if (target != Ship?.Id) return 0;
+            if (operation == "unload") return new ShipCargoService(world).Deposit(hero);
+            if (operation == "depart") return world.Flow.Depart(hero);
+            if (operation == "cancel-flight") return world.Flow.Cancel(hero);
+            return world.Flow.Enabled ? 0 : world.Ship.Command(operation, hero);
+        }
 
         internal void BeginGround()
         {

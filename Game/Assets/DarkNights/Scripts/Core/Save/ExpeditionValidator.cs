@@ -16,7 +16,7 @@ namespace DarkNights.Core.Save
                 data.LostCargo != 0 || data.LostDevices != 0 || data.ResupplyCost != 0 || data.Devices.Count != 1 ||
                 data.Crew.Any(a => a == null || a.Role != 0 ||
                     a.TaskTarget != 0 || a.TaskPhase != 0 || a.TaskClock != 0) ||
-                data.Devices.Any(b => b == null || b.Id != data.Ship?.Id || b.Iron != 0 || b.Gold != 0))
+                data.Devices.Any(b => b == null || b.Id != data.Ship?.Id || b.Iron < 0 || b.Gold < 0 || b.Iron + b.Gold > rules.ShipCapacity))
                 return "地面基础会话不能恢复已退出的远征业务";
             string journeyError = JourneyValidator.Validate(data.Journey);
             if (journeyError.Length != 0) return journeyError;

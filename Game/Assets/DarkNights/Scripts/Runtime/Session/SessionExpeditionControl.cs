@@ -7,13 +7,14 @@ namespace DarkNights.Runtime.Session
     {
         internal static int Apply(ObjectSession world, SessionConnection connection, SessionRequest request)
         {
-            bool personal = request.Kind is "pilot" or "takeoff" or "land" or "cancel-flight";
+            bool personal = request.Kind is "depart" or "unload" or "cancel-flight";
             if (!personal) return -1;
             if (!world.IsExpedition || !personal && !connection.IsHost) return -1;
             var hero = request.ActorIds.Count == 1 ? world.Index.Find<ActorBehaviour>(request.ActorIds[0]) : null;
             if (personal && (hero == null || hero.Read().ControllerSlot != connection.PlayerSlot ||
                 hero.Read().ControllerGeneration != connection.Generation || hero.Read().ControlLease != request.ControlLease)) return -1;
-            if (world.Paused) return 0;
+            if (world.Paused || request.TargetId != world.Expedition.Ship?.Id) return 0;
+            if (world.Journey.Read().Revision != request.Value) return 0;
             return world.Mutations.Run(() => world.Expedition.Command(request.Kind, request.TargetId, hero));
         }
     }

@@ -22,21 +22,23 @@ namespace DarkNights.Runtime.Network
         public double PhaseElapsed { get; set; }
         public string Error { get; set; }
         public PlanetWire[] Planets { get; set; }
+        public NavigationWire Navigation { get; set; }
 
         public static JourneyWire From(JourneyViewData v) => v == null ? null : new JourneyWire
         {
             Enabled = v.Enabled, JourneyId = v.JourneyId, Revision = v.Revision, Phase = (int)v.Phase,
             PlanetId = v.PlanetId, Seed = v.Seed, MapId = v.MapId, ContentFingerprint = v.ContentFingerprint,
-            PhaseElapsed = v.PhaseElapsed, Error = v.Error, Planets = v.Planets.Select(PlanetWire.From).ToArray()
+            PhaseElapsed = v.PhaseElapsed, Error = v.Error, Planets = v.Planets.Select(PlanetWire.From).ToArray(),
+            Navigation = NavigationWire.From(v.Navigation)
         };
 
         public JourneyViewData Freeze()
         {
             if (Planets == null || Planets.Length == 0 || Planets.Length > 32 || Planets.Any(p => p == null) ||
-                JourneyId == null || PlanetId == null || Seed == null || MapId == null || ContentFingerprint == null || Error == null)
+                JourneyId == null || PlanetId == null || Seed == null || MapId == null || ContentFingerprint == null || Error == null || Navigation == null)
                 throw new FormatException("航程网络目录或字段缺失。");
             var value = new JourneyViewData(Enabled, JourneyId, Revision, (JourneyPhase)Phase, PlanetId, Seed,
-                MapId, ContentFingerprint, PhaseElapsed, Error, Planets.Select(p => p.Freeze()).ToArray());
+                MapId, ContentFingerprint, PhaseElapsed, Error, Planets.Select(p => p.Freeze()).ToArray(), Navigation.Freeze());
             string error = JourneyValidator.Validate(value);
             if (error.Length != 0) throw new FormatException(error);
             return value;

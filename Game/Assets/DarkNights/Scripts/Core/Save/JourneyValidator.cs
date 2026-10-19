@@ -13,6 +13,9 @@ namespace DarkNights.Core.Save
         public static string Validate(JourneyViewData d, bool stableOnly = false, string worldId = null)
         {
             if (d == null) return "";
+            if (d.Navigation == null || d.Planets == null || d.Navigation.Definition.Nodes.Any(n =>
+                !n.PreviewOnly && !d.Planets.Any(p => p != null && p.Enabled && p.Id == n.Id)))
+                return "航程导航缺失或正式节点未关联星球";
             bool Text(string v, int max) => v != null && v.Length <= max;
             if (!d.Enabled || !Enum.IsDefined(typeof(JourneyPhase), d.Phase) || d.Revision < 1 ||
                 !Text(d.JourneyId, 32) || !Text(d.PlanetId, 48) || !Text(d.Seed, 80) || !Text(d.MapId, 32) ||
@@ -23,7 +26,7 @@ namespace DarkNights.Core.Save
             if (d.Planets == null || d.Planets.Count < 1 || d.Planets.Count > 32 || d.Planets.Any(p => p == null) ||
                 d.Planets.Select(p => p.Id).Distinct(StringComparer.Ordinal).Count() != d.Planets.Count ||
                 !d.Planets.Any(p => p.Enabled)) return "星球目录缺失、重复或超限";
-            if (stableOnly && d.Phase is not (JourneyPhase.Orbit or JourneyPhase.Descent or JourneyPhase.Landed))
+            if (stableOnly && d.Phase is not (JourneyPhase.Orbit or JourneyPhase.Landed))
                 return "航程切换期间不能保存";
             if (d.Phase == JourneyPhase.Orbit)
                 return d.JourneyId.Length == 0 && d.PlanetId.Length == 0 && d.Seed.Length == 0 &&
@@ -38,7 +41,7 @@ namespace DarkNights.Core.Save
         }
 
         public static bool OnPlanet(JourneyViewData d) => d != null &&
-            d.Phase is JourneyPhase.ArrivalSync or JourneyPhase.Descent or JourneyPhase.Landed;
+            d.Phase is JourneyPhase.ArrivalSync or JourneyPhase.Descent or JourneyPhase.Landed or JourneyPhase.Gathering or JourneyPhase.Ascent;
 
         public static string Environment(JourneyViewData journey, PlayableTerrain terrain)
         {
@@ -80,11 +83,12 @@ namespace DarkNights.Core.Save
             if (journey.Phase == JourneyPhase.Landed)
                 return d.Phase == 0 && (ship.Phase < 2 || d.Crew.All(a => a.Boarded))
                     ? "" : "星球地面与飞船乘员状态不一致";
+            if (journey.Phase == JourneyPhase.Gathering)
+                return d.Phase == 0 && ship.Phase is 1 or 2 && ship.PilotId == 0 ? "" : "撤离集合阶段不一致";
             if (ship.Phase != 3 || d.Phase != 0 || d.Crew.Any(a => !a.Boarded)) return "航行期间舱门、船员或地面状态无效";
             if (journey.Phase != JourneyPhase.Descent && (ship.VelocityX != 0 || ship.VelocityY != 0))
                 return "未就绪航程仍存在推力";
-            if (journey.Phase == JourneyPhase.Orbit && ship.PilotId != 0 ||
-                (journey.Phase is JourneyPhase.Preparing or JourneyPhase.Transit) && ship.PilotId == 0)
+            if (ship.PilotId != 0)
                 return "航程与驾驶席占用不一致";
             return "";
         }

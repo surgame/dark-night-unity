@@ -35,7 +35,7 @@ namespace DarkNights.Runtime.Session
                     if (Install(data))
                     {
                         beginEpoch();
-                        waiting = true; timeoutReported = false;
+                        waiting = flow.Phase == JourneyPhase.ArrivalSync; timeoutReported = false;
                         deadline = tick + (long)Math.Ceiling(flow.ArrivalTimeoutSeconds * 60);
                         return true;
                     }
@@ -46,7 +46,7 @@ namespace DarkNights.Runtime.Session
             {
                 participants.RemoveAll(c => !ReferenceEquals(connections[c.PlayerSlot], c));
                 bool expired = tick >= deadline;
-                bool ready = connections[0]?.Ready == true && participants.All(c => c.Ready || expired && !c.IsHost);
+                bool ready = connections[0]?.Ready == true && participants.All(c => c.Ready);
                 if (expired && !timeoutReported)
                 {
                     timeoutReported = true;

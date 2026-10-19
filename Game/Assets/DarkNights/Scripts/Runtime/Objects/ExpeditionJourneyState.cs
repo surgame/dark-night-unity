@@ -20,5 +20,10 @@ namespace DarkNights.Runtime.Objects
         public string ContentFingerprint { get; internal set; } = "";
         public double PhaseElapsed { get; internal set; }
         public string Error { get; internal set; } = "";
+        public float StarX { get; internal set; } = 40;
+        public float StarY { get; internal set; } = 30;
+        public string RunId { get; internal set; } = "";
+        public string SettledRunId { get; internal set; } = "";
+        public int LastIncome { get; internal set; }
     }
 }

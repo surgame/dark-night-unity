@@ -1,0 +1,303 @@
+{
+  "date": "2026-10-19",
+  "branch": "ft-20261019-ship-expedition-navigation",
+  "base_commit": "e35337e6d43316b87177cd14edd479719588e324",
+  "source_identity": "uncommitted candidate; exact source and tested Player hashes below",
+  "unity": "6000.4.9f1",
+  "protocol": 34,
+  "save_version": 26,
+  "scope": "approved ordinary ship cargo / shared settlement / auto departure / dynamic navigation / new expedition; existing native ship artwork reused",
+  "framework_source_modified_by_task": false,
+  "dependency_lock_modified": false,
+  "compile": {
+    "errors": 0,
+    "warnings": 0,
+    "final_player_build": "succeeded"
+  },
+  "player": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\player-final-20261019-164800\\DarkNights.exe",
+  "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+  "managed_sha256": {
+    "DarkNights.Core.dll": "435706fbdd5714504619c0eaccbde1a39d307ddd71c077f76399fecd8a79f521",
+    "DarkNights.Entry.dll": "c9fc403c0d614695672022ffe4f8d8b7836d60eb78fd7bdba7273510540ec7eb",
+    "DarkNights.Runtime.dll": "3a570e4326519beeb0b2d2798bc6900b8c6daff6c6f1ac1044fa2c1e2ac03053",
+    "DarkNights.Samples.LanCoop.Bootstrap.dll": "1917793c52128cbe7c695c15ecc44a8af53b80f3faa1f04365c91eb4596a3a4f",
+    "DarkNights.Samples.LanCoop.Core.dll": "06a5016955565d5851f33071ddc804dfc82a541750c7509fdbc674e6715d273d",
+    "DarkNights.Samples.LanCoop.Presentation.dll": "a08184c9d154b1ccf1bb3024ea40c505be94498c58913f9301df8012105e4f12",
+    "DarkNights.Samples.LanCoop.Runtime.dll": "37fbaafd6d4bb0db583cafba4690fb67077a44d19b829766113629ba87f4108f",
+    "DarkNights.View.dll": "3965b3113c6fa369fc8037dd8f0734e88d803235572c0a8ff85aec356e18916c"
+  },
+  "graphics_api": "Direct3D11 runtime flag, Mono development; ProjectSettings unchanged",
+  "network_runs": [
+    {
+      "purpose": "complete ordinary loop and navigation UI",
+      "processes": "Host + 2 clients on same PC",
+      "passed": true,
+      "checks": 88,
+      "result": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-164857-530484-mono-normal-3p-host\\result.json",
+      "sha256": "4b0b29aeaf234453e0f75b45d42b5a48c3d94f3e609d62fa646b4a73818f61ff",
+      "memory": {
+        "free_ram_gib": 8.665557861328125,
+        "free_commit_gib": 2.556133270263672,
+        "minimum_ram_gib": 8.584487915039062,
+        "minimum_commit_gib": 2.2081375122070312,
+        "reserve_gib": 1
+      }
+    },
+    {
+      "purpose": "normal reviewed-map ground startup, shared navigation, pause, reconnect and stable save/load",
+      "processes": "Host + 2 clients on same PC",
+      "passed": true,
+      "checks": 24,
+      "result": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-165057-229948-mono-normal-3p-client\\result.json",
+      "sha256": "8dc9ce10c2a1e3a5d4c4e80267b64f9bcb6724f16d432ad5e7d3425f497bffc0",
+      "memory": {
+        "free_ram_gib": 9.008567810058594,
+        "free_commit_gib": 2.7087059020996094,
+        "minimum_ram_gib": 9.008567810058594,
+        "minimum_commit_gib": 2.6017990112304688,
+        "reserve_gib": 1
+      }
+    }
+  ],
+  "fixture_boundary": "complete-loop preset initializes near-full ship and bag ore on actual reviewed map; all later actions use native UI events or trusted SessionClient commands. Does not prove ore acquisition route.",
+  "screenshot": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-164857-530484-mono-normal-3p-host\\ship-navigation.png",
+  "screenshot_viewed": true,
+  "fixed_failures": [
+    "GeologyEvent native prefab lacked YYGC LocalObjectInstanceInitializer; explicit root instance and view initializer references repaired preserving GUID",
+    "new quick preset storage whitelist and isolated QuickTests path",
+    "candidate ticket copied before mutation commit so pooled old state is never read after return",
+    "ship label avoids star node bounds and button/route status readability"
+  ],
+  "prior_failures_preserved": [
+    "network-20261019-162338-499362-mono-normal-3p-host (memory probe struct mismatch)",
+    "network-20261019-162543-604981-mono-normal-3p-host (existing geology template initializer)",
+    "network-20261019-163333-148220-mono-normal-3p-host (quick save selector whitelist)",
+    "network-20261019-163621-687899-mono-normal-3p-host (system commit memory gate stopped Players)",
+    "network-20261019-163822-062716-mono-normal-3p-host (candidate ticket after pooled-state commit)"
+  ],
+  "not_covered": [
+    "other-machine LAN",
+    "foreground performance and GPU acceptance",
+    "normal mining route / ore acquisition playtest",
+    "emergency / downed crew / persistent personal growth",
+    "final remodeled ship artwork; current native fixed ship reused",
+    "actual independent process restart from saved file"
+  ],
+  "editor_end": {
+    "playing": false,
+    "compiling": false,
+    "building": false,
+    "scene": "Assets/Scenes/Bootstrap.unity",
+    "dirty": false,
+    "desired_import_worker_count_restored": 5
+  },
+  "current_player_processes": "all test-owned Players closed",
+  "static_checks": {
+    "csharp_files": 49,
+    "maximum_lines": 299,
+    "meta_missing": [],
+    "local_links_checked": 310,
+    "invalid_links": [],
+    "python_ast": "passed"
+  },
+  "artifacts": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\build-preflight",
+      "bytes": 812
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\build-progress-memory",
+      "bytes": 814
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\compile-preflight",
+      "bytes": 814
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\d3d11-network-preflight",
+      "bytes": 815
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\final-network-preflight",
+      "bytes": 814
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\final-normal-preflight",
+      "bytes": 817
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\geology-build-preflight",
+      "bytes": 817
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\geology-network-preflight",
+      "bytes": 813
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\loop-build-monitor",
+      "bytes": 316951
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\loop-build-preflight",
+      "bytes": 817
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\loop-compile-preflight",
+      "bytes": 817
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\loop-network-preflight",
+      "bytes": 812
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\loop-network-workers-preflight",
+      "bytes": 817
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\memory-preflight",
+      "bytes": 812
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\nav-tests-preflight",
+      "bytes": 815
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-162338-499362-mono-normal-3p-host",
+      "bytes": 238433
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-162543-604981-mono-normal-3p-host",
+      "bytes": 238111
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-163333-148220-mono-normal-3p-host",
+      "bytes": 274986
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-163621-687899-mono-normal-3p-host",
+      "bytes": 959900
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-163822-062716-mono-normal-3p-host",
+      "bytes": 2141657
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-164324-142637-mono-normal-3p-host",
+      "bytes": 2901233
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-164502-080069-mono-normal-3p-client",
+      "bytes": 1705901
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-164857-530484-mono-normal-3p-host",
+      "bytes": 2891855
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\network-20261019-165057-229948-mono-normal-3p-client",
+      "bytes": 1701740
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\normal-network-preflight",
+      "bytes": 811
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\player-final-20261019-164800",
+      "bytes": 207795308
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\player-loop-20261019-160404",
+      "bytes": 207837190
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\player-loop-geology-20261019-163243",
+      "bytes": 207543327
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\player-loop-storage-20261019-163523",
+      "bytes": 207788575
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\player-loop-ticket-20261019-164226",
+      "bytes": 207794526
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\resume-compile-preflight",
+      "bytes": 817
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\storage-compile-preflight",
+      "bytes": 815
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\storage-network-preflight",
+      "bytes": 817
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\ticket-compile-preflight",
+      "bytes": 815
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\ticket-network-preflight",
+      "bytes": 808
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\ship-expedition-20261019\\ui-final-compile-preflight",
+      "bytes": 809
+    }
+  ],
+  "source_sha256": {
+    "Game/Assets/DarkNights/Res/Effects/Geology/Event/GeologyEvent.prefab": "a2ad07c37a1bfffee9fccfaf6aaafaa8844066f7818a974850339e86fc7747d4",
+    "Game/Assets/DarkNights/Res/UI/ShipEquipment/ShipEquipment.uss": "fa3966694a8f3e768de0ab8b2a8e052a73f3175a7a68adcd775ff5cc6f4c8990",
+    "Game/Assets/DarkNights/Res/UI/ShipEquipment/ShipEquipment.uxml": "8fafc1e37952811ae3e99c4241fea1566264a11c473abec79eb9009e18d7be87",
+    "Game/Assets/DarkNights/Scripts/Core/Config/Expedition/NavigationDefinition.cs": "10fcfa529ca1e9f139abb9f5fc20280d14dfbd495a7ccf998e40b3d538081b53",
+    "Game/Assets/DarkNights/Scripts/Core/Config/Expedition/NavigationNodeDefinition.cs": "84b0edc8c923609165255a53fc2a39dcabbe60aa1c15e359d3269e7aa2f52905",
+    "Game/Assets/DarkNights/Scripts/Core/Save/ExpeditionShipValidator.cs": "6f78b08fa106bf7d4e9e05cfd68af4b7edea6cc927c5a4a8395793ea311450af",
+    "Game/Assets/DarkNights/Scripts/Core/Save/ExpeditionValidator.cs": "4c0d2c56f06549dff94a7f5304e95462127a87cdae704fab416c35695de35f07",
+    "Game/Assets/DarkNights/Scripts/Core/Save/JourneyValidator.cs": "ea713c5012e7d8c5511b511f12a5a6132d92af723c755bb55bca0d02143fe39b",
+    "Game/Assets/DarkNights/Scripts/Core/Save/SessionSnapshot.cs": "e2ce8d156e8915e0d653e109cca393d4a00fc22755d3d85ff361ddd78d5c6bfe",
+    "Game/Assets/DarkNights/Scripts/Core/ViewData/JourneyNavigationData.cs": "82940f780b93b8d8957b3a689e44d771eeef6c56040cb4b51e0127cc04679b17",
+    "Game/Assets/DarkNights/Scripts/Core/ViewData/JourneyPhase.cs": "40316dbeee88771b0de46fbab76a3e6ba650f4db0ef78b107c355012c20a3beb",
+    "Game/Assets/DarkNights/Scripts/Core/ViewData/JourneyViewData.cs": "0a05e7f723afa8688f4b590fb440121af3cc8774a5d7b32d83f86765718e3f80",
+    "Game/Assets/DarkNights/Scripts/Editor/ExpeditionFlowDraft.cs": "41965290898dc042ca9d8405e558c37b85e79c71e432b966537fee41fce6f053",
+    "Game/Assets/DarkNights/Scripts/Entry/GameSessionStartupModule.cs": "cf9d517038c73b7b5012333238deff95a11504ac12bad6c539a21edf3b691ec1",
+    "Game/Assets/DarkNights/Scripts/Entry/NavigationAutomation.cs": "1848738ea2ead94493d43c223e89b9e7eac885b208e5b81de6c790da3609f93e",
+    "Game/Assets/DarkNights/Scripts/Entry/SessionAutomation.cs": "9cc82506598eed4e77d126514e9e799fd9328b165b7a003f282144403a1f1a7e",
+    "Game/Assets/DarkNights/Scripts/Entry/SessionUiController.cs": "bfa7d455d52751cd8d89384c5ab0bbdc06a627a64c1ca182dbeebb029c8e6192",
+    "Game/Assets/DarkNights/Scripts/Entry/ShipEquipmentPanel.cs": "9896dae45cbdc83d888748a5e5ae7002ce7db71d4c25ba5863223142f1c0d1c5",
+    "Game/Assets/DarkNights/Scripts/Entry/ShipNavigationContent.cs": "d5f21a847f606498f269a486e41733031f6dd9e41e59dd0da442dda38380724c",
+    "Game/Assets/DarkNights/Scripts/Entry/ShipTradeHud.cs": "0d769927cc2b1de0746e4028c1b5d4efa26dee1a44bdb9fba6ce27dd86697ed2",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/JourneyWire.cs": "1c4f738eb0201ae4fd777bd7cc67c59647d13ee2c83d68d32a7c4c46dea820ca",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/NavigationNodeWire.cs": "5e7cdcc40d182e6e2fe2e2c893728af97f8599c66abdcebbaa0261c87f636959",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/NavigationWire.cs": "f390c89769405cf8e8f1f059931a0cdbd8f3761f502d3a9bbf689abca151b265",
+    "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionSaveLocation.cs": "869da6c3ea4a3209c62f76f5346017742401605872adb78590f35fbf3a2e39dc",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlightLifecycle.cs": "bffeae02f889ded9088403bc2e2c6732daf0dd31160215c221b1c0cd180390fe",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs": "105498eaaaad017d25b49f4edbd7b64a02766c8b584b8e7adb34516cd5e2ccb9",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowConfig.cs": "ee39db9a52604e40de257e443cf1af0f787f1705b5c2209629cfa2c308d27ac6",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionJourneyBehaviour.cs": "3ba60ea3bbdd2b9a8264cf27df430699494306a05881ef6bca67f5a387c4f50c",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionJourneyState.cs": "6582bc6b42606a769d1b7f3d0964f3765006792dc5dbb8e8d139780d6e6daddd",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionOperations.cs": "fa435a406127c4e2b86ebe58a817f0b5be809df1c77dd65382145f4a7edf119f",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionShip.cs": "2f8837cebf5dcab7cf3bd7aeeb76a4094e07362cc8160bfd76920802350061cf",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/GroundSessionSetup.cs": "7e4b505e5e266a7d771993fcbc760a9b7807184469b32ba64b5f0a4696c73ded",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/NavigationNodePreset.cs": "1b78612d31c76efd2f77a6245e43c4056179cc275d12fee539f30edec1dc2369",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/NavigationPreset.cs": "f386e01a9603adddaba0640c2975f66265b53823f58b3a0f98389db83f8b192b",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionCommands.cs": "d8294dd73c7554edb5c16f5c9f2fb3b0028aedec16aef38d64b64db2ff34c542",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/QuickTestPreset.cs": "3444f4bd461c1c1166de2b89481e0a738c696e3c8c2bce00a9140acd19f1dd78",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipCabinMotion.cs": "1bd5deabece79f007abddff73786e48c70de5e76246c02a4c8571407af825ebb",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipCargoQuickTest.cs": "c95556684dd225be221c0f2bb84ddebca71c42bd1a40d6dc700353423c78b5b1",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipCargoService.cs": "2967dbd5b23741285df98a35142899b9b168b79608ba41fc74685d607114d93b",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipTradeService.cs": "785260148697cb8a15dc362c297e12f605324d17954e315078765e8edab901de",
+    "Game/Assets/DarkNights/Scripts/Runtime/Save/JourneySaveJson.cs": "b9eba22fadc8dd2075fcbca63e9266fbebc10114c094ccac5823659a3bb991fa",
+    "Game/Assets/DarkNights/Scripts/Runtime/Save/NavigationSaveJson.cs": "d3b4d7ad86092c51c82387c7e56cf0aa3c2b4780f05946b03552e43d5b7466f6",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs": "b1ddad6dcb05064ffddc4f910faf0ca0a8884b4f8a7605cd383e4502b8eea6bf",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionExpeditionControl.cs": "2a4f0363ce446a0363f4fe5a4eb0c60a70d01d2c4c23280482ded6a141bd2621",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyTransfer.cs": "08e7087919c1433c48c0bbc1eb43cdee8f3bbd11f76e4a3a532f19e3374a13d4",
+    "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperations.cs": "d1e29c9dc1231ab8ab569bcaca461a5baea44bca7028ed5a254ae508c97de3e4",
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/SessionTerrainNetwork.cs": "6226a396fa6ccfa62f667f782c6235ab92f70a321cb03767d443567a88614843",
+    "Game/Assets/DarkNights/Scripts/Tests/StarNavigationTests.cs": "fb64910872c8b432be355cefe8f3fa31caa15bf34cc9a04b48ce30503d5e77cd",
+    "Game/Assets/DarkNights/Scripts/View/Expedition/JourneyPresentationRules.cs": "b485702afe1cc01dec805579ada5c96177a0078325b001f6f06a839a3a41768e",
+    "Game/Assets/DarkNights/Scripts/View/Expedition/StarMapElement.cs": "e0573e6e77b9f6ebfa1ea3fb42b168645f190d4c0d0af290a1f8e02b10719b51",
+    "Game/Assets/DarkNights/Scripts/View/ExpeditionPanel.cs": "04cb001f4251a22af92ce903f2c7820d6372e59237642b256b691fc46d1e5f20",
+    "Game/Assets/DarkNights/Scripts/View/PinewatchStage.cs": "780eb3108b557861289371e596f652adfda4e07e8e254f3f054554e6a4fbc096"
+  }
+}

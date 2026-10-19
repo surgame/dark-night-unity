@@ -37,11 +37,11 @@ namespace DarkNights.View
             targetCameraX = position.x * 100;
         }
         /// <summary>登船时连续调整目标取景，为整船、顶舱口和左侧远征面板留出空间。</summary>
-        public void FocusShip(Vector3 position)
+        public void FocusShip(Vector3 position, bool close = false)
         {
-            shipFraming = true;
+            shipFraming = true; voyageFraming = close;
             targetCameraHeight = position.y * 100 + 90;
-            targetCameraX = position.x * 100 - 240 / TargetZoom;
+            targetCameraX = position.x * 100 - (close ? 0 : 240 / TargetZoom);
         }
         /// <summary>按本地冻结副本选择人物或飞船目标，镜头只跟随已插值的外观位置。</summary>
         public void FollowControlledActor(int actorId, SessionViewData frame, IEntityVisuals visuals)
@@ -52,7 +52,8 @@ namespace DarkNights.View
                     if (crew.Id == actorId && crew.Boarded)
                     {
                         EntityView ship = visuals.Visual(expedition.Ship.Id);
-                        if (ship != null) { FocusShip(ship.transform.position); return; }
+                        if (ship != null) { FocusShip(ship.transform.position,
+                            expedition.Journey?.Phase != JourneyPhase.Landed); return; }
                         break;
                     }
             EntityView hero = visuals.Visual(actorId);
@@ -60,9 +61,9 @@ namespace DarkNights.View
         }
         private double visualTime;
         private int epoch;
-        private bool observing, expedition, shipFraming, cameraInitialized;
-        private float TargetZoom => shipFraming ? Mathf.Min(zoom, Mathf.Max(.8f, (Screen.width - 480f) /
-            (Core.Logic.Terrain.ShipGeometry.HalfWidth * 2 + 64)), Screen.height / 300f) : zoom;
+        private bool observing, expedition, shipFraming, cameraInitialized, voyageFraming;
+        private float TargetZoom => shipFraming ? Mathf.Min(zoom, Mathf.Max(.8f, (Screen.width - (voyageFraming ? 64f : 480f)) /
+            (Core.Logic.Terrain.ShipGeometry.HalfWidth * 2 + 64)), Screen.height / (voyageFraming ? 260f : 300f)) : zoom;
         private static readonly Color DayAmbient = new Color32(233, 235, 222, 255);
         private static readonly Color NightAmbient = new Color32(113, 135, 169, 255);
         public Camera SceneCamera => sceneCamera;

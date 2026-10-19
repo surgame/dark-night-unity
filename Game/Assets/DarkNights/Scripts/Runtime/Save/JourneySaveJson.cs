@@ -17,17 +17,19 @@ namespace DarkNights.Runtime.Save
             ["Enabled"] = d.Enabled, ["JourneyId"] = d.JourneyId, ["Revision"] = d.Revision,
             ["Phase"] = (int)d.Phase, ["PlanetId"] = d.PlanetId, ["Seed"] = d.Seed, ["MapId"] = d.MapId,
             ["ContentFingerprint"] = d.ContentFingerprint, ["PhaseElapsed"] = d.PhaseElapsed,
-            ["Error"] = d.Error, ["Planets"] = new JArray(d.Planets.Select(WritePlanet))
+            ["Error"] = d.Error, ["Planets"] = new JArray(d.Planets.Select(WritePlanet)),
+            ["Navigation"] = NavigationSaveJson.Write(d.Navigation)
         };
 
         internal static JourneyViewData Read(JToken token)
         {
             if (token?.Type == JTokenType.Null) return null;
             var d = Object(token);
-            if (d.Count != 11) throw new FormatException("航程字段数量无效。");
+            if (d.Count != 12) throw new FormatException("航程字段数量无效。");
             var value = new JourneyViewData(Boolean(d["Enabled"]), Text(d["JourneyId"]), Integer(d["Revision"]),
                 (JourneyPhase)Integer(d["Phase"]), Text(d["PlanetId"]), Text(d["Seed"]), Text(d["MapId"]),
-                Text(d["ContentFingerprint"]), Number(d["PhaseElapsed"]), Text(d["Error"]), Array(d["Planets"], ReadPlanet, 32));
+                Text(d["ContentFingerprint"]), Number(d["PhaseElapsed"]), Text(d["Error"]), Array(d["Planets"], ReadPlanet, 32),
+                NavigationSaveJson.Read(d["Navigation"]));
             string error = JourneyValidator.Validate(value, stableOnly: true);
             if (error.Length != 0) throw new FormatException(error);
             return value;

@@ -1,4 +1,22 @@
 .equipment-root { position: absolute; left: 18px; bottom: 16px; background-color: rgba(7, 16, 27, 0.56); padding: 10px; border-radius: 7px; color: rgb(229, 241, 249); }
+.ship-ui-root { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.flight-bar { position: absolute; top: 12px; left: 18px; right: 280px; flex-direction: row; align-items: center; background-color: rgba(17, 31, 39, 0.92); padding: 8px; border-radius: 5px; }
+.flight-status { flex-grow: 1; color: rgb(230, 219, 185); font-size: 15px; white-space: normal; }
+.navigation-backdrop { display: none; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.65); align-items: center; justify-content: center; }
+.navigation-backdrop.is-open { display: flex; }
+.navigation-card { width: 85%; max-width: 760px; background-color: rgb(27, 43, 51); padding: 18px; border-radius: 6px; color: rgb(227, 228, 212); }
+.star-map-host { height: 210px; background-color: rgb(13, 27, 36); margin-bottom: 10px; }
+.star-map { flex-grow: 1; position: relative; }
+.star-node { position: absolute; width: 128px; height: 48px; font-size: 12px; background-color: rgb(34, 53, 59); color: rgb(215, 224, 208); border-width: 1px; border-color: rgb(83, 110, 111); white-space: normal; }
+.star-node.is-target { border-color: rgb(216, 181, 111); }
+.star-node.is-selected { background-color: rgb(66, 79, 70); }
+.star-ship { position: absolute; width: 76px; height: 20px; color: rgb(245, 209, 133); font-size: 12px; -unity-text-align: middle-left; }
+.navigation-row { height: 36px; margin-bottom: 5px; background-color: rgb(36, 54, 62); color: rgb(221, 229, 216); -unity-text-align: middle-left; }
+.navigation-row.is-selected { background-color: rgb(74, 82, 66); }
+.navigation-detail { white-space: normal; font-size: 13px; margin-top: 6px; margin-bottom: 8px; color: rgb(224, 208, 170); }
+.navigation-confirm { height: 36px; margin-top: 10px; background-color: rgb(66, 88, 80); color: rgb(238, 238, 215); border-color: rgb(121, 147, 130); border-width: 1px; }
+.navigation-confirm:disabled { background-color: rgb(34, 47, 53); color: rgb(135, 149, 148); border-color: rgb(52, 69, 73); }
+.deposit-button { height: 26px; margin-bottom: 5px; background-color: rgb(40, 62, 67); color: rgb(225, 228, 212); }
 .credits { font-size: 14px; margin-bottom: 6px; }
 .equipment-row { flex-direction: row; align-items: center; }
 .slot { width: 80px; height: 62px; margin-right: 5px; padding: 8px 4px; background-color: rgba(177, 207, 222, 0.21); border-color: rgba(229, 241, 249, 0.58); border-width: 1px; border-radius: 4px; font-size: 14px; -unity-text-align: middle-center; }

@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-19",
+  "module": "CL-06",
+  "scope": "船舱交互方案；聊天内原型，不接入正式游戏",
+  "decision": "用户确定星球内玩法优先、重做固定飞船、不做DIY飞船；布局及自动起降规则待原型审阅",
+  "fragment": "C:/Users/Jobscn/.codex/visualizations/2026/10/18/01a150ab-0897-7cf1-9652-4c4ca11a1605/cabin-departure.html",
+  "source_assets": {
+    "count": 21,
+    "root": "Game/Assets/DarkNights/Res",
+    "reused": ["Art/Original/sprites/spr_worker_idle", "Art/Original/sprites/spr_worker_shirt_idle", "Art/Original/sprites/spr_worker_walking", "Art/Original/sprites/spr_worker_shirt_walking", "Art/Original/sprites/bg_sky_stars", "Art/Original/sprites/bg_forest_middle", "Art/Custom/ExpeditionPrototype/storage.png", "Art/Custom/Handheld/PickaxeIcon.png", "Art/Custom/Handheld/PistolIcon.png", "Art/Custom/Handheld/BombIcon.png", "Objects/Flashlight/Flashlight.png"],
+    "method": "原字节嵌入原型；Canvas确定性绘制固定船体、设备及原型入口地表，未生图，未改原资产"
+  },
+  "checks": {
+    "environment": "本机headless Edge / Playwright，仅验证原型",
+    "flow": "补给购买→选图→集合倒计时→自动降落→下船→采样→返船→交付→呼叫队友→自动起飞",
+    "result": "passed",
+    "viewport_widths": [1100, 390],
+    "mobile_frame_client_width": 358,
+    "mobile_frame_scroll_width": 358,
+    "missing_images": 0,
+    "page_errors": [],
+    "screenshots": ["cabin-desktop.png", "cabin-navigation.png", "cabin-mobile.png"],
+    "screenshot_directory": "C:/Users/Jobscn/.codex/visualizations/2026/10/18/01a150ab-0897-7cf1-9652-4c4ca11a1605"
+  },
+  "limitations": ["价格、余额、货物、队友与地面采样均为原型占位，不决定正式经济、采矿或救援规则", "三张地图卡为设计示意，不声明对应正式版本已审核", "原型审阅尚未完成，不声明用户已选择布局或自动起降", "未修改Unity源码、Prefab、原始素材、YYGC、协议、存档、依赖或进程", "未运行Unity编译、Play、测试、Player构建、联机或正式闭环验收"]
+}

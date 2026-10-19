@@ -18,6 +18,7 @@ namespace DarkNights.Runtime.Objects
     {
         public const string LandedPickaxeId = "landed-pickaxe";
         public const string EmbeddedMineralsId = "landed-embedded-minerals";
+        public const string ShipCargoId = "landed-ship-cargo";
         private readonly string id;
         public string Id => id;
         public string Seed => id == EmbeddedMineralsId ? "DN-QUICK-MINERALS-20261004" : "DN-QUICK-PICKAXE-20261002";
@@ -27,7 +28,7 @@ namespace DarkNights.Runtime.Objects
         public static QuickTestPreset Create(string id, ExpeditionFlowConfig flow)
         {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-            if (id != LandedPickaxeId && id != EmbeddedMineralsId) throw new ArgumentException("未知快速测试项。", nameof(id));
+            if (id != LandedPickaxeId && id != EmbeddedMineralsId && id != ShipCargoId) throw new ArgumentException("未知快速测试项。", nameof(id));
             if (flow == null || !flow.Enabled) throw new InvalidOperationException("快速着陆需要启用正式星球航程配置。");
             return new QuickTestPreset(flow.PreviewPlanet(), id);
 #else
@@ -37,6 +38,7 @@ namespace DarkNights.Runtime.Objects
 
         internal void Apply(ObjectSession world)
         {
+            if (id == ShipCargoId) { ShipCargoQuickTest.Apply(world); return; }
             if (!world.IsExpedition || !world.Flow.Enabled || world.Terrain.Seed != Seed)
                 throw new InvalidOperationException("快速测试的正式星球地图尚未准备。");
             var planet = world.Flow.Planets.Single(p => p.Id == Planet.Id && p.Enabled);

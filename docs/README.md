@@ -8,6 +8,8 @@
 | --- | --- |
 | 开始日常开发 | [快速上手](QUICK_START.md)、[执行状态](DEVELOPMENT.md) |
 | 确认阶段目标、待决问题与并行模块 | [矿洞远征核心闭环目标](EXPEDITION_CORE_LOOP_GOALS.md)、[长期模块计划](ROADMAP.md)、[阶段台账](DEVELOPMENT.md#stage-cl) |
+| 审阅固定船舱、交货出售及星图导航方案 | [飞船远征与星图导航策划草案](SHIP_EXPEDITION_DESIGN.md)，含全员抵达时间、动态距离、危险mock和后续规则；已激活普通交货首片，实现及验证边界见执行台账 |
+| 开展飞船远征与星图开发 | [开发执行方案](SHIP_EXPEDITION_IMPLEMENTATION.md)，含现有源码复用、YYGC状态／命令／事务、联机／存档、切片依赖及授权后的验收门槛 |
 | 修改状态、对象装配或程序集 | [技术架构](ARCHITECTURE.md) |
 | 修改权限、同步、Ready或恢复 | [联机合同](MULTIPLAYER.md)、[存档合同](SAVE_FORMAT.md) |
 | 修改地图、碰撞、矿层或采集 | [地图与地形](TERRAIN_GENERATION.md)、[工具能力](TOOL_DEFINITION_HARVESTING.md) |

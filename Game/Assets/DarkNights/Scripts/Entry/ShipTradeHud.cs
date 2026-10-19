@@ -33,11 +33,10 @@ namespace DarkNights.Entry
         private YYInteractionSessionHandle modal;
         private GameCatalog catalog;
         private int shipId;
-        private bool nearShop;
+        private bool nearShop, nearCargo;
         private int epoch, actorId, controlLease;
         private long connection;
-        public bool ShopOpen => panel?.ShopOpen == true;
-        public Action CockpitRequested { get; set; }
+        public bool ShopOpen => panel?.ShopOpen == true || panel?.Navigation?.IsOpen == true;
 
         public async UniTask Initialize(SessionNetwork session, GameInputActions input, HeroPlayerController player,
             SessionEntityViews views, GameCatalog rules)
@@ -58,6 +57,11 @@ namespace DarkNights.Entry
             panel.Root.style.unityFontDefinition = FontDefinition.FromSDFFont(font);
             panel.BuyRequested += Buy;
             panel.Closed += ReleaseModal;
+            panel.Navigation.OpenRequested += OpenNavigation;
+            panel.Navigation.CloseRequested += Close;
+            panel.Navigation.DestinationRequested += Navigate;
+            panel.Navigation.OperationRequested += ExpeditionAction;
+            panel.DepositRequested += Deposit;
             panel.Present(null, 0, 0, 0,
                 rules.Balance.Expedition.Trade, "", false);
         }
@@ -73,9 +77,9 @@ namespace DarkNights.Entry
             var expedition = frame?.World.Expedition;
             var ship = expedition?.Ship;
             shipId = ship?.Id ?? 0;
-            nearShop = false;
+            nearShop = nearCargo = false;
             if (gameplay && actor != null && ship != null && ship.PilotId == 0 &&
-                ship.Phase is 0 or 3 && ship.DoorClock == 0 &&
+                ship.Phase is 0 or 1 or 3 && ship.DoorClock == 0 &&
                 expedition.Crew.Any(value => value.Id == actor.Id && value.Boarded))
             {
                 var body = frame.World.Buildings.FirstOrDefault(value => value.Id == shipId);
@@ -89,18 +93,16 @@ namespace DarkNights.Entry
                         if (config == null) continue;
                         bool nearby = Math.Abs(actor.X - body.X - anchor.transform.localPosition.x * 100) <= config.Radius &&
                             Math.Abs(actor.Height - shipDevice.Height - anchor.transform.localPosition.y * 100) <= config.Radius;
-                        if (config.Service == "shop") nearShop = nearby;
+                        if (config.Service == "shop") nearShop = nearby && expedition.Journey.Phase is
+                            JourneyPhase.Orbit or JourneyPhase.Transit or JourneyPhase.Landed or JourneyPhase.Gathering;
+                        if (config.Service == "sale") nearCargo = nearby && expedition.Journey.Phase == JourneyPhase.Landed;
                     }
             }
             var cargo = expedition?.Crew.FirstOrDefault(value => value.Id == actor?.Id);
-            string prompt = nearShop ? "E 打开装备商店" : "Shift 加速 · 空格跳跃 · F1 飞船操作";
+            string prompt = nearCargo ? "E 存入货舱 · 安全撤离后自动回收" : nearShop ? "E 打开装备商店" : "Shift 加速 · 空格跳跃";
             bool atCockpit = !nearShop && gameplay && expedition?.Journey?.Enabled == true &&
                 JourneyPresentationRules.AtCockpit(frame.World, network.Client.PlayerSlot);
-            if (atCockpit) prompt = expedition.Journey.Phase == JourneyPhase.Orbit ? "E 选择目的地" :
-                expedition.Journey.Phase == JourneyPhase.Preparing ? "E 取消航程" :
-                expedition.Journey.Phase is JourneyPhase.Descent or JourneyPhase.Landed ?
-                    (ship.PilotId == actor.Id ? "E 离开驾驶位" : ship.PilotId == 0 ? "E 接管驾驶" : "驾驶位已占用") :
-                    "航行中，请等待到达";
+            if (atCockpit) prompt = "E 打开导航台 · 查看星图／召集撤离";
             if (gameplay && !nearShop && !atCockpit && !ShopOpen && actor != null)
             {
                 if (!string.IsNullOrEmpty(hero.MiningHint)) prompt = hero.MiningHint;
@@ -109,12 +111,21 @@ namespace DarkNights.Entry
             }
             panel.Present(actor, frame?.World.Camp.Credits ?? 0, cargo?.Iron ?? 0, cargo?.Gold ?? 0,
                 catalog.Balance.Expedition.Trade, prompt,
-                gameplay && actor != null);
+                gameplay);
+            var shipCargo = expedition?.Devices.FirstOrDefault(d => d.Id == shipId);
+            panel.PresentCargo(shipCargo?.Iron ?? 0, shipCargo?.Gold ?? 0,
+                catalog.Balance.Expedition.Trade.SaleValue(shipCargo?.Iron ?? 0, shipCargo?.Gold ?? 0),
+                nearCargo && actor != null && cargo != null && cargo.Iron + cargo.Gold > 0 &&
+                (!frame.HostOnly || network.Client.PlayerSlot == 0));
+            panel.Navigation.Present(expedition?.Journey, atCockpit &&
+                (!frame.HostOnly || network.Client.PlayerSlot == 0), expedition);
+            if (panel.Navigation.IsOpen && (!gameplay || modal?.Session?.IsActive != true)) Close();
             if (panel.ShopOpen && (!gameplay || !nearShop || modal?.Session?.IsActive != true ||
                 !panel.AttachedAndVisible)) Close();
             if (!gameplay || actor == null || panel.ShopOpen || !actions.ReadHero().InteractPressed) return;
-            if (nearShop) Open();
-            else if (atCockpit) CockpitRequested?.Invoke();
+            if (nearCargo) Deposit();
+            else if (nearShop) Open();
+            else if (atCockpit) OpenNavigation();
         }
 
         private void Open()
@@ -131,7 +142,44 @@ namespace DarkNights.Entry
             panel.SetShop(true);
         }
 
-        public void Close() { panel?.SetShop(false); ReleaseModal(); }
+        private void OpenNavigation()
+        {
+            if (panel == null || !panel.AttachedAndVisible || ShopOpen) return;
+            modal = YYInteractionSessionService.Instance.Begin(new YYInteractionSessionDescriptor
+            {
+                Kind = "dark_nights.ship_navigation", Owner = nameof(ShipTradeHud), Priority = 100,
+                Blocks = YYInteractionBlockFlags.GameplayActions | YYInteractionBlockFlags.WorldConfirm,
+                ConflictPolicy = YYInteractionConflictPolicy.RejectIfBlocked
+            });
+            if (!modal.IsValid) { modal = null; return; }
+            hero.CancelWorldInput(); panel.Navigation.SetOpen(true);
+        }
+
+        private async void Navigate(string target)
+        {
+            var actor = hero.Current; var journey = network.Client.Replica.Current?.World.Expedition?.Journey;
+            if (actor == null || journey == null) return;
+            try { await network.Client.Send(SessionOperation.SelectDestination, new[] { actor.Id }, shipId,
+                kind: target, value: journey.Revision, controlLease: actor.ControlLease); }
+            catch (Exception error) { Debug.LogException(error); }
+        }
+
+        private void Deposit() => ExpeditionAction("unload");
+        private async void ExpeditionAction(string operation)
+        {
+            var actor = hero.Current; var journey = network.Client.Replica.Current?.World.Expedition?.Journey;
+            if (actor == null || journey == null) return;
+            try
+            {
+                bool cancelJourney = operation == "cancel-flight" && journey.Phase is JourneyPhase.Preparing or JourneyPhase.Transit or JourneyPhase.Ascent;
+                await network.Client.Send(cancelJourney ? SessionOperation.CancelJourney : SessionOperation.Expedition,
+                    new[] { actor.Id }, shipId, kind: cancelJourney ? "" : operation,
+                    value: journey.Revision, controlLease: actor.ControlLease);
+            }
+            catch (Exception error) { Debug.LogException(error); }
+        }
+
+        public void Close() { panel?.SetShop(false); panel?.Navigation?.SetOpen(false); ReleaseModal(); }
         private void ReleaseModal() { modal?.Dispose(); modal = null; }
         private void Buy(string key)
         {
@@ -149,9 +197,14 @@ namespace DarkNights.Entry
         private void OnDisable() => Close();
         private void OnDestroy()
         {
-            CockpitRequested = null;
             ReleaseModal();
-            if (panel != null) { panel.BuyRequested -= Buy; panel.Closed -= ReleaseModal; }
+            if (panel != null)
+            {
+                panel.BuyRequested -= Buy; panel.Closed -= ReleaseModal;
+                panel.Navigation.OpenRequested -= OpenNavigation; panel.Navigation.CloseRequested -= Close;
+                panel.Navigation.DestinationRequested -= Navigate;
+                panel.Navigation.OperationRequested -= ExpeditionAction; panel.DepositRequested -= Deposit;
+            }
             if (document != null) manager.Dispose();
             if (settings != null) Destroy(settings);
             if (font != null)

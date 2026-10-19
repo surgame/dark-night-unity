@@ -36,7 +36,7 @@ namespace DarkNights.Core.Save
                 return "飞船阶段与运动不一致";
             if (s.PilotId != 0 && !data.Crew.Any(a => a.Id == s.PilotId && a.Role == 0 && a.Boarded && a.OwnerSlot >= 0))
                 return "驾驶席引用无效";
-            if (s.Phase is 1 or 2 && s.PilotId == 0) return "收舱缺少驾驶者";
+            if (s.Phase is 1 or 2 && s.PilotId == 0 && data.Journey?.Phase != JourneyPhase.Gathering) return "收舱阶段无效";
             return JourneyValidator.Relationships(data);
         }
     }

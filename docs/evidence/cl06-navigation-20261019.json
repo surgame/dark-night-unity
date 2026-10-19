@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-19",
+  "branch": "ft-20261019-ship-expedition-navigation",
+  "base_commit": "e35337e6d43316b87177cd14edd479719588e324",
+  "source_identity": "uncommitted navigation candidate; exact executable not yet produced",
+  "protocol": 34,
+  "save_version": 26,
+  "unity": "6000.4.9f1",
+  "framework_modified": false,
+  "dependencies_modified": false,
+  "compile": { "batches": 2, "errors": 0, "warnings": 0 },
+  "direct_editor_assertions": {
+    "passed_methods": 3,
+    "mode": "reflection invocation of NUnit test methods inside Editor eval",
+    "test_runner_discovery_total": 0,
+    "not_a_test_runner_pass": true
+  },
+  "static_checks": { "csharp_files": 25, "maximum_lines": 298, "uxml_bindings": "passed", "python_syntax": "passed", "diff_check": "passed" },
+  "reviewed_map_source_sha256": "a8d560acfa9a4d375606ae9561247bcc1112bd03b588e1d1194645388456c908",
+  "build": {
+    "job_id": "bc1be586fd044b64b15795f0843f1694",
+    "state": "running_without_progress",
+    "entry": "DarkNights.Editor.GamePlayerBuild.MapStateMono",
+    "repeat_build": false,
+    "editor_pid": 38988,
+    "unsaved_scene_preserved": true,
+    "window_inspection": "node_repl app-server exited before returning response; retry and reset failed"
+  },
+  "quick_network": {
+    "state": "not_run",
+    "intended_processes": "one Host and two clients on this PC",
+    "script": "tools/ship-expedition/test_navigation_network.py",
+    "scope": "shared navigation, rendered Ready, pause, reconnect, one stable save/load",
+    "other_machine_lan": "not available"
+  },
+  "artifact_directory": "artifacts/ship-expedition-20261019",
+  "remaining": [
+    "Resolve existing Editor build task before another Editor mutation or build",
+    "F2 HostOnly viewer visibility, ship marker overlap and descent wording need follow-up",
+    "Shared credits, navigation authority, normal crew gathering and old-map rules await user choice",
+    "Automatic flight, cargo deposit, sale and new expedition lifecycle are not implemented"
+  ]
+}

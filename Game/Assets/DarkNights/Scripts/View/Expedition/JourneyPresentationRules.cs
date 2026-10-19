@@ -15,7 +15,9 @@ namespace DarkNights.View.Expedition
                 case JourneyPhase.Preparing: return "准备目的地";
                 case JourneyPhase.Transit: return "航行中";
                 case JourneyPhase.ArrivalSync: return "到达同步";
-                case JourneyPhase.Descent: return "手动降落";
+                case JourneyPhase.Descent: return "自动降落";
+                case JourneyPhase.Gathering: return "撤离集合";
+                case JourneyPhase.Ascent: return "自动升空";
                 case JourneyPhase.Landed: return "已着陆";
                 default: return "等待航程";
             }
@@ -39,7 +41,7 @@ namespace DarkNights.View.Expedition
             if (!ready) return "正在同步会话，请等待就绪。";
             if (frame.Paused) return "会话已暂停，恢复后可以确认目的地。";
             if (frame.HostOnly && slot != 0) return "当前由房主操作飞船。";
-            if (journey.Phase != JourneyPhase.Orbit) return "当前航程阶段不能重新选择目的地。";
+            if (journey.Phase is not (JourneyPhase.Orbit or JourneyPhase.Transit)) return "当前阶段不能选择目的地。";
             if (!AtCockpit(frame.World, slot)) return "走到船内右侧驾驶台后选择目的地。";
             if (frame.World.Expedition.Ship.PilotId != 0) return "驾驶位已被占用。";
             return "";
@@ -56,8 +58,9 @@ namespace DarkNights.View.Expedition
                 case JourneyPhase.Preparing: return "正在准备星球地图；驾驶者可取消，乘员可继续在船内走动。";
                 case JourneyPhase.Transit: return "正在前往目的地；星点过场只在本地播放。";
                 case JourneyPhase.ArrivalSync: return "已到达星球半空，等待地图和乘员同步；飞船保持悬停。";
-                case JourneyPhase.Descent: return pilot ? "A/D 平移 · 空格上升 · S 快降；松手缓降，在有支撑和净空的位置自动着陆。" :
-                    "乘员可在舱内走动；驾驶位空闲时可到驾驶台接管。";
+                case JourneyPhase.Descent: return "飞船自动降落；坡道展开后即可下船。";
+                case JourneyPhase.Gathering: return "等待全员登船；有人离船将停止倒计时，导航台可取消。";
+                case JourneyPhase.Ascent: return "正在安全升空；脱离矿区后自动交货。";
                 case JourneyPhase.Landed: return "已自动着陆并离座，可从左侧坡道步行下船。";
                 default: return "";
             }

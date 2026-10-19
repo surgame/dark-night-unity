@@ -13,8 +13,9 @@ namespace DarkNights.Runtime.Objects
         private readonly ObjectSession world;
         internal ShipCabinMotion(ObjectSession world) { this.world = world; }
         private BuildingBehaviour Ship => world.Expedition.Ship;
-        internal bool Open => Ship != null && Ship.Read().ShipPhase <= 1 &&
-            (!world.Flow.Enabled || world.Flow.Phase == JourneyPhase.Landed && Ship.Read().ShipDoorClock == 0);
+        internal bool Open => Ship != null && Ship.Read().ShipPhase < 3 &&
+            (!world.Flow.Enabled || world.Flow.Phase == JourneyPhase.Gathering ||
+                world.Flow.Phase == JourneyPhase.Landed && Ship.Read().ShipDoorClock == 0);
 
         internal bool Player(ActorBehaviour actor, double delta)
         {

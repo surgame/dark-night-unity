@@ -1,7 +1,14 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:Style src="ShipEquipment.uss" />
+    <ui:VisualElement name="ship-ui-root" class="ship-ui-root">
+    <ui:VisualElement class="flight-bar">
+        <ui:Label name="flight-status" class="flight-status" text="导航资料准备中" />
+        <ui:Button name="open-navigation" text="查看星图" />
+    </ui:VisualElement>
     <ui:VisualElement name="equipment-root" class="equipment-root">
         <ui:Label name="credits" class="credits" text="信用点 0" />
+        <ui:Label name="ship-cargo" class="credits" text="船货 铁 0 / 金 0 · 预计收入 0" />
+        <ui:Button name="deposit-cargo" class="deposit-button" text="存入货舱" />
         <ui:VisualElement class="equipment-row">
             <ui:Label name="slot0" class="slot" text="1  空" />
             <ui:Label name="slot1" class="slot" text="2  空" />
@@ -25,5 +32,21 @@
             <ui:Button name="buy-jetpack" class="buy-button" text="喷气背包" />
             <ui:Label class="shop-note" text="装备归当前主角；购买后可使用，船舱内暂停手持攻击。" />
         </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="navigation" class="navigation-backdrop">
+        <ui:VisualElement class="navigation-card">
+            <ui:VisualElement class="shop-heading">
+                <ui:Label class="shop-title" text="星图导航" />
+                <ui:Button name="close-navigation" class="close-button" text="×" />
+            </ui:VisualElement>
+            <ui:VisualElement name="star-map-host" class="star-map-host" />
+            <ui:VisualElement name="navigation-list" />
+            <ui:Label name="navigation-detail" class="navigation-detail" />
+            <ui:Label name="navigation-permission" class="shop-note" />
+            <ui:Button name="confirm-destination" class="navigation-confirm" text="确认目的地" />
+            <ui:Button name="depart-expedition" class="navigation-confirm" text="召集全员并撤离" />
+            <ui:Button name="cancel-departure" class="navigation-confirm" text="取消集合／航程" />
+        </ui:VisualElement>
+    </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

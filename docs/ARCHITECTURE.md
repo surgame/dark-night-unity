@@ -10,14 +10,15 @@
 | --- | --- | --- |
 | 会话时间、ID、RNG、统计 | CampSimulationBehaviour／State | 仅推进当前允许的基础会话 |
 | 信用点及角色库存、运动、装备动作／货袋 | 所属Economy／Actor／Hero Behaviour及State | 购买、手持使用、采集按现有短事务更新 |
-| 飞船、驾驶、舱门和乘员关系 | 所属ExpeditionShip及能力 | 地面本地飞行；旧航程／结算暂停 |
+| 船体、船货与乘员关系 | 原BuildingBehaviour／State与角色ActorBehaviour／State | 舱内移动、容量内入舱和自动起降；不建立第二份船货模型 |
+| 导航、远征及一次交货身份 | ExpeditionJourneyBehaviour／State；Flow只协调配置和候选 | 原位船位、阶段、RunId／SettledRunId／LastIncome；共享到账仍由Economy同事务提交 |
 | 前景与矿层格、耐久、储量 | SessionTerrain托管ARDMap／GridBusinessStateStore | Host唯一写入；初始矿床信息是静态元数据，不创建逐床对象 |
 | 侧巢与幼虫阶段、姿态、HP | TerrainGameplayBehaviour／TerrainGameplayState | 每图有界单虫记录；静态巢位归冻结地图，业务经原事务提交，不恢复旧NPC世界 |
 | 请求、可信连接、Ready、epoch、策略 | SessionAuthority及网络适配 | 不将连接、租约、请求队列写入存档 |
 | 展示帧与客户端副本 | SessionProjector、WorldReplica、ObjectReplica | 深度冻结，无业务写权限 |
 | 相机、选择、悬停、预览、照明缓存 | 各端表现上下文 | 不结算支付、HP、伤害或采矿 |
 | 旧波次、建筑、工位、自动工作能力 | 原所属Behaviour／State | 实现保留，自动推进及旧命令按玩法范围暂停 |
-| 独立功能场景的地质事件 | GeologyEventBehaviour／GeologyEventState | 每事件唯一阶段／时钟；GeologyLabSession只组合对象，瓦砾归同一前景ARDMap；未装配正式地图、联机或文件存储 |
+| 地质事件 | GeologyEventBehaviour／GeologyEventState | 正式会话由SessionGeology组合，独立Lab由GeologyLabSession组合；每事件唯一状态，瓦砾归当前前景ARDMap，正式投影与保存随地图捕获 |
 
 ObjectSession只组合能力、上下文、资源租约和索引，SessionEntityIndex只引用YYGC对象。旧GameSession／WorldState／Core实体运行世界不恢复；DTO、ScriptableObject及ViewData不成为第二份权威状态。
 
@@ -108,3 +109,5 @@ YYLogger沿用General／Runner／Network／Gameplay通道。业务消息和横�
 对象造型和作者原始美术／音频输入继续由原来源目录唯一保存，效果通过引用复用；不能为归一目录复制同份源文件。已有资产改归属使用AssetDatabase搬移并保留meta／GUID、Address及Definition身份，校对生成入口路径、嵌套Prefab和资产引用，不用初始化重建覆盖用户修改。
 
 仅指定空目录可执行首次初始化。框架修改、升级和补丁接入按AGENTS取得具体范围授权，逐文件记录[YYGC账本](YYGC_CHANGES.md)；不默认增加锁步、回滚、ECS、房主迁移或未经测量的拆流。
+
+CL-06普通循环沿用SessionJourneyControl／SessionExpeditionControl和原SessionJourneyTransfer；候选票据在提交前复制成值，不在提交后读取可能已归还的State。地面→空载体与空载体→审核图均通过原Terrain.Swap，巢穴、地质对象及两层地图同批切换；beginEpoch后原可靠完整投影与局部流重新Ready。自动飞行不占用驾驶席，个人选择、UI交互会话和近景镜头不写业务状态。

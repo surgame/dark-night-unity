@@ -56,6 +56,7 @@ namespace DarkNights.Runtime.Objects
         internal void Tick(double delta)
         {
             if (Ship == null) return;
+            if (world.Flow.Enabled) { new ExpeditionFlightLifecycle(world).Tick(delta); return; }
             var s = Ship.Edit();
             var pilot = world.Index.Find<ActorBehaviour>(s.PilotId);
             if (pilot == null || pilot.Hp <= 0 || !pilot.Read().Boarded || pilot.Read().ControllerSlot < 0)

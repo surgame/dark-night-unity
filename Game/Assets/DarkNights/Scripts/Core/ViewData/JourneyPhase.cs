@@ -1,6 +1,6 @@
 namespace DarkNights.Core.ViewData
 {
-    /// <summary>会话航程的权威阶段；地面探索结算仍由远征营地状态拥有，过场表现不得自行推进此阶段。</summary>
+    /// <summary>Journey唯一拥有的航程阶段；货物与信用点仍归各所属状态，过场表现不得自行推进或结算。</summary>
     public enum JourneyPhase
     {
         Orbit,
@@ -8,6 +8,8 @@ namespace DarkNights.Core.ViewData
         Transit,
         ArrivalSync,
         Descent,
-        Landed
+        Landed,
+        Gathering,
+        Ascent
     }
 }

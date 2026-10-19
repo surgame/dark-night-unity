@@ -37,6 +37,14 @@ namespace DarkNights.View
             var flight = expedition?.Ship;
             DebugAvailable = flight != null;
             if (flight == null) return;
+            if (expedition.Journey?.Enabled == true)
+            {
+                Status.text = JourneyPresentationRules.Stage(expedition.Journey.Phase) + "\n" +
+                    "共享信用点 " + world.Camp.Credits + "\n" + JourneyPresentationRules.Guidance(expedition.Journey, false) +
+                    "\n使用常驻星图或导航台；手动驾驶入口已退场。";
+                foreach (var button in Actions) button.gameObject.SetActive(false);
+                return;
+            }
             var actor = expedition.Crew.FirstOrDefault(a => a.OwnerSlot == slot);
             var device = expedition.Devices.FirstOrDefault(d => d.Id == flight.Id);
             bool pilot = flight.PilotId != 0 && flight.PilotId == actor?.Id;

@@ -7,7 +7,7 @@ using GameCore.Objects.Definition;
 
 namespace DarkNights.Runtime.Objects
 {
-    /// <summary>出售与装备购买的权威短事务；模块身份由船上子物体定义，库存只写角色和经济 Behaviour。</summary>
+    /// <summary>船内服务距离与装备购买事务；直接出售关闭，安全交货由Journey调用原货物／经济状态。</summary>
     internal sealed class ShipTradeService
     {
         private const int MaximumCredits = 10000000;
@@ -17,10 +17,10 @@ namespace DarkNights.Runtime.Objects
         internal bool Near(ActorBehaviour hero, int shipId, string service)
         {
             if (!world.IsExpedition || hero == null || hero.Hp <= 0 || !hero.Read().Boarded ||
-                world.Paused || world.Flow?.Phase is not (JourneyPhase.Orbit or JourneyPhase.Landed)) return false;
+                world.Paused || world.Flow?.Phase is not (JourneyPhase.Orbit or JourneyPhase.Landed or JourneyPhase.Transit or JourneyPhase.Gathering)) return false;
             var ship = world.Expedition.Ship;
             if (ship == null || ship.Id != shipId || ship.Read().PilotId != 0 ||
-                ship.Read().ShipPhase is not (0 or 3) || ship.Read().ShipDoorClock > 0) return false;
+                ship.Read().ShipPhase is not (0 or 1 or 3) || ship.Read().ShipDoorClock > 0) return false;
             var anchors = ship.Object.GetComponentsInChildren<ShipServiceAnchor>(true);
             if (anchors.Length != 2) return false;
             var services = ship.Object.Definition.SharedConfigs.OfType<ShipServicesConfig>().SingleOrDefault();

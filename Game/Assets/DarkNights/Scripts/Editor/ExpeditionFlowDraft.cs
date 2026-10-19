@@ -72,6 +72,7 @@ namespace DarkNights.Editor
                     MineMap = source.MineMap,
                     ReviewedMap = source.ReviewedMap,
                     Geology = source.Geology?.Copy() ?? new GeologyDesignPoint(),
+                    Navigation = source.Navigation == null ? null : Clone(source.Navigation),
                     Planets = source.Planets?.Select(planet => planet == null ? null : Clone(planet)).ToList(),
                     ModifierSchemaVersion = 1,
                     Modifiers = source.CopyModifiers()

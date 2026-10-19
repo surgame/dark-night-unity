@@ -130,7 +130,6 @@ namespace DarkNights.Entry
             {
                 var expedition = network.gameObject.AddComponent<ExpeditionHud>();
                 expedition.Initialize(network, expeditionPanel);
-                ui.BindCockpit(expedition.InteractAtCockpit);
             }
             SessionAutomation.Install(network);
             Application.runInBackground = true;

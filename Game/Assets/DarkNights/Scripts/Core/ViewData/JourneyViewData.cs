@@ -19,17 +19,19 @@ namespace DarkNights.Core.ViewData
         public string ContentFingerprint { get; }
         public double PhaseElapsed { get; }
         public string Error { get; }
+        public JourneyNavigationData Navigation { get; }
         public IReadOnlyList<PlanetDefinition> Planets { get; }
         public PlanetDefinition ActivePlanet => Planets.FirstOrDefault(p => p.Id == PlanetId);
 
         public JourneyViewData(bool enabled, string journeyId, int revision, JourneyPhase phase,
             string planetId, string seed, string mapId, string contentFingerprint, double phaseElapsed,
-            string error, IReadOnlyList<PlanetDefinition> planets)
+            string error, IReadOnlyList<PlanetDefinition> planets, JourneyNavigationData navigation = null)
         {
             Enabled = enabled; JourneyId = journeyId ?? ""; Revision = revision; Phase = phase;
             PlanetId = planetId ?? ""; Seed = seed ?? ""; MapId = mapId ?? "";
             ContentFingerprint = contentFingerprint ?? ""; PhaseElapsed = phaseElapsed; Error = error ?? "";
             Planets = Array.AsReadOnly(planets == null ? Array.Empty<PlanetDefinition>() : planets.ToArray());
+            Navigation = navigation;
         }
     }
 }

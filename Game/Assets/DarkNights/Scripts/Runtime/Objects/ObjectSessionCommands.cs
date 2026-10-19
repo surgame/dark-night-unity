@@ -16,10 +16,10 @@ namespace DarkNights.Runtime.Objects
             if (SessionDeveloperOperations.IsOperation(request.Operation)) return SessionDeveloperOperations.ValidShape(request);
             if (request.Operation is SessionOperation.IssueOrders or SessionOperation.PlaceBuilding or
                 SessionOperation.TrainActors or SessionOperation.Recruit or SessionOperation.Repair or SessionOperation.StartNight or
-                SessionOperation.SelectDestination or SessionOperation.CancelJourney or SessionOperation.SellCarriedOre or
+                SessionOperation.SellCarriedOre or
                 SessionOperation.UseHeroItem) return false;
             if (request.Operation == SessionOperation.Expedition &&
-                request.Kind is not ("pilot" or "takeoff" or "land" or "cancel-flight")) return false;
+                request.Kind is not ("depart" or "unload" or "cancel-flight")) return false;
             foreach (int id in request.ActorIds)
             {
                 ActorBehaviour actor = session.Index.Find<ActorBehaviour>(id);
