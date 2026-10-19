@@ -14,4 +14,6 @@
 
 根目录的 `prepare-*.ps1`、`test-*.ps1`、构建、采集与审核脚本继续保留原路径，避免破坏已有文档和自动化入口。不能仅按创建日期判定脚本弃用。
 
+`bin/`、`obj/`属于可重建输出。清理后，调用直接依赖`ArchitectureGuard.dll`的静态编译脚本前先运行`dotnet build tools/ArchitectureGuard/ArchitectureGuard.csproj`；其他工具和离线样板按各自源工程重建。Player驱动使用前检查可执行路径是否存在，已退役构建的报告／指纹不等于该Player仍可运行；本批退役范围见DEVELOPMENT。
+
 新增验证日志与最终报告放对应 `artifacts/` 任务目录。验证结束后仅将确认可重建、无人使用的中间输出归档到 `artifacts/待清理/YYYYMMDD-任务名/`，保留源码、报告与当前 Player；不直接删除。

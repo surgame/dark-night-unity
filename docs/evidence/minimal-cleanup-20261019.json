@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-19",
+  "task": "最小保留清理",
+  "authorization": "用户2026-10-19补充：除证据外编译产物都不必保留，按最小保留原则执行清理",
+  "scope": "仅本仓库明确列出的非证据编译产物、可重建缓存与闲置Player运行载荷，按用户最新授权永久删除",
+  "deletedTargets": 387,
+  "deletedFiles": 52913,
+  "deletedLogicalBytes": 4585440088,
+  "groups": {
+    "previous_quarantine": {
+      "items": 3,
+      "files": 49478,
+      "bytes": 2922427216
+    },
+    "player_payload": {
+      "items": 68,
+      "files": 3049,
+      "bytes": 1451341706
+    },
+    "python_cache": {
+      "items": 3,
+      "files": 10,
+      "bytes": 224435
+    },
+    "dotnet_cache": {
+      "items": 3,
+      "files": 57,
+      "bytes": 34074413
+    },
+    "static_binary": {
+      "items": 293,
+      "files": 293,
+      "bytes": 70765158
+    },
+    "inactive_host_cache": {
+      "items": 17,
+      "files": 26,
+      "bytes": 106607160
+    }
+  },
+  "disk": {
+    "freeBefore": 114358890496,
+    "freeAfterDeletion": 119012810752,
+    "increase": 4653920256
+  },
+  "remainingArtifacts": {
+    "files": 97755,
+    "bytes": 1399531011,
+    "note": "包括原始证据、冻结输入／备份、Git恢复bundle及本批清单；回执新增的少量字节未计"
+  },
+  "verification": {
+    "passed": true,
+    "retainedEvidenceFilesSha256Verified": 97738,
+    "protectedSourceFilesSha256Verified": 7294,
+    "gitBundleVerified": true,
+    "liveStatusFilesRetained": [
+      {
+        "path": "artifacts/terrain-final-20260926/editor-status.json",
+        "beforeSha256": "3b827c0e906d74a4d49837988cc60b5054a9a0686e047d892596a231d8a64216",
+        "currentSha256": "ee4b0d947d6472b0e277613b179d6c9d4e1b5f2ef58ad33695a049b0826d535e",
+        "currentStatus": {
+          "phase": "idle",
+          "active": "",
+          "utc": "2026-10-19T13:51:30.2956314Z",
+          "unity": "6000.4.9f1",
+          "playing": true,
+          "scenes": [
+            "Assets/Scenes/Bootstrap.unity",
+            "Assets/DarkNights/Res/Scenes/Expedition/Expedition.unity"
+          ]
+        },
+        "retained": true,
+        "writer": "TerrainValidationRunner.cs:36-45 Update每秒调用WriteStatus，110-116写入实时状态；此文件不是冻结证据"
+      }
+    ],
+    "initialFailure": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cleanup-minimal-20261019\\verification-initial-failure.json",
+    "initialFailureReason": "原位保留的editor-status.json由TerrainValidationRunner每秒自动更新。只读核验源写入点后将其单列为动态状态，未修改原状态文件或停止Editor"
+  },
+  "retained": [
+    "正式／失败报告、日志、截图、编译rsp参数、构建结果与本批完整删除文件指纹",
+    "隔离存档、冻结源码快照、原始素材、唯一备份和Git恢复bundle",
+    "Game/Assets五份未跟踪地图、用户源资产与GUID、依赖源码、外部worktree及stash",
+    "正在Play的Local Editor PID12116及Game/Library、Temp、Logs和IDE状态"
+  ],
+  "rebuildRequirements": [
+    "已删除7份闲置Player的可执行载荷，原路径不再可运行；重放须按原源码与锁定配置重新构建，历史结果不作为重建后的通过证据",
+    "ArchitectureGuard/bin已清理，调用静态编译脚本前先dotnet build tools/ArchitectureGuard/ArchitectureGuard.csproj；其他工具／样板按各自源工程重建"
+  ],
+  "artifactsNavigationUpdates": [
+    "artifacts/README.md为导航文本，原字节核对后更新本批状态；原始报告／冻结证据不改写"
+  ],
+  "validationBoundary": "仅文件、Git和文档核验；未启动Unity编译、测试、Play或Player，未退出或改变用户已有Play；不结束CL阶段",
+  "evidenceRoot": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cleanup-minimal-20261019",
+  "manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cleanup-minimal-20261019\\清理清单.md",
+  "manifests": {
+    "delete-plan.json": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cleanup-minimal-20261019\\delete-plan.json",
+      "sha256": "9046a96900901f65465c5efc4ae8426c2c14caa1d067b4a05c544ac5117ed6d1"
+    },
+    "deleted-files.jsonl": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cleanup-minimal-20261019\\deleted-files.jsonl",
+      "sha256": "7081921ea392cf50068f7f2db080288c6bc43c38c0d1b8044fa80a130986c481"
+    },
+    "retained-files.jsonl": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cleanup-minimal-20261019\\retained-files.jsonl",
+      "sha256": "aeb795becafdbf11ffd1a962ce714bc8d0637c6d2a6629e4115d744cd9425c8c"
+    },
+    "protected-source.json": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cleanup-minimal-20261019\\protected-source.json",
+      "sha256": "59f8f40647e0d4b3e6b702f3871695ecd49a71f2e040b3e288cfaed34b57a7b3"
+    },
+    "deletion-summary.json": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cleanup-minimal-20261019\\deletion-summary.json",
+      "sha256": "06a01837a2c270718dba74ea262d35688d5541b3bc762b1458b429b0cf87b482"
+    },
+    "verification.json": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cleanup-minimal-20261019\\verification.json",
+      "sha256": "01cb2573e74c0652f5fa94d63398b9a785db729c73a79bf320bc5ea54569fc7e"
+    }
+  },
+  "documentationChangesAfterVerification": [
+    "docs/DEVELOPMENT.md",
+    "tools/README.md",
+    "docs/evidence/minimal-cleanup-20261019.json",
+    "artifacts/README.md",
+    "artifacts/待清理/20261019-分支与中间产物整理/清理后说明.md"
+  ]
+}
