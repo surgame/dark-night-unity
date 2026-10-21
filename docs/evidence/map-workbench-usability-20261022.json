@@ -359,7 +359,17 @@
   "integration": {
     "authorized": "提交本批地图规则与工作台成果，本地快进main，不推送",
     "receipt": "artifacts/map-workbench-usability-20261022/integration.json",
-    "other_changes": "星图、MVP、H5与旧中间地图保留且不纳入本提交"
+    "other_changes": "星图、MVP、H5与旧中间地图保留且不纳入本提交",
+    "result": {
+      "date": "2026-10-22",
+      "method": "ancestor-checked compare-and-swap fast-forward ref update, then switch equal tip",
+      "from": "d99d5e366a528f1062e603a20a6aeeda99b199f4",
+      "to": "dfb5d3add60b85c7c86c9d55e5990d8940713c70",
+      "branch": "fix-20261022-map-workbench-usability",
+      "current_branch": "main",
+      "working_files_preserved": 148,
+      "pushed": false
+    }
   },
   "validation_context": "Unity编译与用例在既有脏Local工作区执行；未将其他会话成果混入本提交，也未宣称独立Player通过。"
 }
