@@ -42,6 +42,7 @@ namespace DarkNights.Editor.Terrain
                 var amplitude = serialized.FindProperty("Config.CaveMap.Amplitude");
                 amplitude.doubleValue = EditorGUILayout.Slider("地表起伏", (float)amplitude.doubleValue, .3f, 1.6f);
             }, changed);
+            CaveRuleControls.Draw(model, changed);
             modifiers.Draw(changed);
             EditorGUILayout.BeginHorizontal();
             using (new EditorGUI.DisabledScope(string.IsNullOrEmpty(model.Selected?.Seed)))

@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using DarkNights.Editor;
 using DarkNights.Editor.Terrain;
 using DarkNights.Runtime.Objects;
@@ -27,6 +28,17 @@ namespace DarkNights.Tests
         private TerrainStyleDrafts Styles => (TerrainStyleDrafts)typeof(TerrainStylePreviewWindow)
             .GetField("drafts", Flags).GetValue(window);
 
+        private void SaveDomain(string method, bool sharedStyle = false)
+        {
+            var commands = typeof(TerrainStylePreviewWindow).GetField("commands", Flags).GetValue(window);
+            var types = sharedStyle ? new[] { typeof(bool) } : Type.EmptyTypes;
+            var args = sharedStyle ? new object[] { true } : null;
+            try { commands.GetType().GetMethod(method, Flags, null, types, null).Invoke(commands, args); }
+            catch (TargetInvocationException error)
+            { ExceptionDispatchInfo.Capture(error.InnerException).Throw(); }
+            typeof(TerrainStylePreviewWindow).GetMethod("Refresh", Flags).Invoke(window, null);
+        }
+
         [SetUp]
         public void OpenIsolatedAuthorDraft()
         {
@@ -51,13 +63,15 @@ namespace DarkNights.Tests
 
         [TestCase(false)]
         [TestCase(true)]
-        public void SaveAllPersistsModifierStateAndStyleWhenReopened(bool enabled)
+        public void ExplicitSaveDomainsPersistModifierAndStyleWhenReopened(bool enabled)
         {
             string unrelated = JsonUtility.ToJson(source.SharedConfigs.OfType<HandheldConfig>().Single());
             ((EntranceWalkwayModifierConfig)window.Draft.Config.Modifiers[0]).Enabled = enabled;
             Styles.Draft(style).OutlineAmplitude = style.OutlineAmplitude + 1;
             float expected = Styles.Draft(style).OutlineAmplitude;
-            window.SaveChanges();
+            SaveDomain("SaveDraft");
+            Assert.That(Styles.HasChanges, Is.True, "地图保存不能连带提交表现草稿");
+            SaveDomain("SaveStyles", true);
             Assert.That(window.hasUnsavedChanges, Is.False);
             Assert.That(Styles.HasChanges, Is.False);
             Resources.UnloadAsset(source); Resources.UnloadAsset(style);
@@ -79,10 +93,10 @@ namespace DarkNights.Tests
         public void ConflictingSaveRetainsDisabledDraftAndCancelRestoresAuthor()
         {
             ((EntranceWalkwayModifierConfig)window.Draft.Config.Modifiers[0]).Enabled = false;
-            typeof(TerrainStylePreviewWindow).GetMethod("RefreshChanges", Flags).Invoke(window, null);
+            typeof(TerrainStylePreviewWindow).GetMethod("Refresh", Flags).Invoke(window, null);
             var actual = source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
             actual.Planets[0].DisplayName = "外部修改";
-            Assert.Throws<InvalidOperationException>(() => window.SaveChanges());
+            Assert.Throws<InvalidOperationException>(() => SaveDomain("SaveDraft"));
             Assert.That(window.hasUnsavedChanges, Is.True);
             Assert.That(window.Draft.Config.Modifiers[0].Enabled, Is.False);
             Assert.That(actual.Modifiers[0].Enabled, Is.True);
@@ -97,7 +111,7 @@ namespace DarkNights.Tests
             var actual = source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
             actual.Planets[0].DisplayName = "另一个编辑器的新名称";
             Styles.Draft(style).OutlineAmplitude = style.OutlineAmplitude + 1;
-            window.SaveChanges();
+            SaveDomain("SaveStyles", true);
             Assert.That(source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single(), Is.SameAs(actual));
             Assert.That(actual.Planets[0].DisplayName, Is.EqualTo("另一个编辑器的新名称"));
         }

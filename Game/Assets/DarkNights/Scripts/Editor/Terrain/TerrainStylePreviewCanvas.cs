@@ -45,6 +45,15 @@ namespace DarkNights.Editor.Terrain
         { if (painting) endStroke?.Invoke(); panning = false; painting = false; previous = null; }
         public void Fit() { Zoom = 1; offset = Vector2.zero; }
 
+        /// <summary>按同一画布变换定位逻辑格；只调整镜头，不改变作者草稿或冻结地图。</summary>
+        internal void FocusCell(int u, int row, Rect canvas, Texture image)
+        {
+            Zoom = 3;
+            float scale = Mathf.Min(canvas.width / image.width, canvas.height / image.height) * Zoom;
+            offset = new Vector2((.5f - u / 320f) * image.width * scale,
+                (.5f - row / 192f) * image.height * scale);
+        }
+
         public void SetZoom(float value, Vector2 pivot, bool anchored)
         {
             float old = Zoom;

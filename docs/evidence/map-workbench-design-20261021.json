@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-21",
+  "scope": "CL-01地图工作台UITK重设计提案，等待用户布局评审；未实施Unity迁移",
+  "prototype": {
+    "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\21\\01a15ee4-7a0e-7852-8d2b-695d3c9a7c2d\\mine-workbench-redesign.html",
+    "sha256": "22d545016c22d1cde94e506638491f3542488d8806081a091a32448a36594483",
+    "variants": [
+      "任务导航",
+      "画布优先"
+    ],
+    "bytes": 75139
+  },
+  "source": "现有Tuner代码与操作合同；地图画面只读使用本轮五份真实冻结PNG／JSON，不另写地图生成器",
+  "map_source_sha256": {
+    "artifacts\\cave-rules-20261021\\delivery\\cluster.png": "d55fe55a5ef74423b714f8d224e7ea444c6c487063e804f94623ea5c01bd129b",
+    "artifacts\\cave-rules-20261021\\delivery\\entrances.png": "a187ec7d5c3f8c024009c7f258a7f5eaf31d5ddf735c945da5b3fd7a442c22d9",
+    "artifacts\\cave-rules-20261021\\delivery\\erosion.png": "8a703fc11c05d33a34da53dbacee7616a230a6864516537fdb5bae4d486a421a",
+    "artifacts\\cave-rules-20261021\\delivery\\rift.png": "282f0546a52df33e8feb465435eb39166c4b0b48185d2b742946f86c350521bd",
+    "artifacts\\cave-rules-20261021\\delivery\\rooms.png": "9914814059bc345a49372361276c92c11b928078f693263769c10dcdf92ae566",
+    "artifacts\\cave-rules-20261021\\delivery\\roots.png": "9d5489ea194df9c59e4bf095562097e4e963ba979a9bac4e0c2904c841edcf1e",
+    "artifacts\\cave-rules-20261021\\delivery\\switchback.png": "e19bf095820d7b387bfec4e2702c5d6a417677b8a0725ee2b0f85666239b4fcb"
+  },
+  "browser_qa": {
+    "scope": "HTML design prototype only; no Unity execution",
+    "checks": [
+      "actual_export_loaded",
+      "all_task_panels_fit_desktop",
+      "stale_input_retains_previous_canvas",
+      "save_freeze_install_separated",
+      "collapse_canvas_selection_and_properties",
+      "zero_nest_candidate_hides_site",
+      "legacy_tools_separated",
+      "layout_no_horizontal_overflow_1040",
+      "layout_no_horizontal_overflow_800",
+      "layout_no_horizontal_overflow_620",
+      "layout_no_horizontal_overflow_390",
+      "layout_no_horizontal_overflow_320",
+      "second_layout_interactive",
+      "dark_theme_rendered"
+    ],
+    "page_errors": []
+  },
+  "qa_environment": "独立无头Chrome；未使用用户浏览器配置或Unity进程",
+  "preserved_qa_attempt": "首轮默认Playwright headless shell缺失，改用本机已安装Chrome后验证；未下载浏览器或改依赖",
+  "planning_documents": [
+    "docs/EDITOR_WORKBENCH.md#cl01-tuner-uitk-design",
+    "docs/ROADMAP.md#cl01-generation-rule-plan",
+    "docs/DEVELOPMENT.md#stage-cl"
+  ],
+  "not_executed": [
+    "UITK实现／Unity编译／导入",
+    "Unity Play／自动测试／Player",
+    "作者资产或新局引用修改",
+    "旧功能／源码／资源删除",
+    "YYGC／依赖／协议／存档改动"
+  ],
+  "stage": "CL及CL-01不结束，布局与退场清单待用户确认"
+}

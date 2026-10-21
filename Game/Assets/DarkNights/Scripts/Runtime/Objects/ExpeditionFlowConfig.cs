@@ -72,7 +72,7 @@ namespace DarkNights.Runtime.Objects
             builder.Append(Enabled ? '1' : '0').Append('|')
                 .Append(PreparationTimeoutSeconds.ToString("R", CultureInfo.InvariantCulture)).Append('|')
                 .Append(ArrivalTimeoutSeconds.ToString("R", CultureInfo.InvariantCulture)).Append('|')
-                .Append(CaveMap == null ? "<missing>" : JsonUtility.ToJson(CaveMap)).Append('|')
+                .Append(Terrain.TerrainAuthoringIdentity.Json(CaveMap)).Append('|')
                 .Append(Planets?.Count ?? -1);
             if (Planets != null)
                 foreach (var planet in Planets)
@@ -99,7 +99,7 @@ namespace DarkNights.Runtime.Objects
             settings.MineMap = MineMap == null ? null : MineMap.Freeze();
             if (settings.ResourceProfile != TerrainGenerationSettings.CaveExplorationProfile)
                 throw new InvalidOperationException("航程地图必须使用洞穴资源方案。");
-            return settings;
+            return settings.CopyValidated();
         }
 
         /// <summary>工作台选择正式星球；未指定时使用首个启用项，不构造另一份默认泊位配置。</summary>

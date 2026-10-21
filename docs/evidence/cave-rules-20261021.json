@@ -1,0 +1,198 @@
+{
+  "date": "2026-10-21",
+  "scope": "CL-01 MG-01～07 可选规则生成、区域内容、Tuner及同候选冻结接线",
+  "branch": "ft-20261020-ship-map-redesign",
+  "head": "d99d5e366a528f1062e603a20a6aeeda99b199f4",
+  "editor": {
+    "version": "6000.4.9f1",
+    "pid": 29476,
+    "compile": {
+      "status": "completed",
+      "failed": false,
+      "errors": []
+    },
+    "inspection": {
+      "output": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cave-rules-20261021\\delivery\\summary.json",
+      "playing": false,
+      "compiling": false,
+      "updating": false,
+      "failed": false,
+      "core": "2026-10-21T07:50:26.2082636Z",
+      "editor": "2026-10-21T07:50:27.2004126Z"
+    }
+  },
+  "source_sha256": {
+    "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainGenerationSettings.cs": "ab1eed772f65bc8053205ffbe0f963c173d9fcbb2e2fdfe85ed5b1e4f8c0c6dc",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveExplorationGenerator.cs": "eb9d030c577b551380cad7d6513b635edb8c71054465e641d38cff822a9f751b",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/EntranceWalkwayModifier.cs": "9dd30d3d356c510e0ad35a492a860d876590efce1c9a0a0ffc93740aeecd5471",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/PlanetTerrainGenerator.cs": "db6174ddfaaa96df9c52205486d57112410509fff7c6fa400110b3f13be0a88d",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowConfig.cs": "4e3f648fb96d19d1c88360b4ae4fea047fe283d00b5709468e8cbacb30d2d448",
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/ReviewedMineMap.cs": "2d6089b19d838c8631c0a8587adef9da7a4849fdd15b04a9f72e18c94033f0ff",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/JointMineContentSetup.cs": "7a19d7813a24f31e1912b1b33d59fb95e11d7381cbee6f53a6f5af0112626589",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationIdentity.cs": "8daa37fa904d59271356d58dcb6f3a5fa7d03ac94836e7995bcd2675e8d4eef0",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationPreview.cs": "7e1831a70b7ed40e0337da5ee6c92e0b814b54e35e42c7cfc594b2bc18c227ab",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainPlanetControls.cs": "d772c3c86cac9ff9c14a9a8fb80a7163468f1e6ab12d055380f1b07dc6cbbb46",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs": "29cf665a5676965b36cf565d0cd54a823fb325d4e3be260a895efa5dac47914b",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleControls.cs": "ef0acad75283ae5393d958cd1ec9e864abe2203fdc2dc4008b495359488df3fb",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleOverlay.cs": "90fa3f2a98f2ec3c2218809d4204d5b46517207f6add9e63feecf057d5432547",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleReviewExport.cs": "b8e1365dd36e05d92e72648d6bb7cca7f0bf9deb00a7ee56350b38820eefc004",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleContent.cs": "55dce725b1555781e817fcfb3dad32b2e809487abf271d7400770928f9b82c45",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleEntrance.cs": "c602a303640d4d6df040a658d5af8deaf02c46b219a6fc151209680cbcdeb8d5",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleGenerator.cs": "f037f31bd390300399dcc0b5cd241da71a23d0ce3d194b87e899b34f930876f1",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleGeometry.cs": "9c13663c82159d929226f4de993f0d32ddafd0469a444ec9b40ada7683ded1a2",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRulePlanner.cs": "95efd60a586fad75b5c93ed11a65b12ce2d97823c99a2547f98dda170442a108",
+    "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/CaveRulePlan.cs": "136ad72cd2b5b03219d827b6bc551b8f0ffd7967e52e962d39c718f35b98d789",
+    "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/CaveRuleSettings.cs": "2e9def4bd6bc598d3eb6c996ff55df9f8b2d3da4daaacab060c2c207fb12cb41",
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainAuthoringIdentity.cs": "43f52b5d1224127fcce9d3902826cc389e5ea7ca9c6e00ce0b695de889f0b384"
+  },
+  "meta_sha256": {
+    "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainGenerationSettings.cs.meta": "68c866c63ac685ca1698b05d0570c7ea1f5874663e9d5c994eca1adbb8c0e0b0",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveExplorationGenerator.cs.meta": "90d9495cdb511709df03f66e159035b1d1a8f652d262a33949b0825495d1a24a",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/EntranceWalkwayModifier.cs.meta": "0deb869c8d8af175c1ae0c6e18691f2495dad35482c822deaeb920a54b22db94",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/PlanetTerrainGenerator.cs.meta": "5bb845881f151b9ce73e10e6ce1601a0b5a2a89c76fff371813cb707c7649864",
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowConfig.cs.meta": "1a761910eed8b74e0fabac1c19a9f2872583065f14544d492c6736f582246572",
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/ReviewedMineMap.cs.meta": "3222d3fb11dd187b21fba4ff89dfac1d14ffe22dbc19b7f3bd03d75151e6d009",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/JointMineContentSetup.cs.meta": "2cfa25854815d7b1cb9e1d94b978395c2792f09875347bd5a698e4fa2e1adc97",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationIdentity.cs.meta": "d5a34b38c05c0e64ae74734695d9474356c7f3406c459827830d95237c65143b",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationPreview.cs.meta": "ed063334ca01f54714547a541c35ffdf85e6d1a87516dd90f0affa3c3ccfa8d5",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainPlanetControls.cs.meta": "46cb00af42b15090b6e25c918b255bbf29591fa8c672edf70ae5b666975b4073",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs.meta": "0028e15e3a99d3e2d5366a4a3ff6c5a01926be2de5e3eef3eff5a073e6119ece",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleControls.cs.meta": "7cb0d3330eae7486c60068f94866638bcc1f728293df2fec1fe166d924642673",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleOverlay.cs.meta": "b1ebde2778ab938ef8615d27a8f5f98abec9cc59101f5a8b395735e049fff8d7",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleReviewExport.cs.meta": "75f9a585edcf9b027a6b1bd832ce022e54b30bea24626e4adb4d973b5d8ce76f",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleContent.cs.meta": "6774d3310ca03a2914aa5327d2e064313f246556d88cb3f43ed9bf44a6f7495a",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleEntrance.cs.meta": "238986006b47b04ae4ccdc85afc0be4b0fa5b5a4c0aee8d177380efee3980b68",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleGenerator.cs.meta": "90b084d3d3f69fb627a05344c0fe89f9937d2012050f2f9506f0260217279d46",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleGeometry.cs.meta": "22b233d9f19b89c60eaaf16303f1261d8d3f0d254a492cf9dd7bf5870c368e91",
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRulePlanner.cs.meta": "8526883f75f01a7e223f756b91bf6230d1b3695a46feb8dd104d661eb9666b0c",
+    "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/CaveRulePlan.cs.meta": "89a02c276158fb92cc75a25319bc94fe23a85ba0d5a80ec91c164b41514bf126",
+    "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/CaveRuleSettings.cs.meta": "9d78981188f936760e9ef394272bab3353ce04575ca18dfda85811da5e9e8872",
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainAuthoringIdentity.cs.meta": "c566a50a9aef24ed91039e06e07b2897e5087409d9a7fa6cc8434b778e0b357c"
+  },
+  "line_counts": {
+    "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/TerrainGenerationSettings.cs": 51,
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveExplorationGenerator.cs": 130,
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/EntranceWalkwayModifier.cs": 110,
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/PlanetTerrainGenerator.cs": 127,
+    "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowConfig.cs": 152,
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/ReviewedMineMap.cs": 91,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/JointMineContentSetup.cs": 56,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationIdentity.cs": 24,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationPreview.cs": 124,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainPlanetControls.cs": 176,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs": 296,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleControls.cs": 84,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleOverlay.cs": 59,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleReviewExport.cs": 143,
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleContent.cs": 156,
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleEntrance.cs": 59,
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleGenerator.cs": 37,
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRuleGeometry.cs": 71,
+    "Game/Assets/DarkNights/Scripts/Core/Logic/Terrain/CaveRulePlanner.cs": 104,
+    "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/CaveRulePlan.cs": 23,
+    "Game/Assets/DarkNights/Scripts/Core/Config/Terrain/CaveRuleSettings.cs": 60,
+    "Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainAuthoringIdentity.cs": 33
+  },
+  "preview_metrics": [
+    {
+      "road": "erosion",
+      "rooms": 16,
+      "connections": 15,
+      "branch_levels": 2,
+      "nests": 0,
+      "capacity": 1208,
+      "exposed_capacity": 86,
+      "buried_capacity": 1122,
+      "skips": 0
+    },
+    {
+      "road": "switchback",
+      "rooms": 16,
+      "connections": 15,
+      "branch_levels": 2,
+      "nests": 1,
+      "capacity": 1309,
+      "exposed_capacity": 232,
+      "buried_capacity": 1077,
+      "skips": 0
+    },
+    {
+      "road": "cluster",
+      "rooms": 14,
+      "connections": 13,
+      "branch_levels": 2,
+      "nests": 1,
+      "capacity": 1412,
+      "exposed_capacity": 171,
+      "buried_capacity": 1241,
+      "skips": 2
+    },
+    {
+      "road": "rift",
+      "rooms": 12,
+      "connections": 11,
+      "branch_levels": 1,
+      "nests": 1,
+      "capacity": 1298,
+      "exposed_capacity": 99,
+      "buried_capacity": 1199,
+      "skips": 4
+    },
+    {
+      "road": "roots",
+      "rooms": 14,
+      "connections": 13,
+      "branch_levels": 3,
+      "nests": 1,
+      "capacity": 1436,
+      "exposed_capacity": 199,
+      "buried_capacity": 1237,
+      "skips": 2
+    }
+  ],
+  "visual_bytes_match_inspected_final": {
+    "cluster.png": true,
+    "entrances.png": true,
+    "erosion.png": true,
+    "rift.png": true,
+    "rooms.png": true,
+    "roots.png": true,
+    "switchback.png": true
+  },
+  "legacy_source_identity_unchanged": "a8d560acfa9a4d375606ae9561247bcc1112bd03b588e1d1194645388456c908",
+  "memory": {
+    "state": "completed",
+    "samples": 562,
+    "peak_private_gib": 4.0560302734375,
+    "minimum_free_ram_gib": 12.811351776123047,
+    "memory_gate": "available_physical_only",
+    "limits": {
+      "minimum_free_ram_gib": 1
+    },
+    "read_only": false
+  },
+  "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cave-rules-20261021",
+  "review": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\cave-rules-20261021\\delivery\\index.html",
+  "preserved_attempts": {
+    "core-first-attempt.txt": "NETSDK1004缺少restore，正常restore后Core零警告零错误；最终Unity编译另有独立回执。",
+    "review-v1": "入口初版形态不足，已保留。",
+    "review-v2": "Editor未导入入口修订，旧程序集输出，不作为最终候选证据。",
+    "review-final": "入口修订已导入后的几何对照；delivery补齐输入保护和重试seed对应后重新输出，7张PNG字节一致。"
+  },
+  "not_executed": [
+    "GUI点击、Undo及作者保存重开",
+    "实际新资产安装及新局运行",
+    "人物净空／跳跃／自然返程检查（本批明确排除）",
+    "自动测试",
+    "Play",
+    "Player",
+    "多人／弱网／保存恢复"
+  ],
+  "unimplemented": [
+    "逐间拖拽／接口编辑／局部锁定／持久拆填",
+    "区域专属美术",
+    "梯具、新陷阱、多方向生物行为"
+  ],
+  "git": "未提交／推送；既有星图与作者图修改保留；未修改YYGC／依赖／协议／存档／正式地图引用。",
+  "artifact_bytes": 10449259
+}

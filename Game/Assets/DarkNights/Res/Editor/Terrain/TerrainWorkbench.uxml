@@ -1,0 +1,39 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+  <ui:Style src="TerrainWorkbench.uss" />
+  <ui:VisualElement name="mapWorkbench" class="dn-map-workbench">
+    <ui:VisualElement class="map-header">
+      <ui:VisualElement class="map-document">
+        <ui:Label text="矿洞地图工作台" class="map-title" />
+        <ui:Label name="documentSource" class="map-secondary" />
+      </ui:VisualElement>
+      <ui:Label name="draftStatus" class="map-header-status" />
+      <ui:Button name="saveDraft" text="保存地图草稿" />
+      <ui:Button name="openRelease" text="检查与使用 →" />
+    </ui:VisualElement>
+    <ui:VisualElement name="editSurface" class="map-work-area">
+      <ui:ScrollView name="taskNavigation" class="map-navigation" />
+      <ui:TwoPaneSplitView name="mapSplit" fixed-pane-index="1" fixed-pane-initial-dimension="310">
+        <ui:VisualElement class="map-center">
+          <ui:VisualElement class="map-view-toolbar">
+            <ui:Button name="viewCandidate" text="草稿候选" />
+            <ui:Button name="viewInstalled" text="正式新局引用" />
+            <ui:Label name="candidateStatus" class="map-toolbar-status" />
+          </ui:VisualElement>
+          <ui:VisualElement name="canvasTools" class="map-canvas-toolbar" />
+          <ui:Label name="canvasIdentity" class="map-canvas-identity" />
+          <ui:Label name="canvasLegend" class="map-canvas-legend" />
+          <ui:VisualElement name="canvasHost" class="map-canvas" />
+          <ui:Label name="mapSummary" class="map-summary" />
+          <ui:Label name="newGameReference" class="map-summary map-secondary" />
+        </ui:VisualElement>
+        <ui:ScrollView name="taskProperties" class="map-properties" />
+      </ui:TwoPaneSplitView>
+    </ui:VisualElement>
+    <ui:VisualElement class="map-footer">
+      <ui:Label text="草稿／候选／正式引用分别管理" class="map-footer-hint" />
+      <ui:Button name="updateCandidate" text="更新候选" />
+      <ui:Button name="discardWindow" text="取消窗口修改…" />
+    </ui:VisualElement>
+    <ui:Label name="workbenchNotice" class="map-notice" />
+  </ui:VisualElement>
+</ui:UXML>

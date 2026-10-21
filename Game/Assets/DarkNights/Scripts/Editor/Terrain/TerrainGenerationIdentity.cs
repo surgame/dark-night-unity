@@ -9,7 +9,7 @@ namespace DarkNights.Editor.Terrain
     {
         internal static string For(ExpeditionFlowConfig config, PlanetPreset planet)
         {
-            var text = new StringBuilder(JsonUtility.ToJson(config.CaveMap));
+            var text = new StringBuilder(DarkNights.Runtime.Terrain.TerrainAuthoringIdentity.Json(config.CaveMap));
             if (config.MineMap != null)
                 text.Append("|mine-map-v1|").Append(JsonUtility.ToJson(config.MineMap.Freeze()));
             if (config.ReviewedMap != null) text.Append("|joint-map-v1|").Append(config.ReviewedMap.Fingerprint());

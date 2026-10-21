@@ -20,7 +20,7 @@ namespace DarkNights.Core.Logic.Terrain
         /// <summary>正式航程与所有随机洞穴预览唯一的完整生成入口；重试、最终坡形与背景捕获均在此复用。</summary>
         public static PlayableTerrain GenerateCandidate(PlanetDefinition planet, string seed, string worldId,
             TerrainGenerationSettings template, Func<bool> cancelled = null,
-            TerrainGenerationPipeline pipeline = null, Action<TerrainModifierDiagnostic> report = null)
+            TerrainGenerationPipeline pipeline = null, Action<TerrainModifierDiagnostic> report = null, Action<string> contentReport = null)
         {
             pipeline = pipeline ?? TerrainGenerationPipeline.Default;
             int attempts = planet.Seed.Length == 0 ? 3 : 1;
@@ -32,7 +32,7 @@ namespace DarkNights.Core.Logic.Terrain
                 {
                     var diagnostics = report == null ? null : new List<TerrainModifierDiagnostic>();
                     var result = Generate(planet, actualSeed, worldId, cancelled, template, pipeline,
-                        diagnostics == null ? null : new Action<TerrainModifierDiagnostic>(diagnostics.Add));
+                        diagnostics == null ? null : new Action<TerrainModifierDiagnostic>(diagnostics.Add), contentReport);
                     if (diagnostics != null) foreach (var item in diagnostics) report(item);
                     return result;
                 }
@@ -43,7 +43,7 @@ namespace DarkNights.Core.Logic.Terrain
 
         public static PlayableTerrain Generate(PlanetDefinition planet, string seed, string worldId, Func<bool> cancelled = null,
             TerrainGenerationSettings template = null, TerrainGenerationPipeline pipeline = null,
-            Action<TerrainModifierDiagnostic> report = null)
+            Action<TerrainModifierDiagnostic> report = null, Action<string> contentReport = null)
         {
             if (planet == null) throw new ArgumentNullException(nameof(planet));
             CheckCancellation(cancelled);
@@ -82,6 +82,8 @@ namespace DarkNights.Core.Logic.Terrain
                 }
             }
             pipeline.Run(TerrainGenerationStage.AfterDock, context, report);
+            if (source.Settings.Rules?.Enabled == true)
+                CaveRuleEntrance.Carve(cells, protection, source.Settings.Rules, source.Rooms[0], right + 9, planet.DockRow);
             pipeline.Run(TerrainGenerationStage.BeforeGeometry, context, report);
             for (int i = 0; i < cells.Length; i++)
                 if (protection[i]) soft[i] = false;
@@ -94,8 +96,9 @@ namespace DarkNights.Core.Logic.Terrain
                     deposits.Add(deposit);
             CheckCancellation(cancelled);
             var background = new BackgroundBakeDescriptor(worldId, seed, cells, shapes);
-            return new PlayableTerrain(worldId, seed, cells, protection, soft, source.Rooms.ToArray(),
+            var terrain = new PlayableTerrain(worldId, seed, cells, protection, soft, source.Rooms.ToArray(),
                 TerrainDepositFootprints.Build(deposits, cells, protection, seed, planet.DockRow), shapes, true, background);
+            return source.Settings.Rules?.Enabled == true ? CaveRuleContent.Generate(terrain, source.Settings, contentReport) : terrain;
         }
         public static PlayableTerrain Space(string worldId)
         {

@@ -22,7 +22,7 @@ namespace DarkNights.Runtime.Terrain
         [NonSerialized] private Hash128 verifiedImport;
         public static string SourceFingerprint(Objects.ExpeditionFlowConfig config)
         {
-            string value = JsonUtility.ToJson(config.FreezeCaveMap()) + "|" + (config.MineMap == null ? "" : JsonUtility.ToJson(config.MineMap.Freeze())) + "|" +
+            string value = TerrainAuthoringIdentity.Json(config.FreezeCaveMap()) + "|" + (config.MineMap == null ? "" : JsonUtility.ToJson(config.MineMap.Freeze())) + "|" +
                 string.Join(";", config.Planets.Select(p => JsonUtility.ToJson(p))) + "|" +
                 string.Join(";", config.CopyModifiers().Select(m => m.GetType().FullName + ":" + m.Enabled + ":" + m.CanonicalSettings)) +
                 "|geology-point-v1|" + (config.Geology?.Identity ?? "missing");

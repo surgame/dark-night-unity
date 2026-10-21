@@ -48,7 +48,8 @@ namespace DarkNights.Tests
             Assert.That(model.HasChanges, Is.True); Assert.That(model.Identity, Is.EqualTo(geometry));
             model.Selected.DockRow++; Assert.That(model.Identity, Is.Not.EqualTo(geometry));
             model.Cancel(); geometry = model.Identity;
-            ((EntranceWalkwayModifierConfig)model.Draft.Config.Modifiers[0]).Enabled = false;
+            var step = (EntranceWalkwayModifierConfig)model.Draft.Config.Modifiers[0];
+            step.Enabled = !step.Enabled;
             Assert.That(model.Identity, Is.Not.EqualTo(geometry));
         }
 
@@ -58,6 +59,7 @@ namespace DarkNights.Tests
             using var model = new TerrainGenerationPreview();
             model.Selected.Seed = "FORMAL-FIXED";
             model.Draft.Config.CaveMap.Seed = "STRATA-0922";
+            model.JointDraft = true;
             string before = model.Draft.Config.CanonicalIdentity();
             var map = model.Generate();
             Assert.That(map.Seed, Is.EqualTo("STRATA-0922"));

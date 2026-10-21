@@ -11,6 +11,7 @@ namespace DarkNights.Core.Logic.Terrain
         public static TerrainBlueprint Generate(TerrainGenerationSettings input)
         {
             var settings = input.CopyValidated();
+            if (settings.Rules?.Enabled == true) return CaveRuleGenerator.Generate(settings);
             var random = new TerrainRandom(settings.Seed + ":cave-exploration-v3");
             var cells = new byte[W * H]; var protection = new bool[cells.Length]; var soft = new bool[cells.Length];
             int[] surface = Surface(settings);
@@ -48,7 +49,7 @@ namespace DarkNights.Core.Logic.Terrain
             byte[] shapes = TerrainShapeGeometry.Build(cells, protection, W, H);
             return new TerrainBlueprint(settings, cells, protection, surface, rooms.ToArray(), soft, deposits.ToArray(), passages.ToArray(), shapes);
         }
-        private static int[] Surface(TerrainGenerationSettings s)
+        internal static int[] Surface(TerrainGenerationSettings s)
         {
             var result = new int[W]; uint seed = TerrainRandom.Hash(s.Seed + ":surface");
             for (int x = 0; x < W; x++)

@@ -24,6 +24,8 @@ namespace DarkNights.Core.Logic.Terrain
 
         public void Apply(TerrainGenerationContext context)
         {
+            // 新入口完全由模板负责，不进入旧步道净空搜索、连通检查或自动修路。
+            if (context.Source.Settings.Rules?.Enabled == true) return;
             var planet = context.Planet;
             int left = planet.DockColumn - planet.LandingWidth / 2;
             int right = left + planet.LandingWidth - 1;

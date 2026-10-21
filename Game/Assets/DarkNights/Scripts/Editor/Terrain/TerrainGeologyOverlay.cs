@@ -16,7 +16,7 @@ namespace DarkNights.Editor.Terrain
             if (point == null || !point.Enabled) return;
             GUI.BeginClip(clip);
             bounds.position -= clip.position;
-            void Box(int u, int v, int width, int height, Color color, string label)
+            void Box(int u, int v, int width, int height, Color color)
             {
                 var rect = new Rect(bounds.x + (u - .5f) / 320 * bounds.width,
                     bounds.y + (-v - height + .5f) / 192 * bounds.height,
@@ -24,21 +24,21 @@ namespace DarkNights.Editor.Terrain
                 EditorGUI.DrawRect(rect, new Color(color.r, color.g, color.b, .18f));
                 Handles.color = color; Handles.DrawAAPolyLine(2, new Vector3(rect.xMin, rect.yMin), new Vector3(rect.xMax, rect.yMin),
                     new Vector3(rect.xMax, rect.yMax), new Vector3(rect.xMin, rect.yMax), new Vector3(rect.xMin, rect.yMin));
-                GUI.Label(new Rect(rect.xMin, rect.yMin - 18, 180, 18), label, EditorStyles.whiteMiniLabel);
             }
             try
             {
                 var config = point.Configuration;
-                Box(point.AllowedU, point.AllowedV, point.AllowedWidth, point.AllowedHeight, Color.gray, "允许改形");
-                Box(point.RetreatU, point.RetreatV, point.RetreatWidth, point.RetreatHeight, Color.green, "退避");
-                Box(config.SourceU, config.SourceV, config.Width, config.SourceRows, Color.cyan, point.SiteId + " 源岩");
-                if (config.EnterRegion) Box(config.RegionU, config.RegionV, config.RegionWidth, config.RegionHeight, new Color(1, .6f, .2f), "进入区");
-                else Box(config.SupportU, config.SupportV, 1, 1, Color.yellow, "支撑");
+                // 标签放在常驻图例，避免全图缩放时多个小范围的文字堆叠。
+                Box(point.AllowedU, point.AllowedV, point.AllowedWidth, point.AllowedHeight, Color.gray);
+                Box(point.RetreatU, point.RetreatV, point.RetreatWidth, point.RetreatHeight, Color.green);
+                Box(config.SourceU, config.SourceV, config.Width, config.SourceRows, Color.cyan);
+                if (config.EnterRegion) Box(config.RegionU, config.RegionV, config.RegionWidth, config.RegionHeight, new Color(1, .6f, .2f));
+                else Box(config.SupportU, config.SupportV, 1, 1, Color.yellow);
                 string next = JsonUtility.ToJson(config);
                 if (identity != next) { frozenConfig = config.Freeze(); identity = next; }
                 var frozen = frozenConfig;
                 for (int i = 0; i < frozen.RubbleCount; i++)
-                { var cell = frozen.Landing(i); Box(cell.U, cell.V, 1, 1, new Color(.8f, .5f, .3f), i == 0 ? "落地包络" : ""); }
+                { var cell = frozen.Landing(i); Box(cell.U, cell.V, 1, 1, new Color(.8f, .5f, .3f)); }
                 for (int i = 0; i < frozen.Collapse.Count; i += 4)
                 {
                     var path = new Vector3[(frozen.Collapse.Frames - 1) / 6 + 1];

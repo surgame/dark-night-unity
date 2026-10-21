@@ -30,14 +30,15 @@ namespace DarkNights.Editor.Terrain
                 "|" + value.SiteIndex + "|" + value.Variation;
         }
 
-        internal void DrawControls(TerrainGenerationPreview model)
+        internal void DrawControls(TerrainGenerationPreview model, bool productionActions = true)
         {
             var settings = TerrainVeinStudySettings.instance;
             using (var serialized = new SerializedObject(settings))
             {
                 serialized.Update();
                 Field(serialized, "Enabled", "启用矿巢制作预览");
-                Field(serialized, "JointVeinCount", "完整地图矿脉上限"); Field(serialized, "JointNests", "完整地图包含侧巢");
+                if (productionActions)
+                { Field(serialized, "JointVeinCount", "完整地图矿脉上限"); Field(serialized, "JointNests", "完整地图包含侧巢"); }
                 using (new EditorGUI.DisabledScope(!Enabled))
                 {
                     var shape = serialized.FindProperty("Shape");
@@ -52,14 +53,17 @@ namespace DarkNights.Editor.Terrain
             using (new EditorGUI.DisabledScope(!Enabled || model.LastCandidate == null || model.LastCandidateIdentity != model.Identity))
                 if (GUILayout.Button("生成／更新矿巢候选")) Build(model);
             if (GUILayout.Button("保存本机工具预设")) settings.SavePreset();
-            if (GUILayout.Button("预览完整联合候选")) { model.JointDraft = true; model.Generate(); }
-            using (new EditorGUI.DisabledScope(model.HasChanges))
-                if (GUILayout.Button("生成新联合地图并用于新局"))
-                {
-                    try { var map = model.ExportJoint();
-                        message = "新局地图已冻结：" + AssetDatabase.GetAssetPath(map) + "；现有游戏和旧地图保持。"; }
-                    catch (Exception error) { message = "未装配：" + error.Message; }
-                }
+            if (productionActions)
+            {
+                if (GUILayout.Button("预览完整联合候选")) { model.JointDraft = true; model.Generate(); }
+                using (new EditorGUI.DisabledScope(model.HasChanges))
+                    if (GUILayout.Button("生成新联合地图并用于新局"))
+                    {
+                        try { var map = model.ExportJoint();
+                            message = "新局地图已冻结：" + AssetDatabase.GetAssetPath(map) + "；现有游戏和旧地图保持。"; }
+                        catch (Exception error) { message = "未装配：" + error.Message; }
+                    }
+            }
             EditorGUILayout.LabelField(settings.HasChanges ? "● 工具预设尚未保存" : "工具预设已保存", EditorStyles.miniLabel);
             EditorGUILayout.LabelField(message, EditorStyles.wordWrappedLabel);
             if (!Enabled || layout == null) return;

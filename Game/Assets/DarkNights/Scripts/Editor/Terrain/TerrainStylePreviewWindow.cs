@@ -1,86 +1,89 @@
 using System;
-using DarkNights.Core.Config.Terrain;
 using DarkNights.View.Terrain;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace DarkNights.Editor.Terrain
 {
     /// <summary>
-    /// 折叠分组的星球工作台；共用正式生成草稿，保留原生样式 Inspector、大画布与临时拆填。
-    /// 窗口禁用时释放预览和编辑器句柄，草稿跨域重载保留；销毁时由唯一所有者释放。
+    /// 原Tuner的UITK任务式宿主；作者草稿、样式草稿及Undo沿用原所有者，界面只组合制作能力。
+    /// 保留窗口与类型身份，域重载保留作者输入；关闭时释放预览、绑定与订阅，不隐式保存或装配。
     /// </summary>
     public sealed class TerrainStylePreviewWindow : EditorWindow
     {
         private const string Root = "Assets/DarkNights/Res/Terrain/StrataCave/";
         [SerializeField] private ExpeditionFlowDraft flowDraft;
-        [SerializeField] private TerrainWorkbenchControls controls = new TerrainWorkbenchControls();
         [SerializeField] private TerrainStyleDrafts drafts = new TerrainStyleDrafts();
         [SerializeField] private CaveTerrainStyle style;
         [SerializeField] private ScriptableObject inspected;
         [SerializeField] private string planetId;
-        [SerializeField] private float panelWidth = 360;
-        [SerializeField] private Vector2 scroll;
+        [SerializeField] private TerrainWorkbenchState state = new TerrainWorkbenchState();
         private TerrainGenerationPreview generation;
-        private readonly TerrainMapDraft mapDraft = new TerrainMapDraft();
-        private readonly TerrainStylePreviewCanvas preview = new TerrainStylePreviewCanvas();
-        private readonly TerrainStylePreviewStage stage = new TerrainStylePreviewStage();
-        private readonly TerrainJourneyPreview journey = new TerrainJourneyPreview();
-        private readonly TerrainVeinStudyPreview veins = new TerrainVeinStudyPreview();
-        private readonly TerrainGeologyControls geology = new TerrainGeologyControls();
-        private TerrainBlueprint baselineBlueprint;
-        private BackgroundBakeDescriptor backgroundReference;
-        private string generatedIdentity, observedStyle, failedIdentity, status = "正在生成正式星球预览。";
-        private double due = double.PositiveInfinity, nextRepaint, fpsStart;
-        private int frames, canvasFps, renderMilliseconds;
-        private byte fillMaterial = 1;
-        private bool resizing, playingLastTick;
-        private Texture Image => stage.Image;
+        private TerrainWorkbenchPreview preview;
+        private TerrainWorkbenchView view;
+        private TerrainWorkbenchCommands commands;
+        private double nextRefresh;
+        private string observedStyle, observedSource;
+        private bool wasPlaying;
         public ExpeditionFlowDraft Draft => flowDraft;
+        internal TerrainGenerationPreview Generation => generation;
+        internal TerrainStyleDrafts Styles => drafts;
+        internal CaveTerrainStyle Style => style;
+        internal ScriptableObject Inspected { get => inspected; set => inspected = value; }
+        internal TerrainWorkbenchState State => state;
+        internal TerrainWorkbenchPreview Preview => preview;
+        internal TerrainWorkbenchCommands Commands => commands;
+        internal string Notice { get; set; } = "选择地图来源，或查看正式新局引用；不会自动更换地图。";
 
-        public static void Open()
-        {
-            DarkNightsNativeWorkspace.Visual();
-        }
-
+        public static void Open() => DarkNightsNativeWorkspace.Visual();
         public static void OpenJourney()
         {
-            Open(); GetWindow<TerrainStylePreviewWindow>().controls.FocusJourney();
+            Open();
+            var window = GetWindow<TerrainStylePreviewWindow>();
+            window.state.AdvancedPage = "planet"; window.SelectPage("advanced");
         }
-
         public static void OpenVeinStudy()
         {
+            Open();
             var window = GetWindow<TerrainStylePreviewWindow>();
-            var settings = TerrainVeinStudySettings.instance;
-            Undo.RecordObject(settings, "开启矿巢制作预览"); settings.Enabled = true; EditorUtility.SetDirty(settings);
-            window.controls.FocusVeins(); window.Invalidate();
-        }
-
-        public void ImportLegacyDraft(ExpeditionFlowDraft legacy)
-        {
-            if (mapDraft.HasChanges) throw new InvalidOperationException("先取消临时拆填，再转移旧航程草稿。");
-            generation.Import(legacy); controls.Bind(generation); RefreshChanges();
+            window.state.ShowStudy = true; window.state.AdvancedPage = "study";
+            window.SelectPage("advanced");
         }
 
         private void OnEnable()
         {
-            titleContent = new GUIContent("Cave Wall Tuner"); minSize = new Vector2(800, 520);
-            wantsMouseMove = true; preview.Fit();
+            titleContent = new GUIContent("矿洞地图工作台"); minSize = new Vector2(800, 540);
+            state = state ?? new TerrainWorkbenchState();
             generation = new TerrainGenerationPreview(flowDraft); flowDraft = generation.Draft;
             if (!string.IsNullOrEmpty(planetId)) generation.PlanetId = planetId;
-            controls.Bind(generation);
+            generation.JointDraft = state.CandidateMode;
             if (style == null) style = AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>(Root + "Style.asset");
             if (inspected == null) inspected = style;
-            saveChangesMessage = "地图、航程、表现草稿或矿巢工具预设尚未保存；临时拆填不会写入作者资产。";
-            Undo.undoRedoPerformed += RefreshChanges; EditorApplication.update += Tick; Invalidate();
+            commands = new TerrainWorkbenchCommands(this);
+            preview = new TerrainWorkbenchPreview(this);
+            if (state.CandidateMode && !state.ViewInstalled && state.Version == null) generation.RequestGeneration();
+            preview.RequestOpen();
+            saveChangesMessage = "窗口仍有未保存草稿。地图、共享表现、本机实验分别保存；临时拆填不保存。";
+            Undo.undoRedoPerformed += OnUndo;
+            EditorApplication.update += Tick;
+        }
+
+        public void CreateGUI()
+        {
+            view?.Dispose(); rootVisualElement.Clear();
+            if (generation == null) return;
+            view = new TerrainWorkbenchView(this, rootVisualElement);
+            view.Build();
         }
 
         private void OnDisable()
         {
             planetId = generation?.PlanetId;
-            EditorApplication.update -= Tick; Undo.undoRedoPerformed -= RefreshChanges;
-            preview.Stop(mapDraft.EndStroke); journey.Stop(); resizing = false;
-            veins.Dispose(); stage.Dispose(); controls.Dispose(); generation?.Dispose(false); generation = null;
+            EditorApplication.update -= Tick; Undo.undoRedoPerformed -= OnUndo;
+            view?.Dispose(); view = null;
+            preview?.Dispose(); preview = null;
+            generation?.Dispose(false); generation = null;
         }
 
         private void OnDestroy()
@@ -89,205 +92,107 @@ namespace DarkNights.Editor.Terrain
             if (flowDraft != null) { Undo.ClearUndo(flowDraft); DestroyImmediate(flowDraft); }
         }
 
-        private void OnLostFocus() { preview.Stop(mapDraft.EndStroke); resizing = false; }
+        private void OnLostFocus() => preview?.StopStroke();
 
-        private void OnGUI()
-        {
-            if (generation == null) return;
-            if (EditorApplication.isPlayingOrWillChangePlaymode)
-            { EditorGUILayout.HelpBox("请先退出 Play；编辑态预览不改写运行场景。", MessageType.Info); return; }
-            HandleSaveShortcut(Event.current);
-            if (!controls.JourneyView && preview.HandleGridShortcut(Event.current,
-                EditorGUIUtility.editingTextField || GUIUtility.hotControl != 0)) Repaint();
-            if (Event.current.type == EventType.Repaint)
-            {
-                frames++; double now = EditorApplication.timeSinceStartup;
-                if (fpsStart == 0) fpsStart = now;
-                if (now - fpsStart >= 1)
-                { canvasFps = Mathf.RoundToInt((float)(frames / (now - fpsStart))); frames = 0; fpsStart = now; }
-            }
-            HandleSplitter(); panelWidth = Mathf.Clamp(panelWidth, 320, position.width - 360);
-            float contentHeight = position.height - 82;
-            var panel = new Rect(0, 32, panelWidth, contentHeight);
-            var canvas = new Rect(panelWidth + 4, 82, position.width - panelWidth - 4, contentHeight - 82);
-            controls.DrawHeader(new Rect(0, 0, position.width, 30), generation, drafts, RefreshChanges,
-                () => Attempt(SaveChanges));
-            bool studyView = controls.Section == "矿脉与巢穴" && veins.Enabled;
-            using (new EditorGUI.DisabledScope(studyView))
-                controls.DrawCanvasTools(new Rect(canvas.x, 32, canvas.width, 48), preview, ref fillMaterial);
-            EditorGUI.DrawRect(new Rect(panelWidth, 32, 4, contentHeight), new Color(.25f, .25f, .25f));
-            EditorGUIUtility.AddCursorRect(new Rect(panelWidth - 3, 32, 10, contentHeight), MouseCursor.ResizeHorizontal);
-            GUILayout.BeginArea(panel);
-            scroll = EditorGUILayout.BeginScrollView(scroll);
-            float labelWidth = EditorGUIUtility.labelWidth; EditorGUIUtility.labelWidth = 145;
-            try { controls.DrawSidebar(generation, style, drafts, ref inspected, mapDraft, RefreshChanges, Invalidate,
-                journey.Play, () => veins.DrawControls(generation), () => geology.Draw(generation, Invalidate)); }
-            catch (Exception error) { status = error.Message; }
-            finally { EditorGUIUtility.labelWidth = labelWidth; EditorGUILayout.EndScrollView(); GUILayout.EndArea(); }
-            if (controls.Section == "矿脉与巢穴" && veins.Enabled) veins.Draw(canvas);
-            else if (controls.JourneyView) journey.Draw(canvas, generation.Selected);
-            else
-            {
-                if (!mapDraft.HasChanges && controls.Section == "塌方设计点" && geology.Picking && Image != null &&
-                    Event.current.type == EventType.MouseDown && Event.current.button == 0 && canvas.Contains(Event.current.mousePosition))
-                {
-                    Rect bounds = preview.ImageScreenBounds(canvas, Image);
-                    Vector2 local = Event.current.mousePosition - bounds.position;
-                    if (bounds.Contains(Event.current.mousePosition)) geology.Pick(generation,
-                        new Vector2Int(Mathf.FloorToInt(local.x / bounds.width * 320 + .5f), Mathf.FloorToInt(local.y / bounds.height * 192 + .5f)), Invalidate);
-                    Event.current.Use();
-                }
-                preview.Input(canvas, Image, (x, y) => mapDraft.Paint(x, y,
-                    preview.ActiveTool == TerrainStylePreviewTool.Fill, fillMaterial), InvalidateMap,
-                    mapDraft.BeginStroke, mapDraft.EndStroke, mapDraft.Undo, mapDraft.Redo);
-                preview.Draw(canvas, Image, canvasFps, renderMilliseconds,
-                    !double.IsPositiveInfinity(due) || (Image != null && !stage.Ready), stage.Progress,
-                    controls.LandingMarkers ? generation.Selected : null);
-                if (controls.Section == "塌方设计点" && geology.ShowOverlay && Image != null)
-                    TerrainGeologyOverlay.Draw(canvas, preview.ImageScreenBounds(canvas, Image), generation.Draft.Config.Geology);
-            }
-            using (new EditorGUI.DisabledScope(studyView))
-                controls.DrawPreviewBar(new Rect(canvas.x, canvas.yMax + 2, canvas.width, 28), journey,
-                    mapDraft, InvalidateMap, () => { mapDraft.Cancel(); InvalidateMap(); });
-            controls.DrawFooter(new Rect(0, position.height - 48, position.width, 48), generation, drafts, status,
-                () => Attempt(SaveWorld), () => Attempt(ApplyDrafts), () => Attempt(DiscardChanges));
-            hasUnsavedChanges = generation.HasChanges || drafts.HasChanges || TerrainVeinStudySettings.instance.HasChanges;
-        }
-
-        private void Attempt(Action action)
+        internal void Execute(Action action, bool rebuildPage = false)
         {
             try { action(); }
-            catch (Exception error) { status = "未保存：" + error.Message; }
-            RefreshChanges();
+            catch (Exception error) { Notice = error.Message; }
+            if (rebuildPage) view?.BuildPage();
+            Refresh();
         }
 
-        private bool HandleSaveShortcut(Event input)
+        internal void SelectPage(string page)
         {
-            bool command = (input.type == EventType.ValidateCommand || input.type == EventType.ExecuteCommand) &&
-                (input.commandName == "Save" || input.commandName == "SaveScene");
-            bool key = input.type == EventType.KeyDown && input.keyCode == KeyCode.S &&
-                (input.control || input.command) && !input.alt && !input.shift;
-            if ((!command && !key) || GUIUtility.hotControl != 0) return false;
-            if (input.type != EventType.ValidateCommand)
-            {
-                GUI.FocusControl(null); EditorGUIUtility.editingTextField = false;
-                Attempt(SaveChanges);
-            }
-            input.Use(); return true;
+            state.Page = page;
+            if (page != "extras") state.Pick = 0;
+            if (page != "advanced") { state.ShowStudy = false; state.ShowJourney = false; preview?.UsePan(); }
+            view?.BuildPage(); Refresh();
         }
 
-        private void SaveWorld() { generation.Apply(); status = "地图与航程已保存到 WorldSession；已有地图保持原格子。"; }
-        private void ApplyDrafts() { int count = drafts.Apply(); drafts.Clear(); Invalidate(); status = count + " 个表现资产已保存。"; }
+        internal void DraftChanged()
+        {
+            generation.JointDraft = true; state.CandidateMode = true;
+            state.ViewInstalled = false; state.Version = null; state.CheckedIdentity = "";
+            Notice = "草稿已变化；画布仍保留上一版本，点击更新候选后替换。";
+            Refresh();
+        }
+
+        internal void RebuildPage() => view?.BuildPage();
+
+        internal void Refresh()
+        {
+            if (generation == null) return;
+            hasUnsavedChanges = generation.HasChanges || drafts.HasChanges || TerrainVeinStudySettings.instance.HasChanges;
+            view?.Refresh();
+        }
+
+        private void OnUndo()
+        {
+            state.CheckedIdentity = "";
+            preview?.RestoreStyleAfterUndo();
+            Notice = "撤销／重做已恢复作者输入；更新候选以匹配当前草稿。";
+            view?.BuildPage(); Refresh();
+        }
+
+        public void ImportLegacyDraft(ExpeditionFlowDraft legacy)
+        {
+            if (preview.Map.HasChanges) throw new InvalidOperationException("先取消临时拆填，再转移旧航程草稿。");
+            generation.Import(legacy); view?.BuildPage(); DraftChanged();
+        }
+
         public override void SaveChanges()
         {
-            if (generation.HasChanges) SaveWorld();
-            if (drafts.HasChanges) ApplyDrafts();
+            if (drafts.HasChanges || TerrainVeinStudySettings.instance.HasChanges)
+            {
+                string domains = (generation.HasChanges ? "地图／航程作者配置\n" : "") +
+                    (drafts.HasChanges ? "共享表现资产（影响其他引用地图）\n" : "") +
+                    (TerrainVeinStudySettings.instance.HasChanges ? "本机制作实验预设\n" : "");
+                if (!EditorUtility.DisplayDialog("保存窗口未保存草稿", domains + "临时拆填不保存。", "保存列出项目", "返回")) return;
+            }
+            if (generation.HasChanges) commands.SaveDraft();
+            if (drafts.HasChanges) commands.SaveStyles(true);
             if (TerrainVeinStudySettings.instance.HasChanges) TerrainVeinStudySettings.instance.SavePreset();
-            hasUnsavedChanges = generation.HasChanges || drafts.HasChanges || TerrainVeinStudySettings.instance.HasChanges;
-            status = "全部草稿及本机矿巢预设已保存；临时拆填仅用于预览。";
+            Refresh();
         }
 
         public override void DiscardChanges()
         {
-            generation.Cancel(); controls.Bind(generation); drafts.Clear();
-            TerrainVeinStudySettings.instance.DiscardPreset();
-            hasUnsavedChanges = false; status = "地图、航程、表现草稿及矿巢工具预设已取消。"; Invalidate();
-        }
-
-        private void RefreshChanges()
-        {
-            if (generation == null) return;
-            hasUnsavedChanges = generation.HasChanges || drafts.HasChanges || TerrainVeinStudySettings.instance.HasChanges;
-            if (generatedIdentity != generation.Identity && !mapDraft.HasChanges) Invalidate();
-            Repaint();
-        }
-
-        private void HandleSplitter()
-        {
-            var input = Event.current;
-            if (input.type == EventType.MouseDown && new Rect(panelWidth - 3, 32, 10, position.height - 82).Contains(input.mousePosition))
-            { resizing = true; input.Use(); }
-            if (input.type == EventType.MouseDrag && resizing)
-            { panelWidth = Mathf.Clamp(input.mousePosition.x, 320, position.width - 360); input.Use(); Repaint(); }
-            if (input.type == EventType.MouseUp && resizing) { resizing = false; input.Use(); }
-        }
-
-        private void Invalidate() { failedIdentity = null; due = EditorApplication.timeSinceStartup + .4; Repaint(); }
-
-        private void InvalidateMap()
-        {
-            try { if (stage.Source != null) { stage.Source.ApplyChanges(mapDraft.DrainChangedCells()); stage.Tick(); } }
-            catch (Exception error) { status = "预览刷新失败：" + error.Message; }
-            Repaint();
+            generation.Cancel(); drafts.Clear(); TerrainVeinStudySettings.instance.DiscardPreset();
+            preview.Map.Cancel(); state.ViewInstalled = true; state.Version = null;
+            state.CandidateMode = false; generation.JointDraft = false; state.CheckedIdentity = "";
+            preview.RequestOpen(); view?.BuildPage();
+            Notice = "窗口草稿已取消；原资产、新局引用和旧存档未改变。"; Refresh();
         }
 
         private void Tick()
         {
-            if (generation == null) return;
-            if (EditorApplication.isPlayingOrWillChangePlaymode)
-            { stage.Dispose(); journey.Stop(); playingLastTick = true; return; }
+            if (generation == null || preview == null) return;
+            bool playing = EditorApplication.isPlayingOrWillChangePlaymode;
+            if (playing) { if (!wasPlaying) preview.Suspend(); wasPlaying = true; Refresh(); return; }
             if (EditorApplication.isCompiling || EditorApplication.isUpdating) return;
-            if (playingLastTick) { playingLastTick = false; Invalidate(); }
-            double now = EditorApplication.timeSinceStartup;
-            if (now >= nextRepaint) { nextRepaint = now + 1.0 / 30; Repaint(); }
+            if (wasPlaying) { wasPlaying = false; preview.RequestOpen(); }
+            try { preview.Tick(); }
+            catch (Exception error) { Notice = "预览失败：" + error.Message; preview.CancelPending(); }
+            if (EditorApplication.timeSinceStartup < nextRefresh) return;
+            nextRefresh = EditorApplication.timeSinceStartup + .25;
             try
             {
-                journey.Tick(generation.Selected); CheckExternalChanges();
-                if (Image == null && baselineBlueprint != null &&
-                    !(controls.Section == "矿脉与巢穴" && veins.Enabled) &&
-                    failedIdentity != generation.Identity && double.IsPositiveInfinity(due)) Invalidate();
-                if (now >= due) RebuildNow();
-                veins.Tick(generation, controls.Section == "矿脉与巢穴");
-                if (Image != null)
+                generation.ObserveExternalChanges();
+                string source = generation.Draft.BaselineJson;
+                if (observedSource != null && observedSource != source)
+                { view?.BuildPage(); if (state.ViewInstalled) preview.RequestOpen(); }
+                observedSource = source;
+                string current = style == null ? "none" : style.VisualIdentity;
+                if (observedStyle != null && observedStyle != current)
                 {
-                    bool wasReady = stage.Ready;
-                    bool drawn = stage.Tick();
-                    if (stage.Error != null) status = "运行时预览失败：" + stage.Error.Message;
-                    else if (drawn)
-                    { renderMilliseconds = stage.LastCameraMilliseconds; if (stage.Ready && !wasReady) status = "运行时渲染链已就绪。"; }
+                    if (drafts.HasChanges) Notice = "共享样式在窗口外变化；保存时会检查字段冲突。";
+                    else { drafts.Clear(); preview.RequestStyle(); view?.BuildPage(); }
                 }
+                observedStyle = current;
             }
-            catch (Exception error)
-            { status = "预览失败：" + error.Message; failedIdentity = generation.Identity; due = double.PositiveInfinity; Repaint(); }
-        }
-
-        private void CheckExternalChanges()
-        {
-            generation.ObserveExternalChanges();
-            string current = style == null ? "none" : style.VisualIdentity;
-            if (observedStyle != null && observedStyle != current)
-            {
-                if (drafts.HasChanges) { status = "表现源资产在窗口外变化；保存时会检查字段冲突。"; return; }
-                drafts.Clear(); Invalidate();
-            }
-            observedStyle = current;
-            if (generatedIdentity != generation.Identity && failedIdentity != generation.Identity && double.IsPositiveInfinity(due))
-            {
-                if (mapDraft.HasChanges) status = "正式生成配置已变化；请先取消临时拆填再重建。";
-                else Invalidate();
-            }
-        }
-
-        private void RebuildNow()
-        {
-            due = double.PositiveInfinity;
-            if (generatedIdentity != generation.Identity) OpenMapSnapshot();
-            if (controls.Section == "矿脉与巢穴" && veins.Enabled)
-            { stage.Dispose(); status = "矿巢制作剖面读取当前完整地图；未创建额外离屏渲染宿主。"; return; }
-            if (style == null || baselineBlueprint == null) { status = "正式地图或岩壁样式不可用。"; return; }
-            var background = drafts.Draft(drafts.Draft(style).Background);
-            if (background != null && background.ContourStatic && background.ContentHash != BackgroundBakeDescriptor.StyleContentHash)
-                throw new InvalidOperationException("背景样式内容身份不匹配。");
-            stage.Open(generation.Definition, baselineBlueprint, style, drafts, mapDraft.CopyMaterials(),
-                mapDraft.CopyShapes(), backgroundReference);
-            status = "正在加载正式洞穴渲染…";
-        }
-
-        private void OpenMapSnapshot()
-        {
-            var result = generation.Generate();
-            baselineBlueprint = result.Blueprint(); backgroundReference = result.Background;
-            generatedIdentity = generation.Identity; mapDraft.OpenGenerated(baselineBlueprint);
+            catch (Exception error) { Notice = "来源核对失败：" + error.Message; }
+            Refresh();
         }
     }
 }

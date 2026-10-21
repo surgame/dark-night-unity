@@ -1,0 +1,201 @@
+{
+  "batch_started_local": "2026-10-21",
+  "recorded_local": "2026-10-22T00:28:00.611427+08:00",
+  "scope": "CL-01 task-navigation UITK editor migration; no gameplay or default-map changes",
+  "branch": "ft-20261020-ship-map-redesign",
+  "head": "d99d5e366a528f1062e603a20a6aeeda99b199f4",
+  "compiler": {
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "compiler_receipt": "artifacts/map-workbench-uitk-20261021/recompile-final-status.json",
+  "final_incremental_batch_compile": {
+    "exit_code": 0,
+    "success": true,
+    "no_csharp_errors": true,
+    "log_sha256": "7eaee1dc0541b628eb68374d0ea2819bc9334396d2ec2ee2a3df1e3a13c43259",
+    "result": "artifacts/map-workbench-uitk-20261021/batch-compile-result.json",
+    "reason": "Corrected UI guidance after verifying F1 pickaxe quick tests regenerate instead of loading ReviewedMap.",
+    "preflight": {
+      "available_physical_bytes": 7639334912,
+      "disk_free_bytes": 110881918976,
+      "editor": "none before batch compile",
+      "expected_work": "incremental script compilation only; no Play, tests, Player or new cache tree",
+      "mode": "available_physical_only"
+    },
+    "mode": "Pinned 6000.4.9f1, single Game/Library, batch compilation only, no graphics/Play/tests/build"
+  },
+  "editor_dll": {
+    "sha256": "6675e67065cc33210defcb1dead7343bdc95ca0cad20485611dfbe1b013c9381",
+    "modified_utc": "2026-10-21T16:23:22.860109+00:00",
+    "newer_than_editor_source": true
+  },
+  "import_inspection_before_editor_shutdown": {
+    "windows": 0,
+    "drafts": [],
+    "compiling": false,
+    "updating": false,
+    "failed": false,
+    "playing": false,
+    "uxml": true,
+    "uss": true,
+    "assemblyUtc": "2026-10-21T16:04:16.6048713Z"
+  },
+  "ending_editor_state": "Interactive Editor exited; one serialized batch compile corrected the new guidance and exited 0. No GUI acceptance.",
+  "source_sha256": {
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchState.cs": "e29d466d5d975f8c7ca593f6ce3e2dce1fafc505c8f03660910f107a6d2d7270",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchCommands.cs": "9b2019a22e5570129c0c8d31ae18b934290b1d44b8d2f0bcd9269abe36d23039",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchFields.cs": "04561dcddf705c344406c932eb52402ecca3677333fc60873512a188cc542d6d",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchView.cs": "c952e686b3041ae48dbe7fe9fe37b7b88fc22a027b7cd2ac5a872d8a67b89ec2",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchPreview.cs": "779e9f14453e6e1e790b55c7dbea82b80868c06a81464318c8ba46dbe3811856",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchPicking.cs": "4db0dd47dbbf7c5ef89fe455e04d73d79720d0fbc925d984313c4a4e9090b4f7",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchSourcePage.cs": "f760453542f8f97d0fc76a65a12dfe4d64669fef3bd534531fcf0372adfbfbeb",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchSpacePage.cs": "921e083e166093cacc89efd0e649d1b638ca8f3088b2f007e120d99870d473f8",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchMineralPage.cs": "e330055015bff8990038e20739bac2316969be39add29f112c76caac8aa1c3e2",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchExtrasPage.cs": "3a0253f98ed72ce66435f46473fce5163b1ac3ab134a08095703cfa88306f571",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchGeologyPage.cs": "81b1d40ae9ab7a3e6415ffb7a0a0298f86d25a04cc8a7f30e665a25ada4624d4",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchAppearancePage.cs": "a0acadca016d1cacda7ad098d702a3e9c53d336a66939233c7efff18848e48bb",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchReleasePage.cs": "9fd5bd8b07e7251415432408ff88d210b3ac9f62f08f405abd7be4371bcdcfb6",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchAdvancedPage.cs": "21c4ecfee3483159dd709ac3c74d7644ba2d22728a642525d177bdca1de76c34",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs": "329ac941a99d1eade3b0ca4df5a2aeb2df044442153f5dbfdf95fff0911d8519",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationPreview.cs": "e831d10caeba5279e2d06c2743409e34dcd510f41b303a215eb9085282d8ad24",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/JointMineContentSetup.cs": "b6d318cacb6dea1442587a97ef583df16299e15d5a003fd2d39ded08cb010082",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleOverlay.cs": "e4b240e02f75224287664a03a3e5e9d48d22c4620508196af1ccde039a2fb35a",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStyleDrafts.cs": "7b06970663aca356ac1992351556068b4cd3e27a97cae331209b4f396c2cb162",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewCanvas.cs": "7d890f30c1dbabb8f99a783b2e9dec68d8c5ebe40137ab9edd27c6edc323691e",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainVeinStudyPreview.cs": "1cf2c901de6fb51a5b8c5cf51e354aacb9f31be7292da45f68cbde48f029795d",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsNativeWorkspace.cs": "13a9e3ae5457799f2d8bf246de6b8ed8ae8209800e7b2adebdcd783578c7d42e",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsWorkbenchCatalog.cs": "09a4b4648e466dfa171f1560baad335c4886e99750bf00b49fddd910076b6820",
+    "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchSaveTests.cs": "c95c99893a4e3863bc28dddaa9f19430d5a295f291f897d2866d6b7fc9ac0871",
+    "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchLifecycleTests.cs": "6c980428002b59cd7f89a60769f8cdde97a20bbb39f10a8228ca6272720f3a1d",
+    "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchLayoutTests.cs": "2a7ed3d0dd40f069840f598d052f579d0cc5a659058e166e454e65543d31a14c",
+    "Game/Assets/DarkNights/Res/Editor/Terrain/TerrainWorkbench.uxml": "89ae865835153352ac774d0b1c07df777bb63f1a06d64aef6488fb2c9ff90619",
+    "Game/Assets/DarkNights/Res/Editor/Terrain/TerrainWorkbench.uss": "ce96dd3079e9de4ebee87aac6ec47626df490fe0bbd4371dd8b570da338e8871"
+  },
+  "meta_sha256": {
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchState.cs.meta": "f8d7d453c8511ea7b15b0debabd9338b152d4aefffae7bd21facc1cd4963a778",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchCommands.cs.meta": "d91531b09939da5c531693a84d993a0eba33285e56f9728982461360dcd6d6d7",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchFields.cs.meta": "1773035da1b8cc8650da650a83bd882736ffec428ded4ab3b349aa7c5a0d795f",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchView.cs.meta": "bc2bbd372aa37454c69c6a0f3e28e84d98e05f8854475f367c7ffc8cac7a5815",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchPreview.cs.meta": "bd2255400ff730613a9e232c15d2bb3ad6f04759438fc250f43a0d05be16b004",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchPicking.cs.meta": "02d3faca11c49987f7eebb9d33300bce0186e601fbd08c5c7a92278eebdbc08e",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchSourcePage.cs.meta": "b84b486f38e59a63b1753223d688a816dddf484b0c034ca3b7223bf0de9b15b8",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchSpacePage.cs.meta": "e02480cd87bdad0f264a6c5e6cdbb3d62bbe47811c6bfb69e897e440c3086f4c",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchMineralPage.cs.meta": "7ff6928c12bd68da79c504bd04d3f733a6b87e168b6c01cf2f8d7546587cb698",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchExtrasPage.cs.meta": "0a60860deea717d7ac9cc4c124aab5eb8a323186b2aa6e17193c8a23143d0a47",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchGeologyPage.cs.meta": "e85e8c75d446f84205866a45d893277c5235b7aaaf7056a6a7f495ba3474afce",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchAppearancePage.cs.meta": "02721d695ba723f98012f4a20989c3f5f2edc064b549d1b71b05e971f9460403",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchReleasePage.cs.meta": "e58f894bea8e93d4fe619d3298abb7dd7a88fe5b0bbd4ce1f037f655ad492b34",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchAdvancedPage.cs.meta": "e775f88cb760e15954fa2913d3b11229e96d93a25414ee0a4573f9a9d350ad05",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs.meta": "0028e15e3a99d3e2d5366a4a3ff6c5a01926be2de5e3eef3eff5a073e6119ece",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationPreview.cs.meta": "ed063334ca01f54714547a541c35ffdf85e6d1a87516dd90f0affa3c3ccfa8d5",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/JointMineContentSetup.cs.meta": "2cfa25854815d7b1cb9e1d94b978395c2792f09875347bd5a698e4fa2e1adc97",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleOverlay.cs.meta": "b1ebde2778ab938ef8615d27a8f5f98abec9cc59101f5a8b395735e049fff8d7",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStyleDrafts.cs.meta": "50986bc9f5b45877a30db32b80069a43319fb826429576320233dcde749e7d2f",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewCanvas.cs.meta": "b301058e395f78984ca35b88c63875362441e67a43f17d9c69e927236239692d",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainVeinStudyPreview.cs.meta": "1465ea54efe64c00046c1680fc8887d625d45dd6ac88a5bb7b9169a06339c57a",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsNativeWorkspace.cs.meta": "42565509820053569df283acf19c1e97585b297bb962ef9410fdb2cb934207d1",
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsWorkbenchCatalog.cs.meta": "a0fb9e6df84032ad70a711f5f1d3836dfa1d6de5c6b87cffeab485ddddd57252",
+    "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchSaveTests.cs.meta": "68e155ed193ffa2caa67f71f0de1f0651a3c8b8c0e55913ca3cc76106b399f48",
+    "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchLifecycleTests.cs.meta": "2f947d421cfd8e60bec239b6d5cb47e153d63987fe30f32a78ed239774d5659d",
+    "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchLayoutTests.cs.meta": "12f891e8bb3ca526e41bea233038d9520c36f5f7ff85cd4d7d0bff698db65165",
+    "Game/Assets/DarkNights/Res/Editor/Terrain/TerrainWorkbench.uxml.meta": "2872db35bdab3a5f311b1b919347f4e10378382fcf7e9a044a4475e3bdfdf415",
+    "Game/Assets/DarkNights/Res/Editor/Terrain/TerrainWorkbench.uss.meta": "68ef35f0c06f719ff97f00778e2717dcb05dccf3e1d61844d8eb7066faaca3db"
+  },
+  "line_counts": {
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchState.cs": 38,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchCommands.cs": 168,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchFields.cs": 131,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchView.cs": 195,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchPreview.cs": 172,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchPicking.cs": 82,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchSourcePage.cs": 66,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchSpacePage.cs": 47,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchMineralPage.cs": 48,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchExtrasPage.cs": 52,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchGeologyPage.cs": 110,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchAppearancePage.cs": 105,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchReleasePage.cs": 69,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchAdvancedPage.cs": 132,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewWindow.cs": 197,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainGenerationPreview.cs": 153,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/JointMineContentSetup.cs": 79,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/CaveRuleOverlay.cs": 63,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStyleDrafts.cs": 234,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewCanvas.cs": 209,
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainVeinStudyPreview.cs": 138,
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsNativeWorkspace.cs": 62,
+    "Game/Assets/DarkNights/Scripts/Editor/DarkNightsWorkbenchCatalog.cs": 64,
+    "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchSaveTests.cs": 119,
+    "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchLifecycleTests.cs": 69,
+    "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchLayoutTests.cs": 41
+  },
+  "protected_bytes_unchanged": {
+    "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset": true,
+    "Game/Assets/DarkNights/Res/Terrain/StrataCave/Style.asset": true,
+    "Game/Packages/manifest.json": true,
+    "Game/Packages/packages-lock.json": true
+  },
+  "memory_preflights": {
+    "memory-start": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.7109527587890625,
+      "minimum_free_ram_gib": 9.638980865478516,
+      "memory_gate": "available_physical_only",
+      "limits": {
+        "minimum_free_ram_gib": 1
+      },
+      "read_only": true
+    },
+    "memory-before-import": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.617633819580078,
+      "minimum_free_ram_gib": 9.074615478515625,
+      "memory_gate": "available_physical_only",
+      "limits": {
+        "minimum_free_ram_gib": 1
+      },
+      "read_only": true
+    },
+    "memory-before-final-compile": {
+      "state": "completed",
+      "samples": 1,
+      "peak_private_gib": 4.606777191162109,
+      "minimum_free_ram_gib": 7.655731201171875,
+      "memory_gate": "available_physical_only",
+      "limits": {
+        "minimum_free_ram_gib": 1
+      },
+      "read_only": true
+    }
+  },
+  "preserved_diagnostics": [
+    "Initial compilation succeeded with a newly introduced PreventDefault deprecation warning; final revision removes it.",
+    "Existing FindFirstObjectByType warnings in RuntimeTerrainWorkbenchPlayTests were not changed.",
+    "First read-only window query found an empty window list; import-inspection.json retains the index error.",
+    "Final read-only inspection was interrupted by Editor shutdown; final-inspection.json retains the failed response.",
+    "Initial author draft matched its saved baseline; its original JSON remains in open-draft-before.json.",
+    "Batch shutdown thread/debugger diagnostics remain in batch-compile.log; Unity exited 0 without C# errors."
+  ],
+  "not_executed": [
+    "UITK GUI clicks, layout, Chinese font, focus, shortcut or close/reopen acceptance",
+    "New layout tests and updated save/lifecycle tests (written and compiled only)",
+    "Actual candidate generation through the new interface",
+    "New version creation or installation",
+    "Unity Play, automated tests, Player, networking or restore acceptance"
+  ],
+  "retained_boundaries": [
+    "Original rendering canvas and scoped advanced/legacy/experiment drawers still use IMGUI.",
+    "The whole old window is not embedded in the UITK shell.",
+    "Offline review candidates are not automatically imported into a Unity map pool.",
+    "Bootstrap action opens the scene only. Ordinary hosting loads the installed frozen map; F1 pickaxe quick tests regenerate.",
+    "No automatic Play or isolated uninstalled-candidate launch.",
+    "No asset deletion, persistent terrain editing, multiple collapse sites, new creature directions or damage.",
+    "No YYGC, dependency, protocol, save-format, scene or default-map modification."
+  ],
+  "artifacts": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\map-workbench-uitk-20261021",
+  "artifact_bytes": 599384
+}

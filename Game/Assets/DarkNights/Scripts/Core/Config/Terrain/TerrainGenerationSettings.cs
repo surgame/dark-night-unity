@@ -12,6 +12,7 @@ namespace DarkNights.Core.Config.Terrain
         public double Amplitude = 1;
         public double OreDensity = 1;
         public string ResourceProfile = GameplayResourceProfile;
+        public CaveRuleSettings Rules = new CaveRuleSettings();
         [NonSerialized] public MineMapDefinition MineMap;
         public const int GeneratorVersion = 1;
         public const int Width = 320;
@@ -32,9 +33,11 @@ namespace DarkNights.Core.Config.Terrain
                 throw new ArgumentOutOfRangeException(nameof(Amplitude), "地表起伏或矿脉密度越界。");
             if (MineMap != null && ResourceProfile != CaveExplorationProfile)
                 throw new ArgumentException("关卡矿洞只能接入正式洞穴生成入口。");
+            if (Rules != null && Rules.Enabled && (MineMap != null || ResourceProfile != CaveExplorationProfile))
+                throw new ArgumentException("规则洞穴仅用于洞穴方案，且不能同时装配.minemap作者图。");
             return new TerrainGenerationSettings { Seed = Seed, Surface = Surface, OrganicCaves = OrganicCaves,
                 Amplitude = Amplitude, OreDensity = OreDensity, ResourceProfile = ResourceProfile,
-                MineMap = MineMap?.CopyValidated() };
+                MineMap = MineMap?.CopyValidated(), Rules = Rules == null ? null : Rules.Enabled ? Rules.CopyValidated() : Rules.Copy() };
         }
 
         /// <summary>创建仅供历史 HTML 栅格向量使用的旧资源分布输入；不进入正式随机地图。</summary>

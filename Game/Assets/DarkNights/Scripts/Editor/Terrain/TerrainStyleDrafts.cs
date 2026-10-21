@@ -51,6 +51,18 @@ namespace DarkNights.Editor.Terrain
             }
         }
 
+        /// <summary>当前工作副本的展示身份；仅核对Undo是否实际改动表现，不包含原资产的外部变化。</summary>
+        internal string VisualIdentity
+        {
+            get
+            {
+                RestoreEntries();
+                var identity = new System.Text.StringBuilder();
+                foreach (var asset in workingAssets) identity.Append(JsonUtility.ToJson(asset)).Append('|');
+                return identity.ToString();
+            }
+        }
+
         public ScriptableObject ChooseAsset(CaveTerrainStyle style, ScriptableObject selected)
         {
             var assets = new List<ScriptableObject>();
@@ -175,6 +187,16 @@ namespace DarkNights.Editor.Terrain
             foreach (var source in changes.Keys) AssetDatabase.SaveAssetIfDirty(source);
             Undo.CollapseUndoOperations(group);
             return changes.Count;
+        }
+
+        /// <summary>列出本窗口实际改动的共享资产，供保存前明确影响；不应用或清理任何草稿。</summary>
+        public string DescribeChanges()
+        {
+            RestoreEntries();
+            var paths = new List<string>();
+            foreach (var pair in entries)
+                if (ChangedPaths(pair.Value).Count != 0) paths.Add(AssetDatabase.GetAssetPath(pair.Key));
+            return string.Join("\n", paths);
         }
 
         /// <summary>接收运行工作台草稿及最初源基线；沿用逐字段冲突校验，运行时的 Apply 不会绕过外部资产保护。</summary>
