@@ -144,6 +144,17 @@
     "YYGC及依赖源码"
   ],
   "artifacts": "artifacts/map-workbench-polish-20261022/",
-  "integration": "用户已授权提交、推送与合并main；实际提交及远端同步身份以Git为准。",
+  "integration": {
+    "implementation_commit": "f57bae1f75a588f1bce09627f439d99494efe5e1",
+    "branch_pushed": "origin/fix-20261022-map-workbench-polish",
+    "local_main_fast_forward_from": "cfe8c8182e138f0a2263920422f1cfb593d11e13",
+    "remote_main_pushed_from": "d99d5e3",
+    "remote_main_pushed_to": "f57bae1f75a588f1bce09627f439d99494efe5e1",
+    "protected_files_during_same_tip_switch": 159,
+    "changed_protected_files": 0,
+    "force_push": false,
+    "pull_request": false,
+    "boundary": "本收尾文档不改变源码／验证候选，最后main及origin/main一致性另外读取Git确认。"
+  },
   "stage": "CL-01 / CL仍进行中，不因本批通过而结束。"
 }
