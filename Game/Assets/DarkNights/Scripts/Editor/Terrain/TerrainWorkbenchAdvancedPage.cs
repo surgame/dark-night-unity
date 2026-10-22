@@ -77,7 +77,6 @@ namespace DarkNights.Editor.Terrain
                 }));
                 form.Button("保存本机配方预设", () => TerrainVeinStudySettings.instance.SavePreset());
             }
-            form.Button("更新完整候选", owner.Commands.Generate);
             form.Button("检查与使用 →", () => owner.SelectPage("release"));
         }
 

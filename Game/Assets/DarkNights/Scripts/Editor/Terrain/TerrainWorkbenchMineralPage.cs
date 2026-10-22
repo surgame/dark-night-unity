@@ -29,7 +29,6 @@ namespace DarkNights.Editor.Terrain
             else
             {
                 form.Help("已有作者图沿用原矿层与联合配方；旧配方参数保留在高级与兼容，不伪装为新规则字段。");
-                form.Button("更新完整联合候选", owner.Commands.Generate);
             }
             form.Button("配置富矿伴巢 →", () =>
             { owner.State.Extra = "nest"; owner.SelectPage("extras"); });
@@ -40,7 +39,7 @@ namespace DarkNights.Editor.Terrain
                 form.Note(map.Deposits.Count + " 矿床分片 · 储量 " + map.Deposits.Sum(d => d.Capacity));
                 form.Note("结果归当前画布；候选过期时不会把新参数显示成已生成结果。");
             }
-            var report = form.Fold("区域预算与失败原因", true);
+            var report = form.Fold("区域预算与失败原因");
             foreach (string line in owner.Generation.ContentDiagnostics)
                 form.Note(line, report);
         }

@@ -32,6 +32,9 @@ namespace DarkNights.Editor.Terrain
         internal TerrainStylePreviewCanvas Canvas => canvas;
         internal TerrainVeinStudyPreview Study => study;
         internal bool Pending => pendingOpen || pendingStyle || !stage.Ready;
+        internal string CanvasStatus => Pending ? stage.Progress ?? "画面更新中…"
+            : "预览 " + canvasFps + " FPS · 相机 " + stage.LastCameraMilliseconds + " ms · 缩放 " +
+                canvas.Zoom.ToString("0.0") + "×";
         internal bool ShowGeologyDraft => IsCandidate && owner.State.Sites && owner.State.Page == "extras" &&
             owner.State.Extra == "collapse" && owner.Draft.Config.Geology?.Enabled == true;
         internal string OverlayLegend => ShowGeologyDraft
@@ -166,7 +169,7 @@ namespace DarkNights.Editor.Terrain
                 canvas.ActiveTool == TerrainStylePreviewTool.Fill, owner.State.FillMaterial), RefreshMap,
                 Map.BeginStroke, Map.EndStroke, Map.Undo, Map.Redo);
             canvas.Draw(rect, stage.Image, canvasFps, stage.LastCameraMilliseconds, Pending, stage.Progress,
-                owner.State.LandingMarkers ? owner.Generation.Selected : null);
+                owner.State.LandingMarkers ? owner.Generation.Selected : null, false);
             if (stage.Image == null) return;
             Rect bounds = canvas.ImageScreenBounds(rect, stage.Image);
             if (IsCandidate && DisplayedIdentity == owner.Generation.LastCandidateIdentity)

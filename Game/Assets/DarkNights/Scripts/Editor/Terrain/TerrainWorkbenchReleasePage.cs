@@ -19,17 +19,17 @@ namespace DarkNights.Editor.Terrain
             this.form = form; var owner = form.Owner;
             form.Title("检查与使用", "保存草稿 ≠ 更新候选 ≠ 创建版本 ≠ 设为新局。");
             saved = form.Note(""); fresh = form.Note(""); checkedState = form.Note("");
-            form.Button("保存地图草稿", owner.Commands.SaveDraft);
-            form.Button("更新当前候选", owner.Commands.Generate);
+            form.Heading("1 · 核对候选");
             check = form.Button("核对静态数据（不检查通行）", owner.Commands.Check);
             reason = form.Help("");
+            form.Heading("2 · 创建冻结版本");
             freeze = form.Button("创建冻结新版本…", owner.Commands.Freeze, primary: true);
             var use = new Toggle("创建后同时设为正式新局");
             use.SetValueWithoutNotify(owner.State.UseForNewGame);
             use.RegisterValueChangedCallback(change => owner.State.UseForNewGame = change.newValue);
             form.Root.Add(use);
             form.Note("关闭时只创建新资产；开启时确认后更换新局引用。旧版本、现有地图与旧存档保持。");
-            form.Heading("已创建／所选冻结版本");
+            form.Heading("3 · 管理版本与新局引用");
             var version = new ObjectField("冻结地图")
             { objectType = typeof(Runtime.Terrain.ReviewedMineMap), allowSceneObjects = false };
             version.SetValueWithoutNotify(owner.State.FrozenVersion);

@@ -1,0 +1,149 @@
+{
+  "date": "2026-10-22",
+  "scope": "地图工作台第二轮UITK整体易用性整理与保留测试夹具Undo隔离",
+  "branch": "fix-20261022-map-workbench-polish",
+  "base": "cfe8c8182e138f0a2263920422f1cfb593d11e13",
+  "unity": "6000.4.9f1",
+  "editor_pid_final": 33600,
+  "source_sha256": {
+    "Game/Assets/DarkNights/Res/Editor/Terrain/TerrainWorkbench.uss": "6075fc98723a2585df4130ba0a9f214c74564a760b21c796f2acf62007d5bf65",
+    "Game/Assets/DarkNights/Res/Editor/Terrain/TerrainWorkbench.uxml": "367b1b9fe338672c9bd260e43ca7a440bc568d95da5d0434d164141926019d51",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainStylePreviewCanvas.cs": "c541d64182498938a1320414cc2a8857a5d830e6086993270653e70c1ea04255",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchAdvancedPage.cs": "dfc54bec92fd341ecf98360a30431a3d156322caf333fea8817cc58244dda1ee",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchAppearancePage.cs": "ec53b4cb5e6ea97cd35dbb5a36738a3a9e5ffb122e71aec97109054e28f4ed85",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchExtrasPage.cs": "23767dfd8a871b72040f28eaf49d5f8688256457c9485c448ea86d06a7913c00",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchFields.cs": "25ed549904e54d32012da9f4ce1c993d38990cb0a29faecf5d4a554e8a67c1bd",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchGeologyPage.cs": "ecc11ab9c15300c220d9dbb664b1d5965334131baed2dcda991b566f833f003a",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchMineralPage.cs": "871f6f82002dfb455c1654bed60b13be38839853645219ff5ca6d4f55fcd89ef",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchPreview.cs": "6961dd52ff9d6738de0970b7917ea9a9f75266ed1463bacb289cc4a2ec98866c",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchReleasePage.cs": "f20217d86fc5d08bb099cddb0eb4cb82b4264f9ecf2f5831648276512347c8ed",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchSpacePage.cs": "315cbd474595c939d545ea31239f7592c23a1f377a45ed9b214251b31fb71402",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchView.cs": "b73512aa79fc54c8f58d6f92916462cadf5f76e6d143407fe46fbbf14c3d93bf",
+    "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchCandidateTests.cs": "606c74f65e3a02d48a888086477311385316371349dfcbb3d3679701abd7f3a2",
+    "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchLayoutTests.cs": "692c306d4a957b2896a8e4ee1fb80839c1162890b536fd66b7bbfda5f797417d",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchChrome.cs": "f49afcb7841a748e0eff1d7674b37e8e90ac52c2286053ab4e4e4ad87b917011",
+    "Game/Assets/DarkNights/Scripts/Editor/Terrain/TerrainWorkbenchChrome.cs.meta": "a756b6a935b0c6a1b8896c5f1d75e55a98d9a74d18e21717b0da9e1878178ef1"
+  },
+  "root_cause": {
+    "asset": "Game/Assets/__TunerCandidateValidation20261022/Source 9.asset",
+    "baseline_sha256": "dd9c2b9ee5539dfa0cca409c6fe4832b90b93e61a2797fc0c58af0ca9535af57",
+    "observed_sha256": "eb27f74b500af8e80e19024fa7e75c8c7d093c9b0b59cf5c056dc49a901c2ecc",
+    "exact_reconstruction_verified": true,
+    "only_changes": [
+      "Road: roots -> erosion",
+      "SerializeReference rid: 4004706616733859998 -> 4004706616733859995",
+      "SerializeReference rid: 4004706616733859999 -> 4004706616733859996"
+    ],
+    "mechanism": "测试保存源资产后保留了Undo记录；Unity Test Framework PerformUndoTask.RevertAllDownToGroup回滚了内存中的已保存配置，磁盘保留新值，后续写盘显现差异。精确后续写盘调用未录制；不据此认定某个框架回调有误。",
+    "fix": "仅对本测试自建源资产ClearUndo并SaveAssetIfDirty；不清理用户Undo、不修改YYGC、旧夹具或正式资产。",
+    "regression": "先复现未隔离时内存／磁盘差异，再验证隔离后Runner同等回滚仍一致；整批结束再核对新Source 10／11均roots、diskRoots=true、dirty=false。",
+    "old_fixture_preserved": true,
+    "references": [
+      "Game/Assets/DarkNights/Scripts/Tests/TunerWorkbenchCandidateTests.cs",
+      "Game/Assets/DarkNights/Scripts/Editor/ExpeditionFlowDraft.cs",
+      "Game/Library/PackageCache/com.unity.test-framework@76560ee600cb/UnityEditor.TestRunner/TestRun/Tasks/PerformUndoTask.cs"
+    ]
+  },
+  "validation": {
+    "compile": "completed, failed=false, errors=[]",
+    "tests": {
+      "total": 14,
+      "passed": 14,
+      "failed": 0,
+      "batches": [
+        {
+          "name": "root-cause reproduction and protection",
+          "passed": 1
+        },
+        {
+          "name": "author-undo",
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        {
+          "name": "layout",
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        {
+          "name": "grid",
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0,
+          "inconclusive": 0
+        },
+        {
+          "name": "lifecycle",
+          "total": 2,
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "inconclusive": 0
+        }
+      ]
+    },
+    "native_ui": {
+      "tasks": 7,
+      "layers": 7,
+      "previous_next": true,
+      "wide": [
+        1814,
+        1048
+      ],
+      "narrow": [
+        800,
+        600
+      ],
+      "canvas_height_wide": 734,
+      "canvas_height_narrow": 252.666672,
+      "minimum_action_height": 30,
+      "navigation_all_four_borders": 0,
+      "draft_restored": true,
+      "receipt": "artifacts/map-workbench-polish-20261022/native-smoke-result.json",
+      "boundary": "前半轮PID35436原生后台回调及几何；恢复后PID33600未重开用户窗口，结构／生命周期／网格与根因测试另有当前回执。之后仅调主按钮悬停色和夹具测试，没有改变布局几何。"
+    },
+    "protected_assets": {
+      "Game/Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset": {
+        "sha256": "02f75af17101be6adc9291a427a75a90f666986353d553859d17fba970ba927a",
+        "same": true
+      },
+      "Game/Assets/DarkNights/Res/Terrain/StrataCave/Style.asset": {
+        "sha256": "495367ddeb5919832147d34219fd4b649392bd54a6abcb692d66ab10a3122b31",
+        "same": true
+      },
+      "Game/Packages/manifest.json": {
+        "sha256": "5ddb149d97a4310ebd4a5813fa9485a2ae59ab5fb6804b1c637ce85c65e528e4",
+        "same": true
+      },
+      "Game/Packages/packages-lock.json": {
+        "sha256": "fd002144c90a2019e08e7647511406c62d754a44efa16a5116f97bd4cfbd9e39",
+        "same": true
+      }
+    },
+    "scene_dirty_final": false,
+    "playing_final": false,
+    "windows_before_and_after_resume": 0,
+    "first_layout_attempt": "4/5；分离窗口未挂Panel，值赋值不会派发ChangeEvent，修正测试假设。真实挂载页面的7层开关另有后台回调通过回执，失败保留。"
+  },
+  "limitations": [
+    "未执行Play、Player、多人、存档恢复或人物通行验收；本轮为Editor工具改动。",
+    "后台GUIView截图存在混合DPI／裁剪问题，保留原失败截图，不签署完整前台像素视觉验收。",
+    "用户关闭／重启Editor前的未保存草稿曾比对一致；本轮恢复时窗口0个，不擅自重开或恢复旧草稿。"
+  ],
+  "excluded": [
+    "所有旧／新测试夹具",
+    "其他会话星图、H5、MVP、混合文档非本轮段落",
+    "旧中间地图及作者资产",
+    "YYGC及依赖源码"
+  ],
+  "artifacts": "artifacts/map-workbench-polish-20261022/",
+  "integration": "用户已授权提交、推送与合并main；实际提交及远端同步身份以Git为准。",
+  "stage": "CL-01 / CL仍进行中，不因本批通过而结束。"
+}

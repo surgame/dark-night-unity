@@ -42,7 +42,6 @@ namespace DarkNights.Editor.Terrain
                 }
             var why = form.Fold("分布与跳过原因");
             foreach (string message in owner.Generation.ContentDiagnostics) form.Note(message, why);
-            form.Button("更新完整候选", owner.Commands.Generate, primary: true);
             form.Heading("制作实验");
             form.Note("局部矿形、巢口动画与揭露回放仅存本机，不写入本图。");
             form.Button("打开本机矿巢实验", () =>

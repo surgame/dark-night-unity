@@ -54,9 +54,47 @@ namespace DarkNights.Tests
         [TearDown]
         public void RetainFixtureAndReleaseWindow()
         {
+            PreserveSourceFixture();
             TestContext.WriteLine("Retained source: " + AssetDatabase.GetAssetPath(source));
             typeof(EditorWindow).GetProperty("hasUnsavedChanges").SetValue(window, false);
             UnityEngine.Object.DestroyImmediate(window);
+        }
+
+        private void PreserveSourceFixture()
+        {
+            if (source == null) return;
+            // 测试框架稍后会回滚整批Undo；保留夹具必须移除仅属于该自建资产的记录。
+            Undo.ClearUndo(source);
+            AssetDatabase.SaveAssetIfDirty(source);
+        }
+
+        [Test]
+        public void RetainedFixtureDoesNotDivergeWhenRunnerRevertsItsUndoGroup()
+        {
+            Undo.IncrementCurrentGroup();
+            int unprotected = Undo.GetCurrentGroup();
+            window.Draft.Config.CaveMap.Rules.Road = "roots";
+            Call(commands, "SaveDraft");
+            Undo.FlushUndoRecordObjects();
+            string path = AssetDatabase.GetAssetPath(source);
+            Assert.That(System.IO.File.ReadAllText(path), Does.Contain("Road: roots"));
+            Undo.RevertAllDownToGroup(unprotected);
+            Assert.That(source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single().CaveMap.Rules.Road,
+                Is.EqualTo("erosion"), "复现旧夹具：内存回退，但磁盘仍是roots");
+            Assert.That(System.IO.File.ReadAllText(path), Does.Contain("Road: roots"));
+
+            Call(window.Draft, "Load", source);
+            window.Draft.Config.CaveMap.Rules.Road = "roots";
+            Undo.IncrementCurrentGroup();
+            int protectedGroup = Undo.GetCurrentGroup();
+            Call(commands, "SaveDraft");
+            Undo.FlushUndoRecordObjects();
+            PreserveSourceFixture();
+            Undo.RevertAllDownToGroup(protectedGroup);
+            Assert.That(source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single().CaveMap.Rules.Road,
+                Is.EqualTo("roots"), "只清除此测试源的Undo，不清理用户或其他测试对象");
+            Assert.That(System.IO.File.ReadAllText(path), Does.Contain("Road: roots"));
+            Assert.That(EditorUtility.IsDirty(source), Is.False);
         }
 
         [TestCase("erosion")]

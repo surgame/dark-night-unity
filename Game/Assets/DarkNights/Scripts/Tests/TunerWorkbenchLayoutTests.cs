@@ -65,6 +65,60 @@ namespace DarkNights.Tests
         }
 
         [Test]
+        public void GlobalActionsAndInspectorStayOutsideScrollingProperties()
+        {
+            var window = ScriptableObject.CreateInstance<TerrainStylePreviewWindow>();
+            try
+            {
+                window.CreateGUI();
+                var root = window.rootVisualElement;
+                var properties = root.Q<ScrollView>("taskProperties");
+                Assert.That(root.Q("headerActions").Contains(root.Q<Button>("updateCandidate")), Is.True);
+                Assert.That(root.Q("headerActions").Contains(root.Q<Button>("saveDraft")), Is.True);
+                Assert.That(properties.Contains(root.Q<Label>("inspectorTitle")), Is.False);
+                Assert.That(properties.Contains(root.Q<Button>("nextTask")), Is.False);
+                Assert.That(root.Q<Button>("discardWindow"), Is.Null, "破坏性操作收进更多菜单");
+                Assert.That(root.Q<Button>("fitCanvas"), Is.Not.Null);
+                typeof(TerrainStylePreviewWindow).GetMethod("SelectPage", Flags).Invoke(window, new object[] { "minerals" });
+                Assert.That(root.Q<Label>("inspectorTitle").text, Is.EqualTo("矿物分布"));
+                Assert.That(properties.Query<Foldout>().ToList().Find(f => f.text == "区域预算与失败原因").value, Is.False);
+            }
+            finally
+            {
+                typeof(EditorWindow).GetProperty("hasUnsavedChanges").SetValue(window, false);
+                Object.DestroyImmediate(window);
+            }
+        }
+
+        [Test]
+        public void CompactLayersExposeCurrentStateWithoutChangingAuthorDraft()
+        {
+            var window = ScriptableObject.CreateInstance<TerrainStylePreviewWindow>();
+            try
+            {
+                window.CreateGUI();
+                string before = window.Draft.Config.CanonicalIdentity();
+                var layers = window.rootVisualElement.Q("canvasTools").Query<Toggle>().ToList();
+                Assert.That(layers.Count, Is.EqualTo(7));
+                foreach (var toggle in layers)
+                {
+                    Assert.That(toggle.label, Is.Null.Or.Empty, "不使用带大标签留白的BaseField布局");
+                    Assert.That(toggle.text, Is.Not.Empty);
+                    Assert.That(toggle.ClassListContains("map-selected"), Is.EqualTo(toggle.value), toggle.text);
+                    Assert.That(toggle.tooltip, Is.Not.Empty);
+                }
+                Assert.That(window.Draft.Config.CanonicalIdentity(), Is.EqualTo(before));
+                foreach (var button in window.rootVisualElement.Q("taskNavigation").Query<Button>().ToList())
+                    Assert.That(button.text, Is.Null.Or.Empty, "导航文字由标题和副标题构成，没有额外符号");
+            }
+            finally
+            {
+                typeof(EditorWindow).GetProperty("hasUnsavedChanges").SetValue(window, false);
+                Object.DestroyImmediate(window);
+            }
+        }
+
+        [Test]
         public void DraftGeologyOverlayIsScopedToCandidateCollapseTaskEvenWhenInputIsStale()
         {
             var window = ScriptableObject.CreateInstance<TerrainStylePreviewWindow>();

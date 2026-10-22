@@ -18,7 +18,6 @@ namespace DarkNights.Editor.Terrain
                 form.Button("切换为新规则草稿", owner.Commands.NewRules, primary: true);
                 form.Field("Config.CaveMap.Seed", "预览／复现种子");
                 form.Field("Config.CaveMap.Amplitude", "地表起伏");
-                form.Button("更新完整候选", owner.Commands.Generate);
                 return;
             }
             const string path = "Config.CaveMap.Rules.";
@@ -39,7 +38,6 @@ namespace DarkNights.Editor.Terrain
             form.Field(path + "BranchDepth", "支线层级上限", more);
             form.Field(path + "RockGap", "支线封岩比例", more);
             form.Field("Config.CaveMap.Amplitude", "地表起伏", more);
-            form.Button("更新候选", owner.Commands.Generate, primary: true);
             form.Note("不检查人物通行，不自动修路；声明连接不等于人物合法路径。");
             if (owner.Generation.GeologyConflict.Length != 0)
             {

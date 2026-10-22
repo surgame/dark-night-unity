@@ -95,7 +95,6 @@ namespace DarkNights.Editor.Terrain
             Field(form, precise, "Association", "洞室／矿体关联");
             var effect = form.Fold("前兆、运动与完整效果参数", parent: edit);
             form.Field(p + "Configuration", "事件配方", effect);
-            form.Button("更新完整候选", owner.Commands.Generate, edit, true);
             form.Help(owner.Generation.GeologyConflict.Length == 0
                 ? "静态空间状态以检查与使用为准；只选择坐标不代表通过。"
                 : "静态冲突：" + owner.Generation.GeologyConflict,

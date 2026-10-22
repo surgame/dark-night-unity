@@ -25,8 +25,11 @@ namespace DarkNights.Editor.Terrain
 
         internal void Title(string title, string description)
         {
-            var label = new Label(title); label.AddToClassList("map-page-title"); Root.Add(label);
-            Note(description);
+            var label = owner.rootVisualElement.Q<Label>("inspectorTitle");
+            var subtitle = owner.rootVisualElement.Q<Label>("inspectorDescription");
+            if (label != null && subtitle != null)
+            { label.text = title; subtitle.text = description; return; }
+            label = new Label(title); label.AddToClassList("map-page-title"); Root.Add(label); Note(description);
         }
 
         internal Label Note(string text, VisualElement parent = null)

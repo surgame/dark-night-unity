@@ -82,7 +82,7 @@ namespace DarkNights.Editor.Terrain
             {
                 if (iterator.propertyPath == "m_Script") continue;
                 string path = iterator.propertyPath;
-                var row = new VisualElement(); inspector.Add(row);
+                var row = new VisualElement(); row.AddToClassList("map-style-property"); inspector.Add(row);
                 var field = new PropertyField(iterator.Copy()); field.BindProperty(iterator.Copy()); row.Add(field);
                 field.RegisterCallback<SerializedPropertyChangeEvent>(_ =>
                 {
@@ -100,6 +100,7 @@ namespace DarkNights.Editor.Terrain
                     });
                 }) { text = "恢复此字段" };
                 reset.tooltip = "恢复为打开该草稿时的原资产值；支持Undo。";
+                reset.AddToClassList("map-field-reset");
                 row.Add(reset);
             }
         }

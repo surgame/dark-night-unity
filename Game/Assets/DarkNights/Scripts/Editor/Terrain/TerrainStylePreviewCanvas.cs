@@ -147,7 +147,7 @@ namespace DarkNights.Editor.Terrain
         }
 
         public void Draw(Rect canvas, Texture image, int fps, int renderMilliseconds, bool pending, string pendingReason = null,
-            PlanetPreset planet = null)
+            PlanetPreset planet = null, bool showStatus = true)
         {
             EditorGUI.DrawRect(canvas, new Color(.12f, .13f, .15f));
             GUI.BeginGroup(canvas);
@@ -162,10 +162,10 @@ namespace DarkNights.Editor.Terrain
             string action = ActiveTool == TerrainStylePreviewTool.Pan ? "左键拖拽平移" :
                 ActiveTool == TerrainStylePreviewTool.Dig ? "左键单击或拖动拆格" : "左键单击或拖动填格";
             string grid = !ShowGrid ? "网格已隐藏" : GridMode == TerrainGridMode.Logical ? "逻辑网格（青色）" : "渲染网格（金色）";
-            GUI.Box(new Rect(8, 8, Mathf.Min(canvas.width - 16, 335), 58),
+            if (showStatus) GUI.Box(new Rect(8, 8, Mathf.Min(canvas.width - 16, 335), 58),
                 "预览画布 " + fps + " FPS · 最近相机渲染 " + renderMilliseconds + " ms\n" +
                 action + " · 中键平移 · 滚轮缩放\n" + grid + " · 1 逻辑 / 2 渲染");
-            if (pending) GUI.Label(new Rect(8, canvas.height - 30, canvas.width - 16, 22),
+            if (pending && showStatus) GUI.Label(new Rect(8, canvas.height - 30, canvas.width - 16, 22),
                 pendingReason ?? "画面更新中…", EditorStyles.whiteLabel);
             GUI.EndGroup();
         }
