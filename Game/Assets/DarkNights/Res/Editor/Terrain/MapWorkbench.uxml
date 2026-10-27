@@ -55,16 +55,6 @@
             </ui:VisualElement>
           </ui:VisualElement>
           <ui:Label name="canvasIdentity" class="map-canvas-identity" />
-          <ui:VisualElement name="productionFlow" class="map-production-flow">
-            <ui:Label text="八步生成过程 · 查看同一批结果" class="map-flow-title" />
-            <ui:VisualElement name="productionStages" class="map-flow-stages" />
-            <ui:Label name="moduleImpact" class="map-flow-detail" />
-            <ui:VisualElement class="map-row">
-              <ui:Toggle name="highlightStageChanges" label="标记本步材料变化" value="true" />
-              <ui:Button name="captureStages" text="记录当前种子步骤" tooltip="明确重新生成当前地图以记录中间格子；不会抽取新种子，不会自动保存。" />
-            </ui:VisualElement>
-            <ui:Label name="productionDetail" class="map-flow-detail" />
-          </ui:VisualElement>
           <ui:VisualElement name="canvasHost" class="map-canvas">
             <ui:Image name="productionImage" class="map-production-image map-hidden" />
             <ui:VisualElement name="mapLoadProgress" class="map-load-progress map-hidden" picking-mode="Ignore">
@@ -86,6 +76,38 @@
           <ui:Foldout text="图例与显示说明" value="false" class="map-legend-fold">
             <ui:Label name="canvasLegend" class="map-canvas-legend" />
             <ui:Label name="mapLoadTiming" class="map-canvas-legend" />
+          </ui:Foldout>
+          <ui:Foldout name="productionFlow" text="生成过程 · 调试" value="false" class="map-production-flow" tooltip="展开查看同一次生成的八步结果；收起时返回完整地图。">
+            <ui:VisualElement name="productionFlowBody" class="map-flow-body">
+              <ui:VisualElement class="map-flow-heading">
+                <ui:Label name="productionPosition" class="map-flow-position" />
+                <ui:Toggle name="highlightStageChanges" label="标记本步变化" value="true" />
+              </ui:VisualElement>
+              <ui:VisualElement class="map-flow-timeline">
+                <ui:ProgressBar name="productionProgress" low-value="0" high-value="7" value="7" picking-mode="Ignore" />
+                <ui:SliderInt name="productionTimeline" low-value="0" high-value="7" value="7" tooltip="拖动、点选进度条，或用方向键查看已有步骤；不会重新生成地图。" />
+              </ui:VisualElement>
+              <ui:VisualElement class="map-flow-ticks" picking-mode="Ignore">
+                <ui:Label text="1" tooltip="原始地表" />
+                <ui:Label text="2" tooltip="地下计划" />
+                <ui:Label text="3" tooltip="洞室" />
+                <ui:Label text="4" tooltip="道路" />
+                <ui:Label text="5" tooltip="入口" />
+                <ui:Label text="6" tooltip="矿物与侧巢" />
+                <ui:Label text="7" tooltip="最终格形与背景" />
+                <ui:Label text="8" tooltip="完整地图" />
+              </ui:VisualElement>
+              <ui:VisualElement class="map-flow-controls">
+                <ui:Button name="productionPrevious" text="上一步" />
+                <ui:Button name="productionNext" text="下一步" />
+                <ui:Button name="productionFinal" text="查看完整结果" />
+              </ui:VisualElement>
+              <ui:ScrollView name="productionNotes" class="map-flow-notes">
+                <ui:Label name="productionDetail" class="map-flow-detail" />
+                <ui:Label name="moduleImpact" class="map-flow-detail" />
+                <ui:Button name="captureStages" text="记录当前种子步骤" tooltip="明确重新生成当前地图以记录中间格子；不会抽取新种子，不会自动保存。" />
+              </ui:ScrollView>
+            </ui:VisualElement>
           </ui:Foldout>
         </ui:VisualElement>
         <ui:VisualElement class="map-inspector">

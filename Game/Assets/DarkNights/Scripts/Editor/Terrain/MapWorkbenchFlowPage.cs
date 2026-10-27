@@ -8,14 +8,17 @@ using UnityEngine.UIElements;
 namespace DarkNights.Editor.Terrain
 {
     /// <summary>
-    /// 常驻画布的八步结果查看器；只读取同次不可变生成结果，阶段选择与作者参数完全分离。
+    /// 画布下方可收起的八步调试查看器；只读取同次不可变生成结果，阶段选择与作者参数完全分离。
+    /// 展开状态归窗口，以整数进度条选择已有阶段；默认收起且回到完整地图，避免隐藏阶段锁住编辑。
     /// 新候选直接带快照，历史结果缺少快照时需明确重新生成；纹理随候选替换或窗口释放。
     /// </summary>
     internal sealed class MapWorkbenchFlowPage : IDisposable
     {
         private readonly MapWorkbenchWindow owner;
         private readonly VisualElement root;
-        private readonly Button[] buttons = new Button[8];
+        private readonly Foldout disclosure;
+        private readonly SliderInt timeline;
+        private readonly ProgressBar progress;
         private readonly Image image;
         private readonly Label detail;
         private TerrainGenerationResult observed;
@@ -27,15 +30,25 @@ namespace DarkNights.Editor.Terrain
         internal MapWorkbenchFlowPage(MapWorkbenchWindow owner, VisualElement root)
         {
             this.owner = owner; this.root = root;
+            disclosure = root.Q<Foldout>("productionFlow");
+            disclosure.SetValueWithoutNotify(owner.State.ProductionFlowExpanded);
+            if (!disclosure.value) owner.State.ProductionStage = 7;
+            disclosure.RegisterValueChangedCallback(e =>
+            {
+                if (e.target != disclosure) return;
+                owner.State.ProductionFlowExpanded = e.newValue;
+                if (!e.newValue && selected < 7) Select(7);
+            });
             image = root.Q<Image>("productionImage"); image.scaleMode = ScaleMode.ScaleToFit;
             detail = root.Q<Label>("productionDetail");
-            string[] names = { "1 地表", "2 计划", "3 洞室", "4 道路", "5 入口", "6 矿巢", "7 格形", "8 完整地图" };
-            for (int i = 0; i < 8; i++)
-            {
-                int stage = i;
-                buttons[i] = new Button(() => Select(stage)) { name = "productionStage" + i, text = names[i] };
-                buttons[i].AddToClassList("map-flow-step"); root.Q("productionStages").Add(buttons[i]);
-            }
+            timeline = root.Q<SliderInt>("productionTimeline");
+            progress = root.Q<ProgressBar>("productionProgress");
+            timeline.pageSize = 0;
+            timeline.SetValueWithoutNotify(selected);
+            timeline.RegisterValueChangedCallback(e => Select(e.newValue));
+            root.Q<Button>("productionPrevious").clicked += () => Select(selected - 1);
+            root.Q<Button>("productionNext").clicked += () => Select(selected + 1);
+            root.Q<Button>("productionFinal").clicked += () => Select(7);
             var highlight = root.Q<Toggle>("highlightStageChanges"); highlight.SetValueWithoutNotify(changes);
             highlight.RegisterValueChangedCallback(e =>
             { owner.State.HighlightStageChanges = e.newValue; if (selected < 7 && observed != null) Draw(); });
@@ -50,6 +63,11 @@ namespace DarkNights.Editor.Terrain
         internal void Select(int stage)
         {
             owner.State.ProductionStage = Mathf.Clamp(stage, 0, 7);
+            if (selected < 7)
+            {
+                owner.State.ProductionFlowExpanded = true;
+                disclosure.SetValueWithoutNotify(true);
+            }
             owner.State.Pick = 0; owner.Preview.UsePan(); owner.Preview.Compare = false;
             UpdateImage(); owner.Refresh();
         }
@@ -63,12 +81,17 @@ namespace DarkNights.Editor.Terrain
                 if (selected < 7 && (result == null || !result.Steps[selected].HasSnapshot)) owner.State.ProductionStage = 7;
                 UpdateImage();
             }
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                buttons[i].EnableInClassList("map-selected", selected == i);
-                buttons[i].SetEnabled(i == 7 || result != null && result.Steps[i].HasSnapshot);
-                buttons[i].tooltip = result == null ? "历史地图未保存制作步骤；实际保存结果保持。" : result.Steps[i].Name;
-            }
+            timeline.SetValueWithoutNotify(selected);
+            timeline.SetEnabled(result != null && result.Steps.Take(7).All(step => step.HasSnapshot));
+            progress.value = selected;
+            root.Q<Label>("productionPosition").text = (selected + 1) + " / 8 · " +
+                (result == null ? "完整地图" : result.Steps[selected].Name);
+            root.Q<Label>("productionPosition").tooltip = timeline.enabledSelf ?
+                string.Join(" → ", result.Steps.Select((step, i) => (i + 1) + " " + step.Name)) :
+                "此地图没有完整的中间快照；显示原完整结果，不补算。";
+            root.Q<Button>("productionPrevious").SetEnabled(selected > 0 && result?.Steps[selected - 1].HasSnapshot == true);
+            root.Q<Button>("productionNext").SetEnabled(selected < 7 && result?.Steps[selected + 1].HasSnapshot == true);
+            root.Q<Button>("productionFinal").SetEnabled(selected < 7);
             root.Q<Button>("captureStages").EnableInClassList("map-hidden", result?.Steps[0].HasSnapshot == true);
             root.Q<Button>("captureStages").SetEnabled(owner.State.ViewedMap == null && !owner.Preview.InputPending && !owner.Preview.Map.HasChanges);
             root.Q<Label>("moduleImpact").text = Impact();

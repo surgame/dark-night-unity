@@ -14,6 +14,7 @@ namespace DarkNights.Editor.Terrain
     {
         public string Page = "recipe";
         public int ProductionStage = 7;
+        public bool ProductionFlowExpanded;
         public bool HighlightStageChanges = true;
         public int SelectedRegion;
         public TerrainMapDocument Document;

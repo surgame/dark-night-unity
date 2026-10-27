@@ -163,7 +163,7 @@ namespace DarkNights.Tests
             Assert.That(Model.Result.Steps.Count, Is.EqualTo(8));
             for (int i = 0; i < 8; i++)
             {
-                Call(window.rootVisualElement.Q<Button>("productionStage" + i).clickable, "SimulateSingleClick", null, 0);
+                window.rootVisualElement.Q<SliderInt>("productionTimeline").value = i;
                 Assert.That(window.rootVisualElement.Q<Image>("productionImage").ClassListContains("map-hidden"), Is.EqualTo(i == 7));
                 Assert.That(Model.LastCandidate, Is.SameAs(originalCandidate));
                 Assert.That(window.Draft.Config.CanonicalIdentity(), Is.EqualTo(before));
