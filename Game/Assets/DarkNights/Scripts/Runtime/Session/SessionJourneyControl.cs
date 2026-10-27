@@ -14,7 +14,9 @@ namespace DarkNights.Runtime.Session
             var state = actor?.Read();
             if (state == null || state.ControllerSlot != connection.PlayerSlot ||
                 state.ControllerGeneration != connection.Generation || state.ControlLease != request.ControlLease) return -1;
-            return world.Mutations.Run(() => request.Operation == SessionOperation.SelectDestination
+            return world.Mutations.Run(() => request.Operation == SessionOperation.SelectNavigationPoint
+                ? CoordinateNavigationService.Select(world, actor, request.X, request.Y, request.Value)
+                : request.Operation == SessionOperation.SelectDestination
                 ? world.Flow.SelectDestination(actor, request.Kind, request.Value)
                 : world.Flow.Cancel(actor));
         }

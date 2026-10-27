@@ -31,7 +31,7 @@ namespace DarkNights.Editor
         };
         private static DarkNightsWorkbenchEntry Scene(string id, string group, string title, string path, string description) =>
             new DarkNightsWorkbenchEntry(id, DarkNightsWorkbenchEntryKind.Scene, group, title, description, "打开前沿用 Unity 的未保存场景提示。", "打开场景",
-                () => TerrainWorkbenchScenes.Open(path), path);
+                () => MapWorkbenchScenes.Open(path), path);
         private static DarkNightsWorkbenchEntry Locate(string id, string group, string title, string path, string description) =>
             new DarkNightsWorkbenchEntry(id, DarkNightsWorkbenchEntryKind.Reference, group, title, description, "仅定位现有资产，不重建或运行旧场景。", "在 Project 中定位",
                 () => DarkNightsWorkbenchWindow.Locate(AssetDatabase.LoadMainAssetAtPath(path)), path);

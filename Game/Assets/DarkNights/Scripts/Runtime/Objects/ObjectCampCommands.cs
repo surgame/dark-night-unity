@@ -15,7 +15,12 @@ namespace DarkNights.Runtime.Objects
     {
         private static readonly string[] Names = { "诺拉", "芬恩", "凯伊", "梅芙", "莱恩", "伊芙", "艾洛", "希尔" };
         private readonly ObjectSession session;
-        internal ObjectCampCommands(ObjectSession session) { this.session = session; }
+        private readonly bool spawnNewPlayersInCabin;
+        internal ObjectCampCommands(ObjectSession session, bool spawnNewPlayersInCabin = false)
+        {
+            this.session = session;
+            this.spawnNewPlayersInCabin = spawnNewPlayersInCabin;
+        }
 
         internal void SetTime(bool paused, int speed)
         {
@@ -59,7 +64,11 @@ namespace DarkNights.Runtime.Objects
         {
             if (session.Camp.Read().Mode != SessionMode.Playing) return null;
             if (session.IsExpedition)
-                return GroundSessionSetup.SpawnHero(session);
+            {
+                ActorBehaviour actor = GroundSessionSetup.SpawnHero(session);
+                if (spawnNewPlayersInCabin && session.Expedition.Ship != null) session.Ship.Cabin.Place(actor);
+                return actor;
+            }
             BuildingBehaviour tavern = session.Index.Buildings.LastOrDefault(b => b.RuleKey == "tavern" && b.IsComplete);
             return tavern == null ? null : SpawnResident(tavern);
         }

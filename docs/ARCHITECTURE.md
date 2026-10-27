@@ -10,8 +10,9 @@
 | --- | --- | --- |
 | 会话时间、ID、RNG、统计 | CampSimulationBehaviour／State | 仅推进当前允许的基础会话 |
 | 信用点及角色库存、运动、装备动作／货袋 | 所属Economy／Actor／Hero Behaviour及State | 购买、手持使用、采集按现有短事务更新 |
-| 船体、船货与乘员关系 | 原BuildingBehaviour／State与角色ActorBehaviour／State | 舱内移动、容量内入舱和自动起降；不建立第二份船货模型 |
+| 船体、船货与乘员关系 | 原BuildingBehaviour／State与角色ActorBehaviour／State | 新地面局不装配；历史含船档按原状态恢复，不建立替代船体模型 |
 | 导航、远征及一次交货身份 | ExpeditionJourneyBehaviour／State；Flow只协调配置和候选 | 原位船位、阶段、RunId／SettledRunId／LastIncome；共享到账仍由Economy同事务提交 |
+| 星图已勘测位图与坐标航行目标 | 同一ExpeditionJourneyBehaviour／State | 不可变字符串位图随实际航迹累加，投影／存档同批冻结；个人拖动、缩放和未确认坐标不清雾、不持久化 |
 | 前景与矿层格、耐久、储量 | SessionTerrain托管ARDMap／GridBusinessStateStore | Host唯一写入；初始矿床信息是静态元数据，不创建逐床对象 |
 | 侧巢与幼虫阶段、姿态、HP | TerrainGameplayBehaviour／TerrainGameplayState | 每图有界单虫记录；静态巢位归冻结地图，业务经原事务提交，不恢复旧NPC世界 |
 | 请求、可信连接、Ready、epoch、策略 | SessionAuthority及网络适配 | 不将连接、租约、请求队列写入存档 |
@@ -58,7 +59,11 @@ EntityView的Actor／Building／Worksite主视图各拥有类别特有动画、�
 
 Addressables预加载提供PreparedObjectDefinition租约；await位于事务外，ObjectSessionContext同步准备对象，依赖／初始状态就绪后统一激活。SessionScope和可写池状态不跨await／线程。
 
-StartupResourceBatch有限并发准备独立对象／UI资源，全部成功后按原输入顺序移交；失败／取消等待所有请求收尾并释放晚成功租约。六个UGUI面板仍按原顺序创建、绑定和激活。普通导入和构建不执行资源初始化来覆盖人工内容。
+StartupResourceBatch有限并发准备独立对象／UI资源，全部成功后按原输入顺序移交；失败／取消等待所有请求收尾并释放晚成功租约。Chrome／PauseMenu／Help／Result／Hero五个UGUI面板仍按原顺序创建、绑定和激活。主菜单改由MainMenuCoordinator组合YYGC UIManager与MainMenuPanel，原生布局／主题／PanelSettings位于Res/UI/MainMenu；运行时独立UIDocument、字体和设置副本随宿主释放，隐藏后不挡游戏拾取，原UGUI主菜单作者Prefab保留但不再实例化。普通导入和构建不执行资源初始化来覆盖人工内容。
+
+远征HUD沿用ShipEquipment原生UITK资源和YYGC UIManager：ShipEquipmentPanel组合四格图标、按需背包、商店与导航，ShipHudReadout只消费Actor／Crew／Journey冻结值。道具图标来自显式Definition.Icon；个人矿物仅在背包查看，继续由原货袋State拥有。UI/Inventory原生动作默认B，使用既有绑定覆盖／改键服务和Interaction Sessions。ShipTradeHud按角色、控制租约、连接代次和epoch撤销旧模态；星图仅操控室唤醒并在离开时关闭。原Chrome暂停／倍速按钮复用绑定移到Esc菜单，Menu／Help常驻按钮隐藏；不另建UI输入、物品或权限模型。
+
+菜单房间服务唯一归SessionNetwork拥有，SessionRoomService组合有界LAN发现、RoomHost准入席位／票据与单个RoomClient尝试；这些是短期连接状态，不拥有游戏经济、地图或第二套业务世界，不写入存档。Core的RoomListingData／RoomLobbyData仅提供冻结副本，后者不再对应独立开局前大厅。菜单确认设置后经原SessionUiController入口直接启动同一FishNet与权威会话，只有就绪且未满员的房间回应发现。新角色的船舱出生策略从菜单会话创建时注入ObjectCampCommands，复用原角色／船舱权威事务，不改已恢复角色或快速测试；游戏侧SessionRoomAuthenticator仍只延伸现有定义兼容通过钩子，不修改YYGC／FishNet源码，不在此层决定游戏Ready。
 
 ObjectMutationBatch先完成验证，保存可恢复状态和清理动作；支付、库存、占用及相关对象／地图变化安装后才通知。通知中不重入业务、退休同批对象或加载新世界。失败释放本次资源，不留下半扣款或半装配。采集细节见[地图合同](TERRAIN_GENERATION.md#采集事务)。
 
@@ -71,6 +76,8 @@ SessionClock用未缩放时间以60 Hz调用SessionAuthority，先处理接受�
 Host和Client使用相同验证入口；可信连接、控制租约、策略版本、epoch、序号及参数在执行点验证。运行协议与YYGC定义GuidV2属于不同版本概念，实际当前值由执行状态和源码常量确认。对象可靠完整投影及双层AMP1局部流的职责见[联机合同](MULTIPLAYER.md)。
 
 ## 场景对象与展示生命周期
+
+地表起伏沿既有纯生成流水线输出最终格子；派生高度输入不成为第二份运行地形。天空与远景归JourneyEnvironment，逐图纯装饰归TerrainPreview的SurfaceScenery：View资产SurfaceSceneryLayout只拥有制作锚点，按规范化原始背景摘要绑定地图，通过Style引用打包；Runtime／Core的真实前景及保存、同步仍是原唯一所有者。近景按已确认局部支撑显示并沿原受光路径组装可见网格，换世界／epoch随原宿主释放，不增加碰撞、资源结算或逐装饰网络对象。Tuner共用同套表现，布局草稿可独立保存；合同见[地表环境](TERRAIN_GENERATION.md#surface-environment-authoring)。
 
 场景是初始布局唯一可编辑来源。ScenePlacement提供稳定放置身份和实例初值，ObjectDefinitionLoader装配原生对象；分组直接子对象的sibling顺序是创建顺序。派生布局只读，不反向覆盖场景或另建Core实体。
 

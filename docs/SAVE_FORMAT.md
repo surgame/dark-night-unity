@@ -1,6 +1,6 @@
-# Unity世界存档v26
+# Unity世界存档v27
 
-本页维护当前文件字段、身份／关系、基础会话零值约束与原子保存恢复。当前候选入口仅接受 **v26**，正式目录 `Saves/v26`；v25及更旧Unity／Godot文件拒绝、不迁移、不覆盖、不自动删除。v26新增导航字段，当前候选的真实写盘／恢复验收见[执行状态](DEVELOPMENT.md)。网络epoch与房间权限见[联机合同](MULTIPLAYER.md)。
+本页维护当前文件字段、身份／关系、基础会话零值约束与原子保存恢复。当前候选入口仅接受 **v27**，正式目录 `Saves/v27`；v26及更旧Unity／Godot文件拒绝、不迁移、不覆盖、不自动删除。v27增加共享星图勘测位图与坐标航程合同，当前候选的真实写盘／恢复验收见[执行状态](DEVELOPMENT.md)。网络epoch与房间权限见[联机合同](MULTIPLAYER.md)。
 
 ## 文件合同
 
@@ -9,7 +9,7 @@
 | 字段 | 合同 |
 | --- | --- |
 | format | `dark-nights.world` |
-| format_version | 整数26 |
+| format_version | 整数27 |
 | random_algorithm | SimulationRandom.Algorithm，`godot-pcg32-clz-f32-v1` |
 | rules_sha256 | 会话只读GameCatalog规范化SHA-256 |
 | layout_sha256 | 校验后LevelLayout规范化SHA-256 |
@@ -37,19 +37,27 @@ actors的姿态／装备包括height、vertical_speed、support_platform、ignor
 
 CL02人工一点引入v25：`terrain.geology_sites`冻结SiteId、Definition GUID／配方内容摘要、配置、允许改形／退避及可选关联；`terrain.geology_progress`逐点保存阶段、模拟时钟与退休原因，数量必须覆盖同一静态清单，最多一点。最终前景耐久／矿层与事件进度从同一模拟边界捕获；源岩脱离、瓦砾填格与阶段同事务安装。恢复校验定义、阶段与最终地图，不从初始布局补回源岩／瓦砾，已清理和已退休状态不重触发。地图格式2使用同一静态站点字段，运行进度必须为空；静态地图及原始背景不保存WorldId／epoch／EntityId，加载时才注入本局地图身份。旧v24文件原位保留，不自动迁移；真实写盘、加载和重启恢复仍待验。
 
-当前v26保留CL-01／04首片引入的`terrain.nests`与`terrain.nest_progress`，地图对象严格17字段；前者冻结地图内编号、封壳位置及首片试参，后者逐巢保存阶段、时钟、位置、垂直速度与HP。最多32巢，最终保存覆盖同一静态编号集合，清理阶段与零HP一致，HP不得超过该巢初值。休眠、前兆、出虫及已清理状态均由TerrainGameplayBehaviour捕获；不得从静态巢位补回已清理幼虫。房间读取上限与作者合同统一为80，覆盖默认34洞室。旧v23文件仍留原目录，不迁移、不覆盖。
+当前v27保留CL-01／04首片引入的`terrain.nests`与`terrain.nest_progress`，地图对象严格17字段；前者冻结地图内编号、封壳位置及首片试参，后者逐巢保存阶段、时钟、位置、垂直速度与HP。最多32巢，最终保存覆盖同一静态编号集合，清理阶段与零HP一致，HP不得超过该巢初值。休眠、前兆、出虫及已清理状态均由TerrainGameplayBehaviour捕获；不得从静态巢位补回已清理幼虫。房间读取上限与作者合同统一为80，覆盖默认34洞室。旧v23文件仍留原目录，不迁移、不覆盖。
 
-CL-06导航首片引入v26：`expedition.journey`严格12字段，新增`Navigation`。该对象严格8字段：`speed`、`descent_seconds`、`x`、`y`、`run_id`、`settled_run_id`、`last_income`、`nodes`；节点1–32个，单节点严格含`id/name/x/y/danger/risk/preview_only`。坐标须有限且绝对值不超过4096，危险等级1–3，预览节点不提供正式落地资格；真实节点必须对应已开放星球。配置与当前冻结目录／内容摘要匹配，运行身份为空或非零N格式GUID；RunId标识本次远征，SettledRunId与LastIncome记录最近已交接结果；余额、被扣货物及结算身份从同一事务捕获。重复请求、改道、重连与恢复已结算存档不再次到账。目录、船位和运行身份由Journey所属状态捕获，本地选中节点不入档；不修改地形SourceFingerprint或v25地图格式2。
+CL-06的`expedition.journey`保持严格12字段；v27的`Navigation`严格12字段：原`speed/descent_seconds/x/y/run_id/settled_run_id/last_income/nodes`加`survey_bits/coordinate_flight/target_x/target_y`。`survey_bits`为规范Base64，严格32768字节／43692字符，512×512位覆盖正负4096坐标、每格16单位；勘测半径28单位，首次登记首个正式星球及真实出生船位，此后仅按Host实际航迹累加，不截断旧探索。位图和船位同批保存，加载不重新播种；当前船位及初始星体必须已勘测。坐标航程只允许Transit，JourneyId非零N格式GUID、PlanetId／MapId／Seed为空；非坐标航程的目标坐标必须为零。仅Orbit／Landed允许写盘，坐标航行也须等到抵达待命或取消后再保存。
 
-允许当前主角姿态、四格库存／信用点、合法装备动作／燃料／炸药数量、手持投射物、个人铁／金货袋、唯一飞船及最终两层地图。正式自动航程不占用PilotId；Ship的Id、Phase、VelocityX/Y、DoorClock、DockX／Height等关系按阶段验证。只允许Orbit和Landed稳定阶段保存；Preparing／Transit／ArrivalSync／Descent／Gathering／Ascent拒绝保存。船货不得超过既有ShipCapacity；再次落地赋予新RunId及地图身份，不恢复已撤离旧矿区。
+节点仍有1–32个的有界目录合同，但UI只列出位图已揭露节点，不显示实际总数；本轮不确定正式星球数量，也不新增正式星球。单节点严格含`id/name/x/y/danger/risk/preview_only`，坐标有限且绝对值不超过4096，危险等级1–3，预览节点不提供正式落地资格；真实节点必须对应已开放星球。配置与当前冻结目录／内容摘要匹配；RunId标识本次远征，SettledRunId与LastIncome记录最近已交接结果，余额、被扣货物及结算身份仍从同一事务捕获。坐标抵达不换图／结算，改道、重连与恢复不再次到账。个人相机、选中项、未确认坐标及窗口状态不入档；地形SourceFingerprint与审核地图格式2不变。
 
-当前actors只接受非敌方、manual_control为真的worker，旧目标／自动命中／强制攻击状态拒绝。NPC、工位、旧箭矢、自动任务、风险、探索计时、舱段、损失和旧返航结算遵循现有基础会话零值／空集合约束。设备只有飞船、乘员只有主角；保留的JSON字段必须满足这些约束。暂停范围见[地面玩法](GROUND_GAMEPLAY_BASELINE.md#暂停的玩法)。
+2026-10-28暂退飞船后，既有可空Ship／Journey字段承接严格的无船地面变体：Ship和Journey同时为null，Devices和船体Building为空，全部主角Boarded=false。含船变体仍要求唯一合法船体、对应设备及原阶段／乘员关系；不允许null船体搭配非空航程或乘船主角。JSON字段和编码形状未新增，格式仍为v27；缺失字段仍拒绝，显式null与缺字段区分。匹配原配置的已有v27含船档继续按原最终状态恢复，其他旧版本保留文件且仍不自动迁移。
+
+允许当前主角姿态、四格库存／信用点、合法装备动作／燃料／炸药数量、手持投射物、个人铁／金货袋、可选飞船及最终两层地图。正式自动航程不占用PilotId；Ship的Id、Phase、VelocityX/Y、DoorClock、DockX／Height等关系按阶段验证。只允许Orbit和Landed稳定阶段保存；Preparing／Transit／ArrivalSync／Descent／Gathering／Ascent拒绝保存。船货不得超过既有ShipCapacity；再次落地赋予新RunId及地图身份，不恢复已撤离旧矿区。
+
+当前actors只接受非敌方、manual_control为真的worker，旧目标／自动命中／强制攻击状态拒绝。NPC、工位、旧箭矢、自动任务、风险、探索计时、舱段、损失和旧返航结算遵循现有基础会话零值／空集合约束。设备在含船变体只有飞船，无船变体必须为空；乘员只有主角；保留的JSON字段必须满足这些约束。暂停范围见[地面玩法](GROUND_GAMEPLAY_BASELINE.md#暂停的玩法)。
 
 正式world.mineral_deposits为空。`terrain.mineral_map`保存固定61440格最终矿种／耐久／储量及规则指纹的有界压缩数据，`terrain.deposits`为压缩初始静态元数据，不能据它补回已采空格。前景最终格／damage与矿层最终状态独立保存，两张候选和对象一起校验／准备后切换。
 
 矿层解码核验格数、压缩／解压上限、尾随数据、矿种、耐久、初始容量和最终储量，不保存临时流代次。当前矿格业务及来源见[地形合同](TERRAIN_GENERATION.md)，旧按床实例方案只留历史。
 
 ## 内容摘要
+
+地表起伏是制作输入，不用它重生成旧存档；文件继续保存最终地形及原始背景。逐图装饰另存在SchemaVersion＝1的View布局资产，通过Style引用及规范化原始背景摘要匹配，不向v27或ReviewedMineMap格式2追加字段。恢复后用原背景选择同一布局，再根据当前前景确认支撑；装饰隐藏／重新显示是只读表现，不新增采木、掉落或经济保存状态。相关实际恢复验收仍见DEVELOPMENT。
+
+2026-10-27生成与身份收口不改世界文件格式，也不重绘存档。已有完整地图按原来源摘要及`dn-space-planet-v5`航程身份读取，旧字段只由`TerrainHistoricalIdentity`投影，不进入当前生成；原字段顺序及空分隔保持。新保存地图使用`terrain-source-v4:`及稳定的`dn-space-planet-v6`配置身份，来源只核对有效生成输入／所选泊位／地质点，完整会话身份仍包含实际玩法与航程配置。新旧保存结果均从最终状态恢复，不根据配方重生成；切换正式地图或实际内容配置后仍遵守严格身份匹配，不承诺跨配置接受旧存档。协议35／存档v27不变，真实写盘和恢复验收另记。
 
 SaveContentFingerprint从本局GameCatalog和已校验LevelLayout捕获。规则覆盖配置、资源、单位／建筑／工位参数、seed及有序波次；布局覆盖边界、地面、出生点、有序放置及主角／平台配置，排除本地CameraX。保留的冻结规则参与内容一致性，不自动开放暂停调度。
 
@@ -59,7 +67,9 @@ identity摘要由按Ordinal排序definitions／placements的紧凑JSON UTF-8求S
 
 ## 保存与恢复顺序
 
-GameSaveStore注入专用目录及ObjectWorldSaveJson，构造不写磁盘。正式路径来自Unity persistentDataPath下 `Saves/v26`，槽位0–9，文件 `slot-00.dnsave.json` 至 `slot-09.dnsave.json`；客户端不能提交任意路径。
+GameSaveStore注入专用目录及ObjectWorldSaveJson，构造不写磁盘。正式路径来自Unity persistentDataPath下 `Saves/v27`，槽位0–9，文件 `slot-00.dnsave.json` 至 `slot-09.dnsave.json`；客户端不能提交任意路径。
+
+主菜单“开始游戏”不展示存档选择。新局启动前只在当前版本目录选择第一个不存在的槽位，不删除／覆盖已有文件；十槽都占用时阻止新局并提示整理。继续选择当前目录最后修改的已有槽位，实际恢复仍走下述原子加载。选择不写盘、不承诺自动保存，暂停菜单仍可显式切槽；文件格式、旧版拒绝和保存权限不因界面调整改变。
 
 1. 模拟边界经ObjectSnapshotMapper深度冻结所属Behaviour State及最终两层地图。
 2. 后台校验／编码，在同目录唯一临时文件写入、Flush(true)并关闭句柄。

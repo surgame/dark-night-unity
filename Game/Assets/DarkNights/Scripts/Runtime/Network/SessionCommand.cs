@@ -21,12 +21,13 @@ namespace DarkNights.Runtime.Network
         public int[] ActorIds { get; set; }
         public int TargetId { get; set; }
         public float X { get; set; }
+        public float Y { get; set; }
         public string Kind { get; set; }
         public int Value { get; set; }
         public int ControlLease { get; set; }
 
         public SessionRequest Freeze() => new SessionRequest(Operation, Protocol, Epoch, PolicyRevision,
-            RequestSequence, ActorIds, TargetId, X, Kind, Value, ControlLease);
+            RequestSequence, ActorIds, TargetId, X, Kind, Value, ControlLease, Y);
 
         public void OnReturnToPool()
         {
@@ -34,7 +35,7 @@ namespace DarkNights.Runtime.Network
             RequestSequence = 0;
             Operation = default;
             ActorIds = null;
-            X = 0;
+            X = Y = 0;
             Kind = null;
         }
     }

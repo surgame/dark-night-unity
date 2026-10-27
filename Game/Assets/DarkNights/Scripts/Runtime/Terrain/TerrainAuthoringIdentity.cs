@@ -4,30 +4,39 @@ using UnityEngine;
 
 namespace DarkNights.Runtime.Terrain
 {
-    /// <summary>生成作者输入的规范JSON边界；规则未启用时保持原字段顺序和字节，避免旧冻结图无故失效，启用时包含全部规则输入。</summary>
+    /// <summary>完整制作配置的规范身份；包含暂未选中算法的制作参数及抽样策略，用于草稿与外部冲突检查，不作生成缓存键。</summary>
     public static class TerrainAuthoringIdentity
     {
         public static string Json(TerrainGenerationSettings settings)
         {
             if (settings == null) return "<missing>";
-            if (settings.Rules?.Enabled == true) return JsonUtility.ToJson(settings);
-            return JsonUtility.ToJson(new LegacyInput
+            var s = settings;
+            var value = s.Relief ?? new SurfaceReliefSettings();
+            var relief = new SurfaceReliefSettings
             {
-                Seed = settings.Seed, Surface = settings.Surface, OrganicCaves = settings.OrganicCaves,
-                Amplitude = settings.Amplitude, OreDensity = settings.OreDensity, ResourceProfile = settings.ResourceProfile
-            });
+                BaseHeightCells = value.BaseHeightCells, HeightCells = value.HeightCells,
+                WavelengthCells = value.WavelengthCells, DockTransitionCells = value.DockTransitionCells
+            };
+            return "terrain-authoring-v2|" + JsonUtility.ToJson(new Input
+            {
+                Seed = s.Seed, Surface = s.Surface, SurfaceAlgorithm = string.IsNullOrEmpty(s.SurfaceAlgorithm) ?
+                    (s.UsesLandform ? TerrainGenerationSettings.LandformSurface : TerrainGenerationSettings.NoiseSurface) : s.SurfaceAlgorithm,
+                Amplitude = s.Amplitude, Layout = s.Layout, Structure = s.Structure, Minerals = s.Minerals,
+                Relief = relief, Regions = s.RegionOverrides, Selection = s.SeedSelection ?? new TerrainSeedSettings()
+            }) + (s.DisableValleySculpt ? "|valley-sculpt:off" : "");
         }
 
-        /// <summary>旧摘要专用的序列化投影；严格保留原六字段及顺序，无运行实例或第二份作者配置。</summary>
+        /// <summary>当前制作字段的固定投影；排除旧资源方案、矿脉密度与导入载体。</summary>
         [Serializable]
-        private sealed class LegacyInput
+        private sealed class Input
         {
-            public string Seed;
-            public string Surface;
-            public bool OrganicCaves;
+            public string Seed, Surface, SurfaceAlgorithm, Layout;
             public double Amplitude;
-            public double OreDensity;
-            public string ResourceProfile;
+            public CaveLayoutSettings Structure;
+            public TerrainMineralSettings Minerals;
+            public SurfaceReliefSettings Relief;
+            public CaveRegionOverride[] Regions;
+            public TerrainSeedSettings Selection;
         }
     }
 }

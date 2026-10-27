@@ -16,7 +16,7 @@ using UnityEngine.Rendering;
 
 namespace DarkNights.Editor.Lighting
 {
-    /// <summary>调参台独占的小尺寸真实洞穴离屏宿主；复用作者地图、正式地形和双光照后端，只推进表现准备与人物瞄准，不启动会话或 Play。</summary>
+    /// <summary>调参台独占的小尺寸洞穴离屏宿主；只读规则预制地图、正式地形和双光照后端，不启动会话、地图生成或Play。</summary>
     public sealed class FlashlightPreviewStage : IDisposable
     {
         private readonly TerrainStylePreviewStage terrain = new TerrainStylePreviewStage(1024, 640);
@@ -26,7 +26,6 @@ namespace DarkNights.Editor.Lighting
         private EnvironmentLighting lighting;
         private SceneLightingProfile settings;
         private SceneLightingProfile sceneSource;
-        private MineMapDefinition map;
         private TerrainBlueprint blueprint;
         private string mapId;
         private GameCore.Objects.Definition.ObjectDefinition definition;
@@ -42,7 +41,8 @@ namespace DarkNights.Editor.Lighting
         public string Status => terrain.Error != null ? terrain.Error.Message : terrain.Ready ?
             "局部地形 " + loaded.Width + "×" + loaded.Height + " 格 · 区块 " + terrain.Terrain.LoadedTerrainChunks +
             " · 背景页 " + terrain.Terrain.BackgroundResidentPages : terrain.Progress;
-        public IReadOnlyList<string> Rooms => map?.Rooms.Where(room => !room.Base).Select(room => room.Name).ToArray() ?? Array.Empty<string>();
+        public IReadOnlyList<string> Rooms => blueprint?.Rooms.Select((room, index) =>
+            (index + 1) + " · " + room.Kind).ToArray() ?? Array.Empty<string>();
 
         public void Tick(FlashlightDebugDraft draft, SceneLightingProfile source, SceneLightingProfile scene, FlashlightPreviewSettings preview)
         {
@@ -95,10 +95,7 @@ namespace DarkNights.Editor.Lighting
             Dispose();
             try
             {
-                var author = AssetDatabase.LoadAssetAtPath<MineMapAsset>("Assets/DarkNights/Res/Terrain/MineMaps/" + preview.MapId + ".minemap");
-                if (author == null) throw new InvalidOperationException("预览作者地图不可用：" + preview.MapId);
-                map = author.Freeze();
-                blueprint = MineMapGenerator.Generate(new TerrainGenerationSettings { ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile, MineMap = map });
+                blueprint = LightingPreviewMap.Load(preview.MapId);
                 settings = UnityEngine.Object.Instantiate(source); settings.hideFlags = HideFlags.HideAndDontSave;
                 OpenRegion(draft, preview);
                 mapId = preview.MapId; definition = draft.Definition; sceneSource = source; angle = preview.Angle;
@@ -127,13 +124,13 @@ namespace DarkNights.Editor.Lighting
         }
         public Vector2 Position(FlashlightPreviewSettings preview)
         {
-            if (!preview.UseRoomStart || map == null) return preview.Position;
-            var rooms = map.Rooms.Where(room => !room.Base).ToArray();
-            if (rooms.Length == 0) throw new InvalidOperationException("作者地图没有扩展矿室。");
+            if (!preview.UseRoomStart || blueprint == null) return preview.Position;
+            var rooms = blueprint.Rooms.ToArray();
+            if (rooms.Length == 0) throw new InvalidOperationException("预制地图没有矿室。");
             var room = rooms[Mathf.Clamp(preview.RoomIndex, 0, rooms.Length - 1)];
-            int x = map.OffsetX + room.X, y = map.OffsetY + room.Floor - 1;
-            for (int offset = 0; offset < room.Height; offset++)
-                if (blueprint.MaterialAt(x, y - offset) == 0) return new Vector2(x + .5f, y - offset + 1);
+            int x = room.X;
+            for (int y = Math.Min(191, room.Top + room.Height - 1); y >= Math.Max(0, room.Top); y--)
+                if (blueprint.MaterialAt(x, y) == 0) return new Vector2(x + .5f, y + 1);
             throw new InvalidOperationException("当前矿室中心没有可预览的空格。");
         }
         public Vector2 Pick(Vector2 normalized)
@@ -150,7 +147,7 @@ namespace DarkNights.Editor.Lighting
                 actor.Dispose(); terrain.Dispose(); styles.Dispose();
             }
             if (settings != null) UnityEngine.Object.DestroyImmediate(settings);
-            settings = null; sceneSource = null; map = null; blueprint = null; mapId = null; definition = null; previous = 0;
+            settings = null; sceneSource = null; blueprint = null; mapId = null; definition = null; previous = 0;
         }
     }
 }

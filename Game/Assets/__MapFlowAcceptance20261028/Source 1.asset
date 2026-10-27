@@ -1,0 +1,273 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc8652e55004e79a017907c38b6a1b2, type: 3}
+  m_Name: Source 1
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinition
+  Id: 0
+  definitionGuid: 3c28e838a88d42ba93714891fb2e0d53
+  key: validation.map.flow.faca94f23bd04fb2857dd1a7244cdaa4
+  keyAliases: []
+  legacyIdAliases: 
+  debugContent: 0
+  legacyAllocationPending: 
+  Type: 602
+  Name: "\u7070\u677E\u8C37\u4F1A\u8BDD"
+  Icon: {fileID: 0}
+  Describe: 
+  MaxStack: 1
+  ItemLevel: 1
+  NetType: 2
+  PrefabRef:
+    m_AssetGUID: c7762b3dc0c27f84e90d36643c2206da
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  Archetype: {fileID: 0}
+  UseMonolithicPooling: 0
+  BehaviourTypes:
+  - DarkNights.Runtime.Network.WorldSessionBehaviour
+  - DarkNights.Runtime.Network.CampSessionBehaviour
+  - DarkNights.Runtime.Objects.CampSimulationBehaviour
+  - DarkNights.Runtime.Objects.EconomyBehaviour
+  - DarkNights.Runtime.Objects.WaveBehaviour
+  - DarkNights.Runtime.Objects.ProjectileBehaviour
+  - DarkNights.Runtime.Objects.ExpeditionJourneyBehaviour
+  - DarkNights.Runtime.Objects.ExpeditionFlowBehaviour
+  - DarkNights.Runtime.Objects.TerrainGameplayBehaviour
+  SharedConfigs:
+  - rid: 6961529734502023168
+  - rid: 1002
+  - rid: 6961529734502023170
+  references:
+    version: 2
+    RefIds:
+    - rid: 1002
+      type: {class: ExpeditionFlowConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        Enabled: 1
+        Navigation:
+          Speed: 8
+          DescentSeconds: 3
+          Nodes:
+          - Id: grey-pine
+            Name: "\u7070\u677E\u661F"
+            X: 0
+            Y: 0
+            Danger: 1
+            Risk: "\u77FF\u6D1E\u4E0E\u5DE2\u7A74\u8FF9\u8C61\uFF08mock\u8D44\u6599\uFF09"
+            PreviewOnly: 0
+          - Id: rift-preview
+            Name: "\u88C2\u8C37\u661F\uFF08\u793A\u610F\uFF09"
+            X: 90
+            Y: 10
+            Danger: 2
+            Risk: "\u843D\u5DEE\u4E0E\u584C\u65B9\uFF08mock\u8D44\u6599\uFF09"
+            PreviewOnly: 1
+          - Id: deep-preview
+            Name: "\u6697\u8109\u661F\uFF08\u793A\u610F\uFF09"
+            X: 45
+            Y: 70
+            Danger: 3
+            Risk: "\u539A\u58C1\u4E0E\u5DE2\u7A74\uFF08mock\u8D44\u6599\uFF09"
+            PreviewOnly: 1
+        PreparationTimeoutSeconds: 30
+        ArrivalTimeoutSeconds: 30
+        CaveMap:
+          Seed: STRATA-0922
+          Surface: rolling
+          OrganicCaves: 0
+          DisableValleySculpt: 0
+          Amplitude: 1
+          OreDensity: 1
+          ResourceProfile: cave-exploration
+          Layout: connected-rooms
+          Structure:
+            Version: 1
+            Templates: cave-templates-v1
+            Entrance: valley
+            Road: erosion
+            RoomMix: mixed
+            SpaceRevision: 0
+            RoomCount: 16
+            RoomScale: 1
+            RoadRadius: 3
+            BranchShare: 0.45
+            BranchDepth: 3
+            RockGap: 0.12
+          Minerals:
+            Algorithm: regional-veins
+            Seed: ORE-1
+            Revision: 0
+            VeinCount: 8
+            Capacity: 180
+            EmptyShare: 0.18
+            ExposedShare: 0.35
+            RichShare: 0.35
+            Nests: 1
+          Rules:
+            Enabled: 0
+            Version: 1
+            Templates: cave-templates-v1
+            Entrance: valley
+            Road: erosion
+            RoomMix: mixed
+            ContentSeed: ORE-1
+            SpaceRevision: 0
+            ContentRevision: 0
+            RoomCount: 16
+            RoomScale: 1
+            RoadRadius: 3
+            BranchShare: 0.45
+            BranchDepth: 3
+            RockGap: 0.12
+            VeinCount: 8
+            Capacity: 180
+            EmptyShare: 0.18
+            ExposedShare: 0.35
+            RichShare: 0.35
+            Nests: 1
+          SurfaceAlgorithm: 
+          Relief:
+            Enabled: 1
+            BaseHeightCells: 0
+            HeightCells: 8
+            WavelengthCells: 84
+            DockTransitionCells: 16
+          RegionOverrides: []
+          SeedSelection:
+            Mode: fixed
+            Seeds: []
+        ReviewedMap: {fileID: 11400000, guid: c2b5e403d16dc4649a764a56b1854b74, type: 2}
+        Geology:
+          Enabled: 1
+          SiteId: collapse-01
+          Definition: {fileID: 11400000, guid: 1160a73a74566904a8905206504ab14b, type: 2}
+          Configuration:
+            EventId: collapse-01
+            EnterRegion: 1
+            SupportU: 192
+            SupportV: -63
+            RegionU: 198
+            RegionV: -63
+            RegionWidth: 3
+            RegionHeight: 3
+            SourceU: 194
+            SourceV: -56
+            LandingU: 194
+            LandingV: -63
+            Width: 3
+            SourceRows: 3
+            RubbleWidth: 5
+            Gravity: 320
+            WarningSeconds: 2
+            FragmentDelay: 0.045
+            OccupancyWaitSeconds: 8
+            Material: slate
+          AllowedU: 190
+          AllowedV: -63
+          AllowedWidth: 14
+          AllowedHeight: 12
+          RetreatU: 198
+          RetreatV: -63
+          RetreatWidth: 3
+          RetreatHeight: 3
+          Association: 
+        Planets:
+        - Id: grey-pine
+          DisplayName: "\u7070\u677E\u661F"
+          Description: "\u5730\u8868\u5B89\u5168\u964D\u843D\u533A\u8FDE\u63A5\u7070\u677E\u6D1E\u7A74\u3002"
+          Enabled: 1
+          Seed: 
+          DockColumn: 36
+          DockRow: 40
+          LandingWidth: 32
+          ArrivalHeight: 176
+          HorizontalRange: 240
+          MaximumLift: 448
+          TransitSeconds: 0.8
+          StarCount: 120
+          StarSpeed: 110
+          TransitionKind: star-shift
+          SpaceColorHex: '#060C20'
+          SkyColorHex: '#243B55'
+        ModifierSchemaVersion: 1
+        Modifiers:
+        - rid: 1003
+    - rid: 1003
+      type: {class: EntranceWalkwayModifierConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        Enabled: 0
+        Headroom: 5
+        MaxCandidates: 64
+    - rid: 6961529734502023168
+      type: {class: HandheldConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        BulletSpeed: 360
+        BulletRadius: 1
+        BulletLifetime: 1.5
+        BulletDamage: 12
+        FireInterval: 0.22
+        MuzzleDistance: 8
+        HandHeight: 9
+        BombMinimumSpeed: 65
+        BombMaximumSpeed: 180
+        BombLift: 65
+        BombGravity: 220
+        BombChargeSeconds: 1.2
+        BombCooldown: 0.65
+        BombFuseSeconds: 3
+        BombRadius: 2
+        ExplosionRadius: 36
+        BombDamage: 32
+        ExplosionSeconds: 0.3
+    - rid: 6961529734502023170
+      type: {class: TerrainProfileConfig, ns: DarkNights.Runtime.Terrain, asm: DarkNights.Runtime}
+      data:
+        Definition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
+        ContourDefinition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
+        MineralDefinition: {fileID: 11400000, guid: c0fa1b2e6e4c55742babce5c51cc19a5, type: 2}
+        CaveStyle: {fileID: 11400000, guid: 44543c555af9c474bb56c0958f89ef48, type: 2}
+        BackgroundStyle: {fileID: 11400000, guid: da94af89b9e44de479945fef91c03715, type: 2}
+        Materials:
+        - MaterialKey: loam
+          ResourceId: 
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: slate
+          ResourceId: 
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: basalt
+          ResourceId: 
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: copper
+          ResourceId: iron
+          Yield: 1
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: iron
+          ResourceId: iron
+          Yield: 1
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: gold
+          ResourceId: gold
+          Yield: 1
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: moss
+          ResourceId: 
+          Yield: 0
+          PickaxeEfficiencyPercent: 100
+        - MaterialKey: bedrock
+          ResourceId: 
+          Yield: 0
+          PickaxeEfficiencyPercent: 100

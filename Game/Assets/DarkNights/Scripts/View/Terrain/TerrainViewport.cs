@@ -10,12 +10,12 @@ namespace DarkNights.View.Terrain
     {
         /// <summary>先请求基础后壁，再开放新的前景范围；同世界等待期间保留原已显示区域，不重复提交Show。</summary>
         internal static bool Present(ARDMapController controller, Transform root, Camera camera, GridBounds loaded,
-            CaveVisualSource cave, ref GridBounds visible, ref GridBounds requested)
+            CaveVisualSource cave, ref GridBounds visible, ref GridBounds requested, bool foregroundFirst = false)
         {
             var next = Limit(Capture(controller.Descriptor, root, camera), loaded, controller.Descriptor);
             bool changed = !requested.Equals(next);
             if (changed) { requested = next; cave?.SetVisible(next); }
-            if (!(cave?.BackgroundBaseReady ?? true) || visible.Equals(next)) return changed;
+            if ((!foregroundFirst && !(cave?.BackgroundBaseReady ?? true)) || visible.Equals(next)) return changed;
             HideDifference(controller, visible, next);
             if (next.IsValid) controller.ShowRegion(next);
             visible = next;

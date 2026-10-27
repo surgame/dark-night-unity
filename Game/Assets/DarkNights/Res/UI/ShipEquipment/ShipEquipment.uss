@@ -1,35 +1,103 @@
-.equipment-root { position: absolute; left: 18px; bottom: 16px; background-color: rgba(7, 16, 27, 0.56); padding: 10px; border-radius: 7px; color: rgb(229, 241, 249); }
-.ship-ui-root { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
-.flight-bar { position: absolute; top: 12px; left: 18px; right: 280px; flex-direction: row; align-items: center; background-color: rgba(17, 31, 39, 0.92); padding: 8px; border-radius: 5px; }
-.flight-status { flex-grow: 1; color: rgb(230, 219, 185); font-size: 15px; white-space: normal; }
-.navigation-backdrop { display: none; position: absolute; left: 0; right: 0; top: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.65); align-items: center; justify-content: center; }
-.navigation-backdrop.is-open { display: flex; }
-.navigation-card { width: 85%; max-width: 760px; background-color: rgb(27, 43, 51); padding: 18px; border-radius: 6px; color: rgb(227, 228, 212); }
-.star-map-host { height: 210px; background-color: rgb(13, 27, 36); margin-bottom: 10px; }
-.star-map { flex-grow: 1; position: relative; }
-.star-node { position: absolute; width: 128px; height: 48px; font-size: 12px; background-color: rgb(34, 53, 59); color: rgb(215, 224, 208); border-width: 1px; border-color: rgb(83, 110, 111); white-space: normal; }
-.star-node.is-target { border-color: rgb(216, 181, 111); }
-.star-node.is-selected { background-color: rgb(66, 79, 70); }
-.star-ship { position: absolute; width: 76px; height: 20px; color: rgb(245, 209, 133); font-size: 12px; -unity-text-align: middle-left; }
-.navigation-row { height: 36px; margin-bottom: 5px; background-color: rgb(36, 54, 62); color: rgb(221, 229, 216); -unity-text-align: middle-left; }
-.navigation-row.is-selected { background-color: rgb(74, 82, 66); }
-.navigation-detail { white-space: normal; font-size: 13px; margin-top: 6px; margin-bottom: 8px; color: rgb(224, 208, 170); }
-.navigation-confirm { height: 36px; margin-top: 10px; background-color: rgb(66, 88, 80); color: rgb(238, 238, 215); border-color: rgb(121, 147, 130); border-width: 1px; }
-.navigation-confirm:disabled { background-color: rgb(34, 47, 53); color: rgb(135, 149, 148); border-color: rgb(52, 69, 73); }
-.deposit-button { height: 26px; margin-bottom: 5px; background-color: rgb(40, 62, 67); color: rgb(225, 228, 212); }
-.credits { font-size: 14px; margin-bottom: 6px; }
+.ship-equipment-panel, .ship-ui-root { position: absolute; left: 0; right: 0; top: 0; bottom: 0; color: rgb(222, 218, 204); }
+.equipment-root { position: absolute; left: 0; right: 0; bottom: 24px; align-items: center; }
 .equipment-row { flex-direction: row; align-items: center; }
-.slot { width: 80px; height: 62px; margin-right: 5px; padding: 8px 4px; background-color: rgba(177, 207, 222, 0.21); border-color: rgba(229, 241, 249, 0.58); border-width: 1px; border-radius: 4px; font-size: 14px; -unity-text-align: middle-center; }
-.jetpack-cell { display: none; width: 82px; height: 62px; align-items: center; margin-left: 6px; }
-.fuel-ring { width: 52px; height: 52px; position: relative; }
-.fuel-tick { position: absolute; width: 5px; height: 5px; border-radius: 3px; background-color: rgb(102, 229, 245); }
-.jetpack-label { position: absolute; top: 52px; width: 88px; font-size: 10px; -unity-text-align: middle-center; }
-.hint { height: 19px; font-size: 12px; color: rgb(245, 214, 135); margin-top: 6px; }
-.shop-backdrop { position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.55); align-items: center; justify-content: center; }
-.shop-card { width: 360px; background-color: rgb(21, 34, 48); border-radius: 8px; padding: 16px; }
-.shop-heading { flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.shop-title { font-size: 21px; color: rgb(229, 241, 249); }
-.close-button { width: 32px; height: 32px; font-size: 22px; }
-.buy-button { height: 42px; margin-bottom: 8px; font-size: 16px; }
-#buy-jetpack { display: none; }
-.shop-note { font-size: 12px; color: rgb(173, 193, 205); }
+.equipment-name { position: absolute; bottom: 60px; color: rgb(217, 196, 147); font-size: 12px; -unity-text-align: middle-center; }
+.slot { position: relative; width: 46px; height: 46px; margin: 0 3px; padding: 9px 5px 5px; align-items: center; justify-content: center; background-color: rgba(14, 23, 17, 0.94); border-bottom-width: 2px; border-bottom-color: rgb(67, 78, 62); }
+.slot.is-selected { background-color: rgb(44, 45, 31); border-bottom-color: rgb(210, 188, 135); }
+.slot.is-empty { background-color: rgba(11, 18, 13, 0.8); }
+.slot-key { position: absolute; top: 2px; left: 4px; font-size: 11px; color: rgb(173, 178, 163); }
+.slot-icon { width: 24px; height: 24px; }
+.light-indicator { position: absolute; bottom: 5px; right: 4px; width: 3px; height: 3px; background-color: rgb(209, 222, 181); }
+.interaction { position: absolute; flex-direction: row; align-items: center; padding: 5px 8px; background-color: rgb(16, 23, 17); }
+.interaction-key { min-width: 24px; height: 25px; border-width: 1px; border-bottom-width: 3px; border-color: rgb(151, 154, 123); background-color: rgb(38, 46, 33); font-size: 12px; -unity-text-align: middle-center; }
+.interaction-text { margin-left: 8px; font-size: 13px; }
+.interaction.is-unavailable { opacity: 0.6; }
+.rally { position: absolute; top: 22px; align-self: center; padding: 8px 12px; background-color: rgb(23, 30, 23); border-bottom-width: 2px; border-bottom-color: rgb(119, 115, 77); font-size: 13px; color: rgb(218, 212, 184); }
+.receipt { position: absolute; bottom: 145px; align-self: center; max-width: 90%; white-space: normal; padding: 7px 10px; background-color: rgb(18, 29, 19); border-left-width: 2px; border-left-color: rgb(184, 195, 154); font-size: 12px; color: rgb(223, 223, 194); }
+.inventory-backdrop, .shop-backdrop { display: none; position: absolute; left: 0; right: 0; top: 0; bottom: 0; align-items: center; justify-content: center; background-color: rgba(3, 7, 6, 0.72); }
+.inventory-backdrop.is-open, .shop-backdrop.is-open { display: flex; }
+.inventory-card, .shop-card { width: 340px; max-width: 92%; background-color: rgb(20, 27, 20); padding: 20px; border-top-width: 2px; border-top-color: rgb(173, 164, 122); }
+.shop-heading { flex-direction: row; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.shop-title { font-size: 20px; color: rgb(230, 225, 207); }
+.close-button { width: 30px; height: 30px; margin: 0; padding: 0; font-size: 20px; color: rgb(216, 211, 192); background-color: rgb(29, 38, 27); border-width: 1px; border-color: rgb(72, 81, 61); border-radius: 0; }
+.close-button:hover { background-color: rgb(58, 62, 39); }
+.credits { font-size: 13px; color: rgb(196, 202, 180); margin-bottom: 12px; }
+.inventory-heading { margin-top: 8px; margin-bottom: 8px; color: rgb(210, 188, 135); font-size: 13px; }
+.inventory-entry { padding: 7px 4px; font-size: 14px; border-bottom-width: 1px; border-bottom-color: rgb(52, 63, 46); }
+.inventory-minerals { font-size: 16px; padding: 8px 4px 16px; }
+.buy-button { height: 40px; margin: 0 0 8px; padding: 0 12px; border-width: 1px; border-color: rgb(77, 84, 62); border-radius: 0; background-color: rgb(34, 43, 29); color: rgb(224, 219, 197); font-size: 15px; }
+.buy-button:hover { background-color: rgb(55, 61, 37); border-color: rgb(173, 164, 122); }
+.buy-button:active { background-color: rgb(24, 31, 21); }
+.buy-button:disabled { opacity: 0.45; }
+.shop-note { font-size: 12px; color: rgb(173, 185, 157); white-space: normal; margin-top: 6px; }
+.ship-equipment-panel.is-hidden, .ship-ui-root .is-hidden { display: none; }
+
+.navigation-backdrop { display: none; position: absolute; left: 0; top: 0; right: 0; bottom: 0; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, .65); }
+.navigation-backdrop.is-open { display: flex; }
+.navigation-card { width: 94%; height: 92%; max-width: 1180px; max-height: 880px; background-color: #c0c0c0; color: #000000; font-size: 13px; padding: 4px; border-width: 2px; border-left-color: #ffffff; border-top-color: #ffffff; border-right-color: #202020; border-bottom-color: #202020; }
+.navigation-heading { flex-direction: row; align-items: center; background-color: #000080; padding: 3px 4px; min-height: 28px; }
+.navigation-title { flex-grow: 1; color: #ffffff; font-size: 14px; -unity-text-align: middle-left; }
+.navigation-close { width: 21px; height: 21px; padding: 0; margin: 0; font-size: 16px; }
+.navigation-menu { flex-direction: row; margin-bottom: 3px; border-bottom-width: 1px; border-bottom-color: #808080; }
+.navigation-menu-item { background-color: #c0c0c0; border-width: 0; border-radius: 0; color: #000000; padding: 5px 9px; margin: 0; }
+.navigation-menu-item:hover { background-color: #000080; color: #ffffff; }
+.map-toolbar { flex-direction: row; align-items: center; flex-wrap: wrap; padding: 5px 3px; }
+.map-tool, .navigation-secondary, .navigation-confirm, .navigation-close { background-color: #c0c0c0; color: #000000; border-radius: 0; border-width: 2px; border-top-color: #ffffff; border-left-color: #ffffff; border-right-color: #404040; border-bottom-color: #404040; }
+.map-tool:active, .navigation-secondary:active, .navigation-confirm:active, .navigation-close:active { border-top-color: #404040; border-left-color: #404040; border-right-color: #ffffff; border-bottom-color: #ffffff; }
+.map-tool:disabled, .navigation-secondary:disabled, .navigation-confirm:disabled { color: #777777; }
+.map-tool:focus, .navigation-secondary:focus, .navigation-confirm:focus { border-color: #000080; }
+.map-tool { height: 30px; padding: 2px 9px; margin: 0 5px 0 0; font-size: 12px; }
+.map-toolbar-spacer { flex-grow: 1; }
+.map-zoom-button { width: 29px; padding: 0; font-size: 16px; }
+.map-zoom { width: 42px; color: #000000; font-size: 11px; -unity-text-align: middle-center; }
+.navigation-directory { flex-direction: row; align-items: center; margin: 2px 4px 7px; }
+.navigation-directory-label { margin-right: 8px; }
+.navigation-directory-field { flex-grow: 1; margin: 0; min-width: 0; }
+.navigation-directory-field .unity-base-popup-field__input { background-color: #ffffff; color: #000000; border-radius: 0; border-width: 2px; border-top-color: #808080; border-left-color: #808080; border-bottom-color: #ffffff; border-right-color: #ffffff; min-height: 26px; }
+.navigation-directory-field .unity-base-popup-field__text { color: #000000; }
+.navigation-known-count { font-size: 11px; margin-left: 10px; }
+.navigation-map-frame { flex-grow: 1; min-height: 110px; position: relative; margin: 0 4px; border-width: 2px; border-top-color: #808080; border-left-color: #808080; border-right-color: #ffffff; border-bottom-color: #ffffff; }
+.star-map-host { flex-grow: 1; background-color: #050a17; overflow: hidden; }
+.star-map { flex-grow: 1; position: relative; overflow: hidden; }
+.star-map-layer { position: absolute; left: 0; top: 0; right: 0; bottom: 0; }
+.star-node { position: absolute; left: 0; top: 0; margin: 0; width: 124px; height: 82px; padding: 51px 3px 0; font-size: 12px; color: #dce1ed; background-color: rgba(0, 0, 0, 0); border-width: 0; border-radius: 0; -unity-text-align: lower-center; }
+.star-node.is-selected { color: #fff1a9; }
+.star-node:focus { border-width: 1px; border-color: #ffffff; }
+.star-ship, .star-waypoint { position: absolute; left: 0; top: 0; width: 66px; height: 22px; color: #ffe39b; background-color: rgba(5, 10, 23, .8); font-size: 12px; -unity-text-align: middle-center; }
+.star-waypoint { width: 60px; }
+.map-fog-caption { position: absolute; top: 12px; right: 12px; color: #a8b3c9; font-size: 12px; white-space: normal; -unity-text-align: upper-right; }
+.map-legend { position: absolute; bottom: 9px; right: 12px; color: #b1bed4; font-size: 11px; }
+.navigation-destination { flex-direction: row; align-items: center; margin: 8px 6px 0; }
+.navigation-properties { flex-grow: 1; flex-basis: 0; min-width: 0; }
+.navigation-properties-title { color: #000000; margin: 0 0 6px 3px; padding: 2px 0; font-size: 13px; }
+.navigation-property-body { border-width: 1px; border-top-color: #808080; border-left-color: #808080; border-bottom-color: #ffffff; border-right-color: #ffffff; padding: 8px; }
+.navigation-property-row { flex-direction: row; margin-bottom: 4px; }
+.navigation-field { width: 40px; flex-shrink: 0; }
+.navigation-property-value { white-space: normal; flex-grow: 1; flex-basis: 0; }
+.navigation-command { width: 155px; margin-left: 12px; align-items: center; }
+.navigation-confirm { width: 146px; height: 36px; margin: 0 0 8px; font-size: 13px; }
+.navigation-eta { font-size: 11px; white-space: normal; }
+.navigation-permission { white-space: normal; color: #202020; font-size: 11px; margin: 7px 7px 5px; }
+.navigation-operations { flex-direction: row; justify-content: flex-end; flex-wrap: wrap; margin-bottom: 5px; }
+.navigation-secondary { height: 29px; padding: 2px 12px; margin: 0 4px; font-size: 12px; }
+.navigation-secondary.is-unavailable { display: none; }
+.navigation-current { min-height: 25px; color: #000000; white-space: normal; border-width: 1px; border-top-color: #808080; border-left-color: #808080; border-bottom-color: #ffffff; border-right-color: #ffffff; padding: 4px; font-size: 11px; }
+.navigation-dialog-backdrop { display: none; position: absolute; left: 0; top: 0; right: 0; bottom: 0; align-items: center; justify-content: center; background-color: rgba(0, 0, 0, .2); }
+.navigation-dialog-backdrop.is-open { display: flex; }
+.navigation-dialog { width: 350px; max-width: 95%; background-color: #c0c0c0; border-width: 2px; border-top-color: #ffffff; border-left-color: #ffffff; border-right-color: #404040; border-bottom-color: #404040; padding: 3px; }
+.navigation-dialog-title { background-color: #000080; color: #ffffff; font-size: 13px; padding: 5px; }
+.navigation-dialog-note { white-space: normal; margin: 12px; font-size: 12px; }
+.navigation-coordinate-fields { margin: 0 12px; }
+.navigation-coordinate-fields .unity-base-field__label { min-width: 65px; color: #000000; }
+.navigation-coordinate-fields .unity-base-text-field__input { background-color: #ffffff; color: #000000; border-radius: 0; border-width: 2px; border-top-color: #808080; border-left-color: #808080; border-right-color: #ffffff; border-bottom-color: #ffffff; }
+.navigation-coordinate-error { color: #800000; white-space: normal; font-size: 12px; margin: 7px 12px; }
+.navigation-dialog-buttons { flex-direction: row; justify-content: flex-end; margin: 3px 8px 9px; }
+.navigation-coordinate-fields.is-unavailable { display: none; }
+.navigation-card.is-compact .navigation-known-count { display: none; }
+.navigation-card.is-narrow .navigation-destination { flex-direction: column; align-items: stretch; }
+.navigation-card.is-narrow .navigation-properties { flex-basis: auto; }
+.navigation-card.is-narrow .navigation-command { width: auto; margin: 7px 0 0; flex-direction: row; justify-content: space-between; }
+.navigation-card.is-narrow .navigation-directory { margin-bottom: 4px; }
+.navigation-card.is-narrow .navigation-menu-item { padding: 3px 8px; }
+.navigation-card.is-narrow .map-tool { padding: 0 5px; font-size: 11px; margin-right: 3px; }
+.navigation-card.is-narrow .map-legend { display: none; }

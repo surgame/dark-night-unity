@@ -29,9 +29,9 @@ Definition 工坊的「照明道具能力」可选引用 LightProfile，所有�
 
 Worker、Spearman、Archer继续明确绑定灯口、补光锚点和受光精灵，角色根及玩法占地保持。Rotation／Position／Scale 在物体 Prefab 的 Emitter 上制作；Scale 不作为照距的隐式倍乘，照距由 Range 控制。共享光效不保存某个角色的受光目标、开关或瞄准角。
 
-手电原6×3像素确定性素材、100 PPU、Point、无mipmap／压缩及原字节保留。工作台显式迁移入口为 `Dark Nights → 工作台 → 工程维护 → 安装与迁移 → 迁移持久光照配置`：创建 `Profiles/FlashlightLighting.asset`，复用或补齐 `DeviceLighting.asset`、`PinewatchLighting.asset`，绑定 Definition 和含 RandomLevelTemplate 的关卡，保留原 GUID、灯口及人工资源。迁移读取保全的旧作者值；未绑定的既有手电候选、人工光效或未保存场景拒绝覆盖，失败记录和备份保留。先修复场景配置后仍可续接完整迁移。
+手电原6×3像素确定性素材、100 PPU、Point、无mipmap／压缩及原字节保留。工作台显式迁移入口为 `Dark Nights → 工作台 → 开发工具 → 扩展 → 安装与迁移 → 迁移持久光照配置`：创建 `Profiles/FlashlightLighting.asset`，复用或补齐 `DeviceLighting.asset`、`PinewatchLighting.asset`，绑定 Definition 和含 RandomLevelTemplate 的关卡，保留原 GUID、灯口及人工资源。迁移读取保全的旧作者值；未绑定的既有手电候选、人工光效或未保存场景拒绝覆盖，失败记录和备份保留。先修复场景配置后仍可续接完整迁移。
 
-关卡模板必须持久引用有效的 `SceneLightingProfile`，启动前校验默认光效、设备光预设和渲染资源。缺失时可显式执行 `Dark Nights → 工作台 → 工程维护 → 安装与迁移 → 修复关卡光照配置`：仅补缺失的设备／场景资产和关卡引用，保留已有有效配置、手电的可选预设及覆盖值；无引用变化的场景不保存。设备灯沿用原8.375格、0.45强度及暖色，场景参数使用既有配置合同默认值。未保存场景或 Prefab Stage 阻止修复，错误包含关卡路径。普通启动、调参及构建不创建或保存这些资产，新 meta 由 Unity 生成。
+关卡模板必须持久引用有效的 `SceneLightingProfile`，启动前校验默认光效、设备光预设和渲染资源。缺失时可显式执行 `Dark Nights → 工作台 → 开发工具 → 扩展 → 安装与迁移 → 修复关卡光照配置`：仅补缺失的设备／场景资产和关卡引用，保留已有有效配置、手电的可选预设及覆盖值；无引用变化的场景不保存。设备灯沿用原8.375格、0.45强度及暖色，场景参数使用既有配置合同默认值。未保存场景或 Prefab Stage 阻止修复，错误包含关卡路径。普通启动、调参及构建不创建或保存这些资产，新 meta 由 Unity 生成。
 
 ## 光照配置制作规范
 
@@ -109,7 +109,7 @@ WallBand 将三角核积分的照度和覆盖分开，按实际覆盖归一化�
 
 ### 返光遮挡规则⑨
 
-在 `Dark Nights → 工作台 → 运行诊断 → 手电光照调试 → 返光 → 遮挡与切边` 选择「返光遮挡与羽化规则」。场景后端须为PrivateField，单灯返光模式须为Continuous。参数随单灯冻结，多个灯可选择不同规则。原始入射节点、正余量、圆形核及同灯墙段融合继续产生完整返光；第三项在其后统一滤波空气返光，直射与墙表层保持原接收合同。标题⑨保留既有引用，完整返光羽化新增两次滤波调度，不再仅是⑨内部近似。
+在 `Dark Nights → 工作台 → 图形 → 扩展 → 光照调参台 → 返光 → 遮挡与切边` 选择「返光遮挡与羽化规则」。场景后端须为PrivateField，单灯返光模式须为Continuous。参数随单灯冻结，多个灯可选择不同规则。原始入射节点、正余量、圆形核及同灯墙段融合继续产生完整返光；第三项在其后统一滤波空气返光，直射与墙表层保持原接收合同。标题⑨保留既有引用，完整返光羽化新增两次滤波调度，不再仅是⑨内部近似。
 
 | 选项 | ⑨内部处理 | 墙体与空气表现 |
 | --- | --- | --- |
@@ -129,7 +129,7 @@ WallBand 将三角核积分的照度和覆盖分开，按实际覆盖归一化�
 
 2026-10-13 的拐角／柔光团修复增加了入射准备与选中墙边预算。2026-10-12 的两墙段性能记录只代表旧候选，不能用于本候选的前台或GPU预算结论。
 
-显式迁移入口 `Dark Nights → 工作台 → 工程维护 → 安装与迁移 → 迁移灰松谷返光到单灯配置` 只读取 PinewatchLighting 文件中遗留的旧返光字段，转到现有手电 Definition 的未覆盖返光项及 DeviceLighting 预设，再保存场景移除旧字段。保留原手电覆盖位／作者值、共享墙体规则和 GUID，备份原三个资产；目标有未保存修改时拒绝迁移。原非定向设备在 Continuous 下仍无候选墙段，避免误启单点返光。完成后重入为空操作，导入和启动不自动迁移。回退或调参在对应单灯配置中显式选择 LegacyPoint 或 Off。
+显式迁移入口 `Dark Nights → 工作台 → 开发工具 → 扩展 → 安装与迁移 → 迁移灰松谷返光到单灯配置` 只读取 PinewatchLighting 文件中遗留的旧返光字段，转到现有手电 Definition 的未覆盖返光项及 DeviceLighting 预设，再保存场景移除旧字段。保留原手电覆盖位／作者值、共享墙体规则和 GUID，备份原三个资产；目标有未保存修改时拒绝迁移。原非定向设备在 Continuous 下仍无候选墙段，避免误启单点返光。完成后重入为空操作，导入和启动不自动迁移。回退或调参在对应单灯配置中显式选择 LegacyPoint 或 Off。
 
 有限验收入口为 `WallDiffuseAcceptance.Start(新的批次标识)`，需空闲单一 Editor、内存门控和独立产物目录。A0 使用保留的仓库旧 Shader；A1 为开发专用四区间常量 profile，B 为32区间连续 profile，Off 不运行新准备。GPU CustomSampler 分别记录 Profile、Select、积分合成与照明总成本；查询计数单独采样，避免原子计数污染性能值。CPU 记录冻结、worker、候选准备、上传和提交；分配使用带已知分配正向自检的 Unity GC.Alloc 记录器，事件为零才记0字节，有事件时保留事件数而不伪造字节。Mono 的 GetAllocatedBytesForCurrentThread 在本环境返回无效零值，不作通过证据。冷资源帧、地形／区域失效的重建分配与无失效稳态分开。实际结果、失败及尚未覆盖的前台／动态矩阵见 DEVELOPMENT 和本批证据，不从本合同推导验收通过。
 
@@ -142,7 +142,7 @@ EnvironmentLighting读取关卡 SceneLightingProfile 并管理后端生命周期
 | PrivateField | 每游戏相机共享384×216GPU光场及入射方向缓存，最多16个环境光源；局部遮挡、墙内羽化和有限反射；接收材质须显式接入表面函数 |
 | Urp2D | 同一冻结光源映射原生Light2D，底光为Global灯；形状参数变化时更新灯形纹理，转向／移动复用；不复刻私有墙内深度、上限、反射和受光层次控制 |
 
-打开 `Dark Nights → 工作台 → 运行诊断 → 手电光照调试`。UITK 调参台采用左侧窄纵向导航、中央分类控件、右侧固定预览和底部统一保存。页签为光束、返光、补光、场景、灯口、来源、历史；切页保留草稿。默认选择已有手电 Definition 与 `PinewatchLighting`，来源页可选择运行手电或独立预览。预设只是参数来源，Definition／共享预设的写入目标另行选择；切换预设保留覆盖、场景与预览草稿。切换 Definition／实例只询问当前单灯与灯口，切换场景只询问当前场景，其他范围及其撤销记录保留。
+打开 `Dark Nights → 工作台 → 图形 → 扩展 → 光照调参台`。UITK 调参台采用左侧窄纵向导航、中央分类控件、右侧固定预览和底部统一保存。页签为光束、返光、补光、场景、灯口、来源、历史；切页保留草稿。默认选择已有手电 Definition 与 `PinewatchLighting`，来源页可选择运行手电或独立预览。预设只是参数来源，Definition／共享预设的写入目标另行选择；切换预设保留覆盖、场景与预览草稿。切换 Definition／实例只询问当前单灯与灯口，切换场景只询问当前场景，其他范围及其撤销记录保留。
 
 右侧独立预览复用五张 `.minemap` 作者图、正式 `TerrainPreview`、材质、光效和 `EnvironmentLighting`；输出为1024×640，正式地形工作台的默认输出不改。人物与手电只复制原生 Prefab 的视觉树、Sprite、idle 动画及明确挂点，不装配对象业务或碰撞器。可选择矿室起点、输入地图格 X/Y（Y向下）或左键定位人物，勾选手电360°循环转向并设置角速度，取消后精确设置方向。画面内中键拖拽平移镜头，滚轮以指针位置为锚点缩放，半高限制3–24格；镜头偏移独立于人物位置，输入偏移0/0可回到人物。留白不启动画布手势，拖拽捕获丢失／面板退出必定结束；整次拖动和连续滚轮各归一条临时撤销记录。关闭预览停绘，退出释放临时资源；绘制与退休恢复 Shader 全局绑定，URP 临时灯在绘制后停用。右侧不启动会话、网络、业务 RNG、Play 或玩家存档；不替代真实运动／返程、联机或性能验收。
 
@@ -179,6 +179,10 @@ LightingSurface.hlsl是共用表面适配入口：私有模式读取光场，URP
 标准第三方Sprite Lit可接收URP原生灯，但不自动接收私有目标补光。屏幕HUD保持正常显示；世界交互提示可读性单独检查。模板的Sorting Layers需随新增受光排序层显式核对。
 
 资源预加载沿ObjectSessionResources.Prepare／StartupResourceBatch，在事务外await，主线程同步装配／上传／GPU提交；不逐帧回读GPU。后台几何读取独占冻结局部格副本，每缓存只有一个运行任务；完成核验源、区域和修订，过期结果丢弃。退休先取消、等待任务退出再释放纹理，await前冻结旧矿层／源／控制器，避免迟到清理新世界。
+
+光场退休在每个纹理的Release／Destroy前重新检查Unity对象有效性；Unity先销毁某个纹理不能中断其余纹理、Shader和ComputeBuffer清理。羽化的CPU完成轮询使用`GraphicsFenceType.CPUSynchronisation`，不把supportsGraphicsFence当作supportsAsyncCompute；无fence时仍使用单像素AsyncGPUReadback屏障。正常运行的扩容、后端切换和地图退休继续异步等待，不增加逐帧CPU／GPU同步。
+
+正式Player的照明桥在`Application.wantsToQuit`中先停绘并启动原OnDisable退休流程，若还有GPU／后台任务则暂缓退出，保持主循环处理清理续接；所有已登记光场及光照资源租约完成退休后只再次请求一次退出。重复退出不另起清理，禁用／销毁后的待清理期间仍保留退出门控，完成后撤除订阅。Editor停止Play不依赖此Player门控，异步续接必须容忍已被Editor销毁的对象；具体编译、退出与跨进程验证状态只在DEVELOPMENT记录。
 
 ## 人工检查
 
@@ -217,3 +221,5 @@ LightingSurface.hlsl是共用表面适配入口：私有模式读取光场，URP
 | 长时与目标机器 | 多光源、矿物色、世界提示、帧时间及长期内存；前台性能、IL2CPP、双机器按各自授权和设备记录 |
 
 检查记录保留当前源码／Player、种子、坐标、镜头倍率、后端及参数，填写接受／需调整／失败；未执行项仍待验。原始过程与失败见[初版](archive/FLASHLIGHT_IMPLEMENTATION_20261008.md)、[可复用光效](archive/REUSABLE_LIGHTING_20261009.md)、[后端实施](archive/LIGHTING_BACKENDS_20261009.md)。
+
+2026-10-27照明离屏验收的内存门控按当前批次读取：`WallDiffuseAcceptance.Start`可传入`memoryBreachPath`，默认当前输出目录的`memory/breach.json`，活动路径可由`ActiveMemoryBreachPath`读取。独立监控器须写同一路径，不再读取2026-10-12等历史越线文件。此次仅修正接线，未运行照明或性能验收。

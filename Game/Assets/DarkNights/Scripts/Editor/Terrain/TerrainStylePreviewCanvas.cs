@@ -63,10 +63,11 @@ namespace DarkNights.Editor.Terrain
         }
 
         public void Input(Rect canvas, Texture image, Func<int, int, bool> paint, Action changed,
-            Action beginStroke = null, Action endStroke = null, Func<bool> undo = null, Func<bool> redo = null)
+            Action beginStroke = null, Action endStroke = null, Func<bool> undo = null, Func<bool> redo = null,
+            bool navigationOnly = false)
         {
             var input = Event.current;
-            if (input.type == EventType.KeyDown && (input.control || input.command) &&
+            if (!navigationOnly && input.type == EventType.KeyDown && (input.control || input.command) &&
                 ((input.keyCode == KeyCode.Z && (input.shift ? redo : undo)?.Invoke() == true) ||
                  (input.keyCode == KeyCode.Y && redo?.Invoke() == true)))
             { changed(); input.Use(); return; }
@@ -79,12 +80,14 @@ namespace DarkNights.Editor.Terrain
                 input.Use(); return;
             }
             if (input.type == EventType.MouseDown && inside &&
-                (input.button == 2 || (input.button == 0 && ActiveTool == TerrainStylePreviewTool.Pan)))
+                (input.button == 2 || (input.button == 0 && (navigationOnly || ActiveTool == TerrainStylePreviewTool.Pan))))
             { panning = true; hover = null; input.Use(); return; }
             if (input.type == EventType.MouseDrag && panning)
             { offset += input.delta; input.Use(); return; }
             if (input.type == EventType.MouseUp && panning)
             { panning = false; input.Use(); return; }
+            if (input.type == EventType.MouseLeaveWindow) { hover = null; Stop(endStroke); }
+            if (navigationOnly) { hover = null; return; }
 
             if (input.type == EventType.MouseMove || input.type == EventType.MouseDrag || input.type == EventType.MouseDown)
                 hover = inside && image != null ? CellAt(input.mousePosition, canvas, image) : null;
@@ -98,7 +101,6 @@ namespace DarkNights.Editor.Terrain
             }
             else if (input.type == EventType.MouseUp && input.button == 0 && painting)
             { endStroke?.Invoke(); painting = false; previous = null; input.Use(); }
-            if (input.type == EventType.MouseLeaveWindow) { hover = null; Stop(endStroke); }
         }
 
         private void PaintTo(Vector2Int target, Func<int, int, bool> paint, Action changed)
@@ -136,6 +138,21 @@ namespace DarkNights.Editor.Terrain
             return result;
         }
 
+        /// <summary>同一自由画布驱动真实制作相机；纹理远景随相机计算视差，格子取点继续使用同一世界变换。</summary>
+        internal Vector3 CameraCenter(Rect canvas, Texture image)
+        {
+            Rect bounds = ImageBounds(canvas, image);
+            return new Vector3(160 - offset.x / bounds.width * 320, -96 + offset.y / bounds.height * 192, -10);
+        }
+
+        /// <summary>把地表近看等预设镜头交还自由画布；沿用同一世界变换，首次导航不跳回全图。</summary>
+        internal void AdoptCamera(Vector3 center, float size, Rect canvas, Texture image)
+        {
+            Zoom = Mathf.Clamp(96 / size, .5f, 8);
+            Rect bounds = ImageBounds(canvas, image);
+            offset = new Vector2((160 - center.x) / 320 * bounds.width, (center.y + 96) / 192 * bounds.height);
+        }
+
         private Vector2Int? CellAt(Vector2 mouse, Rect canvas, Texture image)
         {
             Rect bounds = ImageBounds(canvas, image);
@@ -147,14 +164,21 @@ namespace DarkNights.Editor.Terrain
         }
 
         public void Draw(Rect canvas, Texture image, int fps, int renderMilliseconds, bool pending, string pendingReason = null,
-            PlanetPreset planet = null, bool showStatus = true)
+            PlanetPreset planet = null, bool showStatus = true, bool cameraFramed = false)
         {
             EditorGUI.DrawRect(canvas, new Color(.12f, .13f, .15f));
             GUI.BeginGroup(canvas);
             if (image != null)
             {
                 Rect bounds = ImageBounds(canvas, image);
-                GUI.DrawTexture(bounds, image, ScaleMode.StretchToFill, false);
+                Rect textureBounds = bounds;
+                if (cameraFramed)
+                {
+                    float scale = Mathf.Min(canvas.width / image.width, canvas.height / image.height);
+                    textureBounds = new Rect((canvas.width - image.width * scale) * .5f,
+                        (canvas.height - image.height * scale) * .5f, image.width * scale, image.height * scale);
+                }
+                GUI.DrawTexture(textureBounds, image, ScaleMode.StretchToFill, false);
                 DrawOverlay(bounds, image);
                 if (planet != null) DrawLanding(bounds, planet);
             }

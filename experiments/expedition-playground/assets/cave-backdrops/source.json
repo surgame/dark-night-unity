@@ -1,0 +1,10 @@
+{
+  "method": "BackgroundContourBaker + BackgroundPageBaker; frozen initial H5 room occupancy; native 2px scale",
+  "assembly": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Core.dll",
+  "assemblySha256": "572e6271948518cd87ca4ddb63fb8b6a43054a29c8dc69ffbb52e16630f6f5d9",
+  "inputFile": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\expedition-playground-polish-20261024\\style-sampling-03\\inputs.json",
+  "inputsSha256": "ca16c84cc4c0a7524409e7ffd842de7c7b30d6dab0aa177bca4355a3f464fffe",
+  "unityStarted": false,
+  "originalSourceModified": false,
+  "layouts": 30
+}

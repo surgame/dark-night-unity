@@ -1,0 +1,202 @@
+using System;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.ExceptionServices;
+using DarkNights.Core.Config.Terrain;
+using DarkNights.Editor;
+using DarkNights.Editor.Terrain;
+using DarkNights.Runtime.Objects;
+using DarkNights.Runtime.Terrain;
+using GameCore.Objects.Definition;
+using NUnit.Framework;
+using UnityEditor;
+using UnityEngine;
+
+namespace DarkNights.Tests
+{
+    /// <summary>
+    /// 地图工作台候选、静态门控及版本装配的隔离回归；使用独立作者资产和保留夹具，不写正式新局引用。
+    /// 只验编辑态生产链路，不把确定性或静态核对作为人物通行、运行事件或多人恢复验收。
+    /// </summary>
+    public sealed class MapWorkbenchCandidateTests
+    {
+        private const BindingFlags Flags = BindingFlags.Instance | BindingFlags.NonPublic;
+        private const string Folder = "Assets/__TunerCandidateValidation20261022";
+        private ObjectDefinition source;
+        private MapWorkbenchWindow window;
+        private TerrainGenerationPreview model;
+        private object commands;
+        private static object Call(object target, string name, params object[] args)
+        {
+            try { return target.GetType().GetMethod(name, Flags).Invoke(target, args); }
+            catch (TargetInvocationException error)
+            { ExceptionDispatchInfo.Capture(error.InnerException).Throw(); throw; }
+        }
+
+        [SetUp]
+        public void OpenIsolatedSource()
+        {
+            if (!AssetDatabase.IsValidFolder(Folder)) AssetDatabase.CreateFolder("Assets", "__TunerCandidateValidation20261022");
+            source = ScriptableObject.CreateInstance<ObjectDefinition>();
+            var flow = new ExpeditionFlowConfig();
+            flow.CaveMap.Layout = TerrainGenerationSettings.ConnectedRooms;
+            flow.CaveMap.Structure = new CaveLayoutSettings();
+            flow.CaveMap.Minerals = new TerrainMineralSettings { Algorithm = TerrainMineralSettings.RegionalVeins };
+            flow.CaveMap.Rules = null;
+            flow.Geology.Enabled = false;
+            source.SharedConfigs.Add(flow);
+            AssetDatabase.CreateAsset(source, AssetDatabase.GenerateUniqueAssetPath(Folder + "/Source.asset"));
+            AssetDatabase.SaveAssetIfDirty(source);
+            window = ScriptableObject.CreateInstance<MapWorkbenchWindow>();
+            Call(window.Draft, "Load", source);
+            model = (TerrainGenerationPreview)typeof(MapWorkbenchWindow).GetField("generation", Flags).GetValue(window);
+            commands = typeof(MapWorkbenchWindow).GetField("commands", Flags).GetValue(window);
+        }
+
+        [TearDown]
+        public void RetainFixtureAndReleaseWindow()
+        {
+            PreserveSourceFixture();
+            TestContext.WriteLine("Retained source: " + AssetDatabase.GetAssetPath(source));
+            typeof(EditorWindow).GetProperty("hasUnsavedChanges").SetValue(window, false);
+            UnityEngine.Object.DestroyImmediate(window);
+        }
+
+        private void PreserveSourceFixture()
+        {
+            if (source == null) return;
+            // 测试框架稍后会回滚整批Undo；保留夹具必须移除仅属于该自建资产的记录。
+            Undo.ClearUndo(source);
+            AssetDatabase.SaveAssetIfDirty(source);
+        }
+
+        [Test]
+        public void ExplicitSourceApplyRetainsFixtureAcrossRunnerUndo()
+        {
+            Undo.IncrementCurrentGroup();
+            int unprotected = Undo.GetCurrentGroup();
+            window.Draft.Config.CaveMap.Structure.Road = "roots";
+            model.Apply();
+            Undo.FlushUndoRecordObjects();
+            string path = AssetDatabase.GetAssetPath(source);
+            Assert.That(System.IO.File.ReadAllText(path), Does.Contain("Road: roots"));
+            Undo.RevertAllDownToGroup(unprotected);
+            Assert.That(source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single().CaveMap.Structure.Road,
+                Is.EqualTo("erosion"), "复现旧夹具：内存回退，但磁盘仍是roots");
+            Assert.That(System.IO.File.ReadAllText(path), Does.Contain("Road: roots"));
+
+            Call(window.Draft, "Load", source);
+            window.Draft.Config.CaveMap.Structure.Road = "roots";
+            Undo.IncrementCurrentGroup();
+            int protectedGroup = Undo.GetCurrentGroup();
+            model.Apply();
+            Undo.FlushUndoRecordObjects();
+            PreserveSourceFixture();
+            Undo.RevertAllDownToGroup(protectedGroup);
+            Assert.That(source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single().CaveMap.Structure.Road,
+                Is.EqualTo("roots"), "只清除此测试源的Undo，不清理用户或其他测试对象");
+            Assert.That(System.IO.File.ReadAllText(path), Does.Contain("Road: roots"));
+            Assert.That(EditorUtility.IsDirty(source), Is.False);
+        }
+
+        [TestCase("erosion")]
+        [TestCase("switchback")]
+        [TestCase("cluster")]
+        [TestCase("rift")]
+        [TestCase("roots")]
+        public void RoadsRegenerateDeterministicallyAndContentOnlyKeepsPlan(string road)
+        {
+            window.Draft.Config.CaveMap.Structure.Road = road;
+            var first = model.Generate();
+            string before = ReviewedMineMap.Encode(first, "test");
+            string plan = Newtonsoft.Json.JsonConvert.SerializeObject(new { model.RulePlan.Rooms, model.RulePlan.Connections });
+            string settings = window.Draft.Config.CaveMap.Structure.SpaceKey(first.Seed);
+            Assert.That(first.Rooms.Count, Is.GreaterThanOrEqualTo(9));
+            Assert.That(model.Generate().Rooms.Count, Is.EqualTo(first.Rooms.Count));
+            Assert.That(ReviewedMineMap.Encode(model.LastCandidate, "test"), Is.EqualTo(before));
+            Call(commands, "ContentOnly");
+            var content = model.Generate();
+            Assert.That(window.Draft.Config.CaveMap.Structure.SpaceKey(content.Seed), Is.EqualTo(settings));
+            Assert.That(Newtonsoft.Json.JsonConvert.SerializeObject(new { model.RulePlan.Rooms, model.RulePlan.Connections }),
+                Is.EqualTo(plan));
+            Assert.That(ReviewedMineMap.Encode(content, "test"), Is.Not.EqualTo(before));
+        }
+
+        [Test]
+        public void AllEntranceAndRoomMixChoicesGenerateWithoutChangingFormalSource()
+        {
+            string before = source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single().CanonicalIdentity();
+            foreach (string entrance in CaveLayoutSettings.Entrances)
+            {
+                window.Draft.Config.CaveMap.Structure.Entrance = entrance;
+                Assert.That(model.Generate().Rooms.Count, Is.GreaterThanOrEqualTo(9), entrance);
+            }
+            foreach (string mix in CaveLayoutSettings.Mixes)
+            {
+                window.Draft.Config.CaveMap.Structure.RoomMix = mix;
+                Assert.That(model.Generate().Rooms.Count, Is.GreaterThanOrEqualTo(9), mix);
+            }
+            Assert.That(source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single().CanonicalIdentity(), Is.EqualTo(before));
+        }
+
+        [Test]
+        public void AuthorUndoKeepsLastCandidateUntilRegenerated()
+        {
+            model.Generate();
+            var first = model.LastCandidate;
+            string original = window.Draft.Config.CaveMap.Structure.Road;
+            Call(commands, "Edit", "验证道路撤销", (Action)(() => window.Draft.Config.CaveMap.Structure.Road = "roots"));
+            Undo.FlushUndoRecordObjects();
+            Assert.That(model.CandidateFresh, Is.False);
+            Assert.That(model.LastCandidate, Is.SameAs(first));
+            Assert.That(model.ExportBlockReason(), Does.Contain("更新候选"));
+            Undo.PerformUndo();
+            Assert.That(window.Draft.Config.CaveMap.Structure.Road, Is.EqualTo(original));
+            Assert.That(model.CandidateFresh, Is.True);
+            Undo.PerformRedo();
+            Assert.That(window.Draft.Config.CaveMap.Structure.Road, Is.EqualTo("roots"));
+            Assert.That(model.ExportBlockReason(), Does.Contain("更新候选"));
+            model.Generate();
+            model.CheckCandidate();
+        }
+
+        [Test]
+        public void FreezeCreatesReadOnlyVersionAndInstallValidatesTheSameSavedSource()
+        {
+            var terrain = model.Generate();
+            model.CheckCandidate();
+            Assert.That((string)Call(commands, "FreezeReason"), Does.Contain("核对"));
+            Call(commands, "Check");
+            Assert.That((string)Call(commands, "FreezeReason"), Is.Empty);
+            var create = typeof(JointMineContentSetup).GetMethods(BindingFlags.Static | BindingFlags.NonPublic)
+                .Single(m => m.Name == "Create");
+            var install = typeof(JointMineContentSetup).GetMethods(BindingFlags.Static | BindingFlags.NonPublic)
+                .Single(m => m.Name == "Install");
+            var asset = (ReviewedMineMap)create.Invoke(null, new object[]
+            { terrain, ReviewedMineMap.SourceFingerprint(window.Draft.Config), "test", false, source, Folder });
+            var config = source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
+            Assert.That(config.ReviewedMap, Is.Null, "创建不是装配");
+            asset.VerifySource(config);
+            Assert.That(ReviewedMineMap.Encode(asset.Freeze(TerrainGenerationPreview.WorldId), "test"),
+                Is.EqualTo(ReviewedMineMap.Encode(terrain, "test")));
+            install.Invoke(null, new object[] { asset, source });
+            Assert.That(config.ReviewedMap, Is.SameAs(asset));
+            config.CaveMap.Minerals.Revision++;
+            Assert.Throws<TargetInvocationException>(() => install.Invoke(null, new object[] { asset, source }));
+            TestContext.WriteLine("Retained version: " + AssetDatabase.GetAssetPath(asset));
+        }
+
+        [Test]
+        public void GeologyConflictBlocksFreezeButDoesNotInventGeneratedSite()
+        {
+            window.Draft.Config.Geology.Enabled = true;
+            var terrain = model.Generate();
+            Assert.That(terrain.GeologySites, Is.Empty);
+            Assert.That(model.GeologyConflict, Is.Not.Empty);
+            Assert.That(model.ExportBlockReason(), Does.Contain("塌方"));
+            window.Draft.Config.Geology.Enabled = false;
+            model.Generate(); model.CheckCandidate();
+            Assert.That(model.GeologyConflict, Is.Empty);
+        }
+    }
+}

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><title>Dark Nights menu landscape source</title>
+<style>html,body{margin:0;background:#071010}canvas{width:768px;height:480px;image-rendering:pixelated}</style>
+<canvas width="768" height="480"></canvas>
+<script>
+const root=document,design={atmosphere:"船外营地"};
+  function landscape(){
+    const canvas=root.querySelector("canvas"),c=canvas.getContext("2d"),w=768,h=480;
+    const sky=c.createLinearGradient(0,0,0,h);sky.addColorStop(0,"#112324");sky.addColorStop(.52,"#3f534b");sky.addColorStop(1,"#1a2821");c.fillStyle=sky;c.fillRect(0,0,w,h);
+    let seed=71893;
+    const rng=()=>{seed=(Math.imul(seed,1664525)+1013904223)|0;return(seed>>>0)/4294967296;};
+    const rect=(x,y,rw,rh,color)=>{c.fillStyle=color;c.fillRect(Math.round(x),Math.round(y),Math.round(rw),Math.round(rh));};
+    const poly=(points,color)=>{c.fillStyle=color;c.beginPath();points.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.closePath();c.fill();};
+    // Deterministic approved menu illustration; not gameplay geometry or a tile atlas.
+    const moon=c.createRadialGradient(568,95,3,568,95,105);moon.addColorStop(0,"#b2b98966");moon.addColorStop(.2,"#a5b18233");moon.addColorStop(1,"#879a7c00");c.fillStyle=moon;c.fillRect(445,0,250,220);
+    rect(557,72,24,3,"#aab79c");rect(552,75,35,24,"#bdc4a2");rect(557,99,25,4,"#aab79c");rect(575,77,9,10,"#b1bb9b");rect(557,89,9,4,"#adb99a");
+    for(let i=0;i<62;i++){const x=rng()*w,y=rng()*180;rect(x,y,1,1,rng()>.7?"#b3bc92":"#688279");}
+    poly([[0,204],[70,183],[114,193],[182,155],[240,184],[307,149],[368,180],[439,146],[485,174],[555,156],[625,188],[704,149],[768,178],[768,360],[0,360]],"#3c534a");
+    function tree(x,base,height,color){
+      rect(x-2,base-height*.76,4,height*.76,color);
+      for(let j=0;j<7;j++){const y=base-height+j*height*.105,half=height*(.055+j*.028);poly([[x,y],[x+half,y+height*.24],[x-half,y+height*.24]],color);}
+    }
+    for(let i=0;i<59;i++)tree(i*15-20+rng()*9,326,80+rng()*126,"#2b463e");
+    for(let i=0;i<33;i++)tree(i*27+rng()*13,357,100+rng()*150,"#213d33");
+    const fog=c.createLinearGradient(0,235,0,360);fog.addColorStop(0,"#a6b19a00");fog.addColorStop(.5,"#91a18a30");fog.addColorStop(1,"#71866f00");c.fillStyle=fog;c.fillRect(0,225,w,145);
+    poly([[0,356],[70,341],[141,358],[202,350],[276,363],[331,347],[396,354],[446,341],[513,346],[570,330],[620,342],[693,333],[768,348],[768,480],[0,480]],"#182c23");
+    poly([[359,375],[403,359],[439,357],[475,363],[522,350],[580,358],[637,341],[718,349],[768,364],[768,420],[683,399],[603,399],[541,402],[478,398],[416,400]],"#354232");
+    for(let i=0;i<240;i++){const x=rng()*w,y=348+rng()*132;rect(x,y,2+rng()*6,1,rng()>.5?"#536044":"#253b2b");}
+    // A low, work-worn landing craft; warm windows anchor the right half.
+    poly([[465,287],[488,259],[565,259],[588,279],[632,287],[646,309],[644,332],[623,346],[477,346],[457,332],[452,310]],"#111f1b");
+    poly([[467,286],[491,265],[563,265],[585,284],[628,292],[640,312],[632,332],[476,332],[462,317]],"#6c7760");
+    poly([[468,287],[491,267],[563,267],[580,283],[577,290],[470,295]],"#87917a");
+    rect(480,296,99,31,"#55634e");rect(484,300,91,22,"#647259");rect(482,325,100,5,"#303f30");
+    poly([[584,289],[622,296],[633,309],[629,326],[584,326]],"#3c4f40");
+    poly([[588,291],[614,296],[625,307],[589,307]],"#b4ad77");rect(591,297,19,6,"#ded096");rect(610,300,9,5,"#c7c08b");rect(592,309,32,3,"#243d31");
+    rect(498,272,43,15,"#334b3d");rect(501,275,16,8,"#b8aa73");rect(521,275,16,8,"#d0bc7d");
+    rect(550,292,21,38,"#263a2d");rect(555,296,11,27,"#b5a367");rect(554,322,13,5,"#ead0a0");
+    rect(486,310,26,3,"#899273");rect(486,317,17,2,"#899273");
+    rect(479,332,13,13,"#26392b");rect(617,331,9,14,"#26392b");rect(471,344,29,4,"#7a8264");rect(609,344,25,4,"#7a8264");
+    rect(511,333,17,10,"#1c2f23");rect(577,333,17,10,"#1c2f23");
+    rect(492,254,34,8,"#4f614d");rect(498,249,21,6,"#6a795c");rect(498,235,2,15,"#8f9571");
+    poly([[548,330],[569,330],[597,361],[573,361]],"#8b8760");poly([[551,333],[568,333],[591,358],[575,358]],"#6c7050");
+    for(let i=0;i<5;i++)rect(555+i*4,335+i*5,15,1,"#aa9d6d");
+    const glow=c.createRadialGradient(561,330,2,561,330,90);glow.addColorStop(0,"#d0ad5744");glow.addColorStop(1,"#d0ad5700");c.fillStyle=glow;c.fillRect(465,240,195,185);
+    poly([[548,326],[571,326],[612,380],[512,380]],"#c1aa5420");
+    // Rock outcrop and an unlit mine mouth, kept secondary to the ship.
+    poly([[681,338],[682,295],[698,277],[725,270],[753,283],[768,307],[768,359]],"#22372a");
+    poly([[707,336],[707,303],[719,291],[739,296],[746,308],[746,340]],"#091911");
+    rect(703,294,5,48,"#6c7150");rect(744,297,5,45,"#6c7150");poly([[700,295],[718,285],[747,290],[750,298],[719,293]],"#858165");
+    rect(695,330,3,22,"#77734b");rect(692,327,9,8,"#d0ab61");
+    const lamp=c.createRadialGradient(696,331,0,696,331,40);lamp.addColorStop(0,"#d4b96b50");lamp.addColorStop(1,"#d4b96b00");c.fillStyle=lamp;c.fillRect(650,285,90,90);
+    // Small crew silhouettes provide scale without committing to character art.
+    function crew(x,y,color){rect(x-3,y-20,6,3,"#b9ac73");rect(x-4,y-17,9,5,color);rect(x-2,y-12,6,10,color);rect(x-6,y-10,4,7,"#384a35");rect(x-1,y-2,2,5,"#15251a");rect(x+3,y-2,2,5,"#15251a");rect(x+4,y-17,2,2,"#e7d599");}
+    crew(613,367,"#75846b");crew(635,371,"#a29665");
+    for(let i=0;i<18;i++){const x=390+rng()*300,y=338+rng()*65;rect(x,y,1,1,"#d4bd7b");}
+    for(let i=0;i<8;i++)tree(i*34-50,474,200+rng()*75,"#0e211a");
+    tree(766,483,270,"#0c2018");tree(727,485,173,"#10251b");
+    poly([[0,457],[56,441],[109,461],[175,444],[227,467],[305,457],[359,471],[431,459],[490,477],[565,466],[625,481],[705,461],[768,470],[768,480],[0,480]],"#102219");
+    if(design.atmosphere==="矿洞入口"){
+      const shade=c.createLinearGradient(0,0,w,h);shade.addColorStop(0,"#10211c00");shade.addColorStop(1,"#212a1b44");c.fillStyle=shade;c.fillRect(0,0,w,h);
+    }
+  }
+landscape();
+const c=document.querySelector("canvas").getContext("2d");
+const left=c.createLinearGradient(0,0,768,0);
+left.addColorStop(0,"#071010eb");left.addColorStop(.38,"#071010c8");
+left.addColorStop(.72,"#07101028");left.addColorStop(1,"#07101016");
+c.fillStyle=left;c.fillRect(0,0,768,480);
+const edge=c.createLinearGradient(0,0,0,480);
+edge.addColorStop(0,"#050c0b55");edge.addColorStop(.25,"#050c0b00");
+edge.addColorStop(.75,"#050c0b00");edge.addColorStop(1,"#050c0bd9");
+c.fillStyle=edge;c.fillRect(0,0,768,480);
+</script></html>

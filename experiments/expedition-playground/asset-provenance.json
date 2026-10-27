@@ -1,0 +1,1579 @@
+{
+  "schema": "darknights-lab-project-materials-v1",
+  "identity": "6dd6705748fd5f9f57ce5c96cbe2a25beddcf9595e9447835389028e99e251e1",
+  "referenceThread": "01a168f0-29aa-74e3-a28b-aa0143a1fa59",
+  "referenceRoot": "C:/Users/Jobscn/.codex/visualizations/2026/10/23/01a168f0-29aa-74e3-a28b-aa0143a1fa59",
+  "profileSource": {
+    "file": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\23\\01a168f0-29aa-74e3-a28b-aa0143a1fa59\\pinewatch-environment-walkthrough.html",
+    "sha256": "91dad2ffb4a00df4ec8d383d384fb27dfd76b620c7a2c37b2d78f9cef9e8e418"
+  },
+  "notes": [
+    "生成JS为离线分发派生，原素材仍只有原目录一份来源，不改写PNG、meta或Unity资产。",
+    "原始尺寸、色值、帧序与固定脚底锚点保留；H5采用最近邻整数倍绘制。",
+    "素材实景路线使用引用样板的真实坡地、洞口及洞内轮廓建立独立H5碰撞；不是正式Unity地图。",
+    "引用样板为自动漫游，洞唇局部净空不足；本H5派生在1044≤x<1124范围对洞顶最多放宽至离地30像素，碰撞与前景裁剪同步，不改原样板。",
+    "其余37个机制场景为专用试验洞室，复用工程岩壁材质与角色，不冒充正式地图布局。",
+    "新增装备与环境候选由pixel-equipment.js/pixel-props.js原生像素绘制；装备沿用Handheld作者色板、24×24画布和[8,12]握点，未写回Game。",
+    "H5洞室岩壁按Core CaveRockBaker/ToneField/BackgroundPixelMath只读移植，使用同系8色板和2世界像素密度；不含Unity线性照明、修饰器与完整地形链路。"
+  ],
+  "styleSources": [
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\manifest.json",
+      "sha256": "f5ef1a57abe81773af139f9bed20be788433681347bff300f57ff1e043c12382"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\manifest.json",
+      "sha256": "165f039f485ee8549cb499006b49ccf3c307c651dfa4554aaa955c05aa30d551"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\CaveRockBaker.cs",
+      "sha256": "eeb2f565e0f76d8a56110ca564295980c64f4251af5326ac53fd901b23644f20"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\CaveRockToneField.cs",
+      "sha256": "c92f43fd506e0a48f6439b18e7613fa947d5a6bcfdefcc5cd48c708d62bcce5d"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\BackgroundPixelMath.cs",
+      "sha256": "f5196fb94aa7430d2b3288e1f6ab236aa84873c90b3f1d79915f9c4a02ac9e66"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\BackgroundPageBaker.cs",
+      "sha256": "0aa17d3404d1e700180434f75c04c17edab3a4360064fc8b1a87b8e063496537"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Logic\\Terrain\\BackgroundContourBaker.cs",
+      "sha256": "b22a2de2eebd34f036b0e179b4192f8df15ce3b973cda0b1ef0c7f8822317bee"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Terrain\\CaveContourStatic\\CaveStyle.asset",
+      "sha256": "4e88b629c9eb8cdce6f040eacbef52d506212a3597a701c1419cd152167dc01b"
+    }
+  ],
+  "backgroundSampling": {
+    "method": "BackgroundContourBaker + BackgroundPageBaker; frozen initial H5 room occupancy; native 2px scale",
+    "assembly": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Core.dll",
+    "assemblySha256": "572e6271948518cd87ca4ddb63fb8b6a43054a29c8dc69ffbb52e16630f6f5d9",
+    "inputFile": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\expedition-playground-polish-20261024\\style-sampling-03\\inputs.json",
+    "inputsSha256": "ca16c84cc4c0a7524409e7ffd842de7c7b30d6dab0aa177bca4355a3f464fffe",
+    "unityStarted": false,
+    "originalSourceModified": false,
+    "layouts": 30
+  },
+  "profiles": {
+    "surfacePoints": [
+      [
+        0,
+        270
+      ],
+      [
+        100,
+        264
+      ],
+      [
+        200,
+        253
+      ],
+      [
+        310,
+        222
+      ],
+      [
+        410,
+        204
+      ],
+      [
+        510,
+        238
+      ],
+      [
+        620,
+        270
+      ],
+      [
+        720,
+        287
+      ],
+      [
+        825,
+        283
+      ],
+      [
+        920,
+        253
+      ],
+      [
+        1020,
+        240
+      ],
+      [
+        1090,
+        240
+      ],
+      [
+        1160,
+        205
+      ],
+      [
+        1240,
+        150
+      ],
+      [
+        1330,
+        128
+      ],
+      [
+        1430,
+        143
+      ],
+      [
+        1510,
+        174
+      ],
+      [
+        1630,
+        202
+      ],
+      [
+        1800,
+        225
+      ],
+      [
+        2000,
+        218
+      ],
+      [
+        2304,
+        237
+      ]
+    ],
+    "roofPoints": [
+      [
+        1050,
+        242
+      ],
+      [
+        1090,
+        220
+      ],
+      [
+        1140,
+        206
+      ],
+      [
+        1190,
+        220
+      ],
+      [
+        1260,
+        248
+      ],
+      [
+        1350,
+        265
+      ],
+      [
+        1440,
+        285
+      ],
+      [
+        1530,
+        305
+      ],
+      [
+        1640,
+        330
+      ],
+      [
+        1780,
+        345
+      ],
+      [
+        1930,
+        360
+      ],
+      [
+        2140,
+        355
+      ]
+    ],
+    "floorPoints": [
+      [
+        1050,
+        242
+      ],
+      [
+        1090,
+        255
+      ],
+      [
+        1140,
+        282
+      ],
+      [
+        1190,
+        307
+      ],
+      [
+        1260,
+        340
+      ],
+      [
+        1350,
+        370
+      ],
+      [
+        1440,
+        392
+      ],
+      [
+        1530,
+        424
+      ],
+      [
+        1640,
+        452
+      ],
+      [
+        1780,
+        470
+      ],
+      [
+        1930,
+        490
+      ],
+      [
+        2140,
+        495
+      ]
+    ]
+  },
+  "assets": [
+    {
+      "id": "sky",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\bg_sky_clear\\bg_sky_clear_0.png",
+      "width": 256,
+      "height": 600,
+      "sha256": "0e1271bb5dc6ee5060b296404aa0e38ec66ce026d705888e3160118e37f09ffe",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "stars",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\bg_sky_stars\\bg_sky_stars_0.png",
+      "width": 256,
+      "height": 600,
+      "sha256": "e44a128ad01c7447edff1dc456afa83cedfb6c0136c4661e64289bb055dab892",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mountain",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\bg_Lforest_middle\\bg_Lforest_middle_0.png",
+      "width": 512,
+      "height": 150,
+      "sha256": "a4badd670b79e3afc243ee056a048a96fc473387fe405349cbf7af1b7c0401cd",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "farHills",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\bg_forest_middle\\bg_forest_middle_0.png",
+      "width": 512,
+      "height": 100,
+      "sha256": "e7feddd085c38fec22521d3c025a9d07803d2608a998324af0d8a1ddd748eb1e",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "forestClose",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\bg_forest_close\\bg_forest_close_0.png",
+      "width": 256,
+      "height": 180,
+      "sha256": "0b714f9d2156f60dae47a7c8524a4e64f8af4c147ec5052b5bcbaa11ca11df7d",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "forestNew",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\bg_forest_new_close\\bg_forest_new_close_0.png",
+      "width": 256,
+      "height": 180,
+      "sha256": "0efc0c825b4822eae90cb1eb87bfc85d10ac77d2e1143942486c1c795e9cb3c9",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "grass",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_block_grassy\\spr_block_grassy_0.png",
+      "width": 256,
+      "height": 25,
+      "sha256": "d0bc4bd325ec302090b676fbf66354b4c23535a02479f31e4c727c4e81f42b8e",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "bodyIdle",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_idle\\spr_worker_idle_0.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "6caf279335872dd481e4093a9fdb91b65a6dde8e84c7db71e82dc97410c83efc",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirtIdle",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_idle\\spr_worker_shirt_idle_0.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "af380549157d1973dce67e9544735ef6e8a7451ed2fd74d93b3b84d07997feb7",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "tree0",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_res_trees\\spr_res_trees_0.png",
+      "width": 32,
+      "height": 64,
+      "sha256": "abb5e7fe81f9fb12ce147723bb027bb42233838ef33ef53a463405278fb703c9",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "leaf0",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_res_trees_leaf\\spr_res_trees_leaf_0.png",
+      "width": 40,
+      "height": 64,
+      "sha256": "9ce68eacf8f061a69d05557bba45396dddf091e36a1dab0f3848f4d0fdb389fd",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "tree1",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_res_trees\\spr_res_trees_1.png",
+      "width": 32,
+      "height": 64,
+      "sha256": "f87650908d6085325a665878a1fa9857f68415e554b921f8287013ca216afed1",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "leaf1",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_res_trees_leaf\\spr_res_trees_leaf_1.png",
+      "width": 40,
+      "height": 64,
+      "sha256": "dbbd349b512b09eba50267d66889dc35d312567420bcacbe1ddd9f0b36a21d1d",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "tree2",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_res_trees\\spr_res_trees_2.png",
+      "width": 32,
+      "height": 64,
+      "sha256": "d0bed9baa4d6fe28bfe8ce81c782bd60efa69c13dfc40ed89d679b18e5dde17d",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "leaf2",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_res_trees_leaf\\spr_res_trees_leaf_2.png",
+      "width": 40,
+      "height": 64,
+      "sha256": "04632148d6965ed3e45899e73d9351948f1303f63517cd048fe9610bf331a38b",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "stone0",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_res_stone\\spr_res_stone_0.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "6a39c2747567ada64e78aa5d12215f0359a4bf438d00f0fb5091ebef5e7e249d",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "stone1",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_res_stone\\spr_res_stone_1.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "b804b0651a11392a2b9db31319f44443d62a4ec63c8eabf87d41911197b19d81",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "stone2",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_res_stone\\spr_res_stone_2.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "5f543df39e977601f2595d3c887ad95078d01fa42e4cc2ab03c94e6c475fd619",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "stone3",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_res_stone\\spr_res_stone_3.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "a8d732c9bceeec7012f66ff475265bac34678e7beabd3c03f6abc7b376bc5c9f",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body0",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_0.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "f3883ec136a08c80c8e9c40cf2b95e4d00951ccdfe65979d5e955a338397c669",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt0",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_0.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "af380549157d1973dce67e9544735ef6e8a7451ed2fd74d93b3b84d07997feb7",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body1",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_1.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "544b4cacbe5ed4c268a932cba5cbb28c6bd342a1cfe746cfc716dd6b7d6c93e5",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt1",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_1.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "a432fa183394ae05334c83f263bc6a1fb555180399b2d1edbf99de1b1711016d",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body2",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_2.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "001b0b970e0ccd5db45521454b50a6ef004bcbd91377b4cd4c8ad9e1358f6a03",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt2",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_2.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "c4076d53b8ec59df5d1d59fe920aa738a385621d9cf7b5b5bca8f96424bc3cb3",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body3",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_3.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "c7cfecda8fa5a9a321329a5e993b1c9b9729c789aa5901b2baa3a87e52b5b562",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt3",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_3.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "c4076d53b8ec59df5d1d59fe920aa738a385621d9cf7b5b5bca8f96424bc3cb3",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body4",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_4.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "dc24e579f3104b0c2aebea2cce800da5c0a2130520ddb61d870706c7b235931c",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt4",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_4.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "0645eaa3be51358df9fa5b73cf3c21df7a46d0297f725c922faeb6a79dcf813e",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body5",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_5.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "2dad6e23093823ce6fa3278ff29981c49427cb755bbc21feffd70aab742ec4c2",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt5",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_5.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "af380549157d1973dce67e9544735ef6e8a7451ed2fd74d93b3b84d07997feb7",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body6",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_6.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "5965ebe24b2d88e3470a210b6abe8b8e1fa86f71990d559b15f0f520411c996d",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt6",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_6.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "af380549157d1973dce67e9544735ef6e8a7451ed2fd74d93b3b84d07997feb7",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body7",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_7.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "819d5e90cb95172d604b9ef32746933e18dba4707af0487793d3ef6150efe682",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt7",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_7.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "1bbb16aea9410d3461ba9e61c848ef82dfb474516a193988940562f4d2dfc471",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body8",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_8.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "834f7f82e4f04ac96e408d085e943114335e4cc513bb4fe1ff5924cf2c3f85ba",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt8",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_8.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "4b0cd2b3a4e355d5c02d1b848e8973e28162048fe2c5d645070093a8a5c143f7",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body9",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_9.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "0fa71e2d84d4e0c96972ab1172bb1d52bfea6028c6dc7e33853dc6763d28b7bf",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt9",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_9.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "fe7ccc626e2524c935c235f6b346b1ee09f79b050a35c8ff8d02552677c78c28",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body10",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_10.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "71796015df8353b6153b5d7ffb29270f3bbb89119a6d7ccda35fb4e571055269",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt10",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_10.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "c695c8ac8e9f39f79e4d0ef1f0352bbdd2ec9850ff3137bfe0d21cdeaa86ecde",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "body11",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_walking\\spr_worker_walking_11.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "481aa32862065338207cabe30d02ee2ce0d5507df508519ae656e1f16f9c0143",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "shirt11",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_worker_shirt_walking\\spr_worker_shirt_walking_11.png",
+      "width": 12,
+      "height": 12,
+      "sha256": "af380549157d1973dce67e9544735ef6e8a7451ed2fd74d93b3b84d07997feb7",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "torch0",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_dec_torch\\spr_dec_torch_0.png",
+      "width": 11,
+      "height": 11,
+      "sha256": "7810b661a688488e399444a7a67bd7c0b451b68fdd4af36fea8795306b4c590a",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "torch1",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_dec_torch\\spr_dec_torch_1.png",
+      "width": 11,
+      "height": 11,
+      "sha256": "f316876e2616aa40a3f318214b6ad0991236ae42846b04c9510b200ce3304e73",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "torch2",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_dec_torch\\spr_dec_torch_2.png",
+      "width": 11,
+      "height": 11,
+      "sha256": "63dd74f34138b700eb0f136facc534479a21d5771821503222e265a5d24ae4a2",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "torch3",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_dec_torch\\spr_dec_torch_3.png",
+      "width": 11,
+      "height": 11,
+      "sha256": "d9c5c70f5eb65b2107af3a9a8f7d105dba7693a18b7e69f84f2f6afa1b8ee159",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "torch4",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_dec_torch\\spr_dec_torch_4.png",
+      "width": 11,
+      "height": 11,
+      "sha256": "7e60c68ea639a662f6540ec02959264f918bcc92068d482c8f94f377d8ab6774",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "torch5",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_dec_torch\\spr_dec_torch_5.png",
+      "width": 11,
+      "height": 11,
+      "sha256": "ca2798990d9b1a81dc0f89c9ef207a28dc40d9f1fec791c9fbe73b991f61edb4",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "torch6",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Original\\sprites\\spr_dec_torch\\spr_dec_torch_6.png",
+      "width": 11,
+      "height": 11,
+      "sha256": "a5c8a1e3d5c23eb43df03cc02c8d9e12caa6c9de16fce52256a1e3a2df91ed7c",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "pickaxe",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\Pickaxe.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "4fd78c73052e6c7e43b4d66e2bff4e80f68f00546e03c7bf4537f9943854b9e4",
+      "role": "工程现有原生素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "terrainFront",
+      "source": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\23\\01a168f0-29aa-74e3-a28b-aa0143a1fa59\\project-material-sampler\\output\\terrain-front.webp",
+      "width": 1152,
+      "height": 380,
+      "sha256": "e4099992a364a46ffa649cb9397e5274e84c769b9fd60ea8c1165cdd03612eb2",
+      "role": "引用会话的Core岩壁烘焙器输出；仅作为H5材质来源",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "terrainRear",
+      "source": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\23\\01a168f0-29aa-74e3-a28b-aa0143a1fa59\\project-material-sampler\\output\\terrain-rear.webp",
+      "width": 1152,
+      "height": 380,
+      "sha256": "9f0daf7334e9c032e93125484f2edba196efe377b88cf2b026ce0136cbb92519",
+      "role": "引用会话的Core岩壁烘焙器输出；仅作为H5材质来源",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "pistol",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\Pistol.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "f6eb67ac1b04b81a5a86f5344bf808f2df58ef335408214433ebf32833aabca0",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "bomb",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\Bomb.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "72c83dd8868015badbf677ca0c28f47b192a60f6e6e0481b9541a7b89f2dcc4a",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "hand",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\Hand.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "91c7cfb9fc180fb813e14488e1964a36ae26ac9155909a9d7fb36cbe28aca68b",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "bullet",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\Bullet.png",
+      "width": 4,
+      "height": 3,
+      "sha256": "80f14c9cafb7852a0663b1af820b3fac8ac25782e2d6e82ff06b7a6082da3a53",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "muzzle",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\Muzzle.png",
+      "width": 6,
+      "height": 5,
+      "sha256": "5ea5174aa800854e718fad54d1bda7039c1f92854c16159ee0850cff0ce74473",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "pickaxeicon",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\PickaxeIcon.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "bc4813b5e67fecef2361b0abae2e80666dff77d633ee5a96ca109cb51b0f8809",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "pistolicon",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\PistolIcon.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "0c25293fec64fe768750845ac8ef4edebed2cc9245be5cc2b0746c817829fcec",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "bombicon",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\BombIcon.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "a517e4599f4ee31b02cac7099f99ea5fc5115f3c955e365755135edf879644dc",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "explosion0",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\Explosion0.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "037b9007c5d21bd2f4f19c606e929c50252da5f51e3b98f6c0077a24e232c2a4",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "explosion1",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\Explosion1.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "4be953517add50c4d6e0efe8953c475b0b37acce1d3d0a01b01d4092a013daaf",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "explosion2",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\Explosion2.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "f33a08c1003e645e35a4998659123ef6eb0966efa3f191fa89652bb336691e9c",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "explosion3",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Art\\Custom\\Handheld\\Explosion3.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "b8615f8ecfd0fbd66da9c0eb4d3f3519a3db97153750f9136addaa29d9fe63da",
+      "role": "工程现有手持素材",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mineral-iron",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Terrain\\EmbeddedMinerals\\iron\\iron.png",
+      "width": 128,
+      "height": 32,
+      "sha256": "c83c2e0f14aadcffddb4e2dcbee31c3250691716a8ef21ce21b968ed5af95850",
+      "role": "当前工程嵌入式矿层原图；H5按8像素格裁片",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mineral-copper",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Terrain\\EmbeddedMinerals\\copper\\copper.png",
+      "width": 128,
+      "height": 32,
+      "sha256": "9586a1125af1ee47c14149cb7ede41ca3a060b1c8e7493242d8d79282ed2d7c9",
+      "role": "当前工程嵌入式矿层原图；H5按8像素格裁片",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mineral-gold",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Terrain\\EmbeddedMinerals\\gold\\gold.png",
+      "width": 128,
+      "height": 32,
+      "sha256": "994c94dc701577b054c2c9c8dbf0fc3870b4210540a0987296d02819daced2b1",
+      "role": "当前工程嵌入式矿层原图；H5按8像素格裁片",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mineral-silver",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Terrain\\EmbeddedMinerals\\silver\\silver.png",
+      "width": 128,
+      "height": 32,
+      "sha256": "5a8a3b45f738d9a3d44b84f46140b2b5c849adb705f3fcb3d0eba04388a4e36f",
+      "role": "当前工程嵌入式矿层原图；H5按8像素格裁片",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mineral-diamond",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Terrain\\EmbeddedMinerals\\diamond\\diamond.png",
+      "width": 128,
+      "height": 32,
+      "sha256": "84c70b8a7ea957872d201da8f10be5a260ab0a5ecc9798a2b66a8d1de57ed522",
+      "role": "当前工程嵌入式矿层原图；H5按8像素格裁片",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "rubble0",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Effects\\Geology\\MixedRock0.png",
+      "width": 16,
+      "height": 16,
+      "sha256": "58391e51f0a6b50b2be537002cdc1f6ac83aa42d118a76f4de2db4818b3fe304",
+      "role": "当前工程地质碎岩16像素原图",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "rubble1",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Effects\\Geology\\MixedRock1.png",
+      "width": 16,
+      "height": 16,
+      "sha256": "8ddcefddc59656bca4de2408d3926c0ce197592e979e10f52644d256e157cd21",
+      "role": "当前工程地质碎岩16像素原图",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "rubble2",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Effects\\Geology\\MixedRock2.png",
+      "width": 16,
+      "height": 16,
+      "sha256": "8f0c8cdccd35521a6585025efa010d561e14b3e39b733f72de1209bedc1a81fa",
+      "role": "当前工程地质碎岩16像素原图",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "rubble3",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Effects\\Geology\\MixedRock3.png",
+      "width": 16,
+      "height": 16,
+      "sha256": "1c6641ef1f0617f149983fd9bcc915f3ff5bc0378945b2defd5c9534077cf12f",
+      "role": "当前工程地质碎岩16像素原图",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-arena",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\arena.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "f904e2eeff545ead3b1c18c82ff59921f933366a26592830f7670644e0695757",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-boulder",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\boulder.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "8df56b3fef3d4947660fed8d55aa94a65b439459b79d7d899f2e4362384f5b8f",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-cache",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\cache.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "a88cf94cca07b99ee3341ecab0d0c4e0e2b0c5555832853cb364ddc48e9f4108",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-cargo",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\cargo.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "8597ab922c03dc0e886f87ba0b181c512427748a0fea90ff65e130fd01a64207",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-cocoons",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\cocoons.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "b5936dfcaecf6a568533ea6b8a5632faa094b7535e9441f68c4b49f0c9250038",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-collapse",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\collapse.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "08f3b320247b5a567d1766565a75b941e000df5b26c7c24157aeac503bec48eb",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-crystal",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\crystal.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "c5ef960e2efddffff1b94881238316a1444694ec70c03e7955abd669c1a9c404",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-explore",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\explore.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "980718d5aad05b2ff12eaf8317929cecee385bfe9a4fdd539d7c2b50015aaa6e",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-garden",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\garden.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "f55a06c2fbea1c80201c8f2bfbcc56a1b6b0b49ddee6f0d8cf438f3e64ef4eed",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-hanging",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\hanging.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "211c6a7b61c17a4b3968dbe83744bfea2cd42abb2e77a6c16792efd1d84d6a60",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-heavy",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\heavy.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "a9b265b021be380e70c7f3ca2653d97981ffd71d38fa52cedd8462372f263c24",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-hidden",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\hidden.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "6789f9891925bfd9be9dda9eea65258a66510aec14caa879245d08ba923490d7",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-high",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\high.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "f1b448ad7c4dbcfe57900d5a9c943c61a15998b8560403a7becfb394aaf2960a",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-hunt",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\hunt.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "a8d4fd2786bbe8e126a826c97db46bc2371d044e849d714d7dcdddcf8c6daaf6",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-mimic",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\mimic.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "326c71a6daa01c5e0384ec2b79fc5bbecac11ca5c3272d7d25d8d32e7d6f08ec",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-miner",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\miner.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "3bd29f5eae09feb2d200e4766a7ed00bda23bc34e0efd1d77bc89b4f6d92390d",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-mycelium",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\mycelium.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "d0c7baccba1087049f0fb6d4947a72998d8d3e238708c7eb34ad58601081afbd",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-nest-covered",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\nest-covered.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "a38645d7cf1e062c54b4a9f617146233b8fe221f57ad72e12fc1376b23d9d0b4",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-nest-open",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\nest-open.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "678abec8412eb14656fc7df1f11361eb5ece79442e09cfc95edba60726347601",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-pillar",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\pillar.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "b71043ac13380750d319d4f9c66b68e4954b41e75e6fc4b34f0cfdde02debdef",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-pin",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\pin.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "a1dbe7f8514a3163f96da8d78b16ec6385e74becb8ef20ae41db9aee64b11575",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-pit",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\pit.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "2b1d7df292841c4f89e976ca8779a3ccf6ddeba49d1df5922fad24d1d9c2c72c",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-refuge",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\refuge.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "1ae167bd4e03b653e56a26c4eb86fa7c40d08fd1b93b581fd0b08d3fd47d7b55",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-rescue",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\rescue.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "5c3e9b31495f9273c6d224d8f2c03e989214f3812e568bb5408be1f472ca1b4c",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-resonance",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\resonance.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "5f7b1cfa17b8a4c073746e5df3afaa7c148e2c6da85d174221925576ee936289",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-sample",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\sample.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "11bf5844caffcdf85185e0612e6cff0cae7bf1d34e232cce97669b08671ddd4b",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-traces",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\traces.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "6211d8fcb8d6ce1d094db8be22120688c7f76d6116bb24e53b182ea40c81d1d7",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-vine",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\vine.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "a736ee4bade3e2ccb90d3842c9a115e7d2178ffdfdd4005428a012d417866a6a",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-wall",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\wall.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "f82bfc1e73f0a43d1ad439c0bea1f4cbec036cedc74d1f7f678a8b11042b6c43",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "backdrop-winch",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\cave-backdrops\\winch.png",
+      "width": 768,
+      "height": 336,
+      "sha256": "c25aa4f5a6d1faba23fa8ced1ada005edd91d894fa89aee96442faf619fbe169",
+      "role": "当前磁盘Core BackgroundContourBaker/BackgroundPageBaker采样；对应H5初始洞室，原生2世界像素",
+      "anchor": null,
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "grub-idle_a",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub\\idle_a.png",
+      "width": 32,
+      "height": 24,
+      "sha256": "89f3da257211bc7227994317af28228ec3260fb0b467d4242ed6611948796ac4",
+      "role": "既有CL04独立候选；正式装配状态另见DEVELOPMENT",
+      "anchor": [
+        16,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "grub-idle_b",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub\\idle_b.png",
+      "width": 32,
+      "height": 24,
+      "sha256": "b771c9b1cd25de8ee2d5332ccfed25045c4951e713e360ce5a52371ee8989d84",
+      "role": "既有CL04独立候选；正式装配状态另见DEVELOPMENT",
+      "anchor": [
+        16,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "grub-alert",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub\\alert.png",
+      "width": 32,
+      "height": 24,
+      "sha256": "873e45da06de4588becbc84cb56202f8359b9368275c3bfe7143eba4922dd194",
+      "role": "既有CL04独立候选；正式装配状态另见DEVELOPMENT",
+      "anchor": [
+        16,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "grub-crawl_a",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub\\crawl_a.png",
+      "width": 32,
+      "height": 24,
+      "sha256": "8e408bee4fd297cfeac3bb5f627a9ae5bf3bc26e4b97e00156ea5b679f8a2578",
+      "role": "既有CL04独立候选；正式装配状态另见DEVELOPMENT",
+      "anchor": [
+        16,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "grub-crawl_b",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub\\crawl_b.png",
+      "width": 32,
+      "height": 24,
+      "sha256": "d5079c48454404edf42486779a2c4ec333bee9214d9ecdbae8f4d80cb2ca7973",
+      "role": "既有CL04独立候选；正式装配状态另见DEVELOPMENT",
+      "anchor": [
+        16,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "grub-lunge",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub\\lunge.png",
+      "width": 32,
+      "height": 24,
+      "sha256": "83918eb256992b745c53159954b57a597542ced3aca088c31a4249ea3e03e052",
+      "role": "既有CL04独立候选；正式装配状态另见DEVELOPMENT",
+      "anchor": [
+        16,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "grub-recoil",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub\\recoil.png",
+      "width": 32,
+      "height": 24,
+      "sha256": "011b93303e609db60c6d4ebf4ca7f74cb560924ea48bd021ee8f0f51650f5cb8",
+      "role": "既有CL04独立候选；正式装配状态另见DEVELOPMENT",
+      "anchor": [
+        16,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "grub-fallen",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ambush-grub\\fallen.png",
+      "width": 32,
+      "height": 24,
+      "sha256": "5d7ff17cf22f25bed4e28bd5f4be11a1f1b8577851fd70a5dcf1b61eaeaa091e",
+      "role": "既有CL04独立候选；正式装配状态另见DEVELOPMENT",
+      "anchor": [
+        16,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mimic-dormant",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ore-mimic\\dormant.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "00df7154e6182bcf24705ffef0d5e85b12484dd222dc1862673e527ff885b66d",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        16,
+        30
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mimic-warning",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ore-mimic\\warning.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "f6bcd0d761369d13f8529b5e846281d8baa10fc37069034bd6a64efd96324a65",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        16,
+        30
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mimic-reveal",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ore-mimic\\reveal.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "d9bb6833463537d2a6a32c207a45faf453c0fb926f16a78f12b7784a1eea6de9",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        16,
+        30
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mimic-crawl_a",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ore-mimic\\crawl_a.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "a2a7b7b095217f95d1d0e923c26632bb005a05173404af97ffe1d531795dde52",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        16,
+        30
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mimic-crawl_b",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ore-mimic\\crawl_b.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "8f59d0312f07818114c7f467588f3f82b8d24de78fa6a7cb7c145950d319c75a",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        16,
+        30
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mimic-lunge",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ore-mimic\\lunge.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "e6969dfb1cc6e6f026f57373bf5b20f318d09a1b2e2cab9a29fcd89e32c6557c",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        16,
+        30
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mimic-recoil",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ore-mimic\\recoil.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "4fa76376753f9f7a9686d885371fbc351b7e8aed35e971fe4039f0c74f25703c",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        16,
+        30
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "mimic-fallen",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\ore-mimic\\fallen.png",
+      "width": 32,
+      "height": 32,
+      "sha256": "d3ecd54891161828ef9694a5327dc0a43c3c75adf1db3bb536bb4905561468d9",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        16,
+        30
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "egg-intact",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\egg-clutch\\intact.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "f1339e0057d610e033a04422f92bb8fc2360e4b6ca0041fca5f87603eba136d7",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        12,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "egg-pulse",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\egg-clutch\\pulse.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "cc3252f2d3660f6a492eeb73aea63ca2b24a9e72b992840948873d9f91f58a10",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        12,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "egg-cracked",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\egg-clutch\\cracked.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "6022fa7835986dc9928b4ac89c4ec808c318debc52c60d8593369208b48bad37",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        12,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "egg-empty",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\egg-clutch\\empty.png",
+      "width": 24,
+      "height": 24,
+      "sha256": "847473e04700498ac8d6ec5a5047af564bc240ca3efa5ad45c7ee6eb3185855f",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        12,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "burrow-occupied",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\burrow\\occupied.png",
+      "width": 32,
+      "height": 24,
+      "sha256": "344cd117f0d9377f7d8f7758cac70c5de3aa9d2ed49de1e241820d888d224b04",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        16,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    },
+    {
+      "id": "burrow-empty",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\cl04-creature-art-v1\\native\\burrow\\empty.png",
+      "width": 32,
+      "height": 24,
+      "sha256": "e9652ca81c426922baac08125fe2aae5b330d0f76f9f58646bfb7924f20fa49d",
+      "role": "既有CL04独立候选",
+      "anchor": [
+        16,
+        23
+      ],
+      "sourceBytesUnchanged": true
+    }
+  ]
+}

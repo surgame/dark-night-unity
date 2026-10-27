@@ -13,9 +13,10 @@ namespace DarkNights.Runtime.Objects
     {
         public string Id = "grey-pine";
         public string DisplayName = "灰松星";
-        [TextArea] public string Description = "开放天空与安全降落区，地表步道连接下方天然洞穴。";
+        [TextArea] public string Description = "开放天空与飞船泊位，洞口及地下布局由地图规则确定。";
         public bool Enabled = true;
-        [Tooltip("留空由服务端每次产生种子；固定种子用于可复现地图。")] public string Seed = "";
+        // 仅保留已保存航程配置的原身份字段；地图生成只消费 CaveMap 的种子与选择策略。
+        [HideInInspector] public string Seed = "";
         public int DockColumn = 36;
         public int DockRow = 40;
         public int LandingWidth = 32;

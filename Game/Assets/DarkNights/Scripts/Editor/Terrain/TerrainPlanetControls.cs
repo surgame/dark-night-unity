@@ -14,13 +14,11 @@ namespace DarkNights.Editor.Terrain
     {
         private readonly TerrainGenerationPreview model;
         private readonly SerializedObject serialized;
-        private readonly TerrainModifierConfigDrawer modifiers;
 
         public TerrainPlanetControls(TerrainGenerationPreview model)
         {
             this.model = model;
             serialized = new SerializedObject(model.Draft);
-            modifiers = new TerrainModifierConfigDrawer(model.Draft);
         }
 
         public void DrawPicker(Action changed)
@@ -37,23 +35,21 @@ namespace DarkNights.Editor.Terrain
         {
             DrawFields(() =>
             {
-                Field("Config.MineMap", "关卡矿洞（空为随机洞穴）");
-                Field("Config.CaveMap.Seed", "预览／复现种子");
+                Field("Config.CaveMap.SeedSelection", "种子选择策略");
+                Field("Config.CaveMap.Seed", "本次实际种子");
                 var amplitude = serialized.FindProperty("Config.CaveMap.Amplitude");
                 amplitude.doubleValue = EditorGUILayout.Slider("地表起伏", (float)amplitude.doubleValue, .3f, 1.6f);
             }, changed);
             CaveRuleControls.Draw(model, changed);
-            modifiers.Draw(changed);
-            EditorGUILayout.BeginHorizontal();
-            using (new EditorGUI.DisabledScope(string.IsNullOrEmpty(model.Selected?.Seed)))
-                if (GUILayout.Button("使用固定种子")) Edit(() => model.Draft.Config.CaveMap.Seed = model.Selected.Seed, changed);
-            if (GUILayout.Button("新预览种子")) Edit(() => model.Draft.Config.CaveMap.Seed = Guid.NewGuid().ToString("N"), changed);
-            EditorGUILayout.EndHorizontal();
-            if (GUILayout.Button("将预览种子设为此星球固定种子") && model.Selected != null)
-                Edit(() => model.Selected.Seed = model.Draft.Config.CaveMap.Seed, changed);
-            EditorGUILayout.LabelField("正式开局：" + (string.IsNullOrEmpty(model.Selected?.Seed) ? "随机种子" :
-                "固定 " + model.Selected.Seed), EditorStyles.wordWrappedMiniLabel);
-            EditorGUILayout.LabelField("预览使用上方复现种子；已有地图和存档保持原格子。", EditorStyles.wordWrappedMiniLabel);
+            if (GUILayout.Button("按策略选择种子")) Edit(() =>
+            {
+                var map = model.Draft.Config.CaveMap;
+                string random = Guid.NewGuid().ToString("N");
+                map.Seed = (map.SeedSelection ?? new Core.Config.Terrain.TerrainSeedSettings()).Select(
+                    map.Seed, "MAP-" + random, Convert.ToUInt32(random.Substring(0, 8), 16));
+            }, changed);
+            EditorGUILayout.LabelField("种子策略与实际种子均归地图配置；正式游戏加载已保存结果，不重新抽样。",
+                EditorStyles.wordWrappedMiniLabel);
         }
 
         public void DrawLanding(Action changed)
@@ -61,9 +57,9 @@ namespace DarkNights.Editor.Terrain
             DrawFields(() =>
             {
                 PlanetField("DisplayName", "星球名称"); PlanetField("Description", "说明");
-                PlanetField("Enabled", "启用此星球"); PlanetField("Seed", "固定种子（空为随机）");
+                PlanetField("Enabled", "启用此星球");
                 EditorGUILayout.Space(); EditorGUILayout.LabelField("地表与降落", EditorStyles.boldLabel);
-                PlanetField("DockColumn", "泊位中心列（格）"); PlanetField("DockRow", "地表行（格）");
+                PlanetField("DockColumn", "泊位中心列（格）"); PlanetField("DockRow", "飞船停靠行（格）");
                 PlanetField("LandingWidth", "泊位宽度（格）"); PlanetField("ArrivalHeight", "到达高度（逻辑像素）");
                 PlanetField("HorizontalRange", "水平范围（逻辑像素）"); PlanetField("MaximumLift", "最大升高（逻辑像素）");
                 EditorGUILayout.Space(); PlanetField("Id", "稳定 ID");
@@ -171,6 +167,6 @@ namespace DarkNights.Editor.Terrain
             EditorUtility.SetDirty(model.Draft); serialized.Update(); changed();
         }
 
-        public void Dispose() { modifiers.Dispose(); serialized.Dispose(); }
+        public void Dispose() { serialized.Dispose(); }
     }
 }

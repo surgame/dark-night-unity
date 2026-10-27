@@ -16,7 +16,7 @@ namespace DarkNights.Runtime.Session
         internal static bool IsOperation(SessionOperation operation) => operation == SessionOperation.ClaimHero ||
             operation == SessionOperation.ReleaseHero || operation == SessionOperation.SelectHeroItem ||
             operation == SessionOperation.UseHeroItem || operation == SessionOperation.SetHeroLight || operation == SessionOperation.Expedition ||
-            operation == SessionOperation.SelectDestination || operation == SessionOperation.CancelJourney ||
+            operation == SessionOperation.SelectDestination || operation == SessionOperation.CancelJourney || operation == SessionOperation.SelectNavigationPoint ||
             operation == SessionOperation.SellCarriedOre || operation == SessionOperation.BuyEquipment;
 
         internal int AssignDefault(SessionConnection connection)
@@ -83,6 +83,7 @@ namespace DarkNights.Runtime.Session
             switch (request.Operation)
             {
                 case SessionOperation.SelectDestination:
+                case SessionOperation.SelectNavigationPoint:
                 case SessionOperation.CancelJourney:
                     return SessionJourneyControl.Apply(world, connection, request);
                 case SessionOperation.Expedition:

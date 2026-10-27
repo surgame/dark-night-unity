@@ -65,9 +65,8 @@ namespace DarkNights.Entry.Terrain
                 throw new InvalidOperationException("正式工作台必须使用洞穴资源方案。");
             var config = MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
             var planet = config.PreviewPlanet(PlanetId);
-            var modifiers = config.FreezeModifiers();
             return () => PlanetTerrainGenerator.GenerateCandidate(planet, settings.Seed,
-                "00000000000000000000000000000001", settings, pipeline: modifiers).Blueprint();
+                "00000000000000000000000000000001", settings).Blueprint();
         }
 
         public void AcceptMapConfigSave() => MapConfigBaseline = JsonUtility.ToJson(Settings);
@@ -83,7 +82,10 @@ namespace DarkNights.Entry.Terrain
 
         public void NewSeed()
         {
-            Settings.Seed = "DEBUG-" + Guid.NewGuid().ToString("N").Substring(0, 12);
+            string random = Guid.NewGuid().ToString("N");
+            Settings.Seed = (Settings.SeedSelection ?? new TerrainSeedSettings()).Select(
+                Settings.Seed, "DEBUG-" + random, Convert.ToUInt32(random.Substring(0, 8), 16));
+            Settings.RegionOverrides = Array.Empty<CaveRegionOverride>();
             RequestRegenerate();
         }
 

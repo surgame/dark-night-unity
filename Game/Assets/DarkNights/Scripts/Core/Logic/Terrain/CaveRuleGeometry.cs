@@ -61,6 +61,32 @@ namespace DarkNights.Core.Logic.Terrain
                     if ((x - cx) * (x - cx) + (y - cy) * (y - cy) <= radius * radius) Set(cells, protection, x, y, material);
         }
 
+        /// <summary>栅格化调用方声明的闭合轮廓；只提供格子写入，不推导入口、中心线、路宽或通行要求。</summary>
+        public static void Polygon(byte[] cells, bool[] protection, int originX, int originY, int[] points, byte material)
+        {
+            if (points == null || points.Length < 6 || points.Length % 2 != 0)
+                throw new ArgumentException("闭合轮廓至少需要三个坐标对。");
+            int left = W, right = 0, top = H, bottom = 0;
+            for (int n = 0; n < points.Length; n += 2)
+            {
+                left = Math.Min(left, originX + points[n]); right = Math.Max(right, originX + points[n]);
+                top = Math.Min(top, originY + points[n + 1]); bottom = Math.Max(bottom, originY + points[n + 1]);
+            }
+            for (int y = Math.Max(3, top); y <= Math.Min(H - 4, bottom); y++)
+                for (int x = Math.Max(3, left); x <= Math.Min(W - 4, right); x++)
+                {
+                    double px = x + .5 - originX, py = y + .5 - originY;
+                    bool inside = false;
+                    for (int a = 0, b = points.Length - 2; a < points.Length; b = a, a += 2)
+                    {
+                        double ax = points[a], ay = points[a + 1], bx = points[b], by = points[b + 1];
+                        if ((ay > py) != (by > py) && px < ax + (py - ay) * (bx - ax) / (by - ay))
+                            inside = !inside;
+                    }
+                    if (inside) Set(cells, protection, x, y, material);
+                }
+        }
+
         public static void Set(byte[] cells, bool[] protection, int x, int y, byte material)
         {
             if (x < 3 || x >= W - 3 || y < 3 || y >= H - 3 || protection[y * W + x]) return;

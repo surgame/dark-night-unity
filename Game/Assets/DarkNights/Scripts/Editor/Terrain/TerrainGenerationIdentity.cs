@@ -4,20 +4,15 @@ using UnityEngine;
 
 namespace DarkNights.Editor.Terrain
 {
-    /// <summary>地图重建身份；只包含天然洞穴、复现种子、泊位及权威步骤，航程与目录名称不触发几何重建。</summary>
+    /// <summary>地图重建身份；包含有效规则、种子、版本与地质点，船位和航程表现不触发几何重建。</summary>
     internal static class TerrainGenerationIdentity
     {
         internal static string For(ExpeditionFlowConfig config, PlanetPreset planet)
         {
-            var text = new StringBuilder(DarkNights.Runtime.Terrain.TerrainAuthoringIdentity.Json(config.CaveMap));
-            if (config.MineMap != null)
-                text.Append("|mine-map-v1|").Append(JsonUtility.ToJson(config.MineMap.Freeze()));
-            if (config.ReviewedMap != null) text.Append("|joint-map-v1|").Append(config.ReviewedMap.Fingerprint());
+            var text = new StringBuilder(DarkNights.Runtime.Terrain.TerrainGenerationInputIdentity.Json(config.CaveMap));
+            text.Append("|planet-generation-v").Append(DarkNights.Core.Logic.Terrain.PlanetTerrainGenerator.Version);
             text.Append("|geology-point-v1|").Append(config.Geology?.Identity ?? "missing");
             if (planet == null) return text.Append("|no-planet").ToString();
-            text.Append('|').Append(planet.DockColumn).Append('|').Append(planet.DockRow).Append('|').Append(planet.LandingWidth);
-            foreach (var item in config.CopyModifiers())
-                text.Append('|').Append(item?.GetType().FullName ?? "missing").Append(':').Append(item?.CanonicalSettings ?? "missing");
             return text.ToString();
         }
     }

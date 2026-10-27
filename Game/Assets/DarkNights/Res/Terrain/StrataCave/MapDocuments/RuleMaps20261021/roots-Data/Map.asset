@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35eade08ed41e4f4eab6e551a47fe259, type: 3}
+  m_Name: Map
+  m_EditorClassIdentifier: DarkNights.Runtime::DarkNights.Runtime.Terrain.ReviewedMineMap
+  Content: {fileID: 4900000, guid: 007c9d866d4ec4c4d973ded20e9b76bb, type: 3}
+  Recipe: cave-templates-v1|{"Seed":"MG-REVIEW-20261021","Surface":"needles","OrganicCaves":false,"Amplitude":1.0,"OreDensity":1.0,"ResourceProfile":"cave-exploration","Rules":{"Enabled":true,"Version":1,"Templates":"cave-templates-v1","Entrance":"valley","Road":"roots","RoomMix":"mixed","ContentSeed":"MG-CONTENT-20261021","SpaceRevision":0,"ContentRevision":0,"RoomCount":16,"RoomScale":1.0,"RoadRadius":3,"BranchShare":0.45,"BranchDepth":3,"RockGap":0.12,"VeinCount":8,"Capacity":180,"EmptyShare":0.18,"ExposedShare":0.35,"RichShare":0.35,"Nests":true}}
+  ContentSha256: ec720cdf0fd8860ffd7aa1ff65b785f43a447b3637a8506121fde12ef6e20f2b
+  SourceIdentity: cfe7e913c836282c01d84db3cf317dd951554e922eaae45e0ae3cefd3744b8f8

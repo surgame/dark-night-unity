@@ -27,6 +27,9 @@ namespace DarkNights.Core.Save
         public static string Validate(ExpeditionViewData data, Config.ShipFlightDefinition rules)
         {
             var s = data.Ship;
+            if (s == null)
+                return data.Journey == null && data.Devices.Count == 0 && data.Crew.All(a => !a.Boarded)
+                    ? "" : "无船地面会话不得包含航程、设备或登船关系";
             bool Finite(double v, double low, double high) => !double.IsNaN(v) && !double.IsInfinity(v) && v >= low && v <= high;
             if (s == null || !data.Devices.Any(d => d.Id == s.Id) || s.Phase is < 0 or > 3 ||
                 !Finite(s.VelocityX, -rules.HorizontalSpeed, rules.HorizontalSpeed) || !Finite(s.VelocityY, -rules.VerticalSpeed, rules.VerticalSpeed) || !Finite(s.DoorClock, 0, rules.DoorSeconds) ||

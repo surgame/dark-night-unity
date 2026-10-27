@@ -30,10 +30,8 @@ namespace DarkNights.Tests
 
         public void Open(string map)
         {
-            var author = AssetDatabase.LoadAssetAtPath<MineMapAsset>("Assets/DarkNights/Res/Terrain/MineMaps/" + map + ".minemap");
-            var frozen = author.Freeze();
-            Blueprint = MineMapGenerator.Generate(new TerrainGenerationSettings { ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile, MineMap = frozen });
-            Pose(frozen);
+            Blueprint = DarkNights.Editor.Lighting.LightingPreviewMap.Load(map);
+            Pose();
             const string root = "Assets/DarkNights/Res/Terrain/StrataCave/";
             stage.Open(AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(root + "MapDefinition.asset"), Blueprint,
                 AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>(root + "Style.asset"), drafts, Blueprint.CopyMaterials(), Blueprint.CopyShapes(),
@@ -60,10 +58,10 @@ namespace DarkNights.Tests
             Terrain.TickFromEditor();
         }
 
-        private void Pose(MineMapDefinition map)
+        private void Pose()
         {
-            var room = map.Rooms.First(item => !item.Base);
-            int centerX = map.OffsetX + room.X, centerY = map.OffsetY + room.Floor - 2;
+            var room = Blueprint.Rooms.First();
+            int centerX = room.X, centerY = room.Y;
             int x0 = Mathf.Clamp(centerX - 32, 0, 256), y0 = Mathf.Clamp(centerY - 32, 0, 128);
             var cells = new byte[64 * 64];
             for (int y = 0; y < 64; y++) for (int x = 0; x < 64; x++)

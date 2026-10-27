@@ -1,0 +1,172 @@
+{
+  "schema": "darknights-independent-lab-build-v1",
+  "identity": "dn-expedition-lab-v1-b9fa9d7db203",
+  "sourceSha256": "b9fa9d7db203b10b2267888fd1fd162291dc0185e05b22570237f9e35d9364ce",
+  "sceneCount": 48,
+  "featureCount": 10,
+  "networkDependencies": [],
+  "unityWrites": false,
+  "approval": "all-pending",
+  "inputs": [
+    {
+      "file": "src/shell.html",
+      "sha256": "5cde1384c05bc364fe742a2bddebed20e29f992468cdeee4dddef8a445af3304"
+    },
+    {
+      "file": "src/style.css",
+      "sha256": "46def1041b5224ce185cb739f2e995d8465585dd80764903c61bc857bff0d670"
+    },
+    {
+      "file": "src/catalog.js",
+      "sha256": "7da109d4149758c78c132b4029784cae27eff71fa178549fd5f6cc20aed0c2c2"
+    },
+    {
+      "file": "src/project-assets.js",
+      "sha256": "c819ab926a697aa6f7ae482243e761e05ddd2fb321723b363e9acfa81aa31349"
+    },
+    {
+      "file": "src/feature-assets.js",
+      "sha256": "96247d17eca69f6425ade0a1b85ac68ffaf5b4847b348a3900d124906c8da735"
+    },
+    {
+      "file": "src/scenes-weapons.js",
+      "sha256": "c51ad0b4b2476a04984e4406c128b9bfbb96775e119f23652af92469d3fcd720"
+    },
+    {
+      "file": "src/scenes-tools.js",
+      "sha256": "c3f0d4ca887e65ec26ab65277597df4d12448481d0b3e6f53912c1b04a54ee78"
+    },
+    {
+      "file": "src/scenes-sites.js",
+      "sha256": "e8485df61902e06c81dc69cfaaa3864e28991c5c09232377677927162ca02ca2"
+    },
+    {
+      "file": "src/scenes-mixes.js",
+      "sha256": "df149a4d657b93e2e348fa41030b96db488e58ad05c794ab702396179886dbdc"
+    },
+    {
+      "file": "src/reference-route.js",
+      "sha256": "4890ed42422be7e8b383b571fe3ce8dcc57428ade6b6e006d1971091a09f43d5"
+    },
+    {
+      "file": "src/scenes-features.js",
+      "sha256": "92948a7125919c1d36126097a2fb6d717d11306c38516fb730102e5fdaa19bcf"
+    },
+    {
+      "file": "src/world.js",
+      "sha256": "90dc141aed7627843d11eb6137c862acbfebe42b97d711a63f45156a8a0e0317"
+    },
+    {
+      "file": "src/scene-layouts.js",
+      "sha256": "68e64417f6e8e806c09fd4a7e76d22dbdb9046fec2dc08eea8b24512c6297345"
+    },
+    {
+      "file": "src/physics.js",
+      "sha256": "31c2c289274a1a1c2a3591b3f6d01e208648cbdbaa3a6c8268aa963eb67e8bd0"
+    },
+    {
+      "file": "src/mining.js",
+      "sha256": "701bff2d2fecdd4fbd978f797336bb3fdbb3b0348b7a6e4dea7861e8ba77ea43"
+    },
+    {
+      "file": "src/weapons.js",
+      "sha256": "6d661ed235c7a4c66377b9bcd50565eeb9d570addae9cdf010349cdfa95ec37b"
+    },
+    {
+      "file": "src/equipment.js",
+      "sha256": "b7e3189a19f8340a71dfdc964fe6ba6c09c18546febd54e31e9fd798d89c4f3b"
+    },
+    {
+      "file": "src/interactions.js",
+      "sha256": "aef21bfb015e3de438e6f74fedb7dec843476e0c40b24eef7ba2cc8176fa4118"
+    },
+    {
+      "file": "src/creatures.js",
+      "sha256": "96b28c4575b72ec5f5cd402e652744ca7be35d27fd7d6ef1565a504dcbb3d648"
+    },
+    {
+      "file": "src/environment.js",
+      "sha256": "68d82053db618a2f77a8401ae38744ea9e92b8cb8884e51088d9cf6f95da8511"
+    },
+    {
+      "file": "src/feature-layouts.js",
+      "sha256": "425f6b8dffdfe7389e133fdd548ca13929c3be6e2be1a348ee2ee86064fbf565"
+    },
+    {
+      "file": "src/feature-items.js",
+      "sha256": "44dd97e83fb2572b520ed2485def91d8ada287e33591bf1c15af7aec7eb5c34c"
+    },
+    {
+      "file": "src/feature-simulation.js",
+      "sha256": "010c3ef93a0dd17ea9751288805daf54e3f426cad16b88efd5126a7d12c7e269"
+    },
+    {
+      "file": "src/simulation.js",
+      "sha256": "919a5879a4e0b37e0315b2385c8de70c6df6e6998bf96a40be7bde204188772f"
+    },
+    {
+      "file": "src/project-materials.js",
+      "sha256": "801a8f3272ba9f348a57ee83e7fd2d93aefca3014821152a65fd9cef671c4087"
+    },
+    {
+      "file": "src/pixel-art.js",
+      "sha256": "e88d0590e0ea15025dc03f38d231c4f896e845b31ba2323cb01b559604731c0d"
+    },
+    {
+      "file": "src/pixel-equipment.js",
+      "sha256": "b0afdac483b45b22dbfe8bb5ff9eb40553e72bc82dd34963e569407c1bb869f3"
+    },
+    {
+      "file": "src/pixel-props.js",
+      "sha256": "91810326baaaea29f5caeb629c0c63adccd74cf5230435509c4dcdc06f156846"
+    },
+    {
+      "file": "src/cave-pixels.js",
+      "sha256": "af990f91a504a4d4f4dfd02b16eb90aaf82454e7ca48a8b55be92e6d2a75dcf4"
+    },
+    {
+      "file": "src/feature-art.js",
+      "sha256": "af565e32e6b882601bb55d578fc0b289a0d5de0b0a7c2b5d854a099e80380c4e"
+    },
+    {
+      "file": "src/render-features.js",
+      "sha256": "d564320cc1a54ca881974b3bffc490b8b2d28a6b5f5b0ae726a9054ee9734abb"
+    },
+    {
+      "file": "src/render-reference.js",
+      "sha256": "7ce97efb8263b0bf71c0f20dcd056e1d751a3b0109fcd2290a356b3548a3ae15"
+    },
+    {
+      "file": "src/render-terrain.js",
+      "sha256": "95c72d046e7f0bb326fe6f1f6d4a4348707a13bd9334312452f0ed100a9a114e"
+    },
+    {
+      "file": "src/render-objects.js",
+      "sha256": "67e4303042d71977e08cad9ee85f701923724ff3c9f9216b0fd4c1b51f9f3e67"
+    },
+    {
+      "file": "src/render-actors.js",
+      "sha256": "f8df01716f4913f1aed1ed39273ec1e1eea1e0e06f6f9a94bcfb44dd1a92711c"
+    },
+    {
+      "file": "src/rendering.js",
+      "sha256": "87c83e63e64274b78f7cb3ca521c0ba53bfd71209f820aaaea036dfff1483cef"
+    },
+    {
+      "file": "src/icons.js",
+      "sha256": "56475b7994bd46a82f5402bb6c77ece3e8858393b08174d8fee629bb0d94d373"
+    },
+    {
+      "file": "src/reviews.js",
+      "sha256": "06a12fea522f9865b606cef2f79b4c56c158d159d74bc4d958238ac7f7f4557e"
+    },
+    {
+      "file": "src/input.js",
+      "sha256": "ea6b91f08cbf6344aca50f072f7936bedd548e1752bec37bc240799570c8ecac"
+    },
+    {
+      "file": "src/app.js",
+      "sha256": "b15069890fbb65e503df29e9c57db17a8593dfdd8c6ebc4ffb71bf1adde0a406"
+    }
+  ]
+}

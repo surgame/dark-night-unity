@@ -136,7 +136,7 @@ namespace DarkNights.Tests
         [Test]
         public void ApplyWritesOnlyAfterConfirmationAndRejectsExternalConflicts()
         {
-            string folder = "Assets/CaveWallTunerTests-" + Guid.NewGuid().ToString("N");
+            string folder = "Assets/MapWorkbenchTests-" + Guid.NewGuid().ToString("N");
             Assert.That(AssetDatabase.CreateFolder("Assets", Path.GetFileName(folder)), Is.Not.Empty);
             try
             {

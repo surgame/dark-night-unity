@@ -16,6 +16,19 @@ namespace DarkNights.Editor
     /// </summary>
     public static class GamePlayerBuild
     {
+        /// <summary>实际构建场景清单的副本，供工作台只读展示；导航不改变构建输入。</summary>
+        internal static string[] GetScenePaths() => new[]
+        {
+            EnvironmentValidation.ScenePath,
+            "Assets/DarkNights/Res/Scenes/Regression/Camp/StaticCampRegression.unity",
+            DarkNights.Entry.Terrain.RandomLevelEntry.ScenePath,
+            DarkNights.Entry.Terrain.RandomLevelEntry.ExpeditionScenePath
+        };
+
+        /// <summary>原后端默认输出位置的共用计算；查询不创建目录或构建产物。</summary>
+        internal static string DefaultOutput(string folder) =>
+            Path.GetFullPath("../artifacts/migration/player-" + folder + "/DarkNights.exe");
+
         public static void Mono() => Build(ScriptingImplementation.Mono2x, "mono", BuildOptions.Development);
 
         /// <summary>为地图联网验收创建不会覆盖旧 Player 的独立 Mono 目录。</summary>
@@ -66,11 +79,11 @@ namespace DarkNights.Editor
                     PlayerSettings.SetManagedStrippingLevel(target, ManagedStrippingLevel.High);
                 DarkNightsEnvironmentSetup.BuildAddressablesContent();
                 addressables.BuildAddressablesWithPlayerBuild = AddressableAssetSettings.PlayerBuildOption.DoNotBuildWithPlayer;
-                string output = explicitOutput ?? Path.GetFullPath("../artifacts/migration/player-" + folder + "/DarkNights.exe");
+                string output = explicitOutput ?? DefaultOutput(folder);
                 Directory.CreateDirectory(Path.GetDirectoryName(output));
                 var result = BuildPipeline.BuildPlayer(new BuildPlayerOptions
                 {
-                    scenes = new[] { EnvironmentValidation.ScenePath, "Assets/DarkNights/Res/Scenes/Regression/Camp/StaticCampRegression.unity", DarkNights.Entry.Terrain.RandomLevelEntry.ScenePath, DarkNights.Entry.Terrain.RandomLevelEntry.ExpeditionScenePath },
+                    scenes = GetScenePaths(),
                     locationPathName = output,
                     target = BuildTarget.StandaloneWindows64,
                     options = options

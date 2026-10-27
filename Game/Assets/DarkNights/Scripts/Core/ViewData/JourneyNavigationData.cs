@@ -15,16 +15,26 @@ namespace DarkNights.Core.ViewData
         public string RunId { get; }
         public string SettledRunId { get; }
         public int LastIncome { get; }
+        public NavigationSurveyData Survey { get; }
+        public bool CoordinateFlight { get; }
+        public float TargetX { get; }
+        public float TargetY { get; }
 
         public JourneyNavigationData(NavigationDefinition definition, float x, float y,
-            string runId = "", string settledRunId = "", int lastIncome = 0)
+            string runId = "", string settledRunId = "", int lastIncome = 0,
+            NavigationSurveyData survey = null, bool coordinateFlight = false, float targetX = 0, float targetY = 0)
         {
             Definition = definition ?? throw new ArgumentNullException(nameof(definition));
             NavigationNodeDefinition.ValidateCoordinate(x); NavigationNodeDefinition.ValidateCoordinate(y);
+            NavigationNodeDefinition.ValidateCoordinate(targetX); NavigationNodeDefinition.ValidateCoordinate(targetY);
+            if (!coordinateFlight && (targetX != 0 || targetY != 0))
+                throw new ArgumentException("非坐标航程仍携带坐标目标。");
             if (!Identity(runId) || !Identity(settledRunId) || lastIncome < 0 || lastIncome > 10000000 ||
                 lastIncome != 0 && settledRunId.Length == 0)
                 throw new ArgumentException("远征结算身份或收入无效。");
             X = x; Y = y; RunId = runId; SettledRunId = settledRunId; LastIncome = lastIncome;
+            Survey = survey ?? NavigationSurveyData.Initial(definition, x, y);
+            CoordinateFlight = coordinateFlight; TargetX = targetX; TargetY = targetY;
         }
 
         private static bool Identity(string id) => id != null && (id.Length == 0 ||

@@ -25,5 +25,9 @@ namespace DarkNights.Runtime.Objects
         public string RunId { get; internal set; } = "";
         public string SettledRunId { get; internal set; } = "";
         public int LastIncome { get; internal set; }
+        public string SurveyBits { get; internal set; } = "";
+        public bool CoordinateFlight { get; internal set; }
+        public float NavigationTargetX { get; internal set; }
+        public float NavigationTargetY { get; internal set; }
     }
 }

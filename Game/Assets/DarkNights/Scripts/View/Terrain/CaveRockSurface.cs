@@ -30,6 +30,8 @@ namespace DarkNights.View.Terrain
         public int BuildCount { get; private set; }
         internal CaveForegroundCoverage Coverage { get; set; }
         public bool Ready => materials != null && (geometry == null || geometry.Ready) && visible.All(k => bakedVersions[k] == versions[k]);
+        internal TerrainPageProgress Progress => new TerrainPageProgress(
+            visible.Count(k => bakedVersions[k] == versions[k]), visible.Count, materials != null && (geometry == null || geometry.Ready));
         public CaveRockSurface(Material material, string seed, CaveTerrainStyle style)
         {
             this.seed = seed; stoneSize = style.StoneSize; outline = style.CaptureOutline();

@@ -9,7 +9,12 @@ namespace DarkNights.Core.Logic.Terrain
     {
         public static TerrainBlueprint Generate(TerrainGenerationSettings settings)
         {
-            var s = settings.CopyValidated(); var plan = CaveRulePlanner.Build(s);
+            var s = settings.CopyValidated();
+            return Generate(s, CaveRulePlanner.Build(s), null);
+        }
+
+        internal static TerrainBlueprint Generate(TerrainGenerationSettings s, CaveRulePlan plan, TerrainGenerationRecorder recorder)
+        {
             const int w = TerrainGenerationSettings.Width, h = TerrainGenerationSettings.Height;
             var cells = new byte[w * h]; var protection = new bool[cells.Length];
             var surface = CaveExplorationGenerator.Surface(s);
@@ -19,19 +24,25 @@ namespace DarkNights.Core.Logic.Terrain
                 protection[i] = x < 3 || x >= w - 3 || y >= h - 3;
                 cells[i] = protection[i] ? (byte)8 : y < surface[x] ? (byte)0 : y < surface[x] + 3 ? (byte)1 : (byte)2;
             }
+            recorder?.Add("原始地表", cells);
+            recorder?.Add("地下空间计划", cells);
             for (int n = 0; n < plan.Rooms.Count; n++) CaveRuleGeometry.Room(cells, protection, plan.Rooms[n], n);
+            recorder?.Add("洞室雕刻", cells);
             foreach (var edge in plan.Connections)
             {
                 var a = plan.Rooms[edge.From]; var b = plan.Rooms[edge.To];
                 // 侧接口偏置，保留中央岩柱／隔层；端点不代表人物能进出的承诺。
                 int ax = a.X + Math.Sign(edge.BendX - a.X) * a.Width / 4;
                 int bx = b.X + Math.Sign(edge.BendX - b.X) * b.Width / 4;
-                CaveRuleGeometry.Corridor(cells, protection, ax, a.Y, edge.BendX, edge.BendY, edge.Radius, edge.From * .73, edge.CoverLength);
-                CaveRuleGeometry.Corridor(cells, protection, edge.BendX, edge.BendY, bx, b.Y, edge.Radius, edge.To * .73);
+                int radius = Math.Max(2, edge.Radius + s.Structure.RoadRadius - 3);
+                CaveRuleGeometry.Corridor(cells, protection, ax, a.Y, edge.BendX, edge.BendY, radius, edge.From * .73, edge.CoverLength);
+                CaveRuleGeometry.Corridor(cells, protection, edge.BendX, edge.BendY, bx, b.Y, radius, edge.To * .73);
             }
-            CaveRuleEntrance.Carve(cells, protection, s.Rules, plan.Rooms[0], 61, surface[61]);
+            recorder?.Add("道路连接", cells);
+            CaveRuleEntrance.Carve(cells, protection, s.Structure, plan.Rooms[0], surface, s.DisableValleySculpt);
+            recorder?.Add("入口改形与接洞", cells);
             return new TerrainBlueprint(s, cells, protection, surface, plan.Rooms.ToArray(), new bool[cells.Length],
-                Array.Empty<TerrainDepositBlueprint>(), plan.Connections.ToArray(), TerrainShapeGeometry.Build(cells, protection, w, h));
+                Array.Empty<TerrainDepositBlueprint>(), plan.Connections.ToArray());
         }
     }
 }

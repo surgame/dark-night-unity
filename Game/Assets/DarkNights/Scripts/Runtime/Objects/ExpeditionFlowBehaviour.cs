@@ -24,13 +24,14 @@ namespace DarkNights.Runtime.Objects
         public double PreparationTimeoutSeconds { get; private set; }
         public double ArrivalTimeoutSeconds { get; private set; }
         public JourneyPhase Phase => world?.Journey?.Read()?.Phase ?? JourneyPhase.Orbit;
-        public bool IsSpace => Enabled && Phase is JourneyPhase.Orbit or JourneyPhase.Preparing or JourneyPhase.Transit;
-        public bool CanSave => !Enabled || Phase is JourneyPhase.Orbit or JourneyPhase.Landed;
+        public bool IsSpace => Enabled && world?.Expedition.Ship != null &&
+            Phase is JourneyPhase.Orbit or JourneyPhase.Preparing or JourneyPhase.Transit;
+        public bool CanSave => !Enabled || world?.Expedition.Ship == null || Phase is JourneyPhase.Orbit or JourneyPhase.Landed;
         public PlanetDefinition ActivePlanet => Planets.FirstOrDefault(p => p.Id == world?.Journey?.Read()?.PlanetId);
 
         public bool Accepts(JourneyViewData value)
         {
-            if (value == null) return !Enabled;
+            if (value == null) return !Enabled || world.IsExpedition;
             return Enabled && value.Enabled && value.ContentFingerprint == ContentFingerprint &&
                 value.Navigation != null && Navigation.Matches(value.Navigation.Definition) &&
                 value.Planets.Count == Planets.Count && value.Planets.Zip(Planets, (a, b) =>
@@ -64,10 +65,12 @@ namespace DarkNights.Runtime.Objects
             if (!Enabled || Phase is not (JourneyPhase.Orbit or JourneyPhase.Transit) || !AtNavigation(hero) ||
                 world.Journey.Read().Revision != expectedRevision) return 0;
             var node = Navigation.Find(planetId);
-            if (node == null || node.PreviewOnly || !Planets.Any(p => p.Id == planetId && p.Enabled)) return 0;
+            if (node == null || node.PreviewOnly || !world.Journey.Survey().IsRevealed(node.X, node.Y) ||
+                !Planets.Any(p => p.Id == planetId && p.Enabled)) return 0;
             var journey = world.Journey.Edit();
+            journey.CoordinateFlight = false; journey.NavigationTargetX = journey.NavigationTargetY = 0;
             journey.JourneyId = Guid.NewGuid().ToString("N"); journey.MapId = Guid.NewGuid().ToString("N");
-            journey.PlanetId = planetId; journey.Seed = ActivePlanet.Seed;
+            journey.PlanetId = planetId; journey.Seed = "";
             world.Journey.SetPhase(JourneyPhase.Preparing);
             world.Mutations.AfterCommit(ResetPending);
             world.Notify("全队航线已确认：" + node.Name + "，正在装载审核地图。");
@@ -102,24 +105,27 @@ namespace DarkNights.Runtime.Objects
 
         internal void Tick(double delta)
         {
-            if (!Enabled) return;
+            if (!Enabled || world.Expedition.Ship == null) return;
             if (Phase is not (JourneyPhase.Orbit or JourneyPhase.Landed)) world.Journey.Edit().PhaseElapsed += delta;
             var j = world.Journey.Edit();
+            float previousX = j.StarX, previousY = j.StarY;
             if (Phase == JourneyPhase.Ascent)
                 j.StarY = Math.Clamp(Navigation.Find(j.PlanetId).Y + Navigation.Speed *
                     (float)Math.Min(j.PhaseElapsed, Math.Max(1, Navigation.DescentSeconds)), -4096, 4096);
-            if (Phase == JourneyPhase.Transit)
+            if (Phase == JourneyPhase.Transit && j.CoordinateFlight) CoordinateNavigationService.Tick(world, delta);
+            else if (Phase == JourneyPhase.Transit)
             {
                 var n = Navigation.Find(j.PlanetId); double distance = Navigation.Distance(j.StarX, j.StarY, n.Id);
                 double amount = Math.Min(distance, Navigation.Speed * delta);
                 if (distance > 0) { j.StarX += (float)((n.X - j.StarX) * amount / distance); j.StarY += (float)((n.Y - j.StarY) * amount / distance); }
             }
+            if (j.StarX != previousX || j.StarY != previousY) world.Journey.RevealTravel(previousX, previousY, j.StarX, j.StarY);
             if (Phase == JourneyPhase.Preparing && j.PhaseElapsed > PreparationTimeoutSeconds) Abort("地图准备超时，保留当前船位和收入。");
         }
 
         public void Pump()
         {
-            if (!Enabled || world == null || !world.Context.IsActive || world.Paused) return;
+            if (!Enabled || world == null || world.Expedition.Ship == null || !world.Context.IsActive || world.Paused) return;
             if (Phase == JourneyPhase.Ascent && world.Journey.Read().Error.Length != 0) return;
             if (Phase == JourneyPhase.Ascent && candidate == null)
             { candidate = PlanetTerrainGenerator.Space(Guid.NewGuid().ToString("N")); candidateTicket = world.Journey.Read().RunId; }
@@ -199,9 +205,10 @@ namespace DarkNights.Runtime.Objects
             foreach (var actor in world.Index.Actors.Where(a => !a.Enemy)) world.Ship.Cabin.Place(actor);
         }
 
-        private void ClearTarget()
+        internal void ClearTarget()
         {
             var j = world.Journey.Edit(); j.JourneyId = j.PlanetId = j.Seed = j.MapId = "";
+            j.CoordinateFlight = false; j.NavigationTargetX = j.NavigationTargetY = 0;
         }
         private void Abort(string reason)
         {

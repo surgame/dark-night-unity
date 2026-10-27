@@ -24,6 +24,7 @@ namespace DarkNights.Editor.Lighting
     {
         private static WallDiffuseAcceptance active;
         private readonly string output;
+        private readonly string memoryBreachPath;
         private readonly bool dynamicOnly;
         private readonly List<object> reports = new List<object>();
         private readonly TerrainStylePreviewStage stage = new TerrainStylePreviewStage();
@@ -40,15 +41,21 @@ namespace DarkNights.Editor.Lighting
         private float angle;
         private TerrainBlueprint blueprint;
 
-        private WallDiffuseAcceptance(string path, bool dynamicOnly) { output = path; this.dynamicOnly = dynamicOnly; }
-        public static void Start(string id, bool dynamicOnly = false)
+        private WallDiffuseAcceptance(string path, bool dynamicOnly, string memoryBreachPath)
+        {
+            output = path; this.dynamicOnly = dynamicOnly;
+            this.memoryBreachPath = memoryBreachPath;
+        }
+        public static string ActiveMemoryBreachPath => active?.memoryBreachPath;
+        public static void Start(string id, bool dynamicOnly = false, string memoryBreachPath = null)
         {
             if (active != null || EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)
                 throw new InvalidOperationException("验收需要空闲的单一 Editor。");
             if (id.Any(c => !char.IsLetterOrDigit(c) && c != '-')) throw new ArgumentException("批次标识非法。");
-            string path = Path.GetFullPath("../artifacts/wall-diffuse-20261012/" + id);
+            string path = Path.GetFullPath("../artifacts/wall-diffuse-rulemaps-20261027/" + id);
             if (Directory.Exists(path)) throw new InvalidOperationException("保留已有验收目录，请使用新的批次标识。");
-            Directory.CreateDirectory(path); active = new WallDiffuseAcceptance(path, dynamicOnly);
+            string breach = Path.GetFullPath(memoryBreachPath ?? Path.Combine(path, "memory", "breach.json"));
+            Directory.CreateDirectory(path); active = new WallDiffuseAcceptance(path, dynamicOnly, breach);
             active.wasProfiling = Profiler.enabled; Profiler.enabled = true;
             active.gc = Unity.Profiling.ProfilerRecorder.StartNew(Unity.Profiling.ProfilerCategory.Memory, "GC.Alloc", 256,
                 Unity.Profiling.ProfilerRecorderOptions.CollectOnlyOnCurrentThread | Unity.Profiling.ProfilerRecorderOptions.StartImmediately);
@@ -62,7 +69,7 @@ namespace DarkNights.Editor.Lighting
         {
             try
             {
-                if ((File.Exists(Path.GetFullPath("../artifacts/wall-diffuse-20261012/memory-tests/breach.json")) || File.Exists(Path.GetFullPath("../artifacts/wall-diffuse-20261012/memory-dynamic/breach.json"))))
+                if (File.Exists(memoryBreachPath))
                     throw new OperationCanceledException("内存门控触发，停止本任务验收。");
                 if (!run.MoveNext()) Complete(null);
             }
@@ -87,12 +94,11 @@ namespace DarkNights.Editor.Lighting
             var shader = AssetDatabase.LoadAssetAtPath<ComputeShader>("Assets/DarkNights/Res/Shared/Lighting/ExplorationLighting.compute");
             var definition = AssetDatabase.LoadAssetAtPath<AnyRules.Next.Authoring.ARDMapDefinition>("Assets/DarkNights/Res/Terrain/StrataCave/MapDefinition.asset");
             var style = AssetDatabase.LoadAssetAtPath<CaveTerrainStyle>("Assets/DarkNights/Res/Terrain/StrataCave/Style.asset");
-            foreach (string map in dynamicOnly ? new[] { "folded-expanded" } : new[] { "rift-expanded", "karst-expanded", "folded-expanded", "shaft-loop-expanded", "vein-maze-expanded" })
+            foreach (string map in dynamicOnly ? new[] { "switchback" } : LightingPreviewMap.Ids)
             {
                 File.WriteAllText(Path.Combine(output, "status.txt"), map + " loading");
-                var author = AssetDatabase.LoadAssetAtPath<MineMapAsset>("Assets/DarkNights/Res/Terrain/MineMaps/" + map + ".minemap");
-                blueprint = MineMapGenerator.Generate(new TerrainGenerationSettings { ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile, MineMap = author.Freeze() });
-                Pose(author.Freeze());
+                blueprint = LightingPreviewMap.Load(map);
+                Pose();
                 stage.Open(definition, blueprint, style, drafts, blueprint.CopyMaterials(), blueprint.CopyShapes(),
                     new BackgroundBakeDescriptor(Guid.NewGuid().ToString("N"), blueprint.Settings.Seed, blueprint.CopyMaterials(), blueprint.CopyShapes()));
                 camera = Read<Camera>(stage, "camera"); preview = Read<TerrainPreview>(stage, "terrain");
@@ -125,7 +131,7 @@ namespace DarkNights.Editor.Lighting
                 bounceMode = LightBounceMode.Continuous; Emit(1, 0);
                 reports.Add(new { map, mouth = new[] { mouth.x, mouth.y }, angle, geometryBuilds = field.DiffuseResources.BuildCount,
                     candidates = field.DiffuseResources.CandidateCount, bufferBytes = field.DiffuseResources.BufferBytes, workerMs = field.DiffuseResources.WorkerMilliseconds });
-                if (map == "folded-expanded")
+                if (map == "switchback")
                 {
                     foreach (int lights in new[] { 1, 2, 4, 16 })
                         foreach (string motion in dynamicOnly ? new[] { "dig", "region" } : new[] { "static", "rotate" })
@@ -189,10 +195,10 @@ namespace DarkNights.Editor.Lighting
             }
         }
 
-        private void Pose(MineMapDefinition map)
+        private void Pose()
         {
-            var room = map.Rooms.First(item => !item.Base);
-            int centerX = map.OffsetX + room.X, centerY = map.OffsetY + room.Floor - 2;
+            var room = blueprint.Rooms.First();
+            int centerX = room.X, centerY = room.Y;
             int x0 = Mathf.Clamp(centerX - 32, 0, 320 - 64), y0 = Mathf.Clamp(centerY - 32, 0, 192 - 64);
             var cells = new byte[64 * 64];
             for (int y = 0; y < 64; y++) for (int x = 0; x < 64; x++)

@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Nights H5 · 独立尺寸核对</title>
+<style>
+  body{background:#13221b;color:#d8dec9;font:14px "Microsoft YaHei",sans-serif;margin:25px}
+  h1{font-size:20px;font-weight:400}p{color:#a6b99d;font-size:12px}main{display:flex;gap:24px;align-items:flex-start}
+  section{flex:none}h2{font-size:13px;font-weight:400}iframe{display:block;border:1px solid #6d7f5a;background:#102018}
+</style>
+<h1>独立 H5 尺寸核对</h1>
+<p>固定 iframe 的实际 CSS 宽度，不修改用户浏览器窗口；分别核对390px触屏布局与768px中屏布局。</p>
+<main>
+  <section><h2>390 × 844 / 触屏入口</h2><iframe data-size="phone" title="390像素触屏布局" width="390" height="844" src="../dist/index.html#s-vents"></iframe></section>
+  <section><h2>768 × 1024 / 中屏入口</h2><iframe data-size="tablet" title="768像素中屏布局" width="768" height="1024" src="../dist/index.html#s-photoroot"></iframe></section>
+</main>
+</html>

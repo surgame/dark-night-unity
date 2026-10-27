@@ -5,7 +5,7 @@
             <ui:VisualElement name="workbench-sidebar" class="dn-sidebar">
                 <ui:VisualElement class="dn-brand-block">
                     <ui:Label text="DARK NIGHTS" class="dn-brand" />
-                    <ui:Label text="创作工作台" class="dn-brand-caption" />
+                    <ui:Label text="游戏开发工作台" class="dn-brand-caption" />
                 </ui:VisualElement>
                 <ui:ScrollView name="workspace-navigation" mode="Vertical" horizontal-scroller-visibility="Hidden" class="dn-navigation" />
                 <ui:Label text="工具在独立浮窗中打开&#10;保留当前编辑草稿" class="dn-sidebar-hint" />
@@ -21,12 +21,8 @@
                     <ui:Label name="task-title" class="dn-page-title" />
                     <ui:Label name="task-description" class="dn-page-description" />
                 </ui:VisualElement>
-                <ui:VisualElement name="scene-shortcuts" class="dn-scene-shortcuts">
-                    <ui:Label text="常用场景" class="dn-muted" />
-                </ui:VisualElement>
                 <ui:HelpBox name="workbench-error" message-type="Error" />
                 <ui:ScrollView name="task-content" mode="Vertical" horizontal-scroller-visibility="Hidden" class="dn-task-content" />
-                <ui:VisualElement name="scene-content" class="dn-scene-content" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:Label name="workbench-status" class="dn-status" />

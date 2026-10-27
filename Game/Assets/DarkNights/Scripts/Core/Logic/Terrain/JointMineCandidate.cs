@@ -12,21 +12,25 @@ namespace DarkNights.Core.Logic.Terrain
     public static class JointMineCandidate
     {
         public const string Version = "joint-thick-veins-side-nests-v1";
-        public static PlayableTerrain Generate(PlayableTerrain source, int count = 6, bool nests = true)
+        public static PlayableTerrain Generate(PlayableTerrain source, int count = 6, bool nests = true,
+            string contentSeed = null, Action<string> report = null)
         {
             if (source == null || source.Nests.Count != 0 || source.Minerals != null || source.Damage.Count != 0 || count < 1 || count > 16)
                 throw new ArgumentException("联合配方只接受未运行的基础地图，矿脉数量为1–16。");
             var current = new PlayableTerrain(source.WorldId, source.Seed, source.CopyMaterials(), source.CopyProtection(),
                 source.CopySoftRock(), source.Rooms.ToArray(), Array.Empty<TerrainDepositBlueprint>(), source.CopyShapes(), source.Expedition, source.Background);
             var sites = new List<TerrainNest>();
+            var random = new TerrainRandom(contentSeed ?? source.Seed + "|wall-content-v2");
             int placed = 0;
             for (int i = 0; i < count; i++)
             {
                 TerrainVeinStudyLayout layout;
-                try { layout = TerrainVeinStudyGenerator.Generate(current, (TerrainVeinShape)(i % 4), 96 + i * 32, i % 3 != 1, i * 37, i, i % 3 != 1); }
+                int siteIndex = (int)(random.Next() * 100000);
+                int variation = (int)(random.Next() * 10000);
+                try { layout = TerrainVeinStudyGenerator.Generate(current, (TerrainVeinShape)(i % 4), 96 + i * 32, i % 3 != 1, siteIndex, variation, i % 3 != 1); }
                 catch (InvalidOperationException)
                 {
-                    try { layout = TerrainVeinStudyGenerator.Generate(current, (TerrainVeinShape)(i % 4), 96 + i * 32, false, i * 37, i, false); }
+                    try { layout = TerrainVeinStudyGenerator.Generate(current, (TerrainVeinShape)(i % 4), 96 + i * 32, false, siteIndex, variation, false); }
                     catch (InvalidOperationException) { break; }
                 }
                 var cells = current.CopyMaterials(); var shapes = current.CopyShapes(); var soft = current.CopySoftRock();
@@ -45,6 +49,7 @@ namespace DarkNights.Core.Logic.Terrain
                 placed++;
             }
             if (placed == 0) throw new InvalidOperationException("没有满足角色初始净空与连续支撑的联合矿巢样点。");
+            report?.Invoke("近壁矿团：" + placed + "/" + count + "；空间不足不强放，侧巢" + (nests ? sites.Count : 0) + "。");
             var occupied = new HashSet<int>(current.Deposits.SelectMany(d => d.Cells).Select(c => -c.V * TerrainGenerationSettings.Width + c.U));
             var retained = new List<TerrainDepositBlueprint>();
             foreach (var deposit in source.Deposits)

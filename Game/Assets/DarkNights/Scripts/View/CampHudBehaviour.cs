@@ -62,14 +62,7 @@ namespace DarkNights.View
                 View.Get<RectTransform>("BottomBar").gameObject.SetActive(false);
                 objective.gameObject.SetActive(false); hint.gameObject.SetActive(false);
                 string[] keys = { "Menu", "Help", "Pause", "Speed" };
-                for (int i = 0; i < keys.Length; i++)
-                {
-                    var rect = (RectTransform)Button(keys[i]).transform;
-                    rect.SetParent(View.transform, false);
-                    rect.anchorMin = rect.anchorMax = rect.pivot = Vector2.one;
-                    rect.anchoredPosition = new Vector2(-12 - i * 72, -12);
-                    rect.sizeDelta = new Vector2(64, 34);
-                }
+                foreach (string key in keys) Button(key).gameObject.SetActive(false);
             }
             toastFade = View.Get<CanvasGroup>("ToastFade");
             bannerFade = View.Get<CanvasGroup>("BannerFade");
@@ -80,6 +73,22 @@ namespace DarkNights.View
             Label("Repair").text = "修缮建筑\n" + GameText.Cost(catalog.Balance.Economy.RepairCost);
             banner.gameObject.SetActive(false);
             toastPanel.gameObject.SetActive(false);
+        }
+
+        /// <summary>将原生暂停／倍速按钮移入菜单已隐藏的会话说明行；保留原绑定与权威意图入口。</summary>
+        public void MoveSessionControls(UGUIView menu)
+        {
+            var row = (RectTransform)menu.Get<Text>("SessionDetail").transform;
+            string[] keys = { "Pause", "Speed" };
+            for (int i = 0; i < keys.Length; i++)
+            {
+                var rect = (RectTransform)Button(keys[i]).transform;
+                rect.SetParent(row.parent, false);
+                rect.anchorMin = row.anchorMin; rect.anchorMax = row.anchorMax; rect.pivot = row.pivot;
+                rect.anchoredPosition = row.anchoredPosition + new Vector2(i == 0 ? -106 : 106, 0);
+                rect.sizeDelta = new Vector2(196, 28);
+                rect.gameObject.SetActive(true);
+            }
         }
 
         /// <summary>将玩家提示记为 Info；warning 只选择游戏提醒的橙色，不代表运行诊断警告。</summary>

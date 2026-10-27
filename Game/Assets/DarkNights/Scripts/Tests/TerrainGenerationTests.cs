@@ -1,3 +1,4 @@
+using DarkNights.Tests.TerrainReference;
 using System;
 using System.IO;
 using System.Linq;
@@ -20,8 +21,9 @@ namespace DarkNights.Tests
             using var sha = SHA256.Create();
             foreach (var v in document["vectors"])
             {
-                var settings = new TerrainGenerationSettings { Seed = (string)v["seed"], Surface = (string)v["surface"], OrganicCaves = (string)v["caves"] == "organic" }.AsReferenceProfile();
-                var map = TerrainGenerator.Generate(settings);
+                var settings = new TerrainGenerationSettings { Seed = (string)v["seed"], Surface = (string)v["surface"], OrganicCaves = (string)v["caves"] == "organic" };
+                settings.ResourceProfile = TerrainGenerationSettings.ReferenceResourceProfile;
+                var map = HistoricalTerrainGenerator.Generate(settings);
                 string hash = BitConverter.ToString(sha.ComputeHash(map.CopyMaterials())).Replace("-", "").ToLowerInvariant();
                 Assert.That(hash, Is.EqualTo((string)v["sha256"]), settings.Seed + "/" + settings.Surface + "/" + settings.OrganicCaves);
             }
@@ -30,9 +32,9 @@ namespace DarkNights.Tests
         [Test]
         public void GameplayProfileKeepsScatteredOreRoomDriven()
         {
-            var settings = new TerrainGenerationSettings { Seed = "MAP-PLAN-M1", Surface = "rolling", OrganicCaves = true };
-            var first = TerrainGenerator.Generate(settings);
-            var second = TerrainGenerator.Generate(settings);
+            var settings = new TerrainGenerationSettings { ResourceProfile = TerrainGenerationSettings.GameplayResourceProfile, Seed = "MAP-PLAN-M1", Surface = "rolling", OrganicCaves = true };
+            var first = HistoricalTerrainGenerator.Generate(settings);
+            var second = HistoricalTerrainGenerator.Generate(settings);
             int scattered = 0;
             for (int y = 0; y < first.Height; y++) for (int x = 0; x < first.Width; x++)
                 if (first.MaterialAt(x, y) >= 4 && first.MaterialAt(x, y) <= 6) scattered++;
@@ -45,7 +47,7 @@ namespace DarkNights.Tests
         [Test]
         public void GenerationIsFrozenAndProtectsSupport()
         {
-            var settings = new TerrainGenerationSettings(); var map = TerrainGenerator.Generate(settings);
+            var settings = new TerrainGenerationSettings { ResourceProfile = TerrainGenerationSettings.GameplayResourceProfile }; var map = HistoricalTerrainGenerator.Generate(settings);
             settings.Seed = "changed"; var cells = map.CopyMaterials(); cells[72 * map.Width + 62] = 0;
             Assert.That(map.Settings.Seed, Is.EqualTo("GREYPINE-1616"));
             Assert.That(map.MaterialAt(62, 72), Is.EqualTo(7));
@@ -58,7 +60,7 @@ namespace DarkNights.Tests
         [TestCase(1, 0)]
         public void InvalidSettingsFailBeforeGenerating(double amplitude, double ore)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => TerrainGenerator.Generate(new TerrainGenerationSettings { Amplitude = amplitude, OreDensity = ore }));
+            Assert.Throws<ArgumentOutOfRangeException>(() => HistoricalTerrainGenerator.Generate(new TerrainGenerationSettings { Amplitude = amplitude, OreDensity = ore }));
         }
     }
 }

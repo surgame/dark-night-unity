@@ -1,0 +1,178 @@
+{
+  "date": "2026-10-22",
+  "scope": "CL-07/08: current local multi-client smoke and runtime-shutdown investigation",
+  "head": "f0ef500369c922c0dd2c33da23f29a352d817d0e",
+  "candidate": "baseline.json contains all 4948 input hashes including dirty/untracked candidate files",
+  "protocol": 35,
+  "save_version": 27,
+  "unity": "6000.4.9f1",
+  "player": "artifacts/map-state/player-mono-20261022-184459-e9d1189f/DarkNights.exe",
+  "player_sha256": "93c19f9e7c681845d34407807d33b6438e781dd34c4d8895ebdf2c6fb083711d",
+  "build_job": "36e0317a99284a2a90ed225241364cb7",
+  "build_succeeded": true,
+  "game_source_changes": false,
+  "yygc_changes": false,
+  "editor_natural_stop": {
+    "attempts": 2,
+    "original_exception_reproduced": false,
+    "scenarios": [
+      "Bootstrap NewGame, Ready with feather textures, normal Stop Play",
+      "same with stop scheduled at endCameraRendering"
+    ],
+    "logs": [
+      "editor-reproduction.log",
+      "editor-reproduction2.log"
+    ]
+  },
+  "controlled_probe": {
+    "original_exception_reproduced": true,
+    "scope": "Explicitly destroyed only the probe-owned light texture before RetireAsync; not a natural Play-stop reproduction",
+    "evidence": "controlled-retirement.json",
+    "location": "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightField.cs:243"
+  },
+  "runs": [
+    {
+      "result": "artifacts/local-multiclient-20261022/network-20261022-184653-704630-mono-normal-2p-client/result.json",
+      "clients": 1,
+      "graphics": "d3d11",
+      "passed": false,
+      "checks": 8,
+      "failed_checks": [
+        {
+          "name": "client1 light request False",
+          "passed": false,
+          "detail": {
+            "Sequence": 10010,
+            "Epoch": 1,
+            "Revision": 707,
+            "Code": "NoEffect",
+            "AffectedCount": 0,
+            "EntityId": 0,
+            "ReadyReply": false,
+            "PlayerSlot": 1,
+            "ConnectionGeneration": 1
+          },
+          "utc": "2026-10-22T10:47:13.433036+00:00"
+        }
+      ],
+      "driver_sha256": "0c2761310f2edf62fd3094e817f5d48744863b96ec0529791b469c6784a768c7",
+      "shutdown": {
+        "processes": [
+          {
+            "role": "host",
+            "exit_code": 3221225477
+          },
+          {
+            "role": "client1",
+            "exit_code": 3221225477
+          }
+        ],
+        "runtime_errors": {
+          "client1-1.log": [
+            "NotSupportedException: Cannot determine if this AsyncQueueSynchronisation GraphicsFence has passed as this platform does not support async compute."
+          ],
+          "host-1.log": [
+            "NotSupportedException: Cannot determine if this AsyncQueueSynchronisation GraphicsFence has passed as this platform does not support async compute."
+          ]
+        }
+      },
+      "minimum_free_ram_gib": 8.501659393310547
+    },
+    {
+      "result": "artifacts/local-multiclient-20261022/network-20261022-184837-405008-mono-normal-2p-client/result.json",
+      "clients": 1,
+      "graphics": "d3d12",
+      "passed": false,
+      "checks": 36,
+      "failed_checks": [],
+      "driver_sha256": "c4108d59ec7d1501786ab3a48f0e62186a4fd2091af0dc5631f291b548126d10",
+      "shutdown": {
+        "processes": [
+          {
+            "role": "host",
+            "exit_code": 3221225477
+          },
+          {
+            "role": "client1",
+            "exit_code": 3221225477
+          }
+        ],
+        "runtime_errors": {}
+      },
+      "minimum_free_ram_gib": 8.112007141113281
+    },
+    {
+      "result": "artifacts/local-multiclient-20261022/network-20261022-185117-516700-mono-normal-4p-client/result.json",
+      "clients": 3,
+      "graphics": "d3d12",
+      "passed": false,
+      "checks": 82,
+      "failed_checks": [],
+      "driver_sha256": "c4108d59ec7d1501786ab3a48f0e62186a4fd2091af0dc5631f291b548126d10",
+      "shutdown": {
+        "processes": [
+          {
+            "role": "host",
+            "exit_code": 3221225477
+          },
+          {
+            "role": "client1",
+            "exit_code": 3221225477
+          },
+          {
+            "role": "client2",
+            "exit_code": 3221225477
+          },
+          {
+            "role": "client3",
+            "exit_code": 3221225477
+          }
+        ],
+        "runtime_errors": {}
+      },
+      "minimum_free_ram_gib": 7.261375427246094
+    }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "severity": "P1",
+      "summary": "Unconditional light.Release/direction.Release after async retirement can access already-destroyed Unity objects; first exception also prevents subsequent direction/shader destruction.",
+      "source": "Game/Assets/DarkNights/Scripts/View/Lighting/ExplorationLightField.cs:243",
+      "confidence": "user stack and controlled probe confirm invalid-access path; natural stop race not reproduced in two attempts"
+    },
+    {
+      "id": "F2",
+      "severity": "P1",
+      "summary": "D3D11 supportsGraphicsFence branch queries AsyncQueueSynchronisation fence although async compute is unsupported; observed NotSupportedException during Player shutdown.",
+      "source": "Game/Assets/DarkNights/Scripts/View/Lighting/WallDiffuseFeatherResources.cs:166",
+      "confidence": "observed in both D3D11 Players"
+    },
+    {
+      "id": "F3",
+      "severity": "P1",
+      "summary": "All 8 Player instances crashed during quit with 0xc0000005 at UnityPlayer.dll+0xa05138; all logs include automatic ComputeBuffer disposal warnings.",
+      "confidence": "Windows Application event 1000 and process exit codes confirm crash; native root cause and causal link to F1/F2 not proven"
+    }
+  ],
+  "reproduction": {
+    "editor": "Open Bootstrap, Play, NewGame, wait for ground Ready and private lighting with feather arrays, Stop Play. Timing-dependent; not stable in this run.",
+    "player": "Run test_local_multiclient.py against the retained Mono Player with --clients 1 or 3 --graphics-api d3d12. Network checks pass but graceful shutdown crashes. --graphics-api d3d11 additionally exposes unsupported async fence.",
+    "controlled": "See controlled-retirement-cli.json for the exact live-Editor eval and owned-resource cleanup."
+  },
+  "not_covered": [
+    "weak network",
+    "two-machine LAN",
+    "foreground performance",
+    "full mining/cargo/flight loop",
+    "save/load/restart",
+    "native crash root cause"
+  ],
+  "preservation": {
+    "candidate_changed": [],
+    "candidate_added": [],
+    "existing_dirty_changed_excluding_development": []
+  },
+  "driver_delivery_note": "After the runs only final-summary formatting changed to suppress the premature base success print and expose network_checks_passed separately; final syntax checked, no additional Player run. Raw run reports and their original driver hashes remain unchanged.",
+  "artifacts_policy": "Keep the current Player, all snapshots, isolated saves, logs, Windows failure evidence, baseline and monitor reports; no deletion or archival moves."
+}

@@ -1,0 +1,250 @@
+{
+  "task": "Win98星图与探索迷雾",
+  "date": "2026-10-20",
+  "timezone": "Asia/Shanghai",
+  "branch": "ft-20261020-ship-map-redesign",
+  "base_commit": "d99d5e366a528f1062e603a20a6aeeda99b199f4",
+  "protocol": 35,
+  "save_version": 27,
+  "editor": "6000.4.9f1",
+  "editor_pid": 47568,
+  "implementation": "完成，运行待验",
+  "compilation": {
+    "status": "completed",
+    "failed": false,
+    "errors": [],
+    "repair": "首轮新增夹具内部方法访问错误已修正；失败回执保留"
+  },
+  "verification": {
+    "uxml_import": true,
+    "required_bindings_missing": [],
+    "new_ui_warnings": [],
+    "max_csharp_lines": 298,
+    "missing_meta": [],
+    "tests_written": 4,
+    "tests_run": 0,
+    "play_started": false,
+    "player_built": false,
+    "runtime_multiplayer_save_tested": false
+  },
+  "memory": {
+    "state": "completed",
+    "samples": 180,
+    "peak_private_gib": 4.353748321533203,
+    "minimum_free_ram_gib": 8.393997192382812,
+    "memory_gate": "available_physical_only",
+    "limits": {
+      "minimum_free_ram_gib": 1
+    },
+    "read_only": false
+  },
+  "source": [
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/ShipEquipment/ShipEquipment.uss",
+      "sha256": "700cd368011343da7e99a6cecc86445b3e28ee60356311c234f51d19564e8ce0",
+      "lines": 0
+    },
+    {
+      "path": "Game/Assets/DarkNights/Res/UI/ShipEquipment/ShipEquipment.uxml",
+      "sha256": "263d13bbea22cd1715b73a4b667777b9e203b2b3b9dc1ec412ea6a7231929f78",
+      "lines": 0
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Save/JourneyValidator.cs",
+      "sha256": "dd76623f15fd7a9def1e7df81d607ad67969e45c85cb021e53240de4d3271775",
+      "lines": 103
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/Save/SessionSnapshot.cs",
+      "sha256": "57b0236a2d0ca6ccc9446f8aca05cfccca522872fd3608fc8c67eb40cfb40236",
+      "lines": 80
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/JourneyNavigationData.cs",
+      "sha256": "f4dc4e806cf75406f4efc1bb1eb1cdb2b539979a23881842c1ac6590e5860559",
+      "lines": 43
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/NavigationSurveyData.cs",
+      "sha256": "0e649f2fda9bdd1ed16adc74a843bd2c23710125f43846d77825b45b6f1c247a",
+      "lines": 77
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Core/ViewData/NavigationSurveyData.cs.meta",
+      "sha256": "453a8049f8e8edcea193ca029bb37b82fd80f4f3d6c2f811062b01f49daf95ae",
+      "lines": 0
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/ShipNavigationContent.cs",
+      "sha256": "551768971013ab7e2fed3ad07b448121b20cc342ac4d1e959345dc8eaffd2a01",
+      "lines": 181
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/ShipNavigationDialog.cs",
+      "sha256": "af51a1ddb59de27184b6f01ca3fd33f3fb01eb16ebffcee39543cff31b0fe048",
+      "lines": 59
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/ShipNavigationDialog.cs.meta",
+      "sha256": "063501ee203db7bbd31fa46c8c308a4a39611b5fe52b69ad4346fbaa5ea88ee9",
+      "lines": 0
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Entry/ShipTradeHud.cs",
+      "sha256": "2baafee57ad2b6e8b569a4e6dfc31d2c2d5f44d33bbb313a9aa7b45a0a51dd26",
+      "lines": 238
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/NavigationWire.cs",
+      "sha256": "0c9eaf22341dfda4c2e63d20d6dd0ce23006d28085717a452f3bb1e712810e23",
+      "lines": 48
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionClient.cs",
+      "sha256": "e0eabc9f4a87ce5b78fbcecb2443566561677e259d447060c877da9e2a338d8e",
+      "lines": 246
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Network/SessionCommand.cs",
+      "sha256": "c4db62c029508eaf93bdba368420fc81b61e701f380f3431a11f2eb3077f7107",
+      "lines": 42
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/CoordinateNavigationService.cs",
+      "sha256": "e26d762a516967b172f5df6d8d7e68540b3ee3f5f304bda2dcf6e2b8e63f4992",
+      "lines": 45
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/CoordinateNavigationService.cs.meta",
+      "sha256": "fb655ae41c5e75eb8b7a3f0ccd9bb33dbf0c67bf13a69725d5f870af5a957133",
+      "lines": 0
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionFlowBehaviour.cs",
+      "sha256": "72622ca91d05a9068cd1553f251c62303555254df587a9a4fe7b5eba6c414b2f",
+      "lines": 227
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionJourneyBehaviour.cs",
+      "sha256": "73a05eddfb1d9a2b1c7a7a54d0b216f39f0515ed7e9fb753c24d6cbaa8b71a20",
+      "lines": 69
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ExpeditionJourneyState.cs",
+      "sha256": "edd59633440771f22e618b1cd7ba7f04481ce4a183783a72003cc195e5c2ea5b",
+      "lines": 33
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/GroundSessionSetup.cs",
+      "sha256": "039691ecdc7a0c0fcad236a9776aef84a231323c2f0a031ce09c8f84f2e5f357",
+      "lines": 62
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionCommands.cs",
+      "sha256": "223d9d4f05f063b314b1d9d32999eea9f730ac8de374ad281b05f3fe37c93274",
+      "lines": 101
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Save/NavigationSaveJson.cs",
+      "sha256": "5e8bde34a79481944c22345be92c4f129d9e723c6ffd615869d771227527e307",
+      "lines": 54
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+      "sha256": "01b06350e05b64fd81fba469b1ce78cb085a2797463798fc91acadd9a0d6a99d",
+      "lines": 298
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs",
+      "sha256": "4d62460aa26a27637513b268431f80afdb29ea9a4f0f579218e41141aaab69c5",
+      "lines": 287
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionJourneyControl.cs",
+      "sha256": "8db4fbc59061b820a2d918685726bb5bdfbb058f368c9bde3091c3fa9806fa4d",
+      "lines": 24
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperation.cs",
+      "sha256": "5776a2227b9c432f2cb35e0c1a5475db9311bce3ea142b387b0ef496cdc6b319",
+      "lines": 16
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionOperations.cs",
+      "sha256": "59595e41793991670185f4e55458bd03db2989ef1fb5378b954966b3e835d21c",
+      "lines": 78
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Runtime/Session/SessionRequest.cs",
+      "sha256": "b48880e5792b9779406062d2cfe028a6766c474476a610eb0afa9da7eb49d354",
+      "lines": 57
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/NavigationSurveyTests.cs",
+      "sha256": "73e4eae50f675dc49a95bdf821aa3e97e49e21f0d82868a77cee0a0bfc69b157",
+      "lines": 72
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/Tests/NavigationSurveyTests.cs.meta",
+      "sha256": "3036e337031c202b9a05e32f8f4283bb3e7081976f63b6adb3583c388ef94cca",
+      "lines": 0
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Expedition/StarMapArtwork.cs",
+      "sha256": "e037e548791297e09ebe14303938d2b8e2eda96eac5031cca9606cebbcc9c3d6",
+      "lines": 86
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Expedition/StarMapArtwork.cs.meta",
+      "sha256": "b2c417baafb1d9d82dfb2ea2a97028af0bdd96197a88c0dd16a37c568f8f829b",
+      "lines": 0
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Expedition/StarMapElement.cs",
+      "sha256": "fa6fa424dbda14481063086a6684bd710013dae78c4417cd38c7458f78761be3",
+      "lines": 170
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Expedition/StarMapFogElement.cs",
+      "sha256": "fb172a80f200d9d49c42e605900771b0815944c275f05e0aa42b57094f3ff374",
+      "lines": 59
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Expedition/StarMapFogElement.cs.meta",
+      "sha256": "c3929df990451466d70ad9da10cecc3d517eec56b3106f31e51dab46f3a618c4",
+      "lines": 0
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Expedition/StarMapManipulator.cs",
+      "sha256": "86a647e9000e10db3647308ace78eaaa4a3797dafd851791d87d5f7838fe9059",
+      "lines": 104
+    },
+    {
+      "path": "Game/Assets/DarkNights/Scripts/View/Expedition/StarMapManipulator.cs.meta",
+      "sha256": "66f09347c04649542cb06dbe3c5e18bd899d844d02cf4c4b02fef9faa0d8f566",
+      "lines": 0
+    }
+  ],
+  "locked_configuration": [
+    {
+      "path": "Game/Packages/manifest.json",
+      "sha256": "5ddb149d97a4310ebd4a5813fa9485a2ae59ab5fb6804b1c637ce85c65e528e4"
+    },
+    {
+      "path": "Game/Packages/packages-lock.json",
+      "sha256": "fd002144c90a2019e08e7647511406c62d754a44efa16a5116f97bd4cfbd9e39"
+    },
+    {
+      "path": "Game/ProjectSettings/ProjectVersion.txt",
+      "sha256": "0ee4b8baf7a4e3760cd3a0c19797a9362ed4e0c9c8ef0f49d8304c1211e511b8"
+    }
+  ],
+  "outputs": "artifacts/ship-map-win98-20261020/",
+  "pending": [
+    "新局首个星体与标题留白的运行画面",
+    "拖图／缩放不清雾，实际航迹清雾及坐标抵达待命",
+    "取消／改道／暂停和稳定阶段v27保存加载／重启恢复",
+    "Host＋Client共同勘测，晚加入／重连和HostOnly拒绝"
+  ],
+  "protected": "未修改YYGC／依赖锁、作者地图或旧存档；5份中间图保留；无提交／推送"
+}

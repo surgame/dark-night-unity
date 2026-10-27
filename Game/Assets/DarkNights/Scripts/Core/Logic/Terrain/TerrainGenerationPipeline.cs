@@ -9,7 +9,7 @@ namespace DarkNights.Core.Logic.Terrain
     {
         private readonly ITerrainGenerationModifier[] modifiers;
         public static TerrainGenerationPipeline Default { get; } = new TerrainGenerationPipeline(
-            new ITerrainGenerationModifier[] { new EntranceWalkwayModifier() });
+            Array.Empty<ITerrainGenerationModifier>());
 
         public TerrainGenerationPipeline(IEnumerable<ITerrainGenerationModifier> steps)
         {

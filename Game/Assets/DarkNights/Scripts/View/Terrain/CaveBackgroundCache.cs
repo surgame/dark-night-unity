@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace DarkNights.View.Terrain
 {
-    /// <summary>单预览拥有的静态背景页缓存；纯计算后台串行，主线程每帧最多上传一页，换图取消旧任务并释放资源。</summary>
+    /// <summary>单宿主静态背景缓存；后台串行且批次有界，默认每帧一页，制作预览可在4ms预算内上传至多四页。</summary>
     internal sealed class CaveBackgroundCache : IDisposable
     {
         private readonly CancellationTokenSource cancellation = new CancellationTokenSource();
@@ -24,23 +24,41 @@ namespace DarkNights.View.Terrain
         private readonly Func<int, bool> knownPage;
         private CaveEntranceBackdrop entrance;
         private Task<ICaveBackgroundLayout> layoutTask;
-        private Task<byte[][]> pageTask;
+        private Task<(int Key, bool Base, byte[][] Pixels)[]> pageTask;
+        private readonly Queue<(int Key, bool Base, byte[][] Pixels)> completedPages =
+            new Queue<(int Key, bool Base, byte[][] Pixels)>();
+        private readonly HashSet<(int Key, bool Base)> queuedPages = new HashSet<(int Key, bool Base)>();
         private ICaveBackgroundLayout layout;
-        private int pendingKey;
         private int clock;
-        private bool pendingBase;
         private long coverageRevision = -1;
         private bool disposed;
         public int BuildCount { get; private set; }
         public int BaseBuildCount { get; private set; }
         public int DecorationBuildCount { get; private set; }
         public long UploadedBytes { get; private set; }
+        public double UploadMilliseconds { get; private set; }
+        public double PeakUploadMilliseconds { get; private set; }
         public int ResidentPages => pages.Count;
         public long ResidentBytes => pages.Values.Sum(p => p.Bytes);
         public int OccludedPages => visible.Count(Covered);
         public bool BaseReady => !disposed && layout != null && visible.All(CanPresent);
         public bool Ready => BaseReady && visible.All(k => !NeedsDecorations(k) ||
             (pages.TryGetValue(k, out var page) && page.HasDecorations));
+        internal TerrainPageProgress Progress
+        {
+            get
+            {
+                if (layout == null) return default;
+                int completed = 0, total = 0;
+                foreach (int key in visible)
+                {
+                    pages.TryGetValue(key, out var page);
+                    if (requiresBase) { total++; if (page?.HasBase == true) completed++; }
+                    if (NeedsDecorations(key)) { total++; if (page?.HasDecorations == true) completed++; }
+                }
+                return new TerrainPageProgress(completed, total);
+            }
+        }
 
         public bool CanPresent(int key) => !requiresBase || (pages.TryGetValue(key, out var page) && page.HasBase);
 
@@ -113,9 +131,10 @@ namespace DarkNights.View.Terrain
                 if (inView) entry.Value.LastUsed = ++clock;
             }
         }
-        public void Tick()
+        public void Tick(int maximumPages = 1)
         {
             if (disposed) return;
+            maximumPages = Math.Max(1, Math.Min(4, maximumPages));
             UpdateOcclusion();
             if (layout == null)
             {
@@ -124,43 +143,63 @@ namespace DarkNights.View.Terrain
             }
             if (pageTask != null)
             {
-                if (!pageTask.IsCompleted) return;
-                byte[][] pixels = pageTask.GetAwaiter().GetResult(); pageTask = null;
-                if (!pendingBase && (!visible.Contains(pendingKey) || !NeedsDecorations(pendingKey))) return;
-                pages.TryGetValue(pendingKey, out var page);
+                if (pageTask.IsCompleted)
+                {
+                    foreach (var result in pageTask.GetAwaiter().GetResult()) completedPages.Enqueue(result);
+                    pageTask = null;
+                }
+            }
+            var uploadWatch = System.Diagnostics.Stopwatch.StartNew();
+            for (int uploaded = 0; completedPages.Count > 0 && uploaded < maximumPages; uploaded++)
+            {
+                var result = completedPages.Dequeue();
+                int key = result.Key;
+                queuedPages.Remove((key, result.Base));
+                if (!result.Base && (!visible.Contains(key) || !NeedsDecorations(key))) continue;
+                pages.TryGetValue(key, out var page);
                 long previous = page?.Bytes ?? 0;
                 if (page == null)
                 {
-                    page = new CaveBackgroundPage(pendingKey % 10, pendingKey / 10, pixels, wall, parent, style, pendingBase ? 3 : 0);
-                    pages.Add(pendingKey, page);
+                    page = new CaveBackgroundPage(key % 10, key / 10, result.Pixels, wall, parent, style, result.Base ? 3 : 0);
+                    pages.Add(key, page);
                 }
-                else page.InstallDecorations(pixels);
+                else page.InstallDecorations(result.Pixels);
                 page.LastUsed = ++clock;
-                page.Show(visible.Contains(pendingKey) && !Covered(pendingKey));
+                page.Show(visible.Contains(key) && !Covered(key));
                 BuildCount++; UploadedBytes += page.Bytes - previous;
-                if (pendingBase) BaseBuildCount++; else DecorationBuildCount++;
+                if (result.Base) BaseBuildCount++; else DecorationBuildCount++;
                 Trim();
-                return;
+                if (uploadWatch.Elapsed.TotalMilliseconds >= 4) break;
             }
+            double uploadTime = uploadWatch.Elapsed.TotalMilliseconds;
+            UploadMilliseconds += uploadTime;
+            PeakUploadMilliseconds = Math.Max(PeakUploadMilliseconds, uploadTime);
+            if (pageTask != null || completedPages.Count >= maximumPages) return;
             int[] keys = visible.OrderBy(k => k).ToArray();
-            foreach (int key in keys)
-            {
-                if (CanPresent(key)) continue;
-                StartPage(key, true); return;
-            }
-            foreach (int key in keys)
-            {
-                if (!NeedsDecorations(key) || (pages.TryGetValue(key, out var page) && page.HasDecorations)) continue;
-                StartPage(key, false); break;
-            }
+            var batch = keys.Where(k => !CanPresent(k)).Select(k => (Key: k, Base: true))
+                .Concat(keys.Where(k => CanPresent(k) && NeedsDecorations(k) &&
+                    (!pages.TryGetValue(k, out var page) || !page.HasDecorations)).Select(k => (Key: k, Base: false)))
+                .Where(p => !queuedPages.Contains(p)).Take(maximumPages).ToArray();
+            if (batch.Length != 0) StartPages(batch);
         }
-        private void StartPage(int key, bool baseOnly)
+        private void StartPages((int Key, bool Base)[] batch)
         {
-            pendingKey = key; pendingBase = baseOnly;
+            foreach (var page in batch) queuedPages.Add(page);
             var token = cancellation.Token; var source = layout; int softness = style.MiddleSoftness;
-            pageTask = Task.Run(() => baseOnly ?
-                new[] { entrance.BakeBase(key % 10 * 256, key / 10 * 256, 256, 256, token.ThrowIfCancellationRequested) } :
-                BackgroundPageBaker.Bake(source, key % 10 * 256, key / 10 * 256, 256, 256, softness, token.ThrowIfCancellationRequested), token);
+            pageTask = Task.Run(() =>
+            {
+                var results = new (int Key, bool Base, byte[][] Pixels)[batch.Length];
+                for (int i = 0; i < batch.Length; i++)
+                {
+                    token.ThrowIfCancellationRequested();
+                    int key = batch[i].Key;
+                    byte[][] pixels = batch[i].Base ?
+                        new[] { entrance.BakeBase(key % 10 * 256, key / 10 * 256, 256, 256, token.ThrowIfCancellationRequested) } :
+                        BackgroundPageBaker.Bake(source, key % 10 * 256, key / 10 * 256, 256, 256, softness, token.ThrowIfCancellationRequested);
+                    results[i] = (key, batch[i].Base, pixels);
+                }
+                return results;
+            }, token);
         }
         private void Trim()
         {
@@ -180,7 +219,7 @@ namespace DarkNights.View.Terrain
             if (disposed) return; disposed = true; cancellation.Cancel(); cancellation.Dispose();
             foreach (var page in pages.Values) page.Dispose();
             Observe(pageTask); Observe(layoutTask);
-            pages.Clear(); visible.Clear(); layout = null; pageTask = null; layoutTask = null;
+            pages.Clear(); visible.Clear(); completedPages.Clear(); queuedPages.Clear(); layout = null; pageTask = null; layoutTask = null;
             DestroyOwned(style);
         }
         private static void Observe(Task task)

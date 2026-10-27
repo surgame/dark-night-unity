@@ -102,21 +102,25 @@ namespace DarkNights.Runtime.Terrain
                 .SharedConfigs.Find(c => c is DarkNights.Runtime.Objects.ExpeditionFlowConfig) as DarkNights.Runtime.Objects.ExpeditionFlowConfig;
             var caveMap = expedition ? flow?.FreezeCaveMap() ?? throw new InvalidOperationException("远征缺少共用洞穴地图配置。") : null;
             var groundPlanet = expedition ? quickTest?.Planet ?? flow.PreviewPlanet() : null;
-            if (quickTest == null && !string.IsNullOrEmpty(groundPlanet?.Seed)) seed = groundPlanet.Seed;
-            var terrainModifiers = expedition ? flow.FreezeModifiers() : null;
             bool reviewedStart = quickTest == null || quickTest.Id == QuickTestPreset.ShipCargoId;
+            if (expedition && !reviewedStart)
+            {
+                // 测试夹具明确指定种子；制作策略只负责制作抽样，不限制独立测试输入。
+                caveMap.SeedSelection = new TerrainSeedSettings();
+                caveMap.Seed = seed;
+            }
             if (expedition && reviewedStart && flow.ReviewedMap == null)
-                throw new InvalidOperationException("正式新局缺少冻结联合地图，请先在工作台生成并装配新版本。");
+                throw new InvalidOperationException("正式新局缺少冻结完整地图，请先在工作台生成并装配新版本。");
             if (expedition && reviewedStart && flow.ReviewedMap != null) flow.ReviewedMap.VerifySource(flow);
             var reviewed = expedition && reviewedStart && flow.ReviewedMap != null ? flow.ReviewedMap.Freeze(id) : null;
-            generation = Task.Run(() => reviewed ?? (expedition ? PlanetTerrainGenerator.GenerateCandidate(groundPlanet, seed, id, caveMap,
-                    pipeline: terrainModifiers) : PlayableTerrainGenerator.Generate(seed, id)));
+            generation = Task.Run(() => reviewed ?? (expedition ? PlanetTerrainGenerator.GenerateCandidate(groundPlanet, seed, id, caveMap) :
+                throw new InvalidOperationException("旧随机营地生成已退场；请使用正式远征和已保存地图。")));
             try
             {
                 var result = await generation;
                 if (disposed || version != selectionVersion) throw new OperationCanceledException("地图生成已取消。");
                 selected = result; selectedPresetId = quickTest?.Id ?? ""; GenerationMilliseconds = watch.ElapsedMilliseconds;
-                SelectionStatus = reviewed != null ? "已加载联合矿巢地图 · " + reviewed.Seed :
+                SelectionStatus = reviewed != null ? "已加载已保存地图 · " + reviewed.Seed :
                     "已选择" + (expedition ? "星球地面" : "灰松谷") + " · 种子 " + seed.Substring(0, Math.Min(12, seed.Length)) + " · 点击地图可重新生成";
                 UnityEngine.Debug.Log("DARK_NIGHTS_MAP_GENERATED seed=" + result.Seed + " milliseconds=" + GenerationMilliseconds);
             }

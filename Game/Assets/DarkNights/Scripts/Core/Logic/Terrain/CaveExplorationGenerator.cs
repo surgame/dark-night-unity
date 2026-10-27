@@ -4,14 +4,13 @@ using DarkNights.Core.Config.Terrain;
 
 namespace DarkNights.Core.Logic.Terrain
 {
-    /// <summary>洞穴生成流水线的天然空间阶段；洞厅与全部连接只挖空，不再回填旧塌方隔断，输出冻结候选。</summary>
+    /// <summary>洞穴生成流水线的天然空间阶段；只雕刻洞厅与洞间连接，不额外向指定矿室开地表口，不回填旧塌方隔断，输出冻结候选。</summary>
     public static class CaveExplorationGenerator
     {
         private const int W = TerrainGenerationSettings.Width, H = TerrainGenerationSettings.Height;
-        public static TerrainBlueprint Generate(TerrainGenerationSettings input)
+        public static TerrainBlueprint Generate(TerrainGenerationSettings input, TerrainGenerationRecorder recorder = null)
         {
             var settings = input.CopyValidated();
-            if (settings.Rules?.Enabled == true) return CaveRuleGenerator.Generate(settings);
             var random = new TerrainRandom(settings.Seed + ":cave-exploration-v3");
             var cells = new byte[W * H]; var protection = new bool[cells.Length]; var soft = new bool[cells.Length];
             int[] surface = Surface(settings);
@@ -21,18 +20,19 @@ namespace DarkNights.Core.Logic.Terrain
                 protection[i] = x < 3 || x >= W - 3 || y >= H - 3;
                 cells[i] = protection[i] ? (byte)8 : y < surface[x] ? (byte)0 : y < surface[x] + 3 ? (byte)1 : (byte)2;
             }
+            recorder?.Add("原始地表", cells);
             var rooms = Rooms(random); var passages = Connect(rooms, random);
+            recorder?.Add("天然洞穴空间", cells);
             foreach (var room in rooms) CaveRoomCarving.Carve(cells, room, random);
+            recorder?.Add("洞室雕刻", cells);
             foreach (var edge in passages)
             {
                 var a = rooms[edge.From]; var b = rooms[edge.To];
                 CarveLine(cells, a.X, a.Y + 2, edge.BendX, edge.BendY, edge.Radius);
                 CarveLine(cells, edge.BendX, edge.BendY, b.X, b.Y + 2, edge.Radius);
             }
-            CarveLine(cells, rooms[0].X - 8, surface[rooms[0].X - 8] - 2, rooms[0].X, rooms[0].Y, 4);
-            CarveLine(cells, rooms[3].X + 12, surface[rooms[3].X + 12] - 2, rooms[3].X, rooms[3].Y, 3);
-            for (int x = 24; x < 48; x++) for (int y = surface[x]; y <= surface[x] + 2; y++)
-            { int i = y * W + x; cells[i] = 1; protection[i] = true; soft[i] = false; }
+            recorder?.Add("道路连接", cells);
+            recorder?.Add("无额外入口改形", cells);
             var deposits = new List<TerrainDepositBlueprint>();
             for (int n = 0; n < rooms.Count; n++)
             {
@@ -46,18 +46,17 @@ namespace DarkNights.Core.Logic.Terrain
                         n % 3 == 1 ? floor : floor - 1, n > 7 ? "rare" : "common", 80));
                 }
             }
-            byte[] shapes = TerrainShapeGeometry.Build(cells, protection, W, H);
-            return new TerrainBlueprint(settings, cells, protection, surface, rooms.ToArray(), soft, deposits.ToArray(), passages.ToArray(), shapes);
+            return new TerrainBlueprint(settings, cells, protection, surface, rooms.ToArray(), soft, deposits.ToArray(), passages.ToArray());
         }
         internal static int[] Surface(TerrainGenerationSettings s)
         {
+            if (s.SurfaceRows != null) return (int[])s.SurfaceRows.Clone();
             var result = new int[W]; uint seed = TerrainRandom.Hash(s.Seed + ":surface");
             for (int x = 0; x < W; x++)
             {
                 int y = 32 + (int)((TerrainRandom.ValueNoise(seed, x / 65.0) * 13 + TerrainRandom.ValueNoise(seed + 1, x / 18.0) * 4) * s.Amplitude);
                 result[x] = x == 0 ? y : Math.Clamp(y, result[x - 1] - 1, result[x - 1] + 1);
             }
-            for (int x = 24; x < 48; x++) result[x] = result[24];
             return result;
         }
         private static List<TerrainRoom> Rooms(TerrainRandom r)

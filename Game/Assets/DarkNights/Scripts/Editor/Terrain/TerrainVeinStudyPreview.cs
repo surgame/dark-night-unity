@@ -55,7 +55,7 @@ namespace DarkNights.Editor.Terrain
             if (GUILayout.Button("保存本机工具预设")) settings.SavePreset();
             if (productionActions)
             {
-                if (GUILayout.Button("预览完整联合候选")) { model.JointDraft = true; model.Generate(); }
+                if (GUILayout.Button("预览完整联合候选")) { model.Generate(); }
                 using (new EditorGUI.DisabledScope(model.HasChanges))
                     if (GUILayout.Button("生成新联合地图并用于新局"))
                     {

@@ -1,0 +1,182 @@
+[
+  {
+    "id": "arena",
+    "file": "arena.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "boulder",
+    "file": "boulder.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "cache",
+    "file": "cache.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "cargo",
+    "file": "cargo.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "cocoons",
+    "file": "cocoons.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "collapse",
+    "file": "collapse.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "crystal",
+    "file": "crystal.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "explore",
+    "file": "explore.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "garden",
+    "file": "garden.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "hanging",
+    "file": "hanging.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "heavy",
+    "file": "heavy.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "hidden",
+    "file": "hidden.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "high",
+    "file": "high.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "hunt",
+    "file": "hunt.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "mimic",
+    "file": "mimic.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "miner",
+    "file": "miner.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "mycelium",
+    "file": "mycelium.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "nest-covered",
+    "file": "nest-covered.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "nest-open",
+    "file": "nest-open.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "pillar",
+    "file": "pillar.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "pin",
+    "file": "pin.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "pit",
+    "file": "pit.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "refuge",
+    "file": "refuge.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "rescue",
+    "file": "rescue.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "resonance",
+    "file": "resonance.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "sample",
+    "file": "sample.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "traces",
+    "file": "traces.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "vine",
+    "file": "vine.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "wall",
+    "file": "wall.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "winch",
+    "file": "winch.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  }
+]

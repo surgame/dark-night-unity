@@ -63,6 +63,30 @@ namespace DarkNights.Editor.Terrain
             }
         }
 
+        /// <summary>仅包含洞穴渲染依赖的草稿身份；环境与锚点Undo不使地下背景或前景宿主失效。</summary>
+        internal string TerrainIdentity
+        {
+            get
+            {
+                RestoreEntries();
+                var identity = new System.Text.StringBuilder();
+                foreach (var asset in workingAssets)
+                {
+                    if (asset is View.Expedition.SurfaceSceneryLayout) continue;
+                    if (!(asset is CaveTerrainStyle terrain))
+                    { identity.Append(JsonUtility.ToJson(asset)).Append('|'); continue; }
+                    var copy = UnityEngine.Object.Instantiate(terrain);
+                    try
+                    {
+                        copy.SurfaceEnvironment = null;
+                        identity.Append(JsonUtility.ToJson(copy)).Append('|');
+                    }
+                    finally { UnityEngine.Object.DestroyImmediate(copy); }
+                }
+                return identity.ToString();
+            }
+        }
+
         public ScriptableObject ChooseAsset(CaveTerrainStyle style, ScriptableObject selected)
         {
             var assets = new List<ScriptableObject>();
@@ -153,12 +177,25 @@ namespace DarkNights.Editor.Terrain
             }
         }
 
-        public int Apply()
+        public int Apply() => Apply(null);
+
+        /// <summary>独立地图保存后只更新草稿基线；保留工作对象和Undo，不把改动写回共享源。</summary>
+        internal void MarkSaved()
+        {
+            RestoreEntries();
+            foreach (var entry in entries.Values) EditorUtility.CopySerialized(entry.Draft, entry.Baseline);
+        }
+
+        /// <summary>只保存指定逐图表现资产；保留共享样式及其他布局的未保存草稿和Undo。</summary>
+        public int ApplyOnly(ScriptableObject source) => source == null ? 0 : Apply(source);
+
+        private int Apply(ScriptableObject only)
         {
             RestoreEntries();
             var changes = new Dictionary<ScriptableObject, List<string>>();
             foreach (var pair in entries)
             {
+                if (only != null && pair.Key != only) continue;
                 var paths = ChangedPaths(pair.Value);
                 if (paths.Count == 0) continue;
                 var current = new SerializedObject(pair.Key);
@@ -170,11 +207,11 @@ namespace DarkNights.Editor.Terrain
             }
             if (changes.Count == 0) return 0;
             int group = Undo.GetCurrentGroup();
-            Undo.SetCurrentGroupName("Apply Cave Wall Tuner");
+            Undo.SetCurrentGroupName("Apply Map Design Workbench");
             var targets = new UnityEngine.Object[changes.Count];
             int index = 0;
             foreach (var source in changes.Keys) targets[index++] = source;
-            Undo.RecordObjects(targets, "Apply Cave Wall Tuner");
+            Undo.RecordObjects(targets, "Apply Map Design Workbench");
             foreach (var pair in changes)
             {
                 var target = new SerializedObject(pair.Key);
@@ -185,6 +222,8 @@ namespace DarkNights.Editor.Terrain
                 EditorUtility.SetDirty(pair.Key);
             }
             foreach (var source in changes.Keys) AssetDatabase.SaveAssetIfDirty(source);
+            if (only != null)
+                foreach (var source in changes.Keys) EditorUtility.CopySerialized(source, entries[source].Baseline);
             Undo.CollapseUndoOperations(group);
             return changes.Count;
         }

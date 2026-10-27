@@ -17,7 +17,7 @@ using UnityEngine.TestTools;
 
 namespace DarkNights.Tests
 {
-    /// <summary>快速局的真实 YYGC 初始化与恢复回归；验证实际挥镐改格、重开基线和正常太空开局不受影响。</summary>
+    /// <summary>无船快速局的真实YYGC初始化与恢复回归；验证挥镐、重开及保留太空夹具的隔离，不恢复正式新局航程。</summary>
     public sealed class QuickTestSessionTests
     {
         [UnityTest]
@@ -26,8 +26,9 @@ namespace DarkNights.Tests
             using var scope = await UnifiedSessionScope.Create();
             var world = await Create(scope);
             using var authority = new SessionAuthority(world);
-            Assert.That(world.Journey.Capture().Phase, Is.EqualTo(JourneyPhase.Landed));
-            Assert.That(world.CaptureView().Expedition.Ship.Phase, Is.Zero);
+            Assert.That(world.Flow.Phase, Is.EqualTo(JourneyPhase.Landed));
+            Assert.That(world.CaptureView().Expedition.Ship, Is.Null);
+            Assert.That(world.Journey.Capture(), Is.Null);
             var host = ShipScenario.Connect(authority, 0);
             var hero = ShipScenario.Hero(world, 0);
             int count = world.Index.Actors.Count();
@@ -56,7 +57,7 @@ namespace DarkNights.Tests
             world.Restore(saved);
             Assert.That(world.Terrain.Map.Read(target).Cell.IsEmpty, Is.True);
             world.Restart();
-            Assert.That(world.Journey.Capture().Phase, Is.EqualTo(JourneyPhase.Landed));
+            Assert.That(world.Flow.Phase, Is.EqualTo(JourneyPhase.Landed));
             Assert.That(world.Terrain.Map.Read(target).Cell.TileId, Is.EqualTo(tile));
             var reset = ShipScenario.Hero(world, 0).CaptureState();
             Assert.That(reset.Boarded, Is.False); Assert.That(reset.CargoIron + reset.CargoGold, Is.Zero);
@@ -64,14 +65,14 @@ namespace DarkNights.Tests
         });
 
         [UnityTest]
-        public IEnumerator QuickPresetDoesNotChangeNextNormalOrbitWorld() => UniTask.ToCoroutine(async () =>
+        public IEnumerator QuickPresetDoesNotChangeLegacyOrbitFixture() => UniTask.ToCoroutine(async () =>
         {
             using var scope = await UnifiedSessionScope.Create();
             var quick = await Create(scope);
             using (var authority = new SessionAuthority(quick))
             {
                 ShipScenario.Connect(authority, 0);
-                Assert.That(quick.Journey.Capture().Phase, Is.EqualTo(JourneyPhase.Landed));
+                Assert.That(quick.Flow.Phase, Is.EqualTo(JourneyPhase.Landed));
             }
             var normal = JourneyScenario.Create(scope);
             using var next = new SessionAuthority(normal);
@@ -170,6 +171,8 @@ namespace DarkNights.Tests
             var flow = source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
             var preset = QuickTestPreset.Create(id, flow);
             var cave = flow.FreezeCaveMap(); var modifiers = flow.FreezeModifiers();
+            cave.Seed = preset.Seed;
+            cave.SeedSelection = new DarkNights.Core.Config.Terrain.TerrainSeedSettings();
             var map = await Task.Run(() => PlanetTerrainGenerator.GenerateCandidate(preset.Planet, preset.Seed,
                 Guid.NewGuid().ToString("N"), cave, pipeline: modifiers));
             var catalog = RuleScenario.Catalog();

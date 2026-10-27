@@ -1,3 +1,4 @@
+using DarkNights.Core.Config.Terrain;
 using System;
 using System.Linq;
 using DarkNights.Core.Config;
@@ -32,7 +33,7 @@ namespace DarkNights.Entry.Terrain
             GUI.enabled = enabled;
             GUILayout.Label("笔刷草稿：" + (edits?.ChangedCells ?? 0) + " 格 · 仅影响当前地图，重新生成或退出运行后丢弃");
             GUILayout.Space(8); GUILayout.Label("地图来源");
-            GUILayout.Label("正式星球生成；旧塌方阻断已移除，入口步道由正式地形步骤配置。已有存档不会自动重绘。");
+            GUILayout.Label("正式星球生成；旧塌方阻断与入口步道已移除，保留洞穴原有轮廓。已有存档不会自动重绘。");
             if (picker.Pick("岩壁样式", boot.CaveStyle, out CaveTerrainStyle style) && style != boot.CaveStyle) panel.SwitchStyle(style);
             var planets = boot.MapAssemblySource.SharedConfigs.OfType<ExpeditionFlowConfig>().Single().FreezePlanets().Where(p => p.Enabled).ToArray();
             int selected = Math.Max(0, Array.FindIndex(planets, p => p.Id == boot.PlanetId));
@@ -43,10 +44,13 @@ namespace DarkNights.Entry.Terrain
                 panel.Run(() => { TerrainWorkbenchAssets.SaveGeneration(boot.MapAssemblySource, boot.MapConfigBaseline, boot.Settings);
                     boot.AcceptMapConfigSave(); panel.SetMessage("生成参数已保存；下次正式生成使用新参数，已有地图保持当前格子。"); });
             GUILayout.Label("预览／复现种子"); GUI.SetNextControlName("TerrainSeed");
+            bool previousEnabled = GUI.enabled;
+            GUI.enabled &= (boot.Settings.SeedSelection?.Mode ?? TerrainSeedSettings.Fixed) == TerrainSeedSettings.Fixed;
             boot.Settings.Seed = GUILayout.TextField(boot.Settings.Seed ?? "", 80);
+            GUI.enabled = previousEnabled;
             boot.Settings.Amplitude = TerrainFieldControls.Slider("地表起伏", (float)boot.Settings.Amplitude, .3f, 1.6f);
             boot.LiveRegenerate = GUILayout.Toggle(boot.LiveRegenerate, "自动重建生成参数");
-            if (GUILayout.Button("新预览种子（重置地图）")) boot.NewSeed();
+            if (GUILayout.Button("按策略生成预览（重置地图）")) boot.NewSeed();
             if (GUILayout.Button("重新加载地图（丢弃运行时拆填）")) boot.RequestRegenerate();
             GUILayout.Space(8); GUILayout.Label("房间定位");
             int rooms = boot.Blueprint?.Rooms.Count ?? 0;

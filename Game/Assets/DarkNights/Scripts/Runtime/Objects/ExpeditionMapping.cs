@@ -23,18 +23,23 @@ namespace DarkNights.Runtime.Objects
         }
         private static ExpeditionShipData CaptureShip(ObjectSession world)
         {
-            var s = world.Expedition.Ship.Read();
+            var s = world.Expedition.Ship?.Read();
+            if (s == null) return null;
             return new ExpeditionShipData(s.Id, s.ShipPhase, s.PilotId, s.ShipVelocityX, s.ShipVelocityY, s.ShipDoorClock, s.DockX, s.DockHeight);
         }
         internal static void Restore(ObjectSession world, ExpeditionViewData data)
         {
             if (data == null) return;
             world.Journey?.Restore(data.Journey);
-            var ship = world.Expedition.Ship.Edit();
-            ship.ShipPhase = data.Ship.Phase is 1 or 2 ? 0 : data.Ship.Phase;
-            ship.PilotId = 0; ship.ShipVelocityX = ship.ShipVelocityY = 0; ship.ShipDoorClock = 0;
-            if (data.Journey?.Phase == JourneyPhase.Landed) ship.ShipDoorClock = data.Ship.DoorClock;
-            ship.DockX = data.Ship.DockX; ship.DockHeight = data.Ship.DockHeight;
+            if (data.Ship == null) world.Journey.SetPhase(JourneyPhase.Landed);
+            if (data.Ship != null)
+            {
+                var ship = world.Expedition.Ship.Edit();
+                ship.ShipPhase = data.Ship.Phase is 1 or 2 ? 0 : data.Ship.Phase;
+                ship.PilotId = 0; ship.ShipVelocityX = ship.ShipVelocityY = 0; ship.ShipDoorClock = 0;
+                if (data.Journey?.Phase == JourneyPhase.Landed) ship.ShipDoorClock = data.Ship.DoorClock;
+                ship.DockX = data.Ship.DockX; ship.DockHeight = data.Ship.DockHeight;
+            }
             var c = world.Camp.Edit();
             c.ExpeditionRun = data.Run;
             c.ExpeditionPhase = data.Phase;

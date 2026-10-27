@@ -13,7 +13,7 @@ namespace DarkNights.Core.Save
             if (data == null) return "远征合同缺失";
             if (data.Run != 1 || data.Phase != 0 || data.Settled || data.Risk != 0 || data.Clock != 0 ||
                 data.RobotModule != 0 || data.CargoModule != 0 || data.CrewModule != 0 ||
-                data.LostCargo != 0 || data.LostDevices != 0 || data.ResupplyCost != 0 || data.Devices.Count != 1 ||
+                data.LostCargo != 0 || data.LostDevices != 0 || data.ResupplyCost != 0 || data.Devices.Count != (data.Ship == null ? 0 : 1) ||
                 data.Crew.Any(a => a == null || a.Role != 0 ||
                     a.TaskTarget != 0 || a.TaskPhase != 0 || a.TaskClock != 0) ||
                 data.Devices.Any(b => b == null || b.Id != data.Ship?.Id || b.Iron < 0 || b.Gold < 0 || b.Iron + b.Gold > rules.ShipCapacity))

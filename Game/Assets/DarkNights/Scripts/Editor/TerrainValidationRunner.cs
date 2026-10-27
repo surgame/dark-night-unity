@@ -63,8 +63,8 @@ namespace DarkNights.Editor
                 }
                 else if (request.command == "organize-terrain-scenes")
                 {
-                    Terrain.TerrainWorkbenchScenes.OrganizeOldScenes();
-                    Terrain.TerrainWorkbenchScenes.Open(Terrain.TerrainScenePaths.ReferenceChamber);
+                    Terrain.MapWorkbenchScenes.OrganizeOldScenes();
+                    Terrain.MapWorkbenchScenes.Open(Terrain.TerrainScenePaths.ReferenceChamber);
                     Complete("SCENES_ORGANIZED", 0, 0, 0);
                 }
                 else if (request.command == "organize-quick-test-scenes")
@@ -79,7 +79,7 @@ namespace DarkNights.Editor
                 }
                 else if (request.command == "open-jump-preview")
                 {
-                    Terrain.TerrainWorkbenchScenes.Open(Terrain.TerrainScenePaths.RandomCave);
+                    Terrain.MapWorkbenchScenes.Open(Terrain.TerrainScenePaths.RandomCave);
                     Complete("PREVIEW_OPENED", 0, 0, 0);
                 }
                 else if (request.command == "build")

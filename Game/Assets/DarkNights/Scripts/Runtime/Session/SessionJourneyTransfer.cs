@@ -22,7 +22,8 @@ namespace DarkNights.Runtime.Session
         internal bool Pump(long tick, SessionConnection[] connections, Action beginEpoch)
         {
             var flow = world.Flow;
-            if (flow?.Enabled != true) return false;
+            if (flow?.Enabled != true || world.Expedition.Ship == null)
+            { Reset(); return false; }
             int before = world.Journey.Capture().Revision;
             flow.Pump();
             if (!world.Paused)

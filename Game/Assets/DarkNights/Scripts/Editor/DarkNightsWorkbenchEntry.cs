@@ -18,6 +18,7 @@ namespace DarkNights.Editor
         internal string ActionLabel { get; }
         internal Action OpenEditor { get; }
         internal IReadOnlyList<string> Assets { get; }
+        internal bool Extended { get; }
 
         internal DarkNightsWorkbenchEntry(string id, DarkNightsWorkbenchEntryKind kind, string group, string title, string description,
             string saveHint, string actionLabel, Action openEditor, params string[] assets)
@@ -25,6 +26,13 @@ namespace DarkNights.Editor
             Id = id; Kind = kind; Group = group; Title = title; Description = description; SaveHint = saveHint;
             ActionLabel = actionLabel; OpenEditor = openEditor;
             Assets = Array.AsReadOnly((string[])assets.Clone());
+        }
+
+        internal DarkNightsWorkbenchEntry(string id, DarkNightsWorkbenchEntryKind kind, string group, string title, string description,
+            string saveHint, string actionLabel, Action openEditor, bool extended, params string[] assets)
+            : this(id, kind, group, title, description, saveHint, actionLabel, openEditor, assets)
+        {
+            Extended = extended;
         }
 
         internal bool Matches(string query) => string.IsNullOrWhiteSpace(query) ||

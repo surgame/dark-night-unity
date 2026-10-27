@@ -15,6 +15,7 @@ namespace DarkNights.Runtime.Save
         };
         internal static ExpeditionShipData Read(JToken value)
         {
+            if (value?.Type == JTokenType.Null) return null;
             var s = Object(value);
             return new ExpeditionShipData(Integer(s["Id"]), Integer(s["Phase"]), Integer(s["PilotId"]),
                 (float)Number(s["VelocityX"]), (float)Number(s["VelocityY"]), Number(s["DoorClock"]),

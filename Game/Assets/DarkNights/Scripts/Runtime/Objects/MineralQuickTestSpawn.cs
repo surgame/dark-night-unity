@@ -24,6 +24,7 @@ namespace DarkNights.Runtime.Objects
                         float candidate = center + offset;
                         if (!TerrainBodyCollision.Ground(map, candidate, targetHeight + 32, targetHeight - 64,
                             HeroControlDefinition.BodyHalfWidth, HeroControlDefinition.BodyHeight, out float ground)) continue;
+                        if (world.Expedition.Ship == null && ground > world.Catalog.Balance.HeroControl.MaximumHeight) continue;
                         if (!TerrainMiningGeometry.Direction(center - candidate, targetHeight - ground - tool.HandHeight,
                             out float dx, out float dh) || !TerrainMiningGeometry.RayCell(candidate, ground + tool.HandHeight,
                             dx, dh, tool.Reach, cell.U, cell.V, Core.Config.Terrain.TerrainCellShape.Full, out float distance)) continue;

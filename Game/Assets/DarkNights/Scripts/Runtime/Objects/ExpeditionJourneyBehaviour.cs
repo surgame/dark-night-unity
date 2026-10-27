@@ -7,12 +7,14 @@ namespace DarkNights.Runtime.Objects
     /// <summary>YYGC 会话对象的航程状态所有者；所有阶段修改属于同步事务，配置目录由同对象的流程能力冻结。</summary>
     public sealed partial class ExpeditionJourneyBehaviour : SessionStateBehaviour<ExpeditionJourneyState>
     {
+        private NavigationSurveyData surveyCache;
         internal void Prepare()
         {
             PrepareState(new ExpeditionJourneyState
             {
                 Enabled = Session.Flow.Enabled, Revision = 1, Phase = JourneyPhase.Orbit,
-                ContentFingerprint = Session.Flow.ContentFingerprint
+                ContentFingerprint = Session.Flow.ContentFingerprint,
+                SurveyBits = NavigationSurveyData.Initial(Session.Flow.Navigation, 40, 30).Encoded
             });
         }
 
@@ -21,7 +23,21 @@ namespace DarkNights.Runtime.Objects
             var s = Read();
             return s == null || !s.Enabled ? null : new JourneyViewData(s.Enabled, s.JourneyId, s.Revision,
                 s.Phase, s.PlanetId, s.Seed, s.MapId, s.ContentFingerprint, s.PhaseElapsed, s.Error, Session.Flow.Planets,
-                new JourneyNavigationData(Session.Flow.Navigation, s.StarX, s.StarY, s.RunId, s.SettledRunId, s.LastIncome));
+                new JourneyNavigationData(Session.Flow.Navigation, s.StarX, s.StarY, s.RunId, s.SettledRunId, s.LastIncome,
+                    Survey(), s.CoordinateFlight, s.NavigationTargetX, s.NavigationTargetY));
+        }
+
+        internal NavigationSurveyData Survey()
+        {
+            string encoded = Read().SurveyBits;
+            if (surveyCache == null || surveyCache.Encoded != encoded) surveyCache = new NavigationSurveyData(encoded);
+            return surveyCache;
+        }
+
+        internal void RevealTravel(float x, float y, float targetX, float targetY)
+        {
+            var revealed = Survey().Reveal(x, y, targetX, targetY);
+            Edit().SurveyBits = revealed.Encoded;
         }
 
         internal void Restore(JourneyViewData value)
@@ -40,6 +56,8 @@ namespace DarkNights.Runtime.Objects
             var n = value.Navigation;
             s.StarX = n.X; s.StarY = n.Y; s.RunId = n.RunId;
             s.SettledRunId = n.SettledRunId; s.LastIncome = n.LastIncome;
+            s.SurveyBits = n.Survey.Encoded; s.CoordinateFlight = n.CoordinateFlight;
+            s.NavigationTargetX = n.TargetX; s.NavigationTargetY = n.TargetY;
         }
 
         internal void SetPhase(JourneyPhase phase, string error = "")

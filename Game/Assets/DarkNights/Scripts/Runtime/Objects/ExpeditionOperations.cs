@@ -18,8 +18,12 @@ namespace DarkNights.Runtime.Objects
         internal ExpeditionDefinition Rules => world.Catalog.Balance.Expedition;
         internal BuildingBehaviour Ship => world.Index.Buildings.FirstOrDefault(b => b.RuleKey == "ship");
         internal bool Active => world.IsExpedition && (!world.Flow.Enabled || !world.Flow.IsSpace);
+        internal bool IncludeInitial(ObjectPlacement placement) =>
+            world.Terrain.Seed == PlanetTerrainGenerator.SpaceSeed || ObjectSessionResources.Rule(placement.Definition) != "ship";
 
-        internal void ShowIntro() => world.Feedback.ShowBanner("星球地面", "自由移动与跳跃；步行进入飞船可购买装备或操作驾驶台。");
+        internal void ShowIntro() => world.Feedback.ShowBanner("星球地面",
+            Ship == null ? "自由移动、跳跃与采集；飞船及其补给、交货和航程暂时停用。" :
+            "此存档保留原飞船与船内服务。");
 
         internal void Advance(double seconds)
         {
@@ -42,6 +46,7 @@ namespace DarkNights.Runtime.Objects
             var camp = world.Camp.Edit();
             camp.ExpeditionRun = 1;
             world.Economy.SetStock(new ResourceAmounts());
+            if (Ship == null) { world.Journey.Edit().Enabled = false; return; }
             var ship = Ship.Edit(); ship.DeviceStage = 3; ship.Powered = true;
             ship.DockX = ship.X; ship.DockHeight = ship.Height;
             if (!world.Flow.Enabled) return;

@@ -16,20 +16,33 @@ namespace DarkNights.View.Expedition
         private readonly List<Vector3> vertices = new List<Vector3>(2048);
         private readonly List<Color> colors = new List<Color>(2048);
         private readonly List<int> triangles = new List<int>(3072);
+        private readonly List<SurfaceTextureBackdrop> textures = new List<SurfaceTextureBackdrop>();
+        private readonly bool cellSpace;
         public Mesh Mesh => mesh;
 
-        public JourneySurfaceBackdrop(Transform parent, Material material, SurfaceEnvironmentSettings settings)
+        public JourneySurfaceBackdrop(Transform parent, Material material, SurfaceEnvironmentSettings settings, bool cellSpace = false)
         {
+            this.cellSpace = cellSpace;
             this.settings = settings.Capture();
             root = new GameObject("Journey surface distant scenery", typeof(MeshFilter), typeof(MeshRenderer));
             root.transform.SetParent(parent, false);
             mesh = new Mesh { name = "Planet pixel ridges and clouds" }; mesh.MarkDynamic();
             root.GetComponent<MeshFilter>().sharedMesh = mesh;
             var renderer = root.GetComponent<MeshRenderer>(); renderer.sharedMaterial = material; renderer.sortingOrder = -107;
+            for (int i = 0; i < this.settings.Layers.Length; i++)
+            {
+                var layer = this.settings.Layers[i];
+                if (layer != null && layer.Texture != null)
+                    textures.Add(new SurfaceTextureBackdrop(parent, layer, -108 + textures.Count, cellSpace, i == 0));
+            }
             root.SetActive(false);
         }
 
-        public void Show(bool visible) => root.SetActive(visible && settings.Enabled);
+        public void Show(bool visible)
+        {
+            root.SetActive(visible && settings.Enabled);
+            for (int i = 0; i < textures.Count; i++) textures[i].Show(visible && settings.Enabled && (i == 0 || settings.Ridges));
+        }
         public void Render(Camera camera, PlanetDefinition planet, Color skyTint)
         {
             Show(planet != null); if (!root.activeSelf) return;
@@ -38,40 +51,44 @@ namespace DarkNights.View.Expedition
             float left = camera.transform.position.x - half, right = camera.transform.position.x + half;
             float bottom = camera.transform.position.y - camera.orthographicSize;
             float ground = (PlayableTerrain.OriginY - (planet.DockRow - .5f) * PlayableTerrain.CellPixels) / 100f;
+            if (cellSpace) ground = .5f - planet.DockRow;
+            foreach (var texture in textures) texture.Render(camera, ground);
             uint seed = 2166136261;
             foreach (char c in planet.Id) seed = unchecked((seed ^ c) * 16777619);
             float phase = seed % 1024 * .01f;
-            float step = Mathf.Max(Pixel * 2, Mathf.Ceil((right - left) / (128 * Pixel)) * Pixel);
-            if (settings.Ridges) for (int layer = 0; layer < 2; layer++)
+            float scale = cellSpace ? 6.25f : 1;
+            float pixel = Pixel * scale;
+            float step = Mathf.Max(pixel * 2, Mathf.Ceil((right - left) / (128 * pixel)) * pixel);
+            if (settings.Ridges && textures.Count == 0) for (int layer = 0; layer < 2; layer++)
             {
                 float parallax = settings.Parallax * (layer == 0 ? .55f : 1);
                 float Height(float x)
                 {
-                    float wx = x - camera.transform.position.x * (1 - parallax);
+                    float wx = (x - camera.transform.position.x * (1 - parallax)) / scale;
                     float wave = .5f + .24f * Mathf.Sin(wx * .57f + phase + layer * 2) + .15f * Mathf.Sin(wx * 1.39f + phase * 1.7f);
-                    return Snap(ground + settings.RidgeHeight * .16f * (wave + (layer == 0 ? .4f : .05f)));
+                    return Snap(ground + settings.RidgeHeight * .16f * scale * (wave + (layer == 0 ? .4f : .05f)));
                 }
                 var tint = skyTint * (layer == 0 ? .92f : .73f); tint.a = 1;
                 for (float x = Mathf.Floor(left / step) * step; x < right; x += step)
-                    Quad(x, x + step, Mathf.Min(bottom, ground - 2), Mathf.Min(bottom, ground - 2), Height(x), Height(x + step), tint, tint);
+                    Quad(x, x + step, Mathf.Min(bottom, ground - 2 * scale), Mathf.Min(bottom, ground - 2 * scale), Height(x), Height(x + step), tint, tint);
             }
             if (settings.Clouds)
             {
                 float offset = camera.transform.position.x * (1 - settings.Parallax * .35f);
-                float period = 8;
+                float period = 8 * scale;
                 int start = Mathf.FloorToInt((left - offset) / period) - 1;
                 int end = Mathf.CeilToInt((right - offset) / period) + 1;
                 for (int cloud = start; cloud <= end; cloud++)
                 {
-                    float center = Snap(offset + cloud * period + Mathf.Sin(cloud * 2.3f + phase));
-                    float altitude = Snap(ground + settings.CloudHeight * .16f + Mathf.Sin(cloud + phase) * .4f);
-                    float width = 1.1f + .35f * Mathf.Sin(cloud * 3.1f + phase);
+                    float center = Snap(offset + cloud * period + Mathf.Sin(cloud * 2.3f + phase) * scale);
+                    float altitude = Snap(ground + settings.CloudHeight * .16f * scale + Mathf.Sin(cloud + phase) * .4f * scale);
+                    float width = (1.1f + .35f * Mathf.Sin(cloud * 3.1f + phase)) * scale;
                     Color tint = Color.Lerp(skyTint, Linear(new Color32(172, 184, 189, 255)), .35f); tint.a = .3f;
                     Color edge = tint; edge.a = .06f;
                     for (int strip = 0; strip < 16; strip++)
                     {
                         float x0 = Snap(center - width + strip * width / 8), x1 = Snap(center - width + (strip + 1) * width / 8);
-                        float height = Snap(.10f + .18f * Mathf.Sin((strip + .5f) / 16 * Mathf.PI));
+                        float height = Snap((.10f + .18f * Mathf.Sin((strip + .5f) / 16 * Mathf.PI)) * scale);
                         Quad(x0, x1, altitude, altitude, altitude + height, altitude + height, tint, edge);
                     }
                 }
@@ -87,10 +104,15 @@ namespace DarkNights.View.Expedition
             colors.Add(bottom); colors.Add(bottom); colors.Add(top); colors.Add(top);
             triangles.Add(i); triangles.Add(i + 2); triangles.Add(i + 1); triangles.Add(i); triangles.Add(i + 3); triangles.Add(i + 2);
         }
-        private static float Snap(float value) => Mathf.Round(value / Pixel) * Pixel;
+        private float Snap(float value)
+        {
+            float pixel = cellSpace ? Pixel * 6.25f : Pixel;
+            return Mathf.Round(value / pixel) * pixel;
+        }
         private static Color Linear(Color value) => QualitySettings.activeColorSpace == ColorSpace.Linear ? value.linear : value;
         public void Dispose()
         {
+            foreach (var texture in textures) texture.Dispose();
             foreach (var asset in new UnityEngine.Object[] { root, mesh })
                 if (Application.isPlaying) UnityEngine.Object.Destroy(asset); else UnityEngine.Object.DestroyImmediate(asset);
         }

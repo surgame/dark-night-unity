@@ -12,14 +12,14 @@ using Runtime.Utils;
 namespace DarkNights.Runtime.Framework
 {
     /// <summary>
-    /// 六个正式UGUI Prefab的短期预加载租约；只加载模板，实例仍由UGUIManager按固定顺序装配。
+    /// 五个仍在使用的UGUI Prefab短期预加载租约；主菜单改由YYGC UITK装配，原作者Prefab保留但不重复实例化。
     /// 租约覆盖全部面板创建及接线，之后归还；实际实例使用既有工厂持有的独立常驻引用。
     /// </summary>
     public sealed class SessionUiResources : IDisposable
     {
         private static readonly IReadOnlyList<string> Names = Array.AsReadOnly(new[]
         {
-            "Chrome", "MainMenu", "PauseMenu", "Help", "Result", "Hero"
+            "Chrome", "PauseMenu", "Help", "Result", "Hero"
         });
         private readonly ComponentAssetLease<ObjectInstance>[] leases;
         public static IReadOnlyList<string> PanelNames => Names;

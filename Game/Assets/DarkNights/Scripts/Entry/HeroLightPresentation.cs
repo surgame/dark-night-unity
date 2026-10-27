@@ -11,7 +11,10 @@ using UnityEngine.Rendering;
 
 namespace DarkNights.Entry
 {
-    /// <summary>正式会话的照明装配桥；复用真实角色上下文创建工具，把冻结投影传入 View，切世界先撤销注册。</summary>
+    /// <summary>
+    /// 正式会话的照明装配桥；复用角色上下文创建工具，把冻结投影传入 View，切世界先撤销注册。
+    /// 独占本地光场与预设租约，Player 退出暂缓至全部退休完成，不让原生缓冲留给终结器。
+    /// </summary>
     public sealed class HeroLightPresentation : MonoBehaviour
     {
         private SessionNetwork network;
@@ -38,6 +41,7 @@ namespace DarkNights.Entry
         private View.Terrain.CaveVisualSource boundSource;
         private int epoch;
         private bool failed;
+        private bool quitRequested;
         private LightingBackendKind? failedBackend;
         public ExplorationLightSettings Settings => EffectiveScene != null ? EffectiveScene.Settings : null;
         public SceneLightingProfile LightingProfile => sceneLighting;
@@ -87,6 +91,7 @@ namespace DarkNights.Entry
             network = session; entities = views; input = actions; terrain = entry;
             if (profiles == null || sceneLighting == null) throw new InvalidOperationException("场景照明资源尚未准备。");
             RenderPipelineManager.beginCameraRendering += BeginCamera;
+            Application.wantsToQuit += WantsToQuit;
         }
 
         private void BeginCamera(ScriptableRenderContext context, Camera camera)
@@ -213,7 +218,29 @@ namespace DarkNights.Entry
         {
             try { await Task.WhenAll(retiring); }
             catch (Exception error) { Debug.LogException(error); }
-            finally { resources?.Dispose(); }
+            finally
+            {
+                try { resources?.Dispose(); }
+                finally { Application.wantsToQuit -= WantsToQuit; }
+            }
+        }
+
+        private bool WantsToQuit()
+        {
+            if (quitRequested) return false;
+            quitRequested = true;
+            if (this != null && enabled) enabled = false;
+            if (Retirement.IsCompleted) return true;
+            QuitAfterRetirement();
+            return false;
+        }
+
+        private async void QuitAfterRetirement()
+        {
+            // 保持 Player 主循环可推进 GPU／后台任务的主线程续接，避免退出后由终结器回收缓冲。
+            try { await Retirement; }
+            catch (Exception error) { Debug.LogException(error); }
+            finally { Application.Quit(); }
         }
     }
 }

@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24981cc2c48922489c442ab014f1b51, type: 3}
+  m_Name: Map-copy 1
+  m_EditorClassIdentifier: DarkNights.Editor::DarkNights.Editor.Terrain.TerrainMapDocument
+  Version: 2
+  Input:
+    Enabled: 1
+    Navigation:
+      Speed: 8
+      DescentSeconds: 3
+      Nodes:
+      - Id: grey-pine
+        Name: "\u7070\u677E\u661F"
+        X: 0
+        Y: 0
+        Danger: 1
+        Risk: "\u77FF\u6D1E\u4E0E\u5DE2\u7A74\u8FF9\u8C61\uFF08mock\u8D44\u6599\uFF09"
+        PreviewOnly: 0
+      - Id: rift-preview
+        Name: "\u88C2\u8C37\u661F\uFF08\u793A\u610F\uFF09"
+        X: 90
+        Y: 10
+        Danger: 2
+        Risk: "\u843D\u5DEE\u4E0E\u584C\u65B9\uFF08mock\u8D44\u6599\uFF09"
+        PreviewOnly: 1
+      - Id: deep-preview
+        Name: "\u6697\u8109\u661F\uFF08\u793A\u610F\uFF09"
+        X: 45
+        Y: 70
+        Danger: 3
+        Risk: "\u539A\u58C1\u4E0E\u5DE2\u7A74\uFF08mock\u8D44\u6599\uFF09"
+        PreviewOnly: 1
+    PreparationTimeoutSeconds: 30
+    ArrivalTimeoutSeconds: 30
+    CaveMap:
+      Seed: STRATA-0922
+      Surface: needles
+      OrganicCaves: 0
+      DisableValleySculpt: 0
+      Amplitude: 1
+      OreDensity: 1
+      ResourceProfile: cave-exploration
+      Layout: connected-rooms
+      Structure:
+        Version: 1
+        Templates: cave-templates-v1
+        Entrance: valley
+        Road: erosion
+        RoomMix: mixed
+        SpaceRevision: 0
+        RoomCount: 16
+        RoomScale: 1
+        RoadRadius: 3
+        BranchShare: 0.45
+        BranchDepth: 3
+        RockGap: 0.12
+      Minerals:
+        Algorithm: regional-veins
+        Seed: ORE-1
+        Revision: 0
+        VeinCount: 8
+        Capacity: 180
+        EmptyShare: 0.18
+        ExposedShare: 0.35
+        RichShare: 0.35
+        Nests: 1
+      Rules:
+        Enabled: 0
+        Version: 1
+        Templates: cave-templates-v1
+        Entrance: valley
+        Road: erosion
+        RoomMix: mixed
+        ContentSeed: ORE-1
+        SpaceRevision: 0
+        ContentRevision: 0
+        RoomCount: 16
+        RoomScale: 1
+        RoadRadius: 3
+        BranchShare: 0.45
+        BranchDepth: 3
+        RockGap: 0.12
+        VeinCount: 8
+        Capacity: 180
+        EmptyShare: 0.18
+        ExposedShare: 0.35
+        RichShare: 0.35
+        Nests: 1
+      SurfaceAlgorithm: landform
+      Relief:
+        Enabled: 0
+        BaseHeightCells: 0
+        HeightCells: 8
+        WavelengthCells: 64
+        DockTransitionCells: 16
+      RegionOverrides: []
+      SeedSelection:
+        Mode: pool
+        Seeds:
+        - STRATA-0922
+        - FLOW-POOL-B
+    ReviewedMap: {fileID: 0}
+    Geology:
+      Enabled: 0
+      SiteId: collapse-01
+      Definition: {fileID: 0}
+      Configuration:
+        EventId: support
+        EnterRegion: 0
+        SupportU: 50
+        SupportV: -41
+        RegionU: 68
+        RegionV: -41
+        RegionWidth: 4
+        RegionHeight: 4
+        SourceU: 52
+        SourceV: -36
+        LandingU: 52
+        LandingV: -41
+        Width: 3
+        SourceRows: 1
+        RubbleWidth: 3
+        Gravity: 320
+        WarningSeconds: 2
+        FragmentDelay: 0.045
+        OccupancyWaitSeconds: 8
+        Material: slate
+      AllowedU: 0
+      AllowedV: -100
+      AllowedWidth: 16
+      AllowedHeight: 16
+      RetreatU: 0
+      RetreatV: -100
+      RetreatWidth: 3
+      RetreatHeight: 3
+      Association: 
+    Planets:
+    - Id: grey-pine
+      DisplayName: "\u7070\u677E\u661F"
+      Description: "\u5F00\u653E\u5929\u7A7A\u4E0E\u98DE\u8239\u6CCA\u4F4D\uFF0C\u6D1E\u53E3\u53CA\u5730\u4E0B\u5E03\u5C40\u7531\u5730\u56FE\u89C4\u5219\u786E\u5B9A\u3002"
+      Enabled: 1
+      Seed: 
+      DockColumn: 36
+      DockRow: 40
+      LandingWidth: 32
+      ArrivalHeight: 176
+      HorizontalRange: 240
+      MaximumLift: 448
+      TransitSeconds: 0.8
+      StarCount: 120
+      StarSpeed: 110
+      TransitionKind: star-shift
+      SpaceColorHex: '#060C20'
+      SkyColorHex: '#243B55'
+    ModifierSchemaVersion: 1
+    Modifiers: []
+  Map: {fileID: 11400000, guid: 91c9fadfb62b4f14ab8c9aba4b185873, type: 2}
+  Style: {fileID: 11400000, guid: e132f7cb13bd42548bacce64b66c317c, type: 2}
+  PlanetId: grey-pine
+  DesignPreview: {fileID: 4900000, guid: e1351a6c3cf3fe84ebcdf630432c2bed, type: 3}
+  DesignPreviewSource: 5857ada33f5b1e5f8c77e912b0223ba3d37c25b722e513cfc87e09fa5fb0d73f
+  GenerationMetadata: "{\"schema\":1,\"generator\":17,\"map\":\"5857ada33f5b1e5f8c77e912b0223ba3d37c25b722e513cfc87e09fa5fb0d73f\",\"seed\":\"STRATA-0922\",\"space\":\"STRATA-0922|cave-plan-v2|cave-templates-v1|1|0|erosion|mixed|16|1|0.45|3|0.12\",\"rooms\":[[\"twin-pocket\",88,70,27,22],[\"low-seam\",108,90,19,7],[\"high-arch\",133,104,23,16],[\"low-seam\",161,110,22,8],[\"slant-rift\",185,113,13,23],[\"collapse-bowl\",210,105,26,20],[\"slant-rift\",236,101,17,29],[\"fault-shelf\",262,97,22,13],[\"slant-rift\",287,94,12,21],[\"twin-pocket\",255,145,26,17],[\"slant-rift\",291,137,17,29],[\"fault-shelf\",191,138,28,19],[\"low-seam\",252,125,28,8],[\"collapse-bowl\",243,74,26,17],[\"fault-shelf\",97,106,25,17],[\"layered-cavity\",134,73,26,19]],\"connections\":[[0,1,0,99,80,4,0],[1,2,0,118,97,3,0],[2,3,0,140,111,4,0],[3,4,0,172,115,2,0],[4,5,0,203,113,3,0],[5,6,0,229,104,2,0],[6,7,0,244,93,2,0],[7,8,0,281,91,3,0],[6,9,0,240,120,2,0],[9,10,0,281,139,2,0],[4,11,0,183,130,2,0],[10,12,0,267,133,2,0],[5,13,0,232,91,2,0],[2,14,0,107,104,3,0],[1,15,0,118,87,4,0]],\"levels\":[0,0,0,0,0,0,0,0,0,1,2,1,3,1,1,1],\"distances\":[0.0,28.319692794392218,57.079193767372765,88.002484745613074,113.23847715717355,141.86862296990819,168.51069366621255,198.26349107978308,224.89655385745374,217.08194097938664,253.96330813482487,141.669428424782,295.29435825601774,188.19388932203537,93.277232794558344,60.02029092877207],\"diagnostics\":[],\"steps\":[{\"name\":\"\u539F\u59CB\u5730\u8868\",\"cells\":48869,\"shapes\":0,\"ore\":0,\"nests\":0,\"bounds\":[0,0,319,191]},{\"name\":\"\u5730\u4E0B\u7A7A\u95F4\u8BA1\u5212\",\"cells\":0,\"shapes\":0,\"ore\":0,\"nests\":0,\"bounds\":[-1,-1,-1,-1]},{\"name\":\"\u6D1E\u5BA4\u96D5\u523B\",\"cells\":3517,\"shapes\":0,\"ore\":0,\"nests\":0,\"bounds\":[75,61,297,152]},{\"name\":\"\u9053\u8DEF\u8FDE\u63A5\",\"cells\":1456,\"shapes\":0,\"ore\":0,\"nests\":0,\"bounds\":[95,71,286,145]},{\"name\":\"\u5165\u53E3\u6539\u5F62\u4E0E\u63A5\u6D1E\",\"cells\":365,\"shapes\":0,\"ore\":0,\"nests\":0,\"bounds\":[49,34,87,61]},{\"name\":\"\u77FF\u533A\u4E0E\u4FA7\u5DE2\u5C40\u90E8\u6539\u5F62\",\"cells\":0,\"shapes\":0,\"ore\":420,\"nests\":0,\"bounds\":[-1,-1,-1,-1]},{\"name\":\"\u6700\u7EC8\u5761\u5F62\u4E0E\u80CC\u666F\",\"cells\":0,\"shapes\":765,\"ore\":420,\"nests\":0,\"bounds\":[-1,-1,-1,-1]},{\"name\":\"\u51BB\u7ED3\u5B8C\u6574\u5019\u9009\",\"cells\":0,\"shapes\":0,\"ore\":420,\"nests\":0,\"bounds\":[-1,-1,-1,-1]}]}"
+  importedVeinCount: 6
+  importedNests: 1
+  references:
+    version: 2
+    RefIds: []

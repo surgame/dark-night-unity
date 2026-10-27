@@ -71,7 +71,8 @@ namespace DarkNights.Entry
                     + "。请在Dark Nights工作台的工程维护中执行「修复关卡光照配置」，补齐并保存引用。");
                 randomLevel.Lighting.Validate();
             }
-            if (randomLevel != null && !randomLevel.Expedition) layout = DarkNights.Core.Logic.Terrain.PlayableTerrainGenerator.Layout(layout);
+            if (randomLevel != null && !randomLevel.Expedition)
+                throw new InvalidOperationException("旧随机营地入口已退场，请使用正式远征场景；已有地图和存档未改写。");
             var network = context.GetOrCreateChild("Dark Nights Session").gameObject.AddComponent<SessionNetwork>();
             context.Register(network);
             context.Register(layout);

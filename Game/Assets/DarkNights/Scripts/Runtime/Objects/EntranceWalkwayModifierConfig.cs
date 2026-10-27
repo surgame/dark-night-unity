@@ -4,7 +4,7 @@ using DarkNights.Core.Logic.Terrain;
 
 namespace DarkNights.Runtime.Objects
 {
-    /// <summary>入口下洞步道的作者配置；关闭后仅保留天然洞穴与泊位，候选数限制连通安全搜索的开销。</summary>
+    /// <summary>已退场入口步道的序列化记录；仅保留旧文档来源身份和作者参数，不再参与地形改写。</summary>
     [Serializable]
     public sealed class EntranceWalkwayModifierConfig : ITerrainGenerationModifierConfig
     {
@@ -18,6 +18,6 @@ namespace DarkNights.Runtime.Objects
         public ITerrainGenerationModifierConfig Copy() => new EntranceWalkwayModifierConfig
         { Enabled = Enabled, Headroom = Headroom, MaxCandidates = MaxCandidates };
 
-        public ITerrainGenerationModifier Freeze() => new EntranceWalkwayModifier(Headroom, MaxCandidates);
+        public ITerrainGenerationModifier Freeze() => new EntranceWalkwayModifier();
     }
 }

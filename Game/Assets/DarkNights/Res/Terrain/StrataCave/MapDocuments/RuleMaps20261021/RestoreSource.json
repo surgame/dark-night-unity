@@ -1,0 +1,62 @@
+{
+  "kind": "restored-authoring-documents",
+  "date": "2026-10-26",
+  "note": "原始地图结果逐字节恢复，参数转换为现行统一配方；编辑后按当前规则生成。未装配正式新局，未恢复历史生成器或附加塑形。",
+  "maps": [
+    {
+      "road": "erosion",
+      "title": "侵蚀曲廊",
+      "original_path": "artifacts/cave-rules-20261021/delivery/erosion.json",
+      "content_sha256": "ba18c0dfcc8ef733c5d926b4be9b563a4732ba054dd023f8d60f241645d498ee",
+      "original_source_identity": "bc87444f586ee97ec15ff216908efe0addb67c28f8ca14e574cd2e34378d4a77",
+      "imported_source_identity": "c8d39c4e548e8623770731a35ca0464f281b31dbb82e70d0342e399bee31651a",
+      "rooms": 16,
+      "nests": 0,
+      "recipe": "cave-templates-v1|{\"Seed\":\"MG-REVIEW-20261021\",\"Surface\":\"needles\",\"OrganicCaves\":false,\"Amplitude\":1.0,\"OreDensity\":1.0,\"ResourceProfile\":\"cave-exploration\",\"Rules\":{\"Enabled\":true,\"Version\":1,\"Templates\":\"cave-templates-v1\",\"Entrance\":\"valley\",\"Road\":\"erosion\",\"RoomMix\":\"mixed\",\"ContentSeed\":\"MG-CONTENT-20261021\",\"SpaceRevision\":0,\"ContentRevision\":0,\"RoomCount\":16,\"RoomScale\":1.0,\"RoadRadius\":3,\"BranchShare\":0.45,\"BranchDepth\":3,\"RockGap\":0.12,\"VeinCount\":8,\"Capacity\":180,\"EmptyShare\":0.18,\"ExposedShare\":0.35,\"RichShare\":0.35,\"Nests\":true}}"
+    },
+    {
+      "road": "switchback",
+      "title": "断层折返",
+      "original_path": "artifacts/cave-rules-20261021/delivery/switchback.json",
+      "content_sha256": "35326b9a940c997dffc78a02b0214f62e394b1a742d077d406dda972512a6e81",
+      "original_source_identity": "0f805b68dba3ab1b0ddb4fd0896e7125d99af61033b719ae4831c56b4302234e",
+      "imported_source_identity": "b71db0794821c34853a4306d8f4c8e790328fb6b33d7d0c7e4e5ce501a045787",
+      "rooms": 16,
+      "nests": 1,
+      "recipe": "cave-templates-v1|{\"Seed\":\"MG-REVIEW-20261021\",\"Surface\":\"needles\",\"OrganicCaves\":false,\"Amplitude\":1.0,\"OreDensity\":1.0,\"ResourceProfile\":\"cave-exploration\",\"Rules\":{\"Enabled\":true,\"Version\":1,\"Templates\":\"cave-templates-v1\",\"Entrance\":\"valley\",\"Road\":\"switchback\",\"RoomMix\":\"mixed\",\"ContentSeed\":\"MG-CONTENT-20261021\",\"SpaceRevision\":0,\"ContentRevision\":0,\"RoomCount\":16,\"RoomScale\":1.0,\"RoadRadius\":3,\"BranchShare\":0.45,\"BranchDepth\":3,\"RockGap\":0.12,\"VeinCount\":8,\"Capacity\":180,\"EmptyShare\":0.18,\"ExposedShare\":0.35,\"RichShare\":0.35,\"Nests\":true}}"
+    },
+    {
+      "road": "cluster",
+      "title": "洞厅星簇",
+      "original_path": "artifacts/cave-rules-20261021/delivery/cluster.json",
+      "content_sha256": "76489d5d3c091303db26baf51c24ba4e230f96b0b5d4bb401e752bcf51f38a40",
+      "original_source_identity": "2eee8a4cfd0f1f393fc1839fe94044320b90f5d9bdd1856beeece5ff95254fa8",
+      "imported_source_identity": "7e94a8eeb684d774228704974943e57a4e5b61eaa284b0b403c248fda5f1e7b5",
+      "rooms": 14,
+      "nests": 1,
+      "recipe": "cave-templates-v1|{\"Seed\":\"MG-REVIEW-20261021\",\"Surface\":\"needles\",\"OrganicCaves\":false,\"Amplitude\":1.0,\"OreDensity\":1.0,\"ResourceProfile\":\"cave-exploration\",\"Rules\":{\"Enabled\":true,\"Version\":1,\"Templates\":\"cave-templates-v1\",\"Entrance\":\"valley\",\"Road\":\"cluster\",\"RoomMix\":\"mixed\",\"ContentSeed\":\"MG-CONTENT-20261021\",\"SpaceRevision\":0,\"ContentRevision\":0,\"RoomCount\":16,\"RoomScale\":1.0,\"RoadRadius\":3,\"BranchShare\":0.45,\"BranchDepth\":3,\"RockGap\":0.12,\"VeinCount\":8,\"Capacity\":180,\"EmptyShare\":0.18,\"ExposedShare\":0.35,\"RichShare\":0.35,\"Nests\":true}}"
+    },
+    {
+      "road": "rift",
+      "title": "裂谷侧坡",
+      "original_path": "artifacts/cave-rules-20261021/delivery/rift.json",
+      "content_sha256": "a6d86eed11cce7599cdd7ce208fecbd91dda10e604cdbf45908448fc850ff340",
+      "original_source_identity": "5bde3dc8436725e315b3c3f6c708471029985425be848608218d879702415ad6",
+      "imported_source_identity": "400d84d22f5c31cee280fdd0bd8192a4c6dfceb4635c5b731dfa8e2b4b0b3741",
+      "rooms": 12,
+      "nests": 1,
+      "recipe": "cave-templates-v1|{\"Seed\":\"MG-REVIEW-20261021\",\"Surface\":\"needles\",\"OrganicCaves\":false,\"Amplitude\":1.0,\"OreDensity\":1.0,\"ResourceProfile\":\"cave-exploration\",\"Rules\":{\"Enabled\":true,\"Version\":1,\"Templates\":\"cave-templates-v1\",\"Entrance\":\"valley\",\"Road\":\"rift\",\"RoomMix\":\"mixed\",\"ContentSeed\":\"MG-CONTENT-20261021\",\"SpaceRevision\":0,\"ContentRevision\":0,\"RoomCount\":16,\"RoomScale\":1.0,\"RoadRadius\":3,\"BranchShare\":0.45,\"BranchDepth\":3,\"RockGap\":0.12,\"VeinCount\":8,\"Capacity\":180,\"EmptyShare\":0.18,\"ExposedShare\":0.35,\"RichShare\":0.35,\"Nests\":true}}"
+    },
+    {
+      "road": "roots",
+      "title": "密岔根网",
+      "original_path": "artifacts/cave-rules-20261021/delivery/roots.json",
+      "content_sha256": "ec720cdf0fd8860ffd7aa1ff65b785f43a447b3637a8506121fde12ef6e20f2b",
+      "original_source_identity": "852223937fac6491d0c74892002ef648ed447e9e5db02cd3088a8b266a547b41",
+      "imported_source_identity": "cfe7e913c836282c01d84db3cf317dd951554e922eaae45e0ae3cefd3744b8f8",
+      "rooms": 14,
+      "nests": 1,
+      "recipe": "cave-templates-v1|{\"Seed\":\"MG-REVIEW-20261021\",\"Surface\":\"needles\",\"OrganicCaves\":false,\"Amplitude\":1.0,\"OreDensity\":1.0,\"ResourceProfile\":\"cave-exploration\",\"Rules\":{\"Enabled\":true,\"Version\":1,\"Templates\":\"cave-templates-v1\",\"Entrance\":\"valley\",\"Road\":\"roots\",\"RoomMix\":\"mixed\",\"ContentSeed\":\"MG-CONTENT-20261021\",\"SpaceRevision\":0,\"ContentRevision\":0,\"RoomCount\":16,\"RoomScale\":1.0,\"RoadRadius\":3,\"BranchShare\":0.45,\"BranchDepth\":3,\"RockGap\":0.12,\"VeinCount\":8,\"Capacity\":180,\"EmptyShare\":0.18,\"ExposedShare\":0.35,\"RichShare\":0.35,\"Nests\":true}}"
+    }
+  ]
+}

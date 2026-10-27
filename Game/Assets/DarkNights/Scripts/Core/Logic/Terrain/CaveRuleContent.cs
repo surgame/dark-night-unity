@@ -10,23 +10,28 @@ namespace DarkNights.Core.Logic.Terrain
     {
         private const int W = TerrainGenerationSettings.Width, H = TerrainGenerationSettings.Height;
 
-        public static PlayableTerrain Generate(PlayableTerrain source, TerrainGenerationSettings settings, Action<string> report = null)
+        public static PlayableTerrain Generate(PlayableTerrain source, TerrainGenerationSettings settings, CaveRulePlan plan,
+            Action<string> report = null)
+        {
+            var frozen = settings.CopyValidated();
+            var baseline = GenerateBaseline(source, frozen, plan, report);
+            return CaveRegionContent.Apply(source, baseline, frozen, plan, report);
+        }
+
+        internal static PlayableTerrain GenerateBaseline(PlayableTerrain source, TerrainGenerationSettings settings,
+            CaveRulePlan plan, Action<string> report = null)
         {
             if (source == null || !source.Expedition || source.GeologySites.Count != 0 || source.Nests.Count != 0 ||
                 source.Deposits.Count != 0 || source.Minerals != null || source.Damage.Count != 0)
                 throw new ArgumentException("规则内容只接受未运行、无内容补丁的基础空间。");
-            var rules = settings.CopyValidated().Rules; var plan = CaveRulePlanner.Build(settings);
-            var random = new TerrainRandom(rules.ContentKey);
+            var rules = settings.CopyValidated().Minerals;
+            if (plan == null) throw new ArgumentException("区域矿物缺少同次空间计划。");
+            var allocation = new CaveRegionAllocation(settings, plan);
             byte[] cells = source.CopyMaterials(); bool[] protection = source.CopyProtection();
             var occupied = new HashSet<int>(); var reserved = new HashSet<int>();
             var deposits = new List<TerrainDepositBlueprint>(); var nests = new List<TerrainNest>();
-            var regions = Enumerable.Range(0, plan.Rooms.Count).ToArray(); Shuffle(regions, random);
-            var empty = new bool[regions.Length]; var rich = new bool[regions.Length];
-            foreach (int region in regions)
-            {
-                empty[region] = region != 0 && random.Next() < rules.EmptyShare;
-                rich[region] = region != 0 && random.Next() < rules.RichShare;
-            }
+            var regions = allocation.Order;
+            var empty = allocation.Empty; var rich = allocation.Rich;
             var sites = new List<int>[regions.Length];
             for (int i = 0; i < sites.Length; i++) sites[i] = new List<int>();
             for (int y = 50; y < H - 9; y++) for (int x = 9; x < W - 18; x++)
@@ -37,17 +42,19 @@ namespace DarkNights.Core.Logic.Terrain
                 }
             for (int i = 0; i < sites.Length; i++)
             {
-                var values = sites[i].ToArray(); Shuffle(values, random); sites[i] = new List<int>(values);
+                var values = sites[i].ToArray(); Shuffle(values, allocation.Random[i]); sites[i] = new List<int>(values);
             }
             double maximum = Math.Max(1, plan.Distances.Max());
             int placed = 0, attempted = 0;
-            for (int round = 0; round < rules.VeinCount && placed < rules.VeinCount; round++)
+            for (int round = 0; round < allocation.Slots.Max(x => x.Count); round++)
                 foreach (int region in regions)
                 {
-                    if (placed >= rules.VeinCount) break;
+                    if (round >= allocation.Slots[region].Count) continue;
+                    var random = allocation.Random[region];
                     if (sites[region].Count == 0) continue;
                     double depth = plan.Distances[region] / maximum;
-                    bool isRich = rich[region], nest = rules.Nests && isRich && random.Next() < .55 + depth * .35;
+                    var nestRandom = new TerrainRandom(settings.Seed + "|" + rules.ContentKey + "|nest-v2|" + region + "|" + round);
+                    bool isRich = rich[region], nest = isRich && nestRandom.Next() < .55 + depth * .35;
                     bool exposed = random.Next() < .75;
                     int capacity = (int)(rules.Capacity * (isRich ? 1.25 + depth : .45 + depth * .6));
                     string rarity = region != 0 && random.Next() < depth * (isRich ? .85 : .35) ? "rare" : "common";
@@ -57,8 +64,10 @@ namespace DarkNights.Core.Logic.Terrain
                     {
                         int index = sites[region][sites[region].Count - 1]; sites[region].RemoveAt(sites[region].Count - 1); attempted++;
                         if (reserved.Contains(index) || nest && !FitsNest(cells, protection, reserved, index % W, index / W)) continue;
+                        if (nest && !NestInRegion(plan, region, index % W, index / W)) continue;
                         var shape = (TerrainVeinShape)(int)(random.Next() * 4);
                         footprint = Footprint(cells, protection, occupied, index % W, index / W, shape, round, exposed, rules.ExposedShare);
+                        footprint.RemoveAll(i => Nearest(plan, i % W, i / W) != region || reserved.Contains(i));
                         if (footprint.Count < 8) continue;
                         selected = index; break;
                     }
@@ -79,21 +88,23 @@ namespace DarkNights.Core.Logic.Terrain
                             chunk.Add(new TerrainMineralCell(index % W, -(index / W), each + (k < remainder ? 1 : 0)));
                         }
                         var first = chunk[0];
-                        deposits.Add(new TerrainDepositBlueprint("rule-r" + region + "-v" + placed + "-" + start / 64,
+                        deposits.Add(new TerrainDepositBlueprint("rule-r" + region + "-v" + round + "-" + start / 64,
                             "r" + region + ":" + purpose, first.U, -first.V, rarity, chunk.Sum(c => c.Capacity), chunk));
                     }
                     if (nest)
                     {
-                        var site = new TerrainNest(nests.Count + 1, selected % W + 3, selected / W);
+                        var site = new TerrainNest(allocation.Slots[region][round] + 1, selected % W + 3, selected / W);
                         for (int y = site.Row - 3; y <= site.Row + 1; y++) for (int x = site.U; x <= site.U + 5; x++) reserved.Add(y * W + x);
-                        for (int y = site.Row - 2; y <= site.Row; y++) for (int x = site.U + 1; x <= site.U + 4; x++) cells[y * W + x] = 0;
-                        nests.Add(site);
+                        if (rules.Nests) nests.Add(site);
                     }
                     report?.Invoke("区域" + region + " · " + purpose + " · 声明路程" + (int)plan.Distances[region] +
                         " · 支线层" + plan.BranchLevels[region] + " · " + rarity + " · " + footprint.Count + "格／" + capacity + "储量" + (nest ? " · 侧巢" : ""));
                     placed++;
                 }
             foreach (int region in regions.Where(i => empty[i])) report?.Invoke("区域" + region + "：规划空腔／无矿支路。");
+            foreach (var site in nests)
+                for (int y = site.Row - 2; y <= site.Row; y++)
+                    for (int x = site.U + 1; x <= site.U + 4; x++) cells[y * W + x] = 0;
             foreach (int region in regions)
             {
                 var ore = deposits.Where(d => d.Id.StartsWith("rule-r" + region + "-")).ToArray();
@@ -106,13 +117,13 @@ namespace DarkNights.Core.Logic.Terrain
                 report?.Invoke("R" + region + "实际：露矿" + visible + "／壁内" + hidden + "／金矿" + rare + "储量。");
             }
             report?.Invoke("内容完成 " + placed + "/" + rules.VeinCount + "矿团；候选尝试" + attempted + "；侧巢" + nests.Count + "。");
-            var shapes = TerrainShapeGeometry.Build(cells, protection, W, H);
+            var shapes = new byte[cells.Length];
             var background = new BackgroundBakeDescriptor(source.WorldId, source.Seed, cells, shapes);
             return new PlayableTerrain(source.WorldId, source.Seed, cells, protection, source.CopySoftRock(), source.Rooms.ToArray(),
                 deposits.ToArray(), shapes, true, background, nests: nests.ToArray());
         }
 
-        private static List<int> Footprint(byte[] cells, bool[] protection, HashSet<int> occupied, int x, int y,
+        internal static List<int> Footprint(byte[] cells, bool[] protection, HashSet<int> occupied, int x, int y,
             TerrainVeinShape shape, int variation, bool exposed, double exposedShare)
         {
             var inside = new List<int>(); var outside = new List<int>();
@@ -134,8 +145,15 @@ namespace DarkNights.Core.Logic.Terrain
             return true;
         }
 
+        private static bool NestInRegion(CaveRulePlan plan, int region, int x, int y)
+        {
+            for (int dy = -3; dy <= 1; dy++) for (int dx = 3; dx <= 8; dx++)
+                if (Nearest(plan, x + dx, y + dy) != region) return false;
+            return true;
+        }
+
         private static bool Rock(byte[] cells, bool[] protection, int x, int y) => cells[y * W + x] != 0 && cells[y * W + x] != 8 && !protection[y * W + x];
-        private static int Nearest(CaveRulePlan plan, int x, int y)
+        public static int Nearest(CaveRulePlan plan, int x, int y)
         {
             int best = 0; double distance = double.MaxValue;
             for (int i = 0; i < plan.Rooms.Count; i++)

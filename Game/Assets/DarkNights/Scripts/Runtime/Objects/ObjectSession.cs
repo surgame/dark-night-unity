@@ -70,7 +70,8 @@ namespace DarkNights.Runtime.Objects
         public float DebugHeroSpeedMultiplier { get; }
 
         public ObjectSession(GameCatalog catalog, LevelLayout layout, ObjectSessionResources resources,
-            Func<bool> isAuthority, Transform parent = null, float debugHeroSpeedMultiplier = 1)
+            Func<bool> isAuthority, Transform parent = null, float debugHeroSpeedMultiplier = 1,
+            bool spawnNewPlayersInCabin = false)
         {
             if (debugHeroSpeedMultiplier < 1 || debugHeroSpeedMultiplier > 16 || float.IsNaN(debugHeroSpeedMultiplier))
                 throw new ArgumentOutOfRangeException(nameof(debugHeroSpeedMultiplier));
@@ -91,7 +92,7 @@ namespace DarkNights.Runtime.Objects
             Construction = new ObjectConstruction(this);
             Lifecycle = new ObjectEntityLifecycle(this);
             Combat = new ObjectCombat(this);
-            Commands = new ObjectCampCommands(this);
+            Commands = new ObjectCampCommands(this, spawnNewPlayersInCabin);
             Expedition = new ExpeditionOperations(this);
             Ship = new ExpeditionShip(this);
             ExpeditionDevices = new ExpeditionDevices(this);
@@ -128,7 +129,7 @@ namespace DarkNights.Runtime.Objects
             persistence = new ObjectSessionPersistence(this, placements);
             Mutations.Run(() =>
             {
-                foreach (ObjectPlacement placement in placements)
+                foreach (ObjectPlacement placement in placements.Where(p => !IsExpedition || Expedition.IncludeInitial(p)))
                     Create(placement.Definition, placement.X, placement.PlacementKey, true,
                         placement.Variant, placement.ActorName, placement.Loader);
                 if (IsExpedition) Expedition.Prepare();

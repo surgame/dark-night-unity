@@ -1,0 +1,44 @@
+[
+  {
+    "id": "amber",
+    "file": "amber.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "echo",
+    "file": "echo.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "faultline",
+    "file": "faultline.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "fracture",
+    "file": "fracture.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "magnet",
+    "file": "magnet.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "photoroot",
+    "file": "photoroot.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  },
+  {
+    "id": "vents",
+    "file": "vents.png",
+    "nativeWidth": 768,
+    "nativeHeight": 336
+  }
+]

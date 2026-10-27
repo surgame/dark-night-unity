@@ -1,0 +1,117 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3e55522d9dcdf48adbceaa0bb08d65, type: 3}
+  m_Name: Art-1-CaveTerrainStyle
+  m_EditorClassIdentifier: DarkNights.View::DarkNights.View.Terrain.CaveTerrainStyle
+  Shader: {fileID: 4800000, guid: 817be2e17bf5dde4aa24be9b28a9d1b9, type: 3}
+  Rock: {fileID: 0}
+  Background: {fileID: 11400000, guid: b92341e7cfa707445bb49da55f14d5c5, type: 2}
+  MineralDefinition: {fileID: 11400000, guid: c0fa1b2e6e4c55742babce5c51cc19a5, type: 2}
+  NestTemplate: {fileID: 4647366406790914275, guid: fa1293afebf6e8d439e547e50b2de9f3, type: 3}
+  ProceduralRock: 1
+  ImmediateForeground: 1
+  SurfaceEnvironment:
+    Enabled: 1
+    Ridges: 1
+    Clouds: 1
+    Parallax: 0.14
+    RidgeHeight: 7
+    CloudHeight: 18
+    Layers:
+    - Texture: {fileID: 2800000, guid: cc9459cdb973aba419bf389c0a6609d4, type: 3}
+      Pixels:
+        x: 0
+        y: 0
+        width: 256
+        height: 600
+      HorizontalParallax: 0
+      VerticalParallax: 0
+      BottomCells: -22
+      PixelScale: 1
+      Tint: {r: 0.47, g: 0.6, b: 0.7, a: 1}
+      Enabled: 1
+      FillBelow: 0
+    - Texture: {fileID: 2800000, guid: 6c754c1f549dd714e8c83e5379200d47, type: 3}
+      Pixels:
+        x: 0
+        y: 0
+        width: 512
+        height: 150
+      HorizontalParallax: 0.07
+      VerticalParallax: 1
+      BottomCells: 0
+      PixelScale: 1
+      Tint: {r: 0.64, g: 0.73, b: 0.79, a: 1}
+      Enabled: 1
+      FillBelow: 1
+    - Texture: {fileID: 2800000, guid: 05186772e5da38b4eb6146f3f814f613, type: 3}
+      Pixels:
+        x: 0
+        y: 0
+        width: 512
+        height: 100
+      HorizontalParallax: 0.16
+      VerticalParallax: 1
+      BottomCells: 0
+      PixelScale: 1
+      Tint: {r: 0.62, g: 0.72, b: 0.72, a: 1}
+      Enabled: 1
+      FillBelow: 1
+    - Texture: {fileID: 2800000, guid: b7c0315878e075b4fa220c8595c0be2c, type: 3}
+      Pixels:
+        x: 0
+        y: 116
+        width: 256
+        height: 64
+      HorizontalParallax: 0.29
+      VerticalParallax: 1
+      BottomCells: -0.5
+      PixelScale: 1
+      Tint: {r: 0.63, g: 0.74, b: 0.69, a: 1}
+      Enabled: 1
+      FillBelow: 1
+    - Texture: {fileID: 2800000, guid: cec63f6fa1e4c164eae46613fe3415fc, type: 3}
+      Pixels:
+        x: 0
+        y: 116
+        width: 256
+        height: 64
+      HorizontalParallax: 0.45
+      VerticalParallax: 1
+      BottomCells: -0.5
+      PixelScale: 1
+      Tint: {r: 0.68, g: 0.79, b: 0.66, a: 1}
+      Enabled: 1
+      FillBelow: 1
+    DecorationMaterial: {fileID: 2100000, guid: 83527c251c2e8eb4381c08ab6e239848, type: 2}
+    Layouts: []
+    WeatheredDepth: 1.25
+    EntranceDepth: 9
+    UndergroundAmbient: 0.36
+  MiningSelector:
+    Radius: 1
+    LinePixels: 2
+    CenterOpacity: 1
+    SurroundOpacity: 0.4
+    FillOpacity: 0.055
+    FadePower: 2
+    InvalidOpacity: 0.3
+  InteractiveBakeBudgetMs: 4
+  StoneSize: 4
+  DecorationStartRow: 40
+  OutlineMode: 4
+  OutlineSeed: OUTLINE-0921
+  OutlineAmplitude: 3
+  OutlineWavelength: 20
+  OutlineQuantization: 2
+  Modifiers:
+  - {fileID: 11400000, guid: e377eb5d74894ac4595299df7636b8c1, type: 2}

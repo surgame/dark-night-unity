@@ -8,17 +8,24 @@
 | --- | --- |
 | 开始日常开发 | [快速上手](QUICK_START.md)、[执行状态](DEVELOPMENT.md) |
 | 确认阶段目标、待决问题与并行模块 | [矿洞远征核心闭环目标](EXPEDITION_CORE_LOOP_GOALS.md)、[长期模块计划](ROADMAP.md)、[阶段台账](DEVELOPMENT.md#stage-cl) |
+| 准备MVP发布并核对一次基础远征体验 | [MVP版发布计划](MVP_RELEASE_PLAN.md)，含暂选补给电脑、正式航行至结算的QA和待讨论地下路线；不代表已构建／发布或CL阶段结束 |
 | 审阅固定船舱、交货出售及星图导航方案 | [飞船远征与星图导航策划草案](SHIP_EXPEDITION_DESIGN.md)，含全员抵达时间、动态距离、危险mock和后续规则；已激活普通交货首片，实现及验证边界见执行台账 |
 | 开展飞船远征与星图开发 | [开发执行方案](SHIP_EXPEDITION_IMPLEMENTATION.md)，含现有源码复用、YYGC状态／命令／事务、联机／存档、切片依赖及授权后的验收门槛 |
 | 修改状态、对象装配或程序集 | [技术架构](ARCHITECTURE.md) |
+| 评审地图工作台整体重做 | [地图工作台模块重构](ROADMAP.md#cl-map-workbench-redesign)、[本轮状态](DEVELOPMENT.md#cl-map-workbench-redesign-status)；四区模块界面已按2026-10-28确认方案进入工程，操作见EDITOR_WORKBENCH；编译与待验状态分列于台账 |
+| 地图生成与基本／高级工作台重构 | [F01～21、影响矩阵及GF-01～05方案](ROADMAP.md#cl-map-generation-flow-refactor)、[实际状态与无船衔接](DEVELOPMENT.md#stage-cl)；2026-10-28用户已确认实施，原型或编译不替代完整验收 |
 | 修改权限、同步、Ready或恢复 | [联机合同](MULTIPLAYER.md)、[存档合同](SAVE_FORMAT.md) |
 | 修改地图、碰撞、矿层或采集 | [地图与地形](TERRAIN_GENERATION.md)、[工具能力](TOOL_DEFINITION_HARVESTING.md) |
+| 配置固定／随机／种子池并保存地图 | [统一种子策略](TERRAIN_GENERATION.md#统一种子策略与预制地图输出)、[生成与历史身份边界](TERRAIN_GENERATION.md#制作配置生成与历史身份边界)、[工作台操作](EDITOR_WORKBENCH.md#cl01-tuner-uitk-design)；旧H5底图输入已退场，游戏继续加载预制结果 |
+| 试玩武器、道具与场景玩点候选 | [独立H5内容实验室](../experiments/expedition-playground/README.md)，含48入口、新增六类局部洞穴／三件装备／组合试采、工程素材实景、人工评审与导出；不是Unity正式导入 |
+| 制作天空、植被与真实地表起伏 | [现行制作合同](TERRAIN_GENERATION.md#surface-environment-authoring)、[Tuner操作与保存域](EDITOR_WORKBENCH.md#surface-environment-workbench)、[切片方案](ROADMAP.md#cl-surface-environment-plan)、[本片台账](DEVELOPMENT.md#cl-surface-environment)；同图衔接地形、环境、装饰与预制地图加载 |
 | 审阅CL01／04近壁盲盒矿团与侧巢 | [近壁三候选](TERRAIN_GENERATION.md#cl01-near-wall-mining)、[薄壳动态出没](TERRAIN_GENERATION.md#cl01-nest-breach)、[多方向与矿巢共生](TERRAIN_GENERATION.md#cl01-nest-orientations)、[六情境离线样板](../experiments/nest-orientations-v1/README.md) |
-| 制作矿巢地图及进入新局 | [矿洞地图工作台](EDITOR_WORKBENCH.md#cl01-tuner-uitk-design)与[规则制作流程](EDITOR_WORKBENCH.md#cl01-vein-tuner)、[正式单图首片](TERRAIN_GENERATION.md#cl01-runtime-joint-map)，来源、候选、冻结与新局装配分离；实际GUI／运行验收及完整R3待办见台账 |
+| 制作矿巢地图及进入新局 | [地图设计工作台](EDITOR_WORKBENCH.md#cl01-tuner-uitk-design)与[规则制作流程](EDITOR_WORKBENCH.md#cl01-vein-tuner)、[正式单图首片](TERRAIN_GENERATION.md#cl01-runtime-joint-map)，来源、候选、冻结与新局装配分离；实际GUI／运行验收及完整R3待办见台账 |
 | 制作塌方设计点及查看接入边界 | [Tuner字段与操作](EDITOR_WORKBENCH.md#cl02-map-design-point)、[开发交接与当前合同](TERRAIN_GENERATION.md#cl02-map-integration-handoff)、[独立场景操作](EDITOR_WORKBENCH.md#cl02-collapse-lab) |
 | 修改照明、挂载或受光材质 | [照明合同](LIGHTING.md) |
 | 修改F1面板及房主调试操作 | [Debug Hub规范](RUNTIME_DEBUG_HUB_SPEC.md) |
 | 操作编辑器、场景、预览或诊断工具 | [编辑工作台](EDITOR_WORKBENCH.md) |
+| 查正式地图与场景装配、配置生效来源及工作台缺口 | [现行业务模块与接入边界](EDITOR_WORKBENCH.md#workbench-integration-audit)、[实施范围](ROADMAP.md#workbench-integration-candidates)；编译与实际待验见DEVELOPMENT |
 | 测试、构建、内存保护及薄worktree验收 | [Unity CLI流程](UNITY_CLI_WORKFLOW.md) |
 
 ## 长期合同
@@ -44,6 +51,7 @@
 ## 历史与证据
 
 - [归档索引](archive/README.md)提供历史摘要、实施记录、失败、未完成验收和用户周报；其中待验项是否适用于当前范围以执行状态为准。
+- [截至2026-10-25的执行流水](archive/DEVELOPMENT_LOG_20261026.md)承接原DEVELOPMENT中的逐批过程；当前状态页只保留模块结论、未解决失败及下一步。[2026-10-26整理回执](archive/WORKSPACE_TIDY_20261026.md)记录临时验证资产的迁移与恢复入口。
 - [证据目录](evidence/)保留近期批次机器摘要，具体来源从执行状态及对应归档进入。[历史证据](archive/evidence/)继续保存原始身份。
 - [LAN Sample](samples/LAN_SAMPLE.md)是独立模板，正式游戏不反向引用其代码、注册或资产。
 - [第三方声明](third-party/)持续保留许可和来源。

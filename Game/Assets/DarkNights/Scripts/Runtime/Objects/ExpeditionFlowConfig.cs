@@ -19,6 +19,8 @@ namespace DarkNights.Runtime.Objects
     [Serializable]
     public sealed class ExpeditionFlowConfig : IConfigData
     {
+        private const int FrozenMapFingerprintVersion = 5;
+        private const int CurrentFrozenMapFingerprintVersion = 6;
         public string Name => "太空与星球航程";
         public bool Enabled = true;
         public NavigationPreset Navigation = new NavigationPreset();
@@ -26,31 +28,20 @@ namespace DarkNights.Runtime.Objects
         public float ArrivalTimeoutSeconds = 30;
         public TerrainGenerationSettings CaveMap = new TerrainGenerationSettings
         { Seed = "STRATA-0922", ResourceProfile = TerrainGenerationSettings.CaveExplorationProfile };
-        public Terrain.MineMapAsset MineMap;
         public Terrain.ReviewedMineMap ReviewedMap;
         public GeologyDesignPoint Geology = new GeologyDesignPoint();
         public List<PlanetPreset> Planets = new List<PlanetPreset> { new PlanetPreset() };
-        public int ModifierSchemaVersion = 1;
-        [SerializeReference] public List<ITerrainGenerationModifierConfig> Modifiers =
-            new List<ITerrainGenerationModifierConfig> { new EntranceWalkwayModifierConfig() };
+        [HideInInspector] public int ModifierSchemaVersion = 1;
+        [SerializeReference, HideInInspector] public List<ITerrainGenerationModifierConfig> Modifiers =
+            new List<ITerrainGenerationModifierConfig>();
 
-        /// <summary>冻结启用步骤和顺序；旧配置未含字段时沿用原入口步道，显式空列表则关闭所有附加步骤。</summary>
+        /// <summary>附加地形塑形暂停；旧步骤只保留来源身份和参数，所有布局均返回空流水线。</summary>
         public TerrainGenerationPipeline FreezeModifiers()
         {
-            var entries = EffectiveModifiers();
-            if (entries.Count > 32) throw new InvalidOperationException("地形步骤最多 32 项。");
-            var steps = new List<ITerrainGenerationModifier>();
-            foreach (var entry in entries)
-            {
-                if (entry == null) throw new InvalidOperationException("地形步骤不得为空；请删除失去类型的配置行。");
-                var frozen = entry.Freeze();
-                if (frozen == null) throw new InvalidOperationException("地形步骤冻结结果为空。");
-                if (entry.Enabled) steps.Add(frozen);
-            }
-            return new TerrainGenerationPipeline(steps);
+            return TerrainGenerationPipeline.Default;
         }
 
-        /// <summary>用于草稿保存的完整接口项复制；显式迁移旧资产后，列表为空才代表关闭所有步骤。</summary>
+        /// <summary>复制完整作者记录；保留已退场步骤的参数，使旧文档来源校验及独立草稿复制不丢数据。</summary>
         public List<ITerrainGenerationModifierConfig> CopyModifiers()
         {
             return EffectiveModifiers().Select(entry => entry?.Copy()).ToList();
@@ -58,6 +49,7 @@ namespace DarkNights.Runtime.Objects
 
         private IReadOnlyList<ITerrainGenerationModifierConfig> EffectiveModifiers()
         {
+            // 旧来源摘要包含此隐式记录；保留身份，执行时由 FreezeModifiers 排除。
             if (ModifierSchemaVersion == 0 || ModifierSchemaVersion == 1 && Modifiers == null)
                 return new ITerrainGenerationModifierConfig[] { new EntranceWalkwayModifierConfig() };
             if (ModifierSchemaVersion != 1)
@@ -65,10 +57,10 @@ namespace DarkNights.Runtime.Objects
             return Modifiers;
         }
 
-        /// <summary>草稿冲突检查与内容身份使用的规范文本，明确包含接口具体类型、顺序、启用状态及参数。</summary>
+        /// <summary>完整当前配置的规范文本；用于草稿及会话身份，包含制作策略和航程，排除退场地形步骤。</summary>
         public string CanonicalIdentity()
         {
-            var builder = new StringBuilder("flow-v1|");
+            var builder = new StringBuilder("flow-v2|");
             builder.Append(Enabled ? '1' : '0').Append('|')
                 .Append(PreparationTimeoutSeconds.ToString("R", CultureInfo.InvariantCulture)).Append('|')
                 .Append(ArrivalTimeoutSeconds.ToString("R", CultureInfo.InvariantCulture)).Append('|')
@@ -77,26 +69,17 @@ namespace DarkNights.Runtime.Objects
             if (Planets != null)
                 foreach (var planet in Planets)
                     builder.Append('|').Append(planet == null ? "<missing>" : JsonUtility.ToJson(planet));
-            if (MineMap != null) builder.Append("|mine-map-v1|").Append(JsonUtility.ToJson(MineMap.Freeze()));
             if (ReviewedMap != null) builder.Append("|reviewed-mine-v1|").Append(ReviewedMap.Fingerprint());
             builder.Append("|geology-point-v1|").Append(Geology?.Identity ?? "missing");
             builder.Append("|navigation-v1|").Append(Navigation == null ? "missing" : JsonUtility.ToJson(Navigation));
-            builder.Append("|terrain-modifiers-v").Append(ModifierSchemaVersion);
-            var entries = EffectiveModifiers();
-            builder.Append('|').Append(entries.Count);
-            foreach (var entry in entries)
-                builder.Append('|').Append(entry == null ? "<missing>" :
-                    entry.GetType().Assembly.GetName().Name + ":" + entry.GetType().FullName)
-                    .Append(':').Append(entry?.CanonicalSettings ?? "<missing>");
             return builder.ToString();
         }
 
-        /// <summary>冻结共用洞穴输入；工作台保留预览种子，正式会话在生成时覆盖为航程种子。</summary>
+        /// <summary>冻结同一地图规则及制作种子策略；此处不抽样，正式远征只加载已保存的完整地图。</summary>
         public TerrainGenerationSettings FreezeCaveMap()
         {
             if (CaveMap == null) throw new InvalidOperationException("航程缺少洞穴地图装配输入。");
             var settings = CaveMap.CopyValidated();
-            settings.MineMap = MineMap == null ? null : MineMap.Freeze();
             if (settings.ResourceProfile != TerrainGenerationSettings.CaveExplorationProfile)
                 throw new InvalidOperationException("航程地图必须使用洞穴资源方案。");
             return settings.CopyValidated();
@@ -130,7 +113,7 @@ namespace DarkNights.Runtime.Objects
 
         public void Validate()
         {
-            var planets = FreezePlanets(); FreezeCaveMap(); FreezeModifiers();
+            var planets = FreezePlanets(); FreezeCaveMap();
             if (Navigation == null) throw new InvalidOperationException("航程缺少导航配置。");
             Navigation.Freeze(planets);
         }
@@ -139,7 +122,12 @@ namespace DarkNights.Runtime.Objects
         {
             Validate();
             using var hash = SHA256.Create();
-            byte[] bytes = Encoding.UTF8.GetBytes("dn-space-planet-v" + PlanetTerrainGenerator.Version + "|" + CanonicalIdentity());
+            // 冻结图不再运行生成器；沿用既有身份，避免仅退场步道就拒绝原地图的航程存档。
+            bool historical = ReviewedMap?.HasHistoricalSource == true;
+            int version = ReviewedMap == null ? PlanetTerrainGenerator.Version :
+                historical ? FrozenMapFingerprintVersion : CurrentFrozenMapFingerprintVersion;
+            byte[] bytes = Encoding.UTF8.GetBytes("dn-space-planet-v" + version + "|" +
+                (historical ? Terrain.TerrainHistoricalIdentity.FlowIdentity(this) : CanonicalIdentity()));
             return BitConverter.ToString(hash.ComputeHash(bytes)).Replace("-", "").ToLowerInvariant();
         }
 

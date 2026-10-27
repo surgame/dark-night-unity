@@ -8,7 +8,6 @@ using AnyRules.Next.Networking;
 using AnyRules.Next.Unity;
 using DarkNights.Core.Config.Terrain;
 using UnityEngine;
-
 namespace DarkNights.View.Terrain
 {
     /// <summary>Editor 与运行时共用的只读地形宿主；先安装冻结输入，再求解表现，相机绘制后确认当前游标。</summary>
@@ -19,10 +18,13 @@ namespace DarkNights.View.Terrain
         public Camera ViewCamera;
         /// <summary>航程地表启用天际线透明背景；独立洞穴工作台保留其完整背景预览。</summary>
         public bool SurfaceSky;
+        public bool DeferEditorBackground { get; set; }
         private CaveVisualSource caveSource;
+        private Expedition.SurfaceScenery scenery;
         public CaveVisualSource LightingSource => awaitingBaseline ? null : caveSource;
         public GridBounds LightingLoadedBounds => regionLoader?.Loaded ?? controller?.Descriptor.Bounds ?? default;
         private MineralLayerPresentation minerals;
+        private long observedMineralPages;
         private MineralReplicaPresentation mineralReplica;
         public bool UseMineralReplica;
         private ARDMapController controller;
@@ -59,27 +61,25 @@ namespace DarkNights.View.Terrain
         public bool RefreshingReplica => loading || regionLoader?.Loading == true || awaitingBaseline ||
             replicaSource?.WaitingForBaseline == true || replicaSource?.ProjectionRefreshPending == true || inputQueue.HasPending;
         public Exception LastError { get; private set; }
-        private bool IsPresentationStable => LastError == null && controller != null && !RefreshingReplica &&
-            (caveSource?.BackgroundReady ?? true) && !controller.HasPendingPresentationWork;
-        public bool Ready => IsPresentationStable && drawReceipt?.IsCurrent == true &&
-            (minerals?.Ready ?? true) && (!UseMineralReplica || mineralReplica?.Ready == true);
+        private bool IsInputStable => LastError == null && controller != null && !RefreshingReplica &&
+            !controller.HasPendingPresentationWork;
+        public bool MineralsReady => (minerals?.Ready ?? true) && (!UseMineralReplica || mineralReplica?.Ready == true);
+        private bool IsPresentationStable => IsInputStable && (caveSource?.BackgroundReady ?? true);
+        public bool ForegroundStable => IsInputStable && (caveSource?.ForegroundReady ?? true);
+        public bool Ready => IsPresentationStable && drawReceipt?.IsCurrent == true && MineralsReady;
         /// <summary>只读绘制请求；不会推进 Ready 或跳过真实相机回执。</summary>
         public bool NeedsPresentationDraw => IsPresentationStable && !Ready;
-        /// <summary>诊断等待阶段，不参与网络授权或调度。</summary>
-        public string PresentationWaitReason
+        public TerrainPreviewProgress Progress => new TerrainPreviewProgress(LastError, controller, regionLoader, replicaSource,
+            inputQueue, caveSource, minerals, mineralReplica, visible, loading, awaitingBaseline, UseMineralReplica, Ready);
+        public string PresentationWaitReason => Progress.Message;
+
+        /// <summary>显式作者预览更新；环境单独调参可跳过背景替换，运行中的挖掘与恢复不使用此入口。</summary>
+        public void ReplaceAuthoringReference(BackgroundBakeDescriptor reference, CaveTerrainStyle style, bool replaceBackground = true)
         {
-            get
-            {
-                if (LastError != null) return "错误：" + LastError.Message;
-                if (controller == null || loading) return "初始地图装载";
-                if (regionLoader?.Loading == true || replicaSource?.WaitingForBaseline == true) return "等待局部区域完整基线";
-                if (awaitingBaseline) return "等待完整基线";
-                if (inputQueue.HasPending || replicaSource?.ProjectionRefreshPending == true) return "待安装变化格";
-                if (controller.HasPendingPresentationWork) return "Dual Grid 规则/资源处理中";
-                if (!(caveSource?.BackgroundReady ?? true)) return "岩壁/背景烘焙中（" + RefreshPath + "）";
-                if (UseMineralReplica && mineralReplica?.Ready != true) return "矿层：" + mineralReplica?.WaitReason;
-                return Ready ? "已绘制" : "等待相机完成回执";
-            }
+            if (replaceBackground) caveSource?.ReplaceAuthoringReference(reference);
+            scenery?.Dispose();
+            scenery = SurfaceSky ? new Expedition.SurfaceScenery(transform, style.SurfaceEnvironment, reference) : null;
+            VisualRevision++;
         }
 
         public void NotifyReplicaChanged() => replicaSource?.NotifyChanged();
@@ -122,7 +122,6 @@ namespace DarkNights.View.Terrain
             }
             catch (Exception error) { Fail(error); }
         }
-
         private async Task OpenAsync(ARDMapDefinition definition, IMapChunkSource source,
             WorldIdentity? world, BackgroundBakeDescriptor reference)
         {
@@ -138,8 +137,9 @@ namespace DarkNights.View.Terrain
                 if (CaveStyle != null)
                 {
                     caveSource = new CaveVisualSource(source, CaveStyle, definition.LoadGameplayCatalog().Tiles, transform, reference, SurfaceSky,
-                        LocalPreviewBackground ? LocalRegion : default);
+                        LocalPreviewBackground ? LocalRegion : default, DeferEditorBackground && !Application.isPlaying);
                     mapSource = caveSource;
+                    if (SurfaceSky) scenery = new Expedition.SurfaceScenery(transform, CaveStyle.SurfaceEnvironment, reference);
                 }
                 var profile = caveSource == null ? null : new RenderProfile(defaultMaterial: caveSource.Material);
                 var layers = inputSource == null && !LocalRegion.IsValid ? null : new GridLayerConfiguration(GridEditability.ReadOnly,
@@ -176,7 +176,6 @@ namespace DarkNights.View.Terrain
             catch (OperationCanceledException) { }
             catch (Exception error) { loading = false; Fail(error); }
         }
-
         private void OnEnable()
         {
             EnsureCameraHooks();
@@ -184,7 +183,6 @@ namespace DarkNights.View.Terrain
             if (CaveStyle == null) CaveStyle = Map.CaveStyle;
             ShowBlueprint(Map.Definition, Map.ReadBlueprint());
         }
-
         public void SetMinerals(IReadOnlyList<DarkNights.Core.ViewData.MineralDepositViewData> deposits)
         { minerals?.Replace(deposits); }
         public void SetMineralReplica(ChunkReplicaStateMachine replica, GridBounds region, bool dataReady)
@@ -199,11 +197,12 @@ namespace DarkNights.View.Terrain
         { caveSource?.SetDevices(world); caveSource?.Flush(); }
         private void Update() => TickPresentation();
         /// <summary>离屏窗口显式驱动同一条链；不依赖编辑态 MonoBehaviour.Update 自动运行。</summary>
-        public void TickFromEditor() { EnsureCameraHooks(); TickPresentation(); }
-
-        private void TickPresentation()
+        public void TickFromEditor(int maximumBackgroundPages = 1) { EnsureCameraHooks(); TickPresentation(maximumBackgroundPages); }
+        private void TickPresentation(int maximumBackgroundPages = 1)
         {
             minerals?.Tick();
+            long mineralPages = MineralBuiltPages;
+            if (mineralPages != observedMineralPages) { observedMineralPages = mineralPages; VisualRevision++; }
             if (minerals?.LastError != null) { Fail(minerals.LastError); return; }
             if (controller == null || loading || regionLoader?.Loading == true || LastError != null) return;
             try
@@ -219,13 +218,13 @@ namespace DarkNights.View.Terrain
                 long pagesBefore = BuiltPages;
                 int rockBefore = RockBuildCount, backgroundBefore = BackgroundBuildCount;
                 if (controller.HasPendingPresentationWork) controller.Tick();
-                caveSource?.TickBackground();
+                caveSource?.TickBackground(maximumBackgroundPages);
+                if (scenery?.Render(ViewCamera, caveSource, !RefreshingReplica, LightingLoadedBounds) == true) VisualRevision++;
                 if (pagesBefore != BuiltPages || rockBefore != RockBuildCount || backgroundBefore != BackgroundBuildCount)
                     VisualRevision++;
             }
             catch (Exception error) { Fail(error); }
         }
-
         private void OnInputChanged(MapInputBatch batch)
         {
             if (batch == null || lifetime == null || lifetime.IsCancellationRequested) return;
@@ -269,7 +268,7 @@ namespace DarkNights.View.Terrain
         {
             if (ViewCamera == null) return;
             if (TerrainViewport.Present(controller, transform, ViewCamera,
-                regionLoader?.Loaded ?? controller.Descriptor.Bounds, caveSource, ref visible, ref requested)) VisualRevision++;
+                regionLoader?.Loaded ?? controller.Descriptor.Bounds, caveSource, ref visible, ref requested, DeferEditorBackground)) VisualRevision++;
         }
         private void EnsureCameraHooks()
         {
@@ -287,6 +286,7 @@ namespace DarkNights.View.Terrain
             inputSource = null; replicaSource = null; regionLoader = null;
             lifetime?.Cancel(); lifetime?.Dispose(); lifetime = null;
             inputQueue.Clear(); loading = awaitingBaseline = false;
+            scenery?.Dispose(); scenery = null;
             var old = controller; controller = null; visible = requested = default;
             var oldMinerals = minerals; minerals = null;
             var oldReplica = mineralReplica; mineralReplica = null;

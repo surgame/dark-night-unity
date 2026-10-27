@@ -80,7 +80,7 @@ namespace DarkNights.Tests
 
         private IEnumerator Run()
         {
-            foreach (string map in focused ? new[] { "folded-expanded" } : new[] { "rift-expanded", "karst-expanded", "folded-expanded", "shaft-loop-expanded", "vein-maze-expanded" })
+            foreach (string map in focused ? new[] { "switchback" } : DarkNights.Editor.Lighting.LightingPreviewMap.Ids)
             {
                 Status(map + " loading"); stage.Open(map); double deadline = EditorApplication.timeSinceStartup + 120;
                 while (!stage.Ready)
@@ -105,7 +105,7 @@ namespace DarkNights.Tests
                     stage.Save(Path.Combine(output, map + "-" + shape + "-optimized.png"));
                     reports.Add(new { map, shape = shape.ToString(), kind = "author-pixels", rgbError, directionError, mouth = stage.Mouth.ToString(), angle = stage.Angle });
                     if (rgbError > .00003f || directionError > .00003f) throw new InvalidOperationException("作者地图画面对照不一致。");
-                    if (map != "folded-expanded") continue;
+                    if (map != "switchback") continue;
                     if (focused)
                     {
                         foreach (string motion in new[] { "region", "static", "rotate", "dig" })

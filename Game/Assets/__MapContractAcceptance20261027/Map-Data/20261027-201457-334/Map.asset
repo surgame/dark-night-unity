@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35eade08ed41e4f4eab6e551a47fe259, type: 3}
+  m_Name: Map
+  m_EditorClassIdentifier: DarkNights.Runtime::DarkNights.Runtime.Terrain.ReviewedMineMap
+  Content: {fileID: 4900000, guid: 6cf9b6ff8c480734f80367eb50bb7cbe, type: 3}
+  Recipe: map-workbench-v2
+  ContentSha256: da7760f97fa733f1227742e632fc07a904d00c69826884ac860b50856d660734
+  SourceIdentity: terrain-source-v2:af07366d600cab63f616ce43a4d7d758e965bfc65424391c4ae8c4f98391bd3c
+  SourcePlanetId: grey-pine

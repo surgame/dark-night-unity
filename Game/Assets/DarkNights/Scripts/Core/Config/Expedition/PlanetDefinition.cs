@@ -47,7 +47,7 @@ namespace DarkNights.Core.Config.Expedition
                 throw new ArgumentException("固定种子为 1–80 字，留空才表示每次随机。", nameof(seed));
             if (landingWidth < 28 || landingWidth > 64 || landingWidth % 2 != 0 || dockRow < 28 || dockRow > 48 ||
                 dockColumn - landingWidth / 2 < 3 || dockColumn + landingWidth / 2 >= TerrainGenerationSettings.Width - 3)
-                throw new ArgumentException("降落平台须为 28–64 格偶数宽度，行号 28–48，左右距地图边界至少三格。");
+                throw new ArgumentException("飞船停靠范围须为 28–64 格偶数宽度，行号 28–48，左右距地图边界至少三格；此范围不改写地形。");
             Positive(arrivalHeight, 600, nameof(arrivalHeight));
             Positive(horizontalRange, 1200, nameof(horizontalRange));
             Positive(maximumLift, 600, nameof(maximumLift));

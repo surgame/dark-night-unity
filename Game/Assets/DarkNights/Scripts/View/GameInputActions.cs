@@ -97,11 +97,12 @@ namespace DarkNights.View
         private YYInputRebindingHandle rebind;
         private PointerEventData pointer;
         private readonly List<RaycastResult> hits = new List<RaycastResult>();
-        private InputActionMap camp, hero;
+        private InputActionMap camp, hero, ui;
         private InputAction point, menu, scroll, move, jump, drop, sprint, interact, useItem;
         private InputAction item1, item2, item3, item4, heroToggle, campToggle, lightToggle;
         private InputAction cameraMove, select, orders, append, pan, panDelta;
         private InputAction pause, help, save, load, home, guards, idle;
+        private InputAction inventory;
         private bool ready, deviceLost, rebinding, menuSuppressed;
         private uint menuSuppressedAt;
         public bool HeroMode { get; private set; }
@@ -109,6 +110,8 @@ namespace DarkNights.View
         public bool PointerOverUi { get; private set; }
         public Vector2 Pointer => point?.ReadValue<Vector2>() ?? Vector2.zero;
         public string JumpBindingLabel => YYInputRebindingService.GetBindingDisplayString(jump, 0);
+        public string InteractBindingLabel => YYInputRebindingService.GetBindingDisplayString(interact, 0, default);
+        public bool InventoryPressed => ready && HeroMode && CanReadMenu && inventory.WasPressedThisFrame();
         public event Action Unavailable;
 
         private bool CanReadMenu => Application.isFocused && !rebinding &&
@@ -122,7 +125,8 @@ namespace DarkNights.View
             sessions = service ?? throw new ArgumentNullException(nameof(service));
             YYInputSettingsStore.TryApplyBindingOverrides(player.actions);
             camp = player.actions.FindActionMap("Camp", true); hero = player.actions.FindActionMap("Player", true);
-            var ui = player.actions.FindActionMap("UI", true); ui.Enable();
+            ui = player.actions.FindActionMap("UI", true); ui.Enable();
+            inventory = ui.FindAction("Inventory", true);
             point = ui.FindAction("Point", true); menu = ui.FindAction("Cancel", true);
             scroll = ui.FindAction("ScrollWheel", true);
             move = hero.FindAction("Move", true); jump = hero.FindAction("Jump", true);
@@ -161,7 +165,7 @@ namespace DarkNights.View
             routing.SetActionMap(value ? hero : camp);
         }
         /// <summary>只枚举游戏动作中可改的实体绑定；复合绑定根节点不参与改键。</summary>
-        public IReadOnlyList<BindingInfo> GetBindings() => GameInputBindingCatalog.Read(hero, camp, Rebindable);
+        public IReadOnlyList<BindingInfo> GetBindings() => GameInputBindingCatalog.Read(hero, camp, ui, Rebindable);
 
         public void StartRebind(BindingInfo target, Action<string> finished)
         {
@@ -207,8 +211,10 @@ namespace DarkNights.View
             if (completed)
             {
                 // UI 的左键点击与世界交互有意复用；游戏动作只与同模式动作互斥。
-                var simultaneous = new[] { action.actionMap };
-                if (string.Equals(action.bindings[index].effectivePath, "<Keyboard>/escape", StringComparison.OrdinalIgnoreCase) ||
+                var simultaneous = action == inventory ? new[] { hero, camp, ui } : new[] { action.actionMap };
+                bool inventoryConflict = action != inventory && string.Equals(action.bindings[index].effectivePath,
+                    inventory.bindings[0].effectivePath, StringComparison.OrdinalIgnoreCase);
+                if (inventoryConflict || string.Equals(action.bindings[index].effectivePath, "<Keyboard>/escape", StringComparison.OrdinalIgnoreCase) ||
                     YYInputRebindingService.TryFindDuplicateBinding(player.actions, action, index, simultaneous,
                     null, out _, out _))
                 {
@@ -225,7 +231,7 @@ namespace DarkNights.View
         private bool TryResolve(BindingInfo target, out InputAction action, out int index)
         {
             action = null; index = -1;
-            foreach (var map in new[] { hero, camp })
+            foreach (var map in new[] { hero, camp, ui })
                 foreach (var candidate in map.actions)
                     if (candidate.id == target.ActionId && Rebindable(candidate))
                     {
@@ -243,7 +249,7 @@ namespace DarkNights.View
              action == item1 || action == item2 || action == item3 || action == item4 || action == heroToggle || action == lightToggle ||
              action == cameraMove || action == select || action == orders || action == append || action == pan ||
              action == pause || action == help || action == save || action == load || action == home ||
-             action == guards || action == idle || action == campToggle);
+             action == guards || action == idle || action == campToggle || action == inventory);
 
         private void Update()
         {

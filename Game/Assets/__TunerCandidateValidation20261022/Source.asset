@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc8652e55004e79a017907c38b6a1b2, type: 3}
+  m_Name: Source
+  m_EditorClassIdentifier: GameCore.Runtime::GameCore.Objects.Definition.ObjectDefinition
+  Id: 0
+  definitionGuid: 
+  key: 
+  keyAliases: []
+  legacyIdAliases: 
+  debugContent: 0
+  legacyAllocationPending: 
+  Type: 0
+  Name: 
+  Icon: {fileID: 0}
+  Describe: 
+  MaxStack: 1
+  ItemLevel: 1
+  NetType: 0
+  PrefabRef:
+    m_AssetGUID: 
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0
+  Archetype: {fileID: 0}
+  UseMonolithicPooling: 0
+  BehaviourTypes: []
+  SharedConfigs:
+  - rid: 4004706747567046781
+  references:
+    version: 2
+    RefIds:
+    - rid: 4004706747567046781
+      type: {class: ExpeditionFlowConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
+      data:
+        Enabled: 1
+        Navigation:
+          Speed: 8
+          DescentSeconds: 3
+          Nodes:
+          - Id: grey-pine
+            Name: "\u7070\u677E\u661F"
+            X: 0
+            Y: 0
+            Danger: 1
+            Risk: "\u77FF\u6D1E\u4E0E\u5DE2\u7A74\u8FF9\u8C61\uFF08mock\u8D44\u6599\uFF09"
+            PreviewOnly: 0
+          - Id: rift-preview
+            Name: "\u88C2\u8C37\u661F\uFF08\u793A\u610F\uFF09"
+            X: 90
+            Y: 10
+            Danger: 2
+            Risk: "\u843D\u5DEE\u4E0E\u584C\u65B9\uFF08mock\u8D44\u6599\uFF09"
+            PreviewOnly: 1
+          - Id: deep-preview
+            Name: "\u6697\u8109\u661F\uFF08\u793A\u610F\uFF09"
+            X: 45
+            Y: 70
+            Danger: 3
+            Risk: "\u539A\u58C1\u4E0E\u5DE2\u7A74\uFF08mock\u8D44\u6599\uFF09"
+            PreviewOnly: 1
+        PreparationTimeoutSeconds: 30
+        ArrivalTimeoutSeconds: 30
+        CaveMap:
+          Seed: STRATA-0922
+          Surface: needles
+          OrganicCaves: 0
+          DisableValleySculpt: 0
+          Amplitude: 1
+          OreDensity: 1
+          ResourceProfile: cave-exploration
+          Layout: connected-rooms
+          Structure:
+            Version: 1
+            Templates: cave-templates-v1
+            Entrance: valley
+            Road: erosion
+            RoomMix: mixed
+            SpaceRevision: 0
+            RoomCount: 16
+            RoomScale: 1
+            RoadRadius: 3
+            BranchShare: 0.45
+            BranchDepth: 3
+            RockGap: 0.12
+          Minerals:
+            Algorithm: regional-veins
+            Seed: ORE-1
+            Revision: 0
+            VeinCount: 8
+            Capacity: 180
+            EmptyShare: 0.18
+            ExposedShare: 0.35
+            RichShare: 0.35
+            Nests: 1
+          Rules:
+            Enabled: 0
+            Version: 1
+            Templates: cave-templates-v1
+            Entrance: valley
+            Road: erosion
+            RoomMix: mixed
+            ContentSeed: ORE-1
+            SpaceRevision: 0
+            ContentRevision: 0
+            RoomCount: 16
+            RoomScale: 1
+            RoadRadius: 3
+            BranchShare: 0.45
+            BranchDepth: 3
+            RockGap: 0.12
+            VeinCount: 8
+            Capacity: 180
+            EmptyShare: 0.18
+            ExposedShare: 0.35
+            RichShare: 0.35
+            Nests: 1
+          SurfaceAlgorithm: 
+          Relief:
+            Enabled: 0
+            BaseHeightCells: 0
+            HeightCells: 8
+            WavelengthCells: 64
+            DockTransitionCells: 16
+          RegionOverrides: []
+          SeedSelection:
+            Mode: fixed
+            Seeds: []
+        ReviewedMap: {fileID: 0}
+        Geology:
+          Enabled: 0
+          SiteId: collapse-01
+          Definition: {fileID: 0}
+          Configuration:
+            EventId: support
+            EnterRegion: 0
+            SupportU: 50
+            SupportV: -41
+            RegionU: 68
+            RegionV: -41
+            RegionWidth: 4
+            RegionHeight: 4
+            SourceU: 52
+            SourceV: -36
+            LandingU: 52
+            LandingV: -41
+            Width: 3
+            SourceRows: 1
+            RubbleWidth: 3
+            Gravity: 320
+            WarningSeconds: 2
+            FragmentDelay: 0.045
+            OccupancyWaitSeconds: 8
+            Material: slate
+          AllowedU: 0
+          AllowedV: -100
+          AllowedWidth: 16
+          AllowedHeight: 16
+          RetreatU: 0
+          RetreatV: -100
+          RetreatWidth: 3
+          RetreatHeight: 3
+          Association: 
+        Planets:
+        - Id: grey-pine
+          DisplayName: "\u7070\u677E\u661F"
+          Description: "\u5F00\u653E\u5929\u7A7A\u4E0E\u98DE\u8239\u6CCA\u4F4D\uFF0C\u6D1E\u53E3\u53CA\u5730\u4E0B\u5E03\u5C40\u7531\u5730\u56FE\u89C4\u5219\u786E\u5B9A\u3002"
+          Enabled: 1
+          Seed: 
+          DockColumn: 36
+          DockRow: 40
+          LandingWidth: 32
+          ArrivalHeight: 176
+          HorizontalRange: 240
+          MaximumLift: 448
+          TransitSeconds: 0.8
+          StarCount: 120
+          StarSpeed: 110
+          TransitionKind: star-shift
+          SpaceColorHex: '#060C20'
+          SkyColorHex: '#243B55'
+        ModifierSchemaVersion: 1
+        Modifiers: []

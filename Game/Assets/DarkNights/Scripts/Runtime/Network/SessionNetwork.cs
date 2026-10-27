@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using AnyRules.Next.FishNet;
 using Cysharp.Threading.Tasks;
@@ -49,6 +48,7 @@ namespace DarkNights.Runtime.Network
         private Transform objectParent;
         private float debugHeroSpeedMultiplier = 1;
         public SessionClient Client { get; private set; }
+        public SessionRoomService Rooms { get; private set; }
         public SessionServer Server => activeSession?.Server;
         public CampSessionBehaviour ActiveSession => activeSession;
         internal int ConnectionAttempt => attempt;
@@ -81,10 +81,9 @@ namespace DarkNights.Runtime.Network
             storage.Initialize(args);
             // 地图编辑命令只迁移程序集，注册 ID 与载荷不变；握手仍使用已发布的类型表身份。
             DefinitionNetworkProfile.RegisterWireAssemblyAlias(typeof(TerrainEditCommand), "AnyRules.FishNet");
-            authenticator = manager.gameObject.AddComponent<DefinitionNetworkAuthenticator>();
-            authenticator.Configure(ObjectDefinitionDatabase.Instance,
+            Rooms = gameObject.AddComponent<SessionRoomService>();
+            authenticator = Rooms.Install(this, manager, ObjectDefinitionDatabase.Instance,
                 SessionContentFingerprint.Create(catalog, layout, resources, placements));
-            manager.ServerManager.SetAuthenticator(authenticator);
             GenericTypeSerializer<GameCore.Objects.NetworkStates.IStateData>.MaximumPayloadBytes = ProjectionCodec.MaximumBytes + 1024;
             GenericTypeSerializer<INetworkCommand>.MaximumPayloadBytes = 8192;
             NetworkCommandGateway.Instance.RoutingMode = NetworkCommandRoutingMode.ServerAuthoritative;
@@ -142,7 +141,7 @@ namespace DarkNights.Runtime.Network
                     if (!manager.IsServerStarted) throw new TimeoutException("房间启动超时。");
                     preparing = new ObjectSession(catalog, layout, ObjectResources,
                         () => this != null && current == attempt && manager.IsServerStarted, objectParent,
-                        debugHeroSpeedMultiplier);
+                        debugHeroSpeedMultiplier, spawnNewPlayersInCabin: Rooms.Active && quickTest == null);
                     var view = await CreateCurrent(FormalObjectCatalog.SessionKey, current, preparing.Context);
                     if (this == null || current != attempt) { if (view != null) Destroy(view.gameObject); return; }
                     if (view == null) throw new InvalidOperationException("正式会话对象创建失败。");
@@ -218,8 +217,8 @@ namespace DarkNights.Runtime.Network
                 if (!Client.HadReady) Client.ClearRecovery();
                 Client.Dispose();
                 if (!Hosting) ReplicaObjects.Clear();
-                Status = !Hosting && !string.IsNullOrEmpty(authenticator.LastFailure)
-                    ? authenticator.LastFailure : "连接已结束";
+                Status = !Hosting && !string.IsNullOrEmpty(Rooms.AuthenticationFailure)
+                    ? Rooms.AuthenticationFailure : "连接已结束";
             }
         }
 
@@ -246,6 +245,7 @@ namespace DarkNights.Runtime.Network
 
         public void Disconnect()
         {
+            Rooms?.Stop();
             attempt++;
             Terrain?.Disconnect();
             connecting = false;
@@ -288,7 +288,7 @@ namespace DarkNights.Runtime.Network
                 manager.ServerManager.OnServerConnectionState -= ServerState;
                 if (manager.ServerManager.GetAuthenticator() == authenticator) manager.ServerManager.SetAuthenticator(null);
             }
-            if (authenticator != null) Destroy(authenticator);
+            if (authenticator != null) { Rooms?.DisposeGate(); Destroy(authenticator); }
             if (Client != null) Client.Failed -= Fail;
             ReplicaObjects?.Dispose();
             ObjectResources?.Dispose();

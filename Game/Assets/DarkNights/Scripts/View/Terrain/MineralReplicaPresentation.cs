@@ -26,6 +26,8 @@ namespace DarkNights.View.Terrain
         public bool Ready => currentDataReady && replica != null && generation == replica.Generation && view?.Ready == true;
         public Exception LastError => view?.LastError;
         public long BuiltPages => view?.BuiltPages ?? 0;
+        public TerrainPageProgress PageProgress => currentDataReady && replica != null && generation == replica.Generation
+            ? view?.PageProgress ?? default : default;
         public long InputBatches => view?.InputBatches ?? 0;
         public string WaitReason => view?.WaitReason ?? "等待矿层数据／页面退休";
         public MineralReplicaPresentation(Transform parent, ARDMapDefinition definition, Camera camera, Texture lights, float ambient)

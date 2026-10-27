@@ -28,6 +28,13 @@ namespace DarkNights.Core.Save
                 !d.Planets.Any(p => p.Enabled)) return "星球目录缺失、重复或超限";
             if (stableOnly && d.Phase is not (JourneyPhase.Orbit or JourneyPhase.Landed))
                 return "航程切换期间不能保存";
+            if (!d.Navigation.Survey.IsRevealed(d.Navigation.X, d.Navigation.Y)) return "本船位置尚未勘测";
+            var first = d.Navigation.Definition.Nodes.FirstOrDefault(n => !n.PreviewOnly);
+            if (first == null || !d.Navigation.Survey.IsRevealed(first.X, first.Y)) return "初始星体尚未登记";
+            if (d.Navigation.CoordinateFlight)
+                return d.Phase == JourneyPhase.Transit && Guid.TryParseExact(d.JourneyId, "N", out var coordinateId) &&
+                    coordinateId != Guid.Empty && d.PlanetId.Length == 0 && d.MapId.Length == 0 && d.Seed.Length == 0
+                    ? "" : "坐标航程身份或阶段无效";
             if (d.Phase == JourneyPhase.Orbit)
                 return d.JourneyId.Length == 0 && d.PlanetId.Length == 0 && d.Seed.Length == 0 &&
                     d.MapId.Length == 0 && d.PhaseElapsed == 0 ? "" : "太空待命仍携带未提交目的地";

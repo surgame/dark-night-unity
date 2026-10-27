@@ -136,7 +136,7 @@ namespace DarkNights.Runtime.Network
         }
 
         public async ValueTask<long> Send(SessionOperation operation, int[] actors = null, int target = 0,
-            float x = 0, string kind = "", int value = 0, int controlLease = 0)
+            float x = 0, string kind = "", int value = 0, int controlLease = 0, float y = 0)
         {
             var frame = Replica.Current;
             if (!Ready || endpoint == null || frame == null) throw new InvalidOperationException("会话尚未就绪。");
@@ -146,7 +146,7 @@ namespace DarkNights.Runtime.Network
                 SenderObjectId = endpoint.ObjectId, Protocol = SessionAuthority.ProtocolVersion,
                 Epoch = frame.Epoch, PolicyRevision = frame.PolicyRevision, RequestSequence = request,
                 Operation = operation, ActorIds = actors == null ? Array.Empty<int>() : (int[])actors.Clone(),
-                TargetId = target, X = x, Kind = kind, Value = value, ControlLease = controlLease
+                TargetId = target, X = x, Y = y, Kind = kind, Value = value, ControlLease = controlLease
             });
             return request;
         }

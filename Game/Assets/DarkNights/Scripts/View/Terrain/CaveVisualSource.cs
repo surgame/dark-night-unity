@@ -26,7 +26,7 @@ namespace DarkNights.View.Terrain
         private readonly Material background;
         private readonly GameObject backdrop;
         private readonly Mesh mesh;
-        private readonly CaveBackgroundCache staticBackground;
+        private readonly CaveBackgroundReference staticBackground;
         private readonly CaveRockSurface rockSurface;
         private readonly CaveLocalRockSurface localRockSurface;
         private readonly CaveForegroundCoverage coverage;
@@ -35,8 +35,10 @@ namespace DarkNights.View.Terrain
         private byte[] deviceLights;
         private bool oreDirty = true, lightFullDirty = true, lightInitialized, rockInitialized;
         public bool IsSourceDriven => source is ITerrainInputSource;
-        public bool BackgroundReady => (staticBackground == null || staticBackground.Ready) &&
-            (rockSurface == null || rockSurface.Ready) && (localRockSurface == null || localRockSurface.Ready);
+        public bool ForegroundReady => (rockSurface == null || rockSurface.Ready) && (localRockSurface == null || localRockSurface.Ready);
+        public bool BackgroundReady => ForegroundReady && (staticBackground == null || staticBackground.Ready);
+        public TerrainPageProgress RockProgress => localRockSurface?.Progress ?? rockSurface?.Progress ?? new TerrainPageProgress(0, 0);
+        public TerrainPageProgress BackgroundProgress => staticBackground?.Progress ?? new TerrainPageProgress(0, 0);
         public string RefreshPath => localRockSurface != null ? "LocalV2 / bounded patches" :
             rockSurface != null ? "LegacyV1 / full foreground bake" : "DualGrid / texture";
         public int RockBuildCount => (rockSurface?.BuildCount ?? 0) + (localRockSurface?.BuildCount ?? 0);
@@ -75,7 +77,8 @@ namespace DarkNights.View.Terrain
         }
 
         public CaveVisualSource(IMapChunkSource source, CaveTerrainStyle style, TileCatalog catalog, Transform parent,
-            DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null, bool surfaceSky = false, GridBounds localBackground = default)
+            DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference = null, bool surfaceSky = false,
+            GridBounds localBackground = default, bool foregroundFirst = false)
         {
             this.source = source;
             string[] keys = { "loam", "slate", "basalt", "copper", "iron", "gold", "moss", "bedrock" };
@@ -114,9 +117,9 @@ namespace DarkNights.View.Terrain
             var renderer = backdrop.AddComponent<MeshRenderer>(); renderer.sharedMaterial = background;
             renderer.sortingOrder = surfaceSky ? style.Background.NearOrder + 1 : -96;
             if (style.Background != null && style.Background.ContourStatic)
-                staticBackground = new CaveBackgroundCache(reference, style.Background, background, parent,
+                staticBackground = new CaveBackgroundReference(reference, style.Background, background, parent,
                     style.ProceduralRock ? style.CaptureOutline() : null, style.DecorationStartRow, surfaceSky, localBackground,
-                    coverage, key => knownCells[key] == Page * Page);
+                    coverage, key => knownCells[key] == Page * Page, foregroundFirst);
             if (coverage != null && staticBackground != null) coverage.CanPresent = staticBackground.CanPresent;
         }
         public async Task<MapChunkData> LoadAsync(WorldDescriptor descriptor, ChunkCoord coordinate, CancellationToken cancellation)
@@ -202,9 +205,14 @@ namespace DarkNights.View.Terrain
             backdrop.SetActive(bounds.IsValid);
             staticBackground?.SetVisible(bounds); rockSurface?.SetVisible(bounds); localRockSurface?.SetVisible(bounds);
         }
-        public void TickBackground()
+        /// <summary>制作输入变更时替换完整冻结背景参考；普通挖掘不会调用，不从当前运行格子重烘初始背景。</summary>
+        public void ReplaceAuthoringReference(DarkNights.Core.Config.Terrain.BackgroundBakeDescriptor reference)
+        { staticBackground?.Replace(reference); }
+        /// <summary>制作窗口在地形首帧后显式启动保留的背景输入；运行默认已启动，不重复建任务。</summary>
+        public bool StartDeferredBackground() => staticBackground?.Start() ?? false;
+        public void TickBackground(int maximumPages = 1)
         {
-            staticBackground?.Tick(); rockSurface?.Tick(); localRockSurface?.Tick();
+            staticBackground?.Tick(maximumPages); rockSurface?.Tick(); localRockSurface?.Tick(maximumPages * 2);
             staticBackground?.UpdateOcclusion();
         }
         public void Dispose()

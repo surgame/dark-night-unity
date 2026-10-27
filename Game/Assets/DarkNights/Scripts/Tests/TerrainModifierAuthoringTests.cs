@@ -54,6 +54,7 @@ namespace DarkNights.Tests
             var draft = ScriptableObject.CreateInstance<ExpeditionFlowDraft>();
             try
             {
+                draft.Config.Modifiers.Add(new EntranceWalkwayModifierConfig());
                 using var serialized = new SerializedObject(draft);
                 using var tree = PropertyTree.Create(serialized);
                 tree.UpdateTree();
@@ -79,7 +80,9 @@ namespace DarkNights.Tests
         {
             var source = ScriptableObject.CreateInstance<ObjectDefinition>();
             var draft = ScriptableObject.CreateInstance<ExpeditionFlowDraft>();
-            var config = new ExpeditionFlowConfig(); source.SharedConfigs.Add(config);
+            var config = new ExpeditionFlowConfig();
+            config.Modifiers.Add(new EntranceWalkwayModifierConfig());
+            source.SharedConfigs.Add(config);
             try
             {
                 Call(draft, "Load", source);
@@ -102,7 +105,9 @@ namespace DarkNights.Tests
         [Test]
         public void FingerprintTracksOrderParametersAndMissingEntriesAreRejected()
         {
-            var config = new ExpeditionFlowConfig(); string original = config.Fingerprint();
+            var config = new ExpeditionFlowConfig();
+            config.Modifiers.Add(new EntranceWalkwayModifierConfig());
+            string original = config.Fingerprint();
             ((EntranceWalkwayModifierConfig)config.Modifiers[0]).Enabled = false;
             Assert.That(config.Fingerprint(), Is.Not.EqualTo(original));
             config.Modifiers.Add(new EntranceWalkwayModifierConfig { Headroom = 7 });
@@ -112,6 +117,26 @@ namespace DarkNights.Tests
             config.Modifiers.Clear(); Assert.DoesNotThrow(() => config.Validate());
             config.ModifierSchemaVersion = 0;
             Assert.That(config.CopyModifiers().Single(), Is.TypeOf<EntranceWalkwayModifierConfig>());
+        }
+
+        [Test]
+        public void FrozenMapKeepsExistingJourneyIdentityWhileGeneratedMapUsesCurrentVersion()
+        {
+            var map = ScriptableObject.CreateInstance<DarkNights.Runtime.Terrain.ReviewedMineMap>();
+            var content = new TextAsset("{}");
+            using var hash = System.Security.Cryptography.SHA256.Create();
+            string Sha(string text) => BitConverter.ToString(hash.ComputeHash(System.Text.Encoding.UTF8.GetBytes(text)))
+                .Replace("-", "").ToLowerInvariant();
+            try
+            {
+                map.Content = content; map.ContentSha256 = Sha(content.text);
+                var config = new ExpeditionFlowConfig { ReviewedMap = map };
+                Assert.That(config.Fingerprint(), Is.EqualTo(Sha("dn-space-planet-v5|" + config.CanonicalIdentity())));
+                config.ReviewedMap = null;
+                Assert.That(config.Fingerprint(), Is.EqualTo(Sha("dn-space-planet-v" +
+                    DarkNights.Core.Logic.Terrain.PlanetTerrainGenerator.Version + "|" + config.CanonicalIdentity())));
+            }
+            finally { UnityEngine.Object.DestroyImmediate(map); UnityEngine.Object.DestroyImmediate(content); }
         }
     }
 }

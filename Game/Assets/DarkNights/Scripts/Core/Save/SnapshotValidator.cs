@@ -77,11 +77,13 @@ namespace DarkNights.Core.Save
                 if (extra.Length != 0) return extra;
                 extra = JourneyValidator.Environment(s.Expedition.Journey, s.Terrain);
                 if (extra.Length != 0) return extra;
-                if (s.Buildings.Count(b => b.Kind == "ship") != 1) return "远征飞船数量无效";
+                if (s.Buildings.Count(b => b.Kind == "ship") != (s.Expedition.Ship == null ? 0 : 1))
+                    return "远征飞船数量无效";
                 var ship = s.Buildings.FirstOrDefault(b => b.Kind == "ship");
                 var device = s.Expedition.Devices.FirstOrDefault(d => d.Id == ship?.Id);
-                if (ship == null || device == null || !ExpeditionShipValidator.Transform(s.Expedition.Ship, ship.Id, (float)ship.X,
-                    device.Height, catalog.Balance.Expedition.Ship, s.Expedition.Journey))
+                if (s.Expedition.Ship != null && (ship == null || device == null ||
+                    !ExpeditionShipValidator.Transform(s.Expedition.Ship, ship.Id, (float)ship.X,
+                    device.Height, catalog.Balance.Expedition.Ship, s.Expedition.Journey)))
                     return "飞船泊位或位置不匹配";
             }
             string mineralError = MineralSnapshotValidator.Validate(s);

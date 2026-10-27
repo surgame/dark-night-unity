@@ -1,0 +1,120 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="MainMenu.uss" />
+    <ui:VisualElement name="menuRoot" class="menu-root">
+        <ui:VisualElement class="menu-landscape" picking-mode="Ignore" />
+        <ui:VisualElement name="content" class="menu-content">
+            <ui:VisualElement name="home" class="menu-page">
+                <ui:Label name="title" text="DARK&#10;NIGHTS" class="menu-title" />
+                <ui:VisualElement class="menu-rule" />
+                <ui:VisualElement class="menu-navigation">
+                    <ui:Button name="openPrepare" text="开始游戏  ›" class="menu-button" />
+                    <ui:Button name="continueGame" text="继续游戏" class="menu-button" />
+                    <ui:Button name="openJoin" text="加入游戏  ›" class="menu-button" />
+                    <ui:Button name="openSettings" text="设置" class="menu-button" />
+                    <ui:Button name="openQuit" text="退出游戏" class="menu-button" />
+                </ui:VisualElement>
+                <ui:VisualElement class="menu-location" picking-mode="Ignore">
+                    <ui:Label text="灰松谷" class="menu-location-title" />
+                    <ui:Label text="灯还亮着，船在等你。" class="menu-note" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="prepare" class="menu-page menu-form menu-hidden">
+                <ui:Button name="prepareBack" text="← 返回" class="menu-back" />
+                <ui:Label text="游戏准备" class="menu-heading" />
+                <ui:VisualElement class="menu-setup">
+                    <ui:Label text="队伍方式" class="menu-label" />
+                    <ui:VisualElement class="menu-modes">
+                        <ui:Button name="localMode" text="仅自己" class="menu-button menu-choice" />
+                        <ui:Button name="lanMode" text="局域网" class="menu-button menu-choice menu-selected" />
+                        <ui:Button name="friendsMode" text="好友邀请" class="menu-button menu-choice" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="hostFields" class="menu-host-fields">
+                        <ui:VisualElement class="menu-host-field menu-room-name">
+                            <ui:Label text="房间名称" class="menu-input-label" />
+                            <ui:TextField name="roomName" value="灰松谷房间" max-length="32" class="menu-field" />
+                        </ui:VisualElement>
+                        <ui:VisualElement class="menu-host-field">
+                            <ui:VisualElement class="menu-row">
+                                <ui:Label text="加入密码" class="menu-input-label" />
+                                <ui:Label text="可选" class="menu-optional" />
+                            </ui:VisualElement>
+                            <ui:TextField name="hostPassword" is-password-field="true" max-length="64" class="menu-field" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:Label name="prepareError" class="menu-error menu-hidden" />
+                    <ui:Button name="createRoom" text="开始游戏  ›" class="menu-action menu-start" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="browser" class="menu-page menu-browser menu-hidden">
+                <ui:Button name="browserBack" text="← 返回" class="menu-back" />
+                <ui:Label text="加入游戏" class="menu-heading" />
+                <ui:VisualElement class="menu-tabs">
+                    <ui:Button name="friendsTab" text="好友房间" class="menu-tab" />
+                    <ui:Button name="lanTab" text="局域网" class="menu-tab menu-selected" />
+                    <ui:VisualElement class="menu-space" />
+                    <ui:Button name="openDirect" text="地址直连" class="menu-back menu-small" />
+                </ui:VisualElement>
+                <ui:VisualElement class="menu-row">
+                    <ui:Label name="roomCount" class="menu-note" />
+                    <ui:VisualElement class="menu-space" />
+                    <ui:Button name="refreshRooms" text="重新搜索" class="menu-back menu-small" />
+                </ui:VisualElement>
+                <ui:VisualElement class="menu-row room-head">
+                    <ui:Label text="房间" class="room-name-column" />
+                    <ui:Label text="人数" class="room-count-column" />
+                    <ui:Label text="Ping" class="room-ping-column" />
+                </ui:VisualElement>
+                <ui:ListView name="rooms" class="room-list" />
+                <ui:Label name="browserHint" class="menu-text" />
+            </ui:VisualElement>
+            <ui:VisualElement name="direct" class="menu-page menu-flow menu-hidden">
+                <ui:Button name="directBack" text="← 返回房间列表" class="menu-back" />
+                <ui:Label text="地址直连" class="menu-heading" />
+                <ui:TextField name="address" label="房主IPv4地址" value="127.0.0.1" class="menu-field" />
+                <ui:Label text="当前正式游戏端口：27777" class="menu-note" />
+                <ui:Label name="directError" class="menu-error" />
+                <ui:Button name="joinAddress" text="连接房间  ›" class="menu-action" />
+            </ui:VisualElement>
+            <ui:VisualElement name="password" class="menu-page menu-flow menu-hidden">
+                <ui:Button name="passwordBack" text="← 返回房间列表" class="menu-back" />
+                <ui:Label text="需要房间密码" class="menu-heading" />
+                <ui:Label name="passwordRoom" class="menu-subtitle" />
+                <ui:TextField name="roomPassword" is-password-field="true" max-length="64" class="menu-field menu-password" />
+                <ui:Button name="showPassword" text="显示密码" class="menu-back menu-small" />
+                <ui:Label name="passwordError" class="menu-error" />
+                <ui:Button name="joinPassword" text="加入房间  ›" class="menu-action" />
+            </ui:VisualElement>
+            <ui:VisualElement name="waiting" class="menu-page menu-flow menu-hidden">
+                <ui:Button name="cancelJoin" text="← 取消加入" class="menu-back" />
+                <ui:Label name="waitingTitle" text="正在加入房间" class="menu-heading" />
+                <ui:Label name="waitingRoom" class="menu-subtitle" />
+                <ui:Label name="phase0" text="联系房主" class="menu-phase menu-current" />
+                <ui:Label name="phase1" text="校验房间" class="menu-phase" />
+                <ui:Label name="phase2" text="接收房间数据" class="menu-phase" />
+                <ui:Label name="phase3" text="进入游戏" class="menu-phase" />
+                <ui:Label name="waitingDetail" class="menu-note" />
+            </ui:VisualElement>
+            <ui:VisualElement name="failure" class="menu-page menu-flow menu-hidden">
+                <ui:Button name="failureBack" text="← 返回房间列表" class="menu-back" />
+                <ui:Label text="未能加入房间" class="menu-heading" />
+                <ui:Label name="failureMessage" class="menu-error" />
+                <ui:Button name="retryJoin" text="重新连接  ›" class="menu-action" />
+            </ui:VisualElement>
+            <ui:VisualElement name="settings" class="menu-page menu-settings menu-hidden">
+                <ui:Button name="settingsBack" text="← 返回" class="menu-back" />
+                <ui:Label text="设置" class="menu-heading" />
+                <ui:Slider name="volume" label="主音量" low-value="0" high-value="1" value="1" />
+                <ui:Toggle name="fullscreen" label="全屏显示" />
+                <ui:Button name="openHelp" text="操作与帮助  ›" class="menu-action" />
+            </ui:VisualElement>
+            <ui:VisualElement name="confirm" class="menu-page menu-confirm menu-hidden">
+                <ui:Label name="confirmTitle" class="menu-heading" />
+                <ui:Label name="confirmText" class="menu-text" />
+                <ui:VisualElement class="menu-row">
+                    <ui:Button name="confirmYes" text="确认  ›" class="menu-action" />
+                    <ui:Button name="confirmNo" text="取消" class="menu-back" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

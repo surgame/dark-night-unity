@@ -1,3 +1,4 @@
+using DarkNights.Tests.TerrainReference;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,9 +27,9 @@ namespace DarkNights.Tests
         [Test]
         public void SelectionIsDeterministicAndKeepsCampClear()
         {
-            var a = PlayableTerrainGenerator.Generate("selection-a", Id);
-            var b = PlayableTerrainGenerator.Generate("selection-a", Id);
-            var c = PlayableTerrainGenerator.Generate("selection-b", Id);
+            var a = HistoricalPlayableTerrainGenerator.Generate("selection-a", Id);
+            var b = HistoricalPlayableTerrainGenerator.Generate("selection-a", Id);
+            var c = HistoricalPlayableTerrainGenerator.Generate("selection-b", Id);
             CollectionAssert.AreEqual(a.CopyMaterials(), b.CopyMaterials());
             Assert.That(a.CopyMaterials().SequenceEqual(c.CopyMaterials()), Is.False);
             for (int x = 0; x < PlayableTerrain.CampColumns; x++)
@@ -42,8 +43,8 @@ namespace DarkNights.Tests
         {
             using var scope = await UnifiedSessionScope.Create();
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(Editor.Terrain.TerrainTestAssets.DefinitionPath);
-            var catalog = RuleScenario.Catalog(); var layout = PlayableTerrainGenerator.Layout(RuleScenario.Layout());
-            var selected = PlayableTerrainGenerator.Generate("save-restore", Id);
+            var catalog = RuleScenario.Catalog(); var layout = HistoricalPlayableTerrainGenerator.Layout(RuleScenario.Layout());
+            var selected = HistoricalPlayableTerrainGenerator.Generate("save-restore", Id);
             var world = scope.NewWorld(catalog, layout, false, terrain: value =>
                 new SessionTerrain(value.Context, definition.LoadGameplayCatalog(), selected, definition: definition));
             using var authority = new SessionAuthority(world);
@@ -103,8 +104,8 @@ namespace DarkNights.Tests
         {
             using var scope = await UnifiedSessionScope.Create();
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(Editor.Terrain.TerrainTestAssets.DefinitionPath);
-            var catalog = RuleScenario.Catalog(); var layout = PlayableTerrainGenerator.Layout(RuleScenario.Layout());
-            var selected = PlayableTerrainGenerator.Generate("soft-rock-save", Id);
+            var catalog = RuleScenario.Catalog(); var layout = HistoricalPlayableTerrainGenerator.Layout(RuleScenario.Layout());
+            var selected = HistoricalPlayableTerrainGenerator.Generate("soft-rock-save", Id);
             var world = scope.NewWorld(catalog, layout, false, terrain: value =>
                 new SessionTerrain(value.Context, definition.LoadGameplayCatalog(), selected, definition: definition));
             using var authority = new SessionAuthority(world);

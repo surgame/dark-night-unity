@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35eade08ed41e4f4eab6e551a47fe259, type: 3}
+  m_Name: Map
+  m_EditorClassIdentifier: DarkNights.Runtime::DarkNights.Runtime.Terrain.ReviewedMineMap
+  Content: {fileID: 4900000, guid: fe9d5c80b97ef054dadaee51a143676b, type: 3}
+  Recipe: map-workbench-v2
+  ContentSha256: a34283af425457d4b69e50fbd39ef5a9ff8663566ff600a819db7a6815ed5751
+  SourceIdentity: 400d84d22f5c31cee280fdd0bd8192a4c6dfceb4635c5b731dfa8e2b4b0b3741

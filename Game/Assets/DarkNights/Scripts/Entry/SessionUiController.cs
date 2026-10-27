@@ -17,7 +17,7 @@ using UnityEngine.UI;
 namespace DarkNights.Entry
 {
     /// <summary>
-    /// 把既有 UGUIManager 创建的面板、客户端输入与同一网络命令入口装配起来，不持有权威规则状态。
+    /// 组合YYGC原生UITK主菜单、既有UGUI游戏面板与同一网络命令入口，不持有权威规则状态。
     /// 面板和 Interaction Session 随应用释放；每次连接或 epoch 变化清空选择，Ready 前不发业务命令。
     /// </summary>
     [DefaultExecutionOrder(-700)]
@@ -31,7 +31,7 @@ namespace DarkNights.Entry
         private ShipTradeHud trade;
         private SessionEntityViews entities;
         private PinewatchStage stage;
-        private MainMenuBehaviour main;
+        private MainMenuCoordinator main;
         private PauseMenuBehaviour pause;
         private ResultMenuBehaviour result;
         private HelpMenuBehaviour help;
@@ -48,10 +48,12 @@ namespace DarkNights.Entry
         public CampInput Input => input;
         public GameInputActions Actions => actions;
         public string Page => page;
+        public bool MainMenuAtHome => page == "MainMenu" && main?.Panel?.Page == "home";
         public void PresentEvent(PresentationEvent value, double age) => hud.PresentEvent(value, age);
 
         public void ActivateButton(string panel, string key)
         {
+            if (panel == "MainMenu") { main.Panel.Activate(key); return; }
             Button button = View(panel).Get<Button>(key);
             if (!button.gameObject.activeInHierarchy || !button.interactable)
                 throw new InvalidOperationException("Button is not available: " + panel + "/" + key);
@@ -86,24 +88,25 @@ namespace DarkNights.Entry
                     action == "Repair" && input.Selected.Count == 1 ? input.Selected[0] : 0)).Forget();
                 panel.gameObject.SetActive(false);
             }
-            main = Behaviour<MainMenuBehaviour>("MainMenu");
+            main = new MainMenuCoordinator(network, action => Execute(new InputIntent(action, Array.Empty<int>())),
+                () => saveSlot, value => saveSlot = value);
+            await main.Initialize(transform);
             pause = Behaviour<PauseMenuBehaviour>("PauseMenu");
             result = Behaviour<ResultMenuBehaviour>("Result");
             help = Behaviour<HelpMenuBehaviour>("Help");
             help.Configure(actions, View("Help").Get<Button>("Back"));
             hud = Behaviour<CampHudBehaviour>("Chrome");
             hud.Configure(catalog, expedition);
+            if (expedition) hud.MoveSessionControls(View("PauseMenu"));
             hero = gameObject.AddComponent<HeroPlayerController>();
             hero.Initialize(network, input, actions, stage, Behaviour<HeroHudBehaviour>("Hero"), entities, catalog);
             if (expedition)
             {
                 trade = gameObject.AddComponent<ShipTradeHud>();
-                await trade.Initialize(network, actions, hero, entities, catalog);
+                await trade.Initialize(network, actions, hero, entities, catalog, stage.SceneCamera);
             }
             network.Client.Feedback += Feedback;
             network.Failed += Failed;
-            if (network.Terrain != null) View("MainMenu").Get<Button>("Map").onClick.AddListener(() => Execute(new InputIntent("SelectMap", Array.Empty<int>())).Forget());
-            View("MainMenu").Get<Button>("Map").gameObject.SetActive(network.Terrain != null);
             initialized = true;
             Switch("MainMenu");
             DarkNights.Runtime.Diagnostics.BootstrapStartupTrace.Mark("MenuActivated");
@@ -123,9 +126,8 @@ namespace DarkNights.Entry
             string slotPath = System.IO.Path.Combine(network.SaveDirectory, $"slot-{saveSlot:D2}.dnsave.json");
             bool exists = System.IO.File.Exists(slotPath);
             string slotLabel = $"存档槽位 {saveSlot + 1} / 10 · {(exists ? "已有存档" : "空槽位")} · 点击切换";
-            View("MainMenu").Get<Text>("SlotLabel").text = slotLabel;
             View("PauseMenu").Get<Text>("SlotLabel").text = slotLabel;
-            View("MainMenu").Get<Button>("Continue").interactable = exists && !continuePending;
+            main.Present(saveSlot, exists, page == "MainMenu");
             bool canStore = network.Client.Ready && network.Client.PlayerSlot == 0 && network.Server?.Storage.Busy == false;
             View("PauseMenu").Get<Button>("Save").interactable = canStore;
             View("PauseMenu").Get<Button>("Load").interactable = canStore && exists;
@@ -154,8 +156,6 @@ namespace DarkNights.Entry
             if (frame == null)
             {
                 if (page != "MainMenu" && page != "Help") Switch("MainMenu");
-                main.ShowStatus(network.Status == "未连接" || network.Status == "连接已结束"
-                    ? (network.Terrain?.SelectionStatus ?? "创建房间后，可供同一局域网的玩家加入。") : network.Status);
                 panels["Chrome"].gameObject.SetActive(false);
                 return;
             }
@@ -207,7 +207,6 @@ namespace DarkNights.Entry
                 if (action == "NewGame" || action == "Join" || action == "Continue")
                 {
                     continuePending = action == "Continue";
-                    if (action != "Join" && network.Terrain != null) await network.Terrain.EnsureSelected();
                     if (network.Client.Replica.Current != null) network.Disconnect();
                     while (network.Hosting) await UniTask.Yield();
                     await network.Connect(action != "Join", action == "Join" ? main.Address.Trim() : "127.0.0.1", 27777);
@@ -245,7 +244,7 @@ namespace DarkNights.Entry
                 else if (action == "Save") await network.Client.Send(SessionOperation.Save, value: saveSlot);
                 else if (action == "Load") await network.Client.Send(SessionOperation.BeginLoad, value: saveSlot);
             }
-            catch (Exception error) { Failed(error); }
+            catch (Exception error) { main?.ReportFailure(error); Failed(error); }
         }
 
         private void Switch(string value)
@@ -253,6 +252,7 @@ namespace DarkNights.Entry
             if (page == "Help" && value != "Help") help.CloseSettings();
             modal?.Dispose(); modal = null;
             page = value;
+            main?.SetVisible(page == "MainMenu");
             if (page.Length != 0) trade?.Close();
             if (page == "Help") help.Present();
             input.CancelBuild();
@@ -289,6 +289,7 @@ namespace DarkNights.Entry
         private UGUIView View(string key) => panels[key].GetView<UGUIView>();
         private void OnDestroy()
         {
+            main?.Dispose();
             if (entities != null) entities.SetIntentHandler(null);
             modal?.Dispose();
             if (network != null) { network.Client.Feedback -= Feedback; network.Failed -= Failed; }

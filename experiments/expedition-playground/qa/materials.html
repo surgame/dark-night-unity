@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dark Nights 像素素材对照</title>
+<style>
+body{margin:0;background:#1b150f;color:#d1cebc;font:14px "Microsoft YaHei",sans-serif;padding:28px}h1{font-size:24px;font-weight:500}h2{font-size:17px;color:#b29566;margin-top:28px}p{color:#9ba29b;line-height:1.8;max-width:980px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;max-width:1120px}.card{background:#261d14;border:1px solid #463526;padding:12px;text-align:center;min-height:128px}canvas{display:block;margin:0 auto 10px;image-rendering:pixelated;background:repeating-conic-gradient(#211b15 0 25%,#2d251c 0 50%) 0/12px 12px}.caption{font-size:11px;line-height:1.7;color:#b29566}.palette{display:flex;flex-wrap:wrap;gap:5px;margin:16px 0}.swatch{height:20px;width:20px}#audit{color:#d1cebc;font-size:12px}a{color:#c7b58b}
+</style>
+<h1>Dark Nights · 原生素材与像素候选</h1>
+<p>基准使用项目原图。新装备沿用手持作者色板、24×24画布及[8,12]握点；生态补色来自既有CL04纤维色与原生钻石矿层。每格放大查看像素，游戏内统一按角色尺度绘制。此页用于美术核对，不表示已获正式导入批准。</p>
+<a href="../dist/index.html#s-hanging">进入可操控实验 ↗</a>
+<div class="palette" id="palette"></div>
+<h2>工程基准 · 只读原图</h2><div class="grid" id="baseline"></div>
+<h2>全部装备 · 原生三件与20件新候选</h2><div class="grid" id="equipment"></div>
+<h2>场景物件 · 像素候选</h2><div class="grid" id="props"></div>
+<p id="audit">正在核对…</p>
+<script src="../src/catalog.js"></script>
+<script src="../src/scenes-features.js"></script>
+<script src="../src/project-assets.js"></script>
+<script src="../src/project-materials.js"></script>
+<script src="../src/pixel-art.js"></script>
+<script src="../src/pixel-equipment.js"></script>
+<script src="../src/pixel-props.js"></script>
+<script src="../src/feature-art.js"></script>
+<script>
+(async function () {
+  const D = window.DN; await D.loadProjectAssets(); D.makePixelArt();
+  const native = { pick: "pickaxeicon", pistol: "pistolicon", bomb: "bombicon" };
+  function card(parent, title, source, width, height, paint) {
+    const element = document.createElement("div"); element.className = "card";
+    const canvas = document.createElement("canvas"); canvas.width = 96; canvas.height = 96;
+    const c = canvas.getContext("2d"); c.imageSmoothingEnabled = false;
+    if (paint) paint(c);
+    else { const scale = Math.floor(88 / Math.max(width, height)); c.drawImage(source, (96-width*scale)/2, (96-height*scale)/2, width*scale, height*scale); }
+    element.append(canvas);
+    const label = document.createElement("div"); label.textContent = title; element.append(label);
+    const caption = document.createElement("div"); caption.className = "caption";
+    caption.textContent = width + " × " + height + " px"; element.append(caption);
+    document.getElementById(parent).append(element);
+  }
+  card("baseline", "工程矿工", null, 12, 12, function(c) {
+    c.drawImage(D.images.bodyIdle,24,24,48,48); c.drawImage(D.images.shirtIdle,24,24,48,48);
+  });
+  for (const [id, title] of [["pistol","工程手枪"],["rubble0","工程地质碎岩"],["grub-idle_a","CL04既有幼虫"]]) {
+    const img = D.images[id]; card("baseline",title,img,img.width,img.height);
+  }
+  card("baseline","工程金矿层裁片",null,8,8,c=>D.drawMineral(c,"gold",16,16,8,8));
+  card("baseline","工程钻石层裁片",null,8,8,c=>D.drawMineral(c,"diamond",16,16,8,8));
+  for (const [id, item] of Object.entries(D.items)) {
+    const img = native[id] ? D.images[native[id]] : D.pixelSprites[id].canvas;
+    card("equipment",item.name,img,img.width,img.height);
+  }
+  for (const id of ["crate-prop","sign-prop","trace-prop","lamp-prop","fungus0","sample-prop","vine-mouth","foam-prop","net-prop","exit-prop","vent-prop","core-prop","root-knot","valve-prop","amber-prop"]) {
+    const s = D.pixelSprites[id]; card("props",id,s.canvas,s.w,s.h);
+  }
+  for (const color of Object.values(D.pixelPalette)) {
+    const span = document.createElement("span"); span.className = "swatch"; span.style.background = color;
+    span.title = color; document.getElementById("palette").append(span);
+  }
+  let partial = 0; const unique = new Set();
+  const allowed = new Set(Object.values(D.pixelPalette).map(x=>x.toLowerCase()));
+  let outside = 0;
+  for (const s of Object.values(D.pixelSprites)) {
+    const bytes = s.canvas.getContext("2d").getImageData(0,0,s.w,s.h).data;
+    for (let i=0;i<bytes.length;i+=4) {
+      if (bytes[i+3]!==0 && bytes[i+3]!==255) partial++;
+      if (!bytes[i+3]) continue;
+      const color = "#" + Array.from(bytes.slice(i,i+3),v=>v.toString(16).padStart(2,"0")).join("");
+      if (!allowed.has(color) && !["#1b150f","#261d14"].includes(color)) outside++;
+    }
+  }
+  for (const key of Object.keys(D.items)) if (!native[key]) unique.add(D.pixelSprites[key].canvas.toDataURL());
+  const audit = document.getElementById("audit");
+  audit.dataset.items = Object.keys(D.items).length; audit.dataset.distinctNew = unique.size;
+  audit.dataset.partialAlpha = partial; audit.dataset.outsidePalette = outside;
+  audit.textContent = Object.keys(D.items).length + "件装备 / " + unique.size + "个不同的新轮廓；新制像素中半透明像素 " + partial + "，色板外像素 " + outside + "。原图透明度保持来源值。";
+})();
+</script>
+</html>

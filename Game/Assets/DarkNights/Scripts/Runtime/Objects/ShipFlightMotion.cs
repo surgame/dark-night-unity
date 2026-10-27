@@ -85,25 +85,15 @@ namespace DarkNights.Runtime.Objects
             float range = planet?.HorizontalRange ?? Rules.HorizontalRange;
             float lift = planet?.MaximumLift ?? Rules.MaximumLift;
             if (Math.Abs(x - s.DockX) > range || h < s.DockHeight || h > s.DockHeight + lift) return false;
-            for (float px = -ShipGeometry.HalfWidth; px <= ShipGeometry.HalfWidth; px += 2)
-                for (float py = 1; py <= ShipGeometry.Roof; py += 2)
-                    if (ShipGeometry.Hull(px, py) && TerrainHeroMotion.Solid(world.Terrain.Map, x + px, h + py)) return false;
-            return true;
+            return ShipLandingGeometry.HullClear(Solid, x, h);
         }
 
         private bool Supported(float x, float h)
         {
-            if (!TerrainHeroMotion.Solid(world.Terrain.Map, x - 56, h - 1) ||
-                !TerrainHeroMotion.Solid(world.Terrain.Map, x + 104, h - 1) ||
-                !TerrainHeroMotion.Solid(world.Terrain.Map, x + ShipGeometry.RampToe - 8, h - 1)) return false;
-            // 着陆必须为放大后的主角预留坡道及出口净空，不能只检查旧版 28px 的头顶高度。
-            for (float local = ShipGeometry.RampToe - HeroControlDefinition.BodyHalfWidth;
-                local <= ShipGeometry.RampHinge + HeroControlDefinition.BodyHalfWidth; local += 4)
-                for (float head = 1; head <= HeroControlDefinition.BodyHeight + 1; head += 4)
-                    if (TerrainHeroMotion.Solid(world.Terrain.Map, x + local,
-                        h + ShipGeometry.Floor(Math.Max(ShipGeometry.RampToe, local)) + head)) return false;
-            return true;
+            return ShipLandingGeometry.Supported(Solid, x, h);
         }
+
+        private bool Solid(float x, float height) => TerrainHeroMotion.Solid(world.Terrain.Map, x, height);
 
         internal void Carry(float dx, float dh)
         {

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Dark Nights 独立内容实验室：48个可操控H5入口，新加地热、薄桥、磁矿、畏光根幕、压力囊和回声眠巢，复用工程像素素材。">
+  <title>Dark Nights · 远征内容实验室</title>
+  <!-- LAB_STYLE -->
+</head>
+<body>
+  <header class="masthead">
+    <a class="brand" href="#s-vents" aria-label="Dark Nights 内容实验室首页">
+      <span class="brand-symbol" aria-hidden="true">◈</span>
+      <span><strong>DARK NIGHTS</strong><small>EXPEDITION FIELD LAB / 02</small></span>
+    </a>
+    <div class="edition"><span class="status-dot"></span> 独立 H5 试验场 <span class="divider">/</span> 人工确认后另行导入</div>
+    <div class="header-actions">
+      <span id="review-count">0 项已记录</span>
+      <button id="export" class="button-outline">导出评审与试玩记录 <span aria-hidden="true">↗</span></button>
+    </div>
+  </header>
+  <main class="workspace">
+    <aside class="catalog-panel" aria-label="场景目录">
+      <div class="panel-heading"><span class="eyebrow">EXPERIMENT INDEX</span><span id="catalog-count" class="count">10</span></div>
+      <h1>地下发现，<br><em>逐一试验。</em></h1>
+      <p class="intro">新一批：让洞穴回应你的行动。<br>先走进去，再决定留下什么。</p>
+      <button class="new-features active" data-category="new" aria-pressed="true"><span>本轮新特性 <b>10</b></span><small>6处洞穴 / 3件装备 / 1条试采路线</small></button>
+      <label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="搜索名称 / 机制" autocomplete="off" aria-label="搜索实验"></label>
+      <nav class="categories" aria-label="筛选实验类别">
+        <button data-category="all" aria-pressed="false">全部 <b>48</b></button>
+        <button data-category="weapon" aria-pressed="false">武器 <b>10</b></button>
+        <button data-category="tool" aria-pressed="false">道具 <b>10</b></button>
+        <button data-category="site" aria-pressed="false">场景 <b>22</b></button>
+        <button data-category="mix" aria-pressed="false">组合 <b>6</b></button>
+      </nav>
+      <div id="scene-list" class="scene-list" aria-label="选择实验场景"></div>
+      <div class="catalog-footer"><span id="completion-count">0 / 48 完成试玩目标</span><span>项目原生角色与材质 · 独立参数</span></div>
+    </aside>
+    <section class="experiment-panel" aria-label="当前实验">
+      <div class="experiment-heading">
+        <div><div class="scene-meta"><span id="scene-code">W01</span><span id="scene-category">武器实验</span><span class="candidate-tag">候选 · 待人工评审</span></div>
+          <h2 id="scene-name">短管霰弹枪</h2><p id="scene-subtitle">给退路留一个呼吸</p></div>
+        <div class="scene-navigation"><button id="reference-scene" class="reference-shortcut" title="复用引用会话地图轮廓与工程素材">项目实景 ↗</button><button id="previous" title="上一项" aria-label="上一项">←</button><button id="next" title="下一项" aria-label="下一项">→</button></div>
+      </div>
+      <div class="stage-toolbar">
+        <span class="live-label"><i></i> 可操控实验</span>
+        <div class="stage-options">
+          <button id="coop" aria-pressed="false">双角色 关</button>
+          <button id="switch-player" title="Tab 切换当前角色">切换 P1</button>
+          <button id="annotations" aria-pressed="false">标注 关</button>
+          <button id="sound" aria-pressed="false">声音 关</button>
+          <button id="pause">暂停</button><button id="reset">重置 R</button><button id="fullscreen">全屏</button>
+          <button id="help" aria-label="操作说明">?</button>
+        </div>
+      </div>
+      <div class="material-caption">工程矿工 · 原生矿层 / 碎岩 · 同源岩壁算法　<span>新装备沿用手持色板 · 像素候选待评审</span></div>
+      <div class="canvas-wrap" id="canvas-wrap">
+        <canvas id="game" width="960" height="540" tabindex="0" aria-label="可操控矿洞实验，A D移动，空格跳跃，鼠标瞄准，左键使用，E交互。">需要支持Canvas的浏览器。</canvas>
+        <div id="loading" class="loading">正在准备独立实验…</div>
+      </div>
+      <div id="feature-state" class="feature-state" role="status" aria-live="off"></div>
+      <div class="touch-controls" aria-label="触屏操作">
+        <button data-hold="left" aria-label="向左移动">←</button><button data-hold="right" aria-label="向右移动">→</button>
+        <button data-hold="up" aria-label="爬梯向上">↑</button><button data-hold="down" aria-label="爬梯向下">↓</button>
+        <button data-hold="jump">跳跃</button><button data-hold="fire">使用</button><button data-hold="interact">交互 E</button>
+      </div>
+      <div class="loadout-row"><span class="eyebrow">实验装备</span><div id="loadout" class="loadout" aria-label="选择装备"></div><span class="equipment-note">本 Demo 配装<br>物资不限量</span></div>
+      <div class="details-grid">
+        <section class="mission"><div class="section-label"><span class="eyebrow">01 / TRY THIS</span><span id="goal-status">待完成</span></div><h3 id="objective"></h3><p id="hint"></p><div id="goal-progress" class="goal-progress"><span></span></div></section>
+        <section class="design-note"><span class="eyebrow">02 / WHAT TO NOTICE</span><p id="description"></p><div id="tags" class="tags"></div></section>
+      </div>
+      <footer class="controls-footer"><span><kbd>A</kbd><kbd>D</kbd> 移动　<kbd>Space</kbd> 跳跃　鼠标瞄准 / 左键使用　<kbd>E</kbd> 交互　<kbd>1–4</kbd> 换装</span><button id="help-bottom">完整操作说明 ↗</button></footer>
+    </section>
+    <aside class="review-panel" aria-label="人工评审">
+      <div class="panel-heading"><span class="eyebrow">FIELD NOTES</span><span class="notebook-mark">✳</span></div>
+      <h3>这个发现，<br>值得留下吗？</h3>
+      <p class="review-intro">试玩目标完成只代表机制被触发。<br>是否好玩，由你决定。</p>
+      <label class="field-label" for="decision">本项评审</label>
+      <select id="decision">
+        <option value="pending">待人工评审</option>
+        <option value="keep">保留候选</option>
+        <option value="revise">需要调整</option>
+        <option value="drop">暂不采用</option>
+      </select>
+      <label class="field-label" for="notes">感受 / 修改意见</label>
+      <textarea id="notes" rows="7" maxlength="3000" placeholder="例如：击退很清楚，但换弹窗口还不明显；想试一下更窄的通道。"></textarea>
+      <p id="save-state" class="save-state" role="status">评审只保存在本浏览器，建议导出备份。</p>
+      <div class="review-divider"></div>
+      <span class="eyebrow">观察这三个问题</span>
+      <ol class="review-prompts"><li>不读说明，能否看懂线索与结果？</li><li>能否想到第二种处理办法？</li><li>是否值得占一格装备或一处洞室？</li></ol>
+      <div class="scope-note"><strong>正式接入前</strong><p id="boundary"></p><p>联机、存档、正式美术、性能与平衡另行核对。本页的“保留候选”不会自动导入游戏。</p></div>
+      <div class="build-info" id="build-info"></div>
+    </aside>
+  </main>
+  <dialog id="help-dialog" aria-labelledby="help-title">
+    <div class="dialog-heading"><span class="eyebrow">FIELD MANUAL</span><button id="close-help" aria-label="关闭说明">×</button></div>
+    <h2 id="help-title">把它当作一小段矿洞来玩。</h2>
+    <p>所有场景独立，装备不限量；失败可R重置。移动、射击、采掘、碰撞和目标由实时模拟驱动。</p>
+    <div class="manual-grid">
+      <div><h3>当前角色</h3><p>A / D 移动，Space 跳跃，Shift 冲刺<br>W / S 爬梯，鼠标瞄准，按住左键使用<br>1–4 或点击装备切换，E交互 / 引爆<br>F切手电，R重置，Esc暂停，Tab切角色</p></div>
+      <div><h3>同键盘双人</h3><p>先开启“双角色”。WASD控制当前角色。<br>方向键控制另一位，↑跳跃 / 爬梯<br>I J K L调整另一位准星，右Shift使用<br>Enter交互。Tab交换主控，准星跟随角色。</p></div>
+      <div><h3>交互与救援</h3><p>回最左入口E交货；近处路标 / 箱子E查看<br>绞盘：使用装备连接，再按住E提升<br>救援包：靠近倒地者按住左键；E可慢救<br>重矿：两人靠近E挂接，移动拖运，E放下</p></div>
+      <div><h3>触屏与记录</h3><p>触碰画面调整准星，下方按钮移动与使用<br>↑↓可爬梯，点击装备切换<br>切场景、重置都保留评审；浏览器不保证永久保存<br>导出JSON包含全部48项状态与最近试玩事件</p></div>
+    </div>
+    <p class="manual-boundary">角色、森林、树石、手持基础图来自项目；岩壁来自既有烘焙器，生物来自已有CL04候选。实景路线复用引用样板轮廓，其余47项是专用试验洞室。新装备造型及照明仍是H5近似，HP、倒地和运输不决定Unity正式规则。</p>
+    <button id="start-playing" class="button-primary">回到实验</button>
+  </dialog>
+  <div id="notification" class="notification" role="status"></div>
+  <!-- LAB_SCRIPTS -->
+</body>
+</html>

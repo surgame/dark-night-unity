@@ -18,11 +18,16 @@ namespace DarkNights.Runtime.Network
         public string SettledRunId { get; set; }
         public int LastIncome { get; set; }
         public NavigationNodeWire[] Nodes { get; set; }
+        public string SurveyBits { get; set; }
+        public bool CoordinateFlight { get; set; }
+        public float TargetX { get; set; }
+        public float TargetY { get; set; }
 
         public static NavigationWire From(JourneyNavigationData data) => data == null ? null : new NavigationWire
         {
             Speed = data.Definition.Speed, DescentSeconds = data.Definition.DescentSeconds,
             X = data.X, Y = data.Y, RunId = data.RunId, SettledRunId = data.SettledRunId, LastIncome = data.LastIncome,
+            SurveyBits = data.Survey.Encoded, CoordinateFlight = data.CoordinateFlight, TargetX = data.TargetX, TargetY = data.TargetY,
             Nodes = data.Definition.Nodes.Select(n => new NavigationNodeWire
             { Id = n.Id, Name = n.Name, X = n.X, Y = n.Y, Danger = n.Danger, Risk = n.Risk, PreviewOnly = n.PreviewOnly }).ToArray()
         };
@@ -35,7 +40,7 @@ namespace DarkNights.Runtime.Network
             {
                 return new JourneyNavigationData(new NavigationDefinition(Speed, DescentSeconds,
                     Nodes.Select(n => new NavigationNodeDefinition(n.Id, n.Name, n.X, n.Y, n.Danger, n.Risk, n.PreviewOnly))),
-                    X, Y, RunId, SettledRunId, LastIncome);
+                    X, Y, RunId, SettledRunId, LastIncome, new NavigationSurveyData(SurveyBits), CoordinateFlight, TargetX, TargetY);
             }
             catch (ArgumentException e) { throw new FormatException("导航网络字段无效。", e); }
         }

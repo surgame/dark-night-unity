@@ -240,13 +240,15 @@ namespace DarkNights.View.Lighting
             }
             finally
             {
-                commands.Dispose(); bounce.Dispose(); apertureVisibility.Dispose(); light.Release(); direction.Release();
+                commands.Dispose(); bounce.Dispose(); apertureVisibility.Dispose();
                 Release(light); Release(direction); Release(shader);
             }
         }
 
         private static void Release(UnityEngine.Object value)
         {
+            if (value == null) return;
+            if (value is RenderTexture texture) texture.Release();
             if (Application.isPlaying) UnityEngine.Object.Destroy(value);
             else UnityEngine.Object.DestroyImmediate(value);
         }

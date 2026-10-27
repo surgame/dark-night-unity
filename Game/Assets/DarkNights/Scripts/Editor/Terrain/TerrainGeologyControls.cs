@@ -29,7 +29,7 @@ namespace DarkNights.Editor.Terrain
                         Undo.RecordObject(model.Draft, "读取塌方配方");
                         var definition = model.Draft.Config.Geology.Definition;
                         model.Draft.Config.Geology.Configuration = ExpeditionFlowDraft.Clone(definition.SharedConfigs.OfType<GeologyEventConfig>().Single());
-                        serialized.Update(); model.JointDraft = true; changed();
+                        serialized.Update(); changed();
                     }
                 Field("Configuration.EnterRegion", "角色进入触发区", "关闭时使用支撑格被真正挖空触发。");
                 Field("Configuration.SupportU", "支撑U"); Field("Configuration.SupportV", "支撑V");
@@ -46,17 +46,17 @@ namespace DarkNights.Editor.Terrain
                 Field("Configuration.WarningSeconds", "前兆（秒）"); Field("Configuration.Gravity", "重力（像素/秒²）");
                 Field("Configuration.FragmentDelay", "碎岩错峰（秒）"); Field("Configuration.OccupancyWaitSeconds", "占位等待（秒）");
                 Field("Association", "洞室／矿脉／巢位关联", "可选关联备注，使用目标稳定身份；首片不据此自动布点。");
-                if (serialized.ApplyModifiedProperties()) { model.JointDraft = true; changed(); }
+                if (serialized.ApplyModifiedProperties()) { changed(); }
             }
             EditorGUILayout.HelpBox("逻辑格U向右、V向上，地下V为负。源岩／落点仅支持完整slate与平地；源岩U须等于落地U。", MessageType.Info);
             ShowOverlay = EditorGUILayout.Toggle("显示塌方设计叠层", ShowOverlay);
             selection = EditorGUILayout.Popup("画布左键选点", selection, Selections);
             if (GUILayout.Button("更新完整联合候选"))
             {
-                model.JointDraft = true; changed();
+                changed();
             }
             EditorGUILayout.HelpBox(model.GeologyConflict.Length == 0 ? "候选检查：" +
-                (model.JointDraft && model.LastCandidateIdentity == model.Identity ? "通过（静态空间）" : "待更新完整联合候选") :
+                (model.CandidateFresh ? "通过（静态空间）" : "待更新完整联合候选") :
                 "候选冲突：" + model.GeologyConflict, model.GeologyConflict.Length == 0 ? MessageType.Info : MessageType.Error);
             EditorGUILayout.HelpBox("源岩＝蓝，落地包络＝棕，进入区＝橙，退避区＝绿，允许改形＝灰；均为编辑叠层。", MessageType.None);
             if (GUILayout.Button("保存地图与航程草稿"))
@@ -84,7 +84,7 @@ namespace DarkNights.Editor.Terrain
             else if (selection == 4) { config.RegionU = u; config.RegionV = v; }
             else if (selection == 5) { point.RetreatU = u; point.RetreatV = v; }
             else { point.AllowedU = u; point.AllowedV = v; }
-            EditorUtility.SetDirty(model.Draft); model.JointDraft = true; changed();
+            EditorUtility.SetDirty(model.Draft); changed();
         }
     }
 }

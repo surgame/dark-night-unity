@@ -10,9 +10,9 @@ namespace DarkNights.Core.Logic.Terrain
     {
         public static CaveRulePlan Build(TerrainGenerationSettings settings)
         {
-            var s = settings.CopyValidated(); var rules = s.Rules;
-            if (rules == null || !rules.Enabled) throw new ArgumentException("规则模式未启用。");
-            var random = new TerrainRandom(rules.SpaceKey(s.Seed));
+            var s = settings.CopyValidated(); var rules = s.Structure;
+            if (s.Layout != TerrainGenerationSettings.ConnectedRooms) throw new ArgumentException("当前布局没有连通洞室规划。");
+            var random = new TerrainRandom(s.Seed + "|cave-space-v2|" + rules.SpaceRevision);
             var rooms = new List<TerrainRoom>(); var edges = new List<CavePassage>();
             var levels = new List<int>(); var distances = new List<double>(); var messages = new List<string>();
             int trunk = Math.Max(4, (int)Math.Round(rules.RoomCount * (1 - rules.BranchShare)));
@@ -45,7 +45,7 @@ namespace DarkNights.Core.Logic.Terrain
                         if (rules.Road == "switchback") { bx = x; by = p.Y; }
                         else if (rules.Road == "rift") { bx = p.X; by = y; }
                         else { bx += (int)(random.Next() * 17) - 8; by += (int)(random.Next() * 13) - 6; }
-                        int radius = Math.Max(2, rules.RoadRadius + (int)(random.Next() * 3) - 1);
+                        int radius = 3 + (int)(random.Next() * 3) - 1;
                         int cover = !main && random.Next() < rules.RockGap ? 4 : 0;
                         edges.Add(new CavePassage(parent, index, CavePassageKind.Open, bx, by, radius, cover));
                         distances.Add(distances[parent] + Length(p.X, p.Y, bx, by) + Length(bx, by, x, y));
@@ -58,7 +58,7 @@ namespace DarkNights.Core.Logic.Terrain
             return new CaveRulePlan(rooms.ToArray(), edges.ToArray(), levels.ToArray(), distances.ToArray(), messages.ToArray());
         }
 
-        private static int Parent(int count, int trunk, List<int> levels, CaveRuleSettings rules, TerrainRandom r)
+        private static int Parent(int count, int trunk, List<int> levels, CaveLayoutSettings rules, TerrainRandom r)
         {
             var candidates = Enumerable.Range(0, count).Where(i => levels[i] < rules.BranchDepth).ToArray();
             if (rules.Road == "roots" && count > trunk && r.Next() < .7)
@@ -93,8 +93,8 @@ namespace DarkNights.Core.Logic.Terrain
             int[] weights = mix == "fissures" ? new[] { 5, 1, 2, 5, 1, 1, 1 } : mix == "halls" ? new[] { 1, 5, 4, 1, 1, 4, 1 } :
                 mix == "pockets" ? new[] { 1, 1, 1, 1, 5, 2, 5 } : new[] { 2, 2, 2, 2, 2, 2, 2 };
             int choice = (int)(r.Next() * weights.Sum());
-            for (int i = 0; i < weights.Length; i++) { choice -= weights[i]; if (choice < 0) return CaveRuleSettings.Shapes[i]; }
-            return CaveRuleSettings.Shapes[0];
+            for (int i = 0; i < weights.Length; i++) { choice -= weights[i]; if (choice < 0) return CaveLayoutSettings.Shapes[i]; }
+            return CaveLayoutSettings.Shapes[0];
         }
 
         private static bool Overlap(TerrainRoom a, TerrainRoom b, int gap) =>

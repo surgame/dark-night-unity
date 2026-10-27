@@ -19,7 +19,7 @@ namespace DarkNights.Entry
         private SessionUiController ui;
         private IDisposable registration;
         private bool registered, requested, launching;
-        public bool Available => ui != null && ui.Page == "MainMenu" && network != null && network.CanStartSession &&
+        public bool Available => ui != null && ui.MainMenuAtHome && network != null && network.CanStartSession && !network.Rooms.Active &&
             network.Client.Replica.Current == null && network.Terrain != null && !network.Terrain.Selecting && !requested && !launching;
         public bool PanelRegistered => registered;
 

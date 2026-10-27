@@ -29,6 +29,7 @@ namespace DarkNights.Runtime.Objects
         {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             if (id != LandedPickaxeId && id != EmbeddedMineralsId && id != ShipCargoId) throw new ArgumentException("未知快速测试项。", nameof(id));
+            if (id == ShipCargoId) throw new InvalidOperationException("飞船及船货快速局暂时停用。");
             if (flow == null || !flow.Enabled) throw new InvalidOperationException("快速着陆需要启用正式星球航程配置。");
             return new QuickTestPreset(flow.PreviewPlanet(), id);
 #else
@@ -46,11 +47,14 @@ namespace DarkNights.Runtime.Objects
             journey.JourneyId = Guid.NewGuid().ToString("N");
             journey.MapId = world.Terrain.Map.World.WorldId.ToString().Replace("-", "");
             journey.PlanetId = planet.Id; journey.Seed = Seed;
-            world.Journey.SetPhase(JourneyPhase.Descent);
-            world.Ship.Arrive(planet.DockX, planet.DockHeight, 0);
-            if (!new ShipFlightMotion(world).Land())
-                throw new InvalidOperationException("当前正式地图的泊位不满足安全着陆条件。");
-            world.Flow.Landed();
+            if (world.Expedition.Ship != null)
+            {
+                world.Journey.SetPhase(JourneyPhase.Descent);
+                world.Ship.Arrive(planet.DockX, planet.DockHeight, 0);
+                if (!new ShipFlightMotion(world).Land())
+                    throw new InvalidOperationException("当前正式地图的泊位不满足安全着陆条件。");
+                world.Flow.Landed();
+            }
 
             var definition = world.Resources.Equipment.MiningDefinitions.SingleOrDefault(d => d.Key == "item.pickaxe")
                 ?? throw new InvalidOperationException("快速测试缺少正式矿镐 Definition。");
@@ -73,19 +77,21 @@ namespace DarkNights.Runtime.Objects
                 state.SelectedItem = 0; state.AimAngle = aim;
                 hero.Object.GetBehaviour<HeroLightBehaviour>()?.GiveStarter();
             }
-            world.Notify("矿镐快速测试已准备：已着陆、人在舱外；返回主菜单可启动干净的新测试局。");
+            world.Notify("矿镐快速测试已准备：人物直接位于自然地面；返回主菜单可启动干净的新测试局。");
         }
 
         private static void FindSpawn(ObjectSession world, MiningToolRules tool, out float x, out float height)
         {
-            var ship = world.Expedition.Ship.Read();
+            var ship = world.Expedition.Ship?.Read();
             var map = world.Terrain.Map;
             for (int distance = 192; distance <= 1024; distance += PlayableTerrain.CellPixels)
             {
-                float candidateX = ship.X - distance;
+                float candidateX = ship == null ? distance - 160 : ship.X - distance;
                 if (candidateX < 32) break;
-                if (!TerrainBodyCollision.Ground(map, candidateX, ship.Height + 64, ship.Height - 384,
+                if (!TerrainBodyCollision.Ground(map, candidateX, ship == null ? PlayableTerrain.OriginY : ship.Height + 64,
+                    ship == null ? PlayableTerrain.MinimumHeight + 16 : ship.Height - 384,
                     HeroControlDefinition.BodyHalfWidth, HeroControlDefinition.BodyHeight, out float ground)) continue;
+                if (ship == null && ground > world.Catalog.Balance.HeroControl.MaximumHeight) continue;
                 if (!TerrainMiningQuery.FirstSurface(map, candidateX, ground + tool.HandHeight, 0, -1,
                     tool.Reach, out CellCoord target, out _)) continue;
                 var cell = map.Read(target).Cell;
@@ -93,7 +99,7 @@ namespace DarkNights.Runtime.Objects
                     tool.BlockReason(HeroMiningTargetKind.Foreground, map.Rules.Material(cell.TileId)).Length != 0) continue;
                 x = candidateX; height = ground; return;
             }
-            throw new InvalidOperationException("当前配置在泊位附近没有安全且可挥镐的舱外出生点。");
+            throw new InvalidOperationException("当前自然地表没有满足人物支撑、净空且可挥镐的出生点。");
         }
     }
 }

@@ -36,7 +36,8 @@ namespace DarkNights.Editor.Terrain
             string before = draft.Config.CanonicalIdentity();
             var items = draft.Config.Modifiers;
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Modifiers · " + items.Count(m => m?.Enabled == true) + "/" + items.Count + " 已启用",
+            var active = items.Where(m => !(m is EntranceWalkwayModifierConfig)).ToArray();
+            EditorGUILayout.LabelField("Modifiers · " + active.Count(m => m?.Enabled == true) + "/" + active.Length + " 已启用",
                 EditorStyles.boldLabel);
             EditorGUILayout.LabelField("修改为草稿 · 保存全部 / Ctrl+S 后生效", EditorStyles.wordWrappedMiniLabel);
             Action edit = null;
@@ -57,6 +58,7 @@ namespace DarkNights.Editor.Terrain
         private void DrawCard(InspectorProperty property, int index, ref Action edit, Action changed)
         {
             var item = property.ValueEntry.WeakSmartValue as ITerrainGenerationModifierConfig;
+            if (item is EntranceWalkwayModifierConfig) return;
             bool enabled = item?.Enabled == true;
             Color accent = enabled ? new Color(.34f, .82f, .63f) : new Color(.60f, .61f, .64f);
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
@@ -95,8 +97,8 @@ namespace DarkNights.Editor.Terrain
             EditorGUILayout.EndVertical();
         }
 
-        private static string Label(Type type) => type == typeof(EntranceWalkwayModifierConfig) ? "入口下洞步道" :
-            type == null ? "缺失 Modifier" : ObjectNames.NicifyVariableName(type.Name.Replace("ModifierConfig", ""));
+        private static string Label(Type type) => type == null ? "缺失 Modifier" :
+            ObjectNames.NicifyVariableName(type.Name.Replace("ModifierConfig", ""));
 
         private static ITerrainGenerationModifierConfig Create(Type type) =>
             (ITerrainGenerationModifierConfig)Activator.CreateInstance(type);
@@ -104,13 +106,17 @@ namespace DarkNights.Editor.Terrain
         private static void ChooseType(Action<Type> selected)
         {
             var menu = new GenericMenu();
+            int count = 0;
             foreach (var type in TypeCache.GetTypesDerivedFrom<ITerrainGenerationModifierConfig>()
-                .Where(t => !t.IsAbstract && !t.IsGenericType && t.IsSerializable && t.GetConstructor(Type.EmptyTypes) != null)
+                .Where(t => t != typeof(EntranceWalkwayModifierConfig) && !t.IsAbstract && !t.IsGenericType &&
+                    t.IsSerializable && t.GetConstructor(Type.EmptyTypes) != null)
                 .OrderBy(t => t.FullName))
             {
                 Type choice = type;
                 menu.AddItem(new GUIContent(Label(choice) + " (" + choice.Name + ")"), false, () => selected(choice));
+                count++;
             }
+            if (count == 0) menu.AddDisabledItem(new GUIContent("暂无可添加的步骤"));
             menu.ShowAsContext();
         }
 

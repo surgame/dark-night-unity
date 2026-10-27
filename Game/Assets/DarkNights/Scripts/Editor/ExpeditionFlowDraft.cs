@@ -4,6 +4,7 @@ using DarkNights.Runtime.Objects;
 using GameCore.Objects.Definition;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DarkNights.Editor
 {
@@ -19,7 +20,36 @@ namespace DarkNights.Editor
         [SerializeField] private ObjectDefinition source;
         internal string BaselineJson => baselineJson;
         internal ObjectDefinition Source => source;
+        [SerializeField, FormerlySerializedAs("LegacyVeinCount")] private int importedVeinCount = -1;
+        [SerializeField, FormerlySerializedAs("LegacyNests")] private bool importedNests;
+        [SerializeField, FormerlySerializedAs("savedLegacyCount")] private int importedSavedCount = -1;
+        [SerializeField, FormerlySerializedAs("savedLegacyNests")] private bool importedSavedNests;
         internal bool HasChanges => Config.CanonicalIdentity() != draftBaselineJson;
+        [SerializeField] private bool independentDocument;
+        internal bool IndependentDocument => independentDocument;
+
+        internal void MarkSaved()
+        {
+            draftBaselineJson = Config.CanonicalIdentity();
+        }
+
+        /// <summary>Undo后恢复配置文件的保存基线；基线不随参数Undo回退，避免误报已保存。</summary>
+        internal void RestoreSavedBaseline(ExpeditionFlowConfig saved)
+        {
+            var copy = Clone(saved); copy.ReviewedMap = Config.ReviewedMap;
+            draftBaselineJson = copy.CanonicalIdentity();
+        }
+
+        internal void LoadDocument(ExpeditionFlowConfig input)
+        {
+            Config = Clone(input); independentDocument = true;
+            RefreshSourceBaseline(); MarkSaved();
+        }
+
+        internal void RefreshSourceBaseline()
+        { baselineJson = Read(source)?.CanonicalIdentity() ?? ""; }
+
+        internal void KeepIndependent() => independentDocument = true;
 
         internal void CopyFrom(ExpeditionFlowDraft other)
         {
@@ -27,11 +57,15 @@ namespace DarkNights.Editor
             baselineJson = other.baselineJson;
             draftBaselineJson = other.draftBaselineJson;
             Config = Clone(other.Config);
+            independentDocument = other.independentDocument;
+            importedVeinCount = other.importedVeinCount; importedNests = other.importedNests;
+            importedSavedCount = other.importedSavedCount; importedSavedNests = other.importedSavedNests;
             hideFlags = HideFlags.DontSave;
         }
 
         internal void Load(ObjectDefinition source)
         {
+            independentDocument = false;
             this.source = source;
             var current = Read(source);
             baselineJson = current == null ? "" : current.CanonicalIdentity();
@@ -69,7 +103,6 @@ namespace DarkNights.Editor
                     PreparationTimeoutSeconds = source.PreparationTimeoutSeconds,
                     ArrivalTimeoutSeconds = source.ArrivalTimeoutSeconds,
                     CaveMap = source.CaveMap == null ? null : Clone(source.CaveMap),
-                    MineMap = source.MineMap,
                     ReviewedMap = source.ReviewedMap,
                     Geology = source.Geology?.Copy() ?? new GeologyDesignPoint(),
                     Navigation = source.Navigation == null ? null : Clone(source.Navigation),

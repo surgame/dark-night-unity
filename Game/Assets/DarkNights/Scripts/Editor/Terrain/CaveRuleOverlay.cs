@@ -21,7 +21,7 @@ namespace DarkNights.Editor.Terrain
         }
         internal static void Draw(Rect clip, Rect bounds, TerrainGenerationPreview model)
         {
-            if (!model.RuleMode || model.RulePlan == null || model.LastCandidate == null || Event.current.type != EventType.Repaint) return;
+            if (!model.HasRoomPlan || model.RulePlan == null || model.LastCandidate == null || Event.current.type != EventType.Repaint) return;
             var plan = model.RulePlan; var map = model.LastCandidate;
             GUI.BeginGroup(clip); bounds.position -= clip.position;
             Vector2 Point(float x, float y) => new Vector2(bounds.x + x / 320 * bounds.width, bounds.y + y / 192 * bounds.height);

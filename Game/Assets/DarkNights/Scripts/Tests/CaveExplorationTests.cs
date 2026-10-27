@@ -1,3 +1,4 @@
+using DarkNights.Tests.TerrainReference;
 using System.Collections.Generic;
 using System.Linq;
 using DarkNights.Core.Config.Terrain;
@@ -52,7 +53,7 @@ namespace DarkNights.Tests
             var copy = map.CopyMaterials(); copy[0] = 0;
             Assert.That(map.Settings.Seed, Is.EqualTo("CAVE-FREEZE"));
             Assert.That(map.MaterialAt(0, 0), Is.EqualTo(8));
-            var reference = TerrainGenerator.Generate(input.AsReferenceProfile());
+            var reference = HistoricalTerrainGenerator.Generate(HistoricalTerrainGenerator.ReferenceInput(input));
             Assert.That(reference.Rooms.Count, Is.EqualTo(8));
             Assert.That(reference.Passages, Is.Empty);
         }

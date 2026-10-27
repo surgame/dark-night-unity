@@ -1,3 +1,4 @@
+using DarkNights.Tests.TerrainReference;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,7 +35,7 @@ namespace DarkNights.Tests
         private static ObjectSession World(UnifiedSessionScope scope, PlayableTerrain data)
         {
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(DarkNights.Editor.Terrain.TerrainTestAssets.DefinitionPath);
-            return scope.NewWorld(RuleScenario.Catalog(), PlayableTerrainGenerator.Layout(RuleScenario.Layout()), false,
+            return scope.NewWorld(RuleScenario.Catalog(), HistoricalPlayableTerrainGenerator.Layout(RuleScenario.Layout()), false,
                 terrain: value => new SessionTerrain(value.Context, definition.LoadGameplayCatalog(), data, definition: definition));
         }
         private static bool Hit(MineralMapAuthority map, CellCoord cell, int damage, out int reward)

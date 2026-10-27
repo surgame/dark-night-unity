@@ -1,25 +1,52 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
     <ui:Style src="ShipEquipment.uss" />
     <ui:VisualElement name="ship-ui-root" class="ship-ui-root">
-    <ui:VisualElement class="flight-bar">
-        <ui:Label name="flight-status" class="flight-status" text="导航资料准备中" />
-        <ui:Button name="open-navigation" text="查看星图" />
+    <ui:Label name="rally" class="rally is-hidden" picking-mode="Ignore" />
+    <ui:VisualElement name="interaction" class="interaction is-hidden" picking-mode="Ignore">
+        <ui:Label name="interaction-key" class="interaction-key" picking-mode="Ignore" />
+        <ui:Label name="interaction-text" class="interaction-text" picking-mode="Ignore" />
     </ui:VisualElement>
-    <ui:VisualElement name="equipment-root" class="equipment-root">
-        <ui:Label name="credits" class="credits" text="信用点 0" />
-        <ui:Label name="ship-cargo" class="credits" text="船货 铁 0 / 金 0 · 预计收入 0" />
-        <ui:Button name="deposit-cargo" class="deposit-button" text="存入货舱" />
-        <ui:VisualElement class="equipment-row">
-            <ui:Label name="slot0" class="slot" text="1  空" />
-            <ui:Label name="slot1" class="slot" text="2  空" />
-            <ui:Label name="slot2" class="slot" text="3  空" />
-            <ui:Label name="slot3" class="slot" text="4  空" />
-            <ui:VisualElement class="jetpack-cell">
-                <ui:VisualElement name="fuel-ring" class="fuel-ring" />
-                <ui:Label name="jetpack" class="jetpack-label" text="喷气背包 · 未购买" />
+    <ui:Label name="receipt" class="receipt is-hidden" picking-mode="Ignore" />
+    <ui:VisualElement name="equipment-root" class="equipment-root" picking-mode="Ignore">
+        <ui:Label name="equipment-name" class="equipment-name is-hidden" picking-mode="Ignore" />
+        <ui:VisualElement class="equipment-row" picking-mode="Ignore">
+            <ui:VisualElement name="slot0" class="slot" picking-mode="Ignore">
+                <ui:Label class="slot-key" text="1" picking-mode="Ignore" />
+                <ui:Image name="slot-icon0" class="slot-icon" picking-mode="Ignore" />
+                <ui:VisualElement name="slot-light0" class="light-indicator is-hidden" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement name="slot1" class="slot" picking-mode="Ignore">
+                <ui:Label class="slot-key" text="2" picking-mode="Ignore" />
+                <ui:Image name="slot-icon1" class="slot-icon" picking-mode="Ignore" />
+                <ui:VisualElement name="slot-light1" class="light-indicator is-hidden" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement name="slot2" class="slot" picking-mode="Ignore">
+                <ui:Label class="slot-key" text="3" picking-mode="Ignore" />
+                <ui:Image name="slot-icon2" class="slot-icon" picking-mode="Ignore" />
+                <ui:VisualElement name="slot-light2" class="light-indicator is-hidden" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement name="slot3" class="slot" picking-mode="Ignore">
+                <ui:Label class="slot-key" text="4" picking-mode="Ignore" />
+                <ui:Image name="slot-icon3" class="slot-icon" picking-mode="Ignore" />
+                <ui:VisualElement name="slot-light3" class="light-indicator is-hidden" picking-mode="Ignore" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Label name="hint" class="hint" text="" />
+    </ui:VisualElement>
+    <ui:VisualElement name="inventory" class="inventory-backdrop">
+        <ui:VisualElement class="inventory-card">
+            <ui:VisualElement class="shop-heading">
+                <ui:Label class="shop-title" text="背包" />
+                <ui:Button name="close-inventory" class="close-button" text="×" tooltip="关闭背包" />
+            </ui:VisualElement>
+            <ui:Label class="inventory-heading" text="装备" />
+            <ui:Label name="inventory-slot0" class="inventory-entry" />
+            <ui:Label name="inventory-slot1" class="inventory-entry" />
+            <ui:Label name="inventory-slot2" class="inventory-entry" />
+            <ui:Label name="inventory-slot3" class="inventory-entry" />
+            <ui:Label class="inventory-heading" text="矿物" />
+            <ui:Label name="inventory-minerals" class="inventory-minerals" />
+            <ui:Label name="inventory-credits" class="credits" />
+        </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="shop" class="shop-backdrop">
         <ui:VisualElement class="shop-card">
@@ -27,25 +54,78 @@
                 <ui:Label class="shop-title" text="飞船装备商店" />
                 <ui:Button name="close" class="close-button" text="×" />
             </ui:VisualElement>
+            <ui:Label name="credits" class="credits" />
             <ui:Button name="buy-pistol" class="buy-button" text="手枪" />
             <ui:Button name="buy-pickaxe" class="buy-button" text="矿镐" />
-            <ui:Button name="buy-jetpack" class="buy-button" text="喷气背包" />
             <ui:Label class="shop-note" text="装备归当前主角；购买后可使用，船舱内暂停手持攻击。" />
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="navigation" class="navigation-backdrop">
         <ui:VisualElement class="navigation-card">
-            <ui:VisualElement class="shop-heading">
-                <ui:Label class="shop-title" text="星图导航" />
-                <ui:Button name="close-navigation" class="close-button" text="×" />
+            <ui:VisualElement class="navigation-heading">
+                <ui:Label class="navigation-title" text="星图浏览器 - 飞船导航系统" />
+                <ui:Button name="close-navigation" class="navigation-close" text="×" tooltip="关闭导航窗口" />
             </ui:VisualElement>
-            <ui:VisualElement name="star-map-host" class="star-map-host" />
-            <ui:VisualElement name="navigation-list" />
-            <ui:Label name="navigation-detail" class="navigation-detail" />
-            <ui:Label name="navigation-permission" class="shop-note" />
-            <ui:Button name="confirm-destination" class="navigation-confirm" text="确认目的地" />
-            <ui:Button name="depart-expedition" class="navigation-confirm" text="召集全员并撤离" />
-            <ui:Button name="cancel-departure" class="navigation-confirm" text="取消集合／航程" />
+            <ui:VisualElement class="navigation-menu">
+                <ui:Button name="navigation-menu-plot" class="navigation-menu-item" text="航行(N)" />
+                <ui:Button name="navigation-menu-view" class="navigation-menu-item" text="查看(V)" />
+                <ui:Button name="navigation-menu-help" class="navigation-menu-item" text="帮助(H)" />
+            </ui:VisualElement>
+            <ui:VisualElement class="map-toolbar">
+                <ui:Button name="map-locate" class="map-tool" text="本船位置" />
+                <ui:Button name="map-plot" class="map-tool" text="指定坐标..." />
+                <ui:Button name="map-fit" class="map-tool" text="原始比例" />
+                <ui:VisualElement class="map-toolbar-spacer" />
+                <ui:Button name="map-zoom-out" class="map-tool map-zoom-button" text="−" />
+                <ui:Label name="map-zoom" class="map-zoom" text="100%" />
+                <ui:Button name="map-zoom-in" class="map-tool map-zoom-button" text="＋" />
+            </ui:VisualElement>
+            <ui:VisualElement class="navigation-directory">
+                <ui:Label class="navigation-directory-label" text="星体(S):" />
+                <ui:DropdownField name="navigation-list" class="navigation-directory-field" />
+                <ui:Label name="navigation-known-count" class="navigation-known-count" text="已登记: 0 处" />
+            </ui:VisualElement>
+            <ui:VisualElement class="navigation-map-frame">
+                <ui:VisualElement name="star-map-host" class="star-map-host" />
+                <ui:Label class="map-fog-caption" text="尚未勘测的星域&#10;无可用资料" picking-mode="Ignore" />
+                <ui:Label class="map-legend" text="□ 已勘测  ▧ 未勘测" picking-mode="Ignore" />
+            </ui:VisualElement>
+            <ui:VisualElement class="navigation-destination">
+                <ui:VisualElement class="navigation-properties">
+                    <ui:Label class="navigation-properties-title" text="目的地属性" />
+                    <ui:VisualElement class="navigation-property-body">
+                        <ui:VisualElement class="navigation-property-row"><ui:Label class="navigation-field" text="目标:" /><ui:Label name="navigation-node-name" class="navigation-property-value" /></ui:VisualElement>
+                        <ui:VisualElement class="navigation-property-row"><ui:Label class="navigation-field" text="位置:" /><ui:Label name="navigation-position" class="navigation-property-value" /></ui:VisualElement>
+                        <ui:VisualElement class="navigation-property-row"><ui:Label class="navigation-field" text="资料:" /><ui:Label name="navigation-detail" class="navigation-property-value" /></ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="navigation-command">
+                    <ui:Button name="confirm-destination" class="navigation-confirm" text="开始航行(G)" />
+                    <ui:Label name="navigation-eta" class="navigation-eta" text="预计航程: --" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:Label name="navigation-permission" class="navigation-permission" />
+            <ui:Label name="ship-cargo" class="navigation-current" />
+            <ui:VisualElement class="navigation-operations">
+                <ui:Button name="depart-expedition" class="navigation-secondary" text="召集全员并撤离" />
+                <ui:Button name="cancel-departure" class="navigation-secondary" text="取消航行／集合" />
+            </ui:VisualElement>
+            <ui:Label name="navigation-current" class="navigation-current" text="准备就绪。" />
+            <ui:VisualElement name="navigation-dialog-backdrop" class="navigation-dialog-backdrop">
+                <ui:VisualElement class="navigation-dialog">
+                    <ui:Label name="navigation-dialog-title" class="navigation-dialog-title" text="指定航行坐标" />
+                    <ui:Label name="navigation-dialog-note" class="navigation-dialog-note" text="请输入目的地的星域坐标。" />
+                    <ui:VisualElement name="navigation-coordinate-fields" class="navigation-coordinate-fields">
+                        <ui:IntegerField name="navigation-coordinate-x" label="X 坐标:" value="70" />
+                        <ui:IntegerField name="navigation-coordinate-y" label="Y 坐标:" value="15" />
+                    </ui:VisualElement>
+                    <ui:Label name="navigation-coordinate-error" class="navigation-coordinate-error" />
+                    <ui:VisualElement class="navigation-dialog-buttons">
+                        <ui:Button name="navigation-dialog-accept" class="navigation-secondary" text="确定" />
+                        <ui:Button name="navigation-dialog-cancel" class="navigation-secondary" text="取消" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
     </ui:VisualElement>

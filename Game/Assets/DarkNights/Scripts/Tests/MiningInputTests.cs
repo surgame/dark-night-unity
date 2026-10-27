@@ -1,3 +1,4 @@
+using DarkNights.Tests.TerrainReference;
 using System;
 using System.Collections;
 using System.Linq;
@@ -85,7 +86,7 @@ namespace DarkNights.Tests
             using var scope = await UnifiedSessionScope.Create();
             var definition = AssetDatabase.LoadAssetAtPath<ARDMapDefinition>(Editor.Terrain.TerrainTestAssets.DefinitionPath);
             var catalog = RuleScenario.Catalog();
-            var layout = PlayableTerrainGenerator.Layout(RuleScenario.Layout());
+            var layout = HistoricalPlayableTerrainGenerator.Layout(RuleScenario.Layout());
             var cells = new byte[TerrainGenerationSettings.Width * TerrainGenerationSettings.Height];
             var protection = new bool[cells.Length];
             var softRock = new bool[cells.Length];

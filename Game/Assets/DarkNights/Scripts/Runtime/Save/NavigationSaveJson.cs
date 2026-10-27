@@ -18,6 +18,8 @@ namespace DarkNights.Runtime.Save
                 ["speed"] = n.Definition.Speed, ["descent_seconds"] = n.Definition.DescentSeconds,
                 ["x"] = n.X, ["y"] = n.Y, ["run_id"] = n.RunId,
                 ["settled_run_id"] = n.SettledRunId, ["last_income"] = n.LastIncome,
+                ["survey_bits"] = n.Survey.Encoded, ["coordinate_flight"] = n.CoordinateFlight,
+                ["target_x"] = n.TargetX, ["target_y"] = n.TargetY,
                 ["nodes"] = new JArray(n.Definition.Nodes.Select(v => new JObject
                 {
                     ["id"] = v.Id, ["name"] = v.Name, ["x"] = v.X, ["y"] = v.Y,
@@ -29,12 +31,14 @@ namespace DarkNights.Runtime.Save
         internal static JourneyNavigationData Read(JToken token)
         {
             var d = Object(token);
-            if (d.Count != 8) throw new FormatException("导航文件字段数量无效。");
+            if (d.Count != 12) throw new FormatException("导航文件字段数量无效。");
             try
             {
                 return new JourneyNavigationData(new NavigationDefinition((float)Number(d["speed"]),
                     (float)Number(d["descent_seconds"]), Array(d["nodes"], ReadNode, 32)),
-                    (float)Number(d["x"]), (float)Number(d["y"]), Text(d["run_id"]), Text(d["settled_run_id"]), Integer(d["last_income"]));
+                    (float)Number(d["x"]), (float)Number(d["y"]), Text(d["run_id"]), Text(d["settled_run_id"]), Integer(d["last_income"]),
+                    new NavigationSurveyData(Text(d["survey_bits"])), Boolean(d["coordinate_flight"]),
+                    (float)Number(d["target_x"]), (float)Number(d["target_y"]));
             }
             catch (ArgumentException e) { throw new FormatException("导航文件字段无效。", e); }
         }

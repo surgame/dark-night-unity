@@ -30,6 +30,8 @@ namespace DarkNights.View.Terrain
         private int revision, drawingRevision;
         public Exception LastError { get; private set; }
         public long BuiltPages => controller?.Renderer?.CommittedBuilds ?? 0;
+        public TerrainPageProgress PageProgress => Loading || !baseline || queue.HasPending || replicaSource?.WaitingForBaseline == true
+            ? default : TerrainPageProgress.Capture(controller, visible);
         public long InputBatches { get; private set; }
         public ulong InstalledCommit => installed;
         public ulong PresentedCommit => presented;

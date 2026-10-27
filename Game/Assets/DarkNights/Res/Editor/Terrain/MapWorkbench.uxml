@@ -1,0 +1,102 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+  <ui:Style src="MapWorkbench.uss" />
+  <ui:VisualElement name="mapWorkbench" class="dn-map-workbench">
+    <ui:VisualElement class="map-header">
+      <ui:VisualElement class="map-document">
+        <ui:Label text="地图设计工作台" class="map-title" />
+        <ui:Label name="mapDocumentName" class="map-document-name" />
+      </ui:VisualElement>
+      <ui:VisualElement name="headerActions" class="map-row map-header-actions">
+        <ui:Label name="draftStatus" class="map-header-status" />
+        <ui:Button name="saveDraft" text="保存" tooltip="保存当前地图和制作参数；首次保存时选择文件位置。Ctrl+S。" class="map-primary" />
+      </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="editSurface" class="map-work-area">
+      <ui:VisualElement name="mapLibrary" class="map-library">
+        <ui:VisualElement class="map-library-header">
+          <ui:Label text="配置选择" class="map-page-title" />
+          <ui:VisualElement name="mapSearchHost" />
+          <ui:VisualElement class="map-row">
+            <ui:Button name="newMapFile" text="新建" tooltip="创建连通洞室规则的未命名配置。" />
+            <ui:Button name="refreshMapFiles" text="刷新" tooltip="重新检索工程内全部地图文件。" />
+          </ui:VisualElement>
+          <ui:Label name="mapFileCount" class="map-secondary" />
+        </ui:VisualElement>
+        <ui:ScrollView name="mapFileList" class="map-file-list" />
+      </ui:VisualElement>
+      <ui:VisualElement name="moduleNavigation" class="map-module-column">
+        <ui:Label text="制作模块" class="map-module-heading" />
+        <ui:Label text="选择要编辑的内容" class="map-module-group" />
+        <ui:ScrollView name="taskNavigation" class="map-module-navigation" />
+      </ui:VisualElement>
+      <ui:TwoPaneSplitView name="mapSplit" fixed-pane-index="1" fixed-pane-initial-dimension="360">
+        <ui:VisualElement class="map-center">
+          <ui:VisualElement class="map-view-toolbar">
+            <ui:Label name="candidateStatus" class="map-toolbar-status" />
+            <ui:Button name="updateCandidate" text="按策略生成" tooltip="固定策略复用种子；随机／种子池策略抽取新种子。普通调参保留本次种子。" />
+            <ui:Button name="undo" text="撤销" />
+            <ui:Button name="redo" text="重做" />
+            <ui:Button name="compare" text="按住对比" tooltip="查看上一次有效结果；松开恢复当前地图。" />
+          </ui:VisualElement>
+          <ui:VisualElement class="map-layer-toolbar">
+            <ui:ToggleButtonGroup name="mapModeSwitch" is-multiple-selection="false" allow-empty-selection="false" tooltip="画布模式：设计或渲染，始终选择一项。" class="map-mode-switch">
+              <ui:Button name="designMode" text="设计模式" tooltip="直接显示同版格子、坡面和设计旗标；不启动岩壁与背景烘焙。" class="map-mode-button map-mode-first" />
+              <ui:Button name="renderMode" text="渲染模式" tooltip="使用完整美术；准备期间保留当前地图白模，镜头和选择保持。" class="map-mode-button" />
+            </ui:ToggleButtonGroup>
+            <ui:VisualElement name="canvasTools" class="map-canvas-toolbar">
+              <ui:Button name="displayFit" tooltip="适配画布：显示整张地图。" class="map-display-button map-display-fit" />
+              <ui:Toggle name="displayGrid" label="格线" tooltip="格线" class="map-display-toggle" />
+              <ui:Toggle name="displayRegions" label="区域" tooltip="区域" class="map-display-toggle" />
+              <ui:Toggle name="displayConnections" label="连接" tooltip="连接" class="map-display-toggle" />
+              <ui:Toggle name="displayMinerals" label="墙后矿" tooltip="墙后矿" class="map-display-toggle" />
+              <ui:Toggle name="displaySites" label="站点" tooltip="站点" class="map-display-toggle" />
+              <ui:Toggle name="displayLanding" label="泊位标记" tooltip="泊位标记" class="map-display-toggle" />
+              <ui:Toggle name="displayScenery" label="装饰旗标" tooltip="设计模式：装饰锚点与支撑旗标" class="map-display-toggle" />
+            </ui:VisualElement>
+          </ui:VisualElement>
+          <ui:Label name="canvasIdentity" class="map-canvas-identity" />
+          <ui:VisualElement name="productionFlow" class="map-production-flow">
+            <ui:Label text="八步生成过程 · 查看同一批结果" class="map-flow-title" />
+            <ui:VisualElement name="productionStages" class="map-flow-stages" />
+            <ui:Label name="moduleImpact" class="map-flow-detail" />
+            <ui:VisualElement class="map-row">
+              <ui:Toggle name="highlightStageChanges" label="标记本步材料变化" value="true" />
+              <ui:Button name="captureStages" text="记录当前种子步骤" tooltip="明确重新生成当前地图以记录中间格子；不会抽取新种子，不会自动保存。" />
+            </ui:VisualElement>
+            <ui:Label name="productionDetail" class="map-flow-detail" />
+          </ui:VisualElement>
+          <ui:VisualElement name="canvasHost" class="map-canvas">
+            <ui:Image name="productionImage" class="map-production-image map-hidden" />
+            <ui:VisualElement name="mapLoadProgress" class="map-load-progress map-hidden" picking-mode="Ignore">
+              <ui:VisualElement name="loadProgressHost" picking-mode="Ignore" />
+              <ui:VisualElement class="map-row" picking-mode="Ignore">
+                <ui:Label name="loadProgressDetail" class="map-load-detail" picking-mode="Ignore" />
+                <ui:Button name="cancelMapLoad" text="取消读取" />
+              </ui:VisualElement>
+            </ui:VisualElement>
+          </ui:VisualElement>
+          <ui:VisualElement class="map-canvas-statusbar">
+            <ui:Label name="canvasInteraction" text="拖拽平移 · 滚轮缩放" class="map-secondary" tooltip="中键始终平移；1 切逻辑格 / 2 切渲染格；取点时 Esc 取消。" />
+            <ui:Label name="canvasStatus" class="map-secondary" />
+          </ui:VisualElement>
+          <ui:Label name="designSelection" class="map-design-selection" />
+          <ui:VisualElement class="map-mapinfo">
+            <ui:Label name="mapSummary" class="map-summary" />
+          </ui:VisualElement>
+          <ui:Foldout text="图例与显示说明" value="false" class="map-legend-fold">
+            <ui:Label name="canvasLegend" class="map-canvas-legend" />
+            <ui:Label name="mapLoadTiming" class="map-canvas-legend" />
+          </ui:Foldout>
+        </ui:VisualElement>
+        <ui:VisualElement class="map-inspector">
+          <ui:VisualElement class="map-inspector-header">
+            <ui:Label name="inspectorTitle" class="map-page-title" />
+            <ui:Label name="inspectorDescription" class="map-page-description" />
+          </ui:VisualElement>
+          <ui:ScrollView name="taskProperties" class="map-properties" />
+        </ui:VisualElement>
+      </ui:TwoPaneSplitView>
+    </ui:VisualElement>
+    <ui:Label name="workbenchNotice" class="map-notice" />
+  </ui:VisualElement>
+</ui:UXML>

@@ -2,26 +2,25 @@ using System;
 using DarkNights.Core.Config;
 using DarkNights.Core.ViewData;
 using GameCore.UI;
-using R3;
 using UnityEngine.UIElements;
 
 namespace DarkNights.Entry
 {
-    /// <summary>船内四格装备的 YYGC UIToolkit 面板；只订阅冻结副本并发送有效商品的购买意图，喷气暂退。</summary>
+    /// <summary>
+    /// 远征的原生UITK面板；常驻区域仅显示四格装备，背包、商店和导航使用既有模态生命周期。
+    /// 金额、货物和装备只读冻结投影，按钮只发出意图，不改变库存、船货或结算。
+    /// </summary>
     [UIAsset("dark_nights.ui.ship_equipment")]
     public sealed class ShipEquipmentPanel : UIPanel
     {
-        private readonly Subject<string> credits = new Subject<string>();
-        private readonly Subject<string> hint = new Subject<string>();
-        private readonly Subject<string>[] slots =
-            { new Subject<string>(), new Subject<string>(), new Subject<string>(), new Subject<string>() };
-        private VisualElement shop;
-        private Button pistol, pickaxe, deposit;
+        private VisualElement shop, inventory, equipment;
+        private Button pistol, pickaxe, shopClose, inventoryClose;
+        private ShipHudReadout readout;
         internal ShipNavigationContent Navigation { get; private set; }
         public event Action<string> BuyRequested;
         public event Action Closed;
-        public event Action DepositRequested;
         public bool ShopOpen { get; private set; }
+        public bool InventoryOpen { get; private set; }
         public bool AttachedAndVisible => Root?.panel != null && Root.resolvedStyle.display != DisplayStyle.None &&
             Root.worldBound.width > 0 && Root.worldBound.height > 0;
 
@@ -30,67 +29,63 @@ namespace DarkNights.Entry
             Root.AddToClassList("ship-equipment-panel");
             Root.pickingMode = PickingMode.Ignore;
             Root.Q("ship-ui-root").pickingMode = PickingMode.Ignore;
-            Root.style.position = Position.Absolute;
-            Root.style.left = Root.style.top = Root.style.right = Root.style.bottom = 0;
-            Disposables.Add(credits.BindText(Root.Q<Label>("credits")));
-            Disposables.Add(hint.BindText(Root.Q<Label>("hint")));
-            for (int i = 0; i < slots.Length; i++)
-                Disposables.Add(slots[i].BindText(Root.Q<Label>("slot" + i)));
-            shop = Root.Q<VisualElement>("shop");
+            equipment = Root.Q("equipment-root");
+            readout = new ShipHudReadout(Root);
+            shop = Root.Q("shop"); inventory = Root.Q("inventory");
             pistol = Root.Q<Button>("buy-pistol"); pickaxe = Root.Q<Button>("buy-pickaxe");
-            Root.Q<Button>("buy-jetpack").SetEnabled(false);
+            shopClose = Root.Q<Button>("close"); inventoryClose = Root.Q<Button>("close-inventory");
             pistol.clicked += BuyPistol; pickaxe.clicked += BuyPickaxe;
-            Root.Q<Button>("close").clicked += Close;
-            SetShop(false);
+            shopClose.clicked += Close; inventoryClose.clicked += Close;
             Navigation = new ShipNavigationContent(Root);
-            deposit = Root.Q<Button>("deposit-cargo"); deposit.clicked += Deposit;
+            SetShop(false); SetInventory(false);
         }
 
         public void Present(ActorViewData actor, int balance, int iron, int gold,
-            ShipTradeDefinition prices, string interaction, bool active)
+            ShipTradeDefinition prices, bool active)
         {
-            Root.style.display = active ? DisplayStyle.Flex : DisplayStyle.None;
-            Root.Q("equipment-root").style.display = actor == null ? DisplayStyle.None : DisplayStyle.Flex;
-            credits.OnNext("信用点 " + balance + "  ·  货袋 铁 " + iron + " / 金 " + gold);
-            hint.OnNext(interaction);
-            int[] items = { actor?.Slot0 ?? 0, actor?.Slot1 ?? 0, actor?.Slot2 ?? 0, actor?.Slot3 ?? 0 };
-            for (int i = 0; i < slots.Length; i++)
-            {
-                string name = items[i] switch { 1 => "手枪", 2 => "矿镐", 3 => "炸药", 4 => "手电筒", _ => "空" };
-                slots[i].OnNext((actor?.SelectedItem == i ? "▶ " : "") + (i + 1) + "  " + name);
-            }
+            Root.EnableInClassList("is-hidden", !active);
+            equipment.EnableInClassList("is-hidden", actor == null || ShopOpen || InventoryOpen || Navigation.IsOpen);
+            readout.Present(actor, balance, iron, gold);
             pistol.text = "手枪 · " + prices.PistolPrice;
             pickaxe.text = "矿镐 · " + prices.PickaxePrice;
-            pistol.SetEnabled(balance >= prices.PistolPrice && Array.IndexOf(items, 1) < 0 && Array.IndexOf(items, 0) >= 0);
-            pickaxe.SetEnabled(balance >= prices.PickaxePrice && Array.IndexOf(items, 2) < 0 && Array.IndexOf(items, 0) >= 0);
+            pistol.SetEnabled(balance >= prices.PistolPrice && !Holds(actor, 1) && Holds(actor, 0));
+            pickaxe.SetEnabled(balance >= prices.PickaxePrice && !Holds(actor, 2) && Holds(actor, 0));
         }
+
+        internal void PresentContext(string prompt, string key, bool permitted, bool blocked,
+            JourneyViewData journey, ExpeditionViewData expedition) =>
+            readout.PresentContext(prompt, key, permitted, blocked, journey, expedition);
+        internal void PresentCargo(int iron, int gold, long income) => readout.PresentCargo(iron, gold, income);
+        internal void ResetReadout() => readout.Reset();
+        internal void PlaceContext(UnityEngine.Vector2 screen) => readout.PlaceContext(screen);
+        internal void ShowReceipt(string value) => readout.ShowReceipt(value);
 
         public void SetShop(bool visible)
         {
             ShopOpen = visible;
-            if (shop != null) shop.style.display = visible ? DisplayStyle.Flex : DisplayStyle.None;
-            if (visible) Root.Q<Button>("close").Focus();
+            shop.EnableInClassList("is-open", visible);
+            if (visible) shopClose.Focus();
         }
 
-        internal void PresentCargo(int iron, int gold, long income, bool canDeposit)
+        public void SetInventory(bool visible)
         {
-            Root.Q<Label>("ship-cargo").text = "船货 铁 " + iron + " / 金 " + gold + " · 预计收入 " + income;
-            deposit.SetEnabled(canDeposit);
+            InventoryOpen = visible;
+            inventory.EnableInClassList("is-open", visible);
+            if (visible) inventoryClose.Focus();
         }
 
+        private static bool Holds(ActorViewData actor, int item) => actor != null &&
+            (actor.Slot0 == item || actor.Slot1 == item || actor.Slot2 == item || actor.Slot3 == item);
         private void BuyPistol() => BuyRequested?.Invoke("pistol");
         private void BuyPickaxe() => BuyRequested?.Invoke("pickaxe");
-        private void Close() { SetShop(false); Closed?.Invoke(); }
-        private void Deposit() => DepositRequested?.Invoke();
+        private void Close() { SetShop(false); SetInventory(false); Closed?.Invoke(); }
+
         protected override void OnDispose()
         {
             Navigation?.Dispose(); Navigation = null;
-            deposit.clicked -= Deposit; DepositRequested = null;
             pistol.clicked -= BuyPistol; pickaxe.clicked -= BuyPickaxe;
-            Root.Q<Button>("close").clicked -= Close;
+            shopClose.clicked -= Close; inventoryClose.clicked -= Close;
             BuyRequested = null; Closed = null;
-            credits.Dispose(); hint.Dispose();
-            foreach (var slot in slots) slot.Dispose();
         }
     }
 }

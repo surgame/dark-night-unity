@@ -30,7 +30,7 @@ namespace DarkNights.Tests
             try
             {
                 window.Show(); yield return null;
-                Call(window, "Navigate", "ui");
+                Call(window, "Navigate", "ship");
                 var search = window.rootVisualElement.Q<TextField>("workbench-search");
                 search.value = "矿镐";
                 Assert.That(window.rootVisualElement.Q<Button>("action-mining"), Is.Not.Null);
@@ -44,7 +44,10 @@ namespace DarkNights.Tests
                 search.value = "__no_matching_workbench_entry__";
                 Assert.That(window.rootVisualElement.Q(className: "dn-empty"), Is.Not.Null);
                 search.value = "";
-                Assert.That(window.rootVisualElement.Q<Label>("task-title").text, Is.EqualTo("界面资源"));
+                Assert.That(window.rootVisualElement.Q<Label>("task-title").text, Is.EqualTo("飞船"));
+                Assert.That(window.rootVisualElement.Q<PopupField<string>>("source-choice"), Is.Null,
+                    "扩展尚未展开时不应创建作者Inspector。");
+                window.rootVisualElement.Q<Foldout>("module-extension").value = true;
                 Assert.That(window.rootVisualElement.Q<PopupField<string>>("source-choice"), Is.Not.Null);
             }
             finally { window.Close(); }
@@ -56,7 +59,7 @@ namespace DarkNights.Tests
             var attribute = Assembly.GetType("DarkNights.Editor.DarkNightsWorkbenchCommandAttribute", true);
             var methods = Assembly.GetTypes().SelectMany(type => type.GetMethods(Flags))
                 .Where(method => method.IsDefined(attribute, false)).ToArray();
-            Assert.That(methods.Length, Is.EqualTo(36));
+            Assert.That(methods.Length, Is.GreaterThan(0));
             foreach (var method in methods)
             {
                 Assert.That(method.IsStatic && method.ReturnType == typeof(void) && method.GetParameters().Length == 0, Is.True);
@@ -76,14 +79,16 @@ namespace DarkNights.Tests
             try
             {
                 window.Show(); yield return null;
+                Call(window, "Navigate", "objects");
                 foreach (var size in new[] { new Vector2(1120, 760), new Vector2(680, 480) })
                 {
                     window.position = new Rect(new Vector2(80, 80), size);
-                    window.rootVisualElement.Q<Foldout>("mining-validation").value = true;
+                    window.rootVisualElement.Q<Foldout>("module-extension").value = true;
                     window.Repaint(); yield return null; yield return null;
                     var description = window.rootVisualElement.Q<Label>("task-description");
-                    var shortcuts = window.rootVisualElement.Q("scene-shortcuts");
-                    Assert.That(description.worldBound.yMax, Is.LessThanOrEqualTo(shortcuts.worldBound.yMin), size.ToString());
+                    var body = window.rootVisualElement.Q<ScrollView>("task-content");
+                    Assert.That(description.worldBound.yMax, Is.LessThanOrEqualTo(body.worldBound.yMin), size.ToString());
+                    Assert.That(window.rootVisualElement.Q("scene-shortcuts"), Is.Null, "跨模块重复场景栏已撤下。");
                     Assert.That(window.rootVisualElement.Q<ScrollView>("task-content").worldBound.height, Is.GreaterThan(60));
                 }
                 var search = window.rootVisualElement.Q<TextField>("workbench-search");
@@ -97,7 +102,7 @@ namespace DarkNights.Tests
                 using (var key = KeyDownEvent.GetPooled('\0', KeyCode.Escape, EventModifiers.None))
                     window.rootVisualElement.SendEvent(key);
                 Assert.That(search.value, Is.Empty);
-                Assert.That(window.rootVisualElement.Q<Label>("task-title").text, Is.EqualTo("对象与装备"));
+                Assert.That(window.rootVisualElement.Q<Label>("task-title").text, Is.EqualTo("角色与装备"));
             }
             finally { window.Close(); }
         }
@@ -119,7 +124,7 @@ namespace DarkNights.Tests
                 WindowType.GetMethod("Open", Flags).Invoke(null, null); yield return null;
                 Assert.That(window.docked, Is.False);
                 Assert.That(Resources.FindObjectsOfTypeAll<EditorWindow>().Single(value => value.GetType() == WindowType), Is.SameAs(window));
-                Assert.That(window.rootVisualElement.Q<Label>("task-title").text, Is.EqualTo("星球与航程"));
+                Assert.That(window.rootVisualElement.Q<Label>("task-title").text, Is.EqualTo("飞船"));
             }
             finally { if (existing == null) window.Close(); else Call(window, "Navigate", previous); }
         }

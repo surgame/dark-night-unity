@@ -23,11 +23,13 @@ namespace DarkNights.Editor
         {
             AddToClassList("dn-sources");
             Add(new Label(entry.Title) { name = "source-title" });
+            var description = new Label(entry.Description); description.AddToClassList("dn-description"); Add(description);
             var paths = entry.Assets.ToList();
-            var choice = new PopupField<string>("作者来源", paths, Math.Max(0, paths.IndexOf(selected))) { name = "source-choice" };
+            var choice = new PopupField<string>("编辑内容", paths.Select(Label).ToList(),
+                Math.Max(0, paths.IndexOf(selected))) { name = "source-choice" };
             Add(choice); Add(area);
-            choice.RegisterValueChangedCallback(change => { remember(change.newValue); Draw(change.newValue); });
-            remember(choice.value); Draw(choice.value);
+            choice.RegisterValueChangedCallback(change => { remember(paths[choice.index]); Draw(paths[choice.index]); });
+            remember(paths[choice.index]); Draw(paths[choice.index]);
             refresh = schedule.Execute(UpdateState).Every(250);
         }
 
@@ -36,10 +38,12 @@ namespace DarkNights.Editor
             if (inspector != null) UnityEngine.Object.DestroyImmediate(inspector);
             inspector = null; area.Clear(); asset = AssetDatabase.LoadMainAssetAtPath(path);
             if (asset == null) { area.Add(new HelpBox("资产不存在：" + path, HelpBoxMessageType.Warning)); return; }
+            var location = new Label(path); location.AddToClassList("dn-path"); area.Add(location);
             var actions = new VisualElement(); actions.AddToClassList("dn-actions"); area.Add(actions);
             actions.Add(new Button(() => DarkNightsWorkbenchWindow.Locate(asset)) { text = "定位作者来源" });
             if (asset is UnityEngine.TextAsset || path.EndsWith(".uxml", StringComparison.OrdinalIgnoreCase) ||
-                path.EndsWith(".uss", StringComparison.OrdinalIgnoreCase) || path.EndsWith(".tss", StringComparison.OrdinalIgnoreCase))
+                path.EndsWith(".uss", StringComparison.OrdinalIgnoreCase) || path.EndsWith(".tss", StringComparison.OrdinalIgnoreCase) ||
+                path.EndsWith(".prefab", StringComparison.OrdinalIgnoreCase))
             {
                 actions.Add(new Button(() => { if (!DarkNightsNativeWorkspace.Blocked) AssetDatabase.OpenAsset(asset); })
                     { text = "用原生 / 外部编辑器打开", name = "open-source" });
@@ -55,6 +59,18 @@ namespace DarkNights.Editor
             area.Add(new Button(() => { if (!DarkNightsNativeWorkspace.Blocked) AssetDatabase.SaveAssetIfDirty(asset); })
                 { text = "保存当前资产", name = "save-source" });
             UpdateState();
+        }
+
+        private static string Label(string path)
+        {
+            string file = System.IO.Path.GetFileName(path);
+            if (path.EndsWith(".uxml", StringComparison.OrdinalIgnoreCase)) return "界面布局 UXML";
+            if (path.EndsWith(".uss", StringComparison.OrdinalIgnoreCase)) return "外观样式 USS";
+            if (path.EndsWith(".tss", StringComparison.OrdinalIgnoreCase)) return "界面主题 TSS";
+            if (file.Contains("PanelSettings")) return "缩放与渲染 PanelSettings";
+            if (file == "balance.json") return "经济与数值 balance.json";
+            if (file == "pinewatch.json") return "关卡元数据 pinewatch.json";
+            return file;
         }
 
         private void UpdateState()

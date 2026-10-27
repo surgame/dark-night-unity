@@ -11,7 +11,7 @@ namespace DarkNights.View.Terrain
     /// <summary>固定蓝图的只读表现输入；初始整图只用于装载，后续草稿改动以冻结的稀疏格事务安装。</summary>
     public sealed class TerrainBlueprintSource : ITerrainInputSource
     {
-        private readonly TerrainBlueprint blueprint;
+        private TerrainBlueprint blueprint;
         private readonly uint[] tiles = new uint[9];
         private readonly object gate = new object();
         private readonly HashSet<ChunkCoord> loaded = new HashSet<ChunkCoord>();
@@ -93,6 +93,32 @@ namespace DarkNights.View.Terrain
                 }
             }
             ApplyChanges(changes);
+        }
+
+        /// <summary>显式替换作者蓝图并发布净变化；新保护格按新蓝图安装，普通笔刷仍受当前保护合同约束。</summary>
+        public void ReplaceBlueprint(TerrainBlueprint next)
+        {
+            if (next == null || next.Width != blueprint.Width || next.Height != blueprint.Height)
+                throw new ArgumentException("作者蓝图尺寸不匹配。");
+            var nextMaterials = next.CopyMaterials(); var nextShapes = next.CopyShapes();
+            MapInputBatch batch = null;
+            lock (gate)
+            {
+                var changed = new List<int>();
+                for (int i = 0; i < materials.Length; i++)
+                    if (materials[i] != nextMaterials[i] || shapes[i] != nextShapes[i] ||
+                        blueprint.IsProtected(i % next.Width, i / next.Width) != next.IsProtected(i % next.Width, i / next.Width))
+                        changed.Add(i);
+                blueprint = next; materials = nextMaterials; shapes = nextShapes;
+                if (changed.Count != 0 && descriptor != null)
+                {
+                    var values = new List<MapInputCell>(changed.Count);
+                    foreach (int index in changed) values.Add(new MapInputCell(
+                        new CellCoord(index % next.Width, -(index / next.Width)), CellAt(index)));
+                    batch = new MapInputBatch(descriptor.World, 1, 0, 0, checked(++sourceCommit), MapInputBatchKind.Delta, values);
+                }
+            }
+            if (batch != null) InputChanged?.Invoke(batch);
         }
 
         /// <summary>在一次锁内验证并写入稀疏草稿，净变化为空时不发布新源提交。</summary>

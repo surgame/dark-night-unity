@@ -40,6 +40,8 @@ namespace DarkNights.View.Terrain
         public long InlineBatches { get; private set; }
         public bool Ready => fault == null && geometry.Initialized && task == null &&
             visible.All(k => bakedVersions[k] == versions[k]);
+        internal TerrainPageProgress Progress => new TerrainPageProgress(
+            visible.Count(k => bakedVersions[k] == versions[k]), visible.Count, geometry.Initialized);
         public Exception Fault => fault;
         internal CaveForegroundCoverage Coverage { get; set; }
 
@@ -96,7 +98,7 @@ namespace DarkNights.View.Terrain
                     next.Add(y * 10 + x);
             visible.Clear(); foreach (int key in next) visible.Add(key);
         }
-        public void Tick()
+        public void Tick(int maximumColdPages = 2)
         {
             if (disposed || fault != null || !geometry.Initialized) return;
             try
@@ -122,7 +124,7 @@ namespace DarkNights.View.Terrain
                 var hot = keys.Where(interactive.Contains).ToArray();
                 bool isHot = hot.Length != 0;
                 if (isHot) keys = hot;
-                else keys = keys.Take(2).ToArray();
+                else keys = keys.Take(Math.Max(2, Math.Min(8, maximumColdPages))).ToArray();
                 workCancellation = CancellationTokenSource.CreateLinkedTokenSource(lifetime.Token);
                 var token = workCancellation.Token;
                 var clock = Stopwatch.StartNew();

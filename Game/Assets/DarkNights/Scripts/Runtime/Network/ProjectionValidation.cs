@@ -55,10 +55,11 @@ namespace DarkNights.Runtime.Network
                 Require(DarkNights.Core.Save.ExpeditionValidator.Validate(expedition,
                     world.Actors.Select(a => a.Id).ToArray(), world.Buildings.Select(b => b.Id).ToArray(),
                     world.MineralDeposits.Select(w => w.Id).ToArray(), catalog.Balance.Expedition).Length == 0);
-                Require(world.Buildings.Count(b => b.Kind == "ship") == 1);
+                Require(world.Buildings.Count(b => b.Kind == "ship") == (expedition.Ship == null ? 0 : 1));
                 var ship = world.Buildings.FirstOrDefault(b => b.Kind == "ship");
                 var device = world.Expedition.Devices.FirstOrDefault(d => d.Id == ship?.Id);
-                Require(ship != null && device != null && Core.Save.ExpeditionShipValidator.Transform(expedition.Ship,
+                Require(expedition.Ship == null || ship != null && device != null &&
+                    Core.Save.ExpeditionShipValidator.Transform(expedition.Ship,
                     ship.Id, ship.X, device.Height, catalog.Balance.Expedition.Ship, expedition.Journey));
             }
             var camp = world.Camp;
@@ -83,7 +84,7 @@ namespace DarkNights.Runtime.Network
                 double maximumHeight = crew?.Boarded == true || crew?.Role == 4
                     ? Math.Max(catalog.Balance.HeroControl?.MaximumHeight ?? 0, Core.Save.JourneyValidator.MaximumCrewHeight(expedition?.Journey))
                     : Core.Save.JourneyValidator.MaximumGroundHeight(expedition?.Journey, catalog.Balance.HeroControl?.MaximumHeight ?? 0);
-                Require(Finite(a.Height) && a.Height >= (layout.RandomTerrain ? Core.Config.Terrain.PlayableTerrain.MinimumHeight : 0) && a.Height <= maximumHeight &&
+                bool validActor = Finite(a.Height) && a.Height >= (layout.RandomTerrain ? Core.Config.Terrain.PlayableTerrain.MinimumHeight : 0) && a.Height <= maximumHeight &&
                     Finite(a.VerticalSpeed) && Math.Abs(a.VerticalSpeed) <= 1000 && a.SupportPlatform >= -1 &&
                     a.SelectedItem >= 0 && a.SelectedItem <= 3 && a.SelectionRevision >= 0 && a.ControlLease >= 0 &&
                     a.ControllerSlot >= -1 && a.ControllerSlot <= 3 && (a.ControllerSlot < 0 || (a.ManualControl && !a.Enemy)) &&
@@ -91,7 +92,11 @@ namespace DarkNights.Runtime.Network
                     a.ExplosiveCharges >= 0 && a.ExplosiveCharges <= 1000 && a.InventoryRevision >= 0 &&
                     new[] { a.Slot0, a.Slot1, a.Slot2, a.Slot3 }.All(item => item >= 0 && item <= 4) &&
                     EquipmentSlots(a) &&
-                    (!a.JetpackEquipped || a.JetpackOwned) && (a.JetpackOwned || a.JetpackFuel == 0));
+                    (!a.JetpackEquipped || a.JetpackOwned) && (a.JetpackOwned || a.JetpackFuel == 0);
+                if (!validActor) throw new FormatException("Invalid actor projection: id=" + a.Id +
+                    ", height=" + a.Height + "/" + maximumHeight + ", speed=" + a.VerticalSpeed +
+                    ", support=" + a.SupportPlatform + ", slot=" + a.ControllerSlot + ", manual=" + a.ManualControl +
+                    ", equipment=" + EquipmentSlots(a) + ", fuel=" + a.JetpackFuel + ", inventory=" + a.InventoryRevision + ".");
                 Require(Finite(a.AimAngle) && Math.Abs(a.AimAngle) <= 180 && Finite(a.EquipmentCooldown) && a.EquipmentCooldown >= 0 && a.EquipmentCooldown <= 5 &&
                     Finite(a.EquipmentAction) && a.EquipmentAction >= 0 && a.EquipmentAction <= 5 && Finite(a.EquipmentActionDuration) && a.EquipmentActionDuration >= 0 && a.EquipmentActionDuration <= 5 &&
                     Finite(a.ChargeSeconds) && a.ChargeSeconds >= 0 && a.ChargeSeconds <= 5);
@@ -203,9 +208,9 @@ namespace DarkNights.Runtime.Network
         {
             foreach (double value in values) Require(Finite(value) && value >= 0);
         }
-        private static void Require(bool valid)
+        private static void Require(bool valid, [System.Runtime.CompilerServices.CallerLineNumber] int line = 0)
         {
-            if (!valid) throw new FormatException("Invalid complete world projection.");
+            if (!valid) throw new FormatException("Invalid complete world projection at validation line " + line + ".");
         }
     }
 }

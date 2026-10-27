@@ -167,7 +167,8 @@ namespace DarkNights.View.Lighting
             {
                 if (SystemInfo.supportsGraphicsFence)
                 {
-                    var fence = Graphics.CreateGraphicsFence(GraphicsFenceType.AsyncQueueSynchronisation,
+                    // CPU 轮询完成状态不需要异步计算队列；D3D11 也可能支持这种 fence。
+                    var fence = Graphics.CreateGraphicsFence(GraphicsFenceType.CPUSynchronisation,
                         SynchronisationStageFlags.AllGPUOperations);
                     while (!fence.passed) await Task.Yield();
                 }

@@ -40,8 +40,8 @@ namespace DarkNights.Tests
         {
             var assembly = typeof(DarkNights.Editor.DarkNightsMenu).Assembly;
             var types = new[] { typeof(GameCore.Editor.Objects.Runner.ObjectDefinitionViewer),
-                typeof(DarkNights.Editor.Terrain.TerrainStylePreviewWindow), assembly.GetType("DarkNights.Editor.Terrain.TerrainBusinessWindow", true),
-                typeof(DarkNights.Editor.Terrain.TerrainStylePreviewWindow) };
+                typeof(DarkNights.Editor.Terrain.MapWorkbenchWindow), assembly.GetType("DarkNights.Editor.Terrain.TerrainBusinessWindow", true),
+                typeof(DarkNights.Editor.Terrain.MapWorkbenchWindow) };
             var methods = new[] { "Viewer", "Journey", "Terrain", "Visual" };
             var before = Resources.FindObjectsOfTypeAll<EditorWindow>();
             int suiteCount = before.Count(window => window.GetType().Name == "ObjectArchetypeManagerWindow" || window.GetType().Name == "DIDebugWindow");
@@ -53,14 +53,14 @@ namespace DarkNights.Tests
                     Bridge.GetMethod(methods[index], Flags).Invoke(null, null); yield return null;
                     var window = Resources.FindObjectsOfTypeAll<EditorWindow>().Single(value => value.GetType() == types[index]);
                     Assert.That(window.docked, Is.False, methods[index] + " 应以独立浮窗打开");
-                    object draft = index == 1 ? ((DarkNights.Editor.Terrain.TerrainStylePreviewWindow)window).Draft : null;
+                    object draft = index == 1 ? ((DarkNights.Editor.Terrain.MapWorkbenchWindow)window).Draft : null;
                     string original = draft == null ? "" : EditorJsonUtility.ToJson((UnityEngine.Object)draft);
                     yield return WaitForEditor();
                     Bridge.GetMethod(methods[index], Flags).Invoke(null, null); yield return null;
                     Assert.That(Resources.FindObjectsOfTypeAll<EditorWindow>().Single(value => value.GetType() == types[index]), Is.SameAs(window));
                     if (draft != null)
                     {
-                        Assert.That(((DarkNights.Editor.Terrain.TerrainStylePreviewWindow)window).Draft, Is.SameAs(draft));
+                        Assert.That(((DarkNights.Editor.Terrain.MapWorkbenchWindow)window).Draft, Is.SameAs(draft));
                         Assert.That(EditorJsonUtility.ToJson((UnityEngine.Object)draft), Is.EqualTo(original));
                     }
                 }

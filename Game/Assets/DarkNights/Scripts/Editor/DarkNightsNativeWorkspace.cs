@@ -53,10 +53,10 @@ namespace DarkNights.Editor
         internal static void Viewer() => Open<ObjectDefinitionViewer>("定义文件", new Vector2(800, 400));
         internal static void Journey()
         {
-            TerrainStylePreviewWindow.OpenJourney();
+            MapWorkbenchWindow.OpenJourney();
         }
         internal static void Terrain() => Open<TerrainBusinessWindow>("网格业务配置", new Vector2(680, 460));
-        internal static void Visual() => Open<TerrainStylePreviewWindow>("矿洞地图工作台", new Vector2(800, 540));
+        internal static void Visual() => Open<MapWorkbenchWindow>("地图设计工作台", new Vector2(800, 540));
         internal static void Mining() => Open<MiningDefinitionWindow>("采集校验", new Vector2(640, 460));
     }
 }

@@ -1,0 +1,145 @@
+:root {
+    --menu-ink: #e9dfc7;
+    --menu-muted: #a8b2a7;
+    --menu-amber: #e8bb76;
+}
+.main-menu-panel, .menu-root { position: absolute; left: 0; right: 0; top: 0; bottom: 0; }
+.menu-root { color: var(--menu-ink); font-size: 16px; background-color: #0b1514; }
+.menu-landscape {
+    position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+    background-image: url("project://database/Assets/DarkNights/Res/UI/MainMenu/Artwork/MenuLandscape.png");
+    -unity-background-scale-mode: scale-and-crop;
+}
+.menu-content { flex-grow: 1; margin: 54px 6% 44px 6%; }
+.menu-page { flex-grow: 1; }
+.menu-hidden { display: none; }
+.menu-title {
+    font-size: 87px; color: #eadbb5; margin: 6px 0 22px 0;
+    -unity-font: url("project://database/Assets/DarkNights/Res/UI/Shared/TitleFont.fontsettings");
+    -unity-font-style: bold; letter-spacing: 1px;
+}
+.menu-rule { height: 2px; width: 38px; background-color: var(--menu-amber); margin-bottom: 18px; }
+.menu-navigation { width: 315px; }
+.menu-button, .menu-back, .menu-tab, .menu-action, .room-row {
+    border-width: 0; border-radius: 0; background-color: transparent;
+    color: var(--menu-ink); margin: 0; -unity-text-align: middle-left;
+}
+.menu-button { height: 48px; padding-left: 24px; font-size: 23px; letter-spacing: 4px; }
+.menu-button:hover, .menu-button:focus, .menu-action:hover {
+    color: var(--menu-amber); background-color: rgba(139, 106, 62, .15);
+}
+.menu-button:disabled { color: #728074; }
+.menu-back {
+    height: 34px; padding: 0; font-size: 14px; color: var(--menu-muted); letter-spacing: 1px;
+    align-self: flex-start; background-image: none;
+}
+.menu-back:hover, .menu-back:focus {
+    color: var(--menu-amber); background-color: transparent; background-image: none; border-width: 0;
+}
+.menu-back:active { color: #fff0ca; background-color: transparent; background-image: none; border-width: 0; }
+.menu-heading { font-size: 32px; letter-spacing: 5px; margin: 22px 0 28px 0; }
+.menu-subtitle { color: var(--menu-amber); margin-bottom: 20px; }
+.menu-text { white-space: normal; color: var(--menu-muted); font-size: 14px; margin: 9px 0; }
+.menu-note { white-space: normal; color: var(--menu-muted); font-size: 12px; margin: 8px 0; }
+.menu-error { color: #e6a38a; white-space: normal; margin: 12px 0; min-height: 22px; }
+.menu-action { font-size: 21px; letter-spacing: 3px; height: 44px; padding: 0; color: var(--menu-amber); }
+.menu-action:disabled { color: #728074; }
+.menu-row { flex-direction: row; align-items: center; }
+.menu-space { flex-grow: 1; }
+.menu-form { max-width: 600px; }
+.menu-form > .menu-heading { font-size: 36px; letter-spacing: 3px; }
+.menu-setup { margin: 20px 0 0 24px; max-width: 492px; }
+.menu-modes { flex-direction: row; flex-wrap: wrap; }
+.menu-host-fields { flex-direction: row; margin-top: 48px; min-height: 82px; }
+.menu-host-field { flex: 1; min-width: 0; }
+.menu-room-name { flex-grow: 1.35; margin-right: 28px; }
+.menu-input-label { font-size: 13px; letter-spacing: 1px; margin: 0 0 13px 0; }
+.menu-optional { font-size: 11px; color: var(--menu-muted); margin: 0 0 13px 8px; }
+.menu-host-field > .menu-field { margin: 0; max-width: none; }
+.menu-host-field > .menu-field > .unity-text-field__input {
+    background-color: transparent; padding: 0 0 10px 0; min-height: 40px; font-size: 18px;
+}
+.menu-host-field .unity-text-field__input:focus { border-bottom-color: var(--menu-amber); }
+.menu-host-fields-local { visibility: hidden; }
+.menu-setup > .menu-action { margin-top: 60px; align-self: flex-start; font-size: 26px; }
+.menu-start {
+    height: 56px; min-width: 196px; padding: 0 24px; flex-shrink: 0;
+    -unity-text-align: middle-center; background-image: none;
+    background-color: rgba(232, 187, 118, .1);
+    border-width: 1px; border-color: #a7834c;
+    transition-duration: .1s;
+}
+.menu-start:focus {
+    color: #fff0ca; background-color: rgba(232, 187, 118, .22); border-color: #fff0ca;
+}
+.menu-start:hover {
+    color: #17201b; background-color: #e8bb76; border-color: #f7d89f;
+}
+.menu-start:active {
+    color: #111a16; background-color: #c79755; border-color: #e8bb76; translate: 0 1px;
+}
+.menu-start:disabled {
+    color: #728074; background-color: rgba(114, 128, 116, .06);
+    border-color: #455149; translate: 0 0;
+}
+.menu-label { color: var(--menu-amber); font-size: 13px; margin: 12px 0; letter-spacing: 2px; }
+.menu-field { max-width: 370px; margin: 8px 0; }
+.menu-field > .unity-text-field__input {
+    background-color: rgba(11, 23, 17, .75); color: var(--menu-ink);
+    border-width: 0 0 1px 0; border-color: #8c8c6c; border-radius: 0;
+    padding: 10px 8px; min-height: 36px;
+}
+.menu-choice {
+    height: 47px; margin: 0 32px 0 0; padding: 0 0 8px 0;
+    font-size: 22px; letter-spacing: 2px; color: var(--menu-muted);
+}
+.menu-choice:hover, .menu-choice:focus { background-color: transparent; }
+.menu-choice.menu-selected {
+    color: var(--menu-amber); background-color: transparent;
+    border-bottom-width: 2px; border-bottom-color: var(--menu-amber);
+}
+.menu-tabs { flex-direction: row; max-width: 700px; align-items: center; }
+.menu-tab { height: 40px; font-size: 19px; margin-right: 28px; padding: 0; color: var(--menu-muted); }
+.menu-tab.menu-selected { color: var(--menu-amber); border-bottom-width: 2px; border-bottom-color: var(--menu-amber); }
+.menu-small { font-size: 12px; height: 32px; color: var(--menu-muted); letter-spacing: 1px; }
+.menu-browser { max-width: 700px; }
+.room-head { height: 32px; border-bottom-width: 1px; border-bottom-color: #596651; }
+.room-head > .unity-label { color: var(--menu-muted); font-size: 12px; }
+.room-name-column { flex-grow: 1; min-width: 0; padding-left: 25px; }
+.room-count-column { width: 64px; -unity-text-align: middle-right; margin-right: 26px; }
+.room-ping-column { width: 76px; -unity-text-align: middle-right; margin-right: 8px; }
+.room-list { height: 340px; flex-shrink: 0; background-color: transparent; border-width: 0; }
+.room-list .unity-scroll-view__content-container { background-color: transparent; }
+.room-list .unity-collection-view__item--selected { background-color: rgba(139, 106, 62, .18); }
+.room-row { height: 34px; flex-direction: row; align-items: center; padding: 0 8px 0 4px; }
+.room-row:hover { background-color: rgba(139, 106, 62, .18); }
+.room-row:disabled { opacity: .6; }
+.room-lock { width: 13px; height: 13px; margin-right: 8px; flex-shrink: 0; }
+.room-lock-on { background-image: url("project://database/Assets/DarkNights/Res/UI/MainMenu/Artwork/RoomLock.svg"); }
+.room-title { flex-grow: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 16px; }
+.room-count { width: 64px; margin-right: 26px; -unity-text-align: middle-right; font-size: 13px; }
+.room-ping { width: 76px; -unity-text-align: middle-right; font-size: 13px; }
+.menu-password { max-width: 430px; }
+.menu-password > .unity-text-field__input { font-size: 24px; letter-spacing: 5px; }
+.menu-flow { max-width: 600px; }
+.menu-phase { color: #8e9c8a; font-size: 18px; letter-spacing: 2px; margin: 12px 0; padding-left: 24px; }
+.menu-phase.menu-current { color: var(--menu-amber); border-left-width: 2px; border-left-color: var(--menu-amber); }
+.menu-phase.menu-done { color: #b2c0a5; }
+.menu-location { position: absolute; right: 7%; bottom: 8%; -unity-text-align: upper-right; color: #c6ceb9; }
+.menu-location-title { font-size: 24px; letter-spacing: 6px; }
+.menu-confirm { max-width: 560px; }
+.menu-confirm .menu-row > .unity-button { margin-right: 36px; }
+.menu-settings { max-width: 560px; }
+.menu-settings .unity-slider { margin: 12px 0; }
+.menu-narrow .menu-content { margin: 24px; }
+.menu-narrow .menu-title { font-size: 64px; }
+.menu-narrow .menu-setup { max-width: 460px; }
+.menu-narrow .menu-host-fields { flex-direction: column; margin-top: 28px; }
+.menu-narrow .menu-room-name { margin: 0 0 24px 0; }
+.menu-narrow .menu-choice { margin-right: 22px; font-size: 19px; letter-spacing: 0; }
+.menu-narrow .menu-setup > .menu-action { margin-top: 40px; font-size: 24px; }
+.menu-narrow .menu-heading { font-size: 26px; margin-bottom: 16px; }
+.menu-narrow .room-count-column, .menu-narrow .room-count { width: 40px; margin-right: 12px; }
+.menu-narrow .room-ping-column, .menu-narrow .room-ping { width: 58px; }
+.menu-narrow .room-row { height: 44px; }
+.menu-narrow .menu-tab { margin-right: 18px; font-size: 17px; }

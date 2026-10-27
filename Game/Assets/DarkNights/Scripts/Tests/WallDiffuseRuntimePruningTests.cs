@@ -27,7 +27,7 @@ namespace DarkNights.Tests
         [UnityTest]
         public IEnumerator ReusedBackendMatchesFrozenPixelsAcrossAllInvalidations()
         {
-            stage.Open("folded-expanded"); yield return Ready();
+            stage.Open("switchback"); yield return Ready();
             var definition = AssetDatabase.LoadAssetAtPath<ObjectDefinition>("Assets/DarkNights/Res/Objects/Flashlight/Flashlight.asset");
             original = LightProfileResolver.Resolve(LightDefinitionEditor.Preset(definition), LightDefinitionEditor.Config(definition).Overrides, LightDefinitionEditor.DefaultTemplate).Rules;
             var profile = AssetDatabase.LoadAssetAtPath<SceneLightingProfile>("Assets/DarkNights/Res/Shared/Lighting/Profiles/PinewatchLighting.asset");
@@ -42,7 +42,7 @@ namespace DarkNights.Tests
                 if (input == "region") stage.Region(1);
                 else if (input == "dig") stage.Dig(0);
                 else if (input == "restore") stage.Dig(1);
-                else if (input == "new-world") { stage.Open("rift-expanded"); yield return Ready(); }
+                else if (input == "new-world") { stage.Open("rift"); yield return Ready(); }
                 else stage.ResetCamera();
                 Emit(input); yield return Settle();
                 Compare(input);

@@ -10,6 +10,7 @@
 | 专项联机复现 | `expedition`、`walkable-ship`、`ship-trade`、`runtime-debug-hub`、`oxygen-removal`、`bootstrap-startup` | 旧切片和仍需追溯的脚本；结果按构建身份区分 |
 | 只读审查／探针 | `CaveTunerProbe`、`MineralMapProbe`、`NetworkReviewProbe`、`OreRuleReviewProbe`、`grid-business` | 核对锁定依赖、规则与状态边界 |
 | 地形与美术源 | `terrain-reference`、`contour-reference`、`cave-art`、`cave-entrance-art`、`terrain-modifiers` | 原生图集／参考重建和专项配置工具，保留唯一源码 |
+| 作者模板重建 | `mine-map/remove-fixed-routes.cjs` | 按普通洞室／洞道规则重建五图，撤下固定入口房间、步道及封路墙；只读H5原来源，默认核对，`--write`才写入 |
 | 历史框架补丁与验证 | `fishnet-patch`、`lan-framework-patch`、`map-framework-patch`、`workbench-navigation` | 锁定依赖的可重现准备输入与已获批专项验证；不因整理改写或执行框架补丁 |
 
 根目录的 `prepare-*.ps1`、`test-*.ps1`、构建、采集与审核脚本继续保留原路径，避免破坏已有文档和自动化入口。不能仅按创建日期判定脚本弃用。

@@ -10,6 +10,7 @@ namespace DarkNights.Runtime.Session
         SetPaused, SetSpeed, StartNight, SetControlMode, BeginLoad, Save, Restart,
         ClaimHero, ReleaseHero, SelectHeroItem, UseHeroItem, Expedition, SelectDestination, CancelJourney,
         SellCarriedOre, BuyEquipment, SetHeroLight,
+        SelectNavigationPoint,
         DebugSetEnabled = 1000, DebugGiveEquipment, DebugRemoveEquipment, DebugRemoveObject, DebugSpawnProjectile
     }
 }

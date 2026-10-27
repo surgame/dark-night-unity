@@ -1,0 +1,60 @@
+{
+  "method": "BackgroundContourBaker + BackgroundPageBaker; static occupancy; native 2px scale",
+  "assembly": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Core.dll",
+  "assemblySha256": "f8f76f73a0149b38782ddc3859411423bb3d581ad864d388ec5c79fb39790bf0",
+  "inputFile": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\expedition-playground-features-20261025\\native-sampling\\inputs.json",
+  "inputSha256": "ed47d823cecf167bcec7677de4b4856e35b3f9d8b3db6e00cb39d9d603537ee5",
+  "unityStarted": false,
+  "originalSourceModified": false,
+  "assets": [
+    {
+      "id": "vents",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\feature-backdrops\\vents.png",
+      "sha256": "3a4b389d202d5957d8bb0417688209fd4d0b860a6e28cad59076af01e682926e",
+      "width": 768,
+      "height": 336
+    },
+    {
+      "id": "fracture",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\feature-backdrops\\fracture.png",
+      "sha256": "d59dd423bf35f8ba400deb0e3314e35963a0ed6457c5ea82a42218eadc5f12a4",
+      "width": 768,
+      "height": 336
+    },
+    {
+      "id": "magnet",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\feature-backdrops\\magnet.png",
+      "sha256": "1ec7516a93237e4eefe2bbc0d90d5bbd09b1619bd83a2c4a8d531b3806d288ed",
+      "width": 768,
+      "height": 336
+    },
+    {
+      "id": "photoroot",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\feature-backdrops\\photoroot.png",
+      "sha256": "3ec151853ecc69bc193412d0af106908863a3803ac2794f56bc0e3bbecd33848",
+      "width": 768,
+      "height": 336
+    },
+    {
+      "id": "amber",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\feature-backdrops\\amber.png",
+      "sha256": "7a9b169730bebfdd893639d4669f958f02bd5749e3cc558459819262215b106d",
+      "width": 768,
+      "height": 336
+    },
+    {
+      "id": "echo",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\feature-backdrops\\echo.png",
+      "sha256": "e9b3b1c943fa01fe9ed9dde4bee5939531f1c092a60f0f87c7f4d34a2ef92ebd",
+      "width": 768,
+      "height": 336
+    },
+    {
+      "id": "faultline",
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\experiments\\expedition-playground\\assets\\feature-backdrops\\faultline.png",
+      "sha256": "9592919c97dcf45d31c7870ea50a581ca9c35d052bccf118fbf90bd9e8e75675",
+      "width": 768,
+      "height": 336
+    }
+  ]
+}

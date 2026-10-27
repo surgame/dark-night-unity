@@ -26,6 +26,75 @@ MonoBehaviour:
     Parallax: 0.14
     RidgeHeight: 7
     CloudHeight: 18
+    Layers:
+    - Texture: {fileID: 2800000, guid: cc9459cdb973aba419bf389c0a6609d4, type: 3}
+      Pixels:
+        x: 0
+        y: 0
+        width: 256
+        height: 600
+      HorizontalParallax: 0
+      VerticalParallax: 0
+      BottomCells: -22
+      PixelScale: 1
+      Tint: {r: 0.47, g: 0.6, b: 0.7, a: 1}
+      Enabled: 1
+      FillBelow: 0
+    - Texture: {fileID: 2800000, guid: 6c754c1f549dd714e8c83e5379200d47, type: 3}
+      Pixels:
+        x: 0
+        y: 0
+        width: 512
+        height: 150
+      HorizontalParallax: 0.07
+      VerticalParallax: 1
+      BottomCells: 0
+      PixelScale: 1
+      Tint: {r: 0.64, g: 0.73, b: 0.79, a: 1}
+      Enabled: 1
+      FillBelow: 1
+    - Texture: {fileID: 2800000, guid: 05186772e5da38b4eb6146f3f814f613, type: 3}
+      Pixels:
+        x: 0
+        y: 0
+        width: 512
+        height: 100
+      HorizontalParallax: 0.16
+      VerticalParallax: 1
+      BottomCells: 0
+      PixelScale: 1
+      Tint: {r: 0.62, g: 0.72, b: 0.72, a: 1}
+      Enabled: 1
+      FillBelow: 1
+    - Texture: {fileID: 2800000, guid: b7c0315878e075b4fa220c8595c0be2c, type: 3}
+      Pixels:
+        x: 0
+        y: 116
+        width: 256
+        height: 64
+      HorizontalParallax: 0.29
+      VerticalParallax: 1
+      BottomCells: -0.5
+      PixelScale: 1
+      Tint: {r: 0.63, g: 0.74, b: 0.69, a: 1}
+      Enabled: 1
+      FillBelow: 1
+    - Texture: {fileID: 2800000, guid: cec63f6fa1e4c164eae46613fe3415fc, type: 3}
+      Pixels:
+        x: 0
+        y: 116
+        width: 256
+        height: 64
+      HorizontalParallax: 0.45
+      VerticalParallax: 1
+      BottomCells: -0.5
+      PixelScale: 1
+      Tint: {r: 0.68, g: 0.79, b: 0.66, a: 1}
+      Enabled: 1
+      FillBelow: 1
+    DecorationMaterial: {fileID: 2100000, guid: 83527c251c2e8eb4381c08ab6e239848, type: 2}
+    Layouts:
+    - {fileID: 11400000, guid: 6c5e0eb14815ee041a8a185588531fd9, type: 2}
     WeatheredDepth: 1.25
     EntranceDepth: 9
     UndergroundAmbient: 0.36

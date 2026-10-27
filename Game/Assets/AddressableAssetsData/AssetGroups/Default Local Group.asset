@@ -45,6 +45,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36e3b3f08b756414d96f47dc584bc05e
+    m_Address: dark_nights.ui.main_menu_settings
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3cd7c2f3dc02cdd4a8280b54c4356dd1
     m_Address: dark_nights.item.jetpack
     m_ReadOnly: 0
@@ -137,6 +142,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7499a075d591a0c45844d43ac28ad1b2
     m_Address: dark_nights.ui.pausemenu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7e57cd493dbe0ba4fa39070ae095b4ec
+    m_Address: dark_nights.ui.main_menu
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

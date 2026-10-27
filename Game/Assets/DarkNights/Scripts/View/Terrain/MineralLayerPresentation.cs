@@ -18,6 +18,7 @@ namespace DarkNights.View.Terrain
         public bool Ready => view.Ready;
         public Exception LastError => view.LastError;
         public long BuiltPages => view.BuiltPages;
+        public TerrainPageProgress PageProgress => view.PageProgress;
         public long InputBatches => view.InputBatches;
 
         public MineralLayerPresentation(ARDMapDefinition definition, Transform parent)

@@ -7,7 +7,7 @@ namespace DarkNights.Editor.Lighting
     [Serializable]
     public sealed class FlashlightPreviewSettings
     {
-        public string MapId = "karst-expanded";
+        public string MapId = "erosion";
         public int RoomIndex;
         public bool UseRoomStart = true;
         public Vector2 Position;
@@ -18,8 +18,8 @@ namespace DarkNights.Editor.Lighting
         public Vector2 CameraOffset;
         public bool Enabled = true;
         public bool CompareSaved;
-        public static readonly string[] MapIds = { "karst-expanded", "folded-expanded", "rift-expanded", "shaft-loop-expanded", "vein-maze-expanded" };
-        public static readonly string[] MapNames = { "溶洞回环", "褶皱矿洞", "断裂洞穴", "竖井回环", "矿脉迷宫" };
+        public static readonly string[] MapIds = LightingPreviewMap.Ids;
+        public static readonly string[] MapNames = LightingPreviewMap.Names;
 
         public FlashlightPreviewSettings Copy() => JsonUtility.FromJson<FlashlightPreviewSettings>(JsonUtility.ToJson(this));
         public void Validate()

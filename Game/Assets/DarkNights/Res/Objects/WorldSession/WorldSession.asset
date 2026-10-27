@@ -46,26 +46,104 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.TerrainGameplayBehaviour
   SharedConfigs:
   - rid: 6961529734502023168
-  - rid: 4004706540155830383
+  - rid: 1002
   - rid: 6961529734502023170
   references:
     version: 2
     RefIds:
-    - rid: 4004706540155830383
+    - rid: 1002
       type: {class: ExpeditionFlowConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         Enabled: 1
+        Navigation:
+          Speed: 8
+          DescentSeconds: 3
+          Nodes:
+          - Id: grey-pine
+            Name: "\u7070\u677E\u661F"
+            X: 0
+            Y: 0
+            Danger: 1
+            Risk: "\u77FF\u6D1E\u4E0E\u5DE2\u7A74\u8FF9\u8C61\uFF08mock\u8D44\u6599\uFF09"
+            PreviewOnly: 0
+          - Id: rift-preview
+            Name: "\u88C2\u8C37\u661F\uFF08\u793A\u610F\uFF09"
+            X: 90
+            Y: 10
+            Danger: 2
+            Risk: "\u843D\u5DEE\u4E0E\u584C\u65B9\uFF08mock\u8D44\u6599\uFF09"
+            PreviewOnly: 1
+          - Id: deep-preview
+            Name: "\u6697\u8109\u661F\uFF08\u793A\u610F\uFF09"
+            X: 45
+            Y: 70
+            Danger: 3
+            Risk: "\u539A\u58C1\u4E0E\u5DE2\u7A74\uFF08mock\u8D44\u6599\uFF09"
+            PreviewOnly: 1
         PreparationTimeoutSeconds: 30
         ArrivalTimeoutSeconds: 30
         CaveMap:
           Seed: STRATA-0922
-          Surface: needles
+          Surface: rolling
           OrganicCaves: 0
           Amplitude: 1
           OreDensity: 1
           ResourceProfile: cave-exploration
-        MineMap: {fileID: -7265415908296928465, guid: 2da67708529a30f4dbfc5d0ed75b2f0a, type: 3}
-        ReviewedMap: {fileID: 11400000, guid: 130f612421ccece4da760ff5ad5494df, type: 2}
+          Layout: connected-rooms
+          Structure:
+            Version: 1
+            Templates: cave-templates-v1
+            Entrance: valley
+            Road: erosion
+            RoomMix: mixed
+            SpaceRevision: 0
+            RoomCount: 16
+            RoomScale: 1
+            RoadRadius: 3
+            BranchShare: 0.45
+            BranchDepth: 3
+            RockGap: 0.12
+          Minerals:
+            Algorithm: regional-veins
+            Seed: ORE-1
+            Revision: 0
+            VeinCount: 8
+            Capacity: 180
+            EmptyShare: 0.18
+            ExposedShare: 0.35
+            RichShare: 0.35
+            Nests: 1
+          Rules:
+            Enabled: 0
+            Version: 1
+            Templates: cave-templates-v1
+            Entrance: valley
+            Road: erosion
+            RoomMix: mixed
+            ContentSeed: ORE-1
+            SpaceRevision: 0
+            ContentRevision: 0
+            RoomCount: 16
+            RoomScale: 1
+            RoadRadius: 3
+            BranchShare: 0.45
+            BranchDepth: 3
+            RockGap: 0.12
+            VeinCount: 8
+            Capacity: 180
+            EmptyShare: 0.18
+            ExposedShare: 0.35
+            RichShare: 0.35
+            Nests: 1
+          Relief:
+            Enabled: 1
+            BaseHeightCells: 0
+            HeightCells: 8
+            WavelengthCells: 84
+            DockTransitionCells: 16
+          RegionOverrides: []
+        MineMap: {fileID: 0}
+        ReviewedMap: {fileID: 11400000, guid: c2b5e403d16dc4649a764a56b1854b74, type: 2}
         Geology:
           Enabled: 1
           SiteId: collapse-01
@@ -73,16 +151,16 @@ MonoBehaviour:
           Configuration:
             EventId: collapse-01
             EnterRegion: 1
-            SupportU: 135
-            SupportV: -60
-            RegionU: 141
-            RegionV: -60
+            SupportU: 192
+            SupportV: -63
+            RegionU: 198
+            RegionV: -63
             RegionWidth: 3
             RegionHeight: 3
-            SourceU: 137
-            SourceV: -54
-            LandingU: 137
-            LandingV: -60
+            SourceU: 194
+            SourceV: -56
+            LandingU: 194
+            LandingV: -63
             Width: 3
             SourceRows: 3
             RubbleWidth: 5
@@ -91,12 +169,12 @@ MonoBehaviour:
             FragmentDelay: 0.045
             OccupancyWaitSeconds: 8
             Material: slate
-          AllowedU: 133
-          AllowedV: -60
+          AllowedU: 190
+          AllowedV: -63
           AllowedWidth: 14
           AllowedHeight: 12
-          RetreatU: 141
-          RetreatV: -60
+          RetreatU: 198
+          RetreatV: -63
           RetreatWidth: 3
           RetreatHeight: 3
           Association: 
@@ -120,8 +198,8 @@ MonoBehaviour:
           SkyColorHex: '#243B55'
         ModifierSchemaVersion: 1
         Modifiers:
-        - rid: 4004706540155830384
-    - rid: 4004706540155830384
+        - rid: 1003
+    - rid: 1003
       type: {class: EntranceWalkwayModifierConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         Enabled: 0
@@ -154,8 +232,8 @@ MonoBehaviour:
         Definition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
         ContourDefinition: {fileID: 11400000, guid: d4a19379210ced349b64c1b628f9c7ca, type: 2}
         MineralDefinition: {fileID: 11400000, guid: c0fa1b2e6e4c55742babce5c51cc19a5, type: 2}
-        CaveStyle: {fileID: 11400000, guid: b8f1f94057451ec459e1bac28aba1c8a, type: 2}
-        BackgroundStyle: {fileID: 11400000, guid: b8f1f94057451ec459e1bac28aba1c8a, type: 2}
+        CaveStyle: {fileID: 11400000, guid: 44543c555af9c474bb56c0958f89ef48, type: 2}
+        BackgroundStyle: {fileID: 11400000, guid: da94af89b9e44de479945fef91c03715, type: 2}
         Materials:
         - MaterialKey: loam
           ResourceId: 

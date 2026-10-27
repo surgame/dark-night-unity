@@ -30,19 +30,24 @@ namespace DarkNights.Editor.Terrain
             var source = AssetDatabase.LoadAssetAtPath<ObjectDefinition>("Assets/DarkNights/Res/Objects/WorldSession/WorldSession.asset");
             var original = source.SharedConfigs.OfType<ExpeditionFlowConfig>().Single();
             var config = ExpeditionFlowDraft.Clone(original);
-            config.MineMap = null; config.ReviewedMap = null;
+            config.ReviewedMap = null;
+            config.CaveMap.SeedSelection = new TerrainSeedSettings();
             config.CaveMap.Seed = "MG-REVIEW-20261021";
-            config.CaveMap.Rules = new CaveRuleSettings { Enabled = true, ContentSeed = "MG-CONTENT-20261021" };
+            config.CaveMap.Layout = TerrainGenerationSettings.ConnectedRooms;
+            config.CaveMap.Structure = new CaveLayoutSettings();
+            config.CaveMap.Minerals = new TerrainMineralSettings { Algorithm = TerrainMineralSettings.RegionalVeins, Seed = "MG-CONTENT-20261021" };
+            config.CaveMap.Rules = null;
             var outputs = new JArray();
-            foreach (string road in CaveRuleSettings.Roads)
+            foreach (string road in CaveLayoutSettings.Roads)
             {
-                config.CaveMap.Rules.Road = road;
+                config.CaveMap.Structure.Road = road;
                 var messages = new List<string>();
                 var settings = config.FreezeCaveMap();
-                var plan = CaveRulePlanner.Build(settings);
-                var map = PlanetTerrainGenerator.GenerateCandidate(config.PreviewPlanet(), settings.Seed,
-                    TerrainGenerationPreview.WorldId, settings, pipeline: config.FreezeModifiers(), contentReport: messages.Add);
-                string json = ReviewedMineMap.Encode(map, CaveRuleSettings.TemplateVersion + "|" + TerrainAuthoringIdentity.Json(settings));
+                var generated = PlanetTerrainGenerator.GenerateResult(config.PreviewPlanet(), settings.Seed,
+                    TerrainGenerationPreview.WorldId, settings, contentReport: messages.Add);
+                var plan = generated.Plan;
+                var map = generated.Terrain;
+                string json = ReviewedMineMap.Encode(map, CaveLayoutSettings.TemplateVersion + "|" + TerrainAuthoringIdentity.Json(settings));
                 File.WriteAllText(Path.Combine(root, road + ".json"), json, new UTF8Encoding(false));
                 WriteMap(Path.Combine(root, road + ".png"), map);
                 var regions = new JArray();
@@ -57,7 +62,7 @@ namespace DarkNights.Editor.Terrain
                         ["capacity"] = ore.Sum(d => d.Capacity), ["exposed_capacity"] = visible, ["buried_capacity"] = hidden });
                 }
                 using var hash = SHA256.Create();
-                outputs.Add(new JObject { ["road"] = road, ["input"] = JObject.Parse(TerrainAuthoringIdentity.Json(settings)),
+                outputs.Add(new JObject { ["road"] = road, ["input"] = TerrainAuthoringIdentity.Json(settings),
                     ["source_identity"] = ReviewedMineMap.SourceFingerprint(config),
                     ["sha256"] = BitConverter.ToString(hash.ComputeHash(Encoding.UTF8.GetBytes(json))).Replace("-", "").ToLowerInvariant(),
                     ["room_count"] = map.Rooms.Count, ["connections"] = plan.Connections.Count, ["nests"] = map.Nests.Count,
@@ -65,7 +70,7 @@ namespace DarkNights.Editor.Terrain
             }
             WriteRooms(Path.Combine(root, "rooms.png"));
             WriteEntrances(Path.Combine(root, "entrances.png"), config);
-            var summary = new JObject { ["kind"] = "authoring-preview", ["template_version"] = CaveRuleSettings.TemplateVersion,
+            var summary = new JObject { ["kind"] = "authoring-preview", ["template_version"] = CaveLayoutSettings.TemplateVersion,
                 ["unity"] = Application.unityVersion, ["original_source_identity"] = ReviewedMineMap.SourceFingerprint(original),
                 ["outputs"] = outputs, ["boundaries"] = "制作生成数据对照；未执行自动测试、人物通行、Play、Player、联机或存档恢复，未安装新局引用。" };
             string path = Path.Combine(root, "summary.json");
@@ -103,11 +108,11 @@ namespace DarkNights.Editor.Terrain
         {
             const int tile = 48, w = tile * 4, h = tile * 2;
             var pixels = Enumerable.Repeat(new Color32(30, 34, 41, 255), w * h).ToArray();
-            for (int n = 0; n < CaveRuleSettings.Shapes.Length; n++)
+            for (int n = 0; n < CaveLayoutSettings.Shapes.Length; n++)
             {
                 var cells = Enumerable.Repeat((byte)2, 320 * 192).ToArray();
                 var protection = new bool[cells.Length];
-                var room = new TerrainRoom(CaveRuleSettings.Shapes[n], 100, 90, n == 3 ? 20 : 36, n == 0 ? 14 : 34);
+                var room = new TerrainRoom(CaveLayoutSettings.Shapes[n], 100, 90, n == 3 ? 20 : 36, n == 0 ? 14 : 34);
                 CaveRuleGeometry.Room(cells, protection, room, n);
                 for (int y = 0; y < tile; y++) for (int x = 0; x < tile; x++)
                     pixels[(h - 1 - (n / 4 * tile + y)) * w + n % 4 * tile + x] = cells[(90 + y - 24) * 320 + 100 + x - 24] == 0 ?
@@ -120,12 +125,13 @@ namespace DarkNights.Editor.Terrain
         {
             const int tileW = 112, tileH = 72, w = tileW * 3, h = tileH * 3;
             var pixels = new Color32[w * h];
-            for (int n = 0; n < CaveRuleSettings.Entrances.Length; n++)
+            for (int n = 0; n < CaveLayoutSettings.Entrances.Length; n++)
             {
                 var cells = Enumerable.Repeat((byte)2, 320 * 192).ToArray(); var protection = new bool[cells.Length];
                 for (int y = 0; y < 40; y++) for (int x = 0; x < 320; x++) cells[y * 320 + x] = 0;
-                var rules = config.CaveMap.Rules.CopyValidated(); rules.Entrance = CaveRuleSettings.Entrances[n];
-                CaveRuleEntrance.Carve(cells, protection, rules, new TerrainRoom("low-seam", 104, 77, 28, 16), 61, 40);
+                var rules = config.CaveMap.Structure.CopyValidated(); rules.Entrance = CaveLayoutSettings.Entrances[n];
+                CaveRuleEntrance.Carve(cells, protection, rules, new TerrainRoom("low-seam", 104, 77, 28, 16),
+                    Enumerable.Repeat(40, TerrainGenerationSettings.Width).ToArray());
                 for (int y = 0; y < tileH; y++) for (int x = 0; x < tileW; x++)
                     pixels[(h - 1 - (n / 3 * tileH + y)) * w + n % 3 * tileW + x] = cells[(y + 18) * 320 + x + 28] == 0 ?
                         new Color32(18, 23, 30, 255) : new Color32(111, 102, 83, 255);

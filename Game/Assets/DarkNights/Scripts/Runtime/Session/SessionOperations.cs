@@ -27,6 +27,10 @@ namespace DarkNights.Runtime.Session
             if (r == null || r.Sequence <= 0 || r.PolicyRevision < 0 ||
                 !Enum.IsDefined(typeof(SessionOperation), r.Operation) || float.IsNaN(r.X) || float.IsInfinity(r.X) ||
                 r.TargetId < 0 || r.ActorIds.Any(id => id <= 0)) return false;
+            if (float.IsNaN(r.Y) || float.IsInfinity(r.Y) || r.Operation != SessionOperation.SelectNavigationPoint && r.Y != 0) return false;
+            if (r.Operation == SessionOperation.SelectNavigationPoint)
+                return r.ActorIds.Count == 1 && r.TargetId > 0 && r.ControlLease > 0 && r.Value >= 1 &&
+                    r.Kind.Length == 0 && Math.Abs(r.X) <= 4096 && Math.Abs(r.Y) <= 4096;
             if (SessionDeveloperOperations.IsOperation(r.Operation)) return SessionDeveloperOperations.ValidShape(r);
             if (r.Operation is SessionOperation.SelectDestination or SessionOperation.CancelJourney)
                 return r.ActorIds.Count == 1 && r.TargetId > 0 && r.X == 0 && r.ControlLease > 0 && r.Value >= 0 &&
