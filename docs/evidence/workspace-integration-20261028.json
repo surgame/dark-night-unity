@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-28T05:26:51.153845+08:00",
+  "scope": "User explicitly authorized all pending repository changes, independent of originating conversation.",
+  "repository": "surgame/dark-night-unity",
+  "implementationCommit": "470053d38391b268dfb8c081f865934b39354069",
+  "previousMain": "f0ef500369c922c0dd2c33da23f29a352d817d0e",
+  "integration": "Fast-forward main; implementation commit pushed and confirmed on both remote heads.",
+  "branch": "ref-20261024-map-workbench-redesign",
+  "target": "main",
+  "rawStagedPaths": 1100,
+  "gitChangedFilesIncludingRenames": 1035,
+  "inputBytes": 24610574,
+  "stagedWhitespaceCheck": "passed after removing one trailing blank line from an archived document",
+  "highConfidenceCredentialScan": "no matches",
+  "filesAtLeast100MiB": 0,
+  "compile": {
+    "status": "completed",
+    "failed": false,
+    "errors": []
+  },
+  "unity": "6000.4.9f1",
+  "sourceManifestEntriesUnchangedSinceFinalVerification": 1073,
+  "sourceManifestSha256": "ea3dd672dfe81399974ea8c5e6317b8946f1826f5ddbb061d3404abfbfd2f08c",
+  "mapAcceptanceBatches": [
+    {
+      "id": "map-modules-editor-20261028-a1",
+      "state": "Passed",
+      "utc": "2026-10-27T20:11:19.0258083Z",
+      "unity": "6000.4.9f1",
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "id": "map-modules-runtime-20261028-a5",
+      "state": "Passed",
+      "utc": "2026-10-27T20:32:05.9752380Z",
+      "unity": "6000.4.9f1",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "id": "map-modules-quick-20261028-final",
+      "state": "Passed",
+      "utc": "2026-10-27T20:52:10.1304394Z",
+      "unity": "6000.4.9f1",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "uniqueMapTestsPassed": 12,
+  "versions": {
+    "generator": 17,
+    "generationIdentity": 4,
+    "protocol": 35,
+    "worldSave": 27,
+    "completeMap": 2
+  },
+  "validationBoundary": "Compilation and the previously authorized map acceptance only. No new unrelated module acceptance, Player build, independent multiplayer processes, two-machine test, or full route acceptance.",
+  "ignoredLocalData": "Dependencies, Unity caches, Player outputs, user saves and artifacts retained on disk and excluded by existing ignore rules.",
+  "localEvidence": "artifacts/map-workbench-approved-20261028/",
+  "stageCL": "ongoing; not closed"
+}
