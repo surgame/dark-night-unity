@@ -20,15 +20,15 @@ namespace DarkNights.Editor
             if (definition.Type == ObjectType.Unit)
             {
                 definition.SharedConfigs.Add(new ActorRuleConfig { RuleKey = ruleKey });
-                definition.SharedConfigs.Add(new MovementConfig());
+                bool controllable = ruleKey == "worker" || ruleKey == "spearman" || ruleKey == "archer";
+                definition.SharedConfigs.Add(new MovementConfig { CanJump = controllable, EnableAirControl = controllable });
                 Add<ActorBehaviour>(definition);
                 Add<MovementBehaviour>(definition);
                 Add<ActorCombatBehaviour>(definition);
                 Add<AutomaticActorControlBehaviour>(definition);
-                if (ruleKey == "worker" || ruleKey == "spearman" || ruleKey == "archer")
+                if (controllable)
                 {
                     Add<HeroControlBehaviour>(definition);
-                    Add<HeroMotionBehaviour>(definition);
                     Add<HeroInventoryBehaviour>(definition);
                 }
                 if (ruleKey == "archer") Add<ArrowAttackBehaviour>(definition);

@@ -51,9 +51,10 @@ namespace DarkNights.Runtime.Objects
                 state.JetpackFuel = Math.Min(rules.FuelSeconds, state.JetpackFuel + rules.FuelRecovery * delta);
         }
 
-        public static void Clear(ActorState state)
+        public static void Clear(ActorState state, bool clearVelocity = true)
         {
             state.JumpBufferRemaining = 0; state.JumpAscending = false;
+            if (clearVelocity) MovementHorizontalMotion.Clear(state);
         }
     }
 }

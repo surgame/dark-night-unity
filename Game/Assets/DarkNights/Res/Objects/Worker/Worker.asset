@@ -42,7 +42,6 @@ MonoBehaviour:
   - DarkNights.Runtime.Objects.MeleeAttackBehaviour
   - DarkNights.Runtime.Objects.AutomaticActorControlBehaviour
   - DarkNights.Runtime.Objects.HeroControlBehaviour
-  - DarkNights.Runtime.Objects.HeroMotionBehaviour
   - DarkNights.Runtime.Objects.HeroInventoryBehaviour
   - DarkNights.Runtime.Objects.HeroLightBehaviour
   SharedConfigs:
@@ -59,3 +58,9 @@ MonoBehaviour:
       type: {class: MovementConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         ArrivalDistance: 0.8
+        CanJump: 1
+        EnableAirControl: 1
+        AirSpeedRatio: 0.35
+        AirAccelerationSeconds: 0.28
+        AirBrakingSeconds: 0.55
+        AirDragPerSecond: 0.08

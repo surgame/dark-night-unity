@@ -17,7 +17,7 @@ namespace DarkNights.Runtime.Objects
             (!world.Flow.Enabled || world.Flow.Phase == JourneyPhase.Gathering ||
                 world.Flow.Phase == JourneyPhase.Landed && Ship.Read().ShipDoorClock == 0);
 
-        internal bool Player(ActorBehaviour actor, double delta)
+        internal bool Player(ActorBehaviour actor, MovementBehaviour movement, double delta)
         {
             if (!world.IsExpedition || Ship == null) return false;
             var s = actor.Edit(); var ship = Ship.Read();
@@ -28,7 +28,7 @@ namespace DarkNights.Runtime.Objects
                 HeroJumpMotion.Clear(s);
                 HeroEquipment.Cancel(s); return true;
             }
-            float target = s.X + s.Horizontal * HeroControlBehaviour.PlayerMoveSpeed(actor) * (float)delta;
+            float target = s.X + movement.Direction * movement.MoveSpeed * (float)delta;
             if (!s.Boarded)
             {
                 // 交界处运动适配：入口仍以 RampToe 和脚底高度判定；修改登船方式时须与 ShipRampTransition 一起检查。
@@ -36,26 +36,28 @@ namespace DarkNights.Runtime.Objects
                 if (s.X > toe + 8 || s.X < toe - 24) s.ShipEntryBlocked = false;
                 if (s.DropPending && Math.Abs(s.X - toe) <= 24) s.ShipEntryBlocked = true;
                 if (s.ShipEntryBlocked) return false;
-                if (!Open || s.Horizontal <= 0 || s.X > toe + 3 || target < toe || Math.Abs(s.Height - ship.Height) > 4) return false;
+                if (!Open || movement.Direction <= 0 || s.X > toe + 3 || target < toe || Math.Abs(s.Height - ship.Height) > 4) return false;
                 s.Boarded = true;
             }
-            MovePlayer(actor, target, delta);
+            MovePlayer(actor, movement, delta);
             return true;
         }
 
-        private void MovePlayer(ActorBehaviour actor, float target, double delta)
+        private void MovePlayer(ActorBehaviour actor, MovementBehaviour movement, double delta)
         {
             var s = actor.Edit(); var ship = Ship.Read();
             float oldLocal = Math.Clamp(s.X - ship.X, ShipGeometry.RampToe, ShipGeometry.CabinRight);
+            float oldFloor = ship.Height + ShipGeometry.Floor(oldLocal);
+            bool grounded = s.VerticalSpeed <= 0 && s.Height <= oldFloor + .5f;
+            HeroControlDefinition rules = world.Catalog.Balance.HeroControl;
+            float target = movement.HorizontalTarget(delta, grounded);
             float requestedLocal = target - ship.X;
             float local = Math.Clamp(requestedLocal, Open ? ShipGeometry.RampToe : ShipGeometry.RampHinge + 8,
                 ShipGeometry.CabinRight);
-            float oldFloor = ship.Height + ShipGeometry.Floor(oldLocal);
-            bool grounded = s.VerticalSpeed <= 0 && s.Height <= oldFloor + .5f;
 
             // 交界处运动适配的唯一调用点：移除 ShipRampTransition 时可恢复下方原有步行出舱路径。
             bool adapted = false, leftCabin = false;
-            adapted = ShipRampTransition.TryLeave(actor, ship.X, target, Open, delta, ref grounded, out leftCabin);
+            adapted = ShipRampTransition.TryLeave(actor, movement, ship.X, target, Open, delta, ref grounded, out leftCabin);
             if (leftCabin) return;
             if (!adapted && Open && requestedLocal < ShipGeometry.RampToe && grounded && !s.JumpPending)
             {
@@ -78,18 +80,19 @@ namespace DarkNights.Runtime.Objects
             float previousX = s.X;
             s.X = ship.X + local;
             s.Walking = Math.Abs(previousX - s.X) > .001f;
-            if (s.Walking) s.Face = Math.Sign(s.X - previousX);
+            if (s.Walking && !s.ManualControl) s.Face = Math.Sign(s.X - previousX);
             float floor = ship.Height + ShipGeometry.Floor(local);
             if (grounded) s.Height = floor;
 
-            HeroControlDefinition rules = world.Catalog.Balance.HeroControl;
-            if (rules != null && HeroJumpMotion.TryStart(s, rules, grounded)) grounded = false;
+            if (rules != null && movement.CanJump && HeroJumpMotion.TryStart(s, rules, grounded)) grounded = false;
             s.JumpPending = s.DropPending = false;
             HeroEquipment.Cancel(s);
             if (grounded)
             {
                 s.Height = floor;
                 if (rules != null) HeroJumpMotion.Land(s, rules, delta, recoverFuel: false);
+                if (rules != null) movement.LandHorizontal();
+                if (Math.Abs(local - requestedLocal) > .01f) s.HorizontalSpeed = 0;
                 return;
             }
 
@@ -105,11 +108,13 @@ namespace DarkNights.Runtime.Objects
             {
                 s.Height = floor;
                 if (rules != null) HeroJumpMotion.Land(s, rules, delta, recoverFuel: false);
+                if (rules != null) movement.LandHorizontal();
             }
             else
             {
                 s.Height = nextHeight; s.SupportPlatform = -1;
             }
+            if (Math.Abs(local - requestedLocal) > .01f) s.HorizontalSpeed = 0;
         }
 
         private static float MaximumFootHeight(float local, bool manual)
@@ -127,7 +132,8 @@ namespace DarkNights.Runtime.Objects
             HeroJumpMotion.Clear(s);
         }
 
-        internal bool Navigate(ActorBehaviour actor, ref float x, ref float height, double delta, out bool arrived)
+        internal bool Navigate(ActorBehaviour actor, MovementBehaviour movement,
+            ref float x, ref float height, double delta, out bool arrived)
         {
             arrived = false;
             if (Ship == null || actor.Enemy) return false;
@@ -139,34 +145,12 @@ namespace DarkNights.Runtime.Objects
             {
                 float goal = inward ? x : ship.X + ShipGeometry.RampToe - 8;
                 if (!Open && !inward) return true;
-                Walk(actor, Mathf.MoveTowards(s.X, goal, (float)(actor.Definition.Speed * delta)));
+                movement.MoveTo(goal, delta);
                 arrived = inward && Math.Abs(s.X - x) < 4; return true;
             }
             if (!inward || !Open) return false;
             float toe = ship.X + ShipGeometry.RampToe;
-            if (Math.Abs(s.X - toe) < 10 && Math.Abs(s.Height - ship.Height) < 5)
-            {
-                s.Boarded = true; s.X = toe;
-                Walk(actor, Mathf.MoveTowards(s.X, x, (float)(actor.Definition.Speed * delta))); return true;
-            }
             x = toe; height = ship.Height; return false;
-        }
-
-        private void Walk(ActorBehaviour actor, float target)
-        {
-            var s = actor.Edit(); var ship = Ship.Read(); float old = s.X;
-            float local = target - ship.X;
-            // 自动工人沿用任务导航；ShipRampTransition 只适配玩家跳跃出口。改变通用登船路线时需同时检查此分支。
-            if (Open && local < ShipGeometry.RampToe)
-            { s.Boarded = false; s.X = target; s.Height = ship.Height; }
-            else
-            {
-                local = Math.Clamp(local, Open ? ShipGeometry.RampToe : ShipGeometry.RampHinge + 8, ShipGeometry.CabinRight);
-                s.X = ship.X + local; s.Height = ship.Height + ShipGeometry.Floor(local);
-            }
-            s.VerticalSpeed = 0; s.SupportPlatform = 0;
-            s.Walking = Math.Abs(old - s.X) > .001f;
-            if (s.Walking) s.Face = Math.Sign(s.X - old);
         }
     }
 }

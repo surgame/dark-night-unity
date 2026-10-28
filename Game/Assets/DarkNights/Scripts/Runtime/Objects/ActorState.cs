@@ -41,6 +41,8 @@ namespace DarkNights.Runtime.Objects
         public double HitFlash { get; internal set; }
         public float Height { get; internal set; }
         public float VerticalSpeed { get; internal set; }
+        public float HorizontalSpeed { get; internal set; }
+        public float TakeoffHorizontalSpeed { get; internal set; }
         public int SupportPlatform { get; internal set; }
         public int IgnoredPlatform { get; internal set; }
         public double DropRemaining { get; internal set; }

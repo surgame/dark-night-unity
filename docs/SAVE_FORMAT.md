@@ -1,6 +1,6 @@
-# Unity世界存档v27
+# Unity世界存档v28
 
-本页维护当前文件字段、身份／关系、基础会话零值约束与原子保存恢复。当前候选入口仅接受 **v27**，正式目录 `Saves/v27`；v26及更旧Unity／Godot文件拒绝、不迁移、不覆盖、不自动删除。v27增加共享星图勘测位图与坐标航程合同，当前候选的真实写盘／恢复验收见[执行状态](DEVELOPMENT.md)。网络epoch与房间权限见[联机合同](MULTIPLAYER.md)。
+本页维护当前文件字段、身份／关系、基础会话零值约束与原子保存恢复。当前候选入口仅接受 **v28**，正式目录 `Saves/v28`；v27及更旧Unity／Godot文件拒绝、不迁移、不覆盖、不自动删除。v28增加主角水平速度及起跳水平速度，避免恢复时丢失空中惯性；v27引入的共享星图合同继续保持。当前候选的真实写盘／恢复验收见[执行状态](DEVELOPMENT.md)。网络epoch与房间权限见[联机合同](MULTIPLAYER.md)。
 
 ## 文件合同
 
@@ -9,15 +9,17 @@
 | 字段 | 合同 |
 | --- | --- |
 | format | `dark-nights.world` |
-| format_version | 整数27 |
+| format_version | 整数28 |
 | random_algorithm | SimulationRandom.Algorithm，`godot-pcg32-clz-f32-v1` |
 | rules_sha256 | 会话只读GameCatalog规范化SHA-256 |
 | layout_sha256 | 校验后LevelLayout规范化SHA-256 |
 | identity_sha256 | 规则→DefinitionGuid、PlacementKey→规则关系排序摘要 |
-| equipment_sha256 | 当前冻结手持装备配置指纹 |
+| equipment_sha256 | 当前冻结装备、地形／矿床及已装配MovementBehaviour的Definition完整移动配置的组合指纹 |
 | world | 深度冻结的权威数据 |
 
 精确嵌套字段以 `ObjectWorldSaveJson`、`SnapshotDocumentJson`、`SnapshotEntityJson`、`TerrainSaveJson`、`MineralSaveJson`、`ExpeditionSaveJson` 及对应Validator的显式映射为准。缺失／未知字段、重复JSON属性、尾随内容、非法enum、非有限数、越界值、重复身份或不兼容摘要拒绝，不用历史样例绕过校验。
+
+v28的每个actor强制增加`horizontal_speed`和`takeoff_horizontal_speed`两个有限数，分别表示当前真实横向速度和本次离地的速度参考，单位为逻辑像素／秒，绝对值不得超过64,000（基础参数与现有最高调试倍率的联合边界）。玩家及非手动角色共用MovementBehaviour，均允许保存合法速度；这不解除基础会话暂停NPC的约束。捕获深度冻结，恢复写入同一ActorState；重接控制租约不清除两者，地面启停及下一次起跳按实际输入重新建立。所有装配移动能力的Definition按身份排序，其完整MovementConfig指纹纳入现有equipment_sha256组合，包含两项能力开关、到达容差及四项空控值。本次合并替代原HeroAirControlConfig摘要，内容身份改变，匹配整合前内容的存档可能被严格内容校验拒绝；v28字段形状不变，原文件保留，不自动迁移或删除。以下v27段落保留各自历史引入来源。
 
 world保留level_id、terrain、expedition、economy、wave、elapsed、speed、paused、next_entity_id、rng_seed／rng_state、actors、buildings、worksites、projectiles、stats、mode和identities等已有合同形状。格式保留字段不代表对应暂停业务可以恢复；见下方基础会话约束。64位RNG seed/state用有符号十进制字符串保存原位模式，不经浮点。
 
@@ -67,7 +69,7 @@ identity摘要由按Ordinal排序definitions／placements的紧凑JSON UTF-8求S
 
 ## 保存与恢复顺序
 
-GameSaveStore注入专用目录及ObjectWorldSaveJson，构造不写磁盘。正式路径来自Unity persistentDataPath下 `Saves/v27`，槽位0–9，文件 `slot-00.dnsave.json` 至 `slot-09.dnsave.json`；客户端不能提交任意路径。
+GameSaveStore注入专用目录及ObjectWorldSaveJson，构造不写磁盘。正式路径来自Unity persistentDataPath下 `Saves/v28`，槽位0–9，文件 `slot-00.dnsave.json` 至 `slot-09.dnsave.json`；客户端不能提交任意路径。
 
 主菜单“开始游戏”不展示存档选择。新局启动前只在当前版本目录选择第一个不存在的槽位，不删除／覆盖已有文件；十槽都占用时阻止新局并提示整理。继续选择当前目录最后修改的已有槽位，实际恢复仍走下述原子加载。选择不写盘、不承诺自动保存，暂停菜单仍可显式切槽；文件格式、旧版拒绝和保存权限不因界面调整改变。
 

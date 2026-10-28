@@ -23,7 +23,7 @@ namespace DarkNights.Runtime.Objects
                 Core.Logic.Terrain.TerrainDepositFootprints.MaximumCellsPerDeposit + "|" + Core.Logic.Terrain.TerrainDepositFootprints.MaximumWorldCells + "|" + string.Join(";", world.Resources.Definitions
                     .OrderBy(value => value.Guid.ToString(), StringComparer.Ordinal)
                     .SelectMany(value => value.SharedConfigs.OfType<MineralDepositRuleConfig>()
-                        .Select(config => value.Guid + ":" + config.Fingerprint()))));
+                        .Select(config => value.Guid + ":" + config.Fingerprint()))) + "|" + world.Resources.MovementFingerprint);
         }
         internal void CaptureInitial() => initial = world.CaptureWorld();
         internal void Restart() => Restore(initial);

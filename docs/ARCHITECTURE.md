@@ -85,7 +85,20 @@ Host接管原ObjectInstance；动态业务走同一工厂。Client原子应用�
 
 ## 主角与输入
 
-HeroControl／Motion／Inventory及采集／手电能力共用ActorState；每步只选择一种合法决策入口。GameInputActions是正式本地玩家唯一InputAction入口，通过YYGC Interaction Sessions许可提供语义值。HeroInputSampler保存边沿、30 Hz限速和10 Hz保活；Entry发送冻结意图，服务端验证租约和输入超时。跳跃按下绕过发送等待，持续值仍节流。
+HeroControl／Movement／Inventory及采集／手电能力共用ActorState。ActorBehaviour每步先选择玩家或自动控制决策，再调用一次MovementBehaviour.Tick，最后执行玩家装备后处理。HeroControlBehaviour不积分坐标；自动控制的MoveTo及路径导航只提交本步目标／起跳意图，以实际位置判断到达，不绕过碰撞吸附目标。GameInputActions是正式本地玩家唯一InputAction入口，通过YYGC Interaction Sessions许可提供语义值。HeroInputSampler保存边沿、30 Hz限速和10 Hz保活；Entry发送冻结意图，服务端验证租约和输入超时。跳跃按下绕过发送等待，持续值仍节流。
+
+MovementBehaviour统一执行玩家与自动单位的水平运动、跳跃、下落及碰撞。MovementHorizontalMotion在同一ActorState内维护HorizontalSpeed与TakeoffHorizontalSpeed；地面即时启停，离地完整继承速度。空中松键保留惯性，反打先刹车再有限反向，Face取最后一次非零方向输入。TerrainHeroMotion按真实脚底支撑决定地面／空中，沿现有身体扫掠裁切位移；PlatformMovement及船舱是同一移动能力调用的环境计算函数，没有独立配置、状态或Behaviour调度。坡道出口已执行横移时只接续纵向运动，不重复积分。历史飞行路径也由该入口执行，不据此恢复暂停玩法。
+
+所有装配MovementBehaviour的Definition，其SharedConfigs必须有且只有一个MovementConfig（面板“移动”），在角色激活时冻结为纯只读MovementDefinition：
+
+| 配置字段 | 行为 | 参数与来源 |
+| --- | --- | --- |
+| ArrivalDistance | 目标点实际到达容差 | 原值0.8逻辑像素；自动步速仍读取ActorRuleConfig指向的balance单位规则 |
+| CanJump | 是否接受主动起跳请求 | 关闭会清起跳缓冲；重力、已有竖直速度、下落和落地继续执行 |
+| EnableAirControl | 是否接受空中方向修正 | 关闭仍保留离地惯性、松键阻力、重力和碰撞；朝向仍跟随输入 |
+| AirSpeedRatio／AirAccelerationSeconds／AirBrakingSeconds／AirDragPerSecond | 有限空控的四项参数 | 原值分别为0.35／0.28秒／0.55秒／0.08每秒；基础步速、疾跑倍率、跳速和重力唯一读取balance.hero_control |
+
+AirSpeedRatio是原地跳及反向修正上限占正常步速的比例；参考速度取正常步速和起跳速度绝对值的较大者。Worker／Archer／Spearman保留两项开关开启，其他六份单位定义默认关闭。编辑后重新创建会话／角色生效；所有已装配移动能力的定义身份及完整MovementConfig摘要参与会话握手和存档内容校验，包含开关与到达容差，本次整合会改变内容身份。协议36／存档v28字段形状不变，不承诺接受整合前内容的客户端或存档。输入超时／控制租约撤销只清输入，保留已生效惯性；传送和船内固定放置清除速度。旧HeroMotionBehaviour、HeroAirControlConfig及HeroAirControlDefinition已退出Game；MoveToConfig只保留MovedFrom来源名，原脚本.meta／GUID延续。
 
 每位玩家首次Ready创建专属worker，重复Ready不增员；真正重连与加载的接管区别见联机合同。主角、相机、菜单和改键各有明确生命周期，不共享客户端选择状态。Host本地主角在权威模拟后冻结即时展示，验证epoch／槽位／租约；远端仍消费正式副本和插值，不用本地展示替代网络诊断。
 

@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DarkNights.Runtime.Objects
 {
-    /// <summary>有界二维路径缓存；只读权威碰撞，地形提交后失效，位置仍由角色 State 与扫掠运动拥有。</summary>
+    /// <summary>有界二维路径决策；只读碰撞并提交本步意图，位置由MovementBehaviour统一执行，地形提交后清缓存。</summary>
     internal sealed class ExpeditionNavigation
     {
         private readonly ObjectSession world;
@@ -26,9 +26,12 @@ namespace DarkNights.Runtime.Objects
         }
         internal bool Move(ActorBehaviour actor, float x, float height, double delta, bool flying)
         {
+            var movement = actor.Object.GetBehaviour<MovementBehaviour>() ??
+                throw new InvalidOperationException("Navigation requires the unified movement capability.");
+            if (flying) movement.FollowPath(actor.X, actor.Read().Height, false, true);
             bool entering = !flying && !actor.Enemy && !actor.Read().Boarded && world.Expedition.Ship != null &&
                 Core.Logic.Terrain.ShipGeometry.Inside(x - world.Expedition.Ship.X, height - world.Expedition.Ship.Read().Height);
-            if (!flying && world.Ship.Cabin.Navigate(actor, ref x, ref height, delta, out bool arrived)) return arrived;
+            if (!flying && world.Ship.Cabin.Navigate(actor, movement, ref x, ref height, delta, out bool arrived)) return arrived;
             var map = world.Terrain.Map; var s = actor.Edit(); var goal = new Vector2(x, height);
             if (mapIdentity != map || commit != map.CommitId)
             { paths.Clear(); goals.Clear(); progress.Clear(); mapIdentity = map; commit = map.CommitId; }
@@ -57,20 +60,17 @@ namespace DarkNights.Runtime.Objects
             if (Vector2.Distance(new Vector2(s.X, s.Height), next) < 12 && path.Count > 1)
             { path.Dequeue(); return false; }
             float step = (float)(Math.Max(30, actor.Definition.Speed) * delta);
-            if (Math.Abs(next.x - s.X) > .01f) s.Face = Math.Sign(next.x - s.X);
-            s.Walking = true;
             if (flying)
             {
                 Vector2 to = Vector2.MoveTowards(new Vector2(s.X, s.Height), next, step * 2);
-                if (Clear(to.x, to.y, true)) { s.X = to.x; s.Height = to.y; }
+                if (Clear(to.x, to.y, true)) movement.FollowPath(next.x, next.y, false, true);
                 else { paths.Remove(actor.Id); goals.Remove(actor.Id); }
             }
             else
             {
-                float previous = s.X;
-                TerrainHeroMotion.MoveHorizontal(map, s, Mathf.MoveTowards(s.X, next.x, step));
-                bool jump = next.y > s.Height + 2 || Math.Abs(previous - s.X) < .01f;
-                TerrainHeroMotion.Tick(map, s, world.Catalog.Balance.HeroControl, delta, jump, false);
+                float candidate = Mathf.MoveTowards(s.X, next.x, step);
+                bool jump = next.y > s.Height + 2 || !Clear(candidate, s.Height, false);
+                movement.FollowPath(next.x, next.y, jump, false);
             }
             return false;
         }

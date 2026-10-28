@@ -1,0 +1,888 @@
+{
+  "task": "统一移动执行与配置，跳跃和空控独立开关",
+  "date": "2026-10-29",
+  "created_at": "2026-10-28T20:29:01.625170+00:00",
+  "workspace": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects",
+  "head": "87232da4ec1cdc68201b88c65223a51930d08931",
+  "working_tree": "Local/main with pre-existing changes preserved; no commit or push in this task",
+  "unity": {
+    "version": "6000.4.9f1",
+    "pid": 36548,
+    "project": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game",
+    "playing": false
+  },
+  "implementation": [
+    "ActorBehaviour chooses player or automatic decisions, ticks one MovementBehaviour once, then runs player equipment post-processing.",
+    "MoveTo/path navigation submit frame-local intentions instead of integrating coordinates; platform, terrain and cabin are function backends of the same movement executor.",
+    "CanJump gates input buffering/start in all movement backends; disabled jumping still falls and lands.",
+    "EnableAirControl gates input correction only; inertia, release drag, gravity, collision and input-facing continue.",
+    "One MovementConfig IConfigData per definition; MovementDefinition is its immutable calculation snapshot, not a second authored config or state owner.",
+    "ActorState remains the only state owner; no new network simulation or framework source modifications."
+  ],
+  "configuration": {
+    "definitions": [
+      {
+        "path": "Assets/DarkNights/Res/Objects/Archer/Archer.asset",
+        "key": "unit.archer",
+        "guid": "f91187dc2d2c99b46be92ec283a00c9c",
+        "assetGuid": "f91187dc2d2c99b46be92ec283a00c9c",
+        "behaviours": [
+          "DarkNights.View.ActorPresentationBehaviour",
+          "DarkNights.Runtime.Objects.ActorBehaviour",
+          "DarkNights.Runtime.Objects.MovementBehaviour",
+          "DarkNights.Runtime.Objects.ActorCombatBehaviour",
+          "DarkNights.Runtime.Objects.ArrowAttackBehaviour",
+          "DarkNights.Runtime.Objects.AutomaticActorControlBehaviour",
+          "DarkNights.Runtime.Objects.HeroControlBehaviour",
+          "DarkNights.Runtime.Objects.HeroInventoryBehaviour",
+          "DarkNights.Runtime.Objects.HeroLightBehaviour"
+        ],
+        "configs": [
+          {
+            "type": "DarkNights.Runtime.Objects.ActorRuleConfig",
+            "json": "{\"RuleKey\":\"archer\"}"
+          },
+          {
+            "type": "DarkNights.Runtime.Objects.MovementConfig",
+            "json": "{\"ArrivalDistance\":0.800000011920929,\"CanJump\":true,\"EnableAirControl\":true,\"AirSpeedRatio\":0.3499999940395355,\"AirAccelerationSeconds\":0.2800000011920929,\"AirBrakingSeconds\":0.550000011920929,\"AirDragPerSecond\":0.07999999821186066}"
+          }
+        ],
+        "validFrozenConfig": true,
+        "fingerprint": "51c7e4d6ba7df36af504a3171fcd2a1547a4debab37598874849df9fd7c3a274",
+        "dirty": false
+      },
+      {
+        "path": "Assets/DarkNights/Res/Objects/Armored/Armored.asset",
+        "key": "unit.armored",
+        "guid": "dab7b83c65706a7428b2bcefedc2d3ab",
+        "assetGuid": "dab7b83c65706a7428b2bcefedc2d3ab",
+        "behaviours": [
+          "DarkNights.View.ActorPresentationBehaviour",
+          "DarkNights.Runtime.Objects.ActorBehaviour",
+          "DarkNights.Runtime.Objects.MovementBehaviour",
+          "DarkNights.Runtime.Objects.ActorCombatBehaviour",
+          "DarkNights.Runtime.Objects.MeleeAttackBehaviour",
+          "DarkNights.Runtime.Objects.AutomaticActorControlBehaviour"
+        ],
+        "configs": [
+          {
+            "type": "DarkNights.Runtime.Objects.ActorRuleConfig",
+            "json": "{\"RuleKey\":\"armored\"}"
+          },
+          {
+            "type": "DarkNights.Runtime.Objects.MovementConfig",
+            "json": "{\"ArrivalDistance\":0.800000011920929,\"CanJump\":false,\"EnableAirControl\":false,\"AirSpeedRatio\":0.3499999940395355,\"AirAccelerationSeconds\":0.2800000011920929,\"AirBrakingSeconds\":0.550000011920929,\"AirDragPerSecond\":0.07999999821186066}"
+          }
+        ],
+        "validFrozenConfig": true,
+        "fingerprint": "999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e",
+        "dirty": false
+      },
+      {
+        "path": "Assets/DarkNights/Res/Objects/Expedition/hauler/hauler.asset",
+        "key": "expedition.hauler",
+        "guid": "84d003ed89ec6904e81a7dffca3ea33d",
+        "assetGuid": "84d003ed89ec6904e81a7dffca3ea33d",
+        "behaviours": [
+          "DarkNights.View.ActorPresentationBehaviour",
+          "DarkNights.Runtime.Objects.ActorBehaviour",
+          "DarkNights.Runtime.Objects.MovementBehaviour",
+          "DarkNights.Runtime.Objects.ActorCombatBehaviour",
+          "DarkNights.Runtime.Objects.AutomaticActorControlBehaviour",
+          "DarkNights.Runtime.Objects.MeleeAttackBehaviour"
+        ],
+        "configs": [
+          {
+            "type": "DarkNights.Runtime.Objects.ActorRuleConfig",
+            "json": "{\"RuleKey\":\"hauler\"}"
+          },
+          {
+            "type": "DarkNights.Runtime.Objects.MovementConfig",
+            "json": "{\"ArrivalDistance\":0.800000011920929,\"CanJump\":false,\"EnableAirControl\":false,\"AirSpeedRatio\":0.3499999940395355,\"AirAccelerationSeconds\":0.2800000011920929,\"AirBrakingSeconds\":0.550000011920929,\"AirDragPerSecond\":0.07999999821186066}"
+          }
+        ],
+        "validFrozenConfig": true,
+        "fingerprint": "999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e",
+        "dirty": false
+      },
+      {
+        "path": "Assets/DarkNights/Res/Objects/Expedition/miner/miner.asset",
+        "key": "expedition.miner",
+        "guid": "2a3197090e032454bb311c3549121f58",
+        "assetGuid": "2a3197090e032454bb311c3549121f58",
+        "behaviours": [
+          "DarkNights.View.ActorPresentationBehaviour",
+          "DarkNights.Runtime.Objects.ActorBehaviour",
+          "DarkNights.Runtime.Objects.MovementBehaviour",
+          "DarkNights.Runtime.Objects.ActorCombatBehaviour",
+          "DarkNights.Runtime.Objects.AutomaticActorControlBehaviour",
+          "DarkNights.Runtime.Objects.MeleeAttackBehaviour"
+        ],
+        "configs": [
+          {
+            "type": "DarkNights.Runtime.Objects.ActorRuleConfig",
+            "json": "{\"RuleKey\":\"miner\"}"
+          },
+          {
+            "type": "DarkNights.Runtime.Objects.MovementConfig",
+            "json": "{\"ArrivalDistance\":0.800000011920929,\"CanJump\":false,\"EnableAirControl\":false,\"AirSpeedRatio\":0.3499999940395355,\"AirAccelerationSeconds\":0.2800000011920929,\"AirBrakingSeconds\":0.550000011920929,\"AirDragPerSecond\":0.07999999821186066}"
+          }
+        ],
+        "validFrozenConfig": true,
+        "fingerprint": "999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e",
+        "dirty": false
+      },
+      {
+        "path": "Assets/DarkNights/Res/Objects/ExpeditionShip/scout-drone.asset",
+        "key": "expedition.scout-drone",
+        "guid": "314d075940d1cc547b62706086be01de",
+        "assetGuid": "314d075940d1cc547b62706086be01de",
+        "behaviours": [
+          "DarkNights.View.ActorPresentationBehaviour",
+          "DarkNights.Runtime.Objects.ActorBehaviour",
+          "DarkNights.Runtime.Objects.MovementBehaviour",
+          "DarkNights.Runtime.Objects.ActorCombatBehaviour",
+          "DarkNights.Runtime.Objects.AutomaticActorControlBehaviour",
+          "DarkNights.Runtime.Objects.MeleeAttackBehaviour"
+        ],
+        "configs": [
+          {
+            "type": "DarkNights.Runtime.Objects.ActorRuleConfig",
+            "json": "{\"RuleKey\":\"scout-drone\"}"
+          },
+          {
+            "type": "DarkNights.Runtime.Objects.MovementConfig",
+            "json": "{\"ArrivalDistance\":0.800000011920929,\"CanJump\":false,\"EnableAirControl\":false,\"AirSpeedRatio\":0.3499999940395355,\"AirAccelerationSeconds\":0.2800000011920929,\"AirBrakingSeconds\":0.550000011920929,\"AirDragPerSecond\":0.07999999821186066}"
+          }
+        ],
+        "validFrozenConfig": true,
+        "fingerprint": "999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e",
+        "dirty": false
+      },
+      {
+        "path": "Assets/DarkNights/Res/Objects/Ghoul/Ghoul.asset",
+        "key": "unit.ghoul",
+        "guid": "fc10243d4de9cc84db0f7a3af1a0b50e",
+        "assetGuid": "fc10243d4de9cc84db0f7a3af1a0b50e",
+        "behaviours": [
+          "DarkNights.View.ActorPresentationBehaviour",
+          "DarkNights.Runtime.Objects.ActorBehaviour",
+          "DarkNights.Runtime.Objects.MovementBehaviour",
+          "DarkNights.Runtime.Objects.ActorCombatBehaviour",
+          "DarkNights.Runtime.Objects.MeleeAttackBehaviour",
+          "DarkNights.Runtime.Objects.AutomaticActorControlBehaviour"
+        ],
+        "configs": [
+          {
+            "type": "DarkNights.Runtime.Objects.ActorRuleConfig",
+            "json": "{\"RuleKey\":\"ghoul\"}"
+          },
+          {
+            "type": "DarkNights.Runtime.Objects.MovementConfig",
+            "json": "{\"ArrivalDistance\":0.800000011920929,\"CanJump\":false,\"EnableAirControl\":false,\"AirSpeedRatio\":0.3499999940395355,\"AirAccelerationSeconds\":0.2800000011920929,\"AirBrakingSeconds\":0.550000011920929,\"AirDragPerSecond\":0.07999999821186066}"
+          }
+        ],
+        "validFrozenConfig": true,
+        "fingerprint": "999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e",
+        "dirty": false
+      },
+      {
+        "path": "Assets/DarkNights/Res/Objects/Spearman/Spearman.asset",
+        "key": "unit.spearman",
+        "guid": "fdab779e054f8c44f8e22f8ea5f9858a",
+        "assetGuid": "fdab779e054f8c44f8e22f8ea5f9858a",
+        "behaviours": [
+          "DarkNights.View.ActorPresentationBehaviour",
+          "DarkNights.Runtime.Objects.ActorBehaviour",
+          "DarkNights.Runtime.Objects.MovementBehaviour",
+          "DarkNights.Runtime.Objects.ActorCombatBehaviour",
+          "DarkNights.Runtime.Objects.MeleeAttackBehaviour",
+          "DarkNights.Runtime.Objects.AutomaticActorControlBehaviour",
+          "DarkNights.Runtime.Objects.HeroControlBehaviour",
+          "DarkNights.Runtime.Objects.HeroInventoryBehaviour",
+          "DarkNights.Runtime.Objects.HeroLightBehaviour"
+        ],
+        "configs": [
+          {
+            "type": "DarkNights.Runtime.Objects.ActorRuleConfig",
+            "json": "{\"RuleKey\":\"spearman\"}"
+          },
+          {
+            "type": "DarkNights.Runtime.Objects.MovementConfig",
+            "json": "{\"ArrivalDistance\":0.800000011920929,\"CanJump\":true,\"EnableAirControl\":true,\"AirSpeedRatio\":0.3499999940395355,\"AirAccelerationSeconds\":0.2800000011920929,\"AirBrakingSeconds\":0.550000011920929,\"AirDragPerSecond\":0.07999999821186066}"
+          }
+        ],
+        "validFrozenConfig": true,
+        "fingerprint": "51c7e4d6ba7df36af504a3171fcd2a1547a4debab37598874849df9fd7c3a274",
+        "dirty": false
+      },
+      {
+        "path": "Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+        "key": "unit.worker",
+        "guid": "57892829ba5122f4ba088c29da524d62",
+        "assetGuid": "57892829ba5122f4ba088c29da524d62",
+        "behaviours": [
+          "DarkNights.View.ActorPresentationBehaviour",
+          "DarkNights.Runtime.Objects.ActorBehaviour",
+          "DarkNights.Runtime.Objects.MovementBehaviour",
+          "DarkNights.Runtime.Objects.ActorCombatBehaviour",
+          "DarkNights.Runtime.Objects.MeleeAttackBehaviour",
+          "DarkNights.Runtime.Objects.AutomaticActorControlBehaviour",
+          "DarkNights.Runtime.Objects.HeroControlBehaviour",
+          "DarkNights.Runtime.Objects.HeroInventoryBehaviour",
+          "DarkNights.Runtime.Objects.HeroLightBehaviour"
+        ],
+        "configs": [
+          {
+            "type": "DarkNights.Runtime.Objects.ActorRuleConfig",
+            "json": "{\"RuleKey\":\"worker\"}"
+          },
+          {
+            "type": "DarkNights.Runtime.Objects.MovementConfig",
+            "json": "{\"ArrivalDistance\":0.800000011920929,\"CanJump\":true,\"EnableAirControl\":true,\"AirSpeedRatio\":0.3499999940395355,\"AirAccelerationSeconds\":0.2800000011920929,\"AirBrakingSeconds\":0.550000011920929,\"AirDragPerSecond\":0.07999999821186066}"
+          }
+        ],
+        "validFrozenConfig": true,
+        "fingerprint": "51c7e4d6ba7df36af504a3171fcd2a1547a4debab37598874849df9fd7c3a274",
+        "dirty": false
+      },
+      {
+        "path": "Assets/DarkNights/Res/Objects/Zombie/Zombie.asset",
+        "key": "unit.zombie",
+        "guid": "8af095eb2982cd64f87dcbb2011ee0d9",
+        "assetGuid": "8af095eb2982cd64f87dcbb2011ee0d9",
+        "behaviours": [
+          "DarkNights.View.ActorPresentationBehaviour",
+          "DarkNights.Runtime.Objects.ActorBehaviour",
+          "DarkNights.Runtime.Objects.MovementBehaviour",
+          "DarkNights.Runtime.Objects.ActorCombatBehaviour",
+          "DarkNights.Runtime.Objects.MeleeAttackBehaviour",
+          "DarkNights.Runtime.Objects.AutomaticActorControlBehaviour"
+        ],
+        "configs": [
+          {
+            "type": "DarkNights.Runtime.Objects.ActorRuleConfig",
+            "json": "{\"RuleKey\":\"zombie\"}"
+          },
+          {
+            "type": "DarkNights.Runtime.Objects.MovementConfig",
+            "json": "{\"ArrivalDistance\":0.800000011920929,\"CanJump\":false,\"EnableAirControl\":false,\"AirSpeedRatio\":0.3499999940395355,\"AirAccelerationSeconds\":0.2800000011920929,\"AirBrakingSeconds\":0.550000011920929,\"AirDragPerSecond\":0.07999999821186066}"
+          }
+        ],
+        "validFrozenConfig": true,
+        "fingerprint": "999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e",
+        "dirty": false
+      }
+    ],
+    "fingerprint": "2a3197090e032454bb311c3549121f58:999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e;314d075940d1cc547b62706086be01de:999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e;57892829ba5122f4ba088c29da524d62:51c7e4d6ba7df36af504a3171fcd2a1547a4debab37598874849df9fd7c3a274;84d003ed89ec6904e81a7dffca3ea33d:999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e;8af095eb2982cd64f87dcbb2011ee0d9:999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e;dab7b83c65706a7428b2bcefedc2d3ab:999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e;f91187dc2d2c99b46be92ec283a00c9c:51c7e4d6ba7df36af504a3171fcd2a1547a4debab37598874849df9fd7c3a274;fc10243d4de9cc84db0f7a3af1a0b50e:999f490cc17a07f40156799ae1e7d933e3858d7df6f29c8e1e145176a7e0113e;fdab779e054f8c44f8e22f8ea5f9858a:51c7e4d6ba7df36af504a3171fcd2a1547a4debab37598874849df9fd7c3a274",
+    "previous_air_fingerprint": "57892829ba5122f4ba088c29da524d62:3bfd8393b2886890ed3d2488c62b3898cf5d9f292a40c54dfc0dbbeae17dda04;f91187dc2d2c99b46be92ec283a00c9c:3bfd8393b2886890ed3d2488c62b3898cf5d9f292a40c54dfc0dbbeae17dda04;fdab779e054f8c44f8e22f8ea5f9858a:3bfd8393b2886890ed3d2488c62b3898cf5d9f292a40c54dfc0dbbeae17dda04",
+    "balance": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Config\\balance.json",
+      "bytes": 5286,
+      "sha256": "7e12b6cf11597b9bb72514e7ccba58532ecb6677db100ab27a4606029356c6ff"
+    },
+    "movement_script_guid": "57073b4bdf45ca246b0babef3610c565",
+    "horizontal_script_guid": "10b34ecde55436d44aa45f8bd7b19437"
+  },
+  "compatibility": {
+    "protocol": 36,
+    "save_version": 28,
+    "wire_and_json_field_layout_changed_in_this_task": false,
+    "content_fingerprint_changed": true,
+    "note": "Full unified MovementConfig fingerprint replaces the old air-only fingerprint. Prior content can fail strict handshake/save content checks; old files are preserved without automatic migration."
+  },
+  "verification": {
+    "definitions": 9,
+    "controlled_definitions": 3,
+    "other_definitions": 6,
+    "all_arrival_and_air_parameters_preserved": true,
+    "other_configs_unchanged": true,
+    "asset_guid_and_meta_preserved": true,
+    "removed_only_old_motion_behaviour": true,
+    "legacy_types_absent": true,
+    "scene_unchanged": true,
+    "flags": {
+      "unit.archer": {
+        "CanJump": true,
+        "EnableAirControl": true
+      },
+      "unit.armored": {
+        "CanJump": false,
+        "EnableAirControl": false
+      },
+      "expedition.hauler": {
+        "CanJump": false,
+        "EnableAirControl": false
+      },
+      "expedition.miner": {
+        "CanJump": false,
+        "EnableAirControl": false
+      },
+      "expedition.scout-drone": {
+        "CanJump": false,
+        "EnableAirControl": false
+      },
+      "unit.ghoul": {
+        "CanJump": false,
+        "EnableAirControl": false
+      },
+      "unit.spearman": {
+        "CanJump": true,
+        "EnableAirControl": true
+      },
+      "unit.worker": {
+        "CanJump": true,
+        "EnableAirControl": true
+      },
+      "unit.zombie": {
+        "CanJump": false,
+        "EnableAirControl": false
+      }
+    },
+    "compilation": {
+      "final_success_log_line": 7496,
+      "marker": "*** Tundra build success (4.92 seconds), 35 items updated, 1748 evaluated",
+      "errors": 0,
+      "distinct_warnings": 25,
+      "warnings": [
+        "Assets\\DarkNights\\Scripts\\Editor\\DarkNightsWorkbenchLauncher.cs(25,21): warning CS0108: 'DarkNightsWorkbenchLauncher.visible' hides inherited member 'VisualElement.visible'. Use the new keyword if hiding was intended.",
+        "Assets\\DarkNights\\Scripts\\Editor\\Lighting\\LightingEditorRefresh.cs(27,36): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+        "Assets\\DarkNights\\Scripts\\Editor\\Lighting\\LightingEditorRefresh.cs(27,96): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+        "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(29,109): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+        "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(29,27): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+        "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(35,122): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+        "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(35,39): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+        "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(40,111): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+        "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(40,29): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+        "Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainMapDocument.cs(20,96): warning CS0414: The field 'TerrainMapDocument.importedVeinCount' is assigned but its value is never used",
+        "Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainMapDocument.cs(21,93): warning CS0414: The field 'TerrainMapDocument.importedNests' is assigned but its value is never used",
+        "Assets\\DarkNights\\Scripts\\Entry\\Terrain\\TerrainFieldControls.cs(33,56): warning CS0618: 'Object.GetInstanceID()' is obsolete: 'GetInstanceID is deprecated. Use GetEntityId instead. This will be removed in a future version.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\JourneyPreviewTests.cs(178,80): warning CS0618: 'Object.GetInstanceID()' is obsolete: 'GetInstanceID is deprecated. Use GetEntityId instead. This will be removed in a future version.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\ReusableLightPlayTests.cs(60,107): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\ReusableLightPlayTests.cs(60,54): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\RuntimeTerrainWorkbenchPlayTests.cs(26,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\RuntimeTerrainWorkbenchPlayTests.cs(27,25): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\RuntimeTerrainWorkbenchPlayTests.cs(84,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\RuntimeTerrainWorkbenchPlayTests.cs(85,25): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\WallDiffuseForegroundBenchmark.cs(115,31): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\WallDiffuseForegroundBenchmark.cs(48,23): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\WallDiffuseForegroundBenchmark.cs(49,32): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\WallDiffuseForegroundBenchmark.cs(58,22): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+        "Assets\\DarkNights\\Scripts\\Tests\\WallDiffuseForegroundBenchmark.cs(87,27): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+        "Assets\\DarkNights\\Scripts\\View\\FlashlightView.cs(13,45): warning CS0108: 'FlashlightView.light' hides inherited member 'Component.light'. Use the new keyword if hiding was intended."
+      ],
+      "scope": "Unity Editor compilation only; no tests or Play"
+    },
+    "source_line_counts": {
+      "Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\MovementDefinition.cs": 47,
+      "Game\\Assets\\DarkNights\\Scripts\\Core\\Save\\EntitySnapshotValidator.cs": 97,
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\HeroContentSetup.cs": 164,
+      "Game\\Assets\\DarkNights\\Scripts\\Editor\\ObjectCapabilitySetup.cs": 99,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ActorBehaviour.cs": 82,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ExpeditionNavigation.cs": 130,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroControlBehaviour.cs": 70,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroJumpMotion.cs": 60,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\IMovementCapability.cs": 11,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\MovementBehaviour.cs": 128,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\MovementConfig.cs": 63,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\MovementHorizontalMotion.cs": 79,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ObjectSessionResources.cs": 126,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\PlatformMovement.cs": 72,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ShipCabinMotion.cs": 156,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ShipRampTransition.cs": 58,
+      "Game\\Assets\\DarkNights\\Scripts\\Runtime\\Terrain\\TerrainHeroMotion.cs": 101,
+      "Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectAssemblyTests.cs": 260
+    },
+    "legacy_source_references_removed": true,
+    "single_tick_static_contract": {
+      "actor_ticks_motor_once": true,
+      "hero_control_no_motor_tick_or_coordinates": true,
+      "navigation_no_coordinate_assignment": true
+    },
+    "base_balance_unchanged_from_head": true
+  },
+  "not_executed": [
+    "unit tests",
+    "Play mode",
+    "Player build/run",
+    "save/load runtime acceptance",
+    "independent Host + Client runtime acceptance",
+    "human movement feel acceptance"
+  ],
+  "runtime_operations_pending": [
+    "Normal: instant ground start/stop/reverse, standing jump limited steering, running jump inherited speed, release drag, reverse braking, Shift release, landing immediate stop.",
+    "Switches after recreating actor: CanJump=false rejects jump but falls/lands; EnableAirControl=false prevents steering/reverse acceleration but preserves inertia/drag/gravity/collision; both true retain previous values.",
+    "Geometry: slopes, walls, ledges, platforms, and existing historical cabin/ramp without double horizontal movement or air re-jump.",
+    "Persistence/network: frozen airborne velocities restore; stale lease/epoch input rejected; independent Host/Client late join and recovery agree on pose/facing."
+  ],
+  "source_and_meta": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\MovementDefinition.cs",
+      "bytes": 2011,
+      "sha256": "e872f62735b7f29ea9c6a5d7a8e36c6278c79527c6b2455f87544b1896f2cf22"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\MovementDefinition.cs.meta",
+      "bytes": 59,
+      "sha256": "09b693ac25f4e3fcd2cf480f0d4775cfd9f9808c58524444232b9d25da37e0ef"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Save\\EntitySnapshotValidator.cs",
+      "bytes": 6736,
+      "sha256": "a799caca109482ba168125fc195cf14ca5b891e1db6aceb1e35c9e55af85538b"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Save\\EntitySnapshotValidator.cs.meta",
+      "bytes": 59,
+      "sha256": "6a401ac07135b33de6534bade4e0402074084acecbc3196b03f873ae584999ed"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\HeroContentSetup.cs",
+      "bytes": 10431,
+      "sha256": "a23af5c31c62d0e82d73e529abae95b3dd62eeac41d95622a851541298e22c67"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\HeroContentSetup.cs.meta",
+      "bytes": 59,
+      "sha256": "27f37d1b8be778c5621705c4fbfb0c25ea95f3cb73919a3ea27e99db195d283d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\ObjectCapabilitySetup.cs",
+      "bytes": 4964,
+      "sha256": "58f8034f3429d52786ea391d741aa4bfc3a365d40b7dc4934f2852642c2edcd5"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\ObjectCapabilitySetup.cs.meta",
+      "bytes": 60,
+      "sha256": "9048847485cb4d3aa26db18795d87af750019b177fb2eb45915586dc0157b215"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ActorBehaviour.cs",
+      "bytes": 3688,
+      "sha256": "b887dbf5d9f5e3b2cb1f5edef42939ea4e512e313d631e9bfb8e65d65e26625d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ActorBehaviour.cs.meta",
+      "bytes": 59,
+      "sha256": "d20a582fc59f705f92d414c7a11addcdff4a46abc537a600282f2d6706563fc7"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ExpeditionNavigation.cs",
+      "bytes": 7733,
+      "sha256": "44bb75a03a3d822982254385c4728dc0d79f45b3f2a0f33de938ab2576d29970"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ExpeditionNavigation.cs.meta",
+      "bytes": 59,
+      "sha256": "d01ae51f81dcc5f5688b1ef9f78d9a063686c31fd2522a131c22a125bfa9532b"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroControlBehaviour.cs",
+      "bytes": 3019,
+      "sha256": "506490aac57b37e585ef94d3dc0235d44aa28ef2201a3672615bed202d94a38e"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroControlBehaviour.cs.meta",
+      "bytes": 59,
+      "sha256": "e396acef278beafc696c6faa5e7a22cc2befe4fc0006c8750a17395402c79703"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroJumpMotion.cs",
+      "bytes": 3056,
+      "sha256": "d497e48bc11f4a2c72abd2a39b609a706ec855493b4ce6a35e49d3742a4b7241"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroJumpMotion.cs.meta",
+      "bytes": 59,
+      "sha256": "07750f3627b79f84e6643c8b573084c9d17ce47be04b7a4ac200001f5550ca58"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\IMovementCapability.cs",
+      "bytes": 375,
+      "sha256": "ae6ccf8efed2a7e1535bc67575079006622bebb31d375550014e9d183d5c4701"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\IMovementCapability.cs.meta",
+      "bytes": 59,
+      "sha256": "28d605d1bd7298c04ef802e9d48da127f05fdd73a9b37b7526c5662fab4acc22"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\MovementBehaviour.cs",
+      "bytes": 6533,
+      "sha256": "397bc3210055de71fff5185f02bdaf155cb443aaf8ae7d937a2304c22c4c486e"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\MovementBehaviour.cs.meta",
+      "bytes": 59,
+      "sha256": "ffe1347bda19dd78aab2f2edc0e7225869c2d2dc65b7fa566c349656b7ca4884"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\MovementConfig.cs",
+      "bytes": 3112,
+      "sha256": "ca8ee505e32c4dcf4b79cfdfe4b2f4da79ef945630da8b8c1aee2e2116a8a86a"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\MovementConfig.cs.meta",
+      "bytes": 59,
+      "sha256": "4b5c7d4a306d66aedfabe6d36bd54cbbad2aa698d01c8240755524b9c9df1d58"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\MovementHorizontalMotion.cs",
+      "bytes": 3890,
+      "sha256": "29caa98dffbbc49d759c402511ed5643f5a18911339c90a501d5f9aafe88aecd"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\MovementHorizontalMotion.cs.meta",
+      "bytes": 59,
+      "sha256": "03caa4b187029c59b9426a74f3e363a4d38b00988377a9bba7fd6b48ec1a6a59"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ObjectSessionResources.cs",
+      "bytes": 6331,
+      "sha256": "ea99447497f95e90ab9f62717d137ed88ac4fb0c710f81bfd8a98d9f735a0661"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ObjectSessionResources.cs.meta",
+      "bytes": 59,
+      "sha256": "89018ca1c4d96081ee32f4a2cc6dc8be851994fb6bac24af44a95b1ed8b0dff9"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\PlatformMovement.cs",
+      "bytes": 3802,
+      "sha256": "02279ff54900b237dad58198b20bae2788073c33f94f5211ca455a3c50740fdc"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\PlatformMovement.cs.meta",
+      "bytes": 59,
+      "sha256": "70751bbb30b5a9d0f6de69a554de9e54907835842aaf84144cb8362536548cde"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ShipCabinMotion.cs",
+      "bytes": 7777,
+      "sha256": "524c8242c77ea4f2b63738aa4ee60e6046b86ff0f4f6c0c1ffb0799f2d4d8874"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ShipCabinMotion.cs.meta",
+      "bytes": 59,
+      "sha256": "151e33675c82f46f1ff94cbd58061043bc88b68e6f6d9afee4959167eb221221"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ShipRampTransition.cs",
+      "bytes": 2816,
+      "sha256": "8a7818ff9e8fc873fc6f362434dc8f2f0012f2fa3b38f59df65808f9262c8944"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ShipRampTransition.cs.meta",
+      "bytes": 59,
+      "sha256": "b3e3db642c7788753e98447254a6ea65ff536cba673b1d3b0cd4da5380b2711b"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Terrain\\TerrainHeroMotion.cs",
+      "bytes": 6318,
+      "sha256": "dd1517c1fb1e724f6053a482ac8e69bc9ecb24a242144386963aaef540d243f3"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Terrain\\TerrainHeroMotion.cs.meta",
+      "bytes": 59,
+      "sha256": "768b67596ef0341b8eb90098aa22ff01054b6954a7b2c89733bef64fd8884d0b"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectAssemblyTests.cs",
+      "bytes": 12948,
+      "sha256": "288dc229583a785dfe415a2242580469fbe15251bba2f984c97d915367152773"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectAssemblyTests.cs.meta",
+      "bytes": 59,
+      "sha256": "d25a608fc3f641dc6614e9b7f7a58ee5d57cc435bbb061afd40acd24eb1b5333"
+    }
+  ],
+  "retired_sources": [
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroMotionBehaviour.cs",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261029-统一移动旧实现\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroMotionBehaviour.cs",
+      "bytes": 314,
+      "sha256": "a58622bcc7dd18c574bcda6942cd3605a19559615d84c5ccb298ed2f0bffbad3"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroMotionBehaviour.cs.meta",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261029-统一移动旧实现\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroMotionBehaviour.cs.meta",
+      "bytes": 59,
+      "sha256": "2037593c8890721e568a4c0090e8178c3f02a02e3ec9053b8039eed3bdd2edcb"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroAirControlConfig.cs",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261029-统一移动旧实现\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroAirControlConfig.cs",
+      "bytes": 3021,
+      "sha256": "5e132e4434ee149f963f9b3173eca59e964dcec9225c3936e60956c887c61349"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroAirControlConfig.cs.meta",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261029-统一移动旧实现\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroAirControlConfig.cs.meta",
+      "bytes": 59,
+      "sha256": "139b98b2e6a74edd10088c8a0781e9b73f15453f7941e9638caacb1dadb1d0c1"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\HeroAirControlDefinition.cs",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261029-统一移动旧实现\\Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\HeroAirControlDefinition.cs",
+      "bytes": 1639,
+      "sha256": "184e4e8103bb7ef5ae8e9f77420d283b9ba9564221b91f419aca6a3bef55df86"
+    },
+    {
+      "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\HeroAirControlDefinition.cs.meta",
+      "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261029-统一移动旧实现\\Game\\Assets\\DarkNights\\Scripts\\Core\\Config\\HeroAirControlDefinition.cs.meta",
+      "bytes": 59,
+      "sha256": "8cb8baedb4f2f9a9f628ea7d054e799ee01bc22aa0b9f839abdddfb807544af3"
+    }
+  ],
+  "dependencies": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Packages\\manifest.json",
+      "bytes": 3641,
+      "sha256": "5ddb149d97a4310ebd4a5813fa9485a2ae59ab5fb6804b1c637ce85c65e528e4"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Packages\\packages-lock.json",
+      "bytes": 15225,
+      "sha256": "fd002144c90a2019e08e7647511406c62d754a44efa16a5116f97bd4cfbd9e39"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\ProjectSettings\\ProjectVersion.txt",
+      "bytes": 83,
+      "sha256": "0ee4b8baf7a4e3760cd3a0c19797a9362ed4e0c9c8ef0f49d8304c1211e511b8"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\grid-business\\dependency.lock.json",
+      "bytes": 768,
+      "sha256": "360716eb99af3ba1f4dadbd4a2085d3be96b02b83cf38dad4385beb2fbfdf5e9"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\debug-hub\\dependency.lock.json",
+      "bytes": 576,
+      "sha256": "ef9db8a5627af393c643b8eb01066668bccf0531c2c02a6994cfa4aa3b6878d3"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\grid-business\\yygc.patch",
+      "bytes": 58682,
+      "sha256": "58efc66c8e5b38caf2db939db1bf1fe9597b701b2485a29f36ef34d576b44bbb"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\tools\\debug-hub\\yygc-debug-hub.patch",
+      "bytes": 41042,
+      "sha256": "64490b4dabd9249aba2483709df9aafad93d96ee3e39f978cc7ba9b24b0d8a4b"
+    }
+  ],
+  "assemblies": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Core.dll",
+      "bytes": 291840,
+      "sha256": "20706c08bac1fa17af46bb97a5f38b91c3a0bddcd87538239d211c12c7429ee7"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Editor.dll",
+      "bytes": 797184,
+      "sha256": "8496ab12393f1793962d846428e9c565043058181b5838717e4099576b607710"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Entry.dll",
+      "bytes": 299520,
+      "sha256": "4d1dc6ad5d1d44a7177d62e7b7fd2a57662308bc70d98b723456945d663a0f6e"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Runtime.dll",
+      "bytes": 798720,
+      "sha256": "48f37eb27fd18cfceee75ffc193d7b8470ebe91651a9f6b779958e0376767bc6"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Tests.dll",
+      "bytes": 1204224,
+      "sha256": "1fd290d8c757f26d188db562489eae49d907ee2af66801fc40cfdd4699f6c23d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.View.dll",
+      "bytes": 380416,
+      "sha256": "e6a0cae4ea7f41e736545d33854eae65bac6e939d7426561321ebbd154a7cd7d"
+    }
+  ],
+  "artifacts": {
+    "compile-all-phases.log": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\compile-all-phases.log",
+      "bytes": 229206,
+      "sha256": "e19326369c812026f226984eb30ad4daafbd24af0a19a741ad0babbcac83db76"
+    },
+    "compile-final-phase.log": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\compile-final-phase.log",
+      "bytes": 119996,
+      "sha256": "5f599b77cbde129389923fe66ee09afaf10c044c5da3871982393056af4565ce"
+    },
+    "config-before.json": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\config-before.json",
+      "bytes": 30695,
+      "sha256": "d80703131a49459a4bc66500727b23bb02b1811621c02887da50d56b24584d23"
+    },
+    "config-merged.json": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\config-merged.json",
+      "bytes": 17747,
+      "sha256": "17203ace5ab89b8c52bdf4cc6cb8cf1893db5f89199c50ffc02abbcc9b576227"
+    },
+    "definition-migration.diff": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\definition-migration.diff",
+      "bytes": 9836,
+      "sha256": "9cea5423960dffdb3bd0c6b969da3a34406ba46e12efe75f7efd99d75abeea2e"
+    },
+    "final-readback.cs": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\final-readback.cs",
+      "bytes": 2584,
+      "sha256": "102ca6500fd8e36b898389231df6c529681bcbde23b50096fd633e1d209ee780"
+    },
+    "final-readback.json": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\final-readback.json",
+      "bytes": 18130,
+      "sha256": "e767f69126ce340fbdf5262d0525e2ce124e246a3d511191f1bcef6c5e4fc83e"
+    },
+    "final-refresh.json": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\final-refresh.json",
+      "bytes": 675,
+      "sha256": "f6e2c71eed4de5161088fe2d792ca78ac96f6f2a6ce0745ec6c4dd2a685906d3"
+    },
+    "final-verification.json": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\final-verification.json",
+      "bytes": 10818,
+      "sha256": "312d13cbdfaeb3aeafe298618b863df81325682779954f914538a88655811b63"
+    },
+    "first-compilation-failure.log": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\first-compilation-failure.log",
+      "bytes": 74041,
+      "sha256": "05aa66a79600fc600028d380a46ca7f619562127c7cb76e32fa0e8652927d3db"
+    },
+    "migration-verification.json": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\migration-verification.json",
+      "bytes": 272,
+      "sha256": "e22afcdfe217196c71e930602fbdd89f95229c8b4c6ad07349dcd8552f9ecea5"
+    },
+    "retired-sources.json": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\retired-sources.json",
+      "bytes": 2856,
+      "sha256": "0230c589a2670977b8951849260f00869323246e40bbe7f3089922abcd3d001b"
+    }
+  },
+  "backup_root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\before",
+  "preservation_manifest": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261029-统一移动旧实现\\清单.md",
+  "validation_scope": "Unity compilation plus read-only source/configuration/GUID/assembly metadata checks only. First missing-import compilation failure retained; final compile succeeded with zero errors and 25 distinct warnings in unchanged files.",
+  "full_game_source_identity": {
+    "manifest": {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029\\source-identity.json",
+      "bytes": 588223,
+      "sha256": "47cc066c96105d8de6e966a330e5c335518ada9c75505e98cb5c80301bce60d3"
+    },
+    "aggregate_sha256": "8b7db7dd89e847be24756292380efced940fe5e7a4f1e8ab66c4fb4a8fcfe32c",
+    "files": 2196
+  },
+  "definition_asset_files": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Archer\\Archer.asset",
+      "bytes": 2139,
+      "sha256": "b190edd5a480979823e95122334f3a7f65a064c4594093c80fff36d0190049ff"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Armored\\Armored.asset",
+      "bytes": 1987,
+      "sha256": "1c73227ebcbab61e02632e3e74a746d990c882fef92e38847d8751bbe823f714"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Expedition\\hauler\\hauler.asset",
+      "bytes": 1989,
+      "sha256": "c56d82c5f0c8564d11ccc75a97858214391b9b91c4550048ca956f66f2e35feb"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Expedition\\miner\\miner.asset",
+      "bytes": 1985,
+      "sha256": "375e15e68c045e11c0e87ffd9faeea75cff34756509ab5b433caf093591b5fee"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\ExpeditionShip\\scout-drone.asset",
+      "bytes": 2030,
+      "sha256": "15aa256c9c058a8fc2cb9e823fad164319f838248e80453fad67d975e3edb49a"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Ghoul\\Ghoul.asset",
+      "bytes": 1979,
+      "sha256": "ad42725836282c39daf6ee6e37db5f0b71beea7341dbce6b9e71783f7cc23453"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Spearman\\Spearman.asset",
+      "bytes": 2147,
+      "sha256": "d7bcd549347be6f039cfadf264add996a27f835ff6750b194706d3a17f4b2b6c"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Worker\\Worker.asset",
+      "bytes": 2147,
+      "sha256": "929f47b5a151fe08b460fcb8d6fbaf34d517b8f66b30e066ea29b689644a107f"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Zombie\\Zombie.asset",
+      "bytes": 1983,
+      "sha256": "229692a2a8cf2534a2cf8cb7bd2220fb8eda726d297c94ae403c5fd08fc99eb9"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Archer\\Archer.asset.meta",
+      "bytes": 189,
+      "sha256": "4aeea8da984453ad770de4c154c87e1479e00e2f2caf7262fcacd9af62783356"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Armored\\Armored.asset.meta",
+      "bytes": 189,
+      "sha256": "bb92e1fa23082024b80afcc22f376299496b8c4ee66d696ef2993cdf80027a44"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Expedition\\hauler\\hauler.asset.meta",
+      "bytes": 189,
+      "sha256": "932fc35192e2fe1c6c1764b5b0d70b94fca9cbb11b1348860d4550ac865207b0"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Expedition\\miner\\miner.asset.meta",
+      "bytes": 189,
+      "sha256": "24ce46362fa796dacdf2813a169ece99bdd48c1123ad6a16b60d2185472eafa2"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\ExpeditionShip\\scout-drone.asset.meta",
+      "bytes": 189,
+      "sha256": "7b597dcf33e25d1506ba993878cc119279b89da27f0fb31fd9e336cb6922f668"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Ghoul\\Ghoul.asset.meta",
+      "bytes": 189,
+      "sha256": "65d0eaafca85003d171c100e6cad6485c1f52cdf39f1d31fd13c1542f8e1ae6f"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Spearman\\Spearman.asset.meta",
+      "bytes": 189,
+      "sha256": "8862fe061b41d291fe5951dc19e28fd2e141b60bf47c18797a708217b46dcc94"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Worker\\Worker.asset.meta",
+      "bytes": 189,
+      "sha256": "174f04c3d00eb21b8b8af1259b84f0ce2dcaf65c1a484baf2d72e1408e5dcda1"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Res\\Objects\\Zombie\\Zombie.asset.meta",
+      "bytes": 189,
+      "sha256": "1bb51ded3c25e572d8d035776d439427a8f975044309cbb28977905f9046c410"
+    }
+  ],
+  "preservation_manifest_sha256": "a16bd09a1b0201b5c630357aebad45fac52dec22be819d3589470a3329c507e8",
+  "artifact_inventory": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\unified-movement-20261029",
+      "files": 304,
+      "bytes": 1603354,
+      "retention": "preserve migration backups, failed/final compile evidence, and retired source; no permanent deletion"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待清理\\20261029-统一移动旧实现",
+      "files": 7,
+      "bytes": 8116,
+      "retention": "preserve migration backups, failed/final compile evidence, and retired source; no permanent deletion"
+    }
+  ]
+}

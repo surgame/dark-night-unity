@@ -30,6 +30,8 @@ namespace DarkNights.Core.Save
         public double AiClock { get; }
         public float Height { get; }
         public float VerticalSpeed { get; }
+        public float HorizontalSpeed { get; }
+        public float TakeoffHorizontalSpeed { get; }
         public int SupportPlatform { get; }
         public int IgnoredPlatform { get; }
         public double DropRemaining { get; }
@@ -87,7 +89,8 @@ namespace DarkNights.Core.Save
             double equipmentCooldown = 0,
             double equipmentAction = 0,
             double equipmentActionDuration = 0, int inventoryRevision = 0,
-            string slot0 = "", string slot1 = "", string slot2 = "", string slot3 = "", bool jetpackOwned = false, string lightDefinition = "", bool lightEnabled = false)
+            string slot0 = "", string slot1 = "", string slot2 = "", string slot3 = "", bool jetpackOwned = false, string lightDefinition = "", bool lightEnabled = false,
+            float horizontalSpeed = 0, float takeoffHorizontalSpeed = 0)
         {
             Id = id;
             Kind = kind;
@@ -108,6 +111,8 @@ namespace DarkNights.Core.Save
             AiClock = aiClock;
             Height = height;
             VerticalSpeed = verticalSpeed;
+            HorizontalSpeed = horizontalSpeed;
+            TakeoffHorizontalSpeed = takeoffHorizontalSpeed;
             SupportPlatform = supportPlatform;
             IgnoredPlatform = ignoredPlatform;
             DropRemaining = dropRemaining;

@@ -42,7 +42,8 @@ namespace DarkNights.Runtime.Network
                 ":" + serviceIdentity + ":" + services.SaleEnabled + ":" + services.ShopEnabled + ":" + itemIdentity +
                 ":" + Terrain.TerrainProfileConfig.Resolve().Freeze().Fingerprint + ":" + deposits + ":" +
                 Core.Logic.Terrain.TerrainDepositFootprints.Version + ":" + Core.Logic.Terrain.TerrainDepositFootprints.NominalCells + ":" +
-                Core.Logic.Terrain.TerrainDepositFootprints.MaximumCellsPerDeposit + ":" + Core.Logic.Terrain.TerrainDepositFootprints.MaximumWorldCells;
+                Core.Logic.Terrain.TerrainDepositFootprints.MaximumCellsPerDeposit + ":" + Core.Logic.Terrain.TerrainDepositFootprints.MaximumWorldCells +
+                ":" + resources.MovementFingerprint;
         }
     }
 }

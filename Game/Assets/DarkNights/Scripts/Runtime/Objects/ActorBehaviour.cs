@@ -73,7 +73,10 @@ namespace DarkNights.Runtime.Objects
             state.HitFlash = Math.Max(0, state.HitFlash - delta);
             state.AiClock = Math.Max(0, state.AiClock - delta);
             state.Walking = false;
-            if (hero == null || !hero.Tick(delta)) automatic.Tick(delta);
+            bool manual = hero?.PrepareInput() == true;
+            if (!manual) automatic.Tick(delta);
+            movement.Tick(delta);
+            if (manual) hero.AfterMovement(delta);
         }
     }
 }

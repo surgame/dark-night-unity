@@ -55,3 +55,9 @@ MonoBehaviour:
       type: {class: MovementConfig, ns: DarkNights.Runtime.Objects, asm: DarkNights.Runtime}
       data:
         ArrivalDistance: 0.8
+        CanJump: 0
+        EnableAirControl: 0
+        AirSpeedRatio: 0.35
+        AirAccelerationSeconds: 0.28
+        AirBrakingSeconds: 0.55
+        AirDragPerSecond: 0.08

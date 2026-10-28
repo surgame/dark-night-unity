@@ -24,6 +24,7 @@ namespace DarkNights.Runtime.Objects
         private readonly HashSet<ObjectView> geologyViews = new HashSet<ObjectView>();
         public IReadOnlyList<ObjectDefinition> Definitions { get; private set; }
         public EquipmentDefinitionCatalog Equipment { get; private set; }
+        public string MovementFingerprint { get; private set; }
 
         private ObjectSessionResources() { }
 
@@ -33,6 +34,7 @@ namespace DarkNights.Runtime.Objects
             var result = new ObjectSessionResources();
             try
             {
+                result.MovementFingerprint = MovementConfig.ContentFingerprint(definitions);
                 result.Equipment = new EquipmentDefinitionCatalog(ObjectDefinitionDatabase.Instance);
                 var flow = ObjectDefinitionDatabase.Instance.GetDefinitionByKey("session.pinewatch")?.SharedConfigs.OfType<ExpeditionFlowConfig>().SingleOrDefault();
                 result.geologyDefinitions = flow?.Geology?.Definition == null ? Array.Empty<ObjectDefinition>() : new[] { flow.Geology.Definition };

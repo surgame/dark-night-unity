@@ -1,0 +1,270 @@
+{
+  "date": "2026-10-29",
+  "scope": "CL-00/CL-08 主角有限空控",
+  "head_at_delivery": "87232da4ec1cdc68201b88c65223a51930d08931",
+  "workspace": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects",
+  "branch": "main",
+  "input_preview": {
+    "path": "C:/Users/Jobscn/.codex/visualizations/2026/10/28/01a181a5-8822-7850-acb8-0ca72115ae1f/hero-jump-lab.html",
+    "bytes": 25227,
+    "sha256": "0612fc356092e6345324d53bd39e162748f5cef7c488280348d6ad6452ec4d61"
+  },
+  "implementation": "complete",
+  "compilation": {
+    "editor": "6000.4.9f1",
+    "cli": "1.0.0-beta.14",
+    "errors": 0,
+    "warnings": 0,
+    "report": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-air-control-20261029\\recompile-status.json"
+  },
+  "first_failure": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\hero-air-control-20261029\\compilation-first-failure.json",
+  "protocol": 36,
+  "save_version": 28,
+  "defaults": {
+    "AirSpeedRatio": 0.35,
+    "AirAccelerationSeconds": 0.28,
+    "AirBrakingSeconds": 0.55,
+    "AirDragPerSecond": 0.08
+  },
+  "basic_motion_source": "balance.hero_control unchanged",
+  "definitions": [
+    {
+      "path": "Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "key": "unit.worker",
+      "guid": "57892829ba5122f4ba088c29da524d62",
+      "fingerprint": "3bfd8393b2886890ed3d2488c62b3898cf5d9f292a40c54dfc0dbbeae17dda04",
+      "dirty": true
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/Archer/Archer.asset",
+      "key": "unit.archer",
+      "guid": "f91187dc2d2c99b46be92ec283a00c9c",
+      "fingerprint": "3bfd8393b2886890ed3d2488c62b3898cf5d9f292a40c54dfc0dbbeae17dda04",
+      "dirty": true
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/Spearman/Spearman.asset",
+      "key": "unit.spearman",
+      "guid": "fdab779e054f8c44f8e22f8ea5f9858a",
+      "fingerprint": "3bfd8393b2886890ed3d2488c62b3898cf5d9f292a40c54dfc0dbbeae17dda04",
+      "dirty": true
+    }
+  ],
+  "definition_save": [
+    {
+      "path": "Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "dirty": false
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/Archer/Archer.asset",
+      "dirty": false
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/Spearman/Spearman.asset",
+      "dirty": false
+    }
+  ],
+  "existing_meta_and_guids_preserved": true,
+  "executed": {
+    "code_and_reference_review": true,
+    "definition_configuration": true,
+    "unity_compilation": true,
+    "automated_tests": false,
+    "play": false,
+    "player_build": false,
+    "runtime_save_restore": false,
+    "multiplayer_acceptance": false
+  },
+  "remaining": [
+    "地面即时启停与空中修正的实际手感",
+    "坡地、墙顶、单向平台及船舱出入口",
+    "保存及重接控制后保持空中速度",
+    "独立Host/Client与晚加入、恢复"
+  ],
+  "framework_source_modified": false,
+  "authored_animation_modified": false,
+  "files": [
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Res/Objects/Archer/Archer.asset",
+      "bytes": 2312,
+      "sha256": "23ed64a9cd8c0e4d6217ce34e2ea3efec33bdfe15a14ce5d36fb68d82664c2ca"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Res/Objects/Archer/Archer.asset.meta",
+      "bytes": 189,
+      "sha256": "4aeea8da984453ad770de4c154c87e1479e00e2f2caf7262fcacd9af62783356"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.asset",
+      "bytes": 2320,
+      "sha256": "21a1d27215a2efb3873a35486ae4d8b34932244a30531b02ba576ba4114886c3"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Res/Objects/Spearman/Spearman.asset.meta",
+      "bytes": 189,
+      "sha256": "8862fe061b41d291fe5951dc19e28fd2e141b60bf47c18797a708217b46dcc94"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "bytes": 2320,
+      "sha256": "4efb30dbeb4e0e6ef72787defe05f459fbb3e8da9c22930242321b506f13a259"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Res/Objects/Worker/Worker.asset.meta",
+      "bytes": 189,
+      "sha256": "174f04c3d00eb21b8b8af1259b84f0ce2dcaf65c1a484baf2d72e1408e5dcda1"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Core/Config/HeroAirControlDefinition.cs",
+      "bytes": 1639,
+      "sha256": "184e4e8103bb7ef5ae8e9f77420d283b9ba9564221b91f419aca6a3bef55df86"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Core/Config/HeroAirControlDefinition.cs.meta",
+      "bytes": 59,
+      "sha256": "8cb8baedb4f2f9a9f628ea7d054e799ee01bc22aa0b9f839abdddfb807544af3"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Core/Save/ActorSnapshot.cs",
+      "bytes": 5096,
+      "sha256": "6cc5a2be2e0a3196a9933dfacec81089c0628e900604754ad89c75dea2b551cb"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Core/Save/EntitySnapshotValidator.cs",
+      "bytes": 6839,
+      "sha256": "9c619ee242f9ced30e5e6e1c95184f1d5bdcbb5b81c79dddc5f043948b11b753"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Core/Save/SessionSnapshot.cs",
+      "bytes": 3627,
+      "sha256": "4c0a6f01069e9fe7a99c8f2d48740ec83f220223c67ccc32e4b1a0819bb2a88c"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Editor/HeroContentSetup.cs",
+      "bytes": 10385,
+      "sha256": "b21239924ff1ef969f349b7c03baf4f8692bd1cfa73433b85f128b159ff95e89"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Editor/ObjectCapabilitySetup.cs",
+      "bytes": 4990,
+      "sha256": "6d08c379418fba4573d762ef6938de97f8775eb39ae92936d501a48d937375a6"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Network/SessionContentFingerprint.cs",
+      "bytes": 3268,
+      "sha256": "2fa07c8aeffc215f89f89ccda08ed6e6e8424e3da4ac91bd8d3bff7ace83a325"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ActorState.cs",
+      "bytes": 6123,
+      "sha256": "fd00ad888ca63eff3a61a27187f40472b3ebf9412e632ccfee420d58ac0bc158"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroControlBehaviour.cs",
+      "bytes": 3900,
+      "sha256": "ce8f0eb4f57e06d1e3dc5e45997a173d3c9479894baf3b886630ab99ee7e0500"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroHorizontalMotion.cs",
+      "bytes": 2780,
+      "sha256": "4c3e6a4b757bdb178d2c9d778b9b00d99bd40308b8d937514982096af76e320a"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroHorizontalMotion.cs.meta",
+      "bytes": 59,
+      "sha256": "03caa4b187029c59b9426a74f3e363a4d38b00988377a9bba7fd6b48ec1a6a59"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroJumpMotion.cs",
+      "bytes": 3052,
+      "sha256": "f5182095492cf9f602e0c53dc6f8f7f03f666ab705fdd7718279f4a9701fad61"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroMotionBehaviour.cs",
+      "bytes": 5483,
+      "sha256": "7755d6cabbbcc51a0fda818ca7f373d501422a625a8f02e458b748ea34cf7abf"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroMovementConfig.cs",
+      "bytes": 2778,
+      "sha256": "e9b669b8ad9fef877464b53d8cd17ee35dad7903781242ef7db63bdf1cbe3de8"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/HeroMovementConfig.cs.meta",
+      "bytes": 59,
+      "sha256": "139b98b2e6a74edd10088c8a0781e9b73f15453f7941e9638caacb1dadb1d0c1"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionPersistence.cs",
+      "bytes": 2829,
+      "sha256": "f4bf38a8bfcb6c23148ff50fd0a9719061f4bd79f1b2b0c748ac97f30945ad87"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSessionResources.cs",
+      "bytes": 6335,
+      "sha256": "e83233d3fb0349416e1efbbccd18e2b682791eb854752af8da8b8134dd285111"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ObjectSnapshotMapper.cs",
+      "bytes": 11737,
+      "sha256": "94e09be402272305c1bb9356c038692e3130310aa36154269b73d3bd4048f506"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipCabinMotion.cs",
+      "bytes": 9261,
+      "sha256": "9df5e0c8a4148011c72b436759cebd893586ecb703b916e941f2cbb29b70bb43"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Objects/ShipRampTransition.cs",
+      "bytes": 2995,
+      "sha256": "e0d93932b6734ac5385ebca520c9f39b2ca89dfd690e5abddea1c2a2638d8c1c"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Save/SnapshotEntityJson.cs",
+      "bytes": 7434,
+      "sha256": "9fe752507c81993ab4180214e3c383618158397a6cadffc204bec3ffde5849aa"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Session/SessionAuthority.cs",
+      "bytes": 15669,
+      "sha256": "2a2d67e0a8747ba1263b6c9a3b83bffc6d614882343976732346a5bef030b077"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Session/SessionHeroControl.cs",
+      "bytes": 15664,
+      "sha256": "d8e9617596a4c468b87534ee1eb9be4098889757c7484e7eb824396b7a5ff3e4"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Assets/DarkNights/Scripts/Runtime/Terrain/TerrainHeroMotion.cs",
+      "bytes": 6311,
+      "sha256": "b323396bf18cbde966e7d27691d758fa5fc519b9ddcebd92c56852feb1f8a35d"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Packages/manifest.json",
+      "bytes": 3641,
+      "sha256": "5ddb149d97a4310ebd4a5813fa9485a2ae59ab5fb6804b1c637ce85c65e528e4"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Packages/packages-lock.json",
+      "bytes": 15225,
+      "sha256": "fd002144c90a2019e08e7647511406c62d754a44efa16a5116f97bd4cfbd9e39"
+    }
+  ],
+  "compiled_assemblies": [
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Core.dll",
+      "bytes": 291840,
+      "sha256": "22a626eb5c383044ae271c0641c5f5f06f263114a29d89dba1d857889bcba311"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Runtime.dll",
+      "bytes": 797184,
+      "sha256": "59b5cf82c7a99a5cca5939b477a9c694e983515c03ed449acb7b37ae0c326545"
+    },
+    {
+      "path": "D:/Developer/MiniGames/Dark Nights/unity-projects/Game/Library/ScriptAssemblies/DarkNights.Editor.dll",
+      "bytes": 797184,
+      "sha256": "043964646d5865e08985ac4126d1ef3701328a85898a3ae08e832e0967da0e35"
+    }
+  ]
+}

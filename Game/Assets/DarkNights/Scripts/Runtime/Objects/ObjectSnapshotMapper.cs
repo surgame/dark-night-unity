@@ -27,7 +27,8 @@ namespace DarkNights.Runtime.Objects
                     a.TargetId, a.MoveX, a.RallyX, a.Face, a.ActionTime, a.AttackClock, a.Windup,
                     a.HitPending, a.ForcedAttack, a.AiClock,
                     a.Height, a.VerticalSpeed, a.SupportPlatform, a.IgnoredPlatform, a.DropRemaining, a.ManualControl, a.SelectedItem, a.SelectionRevision, a.JetpackEquipped, a.JetpackFuel, a.ExplosiveCharges, a.AimAngle, a.EquipmentCooldown, a.EquipmentAction, a.EquipmentActionDuration,
-                    a.InventoryRevision, a.Slot0, a.Slot1, a.Slot2, a.Slot3, a.JetpackOwned, a.LightDefinition, a.LightEnabled);
+                    a.InventoryRevision, a.Slot0, a.Slot1, a.Slot2, a.Slot3, a.JetpackOwned, a.LightDefinition, a.LightEnabled,
+                    a.HorizontalSpeed, a.TakeoffHorizontalSpeed);
             }).ToArray();
             var buildings = session.Index.Buildings.Select(building =>
             {
@@ -120,6 +121,7 @@ namespace DarkNights.Runtime.Objects
                     MoveX = (float)a.MoveX, RallyX = (float)a.RallyX, Face = (float)a.Face,
                     ActionTime = a.ActionTime, AttackClock = a.AttackClock, Windup = a.Windup,
                     HitPending = a.HitPending, ForcedAttack = a.ForcedAttack, AiClock = a.AiClock,
+                    HorizontalSpeed = a.HorizontalSpeed, TakeoffHorizontalSpeed = a.TakeoffHorizontalSpeed,
                     Height = a.Height, VerticalSpeed = a.VerticalSpeed, SupportPlatform = a.SupportPlatform, IgnoredPlatform = a.IgnoredPlatform, DropRemaining = a.DropRemaining, ManualControl = a.ManualControl, SelectedItem = a.SelectedItem, SelectionRevision = a.SelectionRevision, JetpackEquipped = a.JetpackEquipped, JetpackFuel = a.JetpackFuel, AimAngle = a.AimAngle, EquipmentCooldown = a.EquipmentCooldown, EquipmentAction = a.EquipmentAction, EquipmentActionDuration = a.EquipmentActionDuration,
                     ExplosiveCharges = a.ExplosiveCharges, LastTerrainActionTick = -1000,
                     InventoryRevision = a.InventoryRevision,

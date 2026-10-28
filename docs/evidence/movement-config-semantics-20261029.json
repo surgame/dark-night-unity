@@ -1,0 +1,233 @@
+{
+  "date": "2026-10-29",
+  "scope": "CL-00/CL-08 移动配置语义整理",
+  "head": "87232da4ec1cdc68201b88c65223a51930d08931",
+  "branch": "main",
+  "renames": {
+    "HeroMovementConfig": "HeroAirControlConfig",
+    "MovementConfig": "MoveToConfig"
+  },
+  "semantics": {
+    "MoveToConfig": "目标点到达判定，仅MovementBehaviour.MoveTo消费",
+    "HeroAirControlConfig": "主角空中操控，仅HeroMotionBehaviour消费",
+    "relationship": "independent capabilities, no shared fields or inheritance"
+  },
+  "compilation": {
+    "mode": "existing Editor automatic source compile plus generated/import reload, no extra refresh/recompile",
+    "editor": "6000.4.9f1",
+    "success": true,
+    "compiler_errors": [],
+    "compiler_warnings_unique": 24,
+    "compiler_warnings": [
+      "Assets\\DarkNights\\Scripts\\Editor\\DarkNightsWorkbenchLauncher.cs(25,21): warning CS0108: 'DarkNightsWorkbenchLauncher.visible' hides inherited member 'VisualElement.visible'. Use the new keyword if hiding was intended.",
+      "Assets\\DarkNights\\Scripts\\Editor\\Lighting\\LightingEditorRefresh.cs(27,36): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "Assets\\DarkNights\\Scripts\\Editor\\Lighting\\LightingEditorRefresh.cs(27,96): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(29,109): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(29,27): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(35,122): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(35,39): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(40,111): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "Assets\\DarkNights\\Scripts\\Editor\\ShipSceneAssetSetup.cs(40,29): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsInactive, FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainMapDocument.cs(20,96): warning CS0414: The field 'TerrainMapDocument.importedVeinCount' is assigned but its value is never used",
+      "Assets\\DarkNights\\Scripts\\Editor\\Terrain\\TerrainMapDocument.cs(21,93): warning CS0414: The field 'TerrainMapDocument.importedNests' is assigned but its value is never used",
+      "Assets\\DarkNights\\Scripts\\Entry\\Terrain\\TerrainFieldControls.cs(33,56): warning CS0618: 'Object.GetInstanceID()' is obsolete: 'GetInstanceID is deprecated. Use GetEntityId instead. This will be removed in a future version.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\JourneyPreviewTests.cs(178,80): warning CS0618: 'Object.GetInstanceID()' is obsolete: 'GetInstanceID is deprecated. Use GetEntityId instead. This will be removed in a future version.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\ReusableLightPlayTests.cs(60,107): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\ReusableLightPlayTests.cs(60,54): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\RuntimeTerrainWorkbenchPlayTests.cs(26,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\RuntimeTerrainWorkbenchPlayTests.cs(27,25): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\RuntimeTerrainWorkbenchPlayTests.cs(84,24): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\RuntimeTerrainWorkbenchPlayTests.cs(85,25): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\WallDiffuseForegroundBenchmark.cs(115,31): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\WallDiffuseForegroundBenchmark.cs(48,23): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\WallDiffuseForegroundBenchmark.cs(49,32): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\WallDiffuseForegroundBenchmark.cs(58,22): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+      "Assets\\DarkNights\\Scripts\\Tests\\WallDiffuseForegroundBenchmark.cs(87,27): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'"
+    ],
+    "warning_scope": "warnings in untouched Entry/Editor/Test code; no warning points to this change",
+    "log": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\movement-config-semantics-20261029\\compile.log",
+    "automatic_batches": 2,
+    "runtime_types_loaded": [
+      "MoveToConfig",
+      "HeroAirControlConfig"
+    ]
+  },
+  "definitions": [
+    {
+      "path": "Assets/DarkNights/Res/Objects/Archer/Archer.asset",
+      "dirty": false,
+      "configs": [
+        "ActorRuleConfig",
+        "MoveToConfig",
+        "HeroAirControlConfig"
+      ]
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/Armored/Armored.asset",
+      "dirty": false,
+      "configs": [
+        "ActorRuleConfig",
+        "MoveToConfig"
+      ]
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/Expedition/hauler/hauler.asset",
+      "dirty": false,
+      "configs": [
+        "ActorRuleConfig",
+        "MoveToConfig"
+      ]
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/Expedition/miner/miner.asset",
+      "dirty": false,
+      "configs": [
+        "ActorRuleConfig",
+        "MoveToConfig"
+      ]
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/ExpeditionShip/scout-drone.asset",
+      "dirty": false,
+      "configs": [
+        "ActorRuleConfig",
+        "MoveToConfig"
+      ]
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/Ghoul/Ghoul.asset",
+      "dirty": false,
+      "configs": [
+        "ActorRuleConfig",
+        "MoveToConfig"
+      ]
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/Spearman/Spearman.asset",
+      "dirty": false,
+      "configs": [
+        "ActorRuleConfig",
+        "MoveToConfig",
+        "HeroAirControlConfig"
+      ]
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/Worker/Worker.asset",
+      "dirty": false,
+      "configs": [
+        "ActorRuleConfig",
+        "MoveToConfig",
+        "HeroAirControlConfig"
+      ]
+    },
+    {
+      "path": "Assets/DarkNights/Res/Objects/Zombie/Zombie.asset",
+      "dirty": false,
+      "configs": [
+        "ActorRuleConfig",
+        "MoveToConfig"
+      ]
+    }
+  ],
+  "preservation": {
+    "definition_count": 9,
+    "definition_files_equal_except_type_names": true,
+    "definition_meta_bytes_unchanged": true,
+    "script_meta_bytes_unchanged": true,
+    "air_fingerprint_unchanged": true,
+    "air_fingerprint": "57892829ba5122f4ba088c29da524d62:3bfd8393b2886890ed3d2488c62b3898cf5d9f292a40c54dfc0dbbeae17dda04;f91187dc2d2c99b46be92ec283a00c9c:3bfd8393b2886890ed3d2488c62b3898cf5d9f292a40c54dfc0dbbeae17dda04;fdab779e054f8c44f8e22f8ea5f9858a:3bfd8393b2886890ed3d2488c62b3898cf5d9f292a40c54dfc0dbbeae17dda04"
+  },
+  "protocol": 36,
+  "save_version": 28,
+  "sources": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\MoveToConfig.cs",
+      "sha256": "addea48333f087feb07ae1d07d7c93d3adb0fbd9217bf02af1839cf3abbc8720",
+      "meta_sha256": "4b5c7d4a306d66aedfabe6d36bd54cbbad2aa698d01c8240755524b9c9df1d58"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroAirControlConfig.cs",
+      "sha256": "5e132e4434ee149f963f9b3173eca59e964dcec9225c3936e60956c887c61349",
+      "meta_sha256": "139b98b2e6a74edd10088c8a0781e9b73f15453f7941e9638caacb1dadb1d0c1"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\MovementBehaviour.cs",
+      "sha256": "f5fb03cf033061e8044c04cc3282fafc016e081251f26275e229c600b68ae692",
+      "meta_sha256": "ffe1347bda19dd78aab2f2edc0e7225869c2d2dc65b7fa566c349656b7ca4884"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\HeroMotionBehaviour.cs",
+      "sha256": "82636a0135b33f701f79a5577f43cdf958cc3f3f0bf1e34f53a11918385e942c",
+      "meta_sha256": "2037593c8890721e568a4c0090e8178c3f02a02e3ec9053b8039eed3bdd2edcb"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Runtime\\Objects\\ObjectSessionResources.cs",
+      "sha256": "7a0047cb662be946a8e19a3f5d57d662340a9687df90cc1965895d9ea86fa6dd",
+      "meta_sha256": "89018ca1c4d96081ee32f4a2cc6dc8be851994fb6bac24af44a95b1ed8b0dff9"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\ObjectCapabilitySetup.cs",
+      "sha256": "7ca416e1ec2d31f68650ea276b3ff426048c06a49ebfd2d73b9555940a43b964",
+      "meta_sha256": "9048847485cb4d3aa26db18795d87af750019b177fb2eb45915586dc0157b215"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Editor\\HeroContentSetup.cs",
+      "sha256": "02878866cb5b6aeb5511e2bc8e8c80fda4928943d8ad1e49322f661870844f49",
+      "meta_sha256": "27f37d1b8be778c5621705c4fbfb0c25ea95f3cb73919a3ea27e99db195d283d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Assets\\DarkNights\\Scripts\\Tests\\UnifiedObjectAssemblyTests.cs",
+      "sha256": "e66cb2044dbe49c08ffde77193f7a2a2a77b107fa70078d3264a62ea89b411dc",
+      "meta_sha256": "d25a608fc3f641dc6614e9b7f7a58ee5d57cc435bbb061afd40acd24eb1b5333"
+    }
+  ],
+  "dlls": [
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Core.dll",
+      "sha256": "22a626eb5c383044ae271c0641c5f5f06f263114a29d89dba1d857889bcba311"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Editor.dll",
+      "sha256": "82d94d5d4e91e0c6f25f043a01d4c9b3d8133261fc3fa75837bc82e7e6adee9c"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Entry.dll",
+      "sha256": "f08e267b4aa34a9478a671543ba2a08231de7bfe8f0fe181567c4b10561e805d"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Runtime.dll",
+      "sha256": "a72111562a7f31ad3fbed756e46534bf231f0e553c603351b9f9627cab4085e7"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Samples.LanCoop.Bootstrap.dll",
+      "sha256": "ed91e38dbf29f2004085588f4225ed7f544c5ac22c2bf7e2df71b962aedcde0e"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Samples.LanCoop.Core.dll",
+      "sha256": "6a95e8590f38cb69b3a388e3516496dedbb41f8efa01d2ba62f0658b0a53ac9b"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Samples.LanCoop.Editor.dll",
+      "sha256": "cb4887762eb07e8467ac08110c80fa5becfe6ebf1ec499b503c1c8dac228f234"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Samples.LanCoop.Presentation.dll",
+      "sha256": "99f5a9aa5c403941afdeffea335b7ee985fde751f483459896e3b32af5667275"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Samples.LanCoop.Runtime.dll",
+      "sha256": "064a646f0e27cd69737d9f562a46ce9956ad902862ebc6653c46ad8fc8786368"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.Tests.dll",
+      "sha256": "a10ca97dace95501f7423aca05f1c4c75fca674c7091ec02975e508055cb7ffd"
+    },
+    {
+      "path": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\Game\\Library\\ScriptAssemblies\\DarkNights.View.dll",
+      "sha256": "55f8254ede28689ea3d5b209610ce71a9d07f7d822018bab0c504d0696eef2eb"
+    }
+  ],
+  "validation": "compile and read-only source/config/GUID/fingerprint checks only; tests/Play/Player/save/network runtime not executed",
+  "evidence_dir": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\movement-config-semantics-20261029",
+  "screenshot": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\movement-config-semantics-20261029\\movement-config-panel.png"
+}
