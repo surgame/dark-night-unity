@@ -12,6 +12,7 @@ Dark Nights 为灰松谷单关卡、2–4人合作游戏。日常 Unity 宿主�
 | 编辑资源、选择场景或诊断地图 | [编辑工作台](docs/EDITOR_WORKBENCH.md) |
 | 提交有限Editor测试或构建批次 | [Unity CLI流程](docs/UNITY_CLI_WORKFLOW.md) |
 | 核对目录归属和产物保全 | [工作区说明](docs/WORKSPACE.md) |
+| 查找尚未定稿、未导入游戏的美术素材 | [美术素材](美术素材/README.md) |
 | 追溯设计、实施、授权和原始证据 | [历史索引](docs/archive/README.md)、[YYGC账本](docs/YYGC_CHANGES.md) |
 | 查协作与验收边界 | [AGENTS.md](AGENTS.md) |
 

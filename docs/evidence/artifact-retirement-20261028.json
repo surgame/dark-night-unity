@@ -1,0 +1,859 @@
+{
+  "date": "2026-10-28",
+  "source_head": "87232da4ec1cdc68201b88c65223a51930d08931",
+  "authorization": "用户在上一轮具体盘点后要求artifacts几乎可以完全移除，文档性质内容按最小必要原则简化并回主文档；本轮按该范围退役历史载荷，保留实际读取输入、未移交修正、唯一恢复及作者备份。",
+  "status": "staged_for_manual_removal",
+  "deletion_command_started": false,
+  "deleted_files": 0,
+  "deleted_bytes": 0,
+  "verification": {
+    "scope": "同盘移动及文档核对；未执行永久删除",
+    "original_units_absent": 630,
+    "destination_units_present": 630,
+    "staged_payload_files": 150145,
+    "staged_payload_bytes": 3381456009,
+    "retained_files": 17,
+    "retained_frozen_sha256_passed": 15,
+    "protected_roadmap_and_test_sources_unchanged": true,
+    "only_retained_files_outside_staging": true,
+    "reparse_points": 0,
+    "permanently_deleted_files": 0,
+    "reclaimed_bytes": 0,
+    "unity_compile_test_play_build_runs": 0,
+    "document_links_checked": 208,
+    "broken_links": 0,
+    "git_diff_check_passed": true
+  },
+  "author_backup_relation": {
+    "saved_document": "Game/Assets/DarkNights/Res/Terrain/StrataCave/MapDocuments/ShutdownBackup-20261028-070009.asset",
+    "original_document": "Game/Assets/__MapFlowAcceptance20261028/Map.asset",
+    "preservation_at_capture": "原文档与草稿未改，已保存独立ShutdownBackup；本轮保持Game作者资源及两份JSON备份"
+  },
+  "root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts",
+  "before_files": 150162,
+  "before_bytes": 3423260529,
+  "planned_delete_files": 150145,
+  "planned_delete_bytes": 3381456009,
+  "kept_files": [
+    {
+      "path": "artifacts/README.md",
+      "bytes": 540,
+      "sha256": null,
+      "reason": "最小保留入口，正文只导航到WORKSPACE；本任务编辑的可变文档不作为冻结输入"
+    },
+    {
+      "path": "artifacts/project-tidy-20261019/branches-before.bundle",
+      "bytes": 40877066,
+      "sha256": "c6d219436a5513ddd5de1bdc3adf95e85b1902b0d65d13451159a8424029d0d5",
+      "reason": "包含当前引用未覆盖的旧分支与恢复对象"
+    },
+    {
+      "path": "artifacts/shutdown-20261028-070009/map-draft-before.json",
+      "bytes": 5131,
+      "sha256": "0480b97735178a3a55e862baf6c74f4f97cbf23b2f108f8c4d1144194b903cde",
+      "reason": "作者草稿备份"
+    },
+    {
+      "path": "artifacts/shutdown-20261028-070009/workbench-before.json",
+      "bytes": 9880,
+      "sha256": "cf046330b09c02d69e87d9699949fd25a5f5e2c145f686c5f2c53c8bb4239c5b",
+      "reason": "作者工作台状态备份"
+    },
+    {
+      "path": "artifacts/terrain-final-20260926/editor-status.json",
+      "bytes": 167,
+      "sha256": null,
+      "reason": "当前Editor持续写入的动态状态"
+    },
+    {
+      "path": "artifacts/待清理/20261026-闲置地图结果/Game/Assets/DarkNights/Res/Terrain/StrataCave/JointMaps/20261022-171627-699/layout.json",
+      "bytes": 492222,
+      "sha256": "d1ca9753bc751976677d45d858fd48538bdaf42ef8d1a37876bbc42df54b4ccd",
+      "reason": "MapContractRuntimeFixture直接读取的冻结地图"
+    },
+    {
+      "path": "artifacts/local-menu-multiplayer-20261023/runs/network-20261023-043108-306705-mono-normal-2p-client/saves/v27/slot-00.dnsave.json",
+      "bytes": 378437,
+      "sha256": "1f743e6be948ce51d10b9be4af033037088bcd71d9c1e55aec7690e9d5913361",
+      "reason": "HistoricalV27SaveLoadsWithItsOriginalMapConfiguration直接读取的存档"
+    },
+    {
+      "path": "artifacts/local-menu-multiplayer-20261023/delivery/product-fixes.patch",
+      "bytes": 2867,
+      "sha256": "52b1a5e362955d9f3f78c5b0fa05a5cafe7248941934b007c3133ab99f183273",
+      "reason": "尚未移交正式Game的三项修正补丁"
+    },
+    {
+      "path": "artifacts/local-menu-multiplayer-20261023/delivery/candidate/Game/Assets/DarkNights/Scripts/Entry/MainMenuConnectionState.cs",
+      "bytes": 2761,
+      "sha256": "3fe742e7143a6244fcfbd511e58739a64c3d7fa5320b15427b9e18854a7c60f9",
+      "reason": "尚未移交的游戏侧修正源文件，未应用到Game"
+    },
+    {
+      "path": "artifacts/local-menu-multiplayer-20261023/delivery/candidate/Game/Assets/DarkNights/Scripts/Entry/MainMenuCoordinator.cs",
+      "bytes": 12463,
+      "sha256": "3b872a481d9765389ce494826514e001533f5414e97a3c60d2be216e6c32d615",
+      "reason": "尚未移交的游戏侧修正源文件，未应用到Game"
+    },
+    {
+      "path": "artifacts/local-menu-multiplayer-20261023/delivery/candidate/Game/Assets/DarkNights/Scripts/Runtime/Network/SessionRoomService.cs",
+      "bytes": 9320,
+      "sha256": "d53db63e1fe781db869f2856e24314fa8d838b849d08647d158e0c2bdec25550",
+      "reason": "尚未移交的游戏侧修正源文件，未应用到Game"
+    },
+    {
+      "path": "artifacts/map-contract-acceptance-20261027/historical-flow.json",
+      "bytes": 3239,
+      "sha256": "71d455e283fed0814e6584210e548940515ccbee37289c58529b00dd998a992d",
+      "reason": "历史测试模式的配套冻结配置；保持现有默认及会话输出路径可用"
+    },
+    {
+      "path": "artifacts/map-contract-acceptance-20261027/historical-map.json",
+      "bytes": 219,
+      "sha256": "7ee4a78455b2081952c02b64eb7539fad75b9c7d9014d7a976a3f63b9a469c86",
+      "reason": "历史测试模式的配套冻结配置；保持现有默认及会话输出路径可用"
+    },
+    {
+      "path": "artifacts/map-flow-implementation-20261028/historical-flow.json",
+      "bytes": 3239,
+      "sha256": "71d455e283fed0814e6584210e548940515ccbee37289c58529b00dd998a992d",
+      "reason": "历史测试模式的配套冻结配置；保持现有默认及会话输出路径可用"
+    },
+    {
+      "path": "artifacts/map-flow-implementation-20261028/historical-map.json",
+      "bytes": 219,
+      "sha256": "7ee4a78455b2081952c02b64eb7539fad75b9c7d9014d7a976a3f63b9a469c86",
+      "reason": "历史测试模式的配套冻结配置；保持现有默认及会话输出路径可用"
+    },
+    {
+      "path": "artifacts/map-workbench-approved-20261028/historical-flow.json",
+      "bytes": 3239,
+      "sha256": "71d455e283fed0814e6584210e548940515ccbee37289c58529b00dd998a992d",
+      "reason": "历史测试模式的配套冻结配置；保持现有默认及会话输出路径可用"
+    },
+    {
+      "path": "artifacts/map-workbench-approved-20261028/historical-map.json",
+      "bytes": 219,
+      "sha256": "7ee4a78455b2081952c02b64eb7539fad75b9c7d9014d7a976a3f63b9a469c86",
+      "reason": "历史测试模式的配套冻结配置；保持现有默认及会话输出路径可用"
+    }
+  ],
+  "protected_before_sha256": {
+    "docs/ROADMAP.md": "707ceed81ac80e07bc9fc32b680ff5cc518b37bb58491812e3bb7219527b6525",
+    "Game/Assets/DarkNights/Scripts/Tests/MapContractRuntimeFixture.cs": "5a6d496b5534b29f7c4623535afd8d1f8d0efe90ba0c3d432e42f2349846f57a",
+    "Game/Assets/DarkNights/Scripts/Tests/MapContractRuntimeAcceptanceTests.cs": "bf5aeed2f07897fa600dd5bca73f2583c6f9353dc958e6e0a60a0e43d208ad4e"
+  },
+  "old_bundle_head_count": 87,
+  "old_bundle_heads_reachable_from_current_refs": 38,
+  "unreachable_branch_or_remote_heads": 7,
+  "notes": [
+    "不保留旧Player、日志截图、独立缓存或清理清单副本；必要事实并入现行文档。",
+    "被删旧验证包不可再直接运行，未来验证需以源码及锁定配置重新构建；旧通过数不签署当前候选。",
+    "不改变Game、当前Library、正式.deps、外部YYGC、作者资源或个人.codex。"
+  ],
+  "unity_compile_test_play_build_runs": 0,
+  "staging_root": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\artifacts\\待移除\\20261028-最小保留",
+  "move_authorization": "用户明确要求：移入待移除，我手动删除即可。",
+  "moved_units": 630,
+  "moved_files": 150145,
+  "moved_bytes": 3381456009,
+  "prior_permanent_deletion_rejection": {
+    "action": "按精确清单批量永久删除artifacts内的非保留文件",
+    "message": "blocked by policy",
+    "details": "执行工具在创建进程之前拒绝，脚本未运行；返回信息没有提供更具体的原因。"
+  },
+  "manifest": {
+    "path": "artifacts/待移除/20261028-最小保留/清单.md",
+    "sha256": "68d11a1c098553dbba60f114eeefae2845ee6b33b053b625da24b02778ec9739",
+    "bytes": 178483,
+    "content": "630项原／目标绝对路径、文件数、体积、来源任务、移动原因及恢复／后续条件"
+  },
+  "staged_groups": [
+    {
+      "task": "background-wall-20261019",
+      "files": 55,
+      "bytes": 1218176
+    },
+    {
+      "task": "background-wall-validation-20261019",
+      "files": 55,
+      "bytes": 11739692
+    },
+    {
+      "task": "cave-rules-20261021",
+      "files": 78,
+      "bytes": 10455924
+    },
+    {
+      "task": "cave-rules-runtime-20261021",
+      "files": 20,
+      "bytes": 985566
+    },
+    {
+      "task": "cl00-retirement-20261013",
+      "files": 12,
+      "bytes": 152562
+    },
+    {
+      "task": "cl01-runtime-mines-20261018",
+      "files": 66,
+      "bytes": 303321
+    },
+    {
+      "task": "cl02-collapse-20261015",
+      "files": 176,
+      "bytes": 27363525
+    },
+    {
+      "task": "cl02-dirty-gate-20261017",
+      "files": 13,
+      "bytes": 564052
+    },
+    {
+      "task": "cl02-entry-20261017",
+      "files": 5,
+      "bytes": 5246
+    },
+    {
+      "task": "cl02-environment-20261018",
+      "files": 7,
+      "bytes": 426763
+    },
+    {
+      "task": "cl02-geology-20261014",
+      "files": 80,
+      "bytes": 1871431
+    },
+    {
+      "task": "cl02-heavy-rocks-20261015",
+      "files": 56,
+      "bytes": 3616227
+    },
+    {
+      "task": "cl02-live-trigger-20261018",
+      "files": 40,
+      "bytes": 796760
+    },
+    {
+      "task": "cl02-manual-verify-20261015",
+      "files": 14,
+      "bytes": 35197
+    },
+    {
+      "task": "cl02-map-integration-20261019",
+      "files": 50,
+      "bytes": 839458
+    },
+    {
+      "task": "cl02-mixed-unity-20261015",
+      "files": 330,
+      "bytes": 28331811
+    },
+    {
+      "task": "cl02-natural-roof-20261018",
+      "files": 43,
+      "bytes": 2912336
+    },
+    {
+      "task": "cl02-particle-options-20261015",
+      "files": 30,
+      "bytes": 1854225
+    },
+    {
+      "task": "cl02-pixel-edit-20261017",
+      "files": 13,
+      "bytes": 1314249
+    },
+    {
+      "task": "cl02-startup-path-20261017",
+      "files": 15,
+      "bytes": 1360028
+    },
+    {
+      "task": "cl02-trigger-fix-20261017",
+      "files": 28,
+      "bytes": 1142118
+    },
+    {
+      "task": "cl02-workbench-button-20261017",
+      "files": 1,
+      "bytes": 628
+    },
+    {
+      "task": "cl04-art-20261015",
+      "files": 23,
+      "bytes": 34486
+    },
+    {
+      "task": "cl04-ui-20261015",
+      "files": 15,
+      "bytes": 2363564
+    },
+    {
+      "task": "clean-map-generation-20261027",
+      "files": 65,
+      "bytes": 3223065
+    },
+    {
+      "task": "cleanup-minimal-20261019",
+      "files": 18,
+      "bytes": 92322617
+    },
+    {
+      "task": "cleanup-minimal-20261026",
+      "files": 21,
+      "bytes": 9296881
+    },
+    {
+      "task": "cleanup-minimal-20261028",
+      "files": 30,
+      "bytes": 14404184
+    },
+    {
+      "task": "core-loop-review-20261022",
+      "files": 81,
+      "bytes": 4715257
+    },
+    {
+      "task": "entrance-backbone-removal-20261027",
+      "files": 31,
+      "bytes": 743036
+    },
+    {
+      "task": "entrance-components-comparison-20261027",
+      "files": 34,
+      "bytes": 2854527
+    },
+    {
+      "task": "entrance-flattening-audit-20261027",
+      "files": 1,
+      "bytes": 2631
+    },
+    {
+      "task": "entrance-toggle-comparison-20261027",
+      "files": 19,
+      "bytes": 602221
+    },
+    {
+      "task": "entrance-triangle-followup-20261027",
+      "files": 42,
+      "bytes": 2199202
+    },
+    {
+      "task": "expedition-plan-commit-20261013-130255",
+      "files": 5,
+      "bytes": 46894
+    },
+    {
+      "task": "expedition-playground",
+      "files": 23,
+      "bytes": 535407
+    },
+    {
+      "task": "expedition-playground-features-20261025",
+      "files": 16,
+      "bytes": 11582957
+    },
+    {
+      "task": "expedition-playground-polish-20261024",
+      "files": 119,
+      "bytes": 93682832
+    },
+    {
+      "task": "git-delivery-scope-20261026",
+      "files": 2,
+      "bytes": 64968
+    },
+    {
+      "task": "grass-trim-retirement-20261025",
+      "files": 35,
+      "bytes": 1746897
+    },
+    {
+      "task": "greypine-forest-main-20261025",
+      "files": 110,
+      "bytes": 4237868
+    },
+    {
+      "task": "lan-20261023-input",
+      "files": 34983,
+      "bytes": 1166620057
+    },
+    {
+      "task": "light-bounce-per-source-20261013",
+      "files": 15,
+      "bytes": 36455
+    },
+    {
+      "task": "light-parameter-visibility-20261013",
+      "files": 4,
+      "bytes": 2090
+    },
+    {
+      "task": "light-pruning-20261013",
+      "files": 391,
+      "bytes": 55123661
+    },
+    {
+      "task": "lighting-field-feather-20261014",
+      "files": 62,
+      "bytes": 448564
+    },
+    {
+      "task": "lighting-field-feather-wall-capture-20261014",
+      "files": 14,
+      "bytes": 292060
+    },
+    {
+      "task": "lighting-occlusion-rules-20261014",
+      "files": 6,
+      "bytes": 11310
+    },
+    {
+      "task": "lighting-shutdown-fix-20261022",
+      "files": 15,
+      "bytes": 857223
+    },
+    {
+      "task": "lighting-slope-analysis-20261014",
+      "files": 65,
+      "bytes": 56682139
+    },
+    {
+      "task": "lighting-slope-replay-v1.2.0-record-check",
+      "files": 5,
+      "bytes": 531313
+    },
+    {
+      "task": "lighting-tuner-polish-20261013",
+      "files": 117,
+      "bytes": 1287828
+    },
+    {
+      "task": "lighting-tuner-uitk-20261013",
+      "files": 68,
+      "bytes": 800292
+    },
+    {
+      "task": "local-menu-multiplayer-20261023",
+      "files": 7048,
+      "bytes": 323801836
+    },
+    {
+      "task": "local-multiclient-20261022",
+      "files": 101,
+      "bytes": 9878767
+    },
+    {
+      "task": "main-menu-back-20261023",
+      "files": 10,
+      "bytes": 24801
+    },
+    {
+      "task": "main-menu-button-20261023",
+      "files": 12,
+      "bytes": 282798
+    },
+    {
+      "task": "main-menu-start-20261023",
+      "files": 80,
+      "bytes": 1063656
+    },
+    {
+      "task": "main-menu-uitk-20261022",
+      "files": 81,
+      "bytes": 1046639
+    },
+    {
+      "task": "map-canvas-and-forest-20261026",
+      "files": 23,
+      "bytes": 3893880
+    },
+    {
+      "task": "map-contract-acceptance-20261027",
+      "files": 88,
+      "bytes": 6681045
+    },
+    {
+      "task": "map-contract-cleanup-20261027",
+      "files": 15,
+      "bytes": 1120709
+    },
+    {
+      "task": "map-design-modes-20261027",
+      "files": 44,
+      "bytes": 2818230
+    },
+    {
+      "task": "map-display-icons-20261026",
+      "files": 18,
+      "bytes": 184909
+    },
+    {
+      "task": "map-entrance-analysis-20261026",
+      "files": 47,
+      "bytes": 467858
+    },
+    {
+      "task": "map-flow-debug-drawer-20261028",
+      "files": 25,
+      "bytes": 224710
+    },
+    {
+      "task": "map-flow-implementation-20261028",
+      "files": 107,
+      "bytes": 4247701
+    },
+    {
+      "task": "map-flow-progress-20261028",
+      "files": 26,
+      "bytes": 241058
+    },
+    {
+      "task": "map-generation-plan-20261028",
+      "files": 19,
+      "bytes": 791454
+    },
+    {
+      "task": "map-generation-refactor-audit-20261028",
+      "files": 3,
+      "bytes": 40508
+    },
+    {
+      "task": "map-legacy-cleanup-20261026",
+      "files": 32,
+      "bytes": 1930294
+    },
+    {
+      "task": "map-library-rules-20261026",
+      "files": 26,
+      "bytes": 115065
+    },
+    {
+      "task": "map-modules-shipless-20261028",
+      "files": 9,
+      "bytes": 2051312
+    },
+    {
+      "task": "map-progress-pages-20261026",
+      "files": 35,
+      "bytes": 199289
+    },
+    {
+      "task": "map-result-audit-20261026",
+      "files": 15,
+      "bytes": 150031
+    },
+    {
+      "task": "map-rule-only-20261026",
+      "files": 48,
+      "bytes": 589947
+    },
+    {
+      "task": "map-source-relationship-20261027",
+      "files": 11,
+      "bytes": 480469
+    },
+    {
+      "task": "map-state",
+      "files": 438,
+      "bytes": 207925646
+    },
+    {
+      "task": "map-switch-async-20261026",
+      "files": 33,
+      "bytes": 157035
+    },
+    {
+      "task": "map-terrain-first-20261026",
+      "files": 28,
+      "bytes": 144958
+    },
+    {
+      "task": "map-terrain-ready-fix-20261026",
+      "files": 16,
+      "bytes": 60684
+    },
+    {
+      "task": "map-toolbar-controls-20261027",
+      "files": 17,
+      "bytes": 393103
+    },
+    {
+      "task": "map-workbench-approved-20261028",
+      "files": 160,
+      "bytes": 27188078
+    },
+    {
+      "task": "map-workbench-config-20261025",
+      "files": 397,
+      "bytes": 3881994
+    },
+    {
+      "task": "map-workbench-document-info-20261026",
+      "files": 37,
+      "bytes": 117281
+    },
+    {
+      "task": "map-workbench-layout-20261026",
+      "files": 19,
+      "bytes": 380834
+    },
+    {
+      "task": "map-workbench-pan-flicker-20261025",
+      "files": 29,
+      "bytes": 838830
+    },
+    {
+      "task": "map-workbench-polish-20261022",
+      "files": 117,
+      "bytes": 2387531
+    },
+    {
+      "task": "map-workbench-prototype-20261028",
+      "files": 28,
+      "bytes": 1854662
+    },
+    {
+      "task": "map-workbench-redesign-20261024",
+      "files": 2221,
+      "bytes": 13854354
+    },
+    {
+      "task": "map-workbench-rename-20261026",
+      "files": 162,
+      "bytes": 1884672
+    },
+    {
+      "task": "map-workbench-responsiveness-20261025",
+      "files": 319,
+      "bytes": 2870037
+    },
+    {
+      "task": "map-workbench-uitk-20261021",
+      "files": 44,
+      "bytes": 599384
+    },
+    {
+      "task": "map-workbench-usability-20261022",
+      "files": 178,
+      "bytes": 14347261
+    },
+    {
+      "task": "mine-concept-pack-20261011",
+      "files": 29,
+      "bytes": 306970
+    },
+    {
+      "task": "mine-level-h5-20261011",
+      "files": 2,
+      "bytes": 6685
+    },
+    {
+      "task": "mine-map-expansion-20261011",
+      "files": 157,
+      "bytes": 21931115
+    },
+    {
+      "task": "mine-natural-caves-20261011",
+      "files": 13,
+      "bytes": 189343
+    },
+    {
+      "task": "mineral-composite",
+      "files": 20,
+      "bytes": 981410
+    },
+    {
+      "task": "minimal-hud-20261023",
+      "files": 76,
+      "bytes": 2451013
+    },
+    {
+      "task": "natural-entrance-proposal-20261027",
+      "files": 30,
+      "bytes": 7157909
+    },
+    {
+      "task": "new-rule-map-restore-20261026",
+      "files": 20,
+      "bytes": 150243
+    },
+    {
+      "task": "ore-nest-tuner-20261018",
+      "files": 16,
+      "bytes": 251031
+    },
+    {
+      "task": "ore-nest-tuner-review-20261018",
+      "files": 5,
+      "bytes": 9785
+    },
+    {
+      "task": "project-tidy-20261019",
+      "files": 20,
+      "bytes": 21299748
+    },
+    {
+      "task": "project-tidy-20261026",
+      "files": 34,
+      "bytes": 3631341
+    },
+    {
+      "task": "rule-seed-unification-20261027",
+      "files": 19,
+      "bytes": 635610
+    },
+    {
+      "task": "scene-play-checks",
+      "files": 24,
+      "bytes": 5175411
+    },
+    {
+      "task": "ship-expedition-20261019",
+      "files": 252,
+      "bytes": 13397748
+    },
+    {
+      "task": "ship-map-redesign-20261020",
+      "files": 13,
+      "bytes": 367520
+    },
+    {
+      "task": "ship-map-win98-20261020",
+      "files": 13,
+      "bytes": 39040
+    },
+    {
+      "task": "ship-ui-preview-20261026",
+      "files": 17,
+      "bytes": 862453
+    },
+    {
+      "task": "shutdown-20261014-043354",
+      "files": 1,
+      "bytes": 559
+    },
+    {
+      "task": "shutdown-20261028-070009",
+      "files": 4,
+      "bytes": 2512
+    },
+    {
+      "task": "sky-edge-coverage-20261026",
+      "files": 31,
+      "bytes": 2530671
+    },
+    {
+      "task": "start-map-fix-20261023",
+      "files": 23,
+      "bytes": 182589
+    },
+    {
+      "task": "surface-contour-preservation-20261027",
+      "files": 7,
+      "bytes": 3220
+    },
+    {
+      "task": "surface-entrance-core-build-20261002.log",
+      "files": 1,
+      "bytes": 84
+    },
+    {
+      "task": "surface-environment-implementation-20261024",
+      "files": 1143,
+      "bytes": 6316075
+    },
+    {
+      "task": "surface-environment-plan-20261024",
+      "files": 7,
+      "bytes": 350602
+    },
+    {
+      "task": "surface-vertical-parallax-20261026",
+      "files": 49,
+      "bytes": 3182226
+    },
+    {
+      "task": "template-route-removal-20261026",
+      "files": 41,
+      "bytes": 513954
+    },
+    {
+      "task": "terrain-final-20260926",
+      "files": 84,
+      "bytes": 379767
+    },
+    {
+      "task": "terrain-generation-explainer-20261027",
+      "files": 18,
+      "bytes": 855361
+    },
+    {
+      "task": "terrain-projection-refresh-20261019",
+      "files": 24,
+      "bytes": 24597
+    },
+    {
+      "task": "terrain-projection-validation-20261019",
+      "files": 23,
+      "bytes": 1136184
+    },
+    {
+      "task": "terrain-recipe-basic-validation-20261025",
+      "files": 85,
+      "bytes": 2052785
+    },
+    {
+      "task": "terrain-recipe-unification-20261025",
+      "files": 1836,
+      "bytes": 12646272
+    },
+    {
+      "task": "unity-worktree-launcher-plan-20261011",
+      "files": 1,
+      "bytes": 26224
+    },
+    {
+      "task": "valley-cut-removal-20261028",
+      "files": 39,
+      "bytes": 2261609
+    },
+    {
+      "task": "wall-diffuse-20261012",
+      "files": 327,
+      "bytes": 25558572
+    },
+    {
+      "task": "wall-diffuse-corners-20261013",
+      "files": 23,
+      "bytes": 12162
+    },
+    {
+      "task": "workbench-business-20261026",
+      "files": 50,
+      "bytes": 205792
+    },
+    {
+      "task": "workbench-menu-20261017",
+      "files": 8,
+      "bytes": 14785
+    },
+    {
+      "task": "workbench-platform-followup-20261028",
+      "files": 46,
+      "bytes": 2235112
+    },
+    {
+      "task": "worktree-launcher",
+      "files": 94758,
+      "bytes": 946226191
+    },
+    {
+      "task": "待清理",
+      "files": 968,
+      "bytes": 30038638
+    }
+  ],
+  "original_unit_count": 630
+}

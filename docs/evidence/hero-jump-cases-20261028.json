@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-28",
+  "kind": "independent-motion-design-preview",
+  "preview": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\hero-jump-cases.html",
+  "presets": [
+    "自由探索",
+    "探索微惯性",
+    "精确平台",
+    "经典跑跳",
+    "重惯性运动",
+    "起跳定轨"
+  ],
+  "inputScale": {
+    "source": "Game/Assets/DarkNights/Res/Config/balance.json",
+    "sha256": "7e12b6cf11597b9bb72514e7ccba58532ecb6677db100ab27a4606029356c6ff",
+    "walkSpeed": 112,
+    "jumpSpeed": 160,
+    "gravity": 320,
+    "fixedDt": 0.016666666666666666
+  },
+  "embeddedPhysicsEqualsSource": true,
+  "files": [
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\hero-jump-cases.html",
+      "bytes": 26306,
+      "sha256": "38e91a59aedeb8428f83b1b9e3217bc7e3ba487799d027a461901043a7904470"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\hero-jump-cases-physics.js",
+      "bytes": 5947,
+      "sha256": "961e0d428c064668ee32c5534c7946dd2ebf3658be91b64c450ed07244eca49b"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\build_jump_cases.py",
+      "bytes": 432,
+      "sha256": "7debcb249ac5173cc003d369eb05574722c78216650a3ee24df2408eef2020cc"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\check_jump_cases.py",
+      "bytes": 8407,
+      "sha256": "3db18f11d66fb6b6a692d53132eb6d92d330241b70b15fcc381a0c7b4c7a7a26"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\check_jump_cases_physics.cjs",
+      "bytes": 4012,
+      "sha256": "80fb018f45b7da54ebd0c2ee1ea20a5804de0195c243b06d7e34a5832e500035"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\jump-cases-physics-verification.json",
+      "bytes": 3725,
+      "sha256": "9558837ebe47abaab67722b1db99f84e174ef966078100c77482a0c2b811f57d"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\jump-cases-browser-verification.json",
+      "bytes": 6192,
+      "sha256": "6f5a444e834f713aec0e150baa59eacb576087c00eb625cfba7f1a5961c8b6b4"
+    }
+  ],
+  "verification": {
+    "physicsPresetRuns": 168,
+    "browserSettingCombinations": 28,
+    "browserPresetRuns": 168,
+    "manualKeyboardPointerEnter": true,
+    "nativeButtonSpace": true,
+    "soloViews": 6,
+    "stateRestoreAndEcho": true,
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "widths": [
+      736,
+      360,
+      320
+    ],
+    "layouts": 12,
+    "javascriptErrors": [],
+    "uniformHeight": {
+      "peak": 38.66666666666664,
+      "airTime": 1.0000000000000013
+    },
+    "edgeGraceAndJumpBuffer": true,
+    "noMidairExtraJump": true
+  },
+  "resolvedQaIssue": "预览包装文件首次未加--force而未更新，旧包装的新增按键检查失败；重新从最终片段生成后全部通过。",
+  "limits": [
+    "六类为重新调校的类型示例，未复刻商业游戏参数",
+    "简化单向平台，无正式地形扫掠、碰头、坡面或联机延迟",
+    "统一跳高／落速开关不改变各类水平运动及边缘补跳时间",
+    "仅浏览器与纯计算核对，人工手感选择待定",
+    "未修改Game、作者Spine、依赖、协议或存档，未执行Unity编译、Play、Player或正式碰撞验收"
+  ],
+  "preservation": "旧AB预览、原始作者素材与既有回执保持。"
+}

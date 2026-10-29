@@ -1,0 +1,333 @@
+{
+  "date": "2026-10-28",
+  "module": "CL-08",
+  "status": "Independent browser prototype; awaiting user feel review",
+  "sourceConfig": {
+    "path": "Game\\Assets\\DarkNights\\Res\\Config\\balance.json",
+    "sha256": "7e12b6cf11597b9bb72514e7ccba58532ecb6677db100ab27a4606029356c6ff",
+    "walkSpeed": 112,
+    "sprintSpeed": 176,
+    "jumpSpeed": 160,
+    "gravity": 320
+  },
+  "preview": {
+    "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\hero-jump-lab.html",
+    "sha256": "8cfc151d6ba82ce6b3b42be78950a8991ffa43d93b32ca76c9c327e4f07b257b",
+    "bytes": 24636
+  },
+  "physicsSource": {
+    "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\hero-jump-physics.js",
+    "sha256": "56304cbf2b00e5b0675c5f6c35ee1cf3d0cdaa4a47c527044fada72324476546",
+    "embeddedSourceMatches": true,
+    "fixedStepHz": 60
+  },
+  "horizontalModes": [
+    "instant",
+    "soft",
+    "momentum",
+    "limited",
+    "locked"
+  ],
+  "sharedRules": {
+    "ground": "Instant start, stop and reverse for all modes",
+    "jumpBufferSeconds": 0.1,
+    "coyoteSeconds": 0,
+    "bodyWidth": 16,
+    "bodyHeight": 44,
+    "surface": "Flat or one-way platform sample; not the Unity terrain collision implementation"
+  },
+  "verticalModes": {
+    "fixed": "Current gravity and full jump",
+    "variable": "Release ascending speed clamped to 45% of jump speed",
+    "snappy": "Variable jump plus descending gravity multiplied by 1.6"
+  },
+  "physicsVerification": {
+    "ground": [
+      {
+        "mode": "instant",
+        "stoppedImmediately": true
+      },
+      {
+        "mode": "soft",
+        "stoppedImmediately": true
+      },
+      {
+        "mode": "momentum",
+        "stoppedImmediately": true
+      },
+      {
+        "mode": "limited",
+        "stoppedImmediately": true
+      },
+      {
+        "mode": "locked",
+        "stoppedImmediately": true
+      }
+    ],
+    "release": [
+      {
+        "mode": "instant",
+        "vxAfter100ms": 0
+      },
+      {
+        "mode": "soft",
+        "vxAfter100ms": 0
+      },
+      {
+        "mode": "momentum",
+        "vxAfter100ms": 111.10400000000001
+      },
+      {
+        "mode": "limited",
+        "vxAfter100ms": 112
+      },
+      {
+        "mode": "locked",
+        "vxAfter100ms": 112
+      }
+    ],
+    "reverse": [
+      {
+        "mode": "instant",
+        "vxAfter250ms": -112
+      },
+      {
+        "mode": "soft",
+        "vxAfter250ms": -112
+      },
+      {
+        "mode": "momentum",
+        "vxAfter250ms": 61.090909090909136
+      },
+      {
+        "mode": "limited",
+        "vxAfter250ms": 72.80000000000001
+      },
+      {
+        "mode": "locked",
+        "vxAfter250ms": 112
+      }
+    ],
+    "midairStart": [
+      {
+        "mode": "instant",
+        "vxAfter200ms": 112
+      },
+      {
+        "mode": "soft",
+        "vxAfter200ms": 112
+      },
+      {
+        "mode": "momentum",
+        "vxAfter200ms": 40.72727272727272
+      },
+      {
+        "mode": "limited",
+        "vxAfter200ms": 39.199999999999996
+      },
+      {
+        "mode": "locked",
+        "vxAfter200ms": 0
+      }
+    ],
+    "vertical": [
+      {
+        "mode": "fixed",
+        "held": false,
+        "peak": 38.66666666666664,
+        "seconds": 1.0000000000000013
+      },
+      {
+        "mode": "fixed",
+        "held": true,
+        "peak": 38.66666666666664,
+        "seconds": 1.0000000000000013
+      },
+      {
+        "mode": "variable",
+        "held": false,
+        "peak": 10.088888888888887,
+        "seconds": 0.49999999999999994
+      },
+      {
+        "mode": "variable",
+        "held": true,
+        "peak": 38.66666666666664,
+        "seconds": 1.0000000000000013
+      },
+      {
+        "mode": "snappy",
+        "held": false,
+        "peak": 10.088888888888887,
+        "seconds": 0.44999999999999996
+      },
+      {
+        "mode": "snappy",
+        "held": true,
+        "peak": 38.66666666666664,
+        "seconds": 0.9000000000000011
+      }
+    ],
+    "gaps": [
+      {
+        "mode": "instant",
+        "fallen": true,
+        "landX": null,
+        "x": 190.93333333333356
+      },
+      {
+        "mode": "soft",
+        "fallen": true,
+        "landX": null,
+        "x": 195.0814814814817
+      },
+      {
+        "mode": "momentum",
+        "fallen": false,
+        "landX": 261.7920000000003,
+        "x": 261.7920000000003
+      },
+      {
+        "mode": "limited",
+        "fallen": false,
+        "landX": 263.73333333333386,
+        "x": 263.73333333333386
+      },
+      {
+        "mode": "locked",
+        "fallen": false,
+        "landX": 263.73333333333386,
+        "x": 263.73333333333386
+      }
+    ]
+  },
+  "browserVerification": {
+    "sweepCases": 150,
+    "gap": [
+      {
+        "fallen": true,
+        "x": 190.93333333333356,
+        "landX": null
+      },
+      {
+        "fallen": false,
+        "x": 261.7920000000003,
+        "landX": 261.7920000000003
+      }
+    ],
+    "manualAirRelease": [
+      {
+        "x": 161.06666666666678,
+        "vx": 0
+      },
+      {
+        "x": 172.2144000000001,
+        "vx": 111.10400000000001
+      }
+    ],
+    "pointerX": [
+      138.66666666666669,
+      138.66666666666669
+    ],
+    "layouts": [
+      {
+        "theme": "light",
+        "width": 736,
+        "scroll": 736,
+        "longestTitle": 184.578125,
+        "canvasWidth": 736,
+        "canvasHeight": 480,
+        "ink": "rgb(26, 28, 31)",
+        "ground": "color(srgb 0.101961 0.109804 0.121569 / 0.1)"
+      },
+      {
+        "theme": "light",
+        "width": 360,
+        "scroll": 360,
+        "longestTitle": 184.578125,
+        "canvasWidth": 360,
+        "canvasHeight": 480,
+        "ink": "rgb(26, 28, 31)",
+        "ground": "color(srgb 0.101961 0.109804 0.121569 / 0.1)"
+      },
+      {
+        "theme": "light",
+        "width": 320,
+        "scroll": 320,
+        "longestTitle": 184.578125,
+        "canvasWidth": 320,
+        "canvasHeight": 480,
+        "ink": "rgb(26, 28, 31)",
+        "ground": "color(srgb 0.101961 0.109804 0.121569 / 0.1)"
+      },
+      {
+        "theme": "dark",
+        "width": 736,
+        "scroll": 736,
+        "longestTitle": 184.578125,
+        "canvasWidth": 736,
+        "canvasHeight": 480,
+        "ink": "rgb(255, 255, 255)",
+        "ground": "color(srgb 1 1 1 / 0.1)"
+      },
+      {
+        "theme": "dark",
+        "width": 360,
+        "scroll": 360,
+        "longestTitle": 184.578125,
+        "canvasWidth": 360,
+        "canvasHeight": 480,
+        "ink": "rgb(255, 255, 255)",
+        "ground": "color(srgb 1 1 1 / 0.1)"
+      },
+      {
+        "theme": "dark",
+        "width": 320,
+        "scroll": 320,
+        "longestTitle": 184.578125,
+        "canvasWidth": 320,
+        "canvasHeight": 480,
+        "ink": "rgb(255, 255, 255)",
+        "ground": "color(srgb 1 1 1 / 0.1)"
+      }
+    ],
+    "stateRestore": true,
+    "errors": [],
+    "previewSha256": "e29bbb8807f9eab6cd8287c9e713b995b11b2e707a1a07bdb60afbc87358a674"
+  },
+  "completeBrowserReport": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\jump-lab-verification.json",
+  "finalLayout": {
+    "previewSha256": "8cfc151d6ba82ce6b3b42be78950a8991ffa43d93b32ca76c9c327e4f07b257b",
+    "changeSinceBehaviorReport": "Keyboard-help text only; JavaScript and physics unchanged.",
+    "layout": [
+      {
+        "width": 736,
+        "scroll": 736,
+        "help": "点击场景后，A / D 或方向键移动 · 空格可按住 · R 重来"
+      },
+      {
+        "width": 360,
+        "scroll": 360,
+        "help": "点击场景后，A / D 或方向键移动 · 空格可按住 · R 重来"
+      },
+      {
+        "width": 320,
+        "scroll": 320,
+        "help": "点击场景后，A / D 或方向键移动 · 空格可按住 · R 重来"
+      }
+    ]
+  },
+  "finalDifferenceFromBehaviorInput": "Keyboard help text only; JavaScript and physics unchanged",
+  "stateRestoreVerified": true,
+  "artSourceUsed": false,
+  "gameCodeChanged": false,
+  "spineChanged": false,
+  "unityImport": false,
+  "unityCompilation": false,
+  "unityPlay": false,
+  "playerBuild": false,
+  "limitations": [
+    "No Unity/network latency or collision acceptance claimed",
+    "Candidate parameters are for comparison; no movement scheme has been selected for production"
+  ]
+}

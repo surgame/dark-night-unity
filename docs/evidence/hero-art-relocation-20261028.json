@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-28",
+  "operation": "relocate-nonfinal-hero-art",
+  "source": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\主角",
+  "destination": "D:\\Developer\\MiniGames\\Dark Nights\\unity-projects\\美术素材\\角色\\主角",
+  "outsideUnityProject": true,
+  "fileCount": 12,
+  "bytes": 363211.0,
+  "sha256Matched": true,
+  "directoryStructureMatched": true,
+  "oldSourceExists": false,
+  "directories": [
+    "experiments",
+    "experiments\\hero-spine-airborne-v1",
+    "images"
+  ],
+  "files": [
+    {
+      "relativePath": "主角-腾空腿部.spine",
+      "bytes": 170354,
+      "sha256": "58E8BBC7669EB9B1845E559FC380149F7FD6E2B4E1780D2BF6E3F68863237263"
+    },
+    {
+      "relativePath": "主角.spine",
+      "bytes": 170188,
+      "sha256": "472A0E00CDD95BDAF01C55E5125F3E5C9F8B4A61766AC71A5035F211BD9B7989"
+    },
+    {
+      "relativePath": "images\\body.png",
+      "bytes": 1872,
+      "sha256": "72614EA9D309B30F78FD2287173C107B16BAFC9E0BB0C21462460F667EB1D3F2"
+    },
+    {
+      "relativePath": "images\\eyes.png",
+      "bytes": 534,
+      "sha256": "DB05E3890F9B9B8BE6AEF8F919B70B8CEFF3F6B51F9035064C4DBFE07B287B8F"
+    },
+    {
+      "relativePath": "images\\eyesbow.png",
+      "bytes": 573,
+      "sha256": "91D811A751CFCD657E28BBADFAE12E92E47BB45E74DDAF6833E27C60EC804891"
+    },
+    {
+      "relativePath": "images\\face.png",
+      "bytes": 3906,
+      "sha256": "5A2D35972589730C7A118C4A3C25A4E65EBA71388E772100BB6E3425FDFC6858"
+    },
+    {
+      "relativePath": "images\\head.png",
+      "bytes": 11283,
+      "sha256": "A15B06EB2756530342FAF371ACEAB28CA2D12447550215A94334B0F09664F88B"
+    },
+    {
+      "relativePath": "images\\left-hand.png",
+      "bytes": 690,
+      "sha256": "C204C0F191089EE233937C8EBDC0B4107861A4E5AEFB414C7938E26E7E03BD02"
+    },
+    {
+      "relativePath": "images\\left-leg.png",
+      "bytes": 992,
+      "sha256": "CB58F6141C1C10DFB15367676E77B5A24FDB1FFCBE0F69EC79824A42009E410D"
+    },
+    {
+      "relativePath": "images\\mouse.png",
+      "bytes": 1256,
+      "sha256": "9AD5DB654897EC9E5EAE506CED79CE369FE44DB2285699A787144E83B6A7B10F"
+    },
+    {
+      "relativePath": "images\\right-hand.png",
+      "bytes": 640,
+      "sha256": "3ECB5584447D8451083824EA2A3DBCAC80FBCEF55C869168130DEB1C99D5935A"
+    },
+    {
+      "relativePath": "images\\right-leg.png",
+      "bytes": 923,
+      "sha256": "541398E47E83BB80D17E69A2B88D54E20C050E71697ED1396E01268DFC2537AF"
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "snapshots": [
+    {
+      "time": 0.9249999999999992,
+      "legs": "air_move_legs",
+      "moving": true,
+      "upperChanges": [],
+      "newLegs": {
+        "left-leg1": 197.79533,
+        "left-leg2": -28.609001,
+        "right-leg1": -196.73193,
+        "right-leg2": -25.2971325
+      },
+      "oldLegs": {
+        "left-leg1": 184.56121651430016,
+        "left-leg2": -1.9145965590716685e-08,
+        "right-leg1": -161.7301979045478,
+        "right-leg2": 4.689025878690245e-07
+      }
+    },
+    {
+      "time": 1.2583333333333313,
+      "legs": "air_idle_legs",
+      "moving": false,
+      "upperChanges": [],
+      "newLegs": {
+        "left-leg1": 185.79533,
+        "left-leg2": -18.609001,
+        "right-leg1": -182.73193,
+        "right-leg2": -25.2971325
+      },
+      "oldLegs": {
+        "left-leg1": 172.16446768633486,
+        "left-leg2": -1.9145965590716685e-08,
+        "right-leg1": -147.51623831516258,
+        "right-leg2": 4.689025878690245e-07
+      }
+    },
+    {
+      "time": 1.5916666666666635,
+      "legs": "air_move_legs",
+      "moving": true,
+      "upperChanges": [],
+      "newLegs": {
+        "left-leg1": 197.79533,
+        "left-leg2": -28.609001,
+        "right-leg1": -196.73193,
+        "right-leg2": -25.2971325
+      },
+      "oldLegs": {
+        "left-leg1": 165.13699512191826,
+        "left-leg2": -1.9145965590716685e-08,
+        "right-leg1": -141.21676384035305,
+        "right-leg2": 4.689025878690245e-07
+      }
+    }
+  ],
+  "entryBlend": [
+    {
+      "newAngle": 194.09194226507512,
+      "oldAngle": 193.35126471809014,
+      "mix": 0.016666666666666666
+    },
+    {
+      "newAngle": 196.01714408784386,
+      "oldAngle": 195.4244154504585,
+      "mix": 0.025
+    },
+    {
+      "newAngle": 197.1176822950493,
+      "oldAngle": 196.77885844257392,
+      "mix": 0.03333333333333333
+    },
+    {
+      "newAngle": 197.69341006392966,
+      "oldAngle": 197.6206101095937,
+      "mix": 0.041666666666666664
+    },
+    {
+      "newAngle": 197.7542103860087,
+      "oldAngle": 197.7130907720174,
+      "mix": 0.049999999999999996
+    }
+  ],
+  "stableHold": {
+    "before": 185.79533,
+    "after": 185.79533,
+    "oldBefore": 172.41331592042226,
+    "oldAfter": 169.43060129065057,
+    "overlay": "air_idle_legs"
+  },
+  "landing": {
+    "grounded": true,
+    "legs": "",
+    "track": false,
+    "rootY": 0,
+    "legDifference": 0
+  },
+  "manual": {
+    "height": "48",
+    "width": "43.9654",
+    "zoom": "2.5",
+    "totalScale": "0.19198848",
+    "jumpHeight": "19.4129",
+    "rootLocalY": "0.0000",
+    "time": "0.1500",
+    "animation": "ai_jump2_ok",
+    "worldX": "894.9813",
+    "oldX": "830.9813",
+    "grounded": "false",
+    "legAnimation": "air_idle_legs",
+    "moving": "false",
+    "effectiveZoom": "2.5000",
+    "autoClock": "0.0000",
+    "ready": "true"
+  },
+  "layout": [
+    {
+      "viewport": 736,
+      "scroll": 736,
+      "zoom": "4.0000"
+    },
+    {
+      "viewport": 360,
+      "scroll": 360,
+      "zoom": "3.1111"
+    },
+    {
+      "viewport": 320,
+      "scroll": 320,
+      "zoom": "2.7407"
+    }
+  ],
+  "errors": []
+}

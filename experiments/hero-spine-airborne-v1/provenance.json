@@ -1,0 +1,121 @@
+{
+  "date": "2026-10-28",
+  "spineEditor": "4.3.26 Professional",
+  "runtime": "spine-webgl 4.3.13",
+  "authoring": "Copy original .spine; import only two animations using Spine native Import Project > Animation; save copy; re-export copy with Spine CLI.",
+  "sourceFiles": [
+    {
+      "path": "主角\\主角.spine",
+      "sha256": "472a0e00cdd95bdaf01c55e5125f3e5c9f8b4a61766ac71a5035f211bd9b7989"
+    },
+    {
+      "path": "主角\\images\\body.png",
+      "sha256": "72614ea9d309b30f78fd2287173c107b16bafc9e0bb0c21462460f667eb1d3f2"
+    },
+    {
+      "path": "主角\\images\\eyes.png",
+      "sha256": "db05e3890f9b9b8be6aef8f919b70b8ceff3f6b51f9035064c4dbfe07b287b8f"
+    },
+    {
+      "path": "主角\\images\\eyesbow.png",
+      "sha256": "91d811a751cfcd657e28bbadfae12e92e47bb45e74ddaf6833e27c60ec804891"
+    },
+    {
+      "path": "主角\\images\\face.png",
+      "sha256": "5a2d35972589730c7a118c4a3c25a4e65eba71388e772100bb6e3425fdfc6858"
+    },
+    {
+      "path": "主角\\images\\head.png",
+      "sha256": "a15b06eb2756530342faf371aceab28ca2d12447550215a94334b0f09664f88b"
+    },
+    {
+      "path": "主角\\images\\left-hand.png",
+      "sha256": "c204c0f191089ee233937c8ebdc0b4107861a4e5aefb414c7938e26e7e03bd02"
+    },
+    {
+      "path": "主角\\images\\left-leg.png",
+      "sha256": "cb58f6141c1c10dfb15367676e77b5a24fdb1ffcbe0f69ec79824a42009e410d"
+    },
+    {
+      "path": "主角\\images\\mouse.png",
+      "sha256": "9ad5db654897ec9e5eae506ced79ce369fe44db2285699a787144e83b6a7b10f"
+    },
+    {
+      "path": "主角\\images\\right-hand.png",
+      "sha256": "3ecb5584447d8451083824ea2a3dbcac80fbcef55c869168130deb1c99d5935a"
+    },
+    {
+      "path": "主角\\images\\right-leg.png",
+      "sha256": "541398e47e83bb80d17e69a2b88d54e20c050e71697ed1396e01268dfc2537af"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "主角\\主角-腾空腿部.spine",
+      "bytes": 170354,
+      "sha256": "58e8bbc7669eb9b1845e559fc380149f7fd6e2b4e1780d2bf6e3f68863237263"
+    },
+    {
+      "path": "experiments\\hero-spine-airborne-v1\\airborne-poses.json",
+      "bytes": 8942,
+      "sha256": "30009fd18a0d19607d9f6c7e9c1014307794c50f78a1dee83c532f7eaf69a996"
+    },
+    {
+      "path": "experiments\\hero-spine-airborne-v1\\airborne-poses.spine",
+      "bytes": 2977,
+      "sha256": "eb18407ff6d256f507b57f4e2b880d97022e892e454a168f5d1eae5d400c6c3c"
+    },
+    {
+      "path": "experiments\\hero-spine-airborne-v1\\export\\主角-腾空腿部.atlas",
+      "bytes": 570,
+      "sha256": "51311f90db9da25558ecbab0815ae40ae08959534702923ebc19305c3fb08253"
+    },
+    {
+      "path": "experiments\\hero-spine-airborne-v1\\export\\主角-腾空腿部.png",
+      "bytes": 20792,
+      "sha256": "dcd499160d63e3d129f6119161ab129a4df82d8a9f6348fc8ea3d90fae22234e"
+    },
+    {
+      "path": "experiments\\hero-spine-airborne-v1\\export\\主角.json",
+      "bytes": 1204649,
+      "sha256": "89948ce57e4662f67f7de89d9249f90b27ed7e7dc8e4607f7cad7182aea04f26"
+    },
+    {
+      "path": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\hero-airborne-comparison.html",
+      "bytes": 816986,
+      "sha256": "162b87d2deb20964ea93752f0d2345f75839a8cc35c78bb45571a9a41577a9f0"
+    }
+  ],
+  "preservation": {
+    "originalSourceAnd10PngUnchanged": true,
+    "original27AnimationsUnchanged": true,
+    "bonesSlotsSkinsMeshesUnchanged": true,
+    "atlasPngUnchanged": true
+  },
+  "animationsAdded": [
+    "air_move_legs",
+    "air_idle_legs"
+  ],
+  "preview": {
+    "entryAndSwitchSeconds": 0.1,
+    "landingFadeSeconds": 0.12,
+    "standingHeightLogicPixels": 48,
+    "bodyWidthLogicPixels": 16,
+    "bodyHeightLogicPixels": 44,
+    "jumpSpeed": 160,
+    "gravity": 320
+  },
+  "validationReport": "verification.json",
+  "unityImport": false,
+  "unityCompilation": false,
+  "unityPlay": false,
+  "playerBuild": false,
+  "landingFollowup": {
+    "preview": "C:\\Users\\Jobscn\\.codex\\visualizations\\2026\\10\\28\\01a181a5-8822-7850-acb8-0ca72115ae1f\\hero-airborne-landing.html",
+    "sha256": "fa3af2943b609a12533d8511b80a8e206a7f35ff235859291356409bc425b9d8",
+    "validationReport": "landing-verification.json",
+    "sourceAnimationsChanged": false,
+    "originalPreviewPreserved": true,
+    "change": "Choose idle/run immediately on landing; freeze outgoing jump during 0.12s mix; remove forced 0.2s jump tail."
+  }
+}

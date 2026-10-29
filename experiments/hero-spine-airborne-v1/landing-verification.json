@@ -1,0 +1,420 @@
+{
+  "cases": [
+    {
+      "moving": false,
+      "airborne": true,
+      "landed": true,
+      "upperChanges": 0,
+      "frames": [
+        {
+          "age": 0,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 185.79533
+        },
+        {
+          "age": 0.008333333333333333,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 184.79477071099217
+        },
+        {
+          "age": 0.016666666666666666,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 183.88838765139423
+        },
+        {
+          "age": 0.025,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 183.0761808212061
+        },
+        {
+          "age": 0.03333333333333333,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 182.35815022042786
+        },
+        {
+          "age": 0.041666666666666664,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 181.73429584905952
+        },
+        {
+          "age": 0.05,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 181.204617707101
+        },
+        {
+          "age": 0.058333333333333334,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 180.76911579455236
+        },
+        {
+          "age": 0.06666666666666667,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 180.42779011141357
+        },
+        {
+          "age": 0.075,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 180.18064065768468
+        },
+        {
+          "age": 0.08333333333333333,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 180.02766743336562
+        },
+        {
+          "age": 0.09166666666666666,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 179.96887043845643
+        },
+        {
+          "age": 0.1,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 180.00424967295714
+        },
+        {
+          "age": 0.10833333333333334,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 180.1338051368677
+        },
+        {
+          "age": 0.11666666666666667,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": 0,
+          "x": 533.7887999999998,
+          "rotation": 179.96199666666666
+        },
+        {
+          "age": 0.125,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": null,
+          "x": 533.7887999999998,
+          "rotation": 179.79533
+        },
+        {
+          "age": 0.13333333333333333,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": null,
+          "x": 533.7887999999998,
+          "rotation": 179.79533
+        },
+        {
+          "age": 0.14166666666666666,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": null,
+          "x": 533.7887999999998,
+          "rotation": 179.79533
+        },
+        {
+          "age": 0.15,
+          "animation": "ai_idel1_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": false,
+          "outgoingSpeed": null,
+          "x": 533.7887999999998,
+          "rotation": 179.79533
+        }
+      ]
+    },
+    {
+      "moving": true,
+      "airborne": true,
+      "landed": true,
+      "upperChanges": 0,
+      "frames": [
+        {
+          "age": 0,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 664.4442666666599,
+          "rotation": 197.79533
+        },
+        {
+          "age": 0.008333333333333333,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 665.3775999999932,
+          "rotation": 196.31390652156963
+        },
+        {
+          "age": 0.016666666666666666,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 666.3109333333265,
+          "rotation": 195.23766043108162
+        },
+        {
+          "age": 0.025,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 667.2442666666598,
+          "rotation": 194.5251235312657
+        },
+        {
+          "age": 0.03333333333333333,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 668.177599999993,
+          "rotation": 194.05845551547128
+        },
+        {
+          "age": 0.041666666666666664,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 669.1109333333263,
+          "rotation": 193.79618829237404
+        },
+        {
+          "age": 0.05,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 670.0442666666596,
+          "rotation": 193.54426993323324
+        },
+        {
+          "age": 0.058333333333333334,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 670.9775999999929,
+          "rotation": 193.28154471014858
+        },
+        {
+          "age": 0.06666666666666667,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 671.9109333333262,
+          "rotation": 192.7706089687045
+        },
+        {
+          "age": 0.075,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 672.8442666666595,
+          "rotation": 192.00580751827755
+        },
+        {
+          "age": 0.08333333333333333,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 673.7775999999927,
+          "rotation": 190.77499917494205
+        },
+        {
+          "age": 0.09166666666666666,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 674.710933333326,
+          "rotation": 189.05222188937034
+        },
+        {
+          "age": 0.1,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 675.6442666666593,
+          "rotation": 186.75126697852497
+        },
+        {
+          "age": 0.10833333333333334,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 676.5775999999926,
+          "rotation": 183.75939629712192
+        },
+        {
+          "age": 0.11666666666666667,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": 0,
+          "x": 677.5109333333259,
+          "rotation": 179.86119167733432
+        },
+        {
+          "age": 0.125,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": null,
+          "x": 678.4442666666591,
+          "rotation": 176.1006937429068
+        },
+        {
+          "age": 0.13333333333333333,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": null,
+          "x": 679.3775999999924,
+          "rotation": 173.33420259747862
+        },
+        {
+          "age": 0.14166666666666666,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": null,
+          "x": 680.3109333333257,
+          "rotation": 170.56771185393148
+        },
+        {
+          "age": 0.15,
+          "animation": "ai_mie_run5_ok",
+          "original": "ai_jump2_ok",
+          "legs": "",
+          "moving": true,
+          "outgoingSpeed": null,
+          "x": 681.244266666659,
+          "rotation": 168.47134961254952
+        }
+      ]
+    }
+  ],
+  "automaticLanding": {
+    "moving": false,
+    "animation": "ai_idel1_ok"
+  },
+  "layout": [
+    {
+      "viewport": 736,
+      "scroll": 736
+    },
+    {
+      "viewport": 360,
+      "scroll": 360
+    },
+    {
+      "viewport": 320,
+      "scroll": 320
+    }
+  ],
+  "errors": [],
+  "previewSha256": "fa3af2943b609a12533d8511b80a8e206a7f35ff235859291356409bc425b9d8"
+}
