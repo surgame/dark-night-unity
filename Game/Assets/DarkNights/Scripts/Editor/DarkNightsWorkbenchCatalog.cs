@@ -36,7 +36,7 @@ namespace DarkNights.Editor
                 "Assets/DarkNights/Res/Objects/Hero/AnimationSelection.json"),
             Tool("cooperative-physics", Objects, "合作物理候选与诊断", "独立动态刚体研究场景、配置以及有界录制／导出。", "打开合作物理",
                 PhysicsWorkbenchWindow.Open),
-            Tool("mapmodule", Map, "地图工坊 · MapModule", "原生模块与研究样例、画布拼装、固定版本和快速启动调试。", "打开地图工坊",
+            Tool("mapmodule", Map, "地图工坊 · MapModule", "选择地图、拼接地形模块、生成运行地图和启动调试。", "打开地图工坊",
                 MapModule.MapModuleWorkbenchWindow.Open),
             Tool("visual", Map, "旧版地图工作台／参考", "原有地形、矿物、环境、巢穴、塌方与正式地图应用入口；不承接新版模块作者数据。", "打开旧版工作台",
                 DarkNightsNativeWorkspace.Visual),

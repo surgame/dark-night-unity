@@ -52,15 +52,15 @@ namespace DarkNights.Entry.MapModule
 #endif
             if (Study == null || Stage == null || HeroPlacement == null || HeroPlacement.Loader == null ||
                 HeroPlacement.View == null || Network != null)
-                throw new InvalidOperationException("模块研究缺少显式Rig绑定或已启动。");
+                throw new InvalidOperationException("地图场景的启动配置不完整，或地图已经启动。请检查地图、相机和主角引用。");
             var sample = Study.RequiredCase(selected);
-            var bake = sample.Bake ?? throw new InvalidOperationException("先从地图工坊准备当前样例的制作版本。");
+            var bake = sample.Bake ?? throw new InvalidOperationException("请先在地图工坊中为当前地图点击“生成运行地图”。");
             if (bake.StudyId != Study.StudyId || bake.CaseId != sample.CaseId ||
                 bake.SourceHash != MapModuleSource.Hash(Study, sample) ||
                 expected.Length != 0 && expected != bake.ContentHash)
-                throw new InvalidOperationException("选中的制作版本与当前作者场景不一致，请重新检查并准备版本。");
+                throw new InvalidOperationException("运行地图与当前场景布局不一致，请保存场景并重新生成运行地图。");
             var definition = HeroPlacement.Loader.ResolveDefinition();
-            if (ObjectSessionResources.Rule(definition) != "worker") throw new InvalidOperationException("研究主角需复用正式worker能力。");
+            if (ObjectSessionResources.Rule(definition) != "worker") throw new InvalidOperationException("主角使用的角色定义有误，请选择正式 worker 角色。");
             bool previewEnabled = sample.PreviewRenderer.enabled;
             foreach (var candidate in Study.Cases)
             {
@@ -111,13 +111,13 @@ namespace DarkNights.Entry.MapModule
         {
             if (PhysicsProfile == null)
             {
-                if (PhysicsProps.Length != 0 || HangingRopes.Length != 0) throw new InvalidOperationException("箱子场景缺少物理Profile。");
+                if (PhysicsProps.Length != 0 || HangingRopes.Length != 0) throw new InvalidOperationException("场景中有箱子或吊绳，请先设置物理配置 PhysicsProfile。");
                 return null;
             }
             var ropes = HangingRopes.Select(p => p == null
-                ? throw new InvalidOperationException("环境吊绳场景引用缺失。") : p.Freeze()).ToArray();
+                ? throw new InvalidOperationException("场景的吊绳列表中有未设置的项目，请补齐或移除。") : p.Freeze()).ToArray();
             return PhysicsProfile.Freeze(PhysicsProps.Select(p => p == null
-                ? throw new InvalidOperationException("物理道具场景引用缺失。") : p.Freeze(PhysicsProfile))
+                ? throw new InvalidOperationException("场景的物理道具列表中有未设置的项目，请补齐或移除。") : p.Freeze(PhysicsProfile))
                 .Concat(ropes.SelectMany(r => r.InitialBodies())).ToArray(), ropes);
         }
 
@@ -132,7 +132,7 @@ namespace DarkNights.Entry.MapModule
                 await AppStartup.WaitUntilReady(lifetime.Token);
                 lifetime.Token.ThrowIfCancellationRequested();
                 if (Network == null || !Network.CanStartSession)
-                    throw new InvalidOperationException("研究会话装配未完成或已有连接，不能重复启动Host。");
+                    throw new InvalidOperationException("游戏尚未准备完成，或已经连接到房间，请等待准备完成后再创建房间。");
                 string[] args = System.Environment.GetCommandLineArgs();
                 string Read(string key, string fallback)
                 {
@@ -142,7 +142,7 @@ namespace DarkNights.Entry.MapModule
                 bool host = Read("--dn-role", StartAsHost ? "host" : "client") == "host";
                 string address = Read("--dn-address", ServerAddress);
                 if (!ushort.TryParse(Read("--dn-port", ServerPort.ToString()), out ushort port) || port == 0)
-                    throw new InvalidOperationException("研究端口必须在1至65535之间。");
+                    throw new InvalidOperationException("联机端口需要设置为1至65535之间的整数。");
                 await Network.Connect(host, address, port);
                 lifetime.Token.ThrowIfCancellationRequested();
                 // Connect通过Failed统一上报并回收失败；不能将返回误报为Host成功或客户端Ready。

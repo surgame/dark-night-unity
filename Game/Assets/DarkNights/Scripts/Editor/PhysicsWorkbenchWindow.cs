@@ -34,11 +34,11 @@ namespace DarkNights.Editor
             rootVisualElement.style.paddingTop = 12;
             var title = new Label("合作物理候选");
             title.style.fontSize = 18; rootVisualElement.Add(title);
-            var instructions = new Label("A/D 移动，空格跳跃，身体接触推箱。\nE 连接附近角色或箱子；再次 E 解除。参数来自独立Profile。\n本窗口不自动启动游戏；物理与原格运动按会话互斥。");
+            var instructions = new Label("A/D 移动，空格跳跃，靠近箱子即可推动。\n按 E 用绳索连接附近角色或箱子，再次按 E 解除。\n打开示例场景后，点击 Unity 顶部 ▶ 试玩。运动参数可在物理配置中调整。");
             instructions.style.whiteSpace = WhiteSpace.Normal; rootVisualElement.Add(instructions);
-            AddButton("打开物理研究场景", () =>
+            AddButton("打开物理示例场景", () =>
             {
-                if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("退出本任务Play后再打开场景。");
+                if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("请先停止运行，再打开场景。");
                 if (!EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
                 SessionState.EraseString(Entry.MapModule.MapModuleEntry.SelectionKey);
                 SessionState.EraseString(Entry.MapModule.MapModuleEntry.VersionKey);
@@ -48,7 +48,7 @@ namespace DarkNights.Editor
             status = new Label(); status.style.whiteSpace = WhiteSpace.Normal; rootVisualElement.Add(status);
             start = AddButton("开始录制（最多600步）", () =>
             {
-                var session = Host() ?? throw new InvalidOperationException("需要运行中的Host物理候选。");
+                var session = Host() ?? throw new InvalidOperationException("请先以房主身份运行物理示例，再开始录制。");
                 session.ObjectWorld.Physics.StartRecording(); previous = session.ObjectWorld.Physics.Trace;
             });
             stop = AddButton("停止录制", () => { var trace = Active(); if (trace != null) trace.Recording = false; });
@@ -75,14 +75,14 @@ namespace DarkNights.Editor
         {
             var trace = Active();
             if (trace != null) previous = trace;
-            status.text = trace == null ? "当前没有运行中的Host物理会话。" :
+            status.text = trace == null ? "当前没有可录制的物理动作，请先以房主身份运行物理示例。" :
                 "记录：" + trace.Count + "/" + PhysicsTrace.Capacity + (trace.Recording ? " · 录制中" : " · 已停止");
             start.SetEnabled(trace != null); stop.SetEnabled(trace?.Recording == true);
         }
 
         private void Export()
         {
-            var trace = Active() ?? previous ?? throw new InvalidOperationException("当前没有物理Host记录。");
+            var trace = Active() ?? previous ?? throw new InvalidOperationException("暂无可导出的物理动作记录，请先开始录制。");
             var data = trace.Capture();
             if (data.Count == 0 && trace.Failure == null) throw new InvalidOperationException("先录制需要排查的动作。");
             string path = Path.GetFullPath(Path.Combine(Application.dataPath, "../../artifacts/physics-traces",

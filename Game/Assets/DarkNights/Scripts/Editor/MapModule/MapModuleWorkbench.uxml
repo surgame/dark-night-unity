@@ -3,14 +3,14 @@
     <ui:VisualElement class="workbench">
         <ui:VisualElement class="header">
             <ui:Label text="地图工坊" class="title" />
-            <ui:Label text="MapModule · 原生模块拼装" class="subtitle" />
+            <ui:Label text="MapModule · 地图模块拼接" class="subtitle" />
             <ui:Label name="context" class="context" />
         </ui:VisualElement>
         <ui:VisualElement class="toolbar">
-            <ui:Button name="open-author" text="打开作者场景" />
-            <ui:Button name="save" text="保存作者场景" />
+            <ui:Button name="open-author" text="切换场景" tooltip="打开左侧所选地图的场景，随后可点击 Unity 顶部 ▶ 运行。有未保存的修改时会先询问是否保存。" />
+            <ui:Button name="save" text="保存场景" />
             <ui:Button name="check" text="检查" />
-            <ui:Button name="prepare" text="准备制作版本" />
+            <ui:Button name="prepare" text="生成运行地图" tooltip="根据已保存的地形和布局生成运行所需的地图数据，并保存到场景中。修改地图后需要重新生成。" />
             <ui:Label name="version" class="version" />
             <ui:Button name="run" text="▶ 启动调试" class="primary" />
         </ui:VisualElement>
@@ -22,21 +22,21 @@
                 <ui:Label text="地图中的模块" class="section" />
                 <ui:VisualElement name="modules" />
                 <ui:VisualElement name="objects-section">
-                    <ui:Label text="模块内交互物" class="section" />
+                    <ui:Label text="模块中的物件" class="section" />
                     <ui:VisualElement name="objects" />
                 </ui:VisualElement>
-                <ui:Foldout text="制作与来源" value="false" class="source-tools">
-                    <ui:Label text="Scene负责摆放与连接。&#10;Prefab负责内部轮廓。&#10;制作版本是冻结派生资源。" class="hint" />
-                    <ui:Button name="locate-study" text="定位地图源场景" />
-                    <ui:Button name="initialize" text="在空目录初始化首个研究" />
+                <ui:Foldout text="地图文件" value="false" class="source-tools">
+                    <ui:Label text="在场景中摆放和连接模块。&#10;在模块 Prefab中修改地形轮廓。&#10;修改完成后，生成运行地图即可试玩。" class="hint" />
+                    <ui:Button name="locate-study" text="在项目中找到场景" />
+                    <ui:Button name="initialize" text="创建示例地图" tooltip="仅在地图目录为空时创建首张示例地图。" />
                 </ui:Foldout>
             </ui:ScrollView>
             <ui:VisualElement class="center">
                 <ui:VisualElement class="canvas-toolbar">
-                    <ui:Label text="作者画布" />
+                    <ui:Label text="地图预览" />
                     <ui:VisualElement class="spacer" />
                     <ui:Toggle name="bounds" label="模块范围" value="true" />
-                    <ui:Toggle name="ports" label="端口" value="true" />
+                    <ui:Toggle name="ports" label="连接口" value="true" />
                     <ui:Button name="fit" text="适应画布" />
                 </ui:VisualElement>
                 <ui:VisualElement name="canvas" class="canvas" />

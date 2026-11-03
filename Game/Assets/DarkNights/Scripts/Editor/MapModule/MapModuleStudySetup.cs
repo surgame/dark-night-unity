@@ -24,11 +24,11 @@ namespace DarkNights.Editor.MapModule
         internal static void Create()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)
-                throw new InvalidOperationException("初始化需要空闲Editor。");
+                throw new InvalidOperationException("请先停止运行，再创建示例地图。");
             if (AssetDatabase.LoadAssetAtPath<SceneAsset>(MapModulePaths.Scene) != null)
-                throw new InvalidOperationException("首片已存在，请打开研究场景；初始化不会覆盖。");
+                throw new InvalidOperationException("示例地图已存在，请打开已有场景。");
             if (Directory.Exists(MapModulePaths.Root) && Directory.EnumerateFileSystemEntries(MapModulePaths.Root).Any())
-                throw new InvalidOperationException("MapModule目录已有内容；保留原位，请先核对已有初始化成果。");
+                throw new InvalidOperationException("地图目录中已有文件，请先检查是否已创建过示例地图。");
             for (int i = 0; i < SceneManager.sceneCount; i++)
                 if (SceneManager.GetSceneAt(i).isDirty) throw new InvalidOperationException("先保存当前场景。");
             MapModulePaths.EnsureFolder(MapModulePaths.Root); MapModulePaths.EnsureFolder(MapModulePaths.Modules);
@@ -73,7 +73,7 @@ namespace DarkNights.Editor.MapModule
                 sample.PreviewRenderer = preview.AddComponent<MeshRenderer>(); sample.PreviewRenderer.sharedMaterial = material;
                 study.Cases = new[] { sample };
                 CreateRig(reference, study, scene);
-                if (!EditorSceneManager.SaveScene(scene, MapModulePaths.Scene)) throw new InvalidOperationException("研究场景未保存。");
+                if (!EditorSceneManager.SaveScene(scene, MapModulePaths.Scene)) throw new InvalidOperationException("示例地图的场景保存失败。");
                 MapModuleCompiler.Prepare(study, sample);
                 AssetDatabase.SaveAssets();
             }
@@ -86,7 +86,7 @@ namespace DarkNights.Editor.MapModule
         private static void CreateRig(WhiteboxEntry reference, MapModuleStudyAuthoring study, Scene scene)
         {
             string heroPath = MapModulePaths.Root + "/HeroRig.prefab";
-            if (AssetDatabase.LoadMainAssetAtPath(heroPath) != null) throw new InvalidOperationException("主角Rig已存在。");
+            if (AssetDatabase.LoadMainAssetAtPath(heroPath) != null) throw new InvalidOperationException("主角Prefab已存在。");
             var copy = UnityEngine.Object.Instantiate(reference.HeroPlacement.gameObject);
             GameObject heroAsset;
             try
@@ -94,7 +94,7 @@ namespace DarkNights.Editor.MapModule
                 UnityEngine.Object.DestroyImmediate(copy.GetComponent<ScenePlacement>());
                 UnityEngine.Object.DestroyImmediate(copy.GetComponent<ObjectDefinitionLoader>());
                 if (copy.GetComponentsInChildren<ObjectDefinitionLoader>(true).Length != 0)
-                    throw new InvalidOperationException("主角外观Prefab仍含场景Loader，拒绝保存。");
+                    throw new InvalidOperationException("主角外观Prefab中有多余的加载器，请移除 ObjectDefinitionLoader 后再保存。");
                 heroAsset = PrefabUtility.SaveAsPrefabAsset(copy, heroPath);
             }
             finally { UnityEngine.Object.DestroyImmediate(copy); }

@@ -16,7 +16,7 @@ namespace DarkNights.Core.Logic.MapModule
         public static PlayableTerrain Build(string worldId, string sourceId, IReadOnlyList<MapModulePolygon> solids)
         {
             if (solids == null || solids.Count == 0 || solids.Count > 256)
-                throw new InvalidOperationException("模块实体数量必须为1至256。");
+                throw new InvalidOperationException("地图需要包含1至256块实心地形。");
             int width = TerrainGenerationSettings.Width, height = TerrainGenerationSettings.Height;
             var pieces = new Dictionary<int, List<MapModuleFragment>>();
             foreach (var solid in solids)
@@ -51,7 +51,7 @@ namespace DarkNights.Core.Logic.MapModule
                     for (int j = 0; j < i; j++)
                         if (Math.Abs(MapModuleGeometry.SignedArea(MapModuleGeometry.Clip(
                             fragment.Vertices, cell.Value[j].Vertices))) > MapModuleGeometry.Epsilon)
-                            throw Failure(cell.Key, "模块实岩重叠。");
+                            throw Failure(cell.Key, "模块中的实心地形相互重叠，请调整位置或轮廓。");
                 }
                 int matched = -1;
                 for (int shape = 0; shape <= 12; shape++)
@@ -62,7 +62,7 @@ namespace DarkNights.Core.Logic.MapModule
                         MapModuleGeometry.Clip(fragment.Vertices, polygon))));
                     if (Math.Abs(covered - area) < MapModuleGeometry.Epsilon) { matched = shape; break; }
                 }
-                if (matched < 0) throw Failure(cell.Key, "轮廓不能精确映射当前整格／12坡形。");
+                if (matched < 0) throw Failure(cell.Key, "当前地形轮廓无法用网格和已有的12种坡形表示，请调整轮廓。");
                 materials[cell.Key] = cell.Value[0].Material; shapes[cell.Key] = (byte)matched;
             }
             for (int x = 0; x < width; x++)

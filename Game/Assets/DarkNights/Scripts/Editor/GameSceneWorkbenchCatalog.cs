@@ -10,7 +10,7 @@ namespace DarkNights.Editor
         internal static readonly DarkNightsWorkbenchEntry[] Entries =
         {
             Scene("mapmodule-entrance", "日常开发", "洞口与浅厅", MapModule.MapModulePaths.Scene,
-                "新版MapModule入口研究；原生模块拼装、检查与固定制作版本。"),
+                "洞口与浅厅示例地图，可编辑模块、检查连接并生成运行地图。"),
             Scene("mapmodule-m17", "日常开发", "M17 · 悬索裂谷", MapModule.M17StudySetup.ScenePath,
                 "新版MapModule环境吊绳：E抓放、W/S攀爬、A/D摆荡、空格离绳。"),
             Scene("cooperative-physics-scene", "日常开发", "合作物理候选", PhysicsStudySetup.ScenePath,

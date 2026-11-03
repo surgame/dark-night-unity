@@ -6,6 +6,18 @@
 
 ## 当前阶段：CL 矿洞远征核心闭环
 
+2026-11-04 本轮MapModule切场景及文案成果进入主分支提交与推送（本聊天／Local，CL-01／08）：用户明确要求提交、合并主分支并推送。当前已在main，fetch后与origin/main无领先／落后；本批汇总22份源码／UXML／操作文档差异，直接提交main。提交前差异与引用核对通过，沿用上述当前候选的正常Editor编译及实际UI文本回执；手动切换后的真实运行仍待验，协议／存档／依赖影响为无。最终提交与远端身份以Git记录及`artifacts/mapmodule-chinese-copy-20261104/publish-main/`回执为准，CL继续。
+
+2026-11-04 MapModule术语恢复完成，编译及Editor按钮核对通过（本聊天／Local，CL-01／08）：用户明确要求保留Prefab、Inspector等Unity术语，其他中文清理保持。本片恢复上一片改成“预制体”“属性面板”的文案，并在MAP_MODULE_WORKFLOW中明确沿用常用Unity英文术语，操作文档同步。当前单一6000.4.9f1／PID29880处于M17编辑态，预检可用物理内存约8.12GiB、D盘85.32GiB；只主动提交一次connected command recompile，最终completed、failed=false、errors=[]。Editor实际按钮已显示“编辑模块 Prefab”“在 Inspector 中查看”，其余新中文按钮保持。静态核对C#仅字符串变化，场景无脏标记、无Play。本片输入及编译／UI回执归`artifacts/mapmodule-chinese-copy-20261104/terminology-restore/`，CL继续。
+
+2026-11-04 MapModule界面中文用词清理完成，正常Editor编译及界面文本核对通过（本聊天／Local，CL-01／08）：用户要求检查新内容中的“作者场景”等生硬用词，改为地道中文。本片覆盖地图工坊、模块编辑、生成检查与启动报错、合作物理窗口及对应操作文档；接续保留上一片6份未提交修改。113处C#中文文案已调整，按钮和提示统一为“保存场景”“生成运行地图”“地图预览”“地形模块”“连接口”“出生位置”“固定点位置”等，报错直接说明问题与调整方法。MAP_MODULE_WORKFLOW增加界面中文用词规范，EDITOR_WORKBENCH同步现行按钮名称，旧标题锚点保留兼容。下述先前记录中的旧按钮文案以本片为准。
+
+复用6000.4.9f1／PID29880，开始修改时用户已退出Play，活动场景为M17。预检可用物理内存约8.11GiB，D盘85.32GiB；集中修改后只主动提交一次connected command recompile，最终completed、failed=false、errors=[]。与本片输入快照比较，C#差异全部为中文字符串修改，逻辑／类型／字段／资源标识保持，文件均不超过300行；UXML控件结构与name保持，4项地图Scene及meta SHA保持。Editor重载后窗口未打开，本片重新打开地图工坊并读取实际UI，确认主要按钮、属性提示、地图版本状态及连接口开关均已加载新文案，场景／Selection／脏标记保持。未执行Play、游戏测试或Player；窗口物理录制流程仍沿原待验边界。输入、静态核对、编译提交／完成及UI回执归`artifacts/mapmodule-chinese-copy-20261104/`，CL继续。
+
+2026-11-04 MapModule手动切场景入口修正已实现、隔离C#编译通过，Editor重载及操作待验（本聊天／Local，CL-01／08）：用户要求在工坊切换Scene后自行点击Unity运行。main工作区开始时无未提交修改；核对现有顶部左侧“打开作者场景”仍存在，当前6000.4.9f1／PID29880正在运行Bootstrap＋M17，切换按钮因此禁用。本片将按钮明确为“切换场景”，补齐tooltip、只读属性提示及Play期间先停止再切换／手动运行的状态提示。显式打开成功后同步本机Study／Case选择并清除上次调试的预期Bake锁，让随后手动Play使用所选布局的当前制作版本；运行端仍校验已保存来源与Bake，原一键调试继续准备版本后绑定明确摘要。操作规范同步MAP_MODULE_WORKFLOW与EDITOR_WORKBENCH。
+
+为保留用户已有Play，本批使用6000.4.9f1自带Roslyn及当前Bee的DarkNights.Editor.rsp，将DLL／引用DLL／PDB输出重定向到本片artifacts，隔离编译退出码0；日志保留现有成员遮蔽、弃用API及未用字段警告。此结果仅证明当前Editor源码及依赖引用编译成功，尚未触发Editor导入／域重载，也未核对重载后的UI和实际切换／运行。UXML解析、按钮名称／引用、差异及两份C#行数254／80核对通过，4项作者Scene／meta SHA保持。结束仍为原Bootstrap＋M17的Play，场景无脏标记。预检可用物理内存约8.64GiB、D盘85.32GiB；输入备份、编译参数／日志／摘要及Editor结束状态归`artifacts/mapmodule-scene-switch-20261104/`，本片产物约1.41MiB。用户停止Play后等待脚本重载，再按“选择地图→切换场景→Unity顶部▶”核对；修改布局后先保存并准备制作版本。CL继续。
+
 2026-11-04 MapModule浏览与Unity作者场景解耦修正完成，C#编译及Editor UI核对通过（本聊天／Local，CL-01／08）：用户要求将UI规范写入MAP_MODULE_WORKFLOW，明确左侧选择不应让Unity跟随切场景，并取消“当前研究中的案例”层。左侧已改为扁平地图列表及其模块／交互物；地图、模块及吊绳的选择仅更新工坊画布和属性，不改变Unity活动Scene、作者Hierarchy、Selection或脏标记。未打开作者源时，窗口持有只读原生PreviewScene，保存／准备制作版本／实例编辑禁用；显式“打开作者场景”或“启动调试”才切换Unity场景，并保留原生保存提示。窗口关闭／重载时只释放自有预览；Unity手动切场景不覆盖工坊所选地图。规范和操作说明已同步至MAP_MODULE_WORKFLOW及EDITOR_WORKBENCH，下述上一版研究／样例导航与点击激活Scene行为由本片替代。
 
 单一6000.4.9f1 Editor／PID29880只主动提交一次connected command recompile，最终completed、failed=false、errors=[]。原生核对选择M17、模块、吊绳并执行只读检查前后，活动Scene始终为MapModuleEntranceStudy，作者Scene数量1、根对象5、Selection=-1390、dirty=false；重复入口／M17切换时PreviewScene数量1→2→1→2，1为原有Editor内部预览，未累积本窗口预览。实际鼠标点击M17后，工坊显示M17地形及吊绳，背后Unity继续原入口，移除案例层、禁用写入及来源／Bake匹配均通过；核对临时移动窗口后已恢复原位置。14项原生Scene／M17资源及meta保护输入SHA全部保持，未改地图布局、绳参数、人物、YYGC、依赖、协议或存档。

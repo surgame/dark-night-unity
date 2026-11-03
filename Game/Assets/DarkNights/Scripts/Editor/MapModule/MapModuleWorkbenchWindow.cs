@@ -30,7 +30,7 @@ namespace DarkNights.Editor.MapModule
         private VisualElement studies, modules, objects, details;
         private Label status, version, context;
         private IMGUIContainer viewport;
-        private string feedback = "从左侧选择地图预览；编辑或调试时再打开作者场景。";
+        private string feedback = "从左侧选择地图，点击“切换场景”后可自行点击 Unity ▶ 运行。";
         private string checkedHash = "";
         private double nextUpdate;
         private bool rebuilding, binding;
@@ -112,7 +112,7 @@ namespace DarkNights.Editor.MapModule
         private void SelectMap(string path, string id)
         {
             selectedPath = path; selectedCase = id; module = null; rope = null; checkedHash = "";
-            ResolveSelection(); canvas.Fit(); feedback = "已选择地图预览；Unity作者场景保持当前状态。"; Rebuild();
+            ResolveSelection(); canvas.Fit(); feedback = "正在预览所选地图。点击“切换场景”即可打开并编辑。"; Rebuild();
         }
         private void ResolveSelection()
         {
@@ -128,7 +128,7 @@ namespace DarkNights.Editor.MapModule
                 }
                 if (string.IsNullOrEmpty(selectedPath)) { study = null; sample = null; return; }
                 study = MapModuleStudyPreview.Find(preview.Select(selectedPath));
-                if (study == null) throw new InvalidOperationException("地图缺少原生作者目录。");
+                if (study == null) throw new InvalidOperationException("场景中缺少地图配置，请检查 MapModuleStudyAuthoring 组件。");
                 sample = string.IsNullOrEmpty(selectedCase) ? study.Cases.FirstOrDefault() : study.RequiredCase(selectedCase);
                 selectedCase = sample != null ? sample.CaseId : "";
                 if (sample != null && (module == null || !sample.Modules.Contains(module))) module = sample.Modules.FirstOrDefault();
@@ -166,7 +166,7 @@ namespace DarkNights.Editor.MapModule
         private bool OpenAuthor()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling ||
-                PrefabStageUtility.GetCurrentPrefabStage() != null) throw new InvalidOperationException("先停止Play、等待编译并退出Prefab模式。");
+                PrefabStageUtility.GetCurrentPrefabStage() != null) throw new InvalidOperationException("请先停止运行、等待编译完成，并退出Prefab 编辑模式。");
             if (string.IsNullOrEmpty(selectedPath)) return false;
             binding = true;
             try
@@ -180,7 +180,12 @@ namespace DarkNights.Editor.MapModule
                 }
             }
             finally { binding = false; }
-            ResolveSelection(); checkedHash = ""; feedback = "作者场景已打开，可以编辑原生布局。"; Rebuild(); return true;
+            ResolveSelection();
+            SessionState.SetString(MapModuleEntry.SelectionKey, selectedCase);
+            SessionState.SetString(MapModuleEntry.StudyKey, study.StudyId);
+            SessionState.EraseString(MapModuleEntry.VersionKey);
+            checkedHash = ""; feedback = "场景已打开，可点击 Unity ▶ 运行。修改布局后，请先保存场景并生成运行地图。";
+            Rebuild(); return true;
         }
         private void InitializeStudy()
         {
@@ -191,24 +196,24 @@ namespace DarkNights.Editor.MapModule
         private void Save()
         {
             RequireStudy(true);
-            if (!EditorSceneManager.SaveScene(study.gameObject.scene)) throw new InvalidOperationException("作者场景未保存。");
-            feedback = "作者Scene已保存；Prefab请在原生编辑模式保存。";
+            if (!EditorSceneManager.SaveScene(study.gameObject.scene)) throw new InvalidOperationException("场景保存失败。");
+            feedback = "场景已保存。模块轮廓的修改请在Prefab 编辑模式中保存。";
         }
         private void Check()
         {
             RequireStudy(); MapModuleCompiler.Check(study, sample); checkedHash = MapModuleSource.Hash(study, sample);
-            feedback = "检查通过：精确格形、连接边带及出生净空；尚未验证运动与联机。";
+            feedback = "地形形状、模块连接和出生空间检查通过。移动和联机效果需要实际试玩确认。";
         }
         private void Prepare()
         {
             RequireStudy(true); var bake = MapModuleCompiler.Prepare(study, sample);
-            checkedHash = bake.SourceHash; feedback = "制作版本已准备并保存引用：" + bake.ContentHash.Substring(0, 12);
+            checkedHash = bake.SourceHash; feedback = "运行地图已生成，场景已保存。版本 " + bake.ContentHash.Substring(0, 12);
         }
         private void Run()
         {
             if (!OpenAuthor()) return;
             RequireStudy(true);
-            if (study.gameObject.scene.isDirty) throw new InvalidOperationException("先保存作者Scene，再启动调试。");
+            if (study.gameObject.scene.isDirty) throw new InvalidOperationException("请先保存场景，再启动调试。");
             Prepare(); SceneManager.SetActiveScene(study.gameObject.scene);
             SessionState.SetString(MapModuleEntry.SelectionKey, sample.CaseId);
             SessionState.SetString(MapModuleEntry.VersionKey, sample.Bake.ContentHash);
@@ -219,23 +224,25 @@ namespace DarkNights.Editor.MapModule
         private void RequireStudy(bool author = false)
         {
             if (study == null || sample == null) throw new InvalidOperationException("先从左侧选择地图。");
-            if (author && !AuthorLoaded) throw new InvalidOperationException("先点击“打开作者场景”再执行写入操作。");
+            if (author && !AuthorLoaded) throw new InvalidOperationException("请先点击“切换场景”打开所选地图，再编辑或保存。");
             if (PrefabStageUtility.GetCurrentPrefabStage() != null || EditorApplication.isPlayingOrWillChangePlaymode)
-                throw new InvalidOperationException("作者操作需要停止Play并退出Prefab模式。");
+                throw new InvalidOperationException("请先停止运行，并退出Prefab 编辑模式，再编辑地图。");
         }
         private void RefreshStatus()
         {
             if (status == null) return;
-            status.text = feedback;
+            status.text = EditorApplication.isPlayingOrWillChangePlaymode
+                ? "正在运行；先点击 Unity ■ 停止，再选择地图并点击“切换场景”，随后可自行点击 Unity ▶ 运行。"
+                : feedback;
             bool idle = !EditorApplication.isPlayingOrWillChangePlaymode && !EditorApplication.isCompiling;
             bool selected = study != null && sample != null;
             try
             {
                 string hash = selected ? MapModuleSource.Hash(study, sample) : "";
                 bool fresh = selected && sample.Bake != null && sample.Bake.SourceHash == hash;
-                version.text = !selected ? "未选择地图" : (AuthorLoaded ? "作者场景 · " : "只读预览 · ") +
+                version.text = !selected ? "未选择地图" : (AuthorLoaded ? "场景已打开 · " : "地图预览 · ") +
                     (AuthorLoaded && sample.gameObject.scene.isDirty ? "未保存 · " : "") +
-                    (fresh ? "制作版本 " + sample.Bake.ContentHash.Substring(0, 12) : "来源已变化／尚无制作版本") +
+                    (fresh ? "运行地图 " + sample.Bake.ContentHash.Substring(0, 12) : "请生成运行地图") +
                     (hash == checkedHash ? " · 本次检查通过" : "");
             }
             catch (Exception error) { version.text = error.Message; }

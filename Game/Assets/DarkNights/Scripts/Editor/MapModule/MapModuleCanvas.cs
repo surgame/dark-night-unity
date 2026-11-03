@@ -27,7 +27,7 @@ namespace DarkNights.Editor.MapModule
             EditorGUI.DrawRect(rect, EditorGUIUtility.isProSkin ? new Color(.14f, .22f, .21f) : new Color(.78f, .84f, .79f));
             if (sample == null || sample.Modules == null || sample.Modules.Length == 0)
             {
-                GUI.Label(new Rect(rect.x + 20, rect.y + 20, rect.width - 40, 60), "打开研究场景，选择一个原生样例。");
+                GUI.Label(new Rect(rect.x + 20, rect.y + 20, rect.width - 40, 60), "请从左侧选择地图。");
                 return;
             }
             var modules = sample.Modules.Where(m => m != null).ToArray();

@@ -16,8 +16,8 @@ namespace DarkNights.Editor.MapModule
         public override void OnInspectorGUI()
         {
             bool authoring = InPrefab();
-            EditorGUILayout.HelpBox(authoring ? "在Scene视图拖动轮廓格点；完成后更新预览并保存Prefab。编译不支持的坡度会在工作台检查时报错。" :
-                "Scene实例负责摆放。编辑内部轮廓请进入模块Prefab；不要在实例上创建形状覆盖。", MessageType.Info);
+            EditorGUILayout.HelpBox(authoring ? "在场景视图中拖动网格点来修改地形轮廓。完成后更新预览并保存Prefab，地图检查会提示不支持的坡度。" :
+                "此处用于摆放模块。修改地形轮廓时，请打开模块 Prefab进行编辑。", MessageType.Info);
             using (new EditorGUI.DisabledScope(!authoring || EditorApplication.isPlayingOrWillChangePlaymode))
             {
                 DrawDefaultInspector();
@@ -58,9 +58,9 @@ namespace DarkNights.Editor.MapModule
         private static void RebuildPreview(MapModuleAuthoring author)
         {
             author.Validate();
-            if (author.PreviewRenderer == null) throw new InvalidOperationException("缺少原生预览绑定。");
+            if (author.PreviewRenderer == null) throw new InvalidOperationException("未设置地形预览的渲染组件，请检查 PreviewRenderer。");
             var filter = author.PreviewRenderer.GetComponent<MeshFilter>();
-            if (filter == null) throw new InvalidOperationException("预览绑定需要同根MeshFilter。");
+            if (filter == null) throw new InvalidOperationException("地形预览所在的物体缺少 MeshFilter 组件。");
             var mesh = MapModulePrefabFactory.BuildPreview(author);
             string path = AssetDatabase.GenerateUniqueAssetPath(MapModulePaths.Modules + "/" + author.ModuleId + "-preview.asset");
             AssetDatabase.CreateAsset(mesh, path);

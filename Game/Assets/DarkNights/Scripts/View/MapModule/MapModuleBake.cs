@@ -26,7 +26,7 @@ namespace DarkNights.View.MapModule
         public float SpawnHeight => spawnHeight;
         public void Initialize(string study, string id, string source, float spawn, float height, PlayableTerrain data)
         {
-            if (format != 0) throw new InvalidOperationException("固定制作版本不能覆盖，请新建版本。");
+            if (format != 0) throw new InvalidOperationException("此运行地图版本已生成，请创建新版本。");
             format = CurrentFormat; studyId = study; caseId = id; sourceHash = source; spawnX = spawn; spawnHeight = height;
             materials = data.CopyMaterials(); shapes = data.CopyShapes(); contentHash = Hash();
             Freeze(Guid.Empty.ToString("N"));
@@ -38,7 +38,7 @@ namespace DarkNights.View.MapModule
                 float.IsNaN(spawnX) || float.IsInfinity(spawnX) || spawnX < 0 || spawnX > 5120 ||
                 float.IsNaN(spawnHeight) || float.IsInfinity(spawnHeight) ||
                 materials.Length != TerrainGenerationSettings.Width * TerrainGenerationSettings.Height || shapes.Length != materials.Length)
-                throw new InvalidOperationException("MapModule制作版本缺失、损坏或格式无效。");
+                throw new InvalidOperationException("运行地图的数据缺失、损坏或格式不正确，请在地图工坊中重新生成。");
             var protection = new bool[materials.Length];
             for (int x = 0; x < TerrainGenerationSettings.Width; x++) protection[materials.Length - TerrainGenerationSettings.Width + x] = true;
             string seed = "mm:" + contentHash;

@@ -25,11 +25,11 @@ namespace DarkNights.Editor.MapModule
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling ||
                 AssetDatabase.IsValidFolder(Root) || AssetDatabase.LoadMainAssetAtPath(ScenePath) != null)
-                throw new InvalidOperationException("M17初始化要求Editor空闲、目标目录及Scene尚不存在。");
+                throw new InvalidOperationException("创建 M17 前请先停止运行，并确认目标目录和场景尚未创建。");
             Scene active = SceneManager.GetActiveScene();
             MapModulePaths.EnsureFolder(Root);
             var profileSource = AssetDatabase.LoadAssetAtPath<PhysicsProfile>(PhysicsStudySetup.ProfilePath);
-            if (profileSource == null) throw new InvalidOperationException("缺少已锁定的合作物理Profile。");
+            if (profileSource == null) throw new InvalidOperationException("未找到项目所需的合作物理配置。");
             var profile = UnityEngine.Object.Instantiate(profileSource);
             profile.name = "M17 environment rope";
             AssetDatabase.CreateAsset(profile, Root + "/M17Physics.asset");
@@ -39,7 +39,7 @@ namespace DarkNights.Editor.MapModule
             GameObject rope = CreateRope(profile);
             AddClimbAction();
             if (!AssetDatabase.CopyAsset(MapModulePaths.Scene, ScenePath))
-                throw new InvalidOperationException("未能复制已保存的研究Rig。");
+                throw new InvalidOperationException("复制示例场景失败。");
             var scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
             try
             {
@@ -63,7 +63,7 @@ namespace DarkNights.Editor.MapModule
                 entry.HangingRopes = new[] { hanging.GetComponent<HangingRopePlacement>() };
                 entry.Stage.SceneCamera.transform.position = new Vector3(6.32f, -.5f, -10);
                 entry.Stage.SceneCamera.orthographicSize = 5.2f;
-                if (!EditorSceneManager.SaveScene(scene)) throw new InvalidOperationException("M17作者Scene未保存。");
+                if (!EditorSceneManager.SaveScene(scene)) throw new InvalidOperationException("M17 场景保存失败。");
                 var bake = MapModuleCompiler.Prepare(study, sample);
                 var definition = entry.FreezePhysics();
                 AssetDatabase.SaveAssets();

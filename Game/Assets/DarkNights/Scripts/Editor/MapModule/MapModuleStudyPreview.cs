@@ -22,7 +22,7 @@ namespace DarkNights.Editor.MapModule
             var next = EditorSceneManager.OpenPreviewScene(path);
             try
             {
-                if (Find(next) == null) throw new InvalidOperationException("地图缺少原生作者目录。");
+                if (Find(next) == null) throw new InvalidOperationException("场景中缺少地图配置，请检查 MapModuleStudyAuthoring 组件。");
                 Dispose(); preview = next; return preview;
             }
             catch { EditorSceneManager.ClosePreviewScene(next); throw; }

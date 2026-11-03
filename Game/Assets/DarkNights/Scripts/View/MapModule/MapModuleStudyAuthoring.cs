@@ -14,9 +14,9 @@ namespace DarkNights.View.MapModule
         {
             if (string.IsNullOrWhiteSpace(StudyId) || Cases == null || Cases.Length == 0 || Cases.Any(c => c == null) ||
                 Cases.Select(c => c.CaseId).Distinct().Count() != Cases.Length)
-                throw new InvalidOperationException("研究主题或样例目录无效。");
+                throw new InvalidOperationException("地图配置或布局列表无效，请检查名称和布局引用。");
             return Cases.SingleOrDefault(c => c.CaseId == id) ??
-                throw new InvalidOperationException("研究场景没有指定样例：" + id);
+                throw new InvalidOperationException("地图中找不到指定布局，请检查布局标识 " + id);
         }
     }
 }
